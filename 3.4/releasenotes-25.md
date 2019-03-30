@@ -1,0 +1,8 @@
+---
+layout: default
+---
+Version 2.5
+===========
+
+- [What's New in 2.5](NewFeatures25.md)
+- [Incompatible changes in 2.5](UpgradingChanges25.md)

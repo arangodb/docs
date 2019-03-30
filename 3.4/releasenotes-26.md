@@ -1,0 +1,8 @@
+---
+layout: default
+---
+Version 2.6
+===========
+
+- [What's New in 2.6](NewFeatures26.md)
+- [Incompatible changes in 2.6](UpgradingChanges26.md)
