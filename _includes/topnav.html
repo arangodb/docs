@@ -19,7 +19,12 @@
       <option value="2.8">v2.8</option>
     </select>
     <script type="text/javascript">
-      document.querySelector(".arangodb-version-switcher").addEventListener('change', function(event) {
+      var current = location.href;
+      var selectedVersion = current.split('/')[4];
+      var selectedManual = current.split('/')[5];
+      var switcher = document.querySelector(".arangodb-version-switcher");
+      switcher.value = selectedVersion;
+      switcher.addEventListener('change', function(event) {
         var current = location.href;
         var selectedManual = current.split('/')[5];
         location.href = "/docs/" + event.target.value + "/" + selectedManual;
