@@ -1,7 +1,0 @@
----
-layout: default
----
-Version 2.1
-===========
-
-- [What's New in 2.1](NewFeatures21.md)

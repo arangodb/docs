@@ -1,7 +1,0 @@
----
-layout: default
----
-Version 2.2
-===========
-
-- [What's New in 2.2](NewFeatures22.md)

@@ -1,8 +1,0 @@
----
-layout: default
----
-Version 2.8
-===========
-
-- [What's New in 2.8](NewFeatures28.md)
-- [Incompatible changes in 2.8](UpgradingChanges28.md)

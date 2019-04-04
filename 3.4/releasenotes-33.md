@@ -1,9 +1,0 @@
----
-layout: default
----
-Version 3.3
-===========
-
-- [What's New in 3.3](NewFeatures33.md)
-- [Known Issues in 3.3](KnownIssues33.md)
-- [Incompatible changes in 3.3](UpgradingChanges33.md)

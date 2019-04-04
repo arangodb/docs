@@ -1,8 +1,0 @@
----
-layout: default
----
-Version 2.4
-===========
-
-- [What's New in 2.4](NewFeatures24.md)
-- [Incompatible changes in 2.4](UpgradingChanges24.md)

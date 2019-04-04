@@ -1,8 +1,0 @@
----
-layout: default
----
-Version 3.1
-===========
-
-- [What's New in 3.1](NewFeatures31.md)
-- [Incompatible changes in 3.1](UpgradingChanges31.md)
