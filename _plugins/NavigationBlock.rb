@@ -3,12 +3,14 @@ require 'json'
 class NavigationBlock < Liquid::Block
     def initialize(tag_name, input, tokens)
         super
-        @prefix = input.strip
     end
 
     def renderTree(context, root, stack)
+        if !root
+            return "", false
+        end
         if root.length == 0
-            return ""
+            return "", false
         end
         indent = "    " * stack.length
 
@@ -25,7 +27,7 @@ class NavigationBlock < Liquid::Block
                 classNames = "chapter"
                 if element["href"]
                     children += localIndent + "<a href=\"" + element['href'] + "\">" + element["text"] + "</a>\n"
-                    if context.environments.first["page"]["url"] == @prefix + "/" + element["href"]
+                    if context.environments.first["page"]["url"] == context.environments.first["page"]["dir"] + element["href"]
                         found = true
                         classNames += " selected active"
                     end
@@ -61,15 +63,6 @@ class NavigationBlock < Liquid::Block
 
         output, found = renderTree(context, parsed, [])
         return output
-        # Write the output HTML string
-        #   output =  "<div style=\"margin: 0 auto; padding: .8em 0;\"><script async "
-        #   output += "src=\"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\">"
-        #   output += "</script><ins class=\"adsbygoogle\" style=\"display:block\" data-ad-client=\"xxxxx\""
-        #   output += "data-ad-slot=\"yyyyyy\" data-ad-format=\"auto\"></ins><script>(adsbygoogle ="
-        #   output += "window.adsbygoogle || []).push({});</script></div>"
-
-        #   # Render it on the page by returning it
-        #   return output;
     end
 end
 Liquid::Template.register_tag('navigation', NavigationBlock)

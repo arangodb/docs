@@ -72,14 +72,13 @@ function parseNode(window, node) {
 }
 
 const converter = new showdown.Converter({disableForced4SpacesIndentedSublists: true});
-const content = fs.readFileSync(filename);
+const content = fs.readFileSync(filename).toString().split('\n').filter(line => !line.match(/^\s*<!--\s*SYNC.*$/g)).join('\n');
 
-const html = converter.makeHtml(content.toString());
+const html = converter.makeHtml(content);
 
 const { JSDOM } = jsdom;
 const dom = new JSDOM(html);
 
-// console.log(html);
 
 const result = Array.from(dom.window.document.body.childNodes).reduce((result, node) => {
     if (node.tagName == "H2") {

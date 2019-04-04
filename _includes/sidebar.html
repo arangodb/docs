@@ -1,6 +1,7 @@
+{% capture navvar %}{{ page.dir| replace_first: "/", "" | replace: "/", "-" | replace: ".", ""  | split: "" | reverse | join: ""| replace_first: "-", "" | split: "" | reverse | join: "" }}{% endcapture %}
 
 <nav role="navigation">
     {% navigation %}
-    {{ site.data.nav|jsonify }}
+    {{ site.data[navvar]|jsonify }}
     {% endnavigation %}
 </nav>
