@@ -19,8 +19,14 @@
       <option value="2.8">v2.8</option>
     </select>
     <script type="text/javascript">
+      var versionAliases = {{ site.versions|jsonify }};
       var current = location.href;
+
       var selectedVersion = current.split('/')[4];
+      if (selectedVersion == 'stable') {
+        selectedVersion = versionAliases[selectedVersion];
+      }
+
       var selectedManual = current.split('/')[5];
       var switcher = document.querySelector(".arangodb-version-switcher");
       switcher.value = selectedVersion;
