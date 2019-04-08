@@ -19,16 +19,26 @@ async function migrateMds(basePath, targetPath) {
         } else {
             content = "---\nlayout: default\n" + content.substr(4)
         }
-        // replace all md links with thei changed link
-        content = content.replace(/\]\((?!https?:)(.*\.md)\)/g, (x, link) => {
+        // replace all md links with their changed link
+        content = content.replace(/\]\((?!https?:)(.*\.(html|md))(#[^\)]+)?\)/g, (x, link, fileExt, anchor) => {
             const oldLink = link;
             if (!link.startsWith('/')) {
                 link = path.join(path.dirname(relative), link);
             }
-            return '](' + changeLink(link).replace('.md', '.html') + ')';
-        })
+            if (anchor === undefined) {
+                anchor = '';
+            }
+            return '](' + changeLink(link).replace('.md', '.html') + anchor + ')';
+        });
+        // fix crosslinks between documents (../AQL/Geil/Aql.md => -aql-geil-aql.md => ../aql/geil-aql.md)
+        content = content.replace(/\]\(-([^-]+)-([^\.]+)\.html\)/g, '](../\$1/\$2.html)');
         // replace all LOCAL images with images/IMAGEBASEPATH
         content = content.replace(/\]\((?!https?:).*?([^/]+\.png)\)/g, '](images/\$1)');
+
+        // docublocks angst
+        content = content.replace(/^((\s*)@startDocuBlockInline\s+([^\s]+))$/mg, "\$2{% example \$3 %}\$1");
+        content = content.replace(/^((\s*)@endDocuBlock\s+([^\s]+))$/mg, "\$1\n\$2{% endexample %}");
+
         return {
             name: fileName,
             content,
