@@ -52,7 +52,7 @@ account for uniqueness checks.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
-
+{% example example="ensureUniqueSkiplistSingle" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline ensureUniqueSkiplistSingle
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueSkiplistSingle}
     ~db._create("ids");
@@ -64,7 +64,9 @@ details, including the index-identifier, is returned.
     ~db._drop("ids");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureUniqueSkiplistSingle
-
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
+{% example example="ensureUniqueSkiplistMultiColumn" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline ensureUniqueSkiplistMultiColumn
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueSkiplistMultiColumn}
     ~db._create("ids");
@@ -76,6 +78,8 @@ details, including the index-identifier, is returned.
     ~db._drop("ids");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureUniqueSkiplistMultiColumn
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 
 ### Non-unique Skiplist Index
@@ -95,7 +99,7 @@ To create a sparse non-unique index, set the *sparse* attribute to `true`.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
-
+{% example example="ensureSkiplist" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline ensureSkiplist
     @EXAMPLE_ARANGOSH_OUTPUT{ensureSkiplist}
     ~db._create("names");
@@ -108,6 +112,8 @@ details, including the index-identifier, is returned.
     ~db._drop("names");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureSkiplist
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 ### Skiplist Array Index
 
@@ -124,7 +130,7 @@ It is possible to combine array indexing with standard indexing:
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
-
+{% example example="ensureSkiplistArray" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline ensureSkiplistArray
     @EXAMPLE_ARANGOSH_OUTPUT{ensureSkiplistArray}
     ~db._create("test");
@@ -135,6 +141,8 @@ details, including the index-identifier, is returned.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureSkiplistArray
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 ### Query by example using a skiplist index
 

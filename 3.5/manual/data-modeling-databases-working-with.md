@@ -24,11 +24,14 @@ Returns the name of the current database as a string.
 **Examples**
 
 
+{% example dbName %}
+
 @startDocuBlockInline dbName
 @EXAMPLE_ARANGOSH_OUTPUT{dbName}
   require("@arangodb").db._name();
 @END_EXAMPLE_ARANGOSH_OUTPUT
 @endDocuBlock dbName
+{% endexample %}
 
 
 ### ID
@@ -44,11 +47,14 @@ Returns the id of the current database as a string.
 **Examples**
 
 
+{% example dbId %}
+
 @startDocuBlockInline dbId
 @EXAMPLE_ARANGOSH_OUTPUT{dbId}
   require("@arangodb").db._id();
 @END_EXAMPLE_ARANGOSH_OUTPUT
 @endDocuBlock dbId
+{% endexample %}
 
 
 ### Path
@@ -64,11 +70,14 @@ Returns the filesystem path of the current database as a string.
 **Examples**
 
 
+{% example dbPath %}
+
 @startDocuBlockInline dbPath
 @EXAMPLE_ARANGOSH_OUTPUT{dbPath}
   require("@arangodb").db._path();
 @END_EXAMPLE_ARANGOSH_OUTPUT
 @endDocuBlock dbPath
+{% endexample %}
 
 
 ### isSystem

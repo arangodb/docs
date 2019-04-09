@@ -195,6 +195,7 @@ We will have the following directed relations:
 
 This is how we create it, inspect its *vertices* and *edges*, and drop it again:
 
+    {% example graph_create_knows_sample %}
     @startDocuBlockInline graph_create_knows_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_knows_sample}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -204,6 +205,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
     examples.dropGraph("knows_graph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_knows_sample
+    {% endexample %}
 
 **Note:** with the default "Search Depth" of 2 of the graph viewer you may not see all edges of this graph.
 
@@ -216,6 +218,7 @@ A set of persons and their relations:
 This example has female and male persons as *vertices* in two *vertex collections* - `female` and `male`. The *edges* are their connections in the `relation` *edge collection*.
 This is how we create it, inspect its *vertices* and *edges*, and drop it again:
 
+    {% example graph_create_social_sample %}
     @startDocuBlockInline graph_create_social_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_social_sample}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -226,6 +229,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
     examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_social_sample
+    {% endexample %}
 
 
 ### The City Graph
@@ -236,6 +240,7 @@ A set of european cities, and their fictional traveling distances as connections
 
 The example has the cities as *vertices* in several *vertex collections* - `germanCity` and `frenchCity`. The *edges* are their interconnections in several *edge collections* `french / german / international Highway`. This is how we create it, inspect its *edges* and *vertices*, and drop it again:
 
+    {% example graph_create_cities_sample %}
     @startDocuBlockInline graph_create_cities_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_cities_sample}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -248,6 +253,7 @@ The example has the cities as *vertices* in several *vertex collections* - `germ
     examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_RUN
     @endDocuBlock graph_create_cities_sample
+    {% endexample %}
 
 ### The Traversal Graph
 
@@ -258,6 +264,7 @@ This graph was designed to demonstrate filters in traversals. It has some labels
 The example has all its vertices in the *circles* collection, and an *edges* edge collection to connect them.
 Circles have unique numeric labels. Edges have two boolean attributes (*theFalse* always being false, *theTruth* always being true) and a label sorting *B* - *D* to the left side, *G* - *K* to the right side. Left and right side split into Paths - at *B* and *G* which are each direct neighbours of the root-node *A*. Starting from *A* the graph has a depth of 3 on all its paths.
 
+    {% example graph_create_traversal_sample %}
     @startDocuBlockInline graph_create_traversal_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_traversal_sample}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -267,6 +274,7 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
     examples.dropGraph("traversalGraph");
     @END_EXAMPLE_ARANGOSH_RUN
     @endDocuBlock graph_create_traversal_sample
+    {% endexample %}
 
 **Note:** with the default "Search Depth" of 2 of the graph viewer you may not see all nodes of this graph.
 
@@ -277,6 +285,7 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
 The world country graph structures its nodes like that: world → continent → country → capital. In some cases edge directions aren't forward (therefore it will be displayed disjunct in the graph viewer). It has two ways of creating it. One using the named graph utilities (*worldCountry*), one without (*worldCountryUnManaged*). 
 It is used to demonstrate raw traversal operations.
 
+    {% example graph_create_world_sample %}
     @startDocuBlockInline graph_create_world_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_world_sample}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -288,6 +297,7 @@ It is used to demonstrate raw traversal operations.
     examples.dropGraph("worldCountryUnManaged");
     @END_EXAMPLE_ARANGOSH_RUN
     @endDocuBlock graph_create_world_sample
+    {% endexample %}
 
 ### The Mps Graph
 
@@ -299,6 +309,7 @@ The example graph consists of *vertices* in the `mps_verts` collection and *edge
 
 This is how we create it, inspect its *vertices* and *edges*, and drop it again:
 
+    {% example graph_create_mps_sample %}
     @startDocuBlockInline graph_create_mps_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_mps_sample}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -308,6 +319,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
     examples.dropGraph("mps_graph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_mps_sample
+    {% endexample %}
 
 ### Higher volume graph examples
 

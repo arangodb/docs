@@ -29,6 +29,7 @@ following chapters:
 
 Create a view with default properties:
 
+    {% example viewUsage_01 %}
     @startDocuBlockInline viewUsage_01
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_01}
     ~ db._create("colA");
@@ -39,57 +40,71 @@ Create a view with default properties:
     ~ addIgnoreView("myView");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewUsage_01
+    {% endexample %}
 
 Get this view again later by name:
 
+    {% example viewUsage_02 %}
     @startDocuBlockInline viewUsage_02
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_02}
     view = db._view("myView");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewUsage_02
+    {% endexample %}
 
 Get the view properties:
 
+    {% example viewUsage_03 %}
     @startDocuBlockInline viewUsage_03
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_03}
     view.properties();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewUsage_03
+    {% endexample %}
 
 Set a view property:
 
+    {% example viewUsage_04 %}
     @startDocuBlockInline viewUsage_04
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_04}
     view.properties({cleanupIntervalStep: 12});
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewUsage_04
+    {% endexample %}
 
 Add a link:
 
+    {% example viewUsage_05 %}
     @startDocuBlockInline viewUsage_05
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_05}
     view.properties({links: {colA: {includeAllFields: true}}});
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewUsage_05
+    {% endexample %}
 
 Add another link:
 
+    {% example viewUsage_06 %}
     @startDocuBlockInline viewUsage_06
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_06}
     view.properties({links: {colB: {fields: {text: {}}}}});
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewUsage_06
+    {% endexample %}
 
 Remove the first link again:
 
+    {% example viewUsage_07 %}
     @startDocuBlockInline viewUsage_07
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_07}
     view.properties({links: {colA: null}});
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewUsage_07
+    {% endexample %}
 
 Drop the view:
 
+    {% example viewUsage_08 %}
     @startDocuBlockInline viewUsage_08
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_08}
     ~ removeIgnoreCollection("colA");
@@ -100,3 +115,4 @@ Drop the view:
     ~ db._drop("colB");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewUsage_08
+    {% endexample %}

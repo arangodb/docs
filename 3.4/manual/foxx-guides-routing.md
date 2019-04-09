@@ -4,7 +4,7 @@ layout: default
 Working with routers
 ====================
 
-In Foxx [routers](foxx-reference-routers-readme.html) are used to define
+In Foxx [routers](foxx-reference-routers.html) are used to define
 the URLs of your API. The easiest way to use a router is to mount it
 directly in the service using the [context](foxx-reference-context.html):
 

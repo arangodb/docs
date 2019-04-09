@@ -82,6 +82,7 @@ one attribute path has to be given. The index will be sparse in all cases.
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
+    {% example ensureTtlIndex %}
     @startDocuBlockInline ensureTtlIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureTtlIndex}
     ~db._create("test");
@@ -90,3 +91,4 @@ details, including the index-identifier, is returned.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureTtlIndex
+    {% endexample %}

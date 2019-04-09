@@ -74,6 +74,7 @@ specify this value.
 In case that the index was successfully created, an object with the index
 details is returned.
 
+    {% example ensureFulltextIndex %}
     @startDocuBlockInline ensureFulltextIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureFulltextIndex}
     ~db._create("example");
@@ -89,6 +90,7 @@ details is returned.
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureFulltextIndex
+    {% endexample %}
 
 
 Looks up a fulltext index:

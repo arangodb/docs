@@ -29,9 +29,9 @@ it will only be executed once):
 ```
 
 To run a service's tests you can use
-the [web interface](programs-web-interface-services.html),
-the [Foxx CLI](programs-foxx-cli-readme.html) or
-the [Foxx HTTP API](../../../HTTP/Foxx/Miscellaneous.html).
+the [web interface](programs-webinterface-services.html),
+the [Foxx CLI](programs-foxxcli.html) or
+the [Foxx HTTP API](../http/foxx-miscellaneous.html).
 Foxx will execute all test cases in the matching files and
 generate a report in the desired format.
 
@@ -211,11 +211,11 @@ Integration testing
 
 {% hint 'warning' %}
 You should avoid running integration tests while a service
-is mounted in [development mode](foxx-guides-development-mode.html) as each request
+is mounted in [development mode](foxx-guides-developmentmode.html) as each request
 will cause the service to be reloaded.
 {% endhint %}
 
-You can [use the `@arangodb/request` module](foxx-guides-making-requests.html)
+You can [use the `@arangodb/request` module](foxx-guides-makingrequests.html)
 to let tests talk to routes of the same service.
 
 When the request module is used with a path instead of a full URL,

@@ -15,7 +15,7 @@ Since ArangoDB 2.2, the MMFiles storage engine will write all data-modification
 operations into its write-ahead log.
 
 With ArangoDB 3.2 another storage engine option becomes available:
-[RocksDB](../../Architecture/StorageEngines.md#rocksdb).
+[RocksDB](architecture-storageengines.html#rocksdb).
 In case of using RocksDB the subsequent options don't have a useful meaning.
 
 ## Directory

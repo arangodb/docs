@@ -22,11 +22,11 @@ Low-level collection access
 ---------------------------
 
 ArangoDB provides a
-[low-level API for managing collections](data-modeling-collections-database-methods.html)
-via [the `db` object](appendix-references-db-object.html).
+[low-level API for managing collections](datamodeling-collections-databasemethods.html)
+via [the `db` object](appendix-references-dbobject.html).
 These APIs are not very useful for most application logic but allow you to
 create and destroy collections in your
-[lifecycle scripts and migrations](Scripts.md#lifecycle-scripts).
+[lifecycle scripts and migrations](foxx-guides-scripts.html#lifecycle-scripts).
 
 Using these methods requires you to work with fully qualified collection names.
 This means instead of using `module.context.collection` to get a

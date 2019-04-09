@@ -62,6 +62,7 @@ Since ArangoDB 3.4, `indexes()` is an alias for `getIndexes()`.
 
 Note that `_key` implicitly has an index assigned to it.
 
+    {% example collectionGetIndexes %}
     @startDocuBlockInline collectionGetIndexes
     @EXAMPLE_ARANGOSH_OUTPUT{collectionGetIndexes}
     ~db._create("test");
@@ -73,6 +74,7 @@ Note that `_key` implicitly has an index assigned to it.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionGetIndexes
+    {% endexample %}
 
 
 ### Creating an index
@@ -125,6 +127,8 @@ regardless of the value of this attribute.
 **Examples**
 
 
+    {% example collectionEnsureIndex %}
+
     @startDocuBlockInline collectionEnsureIndex
     @EXAMPLE_ARANGOSH_OUTPUT{collectionEnsureIndex}
     ~db._create("test");
@@ -133,6 +137,7 @@ regardless of the value of this attribute.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionEnsureIndex
+    {% endexample %}
 
 
 
@@ -152,6 +157,7 @@ index of a collection or the edge index of an edge collection).
 
 Same as above. Instead of an index an index handle can be given.
 
+    {% example col_dropIndex %}
     @startDocuBlockInline col_dropIndex
     @EXAMPLE_ARANGOSH_OUTPUT{col_dropIndex}
     ~db._create("example");
@@ -164,6 +170,7 @@ Same as above. Instead of an index an index handle can be given.
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock col_dropIndex
+    {% endexample %}
 
 
 ### Load Indexes into Memory
@@ -192,6 +199,7 @@ If the index is larger than your memory limit this function will fill up values
 up to this limit and for the time being there is no way to control which indexes
 of the collection should have priority over others.
 
+    {% example LoadIndexesIntoMemory %}
     @startDocuBlockInline LoadIndexesIntoMemory
     @EXAMPLE_ARANGOSH_OUTPUT{loadIndexesIntoMemory}
     ~db._drop("example");
@@ -200,6 +208,7 @@ of the collection should have priority over others.
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock LoadIndexesIntoMemory
+    {% endexample %}
 
 Database Methods
 ----------------
@@ -213,6 +222,7 @@ finds an index
 
 Returns the index with *index-handle* or null if no such index exists.
 
+    {% example IndexHandle %}
     @startDocuBlockInline IndexHandle
     @EXAMPLE_ARANGOSH_OUTPUT{IndexHandle}
     ~db._create("example");
@@ -224,6 +234,7 @@ Returns the index with *index-handle* or null if no such index exists.
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock IndexHandle
+    {% endexample %}
 
 
 ### Dropping an index via a database handle
@@ -241,6 +252,7 @@ returned.
 
 Drops the index with *index-handle*.
 
+    {% example dropIndex %}
     @startDocuBlockInline dropIndex
     @EXAMPLE_ARANGOSH_OUTPUT{dropIndex}
     ~db._create("example");
@@ -253,6 +265,7 @@ Drops the index with *index-handle*.
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock dropIndex
+    {% endexample %}
 
 
 ### Revalidating whether an index is used
@@ -267,6 +280,7 @@ you definitely want to know whether your query can utilize it.
 You can use explain to verify whether **skiplists** or **hash indexes** are
 used (if you omit `colors: false` you will get nice colors in ArangoShell):
 
+    {% example IndexVerify %}
     @startDocuBlockInline IndexVerify
     @EXAMPLE_ARANGOSH_OUTPUT{IndexVerify}
     ~db._create("example");
@@ -276,3 +290,4 @@ used (if you omit `colors: false` you will get nice colors in ArangoShell):
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock IndexVerify
+    {% endexample %}

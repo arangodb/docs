@@ -25,7 +25,7 @@ the services using them are called _consumers_.
 {% hint 'info' %}
 This chapter is about Foxx dependencies as described above. In JavaScript the
 term _dependencies_ can also refer to
-[bundled node modules](foxx-guides-bundled-node-modules.html), which are an unrelated concept.
+[bundled node modules](foxx-guides-bundlednodemodules.html), which are an unrelated concept.
 {% endhint %}
 
 
@@ -93,9 +93,9 @@ Assigning dependencies
 
 Like [configuration](foxx-reference-configuration.html),
 dependencies can be assigned using
-the [web interface](programs-web-interface-services.html),
-the [Foxx CLI](programs-foxx-cli-readme.html) or
-the [Foxx HTTP API](../../../HTTP/Foxx/Configuration.html).
+the [web interface](programs-webinterface-services.html),
+the [Foxx CLI](programs-foxxcli.html) or
+the [Foxx HTTP API](../http/foxx-configuration.html).
 
 The value for each dependency should be the database-relative mount path of
 the service (including the leading slash). Both services need to be mounted in

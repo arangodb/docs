@@ -35,7 +35,7 @@ As Webpack compiles multiple modules into a single file your code will
 not be able to access the real `module` object provided by ArangoDB.
 
 To work around this limitation you can use the `context` provided by the
-[`@arangodb/locals` module](../Reference/Modules/README.md#the-arangodblocals-module):
+[`@arangodb/locals` module](foxx-reference-modules.html#the-arangodblocals-module):
 
 ```js
 const { context } = require("@arangodb/locals");
@@ -57,7 +57,7 @@ Externals
 
 By default Webpack will attempt to include any dependency your code imports.
 This makes it easy to use third-party modules without worrying about
-[filtering `devDependencies`](foxx-guides-bundled-node-modules.html)
+[filtering `devDependencies`](foxx-guides-bundlednodemodules.html)
 but causes problems when importing modules provided by ArangoDB.
 
 Most modules that are specific to ArangoDB or Foxx reside in the `@arangodb`

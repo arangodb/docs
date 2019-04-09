@@ -9,7 +9,7 @@ We support indexing on a subset of the [**GeoJSON**](#geojson) standard
 (as well as simple latitude longitude pairs).
 
 AQL's geospatial functions and GeoJSON constructors are described in
-[Geo functions](../../AQL/Functions/Geo.html).
+[Geo functions](../aql/functions-geo.html).
 
 Using a Geo-Spatial Index
 -------------------------
@@ -88,14 +88,14 @@ Indexed GeoSpatial Queries
 --------------------------
 
 The geospatial index supports a variety of AQL queries, which can be built with the help
-of the [geo utility functions](../../AQL/Functions/Geo.html). There are three specific
+of the [geo utility functions](../aql/functions-geo.html). There are three specific
 geo functions that can be optimized, provided that they are used correctly:
 `GEO_DISTANCE, GEO_CONTAINS, GEO_INTERSECTS`. Additionally, there is a built-in support to optimize
 the older geo functions `DISTANCE`, `NEAR` and `WITHIN` (the last two only if they are
 used in their 4 argument version, without *distanceName*).
 
 When in doubt whether your query is being properly optimized, 
-check the [AQL explain](../../AQL/ExecutionAndPerformance/ExplainingQueries.html)
+check the [AQL explain](../aql/executionandperformance-explainingqueries.html)
 output to check for index usage.
 
 ### Query for Results near Origin (NEAR type query)
@@ -413,7 +413,7 @@ details, including the index-identifier, is returned.
 **Examples**
 
 Create a geo index for an array attribute:
-
+{% example example="geoIndexCreateForArrayAttribute1" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute1
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute1}
     ~db._create("geo")
@@ -429,9 +429,11 @@ Create a geo index for an array attribute:
     ~db._drop("geo")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexCreateForArrayAttribute1
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 Create a geo index for a hash array attribute:
-
+{% example example="geoIndexCreateForArrayAttribute2" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute2
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute2}
     ~db._drop("geo2")
@@ -446,9 +448,11 @@ Create a geo index for a hash array attribute:
     ~db._drop("geo2")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexCreateForArrayAttribute2
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 Use GeoIndex with AQL SORT statement:
-
+{% example example="geoIndexSortOptimization" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline geoIndexSortOptimization
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexSortOptimization}
     ~db._create("geoSort")
@@ -464,9 +468,11 @@ Use GeoIndex with AQL SORT statement:
     ~db._drop("geoSort")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexSortOptimization
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 Use GeoIndex with AQL FILTER statement:
-
+{% example example="geoIndexFilterOptimization" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline geoIndexFilterOptimization
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexFilterOptimization}
     ~db._create("geoFilter")
@@ -482,6 +488,8 @@ Use GeoIndex with AQL FILTER statement:
     ~db._drop("geoFilter")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexFilterOptimization
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 
 <!-- js/common/modules/@arangodb/arango-collection-common.js-->
@@ -508,6 +516,6 @@ slightly different location (like 1 inch or 1 cm off) would be unique again and
 not considered a duplicate, although it probably should. The desired threshold
 for detecting duplicates may vary for every project (including how to calculate
 the distance even) and needs to be implemented on the application layer as
-needed. You can write a [Foxx service](../Foxx/index.html) for this purpose and
-make use of the AQL [geo functions](../../AQL/Functions/Geo.html) to find nearby
+needed. You can write a [Foxx service](foxx-index.html) for this purpose and
+make use of the AQL [geo functions](../aql/functions-geo.html) to find nearby
 coordinates supported by a geo index.

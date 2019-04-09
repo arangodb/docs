@@ -39,6 +39,7 @@ first argument. No revision can be specified in this case.
 
 Returns the document:
 
+    {% example documentsDocumentName %}
     @startDocuBlockInline documentsDocumentName
     @EXAMPLE_ARANGOSH_OUTPUT{documentsDocumentName}
     ~ db._create("example");
@@ -47,6 +48,7 @@ Returns the document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsDocumentName
+    {% endexample %}
 
 
 
@@ -146,6 +148,7 @@ first argument. No revision precondition is tested.
 
 Create and replace a document:
 
+    {% example documentsDocumentReplace %}
     @startDocuBlockInline documentsDocumentReplace
     @EXAMPLE_ARANGOSH_OUTPUT{documentsDocumentReplace}
     ~ db._create("example");
@@ -155,6 +158,7 @@ Create and replace a document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsDocumentReplace
+    {% endexample %}
 
 
 **Changes in 3.0 from 2.8:**
@@ -233,6 +237,7 @@ first argument. No revision precondition is tested.
 
 Create and update a document:
 
+    {% example documentDocumentUpdate %}
     @startDocuBlockInline documentDocumentUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{documentDocumentUpdate}
     ~ db._create("example");
@@ -242,6 +247,7 @@ Create and update a document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentDocumentUpdate
+    {% endexample %}
 
 
 **Changes in 3.0 from 2.8:**
@@ -305,6 +311,7 @@ first argument. No revision check is performed.
 
 Remove a document:
 
+    {% example documentsCollectionRemoveSuccess %}
     @startDocuBlockInline documentsCollectionRemoveSuccess
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveSuccess}
     ~ db._create("example");
@@ -315,9 +322,11 @@ Remove a document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionRemoveSuccess
+    {% endexample %}
 
 Remove the document in the revision `a1` with a conflict:
 
+    {% example documentsCollectionRemoveConflict %}
     @startDocuBlockInline documentsCollectionRemoveConflict
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveConflict}
     ~ db._create("example");
@@ -329,9 +338,11 @@ Remove the document in the revision `a1` with a conflict:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionRemoveConflict
+    {% endexample %}
 
 Remove a document using new signature:
 
+    {% example documentsCollectionRemoveSignature %}
     @startDocuBlockInline documentsCollectionRemoveSignature
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveSignature}
     ~ db._create("example");
@@ -341,6 +352,7 @@ Remove a document using new signature:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionRemoveSignature
+    {% endexample %}
 
 **Changes in 3.0 from 2.8:**
 

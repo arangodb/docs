@@ -29,7 +29,7 @@ to a server the version number of the ArangoDB server.
 
 To change the current database after the connection has been made, you
 can use the `db._useDatabase()` command in Arangosh:
-
+{% example example="shellUseDB" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline shellUseDB
     @EXAMPLE_ARANGOSH_OUTPUT{shellUseDB}
     db._createDatabase("myapp");
@@ -38,6 +38,8 @@ can use the `db._useDatabase()` command in Arangosh:
     db._dropDatabase("myapp");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock shellUseDB
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 To get a list of available commands, Arangosh provides a *help()* function.
 Calling it will display helpful information.

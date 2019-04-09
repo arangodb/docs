@@ -17,6 +17,7 @@ Drops a *view* and all its data.
 
 Drop a view:
 
+    {% example viewDrop %}
     @startDocuBlockInline viewDrop
     @EXAMPLE_ARANGOSH_OUTPUT{viewDrop}
       | v = db._createView("example", "arangosearch");
@@ -26,6 +27,7 @@ Drop a view:
       db._view("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDrop
+    {% endexample %}
 
 Query Name
 ----------
@@ -40,12 +42,14 @@ Returns the name of the *view*.
 
 Get view name:
 
+    {% example viewName %}
     @startDocuBlockInline viewName
     @EXAMPLE_ARANGOSH_OUTPUT{viewName}
       v = db._view("demoView");
       v.name();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewName
+    {% endexample %}
 
 Rename
 ------
@@ -65,6 +69,7 @@ If renaming fails for any reason, an error is thrown.
 
 **Examples**
 
+    {% example viewRename %}
     @startDocuBlockInline viewRename
     @EXAMPLE_ARANGOSH_OUTPUT{viewRename}
       v = db._createView("example", "arangosearch");
@@ -74,6 +79,7 @@ If renaming fails for any reason, an error is thrown.
       ~ db._dropView("exampleRenamed");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewRename
+    {% endexample %}
 
 Query Type
 ----------
@@ -88,12 +94,14 @@ Returns the type of the *view*.
 
 Get view type:
 
+    {% example viewType %}
     @startDocuBlockInline viewType
     @EXAMPLE_ARANGOSH_OUTPUT{viewType}
       v = db._view("demoView");
       v.type();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewType
+    {% endexample %}
 
 Query Properties
 ----------------
@@ -109,12 +117,14 @@ each of the supported [View Types](data-modeling-views-readme.html).
 
 Get view properties:
 
+    {% example viewGetProperties %}
     @startDocuBlockInline viewGetProperties
     @EXAMPLE_ARANGOSH_OUTPUT{viewGetProperties}
       v = db._view("demoView");
       v.properties();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewGetProperties
+    {% endexample %}
 
 Modify Properties
 -----------------
@@ -138,6 +148,7 @@ can be found in
 
 Modify view properties:
 
+    {% example viewModifyProperties %}
     @startDocuBlockInline viewModifyProperties
     @EXAMPLE_ARANGOSH_OUTPUT{viewModifyProperties}
       ~ db._createView("example", "arangosearch");
@@ -152,3 +163,4 @@ Modify view properties:
       ~ db._dropView("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewModifyProperties
+    {% endexample %}

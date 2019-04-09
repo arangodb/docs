@@ -23,7 +23,7 @@ opaque strings when they store or use it locally.
 Collection Name
 ---------------
 
-A collection name identifies a collection in a database. It is a string and is unique within the database. Unlike the collection identifier it is supplied by the creator of the collection. The collection name must consist of letters, digits, and the _ (underscore) and - (dash) characters only. Please refer to [NamingConventions](data-modeling-naming-conventions-collection-and-view-names.html) for more information on valid collection names.
+A collection name identifies a collection in a database. It is a string and is unique within the database. Unlike the collection identifier it is supplied by the creator of the collection. The collection name must consist of letters, digits, and the _ (underscore) and - (dash) characters only. Please refer to [NamingConventions](datamodeling-namingconventions-collectionandviewnames.html) for more information on valid collection names.
 
 Database
 --------
@@ -34,7 +34,7 @@ A database contains its own collections (which cannot be accessed from other dat
 
 There will always be at least one database in ArangoDB. This is the default database, named _system. This database cannot be dropped, and provides special operations for creating, dropping, and enumerating databases. Users can create additional databases and give them unique names to access them later. Database management operations cannot be initiated from out of user-defined databases.
 
-When ArangoDB is accessed via its HTTP REST API, the database name is read from the first part of the request URI path (e.g. /_db/_system/...). If the request URI does not contain a database name, the database name is automatically derived from the endpoint. Please refer to [DatabaseEndpoint](../../HTTP/Database/DatabaseEndpoint.html) for more information.
+When ArangoDB is accessed via its HTTP REST API, the database name is read from the first part of the request URI path (e.g. /_db/_system/...). If the request URI does not contain a database name, the database name is automatically derived from the endpoint. Please refer to [DatabaseEndpoint](../http/database-databaseendpoint.html) for more information.
 
 Database Name
 -------------
@@ -116,7 +116,7 @@ Using `keyOptions` it is possible to disallow user-specified keys completely, or
 
 There are some restrictions for user-defined
 keys (see 
-[NamingConventions for document keys](data-modeling-naming-conventions-document-keys.html)).
+[NamingConventions for document keys](datamodeling-namingconventions-documentkeys.html)).
 
 Document Revision
 -----------------
@@ -221,7 +221,7 @@ renamed. Renaming a view will change the view name, but not the view identifier.
 The conceptual transformation function employed by a view type is implementation
 specific. The type is specified by the user when the view is created, and cannot
 be changed later. The following view types are currently supported:
-* [`arangosearch`](views-arango-search-readme.html)
+* [`arangosearch`](views-arangosearch.html)
 
 View Identifier
 ---------------
@@ -243,7 +243,7 @@ A view name identifies a view in a database. It is a string and is unique within
 the database. Unlike the view identifier it is supplied by the creator of the
 view. The view name must consist of letters, digits, and the _ (underscore)
 and - (dash) characters only. Please refer to
-[Naming Conventions](data-modeling-naming-conventions-collection-and-view-names.html) for
+[Naming Conventions](datamodeling-namingconventions-collectionandviewnames.html) for
 more information on valid view names, which follow the same guidelines as
 collection names.
 

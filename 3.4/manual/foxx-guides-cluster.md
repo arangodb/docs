@@ -19,7 +19,7 @@ service folder that were installed as part of the service
 (e.g. don't use file uploads or custom log files).
 
 Additionally, special precautions need to be taken when using the
-[development mode in a cluster](DevelopmentMode.md#in-a-cluster).
+[development mode in a cluster](foxx-guides-developmentmode.html#in-a-cluster).
 
 How ArangoDB distributes services
 ---------------------------------

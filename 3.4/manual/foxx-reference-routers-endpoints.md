@@ -5,7 +5,7 @@ Endpoints
 =========
 
 Endpoints are returned by the `use`, `all`
-and HTTP verb (e.g. `get`, `post`) methods of [routers](foxx-reference-routers-readme.html)
+and HTTP verb (e.g. `get`, `post`) methods of [routers](foxx-reference-routers.html)
 as well as the `use` method of the [service context](foxx-reference-context.html).
 They can be used to attach metadata to mounted routes, middleware and
 child routers that affects how requests and responses are processed or

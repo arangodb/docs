@@ -12,7 +12,7 @@ example setup described in this section will have `rocksdb` enabled. If you choo
 to deploy with a different strategy keep in mind to set the storage engine.
 
 For the other possibilities to deploy an ArangoDB cluster please refer to
-[this](deployment-cluster-readme.html) section.
+[this](deployment-cluster.html) section.
 
 The _Starter_ simplifies things for the operator and will coordinate a distributed
 cluster startup across several machines and assign cluster roles automatically.

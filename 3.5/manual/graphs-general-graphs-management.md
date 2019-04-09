@@ -31,6 +31,8 @@ This function is the entry point for the management and will return the correct 
 **Examples**
 
 
+    {% example generalGraphEdgeDefinitionsSimple %}
+
     @startDocuBlockInline generalGraphEdgeDefinitionsSimple
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeDefinitionsSimple}
       var graph_module = require("@arangodb/general-graph");
@@ -39,6 +41,7 @@ This function is the entry point for the management and will return the correct 
       edgedefinitions = graph_module._edgeDefinitions(directed_relation, undirected_relation);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeDefinitionsSimple
+    {% endexample %}
 
 
 
@@ -62,6 +65,8 @@ this function can be used to add more definitions to the initial list.
 **Examples**
 
 
+    {% example generalGraphEdgeDefinitionsExtend %}
+
     @startDocuBlockInline generalGraphEdgeDefinitionsExtend
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeDefinitionsExtend}
       var graph_module = require("@arangodb/general-graph");
@@ -71,6 +76,7 @@ this function can be used to add more definitions to the initial list.
       edgedefinitions = graph_module._extendEdgeDefinitions(undirected_relation);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeDefinitionsExtend
+    {% endexample %}
 
 
 
@@ -100,19 +106,24 @@ to any collection in *toVertexCollections*.
 **Examples**
 
 
+    {% example generalGraphRelationDefinitionSave %}
+
     @startDocuBlockInline generalGraphRelationDefinitionSave
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphRelationDefinitionSave}
       var graph_module = require("@arangodb/general-graph");
       graph_module._relation("has_bought", ["Customer", "Company"], ["Groceries", "Electronics"]);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphRelationDefinitionSave
+    {% endexample %}
 
+    {% example generalGraphRelationDefinitionSingle %}
     @startDocuBlockInline generalGraphRelationDefinitionSingle
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphRelationDefinitionSingle}
       var graph_module = require("@arangodb/general-graph");
       graph_module._relation("has_bought", "Customer", "Product");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphRelationDefinitionSingle
+    {% endexample %}
 
 
 Create a graph
@@ -146,6 +157,7 @@ All collections used within the creation process are created if they do not exis
 
 Create an empty graph, edge definitions can be added at runtime:
 
+    {% example generalGraphCreateGraphNoData %}
     @startDocuBlockInline generalGraphCreateGraphNoData
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphNoData}
       var graph_module = require("@arangodb/general-graph");
@@ -153,9 +165,11 @@ Create an empty graph, edge definitions can be added at runtime:
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraphNoData
+    {% endexample %}
 
 Create a graph using an edge collection `edges` and a single vertex collection `vertices` 
 
+    {% example generalGraphCreateGraphSingle %}
     @startDocuBlockInline generalGraphCreateGraphSingle
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphSingle}
     ~ db._drop("edges");
@@ -166,9 +180,11 @@ Create a graph using an edge collection `edges` and a single vertex collection `
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraphSingle
+    {% endexample %}
 
 Create a graph with edge definitions and orphan collections:
 
+    {% example generalGraphCreateGraph2 %}
     @startDocuBlockInline generalGraphCreateGraph2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraph2}
       var graph_module = require("@arangodb/general-graph");
@@ -177,6 +193,7 @@ Create a graph with edge definitions and orphan collections:
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraph2
+    {% endexample %}
 
 
 
@@ -184,6 +201,9 @@ Create a graph with edge definitions and orphan collections:
 
 Example Call:
 
+
+
+    {% example general_graph_create_graph_example1 %}
 
 
     @startDocuBlockInline general_graph_create_graph_example1
@@ -204,11 +224,15 @@ Example Call:
     ~ db._drop("friend_of");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph_create_graph_example1
+    {% endexample %}
 
 
 
 alternative call:
 
+
+
+    {% example general_graph_create_graph_example2 %}
 
 
     @startDocuBlockInline general_graph_create_graph_example2
@@ -227,6 +251,7 @@ alternative call:
     ~ db._drop("friend_of");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph_create_graph_example2
+    {% endexample %}
 
 
 
@@ -245,12 +270,15 @@ Lists all graph names stored in this database.
 **Examples**
 
 
+    {% example generalGraphList %}
+
     @startDocuBlockInline generalGraphList
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphList}
       var graph_module = require("@arangodb/general-graph");
       graph_module._list();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphList
+    {% endexample %}
 
 
 Load a graph
@@ -275,6 +303,7 @@ A graph can be retrieved by its name.
 
 Get a graph:
 
+    {% example generalGraphLoadGraph %}
     @startDocuBlockInline generalGraphLoadGraph
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphLoadGraph}
     ~ var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -284,6 +313,7 @@ Get a graph:
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphLoadGraph
+    {% endexample %}
 
 
 
@@ -309,6 +339,7 @@ To drop the collections only belonging to this graph, the optional parameter *dr
 
 Drop a graph and keep collections:
 
+    {% example generalGraphDropGraphKeep %}
     @startDocuBlockInline generalGraphDropGraphKeep
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphDropGraphKeep}
     ~ var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -324,7 +355,9 @@ Drop a graph and keep collections:
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphDropGraphKeep
+    {% endexample %}
 
+    {% example generalGraphDropGraphDropCollections %}
     @startDocuBlockInline generalGraphDropGraphDropCollections
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphDropGraphDropCollections}
     ~ var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -336,6 +369,7 @@ Drop a graph and keep collections:
       db._collection("relation");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphDropGraphDropCollections
+    {% endexample %}
 
 
 
@@ -367,6 +401,8 @@ graph with different *from* and/or *to* collections an error is thrown.
 **Examples**
 
 
+    {% example general_graph__extendEdgeDefinitions %}
+
     @startDocuBlockInline general_graph__extendEdgeDefinitions
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__extendEdgeDefinitions}
       var graph_module = require("@arangodb/general-graph")
@@ -378,6 +414,7 @@ graph with different *from* and/or *to* collections an error is thrown.
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__extendEdgeDefinitions
+    {% endexample %}
 
 
 
@@ -406,6 +443,8 @@ definition will be modified, too.
 **Examples**
 
 
+    {% example general_graph__editEdgeDefinition %}
+
     @startDocuBlockInline general_graph__editEdgeDefinition
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__editEdgeDefinition}
       var graph_module = require("@arangodb/general-graph")
@@ -417,6 +456,7 @@ definition will be modified, too.
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__editEdgeDefinition
+    {% endexample %}
 
 
 
@@ -443,6 +483,7 @@ in another edge definition of the graph, they will be moved to the orphanage.
 
 Remove an edge definition but keep the edge collection:
 
+    {% example general_graph__deleteEdgeDefinitionNoDrop %}
     @startDocuBlockInline general_graph__deleteEdgeDefinitionNoDrop
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__deleteEdgeDefinitionNoDrop}
       var graph_module = require("@arangodb/general-graph")
@@ -456,9 +497,11 @@ Remove an edge definition but keep the edge collection:
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__deleteEdgeDefinitionNoDrop
+    {% endexample %}
 
 Remove an edge definition and drop the edge collection:
 
+    {% example general_graph__deleteEdgeDefinitionWithDrop %}
     @startDocuBlockInline general_graph__deleteEdgeDefinitionWithDrop
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__deleteEdgeDefinitionWithDrop}
       var graph_module = require("@arangodb/general-graph")
@@ -472,6 +515,7 @@ Remove an edge definition and drop the edge collection:
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__deleteEdgeDefinitionWithDrop
+    {% endexample %}
 
 
 
@@ -503,6 +547,8 @@ definition of the graph, an error will be thrown.
 **Examples**
 
 
+    {% example general_graph__addVertexCollection %}
+
     @startDocuBlockInline general_graph__addVertexCollection
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__addVertexCollection}
       var graph_module = require("@arangodb/general-graph");
@@ -514,6 +560,7 @@ definition of the graph, an error will be thrown.
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__addVertexCollection
+    {% endexample %}
 
 
 
@@ -531,6 +578,8 @@ Returns all vertex collections of the graph that are not used in any edge defini
 **Examples**
 
 
+    {% example general_graph__orphanCollections %}
+
     @startDocuBlockInline general_graph__orphanCollections
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__orphanCollections}
       var graph_module = require("@arangodb/general-graph")
@@ -542,6 +591,7 @@ Returns all vertex collections of the graph that are not used in any edge defini
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__orphanCollections
+    {% endexample %}
 
 
 
@@ -567,6 +617,8 @@ Optionally the collection can be deleted, if it is not used in any other graph.
 **Examples**
 
 
+    {% example general_graph__removeVertexCollections %}
+
     @startDocuBlockInline general_graph__removeVertexCollections
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__removeVertexCollections}
       var graph_module = require("@arangodb/general-graph")
@@ -582,6 +634,7 @@ Optionally the collection can be deleted, if it is not used in any other graph.
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__removeVertexCollections
+    {% endexample %}
 
 
 
@@ -606,6 +659,8 @@ Create a new vertex in vertexCollectionName
 **Examples**
 
 
+    {% example generalGraphVertexCollectionSave %}
+
     @startDocuBlockInline generalGraphVertexCollectionSave
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionSave}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -614,6 +669,7 @@ Create a new vertex in vertexCollectionName
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphVertexCollectionSave
+    {% endexample %}
 
 
 
@@ -636,6 +692,8 @@ Replaces the data of a vertex in collection vertexCollectionName
 **Examples**
 
 
+    {% example generalGraphVertexCollectionReplace %}
+
     @startDocuBlockInline generalGraphVertexCollectionReplace
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionReplace}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -645,6 +703,7 @@ Replaces the data of a vertex in collection vertexCollectionName
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphVertexCollectionReplace
+    {% endexample %}
 
 
 
@@ -666,6 +725,8 @@ Updates the data of a vertex in collection vertexCollectionName
 **Examples**
 
 
+    {% example generalGraphVertexCollectionUpdate %}
+
     @startDocuBlockInline generalGraphVertexCollectionUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionUpdate}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -675,6 +736,7 @@ Updates the data of a vertex in collection vertexCollectionName
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphVertexCollectionUpdate
+    {% endexample %}
 
 
 
@@ -699,6 +761,8 @@ Additionally removes all ingoing and outgoing edges of the vertex recursively
 **Examples**
 
 
+    {% example generalGraphVertexCollectionRemove %}
+
     @startDocuBlockInline generalGraphVertexCollectionRemove
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionRemove}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -710,6 +774,7 @@ Additionally removes all ingoing and outgoing edges of the vertex recursively
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphVertexCollectionRemove
+    {% endexample %}
 
 
 
@@ -736,6 +801,8 @@ Creates an edge from vertex *from* to vertex *to* in collection edgeCollectionNa
 **Examples**
 
 
+    {% example generalGraphEdgeCollectionSave1 %}
+
     @startDocuBlockInline generalGraphEdgeCollectionSave1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionSave1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -744,10 +811,12 @@ Creates an edge from vertex *from* to vertex *to* in collection edgeCollectionNa
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionSave1
+    {% endexample %}
 
 If the collections of *from* and *to* are not defined in an edge definition of the graph,
 the edge will not be stored.
 
+    {% example generalGraphEdgeCollectionSave2 %}
     @startDocuBlockInline generalGraphEdgeCollectionSave2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionSave2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -759,6 +828,7 @@ the edge will not be stored.
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionSave2
+    {% endexample %}
 
 
 ### Replace an edge
@@ -780,6 +850,8 @@ Replaces the data of an edge in collection edgeCollectionName. Note that `_from`
 **Examples**
 
 
+    {% example generalGraphEdgeCollectionReplace %}
+
     @startDocuBlockInline generalGraphEdgeCollectionReplace
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionReplace}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -789,6 +861,7 @@ Replaces the data of an edge in collection edgeCollectionName. Note that `_from`
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionReplace
+    {% endexample %}
 
 
 
@@ -811,6 +884,8 @@ Updates the data of an edge in collection edgeCollectionName
 **Examples**
 
 
+    {% example generalGraphEdgeCollectionUpdate %}
+
     @startDocuBlockInline generalGraphEdgeCollectionUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionUpdate}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -820,6 +895,7 @@ Updates the data of an edge in collection edgeCollectionName
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionUpdate
+    {% endexample %}
 
 
 
@@ -843,6 +919,8 @@ If this edge is used as a vertex by another edge, the other edge will be removed
 **Examples**
 
 
+    {% example generalGraphEdgeCollectionRemove %}
+
     @startDocuBlockInline generalGraphEdgeCollectionRemove
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionRemove}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -854,3 +932,4 @@ If this edge is used as a vertex by another edge, the other edge will be removed
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionRemove
+    {% endexample %}

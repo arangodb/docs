@@ -59,7 +59,7 @@ For optimal performance, ArangoDB should be configured with locally attached
 SSD storage.
 
 The easiest way to accomplish this is to deploy an
-[`ArangoLocalStorage` resource](deployment-kubernetes-storage-resource.html).
+[`ArangoLocalStorage` resource](deployment-kubernetes-storageresource.html).
 The ArangoDB Storage Operator will use it to provide `PersistentVolumes` for you.
 
 This is an example of an `ArangoLocalStorage` resource that will result in

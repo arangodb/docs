@@ -28,11 +28,13 @@ end users. End users should access collections using the collection name.
 
 Get a collection by name:
 
+    {% example collectionDatabaseNameKnown %}
     @startDocuBlockInline collectionDatabaseNameKnown
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseNameKnown}
       db._collection("demo");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseNameKnown
+    {% endexample %}
 
 Get a collection by id:
 
@@ -43,11 +45,13 @@ arangosh> db._collection(123456);
 
 Unknown collection:
 
+    {% example collectionDatabaseNameUnknown %}
     @startDocuBlockInline collectionDatabaseNameUnknown
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseNameUnknown}
       db._collection("unknown");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseNameUnknown
+    {% endexample %}
 
 
 Create
@@ -244,6 +248,7 @@ creation time and will not be persisted:
 
 With defaults:
 
+    {% example collectionDatabaseCreateSuccess %}
     @startDocuBlockInline collectionDatabaseCreateSuccess
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateSuccess}
       c = db._create("users");
@@ -251,9 +256,11 @@ With defaults:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateSuccess
+    {% endexample %}
 
 With properties:
 
+    {% example collectionDatabaseCreateProperties %}
     @startDocuBlockInline collectionDatabaseCreateProperties
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateProperties}
       |c = db._create("users", { waitForSync : true,
@@ -262,9 +269,11 @@ With properties:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateProperties
+    {% endexample %}
 
 With a key generator:
 
+    {% example collectionDatabaseCreateKey %}
     @startDocuBlockInline collectionDatabaseCreateKey
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateKey}
     | db._create("users",
@@ -275,9 +284,11 @@ With a key generator:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateKey
+    {% endexample %}
 
 With a special key option:
 
+    {% example collectionDatabaseCreateSpecialKey %}
     @startDocuBlockInline collectionDatabaseCreateSpecialKey
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateSpecialKey}
       db._create("users", { keyOptions: { allowUserKeys: false } });
@@ -287,6 +298,7 @@ With a special key option:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateSpecialKey
+    {% endexample %}
 
 
 <!-- arangod/V8Server/v8-vocindex.cpp -->
@@ -337,6 +349,8 @@ Returns all collections of the given database.
 **Examples**
 
 
+    {% example collectionsDatabaseName %}
+
     @startDocuBlockInline collectionsDatabaseName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionsDatabaseName}
     ~ db._create("example");
@@ -344,6 +358,7 @@ Returns all collections of the given database.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionsDatabaseName
+    {% endexample %}
 
 
 
@@ -364,6 +379,8 @@ default properties.
 **Examples**
 
 
+    {% example collectionDatabaseCollectionName %}
+
     @startDocuBlockInline collectionDatabaseCollectionName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCollectionName}
     ~ db._create("example");
@@ -371,6 +388,7 @@ default properties.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCollectionName
+    {% endexample %}
 
 
 
@@ -408,6 +426,7 @@ with *distributeShardsLike* parameter, cannot be dropped.
 
 Drops a collection:
 
+    {% example collectionDatabaseDropByObject %}
     @startDocuBlockInline collectionDatabaseDropByObject
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropByObject}
     ~ db._create("example");
@@ -417,9 +436,11 @@ Drops a collection:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropByObject
+    {% endexample %}
 
 Drops a collection identified by name:
 
+    {% example collectionDatabaseDropName %}
     @startDocuBlockInline collectionDatabaseDropName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropName}
     ~ db._create("example");
@@ -428,9 +449,11 @@ Drops a collection identified by name:
       col;
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropName
+    {% endexample %}
 
 Drops a system collection
 
+    {% example collectionDatabaseDropSystem %}
     @startDocuBlockInline collectionDatabaseDropSystem
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropSystem}
     ~ db._create("_example", { isSystem: true });
@@ -439,6 +462,7 @@ Drops a system collection
       col;
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropSystem
+    {% endexample %}
 
 Truncate
 --------
@@ -468,6 +492,7 @@ there is no such collection.
 
 Truncates a collection:
 
+    {% example collectionDatabaseTruncateByObject %}
     @startDocuBlockInline collectionDatabaseTruncateByObject
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncateByObject}
     ~ db._create("example");
@@ -479,9 +504,11 @@ Truncates a collection:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseTruncateByObject
+    {% endexample %}
 
 Truncates a collection identified by name:
 
+    {% example collectionDatabaseTruncateName %}
     @startDocuBlockInline collectionDatabaseTruncateName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncateName}
     ~ db._create("example");
@@ -493,5 +520,6 @@ Truncates a collection identified by name:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseTruncateName
+    {% endexample %}
 
 

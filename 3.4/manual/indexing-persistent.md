@@ -55,7 +55,7 @@ account for uniqueness checks.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
-
+{% example example="ensureUniquePersistentSingle" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline ensureUniquePersistentSingle
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniquePersistentSingle}
     ~db._create("ids");
@@ -67,7 +67,9 @@ details, including the index-identifier, is returned.
     ~db._drop("ids");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureUniquePersistentSingle
-    
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
+{% example example="ensureUniquePersistentMultiColmun" examplevar="examplevar" short="short" long="long" %}    
     @startDocuBlockInline ensureUniquePersistentMultiColmun
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniquePersistentMultiColmun}
     ~db._create("ids");
@@ -79,6 +81,8 @@ details, including the index-identifier, is returned.
     ~db._drop("ids");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureUniquePersistentMultiColmun
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 
 
@@ -96,7 +100,7 @@ To create a sparse unique index, set the *sparse* attribute to `true`.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
-
+{% example example="ensurePersistent" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline ensurePersistent
     @EXAMPLE_ARANGOSH_OUTPUT{ensurePersistent}
     ~db._create("names");
@@ -109,6 +113,8 @@ details, including the index-identifier, is returned.
     ~db._drop("names");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensurePersistent
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 
 ### Query by example using a persistent index
@@ -169,7 +175,7 @@ Persistent Indexes and Server Language
 --------------------------------------
 
 The order of index entries in persistent indexes adheres to the configured
-[server language](../Programs/Arangod/Global.md#default-language).
+[server language](programs-arangod-global.html#default-language).
 If, however, the server is restarted with a different language setting as when
 the persistent index was created, not all documents may be returned anymore and
 the sort order of those which are returned can be wrong (whenever the persistent

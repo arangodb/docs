@@ -56,7 +56,7 @@ unregistered collection used in transaction*.
 It is legal to not declare read-only collections, but this should be avoided if
 possible to reduce the probability of deadlocks and non-repeatable reads.
 
-Please refer to [Locking and Isolation](transactions-locking-and-isolation.html) for more details.
+Please refer to [Locking and Isolation](transactions-lockingandisolation.html) for more details.
 
 In Clusters
 -----------

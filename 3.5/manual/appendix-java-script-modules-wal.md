@@ -39,11 +39,14 @@ array with the following attributes:
 **Examples**
 
 
+    {% example WalPropertiesGet %}
+
     @startDocuBlockInline WalPropertiesGet
     @EXAMPLE_ARANGOSH_OUTPUT{WalPropertiesGet}
       require("internal").wal.properties();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock WalPropertiesGet
+    {% endexample %}
 
 
 <!-- arangod/V8Server/v8-vocbase.h -->
@@ -73,6 +76,8 @@ will be ignored and the configuration for them will not be modified.
 **Examples**
 
 
+    {% example WalPropertiesSet %}
+
     @startDocuBlockInline WalPropertiesSet
     @EXAMPLE_ARANGOSH_OUTPUT{WalPropertiesSet}
     | require("internal").wal.properties({ 
@@ -80,6 +85,7 @@ will be ignored and the configuration for them will not be modified.
         logfileSize: 32 * 1024 * 1024 });
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock WalPropertiesSet
+    {% endexample %}
 
 
 Flushing
@@ -111,8 +117,11 @@ the write-ahead log garbage collector cannot finish garbage collection.
 **Examples**
 
 
+    {% example WalFlush %}
+
     @startDocuBlockInline WalFlush
     @EXAMPLE_ARANGOSH_OUTPUT{WalFlush}
       require("internal").wal.flush();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock WalFlush
+    {% endexample %}

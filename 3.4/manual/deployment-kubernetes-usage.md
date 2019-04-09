@@ -114,7 +114,7 @@ kubectl delete deployment arango-deployment-replication-operator
 
 ## See also
 
-- [Driver configuration](deployment-kubernetes-driver-configuration.html)
+- [Driver configuration](deployment-kubernetes-driverconfiguration.html)
 - [Scaling](deployment-kubernetes-scaling.html)
 - [Upgrading](deployment-kubernetes-upgrading.html)
 - [Using the ArangoDB Kubernetes Operator with Helm](deployment-kubernetes-helm.html)

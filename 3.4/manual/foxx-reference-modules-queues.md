@@ -21,7 +21,7 @@ For disabling the Foxx queues feature or adjusting the polling interval see the
 [`foxx.queues` and `foxx.queues-poll-interval` options](programs-arangod-foxx.html).
 
 For the low-level functionality see the chapter on the
-[task management module](appendix-java-script-modules-tasks.html).
+[task management module](appendix-javascriptmodules-tasks.html).
 
 Managing queues
 ---------------

@@ -46,6 +46,7 @@ Let us again explain this by an example.
 Assume we want to create an hash-based outbound vertex-centric index on the attribute `type`.
 This can be created with the following way:
 
+    {% example ensureVertexCentricHashIndex %}
     @startDocuBlockInline ensureVertexCentricHashIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureVertexCentricHashIndex}
     ~db._createEdgeCollection("collection");
@@ -53,6 +54,7 @@ This can be created with the following way:
     ~db._drop("collection");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureVertexCentricHashIndex
+    {% endexample %}
 
 All options that are supported by the respective indexes are supported by the vertex-centric index as well.
 

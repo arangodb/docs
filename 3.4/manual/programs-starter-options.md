@@ -106,7 +106,7 @@ arangodb --auth.jwt-secret=./jwtSecret
 All starters used in the cluster must have the same JWT secret.
 
 To use a JWT secret to access the database, use `arangodb auth header`.
-See [Using authentication tokens](./Security.md#using-authentication-tokens) for details.
+See [Using authentication tokens](programs-starter-security.html#using-authentication-tokens) for details.
 
 ## SSL options
 

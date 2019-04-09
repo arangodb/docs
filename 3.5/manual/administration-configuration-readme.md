@@ -282,8 +282,10 @@ connect with an [ArangoShell](programs-arangosh-readme.html) and invoke a
 [Transaction](transactions-readme.html) by calling `db._executeTransaction()`
 and providing a JavaScript function to retrieve the server options:
 
+    {% example listCurrentConfigOpts %}
     @startDocuBlockInline listCurrentConfigOpts
     @EXAMPLE_ARANGOSH_OUTPUT{listCurrentConfigOpts}
     db._executeTransaction({ collections: {}, action: function() {return require("internal").options(); } })
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock listCurrentConfigOpts
+    {% endexample %}

@@ -52,6 +52,7 @@ indexed and will be taken into account for uniqueness checks.
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
+    {% example ensureUniqueConstraint %}
     @startDocuBlockInline ensureUniqueConstraint
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueConstraint}
     ~db._create("test");
@@ -63,6 +64,7 @@ details, including the index-identifier, is returned.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureUniqueConstraint
+    {% endexample %}
 
 ### Non-unique Hash Indexes
 
@@ -82,6 +84,7 @@ To create a sparse unique index, set the *sparse* attribute to `true`:
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
+    {% example ensureHashIndex %}
     @startDocuBlockInline ensureHashIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureHashIndex}
     ~db._create("test");
@@ -92,6 +95,7 @@ details, including the index-identifier, is returned.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureHashIndex
+    {% endexample %}
 
 ### Hash Array Indexes
 
@@ -109,6 +113,7 @@ It is possible to combine array indexing with standard indexing:
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
+    {% example ensureHashIndexArray %}
     @startDocuBlockInline ensureHashIndexArray
     @EXAMPLE_ARANGOSH_OUTPUT{ensureHashIndexArray}
     ~db._create("test");
@@ -119,6 +124,7 @@ details, including the index-identifier, is returned.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureHashIndexArray
+    {% endexample %}
 
 
 Creating Hash Index in Background

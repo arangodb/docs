@@ -4,7 +4,7 @@ layout: default
 Arangorestore Examples
 ======================
 
-To restore data from a dump previously created with [_Arangodump_](programs-arangodump-readme.html),
+To restore data from a dump previously created with [_Arangodump_](programs-arangodump.html),
 ArangoDB provides the _arangorestore_ tool.
 
 Please note that in versions older than 3.3, _Arangorestore_
@@ -53,7 +53,7 @@ will abort instantly.
 The `--force-same-database` option is set to `false` by default to ensure backwards-compatibility.
 
 Here's an example of reloading data to a non-standard endpoint, using a dedicated
-[database name](../../Appendix/Glossary.md#database-name):
+[database name](appendix-glossary.html#database-name):
 
     arangorestore --server.endpoint tcp://192.168.173.13:8531 --server.username backup --server.database mydb --input-directory "dump"
 
@@ -114,7 +114,7 @@ It can be specified multiple times if required:
     arangorestore --collection myusers --collection myvalues --input-directory "dump"
 
 Collections will be processed by in alphabetical order by _arangorestore_, with all document
-collections being processed before all [edge collections](../../Appendix/Glossary.md#edge-collection).
+collections being processed before all [edge collections](appendix-glossary.html#edge-collection).
 This remains valid also when multiple threads are in use (from v3.4.0 on).
 
 Note however that when restoring an edge collection no internal checks are made in order to validate that
@@ -139,7 +139,7 @@ also restored or already present on the server.
 Encryption
 ----------
 
-See [Arangodump](../Arangodump/Examples.md#encryption) for details.
+See [Arangodump](programs-arangodump-examples.html#encryption) for details.
 
 Reloading Data into a different Collection
 ------------------------------------------
@@ -225,7 +225,7 @@ The following factors affect speed of _arangorestore_ in a Cluster:
   when the `--threads` option is in use (from v.3.4.0).
 
 {% hint 'tip' %}
-Please refer to the [Fast Cluster Restore](programs-arangorestore-fast-cluster-restore.html) page
+Please refer to the [Fast Cluster Restore](programs-arangorestore-fastclusterrestore.html) page
 for further operative details on how to take into account, when restoring
 using _arangorestore_, the two factors described above.
 {% endhint %}
@@ -251,7 +251,7 @@ Restore into an authentication-enabled ArangoDB
 
 Of course you can restore data into a password-protected ArangoDB as well.
 However this requires certain user rights for the user used in the restore process.
-The rights are described in detail in the [Managing Users](administration-managing-users-readme.html) chapter.
+The rights are described in detail in the [Managing Users](administration-managingusers.html) chapter.
 For restore this short overview is sufficient:
 
 - When importing into an existing database, the given user needs `Administrate`

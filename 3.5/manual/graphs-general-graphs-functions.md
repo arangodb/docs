@@ -39,6 +39,8 @@ Returns the vertex defined with the attribute *_from* of the edge with *edgeId* 
 **Examples**
 
 
+    {% example generalGraphGetFromVertex %}
+
     @startDocuBlockInline generalGraphGetFromVertex
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphGetFromVertex}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -48,6 +50,7 @@ Returns the vertex defined with the attribute *_from* of the edge with *edgeId* 
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphGetFromVertex
+    {% endexample %}
 
 
 
@@ -71,6 +74,8 @@ Returns the vertex defined with the attribute *_to* of the edge with *edgeId* as
 **Examples**
 
 
+    {% example generalGraphGetToVertex %}
+
     @startDocuBlockInline generalGraphGetToVertex
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphGetToVertex}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -80,6 +85,7 @@ Returns the vertex defined with the attribute *_to* of the edge with *edgeId* as
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphGetToVertex
+    {% endexample %}
 
 
 
@@ -119,6 +125,7 @@ Hence the default call would have a complexity of **O(n\*m)**;
 
 A route planner example, all neighbors of capitals.
 
+    {% example generalGraphModuleNeighbors1 %}
     @startDocuBlockInline generalGraphModuleNeighbors1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleNeighbors1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -127,9 +134,11 @@ A route planner example, all neighbors of capitals.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleNeighbors1
+    {% endexample %}
 
 A route planner example, all outbound neighbors of Hamburg.
 
+    {% example generalGraphModuleNeighbors2 %}
     @startDocuBlockInline generalGraphModuleNeighbors2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleNeighbors2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -138,6 +147,7 @@ A route planner example, all outbound neighbors of Hamburg.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleNeighbors2
+    {% endexample %}
 
 
 
@@ -165,6 +175,7 @@ Hence the default call would have a complexity of **O(n\*m)**;
 
 A route planner example, all common neighbors of capitals.
 
+    {% example generalGraphModuleCommonNeighbors1 %}
     @startDocuBlockInline generalGraphModuleCommonNeighbors1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCommonNeighbors1}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -173,10 +184,12 @@ A route planner example, all common neighbors of capitals.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleCommonNeighbors1
+    {% endexample %}
 
 A route planner example, all common outbound neighbors of Hamburg with any other location
 which have a maximal depth of 2 :
 
+    {% example generalGraphModuleCommonNeighbors2 %}
     @startDocuBlockInline generalGraphModuleCommonNeighbors2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCommonNeighbors2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -189,6 +202,7 @@ which have a maximal depth of 2 :
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleCommonNeighbors2
+    {% endexample %}
 
 
 
@@ -209,6 +223,7 @@ Similar to [_commonNeighbors](#commonneighbors) but returns count instead of the
 
 A route planner example, all common neighbors of capitals.
 
+    {% example generalGraphModuleCommonNeighborsAmount1 %}
     @startDocuBlockInline generalGraphModuleCommonNeighborsAmount1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCommonNeighborsAmount1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -219,10 +234,12 @@ A route planner example, all common neighbors of capitals.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleCommonNeighborsAmount1
+    {% endexample %}
 
 A route planner example, all common outbound neighbors of Hamburg with any other location
 which have a maximal depth of 2 :
 
+    {% example generalGraphModuleCommonNeighborsAmount2 %}
     @startDocuBlockInline generalGraphModuleCommonNeighborsAmount2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCommonNeighborsAmount2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -232,6 +249,7 @@ which have a maximal depth of 2 :
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleCommonNeighborsAmount2
+    {% endexample %}
 
 
 
@@ -270,6 +288,7 @@ defined by the parameters vertexExamples.
 
 A route planner example, all locations with the same properties:
 
+    {% example generalGraphModuleProperties1 %}
     @startDocuBlockInline generalGraphModuleProperties1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleProperties1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -278,9 +297,11 @@ A route planner example, all locations with the same properties:
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleProperties1
+    {% endexample %}
 
 A route planner example, all cities which share same properties except for population.
 
+    {% example generalGraphModuleProperties2 %}
     @startDocuBlockInline generalGraphModuleProperties2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleProperties2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -289,6 +310,7 @@ A route planner example, all cities which share same properties except for popul
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleProperties2
+    {% endexample %}
 
 
 
@@ -310,6 +332,7 @@ the objects.
 
 A route planner example, all locations with the same properties:
 
+    {% example generalGraphModuleAmountProperties1 %}
     @startDocuBlockInline generalGraphModuleAmountProperties1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAmountProperties1}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -318,9 +341,11 @@ A route planner example, all locations with the same properties:
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleAmountProperties1
+    {% endexample %}
 
 A route planner example, all German cities which share same properties except for population.
 
+    {% example generalGraphModuleAmountProperties2 %}
     @startDocuBlockInline generalGraphModuleAmountProperties2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAmountProperties2}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -330,6 +355,7 @@ A route planner example, all German cities which share same properties except fo
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleAmountProperties2
+    {% endexample %}
 
 
 
@@ -367,6 +393,7 @@ the graph and *m* the average amount of connected edges;
 
 Return all paths of the graph "social":
 
+    {% example generalGraphModulePaths1 %}
     @startDocuBlockInline generalGraphModulePaths1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModulePaths1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -375,10 +402,12 @@ Return all paths of the graph "social":
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModulePaths1
+    {% endexample %}
 
 Return all inbound paths of the graph "social" with a maximal
 length of 1 and a minimal length of 2:
 
+    {% example generalGraphModulePaths2 %}
     @startDocuBlockInline generalGraphModulePaths2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModulePaths2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -387,6 +416,7 @@ length of 1 and a minimal length of 2:
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModulePaths2
+    {% endexample %}
 
 
 _shortestPath
@@ -437,6 +467,7 @@ representing the length.
 
 A route planner example, shortest path from all german to all french cities:
 
+    {% example generalGraphModuleShortestPaths1 %}
     @startDocuBlockInline generalGraphModuleShortestPaths1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleShortestPaths1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -446,9 +477,11 @@ A route planner example, shortest path from all german to all french cities:
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleShortestPaths1
+    {% endexample %}
 
 A route planner example, shortest path from Hamburg and Cologne to Lyon:
 
+    {% example generalGraphModuleShortestPaths2 %}
     @startDocuBlockInline generalGraphModuleShortestPaths2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleShortestPaths2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -458,6 +491,7 @@ A route planner example, shortest path from Hamburg and Cologne to Lyon:
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleShortestPaths2
+    {% endexample %}
 
 
 
@@ -479,6 +513,7 @@ It does not return the actual path but only the distance between two vertices.
 
 A route planner example, shortest distance from all german to all french cities:
 
+    {% example generalGraphModuleDistanceTo1 %}
     @startDocuBlockInline generalGraphModuleDistanceTo1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleDistanceTo1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -488,9 +523,11 @@ A route planner example, shortest distance from all german to all french cities:
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleDistanceTo1
+    {% endexample %}
 
 A route planner example, shortest distance from Hamburg and Cologne to Lyon:
 
+    {% example generalGraphModuleDistanceTo2 %}
     @startDocuBlockInline generalGraphModuleDistanceTo2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleDistanceTo2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -500,6 +537,7 @@ A route planner example, shortest distance from Hamburg and Cologne to Lyon:
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleDistanceTo2
+    {% endexample %}
 
 
 
@@ -542,6 +580,7 @@ example as parameter for vertexExample.
 
 A route planner example, the absolute eccentricity of all locations.
 
+    {% example generalGraphModuleAbsEccentricity1 %}
     @startDocuBlockInline generalGraphModuleAbsEccentricity1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsEccentricity1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -550,10 +589,12 @@ A route planner example, the absolute eccentricity of all locations.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsEccentricity1
+    {% endexample %}
 
 A route planner example, the absolute eccentricity of all locations.
 This considers the actual distances.
 
+    {% example generalGraphModuleAbsEccentricity2 %}
     @startDocuBlockInline generalGraphModuleAbsEccentricity2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsEccentricity2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -562,10 +603,12 @@ This considers the actual distances.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsEccentricity2
+    {% endexample %}
 
 A route planner example, the absolute eccentricity of all cities regarding only
 outbound paths.
 
+    {% example generalGraphModuleAbsEccentricity3 %}
     @startDocuBlockInline generalGraphModuleAbsEccentricity3
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsEccentricity3}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -575,6 +618,7 @@ outbound paths.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsEccentricity3
+    {% endexample %}
 
 
 
@@ -597,6 +641,7 @@ Similar to [_absoluteEccentricity](#absoluteeccentricity) but returns a normaliz
 
 A route planner example, the eccentricity of all locations.
 
+    {% example generalGraphModuleEccentricity2 %}
     @startDocuBlockInline generalGraphModuleEccentricity2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleEccentricity2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -605,9 +650,11 @@ A route planner example, the eccentricity of all locations.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleEccentricity2
+    {% endexample %}
 
 A route planner example, the weighted eccentricity.
 
+    {% example generalGraphModuleEccentricity3 %}
     @startDocuBlockInline generalGraphModuleEccentricity3
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleEccentricity3}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -616,6 +663,7 @@ A route planner example, the weighted eccentricity.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleEccentricity3
+    {% endexample %}
 
 
 
@@ -657,6 +705,7 @@ example as parameter for *vertexExample*.
 
 A route planner example, the absolute closeness of all locations.
 
+    {% example generalGraphModuleAbsCloseness1 %}
     @startDocuBlockInline generalGraphModuleAbsCloseness1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsCloseness1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -665,10 +714,12 @@ A route planner example, the absolute closeness of all locations.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsCloseness1
+    {% endexample %}
 
 A route planner example, the absolute closeness of all locations.
 This considers the actual distances.
 
+    {% example generalGraphModuleAbsCloseness2 %}
     @startDocuBlockInline generalGraphModuleAbsCloseness2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsCloseness2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -677,10 +728,12 @@ This considers the actual distances.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsCloseness2
+    {% endexample %}
 
 A route planner example, the absolute closeness of all German Cities regarding only
 outbound paths.
 
+    {% example generalGraphModuleAbsCloseness3 %}
     @startDocuBlockInline generalGraphModuleAbsCloseness3
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsCloseness3}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -690,6 +743,7 @@ outbound paths.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsCloseness3
+    {% endexample %}
 
 
 
@@ -712,6 +766,7 @@ Similar to [_absoluteCloseness](#absolutecloseness) but returns a normalized val
 
 A route planner example, the normalized closeness of all locations.
 
+    {% example generalGraphModuleCloseness1 %}
     @startDocuBlockInline generalGraphModuleCloseness1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCloseness1}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -720,10 +775,12 @@ A route planner example, the normalized closeness of all locations.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleCloseness1
+    {% endexample %}
 
 A route planner example, the closeness of all locations.
 This considers the actual distances.
 
+    {% example generalGraphModuleCloseness2 %}
     @startDocuBlockInline generalGraphModuleCloseness2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCloseness2}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -732,10 +789,12 @@ This considers the actual distances.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleCloseness2
+    {% endexample %}
 
 A route planner example, the closeness of all cities regarding only
 outbound paths.
 
+    {% example generalGraphModuleCloseness3 %}
     @startDocuBlockInline generalGraphModuleCloseness3
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleCloseness3}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -744,6 +803,7 @@ outbound paths.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleCloseness3
+    {% endexample %}
 
 
 
@@ -779,6 +839,7 @@ of all vertices in the graph.
 
 A route planner example, the absolute betweenness of all locations.
 
+    {% example generalGraphModuleAbsBetweenness1 %}
     @startDocuBlockInline generalGraphModuleAbsBetweenness1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsBetweenness1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -787,10 +848,12 @@ A route planner example, the absolute betweenness of all locations.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsBetweenness1
+    {% endexample %}
 
 A route planner example, the absolute betweenness of all locations.
 This considers the actual distances.
 
+    {% example generalGraphModuleAbsBetweenness2 %}
     @startDocuBlockInline generalGraphModuleAbsBetweenness2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsBetweenness2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -799,10 +862,12 @@ This considers the actual distances.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsBetweenness2
+    {% endexample %}
 
 A route planner example, the absolute betweenness of all cities regarding only
 outbound paths.
 
+    {% example generalGraphModuleAbsBetweenness3 %}
     @startDocuBlockInline generalGraphModuleAbsBetweenness3
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleAbsBetweenness3}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -811,6 +876,7 @@ outbound paths.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleAbsBetweenness3
+    {% endexample %}
 
 
 
@@ -833,6 +899,7 @@ Similar to [_absoluteBetweeness](#absolutebetweenness) but returns normalized va
 
 A route planner example, the betweenness of all locations.
 
+    {% example generalGraphModuleBetweenness1 %}
     @startDocuBlockInline generalGraphModuleBetweenness1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleBetweenness1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -841,10 +908,12 @@ A route planner example, the betweenness of all locations.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleBetweenness1
+    {% endexample %}
 
 A route planner example, the betweenness of all locations.
 This considers the actual distances.
 
+    {% example generalGraphModuleBetweenness2 %}
     @startDocuBlockInline generalGraphModuleBetweenness2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleBetweenness2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -853,10 +922,12 @@ This considers the actual distances.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleBetweenness2
+    {% endexample %}
 
 A route planner example, the betweenness of all cities regarding only
 outbound paths.
 
+    {% example generalGraphModuleBetweenness3 %}
     @startDocuBlockInline generalGraphModuleBetweenness3
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleBetweenness3}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -865,6 +936,7 @@ outbound paths.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleBetweenness3
+    {% endexample %}
 
 
 
@@ -897,6 +969,7 @@ of a graph.
 
 A route planner example, the radius of the graph.
 
+    {% example generalGraphModuleRadius1 %}
     @startDocuBlockInline generalGraphModuleRadius1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleRadius1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -905,10 +978,12 @@ A route planner example, the radius of the graph.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleRadius1
+    {% endexample %}
 
 A route planner example, the radius of the graph.
 This considers the actual distances.
 
+    {% example generalGraphModuleRadius2 %}
     @startDocuBlockInline generalGraphModuleRadius2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleRadius2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -917,10 +992,12 @@ This considers the actual distances.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleRadius2
+    {% endexample %}
 
 A route planner example, the radius of the graph regarding only
 outbound paths.
 
+    {% example generalGraphModuleRadius3 %}
     @startDocuBlockInline generalGraphModuleRadius3
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleRadius3}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -929,6 +1006,7 @@ outbound paths.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleRadius3
+    {% endexample %}
 
 
 
@@ -961,6 +1039,7 @@ of a graph.
 
 A route planner example, the diameter of the graph.
 
+    {% example generalGraphModuleDiameter1 %}
     @startDocuBlockInline generalGraphModuleDiameter1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleDiameter1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -969,10 +1048,12 @@ A route planner example, the diameter of the graph.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleDiameter1
+    {% endexample %}
 
 A route planner example, the diameter of the graph.
 This considers the actual distances.
 
+    {% example generalGraphModuleDiameter2 %}
     @startDocuBlockInline generalGraphModuleDiameter2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleDiameter2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -981,10 +1062,12 @@ This considers the actual distances.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleDiameter2
+    {% endexample %}
 
 A route planner example, the diameter of the graph regarding only
 outbound paths.
 
+    {% example generalGraphModuleDiameter3 %}
     @startDocuBlockInline generalGraphModuleDiameter3
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphModuleDiameter3}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -993,3 +1076,4 @@ outbound paths.
     ~ examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphModuleDiameter3
+    {% endexample %}

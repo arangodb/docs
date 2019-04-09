@@ -82,7 +82,7 @@ avoids the data being synced to the windows domain controller.
 
 If this checkbox is selected the installer will attempt to perform an automatic
 update. For more information please see
-[Upgrading on Windows](upgrading-os-specific-info-windows.html).
+[Upgrading on Windows](upgrading-osspecificinfo-windows.html).
 
 #### Keep Backup
 
@@ -183,4 +183,4 @@ After installation, you may start ArangoDB in several ways. The exact start-up c
 depends on the type of ArangoDB deployment you are interested in
 (_Single Instance_, _Master-Slave_, _Active Failover_ or _Cluster_).
 
-Please refer to the [_Deployment_](deployment-readme.html) chapter for details.
+Please refer to the [_Deployment_](deployment.html) chapter for details.

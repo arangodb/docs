@@ -7,11 +7,11 @@ Authentication
 Foxx provides the [auth module](foxx-reference-modules-auth.html) to implement
 basic password verification and hashing but is not very secure unless using
 the (very slow) PBKDF2 algorithm. Alternatively you can use the
-[OAuth 1.0a](foxx-reference-modules-o-auth1.html) or
-[OAuth 2.0](foxx-reference-modules-o-auth2.html) modules to offload identity
+[OAuth 1.0a](foxx-reference-modules-oauth1.html) or
+[OAuth 2.0](foxx-reference-modules-oauth2.html) modules to offload identity
 management to a trusted provider (e.g. Facebook, GitHub, Google or Twitter).
 
-The [session middleware](foxx-reference-sessions-readme.html) provides a mechanism
+The [session middleware](foxx-reference-sessions.html) provides a mechanism
 for adding session logic to your service, using e.g. a collection or
 JSON Web Tokens to store the sessions between requests.
 

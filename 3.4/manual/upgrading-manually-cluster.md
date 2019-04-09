@@ -4,13 +4,13 @@ layout: default
 Manually Upgrading a _Cluster_ Deployment
 =========================================
 
-This page will guide you through the process of a manual upgrade of a [_cluster_](architecture-deployment-modes-cluster-readme.html)
+This page will guide you through the process of a manual upgrade of a [_cluster_](architecture-deploymentmodes-cluster.html)
 setup. The different nodes in a _cluster_ can be upgraded one at a time without
 incurring downtime of the _cluster_ and very short downtimes of the single nodes.
 
 The manual upgrade procedure described in this _Section_ can be used to upgrade
 to a new hotfix, or to perform an upgrade to a new minor version of ArangoDB.
-Please refer to the [Upgrade Paths](../GeneralInfo/README.md#upgrade-paths) section
+Please refer to the [Upgrade Paths](upgrading-generalinfo.html#upgrade-paths) section
 for detailed information.
 
 Preparations
@@ -18,7 +18,7 @@ Preparations
 
 The ArangoDB installation packages (e.g. for Debian or Ubuntu) set up a
 convenient standalone instance of `arangod`. During installation, this instance's
-database will be upgraded (see [`--database.auto-upgrade`](../../Programs/Arangod/Database.md#auto-upgrade))
+database will be upgraded (see [`--database.auto-upgrade`](programs-arangod-database.html#auto-upgrade))
 and the service will be (re)started.
 
 You have to make sure that your _cluster_ deployment is independent of this
@@ -29,7 +29,7 @@ modified the init script or systemd unit file for the standalone instance in way
 that it would start or stop your _cluster_ instance instead.
 
 You can read about the details on how to deploy your _cluster_ indendently of the
-standalone instance in the [_cluster_ deployment preliminary](deployment-cluster-preliminary-information.html).
+standalone instance in the [_cluster_ deployment preliminary](deployment-cluster-preliminaryinformation.html).
 
 In the following, we assume that you don't use the standalone instance from the
 package but only a manually started _cluster_ instance, and we will move the

@@ -43,8 +43,8 @@ Creates an authenticator.
  to compute, which will impact ArangoDB performance, especially when
  verifying/hashing multiple passwords at a time. If you need a secure
  authentication mechanism consider performing authentication outside the database
- or using a third-party identity provider that [supports OAuth 1.0a](foxx-reference-modules-o-auth1.html)
- or [OAuth 2.0](foxx-reference-modules-o-auth2.html).
+ or using a third-party identity provider that [supports OAuth 1.0a](foxx-reference-modules-oauth1.html)
+ or [OAuth 2.0](foxx-reference-modules-oauth2.html).
 
   * **saltLength**: `number` (Default: `16`)
 

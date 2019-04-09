@@ -34,7 +34,7 @@ The request object specifies the following properties:
   identical to *rawBody*.
 
   For details on how request bodies can be processed and validated by Foxx
-  see the [body method of the endpoint object](Endpoints.md#body).
+  see the [body method of the endpoint object](foxx-reference-routers-endpoints.html#body).
 
 * **context**: `Context`
 
@@ -50,7 +50,7 @@ The request object specifies the following properties:
   The raw headers object.
 
   For details on how request headers can be validated by Foxx see the
-  [header method of the endpoint object](Endpoints.md#header).
+  [header method of the endpoint object](foxx-reference-routers-endpoints.html#header).
 
 * **hostname**: `string`
 
@@ -78,7 +78,7 @@ The request object specifies the following properties:
   their validated values.
 
   For details on how path parameters can be validated by Foxx see the
-  [pathParam method of the endpoint object](Endpoints.md#pathparam).
+  [pathParam method of the endpoint object](foxx-reference-routers-endpoints.html#pathparam).
 
 * **port**: `number`
 
@@ -109,7 +109,7 @@ The request object specifies the following properties:
   their validated values.
 
   For details on how query parameters can be validated by Foxx see the
-  [queryParam method of the endpoint object](Endpoints.md#queryparam).
+  [queryParam method of the endpoint object](foxx-reference-routers-endpoints.html#queryparam).
 
 * **rawBody**: `Buffer`
 
@@ -254,7 +254,7 @@ get / header
 `req.header(name): string`
 
 Gets the value of a header by name. You can validate request headers using the
-[header method of the endpoint](Endpoints.md#header).
+[header method of the endpoint](foxx-reference-routers-endpoints.html#header).
 
 **Arguments**
 
@@ -295,7 +295,7 @@ json
 Attempts to parse the raw request body as JSON and returns the result.
 
 It is generally more useful to define a
-[request body on the endpoint](Endpoints.md#body) and use the `req.body`
+[request body on the endpoint](foxx-reference-routers-endpoints.html#body) and use the `req.body`
 property instead.
 
 Returns `undefined` if the request body is empty. May throw a `SyntaxError`

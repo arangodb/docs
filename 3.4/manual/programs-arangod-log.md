@@ -36,7 +36,7 @@ The available log levels are:
 
 Note that levels `debug` and `trace` will be very verbose.
 
-See [Log Levels](monitoring-log-levels.html) in the Monitoring chapter for a
+See [Log Levels](monitoring-loglevels.html) in the Monitoring chapter for a
 detailed description of the different levels.
 
 Some relevant log topics available in ArangoDB 3 are:
@@ -53,7 +53,7 @@ Some relevant log topics available in ArangoDB 3 are:
 - `startup`: information about server startup and shutdown
 - `threads`: information about threads
 
-See more [log levels](../../../HTTP/AdministrationAndMonitoring/index.html#modify-and-return-the-current-server-log-level)
+See more [log levels](-http-administrationandmonitoring-index.html#modify-and-return-the-current-server-log-level)
 
 ### Log outputs
 

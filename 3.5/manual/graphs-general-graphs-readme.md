@@ -18,6 +18,7 @@ Three Steps to create a graph
 
 * Create a graph
 
+    {% example generalGraphCreateGraphHowTo1 %}
     @startDocuBlockInline generalGraphCreateGraphHowTo1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo1}
       var graph_module = require("@arangodb/general-graph");
@@ -26,9 +27,11 @@ Three Steps to create a graph
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraphHowTo1
+    {% endexample %}
 
 * Add some vertex collections
 
+    {% example generalGraphCreateGraphHowTo2 %}
     @startDocuBlockInline generalGraphCreateGraphHowTo2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo2}
     ~ var graph_module = require("@arangodb/general-graph");
@@ -40,9 +43,11 @@ Three Steps to create a graph
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraphHowTo2
+    {% endexample %}
 
 * Define relations on the Graph
 
+    {% example generalGraphCreateGraphHowTo3 %}
     @startDocuBlockInline generalGraphCreateGraphHowTo3
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo3}
     ~ var graph_module = require("@arangodb/general-graph");
@@ -54,5 +59,6 @@ Three Steps to create a graph
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraphHowTo3
+    {% endexample %}
 
 

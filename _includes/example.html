@@ -1,0 +1,24 @@
+<div class="example-container">
+    <div id="{{ include.id }}_long"{% if include.short %} style="display: none"{% endif %}>
+        <pre>
+{{ include.long }}
+        </pre>
+        {% if include.short %}
+        <div>
+            <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}_long').style.display = 'none'; document.querySelector('#{{ include.id }}_short').style.display = 'block'">Hide execution results</div>
+        </div>
+        {% endif %}
+    </div>
+{% if include.short %}    
+    <div id="{{ include.id }}_short">
+        <pre>
+{{ include. short }}
+        </pre>
+        {% if include.short %}
+        <div>
+            <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}_short').style.display = 'none'; document.querySelector('#{{ include.id }}_long').style.display = 'block'">Show execution results</div>
+        </div>
+        {% endif %}
+    </div>
+{% endif %}
+</div>

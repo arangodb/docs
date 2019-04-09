@@ -4,7 +4,7 @@ layout: default
 Sessions
 ========
 
-The `ctrl.activateSessions` method and the related `util-sessions-local` Foxx service have been replaced with the [Foxx sessions](foxx-reference-sessions-readme.html) middleware. It is no longer possible to use the built-in session storage but you can simply pass in any document collection directly.
+The `ctrl.activateSessions` method and the related `util-sessions-local` Foxx service have been replaced with the [Foxx sessions](foxx-reference-sessions.html) middleware. It is no longer possible to use the built-in session storage but you can simply pass in any document collection directly.
 
 Old:
 

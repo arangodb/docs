@@ -73,7 +73,7 @@ Modules are a means of organizing action handlers and making them loadable under
 specific names.
 
 To start, we'll define a simple action handler in a module */ownTest*:
-
+{% example example="MOD_01a_routingCreateOwnTest" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_01a_routingCreateOwnTest
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_01a_routingCreateOwnTest}
     |db._modules.save({
@@ -87,11 +87,13 @@ To start, we'll define a simple action handler in a module */ownTest*:
     });
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_01a_routingCreateOwnTest
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 This does nothing but register a do action handler in a module */ownTest*.  The
 action handler is not yet callable, but must be mapped to a route first.  To map
 the action to the route */ourtest*, execute the following command:
-
+{% example example="MOD_01b_routingEnableOwnTest" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_01b_routingEnableOwnTest
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_01b_routingEnableOwnTest}
     |db._routing.save({
@@ -103,9 +105,11 @@ the action to the route */ourtest*, execute the following command:
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_01b_routingEnableOwnTest
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 Now use the browser or cURL and access http://localhost:8529/ourtest :
-
+{% example example="MOD_01c_routingCurlOwnTest" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_01c_routingCurlOwnTest
     @EXAMPLE_ARANGOSH_RUN{MOD_01c_routingCurlOwnTest}
     var url = "/ourtest";
@@ -118,6 +122,8 @@ Now use the browser or cURL and access http://localhost:8529/ourtest :
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_RUN
     @endDocuBlock MOD_01c_routingCurlOwnTest
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 
 You will see that the module's do function has been executed.
@@ -130,12 +136,14 @@ culprit could be the routing caches:
 
 The routing cache stores the routing information computed from the *_routing*
 collection. Whenever you change this collection manually, you need to call
-
+{% example example="MOD_05_routingModifyReload" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_05_routingModifyReload
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_05_routingModifyReload}
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_05_routingModifyReload
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 in order to rebuild the cache.
 
@@ -148,7 +156,7 @@ For detailed information see the reference manual.
 ### Redirects
 
 Use the following for a permanent redirect:
-
+{% example example="MOD_06a_routingRedirect" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_06a_routingRedirect
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_06a_routingRedirect}
     | db._routing.save({
@@ -164,7 +172,9 @@ Use the following for a permanent redirect:
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_06a_routingRedirect
-
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
+{% example example="MOD_06b_routingCurlRedirect" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_06b_routingCurlRedirect
     @EXAMPLE_ARANGOSH_RUN{MOD_06b_routingCurlRedirect}
     var url = "/redirectMe";
@@ -175,12 +185,14 @@ Use the following for a permanent redirect:
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_RUN
     @endDocuBlock MOD_06b_routingCurlRedirect
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 ### Routing Bundles
 
 Instead of adding all routes for package separately, you can
 specify a bundle:
-
+{% example example="MOD_07a_routingMulti" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_07a_routingMulti
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_07a_routingMulti}
     | db._routing.save({
@@ -202,7 +214,9 @@ specify a bundle:
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_07a_routingMulti
-
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
+{% example example="MOD_07b_routingCurlMulti" examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline MOD_07b_routingCurlMulti
     @EXAMPLE_ARANGOSH_RUN{MOD_07b_routingCurlMulti}
@@ -218,10 +232,12 @@ specify a bundle:
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_RUN
     @endDocuBlock MOD_07b_routingCurlMulti
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 The advantage is, that you can put all your routes into one document
 and use a common prefix.
-
+{% example example="MOD_07c_routingMulti" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_07c_routingMulti
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_07c_routingMulti}
     | db._routing.save({
@@ -244,9 +260,11 @@ and use a common prefix.
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_07c_routingMulti
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 will define the URL */test/url1*, */test/url2*, and */test/url3*:
-
+{% example example="MOD_07d_routingCurlMulti" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_07d_routingCurlMulti
     @EXAMPLE_ARANGOSH_RUN{MOD_07d_routingCurlMulti}
     var url = ["/test/url1", "/test/url2", "/test/url3"];
@@ -261,6 +279,8 @@ will define the URL */test/url1*, */test/url2*, and */test/url3*:
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_RUN
     @endDocuBlock MOD_07d_routingCurlMulti
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 ### Writing Middleware
 
@@ -268,7 +288,7 @@ Assume, you want to log every request in your namespace to the console. *(if Ara
 as a daemon, this will end up in the logfile)*. In this case you can easily define an
 action for the URL */subdirectory*. This action simply logs
 the requests, calls the next in line, and logs the response:
-
+{% example example="MOD_08a_routingCreateOwnConsoleLog" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_08a_routingCreateOwnConsoleLog
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_08a_routingCreateOwnConsoleLog}
     |db._modules.save({
@@ -283,11 +303,13 @@ the requests, calls the next in line, and logs the response:
     });
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_08a_routingCreateOwnConsoleLog
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 This function will now be available as *db://OwnMiddlewareTest/logRequest*. You need to
 tell ArangoDB that it is should use a prefix match and that the shortest match
 should win in this case:
-
+{% example example="MOD_08b_routingCreateRouteToOwnConsoleLog" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_08b_routingCreateRouteToOwnConsoleLog
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_08b_routingCreateRouteToOwnConsoleLog}
     |db._routing.save({
@@ -304,6 +326,8 @@ should win in this case:
     });
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_08b_routingCreateRouteToOwnConsoleLog
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 When you call *next()* in that action, the next specific routing will
 be used for the original URL. Even if you modify the URL in the request
@@ -315,7 +339,7 @@ called without modifying the URL in the request object
 *req*. Otherwise an endless loop will occur.
 
 Now we add some other simple routings to test all this:
-
+{% example example="MOD_08c_routingCreateRouteToOwnConsoleLog" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_08c_routingCreateRouteToOwnConsoleLog
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_08c_routingCreateRouteToOwnConsoleLog}
     |db._routing.save({
@@ -339,9 +363,11 @@ Now we add some other simple routings to test all this:
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_08c_routingCreateRouteToOwnConsoleLog
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 Then we send some curl requests to these sample routes:
-
+{% example example="MOD_08d_routingCurlToOwnConsoleLog" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_08d_routingCurlToOwnConsoleLog
     @EXAMPLE_ARANGOSH_RUN{MOD_08d_routingCurlToOwnConsoleLog}
     var url = ["/subdirectory/ourtest/1",
@@ -360,6 +386,8 @@ Then we send some curl requests to these sample routes:
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_RUN
     @endDocuBlock MOD_08d_routingCurlToOwnConsoleLog
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 and the console (and / or the logfile) will show requests and replies.
 *Note that logging doesn't warrant the sequence in which these lines
@@ -371,7 +399,7 @@ Application Deployment
 Using single routes or [bundles](#routing-bundles) can be
 become a bit messy in large applications. Kaerus has written a [deployment tool](https://github.com/kaerus/arangodep) in node.js.
 
-Note that there is also [Foxx](foxx-readme.html) for building applications
+Note that there is also [Foxx](foxx.html) for building applications
 with ArangoDB.
 
 Common Pitfalls when using Actions
@@ -385,12 +413,14 @@ caching issues.
 
 After any modification to the routing or actions, it is thus recommended to
 make the changes "live" by calling the following functions from within arangosh:
-
+{% example example="MOD_09_routingReload" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_09_routingReload
     @EXAMPLE_ARANGOSH_RUN{MOD_09_routingReload}
     require("internal").reloadRouting();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_09_routingReload
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 You might also be affected by client-side caching.
 Browsers tend to cache content and also redirection URLs. You might need to
@@ -435,7 +465,7 @@ For example, this definition only allows access via *GET* and *HEAD*:
 ```
 
 whereas this definition allows HTTP *GET*, *POST*, and *PUT*:
-
+{% example example="MOD_09a_routingSpecifyMethods" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_09a_routingSpecifyMethods
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_09a_routingSpecifyMethods}
     |db._routing.save({
@@ -450,7 +480,9 @@ whereas this definition allows HTTP *GET*, *POST*, and *PUT*:
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_09a_routingSpecifyMethods
-
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
+{% example example="MOD_09b_routingCurlSpecifyMethods" examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline MOD_09b_routingCurlSpecifyMethods
     @EXAMPLE_ARANGOSH_RUN{MOD_09b_routingCurlSpecifyMethods}
     var url = "/hello/world"
@@ -475,6 +507,8 @@ whereas this definition allows HTTP *GET*, *POST*, and *PUT*:
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_RUN
     @endDocuBlock MOD_09b_routingCurlSpecifyMethods
+{% endexample %}
+{% include example.html id=examplevar short=short long=long %}
 
 The former definition (defining *url* as an object with a *match* attribute)
 will result in the URL being accessible via all supported HTTP methods (e.g.

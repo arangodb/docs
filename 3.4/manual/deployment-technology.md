@@ -4,8 +4,8 @@ layout: default
 ArangoDB Deploying Options by _Technology_
 ==========================================
 
-- [Manually](deployment-manually-readme.html)
-- [ArangoDB Starter](deployment-arango-db-starter-readme.html)
-- [Docker](deployment-docker-readme.html)
-- [Kubernetes](deployment-kubernetes-readme.html)
-- [Mesos, DC/OS](deployment-dcos-readme.html)
+- [Manually](deployment-manually.html)
+- [ArangoDB Starter](deployment-arangodbstarter.html)
+- [Docker](deployment-docker.html)
+- [Kubernetes](deployment-kubernetes.html)
+- [Mesos, DC/OS](deployment-dcos.html)

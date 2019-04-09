@@ -73,18 +73,23 @@ The only thing you have to change in this pipeline is that you create the new co
   In comparison to General Graph we have to add more options when creating the graph. The two options `smartGraphAttribute` and `numberOfShards` are required and cannot be modified later. 
 
 
+    {% example smartGraphCreateGraphHowTo1 %}
+
     @startDocuBlockInline smartGraphCreateGraphHowTo1
       arangosh> var graph_module = require("@arangodb/smart-graph");
       arangosh> var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
       arangosh> graph;
       [ SmartGraph myGraph EdgeDefinitions: [ ] VertexCollections: [ ] ]
     @endDocuBlock smartGraphCreateGraphHowTo1
+    {% endexample %}
 
 
 * Add some vertex collections
 
   This is again identical to General Graph. The module will setup correct sharding for all these collections. *Note*: The collections have to be new.
 
+
+    {% example smartGraphCreateGraphHowTo2 %}
 
     @startDocuBlockInline smartGraphCreateGraphHowTo2
       arangosh> graph._addVertexCollection("shop");
@@ -93,10 +98,13 @@ The only thing you have to change in this pipeline is that you create the new co
       arangosh> graph;
       [ SmartGraph myGraph EdgeDefinitions: [ ] VertexCollections: [ "shop", "customer", "pet" ] ]
     @endDocuBlock smartGraphCreateGraphHowTo2
+    {% endexample %}
 
 
 * Define relations on the Graph
 
+
+    {% example smartGraphCreateGraphHowTo3 %}
 
     @startDocuBlockInline smartGraphCreateGraphHowTo3
       arangosh> var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
@@ -104,3 +112,4 @@ The only thing you have to change in this pipeline is that you create the new co
       arangosh> graph;
       [ SmartGraph myGraph EdgeDefinitions: [   "isCustomer: [shop] -> [customer]" ] VertexCollections: [ "pet" ] ]
     @endDocuBlock smartGraphCreateGraphHowTo3
+    {% endexample %}

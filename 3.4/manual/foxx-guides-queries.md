@@ -6,7 +6,7 @@ Writing queries
 
 ArangoDB provides the `query` template string handler
 (or [template tag](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals))
-to make it easy to write and execute [AQL queries](../../../AQL/index.html)
+to make it easy to write and execute [AQL queries](../aql/index.html)
 in your Foxx services:
 
 ```js
@@ -22,12 +22,12 @@ console.log(oddNumbers); // 1,3,5,7,9,11,13
 
 Any values passed via interpolation (i.e. using the `${expression}` syntax)
 are passed to ArangoDB as
-[AQL bind parameters](../../../AQL/Fundamentals/BindParameters.html),
+[AQL bind parameters](../aql/fundamentals-bindparameters.html),
 so you don't have to worry about escaping them in order to protect against
 injection attacks in user-supplied data.
 
 The result of the executed query is
-[an ArangoDB array cursor](../../../AQL/Invocation/WithArangosh.html#cursors).
+[an ArangoDB array cursor](-aql-invocation-witharangosh.html#cursors).
 You can extract all query results using the `toArray()` method or
 step through the result set using the `next()` method.
 

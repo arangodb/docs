@@ -39,6 +39,8 @@ documents. In this case the next document can be accessed using the
 **Examples**
 
 
+    {% example cursorHasNext %}
+
     @startDocuBlockInline cursorHasNext
     @EXAMPLE_ARANGOSH_OUTPUT{cursorHasNext}
     ~ db._create("five");
@@ -52,6 +54,7 @@ documents. In this case the next document can be accessed using the
     ~ db._drop("five")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock cursorHasNext
+    {% endexample %}
 
 
 Next
@@ -73,6 +76,8 @@ exhausted cursor, then *undefined* is returned.
 **Examples**
 
 
+    {% example cursorNext %}
+
     @startDocuBlockInline cursorNext
     @EXAMPLE_ARANGOSH_OUTPUT{cursorNext}
     ~ db._create("five");
@@ -85,6 +90,7 @@ exhausted cursor, then *undefined* is returned.
     ~ db._drop("five")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock cursorNext
+    {% endexample %}
 
 
 Set Batch size
@@ -130,6 +136,7 @@ The batchSize cannot be adjusted after the query is first executed.
 means of fetching the query results is chosen. The following two approaches
 lead to the same result:
 
+    {% example executeQueryNoBatchSize %}
     @startDocuBlockInline executeQueryNoBatchSize
     @EXAMPLE_ARANGOSH_OUTPUT{executeQueryNoBatchSize}
     ~ db._create("users");
@@ -145,10 +152,12 @@ lead to the same result:
     ~ db._drop("users")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock executeQueryNoBatchSize
+    {% endexample %}
 
 The following two alternatives both use a batchSize and return the same
 result:
 
+    {% example executeQueryBatchSize %}
     @startDocuBlockInline executeQueryBatchSize
     @EXAMPLE_ARANGOSH_OUTPUT{executeQueryBatchSize}
     ~ db._create("users");
@@ -160,6 +169,7 @@ result:
     ~ db._drop("users")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock executeQueryBatchSize
+    {% endexample %}
 
 
 

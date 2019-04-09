@@ -36,8 +36,8 @@ async function migrateMds(basePath, targetPath) {
         content = content.replace(/\]\((?!https?:).*?([^/]+\.png)\)/g, '](images/\$1)');
 
         // docublocks angst
-        content = content.replace(/^((\s*)@startDocuBlockInline\s+([^\s]+))$/mg, "\$2{% example \$3 %}\$1");
-        content = content.replace(/^((\s*)@endDocuBlock\s+([^\s]+))$/mg, "\$1\n\$2{% endexample %}");
+        content = content.replace(/^((\s*)@startDocuBlockInline\s+([^\s]+))$/mg, "{% example example=\"\$3\" examplevar=\"examplevar\" short=\"short\" long=\"long\" %}\$1");
+        content = content.replace(/^((\s*)@endDocuBlock\s+([^\s]+))$/mg, "\$1\n\{% endexample %}\n{% include example.html id=examplevar short=short long=long %}");
 
         return {
             name: fileName,

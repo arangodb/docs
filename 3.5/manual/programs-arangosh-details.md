@@ -10,6 +10,7 @@ Interaction
 You can paste multiple lines into Arangosh, given the first line ends with an
 opening brace:
 
+    {% example shellPaste %}
     @startDocuBlockInline shellPaste
     @EXAMPLE_ARANGOSH_OUTPUT{shellPaste}
     |for (var i = 0; i < 10; i ++) {
@@ -17,6 +18,7 @@ opening brace:
     }
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock shellPaste
+    {% endexample %}
 
 
 To load your own JavaScript code into the current JavaScript interpreter context,
@@ -34,33 +36,40 @@ Shell Output
 The ArangoDB shell will print the output of the last evaluated expression
 by default:
     
+    {% example lastExpressionResult %}    
     @startDocuBlockInline lastExpressionResult
     @EXAMPLE_ARANGOSH_OUTPUT{lastExpressionResult}
     42 * 23
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock lastExpressionResult
+    {% endexample %}
     
 In order to prevent printing the result of the last evaluated expression,
 the expression result can be captured in a variable, e.g.
 
+    {% example lastExpressionResultCaptured %}
     @startDocuBlockInline lastExpressionResultCaptured
     @EXAMPLE_ARANGOSH_OUTPUT{lastExpressionResultCaptured}
     var calculationResult = 42 * 23
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock lastExpressionResultCaptured
+    {% endexample %}
 
 There is also the `print` function to explicitly print out values in the
 ArangoDB shell:
 
+    {% example printFunction %}
     @startDocuBlockInline printFunction
     @EXAMPLE_ARANGOSH_OUTPUT{printFunction}
     print({ a: "123", b: [1,2,3], c: "test" });
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock printFunction
+    {% endexample %}
 
 By default, the ArangoDB shell uses a pretty printer when JSON documents are
 printed. This ensures documents are printed in a human-readable way:
 
+    {% example usingToArray %}
     @startDocuBlockInline usingToArray
     @EXAMPLE_ARANGOSH_OUTPUT{usingToArray}
     db._create("five")
@@ -69,6 +78,7 @@ printed. This ensures documents are printed in a human-readable way:
     ~db._drop("five");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock usingToArray
+    {% endexample %}
 
 While the pretty-printer produces nice looking results, it will need a lot of
 screen space for each document. Sometimes a more dense output might be better.
@@ -103,11 +113,13 @@ current database.
 
 For a list of available methods for the *db* object, type 
     
+    {% example shellHelp %}    
     @startDocuBlockInline shellHelp
     @EXAMPLE_ARANGOSH_OUTPUT{shellHelp}
     db._help(); 
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock shellHelp
+    {% endexample %}
   
 The [`db` object](appendix-references-db-object.html) is available in *arangosh*
 as well as on *arangod* i.e. if you're using [Foxx](foxx-readme.html). While its

@@ -414,6 +414,7 @@ details, including the index-identifier, is returned.
 
 Create a geo index for an array attribute:
 
+    {% example geoIndexCreateForArrayAttribute1 %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute1
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute1}
     ~db._create("geo")
@@ -429,9 +430,11 @@ Create a geo index for an array attribute:
     ~db._drop("geo")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexCreateForArrayAttribute1
+    {% endexample %}
 
 Create a geo index for a hash array attribute:
 
+    {% example geoIndexCreateForArrayAttribute2 %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute2
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute2}
     ~db._drop("geo2")
@@ -446,9 +449,11 @@ Create a geo index for a hash array attribute:
     ~db._drop("geo2")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexCreateForArrayAttribute2
+    {% endexample %}
 
 Use GeoIndex with AQL SORT statement:
 
+    {% example geoIndexSortOptimization %}
     @startDocuBlockInline geoIndexSortOptimization
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexSortOptimization}
     ~db._create("geoSort")
@@ -464,9 +469,11 @@ Use GeoIndex with AQL SORT statement:
     ~db._drop("geoSort")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexSortOptimization
+    {% endexample %}
 
 Use GeoIndex with AQL FILTER statement:
 
+    {% example geoIndexFilterOptimization %}
     @startDocuBlockInline geoIndexFilterOptimization
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexFilterOptimization}
     ~db._create("geoFilter")
@@ -482,6 +489,7 @@ Use GeoIndex with AQL FILTER statement:
     ~db._drop("geoFilter")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexFilterOptimization
+    {% endexample %}
 
 
 <!-- js/common/modules/@arangodb/arango-collection-common.js-->

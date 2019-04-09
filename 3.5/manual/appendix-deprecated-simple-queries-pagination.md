@@ -40,6 +40,8 @@ unclear which documents will be included in the result set.
 **Examples**
 
 
+    {% example queryLimit %}
+
     @startDocuBlockInline queryLimit
     @EXAMPLE_ARANGOSH_OUTPUT{queryLimit}
     ~ db._create("five");
@@ -53,6 +55,7 @@ unclear which documents will be included in the result set.
     ~ db._drop("five")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock queryLimit
+    {% endexample %}
 
 
 
@@ -78,6 +81,8 @@ will not be supported in future versions of ArangoDB.
 **Examples**
 
 
+    {% example querySkip %}
+
     @startDocuBlockInline querySkip
     @EXAMPLE_ARANGOSH_OUTPUT{querySkip}
     ~ db._create("five");
@@ -91,10 +96,12 @@ will not be supported in future versions of ArangoDB.
     ~ db._drop("five")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock querySkip
+    {% endexample %}
 
 
 Ignore any limit with count:
 
+    {% example cursorCountUnLimited %}
     @startDocuBlockInline cursorCountUnLimited
     @EXAMPLE_ARANGOSH_OUTPUT{cursorCountUnLimited}
     ~ db._create("five");
@@ -107,9 +114,11 @@ Ignore any limit with count:
     ~ db._drop("five")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock cursorCountUnLimited
+    {% endexample %}
 
 Counting any limit or skip:
 
+    {% example cursorCountLimit %}
     @startDocuBlockInline cursorCountLimit
     @EXAMPLE_ARANGOSH_OUTPUT{cursorCountLimit}
     ~ db._create("five");
@@ -122,3 +131,4 @@ Counting any limit or skip:
     ~ db._drop("five")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock cursorCountLimit
+    {% endexample %}

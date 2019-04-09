@@ -16,8 +16,8 @@ Serving files
 
 The most flexible way to serve files in your Foxx service is to simply
 pass them through in your router using
-the [context object's `fileName` method](../Reference/Context.md#filename) and
-the [response object's `sendFile` method](../Reference/Routers/Response.md#sendfile):
+the [context object's `fileName` method](foxx-reference-context.html#filename) and
+the [response object's `sendFile` method](foxx-reference-routers-response.html#sendfile):
 
 ```js
 router.get("/some/filename.png", function(req, res) {

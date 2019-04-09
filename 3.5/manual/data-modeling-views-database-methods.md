@@ -13,6 +13,7 @@ View
 
 Returns the view with the given name or null if no such view exists.
 
+    {% example viewDatabaseGet %}
     @startDocuBlockInline viewDatabaseGet
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseGet}
     ~ db._createView("example", "arangosearch", {});
@@ -22,6 +23,7 @@ Returns the view with the given name or null if no such view exists.
     ~ db._dropView("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseGet
+    {% endexample %}
 
 `db._view(view-identifier)`
 
@@ -34,19 +36,23 @@ access views using the view name.
 
 Get a view by name:
 
+    {% example viewDatabaseNameKnown %}
     @startDocuBlockInline viewDatabaseNameKnown
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseNameKnown}
       db._view("demoView");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseNameKnown
+    {% endexample %}
 
 Unknown view:
 
+    {% example viewDatabaseNameUnknown %}
     @startDocuBlockInline viewDatabaseNameUnknown
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseNameUnknown}
       db._view("unknown");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseNameUnknown
+    {% endexample %}
 
 
 Create
@@ -75,6 +81,7 @@ details.
 
 **Examples**
 
+    {% example viewDatabaseCreate %}
     @startDocuBlockInline viewDatabaseCreate
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseCreate}
       v = db._createView("example", "arangosearch");
@@ -82,6 +89,7 @@ details.
       db._dropView("example")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseCreate
+    {% endexample %}
 
 
 All Views
@@ -98,6 +106,7 @@ Returns all views of the given database.
 
 List all views:
 
+    {% example viewDatabaseList %}
     @startDocuBlockInline viewDatabaseList
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseList}
     ~ db._createView("exampleView", "arangosearch");
@@ -105,6 +114,7 @@ List all views:
     ~ db._dropView("exampleView");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseList
+    {% endexample %}
 
 Drop
 ----
@@ -125,6 +135,7 @@ thrown if there is no such view.
 
 Drop a view:
 
+    {% example viewDatabaseDrop %}
     @startDocuBlockInline viewDatabaseDrop
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseDrop}
       db._createView("exampleView", "arangosearch");
@@ -132,3 +143,4 @@ Drop a view:
       db._view("exampleView");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseDrop
+    {% endexample %}

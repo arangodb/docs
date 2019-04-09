@@ -13,7 +13,7 @@ Creating a storage
 
 `collectionStorage(options): Storage`
 
-Creates a [Storage](foxx-reference-sessions-storages-readme.html) that can be used in the sessions middleware.
+Creates a [Storage](foxx-reference-sessions-storages.html) that can be used in the sessions middleware.
 
 **Arguments**
 

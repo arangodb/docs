@@ -82,7 +82,7 @@ Add more nodes.
 
     Solution:
 Use `kubectl get persistentvolumes` to inspect the available `PersistentVolumes`
-and if needed, use the [`ArangoLocalStorage` operator](deployment-kubernetes-storage-resource.html) to provision `PersistentVolumes`.
+and if needed, use the [`ArangoLocalStorage` operator](deployment-kubernetes-storageresource.html) to provision `PersistentVolumes`.
 
 ### When restarting a `Node`, the `Pods` scheduled on that node remain in `Terminating` state
 

@@ -17,5 +17,5 @@ you want to make changes to the ArangoDB source.
 
 On Windows you first [need to allow and enable symlinks for your user](https://github.com/git-for-windows/git/wiki/Symbolic-Links#allowing-non-administrators-to-create-symbolic-links). 
 
-Please checkout the [cookbook](../../Cookbook/Compiling/index.html) on how to
+Please checkout the [cookbook](../cookbook/compiling-index.html) on how to
 compile ArangoDB.

@@ -24,7 +24,7 @@ Creating a transport
 
 `headerTransport([options]): Transport`
 
-Creates a [Transport](foxx-reference-sessions-transports-readme.html) that can be used in the sessions middleware.
+Creates a [Transport](foxx-reference-sessions-transports.html) that can be used in the sessions middleware.
 
 **Arguments**
 

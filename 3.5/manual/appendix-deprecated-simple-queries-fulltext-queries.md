@@ -44,6 +44,8 @@ way for executing fulltext queries is to use an AQL query using the *FULLTEXT*
 **Examples**
 
 
+    {% example collectionFulltext %}
+
     @startDocuBlockInline collectionFulltext
     @EXAMPLE_ARANGOSH_OUTPUT{collectionFulltext}
     ~ db._drop("emails");
@@ -58,6 +60,7 @@ way for executing fulltext queries is to use an AQL query using the *FULLTEXT*
     ~ db._drop("emails");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionFulltext
+    {% endexample %}
 
 
 Syntax

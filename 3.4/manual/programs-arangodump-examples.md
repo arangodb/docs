@@ -29,7 +29,7 @@ or use authentication, you can use the following command-line options:
 - `--server.authentication <bool>`: whether or not to use authentication
 
 Here's an example of dumping data from a non-standard endpoint, using a dedicated
-[database name](../../Appendix/Glossary.md#database-name):
+[database name](appendix-glossary.html#database-name):
 
     arangodump --server.endpoint tcp://192.168.173.13:8531 --server.username backup --server.database mydb --output-directory "dump"
 
@@ -91,7 +91,7 @@ version of the ArangoDB server it connects to.
 ### Advanced Cluster Options
 
 Starting with version 3.1.17, collections may be [created with shard
-distribution](../../DataModeling/Collections/DatabaseMethods.md#create)
+distribution](datamodeling-collections-databasemethods.html#create)
 identical to an existing prototypical collection; i.e. shards are distributed in
 the very same pattern as in the prototype collection. Such collections cannot be
 dumped without the referenced collection or arangodump yields an error.
@@ -115,7 +115,7 @@ individually:
     Processed 1 collection(s), wrote 34217 byte(s) into datafiles, sent 1 batch(es)
 
 Note that in consequence, restoring such a collection without its prototype is
-affected. See documentation on [arangorestore](programs-arangorestore-readme.html) for
+affected. See documentation on [arangorestore](programs-arangorestore.html) for
 more details about restoring the collection.
 
 Encryption

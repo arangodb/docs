@@ -24,7 +24,7 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
 
-url: "http://www.arangodb.com" # the base hostname & protocol for your site
+url: "http://arangodb-docs.mop.aries.uberspace.de" # the base hostname & protocol for your site
 plugins:
   - jekyll-sitemap
 
@@ -49,6 +49,8 @@ exclude:
   - vendor/ruby/
   - scripts
   - Dockerfile
+  - 3.5/DocuBlocks/
+  - 3.4/DocuBlocks/
 
 versions:
   stable: "3.4"

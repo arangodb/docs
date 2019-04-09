@@ -24,6 +24,7 @@ first.
 
 **Examples**
 
+    {% example collectionDrop %}
     @startDocuBlockInline collectionDrop
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDrop}
     ~ db._create("example");
@@ -33,7 +34,9 @@ first.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDrop
+    {% endexample %}
 
+    {% example collectionDropSystem %}
     @startDocuBlockInline collectionDropSystem
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDropSystem}
     ~ db._create("_example", { isSystem: true });
@@ -43,6 +46,7 @@ first.
     ~ db._drop("example", { isSystem: true });
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDropSystem
+    {% endexample %}
 
 
 Truncate
@@ -63,6 +67,7 @@ indexes.
 
 Truncates a collection:
 
+    {% example collectionTruncate %}
     @startDocuBlockInline collectionTruncate
     @EXAMPLE_ARANGOSH_OUTPUT{collectionTruncate}
     ~ db._create("example");
@@ -74,6 +79,7 @@ Truncates a collection:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionTruncate
+    {% endexample %}
 
 
 Compact
@@ -208,12 +214,15 @@ used as a lower bound approximation of the disk usage.
 **Examples**
 
 
+    {% example collectionFigures %}
+
     @startDocuBlockInline collectionFigures
     @EXAMPLE_ARANGOSH_OUTPUT{collectionFigures}
     ~ require("internal").wal.flush(true, true);
       db.demo.figures()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionFigures
+    {% endexample %}
 
 
 
@@ -233,6 +242,8 @@ Loads a collection into memory.
 **Examples**
 
 
+    {% example collectionLoad %}
+
     @startDocuBlockInline collectionLoad
     @EXAMPLE_ARANGOSH_OUTPUT{collectionLoad}
     ~ db._create("example");
@@ -242,6 +253,7 @@ Loads a collection into memory.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionLoad
+    {% endexample %}
 
 
 Revision
@@ -324,6 +336,8 @@ until all query have finished.
 **Examples**
 
 
+    {% example CollectionUnload %}
+
     @startDocuBlockInline CollectionUnload
     @EXAMPLE_ARANGOSH_OUTPUT{CollectionUnload}
     ~ db._create("example");
@@ -333,6 +347,7 @@ until all query have finished.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock CollectionUnload
+    {% endexample %}
 
 
 Rename
@@ -360,6 +375,8 @@ database.
 **Examples**
 
 
+    {% example collectionRename %}
+
     @startDocuBlockInline collectionRename
     @EXAMPLE_ARANGOSH_OUTPUT{collectionRename}
     ~ db._create("example");
@@ -369,6 +386,7 @@ database.
     ~ db._drop("better-example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionRename
+    {% endexample %}
 
 
 Rotate

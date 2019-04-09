@@ -74,11 +74,13 @@ to grant the access rights for one or more databases using
 
 *Examples*
 
+    {% example USER_02_saveUser %}
     @startDocuBlockInline USER_02_saveUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_02_saveUser}
     require('@arangodb/users').save('my-user', 'my-secret-password');
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_02_saveUser
+    {% endexample %}
 
 Grant Database
 --------------
@@ -144,11 +146,13 @@ database.
 
 *Examples*
 
+    {% example USER_03_replaceUser %}
     @startDocuBlockInline USER_03_replaceUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_03_replaceUser}
     require("@arangodb/users").replace("my-user", "my-changed-password");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_03_replaceUser
+    {% endexample %}
 
 Update
 ------
@@ -171,11 +175,13 @@ database.
 
 *Examples*
 
+    {% example USER_04_updateUser %}
     @startDocuBlockInline USER_04_updateUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_04_updateUser}
     require("@arangodb/users").update("my-user", "my-secret-password");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_04_updateUser
+    {% endexample %}
 
 isValid
 -------
@@ -191,11 +197,13 @@ amount of time.
 
 *Examples*
 
+    {% example USER_05_isValidUser %}
     @startDocuBlockInline USER_05_isValidUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_05_isValidUser}
     require("@arangodb/users").isValid("my-user", "my-secret-password");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_05_isValidUser
+    {% endexample %}
 
 Remove
 ------
@@ -211,11 +219,13 @@ This method will fail if the user cannot be found in the database.
 
 *Examples*
 
+    {% example USER_07_removeUser %}
     @startDocuBlockInline USER_07_removeUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_07_removeUser}
     require("@arangodb/users").remove("my-user");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_07_removeUser
+    {% endexample %}
 
 Document
 --------
@@ -230,11 +240,13 @@ This method will fail if the user cannot be found in the database.
 
 *Examples*
 
+    {% example USER_04_documentUser %}
     @startDocuBlockInline USER_04_documentUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_04_documentUser}
     require("@arangodb/users").document("my-user");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_04_documentUser
+    {% endexample %}
 
 All
 ---
@@ -245,11 +257,13 @@ Fetches all existing ArangoDB users from the database.
 
 *Examples*
 
+    {% example USER_06_AllUsers %}
     @startDocuBlockInline USER_06_AllUsers
     @EXAMPLE_ARANGOSH_OUTPUT{USER_06_AllUsers}
     require("@arangodb/users").all();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_06_AllUsers
+    {% endexample %}
 
 Reload
 ------
@@ -264,11 +278,13 @@ automatically, and this can be performed by a call to this method.
 
 *Examples*
 
+    {% example USER_03_reloadUser %}
     @startDocuBlockInline USER_03_reloadUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_03_reloadUser}
     require("@arangodb/users").reload();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_03_reloadUser
+    {% endexample %}
 
 
 Permission
@@ -285,11 +301,13 @@ This method will fail if the user cannot be found in the database.
 
 *Examples*
 
+    {% example USER_05_permission %}
     @startDocuBlockInline USER_05_permission
     @EXAMPLE_ARANGOSH_OUTPUT{USER_05_permission}
     ~ require("@arangodb/users").grantDatabase("my-user", "testdb");
     require("@arangodb/users").permission("my-user", "testdb");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_05_permission
+    {% endexample %}
 
 

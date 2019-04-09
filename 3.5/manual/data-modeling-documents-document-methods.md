@@ -22,6 +22,7 @@ can be limited using the *skip* and *limit* operator.
 
 Use *toArray* to get all documents at once:
 
+    {% example 001_collectionAll %}
     @startDocuBlockInline 001_collectionAll
     @EXAMPLE_ARANGOSH_OUTPUT{001_collectionAll}
     ~ db._create("five");
@@ -34,9 +35,11 @@ Use *toArray* to get all documents at once:
     ~ db._drop("five");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 001_collectionAll
+    {% endexample %}
 
 Use *limit* to restrict the documents:
 
+    {% example 002_collectionAllNext %}
     @startDocuBlockInline 002_collectionAllNext
     @EXAMPLE_ARANGOSH_OUTPUT{002_collectionAllNext}
     ~ db._create("five");
@@ -49,6 +52,7 @@ Use *limit* to restrict the documents:
     ~ db._drop("five");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 002_collectionAllNext
+    {% endexample %}
 
 
 
@@ -120,6 +124,7 @@ As alternative you can supply an array of paths and values.
 
 Use *toArray* to get all documents at once:
 
+    {% example 003_collectionByExample %}
     @startDocuBlockInline 003_collectionByExample
     @EXAMPLE_ARANGOSH_OUTPUT{003_collectionByExample}
     ~ db._create("users");
@@ -133,10 +138,12 @@ Use *toArray* to get all documents at once:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 003_collectionByExample
+    {% endexample %}
 
 
 Use *next* to loop over all documents:
 
+    {% example 004_collectionByExampleNext %}
     @startDocuBlockInline 004_collectionByExampleNext
     @EXAMPLE_ARANGOSH_OUTPUT{004_collectionByExampleNext}
     ~ db._create("users");
@@ -148,6 +155,7 @@ Use *next* to loop over all documents:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 004_collectionByExampleNext
+    {% endexample %}
 
 First Example
 -------------
@@ -170,6 +178,8 @@ As alternative you can supply an array of paths and values.
 **Examples**
 
 
+    {% example collectionFirstExample %}
+
     @startDocuBlockInline collectionFirstExample
     @EXAMPLE_ARANGOSH_OUTPUT{collectionFirstExample}
     ~ db._create("users");
@@ -180,6 +190,7 @@ As alternative you can supply an array of paths and values.
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionFirstExample
+    {% endexample %}
 
 
 
@@ -217,6 +228,7 @@ FOR doc IN @@collection
 
 Use *toArray* to get all documents at once:
 
+    {% example 005_collectionRange %}
     @startDocuBlockInline 005_collectionRange
     @EXAMPLE_ARANGOSH_OUTPUT{005_collectionRange}
     ~ db._create("old");
@@ -228,6 +240,7 @@ Use *toArray* to get all documents at once:
     ~ db._drop("old")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 005_collectionRange
+    {% endexample %}
 
 
 Closed range
@@ -264,6 +277,7 @@ FOR doc IN @@collection
 
 Use *toArray* to get all documents at once:
 
+    {% example 006_collectionClosedRange %}
     @startDocuBlockInline 006_collectionClosedRange
     @EXAMPLE_ARANGOSH_OUTPUT{006_collectionClosedRange}
     ~ db._create("old");
@@ -275,6 +289,7 @@ Use *toArray* to get all documents at once:
     ~ db._drop("old")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 006_collectionClosedRange
+    {% endexample %}
 
 
 Any
@@ -305,6 +320,8 @@ Returns the number of living documents in the collection.
 **Examples**
 
 
+    {% example collectionCount %}
+
     @startDocuBlockInline collectionCount
     @EXAMPLE_ARANGOSH_OUTPUT{collectionCount}
     ~ db._create("users");
@@ -312,6 +329,7 @@ Returns the number of living documents in the collection.
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionCount
+    {% endexample %}
 
 
 
@@ -377,6 +395,7 @@ an error object is returned in the result array.
 
 Returns the document for a document-handle:
 
+    {% example documentsCollectionNameValidPlain %}
     @startDocuBlockInline documentsCollectionNameValidPlain
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameValidPlain}
     ~ db._create("example");
@@ -385,9 +404,11 @@ Returns the document for a document-handle:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionNameValidPlain
+    {% endexample %}
 
 Returns the document for a document-key:
 
+    {% example documentsCollectionNameValidByKey %}
     @startDocuBlockInline documentsCollectionNameValidByKey
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameValidByKey}
     ~ db._create("example");
@@ -396,9 +417,11 @@ Returns the document for a document-key:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionNameValidByKey
+    {% endexample %}
 
 Returns the document for an object:
 
+    {% example documentsCollectionNameValidByObject %}
     @startDocuBlockInline documentsCollectionNameValidByObject
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameValidByObject}
     ~ db._create("example");
@@ -407,9 +430,11 @@ Returns the document for an object:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionNameValidByObject
+    {% endexample %}
 
 Returns the document for an array of two keys:
 
+    {% example documentsCollectionNameValidMulti %}
     @startDocuBlockInline documentsCollectionNameValidMulti
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameValidMulti}
     ~ db._create("example");
@@ -419,9 +444,11 @@ Returns the document for an array of two keys:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionNameValidMulti
+    {% endexample %}
 
 An error is raised if the document is unknown:
 
+    {% example documentsCollectionNameUnknown %}
     @startDocuBlockInline documentsCollectionNameUnknown
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameUnknown}
     ~ db._create("example");
@@ -430,9 +457,11 @@ An error is raised if the document is unknown:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionNameUnknown
+    {% endexample %}
 
 An error is raised if the handle is invalid:
 
+    {% example documentsCollectionNameHandle %}
     @startDocuBlockInline documentsCollectionNameHandle
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameHandle}
     ~ db._create("example");
@@ -440,6 +469,7 @@ An error is raised if the handle is invalid:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionNameHandle
+    {% endexample %}
 
 **Changes in 3.0 from 2.8:**
 
@@ -518,6 +548,8 @@ This method is deprecated in favour of the array variant of *document*.
 **Examples**
 
 
+    {% example collectionLookupByKeys %}
+
     @startDocuBlockInline collectionLookupByKeys
     @EXAMPLE_ARANGOSH_OUTPUT{collectionLookupByKeys}
     ~ db._drop("example");
@@ -531,6 +563,7 @@ This method is deprecated in favour of the array variant of *document*.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionLookupByKeys
+    {% endexample %}
 
 
 Insert / Save
@@ -603,6 +636,8 @@ multiple documents with one call.
 **Examples**
 
 
+    {% example documentsCollectionInsertSingle %}
+
     @startDocuBlockInline documentsCollectionInsertSingle
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionInsertSingle}
     ~ db._create("example");
@@ -611,7 +646,9 @@ multiple documents with one call.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionInsertSingle
+    {% endexample %}
 
+    {% example documentsCollectionInsertMulti %}
     @startDocuBlockInline documentsCollectionInsertMulti
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionInsertMulti}
     ~ db._create("example");
@@ -620,7 +657,9 @@ multiple documents with one call.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionInsertMulti
+    {% endexample %}
 
+    {% example documentsCollectionInsertSingleOverwrite %}
     @startDocuBlockInline documentsCollectionInsertSingleOverwrite
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionInsertSingleOverwrite}
     ~ db._create("example");
@@ -629,6 +668,7 @@ multiple documents with one call.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionInsertSingleOverwrite
+    {% endexample %}
 
 
 Replace
@@ -710,6 +750,7 @@ result array. The options behave exactly as before.
 
 Create and update a document:
 
+    {% example documentsCollectionReplace1 %}
     @startDocuBlockInline documentsCollectionReplace1
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionReplace1}
     ~ db._create("example");
@@ -719,9 +760,11 @@ Create and update a document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionReplace1
+    {% endexample %}
 
 Use a document handle:
 
+    {% example documentsCollectionReplaceHandle %}
     @startDocuBlockInline documentsCollectionReplaceHandle
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionReplaceHandle}
     ~ db._create("example");
@@ -731,6 +774,7 @@ Use a document handle:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionReplaceHandle
+    {% endexample %}
 
 **Changes in 3.0 from 2.8:**
 
@@ -826,6 +870,7 @@ result array. The options behave exactly as before.
 
 Create and update a document:
 
+    {% example documentsCollection_UpdateDocument %}
     @startDocuBlockInline documentsCollection_UpdateDocument
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateDocument}
     ~ db._create("example");
@@ -839,9 +884,11 @@ Create and update a document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollection_UpdateDocument
+    {% endexample %}
 
 Use a document handle:
 
+    {% example documentsCollection_UpdateHandleSingle %}
     @startDocuBlockInline documentsCollection_UpdateHandleSingle
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateHandleSingle}
     ~ db._create("example");
@@ -851,9 +898,11 @@ Use a document handle:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollection_UpdateHandleSingle
+    {% endexample %}
 
 Use the keepNull parameter to remove attributes with null values:
 
+    {% example documentsCollection_UpdateHandleKeepNull %}
     @startDocuBlockInline documentsCollection_UpdateHandleKeepNull
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateHandleKeepNull}
     ~ db._create("example");
@@ -870,9 +919,11 @@ Use the keepNull parameter to remove attributes with null values:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollection_UpdateHandleKeepNull
+    {% endexample %}
 
 Patching array values:
 
+    {% example documentsCollection_UpdateHandleArray %}
     @startDocuBlockInline documentsCollection_UpdateHandleArray
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateHandleArray}
     ~ db._create("example");
@@ -889,6 +940,7 @@ Patching array values:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollection_UpdateHandleArray
+    {% endexample %}
 
 
 **Changes in 3.0 from 2.8:**
@@ -970,6 +1022,7 @@ exactly as before.
 
 Remove a document:
 
+    {% example documentDocumentRemoveSimple %}
     @startDocuBlockInline documentDocumentRemoveSimple
     @EXAMPLE_ARANGOSH_OUTPUT{documentDocumentRemoveSimple}
     ~ db._create("example");
@@ -980,9 +1033,11 @@ Remove a document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentDocumentRemoveSimple
+    {% endexample %}
 
 Remove a document with a conflict:
 
+    {% example documentDocumentRemoveConflict %}
     @startDocuBlockInline documentDocumentRemoveConflict
     @EXAMPLE_ARANGOSH_OUTPUT{documentDocumentRemoveConflict}
     ~ db._create("example");
@@ -994,6 +1049,7 @@ Remove a document with a conflict:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentDocumentRemoveConflict
+    {% endexample %}
 
 **Changes in 3.0 from 2.8:**
 
@@ -1027,6 +1083,8 @@ This method is deprecated in favour of the array variant of *remove*.
 **Examples**
 
 
+    {% example collectionRemoveByKeys %}
+
     @startDocuBlockInline collectionRemoveByKeys
     @EXAMPLE_ARANGOSH_OUTPUT{collectionRemoveByKeys}
     ~ db._drop("example");
@@ -1040,6 +1098,7 @@ This method is deprecated in favour of the array variant of *remove*.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionRemoveByKeys
+    {% endexample %}
 
 
 Remove By Example
@@ -1076,6 +1135,8 @@ removed.
 **Examples**
 
 
+    {% example 010_documentsCollectionRemoveByExample %}
+
     @startDocuBlockInline 010_documentsCollectionRemoveByExample
     @EXAMPLE_ARANGOSH_OUTPUT{010_documentsCollectionRemoveByExample}
     ~ db._create("example");
@@ -1084,6 +1145,7 @@ removed.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 010_documentsCollectionRemoveByExample
+    {% endexample %}
 
 
 Replace By Example
@@ -1123,6 +1185,8 @@ replaced.
 **Examples**
 
 
+    {% example 011_documentsCollectionReplaceByExample %}
+
     @startDocuBlockInline 011_documentsCollectionReplaceByExample
     @EXAMPLE_ARANGOSH_OUTPUT{011_documentsCollectionReplaceByExample}
     ~ db._create("example");
@@ -1131,6 +1195,7 @@ replaced.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 011_documentsCollectionReplaceByExample
+    {% endexample %}
 
 
 Update By Example
@@ -1189,6 +1254,8 @@ an object with the following sub-attributes:
 **Examples**
 
 
+    {% example 012_documentsCollectionUpdateByExample %}
+
     @startDocuBlockInline 012_documentsCollectionUpdateByExample
     @EXAMPLE_ARANGOSH_OUTPUT{012_documentsCollectionUpdateByExample}
     ~ db._create("example");
@@ -1198,6 +1265,7 @@ an object with the following sub-attributes:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 012_documentsCollectionUpdateByExample
+    {% endexample %}
 
 
 Collection type
@@ -1222,11 +1290,14 @@ database.
 **Examples**
 
 
+    {% example dbVersion %}
+
     @startDocuBlockInline dbVersion
     @EXAMPLE_ARANGOSH_OUTPUT{dbVersion}
       require("@arangodb").db._version();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock dbVersion
+    {% endexample %}
 
 Edges
 -----
@@ -1246,6 +1317,7 @@ The *edges* operator finds all edges starting from (outbound) or ending
 in (inbound) a document from *vertices*, which must be a list of documents
 or document handles.
 
+    {% example EDGCOL_02_Relation %}
     @startDocuBlockInline EDGCOL_02_Relation
     @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_Relation}
       db._create("vertex");
@@ -1261,6 +1333,7 @@ or document handles.
     ~ db._drop("vertex");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock EDGCOL_02_Relation
+    {% endexample %}
 
 `edge-collection.inEdges(vertex)`
 
@@ -1273,6 +1346,7 @@ The *edges* operator finds all edges ending in (inbound) a document from
 
 **Examples**
 
+    {% example EDGCOL_02_inEdges %}
     @startDocuBlockInline EDGCOL_02_inEdges
     @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_inEdges}
       db._create("vertex");
@@ -1289,6 +1363,7 @@ The *edges* operator finds all edges ending in (inbound) a document from
     ~ db._drop("vertex");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock EDGCOL_02_inEdges
+    {% endexample %}
 
 `edge-collection.outEdges(vertex)`
 
@@ -1303,6 +1378,7 @@ from *vertices*, which must a list of documents or document handles.
 
 **Examples**
 
+    {% example EDGCOL_02_outEdges %}
     @startDocuBlockInline EDGCOL_02_outEdges
     @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_outEdges}
       db._create("vertex");
@@ -1319,6 +1395,7 @@ from *vertices*, which must a list of documents or document handles.
     ~ db._drop("vertex");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock EDGCOL_02_outEdges
+    {% endexample %}
 
 Misc
 ----
@@ -1339,6 +1416,7 @@ as second argument.
 
 **Examples**
 
+    {% example accessViaGeoIndex %}
     @startDocuBlockInline accessViaGeoIndex
     @EXAMPLE_ARANGOSH_OUTPUT{accessViaGeoIndex}
     ~db._create("example")
@@ -1356,3 +1434,4 @@ as second argument.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock accessViaGeoIndex
+    {% endexample %}

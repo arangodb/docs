@@ -77,7 +77,7 @@ The service context specifies the following properties:
 
 * **isDevelopment**: `boolean`
 
-  Indicates whether the service is running in [development mode](foxx-readme.html).
+  Indicates whether the service is running in [development mode](foxx.html).
 
 * **isProduction**: `boolean`
 
