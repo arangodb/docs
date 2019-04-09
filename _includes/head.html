@@ -16,4 +16,6 @@
     {%- if jekyll.environment == 'production' and site.google_analytics -%}
       {%- include google-analytics.html -%}
     {%- endif -%}
+    <title>{{ page.title }}</title>
+    <og:type>{{ page.ogtype }} </og:type>
   </head>

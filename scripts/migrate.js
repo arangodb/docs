@@ -21,7 +21,6 @@ async function migrateMds(basePath, targetPath) {
         }
         // replace all md links with their changed link
         content = content.replace(/\]\((?!https?:)(.*\.(html|md))(#[^\)]+)?\)/g, (x, link, fileExt, anchor) => {
-            const oldLink = link;
             if (!link.startsWith('/')) {
                 link = path.join(path.dirname(relative), link);
             }
@@ -34,10 +33,15 @@ async function migrateMds(basePath, targetPath) {
         content = content.replace(/\]\(-([^-]+)-([^\.]+)\.html\)/g, '](../\$1/\$2.html)');
         // replace all LOCAL images with images/IMAGEBASEPATH
         content = content.replace(/\]\((?!https?:).*?([^/]+\.png)\)/g, '](images/\$1)');
-
-        // docublocks angst
-        content = content.replace(/^((\s*)@startDocuBlockInline\s+([^\s]+))$/mg, "{% example example=\"\$3\" examplevar=\"examplevar\" short=\"short\" long=\"long\" %}\$1");
-        content = content.replace(/^((\s*)@endDocuBlock\s+([^\s]+))$/mg, "\$1\n\{% endexample %}\n{% include example.html id=examplevar short=short long=long %}");
+        
+        content = content.replace(/^\s*@startDocuBlockInline.*?@endDocuBlock[^\n$]+\n/msg, (block) => {
+            if (block.match(/@EXAMPLE_ARANGOSH.*/s)) {
+                return `{% arangoshexample examplevar=\"examplevar\" short=\"short\" long=\"long\" %}${block}{% endarangoshexample %}\n{% include arangoshexample.html id=examplevar short=short long=long %}`;
+            } else if (block.match(/@EXAMPLE_AQL.*/s)) {
+                return `{% aqlexample examplevar=\"examplevar\" short=\"short\" long=\"long\" %}${block}{% endaqlexample %}\n{% include aqlexample.html id=examplevar short=short long=long %}`;
+            }
+            return block;
+        });
 
         return {
             name: fileName,
