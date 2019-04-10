@@ -22,7 +22,7 @@ function parseNode(window, node) {
         const link = changeLink(a.href.replace('http://127.0.0.1:4000/3.4/', '')).replace(/\.md$/,'.html');
 
         // css selectors fail here because it is apparently? impossible to fetch only immediate children :S
-        const xpathResultIterator = window.document.evaluate('ul/li', node, null, window.XPathResult.ANY_TYPE);
+        const xpathResultIterator = window.document.evaluate('ul', node, null, window.XPathResult.ANY_TYPE);
         let children = [];
         var thisNode = xpathResultIterator.iterateNext();
         
@@ -71,33 +71,68 @@ function parseNode(window, node) {
     // }, {children: []});
 }
 
-const converter = new showdown.Converter({disableForced4SpacesIndentedSublists: true});
-const content = fs.readFileSync(filename).toString().split('\n').filter(line => !line.match(/^\s*<!--\s*SYNC.*$/g)).join('\n');
+const content = fs.readFileSync(filename).toString().split('\n').filter(line => !line.match(/^\s*<!--\s*SYNC.*$/g));
 
-const html = converter.makeHtml(content);
+const parse = (lines) => {
+    let stack = [];
 
-const { JSDOM } = jsdom;
-const dom = new JSDOM(html);
+    let current = [];
+    let currentIndent = 0;
+    while (lines.length > 0) {
+        const line = lines.shift();
+        if (line.match(/^\s*$/)) {
+            continue;
+        }
+        const [_, spaces, item] = line.match(/^(\s*)(.*)/);
+        let localIndent = spaces.length;
+        if (localIndent > currentIndent) {
+            let newItem = [];
 
+            current[current.length - 1].children = newItem;
+            stack.push({
+                item: current,
+                indent: localIndent - currentIndent,
+            });
+            current = newItem;
 
-const result = Array.from(dom.window.document.body.childNodes).reduce((result, node) => {
-    if (node.tagName == "H2") {
-        result.push(
-            {
-                "subtitle": node.textContent,
+            currentIndent = localIndent;
+        } else if (localIndent < currentIndent) {
+            while (localIndent < currentIndent) {
+                const stackItem = stack.pop();
+                
+                current = stackItem.item;
+                currentIndent -= stackItem.indent;
             }
-        );
-    } else if (node.tagName == "HR") {
-        result.push({
-            divider: true,
-        });
-    } else if (node.tagName == "UL") {
-        // ignore first UL...just take children directly
-        result = result.concat(Array.from(node.childNodes).map(node => parseNode(dom.window, node))).filter(node => node);
+        }
+        let result;
+        if (result = item.match(/^#\s*Summary(.*)/)) {
+            continue;
+        } else if (result = item.match(/^##\s*(.*)/)) {
+            const [_, subtitle] = result;
+            current.push({
+                subtitle,
+            });
+        } else if (item.match(/^---$/)) {
+            current.push({
+                "divider": true,
+            })
+        } else if (result = item.match(/^\*\s*\[([^\]]+)\]\((.*)\)/)) {
+            const [_, text, href] = result;
+            current.push({
+                href: changeLink(href.replace('http://127.0.0.1:4000/3.4/', '')).replace(/\.md$/,'.html'),
+                text,
+                children: [],
+            })
+        } else {
+            throw new Error("Unexpected line " + line);
+        }
     }
-    return result;
-}, []);
 
-console.log(JSON.stringify(result, undefined, "  "));
+    while (stack.length > 0) {
+        let stackItem = stack.pop();
+        current = stackItem.item;
+    }
+    return current;
+};
 
-// console.log(JSON.stringify(parseNode(dom.window, dom.window.document.body.querySelectorAll(":scope > ul")), undefined, '  '));
+console.log(JSON.stringify(parse(content), null, 2));

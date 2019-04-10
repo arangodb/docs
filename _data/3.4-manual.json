@@ -70,22 +70,23 @@
       {
         "href": "tutorials-kubernetes.html",
         "text": "Kubernetes",
-        "children": []
-      },
-      {
-        "href": "tutorials-kubernetes-eks.html",
-        "text": "Amazon EKS",
-        "children": []
-      },
-      {
-        "href": "tutorials-kubernetes-gke.html",
-        "text": "Google GKE",
-        "children": []
-      },
-      {
-        "href": "tutorials-kubernetes-aks.html",
-        "text": "Azure AKS",
-        "children": []
+        "children": [
+          {
+            "href": "tutorials-kubernetes-eks.html",
+            "text": "Amazon EKS",
+            "children": []
+          },
+          {
+            "href": "tutorials-kubernetes-gke.html",
+            "text": "Google GKE",
+            "children": []
+          },
+          {
+            "href": "tutorials-kubernetes-aks.html",
+            "text": "Azure AKS",
+            "children": []
+          }
+        ]
       },
       {
         "href": "tutorials-kubernetes-dc2dc.html",
@@ -101,363 +102,375 @@
       {
         "href": "programs-arangod.html",
         "text": "ArangoDB Server",
-        "children": []
-      },
-      {
-        "href": "programs-arangod-options.html",
-        "text": "Options",
         "children": [
           {
-            "href": "programs-arangod-global.html",
-            "text": "Global",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-agency.html",
-            "text": "Agency",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-arangosearch.html",
-            "text": "ArangoSearch",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-audit.html",
-            "text": "Audit",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-cache.html",
-            "text": "Cache",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-cluster.html",
-            "text": "Cluster",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-compaction.html",
-            "text": "Compaction",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-database.html",
-            "text": "Database",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-foxx.html",
-            "text": "Foxx",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-frontend.html",
-            "text": "Frontend",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-http.html",
-            "text": "HTTP",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-javascript.html",
-            "text": "JavaScript",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-ldap.html",
-            "text": "LDAP",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-log.html",
-            "text": "Log",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-nonce.html",
-            "text": "Nonce",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-query.html",
-            "text": "Query",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-random.html",
-            "text": "Random",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-replication.html",
-            "text": "Replication",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-rocksdb.html",
-            "text": "RocksDB",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-server.html",
-            "text": "Server",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-ssl.html",
-            "text": "SSL",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-tcp.html",
-            "text": "TCP",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-temp.html",
-            "text": "Temp",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-vst.html",
-            "text": "VST",
-            "children": []
-          },
-          {
-            "href": "programs-arangod-wal.html",
-            "text": "WAL",
-            "children": []
+            "href": "programs-arangod-options.html",
+            "text": "Options",
+            "children": [
+              {
+                "href": "programs-arangod-global.html",
+                "text": "Global",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-agency.html",
+                "text": "Agency",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-arangosearch.html",
+                "text": "ArangoSearch",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-audit.html",
+                "text": "Audit",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-cache.html",
+                "text": "Cache",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-cluster.html",
+                "text": "Cluster",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-compaction.html",
+                "text": "Compaction",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-database.html",
+                "text": "Database",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-foxx.html",
+                "text": "Foxx",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-frontend.html",
+                "text": "Frontend",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-http.html",
+                "text": "HTTP",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-javascript.html",
+                "text": "JavaScript",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-ldap.html",
+                "text": "LDAP",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-log.html",
+                "text": "Log",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-nonce.html",
+                "text": "Nonce",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-query.html",
+                "text": "Query",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-random.html",
+                "text": "Random",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-replication.html",
+                "text": "Replication",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-rocksdb.html",
+                "text": "RocksDB",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-server.html",
+                "text": "Server",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-ssl.html",
+                "text": "SSL",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-tcp.html",
+                "text": "TCP",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-temp.html",
+                "text": "Temp",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-vst.html",
+                "text": "VST",
+                "children": []
+              },
+              {
+                "href": "programs-arangod-wal.html",
+                "text": "WAL",
+                "children": []
+              }
+            ]
           }
         ]
       },
       {
         "href": "programs-webinterface.html",
         "text": "Web Interface",
-        "children": []
-      },
-      {
-        "href": "programs-webinterface-dashboard.html",
-        "text": "Dashboard",
-        "children": []
-      },
-      {
-        "href": "programs-webinterface-cluster.html",
-        "text": "Cluster",
-        "children": []
-      },
-      {
-        "href": "programs-webinterface-collections.html",
-        "text": "Collections",
-        "children": []
-      },
-      {
-        "href": "programs-webinterface-document.html",
-        "text": "Document",
-        "children": []
-      },
-      {
-        "href": "programs-webinterface-aqleditor.html",
-        "text": "Queries",
-        "children": []
-      },
-      {
-        "href": "programs-webinterface-graphs.html",
-        "text": "Graphs",
-        "children": []
-      },
-      {
-        "href": "programs-webinterface-services.html",
-        "text": "Services",
-        "children": []
-      },
-      {
-        "href": "programs-webinterface-users.html",
-        "text": "Users",
-        "children": []
-      },
-      {
-        "href": "programs-webinterface-logs.html",
-        "text": "Logs",
-        "children": []
+        "children": [
+          {
+            "href": "programs-webinterface-dashboard.html",
+            "text": "Dashboard",
+            "children": []
+          },
+          {
+            "href": "programs-webinterface-cluster.html",
+            "text": "Cluster",
+            "children": []
+          },
+          {
+            "href": "programs-webinterface-collections.html",
+            "text": "Collections",
+            "children": []
+          },
+          {
+            "href": "programs-webinterface-document.html",
+            "text": "Document",
+            "children": []
+          },
+          {
+            "href": "programs-webinterface-aqleditor.html",
+            "text": "Queries",
+            "children": []
+          },
+          {
+            "href": "programs-webinterface-graphs.html",
+            "text": "Graphs",
+            "children": []
+          },
+          {
+            "href": "programs-webinterface-services.html",
+            "text": "Services",
+            "children": []
+          },
+          {
+            "href": "programs-webinterface-users.html",
+            "text": "Users",
+            "children": []
+          },
+          {
+            "href": "programs-webinterface-logs.html",
+            "text": "Logs",
+            "children": []
+          }
+        ]
       },
       {
         "href": "programs-arangosh.html",
         "text": "ArangoDB Shell",
-        "children": []
-      },
-      {
-        "href": "programs-arangosh-examples.html",
-        "text": "Examples",
-        "children": []
-      },
-      {
-        "href": "programs-arangosh-details.html",
-        "text": "Details",
-        "children": []
-      },
-      {
-        "href": "programs-arangosh-options.html",
-        "text": "Options",
-        "children": []
+        "children": [
+          {
+            "href": "programs-arangosh-examples.html",
+            "text": "Examples",
+            "children": []
+          },
+          {
+            "href": "programs-arangosh-details.html",
+            "text": "Details",
+            "children": []
+          },
+          {
+            "href": "programs-arangosh-options.html",
+            "text": "Options",
+            "children": []
+          }
+        ]
       },
       {
         "href": "programs-starter.html",
         "text": "ArangoDB Starter",
-        "children": []
-      },
-      {
-        "href": "programs-starter-options.html",
-        "text": "Options",
-        "children": []
-      },
-      {
-        "href": "programs-starter-security.html",
-        "text": "Security",
-        "children": []
-      },
-      {
-        "href": "programs-starter-architecture.html",
-        "text": "Architecture",
-        "children": []
+        "children": [
+          {
+            "href": "programs-starter-options.html",
+            "text": "Options",
+            "children": []
+          },
+          {
+            "href": "programs-starter-security.html",
+            "text": "Security",
+            "children": []
+          },
+          {
+            "href": "programs-starter-architecture.html",
+            "text": "Architecture",
+            "children": []
+          }
+        ]
       },
       {
         "href": "programs-arangodump.html",
         "text": "Arangodump",
-        "children": []
-      },
-      {
-        "href": "programs-arangodump-examples.html",
-        "text": "Examples",
-        "children": []
-      },
-      {
-        "href": "programs-arangodump-options.html",
-        "text": "Options",
-        "children": []
-      },
-      {
-        "href": "programs-arangodump-maskings.html",
-        "text": "Maskings",
-        "children": []
-      },
-      {
-        "href": "programs-arangodump-limitations.html",
-        "text": "Limitations",
-        "children": []
+        "children": [
+          {
+            "href": "programs-arangodump-examples.html",
+            "text": "Examples",
+            "children": []
+          },
+          {
+            "href": "programs-arangodump-options.html",
+            "text": "Options",
+            "children": []
+          },
+          {
+            "href": "programs-arangodump-maskings.html",
+            "text": "Maskings",
+            "children": []
+          },
+          {
+            "href": "programs-arangodump-limitations.html",
+            "text": "Limitations",
+            "children": []
+          }
+        ]
       },
       {
         "href": "programs-arangorestore.html",
         "text": "Arangorestore",
-        "children": []
-      },
-      {
-        "href": "programs-arangorestore-examples.html",
-        "text": "Examples",
-        "children": []
-      },
-      {
-        "href": "programs-arangorestore-fastclusterrestore.html",
-        "text": "Fast Cluster Restore",
-        "children": []
-      },
-      {
-        "href": "programs-arangorestore-options.html",
-        "text": "Options",
-        "children": []
+        "children": [
+          {
+            "href": "programs-arangorestore-examples.html",
+            "text": "Examples",
+            "children": []
+          },
+          {
+            "href": "programs-arangorestore-fastclusterrestore.html",
+            "text": "Fast Cluster Restore",
+            "children": []
+          },
+          {
+            "href": "programs-arangorestore-options.html",
+            "text": "Options",
+            "children": []
+          }
+        ]
       },
       {
         "href": "programs-arangoimport.html",
         "text": "Arangoimport",
-        "children": []
-      },
-      {
-        "href": "programs-arangoimport-examplesjson.html",
-        "text": "Examples JSON",
-        "children": []
-      },
-      {
-        "href": "programs-arangoimport-examplescsv.html",
-        "text": "Examples CSV",
-        "children": []
-      },
-      {
-        "href": "programs-arangoimport-details.html",
-        "text": "Details",
-        "children": []
-      },
-      {
-        "href": "programs-arangoimport-options.html",
-        "text": "Options",
-        "children": []
+        "children": [
+          {
+            "href": "programs-arangoimport-examplesjson.html",
+            "text": "Examples JSON",
+            "children": []
+          },
+          {
+            "href": "programs-arangoimport-examplescsv.html",
+            "text": "Examples CSV",
+            "children": []
+          },
+          {
+            "href": "programs-arangoimport-details.html",
+            "text": "Details",
+            "children": []
+          },
+          {
+            "href": "programs-arangoimport-options.html",
+            "text": "Options",
+            "children": []
+          }
+        ]
       },
       {
         "href": "programs-arangoexport.html",
         "text": "Arangoexport",
-        "children": []
-      },
-      {
-        "href": "programs-arangoexport-examples.html",
-        "text": "Examples",
-        "children": []
-      },
-      {
-        "href": "programs-arangoexport-options.html",
-        "text": "Options",
-        "children": []
+        "children": [
+          {
+            "href": "programs-arangoexport-examples.html",
+            "text": "Examples",
+            "children": []
+          },
+          {
+            "href": "programs-arangoexport-options.html",
+            "text": "Options",
+            "children": []
+          }
+        ]
       },
       {
         "href": "programs-arangobench.html",
         "text": "Arangobench",
-        "children": []
-      },
-      {
-        "href": "programs-arangobench-examples.html",
-        "text": "Examples",
-        "children": []
-      },
-      {
-        "href": "programs-arangobench-options.html",
-        "text": "Options",
-        "children": []
+        "children": [
+          {
+            "href": "programs-arangobench-examples.html",
+            "text": "Examples",
+            "children": []
+          },
+          {
+            "href": "programs-arangobench-options.html",
+            "text": "Options",
+            "children": []
+          }
+        ]
       },
       {
         "href": "programs-arangoinspect.html",
         "text": "Arangoinspect",
-        "children": []
-      },
-      {
-        "href": "programs-arangoinspect-examples.html",
-        "text": "Examples",
-        "children": []
-      },
-      {
-        "href": "programs-arangoinspect-options.html",
-        "text": "Options",
-        "children": []
+        "children": [
+          {
+            "href": "programs-arangoinspect-examples.html",
+            "text": "Examples",
+            "children": []
+          },
+          {
+            "href": "programs-arangoinspect-options.html",
+            "text": "Options",
+            "children": []
+          }
+        ]
       },
       {
         "href": "programs-arango-dfdb.html",
         "text": "Datafile Debugger",
-        "children": []
-      },
-      {
-        "href": "programs-arango-dfdb-examples.html",
-        "text": "Examples",
-        "children": []
+        "children": [
+          {
+            "href": "programs-arango-dfdb-examples.html",
+            "text": "Examples",
+            "children": []
+          }
+        ]
       },
       {
         "href": "programs-foxxcli.html",
         "text": "Foxx CLI",
-        "children": []
-      },
-      {
-        "href": "programs-foxxcli-details.html",
-        "text": "Details",
-        "children": []
+        "children": [
+          {
+            "href": "programs-foxxcli-details.html",
+            "text": "Details",
+            "children": []
+          }
+        ]
       }
     ]
   },
@@ -476,52 +489,55 @@
       {
         "href": "datamodeling-databases.html",
         "text": "Databases",
-        "children": []
-      },
-      {
-        "href": "datamodeling-databases-workingwith.html",
-        "text": "Working with Databases",
-        "children": []
-      },
-      {
-        "href": "datamodeling-databases-notes.html",
-        "text": "Notes about Databases",
-        "children": []
+        "children": [
+          {
+            "href": "datamodeling-databases-workingwith.html",
+            "text": "Working with Databases",
+            "children": []
+          },
+          {
+            "href": "datamodeling-databases-notes.html",
+            "text": "Notes about Databases",
+            "children": []
+          }
+        ]
       },
       {
         "href": "datamodeling-collections.html",
         "text": "Collections",
-        "children": []
-      },
-      {
-        "href": "datamodeling-collections-collectionmethods.html",
-        "text": "Collection Methods",
-        "children": []
-      },
-      {
-        "href": "datamodeling-collections-databasemethods.html",
-        "text": "Database Methods",
-        "children": []
+        "children": [
+          {
+            "href": "datamodeling-collections-collectionmethods.html",
+            "text": "Collection Methods",
+            "children": []
+          },
+          {
+            "href": "datamodeling-collections-databasemethods.html",
+            "text": "Database Methods",
+            "children": []
+          }
+        ]
       },
       {
         "href": "datamodeling-documents.html",
         "text": "Documents",
-        "children": []
-      },
-      {
-        "href": "datamodeling-documents-documentaddress.html",
-        "text": "Basics and Terminology",
-        "children": []
-      },
-      {
-        "href": "datamodeling-documents-documentmethods.html",
-        "text": "Collection Methods",
-        "children": []
-      },
-      {
-        "href": "datamodeling-documents-databasemethods.html",
-        "text": "Database Methods",
-        "children": []
+        "children": [
+          {
+            "href": "datamodeling-documents-documentaddress.html",
+            "text": "Basics and Terminology",
+            "children": []
+          },
+          {
+            "href": "datamodeling-documents-documentmethods.html",
+            "text": "Collection Methods",
+            "children": []
+          },
+          {
+            "href": "datamodeling-documents-databasemethods.html",
+            "text": "Database Methods",
+            "children": []
+          }
+        ]
       },
       {
         "href": "datamodeling-graphsverticesedges.html",
@@ -531,42 +547,44 @@
       {
         "href": "datamodeling-views.html",
         "text": "Views",
-        "children": []
-      },
-      {
-        "href": "datamodeling-views-databasemethods.html",
-        "text": "Database Methods",
-        "children": []
-      },
-      {
-        "href": "datamodeling-views-viewmethods.html",
-        "text": "View Methods",
-        "children": []
+        "children": [
+          {
+            "href": "datamodeling-views-databasemethods.html",
+            "text": "Database Methods",
+            "children": []
+          },
+          {
+            "href": "datamodeling-views-viewmethods.html",
+            "text": "View Methods",
+            "children": []
+          }
+        ]
       },
       {
         "href": "datamodeling-namingconventions.html",
         "text": "Naming Conventions",
-        "children": []
-      },
-      {
-        "href": "datamodeling-namingconventions-databasenames.html",
-        "text": "Database Names",
-        "children": []
-      },
-      {
-        "href": "datamodeling-namingconventions-collectionandviewnames.html",
-        "text": "Collection and View Names",
-        "children": []
-      },
-      {
-        "href": "datamodeling-namingconventions-documentkeys.html",
-        "text": "Document Keys",
-        "children": []
-      },
-      {
-        "href": "datamodeling-namingconventions-attributenames.html",
-        "text": "Attribute Names",
-        "children": []
+        "children": [
+          {
+            "href": "datamodeling-namingconventions-databasenames.html",
+            "text": "Database Names",
+            "children": []
+          },
+          {
+            "href": "datamodeling-namingconventions-collectionandviewnames.html",
+            "text": "Collection and View Names",
+            "children": []
+          },
+          {
+            "href": "datamodeling-namingconventions-documentkeys.html",
+            "text": "Document Keys",
+            "children": []
+          },
+          {
+            "href": "datamodeling-namingconventions-attributenames.html",
+            "text": "Attribute Names",
+            "children": []
+          }
+        ]
       },
       {
         "href": "datamodeling-operationalfactors.html",
@@ -597,37 +615,38 @@
       {
         "href": "indexing-workingwithindexes.html",
         "text": "Working with Indexes",
-        "children": []
-      },
-      {
-        "href": "indexing-hash.html",
-        "text": "Hash Indexes",
-        "children": []
-      },
-      {
-        "href": "indexing-skiplist.html",
-        "text": "Skiplists",
-        "children": []
-      },
-      {
-        "href": "indexing-persistent.html",
-        "text": "Persistent",
-        "children": []
-      },
-      {
-        "href": "indexing-fulltext.html",
-        "text": "Fulltext Indexes",
-        "children": []
-      },
-      {
-        "href": "indexing-geo.html",
-        "text": "Geo-spatial Indexes",
-        "children": []
-      },
-      {
-        "href": "indexing-vertexcentric.html",
-        "text": "Vertex Centric Indexes",
-        "children": []
+        "children": [
+          {
+            "href": "indexing-hash.html",
+            "text": "Hash Indexes",
+            "children": []
+          },
+          {
+            "href": "indexing-skiplist.html",
+            "text": "Skiplists",
+            "children": []
+          },
+          {
+            "href": "indexing-persistent.html",
+            "text": "Persistent",
+            "children": []
+          },
+          {
+            "href": "indexing-fulltext.html",
+            "text": "Fulltext Indexes",
+            "children": []
+          },
+          {
+            "href": "indexing-geo.html",
+            "text": "Geo-spatial Indexes",
+            "children": []
+          },
+          {
+            "href": "indexing-vertexcentric.html",
+            "text": "Vertex Centric Indexes",
+            "children": []
+          }
+        ]
       }
     ]
   },
@@ -669,42 +688,45 @@
       {
         "href": "graphs-generalgraphs.html",
         "text": "General Graphs",
-        "children": []
-      },
-      {
-        "href": "graphs-generalgraphs-management.html",
-        "text": "Graph Management",
-        "children": []
-      },
-      {
-        "href": "graphs-generalgraphs-functions.html",
-        "text": "Graph Functions",
-        "children": []
+        "children": [
+          {
+            "href": "graphs-generalgraphs-management.html",
+            "text": "Graph Management",
+            "children": []
+          },
+          {
+            "href": "graphs-generalgraphs-functions.html",
+            "text": "Graph Functions",
+            "children": []
+          }
+        ]
       },
       {
         "href": "graphs-smartgraphs.html",
         "text": "SmartGraphs",
-        "children": []
-      },
-      {
-        "href": "graphs-smartgraphs-management.html",
-        "text": "SmartGraph Management",
-        "children": []
+        "children": [
+          {
+            "href": "graphs-smartgraphs-management.html",
+            "text": "SmartGraph Management",
+            "children": []
+          }
+        ]
       },
       {
         "href": "graphs-traversals.html",
         "text": "Traversals",
-        "children": []
-      },
-      {
-        "href": "graphs-traversals-usingtraversalobjects.html",
-        "text": "Using Traversal Objects",
-        "children": []
-      },
-      {
-        "href": "graphs-traversals-exampledata.html",
-        "text": "Example Data",
-        "children": []
+        "children": [
+          {
+            "href": "graphs-traversals-usingtraversalobjects.html",
+            "text": "Using Traversal Objects",
+            "children": []
+          },
+          {
+            "href": "graphs-traversals-exampledata.html",
+            "text": "Example Data",
+            "children": []
+          }
+        ]
       },
       {
         "href": "graphs-edges.html",
@@ -754,89 +776,90 @@
       {
         "href": "architecture-deploymentmodes.html",
         "text": "ArangoDB Deployment Modes",
-        "children": []
-      },
-      {
-        "href": "architecture-deploymentmodes-singleinstance.html",
-        "text": "Single Instance",
-        "children": []
-      },
-      {
-        "href": "architecture-deploymentmodes-masterslave.html",
-        "text": "Master/Slave",
         "children": [
           {
-            "href": "architecture-deploymentmodes-masterslave-architecture.html",
-            "text": "Architecture",
+            "href": "architecture-deploymentmodes-singleinstance.html",
+            "text": "Single Instance",
             "children": []
           },
           {
-            "href": "architecture-deploymentmodes-masterslave-limitations.html",
-            "text": "Limitations",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "architecture-deploymentmodes-activefailover.html",
-        "text": "Active Failover",
-        "children": [
-          {
-            "href": "architecture-deploymentmodes-activefailover-architecture.html",
-            "text": "Architecture",
-            "children": []
+            "href": "architecture-deploymentmodes-masterslave.html",
+            "text": "Master/Slave",
+            "children": [
+              {
+                "href": "architecture-deploymentmodes-masterslave-architecture.html",
+                "text": "Architecture",
+                "children": []
+              },
+              {
+                "href": "architecture-deploymentmodes-masterslave-limitations.html",
+                "text": "Limitations",
+                "children": []
+              }
+            ]
           },
           {
-            "href": "architecture-deploymentmodes-activefailover-limitations.html",
-            "text": "Limitations",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "architecture-deploymentmodes-cluster.html",
-        "text": "Cluster",
-        "children": [
-          {
-            "href": "architecture-deploymentmodes-cluster-architecture.html",
-            "text": "Architecture",
-            "children": []
+            "href": "architecture-deploymentmodes-activefailover.html",
+            "text": "Active Failover",
+            "children": [
+              {
+                "href": "architecture-deploymentmodes-activefailover-architecture.html",
+                "text": "Architecture",
+                "children": []
+              },
+              {
+                "href": "architecture-deploymentmodes-activefailover-limitations.html",
+                "text": "Limitations",
+                "children": []
+              }
+            ]
           },
           {
-            "href": "architecture-deploymentmodes-cluster-datamodels.html",
-            "text": "Data models",
-            "children": []
+            "href": "architecture-deploymentmodes-cluster.html",
+            "text": "Cluster",
+            "children": [
+              {
+                "href": "architecture-deploymentmodes-cluster-architecture.html",
+                "text": "Architecture",
+                "children": []
+              },
+              {
+                "href": "architecture-deploymentmodes-cluster-datamodels.html",
+                "text": "Data models",
+                "children": []
+              },
+              {
+                "href": "architecture-deploymentmodes-cluster-limitations.html",
+                "text": "Limitations",
+                "children": []
+              }
+            ]
           },
           {
-            "href": "architecture-deploymentmodes-cluster-limitations.html",
-            "text": "Limitations",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "architecture-deploymentmodes-dc2dc.html",
-        "text": "Datacenter to datacenter replication",
-        "children": [
-          {
-            "href": "architecture-deploymentmodes-dc2dc-introduction.html",
-            "text": "Introduction",
-            "children": []
-          },
-          {
-            "href": "architecture-deploymentmodes-dc2dc-applicability.html",
-            "text": "Applicability",
-            "children": []
-          },
-          {
-            "href": "architecture-deploymentmodes-dc2dc-requirements.html",
-            "text": "Requirements",
-            "children": []
-          },
-          {
-            "href": "architecture-deploymentmodes-dc2dc-limitations.html",
-            "text": "Limitations",
-            "children": []
+            "href": "architecture-deploymentmodes-dc2dc.html",
+            "text": "Datacenter to datacenter replication",
+            "children": [
+              {
+                "href": "architecture-deploymentmodes-dc2dc-introduction.html",
+                "text": "Introduction",
+                "children": []
+              },
+              {
+                "href": "architecture-deploymentmodes-dc2dc-applicability.html",
+                "text": "Applicability",
+                "children": []
+              },
+              {
+                "href": "architecture-deploymentmodes-dc2dc-requirements.html",
+                "text": "Requirements",
+                "children": []
+              },
+              {
+                "href": "architecture-deploymentmodes-dc2dc-limitations.html",
+                "text": "Limitations",
+                "children": []
+              }
+            ]
           }
         ]
       },
@@ -874,193 +897,197 @@
       {
         "href": "foxx-guides.html",
         "text": "Guides",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-routing.html",
-        "text": "Working with routers",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-collections.html",
-        "text": "Working with collections",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-queries.html",
-        "text": "Writing queries",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-developmentmode.html",
-        "text": "Development mode",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-testing.html",
-        "text": "Testing Foxx services",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-cluster.html",
-        "text": "Foxx in a cluster",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-scripts.html",
-        "text": "Scripts and scheduling",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-bundlednodemodules.html",
-        "text": "Using Node modules",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-webpack.html",
-        "text": "Using Webpack with Foxx",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-auth.html",
-        "text": "Authentication and sessions",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-dependencies.html",
-        "text": "Linking services together",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-files.html",
-        "text": "Working with files",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-makingrequests.html",
-        "text": "Making requests",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-browser.html",
-        "text": "Access from the browser",
-        "children": []
-      },
-      {
-        "href": "foxx-guides-legacymode.html",
-        "text": "Working with 2.x services",
-        "children": []
+        "children": [
+          {
+            "href": "foxx-guides-routing.html",
+            "text": "Working with routers",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-collections.html",
+            "text": "Working with collections",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-queries.html",
+            "text": "Writing queries",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-developmentmode.html",
+            "text": "Development mode",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-testing.html",
+            "text": "Testing Foxx services",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-cluster.html",
+            "text": "Foxx in a cluster",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-scripts.html",
+            "text": "Scripts and scheduling",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-bundlednodemodules.html",
+            "text": "Using Node modules",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-webpack.html",
+            "text": "Using Webpack with Foxx",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-auth.html",
+            "text": "Authentication and sessions",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-dependencies.html",
+            "text": "Linking services together",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-files.html",
+            "text": "Working with files",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-makingrequests.html",
+            "text": "Making requests",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-browser.html",
+            "text": "Access from the browser",
+            "children": []
+          },
+          {
+            "href": "foxx-guides-legacymode.html",
+            "text": "Working with 2.x services",
+            "children": []
+          }
+        ]
       },
       {
         "href": "foxx-reference.html",
         "text": "Reference",
-        "children": []
-      },
-      {
-        "href": "foxx-reference-manifest.html",
-        "text": "Service manifest",
-        "children": []
-      },
-      {
-        "href": "foxx-reference-context.html",
-        "text": "Service context",
-        "children": []
-      },
-      {
-        "href": "foxx-reference-configuration.html",
-        "text": "Configuration",
-        "children": []
-      },
-      {
-        "href": "foxx-reference-routers.html",
-        "text": "Routers",
         "children": [
           {
-            "href": "foxx-reference-routers-endpoints.html",
-            "text": "Endpoints",
+            "href": "foxx-reference-manifest.html",
+            "text": "Service manifest",
             "children": []
           },
           {
-            "href": "foxx-reference-routers-middleware.html",
-            "text": "Middleware",
+            "href": "foxx-reference-context.html",
+            "text": "Service context",
             "children": []
           },
           {
-            "href": "foxx-reference-routers-request.html",
-            "text": "Request",
+            "href": "foxx-reference-configuration.html",
+            "text": "Configuration",
             "children": []
           },
           {
-            "href": "foxx-reference-routers-response.html",
-            "text": "Response",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "foxx-reference-sessions.html",
-        "text": "Sessions middleware",
-        "children": [
-          {
-            "href": "foxx-reference-sessions-storages.html",
-            "text": "Session storages",
-            "children": []
+            "href": "foxx-reference-routers.html",
+            "text": "Routers",
+            "children": [
+              {
+                "href": "foxx-reference-routers-endpoints.html",
+                "text": "Endpoints",
+                "children": []
+              },
+              {
+                "href": "foxx-reference-routers-middleware.html",
+                "text": "Middleware",
+                "children": []
+              },
+              {
+                "href": "foxx-reference-routers-request.html",
+                "text": "Request",
+                "children": []
+              },
+              {
+                "href": "foxx-reference-routers-response.html",
+                "text": "Response",
+                "children": []
+              }
+            ]
           },
           {
-            "href": "foxx-reference-sessions-storages-collection.html",
-            "text": "Collection storage",
-            "children": []
+            "href": "foxx-reference-sessions.html",
+            "text": "Sessions middleware",
+            "children": [
+              {
+                "href": "foxx-reference-sessions-storages.html",
+                "text": "Session storages",
+                "children": [
+                  {
+                    "href": "foxx-reference-sessions-storages-collection.html",
+                    "text": "Collection storage",
+                    "children": []
+                  },
+                  {
+                    "href": "foxx-reference-sessions-storages-jwt.html",
+                    "text": "JWT storage",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "href": "foxx-reference-sessions-transports.html",
+                "text": "Session transports",
+                "children": [
+                  {
+                    "href": "foxx-reference-sessions-transports-cookie.html",
+                    "text": "Cookie transport",
+                    "children": []
+                  },
+                  {
+                    "href": "foxx-reference-sessions-transports-header.html",
+                    "text": "Header transport",
+                    "children": []
+                  }
+                ]
+              }
+            ]
           },
           {
-            "href": "foxx-reference-sessions-storages-jwt.html",
-            "text": "JWT storage",
-            "children": []
-          },
-          {
-            "href": "foxx-reference-sessions-transports.html",
-            "text": "Session transports",
-            "children": []
-          },
-          {
-            "href": "foxx-reference-sessions-transports-cookie.html",
-            "text": "Cookie transport",
-            "children": []
-          },
-          {
-            "href": "foxx-reference-sessions-transports-header.html",
-            "text": "Header transport",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "foxx-reference-modules.html",
-        "text": "Related modules",
-        "children": [
-          {
-            "href": "foxx-reference-modules-auth.html",
-            "text": "Authentication",
-            "children": []
-          },
-          {
-            "href": "foxx-reference-modules-oauth1.html",
-            "text": "OAuth 1.0a",
-            "children": []
-          },
-          {
-            "href": "foxx-reference-modules-oauth2.html",
-            "text": "OAuth 2.0",
-            "children": []
-          },
-          {
-            "href": "foxx-reference-modules-graphql.html",
-            "text": "GraphQL",
-            "children": []
-          },
-          {
-            "href": "foxx-reference-modules-queues.html",
-            "text": "Queues",
-            "children": []
+            "href": "foxx-reference-modules.html",
+            "text": "Related modules",
+            "children": [
+              {
+                "href": "foxx-reference-modules-auth.html",
+                "text": "Authentication",
+                "children": []
+              },
+              {
+                "href": "foxx-reference-modules-oauth1.html",
+                "text": "OAuth 1.0a",
+                "children": []
+              },
+              {
+                "href": "foxx-reference-modules-oauth2.html",
+                "text": "OAuth 2.0",
+                "children": []
+              },
+              {
+                "href": "foxx-reference-modules-graphql.html",
+                "text": "GraphQL",
+                "children": []
+              },
+              {
+                "href": "foxx-reference-modules-queues.html",
+                "text": "Queues",
+                "children": []
+              }
+            ]
           }
         ]
       },
@@ -1072,78 +1099,79 @@
       {
         "href": "foxx-migrating2x.html",
         "text": "Migrating 2.x services",
-        "children": []
-      },
-      {
-        "href": "foxx-migrating2x-wayback.html",
-        "text": "Migrating from pre-2.8",
-        "children": []
-      },
-      {
-        "href": "foxx-migrating2x-manifest.html",
-        "text": "manifest.json",
-        "children": []
-      },
-      {
-        "href": "foxx-migrating2x-context.html",
-        "text": "applicationContext",
-        "children": []
-      },
-      {
-        "href": "foxx-migrating2x-repositories.html",
-        "text": "Repositories and Models",
-        "children": []
-      },
-      {
-        "href": "foxx-migrating2x-controllers.html",
-        "text": "Controllers",
         "children": [
           {
-            "href": "foxx-migrating2x-controllers-endpoints.html",
-            "text": "Request context",
+            "href": "foxx-migrating2x-wayback.html",
+            "text": "Migrating from pre-2.8",
             "children": []
           },
           {
-            "href": "foxx-migrating2x-controllers-errors.html",
-            "text": "Error handling",
+            "href": "foxx-migrating2x-manifest.html",
+            "text": "manifest.json",
             "children": []
           },
           {
-            "href": "foxx-migrating2x-controllers-middleware.html",
-            "text": "Before/After/Around",
+            "href": "foxx-migrating2x-context.html",
+            "text": "applicationContext",
             "children": []
           },
           {
-            "href": "foxx-migrating2x-controllers-request.html",
-            "text": "Request object",
+            "href": "foxx-migrating2x-repositories.html",
+            "text": "Repositories and Models",
             "children": []
           },
           {
-            "href": "foxx-migrating2x-controllers-response.html",
-            "text": "Response object",
+            "href": "foxx-migrating2x-controllers.html",
+            "text": "Controllers",
+            "children": [
+              {
+                "href": "foxx-migrating2x-controllers-endpoints.html",
+                "text": "Request context",
+                "children": []
+              },
+              {
+                "href": "foxx-migrating2x-controllers-errors.html",
+                "text": "Error handling",
+                "children": []
+              },
+              {
+                "href": "foxx-migrating2x-controllers-middleware.html",
+                "text": "Before/After/Around",
+                "children": []
+              },
+              {
+                "href": "foxx-migrating2x-controllers-request.html",
+                "text": "Request object",
+                "children": []
+              },
+              {
+                "href": "foxx-migrating2x-controllers-response.html",
+                "text": "Response object",
+                "children": []
+              },
+              {
+                "href": "foxx-migrating2x-controllers-ioc.html",
+                "text": "Dependency Injection",
+                "children": []
+              }
+            ]
+          },
+          {
+            "href": "foxx-migrating2x-sessions.html",
+            "text": "Sessions",
             "children": []
           },
           {
-            "href": "foxx-migrating2x-controllers-ioc.html",
-            "text": "Dependency Injection",
+            "href": "foxx-migrating2x-auth.html",
+            "text": "Auth and OAuth2",
+            "children": []
+          },
+          {
+            "href": "foxx-migrating2x-queries.html",
+            "text": "Foxx Queries",
             "children": []
           }
         ]
-      },
-      {
-        "href": "foxx-migrating2x-sessions.html",
-        "text": "Sessions",
-        "children": []
-      },
-      {
-        "href": "foxx-migrating2x-auth.html",
-        "text": "Auth and OAuth2",
-        "children": []
-      },
-      {
-        "href": "foxx-migrating2x-queries.html",
-        "text": "Foxx Queries",
-        "children": []
       }
     ]
   },
@@ -1167,17 +1195,18 @@
       {
         "href": "installation-linux.html",
         "text": "Linux",
-        "children": []
-      },
-      {
-        "href": "installation-linuxosconfiguration.html",
-        "text": "Operating System Configuration",
-        "children": []
-      },
-      {
-        "href": "installation-linuxostuningscripts.html",
-        "text": "Linux OS Tuning Script Examples",
-        "children": []
+        "children": [
+          {
+            "href": "installation-linuxosconfiguration.html",
+            "text": "Operating System Configuration",
+            "children": []
+          },
+          {
+            "href": "installation-linuxostuningscripts.html",
+            "text": "Linux OS Tuning Script Examples",
+            "children": []
+          }
+        ]
       },
       {
         "href": "installation-macosx.html",
@@ -1208,259 +1237,263 @@
       {
         "href": "deployment-modes.html",
         "text": "By ArangoDB Deployment Modes",
-        "children": []
-      },
-      {
-        "href": "deployment-singleinstance.html",
-        "text": "Single Instance",
         "children": [
           {
-            "href": "deployment-singleinstance-usingthestarter.html",
-            "text": "Using the ArangoDB Starter",
-            "children": []
+            "href": "deployment-singleinstance.html",
+            "text": "Single Instance",
+            "children": [
+              {
+                "href": "deployment-singleinstance-usingthestarter.html",
+                "text": "Using the ArangoDB Starter",
+                "children": []
+              },
+              {
+                "href": "deployment-singleinstance-manualstart.html",
+                "text": "Manual Start",
+                "children": []
+              }
+            ]
           },
           {
-            "href": "deployment-singleinstance-manualstart.html",
-            "text": "Manual Start",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "deployment-masterslave.html",
-        "text": "Master/Slave",
-        "children": [
-          {
-            "href": "deployment-masterslave-manualstart.html",
-            "text": "Manual Start",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "deployment-activefailover.html",
-        "text": "Active Failover",
-        "children": [
-          {
-            "href": "deployment-activefailover-usingthestarter.html",
-            "text": "Using the ArangoDB Starter",
-            "children": []
+            "href": "deployment-masterslave.html",
+            "text": "Master/Slave",
+            "children": [
+              {
+                "href": "deployment-masterslave-manualstart.html",
+                "text": "Manual Start",
+                "children": []
+              }
+            ]
           },
           {
-            "href": "deployment-activefailover-manualstart.html",
-            "text": "Manual Start",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "deployment-cluster.html",
-        "text": "Cluster",
-        "children": [
-          {
-            "href": "deployment-cluster-preliminaryinformation.html",
-            "text": "Preliminary Information",
-            "children": []
+            "href": "deployment-activefailover.html",
+            "text": "Active Failover",
+            "children": [
+              {
+                "href": "deployment-activefailover-usingthestarter.html",
+                "text": "Using the ArangoDB Starter",
+                "children": []
+              },
+              {
+                "href": "deployment-activefailover-manualstart.html",
+                "text": "Manual Start",
+                "children": []
+              }
+            ]
           },
           {
-            "href": "deployment-cluster-usingthestarter.html",
-            "text": "Using the ArangoDB Starter",
-            "children": []
-          },
-          {
-            "href": "deployment-cluster-manualstart.html",
-            "text": "Manual Start",
-            "children": []
-          },
-          {
-            "href": "deployment-cluster-kubernetes.html",
-            "text": "Kubernetes",
-            "children": []
-          },
-          {
-            "href": "deployment-cluster-mesos.html",
-            "text": "Mesos, DC/OS",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "deployment-dc2dc.html",
-        "text": "Multiple Datacenters",
-        "children": [
-          {
-            "href": "deployment-dc2dc-cluster.html",
+            "href": "deployment-cluster.html",
             "text": "Cluster",
-            "children": []
+            "children": [
+              {
+                "href": "deployment-cluster-preliminaryinformation.html",
+                "text": "Preliminary Information",
+                "children": []
+              },
+              {
+                "href": "deployment-cluster-usingthestarter.html",
+                "text": "Using the ArangoDB Starter",
+                "children": []
+              },
+              {
+                "href": "deployment-cluster-manualstart.html",
+                "text": "Manual Start",
+                "children": []
+              },
+              {
+                "href": "deployment-cluster-kubernetes.html",
+                "text": "Kubernetes",
+                "children": []
+              },
+              {
+                "href": "deployment-cluster-mesos.html",
+                "text": "Mesos, DC/OS",
+                "children": []
+              }
+            ]
           },
           {
-            "href": "deployment-dc2dc-arangosyncmaster.html",
-            "text": "ArangoSync Master",
-            "children": []
+            "href": "deployment-dc2dc.html",
+            "text": "Multiple Datacenters",
+            "children": [
+              {
+                "href": "deployment-dc2dc-cluster.html",
+                "text": "Cluster",
+                "children": []
+              },
+              {
+                "href": "deployment-dc2dc-arangosyncmaster.html",
+                "text": "ArangoSync Master",
+                "children": []
+              },
+              {
+                "href": "deployment-dc2dc-arangosyncworkers.html",
+                "text": "ArangoSync Workers",
+                "children": []
+              },
+              {
+                "href": "deployment-dc2dc-prometheusgrafana.html",
+                "text": "Prometheus & Grafana",
+                "children": []
+              },
+              {
+                "href": "deployment-dc2dc-kafkazookeeper.html",
+                "text": "Kafka & Zookeeper",
+                "children": []
+              }
+            ]
           },
           {
-            "href": "deployment-dc2dc-arangosyncworkers.html",
-            "text": "ArangoSync Workers",
-            "children": []
-          },
-          {
-            "href": "deployment-dc2dc-prometheusgrafana.html",
-            "text": "Prometheus & Grafana",
-            "children": []
-          },
-          {
-            "href": "deployment-dc2dc-kafkazookeeper.html",
-            "text": "Kafka & Zookeeper",
+            "href": "deployment-standaloneagency.html",
+            "text": "Standalone Agency",
             "children": []
           }
         ]
-      },
-      {
-        "href": "deployment-standaloneagency.html",
-        "text": "Standalone Agency",
-        "children": []
       },
       {
         "href": "deployment-technology.html",
         "text": "By Technology",
-        "children": []
-      },
-      {
-        "href": "deployment-manually.html",
-        "text": "Manually",
-        "children": []
-      },
-      {
-        "href": "deployment-arangodbstarter.html",
-        "text": "ArangoDB Starter",
-        "children": []
-      },
-      {
-        "href": "deployment-docker.html",
-        "text": "Docker",
-        "children": []
-      },
-      {
-        "href": "deployment-kubernetes.html",
-        "text": "Kubernetes",
         "children": [
           {
-            "href": "deployment-kubernetes-usage.html",
-            "text": "Using the Operator",
+            "href": "deployment-manually.html",
+            "text": "Manually",
             "children": []
           },
           {
-            "href": "deployment-kubernetes-dashboards.html",
-            "text": "Dashboards",
+            "href": "deployment-arangodbstarter.html",
+            "text": "ArangoDB Starter",
             "children": []
           },
           {
-            "href": "deployment-kubernetes-deploymentresource.html",
-            "text": "Deployment Resource Reference",
+            "href": "deployment-docker.html",
+            "text": "Docker",
             "children": []
           },
           {
-            "href": "deployment-kubernetes-driverconfiguration.html",
-            "text": "Driver Configuration",
-            "children": []
+            "href": "deployment-kubernetes.html",
+            "text": "Kubernetes",
+            "children": [
+              {
+                "href": "deployment-kubernetes-usage.html",
+                "text": "Using the Operator",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-dashboards.html",
+                "text": "Dashboards",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-deploymentresource.html",
+                "text": "Deployment Resource Reference",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-driverconfiguration.html",
+                "text": "Driver Configuration",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-helm.html",
+                "text": "Helm",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-authentication.html",
+                "text": "Authentication",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-scaling.html",
+                "text": "Scaling",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-drain.html",
+                "text": "Draining Nodes",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-upgrading.html",
+                "text": "Upgrading",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-configandsecrets.html",
+                "text": "ArangoDB Configuration & Secrets",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-metrics.html",
+                "text": "Metrics",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-servicesandloadbalancer.html",
+                "text": "Services & Load balancer",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-deploymentreplicationresource.html",
+                "text": "Deployment Replication Resource Reference",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-storage.html",
+                "text": "Storage",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-storageresource.html",
+                "text": "Storage Resource",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-tls.html",
+                "text": "TLS",
+                "children": []
+              },
+              {
+                "href": "deployment-kubernetes-troubleshooting.html",
+                "text": "Troubleshooting",
+                "children": []
+              }
+            ]
           },
           {
-            "href": "deployment-kubernetes-helm.html",
-            "text": "Helm",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-authentication.html",
-            "text": "Authentication",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-scaling.html",
-            "text": "Scaling",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-drain.html",
-            "text": "Draining Nodes",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-upgrading.html",
-            "text": "Upgrading",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-configandsecrets.html",
-            "text": "ArangoDB Configuration & Secrets",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-metrics.html",
-            "text": "Metrics",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-servicesandloadbalancer.html",
-            "text": "Services & Load balancer",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-deploymentreplicationresource.html",
-            "text": "Deployment Replication Resource Reference",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-storage.html",
-            "text": "Storage",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-storageresource.html",
-            "text": "Storage Resource",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-tls.html",
-            "text": "TLS",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-troubleshooting.html",
-            "text": "Troubleshooting",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "deployment-dcos.html",
-        "text": "Mesos, DC/OS",
-        "children": [
-          {
-            "href": "deployment-dcos-clustermesos.html",
-            "text": "Cluster Deployments",
-            "children": []
-          },
-          {
-            "href": "deployment-dcos-mesoscontainers.html",
-            "text": "Choosing Container Engine",
-            "children": []
+            "href": "deployment-dcos.html",
+            "text": "Mesos, DC/OS",
+            "children": [
+              {
+                "href": "deployment-dcos-clustermesos.html",
+                "text": "Cluster Deployments",
+                "children": [
+                  {
+                    "href": "deployment-dcos-mesoscontainers.html",
+                    "text": "Choosing Container Engine",
+                    "children": []
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
       {
         "href": "deployment-cloud.html",
         "text": "In the Cloud",
-        "children": []
-      },
-      {
-        "href": "deployment-cloud-aws.html",
-        "text": "AWS",
-        "children": []
-      },
-      {
-        "href": "deployment-cloud-azure.html",
-        "text": "Azure",
-        "children": []
+        "children": [
+          {
+            "href": "deployment-cloud-aws.html",
+            "text": "AWS",
+            "children": []
+          },
+          {
+            "href": "deployment-cloud-azure.html",
+            "text": "Azure",
+            "children": []
+          }
+        ]
       },
       {
         "href": "deployment-productionchecklist.html",
@@ -1496,42 +1529,44 @@
       {
         "href": "upgrading-osspecificinfo.html",
         "text": "OS-specific Information",
-        "children": []
-      },
-      {
-        "href": "upgrading-osspecificinfo-linux.html",
-        "text": "Upgrading on Linux",
-        "children": []
-      },
-      {
-        "href": "upgrading-osspecificinfo-macos.html",
-        "text": "Upgrading on macOS",
-        "children": []
-      },
-      {
-        "href": "upgrading-osspecificinfo-windows.html",
-        "text": "Upgrading on Windows",
-        "children": []
+        "children": [
+          {
+            "href": "upgrading-osspecificinfo-linux.html",
+            "text": "Upgrading on Linux",
+            "children": []
+          },
+          {
+            "href": "upgrading-osspecificinfo-macos.html",
+            "text": "Upgrading on macOS",
+            "children": []
+          },
+          {
+            "href": "upgrading-osspecificinfo-windows.html",
+            "text": "Upgrading on Windows",
+            "children": []
+          }
+        ]
       },
       {
         "href": "upgrading-starter.html",
-        "text": "Upgrading Starter Deployments",
+        "text": "Upgrading _Starter_ Deployments",
         "children": []
       },
       {
         "href": "upgrading-manually.html",
         "text": "Upgrading Manual Deployments",
-        "children": []
-      },
-      {
-        "href": "upgrading-manually-activefailover.html",
-        "text": "Upgrading an Active Failover deployment",
-        "children": []
-      },
-      {
-        "href": "upgrading-manually-cluster.html",
-        "text": "Upgrading a Cluster",
-        "children": []
+        "children": [
+          {
+            "href": "upgrading-manually-activefailover.html",
+            "text": "Upgrading an Active Failover deployment",
+            "children": []
+          },
+          {
+            "href": "upgrading-manually-cluster.html",
+            "text": "Upgrading a Cluster",
+            "children": []
+          }
+        ]
       },
       {
         "href": "upgrading-kubernetes.html",
@@ -1541,62 +1576,63 @@
       {
         "href": "upgrading-versionspecific.html",
         "text": "Version Specific Upgrade Information",
-        "children": []
-      },
-      {
-        "href": "upgrading-versionspecific-upgrading34.html",
-        "text": "Upgrading to 3.4",
-        "children": []
-      },
-      {
-        "href": "upgrading-versionspecific-upgrading33.html",
-        "text": "Upgrading to 3.3",
-        "children": []
-      },
-      {
-        "href": "upgrading-versionspecific-upgrading32.html",
-        "text": "Upgrading to 3.2",
-        "children": []
-      },
-      {
-        "href": "upgrading-versionspecific-upgrading31.html",
-        "text": "Upgrading to 3.1",
-        "children": []
-      },
-      {
-        "href": "upgrading-versionspecific-upgrading30.html",
-        "text": "Upgrading to 3.0",
-        "children": []
-      },
-      {
-        "href": "upgrading-versionspecific-upgrading28.html",
-        "text": "Upgrading to 2.8",
-        "children": []
-      },
-      {
-        "href": "upgrading-versionspecific-upgrading26.html",
-        "text": "Upgrading to 2.6",
-        "children": []
-      },
-      {
-        "href": "upgrading-versionspecific-upgrading25.html",
-        "text": "Upgrading to 2.5",
-        "children": []
-      },
-      {
-        "href": "upgrading-versionspecific-upgrading24.html",
-        "text": "Upgrading to 2.4",
-        "children": []
-      },
-      {
-        "href": "upgrading-versionspecific-upgrading23.html",
-        "text": "Upgrading to 2.3",
-        "children": []
-      },
-      {
-        "href": "upgrading-versionspecific-upgrading22.html",
-        "text": "Upgrading to 2.2",
-        "children": []
+        "children": [
+          {
+            "href": "upgrading-versionspecific-upgrading34.html",
+            "text": "Upgrading to 3.4",
+            "children": []
+          },
+          {
+            "href": "upgrading-versionspecific-upgrading33.html",
+            "text": "Upgrading to 3.3",
+            "children": []
+          },
+          {
+            "href": "upgrading-versionspecific-upgrading32.html",
+            "text": "Upgrading to 3.2",
+            "children": []
+          },
+          {
+            "href": "upgrading-versionspecific-upgrading31.html",
+            "text": "Upgrading to 3.1",
+            "children": []
+          },
+          {
+            "href": "upgrading-versionspecific-upgrading30.html",
+            "text": "Upgrading to 3.0",
+            "children": []
+          },
+          {
+            "href": "upgrading-versionspecific-upgrading28.html",
+            "text": "Upgrading to 2.8",
+            "children": []
+          },
+          {
+            "href": "upgrading-versionspecific-upgrading26.html",
+            "text": "Upgrading to 2.6",
+            "children": []
+          },
+          {
+            "href": "upgrading-versionspecific-upgrading25.html",
+            "text": "Upgrading to 2.5",
+            "children": []
+          },
+          {
+            "href": "upgrading-versionspecific-upgrading24.html",
+            "text": "Upgrading to 2.4",
+            "children": []
+          },
+          {
+            "href": "upgrading-versionspecific-upgrading23.html",
+            "text": "Upgrading to 2.3",
+            "children": []
+          },
+          {
+            "href": "upgrading-versionspecific-upgrading22.html",
+            "text": "Upgrading to 2.2",
+            "children": []
+          }
+        ]
       }
     ]
   },
@@ -1627,12 +1663,13 @@
       {
         "href": "administration-managingusers.html",
         "text": "User Management",
-        "children": []
-      },
-      {
-        "href": "administration-managingusers-inarangosh.html",
-        "text": "In Arangosh",
-        "children": []
+        "children": [
+          {
+            "href": "administration-managingusers-inarangosh.html",
+            "text": "In Arangosh",
+            "children": []
+          }
+        ]
       },
       {
         "href": "administration-engine-switchengine.html",
@@ -1642,33 +1679,34 @@
       {
         "href": "administration-masterslave.html",
         "text": "Master/Slave",
-        "children": []
-      },
-      {
-        "href": "administration-masterslave-settingup.html",
-        "text": "Setting up",
         "children": [
           {
-            "href": "administration-masterslave-replicationapplier.html",
-            "text": "Replication Applier",
-            "children": []
+            "href": "administration-masterslave-settingup.html",
+            "text": "Setting up",
+            "children": [
+              {
+                "href": "administration-masterslave-replicationapplier.html",
+                "text": "Replication Applier",
+                "children": []
+              },
+              {
+                "href": "administration-masterslave-databasesetup.html",
+                "text": "Per-Database Setup",
+                "children": []
+              },
+              {
+                "href": "administration-masterslave-serverlevelsetup.html",
+                "text": "Server-Level Setup",
+                "children": []
+              }
+            ]
           },
           {
-            "href": "administration-masterslave-databasesetup.html",
-            "text": "Per-Database Setup",
-            "children": []
-          },
-          {
-            "href": "administration-masterslave-serverlevelsetup.html",
-            "text": "Server-Level Setup",
+            "href": "administration-masterslave-syncingcollections.html",
+            "text": "Syncing Collections",
             "children": []
           }
         ]
-      },
-      {
-        "href": "administration-masterslave-syncingcollections.html",
-        "text": "Syncing Collections",
-        "children": []
       },
       {
         "href": "administration-activefailover.html",
@@ -1688,17 +1726,18 @@
       {
         "href": "administration-starter.html",
         "text": "ArangoDB Starter Administration",
-        "children": []
-      },
-      {
-        "href": "administration-starter-removal.html",
-        "text": "ArangoDB Starter Removal Procedure",
-        "children": []
-      },
-      {
-        "href": "administration-starter-recovery.html",
-        "text": "ArangoDB Starter Recovery Procedure",
-        "children": []
+        "children": [
+          {
+            "href": "administration-starter-removal.html",
+            "text": "ArangoDB Starter Removal Procedure",
+            "children": []
+          },
+          {
+            "href": "administration-starter-recovery.html",
+            "text": "ArangoDB Starter Recovery Procedure",
+            "children": []
+          }
+        ]
       }
     ]
   },
@@ -1719,17 +1758,18 @@
       {
         "href": "security-auditing.html",
         "text": "Auditing",
-        "children": []
-      },
-      {
-        "href": "security-auditing-auditconfiguration.html",
-        "text": "Configuration",
-        "children": []
-      },
-      {
-        "href": "security-auditing-auditevents.html",
-        "text": "Events",
-        "children": []
+        "children": [
+          {
+            "href": "security-auditing-auditconfiguration.html",
+            "text": "Configuration",
+            "children": []
+          },
+          {
+            "href": "security-auditing-auditevents.html",
+            "text": "Events",
+            "children": []
+          }
+        ]
       },
       {
         "href": "security-starter.html",
@@ -1776,12 +1816,13 @@
       {
         "href": "troubleshooting-cluster.html",
         "text": "Cluster",
-        "children": []
-      },
-      {
-        "href": "troubleshooting-cluster-agencydump.html",
-        "text": "Agency Dump",
-        "children": []
+        "children": [
+          {
+            "href": "troubleshooting-cluster-agencydump.html",
+            "text": "Agency Dump",
+            "children": []
+          }
+        ]
       },
       {
         "href": "troubleshooting-dc2dc.html",
@@ -1800,202 +1841,215 @@
       {
         "href": "releasenotes-34.html",
         "text": "Version 3.4",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures34.html",
-        "text": "What's New in 3.4",
-        "children": []
-      },
-      {
-        "href": "releasenotes-knownissues34.html",
-        "text": "Known Issues in 3.4",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges34.html",
-        "text": "Incompatible changes in 3.4",
-        "children": []
+        "children": [
+          {
+            "href": "releasenotes-newfeatures34.html",
+            "text": "What's New in 3.4",
+            "children": []
+          },
+          {
+            "href": "releasenotes-knownissues34.html",
+            "text": "Known Issues in 3.4",
+            "children": []
+          },
+          {
+            "href": "releasenotes-upgradingchanges34.html",
+            "text": "Incompatible changes in 3.4",
+            "children": []
+          }
+        ]
       },
       {
         "href": "releasenotes-33.html",
         "text": "Version 3.3",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures33.html",
-        "text": "What's New in 3.3",
-        "children": []
-      },
-      {
-        "href": "releasenotes-knownissues33.html",
-        "text": "Known Issues in 3.3",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges33.html",
-        "text": "Incompatible changes in 3.3",
-        "children": []
+        "children": [
+          {
+            "href": "releasenotes-newfeatures33.html",
+            "text": "What's New in 3.3",
+            "children": []
+          },
+          {
+            "href": "releasenotes-knownissues33.html",
+            "text": "Known Issues in 3.3",
+            "children": []
+          },
+          {
+            "href": "releasenotes-upgradingchanges33.html",
+            "text": "Incompatible changes in 3.3",
+            "children": []
+          }
+        ]
       },
       {
         "href": "releasenotes-32.html",
         "text": "Version 3.2",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures32.html",
-        "text": "What's New in 3.2",
-        "children": []
-      },
-      {
-        "href": "releasenotes-knownissues32.html",
-        "text": "Known Issues in 3.2",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges32.html",
-        "text": "Incompatible changes in 3.2",
-        "children": []
+        "children": [
+          {
+            "href": "releasenotes-newfeatures32.html",
+            "text": "What's New in 3.2",
+            "children": []
+          },
+          {
+            "href": "releasenotes-knownissues32.html",
+            "text": "Known Issues in 3.2",
+            "children": []
+          },
+          {
+            "href": "releasenotes-upgradingchanges32.html",
+            "text": "Incompatible changes in 3.2",
+            "children": []
+          }
+        ]
       },
       {
         "href": "releasenotes-31.html",
         "text": "Version 3.1",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures31.html",
-        "text": "What's New in 3.1",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges31.html",
-        "text": "Incompatible changes in 3.1",
-        "children": []
+        "children": [
+          {
+            "href": "releasenotes-newfeatures31.html",
+            "text": "What's New in 3.1",
+            "children": []
+          },
+          {
+            "href": "releasenotes-upgradingchanges31.html",
+            "text": "Incompatible changes in 3.1",
+            "children": []
+          }
+        ]
       },
       {
         "href": "releasenotes-30.html",
         "text": "Version 3.0",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures30.html",
-        "text": "What's New in 3.0",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges30.html",
-        "text": "Incompatible changes in 3.0",
-        "children": []
+        "children": [
+          {
+            "href": "releasenotes-newfeatures30.html",
+            "text": "What's New in 3.0",
+            "children": []
+          },
+          {
+            "href": "releasenotes-upgradingchanges30.html",
+            "text": "Incompatible changes in 3.0",
+            "children": []
+          }
+        ]
       },
       {
         "href": "releasenotes-28.html",
         "text": "Version 2.8",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures28.html",
-        "text": "What's New in 2.8",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges28.html",
-        "text": "Incompatible changes in 2.8",
-        "children": []
+        "children": [
+          {
+            "href": "releasenotes-newfeatures28.html",
+            "text": "What's New in 2.8",
+            "children": []
+          },
+          {
+            "href": "releasenotes-upgradingchanges28.html",
+            "text": "Incompatible changes in 2.8",
+            "children": []
+          }
+        ]
       },
       {
         "href": "releasenotes-27.html",
         "text": "Version 2.7",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures27.html",
-        "text": "What's New in 2.7",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges27.html",
-        "text": "Incompatible changes in 2.7",
-        "children": []
+        "children": [
+          {
+            "href": "releasenotes-newfeatures27.html",
+            "text": "What's New in 2.7",
+            "children": []
+          },
+          {
+            "href": "releasenotes-upgradingchanges27.html",
+            "text": "Incompatible changes in 2.7",
+            "children": []
+          }
+        ]
       },
       {
         "href": "releasenotes-26.html",
         "text": "Version 2.6",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures26.html",
-        "text": "What's New in 2.6",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges26.html",
-        "text": "Incompatible changes in 2.6",
-        "children": []
+        "children": [
+          {
+            "href": "releasenotes-newfeatures26.html",
+            "text": "What's New in 2.6",
+            "children": []
+          },
+          {
+            "href": "releasenotes-upgradingchanges26.html",
+            "text": "Incompatible changes in 2.6",
+            "children": []
+          }
+        ]
       },
       {
         "href": "releasenotes-25.html",
         "text": "Version 2.5",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures25.html",
-        "text": "What's New in 2.5",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges25.html",
-        "text": "Incompatible changes in 2.5",
-        "children": []
+        "children": [
+          {
+            "href": "releasenotes-newfeatures25.html",
+            "text": "What's New in 2.5",
+            "children": []
+          },
+          {
+            "href": "releasenotes-upgradingchanges25.html",
+            "text": "Incompatible changes in 2.5",
+            "children": []
+          }
+        ]
       },
       {
         "href": "releasenotes-24.html",
         "text": "Version 2.4",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures24.html",
-        "text": "What's New in 2.4",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges24.html",
-        "text": "Incompatible changes in 2.4",
-        "children": []
+        "children": [
+          {
+            "href": "releasenotes-newfeatures24.html",
+            "text": "What's New in 2.4",
+            "children": []
+          },
+          {
+            "href": "releasenotes-upgradingchanges24.html",
+            "text": "Incompatible changes in 2.4",
+            "children": []
+          }
+        ]
       },
       {
         "href": "releasenotes-23.html",
         "text": "Version 2.3",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures23.html",
-        "text": "What's New in 2.3",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges23.html",
-        "text": "Incompatible changes in 2.3",
-        "children": []
+        "children": [
+          {
+            "href": "releasenotes-newfeatures23.html",
+            "text": "What's New in 2.3",
+            "children": []
+          },
+          {
+            "href": "releasenotes-upgradingchanges23.html",
+            "text": "Incompatible changes in 2.3",
+            "children": []
+          }
+        ]
       },
       {
         "href": "releasenotes-22.html",
         "text": "Version 2.2",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures22.html",
-        "text": "What's New in 2.2",
-        "children": []
+        "children": [
+          {
+            "href": "releasenotes-newfeatures22.html",
+            "text": "What's New in 2.2",
+            "children": []
+          }
+        ]
       },
       {
         "href": "releasenotes-21.html",
         "text": "Version 2.1",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures21.html",
-        "text": "What's New in 2.1",
-        "children": []
+        "children": [
+          {
+            "href": "releasenotes-newfeatures21.html",
+            "text": "What's New in 2.1",
+            "children": []
+          }
+        ]
       }
     ]
   },
@@ -2006,72 +2060,74 @@
       {
         "href": "appendix-references.html",
         "text": "References",
-        "children": []
-      },
-      {
-        "href": "appendix-references-dbobject.html",
-        "text": "db",
-        "children": []
-      },
-      {
-        "href": "appendix-references-collectionobject.html",
-        "text": "collection",
-        "children": []
-      },
-      {
-        "href": "appendix-references-cursorobject.html",
-        "text": "cursor",
-        "children": []
+        "children": [
+          {
+            "href": "appendix-references-dbobject.html",
+            "text": "db",
+            "children": []
+          },
+          {
+            "href": "appendix-references-collectionobject.html",
+            "text": "collection",
+            "children": []
+          },
+          {
+            "href": "appendix-references-cursorobject.html",
+            "text": "cursor",
+            "children": []
+          }
+        ]
       },
       {
         "href": "appendix-javascriptmodules.html",
         "text": "JavaScript Modules",
-        "children": []
-      },
-      {
-        "href": "appendix-javascriptmodules-arangodb.html",
-        "text": "@arangodb",
-        "children": []
-      },
-      {
-        "href": "appendix-javascriptmodules-console.html",
-        "text": "console",
-        "children": []
-      },
-      {
-        "href": "appendix-javascriptmodules-crypto.html",
-        "text": "crypto",
-        "children": []
-      },
-      {
-        "href": "appendix-javascriptmodules-filesystem.html",
-        "text": "fs",
-        "children": []
-      },
-      {
-        "href": "appendix-javascriptmodules-request.html",
-        "text": "request",
-        "children": []
-      },
-      {
-        "href": "appendix-javascriptmodules-actions.html",
-        "text": "actions",
-        "children": []
-      },
-      {
-        "href": "appendix-javascriptmodules-queries.html",
-        "text": "queries",
-        "children": []
-      },
-      {
-        "href": "appendix-javascriptmodules-wal.html",
-        "text": "Write-ahead log",
-        "children": []
-      },
-      {
-        "href": "appendix-javascriptmodules-tasks.html",
-        "text": "Task Management",
-        "children": []
+        "children": [
+          {
+            "href": "appendix-javascriptmodules-arangodb.html",
+            "text": "@arangodb",
+            "children": []
+          },
+          {
+            "href": "appendix-javascriptmodules-console.html",
+            "text": "console",
+            "children": []
+          },
+          {
+            "href": "appendix-javascriptmodules-crypto.html",
+            "text": "crypto",
+            "children": []
+          },
+          {
+            "href": "appendix-javascriptmodules-filesystem.html",
+            "text": "fs",
+            "children": []
+          },
+          {
+            "href": "appendix-javascriptmodules-request.html",
+            "text": "request",
+            "children": []
+          },
+          {
+            "href": "appendix-javascriptmodules-actions.html",
+            "text": "actions",
+            "children": []
+          },
+          {
+            "href": "appendix-javascriptmodules-queries.html",
+            "text": "queries",
+            "children": []
+          },
+          {
+            "href": "appendix-javascriptmodules-wal.html",
+            "text": "Write-ahead log",
+            "children": []
+          },
+          {
+            "href": "appendix-javascriptmodules-tasks.html",
+            "text": "Task Management",
+            "children": []
+          }
+        ]
       },
       {
         "href": "appendix-deprecated.html",
@@ -2080,47 +2136,49 @@
           {
             "href": "appendix-deprecated-simplequeries.html",
             "text": "Simple Queries",
-            "children": []
-          },
-          {
-            "href": "appendix-deprecated-simplequeries-pagination.html",
-            "text": "Pagination",
-            "children": []
-          },
-          {
-            "href": "appendix-deprecated-simplequeries-modificationqueries.html",
-            "text": "Modification Queries",
-            "children": []
-          },
-          {
-            "href": "appendix-deprecated-simplequeries-geoqueries.html",
-            "text": "Geo Queries",
-            "children": []
-          },
-          {
-            "href": "appendix-deprecated-simplequeries-fulltextqueries.html",
-            "text": "Fulltext Queries",
-            "children": []
+            "children": [
+              {
+                "href": "appendix-deprecated-simplequeries-pagination.html",
+                "text": "Pagination",
+                "children": []
+              },
+              {
+                "href": "appendix-deprecated-simplequeries-modificationqueries.html",
+                "text": "Modification Queries",
+                "children": []
+              },
+              {
+                "href": "appendix-deprecated-simplequeries-geoqueries.html",
+                "text": "Geo Queries",
+                "children": []
+              },
+              {
+                "href": "appendix-deprecated-simplequeries-fulltextqueries.html",
+                "text": "Fulltext Queries",
+                "children": []
+              }
+            ]
           },
           {
             "href": "appendix-deprecated-actions.html",
             "text": "Actions",
-            "children": []
-          },
-          {
-            "href": "appendix-deprecated-actions-htmlexample.html",
-            "text": "Delivering HTML Pages",
-            "children": []
-          },
-          {
-            "href": "appendix-deprecated-actions-jsonexample.html",
-            "text": "Json Objects",
-            "children": []
-          },
-          {
-            "href": "appendix-deprecated-actions-modifying.html",
-            "text": "Modifying",
-            "children": []
+            "children": [
+              {
+                "href": "appendix-deprecated-actions-htmlexample.html",
+                "text": "Delivering HTML Pages",
+                "children": []
+              },
+              {
+                "href": "appendix-deprecated-actions-jsonexample.html",
+                "text": "Json Objects",
+                "children": []
+              },
+              {
+                "href": "appendix-deprecated-actions-modifying.html",
+                "text": "Modifying",
+                "children": []
+              }
+            ]
           }
         ]
       },
