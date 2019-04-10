@@ -53,7 +53,7 @@ class AqlExampleBlock < ExampleBlock
         if current == "none"
           print("Ignoring " + line + " in aql example at " + context["page"]["path"] + "\n")
         else
-          parts[current] += line + "\n"
+          parts[current] += line
         end
       end
     }

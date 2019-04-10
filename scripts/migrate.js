@@ -36,7 +36,7 @@ async function migrateMds(basePath, targetPath) {
         
         content = content.replace(/^\s*@startDocuBlockInline.*?@endDocuBlock[^\n$]+\n/msg, (block) => {
             if (block.match(/@EXAMPLE_ARANGOSH.*/s)) {
-                return `{% arangoshexample examplevar=\"examplevar\" short=\"short\" long=\"long\" %}${block}{% endarangoshexample %}\n{% include arangoshexample.html id=examplevar short=short long=long %}`;
+                return `{% arangoshexample examplevar=\"examplevar\" script=\"script\" result=\"result\" %}${block}{% endarangoshexample %}\n{% include arangoshexample.html id=examplevar script=script result=result %}`;
             } else if (block.match(/@EXAMPLE_AQL.*/s)) {
                 return `{% aqlexample examplevar=\"examplevar\" type=\"type\" query=\"query\" bind=\"bind\" result=\"result\" %}${block}{% endaqlexample %}\n{% include aqlexample.html id=examplevar query=query bind=bind result=result %}`;
             }

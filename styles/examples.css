@@ -2,6 +2,23 @@
     display: none;
 }
 
+
+.example-container .show-button {
+    display: none;
+}
+
+.example-container.hide-result .show-button {
+    display: block;
+}
+
 .example-container.show-result .show-button {
     display: none;
+}
+
+.example-container .hide-button {
+    display: none;
+}
+
+.example-container.show-result .hide-button {
+    display: block;
 }

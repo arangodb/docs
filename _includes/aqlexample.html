@@ -1,4 +1,6 @@
-<div id="{{ include.id }}" class="example-container {% if include.query | split "\n" | size > 5 %}hide-result{% endif %}">
+{% comment %}lol. splitting by \n doesn't work :S so split by <br{% endcomment %}
+{% assign resultlines=include.result | newline_to_br | split: "<br" | size %}
+<div id="{{ include.id }}" class="example-container {% if resultlines > 5 %}hide-result{% endif %}">
     <div>
         <pre>
 {{ include.query|strip }}
@@ -11,7 +13,7 @@
         <pre>
 {{ include.result|strip }}
         </pre>
-        <div>
+        <div class="hide-button">
             <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('show-result', 'hide-result')">Hide query results</div>
         </div>
     </div>

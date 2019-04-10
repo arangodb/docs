@@ -1,24 +1,20 @@
-<div class="example-container">
-    <div id="{{ include.id }}_long"{% if include.short %} style="display: none"{% endif %}>
+{% comment %}lol. splitting by \n doesn't work :S so split by <br{% endcomment %}
+{% assign resultlines=include.result | newline_to_br | split: "<br" | size %}
+<div id="{{ include.id }}" class="example-container {% if resultlines > 5 %}hide-result{% endif %}">
+    <div>
         <pre>
-{{ include.long }}
+{{ include.script|trim }}
         </pre>
-        {% if include.short %}
-        <div>
-            <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}_long').style.display = 'none'; document.querySelector('#{{ include.id }}_short').style.display = 'block'">Hide execution results</div>
+        <div class="show-button">
+            <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('hide-result', 'show-result')">Show execution results</div>
         </div>
-        {% endif %}
     </div>
-{% if include.short %}    
-    <div id="{{ include.id }}_short">
+    <div class="example-result">
         <pre>
-{{ include. short }}
+{{ include.result|trim }}
         </pre>
-        {% if include.short %}
-        <div>
-            <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}_short').style.display = 'none'; document.querySelector('#{{ include.id }}_long').style.display = 'block'">Show execution results</div>
+        <div class="hide-button">
+            <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('show-result', 'hide-result')">Hide execution results</div>
         </div>
-        {% endif %}
     </div>
-{% endif %}
 </div>
