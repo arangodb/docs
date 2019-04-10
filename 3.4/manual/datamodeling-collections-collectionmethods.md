@@ -23,7 +23,7 @@ drop such a collection, all dependent collections must be dropped
 first. 
 
 **Examples**
-{% example example="collectionDrop" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionDrop
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDrop}
     ~ db._create("example");
@@ -33,9 +33,8 @@ first.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDrop
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-{% example example="collectionDropSystem" examplevar="examplevar" short="short" long="long" %}
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionDropSystem
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDropSystem}
     ~ db._create("_example", { isSystem: true });
@@ -45,9 +44,8 @@ first.
     ~ db._drop("example", { isSystem: true });
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDropSystem
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Truncate
 --------
@@ -66,7 +64,7 @@ indexes.
 
 
 Truncates a collection:
-{% example example="collectionTruncate" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionTruncate
     @EXAMPLE_ARANGOSH_OUTPUT{collectionTruncate}
     ~ db._create("example");
@@ -78,9 +76,8 @@ Truncates a collection:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionTruncate
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Compact
 -------
@@ -212,7 +209,7 @@ used as a lower bound approximation of the disk usage.
 
 
 **Examples**
-{% example example="collectionFigures" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline collectionFigures
     @EXAMPLE_ARANGOSH_OUTPUT{collectionFigures}
@@ -220,9 +217,8 @@ used as a lower bound approximation of the disk usage.
       db.demo.figures()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionFigures
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 Load
@@ -239,7 +235,7 @@ Loads a collection into memory.
 **Note**: cluster collections are loaded at all times.
 
 **Examples**
-{% example example="collectionLoad" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline collectionLoad
     @EXAMPLE_ARANGOSH_OUTPUT{collectionLoad}
@@ -250,9 +246,8 @@ Loads a collection into memory.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionLoad
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Revision
 --------
@@ -332,7 +327,7 @@ until all query have finished.
 **Note**: cluster collections cannot be unloaded.
 
 **Examples**
-{% example example="CollectionUnload" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline CollectionUnload
     @EXAMPLE_ARANGOSH_OUTPUT{CollectionUnload}
@@ -343,9 +338,8 @@ until all query have finished.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock CollectionUnload
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Rename
 ------
@@ -370,7 +364,7 @@ database.
 
 
 **Examples**
-{% example example="collectionRename" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline collectionRename
     @EXAMPLE_ARANGOSH_OUTPUT{collectionRename}
@@ -381,9 +375,8 @@ database.
     ~ db._drop("better-example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionRename
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Rotate
 ------

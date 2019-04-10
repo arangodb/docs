@@ -413,7 +413,7 @@ details, including the index-identifier, is returned.
 **Examples**
 
 Create a geo index for an array attribute:
-{% example example="geoIndexCreateForArrayAttribute1" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute1
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute1}
     ~db._create("geo")
@@ -429,11 +429,10 @@ Create a geo index for an array attribute:
     ~db._drop("geo")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexCreateForArrayAttribute1
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Create a geo index for a hash array attribute:
-{% example example="geoIndexCreateForArrayAttribute2" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute2
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute2}
     ~db._drop("geo2")
@@ -448,11 +447,10 @@ Create a geo index for a hash array attribute:
     ~db._drop("geo2")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexCreateForArrayAttribute2
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Use GeoIndex with AQL SORT statement:
-{% example example="geoIndexSortOptimization" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline geoIndexSortOptimization
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexSortOptimization}
     ~db._create("geoSort")
@@ -468,11 +466,10 @@ Use GeoIndex with AQL SORT statement:
     ~db._drop("geoSort")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexSortOptimization
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Use GeoIndex with AQL FILTER statement:
-{% example example="geoIndexFilterOptimization" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline geoIndexFilterOptimization
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexFilterOptimization}
     ~db._create("geoFilter")
@@ -488,9 +485,8 @@ Use GeoIndex with AQL FILTER statement:
     ~db._drop("geoFilter")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexFilterOptimization
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 <!-- js/common/modules/@arangodb/arango-collection-common.js-->
 @startDocuBlock collectionGeo

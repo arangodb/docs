@@ -31,7 +31,7 @@ ArangoDB is stored in a collection *_routing*. Each entry in this collections
 describes how to deal with a particular request path.
 
 For the above example, add the following document to the _routing collection:
-{% example example="HTML_01_routingCreateHtml" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline HTML_01_routingCreateHtml
     @EXAMPLE_ARANGOSH_OUTPUT{HTML_01_routingCreateHtml}
     |db._routing.save({ 
@@ -45,24 +45,22 @@ For the above example, add the following document to the _routing collection:
     });
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock HTML_01_routingCreateHtml
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 In order to activate the new routing, you must either restart the server or call
 the internal reload function.
-{% example example="HTML_02_routingReload" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline HTML_02_routingReload
     @EXAMPLE_ARANGOSH_OUTPUT{HTML_02_routingReload}
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock HTML_02_routingReload
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Now use the browser and access http:// localhost:8529/hello/world
 
 You should see the *Hello World* in our browser:
-{% example example="HTML_03_routingCurlHtml" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline HTML_03_routingCurlHtml
     @EXAMPLE_ARANGOSH_RUN{HTML_03_routingCurlHtml}
     var url = "/hello/world";
@@ -73,9 +71,8 @@ You should see the *Hello World* in our browser:
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock HTML_03_routingCurlHtml
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Matching a URL
 --------------
@@ -255,7 +252,7 @@ Remember that the more specific match wins.
   right.
 
 Consider the following definitions
-{% example example="HTML_04_routingCreateMultiPath" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline HTML_04_routingCreateMultiPath
     @EXAMPLE_ARANGOSH_OUTPUT{HTML_04_routingCreateMultiPath}
     |db._routing.save({ 
@@ -273,11 +270,10 @@ Consider the following definitions
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock HTML_04_routingCreateMultiPath
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Then
-{% example example="HTML_05_routingGetMultiPath" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline HTML_05_routingGetMultiPath
     @EXAMPLE_ARANGOSH_RUN{HTML_05_routingGetMultiPath}
     | var url = ["/hello/world",
@@ -294,9 +290,8 @@ Then
     require("internal").reloadRouting()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock HTML_05_routingGetMultiPath
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 You can write the following document into the *_routing* collection
 to test the above examples.

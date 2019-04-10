@@ -52,7 +52,7 @@ Returns an array of all indexes defined for the collection.
 Since ArangoDB 3.4, `indexes()` is an alias for `getIndexes()`.
 
 Note that `_key` implicitly has an index assigned to it.
-{% example example="collectionGetIndexes" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionGetIndexes
     @EXAMPLE_ARANGOSH_OUTPUT{collectionGetIndexes}
     ~db._create("test");
@@ -64,9 +64,8 @@ Note that `_key` implicitly has an index assigned to it.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionGetIndexes
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 ### Creating an index
 Indexes should be created using the general method *ensureIndex*. This
@@ -112,7 +111,7 @@ regardless of the value of this attribute.
 
 
 **Examples**
-{% example example="collectionEnsureIndex" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline collectionEnsureIndex
     @EXAMPLE_ARANGOSH_OUTPUT{collectionEnsureIndex}
@@ -122,9 +121,8 @@ regardless of the value of this attribute.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionEnsureIndex
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 ### Dropping an index via a collection handle
@@ -142,7 +140,7 @@ index of a collection or the edge index of an edge collection).
 `collection.dropIndex(index-handle)`
 
 Same as above. Instead of an index an index handle can be given.
-{% example example="col_dropIndex" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline col_dropIndex
     @EXAMPLE_ARANGOSH_OUTPUT{col_dropIndex}
     ~db._create("example");
@@ -155,9 +153,8 @@ Same as above. Instead of an index an index handle can be given.
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock col_dropIndex
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 ### Load Indexes into Memory
 <!-- arangod/V8Server/v8-vocindex.cpp -->
@@ -184,7 +181,7 @@ index values are cached.
 If the index is larger than your memory limit this function will fill up values
 up to this limit and for the time being there is no way to control which indexes
 of the collection should have priority over others.
-{% example example="LoadIndexesIntoMemory" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline LoadIndexesIntoMemory
     @EXAMPLE_ARANGOSH_OUTPUT{loadIndexesIntoMemory}
     ~db._drop("example");
@@ -193,9 +190,8 @@ of the collection should have priority over others.
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock LoadIndexesIntoMemory
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Database Methods
 ----------------
 
@@ -207,7 +203,7 @@ finds an index
 `db._index(index-handle)`
 
 Returns the index with *index-handle* or null if no such index exists.
-{% example example="IndexHandle" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline IndexHandle
     @EXAMPLE_ARANGOSH_OUTPUT{IndexHandle}
     ~db._create("example");
@@ -219,9 +215,8 @@ Returns the index with *index-handle* or null if no such index exists.
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock IndexHandle
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 ### Dropping an index via a database handle
 <!-- js/server/modules/@arangodb/arango-database.js -->
@@ -237,7 +232,7 @@ returned.
 `db._dropIndex(index-handle)`
 
 Drops the index with *index-handle*.
-{% example example="dropIndex" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline dropIndex
     @EXAMPLE_ARANGOSH_OUTPUT{dropIndex}
     ~db._create("example");
@@ -250,9 +245,8 @@ Drops the index with *index-handle*.
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock dropIndex
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 ### Revalidating whether an index is used
 <!-- js/server/modules/@arangodb/arango-database.js -->
@@ -265,7 +259,7 @@ you definitely want to know whether your query can utilize it.
 
 You can use explain to verify whether **skiplists** or **hash indexes** are 
 used (if you omit `colors: false` you will get nice colors in ArangoShell):
-{% example example="IndexVerify" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline IndexVerify
     @EXAMPLE_ARANGOSH_OUTPUT{IndexVerify}
     ~db._create("example");
@@ -275,6 +269,5 @@ used (if you omit `colors: false` you will get nice colors in ArangoShell):
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock IndexVerify
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}

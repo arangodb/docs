@@ -22,4 +22,3 @@ class ExampleBlock < Liquid::Block
     return type, name
   end
 end
-  

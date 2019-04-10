@@ -38,7 +38,7 @@ async function migrateMds(basePath, targetPath) {
             if (block.match(/@EXAMPLE_ARANGOSH.*/s)) {
                 return `{% arangoshexample examplevar=\"examplevar\" short=\"short\" long=\"long\" %}${block}{% endarangoshexample %}\n{% include arangoshexample.html id=examplevar short=short long=long %}`;
             } else if (block.match(/@EXAMPLE_AQL.*/s)) {
-                return `{% aqlexample examplevar=\"examplevar\" short=\"short\" long=\"long\" %}${block}{% endaqlexample %}\n{% include aqlexample.html id=examplevar short=short long=long %}`;
+                return `{% aqlexample examplevar=\"examplevar\" type=\"type\" query=\"query\" bind=\"bind\" result=\"result\" %}${block}{% endaqlexample %}\n{% include aqlexample.html id=examplevar query=query bind=bind result=result %}`;
             }
             return block;
         });

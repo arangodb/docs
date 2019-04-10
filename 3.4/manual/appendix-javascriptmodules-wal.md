@@ -37,16 +37,15 @@ array with the following attributes:
 
 
 **Examples**
-{% example example="WalPropertiesGet" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline WalPropertiesGet
     @EXAMPLE_ARANGOSH_OUTPUT{WalPropertiesGet}
       require("internal").wal.properties();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock WalPropertiesGet
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 <!-- arangod/V8Server/v8-vocbase.h -->
 
@@ -73,7 +72,7 @@ will be ignored and the configuration for them will not be modified.
 
 
 **Examples**
-{% example example="WalPropertiesSet" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline WalPropertiesSet
     @EXAMPLE_ARANGOSH_OUTPUT{WalPropertiesSet}
@@ -82,9 +81,8 @@ will be ignored and the configuration for them will not be modified.
         logfileSize: 32 * 1024 * 1024 });
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock WalPropertiesSet
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Flushing
 --------
@@ -113,12 +111,12 @@ the write-ahead log garbage collector cannot finish garbage collection.
 
 
 **Examples**
-{% example example="WalFlush" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline WalFlush
     @EXAMPLE_ARANGOSH_OUTPUT{WalFlush}
       require("internal").wal.flush();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock WalFlush
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}

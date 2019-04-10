@@ -22,16 +22,15 @@ Returns the name of the current database as a string.
 
 
 **Examples**
-{% example example="dbName" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
 @startDocuBlockInline dbName
 @EXAMPLE_ARANGOSH_OUTPUT{dbName}
   require("@arangodb").db._name();
 @END_EXAMPLE_ARANGOSH_OUTPUT
 @endDocuBlock dbName
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 ### ID
 <!-- arangod/V8Server/v8-vocbase.cpp -->
@@ -44,16 +43,15 @@ Returns the id of the current database as a string.
 
 
 **Examples**
-{% example example="dbId" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
 @startDocuBlockInline dbId
 @EXAMPLE_ARANGOSH_OUTPUT{dbId}
   require("@arangodb").db._id();
 @END_EXAMPLE_ARANGOSH_OUTPUT
 @endDocuBlock dbId
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 ### Path
 <!-- arangod/V8Server/v8-vocbase.cpp -->
@@ -66,16 +64,15 @@ Returns the filesystem path of the current database as a string.
 
 
 **Examples**
-{% example example="dbPath" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
 @startDocuBlockInline dbPath
 @EXAMPLE_ARANGOSH_OUTPUT{dbPath}
   require("@arangodb").db._path();
 @END_EXAMPLE_ARANGOSH_OUTPUT
 @endDocuBlock dbPath
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 ### isSystem
 <!-- arangod/V8Server/v8-vocbase.cpp -->

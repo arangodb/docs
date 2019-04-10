@@ -9,7 +9,7 @@ Interaction
 
 You can paste multiple lines into Arangosh, given the first line ends with an
 opening brace:
-{% example example="shellPaste" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline shellPaste
     @EXAMPLE_ARANGOSH_OUTPUT{shellPaste}
     |for (var i = 0; i < 10; i ++) {
@@ -17,9 +17,8 @@ opening brace:
     }
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock shellPaste
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 To load your own JavaScript code into the current JavaScript interpreter context,
 use the load command:
@@ -35,40 +34,37 @@ Shell Output
 
 The ArangoDB shell will print the output of the last evaluated expression
 by default:
-{% example example="lastExpressionResult" examplevar="examplevar" short="short" long="long" %}    
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}    
     @startDocuBlockInline lastExpressionResult
     @EXAMPLE_ARANGOSH_OUTPUT{lastExpressionResult}
     42 * 23
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock lastExpressionResult
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-    
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}    
 In order to prevent printing the result of the last evaluated expression,
 the expression result can be captured in a variable, e.g.
-{% example example="lastExpressionResultCaptured" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline lastExpressionResultCaptured
     @EXAMPLE_ARANGOSH_OUTPUT{lastExpressionResultCaptured}
     var calculationResult = 42 * 23
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock lastExpressionResultCaptured
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 There is also the `print` function to explicitly print out values in the
 ArangoDB shell:
-{% example example="printFunction" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline printFunction
     @EXAMPLE_ARANGOSH_OUTPUT{printFunction}
     print({ a: "123", b: [1,2,3], c: "test" });
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock printFunction
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 By default, the ArangoDB shell uses a pretty printer when JSON documents are
 printed. This ensures documents are printed in a human-readable way:
-{% example example="usingToArray" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline usingToArray
     @EXAMPLE_ARANGOSH_OUTPUT{usingToArray}
     db._create("five")
@@ -77,9 +73,8 @@ printed. This ensures documents are printed in a human-readable way:
     ~db._drop("five");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock usingToArray
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 While the pretty-printer produces nice looking results, it will need a lot of
 screen space for each document. Sometimes a more dense output might be better.
 In this case, the pretty printer can be turned off using the command
@@ -112,15 +107,14 @@ be used for switching to a different database and managing collections inside th
 current database.
 
 For a list of available methods for the *db* object, type 
-{% example example="shellHelp" examplevar="examplevar" short="short" long="long" %}    
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}    
     @startDocuBlockInline shellHelp
     @EXAMPLE_ARANGOSH_OUTPUT{shellHelp}
     db._help(); 
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock shellHelp
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-  
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}  
 The [`db` object](appendix-references-dbobject.html) is available in *arangosh*
 as well as on *arangod* i.e. if you're using [Foxx](foxx.html). While its
 interface is persistent between the *arangosh* and the *arangod* implementations,

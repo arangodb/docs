@@ -29,7 +29,7 @@ This function is the entry point for the management and will return the correct 
 * relationX (optional) An object representing a definition of one relation in the graph
 
 **Examples**
-{% example example="generalGraphEdgeDefinitionsSimple" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline generalGraphEdgeDefinitionsSimple
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeDefinitionsSimple}
@@ -39,9 +39,8 @@ This function is the entry point for the management and will return the correct 
       edgedefinitions = graph_module._edgeDefinitions(directed_relation, undirected_relation);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeDefinitionsSimple
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 ### Extend the list
@@ -62,7 +61,7 @@ this function can be used to add more definitions to the initial list.
 * relationX (required) An object representing a definition of one relation in the graph
 
 **Examples**
-{% example example="generalGraphEdgeDefinitionsExtend" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline generalGraphEdgeDefinitionsExtend
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeDefinitionsExtend}
@@ -73,9 +72,8 @@ this function can be used to add more definitions to the initial list.
       edgedefinitions = graph_module._extendEdgeDefinitions(undirected_relation);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeDefinitionsExtend
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 ### Relation
@@ -102,7 +100,7 @@ to any collection in *toVertexCollections*.
 
 
 **Examples**
-{% example example="generalGraphRelationDefinitionSave" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline generalGraphRelationDefinitionSave
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphRelationDefinitionSave}
@@ -110,18 +108,16 @@ to any collection in *toVertexCollections*.
       graph_module._relation("has_bought", ["Customer", "Company"], ["Groceries", "Electronics"]);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphRelationDefinitionSave
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-{% example example="generalGraphRelationDefinitionSingle" examplevar="examplevar" short="short" long="long" %}
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline generalGraphRelationDefinitionSingle
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphRelationDefinitionSingle}
       var graph_module = require("@arangodb/general-graph");
       graph_module._relation("has_bought", "Customer", "Product");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphRelationDefinitionSingle
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Create a graph
 --------------
@@ -153,7 +149,7 @@ All collections used within the creation process are created if they do not exis
 
 
 Create an empty graph, edge definitions can be added at runtime:
-{% example example="generalGraphCreateGraphNoData" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline generalGraphCreateGraphNoData
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphNoData}
       var graph_module = require("@arangodb/general-graph");
@@ -161,11 +157,10 @@ Create an empty graph, edge definitions can be added at runtime:
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraphNoData
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Create a graph using an edge collection `edges` and a single vertex collection `vertices` 
-{% example example="generalGraphCreateGraphSingle" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline generalGraphCreateGraphSingle
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphSingle}
     ~ db._drop("edges");
@@ -176,11 +171,10 @@ Create a graph using an edge collection `edges` and a single vertex collection `
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraphSingle
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Create a graph with edge definitions and orphan collections:
-{% example example="generalGraphCreateGraph2" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline generalGraphCreateGraph2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraph2}
       var graph_module = require("@arangodb/general-graph");
@@ -189,15 +183,14 @@ Create a graph with edge definitions and orphan collections:
     ~ graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphCreateGraph2
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 ### Complete Example to create a graph
 
 Example Call:
-{% example example="general_graph_create_graph_example1" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
 
     @startDocuBlockInline general_graph_create_graph_example1
@@ -218,13 +211,12 @@ Example Call:
     ~ db._drop("friend_of");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph_create_graph_example1
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 alternative call:
-{% example example="general_graph_create_graph_example2" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
 
     @startDocuBlockInline general_graph_create_graph_example2
@@ -243,9 +235,8 @@ alternative call:
     ~ db._drop("friend_of");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph_create_graph_example2
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 List available graphs
@@ -261,7 +252,7 @@ Lists all graph names stored in this database.
 
 
 **Examples**
-{% example example="generalGraphList" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline generalGraphList
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphList}
@@ -269,9 +260,8 @@ Lists all graph names stored in this database.
       graph_module._list();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphList
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Load a graph
 ------------
@@ -294,7 +284,7 @@ A graph can be retrieved by its name.
 
 
 Get a graph:
-{% example example="generalGraphLoadGraph" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline generalGraphLoadGraph
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphLoadGraph}
     ~ var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -304,9 +294,8 @@ Get a graph:
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphLoadGraph
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 Remove a graph
@@ -330,7 +319,7 @@ To drop the collections only belonging to this graph, the optional parameter *dr
 
 
 Drop a graph and keep collections:
-{% example example="generalGraphDropGraphKeep" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline generalGraphDropGraphKeep
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphDropGraphKeep}
     ~ var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -346,9 +335,8 @@ Drop a graph and keep collections:
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphDropGraphKeep
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-{% example example="generalGraphDropGraphDropCollections" examplevar="examplevar" short="short" long="long" %}
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline generalGraphDropGraphDropCollections
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphDropGraphDropCollections}
     ~ var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -360,9 +348,8 @@ Drop a graph and keep collections:
       db._collection("relation");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphDropGraphDropCollections
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 Modify a graph definition at runtime
@@ -391,7 +378,7 @@ graph with different *from* and/or *to* collections an error is thrown.
 
 
 **Examples**
-{% example example="general_graph__extendEdgeDefinitions" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline general_graph__extendEdgeDefinitions
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__extendEdgeDefinitions}
@@ -404,9 +391,8 @@ graph with different *from* and/or *to* collections an error is thrown.
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__extendEdgeDefinitions
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 ### Modify an edge definition
@@ -432,7 +418,7 @@ definition will be modified, too.
 
 
 **Examples**
-{% example example="general_graph__editEdgeDefinition" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline general_graph__editEdgeDefinition
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__editEdgeDefinition}
@@ -445,9 +431,8 @@ definition will be modified, too.
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__editEdgeDefinition
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 ### Delete an edge definition
@@ -472,7 +457,7 @@ in another edge definition of the graph, they will be moved to the orphanage.
 
 
 Remove an edge definition but keep the edge collection:
-{% example example="general_graph__deleteEdgeDefinitionNoDrop" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline general_graph__deleteEdgeDefinitionNoDrop
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__deleteEdgeDefinitionNoDrop}
       var graph_module = require("@arangodb/general-graph")
@@ -486,11 +471,10 @@ Remove an edge definition but keep the edge collection:
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__deleteEdgeDefinitionNoDrop
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Remove an edge definition and drop the edge collection:
-{% example example="general_graph__deleteEdgeDefinitionWithDrop" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline general_graph__deleteEdgeDefinitionWithDrop
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__deleteEdgeDefinitionWithDrop}
       var graph_module = require("@arangodb/general-graph")
@@ -504,9 +488,8 @@ Remove an edge definition and drop the edge collection:
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__deleteEdgeDefinitionWithDrop
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 ### Extend vertex Collections
@@ -535,7 +518,7 @@ definition of the graph, an error will be thrown.
 * createCollection (optional) If true the collection will be created if it does not exist. Default: true.
 
 **Examples**
-{% example example="general_graph__addVertexCollection" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline general_graph__addVertexCollection
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__addVertexCollection}
@@ -548,9 +531,8 @@ definition of the graph, an error will be thrown.
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__addVertexCollection
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 #### Get the orphaned collections
@@ -565,7 +547,7 @@ Returns all vertex collections of the graph that are not used in any edge defini
 
 
 **Examples**
-{% example example="general_graph__orphanCollections" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline general_graph__orphanCollections
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__orphanCollections}
@@ -578,9 +560,8 @@ Returns all vertex collections of the graph that are not used in any edge defini
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__orphanCollections
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 #### Remove a vertex collection
@@ -603,7 +584,7 @@ Optionally the collection can be deleted, if it is not used in any other graph.
   not used in any other graph. Default: false.
 
 **Examples**
-{% example example="general_graph__removeVertexCollections" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline general_graph__removeVertexCollections
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__removeVertexCollections}
@@ -620,9 +601,8 @@ Optionally the collection can be deleted, if it is not used in any other graph.
     ~ var blub = graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock general_graph__removeVertexCollections
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 
@@ -644,7 +624,7 @@ Create a new vertex in vertexCollectionName
 
 
 **Examples**
-{% example example="generalGraphVertexCollectionSave" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline generalGraphVertexCollectionSave
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionSave}
@@ -654,9 +634,8 @@ Create a new vertex in vertexCollectionName
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphVertexCollectionSave
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 ### Replace a vertex
@@ -676,7 +655,7 @@ Replaces the data of a vertex in collection vertexCollectionName
 
 
 **Examples**
-{% example example="generalGraphVertexCollectionReplace" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline generalGraphVertexCollectionReplace
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionReplace}
@@ -687,9 +666,8 @@ Replaces the data of a vertex in collection vertexCollectionName
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphVertexCollectionReplace
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 ### Update a vertex
@@ -708,7 +686,7 @@ Updates the data of a vertex in collection vertexCollectionName
 * options (optional) See [collection documentation](datamodeling-documents-documentmethods.html)
 
 **Examples**
-{% example example="generalGraphVertexCollectionUpdate" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline generalGraphVertexCollectionUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionUpdate}
@@ -719,9 +697,8 @@ Updates the data of a vertex in collection vertexCollectionName
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphVertexCollectionUpdate
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 ### Remove a vertex
@@ -743,7 +720,7 @@ Additionally removes all ingoing and outgoing edges of the vertex recursively
 
 
 **Examples**
-{% example example="generalGraphVertexCollectionRemove" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline generalGraphVertexCollectionRemove
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionRemove}
@@ -756,9 +733,8 @@ Additionally removes all ingoing and outgoing edges of the vertex recursively
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphVertexCollectionRemove
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 Manipulating Edges
@@ -782,7 +758,7 @@ Creates an edge from vertex *from* to vertex *to* in collection edgeCollectionNa
 
 
 **Examples**
-{% example example="generalGraphEdgeCollectionSave1" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline generalGraphEdgeCollectionSave1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionSave1}
@@ -792,12 +768,11 @@ Creates an edge from vertex *from* to vertex *to* in collection edgeCollectionNa
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionSave1
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 If the collections of *from* and *to* are not defined in an edge definition of the graph,
 the edge will not be stored.
-{% example example="generalGraphEdgeCollectionSave2" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline generalGraphEdgeCollectionSave2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionSave2}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -809,9 +784,8 @@ the edge will not be stored.
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionSave2
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 ### Replace an edge
 
@@ -830,7 +804,7 @@ Replaces the data of an edge in collection edgeCollectionName. Note that `_from`
 
 
 **Examples**
-{% example example="generalGraphEdgeCollectionReplace" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline generalGraphEdgeCollectionReplace
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionReplace}
@@ -841,9 +815,8 @@ Replaces the data of an edge in collection edgeCollectionName. Note that `_from`
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionReplace
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 ### Update an edge
@@ -863,7 +836,7 @@ Updates the data of an edge in collection edgeCollectionName
 
 
 **Examples**
-{% example example="generalGraphEdgeCollectionUpdate" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline generalGraphEdgeCollectionUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionUpdate}
@@ -874,9 +847,8 @@ Updates the data of an edge in collection edgeCollectionName
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionUpdate
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 ### Remove an edge
@@ -897,7 +869,7 @@ If this edge is used as a vertex by another edge, the other edge will be removed
 
 
 **Examples**
-{% example example="generalGraphEdgeCollectionRemove" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline generalGraphEdgeCollectionRemove
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionRemove}
@@ -910,5 +882,5 @@ If this edge is used as a vertex by another edge, the other edge will be removed
     ~ examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphEdgeCollectionRemove
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}

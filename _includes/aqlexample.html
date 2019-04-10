@@ -1,25 +1,19 @@
-<div class="example-container">
-        <div id="{{ include.id }}_long"{% if include.short %} style="display: none"{% endif %}>
-            <pre>
-    {{ include.long }}
-            </pre>
-            {% if include.short %}
-            <div>
-                <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}_long').style.display = 'none'; document.querySelector('#{{ include.id }}_short').style.display = 'block'">Hide query results</div>
-            </div>
-            {% endif %}
+<div id="{{ include.id }}" class="example-container {% if include.query | split "\n" | size > 5 %}hide-result{% endif %}">
+    <div>
+        <pre>
+{{ include.query|strip }}
+        </pre>
+        <div class="show-button">
+            <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('hide-result', 'show-result')">Show query results</div>
         </div>
-    {% if include.short %}    
-        <div id="{{ include.id }}_short">
-            <pre>
-    {{ include. short }}
-            </pre>
-            {% if include.short %}
-            <div>
-                <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}_short').style.display = 'none'; document.querySelector('#{{ include.id }}_long').style.display = 'block'">Show query results</div>
-            </div>
-            {% endif %}
-        </div>
-    {% endif %}
     </div>
+    <div class="example-result">
+        <pre>
+{{ include.result|strip }}
+        </pre>
+        <div>
+            <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('show-result', 'hide-result')">Hide query results</div>
+        </div>
+    </div>
+</div>
     

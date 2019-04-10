@@ -194,7 +194,7 @@ We will have the following directed relations:
   - *Eve* knows *Bob*
 
 This is how we create it, inspect its *vertices* and *edges*, and drop it again:
-{% example example="graph_create_knows_sample" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline graph_create_knows_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_knows_sample}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -204,9 +204,8 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
     examples.dropGraph("knows_graph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_knows_sample
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 **Note:** with the default "Search Depth" of 2 of the graph viewer you may not see all edges of this graph.
 
 ### The Social Graph
@@ -217,7 +216,7 @@ A set of persons and their relations:
 
 This example has female and male persons as *vertices* in two *vertex collections* - `female` and `male`. The *edges* are their connections in the `relation` *edge collection*.
 This is how we create it, inspect its *vertices* and *edges*, and drop it again:
-{% example example="graph_create_social_sample" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline graph_create_social_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_social_sample}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -228,9 +227,8 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
     examples.dropGraph("social");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_social_sample
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 ### The City Graph
 
@@ -239,7 +237,7 @@ A set of european cities, and their fictional traveling distances as connections
 ![Cities Example Graph](images/cities_graph.png)
 
 The example has the cities as *vertices* in several *vertex collections* - `germanCity` and `frenchCity`. The *edges* are their interconnections in several *edge collections* `french / german / international Highway`. This is how we create it, inspect its *edges* and *vertices*, and drop it again:
-{% example example="graph_create_cities_sample" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline graph_create_cities_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_cities_sample}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -252,9 +250,8 @@ The example has the cities as *vertices* in several *vertex collections* - `germ
     examples.dropGraph("routeplanner");
     @END_EXAMPLE_ARANGOSH_RUN
     @endDocuBlock graph_create_cities_sample
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 ### The Traversal Graph
 
 This graph was designed to demonstrate filters in traversals. It has some labels to filter on it.
@@ -263,7 +260,7 @@ This graph was designed to demonstrate filters in traversals. It has some labels
 
 The example has all its vertices in the *circles* collection, and an *edges* edge collection to connect them.
 Circles have unique numeric labels. Edges have two boolean attributes (*theFalse* always being false, *theTruth* always being true) and a label sorting *B* - *D* to the left side, *G* - *K* to the right side. Left and right side split into Paths - at *B* and *G* which are each direct neighbours of the root-node *A*. Starting from *A* the graph has a depth of 3 on all its paths.
-{% example example="graph_create_traversal_sample" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline graph_create_traversal_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_traversal_sample}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -273,9 +270,8 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
     examples.dropGraph("traversalGraph");
     @END_EXAMPLE_ARANGOSH_RUN
     @endDocuBlock graph_create_traversal_sample
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 **Note:** with the default "Search Depth" of 2 of the graph viewer you may not see all nodes of this graph.
 
 ### The World Graph
@@ -284,7 +280,7 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
 
 The world country graph structures its nodes like that: world → continent → country → capital. In some cases edge directions aren't forward (therefore it will be displayed disjunct in the graph viewer). It has two ways of creating it. One using the named graph utilities (*worldCountry*), one without (*worldCountryUnManaged*). 
 It is used to demonstrate raw traversal operations.
-{% example example="graph_create_world_sample" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline graph_create_world_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_world_sample}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -296,9 +292,8 @@ It is used to demonstrate raw traversal operations.
     examples.dropGraph("worldCountryUnManaged");
     @END_EXAMPLE_ARANGOSH_RUN
     @endDocuBlock graph_create_world_sample
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 ### The Mps Graph
 
 This graph was created to demonstrate a use case of the shortest path algorithm. Even though the algorithm can only determine one shortest path, it is possible to return multiple shortest paths with two separate queries. Therefore the graph is named after the [**m**ultiple **p**ath **s**earch](images/examples-multiplepaths.html) use case.
@@ -308,7 +303,7 @@ This graph was created to demonstrate a use case of the shortest path algorithm.
 The example graph consists of *vertices* in the `mps_verts` collection and *edges* in the `mps_edges` collection. It is a simple traversal graph with start node *A* and end node *C*.
 
 This is how we create it, inspect its *vertices* and *edges*, and drop it again:
-{% example example="graph_create_mps_sample" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline graph_create_mps_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_mps_sample}
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -318,9 +313,8 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
     examples.dropGraph("mps_graph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_mps_sample
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 ### Higher volume graph examples
 
 All of the above examples are rather small so they are easier to comprehend and can demonstrate the way the functionality works.

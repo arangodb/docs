@@ -71,7 +71,7 @@ The only thing you have to change in this pipeline is that you create the new co
 * Create a graph
 
   In comparison to General Graph we have to add more options when creating the graph. The two options `smartGraphAttribute` and `numberOfShards` are required and cannot be modified later. 
-{% example example="smartGraphCreateGraphHowTo1" examplevar="examplevar" short="short" long="long" %}
+
 
     @startDocuBlockInline smartGraphCreateGraphHowTo1
       arangosh> var graph_module = require("@arangodb/smart-graph");
@@ -79,14 +79,12 @@ The only thing you have to change in this pipeline is that you create the new co
       arangosh> graph;
       [ SmartGraph myGraph EdgeDefinitions: [ ] VertexCollections: [ ] ]
     @endDocuBlock smartGraphCreateGraphHowTo1
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
 
 
 * Add some vertex collections
 
   This is again identical to General Graph. The module will setup correct sharding for all these collections. *Note*: The collections have to be new.
-{% example example="smartGraphCreateGraphHowTo2" examplevar="examplevar" short="short" long="long" %}
+
 
     @startDocuBlockInline smartGraphCreateGraphHowTo2
       arangosh> graph._addVertexCollection("shop");
@@ -95,12 +93,10 @@ The only thing you have to change in this pipeline is that you create the new co
       arangosh> graph;
       [ SmartGraph myGraph EdgeDefinitions: [ ] VertexCollections: [ "shop", "customer", "pet" ] ]
     @endDocuBlock smartGraphCreateGraphHowTo2
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
 
 
 * Define relations on the Graph
-{% example example="smartGraphCreateGraphHowTo3" examplevar="examplevar" short="short" long="long" %}
+
 
     @startDocuBlockInline smartGraphCreateGraphHowTo3
       arangosh> var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
@@ -108,5 +104,3 @@ The only thing you have to change in this pipeline is that you create the new co
       arangosh> graph;
       [ SmartGraph myGraph EdgeDefinitions: [   "isCustomer: [shop] -> [customer]" ] VertexCollections: [ "pet" ] ]
     @endDocuBlock smartGraphCreateGraphHowTo3
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}

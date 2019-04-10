@@ -42,7 +42,7 @@ way for executing fulltext queries is to use an AQL query using the *FULLTEXT*
 
 
 **Examples**
-{% example example="collectionFulltext" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline collectionFulltext
     @EXAMPLE_ARANGOSH_OUTPUT{collectionFulltext}
@@ -58,9 +58,8 @@ way for executing fulltext queries is to use an AQL query using the *FULLTEXT*
     ~ db._drop("emails");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionFulltext
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Syntax
 ------

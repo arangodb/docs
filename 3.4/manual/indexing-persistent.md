@@ -55,7 +55,7 @@ account for uniqueness checks.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
-{% example example="ensureUniquePersistentSingle" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline ensureUniquePersistentSingle
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniquePersistentSingle}
     ~db._create("ids");
@@ -67,9 +67,8 @@ details, including the index-identifier, is returned.
     ~db._drop("ids");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureUniquePersistentSingle
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-{% example example="ensureUniquePersistentMultiColmun" examplevar="examplevar" short="short" long="long" %}    
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}{% arangoshexample examplevar="examplevar" short="short" long="long" %}    
     @startDocuBlockInline ensureUniquePersistentMultiColmun
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniquePersistentMultiColmun}
     ~db._create("ids");
@@ -81,9 +80,8 @@ details, including the index-identifier, is returned.
     ~db._drop("ids");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureUniquePersistentMultiColmun
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 <!-- js/server/modules/@arangodb/arango-collection.js-->
@@ -100,7 +98,7 @@ To create a sparse unique index, set the *sparse* attribute to `true`.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
-{% example example="ensurePersistent" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline ensurePersistent
     @EXAMPLE_ARANGOSH_OUTPUT{ensurePersistent}
     ~db._create("names");
@@ -113,9 +111,8 @@ details, including the index-identifier, is returned.
     ~db._drop("names");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensurePersistent
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 ### Query by example using a persistent index
 

@@ -38,7 +38,7 @@ unclear which documents will be included in the result set.
 
 
 **Examples**
-{% example example="queryLimit" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline queryLimit
     @EXAMPLE_ARANGOSH_OUTPUT{queryLimit}
@@ -53,9 +53,8 @@ unclear which documents will be included in the result set.
     ~ db._drop("five")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock queryLimit
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 Skip
@@ -78,7 +77,7 @@ will not be supported in future versions of ArangoDB.
 
 
 **Examples**
-{% example example="querySkip" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline querySkip
     @EXAMPLE_ARANGOSH_OUTPUT{querySkip}
@@ -93,12 +92,11 @@ will not be supported in future versions of ArangoDB.
     ~ db._drop("five")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock querySkip
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Ignore any limit with count:
-{% example example="cursorCountUnLimited" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline cursorCountUnLimited
     @EXAMPLE_ARANGOSH_OUTPUT{cursorCountUnLimited}
     ~ db._create("five");
@@ -111,11 +109,10 @@ Ignore any limit with count:
     ~ db._drop("five")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock cursorCountUnLimited
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Counting any limit or skip:
-{% example example="cursorCountLimit" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline cursorCountLimit
     @EXAMPLE_ARANGOSH_OUTPUT{cursorCountLimit}
     ~ db._create("five");
@@ -128,5 +125,5 @@ Counting any limit or skip:
     ~ db._drop("five")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock cursorCountLimit
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}

@@ -38,7 +38,7 @@ first argument. No revision can be specified in this case.
 
 
 Returns the document:
-{% example example="documentsDocumentName" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsDocumentName
     @EXAMPLE_ARANGOSH_OUTPUT{documentsDocumentName}
     ~ db._create("example");
@@ -47,9 +47,8 @@ Returns the document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsDocumentName
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 Exists
@@ -147,7 +146,7 @@ first argument. No revision precondition is tested.
 
 
 Create and replace a document:
-{% example example="documentsDocumentReplace" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsDocumentReplace
     @EXAMPLE_ARANGOSH_OUTPUT{documentsDocumentReplace}
     ~ db._create("example");
@@ -157,9 +156,8 @@ Create and replace a document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsDocumentReplace
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 **Changes in 3.0 from 2.8:**
 
@@ -236,7 +234,7 @@ first argument. No revision precondition is tested.
 
 
 Create and update a document:
-{% example example="documentDocumentUpdate" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentDocumentUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{documentDocumentUpdate}
     ~ db._create("example");
@@ -246,9 +244,8 @@ Create and update a document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentDocumentUpdate
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 **Changes in 3.0 from 2.8:**
 
@@ -310,7 +307,7 @@ first argument. No revision check is performed.
 
 
 Remove a document:
-{% example example="documentsCollectionRemoveSuccess" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollectionRemoveSuccess
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveSuccess}
     ~ db._create("example");
@@ -321,11 +318,10 @@ Remove a document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionRemoveSuccess
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Remove the document in the revision `a1` with a conflict:
-{% example example="documentsCollectionRemoveConflict" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollectionRemoveConflict
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveConflict}
     ~ db._create("example");
@@ -337,11 +333,10 @@ Remove the document in the revision `a1` with a conflict:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionRemoveConflict
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Remove a document using new signature:
-{% example example="documentsCollectionRemoveSignature" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollectionRemoveSignature
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveSignature}
     ~ db._create("example");
@@ -351,9 +346,8 @@ Remove a document using new signature:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionRemoveSignature
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 **Changes in 3.0 from 2.8:**
 
 The method now returns not only *true* but information about the removed

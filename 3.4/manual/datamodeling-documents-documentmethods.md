@@ -21,7 +21,7 @@ can be limited using the *skip* and *limit* operator.
 
 
 Use *toArray* to get all documents at once:
-{% example example="001_collectionAll" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline 001_collectionAll
     @EXAMPLE_ARANGOSH_OUTPUT{001_collectionAll}
     ~ db._create("five");
@@ -34,11 +34,10 @@ Use *toArray* to get all documents at once:
     ~ db._drop("five");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 001_collectionAll
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Use *limit* to restrict the documents:
-{% example example="002_collectionAllNext" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline 002_collectionAllNext
     @EXAMPLE_ARANGOSH_OUTPUT{002_collectionAllNext}
     ~ db._create("five");
@@ -51,9 +50,8 @@ Use *limit* to restrict the documents:
     ~ db._drop("five");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 002_collectionAllNext
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 Query by example
@@ -123,7 +121,7 @@ As alternative you can supply an array of paths and values.
 **Examples**
 
 Use *toArray* to get all documents at once:
-{% example example="003_collectionByExample" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline 003_collectionByExample
     @EXAMPLE_ARANGOSH_OUTPUT{003_collectionByExample}
     ~ db._create("users");
@@ -137,12 +135,11 @@ Use *toArray* to get all documents at once:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 003_collectionByExample
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Use *next* to loop over all documents:
-{% example example="004_collectionByExampleNext" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline 004_collectionByExampleNext
     @EXAMPLE_ARANGOSH_OUTPUT{004_collectionByExampleNext}
     ~ db._create("users");
@@ -154,9 +151,8 @@ Use *next* to loop over all documents:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 004_collectionByExampleNext
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 First Example
 -------------
 
@@ -176,7 +172,7 @@ As alternative you can supply an array of paths and values.
 
 
 **Examples**
-{% example example="collectionFirstExample" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline collectionFirstExample
     @EXAMPLE_ARANGOSH_OUTPUT{collectionFirstExample}
@@ -188,9 +184,8 @@ As alternative you can supply an array of paths and values.
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionFirstExample
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 Range
@@ -226,7 +221,7 @@ FOR doc IN @@collection
 **Examples**
 
 Use *toArray* to get all documents at once:
-{% example example="005_collectionRange" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline 005_collectionRange
     @EXAMPLE_ARANGOSH_OUTPUT{005_collectionRange}
     ~ db._create("old");
@@ -238,9 +233,8 @@ Use *toArray* to get all documents at once:
     ~ db._drop("old")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 005_collectionRange
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Closed range
 ------------
@@ -275,7 +269,7 @@ FOR doc IN @@collection
 **Examples**
 
 Use *toArray* to get all documents at once:
-{% example example="006_collectionClosedRange" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline 006_collectionClosedRange
     @EXAMPLE_ARANGOSH_OUTPUT{006_collectionClosedRange}
     ~ db._create("old");
@@ -287,9 +281,8 @@ Use *toArray* to get all documents at once:
     ~ db._drop("old")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 006_collectionClosedRange
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Any
 ---
@@ -317,7 +310,7 @@ Returns the number of living documents in the collection.
 
 
 **Examples**
-{% example example="collectionCount" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline collectionCount
     @EXAMPLE_ARANGOSH_OUTPUT{collectionCount}
@@ -326,9 +319,8 @@ Returns the number of living documents in the collection.
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionCount
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 toArray
@@ -392,7 +384,7 @@ an error object is returned in the result array.
 *Examples*
 
 Returns the document for a document-handle:
-{% example example="documentsCollectionNameValidPlain" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollectionNameValidPlain
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameValidPlain}
     ~ db._create("example");
@@ -401,11 +393,10 @@ Returns the document for a document-handle:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionNameValidPlain
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Returns the document for a document-key:
-{% example example="documentsCollectionNameValidByKey" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollectionNameValidByKey
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameValidByKey}
     ~ db._create("example");
@@ -414,11 +405,10 @@ Returns the document for a document-key:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionNameValidByKey
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Returns the document for an object:
-{% example example="documentsCollectionNameValidByObject" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollectionNameValidByObject
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameValidByObject}
     ~ db._create("example");
@@ -427,11 +417,10 @@ Returns the document for an object:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionNameValidByObject
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Returns the document for an array of two keys:
-{% example example="documentsCollectionNameValidMulti" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollectionNameValidMulti
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameValidMulti}
     ~ db._create("example");
@@ -441,11 +430,10 @@ Returns the document for an array of two keys:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionNameValidMulti
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 An error is raised if the document is unknown:
-{% example example="documentsCollectionNameUnknown" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollectionNameUnknown
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameUnknown}
     ~ db._create("example");
@@ -454,11 +442,10 @@ An error is raised if the document is unknown:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionNameUnknown
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 An error is raised if the handle is invalid:
-{% example example="documentsCollectionNameHandle" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollectionNameHandle
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionNameHandle}
     ~ db._create("example");
@@ -466,9 +453,8 @@ An error is raised if the handle is invalid:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionNameHandle
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 **Changes in 3.0 from 2.8:**
 
 *document* can now query multiple documents with one call.
@@ -544,7 +530,7 @@ ignored, and no exception will be thrown for them.
 This method is deprecated in favour of the array variant of *document*.
 
 **Examples**
-{% example example="collectionLookupByKeys" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline collectionLookupByKeys
     @EXAMPLE_ARANGOSH_OUTPUT{collectionLookupByKeys}
@@ -559,9 +545,8 @@ This method is deprecated in favour of the array variant of *document*.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionLookupByKeys
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Insert / Save
 -------------
@@ -631,7 +616,7 @@ multiple documents with one call.
 
 
 **Examples**
-{% example example="documentsCollectionInsertSingle" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline documentsCollectionInsertSingle
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionInsertSingle}
@@ -641,9 +626,8 @@ multiple documents with one call.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionInsertSingle
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-{% example example="documentsCollectionInsertMulti" examplevar="examplevar" short="short" long="long" %}
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollectionInsertMulti
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionInsertMulti}
     ~ db._create("example");
@@ -652,9 +636,8 @@ multiple documents with one call.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionInsertMulti
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-{% example example="documentsCollectionInsertSingleOverwrite" examplevar="examplevar" short="short" long="long" %}
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollectionInsertSingleOverwrite
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionInsertSingleOverwrite}
     ~ db._create("example");
@@ -663,9 +646,8 @@ multiple documents with one call.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionInsertSingleOverwrite
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Replace
 -------
@@ -745,7 +727,7 @@ result array. The options behave exactly as before.
 
 
 Create and update a document:
-{% example example="documentsCollectionReplace1" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollectionReplace1
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionReplace1}
     ~ db._create("example");
@@ -755,11 +737,10 @@ Create and update a document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionReplace1
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Use a document handle:
-{% example example="documentsCollectionReplaceHandle" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollectionReplaceHandle
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionReplaceHandle}
     ~ db._create("example");
@@ -769,9 +750,8 @@ Use a document handle:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionReplaceHandle
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 **Changes in 3.0 from 2.8:**
 
 The options *silent*, *returnNew* and *returnOld* are new. The method
@@ -865,7 +845,7 @@ result array. The options behave exactly as before.
 *Examples*
 
 Create and update a document:
-{% example example="documentsCollection_UpdateDocument" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollection_UpdateDocument
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateDocument}
     ~ db._create("example");
@@ -879,11 +859,10 @@ Create and update a document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollection_UpdateDocument
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Use a document handle:
-{% example example="documentsCollection_UpdateHandleSingle" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollection_UpdateHandleSingle
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateHandleSingle}
     ~ db._create("example");
@@ -893,11 +872,10 @@ Use a document handle:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollection_UpdateHandleSingle
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Use the keepNull parameter to remove attributes with null values:
-{% example example="documentsCollection_UpdateHandleKeepNull" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollection_UpdateHandleKeepNull
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateHandleKeepNull}
     ~ db._create("example");
@@ -914,11 +892,10 @@ Use the keepNull parameter to remove attributes with null values:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollection_UpdateHandleKeepNull
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Patching array values:
-{% example example="documentsCollection_UpdateHandleArray" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentsCollection_UpdateHandleArray
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollection_UpdateHandleArray}
     ~ db._create("example");
@@ -935,9 +912,8 @@ Patching array values:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollection_UpdateHandleArray
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 **Changes in 3.0 from 2.8:**
 
@@ -1017,7 +993,7 @@ exactly as before.
 
 
 Remove a document:
-{% example example="documentDocumentRemoveSimple" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentDocumentRemoveSimple
     @EXAMPLE_ARANGOSH_OUTPUT{documentDocumentRemoveSimple}
     ~ db._create("example");
@@ -1028,11 +1004,10 @@ Remove a document:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentDocumentRemoveSimple
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Remove a document with a conflict:
-{% example example="documentDocumentRemoveConflict" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline documentDocumentRemoveConflict
     @EXAMPLE_ARANGOSH_OUTPUT{documentDocumentRemoveConflict}
     ~ db._create("example");
@@ -1044,9 +1019,8 @@ Remove a document with a conflict:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentDocumentRemoveConflict
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 **Changes in 3.0 from 2.8:**
 
 The method now returns not only *true* but information about the removed
@@ -1077,7 +1051,7 @@ documents in the *ignored* sub-attribute.
 This method is deprecated in favour of the array variant of *remove*.
 
 **Examples**
-{% example example="collectionRemoveByKeys" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline collectionRemoveByKeys
     @EXAMPLE_ARANGOSH_OUTPUT{collectionRemoveByKeys}
@@ -1092,9 +1066,8 @@ This method is deprecated in favour of the array variant of *remove*.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionRemoveByKeys
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Remove By Example
 -----------------
@@ -1128,7 +1101,7 @@ removed.
 
 
 **Examples**
-{% example example="010_documentsCollectionRemoveByExample" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline 010_documentsCollectionRemoveByExample
     @EXAMPLE_ARANGOSH_OUTPUT{010_documentsCollectionRemoveByExample}
@@ -1138,9 +1111,8 @@ removed.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 010_documentsCollectionRemoveByExample
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Replace By Example
 ------------------
@@ -1177,7 +1149,7 @@ replaced.
 
 
 **Examples**
-{% example example="011_documentsCollectionReplaceByExample" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline 011_documentsCollectionReplaceByExample
     @EXAMPLE_ARANGOSH_OUTPUT{011_documentsCollectionReplaceByExample}
@@ -1187,9 +1159,8 @@ replaced.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 011_documentsCollectionReplaceByExample
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Update By Example
 -----------------
@@ -1245,7 +1216,7 @@ an object with the following sub-attributes:
 
 
 **Examples**
-{% example example="012_documentsCollectionUpdateByExample" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline 012_documentsCollectionUpdateByExample
     @EXAMPLE_ARANGOSH_OUTPUT{012_documentsCollectionUpdateByExample}
@@ -1256,9 +1227,8 @@ an object with the following sub-attributes:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock 012_documentsCollectionUpdateByExample
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Collection type
 ---------------
@@ -1280,16 +1250,15 @@ database.
 
 
 **Examples**
-{% example example="dbVersion" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline dbVersion
     @EXAMPLE_ARANGOSH_OUTPUT{dbVersion}
       require("@arangodb").db._version();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock dbVersion
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Edges
 -----
 
@@ -1307,7 +1276,7 @@ in (inbound) *vertex*.
 The *edges* operator finds all edges starting from (outbound) or ending
 in (inbound) a document from *vertices*, which must be a list of documents
 or document handles.
-{% example example="EDGCOL_02_Relation" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline EDGCOL_02_Relation
     @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_Relation}
       db._create("vertex");
@@ -1323,9 +1292,8 @@ or document handles.
     ~ db._drop("vertex");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock EDGCOL_02_Relation
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 `edge-collection.inEdges(vertex)`
 
 The *edges* operator finds all edges ending in (inbound) *vertex*.
@@ -1336,7 +1304,7 @@ The *edges* operator finds all edges ending in (inbound) a document from
 *vertices*, which must a list of documents or document handles.
 
 **Examples**
-{% example example="EDGCOL_02_inEdges" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline EDGCOL_02_inEdges
     @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_inEdges}
       db._create("vertex");
@@ -1353,9 +1321,8 @@ The *edges* operator finds all edges ending in (inbound) a document from
     ~ db._drop("vertex");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock EDGCOL_02_inEdges
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 `edge-collection.outEdges(vertex)`
 
 The *edges* operator finds all edges starting from (outbound)
@@ -1368,7 +1335,7 @@ from *vertices*, which must a list of documents or document handles.
 
 
 **Examples**
-{% example example="EDGCOL_02_outEdges" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline EDGCOL_02_outEdges
     @EXAMPLE_ARANGOSH_OUTPUT{EDGCOL_02_outEdges}
       db._create("vertex");
@@ -1385,9 +1352,8 @@ from *vertices*, which must a list of documents or document handles.
     ~ db._drop("vertex");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock EDGCOL_02_outEdges
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Misc
 ----
 
@@ -1406,7 +1372,7 @@ as second argument.
     *1*. Documents are chosen with this probability.
 
 **Examples**
-{% example example="accessViaGeoIndex" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline accessViaGeoIndex
     @EXAMPLE_ARANGOSH_OUTPUT{accessViaGeoIndex}
     ~db._create("example")
@@ -1424,5 +1390,5 @@ as second argument.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock accessViaGeoIndex
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}

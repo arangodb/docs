@@ -37,7 +37,7 @@ documents. In this case the next document can be accessed using the
 
 
 **Examples**
-{% example example="cursorHasNext" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline cursorHasNext
     @EXAMPLE_ARANGOSH_OUTPUT{cursorHasNext}
@@ -52,9 +52,8 @@ documents. In this case the next document can be accessed using the
     ~ db._drop("five")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock cursorHasNext
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Next
 ----
@@ -73,7 +72,7 @@ exhausted cursor, then *undefined* is returned.
 
 
 **Examples**
-{% example example="cursorNext" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline cursorNext
     @EXAMPLE_ARANGOSH_OUTPUT{cursorNext}
@@ -87,9 +86,8 @@ exhausted cursor, then *undefined* is returned.
     ~ db._drop("five")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock cursorNext
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Set Batch size
 --------------
@@ -133,7 +131,7 @@ The batchSize cannot be adjusted after the query is first executed.
 **Note**: There is no need to explicitly call the execute method if another
 means of fetching the query results is chosen. The following two approaches
 lead to the same result:
-{% example example="executeQueryNoBatchSize" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline executeQueryNoBatchSize
     @EXAMPLE_ARANGOSH_OUTPUT{executeQueryNoBatchSize}
     ~ db._create("users");
@@ -149,12 +147,11 @@ lead to the same result:
     ~ db._drop("users")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock executeQueryNoBatchSize
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 The following two alternatives both use a batchSize and return the same
 result:
-{% example example="executeQueryBatchSize" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline executeQueryBatchSize
     @EXAMPLE_ARANGOSH_OUTPUT{executeQueryBatchSize}
     ~ db._create("users");
@@ -166,9 +163,8 @@ result:
     ~ db._drop("users")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock executeQueryBatchSize
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 Dispose

@@ -13,3 +13,10 @@ canonical fuer alte seiten => muss diskutieren mit SEO guy
 
 - ci integration
 
+
+- title tag:
+
+ArangoDB Documentation | Tutorials | Database Methods   x
+ArangoDB Documentation - Tutorials - Database Methods
+
+- title, canonocical ueberschreiben

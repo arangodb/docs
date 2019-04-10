@@ -2,15 +2,17 @@ require_relative "ExampleBlock.rb"
 
 class AqlExampleBlock < ExampleBlock
   # was is das fuer 1 unfug. template sprache und man muss selber matchen
-  Syntax = /examplevar\s*=\s*"([^"]+)"\s+short\s*=\s*"([^"]+)"\s+long\s*=\s*"([^"]+)"/om
-  attr_reader :examplevar, :short, :long
+  Syntax = /examplevar\s*=\s*"([^"]+)"\s+type\s*=\s*"([^"]+)"\s+query\s*=\s*"([^"]+)"\s+bind\s*=\s*"([^"]+)"\s+result\s*=\s*"([^"]+)"/om
+  attr_reader :examplevar, :type, :query, :bind, :result
   
   def initialize(tag_name, markup, tokens)
     super
     if markup =~ Syntax
-      @examplevar = $2
-      @short = $3
-      @long = $4
+      @examplevar = $1
+      @type = $2
+      @query = $3
+      @bind = $4
+      @result = $5
     else
       raise "Invalid example syntax " + markup
     end
@@ -22,22 +24,45 @@ class AqlExampleBlock < ExampleBlock
       raise "Invalid type " + type + " for aql in " + context["page"]["path"]
     end
 
-    short = ""
-    long = ""
+    type = "query"
+    parts = {
+      "query"=> "",
+      "bind"=> "",
+      "result"=> "",
+    }
+
+    if parent_render(context) =~ /@EXPLAIN/iom
+      type = "explain"
+    end
+
+    current = "none"
     get_example_content(context, example_name).each_line {|line|
-      long += line + "\n"
-      if line =~ /^\s*arangosh&gt;/ || line =~ /\.\.\.\.\.\.\.\.&gt;/
-        short += line
+      case line
+      when /^\s*@([A-Z])/
+        case $1
+        when "Q"
+          current = "query"
+        when "B"
+          current = "bind"
+        when "R"
+          current = "result"
+        else
+          print("Unexpected type " + $1)
+        end
+      else
+        if current == "none"
+          print("Ignoring " + line + " in aql example at " + context["page"]["path"] + "\n")
+        else
+          parts[current] += line + "\n"
+        end
       end
     }
-    
-    context.scopes.last[@examplevar] = example_name
-    if long.lines.length - short.lines.length < 5
-      context.scopes.last[@short] = nil
-    else
-      context.scopes.last[@short] = short
-    end
-    context.scopes.last[@long] = long
+
+    context.scopes.last[@examplevar] = example_name.gsub(/[^a-zA-Z0-9-]/, "-")
+    context.scopes.last[@type] = parts["type"]
+    context.scopes.last[@query] = parts["query"]
+    context.scopes.last[@bind] = parts["bind"]
+    context.scopes.last[@result] = parts["result"]
     ""
   end
 end

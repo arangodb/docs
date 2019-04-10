@@ -51,7 +51,7 @@ indexed and will be taken into account for uniqueness checks.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
-{% example example="ensureUniqueConstraint" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline ensureUniqueConstraint
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueConstraint}
     ~db._create("test");
@@ -63,9 +63,8 @@ details, including the index-identifier, is returned.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureUniqueConstraint
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 ### Non-unique Hash Indexes
 
 <!-- js/server/modules/@arangodb/arango-collection.js-->
@@ -83,7 +82,7 @@ To create a sparse unique index, set the *sparse* attribute to `true`:
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
-{% example example="ensureHashIndex" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline ensureHashIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureHashIndex}
     ~db._create("test");
@@ -94,9 +93,8 @@ details, including the index-identifier, is returned.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureHashIndex
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 ### Hash Array Indexes
 
 Ensures that a hash array index exists (non-unique):
@@ -112,7 +110,7 @@ It is possible to combine array indexing with standard indexing:
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
-{% example example="ensureHashIndexArray" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline ensureHashIndexArray
     @EXAMPLE_ARANGOSH_OUTPUT{ensureHashIndexArray}
     ~db._create("test");
@@ -123,9 +121,8 @@ details, including the index-identifier, is returned.
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureHashIndexArray
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Ensure uniqueness of relations in edge collections
 --------------------------------------------------

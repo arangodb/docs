@@ -12,7 +12,7 @@ View
 `db._view(view-name)`
 
 Returns the view with the given name or null if no such view exists.
-{% example example="viewDatabaseGet" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline viewDatabaseGet
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseGet}
     ~ db._createView("example", "arangosearch", {});
@@ -22,9 +22,8 @@ Returns the view with the given name or null if no such view exists.
     ~ db._dropView("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseGet
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 `db._view(view-identifier)`
 
 Returns the view with the given identifier or null if no such view exists.
@@ -35,25 +34,23 @@ access views using the view name.
 **Examples**
 
 Get a view by name:
-{% example example="viewDatabaseNameKnown" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline viewDatabaseNameKnown
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseNameKnown}
       db._view("demoView");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseNameKnown
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Unknown view:
-{% example example="viewDatabaseNameUnknown" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline viewDatabaseNameUnknown
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseNameUnknown}
       db._view("unknown");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseNameUnknown
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Create
 ------
@@ -80,7 +77,7 @@ to each view-type. Currently, only ArangoSearch Views are supported. See
 details.
 
 **Examples**
-{% example example="viewDatabaseCreate" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline viewDatabaseCreate
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseCreate}
       v = db._createView("example", "arangosearch");
@@ -88,9 +85,8 @@ details.
       db._dropView("example")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseCreate
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 All Views
 ---------
@@ -105,7 +101,7 @@ Returns all views of the given database.
 **Examples**
 
 List all views:
-{% example example="viewDatabaseList" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline viewDatabaseList
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseList}
     ~ db._createView("exampleView", "arangosearch");
@@ -113,9 +109,8 @@ List all views:
     ~ db._dropView("exampleView");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseList
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Drop
 ----
 
@@ -134,7 +129,7 @@ thrown if there is no such view.
 **Examples**
 
 Drop a view:
-{% example example="viewDatabaseDrop" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline viewDatabaseDrop
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseDrop}
       db._createView("exampleView", "arangosearch");
@@ -142,5 +137,5 @@ Drop a view:
       db._view("exampleView");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDatabaseDrop
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}

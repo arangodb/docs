@@ -16,7 +16,7 @@ Drops a *view* and all its data.
 **Examples**
 
 Drop a view:
-{% example example="viewDrop" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline viewDrop
     @EXAMPLE_ARANGOSH_OUTPUT{viewDrop}
       | v = db._createView("example", "arangosearch");
@@ -26,9 +26,8 @@ Drop a view:
       db._view("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewDrop
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Query Name
 ----------
 
@@ -41,16 +40,15 @@ Returns the name of the *view*.
 **Examples**
 
 Get view name:
-{% example example="viewName" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline viewName
     @EXAMPLE_ARANGOSH_OUTPUT{viewName}
       v = db._view("demoView");
       v.name();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewName
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Rename
 ------
 
@@ -68,7 +66,7 @@ If renaming fails for any reason, an error is thrown.
 **Note**: this method is not available in a cluster.
 
 **Examples**
-{% example example="viewRename" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline viewRename
     @EXAMPLE_ARANGOSH_OUTPUT{viewRename}
       v = db._createView("example", "arangosearch");
@@ -78,9 +76,8 @@ If renaming fails for any reason, an error is thrown.
       ~ db._dropView("exampleRenamed");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewRename
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Query Type
 ----------
 
@@ -93,16 +90,15 @@ Returns the type of the *view*.
 **Examples**
 
 Get view type:
-{% example example="viewType" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline viewType
     @EXAMPLE_ARANGOSH_OUTPUT{viewType}
       v = db._view("demoView");
       v.type();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewType
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Query Properties
 ----------------
 
@@ -116,16 +112,15 @@ each of the supported [View Types](datamodeling-views.html).
 **Examples**
 
 Get view properties:
-{% example example="viewGetProperties" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline viewGetProperties
     @EXAMPLE_ARANGOSH_OUTPUT{viewGetProperties}
       v = db._view("demoView");
       v.properties();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewGetProperties
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Modify Properties
 -----------------
 
@@ -147,7 +142,7 @@ can be found in
 **Examples**
 
 Modify view properties:
-{% example example="viewModifyProperties" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline viewModifyProperties
     @EXAMPLE_ARANGOSH_OUTPUT{viewModifyProperties}
       ~ db._createView("example", "arangosearch");
@@ -162,5 +157,5 @@ Modify view properties:
       ~ db._dropView("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock viewModifyProperties
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}

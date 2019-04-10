@@ -45,7 +45,7 @@ However in the list of fields used to create the index we have to include either
 Let us again explain this by an example.
 Assume we want to create an hash-based outbound vertex-centric index on the attribute `type`.
 This can be created with the following way:
-{% example example="ensureVertexCentricHashIndex" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline ensureVertexCentricHashIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureVertexCentricHashIndex}
     ~db._createEdgeCollection("collection");
@@ -53,9 +53,8 @@ This can be created with the following way:
     ~db._drop("collection");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureVertexCentricHashIndex
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 All options that are supported by the respective indexes are supported by the vertex-centric index as well.
 
 Index usage

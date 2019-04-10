@@ -73,15 +73,14 @@ to grant the access rights for one or more databases using
 [grantDatabase](#grant-database).
 
 *Examples*
-{% example example="USER_02_saveUser" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline USER_02_saveUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_02_saveUser}
     require('@arangodb/users').save('my-user', 'my-secret-password');
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_02_saveUser
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Grant Database
 --------------
 
@@ -145,15 +144,14 @@ database.
 **Note**: this function will not work from within the web interface
 
 *Examples*
-{% example example="USER_03_replaceUser" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline USER_03_replaceUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_03_replaceUser}
     require("@arangodb/users").replace("my-user", "my-changed-password");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_03_replaceUser
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Update
 ------
 
@@ -174,15 +172,14 @@ or given in a wrong format, or if the specified user cannot be found in the
 database.
 
 *Examples*
-{% example example="USER_04_updateUser" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline USER_04_updateUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_04_updateUser}
     require("@arangodb/users").update("my-user", "my-secret-password");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_04_updateUser
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 isValid
 -------
 
@@ -196,15 +193,14 @@ Each call to this function is penalized by the server sleeping a random
 amount of time.
 
 *Examples*
-{% example example="USER_05_isValidUser" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline USER_05_isValidUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_05_isValidUser}
     require("@arangodb/users").isValid("my-user", "my-secret-password");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_05_isValidUser
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Remove
 ------
 
@@ -218,15 +214,14 @@ the database.
 This method will fail if the user cannot be found in the database.
 
 *Examples*
-{% example example="USER_07_removeUser" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline USER_07_removeUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_07_removeUser}
     require("@arangodb/users").remove("my-user");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_07_removeUser
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Document
 --------
 
@@ -239,15 +234,14 @@ The user name must be specified in *user*.
 This method will fail if the user cannot be found in the database.
 
 *Examples*
-{% example example="USER_04_documentUser" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline USER_04_documentUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_04_documentUser}
     require("@arangodb/users").document("my-user");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_04_documentUser
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 All
 ---
 
@@ -256,15 +250,14 @@ All
 Fetches all existing ArangoDB users from the database.
 
 *Examples*
-{% example example="USER_06_AllUsers" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline USER_06_AllUsers
     @EXAMPLE_ARANGOSH_OUTPUT{USER_06_AllUsers}
     require("@arangodb/users").all();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_06_AllUsers
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Reload
 ------
 
@@ -277,15 +270,14 @@ cached after that. When users get added or deleted, a cache flush is done
 automatically, and this can be performed by a call to this method.
 
 *Examples*
-{% example example="USER_03_reloadUser" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline USER_03_reloadUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_03_reloadUser}
     require("@arangodb/users").reload();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_03_reloadUser
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Permission
 --------
@@ -300,14 +292,13 @@ the collection name.
 This method will fail if the user cannot be found in the database.
 
 *Examples*
-{% example example="USER_05_permission" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline USER_05_permission
     @EXAMPLE_ARANGOSH_OUTPUT{USER_05_permission}
     ~ require("@arangodb/users").grantDatabase("my-user", "testdb");
     require("@arangodb/users").permission("my-user", "testdb");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock USER_05_permission
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 

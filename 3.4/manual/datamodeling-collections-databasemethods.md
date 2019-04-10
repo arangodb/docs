@@ -27,15 +27,14 @@ end users. End users should access collections using the collection name.
 
 
 Get a collection by name:
-{% example example="collectionDatabaseNameKnown" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionDatabaseNameKnown
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseNameKnown}
       db._collection("demo");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseNameKnown
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Get a collection by id:
 
 ```
@@ -44,15 +43,14 @@ arangosh> db._collection(123456);
 ```
 
 Unknown collection:
-{% example example="collectionDatabaseNameUnknown" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionDatabaseNameUnknown
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseNameUnknown}
       db._collection("unknown");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseNameUnknown
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Create
 ------
@@ -247,7 +245,7 @@ creation time and will not be persisted:
 
 
 With defaults:
-{% example example="collectionDatabaseCreateSuccess" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionDatabaseCreateSuccess
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateSuccess}
       c = db._create("users");
@@ -255,11 +253,10 @@ With defaults:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateSuccess
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 With properties:
-{% example example="collectionDatabaseCreateProperties" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionDatabaseCreateProperties
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateProperties}
       |c = db._create("users", { waitForSync : true,
@@ -268,11 +265,10 @@ With properties:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateProperties
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 With a key generator:
-{% example example="collectionDatabaseCreateKey" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionDatabaseCreateKey
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateKey}
     | db._create("users",
@@ -283,11 +279,10 @@ With a key generator:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateKey
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 With a special key option:
-{% example example="collectionDatabaseCreateSpecialKey" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionDatabaseCreateSpecialKey
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateSpecialKey}
       db._create("users", { keyOptions: { allowUserKeys: false } });
@@ -297,9 +292,8 @@ With a special key option:
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCreateSpecialKey
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 <!-- arangod/V8Server/v8-vocindex.cpp -->
 
@@ -347,7 +341,7 @@ Returns all collections of the given database.
 
 
 **Examples**
-{% example example="collectionsDatabaseName" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline collectionsDatabaseName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionsDatabaseName}
@@ -356,9 +350,8 @@ Returns all collections of the given database.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionsDatabaseName
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 Collection Name
@@ -376,7 +369,7 @@ default properties.
 
 
 **Examples**
-{% example example="collectionDatabaseCollectionName" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
 
     @startDocuBlockInline collectionDatabaseCollectionName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCollectionName}
@@ -385,9 +378,8 @@ default properties.
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseCollectionName
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 
 Drop
@@ -423,7 +415,7 @@ with *distributeShardsLike* parameter, cannot be dropped.
 *Examples*
 
 Drops a collection:
-{% example example="collectionDatabaseDropByObject" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionDatabaseDropByObject
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropByObject}
     ~ db._create("example");
@@ -433,11 +425,10 @@ Drops a collection:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropByObject
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Drops a collection identified by name:
-{% example example="collectionDatabaseDropName" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionDatabaseDropName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropName}
     ~ db._create("example");
@@ -446,11 +437,10 @@ Drops a collection identified by name:
       col;
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropName
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Drops a system collection
-{% example example="collectionDatabaseDropSystem" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionDatabaseDropSystem
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropSystem}
     ~ db._create("_example", { isSystem: true });
@@ -459,9 +449,8 @@ Drops a system collection
       col;
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseDropSystem
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Truncate
 --------
 
@@ -489,7 +478,7 @@ there is no such collection.
 
 
 Truncates a collection:
-{% example example="collectionDatabaseTruncateByObject" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionDatabaseTruncateByObject
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncateByObject}
     ~ db._create("example");
@@ -501,11 +490,10 @@ Truncates a collection:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseTruncateByObject
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 Truncates a collection identified by name:
-{% example example="collectionDatabaseTruncateName" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline collectionDatabaseTruncateName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncateName}
     ~ db._create("example");
@@ -517,7 +505,6 @@ Truncates a collection identified by name:
     ~ db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDatabaseTruncateName
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 

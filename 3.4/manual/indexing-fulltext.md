@@ -73,7 +73,7 @@ specify this value.
 
 In case that the index was successfully created, an object with the index
 details is returned.
-{% example example="ensureFulltextIndex" examplevar="examplevar" short="short" long="long" %}
+{% arangoshexample examplevar="examplevar" short="short" long="long" %}
     @startDocuBlockInline ensureFulltextIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureFulltextIndex}
     ~db._create("example");
@@ -89,9 +89,8 @@ details is returned.
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureFulltextIndex
-{% endexample %}
-{% include example.html id=examplevar short=short long=long %}
-
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar short=short long=long %}
 
 Looks up a fulltext index:
 
