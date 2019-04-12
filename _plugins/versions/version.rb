@@ -1,6 +1,6 @@
 module JekyllVersions
   class Version
-    REGEX = /^v[0-9]+\.[0-9]+$/
+    REGEX = /^[0-9]+\.[0-9]+$/
 
     include Comparable
 
