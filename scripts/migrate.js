@@ -32,7 +32,7 @@ async function migrateMds(basePath, targetPath) {
         // fix crosslinks between documents (../AQL/Geil/Aql.md => -aql-geil-aql.md => ../aql/geil-aql.md)
         content = content.replace(/\]\(-([^-]+)-([^\.]+)\.html\)/g, '](../\$1/\$2.html)');
         // replace all LOCAL images with images/IMAGEBASEPATH
-        content = content.replace(/\]\((?!https?:).*?([^/]+\.png)\)/g, '](images/\$1)');
+        content = content.replace(/\]\((?!https?:).*?([^/]+\.png)\)/g, '](../images/\$1)');
         
         content = content.replace(/^\s*@startDocuBlockInline.*?@endDocuBlock[^\n$]+\n/msg, (block) => {
             if (block.match(/@EXAMPLE_ARANGOSH.*/s)) {
@@ -57,14 +57,14 @@ async function migrateMds(basePath, targetPath) {
 
 // verified beforehand that all imagenames are unique over all directories
 async function migrateImages(basePath, targetPath) {
-    const paths = await globby([basePath + "/**/*.png"]);
+    const paths = await globby([path.join(basePath + "/**/*.png")]);
     return Promise.all(paths.map(image => {
-        return fs.copyFile(image, path.join(targetPath, "images", path.basename(image)));
+        return fs.copyFile(image, path.join(targetPath, "..", "images", path.basename(image)));
     }));
 }
 
 async function main(basePath, targetPath) {
-    await mkdirp(path.join(targetPath, "images"));
+    await mkdirp(path.join(targetPath, "..", "images"));
     Promise.all([migrateImages(basePath, targetPath), migrateMds(basePath, targetPath)]);
 }
 
