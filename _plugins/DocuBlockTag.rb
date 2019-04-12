@@ -16,6 +16,18 @@ class DocuBlockBlock < Liquid::Tag
                 result += "   * _#{key}_ (#{value["type"]}): #{value["description"]}"
             end
         end
+        if block["queryParams"]
+            result += "**Query Parameters**\n\n"
+            block["queryParams"].each do |key, value|
+                result += "   * _#{key}_ (#{value["type"]}): #{value["description"]}"
+            end
+        end
+        if block["headerParams"]
+            result += "**Header Parameters**\n\n"
+            block["headerParams"].each do |key, value|
+                result += "   * _#{key}_ (#{value["type"]}): #{value["description"]}"
+            end
+        end
         if block["fullbody"]
             result += "**Request Body (#{block["fullbody"]["type"]})**\n\n#{block["fullbody"]["description"]}\n\n"
         end
@@ -25,7 +37,6 @@ class DocuBlockBlock < Liquid::Tag
                 result += "   * **#{key}**: #{value["description"]}\n"
                 if value["subdescription"]
                     value["subdescription"].each do |name, subdescription|
-                        p subdescription
                         result += "      * **#{name}**: "
                         subdescription["description"].each_line do |line|
                             result += "      #{line}"
@@ -38,11 +49,29 @@ class DocuBlockBlock < Liquid::Tag
             result += block["description"]
         end
         if block["returnCodes"].length > 0
-            result += "**Return codes**\n\n"
+            has_bodies = block["returnCodes"].any? { |returnCode| returnCode["body"] }
+            if !has_bodies
+                result += "**Return codes**\n\n"
+            end
             block["returnCodes"].each do |returnCode|
                 code = returnCode['code']
                 description = returnCode['description']
-                result += "   * #{code}: #{description}\n"
+                if returnCode["body"]
+                    result += "**HTTP #{code}** #{description}\n\n"
+                    returnCode["body"].each do |key, value|
+                        result += "   * **#{key}**: #{value["description"]}\n"
+                        if value["subdescription"]
+                            value["subdescription"].each do |name, subdescription|
+                                result += "      * **#{name}**: "
+                                subdescription["description"].each_line do |line|
+                                    result += "      #{line}"
+                                end
+                            end
+                        end
+                    end
+                else
+                    result += "   * #{code}: #{description}\n"
+                end
             end
         end
         if block["examples"]
@@ -99,7 +128,7 @@ class DocuBlockBlock < Liquid::Tag
                     }
                     currentObject = local["fullbody"]
                     currentKey = "description"
-                when /^@RESTBODYPARAM{(\w+),(\w+),(\w+)(,\s*(\w*))?}/
+                when /^@RESTBODYPARAM{([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),?(\s*(([a-zA-Z0-9_-]+)))?}/
                     if !local["body"]
                         local["body"] = {
                         }
@@ -111,7 +140,7 @@ class DocuBlockBlock < Liquid::Tag
                     }
                     currentObject = local["body"][$1]
                     currentKey = "description"
-                when /^@RESTSTRUCT{([a-zA-Z_-]+),([a-zA-Z_-]+),(\w+),(\w+),(\w+)?}/
+                when /^@RESTSTRUCT{([\]\[\. \*a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)?}/
                     # hacki hack: so next struct property is assigned to the parent
                     if currentObject["subdescription"] || currentObject["parent"]
                         if currentObject["parent"]
@@ -138,7 +167,30 @@ class DocuBlockBlock < Liquid::Tag
                     }
                     currentObject = local["urlParams"][$1]
                     currentKey = "description"
-                when /^@RESTREPLYBODY{(\w+),(\w+),(\w+)}/
+                when /^@RESTQUERYPARAMETERS/
+                    currentObject = local
+                when /^@RESTQUERYPARAM{([a-zA-Z_-]+),(\w+),(\w+)}/
+                    if !local["queryParams"]
+                        local["queryParams"] = {}
+                    end
+                    local["queryParams"][$1] = {
+                        "type" => $3,
+                        "description" => ""
+                    }
+                    currentObject = local["queryParams"][$1]
+                    currentKey = "description"
+                when /^@RESTHEADERPARAMETERS/
+                    currentObject = local
+                when /^@RESTHEADERPARAM{([a-zA-Z_-]+),(\w+),(\w+)}/
+                    if !local["headerParams"]
+                        local["headerParams"] = {}
+                    end
+                    local["headerParams"][$1] = {
+                        "type" => $3,
+                        "description" => ""
+                    }
+                    currentObject = local["headerParams"][$1]
+                    currentKey = "description"
                 when /^@HINTS/
                 when /^@RESTRETURNCODE{(\d+)}/
                     currentReturnCode = {
@@ -148,6 +200,21 @@ class DocuBlockBlock < Liquid::Tag
                     currentObject = currentReturnCode
                     currentKey = "description"
                     local["returnCodes"].push(currentReturnCode)
+                when /^@RESTREPLYBODY{([a-zA-Z0-9_-]*),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)?}/
+                    if local["returnCodes"].length == 0
+                        p "No returncode found for #{line}"
+                    else
+                        returnCode = local["returnCodes"][local["returnCodes"].length - 1]
+                        if !returnCode["body"]
+                            returnCode["body"] = {}
+                        end
+                        returnCode["body"][$1] = {
+                            "description" => "",
+                            "subdescription" => {},
+                        }
+                        currentObject = returnCode["body"][$1]
+                        currentKey = "description"
+                    end
                 else
                     if line[0] == "@"
                         print "Unhandled @: #{line}"
