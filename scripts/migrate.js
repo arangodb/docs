@@ -42,7 +42,7 @@ async function migrateMds(basePath, targetPath) {
             }
             return block;
         });
-        content = content.replace(/^\s*@startDocuBlock\s+\w+.*$/mg, "{% docublock %}\$&{% enddocublock %}")
+        content = content.replace(/^\s*@startDocuBlock\s+(\w+).*$/mg, "{% docublock \$1 %}")
 
         return {
             name: fileName,
