@@ -29,7 +29,7 @@ plugins:
   - jekyll-sitemap
 
 # Build settings
-markdown: redcarpet
+markdown: kramdown
 
 theme: minima
 plugins:
@@ -55,7 +55,4 @@ exclude:
 versions:
   stable: "3.4"
   devel: "3.5"
-
-redcarpet:
-  extensions: ["with_toc_data"]
 
