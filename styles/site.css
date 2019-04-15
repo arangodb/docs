@@ -81,3 +81,44 @@ code.language-js .mi, code.language-json .mi {
 .page-inner li p {
     margin: 0;
 }
+
+.page-toc:before {
+    content: "Table of Contents";
+    font-weight: bold;
+}
+
+.page-toc {
+    float: right;
+    background: #f8f8f8;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 3px;
+    padding: 20px !important;
+    font-size: smaller;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    max-width: 400px;
+}
+
+.page-toc ul {
+    padding-left: 20px;
+}
+
+.page-toc > ul {
+    padding-left: 0;
+}
+
+.page-toc li {
+    list-style: none;
+    margin-left: 16px;
+}
+
+.page-toc li:before {
+    content: "\2013\00a0";
+    color: #4183c4;
+    margin-left: -13px;
+}
+
+.page-toc-min-paragraph-width {
+    width: 200px;
+    overflow: hidden;
+}
