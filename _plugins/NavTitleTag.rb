@@ -7,6 +7,7 @@ class NavTitleTag < Liquid::Tag
     end
 
     def findTitle(context, root, stack)
+        # root url (3.4/Manual et al)...doesn't have a nav item
         if context["page"]["url"].end_with?("/")
             return stack.join " | "
         end
