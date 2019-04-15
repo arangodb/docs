@@ -99,7 +99,10 @@
         if (!contentBlock) {
           return;
         }
-        generateToc();
+        var disable = {{ page["page-toc"].disable | jsonify }};
+        if (!disable) {
+          generateToc();
+        }
         for (var level = 1; level <= 6; level++) {
           linkifyAnchors(level, contentBlock);
         }
