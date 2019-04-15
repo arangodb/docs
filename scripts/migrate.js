@@ -21,6 +21,7 @@ async function migrateMds(basePath, targetPath) {
         } else {
             content = "---\nlayout: default\n" + content.substr(4)
         }
+        content = content.replace("ArangoDB VERSION_NUMBER", "ArangoDB {{ site.data.versions[page.version.name] }}");
         // replace all md links with their changed link
         content = content.replace(/\]\((?!https?:)(.*\.(html|md))(#[^\)]+)?\)/g, (x, link, fileExt, anchor) => {
             if (!link.startsWith('/')) {

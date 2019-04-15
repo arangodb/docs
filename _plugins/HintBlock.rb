@@ -1,24 +1,21 @@
 class HintTag < Liquid::Block
     def initialize(tag_name, input, tokens)
+      @class = input.gsub(/['"]/, "").strip!
       super
     end
 
-    def blank?
-      true
-    end
-  
     def render(context)
-      # TODO
-      return ""
-      # Write the output HTML string
-    #   output =  "<div style=\"margin: 0 auto; padding: .8em 0;\"><script async "
-    #   output += "src=\"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\">"
-    #   output += "</script><ins class=\"adsbygoogle\" style=\"display:block\" data-ad-client=\"xxxxx\""
-    #   output += "data-ad-slot=\"yyyyyy\" data-ad-format=\"auto\"></ins><script>(adsbygoogle ="
-    #   output += "window.adsbygoogle || []).push({});</script></div>"
-  
-    #   # Render it on the page by returning it
-    #   return output;
+      site = context.registers[:site]
+      converter = site.find_converter_instance(::Jekyll::Converters::Markdown)
+      
+      content = converter.convert(super)
+
+      return "<div class=\"alert alert-#{@class}\" style=\"display: flex\">
+  <i class=\"fa fa-info-circle\" style=\"margin-right: 10px; margin-top: 4px;\"></i>
+  <div>
+    #{content}
+  </div>
+</div>"
     end
   end
   Liquid::Template.register_tag('hint', HintTag)
