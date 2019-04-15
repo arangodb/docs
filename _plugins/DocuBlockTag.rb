@@ -230,7 +230,21 @@ class DocuBlockBlock < Liquid::Tag
     end
 
     def render(context)
-        get_docu_block(Dir.pwd + context["page"]["dir"] + "/../", @blockname) || "Blockname #{@blockname} undefined"
+        content = get_docu_block(Dir.pwd + context["page"]["dir"] + "/../", @blockname)
+        if !content
+            return "Blockname #{@blockname} undefined"
+        end
+        # oeff....no idea how to parse nested liquid :S
+        # apparently the parser needs the complete document to discover liquid.
+        # inserting liquid on the fly does not work...so include the hints in a super dirty regex way
+        content = content.gsub(/\{%\s*hint\s+'([^']+)'\s*%\}(.*?)\{%\s*endhint\s*%\}/om) {
+            "<div class=\"alert alert-#{$1}\" style=\"display: flex\">
+    <i class=\"fa fa-info-circle\" style=\"margin-right: 10px; margin-top: 4px;\"></i>
+    <div>
+        #{$2}
+    </div>
+</div>"}
+        content
     end
 end
 Liquid::Template.register_tag('docublock', DocuBlockBlock)
