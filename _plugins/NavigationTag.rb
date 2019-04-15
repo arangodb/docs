@@ -1,7 +1,8 @@
 require 'json'
 
-class NavigationBlock < Liquid::Block
+class NavigationTag < Liquid::Tag
     def initialize(tag_name, input, tokens)
+        @variable_name_expr = Liquid::Expression.parse(input.strip!)
         super
     end
 
@@ -58,11 +59,11 @@ class NavigationBlock < Liquid::Block
     end
 
     def render(context)
-        rootChildren = super.strip!
-        parsed = JSON.parse(rootChildren)
+        var = context.evaluate(@variable_name_expr)
+        parsed = context["site"]["data"][var]
 
         output, found = renderTree(context, parsed, [])
         return output
     end
 end
-Liquid::Template.register_tag('navigation', NavigationBlock)
+Liquid::Template.register_tag('navigation', NavigationTag)

@@ -2,6 +2,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="{{ page.canonical | absolute_url }}">
+{% capture navvar %}{{ page.dir| replace_first: "/", "" | replace: "/", "-" | replace: ".", ""  | split: "" | reverse | join: ""| replace_first: "-", "" | split: "" | reverse | join: "" }}{% endcapture %}
+<title>
+  {% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %}
+</title>
 {% comment %}
 {%- seo -%}
 {% endcomment %}

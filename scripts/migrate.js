@@ -6,7 +6,9 @@ const mkdirp = require('mkdirp');
 
 async function migrateMds(basePath, targetPath) {
     const absoluteBasePath = await fs.realpath(basePath);
-    const paths = await globby([path.join(basePath, "**/*.md")]);
+    const paths = (await globby([path.join(basePath, "**/*.md")])).filter(filePath => {
+        return path.relative(basePath, filePath).toLowerCase() !== 'summary.md';
+    });
     const files = await Promise.all(paths.map(async (p) => {
         const absolute = await fs.realpath(p);
         const relative = path.relative(absoluteBasePath, absolute);
@@ -64,6 +66,7 @@ async function migrateImages(basePath, targetPath) {
 }
 
 async function main(basePath, targetPath) {
+    await mkdirp(path.join(targetPath));
     await mkdirp(path.join(targetPath, "..", "images"));
     Promise.all([migrateImages(basePath, targetPath), migrateMds(basePath, targetPath)]);
 }
@@ -85,8 +88,7 @@ fs.access(basePath).then(() => {
 }, () => {
     console.error("Couldn't find " + basePath);
     process.exit(1);
-})
-.catch(e => {
+}, e => {
     console.error(e);
     process.exit(2);
 })
