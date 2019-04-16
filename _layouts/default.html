@@ -4,13 +4,20 @@
   {% include head.html %}
 </head>
 <body>
-  {% include anchor-links.html %}
-  {% include topnav.html %}
+  {% include topnav.html %} 
   <div class="book without-animation with-summary font-size-2 font-family-1">
     <div class="book-summary">
       {% include sidebar.html %}
     </div>
     <div class="book-body">
+        {% comment %}
+        phew...this is ugly...this global variable will be picked up by generateToc..
+        must be placed here in book body so it gets reevaluated for every nav change
+        (not a full reload but some js magic)
+        {% endcomment %}
+        <script type="text/javascript">
+            window.disablePageToc = {{ page["page-toc"].disable | jsonify }};
+        </script>
         <div class="body-inner">
             <div class="book-header" role="navigation">
               {% comment %}
