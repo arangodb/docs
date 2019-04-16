@@ -1,6 +1,4 @@
-const jsdom = require("jsdom");
 const fs = require('fs');
-const showdown  = require('showdown');
 const changeLink = require('./changeLink');
 
 const filename = process.argv[2];

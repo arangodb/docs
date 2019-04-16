@@ -3,12 +3,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="{{ page.canonical | absolute_url }}">
 {% capture navvar %}{{ page.dir| replace_first: "/", "" | replace: "/", "-" | replace: ".", ""  | split: "" | reverse | join: ""| replace_first: "-", "" | split: "" | reverse | join: "" }}{% endcapture %}
-<title>
-  {% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %}
-</title>
-{% comment %}
-{%- seo -%}
-{% endcomment %}
+<title>{% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %}</title>
+<meta itemprop="description" name="description" content="{% if page.description %}{{ page.description | truncate: 160 }}{% else %}{{ site.description | truncate: 160  }}{% endif %}" />
+<meta name="robots" content="index, follow" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta property="og:url" content="{{ page.canonical | absolute_url }}" />
+<meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %}" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="{% if page.description %}{{ page.description | truncate: 200 }}{% else %}{{ site.description | truncate: 200  }}{% endif %}" />
+
+<link rel="shortcut icon" href="https://www.arangodb.com/wp-content/uploads/2018/07/www.arangodb.com-favicon.png">
 <link rel="stylesheet" href="{{ "/styles/gitbook/style.css" | relative_url }}">
 <link rel="stylesheet" href="{{ "/styles/gitbook/highlight-website.css" | relative_url }}">
 <link rel="stylesheet" href="{{ "/styles/gitbook/fontsettings-website.css" | relative_url }}">

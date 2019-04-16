@@ -3,6 +3,9 @@ const path = require('path');
 const globby = require('globby');
 const changeLink = require('./changeLink');
 const mkdirp = require('mkdirp');
+const markedIt = require('marked-it-core');
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 
 async function migrateMds(basePath, targetPath) {
     const absoluteBasePath = await fs.realpath(basePath);
@@ -16,10 +19,40 @@ async function migrateMds(basePath, targetPath) {
         const fileName = changeLink(relative);
 
         let content = (await fs.readFile(p)).toString();
+        const result = markedIt.generate(content);
+        const dom = new JSDOM(result.html.text);
+
+        let description = null;
+        const paragraph = dom.window.document.querySelector("p");
+        if (paragraph) {
+            if (paragraph.querySelector('code')) {
+                const headline = dom.window.document.querySelector("h1, h2, h3, h4, h5, h6");
+                if (headline) {
+                    description = headline.textContent;
+                }
+            } else {
+                description = paragraph.textContent
+                    .replace(/\n/g, '')
+                    .replace(/(.*?)[\.:].*/ms, '\$1')
+                    .replace(/{%\s*hint[^%]*\s*%}/, '')
+                    .replace(/{%\s*endhint\s*%}/, '')
+                    .trim();
+
+                if (description.startsWith('@startDocuBlock')) {
+                    description = null;
+                }
+            }
+        }
+
+        let header = "---\nlayout: default\n";
+        if (description) {
+            header += "description: " + description + "\n";
+        }
+
         if (!content.startsWith("---\n")) {
-            content = "---\nlayout: default\n---\n" + content;
+            content = header + "---\n" + content;
         } else {
-            content = "---\nlayout: default\n" + content.substr(4)
+            content = header + content.substr(4)
         }
         content = content.replace("ArangoDB VERSION_NUMBER", "ArangoDB {{ site.data.versions[page.version.name] }}");
         // replace all md links with their changed link
