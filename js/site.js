@@ -33,28 +33,55 @@ document.onreadystatechange = function() {
   }
 };
 
+var loadPage = function(href, fn) {
+  $.get({
+    url: href,
+    success: function(newDoc) {
+      var re = new RegExp(/<title>(.*)<\/title>/, 'mg');
+      var match = re.exec(newDoc);
+      var title = "ArangoDB Documentation";
+      if (match) {
+        title = match[1];
+      }
+      document.title = title;
+
+      $(".book-body").replaceWith($(".book-body", newDoc));
+      var current = $("nav .active");
+      current.removeClass("active");
+
+      var current = $("nav .selected.active").removeClass("active");
+      if (!window.disablePageToc) {
+        generateToc();
+      }
+      if (fn) {
+        fn();
+      }
+    }
+  });
+}
+
+window.onpopstate = function(event) {
+  if (event.state.href) {
+    loadPage(event.state.href);
+  }
+};
+
 $(document).ready(function handleNav() {
   $("nav a").click(function(event) {
     event.preventDefault();
-    $.get({
-      url: event.target.href,
-      success: function(newDoc) {
-        $(".book-body").replaceWith($(".book-body", newDoc));
-        var current = $("nav .active");
-        current.removeClass("active");
-        $(event.target)
-          .parent()
-          .addClass("active");
-        $(event.target)
-          .parent()
-          .addClass("selected");
-        var current = $("nav .selected.active").removeClass("active");
-
-        if (!window.disablePageToc) {
-          generateToc();
-        }
+    loadPage(event.target.href, function(title) {
+      $(event.target)
+        .parent()
+        .addClass("active");
+      $(event.target)
+        .parent()
+        .addClass("selected");
+      if (window.history) {
+        window.history.pushState({
+          href: location.href,
+        }, title, event.target.href);
       }
-    });
+    })
   });
 });
 
