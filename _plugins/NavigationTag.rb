@@ -28,7 +28,11 @@ class NavigationTag < Liquid::Tag
                 classNames = "chapter"
                 if element["href"]
                     children += localIndent + "<a href=\"" + element['href'] + "\">" + element["text"] + "</a>\n"
-                    if context.environments.first["page"]["url"] == context.environments.first["page"]["dir"] + element["href"]
+                    fileurl = context.environments.first["page"]["url"]
+                    if fileurl.end_with?("/")
+                        fileurl += "index.html"
+                    end
+                    if fileurl == context.environments.first["page"]["dir"] + element["href"]
                         found = true
                         classNames += " selected active"
                     end
