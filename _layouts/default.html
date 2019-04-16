@@ -10,14 +10,6 @@
       {% include sidebar.html %}
     </div>
     <div class="book-body">
-        {% comment %}
-        phew...this is ugly...this global variable will be picked up by generateToc..
-        must be placed here in book body so it gets reevaluated for every nav change
-        (not a full reload but some js magic)
-        {% endcomment %}
-        <script type="text/javascript">
-            window.disablePageToc = {{ page["page-toc"].disable | jsonify }};
-        </script>
         <div class="body-inner">
             <div class="book-header" role="navigation">
               {% comment %}
@@ -36,6 +28,12 @@
               </div>
             </div>
           </div>
+          <script type="text/javascript">
+            var disablePageToc = {{ page["page-toc"].disable | jsonify }};
+            if (!disablePageToc) {
+              generateToc();
+            }
+          </script>
         </div>
       </div>
     </div>

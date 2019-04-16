@@ -52,27 +52,6 @@
     ]
   },
   {
-    "href": "tutorials.html",
-    "text": "Tutorials",
-    "children": [
-      {
-        "href": "tutorials-kubernetes.html",
-        "text": "Kubernetes",
-        "children": []
-      },
-      {
-        "href": "tutorials-kubernetes-dc2dc.html",
-        "text": "Datacenter to datacenter Replication on Kubernetes",
-        "children": []
-      }
-    ]
-  },
-  {
-    "href": "highlights.html",
-    "text": "Highlights",
-    "children": []
-  },
-  {
     "href": "scalability.html",
     "text": "Scalability",
     "children": [
@@ -296,11 +275,6 @@
         "href": "graphs-edges.html",
         "text": "Working with Edges",
         "children": []
-      },
-      {
-        "href": "graphs-pregel.html",
-        "text": "Pregel",
-        "children": []
       }
     ]
   },
@@ -418,11 +392,6 @@
         "children": []
       },
       {
-        "href": "foxx-cors.html",
-        "text": "Cross Origin",
-        "children": []
-      },
-      {
         "href": "foxx-scripts.html",
         "text": "Scripts and queued jobs",
         "children": []
@@ -524,11 +493,6 @@
             "children": []
           },
           {
-            "href": "foxx-oauth1.html",
-            "text": "OAuth 1.0a",
-            "children": []
-          },
-          {
             "href": "foxx-oauth2.html",
             "text": "OAuth 2.0",
             "children": []
@@ -578,411 +542,40 @@
         "children": []
       },
       {
-        "href": "deployment-cluster.html",
-        "text": "Cluster",
-        "children": [
-          {
-            "href": "deployment-mesos.html",
-            "text": "Mesos, DC/OS",
-            "children": []
-          },
-          {
-            "href": "deployment-arangodbstarter.html",
-            "text": "Generic & Docker",
-            "children": []
-          },
-          {
-            "href": "deployment-advanced.html",
-            "text": "Advanced Topics",
-            "children": [
-              {
-                "href": "deployment-agency.html",
-                "text": "Standalone Agency",
-                "children": []
-              },
-              {
-                "href": "deployment-local.html",
-                "text": "Local test setups",
-                "children": []
-              },
-              {
-                "href": "deployment-distributed.html",
-                "text": "Processes",
-                "children": []
-              },
-              {
-                "href": "deployment-docker.html",
-                "text": "Docker",
-                "children": []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "href": "deployment-dc2dc.html",
-        "text": "Multiple Datacenters",
+        "href": "deployment-mesos.html",
+        "text": "Cluster: Mesos, DC/OS",
         "children": []
       },
       {
-        "href": "deployment-kubernetes.html",
-        "text": "Kubernetes",
-        "children": [
-          {
-            "href": "deployment-kubernetes-usage.html",
-            "text": "Using the Operator",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-deploymentresource.html",
-            "text": "Deployment Resource Reference",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-driverconfiguration.html",
-            "text": "Driver Configuration",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-authentication.html",
-            "text": "Authentication",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-scaling.html",
-            "text": "Scaling",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-upgrading.html",
-            "text": "Upgrading",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-configandsecrets.html",
-            "text": "ArangoDB Configuration & Secrets",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-metrics.html",
-            "text": "Metrics",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-servicesandloadbalancer.html",
-            "text": "Services & Load balancer",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-deploymentreplicationresource.html",
-            "text": "Deployment Replication Resource Reference",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-storage.html",
-            "text": "Storage",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-storageresource.html",
-            "text": "Storage Resource",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-tls.html",
-            "text": "TLS",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-troubleshooting.html",
-            "text": "Troubleshooting",
-            "children": []
-          }
-        ]
+        "href": "deployment-local.html",
+        "text": "Cluster: Local test",
+        "children": []
+      },
+      {
+        "href": "deployment-distributed.html",
+        "text": "Cluster: Processes",
+        "children": []
+      },
+      {
+        "href": "deployment-docker.html",
+        "text": "Cluster: Docker",
+        "children": []
+      },
+      {
+        "href": "deployment-agency.html",
+        "text": "Agency",
+        "children": []
       }
     ]
-  },
-  {
-    "href": "backuprestore.html",
-    "text": "Backup & Restore",
-    "children": []
   },
   {
     "href": "administration.html",
     "text": "Administration",
     "children": [
       {
-        "href": "administration-webinterface.html",
-        "text": "Web Interface",
-        "children": [
-          {
-            "href": "administration-webinterface-dashboard.html",
-            "text": "Dashboard",
-            "children": []
-          },
-          {
-            "href": "administration-webinterface-cluster.html",
-            "text": "Cluster",
-            "children": []
-          },
-          {
-            "href": "administration-webinterface-collections.html",
-            "text": "Collections",
-            "children": []
-          },
-          {
-            "href": "administration-webinterface-document.html",
-            "text": "Document",
-            "children": []
-          },
-          {
-            "href": "administration-webinterface-aqleditor.html",
-            "text": "Queries",
-            "children": []
-          },
-          {
-            "href": "administration-webinterface-graphs.html",
-            "text": "Graphs",
-            "children": []
-          },
-          {
-            "href": "administration-webinterface-services.html",
-            "text": "Services",
-            "children": []
-          },
-          {
-            "href": "administration-webinterface-users.html",
-            "text": "Users",
-            "children": []
-          },
-          {
-            "href": "administration-webinterface-logs.html",
-            "text": "Logs",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "administration-arangosh.html",
-        "text": "ArangoDB Shell",
-        "children": [
-          {
-            "href": "administration-arangosh-output.html",
-            "text": "Shell Output",
-            "children": []
-          },
-          {
-            "href": "administration-arangosh-configuration.html",
-            "text": "Configuration",
-            "children": []
-          },
-          {
-            "href": "gettingstarted-arangosh.html",
-            "text": "Details",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "administration-arangoimp.html",
-        "text": "Arangoimp",
-        "children": []
-      },
-      {
-        "href": "administration-arangodump.html",
-        "text": "Arangodump",
-        "children": []
-      },
-      {
-        "href": "administration-arangorestore.html",
-        "text": "Arangorestore",
-        "children": []
-      },
-      {
-        "href": "administration-arangoexport.html",
-        "text": "Arangoexport",
-        "children": []
-      },
-      {
-        "href": "administration-managingusers.html",
-        "text": "Managing Users",
-        "children": [
-          {
-            "href": "administration-managingusers-inarangosh.html",
-            "text": "In Arangosh",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "administration-configuration.html",
-        "text": "Server Configuration",
-        "children": [
-          {
-            "href": "administration-configuration-operatingsystem.html",
-            "text": "Operating System Configuration",
-            "children": []
-          },
-          {
-            "href": "administration-configuration-endpoint.html",
-            "text": "Managing Endpoints",
-            "children": []
-          },
-          {
-            "href": "administration-configuration-ssl.html",
-            "text": "SSL Configuration",
-            "children": []
-          },
-          {
-            "href": "administration-configuration-ldap.html",
-            "text": "LDAP Options",
-            "children": []
-          },
-          {
-            "href": "administration-configuration-logging.html",
-            "text": "Logging Options",
-            "children": []
-          },
-          {
-            "href": "administration-configuration-generalarangod.html",
-            "text": "General Options",
-            "children": []
-          },
-          {
-            "href": "administration-configuration-wal.html",
-            "text": "Write-Ahead Log Options",
-            "children": []
-          },
-          {
-            "href": "administration-configuration-compaction.html",
-            "text": "Compaction Options",
-            "children": []
-          },
-          {
-            "href": "administration-configuration-cluster.html",
-            "text": "Cluster Options",
-            "children": []
-          },
-          {
-            "href": "administration-configuration-rocksdb.html",
-            "text": "RocksDB Engine Options",
-            "children": []
-          },
-          {
-            "href": "administration-configuration-cache.html",
-            "text": "Hash Cache Options",
-            "children": []
-          },
-          {
-            "href": "administration-configuration-asynchronous.html",
-            "text": "Asynchronous Tasks",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "administration-durability.html",
-        "text": "Durability",
-        "children": []
-      },
-      {
-        "href": "administration-encryption.html",
-        "text": "Encryption",
-        "children": []
-      },
-      {
-        "href": "administration-auditing.html",
-        "text": "Auditing",
-        "children": [
-          {
-            "href": "administration-auditing-auditconfiguration.html",
-            "text": "Configuration",
-            "children": []
-          },
-          {
-            "href": "administration-auditing-auditevents.html",
-            "text": "Events",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "administration-replication.html",
-        "text": "Replication",
-        "children": [
-          {
-            "href": "administration-replication-asynchronous.html",
-            "text": "Asynchronous Replication",
-            "children": [
-              {
-                "href": "administration-replication-asynchronous-components.html",
-                "text": "Components",
-                "children": []
-              },
-              {
-                "href": "administration-replication-asynchronous-databasesetup.html",
-                "text": "Per-Database Setup",
-                "children": []
-              },
-              {
-                "href": "administration-replication-asynchronous-serverlevelsetup.html",
-                "text": "Server-Level Setup",
-                "children": []
-              },
-              {
-                "href": "administration-replication-asynchronous-syncingcollections.html",
-                "text": "Syncing Collections",
-                "children": []
-              },
-              {
-                "href": "administration-replication-asynchronous-limitations.html",
-                "text": "Replication Limitations",
-                "children": []
-              }
-            ]
-          },
-          {
-            "href": "administration-replication-synchronous.html",
-            "text": "Synchronous Replication",
-            "children": [
-              {
-                "href": "administration-replication-synchronous-implementation.html",
-                "text": "Implementation",
-                "children": []
-              },
-              {
-                "href": "administration-replication-synchronous-configuration.html",
-                "text": "Configuration",
-                "children": []
-              }
-            ]
-          },
-          {
-            "href": "administration-replication-synchronous-satellites.html",
-            "text": "Satellite Collections",
-            "children": []
-          }
-        ]
-      },
-      {
-        "href": "administration-sharding.html",
-        "text": "Sharding",
-        "children": []
-      },
-      {
         "href": "administration-upgrading.html",
         "text": "Upgrading",
         "children": [
-          {
-            "href": "administration-upgrading-upgrading33.html",
-            "text": "Upgrading to 3.3",
-            "children": []
-          },
-          {
-            "href": "administration-upgrading-upgrading32.html",
-            "text": "Upgrading to 3.2",
-            "children": []
-          },
           {
             "href": "administration-upgrading-upgrading31.html",
             "text": "Upgrading to 3.1",
@@ -1028,6 +621,22 @@
     ]
   },
   {
+    "href": "auditing.html",
+    "text": "Auditing",
+    "children": [
+      {
+        "href": "auditing-auditconfiguration.html",
+        "text": "Configuration",
+        "children": []
+      },
+      {
+        "href": "auditing-auditevents.html",
+        "text": "Events",
+        "children": []
+      }
+    ]
+  },
+  {
     "href": "troubleshooting.html",
     "text": "Troubleshooting",
     "children": [
@@ -1039,11 +648,6 @@
       {
         "href": "troubleshooting-emergencyconsole.html",
         "text": "Emergency Console",
-        "children": []
-      },
-      {
-        "href": "troubleshooting-arangoinspect.html",
-        "text": "Arangoinspect",
         "children": []
       },
       {
@@ -1063,18 +667,8 @@
     "text": "Architecture",
     "children": [
       {
-        "href": "architecture-singleinstancevscluster.html",
-        "text": "Single Instance vs. Cluster",
-        "children": []
-      },
-      {
         "href": "architecture-writeaheadlog.html",
         "text": "Write-ahead log",
-        "children": []
-      },
-      {
-        "href": "architecture-storageengines.html",
-        "text": "Storage Engines",
         "children": []
       }
     ]
@@ -1083,36 +677,6 @@
     "href": "releasenotes.html",
     "text": "Release notes",
     "children": [
-      {
-        "href": "releasenotes-newfeatures33.html",
-        "text": "Whats New in 3.3",
-        "children": []
-      },
-      {
-        "href": "releasenotes-knownissues33.html",
-        "text": "Known Issues in 3.3",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges33.html",
-        "text": "Incompatible changes in 3.3",
-        "children": []
-      },
-      {
-        "href": "releasenotes-newfeatures32.html",
-        "text": "Whats New in 3.2",
-        "children": []
-      },
-      {
-        "href": "releasenotes-knownissues32.html",
-        "text": "Known Issues in 3.2",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges32.html",
-        "text": "Incompatible changes in 3.2",
-        "children": []
-      },
       {
         "href": "releasenotes-newfeatures31.html",
         "text": "Whats New in 3.1",

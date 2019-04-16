@@ -105,6 +105,8 @@ const parse = (lines) => {
         let result;
         if (result = item.match(/^#\s*Summary(.*)/)) {
             continue;
+        } else if (item.match(/^#\s*/)) {
+            continue;
         } else if (result = item.match(/^##\s*(.*)/)) {
             const [_, subtitle] = result;
             current.push({
@@ -121,6 +123,7 @@ const parse = (lines) => {
                 text,
                 children: [],
             })
+        
         } else {
             throw new Error("Unexpected line " + line);
         }

@@ -52,22 +52,6 @@
     ]
   },
   {
-    "href": "tutorials.html",
-    "text": "Tutorials",
-    "children": [
-      {
-        "href": "tutorials-kubernetes.html",
-        "text": "Kubernetes",
-        "children": []
-      },
-      {
-        "href": "tutorials-kubernetes-dc2dc.html",
-        "text": "Datacenter to datacenter Replication on Kubernetes",
-        "children": []
-      }
-    ]
-  },
-  {
     "href": "highlights.html",
     "text": "Highlights",
     "children": []
@@ -578,124 +562,37 @@
         "children": []
       },
       {
-        "href": "deployment-cluster.html",
-        "text": "Cluster",
-        "children": [
-          {
-            "href": "deployment-mesos.html",
-            "text": "Mesos, DC/OS",
-            "children": []
-          },
-          {
-            "href": "deployment-arangodbstarter.html",
-            "text": "Generic & Docker",
-            "children": []
-          },
-          {
-            "href": "deployment-advanced.html",
-            "text": "Advanced Topics",
-            "children": [
-              {
-                "href": "deployment-agency.html",
-                "text": "Standalone Agency",
-                "children": []
-              },
-              {
-                "href": "deployment-local.html",
-                "text": "Local test setups",
-                "children": []
-              },
-              {
-                "href": "deployment-distributed.html",
-                "text": "Processes",
-                "children": []
-              },
-              {
-                "href": "deployment-docker.html",
-                "text": "Docker",
-                "children": []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "href": "deployment-dc2dc.html",
-        "text": "Multiple Datacenters",
+        "href": "deployment-mesos.html",
+        "text": "Cluster: Mesos, DC/OS",
         "children": []
       },
       {
-        "href": "deployment-kubernetes.html",
-        "text": "Kubernetes",
+        "href": "deployment-arangodbstarter.html",
+        "text": "Cluster: Generic & Docker",
+        "children": []
+      },
+      {
+        "href": "deployment-advanced.html",
+        "text": "Advanced Topics",
         "children": [
           {
-            "href": "deployment-kubernetes-usage.html",
-            "text": "Using the Operator",
+            "href": "deployment-agency.html",
+            "text": "Standalone Agency",
             "children": []
           },
           {
-            "href": "deployment-kubernetes-deploymentresource.html",
-            "text": "Deployment Resource Reference",
+            "href": "deployment-local.html",
+            "text": "Cluster: Local test setups",
             "children": []
           },
           {
-            "href": "deployment-kubernetes-driverconfiguration.html",
-            "text": "Driver Configuration",
+            "href": "deployment-distributed.html",
+            "text": "Cluster: Processes",
             "children": []
           },
           {
-            "href": "deployment-kubernetes-authentication.html",
-            "text": "Authentication",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-scaling.html",
-            "text": "Scaling",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-upgrading.html",
-            "text": "Upgrading",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-configandsecrets.html",
-            "text": "ArangoDB Configuration & Secrets",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-metrics.html",
-            "text": "Metrics",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-servicesandloadbalancer.html",
-            "text": "Services & Load balancer",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-deploymentreplicationresource.html",
-            "text": "Deployment Replication Resource Reference",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-storage.html",
-            "text": "Storage",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-storageresource.html",
-            "text": "Storage Resource",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-tls.html",
-            "text": "TLS",
-            "children": []
-          },
-          {
-            "href": "deployment-kubernetes-troubleshooting.html",
-            "text": "Troubleshooting",
+            "href": "deployment-docker.html",
+            "text": "Cluster: Docker",
             "children": []
           }
         ]
@@ -920,13 +817,8 @@
                 "children": []
               },
               {
-                "href": "administration-replication-asynchronous-databasesetup.html",
-                "text": "Per-Database Setup",
-                "children": []
-              },
-              {
-                "href": "administration-replication-asynchronous-serverlevelsetup.html",
-                "text": "Server-Level Setup",
+                "href": "administration-replication-asynchronous-examplesetup.html",
+                "text": "Example Setup",
                 "children": []
               },
               {
@@ -973,11 +865,6 @@
         "href": "administration-upgrading.html",
         "text": "Upgrading",
         "children": [
-          {
-            "href": "administration-upgrading-upgrading33.html",
-            "text": "Upgrading to 3.3",
-            "children": []
-          },
           {
             "href": "administration-upgrading-upgrading32.html",
             "text": "Upgrading to 3.2",
@@ -1042,11 +929,6 @@
         "children": []
       },
       {
-        "href": "troubleshooting-arangoinspect.html",
-        "text": "Arangoinspect",
-        "children": []
-      },
-      {
         "href": "troubleshooting-datafiledebugger.html",
         "text": "Datafile Debugger",
         "children": []
@@ -1063,11 +945,6 @@
     "text": "Architecture",
     "children": [
       {
-        "href": "architecture-singleinstancevscluster.html",
-        "text": "Single Instance vs. Cluster",
-        "children": []
-      },
-      {
         "href": "architecture-writeaheadlog.html",
         "text": "Write-ahead log",
         "children": []
@@ -1083,21 +960,6 @@
     "href": "releasenotes.html",
     "text": "Release notes",
     "children": [
-      {
-        "href": "releasenotes-newfeatures33.html",
-        "text": "Whats New in 3.3",
-        "children": []
-      },
-      {
-        "href": "releasenotes-knownissues33.html",
-        "text": "Known Issues in 3.3",
-        "children": []
-      },
-      {
-        "href": "releasenotes-upgradingchanges33.html",
-        "text": "Incompatible changes in 3.3",
-        "children": []
-      },
       {
         "href": "releasenotes-newfeatures32.html",
         "text": "Whats New in 3.2",

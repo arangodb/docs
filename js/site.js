@@ -50,9 +50,6 @@ var loadPage = function(href, fn) {
       current.removeClass("active");
 
       var current = $("nav .selected.active").removeClass("active");
-      if (!window.disablePageToc) {
-        generateToc();
-      }
       if (fn) {
         fn();
       }
@@ -61,6 +58,7 @@ var loadPage = function(href, fn) {
 }
 
 window.onpopstate = function(event) {
+  console.log(event);
   if (event.state.href) {
     loadPage(event.state.href);
   }
