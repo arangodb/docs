@@ -20,6 +20,13 @@
           <div class="page-wrapper" tabindex="-1" role="main">
             <div class="page-inner">
               <section class="normal markdown-section">
+                {% if site.data.deprecations contains page.version.version %}
+                {% hint 'warning' %}
+ArangoDB v{{ page.version.version }} reached End of Life (EOL) and is no longer supported.
+
+This documentation is outdated. Please see the most recent version here: <a href="/docs/stable" target="_blank">Try latest</a>
+                {% endhint %}
+                {% endif %}
                 {{ content }}
               </section>
               <div id="page-footer" class="localized-footer">
