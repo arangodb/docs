@@ -33,6 +33,7 @@ document.onreadystatechange = function() {
 };
 
 var loadPage = function(href, fn) {
+  href = href.endsWith('/') ? href + 'index.html' : href;
   $.get({
     url: href,
     success: function(newDoc) {
@@ -49,6 +50,7 @@ var loadPage = function(href, fn) {
       current.removeClass("active");
 
       var current = $("nav .selected.active").removeClass("active");
+      $('nav a[href="' + href.split('/').slice(-1) + '"]').parent().addClass("active");
       if (fn) {
         fn();
       }
@@ -57,10 +59,7 @@ var loadPage = function(href, fn) {
 }
 
 window.onpopstate = function(event) {
-  console.log(event);
-  if (event.state.href) {
-    loadPage(event.state.href);
-  }
+  loadPage(event.srcElement.location.href);
 };
 
 $(document).ready(function handleNav() {
@@ -69,14 +68,9 @@ $(document).ready(function handleNav() {
     loadPage(event.target.href, function(title) {
       $(event.target)
         .parent()
-        .addClass("active");
-      $(event.target)
-        .parent()
         .addClass("selected");
       if (window.history) {
-        window.history.pushState({
-          href: location.href,
-        }, title, event.target.href);
+        window.history.pushState({}, title, event.target.href);
       }
     })
   });
