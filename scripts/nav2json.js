@@ -46,10 +46,10 @@ function parseNode(window, node) {
     //         children: ,
     //     }
     // } else if (node.tagName == "UL") {
-    //     return {
+    //     r#rn {
 
-    //     }
-    // }node
+    //     }#
+    // }node#
     // return [...node.querySelectonoderAll(':scope > *')].reduce((obj, current) => {
     //   if (current.tagName == "ULnode") {
     //     obj.children = Array.from(current.children).map(child => parseNode(child));
@@ -81,6 +81,9 @@ const parse = (lines) => {
         if (line.match(/^\s*$/)) {
             continue;
         }
+        if (line.match(/^\s*#([^#]|$)/)) {
+            continue;
+        }
         const [_, spaces, item] = line.match(/^(\s*)(.*)/);
         let localIndent = spaces.length;
         if (localIndent > currentIndent) {
@@ -105,8 +108,6 @@ const parse = (lines) => {
         let result;
         if (result = item.match(/^#\s*Summary(.*)/)) {
             continue;
-        } else if (item.match(/^#\s*/)) {
-            continue;
         } else if (result = item.match(/^##\s*(.*)/)) {
             const [_, subtitle] = result;
             current.push({
@@ -123,7 +124,6 @@ const parse = (lines) => {
                 text,
                 children: [],
             })
-        
         } else {
             throw new Error("Unexpected line " + line);
         }
@@ -132,6 +132,13 @@ const parse = (lines) => {
     while (stack.length > 0) {
         let stackItem = stack.pop();
         current = stackItem.item;
+    }
+    if (current[0]["text"] != "Introduction") {
+        current.unshift({
+            href: "index.html",
+            text: "Introduction",
+            children: [],
+        })
     }
     return current;
 };
