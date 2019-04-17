@@ -26,7 +26,6 @@ document.onreadystatechange = function() {
       return;
     }
 
-    generateToc();
     for (var level = 1; level <= 6; level++) {
       linkifyAnchors(level, contentBlock);
     }
