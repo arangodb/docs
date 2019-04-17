@@ -11,7 +11,7 @@
     </div>
     <select class="arangodb-version-switcher">
       <option value="devel">devel</option>
-      <option value="3.4">v3.4</option>
+      <option value="stable">v3.4</option>
       <option value="3.3">v3.3</option>
       <option value="3.2">v3.2</option>
       <option value="3.1">v3.1</option>
@@ -23,9 +23,6 @@
       var current = location.href;
 
       var selectedVersion = current.split('/')[4];
-      if (selectedVersion == 'stable') {
-        selectedVersion = versionAliases[selectedVersion];
-      }
 
       var selectedManual = current.split('/')[5];
       var switcher = document.querySelector(".arangodb-version-switcher");
