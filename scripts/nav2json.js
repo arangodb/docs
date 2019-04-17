@@ -108,7 +108,7 @@ const parse = (lines) => {
         let result;
         if (result = item.match(/^#\s*Summary(.*)/)) {
             continue;
-        } else if (result = item.match(/^##\s*(.*)/)) {
+        } else if (result = item.match(/^##{1,2}\s*(.*)/)) {
             const [_, subtitle] = result;
             current.push({
                 subtitle,
