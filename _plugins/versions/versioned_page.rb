@@ -17,7 +17,7 @@ module JekyllVersions
       # the leading slash and maybe the version from the front of the URL, and
       # b) tacking on `index.html` to bare directories.
       url = page.url.split('/').drop(@version ? 2 : 1).join('/')
-      url << 'index.html' if url.end_with?('/')
+      url << '/index.html' if page.url.end_with?('/')
       url
     end
 
