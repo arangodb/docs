@@ -1,6 +1,6 @@
 module.exports = function changeLink(relative) {
     relative = relative.toLowerCase();
-    let fileName = relative.replace(/\/readme\.md$/, '').replace(/\.(md|html)/, '').replace(/[^a-z0-9]+/g, '-') + '.md';
+    let fileName = relative.replace(/\/(readme\.md|index\.html)$/, '').replace(/\.(md|html)/, '').replace(/[^a-z0-9]+/g, '-') + '.md';
                 
     // root level index
     if (fileName == 'readme.md') {

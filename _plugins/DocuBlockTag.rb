@@ -238,6 +238,31 @@ class DocuBlockBlock < Liquid::Tag
         if !content
             return "Blockname #{@blockname} undefined"
         end
+        # should match migrate.js more or less :S
+        content = content.gsub(/\]\((?!https?:)(.*?\.(html|md))(#[^\)]+)?\)/) {|s|
+
+            link = $1.downcase
+            anchor = $3 || "";
+            newlink = link.gsub(/\/(readme\.md|index\.html)$/, '').gsub(/\.(md|html)/, '').gsub(/[^a-z0-9]+/, '-') + '.md';
+
+            if link == "readme.md"
+                newlink = "index.md"
+            end
+
+            if newlink.start_with?("-")
+                if link.start_with?("../..")
+                    newlink = newlink.gsub(/^-([^-]+)-([^\.]+)\.(md|html)/, '../\1/\2.html');
+                else
+                    newlink = newlink[1..-1]
+                end
+            end
+            # p "#{link} #{newlink}"
+
+            if newlink == "-aqlquerycursor.md"
+                newlink = "../aqlquerycursor.html"
+            end
+            "](#{newlink.sub(".md", ".html")}#{anchor})"
+        }
         # oeff....no idea how to parse nested liquid :S
         # apparently the parser needs the complete document to discover liquid.
         # inserting liquid on the fly does not work...so include the hints in a super dirty regex way

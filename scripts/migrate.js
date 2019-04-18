@@ -6,6 +6,7 @@ const mkdirp = require('mkdirp');
 const markedIt = require('marked-it-core');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+const fetch = require('node-fetch');
 
 async function migrateMds(basePath, targetPath) {
     const absoluteBasePath = await fs.realpath(basePath);
@@ -55,8 +56,9 @@ async function migrateMds(basePath, targetPath) {
             content = header + content.substr(4)
         }
         content = content.replace("ArangoDB VERSION_NUMBER", "ArangoDB {{ site.data.versions[page.version.name] }}");
+        
         // replace all md links with their changed link
-        content = content.replace(/\]\((?!https?:)(.*\.(html|md))(#[^\)]+)?\)/g, (x, link, fileExt, anchor) => {
+        content = content.replace(/\]\((?!https?:)(.*?\.(html|md))(#[^\)]+)?\)/g, (x, link, fileExt, anchor) => {
             if (!link.startsWith('/')) {
                 link = path.join(path.dirname(relative), link);
             }
@@ -66,9 +68,18 @@ async function migrateMds(basePath, targetPath) {
             return '](' + changeLink(link).replace('.md', '.html') + anchor + ')';
         });
         // fix crosslinks between documents (../AQL/Geil/Aql.md => -aql-geil-aql.md => ../aql/geil-aql.md)
-        content = content.replace(/\]\(-([^-]+)-([^\.]+)\.html\)/g, '](../\$1/\$2.html)');
+        content = content.replace(/\]\(-([^-]+)-([^\.]+)\.html(#[^)]+)?\)/g, '](../\$1/\$2.html\$3)');
         // replace all LOCAL images with images/IMAGEBASEPATH
-        content = content.replace(/\]\((?!https?:).*?([^/]+\.png)\)/g, '](../images/\$1)');
+        content = content.replace(/\]\((?!https?:)[^\)]*?([^/)]+\.png)\)/g, '](../images/\$1)');
+
+        content = content.replace(/\]\((\.\.\/aql|-aql)\.html\)/g, '](../aql/)');
+        content = content.replace(/\]\((\.\.\/http|-http)\.html\)/g, '](../http/)');
+        content = content.replace(/\]\((\.\.\/drivers|-drivers)\.html\)/g, '](../drivers/)');
+        content = content.replace(/\]\((\.\.\/cookbook|-cookbook)\.html\)/g, '](../cookbook/)');
+        content = content.replace("(-aql-dataqueries.html)", "(../aql/dataqueries.html");
+        content = content.replace("(appendix/errorcodes.html)", "(appendix-errorcodes.html");
+        content = content.replace("(indexing/hash.html)", "indexing-hash.html");
+        content = content.replace("(administration/arangosh.html)", "administration-arangosh.html");
         
         content = content.replace(/^\s*@startDocuBlockInline.*?@endDocuBlock[^\n$]+\n/msg, (block) => {
             if (block.match(/@EXAMPLE_ARANGOSH.*/s)) {
@@ -94,6 +105,11 @@ async function migrateMds(basePath, targetPath) {
 // verified beforehand that all imagenames are unique over all directories
 async function migrateImages(basePath, targetPath) {
     const paths = await globby([path.join(basePath + "/**/*.png")]);
+    await Promise.all(['https://docs.arangodb.com/3.0/Manual/Graphs/graph_user_in_group.png', 'https://docs.arangodb.com/3.0/Manual/Deployment/simple_cluster.png'].map(url => {
+        return fetch(url)
+        .then(result => result.buffer())
+        .then(data => fs.writeFile(path.join(targetPath, "..", "images", path.basename(url)), data));
+    }))
     return Promise.all(paths.map(image => {
         return fs.copyFile(image, path.join(targetPath, "..", "images", path.basename(image)));
     }));

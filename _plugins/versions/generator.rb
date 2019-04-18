@@ -33,7 +33,6 @@ module JekyllVersions
         @site.pages << JekyllRedirectFrom::RedirectPage.from_paths(
           @site, vp.unversioned_path, vp.url) if vp.stable?
       end
-
       @config.versions.each do |name, version|
         @site.static_files << Symlink.new(@site, name, version)
       end
