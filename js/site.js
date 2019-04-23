@@ -58,8 +58,17 @@ var loadPage = function(href, fn) {
       }
 
       url = url.endsWith('/') ? url + 'index.html' : url;
-      var current = $("nav .selected.active").removeClass("active");
-      $('nav a[href="' + url.split('/').slice(-1) + '"]').parent().addClass("active");
+      $("nav .selected.active").removeClass("active");
+      $("nav .selected").removeClass("selected");
+      var current = $('nav a[href="' + url.split('/').slice(-1) + '"]').parent();
+      current.addClass("active");
+
+      while (current.length > 0 && current.prop("tagName") != "NAV") {
+        if (current.prop("tagName") == "LI") {
+          current.addClass("selected");
+        }
+        current = current.parent();
+      }
       if (fn) {
         fn();
       }
