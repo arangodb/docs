@@ -58,7 +58,7 @@ class AqlExampleBlock < ExampleBlock
       end
     }
 
-    context.scopes.last[@examplevar] = example_name.gsub(/[^a-zA-Z0-9-]/, "-")
+    context.scopes.last[@examplevar] = "aql-" + example_name.gsub(/[^a-zA-Z0-9-]/, "-")
     context.scopes.last[@type] = parts["type"]
     context.scopes.last[@query] = parts["query"]
     context.scopes.last[@bind] = parts["bind"]

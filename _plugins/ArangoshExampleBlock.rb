@@ -32,7 +32,7 @@ class ArangoshExampleBlock < ExampleBlock
       end
     }
     
-    context.scopes.last[@examplevar] = example_name.gsub(/[^a-zA-Z0-9-]/, "-")
+    context.scopes.last[@examplevar] = "ex-" + example_name.gsub(/[^a-zA-Z0-9-]/, "-")
     context.scopes.last[@script] = script
     context.scopes.last[@result] = result.strip
     ""
