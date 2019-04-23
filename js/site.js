@@ -33,7 +33,9 @@ document.onreadystatechange = function() {
 };
 
 var loadPage = function(href, fn) {
-  href = href.endsWith('/') ? href + 'index.html' : href;
+  if (href.replace(/#.*$/, "") == currentPage) {
+    return;
+  }
   $.get({
     url: href,
     success: function(newDoc) {
@@ -49,6 +51,9 @@ var loadPage = function(href, fn) {
       var current = $("nav .active");
       current.removeClass("active");
 
+      currentPage = href.replace(/#.*$/, "");
+
+      href = href.endsWith('/') ? href + 'index.html' : href;
       var current = $("nav .selected.active").removeClass("active");
       $('nav a[href="' + href.split('/').slice(-1) + '"]').parent().addClass("active");
       if (fn) {
@@ -59,18 +64,18 @@ var loadPage = function(href, fn) {
 }
 
 window.onpopstate = function(event) {
-  loadPage(event.srcElement.location.href);
+  loadPage(event.target.location.href);
 };
 
 $(document).ready(function handleNav() {
-  $("nav a").click(function(event) {
+  $("div.book-summary nav a").click(function(event) {
     event.preventDefault();
     loadPage(event.target.href, function(title) {
       $(event.target)
         .parent()
         .addClass("selected");
       if (window.history) {
-        window.history.pushState({}, title, event.target.href);
+        window.history.pushState("navchange", title, event.target.href);
       }
     })
   });
@@ -87,13 +92,6 @@ var generateToc = function() {
     return;
   }
 
-  var tree = {
-    level: 0,
-    items: []
-  };
-  var current = tree;
-  var stack = [];
-
   var currentLevel = 1;
   var currentParent = document.createElement("ul");
   var parents = [
@@ -108,7 +106,7 @@ var generateToc = function() {
     var level = parseInt(node.tagName[1], 10);
     if (level < currentLevel) {
       while (level < currentLevel) {
-        var last = parents.pop();
+        parents.pop();
         currentParent = parents[parents.length - 1].element;
         currentLevel = parents[parents.length - 1].level;
       }
@@ -151,3 +149,5 @@ var generateToc = function() {
   var wrapper = document.querySelector(".markdown-section");
   wrapper.insertBefore(nav, wrapper.firstChild);
 };
+
+window.currentPage = location.href;
