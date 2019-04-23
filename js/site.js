@@ -33,11 +33,12 @@ document.onreadystatechange = function() {
 };
 
 var loadPage = function(href, fn) {
-  if (href.replace(/#.*$/, "") == currentPage) {
+  var url = href.replace(/#.*$/, "");
+  if (url == currentPage) {
     return;
   }
   $.get({
-    url: href,
+    url: url,
     success: function(newDoc) {
       var re = new RegExp(/<title>(.*)<\/title>/, 'mg');
       var match = re.exec(newDoc);
@@ -51,11 +52,14 @@ var loadPage = function(href, fn) {
       var current = $("nav .active");
       current.removeClass("active");
 
-      currentPage = href.replace(/#.*$/, "");
+      currentPage = url;
+      if (matches = href.match(/.*?(#.*)$/)) {
+        location.hash = matches[1];
+      }
 
-      href = href.endsWith('/') ? href + 'index.html' : href;
+      url = url.endsWith('/') ? url + 'index.html' : url;
       var current = $("nav .selected.active").removeClass("active");
-      $('nav a[href="' + href.split('/').slice(-1) + '"]').parent().addClass("active");
+      $('nav a[href="' + url.split('/').slice(-1) + '"]').parent().addClass("active");
       if (fn) {
         fn();
       }
