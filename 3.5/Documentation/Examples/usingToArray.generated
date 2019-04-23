@@ -1,0 +1,36 @@
+arangosh&gt; db._create(<span class="hljs-string">"five"</span>)
+[ArangoCollection <span class="hljs-number">132979</span>, <span class="hljs-string">"five"</span> (type <span class="hljs-built_in">document</span>, status loaded)]
+arangosh&gt; <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) db.five.save({<span class="hljs-attr">value</span>:i})
+arangosh&gt; db.five.toArray()
+[ 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132986"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132986"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLcBW--_"</span>, 
+    <span class="hljs-string">"value"</span> : <span class="hljs-number">0</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132996"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132996"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLcBa--_"</span>, 
+    <span class="hljs-string">"value"</span> : <span class="hljs-number">3</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132993"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132993"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLcBW--D"</span>, 
+    <span class="hljs-string">"value"</span> : <span class="hljs-number">2</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132990"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132990"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLcBW--B"</span>, 
+    <span class="hljs-string">"value"</span> : <span class="hljs-number">1</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132999"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132999"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLcBa--B"</span>, 
+    <span class="hljs-string">"value"</span> : <span class="hljs-number">4</span> 
+  } 
+]
