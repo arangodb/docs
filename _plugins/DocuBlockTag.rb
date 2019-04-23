@@ -8,7 +8,27 @@ class DocuBlockBlock < Liquid::Tag
         @blockname = input.strip!
     end
 
+    def get_error_codes(code)
+        content = ""
+        code.each_line do |line|
+            if line.start_with?("## ")
+                next if line.start_with?("## For")
+                next if line.start_with?("## These")
+
+                content += line
+            elsif line.start_with?("ERROR_")
+                error = line.split(",")
+                content += "   * **#{error[1]}** - **#{error[0]}**\n\n"
+                content += "     #{error[3].gsub("\"", "")}\n"
+            end
+        end
+        content
+    end
+
     def get_source(block)
+        if block["name"] == "errorCodes"
+            return get_error_codes(block["header"])
+        end
         result = "#{block["header"]}\n"
         if block["urlParams"]
             result += "**Path Parameters**\n\n"
@@ -96,7 +116,7 @@ class DocuBlockBlock < Liquid::Tag
             text.each_line do |line|
                 case line
                 when /^@startDocuBlock(Inline)?\s+(.*)/
-                    local = {"name"=> $2, "returnCodes"=> [], "body": nil, "header" => "", "description"=> "", "examples": nil}
+                    local = {"name"=> $2.strip, "returnCodes"=> [], "body": nil, "header" => "", "description"=> "", "examples": nil}
                     currentKey = "header"
                     currentObject = local
                 when /^@endDocuBlock/
@@ -236,7 +256,8 @@ class DocuBlockBlock < Liquid::Tag
     def render(context)
         content = get_docu_block(Dir.pwd + context["page"]["dir"] + "/../", @blockname)
         if !content
-            return "Blockname #{@blockname} undefined"
+            p "Blockname #{@blockname} undefined"
+            return ""
         end
         # should match migrate.js more or less :S
         content = content.gsub(/\]\((?!https?:)(.*?\.(html|md))(#[^\)]+)?\)/) {|s|
