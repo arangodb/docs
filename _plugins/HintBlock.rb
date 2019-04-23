@@ -1,6 +1,6 @@
 class HintTag < Liquid::Block
     def initialize(tag_name, input, tokens)
-      @class = input.gsub(/['"]/, "").strip!
+      @type = input.gsub(/['"]/, "").strip!
       super
     end
 
@@ -10,8 +10,23 @@ class HintTag < Liquid::Block
       
       content = converter.convert(super)
 
-      return "<div class=\"alert alert-#{@class}\" style=\"display: flex\">
-  <i class=\"fa fa-info-circle\" style=\"margin-right: 10px; margin-top: 4px;\"></i>
+      case @type
+      when "tip"
+        icon = "check"
+        className = "success"
+      when "warning"
+        icon = "exclamation-triangle"
+        className = "warning"
+      when "danger"
+        icon = "times-circle"
+        className = "danger"
+      when "info"
+        icon = "info-circle"
+        className = "info"
+      end
+
+      return "<div class=\"alert alert-#{className}\" style=\"display: flex\">
+  <i class=\"fa fa-#{icon}\" style=\"margin-right: 10px; margin-top: 4px;\"></i>
   <div>
     #{content}
   </div>
