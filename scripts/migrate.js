@@ -67,6 +67,8 @@ async function migrateMds(basePath, targetPath) {
             }
             return '](' + changeLink(link).replace('.md', '.html') + anchor + ')';
         });
+        // replace all external links to open in a new tab (kramdown extension)
+        content = content.replace(/\]\((https?:.*?)\)/g, '](\$1){:target="_blank"}');
         // fix crosslinks between documents (../AQL/Geil/Aql.md => -aql-geil-aql.md => ../aql/geil-aql.md)
         content = content.replace(/\]\(-([^-]+)-([^\.]+)\.html(#[^)]+)?\)/g, '](../\$1/\$2.html\$3)');
         // replace all LOCAL images with images/IMAGEBASEPATH
