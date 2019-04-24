@@ -1,0 +1,38 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-tick-ranges</span>
+
+HTTP/<span class="hljs-number">1.1</span> OK
+content-type: application/json; charset=utf<span class="hljs-number">-8</span>
+x-content-type-options: nosniff
+
+[ 
+  { 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/tmp/arangosh_fCokja/tmp-39-172384982/data/journals/logfile-2.db"</span>, 
+    <span class="hljs-string">"status"</span> : <span class="hljs-string">"collected"</span>, 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"5"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"103594"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/tmp/arangosh_fCokja/tmp-39-172384982/data/journals/logfile-88.db"</span>, 
+    <span class="hljs-string">"status"</span> : <span class="hljs-string">"collected"</span>, 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"103609"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"103732"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/tmp/arangosh_fCokja/tmp-39-172384982/data/journals/logfile-89.db"</span>, 
+    <span class="hljs-string">"status"</span> : <span class="hljs-string">"collected"</span>, 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"103739"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"105354"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/tmp/arangosh_fCokja/tmp-39-172384982/data/journals/logfile-103597.db"</span>, 
+    <span class="hljs-string">"status"</span> : <span class="hljs-string">"collected"</span>, 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"105361"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"105378"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/tmp/arangosh_fCokja/tmp-39-172384982/data/journals/logfile-103735.db"</span>, 
+    <span class="hljs-string">"status"</span> : <span class="hljs-string">"open"</span>, 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"105386"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"105471"</span> 
+  } 
+]

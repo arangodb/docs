@@ -1,0 +1,26 @@
+arangosh&gt; result = db.users.all().toArray();
+[ 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"112104"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/112104"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLUC6--B"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Helmut"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"112100"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/112100"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLUC6--_"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Gerhard"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"112107"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/112107"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLUC6--D"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Angela"</span> 
+  } 
+]
+arangosh&gt; <span class="hljs-keyword">var</span> q = db._query(<span class="hljs-string">"FOR x IN users RETURN x"</span>);
+........&gt; result = [ ];
+........&gt; <span class="hljs-keyword">while</span> (q.hasNext()) {
+........&gt;   result.push(q.next());
+........&gt; }

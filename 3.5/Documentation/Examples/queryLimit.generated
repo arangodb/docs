@@ -1,0 +1,48 @@
+arangosh&gt; db.five.all().toArray();
+[ 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132892"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132892"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLb2a--B"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"two"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132901"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132901"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLb2e--B"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"five"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132898"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132898"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLb2e--_"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"four"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132888"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132888"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLb2a--_"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"one"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132895"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132895"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLb2a--D"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"three"</span> 
+  } 
+]
+arangosh&gt; db.five.all().limit(<span class="hljs-number">2</span>).toArray();
+[ 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132892"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132892"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLb2a--B"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"two"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132901"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132901"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YiuLb2e--B"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"five"</span> 
+  } 
+]
