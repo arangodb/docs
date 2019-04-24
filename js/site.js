@@ -19,16 +19,20 @@ var linkifyAnchors = function(level, containingElement) {
   }
 };
 
+var linkify = function() {
+  var contentBlock = document.getElementsByClassName("book-body")[0];
+  if (!contentBlock) {
+    return;
+  }
+
+  for (var level = 1; level <= 6; level++) {
+    linkifyAnchors(level, contentBlock);
+  }
+}
+
 document.onreadystatechange = function() {
   if (this.readyState === "complete") {
-    var contentBlock = document.getElementsByClassName("book-body")[0];
-    if (!contentBlock) {
-      return;
-    }
-
-    for (var level = 1; level <= 6; level++) {
-      linkifyAnchors(level, contentBlock);
-    }
+    linkify();
   }
 };
 
@@ -69,6 +73,7 @@ var loadPage = function(href, fn) {
         }
         current = current.parent();
       }
+      linkify();
       if (fn) {
         fn();
       }
