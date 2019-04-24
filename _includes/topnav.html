@@ -23,10 +23,18 @@
       var current = location.href;
 
       var selectedVersion = current.split('/')[4];
-
       var selectedManual = current.split('/')[5];
       var switcher = document.querySelector(".arangodb-version-switcher");
-      switcher.value = selectedVersion;
+
+      for (var i=0;i<switcher.options.length;i++) {
+        var value = switcher.options.item(i).value;
+        if (value == selectedVersion) {
+          switcher.value = value;
+        } else if (versionAliases[value] == selectedVersion) {
+          switcher.value = value;
+        }
+      }
+      
       switcher.addEventListener('change', function(event) {
         var current = location.href;
         var selectedManual = current.split('/')[5];
