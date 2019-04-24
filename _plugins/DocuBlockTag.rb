@@ -254,7 +254,7 @@ class DocuBlockBlock < Liquid::Tag
     end
 
     def render(context)
-        content = get_docu_block(Dir.pwd + context["page"]["dir"] + "/../", @blockname)
+        content = get_docu_block(Dir.pwd + context["page"]["dir"] + "/../generated/", @blockname)
         if !content
             p "Blockname #{@blockname} undefined"
             return ""

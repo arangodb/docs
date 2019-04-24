@@ -13,11 +13,26 @@ async function migrateMds(basePath, targetPath) {
     const paths = (await globby([path.join(basePath, "**/*.md")])).filter(filePath => {
         return path.relative(basePath, filePath).toLowerCase() !== 'summary.md';
     });
+
     const files = await Promise.all(paths.map(async (p) => {
         const absolute = await fs.realpath(p);
         const relative = path.relative(absoluteBasePath, absolute);
         
         const fileName = changeLink(relative);
+        
+        const book = path.basename(basePath);
+        const version = path.basename(path.dirname(targetPath));
+        let urlVersion = version;
+        if (urlVersion == "3.5") {
+            urlVersion = "devel";
+        }
+
+        const newUrl = "https://" + path.join("www.arangodb.com/docs/", targetPath, fileName);
+
+        let oldUrl = relative.replace(/\/README.md$/ig, "/index.html");
+        oldUrl = "https://" + path.join("docs.arangodb.com/", urlVersion, book, oldUrl.replace(/.md$/ig, ".html"));
+
+        console.log(JSON.stringify({[oldUrl]: newUrl}));
 
         let content = (await fs.readFile(p)).toString();
         const result = markedIt.generate(content);
@@ -91,6 +106,7 @@ async function migrateMds(basePath, targetPath) {
             }
             return block;
         });
+        content = content.replace(/^\s*@startDocuBlock\s+program_options_(\w+).*$/mg, "{% assign options = site.data[\"" + version.replace('.', '') + "-program-options-\$1\"] %}{% include program-option.html options=options name=\"\$1\" %}");
         content = content.replace(/^\s*@startDocuBlock\s+(\w+).*$/mg, "{% docublock \$1 %}")
 
         return {

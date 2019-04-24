@@ -1,0 +1,43 @@
+
+{% assign sections=include.options|options_by_section %}
+{% for section in sections %}
+## {{ section[0]|capitalize }}
+
+{% if include.name=="arangod" %}
+Also see [{{ section[0]|capitalize }} details]({{ section[0] }}.html).
+{% endif %}
+
+| Name | Type | Description |
+|---------|
+{% for option in section[1] -%}
+{%- if option[1].obsolete == false -%}
+{%- capture description -%}
+{%- if option[1].enterpriseOnly -%}
+*Enterprise Edition only*<br>
+{%- endif -%}
+{{ option[1].description|capitalize -}}
+{%- if option[1].requiresValue != true and option[1].category != "command" -%}
+<br/>This option can be specified without value to enable it.
+{%- endif -%}
+{%- if option[1].category == "command" -%}
+<br/>This is a command, no value needs to be specified. The process terminates after executing the command.
+{%- endif -%}
+<br>
+{%- if option[1].dynamic -%}
+Default: *dynamic* (e.g. `{{ option[1].default|jsonify }}`)
+{%- else -%}
+Default: `{{ option[1].default|jsonify }}`
+{%- endif -%}
+{% if option[1].values %}<br/>{{ option[1].values }}{% endif %}
+{%- if option[1].introducedIn -%}
+<br/><small>Introduced in: {{ option[1].introducedIn| join: ", " }}</small>
+{%- endif -%}
+{%- if option[1].deprecatedIn -%}
+<br/><small>Deprecated in: {{ option[1].deprecatedIn| join: ", " }}</small>
+{%- endif -%}
+{%- endcapture -%}
+| `{{ option[0] }}` | {{ option[1].type }} | {{ description }} |
+{% endif -%}
+{%- endfor -%}
+
+{% endfor %}
