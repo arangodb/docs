@@ -83,7 +83,6 @@ async function migrateMds(basePath, targetPath) {
             return '](' + changeLink(link).replace('.md', '.html') + anchor + ')';
         });
         content = content.replace(/^<!-- don't edit here.*?-->\s*$/msg, '');
-        console.log(content);
         // replace all external links to open in a new tab (kramdown extension)
         content = content.replace(/\]\((https?:.*?)\)/g, '](\$1){:target="_blank"}');
         // fix crosslinks between documents (../AQL/Geil/Aql.md => -aql-geil-aql.md => ../aql/geil-aql.md)
