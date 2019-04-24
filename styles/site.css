@@ -134,3 +134,47 @@ pre.highlight .nb {
 .example-result pre {
     margin-top: -1.275em;
 }
+
+.searchbar {
+    display: inline-block;
+}
+
+#search-hits {
+    position: absolute;
+    width: 400px;
+    border: 1px solid black;
+    right: 20px;
+    top: 50px;
+    background-color: #444444;
+}
+
+#search-hits .ais-hits--item {
+    padding: 10px;
+}
+
+#search-hits .ais-hits--item:hover {
+    background-color: #88A049;
+}
+
+#search-hits a {
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    text-decoration: none;
+    font-family: Roboto, Helvetica, sans-serif;
+}
+
+#search-hits a:hover {
+    background-color: inherit;
+}
+
+#search-hits .post-snippet {
+    font-size: 12px;
+    color: #ccc;
+}
+
+#search-hits .ais-hits__empty {
+    padding: 10px;
+    color: white;
+}
