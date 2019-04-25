@@ -118,7 +118,7 @@ var generateToc = function() {
       element: currentParent
     }
   ];
-  var lastElement = null;
+  var lastElement = currentParent;
   for (var i = 0; i < nodes.length; i++) {
     var node = nodes.item(i);
     var level = parseInt(node.tagName[1], 10);
