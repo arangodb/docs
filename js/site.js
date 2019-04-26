@@ -25,7 +25,8 @@ var linkify = function() {
     return;
   }
 
-  for (var level = 1; level <= 6; level++) {
+  // no anchors for level 1 because they are the start of the page anyway?
+  for (var level = 2; level <= 6; level++) {
     linkifyAnchors(level, contentBlock);
   }
 }
