@@ -1,6 +1,7 @@
 ---
 layout: default
-description: Please note, that for backward compatibility the server access levelsfollow from the database access level on the database _system
+description: Administration Managing Users in arangosh
+title: Administration Managing Users in arangosh
 ---
 Managing Users in the ArangoDB Shell
 ====================================
