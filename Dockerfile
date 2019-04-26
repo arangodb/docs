@@ -5,7 +5,6 @@ RUN apt-get update && \
 
 RUN mkdir /root/gems
 
-WORKDIR /docs
 
 ENV GEM_HOME=/root/gems
 ENV PATH="/root/gems/bin:${PATH}"
@@ -13,7 +12,9 @@ ENV PATH="/root/gems/bin:${PATH}"
 ENV LC_ALL=C.UTF-8
 
 RUN gem install bundler jekyll
-RUN cd tmp && \
+RUN cd /tmp && \
     wget https://github.com/wjdp/htmltest/releases/download/v0.10.1/htmltest_0.10.1_linux_amd64.tar.gz && \
     tar xvzf htmltest_0.10.1_linux_amd64.tar.gz && \
     mv htmltest /usr/local/bin
+
+WORKDIR /docs
