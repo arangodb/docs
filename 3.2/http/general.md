@@ -84,7 +84,7 @@ response to the client instantly and thus finish this HTTP-request.
 The server will execute the tasks from the queue asynchronously as fast
 as possible, while clients can continue to do other work.
 If the server queue is full (i.e. contains as many tasks as specified by the
-option ["--server.maximal-queue-size"](../manual/administration-configuration-asynchronous.html)),
+option ["--server.maximal-queue-size"](../administration-configuration-asynchronous.html)),
 then the request will be rejected instantly with an *HTTP 500* (internal
 server error) response.
 
@@ -108,7 +108,7 @@ when they have strict durability requirements or if they rely on the immediate
 result of the request they send.
 
 For details on the subsequent processing
-[read on under Async Result handling](asyncresultsmanagement.html).
+[read on under Async Result handling](async-results-management.html).
 
 Authentication
 --------------
@@ -117,7 +117,7 @@ Client authentication can be achieved by using the *Authorization* HTTP header i
 client requests. ArangoDB supports authentication via HTTP Basic or JWT.
 
 Authentication is turned on by default for all internal database APIs but turned off for custom Foxx apps.
-To toggle authentication for incoming requests to the internal database APIs, use the option [--server.authentication](../manual/administration-configuration-generalarangod.html).
+To toggle authentication for incoming requests to the internal database APIs, use the option [--server.authentication](../administration-configuration-general-arangod.html).
 This option is turned on by default so authentication is required for the database APIs.
 
 Please note that requests using the HTTP OPTIONS method will be answered by
@@ -127,7 +127,7 @@ requests (see [Cross Origin Resource Sharing requests](#cross-origin-resource-sh
 The response to an HTTP OPTIONS request will be generic and not expose any private data.
 
 There is an additional option to control authentication for custom Foxx apps. The option
-[--server.authentication-system-only](../manual/administration-configuration-generalarangod.html)
+[--server.authentication-system-only](../administration-configuration-general-arangod.html)
 controls whether authentication is required only for requests to the internal database APIs and the admin interface. 
 It is turned on by default, meaning that other APIs (this includes custom Foxx apps) do not require authentication.
 
@@ -298,7 +298,7 @@ ArangoDB will add the following headers to the response:
 When making CORS requests to endpoints of Foxx services, the value of the
 `access-control-expose-headers` header will instead be set to a list of
 response headers used in the response itself (but not including the
-`access-control-` headers). Note that [Foxx services may override this behavior](../manual/foxx-cors.html).
+`access-control-` headers). Note that [Foxx services may override this behavior](../foxx-cors.html).
 
 ### Cookies and authentication
 

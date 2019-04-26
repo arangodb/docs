@@ -6,11 +6,11 @@ description: These functions implements theHTTP API for single round-trip AQL qu
 # Queries
 
 These functions implements the
-[HTTP API for single round-trip AQL queries](../http/aqlquerycursor-queryresults.html)
+[HTTP API for single round-trip AQL queries](../http/aql-query-cursor-query-results.html)
 as well as the
-[HTTP API for managing queries](../http/aqlquery.html).
+[HTTP API for managing queries](../http/aql-query.html).
 
-For collection-specific queries see [Simple Queries](js-reference-collection-simplequeries.html).
+For collection-specific queries see [Simple Queries](js-reference-collection-simple-queries.html).
 
 ## database.query
 
@@ -44,7 +44,7 @@ the query result count.
 Possible key options in _opts.options_ include: _failOnWarning_, _cache_,
 profile or _skipInaccessibleCollections_.
 For a complete list of query settings please reference the
-[setting options](../aql/invocation-witharangosh.html#setting-options).
+[setting options](../aql/invocation-with-arangosh.html#setting-options).
 
 Additionally if _opts.allowDirtyRead_ is set to `true`, the request will
 explicitly permit ArangoDB to return a potentially dirty or stale result and
@@ -54,7 +54,7 @@ and followers. Note that dirty reads are only supported for read-only queries
 
 {% hint 'info' %}
 Dirty reads are only available when targeting ArangoDB 3.4 or later,
-see [Compatibility](js-gettingstarted.html#compatibility).
+see [Compatibility](js-getting-started.html#compatibility).
 {% endhint %}
 
 Additionally _opts.timeout_ can be set to a non-negative number to force the

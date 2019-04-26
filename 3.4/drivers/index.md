@@ -23,8 +23,8 @@ Integrations
 
 Name | Language | Repository | &nbsp;
 -----|----------|------------|-------
-[Spring Data](springdata.html) | Java | https://github.com/arangodb/spring-data | [Changelog](https://github.com/arangodb/spring-data/blob/master/ChangeLog.md#readme){:target="_blank"}
-[ArangoDB-Spark-Connector](sparkconnector.html) | Scala, Java | https://github.com/arangodb/arangodb-spark-connector | [Changelog](https://github.com/arangodb/arangodb-spark-connector/blob/master/ChangeLog.md#readme){:target="_blank"}
+[Spring Data](spring-data.html) | Java | https://github.com/arangodb/spring-data | [Changelog](https://github.com/arangodb/spring-data/blob/master/ChangeLog.md#readme){:target="_blank"}
+[ArangoDB-Spark-Connector](spark-connector.html) | Scala, Java | https://github.com/arangodb/arangodb-spark-connector | [Changelog](https://github.com/arangodb/arangodb-spark-connector/blob/master/ChangeLog.md#readme){:target="_blank"}
 
 Community drivers
 -----------------

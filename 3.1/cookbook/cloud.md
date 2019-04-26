@@ -10,7 +10,7 @@ Amazon Web Services (AWS)
 
 - [Running on AWS](cloud-aws.html)
 
-- [Update on AWS](cloud-awsupdate.html)
+- [Update on AWS](cloud-aws-update.html)
 
 Microsoft Azure
 ---------------
@@ -20,18 +20,18 @@ Microsoft Azure
 Docker
 ------
 
-- [Docker ArangoDB](cloud-dockercontainer.html)
+- [Docker ArangoDB](cloud-docker-container.html)
 
-- [Docker with NodeJS App](cloud-nodejsdocker.html)
+- [Docker with NodeJS App](cloud-node-js-docker.html)
 
 GiantSwarm
 ----------
 
-- [In the GiantSwarm](cloud-giantswarm.html)
+- [In the GiantSwarm](cloud-giant-swarm.html)
 
 Mesos / DCOS
 ------------
 
 - [ArangoDB in Mesos](cloud-mesosphere.html)
 
-- [DC/OS: Full example](cloud-dcosfullexample.html)
+- [DC/OS: Full example](cloud-dcos-full-example.html)

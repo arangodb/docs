@@ -6,7 +6,7 @@ Fulltext functions
 ==================
 
 AQL offers the following functions to filter data based on
-[fulltext indexes](../manual/indexing-fulltext.html):
+[fulltext indexes](../indexing-fulltext.html):
 
 ### FULLTEXT()
 

@@ -41,5 +41,5 @@ The syntax of AQL queries is different to SQL, even if some keywords overlap.
 Nevertheless, AQL should be easy to understand for anyone with an SQL background.
 
 For some example queries, please refer to the chapters
-[Data Queries](dataqueries.html), [Usual query patterns](examples.html)
+[Data Queries](data-queries.html), [Usual query patterns](examples.html)
 and [Tutorial](tutorial.html).

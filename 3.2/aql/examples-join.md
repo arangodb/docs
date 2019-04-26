@@ -231,7 +231,7 @@ saves even more precious CPU cycles and gives the optimizer more alternatives.
 Index usage
 -----------
 
-Especially on joins you should [make sure indices can be used to speed up your query.](executionandperformance-explainingqueries.html)
+Especially on joins you should [make sure indices can be used to speed up your query.](execution-and-performance-explaining-queries.html)
 Please note that sparse indices don't qualify for joins:
 
 In joins you typically would also want to join documents not containing the property 

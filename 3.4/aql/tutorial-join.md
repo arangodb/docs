@@ -124,7 +124,7 @@ FOR c IN Characters
 ```
 
 <!-- Obsolete if we add a chapter about attribute manipulation -->
-Also see the [Fundamentals of Objects / Documents](fundamentals-datatypes.html#objects--documents)
+Also see the [Fundamentals of Objects / Documents](fundamentals-data-types.html#objects--documents)
 about attribute access.
 
 We can use the *traits* array together with the `DOCUMENT()` function to use
@@ -202,7 +202,7 @@ FOR c IN Characters
 ```
 
 This is a bit too much information, so let's only return English labels using
-the [array expansion](advanced-arrayoperators.html#array-expansion) notation:
+the [array expansion](advanced-array-operators.html#array-expansion) notation:
 
 ```js
 FOR c IN Characters

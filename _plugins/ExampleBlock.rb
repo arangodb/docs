@@ -2,7 +2,12 @@ class ExampleBlock < Liquid::Block
   alias_method :parent_render, :render
 
   def get_example_content(context, name)
-    examplePath = Dir.pwd + context["page"]["dir"] + "/../generated/Examples/" + name + ".generated"
+    if context["page"]["dir"] =~ /\d\.\d\/?$/
+      dir = context["page"]["dir"] + "/"
+    else
+      dir = context["page"]["dir"] + "/../"
+    end
+    examplePath = Dir.pwd + dir + "generated/Examples/" + name + ".generated"
     if !File.file?(examplePath)
       print("Couldn't read example at " + examplePath + ", required by " + context["page"]["path"] + "\n")
       return "Couldn't read example at " + examplePath + ", required by " + context["page"]["path"] + "\n"

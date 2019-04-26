@@ -27,12 +27,15 @@ async function migrateMds(basePath, targetPath) {
             urlVersion = "devel";
         }
 
-        const newUrl = "https://" + path.join("www.arangodb.com/docs/", targetPath, fileName);
+        const newUrl = "https://" + path.join("www.arangodb.com/docs/", targetPath, fileName.replace(/.md$/ig, ".html"));
 
         let oldUrl = relative.replace(/\/README.md$/ig, "/index.html");
         oldUrl = "https://" + path.join("docs.arangodb.com/", urlVersion, book, oldUrl.replace(/.md$/ig, ".html"));
 
         console.log(JSON.stringify({[oldUrl]: newUrl}));
+        if (oldUrl.endsWith("/index.html")) {
+            console.log(JSON.stringify({[oldUrl.substr(0, oldUrl.length - 10)]: newUrl}));
+        }
 
         let content = (await fs.readFile(p)).toString();
         const result = markedIt.generate(content);
@@ -86,9 +89,27 @@ async function migrateMds(basePath, targetPath) {
         // replace all external links to open in a new tab (kramdown extension)
         content = content.replace(/\]\((https?:.*?)\)/g, '](\$1){:target="_blank"}');
         // fix crosslinks between documents (../AQL/Geil/Aql.md => -aql-geil-aql.md => ../aql/geil-aql.md)
-        content = content.replace(/\]\(-([^-]+)-([^\.]+)\.html(#[^)]+)?\)/g, '](../\$1/\$2.html\$3)');
+        content = content.replace(/\]\(-([^-\/\.]+)-([^\.]+)\.html(#[^)]+)?\)/g, (x, manual, document, anchor) => {
+            let link = "../"  + manual + "/";
+            if (manual == "manual") {
+                link = "../";
+            }
+            if (path.basename(basePath) == "Manual" || path.basename(basePath) == "Users") {
+                link = link.substr(3);
+            }
+            link += `${document}.html`;
+            if (anchor) {
+                link += anchor;
+            }
+
+            return `](${link})`;
+        });
         // replace all LOCAL images with images/IMAGEBASEPATH
-        content = content.replace(/\]\((?!https?:)[^\)]*?([^/)]+\.png)\)/g, '](../images/\$1)');
+        if (path.basename(basePath) == "Manual" || path.basename(basePath) == "Users") {
+            content = content.replace(/\]\((?!https?:)[^\)]*?([^/)]+\.png)\)/g, '](images/\$1)');
+        } else {
+            content = content.replace(/\]\((?!https?:)[^\)]*?([^/)]+\.png)\)/g, '](../images/\$1)');
+        }
 
         content = content.replace(/\]\((\.\.\/aql|-aql)\.html\)/g, '](../aql/)');
         content = content.replace(/\]\((\.\.\/http|-http)\.html\)/g, '](../http/)');
@@ -124,19 +145,31 @@ async function migrateMds(basePath, targetPath) {
 // verified beforehand that all imagenames are unique over all directories
 async function migrateImages(basePath, targetPath) {
     const paths = await globby([path.join(basePath + "/**/*.png")]);
+    let imagePath;
+    if (path.basename(basePath) == "Manual" || path.basename(basePath) == "Users") {
+        imagePath = path.join(targetPath, "images");
+    } else {
+        imagePath = path.join(targetPath, "..", "images");
+    }
+
     await Promise.all(['https://docs.arangodb.com/3.0/Manual/Graphs/graph_user_in_group.png', 'https://docs.arangodb.com/3.0/Manual/Deployment/simple_cluster.png'].map(url => {
         return fetch(url)
         .then(result => result.buffer())
-        .then(data => fs.writeFile(path.join(targetPath, "..", "images", path.basename(url)), data));
+        .then(data => fs.writeFile(path.join(imagePath, path.basename(url)), data));
     }))
     return Promise.all(paths.map(image => {
-        return fs.copyFile(image, path.join(targetPath, "..", "images", path.basename(image)));
+        return fs.copyFile(image, path.join(imagePath, path.basename(image)));
     }));
 }
 
 async function main(basePath, targetPath) {
     await mkdirp(path.join(targetPath));
-    await mkdirp(path.join(targetPath, "..", "images"));
+    if (path.basename(basePath) == "Manual" || path.basename(basePath) == "Users") {
+        await mkdirp(path.join(targetPath, "images"));
+    } else {
+        await mkdirp(path.join(targetPath, "..", "images"));
+    }
+    
     Promise.all([migrateImages(basePath, targetPath), migrateMds(basePath, targetPath)]);
 }
 

@@ -38,7 +38,7 @@ Performs a server-side transaction and returns its return value.
   This function will be executed on the server inside ArangoDB and can not use
   the arangojs driver or any variables other than those passed as _params_.
   For accessing the database from within ArangoDB, see the documentation for the
-  [`@arangodb` module in ArangoDB](../manual/appendix-javascriptmodules-arangodb.html).
+  [`@arangodb` module in ArangoDB](../appendix-java-script-modules-arango-db.html).
   {% endhint %}
 
 - **params**: `Object` (optional)

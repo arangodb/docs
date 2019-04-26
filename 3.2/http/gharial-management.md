@@ -5,8 +5,8 @@ description: The graph module provides functions dealing with graph structures
 Manage your graphs
 ==================
 
-The [graph module](../manual/graphs.html) provides functions dealing with graph structures.
-Examples will explain the REST API on the [social graph](../manual/graphs.html#the-social-graph):
+The [graph module](../graphs.html) provides functions dealing with graph structures.
+Examples will explain the REST API on the [social graph](../graphs.html#the-social-graph):
 
 ![Social Example Graph](../images/social_graph.png)
 {% docublock JSF_general_graph_list_http_examples %}

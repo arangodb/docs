@@ -11,7 +11,7 @@ Geo utility functions
 The following helper functions **can** use geo indexes, but do not have to in
 all cases. You can use all of these functions in combination with each other,
 and if you have configured a geo index it may be utilized,
-see [Geo Indexing](../manual/indexing-geo.html).
+see [Geo Indexing](../indexing-geo.html).
 
 ### DISTANCE()
 
@@ -42,10 +42,10 @@ FOR doc IN doc // e.g. documents returned by a traversal
 
 `GEO_CONTAINS(geoJsonA, geoJsonB) → bool`
 
-Checks whether the [GeoJSON object](../manual/indexing-geo.html#geojson) `geoJsonA`
+Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
 fully contains `geoJsonB` (Every point in B is also in A). The object `geoJsonA` has to be of type 
 `Polygon` or `MultiPolygon`, other types are not supported because containment is ill defined. 
-This function can be **optimized** by a S2 based [geospatial index](../manual/indexing-geo.html).
+This function can be **optimized** by a S2 based [geospatial index](../indexing-geo.html).
 
 - **geoJsonA** (object): first GeoJSON object or coordinate array (in longitude, latitude order)
 - **geoJsonB** (object): second GeoJSON object or coordinate array (in longitude, latitude order)
@@ -58,7 +58,7 @@ This function can be **optimized** by a S2 based [geospatial index](../manual/in
 
 Return the distance between two GeoJSON objects, measured from the **centroid**
 of each shape. For a list of supported types see the
-[geo index page](../manual/indexing-geo.html#geojson).
+[geo index page](../indexing-geo.html#geojson).
 
 - **geoJsonA** (object): first GeoJSON object
 - **geoJsonB** (object): second GeoJSON object
@@ -80,7 +80,7 @@ FOR doc IN collectionName
 `GEO_EQUALS(geoJsonA, geoJsonB) → bool`
 
 Checks whether two GeoJSON objects are equal or not. For a list of supported
-types see the [geo index page](../manual/indexing-geo.html#geojson).
+types see the [geo index page](../indexing-geo.html#geojson).
 
 - **geoJsonA** (object): first GeoJSON object
 - **geoJsonB** (object): second GeoJSON object.
@@ -110,9 +110,9 @@ RETURN GEO_EQUALS(polygonA, polygonB) // false
 
 `GEO_INTERSECTS(geoJsonA, geoJsonB) → bool`
 
-Checks whether the [GeoJSON object](../manual/indexing-geo.html#geojson) `geoJsonA`
+Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
 intersects with `geoJsonB` (i.e. at least one point in B is also A or vice-versa).
-This function can be **optimized** by a S2 based [geospatial index](../manual/indexing-geo.html).
+This function can be **optimized** by a S2 based [geospatial index](../indexing-geo.html).
 
 - **geoJsonA** (object): first GeoJSON object
 - **geoJsonB** (object): second GeoJSON object.
@@ -325,7 +325,7 @@ Please use the [Geo utility functions](#geo-utility-functions) instead.
 {% endhint %}
 
 AQL offers the following functions to filter data based on
-[geo indexes](../manual/indexing-geo.html). These functions require the collection
+[geo indexes](../indexing-geo.html). These functions require the collection
 to have at least one geo index. If no geo index can be found, calling this
 function will fail with an error at runtime. There is no error when explaining
 the query however.

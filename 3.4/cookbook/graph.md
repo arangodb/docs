@@ -5,8 +5,8 @@ description: Fulldepth Graph-Traversal
 Graph
 =====
 
-- [Fulldepth Graph-Traversal](graph-fulldepthtraversal.html)
+- [Fulldepth Graph-Traversal](graph-fulldepth-traversal.html)
 
-- [Using a custom Visitor](graph-customvisitorfromnodejs.html)
+- [Using a custom Visitor](graph-custom-visitor-from-node-js.html)
 
-- [Example AQL Queries for Graphs](graph-exampleactorsandmovies.html)
+- [Example AQL Queries for Graphs](graph-example-actors-and-movies.html)

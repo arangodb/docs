@@ -24,8 +24,8 @@ from the recepies below.
 
 - [Compile on Windows](compiling-windows.html)
 
-- [Running Custom Build](compiling-runningcustombuild.html)
+- [Running Custom Build](compiling-running-custom-build.html)
 
   - [Recompiling jemalloc](compiling-jemalloc.html)
 
-  - [OpenSSL 1.1](compiling-openssl.html)
+  - [OpenSSL 1.1](compiling-open-ssl.html)

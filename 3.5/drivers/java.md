@@ -7,7 +7,7 @@ description: The official ArangoDB Java Driver
 
 The official ArangoDB Java Driver.
 
-- [Getting Started](java-gettingstarted.html)
+- [Getting Started](java-getting-started.html)
 - [Reference](java-reference.html)
 
 ## See Also

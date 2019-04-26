@@ -9,9 +9,9 @@ Syntax
 ------
 
 There are two slightly different syntaxes for traversals in AQL, one for
-- [named graphs](../manual/graphs.html#named-graphs) and another to
+- [named graphs](../graphs.html#named-graphs) and another to
 - specify a [set of edge collections](#working-with-collection-sets)
-  ([anonymous graph](../manual/graphs.html#anonymous-graphs)).
+  ([anonymous graph](../graphs.html#anonymous-graphs)).
 
 ### Working with named graphs
 
@@ -351,7 +351,7 @@ Use the AQL explainer for optimizations
 ---------------------------------------
 
 Now let's have a look what the optimizer does behind the curtain and inspect
-traversal queries using [the explainer](executionandperformance-optimizer.html):
+traversal queries using [the explainer](execution-and-performance-optimizer.html):
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_07_traverse_7
     @EXAMPLE_AQL{GRAPHTRAV_07_traverse_7}
@@ -399,6 +399,6 @@ And finally clean it up again:
 
 If this traversal is not powerful enough for your needs, like you cannot describe
 your conditions as AQL filter statements, then you might want to have a look at
-[manually crafted traversers](../manual/graphs-traversals.html).
+[manually crafted traversers](../graphs-traversals.html).
 
-Also see how to [combine graph traversals](examples-combininggraphtraversals.html).
+Also see how to [combine graph traversals](examples-combining-graph-traversals.html).

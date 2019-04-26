@@ -6,7 +6,7 @@ description: The official ArangoDB PHP Driver
 # ArangoDB-PHP - A PHP client for ArangoDB
 The official ArangoDB PHP Driver.
 
-- [Getting Started](php-gettingstarted.html)
+- [Getting Started](php-getting-started.html)
 - [Tutorial](php-tutorial.html)
 - [Changelog](https://github.com/arangodb/arangodb-php/blob/devel/CHANGELOG.md#readme){:target="_blank"}
 

@@ -13,8 +13,8 @@ general. There are special sections for various index types.
 #### Index
 
 Indexes are used to allow fast access to documents. For each collection there is always the primary index which is a hash index for the
-[document key](../manual/appendix-glossary.html#document-key) (_key attribute). This index cannot be dropped or changed.
-[edge collections](../manual/appendix-glossary.html#edge-collection) will also have an automatically created edges index, which cannot be modified. This index provides quick access to documents via the `_from` and `_to` attributes.
+[document key](../appendix-glossary.html#document-key) (_key attribute). This index cannot be dropped or changed.
+[edge collections](../appendix-glossary.html#edge-collection) will also have an automatically created edges index, which cannot be modified. This index provides quick access to documents via the `_from` and `_to` attributes.
 
 Most user-land indexes can be created by defining the names of the attributes which should be indexed. Some index types allow indexing just one attribute (e.g. fulltext index) whereas other index types allow indexing multiple attributes.
 

@@ -210,7 +210,7 @@ The syntax `base ** exp` is not supported.
 
 For string concatenation, you must use the [string function](functions-string.html#concat)
 *CONCAT()*. Combining two strings with a plus operator (`"foo" + "bar"`) will not work!
-Also see [Common Errors](commonerrors.html).
+Also see [Common Errors](common-errors.html).
 
 Some example arithmetic operations:
 
@@ -226,7 +226,7 @@ Some example arithmetic operations:
 
 The arithmetic operators accept operands of any type. Passing non-numeric values to an 
 arithmetic operator will cast the operands to numbers using the type casting rules 
-applied by the [TO_NUMBER()](functions-typecast.html#tonumber) function:
+applied by the [TO_NUMBER()](functions-type-cast.html#tonumber) function:
 
 - `null` will be converted to `0`
 - `false` will be converted to `0`, true will be converted to `1`
@@ -300,8 +300,8 @@ There is also a [RANGE() function](functions-numeric.html#range).
 #### Array operators
 
 AQL provides array operators <i>[\*]</i> for
-[array variable expansion](advanced-arrayoperators.html#array-expansion) and
-<i>[\*\*]</i> for [array contraction](advanced-arrayoperators.html#array-contraction).
+[array variable expansion](advanced-array-operators.html#array-expansion) and
+<i>[\*\*]</i> for [array contraction](advanced-array-operators.html#array-contraction).
 
 #### Operator precedence
 

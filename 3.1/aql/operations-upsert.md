@@ -11,7 +11,7 @@ On a single server, upserts are executed transactionally in an all-or-nothing fa
 For sharded collections, the entire update operation is not transactional.
 
 Each *UPSERT* operation is restricted to a single collection, and the 
-[collection name](../manual/appendix-glossary.html#collection-name) must not be dynamic.
+[collection name](../appendix-glossary.html#collection-name) must not be dynamic.
 Only a single *UPSERT* statement per collection is allowed per AQL query, and 
 it cannot be followed by read operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.

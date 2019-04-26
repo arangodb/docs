@@ -9,7 +9,7 @@ description: Manipulating edges
 
 `graph.edgeCollection(collectionName): GraphEdgeCollection`
 
-Returns a new [_GraphEdgeCollection_ instance](js-reference-graph-edgecollection.html) with
+Returns a new [_GraphEdgeCollection_ instance](js-reference-graph-edge-collection.html) with
 the given name bound to this graph.
 
 **Arguments**

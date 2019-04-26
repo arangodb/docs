@@ -43,28 +43,35 @@
     </script>
     {% assign version = page.url | split: "/" | slice: 1 | first %}
     {% assign selected = page.url | split: "/" | slice: 2 | first %}
+    {% if selected contains ".html" %}
+    {% assign selected = "manual" %}
+    {% endif %}
+    {% assign grr = page.url | split: "/" | size %}
+    {% if grr < 3 %}
+    {% assign selected = "manual" %}
+    {% endif %}
     <ul class="arangodb-navmenu">
       <li{% if selected == "manual" %} class="active-tab"{% endif %}>
-        <a href="../manual" data-book="Manual">Manual</a>
+        <a href="/docs/{{ version }}/" data-book="Manual">Manual</a>
       </li>
       {% if site.data.books[version] contains "aql" %}
       <li{% if selected == "aql" %} class="active-tab"{% endif %}>
-        <a href="../aql/" data-book="AQL">AQL</a>
+        <a href="/docs/{{ version }}/aql/" data-book="AQL">AQL</a>
       </li>
       {% endif %}
       {% if site.data.books[version] contains "http" %}
       <li{% if selected == "http" %} class="active-tab"{% endif %}>
-        <a href="../http/" data-book="HTTP">HTTP</a>
+        <a href="/docs/{{ version }}/http/" data-book="HTTP">HTTP</a>
       </li>
       {% endif %}
       {% if site.data.books[version] contains "cookbook" %}
       <li{% if selected == "cookbook" %} class="active-tab"{% endif %}>
-        <a href="../cookbook/" data-book="Cookbook">Cookbook</a>
+        <a href="/docs/{{ version }}/cookbook/" data-book="Cookbook">Cookbook</a>
       </li>
       {% endif %}
       {% if site.data.books[version] contains "drivers" %}
       <li{% if selected == "drivers" %} class="active-tab"{% endif %}>
-        <a href="../drivers/" data-book="Drivers">Drivers</a>
+        <a href="/docs/{{ version }}/drivers/" data-book="Drivers">Drivers</a>
       </li>
       {% endif %}
       <li class="downloadIcon" title="Download">

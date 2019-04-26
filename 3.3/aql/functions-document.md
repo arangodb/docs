@@ -6,7 +6,7 @@ Document functions
 ==================
 
 AQL provides below listed functions to operate on objects / document values.
-Also see [object access](fundamentals-datatypes.html#objects--documents) for
+Also see [object access](fundamentals-data-types.html#objects--documents) for
 additional language constructs.
 
 ATTRIBUTES()
@@ -106,7 +106,7 @@ IS_SAME_COLLECTION()
 `IS_SAME_COLLECTION(collectionName, documentHandle) → bool`
 
   collection id as the collection specified in *collection*. *document* can either be
-  a [document handle](../manual/appendix-glossary.html#document-handle) string, or a document with
+  a [document handle](../appendix-glossary.html#document-handle) string, or a document with
   an *_id* attribute. The function does not validate whether the collection actually
   contains the specified document, but only compares the name of the specified collection
   with the collection name part of the specified document.
@@ -320,11 +320,11 @@ PARSE_IDENTIFIER()
 
 `PARSE_IDENTIFIER(documentHandle) → parts`
 
-Parse a [document handle](../manual/appendix-glossary.html#document-handle) and return its
+Parse a [document handle](../appendix-glossary.html#document-handle) and return its
 individual parts a separate attributes.
 
 This function can be used to easily determine the
-[collection name](../manual/appendix-glossary.html#collection-name) and key of a given document.
+[collection name](../appendix-glossary.html#collection-name) and key of a given document.
 
 - **documentHandle** (string|object): a document identifier string (e.g. *_users/1234*)
   or a regular document from a collection. Passing either a non-string or a non-document

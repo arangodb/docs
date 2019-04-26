@@ -21,7 +21,7 @@ For sharded collections, the entire query and/or remove operation may not be tra
 especially if it involves different shards and/or database servers.
 
 Each *REMOVE* operation is restricted to a single collection, and the 
-[collection name](../manual/appendix-glossary.html#collection-name) must not be dynamic.
+[collection name](../appendix-glossary.html#collection-name) must not be dynamic.
 Only a single *REMOVE* statement per collection is allowed per AQL query, and 
 it cannot be followed by read or write operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
@@ -35,7 +35,7 @@ REMOVE keyExpression IN collection options
 *collection* must contain the name of the collection to remove the documents 
 from. *keyExpression* must be an expression that contains the document identification.
 This can either be a string (which must then contain the
-[document key](../manual/appendix-glossary.html#document-key)) or a
+[document key](../appendix-glossary.html#document-key)) or a
 document, which must contain a *_key* attribute.
 
 The following queries are thus equivalent:

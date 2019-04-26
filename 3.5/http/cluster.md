@@ -7,8 +7,8 @@ HTTP Interface for Cluster
 
 This _Chapter_ describes the REST API of the ArangoDB Cluster.
 
-* [Server ID](cluster-serverid.html)
-* [Server Role](cluster-serverrole.html)
+* [Server ID](cluster-server-id.html)
+* [Server Role](cluster-server-role.html)
 * [Cluster Statistics](cluster-statistics.html)
 * [Cluster Health](cluster-health.html)
 * [Cluster Maintenance](cluster-maintenance.html)

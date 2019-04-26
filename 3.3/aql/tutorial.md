@@ -13,7 +13,7 @@ which makes for an interesting mix of data to work with.
 
 There is no need to import the data before you start. It is provided as part
 of the AQL queries in this tutorial. You can interact with ArangoDB using its
-[web interface](../manual/gettingstarted-webinterface.html) to manage
+[web interface](../getting-started-web-interface.html) to manage
 collections and execute the queries.
 
 Chapters
@@ -21,7 +21,7 @@ Chapters
 
 - [Basic CRUD](tutorial-crud.html)
 - [Matching documents](tutorial-filter.html)
-- [Sorting and limiting](tutorial-sortlimit.html)
+- [Sorting and limiting](tutorial-sort-limit.html)
 - [Joining together](tutorial-join.html)
 - [Graph traversal](tutorial-traversal.html)
 - [Geospatial queries](tutorial-geospatial.html)

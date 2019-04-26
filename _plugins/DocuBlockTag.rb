@@ -254,15 +254,23 @@ class DocuBlockBlock < Liquid::Tag
     end
 
     def render(context)
-        content = get_docu_block(Dir.pwd + context["page"]["dir"] + "/../generated/", @blockname)
+        if context["page"]["dir"] =~ /\d\.\d\/?$/
+            dir = context["page"]["dir"] + "/"
+        else
+            dir = context["page"]["dir"] + "/../"
+        end
+        content = get_docu_block(Dir.pwd + dir + "generated/", @blockname)
         if !content
             p "Blockname #{@blockname} undefined"
             return ""
         end
         # should match migrate.js more or less :S
         content = content.gsub(/\]\((?!https?:)(.*?\.(html|md))(#[^\)]+)?\)/) {|s|
-
-            link = $1.downcase
+            link = $1.gsub(/(?<![A-Z\/])([A-Z])/) {|_|
+                "-" + $1
+            }
+            link = link[1..-1] if link.start_with?("-")
+            link = link.downcase
             anchor = $3 || "";
             newlink = link.gsub(/\/(readme\.md|index\.html)$/, '').gsub(/\.(md|html)/, '').gsub(/[^a-z0-9]+/, '-') + '.md';
 
@@ -273,6 +281,7 @@ class DocuBlockBlock < Liquid::Tag
             if newlink.start_with?("-")
                 if link.start_with?("../..")
                     newlink = newlink.gsub(/^-([^-]+)-([^\.]+)\.(md|html)/, '../\1/\2.html');
+                    newlink = newlink.gsub(/\.\.\/manual\//, "../")
                 else
                     newlink = newlink[1..-1]
                 end

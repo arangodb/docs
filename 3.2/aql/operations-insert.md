@@ -20,7 +20,7 @@ For sharded collections, the entire query and/or insert operation may not be tra
 especially if it involves different shards and/or database servers.
 
 Each *INSERT* operation is restricted to a single collection, and the 
-[collection name](../manual/appendix-glossary.html#collection-name) must not be dynamic.
+[collection name](../appendix-glossary.html#collection-name) must not be dynamic.
 Only a single *INSERT* statement per collection is allowed per AQL query, and 
 it cannot be followed by read or write operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
@@ -44,7 +44,7 @@ FOR i IN 1..100
   INSERT { value: i } IN numbers
 ```
 
-When inserting into an [edge collection](../manual/appendix-glossary.html#edge-collection),
+When inserting into an [edge collection](../appendix-glossary.html#edge-collection),
 it is mandatory to specify the attributes *_from* and *_to* in document:
 
 ```js

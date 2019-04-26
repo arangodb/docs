@@ -9,8 +9,8 @@ AQL provides functions for higher-level array manipulation. Also see the
 [numeric functions](functions-numeric.html) for functions that work on number arrays.
 Apart from that, AQL also offers several language constructs:
 
-- simple [array access](fundamentals-datatypes.html#arrays--lists) of individual elements,
-- [array operators](advanced-arrayoperators.html) for array expansion and contraction,
+- simple [array access](fundamentals-data-types.html#arrays--lists) of individual elements,
+- [array operators](advanced-array-operators.html) for array expansion and contraction,
   optionally with inline filter, limit and projection,
 - [array comparison operators](operators.html#array-comparison-operators) to compare
   each element in an array to a value or the elements of another array,

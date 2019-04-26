@@ -24,6 +24,6 @@ from the recipes below.
 
 - [Compile on Windows](compiling-windows.html)
 
-- [Running Custom Build](compiling-runningcustombuild.html)
+- [Running Custom Build](compiling-running-custom-build.html)
 
   - [Recompiling jemalloc](compiling-jemalloc.html)

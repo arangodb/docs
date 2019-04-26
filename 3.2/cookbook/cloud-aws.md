@@ -7,7 +7,7 @@ Running ArangoDB on AWS
 
 ArangoDB is available as AMI on the [AWS Marketplace][1].
 
-(If you've already a running ArangoDB image on AWS and need an update, please have a look at [Updating ArangoDB on AWS](cloud-awsupdate.html)).
+(If you've already a running ArangoDB image on AWS and need an update, please have a look at [Updating ArangoDB on AWS](cloud-aws-update.html)).
 
 Here is a quick guide how to start:
 

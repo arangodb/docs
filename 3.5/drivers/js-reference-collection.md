@@ -10,10 +10,10 @@ These functions implement the
 
 The _Collection API_ is implemented by all _Collection_ instances, regardless of
 their specific type. I.e. it represents a shared subset between instances of
-[_DocumentCollection_](js-reference-collection-documentcollection.html),
-[_EdgeCollection_](js-reference-collection-edgecollection.html),
-[_GraphVertexCollection_](js-reference-graph-vertexcollection.html) and
-[_GraphEdgeCollection_](js-reference-graph-edgecollection.html).
+[_DocumentCollection_](js-reference-collection-document-collection.html),
+[_EdgeCollection_](js-reference-collection-edge-collection.html),
+[_GraphVertexCollection_](js-reference-graph-vertex-collection.html) and
+[_GraphEdgeCollection_](js-reference-graph-edge-collection.html).
 
 ## Getting information about the collection
 

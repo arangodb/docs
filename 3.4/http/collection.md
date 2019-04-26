@@ -11,7 +11,7 @@ This is an introduction to ArangoDB's HTTP interface for collections.
  -----------
 
 A collection consists of documents. It is uniquely identified by its 
-[collection identifier](../manual/appendix-glossary.html#collection-identifier).
+[collection identifier](../appendix-glossary.html#collection-identifier).
 It also has a unique name that clients should 
 use to identify and access it. Collections can be renamed. This will 
 change the collection name, but not the collection identifier.

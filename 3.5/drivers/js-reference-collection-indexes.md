@@ -19,7 +19,7 @@ Creates an arbitrary index on the collection.
 - **details**: `Object`
 
   For information on the possible properties of the _details_ object, see the
-  [HTTP API for manipulating indexes](../http/indexes-workingwith.html).
+  [HTTP API for manipulating indexes](../http/indexes-working-with.html).
 
 **Examples**
 
@@ -311,7 +311,7 @@ Creates a cap constraint index on the collection.
 
 {% hint 'warning' %}
 This method is not available when targeting ArangoDB 3.0 or later,
-see [Compatibility](js-gettingstarted.html#compatibility).
+see [Compatibility](js-getting-started.html#compatibility).
 {% endhint %}
 
 **Arguments**

@@ -418,7 +418,7 @@ Use the AQL explainer for optimizations
 ---------------------------------------
 
 Now let's have a look what the optimizer does behind the curtain and inspect
-traversal queries using [the explainer](executionandperformance-optimizer.html):
+traversal queries using [the explainer](execution-and-performance-optimizer.html):
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_07_traverse_7
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_07_traverse_7}
@@ -450,6 +450,6 @@ And finally clean it up again:
 
 If this traversal is not powerful enough for your needs, like you cannot describe
 your conditions as AQL filter statements, then you might want to have a look at
-[manually crafted traversers](../manual/graphs-traversals.html).
+[manually crafted traversers](../graphs-traversals.html).
 
-Also see how to [combine graph traversals](examples-combininggraphtraversals.html).
+Also see how to [combine graph traversals](examples-combining-graph-traversals.html).

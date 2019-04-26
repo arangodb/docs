@@ -21,7 +21,7 @@ during transaction execution, all operations performed in the transaction are
 rolled back.
 
 For a more detailed description of how transactions work in ArangoDB please
-refer to [Transactions](../manual/transactions.html). 
+refer to [Transactions](../transactions.html). 
 
 <!-- js/actions/api-transaction.js -->
 {% docublock JSF_post_api_transaction %}

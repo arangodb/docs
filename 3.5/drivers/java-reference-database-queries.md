@@ -6,7 +6,7 @@ description: This function implements theHTTP API for single roundtrip AQL queri
 # Queries
 
 This function implements the
-[HTTP API for single roundtrip AQL queries](../http/aqlquerycursor-queryresults.html).
+[HTTP API for single roundtrip AQL queries](../http/aql-query-cursor-query-results.html).
 
 ## ArangoDatabase.query
 

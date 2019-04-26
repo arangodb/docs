@@ -84,7 +84,7 @@ response to the client instantly and thus finish this HTTP-request.
 The server will execute the tasks from the queue asynchronously as fast
 as possible, while clients can continue to do other work.
 If the server queue is full (i.e. contains as many tasks as specified by the
-option ["--server.maximal-queue-size"](../manual/programs-arangod-options.html#server-options)),
+option ["--server.maximal-queue-size"](../programs-arangod-options.html#server-options)),
 then the request will be rejected instantly with an *HTTP 500* (internal
 server error) response.
 
@@ -108,7 +108,7 @@ when they have strict durability requirements or if they rely on the immediate
 result of the request they send.
 
 For details on the subsequent processing
-[read on under Async Result handling](asyncresultsmanagement.html).
+[read on under Async Result handling](async-results-management.html).
 
 Authentication
 --------------
@@ -118,7 +118,7 @@ client requests. ArangoDB supports authentication via HTTP Basic or JWT.
 
 Authentication is turned on by default for all internal database APIs but turned off for custom Foxx apps.
 To toggle authentication for incoming requests to the internal database APIs, use the option
-[--server.authentication](../manual/programs-arangod-server.html#enabledisable-authentication).
+[--server.authentication](../programs-arangod-server.html#enabledisable-authentication).
 This option is turned on by default so authentication is required for the database APIs.
 
 Please note that requests using the HTTP OPTIONS method will be answered by
@@ -128,7 +128,7 @@ requests (see [Cross Origin Resource Sharing requests](#cross-origin-resource-sh
 The response to an HTTP OPTIONS request will be generic and not expose any private data.
 
 There is an additional option to control authentication for custom Foxx apps. The option
-[--server.authentication-system-only](../manual/programs-arangod-server.html#enabledisable-authentication-for-system-api-requests-only)
+[--server.authentication-system-only](../programs-arangod-server.html#enabledisable-authentication-for-system-api-requests-only)
 controls whether authentication is required only for requests to the internal database APIs and the admin interface.
 It is turned on by default, meaning that other APIs (this includes custom Foxx apps) do not require authentication.
 
@@ -221,7 +221,7 @@ Note that using superuser access for normal database operations is **NOT advised
 
 _Note_: It is only possible to generate this JWT token with the knowledge of the JWT secret.
 
-For your convenience it is possible to generate this token via the [ArangoDB starter CLI](../manual/programs-starter-security.html#using-authentication-tokens).
+For your convenience it is possible to generate this token via the [ArangoDB starter CLI](../programs-starter-security.html#using-authentication-tokens).
 
 Should you whish to generate the JWT token yourself with a tool of your choice, you need to include the correct body.
 The body must contain the _iss_ field with string value `arangodb` and the `server_id` field with an arbirtrary string identifier:
@@ -348,7 +348,7 @@ ArangoDB will add the following headers to the response:
 When making CORS requests to endpoints of Foxx services, the value of the
 `access-control-expose-headers` header will instead be set to a list of
 response headers used in the response itself (but not including the
-`access-control-` headers). Note that [Foxx services may override this behavior](../manual/foxx-guides-browser.html#cross-origin-resource-sharing-cors).
+`access-control-` headers). Note that [Foxx services may override this behavior](../foxx-guides-browser.html#cross-origin-resource-sharing-cors).
 
 ### Cookies and authentication
 

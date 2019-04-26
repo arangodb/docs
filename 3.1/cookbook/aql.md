@@ -10,13 +10,13 @@ Using AQL in general
 
 - [Using Joins in AQL](aql-joins.html)
 
-- [Using Dynamic Attribute Names](aql-dynamicattributenames.html)
+- [Using Dynamic Attribute Names](aql-dynamic-attribute-names.html)
 
-- [Creating Test-data using AQL](aql-creatingtestdata.html)
+- [Creating Test-data using AQL](aql-creating-test-data.html)
 
-- [Diffing Documents](aql-diffingdocuments.html)
+- [Diffing Documents](aql-diffing-documents.html)
 
-- [Avoiding Parameter Injection](aql-avoidinginjection.html)
+- [Avoiding Parameter Injection](aql-avoiding-injection.html)
 
 - [Multiline Query Strings](aql-joins.html)
 
@@ -24,8 +24,8 @@ Using AQL in general
 Migrating from 2.x to 3.0
 -------------------------
 
-- [Migrating named graph functions to 3.0](aql-migratinggraphfunctionsto3.html)
+- [Migrating named graph functions to 3.0](aql-migrating-graph-functions-to3.html)
 
-- [Migrating anonymous graph functions to 3.0](aql-migratingedgefunctionsto3.html)
+- [Migrating anonymous graph functions to 3.0](aql-migrating-edge-functions-to3.html)
 
-- [Migrating graph measurements to 3.0](aql-migratingmeasurementsto3.html)
+- [Migrating graph measurements to 3.0](aql-migrating-measurements-to3.html)

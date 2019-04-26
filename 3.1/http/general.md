@@ -84,7 +84,7 @@ response to the client instantly and thus finish this HTTP-request.
 The server will execute the tasks from the queue asynchronously as fast
 as possible, while clients can continue to do other work.
 If the server queue is full (i.e. contains as many tasks as specified by the
-option ["--scheduler.maximal-queue-size"](../manual/administration-configuration-communication.html)),
+option ["--scheduler.maximal-queue-size"](../administration-configuration-communication.html)),
 then the request will be rejected instantly with an *HTTP 500* (internal
 server error) response.
 
@@ -108,7 +108,7 @@ when they have strict durability requirements or if they rely on the immediate
 result of the request they send.
 
 For details on the subsequent processing
-[read on under Async Result handling](asyncresultsmanagement.html).
+[read on under Async Result handling](async-results-management.html).
 
 Authentication
 --------------
@@ -118,7 +118,7 @@ client requests. ArangoDB supports authentication via HTTP Basic or JWT.
 
 Authentication is turned on by default, but can be turned off. To enforce
 authentication for incoming requested, the server must be started with the option
-[--server.authentication](../manual/administration-configuration-generalarangod.html).
+[--server.authentication](../administration-configuration-general-arangod.html).
 Please note that requests using the HTTP OPTIONS method will be answered by
 ArangoDB in any case, even if no authentication data is sent by the client or if
 the authentication data is wrong. This is required for handling CORS preflight
@@ -129,7 +129,7 @@ Please note that when authentication is turned on in ArangoDB, it will by
 default affect all incoming requests. 
 
 There is an additional option
-[--server.authentication-system-only](../manual/administration-configuration-generalarangod.html)
+[--server.authentication-system-only](../administration-configuration-general-arangod.html)
 to restrict authentication to requests to the ArangoDB internal APIs and the admin interface. 
 This option can be used to expose a public API built with ArangoDB to the outside
 world without the need for HTTP authentication, but to still protect the usage of the

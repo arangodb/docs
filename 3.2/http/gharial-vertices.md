@@ -5,8 +5,8 @@ description: Examples will explain the REST API to the graph moduleon the social
 Handling Vertices
 =================
 
-Examples will explain the REST API to the [graph module](../manual/graphs.html)
-on the [social graph](../manual/graphs.html#the-social-graph):
+Examples will explain the REST API to the [graph module](../graphs.html)
+on the [social graph](../graphs.html#the-social-graph):
 
 ![Social Example Graph](../images/social_graph.png)
 {% docublock JSF_general_graph_vertex_create_http_examples %}

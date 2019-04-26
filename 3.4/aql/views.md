@@ -31,10 +31,10 @@ and may even be as simple as an identity transformation thus making the view
 represent all documents available in the specified set of collections.
 
 Views can be defined and administered on a per view-type basis via
-the [web interface](../manual/programs-webinterface.html).
+the [web interface](../programs-web-interface.html).
 
 Currently there is a single supported view implementation, namely
-`arangosearch` as described in [ArangoSearch View](views-arangosearch.html). 
+`arangosearch` as described in [ArangoSearch View](views-arango-search.html). 
 
 Also see the detailed
 [ArangoSearch tutorial](https://www.arangodb.com/tutorials/arangosearch/){:target="_blank"}

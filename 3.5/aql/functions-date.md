@@ -53,7 +53,7 @@ You are free to store age determinations of specimens, incomplete or fuzzy dates
 the like in different, more appropriate ways of course. AQL's date functions will
 most certainly not be of any help for such dates, but you can still use language
 constructs like [SORT](operations-sort.html) (which also supports sorting of arrays)
-and [indexes](../manual/indexing.html) like skiplists.
+and [indexes](../indexing.html) like skiplists.
 
 Current date and time
 ---------------------
@@ -662,7 +662,7 @@ There are two recommended ways to store timestamps in ArangoDB:
 The sort order of both is identical due to the sort properties of ISO date strings.
 You can't mix both types, numbers and strings, in a single attribute however.
 
-You can use [skiplist indices](../manual/indexing-skiplist.html) with both date types.
+You can use [skiplist indices](../indexing-skiplist.html) with both date types.
 When chosing string representations, you can work with string comparisons (less than,
 greater than etc.) to express time ranges in your queries while still utilizing
 skiplist indices:

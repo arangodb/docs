@@ -9,7 +9,7 @@ description: Manipulating vertices
 
 `graph.vertexCollection(collectionName): GraphVertexCollection`
 
-Returns a new [_GraphVertexCollection_ instance](js-reference-graph-vertexcollection.html)
+Returns a new [_GraphVertexCollection_ instance](js-reference-graph-vertex-collection.html)
 with the given name for this graph.
 
 **Arguments**

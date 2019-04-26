@@ -34,7 +34,7 @@ scope the *RETURN* is placed in can be used for the computations.
 Note: *RETURN* will close the current scope and eliminate all local variables in
 it.
 
-[Dynamic attribute names](fundamentals-datatypes.html#objects--documents) are
+[Dynamic attribute names](fundamentals-data-types.html#objects--documents) are
 supported as well:
 
 ```js
