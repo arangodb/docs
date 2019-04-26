@@ -5,6 +5,8 @@ RUN apt-get update && \
 
 RUN mkdir /root/gems
 
+WORKDIR /docs
+
 ENV GEM_HOME=/root/gems
 ENV PATH="/root/gems/bin:${PATH}"
 # python md script needs that :S
