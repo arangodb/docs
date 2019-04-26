@@ -99,6 +99,14 @@ $(document).ready(function handleNav() {
   });
 });
 
+$(document).ready(function enableHamburger() {
+  $(".book-header .hamburger").click(function(event) {
+    event.preventDefault();
+    $('div.book').toggleClass("without-summary");
+    $('div.book').toggleClass("with-summary");
+  })
+}); 
+
 var generateToc = function() {
   var contentBlock = document.getElementsByClassName("book-body")[0];
   if (!contentBlock) {
