@@ -20,18 +20,30 @@ async function migrateMds(basePath, targetPath) {
         
         const fileName = changeLink(relative);
         
-        const book = path.basename(basePath);
-        const version = path.basename(path.dirname(targetPath));
+        let book = path.basename(basePath);
+        const version = targetPath.split("/")[0];
         let urlVersion = version;
         if (urlVersion == "3.5") {
             urlVersion = "devel";
         }
 
+        if (book == "Users") {
+            book = "";
+        }
+
         const newUrl = "https://" + path.join("www.arangodb.com/docs/", targetPath, fileName.replace(/.md$/ig, ".html"));
 
         let oldUrl = relative.replace(/\/README.md$/ig, "/index.html");
-        oldUrl = "https://" + path.join("docs.arangodb.com/", urlVersion, book, oldUrl.replace(/.md$/ig, ".html"));
+        oldUrl = path.join("/", urlVersion, book, oldUrl.replace(/.md$/ig, ".html"));
 
+        let oll = `/${urlVersion}`;
+        if (book != "") {
+            oll += `/${book}`;
+        }
+        oll += `/`;
+
+        console.log(JSON.stringify({[oll]:  "https://" + path.join("www.arangodb.com/docs/", targetPath)}));
+        console.log(JSON.stringify({[oll + "index.html"]:  "https://" + path.join("www.arangodb.com/docs/", targetPath)}));
         console.log(JSON.stringify({[oldUrl]: newUrl}));
         if (oldUrl.endsWith("/index.html")) {
             console.log(JSON.stringify({[oldUrl.substr(0, oldUrl.length - 10)]: newUrl}));
@@ -169,7 +181,7 @@ async function main(basePath, targetPath) {
     } else {
         await mkdirp(path.join(targetPath, "..", "images"));
     }
-    
+
     Promise.all([migrateImages(basePath, targetPath), migrateMds(basePath, targetPath)]);
 }
 
