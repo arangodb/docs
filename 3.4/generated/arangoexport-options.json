@@ -1,18 +1,4 @@
 {
-  "batch-size" : {
-    "category" : "option",
-    "default" : 8388608,
-    "deprecatedIn" : null,
-    "description" : "maximum size for individual data batches (in bytes)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : true,
-    "section" : "",
-    "type" : "uint64"
-  },
   "check-configuration" : {
     "category" : "command",
     "default" : false,
@@ -22,23 +8,6 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
-  },
-  "cleanup-duplicate-attributes" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "clean up duplicate attributes (use first specified value) in input documents instead of making the restore operation fail",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : [
-      "v3.3.22",
-      "v3.4.2"
-    ],
     "obsolete" : false,
     "requiresValue" : false,
     "section" : "",
@@ -87,68 +56,6 @@
     "section" : "",
     "type" : "string"
   },
-  "create-collection" : {
-    "category" : "option",
-    "default" : true,
-    "deprecatedIn" : null,
-    "description" : "create collection structure",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
-  },
-  "create-database" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "create the target database if it does not exist",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
-  },
-  "default-number-of-shards" : {
-    "category" : "option",
-    "default" : 1,
-    "deprecatedIn" : [
-      "v3.3.22",
-      "v3.4.2"
-    ],
-    "description" : "default value for numberOfShards if not specified in dump",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : true,
-    "section" : "",
-    "type" : "uint64"
-  },
-  "default-replication-factor" : {
-    "category" : "option",
-    "default" : 1,
-    "deprecatedIn" : [
-      "v3.3.22",
-      "v3.4.2"
-    ],
-    "description" : "default value for replicationFactor if not specified in dump",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : true,
-    "section" : "",
-    "type" : "uint64"
-  },
   "define" : {
     "category" : "option",
     "default" : [
@@ -192,109 +99,25 @@
     "section" : "",
     "type" : "boolean"
   },
-  "encryption.key-generator" : {
+  "fields" : {
     "category" : "option",
     "default" : "",
     "deprecatedIn" : null,
-    "description" : "program providing the encryption key on stdout. If set, encryption will be enabled.",
+    "description" : "comma separated list of fileds to export into a csv file",
     "dynamic" : false,
-    "enterpriseOnly" : true,
+    "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
     "requiresValue" : true,
-    "section" : "encryption",
+    "section" : "",
     "type" : "string"
   },
-  "encryption.keyfile" : {
+  "graph-name" : {
     "category" : "option",
     "default" : "",
     "deprecatedIn" : null,
-    "description" : "file containing the encryption key. If set, encryption will be enabled.",
-    "dynamic" : false,
-    "enterpriseOnly" : true,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : true,
-    "section" : "encryption",
-    "type" : "string"
-  },
-  "force" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "continue restore even in the face of some server-side errors",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
-  },
-  "force-same-database" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "force usage of the same database name as in the source dump.json file",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
-  },
-  "ignore-distribute-shards-like-errors" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "continue restore even if sharding prototype collection is missing",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
-  },
-  "import-data" : {
-    "category" : "option",
-    "default" : true,
-    "deprecatedIn" : null,
-    "description" : "import data into collection",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
-  },
-  "include-system-collections" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "include system collections",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
-  },
-  "input-directory" : {
-    "category" : "option",
-    "default" : "/oskar/work/ArangoDB/dump",
-    "deprecatedIn" : null,
-    "description" : "input directory",
+    "description" : "name of a graph to export",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -609,29 +432,25 @@
     "section" : "log",
     "type" : "boolean"
   },
-  "number-of-shards" : {
+  "output-directory" : {
     "category" : "option",
-    "default" : [
-    ],
+    "default" : "/work/ArangoDB/export",
     "deprecatedIn" : null,
-    "description" : "override value for numberOfShards (can be specified multiple times, e.g. --numberOfShards 2 --numberOfShards myCollection=3)",
+    "description" : "output directory",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.3.22",
-      "v3.4.2"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "requiresValue" : true,
     "section" : "",
-    "type" : "string..."
+    "type" : "string"
   },
   "overwrite" : {
     "category" : "option",
-    "default" : true,
+    "default" : false,
     "deprecatedIn" : null,
-    "description" : "overwrite collections if they exist",
+    "description" : "overwrite data in output directory",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -655,6 +474,20 @@
     "section" : "",
     "type" : "boolean"
   },
+  "query" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "AQL query to run",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "string"
+  },
   "random.generator" : {
     "category" : "option",
     "default" : 1,
@@ -669,24 +502,6 @@
     "section" : "random",
     "type" : "uint32",
     "values" : "Possible values: 1, 2, 3, 4"
-  },
-  "replication-factor" : {
-    "category" : "option",
-    "default" : [
-    ],
-    "deprecatedIn" : null,
-    "description" : "override value for replicationFactor (can be specified multiple times, e.g. --replicationFactor 2 --replicationFactor myCollection=3)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : [
-      "v3.3.22",
-      "v3.4.2"
-    ],
-    "obsolete" : false,
-    "requiresValue" : true,
-    "section" : "",
-    "type" : "string..."
   },
   "server.authentication" : {
     "category" : "option",
@@ -829,21 +644,20 @@
     "section" : "temp",
     "type" : "string"
   },
-  "threads" : {
+  "type" : {
     "category" : "option",
-    "default" : 2,
+    "default" : "json",
     "deprecatedIn" : null,
-    "description" : "maximum number of collections to process in parallel",
+    "description" : "type of export",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
-    "introducedIn" : [
-      "v3.4.0"
-    ],
+    "introducedIn" : null,
     "obsolete" : false,
     "requiresValue" : true,
     "section" : "",
-    "type" : "uint32"
+    "type" : "string",
+    "values" : "Possible values: \"csv\", \"json\", \"jsonl\", \"xgmml\", \"xml\""
   },
   "version" : {
     "category" : "command",
@@ -859,12 +673,11 @@
     "section" : "",
     "type" : "boolean"
   },
-  "view" : {
+  "xgmml-label-attribute" : {
     "category" : "option",
-    "default" : [
-    ],
+    "default" : "label",
     "deprecatedIn" : null,
-    "description" : "restrict to view name (can be specified multiple times)",
+    "description" : "specify document attribute that will be the xgmml label",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -872,6 +685,20 @@
     "obsolete" : false,
     "requiresValue" : true,
     "section" : "",
-    "type" : "string..."
+    "type" : "string"
+  },
+  "xgmml-label-only" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "export only xgmml label",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
   }
 }
