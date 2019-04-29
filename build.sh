@@ -10,3 +10,4 @@ mkdir -p htmltest
 # otherwise it would fail to find absolute links like /docs/3.5
 cp -a _site htmltest/docs
 htmltest -s
+(cd htmltest && tar cvzf docs.tar.gz docs)
