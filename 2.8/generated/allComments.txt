@@ -1226,7 +1226,7 @@ Other attributes may be necessary, depending on the index type.
 **sparse** can be *true* or *false*.
 <br />
 For *hash*, and *skiplist* the sparsity can be controlled, *fulltext* and *geo*
-are [sparse](WhichIndex.md) by definition.
+are [sparse](index-handling-which-index.html) by definition.
 <br />
 **unique** can be *true* or *false* and is supported by *hash* or *skiplist*
 <br />
@@ -39303,12 +39303,12 @@ example as parameter for vertexExample.
 @PARAMS
 <br />
 @PARAM{vertexExample1, object, optional}
-See [Definition of examples](Functions.md#definition-of-examples)
+See [Definition of examples](general-graphs-functions.md#definition-of-examples)
 @PARAM{vertexExample2, object, optional}
-See [Definition of examples](Functions.md#definition-of-examples)
+See [Definition of examples](general-graphs-functions.md#definition-of-examples)
 @PARAM{options, object, optional}
 An object defining further options. Can have the following values:
-  * *edgeExamples*: Filter the edges, see [Definition of examples](Functions.md#definition-of-examples)
+  * *edgeExamples*: Filter the edges, see [Definition of examples](general-graphs-functions.md#definition-of-examples)
   * *edgeCollectionRestriction* : One or a list of edge-collection names that should be
       considered to be on the path.
   * *vertex1CollectionRestriction* : One or a list of vertex-collection names that should be
@@ -45733,7 +45733,7 @@ expects a body of type array containing arbitrary many valid objects.
 Accessing the body parameter will then of course return an array of objects.
 <br />
 Note: The behavior of `bodyParam` changes depending on the `rootElement` option
-set in the [manifest](../Develop/Manifest.md). If it is set to `true`, it is
+set in the [manifest](foxx-develop-manifest.md). If it is set to `true`, it is
 expected that the body is an
 object with a key of the same name as the `paramName` argument.
 The value of this object is either a single object or in the case of a multi

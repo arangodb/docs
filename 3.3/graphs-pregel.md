@@ -93,7 +93,7 @@ The below version of the `start` method can be used for named graphs:
   var params = {};
   var execution = pregel.start("<algorithm>", "<yourgraph>", params);
 ```
-Params needs to be an object, the valid keys are mentioned below in the section [Algorithms]()
+Params needs to be an object, the valid keys are mentioned below in the section [Algorithms](#available-algorithms)
 
 
 Alternatively you might want to specify the vertex and edge collections directly. The call-syntax of the `start``

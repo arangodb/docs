@@ -169,4 +169,4 @@ Which will yield this result on the dataset in the image:
 
 [1]: http://stackoverflow.com/questions/27520753/find-the-cross-node-for-number-of-nodes-in-arangodb/27530898?noredirect=1#comment43506796_27530898
 [2]: http://stackoverflow.com/users/2592822/sergeda
-[3]: ./assets/FindingConnectedVerticesForSubgraphs/example_graph.png
+[3]: ../images/example_graph.png

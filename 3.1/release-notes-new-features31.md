@@ -46,7 +46,7 @@ Communication Layer
 
 ArangoDB up to 3.0 used [libev](http://software.schmorp.de/pkg/libev.html){:target="_blank"} for
 the communication layer. ArangoDB starting from 3.1 uses
-[Boost ASIO](www.boost.org).
+[Boost ASIO](https://www.boost.org).
 
 Starting with ArangoDB 3.1 we begin to provide the VelocyStream Protocol (vst) as
 a addition to the established http protocol.

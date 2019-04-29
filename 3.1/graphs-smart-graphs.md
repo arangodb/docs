@@ -12,7 +12,7 @@ It enables you to manage graphs at scale, it will give a vast performance benefi
 On a single server this feature is pointless, hence it is only available in a cluster mode.
 In terms of querying there is no difference between smart and General Graphs.
 The former are a transparent replacement for the latter.
-So for querying the graph please refer to [AQL Graph Operations](aql-graphs.html) and [Graph Functions](graphs-general-graphs-functions.html) sections.
+So for querying the graph please refer to [AQL Graph Operations](aql/graphs.html) and [Graph Functions](graphs-general-graphs-functions.html) sections.
 The optimizer is clever enough to identify if we are on a SmartGraph or not.
 
 The difference is only in the management section: creating and modifying the underlying collections of the graph.

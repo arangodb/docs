@@ -198,4 +198,4 @@ The source code of this example is available from Github: <https://github.com/fc
 [2]: https://www.npmjs.com/package/promises
 [3]: https://github.com/fceller/Foxxmender
 [4]: https://github.com/arangodb/queue-it
-[5]: ../Cloud/DockerContainer.md
+[5]: cloud-docker-container.html
