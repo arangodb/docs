@@ -8,7 +8,7 @@ The documentation uses the static site generator `jekyll`.
 
 To build the documentation you can use the included docker container:
 
-`[docs]$ docker run --rm -v $(pwd):/docs arangodb-docs bundler exec jekyll build`
+`[docs]$ docker run --rm -v $(pwd):/docs arangodb/arangodb-docs bundler exec jekyll build`
 
 Alternatively you can install jekyll locally on your computer. See https://jekyllrb.com/docs/installation/
 
@@ -18,7 +18,7 @@ Without specifying anything when running the docker container it will serve the 
 
 To work locally on the documentation you can also use the container:
 
-`[docs]$ docker run -d -v $(pwd):/docs -p 4000:4000 --name arangodb-jekyll arangodb-docs`
+`[docs]$ docker run -d -v $(pwd):/docs -p 4000:4000 --name arangodb-jekyll arangodb/arangodb-docs`
 
 This will watch file changes within the documentation repo and you will be able to see the
 resulting HTML files on http://127.0.0.1:4000/docs
