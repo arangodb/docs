@@ -5,7 +5,7 @@ following 3rd party products
 
 ## Jekyll Plugin
 
-### Version Selector Plugin
+### Version Selector Plugin (modified)
 
 * Name: Version Selector
 * Project Home: https://github.com/cockroachdb/docs
