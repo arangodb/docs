@@ -26,4 +26,4 @@ RUN bundler install
 
 EXPOSE 4000
 
-CMD ["bundler", "exec", "jekyll", "serve", "--incremental", "--trace"]
+CMD ["bundler", "exec", "jekyll", "serve", "-H", "0.0.0.0", "--incremental", "--trace"]
