@@ -42,7 +42,7 @@ class NavTitleTag < Liquid::Tag
 
         title = findTitle(context, parsed, stack)
         if !title
-            raise "No title found for #{context.environments.first["page"]["url"]}"
+            raise "No title found for #{context.environments.first["page"]["url"]}. Maybe you forgot to link it to the navigation?"
         end
         title
     end
