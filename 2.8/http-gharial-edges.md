@@ -5,7 +5,7 @@ description: Examples will explain the REST API for manipulating edges of the gr
 Handling Edges
 ==============
 
-Examples will explain the REST API for [manipulating edges](general-graphs-functions.html) of the [graph module](graphs.html) on the [knows graph](graphs.html#the-knowsgraph):
+Examples will explain the REST API for [manipulating edges](general-graphs-functions.html) of the [graph module](graphs.html) on the [knows graph](graphs.html#the-knows_graph):
 
 ![Social Example Graph](images/knows_graph.png)
 {% docublock JSF_general_graph_edge_create_http_examples %}

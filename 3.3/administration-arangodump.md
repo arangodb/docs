@@ -704,7 +704,7 @@ Masking settings:
   and time) the earliest date and time is assumed (`2010-06-01T00:00:00.000`).
   The default value is the current system date and time.
 - `format` (string, _default: `""`_): the formatting string format is
-  described in [DATE_FORMAT()](aql/functions-date.html#dateformat).
+  described in [DATE_FORMAT()](aql/functions-date.html#date_format).
   If no format is specified, then the result will be an empty string.
 
 **Example**

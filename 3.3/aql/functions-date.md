@@ -399,7 +399,7 @@ Add *amount* given in *unit* to *date* and return the calculated date.
 - **date** (number|string): numeric timestamp or ISO 8601 date time string
 - **amount** (number|string): number of *unit*s to add (positive value) or
   subtract (negative value). It is recommended to use positive values only,
-  and use [DATE_SUBTRACT()](#datesubtract) for subtractions instead.
+  and use [DATE_SUBTRACT()](#date_subtract) for subtractions instead.
 - **unit** (string): either of the following to specify the time unit to add or
   subtract (case-insensitive):
   - y, year, years
@@ -459,7 +459,7 @@ DATE_ADD("2000-01-01", "P1Y2M3W4DT5H6M7.89S" // add a bit of everything
 
 Subtract *amount* given in *unit* from *date* and return the calculated date.
 
-It works the same as [DATE_ADD()](#dateadd), except that it subtracts. It is
+It works the same as [DATE_ADD()](#date_add), except that it subtracts. It is
 equivalent to calling *DATE_ADD()* with a negative amount, except that
 *DATE_SUBTRACT()* can also subtract ISO durations. Note that negative ISO
 durations are not supported (i.e. starting with `-P`, like `-P1Y`).
@@ -467,7 +467,7 @@ durations are not supported (i.e. starting with `-P`, like `-P1Y`).
 - **date** (number|string): numeric timestamp or ISO 8601 date time string
 - **amount** (number|string): number of *unit*s to subtract (positive value) or
   add (negative value). It is recommended to use positive values only,
-  and use [DATE_ADD()](#dateadd) for additions instead.
+  and use [DATE_ADD()](#date_add) for additions instead.
 - **unit** (string): either of the following to specify the time unit to add or
   subtract (case-insensitive):
   - y, year, years
@@ -599,7 +599,7 @@ with are "ignored". The query will return every document with *date* ranging fro
 `2015-05-15T00:00:00.000Z` to `2015-05-15T23:99:99.999Z`. It would also include
 `2015-05-15T24:00:00.000Z`, but that date is actually `2015-05-16T00:00:00.000Z`
 and can only occur if inserted manually (you may want to pass dates through
-[DATE_ISO8601()](#dateiso8601) to ensure a correct date representation).
+[DATE_ISO8601()](#date_iso8601) to ensure a correct date representation).
 
 Leap days in leap years (29th of February) must be always handled manually,
 if you require so (e.g. birthday checks):

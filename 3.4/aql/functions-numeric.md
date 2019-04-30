@@ -559,7 +559,7 @@ STDDEV_SAMPLE( [ 1, 3, 6, 5, 2 ] ) // 2.0736441353327724
 
 ## STDDEV()
 
-This is an alias for [STDDEV_POPULATION()](#stddevpopulation).
+This is an alias for [STDDEV_POPULATION()](#stddev_population).
 
 SUM()
 -----
@@ -628,4 +628,4 @@ VARIANCE_SAMPLE( [ 1, 3, 6, 5, 2 ] ) // 4.300000000000001
 
 ## VARIANCE()
 
-This is an alias for [VARIANCE_POPULATION()](#variancepopulation).
+This is an alias for [VARIANCE_POPULATION()](#variance_population).

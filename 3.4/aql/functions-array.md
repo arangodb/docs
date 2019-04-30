@@ -8,7 +8,7 @@ AQL provides functions for higher-level array manipulation. Also see the
 [numeric functions](functions-numeric.html) for functions that work on number arrays.
 If you want to concatenate the elements of an array equivalent to `join()`
 in JavaScript, see [CONCAT()](functions-string.html#concat) and
-[CONCAT_SEPARATOR()](functions-string.html#concatseparator) in the string functions chapter.
+[CONCAT_SEPARATOR()](functions-string.html#concat_separator) in the string functions chapter.
 
 Apart from that, AQL also offers several language constructs:
 
@@ -91,7 +91,7 @@ RETURN COUNT_DISTINCT([ "yes", "no", "yes", "sauron", "no", "yes" ])
 {% include aqlexample.html id=examplevar query=query bind=bind result=result %}
 ## COUNT_UNIQUE()
 
-This is an alias for [COUNT_DISTINCT()](#countdistinct).
+This is an alias for [COUNT_DISTINCT()](#count_distinct).
 
 ## FIRST()
 
@@ -355,7 +355,7 @@ Remove the last element of *array*.
 
 To append an element (right side), see [PUSH()](#push).<br>
 To remove the first element, see [SHIFT()](#shift).<br>
-To remove an element at an arbitrary position, see [REMOVE_NTH()](#removenth).
+To remove an element at an arbitrary position, see [REMOVE_NTH()](#remove_nth).
 
 - **anyArray** (array): an array with elements of arbitrary type
 - returns **newArray** (array): *anyArray* without the last element. If it's already
@@ -553,7 +553,7 @@ Remove the first element of *anyArray*.
 
 To prepend an element (left side), see [UNSHIFT()](#unshift).<br>
 To remove the last element, see [POP()](#pop).<br>
-To remove an element at an arbitrary position, see [REMOVE_NTH()](#removenth).
+To remove an element at an arbitrary position, see [REMOVE_NTH()](#remove_nth).
 
 - **anyArray** (array): array with elements with arbitrary type
 - returns **newArray** (array): *anyArray* without the left-most element. If *anyArray*
@@ -701,7 +701,7 @@ RETURN UNION(
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar query=query bind=bind result=result %}
 Note: No duplicates will be removed. In order to remove duplicates, please use
-either [UNION_DISTINCT()](#uniondistinct)
+either [UNION_DISTINCT()](#union_distinct)
 or apply [UNIQUE()](#unique) on the
 result of *UNION()*:
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}

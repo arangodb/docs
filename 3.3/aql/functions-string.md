@@ -417,7 +417,7 @@ Replace the pattern *search* with the string *replacement* in the string
   in *text*
 
 For more details about the rules for characters and sequences refer
-[REGEX_TEST()](#regextest).
+[REGEX_TEST()](#regex_test).
  
 If the regular expression in *search* is invalid, a warning will be raised
 and the function will return *null*.

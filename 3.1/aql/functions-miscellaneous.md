@@ -133,7 +133,7 @@ DOCUMENT( [ "users/john", "users/amy" ] )
 
 Determine the amount of documents in a collection.
 
-It calls [COLLECTION_COUNT()](#collectioncount) internally.
+It calls [COLLECTION_COUNT()](#collection_count) internally.
 
 - **coll** (collection): a collection (not string)
 - returns **documentCount** (number): the total amount of documents in *coll*

@@ -156,7 +156,7 @@ Get all common neighbors of the vertices defined by the examples.
 
 This function returns the intersection of *graph_module._neighbors(vertex1Example, optionsVertex1)*
 and *graph_module._neighbors(vertex2Example, optionsVertex2)*.
-For parameter documentation see [_neighbors](#neighbors).
+For parameter documentation see [_neighbors](#_neighbors).
 
 The complexity of this method is **O(n\*m^x)** with *n* being the maximal amount of vertices
 defined by the parameters vertexExamples, *m* the average amount of neighbors and *x* the
@@ -207,7 +207,7 @@ Get the amount of common neighbors of the vertices defined by the examples.
 
 `graph._countCommonNeighbors(vertex1Example, vertex2Examples, optionsVertex1, optionsVertex2)`
 
-Similar to [_commonNeighbors](#commonneighbors) but returns count instead of the elements.
+Similar to [_commonNeighbors](#_commonneighbors) but returns count instead of the elements.
 
 
 **Examples**
@@ -311,7 +311,7 @@ Get the amount of vertices of the graph that share common properties.
 
 `graph._countCommonProperties(vertex1Example, vertex2Examples, options)`
 
-Similar to [_commonProperties](#commonproperties) but returns count instead of
+Similar to [_commonProperties](#_commonproperties) but returns count instead of
 the objects.
 
 
@@ -486,7 +486,7 @@ The _distanceTo function returns all paths and there distance within a graph.
 
 `graph._distanceTo(startVertexExample, endVertexExample, options)`
 
-This function is a wrapper of [graph._shortestPath](#shortestpath).
+This function is a wrapper of [graph._shortestPath](#_shortestpath).
 It does not return the actual path but only the distance between two vertices.
 
 
@@ -610,7 +610,7 @@ of the vertices defined by the examples.
 
 `graph._eccentricity(vertexExample, options)`
 
-Similar to [_absoluteEccentricity](#absoluteeccentricity) but returns a normalized result.
+Similar to [_absoluteEccentricity](#_absoluteeccentricity) but returns a normalized result.
 
 
 **Examples**
@@ -730,7 +730,7 @@ of graphs vertices.
 
 `graph._closeness(options)`
 
-Similar to [_absoluteCloseness](#absolutecloseness) but returns a normalized value.
+Similar to [_absoluteCloseness](#_absolutecloseness) but returns a normalized value.
 
 
 **Examples**
@@ -857,7 +857,7 @@ of graphs vertices.
 
 `graph_module._betweenness(options)`
 
-Similar to [_absoluteBetweeness](#absolutebetweenness) but returns normalized values.
+Similar to [_absoluteBetweeness](#_absolutebetweenness) but returns normalized values.
 
 
 **Examples**

@@ -7,7 +7,7 @@ Handling Edges
 
 Examples will explain the REST API for [manipulating edges](../graphs-general-graphs-functions.html)
 of the [graph module](../graphs.html)
-on the [knows graph](../graphs.html#the-knowsgraph):
+on the [knows graph](../graphs.html#the-knows_graph):
 
 ![Social Example Graph](../images/knows_graph.png)
 {% docublock general_graph_edge_create_http_examples %}

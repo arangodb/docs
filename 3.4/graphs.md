@@ -140,7 +140,7 @@ like the permissions of **John** in this group, the date when he joined the grou
 ![User in group example](images/graph_user_in_group.png)
 
 So roughly put, if you use documents and their attributes in a sentence, nouns would typically be vertices, verbs become the edges.
-You can see this in the [knows graph](#the-knowsgraph) below:
+You can see this in the [knows graph](#the-knows_graph) below:
 
      Alice knows Bob, who in term knows Charlie.
 

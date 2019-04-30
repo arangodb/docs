@@ -11,7 +11,7 @@ and the
 [REST API for the graph module](../http/gharial-vertices.html#remove-a-vertex)
 offer a vertex deletion functionality.
 However, as shown in this example based on the
-[knows_graph](../graphs.html#the-knowsgraph), a query for this 
+[knows_graph](../graphs.html#the-knows_graph), a query for this 
 use case can be created.
 
 ![Example Graph](../images/knows_graph.png)

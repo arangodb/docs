@@ -9,7 +9,7 @@ AQL provides functions for higher-level array manipulation. Also see the
 [numeric functions](functions-numeric.html) for functions that work on number arrays.
 If you want to concatenate the elements of an array equivalent to `join()`
 in JavaScript, see [CONCAT()](functions-string.html#concat) and
-[CONCAT_SEPARATOR()](functions-string.html#concatseparator) in the string functions chapter.
+[CONCAT_SEPARATOR()](functions-string.html#concat_separator) in the string functions chapter.
 
 Apart from that, AQL also offers several language constructs:
 
@@ -375,7 +375,7 @@ UNION(
 ```
 
 Note: No duplicates will be removed. In order to remove duplicates, please use
-either [UNION_DISTINCT()](#uniondistinct) or apply
+either [UNION_DISTINCT()](#union_distinct) or apply
 [UNIQUE()](#unique) on the result of *UNION()*:
 
 ```js

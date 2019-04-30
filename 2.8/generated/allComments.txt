@@ -36752,7 +36752,7 @@ arangosh&gt; graph._neighbors(<span class="hljs-string">'germanCity/Hamburg'</sp
 <br />
 This function returns the intersection of *graph_module._neighbors(vertex1Example, optionsVertex1)*
 and *graph_module._neighbors(vertex2Example, optionsVertex2)*.
-For parameter documentation see [_neighbors](#neighbors).
+For parameter documentation see [_neighbors](#_neighbors).
 <br />
 The complexity of this method is **O(n\*m^x)** with *n* being the maximal amount of vertices
 defined by the parameters vertexExamples, *m* the average amount of neighbors and *x* the
@@ -36868,7 +36868,7 @@ arangosh&gt; graph._commonNeighbors(
 <br />
 `graph._countCommonNeighbors(vertex1Example, vertex2Examples, optionsVertex1, optionsVertex2)`
 <br />
-Similar to [_commonNeighbors](#commonneighbors) but returns count instead of the elements.
+Similar to [_commonNeighbors](#_commonneighbors) but returns count instead of the elements.
 <br />
 @EXAMPLES
 <br />
@@ -37150,7 +37150,7 @@ arangosh&gt; graph._commonProperties({}, {}, {ignoreProperties: <span class="hlj
 <br />
 `graph._countCommonProperties(vertex1Example, vertex2Examples, options)`
 <br />
-Similar to [_commonProperties](#commonproperties) but returns count instead of
+Similar to [_commonProperties](#_commonproperties) but returns count instead of
 the objects.
 <br />
 @EXAMPLES
@@ -38108,7 +38108,7 @@ arangosh&gt; g._shortestPath([{_id: <span class="hljs-string">'germanCity/Cologn
 <br />
 `graph._distanceTo(startVertexExample, endVertexExample, options)`
 <br />
-This function is a wrapper of [graph._shortestPath](#shortestpath).
+This function is a wrapper of [graph._shortestPath](#_shortestpath).
 It does not return the actual path but only the distance between two vertices.
 <br />
 @EXAMPLES
@@ -38347,7 +38347,7 @@ of the vertices defined by the examples.
 <br />
 `graph._eccentricity(vertexExample, options)`
 <br />
-Similar to [_absoluteEccentricity](#absoluteeccentricity) but returns a normalized result.
+Similar to [_absoluteEccentricity](#_absoluteeccentricity) but returns a normalized result.
 <br />
 The complexity of the function is described
 [here](../Aql/GraphOperations.md#the-complexity-of-the-shortest-path-algorithms).
@@ -38553,7 +38553,7 @@ of graphs vertices.
 <br />
 `graph._closeness(options)`
 <br />
-Similar to [_absoluteCloseness](#absolutecloseness) but returns a normalized value.
+Similar to [_absoluteCloseness](#_absolutecloseness) but returns a normalized value.
 <br />
 The complexity of the function is described
 [here](../Aql/GraphOperations.md#the-complexity-of-the-shortest-path-algorithms).
@@ -38776,7 +38776,7 @@ of graphs vertices.
 <br />
 `graph_module._betweenness(options)`
 <br />
-Similar to [_absoluteBetweeness](#absolutebetweenness) but returns normalized values.
+Similar to [_absoluteBetweeness](#_absolutebetweenness) but returns normalized values.
 <br />
 @EXAMPLES
 <br />
@@ -41263,7 +41263,7 @@ The GRAPH\_DISTANCE\_TO function returns all paths and there distance within a g
 <br />
 `GRAPH_DISTANCE_TO (graphName, startVertexExample, endVertexExample, options)`
 <br />
-This function is a wrapper of [GRAPH\_SHORTEST\_PATH](#graphshortestpath).
+This function is a wrapper of [GRAPH\_SHORTEST\_PATH](#graph_shortest_path).
 It does not return the actual path but only the distance between two vertices.
 <br />
 @EXAMPLES
@@ -42070,7 +42070,7 @@ maximal depths.
 Hence the default call would have a complexity of **O(n\*m)**;
 <br />
 For parameter documentation read the documentation of
-[GRAPH_NEIGHBORS](#graphneighbors).
+[GRAPH_NEIGHBORS](#graph_neighbors).
 <br />
 @EXAMPLES
 <br />

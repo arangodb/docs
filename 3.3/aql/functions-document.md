@@ -238,7 +238,7 @@ of the documents contained later in the argument list.
 - returns **mergedDocument** (object): a combined document
 
 Note that merging will only be done for top-level attributes. If you wish to
-merge sub-attributes, use [MERGE_RECURSIVE()](#mergerecursive) instead.
+merge sub-attributes, use [MERGE_RECURSIVE()](#merge_recursive) instead.
 
 Two documents with distinct attribute names can easily be merged into one:
 

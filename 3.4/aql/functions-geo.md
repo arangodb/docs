@@ -293,7 +293,7 @@ RETURN GEO_POLYGON([
 `GEO_MULTIPOLYGON(polygons) → geoJson`
 
 Construct a GeoJSON MultiPolygon. Needs at least two Polygons inside.
-See [GEO_POLYGON()](#geopolygon) for the rules of Polygon construction.
+See [GEO_POLYGON()](#geo_polygon) for the rules of Polygon construction.
 
 - **polygons** (array): array of arrays of array of longitude/latitude pairs
 - returns **geoJson** (object|null): a valid GeoJSON MultiPolygon
@@ -411,7 +411,7 @@ value in an attribute of that name.
 
 {% hint 'warning' %}
 `WITHIN_RECTANGLE` is a deprecated AQL function from version 3.4.0 on. Use
-[GEO_CONTAINS](#geocontains) and a GeoJSON polygon instead:
+[GEO_CONTAINS](#geo_contains) and a GeoJSON polygon instead:
 
 ```js
 LET rect = {type: "Polygon", coordinates: [[[longitude1, latitude1], ...]]]}

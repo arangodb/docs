@@ -78,7 +78,7 @@ The pattern matching performed by the *LIKE* operator is case-sensitive.
 The regular expression operators *=~* and *!~* expect their left-hand operands to
 be strings, and their right-hand operands to be strings containing valid regular
 expressions as specified in the documentation for the AQL function
-[REGEX_TEST()](functions-string.html#regextest).
+[REGEX_TEST()](functions-string.html#regex_test).
 
 Array comparison operators
 --------------------------
@@ -230,7 +230,7 @@ Some example arithmetic operations:
 
 The arithmetic operators accept operands of any type. Passing non-numeric values to an 
 arithmetic operator will cast the operands to numbers using the type casting rules 
-applied by the [TO_NUMBER()](functions-type-cast.html#tonumber) function:
+applied by the [TO_NUMBER()](functions-type-cast.html#to_number) function:
 
 - `null` will be converted to `0`
 - `false` will be converted to `0`, true will be converted to `1`
