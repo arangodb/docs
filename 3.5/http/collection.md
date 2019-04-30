@@ -7,8 +7,8 @@ HTTP Interface for Collections
 
 This is an introduction to ArangoDB's HTTP interface for collections.
 
- Collections
- -----------
+Collections
+-----------
 
 A collection consists of documents. It is uniquely identified by its 
 [collection identifier](../appendix-glossary.html#collection-identifier).
