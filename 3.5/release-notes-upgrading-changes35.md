@@ -49,22 +49,22 @@ HTTP REST API
 -------------
 The following APIs have been added:
 
-- [the new Stream Transaction API](../../HTTP/Transaction/README.md) (DML)
-- [the new ArangoSearch Analyzer management API](../../HTTP/Analyzers/README.md) (DDL)
-- [the management of the new TTL indices](../../HTTP/Indexes/Ttl.md) (DDL); this enhances the existing index-API.
-- [query the actual shard a document lives in](../../HTTP/Collection/Getting.md#return-responsible-shard-for-a-document) (Debugging)
+- [the new Stream Transaction API](http/transaction.md) (DML)
+- [the new ArangoSearch Analyzer management API](http/analyzers.md) (DDL)
+- [the management of the new TTL indices](http/indexes-ttl.md) (DDL); this enhances the existing index-API.
+- [query the actual shard a document lives in](http/collection-getting.md#return-responsible-shard-for-a-document) (Debugging)
 
 The following APIs have been expanded:
   
-- [the arangosearch management API has the new `commitIntervalMsec` attribute in all routes](Views/ArangoSearch.md) (DDL)
+- [the arangosearch management API has the new `commitIntervalMsec` attribute in all routes](views-arango-search.md) (DDL)
 - Indices can now have names (DDL)
-- the new TTL-Index type has been added. (DDL)
-- [Collection creation now knows the `smartJoinAttribute` parameter](../DataModeling/Collections/DatabaseMethods.md) (DDL)
-- [`filter` foxx-tests](../../HTTP/Foxx/Miscellaneous.md) (Testing)
+- the new TTL-Index type has been added. (DDL) 
+- [Collection creation now knows the `smartJoinAttribute` parameter](data-modeling-collections-collection-methods.md) (DDL)
+- [`filter` foxx-tests](http/foxx-miscellaneous.md) (Testing)
 
 The following Documentations have been enhanced:
 
-- the [Collection creation and fetching its properties](../../HTTP/Collection/Creating.md) documentation have been made more precise, you may want to check your implementation (DDL)
+- the [Collection creation and fetching its properties](http/collection-creating.md) documentation have been made more precise, you may want to check your implementation (DDL)
 
 Web interface
 -------------
