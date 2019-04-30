@@ -28,7 +28,6 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
-gem "redcarpet", "~> 3.4"
 gem 'jekyll-sitemap', "~> 1.3.1"
 gem "jekyll-redirect-from", "~> 0.12"
 gem 'rubypython', '~> 0.6.4'
