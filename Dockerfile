@@ -23,3 +23,7 @@ COPY Gemfile /docs
 COPY Gemfile.lock /docs
 
 RUN bundler install
+
+EXPOSE 4000
+
+CMD ["bundler", "exec", "jekyll", "serve", "--incremental", "--trace"]
