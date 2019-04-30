@@ -6,4 +6,4 @@ Arangoinspect Options
 =====================
 
 Usage: `arangoinspect [<options>]`
-{% assign options = site.data["-program-options-arangoinspect"] %}{% include program-option.html options=options name="arangoinspect" %}
+{% assign options = site.data["34-program-options-arangoinspect"] %}{% include program-option.html options=options name="arangoinspect" %}
