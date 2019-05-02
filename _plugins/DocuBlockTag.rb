@@ -128,7 +128,7 @@ class DocuBlockBlock < Liquid::Tag
                     if local
                         local["header"] += $1
                     else
-                        p "Missing @startDocuBlock #{line}. Ignoring"
+                        Jekyll.logger.debug "Missing @startDocuBlock #{line}. Ignoring"
                     end
                 when /^@RESTHEADER\s*{([^,]+),\s*([^\}]+)}/
                     local["header"] = "### #{$2}\n#{local['header']}\n`#{$1}`\n"
@@ -175,7 +175,7 @@ class DocuBlockBlock < Liquid::Tag
                         currentObject = currentObject["subdescription"][$1]
                         currentKey = "description"
                     else
-                        p "Ignoring RESTSTRUCT. No subdescription"
+                        Jekyll.logger.debug "Ignoring RESTSTRUCT. No subdescription"
                     end
                 when /^@RESTURLPARAMETERS/
                     currentObject = local
@@ -224,7 +224,7 @@ class DocuBlockBlock < Liquid::Tag
                     local["returnCodes"].push(currentReturnCode)
                 when /^@RESTREPLYBODY{([a-zA-Z0-9_-]*),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)?}/
                     if local["returnCodes"].length == 0
-                        p "No returncode found for #{line}"
+                        Jekyll.logger.debug "No returncode found for #{line}"
                     else
                         returnCode = local["returnCodes"][local["returnCodes"].length - 1]
                         if !returnCode["body"]
@@ -238,8 +238,8 @@ class DocuBlockBlock < Liquid::Tag
                         currentKey = "description"
                     end
                 else
-                    if line[0] == "@"
-                        print "Unhandled @: #{line}"
+                    if line[0] == "@" && !path.start_with?("/docs/2.8")
+                        Jekyll.logger.debug "Unhandled @: #{line}"
                     end
                     if currentObject && currentObject[currentKey]
                         currentObject[currentKey] += line
@@ -259,7 +259,7 @@ class DocuBlockBlock < Liquid::Tag
         end
         content = get_docu_block(Dir.pwd + dir + "generated/", @blockname)
         if !content
-            p "Blockname #{@blockname} undefined"
+            Jekyll.logger.error "DocuBlock \"#{@blockname}\" undefined. Content will be empty."
             return ""
         end
         # should match migrate.js more or less :S
