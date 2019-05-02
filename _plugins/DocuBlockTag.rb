@@ -1,5 +1,3 @@
-require "rubypython"
-
 class DocuBlockBlock < Liquid::Tag
     @@paths = {}
 
