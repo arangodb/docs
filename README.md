@@ -4,26 +4,21 @@
 
 This is the ArangoDB documentation repository containing all documentation for all versions.
 
-## Building the documentation
-
 The documentation uses the static site generator `jekyll`.
-
-To build the documentation you can use the included docker container:
-
-`[docs]$ docker run --rm -v $(pwd):/docs arangodb/arangodb-docs bundler exec jekyll build`
-
-Alternatively you can install jekyll locally on your computer. See https://jekyllrb.com/docs/installation/
 
 ## Working with the documentation
 
-Without specifying anything when running the docker container it will serve the documentation.
-
-To work locally on the documentation you can also use the container:
+To work locally on the documentation you can also use the provided container:
 
 `[docs]$ docker run -d -v $(pwd):/docs -p 4000:4000 --name arangodb-jekyll arangodb/arangodb-docs`
 
 This will watch file changes within the documentation repo and you will be able to see the
-resulting HTML files on http://127.0.0.1:4000/docs
+resulting HTML files on http://127.0.0.1:4000/docs/.
+
+Please note that after starting the first build will take quite a while. Follow its process by opening a terminal
+and entering:
+
+`docker logs -f arangodb-jekyll`
 
 For simple documentation changes this process normally works perfect.
 
@@ -35,7 +30,26 @@ restart the docker container:
 
 `docker restart arangodb-jekyll`
 
-### Documentation structure
+## Building the documentation
+
+To build the documentation you can use the included docker container:
+
+`[docs]$ docker run --rm -v $(pwd):/docs arangodb/arangodb-docs bundler exec jekyll build`
+
+After that the html files in `_site` are ready to be served by a webserver.
+
+Please note that you still need to put them into a `/docs` subdirectory.
+
+Example:
+
+```
+mkdir -p /tmp/arangodocs
+cp -a _site /tmp/arangodocs/docs
+cd /tmp/arangodocs
+python -m http.server
+```
+
+## Documentation structure
 
 In the root directory the directories represent the individual versions and their full documentation.
 
