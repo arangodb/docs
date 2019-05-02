@@ -26,6 +26,11 @@ plugins:
 # Build settings
 markdown: kramdown
 
+kramdown:
+  typographic_symbols:
+    mdash: "--"
+    ndash: "--"
+
 theme: minima
 plugins:
   - jekyll-sitemap
