@@ -49,6 +49,9 @@ algolia:
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
 exclude:
+  - _redirects
+  - netlify.sh
+  - netlify.toml
   - Gemfile
   - Gemfile.lock
   - node_modules
