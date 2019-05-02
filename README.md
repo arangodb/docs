@@ -1,5 +1,7 @@
 # ArangoDB Documentation
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1df8b69b-25f8-4b73-b8f1-af8735269c35/deploy-status)](https://app.netlify.com/sites/zealous-morse-14392b/deploys)
+
 This is the ArangoDB documentation repository containing all documentation for all versions.
 
 ## Building the documentation
