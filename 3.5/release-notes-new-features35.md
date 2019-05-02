@@ -58,7 +58,7 @@ the edge can now be executed in a more optimized way, e.g.
 
 is fully covered by the RocksDB edge index. 
 
-For MMFiles this rule does not apply.
+For MMFiles this optimization does not apply.
 
 ### AQL syntax improvements
 
@@ -486,6 +486,10 @@ option `--log.ids false` when starting arangod or any of the client tools.
 
 Internal
 --------
+
+The ArangoDB static executables on Linux are now built with the `-static-pie` option,
+which allows the operating system to load the binaries to arbitrary addresses in memory and
+apply address space layout randomization. 
 
 We have moved from C++11 to C++14, which allows us to use some of the simplifications,
 features and guarantees that this standard has in stock.
