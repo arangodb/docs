@@ -45,6 +45,27 @@ The hidden startup option `--rocksdb.delayed_write_rate` was renamed to the more
 consistent `--rocksdb.delayed-write-rate`. When the old option name is used, the 
 arangod startup will be aborted with a descriptive error message.
 
+HTTP REST API
+-------------
+The following APIs have been added:
+
+- [the new Stream Transaction API](http/transaction.html)
+- [the new ArangoSearch Analyzer management API](http/analyzers.html)
+- [the management of the new TTL indices](http/indexes-ttl.html); this enhances the existing index-API
+- [query the actual shard a document lives in](http/collection-getting.html#return-responsible-shard-for-a-document)
+
+The following APIs have been expanded:
+  
+- [the arangosearch management API has the new `commitIntervalMsec` attribute in all routes](views-arango-search.html)
+- Indexes can now have user-defined names
+- the new "ttl" index type has been added to the [index creation API](http/indexes.html)
+- [Collection creation API now provides the `smartJoinAttribute` parameter](data-modeling-collections-collection-methods.html)
+- [`filter` foxx-tests](http/foxx-miscellaneous.html) for testing
+
+The following documentation has been enhanced:
+
+- the documentation for [collection creation and fetching its properties](http/collection-creating.html) has been made more precise
+
 Web interface
 -------------
 
