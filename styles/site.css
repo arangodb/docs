@@ -182,3 +182,7 @@ pre.highlight .nb {
 .page-nav .next {
     float: right;
 }
+
+@media screen and (max-width: 800px) {
+    .arangodb-navmenu li {display: none;}
+}
