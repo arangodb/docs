@@ -84,7 +84,8 @@ response to the client instantly and thus finish this HTTP-request.
 The server will execute the tasks from the queue asynchronously as fast
 as possible, while clients can continue to do other work.
 If the server queue is full (i.e. contains as many tasks as specified by the
-option ["--server.maximal-queue-size"](../programs-arangod-options.html#arangodb-server-options)),
+option ["--server.maximal-queue-size"](../programs-arangod-options.html#arangodb-serv
+er-options)),
 then the request will be rejected instantly with an *HTTP 500* (internal
 server error) response.
 
@@ -223,8 +224,8 @@ _Note_: It is only possible to generate this JWT token with the knowledge of the
 
 For your convenience it is possible to generate this token via the [ArangoDB starter CLI](../programs-starter-security.html#using-authentication-tokens).
 
-Should you whish to generate the JWT token yourself with a tool of your choice, you need to include the correct body.
-The body must contain the _iss_ field with string value `arangodb` and the `server_id` field with an arbirtrary string identifier:
+Should you wish to generate the JWT token yourself with a tool of your choice, you need to include the correct body.
+The body must contain the _iss_ field with string value `arangodb` and the `server_id` field with an arbitrary string identifier:
 
 ```json
 {
@@ -286,7 +287,7 @@ HTTP layer:
   * OPTIONS
 
   Please note that not all server actions allow using all of these HTTP methods.
-  You should look up up the supported methods for each method you intend to use
+  You should look up the supported methods for each method you intend to use
   in the manual.
 
   Requests using any other HTTP method (such as for example CONNECT, TRACE etc.)
