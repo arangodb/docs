@@ -13,8 +13,8 @@ There are two main ways to upgrade ArangoDB:
 - _In-Place_ upgrade: when the installed ArangoDB package is replaced with the new one, and
   the new ArangoDB binary is started on the existing data directory.
 - _Logical_ upgrade: when the data is exported from the old ArangoDB version,
-  using [_arangodump_ ](programs-arangodump.html) and then restored in
-  the new ArangoDB version using [_arangorestore_ ](programs-arangorestore.html).
+  using [_arangodump_ ](upgrading-general-info-programs-arangodump-readme.html) and then restored in
+  the new ArangoDB version using [_arangorestore_ ](upgrading-general-info-programs-arangorestore-readme.html).
   Depending on the size of your database, this strategy can be more time consuming,
   but needed in some circumstances.
 
