@@ -19,6 +19,14 @@ var linkifyAnchors = function(level, containingElement) {
   }
 };
 
+var enableHamburger = function enableHamburger() {
+  $(".book-header .hamburger").click(function(event) {
+    event.preventDefault();
+    $('div.book').toggleClass("without-summary");
+    $('div.book').toggleClass("with-summary");
+  })
+}
+
 var linkify = function() {
   var contentBlock = document.getElementsByClassName("book-body")[0];
   if (!contentBlock) {
@@ -96,17 +104,12 @@ $(document).ready(function handleNav() {
       if (window.history) {
         window.history.pushState("navchange", title, event.target.href);
       }
+      enableHamburger();
     })
   });
 });
 
-$(document).ready(function enableHamburger() {
-  $(".book-header .hamburger").click(function(event) {
-    event.preventDefault();
-    $('div.book').toggleClass("without-summary");
-    $('div.book').toggleClass("with-summary");
-  })
-}); 
+$(document).ready(enableHamburger); 
 
 var generateToc = function() {
   var contentBlock = document.getElementsByClassName("book-body")[0];
