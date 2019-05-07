@@ -23,7 +23,7 @@ and entering:
 For simple documentation changes this process normally works perfect.
 
 However there are cases where jekyll won't detect changes. This is especially true
-when changing plugins and configuration.
+when changing plugins and configuration (including the navigation JSON when adding a new page).
 
 To be sure you have an up-to-date version remove the `_site` directory and then
 restart the docker container:
