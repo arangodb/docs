@@ -23,12 +23,6 @@
       var current = location.href;
 
       var selectedVersion = current.split('/')[4];
-      var selectedManual = current.split('/')[5];
-
-      if (selectedManual.match(/\.html/)) {
-        selectedManual = "";
-      }
-
       var switcher = document.querySelector(".arangodb-version-switcher");
 
       for (var i=0;i<switcher.options.length;i++) {
@@ -43,6 +37,9 @@
       switcher.addEventListener('change', function(event) {
         var current = location.href;
         var selectedManual = current.split('/')[5];
+        if (selectedManual.match(/\.html/)) {
+          selectedManual = "";
+        }
         location.href = "/docs/" + event.target.value + "/" + selectedManual;
       });
     </script>
