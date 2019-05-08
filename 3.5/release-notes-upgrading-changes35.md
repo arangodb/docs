@@ -142,3 +142,9 @@ On Linux, ArangoDB will now show a startup warning in case the kernel setting
 `vm.overcommit_memory` is set to a value of 2 and the jemalloc memory allocator 
 is in use. This combination does not play well together, and may lead to the 
 kernel denying arangod's memory allocation requests in more cases than necessary.
+
+Usage of V8
+-----------
+
+`ArangoQueryStreamCursor.id()` used to return a 32 bit number, and will now
+return a string as similar places where V8 has representations of ArangoDB IDs.
