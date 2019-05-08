@@ -8,27 +8,23 @@ The documentation uses the static site generator `jekyll`.
 
 ## Working with the documentation
 
-To work locally on the documentation you can also use the provided container:
+To work locally on the documentation you can also use the provided container.
 
-`[docs]$ docker run -d -v $(pwd):/docs -p 4000:4000 --name arangodb-jekyll arangodb/arangodb-docs`
+In the docs directory execute:
+
+`[docs]$ docker run --rm -v $(pwd):/docs -p 4000:4000 arangodb/arangodb-docs`
 
 This will watch file changes within the documentation repo and you will be able to see the
 resulting HTML files on http://127.0.0.1:4000/docs/.
 
-Please note that after starting the first build will take quite a while. Follow its process by opening a terminal
-and entering:
-
-`docker logs -f arangodb-jekyll`
+Please note that after starting the first build will take quite a while.
 
 For simple documentation changes this process normally works perfect.
 
 However there are cases where jekyll won't detect changes. This is especially true
 when changing plugins and configuration (including the navigation JSON when adding a new page).
 
-To be sure you have an up-to-date version remove the `_site` directory and then
-restart the docker container:
-
-`docker restart arangodb-jekyll`
+To be sure you have an up-to-date version remove the `_site` directory and then abort and restart the above command.
 
 ## Building the documentation
 
@@ -76,6 +72,7 @@ Then create a markdown document and add the following frontmatter section:
 ```
 ---
 layout: default
+description: A meaningful description of the page
 ---
 ```
 
@@ -144,6 +141,27 @@ it had to be encapsulated in a jekyll tag.
 The default setup will always create the full documentation.
 An easy way to improve performance is to just add versions you don't need to the `exclude`
 setting in the jekyll `_config.yml`.
+
+## CI/Netlify
+
+For the CI process we are currently using netlify. This service has been built so that you can
+quickly test and deploy static sites. We are only using it to have a live preview and a CI pipeline.
+
+There are a few files in the repo required for netlify:
+
+- _redirects
+
+   Defines redirects for netlify. There is only one redirect going from / to the docs so that the site preview doesn't start with a 404 (we are generating pages into /docs/). As netlify doesn't understand symlinks it we are absolutely linking to a version.
+
+- netlify.toml
+
+  Defines the build pipeline. Not much going on there.
+
+- netlify.sh
+
+  Special script for netlify build. Because we cannot just use a docker container we have to download htmltest every time
+
+For details please check out the netlify documentation.
 
 ## LICENSE
 
