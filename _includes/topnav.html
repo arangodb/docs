@@ -24,6 +24,11 @@
 
       var selectedVersion = current.split('/')[4];
       var selectedManual = current.split('/')[5];
+
+      if (selectedManual.match(/\.html/)) {
+        selectedManual = "";
+      }
+
       var switcher = document.querySelector(".arangodb-version-switcher");
 
       for (var i=0;i<switcher.options.length;i++) {
