@@ -42,7 +42,13 @@
       });
     </script>
     {% assign version = page.url | split: "/" | slice: 1 | first %}
+    {% assign versionPath = version %}
     {% assign selected = page.url | split: "/" | slice: 2 | first %}
+    {% for valias in site.versions %}
+      {% if valias[1] == version %}
+        {% assign versionPath = valias[0] %}
+      {% endif %}
+    {% endfor %}
     {% if selected contains ".html" %}
     {% assign selected = "manual" %}
     {% endif %}
@@ -52,26 +58,26 @@
     {% endif %}
     <ul class="arangodb-navmenu">
       <li{% if selected == "manual" %} class="active-tab"{% endif %}>
-        <a href="/docs/{{ version }}/" data-book="Manual">Manual</a>
+        <a href="/docs/{{ versionPath }}/" data-book="Manual">Manual</a>
       </li>
       {% if site.data.books[version] contains "aql" %}
       <li{% if selected == "aql" %} class="active-tab"{% endif %}>
-        <a href="/docs/{{ version }}/aql/" data-book="AQL">AQL</a>
+        <a href="/docs/{{ versionPath }}/aql/" data-book="AQL">AQL</a>
       </li>
       {% endif %}
       {% if site.data.books[version] contains "http" %}
       <li{% if selected == "http" %} class="active-tab"{% endif %}>
-        <a href="/docs/{{ version }}/http/" data-book="HTTP">HTTP</a>
+        <a href="/docs/{{ versionPath }}/http/" data-book="HTTP">HTTP</a>
       </li>
       {% endif %}
       {% if site.data.books[version] contains "cookbook" %}
       <li{% if selected == "cookbook" %} class="active-tab"{% endif %}>
-        <a href="/docs/{{ version }}/cookbook/" data-book="Cookbook">Cookbook</a>
+        <a href="/docs/{{ versionPath }}/cookbook/" data-book="Cookbook">Cookbook</a>
       </li>
       {% endif %}
       {% if site.data.books[version] contains "drivers" %}
       <li{% if selected == "drivers" %} class="active-tab"{% endif %}>
-        <a href="/docs/{{ version }}/drivers/" data-book="Drivers">Drivers</a>
+        <a href="/docs/{{ versionPath }}/drivers/" data-book="Drivers">Drivers</a>
       </li>
       {% endif %}
       <li class="downloadIcon" title="Download">
