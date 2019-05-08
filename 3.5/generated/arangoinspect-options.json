@@ -213,6 +213,38 @@
     "section" : "",
     "type" : "boolean"
   },
+  "javascript.allow-external-process-control" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "allow execution and control of external processes from within JavaScript actions",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "javascript",
+    "type" : "boolean"
+  },
+  "javascript.allow-port-testing" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "allow testing of ports from within JavaScript actions",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "javascript",
+    "type" : "boolean"
+  },
   "javascript.check-syntax" : {
     "category" : "option",
     "default" : [
@@ -246,7 +278,7 @@
     "category" : "option",
     "default" : "",
     "deprecatedIn" : null,
-    "description" : "target directory to copy files from 'javascript.startup-directory' into(only used when `--javascript.copy-installation` is enabled)",
+    "description" : "target directory to copy files from 'javascript.startup-directory' into (only used when `--javascript.copy-installation` is enabled)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -284,6 +316,74 @@
     "section" : "javascript",
     "type" : "boolean"
   },
+  "javascript.endpoints-blacklist" : {
+    "category" : "option",
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "endpoints that cannot be connected to via @arangodb/request module in JavaScript actions if not whitelisted",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "javascript",
+    "type" : "string..."
+  },
+  "javascript.endpoints-whitelist" : {
+    "category" : "option",
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "endpoints that can be connected to via @arangodb/request module in JavaScript actions",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "javascript",
+    "type" : "string..."
+  },
+  "javascript.environment-variables-blacklist" : {
+    "category" : "option",
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "environment variables that will be inaccessible in JavaScript if not whitelisted",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "javascript",
+    "type" : "string..."
+  },
+  "javascript.environment-variables-whitelist" : {
+    "category" : "option",
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "environment variables that will be accessible in JavaScript",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "javascript",
+    "type" : "string..."
+  },
   "javascript.execute" : {
     "category" : "option",
     "default" : [
@@ -314,6 +414,23 @@
     "section" : "javascript",
     "type" : "string..."
   },
+  "javascript.files-whitelist" : {
+    "category" : "option",
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "filesystem paths that will be accessible from within JavaScript actions",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "javascript",
+    "type" : "string..."
+  },
   "javascript.gc-interval" : {
     "category" : "option",
     "default" : 50,
@@ -327,6 +444,22 @@
     "requiresValue" : true,
     "section" : "javascript",
     "type" : "uint64"
+  },
+  "javascript.harden" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "disables access to JavaScript functions in the internal module: getPid(), processStatistics() andl logLevel()",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "javascript",
+    "type" : "boolean"
   },
   "javascript.module-directory" : {
     "category" : "option",
@@ -356,6 +489,40 @@
     "requiresValue" : true,
     "section" : "javascript",
     "type" : "string"
+  },
+  "javascript.startup-options-blacklist" : {
+    "category" : "option",
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "startup options whose names match this regular expression will not be exposed (if not whitelisted) to JavaScript actions",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "javascript",
+    "type" : "string..."
+  },
+  "javascript.startup-options-whitelist" : {
+    "category" : "option",
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "startup options whose names match this regular expression will be whitelisted and exposed to JavaScript",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "javascript",
+    "type" : "string..."
   },
   "javascript.unit-test-filter" : {
     "category" : "option",
@@ -865,7 +1032,7 @@
     "category" : "option",
     "default" : "http+tcp://127.0.0.1:8529",
     "deprecatedIn" : null,
-    "description" : "endpoint to connect to, use 'none' to start without a server",
+    "description" : "endpoint to connect to. Use 'none' to start without a server. Use http+ssl:// or vst+ssl:// as schema to connect to an SSL-secured server endpoint, otherwise http+tcp://, vst+tcp:// or unix://",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
