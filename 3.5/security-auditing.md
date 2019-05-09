@@ -14,7 +14,7 @@ Auditing allows you to monitor access to the database in detail. In general
 audit logs are of the form
 
 ```
-<time-stamp> | <server> | <topic> | <username> | <database> | <client-ip> | <authentication> | text1 | text2 | ...
+<time-stamp> | <server> | <topic> | <username> | <database> | <client-ip> | <authentication> | <text1> | <text2> | ...
 ```
 
 The *time-stamp* is in GMT. This allows to easily match log entries from servers
@@ -37,3 +37,6 @@ The *client-ip* describes the source of the request.
 The *authentication* details the methods used to authenticate the user.
 
 Details about the requests follow in the additional fields.
+
+Any additional fields (e.g. *text1* and *text2*) will be determined by the type
+of log message. Most messages will include a status of `ok` or `failed`.
