@@ -1,14 +1,12 @@
 arangosh&gt; v = db._view(<span class="hljs-string">"example"</span>);
-[ArangoView <span class="hljs-number">133467</span>, <span class="hljs-string">"example"</span> (type arangosearch)]
+[ArangoView <span class="hljs-number">133443</span>, <span class="hljs-string">"example"</span> (type arangosearch)]
 arangosh&gt; v.properties();
 ........&gt; <span class="hljs-comment">// set cleanupIntervalStep to 12</span>
 { 
   <span class="hljs-string">"writebufferIdle"</span> : <span class="hljs-number">64</span>, 
   <span class="hljs-string">"writebufferActive"</span> : <span class="hljs-number">0</span>, 
+  <span class="hljs-string">"primarySort"</span> : [ ], 
   <span class="hljs-string">"writebufferSizeMax"</span> : <span class="hljs-number">33554432</span>, 
-  <span class="hljs-string">"sort"</span> : { 
-    <span class="hljs-string">"primary"</span> : [ ] 
-  }, 
   <span class="hljs-string">"commitIntervalMsec"</span> : <span class="hljs-number">1000</span>, 
   <span class="hljs-string">"consolidationPolicy"</span> : { 
     <span class="hljs-string">"type"</span> : <span class="hljs-string">"bytes_accum"</span>, 
@@ -29,9 +27,7 @@ arangosh&gt; v.properties({<span class="hljs-attr">cleanupIntervalStep</span>: <
     <span class="hljs-string">"type"</span> : <span class="hljs-string">"bytes_accum"</span>, 
     <span class="hljs-string">"threshold"</span> : <span class="hljs-number">0.10000000149011612</span> 
   }, 
-  <span class="hljs-string">"sort"</span> : { 
-    <span class="hljs-string">"primary"</span> : [ ] 
-  }, 
+  <span class="hljs-string">"primarySort"</span> : [ ], 
   <span class="hljs-string">"writebufferActive"</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">"writebufferIdle"</span> : <span class="hljs-number">64</span>, 
   <span class="hljs-string">"writebufferSizeMax"</span> : <span class="hljs-number">33554432</span>, 
@@ -48,9 +44,7 @@ arangosh&gt; v.properties({<span class="hljs-attr">links</span>: {<span class="h
     <span class="hljs-string">"type"</span> : <span class="hljs-string">"bytes_accum"</span>, 
     <span class="hljs-string">"threshold"</span> : <span class="hljs-number">0.10000000149011612</span> 
   }, 
-  <span class="hljs-string">"sort"</span> : { 
-    <span class="hljs-string">"primary"</span> : [ ] 
-  }, 
+  <span class="hljs-string">"primarySort"</span> : [ ], 
   <span class="hljs-string">"writebufferActive"</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">"writebufferIdle"</span> : <span class="hljs-number">64</span>, 
   <span class="hljs-string">"writebufferSizeMax"</span> : <span class="hljs-number">33554432</span>, 
@@ -76,9 +70,7 @@ arangosh&gt; v.properties({<span class="hljs-attr">links</span>: {<span class="h
     <span class="hljs-string">"type"</span> : <span class="hljs-string">"bytes_accum"</span>, 
     <span class="hljs-string">"threshold"</span> : <span class="hljs-number">0.10000000149011612</span> 
   }, 
-  <span class="hljs-string">"sort"</span> : { 
-    <span class="hljs-string">"primary"</span> : [ ] 
-  }, 
+  <span class="hljs-string">"primarySort"</span> : [ ], 
   <span class="hljs-string">"writebufferActive"</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">"writebufferIdle"</span> : <span class="hljs-number">64</span>, 
   <span class="hljs-string">"writebufferSizeMax"</span> : <span class="hljs-number">33554432</span>, 
