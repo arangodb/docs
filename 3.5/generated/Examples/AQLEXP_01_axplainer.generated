@@ -9,7 +9,7 @@ arangosh&gt; db.test.ensureIndex({ type: "skiplist", fields: [ "value" ] });
   ], 
   "id" : "test/97554", 
   "isNewlyCreated" : true, 
-  "name" : "idx_1633280003165650944", 
+  "name" : "idx_1633370369465253888", 
   "sparse" : false, 
   "type" : "skiplist", 
   "unique" : false, 
@@ -29,7 +29,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type       Collection   Unique   Sparse   Selectivity   Fields        Ranges
-  9   idx_1633280003165650944   skiplist   test         false    false            n/a   [ `value` ]   (i.`value` &gt; 97)
+  9   idx_1633370369465253888   skiplist   test         false    false            n/a   [ `value` ]   (i.`value` &gt; 97)
 
 Optimization rules applied:
  Id   RuleName

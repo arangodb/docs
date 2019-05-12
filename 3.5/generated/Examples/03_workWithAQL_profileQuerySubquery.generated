@@ -12,16 +12,16 @@ Query String:
 
 Execution plan:
  Id   NodeType                  Calls   Items   Runtime [s]   Comment
-  1   SingletonNode                 1       1       0.00001   * ROOT
-  7   SubqueryNode                  1       1       0.00944     - LET list = ...   /* const subquery */
+  1   SingletonNode                 1       1       0.00000   * ROOT
+  7   SubqueryNode                  1       1       0.00675     - LET list = ...   /* const subquery */
   2   SingletonNode                 1       1       0.00000       * ROOT
-  3   EnumerateCollectionNode      11   10000       0.00174         - FOR doc IN acollection   /* full collection scan */
-  4   CalculationNode              11   10000       0.00555           - LET #5 = (doc.`value` &gt; 90)   /* simple expression */   /* collections used: doc : acollection */
-  5   FilterNode                   10    9909       0.00121           - FILTER #5
-  6   ReturnNode                   10    9909       0.00090           - RETURN doc
-  8   EnumerateListNode            10    9909       0.00081     - FOR a IN list   /* list iteration */
+  3   EnumerateCollectionNode      11   10000       0.00128         - FOR doc IN acollection   /* full collection scan */
+  4   CalculationNode              11   10000       0.00382           - LET #5 = (doc.`value` &gt; 90)   /* simple expression */   /* collections used: doc : acollection */
+  5   FilterNode                   10    9909       0.00091           - FILTER #5
+  6   ReturnNode                   10    9909       0.00072           - RETURN doc
+  8   EnumerateListNode            10    9909       0.00079     - FOR a IN list   /* list iteration */
   9   CalculationNode              10    9909       0.00332       - LET #7 = (a.`value` &lt; 91)   /* simple expression */
- 10   FilterNode                    1       0       0.00031       - FILTER #7
+ 10   FilterNode                    1       0       0.00030       - FILTER #7
  11   ReturnNode                    1       0       0.00000       - RETURN a
 
 Indexes used:
@@ -32,17 +32,17 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Exec Time [s]
-           0            0       10000            0      10000         0.01459
+           0            0       10000            0      10000         0.01176
 
 Query Profile:
  Query Stage           Duration [s]
- initializing               0.00001
- parsing                    0.00010
+ initializing               0.00000
+ parsing                    0.00008
  optimizing ast             0.00001
- loading collections        0.00002
- instantiating plan         0.00005
- optimizing plan            0.00018
- executing                  0.01392
- finalizing                 0.00026
+ loading collections        0.00001
+ instantiating plan         0.00004
+ optimizing plan            0.00013
+ executing                  0.01119
+ finalizing                 0.00027
 
 
