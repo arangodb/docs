@@ -29,7 +29,7 @@ Execution plan:
   6   CollectNode                   1       8       0.00004       - COLLECT ageGroup = #5 AGGREGATE minAge = MIN(#7), maxAge = MAX(#7), len = LENGTH(u)   /* hash */
   9   SortNode                      1       8       0.00001       - SORT ageGroup ASC
   7   CalculationNode               1       8       0.00003       - LET #11 = { "ageGroup" : ageGroup, "minAge" : minAge, "maxAge" : maxAge, "len" : len }   /* simple expression */
-  8   ReturnNode                    1       8       0.00000       - RETURN #11
+  8   ReturnNode                    1       8       0.00001       - RETURN #11
 
 Indexes used:
  none
@@ -44,7 +44,7 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Exec Time [s]
-           0            0          20            0          0         0.00136
+           0            0          20            0          0         0.00149
 
 Query Profile:
  Query Stage           Duration [s]
@@ -52,9 +52,9 @@ Query Profile:
  parsing                    0.00020
  optimizing ast             0.00002
  loading collections        0.00001
- instantiating plan         0.00008
- optimizing plan            0.00052
+ instantiating plan         0.00011
+ optimizing plan            0.00062
  executing                  0.00021
- finalizing                 0.00031
+ finalizing                 0.00028
 
 
