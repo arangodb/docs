@@ -42,11 +42,10 @@
       
       switcher.addEventListener('change', function(event) {
         var current = location.href;
-        var selectedManual = current.split('/')[5];
-        if (selectedManual.match(/\.html/)) {
-          selectedManual = "";
-        }
-        location.href = "/docs/" + event.target.value + "/" + selectedManual;
+        var urlElements = current.split('/');
+        urlElements[4] = event.target.value;
+        var newUrl = urlElements.join("/");
+        location.href = newUrl;
       });
     </script>
     {% assign version = page.url | split: "/" | slice: 1 | first %}
