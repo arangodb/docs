@@ -1,3 +1,15 @@
+var versionSwitcherSetAvailable = function(versions) {
+  var options = document.querySelector(".arangodb-version-switcher").options;
+  for (var i = 0; i < options.length; i++) {
+    var item = options.item(i);
+    if (versions.indexOf(item.value) != -1) {
+      item.removeAttribute("disabled");
+    } else {
+      item.setAttribute("disabled", "");
+    }
+  }
+};
+
 var anchorForId = function(id) {
   var anchor = document.createElement("a");
   anchor.className = "header-link";

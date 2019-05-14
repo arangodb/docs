@@ -10,6 +10,21 @@
       {% include sidebar.html %}
     </div>
     <div class="book-body">
+        <script type="text/javascript">
+            var availableVersions = [
+              {% for v in page.versions %}
+                {% if v.version.tag %}
+                  {% assign version_alias = v.version.tag %}
+                {% else %}
+                  {% assign version_alias = v.version.name %}
+                {% endif %}
+                {% if v.url %}
+                "{{ version_alias }}",
+                {% endif %}
+            {% endfor %}
+            ];
+            versionSwitcherSetAvailable(availableVersions);
+        </script>
         <div class="body-inner">
             <div class="book-header" role="navigation">
               <a class="btn pull-left js-toolbar-action hamburger" aria-label=""><i class="fa fa-align-justify"></i></a>
