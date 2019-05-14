@@ -182,7 +182,8 @@ FOR v IN PREGEL_RESULT(<handle>)
   RETURN v._key
 ```
 
-For legecy reasons you need to specify an extra parameter to also get the document `_id` value:
+For legacy reasons you need to specify an extra parameter to also get the document `_id` value:
+
 ```js
 FOR v IN PREGEL_RESULT(<handle>, true)
   FILTER v.value >= 0.01
