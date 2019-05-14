@@ -25,7 +25,7 @@ var enableHamburger = function enableHamburger() {
     $('div.book').toggleClass("without-summary");
     $('div.book').toggleClass("with-summary");
   })
-}
+};
 
 var linkify = function() {
   var contentBlock = document.getElementsByClassName("book-body")[0];
@@ -110,6 +110,13 @@ $(document).ready(function handleNav() {
 });
 
 $(document).ready(enableHamburger); 
+
+$(document).ready(function hideSummaryOnMobile() {
+  if (window.matchMedia("(max-width: 800px)").matches) {
+    $('div.book').toggleClass("without-summary");
+    $('div.book').toggleClass("with-summary");
+  }
+})
 
 var generateToc = function() {
   var contentBlock = document.getElementsByClassName("book-body")[0];
