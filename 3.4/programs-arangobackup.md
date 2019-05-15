@@ -1,18 +1,17 @@
 ---
 layout: default
-description: arangobackup is a command-line client tool to create a
-global hot backups of an ArangoDB instance
+description: arangobackup is a command-line client tool to create a global hot backups of an ArangoDB instance
 ---
-arangobackup
+Arangobackup
 ============
 
-_arangobackup_ is a command-line client tool which creates global hot
+_Arangobackup_ is a command-line client tool which creates global hot
 backups of the data and structures stored in ArangoDB.
 
-The backups rely on hard link magic performed on the database's
+Hot backups rely on hard link magic performed on the database's
 persistence layer.
 
-_arangobackup_ can be used for all ArangoDB deployments modes (Single
+_Arangobackup_ can be used for all ArangoDB deployments modes (Single
 Instance, Active Failover, and Cluster). It always creates what
 is most readily described as a persistence layer consistent snapshot
 of the entire instance. Therefore, no such thing as database or

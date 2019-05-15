@@ -2,8 +2,8 @@
 layout: default
 description: Backup and restore can be done via the toolsarangodump andarangorestore
 ---
-Hot backup and hot restore
-==================
+Hot backup
+==========
 
 Hot backups and restores can be done via the tool
 [_arangobackup_](programs-arangobackup.html)

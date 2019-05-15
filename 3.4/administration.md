@@ -46,7 +46,7 @@ Other Topics
 
 - [Configuration](administration-configuration.html)
 - [Backup & Restore](backup-restore.html)
-- [Hot backup & hot restore](hot-backup-restore.html)
+- [Hot backup](hot-backup.html)
 - [Import & Export](administration-import-export.html)
 - [User Management](administration-managing-users.html)
 - [Switch Storage Engine](administration-engine-switch-engine.html)
