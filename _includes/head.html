@@ -6,6 +6,10 @@
 Figure out where we are at and compute navvar (e.g. 34-manual, 34-aql, ...)
 {%- endcomment -%}
 {%- capture navvar %}{{ page.dir| replace_first: "/", "" | replace: "/", "-" | replace: ".", ""  | split: "" | reverse | join: ""| replace_first: "-", "" | split: "" | reverse | join: "" }}{% endcapture -%}
+{% assign single = page.url | slice: 1,13 %}
+  {% if single == "kube-arangodb" %}
+    {% assign navvar = single %}
+  {% endif %}
 {%- assign navvarsize = navvar|size %}{%- if navvarsize == 2 %}{% assign navvar = navvar | append: "-manual" %}{% endif %}
 <title>{% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %}</title>
 <meta itemprop="description" name="description" content="{% if page.description %}{{ page.description | truncate: 160 }}{% else %}{{ site.description | truncate: 160  }}{% endif %}" />

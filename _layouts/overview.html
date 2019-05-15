@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include head.html %}
+</head>
+<body>
+  {% include topnav-overview.html %} 
+  <div class="book with-summary font-size-2 font-family-1">
+    <div class="book-body">
+        <div class="body-inner">
+          <div class="page-wrapper" tabindex="-1" role="main">
+            <div class="page-inner">
+              <section class="normal markdown-section">
+                {{ content }}
+              </section>
+              <div id="page-footer" class="localized-footer">
+                <hr>
+                <p>© ArangoDB - the native multi-model NoSQL database</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

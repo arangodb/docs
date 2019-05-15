@@ -1,3 +1,5 @@
+{% comment %}
+
 {% assign previous=page|previous_page %}
 {% assign next=page|next_page %}
 <section class="page-nav">
@@ -5,3 +7,5 @@
     {% if next %}<a class="next" href="{{ next.href }}">{{ next.text }} &gt;&gt;</a>{% endif %}
     <div style="clear: both"></div>
 </section>
+
+{% endcomment %}
