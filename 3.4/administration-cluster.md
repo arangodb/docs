@@ -208,7 +208,7 @@ To distribute shards onto the new _DBServer_ either click on the
 `Distribute Shards` button at the bottom of the `Shards` page in every
 database.
 
-This process can be monitored using the following javascript, that can give a 
+The cleanOutServer process can be monitored using the following javascript, that can give a 
 count of shards that still need to move. Such a script would therefore be a count 
 down to when the process finishes.
 
