@@ -5,19 +5,26 @@ description: create hot backups
 Restore to a hot backup
 =======================
 
-Hot backups are created near instantaneously. The single server as
-well as other deployment modes try to obtain a global transaction lock
-to enforce consistency across all servers, databases, collections
-etc. Once that lock could be acquired the backup itself is most
-readily described as a consistent snapshot and as instantaneous as the
-quickest operation on the local file system.
+Once a hot backup is created, one can use the generated backup id,
+for example `2019-05-15T14.36.38Z_my-label` to restore the **entire**
+instance to that "snapshot". 
+
+{% hint 'warning' %}
+Keep in mind that such a restore is a global operation and affects **all
+databases** in an installation. The restore will roll back all data
+including in the meantime databases, collections, indexes etc. The
+database server of a single server instance and all database servers
+of a cluster will subsequently be restarted.
+{% endhint %}
 
 ```bash
-arangobackup create --server.username root
-Please specify a password: 
-2019-05-15T13:57:11Z [15213] INFO {backup} Server version: 3.4.5
-2019-05-15T13:57:11Z [15213] INFO {backup} Backup succeeded. Generated
-identifier '2019-05-15T13.57.11Z'
+arangobackup restore --server.username root --identifier 2019-05-15T14.36.38Z_my-label 
 ```
 
-lorem ipsum
+The output will reflect the restore operation's success:
+
+```log
+2019-05-15T15:24:14Z [16201] INFO {backup} Server version: 3.4.5
+2019-05-15T15:24:14Z [16201] INFO {backup} Successfully restored '2019-05-15T14.36.38Z_my-label'
+```
+

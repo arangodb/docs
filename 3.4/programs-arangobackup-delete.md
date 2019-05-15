@@ -1,23 +1,24 @@
 ---
 layout: default
-description: create hot backups 
+description: delete inividual hot backups 
 ---
-Create hot backup
-=================
+Delete individual hot backups
+=============================
 
-Hot backups are created near instantaneously. The single server as
-well as other deployment modes try to obtain a global transaction lock
-to enforce consistency across all servers, databases, collections
-etc. Once that lock could be acquired the backup itself is most
-readily described as a consistent snapshot and as instantaneous as the
-quickest operation on the local file system.
+Hot backup, analogous to virtual machine snapshots, cause additional
+disk usage. With every hot backup a consitent state in time is
+frozen. Later changes will then have to hold a difference to older
+backups. Compactions no longer can cover events before the last hot
+backup. Naturally, one may want to be able to free disk space, once
+backups become obsolete. 
 
 ```bash
-arangobackup create --server.username root
-Please specify a password: 
-2019-05-15T13:57:11Z [15213] INFO {backup} Server version: 3.4.5
-2019-05-15T13:57:11Z [15213] INFO {backup} Backup succeeded. Generated
-identifier '2019-05-15T13.57.11Z'
+arangobackup delete --server.username root --identifier <identifier>
 ```
 
-lorem ipsum
+The result of the operation is thus delivered:
+
+```
+2019-05-15T15:34:34Z [16257] INFO {backup} Server version: 3.4.5
+2019-05-15T15:34:34Z [16257] INFO {backup} Successfully deleted '2019-05-15T13.57.03Z'
+```

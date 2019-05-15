@@ -1,23 +1,24 @@
 ---
 layout: default
-description: create hot backups 
+description: list all available hot backups
 ---
-Create hot backup
-=================
+List all hot backups
+====================
 
-Hot backups are created near instantaneously. The single server as
-well as other deployment modes try to obtain a global transaction lock
-to enforce consistency across all servers, databases, collections
-etc. Once that lock could be acquired the backup itself is most
-readily described as a consistent snapshot and as instantaneous as the
-quickest operation on the local file system.
+One may hold a multitude of hotbackups. Those would all be available
+to restore from. In order to get a listing of such hot backups, one
+may use the `list` command.
 
-```bash
-arangobackup create --server.username root
-Please specify a password: 
-2019-05-15T13:57:11Z [15213] INFO {backup} Server version: 3.4.5
-2019-05-15T13:57:11Z [15213] INFO {backup} Backup succeeded. Generated
-identifier '2019-05-15T13.57.11Z'
+```bash 
+arangobackup list
 ```
 
-lorem ipsum
+The output lists all available hot backups:
+
+```bash
+2019-05-15T15:28:17Z [16224] INFO {backup} Server version: 3.4.5
+2019-05-15T15:28:17Z [16224] INFO {backup} The following backups are available:
+2019-05-15T15:28:17Z [16224] INFO {backup}  - 2019-05-15T13.57.11Z_my-label
+2019-05-15T15:28:17Z [16224] INFO {backup}  - 2019-05-15T13.57.03Z-other-label
+```
+

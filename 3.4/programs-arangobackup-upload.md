@@ -1,23 +1,27 @@
 ---
 layout: default
-description: create hot backups 
+description: upload hot backups to remote
 ---
-Create hot backup
-=================
+Upload a hot backup to remote
+=============================
 
-Hot backups are created near instantaneously. The single server as
-well as other deployment modes try to obtain a global transaction lock
-to enforce consistency across all servers, databases, collections
-etc. Once that lock could be acquired the backup itself is most
-readily described as a consistent snapshot and as instantaneous as the
-quickest operation on the local file system.
+{% hint 'tip' %}
+This functionality is only available with the enterprise
+version. Currently `S3` endpoints are the only supported remote endpoint.
+{% endhint %}
+
+Hot backups can be uploaded to a remote `S3` repository:
 
 ```bash
-arangobackup create --server.username root
-Please specify a password: 
-2019-05-15T13:57:11Z [15213] INFO {backup} Server version: 3.4.5
-2019-05-15T13:57:11Z [15213] INFO {backup} Backup succeeded. Generated
-identifier '2019-05-15T13.57.11Z'
+arangobackup upload --server.endpoint tcp://myserver:8529 --rclone-config-file /path/to/remote.json --identifier 2019-05-13T07.15.43Z_some-label --remote-path S3://remote-endpoint/remote-directory
 ```
 
-lorem ipsum
+This process may take as long as it needs to upload the data from the
+single server or all of the cluster's db servers to the remote
+endpoint given network thereto. 
+
+The status of the process may be acquired at any later time.
+
+```bash
+arangobackup upload --server.endpoint tcp://localhost:9530 --rclone-config-file ~/remote.json --remote-path S3://remote-endpoint/remote-directory --status-id=1234
+```
