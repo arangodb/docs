@@ -154,7 +154,7 @@ Moving/Rebalancing _shards_
 ---------------------------
 
 A _shard_ can be moved from a _DBServer_ to another, and the entire shard distribution
-can be rebalanced using the correponding buttons in the web [UI](programs-web-interface-cluster.html).
+can be rebalanced using the corresponding buttons in the web [UI](programs-web-interface-cluster.html).
 
 Replacing/Removing a _Coordinator_
 ----------------------------------
@@ -164,7 +164,7 @@ removed without more consideration than meeting the necessities of the
 particular installation. 
 
 To take out a _Coordinator_ stop the
-_Coordinator_'s instance by issueing `kill -SIGTERM <pid>`.
+_Coordinator_'s instance by issuing `kill -SIGTERM <pid>`.
 
 Ca. 15 seconds later the cluster UI on any other _Coordinator_ will mark
 the _Coordinator_ in question as failed. Almost simultaneously, a trash bin
@@ -207,4 +207,54 @@ cluster.
 To distribute shards onto the new _DBServer_ either click on the
 `Distribute Shards` button at the bottom of the `Shards` page in every
 database.
+
+This process can be monitored using the following javascript, that can give a 
+count of shards that still need to move. Such a script would therefore be a count 
+down to when the process finishes.
+
+```
+var dblist = db._databases();
+var internal = require("internal");
+var arango = internal.arango;
+var count = 0;
+
+var server = ARGUMENTS[0];
+
+for (dbase in dblist) {
+    var sd = arango.GET("/_db/" + dblist[dbase] + "/_admin/cluster/shardDistribution");
+    var collections = sd.results;
+    for (collection in collections) {
+        var current = collections[collection].Current;
+        for (shard in current) {
+            if (current[shard].leader == server) {
+                ++count;
+            }
+        }
+    }
+}
+console.log("Server %s count is %d", server, count)
+```
+
+This script has to be executed in the [`arangosh`](programs-arangosh.html) by issuing the following command:
+
+```
+arangosh  --server.username <username> --server.password <password> --javascript.execute <path-to-the-serverCleanMonitor.js> -- DBServer<number>
+```
+
+The output should be similar to the one below:
+
+```
+arangosh --server.username root --server.password pass --javascript.execute ~./serverCleanMonitor.js -- DBServer0002
+[7836] INFO Server DBServer0002 count is 1
+
+arangosh --server.username root --server.password pass --javascript.execute ~./serverCleanMonitor.js -- DBServer0002
+[7842] INFO Server DBServer0002 count is 0
+```
+
+Once the count is `0` all `shards` of the underlying DBServer have moved and the 
+`cleanOutServer` process has finished.
+
+
+
+
 
