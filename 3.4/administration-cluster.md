@@ -251,7 +251,7 @@ arangosh --server.username root --server.password pass --javascript.execute ~./s
 [7842] INFO Server DBServer0002 count is 0
 ```
 
-Once the count is `0` all `shards` of the underlying DBServer have moved and the 
+Once the count is `0` all `shards` of the underlying DBServer have been moved and the 
 `cleanOutServer` process has finished.
 
 
