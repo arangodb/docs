@@ -191,7 +191,7 @@ the `_id` values of the vertices as well:
 ```js
 FOR v IN PREGEL_RESULT(<handle>, true)
   FILTER v.value >= 0.01
-  RETURN v._key
+  RETURN v._id
 ```
 
 Please note that `PREGEL_RESULT` will only work for results of Pregel jobs that were stored with
