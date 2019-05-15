@@ -75,9 +75,10 @@ body {
 .arangodb-navmenu li {
   display: block;
   float: left;
+  height: 48px;
 }
 
-.arangodb-navmenu li a {
+.arangodb-navmenu li.not-algolia a {
   display: block;
   float: left;
   padding: 0 10px;
@@ -89,7 +90,7 @@ body {
   font-family: Roboto, Helvetica, sans-serif;
 }
 
-.arangodb-navmenu li.active-tab a, .arangodb-navmenu li a:hover {
+.arangodb-navmenu li.active-tab a, .arangodb-navmenu li.not-algolia a:hover {
   background-color: #88A049 !important;
 }
 
@@ -197,4 +198,31 @@ body div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner p#hs-eu-p
 
 body div#hs-eu-cookie-confirmation:not([style]) ~ #leadinModal-790626 .leadinModal-content {
   bottom: 50px;
+}
+
+.searchinput {
+  height: 30px;
+  line-height: 30px;
+  box-sizing: border-box;
+  padding: 0 15px 0 30px;
+  border: 1px solid #e3e3e3;
+  color: #2c3e50;
+  outline: none;
+  border-radius: 15px;
+  margin-right: 10px;
+  transition: border-color 0.2s ease;
+  background: #fff url("../images/search.png") 8px 5px no-repeat;
+  background-size: 20px;
+  vertical-align: middle !important;
+  margin: 8px;
+}
+
+.algolia-autocomplete .algolia-docsearch-footer--logo {
+  display: none !important;
+}
+
+@media screen and (max-width: 1000px) {
+  #search-searchbar {
+    display: none;
+  }
 }
