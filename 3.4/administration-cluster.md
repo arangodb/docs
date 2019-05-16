@@ -210,7 +210,7 @@ database.
 
 The clean out process can be monitored using the following script,
 which periodically prints the amount of shards that still need to be moved.
-It it basically a countdown to when the process finishes.
+It is basically a countdown to when the process finishes.
 The current status is logged every 5 seconds. You may adjust it by
 changing the number on the line `internal.wait(5);`.
 
