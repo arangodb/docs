@@ -208,9 +208,11 @@ To distribute shards onto the new _DBServer_ either click on the
 `Distribute Shards` button at the bottom of the `Shards` page in every
 database.
 
-The cleanOutServer process can be monitored using the following script, that can give a 
-count of shards that still need to move. Such a script would therefore be a count 
-down to when the process finishes.
+The clean out process can be monitored using the following script,
+which periodically prints the amount of shards that still need to be moved.
+It it basically a countdown to when the process finishes.
+The current status is logged every 5 seconds. You may adjust it by
+changing the number on the line `internal.wait(5);`.
 
 `serverCleanMonitor.js`:
 
@@ -236,7 +238,8 @@ do {
 		}
 	    }
 	}
-	console.log("Server %s count is %d", server, count);
+	console.log("Shards to be moved away from node %s: %d", server, count);
+	if (count == 0) break;
 	internal.wait(5);
 } while (count > 0);
 ```
@@ -244,18 +247,18 @@ do {
 This script has to be executed in the [`arangosh`](programs-arangosh.html) by issuing the following command:
 
 ```
-arangosh  --server.username <username> --server.password <password> --javascript.execute <path-to-the-serverCleanMonitor.js> -- DBServer<number>
+arangosh  --server.username <username> --server.password <password> --javascript.execute <path/to/serverCleanMonitor.js> -- DBServer<number>
 ```
 
 The output should be similar to the one below:
 
 ```
 arangosh --server.username root --server.password pass --javascript.execute ~./serverCleanMonitor.js -- DBServer0002
-[7836] INFO Server DBServer0002 count is 1
-
-arangosh --server.username root --server.password pass --javascript.execute ~./serverCleanMonitor.js -- DBServer0002
-[7842] INFO Server DBServer0002 count is 0
+[7836] INFO Shards to be moved away from node DBServer0002: 9
+[7836] INFO Shards to be moved away from node DBServer0002: 4
+[7836] INFO Shards to be moved away from node DBServer0002: 1
+[7836] INFO Shards to be moved away from node DBServer0002: 0
 ```
 
-Once the count is `0` all `shards` of the underlying DBServer have been moved and the 
-`cleanOutServer` process has finished.
+Once the count is `0` all shards of the underlying DBServer have been moved
+and the `cleanOutServer` process has finished.
