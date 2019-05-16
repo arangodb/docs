@@ -1,0 +1,633 @@
+- children: []
+  href: index.html
+  text: Introduction
+- children:
+  - children:
+    - children: []
+      href: getting-started-installing-linux.html
+      text: Linux
+    - children: []
+      href: getting-started-installing-mac-osx.html
+      text: Mac OS X
+    - children: []
+      href: getting-started-installing-windows.html
+      text: Windows
+    - children: []
+      href: getting-started-installing-compiling.html
+      text: Compiling
+    href: getting-started-installing.html
+    text: Installing
+  - children: []
+    href: getting-started-authentication.html
+    text: Authentication
+  - children: []
+    href: getting-started-web-interface.html
+    text: Accessing the Web Interface
+  - children: []
+    href: getting-started-coming-from-sql.html
+    text: Coming from SQL
+  href: getting-started.html
+  text: Getting Started
+- children:
+  - children: []
+    href: scalability-architecture.html
+    text: Architecture
+  - children: []
+    href: scalability-data-models.html
+    text: Data models
+  - children: []
+    href: scalability-limitations.html
+    text: Limitations
+  href: scalability.html
+  text: Scalability
+- children:
+  - children: []
+    href: data-modeling-concepts.html
+    text: Concepts
+  - children:
+    - children: []
+      href: data-modeling-databases-working-with.html
+      text: Working with Databases
+    - children: []
+      href: data-modeling-databases-notes.html
+      text: Notes about Databases
+    href: data-modeling-databases.html
+    text: Databases
+  - children:
+    - children: []
+      href: data-modeling-collections-collection-methods.html
+      text: Collection Methods
+    - children: []
+      href: data-modeling-collections-database-methods.html
+      text: Database Methods
+    href: data-modeling-collections.html
+    text: Collections
+  - children:
+    - children: []
+      href: data-modeling-documents-document-address.html
+      text: Basics and Terminology
+    - children: []
+      href: data-modeling-documents-document-methods.html
+      text: Collection Methods
+    - children: []
+      href: data-modeling-documents-database-methods.html
+      text: Database Methods
+    href: data-modeling-documents.html
+    text: Documents
+  - children: []
+    href: data-modeling-graphs-vertices-edges.html
+    text: Graphs, Vertices & Edges
+  - children:
+    - children: []
+      href: data-modeling-naming-conventions-database-names.html
+      text: Database Names
+    - children: []
+      href: data-modeling-naming-conventions-collection-names.html
+      text: Collection Names
+    - children: []
+      href: data-modeling-naming-conventions-document-keys.html
+      text: Document Keys
+    - children: []
+      href: data-modeling-naming-conventions-attribute-names.html
+      text: Attribute Names
+    href: data-modeling-naming-conventions.html
+    text: Naming Conventions
+  href: data-modeling.html
+  text: Data models & modeling
+- children:
+  - children: []
+    href: indexing-index-basics.html
+    text: Index Basics
+  - children: []
+    href: indexing-which-index.html
+    text: Which index to use when
+  - children: []
+    href: indexing-index-utilization.html
+    text: Index Utilization
+  - children:
+    - children: []
+      href: indexing-hash.html
+      text: Hash Indexes
+    - children: []
+      href: indexing-skiplist.html
+      text: Skiplists
+    - children: []
+      href: indexing-persistent.html
+      text: Persistent
+    - children: []
+      href: indexing-fulltext.html
+      text: Fulltext Indexes
+    - children: []
+      href: indexing-geo.html
+      text: Geo Indexes
+    - children: []
+      href: indexing-vertex-centric.html
+      text: Vertex Centric Indexes
+    href: indexing-working-with-indexes.html
+    text: Working with Indexes
+  href: indexing.html
+  text: Indexing
+- children:
+  - children:
+    - children: []
+      href: graphs-general-graphs-management.html
+      text: Graph Management
+    - children: []
+      href: graphs-general-graphs-functions.html
+      text: Graph Functions
+    href: graphs-general-graphs.html
+    text: General Graphs
+  - children:
+    - children: []
+      href: graphs-smart-graphs-management.html
+      text: SmartGraph Management
+    href: graphs-smart-graphs.html
+    text: SmartGraphs
+  - children:
+    - children: []
+      href: graphs-traversals-using-traversal-objects.html
+      text: Using Traversal Objects
+    - children: []
+      href: graphs-traversals-example-data.html
+      text: Example Data
+    href: graphs-traversals.html
+    text: Traversals
+  - children: []
+    href: graphs-edges.html
+    text: Working with Edges
+  href: graphs.html
+  text: Graphs
+- children:
+  - children: []
+    href: foxx-at-aglance.html
+    text: At a glance
+  - children: []
+    href: foxx-getting-started.html
+    text: Getting started
+  - children: []
+    href: foxx-manifest.html
+    text: Service manifest
+  - children: []
+    href: foxx-context.html
+    text: Service context
+  - children: []
+    href: foxx-configuration.html
+    text: Configuration
+  - children: []
+    href: foxx-dependencies.html
+    text: Dependencies
+  - children:
+    - children: []
+      href: foxx-router-endpoints.html
+      text: Endpoints
+    - children: []
+      href: foxx-router-middleware.html
+      text: Middleware
+    - children: []
+      href: foxx-router-request.html
+      text: Request
+    - children: []
+      href: foxx-router-response.html
+      text: Response
+    href: foxx-router.html
+    text: Routers
+  - children: []
+    href: foxx-graph-ql.html
+    text: Using GraphQL
+  - children:
+    - children:
+      - children: []
+        href: foxx-sessions-storages-collection.html
+        text: Collection storage
+      - children: []
+        href: foxx-sessions-storages-jwt.html
+        text: JWT storage
+      href: foxx-sessions-storages.html
+      text: Session storages
+    - children:
+      - children: []
+        href: foxx-sessions-transports-cookie.html
+        text: Cookie transport
+      - children: []
+        href: foxx-sessions-transports-header.html
+        text: Header transport
+      href: foxx-sessions-transports.html
+      text: Session transports
+    href: foxx-sessions.html
+    text: Sessions middleware
+  - children: []
+    href: foxx-assets.html
+    text: Serving files
+  - children: []
+    href: foxx-testing.html
+    text: Writing tests
+  - children: []
+    href: foxx-scripts.html
+    text: Scripts and queued jobs
+  - children:
+    - children: []
+      href: foxx-migrating2x-wayback.html
+      text: Migrating from pre-2.8
+    - children: []
+      href: foxx-migrating2x-manifest.html
+      text: manifest.json
+    - children: []
+      href: foxx-migrating2x-context.html
+      text: applicationContext
+    - children: []
+      href: foxx-migrating2x-repositories.html
+      text: Repositories and Models
+    - children:
+      - children: []
+        href: foxx-migrating2x-controllers-endpoints.html
+        text: Request context
+      - children: []
+        href: foxx-migrating2x-controllers-errors.html
+        text: Error handling
+      - children: []
+        href: foxx-migrating2x-controllers-middleware.html
+        text: Before/After/Around
+      - children: []
+        href: foxx-migrating2x-controllers-request.html
+        text: Request object
+      - children: []
+        href: foxx-migrating2x-controllers-response.html
+        text: Response object
+      - children: []
+        href: foxx-migrating2x-controllers-io-c.html
+        text: Dependency Injection
+      href: foxx-migrating2x-controllers.html
+      text: Controllers
+    - children: []
+      href: foxx-migrating2x-sessions.html
+      text: Sessions
+    - children: []
+      href: foxx-migrating2x-auth.html
+      text: Auth and OAuth2
+    - children: []
+      href: foxx-migrating2x-queries.html
+      text: Foxx Queries
+    href: foxx-migrating2x.html
+    text: Migrating 2.x services
+  - children: []
+    href: foxx-legacy-mode.html
+    text: Legacy compatibility mode
+  - children: []
+    href: foxx-users.html
+    text: User management
+  - children:
+    - children: []
+      href: foxx-auth.html
+      text: Authentication
+    - children: []
+      href: foxx-oauth2.html
+      text: OAuth 2.0
+    href: foxx-modules.html
+    text: Related modules
+  href: foxx.html
+  text: Foxx Microservices
+- children:
+  - children: []
+    href: transactions-transaction-invocation.html
+    text: Transaction invocation
+  - children: []
+    href: transactions-passing.html
+    text: Passing parameters
+  - children: []
+    href: transactions-locking-and-isolation.html
+    text: Locking and isolation
+  - children: []
+    href: transactions-durability.html
+    text: Durability
+  - children: []
+    href: transactions-limitations.html
+    text: Limitations
+  href: transactions.html
+  text: Transactions
+- children:
+  - children: []
+    href: deployment-single.html
+    text: Single instance
+  - children: []
+    href: deployment-mesos.html
+    text: 'Cluster: Mesos, DC/OS'
+  - children: []
+    href: deployment-local.html
+    text: 'Cluster: Local test'
+  - children: []
+    href: deployment-distributed.html
+    text: 'Cluster: Processes'
+  - children: []
+    href: deployment-docker.html
+    text: 'Cluster: Docker'
+  - children: []
+    href: deployment-agency.html
+    text: Agency
+  href: deployment.html
+  text: Deployment
+- children:
+  - children:
+    - children: []
+      href: administration-web-interface-aql-editor.html
+      text: Queries
+    - children: []
+      href: administration-web-interface-collections.html
+      text: Collections
+    - children: []
+      href: administration-web-interface-cluster.html
+      text: Cluster
+    - children: []
+      href: administration-web-interface-dashboard.html
+      text: Dashboard
+    - children: []
+      href: administration-web-interface-document.html
+      text: Document
+    - children: []
+      href: administration-web-interface-logs.html
+      text: Logs
+    - children: []
+      href: administration-web-interface-services.html
+      text: Services
+    - children: []
+      href: administration-web-interface-graphs.html
+      text: Graphs
+    href: administration-web-interface.html
+    text: Web Interface
+  - children:
+    - children: []
+      href: administration-arangosh-output.html
+      text: Shell Output
+    - children: []
+      href: administration-arangosh-configuration.html
+      text: Configuration
+    - children: []
+      href: getting-started-arangosh.html
+      text: Details
+    href: administration-arangosh.html
+    text: ArangoDB Shell
+  - children: []
+    href: administration-arangoimp.html
+    text: Arangoimp
+  - children: []
+    href: administration-arangodump.html
+    text: Arangodump
+  - children: []
+    href: administration-arangorestore.html
+    text: Arangorestore
+  - children: []
+    href: administration-managing-users.html
+    text: Managing Users
+  - children:
+    - children: []
+      href: administration-configuration-endpoint.html
+      text: Managing Endpoints
+    - children: []
+      href: administration-configuration-ssl.html
+      text: SSL Configuration
+    - children: []
+      href: administration-configuration-logging.html
+      text: Logging Options
+    - children: []
+      href: administration-configuration-general-arangod.html
+      text: General Options
+    - children: []
+      href: administration-configuration-wal.html
+      text: Write-Ahead Log Options
+    - children: []
+      href: administration-configuration-cluster.html
+      text: Cluster Options
+    - children: []
+      href: administration-configuration-asynchronous.html
+      text: Asynchronous Tasks
+    href: administration-configuration.html
+    text: Server Configuration
+  - children: []
+    href: administration-durability.html
+    text: Durability
+  - children:
+    - children:
+      - children: []
+        href: administration-replication-asynchronous-components.html
+        text: Components
+      - children: []
+        href: administration-replication-asynchronous-example-setup.html
+        text: Example Setup
+      - children: []
+        href: administration-replication-asynchronous-syncing-collections.html
+        text: Syncing Collections
+      - children: []
+        href: administration-replication-asynchronous-limitations.html
+        text: Replication Limitations
+      href: administration-replication-asynchronous.html
+      text: Asynchronous Replication
+    - children:
+      - children: []
+        href: administration-replication-synchronous-implementation.html
+        text: Implementation
+      - children: []
+        href: administration-replication-synchronous-configuration.html
+        text: Configuration
+      href: administration-replication-synchronous.html
+      text: Synchronous Replication
+    href: administration-replication.html
+    text: Replication
+  - children: []
+    href: administration-sharding.html
+    text: Sharding
+  - children:
+    - children: []
+      href: administration-upgrading-upgrading31.html
+      text: Upgrading to 3.1
+    - children: []
+      href: administration-upgrading-upgrading30.html
+      text: Upgrading to 3.0
+    - children: []
+      href: administration-upgrading-upgrading28.html
+      text: Upgrading to 2.8
+    - children: []
+      href: administration-upgrading-upgrading26.html
+      text: Upgrading to 2.6
+    - children: []
+      href: administration-upgrading-upgrading25.html
+      text: Upgrading to 2.5
+    - children: []
+      href: administration-upgrading-upgrading24.html
+      text: Upgrading to 2.4
+    - children: []
+      href: administration-upgrading-upgrading23.html
+      text: Upgrading to 2.3
+    - children: []
+      href: administration-upgrading-upgrading22.html
+      text: Upgrading to 2.2
+    href: administration-upgrading.html
+    text: Upgrading
+  href: administration.html
+  text: Administration
+- children:
+  - children: []
+    href: auditing-audit-configuration.html
+    text: Configuration
+  - children: []
+    href: auditing-audit-events.html
+    text: Events
+  href: auditing.html
+  text: Auditing
+- children:
+  - children: []
+    href: troubleshooting-arangod.html
+    text: arangod
+  - children: []
+    href: troubleshooting-emergency-console.html
+    text: Emergency Console
+  - children: []
+    href: troubleshooting-datafile-debugger.html
+    text: Datafile Debugger
+  - children: []
+    href: troubleshooting-arangobench.html
+    text: Arangobench
+  href: troubleshooting.html
+  text: Troubleshooting
+- children:
+  - children: []
+    href: architecture-write-ahead-log.html
+    text: Write-ahead log
+  href: architecture.html
+  text: Architecture
+- children:
+  - children: []
+    href: release-notes-new-features31.html
+    text: Whats New in 3.1
+  - children: []
+    href: release-notes-upgrading-changes31.html
+    text: Incompatible changes in 3.1
+  - children: []
+    href: release-notes-new-features30.html
+    text: Whats New in 3.0
+  - children: []
+    href: release-notes-upgrading-changes30.html
+    text: Incompatible changes in 3.0
+  - children: []
+    href: release-notes-new-features28.html
+    text: Whats New in 2.8
+  - children: []
+    href: release-notes-upgrading-changes28.html
+    text: Incompatible changes in 2.8
+  - children: []
+    href: release-notes-new-features27.html
+    text: Whats New in 2.7
+  - children: []
+    href: release-notes-upgrading-changes27.html
+    text: Incompatible changes in 2.7
+  - children: []
+    href: release-notes-new-features26.html
+    text: Whats New in 2.6
+  - children: []
+    href: release-notes-upgrading-changes26.html
+    text: Incompatible changes in 2.6
+  - children: []
+    href: release-notes-new-features25.html
+    text: Whats New in 2.5
+  - children: []
+    href: release-notes-upgrading-changes25.html
+    text: Incompatible changes in 2.5
+  - children: []
+    href: release-notes-new-features24.html
+    text: Whats New in 2.4
+  - children: []
+    href: release-notes-upgrading-changes24.html
+    text: Incompatible changes in 2.4
+  - children: []
+    href: release-notes-new-features23.html
+    text: Whats New in 2.3
+  - children: []
+    href: release-notes-upgrading-changes23.html
+    text: Incompatible changes in 2.3
+  - children: []
+    href: release-notes-new-features22.html
+    text: Whats New in 2.2
+  - children: []
+    href: release-notes-new-features21.html
+    text: Whats New in 2.1
+  href: release-notes.html
+  text: Release notes
+- children:
+  - children:
+    - children: []
+      href: appendix-references-dbobject.html
+      text: db
+    - children: []
+      href: appendix-references-collection-object.html
+      text: collection
+    href: appendix-references.html
+    text: References
+  - children:
+    - children: []
+      href: appendix-java-script-modules-arango-db.html
+      text: '@arangodb'
+    - children: []
+      href: appendix-java-script-modules-console.html
+      text: console
+    - children: []
+      href: appendix-java-script-modules-crypto.html
+      text: crypto
+    - children: []
+      href: appendix-java-script-modules-file-system.html
+      text: fs
+    - children: []
+      href: appendix-java-script-modules-request.html
+      text: request
+    - children: []
+      href: appendix-java-script-modules-actions.html
+      text: actions
+    - children: []
+      href: appendix-java-script-modules-queries.html
+      text: queries
+    - children: []
+      href: appendix-java-script-modules-wal.html
+      text: Write-ahead log
+    - children: []
+      href: appendix-java-script-modules-tasks.html
+      text: Task Management
+    href: appendix-java-script-modules.html
+    text: JavaScript Modules
+  - children:
+    - children:
+      - children: []
+        href: appendix-deprecated-simple-queries-access.html
+        text: Sequential Access
+      - children: []
+        href: appendix-deprecated-simple-queries-pagination.html
+        text: Pagination
+      - children: []
+        href: appendix-deprecated-simple-queries-modification-queries.html
+        text: Modification Queries
+      - children: []
+        href: appendix-deprecated-simple-queries-geo-queries.html
+        text: Geo Queries
+      - children: []
+        href: appendix-deprecated-simple-queries-fulltext-queries.html
+        text: Fulltext Queries
+      href: appendix-deprecated-simple-queries.html
+      text: Simple Queries
+    - children:
+      - children: []
+        href: appendix-deprecated-actions-html-example.html
+        text: Delivering HTML Pages
+      - children: []
+        href: appendix-deprecated-actions-json-example.html
+        text: Json Objects
+      - children: []
+        href: appendix-deprecated-actions-modifying.html
+        text: Modifying
+      href: appendix-deprecated-actions.html
+      text: Actions
+    href: appendix-deprecated.html
+    text: Deprecated
+  - children: []
+    href: appendix-error-codes.html
+    text: Error codes and meanings
+  - children: []
+    href: appendix-glossary.html
+    text: Glossary
+  href: appendix.html
+  text: Appendix

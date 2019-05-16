@@ -1,0 +1,741 @@
+- children: []
+  href: index.html
+  text: Introduction
+- children:
+  - children: []
+    href: installing-linux.html
+    text: Linux
+  - children: []
+    href: installing-mac-osx.html
+    text: Mac OS X
+  - children: []
+    href: installing-windows.html
+    text: Windows
+  - children: []
+    href: installing-arm.html
+    text: ARM
+  - children: []
+    href: installing-compiling.html
+    text: Compiling
+  - children:
+    - children: []
+      href: upgrading-upgrading-changes28.html
+      text: Incompatible changes in 2.8
+    - children: []
+      href: upgrading-upgrading28.html
+      text: Upgrading to 2.8
+    - children: []
+      href: upgrading-upgrading-changes27.html
+      text: Incompatible changes in 2.7
+    - children: []
+      href: upgrading-upgrading-changes26.html
+      text: Incompatible changes in 2.6
+    - children: []
+      href: upgrading-upgrading26.html
+      text: Upgrading to 2.6
+    - children: []
+      href: upgrading-upgrading-changes25.html
+      text: Incompatible changes in 2.5
+    - children: []
+      href: upgrading-upgrading25.html
+      text: Upgrading to 2.5
+    - children: []
+      href: upgrading-upgrading-changes24.html
+      text: Incompatible changes in 2.4
+    - children: []
+      href: upgrading-upgrading24.html
+      text: Upgrading to 2.4
+    - children: []
+      href: upgrading-upgrading-changes23.html
+      text: Incompatible changes in 2.3
+    - children: []
+      href: upgrading-upgrading23.html
+      text: Upgrading to 2.3
+    - children: []
+      href: upgrading-upgrading22.html
+      text: Upgrading to 2.2
+    href: installing-upgrading.html
+    text: Upgrading
+  - children: []
+    href: installing-cluster.html
+    text: Cluster setup
+  href: installing.html
+  text: Installing
+- children:
+  - children: []
+    href: new-features-new-features27.html
+    text: Whats New in 2.7
+  - children: []
+    href: new-features-new-features26.html
+    text: Whats New in 2.6
+  - children: []
+    href: new-features-new-features25.html
+    text: Whats New in 2.5
+  - children: []
+    href: new-features-new-features24.html
+    text: Whats New in 2.4
+  - children: []
+    href: new-features-new-features23.html
+    text: Whats New in 2.3
+  - children: []
+    href: new-features-new-features22.html
+    text: Whats New in 2.2
+  - children: []
+    href: new-features-new-features21.html
+    text: Whats New in 2.1
+  href: new-features-new-features28.html
+  text: Whats New
+- children:
+  - children: []
+    href: first-steps-getting-familiar.html
+    text: Getting Familiar
+  - children: []
+    href: first-steps-arangod.html
+    text: The ArangoDB Server
+  - children:
+    - children: []
+      href: arangosh-output.html
+      text: Shell Output
+    - children: []
+      href: arangosh-configuration.html
+      text: Configuration
+    - children: []
+      href: first-steps-arangosh.html
+      text: Details
+    href: arangosh.html
+    text: The ArangoDB Shell
+  - children: []
+    href: first-steps-collections-and-documents.html
+    text: Collections
+  href: first-steps.html
+  text: First Steps
+- children: []
+  href: web-interface.html
+  text: ArangoDB Web Interface
+- children:
+  - children: []
+    href: databases-working-with.html
+    text: Working with Databases
+  - children: []
+    href: databases-notes.html
+    text: Notes about Databases
+  href: databases.html
+  text: Creating and Dropping Databases
+- children:
+  - children: []
+    href: collections-collection-methods.html
+    text: Collection Methods
+  - children: []
+    href: collections-database-methods.html
+    text: Database Methods
+  href: collections.html
+  text: Creating and Dropping Collections
+- children:
+  - children: []
+    href: documents-document-address.html
+    text: Address and ETag
+  - children: []
+    href: documents-document-methods.html
+    text: Collection Methods
+  - children: []
+    href: documents-database-methods.html
+    text: Database Methods
+  href: documents.html
+  text: Working with Documents
+- children:
+  - children: []
+    href: index-handling-index-basics.html
+    text: Index Basics
+  - children: []
+    href: index-handling-which-index.html
+    text: Which Index to use when
+  - children: []
+    href: index-handling-how-arango-dbuses-indexes.html
+    text: How ArangoDB uses indexes
+  - children:
+    - children: []
+      href: index-handling-hash.html
+      text: Hash Indexes
+    - children: []
+      href: index-handling-skiplist.html
+      text: Skiplists
+    - children: []
+      href: index-handling-fulltext.html
+      text: Fulltext Indexes
+    - children: []
+      href: index-handling-geo.html
+      text: Geo Indexes
+    - children: []
+      href: index-handling-cap.html
+      text: Cap Constraint
+    href: index-handling-working-with-indexes.html
+    text: Working with Indexes
+  href: index-handling.html
+  text: Indexing
+- children:
+  - children: []
+    href: simple-queries-access.html
+    text: Sequential Access
+  - children: []
+    href: simple-queries-pagination.html
+    text: Pagination
+  - children: []
+    href: simple-queries-modification-queries.html
+    text: Modification Queries
+  - children: []
+    href: simple-queries-geo-queries.html
+    text: Geo Queries
+  - children: []
+    href: simple-queries-fulltext-queries.html
+    text: Fulltext Queries
+  href: simple-queries.html
+  text: Simple Queries
+- children:
+  - children: []
+    href: transactions-transaction-invocation.html
+    text: Transaction invocation
+  - children: []
+    href: transactions-passing.html
+    text: Passing parameters
+  - children: []
+    href: transactions-locking-and-isolation.html
+    text: Locking and isolation
+  - children: []
+    href: transactions-durability.html
+    text: Durability
+  - children: []
+    href: transactions-limitations.html
+    text: Limitations
+  href: transactions.html
+  text: Transactions
+- children:
+  - children: []
+    href: aql-invoke.html
+    text: How to invoke AQL
+  - children: []
+    href: aql-data-modification.html
+    text: Data modification queries
+  - children: []
+    href: aql-optimizer.html
+    text: The AQL query optimizer
+  - children: []
+    href: aql-query-cache.html
+    text: The AQL query result cache
+  - children: []
+    href: aql-basics.html
+    text: Language Basics
+  - children:
+    - children: []
+      href: aql-type-cast-functions.html
+      text: Type cast
+    - children: []
+      href: aql-string-functions.html
+      text: String
+    - children: []
+      href: aql-numeric-functions.html
+      text: Numeric
+    - children: []
+      href: aql-date-functions.html
+      text: Date
+    - children: []
+      href: aql-array-functions.html
+      text: Array
+    - children: []
+      href: aql-document-functions.html
+      text: Object / Document
+    - children: []
+      href: aql-geo-functions.html
+      text: Geo
+    - children: []
+      href: aql-fulltext-functions.html
+      text: Fulltext
+    - children: []
+      href: aql-miscellaneous-functions.html
+      text: Miscellaneous
+    href: aql-functions.html
+    text: Functions
+  - children: []
+    href: aql-query-results.html
+    text: Query Results
+  - children: []
+    href: aql-operators.html
+    text: Operators
+  - children: []
+    href: aql-operations.html
+    text: High level Operations
+  - children:
+    - children: []
+      href: aql-graph-traversals.html
+      text: Traversal
+    - children: []
+      href: aql-graph-operations.html
+      text: Named Operations
+    - children: []
+      href: aql-graph-functions.html
+      text: Other
+    href: aql-graphs.html
+    text: Graphs
+  - children: []
+    href: aql-advanced.html
+    text: Advanced Features
+  - children:
+    - children: []
+      href: aql-extending-conventions.html
+      text: Conventions
+    - children: []
+      href: aql-extending-functions.html
+      text: Registering Functions
+    href: aql-extending.html
+    text: Extending AQL
+  - children:
+    - children: []
+      href: aql-examples-collection-queries.html
+      text: Collection based queries
+    - children: []
+      href: aql-examples-data-modification-queries.html
+      text: Data-modification queries
+    - children: []
+      href: aql-examples-projections-and-filters.html
+      text: Projections and filters
+    - children: []
+      href: aql-examples-join.html
+      text: Joins
+    - children: []
+      href: aql-examples-grouping.html
+      text: Grouping
+    - children: []
+      href: aql-examples-combining-graph-traversals.html
+      text: Traversals
+    href: aql-examples.html
+    text: AQL Examples
+  href: aql.html
+  text: AQL
+- children:
+  - children:
+    - children: []
+      href: general-graphs-management.html
+      text: Graph Management
+    - children: []
+      href: general-graphs-functions.html
+      text: Graph Functions
+    - children: []
+      href: general-graphs-fluent-aqlinterface.html
+      text: Fluent Query Interface
+    href: general-graphs.html
+    text: General Graphs
+  - children:
+    - children: []
+      href: traversals-using-traversal-objects.html
+      text: Using Traversal Objects
+    - children: []
+      href: traversals-example-data.html
+      text: Example Data
+    href: traversals.html
+    text: Traversals
+  - children: []
+    href: edges.html
+    text: Working with Edges
+  href: graphs.html
+  text: Graphs
+- children:
+  - children: []
+    href: foxx-nutshell.html
+    text: In a nutshell
+  - children:
+    - children: []
+      href: foxx-install-github.html
+      text: Github
+    - children: []
+      href: foxx-install-store.html
+      text: Store
+    - children: []
+      href: foxx-install-local.html
+      text: Local
+    - children: []
+      href: foxx-install-remote.html
+      text: Remote
+    - children: []
+      href: foxx-install-generate.html
+      text: Generate
+    href: foxx-install.html
+    text: Install
+  - children:
+    - children: []
+      href: foxx-develop-developmentmode.html
+      text: Dev-Mode
+    - children: []
+      href: foxx-develop-debugging.html
+      text: Debugging
+    - children: []
+      href: foxx-develop-folder.html
+      text: Source Files
+    - children: []
+      href: foxx-develop-controller.html
+      text: Controller
+    - children: []
+      href: foxx-develop-scripts.html
+      text: Scripts
+    - children: []
+      href: foxx-develop-model.html
+      text: Model
+    - children: []
+      href: foxx-develop-repository.html
+      text: Repository
+    - children: []
+      href: foxx-develop-queries.html
+      text: Queries
+    - children: []
+      href: foxx-develop-sessions.html
+      text: Sessions
+    - children: []
+      href: foxx-develop-queues.html
+      text: Background Tasks
+    - children: []
+      href: foxx-develop-console.html
+      text: Console API
+    - children: []
+      href: foxx-develop-manifest.html
+      text: Meta information
+    - children: []
+      href: foxx-develop-exports.html
+      text: Exports
+    - children: []
+      href: foxx-develop-api-documentation.html
+      text: Documentation
+    href: foxx-develop.html
+    text: Development
+  - children:
+    - children: []
+      href: foxx-production-productionmode.html
+      text: Prod-Mode
+    - children: []
+      href: foxx-production-debugging.html
+      text: Debugging
+    - children: []
+      href: foxx-production-upgrade.html
+      text: New Versions
+    href: foxx-production.html
+    text: Production
+  - children:
+    - children: []
+      href: foxx-cluster-install.html
+      text: Install
+    - children: []
+      href: foxx-cluster-scripts.html
+      text: Setup & Teardown
+    href: foxx-cluster.html
+    text: Cluster
+  href: foxx.html
+  text: Foxx
+- children:
+  - children: []
+    href: arango-actions-html-example.html
+    text: Delivering HTML Pages
+  - children: []
+    href: arango-actions-json-example.html
+    text: Json Objects
+  - children: []
+    href: arango-actions-modifying.html
+    text: Modifying
+  href: arango-actions.html
+  text: ArangoDB's Actions
+- children:
+  - children: []
+    href: replication-components.html
+    text: Components
+  - children: []
+    href: replication-example-setup.html
+    text: Example Setup
+  - children: []
+    href: replication-syncing-collections.html
+    text: Syncing Collections
+  - children: []
+    href: replication-limitations.html
+    text: Replication Limitations
+  - children: []
+    href: replication-overhead.html
+    text: Replication Overhead
+  href: replication.html
+  text: Replication
+- children:
+  - children: []
+    href: sharding-how-to.html
+    text: How to try it out
+  - children: []
+    href: sharding-status-of-implementation.html
+    text: Implementation
+  - children: []
+    href: sharding-authentication.html
+    text: Authentication
+  - children: []
+    href: sharding-firewall-setup.html
+    text: Firewall setup
+  href: sharding.html
+  text: Sharding
+- children:
+  - children: []
+    href: configure-arango-arangod.html
+    text: Arangod options
+  - children: []
+    href: configure-arango-wal.html
+    text: Write-ahead log options
+  - children: []
+    href: configure-arango-endpoint.html
+    text: Managing Endpoints
+  - children: []
+    href: configure-arango-cluster.html
+    text: Cluster options
+  - children: []
+    href: configure-arango-logging.html
+    text: Logging options
+  - children: []
+    href: configure-arango-communication.html
+    text: Communication options
+  - children: []
+    href: configure-arango-authentication.html
+    text: Authentication
+  - children: []
+    href: configure-arango-emergency-console.html
+    text: Emergency Console
+  href: configure-arango.html
+  text: Server Configuration
+- children:
+  - children: []
+    href: general-http.html
+    text: General HTTP Handling
+  - children:
+    - children: []
+      href: http-database-database-endpoint.html
+      text: To-Endpoint
+    - children: []
+      href: http-database-database-management.html
+      text: Management
+    - children: []
+      href: http-database-notes-on-databases.html
+      text: Notes on Databases
+    href: http-database.html
+    text: Databases
+  - children:
+    - children: []
+      href: http-document-address-and-etag.html
+      text: Address and ETag
+    - children: []
+      href: http-document-working-with-documents.html
+      text: Working with
+    href: http-document.html
+    text: Documents
+  - children:
+    - children: []
+      href: http-edge-address-and-etag.html
+      text: Address and ETag
+    - children: []
+      href: http-edge-working-with-edges.html
+      text: Working with Edges
+    href: http-edge.html
+    text: Edges
+  - children: []
+    href: http-export.html
+    text: Exporting data
+  - children:
+    - children: []
+      href: http-aql-query-cursor-query-results.html
+      text: Query Results
+    - children: []
+      href: http-aql-query-cursor-accessing-cursors.html
+      text: Accessing Cursors
+    href: http-aql-query-cursor.html
+    text: AQL Query Cursors
+  - children: []
+    href: http-aql-query.html
+    text: AQL Queries
+  - children: []
+    href: http-aql-query-cache.html
+    text: AQL Query Cache
+  - children: []
+    href: http-aql-user-functions.html
+    text: AQL User Functions Management
+  - children: []
+    href: http-simple-query.html
+    text: Simple Queries
+  - children:
+    - children: []
+      href: http-collection-creating.html
+      text: Creating
+    - children: []
+      href: http-collection-getting.html
+      text: Getting Information
+    - children: []
+      href: http-collection-modifying.html
+      text: Modifying
+    href: http-collection.html
+    text: Collections
+  - children:
+    - children: []
+      href: http-indexes-working-with.html
+      text: Working with Indexes
+    - children: []
+      href: http-indexes-cap.html
+      text: Cap Constraints
+    - children: []
+      href: http-indexes-hash.html
+      text: Hash
+    - children: []
+      href: http-indexes-skiplist.html
+      text: Skiplist
+    - children: []
+      href: http-indexes-geo.html
+      text: Geo
+    - children: []
+      href: http-indexes-fulltext.html
+      text: Fulltext
+    href: http-indexes.html
+    text: Indexes
+  - children: []
+    href: http-transaction.html
+    text: Transactions
+  - children:
+    - children: []
+      href: http-gharial-management.html
+      text: Management
+    - children: []
+      href: http-gharial-vertices.html
+      text: Vertices
+    - children: []
+      href: http-gharial-edges.html
+      text: Edges
+    href: http-gharial.html
+    text: General Graph
+  - children: []
+    href: http-traversal.html
+    text: Traversals
+  - children:
+    - children: []
+      href: http-replications-replication-dump.html
+      text: Replication Dump
+    - children: []
+      href: http-replications-replication-logger.html
+      text: Replication Logger
+    - children: []
+      href: http-replications-replication-applier.html
+      text: Replication Applier
+    - children: []
+      href: http-replications-other-replication.html
+      text: Other Replication Commands
+    href: http-replications.html
+    text: Replication
+  - children: []
+    href: http-tasks.html
+    text: Tasks
+  - children: []
+    href: http-administration-and-monitoring.html
+    text: Monitoring
+  - children: []
+    href: http-user-management.html
+    text: User Management
+  - children: []
+    href: http-async-results-management.html
+    text: Async Result
+  - children: []
+    href: http-endpoints.html
+    text: Endpoints
+  - children: []
+    href: http-sharding-interface.html
+    text: Sharding
+  - children: []
+    href: http-miscellaneous-functions.html
+    text: Miscellaneous functions
+  href: http-api.html
+  text: HTTP API
+- children:
+  - children: []
+    href: http-bulk-imports-importing-self-contained.html
+    text: JSON Documents HTTP-API
+  - children: []
+    href: http-bulk-imports-importing-headers-and-values.html
+    text: Headers & Values HTTP-API
+  - children: []
+    href: http-batch-request.html
+    text: Batch Requests HTTP-API
+  - children: []
+    href: http-bulk-imports-arangoimp.html
+    text: Arangoimp
+  - children: []
+    href: http-bulk-imports-arangodump.html
+    text: Arangodump
+  - children: []
+    href: http-bulk-imports-arangorestore.html
+    text: Arangorestore
+  href: http-bulk-imports.html
+  text: Bulk Import / Export
+- children:
+  - children: []
+    href: module-console.html
+    text: '"console"'
+  - children: []
+    href: module-fs.html
+    text: '"fs"'
+  - children: []
+    href: module-process.html
+    text: '"process"'
+  - children: []
+    href: module-request.html
+    text: '"request"'
+  - children: []
+    href: module-actions.html
+    text: '"actions"'
+  - children: []
+    href: module-queries.html
+    text: '"queries"'
+  - children: []
+    href: module-planner.html
+    text: '"planner"'
+  - children: []
+    href: module-wal.html
+    text: Write-ahead log
+  - children: []
+    href: module-tasks.html
+    text: Task Management
+  - children: []
+    href: using-js-unity.html
+    text: Using jsUnity
+  href: module-java-script.html
+  text: JavaScript Modules
+- children: []
+  href: administrating-arango.html
+  text: Administrating ArangoDB
+- children:
+  - children: []
+    href: advanced-arangob.html
+    text: Arangob
+  - children: []
+    href: advanced-write-ahead-log.html
+    text: Write-ahead log
+  - children: []
+    href: advanced-server-internals.html
+    text: Server Internals
+  - children: []
+    href: advanced-datafile-debugger.html
+    text: Datafile Debugger
+  href: advanced.html
+  text: Advanced
+- children:
+  - children: []
+    href: naming-conventions-database-names.html
+    text: Database Names
+  - children: []
+    href: naming-conventions-collection-names.html
+    text: Collection Names
+  - children: []
+    href: naming-conventions-document-keys.html
+    text: Document Keys
+  - children: []
+    href: naming-conventions-attribute-names.html
+    text: Attribute Names
+  href: naming-conventions.html
+  text: Naming Conventions
+- children: []
+  href: error-codes.html
+  text: Error codes and meanings
+- children: []
+  href: glossary.html
+  text: Glossary
