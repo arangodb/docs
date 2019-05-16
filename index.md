@@ -34,7 +34,7 @@ no_redirect: true
 - [ArangoDB-PHP](stable/drivers/php.html)
 - [ArangoDB Go Driver](stable/drivers/go.html)
 
-## Drivers
+## Integrations
 
 - [Spring Data](stable/drivers/spring-data.html)
 - [Spark Connector](stable/drivers/spark-connector.html)
