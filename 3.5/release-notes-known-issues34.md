@@ -26,7 +26,6 @@ ArangoSearch
 | **Date Added:** 2018-12-03 <br> **Component:** ArangoSearch <br> **Deployment Mode:** All <br> **Description:** ArangoSearch index format included starting from 3.4.0-RC.3 is incompatible to earlier released 3.4.0 release candidates. Dump and restore is needed when upgrading from 3.4.0-RC.2 to a newer 3.4.0.x release <br> **Affected Versions:** 3.4.0-RC.5 <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 | **Date Added:** 2019-05-16 <br> **Component:** ArangoSearch <br> **Deployment Mode:** All <br> **Description:** You may experience server slowdowns caused by Views. Removing a collection link from the view configuration mitigates the problem. <br> **Affected Versions:** 3.4.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 
-
 AQL
 ---
 
