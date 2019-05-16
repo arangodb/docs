@@ -208,7 +208,7 @@ To distribute shards onto the new _DBServer_ either click on the
 `Distribute Shards` button at the bottom of the `Shards` page in every
 database.
 
-The cleanOutServer process can be monitored using the following javascript, that can give a 
+The cleanOutServer process can be monitored using the following script, that can give a 
 count of shards that still need to move. Such a script would therefore be a count 
 down to when the process finishes.
 
@@ -257,8 +257,3 @@ arangosh --server.username root --server.password pass --javascript.execute ~./s
 
 Once the count is `0` all `shards` of the underlying DBServer have been moved and the 
 `cleanOutServer` process has finished.
-
-
-
-
-
