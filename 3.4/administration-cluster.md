@@ -212,6 +212,8 @@ The cleanOutServer process can be monitored using the following script, that can
 count of shards that still need to move. Such a script would therefore be a count 
 down to when the process finishes.
 
+`serverCleanMonitor.js`:
+
 ```
 var dblist = db._databases();
 var internal = require("internal");
