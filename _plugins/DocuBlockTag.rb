@@ -130,7 +130,7 @@ class DocuBlockBlock < Liquid::Tag
                     else
                         Jekyll.logger.debug "Missing @startDocuBlock #{line}. Ignoring"
                     end
-                when /^@RESTHEADER\s*{([^,]+),\s*([^\}]+)}/
+                when /^@RESTHEADER\s*{([^,]+),\s*([^,\}]+)/
                     local["header"] = "### #{$2}\n#{local['header']}\n`#{$1}`\n"
                 when /^@RESTDESCRIPTION/
                     currentObject = local
