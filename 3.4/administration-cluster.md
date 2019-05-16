@@ -216,23 +216,27 @@ down to when the process finishes.
 var dblist = db._databases();
 var internal = require("internal");
 var arango = internal.arango;
-var count = 0;
 
 var server = ARGUMENTS[0];
 
-for (dbase in dblist) {
-    var sd = arango.GET("/_db/" + dblist[dbase] + "/_admin/cluster/shardDistribution");
-    var collections = sd.results;
-    for (collection in collections) {
-        var current = collections[collection].Current;
-        for (shard in current) {
-            if (current[shard].leader == server) {
-                ++count;
-            }
-        }
-    }
-}
-console.log("Server %s count is %d", server, count)
+var count;
+do {
+	count = 0;
+	for (dbase in dblist) {
+	    var sd = arango.GET("/_db/" + dblist[dbase] + "/_admin/cluster/shardDistribution");
+	    var collections = sd.results;
+	    for (collection in collections) {
+		var current = collections[collection].Current;
+		for (shard in current) {
+		    if (current[shard].leader == server) {
+			++count;
+		    }
+		}
+	    }
+	}
+	console.log("Server %s count is %d", server, count);
+	internal.wait(5);
+} while (count > 0);
 ```
 
 This script has to be executed in the [`arangosh`](programs-arangosh.html) by issuing the following command:
