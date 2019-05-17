@@ -1,6 +1,6 @@
 ---
 layout: default
-description: This page lists important issues affecting the 3
+description: Known issues of ArangoDB version 3.5.x products
 ---
 Known Issues in ArangoDB 3.5
 ============================
@@ -38,5 +38,5 @@ Other
 
 | Issue      |
 |------------|
-| **Date Added:** 2019-05-16 <br> **Component:** Starter <br> **Deployment Mode:** All <br> **Description:** The ArangoDB Starter falls back to the IP <code>[::1]</code> under macOS. If there is no entry <code>::1  localhost</code> in the <code>/etc/hosts</code> file or the option <code>--starter.disable-ipv6</code> is passed to the starter to use IPv4, then it will hang during startup. <br> **Affected Versions:** 0.14.3 (macOS only) <br> **Fixed in Versions:** - <br> **Reference:** N/A |
+| **Date Added:** 2019-05-16 <br> **Component:** Starter <br> **Deployment Mode:** All <br> **Description:** The ArangoDB Starter falls back to the IP `[::1]` under macOS. If there is no entry `::1  localhost` in the `/etc/hosts` file or the option `--starter.disable-ipv6` is passed to the starter to use IPv4, then it will hang during startup. <br> **Affected Versions:** 0.14.3 (macOS only) <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 | **Date Added:** 2019-05-16 <br> **Component:** arangod <br> **Deployment Mode:** All <br> **Description:** Calling a shutdown endpoint may not result in a proper shutdown while the node/server is still under load. The server processes must be ended manually. <br> **Affected Versions:** 3.5.0-RC.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
