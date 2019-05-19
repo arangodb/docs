@@ -5,91 +5,91 @@ arangosh&gt; db.mps_verts.toArray();
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"F"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_verts/F"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YqzIA0u--D"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YrHpFQK--B"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"A"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_verts/A"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YqzIA0m--_"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YrHpFP6--_"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"E"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_verts/E"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YqzIA0u--B"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YrHpFQK--_"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"C"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_verts/C"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YqzIA0q--B"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YrHpFQC--_"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"D"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_verts/D"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YqzIA0u--_"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YrHpFQG--_"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_verts/B"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YqzIA0q--_"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YrHpFQ---_"</span> 
   } 
 ]
 arangosh&gt; db.mps_edges.toArray();
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132065"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132065"</span>, 
-    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"mps_verts/B"</span>, 
-    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"mps_verts/C"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YqzIA0y--D"</span>, 
-    <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"B"</span> 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132081"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132081"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"mps_verts/A"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"mps_verts/E"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YrHpFQS--_"</span>, 
+    <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"A"</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132071"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132071"</span>, 
-    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"mps_verts/E"</span>, 
-    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"mps_verts/F"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YqzIA0y--H"</span>, 
-    <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"E"</span> 
-  }, 
-  { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132062"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132062"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132084"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132084"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"mps_verts/A"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"mps_verts/D"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YqzIA0y--B"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YrHpFQW--_"</span>, 
     <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"A"</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132055"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132055"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132077"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132077"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"mps_verts/A"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"mps_verts/B"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YqzIA0u--F"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YrHpFQO--_"</span>, 
     <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"A"</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132074"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132074"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132096"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132096"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"mps_verts/F"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"mps_verts/C"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YqzIA02--_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YrHpFQe--_"</span>, 
     <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"F"</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132068"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132068"</span>, 
-    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"mps_verts/D"</span>, 
-    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"mps_verts/C"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YqzIA0y--F"</span>, 
-    <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"D"</span> 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132093"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132093"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"mps_verts/E"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"mps_verts/F"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YrHpFQa--B"</span>, 
+    <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"E"</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132059"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132059"</span>, 
-    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"mps_verts/A"</span>, 
-    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"mps_verts/E"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YqzIA0y--_"</span>, 
-    <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"A"</span> 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132087"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132087"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"mps_verts/B"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"mps_verts/C"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YrHpFQW--B"</span>, 
+    <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"B"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132090"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"mps_edges/132090"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"mps_verts/D"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"mps_verts/C"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YrHpFQa--_"</span>, 
+    <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"D"</span> 
   } 
 ]
 arangosh&gt; examples.dropGraph(<span class="hljs-string">"mps_graph"</span>);
