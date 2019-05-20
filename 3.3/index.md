@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Welcome to the ArangoDB documentation!
+page-toc:
+  disable: true
 ---
 ArangoDB {{ site.data.versions[page.version.name] }} Documentation
 =====================================
