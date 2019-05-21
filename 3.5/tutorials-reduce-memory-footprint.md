@@ -1,9 +1,26 @@
 ---
 layout: default
-description: Reducing the Memory Footprint
+description: Reducing the Memory Footprint of ArangoDB servers
 ---
-Reducing the Memory Footprint
-=====================================
+Reducing the Memory Footprint of ArangoDB servers
+=================================================
+
+ArangoDB's memory usage can be restricted and the CPU utilization be reduced
+by different configuration options:
+
+- storage engine (this tutorial focuses on the RocksDB engine)
+- edge cache
+- server statistics
+- background threads
+- V8 (JavaScript features)
+- operating system / memory allocator (Linux)
+
+There are settings to make it run on systems with very limited resources, but
+they may also be interesting for your development machine if you want to make it
+less taxing for the hardware and do not work with much data. For production
+environments, we recommend to use less restrictive settings, to
+[benchmark](https://www.arangodb.com/performance/) your setup and fine-tune
+the settings for maximal performance.
 
 Let us assume our test system is a big server with many cores and a lot of
 memory. However, we intend to run other services on this machine as well.
@@ -12,7 +29,7 @@ in version 3.4 tries to use as much memory as possible. Using memory accesses
 instead of disk accesses is faster and in the database business performance
 rules. ArangoDB comes with a default configuration with that in mind. But
 sometimes being a little less grabby on system resources may still be fast
-enough, for example if your working data set isn’t huge. The goal is to reduce
+enough, for example if your working data set is not huge. The goal is to reduce
 the overall memory footprint.
 
 There are the following big areas, which might eat up memory:
@@ -31,7 +48,7 @@ to disk. In order to support high write loads, RocksDB might open a lot of these
 memory buffers.
 
 Under normal write load, the write buffers will use less than 1 GByte of memory.
-If you are tight on memory, or your usage pattern doesn’t require this, you can
+If you are tight on memory, or your usage pattern does not require this, you can
 reduce these [RocksDB settings](programs-arangod-rocksdb.html):
 
 ``` 
@@ -63,7 +80,7 @@ These settings are the counterpart of the settings from the previous section.
 As soon as the memory buffers have been persisted to disk, answering read
 queries implies to read them back into memory. The above option will limit the
 number of cached buffers to a few megabytes. If possible, this setting should be
- configured as large as the hot-set size of your dataset.
+configured as large as the hot-set size of your dataset.
 
 These restrictions may have an impact on query performance.
 
@@ -75,7 +92,7 @@ Edge-Cache
 ```
 
 This option limits the ArangoDB edge [cache](programs-arangod-cache.html) to 10
-MB. If you don’t have a graph use-case and don’t use edge collections, it is
+MB. If you do not have a graph use-case and do not use edge collections, it is
 possible to use the minimum without a performance impact. In general, this
 should correspond to the size of the hot-set.
 
@@ -89,24 +106,24 @@ Query Memory Usage
 
 By default, queries will build up their full results in memory. While you can
 fetch the results batch by batch by using a cursor, every query needs to compute
- the entire result first before you can retrieve the first batch. The server
+the entire result first before you can retrieve the first batch. The server
 also needs to hold the results in memory until the corresponding cursor is fully
- consumed or times out. Building up the full results reduces the time the server
- has to work with collections at the cost of main memory.
+consumed or times out. Building up the full results reduces the time the server
+has to work with collections at the cost of main memory.
 
 In ArangoDB version 3.4 we introduced
 [streaming cursors](release-notes-new-features34.html#streaming-aql-cursors) with
 somewhat inverted properties: less peak memory usage, longer access to the
 collections. Streaming is possible on document level, which means that it can not
 be applied to all query parts. For example, a *MERGE()* of all results of a
-subquery can’t be streamed (the result of the operation has to be built up fully).
+subquery can not be streamed (the result of the operation has to be built up fully).
 Nonetheless, the surrounding query may be eligible for streaming.
 
 Aside from streaming cursors, ArangoDB offers the possibility to specify a
-memory limit which a query shouldn’t exceed. If it does, the query will be
+memory limit which a query should not exceed. If it does, the query will be
 aborted. Memory statistics are checked between execution blocks, which
 correspond to lines in the *explain* output. That means queries which require
-functions may require more memory for intermediate processing, but this won’t
+functions may require more memory for intermediate processing, but this will not
 kill the query because the memory.
 
 You can use *LIMIT* operations in AQL queries to reduce the number of documents
@@ -116,8 +133,8 @@ computed before any limit is applied. Recently, we added a new ability to the
 optimizer: the
 [Sort-Limit Optimization in AQL](https://www.arangodb.com/2019/03/sort-limit-optimization-aql/).
 In short, a *SORT* combined with a *LIMIT* operation only keeps as many documents
-in memory during sorting as the subsequent *LIMIT* requires. This improvement
-will ship with ArangoDB v3.5.0.
+in memory during sorting as the subsequent *LIMIT* requires. This optimization
+is applied automatically beginning with ArangoDB v3.5.0.
 
 Statistics
 ----------
@@ -126,8 +143,9 @@ The server collects
 [statistics](programs-arangod-server.html#toggling-server-statistics) regularly,
 which it shows you in the web interface. You will have a light query load even
 if your application is idle because of the statistics. You can disable them if
-desired:	
-``` 
+desired:
+
+```
 --server.statistics false
 ```
 
@@ -157,7 +175,7 @@ JavaScript:
 This will limit the number of V8 isolates to two. All JavaScript related
 requests will be queued up until one of the isolates becomes available for the
 new task. It also restricts the heap size to 512 MByte, so that both V8 contexts
- combined can’t use more than 1 GByte of memory in the worst case.
+combined can not use more than 1 GByte of memory in the worst case.
 
 ### V8 for the Desperate
 
@@ -200,7 +218,7 @@ because certain cluster operations depend on it.
 CPU usage
 ---------
 
-We can’t really reduce CPU usage, but the number of threads running in parallel.
+We can not really reduce CPU usage, but the number of threads running in parallel.
 Again, you should not do this unless there are very good reasons, like an
 embedded system. Note that this will limit the performance for concurrent
 requests, which may be okay for a local development system with you as only 
@@ -222,7 +240,7 @@ for parallel execution it is possible to reduce this.
 
 This option will make logging synchronous:
 
-``` 
+```
 --log.force-direct true
 ```
 
@@ -233,7 +251,7 @@ Examples
 
 In general, you should adjust the read buffers and edge cache on a standard
 server. If you have a graph use-case, you should go for a larger edge cache. For
- example, split the memory 50:50 between read buffers and edge cache. If you
+example, split the memory 50:50 between read buffers and edge cache. If you
 have no edges then go for a minimal edge cache and use most of the memory for
 the read buffers.
 
@@ -252,7 +270,7 @@ especially production, these settings are not recommended.
 Linux System Configuration
 --------------------------
 
-The main deployment target for ArangoDB is Linux. As you’ve learned above
+The main deployment target for ArangoDB is Linux. As you have learned above
 ArangoDB and its innards work a lot with memory. Thus its vital to know how
 ArangoDB and the Linux kernel interact on that matter. The linux kernel offers
 several modes of how it will manage memory. You can influence this via the proc
@@ -261,11 +279,8 @@ your system will apply to the kernel settings at boot time. The settings as
 named below are intended for the sysctl infrastructure, meaning that they map
 to the `proc` filesystem as `/proc/sys/vm/overcommit_memory`.
 
-After studying the kernel documentation our former recommendation was to set
-`vm.overcommit_memory` to **2** – which we (and others) found out is **not good
-in all situations**. It seems that there is an issue with this setting in
-combination with the bundled memory allocator ArangoDB ships with (jemalloc) in
-some environments.
+A `vm.overcommit_memory` setting of **2** can cause issues in some environments
+in combination with the bundled memory allocator ArangoDB ships with (jemalloc).
 
 The allocator demands consecutive blocks of memory from the kernel, which are
 also mapped to on-disk blocks. This is done on behalf of the server process
@@ -285,21 +300,21 @@ environments.
 
 Another issue when running jemalloc with `vm.overcommit_memory` set to **2** is
 that for some workloads the amount of memory that the Linux kernel tracks as
-“*committed memory*” also grows over time and never decreases. Eventually,
+*committed memory* also grows over time and never decreases. Eventually,
 *arangod* may not get any more memory simply because it reaches the configured
 overcommit limit (physical RAM * `overcommit_ratio` + swap space).
 
-The solution is to modify the value of `vm.overcommit_memory` from **2** to
-either **0** or **1**. This will fix both of these problems. We still observe
-ever-increasing *virtual memory* consumption when using jemalloc regardless of
-the overcommit setting, but in practice this should not cause any issues.
-Adjusting the value to either **0** or **1** should improve the situation. **0**
-is the Linux kernel default and also the setting we recommend.
+The solution is to
+[modify the value of `vm.overcommit_memory`](installation-linux-osconfiguration.html#over-commit-memory)
+from **2** to either **0** or **1**. This will fix both of these problems.
+We still observe ever-increasing *virtual memory* consumption when using
+jemalloc regardless of the overcommit setting, but in practice this should not
+cause any issues. **0** is the Linux kernel default and also the setting we recommend.
 
 For the sake of completeness, let us also mention another way to address the
 problem: use a different memory allocator. This requires to compile ArangoDB
 from the source code without jemalloc (`-DUSE_JEMALLOC=Off` in the call to cmake).
-With the system’s libc allocator you should see quite stable memory usage. We
+With the system's libc allocator you should see quite stable memory usage. We
 also tried another allocator, precisely the one from `libmusl`, and this also
 shows quite stable memory usage over time. What holds us back to change the
 bundled allocator are that it is a non-trivial change and because jemalloc has
@@ -329,25 +344,5 @@ significantly throttle the load to ~50%. This is expected according to the
 > of the limit. If the actual memory is over the limit, more aggressive flush
 > may also be triggered even if total mutable memtable size is below 90%.
 
-Since we only measured the disk I/O bytes, we don’t see that the document save
+Since we only measured the disk I/O bytes, we do not see that the document save
 operations also doubled in request time.
-
-Summary
--------
-
-We showed how ArangoDB’s memory usage can be restricted and the CPU utilization
-be reduced by different configuration options:
-
-- storage engine (RocksDB)
-- edge cache
-- server statistics
-- background threads
-- V8 (JavaScript features)
-- operating system / memory allocator (Linux)
-
-There are settings to make it run on systems with very limited resources, but
-they may also be interesting for your development machine if you want to make it
-less taxing for the hardware and don’t work with much data. For production
-environments, we recommend to use less restrictive settings, to
-[benchmark](https://www.arangodb.com/performance/) your setup and fine-tune
-the settings for maximal performance.
