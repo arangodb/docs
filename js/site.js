@@ -4,8 +4,10 @@ var versionSwitcherSetAvailable = function(versions) {
     var item = options.item(i);
     if (versions.indexOf(item.value) != -1) {
       item.removeAttribute("disabled");
+      item.removeAttribute("title");
     } else {
       item.setAttribute("disabled", "");
+      item.setAttribute("title", "This page is not available in version " + item.value);
     }
   }
 };
