@@ -56,7 +56,7 @@ However the graph module adds an additional layer on top of these collections gi
 * If you delete a vertex all edges will be deleted, you will never have loose ends
 * If you insert an edge it is checked if the edge matches the *edge definitions*, your edge collections will only contain valid edges
 
-These guarantees are lost if you access the collections in any other way than the graph module or AQL,
+These guarantees are lost if you access the collections in any other way than the graph module,
 so if you delete documents from your vertex collections directly, the edges pointing to them will be remain in place.
 
 Anonymous graphs
