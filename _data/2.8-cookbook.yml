@@ -1,190 +1,130 @@
-- children: []
+- text: Introduction
   href: index.html
-  text: Introduction
-- children: []
+- text: Modelling Document Inheritance
   href: modul-document-inheritance.html
-  text: Modelling Document Inheritance
-- children: []
+- text: Accessing Shapes Data
   href: accessing-shapes-data.html
-  text: Accessing Shapes Data
 - subtitle: AQL
-- children: []
+- text: Using Joins in AQL
   href: joins-in-aql.html
-  text: Using Joins in AQL
-- children: []
+- text: Using Dynamic Attribute Names
   href: using-dynamic-attribute-names.html
-  text: Using Dynamic Attribute Names
-- children: []
+- text: Finding Leaf Nodes in a Graph
   href: finding-leaf-nodes-graph.html
-  text: Finding Leaf Nodes in a Graph
-- children: []
+- text: Filtering Nodes in a Graph
   href: filtering-nodes-graph.html
-  text: Filtering Nodes in a Graph
-- children: []
+- text: Counting Nodes efficiently
   href: counting-nodes-efficiently-graph.html
-  text: Counting Nodes efficiently
-- children: []
+- text: Creating Test-data using AQL
   href: creating-test-data-aql.html
-  text: Creating Test-data using AQL
-- children: []
+- text: Diffing Documents
   href: diffing-documents.html
-  text: Diffing Documents
-- children: []
+- text: Avoiding Parameter Injection
   href: avoiding-injection.html
-  text: Avoiding Parameter Injection
-- children: []
+- text: Multiline Query Strings
   href: multiline-query-strings.html
-  text: Multiline Query Strings
 - subtitle: Graph-based Recipes
-- children: []
+- text: Fulldepth Graph-Traversal
   href: fulldepth.html
-  text: Fulldepth Graph-Traversal
-- children: []
+- text: Vertices for Subgraphs
   href: finding-connected-vertices-for-subgraphs.html
-  text: Vertices for Subgraphs
-- children: []
+- text: Vertex example with Java
   href: java-driver-graph-example-vertex.html
-  text: Vertex example with Java
-- children: []
+- text: Accessing base documents with Java
   href: java-driver-base-document.html
-  text: Accessing base documents with Java
-- children: []
+- text: Using a custom Visitor
   href: using-custom-visitor-from-node-js.html
-  text: Using a custom Visitor
-- children: []
+- text: Example AQL Queries for Graphs
   href: graph-example-actors-and-movies.html
-  text: Example AQL Queries for Graphs
-- children: []
+- text: Add XML data to ArangoDB with Java
   href: java-driver-xml-data.html
-  text: Add XML data to ArangoDB with Java
 - subtitle: Foxx Framework
-- children: []
+- text: My first Foxx App
   href: foxx-first-steps.html
-  text: My first Foxx App
-- children: []
+- text: My first Foxx App pre-2.4
   href: foxx-first-steps-legacy.html
-  text: My first Foxx App pre-2.4
-- children: []
+- text: Adding Authentication
   href: foxx-auth.html
-  text: Adding Authentication
-- children: []
+- text: Adding Authentication pre-2.5
   href: foxx-auth-legacy.html
-  text: Adding Authentication pre-2.5
-- children: []
+- text: Using external APIs
   href: making-requests.html
-  text: Using external APIs
-- children: []
+- text: Background jobs
   href: foxx-queues.html
-  text: Background jobs
-- children: []
+- text: legacy background jobs
   href: foxx-queues-legacy.html
-  text: legacy background jobs
-- children: []
+- text: legacy custom Background jobs
   href: foxx-custom-queue-jobs-legacy.html
-  text: legacy custom Background jobs
-- children: []
+- text: Creating a Foxx script
   href: foxx-scripts.html
-  text: Creating a Foxx script
-- children: []
+- text: Custom job types for Queues
   href: foxx-custom-queue-jobs.html
-  text: Custom job types for Queues
-- children: []
+- text: My first FoxxGenerator App
   href: foxx-generator-first-steps.html
-  text: My first FoxxGenerator App
-- children: []
+- text: How to deploy a Foxx App
   href: foxx-deploy.html
-  text: How to deploy a Foxx App
-- children: []
+- text: Apps accessible from the Web
   href: making-foxx-app-accessible.html
-  text: Apps accessible from the Web
-- children: []
+- text: API-Key Management
   href: foxx-api-keys.html
-  text: API-Key Management
-- children: []
+- text: Handling Binary HTTP documents in Foxx
   href: foxx-binary-file-uploads.html
-  text: Handling Binary HTTP documents in Foxx
-- children: []
+- text: Sending Binary HTTP documents from Foxx
   href: foxx-binary-http-post.html
-  text: Sending Binary HTTP documents from Foxx
-- children: []
+- text: Foxx Testing
   href: foxx-testing.html
-  text: Foxx Testing
-- subtitle: Use Cases, Examples
-- children: []
+- subtitle: 'Use Cases, Examples'
+- text: Crawling Github with Promises
   href: crawling-github-promises.html
-  text: Crawling Github with Promises
-- children: []
+- text: Using ArangoDB with Sails.js
   href: using-arango-dbwith-sails-js.html
-  text: Using ArangoDB with Sails.js
-- children: []
+- text: Populating a Textbox
   href: populating-an-autocomplete-textbox.html
-  text: Populating a Textbox
-- children: []
+- text: Exporting Data
   href: exporting-data.html
-  text: Exporting Data
 - subtitle: ArangoDB Setup / Administration
-- children: []
+- text: Using Authentication
   href: using-authentication.html
-  text: Using Authentication
-- children: []
+- text: Importing Data
   href: importing-data.html
-  text: Importing Data
-- children: []
+- text: Replicating Data
   href: replicating-data.html
-  text: Replicating Data
-- children: []
+- text: XCopy Install Windows
   href: xcopy-install-windows.html
-  text: XCopy Install Windows
-- children:
-  - children: []
-    href: compiling-on-debian.html
-    text: Compile on Debian
-  - children: []
-    href: compiling-under-windows.html
-    text: Compile on Windows
-  - children: []
-    href: compiling-under-windows-legacy.html
-    text: Compile on Windows pre-2.4
-  - children: []
-    href: running-custom-build.html
-    text: Running Custom Build
+- text: Compiling / Build
   href: compiling.html
-  text: Compiling / Build
-- subtitle: Cloud, DCOS and Docker
-- children: []
+  children:
+    - text: Compile on Debian
+      href: compiling-on-debian.html
+    - text: Compile on Windows
+      href: compiling-under-windows.html
+    - text: Compile on Windows pre-2.4
+      href: compiling-under-windows-legacy.html
+    - text: Running Custom Build
+      href: running-custom-build.html
+- subtitle: 'Cloud, DCOS and Docker'
+- text: Running on AWS
   href: running-on-aws.html
-  text: Running on AWS
-- children: []
+- text: Update on AWS
   href: update-arango-dbon-aws.html
-  text: Update on AWS
-- children: []
+- text: Running on Azure
   href: using-arango-dbazure.html
-  text: Running on Azure
-- children: []
+- text: Docker ArangoDB
   href: running-in-docker-container.html
-  text: Docker ArangoDB
-- children: []
+- text: Docker with NodeJS App
   href: using-arango-dbnode-jsdocker.html
-  text: Docker with NodeJS App
-- children: []
+- text: In the GiantSwarm
   href: using-arango-dbin-giant-swarm.html
-  text: In the GiantSwarm
-- children: []
+- text: ArangoDB in Mesos
   href: using-arango-dbmesosphere.html
-  text: ArangoDB in Mesos
 - subtitle: Monitoring
-- children: []
+- text: Monitoring with Collectd
   href: monitoring-with-collectd.html
-  text: Monitoring with Collectd
-- children: []
+- text: Collectd - Replication Slaves
   href: monitoring-slave-status.html
-  text: Collectd - Replication Slaves
-- children: []
+- text: Collectd - Network usage
   href: monitoring-traffic-with-ipaccounting.html
-  text: Collectd - Network usage
-- children: []
+- text: Collectd - more Metrics
   href: monitoring-other-relevant-metrics.html
-  text: Collectd - more Metrics
-- children: []
+- text: Collectd - Monitoring Foxx
   href: monitoring-foxx-apps.html
-  text: Collectd - Monitoring Foxx
