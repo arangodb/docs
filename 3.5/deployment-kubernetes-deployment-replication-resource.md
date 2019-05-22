@@ -198,9 +198,11 @@ The process for creating and using an access package for authentication at the s
 - Wait for the `ArangoDeployment` operator to create a `Secret` named `my-access-package`.
 - Extract the access package from the Kubernetes source cluster using:
 
+{% raw %}
 ```bash
 kubectl get secret my-access-package --template='{{index .data "accessPackage.yaml"}}' | base64 -D > accessPackage.yaml
 ```
+{% endraw %}
 
 - Insert the secrets found in the access package in the Kubernetes destination cluster using:
 

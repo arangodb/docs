@@ -560,7 +560,7 @@ This is what you must do in that case.
    succeed. In that case use `arangosync abort sync ...`. 
    <br/>See [Configuration](#stop-synchronization) for how to cleanup the source datacenter when 
    it becomes available again.
-2. Verify that configuration has completely stopped using `arangosync get status ... -v`.
+2. Verify that synchronization has completely stopped using `arangosync get status ... -v`.
 3. Reconfigure your applications to use the target (backup) datacenter.
 
 When the original source datacenter is restored, you may switch roles and 

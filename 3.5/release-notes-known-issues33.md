@@ -1,6 +1,6 @@
 ---
 layout: default
-description: This page lists important issues affecting the 3
+description: Known issues of ArangoDB version 3.3.x products
 ---
 Known Issues in ArangoDB 3.3
 ============================

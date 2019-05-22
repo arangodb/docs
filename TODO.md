@@ -1,6 +1,5 @@
 # TODO
 
-- make version selector in _includes/topnav.html dynamic
 - create a proper swagger json tag:
 
     ```
