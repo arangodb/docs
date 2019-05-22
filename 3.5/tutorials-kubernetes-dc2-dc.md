@@ -42,10 +42,12 @@ Set:
 
 Run:
 
+{% raw %}
 ```bash
 kubectl get secret src-accesspackage --template='{{index .data "accessPackage.yaml"}}' | \
   base64 -D > accessPackage.yaml
 ```
+{% endraw %}
 
 ## Step 3: Configure source DNS names
 

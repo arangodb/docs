@@ -8,7 +8,7 @@ description: Starting an ArangoDB database (either single server or full blown c
 Starting an ArangoDB database (either single server or full blown cluster)
 on Kubernetes involves a lot of resources.
 
-The servers needs to run in `Pods`, you need `Secrets` for authentication,
+The servers need to run in `Pods`, you need `Secrets` for authentication,
 TLS certificates and `Services` to enable communication with the database.
 
 Use `kube-arangodb`, the ArangoDB Kubernetes Operator to greatly simplify

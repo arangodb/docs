@@ -69,7 +69,7 @@ db._createEdgeCollection("edges", {
 
 You will need to ensure that edge documents contain the proper values in their sharding attribute.
 For a vertex document with the following content `{ _key: "A", value: 0 }`
-the corresponding edge documents would have look like this:
+the corresponding edge documents would have to look like this:
 
 ```js
 { "_from":"vertices/A", "_to": "vertices/B", "vertex": "A" }
@@ -154,9 +154,9 @@ The object returned by the `status` method might for example look something like
 ### Canceling an Execution / Discarding results
 
 To cancel an execution which is still running, and discard any intermediate results you can use the `cancel` method.
-This will immediately  free all memory taken up by the execution, and will make you lose all intermediary data. 
+This will immediately free all memory taken up by the execution, and will make you lose all intermediary data. 
 
-You might get inconsistent results if you cancel an execution while it is already in it's `done` state. The data is written
+You might get inconsistent results if you cancel an execution while it is already in its `done` state. The data is written
 multi-threaded into all collection shards at once, this means there are multiple transactions simultaneously. A transaction might
 already be committed when you cancel the execution job, therefore you might see the result in your collection. This does not apply
 if you configured the execution to not write data into the collection.
@@ -173,8 +173,8 @@ AQL integration
 ArangoDB supports retrieving temporary Pregel results through the ArangoDB query language (AQL). 
 When our graph processing subsystem finishes executing an algorithm, the result can either be written back into the 
 database or kept in memory. In both cases the result can be queried via AQL. If the data was not written to the database
-store it is only held temporarily, until the user calls the `cancel` methodFor example a user might want to query
-only nodes with the most rank from the result set of a PageRank execution. 
+store it is only held temporarily, until the user calls the `cancel` method. For example, a user might want to query
+only nodes with the highest rank from the result set of a PageRank execution. 
 
 ```js
 FOR v IN PREGEL_RESULT(<handle>)
@@ -182,13 +182,29 @@ FOR v IN PREGEL_RESULT(<handle>)
   RETURN v._key
 ```
 
+By default, the `PREGEL_RESULT` AQL function will return the `_key` of each vertex plus the result
+of the computation. In case the computation was done for vertices from different vertex collection,
+just the `_key` values may not be sufficient to tell vertices from different collections apart. In 
+this case, the `PREGEL_RESULT` can be given a second parameter `withId`, which will make it return
+the `_id` values of the vertices as well:
+
+```js
+FOR v IN PREGEL_RESULT(<handle>, true)
+  FILTER v.value >= 0.01
+  RETURN v._id
+```
+
+Please note that `PREGEL_RESULT` will only work for results of Pregel jobs that were stored with
+the `store` parameter set to `false` in their job configuration.
+
+
 Available Algorithms
 --------------------
 
 There are a number of general parameters which apply to almost all algorithms:
-* `store`: Is per default *true*, the Pregel engine will write results back to the database.
-  If the value is *false* then you can query the results via AQL,
-  see [AQL integration](#aql-integration).
+* `store`: Defaults to *true*. If true, the Pregel engine will write results back to the database.
+  If the value is *false* then you can query the results via AQL.
+  See [AQL integration](#aql-integration).
 * `maxGSS`: Maximum number of global iterations for this algorithm
 * `parallelism`: Number of parallel threads to use per worker. Does not influence the number of threads used to load
   or store data from the database (this depends on the number of shards).

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: This Section includes information related to the administration of an ArangoDB Cluster
+description: ArangoDB Cluster Administration
 ---
 Cluster Administration
 ======================
@@ -154,7 +154,7 @@ Moving/Rebalancing _shards_
 ---------------------------
 
 A _shard_ can be moved from a _DBServer_ to another, and the entire shard distribution
-can be rebalanced using the correponding buttons in the web [UI](programs-web-interface-cluster.html).
+can be rebalanced using the corresponding buttons in the web [UI](programs-web-interface-cluster.html).
 
 Replacing/Removing a _Coordinator_
 ----------------------------------
@@ -164,7 +164,7 @@ removed without more consideration than meeting the necessities of the
 particular installation. 
 
 To take out a _Coordinator_ stop the
-_Coordinator_'s instance by issueing `kill -SIGTERM <pid>`.
+_Coordinator_'s instance by issuing `kill -SIGTERM <pid>`.
 
 Ca. 15 seconds later the cluster UI on any other _Coordinator_ will mark
 the _Coordinator_ in question as failed. Almost simultaneously, a trash bin
@@ -181,23 +181,23 @@ Replacing/Removing a _DBServer_
 -------------------------------
 
 _DBServers_ are where the data of an ArangoDB cluster is stored. They
-do not publish a we UI and are not meant to be accessed by any other
+do not publish a web UI and are not meant to be accessed by any other
 entity than _Coordinators_ to perform client requests or other _DBServers_
 to uphold replication and resilience.
 
-The clean way of removing a _DBServer_ is to first releave it of all
+The clean way of removing a _DBServer_ is to first relieve it of all
 its responsibilities for shards. This applies to _followers_ as well as
 _leaders_ of shards. The requirement for this operation is that no
 collection in any of the databases has a `relicationFactor` greater or
-equal to the current number of _DBServers_ minus one. For the pupose of
+equal to the current number of _DBServers_ minus one. For the purpose of
 cleaning out `DBServer004` for example would work as follows, when
 issued to any _Coordinator_ of the cluster:
 
-`curl <coord-ip:coord-port>/_admin/cluster/cleanOutServer -d '{"id":"DBServer004"}'`
+`curl <coord-ip:coord-port>/_admin/cluster/cleanOutServer -d '{"server":"DBServer004"}'`
 
 After the _DBServer_ has been cleaned out, you will find a trash bin
 icon to the right of the name of the _DBServer_ on any _Coordinators_'
-UI. Clicking on it will remove the _DBServer_ in questiuon from the
+UI. Clicking on it will remove the _DBServer_ in question from the
 cluster.
 
 Firing up any _DBServer_ from a clean data directory by specifying the
@@ -208,3 +208,70 @@ To distribute shards onto the new _DBServer_ either click on the
 `Distribute Shards` button at the bottom of the `Shards` page in every
 database.
 
+The clean out process can be monitored using the following script,
+which periodically prints the amount of shards that still need to be moved.
+It is basically a countdown to when the process finishes.
+
+Save below code to a file named `serverCleanMonitor.js`:
+
+```js
+var dblist = db._databases();
+var internal = require("internal");
+var arango = internal.arango;
+
+var server = ARGUMENTS[0];
+var sleep = ARGUMENTS[1] | 0;
+
+if (!server) {
+    print("\nNo server name specified. Provide it like:\n\narangosh <options> -- DBServerXXXX");
+    process.exit();
+}
+
+if (sleep <= 0) sleep = 10;
+console.log("Checking shard distribution every %d seconds...", sleep);
+
+var count;
+do {
+    count = 0;
+    for (dbase in dblist) {
+        var sd = arango.GET("/_db/" + dblist[dbase] + "/_admin/cluster/shardDistribution");
+        var collections = sd.results;
+        for (collection in collections) {
+        var current = collections[collection].Current;
+        for (shard in current) {
+            if (current[shard].leader == server) {
+            ++count;
+            }
+        }
+        }
+    }
+    console.log("Shards to be moved away from node %s: %d", server, count);
+    if (count == 0) break;
+    internal.wait(sleep);
+} while (count > 0);
+```
+
+This script has to be executed in the [`arangosh`](programs-arangosh.html)
+by issuing the following command:
+
+```
+arangosh --server.username <username> --server.password <password> --javascript.execute <path/to/serverCleanMonitor.js> -- DBServer<number>
+```
+
+The output should be similar to the one below:
+
+```
+arangosh --server.username root --server.password pass --javascript.execute ~./serverCleanMonitor.js -- DBServer0002
+[7836] INFO Checking shard distribution every 10 seconds...
+[7836] INFO Shards to be moved away from node DBServer0002: 9
+[7836] INFO Shards to be moved away from node DBServer0002: 4
+[7836] INFO Shards to be moved away from node DBServer0002: 1
+[7836] INFO Shards to be moved away from node DBServer0002: 0
+```
+
+The current status is logged every 10 seconds. You may adjust the
+interval by passing a number after the DBServer name, e.g.
+`arangosh <options> -- DBServer0002 60` for every 60 seconds.
+
+Once the count is `0` all shards of the underlying DBServer have been moved
+and the `cleanOutServer` process has finished.

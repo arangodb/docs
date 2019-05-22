@@ -58,13 +58,19 @@ the edge can now be executed in a more optimized way, e.g.
 
 is fully covered by the RocksDB edge index. 
 
-For MMFiles this optimization does not apply.
+For MMFiles this rule does not apply.
 
 ### AQL syntax improvements
 
 AQL now allows the usage of floating point values without leading zeros, e.g.
 `.1234`. Previous versions of ArangoDB required a leading zero in front of
 the decimal separator, i.e `0.1234`.
+
+### k Shortest Paths queries
+
+AQL now allows to perform k Shortest Paths queries, that is, query a number of
+paths of increasing length from a start vertex to a target vertex. For more details,
+see the [k Shortest Paths documentation](aql/graphs-kshortest-paths.html).
 
 
 Smart Joins
@@ -249,6 +255,19 @@ Please note that this API is only meaningful and available on a cluster coordina
 
 The HTTP API for running Foxx service tests now supports a `filter` attribute,
 which can be used to limit which test cases should be executed.
+
+
+### Stream Transaction API
+
+There is a new HTTP API for transactions. This API allows clients to add operations to a
+transaction in a streaming fashion. A transaction can consist of a series of supported
+transactional operations, followed by a commit or abort command.
+This allows clients to construct larger transactions in a more efficent way than
+with JavaScript-based transactions.
+
+Note that this requires client applications to abort transactions which are no 
+longer necessary. Otherwise resources and locks acquired by the transactions
+will hang around until the server decides to garbage-collect them.
 
 
 Web interface
@@ -487,10 +506,6 @@ option `--log.ids false` when starting arangod or any of the client tools.
 Internal
 --------
 
-The ArangoDB static executables on Linux are now built with the `-static-pie` option,
-which allows the operating system to load the binaries to arbitrary addresses in memory and
-apply address space layout randomization. 
-
 We have moved from C++11 to C++14, which allows us to use some of the simplifications,
 features and guarantees that this standard has in stock.
 To compile ArangoDB from source, a compiler that supports C++14 is now required.
@@ -499,3 +514,6 @@ The bundled JEMalloc memory allocator used in ArangoDB release packages has been
 upgraded from version 5.0.1 to version 5.2.0.
 
 The bundled version of the RocksDB library has been upgraded from 5.16 to 6.0.
+
+The unit test framework has been changed from catch to googletest. This change also
+renames a CMake configuration variable from `USE_CATCH_TESTS` to `USE_GOOGLE_TESTS`.

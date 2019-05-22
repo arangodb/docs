@@ -49,22 +49,22 @@ HTTP REST API
 -------------
 The following APIs have been added:
 
-- [the new Stream Transaction API](http/transaction.html) (DML)
-- [the new ArangoSearch Analyzer management API](http/analyzers.html) (DDL)
-- [the management of the new TTL indices](http/indexes-ttl.html) (DDL); this enhances the existing index-API.
-- [query the actual shard a document lives in](http/collection-getting.html#return-responsible-shard-for-a-document) (Debugging)
+- [the new Stream Transaction API](http/transaction.html)
+- [the new ArangoSearch Analyzer management API](http/analyzers.html)
+- [the management of the new TTL indices](http/indexes-ttl.html); this enhances the existing index-API
+- [query the actual shard a document lives in](http/collection-getting.html#return-responsible-shard-for-a-document)
 
 The following APIs have been expanded:
   
-- [the arangosearch management API has the new `commitIntervalMsec` attribute in all routes](views-arango-search.html) (DDL)
-- Indices can now have names (DDL)
-- the new TTL-Index type has been added. (DDL) 
-- [Collection creation now knows the `smartJoinAttribute` parameter](data-modeling-collections-collection-methods.html) (DDL)
-- [`filter` foxx-tests](http/foxx-miscellaneous.html) (Testing)
+- [the arangosearch management API has the new `commitIntervalMsec` attribute in all routes](views-arango-search.html)
+- Indexes can now have user-defined names
+- the new "ttl" index type has been added to the [index creation API](http/indexes.html)
+- [Collection creation API now provides the `smartJoinAttribute` parameter](data-modeling-collections-collection-methods.html)
+- [`filter` foxx-tests](http/foxx-miscellaneous.html) for testing
 
-The following Documentations have been enhanced:
+The following documentation has been enhanced:
 
-- the [Collection creation and fetching its properties](http/collection-creating.html) documentation have been made more precise, you may want to check your implementation (DDL)
+- the documentation for [collection creation and fetching its properties](http/collection-creating.html) has been made more precise
 
 Web interface
 -------------
@@ -78,13 +78,18 @@ quasi-numerical values has been removed when doing the sorting in the web interf
 Therefore a document with a key value "10" will now be displayed before a document
 with a key value of "9".
 
-### Removal of index types "skiplist" and "persistent" (RocksDB engine)
+### Removal of index types "hash" and "skiplist" from the web UI (RocksDB engine)
 
-For the RocksDB engine, the selection of index types "persistent" and "skiplist" 
+For the RocksDB engine, the selection of index types "hash" and "skiplist" 
 has been removed from the web interface when creating new indexes. 
 
 The index types "hash", "skiplist" and "persistent" are just aliases of each other 
 when using the RocksDB engine, so there is no need to offer all of them in parallel.
+
+We found that offering the different types of indexes while in fact they were the
+same often confused end users. We opted for keeping "persistent" because from the
+candidates "hash", "skiplist" and "persistent" only "persistent" is actually a valid
+description of the index capabilities/implementation.
 
 
 AQL
@@ -142,3 +147,9 @@ On Linux, ArangoDB will now show a startup warning in case the kernel setting
 `vm.overcommit_memory` is set to a value of 2 and the jemalloc memory allocator 
 is in use. This combination does not play well together, and may lead to the 
 kernel denying arangod's memory allocation requests in more cases than necessary.
+
+Usage of V8
+-----------
+
+`ArangoQueryStreamCursor.id()` used to return a 32 bit number, and will now
+return a string as similar places where V8 has representations of ArangoDB IDs.

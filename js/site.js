@@ -1,3 +1,15 @@
+var versionSwitcherSetAvailable = function(versions) {
+  var options = document.querySelector(".arangodb-version-switcher").options;
+  for (var i = 0; i < options.length; i++) {
+    var item = options.item(i);
+    if (versions.indexOf(item.value) != -1) {
+      item.removeAttribute("disabled");
+    } else {
+      item.setAttribute("disabled", "");
+    }
+  }
+};
+
 var anchorForId = function(id) {
   var anchor = document.createElement("a");
   anchor.className = "header-link";
@@ -25,7 +37,7 @@ var enableHamburger = function enableHamburger() {
     $('div.book').toggleClass("without-summary");
     $('div.book').toggleClass("with-summary");
   })
-}
+};
 
 var linkify = function() {
   var contentBlock = document.getElementsByClassName("book-body")[0];
@@ -110,6 +122,13 @@ $(document).ready(function handleNav() {
 });
 
 $(document).ready(enableHamburger); 
+
+$(document).ready(function hideSummaryOnMobile() {
+  if (window.matchMedia("(max-width: 800px)").matches) {
+    $('div.book').toggleClass("without-summary");
+    $('div.book').toggleClass("with-summary");
+  }
+})
 
 var generateToc = function() {
   var contentBlock = document.getElementsByClassName("book-body")[0];

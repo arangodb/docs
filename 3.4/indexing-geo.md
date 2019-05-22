@@ -1,13 +1,14 @@
 ---
 layout: default
-description: ArangoDB features a Google S2 based geospatial index
+description: ArangoDB features a Google S2 based geospatial indexsince version 3
 ---
 Geo-Spatial Indexes
 ===================
 
-ArangoDB features a [Google S2](http://s2geometry.io/){:target="_blank"} based geospatial index.
-We support indexing on a subset of the [**GeoJSON**](#geojson) standard
-(as well as simple latitude longitude pairs).
+ArangoDB features a [Google S2](http://s2geometry.io/){:target="_blank"} based geospatial index
+since version 3.4.0, which supersedes the previous geo index implementation.
+Indexing is supported for a subset of the [**GeoJSON**](#geojson) geometry types
+as well as simple latitude longitude pairs.
 
 AQL's geospatial functions and GeoJSON constructors are described in
 [Geo functions](aql/functions-geo.html).
@@ -178,7 +179,7 @@ FOR x IN geo_collection
   RETURN x
 ```
 
-The first parameter of `GEO_CONTAINS` must be a polygon. Other types are not valid. 
+The first parameter of `GEO_INTERSECTS` must be a polygon. Other types are not valid. 
 The second parameter must contain the document field on which the index was created.
 
 
