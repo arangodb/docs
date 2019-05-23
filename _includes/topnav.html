@@ -1,28 +1,28 @@
 <div class="arangodb-header">
     <div class="arangodb-logo">
       <a href="https://arangodb.com/">
-        <img src="/docs/assets/arangodb_logo_2016.png">
+        <img src="/docs/assets/arangodb_logo_2016.png" alt="ArangoDB Logo">
       </a>
     </div>
     <div class="arangodb-logo-small">
       <a href="https://arangodb.com/">
-        <img src="/docs/assets/arangodb_logo_small_2016.png">
+        <img src="/docs/assets/arangodb_logo_small_2016.png" alt="ArangoDB Logo">
       </a>
     </div>
     <select class="arangodb-version-switcher">
-      {% for v in page.versions %}
-        {% if v.version.tag == "devel" %}
-          {% assign version_number = "devel" %}
-        {% else %}
-          {% assign version_number = v.version.name %}
-        {% endif %}
-        {% if v.version.tag %}
-          {% assign version_alias = v.version.tag %}
-        {% else %}
-          {% assign version_alias = v.version.name %}
-        {% endif %}
-        <option value="{{ version_alias }}" {% unless v.url %}disabled{% endunless %}>{{ version_number }}</option>
-      {% endfor %}
+      {%- for v in page.versions -%}
+        {%- if v.version.tag == "devel" -%}
+          {%- assign version_number = "devel" -%}
+        {%- else -%}
+          {%- assign version_number = v.version.name -%}
+        {%- endif -%}
+        {%- if v.version.tag -%}
+          {%- assign version_alias = v.version.tag -%}
+        {%- else -%}
+          {%- assign version_alias = v.version.name -%}
+        {%- endif %}
+        <option value="{{ version_alias }}"{% unless v.url %} disabled{% endunless %}>{{ version_number }}</option>
+      {%- endfor %}
     </select>
     <script type="text/javascript">
       var versionAliases = {{ site.versions|jsonify }};
@@ -31,7 +31,7 @@
       var selectedVersion = current.split('/')[4];
       var switcher = document.querySelector(".arangodb-version-switcher");
 
-      for (var i=0;i<switcher.options.length;i++) {
+      for (var i = 0; i < switcher.options.length; i++) {
         var value = switcher.options.item(i).value;
         if (value == selectedVersion) {
           switcher.value = value;
@@ -48,45 +48,45 @@
         location.href = newUrl;
       });
     </script>
-    {% assign version = page.url | split: "/" | slice: 1 | first %}
-    {% assign versionPath = version %}
-    {% assign selected = page.url | split: "/" | slice: 2 | first %}
-    {% for valias in site.versions %}
-      {% if valias[1] == version %}
-        {% assign versionPath = valias[0] %}
-      {% endif %}
-    {% endfor %}
-    {% if selected contains ".html" %}
-    {% assign selected = "manual" %}
-    {% endif %}
-    {% assign grr = page.url | split: "/" | size %}
-    {% if grr < 3 %}
-    {% assign selected = "manual" %}
-    {% endif %}
+    {%- assign version = page.url | split: "/" | slice: 1 | first -%}
+    {%- assign versionPath = version -%}
+    {%- assign selected = page.url | split: "/" | slice: 2 | first -%}
+    {%- for valias in site.versions -%}
+      {%- if valias[1] == version -%}
+        {%- assign versionPath = valias[0] -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if selected contains ".html" -%}
+    {%- assign selected = "manual" -%}
+    {%- endif -%}
+    {%- assign grr = page.url | split: "/" | size -%}
+    {%- if grr < 3 -%}
+    {%- assign selected = "manual" -%}
+    {%- endif %}
     <ul class="arangodb-navmenu">
       <li{% if selected == "manual" %} class="active-tab"{% endif %}>
         <a href="/docs/{{ versionPath }}/" data-book="Manual">Manual</a>
       </li>
-      {% if site.data.books[version] contains "aql" %}
+      {%- if site.data.books[version] contains "aql" %}
       <li{% if selected == "aql" %} class="active-tab"{% endif %}>
         <a href="/docs/{{ versionPath }}/aql/" data-book="AQL">AQL</a>
       </li>
-      {% endif %}
-      {% if site.data.books[version] contains "http" %}
+      {%- endif -%}
+      {%- if site.data.books[version] contains "http" %}
       <li{% if selected == "http" %} class="active-tab"{% endif %}>
         <a href="/docs/{{ versionPath }}/http/" data-book="HTTP">HTTP</a>
       </li>
-      {% endif %}
-      {% if site.data.books[version] contains "cookbook" %}
+      {%- endif -%}
+      {%- if site.data.books[version] contains "cookbook" %}
       <li{% if selected == "cookbook" %} class="active-tab"{% endif %}>
         <a href="/docs/{{ versionPath }}/cookbook/" data-book="Cookbook">Cookbook</a>
       </li>
-      {% endif %}
-      {% if site.data.books[version] contains "drivers" %}
+      {%- endif -%}
+      {%- if site.data.books[version] contains "drivers" %}
       <li{% if selected == "drivers" %} class="active-tab"{% endif %}>
         <a href="/docs/{{ versionPath }}/drivers/" data-book="Drivers">Drivers</a>
       </li>
-      {% endif %}
+      {%- endif %}
       <li class="downloadIcon" title="Download">
         <a href="https://www.arangodb.com/download-arangodb-docs" target="_blank">
           <i class="fa fa-download"></i>
