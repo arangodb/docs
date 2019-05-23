@@ -293,6 +293,7 @@ conditions.
 FOR i IN 1..3 FILTER ASSERT(i > 0, "i is not greater 0") RETURN i
 FOR i IN 1..3 FILTER WARN(i < 2, "i is not smaller 2") RETURN i
 ```
+
 ### CALL()
 
 `CALL(funcName, arg1, arg2, ... argN) → retVal`

@@ -27,6 +27,7 @@ Mount       Name          Author          Description                           
 ---------   -----------   -------------   -----------------------------------------   --------   ------------
 0 application(s) found
 ```
+
 Effects
 -------
 
@@ -47,6 +48,7 @@ For more information see the [Debugging](foxx-production-debugging.html) section
 
 Considerations for production environments
 ------------------------------------------
+
 So you have created your server side application utilizing Foxx services as their backend. 
 To get optimal performance you may want to implement [an HTTP connection pool using keepalive](general-http.html#http-keep-alive).
 

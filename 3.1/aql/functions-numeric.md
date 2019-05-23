@@ -242,6 +242,7 @@ LOG10(10000) // 10
 LOG10(10) // 1
 LOG10(0) // null
 ```
+
 ### MAX()
 
 `MAX(anyArray) → max`
