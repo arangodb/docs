@@ -63,6 +63,7 @@ The following fields are allowed in manifests:
 - **configuration**: `Object` (optional)
 
   An object defining the [configuration options](foxx-reference-configuration.html) this service requires.
+
 - **defaultDocument**: `string` (optional)
 
   If specified, the `/` (root) route of the service will automatically redirect

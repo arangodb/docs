@@ -10,6 +10,7 @@ Every service comes with a `manifest.json` file providing metadata. The followin
 * **configuration**: `Object` (optional)
 
   An object defining the [configuration options](foxx-configuration.html) this service requires.
+
 * **defaultDocument**: `string` (optional)
 
   If specified, the `/` (root) route of the service will automatically redirect to the given relative path, e.g.:
@@ -34,6 +35,7 @@ Every service comes with a `manifest.json` file providing metadata. The followin
 * **dependencies**: `Object` (optional) and **provides**: `Object` (optional)
 
   Objects specifying other services this service has as [dependencies](foxx-dependencies.html) and what dependencies it can provide to other services.
+
 * **engines**: `Object` (optional)
 
   An object indicating the [semantic version ranges](http://semver.org){:target="_blank"} of ArangoDB (or compatible environments) the service will be compatible with, e.g.:

@@ -10,6 +10,7 @@ Every service comes with a `manifest.json` file providing metadata. The followin
 * **configuration**: `Object` (optional)
 
   An object defining the [configuration options](foxx-configuration.html) this service requires.
+
 * **defaultDocument**: `string` (optional)
 
   If specified, the `/` (root) route of the service will automatically redirect to the given relative path, e.g.:
