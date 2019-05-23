@@ -424,8 +424,6 @@ The length of a path is by default the amount of edges from one start vertex to
 an end vertex. The option weight allows the user to define an edge attribute
 representing the length.
 
-<!-- TODO mchacki: das hier ist geloescht, wollen wir darueber etwas schreiben?  The complexity of the function is described [here](aql/graphs-operations.html#the-complexity-of-the-shortest-path-algorithms). -->
-
 
 **Parameters**
 
@@ -548,8 +546,6 @@ of the vertices defined by the examples.
 The function accepts an id, an example, a list of examples or even an empty
 example as parameter for vertexExample.
 
-<!-- TODO mchacki: das hier ist geloescht, wollen wir darueber etwas schreiben?  The complexity of the function is described [here](aql/graphs-operations.html#the-complexity-of-the-shortest-path-algorithms). -->
-
 
 **Parameters**
 
@@ -631,8 +627,6 @@ of the vertices defined by the examples.
 
 Similar to [_absoluteEccentricity](#_absoluteeccentricity) but returns a normalized result.
 
-<!-- TODO mchacki: das hier ist geloescht, wollen wir darueber etwas schreiben?  The complexity of the function is described [here](aql/graphs-operations.html#the-complexity-of-the-shortest-path-algorithms). -->
-
 
 **Examples**
 
@@ -676,8 +670,6 @@ of the vertices defined by the examples.
 
 The function accepts an id, an example, a list of examples or even an empty
 example as parameter for *vertexExample*.
-
-<!-- TODO mchacki: das hier ist geloescht, wollen wir darueber etwas schreiben?  The complexity of the function is described [here](aql/graphs-operations.html#the-complexity-of-the-shortest-path-algorithms).-->
 
 
 **Parameters**
@@ -760,8 +752,6 @@ of graphs vertices.
 
 Similar to [_absoluteCloseness](#_absolutecloseness) but returns a normalized value.
 
-<!-- TODO mchacki: das hier ist geloescht, wollen wir darueber etwas schreiben?  The complexity of the function is described [here](aql/graphs-operations.html#the-complexity-of-the-shortest-path-algorithms). -->
-
 
 **Examples**
 
@@ -816,8 +806,6 @@ Get the
 of all vertices in the graph.
 
 `graph._absoluteBetweenness(vertexExample, options)`
-
-<!-- TODO mchacki: das hier ist geloescht, wollen wir darueber etwas schreiben?  The complexity of the function is described [here](aql/graphs-operations.html#the-complexity-of-the-shortest-path-algorithms). -->
 
 
 **Parameters**
@@ -944,8 +932,6 @@ of a graph.
 
 `
 
-<!-- TODO mchacki: das hier ist geloescht, wollen wir darueber etwas schreiben?  The complexity of the function is described [here](aql/graphs-operations.html#the-complexity-of-the-shortest-path-algorithms).-->
-
 
 **Parameters**
 
@@ -1015,8 +1001,6 @@ Get the
 of a graph.
 
 `graph._diameter(graphName, options)`
-
-<!-- TODO mchacki: das hier ist geloescht, wollen wir darueber etwas schreiben?  The complexity of the function is described [here](aql/graphs-operations.html#the-complexity-of-the-shortest-path-algorithms).-->
 
 
 **Parameters**

@@ -243,8 +243,6 @@ effect and might fully be removed in a future version of ArangoDB:
 - `--ruby.startup-directory`
 - `--server.disable-replication-logger`
 
-<!-- Michaels new features for graph -->
-
 Multi Collection Graphs
 -----------------------
 ArangoDB is a multi model database with native graph support.
@@ -267,5 +265,3 @@ Multi collection graphs have been added to AQL as well.
 Basic functionality (getting vertices, edges, neighbors) can be executed using the entire graph.
 Also more advanced features like shortest path calculations, characteristic factors of the graph or traversals have been integrated into AQL.
 For these functions all graphs created with the graph module can be used.
-
-<!-- End of Michaels new features -->

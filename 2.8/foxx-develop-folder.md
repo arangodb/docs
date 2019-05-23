@@ -41,7 +41,6 @@ Windows: C:\Program Files\ArangoDB\js\apps\_db\_system\example\APP
 Before 2.5 the folder was constructed using application name and version.
 That was necessary because installation was a two step process:
 
-<!-- <div class="versionDifference"-->
 1. Including the Application sources into ArangoDB (and creating the folder)
 2. Mounting the application to one specific mountpoint
 
@@ -52,6 +51,5 @@ However it turned out that this is rarely the case and the overhead by having re
 So we decided to entirely remove the staging and make installation an one step process without caching old versions of an app.
 This means if you now **uninstall** an application it is removed from file system.
 Before 2.5 you had to **purge** the application to make sure it is removed.
-<!-- </div> -->
 
 Now you can start modifying the files located there. As a good entry you should start with the [Controller](foxx-develop-controller.html)

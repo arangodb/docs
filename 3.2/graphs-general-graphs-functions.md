@@ -787,9 +787,6 @@ of all vertices in the graph.
 
 `graph._absoluteBetweenness(vertexExample, options)`
 
-<!-- TODO mchacki: das hier ist geloescht, wollen wir darueber etwas schreiben?  The complexity of the function is described [here] (../../../AQL/Graphs/Operations.html#the-complexity-of-the-shortest-path-algorithms). -->
-
-
 **Parameters**
 
 - vertexExample (optional) Filter the vertices, see [Definition of examples](#definition-of-examples)
