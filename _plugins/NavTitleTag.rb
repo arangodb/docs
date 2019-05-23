@@ -7,9 +7,9 @@ class NavTitleTag < Liquid::Tag
     end
 
     def findTitle(context, root, stack)
-        # root url (3.4/Manual et al)...doesn't have a nav item
+        # Root URLs like /3.4/index.md don't have a nav title, set a default
         if context["page"]["url"].end_with?("/")
-            return stack.join " | "
+            return stack.push "Introduction"
         end
         if !root
             return nil
@@ -18,13 +18,13 @@ class NavTitleTag < Liquid::Tag
             return nil
         end
 
-        root.each.with_index { |element, index |
+        root.each.with_index { | element, index |
             if element["href"]
                 if context.environments.first["page"]["url"] == context.environments.first["page"]["dir"] + element["href"]
-                    return (stack + [element["text"]]).join(" | ")
+                    return ([element["text"]] + stack)
                 end
                 if element["children"]
-                    result = findTitle(context, element["children"], stack + [element["text"]])
+                    result = findTitle(context, element["children"], [element["text"]] + stack)
                     if result
                         return result
                     end
@@ -35,16 +35,23 @@ class NavTitleTag < Liquid::Tag
     end
 
     def render(context)
+
+        # navvar could also be computed here, but it is also needed in topnav.html
+        #var = context["page"]["dir"].gsub(/^\/|\.|\/$/, "").gsub("/", "-")
+        #var << "-manual" if var.length == 2
+
         var = context.evaluate(@variable_name_expr)
         parsed = context["site"]["data"][var]
 
-        stack = []
+        stack = findTitle(context, parsed, [])
 
-        title = findTitle(context, parsed, stack)
-        if !title
+        if !stack || stack.length == 0
             raise "No title found for #{context.environments.first["page"]["url"]}. Maybe you forgot to link it to the navigation?"
         end
-        title + " | " + var.gsub(/\d{2}-(.*)/, '\1').capitalize + " | ArangoDB Documentation"
+
+        book = var.gsub(/\d{2}-(.*)/, '\1').capitalize().sub("Aql", "AQL").sub("Http", "HTTP")
+        stack.push book if book
+        stack.join " | "
     end
 end
 Liquid::Template.register_tag('navtitle', NavTitleTag)

@@ -3,16 +3,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="{{ page.canonical | absolute_url }}">
 {% comment -%}
-Figure out where we are at and compute navvar (e.g. 34-manual, 34-aql, ...)
+Figure out where we are at and compute navvar from folder path, e.g.
+/3.4/ --> 34-manual
+/3.4/aql/ --> 34-aql
 {%- endcomment -%}
-{%- capture navvar %}{{ page.dir| replace_first: "/", "" | replace: "/", "-" | replace: ".", ""  | split: "" | reverse | join: ""| replace_first: "-", "" | split: "" | reverse | join: "" }}{% endcapture -%}
-{%- assign navvarsize = navvar|size %}{%- if navvarsize == 2 %}{% assign navvar = navvar | append: "-manual" %}{% endif %}
-<title>{% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %}</title>
+{%- capture navvar %}{{ page.dir | replace_first: "/", "" | replace: "/", "-" | replace: ".", ""  | split: "" | reverse | join: "" | replace_first: "-", "" | split: "" | reverse | join: "" }}{% endcapture -%}
+{%- assign navvarsize = navvar | size %}{%- if navvarsize == 2 %}{% assign navvar = navvar | append: "-manual" %}{% endif %}
+<title>{% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %} | ArangoDB Documentation</title>
 <meta itemprop="description" name="description" content="{% if page.description %}{{ page.description | truncate: 160 }}{% else %}{{ site.description | truncate: 160  }}{% endif %}" />
 <meta name="robots" content="{% if page.version.tag == "devel" %}noindex, nofollow{% else %}index, follow{% endif %}" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta property="og:url" content="{{ page.canonical | absolute_url }}" />
-<meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %}" />
+<meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %} | ArangoDB Documentation" />
 <meta property="og:type" content="website" />
 <meta property="og:description" content="{% if page.description %}{{ page.description | truncate: 200 }}{% else %}{{ site.description | truncate: 200  }}{% endif %}" />
 
