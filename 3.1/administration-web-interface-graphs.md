@@ -15,7 +15,6 @@ Please note that the graph viewer requires canvas (optional: webgl)  support
 in your browser. Especially Internet Explorer browsers older than version 9
 are likely to not support this.
 
-<!-- Graph Viewer -->
 Graph Viewer
 ======
 

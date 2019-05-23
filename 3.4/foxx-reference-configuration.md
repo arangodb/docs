@@ -62,8 +62,6 @@ status code indicating a server-side error.
 The configuration parameters of a mounted service can be adjusted from the
 web interface by clicking the *Configuration* button in the service details.
 
-<!-- TODO (Link to admin docs) -->
-
 **Examples**
 
 ```json

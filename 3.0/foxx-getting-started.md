@@ -71,29 +71,17 @@ Try it out
 
 At this point you can upload the service folder as a zip archive from the web interface using the *Services* tab.
 
-<!-- TODO [Screenshot of the Services tab with no services listed] -->
-
 Click *Add Service* then pick the *Zip* option in the dialog. You will need to provide a *mount path*, which is the URL prefix at which the service will be mounted (e.g. `/getting-started`).
-
-<!-- TODO [Screenshot of the Add Service dialog with the Zip tab active] -->
 
 Once you have picked the zip archive using the file picker, the upload should begin immediately and your service should be installed. Otherwise press the *Install* button and wait for the dialog to disappear and the service to show up in the service list.
 
-<!-- TODO [Screenshot of the Services tab with the getting-started service listed] -->
-
 Click anywhere on the card with your mount path on the label to open the service's details.
 
-<!-- TODO [Screenshot of the details for the getting-started service] -->
-
 In the API documentation you should see the route we defined earlier (`/hello-world`) with the word `GET` next to it indicating the HTTP method it supports and the `summary` we provided on the right. By clicking on the route's path you can open the documentation for the route.
-
-<!-- TODO [Screenshot of the API docs with the hello-world route open] -->
 
 Note that the `description` we provided appears in the generated documentation as well as the description we added to the `response` (which should correctly indicate the content type `text/plain`, i.e. plain text).
 
 Click the *Try it out!* button to send a request to the route and you should see an example request with the service's response: "Hello World!".
-
-<!-- TODO [Screenshot of the API docs after the request] -->
 
 Congratulations! You have just created, installed and used your first Foxx service.
 
@@ -125,8 +113,6 @@ The path parameters are accessible from the `pathParams` property of the request
 
 Note that routes with path parameters that fail to validate for the request URL will be skipped as if they wouldn't exist. This allows you to define multiple routes that are only distinguished by the schemas of their path parameters (e.g. a route taking only numeric parameters and one taking any string as a fallback).
 
-<!-- TODO [Screenshot of the API docs after a request to /hello/world] -->
-
 Let's take this further and create a route that takes a JSON request body:
 
 ```js
@@ -156,8 +142,6 @@ As this route not only expects a JSON object as input but also responds with a J
 Because we're passing a schema to the `response` method we don't need to explicitly tell Foxx we are sending a JSON response. The presence of a schema in the absence of a content type always implies we want JSON. Though we could just add `["application/json"]` as an additional argument after the schema if we wanted to make this more explicit.
 
 The `body` method works the same way as the `response` method except the schema will be used to validate the request body. If the request body can't be parsed as JSON or doesn't match the schema, Foxx will reject the request with an appropriate error response.
-
-<!-- TODO [Screenshot of the API docs after a request with an array of numbers] -->
 
 Creating collections
 --------------------
@@ -200,8 +184,6 @@ Next we need to tell our service about the script by adding it to the manifest f
 The only thing that has changed is that we added a "scripts" field specifying the path of the setup script we just wrote.
 
 Go back to the web interface and update the service with our new code, then check the *Collections* tab. If everything worked right, you should see a new collection called "myFoxxCollection".
-
-<!-- TODO [Screenshot of the Collections tab with "myFoxxCollection" in the list] -->
 
 Accessing collections
 ---------------------
@@ -308,5 +290,3 @@ You now know how to create a Foxx service from scratch, how to handle user input
 * Need to integrate external services? You can [make HTTP requests](foxx-modules.html) from inside Foxx and use [queued jobs](foxx-scripts.html) to perform that work in the background.
 
 * Tired of reinventing the wheel? Learn about [dependencies](foxx-dependencies.html).
-
-<!-- TODO * Everything broken? You can [write tests] (Testing md) to make sure your logic remains sound. -->
