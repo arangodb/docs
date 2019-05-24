@@ -103,7 +103,7 @@ FOR path
 - `IN` `OUTBOUND|INBOUND|ANY`: defines in which direction
   edges are followed (outgoing, incoming, or both)
 - `K_SHORTEST_PATHS`: the keyword to compute k Shortest Paths
-- **startVertex** `TO` **targetVertex** (both string|object): the two vertices between
+- **startVertex** `TO` **targetVertex** (both string\|object): the two vertices between
   which the paths will be computed. This can be specified in the form of
   a ID string or in the form of a document with the attribute `_id`. All other
   values will lead to a warning and an empty result. If one of the specified

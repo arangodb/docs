@@ -65,7 +65,7 @@ translate one of them, you would need to find all other character documents
 with the same trait and perform the changes there too. If we only refer to a
 trait in another collection, it is as easy as updating a single document.
 
-<!-- What if Trait doc is deleted? DOCUMENT() skips null -->
+{%- comment %}What if Trait doc is deleted? DOCUMENT() skips null{% endcomment %}
 
 ![Data model comparison](../images/Comparison_DataModels.png)
 
@@ -123,7 +123,6 @@ FOR c IN Characters
 ]
 ```
 
-<!-- Obsolete if we add a chapter about attribute manipulation -->
 Also see the [Fundamentals of Objects / Documents](fundamentals-data-types.html#objects--documents)
 about attribute access.
 
@@ -278,29 +277,3 @@ FOR c IN Characters
 The `MERGE()` functions merges objects together. Because we used an object
 `{ traits: ... }` which has the same attribute name *traits* as the original
 character attribute, the latter is overwritten by the merge.
-
-<!-- extend later, possibly move to a second article about joins
-     (also show how this would be done in relational world with a cross table?)
-
-Join another way
-----------------
-
-There is another, more flexible syntax for joins: nested `FOR` loops over
-multiple collections, with a `FILTER` condition to match up attributes.
-In case of the traits key array, there needs to be a third loop to iterate
-over the keys:
-
-`js
-FOR c IN Characters
-  RETURN MERGE(c, {
-    traits: (
-      FOR key IN c.traits
-        FOR t IN Traits
-          FILTER t._key == key
-          RETURN t.en
-    )
-  })
-`
-
-The result is identical to the previous example.
--->

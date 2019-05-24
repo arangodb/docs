@@ -54,8 +54,6 @@ If the configuration has parameters that do not specify a default value, you nee
 
 The configuration parameters of a mounted service can be adjusted from the web interface by clicking the *Configuration* button in the service details.
 
-<!-- TODO (Link to admin docs) -->
-
 **Examples**
 
 ```json

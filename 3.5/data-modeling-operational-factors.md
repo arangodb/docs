@@ -132,8 +132,6 @@ Always consider the additional space requirements of extra indexes when
 planning server capacities. For more information on indexes see
 [Index Basics](indexing-index-basics.html).
 
-<!-- TODO eventually add a page on capacity planning -->
-
 Number of Databases and Collections
 -----------------------------------
 

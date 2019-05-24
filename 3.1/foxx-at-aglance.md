@@ -31,8 +31,6 @@ Development mode allows you to make changes to deployed services in-place direct
 
 You can toggle development mode on and off in the service settings tab of the web interface. Once activated the service's file system path will be shown in the info tab.
 
-<!-- TODO (Add link to relevant aardvark docs) -->
-
 Once enabled the service's source files and manifest will be re-evaluated every time a route of the service is accessed, effectively re-deploying the service on every request. As the name indicates this is intended to be used strictly during development and is most definitely a bad idea on production servers.
 
 Also note that if you are serving static files as part of your service, accessing these files from a browser may also trigger a re-deployment of the service. Finally, making HTTP requests to a service running in development mode from within the service (i.e. using the `@arangodb/request` module to access the service itself) is probably not a good idea either.
@@ -45,8 +43,6 @@ Foxx store
 The Foxx store provides access to a number of ready-to-use official and community-maintained Foxx services you can install with a single click, including example services and wrappers for external SaaS tools like transactional e-mail services, bug loggers or analytics trackers.
 
 You can find the Foxx store in the web interface by using the *Add Service* button in the service list.
-
-<!-- TODO (Add link to relevant aardvark docs) -->
 
 Cluster-Foxx
 ------------

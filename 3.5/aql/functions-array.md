@@ -34,7 +34,7 @@ It can also be used to append a single element to an array. It is not necessary 
 it in an array (unless it is an array itself). You may also use [PUSH()](#push) instead.
 
 - **anyArray** (array): array with elements of arbitrary type
-- **values** (array|any): array, whose elements shall be added to *anyArray*
+- **values** (array\|any): array, whose elements shall be added to *anyArray*
 - **unique** (bool, *optional*): if set to *true*, only those *values* will be added
   that are not already contained in *anyArray*. The default is *false*.
 - returns **newArray** (array): the modified array
@@ -100,7 +100,7 @@ This is an alias for [COUNT_DISTINCT()](#count_distinct).
 Get the first element of an array. It is the same as `anyArray[0]`.
 
 - **anyArray** (array): array with elements of arbitrary type
-- returns **firstElement** (any|null): the first element of *anyArray*, or *null* if
+- returns **firstElement** (any\|null): the first element of *anyArray*, or *null* if
   the array is empty.
 
 **Examples**
@@ -190,7 +190,7 @@ RETURN INTERSECTION( [2,4,6], [8,10,12], [14,16,18] )
 Get the last element of an array. It is the same as `anyArray[-1]`.
 
 - **anyArray** (array): array with elements of arbitrary type
-- returns **lastElement** (any|null): the last element of *anyArray* or *null* if the
+- returns **lastElement** (any\|null): the last element of *anyArray* or *null* if the
   array is empty.
 
 **Example**
@@ -215,15 +215,15 @@ Determine the number of elements in an array.
 of an object / document, the [amount of documents](functions-miscellaneous.html#length) in a
 collection and the [character length](functions-string.html#length) of a string.
 
-|input|length|
-|---|---|
-|String|number of unicode characters|
-|Number|number of unicode characters that represent the number|
-|Array|number of elements|
-|Object|number of first level elements|
-|true|1|
-|false|0|
-|null|0|
+| Input  | Length |
+|--------|--------|
+| String | Number of Unicode characters |
+| Number | Number of Unicode characters that represent the number |
+| Array  | Number of elements |
+| Object | Number of first level elements |
+| true   | 1 |
+| false  | 0 |
+| null   | 0 |
 
 **Examples**
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
@@ -296,7 +296,7 @@ for positive positions, but does not support negative positions.
 
 - **anyArray** (array): array with elements of arbitrary type
 - **position** (number): position of desired element in array, positions start at 0
-- returns **nthElement** (any|null): the array element at the given *position*.
+- returns **nthElement** (any\|null): the array element at the given *position*.
   If *position* is negative or beyond the upper bound of the array,
   then *null* will be returned.
 
@@ -387,7 +387,7 @@ Return whether *search* is contained in *array*. Optionally return the position.
 - **search** (any): the needle, an element of arbitrary type
 - **returnIndex** (bool, *optional*): if set to *true*, the position of the match
   is returned instead of a boolean. The default is *false*.
-- returns **position** (bool|number): *true* if *search* is contained in *anyArray*,
+- returns **position** (bool\|number): *true* if *search* is contained in *anyArray*,
   *false* otherwise. If *returnIndex* is enabled, the position of the match is
   returned (positions start at 0), or *-1* if it's not found.
 

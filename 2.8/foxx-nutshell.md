@@ -6,6 +6,7 @@ Foxx in a nutshell
 
 Quick navigation
 ----------------
+
 * [Quick start](#quick-start)
 * [Create a new Application](#create-a-new-application)
 * [Interactive Documentation](#interactive-documentation)
@@ -19,7 +20,6 @@ Quick navigation
 * [Execute a query](#adding-a-new-route--execute-a-query)
 * [Conclusion](#conclusion)
 
-<a id="quick-start"></a>
 Quick Start
 -----------
 
@@ -45,7 +45,8 @@ Create a new application
   * **Collections:** firstCollection
 4. Click Generate
 
-### Some details you should know:
+### Some details you should know
+
 * The information entered here is basically meta information that will be displayed in the web interface.
 * `Collections` will be created for you and are local to your Foxx application. For all collections CRUD endpoints will be generated for you.
 * You can define up to 8 collections. But for this tutorial stick to exactly one.
@@ -53,6 +54,7 @@ Create a new application
 ![Generate Dialog](images/foxx_generate.png)
 
 ### Interactive documentation
+
 Now you should see your new application in the list of installed applications.
 Clicking on it will lead you to the details page.
 This page provides the meta information about the application entered in the generating dialog.
@@ -64,6 +66,7 @@ So you can directly test if your modification has worked or not.
 ![Swagger Documentation](images/foxx_documentation.png)
 
 ### Developing in Foxx
+
 In order to develop your Foxx you now have two options. If you do not have access to the file-system of your ArangoDB instance you can only pick option 1).
 
 1. Modify the files locally. 
@@ -120,6 +123,7 @@ Now open your favorite editor and have a deeper look into the code.
 </dl>
 
 ### List content of a collection
+
 The following route lists all elements of our collection:
 
 ```
@@ -150,6 +154,7 @@ Some details you should know about the code:
 * The comment above the function will generate a nice documentation.
 
 ### Create a new document
+
 This code-snippet defines the route to create a new document in our collection:
 
 ```
@@ -231,6 +236,7 @@ Some details you should know about the code:
 * `bodyParam` defines that there is an body expected in each request and the body should correspond to a valid FirstCollection object. All other bodies will be rejected and a documentation will be generated for this body. It can be accessed in the request parameters via it's name 'firstCollection'
 
 ### Read a single document
+
 This route allows to read a specific document in our collection, identified by Id:
 
 ```
@@ -267,6 +273,7 @@ unix> curl -X GET http://localhost:8529/_db/_system/firstApp/firstCollection/fir
 * `pathParam` documents the path parameter `id` as described in the path. It also restricts it to be a string.
 
 ### Update a document
+
 This code shows how to update a specific document in our collection. The API call is:
 
 ```
@@ -320,6 +327,7 @@ Some details you should now about the code:
 * `replaceById` overwrites a document from the collection with a newer version.
 
 ### Delete a document
+
 This call allows to delete a specific document in our collection:
 
 ```
@@ -361,6 +369,7 @@ Some details you should now about the code:
 * If no `errorResponse` is given a internal `500` will be returned by the server.
 
 ### Adding a new route / execute a query
+
 We now want to add some functionality, a simple search query. First we create an endpoint that allows to execute a simple AQL query.
 The query will search for all documents having a specific `name` attribute.
 

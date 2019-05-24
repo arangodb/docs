@@ -10,7 +10,6 @@ Every service comes with a `manifest.json` file providing metadata. The followin
 * **configuration**: `Object` (optional)
 
   An object defining the [configuration options](foxx-configuration.html) this service requires.
-  <!-- TODO: examples -->
 
 * **defaultDocument**: `string` (optional)
 
@@ -36,7 +35,6 @@ Every service comes with a `manifest.json` file providing metadata. The followin
 * **dependencies**: `Object` (optional) and **provides**: `Object` (optional)
 
   Objects specifying other services this service has as [dependencies](foxx-dependencies.html) and what dependencies it can provide to other services.
-  <!-- TODO: examples -->
 
 * **engines**: `Object` (optional)
 
@@ -82,7 +80,7 @@ Every service comes with a `manifest.json` file providing metadata. The followin
 
 * **tests**: `string` or `Array<string>` (optional)
 
-  A path or list of paths of JavaScript tests provided for this service. <!-- TODO link to Testing.md -->
+  A path or list of paths of JavaScript tests provided for this service.
 
 Additionally manifests can provide the following metadata:
 

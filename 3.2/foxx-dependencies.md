@@ -77,8 +77,6 @@ A `dependencies` definition maps the local alias of a given dependency against i
 
 Dependencies can be configured from the web interface in a service's settings tab using the *Dependencies* button.
 
-<!-- TODO (Add link to relevant aardvark docs) -->
-
 The value for each dependency should be the database-relative mount path of the service (including the leading slash). In order to be usable as the dependency of another service both services need to be mounted in the same database. A service can be used to provide multiple dependencies for the same service (as long as the expected JavaScript APIs don't conflict).
 
 A service that has unconfigured required dependencies can not be used until all of its dependencies have been configured.
