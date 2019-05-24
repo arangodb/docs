@@ -1,21 +1,23 @@
 # TODO
 
-- create a proper swagger json tag:
+- Create a proper swagger json tag:
 
-    ```
-    {% swagger method="post_api_cursor"%}
-    ```
+  ```
+  {% swagger method="post_api_cursor"%}
+  ```
 
-    This should not access the allComments json but parse the swagger json (maybe using some lib) and produce nice and clean output immediately.
+  This should not access the allComments json but parse the swagger json maybe using some lib) and produce nice and clean output immediately.
 
-    After that it should be verified if there are still docublocks left. maybe %{ docublock %} can die then
-- create a jekyll subcommand that outputs all examples in a **STRUCTURED** way
+  After that it should be verified if there are still docublocks left. maybe %{ docublock %} can die then
 
-    ```
-    $ bundler exec jekyll find-examples # see algolia plugin
-    $ head examples.json
-    {"example1": "db._collections()\nprin(\"OK\")"}
+- Create a jekyll subcommand that outputs all examples in a **STRUCTURED** way
 
-    this should then feed a new thing that generates the examples via the CI
+  ```
+  $ bundler exec jekyll find-examples # see algolia plugin
+  $ head examples.json
+  {"example1": "db._collections()\nprin(\"OK\")"}
+  ```
 
-- rethink the {% tag %}{% include %} thing...namely first one thing that parses something and then outputs variables that then include a template. feels wrong...
+  This should then feed a new thing that generates the examples via the CI
+
+- Rethink the {% tag %}{% include %} thing... namely first one thing that parses something and then outputs variables that then include a template. Feels wrong...
