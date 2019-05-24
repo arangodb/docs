@@ -32,7 +32,7 @@ ACOS()
 Return the arccosine of *value*.
 
 - **value** (number): the input value
-- returns **num** (number|null): the arccosine of *value*, or *null* if *value* is
+- returns **num** (number\|null): the arccosine of *value*, or *null* if *value* is
   outside the valid range -1 and 1 (inclusive)
 
 ```js
@@ -50,7 +50,7 @@ ASIN()
 Return the arcsine of *value*.
 
 - **value** (number): the input value
-- returns **num** (number|null): the arcsine of *value*, or *null* if *value* is
+- returns **num** (number\|null): the arcsine of *value*, or *null* if *value* is
   outside the valid range -1 and 1 (inclusive)
 
 ```js
@@ -98,7 +98,7 @@ AVERAGE()
 Return the average (arithmetic mean) of the values in *array*.
 
 - **numArray** (array): an array of numbers, *null* values are ignored
-- returns **mean** (number|null): the average value of *numArray*. If the array is
+- returns **mean** (number\|null): the average value of *numArray*. If the array is
   empty or contains *null* values only, *null* will be returned.
 
 ```js
@@ -215,7 +215,7 @@ Return the natural logarithm of *value*. The base is Euler's
 constant (2.71828...).
 
 - **value** (number): the input value
-- returns **num** (number|null): the natural logarithm of *value*, or *null* if *value* is
+- returns **num** (number\|null): the natural logarithm of *value*, or *null* if *value* is
   equal or less than 0
 
 ```js
@@ -232,7 +232,7 @@ LOG2()
 Return the base 2 logarithm of *value*.
 
 - **value** (number): the input value
-- returns **num** (number|null): the base 2 logarithm of *value*, or *null* if *value* is
+- returns **num** (number\|null): the base 2 logarithm of *value*, or *null* if *value* is
   equal or less than 0
 
 ```js
@@ -266,7 +266,7 @@ Return the greatest element of *anyArray*. The array is not limited to numbers.
 Also see [type and value order](fundamentals-type-value-order.html).
 
 - **anyArray** (array): an array of numbers, *null* values are ignored
-- returns **max** (any|null): the element with the greatest value. If the array is
+- returns **max** (any\|null): the element with the greatest value. If the array is
   empty or contains *null* values only, the function will return *null*.
 
 ```js
@@ -286,7 +286,7 @@ even length of elements, the two center-most elements are interpolated by calcul
 the average value (arithmetic mean).
 
 - **numArray** (array): an array of numbers, *null* values are ignored
-- returns **median** (number|null): the median of *numArray*. If the array is
+- returns **median** (number\|null): the median of *numArray*. If the array is
   empty or contains *null* values only, the function will return *null*.
 
 ```js
@@ -305,7 +305,7 @@ Return the smallest element of *anyArray*. The array is not limited to numbers.
 Also see [type and value order](fundamentals-type-value-order.html).
 
 - **anyArray** (array): an array of numbers, *null* values are ignored
-- returns **min** (any|null): the element with the smallest value. If the array is
+- returns **min** (any\|null): the element with the smallest value. If the array is
   empty or contains *null* values only, the function will return *null*.
 
 ```js
@@ -323,7 +323,7 @@ Return the *n*th percentile of the values in *numArray*.
 - **numArray** (array): an array of numbers, *null* values are ignored
 - **n** (number): must be between 0 (excluded) and 100 (included)
 - **method** (string, *optional*): "rank" (default) or "interpolation"
-- returns **percentile** (number|null): the *n*th percentile, or *null* if the
+- returns **percentile** (number\|null): the *n*th percentile, or *null* if the
   array is empty or only *null* values are contained in it or the percentile
   cannot be calculated
 
@@ -523,7 +523,7 @@ STDDEV_POPULATION()
 Return the population standard deviation of the values in *array*.
 
 - **numArray** (array): an array of numbers, *null* values are ignored
-- returns **num** (number|null): the population standard deviation of *numArray*.
+- returns **num** (number\|null): the population standard deviation of *numArray*.
   If the array is empty or only *null* values are contained in the array, 
   *null* will be returned.
 
@@ -539,7 +539,7 @@ STDDEV_SAMPLE()
 Return the sample standard deviation of the values in *array*.
 
 - **numArray** (array): an array of numbers, *null* values are ignored
-- returns **num** (number|null): the sample standard deviation of *numArray*.
+- returns **num** (number\|null): the sample standard deviation of *numArray*.
   If the array is empty or only *null* values are contained in the array, 
   *null* will be returned.
 
@@ -588,7 +588,7 @@ VARIANCE_POPULATION()
 Return the population variance of the values in *array*.
 
 - **numArray** (array): an array of numbers, *null* values are ignored
-- returns **num** (number|null): the population variance of *numArray*.
+- returns **num** (number\|null): the population variance of *numArray*.
   If the array is empty or only *null* values are contained in the array, 
   *null* will be returned.
 
@@ -604,7 +604,7 @@ VARIANCE_SAMPLE()
 Return the sample variance of the values in *array*.
 
 - **numArray** (array): an array of numbers, *null* values are ignored
-- returns **num** (number|null): the sample variance of *numArray*.
+- returns **num** (number\|null): the sample variance of *numArray*.
   If the array is empty or only *null* values are contained in the array, 
   *null* will be returned.
 

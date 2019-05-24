@@ -35,7 +35,7 @@ Return the first alternative that is a document, and *null* if none of the
 alternatives is a document.
 
 - **alternative** (any, *repeatable*): input of arbitrary type
-- returns **doc** (object|null): document / object or null
+- returns **doc** (object\|null): document / object or null
 
 ### Ternary operator
 
@@ -116,7 +116,7 @@ The current user is the user account name that was specified in the
 authentication on the server is turned on, and if the query was executed inside
 a request context. Otherwise, the return value of this function will be *null*.
 
-- returns **userName** (string|null): the current user name, or *null* if
+- returns **userName** (string\|null): the current user name, or *null* if
   authentication is disabled
 
 ### DOCUMENT()
@@ -139,10 +139,10 @@ It is also possible to specify a document key instead of an id, or an array
 of keys to return all documents that can be found.
 
 - **collection** (string): name of a collection
-- **id** (string|array): a document handle string (consisting of collection
+- **id** (string\|array): a document handle string (consisting of collection
   name and document key), a document key, or an array of both document handle
   strings and document keys
-- returns **doc** (document|array|null): the content of the found document,
+- returns **doc** (document\|array\|null): the content of the found document,
   an array of all found documents or *null* if nothing was found
 
 ```js
@@ -157,9 +157,9 @@ DOCUMENT( users, [ "john", "amy" ] )
 
 The function can also be used with a single parameter *id* as follows:
 
-- **id** (string|array): either a document handle string (consisting of
+- **id** (string\|array): either a document handle string (consisting of
   collection name and document key) or an array of document handle strings
-- returns **doc** (document|null): the content of the found document
+- returns **doc** (document\|null): the content of the found document
   or *null* if nothing was found
 
 ```js

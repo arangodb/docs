@@ -14,14 +14,15 @@ CHAR_LENGTH()
 
 Return the number of characters in *value* (not byte length).
 
-|input|length|
-|---|---|
-|String|number of unicode characters|
-|Number|number of unicode characters that represent the number|
-|Array / Object|number of unicode characters from the resulting stringification|
-|true| 4 |
-|false| 5 |
-|null| 0 |
+| Input  | Length |
+|--------|--------|
+| String | Number of Unicode characters |
+| Number | Number of Unicode characters that represent the number |
+| Array  | Number of Unicode characters from the resulting stringification |
+| Object | Number of Unicode characters from the resulting stringification |
+| true   | 4 |
+| false  | 5 |
+| null   | 0 |
 
 CONCAT()
 --------
@@ -62,7 +63,7 @@ Concatenate the strings passed as arguments *value1* to *valueN* using the
 *separator* string.
 
 - **separator** (string): an arbitrary separator string
-- **values** (string|array, *repeatable*): strings or arrays of strings as multiple
+- **values** (string\|array, *repeatable*): strings or arrays of strings as multiple
   arguments (at least 1)
 - returns **joinedString** (string): a concatenated string of the elements, using
   *separator* as separator string. *null* values are ignored. Array value arguments
@@ -97,7 +98,7 @@ The string matching performed by *CONTAINS* is case-sensitive.
 - **returnIndex** (bool, *optional*): if set to *true*, the character position
   of the match is returned instead of a boolean. The default is *false*.
   The default is *false*.
-- returns **match** (bool|number): by default, *true* is returned if *search*
+- returns **match** (bool\|number): by default, *true* is returned if *search*
   is contained in *text*, and *false* otherwise. With *returnIndex* set to *true*,
   the position of the first occurrence of *search* within *text* is returned 
   (starting at offset 0), or *-1* if *search* is not contained in *text*.
@@ -524,13 +525,13 @@ SUBSTITUTE()
 Replace search values in the string *value*.
 
 - **value** (string): a string
-- **search** (string|array): if *search* is a string, all occurrences of
+- **search** (string\|array): if *search* is a string, all occurrences of
   *search* will be replaced in *value*. If *search* is an array of strings,
   each occurrence of a value contained in *search* will be replaced by the
   corresponding array element in *replace*. If *replace* has less list items
   than *search*, occurrences of unmapped *search* items will be replaced by an
   empty string.
-- **replace** (string|array, *optional*): a replacement string, or an array of
+- **replace** (string\|array, *optional*): a replacement string, or an array of
   strings to replace the corresponding elements of *search* with. Can have less
   elements than *search* or be left out to remove matches. If *search* is an array
   but *replace* is a string, then all matches will be replaced with *replace*.

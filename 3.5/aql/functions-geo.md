@@ -273,7 +273,7 @@ first loop must be the outermost, while any subsequent loops will be interpreted
 as holes.
 
 - **points** (array): array of (arrays of) longitude/latitude pairs
-- returns **geoJson** (object|null): a valid GeoJSON Polygon
+- returns **geoJson** (object\|null): a valid GeoJSON Polygon
 
 Simple Polygon:
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
@@ -306,7 +306,7 @@ Construct a GeoJSON MultiPolygon. Needs at least two Polygons inside.
 See [GEO_POLYGON()](#geo_polygon) for the rules of Polygon construction.
 
 - **polygons** (array): array of arrays of array of longitude/latitude pairs
-- returns **geoJson** (object|null): a valid GeoJSON MultiPolygon
+- returns **geoJson** (object\|null): a valid GeoJSON MultiPolygon
 
 MultiPolygon comprised of a simple Polygon and a Polygon with hole:
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
