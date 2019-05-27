@@ -8,7 +8,7 @@ TTL Indexes
 Introduction to TTL (time-to-live) Indexes
 ------------------------------------------
 
-The TTL indexes provided by ArangoDB can be used for removing expired documents
+The TTL index type provided by ArangoDB can be used for removing expired documents
 from a collection. 
 
 The TTL index is set up by setting an `expireAfter` value and by selecting a single 
