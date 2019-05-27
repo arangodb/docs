@@ -175,18 +175,21 @@ only nodes with the most rank from the result set of a PageRank execution.
       FILTER v.value >= 0.01
       RETURN v._key
 
-Available Algorithms
+Algorithm Parameters
 --------------------
 
 There are a number of general parameters which apply to almost all algorithms:
 * `store`: Is per default *true*, the pregel engine will write results back to the database.
   if the value is *false* then you can query the results via AQLk, see AQL integration.
 * `maxGSS`: Maximum number of global iterations for this algorithm
-* `parallelism`: Number of parellel threads to use per worker. Does not influence the number of threads used to load
+* `parallelism`: Number of parallel threads to use per worker. Does not influence the number of threads used to load
                  or store data from the database (this depends on the number of shards).
-* `async`: Algorithms wich support async mode, will run without synchronized global iterations,
+* `async`: Algorithms which support async mode, will run without synchronized global iterations,
   might lead to performance increases if you have load imbalances.
 * `resultField`: Most algorithms will write the result into this field
+
+Available Algorithms
+--------------------
 
 ### Page Rank
 
