@@ -258,7 +258,7 @@ attribute name is extended with a <i>[\*]</i>`.
 TTL (time-to-live) Index
 ------------------------
 
-The TTL indexes provided by ArangoDB can be used for automatically removing expired documents 
+The TTL index type provided by ArangoDB can be used for automatically removing expired documents 
 from a collection. 
 
 A TTL index is set up by setting an `expireAfter` value and by picking a single 
