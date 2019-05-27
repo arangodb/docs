@@ -1,6 +1,7 @@
 ---
 layout: default
 description: Welcome to the ArangoDB documentation!
+title:Introduction to ArangoDB Documentation
 page-toc:
   disable: true
 ---
