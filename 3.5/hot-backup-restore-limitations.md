@@ -34,6 +34,8 @@ Without the creation of hot backups, RocksDB keeps compacting the file system le
 
 This is a crucial factor for sustained operation and might require significantly higher storage reservation for ArangoDB instances involved and or the much more fine grained monitoring of storage usage than before. 
 
+Also note that a cluster each RocksDB instance will be backed up individually and hence the overall storage space will be the sum of all RocksDB instances (i.e., data which is replicated between instances will not be deduplicated for performance reasons).  
+
 ## Global Transaction Lock ##
 In order to be able to create consistent hot backups, it is mandatory to get a very brief global transaction lock across the entire installation. In single server deployments constant invocation of very long running transactions could prevent that from every happening during a timeout period. The same holds true for clusters, where this lock must now be obtained on all database servers as the same time. 
 
