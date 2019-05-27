@@ -131,7 +131,7 @@ max      29513  3898  0 11:46 pts/4    00:00:00 arangodb --starter.data-dir=./db
 
 ### Restart the _Starter_
 
-When using a supervisor like _SystemD_, this will happens automatically. In case
+When using a supervisor like _SystemD_, this will happen automatically. In case
 the _Starter_ was initiated manually, the _arangodb_ processes have to be restarted
 manually with the same command that has been used before.
 
