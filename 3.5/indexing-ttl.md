@@ -105,7 +105,7 @@ Valid example date string values are:
 * `2019-05-27T21:20:00.123-02:00`: May 27th 2019, 21:20:00.123, -02:00 offset from UTC time
 
 Using an invalid date string value in a document's TTL index attribute will prevent the document
-from being inserted into the TTL index, so it will not be expired and removed automatically.
+from being inserted into the TTL index, so it will neither be expired nor removed automatically.
 
 Please note that date string values can be programmatically validated using the AQL function 
 `IS_DATESTRING`.
