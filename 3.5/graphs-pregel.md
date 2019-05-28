@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Distributed graph processing enables you to do online analytical processingdirectly on graphs stored into ArangoDB
+description: Distributed graph processing enables you to do online analytical processing directly on graphs stored into ArangoDB
 ---
 Distributed Iterative Graph Processing (Pregel)
 ===============================================
@@ -94,11 +94,13 @@ vary for each algorithm.
 The `start` method will always a unique ID which can be used to interact with the algorithm and later on.
 
 The below version of the `start` method can be used for named graphs:
+
 ```javascript
 var pregel = require("@arangodb/pregel");
 var params = {};
 var execution = pregel.start("<algorithm>", "<yourgraph>", params);
 ```
+
 `params` needs to be an object, the valid keys are mentioned below in the section
 [Available Algorithms](#available-algorithms)
 
@@ -110,6 +112,7 @@ var pregel = require("@arangodb/pregel");
 var params = {};
 var execution = pregel.start("<algorithm>", {vertexCollections:["vertices"], edgeCollections:["edges"]}, {});
 ```
+
 The last argument is still the parameter object. See below for a list of algorithms and parameters.
 
 ### Status of an Algorithm Execution
@@ -197,20 +200,24 @@ FOR v IN PREGEL_RESULT(<handle>, true)
 Please note that `PREGEL_RESULT` will only work for results of Pregel jobs that were stored with
 the `store` parameter set to `false` in their job configuration.
 
-
-Available Algorithms
+Algorithm Parameters
 --------------------
 
 There are a number of general parameters which apply to almost all algorithms:
-* `store`: Defaults to *true*. If true, the Pregel engine will write results back to the database.
+- `store`: Defaults to *true*. If true, the Pregel engine will write results back to the database.
   If the value is *false* then you can query the results via AQL.
   See [AQL integration](#aql-integration).
-* `maxGSS`: Maximum number of global iterations for this algorithm
-* `parallelism`: Number of parallel threads to use per worker. Does not influence the number of threads used to load
+- `maxGSS`: Maximum number of global iterations for this algorithm
+- `parallelism`: Number of parallel threads to use per worker. Does not influence the number of threads used to load
   or store data from the database (this depends on the number of shards).
-* `async`: Algorithms which support async mode, will run without synchronized global iterations,
+- `async`: Algorithms which support async mode, will run without synchronized global iterations,
   might lead to performance increases if you have load imbalances.
-* `resultField`: Most algorithms will write the result into this field
+- `resultField`: Most algorithms will write the result into this field
+- `useMemoryMaps`: Use disk based files to store temporary results. This might make the computation disk bound, but
+  allows you to run computations which would not fit into main memory.
+
+Available Algorithms
+--------------------
 
 ### Page Rank
 
@@ -327,16 +334,16 @@ Another common measure is the [betweenness* centrality](https://en.wikipedia.org
 It measures the number of times a vertex is part  of shortest paths between any pairs of vertices. 
 For a vertex *v* betweenness is defined as
 
-![Vertex Betweeness](images/betweeness.png)
+![Vertex Betweenness](images/betweenness.png)
 
 Where the &sigma; represents the number of shortest paths between *x* and *y*, and &sigma;(v) represents the 
-number of paths also passing through a vertex *v*. By intuition a vertex with higher betweeness centrality will have more information
+number of paths also passing through a vertex *v*. By intuition a vertex with higher betweenness centrality will have more information
 passing through it.
 
 **LineRank** approximates the random walk betweenness of every vertex in a graph. This is the probability that someone starting on
 an arbitrary vertex, will visit this node when he randomly chooses edges to visit.
 The algorithm essentially builds a line graph out of your graph (switches the vertices and edges), and then computes a score similar to PageRank.
-This can be considered a scalable equivalent to vertex betweeness, which can be executed distributedly in ArangoDB. 
+This can be considered a scalable equivalent to vertex betweenness, which can be executed distributedly in ArangoDB. 
 The algorithm is from the paper *Centralities in Large Networks: Algorithms and Observations (U Kang et.al. 2011)*
 
 ```javascript
