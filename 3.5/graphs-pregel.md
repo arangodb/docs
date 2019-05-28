@@ -94,11 +94,13 @@ vary for each algorithm.
 The `start` method will always a unique ID which can be used to interact with the algorithm and later on.
 
 The below version of the `start` method can be used for named graphs:
+
 ```javascript
 var pregel = require("@arangodb/pregel");
 var params = {};
 var execution = pregel.start("<algorithm>", "<yourgraph>", params);
 ```
+
 `params` needs to be an object, the valid keys are mentioned below in the section
 [Available Algorithms](#available-algorithms)
 
@@ -110,6 +112,7 @@ var pregel = require("@arangodb/pregel");
 var params = {};
 var execution = pregel.start("<algorithm>", {vertexCollections:["vertices"], edgeCollections:["edges"]}, {});
 ```
+
 The last argument is still the parameter object. See below for a list of algorithms and parameters.
 
 ### Status of an Algorithm Execution
@@ -186,16 +189,16 @@ Algorithm Parameters
 --------------------
 
 There are a number of general parameters which apply to almost all algorithms:
-* `store`: Is per default *true*, the Pregel engine will write results back to the database.
+- `store`: Is per default *true*, the Pregel engine will write results back to the database.
   If the value is *false* then you can query the results via AQL,
   see [AQL integration](#aql-integration).
-* `maxGSS`: Maximum number of global iterations for this algorithm
-* `parallelism`: Number of parallel threads to use per worker. Does not influence the number of threads used to load
+- `maxGSS`: Maximum number of global iterations for this algorithm
+- `parallelism`: Number of parallel threads to use per worker. Does not influence the number of threads used to load
   or store data from the database (this depends on the number of shards).
-* `async`: Algorithms which support async mode, will run without synchronized global iterations,
+- `async`: Algorithms which support async mode, will run without synchronized global iterations,
   might lead to performance increases if you have load imbalances.
-* `resultField`: Most algorithms will write the result into this field
-* `useMemoryMaps`: Use disk based files to store temporary results. This might make the computation disk bound, but
+- `resultField`: Most algorithms will write the result into this field
+- `useMemoryMaps`: Use disk based files to store temporary results. This might make the computation disk bound, but
   allows you to run computations which would not fit into main memory.
 
 Available Algorithms
