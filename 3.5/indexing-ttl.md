@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The TTL indexes provided by ArangoDB ca be used for removing expired documents from a collection
+description: TTL indexes can remove expired documents from collections
 ---
 TTL Indexes
 ===========
