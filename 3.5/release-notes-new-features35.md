@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The following list shows in detail which features have been added or improved inArangoDB 3
+description: The following list shows in detail which features have been added or improved inArangoDB 3.5
 ---
 Features and Improvements in ArangoDB 3.5
 =========================================
@@ -513,7 +513,7 @@ To compile ArangoDB from source, a compiler that supports C++14 is now required.
 The bundled JEMalloc memory allocator used in ArangoDB release packages has been
 upgraded from version 5.0.1 to version 5.2.0.
 
-The bundled version of the RocksDB library has been upgraded from 5.16 to 6.0.
+The bundled version of the RocksDB library has been upgraded from 5.16 to 6.2.
 
 The unit test framework has been changed from catch to googletest. This change also
 renames a CMake configuration variable from `USE_CATCH_TESTS` to `USE_GOOGLE_TESTS`.
