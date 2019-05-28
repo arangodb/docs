@@ -1,3 +1,17 @@
+var versionSwitcherSetAvailable = function(versions) {
+  var options = document.querySelector(".arangodb-version-switcher").options;
+  for (var i = 0; i < options.length; i++) {
+    var item = options.item(i);
+    if (versions.indexOf(item.value) != -1) {
+      item.removeAttribute("disabled");
+      item.removeAttribute("title");
+    } else {
+      item.setAttribute("disabled", "");
+      item.setAttribute("title", "This page is not available in version " + item.value);
+    }
+  }
+};
+
 var anchorForId = function(id) {
   var anchor = document.createElement("a");
   anchor.className = "header-link";

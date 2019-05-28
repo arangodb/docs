@@ -78,13 +78,18 @@ quasi-numerical values has been removed when doing the sorting in the web interf
 Therefore a document with a key value "10" will now be displayed before a document
 with a key value of "9".
 
-### Removal of index types "skiplist" and "persistent" (RocksDB engine)
+### Removal of index types "hash" and "skiplist" from the web UI (RocksDB engine)
 
-For the RocksDB engine, the selection of index types "persistent" and "skiplist" 
+For the RocksDB engine, the selection of index types "hash" and "skiplist" 
 has been removed from the web interface when creating new indexes. 
 
 The index types "hash", "skiplist" and "persistent" are just aliases of each other 
 when using the RocksDB engine, so there is no need to offer all of them in parallel.
+
+We found that offering the different types of indexes while in fact they were the
+same often confused end users. We opted for keeping "persistent" because from the
+candidates "hash", "skiplist" and "persistent" only "persistent" is actually a valid
+description of the index capabilities/implementation.
 
 
 AQL

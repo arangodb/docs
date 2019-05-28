@@ -242,6 +242,7 @@ assertEqual(queue.progress("log").length, 1);
 assertEqual(queue.progress("log").length, 0);
 assertEqual(queue.complete("log").length, 1);
 ```
+
 ### Fetching an array of pending jobs in a queue
 
 `Queue::pending([script])`

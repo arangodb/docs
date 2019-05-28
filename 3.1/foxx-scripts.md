@@ -22,8 +22,6 @@ To register your script, just add a `scripts` section to your [service manifest]
 
 The scripts you define in your service manifest can be invoked from the web interface in the service's settings page with the *Scripts* dropdown.
 
-<!-- TODO (Link to admin docs) -->
-
 You can also use the scripts as queued jobs:
 
 ```js

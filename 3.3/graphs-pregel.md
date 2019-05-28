@@ -1,13 +1,13 @@
 ---
 layout: default
-description: Distributed graph processing enables you to do online analytical processingdirectly on graphs stored into arangodb
+description: Distributed graph processing enables you to do online analytical processing directly on graphs stored into arangodb
 ---
 Distributed Iterative Graph Processing (Pregel)
 ===============================================
 
 Distributed graph processing enables you to do online analytical processing
-directly on graphs stored into arangodb. This is intended to help you gain analytical insights
-on your data, without having to use external processing sytems. Examples of algorithms
+directly on graphs stored into ArangoDB. This is intended to help you gain analytical insights
+on your data, without having to use external processing systems. Examples of algorithms
 to execute are PageRank, Vertex Centrality, Vertex Closeness, Connected Components, Community Detection.
 This system is not useful for typical online queries, where you just do work on a small set of vertices.
 These kind of tasks are better suited for AQL.
@@ -250,8 +250,8 @@ vertex (or webpage), the hub score rates how good (authoritative) the vertices p
 Our version of the algorithm
 converges after a certain amount of time. The parameter *threshold* can be used to set a limit for the convergence (measured as maximum absolute difference of the hub and 
 authority scores between the current and last iteration)
-When you specify the result field name, the hub score will be stored in "<result field>_hub" and the authority score in 
-"<result field>_auth".
+When you specify the result field name, the hub score will be stored in `<result field>_hub` and the authority score in 
+`<result field>_auth`.
 The algorithm can be executed like this:
 
 ```javascript
@@ -298,16 +298,16 @@ Another common measure is the [betweenness* centrality](https://en.wikipedia.org
 It measures the number of times a vertex is part  of shortest paths between any pairs of vertices. 
 For a vertex *v* betweenness is defined as
 
-![Vertex Betweeness](images/betweeness.png)
+![Vertex Betweenness](images/betweenness.png)
 
 Where the &sigma; represents the number of shortest paths between *x* and *y*, and &sigma;(v) represents the 
-number of paths also passing through a vertex *v*. By intuition a vertex with higher betweeness centrality will have more information
+number of paths also passing through a vertex *v*. By intuition a vertex with higher betweenness centrality will have more information
 passing through it.
 
 **LineRank** approximates the random walk betweenness of every vertex in a graph. This is the probability that someone starting on
 an arbitary vertex, will visit this node when he randomly chooses edges to visit.
 The algoruthm essentially builds a line graph out of your graph (switches the vertices and edges), and then computes a score similar to PageRank.
-This can be considered a scalable equivalent to vertex betweeness, which can be executed distributedly in ArangoDB. 
+This can be considered a scalable equivalent to vertex betweenness, which can be executed distributedly in ArangoDB. 
 The algorithm is from the paper *Centralities in Large Networks: Algorithms and Observations (U Kang et.al. 2011)*
 
 ```javascript
@@ -324,8 +324,8 @@ Social networks include community groups (the origin of the term, in fact) based
 #### Label Propagation 
 
 *Label Propagation* can be used to implement community detection on large graphs. The idea is that each
-vertex should be in the community that most of his neighbours are in. We iteratively detemine this by first
-assigning random Community ID's. Then each itertation, a vertex will send it's current community ID to all his neighbor vertices. 
+vertex should be in the community that most of his neighbors are in. We iteratively determine this by first
+assigning random Community ID's. Then each iteration, a vertex will send it's current community ID to all his neighbor vertices. 
 Then each vertex adopts the community ID he received most frequently during the iteration. 
 
 The algorithm runs until it converges,
@@ -356,7 +356,7 @@ const pregel = require("@arangodb/pregel");
 const handle = pregel.start("slpa", "yourgraph", {maxGSS:100, resultField: "community"});
 ```
 
-You can also execute SLPA with the `maxCommunities` parameter to limit the number of ouput communities.
+You can also execute SLPA with the `maxCommunities` parameter to limit the number of output communities.
 Internally the algorithm will still keep the memory of all labels, but the output is reduced to just he `n` most frequently
 observed labels.
 

@@ -152,9 +152,10 @@ or
 
 The value *none* is case-insensitive.
 
-<!-- TODO: Specific to arangod, move to programs detail page?
-     Does the resolution order for config files apply to all binaries?
-     Linux only? Also macOS? Windows not addressed so far.
+{%- comment %}
+Specific to arangod, move to programs detail page?
+Does the resolution order for config files apply to all binaries?
+Linux only? Also macOS? Windows not addressed so far.
 
 If this command is not passed to the server, then by default, the server will
 attempt to first locate a file named *~/.arango/arangod.conf* in the user's home
@@ -169,8 +170,7 @@ this file and later upgrade to a new version of ArangoDB, then the package
 manager normally warns you about the conflict. In order to avoid these warning
 for small adjustments, you can put local overrides into a file
 *arangod.conf.local*.
-
--->
+{% endcomment %}
 
 ## Environment variables as parameters
 
@@ -195,7 +195,7 @@ On a Windows system, above setting would typically make the ArangoDB Server
 create its folder for temporary files in `%USERPROFILE%\AppData\Local\Temp`,
 i.e. `C:\Users\xxx\AppData\Local\Temp\arango_tmp`.
 
-<!-- TODO: What other placeholders are there? @ROOTDIR@ ... -->
+{%- comment %}What other placeholders are there? @ROOTDIR@ ...{% endcomment %}
 
 ## Options with multiple values
 

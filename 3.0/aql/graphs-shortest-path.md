@@ -63,7 +63,7 @@ FOR vertex[, edge]
   - **edge** (object, *optional*): the edge pointing to the vertex
 - `IN` `OUTBOUND|INBOUND|ANY`: defines in which direction edges are followed
   (outgoing, incoming, or both)
-- **startVertex** `TO` **targetVertex** (both string|object): the two vertices between
+- **startVertex** `TO` **targetVertex** (both string\|object): the two vertices between
   which the shortest path will be computed. This can be specified in the form of
   an ID string or in the form of a document with the attribute `_id`. All other
   values will lead to a warning and an empty result. If one of the specified

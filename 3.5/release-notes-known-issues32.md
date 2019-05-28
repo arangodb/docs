@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The following known issues are present in this version of ArangoDB and will be fixedin follow-up releases
+description: Known issues of ArangoDB version 3.2.x products
 ---
 Known Issues in ArangoDB 3.2
 ============================

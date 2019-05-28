@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Imports and exports can be done with the toolsarangoimport andarangoexport
+description: Import and export data with arangoimport and arangoexport tools
 ---
 Import and Export
 =================
@@ -9,12 +9,4 @@ Imports and exports can be done with the tools
 [_arangoimport_](programs-arangoimport.html) and
 [_arangoexport_](programs-arangoexport.html).
 
-<!-- Importing from files -->
-
-<!-- Bulk import via HTTP API -->
-
-<!-- Export to files -->
-
-<!-- Bulk export via HTTP API -->
-
-<!-- Syncing with 3rd party systems? -->
+{%- comment %}TODO: Importing from files, Bulk import via HTTP API, Export to files, Bulk export via HTTP API, Syncing with 3rd party systems?{% endcomment %}

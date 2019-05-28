@@ -71,6 +71,7 @@ Example usage:
 ```js
 console.error("error '%s': %s", type, message);
 ```
+
 ### console.getline
 
 `console.getline()`
@@ -126,6 +127,7 @@ Example usage:
 ```js
 console.info("The %s jumped over %d fences", animal, count);
 ```
+
 ### console.log
 
 `console.log(format, argument1, ...)`

@@ -32,8 +32,4 @@ Cluster or data-center to data-center replication, does not remove the need of
 taking frequent backups, which are recommended also when using such deployment modes.
 {% endhint %}
 
-<!-- Offline dumps -->
-
-<!-- Hot backups  -->
-
-<!-- Cluster -->
+{%- comment %}TODO: Offline dumps, Hot backups, Cluster{% endcomment %}
