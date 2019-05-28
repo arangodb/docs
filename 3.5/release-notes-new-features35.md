@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The following list shows in detail which features have been added or improved inArangoDB 3.5
+description: ArangoDB v3.5 Release Notes New Features
 ---
 Features and Improvements in ArangoDB 3.5
 =========================================
