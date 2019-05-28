@@ -200,7 +200,7 @@ FOR v IN PREGEL_RESULT(<handle>, true)
 Please note that `PREGEL_RESULT` will only work for results of Pregel jobs that were stored with
 the `store` parameter set to `false` in their job configuration.
 
-Available Algorithms
+Algorithm Parameters
 --------------------
 
 There are a number of general parameters which apply to almost all algorithms:

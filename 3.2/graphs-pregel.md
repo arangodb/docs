@@ -179,7 +179,7 @@ FOR v IN PREGEL_RESULT(<handle>)
   RETURN v._key
 ```
 
-Available Algorithms
+Algorithm Parameters
 --------------------
 
 There are a number of general parameters which apply to almost all algorithms:
@@ -191,6 +191,9 @@ There are a number of general parameters which apply to almost all algorithms:
 - `async`: Algorithms which support async mode, will run without synchronized global iterations,
   might lead to performance increases if you have load imbalances.
 - `resultField`: Most algorithms will write the result into this field
+
+Available Algorithms
+--------------------
 
 ### Page Rank
 
