@@ -52,12 +52,17 @@ They use the full spectrum of ArangoDB's graph features. You may access them via
 The underlying collections of the named graphs are still accessible using the standard methods for collections.
 However the graph module adds an additional layer on top of these collections giving you the following guarantees:
 
-* All modifications are executed transactional
-* If you delete a vertex all edges will be deleted, you will never have loose ends
-* If you insert an edge it is checked if the edge matches the *edge definitions*, your edge collections will only contain valid edges
+- All modifications are executed transactional
+- If you delete a vertex all edges referring to this vertex will be deleted too
+- If you insert an edge it is checked if the edge matches the *edge definitions*
 
+Your edge collections will only contain valid edges and you will never have loose ends.
 These guarantees are lost if you access the collections in any other way than the graph module,
 so if you delete documents from your vertex collections directly, the edges pointing to them will be remain in place.
+
+Existing inconsistencies in your data will not be corrected when you create a named graph.
+Therefore, make sure you start with sound data as otherwise there could be dangling edges after all.
+The graph module guarantees to not introduce new inconsistencies only.
 
 Anonymous graphs
 ----------------
