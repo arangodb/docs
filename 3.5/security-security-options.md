@@ -40,38 +40,55 @@ an overview of the relevant options.
 Several options exists to restrict JavaScript application code functionality 
 to just certain allowed subsets. Which subset of functionality is available
 can be controlled via blacklisting and whitelisting access to individual 
-components. Blacklists can be used to disallow access to dedicated functionality, 
-whereas whitelists can be used to explicitly allow access to certain functionality.
+components.
 
-If an item is covered by both a blacklist and a whitelist, the whitelist will 
-overrule and access to the functionality will be allowed.
+The set thery for these list work as follow:
+
+- only a blacklist is specifiend: all is allowed except a set of items matching the blacklist.
+- only a whitelist is specified: all is disallowed except a set of items matching the whitelist
+- white and blacklist specified: all is disallowed except a set of items mathching the whitelist. From this whitelisted set, subsets can be forbidden again using blacklists.
 
 Values for blacklist and whitelist options need to be specified as ECMAScript 
-regular expressions. Each option can be used multiple times. In this case,
-the individual values for each option will be combined with a _logical or_.
+regular expressions.
+Each option can be used multiple times. When specifying more than one 
+pattern, these patterns will be combined with a _logical or_ to a more 
+complex pattern. 
 
-For example, the following combination of startup options
+These patterns and how they are applied can be observed by enabling 
+`--log SECURITY=debug` in the `arangod` or `arangosh` log output.
+
+#### Combining patterns
+The pattern to observe most easily is the masquerading of the startup options:
 
     --javascript.startup-options-whitelist "^server\."
     --javascript.startup-options-whitelist "^log\."
     --javascript.startup-options-blacklist "^javascript\."
     --javascript.startup-options-blacklist "endpoint"
 
-will resolve internally to the following regular expressions:
+these sets will resolve internally to the following regular expressions:
 
 ```
 --javascript.startup-options-whitelist = "^server\.|^log\."
 --javascript.startup-options-blacklist = "^javascript\.|endpoint"
 ```
 
-Access to directories and files from JavaScript operations is only 
-controlled via a whitelist, which can be specified via the startup
-option `--javascript.files-whitelist`.
+Invoking an arangosh with these options will hide the blacklists from the
+output of: 
+
+    require('internal').options()
+
+and an exception will be thrown when trying to access them.
+
+#### File access
+In contrast to other areas, access to directories and files from JavaScript
+operations is only controlled via a whitelist, which can be specified via the startup
+option `--javascript.files-whitelist`. Thus anything not matching the whitelist
+will be hidden from javascript functions.
 
 For example, when using the following startup options
     
-    --javascript.startup-options-whitelist "^/etc/required/"
-    --javascript.startup-options-whitelist "^/etc/mtab/"
+    --javascript.files-whitelist "^/etc/required/"
+    --javascript.files-whitelist "^/etc/mtab/"
 
 all files in the directories `/etc/required` and `/etc/mtab` plus their
 subdirectories will be accessible, while access to files in any other directories 
@@ -81,7 +98,7 @@ will be disallowed from JavaScript operations, with the following exceptions:
   directory for storing temporary files. The temporary directory location 
   can be specified explicitly via the `--temp.path` option at startup. 
   If the option is not specified, ArangoDB will automatically use a subdirectory 
-  of the system's temporary directory).
+  of the system's temporary directory.
 - ArangoDB's own JavaScript code, shipped with the ArangoDB release packages.
   Files in this directory and its subdirectories will be readable for JavaScript
   code running in ArangoDB. The exact path can be specified by the startup option 
@@ -92,15 +109,15 @@ will be disallowed from JavaScript operations, with the following exceptions:
 The following options are available for blacklisting and whitelisting access
 to dedicated functionality for application code:
 
-- `--javascript.startup-options-whitelist` and `--javascript.startup-options-blacklist`:
+- `--javascript.startup-options-[whitelist|blacklist]`:
   These options control which startup options will be exposed to JavaScript code, 
   following above rules for blacklists and whitelists.
 
-- `--javascript.environment-variables-whitelist` and `--javascript.environment-variables-blacklist`:
+- `--javascript.environment-variables-[whitelist|blacklist]`:
   These options control which environment variables will be exposed to JavaScript
   code, following above rules for blacklists and whitelists.
 
-- `--javascript.endpoints-whitelist` and `--javascript.endpoints-blacklist`:
+- `--javascript.endpoints-[whitelist|blacklist]`:
   These options control which endpoints can be used from within the `@arangodb/request`
   JavaScript module.
   Endpoint values are passed into the filter in a normalized format starting
