@@ -127,8 +127,13 @@ $(document).ready(enableHamburger);
 
 $(document).ready(function hideSummaryOnMobile() {
   if (window.matchMedia("(max-width: 800px)").matches) {
-    $('div.book').toggleClass("without-summary");
-    $('div.book').toggleClass("with-summary");
+    $('div.book')
+      .addClass("without-animation")
+      .removeClass("with-summary")
+      .addClass("without-summary")
+      .offset();
+    $('div.book')
+      .removeClass("without-animation");
   }
 })
 

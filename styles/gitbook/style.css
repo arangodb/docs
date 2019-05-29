@@ -2764,10 +2764,12 @@ table {
  overflow-y:auto;
  color:#000;
  background:#fff;
+ /*
  -webkit-transition:left 250ms ease;
  -moz-transition:left 250ms ease;
  -o-transition:left 250ms ease;
  transition:left 250ms ease
+ */
 }
 .book-body .body-inner {
  position:absolute;
@@ -2779,10 +2781,12 @@ table {
 }
 @media (max-width:1240px) {
  .book-body {
+  /*
   -webkit-transition:-webkit-transform 250ms ease;
   -moz-transition:-moz-transform 250ms ease;
   -o-transition:-o-transform 250ms ease;
   transition:transform 250ms ease;
+  */
   padding-bottom:20px
  }
  .book-body .body-inner {
