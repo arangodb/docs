@@ -55,7 +55,7 @@ pattern, these patterns will be combined with a _logical or_ to a more
 complex pattern. 
 
 These patterns and how they are applied can be observed by enabling 
-`--log SECURITY=debug` in the `arangod` or `arangosh` log output.
+`--log.level SECURITY=debug` in the `arangod` or `arangosh` log output.
 
 #### Combining patterns
 The pattern to observe most easily is the masquerading of the startup options:
