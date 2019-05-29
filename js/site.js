@@ -100,6 +100,11 @@ var loadPage = function(href, fn) {
       if (fn) {
         fn();
       }
+
+      gtag('config', 'UA-81053435-1', {
+        'page-title': title,
+        'page-location': currentPage
+      });
     }
   });
 }
