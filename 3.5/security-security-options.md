@@ -42,7 +42,7 @@ to just certain allowed subsets. Which subset of functionality is available
 can be controlled via blacklisting and whitelisting access to individual 
 components.
 
-The set thery for these list work as follow:
+The set theory for these lists works as follow:
 
 - only a blacklist is specifiend: all is allowed except a set of items matching the blacklist.
 - only a whitelist is specified: all is disallowed except a set of items matching the whitelist
