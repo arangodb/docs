@@ -46,7 +46,7 @@ The set theory for these lists works as follow:
 
 - only a blacklist is specifiend: all is allowed except a set of items matching the blacklist.
 - only a whitelist is specified: all is disallowed except the set of items matching the whitelist
-- white and blacklist specified: all is disallowed except a set of items mathching the whitelist. From this whitelisted set, subsets can be forbidden again using blacklists.
+- both whitelist and blacklist are specified: all is disallowed except the set of items matching the whitelist. From this whitelisted set, subsets can be forbidden again using the blacklist.
 
 Values for blacklist and whitelist options need to be specified as ECMAScript 
 regular expressions.
