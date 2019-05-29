@@ -11,7 +11,7 @@ class HintTag < Liquid::Block
       # Remove indention based on first actual line (but only spaces)
       content = super.sub(/^[\r\n]+/, '')
       indent = content.index(/[^ ]/) || 0
-      content = content.lines.map{ |line| line[[indent, line.index(/[^ ]/) || 0].min..] }.join ''
+      content = content.lines.map{ |line| line.slice([indent, line.index(/[^ ]/) || 0].min, line.length) }.join ''
       # Parse Markdown and strip trailing whitespace (especially line breaks).
       # Otherwise below <div>s will be wrapped in <p> for some reason!
       content = converter.convert(content).sub(/\s+$/, '')
