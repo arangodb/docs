@@ -44,15 +44,15 @@ components.
 
 The set theory for these lists works as follow:
 
-- only a blacklist is specifiend: all is allowed except a set of items matching the blacklist.
+- only a blacklist is specified: all is allowed except a set of items matching the blacklist.
 - only a whitelist is specified: all is disallowed except the set of items matching the whitelist
 - both whitelist and blacklist are specified: all is disallowed except the set of items matching the whitelist. From this whitelisted set, subsets can be forbidden again using the blacklist.
 
 Values for blacklist and whitelist options need to be specified as ECMAScript 
 regular expressions.
 Each option can be used multiple times. When specifying more than one 
-pattern, these patterns will be combined with a _logical or_ to a more 
-complex pattern. 
+pattern, these patterns will be combined with a _logical or_ to the actual pattern
+ArangoDB will use.
 
 These patterns and how they are applied can be observed by enabling 
 `--log.level SECURITY=debug` in the `arangod` or `arangosh` log output.
@@ -63,7 +63,7 @@ The pattern to observe most easily is the masquerading of the startup options:
     --javascript.startup-options-whitelist "^server\."
     --javascript.startup-options-whitelist "^log\."
     --javascript.startup-options-blacklist "^javascript\."
-    --javascript.startup-options-blacklist "endpoint"
+    --javascript.startup-options-blacklist "^endpoint$"
 
 these sets will resolve internally to the following regular expressions:
 
@@ -72,8 +72,8 @@ these sets will resolve internally to the following regular expressions:
 --javascript.startup-options-blacklist = "^javascript\.|endpoint"
 ```
 
-Invoking an arangosh with these options will hide the blacklists from the
-output of: 
+Invoking an arangosh with these options will hide the blacklisted commandline
+options from the output of: 
 
     require('internal').options()
 
@@ -89,9 +89,10 @@ For example, when using the following startup options
     
     --javascript.files-whitelist "^/etc/required/"
     --javascript.files-whitelist "^/etc/mtab/"
-
-all files in the directories `/etc/required` and `/etc/mtab` plus their
-subdirectories will be accessible, while access to files in any other directories 
+    --javascript.files-whitelist "^/etc/issue$"
+The file `/etc/issue` will be allowed to accessed and all files in the directories
+`/etc/required` and `/etc/mtab` plus their subdirectories will be accessible,
+while access to files in any other directories 
 will be disallowed from JavaScript operations, with the following exceptions:
 
 - ArangoDB's temporary directory: JavaScript code is given access to this
@@ -103,6 +104,18 @@ will be disallowed from JavaScript operations, with the following exceptions:
   Files in this directory and its subdirectories will be readable for JavaScript
   code running in ArangoDB. The exact path can be specified by the startup option 
   `--javascript.startup-directory`.
+
+#### Endpoint access
+
+The endpoint black/white listing limits access to external http resources. 
+In contrast to the URLs specified in the javascript code, the filters have
+to be specified in the ArangoDB endpoints notation: 
+
+- http:// => tcp://
+- https:// => ssl://
+- no protocol will match http and https.
+
+Filtering is done on the protocol, hostname / IP-Address, and the port.
 
 ### Options for blacklisting and whitelisting
 
