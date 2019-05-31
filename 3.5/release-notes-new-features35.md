@@ -273,11 +273,14 @@ will hang around until the server decides to garbage-collect them.
 Web interface
 -------------
 
-When using the RocksDB engine, the selection of index types "persistent" and "skiplist" 
+When using the RocksDB engine, the selection of index types "hash" and "skiplist" 
 has been removed from the web interface when creating new indexes. 
 
 The index types "hash", "skiplist" and "persistent" are just aliases of each other 
-when using the RocksDB engine, so there is no need to offer them all.
+when using the RocksDB engine, so there is no need to offer them all. In the web
+interface there remains the index of type "persistent", which is feature-wise
+identical with "hash" and "skiplist" indexes for the RocksDB engine.
+Existing "hash" and "skiplist" indexes will remain fully functional.
 
 
 JavaScript
