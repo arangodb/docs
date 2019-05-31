@@ -21,7 +21,9 @@ Analyzer Types
 The currently implemented Analyzer types are:
 
 - `identity`
-- `delimited`
+- `delimiter`
+- `stem`
+- `norm`
 - `ngram`
 - `text`
 
@@ -32,7 +34,7 @@ unmodified.
 
 The value of the *properties* attribute is ignored.
 
-### Delimited
+### Delimiter
 
 An analyzer capable of breaking up delimited text into tokens as per RFC4180
 (without starting new records on newlines).
@@ -42,6 +44,29 @@ The *properties* allowed for this analyzer are either:
 - a string encoded delimiter to use
 - an object with the attribute *delimiter* containing the string encoded
   delimiter to use
+
+### Stem
+
+An analyser capable of stemming the text, treated as a single token,
+for supported languages.
+
+The *properties* allowed for this analyzer are an object with the following
+attributes:
+
+ - `locale` : string (required) format: (language[_COUNTRY][.encoding][@variant])
+
+###  Norm
+
+An analyser capable of normalizing the text, treated as a single
+token, i.e. case conversion and accent removal
+
+The *properties* allowed for this analyzer are an object with the following
+attributes:
+
+- `locale`: string (required) format: (language[_COUNTRY][.encoding][@variant])
+- `caseConvert`: string enum (optional) one of: `lower`, `none`, `upper`,
+  default: `lower`
+- `noAccent`: boolean (optional) apply accent removal, default: true
 
 ### N-gram
 
@@ -77,15 +102,15 @@ The *properties* allowed for this analyzer are an object with the following
 attributes:
 
 - `locale`: string (required) format: (language[_COUNTRY][.encoding][@variant])
-- `case_convert`: string enum (optional) one of: `lower`, `none`, `upper`,
+- `caseConvert`: string enum (optional) one of: `lower`, `none`, `upper`,
   default: `lower`
-- `ignored_words`: array of strings (optional) words to omit from result,
-  default: load words from `ignored_words_path`
-- `ignored_words_path`: string(optional) path with the `language` sub-directory
+- `stopwords`: array of strings (optional) words to omit from result,
+  default: load words from `stopwordsPath`
+- `stopwordsPath`: string(optional) path with the `language` sub-directory
   containing files with words to omit, default: if no
-  `ignored_words` provided then the value from the
+  `stopwords` provided then the value from the
   environment variable `IRESEARCH_TEXT_STOPWORD_PATH` or
   if undefined then the current working directory
-- `no_accent`: boolean (optional) apply accent removal, default: true
-- `no_stem`: boolean (optional) do not apply stemming on returned words,
+- `noAccent`: boolean (optional) apply accent removal, default: true
+- `noStem`: boolean (optional) do not apply stemming on returned words,
   default: false
