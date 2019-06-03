@@ -47,7 +47,7 @@ The *properties* allowed for this analyzer are either:
 
 ### Stem
 
-An analyser capable of stemming the text, treated as a single token,
+An analyzer capable of stemming the text, treated as a single token,
 for supported languages.
 
 The *properties* allowed for this analyzer are an object with the following
@@ -57,7 +57,7 @@ attributes:
 
 ###  Norm
 
-An analyser capable of normalizing the text, treated as a single
+An analyzer capable of normalizing the text, treated as a single
 token, i.e. case conversion and accent removal
 
 The *properties* allowed for this analyzer are an object with the following
