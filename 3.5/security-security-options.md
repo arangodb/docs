@@ -83,7 +83,7 @@ and an exception will be thrown when trying to access them.
 In contrast to other areas, access to directories and files from JavaScript
 operations is only controlled via a whitelist, which can be specified via the startup
 option `--javascript.files-whitelist`. Thus any files or directories not matching the whitelist
-will be hidden from javascript functions.
+will be inaccessible from JavaScript filesystem functions.
 
 For example, when using the following startup options
     
