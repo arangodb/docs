@@ -65,7 +65,7 @@ The pattern to observe most easily is the masquerading of the startup options:
     --javascript.startup-options-blacklist "^javascript\."
     --javascript.startup-options-blacklist "^endpoint$"
 
-these sets will resolve internally to the following regular expressions:
+These sets will resolve internally to the following regular expressions:
 
 ```
 --javascript.startup-options-whitelist = "^server\.|^log\."
