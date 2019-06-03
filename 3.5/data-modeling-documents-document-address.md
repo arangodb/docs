@@ -29,9 +29,9 @@ For example:
     "city" : "Gotham"
   },
   "hobbies" : [
-    {name: "swimming", howFavorite: 10},
-    {name: "biking", howFavorite: 6},
-    {name: "programming", howFavorite: 4}
+    {"name": "swimming", "howFavorite": 10},
+    {"name": "biking", "howFavorite": 6},
+    {"name": "programming", "howFavorite": 4}
   ]
 }
 ```
