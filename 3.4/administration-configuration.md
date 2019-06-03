@@ -122,7 +122,9 @@ log.level=startup=trace
 {% endhint %}
 
 Comments can be placed in the configuration file by placing one or more
-hash symbols `#` at the beginning of a line.
+hash symbols `#` at the beginning of a line. Comments that are placed in
+other places (i.e. not at the beginning of a line are unsupported and should 
+be avoided to ensure correct parsing of the startup options as intended).
 
 Only command line options with a value should be set within the configuration
 file. Command line options which act as flags should only be entered on the
