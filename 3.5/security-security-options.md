@@ -77,7 +77,8 @@ options from the output of:
 
     require('internal').options()
 
-and an exception will be thrown when trying to access them.
+and an exception will be thrown when trying to access items that are masked
+in the same way as if they weren't there in first place.
 
 #### File access
 In contrast to other areas, access to directories and files from JavaScript
@@ -90,6 +91,7 @@ For example, when using the following startup options
     --javascript.files-whitelist "^/etc/required/"
     --javascript.files-whitelist "^/etc/mtab/"
     --javascript.files-whitelist "^/etc/issue$"
+
 The file `/etc/issue` will be allowed to accessed and all files in the directories
 `/etc/required` and `/etc/mtab` plus their subdirectories will be accessible,
 while access to files in any other directories 
