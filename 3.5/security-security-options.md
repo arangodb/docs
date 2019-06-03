@@ -58,7 +58,8 @@ These patterns and how they are applied can be observed by enabling
 `--log.level SECURITY=debug` in the `arangod` or `arangosh` log output.
 
 #### Combining patterns
-The pattern to observe most easily is the masquerading of the startup options:
+The security option to observe the behaviour of the pattern matching most easily
+is the masquerading of the startup options:
 
     --javascript.startup-options-whitelist "^server\."
     --javascript.startup-options-whitelist "^log\."
