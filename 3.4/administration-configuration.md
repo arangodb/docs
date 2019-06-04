@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The programs and tools shipped in anArangoDB package can be configured with various startup options
+description: The programs and tools shipped in an ArangoDB package can be configured with various startup options
 ---
 # Configuration
 
@@ -172,6 +172,35 @@ for small adjustments, you can put local overrides into a file
 *arangod.conf.local*.
 {% endcomment %}
 
+## Suffixes for Numeric Options
+
+It is possible to add suffixes to numeric options that will cause ArangoDB to
+multiply the value by a certain factor. This can be used to conveniently specify
+values in megabytes or gigabytes for example.
+
+| Suffix               | Factor   | Example |
+|----------------------|----------|---------|
+| `kib`, `KiB`         | 1024     | 512KiB  |
+| `mib`, `MiB`         | 1024 ^ 2 | 64mib   |
+| `gib`, `GiB`         | 1024 ^ 3 | 3gib    |
+| `k`, `K`, `kb`, `KB` | 1000     | 3k      |
+| `m`, `M`, `mb`, `MB` | 1000 ^ 2 | 3mb     |
+| `g`, `G`, `gb`, `GB` | 1000 ^ 3 | 3GB     |
+| `%`                  | 0.01     | 5%      |
+
+Suffix could be used like this in a configuration file:
+
+```conf
+[rocksdb]
+write-buffer-size=512KiB
+block-cache-size=512MiB
+total-write-buffer-size=2GiB
+max-bytes-for-level-multiplier=1K
+
+[cache]
+size=2G
+```
+
 ## Environment variables as parameters
 
 If you want to use an environment variable in a value of a startup option,
@@ -186,7 +215,7 @@ arangod --temp.path @TEMP@/arango_tmp
 
 In a configuration file:
 
-```
+```conf
 [temp]
 path = @TEMP@/arango_tmp
 ```
