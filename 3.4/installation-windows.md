@@ -11,7 +11,7 @@ Introduction
 There are two possible methods to install ArangoDB on 64-bit Windows systems:
 
 1. Automated, using an _NSIS_ Installer.
-1. Manual, using a ZIP archive (XCopy installation).
+2. Manual, using a ZIP archive (XCopy installation).
 
 Both installation methods have their own pros and cons.
 
