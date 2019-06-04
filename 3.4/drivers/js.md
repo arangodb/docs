@@ -1,6 +1,7 @@
 ---
 layout: default
-description: The official ArangoDB low-level JavaScript client
+description: ArangoJS - the JavaScript driver is only meant to be used when accessing ArangoDB from outside the database.
+title: ArangoDB JavaScript Driver
 ---
 
 # ArangoDB JavaScript Driver
