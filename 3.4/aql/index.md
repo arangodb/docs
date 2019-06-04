@@ -1,7 +1,7 @@
 ---
 layout: default
 description: Introduction to the ArangoDB query language (AQL). AQL can be used to retrieve and modify data that are stored in ArangoDB.
-title: ArangoDB Query Language (AQL) introduction | ArangoDB Documentation
+title: ArangoDB Query Language (AQL) introduction 
 ---
 Introduction
 ============
