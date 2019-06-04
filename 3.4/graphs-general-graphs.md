@@ -1,6 +1,7 @@
 ---
 layout: default
-description: This chapter describes the general-graph module
+description: This chapter describes the general-graph module. It allows you to define a graph that is spread across several edge and document collections. 
+title: General Graph module 
 ---
 Graphs
 ======
