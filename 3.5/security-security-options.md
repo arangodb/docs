@@ -17,16 +17,16 @@ The following security options are available:
   If this option is set to `true` and authentication is enabled, non-admin users
   will be denied access to the following REST APIs:
   
-  * `/_admin/log`
-  * `/_admin/log/level`
-  * `/_admin/status`
-  * `/_admin/statistics`
-  * `/_admin/statistics-description`
-  * `/_api/engine/stats`
+  - `/_admin/log`
+  - `/_admin/log/level`
+  - `/_admin/status`
+  - `/_admin/statistics`
+  - `/_admin/statistics-description`
+  - `/_api/engine/stats`
  
   Additionally, no version details will be revealed by the version REST API at 
   `/_api/version`.
-  `
+
   The default value for this option is `false`.
 
 ## JavaScript security options
@@ -44,9 +44,13 @@ components.
 
 The set theory for these lists works as follow:
 
-- only a blacklist is specified: all is allowed except a set of items matching the blacklist.
-- only a whitelist is specified: all is disallowed except the set of items matching the whitelist
-- both whitelist and blacklist are specified: all is disallowed except the set of items matching the whitelist. From this whitelisted set, subsets can be forbidden again using the blacklist.
+- **Only a blacklist is specified:**
+  Everything is allowed except a set of items matching the blacklist.
+- **Only a whitelist is specified:**
+  Everything is disallowed except the set of items matching the whitelist.
+- **Both whitelist and blacklist are specified:**
+  Everything is disallowed except the set of items matching the whitelist.
+  From this whitelisted set, subsets can be forbidden again using the blacklist.
 
 Values for blacklist and whitelist options need to be specified as ECMAScript 
 regular expressions.
@@ -58,7 +62,8 @@ These patterns and how they are applied can be observed by enabling
 `--log.level SECURITY=debug` in the `arangod` or `arangosh` log output.
 
 #### Combining patterns
-The security option to observe the behaviour of the pattern matching most easily
+
+The security option to observe the behavior of the pattern matching most easily
 is the masquerading of the startup options:
 
     --javascript.startup-options-whitelist "^server\."
@@ -76,19 +81,23 @@ These sets will resolve internally to the following regular expressions:
 Invoking an arangosh with these options will hide the blacklisted commandline
 options from the output of: 
 
-    require('internal').options()
+```js
+require('internal').options()
+```
 
-and an exception will be thrown when trying to access items that are masked
+… and an exception will be thrown when trying to access items that are masked
 in the same way as if they weren't there in first place.
 
 #### File access
+
 In contrast to other areas, access to directories and files from JavaScript
-operations is only controlled via a whitelist, which can be specified via the startup
-option `--javascript.files-whitelist`. Thus any files or directories not matching the whitelist
-will be inaccessible from JavaScript filesystem functions.
+operations is only controlled via a whitelist, which can be specified via the
+startup option `--javascript.files-whitelist`. Thus any files or directories
+not matching the whitelist will be inaccessible from JavaScript filesystem
+functions.
 
 For example, when using the following startup options
-    
+
     --javascript.files-whitelist "^/etc/required/"
     --javascript.files-whitelist "^/etc/mtab/"
     --javascript.files-whitelist "^/etc/issue$"
@@ -110,15 +119,15 @@ will be disallowed from JavaScript operations, with the following exceptions:
 
 #### Endpoint access
 
-The endpoint black/white listing limits access to external http resources. 
-In contrast to the URLs specified in the javascript code, the filters have
+The endpoint black/white listing limits access to external HTTP resources. 
+In contrast to the URLs specified in the JavaScript code, the filters have
 to be specified in the ArangoDB endpoints notation: 
 
 - http:// => tcp://
 - https:// => ssl://
 - no protocol will match http and https.
 
-Filtering is done on the protocol, hostname / IP-Address, and the port.
+Filtering is done on the protocol, hostname / IP address, and the port.
 
 Specifying `arangodb.org` will match:
  - `https://arangodb.org:777`
@@ -144,7 +153,6 @@ arangosh --javascript.endpoints-whitelist ssl://arangodb.org
 127.0.0.1:8529@_system> require('internal').download('http://arangodb.org')
 JavaScript exception: ArangoError 11: not allowed to connect to this endpoint
 ```
-
 
 ### Options for blacklisting and whitelisting
 
@@ -184,23 +192,23 @@ extra options are available for locking down JavaScript access to server functio
   If set to `true`, this option allows the execution and control of external processes
   from JavaScript code via the functions from the `internal` module:
   
-  - executeExternal
-  - executeExternalAndWait
-  - getExternalSpawned
-  - killExternal
-  - suspendExternal
-  - continueExternal
-  - statusExternal
+  - `executeExternal`
+  - `executeExternalAndWait`
+  - `getExternalSpawned`
+  - `killExternal`
+  - `suspendExternal`
+  - `continueExternal`
+  - `statusExternal`
 
 - `--javascript.harden`:
   If set to `true`, this setting will deactivate the following JavaScript functions
-  which may leak information about the environment:
+  from the `internal` module, which may leak information about the environment:
 
-  - `internal.clientStatistics()`
-  - `internal.httpStatistics()`
-  - `internal.processStatistics()`
-  - `internal.getPid()`
-  - `internal.logLevel()`.
+  - `clientStatistics()`
+  - `httpStatistics()`
+  - `processStatistics()`
+  - `getPid()`
+  - `logLevel()`
 
   The default value is `false`.
 
@@ -220,4 +228,3 @@ in an ArangoDB server:
   which will also prevent ArangoDB and its web interface from making calls to the main Foxx 
   application Github repository at https://github.com/arangodb/foxx-apps.
   The default value is `true`.
-
