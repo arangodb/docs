@@ -1,6 +1,7 @@
 ---
 layout: default
-description: The following examples all use a vertex collection v and an edge collection e
+description: On this chapter you can learn how set up the vertex and edge collections and populate them with initial data, using the following script.
+title: ArangoDB graphs traversals example data
 ---
 Example Data
 ============
