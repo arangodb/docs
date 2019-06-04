@@ -139,6 +139,8 @@ This can be tried out using a whitelist - all non matches will be blocked:
 
 ```
 arangosh --javascript.endpoints-whitelist ssl://arangodb.org
+127.0.0.1:8529@_system> require('internal').download('https://arangodb.org:4444')
+<whitelist permitted, error on trying to connect>
 127.0.0.1:8529@_system> require('internal').download('http://arangodb.org')
 JavaScript exception: ArangoError 11: not allowed to connect to this endpoint
 ```
