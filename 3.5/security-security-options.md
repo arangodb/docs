@@ -120,6 +120,30 @@ to be specified in the ArangoDB endpoints notation:
 
 Filtering is done on the protocol, hostname / IP-Address, and the port.
 
+Specifying `arangodb.org` will match:
+ - `https://arangodb.org:777`
+ - `https://arangodb.org`
+ - `http://arangodb.org` 
+
+Specifying `ssl://arangodb.org` will match:
+ - `https://arangodb.org:777`
+ - `https://arangodb.org`
+
+Specifying `ssl://arangodb.org:443` will match:
+ - `https://arangodb.org`
+
+Specifying `tcp://arangodb.org` will match:
+ - `http://arangodb.org` 
+
+This can be tried out using: 
+
+```
+arangosh --javascript.endpoints-blacklist arangodb.org
+127.0.0.1:8529@_system> require('internal').download('https://arangodb.org')
+JavaScript exception: ArangoError 11: not allowed to connect to this endpoint
+```
+
+
 ### Options for blacklisting and whitelisting
 
 The following options are available for blacklisting and whitelisting access
