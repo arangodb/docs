@@ -17,7 +17,7 @@ the same document (identified by its handle) can be distinguished by their
 Any transaction only ever sees a single revision of a document.
 For example:
 
-```js
+```json
 {
   "_id" : "myusers/3456789",
   "_key" : "3456789",
@@ -29,9 +29,9 @@ For example:
     "city" : "Gotham"
   },
   "hobbies" : [
-    {name: "swimming", howFavorite: 10},
-    {name: "biking", howFavorite: 6},
-    {name: "programming", howFavorite: 4}
+    {"name": "swimming", "howFavorite": 10},
+    {"name": "biking", "howFavorite": 6},
+    {"name": "programming", "howFavorite": 4}
   ]
 }
 ```
