@@ -131,7 +131,7 @@ RETURN { hobbies: oneDocument.hobbies[*].name }
 
 ```json
 [
-    { "hobbies": ["swimming", "biking", "porgramming"] }
+    { "hobbies": ["swimming", "biking", "programming"] }
 ]
 ```
 
