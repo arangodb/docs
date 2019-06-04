@@ -107,8 +107,7 @@ FOR name IN Names
     ...
 ```
 
-<!--
-
+{%- comment %}
 Rename to Error Sources?
 Include article about parameter injection from cookbook?
 
@@ -118,5 +117,4 @@ https://github.com/arangodb/arangodb/issues/1634#issuecomment-167808660
 FILTER HAS(doc, "attr") instead of FITLER doc.attr / FILTER doc.attr != null
 
 collection ... not found error, e.g. access of variable after COLLECT (no longer existing)
-
--->
+{% endcomment %}

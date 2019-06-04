@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Geospatial coordinates consisting of a latitude and longitude valuecan be stored either as two separate attributes, or as a singleattribute in the form of an array with both numeric values
+description: Geospatial Queries AQL Tutorial
 ---
 Geospatial queries
 ==================
@@ -181,6 +181,4 @@ variable, as if it was part of the location document. The value is divided
 by 1000 in the example query, to convert the unit to kilometers, simply to
 make it better readable.
 
-<!-- Geo cursor
-https://www.arangodb.com/using-arangodb-geo-index-cursor-via-aql/
--->
+{%- comment %}TODO: Update to Geo cursor https://www.arangodb.com/using-arangodb-geo-index-cursor-via-aql/{% endcomment %}

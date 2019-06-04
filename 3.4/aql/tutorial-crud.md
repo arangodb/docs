@@ -16,7 +16,6 @@ Create documents
 Before we can insert documents with AQL, we need a place to put them in - a
 collection. Collections can be managed via the web interface, arangosh or a
 driver. It is not possible to do so with AQL however.
-<!-- ref to AQL introduction about DML -->
 
 ![Add Collection](../images/Collection_Add.png)
 
@@ -140,7 +139,7 @@ INSERT {
 ```
 
 Note: AQL does not permit multiple `INSERT` operations that target the same
-collection in in a single query. <!-- explain why? -->
+collection in in a single query.
 It is allowed as body of a `FOR` loop however, inserting multiple documents
 like we did with above query.
 

@@ -301,6 +301,3 @@ FOR c IN Characters
 
 If we had deeper family trees, it would only be a matter of changing the depth
 values to query for great-grandchildren and similar relations.
-
-<!-- TODO: Add SQL examples for comparison (children's children) -->
-<!-- Dump path? -->

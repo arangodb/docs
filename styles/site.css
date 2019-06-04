@@ -179,10 +179,15 @@ pre.highlight .nb {
     color: white;
 }
 
+.page-nav {
+    margin-top: 30px;
+}
+
 .page-nav .next {
     float: right;
 }
 
-@media screen and (max-width: 800px) {
-    .arangodb-navmenu li {display: none;}
+@media screen and (max-width: 1020px) {
+    .arangodb-navmenu li div.searchbar {display: none;}
+    .arangodb-navmenu li div.placeholder {display: none;}
 }

@@ -65,7 +65,7 @@ translate one of them, you would need to find all other character documents
 with the same trait and perform the changes there too. If we only refer to a
 trait in another collection, it is as easy as updating a single document.
 
-<!-- What if Trait doc is deleted? DOCUMENT() skips null -->
+{%- comment %}What if Trait doc is deleted? DOCUMENT() skips null{% endcomment %}
 
 ![Data model comparison](../images/Comparison_DataModels.png)
 
@@ -123,7 +123,6 @@ FOR c IN Characters
 ]
 ```
 
-<!-- Obsolete if we add a chapter about attribute manipulation -->
 Also see the [Fundamentals of Objects / Documents](fundamentals-data-types.html#objects--documents)
 about attribute access.
 

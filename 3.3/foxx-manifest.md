@@ -10,7 +10,6 @@ Every service comes with a `manifest.json` file providing metadata. The followin
 * **configuration**: `Object` (optional)
 
   An object defining the [configuration options](foxx-configuration.html) this service requires.
-  <!-- TODO: examples -->
 
 * **defaultDocument**: `string` (optional)
 

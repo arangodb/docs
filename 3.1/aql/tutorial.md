@@ -26,10 +26,7 @@ Chapters
 - [Graph traversal](tutorial-traversal.html)
 - [Geospatial queries](tutorial-geospatial.html)
 
-<!-- Add later:
-Advanced data manipulation: attributes, projections, calculations...
-Aggregation: Grouping techniques
--->
+{%- comment %}TODO: Advanced data manipulation: attributes, projections, calculations... Aggregation: Grouping techniques{% endcomment %}
 
 Dataset
 -------

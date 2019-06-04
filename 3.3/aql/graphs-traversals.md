@@ -44,7 +44,7 @@ FOR vertex[, edge[, path]]
     the range of *min* are returned. *max* can not be specified without *min*.
 - `OUTBOUND|INBOUND|ANY`: follow outgoing, incoming, or edges pointing in either
   direction in the traversal; Please note that this can't be replaced by a bind parameter.
-- **startVertex** (string|object): a vertex where the traversal will originate from.
+- **startVertex** (string\|object): a vertex where the traversal will originate from.
   This can be specified in the form of an ID string or in the form of a document
   with the attribute `_id`. All other values will lead to a warning and an empty
   result. If the specified document does not exist, the result is empty as well

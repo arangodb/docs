@@ -100,7 +100,7 @@ This is what you must do in that case:
    See [Stopping synchronization](administration-dc2-dc.html#stopping-synchronization)
    for how to cleanup the source datacenter when it becomes available again.
 
-2. Verify that configuration has completely stopped using:
+2. Verify that synchronization has completely stopped using:
    ```bash
    arangosync get status ... -v
    ```

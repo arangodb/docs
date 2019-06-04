@@ -8,7 +8,7 @@ Also see [{{ section[0]|capitalize }} details](programs-{{ include.name }}-{{ se
 {% endif %}
 
 | Name | Type | Description |
-|---------|
+|------|------|-------------|
 {% for option in section[1] -%}
 {%- if option[1].obsolete == false -%}
 {%- capture description -%}

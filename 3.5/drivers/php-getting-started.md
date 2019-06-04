@@ -55,6 +55,7 @@ There are two alternative ways to get the ArangoDB PHP client:
 ```
 composer require triagens/arangodb
 ```
+
 #### Alternative 2: Cloning the git repository
 
 When preferring this alternative, you need to have a git client installed. To clone the ArangoDB PHP client repository from github, execute the following command in your project directory:

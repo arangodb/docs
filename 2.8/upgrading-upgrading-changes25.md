@@ -139,6 +139,7 @@ simplified to just:
 
 * install: get your Foxx app up and running
 * uninstall: shut it down and erase it from disk
+
 Deprecated features
 -------------------
 
