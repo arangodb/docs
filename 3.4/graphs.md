@@ -1,6 +1,7 @@
 ---
 layout: default
-description: A Graph consists of vertices and edges
+description: First Steps with ArangoDB Graphs. A Graph consists of vertices and edges
+title: ArangoDB Graphs
 ---
 ArangoDB Graphs
 ===============
