@@ -426,5 +426,5 @@ result messages temporarily, it may consume a lot of main memory.
 In general it is also recommended to set the `store` attribute of Pregel jobs to `true` to make a job store
 its value on disk and not just in main memory. This way the results are removed from main memory once a Pregel 
 job completes. If the `store` attribute is explicitly set to `false`, result sets of completed Pregel runs
-will not be removed from main memory unless the result set is explicitly discarded by a call to the `cancel`
-function.
+will not be removed from main memory until the result set is explicitly discarded by a call to the `cancel`
+function (or a shutdown of the server).
