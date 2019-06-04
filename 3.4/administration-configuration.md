@@ -215,7 +215,7 @@ arangod --temp.path @TEMP@/arango_tmp
 
 In a configuration file:
 
-```
+```conf
 [temp]
 path = @TEMP@/arango_tmp
 ```
