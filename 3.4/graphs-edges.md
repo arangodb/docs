@@ -1,6 +1,7 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's interface for edges
+description: This is an introduction to ArangoDB’s interface for edges used in graphs. Here we work with edges from the JavaScript shell arangosh
+title: ArangoDB Graphs working with Edges
 ---
 Edges, Identifiers, Handles
 ===========================
