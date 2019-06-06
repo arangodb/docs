@@ -284,9 +284,9 @@ equivalent of the array member's value for arrays with a single member.
 
 The following keywords have been added to AQL in ArangoDB 2.3:
 
-- *NOT*
-- *AND*
-- *OR*
+- `NOT`
+- `AND`
+- `OR`
 
 Unquoted usage of these keywords for attribute names in AQL queries will likely
 fail in ArangoDB 2.3. If any such attribute name needs to be used in a query, it

@@ -16,25 +16,25 @@ any input data types, and will return a boolean result value.
 
 The following comparison operators are supported:
 
-- *==* equality
-- *!=* inequality
-- *<*  less than 
-- *<=* less or equal
-- *>*  greater than
-- *>=* greater or equal
-- *IN* test if a value is contained in an array
-- *NOT IN* test if a value is not contained in an array
-- *LIKE* tests if a string value matches a pattern
-- *=~* tests if a string value matches a regular expression
-- *!~* tests if a string value does not match a regular expression
+- `==` equality
+- `!=` inequality
+- `<`  less than 
+- `<=` less or equal
+- `>`  greater than
+- `>=` greater or equal
+- `IN` test if a value is contained in an array
+- `NOT IN` test if a value is not contained in an array
+- `LIKE` tests if a string value matches a pattern
+- `=~` tests if a string value matches a regular expression
+- `!~` tests if a string value does not match a regular expression
 
 Each of the comparison operators returns a boolean value if the comparison can
 be evaluated and returns *true* if the comparison evaluates to true, and *false*
 otherwise. 
 
 The comparison operators accept any data types for the first and second operands. 
-However, *IN* and *NOT IN* will only return a meaningful result if their right-hand 
-operand is an array, and *LIKE* will only execute if both operands are string values.
+However, `IN` and `NOT IN` will only return a meaningful result if their right-hand 
+operand is an array, and `LIKE` will only execute if both operands are string values.
 The comparison operators will not perform any implicit type casts if the compared 
 operands have different or non-sensible types.
 
@@ -58,14 +58,14 @@ true != null              // true
 "foo" !~ "[a-z]+bar$"     // true
 ```
 
-The *LIKE* operator checks whether its left operand matches the pattern specified
+The `LIKE` operator checks whether its left operand matches the pattern specified
 in its right operand. The pattern can consist of regular characters and wildcards.
-The supported wildcards are *_* to match a single arbitrary character, and *%* to 
-match any number of arbitrary characters. Literal *%* and *_* need to be escaped
+The supported wildcards are `_` to match a single arbitrary character, and `%` to 
+match any number of arbitrary characters. Literal `%` and `_` need to be escaped
 with a backslash. Backslashes need to be escaped themselves, which effectively
-means that two reverse solidus characters need to preceed a literal percent sign
+means that two reverse solidus characters need to precede a literal percent sign
 or underscore. In arangosh, additional escaping is required, making it four
-backslashes in total preceeding the to-be-escaped character.
+backslashes in total preceding the to-be-escaped character.
 
 ```
 "abc" LIKE "a%"              // true
@@ -73,9 +73,9 @@ backslashes in total preceeding the to-be-escaped character.
 "a_b_foo" LIKE "a\\_b\\_foo" // true
 ```
 
-The pattern matching performed by the *LIKE* operator is case-sensitive.
+The pattern matching performed by the `LIKE` operator is case-sensitive.
 
-The regular expression operators *=~* and *!~* expect their left-hand operands to
+The regular expression operators `=~` and `!~` expect their left-hand operands to
 be strings, and their right-hand operands to be strings containing valid regular
 expressions as specified in the documentation for the AQL function
 [REGEX_TEST()](functions-string.html#regex_test).
@@ -84,8 +84,8 @@ Array comparison operators
 --------------------------
 
 The comparison operators also exist as *array variant*. In the array
-variant, the operator is prefixed with one of the keywords *ALL*, *ANY*
-or *NONE*. Using one of these keywords changes the operator behavior to
+variant, the operator is prefixed with one of the keywords `ALL`, `ANY`
+or `NONE`. Using one of these keywords changes the operator behavior to
 execute the comparison operation for all, any, or none of its left hand 
 argument values. It is therefore expected that the left hand argument
 of an array operator is an array.
@@ -120,15 +120,15 @@ Logical operators
 
 The following logical operators are supported in AQL:
 
-- *&&* logical and operator
-- *||* logical or operator
-- *!* logical not/negation operator
+- `&&` logical and operator
+- `||` logical or operator
+- `!` logical not/negation operator
 
 AQL also supports the following alternative forms for the logical operators:
 
-- *AND* logical and operator
-- *OR* logical or operator
-- *NOT* logical not/negation operator
+- `AND` logical and operator
+- `OR` logical or operator
+- `NOT` logical not/negation operator
 
 The alternative forms are aliases and functionally equivalent to the regular 
 operators.
@@ -194,11 +194,11 @@ operands. The result of an arithmetic operation is again a numeric value.
 
 AQL supports the following arithmetic operators:
 
-- *+* addition
-- *-* subtraction
-- <i>\*</i> multiplication
-- */* division
-- *%* modulus
+- `+` addition
+- `-` subtraction
+- `*` multiplication
+- `/` division
+- `%` modulus
 
 Unary plus and unary minus are supported as well:
 
@@ -293,11 +293,11 @@ u.value ? : 'value is null, 0 or not present'
 Range operator
 --------------
 
-AQL supports expressing simple numeric ranges with the *..* operator.
+AQL supports expressing simple numeric ranges with the `..` operator.
 This operator can be used to easily iterate over a sequence of numeric
 values.    
 
-The *..* operator will produce an array of the integer values in the 
+The `..` operator will produce an array of the integer values in the 
 defined range, with both bounding values included.
 
 *Examples*
@@ -322,29 +322,28 @@ There is also a [RANGE() function](functions-numeric.html#range).
 Array operators
 ---------------
 
-AQL provides array operators <i>[\*]</i> for
+AQL provides array operators `[*]` for
 [array variable expansion](advanced-array-operators.html#array-expansion) and
-<i>[\*\*]</i> for [array contraction](advanced-array-operators.html#array-contraction).
+`[**]` for [array contraction](advanced-array-operators.html#array-contraction).
 
 Operator precedence
 -------------------
 
 The operator precedence in AQL is similar as in other familiar languages (lowest precedence first):
 
-- *? :* ternary operator
-- *||* logical or
-- *&&* logical and
-- *==*, *!=* equality and inequality
-- *IN* in operator
-- *<*, *<=*, *>=*, *>* less than, less equal,
-  greater equal, greater than
-- *+*, *-* addition, subtraction
-- <i>\*</i>, */*, *%* multiplication, division, modulus
-- *!*, *+*, *-* logical negation, unary plus, unary minus
-- <i>[\*]</i> expansion
-- *()* function call
-- *.* member access
-- *[]* indexed value access
+- `? :` ternary operator
+- `||` logical or
+- `&&` logical and
+- `**`, `!=` equality and inequality
+- `IN` in operator
+- `<`, `<=`, `>=`, `>` less than, less equal, greater equal, greater than
+- `+`, `-` addition, subtraction
+- `*`, `/`, `%` multiplication, division, modulus
+- `!`, `+`, `-` logical negation, unary plus, unary minus
+- `[*]` expansion
+- `()` function call
+- `.` member access
+- `[]` indexed value access
 
-The parentheses *(* and *)* can be used to enforce a different operator
+The parentheses `(` and `)` can be used to enforce a different operator
 evaluation order.

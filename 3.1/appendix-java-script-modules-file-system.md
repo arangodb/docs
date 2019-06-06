@@ -64,7 +64,7 @@ returned as a Unix timestamp (number of seconds elapsed since January 1 1970).
 #### pathSeparator
 `fs.pathSeparator`
 
-If you want to combine two paths you can use fs.pathSeparator instead of */* or *\\*.
+If you want to combine two paths you can use fs.pathSeparator instead of `/` or `\\`.
 
 #### join
 `fs.join(path, filename)`
@@ -136,7 +136,7 @@ returns the directory tree
 The function returns an array that starts with the given path, and all of
 the paths relative to the given path, discovered by a depth first traversal
 of every directory in any visited directory, reporting but not traversing
-symbolic links to directories. The first path is always *""*, the path
+symbolic links to directories. The first path is always `""`, the path
 relative to itself.
 
 

@@ -29,7 +29,7 @@ these additional attributes are returned as well.
 
 Please also note that with real-world data, you might want to create additional
 indexes on the data (left out here for brevity). Adding indexes on attributes that are
-used in *FILTER* statements may considerably speed up queries. Furthermore, instead of
+used in `FILTER` statements may considerably speed up queries. Furthermore, instead of
 using attributes such as *id*, *from* and *to*, you might want to use the built-in
 *_id*, *_from* and *_to* attributes. Finally, [edge collection](../appendix-glossary.html#edge-collection)s provide a nice way of
 establishing references / links between documents. These features have been left out here 

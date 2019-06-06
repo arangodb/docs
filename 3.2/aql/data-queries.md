@@ -25,7 +25,7 @@ its document handle, for instance:
 RETURN DOCUMENT("users/phil")
 ```
 
-*RETURN* is usually accompanied by a **FOR** loop to iterate over the
+`RETURN` is usually accompanied by a **FOR** loop to iterate over the
 documents of a collection. The following query executes the loop body for all
 documents of a collection called *users*. Each document is returned unchanged
 in this example:
@@ -73,8 +73,8 @@ Note that operations do not have to occur in a fixed order and that their order
 can influence the result significantly. Limiting the number of documents
 before a filter is usually not what you want, because it easily misses a lot
 of documents that would fulfill the filter criterion, but are ignored because
-of a premature *LIMIT* clause. Because of the aforementioned reasons, *LIMIT*
-is usually put at the very end, after *FILTER*, *SORT* and other operations.
+of a premature `LIMIT` clause. Because of the aforementioned reasons, `LIMIT`
+is usually put at the very end, after `FILTER`, `SORT` and other operations.
 
 See the [High Level Operations](operations.html) chapter for more details.
 
@@ -173,9 +173,9 @@ REMOVE { _key: "GilbertoGil" } IN users
 
 ### Modifying multiple documents
 
-Data-modification operations are normally combined with *FOR* loops to
+Data-modification operations are normally combined with `FOR` loops to
 iterate over a given list of documents. They can optionally be combined with
-*FILTER* statements and the like.
+`FILTER` statements and the like.
 
 Let's start with an example that modifies existing documents in a collection
 *users* that match some condition:

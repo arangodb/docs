@@ -29,7 +29,7 @@ Single File Directory Manipulation
 #### pathSeparator
 `fs.pathSeparator`
 
-If you want to combine two paths you can use fs.pathSeparator instead of */* or *\\*.
+If you want to combine two paths you can use fs.pathSeparator instead of `/` or `\\`.
 
 #### join
 `fs.join(path, filename)`

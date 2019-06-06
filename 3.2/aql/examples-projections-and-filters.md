@@ -51,14 +51,14 @@ FOR u IN users
 ]
 ```
 
-Note that there is a *LIMIT* clause but no *SORT* clause. In this case it is not guaranteed
+Note that there is a `LIMIT` clause but no `SORT` clause. In this case it is not guaranteed
 which of the user documents are returned. Effectively the document return order is unspecified
-if no *SORT* clause is used, and you should not rely on the order in such queries.
+if no `SORT` clause is used, and you should not rely on the order in such queries.
 
 Projections
 -----------
 
-To return a projection from the collection *users* use a modified *RETURN* instruction:
+To return a projection from the collection *users* use a modified `RETURN` instruction:
 
 ```js
 FOR u IN users 
@@ -98,7 +98,7 @@ Filters
 -------
 
 To return a filtered projection from collection *users*, you can use the
-*FILTER* keyword. Additionally, a *SORT* clause is used to have the result
+`FILTER` keyword. Additionally, a `SORT` clause is used to have the result
 returned in a specific order:
 
 ```js

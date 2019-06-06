@@ -5,8 +5,8 @@ description: The LET statement can be used to assign an arbitrary value to a var
 LET
 ===
 
-The *LET* statement can be used to assign an arbitrary value to a variable.
-The variable is then introduced in the scope the *LET* statement is placed in.
+The `LET` statement can be used to assign an arbitrary value to a variable.
+The variable is then introduced in the scope the `LET` statement is placed in.
 
 The general syntax is:
 
@@ -24,7 +24,7 @@ LET a = PUSH(a, 4) // parsing error, variable 'a' is assigned multiple times
 LET b = PUSH(a, 4) // allowed, result: [1, 2, 3, 4]
 ```
 
-*LET* statements are mostly used to declare complex computations and to avoid
+`LET` statements are mostly used to declare complex computations and to avoid
 repeated computations of the same value at multiple parts of a query.
 
 ```
@@ -38,10 +38,10 @@ FOR u IN users
 ```
 
 In the above example, the computation of the number of recommendations is
-factored out using a *LET* statement, thus avoiding computing the value twice in
-the *RETURN* statement.
+factored out using a `LET` statement, thus avoiding computing the value twice in
+the `RETURN` statement.
 
-Another use case for *LET* is to declare a complex computation in a subquery,
+Another use case for `LET` is to declare a complex computation in a subquery,
 making the whole query more readable.
 
 ```

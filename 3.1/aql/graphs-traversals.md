@@ -38,7 +38,7 @@ We use the following parameters for our query:
 1. We start at the vertex **A**.
 2. We use a *min* depth of 1.
 3. We use a *max* depth of 2.
-4. We follow only in *OUTBOUND* direction of edges
+4. We follow only in `OUTBOUND` direction of edges
 
 ![traversal graph step 1](../images/traversal_graph1.png)
 
@@ -178,7 +178,7 @@ For traversals with a list of edge collections you can optionally specify the
 direction for some of the edge collections. Say for example you have three edge
 collections *edges1*, *edges2* and *edges3*, where in *edges2* the direction has
 no relevance but in *edges1* and *edges3* the direction should be taken into account.
-In this case you can use *OUTBOUND* as general traversal direction and *ANY*
+In this case you can use `OUTBOUND` as general traversal direction and `ANY`
 specifically for *edges2* as follows:
 
 ```
@@ -386,9 +386,9 @@ As you can see, combining two `FILTER` statements with an `AND` has the same res
 Comparing OUTBOUND / INBOUND / ANY
 ----------------------------------
 
-All our previous examples traversed the graph in *OUTBOUND* edge direction.
-You may however want to also traverse in reverse direction (*INBOUND*) or
-both (*ANY*). Since `circles/A` only has outbound edges, we start our queries
+All our previous examples traversed the graph in `OUTBOUND` edge direction.
+You may however want to also traverse in reverse direction (`INBOUND`) or
+both (`ANY`). Since `circles/A` only has outbound edges, we start our queries
 from `circles/E`:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_06_traverse_reverse_6
@@ -400,11 +400,11 @@ from `circles/E`:
     @endDocuBlock GRAPHTRAV_06_traverse_reverse_6
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-The first traversal will only walk in the forward (*OUTBOUND*) direction.
+The first traversal will only walk in the forward (`OUTBOUND`) direction.
 Therefore from **E** we only can see **F**. Walking in reverse direction
-(*INBOUND*), we see the path to **A**: **B** → **A**.
+(`INBOUND`), we see the path to **A**: **B** → **A**.
 
-Walking in forward and reverse direction (*ANY*) we can see a more diverse result.
+Walking in forward and reverse direction (`ANY`) we can see a more diverse result.
 First of all, we see the simple paths to **F** and **A**. However, these vertices
 have edges in other directions and they will be traversed.
 

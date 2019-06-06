@@ -637,7 +637,7 @@ The new fallback rule for collections for which no access level is explicitly
 specified is now:
 
 * Choose the higher access level of:
-  * Any wildcard access grant in the same database, or on "*/*"
+  * Any wildcard access grant in the same database, or on `"*"`
   * The access level for the current database
   * The access level for the `_system` database
 

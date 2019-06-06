@@ -53,8 +53,8 @@ operator always compares case-sensitive.
 #### AQL array comparison operators
 
 All AQL comparison operators now also exist in an array variant. In the
-array variant, the operator is preceded with one of the keywords *ALL*, *ANY*
-or *NONE*. Using one of these keywords changes the operator behavior to
+array variant, the operator is preceded with one of the keywords `ALL`, `ANY`
+or `NONE`. Using one of these keywords changes the operator behavior to
 execute the comparison operation for all, any, or none of its left hand
 argument values. It is therefore expected that the left hand argument
 of an array operator is an array.

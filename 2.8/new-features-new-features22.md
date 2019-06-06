@@ -24,7 +24,7 @@ data modification operations:
 - REMOVE: remove existing documents from a collection
 
 Data-modification operations are normally combined with other AQL
-statements such as *FOR* loops and *FILTER* conditions to determine
+statements such as `FOR` loops and `FILTER` conditions to determine
 the set of documents to operate on. For example, the following query
 will find all documents in collection *users* that match a specific 
 condition and set their *status* variable to *inactive*:
