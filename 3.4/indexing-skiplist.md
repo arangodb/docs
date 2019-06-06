@@ -119,7 +119,7 @@ Ensures that a skiplist array index exists (non-unique):
 `collection.ensureIndex({ type: "skiplist", fields: [ "field1[*]", ..., "fieldn[*]" ] })`
 
 Creates a non-unique skiplist array index for the individual elements of the array
-attributes <i>field1[*]</i>, ... <i>fieldn[*]</i> found in the documents. At least
+attributes `field1[*]`, ... `fieldn[*]` found in the documents. At least
 one attribute path has to be given. The index always treats the indexed arrays as
 sparse.
 

@@ -25,8 +25,8 @@ following attribute naming constraints are not violated:
   underscores.
 
 * Theoretically, attribute names can include punctuation and special characters
-  as desired, provided the name is a valid UTF-8 string.  For maximum
-  portability, special characters should be avoided though.  For example,
+  as desired, provided the name is a valid UTF-8 string. For maximum
+  portability, special characters should be avoided though. For example,
   attribute names may contain the dot symbol, but the dot has a special meaning
   in JavaScript and also in AQL, so when using such attribute names in one of
   these languages, the attribute name needs to be quoted by the end user. 

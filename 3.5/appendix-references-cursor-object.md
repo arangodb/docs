@@ -66,7 +66,7 @@ returns the next result document
 `cursor.next()`
 
 If the *hasNext* operator returns *true*, then the underlying
-cursor of the simple query still has documents.  In this case the
+cursor of the simple query still has documents. In this case the
 next document can be accessed using the *next* operator, which
 will advance the underlying cursor. If you use *next* on an
 exhausted cursor, then *undefined* is returned.

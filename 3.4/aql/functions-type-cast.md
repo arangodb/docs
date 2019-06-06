@@ -92,7 +92,7 @@ Take an input *value* of any type and convert it into a string value.
 
 - **value** (any): input of arbitrary type
 - returns **str** (string):
-  - *null* is converted to an empty string *""*
+  - *null* is converted to an empty string `""`
   - *false* is converted to the string *"false"*, *true* to the string *"true"*
   - Numbers are converted to their string representations. This can also be a
     scientific notation (e.g. "2e-7")

@@ -143,7 +143,7 @@ For k shortest paths with a list of edge collections you can optionally specify 
 direction for some of the edge collections. Say for example you have three edge
 collections *edges1*, *edges2* and *edges3*, where in *edges2* the direction
 has no relevance, but in *edges1* and *edges3* the direction should be taken into
-account. In this case you can use *OUTBOUND* as general search direction and *ANY*
+account. In this case you can use `OUTBOUND` as general search direction and `ANY`
 specifically for *edges2* as follows:
 
 ```

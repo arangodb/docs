@@ -556,7 +556,7 @@ Insert / Save
 
 Note: since ArangoDB 2.2, _insert_ is an alias for _save_.
 
-`collection.insert(data)`<br/>
+`collection.insert(data)`<br>
 `collection.save(data)`
 
 Creates a new document in the *collection* from the given *data*. The
@@ -570,7 +570,7 @@ The method returns a document with the attributes *_id*, *_key* and
 created document, the attribute *_key* the document key and the
 attribute *_rev* contains the document revision.
 
-`collection.insert(data, options)`<br/>
+`collection.insert(data, options)`<br>
 `collection.save(data, options)`
 
 Creates a new document in the *collection* from the given *data* as
@@ -1084,7 +1084,7 @@ Removes all documents matching an example.
 
 The optional *waitForSync* parameter can be used to force synchronization
 of the document deletion operation to disk even in case that the
-*waitForSync* flag had been disabled for the entire collection.  Thus,
+*waitForSync* flag had been disabled for the entire collection. Thus,
 the *waitForSync* parameter can be used to force synchronization of just
 specific operations. To use this, set the *waitForSync* parameter to
 *true*. If the *waitForSync* parameter is not specified or set to
@@ -1132,7 +1132,7 @@ replaced with *newValue*. The document meta-attributes *_id*, *_key* and
 
 The optional *waitForSync* parameter can be used to force synchronization
 of the document replacement operation to disk even in case that the
-*waitForSync* flag had been disabled for the entire collection.  Thus,
+*waitForSync* flag had been disabled for the entire collection. Thus,
 the *waitForSync* parameter can be used to force synchronization of just
 specific operations. To use this, set the *waitForSync* parameter to
 *true*. If the *waitForSync* parameter is not specified or set to
@@ -1189,7 +1189,7 @@ be removed from the target document.
 
 The optional *waitForSync* parameter can be used to force synchronization
 of the document replacement operation to disk even in case that the
-*waitForSync* flag had been disabled for the entire collection.  Thus,
+*waitForSync* flag had been disabled for the entire collection. Thus,
 the *waitForSync* parameter can be used to force synchronization of just
 specific operations. To use this, set the *waitForSync* parameter to
 *true*. If the *waitForSync* parameter is not specified or set to
@@ -1278,7 +1278,7 @@ Edges
 -----
 
 Edges are normal documents that always contain a `_from` and a `_to`
-attribute.  Therefore, you can use the document methods to operate on
+attribute. Therefore, you can use the document methods to operate on
 edges. The following methods, however, are specific to edges.
 
 `edge-collection.edges(vertex)`

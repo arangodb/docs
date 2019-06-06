@@ -39,7 +39,7 @@ We use the following parameters for our query:
 1. We start at the vertex **A**.
 2. We use a *min* depth of 1.
 3. We use a *max* depth of 2.
-4. We follow only in *OUTBOUND* direction of edges
+4. We follow only in `OUTBOUND` direction of edges
 
 ![traversal graph step 1](../images/traversal_graph1.png)
 

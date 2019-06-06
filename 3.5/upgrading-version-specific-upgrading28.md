@@ -40,7 +40,7 @@ The output will then look like this:
 ```
 
 To make ArangoDB 2.8 start with a database directory created with an earlier
-ArangoDB version, you may need to invoke the upgrade procedure once.  This can
+ArangoDB version, you may need to invoke the upgrade procedure once. This can
 be done by running ArangoDB from the command line and supplying the `--upgrade`
 option.
 

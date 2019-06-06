@@ -41,6 +41,6 @@ FOR v, e, p IN OUTBOUND 'users/1' GRAPH 'userGraph'
 ```
 
 Note that constant *WITH* is also a keyword that is used in other contexts,
-for example in *UPDATE* statements. If *WITH* is used to specify the extra
+for example in `UPDATE` statements. If *WITH* is used to specify the extra
 list of collections, then it must be placed at the very start of the query
 string.

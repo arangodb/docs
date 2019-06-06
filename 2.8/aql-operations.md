@@ -7,7 +7,7 @@ High-level operations
 
 ### FOR
 
-The *FOR* keyword can be to iterate over all elements of an array.
+The `FOR` keyword can be to iterate over all elements of an array.
 The general syntax is:
 
 ```
@@ -36,13 +36,13 @@ FOR u IN users
 This will iterate over all elements from the array *users* (note: this array
 consists of all documents from the collection named "users" in this case) and
 make the current array element available in variable *u*. *u* is not modified in
-this example but simply pushed into the result using the *RETURN* keyword.
+this example but simply pushed into the result using the `RETURN` keyword.
 
 Note: When iterating over collection-based arrays as shown here, the order of
-documents is undefined unless an explicit sort order is defined using a *SORT*
+documents is undefined unless an explicit sort order is defined using a `SORT`
 statement.
 
-The variable introduced by *FOR* is available until the scope the *FOR* is
+The variable introduced by `FOR` is available until the scope the `FOR` is
 placed in is closed.
 
 Another example that uses a statically declared array of values to iterate over:
@@ -52,8 +52,8 @@ FOR year IN [ 2011, 2012, 2013 ]
   RETURN { "year" : year, "isLeapYear" : year % 4 == 0 && (year % 100 != 0 || year % 400 == 0) }
 ```
 
-Nesting of multiple *FOR* statements is allowed, too. When *FOR* statements are
-nested, a cross product of the array elements returned by the individual *FOR*
+Nesting of multiple `FOR` statements is allowed, too. When `FOR` statements are
+nested, a cross product of the array elements returned by the individual `FOR`
 statements will be created.
 
 ```
@@ -70,19 +70,19 @@ further processing in the variable *u* and *l*.
 
 ### RETURN
 
-The *RETURN* statement can be used to produce the result of a query.
-It is mandatory to specify a *RETURN* statement at the end of each block in a
+The `RETURN` statement can be used to produce the result of a query.
+It is mandatory to specify a `RETURN` statement at the end of each block in a
 data-selection query, otherwise the query result would be undefined. Using 
-*RETURN* on the main level in data-modification queries is optional.
+`RETURN` on the main level in data-modification queries is optional.
 
-The general syntax for *RETURN* is:
+The general syntax for `RETURN` is:
 
 ```
 RETURN expression
 ```
 
-The *expression* returned by *RETURN* is produced for each iteration in the block the
-*RETURN* statement is placed in. That means the result of a *RETURN* statement
+The *expression* returned by `RETURN` is produced for each iteration in the block the
+`RETURN` statement is placed in. That means the result of a `RETURN` statement
 is always an array (this includes the empty array).  To return all elements from
 the currently iterated array without modification, the following simple form can
 be used:
@@ -92,31 +92,31 @@ FOR variable-name IN expression
   RETURN variable-name
 ```
 
-As *RETURN* allows specifying an expression, arbitrary computations can be
+As `RETURN` allows specifying an expression, arbitrary computations can be
 performed to calculate the result elements. Any of the variables valid in the
-scope the *RETURN* is placed in can be used for the computations.
+scope the `RETURN` is placed in can be used for the computations.
 
-Note: *RETURN* will close the current scope and eliminate all local variables in
+Note: `RETURN` will close the current scope and eliminate all local variables in
 it.
 
 #### RETURN DISTINCT
 
-Since ArangoDB 2.7, *RETURN* can optionally be followed by the *DISTINCT* keyword.
-The *DISTINCT* keyword will ensure uniqueness of the values returned by the
-*RETURN* statement:
+Since ArangoDB 2.7, `RETURN` can optionally be followed by the `DISTINCT` keyword.
+The `DISTINCT` keyword will ensure uniqueness of the values returned by the
+`RETURN` statement:
 
 ```
 FOR variable-name IN expression
   RETURN DISTINCT expression
 ```
 
-If the *DISTINCT* is applied on an expression that itself is an array or a subquery, 
-the *DISTINCT* will not make the values in each array or subquery result unique, but instead
+If the `DISTINCT` is applied on an expression that itself is an array or a subquery, 
+the `DISTINCT` will not make the values in each array or subquery result unique, but instead
 ensure that the result contains only distinct arrays or subquery results. To make
-the result of an array or a subquery unique, simply apply the *DISTINCT* for the
+the result of an array or a subquery unique, simply apply the `DISTINCT` for the
 array or the subquery.
 
-For example, the following query will apply *DISTINCT* on its subquery results,
+For example, the following query will apply `DISTINCT` on its subquery results,
 but not inside the subquery:
 
 ```
@@ -127,9 +127,9 @@ FOR what IN 1..2
   )
 ```
 
-Here we'll have a *FOR* loop with two iterations that each execute a subquery. The
-*DISTINCT* here is applied on the two subquery results. Both subqueries return the
-same result value (that is [ 1, 2, 3, 4, 1, 3 ]), so after *DISTINCT* there will
+Here we'll have a `FOR` loop with two iterations that each execute a subquery. The
+`DISTINCT` here is applied on the two subquery results. Both subqueries return the
+same result value (that is [ 1, 2, 3, 4, 1, 3 ]), so after `DISTINCT` there will
 only be one occurrence of the value [ 1, 2, 3, 4, 1, 3 ] left:
 
 ```
@@ -138,7 +138,7 @@ only be one occurrence of the value [ 1, 2, 3, 4, 1, 3 ] left:
 ]
 ```
 
-If the goal is to apply the *DISTINCT* inside the subquery, it needs to be moved
+If the goal is to apply the `DISTINCT` inside the subquery, it needs to be moved
 there:
 
 ```
@@ -150,9 +150,9 @@ FOR what IN 1..2
   RETURN sub
 ```
 
-In the above case, the *DISTINCT* will make the subquery results unique, so that
+In the above case, the `DISTINCT` will make the subquery results unique, so that
 each subquery will return a unique array of values ([ 1, 2, 3, 4 ]). As the subquery
-is executed twice and there is no *DISTINCT* on the top-level, that array will be
+is executed twice and there is no `DISTINCT` on the top-level, that array will be
 returned twice:
 
 ```
@@ -162,15 +162,15 @@ returned twice:
 ]
 ```
 
-Note: the order of results is undefined for *RETURN DISTINCT*.
+Note: the order of results is undefined for `RETURN DISTINCT`.
 
-Note: *RETURN DISTINCT* is not allowed on the top-level of a query if there is no *FOR* 
+Note: `RETURN DISTINCT` is not allowed on the top-level of a query if there is no `FOR` 
 loop in front of it.
 
 
 ### FILTER
 
-The *FILTER* statement can be used to restrict the results to elements that
+The `FILTER` statement can be used to restrict the results to elements that
 match an arbitrary logical condition. The general syntax is:
 
 ```
@@ -191,10 +191,10 @@ FOR u IN users
 In the above example, all array elements from *users* will be included that have
 an attribute *active* with value *true* and that have an attribute *age* with a
 value less than *39* (including *null* ones). All other elements from *users* 
-will be skipped and not be included the result produced by *RETURN*.
+will be skipped and not be included the result produced by `RETURN`.
 
-It is allowed to specify multiple *FILTER* statements in a query, and even in
-the same block. If multiple *FILTER* statements are used, their results will be
+It is allowed to specify multiple `FILTER` statements in a query, and even in
+the same block. If multiple `FILTER` statements are used, their results will be
 combined with a logical and, meaning all filter conditions must be true to
 include an element.
 
@@ -207,8 +207,8 @@ FOR u IN users
 
 ### SORT
 
-The *SORT* statement will force a sort of the array of already produced
-intermediate results in the current block. *SORT* allows specifying one or
+The `SORT` statement will force a sort of the array of already produced
+intermediate results in the current block. `SORT` allows specifying one or
 multiple sort criteria and directions.  The general syntax is:
 
 ```
@@ -221,7 +221,7 @@ keywords *ASC* (ascending) and *DESC* can be used. Multiple sort criteria can be
 separated using commas.
 
 Note: when iterating over collection-based arrays, the order of documents is
-always undefined unless an explicit sort order is defined using *SORT*.
+always undefined unless an explicit sort order is defined using `SORT`.
 
 ```
 FOR u IN users
@@ -229,17 +229,17 @@ FOR u IN users
   RETURN u
 ```
 
-Note that constant *SORT* expressions can be used to indicate that no particular
-sort order is desired. Constant *SORT* expressions will be optimized away by the AQL
+Note that constant `SORT` expressions can be used to indicate that no particular
+sort order is desired. Constant `SORT` expressions will be optimized away by the AQL
 optimizer during optimization, but specifying them explicitly may enable further
 optimizations if the optimizer does not need to take into account any particular
 sort order.
 
 ### LIMIT
 
-The *LIMIT* statement allows slicing the result array using an
+The `LIMIT` statement allows slicing the result array using an
 offset and a count. It reduces the number of elements in the result to at most
-the specified number.  Two general forms of *LIMIT* are followed:
+the specified number.  Two general forms of `LIMIT` are followed:
 
 ```
 LIMIT count
@@ -263,15 +263,15 @@ FOR u IN users
 
 ### LET
 
-The *LET* statement can be used to assign an arbitrary value to a variable.  The
-variable is then introduced in the scope the *LET* statement is placed in.  The
+The `LET` statement can be used to assign an arbitrary value to a variable.  The
+variable is then introduced in the scope the `LET` statement is placed in.  The
 general syntax is:
 
 ```
 LET variable-name = expression
 ```
 
-*LET* statements are mostly used to declare complex computations and to avoid
+`LET` statements are mostly used to declare complex computations and to avoid
 repeated computations of the same value at multiple parts of a query.
 
 ```
@@ -285,10 +285,10 @@ FOR u IN users
 ```
 
 In the above example, the computation of the number of recommendations is
-factored out using a *LET* statement, thus avoiding computing the value twice in
-the *RETURN* statement.
+factored out using a `LET` statement, thus avoiding computing the value twice in
+the `RETURN` statement.
 
-Another use case for *LET* is to declare a complex computation in a subquery,
+Another use case for `LET` is to declare a complex computation in a subquery,
 making the whole query more readable.
 
 ```
@@ -313,14 +313,14 @@ FOR u IN users
 
 ### COLLECT
 
-The *COLLECT* keyword can be used to group an array by one or multiple group
+The `COLLECT` keyword can be used to group an array by one or multiple group
 criteria. 
 
-The *COLLECT* statement will eliminate all local variables in the current
-scope. After *COLLECT* only the variables introduced by *COLLECT* itself are
+The `COLLECT` statement will eliminate all local variables in the current
+scope. After `COLLECT` only the variables introduced by `COLLECT` itself are
 available.
 
-The general syntaxes for *COLLECT* are:
+The general syntaxes for `COLLECT` are:
 
 ```
 COLLECT variable-name = expression options
@@ -335,9 +335,9 @@ COLLECT WITH COUNT INTO count-variable options
 
 #### Grouping syntaxes
 
-The first syntax form of *COLLECT* only groups the result by the defined group 
+The first syntax form of `COLLECT` only groups the result by the defined group 
 criteria specified in *expression*. In order to further process the results 
-produced by *COLLECT*, a new variable (specified by *variable-name*) is introduced. 
+produced by `COLLECT`, a new variable (specified by *variable-name*) is introduced. 
 This variable contains the group value.
 
 Here's an example query that find the distinct values in *u.city* and makes
@@ -357,10 +357,10 @@ group. This works as follows: The *groups-variable* variable is an array contain
 as many elements as there are in the group. Each member of that array is
 a JSON object in which the value of every variable that is defined in the 
 AQL query is bound to the corresponding attribute. Note that this considers
-all variables that are defined before the *COLLECT* statement, but not those on
-the top level (outside of any *FOR*), unless the *COLLECT* statement is itself
+all variables that are defined before the `COLLECT` statement, but not those on
+the top level (outside of any `FOR`), unless the `COLLECT` statement is itself
 on the top level, in which case all variables are taken. Furthermore note 
-that it is possible that the optimizer moves *LET* statements out of *FOR*
+that it is possible that the optimizer moves `LET` statements out of `FOR`
 statements to improve performance. 
 
 ```
@@ -375,9 +375,9 @@ FOR u IN users
 In the above example, the array *users* will be grouped by the attribute
 *city*. The result is a new array of documents, with one element per distinct
 *u.city* value. The elements from the original array (here: *users*) per city are
-made available in the variable *groups*. This is due to the *INTO* clause.
+made available in the variable *groups*. This is due to the `INTO` clause.
 
-*COLLECT* also allows specifying multiple group criteria. Individual group
+`COLLECT` also allows specifying multiple group criteria. Individual group
 criteria can be separated by commas:
 
 ```
@@ -397,7 +397,7 @@ will be returned.
 
 #### Discarding obsolete variables
 
-The third form of *COLLECT* allows rewriting the contents of the *groups-variable* 
+The third form of `COLLECT` allows rewriting the contents of the *groups-variable* 
 using an arbitrary *projection-expression*:
 
 ```
@@ -415,7 +415,7 @@ only this attribute is copied into the *groups-variable* for each document.
 This is probably much more efficient than copying all variables from the scope into 
 the *groups-variable* as it would happen without a *projection-expression*.
 
-The expression following *INTO* can also be used for arbitrary computations:
+The expression following `INTO` can also be used for arbitrary computations:
 
 ```
 FOR u IN users
@@ -430,16 +430,16 @@ FOR u IN users
   }
 ```
 
-*COLLECT* also provides an optional *KEEP* clause that can be used to control
+`COLLECT` also provides an optional `KEEP` clause that can be used to control
 which variables will be copied into the variable created by `INTO`. If no 
-*KEEP* clause is specified, all variables from the scope will be copied as 
+`KEEP` clause is specified, all variables from the scope will be copied as 
 sub-attributes into the *groups-variable*. 
 This is safe but can have a negative impact on performance if there 
 are many variables in scope or the variables contain massive amounts of data. 
 
 The following example limits the variables that are copied into the *groups-variable*
 to just *name*. The variables *u* and *someCalculation* also present in the scope
-will not be copied into *groups-variable* because they are not listed in the *KEEP* clause:
+will not be copied into *groups-variable* because they are not listed in the `KEEP` clause:
 
 ```
 FOR u IN users
@@ -452,18 +452,18 @@ FOR u IN users
   }
 ```
 
-*KEEP* is only valid in combination with *INTO*. Only valid variable names can
-be used in the *KEEP* clause. *KEEP* supports the specification of multiple 
+`KEEP` is only valid in combination with `INTO`. Only valid variable names can
+be used in the `KEEP` clause. `KEEP` supports the specification of multiple 
 variable names.
 
 
 #### Group length calculation
 
-*COLLECT* also provides a special *WITH COUNT* clause that can be used to 
+`COLLECT` also provides a special *WITH COUNT* clause that can be used to 
 determine the number of group members efficiently.
 
 The simplest form just returns the number of items that made it into the
-*COLLECT*:
+`COLLECT`:
 
 ```
 FOR u IN users
@@ -492,7 +492,7 @@ FOR u IN users
   }
 ```
 
-Note: the *WITH COUNT* clause can only be used together with an *INTO* clause.
+Note: the *WITH COUNT* clause can only be used together with an `INTO` clause.
 
 
 ### Aggregation
@@ -558,23 +558,23 @@ assignment:
 
 #### COLLECT variants
 
-Since ArangoDB 2.6, there are two variants of *COLLECT* that the optimizer can
+Since ArangoDB 2.6, there are two variants of `COLLECT` that the optimizer can
 choose from: the *sorted* variant and the *hash* variant. The *hash* variant only becomes a
-candidate for *COLLECT* statements that do not use an *INTO* clause.
+candidate for `COLLECT` statements that do not use an `INTO` clause.
 
 The optimizer will always generate a plan that employs the *sorted* method. The *sorted* method 
-requires its input to be sorted by the group criteria specified in the *COLLECT* clause. 
-To ensure correctness of the result, the AQL optimizer will automatically insert a *SORT* 
-statement into the query in front of the *COLLECT* statement. The optimizer may be able to 
-optimize away that *SORT* statement later if a sorted index is present on the group criteria. 
+requires its input to be sorted by the group criteria specified in the `COLLECT` clause. 
+To ensure correctness of the result, the AQL optimizer will automatically insert a `SORT` 
+statement into the query in front of the `COLLECT` statement. The optimizer may be able to 
+optimize away that `SORT` statement later if a sorted index is present on the group criteria. 
 
-In case a *COLLECT* qualifies for using the *hash* variant, the optimizer will create an extra 
-plan for it at the beginning of the planning phase. In this plan, no extra *SORT* statement will be
-added in front of the *COLLECT*. This is because the *hash* variant of *COLLECT* does not require
-sorted input. Instead, a *SORT* statement will be added after the *COLLECT* to sort its output. 
-This *SORT* statement may be optimized away again in later stages. 
-If the sort order of the *COLLECT* is irrelevant to the user, adding the extra instruction *SORT null* 
-after the *COLLECT* will allow the optimizer to remove the sorts altogether:
+In case a `COLLECT` qualifies for using the *hash* variant, the optimizer will create an extra 
+plan for it at the beginning of the planning phase. In this plan, no extra `SORT` statement will be
+added in front of the `COLLECT`. This is because the *hash* variant of `COLLECT` does not require
+sorted input. Instead, a `SORT` statement will be added after the `COLLECT` to sort its output. 
+This `SORT` statement may be optimized away again in later stages. 
+If the sort order of the `COLLECT` is irrelevant to the user, adding the extra instruction *SORT null* 
+after the `COLLECT` will allow the optimizer to remove the sorts altogether:
 
 ```
 FOR u IN users
@@ -583,27 +583,27 @@ FOR u IN users
   RETURN age
 ```
   
-Which *COLLECT* variant is used by the optimizer depends on the optimizer's cost estimations. The 
-created plans with the different *COLLECT* variants will be shipped through the regular optimization 
+Which `COLLECT` variant is used by the optimizer depends on the optimizer's cost estimations. The 
+created plans with the different `COLLECT` variants will be shipped through the regular optimization 
 pipeline. In the end, the optimizer will pick the plan with the lowest estimated total cost as usual. 
 
-In general, the *sorted* variant of *COLLECT* should be preferred in cases when there is a sorted index
-present on the group criteria. In this case the optimizer can eliminate the *SORT* statement in front
-of the *COLLECT*, so that no *SORT* will be left. 
+In general, the *sorted* variant of `COLLECT` should be preferred in cases when there is a sorted index
+present on the group criteria. In this case the optimizer can eliminate the `SORT` statement in front
+of the `COLLECT`, so that no `SORT` will be left. 
 
 If there is no sorted index available on the group criteria, the up-front sort required by the *sorted* 
 variant can be expensive. In this case it is likely that the optimizer will prefer the *hash* variant
-of *COLLECT*, which does not require its input to be sorted. 
+of `COLLECT`, which does not require its input to be sorted. 
 
-Which variant of *COLLECT* was actually used can be figured out by looking into the execution plan of
+Which variant of `COLLECT` was actually used can be figured out by looking into the execution plan of
 a query, specifically the *AggregateNode* and its *aggregationOptions* attribute.
 
 
 #### Setting COLLECT options
 
-*options* can be used in a *COLLECT* statement to inform the optimizer about the preferred *COLLECT*
-method. When specifying the following appendix to a *COLLECT* statement, the optimizer will always use
-the *sorted* variant of *COLLECT* and not even create a plan using the *hash* variant:
+*options* can be used in a `COLLECT` statement to inform the optimizer about the preferred `COLLECT`
+method. When specifying the following appendix to a `COLLECT` statement, the optimizer will always use
+the *sorted* variant of `COLLECT` and not even create a plan using the *hash* variant:
 
 ```
 OPTIONS { method: "sorted" }
@@ -616,10 +616,10 @@ than *sorted* are specified in *OPTIONS*, the optimizer will use its regular cos
 
 #### COLLECT vs. RETURN DISTINCT
 
-In order to make a result set unique, one can either use *COLLECT* or *RETURN DISTINCT*. Behind the
+In order to make a result set unique, one can either use `COLLECT` or `RETURN DISTINCT`. Behind the
 scenes, both variants will work by creating an *AggregateNode*. For both variants, the optimizer
-may try the sorted and the hashed variant of *COLLECT*. The difference is therefore mainly syntactical,
-with *RETURN DISTINCT* saving a bit of typing when compared to an equivalent *COLLECT*:
+may try the sorted and the hashed variant of `COLLECT`. The difference is therefore mainly syntactical,
+with `RETURN DISTINCT` saving a bit of typing when compared to an equivalent `COLLECT`:
 
 ```
 FOR u IN users
@@ -632,20 +632,20 @@ FOR u IN users
   RETURN age
 ```
 
-However, *COLLECT* is vastly more flexible than *RETURN DISTINCT*. Additionally, the order of results is 
-undefined for a *RETURN DISTINCT*, whereas for a *COLLECT* the results will be sorted.
+However, `COLLECT` is vastly more flexible than `RETURN DISTINCT`. Additionally, the order of results is 
+undefined for a `RETURN DISTINCT`, whereas for a `COLLECT` the results will be sorted.
 
 
 ### REMOVE
 
-The *REMOVE* keyword can be used to remove documents from a collection. On a
+The `REMOVE` keyword can be used to remove documents from a collection. On a
 single server, the document removal is executed transactionally in an 
 all-or-nothing fashion. For sharded collections, the entire remove operation
 is not transactional.
 
-Each *REMOVE* operation is restricted to a single collection, and the 
+Each `REMOVE` operation is restricted to a single collection, and the 
 [collection name](glossary.html#collection-name) must not be dynamic.
-Only a single *REMOVE* statement per collection is allowed per AQL query, and 
+Only a single `REMOVE` statement per collection is allowed per AQL query, and 
 it cannot be followed by read operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
 
@@ -674,7 +674,7 @@ FOR u IN users
 ```
 
 **Note**: A remove operation can remove arbitrary documents, and the documents
-do not need to be identical to the ones produced by a preceding *FOR* statement:
+do not need to be identical to the ones produced by a preceding `FOR` statement:
 
 ```
 FOR i IN 1..1000
@@ -735,13 +735,13 @@ FOR u IN users
 
 ### UPDATE
 
-The *UPDATE* keyword can be used to partially update documents in a collection. On a 
+The `UPDATE` keyword can be used to partially update documents in a collection. On a 
 single server, updates are executed transactionally in an all-or-nothing fashion. 
 For sharded collections, the entire update operation is not transactional.
 
-Each *UPDATE* operation is restricted to a single collection, and the 
+Each `UPDATE` operation is restricted to a single collection, and the 
 [collection name](glossary.html#collection-name) must not be dynamic.
-Only a single *UPDATE* statement per collection is allowed per AQL query, and 
+Only a single `UPDATE` statement per collection is allowed per AQL query, and 
 it cannot be followed by read operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
 The system attributes of documents (*_key*, *_id*, *_from*, *_to*, *_rev*) cannot be
@@ -790,7 +790,7 @@ FOR u IN users
 ```
 
 An update operation may update arbitrary documents which do not need to be identical
-to the ones produced by a preceding *FOR* statement:
+to the ones produced by a preceding `FOR` statement:
 
 ```
 FOR i IN 1..1000
@@ -829,7 +829,7 @@ The above query will remove the *notNeeded* attribute from the documents and upd
 the *foobar* attribute normally.
 
 There is also the option *mergeObjects* that controls whether object contents will be
-merged if an object attribute is present in both the *UPDATE* query and in the 
+merged if an object attribute is present in both the `UPDATE` query and in the 
 to-be-updated document.
 
 The following query will set the updated document's *name* attribute to the exact
@@ -913,13 +913,13 @@ FOR u IN users
 
 ### REPLACE
 
-The *REPLACE* keyword can be used to completely replace documents in a collection. On a
+The `REPLACE` keyword can be used to completely replace documents in a collection. On a
 single server, the replace operation is executed transactionally in an all-or-nothing 
 fashion. For sharded collections, the entire replace operation is not transactional.
 
-Each *REPLACE* operation is restricted to a single collection, and the 
+Each `REPLACE` operation is restricted to a single collection, and the 
 [collection name](glossary.html#collection-name) must not be dynamic.
-Only a single *REPLACE* statement per collection is allowed per AQL query, and 
+Only a single `REPLACE` statement per collection is allowed per AQL query, and 
 it cannot be followed by read operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
 The system attributes of documents (*_key*, *_id*, *_from*, *_to*, *_rev*) cannot be
@@ -974,7 +974,7 @@ of internal attributes (such as *_id*, *_key*, *_from* and *_to*). Replacing a d
 will modify a document's revision number with a server-generated value.
 
 A replace operation may update arbitrary documents which do not need to be identical
-to the ones produced by a preceding *FOR* statement:
+to the ones produced by a preceding `FOR` statement:
 
 ```
 FOR i IN 1..1000
@@ -1045,13 +1045,13 @@ FOR u IN users
 
 ### INSERT
 
-The *INSERT* keyword can be used to insert new documents into a collection. On a 
+The `INSERT` keyword can be used to insert new documents into a collection. On a 
 single server, an insert operation is executed transactionally in an all-or-nothing 
 fashion. For sharded collections, the entire insert operation is not transactional.
 
-Each *INSERT* operation is restricted to a single collection, and the 
+Each `INSERT` operation is restricted to a single collection, and the 
 [collection name](glossary.html#collection-name) must not be dynamic.
-Only a single *INSERT* statement per collection is allowed per AQL query, and 
+Only a single `INSERT` statement per collection is allowed per AQL query, and 
 it cannot be followed by read operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
 
@@ -1061,7 +1061,7 @@ The syntax for an insert operation is:
 INSERT document IN collection options
 ```
 
-**Note**: The *INTO* keyword is also allowed in the place of *IN*.
+**Note**: The `INTO` keyword is also allowed in the place of `IN`.
 
 *collection* must contain the name of the collection into which the documents should
 be inserted. *document* is the document to be inserted, and it may or may not contain
@@ -1130,14 +1130,14 @@ FOR i IN 1..100
 
 ### UPSERT
 
-The *UPSERT* keyword can be used for checking whether certain documents exist,
+The `UPSERT` keyword can be used for checking whether certain documents exist,
 and to update them in case they exist, or create them in case they do not exist.
 On a single server, upserts are executed transactionally in an all-or-nothing fashion. 
 For sharded collections, the entire update operation is not transactional.
 
-Each *UPSERT* operation is restricted to a single collection, and the 
+Each `UPSERT` operation is restricted to a single collection, and the 
 [collection name](glossary.html#collection-name) must not be dynamic.
-Only a single *UPSERT* statement per collection is allowed per AQL query, and 
+Only a single `UPSERT` statement per collection is allowed per AQL query, and 
 it cannot be followed by read operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
 
@@ -1148,9 +1148,9 @@ UPSERT search-expression INSERT insert-expression UPDATE update-expression IN co
 UPSERT search-expression INSERT insert-expression REPLACE update-expression IN collection options
 ```
 
-When using the *UPDATE* variant of the upsert operation, the found document will be 
+When using the `UPDATE` variant of the upsert operation, the found document will be 
 partially updated, meaning only the attributes specified in *update-expression* will be 
-updated or added. When using the *REPLACE* variant of upsert, existing documents will 
+updated or added. When using the `REPLACE` variant of upsert, existing documents will 
 be replaced with the contexts of *update-expression*.
 
 Updating a document will modify the document's revision number with a server-generated value.
@@ -1179,7 +1179,7 @@ INSERT { name: 'superuser', logins: 1, dateCreated: DATE_NOW() }
 UPDATE { logins: OLD.logins + 1 } IN users
 ```
 
-Note that in the *UPDATE* case it is possible to refer to the previous version of the
+Note that in the `UPDATE` case it is possible to refer to the previous version of the
 document using the *OLD* pseudo-value.
 
 
@@ -1193,7 +1193,7 @@ attribute from the document but store a null value for it. To get rid of attribu
 an upsert operation, set them to null and provide the *keepNull* option.
 
 There is also the option *mergeObjects* that controls whether object contents will be
-merged if an object attribute is present in both the *UPDATE* query and in the 
+merged if an object attribute is present in both the `UPDATE` query and in the 
 to-be-updated document.
 
 Note: the default value for *mergeObjects* is *true*, so there is no need to specify it

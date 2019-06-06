@@ -8,9 +8,9 @@ AQL Syntax
 Query types
 -----------
 
-An AQL query must either return a result (indicated by usage of the *RETURN*
+An AQL query must either return a result (indicated by usage of the `RETURN`
 keyword) or execute a data-modification operation (indicated by usage
-of one of the keywords *INSERT*, *UPDATE*, *REPLACE*, *REMOVE* or *UPSERT*). The AQL
+of one of the keywords `INSERT`, `UPDATE`, `REPLACE`, `REMOVE` or `UPSERT`). The AQL
 parser will return an error if it detects more than one data-modification 
 operation in the same query or if it cannot figure out if the query is meant
 to be a data retrieval or a modification operation.
@@ -81,7 +81,7 @@ FOR u IN users
   RETURN u.name
 ```
 
-In this example query, the terms *FOR*, *FILTER*, and *RETURN* initiate the
+In this example query, the terms `FOR`, `FILTER`, and `RETURN` initiate the
 higher-level operation according to their name. These terms are also keywords,
 meaning that they have a special meaning in the language.
 
@@ -214,7 +214,7 @@ FOR u IN users
 ```
 
 In the above query, *users* is a collection name, and both *u* and *friends* are
-variable names. This is because the *FOR* and *LET* operations need target
+variable names. This is because the `FOR` and `LET` operations need target
 variables to store their intermediate results.
 
 Allowed characters in variable names are the letters *a* to *z* (both in lower

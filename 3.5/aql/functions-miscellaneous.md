@@ -25,7 +25,7 @@ Return the first alternative that is an array, and *null* if none of the
 alternatives is an array.
 
 - **alternative** (any, *repeatable*): input of arbitrary type
-- returns **list** (list|null): array / list or null
+- returns **list** (array\|null): array / list or null
 
 ### FIRST_DOCUMENT()
 
@@ -282,7 +282,7 @@ APPLY( "SUBSTRING", [ "this is a test", 0, 7 ] )
 The two functions evaluate an expression. In case the expression evaluates to
 *true* both functions will return *true*. If the expression evaluates to
 *false* *ASSERT* will throw an error and *WARN* will issue a warning and return
-*false*. This behavior allows the use of *ASSERT* and *WARN* in *FILTER*
+*false*. This behavior allows the use of *ASSERT* and *WARN* in `FILTER`
 conditions.
 
 - **expr** (expression): AQL expression to be evaluated
