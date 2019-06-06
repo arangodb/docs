@@ -220,6 +220,7 @@ There are a number of general parameters which apply to almost all algorithms:
 - `useMemoryMaps`: Use disk based files to store temporary results. This might make the computation disk-bound, but
   allows you to run computations which would not fit into main memory. It is recommended to set this flag for
   larger datasets.
+- `shardKeyAttribute`: shard-key that edge-collections are sharded after (default: `vertex`)
 
 Available Algorithms
 --------------------
