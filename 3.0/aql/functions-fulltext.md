@@ -40,25 +40,25 @@ prefixed with either the `prefix:` or `complete:` qualifier. Different qualifier
 be mixed in the same query. Not specifying a qualifier for a search word will implicitly
 execute a complete-match search for the given word:
 
-- `FULLTEXT(emails, "body", "banana")`<br/>
+- `FULLTEXT(emails, "body", "banana")`<br>
   Will look for the word *banana* in the
   attribute *body* of the collection *collection*.
 
-- `FULLTEXT(emails, "body", "banana,orange")`<br/>
+- `FULLTEXT(emails, "body", "banana,orange")`<br>
   Will look for both words
   *banana* and *orange* in the mentioned attribute. Only those documents will be
   returned that contain both words.
 
-- `FULLTEXT(emails, "body", "prefix:head")`<br/>
+- `FULLTEXT(emails, "body", "prefix:head")`<br>
   Will look for documents that contain any
   words starting with the prefix *head*.
 
-- `FULLTEXT(emails, "body", "prefix:head,complete:aspirin")`<br/>
+- `FULLTEXT(emails, "body", "prefix:head,complete:aspirin")`<br>
   Will look for all
   documents that contain a word starting with the prefix *head* and that also contain
   the (complete) word *aspirin*. Note: specifying `complete:` is optional here.
 
-- `FULLTEXT(emails, "body", "prefix:cent,prefix:subst")`<br/>
+- `FULLTEXT(emails, "body", "prefix:cent,prefix:subst")`<br>
   Will look for all documents
   that contain a word starting with the prefix *cent* and that also contain a word
   starting with the prefix *subst*.
@@ -67,19 +67,19 @@ If multiple search words (or prefixes) are given, then by default the results wi
 AND-combined, meaning only the logical intersection of all searches will be returned.
 It is also possible to combine partial results with a logical OR, and with a logical NOT:
 
-- `FULLTEXT(emails, "body", "+this,+text,+document")`<br/>
+- `FULLTEXT(emails, "body", "+this,+text,+document")`<br>
   Will return all documents that
   contain all the mentioned words. Note: specifying the `+` symbols is optional here.
 
-- `FULLTEXT(emails, "body", "banana,|apple")`<br/>
+- `FULLTEXT(emails, "body", "banana,|apple")`<br>
   Will return all documents that contain
   either (or both) words *banana* or *apple*.
 
-- `FULLTEXT(emails, "body", "banana,-apple")`<br/>
+- `FULLTEXT(emails, "body", "banana,-apple")`<br>
   Will return all documents that contain
   the word *banana*, but do not contain the word *apple*.
 
-- `FULLTEXT(emails, "body", "banana,pear,-cranberry")`<br/>
+- `FULLTEXT(emails, "body", "banana,pear,-cranberry")`<br>
   Will return all documents that
   contain both the words *banana* and *pear*, but do not contain the word
   *cranberry*.
