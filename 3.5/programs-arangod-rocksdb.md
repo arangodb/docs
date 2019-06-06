@@ -174,7 +174,7 @@ Number of threads for low priority operations (e.g. compaction). Default: number
 `--rocksdb.block-cache-size`
 
 This is the maximum size of the block cache in bytes. Increasing this may improve
-performance.  If there is less than 4GiB of RAM on the system, the default value
+performance. If there is less than 4GiB of RAM on the system, the default value
 is 256MiB. If there is more, the default is `(system RAM size - 2GiB) * 0.3`.
 
 `--rocksdb.enforce-block-cache-size-limit`

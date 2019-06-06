@@ -57,7 +57,7 @@ This will create a new ArangoDB user. The user name must be specified in *user*
 and must not be empty.
 
 The password must be given as a string, too, but can be left empty if
-required.  If you pass the special value *ARANGODB_DEFAULT_ROOT_PASSWORD*, the
+required. If you pass the special value *ARANGODB_DEFAULT_ROOT_PASSWORD*, the
 password will be set the value stored in the environment variable
 `ARANGODB_DEFAULT_ROOT_PASSWORD`. This can be used to pass an instance
 variable into ArangoDB. For example, the instance identifier from Amazon.
@@ -186,7 +186,7 @@ isValid
 
 `users.isValid(user, password)`
 
-Checks whether the given combination of user name and password is valid.  The
+Checks whether the given combination of user name and password is valid. The
 function will return a boolean value if the combination of user name and password
 is valid.
 

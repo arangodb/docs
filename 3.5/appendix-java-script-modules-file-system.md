@@ -253,7 +253,7 @@ object.
 `fs.write(filename, content)`
 
 Writes the content into a file. Content can be a string or a Buffer
-object.  If the file already exists, it is truncated.
+object. If the file already exists, it is truncated.
 
 ### writeFileSync
 `fs.writeFileSync(filename, content)`
@@ -264,7 +264,7 @@ This is an alias for `fs.write(filename, content)`.
 `fs.append(filename, content)`
 
 Writes the content into a file. Content can be a string or a Buffer
-object.  If the file already exists, the content is appended at the
+object. If the file already exists, the content is appended at the
 end.
 
 Recursive Manipulation

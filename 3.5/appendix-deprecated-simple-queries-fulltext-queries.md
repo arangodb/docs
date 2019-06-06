@@ -9,11 +9,11 @@ Fulltext queries
 It is recommended to use AQL instead, see [**Fulltext functions**](aql/functions-fulltext.html).
 {% endhint %}
 
-ArangoDB allows to run queries on text contained in document attributes.  To use
+ArangoDB allows to run queries on text contained in document attributes. To use
 this, a [fulltext index](appendix-glossary.html#fulltext-index) must be defined for the attribute of the collection that
 contains the text. Creating the index will parse the text in the specified
 attribute for all documents of the collection. Only documents will be indexed
-that contain a textual value in the indexed attribute.  For such documents, the
+that contain a textual value in the indexed attribute. For such documents, the
 text value will be parsed, and the individual words will be inserted into the
 fulltext index.
 

@@ -16,9 +16,9 @@ File Systems
 ------------
 
 We recommend to **not** use BTRFS on linux, as it is known to not work
-well in conjunction with ArangoDB.  We experienced that ArangoDB
+well in conjunction with ArangoDB. We experienced that ArangoDB
 facing latency issues on accessing its database files on BTRFS
-partitions.  In conjunction with BTRFS and AUFS we also saw data loss
+partitions. In conjunction with BTRFS and AUFS we also saw data loss
 on restart.
 
 Virtual Memory Page Sizes
