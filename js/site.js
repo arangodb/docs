@@ -59,7 +59,9 @@ document.onreadystatechange = function() {
   }
 };
 
-var loadPage = function(href, fn) {
+var loadPage = function(target, fn) {
+  var href = target.href;
+  var pathname = target.pathname;
   var url = href.replace(/#.*$/, "");
   if (url == currentPage) {
     return;
@@ -102,21 +104,26 @@ var loadPage = function(href, fn) {
       }
 
       gtag('config', 'UA-81053435-1', {
-        'page-title': title,
-        'page-location': currentPage
+        'page_title': title,
+        'page_path': pathname
       });
+
+      var _hsq = window._hsq = window._hsq || [];
+      _hsq.push(['setPath', pathname]);
+      _hsq.push(['trackPageView']);
+
     }
   });
 }
 
 window.onpopstate = function(event) {
-  loadPage(event.target.location.href);
+  loadPage(event.target.location);
 };
 
 $(document).ready(function handleNav() {
   $("div.book-summary nav a").click(function(event) {
     event.preventDefault();
-    loadPage(event.target.href, function(title) {
+    loadPage(event.target, function(title) {
       $(event.target)
         .parent()
         .addClass("selected");
