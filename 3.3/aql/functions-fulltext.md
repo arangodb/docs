@@ -37,7 +37,7 @@ FOR oneMail IN FULLTEXT(emails, "body", "banana,-apple")
 
 *query* is a comma-separated list of sought words (or prefixes of sought words). To
 distinguish between prefix searches and complete-match searches, each word can optionally be
-prefixed with either the *prefix:* or *complete:* qualifier. Different qualifiers can
+prefixed with either the `prefix:` or `complete:` qualifier. Different qualifiers can
 be mixed in the same query. Not specifying a qualifier for a search word will implicitly
 execute a complete-match search for the given word:
 
@@ -57,7 +57,7 @@ execute a complete-match search for the given word:
 - `FULLTEXT(emails, "body", "prefix:head,complete:aspirin")`<br/>
   Will look for all
   documents that contain a word starting with the prefix *head* and that also contain
-  the (complete) word *aspirin*. Note: specifying *complete* is optional here.
+  the (complete) word *aspirin*. Note: specifying `complete:` is optional here.
 
 - `FULLTEXT(emails, "body", "prefix:cent,prefix:subst")`<br/>
   Will look for all documents

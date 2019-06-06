@@ -189,7 +189,7 @@ variable names. This is because the `FOR` and `LET` operations need target
 variables to store their intermediate results.
 
 Allowed characters in variable names are the letters *a* to *z* (both in lower
-and upper case), the numbers *0* to *9* and the underscore (`_`) symbol. A
+and upper case), the numbers *0* to *9* and the underscore (*_*) symbol. A
 variable name must not start with a number.  If a variable name starts with the
 underscore character, it must also contain at least one letter (a-z or A-Z).
 
