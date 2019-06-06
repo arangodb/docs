@@ -1,6 +1,7 @@
 ---
 layout: default
 description: ArangoDB provides several ways to query graph data
+title: ArangoDB Graphs Traversals
 ---
 Traversals
 ==========

@@ -1,7 +1,7 @@
 ---
 layout: default
 description: This cookbook is filled with recipes to help you understand the multi-model database ArangoDB better and to help you with specific problems.
-title: The multi-model database Cookbook
+title: The Multi-Model Database Cookbook
 ---
 # Cookbook
 

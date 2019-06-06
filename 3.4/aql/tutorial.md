@@ -1,7 +1,7 @@
 ---
 layout: default
 description: The AQL tutorial is an introduction to ArangoDB’s query language. In this AQL tutorial you can interact with ArangoDB using its web interface.
-title: ArangoDB Query Language (AQL) tutorial
+title: ArangoDB Query Language (AQL) Tutorial
 ---
 AQL tutorial
 ============

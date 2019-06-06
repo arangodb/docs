@@ -1,7 +1,7 @@
 ---
 layout: default
-description: Welcome to the ArangoDB documentation! This documentation is organized in five handbooks: manual, AQL, HTTP cookbook and driver handbook.
-title:Introduction to ArangoDB Documentation
+description: 'Welcome to the ArangoDB documentation! It is organized in five handbooks: Manual, AQL, HTTP, Cookbook and Driver handbook.'
+title: Introduction to ArangoDB Documentation
 page-toc:
   disable: true
 ---

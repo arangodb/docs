@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Under the hood ArangoSearch view is an index powered by IResearch library combined of 2 data structures: Inverted index and Columnar store.
+description: 'Under the hood ArangoSearch view is an index powered by IResearch library combined of 2 data structures: Inverted index and Columnar store.'
 title: ArangoSearch Views powered by IResearch
 ---
 # ArangoSearch Views powered by IResearch

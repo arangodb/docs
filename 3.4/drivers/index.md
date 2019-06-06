@@ -1,7 +1,7 @@
 ---
 layout: default
-description: Together with the ArangoDB community we provide drivers for many languages. Our official language drivers are java, javascript, PHP and GO. 
-title: Install official drivers, integrations and community drivers
+description: Together with the ArangoDB community we provide drivers for many languages. Our official language drivers are Java, JavaScript, PHP and GO.
+title: Install Official Drivers, Integrations and Community Drivers
 page-toc:
   disable: true
 ---
