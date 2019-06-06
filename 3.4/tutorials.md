@@ -1,6 +1,7 @@
 ---
 layout: default
-description: CRUD
+description: Learn how to work with ArangoDB, how to use different languages and integrations and get more in-depth information with this tutorials.
+title: Arango DB tutorials, languages, Integrations and more 
 ---
 Tutorials
 =========

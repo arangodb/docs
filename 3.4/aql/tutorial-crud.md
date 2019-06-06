@@ -1,6 +1,7 @@
 ---
 layout: default
-description: Before we can insert documents with AQL, we need a place to put them in - acollection
+description: In this tutorial you can learn how to do a Document CRUD (Create, Read, Update, Delete) with ArangoDB Query Language AQL in ArangoDB.
+title: ArangoDB Basic CRUD tutorial
 ---
 CRUD
 ====

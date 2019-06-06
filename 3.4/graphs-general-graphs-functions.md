@@ -1,6 +1,7 @@
 ---
 layout: default
-description: This chapter describes various functions on a graph
+description: This chapter of the ArangoDB documentation describes various functions on a graph. A lot of these accept a vertex (or edge) example as parameter.
+title: Functions examples on a Graph
 ---
 Graph Functions
 ===============
