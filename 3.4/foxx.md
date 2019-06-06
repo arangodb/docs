@@ -1,6 +1,7 @@
 ---
 layout: default
-description: Traditionally, server-side projects have been developed as standalone applicationsthat guide the communication between the client-side frontend and the databasebackend
+description: Foxx services consist of JavaScript code running in the V8 JavaScript runtime embedded inside ArangoDB. Each service is mounted in each available V8 context 
+title: ArangoDB Foxx Microservices
 ---
 Foxx Microservices
 ==================

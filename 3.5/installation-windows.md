@@ -1,6 +1,7 @@
 ---
 layout: default
-description: There are two possible methods to install ArangoDB on Windows
+description: This is a walkthrough to install ArangoDB on Windows. You will find two possible methods to do so, automatically or manually. 
+title: Installing ArangoDB on Windows
 ---
 Installing ArangoDB on Windows
 ==============================

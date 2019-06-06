@@ -1,6 +1,7 @@
 ---
 layout: default
-description: AQL supports a number of operators that can be used in expressions
+description: ArangoDB Query Language AQL supports a number of operators that can be used in expressions. There are three kind of operators described below.
+title: ArangoDB Query language (AQL) Operators 
 ---
 Operators
 =========

@@ -1,6 +1,7 @@
 ---
 layout: default
-description: ArangoDB provides several ways to query graph data
+description: ArangoDB provides several ways to query graph data. Very simple operations can be composed with the low-level edge methods edges, inEdges, and outEdges for edge collections.
+title: ArangoDB Graphs Traversals
 ---
 Traversals
 ==========

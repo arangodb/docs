@@ -1,6 +1,7 @@
 ---
 layout: default
-description: This feature is only available in theEnterprise Edition
+description: This chapter of the ArangoDB documentation describes the smart-graph module, which enables you to manage graphs at scale. 
+title: ArangoDB SmartGraphs
 ---
 SmartGraphs
 ===========

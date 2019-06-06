@@ -1,6 +1,7 @@
 ---
 layout: default
-description: To install ArangoDB on Linux
+description: To install ArangoDB on Linux visit the Download page of the ArangoDB and download the correct package for your Linux distribution. Follow the instructions to use your favorite package.
+title: Installing ArangoDB on Linux 
 ---
 Installing ArangoDB on Linux
 ============================

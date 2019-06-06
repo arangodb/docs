@@ -1,12 +1,13 @@
 ---
 layout: default
-description: Distributed graph processing enables you to do online analytical processing directly on graphs stored into ArangoDB
+description: Distributed Iterative Graph Processing (Pregel) enables you to do online analytical processing directly on graphs stored in ArangoDB.
+title: Distributed Iterative Graph Processing (Pregel)
 ---
 Distributed Iterative Graph Processing (Pregel)
 ===============================================
 
 Distributed graph processing enables you to do online analytical processing
-directly on graphs stored into ArangoDB. This is intended to help you gain analytical insights
+directly on graphs stored in ArangoDB. This is intended to help you gain analytical insights
 on your data, without having to use external processing systems. Examples of algorithms
 to execute are PageRank, Vertex Centrality, Vertex Closeness, Connected Components, Community Detection.
 This system is not useful for typical online queries, where you just do work on a small set of vertices.
