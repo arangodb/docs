@@ -814,7 +814,7 @@ of all vertices in the graph.
     If an edge does not have the attribute named as defined in option *weight* this default
     is used as weight.
     If no default is supplied the default would be positive infinity so the path and
-    hence the betweeness can not be calculated.
+    hence the betweenness can not be calculated.
 
 
 **Examples**
@@ -871,7 +871,7 @@ of graphs vertices.
 
 `graph_module._betweenness(options)`
 
-Similar to [_absoluteBetweeness](#_absolutebetweenness) but returns normalized values.
+Similar to [_absoluteBetweenness](#_absolutebetweenness) but returns normalized values.
 
 
 **Examples**

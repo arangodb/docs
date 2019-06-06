@@ -50,7 +50,7 @@ RETURN oneDocument
 [
     {
         "_id": "myusers/3456789",
-        "_key": "3456789"
+        "_key": "3456789",
         "_rev": "14253647",
         "firstName": "John",
         "lastName": "Doe",
@@ -59,9 +59,9 @@ RETURN oneDocument
             "street": "Road To Nowhere 1"
         },
         "hobbies": [
-            { name: "swimming", howFavorite: 10 },
-            { name: "biking", howFavorite: 6 },
-            { name: "programming", howFavorite: 4 }
+            { "name": "swimming", "howFavorite": 10 },
+            { "name": "biking", "howFavorite": 6 },
+            { "name": "programming", "howFavorite": 4 }
         ]
     }
 ]
@@ -76,9 +76,9 @@ RETURN oneDocument.hobbies
 ```json
 [
     [
-        { name: "swimming", howFavorite: 10 },
-        { name: "biking", howFavorite: 6 },
-        { name: "programming", howFavorite: 4 }
+        { "name": "swimming", "howFavorite": 10 },
+        { "name": "biking", "howFavorite": 6 },
+        { "name": "programming", "howFavorite": 4 }
     ]
 ]
 ```
@@ -95,12 +95,12 @@ RETURN {
 ```json
 [
     {
-        hobbies: [
-            { name: "swimming", howFavorite: 10 },
-            { name: "biking", howFavorite: 6 },
-            { name: "programming", howFavorite: 4 }
+        "hobbies": [
+            { "name": "swimming", "howFavorite": 10 },
+            { "name": "biking", "howFavorite": 6 },
+            { "name": "programming", "howFavorite": 4 }
         ],
-        address: {
+        "address": {
             "city": "Gotham",
             "street": "Road To Nowhere 1"
         }
@@ -128,7 +128,7 @@ RETURN { hobbies: oneDocument.hobbies[*].name }
 
 ```json
 [
-    { hobbies: ["swimming", "biking", "porgramming"] }
+    { "hobbies": ["swimming", "biking", "programming"] }
 ]
 ```
 
