@@ -1,16 +1,16 @@
 arangosh&gt; db._create(<span class="hljs-string">"users"</span>, { <span class="hljs-attr">keyOptions</span>: { <span class="hljs-attr">allowUserKeys</span>: <span class="hljs-literal">false</span> } });
-[ArangoCollection <span class="hljs-number">110203</span>, <span class="hljs-string">"users"</span> (type <span class="hljs-built_in">document</span>, status loaded)]
+[ArangoCollection <span class="hljs-number">110209</span>, <span class="hljs-string">"users"</span> (type <span class="hljs-built_in">document</span>, status loaded)]
 arangosh&gt; db.users.save({ <span class="hljs-attr">name</span>: <span class="hljs-string">"user 1"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/110210"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"110210"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Yw6Qz2a--_"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/110216"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"110216"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YxO6_ua--B"</span> 
 }
 arangosh&gt; db.users.save({ <span class="hljs-attr">name</span>: <span class="hljs-string">"user 2"</span>, <span class="hljs-attr">_key</span>: <span class="hljs-string">"myuser"</span> });
 [ArangoError <span class="hljs-number">1222</span>: unexpected <span class="hljs-built_in">document</span> key]
 arangosh&gt; db.users.save({ <span class="hljs-attr">name</span>: <span class="hljs-string">"user 3"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/110215"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"110215"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Yw6Qz2e--_"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/110221"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"110221"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YxO6_ui--_"</span> 
 }
