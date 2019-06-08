@@ -5,9 +5,9 @@ arangosh&gt; db.ids.ensureIndex({ <span class="hljs-attr">type</span>: <span cla
     <span class="hljs-string">"name.first"</span>, 
     <span class="hljs-string">"name.last"</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"ids/112080"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"ids/112062"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1635726327777591296"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1635817529335087104"</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"skiplist"</span>, 
   <span class="hljs-string">"unique"</span> : <span class="hljs-literal">true</span>, 
@@ -15,20 +15,20 @@ arangosh&gt; db.ids.ensureIndex({ <span class="hljs-attr">type</span>: <span cla
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"hansen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/112084"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"112084"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YxPE1Si--_"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/112066"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"112066"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Yxj0_Mm--_"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"jens"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/112088"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"112088"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YxPE1Sm--_"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/112070"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"112070"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Yxj0_Mq--_"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/112091"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"112091"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_YxPE1Sm--B"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/112073"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"112073"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Yxj0_Mq--B"</span> 
 }
-[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1635726327777591296 <span class="hljs-keyword">of</span> type skiplist over <span class="hljs-string">'name.first, name.last'</span>; conflicting key: <span class="hljs-number">112084</span>]
+[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1635817529335087104 <span class="hljs-keyword">of</span> type skiplist over <span class="hljs-string">'name.first, name.last'</span>; conflicting key: <span class="hljs-number">112066</span>]
