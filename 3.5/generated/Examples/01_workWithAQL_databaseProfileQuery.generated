@@ -6,9 +6,9 @@ Execution plan:
  Id   NodeType          Calls   Items   Runtime [s]   Comment
   1   SingletonNode         1       1       0.00000   * ROOT
   4   CalculationNode       1       1       0.00001     - LET #2 = 1   /* json expression */   /* const assignment */
-  2   CalculationNode       1       1       0.27084     - LET s = SLEEP(0.25)   /* simple expression */
-  3   CalculationNode       1       1       0.51147     - LET t = SLEEP(0.5)   /* simple expression */
-  5   ReturnNode            1       1       0.00001     - RETURN #2
+  2   CalculationNode       1       1       0.27082     - LET s = SLEEP(0.25)   /* simple expression */
+  3   CalculationNode       1       1       0.51155     - LET t = SLEEP(0.5)   /* simple expression */
+  5   ReturnNode            1       1       0.00000     - RETURN #2
 
 Indexes used:
  none
@@ -24,12 +24,12 @@ Query Statistics:
 Query Profile:
  Query Stage           Duration [s]
  initializing               0.00000
- parsing                    0.00005
- optimizing ast             0.00000
- loading collections        0.00000
- instantiating plan         0.00001
- optimizing plan            0.00008
- executing                  0.78235
- finalizing                 0.00021
+ parsing                    0.00004
+ optimizing ast             0.00001
+ loading collections        0.00001
+ instantiating plan         0.00002
+ optimizing plan            0.00009
+ executing                  0.78240
+ finalizing                 0.00013
 
 
