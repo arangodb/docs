@@ -1,6 +1,7 @@
 ---
 layout: default
 description: ArangoSearch Scorers are special functions that allow to sort documents from aview by their score regarding the analyzed fields
+redirect_from: /stable/views-arango-search-scorers.html
 ---
 ArangoSearch Scorers
 ====================

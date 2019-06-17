@@ -1,6 +1,7 @@
 ---
 layout: default
 description: ArangoSearch is a powerful fulltext search component with additionalfunctionality, supported via the text analyzer and tfidf / bm25scorers, without impact on performance when specifying documentsfrom different collections or filtering on multiple document attributes
+redirect_from: /stable/views-arango-search-detailed-overview.html
 ---
 # Detailed overview of ArangoSearch Views
 

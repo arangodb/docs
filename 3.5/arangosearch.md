@@ -1,14 +1,39 @@
 ---
 layout: default
-description: 'Under the hood ArangoSearch view is an index powered by IResearch library combined of 2 data structures: Inverted index and Columnar store.'
-title: ArangoSearch Views powered by IResearch
+description: ArangoSearch is a C++ based full-text search engine including similarity ranking capabilities natively integrated into ArangoDB.
+title: ArangoSearch - Integrated Full-text Search Engine
+redirect_from: /stable/views-arango-search.html
 ---
-# ArangoSearch Views powered by IResearch
+# ArangoSearch
+
+ArangoSearch provides information retrieval features, natively integrated into
+ArangoDB and with support for all data models. It is primarily a full-text
+search engine backed by inverted indices, a much more powerful alternative to
+the [full-text index](indexing-fulltext.html) type. A single index can cover
+multiple or even all attributes of the documents from one or multiple
+collections, accessible through a virtual collection called View.
+Views can be in AQL queries to filter and sort
+
+
+Configurable analyzers are
+available for text pre-processing, such as language-specific stemming
+
+
+. (Boolean model)
+
+[IResearch library](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}
+written in C++ and natively integrated into ArangoDB.
+
+including text
+similarity ranking capabilities
+It enables information retrieval for entire documents or specified fields
+across multiple collections
+
 
 ## What is ArangoSearch
 
 ArangoSearch is a natively integrated AQL extension making use of the
-[IResearch library](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}.
+.
 
 - join documents located in different collections to one result list
 - filter documents based on AQL boolean expressions and functions
