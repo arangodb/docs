@@ -36,7 +36,7 @@ to the DBservers directly, but always go via the coordinators. For the
 cluster-internal communication between coordinators and DBservers (in
 both directions), we use a simpler setup: There are two new
 configuration options *cluster.username* and *cluster.password*, which
-default to *root* and the empty password *""*. If you want to deviate
+default to *root* and the empty password `""`. If you want to deviate
 from this default you have to change these two configuration options
 in all configuration files on all machines in the cluster. This just
 means that you have to set these two options to the same values in all

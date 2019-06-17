@@ -7,9 +7,9 @@ Language basics
 
 ### Query types
 
-An AQL query must either return a result (indicated by usage of the *RETURN*
+An AQL query must either return a result (indicated by usage of the `RETURN`
 keyword) or execute a data-modification operation (indicated by usage
-of one of the keywords *INSERT*, *UPDATE*, *REPLACE*, *REMOVE* or *UPSERT*). The AQL
+of one of the keywords `INSERT`, `UPDATE`, `REPLACE`, `REMOVE` or `UPSERT`). The AQL
 parser will return an error if it detects more than one data-modification 
 operation in the same query or if it cannot figure out if the query is meant
 to be a data retrieval or a modification operation.
@@ -74,7 +74,7 @@ An example AQL query may look like this:
       FILTER u.type == "newbie" && u.active == true
       RETURN u.name
 
-In this example query, the terms *FOR*, *FILTER*, and *RETURN* initiate the
+In this example query, the terms `FOR`, `FILTER`, and `RETURN` initiate the
 higher-level operation according to their name. These terms are also keywords,
 meaning that they have a special meaning in the language.
 
@@ -185,7 +185,7 @@ collection name used in the same query.
       RETURN { "name" : u.name, "friends" : friends }
 
 In the above query, *users* is a collection name, and both *u* and *friends* are
-variable names. This is because the *FOR* and *LET* operations need target
+variable names. This is because the `FOR` and `LET` operations need target
 variables to store their intermediate results.
 
 Allowed characters in variable names are the letters *a* to *z* (both in lower
@@ -210,7 +210,7 @@ available:
 #### Numeric literals
 
 Numeric literals can be integers or real values. They can optionally be signed
-using the *+* or *-* symbols. The scientific notation is also supported.
+using the `+` or `-` symbols. The scientific notation is also supported.
 
     1
     42
@@ -306,7 +306,7 @@ declaration would then be:
     { }
 
 Each attribute in an object is a name / value pair. Name and value of an
-attribute are separated using the *:* symbol.
+attribute are separated using the `:` symbol.
 
 The attribute name is mandatory and must be specified as a quoted or unquoted
 string. If a keyword is used as an attribute name, the attribute name must be quoted:
@@ -515,9 +515,9 @@ compared objects / documents are considered equal.
 Collection data can be accessed by specifying a collection name in a query.  A
 collection can be understood as an array of documents, and that is how they are
 treated in AQL. Documents from collections are normally accessing using the
-*FOR* keyword. Note that when iterating over documents from a collection, the
+`FOR` keyword. Note that when iterating over documents from a collection, the
 order of documents is undefined. To traverse documents in an explicit and
-deterministic order, the *SORT* keyword should be used in addition.
+deterministic order, the `SORT` keyword should be used in addition.
 
 Data in collections is stored in documents, with each document potentially
 having different attributes than other documents. This is true even for

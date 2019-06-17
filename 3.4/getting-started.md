@@ -1,6 +1,7 @@
 ---
 layout: default
-description: This beginner's guide will make you familiar with ArangoDB
+description: This is the Getting Started Guide for ArangoDB version 3.4. This beginner’s guide will make you familiar with ArangoDB.
+title: The ArangoDB Getting Started Guide for 3.4 
 ---
 Getting Started
 ===============

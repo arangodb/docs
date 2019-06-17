@@ -1,6 +1,7 @@
 ---
 layout: default
-description: There are two possible methods to install ArangoDB on Windows
+description: This is a walkthrough to install ArangoDB on Windows. You will find two possible methods to do so, automatically or manually. 
+title: Installing ArangoDB on Windows
 ---
 Installing ArangoDB on Windows
 ==============================
@@ -8,15 +9,15 @@ Installing ArangoDB on Windows
 Introduction
 ------------
 
-There are two possible methods to install ArangoDB on Windows:
+There are two possible methods to install ArangoDB on 64-bit Windows systems:
 
 1. Automated, using an _NSIS_ Installer.
-1. Manual, using a ZIP archive (XCopy installation).
+2. Manual, using a ZIP archive (XCopy installation).
 
 Both installation methods have their own pros and cons.
 
 {% hint 'info' %}
-Please note that ArangoDB will only work on 64bit systems.
+For production environments we highly recommend using Linux.
 {% endhint %}
 
 Installing using the Installer
@@ -143,7 +144,7 @@ used – amongst other things – to administer and query a local or remote
 ArangoDB server.
 
 Note that *arangosh.exe* does NOT start a separate server, it only starts the
-shell.  To use it you must have a server running somewhere, e.g. by using
+shell. To use it you must have a server running somewhere, e.g. by using
 the *arangod.exe* executable.
 
 *arangosh.exe* uses configuration from the file *arangosh.conf* located in
@@ -155,7 +156,7 @@ use different connection settings etc.
 To uninstall the Arango server application you can use the windows control panel
 (as you would normally uninstall an application). Note however, that any data
 files created by the Arango server will remain as well as the *&lt;ROOTDIR&gt;*
-directory.  To complete the uninstallation process, remove the data files and
+directory. To complete the uninstallation process, remove the data files and
 the *&lt;ROOTDIR&gt;* directory manually.
 
 Installing using the ZIP archive (XCopy installation)

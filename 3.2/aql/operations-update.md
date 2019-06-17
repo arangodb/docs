@@ -5,7 +5,7 @@ description: The UPDATE keyword can be used to partially update documents in a c
 UPDATE
 ======
 
-The *UPDATE* keyword can be used to partially update documents in a collection. On a 
+The `UPDATE` keyword can be used to partially update documents in a collection. On a 
 single server, updates are executed transactionally in an all-or-nothing fashion. 
 
 If the RocksDB engine is used and intermediate commits are enabled, a query may 
@@ -18,9 +18,9 @@ the RocksDB engine.
 For sharded collections, the entire query and/or update operation may not be transactional,
 especially if it involves different shards and/or database servers.
 
-Each *UPDATE* operation is restricted to a single collection, and the 
+Each `UPDATE` operation is restricted to a single collection, and the 
 [collection name](../appendix-glossary.html#collection-name) must not be dynamic.
-Only a single *UPDATE* statement per collection is allowed per AQL query, and 
+Only a single `UPDATE` statement per collection is allowed per AQL query, and 
 it cannot be followed by read or write operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
 The system attributes *_id*, *_key* and *_rev* cannot be updated, *_from* and *_to* can.
@@ -68,7 +68,7 @@ FOR u IN users
 ```
 
 An update operation may update arbitrary documents which do not need to be identical
-to the ones produced by a preceding *FOR* statement:
+to the ones produced by a preceding `FOR` statement:
 
 ```js
 FOR i IN 1..1000
@@ -172,7 +172,7 @@ The above query will remove the *notNeeded* attribute from the documents and upd
 the *foobar* attribute normally.
 
 There is also the option *mergeObjects* that controls whether object contents will be
-merged if an object attribute is present in both the *UPDATE* query and in the 
+merged if an object attribute is present in both the `UPDATE` query and in the 
 to-be-updated document.
 
 The following query will set the updated document's *name* attribute to the exact

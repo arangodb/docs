@@ -14,11 +14,11 @@ might execute faster.
 Updating documents
 ------------------
 
-To update existing documents, we can either use the *UPDATE* or the *REPLACE*
-operation. *UPDATE* updates only the specified attributes in the found documents,
-and *REPLACE* completely replaces the found documents with the specified values.
+To update existing documents, we can either use the `UPDATE` or the `REPLACE`
+operation. `UPDATE` updates only the specified attributes in the found documents,
+and `REPLACE` completely replaces the found documents with the specified values.
 
-We'll start with an *UPDATE* query that rewrites the gender attribute in all
+We'll start with an `UPDATE` query that rewrites the gender attribute in all
 documents:
 
 ```js
@@ -26,7 +26,7 @@ FOR u IN users
   UPDATE u WITH { gender: TRANSLATE(u.gender, { m: 'male', f: 'female' }) } IN users
 ```
 
-To add new attributes to existing documents, we can also use an *UPDATE* query.
+To add new attributes to existing documents, we can also use an `UPDATE` query.
 The following query adds an attribute *numberOfLogins* for all users with status
 active:
 
@@ -77,7 +77,7 @@ Replacing documents
 -------------------
 
 To not just partially update, but completely replace existing documents, use
-the *REPLACE* operation.
+the `REPLACE` operation.
 The following query replaces all documents in the collection backup with
 the documents found in collection users. Documents common to both
 collections will be replaced. All other documents will remain unchanged.
@@ -105,7 +105,7 @@ FOR u IN users
 Removing documents
 ------------------
 
-Deleting documents can be achieved with the *REMOVE* operation.
+Deleting documents can be achieved with the `REMOVE` operation.
 To remove all users within a certain age range, we can use the following query:
 
 ```js
@@ -118,7 +118,7 @@ FOR u IN users
 Creating documents
 ------------------
 
-To create new documents, there is the *INSERT* operation.
+To create new documents, there is the `INSERT` operation.
 It can also be used to generate copies of existing documents from other collections,
 or to create synthetic documents (e.g. for testing purposes). The following
 query creates 1000 test users in collection users with some attributes set:
@@ -138,7 +138,7 @@ FOR i IN 1..1000
 Copying data from one collection into another
 ---------------------------------------------
 
-To copy data from one collection into another, an *INSERT* operation can be
+To copy data from one collection into another, an `INSERT` operation can be
 used:
 
 ```js
@@ -154,7 +154,7 @@ by *_key* attribute) again. This will trigger a unique key constraint violation
 and abort the query. In single-server mode, all changes made by the query
 will also be rolled back.
 To make such copy operation work in all cases, the target collection can
-be emptied before, using a *REMOVE* query.
+be emptied before, using a `REMOVE` query.
 
 
 Handling errors
@@ -173,7 +173,7 @@ FOR u IN users
 ```
 
 This will continue execution of the query even if errors occur during the
-*REPLACE* operation. It works similar for *UPDATE*, *INSERT*, and *REMOVE*.
+`REPLACE` operation. It works similar for `UPDATE`, `INSERT`, and `REMOVE`.
 
 
 Altering substructures
@@ -249,8 +249,8 @@ db.complexCollection.toArray()
 
 It will probably be soonish a performance bottleneck, since it **modifies**
 all documents in the collection **regardless whether the values change or not**.
-Therefore we want to only *UPDATE* the documents if we really change their value.
-Hence we employ a second *FOR* to test whether *subList* will be altered or not:
+Therefore we want to only `UPDATE` the documents if we really change their value.
+Hence we employ a second `FOR` to test whether *subList* will be altered or not:
 
 ```js
 FOR document in complexCollection

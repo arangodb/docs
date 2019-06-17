@@ -237,7 +237,7 @@ Distributed Graph Processing
   * Connected Components
   * PageRank
   * Shortest Paths
-  * Centrality Measures (Centrality and Betweeness)
+  * Centrality Measures (Centrality and Betweenness)
   * Community Detection (via Label Propagation, Speakers-Listeners Label Propagation or DMID)
 * Users can contribute their own algorithms
 

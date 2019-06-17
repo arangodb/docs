@@ -25,7 +25,7 @@ Return the first alternative that is an array, and *null* if none of the
 alternatives is an array.
 
 - **alternative** (any, *repeatable*): input of arbitrary type
-- returns **list** (list|null): array / list or null
+- returns **list** (array\|null): array / list or null
 
 ### FIRST_DOCUMENT()
 

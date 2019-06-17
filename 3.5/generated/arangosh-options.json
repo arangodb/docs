@@ -1043,6 +1043,20 @@
     "section" : "server",
     "type" : "string"
   },
+  "server.jwt-secret-keyfile" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "if this option is specified, the jwt secret will be loaded from the given file. This option is not compatible with --server.ask-jwt-secret, --server.username or --server.password. If specified, it will be used for all connections - even when a new connection to another server is created",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "string"
+  },
   "server.max-packet-size" : {
     "category" : "option",
     "default" : 1073741824,

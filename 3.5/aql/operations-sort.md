@@ -6,8 +6,8 @@ description: The SORT statement will force a sort of the array of already produc
 SORT
 ====
 
-The *SORT* statement will force a sort of the array of already produced
-intermediate results in the current block. *SORT* allows specifying one or
+The `SORT` statement will force a sort of the array of already produced
+intermediate results in the current block. `SORT` allows specifying one or
 multiple sort criteria and directions.  The general syntax is:
 
 ```
@@ -52,15 +52,15 @@ firstName in descending order.
 
 
 Note: when iterating over collection-based arrays, the order of documents is
-always undefined unless an explicit sort order is defined using *SORT*.
+always undefined unless an explicit sort order is defined using `SORT`.
 
 
-Note that constant *SORT* expressions can be used to indicate that no particular
-sort order is desired. Constant *SORT* expressions will be optimized away by the AQL
+Note that constant `SORT` expressions can be used to indicate that no particular
+sort order is desired. Constant `SORT` expressions will be optimized away by the AQL
 optimizer during optimization, but specifying them explicitly may enable further
 optimizations if the optimizer does not need to take into account any particular
-sort order. This is especially the case after a *COLLECT* statement, which is 
+sort order. This is especially the case after a `COLLECT` statement, which is 
 supposed to produce a sorted result. Specifying an extra *SORT null* after the
-*COLLECT* statement allows to AQL optimizer to remove the post-sorting of the
+`COLLECT` statement allows to AQL optimizer to remove the post-sorting of the
 collect results altogether.
 

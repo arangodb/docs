@@ -71,7 +71,7 @@ During view modification the following directives apply:
 - **links** (_optional_; type: `object`):
   a mapping of `collection-name/collection-identifier` to one of:
   - link creation - link definition as per the section [Link properties](#link-properties)
-  - link removal - JSON keyword *null* (i.e. nullify a link if present)<br/>
+  - link removal - JSON keyword *null* (i.e. nullify a link if present)<br>
 - any of the directives from the section [View properties](#view-properties)
 
 ## View properties

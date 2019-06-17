@@ -172,7 +172,7 @@ the following options are available:
       your LDAP server does not support Version 1.2, you have to change
       this setting.
   - `--ldap.tls-cert-check-strategy`: strategy to validate the LDAP server
-      certificate.  Available strategies are `never`, `hard`,
+      certificate. Available strategies are `never`, `hard`,
       `demand`, `allow` and `try`. The default is `hard`.
   - `--ldap.tls-cacert-file`: a file path to one or more (concatenated)
       certificate authority certificates in PEM format.

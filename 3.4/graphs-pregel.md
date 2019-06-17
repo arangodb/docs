@@ -1,12 +1,13 @@
 ---
 layout: default
-description: Distributed graph processing enables you to do online analytical processingdirectly on graphs stored into ArangoDB
+description: Distributed Iterative Graph Processing (Pregel) enables you to do online analytical processing directly on graphs stored in ArangoDB.
+title: Distributed Iterative Graph Processing (Pregel)
 ---
 Distributed Iterative Graph Processing (Pregel)
 ===============================================
 
 Distributed graph processing enables you to do online analytical processing
-directly on graphs stored into ArangoDB. This is intended to help you gain analytical insights
+directly on graphs stored in ArangoDB. This is intended to help you gain analytical insights
 on your data, without having to use external processing systems. Examples of algorithms
 to execute are PageRank, Vertex Centrality, Vertex Closeness, Connected Components, Community Detection.
 This system is not useful for typical online queries, where you just do work on a small set of vertices.
@@ -30,7 +31,7 @@ better, if the number of your shards / collections matches the number of CPU cor
 When you use ArangoDB Community Edition in cluster mode, you might need to model your collections in a certain way to
 ensure correct results. For more information see the next section.
 
-### Requirements for Collections in a Cluster (Non Smart Graph)
+### Requirements for Collections in a Cluster (Non-Smart Graph)
 
 To enable iterative graph processing for your data, you will need to ensure
 that your vertex and edge collections are sharded in a specific way.
@@ -49,7 +50,7 @@ For example you might create your collections like this:
 ```javascript
 // Create main vertex collection: 
 db._create("vertices", {
-  shardKeys: ['_key'],
+  shardKeys: ["_key"],
   numberOfShards: 8
 });
 
@@ -61,15 +62,15 @@ db._create("additonal", {
 
 // Create (one or more) edge-collections: 
 db._createEdgeCollection("edges", {
-  shardKeys: ['vertex'],
+  shardKeys: ["vertex"],
   distributeShardsLike: "vertices",
   numberOfShards: 8
 });
 ```
 
-You will need to ensure that edge documents contain the proper values in their sharding attribute.
+You will need to ensure that all edges contain the proper values in their shard key attribute.
 For a vertex document with the following content `{ _key: "A", value: 0 }`
-the corresponding edge documents would have to look like this:
+the corresponding edge documents would have to look as follows:
 
 ```js
 { "_from":"vertices/A", "_to": "vertices/B", "vertex": "A" }
@@ -77,6 +78,9 @@ the corresponding edge documents would have to look like this:
 { "_from":"vertices/A", "_to": "vertices/D", "vertex": "A" }
 ...
 ```
+
+As can be seen, all edges are using a value of `A` (the _key value of the vertex) in their shard key 
+attribute "vertex".
 
 This will ensure that outgoing edge documents will be placed on the same DBServer as the vertex.
 Without the correct placement of the edges, the Pregel graph processing system will not work correctly, because
@@ -94,11 +98,13 @@ vary for each algorithm.
 The `start` method will always a unique ID which can be used to interact with the algorithm and later on.
 
 The below version of the `start` method can be used for named graphs:
+
 ```javascript
 var pregel = require("@arangodb/pregel");
 var params = {};
 var execution = pregel.start("<algorithm>", "<yourgraph>", params);
 ```
+
 `params` needs to be an object, the valid keys are mentioned below in the section
 [Available Algorithms](#available-algorithms)
 
@@ -110,6 +116,7 @@ var pregel = require("@arangodb/pregel");
 var params = {};
 var execution = pregel.start("<algorithm>", {vertexCollections:["vertices"], edgeCollections:["edges"]}, {});
 ```
+
 The last argument is still the parameter object. See below for a list of algorithms and parameters.
 
 ### Status of an Algorithm Execution
@@ -197,20 +204,26 @@ FOR v IN PREGEL_RESULT(<handle>, true)
 Please note that `PREGEL_RESULT` will only work for results of Pregel jobs that were stored with
 the `store` parameter set to `false` in their job configuration.
 
-
-Available Algorithms
+Algorithm Parameters
 --------------------
 
 There are a number of general parameters which apply to almost all algorithms:
-* `store`: Defaults to *true*. If true, the Pregel engine will write results back to the database.
+- `store`: Defaults to *true*. If true, the Pregel engine will write results back to the database.
   If the value is *false* then you can query the results via AQL.
   See [AQL integration](#aql-integration).
-* `maxGSS`: Maximum number of global iterations for this algorithm
-* `parallelism`: Number of parallel threads to use per worker. Does not influence the number of threads used to load
+- `maxGSS`: Maximum number of global iterations for this algorithm
+- `parallelism`: Number of parallel threads to use per worker. Does not influence the number of threads used to load
   or store data from the database (this depends on the number of shards).
-* `async`: Algorithms which support async mode, will run without synchronized global iterations,
+- `async`: Algorithms which support async mode, will run without synchronized global iterations,
   might lead to performance increases if you have load imbalances.
-* `resultField`: Most algorithms will write the result into this field
+- `resultField`: Most algorithms will write the result into this field
+- `useMemoryMaps`: Use disk based files to store temporary results. This might make the computation disk-bound, but
+  allows you to run computations which would not fit into main memory. It is recommended to set this flag for
+  larger datasets.
+- `shardKeyAttribute`: shard-key that edge-collections are sharded after (default: `vertex`)
+
+Available Algorithms
+--------------------
 
 ### Page Rank
 
@@ -327,16 +340,16 @@ Another common measure is the [betweenness* centrality](https://en.wikipedia.org
 It measures the number of times a vertex is part  of shortest paths between any pairs of vertices. 
 For a vertex *v* betweenness is defined as
 
-![Vertex Betweeness](images/betweeness.png)
+![Vertex Betweenness](images/betweenness.png)
 
 Where the &sigma; represents the number of shortest paths between *x* and *y*, and &sigma;(v) represents the 
-number of paths also passing through a vertex *v*. By intuition a vertex with higher betweeness centrality will have more information
+number of paths also passing through a vertex *v*. By intuition a vertex with higher betweenness centrality will have more information
 passing through it.
 
 **LineRank** approximates the random walk betweenness of every vertex in a graph. This is the probability that someone starting on
 an arbitrary vertex, will visit this node when he randomly chooses edges to visit.
 The algorithm essentially builds a line graph out of your graph (switches the vertices and edges), and then computes a score similar to PageRank.
-This can be considered a scalable equivalent to vertex betweeness, which can be executed distributedly in ArangoDB. 
+This can be considered a scalable equivalent to vertex betweenness, which can be executed distributedly in ArangoDB. 
 The algorithm is from the paper *Centralities in Large Networks: Algorithms and Observations (U Kang et.al. 2011)*
 
 ```javascript
@@ -396,3 +409,24 @@ const handle = pregel.start("slpa", "yourgraph", {maxGSS:100, resultField:"commu
 // check the status periodically for completion
 pregel.status(handle);
 ```
+
+Limits
+------
+
+Pregel algorithms in ArangoDB will by default store temporary vertex and edge data in main memory. For large
+datasets this is going to cause problems, as servers may run out of memory while loading the data. 
+
+To avoid servers from running out of memory while loading the dataset, a Pregel job can be started with the
+attribute `useMemoryMaps` set to `true`. This will make the algorithm use memory-mapped files as a backing
+storage in case of huge datasets. Falling back to memory-mapped files might make the computation disk-bound, but
+may be the only way to complete the computation at all.
+
+Parts of the Pregel temporary results (aggregated messages) may also be stored in main memory, and currently
+the aggregation cannot fall back to memory-mapped files. That means if an algorithm needs to store a lot of
+result messages temporarily, it may consume a lot of main memory.
+
+In general it is also recommended to set the `store` attribute of Pregel jobs to `true` to make a job store
+its value on disk and not just in main memory. This way the results are removed from main memory once a Pregel 
+job completes. If the `store` attribute is explicitly set to `false`, result sets of completed Pregel runs
+will not be removed from main memory until the result set is explicitly discarded by a call to the `cancel`
+function (or a shutdown of the server).

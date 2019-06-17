@@ -5,14 +5,14 @@ description: The COLLECT keyword can be used to group an array by one or multipl
 COLLECT
 =======
 
-The *COLLECT* keyword can be used to group an array by one or multiple group
+The `COLLECT` keyword can be used to group an array by one or multiple group
 criteria. 
 
-The *COLLECT* statement will eliminate all local variables in the current
-scope. After *COLLECT* only the variables introduced by *COLLECT* itself are
+The `COLLECT` statement will eliminate all local variables in the current
+scope. After `COLLECT` only the variables introduced by `COLLECT` itself are
 available.
 
-The general syntaxes for *COLLECT* are:
+The general syntaxes for `COLLECT` are:
 
 ```
 COLLECT variableName = expression options
@@ -30,9 +30,9 @@ COLLECT WITH COUNT INTO countVariable options
 Grouping syntaxes
 -----------------
 
-The first syntax form of *COLLECT* only groups the result by the defined group 
+The first syntax form of `COLLECT` only groups the result by the defined group 
 criteria specified in *expression*. In order to further process the results 
-produced by *COLLECT*, a new variable (specified by *variableName*) is introduced. 
+produced by `COLLECT`, a new variable (specified by *variableName*) is introduced. 
 This variable contains the group value.
 
 Here's an example query that find the distinct values in *u.city* and makes
@@ -52,10 +52,10 @@ group. This works as follows: The *groupsVariable* variable is an array containi
 as many elements as there are in the group. Each member of that array is
 a JSON object in which the value of every variable that is defined in the 
 AQL query is bound to the corresponding attribute. Note that this considers
-all variables that are defined before the *COLLECT* statement, but not those on
-the top level (outside of any *FOR*), unless the *COLLECT* statement is itself
+all variables that are defined before the `COLLECT` statement, but not those on
+the top level (outside of any `FOR`), unless the `COLLECT` statement is itself
 on the top level, in which case all variables are taken. Furthermore note 
-that it is possible that the optimizer moves *LET* statements out of *FOR*
+that it is possible that the optimizer moves `LET` statements out of `FOR`
 statements to improve performance. 
 
 ```
@@ -70,9 +70,9 @@ FOR u IN users
 In the above example, the array *users* will be grouped by the attribute
 *city*. The result is a new array of documents, with one element per distinct
 *u.city* value. The elements from the original array (here: *users*) per city are
-made available in the variable *groups*. This is due to the *INTO* clause.
+made available in the variable *groups*. This is due to the `INTO` clause.
 
-*COLLECT* also allows specifying multiple group criteria. Individual group
+`COLLECT` also allows specifying multiple group criteria. Individual group
 criteria can be separated by commas:
 
 ```
@@ -93,7 +93,7 @@ will be returned.
 Discarding obsolete variables
 -----------------------------
 
-The third form of *COLLECT* allows rewriting the contents of the *groupsVariable* 
+The third form of `COLLECT` allows rewriting the contents of the *groupsVariable* 
 using an arbitrary *projectionExpression*:
 
 ```
@@ -111,7 +111,7 @@ only this attribute is copied into the *groupsVariable* for each document.
 This is probably much more efficient than copying all variables from the scope into 
 the *groupsVariable* as it would happen without a *projectionExpression*.
 
-The expression following *INTO* can also be used for arbitrary computations:
+The expression following `INTO` can also be used for arbitrary computations:
 
 ```
 FOR u IN users
@@ -126,16 +126,16 @@ FOR u IN users
   }
 ```
 
-*COLLECT* also provides an optional *KEEP* clause that can be used to control
+`COLLECT` also provides an optional `KEEP` clause that can be used to control
 which variables will be copied into the variable created by `INTO`. If no 
-*KEEP* clause is specified, all variables from the scope will be copied as 
+`KEEP` clause is specified, all variables from the scope will be copied as 
 sub-attributes into the *groupsVariable*. 
 This is safe but can have a negative impact on performance if there 
 are many variables in scope or the variables contain massive amounts of data. 
 
 The following example limits the variables that are copied into the *groupsVariable*
 to just *name*. The variables *u* and *someCalculation* also present in the scope
-will not be copied into *groupsVariable* because they are not listed in the *KEEP* clause:
+will not be copied into *groupsVariable* because they are not listed in the `KEEP` clause:
 
 ```
 FOR u IN users
@@ -148,19 +148,19 @@ FOR u IN users
   }
 ```
 
-*KEEP* is only valid in combination with *INTO*. Only valid variable names can
-be used in the *KEEP* clause. *KEEP* supports the specification of multiple 
+`KEEP` is only valid in combination with `INTO`. Only valid variable names can
+be used in the `KEEP` clause. `KEEP` supports the specification of multiple 
 variable names.
 
 
 Group length calculation
 ------------------------
 
-*COLLECT* also provides a special *WITH COUNT* clause that can be used to 
+`COLLECT` also provides a special *WITH COUNT* clause that can be used to 
 determine the number of group members efficiently.
 
 The simplest form just returns the number of items that made it into the
-*COLLECT*:
+`COLLECT`:
 
 ```
 FOR u IN users
@@ -186,7 +186,7 @@ FOR u IN users
   }
 ```
 
-Note: the *WITH COUNT* clause can only be used together with an *INTO* clause.
+Note: the *WITH COUNT* clause can only be used together with an `INTO` clause.
 
 
 Aggregation
@@ -258,23 +258,23 @@ assignment:
 COLLECT variants
 ----------------
 
-Since ArangoDB 2.6, there are two variants of *COLLECT* that the optimizer can
+Since ArangoDB 2.6, there are two variants of `COLLECT` that the optimizer can
 choose from: the *sorted* variant and the *hash* variant. The *hash* variant only becomes a
-candidate for *COLLECT* statements that do not use an *INTO* clause.
+candidate for `COLLECT` statements that do not use an `INTO` clause.
 
 The optimizer will always generate a plan that employs the *sorted* method. The *sorted* method 
-requires its input to be sorted by the group criteria specified in the *COLLECT* clause. 
-To ensure correctness of the result, the AQL optimizer will automatically insert a *SORT* 
-statement into the query in front of the *COLLECT* statement. The optimizer may be able to 
-optimize away that *SORT* statement later if a sorted index is present on the group criteria. 
+requires its input to be sorted by the group criteria specified in the `COLLECT` clause. 
+To ensure correctness of the result, the AQL optimizer will automatically insert a `SORT` 
+statement into the query in front of the `COLLECT` statement. The optimizer may be able to 
+optimize away that `SORT` statement later if a sorted index is present on the group criteria. 
 
-In case a *COLLECT* statement qualifies for using the *hash* variant, the optimizer will create an extra 
-plan for it at the beginning of the planning phase. In this plan, no extra *SORT* statement will be
-added in front of the *COLLECT*. This is because the *hash* variant of *COLLECT* does not require
-sorted input. Instead, a *SORT* statement will be added after the *COLLECT* to sort its output. 
-This *SORT* statement may be optimized away again in later stages. 
-If the sort order of the *COLLECT* is irrelevant to the user, adding the extra instruction *SORT null* 
-after the *COLLECT* will allow the optimizer to remove the sorts altogether:
+In case a `COLLECT` statement qualifies for using the *hash* variant, the optimizer will create an extra 
+plan for it at the beginning of the planning phase. In this plan, no extra `SORT` statement will be
+added in front of the `COLLECT`. This is because the *hash* variant of `COLLECT` does not require
+sorted input. Instead, a `SORT` statement will be added after the `COLLECT` to sort its output. 
+This `SORT` statement may be optimized away again in later stages. 
+If the sort order of the `COLLECT` is irrelevant to the user, adding the extra instruction *SORT null* 
+after the `COLLECT` will allow the optimizer to remove the sorts altogether:
 
 ```
 FOR u IN users
@@ -283,28 +283,28 @@ FOR u IN users
   RETURN age
 ```
   
-Which *COLLECT* variant is used by the optimizer depends on the optimizer's cost estimations. The 
-created plans with the different *COLLECT* variants will be shipped through the regular optimization 
+Which `COLLECT` variant is used by the optimizer depends on the optimizer's cost estimations. The 
+created plans with the different `COLLECT` variants will be shipped through the regular optimization 
 pipeline. In the end, the optimizer will pick the plan with the lowest estimated total cost as usual. 
 
-In general, the *sorted* variant of *COLLECT* should be preferred in cases when there is a sorted index
-present on the group criteria. In this case the optimizer can eliminate the *SORT* statement in front
-of the *COLLECT*, so that no *SORT* will be left. 
+In general, the *sorted* variant of `COLLECT` should be preferred in cases when there is a sorted index
+present on the group criteria. In this case the optimizer can eliminate the `SORT` statement in front
+of the `COLLECT`, so that no `SORT` will be left. 
 
 If there is no sorted index available on the group criteria, the up-front sort required by the *sorted* 
 variant can be expensive. In this case it is likely that the optimizer will prefer the *hash* variant
-of *COLLECT*, which does not require its input to be sorted. 
+of `COLLECT`, which does not require its input to be sorted. 
 
-Which variant of *COLLECT* was actually used can be figured out by looking into the execution plan of
+Which variant of `COLLECT` was actually used can be figured out by looking into the execution plan of
 a query, specifically the *AggregateNode* and its *aggregationOptions* attribute.
 
 
 Setting COLLECT options
 -----------------------
 
-*options* can be used in a *COLLECT* statement to inform the optimizer about the preferred *COLLECT*
-method. When specifying the following appendix to a *COLLECT* statement, the optimizer will always use
-the *sorted* variant of *COLLECT* and not even create a plan using the *hash* variant:
+*options* can be used in a `COLLECT` statement to inform the optimizer about the preferred `COLLECT`
+method. When specifying the following appendix to a `COLLECT` statement, the optimizer will always use
+the *sorted* variant of `COLLECT` and not even create a plan using the *hash* variant:
 
 ```
 OPTIONS { method: "sorted" }
@@ -322,10 +322,10 @@ an additional plan using the *hash* method if the COLLECT statement qualifies fo
 COLLECT vs. RETURN DISTINCT
 ---------------------------
 
-In order to make a result set unique, one can either use *COLLECT* or *RETURN DISTINCT*. Behind the
+In order to make a result set unique, one can either use `COLLECT` or `RETURN DISTINCT`. Behind the
 scenes, both variants will work by creating an *AggregateNode*. For both variants, the optimizer
-may try the sorted and the hashed variant of *COLLECT*. The difference is therefore mainly syntactical,
-with *RETURN DISTINCT* saving a bit of typing when compared to an equivalent *COLLECT*:
+may try the sorted and the hashed variant of `COLLECT`. The difference is therefore mainly syntactical,
+with `RETURN DISTINCT` saving a bit of typing when compared to an equivalent `COLLECT`:
 
 ```
 FOR u IN users
@@ -338,5 +338,5 @@ FOR u IN users
   RETURN age
 ```
 
-However, *COLLECT* is vastly more flexible than *RETURN DISTINCT*. Additionally, the order of results is 
-undefined for a *RETURN DISTINCT*, whereas for a *COLLECT* the results will be sorted.
+However, `COLLECT` is vastly more flexible than `RETURN DISTINCT`. Additionally, the order of results is 
+undefined for a `RETURN DISTINCT`, whereas for a `COLLECT` the results will be sorted.

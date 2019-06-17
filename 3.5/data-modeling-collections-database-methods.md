@@ -76,7 +76,7 @@ to the [naming conventions](data-modeling-naming-conventions.html).
 
 - *journalSize* (optional, default is a
   configuration parameter: The maximal
-  size of a journal or datafile.  Note that this also limits the maximal
+  size of a journal or datafile. Note that this also limits the maximal
   size of a single object. Must be at least 1MB.
 
 - *isSystem* (optional, default is *false*): If *true*, create a
@@ -314,7 +314,7 @@ for *waitForSync* is *false*.
   a document will only return after the data was synced to disk.
 - *journalSize* (optional, default is 
   "configuration parameter"):  The maximal size of
-  a journal or datafile.  Note that this also limits the maximal
+  a journal or datafile. Note that this also limits the maximal
   size of a single object and must be at least 1MB.
 
 

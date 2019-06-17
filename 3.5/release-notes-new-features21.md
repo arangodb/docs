@@ -6,7 +6,7 @@ Features and Improvements in ArangoDB 2.1
 =========================================
 
 The following list shows in detail which features have been added or improved in
-ArangoDB 2.1.  ArangoDB 2.1 also contains several bugfixes that are not listed
+ArangoDB 2.1. ArangoDB 2.1 also contains several bugfixes that are not listed
 here.
 
 New Edges Index
@@ -18,7 +18,7 @@ populating the edge index (i.e. when loading an edge collection). For large
 graphs loading can be 20 times faster than with ArangoDB 2.0.
 
 Additionally, the new index fixes performance problems that occurred when many
-duplicate `_from` or `_to` values were contained in the index.  Furthermore, the
+duplicate `_from` or `_to` values were contained in the index. Furthermore, the
 new index supports faster removal of edges.
 
 Finally, when loading an existing collection and building the edges index for
@@ -29,7 +29,7 @@ Overall, this should considerably speed up loading edge collections.
 The new index type replaces the old edges index type automatically, without any
 changes being required by the end user.
 
-The API of the new index is compatible with the API of the old index.  Still it
+The API of the new index is compatible with the API of the old index. Still it
 is possible that the new index returns edges in a different order than the old
 index. This is still considered to be compatible because the old index had never
 guaranteed any result order either.
@@ -219,7 +219,7 @@ Windows Installer
 -----------------
 
 The Windows installer shipped with ArangoDB now supports installation of
-ArangoDB for the current user or all users, with the required privileges.  It
+ArangoDB for the current user or all users, with the required privileges. It
 also supports the installation of ArangoDB as a service.
 
 Fixes for 32 bit systems
@@ -240,7 +240,7 @@ operating system, specifically:
 Updated drivers
 ---------------
 
-Several drivers for ArangoDB have been checked for compatibility with 2.1.  The
+Several drivers for ArangoDB have been checked for compatibility with 2.1. The
 current list of drivers with compatibility notes can be found online
 [here](https://www.arangodb.org/driver){:target="_blank"}.
 
@@ -300,7 +300,7 @@ Miscellaneous Improvements
   capitalized HTTP headers by default, e.g. `Content-Length` instead of
   `content-length`.  Though the HTTP specification states that headers field
   name are case-insensitive, several older client tools rely on a specific case
-  in HTTP response headers.  This changes make ArangoDB a bit more compatible
+  in HTTP response headers. This changes make ArangoDB a bit more compatible
   with those.
 
 - Simplified usage of `db._createStatement()`: to easily run an AQL query, the

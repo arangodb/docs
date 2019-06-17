@@ -34,7 +34,7 @@ Performs a server-side transaction and returns its return value.
 
   A string evaluating to a JavaScript function to be executed on the server.
 
-  {% hint 'warning ' %}
+  {% hint 'warning' %}
   This function will be executed on the server inside ArangoDB and can not use
   the arangojs driver or any variables other than those passed as _params_.
   For accessing the database from within ArangoDB, see the documentation for the

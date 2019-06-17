@@ -1,6 +1,7 @@
 ---
 layout: default
-description: Welcome to the ArangoDB HTTP API documentation! This documentation isfor API developers
+description: ArangoDB HTTP API documentation. This documentation is for API developers.  As a user or administrator you should not need the information provided herein.
+title: ArangoDB HTTP API Documentation
 ---
 ArangoDB {{ site.data.versions[page.version.name] }} HTTP API Documentation
 ==============================================

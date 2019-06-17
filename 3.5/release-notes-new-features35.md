@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The following list shows in detail which features have been added or improved inArangoDB 3
+description: ArangoDB v3.5 Release Notes New Features
 ---
 Features and Improvements in ArangoDB 3.5
 =========================================
@@ -273,11 +273,14 @@ will hang around until the server decides to garbage-collect them.
 Web interface
 -------------
 
-When using the RocksDB engine, the selection of index types "persistent" and "skiplist" 
+When using the RocksDB engine, the selection of index types "hash" and "skiplist" 
 has been removed from the web interface when creating new indexes. 
 
 The index types "hash", "skiplist" and "persistent" are just aliases of each other 
-when using the RocksDB engine, so there is no need to offer them all.
+when using the RocksDB engine, so there is no need to offer them all. In the web
+interface there remains the index of type "persistent", which is feature-wise
+identical with "hash" and "skiplist" indexes for the RocksDB engine.
+Existing "hash" and "skiplist" indexes will remain fully functional.
 
 
 JavaScript
@@ -513,7 +516,7 @@ To compile ArangoDB from source, a compiler that supports C++14 is now required.
 The bundled JEMalloc memory allocator used in ArangoDB release packages has been
 upgraded from version 5.0.1 to version 5.2.0.
 
-The bundled version of the RocksDB library has been upgraded from 5.16 to 6.0.
+The bundled version of the RocksDB library has been upgraded from 5.16 to 6.2.
 
 The unit test framework has been changed from catch to googletest. This change also
 renames a CMake configuration variable from `USE_CATCH_TESTS` to `USE_GOOGLE_TESTS`.

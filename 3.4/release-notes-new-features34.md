@@ -755,9 +755,9 @@ The new optimizer rule `optimize-subqueries` will fire in the following situatio
 
 ### COLLECT INTO ... KEEP optimization
 
-When using an AQL COLLECT ... INTO without a *KEEP* clause, then the AQL query
-optimizer will now automatically detect which sub-attributes of the *INTO* variables 
-are used later in the query. The optimizer will add automatic *KEEP* clauses to
+When using an AQL COLLECT ... INTO without a `KEEP` clause, then the AQL query
+optimizer will now automatically detect which sub-attributes of the `INTO` variables 
+are used later in the query. The optimizer will add automatic `KEEP` clauses to
 the COLLECT statement then if possible.
     
 For example, the query

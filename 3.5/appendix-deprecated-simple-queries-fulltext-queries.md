@@ -9,11 +9,11 @@ Fulltext queries
 It is recommended to use AQL instead, see [**Fulltext functions**](aql/functions-fulltext.html).
 {% endhint %}
 
-ArangoDB allows to run queries on text contained in document attributes.  To use
+ArangoDB allows to run queries on text contained in document attributes. To use
 this, a [fulltext index](appendix-glossary.html#fulltext-index) must be defined for the attribute of the collection that
 contains the text. Creating the index will parse the text in the specified
 attribute for all documents of the collection. Only documents will be indexed
-that contain a textual value in the indexed attribute.  For such documents, the
+that contain a textual value in the indexed attribute. For such documents, the
 text value will be parsed, and the individual words will be inserted into the
 fulltext index.
 
@@ -72,16 +72,16 @@ documents will be returned that contain all search words. This default behavior
 can be changed by providing the extra control characters in the fulltext query,
 which are:
 
-* *+*: logical AND (intersection)
-* *|*: logical OR (union)
-* *-*: negation (exclusion)
+- `+`: logical AND (intersection)
+- `|`: logical OR (union)
+- `-`: negation (exclusion)
 
 *Examples:*
 
-* *"banana"*: searches for documents containing "banana"
-* *"banana,apple"*: searches for documents containing both "banana" *AND* "apple"
-* *"banana,|orange"*: searches for documents containing either "banana" *OR* "orange" *OR* both
-* *"banana,-apple"*: searches for documents that contains "banana" but *NOT* "apple".
+- `"banana"`: searches for documents containing "banana"
+- `"banana,apple"`: searches for documents containing both "banana" *AND* "apple"
+- `"banana,|orange"`: searches for documents containing either "banana" *OR* "orange" *OR* both
+- `"banana,-apple"`: searches for documents that contains "banana" but *NOT* "apple".
 
 Logical operators are evaluated from left to right.
 
@@ -92,9 +92,9 @@ currently not supported.
 
 Examples:
 
-* *"complete:banana"*: searches for documents containing the exact word "banana"
-* *"prefix:head"*: searches for documents with words that start with prefix "head"
-* *"prefix:head,banana"*: searches for documents contain words starting with prefix 
+- `"complete:banana"`: searches for documents containing the exact word "banana"
+- `"prefix:head"`: searches for documents with words that start with prefix "head"
+- `"prefix:head,banana"`: searches for documents contain words starting with prefix 
   "head" and that also contain the exact word "banana".
 
 Complete match and prefix search options can be combined with the logical

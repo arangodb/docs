@@ -1,6 +1,7 @@
 ---
 layout: default
-description: There are two slightly different syntaxes for traversals in AQL, one for
+description: There are two syntaxes for graph traversals in ArangoDB Query Language (AQL), the named graph and the anonymous graph.
+title: Graph Traversals in ArangoDB Query Language (AQL)
 ---
 Graph traversals in AQL
 =======================
@@ -122,7 +123,7 @@ For traversals with a list of edge collections you can optionally specify the
 direction for some of the edge collections. Say for example you have three edge
 collections *edges1*, *edges2* and *edges3*, where in *edges2* the direction has
 no relevance but in *edges1* and *edges3* the direction should be taken into account.
-In this case you can use *OUTBOUND* as general traversal direction and *ANY*
+In this case you can use `OUTBOUND` as general traversal direction and `ANY`
 specifically for *edges2* as follows:
 
 ```
@@ -471,9 +472,9 @@ As you can see, combining two `FILTER` statements with an `AND` has the same res
 Comparing OUTBOUND / INBOUND / ANY
 ----------------------------------
 
-All our previous examples traversed the graph in *OUTBOUND* edge direction.
-You may however want to also traverse in reverse direction (*INBOUND*) or
-both (*ANY*). Since `circles/A` only has outbound edges, we start our queries
+All our previous examples traversed the graph in `OUTBOUND` edge direction.
+You may however want to also traverse in reverse direction (`INBOUND`) or
+both (`ANY`). Since `circles/A` only has outbound edges, we start our queries
 from `circles/E`:
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_06_traverse_6a
@@ -503,11 +504,11 @@ from `circles/E`:
     @endDocuBlock GRAPHTRAV_06_traverse_6c
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar query=query bind=bind result=result %}
-The first traversal will only walk in the forward (*OUTBOUND*) direction.
+The first traversal will only walk in the forward (`OUTBOUND`) direction.
 Therefore from **E** we only can see **F**. Walking in reverse direction
-(*INBOUND*), we see the path to **A**: **B** → **A**.
+(`INBOUND`), we see the path to **A**: **B** → **A**.
 
-Walking in forward and reverse direction (*ANY*) we can see a more diverse result.
+Walking in forward and reverse direction (`ANY`) we can see a more diverse result.
 First of all, we see the simple paths to **F** and **A**. However, these vertices
 have edges in other directions and they will be traversed.
 

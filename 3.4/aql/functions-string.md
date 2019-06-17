@@ -314,7 +314,7 @@ using wildcard matching.
 - **text** (string): the string to search in
 - **search** (string): a search pattern that can contain the wildcard characters
   `%` (meaning any sequence of characters, including none) and `_` (any single
-  character). Literal *%* and *:* must be escaped with two backslashes (four
+  character). Literal `%` and `_` must be escaped with two backslashes (four
   in arangosh).
   *search* cannot be a variable or a document attribute. The actual value must
   be present at query parse time already.
@@ -860,7 +860,7 @@ TOKENS()
 `TOKENS(input, analyzer) → strArray`
 
 Split the *input* string with the help of the specified *analyzer* into a token array.
-The resulting array can be used e.g. in subsequent `FILTER` statements with the *IN* operator.
+The resulting array can be used e.g. in subsequent `FILTER` statements with the `IN` operator.
 It can help to better understand how the specific analyzer is going to behave.
 
 - **input** (string): text to tokenize
