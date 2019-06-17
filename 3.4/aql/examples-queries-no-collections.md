@@ -42,10 +42,10 @@ creates the Cartesian product of two arrays and concatenates the value pairs:
 @EXAMPLE_AQL{aqlWithoutCollections_3}
 FOR year IN [ 2011, 2012, 2013 ]
   FOR quarter IN [ 1, 2, 3, 4 ]
-    RETURN { 
-      "y" : year, 
-      "q" : quarter, 
-      "nice" : CONCAT(quarter, " / ", year) 
+    RETURN {
+      year,
+      quarter,
+      formatted: CONCAT(quarter, " / ", year)
     }
 @END_EXAMPLE_AQL
 @endDocuBlock aqlWithoutCollections_3
