@@ -8,11 +8,18 @@ Hot Backup Limitations
 ArangoDB hot backups impose limitations with respect to storage engine, storage usage, upgrades, deployment scheme, etc. Please review the below list of limitations closely to make sure that they don't clash with planned deployments.
 
 ## Global Scope ##
+
 In order to be able to create hot backups instantaneously, they are created on file system level and thus well below any structural entity related to databases, collections, indexes, users, etc.
 
 Consequently, a hot backup is a backup of the entire ArangoDB single server and cluster. In other words, one cannot restore to a older hot backup of a single collection or database. With every restore, one restores the entire deployment including of course the `_system` database.
 
 It cannot be stressed enough that a restore to an earlier hot backup set will also revert users, graphs, Foxx apps - everthing, everything - back to that at the time of the hot backup.
+
+### Cluster's Special Limitations
+
+Creating hotbackups can only be done while the internal structure of the cluster remains unaltered. The background of this limitation lies in the distributed nature and the asynchronicity of creation, alteration and dropping of cluster databases, collections and indexes.
+
+It must be ensured that for the hot backup no such changes are made to the cluster's inventory, as this could lead to inconsistent backups. 
 
 ## Off Site Upload and Download Are Enterprise Features ##
 
