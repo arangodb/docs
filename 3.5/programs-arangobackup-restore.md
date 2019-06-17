@@ -1,6 +1,7 @@
 ---
 layout: default
-description: create hot backups 
+description: How to restore backups with the arangobackup tool.
+title: Restore Hot Backups in ArangoDB
 ---
 Restore to a hot backup
 =======================
@@ -10,10 +11,10 @@ for example `2019-05-15T14.36.38Z_my-label` to restore the **entire**
 instance to that "snapshot". 
 
 {% hint 'warning' %}
-Keep in mind that such a restore is a global operation and affects **all
-databases** in an installation. The restore will roll back all data
-including in the meantime databases, collections, indexes etc. The
-database server of a single server instance and all database servers
+Keep in mind that such a restore is a global operation and affects
+**all databases** in an installation. The restore will roll back all data
+including in the meantime databases, collections, indexes etc.
+The database server of a single server instance and all database servers
 of a cluster will subsequently be restarted.
 {% endhint %}
 
@@ -27,4 +28,3 @@ The output will reflect the restore operation's success:
 2019-05-15T15:24:14Z [16201] INFO {backup} Server version: 3.4.5
 2019-05-15T15:24:14Z [16201] INFO {backup} Successfully restored '2019-05-15T14.36.38Z_my-label'
 ```
-

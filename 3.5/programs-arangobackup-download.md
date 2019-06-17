@@ -1,13 +1,14 @@
 ---
 layout: default
-description: download hot backups to remote
+description: How to transfer backups to external servers.
+title: Download Hot Backups to Remote
 ---
-Download a hot backup to remote
-=============================
+Download a Hot Backup to Remote
+===============================
 
-{% hint 'tip' %}
-This functionality is only available with the enterprise
-version. Currently `S3` endpoints are the only supported remote endpoint.
+{% hint 'info' %}
+This functionality is only available in the Enterprise Edition.
+Currently `S3` endpoints are the only supported remote endpoints.
 {% endhint %}
 
 Hot backups can be downloaded to a remote `S3` repository:
@@ -18,7 +19,7 @@ arangobackup download --server.endpoint tcp://myserver:8529 --rclone-config-file
 
 This process may take as long as it needs to download the data from the
 single server or all of the cluster's db servers to the remote
-endpoint given network limitations thereto. 
+endpoint given network limitations thereto.
 
 The status of the download process may be acquired at any later time.
 

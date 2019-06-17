@@ -1,13 +1,14 @@
 ---
 layout: default
-description: upload hot backups to remote
+description: How to transfer backups to external servers with the arangobackup tool.
+title: Upload Hot Backups to Remote
 ---
 Upload a hot backup to remote
 =============================
 
 {% hint 'tip' %}
-This functionality is only available with the enterprise
-version. Currently `S3` endpoints are the only supported remote endpoint.
+This functionality is only available with the Enterprise Edition.
+Currently `S3` endpoints are the only supported remote endpoint.
 {% endhint %}
 
 Hot backups can be uploaded to a remote `S3` repository:
@@ -18,7 +19,7 @@ arangobackup upload --server.endpoint tcp://myserver:8529 --rclone-config-file /
 
 This process may take as long as it needs to upload the data from the
 single server or all of the cluster's db servers to the remote
-endpoint given network thereto. 
+endpoint given network thereto.
 
 The status of the process may be acquired at any later time.
 

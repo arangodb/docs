@@ -1,8 +1,9 @@
 ---
 layout: default
-description: create hot backups 
+description: How to create a consistent snapshot with the arangobackup tool.
+title: Create Hot Backups with ArangoDB
 ---
-Create hot backup
+Create Hot Backup
 =================
 
 Hot backups are created near instantaneously. The single server as
@@ -18,7 +19,7 @@ arangobackup create --server.endpoint tcp://myserver:8529 --label my-label
 
 The above will create a hot backup with a unique identifier consisting
 of the UTC time according to the local computer clock output and the
-specifed label and report the success like below.
+specified label and report the success like below.
 
 ```
 2019-05-15T13:57:11Z [15213] INFO {backup} Server version: 3.4.5
@@ -26,9 +27,6 @@ specifed label and report the success like below.
 ```
 
 {% hint 'tip' %}
-If the `label` marker is ommited it is a unique identifier string is
+If the `label` marker is omitted then a unique identifier string is
 generated instead.
 {% endhint %}
-
-
-
