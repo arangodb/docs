@@ -64,9 +64,9 @@ The *properties* allowed for this analyzer are an object with the following
 attributes:
 
 - `locale`: string (required) format: (language[_COUNTRY][.encoding][@variant])
-- `caseConvert`: string enum (optional) one of: `lower`, `none`, `upper`,
+- `case`: string enum (optional) one of: `lower`, `none`, `upper`,
   default: `lower`
-- `noAccent`: boolean (optional) apply accent removal, default: true
+- `accent`: boolean (optional) preserve accent, default: false
 
 ### N-gram
 
@@ -102,7 +102,7 @@ The *properties* allowed for this analyzer are an object with the following
 attributes:
 
 - `locale`: string (required) format: (language[_COUNTRY][.encoding][@variant])
-- `caseConvert`: string enum (optional) one of: `lower`, `none`, `upper`,
+- `case`: string enum (optional) one of: `lower`, `none`, `upper`,
   default: `lower`
 - `stopwords`: array of strings (optional) words to omit from result,
   default: load words from `stopwordsPath`
@@ -111,6 +111,6 @@ attributes:
   `stopwords` provided then the value from the
   environment variable `IRESEARCH_TEXT_STOPWORD_PATH` or
   if undefined then the current working directory
-- `noAccent`: boolean (optional) apply accent removal, default: true
-- `noStem`: boolean (optional) do not apply stemming on returned words,
-  default: false
+- `accent`: boolean (optional) preserve accent in returned words, default: false
+- `stemming`: boolean (optional) apply stemming on returned words,
+  default: true
