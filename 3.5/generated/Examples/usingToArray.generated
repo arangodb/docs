@@ -1,36 +1,36 @@
 arangosh&gt; db._create(<span class="hljs-string">"five"</span>)
-[ArangoCollection <span class="hljs-number">132486</span>, <span class="hljs-string">"five"</span> (type <span class="hljs-built_in">document</span>, status loaded)]
+[ArangoCollection <span class="hljs-number">132489</span>, <span class="hljs-string">"five"</span> (type <span class="hljs-built_in">document</span>, status loaded)]
 arangosh&gt; <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) db.five.save({<span class="hljs-attr">value</span>:i})
 arangosh&gt; db.five.toArray()
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132493"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132493"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y0IZwkG--_"</span>, 
-    <span class="hljs-string">"value"</span> : <span class="hljs-number">0</span> 
-  }, 
-  { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132506"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132506"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y0IZwkS--A"</span>, 
-    <span class="hljs-string">"value"</span> : <span class="hljs-number">4</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y0mYEDy--B"</span>, 
+    <span class="hljs-string">"value"</span> : <span class="hljs-number">3</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132503"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132503"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y0IZwkS---"</span>, 
-    <span class="hljs-string">"value"</span> : <span class="hljs-number">3</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y0mYEDy--_"</span>, 
+    <span class="hljs-string">"value"</span> : <span class="hljs-number">2</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132500"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132500"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y0IZwkO--_"</span>, 
-    <span class="hljs-string">"value"</span> : <span class="hljs-number">2</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y0mYEDu--B"</span>, 
+    <span class="hljs-string">"value"</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132497"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132497"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y0IZwkK--_"</span>, 
-    <span class="hljs-string">"value"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132496"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132496"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y0mYEDu--_"</span>, 
+    <span class="hljs-string">"value"</span> : <span class="hljs-number">0</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"132509"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/132509"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y0mYEDy--D"</span>, 
+    <span class="hljs-string">"value"</span> : <span class="hljs-number">4</span> 
   } 
 ]
