@@ -66,7 +66,7 @@ attributes:
 - `locale`: string (required) format: (language[_COUNTRY][.encoding][@variant])
 - `case`: string enum (optional) one of: `lower`, `none`, `upper`,
   default: `lower`
-- `accent`: boolean (optional) preserve accent, default: false
+- `accent`: boolean (optional) preserve accent, default: true
 
 ### N-gram
 
