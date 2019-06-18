@@ -2,20 +2,25 @@
 
 set -e
 
-echo "************ INSIDE NETLIFY.SH ************"
-
-echo "/ /docs/3.5/" > _redirects
-echo "_redirects ="
-echo "$(cat _redirects)"
-
-version_stable=$(ruby -ryaml -e 'print YAML.load_file("_config.yml")["versions"]["stable"]')
-version_devel=$(ruby -ryaml -e 'print YAML.load_file("_config.yml")["versions"]["devel"]')
+version_stable="$(ruby -ryaml -e "print YAML.load_file('_config.yml')['versions']['stable']")"
+version_devel="$(ruby -ryaml -e "print YAML.load_file('_config.yml')['versions']['devel']")"
 echo "version_stable = ${version_stable}"
 echo "version_devel = ${version_devel}"
 
+# TODO: replace with version_stable
+echo "/  /docs/${version_devel}/" > _redirects
+echo "_redirects ="
+echo "$(cat _redirects)"
+
 jekyll build
-cp -a "_site/${version_stable}/" "_site/stable/"
-cp -a "_site/${version_devel}/" "_site/devel/"
+
+pushd .
+cd _site
+mkdir stable
+mkdir devel
+cp -ar "${version_stable}/*" stable/
+cp -ar "${version_devel}/*" devel/
+popd
 
 rm -rf htmltest
 mkdir -p htmltest
