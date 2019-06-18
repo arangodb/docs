@@ -2,7 +2,21 @@
 
 set -e
 
+echo "************ INSIDE NETLIFY.SH ************"
+
+echo "/ /docs/3.5/" > _redirects
+echo "_redirects ="
+echo "$(cat _redirects)"
+
+version_stable=$(ruby -ryaml -e 'print YAML.load_file("_config.yml")["versions"]["stable"]')
+version_devel=$(ruby -ryaml -e 'print YAML.load_file("_config.yml")["versions"]["devel"]')
+echo "version_stable = ${version_stable}"
+echo "version_devel = ${version_devel}"
+
 jekyll build
+cp -a "_site/${version_stable}/" "_site/stable/"
+cp -a "_site/${version_devel}/" "_site/devel/"
+
 rm -rf htmltest
 mkdir -p htmltest
 # our baseUrl is /docs so we need to create that structure for htmltest
@@ -16,4 +30,3 @@ cp _redirects htmltest
 )
 
 /tmp/htmltest -s
-
