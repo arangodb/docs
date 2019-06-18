@@ -12,7 +12,7 @@ jekyll build
 # Netlify does not support symlinks, breaking /docs/stable/* and /docs/devel/*
 # Workaround: Copy the files of the respective versions to these folders
 cd _site
-echo "$(ls -la)"
+echo "$(tree -L 1)"
 rm stable
 rm devel
 mkdir stable
