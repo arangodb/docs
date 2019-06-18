@@ -4,23 +4,26 @@ set -e
 
 version_stable="$(ruby -ryaml -e "print YAML.load_file('_config.yml')['versions']['stable']")"
 version_devel="$(ruby -ryaml -e "print YAML.load_file('_config.yml')['versions']['devel']")"
-echo "version_stable = ${version_stable}"
-echo "version_devel = ${version_devel}"
+echo "  version_stable = ${version_stable}"
+echo "  version_devel = ${version_devel}"
 
 # TODO: replace with version_stable
 echo "/  /docs/${version_devel}/" > _redirects
-echo "_redirects ="
-echo "$(cat _redirects)"
+echo "  cat _redirects"
+echo "  --------------"
+echo "  $(cat _redirects)"
+echo "  --------------"
 
 jekyll build
 
-pushd .
+# Netlify does not support symlinks, breaking /docs/stable/* and /docs/devel/*
+# Workaround: Copy the files of the respective versions to these folders
 cd _site
 mkdir stable
 mkdir devel
 cp -ar "${version_stable}/*" stable/
 cp -ar "${version_devel}/*" devel/
-popd
+cd ..
 
 rm -rf htmltest
 mkdir -p htmltest
