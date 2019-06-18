@@ -7,15 +7,12 @@ version_devel="$(ruby -ryaml -e "print YAML.load_file('_config.yml')['versions']
 echo "  version_stable = ${version_stable}"
 echo "  version_devel = ${version_devel}"
 
-echo "$(tree -L 3)"
-
 jekyll build
-
-echo "$(tree -L 3)"
 
 # Netlify does not support symlinks, breaking /docs/stable/* and /docs/devel/*
 # Workaround: Copy the files of the respective versions to these folders
 cd _site
+echo "$(ls -la)"
 rm stable
 rm devel
 mkdir stable
