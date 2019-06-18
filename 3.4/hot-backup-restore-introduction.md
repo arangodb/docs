@@ -6,7 +6,7 @@ title: ArangoDB Hot Backup and Restore Feature
 Introduction
 ============
 
-{% hint 'hint' %}
+{% hint 'info' %}
 Please review the [requirements and limitations](hot-backup-restore-limitations.html)
 of hot backups, specifically regarding storage engine, deployment, scope
 and storage space.

@@ -6,7 +6,7 @@ title: Upload Hot Backups to Remote
 Upload a hot backup to remote
 =============================
 
-{% hint 'tip' %}
+{% hint 'info' %}
 This functionality is only available with the Enterprise Edition.
 Currently `S3` endpoints are the only supported remote endpoint.
 {% endhint %}
