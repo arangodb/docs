@@ -20,6 +20,6 @@ It is important to understand the technology as best as possible in order to
 conclude which operations it might or might not be suited for.
 
 {% hint 'warning' %}
-Please review the requirements and limitations of hot backups, specifically
+Please review the [requirements and limitations](hot-backup-restore-limitations.html) of hot backups, specifically
 regarding storage engine, deployment, scope and storage space.
 {% endhint %}
