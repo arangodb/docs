@@ -17,10 +17,9 @@ rm -f devel
 echo "symlinks deleted"
 mkdir stable
 mkdir devel
-echo "$(tree -L 1)"
 echo "copy stable and devel"
-cp -arp "${version_stable}/*" stable/
-cp -arp "${version_devel}/*" devel/
+cp -a "${version_stable}/*" stable/
+cp -a "${version_devel}/*" devel/
 cd ..
 echo "done copying"
 
