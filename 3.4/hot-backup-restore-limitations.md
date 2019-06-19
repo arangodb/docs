@@ -1,6 +1,6 @@
 ---
 layout: default
-description: ArangoDB hot backups impose limitations one should be absolutely aware of.
+description: Hot Backups impose limitations one should be aware of.
 title: ArangoDB Hot Backup Limitations
 ---
 Hot Backup Limitations
@@ -8,8 +8,8 @@ Hot Backup Limitations
 
 ArangoDB hot backups impose limitations with respect to storage engine,
 storage usage, upgrades, deployment scheme, etc. Please review the below
-list of limitations closely to make sure that they don't clash with
-planned deployments.
+list of limitations closely to conclude which operations it might or might
+not be suited for.
 
 Global Scope
 ------------
@@ -19,12 +19,12 @@ on file system level and thus well below any structural entity related to
 databases, collections, indexes, users, etc.
 
 Consequently, a hot backup is a backup of the entire ArangoDB single server
-and cluster. In other words, one cannot restore to a older hot backup of a
+or cluster. In other words, one cannot restore to an older hot backup of a
 single collection or database. With every restore, one restores the entire
 deployment including of course the `_system` database.
 
 It cannot be stressed enough that a restore to an earlier hot backup set will
-also revert users, graphs, Foxx apps - everything - back to that at the time
+also revert users, graphs, Foxx apps – everything – back to that at the time
 of the hot backup.
 
 ### Cluster's Special Limitations
@@ -58,10 +58,10 @@ with the previous versions of the same installation obsolete. i.e. an upgraded
 Identical Topology
 ------------------
 
-Unlike backups crated with _arangodump_ and restored with _arangorestore_,
+Unlike backups created with _arangodump_ and restored with _arangorestore_,
 hot backups can only be restored to the same type and structure of deployment.
 This means that one cannot restore a 3-node ArangoDB cluster's hot backup to
-any other deployment that another 3-node ArangoDB cluster of the same version.
+any other deployment than another 3-node ArangoDB cluster of the same version.
 
 RocksDB Only for Now
 --------------------
@@ -75,7 +75,7 @@ Storage Space
 
 Without the creation of hot backups, RocksDB keeps compacting the file system
 level files as the operation continues. Compacted files are subsequently
-automatically deleted. Every hot backup, needs of course to hold on to the
+deleted automatically. Every hot backup needs to hold on to the
 files as they were at the moment of the hot backup creation, thus preventing
 the deletions and consequently growing the storage space of the ArangoDB
 data directory. That growth of course depends on the amount of write operations
@@ -83,7 +83,7 @@ per time.
 
 This is a crucial factor for sustained operation and might require
 significantly higher storage reservation for ArangoDB instances involved and
-or the much more fine grained monitoring of storage usage than before.
+a much more fine grained monitoring of storage usage than before.
 
 Also note that in a cluster each RocksDB instance will be backed up
 individually and hence the overall storage space will be the sum of all
@@ -96,9 +96,9 @@ Global Transaction Lock
 In order to be able to create consistent hot backups, it is mandatory to get
 a very brief global transaction lock across the entire installation.
 In single server deployments constant invocation of very long running
-transactions could prevent that from every happening during a timeout period.
+transactions could prevent that from ever happening during a timeout period.
 The same holds true for clusters, where this lock must now be obtained on all
-database servers as the same time.
+database servers at the same time.
 
 Especially in the cluster the result of these successively longer tries to
 obtain the global transaction lock might become visible in periods of apparent

@@ -15,7 +15,7 @@ and storage space.
 Creation
 --------
 
-Hot the process of creating backups is ideally an instantaneous event during
+The process of creating hot backups is ideally an instantaneous event during
 normal operations, that consists of a few subsequent steps behind the scenes:
 
 - Stop all write access to the entire installation using a global transaction lock
@@ -47,7 +47,7 @@ hot backup do as follows:
 - Report success of the operation
 
 Again under good conditions, a complete hot backup could be obtained from a
-cluster with many many database servers within a very short time in the range
+cluster with many database servers within a very short time in the range
 of that of the single server installation.
 
 ### Global Transaction Lock
@@ -70,7 +70,7 @@ lock is obtained and the backup is created then within no time.
 
 In clusters things are a little more complicated and noticeable.
 A coordinator, which is trying to obtain the global lock must try to get locks
-on all db servers simultaneously; potentially succeeding on some and not
+on all _DBServers_ simultaneously; potentially succeeding on some and not
 succeeding on others, leading to apparent dead times in the cluster's operation.
 
 This process can happen multiple times until success is achieved.
@@ -82,7 +82,7 @@ be obtained each time prolonging the last wait time by 10%.
 Less of a variable, however equally important is to obtain a freeze on the
 cluster's structure itself. This is done through the creation of a simple key
 lock in the cluster's configuration to stop all ongoing background tasks,
-which are there to handle fail overs, shard movings, server removal etc.
+which are there to handle fail overs, shard movings, server removals etc.
 Its role is also to prevent multiple simultaneous hot backup operations.
 The acquisition of this key is predictably done within a matter of few seconds.
 
@@ -108,17 +108,17 @@ against data loss or corruption.
 
 ### Remote Upload and Download
 
-As an enterprise feature, we have fully integrated the
-[Rclone](https://rclone.org/) sync for cloud storage. RClone is a very
+As an Enterprise Edition feature, we have fully integrated the
+[Rclone](https://rclone.org/) sync for cloud storage. Rclone is a very
 versatile inter site sync facility, which opens up a vast field of transport
-protocols and remote syncing APIs from Amazon's S3 over Dropbox, WebDAV all
-the way to the local file system and network storage.
+protocols and remote syncing APIs from Amazon's S3 over Dropbox, WebDAV,
+all the way to the local file system and network storage.
 
-One can use the upload and download functionalities to in this way migrate
-entire cluster installations, copy cluster and single server snapshots all
+One can use the upload and download functionalities to migrate entire cluster
+installations in this way, copy cluster and single server snapshots all
 over the world, create an intuitive and easy to use quick access safety
 backbone of the data operation. 
 
-RClone is open source and available under the MIT license is battle tested
-and has garnered close to 15k stars on github professing to the confidence
+Rclone is open source and available under the MIT license, is battle tested
+and has garnered close to 15k stars on GitHub professing to the confidence
 of lots of users.
