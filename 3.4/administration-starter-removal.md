@@ -5,6 +5,10 @@ description: This procedure is intended to remove a machine from a cluster(that 
 
 # ArangoDB Starter Removal Procedure
 
+{% hint 'danger' %}
+**Do not** apply this procedure to machines that have an agent on it.
+{% endhint %}
+
 This procedure is intended to remove a machine from a cluster
 (that was started with the ArangoDB _Starter_).
 
