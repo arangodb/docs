@@ -4,9 +4,9 @@ arangosh&gt; db.names.ensureIndex({ <span class="hljs-attr">type</span>: <span c
   <span class="hljs-string">"fields"</span> : [ 
     <span class="hljs-string">"first"</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"names/111524"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"names/111511"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1637085688209866752"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1637202710378840064"</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"skiplist"</span>, 
   <span class="hljs-string">"unique"</span> : <span class="hljs-literal">false</span>, 
@@ -14,31 +14,31 @@ arangosh&gt; db.names.ensureIndex({ <span class="hljs-attr">type</span>: <span c
 }
 arangosh&gt; db.names.save({ <span class="hljs-string">"first"</span> : <span class="hljs-string">"Tim"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/111528"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111528"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y2EKIBC--_"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/111515"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111515"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y2exBYu--_"</span> 
 }
 arangosh&gt; db.names.save({ <span class="hljs-string">"first"</span> : <span class="hljs-string">"Tom"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/111532"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111532"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y2EKIBC--B"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/111519"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111519"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y2exBYy--_"</span> 
 }
 arangosh&gt; db.names.save({ <span class="hljs-string">"first"</span> : <span class="hljs-string">"John"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/111535"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111535"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y2EKIBG--_"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/111522"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111522"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y2exBYy--B"</span> 
 }
 arangosh&gt; db.names.save({ <span class="hljs-string">"first"</span> : <span class="hljs-string">"Tim"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/111538"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111538"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y2EKIBG--B"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/111525"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111525"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y2exBYy--D"</span> 
 }
 arangosh&gt; db.names.save({ <span class="hljs-string">"first"</span> : <span class="hljs-string">"Tom"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/111541"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111541"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y2EKIBK--_"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/111528"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111528"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y2exBY2--_"</span> 
 }
