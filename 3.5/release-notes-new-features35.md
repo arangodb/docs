@@ -9,6 +9,130 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.5. ArangoDB 3.5 also contains several bug fixes that are not listed
 here.
 
+ArangoSearch
+------------
+
+### Configurable Analyzers
+
+Analyzers can split string values into smaller parts and perform additional
+processing such as word stemming and case conversion. In ArangoDB 3.4 there
+is a fixed set of text analyzers for 12 different languages, which tokenize
+strings into case-insensitive word stems using language-dependent rules based
+on the chosen locale, without discarding any stopwords (common words which
+carry little meaning such as "the"). An additional no-operation analyzer
+*identity* is available to keep the input unaltered in its entirety.
+
+In 3.5, analyzers can be customized as well as used independent of
+ArangoSearch Views in AQL. It is possible to tokenize strings without
+word stemming, remove user-defined stopwords, split by a delimiting
+character only, perform case conversion and/or removal of diacritic
+characters against the full input without tokenization and more.
+
+See [Analyzers](analyzers.html) for all available options.
+
+### Sorted Index
+
+The index behind an ArangoSearch View can have a primary sort order.
+A direction can be specified upon View creation for each uniquely named
+attribute (ascending or descending), to enable an optimization for AQL
+queries which iterate over a view and sort by one of the attributes.
+If the index direction matches the requested `SORT` direction, then
+the data can be read in order directly from the index without actual
+sort operation.
+
+View definition example:
+
+```json
+{
+  "links": {
+    "coll1": {
+      "fields": {
+        "text": {
+        }
+      }
+    },
+    "coll2": {
+      "fields": {
+        "text": {
+      }
+    }
+  },
+  "primarySort": [
+    {
+      "field": "text",
+      "direction": "desc"
+    }
+  ]
+}
+```
+
+AQL query example:
+
+```js
+FOR doc IN someView
+  SORT doc.text DESC
+  RETURN doc
+```
+
+Execution plan **without** a sorted index being used:
+
+```
+Execution plan:
+ Id   NodeType            Est.   Comment
+  1   SingletonNode          1   * ROOT
+  2   EnumerateViewNode      1     - FOR doc IN someView   /* view query */
+  3   CalculationNode        1       - LET #1 = doc.`val`   /* attribute expression */
+  4   SortNode               1       - SORT #1 DESC   /* sorting strategy: standard */
+  5   ReturnNode             1       - RETURN doc
+```
+
+Execution plan with a the primary sort order of the index being utilized:
+
+```
+Execution plan:
+ Id   NodeType            Est.   Comment
+  1   SingletonNode          1   * ROOT
+  2   EnumerateViewNode      1     - FOR doc IN someView SORT doc.`val` DESC   /* view query */
+  5   ReturnNode             1       - RETURN doc
+```
+
+Note that the `primarySort` option is immutable: it can not be changed after
+View creation. It is therefore not possible to configure it through the Web UI.
+The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
+
+### AQL Integration
+
+Some small new features give more control over ArangoSearch from AQL.
+
+- The scoring functions `BM25()` and `TFIDF()` are not limited to the `SORT`
+  operation anymore, but can also be returned as part of the query result:
+
+  ```js
+  FOR doc IN someView
+    SEARCH ...
+    LET score = BM25(doc)
+    SORT score DESC
+    RETURN { doc, score }
+  ```
+
+- The score can be manipulated to influence the ranking:
+
+  ```js
+  FOR doc IN someView
+    SEARCH ...
+    SORT BM25(doc) * LOG(doc.value + 1) DESC
+    RETURN doc
+  ```
+
+- The `SEARCH` operation accepts an options object to restrict the search to
+  certain collections indexed by a View:
+
+  ```js
+  FOR doc IN someView
+    SEARCH ... OPTIONS { collections: ["coll1", "coll2"] }
+    RETURN doc
+  ```
+
 AQL
 ---
 
