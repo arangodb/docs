@@ -1,29 +1,29 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=105526</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=105477</span>
 
 HTTP/1.1 OK
 content-type: application/x-arango-dump; charset=utf-8
 x-arango-replication-active: true
 x-arango-replication-checkmore: false
 x-arango-replication-frompresent: true
-x-arango-replication-lastincluded: 105547
-x-arango-replication-lastscanned: 105547
-x-arango-replication-lasttick: 105547
+x-arango-replication-lastincluded: 105498
+x-arango-replication-lastscanned: 105498
+x-arango-replication-lasttick: 105498
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105530"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105481"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2000</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
-  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105529"</span>, 
+  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105480"</span>, 
   <span class="hljs-string">"cname"</span> : <span class="hljs-string">"products"</span>, 
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"allowUserKeys"</span> : <span class="hljs-literal">true</span>, 
-    <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105529"</span>, 
+    <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105480"</span>, 
     <span class="hljs-string">"count"</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">"doCompact"</span> : <span class="hljs-literal">true</span>, 
-    <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h9AEE76BFAC8C/105529"</span>, 
-    <span class="hljs-string">"id"</span> : <span class="hljs-string">"105529"</span>, 
+    <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h6A0FE824042/105480"</span>, 
+    <span class="hljs-string">"id"</span> : <span class="hljs-string">"105480"</span>, 
     <span class="hljs-string">"indexBuckets"</span> : <span class="hljs-number">8</span>, 
     <span class="hljs-string">"indexes"</span> : [ 
       { 
@@ -48,7 +48,7 @@ x-content-type-options: nosniff
     }, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"products"</span>, 
     <span class="hljs-string">"numberOfShards"</span> : <span class="hljs-number">1</span>, 
-    <span class="hljs-string">"planId"</span> : <span class="hljs-string">"105529"</span>, 
+    <span class="hljs-string">"planId"</span> : <span class="hljs-string">"105480"</span>, 
     <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">1</span>, 
     <span class="hljs-string">"shardKeys"</span> : [ 
       <span class="hljs-string">"_key"</span> 
@@ -62,23 +62,23 @@ x-content-type-options: nosniff
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105533"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105484"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
   <span class="hljs-string">"cid"</span> : <span class="hljs-string">"6"</span>, 
   <span class="hljs-string">"cname"</span> : <span class="hljs-string">"_users"</span>, 
   <span class="hljs-string">"data"</span> : { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"62"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/62"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WdHhW--_"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"61"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/61"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJrOC--_"</span>, 
     <span class="hljs-string">"user"</span> : <span class="hljs-string">"root"</span>, 
     <span class="hljs-string">"source"</span> : <span class="hljs-string">"LOCAL"</span>, 
     <span class="hljs-string">"authData"</span> : { 
       <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>, 
       <span class="hljs-string">"simple"</span> : { 
-        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"0a0510100a54706c0681b67886b7216537987ed5d7ebd0638ea01460accb1565"</span>, 
-        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"60ac0611"</span>, 
+        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"addc6057bd944d6c4262aec23d538d2672435507769677f771b15520d5700d1c"</span>, 
+        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"0b76031c"</span>, 
         <span class="hljs-string">"method"</span> : <span class="hljs-string">"sha256"</span> 
       } 
     }, 
@@ -139,91 +139,91 @@ x-content-type-options: nosniff
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105537"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105488"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
-  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105529"</span>, 
+  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105480"</span>, 
   <span class="hljs-string">"cname"</span> : <span class="hljs-string">"products"</span>, 
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"p1"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_unknown/p1"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WdHha--_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJrOC--B"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"flux compensator"</span> 
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105539"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105490"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
-  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105529"</span>, 
+  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105480"</span>, 
   <span class="hljs-string">"cname"</span> : <span class="hljs-string">"products"</span>, 
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"p2"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_unknown/p2"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WdHha--B"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJrOG--_"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"hybrid hovercraft"</span>, 
     <span class="hljs-string">"hp"</span> : <span class="hljs-number">5100</span> 
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105541"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105492"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2302</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
-  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105529"</span>, 
+  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105480"</span>, 
   <span class="hljs-string">"cname"</span> : <span class="hljs-string">"products"</span>, 
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"p1"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WdHha--D"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJrOG--B"</span> 
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105543"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105494"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
-  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105529"</span>, 
+  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105480"</span>, 
   <span class="hljs-string">"cname"</span> : <span class="hljs-string">"products"</span>, 
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"p2"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_unknown/p2"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WdHhe--_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJrOG--D"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"broken hovercraft"</span>, 
     <span class="hljs-string">"hp"</span> : <span class="hljs-number">5100</span> 
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105544"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105495"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2001</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
-  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105529"</span>, 
+  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"105480"</span>, 
   <span class="hljs-string">"cname"</span> : <span class="hljs-string">"products"</span>, 
   <span class="hljs-string">"data"</span> : { 
-    <span class="hljs-string">"id"</span> : <span class="hljs-string">"105529"</span>, 
+    <span class="hljs-string">"id"</span> : <span class="hljs-string">"105480"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"products"</span>, 
-    <span class="hljs-string">"cuid"</span> : <span class="hljs-string">"h9AEE76BFAC8C/105529"</span> 
+    <span class="hljs-string">"cuid"</span> : <span class="hljs-string">"h6A0FE824042/105480"</span> 
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105547"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"105498"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
   <span class="hljs-string">"cid"</span> : <span class="hljs-string">"6"</span>, 
   <span class="hljs-string">"cname"</span> : <span class="hljs-string">"_users"</span>, 
   <span class="hljs-string">"data"</span> : { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"62"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/62"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WdHmO--_"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"61"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/61"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJrPi--_"</span>, 
     <span class="hljs-string">"user"</span> : <span class="hljs-string">"root"</span>, 
     <span class="hljs-string">"source"</span> : <span class="hljs-string">"LOCAL"</span>, 
     <span class="hljs-string">"authData"</span> : { 
       <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>, 
       <span class="hljs-string">"simple"</span> : { 
-        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"0a0510100a54706c0681b67886b7216537987ed5d7ebd0638ea01460accb1565"</span>, 
-        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"60ac0611"</span>, 
+        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"addc6057bd944d6c4262aec23d538d2672435507769677f771b15520d5700d1c"</span>, 
+        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"0b76031c"</span>, 
         <span class="hljs-string">"method"</span> : <span class="hljs-string">"sha256"</span> 
       } 
     }, 

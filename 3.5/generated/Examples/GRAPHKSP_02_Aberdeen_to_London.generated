@@ -4,7 +4,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR v, e IN OUTBOUND SHORTEST_
     { 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Aberdeen"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Aberdeen"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG5u--_"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUiG--B"</span>, 
       <span class="hljs-string">"label"</span> : <span class="hljs-string">"Aberdeen"</span> 
     }, 
     <span class="hljs-literal">null</span> 
@@ -13,7 +13,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR v, e IN OUTBOUND SHORTEST_
     { 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Leuchars"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG5u--B"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUiK--_"</span>, 
       <span class="hljs-string">"label"</span> : <span class="hljs-string">"Leuchars"</span> 
     }, 
     { 
@@ -21,7 +21,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR v, e IN OUTBOUND SHORTEST_
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/98438"</span>, 
       <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Aberdeen"</span>, 
       <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG56--H"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUii--_"</span>, 
       <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.5</span> 
     } 
   ], 
@@ -29,7 +29,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR v, e IN OUTBOUND SHORTEST_
     { 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Edinburgh"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG5y--_"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUiK--D"</span>, 
       <span class="hljs-string">"label"</span> : <span class="hljs-string">"Edinburgh"</span> 
     }, 
     { 
@@ -37,7 +37,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR v, e IN OUTBOUND SHORTEST_
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/98444"</span>, 
       <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
       <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG6---_"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUim--_"</span>, 
       <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.5</span> 
     } 
   ], 
@@ -45,7 +45,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR v, e IN OUTBOUND SHORTEST_
     { 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"York"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/York"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG5y--D"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUiO--B"</span>, 
       <span class="hljs-string">"label"</span> : <span class="hljs-string">"York"</span> 
     }, 
     { 
@@ -53,7 +53,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR v, e IN OUTBOUND SHORTEST_
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/98456"</span>, 
       <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
       <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/York"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG6---H"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUiq--B"</span>, 
       <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">3.5</span> 
     } 
   ], 
@@ -61,7 +61,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR v, e IN OUTBOUND SHORTEST_
     { 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"London"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/London"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG52--_"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUiW--_"</span>, 
       <span class="hljs-string">"label"</span> : <span class="hljs-string">"London"</span> 
     }, 
     { 
@@ -69,7 +69,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR v, e IN OUTBOUND SHORTEST_
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/98492"</span>, 
       <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/York"</span>, 
       <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/London"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG6G--F"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUi2--B"</span>, 
       <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.8</span> 
     } 
   ] 
@@ -84,7 +84,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/98438"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Aberdeen"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG56--H"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUii--_"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.5</span> 
       }, 
       { 
@@ -92,7 +92,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/98444"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG6---_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUim--_"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.5</span> 
       }, 
       { 
@@ -100,7 +100,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/98456"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/York"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG6---H"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUiq--B"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">3.5</span> 
       }, 
       { 
@@ -108,7 +108,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/98492"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/York"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/London"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG6G--F"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUi2--B"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.8</span> 
       } 
     ], 
@@ -116,31 +116,31 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Aberdeen"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Aberdeen"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG5u--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUiG--B"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Aberdeen"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Leuchars"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG5u--B"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUiK--_"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Leuchars"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Edinburgh"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG5y--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUiK--D"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Edinburgh"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"York"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/York"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG5y--D"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUiO--B"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"York"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"London"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/London"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3WcG52--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJUiW--_"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"London"</span> 
       } 
     ], 
