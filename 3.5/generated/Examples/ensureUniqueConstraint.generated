@@ -5,9 +5,9 @@ arangosh&gt; db.test.ensureIndex({ <span class="hljs-attr">type</span>: <span cl
     <span class="hljs-string">"a"</span>, 
     <span class="hljs-string">"b.c"</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"test/111893"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"test/112000"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1637538669286916098"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1637628465040588800"</span>, 
   <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"hash"</span>, 
@@ -16,17 +16,17 @@ arangosh&gt; db.test.ensureIndex({ <span class="hljs-attr">type</span>: <span cl
 }
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span>, <span class="hljs-attr">b</span> : { <span class="hljs-attr">c</span> : <span class="hljs-number">1</span> } });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/111897"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111897"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJ3h---_"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/112004"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"112004"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y4_kkha--_"</span> 
 }
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span>, <span class="hljs-attr">b</span> : { <span class="hljs-attr">c</span> : <span class="hljs-number">1</span> } });
-[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1637538669286916098 <span class="hljs-keyword">of</span> type hash over <span class="hljs-string">'a, b.c'</span>; conflicting key: <span class="hljs-number">111897</span>]
+[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1637628465040588800 <span class="hljs-keyword">of</span> type hash over <span class="hljs-string">'a, b.c'</span>; conflicting key: <span class="hljs-number">112004</span>]
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span>, <span class="hljs-attr">b</span> : { <span class="hljs-attr">c</span> : <span class="hljs-literal">null</span> } });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/111903"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111903"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y3rJ3hC--B"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/112010"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"112010"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y4_kkhe--B"</span> 
 }
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span> });
-[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1637538669286916098 <span class="hljs-keyword">of</span> type hash over <span class="hljs-string">'a, b.c'</span>; conflicting key: <span class="hljs-number">111903</span>]
+[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1637628465040588800 <span class="hljs-keyword">of</span> type hash over <span class="hljs-string">'a, b.c'</span>; conflicting key: <span class="hljs-number">112010</span>]
