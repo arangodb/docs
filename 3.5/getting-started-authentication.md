@@ -5,7 +5,7 @@ description: ArangoDB allows to restrict access to databases to certain users
 Authentication
 ==============
 
-ArangoDB allows to restrict access to databases to certain users.  All
+ArangoDB allows to restrict access to databases to certain users. All
 users of the system database are considered administrators. During
 installation a default user *root* is created, which has access to
 all databases.

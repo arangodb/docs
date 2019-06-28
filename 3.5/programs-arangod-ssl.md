@@ -88,7 +88,7 @@ The certificates in *filename* must be PEM formatted.
 
 `--ssl.protocol value`
 
-Use this option to specify the default encryption protocol to be used.  The
+Use this option to specify the default encryption protocol to be used. The
 following variants are available:
 
 - 1: SSLv2 (unsupported)

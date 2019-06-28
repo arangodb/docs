@@ -5,7 +5,7 @@ description: The UPSERT keyword can be used for checking whether certain documen
 UPSERT
 ======
 
-The *UPSERT* keyword can be used for checking whether certain documents exist,
+The `UPSERT` keyword can be used for checking whether certain documents exist,
 and to update/replace them in case they exist, or create them in case they do not exist.
 On a single server, upserts are executed transactionally in an all-or-nothing fashion. 
 
@@ -19,9 +19,9 @@ the RocksDB engine.
 For sharded collections, the entire query and/or upsert operation may not be transactional,
 especially if it involves different shards and/or database servers.
 
-Each *UPSERT* operation is restricted to a single collection, and the 
+Each `UPSERT` operation is restricted to a single collection, and the 
 [collection name](../appendix-glossary.html#collection-name) must not be dynamic.
-Only a single *UPSERT* statement per collection is allowed per AQL query, and 
+Only a single `UPSERT` statement per collection is allowed per AQL query, and 
 it cannot be followed by read or write operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
 
@@ -32,9 +32,9 @@ UPSERT searchExpression INSERT insertExpression UPDATE updateExpression IN colle
 UPSERT searchExpression INSERT insertExpression REPLACE updateExpression IN collection options
 ```
 
-When using the *UPDATE* variant of the upsert operation, the found document will be 
+When using the `UPDATE` variant of the upsert operation, the found document will be 
 partially updated, meaning only the attributes specified in *updateExpression* will be 
-updated or added. When using the *REPLACE* variant of upsert, existing documents will 
+updated or added. When using the `REPLACE` variant of upsert, existing documents will 
 be replaced with the contexts of *updateExpression*.
 
 Updating a document will modify the document's revision number with a server-generated value.
@@ -62,7 +62,7 @@ INSERT { name: 'superuser', logins: 1, dateCreated: DATE_NOW() }
 UPDATE { logins: OLD.logins + 1 } IN users
 ```
 
-Note that in the *UPDATE* case it is possible to refer to the previous version of the
+Note that in the `UPDATE` case it is possible to refer to the previous version of the
 document using the *OLD* pseudo-value.
 
 
@@ -77,7 +77,7 @@ attribute from the document but store a null value for it. To get rid of attribu
 an upsert operation, set them to null and provide the *keepNull* option.
 
 There is also the option *mergeObjects* that controls whether object contents will be
-merged if an object attribute is present in both the *UPDATE* query and in the 
+merged if an object attribute is present in both the `UPDATE` query and in the 
 to-be-updated document.
 
 Note: the default value for *mergeObjects* is *true*, so there is no need to specify it

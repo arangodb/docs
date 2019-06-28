@@ -56,7 +56,7 @@ To activate encryption of your database, you need to supply an
 encryption key to the server.
 
 Make sure to pass this option the very first time you start your
-database.  You cannot encrypt a database that already exists.
+database. You cannot encrypt a database that already exists.
 
 Note: You also have to activate the RocksDB storage engine.
 

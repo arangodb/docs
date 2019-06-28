@@ -43,7 +43,7 @@ for the value:
 ```
 
 If you are used to work with JSON, you may want to switch the bind parameter
-editor to JSON mode by clicking on the upper right toggle button.  You can then
+editor to JSON mode by clicking on the upper right toggle button. You can then
 edit the bind parameters in raw JSON format.
 
 ### Custom Queries

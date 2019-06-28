@@ -16,7 +16,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type       Collection    Unique   Sparse   Selectivity   Fields        Ranges
-  <span class="hljs-number">6</span>   idx_1635273510372769794   skiplist   acollection   <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>            n/a   [ <span class="hljs-string">`value`</span> ]   (doc.<span class="hljs-string">`value`</span> &lt; <span class="hljs-number">10</span>)
+  <span class="hljs-number">6</span>   idx_1637538624786399232   skiplist   acollection   <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>            n/a   [ <span class="hljs-string">`value`</span> ]   (doc.<span class="hljs-string">`value`</span> &lt; <span class="hljs-number">10</span>)
 
 Optimization rules applied:
  Id   RuleName
@@ -26,17 +26,17 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Exec Time [s]
-           <span class="hljs-number">0</span>            <span class="hljs-number">0</span>           <span class="hljs-number">0</span>           <span class="hljs-number">10</span>          <span class="hljs-number">0</span>         <span class="hljs-number">0.00059</span>
+           <span class="hljs-number">0</span>            <span class="hljs-number">0</span>           <span class="hljs-number">0</span>           <span class="hljs-number">10</span>          <span class="hljs-number">0</span>         <span class="hljs-number">0.00052</span>
 
 Query Profile:
  Query Stage           Duration [s]
- initializing               <span class="hljs-number">0.00000</span>
- parsing                    <span class="hljs-number">0.00008</span>
+ initializing               <span class="hljs-number">0.00001</span>
+ parsing                    <span class="hljs-number">0.00007</span>
  optimizing ast             <span class="hljs-number">0.00001</span>
  loading collections        <span class="hljs-number">0.00001</span>
  instantiating plan         <span class="hljs-number">0.00003</span>
- optimizing plan            <span class="hljs-number">0.00021</span>
+ optimizing plan            <span class="hljs-number">0.00018</span>
  executing                  <span class="hljs-number">0.00009</span>
- finalizing                 <span class="hljs-number">0.00013</span>
+ finalizing                 <span class="hljs-number">0.00012</span>
 
 

@@ -218,8 +218,8 @@ follows
 }
 ```
 
-**Note**: The leading */* is important - even if you call *require* without a
-leading */*.  If such a document exists, then the value of the *content*
+**Note**: The leading `/` is important - even if you call *require* without a
+leading `/`.  If such a document exists, then the value of the *content*
 attribute must contain the JavaScript code of the module. This string is
 executed in a new module context and the value of *exports* object is
 returned. This value is also stored in the module cache.

@@ -6,7 +6,7 @@ Features and Improvements in ArangoDB 2.2
 =========================================
 
 The following list shows in detail which features have been added or improved in
-ArangoDB 2.2.  ArangoDB 2.2 also contains several bugfixes that are not listed
+ArangoDB 2.2. ArangoDB 2.2 also contains several bugfixes that are not listed
 here.
 
 AQL improvements
@@ -24,7 +24,7 @@ data modification operations:
 - REMOVE: remove existing documents from a collection
 
 Data-modification operations are normally combined with other AQL
-statements such as *FOR* loops and *FILTER* conditions to determine
+statements such as `FOR` loops and `FILTER` conditions to determine
 the set of documents to operate on. For example, the following query
 will find all documents in collection *users* that match a specific 
 condition and set their *status* variable to *inactive*:

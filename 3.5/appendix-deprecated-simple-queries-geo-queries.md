@@ -10,7 +10,7 @@ It is recommended to use AQL instead, see [**Geo functions**](aql/functions-geo.
 {% endhint %}
 
 The ArangoDB allows to select documents based on geographic coordinates. In
-order for this to work, a geo-spatial index must be defined.  This index will
+order for this to work, a geo-spatial index must be defined. This index will
 use a very elaborate algorithm to lookup neighbors that is a magnitude faster
 than a simple R* index.
 
@@ -40,7 +40,7 @@ In order to find all documents within a given radius around a coordinate use
 the *within* operator. In order to find all documents near a given document 
 use the *near* operator.
 
-It is possible to define more than one geo-spatial index per collection.  In
+It is possible to define more than one geo-spatial index per collection. In
 this case you must give a hint using the *geo* operator which of indexes
 should be used in a query.
 

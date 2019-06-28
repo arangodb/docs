@@ -1,6 +1,6 @@
 ---
 layout: default
-description: It is recommended to use AQL instead, see the LIMIT operation
+description: Simple Queries Pagination (Deprecated)
 ---
 Pagination
 ==========
@@ -17,8 +17,8 @@ MySQL.
 
 *skip* used together with *limit* can be used to implement pagination.
 The *skip* operator skips over the first n documents. So, in order to create
-result pages with 10 result documents per page, you can use <i>skip(n *
-10).limit(10)</i> to access the 10 documents on the *n*th page. This result
+result pages with 10 result documents per page, you can use
+`skip(n * 10).limit(10)` to access the 10 documents on the *n*th page. This result
 should be sorted, so that the pagination works in a predicable way.
 
 Limit

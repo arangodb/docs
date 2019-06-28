@@ -1,6 +1,7 @@
 ---
 layout: default
-description: Traversal
+description: This is an AQL tutorial for graph traversals. You can see how relations such as between parents and children can be modeled as graph.
+title: AQL Graph Traversal Tutorial
 ---
 Traversal
 =========

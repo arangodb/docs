@@ -49,9 +49,9 @@ or
 
 ### Modifying multiple documents
 
-Data-modification operations are normally combined with *FOR* loops to
+Data-modification operations are normally combined with `FOR` loops to
 iterate over a given list of documents. They can optionally be combined with
-*FILTER* statements and the like.
+`FILTER` statements and the like.
 
 Let's start with an example that modifies existing documents in a collection
 *users* that match some condition:

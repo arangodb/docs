@@ -1,6 +1,7 @@
 ---
 layout: default
-description: Using Traversal Objects
+description: On this chapter you can learn how to use a traversal object. We first need to require the traversal module
+title: ArangoDB graphs using traversal objects 
 ---
 Using Traversal Objects
 =======================

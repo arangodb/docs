@@ -5,7 +5,7 @@ description: The INSERT keyword can be used to insert new documents into a colle
 INSERT
 ======
 
-The *INSERT* keyword can be used to insert new documents into a collection. On a 
+The `INSERT` keyword can be used to insert new documents into a collection. On a 
 single server, an insert operation is executed transactionally in an all-or-nothing 
 fashion. 
 
@@ -19,9 +19,9 @@ the RocksDB engine.
 For sharded collections, the entire query and/or insert operation may not be transactional,
 especially if it involves different shards and/or database servers.
 
-Each *INSERT* operation is restricted to a single collection, and the 
+Each `INSERT` operation is restricted to a single collection, and the 
 [collection name](../appendix-glossary.html#collection-name) must not be dynamic.
-Only a single *INSERT* statement per collection is allowed per AQL query, and 
+Only a single `INSERT` statement per collection is allowed per AQL query, and 
 it cannot be followed by read or write operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
 
@@ -31,7 +31,7 @@ The syntax for an insert operation is:
 INSERT document INTO collection [ OPTIONS options ]
 ```
 
-**Note**: The *IN* keyword is allowed in place of *INTO* and has the same meaning.
+**Note**: The `IN` keyword is allowed in place of `INTO` and has the same meaning.
 
 *collection* must contain the name of the collection into which the documents should
 be inserted. *document* is the document to be inserted, and it may or may not contain
@@ -44,7 +44,7 @@ FOR i IN 1..100
   INSERT { value: i } INTO numbers
 ```
 
-An insert operation can also be performed without a *FOR* loop to insert a
+An insert operation can also be performed without a `FOR` loop to insert a
 single document:
 
 ```js
@@ -65,7 +65,7 @@ Setting query options
 ---------------------
 
 The *OPTIONS* keyword followed by an object with query options can optionally
-be provided in an *INSERT* operation.
+be provided in an `INSERT` operation.
 
 It can be used to suppress query errors that may occur when violating unique
 key constraints:

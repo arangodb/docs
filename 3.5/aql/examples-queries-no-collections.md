@@ -1,44 +1,53 @@
 ---
 layout: default
-description: Following is a query that returns a string value
+description: Queries don't necessarily have to involve collections.
+title: AQL Queries Without Collections
 ---
 Queries without collections
 ===========================
 
+AQL queries typically access one or more collections to read from documents
+or to modify them. Queries don't necessarily have to involve collections
+however. Below are a few examples of that.
 
 Following is a query that returns a string value. The result string is contained in an array
 because the result of every valid query is an array:
 
-```js
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlWithoutCollections_1
+@EXAMPLE_AQL{aqlWithoutCollections_1}
 RETURN "this will be returned"
-[ 
-  "this will be returned" 
-]
-```
+@END_EXAMPLE_AQL
+@endDocuBlock aqlWithoutCollections_1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
 
-Here is a query that creates the cross products of two arrays and runs a projection 
-on it, using a few of AQL's built-in functions:
+You may use variables, call functions and return arbitrarily structured results:
 
-```js
-FOR year in [ 2011, 2012, 2013 ]
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlWithoutCollections_2
+@EXAMPLE_AQL{aqlWithoutCollections_2}
+LET array = [1, 2, 3, 4]
+RETURN { array, sum: SUM(array) }
+@END_EXAMPLE_AQL
+@endDocuBlock aqlWithoutCollections_2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+
+Language constructs such as the FOR loop can be used too. Below query
+creates the Cartesian product of two arrays and concatenates the value pairs:
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlWithoutCollections_3
+@EXAMPLE_AQL{aqlWithoutCollections_3}
+FOR year IN [ 2011, 2012, 2013 ]
   FOR quarter IN [ 1, 2, 3, 4 ]
-    RETURN { 
-      "y" : "year", 
-      "q" : quarter, 
-      "nice" : CONCAT(quarter, "/", year) 
+    RETURN {
+      year,
+      quarter,
+      formatted: CONCAT(quarter, " / ", year)
     }
-[ 
-  { "y" : "year", "q" : 1, "nice" : "1/2011" }, 
-  { "y" : "year", "q" : 2, "nice" : "2/2011" }, 
-  { "y" : "year", "q" : 3, "nice" : "3/2011" }, 
-  { "y" : "year", "q" : 4, "nice" : "4/2011" }, 
-  { "y" : "year", "q" : 1, "nice" : "1/2012" }, 
-  { "y" : "year", "q" : 2, "nice" : "2/2012" }, 
-  { "y" : "year", "q" : 3, "nice" : "3/2012" }, 
-  { "y" : "year", "q" : 4, "nice" : "4/2012" }, 
-  { "y" : "year", "q" : 1, "nice" : "1/2013" }, 
-  { "y" : "year", "q" : 2, "nice" : "2/2013" }, 
-  { "y" : "year", "q" : 3, "nice" : "3/2013" }, 
-  { "y" : "year", "q" : 4, "nice" : "4/2013" } 
-]
-```
+@END_EXAMPLE_AQL
+@endDocuBlock aqlWithoutCollections_3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
