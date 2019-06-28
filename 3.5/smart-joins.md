@@ -12,8 +12,12 @@ This feature is only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
 {% endhint %}
 
-When doing joins in an ArangoDB cluster, data has to be exchanged between different servers.
+Smart Joins allow to execute co-located join operations among identically sharded collection.
 
+Cluster joins without being smart
+---------------------------------
+
+When doing joins in an ArangoDB cluster, data has to be exchanged between different servers.
 Joins between different collections in a cluster normally require roundtrips between the 
 shards of these collections for fetching the data. Requests are routed through an extra
 coordinator hop.
@@ -140,7 +144,7 @@ This is a precondition for running joins locally, and thanks to the effects of
 `distributeShardsLike` it is now satisfied!
 
 
-Smart joins using distributeShardsLike
+Smart Joins using distributeShardsLike
 --------------------------------------
 
 With the two collections in place like this, an AQL query that uses a FILTER condition
@@ -199,7 +203,7 @@ more than two collections which have the same data distribution enforced via the
 `distributeShardsLike` attribute and using the shard keys as the join criteria as shown above.
 {% endhint %}
 
-Smart joins using smartJoinAttribute
+Smart Joins using smartJoinAttribute
 ------------------------------------
 
 In case the join on the second collection must be performed on a non-shard key
@@ -252,7 +256,7 @@ The join can now be performed via the collection's *smartJoinAttribute*:
       6   ReturnNode                COOR   101         - RETURN doc1
 
 
-Restricting smart joins to a single shard
+Restricting Smart Joins to a single shard
 -----------------------------------------
 
 If a FILTER condition is used on one of the shard keys, the optimizer will also try
