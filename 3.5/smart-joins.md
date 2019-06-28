@@ -170,7 +170,7 @@ As can be seen above, the extra hop via the coordinator is gone here, which will
 less cluster-internal traffic and a faster response time.
 
 
-Smart joins will also work if the shard key of the second collection is not *_key*,
+Smart Joins will also work if the shard key of the second collection is not *_key*,
 and even for non-unique shard key values, e.g.:
 
     arangosh> db._create("c1", {numberOfShards: 4, shardKeys: ["_key"]});
@@ -198,7 +198,7 @@ and even for non-unique shard key values, e.g.:
       6   ReturnNode                COOR  2000         - RETURN doc1
 
 {% hint 'tip' %}
-All above examples used two collections only. Smart joins will also work when joining
+All above examples used two collections only. Smart Joins will also work when joining
 more than two collections which have the same data distribution enforced via their
 `distributeShardsLike` attribute and using the shard keys as the join criteria as shown above.
 {% endhint %}
@@ -281,7 +281,7 @@ to restrict the queries to just the required shards:
 Limitations
 -----------
 
-The smart join optimization is currently triggered only for data selection queries,
+The Smart Join optimization is currently triggered only for data selection queries,
 but not for any data-manipulation operations such as INSERT, UPDATE, REPLACE, REMOVE
 or UPSERT, neither traversals, subqueries or views.
 
@@ -293,5 +293,5 @@ It is restricted to be used with simple shard key attributes (such as `_key`, `p
 but not with nested attributes (e.g. `name.first`). There should be exactly one shard
 key attribute defined for each collection.
 
-Finally, the smart join optimization requires that the collections are joined on their
+Finally, the Smart Join optimization requires that the collections are joined on their
 shard key attributes (or smartJoinAttribute) using an equality comparison.
