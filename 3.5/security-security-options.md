@@ -17,16 +17,16 @@ The following security options are available:
   If this option is set to `true` and authentication is enabled, non-admin users
   will be denied access to the following REST APIs:
   
-  * `/_admin/log`
-  * `/_admin/log/level`
-  * `/_admin/status`
-  * `/_admin/statistics`
-  * `/_admin/statistics-description`
-  * `/_api/engine/stats`
+  - `/_admin/log`
+  - `/_admin/log/level`
+  - `/_admin/status`
+  - `/_admin/statistics`
+  - `/_admin/statistics-description`
+  - `/_api/engine/stats`
  
   Additionally, no version details will be revealed by the version REST API at 
   `/_api/version`.
-  `
+
   The default value for this option is `false`.
 
 ## JavaScript security options
@@ -40,67 +40,134 @@ an overview of the relevant options.
 Several options exists to restrict JavaScript application code functionality 
 to just certain allowed subsets. Which subset of functionality is available
 can be controlled via blacklisting and whitelisting access to individual 
-components. Blacklists can be used to disallow access to dedicated functionality, 
-whereas whitelists can be used to explicitly allow access to certain functionality.
+components.
 
-If an item is covered by both a blacklist and a whitelist, the whitelist will 
-overrule and access to the functionality will be allowed.
+The set theory for these lists works as follow:
+
+- **Only a blacklist is specified:**
+  Everything is allowed except a set of items matching the blacklist.
+- **Only a whitelist is specified:**
+  Everything is disallowed except the set of items matching the whitelist.
+- **Both whitelist and blacklist are specified:**
+  Everything is disallowed except the set of items matching the whitelist.
+  From this whitelisted set, subsets can be forbidden again using the blacklist.
 
 Values for blacklist and whitelist options need to be specified as ECMAScript 
-regular expressions. Each option can be used multiple times. In this case,
-the individual values for each option will be combined with a _logical or_.
+regular expressions.
+Each option can be used multiple times. When specifying more than one 
+pattern, these patterns will be combined with a _logical or_ to the actual pattern
+ArangoDB will use.
 
-For example, the following combination of startup options
+These patterns and how they are applied can be observed by enabling 
+`--log.level SECURITY=debug` in the `arangod` or `arangosh` log output.
+
+#### Combining patterns
+
+The security option to observe the behavior of the pattern matching most easily
+is the masquerading of the startup options:
 
     --javascript.startup-options-whitelist "^server\."
     --javascript.startup-options-whitelist "^log\."
     --javascript.startup-options-blacklist "^javascript\."
-    --javascript.startup-options-blacklist "endpoint"
+    --javascript.startup-options-blacklist "^endpoint$"
 
-will resolve internally to the following regular expressions:
+These sets will resolve internally to the following regular expressions:
 
 ```
 --javascript.startup-options-whitelist = "^server\.|^log\."
 --javascript.startup-options-blacklist = "^javascript\.|endpoint"
 ```
 
-Access to directories and files from JavaScript operations is only 
-controlled via a whitelist, which can be specified via the startup
-option `--javascript.files-whitelist`.
+Invoking an arangosh with these options will hide the blacklisted commandline
+options from the output of: 
+
+```js
+require('internal').options()
+```
+
+… and an exception will be thrown when trying to access items that are masked
+in the same way as if they weren't there in first place.
+
+#### File access
+
+In contrast to other areas, access to directories and files from JavaScript
+operations is only controlled via a whitelist, which can be specified via the
+startup option `--javascript.files-whitelist`. Thus any files or directories
+not matching the whitelist will be inaccessible from JavaScript filesystem
+functions.
 
 For example, when using the following startup options
-    
-    --javascript.startup-options-whitelist "^/etc/required/"
-    --javascript.startup-options-whitelist "^/etc/mtab/"
 
-all files in the directories `/etc/required` and `/etc/mtab` plus their
-subdirectories will be accessible, while access to files in any other directories 
+    --javascript.files-whitelist "^/etc/required/"
+    --javascript.files-whitelist "^/etc/mtab/"
+    --javascript.files-whitelist "^/etc/issue$"
+
+The file `/etc/issue` will be allowed to accessed and all files in the directories
+`/etc/required` and `/etc/mtab` plus their subdirectories will be accessible,
+while access to files in any other directories 
 will be disallowed from JavaScript operations, with the following exceptions:
 
 - ArangoDB's temporary directory: JavaScript code is given access to this
   directory for storing temporary files. The temporary directory location 
   can be specified explicitly via the `--temp.path` option at startup. 
   If the option is not specified, ArangoDB will automatically use a subdirectory 
-  of the system's temporary directory).
+  of the system's temporary directory.
 - ArangoDB's own JavaScript code, shipped with the ArangoDB release packages.
   Files in this directory and its subdirectories will be readable for JavaScript
   code running in ArangoDB. The exact path can be specified by the startup option 
   `--javascript.startup-directory`.
+
+#### Endpoint access
+
+The endpoint black/white listing limits access to external HTTP resources. 
+In contrast to the URLs specified in the JavaScript code, the filters have
+to be specified in the ArangoDB endpoints notation: 
+
+- http:// => tcp://
+- https:// => ssl://
+- no protocol will match http and https.
+
+Filtering is done on the protocol, hostname / IP address, and the port.
+
+Specifying `arangodb.org` will match:
+ - `https://arangodb.org:777`
+ - `https://arangodb.org`
+ - `http://arangodb.org` 
+ 
+Specifying `ssl://arangodb.org` will match:
+ - `https://arangodb.org:777`
+ - `https://arangodb.org`
+
+Specifying `ssl://arangodb.org:443` will match:
+ - `https://arangodb.org`
+
+Specifying `tcp://arangodb.org` will match:
+ - `http://arangodb.org` 
+
+This can be tried out using a whitelist - all non matches will be blocked:
+
+```
+arangosh --javascript.endpoints-whitelist ssl://arangodb.org
+127.0.0.1:8529@_system> require('internal').download('https://arangodb.org:4444')
+<whitelist permitted, error on trying to connect>
+127.0.0.1:8529@_system> require('internal').download('http://arangodb.org')
+JavaScript exception: ArangoError 11: not allowed to connect to this endpoint
+```
 
 ### Options for blacklisting and whitelisting
 
 The following options are available for blacklisting and whitelisting access
 to dedicated functionality for application code:
 
-- `--javascript.startup-options-whitelist` and `--javascript.startup-options-blacklist`:
+- `--javascript.startup-options-[whitelist|blacklist]`:
   These options control which startup options will be exposed to JavaScript code, 
   following above rules for blacklists and whitelists.
 
-- `--javascript.environment-variables-whitelist` and `--javascript.environment-variables-blacklist`:
+- `--javascript.environment-variables-[whitelist|blacklist]`:
   These options control which environment variables will be exposed to JavaScript
   code, following above rules for blacklists and whitelists.
 
-- `--javascript.endpoints-whitelist` and `--javascript.endpoints-blacklist`:
+- `--javascript.endpoints-[whitelist|blacklist]`:
   These options control which endpoints can be used from within the `@arangodb/request`
   JavaScript module.
   Endpoint values are passed into the filter in a normalized format starting
@@ -125,23 +192,23 @@ extra options are available for locking down JavaScript access to server functio
   If set to `true`, this option allows the execution and control of external processes
   from JavaScript code via the functions from the `internal` module:
   
-  - executeExternal
-  - executeExternalAndWait
-  - getExternalSpawned
-  - killExternal
-  - suspendExternal
-  - continueExternal
-  - statusExternal
+  - `executeExternal`
+  - `executeExternalAndWait`
+  - `getExternalSpawned`
+  - `killExternal`
+  - `suspendExternal`
+  - `continueExternal`
+  - `statusExternal`
 
 - `--javascript.harden`:
   If set to `true`, this setting will deactivate the following JavaScript functions
-  which may leak information about the environment:
+  from the `internal` module, which may leak information about the environment:
 
-  - `internal.clientStatistics()`
-  - `internal.httpStatistics()`
-  - `internal.processStatistics()`
-  - `internal.getPid()`
-  - `internal.logLevel()`.
+  - `clientStatistics()`
+  - `httpStatistics()`
+  - `processStatistics()`
+  - `getPid()`
+  - `logLevel()`
 
   The default value is `false`.
 
@@ -161,4 +228,3 @@ in an ArangoDB server:
   which will also prevent ArangoDB and its web interface from making calls to the main Foxx 
   application Github repository at https://github.com/arangodb/foxx-apps.
   The default value is `true`.
-
