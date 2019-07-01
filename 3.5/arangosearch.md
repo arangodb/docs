@@ -12,11 +12,15 @@ search engine backed by inverted indices, a much more powerful alternative to
 the [full-text index](indexing-fulltext.html) type. A single index can cover
 multiple or even all attributes of the documents from one or multiple
 collections, accessible through a virtual collection called View.
-Views can be in AQL queries to filter and sort
 
+Views can be used in AQL queries to:
+- filter documents based on Boolean expressions and functions
+- join documents located in different collections to one result list
+- sort the result set based on how closely each document matched the filter
 
-Configurable analyzers are
-available for text pre-processing, such as language-specific stemming
+Configurable analyzers are available for text processing, such as tokenization,
+language-specific word stemming, case conversion, removal of accented characters
+and more. 
 
 
 . (Boolean model)
