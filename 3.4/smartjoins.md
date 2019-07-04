@@ -1,9 +1,12 @@
 ---
 layout: default
-description: Introduced in
+description: SmartJoins allow to execute co-located join operations among identically sharded collections.
+title: SmartJoins for ArangoDB Clusters
+redirect_from:
+  - /3.4/smart-joins.html
 ---
-Smart Joins
-===========
+SmartJoins
+==========
 
 <small>Introduced in: v3.4.5, v3.5.0</small>
 
@@ -12,7 +15,7 @@ This feature is only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
 {% endhint %}
 
-Smart Joins allow to execute co-located join operations among identically sharded collection.
+SmartJoins allow to execute co-located join operations among identically sharded collections.
 
 Cluster joins without being smart
 ---------------------------------
@@ -144,8 +147,8 @@ This is a precondition for running joins locally, and thanks to the effects of
 `distributeShardsLike` it is now satisfied!
 
 
-Smart Joins using distributeShardsLike
---------------------------------------
+SmartJoins using distributeShardsLike
+-------------------------------------
 
 With the two collections in place like this, an AQL query that uses a FILTER condition
 that refers from the shard key of the one collection to the shard key of the other collection
@@ -170,7 +173,7 @@ As can be seen above, the extra hop via the coordinator is gone here, which will
 less cluster-internal traffic and a faster response time.
 
 
-Smart Joins will also work if the shard key of the second collection is not *_key*,
+SmartJoins will also work if the shard key of the second collection is not *_key*,
 and even for non-unique shard key values, e.g.:
 
     arangosh> db._create("c1", {numberOfShards: 4, shardKeys: ["_key"]});
@@ -198,13 +201,13 @@ and even for non-unique shard key values, e.g.:
       6   ReturnNode                COOR  2000         - RETURN doc1
 
 {% hint 'tip' %}
-All above examples used two collections only. Smart Joins will also work when joining
+All above examples used two collections only. SmartJoins will also work when joining
 more than two collections which have the same data distribution enforced via their
 `distributeShardsLike` attribute and using the shard keys as the join criteria as shown above.
 {% endhint %}
 
-Smart Joins using smartJoinAttribute
-------------------------------------
+SmartJoins using smartJoinAttribute
+-----------------------------------
 
 In case the join on the second collection must be performed on a non-shard key
 attribute, there is the option to specify a *smartJoinAttribute* for the collection.
@@ -256,8 +259,8 @@ The join can now be performed via the collection's *smartJoinAttribute*:
       6   ReturnNode                COOR   101         - RETURN doc1
 
 
-Restricting Smart Joins to a single shard
------------------------------------------
+Restricting SmartJoins to a single shard
+----------------------------------------
 
 If a FILTER condition is used on one of the shard keys, the optimizer will also try
 to restrict the queries to just the required shards:
@@ -281,12 +284,12 @@ to restrict the queries to just the required shards:
 Limitations
 -----------
 
-In ArangoDB 3.4, the Smart Join optimization must explicitly be turned on in the
+In ArangoDB 3.4, the SmartJoin optimization must explicitly be turned on in the
 server configuration, using the startup option `--query.smart-joins true`. If that 
-configuration is not set, the Smart Join optimization will not be performed.
+configuration is not set, the SmartJoin optimization will not be performed.
 Future versions ArangoDB will lift that requirement.
 
-The Smart Join optimization is currently triggered only for data selection queries,
+The SmartJoin optimization is currently triggered only for data selection queries,
 but not for any data-manipulation operations such as INSERT, UPDATE, REPLACE, REMOVE
 or UPSERT, neither traversals or subqueries.
 
@@ -298,5 +301,5 @@ It is restricted to be used with simple shard key attributes (such as `_key`, `p
 but not with nested attributes (e.g. `name.first`). There should be exactly one shard
 key attribute defined for each collection.
 
-Finally, the Smart Join optimization requires that the collections are joined on their
+Finally, the SmartJoin optimization requires that the collections are joined on their
 shard key attributes (or smartJoinAttribute) using an equality comparison.
