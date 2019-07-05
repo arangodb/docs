@@ -6,32 +6,41 @@ redirect_from: /stable/views-arango-search.html
 ---
 # ArangoSearch
 
-ArangoSearch provides information retrieval features, natively integrated into
-ArangoDB and with support for all data models. It is primarily a full-text
-search engine backed by inverted indices, a much more powerful alternative to
-the [full-text index](indexing-fulltext.html) type. A single index can cover
-multiple or even all attributes of the documents from one or multiple
-collections, accessible through a virtual collection called View.
+ArangoSearch provides information retrieval features, natively integrated
+into ArangoDB and with support for all data models. It is primarily a
+full-text search engine, a much more powerful alternative to the
+[full-text index](indexing-fulltext.html) type.
+
+ArangoSearch introduces the concept of Views which can be seen as virtual
+collections. Each View represents an inverted index to provide fast
+full-text searching over one or multiple linked collections and holds the
+configuration for the search capabilities, such as the attributes to index.
+It can cover multiple or even all attributes of the documents in the linked
+collections.
 
 Views can be used in AQL queries to:
 - filter documents based on Boolean expressions and functions
 - join documents located in different collections to one result list
 - sort the result set based on how closely each document matched the filter
 
+Search results can be sorted by their similarity ranking to return the best
+matches first using popular scoring algorithms. 
+
 Configurable analyzers are available for text processing, such as tokenization,
 language-specific word stemming, case conversion, removal of accented characters
 and more. 
 
 
-. (Boolean model)
+- Federated searches over a set of collections
+
+
 
 [IResearch library](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}
 written in C++ and natively integrated into ArangoDB.
 
 including text
-similarity ranking capabilities
-It enables information retrieval for entire documents or specified fields
-across multiple collections
+ capabilities
+
 
 
 ## What is ArangoSearch
