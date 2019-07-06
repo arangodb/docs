@@ -1,17 +1,17 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/wal/tail?from=107827</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/wal/tail?from=107832</span>
 
 HTTP/1.1 OK
 content-type: application/x-arango-dump; charset=utf-8
 x-arango-replication-checkmore: true
 x-arango-replication-frompresent: true
-x-arango-replication-lastincluded: 107845
-x-arango-replication-lastscanned: 107848
-x-arango-replication-lasttick: 107848
+x-arango-replication-lastincluded: 107850
+x-arango-replication-lastscanned: 107853
+x-arango-replication-lasttick: 107853
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"107845"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"107850"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2001</span>, 
   <span class="hljs-string">"db"</span> : <span class="hljs-string">"_system"</span>, 
-  <span class="hljs-string">"cuid"</span> : <span class="hljs-string">"h69052F6FEAA5/107830"</span> 
+  <span class="hljs-string">"cuid"</span> : <span class="hljs-string">"h40007E09D8F7/107835"</span> 
 }&#x21A9;
