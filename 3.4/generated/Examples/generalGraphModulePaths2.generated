@@ -6,22 +6,22 @@ arangosh&gt; g._paths({<span class="hljs-attr">direction</span> : <span class="h
     <span class="hljs-string">"source"</span> : { 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"diana"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/diana"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEy--B"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC26--_"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"Diana"</span> 
     }, 
     <span class="hljs-string">"destination"</span> : { 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"charly"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/charly"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEy--_"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC22--B"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"Charly"</span> 
     }, 
     <span class="hljs-string">"edges"</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116060"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116060"</span>, 
+        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116064"</span>, 
+        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116064"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"male/charly"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"female/diana"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JE6--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC3---B"</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-string">"married"</span>, 
         <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"charly"</span> 
       } 
@@ -30,13 +30,13 @@ arangosh&gt; g._paths({<span class="hljs-attr">direction</span> : <span class="h
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"diana"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/diana"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEy--B"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC26--_"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Diana"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"charly"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/charly"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEy--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC22--B"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Charly"</span> 
       } 
     ] 
@@ -45,124 +45,124 @@ arangosh&gt; g._paths({<span class="hljs-attr">direction</span> : <span class="h
     <span class="hljs-string">"source"</span> : { 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"diana"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/diana"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEy--B"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC26--_"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"Diana"</span> 
     }, 
     <span class="hljs-string">"destination"</span> : { 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/alice"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEq--_"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC2y--_"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
     }, 
     <span class="hljs-string">"edges"</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116060"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116060"</span>, 
+        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116064"</span>, 
+        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116064"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"male/charly"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"female/diana"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JE6--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC3---B"</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-string">"married"</span>, 
         <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"charly"</span> 
+      }, 
+      { 
+        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116061"</span>, 
+        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116061"</span>, 
+        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"female/alice"</span>, 
+        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"male/charly"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC3---_"</span>, 
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"friend"</span>, 
+        <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
+      } 
+    ], 
+    <span class="hljs-string">"vertice"</span> : [ 
+      { 
+        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"diana"</span>, 
+        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/diana"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC26--_"</span>, 
+        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Diana"</span> 
+      }, 
+      { 
+        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"charly"</span>, 
+        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/charly"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC22--B"</span>, 
+        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Charly"</span> 
+      }, 
+      { 
+        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
+        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/alice"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC2y--_"</span>, 
+        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
+      } 
+    ] 
+  }, 
+  { 
+    <span class="hljs-string">"source"</span> : { 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"diana"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/diana"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC26--_"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Diana"</span> 
+    }, 
+    <span class="hljs-string">"destination"</span> : { 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/bob"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC22--_"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
+    }, 
+    <span class="hljs-string">"edges"</span> : [ 
+      { 
+        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116067"</span>, 
+        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116067"</span>, 
+        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"male/bob"</span>, 
+        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"female/diana"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC3C--_"</span>, 
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"friend"</span>, 
+        <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"bob"</span> 
+      } 
+    ], 
+    <span class="hljs-string">"vertice"</span> : [ 
+      { 
+        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"diana"</span>, 
+        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/diana"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC26--_"</span>, 
+        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Diana"</span> 
+      }, 
+      { 
+        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
+        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/bob"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC22--_"</span>, 
+        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
+      } 
+    ] 
+  }, 
+  { 
+    <span class="hljs-string">"source"</span> : { 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"diana"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/diana"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC26--_"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Diana"</span> 
+    }, 
+    <span class="hljs-string">"destination"</span> : { 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/alice"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC2y--_"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
+    }, 
+    <span class="hljs-string">"edges"</span> : [ 
+      { 
+        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116067"</span>, 
+        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116067"</span>, 
+        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"male/bob"</span>, 
+        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"female/diana"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC3C--_"</span>, 
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"friend"</span>, 
+        <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"bob"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116057"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116057"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"female/alice"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"male/charly"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JE2--B"</span>, 
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"friend"</span>, 
-        <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
-      } 
-    ], 
-    <span class="hljs-string">"vertice"</span> : [ 
-      { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"diana"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/diana"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEy--B"</span>, 
-        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Diana"</span> 
-      }, 
-      { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"charly"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/charly"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEy--_"</span>, 
-        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Charly"</span> 
-      }, 
-      { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/alice"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEq--_"</span>, 
-        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
-      } 
-    ] 
-  }, 
-  { 
-    <span class="hljs-string">"source"</span> : { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"diana"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/diana"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEy--B"</span>, 
-      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Diana"</span> 
-    }, 
-    <span class="hljs-string">"destination"</span> : { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/bob"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEu--_"</span>, 
-      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
-    }, 
-    <span class="hljs-string">"edges"</span> : [ 
-      { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116063"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116063"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"male/bob"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"female/diana"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JF---_"</span>, 
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"friend"</span>, 
-        <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"bob"</span> 
-      } 
-    ], 
-    <span class="hljs-string">"vertice"</span> : [ 
-      { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"diana"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/diana"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEy--B"</span>, 
-        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Diana"</span> 
-      }, 
-      { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/bob"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEu--_"</span>, 
-        <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
-      } 
-    ] 
-  }, 
-  { 
-    <span class="hljs-string">"source"</span> : { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"diana"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/diana"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEy--B"</span>, 
-      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Diana"</span> 
-    }, 
-    <span class="hljs-string">"destination"</span> : { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/alice"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEq--_"</span>, 
-      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
-    }, 
-    <span class="hljs-string">"edges"</span> : [ 
-      { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116063"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116063"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"male/bob"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"female/diana"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JF---_"</span>, 
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"friend"</span>, 
-        <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"bob"</span> 
-      }, 
-      { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116053"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116053"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"female/alice"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"male/bob"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JE2--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC26--B"</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-string">"married"</span>, 
         <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
       } 
@@ -171,19 +171,19 @@ arangosh&gt; g._paths({<span class="hljs-attr">direction</span> : <span class="h
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"diana"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/diana"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEy--B"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC26--_"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Diana"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/bob"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEu--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC22--_"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/alice"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEq--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC2y--_"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
       } 
     ] 
@@ -192,22 +192,22 @@ arangosh&gt; g._paths({<span class="hljs-attr">direction</span> : <span class="h
     <span class="hljs-string">"source"</span> : { 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/bob"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEu--_"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC22--_"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
     }, 
     <span class="hljs-string">"destination"</span> : { 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/alice"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEq--_"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC2y--_"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
     }, 
     <span class="hljs-string">"edges"</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116053"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116053"</span>, 
+        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116057"</span>, 
+        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116057"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"female/alice"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"male/bob"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JE2--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC26--B"</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-string">"married"</span>, 
         <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
       } 
@@ -216,13 +216,13 @@ arangosh&gt; g._paths({<span class="hljs-attr">direction</span> : <span class="h
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/bob"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEu--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC22--_"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/alice"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEq--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC2y--_"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
       } 
     ] 
@@ -231,22 +231,22 @@ arangosh&gt; g._paths({<span class="hljs-attr">direction</span> : <span class="h
     <span class="hljs-string">"source"</span> : { 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"charly"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/charly"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEy--_"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC22--B"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"Charly"</span> 
     }, 
     <span class="hljs-string">"destination"</span> : { 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/alice"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEq--_"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC2y--_"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
     }, 
     <span class="hljs-string">"edges"</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116057"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116057"</span>, 
+        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"116061"</span>, 
+        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/116061"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"female/alice"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"male/charly"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JE2--B"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC3---_"</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-string">"friend"</span>, 
         <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
       } 
@@ -255,13 +255,13 @@ arangosh&gt; g._paths({<span class="hljs-attr">direction</span> : <span class="h
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"charly"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/charly"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEy--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC22--B"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Charly"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/alice"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6V-JEq--_"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y6orC2y--_"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
       } 
     ] 
