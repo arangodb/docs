@@ -35,33 +35,28 @@ To query the current state of the _logger_, use the *state* command:
 The result might look like this:
 
 ```js
-{ 
-  "state" : { 
-    "running" : true, 
-    "lastLogTick" : "2064735086", 
-    "lastUncommittedLogTick" : "2064735086", 
-    "totalEvents" : 2064735086, 
-    "time" : "2019-03-01T11:38:39Z" 
-  }, 
-  "server" : { 
-    "version" : "3.4.4", 
-    "serverId" : "135694526467864", 
-    "engine" : "rocksdb" 
-  }, 
-  "clients" : [ 
-    { 
-      "serverId" : "46402312160836", 
-      "time" : "2019-03-01T11:38:39Z", 
-      "expires" : "2019-03-01T13:38:39Z", 
-      "lastServedTick" : "2064459411" 
-    }, 
-    { 
-      "serverId" : "260321896124903", 
-      "time" : "2019-03-01T11:29:45Z", 
-      "expires" : "2019-03-01T13:29:45Z", 
-      "lastServedTick" : "2002717896" 
-    } 
-  ] 
+{
+  "state" : {
+    "running" : true,
+    "lastLogTick" : "2339941",
+    "lastUncommittedLogTick" : "2339941",
+    "totalEvents" : 2339941,
+    "time" : "2019-07-02T10:30:30Z"
+  },
+  "server" : {
+    "version" : "3.5.0",
+    "serverId" : "194754235820456",
+    "engine" : "rocksdb"
+  },
+  "clients" : [
+    {
+      "syncerId" : "158",
+      "serverId" : "161976545824597",
+      "time" : "1970-01-23T07:59:10Z",
+      "expires" : "1970-01-23T09:59:10Z",
+      "lastServedTick" : 2339908
+    }
+  ]
 }
 ```
 
