@@ -1,6 +1,7 @@
 ---
 layout: default
-description: AQL offers functionality to work with dates
+description: AQL offers functionality to work with dates as numeric timestamps and as ISO 8601 date time strings
+title: AQL Date Functions
 ---
 Date functions
 ==============
@@ -14,35 +15,42 @@ all non leap seconds beginning with January 1st 1970 00:00:00.000 UTC, also know
 the Unix epoch. A point in time is called timestamp. A timestamp has the same value
 at every point on earth. The date functions use millisecond precision for timestamps.
 
-time unit definitions
+Time unit definitions:
 
-* millisecond: 1/1000 of a second
-* second: one [SI second](https://www.bipm.org/en/publications/si-brochure/second.html){:target="_blank"}
-* Minute: one minute is defined as 60 seconds
-* Hour: one hour is defined as 60 minutes
-* day: one day is defined as 24 hours
-* week: one week is defined as 7 days
-* year: one year is defined as 365.2425 days
-* month: one month is defined as 1/12 of a year
+- **millisecond**: 1/1000 of a second
+- **second**: one [SI second](https://www.bipm.org/en/publications/si-brochure/second.html){:target="_blank"}
+- **minute**: one minute is defined as 60 seconds
+- **hour**: one hour is defined as 60 minutes
+- **day**: one day is defined as 24 hours
+- **week**: one week is defined as 7 days
+- **month**: one month is defined as 1/12 of a year
+- **year**: one year is defined as 365.2425 days
 
 All functions that require dates as arguments accept the following input values:
 
-- numeric timestamps, millisecond precision;
-  An example timestamp value is *1399472349522*, which translates to
-  *2014-05-07T14:19:09.522Z*.
+- **numeric timestamps**, millisecond precision.
 
-- date time strings in formats *YYYY-MM-DDTHH:MM:SS.MMM*,
-  *YYYY-MM-DD HH:MM:SS.MMM* or *YYYY-MM-DD*; Milliseconds are always optional.
+  An example timestamp value is `1399472349522`, which translates to
+  `2014-05-07T14:19:09.522Z`.
+
+- **date time strings** in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601){:target="_blank"} format:
+  - `YYYY-MM-DDTHH:MM:SS.MMM`
+  - `YYYY-MM-DD HH:MM:SS.MMM`
+  - `YYYY-MM-DD`
+
+  Milliseconds (`.MMM`) are always optional. Two digits for the hours (`HH`),
+  minutes (`MM`) and seconds (`SS`) are mandatory, i.e. zero-padding is required
+  for the values 0 through 9 (e.g. `05` instead of `5`). Leading zeroes for the
+  year (`YYYY`), month (`MM`) and day (`DD`) can be left out, but is discouraged.
+
   A time offset may optionally be added at the end of the string, with the
   hours and minutes that need to be added or subtracted to the date time value.
-  For example, *2014-05-07T14:19:09+01:00* can be used to specify a one hour offset,
-  and *2014-05-07T14:19:09+07:30* can be specified for seven and half hours offset.
-  Negative offsets are also possible. Alternatively to an offset, a *Z* can be used
-  to indicate UTC / Zulu time.
-
-  An example value is *2014-05-07T14:19:09.522Z* meaning May 7th 2014, 14:19:09 and
-  522 milliseconds, UTC / Zulu time. Another example value without time component is
-  *2014-05-07Z*.
+  For example, `2014-05-07T14:19:09+01:00` can be used to specify a one hour offset,
+  and `2014-05-07T14:19:09+07:30` can be specified for seven and half hours offset.
+  Negative offsets are also possible. Alternatively to an offset, a `Z` can be used
+  to indicate UTC / Zulu time. An example value is `2014-05-07T14:19:09.522Z`
+  meaning May 7th 2014, 14:19:09 and 522 milliseconds, UTC / Zulu time.
+  Another example value without time component is `2014-05-07Z`.
 
 ```js
 DATE_HOUR( 2 * 60 * 60 * 1000 ) // 2
