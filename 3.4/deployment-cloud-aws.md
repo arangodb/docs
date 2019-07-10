@@ -24,7 +24,7 @@ chapters for further information.
 In order to deploy on AWS, general guidelines like using a fast, **direct-attached**
 SSD disk for the data directory of the ArangoDB processes apply.
 
-We recommend [EC2 I3 instances](https://aws.amazon.com/ec2/instance-types/i3/){:target="_blank"}
+We recommend [**EC2 I3 instances**](https://aws.amazon.com/ec2/instance-types/i3/){:target="_blank"}
 and to use **io1** storage rather than **gp2** on AWS, which are specifically
 designed with higher IOPS demands of databases in mind. Note that replication by
 itself generates a manifold of the incoming write load in the back end. Also see the
