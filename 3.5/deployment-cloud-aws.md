@@ -1,6 +1,6 @@
 ---
 layout: default
-description: ArangoDB can be deployed on AWS or other cloud platforms
+description: ArangoDB can be deployed on Amazon Web Services (AWS) in multiple ways.
 ---
 Deploying ArangoDB on AWS
 =========================
@@ -9,7 +9,8 @@ ArangoDB can be deployed on AWS or other cloud platforms. Deploying on a cloud
 provider is common choice and many of the most big ArangoDB installation are running
 on the cloud.
 
-Up to ArangoDB 3.2, official ArangoDB AMI were available in the [AWS marketplace](https://aws.amazon.com/marketplace/search/results/ref=dtl_navgno_search_box?page=1&searchTerms=arangodb){:target="_blank"}.
+Up to ArangoDB 3.2, official ArangoDB AMI were available in the
+[AWS marketplace](https://aws.amazon.com/marketplace/search/results/ref=dtl_navgno_search_box?page=1&searchTerms=arangodb){:target="_blank"}.
 Such AMI are not being maintained anymore, though. However, deploying on AWS is
 still possible, and again, a quite common scenario.
 
@@ -20,6 +21,12 @@ or using [Kubernetes](deployment-kubernetes.html),
 are all valid options to deploy on AWS. Please refer to the corresponding chapters for further 
 information.
 
-**Important:** In order to deploy on AWS, general guidelines, like using a fast,
-**direct-attached**, SSD disk for the data directory of the ArangoDB processes
-apply.
+{% hint 'info' %}
+In order to deploy on AWS, general guidelines like using a fast, **direct-attached**
+SSD disk for the data directory of the ArangoDB processes apply.
+
+We recommend [EC2 I3 instances](https://aws.amazon.com/ec2/instance-types/i3/){:target="_blank"}
+and to use **io1** storage rather than **gp2** on AWS because of the better throughput
+(more IOPS). Also see the
+[AWS documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html){:target="_blank"}.
+{% endhint %}
