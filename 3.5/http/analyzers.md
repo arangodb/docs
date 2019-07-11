@@ -10,10 +10,16 @@ HTTP requests.
 
 Analyzer Operations
 -------------------
+
 {% docublock post_api_analyzer %}
 {% docublock get_api_analyzer %}
 {% docublock get_api_analyzers %}
 {% docublock delete_api_analyzer %}
+
+Analyzer Names
+--------------
+
+Analyzers are stored per database, 
 
 Analyzer Types
 --------------

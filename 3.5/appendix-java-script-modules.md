@@ -81,15 +81,24 @@ The following Node.js modules are not available at all:
 ArangoDB Specific Modules
 -------------------------
 
-There are a large number of ArangoDB-specific modules using the `@arangodb` namespace, mostly for internal use by ArangoDB itself. The following however are noteworthy:
+There are a large number of ArangoDB-specific modules using the `@arangodb`
+namespace, mostly for internal use by ArangoDB itself. The following however
+are noteworthy:
 
-* [@arangodb](appendix-java-script-modules-arango-db.html) provides direct access to the database and its collections.
+* [@arangodb](appendix-java-script-modules-arango-db.html)
+  provides direct access to the database and its collections.
 
-* [@arangodb/crypto](appendix-java-script-modules-crypto.html) provides various cryptography functions including hashing algorithms.
+* [@arangodb/foxx](foxx.html)
+  is the namespace providing the various building blocks of the Foxx microservice framework.
 
-* [@arangodb/request](appendix-java-script-modules-request.html) provides the functionality for making synchronous HTTP/HTTPS requests.
+* [@arangodb/analyzers](appendix-java-script-modules-analyzers.html)
+  provides an interface to manage ArangoSearch Analyzers.
 
-* [@arangodb/foxx](foxx.html) is the namespace providing the various building blocks of the Foxx microservice framework.
+* [@arangodb/crypto](appendix-java-script-modules-crypto.html)
+  provides various cryptography functions including hashing algorithms.
+
+* [@arangodb/request](appendix-java-script-modules-request.html)
+  provides the functionality for making synchronous HTTP/HTTPS requests.
 
 Bundled NPM Modules
 -------------------
