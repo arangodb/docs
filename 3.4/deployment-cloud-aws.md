@@ -10,15 +10,13 @@ infrastructure provider choice for some of the largest ArangoDB installations.
 
 Up to and including ArangoDB 3.2, official ArangoDB AMI were available in the
 [AWS marketplace](https://aws.amazon.com/marketplace/search/results/ref=dtl_navgno_search_box?page=1&searchTerms=arangodb){:target="_blank"}.
-Such AMI are not being maintained anymore, though. However, deploying on AWS is
-still possible, and again, a quite common scenario.
+Such AMIs are not being maintained anymore, though. However, deploying on AWS
+is still possible, and again, a quite common scenario.
 
-After having initialized your preferred AWS instance, with one of the ArangoDB supported
+After having initialized your preferred AWS instance with one of the ArangoDB supported
 operating systems, using the [ArangoDB Starter](deployment-arango-dbstarter.html),
-performing a [Manual Deployment](deployment-manually.html),
-or using [Kubernetes](deployment-kubernetes.html),
-are all valid options to deploy on AWS. Please refer to the corresponding
-chapters for further information.
+performing a [Manual Deployment](deployment-manually.html) or using
+[Kubernetes](deployment-kubernetes.html) are all valid options to deploy on AWS.
 
 {% hint 'info' %}
 In order to deploy on AWS, general guidelines like using a fast, **direct-attached**
