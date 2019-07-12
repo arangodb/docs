@@ -110,3 +110,4 @@ ArangoSearch not Supported Yet
 ------------------------------
 
 ArangoSearch views are not backed up and thus not restored yet.
+Therefore, views have to be dropped and recreated after a restore.

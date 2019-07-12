@@ -28,3 +28,7 @@ The output will reflect the restore operation's success:
 2019-05-15T15:24:14Z [16201] INFO {backup} Server version: 3.4.5
 2019-05-15T15:24:14Z [16201] INFO {backup} Successfully restored '2019-05-15T14.36.38Z_my-label'
 ```
+
+Note that current ArangoSearch views are not stored in backups,
+therefore, after a successful restore operation, all views have to be
+dropped and recreated.
