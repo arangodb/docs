@@ -8,7 +8,6 @@ Upload a hot backup to remote
 
 {% hint 'info' %}
 This functionality is only available with the Enterprise Edition.
-Currently `S3` endpoints are the only supported remote endpoint.
 {% endhint %}
 
 Hot backups can be uploaded to a remote `S3` repository:
@@ -26,3 +25,6 @@ The status of the process may be acquired at any later time.
 ```bash
 arangobackup upload --server.endpoint tcp://localhost:9530 --rclone-config-file ~/remote.json --remote-path S3://remote-endpoint/remote-directory --status-id=1234
 ```
+
+See [Download command](programs-arangobackup-download.html) for details
+about the `remote.json` file to configure the remote site for `rclone`.
