@@ -23,6 +23,11 @@ backup. Subsequently, all other APIs operate on these identifiers.
 
 The below APIs exclusively handle POST action.
 
+{% hint 'warning' %}
+Make sure to understand all aspects of hot backups most of all the
+limitations, before using the API.
+{% endhint %}
+
 Create
 ------
 
