@@ -9,7 +9,7 @@ Create Hot Backup
 Hot backups are created near instantaneously. The single server as
 well as other deployment modes try to obtain a global transaction lock
 to enforce consistency across all servers, databases, collections
-etc. Hot backups still require no Data Definition operations (e.g., create database, create collection) to be active at the time of backup, please review review the [requirements and limitations](hot-backup-restore-limitations.html) for more details.
+etc. Hot backups still require no Data Definition operations (e.g., create database, create collection) to be active at the time of backup, please review the [requirements and limitations](hot-backup-restore-limitations.html) for more details.
 
 Once that lock could be acquired the backup itself is most
 readily described as a consistent snapshot and as instantaneous as the
