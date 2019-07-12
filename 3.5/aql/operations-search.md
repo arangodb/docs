@@ -43,8 +43,7 @@ are supported:
 - `<`
 - `>`
 - `!=`
-- `IN <ARRAY>`
-- `IN <RANGE>`
+- `IN` (array or range)
 
 Note that array comparison operators, inline expressions and a few other things
 are not supported by `SEARCH`. The server will raise a query error in case of
