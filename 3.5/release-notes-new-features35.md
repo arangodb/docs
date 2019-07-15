@@ -320,6 +320,7 @@ Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 > new Date("2019-04-01T00:00:00");
 Mon Apr 01 2019 00:00:00 GMT+0200 (Central European Summer Time)
 ```
+
 If the timezone is explicitly set in the date string, then the specified timezone will
 always be honored: 
 
@@ -329,13 +330,18 @@ Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 > new Date("2019-04-01T00:00:00Z");
 Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 ```
-### JavaScript dependencies ###
 
-More than a dozend JavaScript dependencies were updated in 3.5, please have a look at the changelog if you are interested in specific version changes.
+### JavaScript dependencies
 
-The most significant one is the update of `joi` from 9.2.0 to 14.3.1. which introduced some [breaking changes](https://github.com/hapijs/joi/issues/1037) in major versions.
+More than a dozen JavaScript dependencies were updated in 3.5
+([changelog](https://github.com/arangodb/arangodb/blob/3.5/CHANGELOG){:target="_blank"}).
 
-Note that you can bundle your own version of `joi` if you need to rely on version-dependent features.
+The most significant one is the update of `joi` from 9.2.0 to 14.3.1. See the
+respective [release notes](https://github.com/hapijs/joi/issues?q=is%3Aissue+label%3A%22release+notes%22){:target="_blank"}
+to see if there are breaking changes for you.
+
+Note that you can bundle your own version of `joi` if you need to rely on
+version-dependent features.
 
 ### JavaScript security options
 
