@@ -170,7 +170,7 @@ db.collection.ensureIndex({ type: "hash", fields: [ "value" ], inBackground: tru
 
 Indexes that are still in the build process will not be visible via the ArangoDB APIs. 
 Nevertheless it is not possible to create the same index twice via the *ensureIndex* API 
-while an index is still begin created. AQL queries also will not use these indexes until
+while an index is still being created. AQL queries also will not use these indexes until
 the index reports back as fully created. Note that the initial *ensureIndex* call or HTTP 
 request will still block until the index is completely ready. Existing single-threaded 
 client programs can thus safely set the *inBackground* option to *true* and continue to 
@@ -262,7 +262,7 @@ which can be used to limit which test cases should be executed.
 There is a new HTTP API for transactions. This API allows clients to add operations to a
 transaction in a streaming fashion. A transaction can consist of a series of supported
 transactional operations, followed by a commit or abort command.
-This allows clients to construct larger transactions in a more efficent way than
+This allows clients to construct larger transactions in a more efficient way than
 with JavaScript-based transactions.
 
 Note that this requires client applications to abort transactions which are no 
@@ -320,6 +320,7 @@ Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 > new Date("2019-04-01T00:00:00");
 Mon Apr 01 2019 00:00:00 GMT+0200 (Central European Summer Time)
 ```
+
 If the timezone is explicitly set in the date string, then the specified timezone will
 always be honored: 
 
@@ -329,7 +330,19 @@ Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 > new Date("2019-04-01T00:00:00Z");
 Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 ```
- 
+
+### JavaScript dependencies
+
+More than a dozen JavaScript dependencies were updated in 3.5
+([changelog](https://github.com/arangodb/arangodb/blob/3.5/CHANGELOG){:target="_blank"}).
+
+The most significant one is the update of `joi` from 9.2.0 to 14.3.1. See the
+respective [release notes](https://github.com/hapijs/joi/issues?q=is%3Aissue+label%3A%22release+notes%22){:target="_blank"}
+to see if there are breaking changes for you.
+
+Note that you can bundle your own version of `joi` if you need to rely on
+version-dependent features.
+
 ### JavaScript security options
 
 ArangoDB 3.5 provides several new options for restricting the functionality of
@@ -452,7 +465,7 @@ The `--help-all` command-line option for all ArangoDB executables will now also
 show all hidden program options.
 
 Previously hidden program options were only returned when invoking arangod or
-a client tool with the cryptic `--help-.` option. Now `--help-all` simply retuns 
+a client tool with the cryptic `--help-.` option. Now `--help-all` simply returns 
 them as well.
 
 ### Fewer system collections
