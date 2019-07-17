@@ -73,12 +73,12 @@ paths of increasing length from a start vertex to a target vertex. For more deta
 see the [k Shortest Paths documentation](aql/graphs-kshortest-paths.html).
 
 
-Smart Joins
------------
+SmartJoins
+----------
 
-The "smart joins" feature available in the ArangoDB Enterprise Edition allows running 
-joins between two sharded collections with performance close to that of a local join 
-operation. 
+The SmartJoins feature available in the ArangoDB Enterprise Edition allows
+running joins between two sharded collections with performance close to that
+of a local join operation.
 
 The prerequisite for this is that the two collections have an identical sharding setup,
 established via the `distributeShardsLike` attribute of one of the collections.
@@ -90,7 +90,7 @@ Quick example setup for two collections with identical sharding:
     > db.orders.ensureIndex({ type: "hash", fields: ["productId"] });
     
 Now an AQL query that joins the two collections via their shard keys will benefit from
-the smart join optimization, e.g.
+the SmartJoin optimization, e.g.
 
     FOR p IN products 
       FOR o IN orders 
@@ -98,7 +98,7 @@ the smart join optimization, e.g.
         RETURN o
 
 In this query's execution plan, the extra hop via the coordinator can be saved
-that is normally there for generic joins. Thanks to the smart join optimization,
+that is normally there for generic joins. Thanks to the SmartJoin optimization,
 the query's execution is as simple as:
 
     Execution plan:
@@ -110,7 +110,7 @@ the query's execution is as simple as:
      11   GatherNode                COOR     0         - GATHER
       6   ReturnNode                COOR     0         - RETURN o
 
-Without the smart join optimization, there will be an extra hop via the 
+Without the SmartJoin optimization, there will be an extra hop via the 
 coordinator for shipping the data from each shard of the one collection to
 each shard of the other collection, which will be a lot more expensive:
 
@@ -127,25 +127,25 @@ each shard of the other collection, which will be a lot more expensive:
      11   GatherNode      COOR     3         - GATHER
       6   ReturnNode      COOR     3         - RETURN o
 
-In the end, smart joins can optimize away a lot of the inter-node network
+In the end, SmartJoins can optimize away a lot of the inter-node network
 requests normally required for performing a join between sharded collections.
-The performance advantage of smart joins compared to regular joins will grow 
+The performance advantage of SmartJoins compared to regular joins will grow 
 with the number of shards of the underlying collections.
 
 In general, for two collections with `n` shards each, the minimal number of 
-network requests for the general join (_no_ smart joins optimization) will be 
+network requests for the general join (_no_ SmartJoins optimization) will be 
 `n * (n + 2)`. The number of network requests increases quadratically with the 
 number of shards. 
 
-Smart joins can get away with a minimal number of `n` requests here, which scales
+SmartJoins can get away with a minimal number of `n` requests here, which scales
 linearly with the number of shards.
 
-Smart joins will also be especially advantageous for queries that have to ship a lot
+SmartJoins will also be especially advantageous for queries that have to ship a lot
 of data around for performing the join, but that will filter out most of the data
-after the join. In this case smart joins should greatly outperform the general join,
+after the join. In this case SmartJoins should greatly outperform the general join,
 as they will eliminate most of the inter-node data shipping overhead.
 
-Also see the [Smart Joins](smart-joins.html) page.
+Also see the [SmartJoins](smartjoins.html) page.
 
 
 Background Index Creation
@@ -170,7 +170,7 @@ db.collection.ensureIndex({ type: "hash", fields: [ "value" ], inBackground: tru
 
 Indexes that are still in the build process will not be visible via the ArangoDB APIs. 
 Nevertheless it is not possible to create the same index twice via the *ensureIndex* API 
-while an index is still begin created. AQL queries also will not use these indexes until
+while an index is still being created. AQL queries also will not use these indexes until
 the index reports back as fully created. Note that the initial *ensureIndex* call or HTTP 
 request will still block until the index is completely ready. Existing single-threaded 
 client programs can thus safely set the *inBackground* option to *true* and continue to 
@@ -262,7 +262,7 @@ which can be used to limit which test cases should be executed.
 There is a new HTTP API for transactions. This API allows clients to add operations to a
 transaction in a streaming fashion. A transaction can consist of a series of supported
 transactional operations, followed by a commit or abort command.
-This allows clients to construct larger transactions in a more efficent way than
+This allows clients to construct larger transactions in a more efficient way than
 with JavaScript-based transactions.
 
 Note that this requires client applications to abort transactions which are no 
@@ -320,6 +320,7 @@ Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 > new Date("2019-04-01T00:00:00");
 Mon Apr 01 2019 00:00:00 GMT+0200 (Central European Summer Time)
 ```
+
 If the timezone is explicitly set in the date string, then the specified timezone will
 always be honored: 
 
@@ -329,7 +330,19 @@ Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 > new Date("2019-04-01T00:00:00Z");
 Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 ```
- 
+
+### JavaScript dependencies
+
+More than a dozen JavaScript dependencies were updated in 3.5
+([changelog](https://github.com/arangodb/arangodb/blob/3.5/CHANGELOG){:target="_blank"}).
+
+The most significant one is the update of `joi` from 9.2.0 to 14.3.1. See the
+respective [release notes](https://github.com/hapijs/joi/issues?q=is%3Aissue+label%3A%22release+notes%22){:target="_blank"}
+to see if there are breaking changes for you.
+
+Note that you can bundle your own version of `joi` if you need to rely on
+version-dependent features.
+
 ### JavaScript security options
 
 ArangoDB 3.5 provides several new options for restricting the functionality of
@@ -452,7 +465,7 @@ The `--help-all` command-line option for all ArangoDB executables will now also
 show all hidden program options.
 
 Previously hidden program options were only returned when invoking arangod or
-a client tool with the cryptic `--help-.` option. Now `--help-all` simply retuns 
+a client tool with the cryptic `--help-.` option. Now `--help-all` simply returns 
 them as well.
 
 ### Fewer system collections
