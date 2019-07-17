@@ -74,7 +74,7 @@ use replication factor 1 for all collections. If the source was a
 single server, the same will happen, additionally, `arangorestore`
 will always create collections with just a single shard.
 
-There are essentially 3 ways to change this behaviour:
+There are essentially 3 ways to change this behavior:
 
  1. The first is to create the collections explicitly on the
     ArangoDB 3.0 cluster, and then set the `--create-collection false` flag.

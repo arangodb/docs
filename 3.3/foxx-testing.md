@@ -28,7 +28,7 @@ and may result in data loss if the tests access the database.
 When running a service in development mode special care needs to be taken as
 performing requests to the service's own routes as part of the test suites
 may result in tests being executed while the database is in an inconsistent state,
-leading to unexpected behaviour.
+leading to unexpected behavior.
 
 Test file paths
 ---------------

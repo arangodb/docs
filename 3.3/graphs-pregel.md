@@ -278,7 +278,7 @@ and all other vertices. For vertices *x*, *y* and shortest distance *d(y,x)* it 
 ![Vertex Closeness](images/closeness.png)
 
 Effective Closeness approximates the closeness measure. The algorithm works by iteratively estimating the number
-of shortest paths passing through each vertex. The score will approximates the the real closeness score, since
+of shortest paths passing through each vertex. The score will approximates the real closeness score, since
 it is not possible to actually count all shortest paths due to the horrendous O(n^2 * d) memory requirements. 
 The algorithm is from the paper *Centralities in Large Networks: Algorithms and Observations (U Kang et.al. 2011)*
 
