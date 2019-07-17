@@ -179,10 +179,10 @@ Example Graphs
 --------------
 
 ArangoDB comes with a set of easily graspable graphs that are used to demonstrate the APIs.
-You can use the `add samples` tab in the `create graph` window in the webinterface, or load the module `@arangodb/graph-examples/example-graph` in arangosh and use it to create instances of these graphs in your ArangoDB.
-Once you've created them, you can [inspect them in the webinterface](programs-web-interface-graphs.html) - which was used to create the pictures below.
+You can use the `add samples` tab in the `create graph` window in the web interface, or load the module `@arangodb/graph-examples/example-graph` in arangosh and use it to create instances of these graphs in your ArangoDB.
+Once you've created them, you can [inspect them in the web interface](programs-web-interface-graphs.html) - which was used to create the pictures below.
 
-You [can easily look into the innards of this script](https://github.com/arangodb/arangodb/blob/devel/js/common/modules/%40arangodb/graph-examples/example-graph.js){:target="_blank"} for reference about howto manage graphs programatically.
+You [can easily look into the innards of this script](https://github.com/arangodb/arangodb/blob/devel/js/common/modules/%40arangodb/graph-examples/example-graph.js){:target="_blank"} for reference about how to manage graphs programmatically.
 
 ### The Knows\_Graph
 
@@ -258,6 +258,7 @@ The example has the cities as *vertices* in several *vertex collections* - `germ
     @endDocuBlock graph_create_cities_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### The Traversal Graph
 
 This graph was designed to demonstrate filters in traversals. It has some labels to filter on it.
@@ -315,6 +316,7 @@ It is used to demonstrate raw traversal operations.
     @endDocuBlock graph_create_world_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### The Mps Graph
 
 This graph was created to demonstrate a use case of the shortest path algorithm. Even though the algorithm can only determine one shortest path, it is possible to return multiple shortest paths with two separate queries. Therefore the graph is named after the [**m**ultiple **p**ath **s**earch](aql/examples-multiple-paths.html) use case.
@@ -336,6 +338,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
     @endDocuBlock graph_create_mps_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Higher volume graph examples
 
 All of the above examples are rather small so they are easier to comprehend and can demonstrate the way the functionality works.
