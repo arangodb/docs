@@ -19,8 +19,8 @@ Since arangodb [reports the replication status in JSON](../http/replications-rep
 integrating it with the [collectd curl_JSON plugin](monitoring-collectd.html)
 should be an easy exercise. However, only very recent versions of collectd will handle boolean flags correctly.
 
-Our test master/slave setup runs with the the master listening on `tcp://127.0.0.1:8529` and the slave (which we query) listening on `tcp://127.0.0.1:8530`.
-They replicate a dabatase by the name `testDatabase`.
+Our test master/slave setup runs with the master listening on `tcp://127.0.0.1:8529` and the slave (which we query) listening on `tcp://127.0.0.1:8530`.
+They replicate a database by the name `testDatabase`.
 
 Since replication appliers are active per database and our example doesn't use the default `_system`, we need to specify its name in the URL like this: `_db/testDatabase`.
 
