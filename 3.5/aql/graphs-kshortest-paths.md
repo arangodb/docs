@@ -176,48 +176,89 @@ train connections in Europe and North America.
     @endDocuBlock GRAPHKSP_01_create_graph
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Suppose we want to query a route from **Aberdeen** to **London**, and compare
 the outputs of SHORTEST_PATH and K_SHORTEST_PATHS with LIMIT 1. Note that while
 SHORTEST_PATH and K_SHORTEST_PATH with LIMIT 1 should return a path of the same
 length (or weight), they do not need to return the same path.
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline GRAPHKSP_01_Aberdeen_to_London
+    @EXAMPLE_AQL{GRAPHKSP_01_Aberdeen_to_London}
+    @DATASET{kShortestPathsGraph}
+    FOR v, e IN OUTBOUND SHORTEST_PATH 'places/Aberdeen' TO 'places/London'
+    GRAPH 'kShortestPathsGraph'
+        RETURN [ v, e ]
+    @END_EXAMPLE_AQL
+    @endDocuBlock GRAPHKSP_01_Aberdeen_to_London
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHKSP_02_Aberdeen_to_London
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHKSP_02_Aberdeen_to_London}
-    db._query("FOR v, e IN OUTBOUND SHORTEST_PATH 'places/Aberdeen' TO 'places/London' GRAPH 'kShortestPathsGraph' RETURN [v,e]");
-    db._query("FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/Aberdeen' TO 'places/London' GRAPH 'kShortestPathsGraph' LIMIT 1 RETURN p");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @EXAMPLE_AQL{GRAPHKSP_02_Aberdeen_to_London}
+    @DATASET{kShortestPathsGraph}
+    FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/Aberdeen' TO 'places/London'
+    GRAPH 'kShortestPathsGraph'
+        LIMIT 1
+        RETURN p
+    @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_02_Aberdeen_to_London
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+
 Next, we can ask for more than one option for a route:
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHKSP_03_Aberdeen_to_London
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHKSP_03_Aberdeen_to_London}
-    db._query("FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/Aberdeen' TO 'places/London' GRAPH 'kShortestPathsGraph' LIMIT 3 RETURN p");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @EXAMPLE_AQL{GRAPHKSP_03_Aberdeen_to_London}
+    @DATASET{kShortestPathsGraph}
+    FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/Aberdeen' TO 'places/London'
+    GRAPH 'kShortestPathsGraph'
+        LIMIT 3
+        RETURN p
+    @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_03_Aberdeen_to_London
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}    
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+
 If we ask for routes that don't exist we get an empty result:
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHKSP_04_Aberdeen_to_Toronto
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHKSP_04_Aberdeen_to_Toronto}
-    db._query("FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/Aberdeen' TO 'places/Toronto' GRAPH 'kShortestPathsGraph' LIMIT 3 RETURN p");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @EXAMPLE_AQL{GRAPHKSP_04_Aberdeen_to_Toronto}
+    @DATASET{kShortestPathsGraph}
+    FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/Aberdeen' TO 'places/Toronto'
+    GRAPH 'kShortestPathsGraph'
+        LIMIT 3
+        RETURN p
+    @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_04_Aberdeen_to_Toronto
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}    
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+
 We can use the attribute *travelTime* that connections have as edge weights to
 take into account which connections are quicker:
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHKSP_05_StAndrews_to_Cologne
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHKSP_05_StAndrews_to_Cologne}
-    db._query("FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/StAndrews' TO 'places/Cologne' GRAPH 'kShortestPathsGraph' OPTIONS { 'weightAttribute': 'travelTime', defaultWeight: '15'} LIMIT 3 RETURN p");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @EXAMPLE_AQL{GRAPHKSP_05_StAndrews_to_Cologne}
+    @DATASET{kShortestPathsGraph}
+    FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/StAndrews' TO 'places/Cologne'
+    GRAPH 'kShortestPathsGraph'
+    OPTIONS {
+        weightAttribute: 'travelTime',
+        defaultWeight: 15
+    }
+        LIMIT 3
+        RETURN p
+    @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_05_StAndrews_to_Cologne
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+
 And finally clean up by removing the named graph:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHKSP_99_drop_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHKSP_99_drop_graph}
