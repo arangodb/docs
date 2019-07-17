@@ -280,6 +280,21 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
 {% include arangoshexample.html id=examplevar script=script result=result %}
 **Note:** with the default "Search Depth" of 2 of the graph viewer you may not see all nodes of this graph.
 
+### The k Shortest Paths Graph
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline graph_create_kshortestpaths_sample
+    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_kshortestpaths_sample}
+    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var g = examples.loadGraph("kShortestPathsGraph");
+    db.places.toArray();
+    db.connections.toArray();
+    examples.dropGraph("kShortestPathsGraph");
+    @END_EXAMPLE_ARANGOSH_RUN
+    @endDocuBlock graph_create_kshortestpaths_sample
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### The World Graph
 
 ![world graph](images/world_graph.png)
