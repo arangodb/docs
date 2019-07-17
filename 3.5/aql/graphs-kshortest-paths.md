@@ -22,7 +22,7 @@ If no *weightAttribute* is given, the weight of the path is just its length.
 
 **Example**
 
-Let su take a look at a simple example to explain how it works.
+Let us take a look at a simple example to explain how it works.
 This is the graph that we are going to find some shortest path on:
 
 ![train_map](../images/train_map.png)
@@ -125,7 +125,7 @@ FOR path
 ### Working with collection sets
 
 ```
-FOR path 
+FOR path
   IN OUTBOUND|INBOUND|ANY K_SHORTEST_PATHS
   startVertex TO targetVertex
   edgeCollection1, ..., edgeCollectionN
@@ -188,7 +188,7 @@ length (or weight), they do not need to return the same path.
     @DATASET{kShortestPathsGraph}
     FOR v, e IN OUTBOUND SHORTEST_PATH 'places/Aberdeen' TO 'places/London'
     GRAPH 'kShortestPathsGraph'
-        RETURN [ v, e ]
+        RETURN { place: v.label, travelTime: e.travelTime }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_01_Aberdeen_to_London
 {% endaqlexample %}
@@ -201,7 +201,7 @@ length (or weight), they do not need to return the same path.
     FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/Aberdeen' TO 'places/London'
     GRAPH 'kShortestPathsGraph'
         LIMIT 1
-        RETURN p
+        RETURN { places: p.vertices[*].label, travelTimes: p.edges[*].travelTime }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_02_Aberdeen_to_London
 {% endaqlexample %}
@@ -216,7 +216,7 @@ Next, we can ask for more than one option for a route:
     FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/Aberdeen' TO 'places/London'
     GRAPH 'kShortestPathsGraph'
         LIMIT 3
-        RETURN p
+        RETURN { places: p.vertices[*].label, travelTimes: p.edges[*].travelTime }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_03_Aberdeen_to_London
 {% endaqlexample %}
@@ -231,7 +231,7 @@ If we ask for routes that don't exist we get an empty result:
     FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/Aberdeen' TO 'places/Toronto'
     GRAPH 'kShortestPathsGraph'
         LIMIT 3
-        RETURN p
+        RETURN { places: p.vertices[*].label, travelTimes: p.edges[*].travelTime }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_04_Aberdeen_to_Toronto
 {% endaqlexample %}
@@ -251,7 +251,7 @@ take into account which connections are quicker:
         defaultWeight: 15
     }
         LIMIT 3
-        RETURN p
+        RETURN { places: p.vertices[*].label, travelTimes: p.edges[*].travelTime }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_05_StAndrews_to_Cologne
 {% endaqlexample %}
