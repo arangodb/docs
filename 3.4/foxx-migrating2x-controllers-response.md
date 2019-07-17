@@ -7,7 +7,7 @@ Response objects
 
 The response object has a lot of new methods in ArangoDB 3.0 but otherwise remains similar to the response object of previous versions:
 
-The `res.send` method behaves very differently from how the method with the same name behaved in ArangoDB 2.x: the conversion now takes the response body definition of the route into account. There is a new method `res.write` that implements the old behaviour.
+The `res.send` method behaves very differently from how the method with the same name behaved in ArangoDB 2.x: the conversion now takes the response body definition of the route into account. There is a new method `res.write` that implements the old behavior.
 
 Note that consecutive calls to `res.write` will append to the response body rather than replacing it like `res.send`.
 

@@ -5,7 +5,7 @@ description: Foxx Controllers have been replaced with routers
 Controllers vs routers
 ======================
 
-Foxx Controllers have been replaced with [routers](foxx-router.html). This is more than a cosmetic change as there are significant differences in behaviour:
+Foxx Controllers have been replaced with [routers](foxx-router.html). This is more than a cosmetic change as there are significant differences in behavior:
 
 Controllers were automatically mounted when the file defining them was executed. Routers need to be explicitly mounted using the `module.context.use` method. Routers can also be exported, imported and even nested. This makes it easier to split up complex routing trees across multiple files.
 
@@ -36,7 +36,7 @@ router.get('/hello', function (req, res) {
 });
 ```
 
-Some general changes in behaviour that might trip you up:
+Some general changes in behavior that might trip you up:
 
 * When specifying path parameters with schemas Foxx will now ignore the route if the schema does not match (i.e. `/hello/foxx` will no longer match `/hello/:num` if `num` specifies a schema that doesn't match the value `"foxx"`). With controllers this could previously result in users seeing a 400 (bad request) error when they should instead be served a 404 (not found) response.
 

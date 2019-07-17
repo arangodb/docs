@@ -58,11 +58,11 @@ A multi-datacenter solution currently supported is the Datacenter to Datacenter 
 (DC2DC) among ArangoDB Clusters. See [DC2DC](architecture-deployment-modes-dc2-dc.html) chapter for details.
 {% endhint %}
 
-Operative Behaviour
+Operative Behavior
 -------------------
 
-In contrast to the normal behaviour of a single-server instance, the Active-Failover
-mode will change the behaviour of ArangoDB in some situations.
+In contrast to the normal behavior of a single-server instance, the Active-Failover
+mode will change the behavior of ArangoDB in some situations.
 
 The _Follower_ will _always_ deny write requests from client applications. Starting from ArangoDB 3.4
 read requests are _only_ permitted if the requests is marked with the `X-Arango-Allow-Dirty-Read: true` header,

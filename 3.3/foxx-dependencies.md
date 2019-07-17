@@ -22,11 +22,11 @@ Make sure to include the actual `node_modules` folder in your Foxx service bundl
 
 ### Compatibility caveats
 
-Unlike JavaScript in browsers or Node.js, the JavaScript environment in ArangoDB is synchronous. This means any modules that depend on asynchronous behaviour like promises or `setTimeout` will not behave correctly in ArangoDB or Foxx. Additionally unlike Node.js ArangoDB does not support native extensions. All modules have to be implemented in pure JavaScript.
+Unlike JavaScript in browsers or Node.js, the JavaScript environment in ArangoDB is synchronous. This means any modules that depend on asynchronous behavior like promises or `setTimeout` will not behave correctly in ArangoDB or Foxx. Additionally unlike Node.js ArangoDB does not support native extensions. All modules have to be implemented in pure JavaScript.
 
 While ArangoDB provides a lot of compatibility code to support modules written for Node.js, some Node.js built-in modules can not be provided by ArangoDB. For a closer look at the Node.js modules ArangoDB does or does not provide check out the [appendix on JavaScript modules](appendix-java-script-modules.html).
 
-Also note that these restrictions not only apply on the modules you wish to install but also the dependencies of those modules. As a rule of thumb: modules written to work in Node.js and the browser that do not rely on async behaviour should generally work; modules that rely on network or filesystem I/O or make heavy use of async behaviour most likely will not.
+Also note that these restrictions not only apply on the modules you wish to install but also the dependencies of those modules. As a rule of thumb: modules written to work in Node.js and the browser that do not rely on async behavior should generally work; modules that rely on network or filesystem I/O or make heavy use of async behavior most likely will not.
 
 Foxx dependencies
 -----------------

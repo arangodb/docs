@@ -12,4 +12,4 @@ This chapter outlines the major differences in the Foxx API between ArangoDB 2.8
 General changes
 ---------------
 
-The `console` object in later versions of ArangoDB 2.x implemented a special Foxx console API and would optionally log messages to a collection. ArangoDB 3.0 restores the original behaviour where `console` is the same object available from the [console module](appendix-java-script-modules-console.html).
+The `console` object in later versions of ArangoDB 2.x implemented a special Foxx console API and would optionally log messages to a collection. ArangoDB 3.0 restores the original behavior where `console` is the same object available from the [console module](appendix-java-script-modules-console.html).
