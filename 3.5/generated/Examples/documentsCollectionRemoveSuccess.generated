@@ -1,14 +1,14 @@
 arangosh&gt; a1 = db.example.insert({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"example/73602"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73602"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y98FeA2--A"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"example/73605"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73605"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z-_KM6O--A"</span> 
 }
 arangosh&gt; db._remove(a1);
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"example/73602"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73602"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y98FeA2--A"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"example/73605"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73605"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z-_KM6O--A"</span> 
 }
 arangosh&gt; db._remove(a1);
 [ArangoError <span class="hljs-number">1202</span>: <span class="hljs-built_in">document</span> not found]
