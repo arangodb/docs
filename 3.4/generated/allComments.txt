@@ -56266,4 +56266,418 @@ x-content-type-options: nosniff
 
 
 @endDocuBlock
+<!-- filename: /work/ArangoDB/Documentation/DocuBlocks/Rest/BackupRestore/post_admin_backup_create.md -->
+@startDocuBlock post_admin_backup_create
+@brief creates an online backup
+
+@RESTHEADER{POST /_admin/backup/create, Create backup}
+
+@RESTDESCRIPTION
+Creates a consistent backup "as soon as possible", very much
+like a snapshot in time, with a given label. The ambiguity in the
+phrase as soon as possible refers to the next window during which a
+global write lock across all databases can be obtained in order to
+guarantee consistency.
+
+The request may contain an object with the following attributes:
+
+@RESTBODYPARAM{label,string,optional,string}
+The label for this backup. The label is used to together with a
+timestamp string create a unique backup identifier, `<timestamp>_<label>`.
+If no label is specified, the empty string is assumed and a default
+UUID is created for this part of the ID.
+
+@RESTRETURNCODES
+
+@RESTRETURNCODE{201}
+If all is well, code 201 is returned.
+
+@RESTRETURNCODE{400}
+If the create command is invoked with bad parameters or any HTTP
+method other than `POST`, then a *HTTP 400* is returned. The specifics
+are detailed in the returned error document.
+
+@RESTRETURNCODE{408}
+If the operation cannot obtain a global transaction lock
+within 120 seconds, then an *HTTP 408* is returned.
+
+@EXAMPLES
+
+@EXAMPLE_ARANGOSH_RUN{RestBackupCreateBackup}
+    var url = "/_api/backup/create";
+    var body = {
+      label: "foo"
+    };
+
+    var reponse = logCurlRequest('POST', url, body);
+
+    assert(response.code === 200);
+
+    logJSONResponse(response);
+    body = {
+      error:false, code:200,
+      result: {
+        id: "2019-04-28T12.00.00Z_foo"
+      }
+    };
+@END_EXAMPLE_ARANGOSH_RUN
+
+@endDocuBlock
+
+<!-- filename: /work/ArangoDB/Documentation/DocuBlocks/Rest/BackupRestore/post_admin_backup_delete.md -->
+@startDocuBlock post_admin_backup_delete
+@brief delete a specific local backup
+
+@RESTHEADER{POST /_admin/backup/delete, Delete a backup}
+
+@RESTDESCRIPTION
+Delete a specific local backup identified by the given `id`.
+
+@RESTBODYPARAM{id,string,required,string}
+The identifier for this backup. 
+
+@RESTRETURNCODES
+
+@RESTRETURNCODE{200}
+If all is well, this code 200 is returned.
+
+@RESTRETURNCODE{400}
+If the delete command is invoked with bad parameters or any HTTP
+method other than `POST`, then an *HTTP 400* is returned.
+
+@RESTRETURNCODE{404}
+If a backup corresponding to the identifier `id` cannot be found.
+
+@EXAMPLES
+
+@EXAMPLE_ARANGOSH_RUN{RestBackupDeleteBackup}
+    var url = "/_api/backup/delete";
+    var body = {"id" : "2019-05-01T00.00.00Z_some-label"};
+
+    var reponse = logCurlRequest('POST', url, body);
+
+    assert(response.code === 200);
+
+    logJSONResponse(response);
+    body = {
+      result: {
+        id: "2019-05-01T00.00.00Z_some-label"
+      }
+    };
+@END_EXAMPLE_ARANGOSH_RUN
+
+@endDocuBlock
+
+<!-- filename: /work/ArangoDB/Documentation/DocuBlocks/Rest/BackupRestore/post_admin_backup_download.md -->
+@startDocuBlock post_admin_backup_download
+@brief download a specific local backup
+
+@RESTHEADER{POST /_admin/backup/download, Download a backup from a remote repository}
+
+@RESTDESCRIPTION
+Download a specific local backup from a remote repository, or query
+progress on a previously scheduled download operation.
+
+@RESTBODYPARAM{id,string,optional,string}
+The identifier for this backup. This is required when a download
+operation is scheduled. In this case leave out the `downloadId`
+attribute.
+
+@RESTBODYPARAM{remoteRepository,string,required,string}
+URL of remote reporsitory. This is required when a download
+operation is scheduled. In this case leave out the `downloadId`
+attribute.
+
+@RESTBODYPARAM{config,object,required,object}
+Configuration of remote repository. This is required when a download
+operation is scheduled. In this case leave out the `downloadId`
+attribute.
+
+@RESTBODYPARAM{downloadId,string,optional,string}
+Download ID to specify for which download operation progress is queried.
+If you specify this, leave out all other body parameters.
+
+@RESTRETURNCODES
+
+@RESTRETURNCODE{200}
+If all is well, code 200 is returned if progress is inquired or the
+operation is aborted.
+
+@RESTRETURNCODE{202}
+If all is well, code 202 is returned if a new operation is scheduled.
+
+@RESTRETURNCODE{400}
+If the download command is invoked with bad parameters or any HTTP
+method other than `POST`, then an *HTTP 400* is returned.
+
+@RESTRETURNCODE{401}
+If the authentication to the rempote repository fails, then an *HTTP
+401* is returned.
+
+@RESTRETURNCODE{404}
+If a backup corresponding to the identifier `id`  cannot be found, or if
+there is no known download operation with the given `downloadId`.
+
+@EXAMPLES
+
+@EXAMPLE_ARANGOSH_RUN{RestBackupDownloadBackup}
+    var url = "/_api/backup/download";
+    var body = {"id" : "2019-05-01T00.00.00Z_some-label",
+                "remoteRepository": "S3://<repository-url>",
+                "config": {
+                  "S3": {
+                    "typexs":"s3",
+                    "provider":"aws",
+                    "env_auth":"false",
+                    "access_key_id":"XXX",
+                    "secret_access_key":"XXXXXX",
+                    "region":"us-west-2",
+                    "acl":"private"}}};
+
+    var reponse = logCurlRequest('POST', url, body);
+
+    assert(response.code === 200);
+
+    logJSONResponse(response);
+    body = {
+      result: {
+        downloadId: "10046"
+      }
+    };
+@END_EXAMPLE_ARANGOSH_RUN
+
+@EXAMPLE_ARANGOSH_RUN{RestBackupDownloadBackupStarted}
+    var url = "/_api/backup/download";
+    var body = {"downloadId" : "10046"};
+
+    var reponse = logCurlRequest('POST', url, body);
+
+    assert(response.code === 200);
+
+    logJSONResponse(response);
+    body = {
+      "result": {
+        "Timestamp": "2019-05-14T14:50:56Z",
+        "BackupId": "2019-05-01T00.00.00Z_some-label",
+        "DBServers": {
+          "SNGL": {
+            "Status": "COMPLETED"
+          }
+        }
+      }
+    };
+@END_EXAMPLE_ARANGOSH_RUN
+
+@endDocuBlock
+
+<!-- filename: /work/ArangoDB/Documentation/DocuBlocks/Rest/BackupRestore/post_admin_backup_list.md -->
+@startDocuBlock post_admin_backup_list
+@brief list all local backups
+
+@RESTHEADER{POST /_admin/backup/list, List backups}
+
+@RESTDESCRIPTION
+Lists all locally found backups.
+
+@RESTBODYPARAM{id,string,optional,string}
+The body can either be empty (in which case all available backups are
+listed), or it can be an object with an attribute `id`, which 
+is a string. In the latter case the returned list
+is restricted to the backup with the given id.
+
+@RESTRETURNCODES
+
+@RESTRETURNCODE{200}
+If all is well, code 200 is returned.
+
+@RESTRETURNCODE{400}
+If the list command is invoked with bad parameters, then an *HTTP 400*
+is returned.
+
+@RESTRETURNCODE{404}
+If an `id` or a list of ids was given and the given ids were not found
+as identifiers of a backup, an *HTTP 404 NOT FOUND* is returned.
+
+@RESTRETURNCODE{405}
+If the list command is invoked with any HTTP
+method other than `POST`, then an *HTTP 405 METHOD NOT ALLOWED* is returned.
+
+@EXAMPLES
+
+@EXAMPLE_ARANGOSH_RUN{RestBackupListBackup}
+    var url = "/_api/backup/list";
+    var body = {};
+
+    var reponse = logCurlRequest('POST', url, body);
+
+    assert(response.code === 200);
+
+    logJSONResponse(response);
+    body = {
+      result: {
+        list: {
+            "2019-04-28T12.00.00Z_my-label": {
+                "id": "2019-04-28T12.00.00Z_my-label",
+                "version": "3.4.5",
+                "datetime": "2019-04-28T12.00.00Z"
+            },
+            "2019-04-28T12.10.00Z-other-label": {
+                "id": "2019-04-28T12.10.00Z-other-label",
+                "version": "3.4.5",
+                "datetime": "2019-04-28T12.10.00Z"
+            }
+      }
+    };
+@END_EXAMPLE_ARANGOSH_RUN
+
+@endDocuBlock
+
+<!-- filename: /work/ArangoDB/Documentation/DocuBlocks/Rest/BackupRestore/post_admin_backup_restore.md -->
+@startDocuBlock post_admin_backup_restore
+@brief restores from a local backup
+
+@RESTHEADER{POST /_admin/backup/restore, Restore backup}
+
+@RESTDESCRIPTION
+Restores a consistent backup from a
+snapshot in time, with a given id.
+
+The request may contain an object with the following attributes:
+
+@RESTBODYPARAM{id,string,required,string}
+The id of the backup to restore from.
+
+@RESTRETURNCODES
+
+@RESTRETURNCODE{200}
+Is returned if the backup could be restored.
+
+@RESTRETURNCODE{400}
+If the restore command is invoked with bad parameters or any HTTP
+method other than `POST`, then a *HTTP 400* is returned. The specifics
+are detailed in the returned error document.
+
+@EXAMPLES
+
+@EXAMPLE_ARANGOSH_RUN{RestBackupRestoreBackup}
+    var url = "/_api/backup/restore";
+    var body = {
+      id: "2019-07-05T09.16.43Z_abc"
+    };
+
+    var reponse = logCurlRequest('POST', url, body);
+
+    assert(response.code === 200);
+
+    logJSONResponse(response);
+    body = {
+      error: false, code: 200, 
+      result: {
+        result: {"previous":"FAILSAFE","isCluster":true}⏎
+      }
+    };
+@END_EXAMPLE_ARANGOSH_RUN
+
+@endDocuBlock
+
+<!-- filename: /work/ArangoDB/Documentation/DocuBlocks/Rest/BackupRestore/post_admin_backup_upload.md -->
+@startDocuBlock post_admin_backup_upload
+@brief upload a specific local backup
+
+@RESTHEADER{POST /_admin/backup/upload, Upload a backup to a remote repository}
+
+@RESTDESCRIPTION
+Upload a specific local backup to a remote repository, or query
+progress on a previously scheduled upload operation.
+
+@RESTBODYPARAM{id,string,optional,string}
+The identifier for this backup. This is required when an upload
+operation is scheduled. In this case leave out the `uploadId`
+attribute.
+
+@RESTBODYPARAM{remoteRepository,string,optional,string}
+URL of remote reporsitory. This is required when an upload
+operation is scheduled. In this case leave out the `uploadId`
+attribute.
+
+@RESTBODYPARAM{config,object,optional,object}
+Configuration of remote repository. This is required when an upload
+operation is scheduled. In this case leave out the `uploadId`
+attribute.
+
+@RESTBODYPARAM{uploadId,string,optional,string}
+Upload ID to specify for which upload operation progress is queried.
+If you specify this, leave out all other body parameters.
+
+@RESTRETURNCODES
+
+@RESTRETURNCODE{200}
+If all is well, code 200 is returned if progress is inquired or the
+operation is aborted.
+
+@RESTRETURNCODE{202}
+If all is well, code 202 is returned if a new operation is scheduled.
+
+@RESTRETURNCODE{400}
+If the upload command is invoced with bad parameters or any HTTP
+method other than `POST`, then an *HTTP 400* is returned.
+
+@RESTRETURNCODE{401}
+If the authentication to the rempote repository fails, then an *HTTP
+400* is returned.
+
+@RESTRETURNCODE{404}
+If a backup corresponding to the identifier `id`  cannot be found, or if
+there is no known upload operation with the given `uploadId`.
+
+@EXAMPLES
+
+@EXAMPLE_ARANGOSH_RUN{RestBackupUploadBackup}
+    var url = "/_api/backup/upload";
+    var body = {"id" : "2019-05-01T00.00.00Z_some-label",
+                "remoteRepository": "S3://<repository-url>",
+                "config": {
+                  "S3": {
+                    "type":"s3",
+                    "provider":"aws",
+                    "env_auth":"false",
+                    "access_key_id":"XXX",
+                    "secret_access_key":"XXXXXX",
+                    "region":"us-west-2",
+                    "acl":"private"}}};
+
+    var reponse = logCurlRequest('POST', url, body);
+
+    assert(response.code === 200);
+
+    logJSONResponse(response);
+    body = {
+      result: {
+        uploadId: "10046"
+      }
+    };
+@END_EXAMPLE_ARANGOSH_RUN
+
+@EXAMPLE_ARANGOSH_RUN{RestBackupUploadBackupStarted}
+    var url = "/_api/backup/upload";
+    var body = {"uploadId" : "10046"};
+
+    var reponse = logCurlRequest('POST', url, body);
+
+    assert(response.code === 200);
+
+    logJSONResponse(response);
+    body = {
+      "result": {
+        "Timestamp": "2019-05-14T14:50:56Z",
+        "BackupId": "2019-05-01T00.00.00Z_some-label",
+        "DBServers": {
+          "SNGL": {
+            "Status": "COMPLETED"
+          }
+        }
+      }
+    };
+@END_EXAMPLE_ARANGOSH_RUN
+@endDocuBlock
 
