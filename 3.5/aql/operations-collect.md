@@ -21,7 +21,9 @@ COLLECT variableName = expression INTO groupsVariable = projectionExpression opt
 COLLECT variableName = expression INTO groupsVariable KEEP keepVariable options
 COLLECT variableName = expression WITH COUNT INTO countVariable options
 COLLECT variableName = expression AGGREGATE variableName = aggregateExpression options
+COLLECT variableName = expression AGGREGATE variableName = aggregateExpression options INTO groupsVariable
 COLLECT AGGREGATE variableName = aggregateExpression options
+COLLECT AGGREGATE variableName = aggregateExpression options INTO groupsVariable
 COLLECT WITH COUNT INTO countVariable options
 ```
 
