@@ -62,7 +62,7 @@ so that WAL files can be moved to the archive.
 Setting this to a high value will avoid regular flushing but may prevent WAL
 files from being moved to the archive and being removed.
 
-`--rocksdb.delayed-write-rate` (Hidden)
+`--rocksdb.delayed-write-rate`
 
 Limited write rate to DB (in bytes per second) if we are writing to the last
 in-memory buffer allowed and we allow more than 3 buffers. Default: 16MiB/s.
@@ -122,16 +122,16 @@ If non-zero, we perform bigger reads when doing compaction. If you're  running
 RocksDB on spinning disks, you should set this to at least 2MiB. That way
 RocksDB's compaction is doing sequential instead of random reads. Default: 0.
 
-`--rocksdb.use-direct-reads` (Hidden)
+`--rocksdb.use-direct-reads`
 
 Only meaningful on Linux. If set, use `O_DIRECT` for reading files. Default:
 false.
 
-`--rocksdb.use-direct-io-for-flush-and-compaction` (Hidden)
+`--rocksdb.use-direct-io-for-flush-and-compaction`
 
 Only meaningful on Linux. If set, use `O_DIRECT` for writing files. Default: false.
 
-`--rocksdb.use-fsync` (Hidden)
+`--rocksdb.use-fsync`
 
 If set, issue an `fsync` call when writing to disk (set to false to issue
 `fdatasync` only. Default: false.
@@ -144,10 +144,10 @@ turned off for operating system versions that are known to have issues with it.
 This option only has an effect on operating systems that support fallocate.
 
 `--rocksdb.limit-open-files-at-startup`
-                     
+
 If set to true, this will limit the amount of .sst files RocksDB will inspect at 
 startup, which can reduce the number of IO operations performed at start.
-  
+
 `--rocksdb.block-align-data-blocks`
 
 If true, data blocks are aligned on the lesser of page size and block size,
@@ -197,13 +197,13 @@ value to at most `block-cache-shard-bits / 512KB`. Default: `block-cache-size /
 
 Approximate size of user data (in bytes) packed per block for uncompressed data.
 
-`--rocksdb.recycle-log-file-num` (Hidden)
+`--rocksdb.recycle-log-file-num`
 
 Number of log files to keep around for recycling. Default: 0.
 
 ### Miscellaneous
 
-`--rocksdb.optimize-filters-for-hits` (Hidden)
+`--rocksdb.optimize-filters-for-hits`
 
 This flag specifies that the implementation should optimize the filters mainly
 for cases where keys are found rather than also optimize for the case where
@@ -211,7 +211,7 @@ keys are not. This would be used in cases where the application knows that
 there are very few misses or the performance in the case of misses is not as
 important. Default: false.
 
-`--rocksdb.wal-recovery-skip-corrupted` (Hidden)
+`--rocksdb.wal-recovery-skip-corrupted`
 
 If true, skip corrupted records in WAL recovery. Default: false.
 
@@ -231,7 +231,7 @@ not necessarily have ACID properties in this case.
 The following options can be used to control the RAM usage and automatic
 intermediate commits for the RocksDB engine:
 
-`--rocksdb.wal-file-timeout-initial` (Hidden)
+`--rocksdb.wal-file-timeout-initial`
 
 Timeout after which deletion of unused WAL files kicks in after server start
 (in seconds). Default: 180.0s

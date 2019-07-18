@@ -1,6 +1,6 @@
 ---
 layout: default
-description: It is recommended to check the following list of incompatible changes beforeupgrading to ArangoDB 3
+description: It is recommended to check the following list of incompatible changes before upgrading to ArangoDB 3.5
 ---
 Incompatible changes in ArangoDB 3.5
 ====================================
@@ -121,6 +121,17 @@ This change is about making queries as the above fail with a parse error, as an
 unknown variable `key1` is accessed here, avoiding the undefined behavior. This is 
 also in line with what the documentation states about variable invalidation.
 
+HTTP Replication APIs
+---------------------
+
+### New parameter for WAL tailing API
+
+Tailing of recent server operations via `/_api/wal/tail` gets a new parameter
+`syncerId`, which helps in tracking the WAL tick of each client. If set, this
+supersedes the parameter `serverId` for this purpose. The API stays backwards
+compatible.
+
+
 Miscellaneous
 -------------
 
@@ -131,6 +142,12 @@ specified `_id`, and that `_id` was already in use, the server would typically
 return the existing index with matching `_id`. This is somewhat unintuitive, as
 it would ignore if the rest of the definition did not match. This behavior has
 been changed so that the server will now return a duplicate identifier error.
+
+ArangoDB 3.5 also disallows creating indexes on the `_id` sub-attribute of an attribute,
+`referredTo._id` or `documents[*]._id`. Previous versions of ArangoDB allowed creating
+such indexes, but the indexes were non-functional.
+Starting with ArangoDB 3.5 such indexes cannot be created anymore, and any attempts to 
+create them will fail.
 
 ### Version details output
 

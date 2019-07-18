@@ -151,7 +151,7 @@ When saving, updating, replacing or deleting models in ArangoDB 2.x using the re
 
 Note that even in 2.x these events would not fire when using queries or manipulating documents in any other way than using the specific repository methods that operated on individual documents.
 
-This behaviour is no longer available in ArangoDB 3.0 but can be emulated by using an `EventEmitter` directly if it is not possible to solve the problem differently:
+This behavior is no longer available in ArangoDB 3.0 but can be emulated by using an `EventEmitter` directly if it is not possible to solve the problem differently:
 
 Old:
 

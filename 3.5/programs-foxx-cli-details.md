@@ -131,7 +131,7 @@ your service. Each line should specify one pattern you wish to ignore:
 
 * Patterns starting with `#` are considered comments and will be ignored.
 
-For more details on the pattern matching behaviour, see the documentation of the
+For more details on the pattern matching behavior, see the documentation of the
 [minimatch](https://www.npmjs.com/package/minimatch){:target="_blank"} module (with the `dot` flag
 enabled).
 

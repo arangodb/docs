@@ -26,6 +26,10 @@ Tutorials
 Deployment & Administration
 ---------------------------
 
+- [Reduce Memory Footprint](tutorials-reduce-memory-footprint.html):
+  Configuration options to restrict ArangoDB's memory usage and to reduce
+  the CPU utilization
+
 - [ArangoDB Starter](tutorials-starter.html):
   Starting an ArangoDB Cluster or database the easy way
 
