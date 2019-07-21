@@ -17,7 +17,7 @@ arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/111532"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111532"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y85yKbm--_"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z_K9PQK--_"</span> 
 }
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span>, <span class="hljs-attr">b</span> : { <span class="hljs-attr">c</span> : <span class="hljs-number">1</span> } });
 [ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index <span class="hljs-number">111529</span> <span class="hljs-keyword">of</span> type hash over [<span class="hljs-string">"a"</span>,<span class="hljs-string">"b.c"</span>]; conflicting key: <span class="hljs-number">111532</span>]
@@ -25,7 +25,7 @@ arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/111538"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111538"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y85yKbu--_"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z_K9PQS--_"</span> 
 }
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span> });
 [ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index <span class="hljs-number">111529</span> <span class="hljs-keyword">of</span> type hash over [<span class="hljs-string">"a"</span>,<span class="hljs-string">"b.c"</span>]; conflicting key: <span class="hljs-number">111538</span>]

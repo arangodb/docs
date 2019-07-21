@@ -15,19 +15,19 @@ arangosh&gt; db.ids.save({ <span class="hljs-string">"myId"</span>: <span class=
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/111609"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111609"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y85yKlq--_"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z_K9PX---_"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"myId"</span>: <span class="hljs-number">456</span> });
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/111613"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111613"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y85yKlu--_"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z_K9PXC--_"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"myId"</span>: <span class="hljs-number">789</span> });
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/111616"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"111616"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Y85yKly--_"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z_K9PXG--_"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"myId"</span>: <span class="hljs-number">123</span> });
 [ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index <span class="hljs-number">111606</span> <span class="hljs-keyword">of</span> type skiplist over [<span class="hljs-string">"myId"</span>]; conflicting key: <span class="hljs-number">111609</span>]
