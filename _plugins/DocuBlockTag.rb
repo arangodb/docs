@@ -59,6 +59,14 @@ class DocuBlockBlock < Liquid::Tag
                         subdescription["description"].each_line do |line|
                             result += "      #{line}"
                         end
+                        if subdescription["subdescription"]
+                            subdescription["subdescription"].each do |name, subsubdescription|
+                                result += "         * **#{name}**: "
+                                subsubdescription["description"].each_line do |line|
+                                    result += "         #{line}"
+                                end
+                            end
+                        end
                     end
                 end
             end
@@ -77,12 +85,23 @@ class DocuBlockBlock < Liquid::Tag
                 if returnCode["body"]
                     result += "**HTTP #{code}** #{description}\n\n"
                     returnCode["body"].each do |key, value|
+                        if key == "figures"
+                            puts value
+                        end
                         result += "   * **#{key}**: #{value["description"]}\n"
                         if value["subdescription"]
                             value["subdescription"].each do |name, subdescription|
                                 result += "      * **#{name}**: "
                                 subdescription["description"].each_line do |line|
                                     result += "      #{line}"
+                                end
+                                if subdescription["subdescription"]
+                                    subdescription["subdescription"].each do |name, subsubdescription|
+                                        result += "      * **#{name}**: "
+                                        subsubdescription["description"].each_line do |line|
+                                            result += "      #{line}"
+                                        end
+                                    end
                                 end
                             end
                         end
@@ -171,12 +190,14 @@ class DocuBlockBlock < Liquid::Tag
                         currentObject["subdescription"][$1] = {
                             "parent" => currentObject,
                             "description" => "",
+                            "subdescription" => {},
                         }
                         currentObject = currentObject["subdescription"][$1]
                         currentKey = "description"
                     else
                         Jekyll.logger.debug "Ignoring RESTSTRUCT. No subdescription"
                     end
+                    #puts "#{$1} | #{$2} | #{$3} | #{$4} | #{$5}"
                 when /^@RESTURLPARAMETERS/
                     currentObject = local
                 when /^@RESTURLPARAM{([a-zA-Z_-]+),(\w+),(\w+)}/
@@ -217,7 +238,8 @@ class DocuBlockBlock < Liquid::Tag
                 when /^@RESTRETURNCODE{(\d+)}/
                     currentReturnCode = {
                         "code"=> $1,
-                        "description"=> ""
+                        "description"=> "",
+                        "subdescription" => {},
                     }
                     currentObject = currentReturnCode
                     currentKey = "description"
