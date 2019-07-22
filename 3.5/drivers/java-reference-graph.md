@@ -112,17 +112,6 @@ Alternative for [ArangoDatabase.createGraph](#arangodatabasecreategraph).
     automatically and one of the servers holding copies take over, usually
     without an error being reported.
 
-  - **minReplicationFactor**: `Integer`
-
-    (optional, default is 1): in a cluster, this attribute determines how many
-    desired copies of each shard are kept on different DBServers. The value 1
-    means that only one copy (no synchronous replication) is kept. A value of k
-    means that desired k-1 replicas are kept.
-
-    If in a failover scenario a shard of a collection has less than
-    minReplicationFactor many insync followers it will go into "read-only"
-    mode and will reject writes until enough followers are insync again.
-
   - **numberOfShards**: `Integer`
 
     The number of shards that is used for every collection within this graph.
