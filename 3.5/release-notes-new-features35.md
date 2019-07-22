@@ -223,16 +223,20 @@ Also see the [TTL Indexes](indexing-ttl.html) page.
 Collections
 -----------
 
-All collections now support a minimum replication factor (minReplicationFactor) property.
-This is default set to `1`, which is identical to previous behaviour. If in a failover scenario
-a shard of a collection has less than minReplicationFactor many insync followers it will go into
-"read-only" mode and will reject writes until enough followers are insync again.
+All collections now support a minimum replication factor (minReplicationFactor)
+property. This is default set to `1`, which is identical to previous behavior.
+If in a failover scenario a shard of a collection has less than minReplicationFactor
+many in sync followers it will go into "read-only" mode and will reject writes
+until enough followers are in sync again.
 
 In more detail:
-Having `minReplicationFactor == 1` means as soon as a "master-copy" is available of the data writes are allowed.
-Having `minReplicationFactor > 1` requires additional insync copies on follower servers to allow writes.
+- Having `minReplicationFactor == 1` means as soon as a "master-copy" is
+  available of the data writes are allowed.
+- Having `minReplicationFactor > 1` requires additional in sync copies on
+  follower servers to allow writes.
 
-The feature is used to reduce the diverging of data in case of server failures and to help new followers to catch up.
+The feature is used to reduce the diverging of data in case of server failures
+and to help new followers to catch up.
 
 HTTP API extensions
 -------------------
