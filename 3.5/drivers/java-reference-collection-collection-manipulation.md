@@ -42,14 +42,14 @@ then returns collection information from the server.
 
   - **minReplicationFactor**: `Integer`
 
-    (optional, default is 1): in a cluster, this attribute determines how many
-    desired copies of each shard are kept on different DBServers. The value 1
-    means that only one copy (no synchronous replication) is kept. A value of k
-    means that desired k-1 replicas are kept.
-
-    If in a failover scenario a shard of a collection has less than
-    minReplicationFactor many insync followers it will go into "read-only"
-    mode and will reject writes until enough followers are insync again.
+    (optional, default is 1): in a cluster, this
+    attribute determines how many copies of each shard are required
+    to be in sync on the different DBServers. If we have less then these
+    many copies in the cluster a shard will refuse to write. The
+    minReplicationFactor can not be larger than replicationFactor.
+    Please note: during server failures this might lead to writes
+    not being possible until the failover is sorted out and might cause
+    write slow downs in trade of data durability.
 
   - **satellite**: `Boolean`
 
