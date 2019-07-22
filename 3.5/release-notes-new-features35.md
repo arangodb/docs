@@ -282,6 +282,12 @@ Note that this requires client applications to abort transactions which are no
 longer necessary. Otherwise resources and locks acquired by the transactions
 will hang around until the server decides to garbage-collect them.
 
+### Minimal replication Factor
+
+Within the properties of a collection we can now define a minReplicationFactor.
+This affects all routes that can create or modify the properties of a collection,
+including the graph API `_api/gharial`. All places where a replicationFactor can
+be modified, can now modify the minReplicationFactor as well.
 
 Web interface
 -------------
