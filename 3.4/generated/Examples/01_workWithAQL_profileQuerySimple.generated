@@ -10,11 +10,11 @@ Query String:
 
 Execution plan:
  Id   NodeType                  Calls   Items   Runtime [s]   Comment
-  1   SingletonNode                 1       1       0.00001   * ROOT
-  2   EnumerateCollectionNode      11   10000       0.00181     - FOR doc IN acollection   /* full collection scan */
-  3   CalculationNode              11   10000       0.00518       - LET #1 = (doc.`value` &lt; 10)   /* simple expression */   /* collections used: doc : acollection */
-  4   FilterNode                    1      10       0.00020       - FILTER #1
-  5   ReturnNode                    1      10       0.00001       - RETURN doc
+  1   SingletonNode                 1       1       0.00000   * ROOT
+  2   EnumerateCollectionNode      10   10000       0.00164     - FOR doc IN acollection   /* full collection scan */
+  3   CalculationNode              10   10000       0.00113       - LET #1 = (doc.`value` &lt; 10)   /* simple expression */   /* collections used: doc : acollection */
+  4   FilterNode                    1      10       0.00077       - FILTER #1
+  5   ReturnNode                    1      10       0.00000       - RETURN doc
 
 Indexes used:
  none
@@ -24,17 +24,17 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Exec Time [s]
-           0            0       10000            0       9990         0.00790
+           0            0       10000            0       9990         0.00368
 
 Query Profile:
  Query Stage           Duration [s]
- initializing               0.00001
- parsing                    0.00012
- optimizing ast             0.00001
- loading collections        0.00003
- instantiating plan         0.00005
- optimizing plan            0.00026
- executing                  0.00723
- finalizing                 0.00017
+ initializing               0.00000
+ parsing                    0.00002
+ optimizing ast             0.00000
+ loading collections        0.00000
+ instantiating plan         0.00001
+ optimizing plan            0.00006
+ executing                  0.00355
+ finalizing                 0.00004
 
 
