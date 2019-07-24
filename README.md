@@ -80,11 +80,23 @@ Then go ahead and edit you markdown.
 
 ### When adding a new release
 
-- Copy over the navs in `_data` and copy the latest devel version to a new directory i.e. `cp -a 3.5 3.6`.
-- Add the version to `_data/versions.yml` with the full version name.
+- Copy over the navs in `_data`, e.g.
+  ```
+  for book in aql cookbook drivers http manual; do
+    cp -a "3.5-${book}.yml" "3.6-${book}.yml"
+  done
+  ```
+- Create relative symlinks to program option JSON files in `_data`, like
+  ```
+  for prog in bench d dump export import inspect restore sh; do
+    ln -s "../3.6/generated/arango${prog}-options.json" "3.6-program-options-arango${prog}.json"
+  done
+  ```
+- Copy the latest devel version to a new directory i.e. `cp -a 3.5 3.6`
+- Add the version to `_data/versions.yml` with the full version name
 - Add all books of that version to `_data/books.yml`
 - Adjust `_config.yml` and modify `versions` if appropriate
-- Adjust `_includes/topnav.html` to add the version (and make it read versions instead so that this bulletpoint can go away ;) )
+- Re-generate the examples, or rather add nightly build job for the new version to Jenkins
 
 ### Adding a new arangosh example
 
