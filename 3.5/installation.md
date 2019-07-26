@@ -21,7 +21,8 @@ is available for the Linux and macOS platforms.
 Besides the official images which are provided for the most popular linux distributions
 there are also a variety of unofficial images provided by the community. We are
 tracking most of the community contributions (including new or updated images) in
-our newsletter: https://www.arangodb.com/category/newsletter/
+our newsletter:
+[www.arangodb.com/category/newsletter/](https://www.arangodb.com/category/newsletter/){:target="_blank"}
 
 - [Linux](installation-linux.html)
 - [macOS](installation-mac-osx.html)

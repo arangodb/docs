@@ -66,9 +66,9 @@ variable by adding this option to the above `docker` command:
     -e ARANGO_LICENSE_KEY=<thekey>
 ```
 
-You can get a free evaluation license key by visiting
+You can get a free evaluation license key by visiting:
 
-     https://www.arangodb.com/download-arangodb-enterprise/
+[www.arangodb.com/download-arangodb-enterprise/](https://www.arangodb.com/download-arangodb-enterprise/){:target="_blank"}
 
 Then replace `<thekey>` above with the actual license key. The start
 will then hand on the license key to the Docker containers it launches
