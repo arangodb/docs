@@ -92,3 +92,13 @@ transformation.
 
 Also see [Analyzers](http/analyzers.html) in the HTTP book
 including a list of available [Analyzer Types](http/analyzers.html#analyzer-types).
+
+
+
+
+
+Feature           | Identity | N-gram  | Delimiter | Stem | Norm| Text
+------------------|----------|---------|-----------|------|-----|-----
+**Tokenization**  | No       | No      | (Yes)     | No   | No  | Yes
+**Stemming**      | No       | No      | No        | Yes  | No  | Yes
+**Normalization** | No       | No      | No        | No   | Yes | Yes
