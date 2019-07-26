@@ -62,3 +62,7 @@ until the entire transaction times out.
 
 <!-- RestTransactionHandler.cpp -->
 {% docublock delete_api_transaction %}
+
+List currently ongoing Transactions
+-----------------------------------
+{% docublock get_api_transactions %}
