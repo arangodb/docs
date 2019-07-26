@@ -60,8 +60,7 @@ This must be shared between cluster nodes.
 Sharing secrets is obviously a very delicate topic. The above workflow assumes
 that the operator will put a secret in a file named `${CLUSTERSECRETPATH}`.
 
-We recommend to use a dedicated system for managing secrets like HashiCorps' `Vault` or the
-secret management of `DC/OS`.
+We recommend to use a dedicated system for managing secrets like HashiCorp's `Vault`.
 
 ## Required ports
 
