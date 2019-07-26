@@ -287,7 +287,8 @@ HITS is a link analysis algorithm that rates Web pages, developed by Jon Kleinbe
 The idea behind Hubs and Authorities comes from the typical structure of the web: Certain websites known as hubs, serve as large directories that are not actually 
 authoritative on the information that they hold. These hubs are used as compilations of a broad catalog of information that leads users direct to other authoritative webpages.
 The algorithm assigns each vertex two scores: The authority-score and the hub-score. The authority score rates how many good hubs point to a particular
-vertex (or webpage), the hub score rates how good (authoritative) the vertices pointed to are. For more see https://en.wikipedia.org/wiki/HITS_algorithm
+vertex (or webpage), the hub score rates how good (authoritative) the vertices pointed to are. For more see
+[en.wikipedia.org/wiki/HITS_algorithm](https://en.wikipedia.org/wiki/HITS_algorithm){:target="_blank"}
 
 Our version of the algorithm
 converges after a certain amount of time. The parameter *threshold* can be used to set a limit for the convergence (measured as maximum absolute difference of the hub and 
