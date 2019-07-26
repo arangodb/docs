@@ -6,19 +6,19 @@ arangosh&gt; v1 = db.vertex.insert({ <span class="hljs-attr">name</span> : <span
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"vertex/65378"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"65378"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z_pNAte---"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZA7Ance---"</span> 
 }
 arangosh&gt; v2 = db.vertex.insert({ <span class="hljs-attr">name</span> : <span class="hljs-string">"vertex 2"</span> });
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"vertex/65380"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"65380"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z_pNAti---"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZA7Ance--A"</span> 
 }
 arangosh&gt; e1 = db.relation.insert(v1, v2, { <span class="hljs-attr">label</span> : <span class="hljs-string">"knows"</span> });
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/65382"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"65382"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z_pNAti--A"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZA7Anci---"</span> 
 }
 arangosh&gt; db._document(e1);
 { 
@@ -26,6 +26,6 @@ arangosh&gt; db._document(e1);
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"relation/65382"</span>, 
   <span class="hljs-string">"_from"</span> : <span class="hljs-string">"vertex/65378"</span>, 
   <span class="hljs-string">"_to"</span> : <span class="hljs-string">"vertex/65380"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z_pNAti--A"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZA7Anci---"</span>, 
   <span class="hljs-string">"label"</span> : <span class="hljs-string">"knows"</span> 
 }

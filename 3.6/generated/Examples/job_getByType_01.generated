@@ -3,7 +3,7 @@
 HTTP/1.1 Accepted
 content-type: text/plain; charset=utf-8
 keep-alive: timeout=300
-x-arango-async-id: 87751
+x-arango-async-id: 87750
 x-content-type-options: nosniff
 
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/<span class="hljs-keyword">done</span></span>
@@ -14,5 +14,5 @@ keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 
 [ 
-  <span class="hljs-string">"87751"</span> 
+  <span class="hljs-string">"87750"</span> 
 ]
