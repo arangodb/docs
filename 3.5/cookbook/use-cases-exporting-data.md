@@ -308,7 +308,7 @@ curl
 **Tags**: #howto #php
 
 
-[1]: [jsteemann.github.io/blog/2015/04/04/more-efficient-data-exports/](https://jsteemann.github.io/blog/2015/04/04/more-efficient-data-exports/){:target="_blank"}
-[2]: [jsteemann.github.io/downloads/code/users-100000.json.tar.gz](https://jsteemann.github.io/downloads/code/users-100000.json.tar.gz){:target="_blank"}
-[3]: [github.com/arangodb/arangodb-php](https://github.com/arangodb/arangodb-php){:target="_blank"}
-[4]: [jsteemann.github.io/downloads/code/export-csv.php](https://jsteemann.github.io/downloads/code/export-csv.php){:target="_blank"}
+[1]: https://jsteemann.github.io/blog/2015/04/04/more-efficient-data-exports/
+[2]: https://jsteemann.github.io/downloads/code/users-100000.json.tar.gz
+[3]: https://github.com/arangodb/arangodb-php
+[4]: https://jsteemann.github.io/downloads/code/export-csv.php
