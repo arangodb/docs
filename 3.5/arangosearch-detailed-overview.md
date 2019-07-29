@@ -1,13 +1,13 @@
 ---
 layout: default
-description: ArangoSearch is a powerful fulltext search component with additionalfunctionality, supported via the text analyzer and tfidf / bm25scorers, without impact on performance when specifying documentsfrom different collections or filtering on multiple document attributes
-redirect_from: /stable/views-arango-search-detailed-overview.html
+description: ArangoSearch is a powerful fulltext search component with additional functionality, supported via the text analyzer and tfidf / bm25 scorers, without impact on performance when specifying documents from different collections or filtering on multiple document attributes
+redirect_from: /3.4/views-arango-search-detailed-overview.html
 ---
 # Detailed overview of ArangoSearch Views
 
 ArangoSearch is a powerful fulltext search component with additional
 functionality, supported via the *text* analyzer and *tfidf* / *bm25*
-[scorers](views-arango-search-scorers.html), without impact on performance when specifying documents
+[scorers](arangosearch-scorers.html), without impact on performance when specifying documents
 from different collections or filtering on multiple document attributes.
 
 ## View datasource
@@ -51,7 +51,7 @@ standalone index.
 ## Analyzers
 
 To simplify query syntax ArangoSearch provides a concept of
-[named analyzers](views-arango-search-analyzers.html) which are merely aliases for type+configuration
+[named analyzers](analyzers.html) which are merely aliases for type+configuration
 of IResearch analyzers.
 <!-- Management of named analyzers is exposed via REST, GUI and JavaScript APIs. -->
 
@@ -215,7 +215,7 @@ is used by these writers (in terms of "writers pool") one can use
 - **analyzers** (_optional_; type: `array`; subtype: `string`; default: `[
   'identity' ]`)
 
-  A list of analyzers, by name as defined via the [Analyzers](views-arango-search-analyzers.html),
+  A list of analyzers, by name as defined via the [Analyzers](analyzers.html),
   that should be applied to values of processed document attributes.
 
 - **fields** (_optional_; type: `object`; default: `{}`)

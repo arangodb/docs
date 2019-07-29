@@ -29,7 +29,7 @@ values. The parsing and transformation applied is directed by the analyzer
 The Analyzer implementations themselves are provided by the underlying
 [IResearch library](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}.
 Therefore their most common usecase for filter condition matching is with
-[ArangoSearch Views](views-arango-search.html).
+[ArangoSearch Views](arangosearch.html).
 However, Analyzers can be used as standalone helpers via the `TOKENS(...)`
 function, allowing a user to leverage the value transformation power of the
 Analyzer in any context where an AQL function can be used.
@@ -71,7 +71,7 @@ Currently the following *features* are supported:
 ## Analyzer usage
 
 For Analyzer usage in the context of ArangoSearch Views please see the section
-[ArangoSearch Views](views-arango-search.html).
+[ArangoSearch Views](arangosearch.html).
 
 The value transformation capabilities of a given analyzer can be invoked via
 the `TOKENS(...)` function to for example:

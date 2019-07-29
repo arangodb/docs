@@ -24,7 +24,7 @@ Usage
 Here follow some basic usage examples. More details can be found in the
 following chapters:
 
-- [ArangoSearch Views](views-arango-search.html)
+- [ArangoSearch Views](arangosearch.html)
 - [Database Methods for Views](data-modeling-views-database-methods.html)
 - [View Methods](data-modeling-views-view-methods.html)
 

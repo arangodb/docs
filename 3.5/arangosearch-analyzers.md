@@ -1,7 +1,7 @@
 ---
 layout: default
-description: To simplify query syntax ArangoSearch provides a concept of named analyzerswhich are merely aliases for type+configuration of IResearch analyzers
-redirect_from: /stable/analyzers.html
+description: To simplify query syntax ArangoSearch provides a concept of named analyzers which are merely aliases for type+configuration of IResearch analyzers
+redirect_from: /3.4/analyzers.html
 ---
 ArangoSearch Analyzers
 ======================

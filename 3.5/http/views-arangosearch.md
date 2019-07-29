@@ -1,12 +1,11 @@
 ---
 layout: default
-description: A natively integrated AQL extension that allows one to
-redirect_from: 3.4/http/views-arango-search.html
+description: HTTP interface to manage Views of type ArangoSearch
+title: ArangoSearch Views HTTP API
+redirect_from: /3.4/http/views-arango-search.html
 ---
 ArangoSearch View
 =================
-
-
 
 <!-- js/actions/api-view.js -->
 

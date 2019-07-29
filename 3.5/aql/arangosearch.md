@@ -1,7 +1,7 @@
 ---
 layout: default
 description: ArangoSearch Views in AQL
-redirect_from: /stable/aql/views-arango-search.html
+redirect_from: /3.4/aql/views-arango-search.html
 ---
 ArangoSearch Views in AQL
 =========================
@@ -102,7 +102,7 @@ FOR doc IN myView
 - This only applies to tests regarding documents emitted from a view. Other
   tests are not affected.
 - In order to use `SEARCH` using all attributes of a linked sources, the special
-  `includeAllFields` [link property](../views-arango-search-detailed-overview.html#link-properties)
+  `includeAllFields` [link property](../arangosearch-detailed-overview.html#link-properties)
   was designed.
 
 ### SORT
@@ -122,7 +122,7 @@ ranking by weighing sub-expressions in `SEARCH` differently.
 
 ### Arrays and trackListPositions
 
-Unless [**trackListPositions**](../views-arango-search-detailed-overview.html#link-properties)
+Unless [**trackListPositions**](../arangosearch-detailed-overview.html#link-properties)
 is set to `true`, which it is not by default, arrays behave differently. Namely
 they behave like a disjunctive superposition of their values - this is best
 shown with an example.

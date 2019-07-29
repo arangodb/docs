@@ -1,7 +1,7 @@
 ---
 layout: default
-description: DDL is a data
-redirect_from: /stable/views-arango-search-getting-started.html
+description: All DDL operations on Views can be done via JavaScript or REST calls.
+redirect_from: /3.4/views-arango-search-getting-started.html
 ---
 # Getting started with ArangoSearch Views
 

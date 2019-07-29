@@ -16,7 +16,7 @@ will be executed:
 
   All collection datafiles will be rewritten into a
   new data format. This data format is required in order to support using the collections
-  in [ArangoSearch Views](views-arango-search.html) introduced in ArangoDB 3.4. 
+  in [ArangoSearch Views](arangosearch.html) introduced in ArangoDB 3.4. 
 
   The conversion will read each datafile sequentially and write out a new datafile in the
   new format sequentially. This means the disk will be involved, but both reading and

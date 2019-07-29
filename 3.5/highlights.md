@@ -10,7 +10,7 @@ Version 3.4
 
 **All Editions**
 
-- [**ArangoSearch**](views-arango-search.html):
+- [**ArangoSearch**](arangosearch.html):
   Search and similarity ranking engine integrated natively into ArangoDB and
   AQL. ArangoSearch combines Boolean retrieval capabilities with generalized
   ranking algorithms (BM25, TFDIF). Support of e.g. relevance-based searching,

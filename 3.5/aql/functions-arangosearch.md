@@ -27,7 +27,7 @@ analyzer parameter. If an analyzer argument is passed to a nested function
 regardless, then it takes precedence over the analyzer set via `ANALYZER()`.
 
 - **expr** (expression): any valid search expression
-- **analyzer** (string): name of an [analyzer](../views-arango-search-analyzers.html)
+- **analyzer** (string): name of an [analyzer](../analyzers.html)
 - returns **err**: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
@@ -107,7 +107,7 @@ Match documents where the **doc.someAttr** exists in the document
  and is of the specified type.
 
 - **path** (attribute path): the path of the attribute to test in the document
-- **analyzer** (string): name of an [analyzer](../views-arango-search-analyzers.html)
+- **analyzer** (string): name of an [analyzer](../analyzers.html)
 - **type** (string): data type to test for, can be one of:
     - `"bool"`
     - `"boolean"`
@@ -171,7 +171,7 @@ The phrase can be expressed as an arbitrary number of *phraseParts* separated by
 - **phrasePart** (string): text to search for in the token stream; may consist of several
   words; will be split using the specified *analyzer*
 - **skipTokens** (number): amount of words or tokens to treat as wildcards
-- **analyzer** (string): name of an [analyzer](../views-arango-search-analyzers.html)
+- **analyzer** (string): name of an [analyzer](../analyzers.html)
 - returns **err**: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
@@ -210,7 +210,7 @@ statements with the **IN** operator. This can be used to better understand how
 the specific analyzer is going to behave.
 
 - **input** (string): text to tokenize
-- **analyzer** (string): name of an [analyzer](../views-arango-search-analyzers.html)
+- **analyzer** (string): name of an [analyzer](../analyzers.html)
 - returns **tokenArray** (array): array of strings, each element being a token
 
 Sorting Functions
@@ -221,7 +221,7 @@ Sorting Functions
 `BM25(doc, k, b) → score`
 
 Sorts documents using the [**Best Matching 25** algorithm](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}.
-See the [`BM25()` section in ArangoSearch Scorers](../views-arango-search-scorers.html)
+See the [`BM25()` section in ArangoSearch Scorers](../arangosearch-scorers.html)
 for details.
 
 - **doc** (document): must be emitted by `FOR doc IN someView`
@@ -240,7 +240,7 @@ for details.
 
 Sorts documents using the
 [**term frequency–inverse document frequency** algorithm](https://en.wikipedia.org/wiki/TF-IDF){:target="_blank"}.
-See the [`TFIDF()` section in ArangoSearch Scorers](../views-arango-search-scorers.html)
+See the [`TFIDF()` section in ArangoSearch Scorers](../arangosearch-scorers.html)
 for details.
 
 `TFIDF(doc, withNorms) → score`
@@ -298,7 +298,7 @@ functions.
 
 - *searchExpression* - any valid search expression
 - *analyzer* - string with the analyzer to imbue, i.e. *"text_en"* or one of the
-  other [available string analyzers](../views-arango-search-analyzers.html)
+  other [available string analyzers](../analyzers.html)
 
 By default, context contains `Identity` analyzer.
 
@@ -347,7 +347,7 @@ Match documents where the **doc.someAttr** exists in the document
 
 - *doc.someAttr* - the path of the attribute to exist in the document
 - *analyzer* - string with the analyzer used, i.e. *"text_en"* or one of the
-  other [available string analyzers](../views-arango-search-analyzers.html)
+  other [available string analyzers](../analyzers.html)
 - *type* - data type as string; one of:
     - **bool**
     - **boolean**
@@ -377,7 +377,7 @@ The phrase can be expressed as an arbitrary number of *phraseParts* separated by
 - *skipTokens* number of words or tokens to treat as wildcards
 - *analyzer* - string with the analyzer used, i.e. *"text_en"* or one of the
   other [available string analyzers
-  ](../views-arango-search-analyzers.html)
+  ](../analyzers.html)
 
 For example, given a document `doc` containing the text `"Lorem ipsum dolor sit
 amet, consectetur adipiscing elit"`, the following expression will be `true`:
@@ -410,7 +410,7 @@ Array. The resulting Array can i.e. be used in subsequent `FILTER` or `SEARCH`
 statements with the **IN** operator. This can be used to better understand how
 the specific analyzer is going to behave.
 - *input* string to tokenize
-- *analyzer* one of the [available string_analyzers](../views-arango-search-analyzers.html)
+- *analyzer* one of the [available string_analyzers](../analyzers.html)
 
 ### MIN_MATCH()
 
@@ -543,7 +543,7 @@ ArangoSearch Scorers are special functions that allow to sort documents from a
 view by their score regarding the analyzed fields.
 
 Details about their usage in AQL can be found in the
-[ArangoSearch `SORT` section](aql/views-arango-search.html#arangosearch-sorting).
+[ArangoSearch `SORT` section](aql/functions-arangosearch.html#arangosearch-sorting).
 
 - BM25: order results based on the [BM25 algorithm](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}
 
@@ -663,7 +663,7 @@ functions known as BM11 (for *b* = `1`,  corresponds to fully scaling the term w
 the total text length) and BM15 (for *b* = `0`, corresponds to no length normalization)
 
 Sorts documents using the [**Best Matching 25** algorithm](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}.
-See the [`BM25()` section in ArangoSearch Scorers](../views-arango-search-scorers.html)
+See the [`BM25()` section in ArangoSearch Scorers](../arangosearch-scorers.html)
 for details.
 
 ### TFIDF()
@@ -677,7 +677,7 @@ for details.
 Sorts documents using the
 [**term frequency–inverse document frequency** algorithm](https://en.wikipedia.org/wiki/TF-IDF){:target="_blank"}.
 See the
-[`TFIDF()` section in ArangoSearch Scorers](../views-arango-search-scorers.html)
+[`TFIDF()` section in ArangoSearch Scorers](../arangosearch-scorers.html)
 for details.
 
 

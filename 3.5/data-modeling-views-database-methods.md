@@ -65,16 +65,14 @@ Creates a new view named *view-name* of type *view-type* with properties
 
 *view-name* is a string and the name of the view. No view or collection with the
 same name may already exist in the current database. For more information on
-valid view names please refer to the [naming conventions
-](data-modeling-naming-conventions.html).
+valid view names please refer to the [naming conventions](data-modeling-naming-conventions.html).
 
 *view-type* must be the string `"arangosearch"`, as it is currently the only
 supported view type.
 
 *view-properties* is an optional object containing view configuration specific
 to each view-type. Currently, only ArangoSearch Views are supported. See
-[ArangoSearch View definition
-](views-arango-search-detailed-overview.html#view-definitionmodification) for
+[ArangoSearch View definition](arangosearch-detailed-overview.html#view-definitionmodification) for
 details.
 
 **Examples**

@@ -864,7 +864,7 @@ It can help to better understand how the specific analyzer is going to behave.
 
 - **input** (string): text to tokenize
 - **analyzer** (string): one of the available
-  [ArangoSearch string analyzers](../views-arango-search-analyzers.html)
+  [ArangoSearch string analyzers](../analyzers.html)
 - returns **strArray** (array): array of strings, each element being a token
 
 

@@ -136,9 +136,9 @@ boolean parameter (`true` by default) that determines how
 updates *view-property-modification* properties to current if `true` and, 
 additionally, removes all other properties if `false`).
 
-Currently, the only supported view type is `arangosearch`, and its properties
+Currently, the only supported View type is `arangosearch`, and its properties
 can be found in
-[](views-arango-search-detailed-overview.html#view-properties).
+[ArangoSearch Detailed Overview](arangosearch-detailed-overview.html#view-properties).
 
 **Examples**
 

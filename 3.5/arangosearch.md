@@ -2,7 +2,7 @@
 layout: default
 description: ArangoSearch is a C++ based full-text search engine including similarity ranking capabilities natively integrated into ArangoDB.
 title: ArangoSearch - Integrated Full-text Search Engine
-redirect_from: /stable/views-arango-search.html
+redirect_from: /3.4/views-arangosearch.html
 ---
 # ArangoSearch
 
@@ -91,7 +91,7 @@ the behavior of the engine.
 ## Using ArangoSearch Views
 
 To get more familiar with ArangoSearch usage, you may start with
-[Getting Started](views-arango-search-getting-started.html) simple guide and then explore details of
-ArangoSearch in [Detailed Overview](views-arango-search-detailed-overview.html),
-[Analyzers](views-arango-search-analyzers.html) and
-[Scorers](views-arango-search-scorers.html) topics.
+[Getting Started](arangosearch-getting-started.html) simple guide and then explore details of
+ArangoSearch in [Detailed Overview](arangosearch-detailed-overview.html),
+[Analyzers](analyzers.html) and
+[Scorers](arangosearch-scorers.html) topics.
