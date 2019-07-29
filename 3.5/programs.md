@@ -12,8 +12,9 @@ The full ArangoDB package ships with the following programs and tools:
 | `arangod`       | [ArangoDB server](programs-arangod.html). This server program is intended to run as a daemon process / service to serve the various client connections to the server via TCP / HTTP. It also provides a [web interface](programs-web-interface.html).
 | `arangosh`      | [ArangoDB shell](programs-arangosh.html). A client that implements a read-eval-print loop (REPL) and provides functions to access and administrate the ArangoDB server.
 | `arangodb`      | [ArangoDB Starter](programs-starter.html) for easy deployment of ArangoDB instances.
-| `arangodump`    | Tool to [create backups](programs-arangodump.html) of an ArangoDB database.
+| `arangodump`    | Tool to [create dumps](programs-arangodump.html) of an ArangoDB database.
 | `arangorestore` | Tool to [load backups](programs-arangorestore.html) back into an ArangoDB database.
+| `arangobackup`  | Tool to [perform backup operations](programs-arangobackup.html) on an ArangoDB installation.
 | `arangoimport`  | [Bulk importer](programs-arangoimport.html) for the ArangoDB server. It supports JSON and CSV.
 | `arangoexport`  | [Bulk exporter](programs-arangoexport.html) for the ArangoDB server. It supports JSON, CSV and XML.
 | `arango-dfdb`   | [Datafile debugger](programs-arango-dfdb.html) for ArangoDB (MMFiles storage engine only).
@@ -28,6 +29,7 @@ The client package comes with a subset of programs and tools:
 - arangoexport
 - arangodump
 - arangorestore
+- arangobackup
 - arangobench
 - arangoinspect
 - arangovpack
