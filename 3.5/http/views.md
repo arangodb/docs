@@ -59,11 +59,3 @@ For example: Assume that the view identifier is *7254820* and
 the view name is *demo*, then the URL of that view is:
 
     http://localhost:8529/_api/view/demo
-
-### View Operations
-
-A view instance may be:
-* [Created](views-creating.html)
-* [Retrieved](views-getting.html)
-* [Modified](views-modifying.html)
-* [Deleted](views-dropping.html)
