@@ -1,12 +1,13 @@
 ---
 layout: default
-description: HTTP Interface for Analyzers
+description: HTTP interface for Analyzers
+title: Analyzers HTTP API
 ---
 HTTP Interface for Analyzers
 ============================
 
-The REST API is accessible via the `/_api/analyzer` endpoint URL callable via
-HTTP requests.
+The RESTful API is accessible via the `/_api/analyzer` endpoint and callable
+via HTTP requests.
 
 Analyzer Operations
 -------------------

@@ -11,87 +11,34 @@ into ArangoDB and with support for all data models. It is primarily a
 full-text search engine, a much more powerful alternative to the
 [full-text index](indexing-fulltext.html) type.
 
-ArangoSearch introduces the concept of Views which can be seen as virtual
-collections. Each View represents an inverted index to provide fast
+ArangoSearch introduces the concept of **Views** which can be seen as
+virtual collections. Each View represents an inverted index to provide fast
 full-text searching over one or multiple linked collections and holds the
 configuration for the search capabilities, such as the attributes to index.
 It can cover multiple or even all attributes of the documents in the linked
-collections.
+collections. Search results can be sorted by their similarity ranking to
+return the best matches first using popular scoring algorithms.
 
-Views can be used in AQL queries to:
-- filter documents based on Boolean expressions and functions
-- join documents located in different collections to one result list
-- sort the result set based on how closely each document matched the filter
+Configurable **Analyzers** are available for text processing, such as for
+tokenization, language-specific word stemming, case conversion, removal of
+diacritical marks (accents) from characters and more. Analyzers can be used
+standalone or in combination with Views for sophisticated searching.
 
-Search results can be sorted by their similarity ranking to return the best
-matches first using popular scoring algorithms. 
+Example use cases:
+- Perform federated full-text searches over product descriptions for a
+  web shop, with the product documents stored in various collections.
+- Find information in a research database using stemmed phrases, case and
+  accent insensitive, with irrelevant terms removed from the search index
+  (stop word filtering), ranked by relevance based on term frequency (TFIDF).
+- Query a movie dataset for titles with certain words close to one another
+  (token proximity) and sort the results by best matching (BM25) but favor
+  movies with a longer duration.
 
-Configurable analyzers are available for text processing, such as tokenization,
-language-specific word stemming, case conversion, removal of accented characters
-and more. 
+The ArangoSearch features are integrated into AQL as
+[`SEARCH` operation](aql/operations-search.html) and a set of
+[AQL functions](aql/functions-arangosearch.html).
 
-
-- Federated searches over a set of collections
-
-
-A natively integrated AQL extension that allows one to:
- * evaluate together documents located in different collections
- * search documents based on AQL boolean expressions and functions
- * sort the result set based on how closely each document matched the search condition
-
-
-[IResearch library](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}
-written in C++ and natively integrated into ArangoDB.
-
-including text
- capabilities
-
-
-
-## What is ArangoSearch
-
-ArangoSearch is a natively integrated AQL extension making use of the
-.
-
-- join documents located in different collections to one result list
-- filter documents based on AQL boolean expressions and functions
-- sort the result set based on how closely each document matched the filter
-
-A concept of value "analysis" that is meant to break up a given value into
-a set of sub-values internally tied together by metadata which influences both
-the search and sort stages to provide the most appropriate match for the
-specified conditions, similar to queries to web search engines.
-
-In plain terms this means a user can for example:
-
-- request documents where the `body` attribute best matches `a quick brown fox`
-- request documents where the `dna` attribute best matches a DNA sub sequence
-- request documents where the `name` attribute best matches gender
-- etc. (via custom analyzers)
-
-See the [Analyzers](analyzers.html) for a detailed description of
-usage and management of custom analyzers.
-
-### The IResearch Library
-
-IResearch s a cross-platform open source indexing and searching engine written in C++,
-optimized for speed and memory footprint, with source available from:
-https://github.com/iresearch-toolkit/iresearch
-
-IResearch is the framework for indexing, filtering and sorting of data.
-The indexing stage can treat each data item as an atom or use custom "analyzers"
-to break the data item into sub-atomic pieces tied together with internally
-tracked metadata.
-
-The IResearch framework in general can be further extended at runtime with
-custom implementations of analyzers (used during the indexing and searching
-stages) and scorers (used during the sorting stage) allowing full control over
-the behavior of the engine.
-
-## Using ArangoSearch Views
-
-To get more familiar with ArangoSearch usage, you may start with
-[Getting Started](arangosearch-getting-started.html) simple guide and then explore details of
-ArangoSearch in [Detailed Overview](arangosearch-detailed-overview.html),
-[Analyzers](analyzers.html) and
-[Scorers](arangosearch-scorers.html) topics.
+Views can be managed in the Web UI, via an [HTTP API](http/views.html) and
+through a [JavaScript API](data-modeling-views-database-methods.html).
+Analyzers can be managed via an [HTTP API](http/analyzers.html) and through
+a [JavaScript module](appendix-java-script-modules-analyzers.html).
