@@ -3,6 +3,7 @@ layout: default
 ---
 # Security
 
+- [Security Options](security-security-options.html)
 - [Change Root Password](security-change-root-password.html)
 - [Encryption at Rest](security-encryption.html)
 - [Auditing](security-auditing.html)
