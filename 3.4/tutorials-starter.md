@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Starting an ArangoDB cluster involves starting various servers withdifferent roles (agents, dbservers & coordinators)
+description: Starting an ArangoDB cluster involves starting various servers with different roles (agents, dbservers & coordinators)
 ---
 
 # Starting an ArangoDB cluster or database the easy way
@@ -123,7 +123,7 @@ docker run -it --name=adb --rm -p 8528:8528 \
     --starter.join=A,B,C
 ```
 
-Note that the enviroment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
+Note that the environment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
 as well as the additional mountpoint containing the certificate have been added above. 
 directory. The assignment of `DOCKER_CERT_PATH` is optional, in which case it 
 is mandatory that the certificates are stored in `$HOME/.docker`. So
