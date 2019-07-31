@@ -1,13 +1,12 @@
 ---
 layout: default
-description: arangod provides a variety of options to make a setup more secure
+description: arangod provides options to make a setup more secure
 ---
 # Server security options
 
-_arangod_ provides a variety of options to make a setup more secure. 
+_arangod_ provides options to make a setup more secure.
 Administrators can use these options to limit access to certain ArangoDB
-server functionality as well as providing the leakage of information about
-the environment that a server is running in.
+server functionality.
 
 ## Security options for managing Foxx applications
 
@@ -26,4 +25,3 @@ in an ArangoDB server:
   application Github repository at
   [github.com/arangodb/foxx-apps](https://github.com/arangodb/foxx-apps){:target="_blank"}.
   The default value is `true`.
-
