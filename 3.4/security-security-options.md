@@ -10,6 +10,8 @@ server functionality.
 
 ## Security options for managing Foxx applications
 
+_Introduced in: v3.4.8_
+
 The following options are available for controlling the installation of Foxx applications
 in an ArangoDB server:
 
