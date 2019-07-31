@@ -223,6 +223,16 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
 {% include aqlexample.html id=examplevar query=query bind=bind result=result %}
 ```
 
+## Troubleshooting
+
+- > Liquid Exception: No title found for /x.x/xxx.html. Maybe you forgot to
+  > link it to the navigation? in /_layouts/default.html
+  
+  Jekyll points you to the wrong file. `_layouts/default.html` should be fine.
+  Jekyll has no native support for navigation menus. `_plugins/NavigationTag.rb`
+  is a custom plugin to generate the left-hand side navigation from
+  `_data/<version>-<book>.yml`. You probably forgot to add your new page there.
+
 ## CI/Netlify
 
 For the CI process we are currently using Netlify. This service has been built
