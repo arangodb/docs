@@ -49,25 +49,37 @@ python -m http.server
 
 In the root directory the directories represent the individual versions and their full documentation.
 
-The core manual of the version will be in the root e.g. `3.4/*.md`. The submanuals (AQL, Cookbook etc.)
-will have their own directory in there.
+The core book (Manual) of the version will be in the root e.g. `3.4/*.md`.
+The sub-books (AQL, Cookbook etc.) will have their own directory in there.
 
-The organisation of documents is **flat**, namely there are no subdirectories per manual
-(as opposed to the old manual).
+The organisation of documents is **flat**, namely there are no subdirectories per book
+(as opposed to the old documentation system).
 
 ### Navigation
 
-Each manual has a nav tree represented as a tree in JSON. This is being read by the NavigationTag plugin to
-create the navigation on the left hand side.
+Each book has a navigation tree represented as a nested data structure in YAML.
+This is being read by the NavigationTag plugin to create the navigation on the left-hand side.
 
-The JSON file for a manual can be found here: `_data/<version>-<manual>.json`.
-So the 3.4 aql navigation will be `_data/3.4-aql.json`
+The YAML file for a book can be found here: `_data/<version>-<book>.yml`.
+For example, the 3.4 AQL navigation is defined by `_data/3.4-aql.yml`.
 
 ### Adding a page
 
-Start off by adding the page to the Navigation.
+Start off by adding the page to the navigation. Assume we want to add a new AQL keyword
+to the list of operations, above the FOR language construct and the page we want to add
+will be `aql/operations-create.md`:
 
-Then create a markdown document and add the following frontmatter section:
+```diff
+ - text: High level Operations
+   href: operations.html
+   children:
++    - text: CREATE
++      href: operations-create.html
+     - text: FOR
+       href: operations-for.html
+```
+
+Then create the Markdown document and add the following frontmatter section:
 
 ```
 ---
@@ -76,7 +88,7 @@ description: A meaningful description of the page
 ---
 ```
 
-Then go ahead and edit you markdown.
+Add the actual content below the frontmatter.
 
 ### When adding a new release
 
