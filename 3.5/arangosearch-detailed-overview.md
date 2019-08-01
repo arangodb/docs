@@ -3,6 +3,52 @@ layout: default
 description: ArangoSearch is a powerful fulltext search component with additional functionality, supported via the text analyzer and tfidf / bm25 scorers, without impact on performance when specifying documents from different collections or filtering on multiple document attributes
 redirect_from: /3.4/views-arango-search-detailed-overview.html
 ---
+# Detailed overview of ArangoSearch Views
+
+ArangoSearch is a powerful fulltext search component with additional
+functionality, supported via the *text* analyzer and *tfidf* / *bm25*
+[scorers](arangosearch-scorers.html), without impact on performance when specifying documents
+from different collections or filtering on multiple document attributes.
+
+## View datasource
+
+Search functionality is exposed to ArangoDB via the view API for views of type
+`arangosearch`. The ArangoSearch View is merely an identity transformation
+applied onto documents stored in linked collections of the same ArangoDB
+database. In plain terms an ArangoSearch View only allows filtering and sorting
+of documents located in collections of the same database. The matching documents
+themselves are returned as-is from their corresponding collections.
+
+## Links to ArangoDB collections
+
+A concept of an ArangoDB collection 'link' is introduced to allow specifying
+which ArangoDB collections a given ArangoSearch View should query for documents
+and how these documents should be queried.
+
+An ArangoSearch Link is a uni-directional connection from an ArangoDB collection
+to an ArangoSearch View describing how data coming from the said collection
+should be made available in the given view. Each ArangoSearch Link in an
+ArangoSearch view is uniquely identified by the name of the ArangoDB collection
+it links to. An ArangoSearch View may have zero or more links, each to a
+distinct ArangoDB collection. Similarly an ArangoDB collection may be referenced
+via links by zero or more distinct ArangoSearch Views. In other words, any given
+ArangoSearch View may be linked to any given ArangoDB collection of the same
+database with zero or one link. However, any ArangoSearch View may be linked to
+multiple distinct ArangoDB collections and similarly any ArangoDB collection may
+be referenced by multiple ArangoSearch Views.
+
+To configure an ArangoSearch View for consideration of documents from a given
+ArangoDB collection a link definition must be added to the properties of the
+said ArangoSearch View defining the link parameters as per the section
+[View definition/modification](#view-definitionmodification).
+
+## Index
+
+Inverted Index is the heart of ArangoSearch. The index consists of several
+independent segments and the index segment itself is meant to be treated as a
+standalone index.
+
+
 
 
 
@@ -90,50 +136,7 @@ the behavior of the engine.
 
 
 
-# Detailed overview of ArangoSearch Views
 
-ArangoSearch is a powerful fulltext search component with additional
-functionality, supported via the *text* analyzer and *tfidf* / *bm25*
-[scorers](arangosearch-scorers.html), without impact on performance when specifying documents
-from different collections or filtering on multiple document attributes.
-
-## View datasource
-
-Search functionality is exposed to ArangoDB via the view API for views of type
-`arangosearch`. The ArangoSearch View is merely an identity transformation
-applied onto documents stored in linked collections of the same ArangoDB
-database. In plain terms an ArangoSearch View only allows filtering and sorting
-of documents located in collections of the same database. The matching documents
-themselves are returned as-is from their corresponding collections.
-
-## Links to ArangoDB collections
-
-A concept of an ArangoDB collection 'link' is introduced to allow specifying
-which ArangoDB collections a given ArangoSearch View should query for documents
-and how these documents should be queried.
-
-An ArangoSearch Link is a uni-directional connection from an ArangoDB collection
-to an ArangoSearch View describing how data coming from the said collection
-should be made available in the given view. Each ArangoSearch Link in an
-ArangoSearch view is uniquely identified by the name of the ArangoDB collection
-it links to. An ArangoSearch View may have zero or more links, each to a
-distinct ArangoDB collection. Similarly an ArangoDB collection may be referenced
-via links by zero or more distinct ArangoSearch Views. In other words, any given
-ArangoSearch View may be linked to any given ArangoDB collection of the same
-database with zero or one link. However, any ArangoSearch View may be linked to
-multiple distinct ArangoDB collections and similarly any ArangoDB collection may
-be referenced by multiple ArangoSearch Views.
-
-To configure an ArangoSearch View for consideration of documents from a given
-ArangoDB collection a link definition must be added to the properties of the
-said ArangoSearch View defining the link parameters as per the section
-[View definition/modification](#view-definitionmodification).
-
-## Index
-
-Inverted Index is the heart of ArangoSearch. The index consists of several
-independent segments and the index segment itself is meant to be treated as a
-standalone index.
 
 ## Analyzers
 
