@@ -72,7 +72,7 @@ supported view type.
 
 *view-properties* is an optional object containing view configuration specific
 to each view-type. Currently, only ArangoSearch Views are supported. See
-[ArangoSearch View definition](arangosearch-detailed-overview.html#view-definitionmodification) for
+[ArangoSearch View definition](arangosearch-views.html#view-definitionmodification) for
 details.
 
 **Examples**

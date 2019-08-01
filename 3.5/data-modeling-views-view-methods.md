@@ -138,7 +138,7 @@ additionally, removes all other properties if `false`).
 
 Currently, the only supported View type is `arangosearch`, and its properties
 can be found in
-[ArangoSearch Detailed Overview](arangosearch-detailed-overview.html#view-properties).
+[ArangoSearch Detailed Overview](arangosearch-views.html#view-properties).
 
 **Examples**
 
