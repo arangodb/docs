@@ -7,7 +7,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65495"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Aberdeen"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6om--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8NK--A"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.5</span> 
       }, 
       { 
@@ -15,7 +15,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65499"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oq--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8NO---"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.5</span> 
       }, 
       { 
@@ -23,7 +23,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65507"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/York"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oy---"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8NS--A"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">3.5</span> 
       }, 
       { 
@@ -31,7 +31,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65531"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/York"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/London"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6pG--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8Ni--C"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.8</span> 
       } 
     ], 
@@ -39,31 +39,31 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Aberdeen"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Aberdeen"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oG---"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8My---"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Aberdeen"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Leuchars"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oG--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8My--A"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Leuchars"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Edinburgh"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oK--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8M2---"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Edinburgh"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"York"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/York"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oO--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8M2--C"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"York"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"London"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/London"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oS--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8M6--C"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"London"</span> 
       } 
     ], 
@@ -76,7 +76,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65495"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Aberdeen"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6om--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8NK--A"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.5</span> 
       }, 
       { 
@@ -84,7 +84,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65499"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oq--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8NO---"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.5</span> 
       }, 
       { 
@@ -92,7 +92,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65507"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/York"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oy---"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8NS--A"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">3.5</span> 
       }, 
       { 
@@ -100,7 +100,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65517"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/York"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Carlisle"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6o6--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8Na---"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">3.5</span> 
       }, 
       { 
@@ -108,7 +108,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65519"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Carlisle"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Birmingham"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6o6--C"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8Na--A"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">2</span> 
       }, 
       { 
@@ -116,7 +116,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65523"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Birmingham"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/London"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6p---A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8Ne---"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.5</span> 
       } 
     ], 
@@ -124,43 +124,43 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Aberdeen"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Aberdeen"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oG---"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8My---"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Aberdeen"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Leuchars"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oG--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8My--A"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Leuchars"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Edinburgh"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oK--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8M2---"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Edinburgh"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"York"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/York"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oO--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8M2--C"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"York"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Carlisle"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Carlisle"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oO--C"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8M6---"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Carlisle"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Birmingham"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Birmingham"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oS---"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8M6--A"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Birmingham"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"London"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/London"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oS--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8M6--C"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"London"</span> 
       } 
     ], 
@@ -173,7 +173,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65495"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Aberdeen"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6om--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8NK--A"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.5</span> 
       }, 
       { 
@@ -181,7 +181,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65499"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oq--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8NO---"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.5</span> 
       }, 
       { 
@@ -189,7 +189,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65503"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Glasgow"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6ou---"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8NO--C"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1</span> 
       }, 
       { 
@@ -197,7 +197,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65511"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Glasgow"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/Carlisle"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6o2---"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8NW---"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1</span> 
       }, 
       { 
@@ -205,7 +205,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65515"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/Carlisle"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/York"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6o6---"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8NW--C"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">2.5</span> 
       }, 
       { 
@@ -213,7 +213,7 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/65531"</span>, 
         <span class="hljs-string">"_from"</span> : <span class="hljs-string">"places/York"</span>, 
         <span class="hljs-string">"_to"</span> : <span class="hljs-string">"places/London"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6pG--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8Ni--C"</span>, 
         <span class="hljs-string">"travelTime"</span> : <span class="hljs-number">1.8</span> 
       } 
     ], 
@@ -221,43 +221,43 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR p IN OUTBOUND K_SHORTEST_P
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Aberdeen"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Aberdeen"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oG---"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8My---"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Aberdeen"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Leuchars"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Leuchars"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oG--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8My--A"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Leuchars"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Edinburgh"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Edinburgh"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oK--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8M2---"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Edinburgh"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Glasgow"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Glasgow"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oO---"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8M2--A"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Glasgow"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Carlisle"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/Carlisle"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oO--C"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8M6---"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"Carlisle"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"York"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/York"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oO--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8M2--C"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"York"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"London"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"places/London"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCVk6oS--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZCqg8M6--C"</span>, 
         <span class="hljs-string">"label"</span> : <span class="hljs-string">"London"</span> 
       } 
     ], 
