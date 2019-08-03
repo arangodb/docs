@@ -1,0 +1,87 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_admin/cluster/health</span>
+
+HTTP/<span class="hljs-number">1.1</span> OK
+content-type: application/json; charset=utf<span class="hljs-number">-8</span>
+keep-alive: timeout=<span class="hljs-number">300</span>
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">"Health"</span> : { 
+    <span class="hljs-string">"CRDN-d4b37be3-edf9-445b-b8c3-05b30800e92a"</span> : { 
+      <span class="hljs-string">"SyncTime"</span> : <span class="hljs-string">"2019-08-03T08:12:26Z"</span>, 
+      <span class="hljs-string">"Engine"</span> : <span class="hljs-string">"rocksdb"</span>, 
+      <span class="hljs-string">"Timestamp"</span> : <span class="hljs-string">"2019-08-03T08:12:27Z"</span>, 
+      <span class="hljs-string">"SyncStatus"</span> : <span class="hljs-string">"SERVING"</span>, 
+      <span class="hljs-string">"Host"</span> : <span class="hljs-string">"127.0.0.1"</span>, 
+      <span class="hljs-string">"LastAckedTime"</span> : <span class="hljs-string">"2019-08-03T08:12:27Z"</span>, 
+      <span class="hljs-string">"Version"</span> : <span class="hljs-string">"3.6.0-devel"</span>, 
+      <span class="hljs-string">"Endpoint"</span> : <span class="hljs-string">"tcp://127.0.0.1:12351"</span>, 
+      <span class="hljs-string">"Status"</span> : <span class="hljs-string">"GOOD"</span>, 
+      <span class="hljs-string">"ShortName"</span> : <span class="hljs-string">"Coordinator0001"</span>, 
+      <span class="hljs-string">"Role"</span> : <span class="hljs-string">"Coordinator"</span>, 
+      <span class="hljs-string">"CanBeDeleted"</span> : <span class="hljs-literal">false</span> 
+    }, 
+    <span class="hljs-string">"PRMR-3945e605-9917-44f6-95f7-076ec8e57a81"</span> : { 
+      <span class="hljs-string">"SyncTime"</span> : <span class="hljs-string">"2019-08-03T08:12:26Z"</span>, 
+      <span class="hljs-string">"Engine"</span> : <span class="hljs-string">"rocksdb"</span>, 
+      <span class="hljs-string">"Timestamp"</span> : <span class="hljs-string">"2019-08-03T08:12:27Z"</span>, 
+      <span class="hljs-string">"SyncStatus"</span> : <span class="hljs-string">"SERVING"</span>, 
+      <span class="hljs-string">"Host"</span> : <span class="hljs-string">"127.0.0.1"</span>, 
+      <span class="hljs-string">"LastAckedTime"</span> : <span class="hljs-string">"2019-08-03T08:12:27Z"</span>, 
+      <span class="hljs-string">"Version"</span> : <span class="hljs-string">"3.6.0-devel"</span>, 
+      <span class="hljs-string">"Endpoint"</span> : <span class="hljs-string">"tcp://127.0.0.1:5955"</span>, 
+      <span class="hljs-string">"Status"</span> : <span class="hljs-string">"GOOD"</span>, 
+      <span class="hljs-string">"ShortName"</span> : <span class="hljs-string">"DBServer0002"</span>, 
+      <span class="hljs-string">"Role"</span> : <span class="hljs-string">"DBServer"</span>, 
+      <span class="hljs-string">"CanBeDeleted"</span> : <span class="hljs-literal">false</span> 
+    }, 
+    <span class="hljs-string">"PRMR-6a882e58-8752-40a5-bdac-3e34ce4391c7"</span> : { 
+      <span class="hljs-string">"SyncTime"</span> : <span class="hljs-string">"2019-08-03T08:12:26Z"</span>, 
+      <span class="hljs-string">"Engine"</span> : <span class="hljs-string">"rocksdb"</span>, 
+      <span class="hljs-string">"Timestamp"</span> : <span class="hljs-string">"2019-08-03T08:12:27Z"</span>, 
+      <span class="hljs-string">"SyncStatus"</span> : <span class="hljs-string">"SERVING"</span>, 
+      <span class="hljs-string">"Host"</span> : <span class="hljs-string">"127.0.0.1"</span>, 
+      <span class="hljs-string">"LastAckedTime"</span> : <span class="hljs-string">"2019-08-03T08:12:27Z"</span>, 
+      <span class="hljs-string">"Version"</span> : <span class="hljs-string">"3.6.0-devel"</span>, 
+      <span class="hljs-string">"Endpoint"</span> : <span class="hljs-string">"tcp://127.0.0.1:6465"</span>, 
+      <span class="hljs-string">"Status"</span> : <span class="hljs-string">"GOOD"</span>, 
+      <span class="hljs-string">"ShortName"</span> : <span class="hljs-string">"DBServer0001"</span>, 
+      <span class="hljs-string">"Role"</span> : <span class="hljs-string">"DBServer"</span>, 
+      <span class="hljs-string">"CanBeDeleted"</span> : <span class="hljs-literal">false</span> 
+    }, 
+    <span class="hljs-string">"AGNT-f025b87d-ee74-4315-a606-b196bbcadcdf"</span> : { 
+      <span class="hljs-string">"Endpoint"</span> : <span class="hljs-string">"tcp://127.0.0.1:28667"</span>, 
+      <span class="hljs-string">"Role"</span> : <span class="hljs-string">"Agent"</span>, 
+      <span class="hljs-string">"CanBeDeleted"</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">"Version"</span> : <span class="hljs-string">"3.6.0-devel"</span>, 
+      <span class="hljs-string">"Engine"</span> : <span class="hljs-string">"rocksdb"</span>, 
+      <span class="hljs-string">"Leader"</span> : <span class="hljs-string">"AGNT-06ea10cc-8bf9-4773-8358-d566cfc3fd1b"</span>, 
+      <span class="hljs-string">"Status"</span> : <span class="hljs-string">"GOOD"</span>, 
+      <span class="hljs-string">"LastAckedTime"</span> : <span class="hljs-number">0.009000000000000001</span> 
+    }, 
+    <span class="hljs-string">"AGNT-70b4a530-9f40-48c4-8fcd-58018eb49874"</span> : { 
+      <span class="hljs-string">"Endpoint"</span> : <span class="hljs-string">"tcp://127.0.0.1:26481"</span>, 
+      <span class="hljs-string">"Role"</span> : <span class="hljs-string">"Agent"</span>, 
+      <span class="hljs-string">"CanBeDeleted"</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">"Version"</span> : <span class="hljs-string">"3.6.0-devel"</span>, 
+      <span class="hljs-string">"Engine"</span> : <span class="hljs-string">"rocksdb"</span>, 
+      <span class="hljs-string">"Leader"</span> : <span class="hljs-string">"AGNT-06ea10cc-8bf9-4773-8358-d566cfc3fd1b"</span>, 
+      <span class="hljs-string">"Status"</span> : <span class="hljs-string">"GOOD"</span>, 
+      <span class="hljs-string">"LastAckedTime"</span> : <span class="hljs-number">0.009000000000000001</span> 
+    }, 
+    <span class="hljs-string">"AGNT-06ea10cc-8bf9-4773-8358-d566cfc3fd1b"</span> : { 
+      <span class="hljs-string">"Endpoint"</span> : <span class="hljs-string">"tcp://127.0.0.1:27911"</span>, 
+      <span class="hljs-string">"Role"</span> : <span class="hljs-string">"Agent"</span>, 
+      <span class="hljs-string">"CanBeDeleted"</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">"Version"</span> : <span class="hljs-string">"3.6.0-devel"</span>, 
+      <span class="hljs-string">"Engine"</span> : <span class="hljs-string">"rocksdb"</span>, 
+      <span class="hljs-string">"Leader"</span> : <span class="hljs-string">"AGNT-06ea10cc-8bf9-4773-8358-d566cfc3fd1b"</span>, 
+      <span class="hljs-string">"Leading"</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">"LastAckedTime"</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">"Status"</span> : <span class="hljs-string">"GOOD"</span> 
+    } 
+  }, 
+  <span class="hljs-string">"ClusterId"</span> : <span class="hljs-string">"512083c2-8461-4199-99c4-23906aba6d18"</span>, 
+  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span> 
+}

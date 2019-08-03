@@ -1,0 +1,26 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/upload</span> &lt;&lt;EOF
+{ 
+  <span class="hljs-string">"uploadId"</span> : <span class="hljs-string">"68520"</span> 
+}
+EOF
+
+HTTP/<span class="hljs-number">1.1</span> OK
+content-type: application/json; charset=utf<span class="hljs-number">-8</span>
+keep-alive: timeout=<span class="hljs-number">300</span>
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">"result"</span> : { 
+    <span class="hljs-string">"Timestamp"</span> : <span class="hljs-string">"2019-08-03T08:11:50Z"</span>, 
+    <span class="hljs-string">"UploadId"</span> : <span class="hljs-string">"68520"</span>, 
+    <span class="hljs-string">"Cancelled"</span> : <span class="hljs-literal">false</span>, 
+    <span class="hljs-string">"BackupId"</span> : <span class="hljs-string">"2019-08-03T08.11.50Z_af153c3e-3fda-4347-98d3-4ceaaa89c3cc"</span>, 
+    <span class="hljs-string">"DBServers"</span> : { 
+      <span class="hljs-string">"SNGL"</span> : { 
+        <span class="hljs-string">"Status"</span> : <span class="hljs-string">"STARTED"</span> 
+      } 
+    } 
+  } 
+}
