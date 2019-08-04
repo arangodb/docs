@@ -283,7 +283,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 33253000192,
+    "default" : 16341557248,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -900,6 +900,23 @@
     "section" : "",
     "type" : "boolean"
   },
+  "foxx.api" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "enables Foxx management REST APIs",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.8",
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "foxx",
+    "type" : "boolean"
+  },
   "foxx.queues" : {
     "category" : "option",
     "default" : true,
@@ -927,6 +944,23 @@
     "requiresValue" : true,
     "section" : "foxx",
     "type" : "double"
+  },
+  "foxx.store" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "enables Foxx store in web interface",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.8",
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "foxx",
+    "type" : "boolean"
   },
   "frontend.proxy-request-check" : {
     "category" : "option",
@@ -2386,7 +2420,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 39903600230,
+    "default" : 19609868697,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -2851,7 +2885,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 53204800307,
+    "default" : 26146491596,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
