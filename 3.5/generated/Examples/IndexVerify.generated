@@ -8,7 +8,7 @@ arangosh&gt; db.example.ensureIndex({ <span class="hljs-attr">type</span>: <span
   ], 
   <span class="hljs-string">"id"</span> : <span class="hljs-string">"example/68395"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1640904238929281024"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1640992106592862208"</span>, 
   <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"skiplist"</span>, 
@@ -27,7 +27,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type       Collection   Unique   Sparse   Selectivity   Fields         Ranges
-  <span class="hljs-number">6</span>   idx_1640904238929281024   skiplist   example      <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>       <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`a`</span>, <span class="hljs-string">`b`</span> ]   (doc.<span class="hljs-string">`a`</span> &lt; <span class="hljs-number">23</span>)
+  <span class="hljs-number">6</span>   idx_1640992106592862208   skiplist   example      <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>       <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`a`</span>, <span class="hljs-string">`b`</span> ]   (doc.<span class="hljs-string">`a`</span> &lt; <span class="hljs-number">23</span>)
 
 Optimization rules applied:
  Id   RuleName
