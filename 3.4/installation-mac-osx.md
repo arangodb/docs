@@ -1,6 +1,6 @@
 ---
 layout: default
-description: ArangoDB under macOS can be installed via
+description: ArangoDB under macOS can be installed via Homebrew, DMG Package or tar.gz Archive
 ---
 Installing ArangoDB on macOS
 ============================
