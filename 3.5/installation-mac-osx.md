@@ -36,10 +36,13 @@ dependencies within your Homebrew tree. Note that the server will be
 installed as:
 
 ```
-/usr/local/Cellar/arangodb/3.4.0/sbin/arangod
+/usr/local/Cellar/arangodb/<VERSION>/sbin/arangod
 ```
 
-You can start the server by running the command `/usr/local/Cellar/arangodb/3.4.0/sbin/arangod &`.
+`<VERSION>` is a placeholder for the actual version, e.g. `3.5.0`.
+
+You can start the server by running the command
+`/usr/local/Cellar/arangodb/<VERSION>/sbin/arangod &`.
 
 Configuration file is located at
 
@@ -48,7 +51,7 @@ Configuration file is located at
 The ArangoDB shell will be installed as:
 
 ```
-/usr/local/Cellar/arangodb/3.4.0/bin/arangosh
+/usr/local/Cellar/arangodb/<VERSION>/bin/arangosh
 ```
 
 You can uninstall ArangoDB using:
