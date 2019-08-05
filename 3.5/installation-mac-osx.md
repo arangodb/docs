@@ -1,6 +1,6 @@
 ---
 layout: default
-description: ArangoDB under macOS can be installed via
+description: ArangoDB under macOS can be installed via Homebrew, DMG Package or tar.gz Archive
 ---
 Installing ArangoDB on macOS
 ============================
@@ -39,14 +39,19 @@ installed as:
 /usr/local/Cellar/arangodb/<VERSION>/sbin/arangod
 ```
 
-`<VERSION>` is a placeholder for the actual version, e.g. `3.5.0`.
+`<VERSION>` is a placeholder for the actual version number, e.g. `3.5.0`.
 
-You can start the server by running the command
-`/usr/local/Cellar/arangodb/<VERSION>/sbin/arangod &`.
+You can start the server by running the command:
 
-Configuration file is located at
+```
+/usr/local/Cellar/arangodb/<VERSION>/sbin/arangod &
+```
 
-    /usr/local/etc/arangodb3/arangod.conf
+Configuration file is located at:
+
+```
+/usr/local/etc/arangodb3/arangod.conf
+```
 
 The ArangoDB shell will be installed as:
 
