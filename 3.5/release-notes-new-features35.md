@@ -213,7 +213,7 @@ storage engine. With the MMFiles storage engine, creating an index will always b
 other operations on the collection.
 
 Also see:
-- [Creating Indexes in Background](indexing-index-basics.md#creating-indexes-in-background)
+- [Creating Indexes in Background](indexing-index-basics.html#creating-indexes-in-background)
 
 TTL (time-to-live) Indexes
 --------------------------
