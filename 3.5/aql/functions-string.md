@@ -856,17 +856,7 @@ To return the leftmost characters, see [LEFT()](#left).
 TOKENS()
 --------
 
-`TOKENS(input, analyzer) → strArray`
-
-Split the *input* string with the help of the specified *analyzer* into a token array.
-The resulting array can be used e.g. in subsequent `FILTER` statements with the `IN` operator.
-It can help to better understand how the specific analyzer is going to behave.
-
-- **input** (string): text to tokenize
-- **analyzer** (string): one of the available
-  [ArangoSearch string analyzers](../analyzers.html)
-- returns **strArray** (array): array of strings, each element being a token
-
+See [ArangoSearch Functions](functions-arangosearch.html#tokens).
 
 TO_BASE64()
 -----------

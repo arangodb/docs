@@ -6,6 +6,7 @@ title: ArangoSearch related AQL Functions
 ArangoSearch Functions
 ======================
 
+<!-- TODO: Search Functins? -->
 Filter Functions
 ----------------
 
@@ -31,7 +32,14 @@ regardless, then it takes precedence over the analyzer set via `ANALYZER()`.
 - returns **err**: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
-<!-- TODO: By default, context contains `Identity` analyzer. -->
+<!-- TODO:
+Can't omit analyzer in call to TOKENS()!!!
+
+Override analyzer in a context of **searchExpression** with another one,
+denoted by a specified **analyzer** argument, making it available for search
+functions.
+By default, context contains `Identity` analyzer.
+-->
 
 Search expression using `ANALYZER()` to set the analyzer `text_en` for both
 `PHRASE()` functions:
@@ -73,27 +81,23 @@ making it available for scorer functions.
 - returns **err**: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
-By default, context contains boost value equal to `1.0`.
+By default, the context contains boost value equal to `1.0`.
 
 The supported search functions are:
 
 ### EXISTS()
 
-Note: Will only match values when the specified attribute has been processed
-with the link property **storeValues** set to **"id"** (by default it's
-**"none"**).
+`EXISTS(path) → err`
 
-`EXISTS(doc.someAttr) → err`
+Match documents where the attribute is present.
 
-Match documents **doc** where the attribute **someAttr** exists in the
-document.
+{% hint 'info' %}
+`EXISTS()` will only match values when the specified attribute has been
+processed with the link property **storeValues** set to `"id"` in the
+View definition (the default is `"none"`).
+{% endhint %}
 
-This also works with sub-attributes, e.g.
 
-`EXISTS(doc.someAttr.anotherAttr) → err`
-
-as long as the field is processed by the view with **storeValues** not
-**none**.
 
 `EXISTS(doc.someAttr, "analyzer", analyzer) → err`
 
@@ -106,7 +110,8 @@ current context analyzer (e.g. specified by `ANALYZER` function).
 Match documents where the **doc.someAttr** exists in the document
  and is of the specified type.
 
-- **path** (attribute path): the path of the attribute to test in the document
+- **path** (attribute path expression): the attribute to test in the document,
+
 - **analyzer** (string): name of an [analyzer](../analyzers.html)
 - **type** (string): data type to test for, can be one of:
     - `"bool"`
@@ -124,7 +129,7 @@ specified by `ANALYZER` function) will be used.
 
 `IN_RANGE(path, low, high, includeLow, includeHigh) → err`
 
-- **path** (attribute path): the path of the attribute to test in the document
+- **path** (attribute path expression): the path of the attribute to test in the document
 - **low** (number\|string): minimum value of the desired range
 - **high** (number\|string): maximum value of the desired range
 - **includeLow** (bool): whether the minimum value shall be included in
@@ -167,7 +172,7 @@ Search for a phrase in the referenced attribute.
 The phrase can be expressed as an arbitrary number of *phraseParts* separated by
 *skipToken* number of tokens.
 
-- **path** (attribute path): the path of the attribute to test in the document
+- **path** (attribute path expression): the path of the attribute to test in the document
 - **phrasePart** (string): text to search for in the token stream; may consist of several
   words; will be split using the specified *analyzer*
 - **skipTokens** (number): amount of words or tokens to treat as wildcards
@@ -192,7 +197,7 @@ attribute has to be processed by the view as specified in the link.
 
 Match the value of the attribute that starts with **prefix**.
 
-- **path** (attribute path): the path of the attribute to compare against in the document
+- **path** (attribute path expression): the path of the attribute to compare against in the document
 - **prefix** (string): a string to search at the start of the text
 - returns **err**: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
@@ -283,38 +288,9 @@ for details.
 
 
 
-ArangoSearch filters
---------------------
 
 
 
-### ANALYZER()
-
-`ANALYZER(searchExpression, analyzer)`
-
-Override analyzer in a context of **searchExpression** with another one,
-denoted by a specified **analyzer** argument, making it available for search
-functions.
-
-- *searchExpression* - any valid search expression
-- *analyzer* - string with the analyzer to imbue, i.e. *"text_en"* or one of the
-  other [available string analyzers](../analyzers.html)
-
-By default, context contains `Identity` analyzer.
-
-### BOOST()
-
-`BOOST(searchExpression, boost)`
-
-Override boost in a context of **searchExpression** with a specified value,
-making it available for scorer functions.
-
-- *searchExpression* - any valid search expression
-- *boost* - numeric boost value
-
-By default, context contains boost value equal to `1.0`.
-
-The supported search functions are:
 
 ### EXISTS()
 
