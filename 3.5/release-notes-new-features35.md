@@ -34,8 +34,8 @@ Also see:
 
 Users may now take advantage of the `indexHint` inline query option to override
 the internal optimizer decision regarding which index to use to serve content
-from a given collection. The index hint works with the named indices feature
-above, making it easy to specify which index to use.
+from a given collection. The index hint works with the [named indices](#named-indices)
+feature, making it easy to specify which index to use.
 
 See:
 - [AQL Index Hints](aql/operations-for.html#index-hints)
