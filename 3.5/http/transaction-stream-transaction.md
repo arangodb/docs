@@ -66,3 +66,15 @@ until the entire transaction times out.
 List currently ongoing Transactions
 -----------------------------------
 {% docublock get_api_transactions %}
+
+Cluster Limitations
+---------------------
+
+To ensure that transactions cannot block the cluster from operating properly
+we enforce a maximum lifetime for stream transactions on the coordinator.
+
+The transactions therefore have the following limitations:
+
+- Maximum lifetime of 60 seconds
+- Maximum size of 128 MB
+
