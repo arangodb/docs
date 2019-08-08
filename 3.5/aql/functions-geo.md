@@ -58,7 +58,7 @@ This function can be **optimized** by a S2 based [geospatial index](../indexing-
 
 <small>Introduced in: v3.4.0</small>
 
-`GEO_DISTANCE(geoJsonA, geoJsonB) → distance`
+`GEO_DISTANCE(geoJsonA, geoJsonB, ellipsoid) → distance`
 
 Return the distance between two GeoJSON objects, measured from the **centroid**
 of each shape. For a list of supported types see the
@@ -66,8 +66,9 @@ of each shape. For a list of supported types see the
 
 - **geoJsonA** (object): first GeoJSON object
 - **geoJsonB** (object): second GeoJSON object
+- **ellipsoid** (string, optional): reference ellipsoid to use, supported are "sphere" and "wgs84"
 - returns **distance** (number): the distance between the centroid points of
-  the two objects
+  the two objects on the reference ellipsoid
 
 ```js
 LET polygon = {
