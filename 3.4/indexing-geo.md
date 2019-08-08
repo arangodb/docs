@@ -280,6 +280,10 @@ Any subsequent elements represent interior rings (holes within the surface).
 - A linear ring may not be empty, it needs at least three _distinct_ coordinates
 - Within the same linear ring consecutive coordinates may be the same, otherwise
   (except the first and last one) all coordinates need to be distinct
+- A linear ring defines two regions on the sphere. ArangoDB will always interpret
+  the region of smaller area to be the interior of the ring. This introduces a
+  practical limitation that no polygon may have an outer ring enclosing more
+  than half the Earth's surface.
 
 No Holes:
 
@@ -338,6 +342,10 @@ _Polygon_ coordinate arrays.
 
 - Polygons in the same MultiPolygon may not share edges, they may share coordinates
 - Polygons and rings must not be empty
+- A linear ring defines two regions on the sphere. ArangoDB will always interpret
+  the region of smaller area to be the interior of the ring. This introduces a
+  practical limitation that no polygon may have an outer ring enclosing more
+  than half the Earth's surface.
 - Linear Rings **MUST** follow the right-hand rule for orientation
   (counterclockwise external rings, clockwise internal rings).
 
