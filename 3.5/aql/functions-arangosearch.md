@@ -6,47 +6,78 @@ title: ArangoSearch related AQL Functions
 ArangoSearch Functions
 ======================
 
-<!-- TODO: Search Functins? -->
-Filter Functions
+Search Functions
 ----------------
 
-Filter functions can be used in a [SEARCH operation](operations-search.html)
-to form an ArangoSearch expression to filter a View. The majority of the
-functions control the ArangoSearch functionality without having a returnable
-value in AQL (indicated below by `err` as return value). Some functions can
-be used standalone as well, without a `SEARCH` statement, and do have a return
-value which can be used elsewhere in the query.
+Search functions can be used in a [SEARCH operation](operations-search.html)
+to form an ArangoSearch expression to filter a View. The functions control the
+ArangoSearch functionality without having a returnable value in AQL, except
+the `TOKENS()` function. It can be used standalone as well, without a `SEARCH`
+statement, and has a return value which can be used elsewhere in the query.
 
 ### ANALYZER()
 
-`ANALYZER(expr, analyzer) → err`
+`ANALYZER(expr, analyzer)`
 
-Sets the analyzer for the given search expression. This utility function
-can be used to wrap a complex expression to set a particular analyzer for all
-the nested functions which require such an argument to avoid repeating the
+Sets the analyzer for the given search expression. The default analyzer is
+`identity` for any ArangoSearch expression. This utility function can be used
+to wrap a complex expression to set a particular analyzer. It also sets it for
+all the nested functions which require such an argument to avoid repeating the
 analyzer parameter. If an analyzer argument is passed to a nested function
 regardless, then it takes precedence over the analyzer set via `ANALYZER()`.
 
+The `TOKENS()` function is an exception, it requires the analyzer name to be
+passed in all cases even if wrapped in an `ANALYZER()` call.
+
 - **expr** (expression): any valid search expression
 - **analyzer** (string): name of an [analyzer](../analyzers.html)
-- returns **err**: the function can only be called in a
+- returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
-<!-- TODO:
-Can't omit analyzer in call to TOKENS()!!!
+Assuming a View definition with an Analyzer whose name and type is `delimiter`:
 
-Override analyzer in a context of **searchExpression** with another one,
-denoted by a specified **analyzer** argument, making it available for search
-functions.
-By default, context contains `Identity` analyzer.
--->
+```json
+{
+  "links": {
+    "coll": {
+      "analyzers": [ "delimiter" ],
+      "includeAllFields": true,
+    }
+  },
+  ...
+}
+```
 
-Search expression using `ANALYZER()` to set the analyzer `text_en` for both
-`PHRASE()` functions:
+… with the Analyzer properties `{ "delimiter": "|" }` and an example document
+`{ "text": "foo|bar|baz" }` in the collection `coll`, the following query would
+return the document:
 
 ```js
 FOR doc IN someView
-  SEARCH ANALYZER(PHRASE(doc.val, "foo") OR PHRASE(doc.val, "bar"), "text_en")
+  SEARCH ANALYZER(doc.text == "bar", "delimiter")
+  RETURN doc
+```
+
+The expression `doc.text == "bar"` has to be wrapped by `ANALYZER()` in order
+to set the Analyzer to `delimiter`. Otherwise the expression would be evaluated
+with the default `identity` Analyzer. `"foo|bar|baz" == "bar"` would not match,
+but the View does not even process the indexed fields with the `identity`
+Analyzer. The following query would also return an empty result because of
+the Analyzer mismatch:
+
+```js
+FOR doc IN someView
+  SEARCH doc.text == "foo|bar|baz"
+  //SEARCH ANALYZER(doc.text == "foo|bar|baz", "identity")
+  RETURN doc
+```
+
+In below query, the search expression is swapped by `ANALYZER()` to set the
+`text_en` Analyzer for both `PHRASE()` functions:
+
+```js
+FOR doc IN someView
+  SEARCH ANALYZER(PHRASE(doc.text, "foo") OR PHRASE(doc.text, "bar"), "text_en")
   RETURN doc
 ```
 
@@ -54,7 +85,7 @@ Without the usage of `ANALYZER()`:
 
 ```js
 FOR doc IN someView
-  SEARCH PHRASE(doc.val, "foo", "text_en") OR PHRASE(doc.val, "bar", "text_en")
+  SEARCH PHRASE(doc.text, "foo", "text_en") OR PHRASE(doc.text, "bar", "text_en")
   RETURN doc
 ```
 
@@ -65,29 +96,37 @@ the phrase *foo* and the `identity` analyzer to find *bar*:
 
 ```js
 FOR doc IN someView
-  SEARCH ANALYZER(PHRASE(doc.val, "foo") OR PHRASE(doc.val, "bar", "identity"), "text_en")
+  SEARCH ANALYZER(PHRASE(doc.text, "foo") OR PHRASE(doc.text, "bar", "identity"), "text_en")
+  RETURN doc
+```
+
+Despite the wrapping `ANALYZER()` function, the Analyzer name can not be
+omitted in calls to the `TOKENS()` function. Both occurrences of `text_en`
+are required, to set the Analyzer for the expression `doc.text IN ...` and
+for the `TOKENS()` function itself:
+
+```js
+FOR doc IN someView
+  SEARCH ANALYZER(doc.text IN TOKENS("foo", "text_en"), "text_en")
   RETURN doc
 ```
 
 ### BOOST()
 
-`BOOST(searchExpression, boost) → err`
+`BOOST(expr, boost)`
 
-Override boost in a context of **searchExpression** with a specified value,
-making it available for scorer functions.
+Override boost in the context of a search expression with a specified value,
+making it available for scorer functions. By default, the context has a boost
+value equal to `1.0`.
 
-- *searchExpression* - any valid search expression
-- *boost* - numeric boost value
-- returns **err**: the function can only be called in a
+- **expr** (expression): any valid search expression
+- **boost** (number): numeric boost value
+- returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
-
-By default, the context contains boost value equal to `1.0`.
-
-The supported search functions are:
 
 ### EXISTS()
 
-`EXISTS(path) → err`
+`EXISTS(path)`
 
 Match documents where the attribute is present.
 
@@ -99,13 +138,13 @@ View definition (the default is `"none"`).
 
 
 
-`EXISTS(doc.someAttr, "analyzer", analyzer) → err`
+`EXISTS(doc.someAttr, "analyzer", analyzer)`
 
 Match documents where **doc.someAttr** exists in the document _and_ was indexed
 by the specified **analyzer**. **analyzer** is optional and defaults to the
 current context analyzer (e.g. specified by `ANALYZER` function).
 
-`EXISTS(doc.someAttr, type) → err`
+`EXISTS(doc.someAttr, type)`
 
 Match documents where the **doc.someAttr** exists in the document
  and is of the specified type.
@@ -119,7 +158,7 @@ Match documents where the **doc.someAttr** exists in the document
     - `"numeric"`
     - `"null"`
     - `"string"`
-- returns **err**: the function can only be called in a
+- returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 In case if **analyzer** isn't specified, current context analyzer (e.g.
@@ -127,7 +166,7 @@ specified by `ANALYZER` function) will be used.
 
 ### IN_RANGE()
 
-`IN_RANGE(path, low, high, includeLow, includeHigh) → err`
+`IN_RANGE(path, low, high, includeLow, includeHigh)`
 
 - **path** (attribute path expression): the path of the attribute to test in the document
 - **low** (number\|string): minimum value of the desired range
@@ -136,12 +175,12 @@ specified by `ANALYZER` function) will be used.
   the range (left-closed interval) or not (left-open interval)
 - **includeHigh** (bool): whether the maximum value shall be included in
   the range (right-closed interval) or not (right-open interval)
-- returns **err**: the function can only be called in a
+- returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 ### MIN_MATCH()
 
-`MIN_MATCH(expr1, ... exprN, minMatchCount) → err`
+`MIN_MATCH(expr1, ... exprN, minMatchCount)`
 
 Match documents where at least **minMatchCount** of the specified
 search expressions are satisfied.
@@ -149,7 +188,7 @@ search expressions are satisfied.
 - **expr** (expression, *repeatable*): any valid search expression
 - **minMatchCount** (number): minimum number of search expressions that should
   be satisfied
-- returns **err**: the function can only be called in a
+- returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 For example,
@@ -163,9 +202,9 @@ if `doc.text`, as analyzed by the current analyzer, contains 2 out of 'quick',
 
 ### PHRASE()
 
-`PHRASE(path, phrasePart, analyzer) → err`
+`PHRASE(path, phrasePart, analyzer)`
 
-`PHRASE(path, phrasePart1, skipTokens1, ... phrasePartN, skipTokensN, analyzer) → err`
+`PHRASE(path, phrasePart1, skipTokens1, ... phrasePartN, skipTokensN, analyzer)`
 
 Search for a phrase in the referenced attribute. 
 
@@ -177,7 +216,7 @@ The phrase can be expressed as an arbitrary number of *phraseParts* separated by
   words; will be split using the specified *analyzer*
 - **skipTokens** (number): amount of words or tokens to treat as wildcards
 - **analyzer** (string): name of an [analyzer](../analyzers.html)
-- returns **err**: the function can only be called in a
+- returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 For example, given a document `doc` containing the text
@@ -193,13 +232,13 @@ attribute has to be processed by the view as specified in the link.
 
 ### STARTS_WITH()
 
-`STARTS_WITH(path, prefix) → err`
+`STARTS_WITH(path, prefix)`
 
 Match the value of the attribute that starts with **prefix**.
 
 - **path** (attribute path expression): the path of the attribute to compare against in the document
 - **prefix** (string): a string to search at the start of the text
-- returns **err**: the function can only be called in a
+- returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 Specifying deep attributes like `doc.some.deep.attr` is also allowed. The
@@ -218,8 +257,14 @@ the specific analyzer is going to behave.
 - **analyzer** (string): name of an [analyzer](../analyzers.html)
 - returns **tokenArray** (array): array of strings, each element being a token
 
-Sorting Functions
+Scoring Functions
 -----------------
+
+Scoring functions return a ranking value for the documents founds by a
+[SEARCH operation](operations-search.html). The better the documents match
+the search expression the higher the returned number. To sort the result set
+by relevance, with the more relevant documents coming first, remember to sort
+in **descending order** (`SORT BM25(...) DESC`).
 
 ### BM25()
 
@@ -243,15 +288,15 @@ for details.
 
 ### TFIDF()
 
+`TFIDF(doc, normalize) → score`
+
 Sorts documents using the
 [**term frequency–inverse document frequency** algorithm](https://en.wikipedia.org/wiki/TF-IDF){:target="_blank"}.
 See the [`TFIDF()` section in ArangoSearch Scorers](../arangosearch-scorers.html)
 for details.
 
-`TFIDF(doc, withNorms) → score`
-
 - **doc** (document): must be emitted by `FOR doc IN someView`
-- **withNorms** (bool, *optional*): specifying whether scores should be
+- **normalize** (bool, *optional*): specifying whether scores should be
   normalized. The default is *false*.
 - returns **score** (number): computed ranking value
 
