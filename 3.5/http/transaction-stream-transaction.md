@@ -70,11 +70,9 @@ List currently ongoing Transactions
 Cluster Limitations
 ---------------------
 
-To ensure that transactions cannot block the cluster from operating properly
-we enforce a maximum lifetime for stream transactions on the coordinator.
-
-The transactions therefore have the following limitations:
+A maximum lifetime and transaction size for stream transactions is enforced
+on the coordinator to ensure that transactions cannot block the cluster from
+operating properly:
 
 - Maximum lifetime of 60 seconds
 - Maximum size of 128 MB
-
