@@ -306,7 +306,8 @@ With Holes:
 
 - The exterior ring should not self-intersect.
 - The interior rings must be contained in the outer ring
-- No two rings can cross each other, i.e. no ring may intersect both the interior and exterior face of another ring
+- No two rings can cross each other, i.e. no ring may intersect both
+  the interior and exterior face of another ring
 - Rings cannot share edges, they may however share vertices
 - No ring may be empty
 - Polygon rings should follow the right-hand rule for orientation
@@ -346,7 +347,7 @@ _Polygon_ coordinate arrays.
   the region of smaller area to be the interior of the ring. This introduces a
   practical limitation that no polygon may have an outer ring enclosing more
   than half the Earth's surface
-- Linear Rings **MUST** follow the right-hand rule for orientation
+- Linear rings **must** follow the right-hand rule for orientation
   (counterclockwise external rings, clockwise internal rings).
 
 Example with two polygons, the second one with a hole:
