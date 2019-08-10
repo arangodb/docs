@@ -67,7 +67,7 @@ of each shape. For a list of supported types see the
 - **geoJsonA** (object): first GeoJSON object
 - **geoJsonB** (object): second GeoJSON object
 - **ellipsoid** (string, *optional*): reference ellipsoid to use.
-  Supported are `"sphere"` and `"wgs84"`.
+  Supported are `"sphere"` (default) and `"wgs84"`.
 - returns **distance** (number): the distance between the centroid points of
   the two objects on the reference ellipsoid
 
