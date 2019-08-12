@@ -81,6 +81,31 @@ FOR doc IN collectionName
   RETURN distance
 ```
 
+
+### GEO_AREA()
+
+<small>Introduced in: 3.6</small>
+
+
+`GEO_AREA(geoJson, ellipsoid) → area`
+
+Return the area for a polygon or multi-polygon on a sphere with the average earth radius, or an ellipsoid. For a list of supported types see the
+[geo index page](../indexing-geo.html#geojson).
+
+- **geoJson** (object): a GeoJSON object
+- **ellipsoid** (string, *optional*): reference ellipsoid to use.
+  Supported are `"sphere"` (default) and `"wgs84"`.
+- returns **area** (number): the area in square meters of the polygon
+
+```js
+LET polygon = {
+type: "Polygon",
+coordinates: [[[-11.5, 23.5], [-10.5, 26.1], [-11.2, 27.1], [-11.5, 23.5]]]
+}
+RETURN GEO_AREA(polygon, "wgs84")
+```
+
+
 ### GEO_EQUALS()
 
 <small>Introduced in: v3.4.0</small>
