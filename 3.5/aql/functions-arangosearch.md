@@ -11,26 +11,36 @@ Search Functions
 
 Search functions can be used in a [SEARCH operation](operations-search.html)
 to form an ArangoSearch expression to filter a View. The functions control the
-ArangoSearch functionality without having a returnable value in AQL, except
-the `TOKENS()` function. It can be used standalone as well, without a `SEARCH`
-statement, and has a return value which can be used elsewhere in the query.
+ArangoSearch functionality without having a returnable value in AQL.
+
+The `TOKENS()` function is an exception. It can be used standalone as well,
+without a `SEARCH` statement, and has a return value which can be used
+elsewhere in the query.
+
+<!--
+attribute path expressions can also use bracket notation:
+EXISTS(doc["text"])
+
+doc.deeply.nested.attributes supported
+-->
 
 ### ANALYZER()
 
 `ANALYZER(expr, analyzer)`
 
-Sets the analyzer for the given search expression. The default analyzer is
+Sets the Analyzer for the given search expression. The default Analyzer is
 `identity` for any ArangoSearch expression. This utility function can be used
-to wrap a complex expression to set a particular analyzer. It also sets it for
+to wrap a complex expression to set a particular Analyzer. It also sets it for
 all the nested functions which require such an argument to avoid repeating the
-analyzer parameter. If an analyzer argument is passed to a nested function
-regardless, then it takes precedence over the analyzer set via `ANALYZER()`.
+Analyzer parameter. If an Analyzer argument is passed to a nested function
+regardless, then it takes precedence over the Analyzer set via `ANALYZER()`.
 
-The `TOKENS()` function is an exception, it requires the analyzer name to be
+The `TOKENS()` function is an exception, it requires the Analyzer name to be
 passed in all cases even if wrapped in an `ANALYZER()` call.
 
 - **expr** (expression): any valid search expression
-- **analyzer** (string): name of an [analyzer](../analyzers.html)
+- **analyzer** (string): name of an [Analyzer](../analyzers.html).
+  <!-- Defaults to `"identity"` ? -->
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
@@ -89,10 +99,10 @@ FOR doc IN someView
   RETURN doc
 ```
 
-In the following example `ANALYZER()` is used to set the analyzer `text_en`,
-but in the second call to `PHRASE()` a different analyzer is set (`identity`)
-which overrules `ANALYZER()`. Therefore, the `text_en` analyzer is used to find
-the phrase *foo* and the `identity` analyzer to find *bar*:
+In the following example `ANALYZER()` is used to set the Analyzer `text_en`,
+but in the second call to `PHRASE()` a different Analyzer is set (`identity`)
+which overrules `ANALYZER()`. Therefore, the `text_en` Analyzer is used to find
+the phrase *foo* and the `identity` Analyzer to find *bar*:
 
 ```js
 FOR doc IN someView
@@ -124,11 +134,49 @@ value equal to `1.0`.
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
+```js
+FOR doc IN someView
+  SEARCH ANALYZER(BOOST(doc.text == "foo", 2.5) OR doc.text == "bar", "text_en")
+  LET score = BM25(doc)
+  SORT score DESC
+  RETURN { text: doc.text, score }
+```
+
+Assuming a View with the following documents indexed and processed by the
+`text_en` Analyzer:
+
+```js
+{ "text": "foo bar" }
+{ "text": "foo" }
+{ "text": "bar" }
+{ "text": "foo baz" }
+{ "text": "baz" }
+```
+
+… the result of above query would be:
+
+```json
+[
+  {
+    "text": "foo bar",
+    "score": 2.787301540374756
+  },
+  {
+    "text": "foo baz",
+    "score": 1.6895781755447388
+  },
+  {
+    "text": "foo",
+    "score": 1.525835633277893
+  },
+  {
+    "text": "bar",
+    "score": 0.9913395643234253
+  }
+]
+```
+
 ### EXISTS()
-
-`EXISTS(path)`
-
-Match documents where the attribute is present.
 
 {% hint 'info' %}
 `EXISTS()` will only match values when the specified attribute has been
@@ -136,39 +184,72 @@ processed with the link property **storeValues** set to `"id"` in the
 View definition (the default is `"none"`).
 {% endhint %}
 
+`EXISTS(path)`
 
+Match documents where the attribute at **path** is present.
 
-`EXISTS(doc.someAttr, "analyzer", analyzer)`
-
-Match documents where **doc.someAttr** exists in the document _and_ was indexed
-by the specified **analyzer**. **analyzer** is optional and defaults to the
-current context analyzer (e.g. specified by `ANALYZER` function).
-
-`EXISTS(doc.someAttr, type)`
-
-Match documents where the **doc.someAttr** exists in the document
- and is of the specified type.
-
-- **path** (attribute path expression): the attribute to test in the document,
-
-- **analyzer** (string): name of an [analyzer](../analyzers.html)
-- **type** (string): data type to test for, can be one of:
-    - `"bool"`
-    - `"boolean"`
-    - `"numeric"`
-    - `"null"`
-    - `"string"`
+- **path** (attribute path expression): the attribute to test in the document
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
-In case if **analyzer** isn't specified, current context analyzer (e.g.
-specified by `ANALYZER` function) will be used.
+```js
+FOR doc IN someView
+  SEARCH EXISTS(doc.text)
+  RETURN doc
+```
+
+`EXISTS(path, type)`
+
+Match documents where the attribute at **path** is present _and_ is of the
+specified data type.
+
+- **path** (attribute path expression): the attribute to test in the document
+- **type** (string): data type to test for, can be one of:
+    - `"null"`
+    - `"bool"` / `"boolean"`
+    - `"numeric"`
+    - `"string"`
+    - `"analyzer"` (see below)
+- returns nothing: the function can only be called in a
+  [SEARCH operation](operations-search.html) and throws an error otherwise
+
+```js
+FOR doc IN someView
+  SEARCH EXISTS(doc.text, "string")
+  RETURN doc
+```
+
+`EXISTS(path, "analyzer", analyzer)`
+
+Match documents where the attribute at **path** is present _and_ was indexed
+by the specified **analyzer**.
+
+- **path** (attribute path expression): the attribute to test in the document
+- **type** (string): string literal `"analyzer"`
+- **analyzer** (string, _optional_): name of an [Analyzer](../analyzers.html).
+  Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
+  defaults to `"identity"`
+- returns nothing: the function can only be called in a
+  [SEARCH operation](operations-search.html) and throws an error otherwise
+
+```js
+FOR doc IN someView
+  SEARCH EXISTS(doc.text, "analyzer", "text_en")
+  RETURN doc
+```
 
 ### IN_RANGE()
 
 `IN_RANGE(path, low, high, includeLow, includeHigh)`
 
-- **path** (attribute path expression): the path of the attribute to test in the document
+Match documents where the attribute at **path** is greater than (or equal to)
+**low** and less than (or equal to) **high**.
+
+*low* and *high* can be numbers or strings (technically also `null`, `true`
+and `false`), but the data type must be the same for both.
+
+- **path** (attribute path expression):
+  the path of the attribute to test in the document
 - **low** (number\|string): minimum value of the desired range
 - **high** (number\|string): maximum value of the desired range
 - **includeLow** (bool): whether the minimum value shall be included in
@@ -178,6 +259,35 @@ specified by `ANALYZER` function) will be used.
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
+If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
+to true, then nothing will match. If *low* is greater than *high* nothing will
+match either.
+
+To match documents with the attribute `value >= 3` and `value <= 5` using the
+default `"identity"` Analyzer you would write the following query:
+
+```js
+FOR doc IN someView
+  SEARCH IN_RANGE(doc.value, 3, 5, true, true)
+  RETURN doc.value
+```
+
+This will also match documents which have an array of numbers as `value`
+attribute where at least one of the numbers is in the specified boundaries.
+
+Using string boundaries and a text Analyzer allows to match documents which
+have at least one token within the specified character range:
+
+```js
+FOR doc IN valView
+  SEARCH ANALYZER(IN_RANGE(doc.value, "a","f", true, false), "text_en")
+  RETURN doc
+```
+
+This will match `{ "value": "bar" }` and `{ "value": "foo bar" }` because the
+_b_ of _bar_ is in the range (`"a" <= "b" < "f"`), but not `{ "value": "foo" }`
+because the _f_ of _foo_ is excluded (*high* is "f" but *includeHigh* is false).
+
 ### MIN_MATCH()
 
 `MIN_MATCH(expr1, ... exprN, minMatchCount)`
@@ -185,20 +295,23 @@ specified by `ANALYZER` function) will be used.
 Match documents where at least **minMatchCount** of the specified
 search expressions are satisfied.
 
-- **expr** (expression, *repeatable*): any valid search expression
+- **expr** (expression, _repeatable_): any valid search expression
 - **minMatchCount** (number): minimum number of search expressions that should
   be satisfied
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
-For example,
+Assuming a View with a text Analyzer, you may use it to match documents where
+the attribute contains at least two out of three tokens:
 
 ```js
-MIN_MATCH(doc.text == 'quick', doc.text == 'brown', doc.text == 'fox', 2)
+FOR doc IN someView
+  SEARCH ANALYZER(MIN_MATCH(doc.text == 'quick', doc.text == 'brown', doc.text == 'fox', 2), "text_en")
+  RETURN doc.text
 ```
 
-if `doc.text`, as analyzed by the current analyzer, contains 2 out of 'quick',
-'brown' and 'fox', it will be included as matched one.
+This will match `{ "text": "the quick brown fox" }` and `{ "text": "some brown fox" }`,
+but not `{ "text": "snow fox" }` which only fulfills one of the conditions.
 
 ### PHRASE()
 
@@ -206,421 +319,283 @@ if `doc.text`, as analyzed by the current analyzer, contains 2 out of 'quick',
 
 `PHRASE(path, phrasePart1, skipTokens1, ... phrasePartN, skipTokensN, analyzer)`
 
-Search for a phrase in the referenced attribute. 
+Search for a phrase in the referenced attribute. It only matches documents in
+which the tokens appear in the specified order. To search for tokens in any
+order use [TOKENS()](#tokens) instead.
 
 The phrase can be expressed as an arbitrary number of *phraseParts* separated by
-*skipToken* number of tokens.
+*skipTokens* number of tokens (wildcards).
 
-- **path** (attribute path expression): the path of the attribute to test in the document
-- **phrasePart** (string): text to search for in the token stream; may consist of several
-  words; will be split using the specified *analyzer*
-- **skipTokens** (number): amount of words or tokens to treat as wildcards
-- **analyzer** (string): name of an [analyzer](../analyzers.html)
+- **path** (attribute path expression): the attribute to test in the document
+- **phrasePart** (string): text to search for in the tokens. May consist of
+  several words/tokens, which will be split using the specified *analyzer*
+- **skipTokens** (number, _optional_): amount of words/tokens to treat
+  as wildcards
+- **analyzer** (string, _optional_): name of an [Analyzer](../analyzers.html).
+  Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
+  defaults to `"identity"`
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
-For example, given a document `doc` containing the text
-`"Lorem ipsum dolor sit amet, consectetur adipiscing elit"`, the following expression
-will be `true`:
+Given a View indexing an attribute *text* with the `"text_en"` Analyzer and a
+document `{ "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit" }`,
+the following query would match it:
 
 ```js
-PHRASE(doc.text, "ipsum", 1, "sit", 2, "adipiscing", "text_de")
+FOR doc IN someView
+  SEARCH PHRASE(doc.text, "lorem ipsum", "text_en")
+  RETURN doc.text
 ```
 
-Specifying deep attributes like `doc.some.deep.attr` is also allowed. The
-attribute has to be processed by the view as specified in the link.
+However, this search expression does not because the tokens `"ipsum"` and
+`"lorem"` do not appear in this order:
+
+```js
+PHRASE(doc.text, "ipsum lorem", "text_en")
+```
+
+To match `"ipsum"` and `"amet"` with any two tokens in between, you can use the
+following search expression:
+
+```js
+PHRASE(doc.text, "ipsum", 2, "amet", "text_en")
+```
+
+The *skipTokens* value of `2` defines how many wildcard tokens have to appear
+between *ipsum* and *amet*. A *skipTokens* value of `0` means that the tokens
+must be adjacent. Negative values are allowed, but not very useful. These three
+search expressions are equivalent:
+
+```js
+PHRASE(doc.text, "lorem ipsum", "text_en")
+PHRASE(doc.text, "lorem", 0, "ipsum", "text_en")
+PHRASE(doc.text, "ipsum", -1, "lorem", "text_en")
+```
 
 ### STARTS_WITH()
 
 `STARTS_WITH(path, prefix)`
 
-Match the value of the attribute that starts with **prefix**.
+Match the value of the attribute that starts with **prefix**. If the attribute
+is processed by a tokenizing Analyzer (type `"text"` or `"delimiter"`) or if it
+is an array, then a single token/element starting with the prefix is sufficient
+to match the document.
 
-- **path** (attribute path expression): the path of the attribute to compare against in the document
+- **path** (attribute path expression): the path of the attribute to compare
+  against in the document
 - **prefix** (string): a string to search at the start of the text
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
-Specifying deep attributes like `doc.some.deep.attr` is also allowed. The
-attribute has to be processed by the view as specified in the link.
+To match a document `{ "text": "lorem ipsum..." }` using a prefix and the
+`"identity"` Analyzer you can use it like this:
+
+```js
+FOR doc IN someView
+  SEARCH STARTS_WITH(doc.text, "lorem ip")
+  RETURN doc
+```
+
+This query will match `{ "text": "lorem ipsum" }` as well as
+`{ "text": [ "lorem", "ipsum" ] }` given a View which indexes the `text`
+attribute and processes it with the `"text_en"` Analyzer:
+
+```js
+FOR doc IN someView
+  SEARCH ANALYZER(STARTS_WITH(doc.text, "ips"), "text_en")
+  RETURN doc.text
+```
+
+Note that it will not match `{ "text": "IPS (in-plane switching)" }` because
+the Analyzer has stemming enabled, but the prefix was passed in as-is:
+
+```js
+RETURN TOKENS("IPS (in-plane switching)", "text_en")
+```
+
+```json
+[
+  [
+    "ip",
+    "in",
+    "plane",
+    "switch"
+  ]
+]
+```
+
+The *s* is removed from *ips*, which leads to the prefix *ips* not matching
+the indexed token *ip*. You may either create a custom text Analyzer with
+stemming disabled to avoid this issue, or apply stemming to the prefix:
+
+```js
+FOR doc IN someView
+  SEARCH ANALYZER(STARTS_WITH(doc.text, TOKENS("ips", "text_en")[0]), "text_en")
+  RETURN doc.text
+```
 
 ### TOKENS()
 
 `TOKENS(input, analyzer) → tokenArray`
 
 Split the **input** string with the help of the specified **analyzer** into an
-array. The resulting array can i.e. be used in subsequent `FILTER` or `SEARCH`
-statements with the **IN** operator. This can be used to better understand how
-the specific analyzer is going to behave.
+array. The resulting array can be used in `FILTER` or `SEARCH` statements with
+the `IN` operator, but also be assigned to variables and returned. This can be
+used to better understand how a specific Analyzer processes an input value.
+
+It has a regular return value unlike all other ArangoSearch AQL functions and
+is thus not limited to `SEARCH` operations. It is independent of Views.
+A wrapping `ANALYZER()` call in a search expression does not affect the
+*analyzer* argument nor allow you to omit it.
 
 - **input** (string): text to tokenize
-- **analyzer** (string): name of an [analyzer](../analyzers.html)
-- returns **tokenArray** (array): array of strings, each element being a token
+- **analyzer** (string): name of an [Analyzer](../analyzers.html).
+- returns **tokenArray** (array): array of strings with zero or more elements,
+  each element being a token.
+
+Example query showcasing the `"text_de"` Analyzer (tokenization with stemming,
+case conversion and accent removal for German text):
+
+```js
+RETURN TOKENS("Lörem ipsüm, DOLOR SIT Ämet.", "text_de")
+```
+
+```json
+[
+  [
+    "lor",
+    "ipsum",
+    "dolor",
+    "sit",
+    "amet"
+  ]
+]
+```
+
+To search a View for documents where the `text` attribute contains certain
+words/tokens in any order, you can use the function like this:
+
+```js
+FOR doc IN someView
+  SEARCH ANALYZER(doc.text IN TOKENS("dolor amet lorem", "text_en"), "text_en")
+  RETURN doc
+```
+
+It will match `{ "text": "Lorem ipsum, dolor sit amet." }` for instance. If you
+want to search for tokens in a particular order, use [PHRASE()](#phrase) instead.
 
 Scoring Functions
 -----------------
 
-Scoring functions return a ranking value for the documents founds by a
+Scoring functions return a ranking value for the documents found by a
 [SEARCH operation](operations-search.html). The better the documents match
-the search expression the higher the returned number. To sort the result set
-by relevance, with the more relevant documents coming first, remember to sort
-in **descending order** (`SORT BM25(...) DESC`).
+the search expression the higher the returned number.
+
+To sort the result set by relevance, with the more relevant documents coming
+first, sort in **descending order** by the score (e.g. `SORT BM25(...) DESC`).
+
+You may calculate custom scores based on a scoring function using document
+attributes and numeric functions (e.g. `TFIDF(doc) * LOG(doc.value)`).
+
+The first argument to any scoring function is always the document emitted by
+a `FOR` operation over an ArangoSearch View.
 
 ### BM25()
 
 `BM25(doc, k, b) → score`
 
-Sorts documents using the [**Best Matching 25** algorithm](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}.
-See the [`BM25()` section in ArangoSearch Scorers](../arangosearch-scorers.html)
-for details.
+Sorts documents using the
+[**Best Matching 25** algorithm](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}
+(BM25).
 
-- **doc** (document): must be emitted by `FOR doc IN someView`
-- **k** (number, *optional*): calibrates the text term frequency scaling. The default is
-  *1.2*. A *k* value of 0 corresponds to a binary model (no term frequency), and a large
-  value corresponds to using raw term frequency
-- **b** (number, *optional*): determines the scaling by the total text length. The default
-  is *0.75*. At the extreme values of the coefficient *b*, BM25 turns into the ranking
-  functions known as
-  - BM11 (for *b* = `1`, corresponds to fully scaling the term weight
-    by the total text length) and
-  - BM15 (for *b* = `0`, corresponds to no length normalization)
+- **doc** (document): must be emitted by `FOR ... IN someView`
+- **k** (number, _optional_): calibrates the text term frequency scaling.
+  The default is `1.2`. A *k* value of `0` corresponds to a binary model
+  (no term frequency), and a large value corresponds to using raw term frequency
+- **b** (number, _optional_): determines the scaling by the total text length.
+  The default is `0.75`. At the extreme values of the coefficient *b*, BM25
+  turns into the ranking functions known as:
+  - BM11 for *b* = `1` (corresponds to fully scaling the term weight by the
+    total text length)
+  - BM15 for *b* = `0` (corresponds to no length normalization)
 - returns **score** (number): computed ranking value
+
+Sorting by relevance with BM25 at default settings:
+
+```js
+FOR doc IN someView
+  SORT BM25(doc) DESC
+  RETURN doc
+```
+
+Sorting by relevance, with double-weighted term frequency and with full text
+length normalization:
+
+```js
+FOR doc IN someView
+  SORT BM25(doc, 2.4, 1) DESC
+  RETURN doc
+```
 
 ### TFIDF()
 
 `TFIDF(doc, normalize) → score`
 
 Sorts documents using the
-[**term frequency–inverse document frequency** algorithm](https://en.wikipedia.org/wiki/TF-IDF){:target="_blank"}.
-See the [`TFIDF()` section in ArangoSearch Scorers](../arangosearch-scorers.html)
-for details.
+[**term frequency–inverse document frequency** algorithm](https://en.wikipedia.org/wiki/TF-IDF){:target="_blank"}
+(TF-IDF).
 
-- **doc** (document): must be emitted by `FOR doc IN someView`
-- **normalize** (bool, *optional*): specifying whether scores should be
+- **doc** (document): must be emitted by `FOR ... IN someView`
+- **normalize** (bool, _optional_): specifies whether scores should be
   normalized. The default is *false*.
 - returns **score** (number): computed ranking value
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### EXISTS()
-
-Note: Will only match values when the specified attribute has been processed
-with the link property **storeValues** set to **"id"** (by default it's
-**"none"**).
-
-`EXISTS(doc.someAttr)`
-
-Match documents **doc** where the attribute **someAttr** exists in the
-document.
-
-This also works with sub-attributes, e.g.
-
-`EXISTS(doc.someAttr.anotherAttr)`
-
-as long as the field is processed by the view with **storeValues** not
-**none**.
-
-`EXISTS(doc.someAttr, "analyzer", analyzer)`
-
-Match documents where **doc.someAttr** exists in the document _and_ was indexed
-by the specified **analyzer**. **analyzer** is optional and defaults to the
-current context analyzer (e.g. specified by `ANALYZER` function).
-
-`EXISTS(doc.someAttr, type)`
-
-Match documents where the **doc.someAttr** exists in the document
- and is of the specified type.
-
-- *doc.someAttr* - the path of the attribute to exist in the document
-- *analyzer* - string with the analyzer used, i.e. *"text_en"* or one of the
-  other [available string analyzers](../analyzers.html)
-- *type* - data type as string; one of:
-    - **bool**
-    - **boolean**
-    - **numeric**
-    - **null**
-    - **string**
-
-In case if **analyzer** isn't specified, current context analyzer (e.g.
-specified by `ANALYZER` function) will be used.
-
-### PHRASE()
-
-```
-PHRASE(doc.someAttr, 
-       phrasePart [, skipTokens] [, phrasePart | , phrasePart, skipTokens]*
-       [, analyzer])
-```
-
-Search for a phrase in the referenced attributes. 
-
-The phrase can be expressed as an arbitrary number of *phraseParts* separated by
-*skipToken* number of tokens.
-
-- *doc.someAttr* - the path of the attribute to compare against in the document
-- *phrasePart* - a string to search in the token stream; may consist of several
-  words; will be split using the specified *analyzer*
-- *skipTokens* number of words or tokens to treat as wildcards
-- *analyzer* - string with the analyzer used, i.e. *"text_en"* or one of the
-  other [available string analyzers
-  ](../analyzers.html)
-
-For example, given a document `doc` containing the text `"Lorem ipsum dolor sit
-amet, consectetur adipiscing elit"`, the following expression will be `true`:
+Sort by relevance using the TF-IDF score:
 
 ```js
-PHRASE(doc.text, "ipsum", 1, "sit", 2, "adipiscing", "text_de")
+FOR doc IN someView
+  SORT TFIDF(doc) DESC
+  RETURN doc
 ```
 
-Specifying deep attributes like `doc.some.deep.attr` is also allowed. The
-attribute has to be processed by the view as specified in the link.
-
-### STARTS_WITH()
-
-`STARTS_WITH(doc.someAttr, prefix)`
-
-Match the value of the **doc.someAttr** that starts with **prefix**
-
-- *doc.someAttr* - the path of the attribute to compare against in the document
-- *prefix* - a string to search at the start of the text
-
-Specifying deep attributes like `doc.some.deep.attr` is also allowed. The
-attribute has to be processed by the view as specified in the link.
-
-### TOKENS()
-
-`TOKENS(input, analyzer)`
-
-Split the **input** string with the help of the specified **analyzer** into an
-Array. The resulting Array can i.e. be used in subsequent `FILTER` or `SEARCH`
-statements with the **IN** operator. This can be used to better understand how
-the specific analyzer is going to behave.
-- *input* string to tokenize
-- *analyzer* one of the [available string_analyzers](../analyzers.html)
-
-### MIN_MATCH()
-
-`MIN_MATCH(searchExpression [, searchExpression]*, minMatchCount)`
-
-Match documents where at least **minMatchCount** of the specified
-**searchExpression**s are satisfied.
-
-- *searchExpression* - any valid search expression
-- *minMatchCount* - minimum number of *searchExpression*s that should be
-  satisfied
-
-For example,
+Sort by relevance using a normalized TF-IDF score:
 
 ```js
-MIN_MATCH(doc.text == 'quick', doc.text == 'brown', doc.text == 'fox', 2)
+FOR doc IN someView
+  SORT TFIDF(doc, true) DESC
+  RETURN doc
 ```
 
-if `doc.text`, as analyzed by the current analyzer, contains 2 out of 'quick',
-'brown' and 'fox', it will be included as matched one.
+Sort by the value of the `text` attribute in ascending order, then by the TFIDF
+score in descending order where the attribute values are equivalent:
 
-### Searching examples
+```js
+FOR doc IN someView
+  SORT doc.text, TFIDF(doc) DESC
+  RETURN doc
+```
 
-to match documents which have a 'name' attribute
-
-    FOR doc IN someView SEARCH EXISTS(doc.name)
-      RETURN doc
-
-or
-
-    FOR doc IN someView SEARCH EXISTS(doc['name'])
-      RETURN doc
-
-to match documents where 'body' was analyzed via the 'text_en' analyzer
-
-    FOR doc IN someView SEARCH EXISTS(doc.body, 'analyzer', 'text_en')
-      RETURN doc
-
-or
-
-    FOR doc IN someView SEARCH EXISTS(doc['body'], 'analyzer', 'text_en')
-      RETURN doc
-
-or
-
-    FOR doc IN someView SEARCH ANALYZER(EXISTS(doc['body'], 'analyzer'), 'text_en')
-      RETURN doc
-
-to match documents which have an 'age' attribute of type number
-
-    FOR doc IN someView SEARCH EXISTS(doc.age, 'numeric')
-      RETURN doc
-
-or
-
-    FOR doc IN someView SEARCH EXISTS(doc['age'], 'numeric')
-      RETURN doc
+<!-- Searching examples
 
 to match documents where 'description' contains word 'quick' or word
 'brown' and has been analyzed with 'text_en' analyzer
 
-    FOR doc IN someView SEARCH ANALYZER(doc.description == 'quick' OR doc.description == 'brown', 'text_en')
-      RETURN doc
-
-to match documents where 'description' contains at least 2 of 3 words 'quick', 
-'brown', 'fox' and has been analyzed with 'text_en' analyzer
-
-    FOR doc IN someView SEARCH ANALYZER(
-        MIN_MATCH(doc.description == 'quick', doc.description == 'brown', doc.description == 'fox', 2),
-        'text_en'
-      )
-      RETURN doc
-
-to match documents where 'description' contains a phrase 'quick brown'
-
-    FOR doc IN someView SEARCH PHRASE(doc.description, [ 'quick brown' ], 'text_en')
-      RETURN doc
-
-or
-
-    FOR doc IN someView SEARCH PHRASE(doc['description'], [ 'quick brown' ], 'text_en')
-      RETURN doc
-
-or
-
-    FOR doc IN someView SEARCH ANALYZER(PHRASE(doc['description'], [ 'quick brown' ]), 'text_en')
-      RETURN doc
-
-to match documents where 'body' contains the phrase consisting of a sequence
-like this:
-'quick' * 'fox jumps' (where the asterisk can be any single word)
-
-    FOR doc IN someView SEARCH PHRASE(doc.body, [ 'quick', 1, 'fox jumps' ], 'text_en')
-      RETURN doc
-
-or
-
-    FOR doc IN someView SEARCH PHRASE(doc['body'], [ 'quick', 1, 'fox jumps' ], 'text_en')
-      RETURN doc
-
-or
-
-    FOR doc IN someView SEARCH ANALYZER(PHRASE(doc['body'], [ 'quick', 1, 'fox jumps' ]), 'text_en')
-      RETURN doc
-
-to match documents where 'story' starts with 'In the beginning'
-
-    FOR doc IN someView SEARCH STARTS_WITH(doc.story, 'In the beginning')
-      RETURN DOC
-
-or
-
-    FOR doc IN someView SEARCH STARTS_WITH(doc['story'], 'In the beginning')
-      RETURN DOC
-
-to watch the analyzer doing its work
-
-    RETURN TOKENS('a quick brown fox', 'text_en')
-
-to match documents where 'description' best matches 'a quick brown fox'
-
-    FOR doc IN someView SEARCH ANALYZER(doc.description IN TOKENS('a quick brown fox', 'text_en'), 'text_en')
-      RETURN doc
-
-
-
+```js
+FOR doc IN someView
+  SEARCH ANALYZER(doc.text == "quick" OR doc.text == "brown", "text_en")
+RETURN doc
+```
 
 
 ArangoSearch Scorers are special functions that allow to sort documents from a
 view by their score regarding the analyzed fields.
 
-Details about their usage in AQL can be found in the
-[ArangoSearch `SORT` section](aql/functions-arangosearch.html#arangosearch-sorting).
-
-- BM25: order results based on the [BM25 algorithm](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}
-
-- TFIDF: order results based on the [TFIDF algorithm](https://en.wikipedia.org/wiki/TF-IDF){:target="_blank"}
-
-### `BM25()` - Best Matching 25 Algorithm
-
-IResearch provides a 'bm25' scorer implementing the
-[BM25 algorithm](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}. Optionally, free
-parameters **k** and **b** of the algorithm typically using for advanced
-optimization can be specified as floating point numbers.
-
-`BM25(doc, k, b)`
-
-- *doc* (document): must be emitted by `FOR doc IN someView`
-
-- *k* (number, _optional_): term frequency, the default is _1.2_. *k*
-  calibrates the text term frequency scaling. A *k* value of *0* corresponds to
-  a binary model (no term frequency), and a large value corresponds to using raw
-  term frequency.
-
-- *b* (number, _optional_): determines the scaling by the total text length, the
-  default is _0.75_. *b* determines the scaling by the total text length.
-  - b = 1 corresponds to fully scaling the term weight by the total text length
-  - b = 0 corresponds to no length normalization.
-
-At the extreme values of the coefficient *b*, BM25 turns into the ranking
-functions known as BM11 (for b = 1) and BM15 (for b = 0).
-
-### `TFIDF()` - Term Frequency – Inverse Document Frequency Algorithm
-
-Sorts documents using the
-[**term frequency–inverse document frequency** algorithm](https://en.wikipedia.org/wiki/TF-IDF){:target="_blank"}.
-
-`TFIDF(doc, withNorms)`
-
-- *doc* (document): must be emitted by `FOR doc IN someView`
-- *withNorms* (bool, _optional_): specifying whether norms should be used via
-  **with-norms**, the default is _false_
-
-
-
-
 
 ArangoSearch sorting
---------------------
 
 A major feature of ArangoSearch Views is their capability of sorting results
 based on the creation-time search conditions and zero or more sorting functions.
 The ArangoSearch sorting functions available are `TFIDF()` and `BM25()`.
-
-Note: The first argument to any ArangoSearch sorting function is _always_ the
-document emitted by a `FOR` operation over an ArangoSearch View.
-
-Note: An ArangoSearch sorting function is _only_ allowed as an argument to a
-`SORT` operation. But they can be mixed with other arguments to `SORT`.
 
 So the following examples are valid:
 
@@ -671,95 +646,4 @@ The following sorting methods are available:
 You can sort documents by simply specifying arbitrary values or expressions, as
 you do in other places.
 
-### BM25()
-
-`BM25(doc, k, b)`
-
-- *k* (number, _optional_): calibrates the text term frequency scaling, the default is
-_1.2_. A *k* value of _0_ corresponds to a binary model (no term frequency), and a large
-value corresponds to using raw term frequency
-- *b* (number, _optional_): determines the scaling by the total text length, the default
-is _0.75_. At the extreme values of the coefficient *b*, BM25 turns into ranking
-functions known as BM11 (for *b* = `1`,  corresponds to fully scaling the term weight by
-the total text length) and BM15 (for *b* = `0`, corresponds to no length normalization)
-
-Sorts documents using the [**Best Matching 25** algorithm](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}.
-See the [`BM25()` section in ArangoSearch Scorers](../arangosearch-scorers.html)
-for details.
-
-### TFIDF()
-
-`TFIDF(doc, withNorms)`
-
-- *doc* (document): must be emitted by `FOR doc IN someView`
-- *withNorms* (bool, _optional_): specifying whether scores should be
-  normalized, the default is _false_
-
-Sorts documents using the
-[**term frequency–inverse document frequency** algorithm](https://en.wikipedia.org/wiki/TF-IDF){:target="_blank"}.
-See the
-[`TFIDF()` section in ArangoSearch Scorers](../arangosearch-scorers.html)
-for details.
-
-
-### Sorting examples
-
-to sort documents by the value of the 'name' attribute
-
-    FOR doc IN someView
-      SORT doc.name
-      RETURN doc
-
-or
-
-    FOR doc IN someView
-      SORT doc['name']
-      RETURN doc
-
-to sort documents via the
-[BM25 algorithm](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}
-
-    FOR doc IN someView
-      SORT BM25(doc)
-      RETURN doc
-
-to sort documents via the
-[BM25 algorithm](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}
-with 'k' = 1.2 and 'b' = 0.75
-
-    FOR doc IN someView
-      SORT BM25(doc, 1.2, 0.75)
-      RETURN doc
-
-to sort documents via the
-[TFIDF algorithm](https://en.wikipedia.org/wiki/TF-IDF){:target="_blank"}
-
-    FOR doc IN someView
-      SORT TFIDF(doc)
-      RETURN doc
-
-to sort documents via the
-[TFIDF algorithm](https://en.wikipedia.org/wiki/TF-IDF){:target="_blank"} with norms
-
-    FOR doc IN someView
-      SORT TFIDF(doc, true)
-      RETURN doc
-
-to sort documents by value of 'name' and then by the
-[TFIDF algorithm](https://en.wikipedia.org/wiki/TF-IDF){:target="_blank"} where 'name' values are
-equivalent
-
-    FOR doc IN someView
-      SORT doc.name, TFIDF(doc)
-      RETURN doc
-
-
-
-
-
-
-
-
-
-
-
+-->
