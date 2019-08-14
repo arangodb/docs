@@ -22,10 +22,13 @@ The configuration is comprised of type-specific properties and list of features.
 The features control the additional metadata to be generated to augment View
 indexes, to be able to rank results for instance.
 
+Analyzers can be managed via an [HTTP API](http/analyzers.html) and through
+a [JavaScript module](appendix-java-script-modules-analyzers.html).
+
 Analyzer Names
 --------------
 
-Each analyzer has a name for identification with the following
+Each Analyzer has a name for identification with the following
 naming conventions, similar to collection names:
 
 - The name must only consist of the letters `a` to `z` (both in lower and
@@ -35,8 +38,16 @@ naming conventions, similar to collection names:
 - The maximum allowed length of a name is 64 bytes.
 - Analyzer names are case-sensitive.
 
-Analyzers are stored per database (in a system collection `_analyzers`).
-Their names are unique per database.
+Custom Analyzers are stored per database, in a system collection `_analyzers`.
+The names get prefixed with the database name and two colons, e.g.
+`myDB::customAnalyzer`.This does not apply to the globally available
+[built-in Analyzers](#built-in-analyzers), which are not stored in an
+`_analyzers` collection.
+
+Custom Analyzers stored in the `_system` database can be referenced in queries
+against other databases by specifying the prefixed name, e.g.
+`_system::customGlobalAnalyzer`. Analyzers stored in databases other than
+`_system` can not be accessed from within another database however.
 
 Analyzer Types
 --------------
@@ -235,10 +246,7 @@ default context identity, [1,2,"blue"] -> SEARCH doc.arr == 1 (yes) / "blue" (no
 
 can't compare to arrays or objects
 
-
-
 - count how often a value occurs
-
 
 To simplify query syntax ArangoSearch provides a concept of named analyzers
 which are merely aliases for type+configuration of IResearch analyzers. See

@@ -37,8 +37,3 @@ Example use cases:
 The ArangoSearch features are integrated into AQL as
 [`SEARCH` operation](aql/operations-search.html) and a set of
 [AQL functions](aql/functions-arangosearch.html).
-
-Views can be managed in the Web UI, via an [HTTP API](http/views.html) and
-through a [JavaScript API](data-modeling-views-database-methods.html).
-Analyzers can be managed via an [HTTP API](http/analyzers.html) and through
-a [JavaScript module](appendix-java-script-modules-analyzers.html).
