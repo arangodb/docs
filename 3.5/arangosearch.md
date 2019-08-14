@@ -30,9 +30,9 @@ Example use cases:
 - Find information in a research database using stemmed phrases, case and
   accent insensitive, with irrelevant terms removed from the search index
   (stop word filtering), ranked by relevance based on term frequency (TFIDF).
-- Query a movie dataset for titles with certain words close to one another
-  (token proximity) and sort the results by best matching (BM25) but favor
-  movies with a longer duration.
+- Query a movie dataset for titles with words in a particular order
+  (optionally with wildcards), and sort the results by best matching (BM25)
+  but favor movies with a longer duration.
 
 The ArangoSearch features are integrated into AQL as
 [`SEARCH` operation](aql/operations-search.html) and a set of
