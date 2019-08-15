@@ -227,6 +227,13 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
 {% include aqlexample.html id=examplevar query=query bind=bind result=result %}
 ```
 
+## Guidelines
+
+- Use American English.
+- Wrap text at 80 characters. This helps tremendously in version control.
+- Put Markdown links on a single line `[link label](target.html#hash)`,
+  even if it violates the guideline of 80 characters per line.
+
 ## Troubleshooting
 
 - ```
@@ -272,17 +279,15 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
   docs/page.html
     hash does not exist --- docs/page.html --> target.html#hash
   ```
-  
-  Check if the link in the Markdown source file (`docs/page.md`) is split
-  across multiple lines, like so:
-  
-  ```markdown
-  [link label
-  ](target.html#hash)
+  ```
+  docs/page.html
+    target does not exist --- docs/page.html --> target.html
   ```
   
-  Change it to a single line `[link label](target.html#hash)`, even if it
-  violates the guideline of 80 characters per line.
+  Check if the target file exists and if the anchor is correct (if applicable).
+  Look at the generated `.html` file if in doubt. A `redirect_from` frontmatter
+  might be bad (e.g. wrong version number in path) and accidentally overwrite
+  a page, removing the original content and links.
 
 ## CI/Netlify
 
