@@ -422,6 +422,20 @@
     "section" : "cluster",
     "type" : "boolean"
   },
+  "cluster.resign-leadership-on-shutdown" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "create resign leader ship job for this dbsever on shutdown",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "cluster",
+    "type" : "boolean"
+  },
   "cluster.synchronous-replication-timeout-factor" : {
     "category" : "option",
     "default" : 1,
