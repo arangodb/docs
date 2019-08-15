@@ -169,7 +169,11 @@ Add the actual content below the frontmatter.
 - Copy the latest devel version to a new directory i.e. `cp -a 3.5 3.6`
 - Add the version to `_data/versions.yml` with the full version name
 - Add all books of that version to `_data/books.yml`
-- Adjust `_config.yml` and modify `versions` if appropriate
+- Adjust the following fields in `_config.yml` as needed:
+  - `versions`
+  - `algolia.files_to_exclude`
+  - `exclude`
+- Update `_redirects`
 - Re-generate the examples, or rather add nightly build job for the new version
   to Jenkins
 
