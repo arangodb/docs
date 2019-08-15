@@ -13,22 +13,17 @@ The general syntax is:
 FOR variableName IN expression
 ```
 
-There is also a special variant for graph traversals:
+There is also a special variant for [graph traversals](graphs-traversals.html):
 
 ```js
 FOR vertexVariableName, edgeVariableName, pathVariableName IN traversalExpression
 ```
 
-For this special case see [the graph traversals chapter](graphs-traversals.html).
-
-For views, there is a special (optional) `SEARCH` keyword:
+For Views, there is a special (optional) [`SEARCH` keyword](operations-search.html):
 
 ```js
 FOR variableName IN viewName SEARCH searchExpression
 ```
-
-Details can be found in [the views chapter](views.html).
-
 
 For all other cases read on:
 
