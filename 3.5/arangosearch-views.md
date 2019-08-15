@@ -1,8 +1,23 @@
 ---
 layout: default
-description: ArangoSearch is a powerful fulltext search component with additional functionality, supported via the text analyzer and tfidf / bm25 scorers, without impact on performance when specifying documents from different collections or filtering on multiple document attributes
+description: ...
 redirect_from: /3.4/views-arango-search-detailed-overview.html
 ---
+
+
+
+Views can be managed in the Web UI, via an [HTTP API](http/views.html) and
+through a [JavaScript API](data-modeling-views-database-methods.html).
+
+
+
+
+
+
+
+
+
+
 # Detailed overview of ArangoSearch Views
 
 ArangoSearch is a powerful fulltext search component with additional

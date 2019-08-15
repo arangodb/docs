@@ -25,6 +25,30 @@ indexes, to be able to rank results for instance.
 Analyzers can be managed via an [HTTP API](http/analyzers.html) and through
 a [JavaScript module](appendix-java-script-modules-analyzers.html).
 
+Value Handling
+--------------
+
+While most of the Analyzer functionality is geared towards text processing,
+there is no restriction to strings as input data type when using them through
+Views – your documents could have attributes of any data type after all.
+
+Strings are processed according to the Analyzer, whereas other primitive data
+types (`null`, `true`, `false`, numbers) are added to the index unchanged.
+
+The elements of arrays are unpacked, processed and indexed individually,
+regardless of the level of nesting. That is, strings are processed by the
+configured Analyzer(s) and other primitive values are indexed as-is.
+
+Objects, including any nested objects, are indexed as sub-attributes.
+This applies to sub-objects as well as objects in arrays. Only primitive values
+are added to the index, arrays and objects can not be searched for.
+
+Also see:
+- [SEARCH operation](aql/operations-search.html) on how to query indexed
+  values such as numbers and nested values
+- [ArangoSearch Views](arangosearch-views.html) for details about how
+  compound data types (arrays, objects) get indexed
+
 Analyzer Names
 --------------
 
@@ -74,10 +98,9 @@ Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text
 Analyzer Properties
 -------------------
 
-The valid values for the *properties* are dependant on what *type* is used.
-For example for the `text` type its property may simply be an object with the
-value `"locale": "en"`, whereas for the `delimited` type its property may simply
-be the delimiter `,`. <!-- text analyzer doesn't seem to accept just a locale -->
+The valid attributes/values for the *properties* are dependant on what *type*
+is used. For example, the `delimiter` type needs to know the desired delimiting
+character(s), whereas the `text` type takes a locale, stop-words and more.
 
 ### Identity
 
@@ -92,11 +115,10 @@ An Analyzer capable of breaking up delimited text into tokens as per
 [RFC 4180](https://tools.ietf.org/html/rfc4180)
 (without starting new records on newlines).
 
-The *properties* allowed for this Analyzer are either:
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
 
-- a string to use as delimiter
-- an object with the attribute `delimiter` containing the delimiter string
-  to use
+- `delimiter` (string): the delimiting character(s)
 
 ### Stem
 
@@ -177,22 +199,36 @@ attributes:
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
   meaningful in ArangoDB.
 - `accent` (boolean, _optional_):
-  - `true` to preserve accented characters (default)
-  - `false` to convert accented characters to their base characters
+  - `true` to preserve accented characters
+  - `false` to convert accented characters to their base characters (default)
 - `case` (string, _optional_):
-  - `"lower"` to convert to all lower-case characters
+  - `"lower"` to convert to all lower-case characters (default)
   - `"upper"` to convert to all upper-case characters
-  - `"none"` to not change character case (default)
+  - `"none"` to not change character case
 - `stemming` (boolean, _optional_):
   - `true` to apply stemming on returned words (default)
   - `false` to leave the tokenized words as-is
 - `stopwords` (array, _optional_): an array of strings with words to omit
-  from result. Default: load words from `stopwordsPath`
-- `stopwordsPath` (string, _optional_): path with a `language` sub-directory
-  containing files with words to omit. Default: if no path is provided then
-  the value of the environment variable `IRESEARCH_TEXT_STOPWORD_PATH` is
-  used, or if it is undefined then the current working directory is assumed
-<!-- are stopwords and the ones from the files merged? -->
+  from result. Default: load words from `stopwordsPath`. To disable stop-word
+  filtering provide an empty array `[]`. If both *stopwords* and
+  *stopwordsPath* are provided then both word sources are combined.
+- `stopwordsPath` (string, _optional_): path with a *language* sub-directory
+  (e.g. `en` for a locale `en_US.utf-8`) containing files with words to omit.
+  Each word has to be on a separate line. Everything after the first whitespace
+  character on a line will be ignored and can be used for comments. The files
+  can be named arbitrarily and have any file extension (or none).
+
+  Default: if no path is provided then the value of the environment variable
+  `IRESEARCH_TEXT_STOPWORD_PATH` is used to determine the path, or if it is
+  undefined then the current working directory is assumed. If the `stopwords`
+  attribute is provided then no stop-words are loaded from files, unless an
+  explicit *stopwordsPath* is also provided.
+
+  Note that if the *stopwordsPath* can not be accessed, is missing language
+  sub-directories or has no files for a language required by an Analyzer,
+  then the creation of a new Analyzer is refused. If such an issue is 
+  discovered for an existing Analyzer during startup then the server will
+  abort with a fatal error.
 
 Analyzer Features
 -----------------
@@ -209,7 +245,7 @@ result can be used with. For example the *text* type will produce <!-- supports?
 Currently the following *features* are supported:
 
 - **frequency**: how often a term is seen, required for `PHRASE()`
-- **norm**: the field normalization factor
+- **norm**: the field normalization factor <!-- effect? -->
 - **position**: sequentially increasing term position, required for `PHRASE()`.
   If present then the *frequency* feature is also required
 
@@ -242,20 +278,8 @@ Name       | Type       | Language
 
 
 <!--
-default context identity, [1,2,"blue"] -> SEARCH doc.arr == 1 (yes) / "blue" (no)
-
 can't compare to arrays or objects
 
 - count how often a value occurs
-
-To simplify query syntax ArangoSearch provides a concept of named analyzers
-which are merely aliases for type+configuration of IResearch analyzers. See
-the [Analyzers](analyzers.html) for a description of their usage
-and management.
-
--> can be referred to by name in AQL (AQL docs)
-
-The Analyzer implementations themselves are provided by the underlying
-[IResearch library](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}.
 
 -->

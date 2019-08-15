@@ -3,6 +3,41 @@ layout: default
 description: The SEARCH keyword is followed by an ArangoSearch expression to filter a View
 title: The SEARCH operation in AQL
 ---
+
+<!--
+
+```json
+{
+  "value": {
+    "nested": {
+      "deep": [ 1, 2, 3 ]
+    }
+  }
+}
+```
+
+A View which is configured to index the field `value` including sub-fields
+will index the individual numbers under the path `value.nested.deep`, which
+can be queried for like:
+
+```js
+FOR doc IN someView
+  SERACH doc.value.nested.deep == 2
+  RETURN doc
+```
+
+This is different to `FILTER` operations, where you would use an
+[array comparison operator](aql/operators.html#array-comparison-operators)
+to find an element in the array:
+
+```js
+FOR doc IN collection
+  FILTER doc.value.nested.deep ANY == 2
+  RETURN doc
+```
+
+-->
+
 SEARCH
 ======
 
@@ -43,7 +78,7 @@ are supported:
 - `<`
 - `>`
 - `!=`
-- `IN` (array or range)
+- `IN` (array or range), also `NOT IN`
 
 Note that array comparison operators, inline expressions and a few other things
 are not supported by `SEARCH`. The server will raise a query error in case of
