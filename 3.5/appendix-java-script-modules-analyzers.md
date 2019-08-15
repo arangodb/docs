@@ -12,19 +12,29 @@ both server-side and client-side code (arangosh, Foxx):
 var analyzers = require("@arangodb/analyzers");
 ```
 
+See [Analyzers](arangosearch-analyzers.html) for general information and
+details about the attributes.
+
 Analyzer Module Methods
 -----------------------
 
 ### Create an Analyzer
 
 ```js
-analyzers.save(<name>, <type>[, <properties>[, <features>]])
+var analyzer = analyzers.save(<name>, <type>[, <properties>[, <features>]])
 ```
 
-… where *properties* can be represented either as a string, an object or a null
-value and *features* is an array of string encoded feature names.
+Create a new Analyzer with custom configuration in the current database.
 
-
+- `name` (string): name for identifying the Analyzer later
+- `type` (string): the kind of Analyzer to create
+- `properties` (object, _optional_): settings specific to the chosen *type*.
+  Most types require at least one property, so this may not be optional
+- `features` (array, _optional_): array of strings with names of the features
+  to enable
+- returns `analyzer` (object): Analyzer object, also if an Analyzer with the
+  same settings exists already. An error is raised if the settings mismatch
+  or if they are invalid
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzer_create
@@ -45,25 +55,38 @@ value and *features* is an array of string encoded feature names.
 
 ### Get an Analyzer
 
-Get an analyzer object by the name of the analyzer:
-
 ```js
-analyzers.analyzer(<name>)
+var analyzer = analyzers.analyzer(<name>)
 ```
+
+Get an Analyzer by the name, stored in the current database. The name can be
+prefixed with `_system::` to access Analyzers stored in the `_system` database.
+
+- `name` (string): name of the Analyzer to find
+- returns `analyzer` (object\|null): Analyzer object if found, else `null`
 
 ### List all Analyzers
 
-All analyzers available in the current database can be listed as follows:
-
 ```js
-analyzers.toArray()
+var analyzerArray = analyzers.toArray()
 ```
+
+List all Analyzers available in the current database.
+
+- returns `analyzerArray` (array): array of Analyzer objects
 
 ### Remove an Analyzer
 
 ```js
 analyzers.remove(<name> [, <force>])
 ```
+
+Delete an Analyzer from the current database.
+
+- `name` (string): name of the Analyzer to remove
+- `force` (bool, _optional_): remove Analyzer even if in use by a View.
+  Default: `false`
+- returns nothing: no return value on success, otherwise an error is raised
 
 Analyzer Object Methods
 -----------------------
@@ -74,23 +97,31 @@ definition attributes (see [Create an Analyzer](#create-an-analyzer)).
 ### Get Analyzer Name
 
 ```js
-analyzer.name()
+var name = analyzer.name()
 ```
+
+- returns `name` (string): name of the Analyzer
 
 ### Get Analyzer Type
 
 ```js
-analyzer.type()
+var type = analyzer.type()
 ```
+
+- returns `type` (string): type of the Analyzer
 
 ### Get Analyzer Properties
 
 ```js
-analyzer.properties()
+var properties = analyzer.properties()
 ```
+
+- returns `properties` (object): *type* dependent properties of the Analyzer
 
 ### Get Analyzer Features
 
 ```js
-analyzer.features()
+var features = analyzer.features()
 ```
+
+- returns `features` (array): array of strings with the features of the Analyzer
