@@ -229,13 +229,60 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
 
 ## Troubleshooting
 
-- > Liquid Exception: No title found for /x.x/xxx.html. Maybe you forgot to
-  > link it to the navigation? in /_layouts/default.html
+- ```
+  Liquid Exception: No title found for /x.x/xxx.html.
+  Maybe you forgot to link it to the navigation? in /_layouts/default.html
+  ```
   
   Jekyll points you to the wrong file. `_layouts/default.html` should be fine.
   Jekyll has no native support for navigation menus. `_plugins/NavigationTag.rb`
   is a custom plugin to generate the left-hand side navigation from
   `_data/<version>-<book>.yml`. You probably forgot to add your new page there.
+
+- ```
+  docs/page.html
+    target does not exist --- docs/page.html --> target.md
+  ```
+  
+  If you see this error and the target ends with an `.md` extension then change
+  it to `.html`. The resulting page has to be referenced, not the source file!
+
+- ```
+  docs/page1.html
+    target does not exist --- docs/page1.html --> target.html
+  docs/page2.html
+    target does not exist --- docs/page2.html --> target.html
+  ...
+  ```
+
+  If you get dozens of these errors for the same target, then you likely forgot
+  to add a frontmatter to that page (`docs/target.md`):
+  
+  ```yaml
+  ---
+  layout: default
+  description: ...
+  ---
+  ```
+
+  The error is issued once per page of the same book because the target page is
+  linked in the navigation.
+
+- ```
+  docs/page.html
+    hash does not exist --- docs/page.html --> target.html#hash
+  ```
+  
+  Check if the link in the Markdown source file (`docs/page.md`) is split
+  across multiple lines, like so:
+  
+  ```markdown
+  [link label
+  ](target.html#hash)
+  ```
+  
+  Change it to a single line `[link label](target.html#hash)`, even if it
+  violates the guideline of 80 characters per line.
 
 ## CI/Netlify
 
