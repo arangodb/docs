@@ -2,7 +2,7 @@
 layout: default
 description: Analyzers parse input values and transform them into sets of sub-values, for example by breaking up text into words.
 title: ArangoSearch Analyzers
-redirect_from: /3.4/analyzers.html
+redirect_from: /3.5/analyzers.html
 ---
 ArangoSearch Analyzers
 ======================

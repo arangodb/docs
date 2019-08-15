@@ -1,7 +1,7 @@
 ---
 layout: default
 description: These functions implement theHTTP API for ArangoSearch views
-redirect_from: /3.4/java-reference-view-arango-search.html
+redirect_from: /3.5/java-reference-view-arango-search.html
 ---
 
 # ArangoSearch API

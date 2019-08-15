@@ -3,8 +3,8 @@ layout: default
 description: The SEARCH keyword is followed by an ArangoSearch expression to filter a View
 title: The SEARCH operation in AQL
 redirect_from:
-  - /3.4/aql/views.html
-  - /3.4/aql/views-arango-search.html
+  - /3.5/aql/views.html
+  - /3.5/aql/views-arango-search.html
 ---
 <!--
 
