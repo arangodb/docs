@@ -1,6 +1,7 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's interface for views and how to handleviews from the JavaScript shell arangosh
+description: This is an introduction to ArangoDB's interface for Views and how to handle Views from the JavaScript shell arangosh
+title: JS API for Views
 ---
 JavaScript Interface to Views
 =============================
@@ -24,7 +25,7 @@ Usage
 Here follow some basic usage examples. More details can be found in the
 following chapters:
 
-- [ArangoSearch Views](arangosearch.html)
+- [ArangoSearch Views](arangosearch-views.html)
 - [Database Methods for Views](data-modeling-views-database-methods.html)
 - [View Methods](data-modeling-views-view-methods.html)
 
@@ -42,7 +43,9 @@ Create a view with default properties:
     @endDocuBlock viewUsage_01
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Get this view again later by name:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewUsage_02
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_02}
@@ -51,7 +54,9 @@ Get this view again later by name:
     @endDocuBlock viewUsage_02
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Get the view properties:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewUsage_03
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_03}
@@ -60,7 +65,9 @@ Get the view properties:
     @endDocuBlock viewUsage_03
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Set a view property:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewUsage_04
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_04}
@@ -69,7 +76,9 @@ Set a view property:
     @endDocuBlock viewUsage_04
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Add a link:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewUsage_05
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_05}
@@ -78,7 +87,9 @@ Add a link:
     @endDocuBlock viewUsage_05
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Add another link:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewUsage_06
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_06}
@@ -87,7 +98,9 @@ Add another link:
     @endDocuBlock viewUsage_06
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Remove the first link again:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewUsage_07
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_07}
@@ -96,7 +109,9 @@ Remove the first link again:
     @endDocuBlock viewUsage_07
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Drop the view:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewUsage_08
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_08}
