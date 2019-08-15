@@ -1,6 +1,6 @@
 ---
 layout: default
-description: ArangoSearch is a powerful fulltext search component with additionalfunctionality, supported via the text analyzer and tfidf / bm25scorers, without impact on performance when specifying documentsfrom different collections or filtering on multiple document attributes
+description: ArangoSearch is a powerful fulltext search engine
 ---
 # Detailed overview of ArangoSearch Views
 
@@ -176,6 +176,7 @@ is used by these writers (in terms of "writers pool") one can use
       as dictated by the customization attributes.
 
 ### `consolidationPolicy` properties for `bytes_accum` type
+
   - **threshold** (_optional_; type: `float`; default: `0.1`)
 
     Defines threshold value of `[0.0, 1.0]` possible range. Consolidation is
