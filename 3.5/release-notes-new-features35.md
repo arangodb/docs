@@ -77,16 +77,14 @@ AQL now allows the usage of floating point values without leading zeros, e.g.
 `.1234`. Previous versions of ArangoDB required a leading zero in front of
 the decimal separator, i.e `0.1234`.
 
-Also see:
-- [AQL Numeric Literals](aql/fundamentals-data-types.html#numeric-literals)
+Also see: [AQL Numeric Literals](aql/fundamentals-data-types.html#numeric-literals)
 
 ### k Shortest Paths queries
 
 AQL now allows to perform k Shortest Paths queries, that is, query a number of
 paths of increasing length from a start vertex to a target vertex.
 
-See: 
-- [AQL k Shortest Paths](aql/graphs-kshortest-paths.html)
+See: [AQL k Shortest Paths](aql/graphs-kshortest-paths.html)
 
 SmartJoins
 ----------
@@ -212,8 +210,7 @@ Please note that background index creation is useful only in combination with th
 storage engine. With the MMFiles storage engine, creating an index will always block any
 other operations on the collection.
 
-Also see:
-- [Creating Indexes in Background](indexing-index-basics.html#creating-indexes-in-background)
+Also see: [Creating Indexes in Background](indexing-index-basics.html#creating-indexes-in-background)
 
 TTL (time-to-live) Indexes
 --------------------------
@@ -313,8 +310,7 @@ Note that this requires client applications to abort transactions which are no
 longer necessary. Otherwise resources and locks acquired by the transactions
 will hang around until the server decides to garbage-collect them.
 
-See:
-- [Stream Transaction HTTP API](http/transaction-stream-transaction.html)
+See: [Stream Transaction HTTP API](http/transaction-stream-transaction.html)
 
 ### Minimal replication Factor
 
