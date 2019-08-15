@@ -63,7 +63,7 @@ Assuming a View definition with an Analyzer whose name and type is `delimiter`:
 return the document:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH ANALYZER(doc.text == "bar", "delimiter")
   RETURN doc
 ```
@@ -76,7 +76,7 @@ Analyzer. The following query would also return an empty result because of
 the Analyzer mismatch:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH doc.text == "foo|bar|baz"
   //SEARCH ANALYZER(doc.text == "foo|bar|baz", "identity")
   RETURN doc
@@ -86,7 +86,7 @@ In below query, the search expression is swapped by `ANALYZER()` to set the
 `text_en` Analyzer for both `PHRASE()` functions:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH ANALYZER(PHRASE(doc.text, "foo") OR PHRASE(doc.text, "bar"), "text_en")
   RETURN doc
 ```
@@ -94,7 +94,7 @@ FOR doc IN someView
 Without the usage of `ANALYZER()`:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH PHRASE(doc.text, "foo", "text_en") OR PHRASE(doc.text, "bar", "text_en")
   RETURN doc
 ```
@@ -105,7 +105,7 @@ which overrules `ANALYZER()`. Therefore, the `text_en` Analyzer is used to find
 the phrase *foo* and the `identity` Analyzer to find *bar*:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH ANALYZER(PHRASE(doc.text, "foo") OR PHRASE(doc.text, "bar", "identity"), "text_en")
   RETURN doc
 ```
@@ -116,7 +116,7 @@ are required, to set the Analyzer for the expression `doc.text IN ...` and
 for the `TOKENS()` function itself:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH ANALYZER(doc.text IN TOKENS("foo", "text_en"), "text_en")
   RETURN doc
 ```
@@ -135,7 +135,7 @@ value equal to `1.0`.
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH ANALYZER(BOOST(doc.text == "foo", 2.5) OR doc.text == "bar", "text_en")
   LET score = BM25(doc)
   SORT score DESC
@@ -193,7 +193,7 @@ Match documents where the attribute at **path** is present.
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH EXISTS(doc.text)
   RETURN doc
 ```
@@ -214,7 +214,7 @@ specified data type.
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH EXISTS(doc.text, "string")
   RETURN doc
 ```
@@ -233,7 +233,7 @@ by the specified **analyzer**.
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH EXISTS(doc.text, "analyzer", "text_en")
   RETURN doc
 ```
@@ -267,7 +267,7 @@ To match documents with the attribute `value >= 3` and `value <= 5` using the
 default `"identity"` Analyzer you would write the following query:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH IN_RANGE(doc.value, 3, 5, true, true)
   RETURN doc.value
 ```
@@ -305,7 +305,7 @@ Assuming a View with a text Analyzer, you may use it to match documents where
 the attribute contains at least two out of three tokens:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH ANALYZER(MIN_MATCH(doc.text == 'quick', doc.text == 'brown', doc.text == 'fox', 2), "text_en")
   RETURN doc.text
 ```
@@ -342,7 +342,7 @@ document `{ "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit" }`
 the following query would match it:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH PHRASE(doc.text, "lorem ipsum", "text_en")
   RETURN doc.text
 ```
@@ -391,7 +391,7 @@ To match a document `{ "text": "lorem ipsum..." }` using a prefix and the
 `"identity"` Analyzer you can use it like this:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH STARTS_WITH(doc.text, "lorem ip")
   RETURN doc
 ```
@@ -401,7 +401,7 @@ This query will match `{ "text": "lorem ipsum" }` as well as
 attribute and processes it with the `"text_en"` Analyzer:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH ANALYZER(STARTS_WITH(doc.text, "ips"), "text_en")
   RETURN doc.text
 ```
@@ -429,7 +429,7 @@ the indexed token *ip*. You may either create a custom text Analyzer with
 stemming disabled to avoid this issue, or apply stemming to the prefix:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH ANALYZER(STARTS_WITH(doc.text, TOKENS("ips", "text_en")[0]), "text_en")
   RETURN doc.text
 ```
@@ -476,7 +476,7 @@ To search a View for documents where the `text` attribute contains certain
 words/tokens in any order, you can use the function like this:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH ANALYZER(doc.text IN TOKENS("dolor amet lorem", "text_en"), "text_en")
   RETURN doc
 ```
@@ -508,7 +508,7 @@ Sorts documents using the
 [**Best Matching 25** algorithm](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}
 (BM25).
 
-- **doc** (document): must be emitted by `FOR ... IN someView`
+- **doc** (document): must be emitted by `FOR ... IN viewName`
 - **k** (number, _optional_): calibrates the text term frequency scaling.
   The default is `1.2`. A *k* value of `0` corresponds to a binary model
   (no term frequency), and a large value corresponds to using raw term frequency
@@ -523,7 +523,7 @@ Sorts documents using the
 Sorting by relevance with BM25 at default settings:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SORT BM25(doc) DESC
   RETURN doc
 ```
@@ -532,7 +532,7 @@ Sorting by relevance, with double-weighted term frequency and with full text
 length normalization:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SORT BM25(doc, 2.4, 1) DESC
   RETURN doc
 ```
@@ -545,7 +545,7 @@ Sorts documents using the
 [**term frequency–inverse document frequency** algorithm](https://en.wikipedia.org/wiki/TF-IDF){:target="_blank"}
 (TF-IDF).
 
-- **doc** (document): must be emitted by `FOR ... IN someView`
+- **doc** (document): must be emitted by `FOR ... IN viewName`
 - **normalize** (bool, _optional_): specifies whether scores should be
   normalized. The default is *false*.
 - returns **score** (number): computed ranking value
@@ -553,7 +553,7 @@ Sorts documents using the
 Sort by relevance using the TF-IDF score:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SORT TFIDF(doc) DESC
   RETURN doc
 ```
@@ -561,7 +561,7 @@ FOR doc IN someView
 Sort by relevance using a normalized TF-IDF score:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SORT TFIDF(doc, true) DESC
   RETURN doc
 ```
@@ -570,7 +570,7 @@ Sort by the value of the `text` attribute in ascending order, then by the TFIDF
 score in descending order where the attribute values are equivalent:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SORT doc.text, TFIDF(doc) DESC
   RETURN doc
 ```
@@ -581,7 +581,7 @@ to match documents where 'description' contains word 'quick' or word
 'brown' and has been analyzed with 'text_en' analyzer
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH ANALYZER(doc.text == "quick" OR doc.text == "brown", "text_en")
 RETURN doc
 ```
@@ -600,7 +600,7 @@ The ArangoSearch sorting functions available are `TFIDF()` and `BM25()`.
 So the following examples are valid:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
     SORT TFIDF(doc)
 ```
 
@@ -632,11 +632,11 @@ FOR doc IN someCollection
     SORT BM25(doc.someAttr) // !!! Error
 ```
 ```js
-FOR doc IN someView
+FOR doc IN viewName
     SORT TFIDF("someString") // !!! Error
 ```
 ```js
-FOR doc IN someView
+FOR doc IN viewName
     SORT BM25({some: obj}) // !!! Error
 ```
 

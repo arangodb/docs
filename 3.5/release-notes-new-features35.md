@@ -69,7 +69,7 @@ View definition example:
 AQL query example:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SORT doc.text DESC
   RETURN doc
 ```
@@ -80,7 +80,7 @@ Execution plan **without** a sorted index being used:
 Execution plan:
  Id   NodeType            Est.   Comment
   1   SingletonNode          1   * ROOT
-  2   EnumerateViewNode      1     - FOR doc IN someView   /* view query */
+  2   EnumerateViewNode      1     - FOR doc IN viewName   /* view query */
   3   CalculationNode        1       - LET #1 = doc.`val`   /* attribute expression */
   4   SortNode               1       - SORT #1 DESC   /* sorting strategy: standard */
   5   ReturnNode             1       - RETURN doc
@@ -92,7 +92,7 @@ Execution plan with a the primary sort order of the index being utilized:
 Execution plan:
  Id   NodeType            Est.   Comment
   1   SingletonNode          1   * ROOT
-  2   EnumerateViewNode      1     - FOR doc IN someView SORT doc.`val` DESC   /* view query */
+  2   EnumerateViewNode      1     - FOR doc IN viewName SORT doc.`val` DESC   /* view query */
   5   ReturnNode             1       - RETURN doc
 ```
 
@@ -108,7 +108,7 @@ Some small new features give more control over ArangoSearch from AQL.
   operation anymore, but can also be returned as part of the query result:
 
   ```js
-  FOR doc IN someView
+  FOR doc IN viewName
     SEARCH ...
     LET score = BM25(doc)
     SORT score DESC
@@ -118,7 +118,7 @@ Some small new features give more control over ArangoSearch from AQL.
 - The score can be manipulated to influence the ranking:
 
   ```js
-  FOR doc IN someView
+  FOR doc IN viewName
     SEARCH ...
     SORT BM25(doc) * LOG(doc.value + 1) DESC
     RETURN doc
@@ -128,7 +128,7 @@ Some small new features give more control over ArangoSearch from AQL.
   certain collections indexed by a View:
 
   ```js
-  FOR doc IN someView
+  FOR doc IN viewName
     SEARCH ... OPTIONS { collections: ["coll1", "coll2"] }
     RETURN doc
   ```

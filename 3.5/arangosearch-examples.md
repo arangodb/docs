@@ -163,7 +163,7 @@ We now want to search for documents where the attribute `body` starts with "This
 
 A simple AQL query executing this prefix search:
 
-    FOR doc IN someView SEARCH STARTS_WITH(doc.body, 'ThisIs')
+    FOR doc IN viewName SEARCH STARTS_WITH(doc.body, 'ThisIs')
       RETURN doc
 
 It will find the documents with the ids `1`, `2`, `3`, `4`, but not `5`.

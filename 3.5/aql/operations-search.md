@@ -23,7 +23,7 @@ will index the individual numbers under the path `value.nested.deep`, which
 can be queried for like:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SERACH doc.value.nested.deep == 2
   RETURN doc
 ```
@@ -102,7 +102,7 @@ Overview and Significance
 Looking up documents in an ArangoSearch View is done via the `FOR` keyword:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   ...
 ```
 
@@ -110,14 +110,14 @@ FOR doc IN someView
 keyword:
 
 ```js
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH searchExpression
 ```
 
 ArangoSearch views cannot be used as edge collections in traversals:
 
 ```js
-FOR v IN 1..3 ANY startVertex someView /* invalid! */
+FOR v IN 1..3 ANY startVertex viewName /* invalid! */
 ```
 
 ### SEARCH
@@ -279,7 +279,7 @@ General syntax
 --------------
 
 ```
-FOR doc IN someView
+FOR doc IN viewName
   SEARCH expression
   ...
 ```
