@@ -1,3 +1,8 @@
+---
+layout: default
+description: View and Analyzer usage examples
+title: ArangoSearch Examples
+---
 # Getting started with ArangoSearch Views
 
 ## The DDL configuration

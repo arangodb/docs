@@ -75,6 +75,7 @@ During view modification the following directives apply:
 - any of the directives from the section [View properties](#view-properties)
 
 ## View properties
+
 The following terminology from ArangoSearch architecture is used to understand
 view properties assignment of its type:
 
