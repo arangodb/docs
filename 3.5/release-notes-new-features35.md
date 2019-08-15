@@ -28,7 +28,7 @@ word stemming, remove user-defined stopwords, split by a delimiting
 character only, perform case conversion and/or removal of diacritic
 characters against the full input without tokenization and more.
 
-See [Analyzers](analyzers.html) for all available options.
+See [Analyzers](arangosearch-analyzers.html) for all available options.
 
 ### Sorted Index
 

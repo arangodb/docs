@@ -39,7 +39,7 @@ The `TOKENS()` function is an exception, it requires the Analyzer name to be
 passed in all cases even if wrapped in an `ANALYZER()` call.
 
 - **expr** (expression): any valid search expression
-- **analyzer** (string): name of an [Analyzer](../analyzers.html).
+- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
   <!-- Defaults to `"identity"` ? -->
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
@@ -226,7 +226,7 @@ by the specified **analyzer**.
 
 - **path** (attribute path expression): the attribute to test in the document
 - **type** (string): string literal `"analyzer"`
-- **analyzer** (string, _optional_): name of an [Analyzer](../analyzers.html).
+- **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
 - returns nothing: the function can only be called in a
@@ -331,7 +331,7 @@ The phrase can be expressed as an arbitrary number of *phraseParts* separated by
   several words/tokens, which will be split using the specified *analyzer*
 - **skipTokens** (number, _optional_): amount of words/tokens to treat
   as wildcards
-- **analyzer** (string, _optional_): name of an [Analyzer](../analyzers.html).
+- **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
 - returns nothing: the function can only be called in a
@@ -449,7 +449,7 @@ A wrapping `ANALYZER()` call in a search expression does not affect the
 *analyzer* argument nor allow you to omit it.
 
 - **input** (string): text to tokenize
-- **analyzer** (string): name of an [Analyzer](../analyzers.html).
+- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
 - returns **tokenArray** (array): array of strings with zero or more elements,
   each element being a token.
 

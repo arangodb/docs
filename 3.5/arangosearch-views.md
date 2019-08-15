@@ -22,7 +22,8 @@ through a [JavaScript API](data-modeling-views-database-methods.html).
 
 ArangoSearch is a powerful fulltext search component with additional
 functionality, supported via the *text* analyzer and *tfidf* / *bm25*
-[scorers](arangosearch-scorers.html), without impact on performance when specifying documents
+[scorers](aql/functions-arangosearch.html#scoring-functions),
+without impact on performance when specifying documents
 from different collections or filtering on multiple document attributes.
 
 ## View datasource
@@ -125,7 +126,7 @@ In plain terms this means a user can for example:
 - request documents where the `name` attribute best matches gender
 - etc. (via custom analyzers)
 
-See the [Analyzers](analyzers.html) for a detailed description of
+See the [Analyzers](arangosearch-analyzers.html) for a detailed description of
 usage and management of custom analyzers.
 
 ### The IResearch Library
@@ -156,7 +157,7 @@ the behavior of the engine.
 ## Analyzers
 
 To simplify query syntax ArangoSearch provides a concept of
-[named analyzers](analyzers.html) which are merely aliases for type+configuration
+[named analyzers](arangosearch-analyzers.html) which are merely aliases for type+configuration
 of IResearch analyzers.
 <!-- Management of named analyzers is exposed via REST, GUI and JavaScript APIs. -->
 
@@ -181,6 +182,7 @@ During view modification the following directives apply:
 - any of the directives from the section [View properties](#view-properties)
 
 ## View properties
+
 The following terminology from ArangoSearch architecture is used to understand
 view properties assignment of its type:
 
@@ -281,6 +283,7 @@ is used by these writers (in terms of "writers pool") one can use
       as dictated by the customization attributes.
 
 ### `consolidationPolicy` properties for `bytes_accum` type
+
   - **threshold** (_optional_; type: `float`; default: `0.1`)
 
     Defines threshold value of `[0.0, 1.0]` possible range. Consolidation is
@@ -320,7 +323,7 @@ is used by these writers (in terms of "writers pool") one can use
 - **analyzers** (_optional_; type: `array`; subtype: `string`; default: `[
   'identity' ]`)
 
-  A list of analyzers, by name as defined via the [Analyzers](analyzers.html),
+  A list of analyzers, by name as defined via the [Analyzers](arangosearch-analyzers.html),
   that should be applied to values of processed document attributes.
 
 - **fields** (_optional_; type: `object`; default: `{}`)
