@@ -71,10 +71,11 @@ Cluster Limitations
 ---------------------
 
 To ensure that transactions cannot block the cluster from operating properly
-we enforce a maximum lifetime for stream transactions on the coordinator.
+we enforce a maximum lifetime and size for stream transactions on the coordinator.
 
 The transactions therefore have the following limitations:
 
 - Maximum lifetime of 60 seconds
+- Maximum idle timeout 10 seconds
 - Maximum size of 128 MB
 
