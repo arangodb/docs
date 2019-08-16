@@ -236,6 +236,27 @@ shard key values, and it will be returned even if no such document exists.
 **Note**: this function can only be used on a coordinator in a cluster.
 
 
+Shards
+------
+
+<!-- arangod/V8Server/v8-collection.cpp -->
+
+returns the available shards for the collection.
+`collection.shards(details)`
+
+If `details` is not set, or set to `false`, returns an array with the names of 
+the available shards of the collection.
+
+If `details` is set to `true`, returns an object with the shard names as
+object attribute keys, and the responsible servers as an array mapped to each
+shard attribute key.
+
+The leader shards are always first in the arrays of responsible servers.
+
+**Note**: this function can only be used on a coordinator in a cluster.
+
+
+
 Load
 ----
 
