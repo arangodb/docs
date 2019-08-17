@@ -166,6 +166,11 @@ is 256MiB. If there is more, the default is `(system RAM size - 2GiB) * 0.3`.
 
 `--rocksdb.enforce-block-cache-size-limit`
 
+{% hint 'warning' %}
+This option is ignored because it could cause errors in RocksDB 5.6.
+Consider upgrading to ArangoDB v3.4 or later with a more recent RocksDB bundled.
+{% endhint %}
+
 Whether or not the maximum size of the RocksDB block cache is strictly enforced.
 This option can be set to limit the memory usage of the block cache to at most the
 specified size. If then inserting a data block into the cache would exceed the 
