@@ -10,21 +10,55 @@ Views can be managed in the Web UI, via an [HTTP API](http/views.html) and
 through a [JavaScript API](data-modeling-views-database-methods.html).
 
 
+documents from different collections or filtering on multiple document attributes.
 
 
+When dealing with unstructured or semi-structured data a user usually has only a vague assumption of what she is looking for. That means when executing a query she is not only interested in datasets that just satisfy search criteria but particularly the most relevant ones.
 
+In order to achieve that we combined two information retrieval models: boolean and generalized ranking retrieval so that each document “approved” by boolean model gets its own rank from the ranking model.
 
+Since analysis and ranking phases are application dependent there are configurable Analyzers.
 
+For text retrieval, we use the Vector Space Model (VSM) as the ranking model. According to the model, documents and query are represented as vectors in a space formed by the “terms” of the query. The definition of “term” depends on the analysis phase of the application. Typically terms are single words, keywords or even phrases.
 
+The document vectors that are closer to a query vector are more relevant.
+Practically the closeness is expressed as the cosine of the angle between two vectors, namely [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity){:target="_blank"}.
 
+In order to define how relevant document d to the query q we have to evaluate the following expression:
+cos a = (d * q) / (|d| * |q|), where
+d * q is the dot product of the query vector q and document vector d,
+|d| is the norm of the vector d,
+|q| is the norm of the vector q
 
-# Detailed overview of ArangoSearch Views
+To evaluate relevance described above we have to compute vector components at first. Since we are in a space formed by the “terms” we use “term weights” as the coordinates. There are number of probability/statistical weighting models but for this Milestone release we’ve implemented two, probably the most famous schemes:
 
-ArangoSearch is a powerful fulltext search component with additional
-functionality, supported via the *text* analyzer and *tfidf* / *bm25*
-[scorers](aql/functions-arangosearch.html#scoring-functions),
-without impact on performance when specifying documents
-from different collections or filtering on multiple document attributes.
+[Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25)
+[TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)
+Under the hood both models rely on 2 main components:
+
+*Term frequency* (TF) in the simplest case defined as the number of times that term t occurs in document d
+*Inverse document frequency* (IDF) is a measure of how much information the word provides, i.e. whether the term is common or rare across all documents
+
+Feature                           | ArangoSearch | Full-text Index
+----------------------------------|--------------|----------------
+Term search                       | Yes          | Yes
+Prefix search                     | Yes          | Yes
+Boolean expressions               | Yes          | Restricted
+Range search                      | Yes          | No
+Phrase search                     | Yes          | No
+Relevance ranking                 | Yes          | No
+Configurable Analyzers            | Yes          | No
+AQL composable language construct	| Yes          | No
+Indexed attributes per collection | Unlimited    | 1
+Indexed collections               | Unlimited    | 1
+
+Schema agnostic indexing is meant to be treated as the ability to index any JSON attribute at any depth or the given set of paths, allowing fast access to documents via any combination of conditions over the indexed attributes. Unlike the collections with user-defined indexes, view guarantees the best execution plan (merge join) when querying multiple attributes.
+
+Once view has been created one may establish an arbitrary number of links between collections (of any type) and a view. That especially useful when one needs to retrieve and analyze data from multiple collections based on some conditions, e.g. find the most relevant goods or books according to a given description.
+Each link is meant to be treated as the data flow from a collection to a view so that data from a collection will be accessible via the view object. ArangoSearch view gives you full control over the data coming from a particular collection allowing to specify what and how should be indexed.
+
+Since essentially graph is a combination of document and edge collections, it might be indexed by a view as well. With such approach, graph can be treated as flat and interconnected data structure simultaneously.
+Dual approach allows combining information retrieval techniques with sophisticated graph traversals in order to speed up data access by a factor of magnitude, e.g. one can find the most relevant vertices according to a provided description and then do a regular traversal within a specified depth.
 
 ## View datasource
 

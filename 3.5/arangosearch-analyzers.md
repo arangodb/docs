@@ -156,7 +156,7 @@ attributes:
 ### N-gram
 
 An Analyzer capable of producing n-grams from a specified input in a range of
-[min;max] (inclusive). Can optionally preserve the original input.
+min..max (inclusive). Can optionally preserve the original input.
 
 This Analyzer type can be used to implement substring matching.
 Note that it currently supports single-byte characters only.
@@ -249,6 +249,8 @@ Currently the following *features* are supported:
 - **position**: sequentially increasing term position, required for `PHRASE()`.
   If present then the *frequency* feature is also required
 
+<!-- TOOD: what else requires which features? -->
+
 Built-in Analyzers
 ------------------
 
@@ -275,11 +277,3 @@ Name       | Type       | Language
 `text_ru`  | `text`     | Russian
 `text_sv`  | `text`     | Swedish
 `text_zh`  | `text`     | Chinese
-
-
-<!--
-can't compare to arrays or objects
-
-- count how often a value occurs
-
--->

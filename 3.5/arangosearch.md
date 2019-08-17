@@ -24,6 +24,10 @@ tokenization, language-specific word stemming, case conversion, removal of
 diacritical marks (accents) from characters and more. Analyzers can be used
 standalone or in combination with Views for sophisticated searching.
 
+The ArangoSearch features are integrated into AQL as
+[`SEARCH` operation](aql/operations-search.html) and a set of
+[AQL functions](aql/functions-arangosearch.html).
+
 Example use cases:
 - Perform federated full-text searches over product descriptions for a
   web shop, with the product documents stored in various collections.
@@ -33,7 +37,3 @@ Example use cases:
 - Query a movie dataset for titles with words in a particular order
   (optionally with wildcards), and sort the results by best matching (BM25)
   but favor movies with a longer duration.
-
-The ArangoSearch features are integrated into AQL as
-[`SEARCH` operation](aql/operations-search.html) and a set of
-[AQL functions](aql/functions-arangosearch.html).
