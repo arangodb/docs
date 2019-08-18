@@ -4,7 +4,7 @@ arangosh&gt; db.names.ensureIndex({ <span class="hljs-attr">type</span>: <span c
   <span class="hljs-string">"fields"</span> : [ 
     <span class="hljs-string">"first"</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"names/73827"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"names/73837"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
@@ -14,31 +14,31 @@ arangosh&gt; db.names.ensureIndex({ <span class="hljs-attr">type</span>: <span c
 }
 arangosh&gt; db.names.save({ <span class="hljs-string">"first"</span> : <span class="hljs-string">"Tim"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/73829"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73829"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZF62ScC---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/73839"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73839"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZILoyoe---"</span> 
 }
 arangosh&gt; db.names.save({ <span class="hljs-string">"first"</span> : <span class="hljs-string">"Tom"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/73831"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73831"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZF62ScC--A"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/73841"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73841"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZILoyoi---"</span> 
 }
 arangosh&gt; db.names.save({ <span class="hljs-string">"first"</span> : <span class="hljs-string">"John"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/73833"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73833"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZF62ScG---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/73843"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73843"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZILoyoi--A"</span> 
 }
 arangosh&gt; db.names.save({ <span class="hljs-string">"first"</span> : <span class="hljs-string">"Tim"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/73835"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73835"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZF62ScK---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/73845"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73845"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZILoyom---"</span> 
 }
 arangosh&gt; db.names.save({ <span class="hljs-string">"first"</span> : <span class="hljs-string">"Tom"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/73837"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73837"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZF62ScO---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"names/73847"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73847"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZILoyoq---"</span> 
 }
