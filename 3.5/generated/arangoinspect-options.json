@@ -213,6 +213,34 @@
     "section" : "",
     "type" : "boolean"
   },
+  "encryption.key-generator" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "program providing the encryption key on stdout. If set, encryption will be enabled.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "encryption",
+    "type" : "string"
+  },
+  "encryption.keyfile" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "file containing the encryption key. If set, encryption will be enabled.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "encryption",
+    "type" : "string"
+  },
   "javascript.allow-external-process-control" : {
     "category" : "option",
     "default" : false,
@@ -449,7 +477,7 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "disables access to JavaScript functions in the internal module: getPid(), processStatistics() andl logLevel()",
+    "description" : "disables access to JavaScript functions in the internal module: getPid() and logLevel()",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
