@@ -182,6 +182,8 @@ the outputs of SHORTEST_PATH and K_SHORTEST_PATHS with LIMIT 1. Note that while
 SHORTEST_PATH and K_SHORTEST_PATH with LIMIT 1 should return a path of the same
 length (or weight), they do not need to return the same path.
 
+Using `SHORTEST_PATH`:
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHKSP_01_Aberdeen_to_London
     @EXAMPLE_AQL{GRAPHKSP_01_Aberdeen_to_London}
@@ -193,6 +195,8 @@ length (or weight), they do not need to return the same path.
     @endDocuBlock GRAPHKSP_01_Aberdeen_to_London
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+
+Using `K_SHORTEST_PATHS`:
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHKSP_02_Aberdeen_to_London
@@ -207,7 +211,7 @@ length (or weight), they do not need to return the same path.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar query=query bind=bind result=result %}
 
-Next, we can ask for more than one option for a route:
+With `K_SHORTEST_PATHS` we can ask for more than one option for a route:
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHKSP_03_Aberdeen_to_London
@@ -226,7 +230,8 @@ Next, we can ask for more than one option for a route:
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar query=query bind=bind result=result %}
 
-If we ask for routes that don't exist we get an empty result:
+If we ask for routes that don't exist we get an empty result
+(from **Aberdeen** to **Toronto**):
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHKSP_04_Aberdeen_to_Toronto
@@ -248,7 +253,9 @@ If we ask for routes that don't exist we get an empty result:
 We can use the attribute *travelTime* that connections have as edge weights to
 take into account which connections are quicker. A high default weight is set,
 to be used if an edge has no *travelTime* attribute (not the case with the
-example graph):
+example graph). This returns the top three routes with the fewest changes
+and favoring the least travel time for the connection **Saint Andrews**
+to **Cologne**:
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHKSP_05_StAndrews_to_Cologne
