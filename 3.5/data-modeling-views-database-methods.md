@@ -1,6 +1,7 @@
 ---
 layout: default
-description: Database Methods
+description: View-related JavaScript methods of Database objects for arangosh and Foxx
+title: Database Methods in ArangoSearch Views JS API
 ---
 Database Methods
 ================
@@ -13,6 +14,7 @@ View
 `db._view(view-name)`
 
 Returns the view with the given name or null if no such view exists.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDatabaseGet
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseGet}
@@ -25,16 +27,17 @@ Returns the view with the given name or null if no such view exists.
     @endDocuBlock viewDatabaseGet
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 `db._view(view-identifier)`
 
 Returns the view with the given identifier or null if no such view exists.
 Accessing views by identifier is discouraged for end users. End users should
 access views using the view name.
 
-
 **Examples**
 
 Get a view by name:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDatabaseNameKnown
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseNameKnown}
@@ -43,7 +46,9 @@ Get a view by name:
     @endDocuBlock viewDatabaseNameKnown
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Unknown view:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDatabaseNameUnknown
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseNameUnknown}
@@ -76,6 +81,7 @@ to each view-type. Currently, only ArangoSearch Views are supported. See
 details.
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDatabaseCreate
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseCreate}
@@ -96,10 +102,10 @@ All Views
 
 Returns all views of the given database.
 
-
 **Examples**
 
 List all views:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDatabaseList
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseList}
@@ -110,6 +116,7 @@ List all views:
     @endDocuBlock viewDatabaseList
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Drop
 ----
 
@@ -128,6 +135,7 @@ thrown if there is no such view.
 **Examples**
 
 Drop a view:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDatabaseDrop
     @EXAMPLE_ARANGOSH_OUTPUT{viewDatabaseDrop}

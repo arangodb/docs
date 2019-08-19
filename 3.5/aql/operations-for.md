@@ -1,6 +1,7 @@
 ---
 layout: default
 description: The FOR keyword can be to iterate over all elements of an array
+title: FOR Operation in AQL
 ---
 FOR
 ===
