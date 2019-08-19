@@ -266,7 +266,7 @@ The example has the cities as *vertices* in several *vertex collections* - `germ
 
 This graph was designed to demonstrate filters in traversals. It has some labels to filter on it.
 
-![traversal graph](images/traversal_graph.png)
+![Traversal Graph](images/traversal_graph.png)
 
 The example has all its vertices in the *circles* collection, and an *edges* edge collection to connect them.
 Circles have unique numeric labels. Edges have two boolean attributes (*theFalse* always being false, *theTruth* always being true) and a label sorting *B* - *D* to the left side, *G* - *K* to the right side. Left and right side split into Paths - at *B* and *G* which are each direct neighbours of the root-node *A*. Starting from *A* the graph has a depth of 3 on all its paths.
@@ -291,7 +291,7 @@ The vertices in this graph are train stations of cities in the United Kingdom
 and the edges represent train connections between them, with the travel time
 for both directions as edge weight.
 
-![train_map](../images/train_map.png)
+![UK Train Station Map](images/train_map.png)
 
 See the [k Shortest Paths page](aql/graphs-kshortest-paths.html) for query examples.
 
@@ -310,7 +310,7 @@ See the [k Shortest Paths page](aql/graphs-kshortest-paths.html) for query examp
 
 ### The World Graph
 
-![world graph](images/world_graph.png)
+![World Graph](images/world_graph.png)
 
 The world country graph structures its nodes like that: world → continent → country → capital. In some cases edge directions aren't forward (therefore it will be displayed disjunct in the graph viewer). It has two ways of creating it. One using the named graph utilities (*worldCountry*), one without (*worldCountryUnManaged*). 
 It is used to demonstrate raw traversal operations.
@@ -334,7 +334,7 @@ It is used to demonstrate raw traversal operations.
 
 This graph was created to demonstrate a use case of the shortest path algorithm. Even though the algorithm can only determine one shortest path, it is possible to return multiple shortest paths with two separate queries. Therefore the graph is named after the [**m**ultiple **p**ath **s**earch](aql/examples-multiple-paths.html) use case.
 
-![mps graph](images/mps_graph.png)
+![Mps Graph](images/mps_graph.png)
 
 The example graph consists of *vertices* in the `mps_verts` collection and *edges* in the `mps_edges` collection. It is a simple traversal graph with start node *A* and end node *C*.
 
