@@ -61,12 +61,12 @@ prefixed with `_system::` to access Analyzers stored in the `_system` database.
 - returns **analyzer** (object\|null): Analyzer object if found, else `null`
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline analyzer_analyzer
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzer_analyzer
+    @startDocuBlockInline analyzer_by_name
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzer_by_name
     var analyzers = require("@arangodb/analyzers");
     analyzers.analyzer("text_en");
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock analyzer_analyzer
+    @endDocuBlock analyzer_by_name
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
