@@ -62,7 +62,7 @@ prefixed with `_system::` to access Analyzers stored in the `_system` database.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerByName
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzerByName
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerByName}
     var analyzers = require("@arangodb/analyzers");
     analyzers.analyzer("text_en");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -82,7 +82,7 @@ List all Analyzers available in the current database.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerList
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzerList
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerList}
     var analyzers = require("@arangodb/analyzers");
     analyzers.toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -105,7 +105,7 @@ Delete an Analyzer from the current database.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerRemove
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzerRemove
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerRemove}
     var analyzers = require("@arangodb/analyzers");
     ~analyzers.save("csv", "delimiter", { "delimiter": "," }, []);
     analyzers.remove("csv");
@@ -130,7 +130,7 @@ var name = analyzer.name()
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerName
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzerName
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerName}
     var analyzers = require("@arangodb/analyzers");
     analyzers.analyzer("text_en").name();
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -148,7 +148,7 @@ var type = analyzer.type()
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerType
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzerType
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerType}
     var analyzers = require("@arangodb/analyzers");
     analyzers.analyzer("text_en").type();
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -166,7 +166,7 @@ var properties = analyzer.properties()
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerProperties
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzerProperties
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerProperties}
     var analyzers = require("@arangodb/analyzers");
     analyzers.analyzer("text_en").properties();
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -184,7 +184,7 @@ var features = analyzer.features()
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerFeatures
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzerFeatures
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerFeatures}
     var analyzers = require("@arangodb/analyzers");
     analyzers.analyzer("text_en").features();
     @END_EXAMPLE_ARANGOSH_OUTPUT
