@@ -38,13 +38,13 @@ Create a new Analyzer with custom configuration in the current database.
   or if they are invalid
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline analyzer_create
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzer_create}
+    @startDocuBlockInline analyzerCreate
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerCreate}
     var analyzers = require("@arangodb/analyzers");
     analyzers.save("csv", "delimiter", { "delimiter": "," }, []);
     ~analyzers.remove("csv");
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock analyzer_create
+    @endDocuBlock analyzerCreate
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
