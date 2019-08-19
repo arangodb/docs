@@ -18,9 +18,9 @@ Execution plan:
   6   ReturnNode           1       - RETURN #7
 
 Indexes used:
- By   Name   Type   Collection   Unique   Sparse   Selectivity   Fields        Ranges
-  2   edge   edge   edges        false    false            n/a   [ `_from` ]   base OUTBOUND
-  2   edge   edge   edges        false    false            n/a   [ `_from` ]   level 0 OUTBOUND
+ By   Name   Type   Collection   Unique   Sparse   Selectivity   Fields               Ranges
+  2   edge   edge   edges        false    false            n/a   [ `_from`, `_to` ]   base OUTBOUND
+  2   edge   edge   edges        false    false            n/a   [ `_from`, `_to` ]   level 0 OUTBOUND
 
 Traversals on graphs:
  Id  Depth  Vertex collections  Edge collections  Options                                  Filter / Prune Conditions                   
