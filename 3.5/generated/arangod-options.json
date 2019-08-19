@@ -283,7 +283,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341557248,
+    "default" : 16341560320,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -416,6 +416,20 @@
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "cluster",
+    "type" : "boolean"
+  },
+  "cluster.resign-leadership-on-shutdown" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "create resign leader ship job for this dbsever on shutdown",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
     "requiresValue" : false,
@@ -2642,7 +2656,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609868697,
+    "default" : 19609872384,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -3107,7 +3121,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146491596,
+    "default" : 26146496512,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
