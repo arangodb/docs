@@ -25,7 +25,7 @@ If no *weightAttribute* is given, the weight of the path is just its length.
 Let us take a look at a simple example to explain how it works.
 This is the graph that we are going to find some shortest path on:
 
-![train_map](../images/train_map.png)
+![Train Connection Map](../images/train_map.png)
 
 Each ellipse stands for a train station with the name of the city written inside
 of it. They are the vertices of the graph. Arrows represent train connections
@@ -162,7 +162,7 @@ Examples
 We load an example graph to get a named graph that reflects some possible
 train connections in Europe and North America.
 
-![train_map](../images/train_map.png)
+![Train Connection Map](../images/train_map.png)
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHKSP_01_create_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHKSP_01_create_graph}
@@ -177,10 +177,11 @@ train connections in Europe and North America.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Suppose we want to query a route from **Aberdeen** to **London**, and compare
-the outputs of SHORTEST_PATH and K_SHORTEST_PATHS with LIMIT 1. Note that while
-SHORTEST_PATH and K_SHORTEST_PATH with LIMIT 1 should return a path of the same
-length (or weight), they do not need to return the same path.
+Suppose we want to query a route from **Aberdeen** to **London**, and
+compare the outputs of `SHORTEST_PATH` and `K_SHORTEST_PATHS` with
+`LIMIT 1`. Note that while `SHORTEST_PATH` and `K_SHORTEST_PATH` with
+`LIMIT 1` should return a path of the same length (or weight), they do
+not need to return the same path.
 
 Using `SHORTEST_PATH`:
 
