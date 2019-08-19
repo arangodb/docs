@@ -6,19 +6,6 @@ redirect_from:
   - /3.5/aql/views.html
   - /3.5/aql/views-arango-search.html
 ---
-<!--
-A view is meant to be an abstraction over a transformation applied to documents
-of zero or more collections. The transformation is view-implementation specific
-and may even be as simple as an identity transformation thus making the view
-represent all documents available in the specified set of collections.
-
-Views can be defined and administered on a per view-type basis via
-the [web interface](../programs-web-interface.html).
-
-Currently there is a single supported view implementation, namely
-`arangosearch` as described in [ArangoSearch View](functions-arangosearch.html). 
--->
-
 SEARCH
 ======
 
@@ -82,22 +69,22 @@ Note that array comparison operators, inline expressions and a few other things
 are not supported by `SEARCH`. The server will raise a query error in case of
 an invalid expression.
 
-Handling of (non-)indexed fields
---------------------------------
+Handling of non-indexed fields
+------------------------------
 
 Document attributes which are not configured to be indexed by a View are
-treated by `SEARCH` as non-existent.
+treated by `SEARCH` as non-existent. This affects tests against the documents
+emitted from the View only.
+
 
 For example, given a collection `myCol` with the following documents:
 
 ```js
-[
-  { someAttr: 'One', anotherAttr: 'One' },
-  { someAttr: 'Two', anotherAttr: 'Two' }
-]
+{ "someAttr": "One", "anotherAttr": "One" }
+{ "someAttr": "Two", "anotherAttr": "Two" }
 ```
 
-with a view, where `someAttr` is indexed by the following view `myView`:
+… with a View where `someAttr` is indexed by the following View `myView`:
 
 ```js
 {
@@ -112,43 +99,41 @@ with a view, where `someAttr` is indexed by the following view `myView`:
 }
 ```
 
-Then, a search on `someAttr` yields the following result:
+… a search on `someAttr` yields the following result:
 
 ```js
 FOR doc IN myView
-  SEARCH doc.someAttr == 'One'
+  SEARCH doc.someAttr == "One"
   RETURN doc
 ```
 
-```js
-[ { someAttr: 'One', anotherAttr: 'One' } ]
+```json
+[ { "someAttr": "One", "anotherAttr": "One" } ]
 ```
 
-While a search on `anotherAttr` yields an empty result:
+A search on `anotherAttr` yields an empty result because only `someAttr`
+is indexed by the View:
 
 ```js
 FOR doc IN myView
-  SEARCH doc.anotherAttr == 'One'
+  SEARCH doc.anotherAttr == "One"
   RETURN doc
 ```
 
-```js
+```json
 []
 ```
 
-- This only applies to the expression after the `SEARCH` keyword.
-- This only applies to tests regarding documents emitted from a view. Other
-  tests are not affected.
-- In order to use `SEARCH` using all attributes of a linked sources, the special
-  `includeAllFields` [link property](../arangosearch-views.html#link-properties)
-  was designed.
+You can use the special `includeAllFields`
+[View property](../arangosearch-views.html#link-properties) to index all
+(sub-)fields of the source documents if desired.
 
 Arrays and trackListPositions
 -----------------------------
 
 Array elements are indexed individually and can be searched for as if the
 attribute had each single value at the same time. They behave like a
-disjunctive superposition of their values as long as the
+_disjunctive superposition_ of their values as long as the
 [**trackListPositions**](../arangosearch-views.html#link-properties) View
 setting is `false` (default).
 
@@ -191,6 +176,8 @@ at a specific array index:
 ```js
 doc.value.nested.deep[0] == 1
 ```
+
+<!-- TODO no index disallowed? -->
 
 String tokens (see [Analyzers](../arangosearch-analyzers.html)) are also
 indexed individually. <!-- TODO regardless of trackListPositions? Query with index? -->
@@ -247,5 +234,7 @@ itself are consulted in order to sort the results.
 The [BOOST() function](functions-arangosearch.html#boost) can be used to
 fine-tune the resulting ranking by weighing sub-expressions in `SEARCH`
 differently.
+
+
 
 <!-- TODO multiple scores, ASC, DESC, view doc attrs -->

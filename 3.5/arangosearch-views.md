@@ -5,6 +5,17 @@ redirect_from: /3.5/views-arango-search-detailed-overview.html
 ---
 
 
+A view is meant to be an abstraction over a transformation applied to documents
+of zero or more collections. The transformation is view-implementation specific
+and may even be as simple as an identity transformation thus making the view
+represent all documents available in the specified set of collections.
+
+Views can be defined and administered on a per view-type basis via
+the [web interface](../programs-web-interface.html).
+
+Currently there is a single supported view implementation, namely
+`arangosearch` as described in [ArangoSearch View](functions-arangosearch.html).
+
 
 Views can be managed in the Web UI, via an [HTTP API](http/views.html) and
 through a [JavaScript API](data-modeling-views-database-methods.html).
