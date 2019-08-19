@@ -41,7 +41,7 @@ Create a new Analyzer with custom configuration in the current database.
     @startDocuBlockInline analyzer_create
     @EXAMPLE_ARANGOSH_OUTPUT{analyzer_create}
     var analyzers = require("@arangodb/analyzers");
-    analyzers.save("csv", "delimiter", { delimiter: "," }, []);
+    analyzers.save("csv", "delimiter", { "delimiter": "," }, []);
     ~analyzers.remove("csv");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzer_create
@@ -107,7 +107,7 @@ Delete an Analyzer from the current database.
     @startDocuBlockInline analyzer_remove
     @EXAMPLE_ARANGOSH_OUTPUT{analyzer_remove
     var analyzers = require("@arangodb/analyzers");
-    ~analyzers.save("csv", "delimiter", { delimiter: "," }, []);
+    ~analyzers.save("csv", "delimiter", { "delimiter": "," }, []);
     analyzers.remove("csv");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzer_remove
