@@ -5,15 +5,17 @@ description: Stream Transactions allow you to perform a multi-document transacti
 HTTP Interface for Stream Transactions
 ======================================
 
+_Introduced in: v3.5.0_
+
 *Stream Transactions* allow you to perform a multi-document transaction 
 with individual begin and commit / abort commands. This is similar to
 the way traditional RDBMS do it with *BEGIN*, *COMMIT* and *ROLLBACK* operations.
 
-To use a stream transaction a client first sends the (configuration)[#begin-a-transaction]
+To use a stream transaction a client first sends the [configuration](#begin-a-transaction)
 of the transaction to the ArangoDB server.
 
 {% hint 'info' %}
-Contrary to the [JS-Transaction](transaction-js-transaction.html) the definition of this 
+Contrary to the [**JS-Transaction**](transaction-js-transaction.html) the definition of this 
 transaction must only contain the collections which are going to be used
 and (optionally) the various transaction options supported by ArangoDB.
 No *action* attribute is supported.
