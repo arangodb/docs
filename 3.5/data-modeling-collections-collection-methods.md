@@ -17,10 +17,11 @@ Drops a *collection* and all its indexes and data.
 In order to drop a system collection, an *options* object
 with attribute *isSystem* set to *true* must be specified.
 
-**Note**: dropping a collection in a cluster, which is prototype for
-sharing in other collections is prohibited. In order to be able to
-drop such a collection, all dependent collections must be dropped
-first. 
+{% hint 'info' %}
+Dropping a collection in a cluster, which is prototype for sharing
+in other collections is prohibited. In order to be able to drop
+such a collection, all dependent collections must be dropped first.
+{% endhint %}
 
 **Examples**
 
@@ -210,6 +211,7 @@ a collection is normally slightly higher than the sum of the reported
 used as a lower bound approximation of the disk usage.
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionFigures
     @EXAMPLE_ARANGOSH_OUTPUT{collectionFigures}
@@ -233,7 +235,7 @@ returned shard ID is the ID of responsible shard for the document's
 shard key values, and it will be returned even if no such document exists.
 
 {% hint 'info' %}
-The `getResponsibleShard()` function can only be used on Coordinators
+The `getResponsibleShard()` method can only be used on Coordinators
 in clusters.
 {% endhint %}
 
@@ -255,7 +257,7 @@ shard attribute key.
 The leader shards are always first in the arrays of responsible servers.
 
 {% hint 'info' %}
-The `shards()` function can only be used on Coordinators in clusters.
+The `shards()` method can only be used on Coordinators in clusters.
 {% endhint %}
 
 Load
@@ -317,9 +319,9 @@ The *path* operation returns a string with the physical storage path for
 the collection data.
 
 {% hint 'info' %}
-The `path()` method will return nothing meaningful in a cluster. In a 
-single-server ArangoDB, this method will only return meaningful data for the 
-MMFiles storage engine.
+The `path()` method will return nothing meaningful in a cluster.
+In a single-server ArangoDB, this method will only return meaningful data
+for the MMFiles storage engine.
 {% endhint %}
 
 Checksum
@@ -344,7 +346,7 @@ The checksum calculation algorithm changed in ArangoDB 3.0, so checksums from
 3.0 and earlier versions for the same data will differ.
 
 {% hint 'info' %}
-The `checksum()` method is not available in clusters.
+The `checksum()` method can not be used in clusters.
 {% endhint %}
 
 Unload
@@ -396,7 +398,7 @@ all graph definitions inside the `_graphs` collection in the current
 database.
 
 {% hint 'info' %}
-The `rename()` method is not available in clusters.
+The `rename()` method can not be used in clusters.
 {% endhint %}
 
 **Examples**
@@ -428,8 +430,8 @@ candidate for garbage collection. If there is currently no journal available
 for the collection, the operation will fail with an error.
 
 {% hint 'info' %}
-The `rotate()` method is specific to the MMFiles storage engine and is
-not available in clusters.
+The `rotate()` method is specific to the MMFiles storage engine and can
+not be used in clusters.
 {% endhint %}
 
 {% hint 'tip' %}
