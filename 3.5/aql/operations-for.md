@@ -1,14 +1,15 @@
 ---
 layout: default
-description: The FOR keyword can be to iterate over all elements of an array
-title: FOR Operation in AQL
+description: The versatile FOR keyword can be used to iterate over a collection or View, all elements of an array or to traverse a graph.
+title: FOR Operations in AQL
 ---
 FOR
 ===
 
+The versatile `FOR` keyword can be used to iterate over a collection or View,
+all elements of an array or to traverse a graph.
 
-The `FOR` keyword can be to iterate over all elements of an array.
-The general syntax is:
+## General Syntax
 
 ```js
 FOR variableName IN expression
@@ -26,7 +27,11 @@ For Views, there is a special (optional) [`SEARCH` keyword](operations-search.ht
 FOR variableName IN viewName SEARCH searchExpression
 ```
 
-For all other cases read on:
+Note that Views cannot be used as edge collections in traversals:
+
+```js
+FOR v IN 1..3 ANY startVertex viewName /* invalid! */
+```
 
 Each array element returned by *expression* is visited exactly once. It is
 required that *expression* returns an array in all cases. The empty array is

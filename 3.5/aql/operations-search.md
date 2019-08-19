@@ -1,71 +1,12 @@
 ---
 layout: default
-description: The SEARCH keyword is followed by an ArangoSearch expression to filter a View
+description: The SEARCH keyword starts the language construct to filter Views of type ArangoSearch.
 title: The SEARCH operation in AQL
 redirect_from:
   - /3.5/aql/views.html
   - /3.5/aql/views-arango-search.html
 ---
 <!--
-
-```json
-{
-  "value": {
-    "nested": {
-      "deep": [ 1, 2, 3 ]
-    }
-  }
-}
-```
-
-A View which is configured to index the field `value` including sub-fields
-will index the individual numbers under the path `value.nested.deep`, which
-can be queried for like:
-
-```js
-FOR doc IN viewName
-  SERACH doc.value.nested.deep == 2
-  RETURN doc
-```
-
-This is different to `FILTER` operations, where you would use an
-[array comparison operator](aql/operators.html#array-comparison-operators)
-to find an element in the array:
-
-```js
-FOR doc IN collection
-  FILTER doc.value.nested.deep ANY == 2
-  RETURN doc
-```
-
-
----
-layout: default
-description: Conceptually a view is just another document data source, similar to anarray or a document/edge collection, e
----
-Views in AQL
-============
-
-Conceptually a **view** is just another document data source, similar to an
-array or a document/edge collection, e.g.:
-
-```js
-FOR doc IN exampleView SEARCH ...
-  FILTER ...
-  SORT ...
-  RETURN ...
-```
-
-Other than collections, views have an additional but optional `SEARCH` keyword:
-
-```js
-FOR doc IN exampleView
-  SEARCH ...
-  FILTER ...
-  SORT ...
-  RETURN ...
-```
-
 A view is meant to be an abstraction over a transformation applied to documents
 of zero or more collections. The transformation is view-implementation specific
 and may even be as simple as an identity transformation thus making the view
@@ -76,58 +17,76 @@ the [web interface](../programs-web-interface.html).
 
 Currently there is a single supported view implementation, namely
 `arangosearch` as described in [ArangoSearch View](functions-arangosearch.html). 
+-->
 
-Also see the detailed
-[ArangoSearch tutorial](https://www.arangodb.com/tutorials/arangosearch/){:target="_blank"}
-to learn more.
+SEARCH
+======
 
-
-ArangoSearch Views in AQL
-=========================
-
-Views of type `arangosearch` are an integration layer meant to seamlessly
-integrate with and natively expose the full power of the
-[IResearch library](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}
-to the ArangoDB user.
-
-They provide the capability to:
-
-- evaluate together documents located in different collections
-- search documents based on AQL boolean expressions and functions
-- sort the result set based on how closely each document matched the search
-
-Overview and Significance
--------------------------
-
-Looking up documents in an ArangoSearch View is done via the `FOR` keyword:
+The `SEARCH` keyword starts the language construct to filter Views of type
+ArangoSearch. Conceptually, a View is just another document data source,
+similar to an array or a document/edge collection, over which you can iterate
+using a [FOR operation](operations-for.html) in AQL:
 
 ```js
 FOR doc IN viewName
+  RETURN doc
+```
+
+The optional `SEARCH` operation provides the capabilities to:
+
+- filter documents based on AQL Boolean expressions and functions
+- match documents located in different collections backed by a fast index
+- sort the result set based on how closely each document matched the
+  search conditions
+
+See [ArangoSearch Views](../arangosearch-views.html) on how to set up a View.
+
+General Syntax
+--------------
+
+The `SEARCH` keyword is followed by an ArangoSearch filter expressions, which
+is mostly comprised of calls to ArangoSearch AQL functions.
+
+```
+FOR doc IN viewName
+  SEARCH expression
   ...
 ```
 
-`FOR` operations over ArangoSearch Views have an additional, optional, `SEARCH`
-keyword:
+The `SEARCH` statement, in contrast to `FILTER`, is treated as a part of the
+`FOR` operation, not as an individual statement. It can not be placed freely
+in a query nor multiple times in the body of a `FOR` loop. `FOR ... IN` must be
+followed by the name of a View, not a collection. The `SEARCH` operation has to
+follow next, other operations before `SEARCH` such as `FILTER`, `COLLECT` etc.
+are not allowed in this position. Subsequent operations are possible after
+`SEARCH` and the expression however, including `SORT` to order the search
+results based on a ranking value computed by the ArangoSearch View.
 
-```js
-FOR doc IN viewName
-  SEARCH searchExpression
-```
+`expression` must be an ArangoSearch expression. The full power of ArangoSearch
+is harnessed and exposed via special [ArangoSearch functions](functions-arangosearch.html),
+during both the search and sort stages. On top of that, common AQL operators
+are supported:
 
-ArangoSearch views cannot be used as edge collections in traversals:
+- `AND`
+- `OR`
+- `NOT`
+- `==`
+- `<=`
+- `>=`
+- `<`
+- `>`
+- `!=`
+- `IN` (array or range), also `NOT IN`
 
-```js
-FOR v IN 1..3 ANY startVertex viewName /* invalid! */
-```
+Note that array comparison operators, inline expressions and a few other things
+are not supported by `SEARCH`. The server will raise a query error in case of
+an invalid expression.
 
-### SEARCH
+Handling of (non-)indexed fields
+--------------------------------
 
-`SEARCH` expressions look a lot like `FILTER` operations, but have some noteable
-differences.
-
-First of all, filters and functions in `SEARCH`, when applied to documents
-_emitted from an ArangoSearch View_, work _only_ on attributes linked in the
-view.
+Document attributes which are not configured to be indexed by a View are
+treated by `SEARCH` as non-existent.
 
 For example, given a collection `myCol` with the following documents:
 
@@ -184,132 +143,109 @@ FOR doc IN myView
   `includeAllFields` [link property](../arangosearch-views.html#link-properties)
   was designed.
 
-### SORT
+Arrays and trackListPositions
+-----------------------------
+
+Array elements are indexed individually and can be searched for as if the
+attribute had each single value at the same time. They behave like a
+disjunctive superposition of their values as long as the
+[**trackListPositions**](../arangosearch-views.html#link-properties) View
+setting is `false` (default).
+
+Therefore, array comparison operators such as `ALL IN` or `ANY ==` aren't
+really necessary. Consider the following document:
+
+```json
+{
+  "value": {
+    "nested": {
+      "deep": [ 1, 2, 3 ]
+    }
+  }
+}
+```
+
+A View which is configured to index the field `value` including sub-fields
+will index the individual numbers under the path `value.nested.deep`, which
+can be queried for like:
+
+```js
+FOR doc IN viewName
+  SERACH doc.value.nested.deep == 2
+  RETURN doc
+```
+
+This is different to `FILTER` operations, where you would use an
+[array comparison operator](aql/operators.html#array-comparison-operators)
+to find an element in the array:
+
+```js
+FOR doc IN collection
+  FILTER doc.value.nested.deep ANY == 2
+  RETURN doc
+```
+
+You can set `trackListPositions` to `true` if you want to query for a value
+at a specific array index:
+
+```js
+doc.value.nested.deep[0] == 1
+```
+
+String tokens (see [Analyzers](../arangosearch-analyzers.html)) are also
+indexed individually. <!-- TODO regardless of trackListPositions? Query with index? -->
+
+When a field is processed by a specific Analyzer, comparison tests are done
+per word. For example, given the field `text` is analyzed with `"text_en"`
+and contains the string `"a quick brown fox jumps over the lazy dog"`,
+the following expression will be true:
+
+```js
+ANALYZER(doc.text == 'fox', "text_en")
+```
+
+Note that the `"text_en"` Analyzer stems the words, so this is also true:
+
+```js
+ANALYZER(doc.text == 'jump', "text_en")
+```
+
+So a comparison will actually test if a word is contained in the text. With
+`trackListPositions: false`, this means for arrays if the word is contained in
+any element of the array. For example, given:
+
+```json
+{"text": [ "a quick", "brown fox", "jumps over the", "lazy dog" ] }
+```
+
+… the following will be true:
+
+```js
+ANALYZER(doc.text == 'jump', "text_en")
+```
+
+With `trackListPositions: true` you would need to specify the index of the
+array element `"jumps over the"` to be true:
+
+```js
+ANALYZER(doc.text[2] == 'jump', "text_en")
+```
+
+SEARCH with SORT
+----------------
 
 The document search via the `SEARCH` keyword and the sorting via the
 ArangoSearch functions, namely `BM25()` and `TFIDF()`, are closely intertwined.
 The query given in the `SEARCH` expression is not only used to filter documents,
 but also is used with the sorting functions to decide which document matches
-the query best. Other documents in the view also affect this decision.
+the query best. Other documents in the View also affect this decision.
 
 Therefore the ArangoSearch sorting functions can work _only_ on documents
-emitted from a view, as both the corresponding `SEARCH` expression and the view
+emitted from a View, as both the corresponding `SEARCH` expression and the View
 itself are consulted in order to sort the results.
 
-The `BOOST()` function, described below, can be used to fine-tune the resulting
-ranking by weighing sub-expressions in `SEARCH` differently.
+The [BOOST() function](functions-arangosearch.html#boost) can be used to
+fine-tune the resulting ranking by weighing sub-expressions in `SEARCH`
+differently.
 
-### Arrays and trackListPositions
-
-Unless [**trackListPositions**](../arangosearch-views.html#link-properties)
-is set to `true`, which it is not by default, arrays behave differently. Namely
-they behave like a disjunctive superposition of their values - this is best
-shown with an example.
-
-With `trackListPositions: false`, which is the default, and given a document
-`doc` containing
-
-```js
-{ attr: [ 'valueX', 'valueY', 'valueZ' ] }
-```
-
-in a `SEARCH` clause, the expression
-
-```js
-doc.attr == 'valueX'
-```
-
-will be true, as will be
-
-```js
-doc.attr == 'valueY'
-```
-
-and `== valueZ`. With `trackListPositions: true`,
-
-```js
-doc.attr[0] == 'valueX'
-```
-
-would work as usual.
-
-### Comparing analyzed fields
-
-As described in [value analysis](#arangosearch-value-analysis), when a field is
-processed by a specific analyzer, comparison tests are done per word. For
-example, given the field `text` is analyzed with `"text_en"` and contains the
-string `"a quick brown fox jumps over the lazy dog"`, the following expression
-will be true:
-
-```js
-ANALYZER(d.text == 'fox', "text_en")
-```
-
-Note also, that the words analyzed in the text are stemmed, so this is also
-true:
-
-```js
-ANALYZER(d.text == 'jump', "text_en")
-```
-
-So a comparison will actually test if a word is contained in the text. With
-`trackListPositions: false`, this means for arrays if the word is contained in
-any element of the array. For example, given
-
-```js
-d.text = [ "a quick", "brown fox", "jumps over the", "lazy dog"]
-```
-
-the following will be true:
-
-```js
-ANALYZER(d.text == 'jump', "text_en")
-```
-
--->
-
-SEARCH
-======
-
-The `SEARCH` keyword starts the language construct to filter Views.
-It is followed by an ArangoSearch filter expressions, which is comprised of
-calls to ArangoSearch AQL functions.
-
-General syntax
---------------
-
-```
-FOR doc IN viewName
-  SEARCH expression
-  ...
-```
-
-The `SEARCH` statement, in contrast to `FILTER`, is treated as a part of the
-`FOR` operation, not as an individual statement. It can not be placed freely
-in a query nor multiple times in the body of a `FOR` loop. `FOR ... IN` must be
-followed by the name of a [View](../arangosearch-views.html), not a collection.
-The `SEARCH` operation has to follow next, other operations before `SEARCH`
-such as `FILTER`, `COLLECT` etc. are not allowed in this position. Subsequent
-operations are possible after `SEARCH` and the expression however, including
-`SORT` to order the search results based on a ranking value computed by the
-ArangoSearch View.
-
-`expression` must be an ArangoSearch expression. The full power of ArangoSearch
-is harnessed and exposed via special [ArangoSearch functions](functions-arangosearch.html),
-during both the search and sort stages. On top of that, common AQL operators
-are supported:
-
-- `AND`
-- `OR`
-- `NOT`
-- `==`
-- `<=`
-- `>=`
-- `<`
-- `>`
-- `!=`
-- `IN` (array or range), also `NOT IN`
-
-Note that array comparison operators, inline expressions and a few other things
-are not supported by `SEARCH`. The server will raise a query error in case of
-an invalid expression.
+<!-- TODO multiple scores, ASC, DESC, view doc attrs -->
