@@ -36,7 +36,7 @@ is mostly comprised of calls to ArangoSearch AQL functions.
 
 ```
 FOR doc IN viewName
-  SEARCH expression
+  SEARCH expression OPTIONS {…}
   ...
 ```
 
@@ -68,6 +68,9 @@ are supported:
 Note that array comparison operators, inline expressions and a few other things
 are not supported by `SEARCH`. The server will raise a query error in case of
 an invalid expression.
+
+The `OPTIONS` keyword and an object can optionally follow the search expression
+to set [Search Options](#search-options).
 
 Handling of non-indexed fields
 ------------------------------
@@ -161,7 +164,7 @@ FOR doc IN viewName
 ```
 
 This is different to `FILTER` operations, where you would use an
-[array comparison operator](aql/operators.html#array-comparison-operators)
+[array comparison operator](operators.html#array-comparison-operators)
 to find an element in the array:
 
 ```js
@@ -235,6 +238,20 @@ The [BOOST() function](functions-arangosearch.html#boost) can be used to
 fine-tune the resulting ranking by weighing sub-expressions in `SEARCH`
 differently.
 
-
-
 <!-- TODO multiple scores, ASC, DESC, view doc attrs -->
+
+Search Options
+--------------
+
+The `SEARCH` operation accepts an options object with the following attributes:
+
+- `collections` (array, _optional_): array of strings with collection names to
+  restrict the search to certain source collections
+
+**Examples**
+
+```js
+FOR doc IN viewName
+  SEARCH ... OPTIONS { collections: ["coll1", "coll2"] }
+  RETURN doc
+```

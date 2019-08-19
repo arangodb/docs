@@ -13,8 +13,7 @@ represent all documents available in the specified set of collections.
 Views can be defined and administered on a per view-type basis via
 the [web interface](../programs-web-interface.html).
 
-Currently there is a single supported view implementation, namely
-`arangosearch` as described in [ArangoSearch View](functions-arangosearch.html).
+Currently there is a single supported View implementation, namely ArangoSearch Views.
 
 
 Views can be managed in the Web UI, via an [HTTP API](http/views.html) and

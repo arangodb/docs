@@ -18,13 +18,13 @@ Analyzers can split string values into smaller parts and perform additional
 processing such as word stemming and case conversion. In ArangoDB 3.4 there
 is a fixed set of text analyzers for 12 different languages, which tokenize
 strings into case-insensitive word stems using language-dependent rules based
-on the chosen locale, without discarding any stopwords (common words which
+on the chosen locale, without discarding any stop-words (common words which
 carry little meaning such as "the"). An additional no-operation analyzer
 *identity* is available to keep the input unaltered in its entirety.
 
 In 3.5, analyzers can be customized as well as used independent of
 ArangoSearch Views in AQL. It is possible to tokenize strings without
-word stemming, remove user-defined stopwords, split by a delimiting
+word stemming, remove user-defined stop-words, split by a delimiting
 character only, perform case conversion and/or removal of diacritic
 characters against the full input without tokenization and more.
 
@@ -99,6 +99,11 @@ Execution plan:
 Note that the `primarySort` option is immutable: it can not be changed after
 View creation. It is therefore not possible to configure it through the Web UI.
 The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
+
+<!-- TODO
+See [Primary Sort Order](arangosearch-views.html#primary-sort-order) of
+ArangoSearch Views.
+-->
 
 ### AQL Integration
 
