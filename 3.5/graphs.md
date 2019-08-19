@@ -287,11 +287,11 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
 
 ### The k Shortest Paths Graph
 
-The vertices in this graph are train stations of cities in the United Kingdom
-and the edges represent train connections between them, with the travel time
-for both directions as edge weight.
+The vertices in this graph are train stations of cities in Europe and
+North America and the edges represent train connections between them,
+with the travel time for both directions as edge weight.
 
-![UK Train Station Map](images/train_map.png)
+![Train Connection Map](images/train_map.png)
 
 See the [k Shortest Paths page](aql/graphs-kshortest-paths.html) for query examples.
 
