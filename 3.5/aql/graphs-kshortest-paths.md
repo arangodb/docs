@@ -216,7 +216,11 @@ Next, we can ask for more than one option for a route:
     FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/Aberdeen' TO 'places/London'
     GRAPH 'kShortestPathsGraph'
         LIMIT 3
-        RETURN { places: p.vertices[*].label, travelTimes: p.edges[*].travelTime }
+        RETURN {
+            places: p.vertices[*].label,
+            travelTimes: p.edges[*].travelTime,
+            travelTimeTotal: SUM(p.edges[*].travelTime)
+        }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_03_Aberdeen_to_London
 {% endaqlexample %}
@@ -231,14 +235,20 @@ If we ask for routes that don't exist we get an empty result:
     FOR p IN OUTBOUND K_SHORTEST_PATHS 'places/Aberdeen' TO 'places/Toronto'
     GRAPH 'kShortestPathsGraph'
         LIMIT 3
-        RETURN { places: p.vertices[*].label, travelTimes: p.edges[*].travelTime }
+        RETURN {
+            places: p.vertices[*].label,
+            travelTimes: p.edges[*].travelTime,
+            travelTimeTotal: SUM(p.edges[*].travelTime)
+        }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_04_Aberdeen_to_Toronto
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar query=query bind=bind result=result %}
 
 We can use the attribute *travelTime* that connections have as edge weights to
-take into account which connections are quicker:
+take into account which connections are quicker. A high default weight is set,
+to be used if an edge has no *travelTime* attribute (not the case with the
+example graph):
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHKSP_05_StAndrews_to_Cologne
@@ -251,7 +261,11 @@ take into account which connections are quicker:
         defaultWeight: 15
     }
         LIMIT 3
-        RETURN { places: p.vertices[*].label, travelTimes: p.edges[*].travelTime }
+        RETURN {
+            places: p.vertices[*].label,
+            travelTimes: p.edges[*].travelTime,
+            travelTimeTotal: SUM(p.edges[*].travelTime)
+        }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_05_StAndrews_to_Cologne
 {% endaqlexample %}
