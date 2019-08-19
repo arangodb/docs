@@ -6,11 +6,7 @@
       <span class="hljs-attr">defaultWeight</span>: <span class="hljs-number">15</span>
   }
       LIMIT <span class="hljs-number">3</span>
-      RETURN {
-          <span class="hljs-attr">places</span>: p.vertices[*].label,
-          <span class="hljs-attr">travelTimes</span>: p.edges[*].travelTime,
-          <span class="hljs-attr">travelTimeTotal</span>: SUM(p.edges[*].travelTime)
-      }
+      RETURN { <span class="hljs-attr">places</span>: p.vertices[*].label, <span class="hljs-attr">travelTimes</span>: p.edges[*].travelTime }
 
 @R
 [
@@ -31,8 +27,7 @@
       <span class="hljs-number">1.8</span>,
       <span class="hljs-number">2.5</span>,
       <span class="hljs-number">2</span>
-    ],
-    <span class="hljs-string">"travelTimeTotal"</span>: <span class="hljs-number">11.5</span>
+    ]
   },
   {
     <span class="hljs-string">"places"</span>: [
@@ -55,8 +50,7 @@
       <span class="hljs-number">1.5</span>,
       <span class="hljs-number">2.5</span>,
       <span class="hljs-number">2</span>
-    ],
-    <span class="hljs-string">"travelTimeTotal"</span>: <span class="hljs-number">11.7</span>
+    ]
   },
   {
     <span class="hljs-string">"places"</span>: [
@@ -79,7 +73,6 @@
       <span class="hljs-number">1.8</span>,
       <span class="hljs-number">2.5</span>,
       <span class="hljs-number">2</span>
-    ],
-    <span class="hljs-string">"travelTimeTotal"</span>: <span class="hljs-number">12.5</span>
+    ]
   }
 ]
