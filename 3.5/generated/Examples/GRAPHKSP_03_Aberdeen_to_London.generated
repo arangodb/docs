@@ -2,7 +2,11 @@
   FOR p IN OUTBOUND K_SHORTEST_PATHS <span class="hljs-string">'places/Aberdeen'</span> TO <span class="hljs-string">'places/London'</span>
   GRAPH <span class="hljs-string">'kShortestPathsGraph'</span>
       LIMIT <span class="hljs-number">3</span>
-      RETURN { <span class="hljs-attr">places</span>: p.vertices[*].label, <span class="hljs-attr">travelTimes</span>: p.edges[*].travelTime }
+      RETURN {
+          <span class="hljs-attr">places</span>: p.vertices[*].label,
+          <span class="hljs-attr">travelTimes</span>: p.edges[*].travelTime,
+          <span class="hljs-attr">travelTimeTotal</span>: SUM(p.edges[*].travelTime)
+      }
 
 @R
 [
@@ -19,7 +23,8 @@
       <span class="hljs-number">1.5</span>,
       <span class="hljs-number">3.5</span>,
       <span class="hljs-number">1.8</span>
-    ]
+    ],
+    <span class="hljs-string">"travelTimeTotal"</span>: <span class="hljs-number">8.3</span>
   },
   {
     <span class="hljs-string">"places"</span>: [
@@ -38,7 +43,8 @@
       <span class="hljs-number">3.5</span>,
       <span class="hljs-number">2</span>,
       <span class="hljs-number">1.5</span>
-    ]
+    ],
+    <span class="hljs-string">"travelTimeTotal"</span>: <span class="hljs-number">13.5</span>
   },
   {
     <span class="hljs-string">"places"</span>: [
@@ -57,6 +63,7 @@
       <span class="hljs-number">1</span>,
       <span class="hljs-number">2.5</span>,
       <span class="hljs-number">1.8</span>
-    ]
+    ],
+    <span class="hljs-string">"travelTimeTotal"</span>: <span class="hljs-number">9.3</span>
   }
 ]
