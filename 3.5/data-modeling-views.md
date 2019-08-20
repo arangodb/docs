@@ -30,6 +30,7 @@ following chapters:
 - [View Methods](data-modeling-views-view-methods.html)
 
 Create a view with default properties:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewUsage_01
     @EXAMPLE_ARANGOSH_OUTPUT{viewUsage_01}
