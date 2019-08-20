@@ -248,7 +248,7 @@ FOR doc IN viewName
 ```
 
 If the (left-most) fields and their sorting directions match up with the
-[primary sort order](arangosearch-views.html#primary-sort-order) definition
+[primary sort order](../arangosearch-views.html#primary-sort-order) definition
 of the View then the `SORT` operation is optimized away.
 
 Apart from simple sorting, it is possible to sort the matched View documents by

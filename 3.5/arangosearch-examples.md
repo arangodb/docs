@@ -28,7 +28,7 @@ c1.save({ a: "baz", b: "foo", i: 7 });
 ```
 
 A View with default parameters can be created by calling `db._createView()`
-(see [JavaScript Interface for Views](data-modeling-views.md)):
+(see [JavaScript Interface for Views](data-modeling-views.html)):
 
 ```js
 v0 = db._createView("ExampleView", "arangosearch", {});
