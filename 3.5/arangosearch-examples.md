@@ -1,23 +1,16 @@
 ---
 layout: default
-description: DDL is a data
+description: View and Analyzer usage examples
+title: ArangoSearch Examples
 ---
-# Getting started with ArangoSearch Views
+ArangoSearch Examples
+=====================
 
-## The DDL configuration
-
-[DDL](https://en.wikipedia.org/wiki/Data_definition_language){:target="_blank"} is a data
-definition language or data description language for defining data structures,
-especially database schemas.
-
-All DDL operations on Views can be done via JavaScript or REST calls. The DDL
-syntax follows the well established ArangoDB guidelines and thus is very
-similar between the [JavaScript interface for views](data-modeling-views.html)
-and the [HTTP interface for views](http/views.html).This article
-uses the JavaScript syntax.
+View Configuration and Search
+-----------------------------
 
 Assume the following collections were initially defined in a database using
-the following commands:
+the following arangosh commands:
 
 ```js
 c0 = db._create("ExampleCollection0");
@@ -34,13 +27,15 @@ c1.save({ a: "bar", b: "foo", i: 6 });
 c1.save({ a: "baz", b: "foo", i: 7 });
 ```
 
-## Creating a View (with default parameters)
+A View with default parameters can be created by calling `db._createView()`
+(see [JavaScript Interface for Views](data-modeling-views.html)):
 
 ```js
 v0 = db._createView("ExampleView", "arangosearch", {});
 ```
 
-## Linking created View with a collection and adding indexing parameters
+Then link the collections to the View, define which properties shall be indexed
+and with which Analyzers the values are supposed to be processed:
 
 ```js
 v0 = db._view("ExampleView");
@@ -88,22 +83,21 @@ v0.properties({
 );
 ```
 
-## Query data using created View with linked collections
+You have to wait a few seconds for the View to update its index.
+Then you can query it:
 
 ```js
 db._query(`FOR doc IN ExampleView
-  SEARCH PHRASE(doc.text, '型数 据库', 'text_zh') OR STARTS_WITH(doc.b, 'ba')
+  SEARCH PHRASE(doc.text, "型数 据库", "text_zh") OR
+  ANALYZER(STARTS_WITH(doc.b, "ba"), "text_en")
   SORT TFIDF(doc) DESC
   RETURN doc`);
 ```
 
-## Examine query result
-
-Result of the latter query will include all documents from both linked
-collections that include `多模 型数` phrase in Chinese at any part of `text`
-property or `b` property in English that starts with `ba`. Additionally,
-descendant sorting using [TFIDF algorithm](https://en.wikipedia.org/wiki/TF-IDF){:target="_blank"}
-will be applied during a search:
+The result will include all documents from both linked collections that have
+the Chinese phrase `多模 型数` at any position in the `text` attribute value
+**or** the property `b` starting with `ba` in English. Additionally,
+descendant sorting using the TF-IDF scoring algorithm will be applied.
 
 ```json
 [
@@ -141,3 +135,29 @@ will be applied during a search:
   }
 ]
 ```
+
+Use cases
+---------
+
+### Prefix search
+
+The data contained in our View looks like that:
+
+```json
+{ "id": 1, "body": "ThisIsAVeryLongWord" }
+{ "id": 2, "body": "ThisIsNotSoLong" }
+{ "id": 3, "body": "ThisIsShorter" }
+{ "id": 4, "body": "ThisIs" }
+{ "id": 5, "body": "ButNotThis" }
+```
+
+We now want to search for documents where the attribute `body` starts with
+`"ThisIs"`. A simple AQL query executing this prefix search:
+
+```js
+FOR doc IN viewName
+  SEARCH STARTS_WITH(doc.body, 'ThisIs')
+  RETURN doc
+```
+
+It will find the documents with the ids `1`, `2`, `3`, `4`, but not `5`.

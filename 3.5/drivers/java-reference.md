@@ -21,7 +21,7 @@ layout: default
   - [Bulk Import](java-reference-collection-bulk-import.html)
 - [View](java-reference-view.html)
   - [View Manipulation](java-reference-view-view-manipulation.html)
-  - [ArangoSearch Views](java-reference-view-arango-search.html)
+  - [ArangoSearch Views](java-reference-view-arangosearch.html)
 - [Cursor](java-reference-cursor.html)
 - [Graph](java-reference-graph.html)
   - [Vertex Collection](java-reference-graph-vertex-collection.html)

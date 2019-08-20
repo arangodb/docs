@@ -29,6 +29,7 @@ Drop a view:
     @endDocuBlock viewDrop
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Query Name
 ----------
 
@@ -50,6 +51,7 @@ Get view name:
     @endDocuBlock viewName
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Rename
 ------
 
@@ -79,6 +81,7 @@ If renaming fails for any reason, an error is thrown.
     @endDocuBlock viewRename
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Query Type
 ----------
 
@@ -100,6 +103,7 @@ Get view type:
     @endDocuBlock viewType
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Query Properties
 ----------------
 
@@ -122,6 +126,7 @@ Get view properties:
     @endDocuBlock viewGetProperties
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Modify Properties
 -----------------
 
@@ -138,7 +143,7 @@ additionally, removes all other properties if `false`).
 
 Currently, the only supported view type is `arangosearch`, and its properties
 can be found in
-[](views-arango-search-detailed-overview.html#view-properties).
+[ArangoSearch detailed overview](views-arango-search-detailed-overview.html#view-properties).
 
 **Examples**
 
