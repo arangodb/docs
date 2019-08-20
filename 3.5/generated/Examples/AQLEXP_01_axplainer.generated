@@ -1,5 +1,5 @@
 arangosh&gt; db._create("test");
-[ArangoCollection 64673, "test" (type document, status loaded)]
+[ArangoCollection 97250, "test" (type document, status loaded)]
 arangosh&gt; for (i = 0; i &lt; 100; ++i) { db.test.save({ value: i }); }
 arangosh&gt; db.test.ensureIndex({ type: "skiplist", fields: [ "value" ] });
 { 
@@ -7,10 +7,9 @@ arangosh&gt; db.test.ensureIndex({ type: "skiplist", fields: [ "value" ] });
   "fields" : [ 
     "value" 
   ], 
-  "id" : "test/64878", 
+  "id" : "test/97558", 
   "isNewlyCreated" : true, 
-  "name" : "idx_1642314994591727616", 
-  "selectivityEstimate" : 1, 
+  "name" : "idx_1636722954402267136", 
   "sparse" : false, 
   "type" : "skiplist", 
   "unique" : false, 
@@ -24,13 +23,13 @@ Query String:
 Execution plan:
  Id   NodeType          Est.   Comment
   1   SingletonNode        1   * ROOT
-  9   IndexNode           50     - FOR i IN test   /* skiplist index scan, index only, projections: `value` */
+  9   IndexNode           50     - FOR i IN test   /* skiplist index scan */
   5   CalculationNode     50       - LET #3 = i.`value`   /* attribute expression */   /* collections used: i : test */
   8   ReturnNode          50       - RETURN #3
 
 Indexes used:
  By   Name                      Type       Collection   Unique   Sparse   Selectivity   Fields        Ranges
-  9   idx_1642314994591727616   skiplist   test         false    false       100.00 %   [ `value` ]   (i.`value` &gt; 97)
+  9   idx_1636722954402267136   skiplist   test         false    false            n/a   [ `value` ]   (i.`value` &gt; 97)
 
 Optimization rules applied:
  Id   RuleName
@@ -44,6 +43,5 @@ Optimization rules applied:
   8   remove-filter-covered-by-index
   9   use-index-for-sort
  10   remove-unnecessary-calculations-2
- 11   reduce-extraction-to-projection
 
 
