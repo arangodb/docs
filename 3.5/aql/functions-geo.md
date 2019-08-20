@@ -84,7 +84,7 @@ FOR doc IN collectionName
 
 ### GEO_AREA()
 
-<small>Introduced in: 3.6</small>
+<small>Introduced in: 3.5.1</small>
 
 
 `GEO_AREA(geoJson, ellipsoid) → area`
