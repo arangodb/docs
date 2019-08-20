@@ -97,7 +97,6 @@ The string matching performed by *CONTAINS* is case-sensitive.
 - **search** (string): the needle
 - **returnIndex** (bool, *optional*): if set to *true*, the character position
   of the match is returned instead of a boolean. The default is *false*.
-  The default is *false*.
 - returns **match** (bool\|number): by default, *true* is returned if *search*
   is contained in *text*, and *false* otherwise. With *returnIndex* set to *true*,
   the position of the first occurrence of *search* within *text* is returned 
@@ -857,17 +856,7 @@ To return the leftmost characters, see [LEFT()](#left).
 TOKENS()
 --------
 
-`TOKENS(input, analyzer) → strArray`
-
-Split the *input* string with the help of the specified *analyzer* into a token array.
-The resulting array can be used e.g. in subsequent `FILTER` statements with the `IN` operator.
-It can help to better understand how the specific analyzer is going to behave.
-
-- **input** (string): text to tokenize
-- **analyzer** (string): one of the available
-  [ArangoSearch string analyzers](../views-arango-search-analyzers.html)
-- returns **strArray** (array): array of strings, each element being a token
-
+See [ArangoSearch Functions](functions-arangosearch.html#tokens).
 
 TO_BASE64()
 -----------

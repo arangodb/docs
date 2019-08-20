@@ -14,6 +14,11 @@ not many write queries.
 The query results cache is transparent so users do not need to manually invalidate 
 results in it if underlying collection data are modified. 
 
+{% hint 'info' %}
+The AQL query results cache is only available for single servers, i.e. servers that
+are not part of a cluster setup.
+{% endhint %}
+
 
 Modes
 -----
@@ -55,7 +60,7 @@ executions of the same query.
 
 A query is eligible for caching only if all of the following conditions are met:
 
-* the server the query executes on is not a coordinator
+* the server the query executes on is a single server (i.e. not part of a cluster)
 * the query string is at least 8 characters long 
 * the query is a read-only query and does not modify data in any collection
 * no warnings were produced while executing the query
@@ -65,7 +70,7 @@ A query is eligible for caching only if all of the following conditions are met:
   size for individual cache results or cumulated results
 * the query is not executed using a streaming cursor
 
-The usage of non-deterministic functions leads to a query not being cachable. 
+The usage of non-deterministic functions leads to a query not being cacheable.
 This is intentional to avoid caching of function results which should rather
 be calculated on each invocation of the query (e.g. `RAND()` or `DATE_NOW()`).
 
@@ -118,7 +123,7 @@ or during cache invalidation after data-modification operations. Cache invalidat
 will require time proportional to the number of cached items that need to be invalidated.
 
 There may be workloads in which enabling the query results cache will lead to a performance
-degradation. It is not recommended to turn the query resutls cache on in workloads that only
+degradation. It is not recommended to turn the query results cache on in workloads that only
 modify data, or that modify data more often than reading it. Turning on the cache
 will also provide no benefit if queries are very diverse and do not repeat often.
 In read-only or read-mostly workloads, the cache will be beneficial if the same
@@ -148,7 +153,7 @@ at server start using the following configuration parameters:
 
 * `--query.cache-entries`: maximum number of results in query result cache per database
 * `--query.cache-entries-max-size`: maximum cumulated size of results in query result cache per database
-* `--query.cache-entry-max-size`: maximum size of an invidiual result entry in query result cache
+* `--query.cache-entry-max-size`: maximum size of an individual result entry in query result cache
 * `--query.cache-include-system-collections`: whether or not to include system collection queries in the query result cache
 
 These parameters can be used to put an upper bound on the number and size of query 

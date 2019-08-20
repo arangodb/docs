@@ -19,10 +19,16 @@ baseurl: "/docs" # the subpath of your site, e.g. /blog
 
 url: "https://www.arangodb.com" # the base hostname & protocol for your site
 
-plugins:
-  - jekyll-redirect-from
-# - jekyll-feed
-  - jekyll-sitemap
+# Certain directories can be excluded from sitemap,
+# but including the stable folder (symlink) does not work.
+#plugins:
+#  - jekyll-sitemap
+#
+#defaults:
+#    scope:
+#      path: stable/**
+#    values:
+#      sitemap: true
 
 # Build settings
 markdown: kramdown
@@ -31,6 +37,11 @@ kramdown:
   typographic_symbols:
     mdash: "---"
     ndash: "--"
+
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-redirect-from
 
 algolia:
   application_id: IOUJQ85602
@@ -69,6 +80,14 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+<<<<<<< HEAD
+=======
+  - scripts
+  - sitemap.rb
+  - Dockerfile
+  - TODO.md
+  - htmltest
+>>>>>>> origin/master
   - 3.5/generated
   - 3.4/generated
   - 3.3/generated

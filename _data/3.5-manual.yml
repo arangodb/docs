@@ -318,19 +318,15 @@
       href: graphs-edges.html
     - text: Pregel
       href: graphs-pregel.html
-- text: ArangoSearch Views
-  href: views-arango-search.html
+- text: ArangoSearch
+  href: arangosearch.html
   children:
-    - text: Getting Started
-      href: views-arango-search-getting-started.html
-    - text: Detailed Overview
-      href: views-arango-search-detailed-overview.html
+    - text: Views
+      href: arangosearch-views.html
     - text: Analyzers
-      href: views-arango-search-analyzers.html
-    - text: Scorers
-      href: views-arango-search-scorers.html
-- text: Analyzers
-  href: analyzers.html
+      href: arangosearch-analyzers.html
+    - text: Examples
+      href: arangosearch-examples.html
 - subtitle: ADVANCED TOPICS
 - text: Architecture
   href: architecture.html
@@ -563,8 +559,6 @@
               href: deployment-cluster-manual-start.html
             - text: Kubernetes
               href: deployment-cluster-kubernetes.html
-            - text: 'Mesos, DC/OS'
-              href: deployment-cluster-mesos.html
         - text: Multiple Datacenters
           href: deployment-dc2-dc.html
           children:
@@ -626,14 +620,6 @@
               href: deployment-kubernetes-tls.html
             - text: Troubleshooting
               href: deployment-kubernetes-troubleshooting.html
-        - text: 'Mesos, DC/OS'
-          href: deployment-dcos.html
-          children:
-            - text: Cluster Deployments
-              href: deployment-dcos-cluster-mesos.html
-              children:
-                - text: Choosing Container Engine
-                  href: deployment-dcos-mesos-containers.html
     - text: In the Cloud
       href: deployment-cloud.html
       children:
@@ -908,6 +894,8 @@
       children:
         - text: '@arangodb'
           href: appendix-java-script-modules-arango-db.html
+        - text: analyzers
+          href: appendix-java-script-modules-analyzers.html
         - text: console
           href: appendix-java-script-modules-console.html
         - text: crypto

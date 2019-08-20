@@ -10,8 +10,8 @@ These functions implement the
 
 ## Getting information about the view
 
-See
-[the HTTP API documentation](../http/views-getting.html)
+See the
+[HTTP API documentation](../http/views.html)
 for details.
 
 ## ArangoView.exists

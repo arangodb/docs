@@ -12,10 +12,10 @@ General syntax
 --------------
 
 ```
-FILTER condition
+FILTER expression
 ```
 
-*condition* must be a condition that evaluates to either *false* or *true*. If
+`expression` must be a condition that evaluates to either *false* or *true*. If
 the condition result is false, the current element is skipped, so it will not be
 processed further and not be part of the result. If the condition is true, the
 current element is not skipped and can be further processed.

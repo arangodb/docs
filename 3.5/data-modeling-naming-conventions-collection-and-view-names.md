@@ -1,20 +1,27 @@
 ---
 layout: default
-description: Users can pick names for their collections (or views) as desired, provided thefollowing naming constraints are not violated
+description: Users can pick names for their collections and Views as desired, provided certain naming constraints are not violated.
+title: Naming Conventions for Collections / Views
 ---
 Collection and View Names
 =========================
 
-Users can pick names for their collections (or views) as desired, provided the
+Users can pick names for their collections and Views as desired, provided the
 following naming constraints are not violated:
 
-* Collection names must only consist of the letters *a* to *z* (both in lower 
+- The names must only consist of the letters *a* to *z* (both in lower 
   and upper case), the numbers *0* to *9*, and the underscore (*_*) or dash (*-*)
-  symbols. This also means that any non-ASCII collection names are not allowed
-* User-defined collection names must always start with a letter. System collection
+  symbols. This also means that any non-ASCII names are not allowed.
+
+- View names must always start with a letter.
+
+- User-defined collection names must always start with a letter. System collection
   names must start with an underscore.
+
   All collection names starting with an underscore are considered to be system
   collections that are for ArangoDB's internal use only. System collection names
-  should not be used by end users for their own collections
-* The maximum allowed length of a collection name is 64 bytes
-* Collection names are case-sensitive
+  should not be used by end users for their own collections.
+
+- The maximum allowed length of a name is 64 bytes.
+
+- Collection and View names are case-sensitive.

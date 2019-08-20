@@ -878,4 +878,4 @@ removed in future versions of ArangoDB:
 
 * the `foxx-manager` executable is deprecated and will be removed in ArangoDB 4.
   
-  Please use foxx-cli instead: https://docs.arangodb.com/3.4/Manual/Foxx/Deployment/FoxxCLI/
+  Please use [Foxx CLI](programs-foxx-cli.html) instead.

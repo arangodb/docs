@@ -1,6 +1,7 @@
 ---
 layout: default
-description: A collection consists of documents
+description: Definitions for important ArangoDB terms
+title: ArangoDB Glossary
 ---
 Glossary
 ========
@@ -221,7 +222,7 @@ renamed. Renaming a view will change the view name, but not the view identifier.
 The conceptual transformation function employed by a view type is implementation
 specific. The type is specified by the user when the view is created, and cannot
 be changed later. The following view types are currently supported:
-* [`arangosearch`](views-arango-search.html)
+* [`arangosearch`](arangosearch-views.html)
 
 View Identifier
 ---------------

@@ -21,7 +21,8 @@ This solution was made using a fresh Debian Testing machine on Amazon EC2. For c
 
 Login to your AWS account and launch an instance of Debian Testing. I used an 'm3.xlarge' since that has a bunch of cores, more than enough memory, optimized network and the instance store is on SSDs which can be switched to provisioned IOPs.
 
-The Current AMI ID's can be found in the Debian Wiki: https://wiki.debian.org/Cloud/AmazonEC2Image/Jessie
+The Current AMI ID's can be found in the Debian Wiki:
+[wiki.debian.org/Cloud/AmazonEC2Image/Jessie](https://wiki.debian.org/Cloud/AmazonEC2Image/Jessie){:target="_blank"}
 
 ### Upgrade to the very latest version
 
