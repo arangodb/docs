@@ -100,10 +100,8 @@ Note that the `primarySort` option is immutable: it can not be changed after
 View creation. It is therefore not possible to configure it through the Web UI.
 The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
 
-<!-- TODO
 See [Primary Sort Order](arangosearch-views.html#primary-sort-order) of
 ArangoSearch Views.
--->
 
 ### AQL Integration
 
@@ -120,13 +118,14 @@ Some small new features give more control over ArangoSearch from AQL.
     RETURN { doc, score }
   ```
 
-- The score can be manipulated to influence the ranking:
+- The score can be manipulated to influence the ranking based on
+  attribute values and using numeric AQL functions:
 
   ```js
-  FOR doc IN viewName
-    SEARCH ...
-    SORT BM25(doc) * LOG(doc.value + 1) DESC
-    RETURN doc
+  FOR movie IN imdbView
+    SEARCH PHRASE(movie.title, "Star Wars", "text_en")
+    SORT BM25(movie) * LOG(movie.runtime + 1) DESC
+    RETURN movie
   ```
 
 - The `SEARCH` operation accepts an options object to restrict the search to
@@ -137,6 +136,10 @@ Some small new features give more control over ArangoSearch from AQL.
     SEARCH ... OPTIONS { collections: ["coll1", "coll2"] }
     RETURN doc
   ```
+
+See:
+- [AQL Scoring Functions](aql/functions-arangosearch.html#scoring-functions)
+- [AQL Search Options](aql/operations-search.html#search-options)
 
 AQL
 ---

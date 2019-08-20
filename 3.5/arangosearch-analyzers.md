@@ -191,6 +191,9 @@ An Analyzer capable of breaking up strings into individual words while also
 optionally filtering out stop-words, extracting word stems, applying
 case conversion and accent removal.
 
+Stemming support is provided by
+[Snowball](https://snowballstem.org/){:target="_blank"}.
+
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 

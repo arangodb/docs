@@ -3,51 +3,15 @@ layout: default
 description: ArangoSearch Views
 redirect_from: /3.5/views-arango-search-detailed-overview.html
 ---
+ArangoSearch Views
+==================
 
+ArangoSearch Views enable sophisticated information retrieval queries such as
+full-text search for unstructured or semi-structured data over documents from
+different collections, filtering on multiple document attributes and sorting
+the documents that satisfy the search criteria by relevance.
 
-A view is meant to be an abstraction over a transformation applied to documents
-of zero or more collections. The transformation is view-implementation specific
-and may even be as simple as an identity transformation thus making the view
-represent all documents available in the specified set of collections.
-
-Views can be defined and administered on a per view-type basis via
-the [web interface](../programs-web-interface.html).
-
-Currently there is a single supported View implementation, namely ArangoSearch Views.
-
-
-Views can be managed in the Web UI, via an [HTTP API](http/views.html) and
-through a [JavaScript API](data-modeling-views-database-methods.html).
-
-
-documents from different collections or filtering on multiple document attributes.
-
-
-When dealing with unstructured or semi-structured data a user usually has only a vague assumption of what she is looking for. That means when executing a query she is not only interested in datasets that just satisfy search criteria but particularly the most relevant ones.
-
-In order to achieve that we combined two information retrieval models: boolean and generalized ranking retrieval so that each document “approved” by boolean model gets its own rank from the ranking model.
-
-Since analysis and ranking phases are application dependent there are configurable Analyzers.
-
-For text retrieval, we use the Vector Space Model (VSM) as the ranking model. According to the model, documents and query are represented as vectors in a space formed by the “terms” of the query. The definition of “term” depends on the analysis phase of the application. Typically terms are single words, keywords or even phrases.
-
-The document vectors that are closer to a query vector are more relevant.
-Practically the closeness is expressed as the cosine of the angle between two vectors, namely [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity){:target="_blank"}.
-
-In order to define how relevant document d to the query q we have to evaluate the following expression:
-cos a = (d * q) / (|d| * |q|), where
-d * q is the dot product of the query vector q and document vector d,
-|d| is the norm of the vector d,
-|q| is the norm of the vector q
-
-To evaluate relevance described above we have to compute vector components at first. Since we are in a space formed by the “terms” we use “term weights” as the coordinates. There are number of probability/statistical weighting models but for this Milestone release we’ve implemented two, probably the most famous schemes:
-
-[Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25)
-[TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)
-Under the hood both models rely on 2 main components:
-
-*Term frequency* (TF) in the simplest case defined as the number of times that term t occurs in document d
-*Inverse document frequency* (IDF) is a measure of how much information the word provides, i.e. whether the term is common or rare across all documents
+Comparison with the [Full-text Index](indexing-fulltext.html):
 
 Feature                           | ArangoSearch | Full-text Index
 ----------------------------------|--------------|----------------
@@ -62,174 +26,274 @@ AQL composable language construct	| Yes          | No
 Indexed attributes per collection | Unlimited    | 1
 Indexed collections               | Unlimited    | 1
 
-Schema agnostic indexing is meant to be treated as the ability to index any JSON attribute at any depth or the given set of paths, allowing fast access to documents via any combination of conditions over the indexed attributes. Unlike the collections with user-defined indexes, view guarantees the best execution plan (merge join) when querying multiple attributes.
+Views guarantee the best execution plan (merge join) when querying multiple
+attributes, unlike collections with user-defined indexes.
 
-Once view has been created one may establish an arbitrary number of links between collections (of any type) and a view. That especially useful when one needs to retrieve and analyze data from multiple collections based on some conditions, e.g. find the most relevant goods or books according to a given description.
-Each link is meant to be treated as the data flow from a collection to a view so that data from a collection will be accessible via the view object. ArangoSearch view gives you full control over the data coming from a particular collection allowing to specify what and how should be indexed.
+Concept
+-------
 
-Since essentially graph is a combination of document and edge collections, it might be indexed by a view as well. With such approach, graph can be treated as flat and interconnected data structure simultaneously.
-Dual approach allows combining information retrieval techniques with sophisticated graph traversals in order to speed up data access by a factor of magnitude, e.g. one can find the most relevant vertices according to a provided description and then do a regular traversal within a specified depth.
+A View can be understood as abstraction over a transformation applied to documents
+of zero or more collections. The transformation is View-implementation specific
+and may even be as simple as an identity transformation thus making the View
+represent all documents available in the specified set of source collections.
+Currently there is a single supported View implementation, ArangoSearch Views.
 
-## View datasource
+ArangoSearch Views combine two information retrieval models: Boolean and
+generalized ranking retrieval. Each document "approved" by Boolean model gets
+its own rank from the ranking model.
 
-Search functionality is exposed to ArangoDB via the view API for views of type
-`arangosearch`. The ArangoSearch View is merely an identity transformation
-applied onto documents stored in linked collections of the same ArangoDB
-database. In plain terms an ArangoSearch View only allows filtering and sorting
-of documents located in collections of the same database. The matching documents
-themselves are returned as-is from their corresponding collections.
+For text retrieval, the Vector Space Model (VSM) is used as the ranking model.
+According to the model, documents and query are represented as vectors in a
+space formed by the _terms_ of the query. Typically terms are single words,
+keywords or even phrases. Value analysis such as splitting text into words
+(tokenization) and normalizing them is possible with the help of
+[Analyzers](arangosearch-analyzers.html). As this is application dependent
+ArangoDB offers configurable Analyzers aside from a set of built-in Analyzers.
 
-## Links to ArangoDB collections
+The document vectors that are closer to a query vector are more relevant.
+Practically the closeness is expressed as the cosine of the angle between two
+vectors, namely [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity){:target="_blank"}.
 
-A concept of an ArangoDB collection 'link' is introduced to allow specifying
-which ArangoDB collections a given ArangoSearch View should query for documents
-and how these documents should be queried.
+In order to define how relevant document `d` is to the query `q` the following
+expression is evaluated:
 
+`cos a = (d * q) / (|d| * |q|)`, where `d * q` is the dot product of the query
+vector `q` and document vector `d`, `|d|` is the norm of the vector `d`, `|q|`
+is the norm of the vector `q`.
+
+The required vector components have to be computed upfront. Since the space is
+formed by the terms, _term weights_ can be used as the coordinates. There are a
+number of probability/statistical weighting models of which two are implemented
+for ArangoSearch Views, probably the most famous schemes:
+
+- [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}
+- [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf){:target="_blank"}
+
+Under the hood both models rely on two main components:
+- *Term frequency* (TF): in the simplest case defined as the number of times
+  that term `t` occurs in document `d`
+- *Inverse document frequency* (IDF): a measure of how much information the
+  word provides, i.e. whether the term is common or rare across all documents
+
+The searching and ranking capabilities are provided by the
+[IResearch library](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}.
+
+Integration
+-----------
+
+The collections to act as data source need to be _linked_ to a View.
 An ArangoSearch Link is a uni-directional connection from an ArangoDB collection
 to an ArangoSearch View describing how data coming from the said collection
-should be made available in the given view. Each ArangoSearch Link in an
-ArangoSearch view is uniquely identified by the name of the ArangoDB collection
-it links to. An ArangoSearch View may have zero or more links, each to a
-distinct ArangoDB collection. Similarly an ArangoDB collection may be referenced
-via links by zero or more distinct ArangoSearch Views. In other words, any given
-ArangoSearch View may be linked to any given ArangoDB collection of the same
-database with zero or one link. However, any ArangoSearch View may be linked to
-multiple distinct ArangoDB collections and similarly any ArangoDB collection may
-be referenced by multiple ArangoSearch Views.
+should be made available in the given View. You can think of it as a data flow
+from a collection to a View. A View can have zero or more links, each to a
+distinct ArangoDB collection within a database. The same collections may be
+linked to other Views too.
 
-To configure an ArangoSearch View for consideration of documents from a given
-ArangoDB collection a link definition must be added to the properties of the
-said ArangoSearch View defining the link parameters as per the section
-[View definition/modification](#view-definitionmodification).
+ArangoSearch Views are not updated synchronously as the source collections
+change in order to minimize the performance impact. They are eventually
+consistent, with a configurable consolidation policy.
 
-## Index
+Document as well as edge collections can be linked, which means graphs can be
+treated as flat and interconnected data structure simultaneously. For example,
+one can find the most relevant vertices by searching and sorting via a View,
+then do a regular traversal within a specified depth.
 
-Inverted Index is the heart of ArangoSearch. The index consists of several
-independent segments and the index segment itself is meant to be treated as a
-standalone index.
+Links can be managed by editing the [View Definition](#view-definitionmodification).
+It is possible to index all attributes or particular attributes (optionally
+including nested attributes). Any document attribute at any depth can be
+indexed. A list of Analyzers to process the values with can be defined for each
+such field.
 
+The Analyzer(s) defined in the View and the one(s) specified in a query must
+match to produce a result. For example, if a field was only indexed using the
+`"identity"` Analyzer but the search expression compares the value to something
+using a different Analyzer (e.g. `"text_en"`) then nothing is found.
 
+The elements of arrays are indexed individually by default, as if the source
+attribute had each element as value at the same time. Strings may get
+transformed by Analyzers into multiple tokens, which are handled similarly to
+an array of strings. See
+[AQL SEARCH operation](aql/operations-search.html#arrays-and-tracklistpositions)
+for details. Primitive values other than strings (`null`, `true`, `false`,
+numbers) are indexed unchanged. The values of nested object are optionally
+indexed under the respective attribute path, including objects in arrays.
 
+Views can be managed in the Web UI, via an [HTTP API](http/views.html) and
+through a [JavaScript API](data-modeling-views-database-methods.html).
 
+Finally, Views can be queried with AQL via the
+[SEARCH operation](aql/operations-search.html).
 
+Primary Sort Order
+------------------
 
+The index behind an ArangoSearch View can have a primary sort order.
+A direction can be specified upon View creation for each uniquely named
+attribute (ascending or descending), to enable an optimization for AQL
+queries which iterate over a View and sort by one or multiple of the
+attributes. If the field(s) and the sorting direction(s) match then the
+the data can be read directly from the index without actual sort operation.
 
-Views can be queried with AQL to:
-- filter documents based on Boolean expressions and functions
-- join documents located in different collections to one result list
-- sort the result set based on how closely each document matched the filter
+View definition example:
 
+```json
+{
+  "links": {
+    "coll1": {
+      "fields": {
+        "text": {
+        }
+      }
+    },
+    "coll2": {
+      "fields": {
+        "text": {
+      }
+    }
+  },
+  "primarySort": [
+    {
+      "field": "text",
+      "direction": "asc"
+    }
+  ]
+}
+```
 
+AQL query example:
 
+```js
+FOR doc IN viewName
+  SORT doc.text
+  RETURN doc
+```
 
-A natively integrated AQL extension that allows one to:
- * evaluate together documents located in different collections
- * search documents based on AQL boolean expressions and functions
- * sort the result set based on how closely each document matched the search condition
+Execution plan **without** a sorted index being used:
 
+```
+Execution plan:
+ Id   NodeType            Est.   Comment
+  1   SingletonNode          1   * ROOT
+  2   EnumerateViewNode      1     - FOR doc IN viewName   /* view query */
+  3   CalculationNode        1       - LET #1 = doc.`val`   /* attribute expression */
+  4   SortNode               1       - SORT #1 ASC   /* sorting strategy: standard */
+  5   ReturnNode             1       - RETURN doc
+```
 
+Execution plan with a the primary sort order of the index being utilized:
 
+```
+Execution plan:
+ Id   NodeType            Est.   Comment
+  1   SingletonNode          1   * ROOT
+  2   EnumerateViewNode      1     - FOR doc IN viewName SORT doc.`val` ASC   /* view query */
+  5   ReturnNode             1       - RETURN doc
+```
 
- 
+To define more than one attribute to sort by, simply add more sub-objects to
+the `primarySort` array:
 
+```json
+  "primarySort": [
+    {
+      "field": "date",
+      "direction": "desc"
+    },
+    {
+      "field": "text",
+      "direction": "asc"
+    }
+  ]
+```
 
+The optimization can be applied to View queries which sort by both fields as
+defined (`SORT doc.date DESC, doc.text`), but also if they sort in descending
+order by the `date` attribute only (`SORT doc.date DESC`). Queries which sort
+by `text` alone (`SORT doc.text`) are not eligible, because the View is sorted
+by `date` first. This is similar to skiplist indexes, but inverted sorting
+directions are not covered by the View index
+(e.g. `SORT doc.date, doc.text DESC`).
 
+Note that the `primarySort` option is immutable: it can not be changed after
+View creation. It is therefore not possible to configure it through the Web UI.
+The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
 
-- Federated searches over a set of collections
-
-
-
-
-
-[IResearch library](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}
-written in C++ and natively integrated into ArangoDB.
-
-including text
- capabilities
-
-
-
-## What is ArangoSearch
-
-ArangoSearch is a natively integrated AQL extension making use of the
-.
-
-- join documents located in different collections to one result list
-- filter documents based on AQL boolean expressions and functions
-- sort the result set based on how closely each document matched the filter
-
-A concept of value "analysis" that is meant to break up a given value into
-a set of sub-values internally tied together by metadata which influences both
-the search and sort stages to provide the most appropriate match for the
-specified conditions, similar to queries to web search engines.
-
-In plain terms this means a user can for example:
-
-- request documents where the `body` attribute best matches `a quick brown fox`
-- request documents where the `dna` attribute best matches a DNA sub sequence
-- request documents where the `name` attribute best matches gender
-- etc. (via custom analyzers)
-
-See the [Analyzers](arangosearch-analyzers.html) for a detailed description of
-usage and management of custom analyzers.
-
-### The IResearch Library
-
-IResearch s a cross-platform open source indexing and searching engine written in C++,
-optimized for speed and memory footprint, with source available from:
-https://github.com/iresearch-toolkit/iresearch
-
-IResearch is the framework for indexing, filtering and sorting of data.
-The indexing stage can treat each data item as an atom or use custom "analyzers"
-to break the data item into sub-atomic pieces tied together with internally
-tracked metadata.
-
-The IResearch framework in general can be further extended at runtime with
-custom implementations of analyzers (used during the indexing and searching
-stages) and scorers (used during the sorting stage) allowing full control over
-the behavior of the engine.
-
-
-
-
-
-
-
-
-
-
-## Analyzers
-
-To simplify query syntax ArangoSearch provides a concept of
-[named analyzers](arangosearch-analyzers.html) which are merely aliases for type+configuration
-of IResearch analyzers.
-<!-- Management of named analyzers is exposed via REST, GUI and JavaScript APIs. -->
-
-## View definition/modification
+View Definition/Modification
+----------------------------
 
 An ArangoSearch View is configured via an object containing a set of
-view-specific configuration directives and a map of link-specific configuration
+View-specific configuration directives and a map of link-specific configuration
 directives.
 
-During view creation the following directives apply:
+During View creation the following directives apply:
 
-- **name** (_required_; type: `string`): the view name
-- **type** (_required_; type: `string`): the value `"arangosearch"`
-- any of the directives from the section [View properties](#view-properties)
+- **name** (string): the view name
+- **type** (string): the value `"arangosearch"`
+- any of the directives from the section [View Properties](#view-properties)
 
 During view modification the following directives apply:
 
-- **links** (_optional_; type: `object`):
-  a mapping of `collection-name/collection-identifier` to one of:
+- **links** (object, _optional_):
+  a mapping of `collection-name` / `collection-identifier` to one of:
   - link creation - link definition as per the section [Link properties](#link-properties)
-  - link removal - JSON keyword *null* (i.e. nullify a link if present)<br>
-- any of the directives from the section [View properties](#view-properties)
+  - link removal - JSON keyword *null* (i.e. nullify a link if present)
+- any of the directives from the section [View Properties](#view-properties)
 
-## View properties
+### Link Properties
 
-The following terminology from ArangoSearch architecture is used to understand
-view properties assignment of its type:
+- **analyzers** (_optional_; type: `array`; subtype: `string`; default: `[
+  'identity' ]`)
 
+  A list of analyzers, by name as defined via the [Analyzers](arangosearch-analyzers.html),
+  that should be applied to values of processed document attributes.
+
+- **fields** (_optional_; type: `object`; default: `{}`)
+
+  An object `{ attribute-name: [Link properties], … }` of fields that should be
+  processed at each level of the document. Each key specifies the document
+  attribute to be processed. Note that the value of `includeAllFields` is also
+  consulted when selecting fields to be processed. It is a recursive data
+  structure. Each value specifies the [Link properties](#link-properties)
+  directives to be used when processing the specified field, a Link properties
+  value of `{}` denotes inheritance of all (except `fields`) directives from
+  the current level.
+
+- **includeAllFields** (_optional_; type: `boolean`; default: `false`)
+
+  If set to `true`, then process all document attributes. Otherwise, only
+  consider attributes mentioned in `fields`. Attributes not explicitly
+  specified in `fields` will be processed with default link properties, i.e.
+  `{}`.
+
+- **trackListPositions** (_optional_; type: `boolean`; default: `false`)
+
+  If set to `true`, then for array values track the value position in arrays.
+  E.g., when querying for the input `{ attr: [ 'valueX', 'valueY', 'valueZ' ]
+  }`, the user must specify: `doc.attr[1] == 'valueY'`. Otherwise, all values in
+  an array are treated as equal alternatives. E.g., when querying for the input
+  `{ attr: [ 'valueX', 'valueY', 'valueZ' ] }`, the user must specify: `doc.attr
+  == 'valueY'`.
+
+- **storeValues** (_optional_; type: `string`; default: `"none"`)
+
+  This property controls how the view should keep track of the attribute values.
+  Valid values are:
+
+  - **none**: Do not store values with the view.
+  - **id**: Store information about value presence to allow use of the
+    `EXISTS()` function.
+
+### View Properties
+
+- **primarySort** (_optional_; type: `array`; default: `[]`)
+
+  A primary sort order can be defined to enable an AQL optimization. If a query
+  iterates over all documents of a View, wants to sort them by attribute values
+  and the (left-most) fields to sort by as well as their sorting direction match
+  with the *primarySort* definition, then the `SORT` operation is optimized away.
+  Also see [Primary Sort Order](arangosearch-views.html#primary-sort-order)
+
+An inverted index is the heart of ArangoSearch Views.
 The index consists of several independent segments and the index **segment**
 itself is meant to be treated as a standalone index. **Commit** is meant to be
 treated as the procedure of accumulating processed data creating new index
@@ -326,7 +390,7 @@ is used by these writers (in terms of "writers pool") one can use
     - **tier**: Consolidate based on segment byte size and live document count
       as dictated by the customization attributes.
 
-### `consolidationPolicy` properties for `bytes_accum` type
+  `consolidationPolicy` properties for `bytes_accum` type:
 
   - **threshold** (_optional_; type: `float`; default: `0.1`)
 
@@ -336,7 +400,7 @@ is used by these writers (in terms of "writers pool") one can use
     is applied for each segment:
     `{threshold} > (segment_bytes + sum_of_merge_candidate_segment_bytes) / all_segment_bytes`.
 
-### `consolidationPolicy` properties for `tier` type
+  `consolidationPolicy` properties for `tier` type:
 
   - **segmentsMin** (_optional_; type: `integer`; default: `1`)
 
@@ -361,46 +425,3 @@ is used by these writers (in terms of "writers pool") one can use
     `segmentsMin`, `segmentsMax`, `segmentsBytesMax`, `segmentsBytesFloor` with
     respect to defined values. Default value is treated as searching among all existing
     segments.
-
-## Link properties
-
-- **analyzers** (_optional_; type: `array`; subtype: `string`; default: `[
-  'identity' ]`)
-
-  A list of analyzers, by name as defined via the [Analyzers](arangosearch-analyzers.html),
-  that should be applied to values of processed document attributes.
-
-- **fields** (_optional_; type: `object`; default: `{}`)
-
-  An object `{attribute-name: [Link properties]}` of fields that should be
-  processed at each level of the document. Each key specifies the document
-  attribute to be processed. Note that the value of `includeAllFields` is also
-  consulted when selecting fields to be processed. Each value specifies the
-  [Link properties](#link-properties) directives to be used when processing the
-  specified field, a Link properties value of `{}` denotes inheritance of all
-  (except `fields`) directives from the current level.
-
-- **includeAllFields** (_optional_; type: `boolean`; default: `false`)
-
-  If set to `true`, then process all document attributes. Otherwise, only
-  consider attributes mentioned in `fields`. Attributes not explicitly
-  specified in `fields` will be processed with default link properties, i.e.
-  `{}`.
-
-- **trackListPositions** (_optional_; type: `boolean`; default: `false`)
-
-  If set to `true`, then for array values track the value position in arrays.
-  E.g., when querying for the input `{ attr: [ 'valueX', 'valueY', 'valueZ' ]
-  }`, the user must specify: `doc.attr[1] == 'valueY'`. Otherwise, all values in
-  an array are treated as equal alternatives. E.g., when querying for the input
-  `{ attr: [ 'valueX', 'valueY', 'valueZ' ] }`, the user must specify: `doc.attr
-  == 'valueY'`.
-
-- **storeValues** (_optional_; type: `string`; default: `"none"`)
-
-  This property controls how the view should keep track of the attribute values.
-  Valid values are:
-
-  - **none**: Do not store values with the view.
-  - **id**: Store information about value presence to allow use of the
-    `EXISTS()` function.

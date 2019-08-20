@@ -177,18 +177,25 @@ You can set `trackListPositions` to `true` if you want to query for a value
 at a specific array index:
 
 ```js
-doc.value.nested.deep[0] == 1
+SEARCH doc.value.nested.deep[1] == 2
 ```
 
-<!-- TODO no index disallowed? -->
+With `trackListPositions` enabled there will be **no match** for the document
+anymore if the specification of an array index is left out in the expression:
+
+```js
+SEARCH doc.value.nested.deep == 2
+```
+
+Conversely, there will be no match if an array index is specified but
+`trackListPositions` is disabled.
 
 String tokens (see [Analyzers](../arangosearch-analyzers.html)) are also
-indexed individually. <!-- TODO regardless of trackListPositions? Query with index? -->
-
-When a field is processed by a specific Analyzer, comparison tests are done
-per word. For example, given the field `text` is analyzed with `"text_en"`
-and contains the string `"a quick brown fox jumps over the lazy dog"`,
-the following expression will be true:
+indexed individually, but not all Analyzer types return multiple tokens.
+If the Analyzer does, then comparison tests are done per token/word.
+For example, given the field `text` is analyzed with `"text_en"` and contains
+the string `"a quick brown fox jumps over the lazy dog"`, the following
+expression will be true:
 
 ```js
 ANALYZER(doc.text == 'fox', "text_en")
@@ -224,21 +231,47 @@ ANALYZER(doc.text[2] == 'jump', "text_en")
 SEARCH with SORT
 ----------------
 
+The documents emitted from a View can be sorted by attribute values with the
+standard [SORT() operation](operations-sort.html), using one or multiple
+attributes, in ascending or descending order (or a mix thereof).
+
+```js
+FOR doc IN viewName
+  SORT doc.text, doc.value DESC
+  RETURN doc
+```
+
+If the (left-most) fields and their sorting directions match up with the
+[primary sort order](arangosearch-views.html#primary-sort-order) definition
+of the View then the `SORT` operation is optimized away.
+
+Apart from simple sorting, it is possible to sort the matched View documents by
+relevance score (or a combination of score and attribute values if desired).
 The document search via the `SEARCH` keyword and the sorting via the
-ArangoSearch functions, namely `BM25()` and `TFIDF()`, are closely intertwined.
+[ArangoSearch Scoring Functions](functions-arangosearch.html#scoring-functions),
+namely `BM25()` and `TFIDF()`, are closely intertwined.
 The query given in the `SEARCH` expression is not only used to filter documents,
-but also is used with the sorting functions to decide which document matches
+but also is used with the scoring functions to decide which document matches
 the query best. Other documents in the View also affect this decision.
 
-Therefore the ArangoSearch sorting functions can work _only_ on documents
+Therefore the ArangoSearch scoring functions can work _only_ on documents
 emitted from a View, as both the corresponding `SEARCH` expression and the View
 itself are consulted in order to sort the results.
+
+```js
+FOR doc IN viewName
+  SEARCH ...
+  SORT BM25(doc) DESC
+  RETURN doc
+```
 
 The [BOOST() function](functions-arangosearch.html#boost) can be used to
 fine-tune the resulting ranking by weighing sub-expressions in `SEARCH`
 differently.
 
-<!-- TODO multiple scores, ASC, DESC, view doc attrs -->
+If there is no `SEARCH` operation prior to calls to scoring functions or if
+the search expression does not filter out documents (e.g. `SEARCH true`) then
+a score of `0` will be returned for all documents.
 
 Search Options
 --------------
@@ -250,8 +283,15 @@ The `SEARCH` operation accepts an options object with the following attributes:
 
 **Examples**
 
+Given a View with three linked collections `coll1`, `coll2` and `coll3` it is
+possible to return documents from the first two collections only and ignore the
+third using the `collections` option:
+
 ```js
 FOR doc IN viewName
-  SEARCH ... OPTIONS { collections: ["coll1", "coll2"] }
+  SEARCH true OPTIONS { collections: ["coll1", "coll2"] }
   RETURN doc
 ```
+
+The search expression `true` matches all View documents. You can use any valid
+expression here while limiting the scope to the chosen source collections.

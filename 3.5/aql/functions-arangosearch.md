@@ -495,7 +495,14 @@ To sort the result set by relevance, with the more relevant documents coming
 first, sort in **descending order** by the score (e.g. `SORT BM25(...) DESC`).
 
 You may calculate custom scores based on a scoring function using document
-attributes and numeric functions (e.g. `TFIDF(doc) * LOG(doc.value)`).
+attributes and numeric functions (e.g. `TFIDF(doc) * LOG(doc.value)`):
+
+```js
+FOR movie IN imdbView
+  SEARCH PHRASE(movie.title, "Star Wars", "text_en")
+  SORT BM25(movie) * LOG(movie.runtime + 1) DESC
+  RETURN movie
+```
 
 The first argument to any scoring function is always the document emitted by
 a `FOR` operation over an ArangoSearch View.
@@ -524,6 +531,7 @@ Sorting by relevance with BM25 at default settings:
 
 ```js
 FOR doc IN viewName
+  SEARCH ...
   SORT BM25(doc) DESC
   RETURN doc
 ```
@@ -533,6 +541,7 @@ length normalization:
 
 ```js
 FOR doc IN viewName
+  SEARCH ...
   SORT BM25(doc, 2.4, 1) DESC
   RETURN doc
 ```
@@ -554,6 +563,7 @@ Sort by relevance using the TF-IDF score:
 
 ```js
 FOR doc IN viewName
+  SEARCH ...
   SORT TFIDF(doc) DESC
   RETURN doc
 ```
@@ -562,6 +572,7 @@ Sort by relevance using a normalized TF-IDF score:
 
 ```js
 FOR doc IN viewName
+  SEARCH ...
   SORT TFIDF(doc, true) DESC
   RETURN doc
 ```
@@ -571,6 +582,7 @@ score in descending order where the attribute values are equivalent:
 
 ```js
 FOR doc IN viewName
+  SEARCH ...
   SORT doc.text, TFIDF(doc) DESC
   RETURN doc
 ```

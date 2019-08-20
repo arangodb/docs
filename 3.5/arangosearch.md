@@ -7,8 +7,8 @@ redirect_from: /3.5/views-arangosearch.html
 # ArangoSearch
 
 ArangoSearch provides information retrieval features, natively integrated
-into ArangoDB and with support for all data models. It is primarily a
-full-text search engine, a much more powerful alternative to the
+into ArangoDB's query language and with support for all data models. It is
+primarily a full-text search engine, a much more powerful alternative to the
 [full-text index](indexing-fulltext.html) type.
 
 ArangoSearch introduces the concept of **Views** which can be seen as
