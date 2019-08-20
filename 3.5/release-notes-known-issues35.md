@@ -35,6 +35,7 @@ Upgrading
 
 Stream Transactions
 -------------------
+
 | Issue      |
 |------------|
 | **Date Added:** 2019-08-19 <br> **Component:** Transactions <br> **Deployment Mode:** All <br> **Description:** Stream Transactions currently do not honor the limits described in the documentation. Currently the idle timeout of 10 seconds will not be enforced, neither will the maximum size of transaction be enforced. It is planned to add the enforcements of the limits with ArangoDB 3.5.1. <br> **Affected Versions:** 3.5.0 RC1 to 3.5.0 (including) <br> **Fixed in Versions:** - <br> **Reference:** N/A |
