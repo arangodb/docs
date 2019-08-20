@@ -227,8 +227,8 @@ directives.
 
 During View creation the following directives apply:
 
-- **name** (string): the view name
-- **type** (string): the value `"arangosearch"`
+- **name** (string, _immutable_): the View name
+- **type** (string, _immutable_): the value `"arangosearch"`
 - any of the directives from the section [View Properties](#view-properties)
 
 During view modification the following directives apply:
@@ -345,18 +345,18 @@ is used by these writers (in terms of "writers pool") one can use
 `writebuffer*` properties of a view.
 
 - **writebufferIdle** (_optional_; type: `integer`; default: `64`;
-  to disable use: `0`)
+  to disable use: `0`; _immutable_)
 
   Maximum number of writers (segments) cached in the pool.
 
 - **writebufferActive** (_optional_; type: `integer`; default: `0`;
-  to disable use: `0`)
+  to disable use: `0`; _immutable_)
 
   Maximum number of concurrent active writers (segments) that perform a transaction.
   Other writers (segments) wait till current active writers (segments) finish.
 
 - **writebufferSizeMax** (_optional_; type: `integer`; default: `33554432`;
-  to disable use: `0`)
+  to disable use: `0`; _immutable_)
 
   Maximum memory byte size per writer (segment) before a writer (segment) flush is
   triggered. `0` value turns off this limit for any writer (buffer) and data will

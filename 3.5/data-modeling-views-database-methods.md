@@ -36,7 +36,7 @@ access views using the view name.
 
 **Examples**
 
-Get a view by name:
+Get a View by name:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDatabaseNameKnown
@@ -47,7 +47,7 @@ Get a view by name:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Unknown view:
+Unknown View:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDatabaseNameUnknown
@@ -63,20 +63,19 @@ Create
 
 <!-- arangod/V8Server/v8-views.cpp -->
 
-`db._createView(view-name, view-type, view-properties)`
+`db._createView(name, type, properties)`
 
-Creates a new view named *view-name* of type *view-type* with properties
-*view-properties*.
+Creates a new View.
 
-*view-name* is a string and the name of the view. No view or collection with the
+*name* is a string and the name of the View. No View or collection with the
 same name may already exist in the current database. For more information on
-valid view names please refer to the [naming conventions](data-modeling-naming-conventions.html).
+valid View names please refer to the [naming conventions](data-modeling-naming-conventions.html).
 
-*view-type* must be the string `"arangosearch"`, as it is currently the only
-supported view type.
+*type* must be the string `"arangosearch"`, as it is currently the only
+supported View type.
 
-*view-properties* is an optional object containing view configuration specific
-to each view-type. Currently, only ArangoSearch Views are supported. See
+*properties* is an optional object containing View configuration specific
+to each View-type. Currently, only ArangoSearch Views are supported. See
 [ArangoSearch View definition](arangosearch-views.html#view-definitionmodification) for
 details.
 
@@ -122,9 +121,9 @@ Drop
 
 <!-- arangod/V8Server/v8-views.cpp -->
 
-`db._dropView(view-name)`
+`db._dropView(name)`
 
-Drops a view named *view-name* and all its data. No error is thrown if there is
+Drops a view named *name* and all its data. No error is thrown if there is
 no such view.
 
 `db._dropView(view-identifier)`
