@@ -6,6 +6,23 @@ title: ArangoSearch related AQL Functions
 ArangoSearch Functions
 ======================
 
+Most ArangoSearch AQL functions take an expression or attribute path expression
+as argument.
+
+If an expression is expected, it means that search conditions can expressed in
+AQL syntax. They are typically function calls to ArangoSearch search functions,
+possibly nested and/or using logical operators for multiple conditions.
+
+You need the `ANALYZER()` function to wrap search (sub-)expressions to set the
+Analyzer for it, unless you want to use the default `"identity"` Analyzer.
+You might not need other ArangoSearch functions for certain expressions,
+because comparisons can be done with basic AQL comparison operators.
+
+If an attribute path expressions is needed, then you have to reference a
+document object emitted by a View like `FOR doc IN viewName` and the specify
+which attribute you want to test for. For example `doc.attr` or
+`doc.deeply.nested.attr`. You can also use the bracket notation `doc["attr"]`.
+
 Search Functions
 ----------------
 
@@ -16,13 +33,6 @@ ArangoSearch functionality without having a returnable value in AQL.
 The `TOKENS()` function is an exception. It can be used standalone as well,
 without a `SEARCH` statement, and has a return value which can be used
 elsewhere in the query.
-
-<!--
-attribute path expressions can also use bracket notation:
-EXISTS(doc["text"])
-
-doc.deeply.nested.attributes supported
--->
 
 ### ANALYZER()
 
@@ -40,7 +50,6 @@ passed in all cases even if wrapped in an `ANALYZER()` call.
 
 - **expr** (expression): any valid search expression
 - **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
-  <!-- Defaults to `"identity"` ? -->
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
@@ -491,6 +500,9 @@ Scoring functions return a ranking value for the documents found by a
 [SEARCH operation](operations-search.html). The better the documents match
 the search expression the higher the returned number.
 
+The first argument to any scoring function is always the document emitted by
+a `FOR` operation over an ArangoSearch View.
+
 To sort the result set by relevance, with the more relevant documents coming
 first, sort in **descending order** by the score (e.g. `SORT BM25(...) DESC`).
 
@@ -504,8 +516,16 @@ FOR movie IN imdbView
   RETURN movie
 ```
 
-The first argument to any scoring function is always the document emitted by
-a `FOR` operation over an ArangoSearch View.
+Sorting by more than one score is allowed. You may also sort by a mix of
+scores and attributes from multiple Views as well as collections:
+
+```js
+FOR a IN viewA
+  FOR c IN coll
+    FOR b IN viewB
+      SORT TFIDF(b), c.name, BM25(a)
+      ...
+```
 
 ### BM25()
 
@@ -586,76 +606,3 @@ FOR doc IN viewName
   SORT doc.text, TFIDF(doc) DESC
   RETURN doc
 ```
-
-<!-- Searching examples
-
-to match documents where 'description' contains word 'quick' or word
-'brown' and has been analyzed with 'text_en' analyzer
-
-```js
-FOR doc IN viewName
-  SEARCH ANALYZER(doc.text == "quick" OR doc.text == "brown", "text_en")
-RETURN doc
-```
-
-
-ArangoSearch Scorers are special functions that allow to sort documents from a
-view by their score regarding the analyzed fields.
-
-
-ArangoSearch sorting
-
-A major feature of ArangoSearch Views is their capability of sorting results
-based on the creation-time search conditions and zero or more sorting functions.
-The ArangoSearch sorting functions available are `TFIDF()` and `BM25()`.
-
-So the following examples are valid:
-
-```js
-FOR doc IN viewName
-    SORT TFIDF(doc)
-```
-
-```js
-FOR a IN viewA
-    FOR b IN viewB
-        SORT BM25(a), TFIDF(b)
-```
-
-```js
-FOR a IN viewA
-    FOR c IN someCollection
-        FOR b IN viewB
-            SORT TFIDF(b), c.name, BM25(a)
-```
-
-while these will _not_ work:
-
-```js
-FOR doc IN someCollection
-    SORT TFIDF(doc) // !!! Error
-```
-```js
-FOR doc IN someCollection
-    RETURN BM25(doc) // !!! Error
-```
-```js
-FOR doc IN someCollection
-    SORT BM25(doc.someAttr) // !!! Error
-```
-```js
-FOR doc IN viewName
-    SORT TFIDF("someString") // !!! Error
-```
-```js
-FOR doc IN viewName
-    SORT BM25({some: obj}) // !!! Error
-```
-
-The following sorting methods are available:
-
-### Literal sorting
-You can sort documents by simply specifying arbitrary values or expressions, as
-you do in other places.
-
--->

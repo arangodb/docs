@@ -65,6 +65,12 @@ are supported:
 - `!=`
 - `IN` (array or range), also `NOT IN`
 
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(doc.text == "quick" OR doc.text == "brown", "text_en")
+RETURN doc
+```
+
 Note that array comparison operators, inline expressions and a few other things
 are not supported by `SEARCH`. The server will raise a query error in case of
 an invalid expression.

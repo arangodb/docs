@@ -241,18 +241,16 @@ available and as such are only applicable in the context of ArangoSearch Views.
 
 The valid values for the features are dependant on both the capabilities of
 the underlying *type* and the query filtering and sorting functions that the
-result can be used with. For example the *text* type will produce <!-- supports? -->
+result can be used with. For example the *text* type will produce
 `frequency` + `norm` + `position` and the `PHRASE()` AQL function requires
 `frequency` + `position` to be available.
 
 Currently the following *features* are supported:
 
 - **frequency**: how often a term is seen, required for `PHRASE()`
-- **norm**: the field normalization factor <!-- effect? -->
+- **norm**: the field normalization factor
 - **position**: sequentially increasing term position, required for `PHRASE()`.
   If present then the *frequency* feature is also required
-
-<!-- TOOD: what else requires which features? -->
 
 Built-in Analyzers
 ------------------
