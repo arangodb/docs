@@ -143,7 +143,7 @@ Some small new features give more control over ArangoSearch from AQL.
 See:
 - [AQL Scoring Functions](aql/functions-arangosearch.html#scoring-functions)
 - [AQL Search Options](aql/operations-search.html#search-options)
-- [IN_RANGE() function](aql/functions-arangosearch.md#inrange)
+- [IN_RANGE() function](aql/functions-arangosearch.html#inrange)
 
 AQL
 ---
