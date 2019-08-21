@@ -281,7 +281,7 @@ this example:
 ]
 ```
 
-It is also possible to compute new values:
+It is also possible to concatenate new values:
 
 ```js
 FOR user IN users
