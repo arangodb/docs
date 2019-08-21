@@ -430,7 +430,8 @@ These limits are also enforced for stream transactions on single servers.
 Enforcing the limits is useful to free up resources used by abandoned 
 transactions, for example from transactions that are abandoned by client 
 applications due to programming errors or that were left over because client 
-connections were interrupted.
+connections were interrupted. Also see
+[Known Issues](release-notes-known-issues35.html#stream-transactions)
 
 ### Minimal replication Factor
 
