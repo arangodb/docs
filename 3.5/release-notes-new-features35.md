@@ -233,8 +233,7 @@ always numerical version of the index attribute value even if it was originally 
 as a datestring. As a result TTL indexes will likely not be used for filtering and sort 
 operations in user-land AQL queries.
 
-Also see:
-- [TTL Indexes](indexing-ttl.html)
+Also see: [TTL Indexes](indexing-ttl.html)
 
 Collections
 -----------
@@ -254,8 +253,7 @@ In more detail:
 The feature is used to reduce the diverging of data in case of server failures
 and to help new followers to catch up.
 
-Also see:
-- [Collection Database Methods](data-modeling-collections-database-methods.html#create)
+Also see: [Collection Database Methods](data-modeling-collections-database-methods.html#create)
 
 HTTP API extensions
 -------------------
@@ -296,8 +294,6 @@ See:
 The HTTP API for running Foxx service tests now supports a `filter` attribute,
 which can be used to limit which test cases should be executed.
 
-<!-- TODO link -->
-
 ### Stream Transaction API
 
 There is a new HTTP API for transactions. This API allows clients to add operations to a
@@ -314,7 +310,7 @@ See: [Stream Transaction HTTP API](http/transaction-stream-transaction.html)
 
 ### Minimal replication Factor
 
-Within the properties of a collection we can now define a minReplicationFactor.
+Within the properties of a collection we can now define a `minReplicationFactor`.
 This affects all routes that can create or modify the properties of a collection,
 including the graph API `_api/gharial`. All places where a replicationFactor can
 be modified, can now modify the minReplicationFactor as well.
