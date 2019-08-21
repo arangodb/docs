@@ -411,12 +411,26 @@ which can be used to limit which test cases should be executed.
 There is a new HTTP API for transactions. This API allows clients to add operations to a
 transaction in a streaming fashion. A transaction can consist of a series of supported
 transactional operations, followed by a commit or abort command.
-This allows clients to construct larger transactions in a more efficient way than
+This allows clients to construct transactions in a more natural way than
 with JavaScript-based transactions.
 
 Note that this requires client applications to abort transactions which are no 
 longer necessary. Otherwise resources and locks acquired by the transactions
-will hang around until the server decides to garbage-collect them.
+will be in use until the server decides to garbage-collect them.
+
+In order to keep resource usage low, a maximum lifetime and transaction size for stream 
+transactions is enforced on the coordinator to ensure that transactions cannot block the 
+cluster from operating properly:
+
+- Maximum idle timeout of **10 seconds** between operations
+- Maximum transaction size of **128 MB** per DBServer
+
+These limits are also enforced for stream transactions on single servers.
+
+Enforcing the limits is useful to free up resources used by abandoned 
+transactions, for example from transactions that are abandoned by client 
+applications due to programming errors or that were left over because client 
+connections were interrupted.
 
 ### Minimal replication Factor
 
