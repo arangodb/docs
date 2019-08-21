@@ -285,7 +285,7 @@ During view modification the following directives apply:
 
 ### View Properties
 
-- **primarySort** (_optional_; type: `array`; default: `[]`)
+- **primarySort** (_optional_; type: `array`; default: `[]`; _immutable_)
 
   A primary sort order can be defined to enable an AQL optimization. If a query
   iterates over all documents of a View, wants to sort them by attribute values
