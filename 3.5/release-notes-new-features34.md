@@ -17,8 +17,10 @@ a user-defined set of attributes and collections. It is the first type of
 view in ArangoDB.
 
 - [ArangoSearch tutorial](https://www.arangodb.com/tutorials/arangosearch/){:target="_blank"}
-- [ArangoSearch overview](views-arango-search.html)
-- [ArangoSearch in AQL](aql/views-arango-search.html)
+- [ArangoSearch overview](arangosearch.html)
+- ArangoSearch in AQL:
+  - [SEARCH operation](aql/operations-search.html)
+  - [ArangoSearch functions](aql/functions-arangosearch.html)
 
 
 New geo index implementation

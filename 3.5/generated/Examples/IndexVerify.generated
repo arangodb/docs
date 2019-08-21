@@ -6,9 +6,9 @@ arangosh&gt; db.example.ensureIndex({ <span class="hljs-attr">type</span>: <span
     <span class="hljs-string">"a"</span>, 
     <span class="hljs-string">"b"</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"example/68395"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"example/68957"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1639725335578673152"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1642473881187909634"</span>, 
   <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"skiplist"</span>, 
@@ -22,12 +22,12 @@ Query <span class="hljs-built_in">String</span>:
 Execution plan:
  Id   NodeType        Est.   Comment
   <span class="hljs-number">1</span>   SingletonNode      <span class="hljs-number">1</span>   * ROOT
-  <span class="hljs-number">6</span>   IndexNode          <span class="hljs-number">1</span>     - FOR doc IN example   <span class="hljs-comment">/* skiplist index scan */</span>
-  <span class="hljs-number">5</span>   ReturnNode         <span class="hljs-number">1</span>       - RETURN doc
+  <span class="hljs-number">6</span>   IndexNode          <span class="hljs-number">0</span>     - FOR doc IN example   <span class="hljs-comment">/* skiplist index scan */</span>
+  <span class="hljs-number">5</span>   ReturnNode         <span class="hljs-number">0</span>       - RETURN doc
 
 Indexes used:
  By   Name                      Type       Collection   Unique   Sparse   Selectivity   Fields         Ranges
-  <span class="hljs-number">6</span>   idx_1639725335578673152   skiplist   example      <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>       <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`a`</span>, <span class="hljs-string">`b`</span> ]   (doc.<span class="hljs-string">`a`</span> &lt; <span class="hljs-number">23</span>)
+  <span class="hljs-number">6</span>   idx_1642473881187909634   skiplist   example      <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>       <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`a`</span>, <span class="hljs-string">`b`</span> ]   (doc.<span class="hljs-string">`a`</span> &lt; <span class="hljs-number">23</span>)
 
 Optimization rules applied:
  Id   RuleName

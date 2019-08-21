@@ -85,7 +85,7 @@ then returns the server response.
 - **properties**: `Object` (optional)
 
   For more information on the _properties_ object, see the
-  [HTTP API documentation for creating views](../http/views-arango-search.html).
+  [HTTP API documentation for creating views](../http/views-arangosearch.html).
 
 **Examples**
 
@@ -112,7 +112,7 @@ Updates the properties of the view.
 - **properties**: `Object`
 
   For information on the _properties_ argument see the
-  [HTTP API for modifying views](../http/views-arango-search.html).
+  [HTTP API for modifying views](../http/views-arangosearch.html).
 
 **Examples**
 
@@ -139,7 +139,7 @@ Replaces the properties of the view.
 - **properties**: `Object`
 
   For information on the _properties_ argument see the
-  [HTTP API for modifying views](../http/views-arango-search.html).
+  [HTTP API for modifying views](../http/views-arangosearch.html).
 
 **Examples**
 

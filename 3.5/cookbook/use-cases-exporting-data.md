@@ -5,7 +5,7 @@ description: In this recipe we will learn how to use the export API to extract d
 Exporting Data for Offline Processing
 =====================================
 
-In this recipe we will learn how to use the [export API][1] to extract data and process it with PHP. At the end of the recipe you can download the complete PHP script.
+In this recipe we will learn how to use the [export API][1]{:target="_blank"} to extract data and process it with PHP. At the end of the recipe you can download the complete PHP script.
 
 **Note**: The following recipe is written using an ArangoDB server with version 2.6 or higher. You can also use the `devel` branch, since version 2.6 hasn't been an official release yet.
 
@@ -14,7 +14,7 @@ Howto
 
 ### Importing example data
 
-First of all we need some data in an ArangoDB collection. For this example we will use a collection named `users` which we will populate with 100.000 [example documents][2]. This way you can get the data into ArangoDB:
+First of all we need some data in an ArangoDB collection. For this example we will use a collection named `users` which we will populate with 100.000 [example documents][2]{:target="_blank"}. This way you can get the data into ArangoDB:
 
 ```bash
 # download data file
@@ -27,7 +27,7 @@ arangoimport --file users-100000.json --collection users --create-collection tru
 
 ### Setting up ArangoDB-PHP
 
-For this recipe we will use the [ArangoDB PHP driver][3]:
+For this recipe we will use the [ArangoDB PHP driver][3]{:target="_blank"}:
 
 ```bash
 git clone -b devel "https://github.com/arangodb/arangodb-php.git"
@@ -277,7 +277,7 @@ export('users', $connection);
 
 In this script only the `_key` and `name` attributes are extracted. In the prints the `_key`/`name` pairs are in CSV format.
 
-**Note**: The whole script [can be downloaded][4].
+**Note**: The whole script [can be downloaded][4]{:target="_blank"}.
 
 ### Using the API without PHP
 

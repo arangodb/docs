@@ -13,11 +13,9 @@ I'm looking for a head start in using the ArangoDB docker image.
 Solution
 --------
 
-We will use the guesser game for ArangoDB from
+We will use the guesser game for ArangoDB from:
 
-```
-https://github.com/arangodb/guesser
-```
+[github.com/arangodb/guesser](https://github.com/arangodb/guesser){:target="_blank"}
 
 This is a simple game guessing animals or things. It learns while playing
 and stores the learned information in an ArangoDB instance. The game is written using the
@@ -54,11 +52,9 @@ browser to port 8000. You should see the start-up screen. However, without a sto
 backend it will be pretty useless. Therefore, stop the container and proceed with the next
 step.
 
-If you want to build the container locally, check out the guesser game from
+If you want to build the container locally, check out the guesser game from:
 
-```
-https://github.com/arangodb/example-guesser
-```
+[github.com/arangodb/guesser](https://github.com/arangodb/example-guesser){:target="_blank"}
 
 Switch into the `docker/node` subdirectory and execute `docker build .`.
 

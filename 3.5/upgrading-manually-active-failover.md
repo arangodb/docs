@@ -49,7 +49,8 @@ install a specific package using
 $ dpkg -i arangodb3-3.3.16-1_amd64.deb
 ```
 
-after you have downloaded the corresponding file from https://download.arangodb.com/.
+after you have downloaded the corresponding file from
+[download.arangodb.com](https://download.arangodb.com/){:target="_blank"}.
 
 
 #### Stop the Standalone Instance

@@ -14,6 +14,11 @@ not many write queries.
 The query results cache is transparent so users do not need to manually invalidate 
 results in it if underlying collection data are modified. 
 
+{% hint 'info' %}
+The AQL query results cache is only available for single servers, i.e. servers that
+are not part of a cluster setup.
+{% endhint %}
+
 
 Modes
 -----
@@ -55,7 +60,7 @@ executions of the same query.
 
 A query is eligible for caching only if all of the following conditions are met:
 
-* the server the query executes on is not a coordinator
+* the server the query executes on is a single server (i.e. not part of a cluster)
 * the query string is at least 8 characters long 
 * the query is a read-only query and does not modify data in any collection
 * no warnings were produced while executing the query

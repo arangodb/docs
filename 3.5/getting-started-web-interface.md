@@ -1,6 +1,7 @@
 ---
 layout: default
-description: The server itself (arangod) speaks HTTP / REST, but you can use thegraphical web interface to keep it simple
+description: Arangod serves a frontend also known as Aardvark that allows you to easily manage ArangoDB through a GUI.
+title: ArangoDB Web Interface
 ---
 Web Interface
 =============
@@ -22,7 +23,8 @@ want to use the raw interface.
 To get familiar with the database system you can even put drivers aside and
 use the web interface (code name *Aardvark*) for basic interaction.
 The web interface will become available shortly after you started `arangod`.
-You can access it in your browser at http://localhost:8529 - if not, please
+You can access it in your browser at
+[http://localhost:8529](http://localhost:8529){:target="_blank"} - if not, please
 see [Troubleshooting](troubleshooting.html).
 
 By default, authentication is enabled. The default user is `root`.

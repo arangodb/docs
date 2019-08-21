@@ -3,10 +3,10 @@ layout: default
 description: These functions implement theHTTP API for accessing views
 ---
 
-# Accessing views
+# Accessing Views
 
 These functions implement the
-[HTTP API for accessing views](../http/views-getting.html).
+[HTTP API for accessing Views](../http/views.html).
 
 ## database.arangoSearchView
 

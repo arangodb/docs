@@ -103,8 +103,8 @@ It is also possible to override these thresholds per transaction.
 RocksDB is based on a log-structured merge tree. A good introduction can be
 found in:
 
-- http://www.benstopford.com/2015/02/14/log-structured-merge-trees/
-- https://blog.acolyer.org/2014/11/26/the-log-structured-merge-tree-lsm-tree/
+- [www.benstopford.com/2015/02/14/log-structured-merge-trees/](http://www.benstopford.com/2015/02/14/log-structured-merge-trees/){:target="_blank"}
+- [blog.acolyer.org/2014/11/26/the-log-structured-merge-tree-lsm-tree/](https://blog.acolyer.org/2014/11/26/the-log-structured-merge-tree-lsm-tree/){:target="_blank"}
 
 The basic idea is that data is organized in levels were each level is a factor
 larger than the previous. New data will reside in smaller levels while old data
@@ -119,8 +119,8 @@ using the options below.
 
 Performance reports for the storage engine can be found here:
 
-- https://github.com/facebook/rocksdb/wiki/performance-benchmarks
-- https://github.com/facebook/rocksdb/wiki/RocksDB-Tuning-Guide
+- [github.com/facebook/rocksdb/wiki/performance-benchmarks](https://github.com/facebook/rocksdb/wiki/performance-benchmarks){:target="_blank"}
+- [github.com/facebook/rocksdb/wiki/RocksDB-Tuning-Guide](https://github.com/facebook/rocksdb/wiki/RocksDB-Tuning-Guide){:target="_blank"}
 
 ### ArangoDB options
 
