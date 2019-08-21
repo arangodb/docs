@@ -49,7 +49,7 @@ refer to [Transactions](../transactions.html).
 
 Also see:
 - [Limitations](#limitations)
-- [Known Issues](release-notes-known-issues35.html#stream-transactions)
+- [Known Issues](../release-notes-known-issues35.html#stream-transactions)
 
 Begin a Transaction
 -------------------
