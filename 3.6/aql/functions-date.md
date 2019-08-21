@@ -579,11 +579,6 @@ with decimal places.
 
 Check if two partial dates match.
 
-{% hint 'warning' %}
-This function is deprecated and will be removed in v4.0.0.
-You may use `DATE_TRUNC(date1, unit1) == DATE_TRUNC(date2, unit2)` instead.
-{% endhint %}
-
 - **date1** (number\|string): numeric timestamp or ISO 8601 date time string
 - **date2** (number\|string): numeric timestamp or ISO 8601 date time string
 - **unitRangeStart** (string): unit to start from, see below
