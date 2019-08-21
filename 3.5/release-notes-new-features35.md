@@ -156,12 +156,23 @@ reduce memory usage and, for some queries, also execution time for the sorting.
 If the optimization is applied, it will show as "sort-limit" rule in the query execution
 plan.
 
+Also see:
+- [AQL Optimizer Rules](aql/execution-and-performance-optimizer.html#list-of-optimizer-rules)
+  (`sort-limit` rule)
+- [Sort-Limit Optimization in AQL](https://www.arangodb.com/2019/03/sort-limit-optimization-aql/){:target="_blank"}
+  (blog post)
+
 ### Index hints in AQL
 
 Users may now take advantage of the `indexHint` inline query option to override
 the internal optimizer decision regarding which index to use to serve content
-from a given collection. The index hint works with the named indices feature
-above, making it easy to specify which index to use.
+from a given collection. The index hint works with the [named indices](#named-indices)
+feature, making it easy to specify which index to use.
+
+See:
+- [AQL Index Hints](aql/operations-for.html#index-hints)
+- [An introduction to index hints and named indices](https://www.arangodb.com/arangodb-training-center/index-hints-named-indices/){:target="_blank"}
+  (tutorial)
 
 ### Sorted primary index (RocksDB engine)
 
@@ -198,12 +209,14 @@ AQL now allows the usage of floating point values without leading zeros, e.g.
 `.1234`. Previous versions of ArangoDB required a leading zero in front of
 the decimal separator, i.e `0.1234`.
 
+Also see: [AQL Numeric Literals](aql/fundamentals-data-types.html#numeric-literals)
+
 ### k Shortest Paths queries
 
 AQL now allows to perform k Shortest Paths queries, that is, query a number of
-paths of increasing length from a start vertex to a target vertex. For more details,
-see the [k Shortest Paths documentation](aql/graphs-kshortest-paths.html).
+paths of increasing length from a start vertex to a target vertex.
 
+See: [AQL k Shortest Paths](aql/graphs-kshortest-paths.html)
 
 SmartJoins
 ----------
@@ -277,8 +290,9 @@ of data around for performing the join, but that will filter out most of the dat
 after the join. In this case SmartJoins should greatly outperform the general join,
 as they will eliminate most of the inter-node data shipping overhead.
 
-Also see the [SmartJoins](smartjoins.html) page.
-
+Also see:
+- [SmartJoins documentation](smartjoins.html)
+- [SmartJoins tutorial](https://www.arangodb.com/arangodb-training-center/smart-joins/){:target="_blank"}
 
 Background Index Creation
 -------------------------
@@ -328,6 +342,7 @@ Please note that background index creation is useful only in combination with th
 storage engine. With the MMFiles storage engine, creating an index will always block any
 other operations on the collection.
 
+Also see: [Creating Indexes in Background](indexing-index-basics.html#creating-indexes-in-background)
 
 TTL (time-to-live) Indexes
 --------------------------
@@ -350,7 +365,7 @@ always numerical version of the index attribute value even if it was originally 
 as a datestring. As a result TTL indexes will likely not be used for filtering and sort 
 operations in user-land AQL queries.
 
-Also see the [TTL Indexes](indexing-ttl.html) page.
+Also see: [TTL Indexes](indexing-ttl.html)
 
 Collections
 -----------
@@ -370,6 +385,8 @@ In more detail:
 The feature is used to reduce the diverging of data in case of server failures
 and to help new followers to catch up.
 
+Also see: [Collection Database Methods](data-modeling-collections-database-methods.html#create)
+
 HTTP API extensions
 -------------------
 
@@ -377,12 +394,12 @@ HTTP API extensions
 
 The HTTP API for creating indexes at POST `/_api/index` has been extended two-fold:
 
-* to create a TTL (time-to-live) index, it is now possible to specify a value of `ttl`
+- to create a TTL (time-to-live) index, it is now possible to specify a value of `ttl`
   in the `type` attribute. When creating a TTL index, the attribute `expireAfter` is 
   also required. That attribute contains the expiration time (in seconds), which is
   based on the documents' index attribute value.
 
-* to create an index in background, the attribute `inBackground` can be set to `true`.
+- to create an index in background, the attribute `inBackground` can be set to `true`.
 
 ### API for querying the responsible shard
 
@@ -400,11 +417,14 @@ is determined from the document's attribute values only.
 
 Please note that this API is only meaningful and available on a cluster coordinator.
 
+See:
+- [Get responsible shard in JS API](data-modeling-collections-collection-methods.html#getresponsibleshard)
+- [Get responsible shard in HTTP API](http/collection-getting.html#return-responsible-shard-for-a-document)
+
 ### Foxx API for running tests
 
 The HTTP API for running Foxx service tests now supports a `filter` attribute,
 which can be used to limit which test cases should be executed.
-
 
 ### Stream Transaction API
 
@@ -418,9 +438,11 @@ Note that this requires client applications to abort transactions which are no
 longer necessary. Otherwise resources and locks acquired by the transactions
 will hang around until the server decides to garbage-collect them.
 
+See: [Stream Transaction HTTP API](http/transaction-stream-transaction.html)
+
 ### Minimal replication Factor
 
-Within the properties of a collection we can now define a minReplicationFactor.
+Within the properties of a collection we can now define a `minReplicationFactor`.
 This affects all routes that can create or modify the properties of a collection,
 including the graph API `_api/gharial`. All places where a replicationFactor can
 be modified, can now modify the minReplicationFactor as well.
@@ -436,7 +458,6 @@ when using the RocksDB engine, so there is no need to offer them all. In the web
 interface there remains the index of type "persistent", which is feature-wise
 identical with "hash" and "skiplist" indexes for the RocksDB engine.
 Existing "hash" and "skiplist" indexes will remain fully functional.
-
 
 JavaScript
 ----------
@@ -486,7 +507,7 @@ Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 Mon Apr 01 2019 02:00:00 GMT+0200 (Central European Summer Time)
 ```
 
-### JavaScript dependencies
+### JavaScript Dependencies
 
 More than a dozen JavaScript dependencies were updated in 3.5
 ([changelog](https://github.com/arangodb/arangodb/blob/3.5/CHANGELOG){:target="_blank"}).
@@ -498,7 +519,7 @@ to see if there are breaking changes for you.
 Note that you can bundle your own version of `joi` if you need to rely on
 version-dependent features.
 
-### JavaScript security options
+### JavaScript Security Options
 
 ArangoDB 3.5 provides several new options for restricting the functionality of
 JavaScript application code running in the server, with the intent to make a setup
@@ -517,7 +538,8 @@ services, which can be used to prevent installation and uninstallation of Foxx
 applications on a server. A separate option is provided to turn off access and
 connections to the central Foxx app store via the web interface.
 
-A complete overview of the security options can be found in [Security Options](security-security-options.html).
+A complete overview of the security options can be found in
+[Security Options](security-security-options.html).
 
 ### Foxx
 
@@ -552,7 +574,6 @@ const collection = context.collection("users");
 const documentKey = "my-document-key";
 const documentId = collection.documentId(documentKey);
 ```
-
 
 Client tools
 ------------
@@ -589,6 +610,10 @@ into them will fail unless the option `--create-database` is also specified for
 arangorestore. Please note that in this case a database user must be used that has 
 access to the `_system` database, in order to create the databases on restore. 
 
+Also see:
+- [Arangodump](programs-arangodump.html)
+- [Arangorestore](programs-arangorestore.html)
+
 ### Warning if connected to DBServer
 
 Under normal circumstances there should be no need to connect to a 
@@ -609,7 +634,6 @@ boolean option in the underlying RocksDB library.
 Client configurations that use this configuration variable should adjust their
 configuration and set this variable to a boolean value instead of to a numeric
 value.
-
 
 Miscellaneous
 -------------
@@ -672,7 +696,6 @@ of the ID values. The ID values are always 5 byte strings, consisting of the cha
 
 Alternatively, the log IDs can be suppressed in all log messages by setting the startup
 option `--log.ids false` when starting arangod or any of the client tools.
-
 
 Internal
 --------
