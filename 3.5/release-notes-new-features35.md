@@ -137,12 +137,27 @@ Some small new features give more control over ArangoSearch from AQL.
     RETURN doc
   ```
 
+- A new function `IN_RANGE()` was added for matching values within defined
+  boundaries, to enable easy range searching primarly for numbers and strings.
+
 See:
 - [AQL Scoring Functions](aql/functions-arangosearch.html#scoring-functions)
 - [AQL Search Options](aql/operations-search.html#search-options)
+- [IN_RANGE() function](aql/functions-arangosearch.md#inrange)
 
 AQL
 ---
+
+### Pruning in Traversals
+
+With `PRUNE` you can stop walking down certain paths early in a graph traversal
+to improve its efficiency. This is different to `FILTER`, which would perform
+a post-filtering after the actual traversal was carried out already in most
+cases. Using `PRUNE`, the traverser will not follow any more edges on the
+current path if the pruning condition is met, but will emit the traversal
+variables for whatever stopped it.
+
+See: [Graph Traversal Pruning](aql/graphs-traversals.html#pruning)
 
 ### SORT-LIMIT optimization
 

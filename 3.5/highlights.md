@@ -5,6 +5,56 @@ description: All Editions
 Highlights
 ==========
 
+Version 3.5
+-----------
+
+**All Editions**
+
+- **ArangoSearch**:
+  The search and ranking engine received an upgrade and now features
+  [Configurable Analyzers](arangosearch-analyzers.html),
+  [Sorted Views](arangosearch-views.html#primary-sort-order)
+  and several improvements to the
+  [AQL integration](release-notes-new-features35.html#arangosearch)
+
+- **AQL Graph Traversals**:
+  [k Shortest Paths](aql/graphs-kshortest-paths.html) allows you to query not
+  just for one shortest path between two documents but multiple, sorted by
+  length or weight. With [PRUNE](aql/graphs-traversals.html#pruning) you can
+  stop walking down certain paths early in a graph traversal to improve its
+  efficiency.
+
+- [**Stream Transaction API**](http/transaction-stream-transaction.html):
+  Perform multi-document transactions with individual begin and commit / abort
+  commands using the new HTTP endpoints or via a supported driver.
+
+- [**Time-to-Live**](indexing-index-basics.html#ttl-time-to-live-index)
+  [**Indexes**](indexing-ttl.html):
+  TTL indexes can be used to automatically remove documents in collections for
+  use cases like expiring sessions or automatic purging of statistics or logs.
+
+- [**Index Hints**](aql/operations-for.html#index-hints) &
+  [**Named Indexes**](https://www.arangodb.com/arangodb-training-center/index-hints-named-indices/){:target="_blank"}
+  Indexes can be given names and an optional AQL inline query option
+  `indexHint` was added to override the internal optimizer decision on which
+  index to utilize.
+
+- [**Data Masking**](programs-arangodump-maskings.html):
+  arangodump provides a convenient way to extract production data but mask
+  critical information that should not be visible.
+
+**Enterprise Edition**
+
+- [**SmartJoins**](smartjoins.html):
+  SmartJoins allow to run joins between identically sharded collections with
+  performance close to that of a local join operation.
+
+- **Advanced Data Masking**:
+  There are additional
+  [data masking functions](programs-arangodump-maskings.html#masking-functions)
+  available in the Enterprise Edition, such as to substitute email addresses,
+  phone numbers etc. with similar looking pseudo-data.
+
 Version 3.4
 -----------
 
