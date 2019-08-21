@@ -52,7 +52,7 @@ Concatenate the strings passed as arguments *value1* to *valueN* using the
 *separator* string.
 
 - **separator** (string): an arbitrary separator string
-- **values** (string|array, *repeatable*): strings or arrays of strings as multiple
+- **values** (string\|array, *repeatable*): strings or arrays of strings as multiple
   arguments (at least 1)
 - returns **joinedString** (string): a concatenated string of the elements, using
   *separator* as separator string. *null* values are ignored. Array value arguments
@@ -85,8 +85,7 @@ The string matching performed by *CONTAINS* is case-sensitive.
 - **search** (string): the needle
 - **returnIndex** (bool, *optional*): if set to *true*, the character position
   of the match is returned instead of a boolean. The default is *false*.
-  The default is *false*.
-- returns **match** (bool|number): by default, *true* is returned if *search*
+- returns **match** (bool\|number): by default, *true* is returned if *search*
   is contained in *text*, and *false* otherwise. With *returnIndex* set to *true*,
   the position of the first occurrence of *search* within *text* is returned 
   (starting at offset 0), or *-1* if *search* is not contained in *text*.
@@ -225,7 +224,7 @@ using wildcard matching.
 - **text** (string): the string to search in
 - **search** (string): a search pattern that can contain the wildcard characters
   `%` (meaning any sequence of characters, including none) and `_` (any single
-  character). Literal *%* and *:* must be escaped with two backslashes (four
+  character). Literal `%` and `_` must be escaped with two backslashes (four
   in arangosh).
   *search* cannot be a variable or a document attribute. The actual value must
   be present at query parse time already.
@@ -465,13 +464,13 @@ SPLIT( "foo, bar & baz", [ ", ", " & " ] ) // [ "foo", "bar", "baz" ]
 Replace search values in the string *value*.
 
 - **value** (string): a string
-- **search** (string|array): if *search* is a string, all occurrences of
+- **search** (string\|array): if *search* is a string, all occurrences of
   *search* will be replaced in *value*. If *search* is an array of strings,
   each occurrence of a value contained in *search* will be replaced by the
   corresponding array element in *replace*. If *replace* has less list items
   than *search*, occurrences of unmapped *search* items will be replaced by an
   empty string.
-- **replace** (string|array, *optional*): a replacement string, or an array of
+- **replace** (string\|array, *optional*): a replacement string, or an array of
   strings to replace the corresponding elements of *search* with. Can have less
   elements than *search* or be left out to remove matches. If *search* is an array
   but *replace* is a string, then all matches will be replaced with *replace*.

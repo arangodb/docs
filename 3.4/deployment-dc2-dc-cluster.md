@@ -44,6 +44,7 @@ ExecStart=/usr/bin/arangodb \
     --server.storage-engine=rocksdb \
     --auth.jwt-secret=${CLUSTERSECRETPATH}
 TimeoutStopSec=60
+LimitNOFILE=1048576
 
 [Install]
 WantedBy=multi-user.target

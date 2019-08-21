@@ -1,6 +1,6 @@
 ---
 layout: default
-description: It is recommended to check the following list of incompatible changes beforeupgrading to ArangoDB 3
+description: It is recommended to check the following list of incompatible changes before upgrading to ArangoDB 3.4
 ---
 Incompatible changes in ArangoDB 3.4
 ====================================
@@ -393,9 +393,36 @@ The following APIs have been added or augmented:
 AQL
 ---
 
+- all AQL date functions in 3.4 may raise an "invalid date value" warning when given a
+  syntactically invalid date string as an input. The rules for valid date strings have been
+  made more strict in ArangoDB 3.4.
+
+  In previous versions, passing in a date value with a one-digit hour, minute or second
+  component worked just fine, and the date was considered valid.
+
+  From ArangoDB 3.4 onwards, using date values with a one-digit hour, minute or second
+  component will render the date value invalid, and make the underlying date functions
+  return a value of `null` and issue an "invalid date value" warning.
+
+  The following overview details which values are considered valid and invalid in the
+  respective ArangoDB versions:
+
+  | Date string             | 3.3   | 3.4         |
+  |-------------------------|-------|-------------|
+  | `"2019-07-01 05:02:34"` | valid | valid       |
+  | `"2019-7-1 05:02:34"`   | valid | valid       |
+  | `"2019-7-1 5:02:34"`    | valid | **invalid** |
+  | `"2019-7-1 05:2:34"`    | valid | **invalid** |
+  | `"2019-7-1 05:02:4"`    | valid | **invalid** |
+  | `"2019-07-01T05:02:34"` | valid | valid       |
+  | `"2019-7-1T05:02:34"`   | valid | valid       |
+  | `"2019-7-1T5:02:34"`    | valid | **invalid** |
+  | `"2019-7-1T05:2:34"`    | valid | **invalid** |
+  | `"2019-7-1T05:02:4"`    | valid | **invalid** |
+
 - the AQL functions `CALL` and `APPLY` may now throw the errors 1540
-(`ERROR_QUERY_FUNCTION_NAME_UNKNOWN`) and 1541 (`ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH`)
-instead of error 1582 (`ERROR_QUERY_FUNCTION_NOT_FOUND`) in some situations.
+  (`ERROR_QUERY_FUNCTION_NAME_UNKNOWN`) and 1541 (`ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH`)
+  instead of error 1582 (`ERROR_QUERY_FUNCTION_NOT_FOUND`) in some situations.
 
 - the existing "fulltext-index-optimizer" optimizer rule has been removed 
   because its duty is now handled by the new "replace-function-with-index" rule.
@@ -637,7 +664,7 @@ The new fallback rule for collections for which no access level is explicitly
 specified is now:
 
 * Choose the higher access level of:
-  * Any wildcard access grant in the same database, or on "*/*"
+  * Any wildcard access grant in the same database, or on `"*"`
   * The access level for the current database
   * The access level for the `_system` database
 

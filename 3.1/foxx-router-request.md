@@ -133,7 +133,7 @@ The request object specifies the following properties:
 
 * **url**: `string`
 
-  The URL of the request.<!-- TODO expand on this -->
+  The URL of the request.
 
 * **xhr**: `boolean`
 

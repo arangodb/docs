@@ -136,7 +136,7 @@ the behavior is as follows:
   index with a key value of `null`. 
 
 Hash indexes support indexing array values if the index attribute name is extended with
-a <i>[\*]</i>`. 
+a `[*]``. 
 
 
 ### Skiplist Index
@@ -226,7 +226,7 @@ The operational amortized complexity for skiplist indexes is logarithmically cor
 with the number of documents in the index.
 
 Skiplist indexes support indexing array values if the index attribute name is extended with
-a <i>[\*]</i>`. 
+a `[*]``. 
 
 
 ### Geo Index
@@ -274,7 +274,7 @@ way.
 To make an index insert the individual array members into the index instead of the entire array
 value, a special array index needs to be created for the attribute. Array indexes can be set up 
 like regular hash or skiplist indexes using the `collection.ensureIndex()` function. To make a 
-hash or skiplist index an array index, the index attribute name needs to be extended with <i>[\*]</i>
+hash or skiplist index an array index, the index attribute name needs to be extended with `[*]`
 when creating the index and when filtering in an AQL query using the `IN` operator.
 
 The following example creates an array hash index on the `tags` attribute in a collection named
@@ -286,7 +286,7 @@ db.posts.insert({ tags: [ "foobar", "baz", "quux" ] });
 ```
 
 This array index can then be used for looking up individual `tags` values from AQL queries via 
-the `IN` operator and the attribute name extension <i>[\*]</i>:
+the `IN` operator and the attribute name extension `[*]`:
 
     FOR doc IN posts
       FILTER 'foobar' IN doc.tags[*]
@@ -317,7 +317,7 @@ If you store a document having the array which does contain elements not having
 the subattributes this document will also be indexed with the value `null`, which
 in ArangoDB is equal to attribute not existing.
 
-ArangoDB supports creating array indexes with a single <i>[\*]</i> operator per index 
+ArangoDB supports creating array indexes with a single `[*]` operator per index 
 attribute. For example, creating an index as follows is not supported:
 
 ```js

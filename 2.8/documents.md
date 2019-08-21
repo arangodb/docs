@@ -15,7 +15,7 @@ and may contain lists. Each document is uniquely identified by its [document han
 
 For example:
 
-```js
+```json
 { 
   "_id" : "myusers/3456789", 
   "_key" : "3456789", 
@@ -27,12 +27,13 @@ For example:
     "street" : "Road To Nowhere 1" 
   }, 
   "hobbies" : [ 
-    {name: "swimming", howFavorite: 10},
-    {name: "biking", howFavorite: 6},
-    {name: "programming", howFavorite: 4}
+    {"name": "swimming", "howFavorite": 10},
+    {"name": "biking", "howFavorite": 6},
+    {"name": "programming", "howFavorite": 4}
   ]
 }
 ```
+
 All documents contain special attributes: the document handle in *_id*, the
 document's unique key in *_key* and and the ETag aka [document revision](glossary.html#document-revision) in
 *_rev*. The value of the *_key* attribute can be specified by the user when
@@ -94,9 +95,9 @@ The full example:
         "street" : "Road To Nowhere 1" 
       }, 
       "hobbies" : [ 
-        {name: "swimming", howFavorite: 10},
-        {name: "biking", howFavorite: 6},
-        {name: "programming", howFavorite: 4}
+        {"name": "swimming", "howFavorite": 10},
+        {"name": "biking", "howFavorite": 6},
+        {"name": "programming", "howFavorite": 4}
       ]
     }
 
@@ -104,34 +105,34 @@ Only the hobbies sub-structure from the example:
 
     RETURN oneDocument.hobbies
     -> [
-        {name: "swimming", howFavorite: 10},
-        {name: "biking", howFavorite: 6},
-        {name: "programming", howFavorite: 4}
+        {"name": "swimming", "howFavorite": 10},
+        {"name": "biking", "howFavorite": 6},
+        {"name": "programming", "howFavorite": 4}
     ]
 
 The hobbies and the address: 
 
     RETURN { hobbies: oneDocument.hobbies, address: oneDocument.address }
     -> {
-    hobbies: [
-        {name: "swimming", howFavorite: 10},
-        {name: "biking", howFavorite: 6},
-        {name: "programming", howFavorite: 4}
+    "hobbies": [
+        {"name": "swimming", "howFavorite": 10},
+        {"name": "biking", "howFavorite": 6},
+        {"name": "programming", "howFavorite": 4}
     ],
-    address: { 
+    "address": { 
         "city" : "Gotham", 
         "street" : "Road To Nowhere 1" 
       },
     }
 
-The first hoby:
+The first hobby:
 
     RETURN oneDocument.hobbies[0].name
-    ->"swimming"
+    -> "swimming"
 
-A list of the hobbie strings: 
+A list of the hobby strings: 
 
     RETURN { hobbies: oneDocument.hobbies[*].name }
-    -> {hobbies: ["swimming", "biking", "porgramming"] }
+    -> {"hobbies": ["swimming", "biking", "programming"] }
 
 More complex [array](aql-array-functions.html) and [object manipulations](aql-document-functions.html) can be done using AQL functions

@@ -1,6 +1,7 @@
 ---
 layout: default
-description: This Chapter describes various possibilities to deploy ArangoDB
+description: This Chapter describes various possibilities to deploy ArangoDB. By ArangoDB Deployment Mode or by Technology. You can deploy ArangoDB in the Cloud.
+title: ArangoDB Deployment
 ---
 Deployment
 ==========

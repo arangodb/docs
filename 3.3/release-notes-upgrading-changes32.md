@@ -41,7 +41,7 @@ REST API
 
   The documented GET /_api/edges and the undocumented POST /_api/edges remains unmodified.
 
-* change undocumented behaviour in case of invalid revision ids in
+* change undocumented behavior in case of invalid revision ids in
   `If-Match` and `If-None-Match` headers from returning HTTP status code 400 (bad request) 
   to returning HTTP status code 412 (precondition failed).
 
@@ -63,7 +63,7 @@ REST API
 JavaScript API
 --------------
 
-* change undocumented behaviour in case of invalid revision ids in
+* change undocumented behavior in case of invalid revision ids in
   JavaScript document operations from returning error code 1239 ("illegal document revision")
   to returning error code 1200 ("conflict").
 

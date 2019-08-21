@@ -9,8 +9,6 @@ tricky because JavaScript does not provide a data type for
 binary data. This post explains how to use binary data in 
 JavaScript actions written using ArangoDB's [Foxx](http://docs.arangodb.org/Foxx/README.html){:target="_blank"}. 
 
-<!-- more -->
-
 Strings vs. binary data
 =======================
 

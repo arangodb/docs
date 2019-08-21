@@ -71,13 +71,13 @@ Automatic Docker Clusters
 ArangoDBStarter can also be used to [launch clusters based on docker containers](https://github.com/arangodb-helper/arangodb#running-in-docker){:target="_blank"}.
 Its a bit more complicated, since you need to provide information about your environment that can't be autodetected.
 
-In the Docker world you need to take care about where persistant data is stored, since containers are intended to be volatile. We use a volume named `arangodb1` here: 
+In the Docker world you need to take care about where persistent data is stored, since containers are intended to be volatile. We use a volume named `arangodb1` here: 
 
     docker volume create arangodb1
 
 (You can use any type of docker volume that fits your setup instead.)
 
-We then need to determine the the IP of the docker host where you
+We then need to determine the IP of the docker host where you
 intend to run ArangoDB starter on. Depending on your operating system
 execute `ip addr, ifconfig or ipconfig` to determine your local ip
 address. 

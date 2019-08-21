@@ -67,7 +67,7 @@ Test whether an attribute is present in the provided document.
 - **attributeName** (string): the attribute key to test for
 - returns **isPresent** (bool): *true* if *document* has an attribute named
   *attributeName*, and *false* otherwise. An attribute with a falsy value (*0*, *false*,
-  empty string *""*) or *null* is also considered as present and returns *true*.
+  empty string `""`) or *null* is also considered as present and returns *true*.
 
 ```js
 HAS( { name: "Jane" }, "name" ) // true
@@ -114,7 +114,7 @@ IS_SAME_COLLECTION()
   the function will return *null* and raise a warning.
 
 - **collectionName** (string): the name of a collection as string
-- **documentHandle** (string|object): a document identifier string (e.g. *_users/1234*)
+- **documentHandle** (string\|object): a document identifier string (e.g. *_users/1234*)
   or a regular document from a collection. Passing either a non-string or a non-document
   or a document without an *_id* attribute will result in an error.
 - returns **bool** (bool): return *true* if the collection of *documentHandle* is the same
@@ -191,12 +191,12 @@ with any number of attributes each.
 Note that *MATCHES()* can not utilize indexes.
 
 - **document** (object): document to determine whether it matches any example
-- **examples** (object|array): a single document, or an array of documents to compare
+- **examples** (object\|array): a single document, or an array of documents to compare
   against. Specifying an empty array is not allowed.
 - **returnIndex** (bool): by setting this flag to *true*, the index of the example that
   matched will be returned (starting at offset 0), or *-1* if there was no match.
   The default is *false* and makes the function return a boolean.
-- returns **match** (bool|number): if *document* matches one of the examples, *true* is
+- returns **match** (bool\|number): if *document* matches one of the examples, *true* is
   returned, otherwise *false*. A number is returned instead if *returnIndex* is used.
 
 ```js
@@ -326,7 +326,7 @@ individual parts a separate attributes.
 This function can be used to easily determine the
 [collection name](../appendix-glossary.html#collection-name) and key of a given document.
 
-- **documentHandle** (string|object): a document identifier string (e.g. *_users/1234*)
+- **documentHandle** (string\|object): a document identifier string (e.g. *_users/1234*)
   or a regular document from a collection. Passing either a non-string or a non-document
   or a document without an *_id* attribute will result in an error.
 - returns **parts** (object): an object with the attributes *collection* and *key*

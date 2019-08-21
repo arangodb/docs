@@ -1,6 +1,7 @@
 ---
 layout: default
-description: This chapter describes the javascript interface for creating and modifying named graphs
+description: This chapter of the ArangoDB documentation describes the javascript interface for creating and modifying named graphs.
+title: ArangoDB Graph Management
 ---
 Graph Management
 ================

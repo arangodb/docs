@@ -787,9 +787,6 @@ of all vertices in the graph.
 
 `graph._absoluteBetweenness(vertexExample, options)`
 
-<!-- TODO mchacki: das hier ist geloescht, wollen wir darueber etwas schreiben?  The complexity of the function is described [here] (../../../AQL/Graphs/Operations.html#the-complexity-of-the-shortest-path-algorithms). -->
-
-
 **Parameters**
 
 - vertexExample (optional) Filter the vertices, see [Definition of examples](#definition-of-examples)
@@ -800,7 +797,7 @@ of all vertices in the graph.
     If an edge does not have the attribute named as defined in option *weight* this default
     is used as weight.
     If no default is supplied the default would be positive infinity so the path and
-    hence the betweeness can not be calculated.
+    hence the betweenness can not be calculated.
 
 
 **Examples**
@@ -857,7 +854,7 @@ of graphs vertices.
 
 `graph_module._betweenness(options)`
 
-Similar to [_absoluteBetweeness](#_absolutebetweenness) but returns normalized values.
+Similar to [_absoluteBetweenness](#_absolutebetweenness) but returns normalized values.
 
 
 **Examples**

@@ -6,7 +6,7 @@ description: The REMOVE keyword can be used to remove documents from a collectio
 REMOVE
 ======
 
-The *REMOVE* keyword can be used to remove documents from a collection. On a
+The `REMOVE` keyword can be used to remove documents from a collection. On a
 single server, the document removal is executed transactionally in an 
 all-or-nothing fashion. 
 
@@ -20,9 +20,9 @@ the RocksDB engine.
 For sharded collections, the entire query and/or remove operation may not be transactional,
 especially if it involves different shards and/or database servers.
 
-Each *REMOVE* operation is restricted to a single collection, and the 
+Each `REMOVE` operation is restricted to a single collection, and the 
 [collection name](../appendix-glossary.html#collection-name) must not be dynamic.
-Only a single *REMOVE* statement per collection is allowed per AQL query, and 
+Only a single `REMOVE` statement per collection is allowed per AQL query, and 
 it cannot be followed by read or write operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
 
@@ -52,7 +52,7 @@ FOR u IN users
 ```
 
 **Note**: A remove operation can remove arbitrary documents, and the documents
-do not need to be identical to the ones produced by a preceding *FOR* statement:
+do not need to be identical to the ones produced by a preceding `FOR` statement:
 
 ```
 FOR i IN 1..1000

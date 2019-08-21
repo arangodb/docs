@@ -1,6 +1,7 @@
 ---
 layout: default
-description: Traversal
+description: This is an AQL tutorial for graph traversals. You can see how relations such as between parents and children can be modeled as graph.
+title: AQL Graph Traversal Tutorial
 ---
 Traversal
 =========
@@ -306,6 +307,3 @@ FOR c IN Characters
 
 If we had deeper family trees, it would only be a matter of changing the depth
 values to query for great-grandchildren and similar relations.
-
-<!-- TODO: Add SQL examples for comparison (children's children) -->
-<!-- Dump path? -->

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The programs and tools shipped in anArangoDB package can be configured with various startup options
+description: The programs and tools shipped in an ArangoDB package can be configured with various startup options
 ---
 # Configuration
 
@@ -122,7 +122,9 @@ log.level=startup=trace
 {% endhint %}
 
 Comments can be placed in the configuration file by placing one or more
-hash symbols `#` at the beginning of a line.
+hash symbols `#` at the beginning of a line. Comments that are placed in
+other places (i.e. not at the beginning of a line) are unsupported and should 
+be avoided to ensure correct parsing of the startup options as intended.
 
 Only command line options with a value should be set within the configuration
 file. Command line options which act as flags should only be entered on the
@@ -152,9 +154,10 @@ or
 
 The value *none* is case-insensitive.
 
-<!-- TODO: Specific to arangod, move to programs detail page?
-     Does the resolution order for config files apply to all binaries?
-     Linux only? Also macOS? Windows not addressed so far.
+{%- comment %}
+Specific to arangod, move to programs detail page?
+Does the resolution order for config files apply to all binaries?
+Linux only? Also macOS? Windows not addressed so far.
 
 If this command is not passed to the server, then by default, the server will
 attempt to first locate a file named *~/.arango/arangod.conf* in the user's home
@@ -169,8 +172,36 @@ this file and later upgrade to a new version of ArangoDB, then the package
 manager normally warns you about the conflict. In order to avoid these warning
 for small adjustments, you can put local overrides into a file
 *arangod.conf.local*.
+{% endcomment %}
 
--->
+## Suffixes for Numeric Options
+
+It is possible to add suffixes to numeric options that will cause ArangoDB to
+multiply the value by a certain factor. This can be used to conveniently specify
+values in megabytes or gigabytes for example.
+
+| Suffix               | Factor   | Example |
+|----------------------|----------|---------|
+| `kib`, `KiB`         | 1024     | 512KiB  |
+| `mib`, `MiB`         | 1024 ^ 2 | 64mib   |
+| `gib`, `GiB`         | 1024 ^ 3 | 3gib    |
+| `k`, `K`, `kb`, `KB` | 1000     | 3k      |
+| `m`, `M`, `mb`, `MB` | 1000 ^ 2 | 3mb     |
+| `g`, `G`, `gb`, `GB` | 1000 ^ 3 | 3GB     |
+| `%`                  | 0.01     | 5%      |
+
+Suffix could be used like this in a configuration file:
+
+```conf
+[rocksdb]
+write-buffer-size=512KiB
+block-cache-size=512MiB
+total-write-buffer-size=2GiB
+max-bytes-for-level-multiplier=1K
+
+[cache]
+size=2G
+```
 
 ## Environment variables as parameters
 
@@ -186,7 +217,7 @@ arangod --temp.path @TEMP@/arango_tmp
 
 In a configuration file:
 
-```
+```conf
 [temp]
 path = @TEMP@/arango_tmp
 ```
@@ -195,7 +226,7 @@ On a Windows system, above setting would typically make the ArangoDB Server
 create its folder for temporary files in `%USERPROFILE%\AppData\Local\Temp`,
 i.e. `C:\Users\xxx\AppData\Local\Temp\arango_tmp`.
 
-<!-- TODO: What other placeholders are there? @ROOTDIR@ ... -->
+{%- comment %}What other placeholders are there? @ROOTDIR@ ...{% endcomment %}
 
 ## Options with multiple values
 

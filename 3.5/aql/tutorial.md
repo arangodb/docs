@@ -1,6 +1,7 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's query language AQL, built around a smalldataset of characters from the novel and fantasy drama television seriesGame of Thrones (as of season 1)
+description: The AQL tutorial is an introduction to ArangoDB’s query language. In this AQL tutorial you can interact with ArangoDB using its web interface.
+title: ArangoDB Query Language (AQL) Tutorial
 ---
 AQL tutorial
 ============
@@ -26,10 +27,7 @@ Chapters
 - [Graph traversal](tutorial-traversal.html)
 - [Geospatial queries](tutorial-geospatial.html)
 
-<!-- Add later:
-Advanced data manipulation: attributes, projections, calculations...
-Aggregation: Grouping techniques
--->
+{%- comment %}TODO: Advanced data manipulation: attributes, projections, calculations... Aggregation: Grouping techniques{% endcomment %}
 
 Dataset
 -------

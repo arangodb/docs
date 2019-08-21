@@ -1,6 +1,6 @@
 ---
 layout: default
-description: AQL supports a number of operators that can be used in expressions
+description: AQL operators and their precedence
 ---
 Operators
 =========
@@ -15,19 +15,19 @@ any input data types, and will return a boolean result value.
 
 The following comparison operators are supported:
 
-- *==* equality
-- *!=* inequality
-- *<*  less than 
-- *<=* less or equal
-- *>*  greater than
-- *>=* greater or equal
-- *IN* test if a value is contained in an array
-- *NOT IN* test if a value is not contained in an array
+- `==` equality
+- `!=` inequality
+- `<`  less than 
+- `<=` less or equal
+- `>`  greater than
+- `>=` greater or equal
+- `IN` test if a value is contained in an array
+- `NOT IN` test if a value is not contained in an array
 
 These operators accept any data types for the first and second operands.
 
 Each of the comparison operators returns a boolean value if the comparison can
-be evaluated and returns *true* if the comparison evaluates to true, and *false*
+be evaluated and returns `true` if the comparison evaluates to true, and `false`
 otherwise. Please note that the comparison operators will not perform any
 implicit type casts if the compared operands have different types.
 
@@ -50,15 +50,15 @@ true != null              // true
 
 The following logical operators are supported in AQL:
 
-- *&&* logical and operator
-- *||* logical or operator
-- *!* logical not/negation operator
+- `&&` logical and operator
+- `||` logical or operator
+- `!` logical not/negation operator
 
 AQL also supports the following alternative forms for the logical operators:
 
-- *AND* logical and operator
-- *OR* logical or operator
-- *NOT* logical not/negation operator
+- `AND` logical and operator
+- `OR` logical or operator
+- `NOT` logical not/negation operator
 
 The alternative forms are aliases and functionally equivalent to the regular 
 operators.
@@ -122,11 +122,11 @@ Operators are supported.
 
 AQL supports the following arithmetic operators:
 
-- *+* addition
-- *-* subtraction
-- <i>\*</i> multiplication
-- */* division
-- *%* modulus
+- `+` addition
+- `-` subtraction
+- `*` multiplication
+- `/` division
+- `%` modulus
 
 The unary plus and unary minus are supported as well.
 
@@ -191,11 +191,11 @@ evaluates to true, and the third operand otherwise.
 
 #### Range operator
 
-AQL supports expressing simple numeric ranges with the *..* operator.
+AQL supports expressing simple numeric ranges with the `..` operator.
 This operator can be used to easily iterate over a sequence of numeric
 values.    
 
-The *..* operator will produce an array of values in the defined range, with 
+The `..` operator will produce an array of values in the defined range, with 
 both bounding values included.
 
 *Examples*
@@ -210,20 +210,20 @@ will produce the following result:
 
 The operator precedence in AQL is similar as in other familiar languages (lowest precedence first):
 
-- *? :* ternary operator
-- *||* logical or
-- *&&* logical and
-- *==*, *!=* equality and inequality
-- *IN* in operator
-- *<*, *<=*, *>=*, *>* less than, less equal,
+- `? :` ternary operator
+- `||` logical or
+- `&&` logical and
+- `==`, `!=` equality and inequality
+- `IN` in operator
+- `<`, `<=`, `>=`, `>` less than, less equal,
   greater equal, greater than
-- *+*, *-* addition, subtraction
-- <i>\*</i>, */*, *%* multiplication, division, modulus
-- *!*, *+*, *-* logical negation, unary plus, unary minus
-- <i>[\*]</i> expansion
-- *()* function call
-- *.* member access
-- *[]* indexed value access
+- `+`, `-` addition, subtraction
+- `*`, `/`, `%` multiplication, division, modulus
+- `!`, `+`, `-` logical negation, unary plus, unary minus
+- `[*]` expansion
+- `()` function call
+- `.` member access
+- `[]` indexed value access
 
-The parentheses *(* and *)* can be used to enforce a different operator
+The parentheses `(` and `)` can be used to enforce a different operator
 evaluation order.
