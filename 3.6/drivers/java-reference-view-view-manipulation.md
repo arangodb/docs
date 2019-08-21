@@ -1,12 +1,12 @@
 ---
 layout: default
-description: These functions implementthe HTTP API for modifying views
+description: These functions implement the HTTP API for modifying Views
 ---
 
-# Manipulating the view
+# Manipulating the View
 
-These functions implement
-[the HTTP API for modifying views](../http/views-modifying.html).
+These functions implement the
+[HTTP API for modifying Views](../http/views.html).
 
 ## ArangoDatabase.createView
 

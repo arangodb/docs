@@ -1,6 +1,7 @@
 ---
 layout: default
-description: View Methods
+description: Available JavaScript methods of View objects for arangosh and Foxx
+title: View Methods in ArangoSearch Views JS API
 ---
 View Methods
 ============
@@ -12,11 +13,12 @@ Drop
 
 `view.drop()`
 
-Drops a *view* and all its data.
+Drops a View and all its data.
 
 **Examples**
 
-Drop a view:
+Drop a View:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDrop
     @EXAMPLE_ARANGOSH_OUTPUT{viewDrop}
@@ -29,6 +31,7 @@ Drop a view:
     @endDocuBlock viewDrop
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Query Name
 ----------
 
@@ -36,11 +39,12 @@ Query Name
 
 `view.name()`
 
-Returns the name of the *view*.
+Returns the name of the View.
 
 **Examples**
 
-Get view name:
+Get View name:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewName
     @EXAMPLE_ARANGOSH_OUTPUT{viewName}
@@ -50,6 +54,7 @@ Get view name:
     @endDocuBlock viewName
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Rename
 ------
 
@@ -64,9 +69,12 @@ valid view name. For more information on valid view names please refer to the
 
 If renaming fails for any reason, an error is thrown.
 
-**Note**: this method is not available in a cluster.
+{% hint 'info' %}
+The rename method is not available in clusters.
+{% endhint %}
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewRename
     @EXAMPLE_ARANGOSH_OUTPUT{viewRename}
@@ -79,6 +87,7 @@ If renaming fails for any reason, an error is thrown.
     @endDocuBlock viewRename
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Query Type
 ----------
 
@@ -86,11 +95,12 @@ Query Type
 
 `view.type()`
 
-Returns the type of the *view*.
+Returns the type of the View.
 
 **Examples**
 
-Get view type:
+Get View type:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewType
     @EXAMPLE_ARANGOSH_OUTPUT{viewType}
@@ -100,6 +110,7 @@ Get view type:
     @endDocuBlock viewType
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Query Properties
 ----------------
 
@@ -107,12 +118,13 @@ Query Properties
 
 `view.properties()`
 
-Returns the properties of the *view*. The format of the result is specific to
+Returns the properties of the View. The format of the result is specific to
 each of the supported [View Types](data-modeling-views.html).
 
 **Examples**
 
-Get view properties:
+Get View properties:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewGetProperties
     @EXAMPLE_ARANGOSH_OUTPUT{viewGetProperties}
@@ -122,27 +134,29 @@ Get view properties:
     @endDocuBlock viewGetProperties
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Modify Properties
 -----------------
 
 <!-- arangod/V8Server/v8-views.cpp -->
 
-`view.properties(view-property-modification, partialUpdate)`
+`view.properties(new-properties, partialUpdate)`
 
 Modifies the properties of the *view*. The format of the result is specific to
-each of the supported [View Types](data-modeling-views.html). *partialUpdate* is an optional
-boolean parameter (`true` by default) that determines how
-*view-property-modification* is merged with current view *properties* (adds or 
-updates *view-property-modification* properties to current if `true` and, 
-additionally, removes all other properties if `false`).
+each of the supported [View Types](data-modeling-views.html).
 
-Currently, the only supported view type is `arangosearch`, and its properties
-can be found in
-[](views-arango-search-detailed-overview.html#view-properties).
+*partialUpdate* is an optional Boolean parameter (`true` by default) that
+determines how the *new-properties* object is merged with current View properties
+(adds or updates *new-properties* properties to current if `true` replaces all
+properties if `false`).
+
+Currently, the only supported View type is `"arangosearch"`. See
+[ArangoSearch View Properties](arangosearch-views.html#view-properties).
 
 **Examples**
 
-Modify view properties:
+Modify View properties:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewModifyProperties
     @EXAMPLE_ARANGOSH_OUTPUT{viewModifyProperties}

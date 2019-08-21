@@ -80,7 +80,8 @@ Note that the V8 build scripts and gyp aren't compatible with Python 3.x hence y
 
 ### Building ArangoDB
 
-Download and extract the release tarball from https://www.arangodb.com/download/
+Download and extract the release tarball from
+[www.arangodb.com/download/](https://www.arangodb.com/download/){:target="_blank"}
 
 Or clone the GitHub repository and checkout the branch or tag you need (e.g. `devel`)
 
