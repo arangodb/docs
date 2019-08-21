@@ -86,7 +86,7 @@ Execution plan:
   5   ReturnNode             1       - RETURN doc
 ```
 
-Execution plan with a primary sort order of the index being utilized:
+Execution plan with the primary sort order of the index being utilized:
 
 ```
 Execution plan:
