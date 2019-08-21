@@ -14,7 +14,7 @@ the documents that satisfy the search criteria by relevance.
 Comparison with the [Full-text Index](indexing-fulltext.html):
 
 Feature                           | ArangoSearch | Full-text Index
-----------------------------------|--------------|----------------
+:---------------------------------|:-------------|:---------------
 Term search                       | Yes          | Yes
 Prefix search                     | Yes          | Yes
 Boolean expressions               | Yes          | Restricted
