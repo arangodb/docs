@@ -381,6 +381,19 @@ PHRASE(doc.text, "lorem", 0, "ipsum", "text_en")
 PHRASE(doc.text, "ipsum", -1, "lorem", "text_en")
 ```
 
+`PHRASE(path, [ phrasePart1, skipTokens1, ... phrasePartN, skipTokensN ], analyzer)`
+
+The `PHRASE()` function also accepts an array as second argument with
+*phrasePart* and *skipTokens* parameters as elements. This syntax variation
+enables the usage of computed expressions:
+
+```js
+LET proximityCondition = [ "foo", ROUND(RAND()*10), "bar" ]
+FOR doc IN viewName
+  SEARCH PHRASE(doc.text, proximityCondition, "text_en")
+  RETURN doc
+```
+
 ### STARTS_WITH()
 
 `STARTS_WITH(path, prefix)`
