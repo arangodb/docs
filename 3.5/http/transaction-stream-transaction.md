@@ -38,12 +38,18 @@ explicitly specify the collections used for write accesses. The client is respon
 for making sure that the transaction is committed or aborted when it is no longer needed.
 This avoids taking up resources on the ArangoDB server.
 
-Please note that transactions that will acquire collection locks for read and write
-operations in MMFiles, and for write operations in RocksDB. It is therefore advisable
-to keep the transactions as short as possible.
+{% hint 'warning' %}
+Transactions will acquire collection locks for read and write operations
+in the MMFiles storage engine, and for write operations in RocksDB.
+It is therefore advisable to keep the transactions as short as possible.
+{% endhint %}
 
 For a more detailed description of how transactions work in ArangoDB please
-refer to [Transactions](../transactions.html). 
+refer to [Transactions](../transactions.html).
+
+Also see:
+- [Limitations](#limitations)
+- [Known Issues](release-notes-known-issues35.html#stream-transactions)
 
 Begin a Transaction
 -------------------
