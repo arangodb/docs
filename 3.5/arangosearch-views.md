@@ -302,7 +302,7 @@ multiple index segments into a bigger one and removing garbage documents (e.g.
 deleted from a collection). **Cleanup** is meant to be treated as the procedure
 of removing unused segments after release of internal resources.
 
-- **cleanupIntervalStep** (_optional_; type: `integer`; default: `10`; to
+- **cleanupIntervalStep** (_optional_; type: `integer`; default: `2`; to
   disable use: `0`)
 
   ArangoSearch waits at least this many commits between removing unused files in
@@ -317,6 +317,30 @@ of removing unused segments after release of internal resources.
   > released once there are no longer any users remaining. However, the files
   > for the released states/snapshots are left on disk, and only removed by
   > "cleanup" operation.
+
+- **commitIntervalMsec** (_optional_; type: `integer`; default: `1000`;
+  to disable use: `0`)
+
+  Wait at least this many milliseconds between committing View data store
+  changes and making documents visible to queries (default: 1000, to disable
+  use: 0).
+  For the case where there are a lot of inserts/updates, a lower value, until
+  commit, will cause the index not to account for them and memory usage would
+  continue to grow.
+  For the case where there are a few inserts/updates, a higher value will impact
+  performance and waste disk space for each commit call without any added
+  benefits.
+
+  > For data retrieval ArangoSearch Views follow the concept of
+  > "eventually-consistent", i.e. eventually all the data in ArangoDB will be
+  > matched by corresponding query expressions.
+  > The concept of ArangoSearch View "commit" operation is introduced to
+  > control the upper-bound on the time until document addition/removals are
+  > actually reflected by corresponding query expressions.
+  > Once a "commit" operation is complete all documents added/removed prior to
+  > the start of the "commit" operation will be reflected by queries invoked in
+  > subsequent ArangoDB transactions, in-progress ArangoDB transactions will
+  > still continue to return a repeatable-read state.
 
 - **consolidationIntervalMsec** (_optional_; type: `integer`; default: `60000`;
   to disable use: `0`)
@@ -385,12 +409,12 @@ is used by these writers (in terms of "writers pool") one can use
     upon several possible configurable formulas as defined by their types.
     The currently supported types are:
 
-    - **bytes_accum**: Consolidation is performed based on current memory consumption
-      of segments and `threshold` property value.
-    - **tier**: Consolidate based on segment byte size and live document count
+    - `"bytes_accum"`: Consolidation is performed based on current memory
+      consumption of segments and `threshold` property value.
+    - `"tier"`: Consolidate based on segment byte size and live document count
       as dictated by the customization attributes.
 
-  `consolidationPolicy` properties for `bytes_accum` type:
+  `consolidationPolicy` properties for `"bytes_accum"` type:
 
   - **threshold** (_optional_; type: `float`; default: `0.1`)
 
@@ -400,7 +424,7 @@ is used by these writers (in terms of "writers pool") one can use
     is applied for each segment:
     `{threshold} > (segment_bytes + sum_of_merge_candidate_segment_bytes) / all_segment_bytes`.
 
-  `consolidationPolicy` properties for `tier` type:
+  `consolidationPolicy` properties for `"tier"` type:
 
   - **segmentsMin** (_optional_; type: `integer`; default: `1`)
 
@@ -418,10 +442,3 @@ is used by these writers (in terms of "writers pool") one can use
 
     Defines the value (in bytes) to treat all smaller segments as equal for consolidation
     selection.
-
-  - **lookahead** (_optional_; type: `integer`; default: `18446744073709552000`)
-
-    The number of additionally searched tiers except initially chosen candidates based on
-    `segmentsMin`, `segmentsMax`, `segmentsBytesMax`, `segmentsBytesFloor` with
-    respect to defined values. Default value is treated as searching among all existing
-    segments.
