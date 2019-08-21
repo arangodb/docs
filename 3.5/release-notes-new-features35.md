@@ -86,7 +86,7 @@ Execution plan:
   5   ReturnNode             1       - RETURN doc
 ```
 
-Execution plan with a the primary sort order of the index being utilized:
+Execution plan with the primary sort order of the index being utilized:
 
 ```
 Execution plan:
@@ -138,7 +138,7 @@ Some small new features give more control over ArangoSearch from AQL.
   ```
 
 - A new function `IN_RANGE()` was added for matching values within defined
-  boundaries, to enable easy range searching primarly for numbers and strings.
+  boundaries, to enable easy range searching primarily for numbers and strings.
 
 See:
 - [AQL Scoring Functions](aql/functions-arangosearch.html#scoring-functions)
