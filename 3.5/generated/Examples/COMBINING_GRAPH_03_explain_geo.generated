@@ -11,7 +11,7 @@
   <span class="hljs-string">"radius"</span>: <span class="hljs-number">400000</span>
 }
 @R
-Query String:
+Query String (119 chars, cacheable: true):
    FOR startCity IN germanCity
      FILTER GEO_DISTANCE(@bonn, startCity.geometry) &lt; @radius
        RETURN startCity._key
@@ -26,7 +26,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type   Collection   Unique   Sparse   Selectivity   Fields           Ranges
-  7   idx_1642473880248385538   geo    germanCity   false    true             n/a   [ `geometry` ]   (GEO_DISTANCE([ 7.0998, 50.734 ], startCity.`geometry`) &lt; 400000)
+  7   idx_1642544513918435328   geo    germanCity   false    true             n/a   [ `geometry` ]   (GEO_DISTANCE([ 7.0998, 50.734 ], startCity.`geometry`) &lt; 400000)
 
 Optimization rules applied:
  Id   RuleName
