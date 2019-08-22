@@ -1,12 +1,12 @@
 ---
 layout: default
-description: How to transfer backups to external servers with the arangobackup tool.
-title: Upload Backups to Remote
+description: How to transfer hot backups to external servers with the arangobackup tool.
+title: Upload Hot Backups to Remote
 ---
-Upload a backup to remote
-=========================
+Upload a Hot Backup to Remote
+=============================
 
-Backups can be uploaded to a remote repository, here is an example which
+Hot backups can be uploaded to a remote repository, here is an example which
 uses the `S3` protocol:
 
 ```bash
@@ -42,8 +42,8 @@ credentials for the remote site. Here is an example:
 This process may take as long as it needs to upload the data from the
 single server or all of the cluster's db servers to the remote
 location. However, the upload will take advantage from previously
-uploaded backups which might contain identical files. Therefore, the
-functionality is incremental, if regular backups are taken and uploaded
+uploaded hot backups which might contain identical files. Therefore, the
+functionality is incremental, if regular hot backups are taken and uploaded
 to the same remote site.
 
 The status of the process may be acquired at any later time.

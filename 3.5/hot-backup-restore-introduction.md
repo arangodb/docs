@@ -1,21 +1,21 @@
 ---
 layout: default
-description: Introduction to ArangoDB's backup feature.
-title: ArangoDB Backup and Restore Feature
+description: Introduction to ArangoDB's hot backup feature.
+title: ArangoDB Hot Backup and Restore Feature
 ---
 Introduction
 ============
 
 {% hint 'info' %}
 Please review the [requirements and limitations](hot-backup-restore-limitations.html)
-of backups, specifically regarding storage engine, deployment, scope
+of hot backups, specifically regarding storage engine, deployment, scope
 and storage space.
 {% endhint %}
 
 Creation
 --------
 
-The process of creating backups is ideally an instantaneous event during
+The process of creating hot backups is ideally an instantaneous event during
 normal operations, that consists of a few subsequent steps behind the scenes:
 
 - Stop all write accesses to the entire installation using a write transaction lock.
@@ -27,13 +27,13 @@ normal operations, that consists of a few subsequent steps behind the scenes:
 
 The above quite precisely describes the tasks in a single instance installation
 and could technically finish in under a millisecond. The unknown factor above is
-of course, when the backup process is able to obtain the write transaction lock.
+of course, when the hot backup process is able to obtain the write transaction lock.
 
 When considering the ArangoDB cluster two more steps need to integrate while
 others just become slightly more exciting. On the coordinator tasked with the
-backup the following is done:
+hot backup the following is done:
 
-- Using the agency, make sure that no two backups collide.
+- Using the agency, make sure that no two hot backups collide.
 - Obtain a dump of the Agency's `Plan` key.
 - Stop all write access to the **entire cluster** installation using a
   global write transaction lock, this amounts to get each local write
@@ -44,7 +44,7 @@ backup the following is done:
   possible to acquire all local locks in the same period, and this continues
   for an extended, configurable amount of time, the coordinator gives
   up. With the `forceBackup` option set to `true`, it proceeds instead
-  to create a potentially non-consistent backup.
+  to create a potentially non-consistent hot backup.
 - **On each database server** create a new local directory under
   `<data-dir>/backups/<timestamp>_<backup-label>`.
 - **On each database server** create hard links to the active database files
@@ -53,7 +53,7 @@ backup the following is done:
 - Release the global write transaction lock to resume normal operation.
 - Report success of the operation.
 
-Again under good conditions, a complete backup could be obtained from a
+Again under good conditions, a complete hot backup could be obtained from a
 cluster with many database servers within a very short time in the range
 of that of the single server installation.
 
@@ -73,7 +73,7 @@ nanosecond away, but it could of course not come for the next 2 minutes.
 
 ArangoDB tries to obtain that lock over and over again. On the single server
 instances these consecutive tries will not be noticeable. At some point the
-lock is obtained and the backup is created then within a very short
+lock is obtained and the hot backup is created then within a very short
 amount of time.
 
 In clusters things are a little more complicated and noticeable.
@@ -93,7 +93,7 @@ Less of a variable, however equally important is to obtain a freeze on the
 cluster's structure itself. This is done through the creation of a simple key
 lock in the cluster's configuration to stop all ongoing background tasks,
 which are there to handle fail overs, shard movings, server removals etc.
-Its role is also to prevent multiple simultaneous backup operations.
+Its role is also to prevent multiple simultaneous hot backup operations.
 The acquisition of this key is predictably done within a matter of a few seconds.
 
 ### Operation's Time Scope

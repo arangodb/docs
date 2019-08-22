@@ -1,12 +1,12 @@
 ---
 layout: default
-description: How to transfer backups to external servers.
-title: Download Backups to Remote
+description: How to transfer hot backups to external servers.
+title: Download Hot Backups to Remote
 ---
-Download a Backup from Remote
-=============================
+Download a Hot Backup from Remote
+=================================
 
-Backups can be downloaded from a remote repository like this:
+Hot backups can be downloaded from a remote repository like this:
 
 ```bash
 arangobackup download --server.endpoint tcp://myserver:8529 --rclone-config-file /path/to/remote.json --identifier 2019-05-13T07.15.43Z_some-label --remote-path S3://remote-endpoint/remote-directory
@@ -24,9 +24,9 @@ The output will look like this:
 This process may take as long as it needs to download the data to
 the single server or all of the cluster's db servers from the remote
 endpoint given network limitations. However, the download will take
-advantage from other backups which might already or still be present
+advantage from other hot backups which might already or still be present
 locally that contain identical files. Therefore, the functionality is
-incremental, if a backup is downloaded and a similar one is already
+incremental, if a hot backup is downloaded and a similar one is already
 present.
 
 The status of the download process may be acquired at any later time.
@@ -49,10 +49,10 @@ RClone configuration examples
 Enterprise editions of ArangoDB come with a bundled version of the
 versatile open-source remote file sync program
 [rclone](https://rclone.org), which is distributed under the MIT
-license. It is used to both download and upload backup sets to and
+license. It is used to both download and upload hot backup sets to and
 from local and cloud operated storage resources. 
 
-Backup directories, which are subject to an ongoing download cannot be
+Hot backup directories, which are subject to an ongoing download cannot be
 used for restores until the download has finished.
 
 S3

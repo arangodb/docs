@@ -1,20 +1,20 @@
 ---
 layout: default
-description: How to retrieve a list of restorable backups with the arangobackup tool.
-title: List All Available Backups
+description: How to retrieve a list of restorable hot backups with the arangobackup tool.
+title: List All Available Hot Backups
 ---
-List All Backups
-================
+List All Hot Backups
+====================
 
-One may hold a multitude of backups. Those would all be available
-to restore from. In order to get a listing of such backups, one
+One may hold a multitude of hot backups. Those would all be available
+to restore from. In order to get a listing of such hot backups, one
 may use the `list` command.
 
 ```bash 
 arangobackup list
 ```
 
-The output lists all available backups:
+The output lists all available hot backups:
 
 ```bash
 2019-05-15T15:28:17Z [16224] INFO {backup} Server version: 3.5.1

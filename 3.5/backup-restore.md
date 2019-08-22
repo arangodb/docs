@@ -1,11 +1,11 @@
 ---
 layout: default
-description: Dump and restore can be done via the toolsarangodump andarangorestore
+description: Backup and restore can be done via the toolsarangodump andarangorestore
 ---
-Dump and Restore
+Backup and Restore
 ==================
 
-Dump and restore can be done via the tools
+Backup and restore can be done via the tools
 [_arangodump_](programs-arangodump.html) and
 [_arangorestore_](programs-arangorestore.html).
 
