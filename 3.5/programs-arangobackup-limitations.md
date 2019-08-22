@@ -11,13 +11,6 @@ storage usage, upgrades, deployment scheme, etc. Please review the below
 list of limitations closely to conclude which operations it might or might
 not be suited for.
 
-Hot Backup is an Enterprise Feature
--------------------------------
-
-The capability to create instantaneous and consistent hot backups is
-an Enterprise feature. Use [_arangodump_](backup-restore.html) and 
-[_arangorestore_](backup-restore.html) if you are using the Community Edition.
-
 Global Scope
 ------------
 
@@ -63,8 +56,8 @@ hot backups can only be restored to the same type and structure of deployment.
 This means that one cannot restore a 3-node ArangoDB cluster's hot backup to
 any other deployment than another 3-node ArangoDB cluster of the same version.
 
-RocksDB Only for Now
---------------------
+RocksDB Storage Engine Only
+---------------------------
 
 Hot backups rely on creation of hard links on actual RocksDB data files and
 directories. The same or according file system level mechanisms are not

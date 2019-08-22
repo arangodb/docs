@@ -22,8 +22,8 @@ hot backup. Subsequently, all other APIs operate on these identifiers.
 The below APIs exclusively handle POST actions.
 
 {% hint 'warning' %}
-Make sure to understand all aspects of [hot backups](../hot-backup-restore-introduction.html),
-most of all the [requirements and limitations](../hot-backup-restore-limitations.html), 
+Make sure to understand all aspects of [hot backups](../backup-restore.html#hot-backups),
+most of all the [requirements and limitations](../programs-arangobackup-limitations.html), 
 before using the API.
 {% endhint %}
 
