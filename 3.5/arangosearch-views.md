@@ -1,7 +1,8 @@
 ---
 layout: default
 description: ArangoSearch Views
-redirect_from: /3.5/views-arango-search-detailed-overview.html
+redirect_from:
+  - /3.5/views-arango-search-detailed-overview.html # 3.4 -> 3.5
 ---
 ArangoSearch Views
 ==================
