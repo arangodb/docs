@@ -20,8 +20,17 @@ twitter_username: jekyllrb
 github_username:  jekyll
 
 url: "https://www.arangodb.com" # the base hostname & protocol for your site
-plugins:
-  - jekyll-sitemap
+
+# Certain directories can be excluded from sitemap,
+# but including the stable folder (symlink) does not work.
+#plugins:
+#  - jekyll-sitemap
+#
+#defaults:
+#    scope:
+#      path: stable/**
+#    values:
+#      sitemap: true
 
 # Build settings
 markdown: kramdown
@@ -33,7 +42,6 @@ kramdown:
 
 theme: minima
 plugins:
-  - jekyll-sitemap
   - jekyll-feed
   - jekyll-redirect-from
 
@@ -42,8 +50,9 @@ algolia:
   index_name: dev_DOCS
   search_only_api_key: 1fc63d8ff5b71963f0354561b770b591
   files_to_exclude:
-    - 3.5/**
-    # - 3.4/** # OUR STABLE VERSION
+    - 3.6/**
+    #- 3.5/** # OUR STABLE VERSION
+    - 3.4/**
     - 3.3/**
     - 3.2/**
     - 3.1/**
@@ -65,9 +74,11 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - scripts
+  - sitemap.rb
   - Dockerfile
   - TODO.md
   - htmltest
+  - 3.6/generated
   - 3.5/generated
   - 3.4/generated
   - 3.3/generated
@@ -84,6 +95,5 @@ exclude:
   # - 2.8/
 
 versions:
-  stable: "3.4"
-  devel: "3.5"
-
+  stable: "3.5"
+  devel: "3.6"

@@ -85,7 +85,6 @@ The string matching performed by *CONTAINS* is case-sensitive.
 - **search** (string): the needle
 - **returnIndex** (bool, *optional*): if set to *true*, the character position
   of the match is returned instead of a boolean. The default is *false*.
-  The default is *false*.
 - returns **match** (bool\|number): by default, *true* is returned if *search*
   is contained in *text*, and *false* otherwise. With *returnIndex* set to *true*,
   the position of the first occurrence of *search* within *text* is returned 

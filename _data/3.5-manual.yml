@@ -333,19 +333,15 @@
       href: graphs-edges.html
     - text: Pregel
       href: graphs-pregel.html
-- text: ArangoSearch Views
-  href: views-arango-search.html
+- text: ArangoSearch
+  href: arangosearch.html
   children:
-    - text: Getting Started
-      href: views-arango-search-getting-started.html
-    - text: Detailed Overview
-      href: views-arango-search-detailed-overview.html
+    - text: Views
+      href: arangosearch-views.html
     - text: Analyzers
-      href: views-arango-search-analyzers.html
-    - text: Scorers
-      href: views-arango-search-scorers.html
-- text: Analyzers
-  href: analyzers.html
+      href: arangosearch-analyzers.html
+    - text: Examples
+      href: arangosearch-examples.html
 - subtitle: ADVANCED TOPICS
 - text: Architecture
   href: architecture.html
@@ -920,6 +916,8 @@
       children:
         - text: '@arangodb'
           href: appendix-java-script-modules-arango-db.html
+        - text: analyzers
+          href: appendix-java-script-modules-analyzers.html
         - text: console
           href: appendix-java-script-modules-console.html
         - text: crypto
