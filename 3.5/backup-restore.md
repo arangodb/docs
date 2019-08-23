@@ -49,6 +49,7 @@ Hot Backups
 Hot backup and restore associated operations can be performed with the
 [_arangobackup_](programs-arangobackup.html) client tool.
 
+{% hint 'info' %}
 Arangobackup is only available in the
 **Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
 {% endhint %}
