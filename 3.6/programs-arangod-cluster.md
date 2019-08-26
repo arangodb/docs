@@ -119,7 +119,18 @@ These options should generally remain untouched.
 
 <!-- arangod/Cluster/ClusterFeature.h -->
 
-Synchronous replication timing:
+Synchronous replication minimum timeout:
+`--cluster.synchronous-replication-timeout-minimum double`
+
+The minimum timeout for the internal synchronous replication mechanism between
+db servers. If replication requests are slow, but the servers are otherwise
+healthy, timeouts can cause followers to be dropped unnecessarily, resulting in
+costly resync operations. Increasing this value may help avoid such resyncs.
+Conversely, decreasing it may cause more resyncs, while lowering the latency of
+individual write operations. Please change only with intent and great care.
+Default at `30.0`.
+
+Synchronous replication timeout scaling:
 `--cluster.synchronous-replication-timeout-factor double`
 
 Stretch or clinch timeouts for internal synchronous replication
