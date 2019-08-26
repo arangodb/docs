@@ -1,17 +1,17 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=188218</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=188205</span>
 
 HTTP/1.1 OK
 content-type: application/x-arango-dump; charset=utf-8
 x-arango-replication-active: true
 x-arango-replication-checkmore: false
 x-arango-replication-frompresent: true
-x-arango-replication-lastincluded: 188252
-x-arango-replication-lastscanned: 188252
-x-arango-replication-lasttick: 188252
+x-arango-replication-lastincluded: 188236
+x-arango-replication-lastscanned: 188234
+x-arango-replication-lasttick: 188236
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188221"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188208"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
@@ -20,14 +20,14 @@ x-content-type-options: nosniff
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"58"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/58"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZKF3wGS--_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZKuU0I---_"</span>, 
     <span class="hljs-string">"user"</span> : <span class="hljs-string">"root"</span>, 
     <span class="hljs-string">"source"</span> : <span class="hljs-string">"LOCAL"</span>, 
     <span class="hljs-string">"authData"</span> : { 
       <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>, 
       <span class="hljs-string">"simple"</span> : { 
-        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"3783f7079444400743bbef27d2848a102b4bcc5576d173705d7a6526ee3cbf15"</span>, 
-        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"b991f20f"</span>, 
+        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"53ef159ef806ef22988dd78bae577c8d4dbaeb46f6cd86732a391dd7ecbdb8bd"</span>, 
+        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"3859c09b"</span>, 
         <span class="hljs-string">"method"</span> : <span class="hljs-string">"sha256"</span> 
       } 
     }, 
@@ -88,18 +88,18 @@ x-content-type-options: nosniff
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188234"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188221"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2001</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
-  <span class="hljs-string">"cuid"</span> : <span class="hljs-string">"h39E8C50C54BC/70433"</span>, 
-  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"70433"</span>, 
+  <span class="hljs-string">"cuid"</span> : <span class="hljs-string">"h533BDFA6241/70428"</span>, 
+  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"70428"</span>, 
   <span class="hljs-string">"data"</span> : { 
-    <span class="hljs-string">"id"</span> : <span class="hljs-string">"70433"</span>, 
+    <span class="hljs-string">"id"</span> : <span class="hljs-string">"70428"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">""</span> 
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188241"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188228"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
@@ -108,14 +108,14 @@ x-content-type-options: nosniff
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"58"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/58"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZKF3wGe--_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZKuU0IK--B"</span>, 
     <span class="hljs-string">"user"</span> : <span class="hljs-string">"root"</span>, 
     <span class="hljs-string">"source"</span> : <span class="hljs-string">"LOCAL"</span>, 
     <span class="hljs-string">"authData"</span> : { 
       <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>, 
       <span class="hljs-string">"simple"</span> : { 
-        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"3783f7079444400743bbef27d2848a102b4bcc5576d173705d7a6526ee3cbf15"</span>, 
-        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"b991f20f"</span>, 
+        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"53ef159ef806ef22988dd78bae577c8d4dbaeb46f6cd86732a391dd7ecbdb8bd"</span>, 
+        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"3859c09b"</span>, 
         <span class="hljs-string">"method"</span> : <span class="hljs-string">"sha256"</span> 
       } 
     }, 
