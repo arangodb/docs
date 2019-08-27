@@ -90,7 +90,7 @@ If an external interface is available to this server, it can be
 specified to communicate with external software / drivers:
 
 ```
---cluster.my-advertised-enpoint tcp://some.public.place:8530
+--cluster.my-advertised-endpoint tcp://some.public.place:8530
 ```
 
 All specifications of endpoints apply.
