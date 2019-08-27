@@ -136,6 +136,7 @@ sharding for all these collections. *Note*: The collections have to be new.
     ~db._create("shop");
     ~db._create("customer");
     ~db._create("pet");
+    ~db._createEdgeCollection("isCustomer");
     var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
     graph._extendEdgeDefinitions(rel);
     graph;
