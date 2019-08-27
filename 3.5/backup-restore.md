@@ -51,7 +51,7 @@ Hot backup and restore associated operations can be performed with the
 
 {% hint 'info' %}
 Arangobackup is only available in the
-**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
 {% endhint %}
 
 Many operations cannot afford downtimes and thus require administrators and
