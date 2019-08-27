@@ -1,12 +1,13 @@
 ---
 layout: default
-description: This feature is only available in theEnterprise Edition
+description: The SmartGraphs feature is only available in the Enterprise Edition
+title: ArangoDB SmartGraphs
 ---
 SmartGraphs
 ===========
 
 {% hint 'info' %}
-This feature is only available in the
+The SmartGraphs feature is only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
 {% endhint %}
 
@@ -84,37 +85,43 @@ SmartGraph. This switch can be easily achieved with
 The only thing you have to change in this pipeline is that you create the new
 collections with the SmartGraph before starting `arangorestore`.
 
-- Create a graph
+**Create a graph**
 
-  In comparison to General Graph we have to add more options when creating the
-  graph. The two options `smartGraphAttribute` and `numberOfShards` are
-  required and cannot be modified later. 
+In comparison to General Graph we have to add more options when creating the
+graph. The two options `smartGraphAttribute` and `numberOfShards` are
+required and cannot be modified later. 
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreateGraphHowTo1
-      arangosh> var graph_module = require("@arangodb/smart-graph");
-      arangosh> var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      arangosh> graph;
-      [ SmartGraph myGraph EdgeDefinitions: [ ] VertexCollections: [ ] ]
+    var graph_module = require("@arangodb/smart-graph");
+    var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+    graph;
     @endDocuBlock smartGraphCreateGraphHowTo1
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
-- Add some vertex collections
+**Add some vertex collections**
 
-  This is again identical to General Graph. The module will setup correct
-  sharding for all these collections. *Note*: The collections have to be new.
+This is again identical to General Graph. The module will setup correct
+sharding for all these collections. *Note*: The collections have to be new.
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreateGraphHowTo2
-      arangosh> graph._addVertexCollection("shop");
-      arangosh> graph._addVertexCollection("customer");
-      arangosh> graph._addVertexCollection("pet");
-      arangosh> graph;
-      [ SmartGraph myGraph EdgeDefinitions: [ ] VertexCollections: [ "shop", "customer", "pet" ] ]
+    graph._addVertexCollection("shop");
+    graph._addVertexCollection("customer");
+    graph._addVertexCollection("pet");
+    graph;
     @endDocuBlock smartGraphCreateGraphHowTo2
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
-- Define relations on the Graph
+**Define relations on the Graph**
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreateGraphHowTo3
-      arangosh> var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
-      arangosh> graph._extendEdgeDefinitions(rel);
-      arangosh> graph;
-      [ SmartGraph myGraph EdgeDefinitions: [ "isCustomer: [shop] -> [customer]" ] VertexCollections: [ "pet" ] ]
+    var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
+    graph._extendEdgeDefinitions(rel);
+    graph;
     @endDocuBlock smartGraphCreateGraphHowTo3
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
