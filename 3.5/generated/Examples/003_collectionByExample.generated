@@ -1,39 +1,39 @@
 arangosh&gt; db.users.insert({ <span class="hljs-attr">name</span>: <span class="hljs-string">"Gerhard"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/146"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"146"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZJNSgnC---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/145"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"145"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZKuUiFq---"</span> 
 }
 arangosh&gt; db.users.insert({ <span class="hljs-attr">name</span>: <span class="hljs-string">"Helmut"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/148"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"148"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZJNSgnC--A"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/147"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"147"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZKuUiFq--A"</span> 
 }
 arangosh&gt; db.users.insert({ <span class="hljs-attr">name</span>: <span class="hljs-string">"Angela"</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/150"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"150"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZJNSgnC--C"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/149"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"149"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZKuUiFu---"</span> 
 }
 arangosh&gt; db.users.all().toArray();
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"146"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/146"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZJNSgnC---"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"145"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/145"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZKuUiFq---"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"Gerhard"</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"148"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/148"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZJNSgnC--A"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"147"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/147"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZKuUiFq--A"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"Helmut"</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"150"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/150"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZJNSgnC--C"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"149"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/149"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZKuUiFu---"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"Angela"</span> 
   } 
 ]
@@ -42,9 +42,9 @@ arangosh&gt; db.users.byExample({ <span class="hljs-string">"_id"</span> : <span
 arangosh&gt; db.users.byExample({ <span class="hljs-string">"name"</span> : <span class="hljs-string">"Gerhard"</span> }).toArray();
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"146"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/146"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZJNSgnC---"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"145"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/145"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZKuUiFq---"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"Gerhard"</span> 
   } 
 ]
