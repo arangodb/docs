@@ -3,7 +3,7 @@ arangosh&gt; db._profileQuery(`
 ........&gt;  FILTER doc.value &lt; 10
 ........&gt;  RETURN doc`, {}, {colors: false}
 ........&gt; );
-Query String:
+Query String (58 chars, cacheable: false):
  FOR doc IN acollection
   FILTER doc.value &lt; 10
   RETURN doc
@@ -11,9 +11,9 @@ Query String:
 Execution plan:
  Id   NodeType                  Calls   Items   Runtime [s]   Comment
   1   SingletonNode                 1       1       0.00000   * ROOT
-  2   EnumerateCollectionNode      10   10000       0.00489     - FOR doc IN acollection   /* full collection scan */
-  3   CalculationNode              10   10000       0.00348       - LET #1 = (doc.`value` &lt; 10)   /* simple expression */   /* collections used: doc : acollection */
-  4   FilterNode                    1      10       0.00193       - FILTER #1
+  2   EnumerateCollectionNode      10   10000       0.00483     - FOR doc IN acollection   /* full collection scan */
+  3   CalculationNode              10   10000       0.00343       - LET #1 = (doc.`value` &lt; 10)   /* simple expression */   /* collections used: doc : acollection */
+  4   FilterNode                    1      10       0.00197       - FILTER #1
   5   ReturnNode                    1      10       0.00000       - RETURN doc
 
 Indexes used:
@@ -24,17 +24,17 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Exec Time [s]
-           0            0       10000            0       9990         0.01074
+           0            0       10000            0       9990         0.01061
 
 Query Profile:
  Query Stage           Duration [s]
  initializing               0.00000
  parsing                    0.00006
  optimizing ast             0.00001
- loading collections        0.00001
- instantiating plan         0.00003
- optimizing plan            0.00017
- executing                  0.01034
- finalizing                 0.00011
+ loading collections        0.00000
+ instantiating plan         0.00002
+ optimizing plan            0.00016
+ executing                  0.01026
+ finalizing                 0.00008
 
 

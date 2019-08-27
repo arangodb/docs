@@ -15,7 +15,7 @@ Version 3.5
   [Configurable Analyzers](arangosearch-analyzers.html),
   [Sorted Views](arangosearch-views.html#primary-sort-order)
   and several improvements to the
-  [AQL integration](release-notes-new-features35.html#arangosearch)
+  [AQL integration](release-notes-new-features35.html#arangosearch).
 
 - **AQL Graph Traversals**:
   [k Shortest Paths](aql/graphs-kshortest-paths.html) allows you to query not
