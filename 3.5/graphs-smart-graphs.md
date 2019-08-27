@@ -93,9 +93,12 @@ required and cannot be modified later.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreateGraphHowTo1
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo1}
     var graph_module = require("@arangodb/smart-graph");
-    var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+    var graph = graph_module._create("myGraph", [], [], smartGraphAttribute: "region", numberOfShards: 9});
     graph;
+    ~graph_module._drop("myGraph");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
@@ -107,10 +110,18 @@ sharding for all these collections. *Note*: The collections have to be new.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreateGraphHowTo2
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo2}
+    ~var graph_module = require("@arangodb/smart-graph");
+    ~var graph = graph_module._create("myGraph", [], [], smartGraphAttribute: "region", numberOfShards: 9});
+    ~db._create("shop");
+    ~db._create("customer");
+    ~db._create("pet");
     graph._addVertexCollection("shop");
     graph._addVertexCollection("customer");
     graph._addVertexCollection("pet");
     graph;
+    ~graph_module._drop("myGraph", true);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
@@ -119,9 +130,17 @@ sharding for all these collections. *Note*: The collections have to be new.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreateGraphHowTo3
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo3}
+    ~var graph_module = require("@arangodb/smart-graph");
+    ~var graph = graph_module._create("myGraph", [], [], smartGraphAttribute: "region", numberOfShards: 9});
+    ~db._create("shop");
+    ~db._create("customer");
+    ~db._create("pet");
     var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
     graph._extendEdgeDefinitions(rel);
     graph;
+    ~graph_module._drop("myGraph", true);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo3
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
