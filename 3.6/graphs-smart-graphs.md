@@ -139,7 +139,6 @@ so they must not exist on when creating the SmartGraph.
     ~graph._addVertexCollection("shop");
     ~graph._addVertexCollection("customer");
     ~graph._addVertexCollection("pet");
-    db._createEdgeCollection("isCustomer");
     var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
     graph._extendEdgeDefinitions(rel);
     graph;
