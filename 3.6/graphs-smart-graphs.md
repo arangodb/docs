@@ -77,17 +77,17 @@ General Graph.
 Getting started
 ---------------
 
-First of all SmartGraphs *cannot use existing collections*, when switching to
-SmartGraph from an existing data set you have to import the data into a fresh
+First of all, SmartGraphs **cannot use existing collections**. When switching to
+SmartGraph from an existing dataset you have to import the data into a fresh
 SmartGraph. This switch can be easily achieved with
 [arangodump](programs-arangodump.html) and
 [arangorestore](programs-arangorestore.html).
 The only thing you have to change in this pipeline is that you create the new
-collections with the SmartGraph before starting `arangorestore`.
+collections with the SmartGraph module before starting `arangorestore`.
 
 **Create a graph**
 
-In comparison to General Graph we have to add more options when creating the
+In contrast to General Graphs we have to add more options when creating the
 graph. The two options `smartGraphAttribute` and `numberOfShards` are
 required and cannot be modified later. 
 
@@ -105,8 +105,10 @@ required and cannot be modified later.
 
 **Add some vertex collections**
 
-This is again identical to General Graph. The module will setup correct
-sharding for all these collections. *Note*: The collections have to be new.
+This is analogous to General Graphs. Unlike with General Graphs, the
+**collections must not exist** when creating the SmartGraph. The SmartGraph
+module will create them for you automatically to set up the sharding for all
+these collections correctly.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreateGraphHowTo2_cluster
@@ -124,6 +126,10 @@ sharding for all these collections. *Note*: The collections have to be new.
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 **Define relations on the Graph**
+
+Adding edge collections works the same as with General Graphs, but again, the
+collections are created by the SmartGraph module to set up sharding correctly
+so they must not exist on when creating the SmartGraph.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreateGraphHowTo3_cluster
