@@ -92,14 +92,14 @@ graph. The two options `smartGraphAttribute` and `numberOfShards` are
 required and cannot be modified later. 
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreateGraphHowTo1
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo1}
+    @startDocuBlockInline smartGraphCreateGraphHowTo1_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo1_cluster}
     var graph_module = require("@arangodb/smart-graph");
     var graph = graph_module._create("myGraph", [], [], smartGraphAttribute: "region", numberOfShards: 9});
     graph;
     ~graph_module._drop("myGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreateGraphHowTo1
+    @endDocuBlock smartGraphCreateGraphHowTo1_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
@@ -109,8 +109,8 @@ This is again identical to General Graph. The module will setup correct
 sharding for all these collections. *Note*: The collections have to be new.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreateGraphHowTo2
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo2}
+    @startDocuBlockInline smartGraphCreateGraphHowTo2_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo2_cluster}
     ~var graph_module = require("@arangodb/smart-graph");
     ~var graph = graph_module._create("myGraph", [], [], smartGraphAttribute: "region", numberOfShards: 9});
     ~db._create("shop");
@@ -122,15 +122,15 @@ sharding for all these collections. *Note*: The collections have to be new.
     graph;
     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreateGraphHowTo2
+    @endDocuBlock smartGraphCreateGraphHowTo2_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 **Define relations on the Graph**
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreateGraphHowTo3
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo3}
+    @startDocuBlockInline smartGraphCreateGraphHowTo3_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo3_cluster}
     ~var graph_module = require("@arangodb/smart-graph");
     ~var graph = graph_module._create("myGraph", [], [], smartGraphAttribute: "region", numberOfShards: 9});
     ~db._create("shop");
@@ -142,6 +142,6 @@ sharding for all these collections. *Note*: The collections have to be new.
     graph;
     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreateGraphHowTo3
+    @endDocuBlock smartGraphCreateGraphHowTo3_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
