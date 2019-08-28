@@ -95,7 +95,7 @@ required and cannot be modified later.
     @startDocuBlockInline smartGraphCreateGraphHowTo1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo1_cluster}
     var graph_module = require("@arangodb/smart-graph");
-    var graph = graph_module._create("myGraph", [], [], smartGraphAttribute: "region", numberOfShards: 9});
+    var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
     graph;
     ~graph_module._drop("myGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -112,7 +112,7 @@ sharding for all these collections. *Note*: The collections have to be new.
     @startDocuBlockInline smartGraphCreateGraphHowTo2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo2_cluster}
     ~var graph_module = require("@arangodb/smart-graph");
-    ~var graph = graph_module._create("myGraph", [], [], smartGraphAttribute: "region", numberOfShards: 9});
+    ~var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
     ~db._create("shop");
     ~db._create("customer");
     ~db._create("pet");
@@ -132,7 +132,7 @@ sharding for all these collections. *Note*: The collections have to be new.
     @startDocuBlockInline smartGraphCreateGraphHowTo3_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo3_cluster}
     ~var graph_module = require("@arangodb/smart-graph");
-    ~var graph = graph_module._create("myGraph", [], [], smartGraphAttribute: "region", numberOfShards: 9});
+    ~var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
     ~db._create("shop");
     ~db._create("customer");
     ~db._create("pet");
