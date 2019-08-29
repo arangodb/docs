@@ -135,8 +135,10 @@ so they must not exist when creating the SmartGraph.
     @startDocuBlockInline smartGraphCreateGraphHowTo3_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo3_cluster}
     ~var graph_module = require("@arangodb/smart-graph");
-    var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph._addVertexCollection("pet");
+    ~var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+    ~graph._addVertexCollection("shop");
+    ~graph._addVertexCollection("customer");
+    ~graph._addVertexCollection("pet");
     var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
     graph._extendEdgeDefinitions(rel);
     graph;
