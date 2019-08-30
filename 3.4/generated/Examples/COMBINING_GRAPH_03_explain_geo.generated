@@ -11,7 +11,7 @@
   <span class="hljs-string">"radius"</span>: <span class="hljs-number">400000</span>
 }
 @R
-Query String:
+Query String (119 chars, cacheable: true):
    FOR startCity IN germanCity
      FILTER GEO_DISTANCE(@bonn, startCity.geometry) &lt; @radius
        RETURN startCity._key

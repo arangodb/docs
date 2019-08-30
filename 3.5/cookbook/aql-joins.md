@@ -1,6 +1,7 @@
 ---
 layout: default
-description: I want to join documents from collections in an AQL query
+description: Query examples for joining documents with one-to-many and many-to-many relationships
+title: Joins in AQL
 ---
 Using Joins in AQL
 ==================
@@ -10,7 +11,8 @@ Problem
 
 I want to join documents from collections in an AQL query.
 
-- One-to-Many: I have a collection users and a collection cities. A user lives in a city and I need the city information during the query.
+- One-to-Many: I have a collection users and a collection cities. A user lives
+  in a city and I need the city information during the query.
 
 - Many-To-Many: I have a collection authors and books. An author can write many
   books and a book can have many authors. I want to return a list of books with
@@ -51,8 +53,11 @@ impractical to change each and every user document if this numbers
 changes. Therefore it is good idea to hold the city information in a separate
 collection.
 
-```json
+```js
 arangosh> db.cities.document("cities/2241300989");
+```
+
+```json
 { 
   "population" : 1000, 
   "name" : "Metropolis", 
@@ -65,8 +70,11 @@ arangosh> db.cities.document("cities/2241300989");
 Now you instead of embedding the city directly in the user document, you can use
 the key of the city.
 
-```json
+```js
 arangosh> db.users.document("users/2290649597");
+```
+
+```json
 { 
   "name" : { 
     "first" : "John", 
@@ -81,12 +89,15 @@ arangosh> db.users.document("users/2290649597");
 
 We can now join these two collections very easily.
 
-```json
+```js
 arangosh> db._query(
 ........>"FOR u IN users " + 
 ........>"  FOR c IN cities " + 
 ........>"    FILTER u.city == c._id RETURN { user: u, city: c }"
 ........>).toArray()
+```
+
+```json
 [ 
   { 
     "user" : { 
@@ -118,12 +129,15 @@ single document would be returned, where the city information is embedded in the
 user document - as in the simple example above.  With AQL there you do not need
 to forgo this simplification.
 
-```json
+```js
 arangosh> db._query(
 ........>"FOR u IN users " + 
 ........>"  FOR c IN cities " + 
 ........>"    FILTER u.city == c._id RETURN merge(u, {city: c})"
 ........>).toArray()
+```
+
+```json
 [ 
   { 
     "_id" : "users/2290649597", 
@@ -163,8 +177,11 @@ If you want to store more information, for example which author wrote which page
 
 If you only want to store the authors of a book, you can embed them as list in the book document.  There is no need for a separate collection.
 
-```json
+```js
 arangosh> db.authors.toArray()
+```
+
+```json
 [ 
   { 
     "_id" : "authors/2661190141", 
@@ -189,8 +206,11 @@ arangosh> db.authors.toArray()
 
 You can query books
 
-```json
+```js
 arangosh> db._query("FOR b IN books RETURN b").toArray();
+```
+
+```json
 [ 
   { 
     "_id" : "books/2681506301", 
@@ -207,13 +227,16 @@ arangosh> db._query("FOR b IN books RETURN b").toArray();
 
 and join the authors in a very similar manner given in the one-to-many section.
 
-```json
+```js
 arangosh> db._query(
 ........>"FOR b IN books " +
 ........>"  LET a = (FOR x IN b.authors " + 
 ........>"             FOR a IN authors FILTER x == a._id RETURN a) " +
 ........>"   RETURN { book: b, authors: a }"
 ........>).toArray();
+```
+
+```json
 [ 
   { 
     "book" : { 
@@ -250,15 +273,18 @@ arangosh> db._query(
 ]
 ```
 
-or embed the authors directly
+… or embed the authors directly:
 
-```json
+```js
 arangosh> db._query(
 ........>"FOR b IN books LET a = (" + 
 ........>"     FOR x IN b.authors " + 
 ........>"        FOR a IN authors FILTER x == a._id RETURN a)" +
 ........>"  RETURN merge(b, { authors: a })"
 ........>).toArray();
+```
+
+```json
 [ 
   { 
     "_id" : "books/2681506301", 
@@ -300,19 +326,32 @@ as well. This information can be stored in the edge document.
 
 First create the users
 
-```json
+```js
 arangosh> db._create("authors");
-[ArangoCollection 2926807549, "authors" (type document, status loaded)]
+```
 
+```
+[ArangoCollection 2926807549, "authors" (type document, status loaded)]
+```
+
+```js
 arangosh> db.authors.save({ name: { first: "John", last: "Doe" } })
+```
+
+```json
 { 
   "error" : false, 
   "_id" : "authors/2935261693", 
   "_rev" : "2935261693", 
   "_key" : "2935261693" 
 }
+```
 
+```js
 arangosh> db.authors.save({ name: { first: "Maxima", last: "Musterfrau" } })
+```
+
+```json
 { 
   "error" : false, 
   "_id" : "authors/2938210813", 
@@ -323,11 +362,19 @@ arangosh> db.authors.save({ name: { first: "Maxima", last: "Musterfrau" } })
 
 Now create the books without any author information.
 
-```json
+```js
 arangosh> db._create("books");
-[ArangoCollection 2928380413, "books" (type document, status loaded)]
+```
 
+```
+[ArangoCollection 2928380413, "books" (type document, status loaded)]
+```
+
+```js
 arangosh> db.books.save({ title: "The beauty of JOINS" });
+```
+
+```json
 { 
   "error" : false, 
   "_id" : "books/2980088317", 
@@ -338,23 +385,36 @@ arangosh> db.books.save({ title: "The beauty of JOINS" });
 
 An edge collection is now used to link authors and books.
 
-```json
+```js
 arangosh> db._createEdgeCollection("written");
-[ArangoCollection 2931132925, "written" (type edge, status loaded)]
+```
 
+```
+[ArangoCollection 2931132925, "written" (type edge, status loaded)]
+```
+
+```js
 arangosh> db.written.save("authors/2935261693",
 ........>"books/2980088317",
 ........>{ pages: "1-10" })
+```
+
+```json
 { 
   "error" : false, 
   "_id" : "written/3006237181", 
   "_rev" : "3006237181", 
   "_key" : "3006237181" 
 }
+```
 
+```js
 arangosh> db.written.save("authors/2938210813",
 ........>"books/2980088317",
 ........>{ pages: "11-20" })
+```
+
+```json
 { 
   "error" : false, 
   "_id" : "written/3012856317", 
@@ -363,10 +423,10 @@ arangosh> db.written.save("authors/2938210813",
 }
 ```
 
-In order to get all books with their authors you can use a [graph
-traversal](../aql/graphs-traversals.html#working-with-collection-sets)
+In order to get all books with their authors you can use a
+[graph traversal](../aql/graphs-traversals.html#working-with-collection-sets)
 
-```json
+```js
 arangosh> db._query(
 ...> "FOR b IN books " +
 ...> "LET authorsByBook = ( " +
@@ -381,6 +441,9 @@ arangosh> db._query(
 ...> "    authors: authorsByBook " +
 ...> "} "
 ...> ).toArray();
+```
+
+```json
 [
   {
     "book" : {
@@ -435,7 +498,7 @@ arangosh> db._query(
 
 Or if you want only the information stored in the vertices.
 
-```json
+```js
 arangosh> db._query(
 ...> "FOR b IN books " +
 ...> "LET authorsByBook = ( " +
@@ -451,6 +514,9 @@ arangosh> db._query(
 ...> "    authors: authorsByBook " +
 ...> "} "
 ...> ).toArray();
+```
+
+```json
 [
   {
     "book" : {
@@ -485,7 +551,7 @@ arangosh> db._query(
 
 Or again embed the authors directly into the book document.
 
-```json
+```js
 arangosh> db._query(
 ...> "FOR b IN books " +
 ...> "LET authors = ( " +
@@ -498,6 +564,9 @@ arangosh> db._query(
 ...> ") " +
 ...> "RETURN MERGE(b, {authors: authors}) "
 ...> ).toArray();
+```
+
+```json
 [
   {
     "_id" : "books/2980088317",
@@ -530,7 +599,7 @@ arangosh> db._query(
 
 If you need the authors and their books, simply reverse the direction.
 
-```json
+```js
 > db._query(
 ...> "FOR a IN authors " +
 ...> "LET booksByAuthor = ( " +
@@ -543,6 +612,9 @@ If you need the authors and their books, simply reverse the direction.
 ...> ") " +
 ...> "RETURN MERGE(a, {books: booksByAuthor}) "
 ...> ).toArray();
+```
+
+```json
 [
   {
     "_id" : "authors/2935261693",

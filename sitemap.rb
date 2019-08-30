@@ -19,7 +19,8 @@ f = File.open('_site/sitemap.xml', 'w')
 f.write('<?xml version="1.0" encoding="UTF-8"?>' + "\n")
 f.write('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + "\n")
 
-Dir.glob("#{dir}/**/*.html").each do |file|
+Dir.glob("#{dir}/**/*.html").sort_by{ |name| name }.each do |file|
+    next if File.size(file) < 2048 # Redirect pages are ~1KB, others >16KB
     path = file.gsub(Regexp.new("^#{Regexp.quote(dir)}"), 'stable')
     f.write("<url><loc>#{baseurl}/#{path}</loc></url>\n")
 end
