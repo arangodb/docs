@@ -450,6 +450,23 @@
     "section" : "cluster",
     "type" : "double"
   },
+  "cluster.synchronous-replication-timeout-minimum" : {
+    "category" : "option",
+    "default" : 30,
+    "deprecatedIn" : null,
+    "description" : "all synchronous replication timeouts will be at least this value (in seconds)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.1",
+      "v3.4.8"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "cluster",
+    "type" : "double"
+  },
   "cluster.synchronous-replication-timeout-per-4k" : {
     "category" : "option",
     "default" : 0.1,
