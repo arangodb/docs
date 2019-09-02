@@ -88,7 +88,7 @@ hot backup the following is done:
   all locks are released again to allow writes to continue. If it is not
   possible to acquire all local locks in the same period, and this continues
   for an extended, configurable amount of time, the coordinator gives
-  up. With the `forceBackup` option set to `true`, it proceeds instead
+  up. With the `allowInconsistent` option set to `true`, it proceeds instead
   to create a potentially non-consistent hot backup.
 - **On each database server** create a new local directory under
   `<data-dir>/backups/<timestamp>_<backup-label>`.

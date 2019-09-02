@@ -43,9 +43,9 @@ acquisition of the global write transaction lock. One is that one can
 configure how long the system tries to get the global write transaction
 lock before it reports failure. This is the `--max-wait-for-lock`
 option. Its value must be a number in seconds and the default is 120
-seconds. The second is the `--force` option, whose default is `false`.
+seconds. The second is the `--allow-inconsistent` option, whose default is `false`.
 If set to `false`, the operation is considered to have failed if the
-maximal waiting time for the lock is exceeded. If `--force` is set to
+maximal waiting time for the lock is exceeded. If `--allow-inconsistent` is set to
 `true`, the system will take a potentially non-consistent hot backup when
 the timeout is exceeded.
 
