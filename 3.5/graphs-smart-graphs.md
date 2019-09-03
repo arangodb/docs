@@ -96,7 +96,7 @@ required and cannot be modified later.
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo1_cluster}
     var graph_module = require("@arangodb/smart-graph");
     var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph;
+    graph_module._graph("myGraph");
     ~graph_module._drop("myGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo1_cluster
@@ -118,7 +118,7 @@ these collections correctly.
     graph._addVertexCollection("shop");
     graph._addVertexCollection("customer");
     graph._addVertexCollection("pet");
-    graph;
+    graph_module._graph("myGraph");
     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo2_cluster
@@ -141,7 +141,7 @@ so they must not exist when creating the SmartGraph.
     ~graph._addVertexCollection("pet");
     var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
     graph._extendEdgeDefinitions(rel);
-    graph;
+    graph_module._graph("myGraph");
     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo3_cluster
