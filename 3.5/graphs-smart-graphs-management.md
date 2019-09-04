@@ -77,10 +77,10 @@ Create an empty graph, edge definitions can be added at runtime:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreate1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreate1_cluster}
-    var graph_module = require("@arangodb/smart-graph");
-    var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph_module._graph("myGraph");
-    ~graph_module._drop("myGraph", true);
+      var graph_module = require("@arangodb/smart-graph");
+      var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreate1_cluster
 {% endarangoshexample %}
@@ -92,11 +92,11 @@ Create a graph using an edge collection `edges` and a single vertex collection
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreate2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreate2_cluster}
-    var graph_module = require("@arangodb/smart-graph");
-    var edgeDefinitions = [ graph_module._relation("edges", "vertices", "vertices") ];
-    var graph = graph_module._create("myGraph", edgeDefinitions, [], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph_module._graph("myGraph");
-    ~graph_module._drop("myGraph", true);
+      var graph_module = require("@arangodb/smart-graph");
+      var edgeDefinitions = [ graph_module._relation("edges", "vertices", "vertices") ];
+      var graph = graph_module._create("myGraph", edgeDefinitions, [], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreate2_cluster
 {% endarangoshexample %}
@@ -107,11 +107,11 @@ Create a graph with edge definitions and orphan collections:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreate3_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreate3_cluster}
-    var graph_module = require("@arangodb/smart-graph");
-    var edgeDefinitions = [ graph_module._relation("myRelation", ["male", "female"], ["male", "female"]) ];
-    var graph = graph_module._create("myGraph", edgeDefinitions, ["sessions"], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph_module._graph("myGraph");
-    ~graph_module._drop("myGraph", true);
+      var graph_module = require("@arangodb/smart-graph");
+      var edgeDefinitions = [ graph_module._relation("myRelation", ["male", "female"], ["male", "female"]) ];
+      var graph = graph_module._create("myGraph", edgeDefinitions, ["sessions"], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreate3_cluster
 {% endarangoshexample %}
@@ -157,11 +157,11 @@ get rid of the data.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphModify1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify1_cluster}
-    var graph_module = require("@arangodb/smart-graph")
-    var relation = graph_module._relation("edges", "vertices", "vertices");
-    var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph._orphanCollections();
-    ~graph_module._drop("myGraph", true);
+      var graph_module = require("@arangodb/smart-graph")
+      var relation = graph_module._relation("edges", "vertices", "vertices");
+      var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph._orphanCollections();
+     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify1_cluster
 {% endarangoshexample %}
@@ -170,12 +170,12 @@ get rid of the data.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphModify2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify2_cluster}
-    ~var graph_module = require("@arangodb/smart-graph")
-    ~var relation = graph_module._relation("edges", "vertices", "vertices");
-    ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph._removeVertexCollection("other", true);
-    graph_module._graph("myGraph");
-    ~graph_module._drop("myGraph", true);
+     ~var graph_module = require("@arangodb/smart-graph")
+     ~var relation = graph_module._relation("edges", "vertices", "vertices");
+     ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph._removeVertexCollection("other", true);
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify2_cluster
 {% endarangoshexample %}
@@ -184,11 +184,11 @@ get rid of the data.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphModify3_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify3_cluster}
-    ~var graph_module = require("@arangodb/smart-graph")
-    ~var relation = graph_module._relation("edges", "vertices", "vertices");
-    ~var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
-    try { graph._removeVertexCollection("vertices") } catch(e) { e };
-    ~graph_module._drop("myGraph", true);
+     ~var graph_module = require("@arangodb/smart-graph")
+     ~var relation = graph_module._relation("edges", "vertices", "vertices");
+     ~var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
+      try { graph._removeVertexCollection("vertices") } catch(e) { e };
+     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify3_cluster
 {% endarangoshexample %}
@@ -211,13 +211,13 @@ Delete an edge definition from the graph:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphModify4_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify4_cluster}
-    var graph_module = require("@arangodb/smart-graph")
-    var relation = graph_module._relation("edges", "vertices", "vertices");
-    var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph._deleteEdgeDefinition("edges");
-    graph_module._graph("myGraph");
-    ~graph_module._drop("myGraph", true);
-    ~db._drop("edges");
+      var graph_module = require("@arangodb/smart-graph")
+      var relation = graph_module._relation("edges", "vertices", "vertices");
+      var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph._deleteEdgeDefinition("edges");
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph", true);
+     ~db._drop("edges");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify4_cluster
 {% endarangoshexample %}
@@ -229,13 +229,13 @@ initial vertex collection `vertices`:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphModify5_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify5_cluster}
-    ~var graph_module = require("@arangodb/smart-graph")
-    ~var relation = graph_module._relation("edges", "vertices", "vertices");
-    ~var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
-    ~graph._deleteEdgeDefinition("edges");
-    try { graph._removeVertexCollection("vertices") } catch(e) { e };
-    ~graph_module._drop("myGraph", true);
-    ~db._drop("edges");
+     ~var graph_module = require("@arangodb/smart-graph")
+     ~var relation = graph_module._relation("edges", "vertices", "vertices");
+     ~var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
+     ~graph._deleteEdgeDefinition("edges");
+      try { graph._removeVertexCollection("vertices") } catch(e) { e };
+     ~graph_module._drop("myGraph", true);
+     ~db._drop("edges");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify5_cluster
 {% endarangoshexample %}
@@ -257,10 +257,10 @@ Remove a SmartGraph:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphRemove1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphRemove1_cluster}
-    ~var graph_module = require("@arangodb/smart-graph")
-    ~var relation = graph_module._relation("edges", "vertices", "vertices");
-    ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph_module._drop("myGraph", true);
+     ~var graph_module = require("@arangodb/smart-graph")
+     ~var relation = graph_module._relation("edges", "vertices", "vertices");
+     ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphRemove1_cluster
 {% endarangoshexample %}
@@ -276,13 +276,13 @@ collections first.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphRemove2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphRemove2_cluster}
-    ~var graph_module = require("@arangodb/smart-graph")
-    ~var relation = graph_module._relation("edges", "vertices", "vertices");
-    ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph._removeVertexCollection("other");
-    try { graph_module._drop("myGraph", true) } catch(e) { e };
-    ~db._drop("other");
-    ~graph_module._drop("myGraph", true)
+     ~var graph_module = require("@arangodb/smart-graph")
+     ~var relation = graph_module._relation("edges", "vertices", "vertices");
+     ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph._removeVertexCollection("other");
+      try { graph_module._drop("myGraph", true) } catch(e) { e };
+     ~db._drop("other");
+     ~graph_module._drop("myGraph", true)
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphRemove2_cluster
 {% endarangoshexample %}
