@@ -94,16 +94,16 @@ required and cannot be modified later.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreateGraphHowTo1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo1_cluster}
-    var graph_module = require("@arangodb/smart-graph");
-    var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph_module._graph("myGraph");
-    ~graph_module._drop("myGraph");
+      var graph_module = require("@arangodb/smart-graph");
+      var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo1_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-**Add some vertex collections**
+**Add vertex collections**
 
 This is analogous to General Graphs. Unlike with General Graphs, the
 **collections must not exist** when creating the SmartGraph. The SmartGraph
@@ -113,13 +113,13 @@ these collections correctly.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreateGraphHowTo2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo2_cluster}
-    ~var graph_module = require("@arangodb/smart-graph");
-    ~var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph._addVertexCollection("shop");
-    graph._addVertexCollection("customer");
-    graph._addVertexCollection("pet");
-    graph_module._graph("myGraph");
-    ~graph_module._drop("myGraph", true);
+     ~var graph_module = require("@arangodb/smart-graph");
+     ~var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph._addVertexCollection("shop");
+      graph._addVertexCollection("customer");
+      graph._addVertexCollection("pet");
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo2_cluster
 {% endarangoshexample %}
@@ -134,15 +134,15 @@ so they must not exist when creating the SmartGraph.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreateGraphHowTo3_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo3_cluster}
-    ~var graph_module = require("@arangodb/smart-graph");
-    ~var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-    ~graph._addVertexCollection("shop");
-    ~graph._addVertexCollection("customer");
-    ~graph._addVertexCollection("pet");
-    var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
-    graph._extendEdgeDefinitions(rel);
-    graph_module._graph("myGraph");
-    ~graph_module._drop("myGraph", true);
+     ~var graph_module = require("@arangodb/smart-graph");
+     ~var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+     ~graph._addVertexCollection("shop");
+     ~graph._addVertexCollection("customer");
+     ~graph._addVertexCollection("pet");
+      var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
+      graph._extendEdgeDefinitions(rel);
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo3_cluster
 {% endarangoshexample %}
