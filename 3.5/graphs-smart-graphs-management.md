@@ -173,10 +173,9 @@ get rid of the data.
     ~var graph_module = require("@arangodb/smart-graph")
     ~var relation = graph_module._relation("edges", "vertices", "vertices");
     ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph._removeVertexCollection("other");
+    graph._removeVertexCollection("other", true);
     graph_module._graph("myGraph");
     ~graph_module._drop("myGraph", true);
-    ~db._drop("other");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify2_cluster
 {% endarangoshexample %}
@@ -239,5 +238,52 @@ initial vertex collection `vertices`:
     ~db._drop("edges");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify5_cluster
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+### Remove a Graph
+
+Remove a SmartGraph:
+
+`graph_module._drop(graphName, dropCollections)`
+
+- `graphName` (string):
+  Name of the Graph.
+- `dropCollections` (bool, _optional_):
+  Define if collections should be dropped. Default: false.
+
+**Examples**
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline smartGraphRemove1_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphRemove1_cluster}
+    ~var graph_module = require("@arangodb/smart-graph")
+    ~var relation = graph_module._relation("edges", "vertices", "vertices");
+    ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
+    graph_module._drop("myGraph", true);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock smartGraphRemove1_cluster
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Note that removing a Graph with the option to drop the collections fails if
+you removed collections from the Graph but did not drop these collections.
+This is because their `distributeShardsLike` attribute still references
+collections that are part of the Graph. Dropping collections while others
+point to them in this way is not allowed. Make sure to drop the referencing
+collections first.
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline smartGraphRemove2_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphRemove2_cluster}
+    ~var graph_module = require("@arangodb/smart-graph")
+    ~var relation = graph_module._relation("edges", "vertices", "vertices");
+    ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
+    graph._removeVertexCollection("other");
+    try { graph_module._drop("myGraph", true) } catch(e) { e };
+    ~db._drop("other");
+    ~graph_module._drop("myGraph", true)
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock smartGraphRemove2_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
