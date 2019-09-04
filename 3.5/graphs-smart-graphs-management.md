@@ -176,6 +176,7 @@ get rid of the data.
     graph._removeVertexCollection("other");
     graph_module._graph("myGraph");
     ~graph_module._drop("myGraph", true);
+    ~db._drop("other");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify2_cluster
 {% endarangoshexample %}
@@ -187,7 +188,7 @@ get rid of the data.
     ~var graph_module = require("@arangodb/smart-graph")
     ~var relation = graph_module._relation("edges", "vertices", "vertices");
     ~var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
-    graph._removeVertexCollection("vertices");
+    try { graph._removeVertexCollection("vertices") } catch(e) { e };
     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify3_cluster
@@ -233,7 +234,7 @@ initial vertex collection `vertices`:
     ~var relation = graph_module._relation("edges", "vertices", "vertices");
     ~var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
     ~graph._deleteEdgeDefinition("edges");
-    graph._removeVertexCollection("vertices");
+    try { graph._removeVertexCollection("vertices") } catch(e) { e };
     ~graph_module._drop("myGraph", true);
     ~db._drop("edges");
     @END_EXAMPLE_ARANGOSH_OUTPUT
