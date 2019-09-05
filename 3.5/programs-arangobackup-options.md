@@ -5,15 +5,10 @@ description: Arangobackup Options
 Arangobackup Options
 ====================
 
-Usage: `arangobackup <verb> [<options>]`
+Usage: `arangobackup <operation> [<options>]`
 
-Verbs and their options:
+The `--operation` option can be passed as positional argument to specify the
+desired action.
 
-- `create`
-- `restore`
-- `delete`
-- `list`
-- `upload`
-- `download`
-
-<!-- TODO -->
+{% assign options = site.data["35-program-options-arangobackup"] %}
+{% include program-option.html options=options name="arangobackup" %}
