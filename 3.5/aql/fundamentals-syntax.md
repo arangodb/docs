@@ -126,13 +126,17 @@ The complete list of keywords is currently:
   <li>NONE</li>
   <li>NOT</li>
   <li>NULL</li>
+  <li>K_SHORTEST_PATHS</li>
+  <li>OPTIONS</li>
   <li>OR</li>
   <li>OUTBOUND</li>
   <li>REMOVE</li>
   <li>REPLACE</li>
   <li>RETURN</li>
+  <li>SEARCH</li>
   <li>SHORTEST_PATH</li>
   <li>SORT</li>
+  <li>TO</li>
   <li>TRUE</li>
   <li>UPDATE</li>
   <li>UPSERT</li>
