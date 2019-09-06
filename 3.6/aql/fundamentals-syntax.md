@@ -121,6 +121,8 @@ The complete list of keywords is currently:
   <li>INBOUND</li>
   <li>INSERT</li>
   <li>INTO</li>
+  <li>K_SHORTEST_PATHS</li>
+  <li>OPTIONS</li>
   <li>LET</li>
   <li>LIMIT</li>
   <li>NONE</li>
@@ -131,8 +133,10 @@ The complete list of keywords is currently:
   <li>REMOVE</li>
   <li>REPLACE</li>
   <li>RETURN</li>
+  <li>SEARCH</li>
   <li>SHORTEST_PATH</li>
   <li>SORT</li>
+  <li>TO</li>
   <li>TRUE</li>
   <li>UPDATE</li>
   <li>UPSERT</li>
