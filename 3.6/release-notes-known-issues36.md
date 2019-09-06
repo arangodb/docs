@@ -38,13 +38,6 @@ Upgrading
 | **Date Added:** 2019-05-16 <br> **Component:** arangod <br> **Deployment Mode:** All <br> **Description:** Major upgrades such as 3.3.22 to 3.4.5 fail to upgrade the database directory under CentOS. The server log suggests to use the script `/etc/init.d/arangodb` but it is not available under CentOS. Workaround: Add `database.auto-upgrade = true` to `/etc/arangodb3/arangod.conf`, restart the service, remove `database.auto-upgrade = true` from the configuration and restart the service once more. <br> **Affected Versions:** 3.x.x (CentOS only) <br> **Fixed in Versions:** - <br> **Reference:** [arangodb/release-qa#50](https://github.com/arangodb/release-qa/issues/50){:target="_blank"} (internal) |
 | **Date Added:** 2019-05-16 <br> **Component:** arangod <br> **Deployment Mode:** All <br> **Description:** Bugfix release upgrades such as 3.4.4 to 3.4.5 may not create a backup of the database directory even if they should. Please create a copy manually before upgrading. <br> **Affected Versions:** 3.4.x, 3.5.x, 3.6.x (Windows and Linux) <br> **Fixed in Versions:** - <br> **Reference:** [arangodb/planning#3745](https://github.com/arangodb/planning/issues/3745){:target="_blank"} (internal) |
 
-Stream Transactions
--------------------
-
-| Issue      |
-|------------|
-| **Date Added:** 2019-08-19 <br> **Component:** Transactions <br> **Deployment Mode:** All <br> **Description:** Stream Transactions do not support the graph operations that are initiated via the `general-graph` JavaScript module or via the REST API at `/_api/gharial`. Right now these operations will act as if no stream transaction is present. Stream transaction support for these operations will be added later. <br> **Affected Versions:** 3.5.x, 3.6.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
-
 Other
 -----
 
