@@ -133,20 +133,20 @@ Synchronous replication minimum timeout:
 
 <small>Introduced in: v3.4.8, v3.5.1</small>
 
-The minimum timeout for the internal synchronous replication mechanism between
-db servers. If replication requests are slow, but the servers are otherwise
-healthy, timeouts can cause followers to be dropped unnecessarily, resulting in
-costly resync operations. Increasing this value may help avoid such resyncs.
-Conversely, decreasing it may cause more resyncs, while lowering the latency of
-individual write operations. Please change only with intent and great care.
-Default at `30.0`.
+The minimum timeout in seconds for the internal synchronous replication
+mechanism between DBServers. If replication requests are slow, but the servers
+are otherwise healthy, timeouts can cause followers to be dropped
+unnecessarily, resulting in costly resync operations. Increasing this value may
+help avoid such resyncs. Conversely, decreasing it may cause more resyncs,
+while lowering the latency of individual write operations. Please change only
+with intent and great care. Default at `30.0` seconds.
 
 Synchronous replication timeout scaling:
 
 `--cluster.synchronous-replication-timeout-factor <double>`
 
 Stretch or clinch timeouts for internal synchronous replication
-mechanism between db servers. All such timeouts are affected by this
+mechanism between DBServers. All such timeouts are affected by this
 change. Please change only with intent and great care. Default at `1.0`.
 
 System replication factor:
