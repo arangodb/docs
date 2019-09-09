@@ -51,6 +51,7 @@ _DBServers_).
 {% hint 'warning' %}
 It is extremely important that physical backups are taken only after all the ArangoDB
 processes have been shut down and the processes are not running anymore.
+Otherwise files might still be written to, likely resulting in a corrupt and incomplete backup.
 {% endhint %}
 
 It is not always possible to take a physical backup as this method requires a shutdown
