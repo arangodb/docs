@@ -54,7 +54,7 @@ processes have been shut down and the processes are not running anymore.
 {% endhint %}
 
 It is not always possible to take a physical backup as this method requires a shutdown
-of the ArangoDB processes. Howerver in some occasions such backups are useful, often
+of the ArangoDB processes. However in some occasions such backups are useful, often
 in conjunction to the backup coming from another backup method.
 
 Logical Backups
