@@ -1,12 +1,14 @@
 ---
 layout: default
-description: This feature is only available in theEnterprise Edition
+description: Securing physical storage media, available in the Enterprise Edition
+title: Encryption at Rest
 ---
-# Encryption at Rest 
+# Encryption at Rest
 
 {% hint 'info' %}
 This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 When you store sensitive data in your ArangoDB database, you want 

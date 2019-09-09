@@ -1,17 +1,18 @@
 ---
 layout: default
-description: This feature is only available in theEnterprise Edition
+description: Datacenter to datacenter replication monitoring
+title: DC2DC Replication Monitoring
 ---
-
 # Monitoring datacenter to datacenter replication
 
 {% hint 'info' %}
 This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
-This section includes information related to the monitoring of the _datacenter
-to datacenter replication_.
+This section includes information related to the monitoring of the
+_datacenter to datacenter replication_.
 
 For a general introduction to the _datacenter to datacenter replication_, please
 refer to the [Datacenter to datacenter replication](architecture-deployment-modes-dc2-dc.html)

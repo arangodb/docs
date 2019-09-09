@@ -1,13 +1,14 @@
 ---
 layout: default
-description: This feature is only available in theEnterprise Edition
+description: How to administrate datacenter to datacenter replication
+title: Administrating DC2DC Replication
 ---
-
 # Datacenter to datacenter replication administration
 
 {% hint 'info' %}
 This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 This Section includes information related to the administration of the _datacenter
