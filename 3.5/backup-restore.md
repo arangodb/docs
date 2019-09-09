@@ -13,18 +13,11 @@ TODO:
 - Cluster
 {% endcomment %}
 
-Regular Backups
----------------
+ArangoDB supports three backup methods:
 
-Backups can be created and restore with the tools
-[_arangodump_](programs-arangodump.html) and
-[_arangorestore_](programs-arangorestore.html).
-
-{% hint 'tip' %}
-In order to speed up the _arangorestore_ performance in a Cluster environment,
-the [Fast Cluster Restore](programs-arangorestore-fast-cluster-restore.html)
-procedure is recommended.
-{% endhint %}
+1. Physical (raw or "cold") backups
+2. Logical backups
+3. Hot backups
 
 Performing frequent backups is important and a recommended best practices that
 can allow you to recover your data in case unexpected problems occur.
@@ -43,8 +36,46 @@ Cluster or data-center to data-center replication, does not remove the need of
 taking frequent backups, which are recommended also when using such deployment modes.
 {% endhint %}
 
+Physical backups
+--------------------------------
+
+Physical (raw or "cold") backups can be done when the ArangoDB Server is not running
+by making a raw copy of the ArangoDB data directory.
+
+Such backups are extremely fast as they involve only a file copy.
+
+If ArangoDB is running in Active Failover or Cluster mode, it will be necessary
+to copy the data directories of all the involved processes (_Agents_, _Coordinators_ and
+_DBServers_).
+
+{% hint 'warning' %}
+It is extremely important that physical backups are taken only after all the ArangoDB
+processes have been shut down and the processes are not running anymore.
+Otherwise files might still be written to, likely resulting in a corrupt and incomplete backup.
+{% endhint %}
+
+It is not always possible to take a physical backup as this method requires a shutdown
+of the ArangoDB processes. However in some occasions such backups are useful, often
+in conjunction to the backup coming from another backup method.
+
+Logical Backups
+---------------
+
+Logical backups can be created and restored with the tools
+[_arangodump_](programs-arangodump.html) and
+[_arangorestore_](programs-arangorestore.html).
+
+{% hint 'tip' %}
+In order to speed up the _arangorestore_ performance in a Cluster environment,
+the [Fast Cluster Restore](programs-arangorestore-fast-cluster-restore.html)
+procedure is recommended.
+{% endhint %}
+
+
 Hot Backups
 -----------
+
+<small>Introduced in: v3.5.1</small>
 
 Hot backup and restore associated operations can be performed with the
 [_arangobackup_](programs-arangobackup.html) client tool.
