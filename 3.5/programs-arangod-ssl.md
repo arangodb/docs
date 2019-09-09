@@ -96,7 +96,7 @@ following variants are available:
 - 3: SSLv3
 - 4: TLSv1
 - 5: TLSv1.2
-- 6: TLSv1.3
+- 6: TLSv1.3 (introduced in: v3.5.1)
 
 The default *value* is 5 (TLSv1.2).
 
