@@ -6,12 +6,14 @@ title: Arangobackup Client Tool
 Arangobackup
 ============
 
+<small>Introduced in: v3.4.9, v3.5.1</small>
+
 {% hint 'info' %}
 Arangobackup is only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
 Use [_arangodump_](programs-arangodump.html) and
 [_arangorestore_](programs-arangorestore.html) for
-[regular backups](backup-restore.html#regular-backups)
+[logical backups](backup-restore.html#logical-backups)
 in the Community Edition.
 {% endhint %}
 
