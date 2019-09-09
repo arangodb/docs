@@ -36,7 +36,7 @@ Cluster or data-center to data-center replication, does not remove the need of
 taking frequent backups, which are recommended also when using such deployment modes.
 {% endhint %}
 
-Physical (raw or "cold") backups
+Physical backups
 --------------------------------
 
 Physical (raw or "cold") backups can be done when the ArangoDB Server is not running
