@@ -6,7 +6,7 @@ title: Arangobackup Client Tool
 Arangobackup
 ============
 
-<small>Introduced in: v3.4.9, v3.5.1</small>
+<small>Introduced in: v3.5.1</small>
 
 {% hint 'info' %}
 Arangobackup is only available in the
