@@ -40,7 +40,7 @@ Physical backups
 --------------------------------
 
 Physical (raw or "cold") backups can be done when the ArangoDB Server is not running
-and consist of a raw copy of the ArangoDB data directory.
+by making a raw copy of the ArangoDB data directory.
 
 Such backups are extremely fast as they involve only a file copy.
 
