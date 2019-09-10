@@ -9,7 +9,7 @@ HTTP Interface for Hot Backup and Restore
 This is an introduction to ArangoDB's HTTP interface for hot backup and restore.
 
 {% hint 'info' %}
-This feature is only available in the
+Hot Backup is only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
 {% endhint %}
 
