@@ -1,11 +1,17 @@
 ---
 layout: default
 description: This is an introduction to ArangoDB's HTTP interface for hot backup and restore
+title: Hot Backup HTTP API
 ---
-HTTP Interface for hot backup and restore
+HTTP Interface for Hot Backup and Restore
 =========================================
 
 This is an introduction to ArangoDB's HTTP interface for hot backup and restore.
+
+{% hint 'info' %}
+This feature is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+{% endhint %}
 
 Hot Backups
 ===========
@@ -27,34 +33,14 @@ most of all the [requirements and limitations](../programs-arangobackup-limitati
 before using the API.
 {% endhint %}
 
-Create
-------
-
 {% docublock post_admin_backup_create %}
-
-Restore
--------
 
 {% docublock post_admin_backup_restore %}
 
-Delete
-------
-
 {% docublock post_admin_backup_delete %}
-
-List
-----
 
 {% docublock post_admin_backup_list %}
 
-Upload
-------
-
 {% docublock post_admin_backup_upload %}
 
-Download
---------
-
 {% docublock post_admin_backup_download %}
-
-

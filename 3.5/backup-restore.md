@@ -6,13 +6,6 @@ title: Backup & Restore
 Backup and Restore
 ==================
 
-{%- comment %}
-TODO:
-- Introduction to topic
-- Offline dumps
-- Cluster
-{% endcomment %}
-
 ArangoDB supports three backup methods:
 
 1. Physical (raw or "cold") backups
@@ -37,7 +30,7 @@ taking frequent backups, which are recommended also when using such deployment m
 {% endhint %}
 
 Physical backups
---------------------------------
+----------------
 
 Physical (raw or "cold") backups can be done when the ArangoDB Server is not running
 by making a raw copy of the ArangoDB data directory.
@@ -70,7 +63,6 @@ In order to speed up the _arangorestore_ performance in a Cluster environment,
 the [Fast Cluster Restore](programs-arangorestore-fast-cluster-restore.html)
 procedure is recommended.
 {% endhint %}
-
 
 Hot Backups
 -----------

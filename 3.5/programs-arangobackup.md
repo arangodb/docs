@@ -13,8 +13,7 @@ Arangobackup is only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
 Use [_arangodump_](programs-arangodump.html) and
 [_arangorestore_](programs-arangorestore.html) for
-[logical backups](backup-restore.html#logical-backups)
-in the Community Edition.
+[logical backups](backup-restore.html#logical-backups) in the Community Edition.
 {% endhint %}
 
 _Arangobackup_ is a command-line client tool for instantaneous and
