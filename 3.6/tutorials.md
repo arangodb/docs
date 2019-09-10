@@ -48,6 +48,9 @@ Deployment & Administration
 - [Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}:
   Concepts, maintenance, resilience and troubleshooting
 
+- [ArangoDB Oasis](https://www.arangodb.com/managed-service/){:target="_blank"}
+  (managed service)
+
 Graphs
 ------
 
