@@ -11,7 +11,7 @@ SmartJoins
 <small>Introduced in: v3.4.5, v3.5.0</small>
 
 {% hint 'info' %}
-This feature is only available in the
+SmartJoins are only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
 also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}

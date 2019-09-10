@@ -10,7 +10,7 @@ an ArangoDB datacenter to datacenter replication between two ArangoDB
 clusters running in Kubernetes.
 
 {% hint 'info' %}
-This feature is only available in the
+Datacenter to datacenter replication is only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
 also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}

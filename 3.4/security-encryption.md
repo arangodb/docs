@@ -6,7 +6,7 @@ title: Encryption at Rest
 # Encryption at Rest
 
 {% hint 'info' %}
-This feature is only available in the
+Encryption at rest is only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
 also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
