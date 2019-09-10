@@ -1,12 +1,12 @@
 ---
 layout: default
-description: Starting an ArangoDB cluster involves starting various servers with different roles (agents, dbservers & coordinators)
+description: Starting an ArangoDB cluster involves starting various servers with different roles (Agents, DBServers & Coordinators)
+title: ArangoDB Starter Tutorial
 ---
-
 # Starting an ArangoDB cluster or database the easy way
 
 Starting an ArangoDB cluster involves starting various servers with
-different roles (agents, dbservers & coordinators).
+different roles (_Agents_, _DBServers_ and _Coordinators_).
 
 The ArangoDB Starter is designed to make it easy to start and
 maintain an ArangoDB cluster or single server database.
@@ -14,6 +14,11 @@ maintain an ArangoDB cluster or single server database.
 Besides starting and maintaining ArangoDB deployments, the starter also provides
 various commands to create TLS certificates & JWT token secrets to secure your
 ArangoDB deployment.
+
+{% hint 'info %}
+ArangoDB is also available as
+[**managed service** (ArangoDB Oasis)](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
 
 ## Installation
 

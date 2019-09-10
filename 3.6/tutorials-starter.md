@@ -15,6 +15,11 @@ Besides starting and maintaining ArangoDB deployments, the starter also provides
 various commands to create TLS certificates & JWT token secrets to secure your
 ArangoDB deployment.
 
+{% hint 'info %}
+ArangoDB is also available as
+[**managed service** (ArangoDB Oasis)](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
+
 ## Installation
 
 The ArangoDB starter (`arangodb`) comes with all current distributions of ArangoDB.
