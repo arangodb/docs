@@ -11,7 +11,7 @@ This feature is only available in the
 also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
-This Section includes information related to the administration of the _datacenter
+This section includes information related to the administration of the _datacenter
 to datacenter replication_.
 
 For a general introduction to the _datacenter to datacenter replication_, please

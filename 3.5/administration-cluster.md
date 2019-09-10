@@ -5,7 +5,7 @@ description: ArangoDB Cluster Administration
 Cluster Administration
 ======================
 
-This _Section_ includes information related to the administration of an ArangoDB Cluster.
+This section includes information related to the administration of an ArangoDB Cluster.
 
 For a general introduction to the ArangoDB Cluster, please refer to the
 [Cluster](architecture-deployment-modes-cluster.html) chapter.
