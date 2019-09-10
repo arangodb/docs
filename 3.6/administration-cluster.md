@@ -15,7 +15,7 @@ There is also a detailed
 for download.
 
 Clusters can be deployed easily using the
-[managed service](https://www.arangodb.com/managed-service/){:target="_blank"}
+[managed service ArangoDB Oasis](https://www.arangodb.com/managed-service/){:target="_blank"}
 with full hosting, management, and monitoring.
 
 Please check the following talks as well:
