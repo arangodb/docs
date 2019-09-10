@@ -294,8 +294,7 @@ database. All changes to the access levels must be done using the
 
 {% hint 'info' %}
 This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
 {% endhint %}
 
 ArangoDB supports LDAP as an external authentication system. For detailed
