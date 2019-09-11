@@ -1,11 +1,11 @@
 ---
 layout: default
-description: This Chapter introduces ArangoDB's Master/Slave environment
+description: This chapter introduces ArangoDB's Master/Slave environment
 ---
 Master/Slave
 ============
 
-This _Chapter_ introduces ArangoDB's _Master/Slave_ environment.
+This chapter introduces ArangoDB's _Master/Slave_ environment.
 
 **Sections:**
 
