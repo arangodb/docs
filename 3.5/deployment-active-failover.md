@@ -1,11 +1,11 @@
 ---
 layout: default
-description: This Section describes how to deploy an Active Failover environment
+description: This section describes how to deploy an Active Failover environment
 ---
 Active Failover Deployment
 ==========================
 
-This _Section_ describes how to deploy an _Active Failover_ environment.
+This section describes how to deploy an _Active Failover_ environment.
 
 For a general introduction to _Active Failover_, please refer to the
 [Active Failover](architecture-deployment-modes-active-failover.html) chapter.

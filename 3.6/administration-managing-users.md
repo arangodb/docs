@@ -293,8 +293,9 @@ database. All changes to the access levels must be done using the
 ### LDAP Users
 
 {% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+LDAP authentication is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 ArangoDB supports LDAP as an external authentication system. For detailed
@@ -311,4 +312,3 @@ To grant access for an LDAP user you will need to create *roles* within the Aran
 is just a user with the __":role:"__ prefix in its name. Role users cannot login as database users, the ":role:" prefix ensures this.
 Your LDAP users will need to have at least one role, once the user logs in he will be automatically granted the union of
 all access rights of all his roles. Note that a lower right grant in one role will be overwritten by a higher access grant in a different role.
-

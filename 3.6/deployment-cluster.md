@@ -1,14 +1,19 @@
 ---
 layout: default
-description: This Chapter describes how to deploy an ArangoDB Cluster
+description: This chapter describes how to deploy an ArangoDB Cluster
 ---
 Cluster Deployment
 ==================
 
-This _Chapter_ describes how to deploy an _ArangoDB Cluster_.
+This chapter describes how to deploy an _ArangoDB Cluster_.
 
 For a general introduction to the _ArangoDB Cluster_, please refer to the
 [Cluster](architecture-deployment-modes-cluster.html) chapter.
+
+{% hint 'info %}
+ArangoDB is also available as
+[**managed service** (ArangoDB Oasis)](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
 
 - [Preliminary Information](deployment-cluster-preliminary-information.html)
 - [Using the ArangoDB Starter](deployment-cluster-using-the-starter.html)
