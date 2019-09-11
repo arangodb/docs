@@ -9,7 +9,7 @@ Introduction to TTL (time-to-live) Indexes
 ------------------------------------------
 
 The TTL index type provided by ArangoDB can be used for removing expired documents
-from a collection. 
+from a collection.
 
 The TTL index is set up by setting an `expireAfter` value and by selecting a single 
 document attribute which contains a reference point in time. For each document, that
@@ -128,9 +128,9 @@ TTL indexes are designed exactly for the purpose of removing expired documents
 from collections. It is **not recommended** to rely on TTL indexes for user-land
 AQL queries. This is because TTL indexes may store a transformed, always
 numerical version of the index attribute value internally even if it was
-originally passed in as a date string. As a result, you may get different
-values from the indexed attribute, depending on whether it gets taken from the
-index or the document. TTL indexes will likely not be used for filtering and
+originally passed in as a date string. As a result, you may see different
+values for the attribute, depending on whether it gets taken from the
+index or the document. TTL indexes will likely not be usable for filtering and
 sort operations in user-land AQL queries.
 
 There can at most be one TTL index per collection.
