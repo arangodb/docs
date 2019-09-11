@@ -17,7 +17,7 @@ arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/73860"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73860"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZO6aVKG---"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZP4PT66---"</span> 
 }
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span>, <span class="hljs-attr">b</span> : { <span class="hljs-attr">c</span> : <span class="hljs-number">1</span> } });
 [ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index <span class="hljs-number">73858</span> <span class="hljs-keyword">of</span> type rocksdb-hash over [<span class="hljs-string">"a"</span>,<span class="hljs-string">"b.c"</span>]; conflicting key: <span class="hljs-number">73860</span>]
@@ -25,7 +25,7 @@ arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/73864"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73864"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZO6aVKK--A"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZP4PT7----"</span> 
 }
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span> });
 [ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index <span class="hljs-number">73858</span> <span class="hljs-keyword">of</span> type rocksdb-hash over [<span class="hljs-string">"a"</span>,<span class="hljs-string">"b.c"</span>]; conflicting key: <span class="hljs-number">73864</span>]
