@@ -267,20 +267,6 @@
     "section" : "audit",
     "type" : "string..."
   },
-  "backup.api-enabled" : {
-    "category" : "option",
-    "default" : "true",
-    "deprecatedIn" : null,
-    "description" : "whether the backup api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : true,
-    "section" : "backup",
-    "type" : "string"
-  },
   "cache.rebalancing-interval" : {
     "category" : "option",
     "default" : 2000000,
@@ -2582,20 +2568,6 @@
     "type" : "uint32",
     "values" : "Possible values: 1, 2, 3, 4"
   },
-  "rclone.executable" : {
-    "category" : "option",
-    "default" : "",
-    "deprecatedIn" : null,
-    "description" : "rclone executable used for up and download of backups",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : true,
-    "section" : "rclone",
-    "type" : "string"
-  },
   "replication.active-failover" : {
     "category" : "option",
     "default" : false,
@@ -2726,20 +2698,6 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "uint64"
-  },
-  "rocksdb.create-sha-files" : {
-    "category" : "option",
-    "default" : true,
-    "deprecatedIn" : null,
-    "description" : "enable generation of sha256 files for each .sst file",
-    "dynamic" : false,
-    "enterpriseOnly" : true,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "rocksdb",
-    "type" : "boolean"
   },
   "rocksdb.debug-logging" : {
     "category" : "option",
