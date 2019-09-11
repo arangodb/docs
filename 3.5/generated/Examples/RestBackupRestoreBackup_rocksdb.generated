@@ -1,0 +1,17 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/restore</span> &lt;&lt;EOF
+{ 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"2019-09-11T19.59.33Z_3c6c31d0-e5bc-4cf8-a640-e6b5293d82dd"</span> 
+}
+EOF
+
+HTTP/<span class="hljs-number">1.1</span> OK
+content-type: application/json; charset=utf<span class="hljs-number">-8</span>
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">"result"</span> : { 
+    <span class="hljs-string">"previous"</span> : <span class="hljs-string">"FAILSAFE"</span> 
+  } 
+}
