@@ -1,0 +1,34 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/list</span> &lt;&lt;EOF
+{ 
+}
+EOF
+
+HTTP/<span class="hljs-number">1.1</span> OK
+content-type: application/json; charset=utf<span class="hljs-number">-8</span>
+keep-alive: timeout=<span class="hljs-number">300</span>
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">"result"</span> : { 
+    <span class="hljs-string">"server"</span> : <span class="hljs-string">"SNGL-6323dcfb-76b2-4984-9a29-febaaeab2c0f"</span>, 
+    <span class="hljs-string">"list"</span> : { 
+      <span class="hljs-string">"2019-09-12T23.10.03Z_foo"</span> : { 
+        <span class="hljs-string">"id"</span> : <span class="hljs-string">"2019-09-12T23.10.03Z_foo"</span>, 
+        <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.6.0-devel"</span>, 
+        <span class="hljs-string">"datetime"</span> : <span class="hljs-string">"2019-09-12T23:10:03Z"</span> 
+      }, 
+      <span class="hljs-string">"2019-09-12T23.10.35Z_f8f65c24-dae4-4f99-affc-6fa1c9882b58"</span> : { 
+        <span class="hljs-string">"id"</span> : <span class="hljs-string">"2019-09-12T23.10.35Z_f8f65c24-dae4-4f99-affc-6fa1c9882b58"</span>, 
+        <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.6.0-devel"</span>, 
+        <span class="hljs-string">"datetime"</span> : <span class="hljs-string">"2019-09-12T23:10:35Z"</span> 
+      }, 
+      <span class="hljs-string">"2019-09-12T23.10.35Z_cb08bb4c-a8a0-4613-8e3f-a5cf25827062"</span> : { 
+        <span class="hljs-string">"id"</span> : <span class="hljs-string">"2019-09-12T23.10.35Z_cb08bb4c-a8a0-4613-8e3f-a5cf25827062"</span>, 
+        <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.6.0-devel"</span>, 
+        <span class="hljs-string">"datetime"</span> : <span class="hljs-string">"2019-09-12T23:10:35Z"</span> 
+      } 
+    } 
+  } 
+}
