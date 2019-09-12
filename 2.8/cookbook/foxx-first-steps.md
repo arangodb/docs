@@ -38,7 +38,9 @@ In ArangoDB you need to create a collection in order to save documents. We will 
 createCollection('todos');
 ```
 
-If you want to learn more about `db`, please check out [our documentation about handling collections](https://docs.arangodb.com/Collections/index.html){:target="_blank"}. The setup script will be executed when the app is installed. In the development mode however, it will be called every time we request the app. If we click on the tiny `i` on our app, we will get to interactive documentation for our app (which is empty right now, because we don't have any routes yet). This will trigger our app and therefore execute our setup script. To check if that worked, go to `collections`. You will see a collection called `dev_todos_todos`. Setup is done!
+If you want to learn more about `db`, please check out
+[our documentation about handling collections](../collections.html).
+The setup script will be executed when the app is installed. In the development mode however, it will be called every time we request the app. If we click on the tiny `i` on our app, we will get to interactive documentation for our app (which is empty right now, because we don't have any routes yet). This will trigger our app and therefore execute our setup script. To check if that worked, go to `collections`. You will see a collection called `dev_todos_todos`. Setup is done!
 
 ### Create our first route
 
@@ -84,11 +86,13 @@ controller.get('/', function (req, res) {
 });
 ```
 
-If you go to the interactive documentation again, you will now see the description you just added. Great! If you want more information about controllers, see [in the documentation](https://docs.arangodb.com/Foxx/Develop/Controller.html){:target="_blank"}.
+If you go to the interactive documentation again, you will now see the description you just added. Great! If you want more information about controllers, see
+[in the documentation](../foxx-develop-controller.html).
 
 ### Add a model that describes our todo items
 
-We now need to define how we want a single todo item looks like. Foxx uses this information for both the documentation as well as for validating inputs. In a file called `todo.js` in the folder `models` you put the following [Foxx Model](https://docs.arangodb.com/Foxx/Develop/Model.html){:target="_blank"} prototype:
+We now need to define how we want a single todo item looks like. Foxx uses this information for both the documentation as well as for validating inputs. In a file called `todo.js` in the folder `models` you put the following
+[Foxx Model](../foxx-develop-model.html) prototype:
 
 ```js
 var Foxx = require('org/arangodb/foxx'),
@@ -220,9 +224,12 @@ controller.del('/:key', function (req, res) {
 
 ## Comment
 
-* If you want to have custom methods on your repository, you can extend it in the same way you extended the Foxx.Model. [Learn more about it here](https://docs.arangodb.com/Foxx/Develop/Repository.html){:target="_blank"}
-* We will add a new recipe for authentication in the future. In the mean time check out the [foxx-sessions-example](https://github.com/arangodb/foxx-sessions-example){:target="_blank"} app.
-* We will also talk about workers and how to do work outside the request-response-cycle. Until then [check out the documentation for it](https://docs.arangodb.com/Foxx/Develop/Queries.html){:target="_blank"}.
+* If you want to have custom methods on your repository, you can extend it in the same way you extended the Foxx.Model.
+  [Learn more about it here](../foxx-develop-repository.html)
+* We will add a new recipe for authentication in the future. In the mean time check out the
+  [foxx-sessions-example](https://github.com/arangodb/foxx-sessions-example){:target="_blank"} app.
+* We will also talk about workers and how to do work outside the request-response-cycle. Until then
+  [check out the documentation for it](../foxx-develop-queries.html).
 
 
 **Author**: [Lucas Dohmen](https://github.com/moonglum){:target="_blank"}

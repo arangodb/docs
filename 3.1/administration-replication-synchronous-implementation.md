@@ -43,7 +43,8 @@ replicate it to the follower.
    synchronous replication is resumed. This happens all transparently
    to the client.
 
-The current implementation of ArangoDB does not allow changing the replicationFactor later. This is subject to change. In the meantime the only way is to dump and restore the collection. A cookbook recipe for this can be found here: https://docs.arangodb.com/cookbook/Administration/Migrate2.8to3.0.html#controling-the-number-of-shards-and-the-replication-factor
+The current implementation of ArangoDB does not allow changing the replicationFactor later. This is subject to change. In the meantime the only way is to dump and restore the collection. A cookbook recipe for this can be found here:
+[Controlling the number of shards and the replication factor](cookbook/administration-migrate2-8to3-0.html#controling-the-number-of-shards-and-the-replication-factor)
 
 ### Automatic failover
 

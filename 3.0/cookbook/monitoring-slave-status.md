@@ -10,7 +10,7 @@ description: Note
 How to monitor the slave status using the `collectd curl_JSON` plugin.
 
 ## Solution
-Since arangodb [reports the replication status in JSON](https://docs.arangodb.com/2.8/HttpReplications/ReplicationApplier.html#state-of-the-replication-applier){:target="_blank"},
+Since arangodb [reports the replication status in JSON](../http/replications-replication-applier.html#state-of-the-replication-applier),
 integrating it with the [collectd curl_JSON plugin](monitoring-collectd.html)
 should be an easy exercise. However, only very recent versions of collectd will handle boolean flags correctly.
 
