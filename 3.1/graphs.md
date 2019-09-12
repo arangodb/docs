@@ -279,8 +279,7 @@ It is used to demonstrate raw traversal operations.
 The above referenced chapters describe the various APIs of ArangoDBs graph engine with small examples. Our cookbook has some more real life examples:
 
  - [Traversing a graph in full depth](cookbook/graph-fulldepth-traversal.html)
- - [Using an example vertex with the java driver](cookbook/graph-java-driver-graph-example-vertex.html)
- - [Retrieving documents from ArangoDB without knowing the structure](cookbook/graph-java-driver-base-document.html)
+ - [Retrieving documents from ArangoDB without knowing the structure](cookbook/use-cases-java-driver-base-document.html)
  - [Using a custom visitor from node.js](cookbook/graph-custom-visitor-from-node-js.html)
  - [AQL Example Queries on an Actors and Movies Database](cookbook/graph-example-actors-and-movies.html)
 

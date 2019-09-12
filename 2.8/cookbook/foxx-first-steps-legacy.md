@@ -110,7 +110,7 @@ If you go to the interactive documentation again, you will now see the descripti
 ### Add a model that describes our todo items
 
 We now need to define how we want a single todo item looks like. Foxx uses this information for both the documentation as well as for validating inputs. In a file called `todo.js` in the folder `models` you put the following
-[Foxx Model](../foxx-develop-model.md) prototype:
+[Foxx Model](../foxx-develop-model.html) prototype:
 
 ```js
 var Foxx = require('org/arangodb/foxx'),
