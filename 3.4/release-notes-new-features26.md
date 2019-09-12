@@ -211,9 +211,9 @@ An introduction to Foxx configurations can be found in the blog:
 And the blog post on Foxx dependencies can be found here:
 [Foxx dependencies for more composable Foxx apps](https://www.arangodb.com/2015/05/foxx-dependencies-for-more-composable-foxx-apps/){:target="_blank"}
 
-For more information on manifests see the [Manifest chapter](foxx-manifest.html).
+For more information on manifests see the [Manifest chapter](foxx-reference-manifest.html).
 More information on using dependencies can be found in the chapter on
-[Foxx dependencies](foxx-dependencies.html).
+[Foxx dependencies](foxx-guides-dependencies.html).
 
 ### Mocha Tests
 
@@ -221,7 +221,7 @@ You can now write tests for your Foxx apps using the Mocha testing framework:
 [Testing Foxx Mocha](https://www.arangodb.com/2015/04/testing-foxx-mocha/){:target="_blank"}
 
 A description for writing tests for your Foxx apps can be found in the
-[Foxx testing](foxx-testing.html) chapter.
+[Foxx testing](foxx-guides-testing.html) chapter.
 
 ### API Documentation
 

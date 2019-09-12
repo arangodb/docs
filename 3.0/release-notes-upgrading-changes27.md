@@ -69,7 +69,7 @@ The properties `setup` and `teardown` have been moved into the `scripts` propert
 ### Foxx Queues
 
 Function-based Foxx Queue job types are no longer supported. To learn about how you can use the new script-based job types
-[follow the updated recipe in the cookbook](cookbook/foxx-queues.html).
+see the [Foxx queues module](../3.4/foxx-reference-modules-queues.md).
 
 ### Foxx Sessions
 
