@@ -35,5 +35,5 @@ replace the old features with:
   restoration from previous versions.
 
   You can still find the
-  [Actions documentation](https://docs.arangodb.com/3.4/Manual/Appendix/Deprecated/Actions/){:target="_blank"}
+  [Actions documentation](https://www.arangodb.com/docs/3.4/appendix-deprecated-actions.html){:target="_blank"}
   in 3.4 or older versions of the documentation.

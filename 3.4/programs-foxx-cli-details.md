@@ -90,7 +90,7 @@ foxx upgrade /hello-foxx # upgrades the server with the current directory
 
 The `manifest.json` or manifest file contains a service's meta-information. For
 more information on the manifest format, see the
-[official ArangoDB documentation](https://docs.arangodb.com/3/Manual/Foxx/Manifest.html){:target="_blank"}.
+[official ArangoDB documentation](foxx-reference-manifest.html).
 
 The directory containing a service's `manifest.json` file is called the _root
 directory_ of the service.

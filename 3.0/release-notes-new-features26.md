@@ -7,7 +7,8 @@ Features and Improvements
 
 The following list shows in detail which features have been added or improved in
 ArangoDB 2.6. ArangoDB 2.6 also contains several bugfixes that are not listed
-here. For a list of bugfixes, please consult the [CHANGELOG](https://github.com/arangodb/arangodb/blob/devel/CHANGELOG){:target="_blank"}.
+here. For a list of bugfixes, please consult the
+[CHANGELOG](https://github.com/arangodb/arangodb/blob/devel/CHANGELOG){:target="_blank"}.
 
 APIs added
 ----------
@@ -38,7 +39,7 @@ The export API is available at endpoint `POST /_api/export?collection=...`. The 
 same return value structure as the already established cursor API (`POST /_api/cursor`). 
 
 An introduction to the export API is given in this blog post:
-http://jsteemann.github.io/blog/2015/04/04/more-efficient-data-exports/
+[More efficient data exports](http://jsteemann.github.io/blog/2015/04/04/more-efficient-data-exports/){:target="_blank"}
 
 AQL improvements
 ----------------
@@ -61,14 +62,14 @@ This optimization avoids copying intermediate results into subqueries that are n
 by the subquery.
 
 A brief description can be found here:
-http://jsteemann.github.io/blog/2015/05/04/subquery-optimizations/
+[Subquery optimization](http://jsteemann.github.io/blog/2015/05/04/subquery-optimizations/){:target="_blank"}
 
 ### Return value optimization for AQL queries
 
 This optimization avoids copying the final query result inside the query's main `ReturnNode`.
 
 A brief description can be found here:
-http://jsteemann.github.io/blog/2015/05/04/return-value-optimization-for-aql/
+[Return value optimization for AQL](http://jsteemann.github.io/blog/2015/05/04/return-value-optimization-for-aql/){:target="_blank"}
 
 ### Speed up AQL queries containing big `IN` lists for index lookups
 
@@ -77,7 +78,7 @@ These issues have been addressed in 2.6 so using bigger `IN` lists for filtering
 faster.
 
 A brief description can be found here:
-http://jsteemann.github.io/blog/2015/05/07/in-list-improvements/
+[In list improvements](http://jsteemann.github.io/blog/2015/05/07/in-list-improvements/){:target="_blank"}
 
 ### Added alternative implementation for AQL COLLECT
 
@@ -109,7 +110,7 @@ suffixing a `COLLECT` statement with `OPTIONS { "method" : "sorted" }`. This wil
 optimizer guesswork and only produce the *sorted* variant of `COLLECT`.
 
 A blog post on the new `COLLECT` implementation can be found here:
-http://jsteemann.github.io/blog/2015/04/22/collecting-with-a-hash-table/
+[Collecting with hash table](http://jsteemann.github.io/blog/2015/04/22/collecting-with-a-hash-table/){:target="_blank"}
 
 ### Simplified return value syntax for data-modification AQL queries
 
@@ -141,7 +142,7 @@ Still not every construct is allowed after a data-modification clause. For examp
 can be called that may access documents.
 
 More information can be found here:
-http://jsteemann.github.io/blog/2015/03/27/improvements-for-data-modification-queries/
+[Improvements for data modification queries](http://jsteemann.github.io/blog/2015/03/27/improvements-for-data-modification-queries/){:target="_blank"}
 
 ### Added AQL `UPSERT` statement
 
@@ -176,7 +177,7 @@ RETURN { found: OLD, updated: NEW }
 ```
 
 A more detailed description of `UPSERT` can be found here:
-http://jsteemann.github.io/blog/2015/03/27/preview-of-the-upsert-command/
+[Preview of the UPSERT command](http://jsteemann.github.io/blog/2015/03/27/preview-of-the-upsert-command/){:target="_blank"}
 
 ### Miscellaneous changes
 
@@ -205,26 +206,30 @@ Foxx improvements
 Foxx app manifests can now define configuration options, as well as dependencies on other Foxx apps.
 
 An introduction to Foxx configurations can be found in the blog:
-https://www.arangodb.com/2015/05/reusable-foxx-apps-with-configurations/
+[Reusable Foxx apps with configuration](https://www.arangodb.com/2015/05/reusable-foxx-apps-with-configurations/){:target="_blank"}
 
 And the blog post on Foxx dependencies can be found here:
-https://www.arangodb.com/2015/05/foxx-dependencies-for-more-composable-foxx-apps/
+[Foxx dependencies for more composable Foxx apps](https://www.arangodb.com/2015/05/foxx-dependencies-for-more-composable-foxx-apps/){:target="_blank"}
+
+For more information on manifests see the [Manifest chapter](foxx-develop-manifest.html). More information on using dependencies can be found in the chapter on [Foxx exports](foxx-develop-exports.html).
 
 ### Mocha Tests
 
 You can now write tests for your Foxx apps using the Mocha testing framework:
-https://www.arangodb.com/2015/04/testing-foxx-mocha/
+[Testing Foxx Mocha](https://www.arangodb.com/2015/04/testing-foxx-mocha/){:target="_blank"}
 
-A recipe for writing tests for your Foxx apps can be found in the cookbook:
-https://docs.arangodb.com/2.8/cookbook/FoxxTesting.html
+A recipe for writing tests for your Foxx apps can be found in the
+[cookbook](cookbook/foxx-testing.html).
 
 ### API Documentation
 
 The API documentation has been updated to Swagger 2. You can now also mount API
-documentation in your own Foxx apps.
+documentation in your own Foxx apps. For more information see the
+[API Documentation chapter](foxx-develop-api-documentation.html) in the
+Foxx documentation.
 
 Also see the blog post introducing this feature:
-https://www.arangodb.com/2015/05/document-your-foxx-apps-with-swagger-2/
+[Document your Foxx apps with Swagger 2](https://www.arangodb.com/2015/05/document-your-foxx-apps-with-swagger-2/){:target="_blank"}
 
 ### Custom Scripts and Foxx Queue
 
@@ -288,7 +293,7 @@ option `--on-duplicate`. The option can have one of the following values:
 The default value is `error`.
 
 A few examples for using arangoimp with the `--on-duplicate` option can be found here:
-http://jsteemann.github.io/blog/2015/04/14/updating-documents-with-arangoimp/
+[Updating documents with arangoimp](http://jsteemann.github.io/blog/2015/04/14/updating-documents-with-arangoimp/){:target="_blank"}
 
 Miscellaneous changes
 ---------------------
