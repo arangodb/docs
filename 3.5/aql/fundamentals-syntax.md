@@ -1,6 +1,7 @@
 ---
 layout: default
-description: An AQL query must either return a result (indicated by usage of the RETURNkeyword) or execute a data-modification operation (indicated by usageof one of the keywords INSERT, UPDATE, REPLACE, REMOVE or UPSERT)
+description: Query types, whitespace, comments, keywords and names explained
+title: AQL Syntax Fundamentals
 ---
 AQL Syntax
 ==========
@@ -44,31 +45,34 @@ AQL supports two types of comments:
   end with an asterisk and a following forward slash. They can span as many
   lines as necessary.
 
-
-    /* this is a comment */ RETURN 1
-    /* these */ RETURN /* are */ 1 /* multiple */ + /* comments */ 1
-    /* this is
-       a multi line
-       comment */
-    // a single line comment
+```js
+/* this is a comment */ RETURN 1
+/* these */ RETURN /* are */ 1 /* multiple */ + /* comments */ 1
+/* this is
+   a multi line
+   comment */
+// a single line comment
+```
 
 Keywords
 --------
 
-On the top level, AQL offers the following operations:
-- `FOR`: array iteration
-- `RETURN`: results projection
-- `FILTER`: non-view results filtering
-- `SEARCH`: view results filtering
-- `SORT`: result sorting
-- `LIMIT`: result slicing
-- `LET`: variable assignment
-- `COLLECT`: result grouping
-- `INSERT`: insertion of new documents
-- `UPDATE`: (partial) update of existing documents
-- `REPLACE`: replacement of existing documents
-- `REMOVE`: removal of existing documents
-- `UPSERT`: insertion or update of existing documents
+On the top level, AQL offers the following high-level operations:
+
+- `FOR`: Array iteration
+- `RETURN`: Results projection
+- `FILTER`: Non-View results filtering
+- `SEARCH`: View results filtering
+- `SORT`: Result sorting
+- `LIMIT`: Result slicing
+- `LET`: Variable assignment
+- `COLLECT`: Result grouping
+- `INSERT`: Insertion of new documents
+- `UPDATE`: (Partial) update of existing documents
+- `REPLACE`: Replacement of existing documents
+- `REMOVE`: Removal of existing documents
+- `UPSERT`: Insertion of new or update of existing documents
+- `WITH`: Collection declaration
 
 Each of the above operations can be initiated in a query by using a keyword of
 the same name. An AQL query can (and typically does) consist of multiple of the
@@ -88,12 +92,13 @@ meaning that they have a special meaning in the language.
 
 For example, the query parser will use the keywords to find out which high-level
 operations to execute. That also means keywords can only be used at certain
-locations in a query. This also makes all keywords reserved words that must not
-be used for other purposes than they are intended for.
+locations in a query. This also makes all keywords **reserved words** that must
+not be used for other purposes than they are intended for.
 
-For example, it is not possible to use a keyword as a collection or attribute
-name. If a collection or attribute need to have the same name as a keyword, the
-collection or attribute name needs to be quoted.
+For example, it is not possible to use a keyword as literal unquoted string for
+a collection or attribute name. If a collection or attribute needs to have the
+same name as a keyword, then the collection or attribute name needs to be
+quoted / escaped in the query (also see [Names](#names)).
 
 Keywords are case-insensitive, meaning they can be specified in lower, upper, or
 mixed case in queries. In this documentation, all keywords are written in upper
@@ -123,26 +128,44 @@ The complete list of keywords is currently:
   <li>INTO</li>
   <li>K_SHORTEST_PATHS</li>
   <li>LET</li>
+  <li>LIKE</li>
   <li>LIMIT</li>
   <li>NONE</li>
   <li>NOT</li>
   <li>NULL</li>
-  <li>OPTIONS</li>
   <li>OR</li>
   <li>OUTBOUND</li>
   <li>REMOVE</li>
   <li>REPLACE</li>
   <li>RETURN</li>
-  <li>SEARCH</li>
   <li>SHORTEST_PATH</li>
   <li>SORT</li>
-  <li>TO</li>
   <li>TRUE</li>
   <li>UPDATE</li>
   <li>UPSERT</li>
   <li>WITH</li>
 </ul>
 </div>
+
+On top of that, there are a few words used in language constructs which are not
+reserved keywords. They may thus be used as collection or attribute names
+without quoting or escaping. The query parser can distinguish them from names
+based on the context:
+
+- SEARCH
+- TO
+- OPTIONS
+
+Last but not least, there are special variables which are available after
+data modification operations (see
+[INSERT](operations-insert.html#returning-the-inserted-documents),
+[UPDATE](operations-update.html#returning-the-modified-documents),
+[REPLACE](operations-replace.html#returning-the-modified-documents),
+[REMOVE](operations-remove.html#returning-the-removed-documents)).
+Unlike keywords, they are case-sensitive:
+
+- OLD
+- NEW
 
 Names
 -----
@@ -172,6 +195,16 @@ The example can alternatively written as:
 FOR f IN ´filter´
   RETURN f.´sort´
 ```
+
+Instead of ticks, you may use the bracket notation for the attribute access:
+
+```js
+FOR f IN `filter`
+  RETURN f["sort"]
+```
+
+`sort` is a **quoted** string literal in this alternative and does thus not
+conflict with the reserved word.
 
 ### Collection names
 
