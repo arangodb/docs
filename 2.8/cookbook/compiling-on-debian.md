@@ -49,7 +49,8 @@ reboot
 
 Before you can build ArangoDB, you need a few packages pre-installed on your system. ArangoDB also bundles a few libraries, which can be enabled/used by using the "all-in-one" switches during the configuration state.
 
-More information on the dependencies is available in the official documentation: https://docs.arangodb.com/Installing/Compiling.html
+More information on the dependencies is available in the official documentation:
+[Compiling](../installing-compiling.html)
 
 Login again and install them.
 

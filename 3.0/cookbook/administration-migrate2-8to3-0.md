@@ -17,7 +17,7 @@ therefore you have to dump all data using `arangodump` and then
 restore it to the new ArangoDB instance using `arangorestore`.
 
 General instructions for this procedure can be found 
-[in the manual](https://docs.arangodb.com/3.0/Manual/Administration/Upgrading/Upgrading30.html){:target="_blank"}.
+[in the manual](../administration-upgrading-upgrading30.html).
 Here, we cover some additional details about the cluster case.
 
 ## Dumping the data in ArangoDB 2.8
@@ -28,7 +28,7 @@ from your ArangoDB 2.8 distribution!):
     arangodump --server.endpoint tcp://localhost:8530 --output-directory dump
 
 or a variation of it, for details see the above mentioned manual page and
-[this section](https://docs.arangodb.com/2.8/HttpBulkImports/Arangodump.html){:target="_blank"}.
+[this section](../administration-arangodump.html).
 If your ArangoDB 2.8 instance is a cluster, simply use one of the
 coordinator endpoints as the above `--server.endpoint`.
 
@@ -47,7 +47,7 @@ your ArangoDB 3.0 distribution!):
     arangorestore --server.endpoint tcp://localhost:8530 --input-directory dump
 
 to import your data into your new ArangoDB 3.0 instance. See
-[this page](https://docs.arangodb.com/3.0/Manual/Administration/Arangorestore.html){:target="_blank"}
+[this page](../administration-arangorestore.html)
 for details on the available command line options. If your ArangoDB 3.0
 instance is a cluster, then simply use one of the coordinators as
 `--server.endpoint`.

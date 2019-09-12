@@ -91,7 +91,8 @@ This recipe focuses on using bind parameters. This is not to say that query
 builders shouldn't be used. They were simply omitted here for the sake of simplicity.
 To get started with a using an AQL query builder in ArangoDB or other JavaScript
 environments, have a look at [aqb](https://www.npmjs.com/package/aqb){:target="_blank"} (which comes 
-bundled with ArangoDB). Inside ArangoDB, there are also [Foxx queries](https://docs.arangodb.com/2.8/Foxx/Develop/Queries.html){:target="_blank"}
+bundled with ArangoDB). Inside ArangoDB, there are also
+[Foxx queries](../../2.8/foxx-develop-queries.html)
 which can be combined with aqb.
 
 ### What bind parameters are
