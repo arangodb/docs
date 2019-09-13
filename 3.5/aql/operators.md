@@ -350,29 +350,29 @@ Operator precedence
 The operator precedence in AQL is similar as in other familiar languages
 (lowest precedence first):
 
-| Operator(s)  | Associativity | Description
-|:-------------|:--------------|:-----------
-| `,`                  | left  | comma separator
-| `DISTINCT`           | left  | distinct modifier (RETURN operation)
-| `? :`                | right | ternary operator
-| `=`                  | right | variable assignment (LET operation)
-| `WITH`               | left  | with operator (WITH / UPDATE / REPLACE / COLLECT operation)
-| `INTO`               | none  | into operator (INSERT / UPDATE / REPLACE / REMOVE / COLLECT operation)
-| `||`                 | left  | logical or
-| `&&`                 | left  | logical and
-| `OUTBOUND`, `INBOUND`, `ANY`, `ALL`, `NONE` | none | graph traversal directions, array comparison operators
-| `==`, `!=`, `LIKE`, `NOT LIKE`, `=~`, `!~`  | left | (in-)equality, wildcard (non-)match, regex (non-)match
-| `IN`, `NOT IN`       | left  | (not) in operator
-| `<`, `<=`, `>=`, `>` | left  | less than, less equal, greater equal, greater than
-| `..`                 | left  | range operator
-| `+`, `-`             | left  | addition, subtraction
-| `*`, `/`, `%`        | left  | multiplication, division, modulus
-| `!`, `+`, `-`        | right | logical negation, unary plus, unary minus
-| `()`                 | left  | function call
-| `.`                  | left  | member access
-| `[]`                 | left  | indexed value access
-| `[*]`                | left  | expansion
-| `::`                 | left  | scope
+| Operator(s)          | Description
+|:---------------------|:-----------
+| `,`                  | comma separator
+| `DISTINCT`           | distinct modifier (RETURN operation)
+| `? :`                | ternary operator
+| `=`                  | variable assignment (LET operation)
+| `WITH`               | with operator (WITH / UPDATE / REPLACE / COLLECT operation)
+| `INTO`               | into operator (INSERT / UPDATE / REPLACE / REMOVE / COLLECT operation)
+| `||`                 | logical or
+| `&&`                 | logical and
+| `OUTBOUND`, `INBOUND`, `ANY`, `ALL`, `NONE` | graph traversal directions, array comparison operators
+| `==`, `!=`, `LIKE`, `NOT LIKE`, `=~`, `!~`  | (in-)equality, wildcard (non-)match, regex (non-)match
+| `IN`, `NOT IN`       | (not) in operator
+| `<`, `<=`, `>=`, `>` | less than, less equal, greater equal, greater than
+| `..`                 | range operator
+| `+`, `-`             | addition, subtraction
+| `*`, `/`, `%`        | multiplication, division, modulus
+| `!`, `+`, `-`        | logical negation, unary plus, unary minus
+| `()`                 | function call
+| `.`                  | member access
+| `[]`                 | indexed value access
+| `[*]`                | expansion
+| `::`                 | scope
 
 The parentheses `(` and `)` can be used to enforce a different operator
 evaluation order.
