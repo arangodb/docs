@@ -25,6 +25,7 @@ The following comparison operators are supported:
 - `IN` test if a value is contained in an array
 - `NOT IN` test if a value is not contained in an array
 - `LIKE` tests if a string value matches a pattern
+- `NOT LIKE` tests if a string value does not match a pattern
 - `=~` tests if a string value matches a regular expression
 - `!~` tests if a string value does not match a regular expression
 
@@ -32,15 +33,16 @@ Each of the comparison operators returns a boolean value if the comparison can
 be evaluated and returns *true* if the comparison evaluates to true, and *false*
 otherwise. 
 
-The comparison operators accept any data types for the first and second operands. 
-However, `IN` and `NOT IN` will only return a meaningful result if their right-hand 
-operand is an array, and `LIKE` will only execute if both operands are string values.
-The comparison operators will not perform any implicit type casts if the compared 
-operands have different or non-sensible types.
+The comparison operators accept any data types for the first and second
+operands. However, `IN` and `NOT IN` will only return a meaningful result if
+their right-hand operand is an array. `LIKE` and `NOT LIKE` will only execute
+if both operands are string values. The comparison operators will not perform
+any implicit type casts if the compared operands have different or non-sensible
+types.
 
 Some examples for comparison operations in AQL:
 
-```
+```js
 0 == null                 // false
 1 > 0                     // true
 true != null              // true
@@ -54,26 +56,40 @@ true != null              // true
 "abc" == "abc"            // true
 "abc" == "ABC"            // false
 "foo" LIKE "f%"           // true
+"foo" NOT LIKE "f%"       // false
 "foo" =~ "^f[o].$"        // true
 "foo" !~ "[a-z]+bar$"     // true
 ```
 
 The `LIKE` operator checks whether its left operand matches the pattern specified
 in its right operand. The pattern can consist of regular characters and wildcards.
-The supported wildcards are `_` to match a single arbitrary character, and `%` to 
+The supported wildcards are `_` to match a single arbitrary character, and `%` to
 match any number of arbitrary characters. Literal `%` and `_` need to be escaped
 with a backslash. Backslashes need to be escaped themselves, which effectively
 means that two reverse solidus characters need to precede a literal percent sign
 or underscore. In arangosh, additional escaping is required, making it four
 backslashes in total preceding the to-be-escaped character.
 
-```
+```js
 "abc" LIKE "a%"              // true
 "abc" LIKE "_bc"             // true
 "a_b_foo" LIKE "a\\_b\\_foo" // true
 ```
 
 The pattern matching performed by the `LIKE` operator is case-sensitive.
+
+The `NOT LIKE` operator has the same characteristics as the `LIKE` operator
+but with the result negated. It is thus identical to `NOT (… LIKE …)`. Note
+the parentheses, which are necessary for certain expressions:
+
+```js
+FOR doc IN coll
+  RETURN NOT doc.attr LIKE "…"
+```
+
+The return expression will get transformed into `LIKE(!doc.attr, "…")`,
+giving unexpected results. `NOT(doc.attr LIKE "…")` gets transformed into the
+more reasonable `! LIKE(doc.attr, "…")`.
 
 The regular expression operators `=~` and `!~` expect their left-hand operands to
 be strings, and their right-hand operands to be strings containing valid regular
@@ -92,7 +108,7 @@ of an array operator is an array.
 
 Examples:
 
-```
+```js
 [ 1, 2, 3 ] ALL IN [ 2, 3, 4 ]   // false
 [ 1, 2, 3 ] ALL IN [ 1, 2, 3 ]   // true
 [ 1, 2, 3 ] NONE IN [ 3 ]        // false
@@ -249,7 +265,7 @@ warning.
 
 Here are a few examples:
 
-```
+```js
 1 + "a"                 // 1
 1 + "99"                // 100
 1 + null                // 1
@@ -329,21 +345,30 @@ AQL provides array operators `[*]` for
 Operator precedence
 -------------------
 
-The operator precedence in AQL is similar as in other familiar languages (lowest precedence first):
+The operator precedence in AQL is similar as in other familiar languages
+(lowest precedence first):
 
+- `,` comma separator
+- `DISTINCT` distinct modifier (RETURN operation)
 - `? :` ternary operator
+- `=` variable assignment (LET operation)
+- `WITH` with operator (WITH, UPDATE, REPLACE, COLLECT operations)
+- `INTO` into operator (INSERT, UPDATE, REPLACE, REMOVE, COLLECT operations)
 - `||` logical or
 - `&&` logical and
-- `**`, `!=` equality and inequality
-- `IN` in operator
+- `OUTBOUND`, `INBOUND`, `ANY`, `ALL`, `NONE` graph traversal direction and array comparison modifiers
+- `==`, `!=`, `LIKE`, `=~`, `!~` equality, inequality, wildcard string match, regex match, regex non-match
+- `IN`, `NOT` in operator, logical negation
 - `<`, `<=`, `>=`, `>` less than, less equal, greater equal, greater than
+- `..` range operator
 - `+`, `-` addition, subtraction
 - `*`, `/`, `%` multiplication, division, modulus
 - `!`, `+`, `-` logical negation, unary plus, unary minus
-- `[*]` expansion
 - `()` function call
 - `.` member access
 - `[]` indexed value access
+- `[*]` expansion
+- `::` scope
 
 The parentheses `(` and `)` can be used to enforce a different operator
 evaluation order.
