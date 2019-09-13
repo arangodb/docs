@@ -155,11 +155,10 @@ reserved keywords. They may thus be used as collection or attribute names
 without quoting or escaping. The query parser can identify them as keyword-like
 based on the context:
 
-- `KEEP`<br>
-  [COLLECT](operations-collect.html) operation variant
-
-- `OPTIONS`<br>
-  [FOR](operations-for.html#options) /
+- `KEEP`
+  ([COLLECT](operations-collect.html) operation variant)
+- `OPTIONS`
+  ([FOR](operations-for.html#options) /
   [SEARCH](operations-search.html#search-options) /
   [COLLECT](operations-collect.html#setting-collect-options) /
   [INSERT](operations-insert.html#setting-query-options) /
@@ -167,40 +166,35 @@ based on the context:
   [REPLACE](operations-replace.html#setting-query-options) /
   [UPSERT](operations-upsert.html#setting-query-options) /
   [REMOVE](operations-remove.html#setting-query-options)
-  operation
-
-- `PRUNE`<br>
-  [Graph Traversal](graphs-traversals.html#pruning) (FOR operation variant)
-
-- `SEARCH`<br>
-  [SEARCH](operations-search.html) operation
-
-- `TO`<br>
-  [Shortest Path](graphs-shortest-path.html) /
-  [k Shortest Paths](graphs-kshortest-paths.html) graph traversal
+  operation)
+- `PRUNE`
+  ([Graph Traversal](graphs-traversals.html#pruning), FOR operation variant)
+- `SEARCH`
+  ([SEARCH](operations-search.html) operation)
+- `TO`
+  ([Shortest Path](graphs-shortest-path.html) /
+  [k Shortest Paths](graphs-kshortest-paths.html) graph traversal)
 
 Last but not least, there are special variables which are available in certain
 contexts. Unlike keywords, they are **case-sensitive**:
  
-- `CURRENT`<br>
-  available in
-  [array inline expressions](advanced-array-operators.html#inline-expressions)
-
-- `NEW`<br>
-  available after
+- `CURRENT`
+  (available in
+  [array inline expressions](advanced-array-operators.html#inline-expressions))
+- `NEW`
+  (available after
   [INSERT](operations-insert.html#returning-the-inserted-documents) /
   [UPDATE](operations-update.html#returning-the-modified-documents) /
   [REPLACE](operations-replace.html#returning-the-modified-documents) /
   [UPSERT](operations-upsert.html#returning-documents)
-  operation
-
-- `OLD`<br>
-  available after
+  operation)
+- `OLD`
+  (available after
   [UPDATE](operations-update.html#returning-the-modified-documents) /
   [REPLACE](operations-replace.html#returning-the-modified-documents) /
   [UPSERT](operations-upsert.html#returning-documents) /
   [REMOVE](operations-remove.html#returning-the-removed-documents)
-  operation
+  operation)
 
 Names
 -----
