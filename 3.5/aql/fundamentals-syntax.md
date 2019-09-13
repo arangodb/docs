@@ -110,62 +110,94 @@ The complete list of keywords is currently:
 
 <div class="columns-3">
 <ul>
-  <li>AGGREGATE</li>
-  <li>ALL</li>
-  <li>AND</li>
-  <li>ANY</li>
-  <li>ASC</li>
-  <li>COLLECT</li>
-  <li>DESC</li>
-  <li>DISTINCT</li>
-  <li>FALSE</li>
-  <li>FILTER</li>
-  <li>FOR</li>
-  <li>GRAPH</li>
-  <li>IN</li>
-  <li>INBOUND</li>
-  <li>INSERT</li>
-  <li>INTO</li>
-  <li>K_SHORTEST_PATHS</li>
-  <li>LET</li>
-  <li>LIKE</li>
-  <li>LIMIT</li>
-  <li>NONE</li>
-  <li>NOT</li>
-  <li>NULL</li>
-  <li>OR</li>
-  <li>OUTBOUND</li>
-  <li>REMOVE</li>
-  <li>REPLACE</li>
-  <li>RETURN</li>
-  <li>SHORTEST_PATH</li>
-  <li>SORT</li>
-  <li>TRUE</li>
-  <li>UPDATE</li>
-  <li>UPSERT</li>
-  <li>WITH</li>
+  <li><code>AGGREGATE</code></li>
+  <li><code>ALL</code></li>
+  <li><code>AND</code></li>
+  <li><code>ANY</code></li>
+  <li><code>ASC</code></li>
+  <li><code>COLLECT</code></li>
+  <li><code>DESC</code></li>
+  <li><code>DISTINCT</code></li>
+  <li><code>FALSE</code></li>
+  <li><code>FILTER</code></li>
+  <li><code>FOR</code></li>
+  <li><code>GRAPH</code></li>
+  <li><code>IN</code></li>
+  <li><code>INBOUND</code></li>
+  <li><code>INSERT</code></li>
+  <li><code>INTO</code></li>
+  <li><code>K_SHORTEST_PATHS</code></li>
+  <li><code>LET</code></li>
+  <li><code>LIKE</code></li>
+  <li><code>LIMIT</code></li>
+  <li><code>NONE</code></li>
+  <li><code>NOT</code></li>
+  <li><code>NULL</code></li>
+  <li><code>OR</code></li>
+  <li><code>OUTBOUND</code></li>
+  <li><code>REMOVE</code></li>
+  <li><code>REPLACE</code></li>
+  <li><code>RETURN</code></li>
+  <li><code>SHORTEST_PATH</code></li>
+  <li><code>SORT</code></li>
+  <li><code>TRUE</code></li>
+  <li><code>UPDATE</code></li>
+  <li><code>UPSERT</code></li>
+  <li><code>WITH</code></li>
 </ul>
 </div>
 
 On top of that, there are a few words used in language constructs which are not
 reserved keywords. They may thus be used as collection or attribute names
-without quoting or escaping. The query parser can distinguish them from names
+without quoting or escaping. The query parser can identify them as keyword-like
 based on the context:
 
-- SEARCH
-- TO
-- OPTIONS
+- `KEEP`<br>
+  [COLLECT](operations-collect.html) operation variant
 
-Last but not least, there are special variables which are available after
-data modification operations (see
-[INSERT](operations-insert.html#returning-the-inserted-documents),
-[UPDATE](operations-update.html#returning-the-modified-documents),
-[REPLACE](operations-replace.html#returning-the-modified-documents),
-[REMOVE](operations-remove.html#returning-the-removed-documents)).
-Unlike keywords, they are case-sensitive:
+- `OPTIONS`<br>
+  [FOR](operations-for.html#options) /
+  [SEARCH](operations-search.html#search-options) /
+  [COLLECT](operations-collect.html#setting-collect-options) /
+  [INSERT](operations-insert.html#setting-query-options) /
+  [UPDATE](operations-update.html#setting-query-options) /
+  [REPLACE](operations-replace.html#setting-query-options) /
+  [UPSERT](operations-upsert.html#setting-query-options) /
+  [REMOVE](operations-remove.html#setting-query-options)
+  operation
 
-- OLD
-- NEW
+- `PRUNE`<br>
+  [Graph Traversal](graphs-traversals.html#pruning) (FOR operation variant)
+
+- `SEARCH`<br>
+  [SEARCH](operations-search.html) operation
+
+- `TO`<br>
+  [Shortest Path](graphs-shortest-path.html) /
+  [k Shortest Paths](graphs-kshortest-paths.html) graph traversal
+
+Last but not least, there are special variables which are available in certain
+contexts. Unlike keywords, they are **case-sensitive**:
+ 
+- `CURRENT`<br>
+  available in
+  [array inline expressions](advanced-array-operators.html#inline-expressions)
+
+- `NEW`<br>
+  available after
+  [INSERT](operations-insert.html#returning-the-inserted-documents) /
+  [UPDATE](operations-update.html#returning-the-modified-documents) /
+  [REPLACE](operations-replace.html#returning-the-modified-documents) /
+  [UPSERT](operations-upsert.html#returning-documents)
+  operation
+
+- `OLD`<br>
+  available after
+  [UPDATE](operations-update.html#returning-the-modified-documents) /
+  [REPLACE](operations-replace.html#returning-the-modified-documents) /
+  [UPSERT](operations-upsert.html#returning-documents) /
+  [REMOVE](operations-remove.html#returning-the-removed-documents)
+  operation
 
 Names
 -----
