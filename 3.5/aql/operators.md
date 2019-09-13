@@ -354,12 +354,12 @@ The operator precedence in AQL is similar as in other familiar languages
 | `DISTINCT`           | left  | distinct modifier (RETURN operation)
 | `? :`                | right | ternary operator
 | `=`                  | right | variable assignment (LET operation)
-| `WITH`               | left  | with operator (WITH, UPDATE, REPLACE, COLLECT operations)
-| `INTO`               | none  | into operator (INSERT, UPDATE, REPLACE, REMOVE, COLLECT operations)
+| `WITH`               | left  | with operator (WITH / UPDATE / REPLACE / COLLECT operation)
+| `INTO`               | none  | into operator (INSERT / UPDATE / REPLACE / REMOVE / COLLECT operation)
 | `||`                 | left  | logical or
 | `&&`                 | left  | logical and
-| `OUTBOUND`, `INBOUND`, `ANY`, `ALL`, `NONE` | none | graph traversal directions (FOR operation), array comparison operators
-| `==`, `!=`, `LIKE`, `=~`, `!~`              | left | equality, inequality, wildcard string match, regex (non-)match
+| `OUTBOUND`, `INBOUND`, `ANY`, `ALL`, `NONE` | none | graph traversal directions, array comparison operators
+| `==`, `!=`, `LIKE`, `NOT LIKE`, `=~`, `!~`  | left | (in-)equality, wildcard (non-)match, regex (non-)match
 | `IN`, `NOT IN`       | left  | (not) in operator
 | `<`, `<=`, `>=`, `>` | left  | less than, less equal, greater equal, greater than
 | `..`                 | left  | range operator
