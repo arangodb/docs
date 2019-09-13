@@ -159,6 +159,7 @@ based on the context:
   [COLLECT](operations-collect.html) operation variant
 - `OPTIONS` –
   [FOR](operations-for.html#options) /
+  [Graph Traversal](graphs-traversals.html) /
   [SEARCH](operations-search.html#search-options) /
   [COLLECT](operations-collect.html#setting-collect-options) /
   [INSERT](operations-insert.html#setting-query-options) /
