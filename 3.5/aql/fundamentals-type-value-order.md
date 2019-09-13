@@ -1,6 +1,7 @@
 ---
 layout: default
-description: When checking for equality or inequality or when determining the sort order ofvalues, AQL uses a deterministic algorithm that takes both the data types andthe actual values into account
+description: AQL uses a deterministic algorithm that takes both the data types and the actual values into account
+title: AQL Type & Value Order
 ---
 Type and value order
 ====================
@@ -126,4 +127,3 @@ compared objects / documents are considered equal.
     { "a" : { "c" : true, "a" : 0 } } < { "a" : { "c" : false, "a" : 1 } }
 
     { "a" : 1, "b" : 2 } == { "b" : 2, "a" : 1 }
-
