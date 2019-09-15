@@ -283,7 +283,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341590016,
+    "default" : 33253032960,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -2450,7 +2450,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609908019,
+    "default" : 39903639552,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -2915,7 +2915,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146544025,
+    "default" : 53204852736,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -3403,6 +3403,23 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
+  },
+  "server.statistics-history" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "turn storing statistics in database on or off",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.4.9",
+      "v3.5.1"
+    ],
     "obsolete" : false,
     "requiresValue" : false,
     "section" : "server",
