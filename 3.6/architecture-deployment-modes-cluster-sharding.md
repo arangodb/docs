@@ -34,7 +34,7 @@ Horizontal scaling involves using many servers, typically based on commodity har
 a single machine may not be high, over combined the computing power of these machines can be arbitrarily
 large. Adding more machines on-demand is also typically easier and more cost-effective than pre-provisioning 
 a single large machine. Increased complexity in infrastructure can be managed
-using modern containerization and cluster orchestrations tools like [kubernetes](deployment-kubernetes.md).
+using modern containerization and cluster orchestrations tools like [kubernetes](deployment-kubernetes.html).
 
 ![Cluster Sharding](images/cluster_sharding.jpg)
 
