@@ -76,7 +76,7 @@ Sharding
 --------
 
 For an introduction about _Sharding_ in Cluster, please refer to the
-[_Cluster Architecture_](architecture-deployment-modes-cluster-architecture.html#sharding) section. 
+[_Cluster Sharding_](architecture-deployment-modes-cluster-sharding.html) section. 
 
 Number of _shards_ can be configured at _collection_ creation time, e.g. the UI,
 or the _ArangoDB Shell_:
@@ -99,7 +99,10 @@ It is also possible to specify multiple `shardKeys`.
 
 Note however that if you change the shard keys from their default `["_key"]`, then finding
 a document in the collection by its primary key involves a request to
-every single shard. Furthermore, in this case one can no longer prescribe
+every single shard. However this can be mitigate: All CRUD APIs and AQL
+support taking the shard keys as a lookup hint.
+
+Furthermore, in this case one can no longer prescribe
 the primary key value of a new document but must use the automatically
 generated one. This latter restriction comes from the fact that ensuring
 uniqueness of the primary key would be very inefficient if the user
