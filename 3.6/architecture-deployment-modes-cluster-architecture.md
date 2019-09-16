@@ -149,11 +149,11 @@ be distributed to multiple machines.
 
 ![Cluster Sharding](images/cluster_sharding.jpg)
 
-From the outside this process is fully transparent: >ou talk to any _Coordinator_ 
-and whenever you read or write data
-it will automatically figure out where the data is stored (read) or to
-be stored (write). The information about the _shards_ is shared across the
-_Coordinators_ using the _Agency_.
+From the outside this process is fully transparent:
+An application may talk to any _Coordinator_  and
+it will automatically figure out where the data is currently stored (read-case) 
+or is to be stored (write-case). The information about the _shards_ 
+is shared across all _Coordinators_ using the _Agency_.
 
 _Shards_ are configured per _collection_ so multiple _shards_ of data form
 the _collection_ as a whole. To determine in which _shard_ the data is to
@@ -393,7 +393,7 @@ chapter for instructions.
 Cluster ID
 ----------
 
-Every non-Agency ArangoDB instance in a Cluster is assigned a unique
+Every ArangoDB instance in a Cluster is assigned a unique
 ID during its startup. Using its ID a node is identifiable
 throughout the Cluster. All cluster operations will communicate
 via this ID.

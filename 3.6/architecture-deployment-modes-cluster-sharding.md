@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Run a cluster of ArangoDB instances that constitute a single database.
+description: Run a cluster of ArangoDB instances that constitute a single database system.
 ---
 Sharding
 =======
@@ -8,7 +8,7 @@ Sharding
 
 ArangoDB organizes its collection data in _shards_. Sharding
 allows to use multiple machines to run a cluster of ArangoDB
-instances that together constitute a single database.
+instances that together constitute a single database system.
 
 Sharding is used to distribute data across physical machines in an ArangoDB Cluster. It is a method 
 to determine the optimal placement of documents on individual DBServers. 
@@ -24,79 +24,75 @@ A high rate of write / read operations or AQL queries can also overwhelm a singl
 capacity.
 
 There are two main ways of scaling a database system: _Vertical_ and _horizontal_ scaling.
-Vertical scaling that involves using larger servers. This can be a cost effective way of scaling,
+Vertical scaling scaling means to upgrade to better server hardware (faster CPU, more RAM / disk). 
+This can be a cost effective way of scaling,. This can be a cost effective way of scaling,
 because administration is easy and performance charateristics do not change much. Reasoning
 about the behaviour of a single machine is also a lot easier than having multiple machines.
 However at a certain point larger machines are either not available anymore or the cost
 becomes prohibitive.
 
-Horizontal scaling involves using many servers, typically based on commodity hardware. The capability of 
-a single machine may not be high, over combined the computing power of these machines can be arbitrarily
-large. Adding more machines on-demand is also typically easier and more cost-effective than pre-provisioning 
+Horizontal scaling is about increasing the number of servers. Servers typically beeing based on commodity hardware,
+which is readily available from many different Cloud providers.
+The capability of each single machine may not be high, but the combined the computing power
+of these machines can be arbitrarily large. 
+Adding more machines on-demand is also typically easier and more cost-effective than pre-provisioning 
 a single large machine. Increased complexity in infrastructure can be managed
-using modern containerization and cluster orchestrations tools like [kubernetes](deployment-kubernetes.html).
+using modern containerization and cluster orchestrations tools like [Kubernetes](deployment-kubernetes.html).
 
 ![Cluster Sharding](images/cluster_sharding.jpg)
-
 
 To achieve this ArangoDB splits your dataset into so called _shards_. The number of shards is something
 you may choose according to your needs. Proper sharding is essential to achieve optimal performance.
 From the outside th process of splitting the data and assembling it again is fully transparent 
 and as such we achieve the goals of what other systems call "master-master replication".
 
-In an ArangoDB Cluster you talk to any _Coordinator_ and whenever you read or write data
-it will automatically figure out where the data is stored (read) or to
-be stored (write). The information about the _shards_ is shared across the
-_Coordinators_ using the _Agency_.
+An application may talk to any _Coordinator_  and
+it will automatically figure out where the data is currently stored (read-case) 
+or is to be stored (write-case). The information about the _shards_ 
+is shared across all _Coordinators_ using the _Agency_.
 
 _Shards_ are configured per _collection_ so multiple _shards_ of data form
 the _collection_ as a whole. To determine in which _shard_ the data is to
 be stored ArangoDB performs a hash across the values. By default this
-hash is being created from the document __key_.
+hash is being created from the `_key` document attribute.
 
-Every shard is a local collection on any db server, that houses such a shard as depicted above for our 
+Every shard is a local collection on any _DBServer_, that houses such a shard as depicted above for our 
 example with 5 shards and 3 replicas. 
 Here, every leading shard S1 through S5 is followed each by 2 replicas R1 through R5. 
-The collection creation mechanism on ArangoDB coordinators tries to best distribute the shards of a collection among the db servers. 
+The collection creation mechanism on ArangoDB _Coordinators_ tries to best distribute the shards of a collection among the _DBServers_. 
 This seems to suggest, that one shards the data in 5 parts, to make best use of all our machines. 
-For sake of reason-ability, we further choose a 3 as replication factor as it is a reasonable 
+We further choose a replication factor of 3 as it is a reasonable 
 compromise between performance and data safety. This means, that the collection creation ideally 
-distributes 15 shards, 5 of which are leaders to each 2 replica. This in turn implies, that a complete pristine 
+distributes 15 shards, 5 of which are leaders to each 2 replicas. This in turn implies, that a complete pristine 
 replication would involve 10 shards which need to catch up with their leaders.
-
 
 Shard Keys
 ----------
 
-ArangoDB uses the specified _shard keys_ to determine in which shard a given
-document is stored. Choosing the right shard key can have significant impact on
+ArangoDB uses the specified _shard key_ attributes to determine in which shard a given
+document is to be stored. Choosing the right shard key can have significant impact on
 your performance can reduce network traffic and increase performance.
 
 ![Hash Sharding](images/cluster_sharding_hash.jpg)
 
-
 ArangoDB uses consistent hashing to compute the target shard from the given
-values (as specified via 'shardKeys'). The ideal set of shard keys allows
+values (as specified via by the `shardKeys` collection property). The ideal set of shard keys allows
 ArangoDB to distribute documents evenly across your shards and your _DBServers_.
 By default ArangoDB uses the `_key` field as a shard key. For a custom shard key
 you should consider a few different properties:
 
-### Cardinality
-
-The cardinality of a set is the number of distinct values
+- **Cardinality**: The cardinality of a set is the number of distinct values
 that it contains. A shard key with only _N_ distinct values can not be hashed
 onto more than _N_ shards. Consider using multiple shard keys, if one of your
 values has a low cardinality.
-
-### Frequency
-
-Consider how often a given shard key value may appear in
+- **Frequency**: Consider how often a given shard key value may appear in
 your data. Having a lot of documents with identical shard keys will lead
 to unevenly distributed data. 
 
-This means that this shard could become a bottleneck in your cluster, since 
-shards are not divisible at this time this can reduce the effectiveness of
-horizontal scaling.
+This means that a single shard could become a bottleneck in your cluster.
+The effectiveness of horizontal scaling is reduced if most documents
+end up in a single shard. Shards are not divisible at this time, so
+paying attention to the size of shards is important.
 
 Consider both frequency and cardinality when picking a shard key, if necessary
 consider picking multiple shard keys.
@@ -104,7 +100,7 @@ consider picking multiple shard keys.
 ### Configuring Shards
 
 Number of _shards_ can be configured at _collection_ creation time, e.g. the UI,
-or the _ArangoDB Shell_:
+or the _arangosh_:
 
 ```
 127.0.0.1:8529@_system> db._create("sharded_collection", {"numberOfShards": 4, "shardKeys": ["country"]});
@@ -118,8 +114,9 @@ It is also possible to specify multiple `shardKeys`.
 
 Note however that if you change the shard keys from their default `["_key"]`, then finding
 a document in the collection by its primary key involves a request to
-every single shard. However this can be mitigate: All CRUD APIs and AQL
-support taking the shard key values as a lookup hint.
+every single shard. However this can be mitigated: All CRUD APIs and AQL
+support using the shard key values as a lookup hints. Just send them as part
+of the update / replace or removal operation.
 
 Furthermore, in this case one can no longer prescribe
 the primary key value of a new document but must use the automatically
@@ -170,5 +167,5 @@ The cluster will distribute your data across multiple machines in your cluster. 
 only contain a subset of your data. Thus the cluster now has the combined storage capacity of
 all your machines. 
 
-Please not that increasing the replication factor also increases the space required to keep all 
+Please note that increasing the replication factor also increases the space required to keep all 
 your data in the cluster. 
