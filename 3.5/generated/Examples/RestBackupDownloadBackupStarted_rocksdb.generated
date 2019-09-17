@@ -1,6 +1,6 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/download</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"downloadId"</span> : <span class="hljs-string">"69033"</span> 
+  <span class="hljs-string">"downloadId"</span> : <span class="hljs-string">"69038"</span> 
 }
 EOF
 
@@ -12,10 +12,10 @@ x-content-type-options: nosniff
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">"result"</span> : { 
-    <span class="hljs-string">"Timestamp"</span> : <span class="hljs-string">"2019-09-15T05:17:21Z"</span>, 
-    <span class="hljs-string">"DownloadId"</span> : <span class="hljs-string">"69033"</span>, 
+    <span class="hljs-string">"Timestamp"</span> : <span class="hljs-string">"2019-09-17T03:41:07Z"</span>, 
+    <span class="hljs-string">"DownloadId"</span> : <span class="hljs-string">"69038"</span>, 
     <span class="hljs-string">"Cancelled"</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">"BackupId"</span> : <span class="hljs-string">"2019-09-15T05.17.05Z_e0f81686-304d-4646-bf83-7013c8692b86"</span>, 
+    <span class="hljs-string">"BackupId"</span> : <span class="hljs-string">"2019-09-17T03.40.51Z_f8152784-5d79-4d30-9fde-54a3b6bd7820"</span>, 
     <span class="hljs-string">"DBServers"</span> : { 
       <span class="hljs-string">"SNGL"</span> : { 
         <span class="hljs-string">"Status"</span> : <span class="hljs-string">"STARTED"</span> 
