@@ -34,7 +34,8 @@ The http REST-API is demonstrated with cut'n'paste recepies intended to be used 
 Drivers may provide their own examples based on these .js based examples to improve understandeability for their respective users.
 I.e. for the [java driver](https://github.com/arangodb/arangodb-java-driver#learn-more){:target="_blank"} some of the samples are re-implemented.
 
-You can also go to our [cookbook](https://docs.arangodb.com/cookbook){:target="_blank"} and look through some recipes to learn more about ArangoDB specific problems and solutions.
+You can also go to our [cookbook](cookbook/index.html) and look through
+some recipes to learn more about ArangoDB specific problems and solutions.
 
 ### Community
 

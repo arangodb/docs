@@ -9,7 +9,7 @@ Introduction to TTL (time-to-live) Indexes
 ------------------------------------------
 
 The TTL index type provided by ArangoDB can be used for removing expired documents
-from a collection. 
+from a collection.
 
 The TTL index is set up by setting an `expireAfter` value and by selecting a single 
 document attribute which contains a reference point in time. For each document, that
@@ -42,10 +42,12 @@ will expire 600 seconds afterwards, which is at timestamp `1550166573` (or
 `2019-02-14T17:49:33.000Z` in the human-readable version). From that point on, the
 document is a candidate for being removed.
 
-Please note that the numeric date time values for the index attribute should be 
-specified in seconds since January 1st 1970 (Unix timestamp). To calculate the current 
-timestamp from JavaScript in this format, there is `Date.now() / 1000`, to calculate it 
-from an arbitrary `Date` instance, there is `Date.getTime() / 1000`.
+The numeric date time values for the index attribute need to be specified
+**in seconds** since January 1st 1970 (Unix timestamp). To calculate the
+current timestamp using JavaScript in this format, use: `Date.now() / 1000`.
+To calculate it from an arbitrary `Date` instance, use:
+`Date.getTime() / 1000`. In AQL, you also have to divide the timestamp,
+e.g. `DATE_NOW() / 1000`.
 
 Alternatively, the reference points in time can be specified as a date string in format
 `YYYY-MM-DDTHH:MM:SS` with optional milliseconds, and an optional timezone offset. All 
@@ -122,6 +124,17 @@ the index attribute is a supported way to keep documents from being expired and 
 
 ### Limitations
 
+TTL indexes are designed exactly for the purpose of removing expired documents
+from collections. It is **not recommended** to rely on TTL indexes for user-land
+AQL queries. This is because TTL indexes may store a transformed, always
+numerical version of the index attribute value internally even if it was
+originally passed in as a date string. As a result, you may see different
+values for the attribute, depending on whether it gets taken from the
+index or the document. TTL indexes will likely not be usable for filtering and
+sort operations in user-land AQL queries.
+
+There can at most be one TTL index per collection.
+
 The actual removal of expired documents will not necessarily happen immediately when 
 they have reached their expiration time. 
 Expired documents will eventually be removed by a background thread that is periodically
@@ -144,11 +157,6 @@ controlled by the startup option `--ttl.max-total-removes`. The maximum number o
 documents in a single collection at once can be controlled by the startup option
 `--ttl.max-collection-removes`.
 
-There can at most be one TTL index per collection. It is not recommended to rely on
-TTL indexes for user-land AQL queries. This is because TTL indexes may store a transformed,
-always numerical version of the index attribute value even if it was originally passed
-in as a date string.
-
 Please note that there is one background thread per ArangoDB database server instance 
 for performing the removal of expired documents of all collections in all databases. 
 If the number of databases and collections with TTL indexes is high and there are many 
@@ -156,13 +164,6 @@ documents to remove from these, the background thread may at least temporarily l
 behind with its removal operations. It should eventually catch up in case the number
 of to-be-removed documents per invocation is not higher than the background thread's
 configured threshold values.
-  
-Please also note that TTL indexes are designed exactly for the purpose of removing 
-expired documents from collections. It is *not recommended* to rely on TTL indexes 
-for user-land AQL queries. This is because TTL indexes internally may store a transformed, 
-always numerical version of the index attribute value even if it was originally passed in 
-as a date string. As a result TTL indexes will likely not be used for filtering and sort 
-operations in user-land AQL queries.
 
 
 Accessing TTL Indexes from the Shell

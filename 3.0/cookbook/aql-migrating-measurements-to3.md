@@ -56,7 +56,7 @@ As these are typically computation expensive and create long running queries it 
 to not use them in combination with other AQL features.
 Therefore the best idea is to offer these measurements directly via an API using FOXX.
 
-First we create a new [Foxx service](https://docs.arangodb.com/3/Manual/Foxx/index.html){:target="_blank"}.
+First we create a new [Foxx service](../foxx.html).
 Then we include the `general-graph` module in the service.
 For every measurement we need we simply offer a GET route to read this measurement.
 

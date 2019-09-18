@@ -1,14 +1,15 @@
 ---
 layout: default
-description: The SmartGraphs feature is only available in the Enterprise Edition
+description: SmartGraphs enable you to manage graphs at scale.
 title: ArangoDB SmartGraphs
 ---
 SmartGraphs
 ===========
 
 {% hint 'info' %}
-The SmartGraphs feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+SmartGraphs are only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 This chapter describes the `smart-graph` module, which enables you to manage

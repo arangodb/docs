@@ -270,11 +270,11 @@ It is used to demonstrate raw traversal operations.
 
 The above referenced chapters describe the various APIs of ArangoDBs graph engine with small examples. Our cookbook has some more real life examples:
 
- - [Traversing a graph in full depth](https://docs.arangodb.com/cookbook/Graph/FulldepthTraversal.html){:target="_blank"}
- - [Using an example vertex with the java driver](https://docs.arangodb.com/cookbook/Graph/JavaDriverGraphExampleVertex.html){:target="_blank"}
- - [Retrieving documents from ArangoDB without knowing the structure](https://docs.arangodb.com/cookbook/Graph/JavaDriverBaseDocument.html){:target="_blank"}
- - [Using a custom visitor from node.js](https://docs.arangodb.com/cookbook/Graph/CustomVisitorFromNodeJs.html){:target="_blank"}
- - [AQL Example Queries on an Actors and Movies Database](https://docs.arangodb.com/cookbook/Graph/ExampleActorsAndMovies.html){:target="_blank"}
+ - [Traversing a graph in full depth](cookbook/graph-fulldepth-traversal.html)
+ - [Using an example vertex with the java driver](cookbook/graph-java-driver-graph-example-vertex.html)
+ - [Retrieving documents from ArangoDB without knowing the structure](cookbook/graph-java-driver-base-document.html)
+ - [Using a custom visitor from node.js](cookbook/graph-custom-visitor-from-node-js.html)
+ - [AQL Example Queries on an Actors and Movies Database](cookbook/graph-example-actors-and-movies.html)
 
 ### Higher volume graph examples
 

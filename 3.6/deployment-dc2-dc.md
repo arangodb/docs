@@ -1,17 +1,18 @@
 ---
 layout: default
-description: This feature is only available in theEnterprise Edition
+description: Datacenter to datacenter replication deployment overview
+title: DC2DC Replication Deployment
 ---
-
 # Datacenter to datacenter replication deployment
 
 {% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+Datacenter to datacenter replication is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
-This chapter describes how to deploy all the components needed for _datacenter to
-datacenter replication_.
+This chapter describes how to deploy all the components needed for
+_datacenter to datacenter replication_.
 
 For a general introduction to _datacenter to datacenter replication_, please refer
 to the [Datacenter to datacenter replication](architecture-deployment-modes-dc2-dc.html) chapter.

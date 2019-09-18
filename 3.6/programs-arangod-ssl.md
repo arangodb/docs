@@ -1,6 +1,7 @@
 ---
 layout: default
-description: Given a hostname
+description: SSL/TLS encryption option of the ArangoDB server
+title: SSL Configuration
 ---
 # ArangoDB Server SSL Options
 
@@ -96,6 +97,7 @@ following variants are available:
 - 3: SSLv3
 - 4: TLSv1
 - 5: TLSv1.2
+- 6: TLSv1.3
 
 The default *value* is 5 (TLSv1.2).
 
@@ -115,7 +117,8 @@ Set to true if SSL session caching should be used.
 
 {% hint 'info' %}
 This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 `--ssl.require-peer-certificate`
