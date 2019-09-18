@@ -45,6 +45,12 @@ Version 3.5
 
 **Enterprise Edition**
 
+- [**Hot Backups**](backup-restore.html#hot-backups):
+  Create automatic, consistent backups of your cluster without noticeable
+  impact on your production systems. In contrast to _arangodump_, hot backups
+  are taken on the level of the underlying storage engine and hence both backup
+  and restore are considerably faster.
+
 - [**SmartJoins**](smartjoins.html):
   SmartJoins allow to run joins between identically sharded collections with
   performance close to that of a local join operation.
@@ -54,6 +60,8 @@ Version 3.5
   [data masking functions](programs-arangodump-maskings.html#masking-functions)
   available in the Enterprise Edition, such as to substitute email addresses,
   phone numbers etc. with similar looking pseudo-data.
+
+Also see [What's New in 3.5](release-notes-new-features35.html).
 
 Version 3.4
 -----------
