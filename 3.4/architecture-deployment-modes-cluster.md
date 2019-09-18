@@ -1,11 +1,11 @@
 ---
 layout: default
-description: This Chapter introduces ArangoDB's Cluster
+description: This chapter introduces ArangoDB's Cluster
 ---
 Cluster
 =======
 
-This _Chapter_ introduces ArangoDB's Cluster.
+This chapter introduces ArangoDB's Cluster.
 
 **Sections:**
 

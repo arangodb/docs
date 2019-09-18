@@ -56,7 +56,8 @@ Once you've made the changes to your code and manifest, mount or update the app 
 
 And that's it! To try it out open your todo app from the Applications tab in the ArangoDB web interface and create a new todo item with the interactive documentation. You will receive an email with the title of the todo shortly after that. As we are using the queue, the user of your API doesn't need to wait until the email is sent, but gets an immediate answer.
 
-Read the [Foxx Queues documentation](https://docs.arangodb.com/Foxx/Develop/Queues.html){:target="_blank"} to get familiar with handling queues in your Foxx apps.
+Read the [Foxx Queues documentation](../foxx-develop-queues.html)
+to get familiar with handling queues in your Foxx apps.
 
 **Authors**: [Lucas Dohmen](https://github.com/moonglum){:target="_blank"}, [Alan Plum](https://github.com/pluma){:target="_blank"}
 

@@ -153,7 +153,7 @@ The functions:
 * GRAPH_PATHS
 * GRAPH_VERTICES
 
-are covered in [Migrating GRAPH_* Functions from 2.8 or earlier to 3.0](https://docs.arangodb.com/cookbook/AQL/MigratingGraphFunctionsTo3.html){:target="_blank"}
+are covered in [Migrating GRAPH_* Functions from 2.8 or earlier to 3.0](cookbook/aql-migrating-graph-functions-to3.html)
 
 * GRAPH_ABSOLUTE_BETWEENNESS
 * GRAPH_ABSOLUTE_CLOSENESS
@@ -164,7 +164,7 @@ are covered in [Migrating GRAPH_* Functions from 2.8 or earlier to 3.0](https://
 * GRAPH_ECCENTRICITY
 * GRAPH_RADIUS
 
-are covered in [Migrating GRAPH_* Measurements from 2.8 or earlier to 3.0](https://docs.arangodb.com/cookbook/AQL/MigratingMeasurementsTo3.html){:target="_blank"}
+are covered in [Migrating GRAPH_* Measurements from 2.8 or earlier to 3.0](cookbook/aql-migrating-measurements-to3.html)
 
 * EDGES
 * NEIGHBORS
@@ -172,7 +172,7 @@ are covered in [Migrating GRAPH_* Measurements from 2.8 or earlier to 3.0](https
 * TRAVERSAL
 * TRAVERSAL_TREE
 
-are covered in [Migrating anonymous graph functions from 2.8 or earlier to 3.0](https://docs.arangodb.com/3/cookbook/AQL/MigratingEdgeFunctionsTo3.html){:target="_blank"}
+are covered in [Migrating anonymous graph functions from 2.8 or earlier to 3.0](cookbook/aql-migrating-edge-functions-to3.html)
 
 ### Typecasting functions
 

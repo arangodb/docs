@@ -341,5 +341,13 @@ FOR u IN users
   RETURN age
 ```
 
-However, `COLLECT` is vastly more flexible than `RETURN DISTINCT`. Additionally, the order of results is 
-undefined for a `RETURN DISTINCT`, whereas for a `COLLECT` the results will be sorted.
+However, `COLLECT` is vastly more flexible than `RETURN DISTINCT`. Aside from
+its sophisticated grouping and aggregation capabilities, `COLLECT` also allows
+you to place a `LIMIT` operation before `RETURN` to potentially stop the
+`COLLECT` operation early.
+Additionally, `COLLECT` supports [options](#setting-collect-options).
+
+`RETURN DISTINCT` does not change the order of results, whereas `COLLECT` sorts
+them (regardless of the method, _sorted_ or _hash_) unless explicitly disabled
+by the user with a subsequent `SORT null`
+(see [COLLECT variants](#collect-variants)).

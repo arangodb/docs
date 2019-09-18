@@ -5,7 +5,9 @@ description: If you have never built a Foxx App, then you can make your own firs
 Foxx Job Queues
 ===============
 
-If you have never built a Foxx App, then you can make your own [first Foxx App](https://docs.arangodb.com/cookbook/Foxx/FirstSteps.html){:target="_blank"} using our [cookbook](https://docs.arangodb.com/cookbook){:target="_blank"}.
+If you have never built a Foxx App, then you can make your own
+[first Foxx App](cookbook/foxx-first-steps.html) using our
+[cookbook](cookbook/index.html).
 
 
 Foxx allows defining job queues that let you perform slow or expensive actions asynchronously. These queues can be used to send e-mails, call external APIs or perform other actions that you do not want to perform directly or want to retry on failure.

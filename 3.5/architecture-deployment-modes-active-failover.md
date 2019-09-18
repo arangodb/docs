@@ -1,11 +1,11 @@
 ---
 layout: default
-description: This Chapter introduces ArangoDB's Active Failover environment
+description: This chapter introduces ArangoDB's Active Failover environment
 ---
 Active Failover
 ===============
 
-This _Chapter_ introduces ArangoDB's _Active Failover_ environment.
+This chapter introduces ArangoDB's _Active Failover_ environment.
 
 **Sections:**
 

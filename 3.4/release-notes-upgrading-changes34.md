@@ -839,9 +839,9 @@ removed in future versions of ArangoDB:
 
 * the legacy mode for Foxx applications from ArangoDB 2.8 or earlier:
 
-  The legacy mode is described in more detail in the [Foxx manual](https://docs.arangodb.com/3.3/Manual/Foxx/LegacyMode.html){:target="_blank"}.
+  The legacy mode is described in more detail in the [Foxx manual](foxx-guides-legacy-mode.html).
   To upgrade an existing Foxx application that still uses the legacy mode, please
-  follow the steps described in [the manual](https://docs.arangodb.com/3.3/Manual/Foxx/Migrating2x/){:target="_blank"}.
+  follow the steps described in [the manual](foxx-migrating2x.html).
 
 * the AQL geo functions `NEAR`, `WITHIN`, `WITHIN_RECTANGLE` and `IS_IN_POLYGON`:
 
@@ -878,4 +878,4 @@ removed in future versions of ArangoDB:
 
 * the `foxx-manager` executable is deprecated and will be removed in ArangoDB 4.
   
-  Please use foxx-cli instead: https://docs.arangodb.com/3.4/Manual/Foxx/Deployment/FoxxCLI/
+  Please use foxx-cli instead: [FoxxCLI](programs-foxx-cli.html)

@@ -550,11 +550,11 @@ RETURN { // We rebuild the old format
 ### GRAPH_TRAVERSAL and GRAPH_TRAVERSAL_TREE
 
 These have been removed and should be replaced by the
-[native AQL traversal](https://docs.arangodb.com/3/Manual/Graphs/Traversals/index.html){:target="_blank"}.
+[native AQL traversal](../graphs-traversals.html).
 There are many potential solutions using the new syntax, but they largely depend
 on what exactly you are trying to achieve and would go beyond the scope of this
 cookbook. Here is one example how to do the transition, using the
-[world graph](https://docs.arangodb.com/3/Manual/Graphs/index.html#the-world-graph){:target="_blank"}
+[world graph](../graphs.html#the-world-graph)
 as data:
 
 In 2.8, it was possible to use `GRAPH_TRAVERSAL()` together with a custom visitor
