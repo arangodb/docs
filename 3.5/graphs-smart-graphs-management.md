@@ -214,7 +214,7 @@ Delete an edge definition from the graph:
 
 **Examples**
 
-Create a SmartGraph, then delete the edge definition:
+Create a SmartGraph, then delete the edge definition and drop the edge collection:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphModify4_cluster
@@ -222,10 +222,9 @@ Create a SmartGraph, then delete the edge definition:
       var graph_module = require("@arangodb/smart-graph");
       var relation = graph_module._relation("edges", "vertices", "vertices");
       var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph._deleteEdgeDefinition("edges");
+      graph._deleteEdgeDefinition("edges", true);
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
-     ~db._drop("edges");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphModify4_cluster
 {% endarangoshexample %}
