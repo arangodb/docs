@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Backup and restore can be done via the tools arangodump and arangorestore
+description: Physical backups, logical backups with arangodump and arangorestore, hot backups with arangobackup
 title: Backup & Restore
 ---
 Backup and Restore
@@ -11,6 +11,11 @@ ArangoDB supports three backup methods:
 1. Physical (raw or "cold") backups
 2. Logical backups
 3. Hot backups
+
+These backup methods save the data which is in the database system. In addition,
+make sure to backup things like configuration files, startup scripts, Foxx
+services, access tokens, secrets, certificates etc. and store them in a
+different location securely.
 
 Performing frequent backups is important and a recommended best practices that
 can allow you to recover your data in case unexpected problems occur.
@@ -35,7 +40,7 @@ Physical backups
 Physical (raw or "cold") backups can be done when the ArangoDB Server is not running
 by making a raw copy of the ArangoDB data directory.
 
-Such backups are extremely fast as they involve only a file copy.
+Such backups are extremely fast as they only involve file copying.
 
 If ArangoDB is running in Active Failover or Cluster mode, it will be necessary
 to copy the data directories of all the involved processes (_Agents_, _Coordinators_ and
