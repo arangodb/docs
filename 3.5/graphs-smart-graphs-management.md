@@ -72,7 +72,7 @@ All newly created collections will immediately be dropped again in the failure c
 
 **Examples**
 
-Create an empty graph, edge definitions can be added at runtime:
+Create a graph without relations. Edge definitions can be added later:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreate1_cluster
@@ -87,7 +87,7 @@ Create an empty graph, edge definitions can be added at runtime:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Create a graph using an edge collection `edges` and a single vertex collection
-`vertices`:
+`vertices` as relation:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreate2_cluster
@@ -185,7 +185,7 @@ Remove the orphan collection from the SmartGraph and drop the collection:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Attempt to remove a non-orphan collection, resulting in an error:
+Attempting to remove a non-orphan collection results in an error:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphModify3_cluster
