@@ -230,8 +230,7 @@ Create a SmartGraph, then delete the edge definition and drop the edge collectio
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Even after deleting the edge definition, it is still not allowed to remove the
-initial vertex collection `vertices`:
+It is not allowed to remove the initial vertex collection `vertices`:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphModify5_cluster
