@@ -87,6 +87,12 @@ async function migrateMds(basePath, targetPath) {
         }
         content = content.replace("ArangoDB VERSION_NUMBER", "ArangoDB {{ site.data.versions[page.version.name] }}");
         
+        // HACK: Fix cross-links
+        content = content.replace(/\]\(https:\/\/docs\.arangodb\.com\/latest\/(.*?)\)/g, (fullMatch, link) => {
+            link = path.relative(relative, link).replace(/\\/g, '/').replace(/\/index\.html/, '.html').replace(/\/README.md/, '.html');
+            return `](${link})`;
+        });
+
         // replace all md links with their changed link
         content = content.replace(/\]\((?!https?:)(.*?\.(html|md))(#[^\)]+)?\)/g, (x, link, fileExt, anchor) => {
             if (!link.startsWith('/')) {
