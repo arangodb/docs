@@ -11,12 +11,12 @@ Query <span class="hljs-built_in">String</span> (<span class="hljs-number">58</s
 Execution plan:
  Id   NodeType        Calls   Items   Runtime [s]   Comment
   <span class="hljs-number">1</span>   SingletonNode       <span class="hljs-number">1</span>       <span class="hljs-number">1</span>       <span class="hljs-number">0.00001</span>   * ROOT
-  <span class="hljs-number">6</span>   IndexNode           <span class="hljs-number">1</span>      <span class="hljs-number">10</span>       <span class="hljs-number">0.00017</span>     - FOR doc IN acollection   <span class="hljs-comment">/* skiplist index scan */</span>
+  <span class="hljs-number">6</span>   IndexNode           <span class="hljs-number">1</span>      <span class="hljs-number">10</span>       <span class="hljs-number">0.00018</span>     - FOR doc IN acollection   <span class="hljs-comment">/* skiplist index scan */</span>
   <span class="hljs-number">5</span>   ReturnNode          <span class="hljs-number">1</span>      <span class="hljs-number">10</span>       <span class="hljs-number">0.00001</span>       - RETURN doc
 
 Indexes used:
  By   Name                      Type       Collection    Unique   Sparse   Selectivity   Fields        Ranges
-  <span class="hljs-number">6</span>   idx_1644892404101152768   skiplist   acollection   <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>       <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`value`</span> ]   (doc.<span class="hljs-string">`value`</span> &lt; <span class="hljs-number">10</span>)
+  <span class="hljs-number">6</span>   idx_1645068667416739840   skiplist   acollection   <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>       <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`value`</span> ]   (doc.<span class="hljs-string">`value`</span> &lt; <span class="hljs-number">10</span>)
 
 Optimization rules applied:
  Id   RuleName
@@ -36,7 +36,7 @@ Query Profile:
  loading collections        <span class="hljs-number">0.00001</span>
  instantiating plan         <span class="hljs-number">0.00004</span>
  optimizing plan            <span class="hljs-number">0.00023</span>
- executing                  <span class="hljs-number">0.00022</span>
+ executing                  <span class="hljs-number">0.00023</span>
  finalizing                 <span class="hljs-number">0.00016</span>
 
 
