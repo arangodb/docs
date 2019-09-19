@@ -34,5 +34,5 @@ If you want to learn more about ArangoDB, start with the [ArangoDB First Steps][
 [1]: https://aws.amazon.com
 [2]: https://aws.amazon.com/marketplace/search/results/ref=dtl_navgno_search_box?page=1&searchTerms=arangodb
 [3]: https://aws.amazon.com/marketplace/library
-[4]: https://docs.arangodb.com/FirstSteps/index.html
+[4]: ../first-steps.html
 [5]: https://www.arangodb.com/tutorials

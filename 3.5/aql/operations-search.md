@@ -4,7 +4,6 @@ description: The SEARCH keyword starts the language construct to filter Views of
 title: The SEARCH operation in AQL
 redirect_from:
   - /3.5/aql/views.html
-  - /3.5/aql/views-arango-search.html
 ---
 SEARCH
 ======

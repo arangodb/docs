@@ -1,8 +1,8 @@
 ---
 layout: default
-description: To use datacenter to datacenter replication you need the following
+description: What you need for datacenter to datacenter replication
+title: DC2DC Requirements
 ---
-
 # Requirements
 
 To use _datacenter to datacenter replication_ you need the following:
