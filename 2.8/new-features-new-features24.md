@@ -68,7 +68,8 @@ is here:
 * [part 2](https://www.arangodb.com/2014/12/02/building-hypermedia-apis-design){:target="_blank"}
 * [part 3](https://www.arangodb.com/2014/12/08/building-hypermedia-apis-foxxgenerator){:target="_blank"}
 
-A cookbook recipe for getting started with FoxxGenerator is [here](https://docs.arangodb.com/cookbook/Foxx/GeneratorFirstSteps.html){:target="_blank"}.
+A cookbook recipe for getting started with FoxxGenerator is
+[here](cookbook/foxx-generator-first-steps.html).
 
 AQL improvements
 ----------------

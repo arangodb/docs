@@ -146,6 +146,9 @@ FOR variableName IN expression
   RETURN DISTINCT expression
 ```
 
+`RETURN DISTINCT` is not allowed on the top-level of a query if there is no `FOR`
+loop preceding it.
+
 If the `DISTINCT` is applied on an expression that itself is an array or a subquery, 
 the `DISTINCT` will not make the values in each array or subquery result unique, but instead
 ensure that the result contains only distinct arrays or subquery results. To make
@@ -198,9 +201,8 @@ returned twice:
 ]
 ```
 
-Note: the order of results was undefined for `RETURN DISTINCT` until before ArangoDB 
+{% hint 'info' %}
+The order of results was undefined for `RETURN DISTINCT` until before ArangoDB 
 3.3. Starting with ArangoDB 3.3, `RETURN DISTINCT` will not change the order of the
 results it is applied on.
-
-Note: `RETURN DISTINCT` is not allowed on the top-level of a query if there is no `FOR` 
-loop preceding it.
+{% endhint %}

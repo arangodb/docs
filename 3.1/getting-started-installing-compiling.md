@@ -16,5 +16,5 @@ By default, cloning the github repository will checkout **devel**. This version
 contains the development version of the ArangoDB.  Use this branch if you want
 to make changes to the ArangoDB source.
 
-Please checkout the [cookbook](https://docs.arangodb.com/cookbook){:target="_blank"} on how to
+Please checkout the [cookbook](cookbook/index.html) on how to
 compile ArangoDB.
