@@ -1,6 +1,7 @@
 ---
 layout: default
-description: In general, a single server configuration and a cluster configurationof ArangoDB behave very similarly
+description: Similarities and differences in behavior between single servers and clusters
+title: Single Instance versus Cluster
 ---
 Single Instance vs. Cluster
 ===========================
@@ -153,9 +154,10 @@ server deployment.
 Dump/Restore
 ------------
 
-At the time of this writing, the `arangodump` utility in a cluster
-cannot guarantee a consistent snapshot across multiple shards or even
-multiple collections. This is in line with most other current NoSQL
-database systems. We are working on a consistent snapshot and
-incremental backup capability for 3.5. In a single server, `arangodump`
-produces a consistent snapshot.
+In a cluster, the `arangodump` utility cannot guarantee a consistent snapshot
+across multiple shards or even multiple collections. In a single server,
+`arangodump` produces a consistent snapshot.
+
+In the Enterprise Edition starting from v3.5.1 there is an additional utility
+`arangobackup` and an HTTP API for [Hot Backups](backup-restore.html#hot-backups)
+to create consistent cluster snapshots.
