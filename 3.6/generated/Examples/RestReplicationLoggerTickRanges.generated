@@ -2,13 +2,26 @@
 
 HTTP/<span class="hljs-number">1.1</span> OK
 content-type: application/json; charset=utf<span class="hljs-number">-8</span>
+keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 
 [ 
   { 
-    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/000003.log"</span>, 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/archive/000075.log"</span>, 
+    <span class="hljs-string">"status"</span> : <span class="hljs-string">"collected"</span>, 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"185843"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"185902"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/archive/000093.log"</span>, 
+    <span class="hljs-string">"status"</span> : <span class="hljs-string">"collected"</span>, 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"185902"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"185940"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/000099.log"</span>, 
     <span class="hljs-string">"status"</span> : <span class="hljs-string">"open"</span>, 
-    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"1"</span>, 
-    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"188243"</span> 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"185940"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"188704"</span> 
   } 
 ]
