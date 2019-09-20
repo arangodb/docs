@@ -109,7 +109,9 @@ required and cannot be modified later.
 This is analogous to General Graphs. Unlike with General Graphs, the
 **collections must not exist** when creating the SmartGraph. The SmartGraph
 module will create them for you automatically to set up the sharding for all
-these collections correctly.
+these collections correctly. If you create collections via the SmartGraph
+module and remove them from the graph definition, then you may re-add them
+without trouble however, as they will have the correct sharding.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreateGraphHowTo2_cluster
@@ -130,7 +132,8 @@ these collections correctly.
 
 Adding edge collections works the same as with General Graphs, but again, the
 collections are created by the SmartGraph module to set up sharding correctly
-so they must not exist when creating the SmartGraph.
+so they must not exist when creating the SmartGraph (unless they have the
+correct sharding already).
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphCreateGraphHowTo3_cluster

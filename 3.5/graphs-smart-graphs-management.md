@@ -67,8 +67,9 @@ are not yet connected via edges but should follow the same sharding to be
 connected later on.
 
 All collections used within the creation process are newly created.
-The process will fail if one of them already exists.
-All newly created collections will immediately be dropped again in the failure case.
+The process will fail if one of them already exists, unless they have the
+correct sharding already. All newly created collections will immediately
+be dropped again in the failure case.
 
 **Examples**
 
@@ -145,14 +146,11 @@ Remove a vertex collection from the graph:
 In most cases this function works identically to the General Graph one.
 But there is one special case: The first vertex collection added to the graph
 (either orphan or within a relation) defines the sharding for all collections
-within the graph. This collection can never be removed from the graph.
+within the graph. They have their `distributeShardsLike` attribute set to the
+name of the initial collection. This collection can not be dropped as long as
+other collections follow its sharding (i.e. they need to be dropped first).
 
 **Examples**
-
-The following example lists the orphan collections and shows that you may
-remove them, but also that you cannot drop the initial collection.
-You can only drop the complete graph, or `truncate` it if you just want to
-get rid of the data.
 
 Create a SmartGraph and list its orphan collections:
 
@@ -200,6 +198,47 @@ Attempting to remove a non-orphan collection results in an error:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+You cannot drop the initial collection (`vertices`) as long as it defines the
+sharding for other collections (`edges`).
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline smartGraphModify4_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify4_cluster}
+      var graph_module = require("@arangodb/smart-graph");
+      var relation = graph_module._relation("edges", "vertices", "vertices");
+      var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph._deleteEdgeDefinition("edges");
+      graph._removeVertexCollection("vertices");
+      db._drop("vertices"); // xpError(ERROR_CLUSTER_MUST_NOT_DROP_COLL_OTHER_DISTRIBUTESHARDSLIKE)
+     ~graph_module._drop("myGraph", true);
+     ~db._drop("edges");
+     ~db._drop("vertices");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock smartGraphModify4_cluster
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+You may drop the complete graph, but remember to drop collections that you
+might have removed from the graph beforehand, as they will not be part of the
+graph definition anymore and thus not be dropped for you. Alternatively, you
+can `truncate` the graph if you just want to get rid of the data.
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline smartGraphModify5_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify5_cluster}
+      var graph_module = require("@arangodb/smart-graph");
+      var relation = graph_module._relation("edges", "vertices", "vertices");
+      var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph._deleteEdgeDefinition("edges");
+      graph._removeVertexCollection("vertices");
+      graph_module._drop("myGraph", true); // does not drop any collections
+      db._drop("edges"); // drop before sharding-defining 'vertices' collection
+      db._drop("vertices");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock smartGraphModify5_cluster
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Remove an edge collection
 
 Delete an edge definition from the graph:
@@ -217,8 +256,8 @@ Delete an edge definition from the graph:
 Create a SmartGraph, then delete the edge definition and drop the edge collection:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphModify4_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify4_cluster}
+    @startDocuBlockInline smartGraphModify6_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify6_cluster}
       var graph_module = require("@arangodb/smart-graph");
       var relation = graph_module._relation("edges", "vertices", "vertices");
       var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
@@ -226,26 +265,31 @@ Create a SmartGraph, then delete the edge definition and drop the edge collectio
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphModify4_cluster
+    @endDocuBlock smartGraphModify6_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-It is not allowed to remove the initial vertex collection `vertices`:
+It is allowed to remove the vertex collection `vertices` if it's not used in
+any relation (i.e. after the deletion of the edge definition):
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphModify5_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify5_cluster}
+    @startDocuBlockInline smartGraphModify7_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify7_cluster}
      ~var graph_module = require("@arangodb/smart-graph");
      ~var relation = graph_module._relation("edges", "vertices", "vertices");
      ~var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
-     ~graph._deleteEdgeDefinition("edges");
-      graph._removeVertexCollection("vertices"); // xpError(ERROR_GRAPH_NOT_IN_ORPHAN_COLLECTION)
+      graph._deleteEdgeDefinition("edges");
+      graph._removeVertexCollection("vertices");
      ~graph_module._drop("myGraph", true);
      ~db._drop("edges");
+     ~db._drop("vertices");
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphModify5_cluster
+    @endDocuBlock smartGraphModify7_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+Keep in mind that you can not drop the `vertices` collection until no other
+collection references it anymore (`distributeShardsLike` collection property).
 
 ### Remove a Graph
 
