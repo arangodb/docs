@@ -5,9 +5,9 @@ arangosh&gt; db.ids.ensureIndex({ <span class="hljs-attr">type</span>: <span cla
     <span class="hljs-string">"name.first"</span>, 
     <span class="hljs-string">"name.last"</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"ids/74807"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"ids/74803"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1645068732074033152"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1645167835456995328"</span>, 
   <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"persistent"</span>, 
@@ -16,21 +16,21 @@ arangosh&gt; db.ids.ensureIndex({ <span class="hljs-attr">type</span>: <span cla
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"hansen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/74811"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74811"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZSbSs8a---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/74807"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74807"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZSx02KW---"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"jens"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/74813"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74813"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZSbSs8e---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/74809"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74809"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZSx02KW--A"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/74815"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74815"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZSbSs8i---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/74811"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74811"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZSx02Ka---"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"hansen"</span> }});
-[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1645068732074033152 <span class="hljs-keyword">of</span> type persistent over <span class="hljs-string">'name.first, name.last'</span>; conflicting key: <span class="hljs-number">74811</span>]
+[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1645167835456995328 <span class="hljs-keyword">of</span> type persistent over <span class="hljs-string">'name.first, name.last'</span>; conflicting key: <span class="hljs-number">74807</span>]
