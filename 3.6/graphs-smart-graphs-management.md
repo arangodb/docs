@@ -334,7 +334,6 @@ collections first.
       graph._removeVertexCollection("other");
       graph_module._drop("myGraph", true); // xpError(ERROR_CLUSTER_MUST_NOT_DROP_COLL_OTHER_DISTRIBUTESHARDSLIKE)
      ~db._drop("other");
-     ~graph_module._drop("myGraph", true)
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphRemove2_cluster
 {% endarangoshexample %}
