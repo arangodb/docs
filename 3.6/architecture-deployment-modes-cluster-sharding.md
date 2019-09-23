@@ -126,9 +126,15 @@ Note however that if you change the shard keys from their default `["_key"]`,
 then finding a document in the collection by its primary key involves a request
 to every single shard. However this can be mitigated: All CRUD APIs and AQL
 support using the shard key values as a lookup hints. Just send them as part
-of the update / replace or removal operation.
+of the update / replace or removal operation, or in case of AQL, that
+you use a document reference or an object for the UPDATE, REPLACE or REMOVE
+operation which includes the shard key attributes:
 
-Furthermore, in this case one can no longer prescribe the primary key value of
+```js
+UPDATE { _key: "123", country: "…" } WITH { … } IN sharded_collection
+```
+
+If custom shard keys are used, one can no longer prescribe the primary key value of
 a new document but must use the automatically generated one. This latter
 restriction comes from the fact that ensuring uniqueness of the primary key
 would be very inefficient if the user could specify the primary key.
