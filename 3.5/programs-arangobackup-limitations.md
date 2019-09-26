@@ -109,8 +109,22 @@ presence of large amounts of data, the recreation of the ArangoSearch
 indexes can take some time after the restore. It is planned to rectify
 this limitation in one of the next releases.
 
+Note furthermore that a running query with views can prevent a restore
+operation from happening whilst the query is running.
+
 Windows not Supported Yet
 -------------------------
 
 The first release of the hot backup feature (3.5.1) does not support
 the Windows version of ArangoDB. 
+
+Services on Single Server
+-------------------------
+
+On a single server the installed services are not backed up and are
+therefore also not restored. This is because in single server mode
+the service installation is done locally in the file system and does not
+track the information in the `_apps` collection.
+
+In a cluster, the coordinators will after a restore eventually restore
+the state of the services from the `_apps` collection.
