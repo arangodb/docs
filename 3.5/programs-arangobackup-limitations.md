@@ -108,3 +108,9 @@ This happens automatically in the background, but in particular in the
 presence of large amounts of data, the recreation of the ArangoSearch
 indexes can take some time after the restore. It is planned to rectify
 this limitation in one of the next releases.
+
+Windows not Supported Yet
+-------------------------
+
+The first release of the hot backup feature (3.5.1) does not support
+the Windows version of ArangoDB. 
