@@ -42,6 +42,9 @@ dispose the server-side cursor afterwards.
 {% docublock put_api_simple_all %}
 
 <!-- js/actions/api-simple.js -->
+{% docublock put_api_simple_all_keys %}
+
+<!-- js/actions/api-simple.js -->
 {% docublock put_api_simple_by_example %}
 
 <!-- js/actions/api-simple.js -->
