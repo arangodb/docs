@@ -128,3 +128,14 @@ track the information in the `_apps` collection.
 
 In a cluster, the coordinators will after a restore eventually restore
 the state of the services from the `_apps` collection.
+
+Encryption at Rest
+------------------
+
+Currently, the hot backup simply takes a snapshot of the database files.
+If one is using encryption at rest, then the backed up files will be
+encrypted, with the encryption key that was used in the
+instance which created the backup.
+
+Such an encrypted backup can only be restored to an instance using the
+same encryption key.
