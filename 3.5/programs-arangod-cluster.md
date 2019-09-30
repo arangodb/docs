@@ -161,6 +161,8 @@ Change default replication factor for system collections. Default at `2`.
 
 Minimum replication factor that needs to be used when creating new collections.
 The default value is `1`.
+When changing the value of this setting, no changes are applied to existing
+collections that would violate the new setting.
 
 **Maximum replication factor**
 
@@ -168,6 +170,8 @@ The default value is `1`.
 
 Maximum replication factor that can be used when creating new collections.
 The default value is `10`.
+When changing the value of this setting, no changes are applied to existing
+collections that would violate the new setting.
 
 **Default replication factor**
 
@@ -178,3 +182,12 @@ replication factor is set.
 If this value is not set, it will default to the value of the option
 `--cluster.min-replication-factor`. If set, the value must be between the
 values of `--cluster.min-replication-factor` and `--cluster.max-replication-factor`.
+
+**Maximum number of shards**
+
+`--cluster.max-number-of-shards <integer>`
+
+Maximum number of shards than can be configured when creating new collections.
+The default value is `1000`.
+When changing the value of this setting, no changes are applied to existing
+collections that would violate the new setting.
