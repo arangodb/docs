@@ -154,3 +154,27 @@ change. Please change only with intent and great care. Default at `1.0`.
 `--cluster.system-replication-factor <integer>`
 
 Change default replication factor for system collections. Default at `2`.
+
+**Minimum replication factor**
+
+`--cluster.min-replication-factor <integer>`
+
+Minimum replication factor that needs to be used when creating new collections.
+The default value is `1`.
+
+**Maximum replication factor**
+
+`--cluster.max-replication-factor <integer>`
+
+Maximum replication factor that can be used when creating new collections.
+The default value is `10`.
+
+**Default replication factor**
+
+`--cluster.default-replication-factor <integer>`
+
+Default replication factor to be used implicit for new collections when no 
+replication factor is set. 
+If this value is not set, it will default to the value of the option
+`--cluster.min-replication-factor`. If set, the value must be between the
+values of `--cluster.min-replication-factor` and `--cluster.max-replication-factor`.
