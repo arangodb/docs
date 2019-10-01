@@ -23,6 +23,11 @@ or cluster. In other words, one cannot restore to an older hot backup of a
 single collection or database. With every restore, one restores the entire
 deployment including of course the `_system` database.
 
+Note that this applies in particular in the case that a certain user
+might have admin access for the `_system` database, but explicitly has
+no access to certain collections. The backup will still extend across
+**all** collections!
+
 It cannot be stressed enough that a restore to an earlier hot backup
 snapshot will also revert users, graphs, Foxx apps - everything -
 back to that at the time of the hot backup.
