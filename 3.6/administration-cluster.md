@@ -76,7 +76,7 @@ Sharding
 --------
 
 For an introduction about _Sharding_ in Cluster, please refer to the
-[_Cluster Architecture_](architecture-deployment-modes-cluster-architecture.html#sharding) section. 
+[_Cluster Sharding_](architecture-deployment-modes-cluster-sharding.html) section. 
 
 Number of _shards_ can be configured at _collection_ creation time, e.g. the UI,
 or the _ArangoDB Shell_:
@@ -93,20 +93,39 @@ To configure a custom _hashing_ for another attribute (default is __key_):
 
 The example above, where 'country' has been used as _shardKeys_ can be useful
 to keep data of every country in one shard, which would result in better
-performance for queries working on a per country base. 
+performance for queries working on a per country base.
 
-It is also possible to specify multiple `shardKeys`. 
+It is also possible to specify multiple `shardKeys`.
 
-Note however that if you change the shard keys from their default `["_key"]`, then finding
-a document in the collection by its primary key involves a request to
-every single shard. Furthermore, in this case one can no longer prescribe
-the primary key value of a new document but must use the automatically
-generated one. This latter restriction comes from the fact that ensuring
-uniqueness of the primary key would be very inefficient if the user
-could specify the primary key.
+Note however that if you change the shard keys from their default `["_key"]`,
+then finding a document in the collection by its primary key involves a request
+to every single shard. However this can be mitigated: All CRUD APIs and AQL
+support taking the shard keys as a lookup hint. Just make sure that the shard
+key attributes are present in the documents you send, or in case of AQL, that
+you use a document reference or an object for the UPDATE, REPLACE or REMOVE
+operation which includes the shard key attributes:
 
-On which DBServer in a Cluster a particular _shard_ is kept is undefined.
-There is no option to configure an affinity based on certain _shard_ keys.
+```js
+FOR doc IN sharded_collection
+  FILTER doc._key == "123"
+  UPDATE doc WITH { … } IN sharded_collection
+```
+
+```js
+UPDATE { _key: "123", country: "…" } WITH { … } IN sharded_collection
+```
+
+Using a string with just the document key as key expression instead will be
+processed without shard hints and thus perform slower:
+
+```js
+UPDATE "123" WITH { … } IN sharded_collection
+```
+
+If custom shard keys are used, you can no longer specify the primary key value
+for a new document, but must let the server generated one automatically. This
+restriction comes from the fact that ensuring uniqueness of the primary key
+would be very inefficient if the user could specify the document key.
 
 Unique indexes (hash, skiplist, persistent) on sharded collections are
 only allowed if the fields used to determine the shard key are also
@@ -123,6 +142,9 @@ included in the list of attribute paths for the index:
 | a, b      | a, b, c   |     allowed |
 | a, b, c   | a, b      | not allowed |
 | a, b, c   | a, b, c   |     allowed |
+
+On which DBServer in a Cluster a particular _shard_ is kept is undefined.
+There is no option to configure an affinity based on certain _shard_ keys.
 
 Sharding strategy
 -----------------

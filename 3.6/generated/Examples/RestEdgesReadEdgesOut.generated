@@ -2,6 +2,7 @@
 
 HTTP/<span class="hljs-number">1.1</span> OK
 content-type: application/json; charset=utf<span class="hljs-number">-8</span>
+keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 
 { 
@@ -11,7 +12,7 @@ x-content-type-options: nosniff
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/5"</span>, 
       <span class="hljs-string">"_from"</span> : <span class="hljs-string">"vertices/1"</span>, 
       <span class="hljs-string">"_to"</span> : <span class="hljs-string">"vertices/3"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZJNSxZi--E"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZRY7LYW---"</span>, 
       <span class="hljs-string">"$label"</span> : <span class="hljs-string">"v1 -&gt; v3"</span> 
     } 
   ], 

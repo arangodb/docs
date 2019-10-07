@@ -4,11 +4,12 @@ EOF
 
 HTTP/<span class="hljs-number">1.1</span> OK
 content-type: application/json; charset=utf<span class="hljs-number">-8</span>
+keep-alive: timeout=<span class="hljs-number">300</span>
 location: <span class="hljs-regexp">/_api/</span>collection/testCollection/responsibleShard
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">"shardId"</span> : <span class="hljs-string">"s10040"</span> 
+  <span class="hljs-string">"shardId"</span> : <span class="hljs-string">"s4010046"</span> 
 }
