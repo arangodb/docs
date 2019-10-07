@@ -14,6 +14,7 @@ EOF
 
 HTTP/1.1 OK
 content-type: application/json
+keep-alive: timeout=300
 x-arango-errors: 2
 x-content-type-options: nosniff
 
@@ -22,7 +23,7 @@ Content-Type: application/x-arango-batchpart
 
 HTTP/1.1 404 Not Found
 Server: 
-Connection: 
+Connection: Close 
 Content-Type: application/json; charset=utf-8
 Content-Length: 87
 
@@ -38,7 +39,7 @@ Content-Type: application/x-arango-batchpart
 
 HTTP/1.1 404 Not Found
 Server: 
-Connection: 
+Connection: Close 
 Content-Type: application/json; charset=utf-8
 Content-Length: 101
 
