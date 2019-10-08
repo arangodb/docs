@@ -149,7 +149,7 @@ Replication and Hot Backup
 --------------------------
 
 Hot backups are not automatically replicated between instances. This is
-true both for the active/failover setup with 2 (or more) single servers,
+true for both the Active Failover setup with 2 (or more) single servers
 and for the Datacenter to Datacenter Replication between clusters.
 Simply take hot backups on all instances.
 
