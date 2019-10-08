@@ -126,7 +126,7 @@ the Windows version of ArangoDB.
 Services on Single Server
 -------------------------
 
-On a single server the installed services are not backed up and are
+On a single server the installed Foxx microservices are not backed up and are
 therefore also not restored. This is because in single server mode
 the service installation is done locally in the file system and does not
 track the information in the `_apps` collection.
