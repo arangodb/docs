@@ -184,10 +184,16 @@ you should consider a few different properties:
   values has a low cardinality.
 - **Frequency**: Consider how often a given shard key value may appear in
   your data. Having a lot of documents with identical shard keys will lead
-  to unevenly distributed data.
+  to unevenly distributed data. Consider using multiple shard keys or a different
+  one that is more suitable.
 
-See [Sharding](architecture-deployment-modes-cluster-architecture.html#sharding)
-for more information
+The default sharding should randomly distribute your documents across your
+cluster machines. This may be good enough for you, but depending on the kind
+of AQL queries and other operations an application performs, it may leave
+a lot of performance on the table.
+
+See [_Cluster Sharding_](architecture-deployment-modes-cluster-sharding.html) 
+for more information.
 
 ### Smart Graphs
 

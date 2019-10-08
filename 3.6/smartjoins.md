@@ -154,7 +154,7 @@ SmartJoins using distributeShardsLike
 With the two collections in place like this, an AQL query that uses a FILTER condition
 that refers from the shard key of the one collection to the shard key of the other collection
 and compares the two shard key values by equality is eligible for the query
-optimizer's "smart-join" optimization:
+optimizer's "smart-joins" optimization:
 
       arangosh> db._explain("FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == doc2._key RETURN doc1");
 
@@ -285,7 +285,7 @@ to restrict the queries to just the required shards:
 Limitations
 -----------
 
-The SmartJoin optimization is currently triggered only for data selection queries,
+The SmartJoins optimization is currently triggered only for data selection queries,
 but not for any data-manipulation operations such as INSERT, UPDATE, REPLACE, REMOVE
 or UPSERT, neither traversals, subqueries or views.
 
@@ -297,5 +297,5 @@ It is restricted to be used with simple shard key attributes (such as `_key`, `p
 but not with nested attributes (e.g. `name.first`). There should be exactly one shard
 key attribute defined for each collection.
 
-Finally, the SmartJoin optimization requires that the collections are joined on their
+Finally, the SmartJoins optimization requires that the collections are joined on their
 shard key attributes (or smartJoinAttribute) using an equality comparison.

@@ -10,6 +10,6 @@ description: ArangoDB Server Backup Options
 
 Controls the availability of the [Hot Backup API](http/hot-backup.html):
 
-- `true`: enabled 
-- `false`: disabled
-- `jwt`: enabled for superuser JWT only
+- `"true"`: enabled 
+- `"false"`: disabled
+- `"jwt"`: enabled for superuser JWT only
