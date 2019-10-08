@@ -1,16 +1,16 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/wal/range</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-content-type: application/json; charset=utf<span class="hljs-number">-8</span>
 keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
+content-type: application/json
 
 { 
-  <span class="hljs-string">"time"</span> : <span class="hljs-string">"2019-09-15T21:03:59Z"</span>, 
-  <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"185827"</span>, 
-  <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"191609"</span>, 
+  <span class="hljs-string">"time"</span> : <span class="hljs-string">"2019-10-08T15:21:28Z"</span>, 
+  <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"185821"</span>, 
+  <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"191590"</span>, 
   <span class="hljs-string">"server"</span> : { 
     <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.6.0-devel"</span>, 
-    <span class="hljs-string">"serverId"</span> : <span class="hljs-string">"11514763584142"</span> 
+    <span class="hljs-string">"serverId"</span> : <span class="hljs-string">"253143675995470"</span> 
   } 
 }
