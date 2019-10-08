@@ -121,7 +121,7 @@ Windows not Supported Yet
 -------------------------
 
 The hot backup feature is not supported in the Windows version of ArangoDB
-the Windows version of ArangoDB. 
+at this point in time.
 
 Services on Single Server
 -------------------------
