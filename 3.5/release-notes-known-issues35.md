@@ -12,6 +12,14 @@ suite of products. It is not a list of all open issues.
 Critical issues (ArangoDB Technical & Security Alerts) are also found at
 [arangodb.com/alerts](https://www.arangodb.com/alerts/){:target="_blank"}.
 
+HotBackup
+------------
+Please note that HotBackup was newly introduced in 3.5.1 and should be tested for specific use-cases.
+
+| Issue      |
+|------------|
+| **Date Added:** 2019-10-08 <br> **Component:** HotBackup <br> **Deployment Mode:** Cluster with Datacenter to Datacenter Replication <br> **Description:** HotBackup does not function in conjunction with [Datacenter to Datacenter Replication](https://www.arangodb.com/docs/stable/deployment-dc2-dc.html). <br> **Affected Versions:** 3.5.x <br> **Fixed in Versions:** - <br> **Reference:**  |
+
 ArangoSearch
 ------------
 
