@@ -120,7 +120,7 @@ operation from happening whilst the query is running.
 Windows not Supported Yet
 -------------------------
 
-The first release of the hot backup feature (3.5.1) does not support
+The hot backup feature is not supported in the Windows version of ArangoDB
 the Windows version of ArangoDB. 
 
 Services on Single Server
