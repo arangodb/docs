@@ -259,7 +259,7 @@ class DocuBlockBlock < Liquid::Tag
         end
         content = get_docu_block(Dir.pwd + dir + "generated/", @blockname)
         if !content
-            Jekyll.logger.error "DocuBlock \"#{@blockname}\" undefined. Content will be empty."
+            Jekyll.logger.error "DocuBlock \"#{@blockname}\" in \"#{dir}\" undefined. Content will be empty."
             return ""
         end
         # should match migrate.js more or less :S
