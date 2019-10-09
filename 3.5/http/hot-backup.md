@@ -31,7 +31,7 @@ The below APIs exclusively handle POST actions.
 
 {% hint 'warning' %}
 Make sure to understand all aspects of [hot backups](../backup-restore.html#hot-backups),
-most of all the [requirements and limitations](../programs-arangobackup-limitations.html), 
+most of all the [requirements and limitations](../backup-restore.html#hot-backup-limitations),
 before using the API.
 {% endhint %}
 

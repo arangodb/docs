@@ -14,7 +14,7 @@ well as other deployment modes try to obtain a global write transaction lock
 to enforce consistency across all servers, databases, collections
 etc. Hot backups still require no Data Definition operations (e.g., create
 database, create collection) to be active at the time of hot backup, please
-review the [requirements and limitations](programs-arangobackup-limitations.html)
+review the [requirements and limitations](backup-restore.html#hot-backup-limitations)
 for more details.
 
 Once that lock could be acquired the hot backup itself is most
