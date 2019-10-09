@@ -199,6 +199,10 @@ contexts. Unlike keywords, they are **case-sensitive**:
   [REMOVE](operations-remove.html#returning-the-removed-documents)
   operation
 
+If you define a variable with the same name in the same scope, then its value
+will be and remain at what you set it to. Hence you need to avoid these names
+for your own variables if you want to access the special variable values.
+
 Names
 -----
 
