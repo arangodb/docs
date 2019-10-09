@@ -267,20 +267,6 @@
     "section" : "audit",
     "type" : "string..."
   },
-  "backup.api-enabled" : {
-    "category" : "option",
-    "default" : "true",
-    "deprecatedIn" : null,
-    "description" : "whether the backup api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : true,
-    "section" : "backup",
-    "type" : "string"
-  },
   "cache.rebalancing-interval" : {
     "category" : "option",
     "default" : 2000000,
@@ -2582,20 +2568,6 @@
     "type" : "uint32",
     "values" : "Possible values: 1, 2, 3, 4"
   },
-  "rclone.executable" : {
-    "category" : "option",
-    "default" : "",
-    "deprecatedIn" : null,
-    "description" : "rclone executable used for up and download of backups",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : true,
-    "section" : "rclone",
-    "type" : "string"
-  },
   "replication.active-failover" : {
     "category" : "option",
     "default" : false,
@@ -2726,20 +2698,6 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "uint64"
-  },
-  "rocksdb.create-sha-files" : {
-    "category" : "option",
-    "default" : true,
-    "deprecatedIn" : null,
-    "description" : "enable generation of sha256 files for each .sst file",
-    "dynamic" : false,
-    "enterpriseOnly" : true,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "rocksdb",
-    "type" : "boolean"
   },
   "rocksdb.debug-logging" : {
     "category" : "option",
@@ -3703,23 +3661,6 @@
     "section" : "server",
     "type" : "boolean"
   },
-  "server.statistics-history" : {
-    "category" : "option",
-    "default" : true,
-    "deprecatedIn" : null,
-    "description" : "turn storing statistics in database on or off",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : [
-      "v3.4.9",
-      "v3.5.1"
-    ],
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "server",
-    "type" : "boolean"
-  },
   "server.storage-engine" : {
     "category" : "option",
     "default" : "auto",
@@ -3823,7 +3764,7 @@
     "category" : "option",
     "default" : 5,
     "deprecatedIn" : null,
-    "description" : "ssl protocol (1 = SSLv2 (unsupported), 2 = SSLv2 or SSLv3 (negotiated), 3 = SSLv3, 4 = TLSv1, 5 = TLSv1.2, 6 = TLSv1.3)",
+    "description" : "ssl protocol (1 = SSLv2 (unsupported), 2 = SSLv2 or SSLv3 (negotiated), 3 = SSLv3, 4 = TLSv1, 5 = TLSv1.2)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -3832,7 +3773,7 @@
     "requiresValue" : true,
     "section" : "ssl",
     "type" : "uint64",
-    "values" : "Possible values: 1, 2, 3, 4, 5, 6"
+    "values" : "Possible values: 1, 2, 3, 4, 5"
   },
   "ssl.require-peer-certificate" : {
     "category" : "option",
