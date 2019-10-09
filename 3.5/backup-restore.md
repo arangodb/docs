@@ -138,81 +138,83 @@ of hot backups, specifically regarding storage engine, deployment, scope
 and storage space.
 {% endhint %}
 
-### The Global Write Transaction Lock
+### Technical Details
 
-The global write transaction lock mentioned above is such a determining factor,
-that it needs a little detailed attention. 
+- **The Global Write Transaction Lock**
 
-It is obvious that in order to be able to create a consistent snapshot of the
-ArangoDB world on a specific single server or cluster deployment, one must
-stop all transactional write operations at the next possible time or else
-consistency would no longer be given.
+  The global write transaction lock mentioned above is such a determining factor,
+  that it needs a little detailed attention. 
 
-On the other hand it is also obvious, that there is no way for ArangoDB to
-known, when that time will come. It might be there with the next attempt a
-nanosecond away, but it could of course not come for the next 2 minutes.
+  It is obvious that in order to be able to create a consistent snapshot of the
+  ArangoDB world on a specific single server or cluster deployment, one must
+  stop all transactional write operations at the next possible time or else
+  consistency would no longer be given.
 
-ArangoDB tries to obtain that lock over and over again. On the single server
-instances these consecutive tries will not be noticeable. At some point the
-lock is obtained and the hot backup is created then within a very short
-amount of time.
+  On the other hand it is also obvious, that there is no way for ArangoDB to
+  known, when that time will come. It might be there with the next attempt a
+  nanosecond away, but it could of course not come for the next 2 minutes.
 
-In clusters things are a little more complicated and noticeable.
-A coordinator, which is trying to obtain the global write transaction
-lock must try to get local locks
-on all _DBServers_ simultaneously; potentially succeeding on some and not
-succeeding on others, leading to apparent dead times in the cluster's write
-operations.
+  ArangoDB tries to obtain that lock over and over again. On the single server
+  instances these consecutive tries will not be noticeable. At some point the
+  lock is obtained and the hot backup is created then within a very short
+  amount of time.
 
-This process can happen multiple times until success is achieved.
-One has control over the length of the time during which the lock is tried to
-be obtained each time prolonging the last wait time by 10%.
+  In clusters things are a little more complicated and noticeable.
+  A coordinator, which is trying to obtain the global write transaction
+  lock must try to get local locks
+  on all _DBServers_ simultaneously; potentially succeeding on some and not
+  succeeding on others, leading to apparent dead times in the cluster's write
+  operations.
 
-### Agency Lock
+  This process can happen multiple times until success is achieved.
+  One has control over the length of the time during which the lock is tried to
+  be obtained each time prolonging the last wait time by 10%.
 
-Less of a variable, however equally important is to obtain a freeze on the
-cluster's structure itself. This is done through the creation of a simple key
-lock in the cluster's configuration to stop all ongoing background tasks,
-which are there to handle fail overs, shard movings, server removals etc.
-Its role is also to prevent multiple simultaneous hot backup operations.
-The acquisition of this key is predictably done within a matter of a few seconds.
+- **Agency Lock**
 
-### Operation's Time Scope
+  Less of a variable, however equally important is to obtain a freeze on the
+  cluster's structure itself. This is done through the creation of a simple key
+  lock in the cluster's configuration to stop all ongoing background tasks,
+  which are there to handle fail overs, shard movings, server removals etc.
+  Its role is also to prevent multiple simultaneous hot backup operations.
+  The acquisition of this key is predictably done within a matter of a few seconds.
 
-Once the global write transaction lock is obtained, everything goes very quickly.
-A new backup directory is created, the write ahead lock is flushed and
-hard links are made on file system level to all persistent files.
-The duration is not affected by the amount of data in ArangoDB and is near
-instantaneous.
+- **Operation's Time Scope**
 
-### Point in Time Recovery
+  Once the global write transaction lock is obtained, everything goes very quickly.
+  A new backup directory is created, the write ahead lock is flushed and
+  hard links are made on file system level to all persistent files.
+  The duration is not affected by the amount of data in ArangoDB and is near
+  instantaneous.
 
-One of the great advantages of the method is the consistent snapshot nature.
-It gives the operator of the database the ability to persist a true and
-complete time freeze at near zero impact on the ongoing operation.
-The recovery is easy and restores the entire ArangoDB installation to a
-desired snapshot.
+- **Point in Time Recovery**
 
-Apart from the ability of creating such snapshots it offers a great and easy
-to use opportunity to experiment with ArangoDB with a means to protect
-against data loss or corruption.
+  One of the great advantages of the method is the consistent snapshot nature.
+  It gives the operator of the database the ability to persist a true and
+  complete time freeze at near zero impact on the ongoing operation.
+  The recovery is easy and restores the entire ArangoDB installation to a
+  desired snapshot.
 
-### Remote Upload and Download
+  Apart from the ability of creating such snapshots it offers a great and easy
+  to use opportunity to experiment with ArangoDB with a means to protect
+  against data loss or corruption.
 
-We have fully integrated the
-[Rclone](https://rclone.org/) sync for cloud storage. Rclone is a very
-versatile inter site sync facility, which opens up a vast field of transport
-protocols and remote syncing APIs from Amazon's S3 over Dropbox, WebDAV,
-all the way to the local file system and network storage.
+- **Remote Upload and Download**
 
-One can use the upload and download functionalities to migrate entire cluster
-installations in this way, copy cluster and single server snapshots all
-over the world, create an intuitive and easy to use quick access safety
-backbone of the data operation. 
+  We have fully integrated the
+  [Rclone](https://rclone.org/) sync for cloud storage. Rclone is a very
+  versatile inter site sync facility, which opens up a vast field of transport
+  protocols and remote syncing APIs from Amazon's S3 over Dropbox, WebDAV,
+  all the way to the local file system and network storage.
 
-Rclone is open source and available under the MIT license, is battle tested
-and has garnered close to 15k stars on GitHub professing to the confidence
-of lots of users.
+  One can use the upload and download functionalities to migrate entire cluster
+  installations in this way, copy cluster and single server snapshots all
+  over the world, create an intuitive and easy to use quick access safety
+  backbone of the data operation. 
+
+  Rclone is open source and available under the MIT license, is battle tested
+  and has garnered close to 15k stars on GitHub professing to the confidence
+  of lots of users.
 
 ### Hot Backup Limitations
 
