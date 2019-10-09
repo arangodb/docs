@@ -98,10 +98,10 @@ operations to execute. That also means keywords can only be used at certain
 locations in a query. This also makes all keywords **reserved words** that must
 not be used for other purposes than they are intended for.
 
-For example, it is not possible to use a keyword as literal unquoted string for
-a collection or attribute name. If a collection or attribute needs to have the
-same name as a keyword, then the collection or attribute name needs to be
-quoted / escaped in the query (also see [Names](#names)).
+For example, it is not possible to use a keyword as literal unquoted string
+(identifier) for a collection or attribute name. If a collection or attribute
+needs to have the same name as a keyword, then the collection or attribute name
+needs to be quoted / escaped in the query (also see [Names](#names)).
 
 Keywords are case-insensitive, meaning they can be specified in lower, upper, or
 mixed case in queries. In this documentation, all keywords are written in upper
@@ -156,6 +156,8 @@ without quoting or escaping. The query parser can identify them as keyword-like
 based on the context:
 
 - `KEEP` –
+  [COLLECT](operations-collect.html) operation variant
+- `COUNT` (`WITH COUNT INTO`) –
   [COLLECT](operations-collect.html) operation variant
 - `OPTIONS` –
   [FOR](operations-for.html#options) /
