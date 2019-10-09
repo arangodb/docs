@@ -1,37 +1,36 @@
 ---
 layout: default
-description: This chapter describes the javascript interface for creating and modifying named graphs
+description: This chapter describes the JavaScript interface for creating and modifying named graphs
+title: General Graph JS API
 ---
 Graph Management
 ================
 
-This chapter describes the javascript interface for [creating and modifying named graphs](graphs.html).
-In order to create a non empty graph the functionality to create edge definitions has to be introduced first:
+This chapter describes the javascript interface for creating and modifying
+[named graphs](graphs.html#named-graphs).
 
 Edge Definitions
 ----------------
 
-An edge definition is always a directed relation of a graph. Each graph can have arbitrary many relations defined within the edge definitions array.
+An edge definition is always a directed relation of a graph. Each graph can
+have arbitrary many relations defined within the edge definitions array.
 
-### Initialize the list
+### Initialize the List
 
-
-
-Create a list of edge definitions to construct a graph.
+Create a list of edge definitions to construct a graph:
 
 `graph_module._edgeDefinitions(relation1, relation2, ..., relationN)`
 
-The list of edge definitions of a graph can be managed by the graph module itself.
-This function is the entry point for the management and will return the correct list.
+- `relation` (object, _optional_):
+  An object representing a definition of one relation in the graph
 
-
-**Parameters**
-
-* relationX (optional) An object representing a definition of one relation in the graph
+The list of edge definitions of a graph can be managed by the graph module
+itself. This function is the entry point for the management and will return
+the correct list.
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphEdgeDefinitionsSimple
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeDefinitionsSimple}
       var graph_module = require("@arangodb/general-graph");
@@ -43,27 +42,23 @@ This function is the entry point for the management and will return the correct 
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### Extend the List
 
-### Extend the list
-
-
-
-Extend the list of edge definitions to construct a graph.
+Extend the list of edge definitions to construct a graph:
 
 `graph_module._extendEdgeDefinitions(edgeDefinitions, relation1, relation2, ..., relationN)`
+
+- `edgeDefinitions` (array):
+  A list of relation definition objects.
+- `relationX` (object):
+  An object representing a definition of one relation in the graph
 
 In order to add more edge definitions to the graph before creating
 this function can be used to add more definitions to the initial list.
 
-
-**Parameters**
-
-* edgeDefinitions (required) A list of relation definition objects.
-* relationX (required) An object representing a definition of one relation in the graph
-
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphEdgeDefinitionsExtend
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeDefinitionsExtend}
       var graph_module = require("@arangodb/general-graph");
@@ -76,80 +71,78 @@ this function can be used to add more definitions to the initial list.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
 ### Relation
 
-Define a directed relation.
+Define a directed relation:
 
 `graph_module._relation(relationName, fromVertexCollections, toVertexCollections)`
 
-The *relationName* defines the name of this relation and references to the underlying edge collection.
-The *fromVertexCollections* is an Array of document collections holding the start vertices.
-The *toVertexCollections* is an Array of document collections holding the target vertices.
-Relations are only allowed in the direction from any collection in *fromVertexCollections*
-to any collection in *toVertexCollections*.
-
-
-**Parameters**
-
-* relationName (required) The name of the edge collection where the edges should be stored.
+- `relationName` (string):
+  The name of the edge collection where the edges should be stored.
   Will be created if it does not yet exist.
-* fromVertexCollections (required) One or a list of collection names. Source vertices for the edges
-  have to be stored in these collections. Collections will be created if they do not exist.
-* toVertexCollections (required) One or a list of collection names. Target vertices for the edges
-  have to be stored in these collections. Collections will be created if they do not exist.
+- `fromVertexCollections` (string\|array):
+  One or a list of collection names. Source vertices for the edges
+  have to be stored in these collections. Collections will be created if they
+  do not exist.
+- `toVertexCollections` (string\|array):
+  One or a list of collection names. Target vertices for the edges
+  have to be stored in these collections. Collections will be created if they
+  do not exist.
 
+The *relationName* defines the name of this relation and references to the
+underlying edge collection. The *fromVertexCollections* is an Array of document
+collections holding the start vertices. The *toVertexCollections* is an array
+of document collections holding the target vertices. Relations are only allowed
+in the direction from any collection in *fromVertexCollections* to any
+collection in *toVertexCollections*.
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphRelationDefinitionSave
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphRelationDefinitionSave}
-      var graph_module = require("@arangodb/general-graph");
-      graph_module._relation("has_bought", ["Customer", "Company"], ["Groceries", "Electronics"]);
+    var graph_module = require("@arangodb/general-graph");
+    graph_module._relation("has_bought", ["Customer", "Company"], ["Groceries", "Electronics"]);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphRelationDefinitionSave
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphRelationDefinitionSingle
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphRelationDefinitionSingle}
-      var graph_module = require("@arangodb/general-graph");
-      graph_module._relation("has_bought", "Customer", "Product");
+    var graph_module = require("@arangodb/general-graph");
+    graph_module._relation("has_bought", "Customer", "Product");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphRelationDefinitionSingle
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Create a graph
+Create a Graph
 --------------
-
-After having introduced edge definitions a graph can be created.
-
-
-
-Create a graph
 
 `graph_module._create(graphName, edgeDefinitions, orphanCollections)`
 
-The creation of a graph requires the name of the graph and a definition of its edges.
+- `graphName` (string):
+  Unique identifier of the graph
+- `edgeDefinitions` (array, _optional_):
+  List of relation definition objects
+- `orphanCollections` (array, _optional_):
+  List of additional vertex collection names
 
-For every type of edge definition a convenience method exists that can be used to create a graph.
-Optionally a list of vertex collections can be added, which are not used in any edge definition.
-These collections are referred to as orphan collections within this chapter.
-All collections used within the creation process are created if they do not exist.
+The creation of a graph requires the name of the graph and a definition of
+its edges.
 
-
-**Parameters**
-
-* graphName (required) Unique identifier of the graph
-* edgeDefinitions (optional) List of relation definition objects
-* orphanCollections (optional) List of additional vertex collection names
-
+For every type of edge definition a convenience method exists that can be used
+to create a graph. Optionally a list of vertex collections can be added, which
+are not used in any edge definition. These collections are referred to as
+orphan collections within this chapter. All collections used within the
+creation process are created if they do not exist.
 
 **Examples**
 
-
 Create an empty graph, edge definitions can be added at runtime:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraphNoData
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphNoData}
@@ -160,7 +153,10 @@ Create an empty graph, edge definitions can be added at runtime:
     @endDocuBlock generalGraphCreateGraphNoData
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-Create a graph using an edge collection `edges` and a single vertex collection `vertices` 
+
+Create a graph using an edge collection `edges` and a single
+vertex collection `vertices`:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraphSingle
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphSingle}
@@ -174,7 +170,9 @@ Create a graph using an edge collection `edges` and a single vertex collection `
     @endDocuBlock generalGraphCreateGraphSingle
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Create a graph with edge definitions and orphan collections:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraph2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraph2}
@@ -187,13 +185,11 @@ Create a graph with edge definitions and orphan collections:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### Complete Example to Create a Graph
 
-### Complete Example to create a graph
+Example call:
 
-Example Call:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
-
     @startDocuBlockInline general_graph_create_graph_example1
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph_create_graph_example1}
       var graph_module = require("@arangodb/general-graph");
@@ -215,11 +211,9 @@ Example Call:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+Alternative call:
 
-alternative call:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
-
     @startDocuBlockInline general_graph_create_graph_example2
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph_create_graph_example2}
       var graph_module = require("@arangodb/general-graph");
@@ -239,22 +233,18 @@ alternative call:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
-List available graphs
+List available Graphs
 ---------------------
 
-
-
-List all graphs.
+List all graphs:
 
 `graph_module._list()`
 
 Lists all graph names stored in this database.
 
-
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphList
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphList}
       var graph_module = require("@arangodb/general-graph");
@@ -264,27 +254,18 @@ Lists all graph names stored in this database.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Load a graph
+Load a Graph
 ------------
 
-
-
-Get a graph
+Get a graph by its name:
 
 `graph_module._graph(graphName)`
 
-A graph can be retrieved by its name.
-
-
-**Parameters**
-
-* graphName (required) Unique identifier of the graph
-
+- `graphName` (string):
+  Unique identifier of the graph
 
 **Examples**
 
-
-Get a graph:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphLoadGraph
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphLoadGraph}
@@ -298,28 +279,26 @@ Get a graph:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
-Remove a graph
+Remove a Graph
 --------------
 
-
-Remove a graph
+Drop a Graph by its name:
 
 `graph_module._drop(graphName, dropCollections)`
 
-A graph can be dropped by its name.
-This can drop all collections contained in the graph as long as they are not used within other graphs.
-To drop the collections only belonging to this graph, the optional parameter *drop-collections* has to be set to *true*.
+- `graphName` (string):
+  Unique identifier of the graph
+- `dropCollections` (bool, _optional_):
+  Define if collections should be dropped (default: false)
 
-**Parameters**
-
-* graphName (required) Unique identifier of the graph
-* dropCollections (optional) Define if collections should be dropped (default: false)
+This can drop all collections contained in the graph as long as they are not
+used within other graphs. To drop the collections only belonging to this graph,
+the optional parameter *drop-collections* has to be set to *true*.
 
 **Examples**
 
-
 Drop a graph and keep collections:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphDropGraphKeep
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphDropGraphKeep}
@@ -337,7 +316,9 @@ Drop a graph and keep collections:
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphDropGraphKeep
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphDropGraphDropCollections
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphDropGraphDropCollections}
     ~ var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -352,35 +333,29 @@ Drop a graph and keep collections:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
-Modify a graph definition at runtime
+Modify a Graph definition at runtime
 ------------------------------------
 
 After you have created an graph its definition is not immutable.
 You can still add, delete or modify edge definitions and vertex collections.
 
-### Extend the edge definitions
+### Extend the Edge Definitions
 
-
-
-Add another edge definition to the graph
+Add another edge definition to the graph:
 
 `graph._extendEdgeDefinitions(edgeDefinition)`
+
+- `edgeDefinition` (object):
+  The relation definition to extend the graph
 
 Extends the edge definitions of a graph. If an orphan collection is used in this
 edge definition, it will be removed from the orphanage. If the edge collection of
 the edge definition to add is already used in the graph or used in a different
 graph with different *from* and/or *to* collections an error is thrown.
 
-
-**Parameters**
-
-* edgeDefinition (required) The relation definition to extend the graph
-
-
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline general_graph__extendEdgeDefinitions
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__extendEdgeDefinitions}
       var graph_module = require("@arangodb/general-graph")
@@ -395,14 +370,15 @@ graph with different *from* and/or *to* collections an error is thrown.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### Modify an Edge Definition
 
-### Modify an edge definition
-
-
-
-Modify an relation definition
+Modify a relation definition:
 
 `graph_module._editEdgeDefinitions(edgeDefinition)`
+
+- `edgeDefinition` (object):
+  The edge definition to replace the existing edge definition with the same
+  attribute *collection*.
 
 Edits one relation definition of a graph. The edge definition used as argument will
 replace the existing edge definition of the graph which has the same collection.
@@ -411,16 +387,9 @@ definition will transform to an orphan. Orphans that are used in this new edge
 definition will be deleted from the list of orphans. Other graphs with the same edge
 definition will be modified, too.
 
-
-**Parameters**
-
-* edgeDefinition (required) The edge definition to replace the existing edge
-  definition with the same attribute *collection*.
-
-
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline general_graph__editEdgeDefinition
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__editEdgeDefinition}
       var graph_module = require("@arangodb/general-graph")
@@ -435,29 +404,25 @@ definition will be modified, too.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### Delete an Edge Definition
 
-### Delete an edge definition
-
-
-
-Delete one relation definition
+Delete one relation definition:
 
 `graph_module._deleteEdgeDefinition(edgeCollectionName, dropCollection)`
+
+- `edgeCollectionName` (string):
+  Name of edge collection in the relation definition.
+- `dropCollection` (bool, _optional_):
+  Define if the edge collection should be dropped. Default: false
 
 Deletes a relation definition defined by the edge collection of a graph. If the
 collections defined in the edge definition (collection, from, to) are not used
 in another edge definition of the graph, they will be moved to the orphanage.
 
-
-**Parameters**
-
-* edgeCollectionName (required) Name of edge collection in the relation definition.
-* dropCollection (optional) Define if the edge collection should be dropped. Default false.
-
 **Examples**
 
-
 Remove an edge definition but keep the edge collection:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline general_graph__deleteEdgeDefinitionNoDrop
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__deleteEdgeDefinitionNoDrop}
@@ -474,7 +439,9 @@ Remove an edge definition but keep the edge collection:
     @endDocuBlock general_graph__deleteEdgeDefinitionNoDrop
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Remove an edge definition and drop the edge collection:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline general_graph__deleteEdgeDefinitionWithDrop
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__deleteEdgeDefinitionWithDrop}
@@ -492,35 +459,31 @@ Remove an edge definition and drop the edge collection:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### Extend Vertex Collections
 
-### Extend vertex Collections
+Each graph can have an arbitrary amount of vertex collections, which are not
+part of any edge definition of the graph. These collections are called orphan
+collections. If the graph is extended with an edge definition using one of the
+orphans, it will be removed from the set of orphan collection automatically.
 
-Each graph can have an arbitrary amount of vertex collections, which are not part of any edge definition of the graph.
-These collections are called orphan collections.
-If the graph is extended with an edge definition using one of the orphans,
-it will be removed from the set of orphan collection automatically.
+#### Add a Vertex Collection
 
-#### Add a vertex collection
-
-
-
-Add a vertex collection to the graph
+Add a vertex collection to the graph:
 
 `graph._addVertexCollection(vertexCollectionName, createCollection)`
+
+- `vertexCollectionName` (string):
+  Name of vertex collection.
+- `createCollection` (bool, _optional_):
+  If true the collection will be created if it does not exist. Default: true
 
 Adds a vertex collection to the set of orphan collections of the graph. If the
 collection does not exist, it will be created. If it is already used by any edge
 definition of the graph, an error will be thrown.
 
-
-**Parameters**
-
-* vertexCollectionName (required) Name of vertex collection.
-* createCollection (optional) If true the collection will be created if it does not exist. Default: true.
-
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline general_graph__addVertexCollection
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__addVertexCollection}
       var graph_module = require("@arangodb/general-graph");
@@ -535,21 +498,18 @@ definition of the graph, an error will be thrown.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+#### Get the Orphaned Collections
 
-#### Get the orphaned collections
-
-
-
-Get all orphan collections
+Get all orphan collections:
 
 `graph._orphanCollections()`
 
-Returns all vertex collections of the graph that are not used in any edge definition.
-
+Returns all vertex collections of the graph that are not used in any
+edge definition.
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline general_graph__orphanCollections
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__orphanCollections}
       var graph_module = require("@arangodb/general-graph")
@@ -564,29 +524,25 @@ Returns all vertex collections of the graph that are not used in any edge defini
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+#### Remove a Vertex Collection
 
-#### Remove a vertex collection
-
-
-
-Remove a vertex collection from the graph
+Remove a vertex collection from the graph:
 
 `graph._removeVertexCollection(vertexCollectionName, dropCollection)`
+
+- `vertexCollectionName` (string):
+  Name of vertex collection.
+- `dropCollection` (bool, _optional_):
+  If true the collection will be dropped if it is not used in any other graph.
+  Default: false
 
 Removes a vertex collection from the graph.
 Only collections not used in any relation definition can be removed.
 Optionally the collection can be deleted, if it is not used in any other graph.
 
-
-**Parameters**
-
-* vertexCollectionName (required) Name of vertex collection.
-* dropCollection (optional) If true the collection will be dropped if it is
-  not used in any other graph. Default: false.
-
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline general_graph__removeVertexCollections
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__removeVertexCollections}
       var graph_module = require("@arangodb/general-graph")
@@ -605,28 +561,21 @@ Optionally the collection can be deleted, if it is not used in any other graph.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
-
 Manipulating Vertices
 ---------------------
 
-### Save a vertex
+### Save a Vertex
 
-
-
-Create a new vertex in vertexCollectionName
+Create a new vertex in *vertexCollectionName*:
 
 `graph.vertexCollectionName.save(data)`
 
-
-**Parameters**
-
-* data (required) JSON data of vertex.
-
+- `data` (object):
+  JSON data of vertex.
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphVertexCollectionSave
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionSave}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -638,26 +587,22 @@ Create a new vertex in vertexCollectionName
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### Replace a Vertex
 
-### Replace a vertex
-
-
-
-Replaces the data of a vertex in collection vertexCollectionName
+Replaces the data of a vertex in collection *vertexCollectionName*:
 
 `graph.vertexCollectionName.replace(vertexId, data, options)`
 
-
-**Parameters**
-
-* vertexId (required) *_id* attribute of the vertex
-* data (required) JSON data of vertex.
-* options (optional) See [collection documentation](data-modeling-documents-document-methods.html)
-
+- `vertexId` (string):
+  *_id* attribute of the vertex
+- `data` (object):
+  JSON data of vertex.
+- `options` (object, _optional_):
+  See [collection documentation](data-modeling-documents-document-methods.html)
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphVertexCollectionReplace
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionReplace}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -670,25 +615,22 @@ Replaces the data of a vertex in collection vertexCollectionName
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### Update a Vertex
 
-### Update a vertex
-
-
-
-Updates the data of a vertex in collection vertexCollectionName
+Updates the data of a vertex in collection *vertexCollectionName*
 
 `graph.vertexCollectionName.update(vertexId, data, options)`
 
-
-**Parameters**
-
-* vertexId (required) *_id* attribute of the vertex
-* data (required) JSON data of vertex.
-* options (optional) See [collection documentation](data-modeling-documents-document-methods.html)
+- `vertexId` (string):
+  *_id* attribute of the vertex
+- `data` (object):
+  JSON data of vertex.
+- `options` (object, _optional_):
+  See [collection documentation](data-modeling-documents-document-methods.html)
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphVertexCollectionUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionUpdate}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -701,28 +643,23 @@ Updates the data of a vertex in collection vertexCollectionName
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
-### Remove a vertex
-
-
+### Remove a Vertex
 
 Removes a vertex in collection *vertexCollectionName*
 
 `graph.vertexCollectionName.remove(vertexId, options)`
 
+- `vertexId` (string):
+  *_id* attribute of the vertex
+- `options` (object, _optional_):
+  See [collection documentation](data-modeling-documents-document-methods.html)
+
 Additionally removes all ingoing and outgoing edges of the vertex recursively
 (see [edge remove](#remove-an-edge)).
 
-
-**Parameters**
-
-* vertexId (required) *_id* attribute of the vertex
-* options (optional) See [collection documentation](data-modeling-documents-document-methods.html)
-
-
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphVertexCollectionRemove
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionRemove}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -737,30 +674,27 @@ Additionally removes all ingoing and outgoing edges of the vertex recursively
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
 Manipulating Edges
 ------------------
 
-### Save a new edge
-
-
+### Save a new Edge
 
 Creates an edge from vertex *from* to vertex *to* in collection edgeCollectionName
 
 `graph.edgeCollectionName.save(from, to, data, options)`
 
-
-**Parameters**
-
-* from (required) *_id* attribute of the source vertex
-* to (required) *_id* attribute of the target vertex
-* data (required) JSON data of the edge
-* options (optional) See [collection documentation](graphs-edges.html)
-
+- `from` (string):
+  *_id* attribute of the source vertex
+- `to` (string):
+  *_id* attribute of the target vertex
+- `data` (object, _optional_):
+  JSON data of the edge
+- `options` (object, _optional_):
+  See [collection documentation](graphs-edges.html)
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphEdgeCollectionSave1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionSave1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -771,8 +705,10 @@ Creates an edge from vertex *from* to vertex *to* in collection edgeCollectionNa
     @endDocuBlock generalGraphEdgeCollectionSave1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-If the collections of *from* and *to* are not defined in an edge definition of the graph,
-the edge will not be stored.
+
+If the collections of *from* and *to* are not defined in an edge definition
+of the graph, the edge will not be stored.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphEdgeCollectionSave2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionSave2}
@@ -788,25 +724,23 @@ the edge will not be stored.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### Replace an edge
+### Replace an Edge
 
-
-
-Replaces the data of an edge in collection edgeCollectionName. Note that `_from` and `_to` are mandatory.
+Replaces the data of an edge in collection *edgeCollectionName*.
+Note that `_from` and `_to` are mandatory.
 
 `graph.edgeCollectionName.replace(edgeId, data, options)`
 
-
-**Parameters**
-
-* edgeId (required) *_id* attribute of the edge
-* data (required) JSON data of the edge
-* options (optional) See [collection documentation](data-modeling-documents-document-methods.html)
-
+- `edgeId` (string):
+  *_id* attribute of the edge
+- `data` (object, _optional_):
+  JSON data of the edge
+- `options` (object, _optional_):
+  See [collection documentation](data-modeling-documents-document-methods.html)
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphEdgeCollectionReplace
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionReplace}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -819,26 +753,22 @@ Replaces the data of an edge in collection edgeCollectionName. Note that `_from`
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### Update an Edge
 
-### Update an edge
-
-
-
-Updates the data of an edge in collection edgeCollectionName
+Updates the data of an edge in collection *edgeCollectionName*
 
 `graph.edgeCollectionName.update(edgeId, data, options)`
 
-
-**Parameters**
-
-* edgeId (required) *_id* attribute of the edge
-* data (required) JSON data of the edge
-* options (optional) See [collection documentation](data-modeling-documents-document-methods.html)
-
+- `edgeId` (string):
+  *_id* attribute of the edge
+- `data` (object, _optional_):
+  JSON data of the edge
+- `options` (object, _optional_):
+  See [collection documentation](data-modeling-documents-document-methods.html)
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphEdgeCollectionUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionUpdate}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -851,27 +781,23 @@ Updates the data of an edge in collection edgeCollectionName
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
-### Remove an edge
-
-
+### Remove an Edge
 
 Removes an edge in collection edgeCollectionName
 
 `graph.edgeCollectionName.remove(edgeId, options)`
 
-If this edge is used as a vertex by another edge, the other edge will be removed (recursively).
+- `edgeId` (string):
+  *_id* attribute of the edge
+- `options` (object, _optional_):
+  See [collection documentation](data-modeling-documents-document-methods.html)
 
-
-**Parameters**
-
-* edgeId (required) *_id* attribute of the edge
-* options (optional) See [collection documentation](data-modeling-documents-document-methods.html)
-
+If this edge is used as a vertex by another edge, the other edge will be removed
+(recursively).
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphEdgeCollectionRemove
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionRemove}
       var examples = require("@arangodb/graph-examples/example-graph.js");
