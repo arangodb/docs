@@ -317,8 +317,9 @@ not be suited for.
   the service installation is done locally in the file system and does not
   track the information in the `_apps` collection.
 
-  In a cluster, the coordinators will after a restore eventually restore
-  the state of the services from the `_apps` and `_appbundles` collections.
+  In a cluster, the Coordinators will eventually restore the state of the
+  services from the `_apps` and `_appbundles` collections after a backup is
+  restored.
 
 - **Encryption at Rest**
 
