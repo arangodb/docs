@@ -33,4 +33,11 @@ the same layout. One can only restore a single server hot backup to a
 single server instance and a 3 _DBServer_ cluster's hot backup to a 3
 _DBServer_ instance.
 
-Snapshots can be uploaded to or downloaded from remote S3 mount points.
+Snapshots can be uploaded to or downloaded from remote repositories.
+
+{% hint 'info' %}
+Please review the
+[requirements and limitations](backup-restore.html#hot-backup-limitations)
+of hot backups, specifically regarding storage engine, deployment, scope
+and storage space.
+{% endhint %}

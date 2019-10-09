@@ -132,12 +132,6 @@ Again under good conditions, a complete hot backup could be obtained from a
 cluster with many database servers within a very short time in the range
 of that of the single server installation.
 
-{% hint 'info' %}
-Please review the [requirements and limitations](#hot-backup-limitations)
-of hot backups, specifically regarding storage engine, deployment, scope
-and storage space.
-{% endhint %}
-
 ### Technical Details
 
 - **The Global Write Transaction Lock**
