@@ -3,21 +3,21 @@
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> OK
-content-type: application/json; charset=utf<span class="hljs-number">-8</span>
 keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
+content-type: application/json
 
 [ 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"doc1"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/doc1"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZRY7LV2--A"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB__Ca--A"</span>, 
     <span class="hljs-string">"hello"</span> : <span class="hljs-string">"world"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"doc2"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/doc2"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZRY7LV2--C"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB__Ca--C"</span>, 
     <span class="hljs-string">"say"</span> : <span class="hljs-string">"hi to mom"</span> 
   } 
 ]

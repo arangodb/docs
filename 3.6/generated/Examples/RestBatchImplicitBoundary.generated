@@ -13,10 +13,10 @@ DELETE _api/collection/notexisting2 HTTP/1.1
 EOF
 
 HTTP/1.1 OK
-content-type: application/json
 keep-alive: timeout=300
 x-arango-errors: 2
 x-content-type-options: nosniff
+content-type: application/json
 
 --SomeBoundaryValue
 Content-Type: application/x-arango-batchpart

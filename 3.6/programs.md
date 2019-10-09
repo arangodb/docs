@@ -14,6 +14,7 @@ The full ArangoDB package ships with the following programs and tools:
 | `arangodb`      | [ArangoDB Starter](programs-starter.html) for easy deployment of ArangoDB instances.
 | `arangodump`    | Tool to [create backups](programs-arangodump.html) of an ArangoDB database.
 | `arangorestore` | Tool to [load backups](programs-arangorestore.html) back into an ArangoDB database.
+| `arangobackup`  | Tool to [perform hot backup operations](programs-arangobackup.html) on an ArangoDB installation.
 | `arangoimport`  | [Bulk importer](programs-arangoimport.html) for the ArangoDB server. It supports JSON and CSV.
 | `arangoexport`  | [Bulk exporter](programs-arangoexport.html) for the ArangoDB server. It supports JSON, CSV and XML.
 | `arango-dfdb`   | [Datafile debugger](programs-arango-dfdb.html) for ArangoDB (MMFiles storage engine only).
@@ -28,6 +29,7 @@ The client package comes with a subset of programs and tools:
 - arangoexport
 - arangodump
 - arangorestore
+- arangobackup
 - arangobench
 - arangoinspect
 - arangovpack
