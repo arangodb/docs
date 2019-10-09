@@ -1,10 +1,10 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/products/figures</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-content-type: application/json; charset=utf<span class="hljs-number">-8</span>
 keep-alive: timeout=<span class="hljs-number">300</span>
 location: <span class="hljs-regexp">/_api/</span>collection/products/figures
 x-content-type-options: nosniff
+content-type: application/json
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
@@ -36,7 +36,7 @@ x-content-type-options: nosniff
     }, 
     <span class="hljs-string">"compactionStatus"</span> : { 
       <span class="hljs-string">"message"</span> : <span class="hljs-string">"skipped compaction because collection has no datafiles"</span>, 
-      <span class="hljs-string">"time"</span> : <span class="hljs-string">"2019-09-15T21:02:50Z"</span>, 
+      <span class="hljs-string">"time"</span> : <span class="hljs-string">"2019-10-09T13:40:41Z"</span>, 
       <span class="hljs-string">"count"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"filesCombined"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"bytesRead"</span> : <span class="hljs-number">0</span>, 
@@ -66,7 +66,7 @@ x-content-type-options: nosniff
     <span class="hljs-string">"type"</span> : <span class="hljs-string">"traditional"</span>, 
     <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">127</span> 
   }, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h48FE081AA493/120"</span>, 
+  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h2631D37715B5/120"</span>, 
   <span class="hljs-string">"statusString"</span> : <span class="hljs-string">"loaded"</span>, 
   <span class="hljs-string">"id"</span> : <span class="hljs-string">"120"</span>, 
   <span class="hljs-string">"indexBuckets"</span> : <span class="hljs-number">8</span> 
