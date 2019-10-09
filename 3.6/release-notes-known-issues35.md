@@ -47,6 +47,15 @@ Stream Transactions
 | **Date Added:** 2019-08-19 <br> **Component:** Transactions <br> **Deployment Mode:** All <br> **Description:** Stream Transactions do not support the graph operations that are initiated via the `general-graph` / `smart-graph` JavaScript module or via the REST API at `/_api/gharial`. These operations will act as if no stream transaction is present. <br> **Affected Versions:** 3.5.0 <br> **Fixed in Versions:** 3.5.1 <br> **Reference:** [arangodb/arangodb#9855](https://github.com/arangodb/arangodb/pull/9855){:target="_blank"} / [arangodb/arangodb#9911](https://github.com/arangodb/arangodb/pull/9911){:target="_blank"} |
 | **Date Added:** 2019-08-19 <br> **Component:** Transactions <br> **Deployment Mode:** All <br> **Description:** Stream Transactions do not support user restrictions. Any authenticated user may access any ongoing transaction so long as they have access to the database in question. <br> **Affected Versions:** 3.5.0 <br> **Fixed in Versions:** 3.5.1 <br> **Reference:** [arangodb/arangodb#9796](https://github.com/arangodb/arangodb/pull/9796){:target="_blank"} |
 
+Hot Backup
+----------
+
+| Issue      |
+|------------|
+| **Date Added:** 2019-10-09 <br> **Component:** Hot Backup API / arangobackup <br> **Deployment Mode:** All <br> **Description:** ArangoSearch Views are not backed up and thus not restored yet. Therefore, Views have to be dropped and recreated after a restore. This happens automatically in the background, but in particular in the presence of large amounts of data, the recreation of the ArangoSearch indexes can take some time after the restore. It is planned to rectify this limitation in one of the next releases.<br>Note furthermore that a running query with views can prevent a restore operation from happening whilst the query is running. <br> **Affected Versions:** 3.5.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
+| **Date Added:** 2019-10-09 <br> **Component:** Hot Backup API / arangobackup <br> **Deployment Mode:** All <br> **Description:** The Hot Backup feature is not supported in the Windows version of ArangoDB at this point in time. <br> **Affected Versions:** 3.5.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
+| **Date Added:** 2019-10-09 <br> **Component:** Hot Backup API / arangobackup <br> **Deployment Mode:** DC2DC <br> **Description:** Hot Backup functionality in Datacenter to Datacenter Replication setups is experimental and may not work. <br> **Affected Versions:** 3.5.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
+
 Other
 -----
 

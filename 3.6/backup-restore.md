@@ -310,23 +310,6 @@ not be suited for.
   that the process has to be retried over and over. Every unsuccessful try would
   then lead to the release of all partial locks.
 
-- **ArangoSearch not Supported Yet**
-
-  ArangoSearch views are not backed up and thus not restored yet.
-  Therefore, views have to be dropped and recreated after a restore.
-  This happens automatically in the background, but in particular in the
-  presence of large amounts of data, the recreation of the ArangoSearch
-  indexes can take some time after the restore. It is planned to rectify
-  this limitation in one of the next releases.
-
-  Note furthermore that a running query with views can prevent a restore
-  operation from happening whilst the query is running.
-
-- **Windows not Supported Yet**
-
-  The hot backup feature is not supported in the Windows version of ArangoDB
-  at this point in time.
-
 - **Services on Single Server**
 
   On a single server the installed Foxx microservices are not backed up and are
@@ -353,3 +336,7 @@ not be suited for.
   true for both the Active Failover setup with 2 (or more) single servers
   and for the Datacenter to Datacenter Replication between clusters.
   Simply take hot backups on all instances.
+
+- **Known Issues**
+
+  See the list of [Known Issues in ArangoDB v3.6](release-notes-known-issues36.html#hot-backup).
