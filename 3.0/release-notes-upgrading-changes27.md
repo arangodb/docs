@@ -68,7 +68,8 @@ The properties `setup` and `teardown` have been moved into the `scripts` propert
 
 ### Foxx Queues
 
-Function-based Foxx Queue job types are no longer supported. To learn about how you can use the new script-based job types [follow the updated recipe in the cookbook](https://docs.arangodb.com/2.8/cookbook/FoxxQueues.html){:target="_blank"}.
+Function-based Foxx Queue job types are no longer supported. To learn about how you can use the new script-based job types
+see the [Foxx queues module](../3.4/foxx-reference-modules-queues.html).
 
 ### Foxx Sessions
 
@@ -78,7 +79,7 @@ If you want to replicate the behavior of the `jwt` option you can use the JWT fu
 
 The session type is now inferred from the presence of the `cookie` or `header` options (allowing you to enable support for both). If you want to use the default settings for `cookie` or `header` you can pass the value `true` instead.
 
-The `sessionStorageApp` option has been removed in favour of the `sessionStorage` option.
+The `sessionStorageApp` option has been removed in favor of the `sessionStorage` option.
 
 **Before:**
 

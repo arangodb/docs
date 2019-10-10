@@ -283,7 +283,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341560320,
+    "default" : 16341590016,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -445,6 +445,22 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "cluster",
+    "type" : "double"
+  },
+  "cluster.synchronous-replication-timeout-minimum" : {
+    "category" : "option",
+    "default" : 30,
+    "deprecatedIn" : null,
+    "description" : "all synchronous replication timeouts will be at least this value (in seconds)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.8"
+    ],
     "obsolete" : false,
     "requiresValue" : true,
     "section" : "cluster",
@@ -2434,7 +2450,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609872384,
+    "default" : 19609908019,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -2899,7 +2915,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146496512,
+    "default" : 26146544025,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -3387,6 +3403,23 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
+  },
+  "server.statistics-history" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "turn storing statistics in database on or off",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.4.9",
+      "v3.5.1"
+    ],
     "obsolete" : false,
     "requiresValue" : false,
     "section" : "server",

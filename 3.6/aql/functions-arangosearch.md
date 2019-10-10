@@ -2,6 +2,9 @@
 layout: default
 description: ArangoSearch is integrated into AQL and used mainly through the use of special functions.
 title: ArangoSearch related AQL Functions
+redirect_from:
+  - /3.6/views-arango-search-scorers.html # 3.4 -> 3.5
+  - /3.6/aql/views-arango-search.html # 3.4 -> 3.5
 ---
 ArangoSearch Functions
 ======================

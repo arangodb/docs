@@ -28,5 +28,6 @@ Any date/time operations that produce date/time outside the valid ranges stated
 above will make the function return `null` and trigger a warning too. An example
 for this is
 
-    DATE_SUBTRACT("2018-08-22T10:49:00+02:00", 100000, "years")
-
+```js
+DATE_SUBTRACT("2018-08-22T10:49:00+02:00", 100000, "years")
+```

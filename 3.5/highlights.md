@@ -1,6 +1,7 @@
 ---
 layout: default
-description: All Editions
+description: List of top features in Community and Enterprise Edition by release series
+title: ArangoDB Highlights
 ---
 Highlights
 ==========
@@ -15,7 +16,7 @@ Version 3.5
   [Configurable Analyzers](arangosearch-analyzers.html),
   [Sorted Views](arangosearch-views.html#primary-sort-order)
   and several improvements to the
-  [AQL integration](release-notes-new-features35.html#arangosearch)
+  [AQL integration](release-notes-new-features35.html#arangosearch).
 
 - **AQL Graph Traversals**:
   [k Shortest Paths](aql/graphs-kshortest-paths.html) allows you to query not
@@ -34,7 +35,7 @@ Version 3.5
   use cases like expiring sessions or automatic purging of statistics or logs.
 
 - [**Index Hints**](aql/operations-for.html#index-hints) &
-  [**Named Indexes**](https://www.arangodb.com/arangodb-training-center/index-hints-named-indices/){:target="_blank"}
+  [**Named Indexes**](https://www.arangodb.com/arangodb-training-center/index-hints-named-indices/){:target="_blank"}:
   Indexes can be given names and an optional AQL inline query option
   `indexHint` was added to override the internal optimizer decision on which
   index to utilize.
@@ -45,15 +46,23 @@ Version 3.5
 
 **Enterprise Edition**
 
+- [**Hot Backups**](backup-restore.html#hot-backups):
+  Create automatic, consistent backups of your cluster without noticeable
+  impact on your production systems. In contrast to _arangodump_, hot backups
+  are taken on the level of the underlying storage engine and hence both backup
+  and restore are considerably faster.
+
 - [**SmartJoins**](smartjoins.html):
-  SmartJoins allow to run joins between identically sharded collections with
-  performance close to that of a local join operation.
+  Run joins between identically sharded collections with performance close to
+  that of a local join operation.
 
 - **Advanced Data Masking**:
   There are additional
   [data masking functions](programs-arangodump-maskings.html#masking-functions)
-  available in the Enterprise Edition, such as to substitute email addresses,
-  phone numbers etc. with similar looking pseudo-data.
+  available in the Enterprise Edition, such as for substituting email addresses
+  and phone numbers with similar looking pseudo-data.
+
+Also see [What's New in 3.5](release-notes-new-features35.html).
 
 Version 3.4
 -----------

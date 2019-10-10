@@ -15,6 +15,11 @@ Besides starting and maintaining ArangoDB deployments, the starter also provides
 various commands to create TLS certificates & JWT token secrets to secure your
 ArangoDB deployment.
 
+{% hint 'info %}
+ArangoDB is also available as
+[**managed service** (ArangoDB Oasis)](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
+
 ## Installation
 
 The ArangoDB starter (`arangodb`) comes with all current distributions of ArangoDB.
@@ -201,8 +206,9 @@ Note: When you restart the starter, it remembers the original `--starter.local` 
 ## Starting a cluster with datacenter to datacenter synchronization
 
 {% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+Datacenter to datacenter replication is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 Datacenter to datacenter replication (DC2DC) requires a normal ArangoDB cluster in both data centers

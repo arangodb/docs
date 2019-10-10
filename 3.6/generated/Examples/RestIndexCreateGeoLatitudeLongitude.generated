@@ -9,8 +9,9 @@
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> Created
-content-type: application/json; charset=utf<span class="hljs-number">-8</span>
+keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
+content-type: application/json
 
 { 
   <span class="hljs-string">"bestIndexedLevel"</span> : <span class="hljs-number">17</span>, 
@@ -19,10 +20,10 @@ x-content-type-options: nosniff
     <span class="hljs-string">"f"</span> 
   ], 
   <span class="hljs-string">"geoJson"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"products/70271"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"products/70389"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">"maxNumCoverCells"</span> : <span class="hljs-number">8</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1642473889591197696"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1646923352954109954"</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"geo"</span>, 
   <span class="hljs-string">"unique"</span> : <span class="hljs-literal">false</span>, 

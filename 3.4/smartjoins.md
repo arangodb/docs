@@ -3,7 +3,7 @@ layout: default
 description: SmartJoins allow to execute co-located join operations among identically sharded collections.
 title: SmartJoins for ArangoDB Clusters
 redirect_from:
-  - /3.4/smart-joins.html
+  - /3.4/smart-joins.html # 3.4 -> 3.4
 ---
 SmartJoins
 ==========
@@ -11,8 +11,9 @@ SmartJoins
 <small>Introduced in: v3.4.5, v3.5.0</small>
 
 {% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+SmartJoins are only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 SmartJoins allow to execute co-located join operations among identically sharded collections.
@@ -211,7 +212,7 @@ SmartJoins using smartJoinAttribute
 
 In case the join on the second collection must be performed on a non-shard key
 attribute, there is the option to specify a *smartJoinAttribute* for the collection.
-Note that for this case, setting *distributeShardsLike* is still required here, and that that
+Note that for this case, setting *distributeShardsLike* is still required here, and that
 only a single *shardKeys* attribute can be used.
 The single attribute name specified in the *shardKeys* attribute for the collection must end
 with a colon character then.

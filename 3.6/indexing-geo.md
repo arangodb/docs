@@ -35,12 +35,12 @@ collection.ensureIndex({ type: "geo", fields: [ "geometry" ], geoJson:true })
 ```
 
 This creates the index on all documents and uses _geometry_ as the attributed
-field where the value is either a [Geometry
-Object](https://tools.ietf.org/html/rfc7946#section-3.1){:target="_blank"} **or** a _coordinate
-array_. The array must contain at least two numeric values with longitude (first
-value) and the latitude (second value). This  corresponds to the format
-described in [RFC 7946
-Position](https://tools.ietf.org/html/rfc7946#section-3.1.1){:target="_blank"}
+field where the value is either a
+[Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1){:target="_blank"}
+**or** a _coordinate array_. The array must contain at least two numeric values
+with longitude (first value) and the latitude (second value). This corresponds
+to the format described in
+[RFC 7946 Position](https://tools.ietf.org/html/rfc7946#section-3.1.1){:target="_blank"}.
 
 All documents, which do not have the attribute path or have a non-conform
 value in it, are excluded from the index.
@@ -194,9 +194,10 @@ degrees.
 
 Internally ArangoDB maps all coordinates onto a unit sphere. Distances are
 projected onto a sphere with the Earth's *Volumetric mean radius* of *6371
-km*. ArangoDB implements a useful subset of the GeoJSON format [(RFC
-7946)](https://tools.ietf.org/html/rfc7946){:target="_blank"}. We do not support Feature Objects
-or the GeometryCollection type. Supported geometry object types are:
+km*. ArangoDB implements a useful subset of the GeoJSON format
+[(RFC 7946)](https://tools.ietf.org/html/rfc7946){:target="_blank"}.
+Feature Objects and the GeometryCollection type are not supported.
+Supported geometry object types are:
 
 - Point
 - MultiPoint

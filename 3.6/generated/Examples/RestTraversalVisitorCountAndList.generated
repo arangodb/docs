@@ -9,8 +9,9 @@
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> OK
-content-type: application/json; charset=utf<span class="hljs-number">-8</span>
+keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
+content-type: application/json
 
 { 
   <span class="hljs-string">"result"</span> : { 
@@ -19,25 +20,25 @@ x-content-type-options: nosniff
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZJNS2ma---"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB_Dga---"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZJNS2me---"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB_Dga--A"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"charlie"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/charlie"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZJNS2me--A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB_Dga--C"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Charlie"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"dave"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/dave"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZJNS2me--C"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB_Dge---"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Dave"</span> 
       } 
     ] 

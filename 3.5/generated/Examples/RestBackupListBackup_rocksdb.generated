@@ -1,0 +1,33 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/list</span> &lt;&lt;EOF
+{ 
+}
+EOF
+
+HTTP/<span class="hljs-number">1.1</span> OK
+content-type: application/json; charset=utf<span class="hljs-number">-8</span>
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">"result"</span> : { 
+    <span class="hljs-string">"server"</span> : <span class="hljs-string">"SNGL-0263b568-52cb-4fdc-94eb-6b3cd8207bc5"</span>, 
+    <span class="hljs-string">"list"</span> : { 
+      <span class="hljs-string">"2019-09-19T14.15.38Z_27370c8e-6336-4c94-93ae-b1fc18796fec"</span> : { 
+        <span class="hljs-string">"id"</span> : <span class="hljs-string">"2019-09-19T14.15.38Z_27370c8e-6336-4c94-93ae-b1fc18796fec"</span>, 
+        <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.5.1"</span>, 
+        <span class="hljs-string">"datetime"</span> : <span class="hljs-string">"2019-09-19T14:15:38Z"</span> 
+      }, 
+      <span class="hljs-string">"2019-09-19T14.15.38Z_b4f0a10f-8981-4edc-a74d-29f93393fb57"</span> : { 
+        <span class="hljs-string">"id"</span> : <span class="hljs-string">"2019-09-19T14.15.38Z_b4f0a10f-8981-4edc-a74d-29f93393fb57"</span>, 
+        <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.5.1"</span>, 
+        <span class="hljs-string">"datetime"</span> : <span class="hljs-string">"2019-09-19T14:15:38Z"</span> 
+      }, 
+      <span class="hljs-string">"2019-09-19T14.15.04Z_foo"</span> : { 
+        <span class="hljs-string">"id"</span> : <span class="hljs-string">"2019-09-19T14.15.04Z_foo"</span>, 
+        <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.5.1"</span>, 
+        <span class="hljs-string">"datetime"</span> : <span class="hljs-string">"2019-09-19T14:15:05Z"</span> 
+      } 
+    } 
+  } 
+}

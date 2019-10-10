@@ -1,6 +1,7 @@
 ---
 layout: default
-description: --maskings path-of-config
+description: This feature allows you to define how sensitive data shall be dumped.
+title: Arangodump Data Masking
 ---
 Arangodump Data Maskings
 ========================
@@ -97,7 +98,7 @@ Possible values are:
 *arangodump* also supports a very coarse masking with the option
 `--dump-data false`. This basically removes all data from the dump.
 
-You can either use `--masking` or `--dump-data false`, but not both.
+You can either use `--maskings` or `--dump-data false`, but not both.
 
 ### Masking vs. include-collection option
 
@@ -105,7 +106,7 @@ You can either use `--masking` or `--dump-data false`, but not both.
 `--include-collection`. This will restrict the collections that are
 dumped to the ones explicitly listed.
 
-It is possible to combine `--masking` and `--include-collection`.
+It is possible to combine `--maskings` and `--include-collection`.
 This will take the intersection of exportable collections.
 
 Path
@@ -296,7 +297,8 @@ Masking Functions
 
 {% hint 'info' %}
 The following masking functions are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 - [Xify Front](#xify-front)

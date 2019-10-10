@@ -267,6 +267,20 @@
     "section" : "audit",
     "type" : "string..."
   },
+  "backup.api-enabled" : {
+    "category" : "option",
+    "default" : "true",
+    "deprecatedIn" : null,
+    "description" : "whether the backup api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "backup",
+    "type" : "string"
+  },
   "cache.rebalancing-interval" : {
     "category" : "option",
     "default" : 2000000,
@@ -283,7 +297,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341560320,
+    "default" : 16341590016,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -445,6 +459,23 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "cluster",
+    "type" : "double"
+  },
+  "cluster.synchronous-replication-timeout-minimum" : {
+    "category" : "option",
+    "default" : 30,
+    "deprecatedIn" : null,
+    "description" : "all synchronous replication timeouts will be at least this value (in seconds)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.1",
+      "v3.4.8"
+    ],
     "obsolete" : false,
     "requiresValue" : true,
     "section" : "cluster",
@@ -2551,6 +2582,20 @@
     "type" : "uint32",
     "values" : "Possible values: 1, 2, 3, 4"
   },
+  "rclone.executable" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "rclone executable used for up and download of backups",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "rclone",
+    "type" : "string"
+  },
   "replication.active-failover" : {
     "category" : "option",
     "default" : false,
@@ -2656,7 +2701,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609872384,
+    "default" : 19609908019,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -2681,6 +2726,20 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "uint64"
+  },
+  "rocksdb.create-sha-files" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "enable generation of sha256 files for each .sst file",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
   },
   "rocksdb.debug-logging" : {
     "category" : "option",
@@ -3121,7 +3180,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146496512,
+    "default" : 26146544025,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -3644,6 +3703,23 @@
     "section" : "server",
     "type" : "boolean"
   },
+  "server.statistics-history" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "turn storing statistics in database on or off",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.4.9",
+      "v3.5.1"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
+  },
   "server.storage-engine" : {
     "category" : "option",
     "default" : "auto",
@@ -3747,7 +3823,7 @@
     "category" : "option",
     "default" : 5,
     "deprecatedIn" : null,
-    "description" : "ssl protocol (1 = SSLv2 (unsupported), 2 = SSLv2 or SSLv3 (negotiated), 3 = SSLv3, 4 = TLSv1, 5 = TLSv1.2)",
+    "description" : "ssl protocol (1 = SSLv2 (unsupported), 2 = SSLv2 or SSLv3 (negotiated), 3 = SSLv3, 4 = TLSv1, 5 = TLSv1.2, 6 = TLSv1.3)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -3756,7 +3832,7 @@
     "requiresValue" : true,
     "section" : "ssl",
     "type" : "uint64",
-    "values" : "Possible values: 1, 2, 3, 4, 5"
+    "values" : "Possible values: 1, 2, 3, 4, 5, 6"
   },
   "ssl.require-peer-certificate" : {
     "category" : "option",
