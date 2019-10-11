@@ -6,8 +6,8 @@ description: These functions implement theHTTP API for transactions
 # Transactions
 
 These functions implement the
-[HTTP API for transactions](../http/transaction-index.html).
-Also see [ArangoDB Transactions](../transactions-index.html).
+[HTTP API for transactions](../http/transaction.html).
+Also see [ArangoDB Transactions](../transactions.html).
 
 ## database.executeTransaction
 
