@@ -9,17 +9,18 @@
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> Created
-content-type: application/json; charset=utf<span class="hljs-number">-8</span>
+keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
+content-type: application/json
 
 { 
   <span class="hljs-string">"expireAfter"</span> : <span class="hljs-number">3600</span>, 
   <span class="hljs-string">"fields"</span> : [ 
     <span class="hljs-string">"createdAt"</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"sessions/70337"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"sessions/70455"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1642473889614266370"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1646923352979275776"</span>, 
   <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"ttl"</span>, 

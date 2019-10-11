@@ -1,9 +1,10 @@
 ---
 layout: default
 description: This chapter describes the general-graph module
+title: General Graph JS API
 ---
-Graphs
-======
+General Graphs
+==============
 
 This chapter describes the [general-graph](graphs.html) module.
 It allows you to define a graph that is spread across several edge and document collections.
@@ -17,7 +18,8 @@ for freshers.
 Three Steps to create a graph
 -----------------------------
 
-* Create a graph
+**Create a graph**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraphHowTo1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo1}
@@ -29,7 +31,9 @@ Three Steps to create a graph
     @endDocuBlock generalGraphCreateGraphHowTo1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-* Add some vertex collections
+
+**Add some vertex collections**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraphHowTo2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo2}
@@ -44,7 +48,9 @@ Three Steps to create a graph
     @endDocuBlock generalGraphCreateGraphHowTo2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-* Define relations on the Graph
+
+**Define relations on the Graph**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraphHowTo3
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo3}
@@ -59,4 +65,3 @@ Three Steps to create a graph
     @endDocuBlock generalGraphCreateGraphHowTo3
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-

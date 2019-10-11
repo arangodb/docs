@@ -98,7 +98,7 @@ Possible values are:
 *arangodump* also supports a very coarse masking with the option
 `--dump-data false`. This basically removes all data from the dump.
 
-You can either use `--masking` or `--dump-data false`, but not both.
+You can either use `--maskings` or `--dump-data false`, but not both.
 
 ### Masking vs. include-collection option
 
@@ -106,7 +106,7 @@ You can either use `--masking` or `--dump-data false`, but not both.
 `--include-collection`. This will restrict the collections that are
 dumped to the ones explicitly listed.
 
-It is possible to combine `--masking` and `--include-collection`.
+It is possible to combine `--maskings` and `--include-collection`.
 This will take the intersection of exportable collections.
 
 Path

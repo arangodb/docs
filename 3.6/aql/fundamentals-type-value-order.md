@@ -1,6 +1,7 @@
 ---
 layout: default
-description: When checking for equality or inequality or when determining the sort order ofvalues, AQL uses a deterministic algorithm that takes both the data types andthe actual values into account
+description: AQL uses a deterministic algorithm that takes both the data types and the actual values into account
+title: AQL Type & Value Order
 ---
 Type and value order
 ====================
@@ -14,7 +15,7 @@ data values if the operands have the same data types.
 
 The following type order is used when comparing data types:
 
-    null < bool < number < string < array/list < object/document
+    null  <  bool  <  number  <  string  <  array/list  <  object/document
 
 This means *null* is the smallest type in AQL and *document* is the type with
 the highest order. If the compared operands have a different type, then the
@@ -25,47 +26,49 @@ string value, any array (even an empty array) or any object / document. Addition
 string value (even an empty string) will always be greater than any numeric
 value, a boolean value, *true* or *false*.
 
-    null < false
-    null < true
-    null < 0
-    null < ''
-    null < ' '
-    null < '0'
-    null < 'abc'
-    null < [ ]
-    null < { }
+```js
+    null  <  false
+    null  <  true
+    null  <  0
+    null  <  ''
+    null  <  ' '
+    null  <  '0'
+    null  <  'abc'
+    null  <  [ ]
+    null  <  { }
 
-    false < true
-    false < 0
-    false < ''
-    false < ' '
-    false < '0'
-    false < 'abc'
-    false < [ ]
-    false < { }
+    false  <  true
+    false  <  0
+    false  <  ''
+    false  <  ' '
+    false  <  '0'
+    false  <  'abc'
+    false  <  [ ]
+    false  <  { }
 
-    true < 0
-    true < ''
-    true < ' '
-    true < '0'
-    true < 'abc'
-    true < [ ]
-    true < { }
+    true  <  0
+    true  <  ''
+    true  <  ' '
+    true  <  '0'
+    true  <  'abc'
+    true  <  [ ]
+    true  <  { }
 
-    0 < ''
-    0 < ' '
-    0 < '0'
-    0 < 'abc'
-    0 < [ ]
-    0 < { }
+    0  <  ''
+    0  <  ' '
+    0  <  '0'
+    0  <  'abc'
+    0  <  [ ]
+    0  <  { }
 
-    '' < ' '
-    '' < '0'
-    '' < 'abc'
-    '' < [ ]
-    '' < { }
+    ''  <  ' '
+    ''  <  '0'
+    ''  <  'abc'
+    ''  <  [ ]
+    ''  <  { }
 
-    [ ] < { }
+    [ ]  <  { }
+```
 
 If the two compared operands have the same data types, then the operands values
 are compared. For the primitive types (null, boolean, number, and string), the
@@ -95,12 +98,14 @@ If an array element is itself a compound value (an array or an object / document
 comparison algorithm will check the element's sub values recursively. The element's
 sub-elements are compared recursively.
 
-    [ ] < [ 0 ]
-    [ 1 ] < [ 2 ]
-    [ 1, 2 ] < [ 2 ]
-    [ 99, 99 ] < [ 100 ]
-    [ false ] < [ true ]
-    [ false, 1 ] < [ false, '' ]
+```js
+[ ]  <  [ 0 ]
+[ 1 ]  <  [ 2 ]
+[ 1, 2 ]  <  [ 2 ]
+[ 99, 99 ]  <  [ 100 ]
+[ false ]  <  [ true ]
+[ false, 1 ]  <  [ false, '' ]
+```
 
 Two object / documents operands are compared by checking attribute names and value. The
 attribute names are compared first. Before attribute names are compared, a
@@ -118,12 +123,13 @@ unambiguous comparison result. If an unambiguous comparison result is found, the
 comparison is finished. If there is no unambiguous comparison result, the two
 compared objects / documents are considered equal.
 
-    { } < { "a" : 1 }
-    { } < { "a" : null }
-    { "a" : 1 } < { "a" : 2 }
-    { "b" : 1 } < { "a" : 0 }
-    { "a" : { "c" : true } } < { "a" : { "c" : 0 } }
-    { "a" : { "c" : true, "a" : 0 } } < { "a" : { "c" : false, "a" : 1 } }
+```js
+{ }  <  { "a" : 1 }
+{ }  <  { "a" : null }
+{ "a" : 1 }  <  { "a" : 2 }
+{ "b" : 1 }  <  { "a" : 0 }
+{ "a" : { "c" : true } }  <  { "a" : { "c" : 0 } }
+{ "a" : { "c" : true, "a" : 0 } }  <  { "a" : { "c" : false, "a" : 1 } }
 
-    { "a" : 1, "b" : 2 } == { "b" : 2, "a" : 1 }
-
+{ "a" : 1, "b" : 2 }  ==  { "b" : 2, "a" : 1 }
+```
