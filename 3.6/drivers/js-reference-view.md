@@ -6,7 +6,7 @@ description: These functions implement the HTTP API for manipulating views
 # View API
 
 These functions implement the
-[HTTP API for manipulating views](../http/views-index.html).
+[HTTP API for manipulating views](../http/views.html).
 
 {% hint 'info' %}
 Views were introduced in ArangoDB 3.4 and are not supported by earlier versions
