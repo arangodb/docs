@@ -13,8 +13,8 @@ driver with the same API as the synchronous driver, except that it returned a
 driver in version 6.2.0. See
 [async examples](https://github.com/arangodb/arangodb-java-driver/tree/master/src/test/java/com/arangodb/async/example){:target="_blank"}.
 
-- [Getting Started](GettingStarted/README.md)
-- [Reference](Reference/README.md)
+- [Getting Started](java-getting-started.html)
+- [Reference](java-reference.html)
 
 ## See Also
 
