@@ -6,7 +6,7 @@ description: These functions implement theHTTP API for accessing analyzers
 # Accessing analyzers
 
 These functions implement the
-[HTTP API for accessing analyzers](../http/analyzers-index.html).
+[HTTP API for accessing analyzers](../http/analyzers.html).
 
 {% hint 'info' %}
 Analyzers were introduced in ArangoDB 3.5 and are not supported by earlier
