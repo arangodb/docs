@@ -250,7 +250,7 @@ Quick example setup for two collections with identical sharding:
     > db.orders.ensureIndex({ type: "hash", fields: ["productId"] });
     
 Now an AQL query that joins the two collections via their shard keys will benefit from
-the SmartJoin optimization, e.g.
+the SmartJoins optimization, e.g.
 
     FOR p IN products 
       FOR o IN orders 
@@ -258,7 +258,7 @@ the SmartJoin optimization, e.g.
         RETURN o
 
 In this query's execution plan, the extra hop via the coordinator can be saved
-that is normally there for generic joins. Thanks to the SmartJoin optimization,
+that is normally there for generic joins. Thanks to the SmartJoins optimization,
 the query's execution is as simple as:
 
     Execution plan:
@@ -270,7 +270,7 @@ the query's execution is as simple as:
      11   GatherNode                COOR     0         - GATHER
       6   ReturnNode                COOR     0         - RETURN o
 
-Without the SmartJoin optimization, there will be an extra hop via the 
+Without the SmartJoins optimization, there will be an extra hop via the 
 coordinator for shipping the data from each shard of the one collection to
 each shard of the other collection, which will be a lot more expensive:
 

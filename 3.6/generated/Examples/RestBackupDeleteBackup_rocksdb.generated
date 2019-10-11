@@ -1,13 +1,13 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/delete</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"2019-09-15T21.03.15Z_c94afa6a-a196-492b-a9f1-c6c3585d11fa"</span> 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"2019-10-09T13.41.05Z_a2ed5538-8316-4c62-ad85-b2061cbc7084"</span> 
 }
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> OK
-content-type: application/json; charset=utf<span class="hljs-number">-8</span>
 keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
+content-type: application/json
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 

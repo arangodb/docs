@@ -281,6 +281,20 @@
     "section" : "backup",
     "type" : "string"
   },
+  "backup.local-path-prefix" : {
+    "category" : "option",
+    "default" : "/",
+    "deprecatedIn" : null,
+    "description" : "this option restricts any backup target to a given path prefix",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "backup",
+    "type" : "string"
+  },
   "cache.rebalancing-interval" : {
     "category" : "option",
     "default" : 2000000,
@@ -297,7 +311,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341590016,
+    "default" : 33253030912,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -2765,7 +2779,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609908019,
+    "default" : 39903637094,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -3244,7 +3258,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146544025,
+    "default" : 53204849459,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
