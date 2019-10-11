@@ -311,7 +311,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341608448,
+    "default" : 16341590016,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -2272,7 +2272,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "log destination(s)",
+    "description" : "log destination(s), e.g. file:///path/to/file (Linux, macOS) or file://C:\\path\\to\\file (Windows)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -2848,7 +2848,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609930137,
+    "default" : 19609908019,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -3175,7 +3175,7 @@
     "category" : "option",
     "default" : 9,
     "deprecatedIn" : null,
-    "description" : "maximum number of write buffers that built up in memory",
+    "description" : "maximum number of write buffers that build up in memory (default: number of column families + 2 = 9 write buffers). You can increase the amount only",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -3327,7 +3327,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146573516,
+    "default" : 26146544025,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
