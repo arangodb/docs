@@ -11,7 +11,7 @@ EOF
 
 HTTP/1.1 Accepted
 keep-alive: timeout=300
-x-arango-async-id: 88582
+x-arango-async-id: 88583
 x-content-type-options: nosniff
 content-type: text/plain
 
@@ -23,9 +23,9 @@ x-content-type-options: nosniff
 content-type: application/json
 
 [ 
-  <span class="hljs-string">"88582"</span> 
+  <span class="hljs-string">"88583"</span> 
 ]
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/88582</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/88583</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
 keep-alive: timeout=<span class="hljs-number">300</span>
