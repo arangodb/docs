@@ -31,6 +31,7 @@ You can work on the output programmatically, or use this handsome tool that we c
 to generate a more human readable representation.
 
 You may use it like this: (we disable syntax highlighting here)
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_01_axplainer
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_01_axplainer}
@@ -50,6 +51,7 @@ You may use it like this: (we disable syntax highlighting here)
 
 Let's have a look at the raw json output of the same execution plan
 using the `explain` method of `ArangoStatement`:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_01_explainCreate
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_01_explainCreate}
@@ -59,6 +61,7 @@ using the `explain` method of `ArangoStatement`:
     @endDocuBlock AQLEXP_01_explainCreate
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 As you can see, the result details are very verbose so we will not show them in full in the next
 sections. Instead, let's take a closer look at the results step by step.
 
@@ -69,6 +72,7 @@ Each processing step is carried out by a so-called *execution node*
 
 The `nodes` attribute of the `explain` result contains these *execution nodes* in
 the *execution plan*. The output is still very verbose, so here's a shorted form of it:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_02_explainOverview
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_02_explainOverview}
@@ -78,6 +82,7 @@ the *execution plan*. The output is still very verbose, so here's a shorted form
     @endDocuBlock AQLEXP_02_explainOverview
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 *Note that the list of nodes might slightly change in future versions of ArangoDB if
 new execution node types get added or the optimizer create somewhat more
 optimized plans).*
@@ -108,7 +113,6 @@ Here's a summary:
 * CalculationNode: calculates return value `i.value`
 * ReturnNode: returns data to the caller
 
-
 #### Optimizer rules
 
 Note that in the example, the optimizer has optimized the `SORT` statement away.
@@ -119,6 +123,7 @@ anyway, the extra *SortNode* would have been redundant and was removed.
 Additionally, the optimizer has done more work to generate an execution plan that
 avoids as much expensive operations as possible. Here is the list of optimizer rules
 that were applied to the plan:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_03_explainRules
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_03_explainRules}
@@ -128,6 +133,7 @@ that were applied to the plan:
     @endDocuBlock AQLEXP_03_explainRules
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Here is the meaning of these rules in context of this query:
 * `move-calculations-up`: moves a *CalculationNode* as far up in the processing pipeline
   as possible
@@ -153,11 +159,11 @@ Note that some rules may appear multiple times in the list, with number suffixes
 This is due to the same rule being applied multiple times, at different positions
 in the optimizer pipeline.
 
-
 #### Collections used in a query
 
 The list of collections used in a plan (and query) is contained in the `collections`
 attribute of a plan:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_04_explainCollections
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_04_explainCollections}
@@ -167,16 +173,15 @@ attribute of a plan:
     @endDocuBlock AQLEXP_04_explainCollections
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The `name` attribute contains the name of the `collection`, and `type` is the
 access type, which can be either `read` or `write`.
-
 
 #### Variables used in a query
 
 The optimizer will also return a list of variables used in a plan (and query). This
 list will contain auxiliary variables created by the optimizer itself. This list
 can be ignored by end users in most cases.
-
 
 #### Cost of a query
 
@@ -186,7 +191,6 @@ estimates only, as the actual execution costs are unknown to the optimizer.
 Costs are calculated based on heuristics that are hard-coded into execution nodes.
 Cost values do not have any unit.
 
-
 ### Retrieving all execution plans
 
 To retrieve not just the optimal plan but a list of all plans the optimizer has
@@ -194,6 +198,7 @@ generated, set the option `allPlans` to `true`:
 
 This will return a list of all plans in the `plans` attribute instead of in the
 `plan` attribute:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_05_explainAllPlans
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_05_explainAllPlans}
@@ -203,6 +208,7 @@ This will return a list of all plans in the `plans` attribute instead of in the
     @endDocuBlock AQLEXP_05_explainAllPlans
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Retrieving the plan as it was generated by the parser / lexer
 
 To retrieve the plan which closely matches your query, you may turn off most
@@ -210,6 +216,7 @@ optimization rules (i.e. cluster rules cannot be disabled if you're running
 the explain on a cluster coordinator) set the option `rules` to `-all`:
 
 This will return an unoptimized plan in the `plan`:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_06_explainUnoptimizedPlans
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_06_explainUnoptimizedPlans}
@@ -219,9 +226,9 @@ This will return an unoptimized plan in the `plan`:
     @endDocuBlock AQLEXP_06_explainUnoptimizedPlans
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Note that some optimizations are already done at parse time (i.e. evaluate simple constant
 calculation as `1 + 1`)
-
 
 Turning specific optimizer rules off
 ------------------------------------
@@ -242,8 +249,10 @@ turn on just the one specific rule:
     @endDocuBlock AQLEXP_07_explainSingleRulePlans
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 By default, all rules are turned on. To turn off just a few specific rules, use something
 like this:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_08_explainDisableSingleRulePlans
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_08_explainDisableSingleRulePlans}
@@ -253,8 +262,10 @@ like this:
     @endDocuBlock AQLEXP_08_explainDisableSingleRulePlans
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The maximum number of plans created by the optimizer can also be limited using the
 `maxNumberOfPlans` attribute:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_09_explainMaxNumberOfPlans
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_09_explainMaxNumberOfPlans}
@@ -264,6 +275,7 @@ The maximum number of plans created by the optimizer can also be limited using t
     @endDocuBlock AQLEXP_09_explainMaxNumberOfPlans
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Optimizer statistics
 --------------------
 
@@ -281,6 +293,7 @@ Warnings
 
 For some queries, the optimizer may produce warnings. These will be returned in
 the `warnings` attribute of the `explain` result:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_10_explainWarn
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_10_explainWarn}
@@ -292,9 +305,9 @@ the `warnings` attribute of the `explain` result:
     @endDocuBlock AQLEXP_10_explainWarn
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 There is an upper bound on the number of warning a query may produce. If that
 bound is reached, no further warnings will be returned.
-
 
 Optimization in a cluster
 -------------------------
@@ -371,7 +384,6 @@ For queries in the cluster, the following nodes may appear in execution plans:
   will do so via *RemoteNode*s. The data servers themselves might again pull
   further data from the coordinator, and thus might also employ *RemoteNode*s.
   So, all of the above cluster relevant nodes will be accompanied by a *RemoteNode*.
-
 
 List of optimizer rules
 -----------------------
@@ -528,7 +540,6 @@ apply the optimization.
 
 If the optimization is applied, it will show up as "scan only" in an AQL
 query's execution plan for an *EnumerateCollectionNode* or an *IndexNode*.
-  
 
 Additionally, the optimizer can apply an "index-only" optimization for AQL queries that 
 can satisfy the retrieval of all required document attributes directly from an index.
