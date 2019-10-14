@@ -3408,6 +3408,23 @@
     "section" : "server",
     "type" : "boolean"
   },
+  "server.statistics-history" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "turn storing statistics in database on or off",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.4.9",
+      "v3.5.1"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
+  },
   "server.storage-engine" : {
     "category" : "option",
     "default" : "auto",

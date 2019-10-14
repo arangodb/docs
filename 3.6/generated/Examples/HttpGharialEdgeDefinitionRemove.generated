@@ -1,10 +1,10 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/gharial/social/edge/relation</span>
 
 HTTP/<span class="hljs-number">1.1</span> Accepted
-content-type: application/json; charset=utf<span class="hljs-number">-8</span>
-etag: _ZRY6lFu--F
+etag: _ZZB-Y8K--D
 keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
+content-type: application/json
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
@@ -20,7 +20,7 @@ x-content-type-options: nosniff
       <span class="hljs-string">"female"</span>, 
       <span class="hljs-string">"male"</span> 
     ], 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZRY6lFu--F"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB-Y8K--D"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/social"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"social"</span> 
   } 

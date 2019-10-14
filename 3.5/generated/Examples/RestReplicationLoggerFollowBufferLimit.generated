@@ -1,51 +1,37 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=188175&amp;chunkSize=400</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=188617&amp;chunkSize=400</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
 content-type: application/x-arango-dump; charset=utf<span class="hljs-number">-8</span>
 x-arango-replication-active: <span class="hljs-literal">true</span>
 x-arango-replication-checkmore: <span class="hljs-literal">true</span>
 x-arango-replication-frompresent: <span class="hljs-literal">true</span>
-x-arango-replication-lastincluded: <span class="hljs-number">188180</span>
-x-arango-replication-lastscanned: <span class="hljs-number">188177</span>
-x-arango-replication-lasttick: <span class="hljs-number">188206</span>
+x-arango-replication-lastincluded: <span class="hljs-number">188622</span>
+x-arango-replication-lastscanned: <span class="hljs-number">188619</span>
+x-arango-replication-lasttick: <span class="hljs-number">188645</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188178"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188620"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
-  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"7"</span>, 
+  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"4"</span>, 
   <span class="hljs-string">"cname"</span> : <span class="hljs-string">"_users"</span>, 
   <span class="hljs-string">"data"</span> : { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"58"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/58"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZP3GMOy--_"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"92"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/92"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZVo04y--_"</span>, 
     <span class="hljs-string">"user"</span> : <span class="hljs-string">"root"</span>, 
     <span class="hljs-string">"source"</span> : <span class="hljs-string">"LOCAL"</span>, 
     <span class="hljs-string">"authData"</span> : { 
       <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>, 
       <span class="hljs-string">"simple"</span> : { 
-        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"2856cf01361a2a61db11fb7402df8859002697a44f8a705a6ae29e1e6cf47cd6"</span>, 
-        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"d3f4fac3"</span>, 
+        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"8ce001002f13663e906ea46532e788696938d0c15b2b03705954adcb42208239"</span>, 
+        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"8745cb3b"</span>, 
         <span class="hljs-string">"method"</span> : <span class="hljs-string">"sha256"</span> 
       } 
     }, 
     <span class="hljs-string">"databases"</span> : { 
-      <span class="hljs-string">"*"</span> : { 
-        <span class="hljs-string">"permissions"</span> : { 
-          <span class="hljs-string">"read"</span> : <span class="hljs-literal">true</span>, 
-          <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
-        }, 
-        <span class="hljs-string">"collections"</span> : { 
-          <span class="hljs-string">"*"</span> : { 
-            <span class="hljs-string">"permissions"</span> : { 
-              <span class="hljs-string">"read"</span> : <span class="hljs-literal">true</span>, 
-              <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
-            } 
-          } 
-        } 
-      }, 
       <span class="hljs-string">"_system"</span> : { 
         <span class="hljs-string">"permissions"</span> : { 
           <span class="hljs-string">"read"</span> : <span class="hljs-literal">true</span>, 
@@ -70,12 +56,26 @@ x-content-type-options: nosniff
               <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
             } 
           }, 
-          <span class="hljs-string">"products1"</span> : { 
+          <span class="hljs-string">"*"</span> : { 
             <span class="hljs-string">"permissions"</span> : { 
               <span class="hljs-string">"read"</span> : <span class="hljs-literal">true</span>, 
               <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
             } 
           }, 
+          <span class="hljs-string">"products1"</span> : { 
+            <span class="hljs-string">"permissions"</span> : { 
+              <span class="hljs-string">"read"</span> : <span class="hljs-literal">true</span>, 
+              <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
+            } 
+          } 
+        } 
+      }, 
+      <span class="hljs-string">"*"</span> : { 
+        <span class="hljs-string">"permissions"</span> : { 
+          <span class="hljs-string">"read"</span> : <span class="hljs-literal">true</span>, 
+          <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
+        }, 
+        <span class="hljs-string">"collections"</span> : { 
           <span class="hljs-string">"*"</span> : { 
             <span class="hljs-string">"permissions"</span> : { 
               <span class="hljs-string">"read"</span> : <span class="hljs-literal">true</span>, 
