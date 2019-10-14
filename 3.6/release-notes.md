@@ -11,6 +11,7 @@ What's New
 For a high level list of changes, please refer to one of the following sections:
 
 - What's New in 3.x:
+  [3.6](release-notes-new-features36.html),
   [3.5](release-notes-new-features35.html),
   [3.4](release-notes-new-features34.html),
   [3.3](release-notes-new-features33.html),
@@ -34,6 +35,8 @@ For a detailed list of changes to the ArangoDB core programs and tools,
 please refer to the version specific changelogs:
 
 - Changelogs 3.x:
+  [3.6](https://raw.githubusercontent.com/arangodb/arangodb/3.6/CHANGELOG){:target="_blank"},
+  [3.5](https://raw.githubusercontent.com/arangodb/arangodb/3.5/CHANGELOG){:target="_blank"},
   [3.4](https://raw.githubusercontent.com/arangodb/arangodb/3.4/CHANGELOG){:target="_blank"},
   [3.3](https://raw.githubusercontent.com/arangodb/arangodb/3.3/CHANGELOG){:target="_blank"},
   [3.2](https://raw.githubusercontent.com/arangodb/arangodb/3.2/CHANGELOG){:target="_blank"},
@@ -62,6 +65,8 @@ Also see [Version Specific Upgrade Information](upgrading-version-specific.html)
 in the _Upgrading_ chapter.
 
 - Incompatible changes in 3.x:
+  [3.6](release-notes-upgrading-changes36.html),
+  [3.5](release-notes-upgrading-changes35.html),
   [3.4](release-notes-upgrading-changes34.html),
   [3.3](release-notes-upgrading-changes33.html),
   [3.2](release-notes-upgrading-changes32.html),
@@ -81,6 +86,7 @@ Known Issues
 For a list of known issues, please refer to one of the following sections:
 
 - Known Issues in 3.x:
+  [3.6](release-notes-known-issues36.html),
   [3.5](release-notes-known-issues35.html),
   [3.4](release-notes-known-issues34.html),
   [3.3](release-notes-known-issues33.html),
