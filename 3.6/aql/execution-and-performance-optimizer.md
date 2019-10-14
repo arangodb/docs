@@ -408,6 +408,8 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   as far as possible (ideally out of enumerations) so they are not executed in loops
   if not required. It is also quite common that this rule enables further optimizations
   to kick in.
+- `move-filter-into-enumerate`: ???
+  The rule is turned off by default if not specified.
 - `move-filters-up`: will appear if a *FilterNode* was moved up in a plan. The
   intention of this rule is to move filters up in the processing pipeline as far
   as possible (ideally out of inner loops) so they filter results as early as possible.
