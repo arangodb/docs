@@ -34,6 +34,7 @@ For a detailed list of changes to the ArangoDB core programs and tools,
 please refer to the version specific changelogs:
 
 - Changelogs 3.x:
+  [3.5](https://raw.githubusercontent.com/arangodb/arangodb/3.5/CHANGELOG){:target="_blank"},
   [3.4](https://raw.githubusercontent.com/arangodb/arangodb/3.4/CHANGELOG){:target="_blank"},
   [3.3](https://raw.githubusercontent.com/arangodb/arangodb/3.3/CHANGELOG){:target="_blank"},
   [3.2](https://raw.githubusercontent.com/arangodb/arangodb/3.2/CHANGELOG){:target="_blank"},
