@@ -63,6 +63,7 @@ Also see [Version Specific Upgrade Information](upgrading-version-specific.html)
 in the _Upgrading_ chapter.
 
 - Incompatible changes in 3.x:
+  [3.5](release-notes-upgrading-changes35.html),
   [3.4](release-notes-upgrading-changes34.html),
   [3.3](release-notes-upgrading-changes33.html),
   [3.2](release-notes-upgrading-changes32.html),
