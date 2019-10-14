@@ -390,6 +390,19 @@ List of optimizer rules
 
 The following optimizer rules may appear in the `rules` attribute of a plan:
 
+- `fuse-filters`: will appear if the optimizer merges adjacent FILTER nodes together into
+   a single FILTER node
+- `geo-index-optimizer`: will appear when a geo index is utilized.
+- `inline-subqueries`: will appear when a subquery was pulled out in its surrounding scope,
+  e.g. `FOR x IN (FOR y IN collection FILTER y.value >= 5 RETURN y.test) RETURN x.a`
+  would become `FOR tmp IN collection FILTER tmp.value >= 5 LET x = tmp.test RETURN x.a`
+- `interchange-adjacent-enumerations`: will appear if a query contains multiple
+  *FOR* statements whose order were permuted. Permutation of *FOR* statements is
+  performed because it may enable further optimizations by other rules.
+- `move-calculations-down`: will appear if a *CalculationNode* was moved down in a plan.
+  The intention of this rule is to move calculations down in the processing pipeline
+  as far as possible (below *FILTER*, *LIMIT* and *SUBQUERY* nodes) so they are executed
+  as late as possible and not before their results are required.
 - `move-calculations-up`: will appear if a *CalculationNode* was moved up in a plan.
   The intention of this rule is to move calculations up in the processing pipeline
   as far as possible (ideally out of enumerations) so they are not executed in loops
@@ -398,80 +411,62 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 - `move-filters-up`: will appear if a *FilterNode* was moved up in a plan. The
   intention of this rule is to move filters up in the processing pipeline as far
   as possible (ideally out of inner loops) so they filter results as early as possible.
-- `sort-in-values`: will appear when the values used as right-hand side of an `IN`
-  operator will be pre-sorted using an extra function call. Pre-sorting the comparison
-  array allows using a binary search in-list lookup with a logarithmic complexity instead
-  of the default linear complexity in-list lookup.
-- `remove-unnecessary-filters`: will appear if a *FilterNode* was removed or replaced.
-  *FilterNode*s whose filter condition will always evaluate to *true* will be
-  removed from the plan, whereas *FilterNode* that will never let any results pass
-  will be replaced with a *NoResultsNode*.
-- `remove-redundant-calculations`: will appear if redundant calculations (expressions
-  with the exact same result) were found in the query. The optimizer rule will then
-  replace references to the redundant expressions with a single reference, allowing
-  other optimizer rules to remove the then-unneeded *CalculationNode*s.
-- `remove-unnecessary-calculations`: will appear if *CalculationNode*s were removed
-  from the query. The rule will removed all calculations whose result is not
-  referenced in the query (note that this may be a consequence of applying other
-  optimizations).
-- `remove-redundant-sorts`: will appear if multiple *SORT* statements can be merged
-  into fewer sorts.
-- `interchange-adjacent-enumerations`: will appear if a query contains multiple
-  *FOR* statements whose order were permuted. Permutation of *FOR* statements is
-  performed because it may enable further optimizations by other rules.
-- `remove-collect-variables`: will appear if an *INTO* clause was removed from a *COLLECT*
-  statement because the result of *INTO* is not used. May also appear if a result
-  of a *COLLECT* statement's *AGGREGATE* variables is not used.
-- `propagate-constant-attributes`: will appear when a constant value was inserted
-  into a filter condition, replacing a dynamic attribute value.
-- `replace-or-with-in`: will appear if multiple *OR*-combined equality conditions
-  on the same variable or attribute were replaced with an *IN* condition.
-- `remove-redundant-or`: will appear if multiple *OR* conditions for the same variable
-  or attribute were combined into a single condition.
-- `use-indexes`: will appear when an index is used to iterate over a collection.
-  As a consequence, an *EnumerateCollectionNode* was replaced with an
-  *IndexNode* in the plan.
-- `remove-filter-covered-by-index`: will appear if a *FilterNode* was removed or replaced
-  because the filter condition is already covered by an *IndexNode*.
-- `remove-filter-covered-by-traversal`: will appear if a *FilterNode* was removed or replaced
-  because the filter condition is already covered by an *TraversalNode*.
-- `use-index-for-sort`: will appear if an index can be used to avoid a *SORT*
-  operation. If the rule was applied, a *SortNode* was removed from the plan.
-- `move-calculations-down`: will appear if a *CalculationNode* was moved down in a plan.
-  The intention of this rule is to move calculations down in the processing pipeline
-  as far as possible (below *FILTER*, *LIMIT* and *SUBQUERY* nodes) so they are executed
-  as late as possible and not before their results are required.
-- `patch-update-statements`: will appear if an *UpdateNode* or *ReplaceNode* was patched 
-  to not buffer its input completely, but to process it in smaller batches. The rule will 
-  fire for an *UPDATE* or *REPLACE* query that is fed by a full collection scan or an index
-  scan only, and that does not use any other collections, indexes, subqueries or traversals.
-- `optimize-traversals`: will appear if either the edge or path output variable in an
-  AQL traversal was optimized away, or if a *FILTER* condition from the query was moved
-  in the *TraversalNode* for early pruning of results.
-- `inline-subqueries`: will appear when a subquery was pulled out in its surrounding scope,
-  e.g. `FOR x IN (FOR y IN collection FILTER y.value >= 5 RETURN y.test) RETURN x.a`
-  would become `FOR tmp IN collection FILTER tmp.value >= 5 LET x = tmp.test RETURN x.a`
-- `geo-index-optimizer`: will appear when a geo index is utilized.
-- `replace-function-with-index`: will appear when a deprecated index function such as
-   `FULLTEXT`, `NEAR`, `WITHIN` or `WITHIN_RECTANGLE` is replaced with a regular
-   subquery.
-- `fuse-filters`: will appear if the optimizer merges adjacent FILTER nodes together into
-   a single FILTER node
-- `simplify-conditions`: will appear if the optimizer replaces parts in a CalculationNode's
-   expression with simpler expressions 
-- `remove-sort-rand`: will appear when a *SORT RAND()* expression is removed by
-  moving the random iteration into an *EnumerateCollectionNode*. This optimizer rule
-  is specific for the MMFiles storage engine.
-- `reduce-extraction-to-projection`: will appear when an *EnumerationCollectionNode* or
-  an *IndexNode* that would have extracted an entire document was modified to return 
-  only a projection of each document. Projections are limited to at most 5 different
-  document attributes. This optimizer rule is specific for the RocksDB storage engine.
 - `optimize-subqueries`: will appear when optimizations are applied to a subquery. The
   optimizer rule will add a *LIMIT* statement to qualifying subqueries to make them 
   return less data. Another optimization performed by this rule is to modify the result 
   value of subqueries in case only the number of subquery results is checked later. 
   This saves copying the document data from the subquery to the outer scope and may
   enable follow-up optimizations.
+- `optimize-traversals`: will appear if either the edge or path output variable in an
+  AQL traversal was optimized away, or if a *FILTER* condition from the query was moved
+  in the *TraversalNode* for early pruning of results.
+- `patch-update-statements`: will appear if an *UpdateNode* or *ReplaceNode* was patched 
+  to not buffer its input completely, but to process it in smaller batches. The rule will 
+  fire for an *UPDATE* or *REPLACE* query that is fed by a full collection scan or an index
+  scan only, and that does not use any other collections, indexes, subqueries or traversals.
+- `propagate-constant-attributes`: will appear when a constant value was inserted
+  into a filter condition, replacing a dynamic attribute value.
+- `reduce-extraction-to-projection`: will appear when an *EnumerationCollectionNode* or
+  an *IndexNode* that would have extracted an entire document was modified to return 
+  only a projection of each document. Projections are limited to at most 5 different
+  document attributes. This optimizer rule is specific for the RocksDB storage engine.
+- `remove-collect-variables`: will appear if an *INTO* clause was removed from a *COLLECT*
+  statement because the result of *INTO* is not used. May also appear if a result
+  of a *COLLECT* statement's *AGGREGATE* variables is not used.
+- `remove-filter-covered-by-index`: will appear if a *FilterNode* was removed or replaced
+  because the filter condition is already covered by an *IndexNode*.
+- `remove-filter-covered-by-traversal`: will appear if a *FilterNode* was removed or replaced
+  because the filter condition is already covered by an *TraversalNode*.
+- `remove-redundant-calculations`: will appear if redundant calculations (expressions
+  with the exact same result) were found in the query. The optimizer rule will then
+  replace references to the redundant expressions with a single reference, allowing
+  other optimizer rules to remove the then-unneeded *CalculationNode*s.
+- `remove-redundant-or`: will appear if multiple *OR* conditions for the same variable
+  or attribute were combined into a single condition.
+- `remove-redundant-sorts`: will appear if multiple *SORT* statements can be merged
+  into fewer sorts.
+- `remove-sort-rand`: will appear when a *SORT RAND()* expression is removed by
+  moving the random iteration into an *EnumerateCollectionNode*. This optimizer rule
+  is specific for the MMFiles storage engine.
+- `remove-unnecessary-calculations`: will appear if *CalculationNode*s were removed
+  from the query. The rule will removed all calculations whose result is not
+  referenced in the query (note that this may be a consequence of applying other
+  optimizations).
+- `remove-unnecessary-filters`: will appear if a *FilterNode* was removed or replaced.
+  *FilterNode*s whose filter condition will always evaluate to *true* will be
+  removed from the plan, whereas *FilterNode* that will never let any results pass
+  will be replaced with a *NoResultsNode*.
+- `replace-function-with-index`: will appear when a deprecated index function such as
+   `FULLTEXT`, `NEAR`, `WITHIN` or `WITHIN_RECTANGLE` is replaced with a regular
+   subquery.
+- `replace-or-with-in`: will appear if multiple *OR*-combined equality conditions
+  on the same variable or attribute were replaced with an *IN* condition.
+- `simplify-conditions`: will appear if the optimizer replaces parts in a CalculationNode's
+   expression with simpler expressions 
+- `sort-in-values`: will appear when the values used as right-hand side of an `IN`
+  operator will be pre-sorted using an extra function call. Pre-sorting the comparison
+  array allows using a binary search in-list lookup with a logarithmic complexity instead
+  of the default linear complexity in-list lookup.
 - `sort-limit`: will appear when a *SortNode* is followed by a *LimitNode* with no
   intervening nodes that may change the element count (e.g. a *FilterNode* which
   could not be moved before the sort, or a source node like *EnumerateCollectionNode*).
@@ -483,32 +478,32 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   the output from the `LimitNode` is similar in size to the input. In exceptionally rare 
   cases, this rule could result in some small slowdown. If observed, one can 
   disable the rule for the affected query at the cost of increased memory usage.
+- `use-index-for-sort`: will appear if an index can be used to avoid a *SORT*
+  operation. If the rule was applied, a *SortNode* was removed from the plan.
+- `use-indexes`: will appear when an index is used to iterate over a collection.
+  As a consequence, an *EnumerateCollectionNode* was replaced with an
+  *IndexNode* in the plan.
 
 The following optimizer rules may appear in the `rules` attribute of cluster plans:
 
-- `optimize-cluster-single-document-operations`: it may appear if you directly reference
-  a document by its `_key`; in this case no AQL will be executed on the DB-Servers, instead
-  the coordinator will directly work with the documents on the DB-Servers.
-- `distribute-in-cluster`: will appear when query parts get distributed in a cluster.
-  This is not an optimization rule, and it cannot be turned off.
-- `scatter-in-cluster`: will appear when scatter, gather, and remote nodes are inserted
-  into a distributed query. This is not an optimization rule, and it cannot be turned off.
+- `collect-in-cluster`: will appear when a *CollectNode* on a coordinator is accompanied
+  by extra *CollectNode*s on the database servers, which will do the heavy processing and
+  allow the *CollectNode* on the coordinator to a light-weight aggregation only.
 - `distribute-filtercalc-to-cluster`: will appear when filters are moved up in a
   distributed execution plan. Filters are moved as far up in the plan as possible to
   make result sets as small as possible as early as possible.
+- `distribute-in-cluster`: will appear when query parts get distributed in a cluster.
+  This is not an optimization rule, and it cannot be turned off.
 - `distribute-sort-to-cluster`: will appear if sorts are moved up in a distributed query.
   Sorts are moved as far up in the plan as possible to make result sets as small as possible
   as early as possible.
+- `optimize-cluster-single-document-operations`: it may appear if you directly reference
+  a document by its `_key`; in this case no AQL will be executed on the DB-Servers, instead
+  the coordinator will directly work with the documents on the DB-Servers.
 - `remove-unnecessary-remote-scatter`: will appear if a RemoteNode is followed by a
   ScatterNode, and the ScatterNode is only followed by calculations or the SingletonNode.
   In this case, there is no need to distribute the calculation, and it will be handled
   centrally.
-- `undistribute-remove-after-enum-coll`: will appear if a RemoveNode can be pushed into
-  the same query part that enumerates over the documents of a collection. This saves
-  inter-cluster roundtrips between the EnumerateCollectionNode and the RemoveNode.
-- `collect-in-cluster`: will appear when a *CollectNode* on a coordinator is accompanied
-  by extra *CollectNode*s on the database servers, which will do the heavy processing and
-  allow the *CollectNode* on the coordinator to a light-weight aggregation only.
 - `restrict-to-single-shard`: will appear if a collection operation (IndexNode or a
   data-modification node) will only affect a single shard, and the operation can be
   restricted to the single shard and is not applied for all shards. This optimization
@@ -519,10 +514,15 @@ The following optimizer rules may appear in the `rules` attribute of cluster pla
   determine the values of all the collection's shard keys from the query, and when the
   shard keys are covered by a single index (this is always true if the shard key is
   the default `_key`).
+- `scatter-in-cluster`: will appear when scatter, gather, and remote nodes are inserted
+  into a distributed query. This is not an optimization rule, and it cannot be turned off.
 - `smart-joins`: will appear when the query optimizer can reduce an inter-node join
   to a server-local join. This rule is only active in the *Enterprise Edition* of
   ArangoDB, and will only be employed when joining two collections with identical 
   sharding setup via their shard keys.
+- `undistribute-remove-after-enum-coll`: will appear if a RemoveNode can be pushed into
+  the same query part that enumerates over the documents of a collection. This saves
+  inter-cluster roundtrips between the EnumerateCollectionNode and the RemoveNode.
 
 Note that some rules may appear multiple times in the list, with number suffixes.
 This is due to the same rule being applied multiple times, at different positions
