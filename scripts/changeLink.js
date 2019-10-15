@@ -12,7 +12,8 @@ module.exports = function changeLink(relative) {
         .replace(/\/(readme\.md|index\.html)$/, '')
         .replace(/\.(md|html)/, '')
         .replace(/[^a-z0-9]+/g, '-')
-        .replace('-readme', '') + '.md';
+        .replace('-readme', '')
+        .replace('-index', '') + '.md';
     
     // root level index
     if (fileName == 'readme.md') {
