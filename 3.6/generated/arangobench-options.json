@@ -697,6 +697,22 @@
     "section" : "server",
     "type" : "string"
   },
+  "server.force-json" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "force to not use VelocyPack for easier debugging",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
+  },
   "server.max-packet-size" : {
     "category" : "option",
     "default" : 1073741824,

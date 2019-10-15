@@ -1,18 +1,18 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=188717&amp;chunkSize=400</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=188643&amp;chunkSize=400</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
 keep-alive: timeout=<span class="hljs-number">300</span>
 x-arango-replication-active: <span class="hljs-literal">true</span>
 x-arango-replication-checkmore: <span class="hljs-literal">true</span>
 x-arango-replication-frompresent: <span class="hljs-literal">true</span>
-x-arango-replication-lastincluded: <span class="hljs-number">188722</span>
-x-arango-replication-lastscanned: <span class="hljs-number">188719</span>
-x-arango-replication-lasttick: <span class="hljs-number">188742</span>
+x-arango-replication-lastincluded: <span class="hljs-number">188648</span>
+x-arango-replication-lastscanned: <span class="hljs-number">188645</span>
+x-arango-replication-lasttick: <span class="hljs-number">188671</span>
 x-content-type-options: nosniff
 content-type: application/x-arango-dump
 
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188720"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188646"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
@@ -21,14 +21,14 @@ content-type: application/x-arango-dump
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"92"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/92"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZaF2j----_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Zazmhqe--_"</span>, 
     <span class="hljs-string">"user"</span> : <span class="hljs-string">"root"</span>, 
     <span class="hljs-string">"source"</span> : <span class="hljs-string">"LOCAL"</span>, 
     <span class="hljs-string">"authData"</span> : { 
       <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>, 
       <span class="hljs-string">"simple"</span> : { 
-        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"9f031f79f270c6575f2fdf7b636078e17fad4b5294e0319406f7b3be3f76efb0"</span>, 
-        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"3fb6e06a"</span>, 
+        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"1b136aefd9bb1e627bc294cb99d8c77790aff8d48fd2e09801081ac41800c749"</span>, 
+        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"92c799f4"</span>, 
         <span class="hljs-string">"method"</span> : <span class="hljs-string">"sha256"</span> 
       } 
     }, 
