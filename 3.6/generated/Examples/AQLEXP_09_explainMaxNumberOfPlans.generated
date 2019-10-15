@@ -28,13 +28,14 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">maxNumberOfPlans</span>: <sp
         <span class="hljs-string">"database"</span> : <span class="hljs-string">"_system"</span>, 
         <span class="hljs-string">"collection"</span> : <span class="hljs-string">"test"</span>, 
         <span class="hljs-string">"satellite"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"isSatellite"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"needsGatherNodeSort"</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">"indexCoversProjections"</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">"indexes"</span> : [ 
           { 
-            <span class="hljs-string">"id"</span> : <span class="hljs-string">"64874"</span>, 
+            <span class="hljs-string">"id"</span> : <span class="hljs-string">"64890"</span>, 
             <span class="hljs-string">"type"</span> : <span class="hljs-string">"skiplist"</span>, 
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1642473880130945030"</span>, 
+            <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1646923310915649544"</span>, 
             <span class="hljs-string">"fields"</span> : [ 
               <span class="hljs-string">"value"</span> 
             ], 
@@ -170,13 +171,12 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">maxNumberOfPlans</span>: <sp
     ], 
     <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">110.14385618977472</span>, 
     <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">50</span>, 
-    <span class="hljs-string">"initialize"</span> : <span class="hljs-literal">true</span>, 
     <span class="hljs-string">"isModificationQuery"</span> : <span class="hljs-literal">false</span> 
   }, 
   <span class="hljs-string">"warnings"</span> : [ ], 
   <span class="hljs-string">"stats"</span> : { 
-    <span class="hljs-string">"rulesExecuted"</span> : <span class="hljs-number">35</span>, 
-    <span class="hljs-string">"rulesSkipped"</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">"rulesExecuted"</span> : <span class="hljs-number">36</span>, 
+    <span class="hljs-string">"rulesSkipped"</span> : <span class="hljs-number">2</span>, 
     <span class="hljs-string">"plansCreated"</span> : <span class="hljs-number">1</span> 
   }, 
   <span class="hljs-string">"cacheable"</span> : <span class="hljs-literal">true</span> 

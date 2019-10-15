@@ -9,10 +9,10 @@ x-content-type-options: nosniff
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">"result"</span> : [ 
     { 
-      <span class="hljs-string">"name"</span> : <span class="hljs-string">"text_sv"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"text_zh"</span>, 
       <span class="hljs-string">"type"</span> : <span class="hljs-string">"text"</span>, 
       <span class="hljs-string">"properties"</span> : { 
-        <span class="hljs-string">"locale"</span> : <span class="hljs-string">"sv.utf-8"</span>, 
+        <span class="hljs-string">"locale"</span> : <span class="hljs-string">"zh.utf-8"</span>, 
         <span class="hljs-string">"case"</span> : <span class="hljs-string">"lower"</span>, 
         <span class="hljs-string">"stopwords"</span> : [ ], 
         <span class="hljs-string">"accent"</span> : <span class="hljs-literal">false</span>, 
@@ -25,10 +25,10 @@ x-content-type-options: nosniff
       ] 
     }, 
     { 
-      <span class="hljs-string">"name"</span> : <span class="hljs-string">"text_ru"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"text_sv"</span>, 
       <span class="hljs-string">"type"</span> : <span class="hljs-string">"text"</span>, 
       <span class="hljs-string">"properties"</span> : { 
-        <span class="hljs-string">"locale"</span> : <span class="hljs-string">"ru.utf-8"</span>, 
+        <span class="hljs-string">"locale"</span> : <span class="hljs-string">"sv.utf-8"</span>, 
         <span class="hljs-string">"case"</span> : <span class="hljs-string">"lower"</span>, 
         <span class="hljs-string">"stopwords"</span> : [ ], 
         <span class="hljs-string">"accent"</span> : <span class="hljs-literal">false</span>, 
@@ -61,22 +61,6 @@ x-content-type-options: nosniff
       <span class="hljs-string">"type"</span> : <span class="hljs-string">"text"</span>, 
       <span class="hljs-string">"properties"</span> : { 
         <span class="hljs-string">"locale"</span> : <span class="hljs-string">"nl.utf-8"</span>, 
-        <span class="hljs-string">"case"</span> : <span class="hljs-string">"lower"</span>, 
-        <span class="hljs-string">"stopwords"</span> : [ ], 
-        <span class="hljs-string">"accent"</span> : <span class="hljs-literal">false</span>, 
-        <span class="hljs-string">"stemming"</span> : <span class="hljs-literal">true</span> 
-      }, 
-      <span class="hljs-string">"features"</span> : [ 
-        <span class="hljs-string">"position"</span>, 
-        <span class="hljs-string">"norm"</span>, 
-        <span class="hljs-string">"frequency"</span> 
-      ] 
-    }, 
-    { 
-      <span class="hljs-string">"name"</span> : <span class="hljs-string">"text_zh"</span>, 
-      <span class="hljs-string">"type"</span> : <span class="hljs-string">"text"</span>, 
-      <span class="hljs-string">"properties"</span> : { 
-        <span class="hljs-string">"locale"</span> : <span class="hljs-string">"zh.utf-8"</span>, 
         <span class="hljs-string">"case"</span> : <span class="hljs-string">"lower"</span>, 
         <span class="hljs-string">"stopwords"</span> : [ ], 
         <span class="hljs-string">"accent"</span> : <span class="hljs-literal">false</span>, 
@@ -153,11 +137,17 @@ x-content-type-options: nosniff
       ] 
     }, 
     { 
-      <span class="hljs-string">"name"</span> : <span class="hljs-string">"identity"</span>, 
-      <span class="hljs-string">"type"</span> : <span class="hljs-string">"identity"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"text_ru"</span>, 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"text"</span>, 
       <span class="hljs-string">"properties"</span> : { 
+        <span class="hljs-string">"locale"</span> : <span class="hljs-string">"ru.utf-8"</span>, 
+        <span class="hljs-string">"case"</span> : <span class="hljs-string">"lower"</span>, 
+        <span class="hljs-string">"stopwords"</span> : [ ], 
+        <span class="hljs-string">"accent"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"stemming"</span> : <span class="hljs-literal">true</span> 
       }, 
       <span class="hljs-string">"features"</span> : [ 
+        <span class="hljs-string">"position"</span>, 
         <span class="hljs-string">"norm"</span>, 
         <span class="hljs-string">"frequency"</span> 
       ] 
@@ -190,6 +180,16 @@ x-content-type-options: nosniff
       }, 
       <span class="hljs-string">"features"</span> : [ 
         <span class="hljs-string">"position"</span>, 
+        <span class="hljs-string">"norm"</span>, 
+        <span class="hljs-string">"frequency"</span> 
+      ] 
+    }, 
+    { 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"identity"</span>, 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"identity"</span>, 
+      <span class="hljs-string">"properties"</span> : { 
+      }, 
+      <span class="hljs-string">"features"</span> : [ 
         <span class="hljs-string">"norm"</span>, 
         <span class="hljs-string">"frequency"</span> 
       ] 

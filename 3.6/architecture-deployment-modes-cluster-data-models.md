@@ -1,6 +1,7 @@
 ---
 layout: default
-description: In this section we discuss scalability in the context of the differentdata models supported by ArangoDB
+description: Scalability in the context of the different data models supported by ArangoDB
+title: Data Model Scalability
 ---
 Different data models and scalability
 =====================================
@@ -33,7 +34,6 @@ single document operations still scale linearly with the size of the
 cluster, unless a special sharding configuration makes lookups or
 write operations more expensive.
 
-
 Complex queries and joins
 -------------------------
 
@@ -50,7 +50,6 @@ of the query ought to run where in the cluster.
 
 Nevertheless, for certain complicated joins, there are limits as
 to what can be achieved. 
-
 
 Graph database
 --------------

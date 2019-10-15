@@ -134,28 +134,12 @@ possible as well. See [Datacenter to datacenter replication](architecture-deploy
 (DC2DC) for further details.
 {% endhint %}
 
-Cluster ID
-----------
-
-Every non-Agency ArangoDB instance in a Cluster is assigned a unique
-ID during its startup. Using its ID a node is identifiable
-throughout the Cluster. All cluster operations will communicate
-via this ID.
 
 Sharding
 --------
 
 Using the roles outlined above an ArangoDB Cluster is able to distribute
-data in so called _shards_ across multiple _DBServers_. From the outside
-this process is fully transparent and as such we achieve the goals of
-what other systems call "master-master replication".
-
-In an ArangoDB Cluster you talk to any _Coordinator_ and whenever you read or write data
-it will automatically figure out where the data is stored (read) or to
-be stored (write). The information about the _shards_ is shared across the
-_Coordinators_ using the _Agency_.
-
-ArangoDB organizes its collection data in _shards_. Sharding
+data in so called _shards_ across multiple _DBServers_. Sharding
 allows to use multiple machines to run a cluster of ArangoDB
 instances that together constitute a single database. This enables
 you to store much more data, since ArangoDB distributes the data
@@ -163,13 +147,21 @@ automatically to the different servers. In many situations one can
 also reap a benefit in data throughput, again because the load can
 be distributed to multiple machines.
 
+![Cluster Sharding](images/cluster_sharding.jpg)
+
+From the outside this process is fully transparent:
+An application may talk to any _Coordinator_  and
+it will automatically figure out where the data is currently stored (read-case) 
+or is to be stored (write-case). The information about the _shards_ 
+is shared across all _Coordinators_ using the _Agency_.
+
 _Shards_ are configured per _collection_ so multiple _shards_ of data form
 the _collection_ as a whole. To determine in which _shard_ the data is to
 be stored ArangoDB performs a hash across the values. By default this
 hash is being created from the document __key_.
 
 For further information, please refer to the
-[_Cluster Administration_ ](administration-cluster.html#sharding) section.
+[_Cluster Sharding_](architecture-deployment-modes-cluster-sharding.html) section.
 
 Synchronous replication
 -----------------------
@@ -397,3 +389,11 @@ starting all the needed instances, by using the tool
 
 See the [Cluster Deployment](deployment-cluster.html)
 chapter for instructions.
+
+Cluster ID
+----------
+
+Every ArangoDB instance in a Cluster is assigned a unique
+ID during its startup. Using its ID a node is identifiable
+throughout the Cluster. All cluster operations will communicate
+via this ID.

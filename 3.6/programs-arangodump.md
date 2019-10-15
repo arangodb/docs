@@ -11,7 +11,8 @@ structures stored in ArangoDB.
 Dumps are meant to be restored with [_Arangorestore_](programs-arangorestore.html).
 
 If you want to export for external programs to formats like JSON or CSV, see
-[_Arangoexport_](programs-arangoexport.html) instead.
+[_Arangoexport_](programs-arangoexport.html) instead. For _Hot Backups_ see
+[_Arangobackup_](programs-arangobackup.html).
 
 _Arangodump_ can be used for all ArangoDB deployments modes (Single Instance, 
 Master/Slave, Active Failover, Cluster and DC2DC) and it can backup selected collections
