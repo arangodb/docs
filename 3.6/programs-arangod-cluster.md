@@ -127,6 +127,15 @@ These options should generally remain untouched.
 
 <!-- arangod/Cluster/ClusterFeature.h -->
 
+**Maximum number of shards**
+
+`--cluster.max-number-of-shards <integer>`
+
+Maximum number of shards than can be configured when creating new collections.
+The default value is `1000`.
+When changing the value of this setting and restarting servers, no changes will be 
+applied to existing collections that would violate the new setting.
+
 **Synchronous replication minimum timeout**
 
 `--cluster.synchronous-replication-timeout-minimum <double>`
@@ -161,8 +170,8 @@ Change default replication factor for system collections. Default at `2`.
 
 Minimum replication factor that needs to be used when creating new collections.
 The default value is `1`.
-When changing the value of this setting, no changes are applied to existing
-collections that would violate the new setting.
+When changing the value of this setting and restarting servers, no changes will be
+applied to existing collections that would violate the new setting.
 
 **Maximum replication factor**
 
@@ -170,8 +179,8 @@ collections that would violate the new setting.
 
 Maximum replication factor that can be used when creating new collections.
 The default value is `10`.
-When changing the value of this setting, no changes are applied to existing
-collections that would violate the new setting.
+When changing the value of this setting and restarting servers, no changes will be
+applied to existing collections that would violate the new setting.
 
 **Default replication factor**
 
@@ -182,12 +191,18 @@ replication factor is set.
 If this value is not set, it will default to the value of the option
 `--cluster.min-replication-factor`. If set, the value must be between the
 values of `--cluster.min-replication-factor` and `--cluster.max-replication-factor`.
+Note that the replication factor can still be adjusted per collection. This 
+value is only the default value used for new collections when no replication factor 
+is specified when creating a collection.
 
-**Maximum number of shards**
+**Write concern**
 
-`--cluster.max-number-of-shards <integer>`
+`--cluster.write-concern <integer>`
 
-Maximum number of shards than can be configured when creating new collections.
-The default value is `1000`.
-When changing the value of this setting, no changes are applied to existing
-collections that would violate the new setting.
+Default minimum number of copies of data for new collections required for the collection 
+to be considered "in sync". If a collection has less in-sync copies than specified by
+this value, the collection will turn into read-only mode until enough copies are created.
+This value is the default value for the required minimum number of copies when creating
+new collections. It can still be adjusted per collection.
+The default value for this option is `1`. The value must be smaller or equal compared 
+to the replication factor. 
