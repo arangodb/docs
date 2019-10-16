@@ -2,7 +2,6 @@
 layout: default
 description: The ArangoDB Kubernetes Operator will by default create ArangoDB deploymentsthat use secure TLS connections
 ---
-
 # Secure connections (TLS)
 
 The ArangoDB Kubernetes Operator will by default create ArangoDB deployments

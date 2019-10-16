@@ -2,7 +2,6 @@
 layout: default
 description: The GraphVertexCollection API extends theCollection API with the following methods
 ---
-
 # GraphVertexCollection API
 
 The _GraphVertexCollection API_ extends the

@@ -2,7 +2,6 @@
 layout: default
 description: Cursor instances provide an abstraction over the HTTP API's limitations
 ---
-
 # Cursor API
 
 _Cursor_ instances provide an abstraction over the HTTP API's limitations.

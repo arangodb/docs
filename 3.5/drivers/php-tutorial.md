@@ -2,7 +2,6 @@
 layout: default
 description: In order to use ArangoDB, you need to specify the connection options
 ---
-
 # ArangoDB-PHP - Tutorial
 ## Setting up the connection options
 

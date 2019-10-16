@@ -2,7 +2,6 @@
 layout: default
 description: The EdgeCollection API extends theCollection API with the following methods
 ---
-
 # EdgeCollection API
 
 The _EdgeCollection API_ extends the

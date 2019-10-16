@@ -2,7 +2,6 @@
 layout: default
 description: Storage
 ---
-
 # Storage
 
 An ArangoDB cluster relies heavily on fast persistent storage.

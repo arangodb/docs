@@ -2,7 +2,6 @@
 layout: default
 description: Starting from versions 3
 ---
-
 # Upgrading _Starter_ Deployments
 
 Starting from versions 3.2.15 and 3.3.8, the ArangoDB [_Starter_](programs-starter.html)

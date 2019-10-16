@@ -2,7 +2,6 @@
 layout: default
 description: ArangoDB Kubernetes Operator
 ---
-
 # ArangoDB Kubernetes Operator
 
 The ArangoDB Kubernetes Operator (`kube-arangodb`) is a set of operators

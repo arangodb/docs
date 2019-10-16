@@ -2,7 +2,6 @@
 layout: default
 description: We recommend to use DirectMQ instead of Kafka as message queue,because it is simpler to use and tailored to the needs of ArangoDB
 ---
-
 # Kafka & Zookeeper
 
 {% hint 'tip' %}

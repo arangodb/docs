@@ -2,7 +2,6 @@
 layout: default
 description: These functions implements theHTTP API for single round-trip AQL queriesas well as theHTTP API for managing queries
 ---
-
 # Queries
 
 These functions implements the

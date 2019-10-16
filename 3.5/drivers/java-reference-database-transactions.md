@@ -2,7 +2,6 @@
 layout: default
 description: This function implements theHTTP API for transactions
 ---
-
 # Transactions
 
 This function implements the

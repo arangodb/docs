@@ -2,7 +2,6 @@
 layout: default
 description: Managing Foxx services
 ---
-
 # Managing Foxx services
 
 ## database.listServices

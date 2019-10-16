@@ -2,7 +2,6 @@
 layout: default
 description: Scala
 ---
-
 # ArangoDB Spark Connector - Getting Started
 
 ## Maven

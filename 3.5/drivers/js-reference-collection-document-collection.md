@@ -2,7 +2,6 @@
 layout: default
 description: The DocumentCollection API extends theCollection API with the following methods
 ---
-
 # DocumentCollection API
 
 The _DocumentCollection API_ extends the
@@ -149,7 +148,7 @@ some elements can be error objects if the documents couldn't be saved.
     some network traffic.
 
   - **overwrite**: `boolean` (Default: `false`)
-    
+
     {% hint 'warning' %}
     This option is only available when targeting ArangoDB v3.4.0 and later.
     {% endhint %}

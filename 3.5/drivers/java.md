@@ -2,7 +2,6 @@
 layout: default
 description: The official ArangoDB Java Driver
 ---
-
 # ArangoDB Java Driver
 
 The official ArangoDB Java Driver.

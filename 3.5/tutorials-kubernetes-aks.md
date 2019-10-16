@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 # Start ArangoDB on Azure Kubernetes Service (AKS)
 
 ## Requirements
