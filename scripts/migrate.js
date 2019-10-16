@@ -23,7 +23,7 @@ async function migrateMds(basePath, targetPath) {
         let book = path.basename(basePath);
         const version = targetPath.split("/")[0];
         let urlVersion = version;
-        if (urlVersion == "3.5") {
+        if (urlVersion == "3.6") {
             urlVersion = "devel";
         }
 

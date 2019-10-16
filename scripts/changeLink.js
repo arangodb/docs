@@ -3,7 +3,7 @@ module.exports = function changeLink(relative) {
 
     // replace segment camel case
     // /Wurst/WALHasenPengPuff => /Wurst/WALHasen-Peng-Puff
-    relative = relative.replace(/(?<![A-Z\/])([A-Z])/g, function(x, char) {
+    relative = relative.replace(/(?<![A-Z\/\\])([A-Z])/g, function(x, char) {
         return "-" + char;
     });
     if (relative.startsWith("-")) {
@@ -12,8 +12,8 @@ module.exports = function changeLink(relative) {
     relative = relative.toLowerCase();
 
     let fileName = relative
-        .replace(/\b(readme\.md|index\.html)$/, '')
-        .replace(/\.(md|html)/, '')
+        .replace(/[\/\\](?:readme\.md|index\.html)$/, '')
+        .replace(/\.(?:md|html)/, '')
         .replace(/[^a-z0-9]+/g, '-') + '.md';
     
     // root level index
@@ -21,7 +21,7 @@ module.exports = function changeLink(relative) {
         fileName = 'index.md'
     }
 
-    console.log(`${origLink} => ${fileName}`)
+    //console.log(`${origLink} => ${fileName}`)
 
     return fileName;
 }
