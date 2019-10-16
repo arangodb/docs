@@ -74,5 +74,5 @@ done
 
 folder="3.5"
 echo "Migrating to ${folder}"
-node migrate.js temp/Drivers ${folder}/drivers > /dev/null
-node migrate.js temp/Manual ${folder} > /dev/null
+node migrate.js temp/Drivers ../${folder}/drivers > /dev/null
+node migrate.js temp/Manual ../${folder} > /dev/null
