@@ -1,18 +1,18 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=188678</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=188682</span>
 
 HTTP/1.1 OK
 keep-alive: timeout=300
 x-arango-replication-active: true
 x-arango-replication-checkmore: false
 x-arango-replication-frompresent: true
-x-arango-replication-lastincluded: 188706
-x-arango-replication-lastscanned: 188706
-x-arango-replication-lasttick: 188706
+x-arango-replication-lastincluded: 188710
+x-arango-replication-lastscanned: 188710
+x-arango-replication-lasttick: 188710
 x-content-type-options: nosniff
 content-type: application/x-arango-dump
 
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188681"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188685"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
@@ -21,14 +21,14 @@ content-type: application/x-arango-dump
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"92"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/92"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZcByULC--_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZcV8xT---_"</span>, 
     <span class="hljs-string">"user"</span> : <span class="hljs-string">"root"</span>, 
     <span class="hljs-string">"source"</span> : <span class="hljs-string">"LOCAL"</span>, 
     <span class="hljs-string">"authData"</span> : { 
       <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>, 
       <span class="hljs-string">"simple"</span> : { 
-        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"918b66d1d5d8a5489bb985ffbf339a7ef4814444eae17096f0cae24d04b1c125"</span>, 
-        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"6efc7931"</span>, 
+        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"bc760e2b47910d9cb49efe3140ee98500a737067af62b0a6a19a35179400a2d6"</span>, 
+        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"a9151a79"</span>, 
         <span class="hljs-string">"method"</span> : <span class="hljs-string">"sha256"</span> 
       } 
     }, 
@@ -89,10 +89,10 @@ content-type: application/x-arango-dump
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188694"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188698"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2001</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
-  <span class="hljs-string">"cuid"</span> : <span class="hljs-string">"h6C99C1505934/70552"</span>, 
+  <span class="hljs-string">"cuid"</span> : <span class="hljs-string">"h83C6469D0376/70552"</span>, 
   <span class="hljs-string">"cid"</span> : <span class="hljs-string">"70552"</span>, 
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"id"</span> : <span class="hljs-string">"70552"</span>, 
@@ -100,7 +100,7 @@ content-type: application/x-arango-dump
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188701"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188705"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
@@ -109,14 +109,14 @@ content-type: application/x-arango-dump
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"92"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/92"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZcByULO--_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZcV8xTG--B"</span>, 
     <span class="hljs-string">"user"</span> : <span class="hljs-string">"root"</span>, 
     <span class="hljs-string">"source"</span> : <span class="hljs-string">"LOCAL"</span>, 
     <span class="hljs-string">"authData"</span> : { 
       <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>, 
       <span class="hljs-string">"simple"</span> : { 
-        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"918b66d1d5d8a5489bb985ffbf339a7ef4814444eae17096f0cae24d04b1c125"</span>, 
-        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"6efc7931"</span>, 
+        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"bc760e2b47910d9cb49efe3140ee98500a737067af62b0a6a19a35179400a2d6"</span>, 
+        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"a9151a79"</span>, 
         <span class="hljs-string">"method"</span> : <span class="hljs-string">"sha256"</span> 
       } 
     }, 
