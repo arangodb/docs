@@ -9,11 +9,18 @@ Using the ArangoDB Starter
 This section describes how to start an ArangoDB stand-alone instance using the tool
 [_Starter_](programs-starter.html) (the _arangodb_ binary program).
 
-As a precondition you should create a secret to activate authentication. The starter provides a handy functionality to generate such a file:
+As a precondition you should create a _secret_ to activate authentication. The _Starter_ provides a handy
+functionality to generate such a file:
+
 ```bash
 arangodb create jwt-secret --secret=arangodb.secret
+```
+
+Set appropriate privilege on the generated _secret_ file, e.g. on Linux:
+
+```bash
 chmod 400 arangodb.secret
-``` 
+```
 
 Local Start
 -----------
@@ -24,7 +31,8 @@ option of the _Starter_:
 ```bash
 arangodb --starter.mode=single --auth.jwt-secret=/etc/arangodb.secret
 ```
-Please adapt the path to your secret file accordingly.
+
+Please adapt the path to your _secret_ file accordingly.
 
 Using the ArangoDB Starter in Docker
 ------------------------------------

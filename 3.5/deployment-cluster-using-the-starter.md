@@ -9,9 +9,16 @@ Using the ArangoDB Starter
 This section describes how to start a Cluster using the tool [_Starter_](programs-starter.html)
 (the _arangodb_ binary program).
 
-As a precondition you should create a secret to activate authentication. The starter provides a handy functionality to generate such a file:
+As a precondition you should create a _secret_ to activate authentication. The _Starter_ provides a handy
+functionality to generate such a file:
+
 ```bash
 arangodb create jwt-secret --secret=arangodb.secret
+```
+
+Set appropriate privilege on the generated _secret_ file, e.g. on Linux:
+
+```bash
 chmod 400 arangodb.secret
 ```
 
@@ -25,17 +32,22 @@ If you only want a local test Cluster, you can run a single _Starter_ with the
 arangodb --starter.local --starter.data-dir=./localdata --auth.jwt-secret=/etc/arangodb.secret
 ```
 
+Please adapt the path to your _secret_ file accordingly.
+
 **Note:** a local Cluster is intended only for test purposes since a failure of 
 a single PC will bring down the entire Cluster.
 
 Multiple Machines
 -----------------
 
-If you want to start a Cluster using the _Starter_, you need to copy the _secret file_ to every machine and start the Cluster using the following command:
+If you want to start a Cluster using the _Starter_, you need to copy the _secret_ file to every machine
+and start the Cluster using the following command:
 
 ```
 arangodb --server.storage-engine=rocksdb --auth.jwt-secret=/etc/arangodb.secret --starter.data-dir=./data --starter.join A,B,C
 ```
+
+Please adapt the path to your _secret_ file accordingly.
 
 Run the above command on machine A, B & C.
 
