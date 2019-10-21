@@ -352,9 +352,8 @@ The following execution node types will appear in the output of `explain`:
   attribute). Will appear exactly once in a query that contains an *UPDATE* statement.
 * *UpsertNode*: upserts documents in a collection (given in its *collection*
   attribute). Will appear exactly once in a query that contains an *UPSERT* statement.
-* *NoResultsNode*: will be inserted if *FILTER* statements turn out to be never
-  satisfiable. The *NoResultsNode* will pass an empty result set into the processing
-  pipeline.
+* *NoResultsNode*: _Unused since 3.6_. The *NoResultsNode* will pass an empty
+  result set into the processing pipeline.
 
 For queries in the cluster, the following nodes may appear in execution plans:
 
@@ -392,8 +391,7 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   of the default linear complexity in-list lookup.
 * `remove-unnecessary-filters`: will appear if a *FilterNode* was removed or replaced.
   *FilterNode*s whose filter condition will always evaluate to *true* will be
-  removed from the plan, whereas *FilterNode* that will never let any results pass
-  will be replaced with a *NoResultsNode*.
+  removed from the plan.
 * `remove-redundant-calculations`: will appear if redundant calculations (expressions
   with the exact same result) were found in the query. The optimizer rule will then
   replace references to the redundant expressions with a single reference, allowing
