@@ -1,6 +1,6 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/upload</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"2019-10-21T03.39.35Z_0c13624d-1eb1-497c-985c-64082a2a3e9a"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"2019-10-22T03.50.55Z_61aebc9b-9aa7-457a-bd2a-2b09e8915e56"</span>, 
   <span class="hljs-string">"remoteRepository"</span> : <span class="hljs-string">"local://tmp/backups"</span>, 
   <span class="hljs-string">"config"</span> : { 
     <span class="hljs-string">"local"</span> : { 
@@ -18,6 +18,6 @@ x-content-type-options: nosniff
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">202</span>, 
   <span class="hljs-string">"result"</span> : { 
-    <span class="hljs-string">"uploadId"</span> : <span class="hljs-string">"69085"</span> 
+    <span class="hljs-string">"uploadId"</span> : <span class="hljs-string">"69084"</span> 
   } 
 }
