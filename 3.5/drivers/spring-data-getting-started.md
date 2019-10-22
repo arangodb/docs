@@ -2,7 +2,6 @@
 layout: default
 description: Spring Data ArangoDB requires ArangoDB 3
 ---
-
 # Spring Data ArangoDB - Getting Started
 
 ## Supported versions

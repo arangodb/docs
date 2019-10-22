@@ -2,7 +2,6 @@
 layout: default
 description: Since version 3
 ---
-
 # Auditing
 
 Since version 3.0.0 Spring Data ArangoDB provides basic auditing functionallity where you can track who made changes on your data and when.

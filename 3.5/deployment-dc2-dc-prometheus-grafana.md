@@ -2,7 +2,6 @@
 layout: default
 description: ArangoSync provides metrics in a format supported by Prometheus
 ---
-
 # Prometheus & Grafana (optional)
 
 _ArangoSync_ provides metrics in a format supported by [Prometheus](https://prometheus.io){:target="_blank"}.

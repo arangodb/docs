@@ -2,7 +2,6 @@
 layout: default
 description: The ArangoDB Kubernetes Operator supports upgrading an ArangoDB fromone version to the next
 ---
-
 # Upgrading
 
 The ArangoDB Kubernetes Operator supports upgrading an ArangoDB from

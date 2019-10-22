@@ -2,7 +2,6 @@
 layout: default
 description: While Kubernetes and the ArangoDB Kubernetes operator will automaticallyresolve a lot of issues, there are always cases where human attentionis needed
 ---
-
 # Troubleshooting
 
 While Kubernetes and the ArangoDB Kubernetes operator will automatically

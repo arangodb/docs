@@ -2,7 +2,6 @@
 layout: default
 description: These functions implement theHTTP API for manipulating indexes
 ---
-
 # Manipulating indexes
 
 These functions implement the

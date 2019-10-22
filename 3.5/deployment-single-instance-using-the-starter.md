@@ -2,7 +2,6 @@
 layout: default
 description: This section describes how to start an ArangoDB stand-alone instance using the toolStarter (the arangodb binary program)
 ---
-
 Using the ArangoDB Starter
 ==========================
 

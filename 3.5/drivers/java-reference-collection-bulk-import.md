@@ -2,7 +2,6 @@
 layout: default
 description: This function implements theHTTP API for bulk imports
 ---
-
 # Bulk importing documents
 
 This function implements the

@@ -2,7 +2,6 @@
 layout: default
 description: Note
 ---
-
 # ArangoDB Java Driver - Getting Started
 
 ## Supported versions

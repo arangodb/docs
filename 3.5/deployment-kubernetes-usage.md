@@ -2,7 +2,6 @@
 layout: default
 description: The ArangoDB Kubernetes Operator needs to be installed in your Kubernetescluster first
 ---
-
 # Using the ArangoDB Kubernetes Operator
 
 ## Installation

@@ -2,7 +2,6 @@
 layout: default
 description: This PHP client allows REST-based access to documents on the server
 ---
-
 # ArangoDB-PHP - Getting Started
 ## Description
 

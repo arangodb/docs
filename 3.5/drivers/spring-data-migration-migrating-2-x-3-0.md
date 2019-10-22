@@ -2,7 +2,6 @@
 layout: default
 description: Migrating Spring Data ArangoDB 2.x to 3.0
 ---
-
 # Migrating Spring Data ArangoDB 2.x to 3.0
 
 ## Annotations @Key

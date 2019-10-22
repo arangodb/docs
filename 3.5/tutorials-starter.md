@@ -2,7 +2,6 @@
 layout: default
 description: Starting an ArangoDB cluster involves starting various servers with different roles (agents, dbservers & coordinators)
 ---
-
 # Starting an ArangoDB cluster or database the easy way
 
 Starting an ArangoDB cluster involves starting various servers with
