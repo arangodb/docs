@@ -90,8 +90,8 @@ Retrieves the edge with the given _documentHandle_ from the collection.
   - **allowDirtyRead**: `boolean` (Default: `false`)
 
     {% hint 'info' %}
-    This option is only available when targeting ArangoDB 3.4 or later,
-    see [Compatibility](js-getting-started.html#compatibility).
+    Dirty reads were introduced in ArangoDB 3.4 and are not supported by
+    earlier versions of ArangoDB.
     {% endhint %}
 
     If set to `true`, the request will explicitly permit ArangoDB to return a

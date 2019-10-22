@@ -52,8 +52,8 @@ and followers. Note that dirty reads are only supported for read-only queries
 (e.g. not using `INSERT`, `UPDATE`, `REPLACE` or `REMOVE` expressions).
 
 {% hint 'info' %}
-Dirty reads are only available when targeting ArangoDB 3.4 or later,
-see [Compatibility](js-getting-started.html#compatibility).
+Dirty reads were introduced in ArangoDB 3.4 and are not supported by earlier
+versions of ArangoDB.
 {% endhint %}
 
 Additionally _opts.timeout_ can be set to a non-negative number to force the
