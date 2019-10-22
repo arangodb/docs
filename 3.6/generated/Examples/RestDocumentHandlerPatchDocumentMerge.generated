@@ -1,7 +1,7 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/69794</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-etag: <span class="hljs-string">"_Zd_3ZpC--A"</span>
+etag: <span class="hljs-string">"_ZdUtrgq---"</span>
 keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
@@ -9,7 +9,7 @@ content-type: application/json
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69794"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69794"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Zd_3ZpC--A"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZdUtrgq---"</span>, 
   <span class="hljs-string">"inhabitants"</span> : { 
     <span class="hljs-string">"china"</span> : <span class="hljs-number">1366980000</span>, 
     <span class="hljs-string">"india"</span> : <span class="hljs-number">1263590000</span>, 
@@ -28,7 +28,7 @@ EOF
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/69794</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-etag: <span class="hljs-string">"_Zd_3ZpO--_"</span>
+etag: <span class="hljs-string">"_ZdUtrgy--_"</span>
 keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
@@ -36,7 +36,7 @@ content-type: application/json
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69794"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69794"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Zd_3ZpO--_"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZdUtrgy--_"</span>, 
   <span class="hljs-string">"inhabitants"</span> : { 
     <span class="hljs-string">"china"</span> : <span class="hljs-number">1366980000</span>, 
     <span class="hljs-string">"india"</span> : <span class="hljs-number">1263590000</span>, 
@@ -54,7 +54,7 @@ content-type: application/json
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> Accepted
-etag: <span class="hljs-string">"_Zd_3Zpa--_"</span>
+etag: <span class="hljs-string">"_ZdUtrh---_"</span>
 keep-alive: timeout=<span class="hljs-number">300</span>
 location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">69794</span>
 x-content-type-options: nosniff
@@ -63,13 +63,13 @@ content-type: application/json
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69794"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69794"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Zd_3Zpa--_"</span>, 
-  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_Zd_3ZpO--_"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZdUtrh---_"</span>, 
+  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_ZdUtrgy--_"</span> 
 }
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/69794</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-etag: <span class="hljs-string">"_Zd_3Zpa--_"</span>
+etag: <span class="hljs-string">"_ZdUtrh---_"</span>
 keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
@@ -77,7 +77,7 @@ content-type: application/json
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69794"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69794"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Zd_3Zpa--_"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZdUtrh---_"</span>, 
   <span class="hljs-string">"inhabitants"</span> : { 
     <span class="hljs-string">"pakistan"</span> : <span class="hljs-number">188346000</span> 
   } 
