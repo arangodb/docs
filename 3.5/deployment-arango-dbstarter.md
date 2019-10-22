@@ -2,7 +2,6 @@
 layout: default
 description: Single Instance
 ---
-
 Deploying using the ArangoDB Starter
 ====================================
 

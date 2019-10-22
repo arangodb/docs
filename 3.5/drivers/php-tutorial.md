@@ -2,7 +2,6 @@
 layout: default
 description: In order to use ArangoDB, you need to specify the connection options
 ---
-
 # ArangoDB-PHP - Tutorial
 ## Setting up the connection options
 
@@ -169,7 +168,6 @@ The below code will first set up the collection locally in a variable name $user
     var_dump($result);
 
  ```
-
 ## Creating a document
 
 After we created the collection, we can start with creating an initial document. We will create a user document in a collection named "users". This collection does not need to exist yet. The first document we'll insert in this collection will create the collection on the fly. This is because we have set OPTION_CREATE to true in $connectionOptions.
@@ -545,7 +543,6 @@ of document keys:
 
 
 ```
-
 ## Dropping a collection
 
 

@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 # ArangoDB Spark Connector
 
 - [Getting Started](spark-connector-getting-started.html)

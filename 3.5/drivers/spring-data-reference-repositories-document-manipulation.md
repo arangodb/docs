@@ -2,7 +2,6 @@
 layout: default
 description: Returns whether an entity with the given id exists
 ---
-
 # Manipulating documents
 
 ## ArangoRepository.existsById

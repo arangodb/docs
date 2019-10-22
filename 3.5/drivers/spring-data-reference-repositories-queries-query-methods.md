@@ -2,7 +2,6 @@
 layout: default
 description: Query methods
 ---
-
 # Query methods
 
 Queries using [ArangoDB Query Language (AQL)](../aql/index.html)

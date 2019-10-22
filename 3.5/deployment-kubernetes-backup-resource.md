@@ -2,7 +2,6 @@
 layout: default
 description: ArangoBackup Custom Resource
 ---
-
 # ArangoBackup Custom Resource
 
 The ArangoBackup Operator creates and maintains ArangoBackups

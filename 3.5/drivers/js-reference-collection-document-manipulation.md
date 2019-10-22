@@ -2,7 +2,6 @@
 layout: default
 description: These functions implement theHTTP API for manipulating documents
 ---
-
 # Manipulating documents
 
 These functions implement the

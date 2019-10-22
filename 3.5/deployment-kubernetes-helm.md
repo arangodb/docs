@@ -2,7 +2,6 @@
 layout: default
 description: Using the ArangoDB Kubernetes Operator with Helm
 ---
-
 # Using the ArangoDB Kubernetes Operator with Helm
 
 [`Helm`](https://www.helm.sh/){:target="_blank"} is a package manager for Kubernetes, which enables

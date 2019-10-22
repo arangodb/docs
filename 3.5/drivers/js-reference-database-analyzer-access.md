@@ -2,7 +2,6 @@
 layout: default
 description: These functions implement theHTTP API for accessing analyzers
 ---
-
 # Accessing analyzers
 
 These functions implement the

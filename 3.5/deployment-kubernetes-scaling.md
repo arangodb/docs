@@ -2,7 +2,6 @@
 layout: default
 description: The ArangoDB Kubernetes Operator supports up and down scaling ofthe number of dbservers & coordinators
 ---
-
 # Scaling
 
 The ArangoDB Kubernetes Operator supports up and down scaling of

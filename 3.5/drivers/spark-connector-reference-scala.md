@@ -2,7 +2,6 @@
 layout: default
 description: Save data from rdd or dataset into ArangoDB
 ---
-
 # ArangoDB Spark Connector - Scala Reference
 
 ## ArangoSpark.save

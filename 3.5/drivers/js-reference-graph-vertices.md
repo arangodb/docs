@@ -2,7 +2,6 @@
 layout: default
 description: Manipulating vertices
 ---
-
 # Manipulating vertices
 
 ## graph.vertexCollection

@@ -2,7 +2,6 @@
 layout: default
 description: There are several ways to start an ArangoDB cluster
 ---
-
 # ArangoDB cluster
 
 There are several ways to start an ArangoDB cluster. In this section we will focus

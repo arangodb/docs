@@ -2,7 +2,6 @@
 layout: default
 description: The ArangoDB Kubernetes Operator will by default create ArangoDB deploymentsthat require authentication to access the database
 ---
-
 # Authentication
 
 The ArangoDB Kubernetes Operator will by default create ArangoDB deployments

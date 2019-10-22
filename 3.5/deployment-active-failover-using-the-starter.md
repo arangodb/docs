@@ -2,7 +2,6 @@
 layout: default
 description: This section describes how to start an Active Failover setup the tool Starter(the arangodb binary program)
 ---
-
 Using the ArangoDB Starter
 ==========================
 

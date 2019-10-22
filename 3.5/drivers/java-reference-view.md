@@ -2,7 +2,6 @@
 layout: default
 description: These functions implement theHTTP API for views
 ---
-
 # View API
 
 These functions implement the

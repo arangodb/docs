@@ -2,7 +2,6 @@
 layout: default
 description: The ArangoDB Starter provides a lot of options to control various aspectsof the cluster or database you want to run
 ---
-
 # Option reference
 
 The ArangoDB Starter provides a lot of options to control various aspects

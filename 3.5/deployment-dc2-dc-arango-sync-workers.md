@@ -2,7 +2,6 @@
 layout: default
 description: The ArangoSync Worker is responsible for executing synchronization tasks
 ---
-
 # ArangoSync Workers
 
 The _ArangoSync Worker_ is responsible for executing synchronization tasks.
