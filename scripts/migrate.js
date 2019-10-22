@@ -63,7 +63,7 @@ async function migrateMds(basePath, targetPath) {
                 }
             } else {
                 description = paragraph.textContent
-                    .replace(/\n/g, '')
+                    .replace(/\n/g, ' ')
                     .replace(/(.*?)[\.:].*/ms, '\$1')
                     .replace(/{%\s*hint[^%]*\s*%}/, '')
                     .replace(/{%\s*endhint\s*%}/, '')
