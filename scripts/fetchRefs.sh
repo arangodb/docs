@@ -3,15 +3,15 @@
 set -e
 
 SOURCES=(
-    "https://@github.com/arangodb-helper/arangodb.git;arangodb-starter;master;docs/;Manual/"
-    "https://@github.com/arangodb/arangosync.git;arangosync;master;docs/;Manual/"
-    "https://@github.com/arangodb/kube-arangodb.git;kube-arangodb;master;docs/;Manual/"
-    "https://@github.com/arangodb/arangodb-java-driver.git;arangodb-java-driver;master;docs/;Drivers/"
-    "https://@github.com/arangodb/arangodb-php.git;arangodb-php;devel;docs/;Drivers/"
+    "https://@github.com/arangodb-helper/arangodb.git;arangodb-starter;docs-2019-10-16;docs/;Manual/"
+    "https://@github.com/arangodb/arangosync.git;arangosync;docs-update-2019-10-16;docs/;Manual/"
+    "https://@github.com/arangodb/kube-arangodb.git;kube-arangodb;docs-update-2019-10-16;docs/;Manual/"
+    "https://@github.com/arangodb/arangodb-java-driver.git;arangodb-java-driver;docs-update;docs/;Drivers/"
+    "https://@github.com/arangodb/arangodb-php.git;arangodb-php;docs-update-2019-10-16;docs/;Drivers/"
     "https://@github.com/arangodb/arangodb-spark-connector.git;arangodb-spark-connector;master;docs/;Drivers/"
-    "https://@github.com/arangodb/arangojs.git;arangojs;master;docs/;Drivers/"
+    "https://@github.com/arangodb/arangojs.git;arangojs;docs-2019-10-16;docs/;Drivers/"
     "https://@github.com/arangodb/go-driver.git;go-driver;master;docs/;Drivers/"
-    "https://@github.com/arangodb/spring-data.git;spring-data;master;docs/;Drivers/"
+    "https://@github.com/arangodb/spring-data.git;spring-data;docs-update-2019-10-16;docs/;Drivers/"
 )
 
 GITAUTH="$1"
