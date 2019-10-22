@@ -42,12 +42,12 @@ async function migrateMds(basePath, targetPath) {
         }
         oll += `/`;
 
-        //console.log(JSON.stringify({[oll]:  "https://" + path.join("www.arangodb.com/docs/", targetPath)}));
-        //console.log(JSON.stringify({[oll + "index.html"]:  "https://" + path.join("www.arangodb.com/docs/", targetPath)}));
-        //console.log(JSON.stringify({[oldUrl]: newUrl}));
-        //if (oldUrl.endsWith("/index.html")) {
-        //    console.log(JSON.stringify({[oldUrl.substr(0, oldUrl.length - 10)]: newUrl}));
-        //}
+        console.log(JSON.stringify({[oll]:  "https://" + path.join("www.arangodb.com/docs/", targetPath)}));
+        console.log(JSON.stringify({[oll + "index.html"]:  "https://" + path.join("www.arangodb.com/docs/", targetPath)}));
+        console.log(JSON.stringify({[oldUrl]: newUrl}));
+        if (oldUrl.endsWith("/index.html")) {
+            console.log(JSON.stringify({[oldUrl.substr(0, oldUrl.length - 10)]: newUrl}));
+        }
 
         let content = (await fs.readFile(p)).toString();
         const result = markedIt.generate(content);
