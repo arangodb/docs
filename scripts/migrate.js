@@ -92,6 +92,11 @@ async function migrateMds(basePath, targetPath) {
             link = path.relative(relative, link).replace(/\\/g, '/').replace(/\/index\.html/, '.html').replace(/\/README.md/, '.html');
             return `](${link})`;
         });
+        content = content.replace(/\]\(https:\/\/www\.arangodb\.com\/docs\/stable\/(.*?)\)/g, (fullMatch, link) => {
+            link = path.relative(relative, link).replace(/\\/g, '/').replace(/\/index\.html/, '.html').replace(/\/README.md/, '.html');
+            console.dir({fullMatch, link});
+            return `](${link})`;
+        });
 
         // replace all md links with their changed link
         content = content.replace(/\]\((?!https?:)(.*?\.(html|md))(#[^\)]+)?\)/g, (x, link, fileExt, anchor) => {
