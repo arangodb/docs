@@ -16,9 +16,9 @@ content-type: application/json
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">"time"</span> : <span class="hljs-number">1571785008.6719494</span> 
+  <span class="hljs-string">"time"</span> : <span class="hljs-number">1571869955.066</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/expired?stamp=1571785008.6719494</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/expired?stamp=1571869955.066</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
 keep-alive: timeout=<span class="hljs-number">300</span>
