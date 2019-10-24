@@ -23,7 +23,7 @@ Primitive types
 ### Numeric literals
 
 Numeric literals can be integers or real values. They can optionally be signed
-using the *+* or *-* symbols. The scientific notation is also supported.
+using the `+` or `-` symbols. The scientific notation is also supported.
 
 ```
 1
@@ -135,7 +135,7 @@ declaration would then be:
 
 
 Each attribute in an object is a name / value pair. Name and value of an
-attribute are separated using the *:* symbol.
+attribute are separated using the `:` symbol.
 
 The attribute name is mandatory and must be specified as a quoted or unquoted
 string. If a keyword is used as an attribute name, the attribute name must be quoted:

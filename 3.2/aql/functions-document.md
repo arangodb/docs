@@ -67,7 +67,7 @@ Test whether an attribute is present in the provided document.
 - **attributeName** (string): the attribute key to test for
 - returns **isPresent** (bool): *true* if *document* has an attribute named
   *attributeName*, and *false* otherwise. An attribute with a falsy value (*0*, *false*,
-  empty string *""*) or *null* is also considered as present and returns *true*.
+  empty string `""`) or *null* is also considered as present and returns *true*.
 
 ```js
 HAS( { name: "Jane" }, "name" ) // true

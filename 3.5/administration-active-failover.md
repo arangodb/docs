@@ -1,11 +1,11 @@
 ---
 layout: default
-description: This Section includes information related to the administration of an Active Failoversetup
+description: This section includes information related to the administration of an Active Failoversetup
 ---
 Active Failover Administration
 ==============================
 
-This _Section_ includes information related to the administration of an _Active Failover_
+This section includes information related to the administration of an _Active Failover_
 setup.
 
 For a general introduction to the ArangoDB _Active Failover_ setup, please refer

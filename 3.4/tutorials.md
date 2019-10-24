@@ -1,6 +1,7 @@
 ---
 layout: default
-description: CRUD
+description: Learn how to work with ArangoDB, how to use different languages and integrations and get more in-depth information with this tutorials.
+title: Arango DB tutorials, languages, Integrations and more 
 ---
 Tutorials
 =========
@@ -43,6 +44,9 @@ Deployment & Administration
 
 - [Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}:
   Concepts, maintenance, resilience and troubleshooting
+
+- [ArangoDB Oasis](https://www.arangodb.com/managed-service/){:target="_blank"}:
+  Managed service for cluster deployments of any size
 
 Graphs
 ------

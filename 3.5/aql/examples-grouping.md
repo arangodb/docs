@@ -5,14 +5,14 @@ description: To group results by arbitrary criteria, AQL provides the COLLECT ke
 Grouping
 ========
 
-To group results by arbitrary criteria, AQL provides the *COLLECT* keyword.
-*COLLECT* will perform a grouping, but no aggregation. Aggregation can still be
+To group results by arbitrary criteria, AQL provides the `COLLECT` keyword.
+`COLLECT` will perform a grouping, but no aggregation. Aggregation can still be
 added in the query if required.
 
 Ensuring uniqueness
 -------------------
 
-*COLLECT* can be used to make a result set unique. The following query will return each distinct
+`COLLECT` can be used to make a result set unique. The following query will return each distinct
 `age` attribute value only once:
 
 ```js
@@ -23,7 +23,7 @@ FOR u IN users
 
 This is grouping without tracking the group values, but just the group criterion (*age*) value.
 
-Grouping can also be done on multiple levels using *COLLECT*:
+Grouping can also be done on multiple levels using `COLLECT`:
 
 ```js
 FOR u IN users
@@ -31,16 +31,17 @@ FOR u IN users
     RETURN { status, age }
 ```
 
-
-Alternatively *RETURN DISTINCT* can be used to make a result set unique. *RETURN DISTINCT* supports a
-single criterion only:
+Alternatively `RETURN DISTINCT` can be used to make a result set unique.
+`RETURN DISTINCT` supports a single criterion only:
 
 ```js
 FOR u IN users
     RETURN DISTINCT u.age
 ```
 
-Note: the order of results is undefined for *RETURN DISTINCT*.
+`RETURN DISTINCT` does not change the order of results. For above query that
+means the order is undefined because no particular order is guaranteed when
+iterating over a collection without explicit `SORT` operation.
 
 Fetching group values
 ---------------------
@@ -70,22 +71,22 @@ FOR u IN users
 ```
 
 The query will put all users together by their *age* attribute. There will be one
-result document per distinct *age* value (let aside the *LIMIT*). For each group,
+result document per distinct *age* value (let aside the `LIMIT`). For each group,
 we have access to the matching document via the *usersByAge* variable introduced in
-the *COLLECT* statement.
+the `COLLECT` statement.
 
 Variable Expansion
 ------------------
 
 The *usersByAge* variable contains the full documents found, and as we're only
-interested in user names, we'll use the expansion operator <i>[\*]</i> to extract just the
+interested in user names, we'll use the expansion operator `[*]` to extract just the
 *name* attribute of all user documents in each group:
 
 ```js
 usersByAge[*].u.name
 ```
 
-The <i>[\*]</i> expansion operator is just a handy short-cut. We could also write
+The `[*]` expansion operator is just a handy short-cut. We could also write
 a subquery:
 
 ```js
@@ -95,7 +96,7 @@ a subquery:
 Grouping by multiple criteria
 -----------------------------
 
-To group by multiple criteria, we'll use multiple arguments in the *COLLECT* clause.
+To group by multiple criteria, we'll use multiple arguments in the `COLLECT` clause.
 For example, to group users by *ageGroup* (a derived value we need to calculate first)
 and then by *gender*, we'll do:
 
@@ -156,8 +157,8 @@ FOR u IN users
 Aggregation
 -----------
 
-Adding further aggregation is also simple in AQL by using an *AGGREGATE* clause
-in the *COLLECT*:
+Adding further aggregation is also simple in AQL by using an `AGGREGATE` clause
+in the `COLLECT`:
 
 ```js
 FOR u IN users
@@ -207,7 +208,7 @@ In AQL all aggregation functions can be run on arrays only. If an aggregation fu
 is run on anything that is not an array, a warning will be produced and the result will
 be *null*.
 
-Using an *AGGREGATE* clause will ensure the aggregation is run while the groups are built
+Using an `AGGREGATE` clause will ensure the aggregation is run while the groups are built
 in the collect operation. This is normally more efficient than collecting all group values
 for all groups and then doing a post-aggregation.
 
@@ -215,8 +216,8 @@ for all groups and then doing a post-aggregation.
 Post-aggregation
 ----------------
 
-Aggregation can also be performed after a *COLLECT* operation using other AQL constructs,
-though performance-wise this is often inferior to using *COLLECT* with *AGGREGATE*.
+Aggregation can also be performed after a `COLLECT` operation using other AQL constructs,
+though performance-wise this is often inferior to using `COLLECT` with `AGGREGATE`.
 
 The same query as before can be turned into a post-aggregation query as shown below. Note
 that this query will build and pass on all group values for all groups inside the variable
@@ -257,7 +258,7 @@ FOR u IN users
 ]
 ```
 
-This is in constrast to the previous query that used an *AGGREGATE* clause to perform
+This is in constrast to the previous query that used an `AGGREGATE` clause to perform
 the aggregation during the collect operation, at the earliest possible stage.
 
 
@@ -265,7 +266,7 @@ Post-filtering aggregated data
 ------------------------------
 
 To filter the results of a grouping or aggregation operation (i.e. something
-similar to *HAVING* in SQL), simply add another *FILTER* clause after the *COLLECT*
+similar to *HAVING* in SQL), simply add another `FILTER` clause after the `COLLECT`
 statement.
 
 For example, to get the 3 *ageGroup*s with the most users in them:
@@ -325,4 +326,4 @@ FOR u IN users
 ```
 
 To increase readability, the repeated expression *LENGTH(group)* was put into a variable
-*numUsers*. The *FILTER* on *numUsers* is the equivalent an SQL *HAVING* clause.
+*numUsers*. The `FILTER` on *numUsers* is the equivalent an SQL *HAVING* clause.

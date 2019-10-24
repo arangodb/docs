@@ -1,8 +1,7 @@
 ---
 layout: default
-description: Starting an ArangoDB cluster involves starting various servers withdifferent roles (agents, dbservers & coordinators)
+description: Starting an ArangoDB cluster involves starting various servers with different roles (agents, dbservers & coordinators)
 ---
-
 # Starting an ArangoDB cluster or database the easy way
 
 Starting an ArangoDB cluster involves starting various servers with
@@ -14,6 +13,11 @@ maintain an ArangoDB cluster or single server database.
 Besides starting and maintaining ArangoDB deployments, the starter also provides
 various commands to create TLS certificates & JWT token secrets to secure your
 ArangoDB deployment.
+
+{% hint 'info %}
+ArangoDB is also available as
+[**managed service** (ArangoDB Oasis)](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
 
 ## Installation
 
@@ -123,7 +127,7 @@ docker run -it --name=adb --rm -p 8528:8528 \
     --starter.join=A,B,C
 ```
 
-Note that the enviroment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
+Note that the environment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
 as well as the additional mountpoint containing the certificate have been added above. 
 directory. The assignment of `DOCKER_CERT_PATH` is optional, in which case it 
 is mandatory that the certificates are stored in `$HOME/.docker`. So
@@ -201,8 +205,9 @@ Note: When you restart the starter, it remembers the original `--starter.local` 
 ## Starting a cluster with datacenter to datacenter synchronization
 
 {% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+Datacenter to datacenter replication is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 Datacenter to datacenter replication (DC2DC) requires a normal ArangoDB cluster in both data centers

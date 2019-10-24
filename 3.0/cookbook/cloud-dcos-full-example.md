@@ -28,7 +28,7 @@ https://dcos.io/docs/1.7/usage/tutorials/arangodb/
 
 To understand how ArangoDB ensures that it is highly available make sure to read the cluster documentation here:
 
-https://docs.arangodb.com/3.0/Manual/Scalability/Architecture.html
+[Scalability](../scalability-architecture.html)
 
 ### Deploy a load balancer for the coordinators
     

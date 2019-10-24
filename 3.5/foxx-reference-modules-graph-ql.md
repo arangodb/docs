@@ -13,7 +13,7 @@ synchronous wrapper for the official JavaScript GraphQL reference
 implementation, to allow writing GraphQL schemas directly inside Foxx.
 
 Additionally the `@arangodb/foxx/graphql` lets you create routers for serving
-GraphQL requests, which closely mimicks the behaviour of the
+GraphQL requests, which closely mimicks the behavior of the
 [`express-graphql` module](https://github.com/graphql/express-graphql){:target="_blank"}.
 
 For more information on `graphql-sync` see the

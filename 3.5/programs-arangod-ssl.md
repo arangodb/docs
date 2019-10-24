@@ -1,6 +1,7 @@
 ---
 layout: default
-description: Given a hostname
+description: SSL/TLS encryption option of the ArangoDB server
+title: SSL Configuration
 ---
 # ArangoDB Server SSL Options
 
@@ -88,7 +89,7 @@ The certificates in *filename* must be PEM formatted.
 
 `--ssl.protocol value`
 
-Use this option to specify the default encryption protocol to be used.  The
+Use this option to specify the default encryption protocol to be used. The
 following variants are available:
 
 - 1: SSLv2 (unsupported)
@@ -96,6 +97,7 @@ following variants are available:
 - 3: SSLv3
 - 4: TLSv1
 - 5: TLSv1.2
+- 6: TLSv1.3 (introduced in: v3.5.1)
 
 The default *value* is 5 (TLSv1.2).
 
@@ -115,7 +117,8 @@ Set to true if SSL session caching should be used.
 
 {% hint 'info' %}
 This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 `--ssl.require-peer-certificate`

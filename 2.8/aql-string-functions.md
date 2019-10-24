@@ -138,10 +138,10 @@ For string processing, AQL offers the following functions:
 - *LIKE(text, search, case-insensitive)*: Checks whether the pattern
   *search* is contained in the string *text*, using wildcard matching. 
   Returns *true* if the pattern is contained in *text*, and *false* otherwise. 
-  The *pattern* string can contain the wildcard characters *%* (meaning any
-  sequence of characters) and *_* (any single character).
+  The *pattern* string can contain the wildcard characters `%` (meaning any
+  sequence of characters) and `_` (any single character).
 
-  The string matching performed by *LIKE* is case-sensitive by default, but by
+  The string matching performed by `LIKE` is case-sensitive by default, but by
   passing *true* as the third parameter, the matching will be case-insensitive.
 
   The value for *search* cannot be a variable or a document attribute. The actual 

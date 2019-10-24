@@ -1,6 +1,7 @@
 ---
 layout: default
-description: Before we can insert documents with AQL, we need a place to put them in - acollection
+description: In this tutorial you can learn how to do a Document CRUD (Create, Read, Update, Delete) with ArangoDB Query Language AQL in ArangoDB.
+title: ArangoDB Basic CRUD tutorial
 ---
 CRUD
 ====
@@ -139,7 +140,7 @@ INSERT {
 ```
 
 Note: AQL does not permit multiple `INSERT` operations that target the same
-collection in in a single query.
+collection in a single query.
 It is allowed as body of a `FOR` loop however, inserting multiple documents
 like we did with above query.
 

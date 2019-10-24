@@ -25,7 +25,7 @@ The default user is `root` and the password is the `Instance ID` (You can find t
 
 ![Web Interface](../images/webInterface.png)
 
-If you want to learn more about ArangoDB, start with the [ArangoDB First Steps][4] in our Documentation or try one of our [Tutorials][5] or Cookbook recipes.
+If you want to learn more about ArangoDB, start with the [ArangoDB Getting Started][4] in our Documentation or try one of our [Tutorials][5] or Cookbook recipes.
 
 **Author**: [Ingo Friepoertner](https://github.com/ifcologne){:target="_blank"}
 
@@ -34,5 +34,5 @@ If you want to learn more about ArangoDB, start with the [ArangoDB First Steps][
 [1]: https://aws.amazon.com
 [2]: https://aws.amazon.com/marketplace/search/results/ref=dtl_navgno_search_box?page=1&searchTerms=arangodb
 [3]: https://aws.amazon.com/marketplace/library
-[4]: https://docs.arangodb.com/2.8/FirstSteps/index.html
+[4]: ../getting-started.html
 [5]: https://www.arangodb.com/tutorials/

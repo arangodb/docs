@@ -10,11 +10,11 @@ Array expansion
 ---------------
 
 In order to access a named attribute from all elements in an array easily, AQL
-offers the shortcut operator <i>[\*]</i> for array variable expansion.
+offers the shortcut operator `[*]` for array variable expansion.
 
-Using the <i>[\*]</i> operator with an array variable will iterate over all elements 
+Using the `[*]` operator with an array variable will iterate over all elements 
 in the array, thus allowing to access a particular attribute of each element.  It is
-required that the expanded variable is an array.  The result of the <i>[\*]</i>
+required that the expanded variable is an array.  The result of the `[*]`
 operator is again an array.
 
 To demonstrate the array expansion operator, let's go on with the following three 
@@ -23,34 +23,34 @@ example *users* documents:
 ```json
 [
   {
-    name: "john",
-    age: 35,
-    friends: [
-      { name: "tina", age: 43 },
-      { name: "helga", age: 52 },
-      { name: "alfred", age: 34 }
+    "name": "john",
+    "age": 35,
+    "friends": [
+      { "name": "tina", "age": 43 },
+      { "name": "helga", "age": 52 },
+      { "name": "alfred", "age": 34 }
     ]
   },
   {
-    name: "yves",
-    age: 24,
-    friends: [
-      { name: "sergei", age: 27 },
-      { name: "tiffany", age: 25 }
+    "name": "yves",
+    "age": 24,
+    "friends": [
+      { "name": "sergei", "age": 27 },
+      { "name": "tiffany", "age": 25 }
     ]
   },
   {
-    name: "sandra",
-    age: 40,
-    friends: [
-      { name: "bob", age: 32 },
-      { name: "elena", age: 48 }
+    "name": "sandra",
+    "age": 40,
+    "friends": [
+      { "name": "bob", "age": 32 },
+      { "name": "elena", "age": 48 }
     ]
   }
 ]
 ```
 
-With the <i>[\*]</i> operator it becomes easy to query just the names of the
+With the `[*]` operator it becomes easy to query just the names of the
 friends for each user:
 
 ```
@@ -78,13 +78,13 @@ FOR u IN users
 Array contraction
 -----------------
 
-In order to collapse (or flatten) results in nested arrays, AQL provides the <i>[\*\*]</i> 
-operator. It works similar to the <i>[\*]</i> operator, but additionally collapses nested
+In order to collapse (or flatten) results in nested arrays, AQL provides the `[**]` 
+operator. It works similar to the `[*]` operator, but additionally collapses nested
 arrays.
 
 How many levels are collapsed is determined by the amount of asterisk characters used.
-<i>[\*\*]</i> collapses one level of nesting - just like `FLATTEN(array)` or `FLATTEN(array, 1)`
-would do -, <i>[\*\*\*]</i> collapses two levels - the equivalent to `FLATTEN(array, 2)` - and
+`[**]` collapses one level of nesting - just like `FLATTEN(array)` or `FLATTEN(array, 1)`
+would do -, `[***]` collapses two levels - the equivalent to `FLATTEN(array, 2)` - and
 so on.
 
 Let's compare the array expansion operator with an array contraction operator.
@@ -115,10 +115,10 @@ As we have multiple users, the overall result is a nested array:
 ]
 ```
 
-If the goal is to get rid of the nested array, we can apply the <i>[\*\*]</i> operator on the 
-result. But simply appending <i>[\*\*]</i> to the query won't help, because *u.friends*
+If the goal is to get rid of the nested array, we can apply the `[**]` operator on the 
+result. But simply appending `[**]` to the query won't help, because *u.friends*
 is not a nested (multi-dimensional) array, but a simple (one-dimensional) array. Still, 
-the <i>[\*\*]</i> can be used if it has access to a multi-dimensional nested result.
+the `[**]` can be used if it has access to a multi-dimensional nested result.
 
 We can extend above query as follows and still create the same nested result:
 
@@ -128,7 +128,7 @@ RETURN (
 )
 ```
 
-By now appending the <i>[\*\*]</i> operator at the end of the query...
+By now appending the `[**]` operator at the end of the query...
 
 ```js
 RETURN (
@@ -164,7 +164,7 @@ of returned elements and to create a projection using the current array element.
 Sorting is not supported by this shorthand form.
 
 These inline expressions can follow array expansion and contraction operators
-<i>[\* ...]</i>, <i>[\*\* ...]</i> etc. The keywords *FILTER*, *LIMIT* and *RETURN*
+`[* ...]`, `[** ...]` etc. The keywords `FILTER`, `LIMIT` and `RETURN`
 must occur in this order if they are used in combination, and can only occur once:
 
 `anyArray[* FILTER conditions LIMIT skip,limit RETURN projection]`
@@ -225,7 +225,7 @@ older than 40 years are returned per user:
 ### Inline filter
 
 To return only the names of friends that have an *age* value
-higher than the user herself, an inline *FILTER* can be used:
+higher than the user herself, an inline `FILTER` can be used:
 
 ```js
 FOR u IN users
@@ -233,14 +233,14 @@ FOR u IN users
 ```
 
 The pseudo-variable *CURRENT* can be used to access the current array element.
-The *FILTER* condition can refer to *CURRENT* or any variables valid in the
+The `FILTER` condition can refer to *CURRENT* or any variables valid in the
 outer scope.
 
 ### Inline limit
 
-The number of elements returned can be restricted with *LIMIT*. It works the same
-as the [limit operation](operations-limit.html). *LIMIT* must come after *FILTER*
-and before *RETURN*, if they are present.
+The number of elements returned can be restricted with `LIMIT`. It works the same
+as the [limit operation](operations-limit.html). `LIMIT` must come after `FILTER`
+and before `RETURN`, if they are present.
 
 ```js
 FOR u IN users
@@ -277,8 +277,8 @@ per user:
 
 ### Inline projection
 
-To return a projection of the current element, use *RETURN*. If a *FILTER* is
-also present, *RETURN* must come later.
+To return a projection of the current element, use `RETURN`. If a `FILTER` is
+also present, `RETURN` must come later.
 
 ```js
 FOR u IN users

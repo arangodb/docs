@@ -1,12 +1,13 @@
 ---
 layout: default
-description: Distributed graph processing enables you to do online analytical processing directly on graphs stored into ArangoDB
+description: Distributed Iterative Graph Processing (Pregel) enables you to do online analytical processing directly on graphs stored in ArangoDB.
+title: Distributed Iterative Graph Processing (Pregel)
 ---
 Distributed Iterative Graph Processing (Pregel)
 ===============================================
 
 Distributed graph processing enables you to do online analytical processing
-directly on graphs stored into ArangoDB. This is intended to help you gain analytical insights
+directly on graphs stored in ArangoDB. This is intended to help you gain analytical insights
 on your data, without having to use external processing systems. Examples of algorithms
 to execute are PageRank, Vertex Centrality, Vertex Closeness, Connected Components, Community Detection.
 This system is not useful for typical online queries, where you just do work on a small set of vertices.
@@ -30,7 +31,7 @@ better, if the number of your shards / collections matches the number of CPU cor
 When you use ArangoDB Community Edition in cluster mode, you might need to model your collections in a certain way to
 ensure correct results. For more information see the next section.
 
-### Requirements for Collections in a Cluster (Non Smart Graph)
+### Requirements for Collections in a Cluster (Non-Smart Graph)
 
 To enable iterative graph processing for your data, you will need to ensure
 that your vertex and edge collections are sharded in a specific way.
@@ -49,7 +50,7 @@ For example you might create your collections like this:
 ```javascript
 // Create main vertex collection: 
 db._create("vertices", {
-  shardKeys: ['_key'],
+  shardKeys: ["_key"],
   numberOfShards: 8
 });
 
@@ -61,15 +62,15 @@ db._create("additonal", {
 
 // Create (one or more) edge-collections: 
 db._createEdgeCollection("edges", {
-  shardKeys: ['vertex'],
+  shardKeys: ["vertex"],
   distributeShardsLike: "vertices",
   numberOfShards: 8
 });
 ```
 
-You will need to ensure that edge documents contain the proper values in their sharding attribute.
+You will need to ensure that all edges contain the proper values in their shard key attribute.
 For a vertex document with the following content `{ _key: "A", value: 0 }`
-the corresponding edge documents would have to look like this:
+the corresponding edge documents would have to look as follows:
 
 ```js
 { "_from":"vertices/A", "_to": "vertices/B", "vertex": "A" }
@@ -77,6 +78,9 @@ the corresponding edge documents would have to look like this:
 { "_from":"vertices/A", "_to": "vertices/D", "vertex": "A" }
 ...
 ```
+
+As can be seen, all edges are using a value of `A` (the _key value of the vertex) in their shard key 
+attribute "vertex".
 
 This will ensure that outgoing edge documents will be placed on the same DBServer as the vertex.
 Without the correct placement of the edges, the Pregel graph processing system will not work correctly, because
@@ -213,8 +217,10 @@ There are a number of general parameters which apply to almost all algorithms:
 - `async`: Algorithms which support async mode, will run without synchronized global iterations,
   might lead to performance increases if you have load imbalances.
 - `resultField`: Most algorithms will write the result into this field
-- `useMemoryMaps`: Use disk based files to store temporary results. This might make the computation disk bound, but
-  allows you to run computations which would not fit into main memory.
+- `useMemoryMaps`: Use disk based files to store temporary results. This might make the computation disk-bound, but
+  allows you to run computations which would not fit into main memory. It is recommended to set this flag for
+  larger datasets.
+- `shardKeyAttribute`: shard-key that edge-collections are sharded after (default: `vertex`)
 
 Available Algorithms
 --------------------
@@ -314,7 +320,7 @@ and all other vertices. For vertices *x*, *y* and shortest distance *d(y,x)* it 
 ![Vertex Closeness](images/closeness.png)
 
 Effective Closeness approximates the closeness measure. The algorithm works by iteratively estimating the number
-of shortest paths passing through each vertex. The score will approximates the the real closeness score, since
+of shortest paths passing through each vertex. The score will approximates the real closeness score, since
 it is not possible to actually count all shortest paths due to the horrendous O(n^2 * d) memory requirements. 
 The algorithm is from the paper *Centralities in Large Networks: Algorithms and Observations (U Kang et.al. 2011)*
 
@@ -403,3 +409,24 @@ const handle = pregel.start("slpa", "yourgraph", {maxGSS:100, resultField:"commu
 // check the status periodically for completion
 pregel.status(handle);
 ```
+
+Limits
+------
+
+Pregel algorithms in ArangoDB will by default store temporary vertex and edge data in main memory. For large
+datasets this is going to cause problems, as servers may run out of memory while loading the data. 
+
+To avoid servers from running out of memory while loading the dataset, a Pregel job can be started with the
+attribute `useMemoryMaps` set to `true`. This will make the algorithm use memory-mapped files as a backing
+storage in case of huge datasets. Falling back to memory-mapped files might make the computation disk-bound, but
+may be the only way to complete the computation at all.
+
+Parts of the Pregel temporary results (aggregated messages) may also be stored in main memory, and currently
+the aggregation cannot fall back to memory-mapped files. That means if an algorithm needs to store a lot of
+result messages temporarily, it may consume a lot of main memory.
+
+In general it is also recommended to set the `store` attribute of Pregel jobs to `true` to make a job store
+its value on disk and not just in main memory. This way the results are removed from main memory once a Pregel 
+job completes. If the `store` attribute is explicitly set to `false`, result sets of completed Pregel runs
+will not be removed from main memory until the result set is explicitly discarded by a call to the `cancel`
+function (or a shutdown of the server).

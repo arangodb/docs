@@ -1,6 +1,7 @@
 ---
 layout: default
-description: This chapter describes the JavaScript interface for creating and modifying SmartGraphs
+description: This chapter of the ArangoDB documentation describes the JavaScript interface for creating and modifying SmartGraphs.
+title: ArangoDB Smart Graph Management
 ---
 Smart Graph Management
 ======================

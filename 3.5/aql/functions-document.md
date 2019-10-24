@@ -67,7 +67,7 @@ Test whether an attribute is present in the provided document.
 - **attributeName** (string): the attribute key to test for
 - returns **isPresent** (bool): *true* if *document* has an attribute named
   *attributeName*, and *false* otherwise. An attribute with a falsy value (*0*, *false*,
-  empty string *""*) or *null* is also considered as present and returns *true*.
+  empty string `""`) or *null* is also considered as present and returns *true*.
 
 ```js
 HAS( { name: "Jane" }, "name" ) // true
@@ -190,7 +190,24 @@ comparison with the next example until there are no more examples left.
 The *examples* can be an array of 1..n example documents or a single document,
 with any number of attributes each.
 
-Note that *MATCHES()* can not utilize indexes.
+An attribute value of `null` will match documents with an explicit attribute value
+of `null` as well as documents with this attribute missing (implicitly `null`).
+Only [HAS()](#has) can differentiate between an attribute being absent and having
+a stored `null` value.
+
+An empty object `{}` will match all documents. Be careful not to ask for all
+documents accidentally. For example, the [arangojs](../drivers/js.html) driver
+skips attributes with a value of `undefined`, turning `{attr: undefined}` into `{}`.
+
+{% hint 'info' %}
+`MATCHES()` can not utilize indexes. You may use plain `FILTER` conditions instead
+to potentially benefit from existing indexes:
+
+```js
+FOR doc IN coll
+  FILTER (cond1 AND cond2 AND cond3) OR (cond4 AND cond5) ...
+```
+{% endhint %}
 
 - **document** (object): document to determine whether it matches any example
 - **examples** (object\|array): a single document, or an array of documents to compare

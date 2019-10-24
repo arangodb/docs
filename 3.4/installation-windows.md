@@ -1,6 +1,7 @@
 ---
 layout: default
-description: There are two possible methods to install ArangoDB on Windows
+description: This is a walkthrough to install ArangoDB on Windows. You will find two possible methods to do so, automatically or manually. 
+title: Installing ArangoDB on Windows
 ---
 Installing ArangoDB on Windows
 ==============================
@@ -8,15 +9,15 @@ Installing ArangoDB on Windows
 Introduction
 ------------
 
-There are two possible methods to install ArangoDB on Windows:
+There are two possible methods to install ArangoDB on 64-bit Windows systems:
 
 1. Automated, using an _NSIS_ Installer.
-1. Manual, using a ZIP archive (XCopy installation).
+2. Manual, using a ZIP archive (XCopy installation).
 
 Both installation methods have their own pros and cons.
 
 {% hint 'info' %}
-Please note that ArangoDB will only work on 64bit systems.
+For production environments we highly recommend using Linux.
 {% endhint %}
 
 Installing using the Installer

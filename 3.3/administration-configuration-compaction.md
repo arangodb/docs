@@ -40,7 +40,7 @@ ArangoDB spawns one compactor thread per database. The settings below vary in sc
 Activity control
 ----------------
 
-The activity control parameters alter the behaviour in terms of scan / execution frequency
+The activity control parameters alter the behavior in terms of scan / execution frequency
 of the compaction.
 
 Sleep interval between two compaction runs (in seconds):

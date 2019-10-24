@@ -39,8 +39,8 @@ Documenting and constraining a specific route
 ---------------------------------------------
 
 If you now want to document your route, you can use JSDoc style comments (a
-multi-line comment block where the first line starts with */*** instead
-of */**) above your routes to do that:
+multi-line comment block where the first line starts with `/**` instead
+of `/*`) above your routes to do that:
 
 ```js
 /** Get all foxxes

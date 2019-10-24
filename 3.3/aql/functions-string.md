@@ -97,7 +97,6 @@ The string matching performed by *CONTAINS* is case-sensitive.
 - **search** (string): the needle
 - **returnIndex** (bool, *optional*): if set to *true*, the character position
   of the match is returned instead of a boolean. The default is *false*.
-  The default is *false*.
 - returns **match** (bool\|number): by default, *true* is returned if *search*
   is contained in *text*, and *false* otherwise. With *returnIndex* set to *true*,
   the position of the first occurrence of *search* within *text* is returned 
@@ -248,7 +247,7 @@ using wildcard matching.
 - **text** (string): the string to search in
 - **search** (string): a search pattern that can contain the wildcard characters
   `%` (meaning any sequence of characters, including none) and `_` (any single
-  character). Literal *%* and *:* must be escaped with two backslashes (four
+  character). Literal `%` and `_` must be escaped with two backslashes (four
   in arangosh).
   *search* cannot be a variable or a document attribute. The actual value must
   be present at query parse time already.

@@ -191,12 +191,12 @@ It is used to demonstrate raw traversal operations.
 ### Cookbook examples
 The above referenced chapters describe the various APIs of ArangoDBs graph engine with small examples. Our cookbook has some more real life examples:
 
- - [Traversing a graph in full depth](https://docs.arangodb.com/cookbook/Graph/FulldepthTraversal.html){:target="_blank"}
- - [Search for vertices of special type connecting a given subgraph](https://docs.arangodb.com/cookbook/Graph/FindingConnectedVerticesForSubgraphs.html){:target="_blank"}
- - [Using an example vertex with the java driver](https://docs.arangodb.com/cookbook/Graph/JavaDriverGraphExampleVertex.html){:target="_blank"}
- - [Retrieving documents from ArangoDB without knowing the structure](https://docs.arangodb.com/cookbook/Graph/JavaDriverBaseDocument.html){:target="_blank"}
- - [Using a custom visitor from node.js](https://docs.arangodb.com/cookbook/Graph/CustomVisitorFromNodeJs.html){:target="_blank"}
- - [AQL Example Queries on an Actors and Movies Database](https://docs.arangodb.com/cookbook/Graph/ExampleActorsAndMovies.html){:target="_blank"}
+ - [Traversing a graph in full depth](cookbook/fulldepth.html)
+ - [Search for vertices of special type connecting a given subgraph](cookbook/finding-connected-vertices-for-subgraphs.html)
+ - [Using an example vertex with the java driver](cookbook/java-driver-graph-example-vertex.html)
+ - [Retrieving documents from ArangoDB without knowing the structure](cookbook/java-driver-base-document.html)
+ - [Using a custom visitor from node.js](cookbook/using-custom-visitor-from-node-js.html)
+ - [AQL Example Queries on an Actors and Movies Database](cookbook/graph-example-actors-and-movies.html)
 
 ### Higher volume graph examples
 All of the above examples are rather small so they are easy cromprehensible and can demonstrate the way the functionality works. There are however several datasets freely available on the web that are a lot bigger. [We collected some of them with import scripts](https://github.com/triAGENS/ArangoDB-Data/){:target="_blank"} so you may play around with them. Another huge graph is the [Pokec social network](https://snap.stanford.edu/data/soc-pokec.html){:target="_blank"} from Slovakia that we [used for performance testing on several databases](https://www.arangodb.com/2015/06/multi-model-benchmark/){:target="_blank"}; You will find importing scripts etc. in this blogpost.

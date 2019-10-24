@@ -68,7 +68,8 @@ The properties `setup` and `teardown` have been moved into the `scripts` propert
 
 ### Foxx Queues
 
-Function-based Foxx Queue job types are no longer supported. To learn about how you can use the new script-based job types [follow the updated recipe in the cookbook](https://docs.arangodb.com/cookbook/Foxx/Queues.html){:target="_blank"}.
+Function-based Foxx Queue job types are no longer supported. To learn about how you can use the new script-based job types
+[follow the updated recipe in the cookbook](cookbook/foxx-queues.html).
 
 ### Foxx Sessions
 

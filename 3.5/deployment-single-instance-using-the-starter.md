@@ -1,8 +1,7 @@
 ---
 layout: default
-description: This section describes how to start an ArangoDB stand-alone instance using the toolStarter (the arangodb binary program)
+description: This section describes how to start an ArangoDB stand-alone instance using the tool Starter (the arangodb binary program)
 ---
-
 Using the ArangoDB Starter
 ==========================
 
@@ -59,9 +58,9 @@ variable by adding this option to the above `docker` command:
     -e ARANGO_LICENSE_KEY=<thekey>
 ```
 
-You can get a free evaluation license key by visiting
+You can get a free evaluation license key by visiting:
 
-     https://www.arangodb.com/download-arangodb-enterprise/
+[www.arangodb.com/download-arangodb-enterprise/](https://www.arangodb.com/download-arangodb-enterprise/){:target="_blank"}
 
 Then replace `<thekey>` above with the actual license key. The start
 will then hand on the license key to the Docker container it launches
@@ -89,7 +88,7 @@ docker run -it --name=adb --rm -p 8528:8528 \
     --starter.mode=single
 ```
 
-Note that the enviroment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
+Note that the environment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
 as well as the additional mountpoint containing the certificate have been added above. 
 directory. The assignment of `DOCKER_CERT_PATH` is optional, in which case it 
 is mandatory that the certificates are stored in `$HOME/.docker`. So

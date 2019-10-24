@@ -254,7 +254,7 @@ available and supported:
 
 ### Array expansion improvements
 
-The already existing <i>[\*]</i> operator has been improved with optional
+The already existing `[*]` operator has been improved with optional
 filtering and projection and limit capabilities.
 
 For example, consider the following example query that filters values from
@@ -271,7 +271,7 @@ an array attribute:
       }
 ```
 
-With the <i>[\*]</i> operator, this query can be simplified to
+With the `[*]` operator, this query can be simplified to
 
 ```
     FOR u IN users 
@@ -302,9 +302,9 @@ which is the simplified variant for:
 
 ### Array contraction
 
-In order to collapse (or flatten) results in nested arrays, AQL now provides the <i>[\*\*]</i> 
-operator. It works similar to the <i>[\*]</i> operator, but additionally collapses nested
-arrays. How many levels are collapsed is determined by the amount of <i>\*</i> characters used.
+In order to collapse (or flatten) results in nested arrays, AQL now provides the `[**]` 
+operator. It works similar to the `[*]` operator, but additionally collapses nested
+arrays. How many levels are collapsed is determined by the amount of `*` characters used.
 
 For example, consider the following query that produces a nested result:
 
@@ -313,8 +313,8 @@ For example, consider the following query that produces a nested result:
       RETURN u.friends[*].name
 ```
 
-The <i>[\*\*]</i> operator can now be applied to get rid of the nested array and 
-turn it into a flat array. We simply apply the <i>[\*\*]</i> on the previous query
+The `[**]` operator can now be applied to get rid of the nested array and 
+turn it into a flat array. We simply apply the `[**]` on the previous query
 result: 
 
 ```

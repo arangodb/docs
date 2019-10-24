@@ -1,6 +1,7 @@
 ---
 layout: default
-description: There are multiple ways to work with graphs in ArangoDB,as well as different ways to query your graphs using AQL
+description: There are multiple ways to work with graphs in ArangoDB, as well as different ways to query your graphs using AQL.
+title: Graphs in ArangoDB Query language AQL
 ---
 Graphs in AQL
 =============

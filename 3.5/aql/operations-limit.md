@@ -5,9 +5,9 @@ description: The LIMIT statement allows slicing the result array using anoffset 
 LIMIT
 =====
 
-The *LIMIT* statement allows slicing the result array using an
+The `LIMIT` statement allows slicing the result array using an
 offset and a count. It reduces the number of elements in the result to at most
-the specified number. Two general forms of *LIMIT* are followed:
+the specified number. Two general forms of `LIMIT` are followed:
 
 ```js
 LIMIT count
@@ -49,8 +49,8 @@ Note that variables, expressions and subqueries can not be used for *offset* and
 which means that you can only use number literals, bind parameters or expressions
 that can be resolved at query compile time.
 
-Where a *LIMIT* is used in relation to other operations in a query has meaning.
-*LIMIT* operations before *FILTER*s in particular can change the result
+Where a `LIMIT` is used in relation to other operations in a query has meaning.
+`LIMIT` operations before `FILTER`s in particular can change the result
 significantly, because the operations are executed in the order in which they
 are written in the query. See [FILTER](operations-filter.html#order-of-operations) for a
 detailed example.

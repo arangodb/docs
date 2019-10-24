@@ -11,7 +11,7 @@
   <span class="hljs-string">"radius"</span>: <span class="hljs-number">400000</span>
 }
 @R
-Query String:
+Query String (119 chars, cacheable: true):
    FOR startCity IN germanCity
      FILTER GEO_DISTANCE(@bonn, startCity.geometry) &lt; @radius
        RETURN startCity._key
@@ -20,7 +20,7 @@ Query String:
 Execution plan:
  Id   NodeType          Est.   Comment
   1   SingletonNode        1   * ROOT
-  7   IndexNode            3     - FOR startCity IN germanCity   /* geo index scan */
+  7   IndexNode            3     - FOR startCity IN germanCity   /* geo index scan, projections: `_key` */
   5   CalculationNode      3       - LET #3 = startCity.`_key`   /* attribute expression */   /* collections used: startCity : germanCity */
   6   ReturnNode           3       - RETURN #3
 
@@ -36,4 +36,5 @@ Optimization rules applied:
   4   move-filters-up-2
   5   geo-index-optimizer
   6   remove-unnecessary-calculations-2
+  7   reduce-extraction-to-projection
 

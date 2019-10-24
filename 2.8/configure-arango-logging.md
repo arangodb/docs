@@ -23,13 +23,13 @@ created. If the file cannot be created (e.g. due to missing file privileges),
 the server will refuse to start. If the specified file already exists, output is
 appended to that file.
 
-Use *+* to log to standard error. Use *-* to log to standard output.
-Use *""* to disable logging to file.
+Use `+` to log to standard error. Use `-` to log to standard output.
+Use `""` to disable logging to file.
 
 `--log.tty filename`
 
 Be default, if started on a tty, the log output will also go to the ttyp.
-Use *""* to disable.
+Use `""` to disable.
 
 ### Request
 <!-- lib/ApplicationServer/ApplicationServer.h -->

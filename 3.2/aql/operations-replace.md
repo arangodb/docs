@@ -5,7 +5,7 @@ description: The REPLACE keyword can be used to completely replace documents in 
 REPLACE
 =======
 
-The *REPLACE* keyword can be used to completely replace documents in a collection. On a
+The `REPLACE` keyword can be used to completely replace documents in a collection. On a
 single server, the replace operation is executed transactionally in an all-or-nothing 
 fashion.
 
@@ -19,9 +19,9 @@ the RocksDB engine.
 For sharded collections, the entire query and/or replace operation may not be transactional,
 especially if it involves different shards and/or database servers.
 
-Each *REPLACE* operation is restricted to a single collection, and the 
+Each `REPLACE` operation is restricted to a single collection, and the 
 [collection name](../appendix-glossary.html#collection-name) must not be dynamic.
-Only a single *REPLACE* statement per collection is allowed per AQL query, and 
+Only a single `REPLACE` statement per collection is allowed per AQL query, and 
 it cannot be followed by read or write operations that access the same collection, by
 traversal operations, or AQL functions that can read documents.
 The system attributes *_id*, *_key* and *_rev* cannot be replaced, *_from* and *_to* can.
@@ -75,7 +75,7 @@ of internal attributes (such as *_id*, *_key*, *_from* and *_to*). Replacing a d
 will modify a document's revision number with a server-generated value.
 
 A replace operation may update arbitrary documents which do not need to be identical
-to the ones produced by a preceding *FOR* statement:
+to the ones produced by a preceding `FOR` statement:
 
 ```
 FOR i IN 1..1000

@@ -1,13 +1,15 @@
 ---
 layout: default
-description: This feature is only available in theEnterprise Edition
+description: SmartGraphs enables you to manage graphs at scale.
+title: ArangoDB SmartGraphs
 ---
 SmartGraphs
 ===========
 
 {% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+SmartGraphs are only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 This chapter describes the `smart-graph` module, which enables you to manage
@@ -39,16 +41,16 @@ other subgraphs.
 
 Examples for these graphs are:
 
-- **Social Networks**<br/>
+- **Social Networks**<br>
   Typically the feature here is the region/country users live in.
   Every user typically has more contacts in the same region/country then she
   has in other regions/countries
 
-- **Transport Systems**<br/>
+- **Transport Systems**<br>
   For those also the feature is the region/country. You have many local
   transportation but only few across countries.
 
-- **E-Commerce**<br/>
+- **E-Commerce**<br>
   In this case probably the category of products is a good feature.
   Often products of the same category are bought together.
 

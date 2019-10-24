@@ -29,12 +29,13 @@ Single File Directory Manipulation
 #### pathSeparator
 `fs.pathSeparator`
 
-If you want to combine two paths you can use fs.pathSeparator instead of */* or *\\*.
+If you want to combine two paths you can use fs.pathSeparator instead of `/` or `\\`.
 
 #### join
 `fs.join(path, filename)`
 
-The function returns the combination of the path and filename, e.g. fs.join(Hello/World, foo.bar) would return Hello/World/foo.bar.
+The function returns the combination of the path and filename, e.g.
+`fs.join('folder', 'file.ext')` would return `folder/file.ext`.
 
 #### getTempFile
 {% docublock JS_GetTempFile %}

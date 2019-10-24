@@ -53,8 +53,9 @@ operate.
 
 While generally invisible to the outside the _Agency_ is the heart of the
 Cluster. As such, fault tolerance is of course a must have for the
-_Agency_. To achieve that the _Agents_ are using the [Raft Consensus
-Algorithm](https://raft.github.io/){:target="_blank"}. The algorithm formally guarantees
+_Agency_. To achieve that the _Agents_ are using the
+[Raft Consensus Algorithm](https://raft.github.io/){:target="_blank"}.
+The algorithm formally guarantees
 conflict free configuration management within the ArangoDB Cluster.
 
 At its core the _Agency_ manages a big configuration tree. It supports
@@ -391,9 +392,8 @@ Deployment
 ----------
 
 An ArangoDB Cluster can be deployed in several ways, e.g. by manually
-starting all the needed instances, by using the tool 
-[_Starter_](programs-starter.html), in
-Docker, in Mesos or DC/OS, and in Kubernetes.
+starting all the needed instances, by using the tool
+[_Starter_](programs-starter.html), in Docker and in Kubernetes.
 
 See the [Cluster Deployment](deployment-cluster.html)
 chapter for instructions.
