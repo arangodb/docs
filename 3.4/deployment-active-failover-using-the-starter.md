@@ -35,7 +35,6 @@ arangodb --starter.local --starter.mode=activefailover --starter.data-dir=./loca
 ```
 
 Please adapt the path to your _secret_ file accordingly.
-```
 
 **Note:** When you restart the _Starter_, it remembers the original `--starter.local` flag.
 
