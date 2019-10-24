@@ -1,8 +1,7 @@
 ---
 layout: default
-description: These functions implement theHTTP API for manipulating graphs
+description: These functions implement the HTTP API for manipulating graphs
 ---
-
 # Graph API
 
 These functions implement the

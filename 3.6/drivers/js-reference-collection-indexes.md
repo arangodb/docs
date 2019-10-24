@@ -1,8 +1,7 @@
 ---
 layout: default
-description: These functions implement theHTTP API for manipulating indexes
+description: These functions implement the HTTP API for manipulating indexes
 ---
-
 # Manipulating indexes
 
 These functions implement the

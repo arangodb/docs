@@ -2,7 +2,6 @@
 layout: default
 description: Converter
 ---
-
 # Converter
 
 ## Registering a Spring Converter

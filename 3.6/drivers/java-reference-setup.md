@@ -2,7 +2,6 @@
 layout: default
 description: Driver setup
 ---
-
 # Driver setup
 
 Setup with default configuration, this automatically loads a properties file

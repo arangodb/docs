@@ -1,12 +1,11 @@
 ---
 layout: default
-description: These functions implement the HTTP API for manipulating views
+description: These functions implement the HTTP API for manipulating Views
 ---
-
 # View API
 
 These functions implement the
-[HTTP API for manipulating views](../http/views.html).
+[HTTP API for manipulating Views](../http/views.html).
 
 {% hint 'info' %}
 Views were introduced in ArangoDB 3.4 and are not supported by earlier versions
@@ -17,7 +16,7 @@ of ArangoDB.
 
 `async view.exists(): boolean`
 
-Checks whether the view exists.
+Checks whether the View exists.
 
 **Examples**
 
@@ -25,14 +24,14 @@ Checks whether the view exists.
 const db = new Database();
 const view = db.arangoSearchView("some-view");
 const result = await view.exists();
-// result indicates whether the view exists
+// result indicates whether the View exists
 ```
 
 ### view.get
 
 `async view.get(): Object`
 
-Retrieves general information about the view.
+Retrieves general information about the View.
 
 **Examples**
 
@@ -40,14 +39,14 @@ Retrieves general information about the view.
 const db = new Database();
 const view = db.arangoSearchView("some-view");
 const data = await view.get();
-// data contains general information about the view
+// data contains general information about the View
 ```
 
 ### view.properties
 
 `async view.properties(): Object`
 
-Retrieves the view's properties.
+Retrieves the View's properties.
 
 **Examples**
 
@@ -55,14 +54,14 @@ Retrieves the view's properties.
 const db = new Database();
 const view = db.arangoSearchView("some-view");
 const data = await view.properties();
-// data contains the view's properties
+// data contains the View's properties
 ```
 
 ## view.create
 
 `async view.create([properties]): Object`
 
-Creates a view with the given _properties_ for this view's name,
+Creates a View with the given _properties_ for this View's name,
 then returns the server response.
 
 **Arguments**
@@ -70,7 +69,7 @@ then returns the server response.
 - **properties**: `Object` (optional)
 
   For more information on the _properties_ object, see the
-  [HTTP API documentation for creating views](../http/views-arango-search.html).
+  [HTTP API documentation for creating Views](../http/views-arangosearch.html).
 
 **Examples**
 
@@ -78,21 +77,21 @@ then returns the server response.
 const db = new Database();
 const view = db.arangoSearchView("potatoes");
 await view.create();
-// the arangosearch view "potatoes" now exists
+// the ArangoSearch View "potatoes" now exists
 ```
 
 ## view.setProperties
 
 `async view.setProperties(properties): Object`
 
-Updates the properties of the view.
+Updates the properties of the View.
 
 **Arguments**
 
 - **properties**: `Object`
 
   For information on the _properties_ argument see the
-  [HTTP API for modifying views](../http/views-arango-search.html).
+  [HTTP API for modifying Views](../http/views-arangosearch.html).
 
 **Examples**
 
@@ -107,14 +106,14 @@ assert.equal(result.consolidationIntervalMsec, 123);
 
 `async view.replaceProperties(properties): Object`
 
-Replaces the properties of the view.
+Replaces the properties of the View.
 
 **Arguments**
 
 - **properties**: `Object`
 
   For information on the _properties_ argument see the
-  [HTTP API for modifying views](../http/views-arango-search.html).
+  [HTTP API for modifying Views](../http/views-arangosearch.html).
 
 **Examples**
 
@@ -129,7 +128,7 @@ assert.equal(result.consolidationIntervalMsec, 234);
 
 `async view.rename(name): Object`
 
-Renames the view. The _View_ instance will automatically update its
+Renames the View. The _View_ instance will automatically update its
 name when the rename succeeds.
 
 **Examples**
@@ -140,14 +139,14 @@ const view = db.arangoSearchView("some-view");
 const result = await view.rename("new-view-name");
 assert.equal(result.name, "new-view-name");
 assert.equal(view.name, result.name);
-// result contains additional information about the view
+// result contains additional information about the View
 ```
 
 ## view.drop
 
 `async view.drop(): Object`
 
-Deletes the view from the database.
+Deletes the View from the database.
 
 **Examples**
 
@@ -155,5 +154,5 @@ Deletes the view from the database.
 const db = new Database();
 const view = db.arangoSearchView("some-view");
 await view.drop();
-// the view "some-view" no longer exists
+// the View "some-view" no longer exists
 ```

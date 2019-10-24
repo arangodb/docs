@@ -2,7 +2,6 @@
 layout: default
 description: Returns the operations interface for a collection
 ---
-
 # Manipulating the collection
 
 ## ArangoOperations.collection

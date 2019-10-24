@@ -1,8 +1,7 @@
 ---
 layout: default
-description: This section describes how to start a Cluster using the tool Starter(the arangodb binary program)
+description: This section describes how to start a Cluster using the tool Starter (the arangodb binary program)
 ---
-
 Using the ArangoDB Starter
 ==========================
 

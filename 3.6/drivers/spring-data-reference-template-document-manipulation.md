@@ -2,7 +2,6 @@
 layout: default
 description: Checks whether the document exists by reading a single document head
 ---
-
 # Manipulating documents
 
 ## ArangoOperations.exists

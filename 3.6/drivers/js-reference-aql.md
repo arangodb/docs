@@ -2,7 +2,6 @@
 layout: default
 description: AQL Helpers
 ---
-
 # AQL Helpers
 
 These helpers are available via the `aql` export from the arangojs module:

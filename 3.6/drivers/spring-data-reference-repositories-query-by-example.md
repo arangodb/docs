@@ -2,7 +2,6 @@
 layout: default
 description: Query by example
 ---
-
 # Query by example
 
 ## ArangoRepository.exists

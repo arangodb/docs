@@ -1,8 +1,7 @@
 ---
 layout: default
-description: These functions implement theHTTP API for modifying collections
+description: These functions implement the HTTP API for modifying collections
 ---
-
 # Manipulating the collection
 
 These functions implement the

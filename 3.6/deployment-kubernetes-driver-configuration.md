@@ -1,8 +1,7 @@
 ---
 layout: default
-description: In this chapter you'll learn how to configure a driver for accessingan ArangoDB deployment in Kubernetes
+description: In this chapter you'll learn how to configure a driver for accessing an ArangoDB deployment in Kubernetes
 ---
-
 # Configuring your driver for ArangoDB access
 
 In this chapter you'll learn how to configure a driver for accessing
