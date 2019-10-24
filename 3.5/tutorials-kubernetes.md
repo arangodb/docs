@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Starting an ArangoDB database (either single server or full blown cluster)on Kubernetes involves a lot of resources
+description: Starting an ArangoDB database (either single server or full blown cluster) on Kubernetes involves a lot of resources
 ---
 # Start ArangoDB on Kubernetes in 5 minutes
 

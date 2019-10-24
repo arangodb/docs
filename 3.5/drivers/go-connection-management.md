@@ -3,6 +3,7 @@ layout: default
 description: The driver supports multiple endpoints to connect to
 ---
 # ArangoDB GO Driver - Connection Management
+
 ## Failover 
 
 The driver supports multiple endpoints to connect to. All request are in principle 

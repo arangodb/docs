@@ -1,8 +1,7 @@
 ---
 layout: default
-description: The datacenter to datacenter replication is a good solution in all cases whereyou want to replicate data from one cluster to another without the requirementthat the data is available immediately in the other cluster
+description: The datacenter to datacenter replication is a good solution in all cases where you want to replicate data from one cluster to another without the requirement that the data is available immediately in the other cluster
 ---
-
 # When to use it... and when not
 
 The _datacenter to datacenter replication_ is a good solution in all cases where

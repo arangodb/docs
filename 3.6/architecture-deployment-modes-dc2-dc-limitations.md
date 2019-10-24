@@ -2,7 +2,6 @@
 layout: default
 description: The datacenter to datacenter replication setup in ArangoDB has a few limitations
 ---
-
 Limitations
 ===========
 

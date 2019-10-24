@@ -1,12 +1,11 @@
 ---
 layout: default
-description: These functions implement theHTTP API for transactions
+description: These functions implement the HTTP API for JS transactions
 ---
-
 # Transactions
 
 These functions implement the
-[HTTP API for transactions](../http/transaction.html).
+[HTTP API for JS transactions](../http/transaction-js-transaction.html).
 Also see [ArangoDB Transactions](../transactions.html).
 
 ## database.executeTransaction

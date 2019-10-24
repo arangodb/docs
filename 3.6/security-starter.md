@@ -1,8 +1,7 @@
 ---
 layout: default
-description: The password that is set for the root user during the installation of the ArangoDBpackage has no effect in case of deployments done with the tool ArangoDB Starter,as this tool creates new database directories and configuration files that areseparate from those created by the stand-alone installation
+description: The password that is set for the root user during the installation of the ArangoDB package has no effect in case of deployments done with the tool ArangoDB Starter, as this tool creates new database directories and configuration files that are separate from those created by the stand-alone installation
 ---
-
 Securing Starter Deployments
 ============================
 

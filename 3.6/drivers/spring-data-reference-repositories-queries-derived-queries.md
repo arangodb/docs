@@ -2,7 +2,6 @@
 layout: default
 description: Derived queries
 ---
-
 # Derived queries
 
 ## Semantic parts

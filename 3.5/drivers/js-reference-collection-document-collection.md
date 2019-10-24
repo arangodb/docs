@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The DocumentCollection API extends theCollection API with the following methods
+description: The DocumentCollection API extends the Collection API with the following methods
 ---
 # DocumentCollection API
 

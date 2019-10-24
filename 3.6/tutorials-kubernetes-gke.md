@@ -2,7 +2,6 @@
 layout: default
 description: In this guide you'll learn how to run ArangoDB on Google Kubernetes Engine (GKE)
 ---
-
 # Start ArangoDB on Google Kubernetes Engine (GKE)
 
 In this guide you'll learn how to run ArangoDB on Google Kubernetes Engine (GKE).

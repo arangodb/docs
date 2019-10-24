@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The ArangoSync Master is responsible for managing all synchronization, creatingtasks and assigning those to the ArangoSync Workers
+description: The ArangoSync Master is responsible for managing all synchronization, creating tasks and assigning those to the ArangoSync Workers
 ---
 # ArangoSync Master
 

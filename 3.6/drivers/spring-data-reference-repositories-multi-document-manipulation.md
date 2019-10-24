@@ -2,7 +2,6 @@
 layout: default
 description: Returns all instances of the type
 ---
-
 # Manipulating multiple documents
 
 ## ArangoRepository.findAll

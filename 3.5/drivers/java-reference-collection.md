@@ -1,6 +1,6 @@
 ---
 layout: default
-description: These functions implement theHTTP API for collections
+description: These functions implement the HTTP API for collections
 ---
 # Collection API
 

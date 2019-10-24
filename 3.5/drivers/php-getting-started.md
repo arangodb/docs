@@ -3,6 +3,7 @@ layout: default
 description: This PHP client allows REST-based access to documents on the server
 ---
 # ArangoDB-PHP - Getting Started
+
 ## Description
 
 This PHP client allows REST-based access to documents on the server.
@@ -21,7 +22,7 @@ The client library provides document and collection classes you can use to work 
 
 ## Requirements
 
-* PHP version 5.6 or higher (Travis-tested with PHP 5.6, 7.0, 7.1 and hhvm)
+- PHP version 5.6 or higher (Travis-tested with PHP 5.6, 7.0, 7.1 and hhvm)
 
 Note on PHP version support: 
 
@@ -37,8 +38,7 @@ The ArangoDB-PHP driver version has to match with the ArangoDB version:
 - ArangoDB-PHP 3.2.x is on par with the functionality of ArangoDB 3.2.x
 - ArangoDB-PHP 3.3.x is on par with the functionality of ArangoDB 3.3.x
 
-etc...
-
+etc.
 
 ### Installing the PHP client
 
@@ -61,14 +61,12 @@ When preferring this alternative, you need to have a git client installed. To cl
 
     git clone "https://github.com/arangodb/arangodb-php.git"
 
-
 This will create a subdirectory arangodb-php in your current directory. It contains all the files of the client library. It also includes a dedicated autoloader that you can use for autoloading the client libraries class files.
 To invoke this autoloader, add the following line to your PHP files that will use the library:
 
 ```php
 require 'arangodb-php/autoload.php';
 ```
-
 
 The ArangoDB PHP client's autoloader will only care about its own class files and will not handle any other files. That means it is fully nestable with other autoloaders.
 

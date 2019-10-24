@@ -2,7 +2,6 @@
 layout: default
 description: Metrics
 ---
-
 # Metrics
 
 The ArangoDB Kubernetes Operator (`kube-arangodb`) exposes metrics of

@@ -1,8 +1,7 @@
 ---
 layout: default
-description: ArangoJS is compatible with the latest stable version of ArangoDB available atthe time of the driver release
+description: ArangoJS is compatible with the latest stable version of ArangoDB available at the time of the driver release
 ---
-
 # ArangoDB JavaScript Driver - Getting Started
 
 ## Compatibility

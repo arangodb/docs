@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The ArangoDB Kubernetes Operator can create a dashboard for each type ofresource it supports
+description: The ArangoDB Kubernetes Operator can create a dashboard for each type of resource it supports
 ---
 # Operator Dashboards
 

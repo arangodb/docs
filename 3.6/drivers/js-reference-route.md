@@ -2,7 +2,6 @@
 layout: default
 description: Route instances provide access for arbitrary HTTP requests
 ---
-
 # Route API
 
 _Route_ instances provide access for arbitrary HTTP requests. This allows easy
