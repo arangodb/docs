@@ -1,6 +1,6 @@
 ---
 layout: default
-description: These functions implement theHTTP API for managing AQL user functions
+description: These functions implement the HTTP API for managing AQL user functions
 ---
 # Managing AQL user functions
 

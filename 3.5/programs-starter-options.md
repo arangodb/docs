@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The ArangoDB Starter provides a lot of options to control various aspectsof the cluster or database you want to run
+description: The ArangoDB Starter provides a lot of options to control various aspects of the cluster or database you want to run
 ---
 # Option reference
 
@@ -60,9 +60,9 @@ does not make sense. The default 3 allows for the failure of one agent.
 `addr` is the address under which this server is reachable from the
 outside.
 
-Use this option only in the case that `--cluster.agency-size` is set to 1.
+Use this option only in the case that `--cluster.agency-size` is set to 1. 
 In a single agent setup, the sole starter has to start on its own with
-no reliable way to learn its own address. Using this option the master will
+no reliable way to learn its own address. Using this option the master will 
 know under which address it can be reached from the outside. If you specify
 `localhost` here, then all instances must run on the local machine.
 

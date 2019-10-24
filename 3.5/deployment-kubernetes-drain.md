@@ -1,6 +1,6 @@
 ---
 layout: default
-description: If Kubernetes nodes with ArangoDB pods on them are drained without caredata loss can occur! The recommended procedure is described below
+description: If Kubernetes nodes with ArangoDB pods on them are drained without care data loss can occur! The recommended procedure is described below
 ---
 # Draining Kubernetes nodes
 
