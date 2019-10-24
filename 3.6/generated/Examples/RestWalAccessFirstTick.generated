@@ -1,0 +1,15 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/wal/lastTick</span>
+
+HTTP/<span class="hljs-number">1.1</span> OK
+keep-alive: timeout=<span class="hljs-number">300</span>
+x-content-type-options: nosniff
+content-type: application/json
+
+{ 
+  <span class="hljs-string">"time"</span> : <span class="hljs-string">"2019-10-09T13:41:47Z"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"191514"</span>, 
+  <span class="hljs-string">"server"</span> : { 
+    <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.6.0-devel"</span>, 
+    <span class="hljs-string">"serverId"</span> : <span class="hljs-string">"85639333486527"</span> 
+  } 
+}

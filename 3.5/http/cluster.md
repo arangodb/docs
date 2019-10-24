@@ -1,11 +1,11 @@
 ---
 layout: default
-description: This Chapter describes the REST API of the ArangoDB Cluster
+description: This chapter describes the REST API of the ArangoDB Cluster
 ---
 HTTP Interface for Cluster
 ==========================
 
-This _Chapter_ describes the REST API of the ArangoDB Cluster.
+This chapter describes the REST API of the ArangoDB Cluster.
 
 * [Server ID](cluster-server-id.html)
 * [Server Role](cluster-server-role.html)

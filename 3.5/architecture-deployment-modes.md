@@ -1,6 +1,6 @@
 ---
 layout: default
-description: See also
+description: Overview of ArangoDB deployment modes
 ---
 ArangoDB Deployment Modes
 =========================

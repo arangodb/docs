@@ -1,11 +1,11 @@
 ---
 layout: default
-description: This Chapter includes information related to the upgrade of ArangoDB
+description: This chapter includes information related to the upgrade of ArangoDB
 ---
 Upgrading
 =========
 
-This _Chapter_ includes information related to the upgrade of ArangoDB.
+This chapter includes information related to the upgrade of ArangoDB.
 
 For downgrade instructions, please refer to the [Downgrading](downgrading.html)
 chapter.
