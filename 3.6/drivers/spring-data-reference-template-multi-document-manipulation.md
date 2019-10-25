@@ -2,7 +2,6 @@
 layout: default
 description: Retrieves multiple documents with the given ids from a collection
 ---
-
 # Manipulating multiple documents
 
 ## ArangoOperations.find

@@ -2,7 +2,6 @@
 layout: default
 description: See HTTP Interface for Stream Transactions
 ---
-
 # Transactions
 
 See [HTTP Interface for Stream Transactions](../http/transaction-stream-transaction.html).

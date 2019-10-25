@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The GraphEdgeCollection API extends theCollection API with the following methods
+description: The GraphEdgeCollection API extends the Collection API with the following methods
 ---
 # GraphEdgeCollection API
 

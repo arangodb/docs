@@ -1,6 +1,6 @@
 ---
 layout: default
-description: At some point in the grows of a database, there comes a need for replicating itacross multiple datacenters
+description: At some point in the grows of a database, there comes a need for replicating it across multiple datacenters
 ---
 # Introduction
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: These functions implement theHTTP API for manipulating databases
+description: These functions implement the HTTP API for manipulating databases
 ---
 # Manipulating databases
 

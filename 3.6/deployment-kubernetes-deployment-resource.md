@@ -2,7 +2,6 @@
 layout: default
 description: ArangoDeployment Custom Resource
 ---
-
 # ArangoDeployment Custom Resource
 
 The ArangoDB Deployment Operator creates and maintains ArangoDB deployments

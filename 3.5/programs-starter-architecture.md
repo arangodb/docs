@@ -3,7 +3,6 @@ layout: default
 description: The ArangoDB Starter is a program used to create ArangoDB database deployments on bare-metal (or virtual machines) with ease
 title: Architecture of the ArangoDB Starter Tools
 ---
-
 # ArangoDB Starter Architecture
 
 ## What does the Starter do

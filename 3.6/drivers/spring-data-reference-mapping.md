@@ -2,7 +2,6 @@
 layout: default
 description: In this section we will describe the features and conventions for mapping Java objects to documents and how to override those conventions with annotation based mapping metadata
 ---
-
 # Mapping
 
 In this section we will describe the features and conventions for mapping Java objects to documents and how to override those conventions with annotation based mapping metadata.

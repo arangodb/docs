@@ -1,8 +1,7 @@
 ---
 layout: default
-description: These functions implement theHTTP API for simple queries
+description: These functions implement the HTTP API for simple queries
 ---
-
 # Simple queries
 
 These functions implement the

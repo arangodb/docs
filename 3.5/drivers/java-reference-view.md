@@ -1,23 +1,19 @@
 ---
 layout: default
-description: These functions implement theHTTP API for views
+description: These functions implement the HTTP API for Views
 ---
 # View API
 
 These functions implement the
-[HTTP API for views](../http/views.html).
+[HTTP API for Views](../http/views.html).
 
-## Getting information about the view
-
-See the
-[HTTP API documentation](../http/views.html)
-for details.
+## Getting information about the View
 
 ## ArangoView.exists
 
 `ArangoView.exists() : boolean`
 
-Checks whether the view exists
+Checks whether the View exists
 
 **Examples**
 
@@ -33,7 +29,7 @@ boolean exists = view.exists();
 
 `ArangoView.getInfo() : ViewEntity`
 
-Returns information about the view.
+Returns information about the View.
 
 **Examples**
 

@@ -1,8 +1,7 @@
 ---
 layout: default
-description: These functions implement the HTTP API for accessing View
+description: These functions implement the HTTP API for accessing Views
 ---
-
 # Accessing Views
 
 These functions implement the
@@ -12,13 +11,13 @@ These functions implement the
 
 `ArangoDatabase.view(String name) : ArangoView`
 
-Returns a _ArangoView_ instance for the given view name.
+Returns a _ArangoView_ instance for the given View name.
 
 **Arguments**
 
 - **name**: `String`
 
-  Name of the view
+  Name of the View
 
 **Examples**
 
@@ -32,13 +31,13 @@ ArangoView view = db.view("myView");
 
 `ArangoDatabase.arangoSearch(String name) : ArangoSearch`
 
-Returns a _ArangoSearch_ instance for the given ArangoSearch view name.
+Returns a _ArangoSearch_ instance for the given ArangoSearch View name.
 
 **Arguments**
 
 - **name**: `String`
 
-  Name of the view
+  Name of the View
 
 **Examples**
 
@@ -52,7 +51,7 @@ ArangoSearch view = db.arangoSearch("myArangoSearchView");
 
 `ArangoDatabase.getViews() : Collection<ViewEntity>`
 
-Fetches all views from the database and returns an list of collection descriptions.
+Fetches all Views from the database and returns an list of collection descriptions.
 
 **Examples**
 
