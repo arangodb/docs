@@ -410,7 +410,8 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   to kick in.
 - `move-filters-into-enumerate`: moves filters on non-indexed collection
   attributes into *IndexNode* or *EnumerateCollectionNode* to allow early pruning
-  of non-matching documents.
+  of non-matching documents. This optimization can help to avoid a lot of
+  temporary document copies.
 - `move-filters-up`: will appear if a *FilterNode* was moved up in a plan. The
   intention of this rule is to move filters up in the processing pipeline as far
   as possible (ideally out of inner loops) so they filter results as early as possible.
