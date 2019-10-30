@@ -471,6 +471,13 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   the output from the `LimitNode` is similar in size to the input. In exceptionally rare 
   cases, this rule could result in some small slowdown. If observed, one can 
   disable the rule for the affected query at the cost of increased memory usage.
+* `splice-subqueries`: will appear when a subquery has been spliced into the
+  surrounding query. This optimisation is applied after all other optimisations,
+  and reduces overhead for executing subqueries.
+  Only suitable subqueries can be spliced. A subquery becomes unsuitable if it
+  contains a *LIMIT*, *REMOTE*, *GATHER*, *NORESULTS*, or a *COLLECT*
+  node where the operation is not *COUNT*.
+  A subquery *also* becomes unsuitable if it is contained in an unsuitable subquery.
 
 The following optimizer rules may appear in the `rules` attribute of cluster plans:
 
