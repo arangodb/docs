@@ -292,7 +292,7 @@ the `warnings` attribute of the `explain` result:
     @endDocuBlock AQLEXP_10_explainWarn
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-There is an upper bound on the number of warning a query may produce. If that
+There is an upper bound on the number of warnings a query may produce. If that
 bound is reached, no further warnings will be returned.
 
 
