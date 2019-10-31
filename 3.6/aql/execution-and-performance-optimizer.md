@@ -352,8 +352,6 @@ The following execution node types will appear in the output of `explain`:
   attribute). Will appear exactly once in a query that contains an *UPDATE* statement.
 * *UpsertNode*: upserts documents in a collection (given in its *collection*
   attribute). Will appear exactly once in a query that contains an *UPSERT* statement.
-* *NoResultsNode*: _Unused since 3.6_. The *NoResultsNode* will pass an empty
-  result set into the processing pipeline.
 
 For queries in the cluster, the following nodes may appear in execution plans:
 
