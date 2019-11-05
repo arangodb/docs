@@ -106,9 +106,9 @@ looking at.
 Memory Limits
 -------------
 
-A long-running arangod process may use a lot of virtual memory after a while,
-so it is recommended to **not** restrict the amount of virtual memory that a 
-process can acquire, neither via using `ulimit`, `cgroups` or systemd.
+A long-running arangod process may accumulate a lot of virtual memory after 
+a while, so it is recommended to **not** restrict the amount of virtual memory 
+that a process can acquire, neither via using `ulimit`, `cgroups` or systemd.
 
 Zone Reclaim
 ------------
