@@ -400,10 +400,6 @@ The following execution node types will appear in the output of `explain`:
   upserts documents in a collection (given in its *collection* attribute).
   Will appear exactly once in a query that contains an *UPSERT* statement.
 
-- **NoResultsNode**:
-  will be inserted if *FILTER* statements turn out to be never satisfiable.
-  The *NoResultsNode* will pass an empty result set into the processing pipeline.
-
 For queries in the cluster, the following nodes may appear in execution plans:
 
 - **SingleRemoteOperationNode**:
@@ -544,8 +540,7 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 - `remove-unnecessary-filters`:
   will appear if a *FilterNode* was removed or replaced. *FilterNode*s whose
   filter condition will always evaluate to *true* will be removed from the
-  plan, whereas *FilterNode* that will never let any results pass will be
-  replaced with a *NoResultsNode*.
+  plan.
 
 - `replace-function-with-index`:
   will appear when a deprecated index function such as `FULLTEXT`, `NEAR`,
