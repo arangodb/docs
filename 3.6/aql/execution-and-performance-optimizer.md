@@ -308,7 +308,7 @@ the `warnings` attribute of the `explain` result:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-There is an upper bound on the number of warning a query may produce. If that
+There is an upper bound on the number of warnings a query may produce. If that
 bound is reached, no further warnings will be returned.
 
 Optimization in a cluster
@@ -573,6 +573,14 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   from the `LimitNode` is similar in size to the input. In exceptionally rare
   cases, this rule could result in some small slowdown. If observed, one can
   disable the rule for the affected query at the cost of increased memory usage.
+
+- `splice-subqueries`:
+  will appear when a subquery has been spliced into the surrounding query.
+  This optimization is applied after all other optimizations, and reduces
+  overhead for executing subqueries. Only suitable subqueries can be spliced.
+  A subquery becomes unsuitable if it contains a *LIMIT*, *REMOTE*, *GATHER*
+  or a *COLLECT* node where the operation is not *COUNT*. A subquery *also*
+  becomes unsuitable if it is contained in an unsuitable subquery.
 
 - `use-index-for-sort`:
   will appear if an index can be used to avoid a *SORT* operation. If the rule
