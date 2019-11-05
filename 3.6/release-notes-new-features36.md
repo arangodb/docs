@@ -63,10 +63,8 @@ filter out many documents, and if documents are large. In this case a lot of cop
 be avoided.
 
 The optimizer rule also works if an index is used, but there are also filter conditions
-that cannot be satisfied by the index alone.
-
-Here is a 3.5 query execution plan for a query using a filter on an indexed value plus a
-filter on a non-indexed value:
+that cannot be satisfied by the index alone. Here is a 3.5 query execution plan for a
+query using a filter on an indexed value plus a filter on a non-indexed value:
 
 ```
 Query String (101 chars, cacheable: true):
@@ -88,6 +86,7 @@ Indexes used:
 
 In 3.6, the same query will be executed using a combined index scan & filtering approach, again
 avoiding any copies of non-matching documents:
+
 ```
 Query String (101 chars, cacheable: true):
  FOR doc IN test FILTER doc.value1 > 10000 && doc.value1 < 30000 && doc.value2 == 'test854' RETURN
@@ -103,7 +102,6 @@ Indexes used:
  By   Name                      Type   Collection   Unique   Sparse   Selectivity   Fields         Ranges
   6   idx_1649353982658740224   hash   test         false    false       100.00 %   [ `value1` ]   ((doc.`value1` > 10000) && (doc.`value1` < 30000))
 ```
-
 
 HTTP API extensions
 -------------------
