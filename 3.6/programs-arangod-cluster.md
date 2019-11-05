@@ -122,7 +122,8 @@ false for the initial startup and only turned on for restarts.
 ## More advanced options
 
 {% hint 'warning' %}
-These options should generally remain untouched.
+When multiple Coordinators are used, the following options should have identical
+values on all Coordinators.
 {% endhint %}
 
 <!-- arangod/Cluster/ClusterFeature.h -->
@@ -136,9 +137,29 @@ The default value is `1000`.
 When changing the value of this setting and restarting servers, no changes will be 
 applied to existing collections that would violate the new setting.
 
+**Force one shard**
+
+`--cluster.force-one-shard <bool>`
+
+{% hint 'info' %}
+This feature is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
+
+When set to `true`, forces the cluster into creating all future collections with 
+only a single shard and using the same database server as these collections' 
+shards leader. 
+All collections created this way will be eligible for specific AQL query optimizations
+that can improve query performance and provide advanced transactional guarantees.
+
 **Synchronous replication minimum timeout**
 
 `--cluster.synchronous-replication-timeout-minimum <double>`
+
+{% hint 'warning' %}
+This option should generally remain untouched and only changed with great care.
+{% endhint %}
 
 <small>Introduced in: v3.4.8, v3.5.1</small>
 
@@ -147,16 +168,20 @@ mechanism between DBServers. If replication requests are slow, but the servers
 are otherwise healthy, timeouts can cause followers to be dropped
 unnecessarily, resulting in costly resync operations. Increasing this value may
 help avoid such resyncs. Conversely, decreasing it may cause more resyncs,
-while lowering the latency of individual write operations. Please change only
-with intent and great care. Default at `30.0` seconds.
+while lowering the latency of individual write operations. Default at `30.0`
+seconds.
 
 **Synchronous replication timeout scaling**
 
 `--cluster.synchronous-replication-timeout-factor <double>`
 
-Stretch or clinch timeouts for internal synchronous replication
-mechanism between DBServers. All such timeouts are affected by this
-change. Please change only with intent and great care. Default at `1.0`.
+{% hint 'warning' %}
+This option should generally remain untouched and only changed with great care.
+{% endhint %}
+
+Stretch or clinch timeouts for internal synchronous replication mechanism
+between DBServers. All such timeouts are affected by this change.
+Default at `1.0`.
 
 **System replication factor**
 
