@@ -12,9 +12,8 @@ here.
 ArangoSearch
 ------------
 
-Arangosearch views are now eligible for SmartJoins in AQL, provided that their
+ArangoSearch Views are now eligible for SmartJoins in AQL, provided that their
 underlying collections are eligible too.
-
 
 AQL
 ---
@@ -128,15 +127,12 @@ for this is
 
     DATE_SUBTRACT("2018-08-22T10:49:00+02:00", 100000, "years")
 
-
 Additionally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND` to bin a date/time 
 into a set of equal-distance buckets.
 
-
 ### Miscellaneous AQL changes
 
-ArangoDB 3.6 provides a new AQL function `GEO_AREA_AQL` for area calculations.
-
+ArangoDB 3.6 provides a new AQL function `GEO_AREA` for area calculations.
 
 HTTP API extensions
 -------------------
@@ -147,13 +143,12 @@ Web interface
 The web interface now shows the shards of all collections (including system collections) 
 in the shard distribution view. Displaying system collections here is necessary to access 
 the prototype collections of a collection sharded via `distributeShardsLike` in case the 
-prototype is a system collection, and the prototype collection should be moved to another 
+prototype is a system collection, and the prototype collection shall be moved to another 
 server using the web interface.
 
 The web interface now also allows setting a default replication factor when a creating
 a new database. This default replication factor will be used for all collections created
 in the new database, unless explicitly overridden.
-
 
 JavaScript
 ----------
@@ -171,19 +166,19 @@ new collections, and the maximum number of shards for new collections.
 
 The following options have been added:
 
-* `--cluster.max-replication-factor`: maximum replication factor for new collections.
+- `--cluster.max-replication-factor`: maximum replication factor for new collections.
   A value of `0` means that there is no restriction. The default value is `10`.
-* `--cluster.min-replication-factor`: minimum replication factor for new collections.
+- `--cluster.min-replication-factor`: minimum replication factor for new collections.
   The default value is `1`. This option can be used to prevent the creation of 
   collections that do not have any or enough replicas.
-* `--cluster.write-concern`: default write concern value used for new collections. 
+- `--cluster.write-concern`: default write concern value used for new collections. 
   This option controls the number of replicas that must successfully acknowledge writes
   to a collection. If any write operation gets less acknowledgements than configured
   here, the collection will go into read-only mode until the configured number of
   replicas are available again. The default value is `1`, meaning that writes to just
   the leader are sufficient. To ensure that there is at least one extra copy (i.e. one
   follower), set this option to `2`.
-* --cluster.max-number-of-shards: maximum number of shards allowed for new collections.
+- `--cluster.max-number-of-shards`: maximum number of shards allowed for new collections.
   A value of `0` means that there is no restriction. The default value is `1000`.
 
 Note that the above options only have an effect when set for coordinators, and only for 
@@ -202,18 +197,18 @@ The option `--cluster.force-one-shard` will force all new collections to be crea
 only a single shard, and make all new collections use a similar sharding distribution. 
 The default value for this option is `false`.
 
-
 TLS v1.3
 --------
 
 ArangoDB 3.6 adds support for TLS 1.3 for the arangod server and the client tools.
-  
+
 The arangod server can be started with option `--ssl.protocol 6` to make it require
 TLS 1.3 for incoming client connections. The server can be started with option 
 `--ssl.protocol 5` to make it require TLS 1.2, as in previous versions of arangod.
 
-The default TLS protocol for the arangod server is now generic TLS, which will allow
-the negotation of the TLS version between the client and the server.
+The default TLS protocol for the arangod server is now generic TLS
+(`--ssl.protocol 9`), which will allow the negotation of the TLS version between
+the client and the server.
 
 All client tools also support TLS 1.3, by using the `--ssl.protocol 6` option when
 invoking them. The client tools will use TLS 1.2 by default, in order to be
@@ -228,29 +223,29 @@ where VALUE is one of the following:
 - 6 = TLSv1.3
 - 9 = generic TLS
 
-Note: TLS v1.3 support has been added in ArangoDB 3.5.1 already, but the default TLS 
-version in ArangoDB 3.5 was still TLS v1.2. ArangoDB 3.6 uses "generic TLS" as its
+Note: TLS v1.3 support has been added in ArangoDB v3.5.1 already, but the default TLS 
+version in ArangoDB 3.5 was still TLS v1.2. ArangoDB v3.6 uses "generic TLS" as its
 default TLS version, which will allows clients to negotiate the TLS version with the
-server, dynamically choosing the highest mutually supported version of TLS.
+server, dynamically choosing the **highest** mutually supported version of TLS.
 
 Miscellaneous
 -------------
 
-* Remove operations for documents in the cluster will now use an optimization,
+- Remove operations for documents in the cluster will now use an optimization,
   if all sharding keys are specified. Should the sharding keys not match the values in
   the actual document, a not found error will be returned.
 
-* Collection names in ArangoDB can now be up to 256 characters long, instead of 64 characters
+- Collection names in ArangoDB can now be up to 256 characters long, instead of 64 characters
   in previous versions.
 
-* Disallow using `_id` or `_rev` as shard keys in clustered collections.
+- Disallow using `_id` or `_rev` as shard keys in clustered collections.
 
   Using these attributes for sharding was not supported before, but didn't trigger
   any errors. Instead, collections were created and silently using `_key` as
   the shard key, without making the caller aware of that an unsupported shard
   key was used.
 
-* Make the scheduler enforce the configured queue lengths. The values of the options
+- Make the scheduler enforce the configured queue lengths. The values of the options
   `--server.scheduler-queue-size`, `--server.prio1-size` and `--server.maximal-queue-size`
   will now be honored and not exceeded.
 
@@ -265,7 +260,6 @@ Miscellaneous
 
   The queue sizes can still be adjusted at server start using the above-
   mentioned startup options.
-
 
 Internal
 --------
