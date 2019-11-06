@@ -13,14 +13,19 @@
     </a>
   </div>
   <select class="arangodb-version-switcher">
-      <option value="devel">devel</option>
-      <option value="stable">3.5</option>
-      <option value="3.4">3.4</option>
-      <option value="3.3">3.3</option>
-      <option value="3.2">3.2</option>
-      <option value="3.1">3.1</option>
-      <option value="3.0">3.0</option>
-      <option value="2.8">2.8</option>
+    {%- for v in page.versions -%}
+      {%- if v.version.tag == "devel" -%}
+        {%- assign version_number = "devel" -%}
+      {%- else -%}
+        {%- assign version_number = v.version.name -%}
+      {%- endif -%}
+      {%- if v.version.tag -%}
+        {%- assign version_alias = v.version.tag -%}
+      {%- else -%}
+        {%- assign version_alias = v.version.name -%}
+      {%- endif %}
+      <option value="{{ version_alias }}"{% unless v.url %} disabled{% endunless %}>{{ version_number }}</option>
+    {%- endfor %}
   </select>
   <script type="text/javascript">
     var versionAliases = {{ site.versions|jsonify }};
@@ -46,28 +51,43 @@
       location.href = newUrl;
     });
   </script>
+  {%- assign version = page.url | split: "/" | slice: 1 | first -%}
+  {%- assign versionPath = version -%}
+  {%- assign selected = page.url | split: "/" | slice: 2 | first -%}
+  {%- for valias in site.versions -%}
+    {%- if valias[1] == version -%}
+      {%- assign versionPath = valias[0] -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if selected contains ".html" -%}
+  {%- assign selected = "manual" -%}
+  {%- endif -%}
+  {%- assign grr = page.url | split: "/" | size -%}
+  {%- if grr < 3 -%}
+  {%- assign selected = "manual" -%}
+  {%- endif %}
   <ul class="arangodb-navmenu">
     <li{% if selected == "manual" %} class="active-tab"{% endif %}>
-      <a href="/docs/stable/" data-book="Manual">Manual</a>
+      <a href="/docs/{{ versionPath }}/" data-book="Manual">Manual</a>
     </li>
     {%- if site.data.books[version] contains "aql" %}
     <li{% if selected == "aql" %} class="active-tab"{% endif %}>
-      <a href="/docs/stable/aql/" data-book="AQL">AQL</a>
+      <a href="/docs/{{ versionPath }}/aql/" data-book="AQL">AQL</a>
     </li>
     {%- endif -%}
     {%- if site.data.books[version] contains "http" %}
     <li{% if selected == "http" %} class="active-tab"{% endif %}>
-      <a href="/docs/stable/http/" data-book="HTTP">HTTP</a>
+      <a href="/docs/{{ versionPath }}/http/" data-book="HTTP">HTTP</a>
     </li>
     {%- endif -%}
     {%- if site.data.books[version] contains "cookbook" %}
     <li{% if selected == "cookbook" %} class="active-tab"{% endif %}>
-      <a href="/docs/stable/cookbook/" data-book="Cookbook">Cookbook</a>
+      <a href="/docs/{{ versionPath }}/cookbook/" data-book="Cookbook">Cookbook</a>
     </li>
     {%- endif -%}
     {%- if site.data.books[version] contains "drivers" %}
     <li{% if selected == "drivers" %} class="active-tab"{% endif %}>
-      <a href="/docs/stable/drivers/" data-book="Drivers">Drivers</a>
+      <a href="/docs/{{ versionPath }}/drivers/" data-book="Drivers">Drivers</a>
     </li>
     {%- endif %}
     <li class="downloadIcon" title="Download">

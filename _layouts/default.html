@@ -11,7 +11,18 @@
     </div>
     <div class="book-body">
       <script type="text/javascript">
-          var availableVersions = ["devel","3.5","3.4","3.3","3.2","3.1","3.0","2.8"];
+          var availableVersions = [
+            {%- for v in page.versions -%}
+              {%- if v.version.tag -%}
+                {%- assign version_alias = v.version.tag -%}
+              {%- else -%}
+                {%- assign version_alias = v.version.name -%}
+              {%- endif -%}
+              {%- if v.url -%}
+              "{{ version_alias }}",
+              {%- endif -%}
+            {%- endfor -%}
+          ];
           versionSwitcherSetAvailable(availableVersions);
       </script>
       <div class="body-inner">
@@ -22,6 +33,13 @@
         <div class="page-wrapper" tabindex="-1" role="main">
           <div class="page-inner">
             <section class="normal markdown-section">
+              {%- if site.data.deprecations contains page.version.version %}
+                {% hint 'warning' %}
+ArangoDB v{{ page.version.version }} reached End of Life (EOL) and is no longer supported.
+
+This documentation is outdated. Please see the most recent version here: <a href="/docs/stable" target="_blank">Try latest</a>
+                {% endhint -%}
+              {%- endif %}
               {{ content }}
             </section>
             {% include page-nav.html %}
