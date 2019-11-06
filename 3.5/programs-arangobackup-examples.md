@@ -181,9 +181,9 @@ The output will look like this:
 2019-07-30T08:11:09Z [17465] INFO [24d75] {backup} SNGL Status: COMPLETED
 2019-07-30T08:11:09Z [17465] INFO [68cc8] {backup} Last progress update 2019-07-30T08:10:10Z: 5/5 files done
 ```
-See the [Download command](programs-arangobackup-examples.html#download) for details
-about the `remote.json` file to configure the remote site for `rclone`
-for different protocols than `S3`.
+
+See the [Download command](#download) for details about the `remote.json`
+file to configure the remote site for `rclone` for different protocols than S3.
 
 Download
 --------
@@ -225,7 +225,8 @@ The output will look like this:
 2019-07-30T08:18:07Z [17753] INFO [68cc8] {backup} Last progress update 2019-07-30T08:14:43Z: 5/5 files done
 ```
 
-### RClone configuration examples
+RClone configuration examples
+-----------------------------
 
 Enterprise Editions of ArangoDB come with a bundled version of the
 versatile open-source remote file sync program
@@ -275,9 +276,9 @@ The file `my-local.json` could look like this:
 {
   "my-local": {
     "type": "local",
-    "copy-links": false,
-    "links": false,
-    "one_file_system": false
+    "copy-links": "false",
+    "links": "false",
+    "one_file_system": "false"
   }
 }
 ```
