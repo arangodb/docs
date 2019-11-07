@@ -1,6 +1,8 @@
 ---
 layout: default
-description: This chapter includes information related to the administration of a Master/Slaveenvironment
+description: This chapter includes information related to the administration of a Master/Slave environment
+redirect_from:
+  - /3.5/cookbook/administration-replication.html # 3.5 -> 3.5
 ---
 Master/Slave Administration
 ===========================

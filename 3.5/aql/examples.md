@@ -1,6 +1,8 @@
 ---
 layout: default
 description: These pages contain some common query patterns with examples
+redirect_from:
+  - /3.5/cookbook/aql.html # 3.5 -> 3.5
 ---
 Usual Query Patterns Examples
 =============================

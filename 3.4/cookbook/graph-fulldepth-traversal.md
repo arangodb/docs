@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Lets assume you have a database and some edges and vertices
+redirect_from:
+  - /3.5/cookbook/graph-fulldepth-traversal.html
 ---
 Fulldepth Graph-Traversal
 =========================

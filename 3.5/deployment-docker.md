@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Single instance
+redirect_from:
+  - /3.5/cookbook/cloud-docker-container.html
 ---
 Deploying ArangoDB using Docker
 ===============================
