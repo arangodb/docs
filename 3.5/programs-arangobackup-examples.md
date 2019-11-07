@@ -241,15 +241,26 @@ be used for restores until the download has finished.
 {% endhint %}
 
 To configure Rclone, use the `rclone-config-file` startup option to
-point arangobackup to a JSON configuration file. The option names and
-values in the [Rclone documentation](https://rclone.org/docs/){:target="_blank"}
+point arangobackup to a JSON configuration file. The expected format
+is an object with user-chosen remote names as attribute keys, and the
+actual configuration as attribute value (a nested object). The option
+names and values in the [Rclone documentation](https://rclone.org/docs/){:target="_blank"}
 directly translate into attribute/value pairs in the JSON file.
 Note that `"true"` and `"false"` must be enclosed by double quotes.
 
+```json
+{
+  "my-remote": {
+    "option": "value",
+    "boolean": "true"
+  }
+}
+```
+
 The remote path can be specified via the `remote-path` startup option.
 The syntax for remote paths is `remote:path`, where `remote` is the
-name of a top-level attribute in the configuration file, `path`
-is a remote or local path, and both are separated by a colon.
+name of a top-level attribute in the configuration file, `path` is a
+remote path, and both are separated by a colon (e.g. `my-remote:/a/b/c`).
 
 ### S3
 
