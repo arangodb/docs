@@ -10,7 +10,9 @@ const fetch = require('node-fetch');
 
 async function migrateMds(basePath, targetPath) {
     const absoluteBasePath = await fs.realpath(basePath);
-    const paths = (await globby([path.join(basePath, "**/*.md")])).filter(filePath => {
+    // NOTE globby >= 10 does not support backslashes anymore
+    const searchPath = path.join(basePath, "**/*.md").replace(/\\/g, '/')
+    const paths = (await globby([searchPath])).filter(filePath => {
         return path.relative(basePath, filePath).toLowerCase() !== 'summary.md';
     });
 
@@ -167,7 +169,9 @@ async function migrateMds(basePath, targetPath) {
 
 // verified beforehand that all imagenames are unique over all directories
 async function migrateImages(basePath, targetPath) {
-    const paths = await globby([path.join(basePath + "/**/*.png")]);
+    // NOTE globby >= 10 does not support backslashes anymore
+    searchPath = path.join(basePath + "/**/*.png").replace(/\\/g, '/')
+    const paths = await globby([searchPath]);
     let imagePath;
     if (path.basename(basePath) == "Manual" || path.basename(basePath) == "Users") {
         imagePath = path.join(targetPath, "images");
