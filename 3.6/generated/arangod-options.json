@@ -311,7 +311,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341608448,
+    "default" : 16341567488,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -395,6 +395,22 @@
     "requiresValue" : true,
     "section" : "cluster",
     "type" : "uint32"
+  },
+  "cluster.force-one-shard" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "force one-shard mode for all new collections",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "cluster",
+    "type" : "boolean"
   },
   "cluster.index-create-timeout" : {
     "category" : "option",
@@ -2272,7 +2288,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "log destination(s)",
+    "description" : "log destination(s), e.g. file:///path/to/file (Linux, macOS) or file://C:\\path\\to\\file (Windows)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -2431,11 +2447,11 @@
     "section" : "log",
     "type" : "boolean"
   },
-  "network.connection-ttl" : {
+  "network.idle-connection-ttl" : {
     "category" : "option",
     "default" : 60000,
     "deprecatedIn" : null,
-    "description" : "default time-to-live of connections (in milliseconds)",
+    "description" : "default time-to-live of idle connections (in milliseconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -2461,7 +2477,7 @@
   },
   "network.max-open-connections" : {
     "category" : "option",
-    "default" : 25,
+    "default" : 1024,
     "deprecatedIn" : null,
     "description" : "max open network connections",
     "dynamic" : false,
@@ -2848,7 +2864,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609930137,
+    "default" : 19609880985,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -3175,7 +3191,7 @@
     "category" : "option",
     "default" : 9,
     "deprecatedIn" : null,
-    "description" : "maximum number of write buffers that built up in memory",
+    "description" : "maximum number of write buffers that build up in memory (default: number of column families + 2 = 9 write buffers). You can increase the amount only",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -3327,7 +3343,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146573516,
+    "default" : 26146507980,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -3951,9 +3967,9 @@
   },
   "ssl.protocol" : {
     "category" : "option",
-    "default" : 6,
+    "default" : 9,
     "deprecatedIn" : null,
-    "description" : "ssl protocol (1 = SSLv2 (unsupported), 2 = SSLv2 or SSLv3 (negotiated), 3 = SSLv3, 4 = TLSv1, 5 = TLSv1.2, 6 = TLSv1.3)",
+    "description" : "ssl protocol (1 = SSLv2 (unsupported), 2 = SSLv2 or SSLv3 (negotiated), 3 = SSLv3, 4 = TLSv1, 5 = TLSv1.2, 6 = TLSv1.3, 9 = generic TLS)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -3962,7 +3978,7 @@
     "requiresValue" : true,
     "section" : "ssl",
     "type" : "uint64",
-    "values" : "Possible values: 1, 2, 3, 4, 5, 6"
+    "values" : "Possible values: 1, 2, 3, 4, 5, 6, 9"
   },
   "ssl.require-peer-certificate" : {
     "category" : "option",
