@@ -182,7 +182,7 @@ The output will look like this:
 2019-07-30T08:11:09Z [17465] INFO [68cc8] {backup} Last progress update 2019-07-30T08:10:10Z: 5/5 files done
 ```
 
-See the [Download command](#download) for details about the `remote.json`
+See [Rclone Configuration](#rclone-configuration) for details about the `remote.json`
 file to configure the remote site for `rclone` for different protocols than S3.
 
 Download
@@ -225,8 +225,8 @@ The output will look like this:
 2019-07-30T08:18:07Z [17753] INFO [68cc8] {backup} Last progress update 2019-07-30T08:14:43Z: 5/5 files done
 ```
 
-Rclone configuration examples
------------------------------
+Rclone Configuration
+--------------------
 
 [Rclone](https://rclone.org) is a versatile open-source remote file
 sync program that can deal with over 30 different remote file IO
