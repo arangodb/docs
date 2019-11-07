@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The most important suggestions listed in this section can beeasily applied by making use of a script
+description: The most important suggestions listed in this section can be easily applied by making use of a script
 ---
 Linux Operating System Configuration
 ====================================
@@ -15,24 +15,21 @@ ready-to-use examples.
 File Systems
 ------------
 
-We recommend to **not** use BTRFS on linux, as it is known to not work
-well in conjunction with ArangoDB. We experienced that ArangoDB
-facing latency issues on accessing its database files on BTRFS
-partitions. In conjunction with BTRFS and AUFS we also saw data loss
-on restart.
+We recommend to **not** use BTRFS on linux, as user have reported issues using it in
+conjunction with ArangoDB. We experienced ArangoDB facing latency issues when accessing 
+its database files on BTRFS partitions. In conjunction with BTRFS and AUFS we also saw 
+data loss on restart.
 
-Virtual Memory Page Sizes
---------------------------
+Page Sizes
+----------
 
-By default, ArangoDB uses Jemalloc as the memory allocator. Jemalloc does a good
-job of reducing virtual memory fragmentation, especially for long-running
-processes. Unfortunately, some OS configurations can interfere with Jemalloc's
-ability to function properly. Specifically, Linux's "transparent hugepages",
-Windows' "large pages" and other similar features sometimes prevent Jemalloc
-from returning unused memory to the operating system and result in unnecessarily
-high memory use. Therefore, we recommend disabling these features when using
-Jemalloc with ArangoDB. Please consult your operating system's documentation for
-how to do this.
+On Linux ArangoDB uses [jemalloc](https://github.com/jemalloc/jemalloc) as
+its memory allocator. Unfortunately, some OS configurations can interfere with 
+jemalloc's ability to function properly. Specifically, Linux's "transparent hugepages", 
+Windows' "large pages" and other similar features sometimes prevent jemalloc from 
+returning unused memory to the operating system and result in unnecessarily high 
+memory use. Therefore, we recommend disabling these features when using jemalloc with 
+ArangoDB. Please consult your operating system's documentation for how to do this.
 
 Execute:
 
@@ -50,10 +47,11 @@ It is recommended to assign swap space for a server that is running arangod.
 Configuring swap space can prevent the operating system's OOM killer from
 killing ArangoDB too eagerly on Linux.
 
-### Over-Commit Memory
+Overcommit Memory
+-----------------
 
 The recommended kernel setting for `overcommit_memory` for both MMFiles and
-RocksDB storage engine is 0 or 1. The kernel default is 0.
+RocksDB storage engine is 0 or 1. The Linux kernel default is 0.
 
 You can set it as follows before executing `arangod`:
 
@@ -72,33 +70,8 @@ From [www.kernel.org](https://www.kernel.org/doc/Documentation/sysctl/vm.txt){:t
 - When this flag is 2, the kernel uses a "never overcommit"
   policy that attempts to prevent any overcommit of memory.
 
-### Zone Reclaim
-
-Execute
-
-```
-sudo bash -c "echo 0 >/proc/sys/vm/zone_reclaim_mode"
-```
-
-before executing `arangod`.
-
-From [www.kernel.org](https://www.kernel.org/doc/Documentation/sysctl/vm.txt){:target="_blank"}:
-
-This is value ORed together of
-
-- 1 = Zone reclaim on
-- 2 = Zone reclaim writes dirty pages out
-- 4 = Zone reclaim swaps pages
-
-NUMA
-----
-
-Multi-processor systems often have non-uniform Access Memory (NUMA). ArangoDB
-should be started with interleave on such system. This can be achieved using
-
-```
-numactl --interleave=all arangod ...
-```
+Experience has shown that setting `overcommit_memory` to a value of 2 has severe 
+negative side-effects when running arangod, so it should be avoided at all costs.
 
 Max Memory Mappings
 -------------------
@@ -130,6 +103,55 @@ To make the settings durable, it will be necessary to store the adjusted
 settings in /etc/sysctl.conf or other places that the operating system is
 looking at.
 
+Memory Limits
+-------------
+
+A long-running arangod process may accumulate a lot of virtual memory after a 
+while, so it is recommended to **not** restrict the amount of virtual memory 
+that a process can acquire, neither via using `ulimit`, `cgroups` or systemd.
+
+Zone Reclaim
+------------
+
+Execute
+
+```
+sudo bash -c "echo 0 >/proc/sys/vm/zone_reclaim_mode"
+```
+
+before executing `arangod`.
+
+From [www.kernel.org](https://www.kernel.org/doc/Documentation/sysctl/vm.txt){:target="_blank"}:
+
+This is value ORed together of
+
+- 1 = Zone reclaim on
+- 2 = Zone reclaim writes dirty pages out
+- 4 = Zone reclaim swaps pages
+
+NUMA
+----
+
+Multi-processor systems often have non-uniform Access Memory (NUMA). ArangoDB
+should be started with interleave on such system. This can be achieved using
+
+```
+numactl --interleave=all arangod ...
+```
+
+Open Files Limit
+----------------
+
+An arangod instance may need to use a lot of file descriptors for working with
+files and network resources. It is therefore required to allow arangod processes
+to use a lot of file descriptors at the same time. A reasonable value for the
+maximum number of open file descriptors for an arangod process is 1048576. This
+should provide enough headroom so that arangod doesn't run out of file descriptors.
+
+The maximum number of file descriptors can be adjusted using `ulimit`, `cgroups`
+and `systemd`.
+
+
 Environment Variables
 ---------------------
 
@@ -149,6 +171,7 @@ before starting `arangod`.
 32bit
 -----
 
-While it is possible to compile ArangoDB on 32bit system, this is not a
-recommended environment. 64bit systems can address a significantly bigger
-memory region.
+While it should be possible to compile ArangoDB on 32bit system, this is not a
+recommended environment. 64bit systems can address a significantly larger
+memory region. This is also the reason why only 64bit release builds are supplied
+by ArangoDB Inc.

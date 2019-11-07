@@ -122,14 +122,44 @@ false for the initial startup and only turned on for restarts.
 ## More advanced options
 
 {% hint 'warning' %}
-These options should generally remain untouched.
+When multiple Coordinators are used, the following options should have identical
+values on all Coordinators.
 {% endhint %}
 
 <!-- arangod/Cluster/ClusterFeature.h -->
 
+**Maximum number of shards**
+
+`--cluster.max-number-of-shards <integer>`
+
+Maximum number of shards than can be configured when creating new collections.
+The default value is `1000`.
+When changing the value of this setting and restarting servers, no changes will be 
+applied to existing collections that would violate the new setting.
+
+**Force one shard**
+
+`--cluster.force-one-shard <bool>`
+
+{% hint 'info' %}
+This feature is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
+
+When set to `true`, forces the cluster into creating all future collections with 
+only a single shard and using the same database server as these collections' 
+shards leader. 
+All collections created this way will be eligible for specific AQL query optimizations
+that can improve query performance and provide advanced transactional guarantees.
+
 **Synchronous replication minimum timeout**
 
 `--cluster.synchronous-replication-timeout-minimum <double>`
+
+{% hint 'warning' %}
+This option should generally remain untouched and only changed with great care.
+{% endhint %}
 
 <small>Introduced in: v3.4.8, v3.5.1</small>
 
@@ -138,16 +168,20 @@ mechanism between DBServers. If replication requests are slow, but the servers
 are otherwise healthy, timeouts can cause followers to be dropped
 unnecessarily, resulting in costly resync operations. Increasing this value may
 help avoid such resyncs. Conversely, decreasing it may cause more resyncs,
-while lowering the latency of individual write operations. Please change only
-with intent and great care. Default at `30.0` seconds.
+while lowering the latency of individual write operations. Default at `30.0`
+seconds.
 
 **Synchronous replication timeout scaling**
 
 `--cluster.synchronous-replication-timeout-factor <double>`
 
-Stretch or clinch timeouts for internal synchronous replication
-mechanism between DBServers. All such timeouts are affected by this
-change. Please change only with intent and great care. Default at `1.0`.
+{% hint 'warning' %}
+This option should generally remain untouched and only changed with great care.
+{% endhint %}
+
+Stretch or clinch timeouts for internal synchronous replication mechanism
+between DBServers. All such timeouts are affected by this change.
+Default at `1.0`.
 
 **System replication factor**
 
@@ -161,8 +195,8 @@ Change default replication factor for system collections. Default at `2`.
 
 Minimum replication factor that needs to be used when creating new collections.
 The default value is `1`.
-When changing the value of this setting, no changes are applied to existing
-collections that would violate the new setting.
+When changing the value of this setting and restarting servers, no changes will be
+applied to existing collections that would violate the new setting.
 
 **Maximum replication factor**
 
@@ -170,8 +204,8 @@ collections that would violate the new setting.
 
 Maximum replication factor that can be used when creating new collections.
 The default value is `10`.
-When changing the value of this setting, no changes are applied to existing
-collections that would violate the new setting.
+When changing the value of this setting and restarting servers, no changes will be
+applied to existing collections that would violate the new setting.
 
 **Default replication factor**
 
@@ -182,12 +216,18 @@ replication factor is set.
 If this value is not set, it will default to the value of the option
 `--cluster.min-replication-factor`. If set, the value must be between the
 values of `--cluster.min-replication-factor` and `--cluster.max-replication-factor`.
+Note that the replication factor can still be adjusted per collection. This 
+value is only the default value used for new collections when no replication factor 
+is specified when creating a collection.
 
-**Maximum number of shards**
+**Write concern**
 
-`--cluster.max-number-of-shards <integer>`
+`--cluster.write-concern <integer>`
 
-Maximum number of shards than can be configured when creating new collections.
-The default value is `1000`.
-When changing the value of this setting, no changes are applied to existing
-collections that would violate the new setting.
+Default minimum number of copies of data for new collections required for the collection 
+to be considered "in sync". If a collection has less in-sync copies than specified by
+this value, the collection will turn into read-only mode until enough copies are created.
+This value is the default value for the required minimum number of copies when creating
+new collections. It can still be adjusted per collection.
+The default value for this option is `1`. The value must be smaller or equal compared 
+to the replication factor. 
