@@ -36,7 +36,7 @@ Edge                  | Edge is a single document inside an edge collection, it 
 Edge Collection       | Stores relations between nodes in a graph
 Follower              | Secondary copies of the data after replication
 Foxx                  | A microservice framework that allows Application developers to write their data access and domain logic as microservices running within the database with native access to in-memory data
-HotBackup             | Ability to take a backup on running servers without the need for downtime	Enterprise only feature
+HotBackup             | Ability to take a backup on running servers without the need for downtime _(Enterprise Edition only)_
 Joins                 | Creating AQL Query results from multiple collections
 Leader                | Primary copy of the data after replication
 MMFiles               | MMfiles is a storage engine for ArangoDB. MMFiles (Memory-Mapped Files) engine is optimized for the use-case where the data fits into the main memory
@@ -45,13 +45,13 @@ Node                  | A single machine (physical or virtual) running an Arango
 Oasis                 | ArangoDB Oasis is the managed service for ArangoDB
 Replication           | Store multiple copies of same data on different machines for high availability
 RocksDB               | RocksDB is the default engine for ArangoDB since 3.4. It is a log structure database and is optimized for fast storage.
-Satellite Collections | A collection with exactly one shard and is replicated across all DB Servers	Enterprise only feature
+Satellite Collections | A collection with exactly one shard and is replicated across all DB Servers _(Enterprise Edition only)_
 Shard                 | ArangoDB partitions data into shards. A single Shard consists of subset of partitioned data
 Sharding              | Splitting of data useful to store large quantity of data that will not fit on single machine
-SmartGraphs           | Partitions graph based on smart attribute where all vertices with the same value are stored on the same physical machine, along with all edges connecting these vertices.	Enterprise only feature
+SmartGraphs           | Partitions graph based on smart attribute where all vertices with the same value are stored on the same physical machine, along with all edges connecting these vertices. _(Enterprise Edition only)_
 SmartJoin Attribute   | smartJoinAttribute can be specified for a collection in case the join on that collection must be performed on a non-shard key attribute
-SmartJoins            | Allows running joins between two sharded collections with performance close to that of a local join operation.	Enterprise only feature
-Transactions          | A logical unit of work that is independently executed and honors the ACID property. 
+SmartJoins            | Allows running joins between two sharded collections with performance close to that of a local join operation. _(Enterprise Edition only)_
+Transactions          | A logical unit of work that is independently executed and honors the ACID property.
 Traversal             | Traversal is a process of visiting each vertex in a graph
 VelocyPack            | A binary format for serialization and storage
 Vertex                | Vertex is a single document inside a vertex collection
