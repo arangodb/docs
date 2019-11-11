@@ -1,16 +1,12 @@
+---
+layout: default
+description: This guide explains which access control concepts are available in Oasis and how to use them.
+title: Access control in ArangoDB Oasis
+---
 # Access control in ArangoDB Oasis
 
-This document explains which access control concepts are available in
+This guide explains which access control concepts are available in
 ArangoDB Oasis (short Oasis) and how to use them.
-
-**Table of contents**
-
-* [Access control subjects](#access-control-subjects)
-* [Permissions](#permissions)
-* [Users, groups & members](#users-groups-members)
-* [Roles](#roles)
-* [Policy](#policy)
-* [Permission inheritance](#permission-inheritance)
 
 ## Access control subjects
 
@@ -18,9 +14,9 @@ Oasis has a level structured set of resources that are the subject of access con
 
 Those resources are:
 
-* Organizations: They represent (commercial) entities such as companies.
-* Projects: They represent organizational units such as teams or applications.
-* Deployments: The actual instances of the ArangoDB database.
+- **Organizations**: They represent (commercial) entities such as companies.
+- **Projects**: They represent organizational units such as teams or applications.
+- **Deployments**: The actual instances of the ArangoDB database.
 
 Each of these resources have a set of operations that can be invoked upon them.
 For example, you can *create* a project in an organization.
@@ -40,8 +36,8 @@ Most important of the user is that it serves as an identity of a person.
 A user is member of one or more organizations in Oasis.
 You can become a member of an organization in the following ways:
 
-* Create a new organization. You will become the first member and owner of that organization.
-* Be invited to join an organization. Once accepted (by the invited user), this user
+- Create a new organization. You will become the first member and owner of that organization.
+- Be invited to join an organization. Once accepted (by the invited user), this user
   becomes a member of the organization.
 
 If the number of members of an organization becomes large, it helps to group
@@ -78,9 +74,9 @@ on the `Example.com` organization.
 
 As we've seen before, Oasis has a level structured set of resources:
 
-* organization
-* project
-* deployment
+- organization
+- project
+- deployment
 
 Each resource in this structure has its own policy, but this does not
 mean that you have to repeat access control bindings on all these policies.
