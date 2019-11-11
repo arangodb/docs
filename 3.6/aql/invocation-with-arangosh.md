@@ -170,6 +170,9 @@ There are further options that can be passed in the *options* attribute of the *
   after the query is finished. 
   The default value is *false*
 
+- *timeout*: The query has to be executed within the given time or it will be killed.
+  The default is not to use a timeout.
+
 The following additional attributes can be passed to queries in the RocksDB storage engine:
  
 - *maxTransactionSize*: transaction size limit in bytes

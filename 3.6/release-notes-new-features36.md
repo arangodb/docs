@@ -132,7 +132,10 @@ into a set of equal-distance buckets.
 
 ### Miscellaneous AQL changes
 
-ArangoDB 3.6 provides a new AQL function `GEO_AREA` for area calculations.
+ArangoDB 3.6 provides the following new AQL functionality:
+
+- function `GEO_AREA` for area calculations
+- query option `timeout` to restrict the execution time.
 
 HTTP API extensions
 -------------------
