@@ -29,7 +29,7 @@ option of the _Starter_. This will start all servers within the context of a sin
 starter process:
 
 ```bash
-arangodb --starter.local --starter.mode=activefailover --starter.data-dir=./localdata --auth.jwt-secret=/etc/arangodb.secret
+arangodb --starter.local --starter.mode=activefailover --starter.data-dir=./localdata --auth.jwt-secret=/etc/arangodb.secret --agents.agency.supervision-grace-period=30
 ```
 
 Please adapt the path to your _secret_ file accordingly.
@@ -45,7 +45,7 @@ _Starter_. A 3 "machine" _Agency_ is started as well as 3 single servers,
 that perform asynchronous replication and failover:
 
 ```bash
-arangodb --starter.mode=activefailover --server.storage-engine=rocksdb --starter.data-dir=./data --auth.jwt-secret=/etc/arangodb.secret --starter.join A,B,C
+arangodb --starter.mode=activefailover --starter.data-dir=./data --auth.jwt-secret=/etc/arangodb.secret --agents.agency.supervision.grace-period=30 --starter.join A,B,C
 ```
 
 Please adapt the path to your _secret_ file accordingly.
@@ -73,6 +73,7 @@ docker run -it --name=adb --rm -p 8528:8528 \
     -v arangodb:/data \
     -v /var/run/docker.sock:/var/run/docker.sock \
     arangodb/arangodb-starter \
+    --agents.agency.supervision-grace-period=30 \
     --starter.address=$IP \
     --starter.mode=activefailover \
     --starter.join=A,B,C
@@ -119,6 +120,7 @@ docker run -it --name=adb --rm -p 8528:8528 \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /path/to/certificate:/path/to/certificate
     arangodb/arangodb-starter \
+    --agents.agency.supervision-grace-period=30 \
     --starter.address=$IP \
     --starter.mode=activefailover \
     --starter.join=A,B,C
@@ -139,6 +141,7 @@ docker run -it --name=adb --rm -p 8528:8528 \
     -v /path/to/cert:/root/.docker \
     -e DOCKER_TLS_VERIFY=1 \
     arangodb/arangodb-starter \
+    --agents.agency.supervision-grace-period=30 \
     --starter.address=$IP \
     --starter.mode=activefailover \
     --starter.join=A,B,C
