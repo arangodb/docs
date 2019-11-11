@@ -167,11 +167,14 @@ A policy is a set of bindings that binds roles to groups or individual members.
 
 The role _Deployment viewer_ is effective on the following entities depending on which policy the binding is added to:
 
-role binding added to|organization, its projects and deployments|project A and its deployments|project B and its deployments|deployment X of project A|deployment Y of project A|deployment Z of project B
-:---:|:---:|:---:|:---:|:---:|:---:|:---:
-organization policy|&#10003;|&#10003;|&#10003;|&#10003;|&#10003;|&#10003;
-project A's policy|&mdash;|&#10003;|&mdash;|&#10003;|&#10003;|&mdash;
-deployment X's policy of project A|&mdash;|&mdash;|&mdash;|&#10003;|&mdash;|&mdash;
+role binding added to &rarr;<br>role effective on &darr;|organization policy|project A's policy|deployment X's policy of project A|
+|:---:|:---:|:---:|:---:
+organization, its projects and deployments|&#10003;|&mdash;|&mdash;
+project A and its deployments|&#10003;|&#10003;|&mdash;
+project B and its deployments|&#10003;|&mdash;|&mdash;
+deployment X of project A|&#10003;|&#10003;|&#10003;
+deployment Y of project A|&#10003;|&#10003;|&mdash;
+deployment Z of project B|&#10003;|&mdash;|&mdash;
 
 ### Editing a policy
 
