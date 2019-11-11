@@ -16,7 +16,7 @@ This guide explains how you can invite another person to join your ArangoDB Oasi
 5. In the form that appears, enter the email address of the person you want to invite.
 6. Press the _Create_ button.
 7. An email with an organization invite will now be sent to the specified email address.
-8. After accepting the invite the person will be added to the organization [members](#members).
+8. After accepting the invite the person will be added to the organization members.
 
 On the _Invites_ page you can also see the status of all pending, accepted and rejected invites that have been created.
 
