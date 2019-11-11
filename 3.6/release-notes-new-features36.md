@@ -130,6 +130,60 @@ for this is
 Additionally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND` to bin a date/time 
 into a set of equal-distance buckets.
 
+### Subquery Splicing Optimization
+
+In earlier versions of ArangoDB, on every execution of a subquery the following
+happened for each input row:
+
+    * The subquery tree issues one initializeCursor cascade through all nodes
+    * The subquery node pulls rows until the subquery node is empty for this input
+
+On subqueries with many results per input row (10000 or more) the
+above steps were not too expensive and typically overshadowed other overhead.
+On subqueries with few results there was a serious performance impact.
+
+Subquery splicing inlines the execution of subqueries using an optimizer rule
+called `subquery-splicing`. Only suitable queries can be spliced.
+A subquery becomes unsuitable if it contains a `LIMIT`, `REMOTE`, `GATHER` or a
+`COLLECT` node where the operation is not `COUNT`. A subquery also becomes
+unsuitable if it is contained in an unsuitable subquery.
+
+The following execution plan illustrates the difference.
+
+```
+Query String (226 chars, cacheable: true):
+ FOR x IN c1
+   LET firstJoin = (
+     FOR y IN c2
+       FILTER y._id == x.c2_id
+     LIMIT 1
+     RETURN y
+   )
+   LET secondJoin = (
+     FOR z IN c3
+       FILTER z.value == x.value
+     RETURN z
+   )
+ RETURN {x, firstJoin, secondJoin}
+
+Execution plan:
+ Id   NodeType                  Est.   Comment
+  1   SingletonNode                1   * ROOT
+  2   EnumerateCollectionNode      0     - FOR x IN c1   /* full collection scan */
+  9   SubqueryNode                 0       - LET firstJoin = ...   /* subquery */
+  3   SingletonNode                1         * ROOT
+ 18   IndexNode                    0           - FOR y IN c2   /* primary index scan */    
+  7   LimitNode                    0             - LIMIT 0, 1
+  8   ReturnNode                   0             - RETURN y
+ 19   SubqueryStartNode            0       - LET secondJoin = ( /* subquery begin */
+ 11   EnumerateCollectionNode      0         - FOR z IN c3   /* full collection scan */
+ 12   CalculationNode              0           - LET #11 = (z.`value` == x.`value`)   /* simple expression */   /* collections used: z : c3, x : c1 */
+ 13   FilterNode                   0           - FILTER #11
+ 20   SubqueryEndNode              0       - ) /* subquery end */
+ 16   CalculationNode              0       - LET #13 = { "x" : x, "firstJoin" : firstJoin, "secondJoin" : secondJoin }   /* simple expression */   /* collections used: x : c1 */
+ 17   ReturnNode                   0       - RETURN #13
+```
+
 ### Miscellaneous AQL changes
 
 ArangoDB 3.6 provides a new AQL function `GEO_AREA` for area calculations.
