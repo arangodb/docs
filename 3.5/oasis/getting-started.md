@@ -3,7 +3,7 @@ layout: default
 description: Quick start guide on how to set up your first ArangoDB deployment in Oasis.
 title: Getting Started with ArgangoDB Oasis
 ---
-# Getting Started with ArgangoDB Oasis
+# Getting Started with ArangoDB Oasis
 
 The instructions below are a quick start guide on how to set up your first ArangoDB deployment in Oasis.
 
