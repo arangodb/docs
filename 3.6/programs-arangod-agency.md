@@ -62,4 +62,10 @@ ArangoDB cluster supervision frequency in seconds.
 
 `agency.supervision-grace-period`
 
-Supervision time, after which a server is considered to have failed in seconds. 
+Supervision time, after which a server is considered to have failed, in seconds. 
+
+The default value is `10` seconds, which is recommended for regular cluster deployments.
+For active failover deployments it is recommended to use a higher value for the grace
+period to avoid unnecessary failovers. In active failover setups, the leader server needs 
+to handle all the load and is thus expected to get overloaded and unresponsive more easily 
+than a server in a regular cluster which needs to handle only a part of the overall load.
