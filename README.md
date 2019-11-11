@@ -261,6 +261,11 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
     target does not exist --- docs/page2.html --> target.html
   ...
   ```
+  or
+  ```
+  docs/page.html
+    target is a directory, no index --- docs/page.html --> /docs/newfolder/
+  ```
 
   If you get dozens of these errors for the same target, then you likely forgot
   to add a frontmatter to that page (`docs/target.md`):
