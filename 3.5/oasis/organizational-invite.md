@@ -5,6 +5,8 @@ title: Invite person to organization in ArangoDB Oasis
 ---
 # Inviting persons to your ArangoDB Oasis organization.
 
+_Note_: You can also view the [support video on organization invites](https://www.youtube.com/watch?v=lqGgmuNHRQQ&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=8&t=0s){:target="_blank"}.
+
 This guide explains how you can invite another person to join your ArangoDB Oasis organization.  It also describes how the recipient can accept the invitation to your organization.
 
 ## Inviting persons to join your ArangoDB Oasis organization

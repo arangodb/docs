@@ -17,6 +17,8 @@ A video guide on how to get started with Oasis is also available:
 
 {% include youtube-playlist.html id="PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS" %}
 
+Additionally, you can also view the [ArangoDB Oasis support videos](https://www.youtube.com/playlist?list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS){:target="_blank"}.
+
 ## Prerequisites
 
 Please have following information at hand for registration:
@@ -30,7 +32,7 @@ One mobile phone number will be associated with one account and cannot be used f
 
 ## Creating a new account
 
-1. Go to [cloud.arangodb.com](https://cloud.arangodb.com).
+1. Go to [cloud.arangodb.com](https://cloud.arangodb.com){:target="_blank"}.
 2. To reach the sign up, press the _Sign up for free_ button or click the _Sign Up_ link in the header navigation of the start page.
 3. Once on the sign up page, select the _Sign up_ tab.
 4. Select the type of sign up you would like to use (GitHub, Google, or email address).
@@ -59,6 +61,8 @@ For a more detailed description, see the [Project Guide](./project-guide.html).
 
 ## Creating a new project
 
+_Note_: You can also view the [support video on projects](https://www.youtube.com/watch?v=b7q-PdLEpug&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=4&t=0s){:target="_blank"}.
+
 1. In the main navigation, in the _Projects_ section, click the _Overview_ link.
 2. Click the _New project_ button.
 3. Enter a name and optional description for your new project.
@@ -66,6 +70,8 @@ For a more detailed description, see the [Project Guide](./project-guide.html).
 5. You will now be taken to the project summary page.  
 
 ## Creating a new deployment
+
+_Note_: You can also view the [support video on deployments](https://www.youtube.com/watch?v=yg2FfcNsKFc&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=9&t=0s){:target="_blank"}.
 
 1. If you don't have a project, yet, [create one first](#creating-a-new-project).
 2. In the main navigation, in the _Projects_ section, click on the project for which you want to create a new deployment.
@@ -84,7 +90,7 @@ For a more detailed description, see the [Project Guide](./project-guide.html).
 3. In the _CA Certificate_ field  
     - Either create a new certificate by typing the desired name for it and hitting enter or clicking on the name when done.
     - Or, if you already have certificates, select the desired one.
-4. _Optional:_ In the _IP whitelist_ field, select the desired one in case you want to limit access to your deployment to certain IP ranges. To create a whitelist, navigate to your project and select the _IP whitelists_ tab. 
+4. _Optional:_ In the _IP whitelist_ field, select the desired one in case you want to limit access to your deployment to certain IP ranges. To create a whitelist, navigate to your project and select the _IP whitelists_ tab. See also [support video on IP whitelists](https://www.youtube.com/watch?v=Et6nlTHBI50&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=6&t=0s){:target="_blank"}. 
 
 #### In the _Configuration_ section
 
@@ -102,7 +108,7 @@ Sharded deployments are suitable when your data set is larger than a single node
 ##### Sharded
 
 - In addition to memory and disk size as in the one shard configuration, select the number of nodes for your deployment. The more nodes you have, the higher the replication factor.
-- If you're unsure about the sharded setup, you can go through our wizard. Click on _Assess sharded usage_ to open the recommendation process. 
+- If you're unsure about the sharded setup, you can go through our wizard. Click on _Help me decide_ to open the recommendation process. 
 
 #### In the _Summary_ section
 
@@ -111,6 +117,8 @@ Sharded deployments are suitable when your data set is larger than a single node
    **Note:** Your deployment is at that point being bootstrapped, this process will take a few minutes. Once it is ready, you will receive a confirmation email.
 
 ## Installing a new certificate
+
+_Note_: You can also view the [support video on certificates](https://www.youtube.com/watch?v=TBU7TIvewV0&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=5&t=0s){:target="_blank"}.
 
 Each certificate you create in ArangoDB Oasis you will also need to install on your local machine. This operation will slightly vary between operating systems.
 
