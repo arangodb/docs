@@ -199,11 +199,11 @@ The default value for this option is `false`.
 
 ### RocksDB exclusive writes
 
-The new option `--rocksdb.exclusive-writes` allows to make writes to the RocksDB storage
-exclusive and therefor avoids write-write conflicts. This option was introduced to open
-a way to upgrade from MMfiles to RocksDB storage engine without modifying client code.
+The new option `--rocksdb.exclusive-writes` allows to make all writes to the RocksDB storage
+exclusive and therefore avoids write-write conflicts. This option was introduced to open
+a way to upgrade from MMFiles to RocksDB storage engine without modifying client application code.
 Otherwise it should best be avoided as the use of exclusive locks on collections will
-introduce a noticeable performance penalty.
+introduce a noticeable throughput penalty.
 
 TLS v1.3
 --------
