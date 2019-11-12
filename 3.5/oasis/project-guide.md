@@ -32,7 +32,7 @@ In the general hierarchy, organizations are a container for projects.
 Also see the video
 [Organizations with ArangoDB Oasis](https://www.youtube.com/watch?v=raQPpCyrRtY&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=3&t=0s){:target="_blank"}.
 
-### Notes
+**Notes**
 
 - You can only be a member of one _Free to try_ organization at a time.
 - Organizations contain exactly **one policy**.
@@ -76,7 +76,7 @@ Also see the video
 
    ![Oasis Project Summary](../images/oasis-project-summary.png)
 
-### Notes
+**Notes**
 
 - Projects contain exactly **one policy**.
 - Within that policy, you can define role bindings to regulate access control
@@ -116,7 +116,7 @@ Also see the video
 
 ![Oasis New Deployment](../images/oasis-new-deployment1.png)
 
-### Notes
+**Notes**
 
 - Deployments contain exactly **one policy**.
 - Within that policy, you can define role bindings to regulate access control
@@ -149,7 +149,7 @@ Also see the video
   in the _Actions_ column.
 - You can delete a member by pressing the _Trash_ icon in the _Actions_ column.
 
-### Notes
+**Notes**
 
 - You can't delete members who are organization owners.
 
@@ -198,7 +198,7 @@ project or deployment policy.
 1. In the main navigation, in the _Access Control_ section, click on _Roles_.
 2. Press the icons in the _Actions_ column to view, edit or delete a role.
 
-### Notes
+**Notes**
 
 - You cannot delete predefined system roles.
 - Also see [Reference: predefined roles](#reference-predefined-roles)
@@ -224,7 +224,7 @@ See [Organizational Invite](./organizational-invite.html) for details.
 Also see the video
 [Invite Members to an ArangoDB Oasis Organization](https://www.youtube.com/watch?v=lqGgmuNHRQQ&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=8&t=0s){:target="_blank"}.
 
-### Notes
+**Notes**
 
 - On the _Invites_ page you can also see the status of all pending, accepted
   and rejected invites that have been created.
@@ -247,7 +247,7 @@ Also see the video
 - For more restrictive permissions, add the highest permission at the project
   or even deployment level, and least permission at the organization level.
 
-### Inheritance example
+**Inheritance example**
 
 - Imagine you have a group _Deployers_.
 - That group holds all persons that deal with deployments.
