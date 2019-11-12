@@ -98,7 +98,7 @@ Sharded deployments are suitable when your data set is larger than a single node
 ##### Sharded
 
 - In addition to memory and disk size as in the one shard configuration, select the number of nodes for your deployment. The more nodes you have, the higher the replication factor.
-- If you're unsure about the sharded setup, you can go through our wizard. Click on _Assess sharded usage_ to open the recommendation process. 
+- If you're unsure about the sharded setup, you can go through our wizard. Click on _Help me decide_ to open the recommendation process. 
 
 #### In the _Summary_ section
 
