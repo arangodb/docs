@@ -197,6 +197,14 @@ The option `--cluster.force-one-shard` will force all new collections to be crea
 only a single shard, and make all new collections use a similar sharding distribution. 
 The default value for this option is `false`.
 
+### RocksDB exclusive writes
+
+The new option `--rocksdb.exclusive-writes` allows to make all writes to the RocksDB storage
+exclusive and therefore avoids write-write conflicts. This option was introduced to open
+a way to upgrade from MMFiles to RocksDB storage engine without modifying client application code.
+Otherwise it should best be avoided as the use of exclusive locks on collections will
+introduce a noticeable throughput penalty.
+
 TLS v1.3
 --------
 
@@ -207,7 +215,7 @@ TLS 1.3 for incoming client connections. The server can be started with option
 `--ssl.protocol 5` to make it require TLS 1.2, as in previous versions of arangod.
 
 The default TLS protocol for the arangod server is now generic TLS
-(`--ssl.protocol 9`), which will allow the negotation of the TLS version between
+(`--ssl.protocol 9`), which will allow the negotiation of the TLS version between
 the client and the server.
 
 All client tools also support TLS 1.3, by using the `--ssl.protocol 6` option when
