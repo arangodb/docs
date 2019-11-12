@@ -28,7 +28,9 @@ _Note_: You can also view the [support video on organizations](https://www.youtu
 - You can only be a member of one _Free to try_ organization at a time.
 - Organizations contain exactly **one policy**.
 - Within that policy, you can define role bindings to regulate access control on an organization level.
-- **Explicit warning:** Deleting an organization will delete all projects and deployments contained in the organization. This operation is irreversible.
+{% hint 'warning' %}
+**Explicit warning:** Deleting an organization will delete all projects and deployments contained in the organization. This operation is irreversible.
+{% endhint %}
 
 ## Projects
 
@@ -52,7 +54,9 @@ In essence, you can create whatever structure fits you for a given organization,
 
 - Projects contain exactly **one policy**.
 - Within that policy, you can define role bindings to regulate access control on a project level.
-- **Explicit warning:** Deleting a project will delete contained deployments, certificates & IP whitelists. This operation is irreversible.
+{% hint 'warning' %}
+**Explicit warning:** Deleting a project will delete contained deployments, certificates & IP whitelists. This operation is irreversible.
+{% endhint %}
 
 ## Deployments
 
@@ -76,7 +80,9 @@ In essence, you can create whatever structure fits you for a given organization,
 
 - Deployments contain exactly **one policy**.
 - Within that policy, you can define role bindings to regulate access control on a deployment level.
-- **Warning:** Deleting a deployment will delete all its data and backups. This operation is irreversible.
+{% hint 'warning' %}
+**Explicit warning:** Deleting a deployment will delete all its data and backups. This operation is irreversible.
+{% endhint %}
 
 ## Members
 
