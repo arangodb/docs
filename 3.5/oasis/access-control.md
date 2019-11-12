@@ -5,6 +5,8 @@ title: Access control in ArangoDB Oasis
 ---
 # Access control in ArangoDB Oasis
 
+_Note_: You can also view the [support video on access control](https://www.youtube.com/watch?v=nhg1Y39JZF8&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=7&t=0s).
+
 This guide explains which access control concepts are available in
 ArangoDB Oasis (short Oasis) and how to use them.
 
