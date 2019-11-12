@@ -7,7 +7,7 @@ title: Getting Started with ArangoDB Oasis
 
 The instructions below are a quick start guide on how to set up your first ArangoDB deployment in Oasis.
 
-Additionally, you can also view the [ArangoDB Oasis Guide videos](https://www.youtube.com/playlist?list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS){:target="_blank"}.
+Additionally, you can also view the [ArangoDB Oasis support videos](https://www.youtube.com/playlist?list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS){:target="_blank"}.
 
 ## Prerequisites
 
@@ -80,7 +80,7 @@ _Note_: You can also view the [support video on deployments](https://www.youtube
 3. In the _CA Certificate_ field  
     - Either create a new certificate by typing the desired name for it and hitting enter or clicking on the name when done.
     - Or, if you already have certificates, select the desired one.
-4. _Optional:_ In the _IP whitelist_ field, select the desired one in case you want to limit access to your deployment to certain IP ranges. To create a whitelist, navigate to your project and select the _IP whitelists_ tab. 
+4. _Optional:_ In the _IP whitelist_ field, select the desired one in case you want to limit access to your deployment to certain IP ranges. To create a whitelist, navigate to your project and select the _IP whitelists_ tab. See also [support video on IP whitelists](https://www.youtube.com/watch?v=Et6nlTHBI50&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=6&t=0s){:target="_blank"}. 
 
 #### In the _Configuration_ section
 
