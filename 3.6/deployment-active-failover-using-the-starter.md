@@ -34,6 +34,10 @@ arangodb --starter.local --starter.mode=activefailover --starter.data-dir=./loca
 
 Please adapt the path to your _secret_ file accordingly.
 
+Note that to avoid unnecessary failovers, it may make sense to increase the value
+for the startup option `--agents.agency.supervision-grace-period` to a value
+beyond 30 seconds.
+
 **Note:** When you restart the _Starter_, it remembers the original `--starter.local` flag.
 
 Multiple Machines
@@ -49,6 +53,10 @@ arangodb --starter.mode=activefailover --starter.data-dir=./data --auth.jwt-secr
 ```
 
 Please adapt the path to your _secret_ file accordingly.
+
+Note that to avoid unnecessary failovers, it may make sense to increase the value
+for the startup option `--agents.agency.supervision-grace-period` to a value
+beyond 30 seconds.
 
 Run the above command on machine A, B & C.
 
@@ -80,6 +88,10 @@ docker run -it --name=adb --rm -p 8528:8528 \
 ```
 
 Run the above command on machine A, B & C.
+
+Note that to avoid unnecessary failovers, it may make sense to increase the value
+for the startup option `--agents.agency.supervision-grace-period` to a value
+beyond 30 seconds.
 
 The _Starter_ will decide on which 2 machines to run a single server instance.
 To override this decision (only valid while bootstrapping), add a
