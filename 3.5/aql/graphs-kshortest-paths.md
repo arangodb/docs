@@ -20,6 +20,8 @@ Every such path will be returned as a JSON object with three components:
 
 If no *weightAttribute* is given, the weight of the path is just its length.
 
+{% include youtube.html id="XdITulJFdVo" %}
+
 **Example**
 
 Let us take a look at a simple example to explain how it works.

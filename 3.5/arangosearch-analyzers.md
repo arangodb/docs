@@ -26,6 +26,8 @@ indexes, to be able to rank results for instance.
 Analyzers can be managed via an [HTTP API](http/analyzers.html) and through
 a [JavaScript module](appendix-java-script-modules-analyzers.html).
 
+{% include youtube.html id="tbOTYL26reg" %}
+
 Value Handling
 --------------
 
