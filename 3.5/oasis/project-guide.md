@@ -15,7 +15,7 @@ In the general hierarchy, organizations are a container for projects.
 
 ### Creating a new organization
 
-_Note_: You can also view the [support video on organizations](https://www.youtube.com/watch?v=raQPpCyrRtY&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=3&t=0s).
+_Note_: You can also view the [support video on organizations](https://www.youtube.com/watch?v=raQPpCyrRtY&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=3&t=0s){:target="_blank"}.
 
 1. In the upper right hand corner click the _User_ icon
 2. From the drop-down menu that appears, click the _My organizations_ link.
@@ -32,7 +32,7 @@ _Note_: You can also view the [support video on organizations](https://www.youtu
 
 ## Projects
 
-_Note_: You can also view the [support video on projects](https://www.youtube.com/watch?v=b7q-PdLEpug&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=4&t=0s).
+_Note_: You can also view the [support video on projects](https://www.youtube.com/watch?v=b7q-PdLEpug&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=4&t=0s){:target="_blank"}.
 
 Below organizations in the Oasis deployment hierarchy are projects. They can represent organizational units such as teams, product groups, environments (e.g. staging vs. production). You can have any number of projects under one organization.
 
@@ -56,7 +56,7 @@ In essence, you can create whatever structure fits you for a given organization,
 
 ## Deployments
 
-_Note_: You can also view the [support video on deployments](https://www.youtube.com/watch?v=yg2FfcNsKFc&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=9&t=0s).
+_Note_: You can also view the [support video on deployments](https://www.youtube.com/watch?v=yg2FfcNsKFc&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=9&t=0s){:target="_blank"}.
 
 Below projects in the Oasis deployment hierarchy are deployments. A deployment contains an ArangoDB, configured as you choose. You can have any number of deployments under one project.
 
@@ -84,7 +84,7 @@ Members are a list of users that can access an organization.
 
 ### Adding a new member to the organization
 
-_Note_: You can also view the [support video on organization invites](https://www.youtube.com/watch?v=lqGgmuNHRQQ&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=8&t=0s).
+_Note_: You can also view the [support video on organization invites](https://www.youtube.com/watch?v=lqGgmuNHRQQ&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=8&t=0s){:target="_blank"}.
 
 * See: [Organization invites](#organization-invites)
 
@@ -142,7 +142,7 @@ A role is a set of permissions. Roles can then be bound to groups (preferably) o
 
 ### Creating a new organization invite
 
-_Note_: You can also view the [support video on organization invites](https://www.youtube.com/watch?v=lqGgmuNHRQQ&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=8&t=0s).
+_Note_: You can also view the [support video on organization invites](https://www.youtube.com/watch?v=lqGgmuNHRQQ&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=8&t=0s){:target="_blank"}.
 
 1. In the main navigation, in the _Organization_ section, click on _Invites_.
 2. Press the _New organization invite_ button.
@@ -157,7 +157,7 @@ _Note_: You can also view the [support video on organization invites](https://ww
 
 ## Policy
 
-_Note_: You can also view the [support video on access control, policy and role bindings](https://www.youtube.com/watch?v=nhg1Y39JZF8&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=7&t=0s).
+_Note_: You can also view the [support video on access control, policy and role bindings](https://www.youtube.com/watch?v=nhg1Y39JZF8&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=7&t=0s){:target="_blank"}.
 
 A policy is a set of bindings that binds roles to groups or individual members.
 

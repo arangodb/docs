@@ -7,7 +7,7 @@ title: Getting Started with ArangoDB Oasis
 
 The instructions below are a quick start guide on how to set up your first ArangoDB deployment in Oasis.
 
-Additionally, you can also view the [ArangoDB Oasis Guide videos](https://www.youtube.com/playlist?list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS).
+Additionally, you can also view the [ArangoDB Oasis Guide videos](https://www.youtube.com/playlist?list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS){:target="_blank"}.
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ One mobile phone number will be associated with one account and cannot be used f
 
 ## Creating a new account
 
-1. Go to [cloud.arangodb.com](https://cloud.arangodb.com).
+1. Go to [cloud.arangodb.com](https://cloud.arangodb.com){:target="_blank"}.
 2. To reach the sign up, press the _Sign up for free_ button or click the _Sign Up_ link in the header navigation of the start page.
 3. Once on the sign up page, select the _Sign up_ tab.
 4. Select the type of sign up you would like to use (GitHub, Google, or email address).
@@ -51,7 +51,7 @@ For a more detailed description, see the [Project Guide](./project-guide.html).
 
 ## Creating a new project
 
-_Note_: You can also view the [support video on projects](https://www.youtube.com/watch?v=b7q-PdLEpug&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=4&t=0s).
+_Note_: You can also view the [support video on projects](https://www.youtube.com/watch?v=b7q-PdLEpug&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=4&t=0s){:target="_blank"}.
 
 1. In the main navigation, in the _Projects_ section, click the _Overview_ link.
 2. Click the _New project_ button.
@@ -61,7 +61,7 @@ _Note_: You can also view the [support video on projects](https://www.youtube.co
 
 ## Creating a new deployment
 
-_Note_: You can also view the [support video on deployments](https://www.youtube.com/watch?v=yg2FfcNsKFc&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=9&t=0s).
+_Note_: You can also view the [support video on deployments](https://www.youtube.com/watch?v=yg2FfcNsKFc&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=9&t=0s){:target="_blank"}.
 
 1. If you don't have a project, yet, [create one first](#creating-a-new-project).
 2. In the main navigation, in the _Projects_ section, click on the project for which you want to create a new deployment.
@@ -108,7 +108,7 @@ Sharded deployments are suitable when your data set is larger than a single node
 
 ## Installing a new certificate
 
-_Note_: You can also view the [support video on certificates](https://www.youtube.com/watch?v=TBU7TIvewV0&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=5&t=0s).
+_Note_: You can also view the [support video on certificates](https://www.youtube.com/watch?v=TBU7TIvewV0&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=5&t=0s){:target="_blank"}.
 
 Each certificate you create in ArangoDB Oasis you will also need to install on your local machine. This operation will slightly vary between operating systems.
 
