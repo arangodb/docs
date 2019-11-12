@@ -7,10 +7,10 @@ page-toc:
 ---
 ![ArangoDB Oasis Logo](../images/arangodb-oasis-logo-right.svg){: .center-image style="width: 66%; margin-bottom: 80px;"}
 
-The [ArangoDB Oasis](https://cloud.arangodb.com/){:target="_blank"} Managed Service provides ArangoDB databases as
-a Service. It enables you to use the entire functionality
-of an ArangoDB database without the need to run or manage the
-database yourself.
+The [ArangoDB Oasis](https://cloud.arangodb.com/){:target="_blank"}
+Managed Service provides ArangoDB databases as a Service (DBaaS).
+It enables you to use the entire functionality of an ArangoDB database without
+the need to run or manage the database yourself.
 
 The ArangoDB Managed Service...
 
