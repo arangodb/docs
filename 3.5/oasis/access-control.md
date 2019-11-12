@@ -26,7 +26,7 @@ For example, you can *create* a project in an organization.
 ## Permissions
 
 Each operation (invoked on a resource) requires zero or more *permissions*.
-A permission is a constant string such as "resourcemanager.project.create".
+A permission is a constant string such as `resourcemanager.project.create.
 Permissions are defined in the Oasis API and are constant.
 
 ## Users, groups & members
