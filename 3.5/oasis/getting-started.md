@@ -154,6 +154,8 @@ At this point your ArangoDB deployment is available for you to use &mdash; **Hav
 4. Navigate to the _Danger zone_ tab.
 5. Press the _Delete deployment_ button.
 6. In the modal dialog, confirm the deletion by entering `Delete!` into the designated text field.  
-   **Note**: This operation cannot be undone and **all deployment data will be lost**, please proceed with caution.
+   {% hint 'warning' %}
+   This operation cannot be undone and **all deployment data will be lost**, please proceed with caution.
+   {% endhint %}
 7. Start the deletion by pressing the _Yes_ button.  
 8. You will be taken back to the deployments page of the project. The deployment being deleted will display the _Deleting_ status until it has been successfully removed.
