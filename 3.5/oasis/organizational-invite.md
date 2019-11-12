@@ -26,6 +26,8 @@ Also see the video
 8. After accepting the invite the person will be added to the organization
    members.
 
+![Oasis Organization Invites](../images/oasis-pending-invite.png)
+
 On the _Invites_ page you can also see the status of all pending, accepted and
 rejected invites that have been created.
 
@@ -43,6 +45,8 @@ rejected invites that have been created.
 
 1. Once invited, the person will receive an email with a link asking to join
    your ArangoDB Oasis organization.
+
+   ![Oasis Organization Invite Email](../images/oasis-org-invite-email.png)
 2. After the confirmation link is clicked, the person will be asked to log in
    or to create a new account.
 3. To sign up for a new account, the person should click the

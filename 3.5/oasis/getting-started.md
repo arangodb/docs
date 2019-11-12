@@ -77,6 +77,8 @@ Also see the [Project Guide](./project-guide.html).
 4. Click the _Create_ button.
 5. You will now be taken to the project summary page.
 
+![Oasis New Project](../images/oasis-new-project.png)
+
 Also see the video
 [Projects with ArangoDB Oasis](https://www.youtube.com/watch?v=b7q-PdLEpug&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=4&t=0s){:target="_blank"}.
 
@@ -86,6 +88,8 @@ Also see the video
 2. In the main navigation, in the _Projects_ section, click on the project for which you want to create a new deployment.
 3. Navigate to the _Deployments_ tab. You will see an empty list or a list with your project's deployments.
 4. Press the _New deployment_ button.
+
+![Oasis Deployments](../images/oasis-deployments-page.png)
 
 Also see the video
 [Create a Deployment on ArangoDB Oasis](https://www.youtube.com/watch?v=yg2FfcNsKFc&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=9&t=0s){:target="_blank"}.
@@ -110,6 +114,8 @@ Also see the video
    (also see the video
    [IP Whitelists with ArangoDB Oasis](https://www.youtube.com/watch?v=Et6nlTHBI50&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=6&t=0s){:target="_blank"}).
 
+![Oasis New Deployment](../images/oasis-new-deployment1.png)
+
 ### In the _Configuration_ section
 
 Choose between a **One shard** and **Sharded** deployment.
@@ -124,7 +130,9 @@ The data will be sharded across multiple nodes.
 
 1. Select the memory size of your node.
 2. Select the disk size of your node. The available ranges for the disk size
-  depend on the selected memory size.
+   depend on the selected memory size.
+
+![Oasis Deployment One Shard](../images/oasis-new-deployment2.png)
 
 #### Sharded
 
@@ -133,6 +141,8 @@ The data will be sharded across multiple nodes.
   the replication factor.
 - If you're unsure about the sharded setup, you can go through our wizard.
   Click on _Help me decide_ to open the recommendation process.
+
+![Oasis Deployment Sharded](../images/oasis-new-deployment3-sharded.png)
 
 ### In the _Summary_ section
 
@@ -148,9 +158,15 @@ Each certificate you create in ArangoDB Oasis you will also need to install on y
 
 1. In the main navigation, in the _Projects_ section, click on the project for which you want to install a new certificate.
 2. Navigate to the _Certificates_ tab.
+
+   ![Oasis Certificates](../images/oasis-cert-page-with-cert-present.png)
+
 3. From the list of certificates, click on the one you want to install.
 4. Navigate to the tab of the operating system of your choice.
 5. Under _Installation instructions_, copy the commands by pressing the _Copy to clipboard_ button.
+
+   ![Oasis Certificate Install Instructions](../images/oasis-cert-install-instructions.png)
+
 6. Open a console on your local computer and run the commands that are provided.
 
 Also see the video

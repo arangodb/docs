@@ -16,6 +16,8 @@ company division, institution or non-profit organization.
 
 In the general hierarchy, organizations are a container for projects.
 
+![Oasis My Organizations](../images/oasis-my-organizations.png)
+
 ### Creating a new organization
 
 1. In the upper right hand corner click the _User_ icon.
@@ -24,6 +26,8 @@ In the general hierarchy, organizations are a container for projects.
 4. To create a new organization, press the _New organization_ button.
 5. To edit the name or description of an existing organization, in the action
    column click the _Edit_ icon (the pad of paper with pencil).
+
+![Oasis New Organization](../images/oasis-new-org.png)
 
 Also see the video
 [Organizations with ArangoDB Oasis](https://www.youtube.com/watch?v=raQPpCyrRtY&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=3&t=0s){:target="_blank"}.
@@ -54,6 +58,8 @@ number of deployment under one project.
 In essence, you can create whatever structure fits you for a given organization,
 its projects and deployments.
 
+![Oasis Projects Overview](../images/oasis-projects-overview.png)
+
 Also see the video
 [Projects with ArangoDB Oasis](https://www.youtube.com/watch?v=b7q-PdLEpug&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=4&t=0s){:target="_blank"}.
 
@@ -62,8 +68,13 @@ Also see the video
 1. In the main navigation, in the _Projects_ section, click the _Overview_ link.
 2. Click the _New project_ button.
 3. Enter a name and optional description for your new project.
+
+   ![Oasis New Project](../images/oasis-new-project.png)
+
 4. Click the _Create_ button.
 5. You will now be taken to the project summary page.
+
+   ![Oasis Project Summary](../images/oasis-project-summary.png)
 
 ### Notes
 
@@ -88,6 +99,8 @@ you can define.
 In essence, you can create whatever structure fits you for a given organization,
 its projects and deployments.
 
+![Oasis Deployments](../images/oasis-deployments-page.png)
+
 Also see the video
 [Create a Deployment on ArangoDB Oasis](https://www.youtube.com/watch?v=yg2FfcNsKFc&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=9&t=0s){:target="_blank"}.
 
@@ -100,6 +113,8 @@ Also see the video
    your project's deployments.
 4. Press the _New deployment_ button.
 5. Set up your deployment (see [Getting Started](./getting-started.html#creating-a-new-deployment)).
+
+![Oasis New Deployment](../images/oasis-new-deployment1.png)
 
 ### Notes
 
@@ -115,6 +130,8 @@ This operation is **irreversible**.
 ## Members
 
 Members are a list of users that can access an organization.
+
+![Oasis Member Access Control](../images/oasis-access-control-members.png)
 
 ### Adding a new member to the organization
 
@@ -141,6 +158,8 @@ Also see the video
 A group is a defined set of members. Groups can then be bound to roles. These
 bindings contribute to the respective organization, project or deployment policy.
 
+![Oasis Groups](../images/oasis-groups-with-new-group-added.png)
+
 ### Creating a new group
 
 1. In the main navigation, in the _Access Control_ section, click on _Groups_.
@@ -148,6 +167,8 @@ bindings contribute to the respective organization, project or deployment policy
 3. Enter a name and optional description for your new group.
 4. Select the members you want to be part of the group.
 5. Press the _Create_ button.
+
+![Oasis New Group](../images/oasis-new-group.png)
 
 ### Viewing and managing the members of an existing group
 
@@ -160,6 +181,8 @@ A role is a set of permissions. Roles can then be bound to groups (preferably)
 or individual members. These bindings contribute to the respective organization,
 project or deployment policy.
 
+![Oasis Roles](../images/oasis-access-control-roles.png)
+
 ### Creating a new role
 
 1. In the main navigation, in the _Access Control_ section, click on _Roles_.
@@ -167,6 +190,8 @@ project or deployment policy.
 3. Enter a name and optional description for your new role.
 4. Select the permissions you want to assign to your new role.
 5. Press the _Create_ button.
+
+![Oasis New Role](../images/oasis-create-role.png)
 
 ### Viewing or managing an existing role
 
@@ -192,6 +217,10 @@ project or deployment policy.
 6. After accepting the invite the person will be added to the organization
    [members](#members).
 
+![Oasis New Organization Invite](../images/oasis-pending-invite.png)
+
+See [Organizational Invite](./organizational-invite.html) for details.
+
 Also see the video
 [Invite Members to an ArangoDB Oasis Organization](https://www.youtube.com/watch?v=lqGgmuNHRQQ&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=8&t=0s){:target="_blank"}.
 
@@ -203,6 +232,8 @@ Also see the video
 ## Policy
 
 A policy is a set of bindings that binds roles to groups or individual members.
+
+![Oasis Policy Page](../images/oasis-policy-page.png)
 
 Also see the video
 [Access Control with ArangoDB Oasis](https://www.youtube.com/watch?v=nhg1Y39JZF8&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=7&t=0s){:target="_blank"}.
@@ -258,6 +289,8 @@ Deployment Z of project B                  | ✓ | — | —
 3. Select the members or groups to bind to a role.
 4. Select the roles that you want to bind to the specified members and groups.
 5. Press the _Create_ button.
+
+![Oasis New Role Binding](../images/oasis-new-policy-role-binding.png)
 
 ### Viewing or managing the role bindings of a policy
 
