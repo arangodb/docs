@@ -218,22 +218,22 @@ deployment Z of project B|&#10003;|&mdash;|&mdash;
 
 These are predefined roles that already provide a specific set of permissions for performing specific functions or operations.
 
-- CA Certificate Administrator (`cacertificate-admin`)
-- CA Certificate Viewer (`cacertificate-viewer`)
-- Deployment Administrator (`deployment-admin`)
-- Deployment Viewer (`deployment-viewer`)
-- Group Administrator (`group-admin`)
-- Group Viewer (`group-viewer`)
-- IP whitelist Administrator (`ipwhitelist-admin`)  
-- IP whitelist Viewer (`ipwhitelist-viewer`)
-- Organization Administrator (`organization-admin`)
-- Organization Viewer (`organization-viewer`)
-- Policy Administrator (`policy-admin`)
-- Policy Viewer (`policy-viewer`)
-- Project Administrator (`project-admin`)
-- Project Viewer (`project-viewer`)
-- Role Administrator (`role-admin`) 
-- Role Viewer (`role-viewer`)
+- CA Certificate Administrator `cacertificate-admin`
+- CA Certificate Viewer `cacertificate-viewer`
+- Deployment Administrator `deployment-admin`
+- Deployment Viewer `deployment-viewer`
+- Group Administrator `group-admin`
+- Group Viewer `group-viewer`
+- IP whitelist Administrator `ipwhitelist-admin`  
+- IP whitelist Viewer `ipwhitelist-viewer`
+- Organization Administrator `organization-admin`
+- Organization Viewer `organization-viewer`
+- Policy Administrator `policy-admin`
+- Policy Viewer `policy-viewer`
+- Project Administrator `project-admin`
+- Project Viewer `project-viewer`
+- Role Administrator `role-admin` 
+- Role Viewer `role-viewer`
 
 ## Reference: ArangoDB Oasis Site Hierarchy
 
