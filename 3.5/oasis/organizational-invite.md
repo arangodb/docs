@@ -45,8 +45,6 @@ rejected invites that have been created.
 
 1. Once invited, the person will receive an email with a link asking to join
    your ArangoDB Oasis organization.
-
-   ![Oasis Organization Invite Email](../images/oasis-org-invite-email.png)
 2. After the confirmation link is clicked, the person will be asked to log in
    or to create a new account.
 3. To sign up for a new account, the person should click the
@@ -58,3 +56,5 @@ rejected invites that have been created.
 7. After accepting the invite, the person becomes a member of your organization
    and will be granted access to the organization and its related projects and
    deployments.
+
+![Oasis Organization Invite Email](../images/oasis-org-invite-email.png)
