@@ -27,3 +27,6 @@ The ArangoDB Managed Service...
 
 - guarantees that your data always remains your property and
   access to it is protected with industry standard safeguards.
+
+For more information see
+[arangodb.com/managed-service/](https://www.arangodb.com/managed-service/){:target="_blank"}

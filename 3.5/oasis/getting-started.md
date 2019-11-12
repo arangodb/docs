@@ -1,11 +1,21 @@
 ---
 layout: default
 description: Quick start guide on how to set up your first ArangoDB deployment in Oasis.
-title: Getting Started with ArgangoDB Oasis
+title: Getting Started with ArangoDB Oasis
 ---
 # Getting Started with ArangoDB Oasis
 
-The instructions below are a quick start guide on how to set up your first ArangoDB deployment in Oasis.
+The instructions below are a quick start guide on how to set up your first
+ArangoDB deployment in Oasis. It covers everything from creating an account
+to using the Oasis web interface to set up a test organization, project and
+deployment, as well as accessing and deleting the deployment.
+
+For general information about ArangoDB Oasis, see
+[arangodb.com/managed-service/](https://www.arangodb.com/managed-service/){:target="_blank"}.
+
+A video guide on how to get started with Oasis is also available:
+
+{% include youtube-playlist.html id="PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS" %}
 
 ## Prerequisites
 
