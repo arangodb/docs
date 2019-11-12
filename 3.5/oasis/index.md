@@ -3,9 +3,11 @@ layout: default
 description: Oasis provides the entire functionality of ArangoDB as a service, without the need to run or manage databases yourself.
 title: ArangoDB Oasis - Managed Service
 ---
-# ArangoDB Oasis - Managed Service
+![ArangoDB Oasis Logo](../images/arangodb-oasis-logo-right.svg){: .center-image style="width: 66%; margin-bottom: 100px;"}
 
-The ArangoDB Managed Service provides ArangoDB databases as
+# ArangoDB Oasis — Managed Service
+
+The [ArangoDB Oasis](https://cloud.arangodb.com/){:target="_blank"} Managed Service provides ArangoDB databases as
 a Service. It enables you to use the entire functionality
 of an ArangoDB database without the need to run or manage the
 database yourself.
