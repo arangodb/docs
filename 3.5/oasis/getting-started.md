@@ -139,10 +139,17 @@ The data will be sharded across multiple nodes.
 - In addition to memory and disk size as in the one shard configuration, select
   the number of nodes for your deployment. The more nodes you have, the higher
   the replication factor.
+  
+![Oasis Deployment Sharded](../images/oasis-new-deployment3-sharded.png)  
+  
 - If you're unsure about the sharded setup, you can go through our wizard.
   Click on _Help me decide_ to open the recommendation process.
 
-![Oasis Deployment Sharded](../images/oasis-new-deployment3-sharded.png)
+![Oasis Deployment Sharded](../images/oasis-new-deployment3-sharded-wizard.png)
+
+- The wizard will guide you through a set of questions and display a 
+  recommendation.
+- Click _Use recommendation_ to apply it to your sharded configuration.
 
 ### In the _Summary_ section
 
