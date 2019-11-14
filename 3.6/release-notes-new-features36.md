@@ -204,6 +204,7 @@ exclusive and therefore avoids write-write conflicts. This option was introduced
 a way to upgrade from MMFiles to RocksDB storage engine without modifying client application code.
 Otherwise it should best be avoided as the use of exclusive locks on collections will
 introduce a noticeable throughput penalty.
+The option may be removed in a future ArangoDB release.
 
 TLS v1.3
 --------
