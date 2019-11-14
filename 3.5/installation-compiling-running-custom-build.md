@@ -7,20 +7,17 @@ redirect_from:
 Running a custom build
 ======================
 
-Problem
--------
+Once you built a custom version of ArangoDB (see [Compiling](compiling.html)),
+you may want to run it using existing data or possibly in isolation from an
+existing installation.
 
-You've already built a custom version of ArangoDB and want to run it. Possibly in isolation from an existing installation or you may want to re-use the data.
+We assumes that you are in the root directory of the ArangoDB distribution
+and compiling has successfully finished.
 
-Solution
---------
+Note that this guide is for Linux only.
 
-First, you need to build your own version of ArangoDB. If you haven't done so
-already, have a look at any of the [Compiling](compiling.html) recipes.
-
-This recipe assumes you're in the root directory of the ArangoDB distribution and compiling has successfully finished.
-
-### Running in isolation
+Running in isolation
+--------------------
 
 This part shows how to run your custom build with an empty database directory
 
@@ -34,7 +31,8 @@ bin/arangod \
      --database.directory /tmp/arangodb
 ```
 
-### Running with data
+Running with data
+-----------------
 
 This part shows how to run your custom build with the config and data from a pre-existing stable installation.
 
@@ -59,7 +57,3 @@ su
 su - arangod
 bin/arangod --configuration /etc/arangodb/arangod.conf
 ```
-
-**Author:** [Patrick Huber](https://github.com/stackmagic){:target="_blank"}
-
-**Tags:** #build

@@ -411,7 +411,6 @@ FOR name IN Names
 
 {%- comment %}
 Rename to Error Sources?
-Include article about parameter injection from cookbook?
 
 Quote marks around bind parameter placeholders
 https://github.com/arangodb/arangodb/issues/1634#issuecomment-167808660

@@ -10,16 +10,23 @@ How to add XML data to ArangoDB?
 Problem
 -------
 
-You want to store XML data files into a database to have the ability to make queries onto them.
+You want to store XML data files into a database to have the ability to make
+queries onto them.
 
-**Note**: ArangoDB 3.1 and the corresponding Java driver is needed.
+{% hint 'info' %}
+This example was written for and tested with ArangoDB 3.1 and the corresponding
+Java driver.
+{% endhint %}
+
 
 Solution
 --------
 
-Since version 3.1.0 the arangodb-java-driver supports writing, reading and querying of raw strings containing the JSON documents.
+Since version 3.1.0 the arangodb-java-driver supports writing, reading and
+querying of raw strings containing the JSON documents.
 
-With [JsonML](http://www.jsonml.org/){:target="_blank"} you can convert a XML string into a JSON string and back to XML again.
+With [JsonML](http://www.jsonml.org/){:target="_blank"} you can convert a XML
+string into a JSON string and back to XML again.
 
 Converting XML into JSON with JsonML example:
 
@@ -184,7 +191,8 @@ Example output:
 </recipe>
 ```
 
-**Note:** The [fields mandatory to ArangoDB documents](../data-modeling-documents-document-address.html) are added; If they break your XML schema you have to remove them.
+**Note:** The [fields mandatory to ArangoDB documents](../data-modeling-documents-document-address.html)
+are added; If they break your XML schema you have to remove them.
 
 Query raw data example:
 
@@ -206,9 +214,3 @@ More documentation about the ArangoDB Java driver is available:
 - [Tutorial: Java in ten minutes](https://www.arangodb.com/tutorials/tutorial-sync-java-driver/){:target="_blank"}
 - [Java driver at Github](https://github.com/arangodb/arangodb-java-driver){:target="_blank"}
 - [Example source code](https://github.com/arangodb/arangodb-java-driver/tree/master/src/test/java/com/arangodb/example){:target="_blank"}
-- [JavaDoc](http://arangodb.github.io/arangodb-java-driver/javadoc-4_1/index.html){:target="_blank"}
-
-**Author**: [Achim Brandt](https://github.com/a-brandt){:target="_blank"},
-  [Mark Vollmary](https://github.com/mpv1989){:target="_blank"}
-
-**Tags**: #java #driver

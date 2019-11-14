@@ -3,6 +3,7 @@ layout: default
 description: The user management in ArangoDB 3 is similar to the ones found in MySQL, PostgreSQL, or other database systems
 redirect_from:
   - /3.5/cookbook/administration-show-users-grants.html # 3.5 -> 3.5
+  - /3.5/cookbook/administration-authentication.html # 3.5 -> 3.5
 ---
 Managing Users
 ==============

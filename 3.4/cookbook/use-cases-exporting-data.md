@@ -1,6 +1,8 @@
 ---
 layout: default
 description: In this recipe we will learn how to use the export API to extract data and process it with PHP
+redirect_from:
+  - /3.5/cookbook/use-cases-exporting-data.html # 3.5 -> 3.5
 ---
 Exporting Data for Offline Processing
 =====================================
