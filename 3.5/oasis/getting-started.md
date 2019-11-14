@@ -250,7 +250,7 @@ please proceed with caution.
    The deployment being deleted will display the _Deleting_ status until it has
    been successfully removed.
 
- ## Free-to-try vs. professional service
+## Free-to-try vs. professional service
 
 ArangoDB Oasis comes with a free-to-try plan that lets you test our managed 
 service for free for 14 days. After the trial period, your deployments will
