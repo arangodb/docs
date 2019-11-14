@@ -57,6 +57,34 @@ used for multiple accounts.
    it later.
 10. You're done and you should be redirected to the
    [ArangoDB Oasis dashboard](https://cloud.arangodb.com/dashboard){:target="_blank"}.
+   
+## Free-to-try vs. professional service
+
+ArangoDB Oasis comes with a free-to-try plan that lets you test our managed 
+service for free for 14 days. After the trial period, your deployments will
+automatically be deleted. You can convert to the professional service model
+at any time by adding your billing details and at least one payment method.
+
+### Adding billing details
+
+1. In the main navigation, in the _Organization_ section, click the _Overview_ link.
+1. Navigate to the _Billing_ tab.
+1. In the _Billing details_ section, click the _Edit_ button.
+1. Enter your billing address and EU VAT identification number, if applicable.
+1. Optionally, enter the email adress(es) to which invoices should be emailed 
+automatically
+
+![Oasis Billing Details](../images/oasis-billing-details.png)
+
+### Adding a payment method
+
+1. In the _Payment methods_ section, click the _Add_ button.
+1. From the dropdown, select a payment type (currently, only credit card
+is supported).
+1. Enter your credit card details in the form.
+1. Click the _Save_ button.
+
+![Oasis Payment Method](../images/oasis-add-payment-method-credit-card.png)
 
 ## General hierarchy
 
