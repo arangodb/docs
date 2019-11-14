@@ -30,11 +30,11 @@ The documentation is organized in five handbooks:
   that is used to communicate with clients. In general, the HTTP handbook will be
   of interest to driver developers. If you use any of the existing drivers for
   the language of your choice, you can skip this handbook.
-- Our [Cookbook](../cookbook/) with recipes for specific problems and
-  solutions.
 - The [Driver handbook](../drivers/) includes the documentation of the
   available official ArangoDB drivers and integrations, and an overview of the community
   drivers.
+- The [ArangoDB Oasis handbook](../oasis/) guides you through the user interface
+  of our managed service.
 
 Features are illustrated with interactive usage examples; you can cut'n'paste them
 into [arangosh](programs-arangosh.html) to try them out. The HTTP
