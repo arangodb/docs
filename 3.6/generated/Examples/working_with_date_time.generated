@@ -5,23 +5,23 @@ arangosh&gt; <span class="hljs-keyword">for</span> (i = <span class="hljs-number
 arangosh&gt; db._query(<span class="hljs-string">"FOR d IN exampleTime FILTER d.ts &gt; '2014-05-07T14:19:09.522' and d.ts &lt; '2014-05-08T18:19:09.522' RETURN d"</span>).toArray()
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88825"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"exampleTime/88825"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiWES--A"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88824"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"exampleTime/88824"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZadPS--A"</span>, 
     <span class="hljs-string">"value"</span> : <span class="hljs-number">1</span>, 
     <span class="hljs-string">"ts"</span> : <span class="hljs-string">"2014-05-07T21:19:09.522"</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88827"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"exampleTime/88827"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiWES--C"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88826"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"exampleTime/88826"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZadPW---"</span>, 
     <span class="hljs-string">"value"</span> : <span class="hljs-number">2</span>, 
     <span class="hljs-string">"ts"</span> : <span class="hljs-string">"2014-05-08T04:19:09.522"</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88829"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"exampleTime/88829"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiWES--E"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88828"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"exampleTime/88828"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZadPW--A"</span>, 
     <span class="hljs-string">"value"</span> : <span class="hljs-number">3</span>, 
     <span class="hljs-string">"ts"</span> : <span class="hljs-string">"2014-05-08T11:19:09.522"</span> 
   } 

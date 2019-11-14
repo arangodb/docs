@@ -5,7 +5,6 @@
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> OK
-keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
 
@@ -35,6 +34,33 @@ content-type: application/json
           <span class="hljs-string">"name"</span>, 
           <span class="hljs-string">"id"</span> 
         ], 
+        <span class="hljs-string">"filter"</span> : { 
+          <span class="hljs-string">"type"</span> : <span class="hljs-string">"compare =="</span>, 
+          <span class="hljs-string">"typeID"</span> : <span class="hljs-number">25</span>, 
+          <span class="hljs-string">"excludesNull"</span> : <span class="hljs-literal">false</span>, 
+          <span class="hljs-string">"subNodes"</span> : [ 
+            { 
+              <span class="hljs-string">"type"</span> : <span class="hljs-string">"attribute access"</span>, 
+              <span class="hljs-string">"typeID"</span> : <span class="hljs-number">35</span>, 
+              <span class="hljs-string">"name"</span> : <span class="hljs-string">"id"</span>, 
+              <span class="hljs-string">"subNodes"</span> : [ 
+                { 
+                  <span class="hljs-string">"type"</span> : <span class="hljs-string">"reference"</span>, 
+                  <span class="hljs-string">"typeID"</span> : <span class="hljs-number">45</span>, 
+                  <span class="hljs-string">"name"</span> : <span class="hljs-string">"p"</span>, 
+                  <span class="hljs-string">"id"</span> : <span class="hljs-number">0</span> 
+                } 
+              ] 
+            }, 
+            { 
+              <span class="hljs-string">"type"</span> : <span class="hljs-string">"value"</span>, 
+              <span class="hljs-string">"typeID"</span> : <span class="hljs-number">40</span>, 
+              <span class="hljs-string">"value"</span> : <span class="hljs-number">4</span>, 
+              <span class="hljs-string">"vType"</span> : <span class="hljs-string">"int"</span>, 
+              <span class="hljs-string">"vTypeID"</span> : <span class="hljs-number">2</span> 
+            } 
+          ] 
+        }, 
         <span class="hljs-string">"producesResult"</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">"database"</span> : <span class="hljs-string">"_system"</span>, 
         <span class="hljs-string">"collection"</span> : <span class="hljs-string">"products"</span>, 
@@ -46,7 +72,7 @@ content-type: application/json
           { 
             <span class="hljs-string">"id"</span> : <span class="hljs-string">"70095"</span>, 
             <span class="hljs-string">"type"</span> : <span class="hljs-string">"skiplist"</span>, 
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1648341942098984962"</span>, 
+            <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1649564055558422530"</span>, 
             <span class="hljs-string">"fields"</span> : [ 
               <span class="hljs-string">"id"</span> 
             ], 
@@ -102,67 +128,12 @@ content-type: application/json
         <span class="hljs-string">"limit"</span> : <span class="hljs-number">0</span> 
       }, 
       { 
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"CalculationNode"</span>, 
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"LimitNode"</span>, 
         <span class="hljs-string">"dependencies"</span> : [ 
           <span class="hljs-number">11</span> 
         ], 
-        <span class="hljs-string">"id"</span> : <span class="hljs-number">4</span>, 
-        <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">5.3719280948873624</span>, 
-        <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">1</span>, 
-        <span class="hljs-string">"expression"</span> : { 
-          <span class="hljs-string">"type"</span> : <span class="hljs-string">"compare =="</span>, 
-          <span class="hljs-string">"typeID"</span> : <span class="hljs-number">25</span>, 
-          <span class="hljs-string">"excludesNull"</span> : <span class="hljs-literal">false</span>, 
-          <span class="hljs-string">"subNodes"</span> : [ 
-            { 
-              <span class="hljs-string">"type"</span> : <span class="hljs-string">"attribute access"</span>, 
-              <span class="hljs-string">"typeID"</span> : <span class="hljs-number">35</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"id"</span>, 
-              <span class="hljs-string">"subNodes"</span> : [ 
-                { 
-                  <span class="hljs-string">"type"</span> : <span class="hljs-string">"reference"</span>, 
-                  <span class="hljs-string">"typeID"</span> : <span class="hljs-number">45</span>, 
-                  <span class="hljs-string">"name"</span> : <span class="hljs-string">"p"</span>, 
-                  <span class="hljs-string">"id"</span> : <span class="hljs-number">0</span> 
-                } 
-              ] 
-            }, 
-            { 
-              <span class="hljs-string">"type"</span> : <span class="hljs-string">"value"</span>, 
-              <span class="hljs-string">"typeID"</span> : <span class="hljs-number">40</span>, 
-              <span class="hljs-string">"value"</span> : <span class="hljs-number">4</span>, 
-              <span class="hljs-string">"vType"</span> : <span class="hljs-string">"int"</span>, 
-              <span class="hljs-string">"vTypeID"</span> : <span class="hljs-number">2</span> 
-            } 
-          ] 
-        }, 
-        <span class="hljs-string">"outVariable"</span> : { 
-          <span class="hljs-string">"id"</span> : <span class="hljs-number">4</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"3"</span> 
-        }, 
-        <span class="hljs-string">"canThrow"</span> : <span class="hljs-literal">false</span>, 
-        <span class="hljs-string">"expressionType"</span> : <span class="hljs-string">"simple"</span> 
-      }, 
-      { 
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"FilterNode"</span>, 
-        <span class="hljs-string">"dependencies"</span> : [ 
-          <span class="hljs-number">4</span> 
-        ], 
-        <span class="hljs-string">"id"</span> : <span class="hljs-number">5</span>, 
-        <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">6.3719280948873624</span>, 
-        <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">1</span>, 
-        <span class="hljs-string">"inVariable"</span> : { 
-          <span class="hljs-string">"id"</span> : <span class="hljs-number">4</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"3"</span> 
-        } 
-      }, 
-      { 
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"LimitNode"</span>, 
-        <span class="hljs-string">"dependencies"</span> : [ 
-          <span class="hljs-number">5</span> 
-        ], 
         <span class="hljs-string">"id"</span> : <span class="hljs-number">9</span>, 
-        <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">7.3719280948873624</span>, 
+        <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">5.3719280948873624</span>, 
         <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"offset"</span> : <span class="hljs-number">0</span>, 
         <span class="hljs-string">"limit"</span> : <span class="hljs-number">1</span>, 
@@ -174,7 +145,7 @@ content-type: application/json
           <span class="hljs-number">9</span> 
         ], 
         <span class="hljs-string">"id"</span> : <span class="hljs-number">6</span>, 
-        <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">8.371928094887362</span>, 
+        <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">6.3719280948873624</span>, 
         <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"expression"</span> : { 
           <span class="hljs-string">"type"</span> : <span class="hljs-string">"attribute access"</span>, 
@@ -202,7 +173,7 @@ content-type: application/json
           <span class="hljs-number">6</span> 
         ], 
         <span class="hljs-string">"id"</span> : <span class="hljs-number">10</span>, 
-        <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">9.371928094887362</span>, 
+        <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">7.3719280948873624</span>, 
         <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"inVariable"</span> : { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">2</span>, 
@@ -220,7 +191,8 @@ content-type: application/json
       <span class="hljs-string">"use-index-for-sort"</span>, 
       <span class="hljs-string">"remove-unnecessary-calculations-2"</span>, 
       <span class="hljs-string">"move-calculations-down"</span>, 
-      <span class="hljs-string">"reduce-extraction-to-projection"</span> 
+      <span class="hljs-string">"reduce-extraction-to-projection"</span>, 
+      <span class="hljs-string">"move-filters-into-enumerate"</span> 
     ], 
     <span class="hljs-string">"collections"</span> : [ 
       { 
@@ -250,15 +222,15 @@ content-type: application/json
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"p"</span> 
       } 
     ], 
-    <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">9.371928094887362</span>, 
+    <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">7.3719280948873624</span>, 
     <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">1</span>, 
     <span class="hljs-string">"isModificationQuery"</span> : <span class="hljs-literal">false</span> 
   }, 
   <span class="hljs-string">"cacheable"</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">"warnings"</span> : [ ], 
   <span class="hljs-string">"stats"</span> : { 
-    <span class="hljs-string">"rulesExecuted"</span> : <span class="hljs-number">37</span>, 
-    <span class="hljs-string">"rulesSkipped"</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">"rulesExecuted"</span> : <span class="hljs-number">39</span>, 
+    <span class="hljs-string">"rulesSkipped"</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">"plansCreated"</span> : <span class="hljs-number">1</span> 
   }, 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 

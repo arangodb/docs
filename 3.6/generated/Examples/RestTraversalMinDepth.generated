@@ -8,7 +8,6 @@
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> OK
-keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
 
@@ -19,13 +18,13 @@ content-type: application/json
         { 
           <span class="hljs-string">"_key"</span> : <span class="hljs-string">"charlie"</span>, 
           <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/charlie"</span>, 
-          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPmi---"</span>, 
+          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVuO---"</span>, 
           <span class="hljs-string">"name"</span> : <span class="hljs-string">"Charlie"</span> 
         }, 
         { 
           <span class="hljs-string">"_key"</span> : <span class="hljs-string">"dave"</span>, 
           <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/dave"</span>, 
-          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPmi--A"</span>, 
+          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVuO--A"</span>, 
           <span class="hljs-string">"name"</span> : <span class="hljs-string">"Dave"</span> 
         } 
       ], 
@@ -37,7 +36,7 @@ content-type: application/json
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/71751"</span>, 
               <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/alice"</span>, 
               <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPmi--E"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVuS---"</span>, 
               <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
             }, 
             { 
@@ -45,7 +44,7 @@ content-type: application/json
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/71753"</span>, 
               <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/bob"</span>, 
               <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/charlie"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPmm---"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVuS--A"</span>, 
               <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"bob"</span> 
             } 
           ], 
@@ -53,19 +52,19 @@ content-type: application/json
             { 
               <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPme---"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVuK---"</span>, 
               <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
             }, 
             { 
               <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPme--A"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVuK--A"</span>, 
               <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
             }, 
             { 
               <span class="hljs-string">"_key"</span> : <span class="hljs-string">"charlie"</span>, 
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/charlie"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPmi---"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVuO---"</span>, 
               <span class="hljs-string">"name"</span> : <span class="hljs-string">"Charlie"</span> 
             } 
           ] 
@@ -77,7 +76,7 @@ content-type: application/json
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/71751"</span>, 
               <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/alice"</span>, 
               <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPmi--E"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVuS---"</span>, 
               <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
             }, 
             { 
@@ -85,7 +84,7 @@ content-type: application/json
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/71755"</span>, 
               <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/bob"</span>, 
               <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/dave"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPmm--A"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVuW---"</span>, 
               <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"bob"</span> 
             } 
           ], 
@@ -93,19 +92,19 @@ content-type: application/json
             { 
               <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPme---"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVuK---"</span>, 
               <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
             }, 
             { 
               <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPme--A"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVuK--A"</span>, 
               <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
             }, 
             { 
               <span class="hljs-string">"_key"</span> : <span class="hljs-string">"dave"</span>, 
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/dave"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPmi--A"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVuO--A"</span>, 
               <span class="hljs-string">"name"</span> : <span class="hljs-string">"Dave"</span> 
             } 
           ] 

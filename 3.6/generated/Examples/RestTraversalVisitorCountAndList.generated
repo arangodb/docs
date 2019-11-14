@@ -9,7 +9,6 @@
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> OK
-keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
 
@@ -20,25 +19,25 @@ content-type: application/json
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPq----"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVyy---"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPq---A"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVyy--A"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"charlie"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/charlie"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPq---C"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVy2---"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Charlie"</span> 
       }, 
       { 
         <span class="hljs-string">"_key"</span> : <span class="hljs-string">"dave"</span>, 
         <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/dave"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiPq---E"</span>, 
+        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVy2--A"</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"Dave"</span> 
       } 
     ] 

@@ -1,22 +1,21 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_admin/statistics</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
 
 { 
-  <span class="hljs-string">"time"</span> : <span class="hljs-number">1571981337.8318598</span>, 
+  <span class="hljs-string">"time"</span> : <span class="hljs-number">1573146834.1362963</span>, 
   <span class="hljs-string">"enabled"</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">"system"</span> : { 
-    <span class="hljs-string">"minorPageFaults"</span> : <span class="hljs-number">66607</span>, 
+    <span class="hljs-string">"minorPageFaults"</span> : <span class="hljs-number">60678</span>, 
     <span class="hljs-string">"majorPageFaults"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"userTime"</span> : <span class="hljs-number">4.97</span>, 
-    <span class="hljs-string">"systemTime"</span> : <span class="hljs-number">1.8</span>, 
-    <span class="hljs-string">"numberOfThreads"</span> : <span class="hljs-number">58</span>, 
-    <span class="hljs-string">"residentSize"</span> : <span class="hljs-number">246910976</span>, 
-    <span class="hljs-string">"residentSizePercent"</span> : <span class="hljs-number">0.001826811505242556</span>, 
-    <span class="hljs-string">"virtualSize"</span> : <span class="hljs-number">1334919168</span> 
+    <span class="hljs-string">"userTime"</span> : <span class="hljs-number">5.98</span>, 
+    <span class="hljs-string">"systemTime"</span> : <span class="hljs-number">2.34</span>, 
+    <span class="hljs-string">"numberOfThreads"</span> : <span class="hljs-number">59</span>, 
+    <span class="hljs-string">"residentSize"</span> : <span class="hljs-number">231534592</span>, 
+    <span class="hljs-string">"residentSizePercent"</span> : <span class="hljs-number">0.003429443330491996</span>, 
+    <span class="hljs-string">"virtualSize"</span> : <span class="hljs-number">1329524736</span> 
   }, 
   <span class="hljs-string">"client"</span> : { 
     <span class="hljs-string">"httpConnections"</span> : <span class="hljs-number">2</span>, 
@@ -120,8 +119,8 @@ content-type: application/json
     <span class="hljs-string">"requestsOther"</span> : <span class="hljs-number">0</span> 
   }, 
   <span class="hljs-string">"server"</span> : { 
-    <span class="hljs-string">"uptime"</span> : <span class="hljs-number">13.033684253692627</span>, 
-    <span class="hljs-string">"physicalMemory"</span> : <span class="hljs-number">135159525376</span>, 
+    <span class="hljs-string">"uptime"</span> : <span class="hljs-number">14.931507349014282</span>, 
+    <span class="hljs-string">"physicalMemory"</span> : <span class="hljs-number">67513753600</span>, 
     <span class="hljs-string">"transactions"</span> : { 
       <span class="hljs-string">"started"</span> : <span class="hljs-number">35073</span>, 
       <span class="hljs-string">"aborted"</span> : <span class="hljs-number">290</span>, 
@@ -137,16 +136,9 @@ content-type: application/json
       <span class="hljs-string">"memory"</span> : [ 
         { 
           <span class="hljs-string">"contextId"</span> : <span class="hljs-number">0</span>, 
-          <span class="hljs-string">"tMax"</span> : <span class="hljs-number">1571981325.571322</span>, 
+          <span class="hljs-string">"tMax"</span> : <span class="hljs-number">1573146820.3179238</span>, 
           <span class="hljs-string">"countOfTimes"</span> : <span class="hljs-number">8</span>, 
-          <span class="hljs-string">"heapMax"</span> : <span class="hljs-number">15003480</span>, 
-          <span class="hljs-string">"heapMin"</span> : <span class="hljs-number">0</span> 
-        }, 
-        { 
-          <span class="hljs-string">"contextId"</span> : <span class="hljs-number">1</span>, 
-          <span class="hljs-string">"tMax"</span> : <span class="hljs-number">1571981337.3952198</span>, 
-          <span class="hljs-string">"countOfTimes"</span> : <span class="hljs-number">7</span>, 
-          <span class="hljs-string">"heapMax"</span> : <span class="hljs-number">13973640</span>, 
+          <span class="hljs-string">"heapMax"</span> : <span class="hljs-number">15006440</span>, 
           <span class="hljs-string">"heapMin"</span> : <span class="hljs-number">0</span> 
         } 
       ] 

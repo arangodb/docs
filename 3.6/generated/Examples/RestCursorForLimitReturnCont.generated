@@ -9,22 +9,21 @@ EOF
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/cursor/69553</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
 
 { 
   <span class="hljs-string">"result"</span> : [ 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69547"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69547"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiKP---E"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69546"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69546"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaQ----C"</span>, 
       <span class="hljs-string">"hello3"</span> : <span class="hljs-string">"world1"</span> 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69549"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69549"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZeDiKPC---"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69548"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69548"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaQ-C---"</span>, 
       <span class="hljs-string">"hello4"</span> : <span class="hljs-string">"world1"</span> 
     } 
   ], 
@@ -39,7 +38,7 @@ content-type: application/json
       <span class="hljs-string">"scannedIndex"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00013184547424316406</span>, 
+      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00017142295837402344</span>, 
       <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">2583</span> 
     }, 
     <span class="hljs-string">"warnings"</span> : [ ] 

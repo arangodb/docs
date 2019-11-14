@@ -300,16 +300,16 @@ Optimization in a cluster
 -------------------------
 
 When you're running AQL in the cluster, the parsing of the query is done on the
-coordinator. The coordinator then chops the query into snipets, which are to
+coordinator. The coordinator then chops the query into snippets, which are to
 remain on the coordinator, and others that are to be distributed over the network
 to the shards. The cutting sites are interconnected via *Scatter-*, *Gather-* and *RemoteNodes*.
 
 These nodes mark the network borders of the snippets. The optimizer strives to reduce the amount
-of data transfered via these network interfaces by pushing `FILTER`s out to the shards,
+of data transferred via these network interfaces by pushing `FILTER`s out to the shards,
 as it is vital to the query performance to reduce that data amount to transfer over the
 network links.
 
-Snippets marked with **DBS** are executed on the shards, **COOR** ones are excuted on the coordinator.
+Snippets marked with **DBS** are executed on the shards, **COOR** ones are executed on the coordinator.
 
 **As usual, the optimizer can only take certain assumptions for granted when doing so,
 i.e. [user-defined functions have to be executed on the coordinator](extending.html).
