@@ -91,7 +91,7 @@ Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
 Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text
--------------------|----------|---------|-----------|------|------|-----
+:------------------|:---------|:--------|:----------|:-----|:-----|:----
 **Tokenization**   | No       | No      | (Yes)     | No   | No   | Yes
 **Stemming**       | No       | No      | No        | Yes  | No   | Yes
 **Normalization**  | No       | No      | No        | No   | Yes  | Yes
