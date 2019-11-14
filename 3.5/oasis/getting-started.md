@@ -132,7 +132,7 @@ Also see the video
 2. Select the _DB Version_.
    **Note**: If you don't know which DB version to select, leave the version
    selected by default.
-3. In the _CA Certificate_ field  
+3. In the _CA Certificate_ field
     - Either create a new certificate by typing the desired name for it and
       hitting enter or clicking on the name when done.
     - Or, if you already have certificates, select the desired one.
@@ -167,15 +167,15 @@ The data will be sharded across multiple nodes.
 - In addition to memory and disk size as in the one shard configuration, select
   the number of nodes for your deployment. The more nodes you have, the higher
   the replication factor.
-  
-![Oasis Deployment Sharded](../images/oasis-new-deployment3-sharded.png)  
-  
+
+![Oasis Deployment Sharded](../images/oasis-new-deployment3-sharded.png)
+
 - If you're unsure about the sharded setup, you can go through our wizard.
   Click on _Help me decide_ to open the recommendation process.
 
 ![Oasis Deployment Sharded](../images/oasis-new-deployment3-sharded-wizard.png)
 
-- The wizard will guide you through a set of questions and display a 
+- The wizard will guide you through a set of questions and display a
   recommendation.
 - Click _Use recommendation_ to apply it to your sharded configuration.
 

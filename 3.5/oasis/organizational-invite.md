@@ -1,7 +1,7 @@
 ---
 layout: default
 description: How to invite persons and how to accept invitations to Oasis organizations
-title: Invite person to organization in ArangoDB Oasis  
+title: Invite person to organization in ArangoDB Oasis
 ---
 # Inviting persons to your ArangoDB Oasis organization.
 
