@@ -21,6 +21,8 @@ All date strings without a timezone offset will be interpreted as UTC dates.
 Documents will count as expired when wall clock time is beyond the per-document 
 reference point in time value plus the index' `expireAfter` value added to it. 
 
+{% include youtube.html id="L944_JcC2uw" %}
+
 ### Removing documents at a fixed period after creation / update
 
 One use case supported by TTL indexes is to remove documents at a fixed duration
