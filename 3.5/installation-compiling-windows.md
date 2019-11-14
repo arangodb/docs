@@ -11,7 +11,7 @@ Compiling ArangoDB under Windows
 This guide describes how to compile ArangoDB 3.4 and onwards under Windows.
 
 **Note:** If you want to compile version 3.3 or earlier, then look at the
-[Compiling ArangoDB under Windows](../../2.8/cookbook/compiling-under-windows.html)
+[Compiling ArangoDB under Windows](../2.8/cookbook/compiling-under-windows.html)
 recipe in the 3.3 documentation.
 
 Install chocolatey
@@ -179,7 +179,7 @@ right click on `This PC` in the tree on the left, choose `Properties` in the ope
 in the Popup `Environment Variables`, another popup opens, in the `System Variables` part you click `New`, 
 And variable name: `ICU_DATA` to the value: `c:\\Windows`
 
-![HowtoSetEnv](../images/SetEnvironmentVar.png)
+![HowtoSetEnv](images/SetEnvironmentVar.png)
 
 #### Running Unit tests
 

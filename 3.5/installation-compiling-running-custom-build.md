@@ -7,9 +7,9 @@ redirect_from:
 Running a custom build
 ======================
 
-Once you built a custom version of ArangoDB (see [Compiling](compiling.html)),
-you may want to run it using existing data or possibly in isolation from an
-existing installation.
+Once you built a custom version of ArangoDB (see
+[Compiling](installation-compiling.html)), you may want to run it using
+existing data or possibly in isolation from an existing installation.
 
 We assumes that you are in the root directory of the ArangoDB distribution
 and compiling has successfully finished.
@@ -39,8 +39,8 @@ This part shows how to run your custom build with the config and data from a pre
 {% hint 'danger' %}
 ArangoDB's developers may change the db file format and after running with a
 changed file format, there may be no way back. Alternatively you can run your
-build in isolation and [dump](../programs-arangodump.html) and
-[restore](../programs-arangorestore.html) the data from the
+build in isolation and [dump](programs-arangodump.html) and
+[restore](programs-arangorestore.html) the data from the
 stable to your custom build.
 {% endhint %}
 

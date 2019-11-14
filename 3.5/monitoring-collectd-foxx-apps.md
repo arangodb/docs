@@ -140,7 +140,3 @@ third_values    value:GAUGE:U:U
 fourth_values    value:GAUGE:U:U
 fifth_values    value:GAUGE:U:U
 ```
-
-**Author:** [Wilfried Goesgens](https://github.com/dothebart){:target="_blank"}
-
-**Tags:** #monitoring #foxx #json

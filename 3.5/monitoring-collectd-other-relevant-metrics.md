@@ -137,7 +137,3 @@ If you already run [Nagios](http://www.nagios.org){:target="_blank"} you can use
 [Nagios tool](https://collectd.org/documentation/manpages/collectd-nagios.1.shtml){:target="_blank"} to submit values.
 
 We hope you now have a good overview of whats possible, but as usual its a good idea to browse the [Fine Manual](https://collectd.org/documentation.shtml){:target="_blank"}.
-
-**Author:** [Wilfried Goesgens](https://github.com/dothebart){:target="_blank"}
-
-**Tags:**  #monitoring
