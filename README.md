@@ -261,6 +261,11 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
     target does not exist --- docs/page2.html --> target.html
   ...
   ```
+  or
+  ```
+  docs/page.html
+    target is a directory, no index --- docs/page.html --> /docs/newfolder/
+  ```
 
   If you get dozens of these errors for the same target, then you likely forgot
   to add a frontmatter to that page (`docs/target.md`):
@@ -288,6 +293,22 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
   Look at the generated `.html` file if in doubt. A `redirect_from` frontmatter
   might be bad (e.g. wrong version number in path) and accidentally overwrite
   a page, removing the original content and links.
+
+- ```
+  Configuration file: none
+              Source: /path/to/docs/3.5
+         Destination: /path/to/docs/3.5/_site
+   Incremental build: disabled. Enable with --incremental
+        Generating...
+       Build Warning: Layout 'default' requested in subfolder/page.md does not exist.
+       Build Warning: Layout 'default' requested in other.md does not exist.
+    Liquid Exception: Liquid syntax error (line 11): Unknown tag 'docublock' in
+  ```
+
+  Warnings and exceptions like above show if you try to run Jekyll from a
+  subfolder. Change your working directory to the root folder of the working
+  copy (`/path/to/docs`).
+
 
 ## CI/Netlify
 

@@ -311,7 +311,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 33253030912,
+    "default" : 16341567488,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -2259,7 +2259,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "log destination(s)",
+    "description" : "log destination(s), e.g. file:///path/to/file (Linux, macOS) or file://C:\\path\\to\\file (Windows)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -2779,7 +2779,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 39903637094,
+    "default" : 19609880985,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -3258,7 +3258,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 53204849459,
+    "default" : 26146507980,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -3727,7 +3727,7 @@
   },
   "server.prio1-size" : {
     "category" : "option",
-    "default" : 1048576,
+    "default" : 4096,
     "deprecatedIn" : null,
     "description" : "size of the priority 1 fifo",
     "dynamic" : false,
@@ -3755,7 +3755,7 @@
   },
   "server.scheduler-queue-size" : {
     "category" : "option",
-    "default" : 128,
+    "default" : 4096,
     "deprecatedIn" : null,
     "description" : "number of simultaneously queued requests inside the scheduler",
     "dynamic" : false,
