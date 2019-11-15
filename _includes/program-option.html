@@ -15,7 +15,7 @@ Also see [{{ section[0]|capitalize }} details](programs-{{ include.name }}-{{ se
 {%- if option[1].enterpriseOnly -%}
 *Enterprise Edition only*<br>
 {%- endif -%}
-{{option[1].description|slice: 0|upcase}}{{ option[1].description|slice: 1,999999999 -}}
+{{option[1].description | upcase_first -}}
 {%- if option[1].requiresValue != true and option[1].category != "command" -%}
 <br/>This option can be specified without value to enable it.
 {%- endif -%}

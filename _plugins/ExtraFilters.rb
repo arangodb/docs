@@ -1,6 +1,11 @@
 module Jekyll
     module ExtraFilters
 
+        def upcase_first(input)
+            return nil if !input.is_a? String
+            input[0].upcase + input[1..-1]
+        end
+
         # Substitute last occurrence of string (no regexp support)
         def replace_last(input, string, replacement = '')
             input_s = input.to_s
