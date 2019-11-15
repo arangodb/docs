@@ -33,6 +33,8 @@ The documentation is organized in five handbooks:
 - The [Driver handbook](drivers/) includes the documentation of the
   available official ArangoDB drivers and integrations, and an overview of the community
   drivers.
+- The [ArangoDB Oasis handbook](oasis/) guides you through the user interface
+  of our managed service to set up organizations, projects and deployments.
 
 Features are illustrated with interactive usage examples; you can cut'n'paste them
 into [arangosh](programs-arangosh.html) to try them out. The HTTP
