@@ -51,17 +51,17 @@ ArangoDB is a native multi-model, open-source database with flexible data models
 
 Key features include:
 
-* Installing ArangoDB on a [**cluster**](deployment.html) is as easy as installing an app on your mobile
-* [**Flexible data modeling**](data-modeling.html): model your data as combination of key-value pairs, documents or graphs - perfect for social relations
-* [**Powerful query language**](aql/) (AQL) to retrieve and modify data 
-* Use ArangoDB as an [**application server**](foxx.html) and fuse your application and database together for maximal throughput
-* [**Transactions**](transactions.html): run queries on multiple documents or collections with optional transactional consistency and isolation
-* [**Replication** and **Sharding**](administration.html): set up the database in a master-slave configuration or spread bigger datasets across multiple servers
-* Configurable **durability**: let the application decide if it needs more durability or more performance
-* No-nonsense storage: ArangoDB uses all of the power of **modern storage hardware**, like SSD and large caches
-* JavaScript for all: **no language zoo**, you can use one language from your browser to your back-end
-* ArangoDB can be easily deployed as a [**fault-tolerant distributed state machine**](deployment-standalone-agency.html), which can serve as the animal brain of distributed appliances
-* It is **open source** (Apache License 2.0)
+- Installing ArangoDB on a [**cluster**](deployment.html) is as easy as installing an app on your mobile
+- [**Flexible data modeling**](data-modeling.html): model your data as combination of key-value pairs, documents or graphs - perfect for social relations
+- [**Powerful query language**](aql/) (AQL) to retrieve and modify data 
+- Use ArangoDB as an [**application server**](foxx.html) and fuse your application and database together for maximal throughput
+- [**Transactions**](transactions.html): run queries on multiple documents or collections with optional transactional consistency and isolation
+- [**Replication** and **Sharding**](administration.html): set up the database in a master-slave configuration or spread bigger datasets across multiple servers
+- Configurable **durability**: let the application decide if it needs more durability or more performance
+- No-nonsense storage: ArangoDB uses all of the power of **modern storage hardware**, like SSD and large caches
+- JavaScript for all: **no language zoo**, you can use one language from your browser to your back-end
+- ArangoDB can be easily deployed as a [**fault-tolerant distributed state machine**](deployment-standalone-agency.html), which can serve as the animal brain of distributed appliances
+- It is **open source** (Apache License 2.0)
 
 Community
 ---------
