@@ -121,6 +121,8 @@ false for the initial startup and only turned on for restarts.
 
 ## Upgrade
 
+<small>Introduced in: v3.6.0</small>
+
 Toggle cluster upgrade mode on a coordinator:
 
 `--cluster.upgrade <string>`
@@ -136,8 +138,6 @@ The following values can be used for the options:
 
 The default value is `auto`. The option only affects coordinators. It does not have
 any affect on single servers, agents or database servers.
-
-<small>Introduced in: v3.6.0</small>
 
 ## More advanced options
 
