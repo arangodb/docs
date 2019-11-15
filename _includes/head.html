@@ -5,7 +5,7 @@
 {%- assign navvar = page.dir | navvar %}
 <title>{% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %} | ArangoDB Documentation</title>
 <meta itemprop="description" name="description" content="{% if page.description %}{{ page.description | truncate: 160 }}{% else %}{{ site.description | truncate: 160  }}{% endif %}" />
-<meta name="robots" content="{% if page.version.tag == "devel" %}noindex, nofollow{% else %}index, follow{% endif %}" />
+<meta name="robots" content="{% if page.version.tag == "devel" or site.data.deprecations contains page.version.version %}noindex, nofollow{% else %}index, follow{% endif %}" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta property="og:url" content="{{ page.canonical | absolute_url }}" />
 <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %} | ArangoDB Documentation" />
