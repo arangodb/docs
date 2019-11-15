@@ -36,7 +36,7 @@ Startup options
 
 The following startup options have been added in ArangoDB 3.6:
 
-* `--cluster.force-one-shard`:
+- `--cluster.force-one-shard`:
 
   When set to `true`, forces the cluster into creating all future collections with 
   only a single shard and using the same database server as these collections' 
@@ -46,7 +46,7 @@ The following startup options have been added in ArangoDB 3.6:
 
   Note: this option only has an effect in the *Enterprise Edition* of ArangoDB.
 
-* `--cluster.write-concern`: default minimum number of copies of data for new 
+- `--cluster.write-concern`: default minimum number of copies of data for new 
   collections required for the collection to be considered "in sync". If a 
   collection has less in-sync copies than specified by this value, the collection 
   will turn into read-only mode until enough copies are created.
@@ -55,32 +55,32 @@ The following startup options have been added in ArangoDB 3.6:
   The default value for this option is `1`. The value must be smaller or equal compared 
   to the replication factor. 
 
-* `--cluster.upgrade`: toggles the cluster upgrade mode for coordinators. It supports
+- `--cluster.upgrade`: toggles the cluster upgrade mode for coordinators. It supports
   the following values:
 
-  * `auto`: perform a cluster upgrade and shut down afterwards if the startup option
+  - `auto`: perform a cluster upgrade and shut down afterwards if the startup option
     `--database.auto-upgrade` is set to true. Otherwise, don't perform an upgrade.
-  * `disable`: never perform a cluster upgrade, regardless of the value of `--database.auto-upgrade`.
-  * `force`: always perform a cluster upgrade and shut down, regardless of the value of
+  - `disable`: never perform a cluster upgrade, regardless of the value of `--database.auto-upgrade`.
+  - `force`: always perform a cluster upgrade and shut down, regardless of the value of
     `--database.auto-upgrade`.
-  * `online`: always perform a cluster upgrade but don't shut down afterwards
+  - `online`: always perform a cluster upgrade but don't shut down afterwards
 
   The default value is `auto`. The option only affects coordinators. It does not have
   any affect on single servers, agents or database servers.
 
-* `--network.idle-connection-ttl`: default time-to-live for idle cluster-internal 
+- `--network.idle-connection-ttl`: default time-to-live for idle cluster-internal 
   connections (in milliseconds). The default value is `60000`.
 
-* `--network.io-threads`: number of I/O threads for cluster-internal network requests.
+- `--network.io-threads`: number of I/O threads for cluster-internal network requests.
   The default value is `2`.
 
-* `--network.max-open-connections`: maximum number of open network connections for
+- `--network.max-open-connections`: maximum number of open network connections for
   cluster-internal requests. The default value is `1024`.
 
-* `--network.verify-hosts`: if set to `true`, this will verify peer certificates for
+- `--network.verify-hosts`: if set to `true`, this will verify peer certificates for
   cluster-internal requests when TLS is used. The default value is `false`.
 
-* `--rocksdb.exclusive-writes`: if set to `true` all write operations to the RocksDB
+- `--rocksdb.exclusive-writes`: if set to `true` all write operations to the RocksDB
   storage engine are serialized on a per-collection level. This serialization of writes
   prevents write-write conflicts from occurring, providing the same write operation
   isolation as the MMFiles engine. As a downside, using this option will effectively
@@ -91,7 +91,7 @@ The following startup options have been added in ArangoDB 3.6:
 
 The following startup options have been augmented in ArangoDB 3.6:
 
-* `--ssl.protocol`: in addition to the possible values supported by this option
+- `--ssl.protocol`: in addition to the possible values supported by this option
   in ArangoDB 3.5, there is now an extra value `9` for "generic TLS" connections.
   Using this value will make the client and the server negotiate the best possible
   mutually supported TLS protocol version.
@@ -105,26 +105,24 @@ The following startup options have been augmented in ArangoDB 3.6:
 
 The following startup options have been removed in ArangoDB 3.6:
 
-* `--vst.maxsize`: this option was used in previous versions to control the maximum 
+- `--vst.maxsize`: this option was used in previous versions to control the maximum 
   size (in bytes) of VelocyPack chunks when using the VelocyStream (VST) protocol.
   This is now handled automatically by the server and does not need any configuration.
 
-
-HTTP REST API
--------------
+HTTP API
+--------
 
 The following APIs have been added:
 
-* Database properties API, HTTP GET `/_api/database/properties`
+- Database properties API, HTTP GET `/_api/database/properties`
 
   The new database properties API provides the attributes `replicationFactor`, 
   `minReplicationFactor` and `sharding`. A description of these attributes can be found 
   below.
 
-
 The following APIs have been expanded:
 
-* Database creation API, HTTP POST `/_api/database`
+- Database creation API, HTTP POST `/_api/database`
 
   The database creation API now handles the `replicationFactor`, `minReplicationFactor` 
   and `sharding` attributes. All these attributes are optional, and only meaningful
@@ -136,10 +134,9 @@ The following APIs have been expanded:
   defaults for new collections in the database. The values can still be adjusted per 
   collection when creating new collections in that database via the web UI, the arangosh 
   or drivers.
- 
+
   In an Enterprise Edition cluster, the `sharding` attribute can be given a value of 
   "single", which will make all new collections in that database use the same shard 
   distribution and use one shard by default. This can still be overridden by setting the 
   values of `distributeShardsLike` when creating new collections in that database via 
   the web UI, the arangosh or drivers. 
-
