@@ -1,13 +1,12 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/applier-stop</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
 
 { 
   <span class="hljs-string">"state"</span> : { 
-    <span class="hljs-string">"started"</span> : <span class="hljs-string">"2019-10-09T13:41:42Z"</span>, 
+    <span class="hljs-string">"started"</span> : <span class="hljs-string">"2019-11-07T17:14:33Z"</span>, 
     <span class="hljs-string">"running"</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">"phase"</span> : <span class="hljs-string">"inactive"</span>, 
     <span class="hljs-string">"lastAppliedContinuousTick"</span> : <span class="hljs-literal">null</span>, 
@@ -15,7 +14,7 @@ content-type: application/json
     <span class="hljs-string">"lastAvailableContinuousTick"</span> : <span class="hljs-literal">null</span>, 
     <span class="hljs-string">"safeResumeTick"</span> : <span class="hljs-literal">null</span>, 
     <span class="hljs-string">"progress"</span> : { 
-      <span class="hljs-string">"time"</span> : <span class="hljs-string">"2019-10-09T13:41:44Z"</span>, 
+      <span class="hljs-string">"time"</span> : <span class="hljs-string">"2019-11-07T17:14:34Z"</span>, 
       <span class="hljs-string">"message"</span> : <span class="hljs-string">"applier shut down"</span>, 
       <span class="hljs-string">"failedConnects"</span> : <span class="hljs-number">0</span> 
     }, 
@@ -33,11 +32,11 @@ content-type: application/json
     <span class="hljs-string">"lastError"</span> : { 
       <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">0</span> 
     }, 
-    <span class="hljs-string">"time"</span> : <span class="hljs-string">"2019-10-09T13:41:44Z"</span> 
+    <span class="hljs-string">"time"</span> : <span class="hljs-string">"2019-11-07T17:14:34Z"</span> 
   }, 
   <span class="hljs-string">"server"</span> : { 
     <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.6.0-devel"</span>, 
-    <span class="hljs-string">"serverId"</span> : <span class="hljs-string">"85639333486527"</span> 
+    <span class="hljs-string">"serverId"</span> : <span class="hljs-string">"228608655357127"</span> 
   }, 
   <span class="hljs-string">"endpoint"</span> : <span class="hljs-string">"tcp://127.0.0.1:8529"</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"_system"</span> 

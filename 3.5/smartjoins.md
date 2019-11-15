@@ -18,6 +18,8 @@ also available as [**managed service**](https://www.arangodb.com/managed-service
 
 SmartJoins allow to execute co-located join operations among identically sharded collections.
 
+{% include youtube.html id="WGFIEdihRS8" %}
+
 Cluster joins without being smart
 ---------------------------------
 
