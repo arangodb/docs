@@ -12,18 +12,22 @@ Features
 Name                  | Description
 :---------------------|:---------------------
 Active Failover       | Single server instance that is replicated for high availability
+Auditing              | 
 Analyzers             | Analyzers parse input values and transform them into sets of sub-values, for example by breaking up text into words.
 Anonymous Graph       | Anonymous graph does not have edge definitions describing which vertex collection is connected by which edge collection
 AQL                   | ArangoDB query language that can be used to retrieve and modify data stored in ArangoDB database
 ArangoSearch          | A C++ based Full-Text search engine including similarity ranking search capabilities natively integrated into ArangoDB
+Data Masking          | 
 DC2DC                 | Datacenter to datacenter replication
 DirectMQ              | 
 distributeShardsLike  | Used to make two collections shard their data alike
+Encryption at Rest    | 
 Foxx                  | A microservice framework that allows Application developers to write their data access and domain logic as microservices running within the database with native access to in-memory data
 HotBackup             | Ability to take a backup on running servers without the need for downtime _(Enterprise Edition only)_
 Joins                 | Creating AQL Query results from multiple collections
 Native Multi-Model    | 
 Oasis                 | ArangoDB Oasis is the managed service for ArangoDB
+OneShard Cluster      | 
 Satellite Collections | A collection with exactly one shard and is replicated across all DB Servers _(Enterprise Edition only)_
 SmartGraphs           | Partitions graph based on smart attribute where all vertices with the same value are stored on the same physical machine, along with all edges connecting these vertices. _(Enterprise Edition only)_
 SmartJoins            | Allows running joins between two sharded collections with performance close to that of a local join operation. _(Enterprise Edition only)_
@@ -41,6 +45,7 @@ Coordinator           | Component of ArangoDB cluster that coordinate tasks such
 Database              | Database is a set of Collection
 Datacenter            | An ArangoDB cluster in a specific region
 DBServer              | Data storing node in an ArangoDB cluster
+Driver                | 
 Document              | A document is a single record in an ArangoDB collection. It stores data in JSON format. It is comparable to rows in relational database systems.
 Document Collection   | 
 Document Store        | 
@@ -56,6 +61,7 @@ Hash Index            |
 Index                 | 
 JSON                  | 
 Key-Value Store       | 
+LDAP                  | 
 Leader                | Primary copy of the data after replication
 MMFiles               | MMFiles is a storage engine for ArangoDB. MMFiles (Memory-Mapped Files) engine is optimized for the use-case where the data fits into the main memory
 Named Graph           | A named graph has vertex collections and edge collections defining what edges connect what vertices
