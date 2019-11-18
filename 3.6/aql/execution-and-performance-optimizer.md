@@ -579,7 +579,7 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   This optimization is applied after all other optimizations, and reduces
   overhead for executing subqueries. Only suitable subqueries can be spliced.
   A subquery becomes unsuitable if it contains a *LIMIT*, *REMOTE*, *GATHER*
-  or a *COLLECT* node where the operation is not *COUNT*. A subquery *also*
+  or a *COLLECT* node where the operation is *COUNT*. A subquery *also*
   becomes unsuitable if it is contained in an unsuitable subquery.
 
 - `use-index-for-sort`:
