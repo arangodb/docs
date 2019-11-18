@@ -1,3 +1,10 @@
+---
+layout: default
+description: Definitions for important ArangoDB terms
+title: ArangoDB Glossary
+---
+Glossary
+========
 
 Features
 -----
