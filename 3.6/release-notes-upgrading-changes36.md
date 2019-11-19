@@ -30,3 +30,12 @@ above will make the function return `null` and trigger a warning too. Example:
 ```js
 DATE_SUBTRACT("2018-08-22T10:49:00+02:00", 100000, "years") // null
 ```
+
+Startup options
+---------------
+
+The following startup options have been removed in ArangoDB 3.6:
+
+- `--vst.maxsize`: this option was used in previous versions to control the maximum 
+  size (in bytes) of VelocyPack chunks when using the VelocyStream (VST) protocol.
+  This is now handled automatically by the server and does not need any configuration.
