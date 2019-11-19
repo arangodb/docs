@@ -135,8 +135,8 @@ into a set of equal-distance buckets.
 In earlier versions of ArangoDB, on every execution of a subquery the following
 happened for each input row:
 
-    - The subquery tree issues one initializeCursor cascade through all nodes
-    - The subquery node pulls rows until the subquery node is empty for this input
+- The subquery tree issues one initializeCursor cascade through all nodes
+- The subquery node pulls rows until the subquery node is empty for this input
 
 On subqueries with many results per input row (10000 or more) the
 above steps did not contribute significantly to query execution time.
@@ -150,26 +150,25 @@ unsuitable if it is contained in an unsuitable subquery.
 
 Consider the following query to illustrates the difference.
 
-```
-Query String (226 chars, cacheable: true):
- FOR x IN c1
-   LET firstJoin = (
-     FOR y IN c2
-       FILTER y._id == x.c2_id
-     LIMIT 1
-     RETURN y
-   )
-   LET secondJoin = (
-     FOR z IN c3
-       FILTER z.value == x.value
-     RETURN z
-   )
- RETURN {x, firstJoin, secondJoin}
+```js
+FOR x IN c1
+  LET firstJoin = (
+    FOR y IN c2
+      FILTER y._id == x.c2_id
+      LIMIT 1
+      RETURN y
+  )
+  LET secondJoin = (
+    FOR z IN c3
+      FILTER z.value == x.value
+      RETURN z
+  )
+  RETURN { x, firstJoin, secondJoin }
 ```
 
-The execution plan without subquery splicing is as follows, note in particular the `SubqueryNode`s:
+The execution plan **without** subquery splicing:
 
-```
+```js
 Execution plan:
  Id   NodeType                  Est.   Comment
   1   SingletonNode                1   * ROOT
@@ -195,11 +194,12 @@ Optimization rules applied:
   3   remove-unnecessary-calculations-2
 ```
 
-When using the optimizer rule `splice-subqueries` the plan is as follows; The
-first subquery is unsuitable because it contains a `LIMIT` statement, and is
-not spliced, the second subquery is suitable and hence is spliced.
+Note in particular the `SubqueryNode`s, followed by a `SingleNode` in
+both cases.
 
-```
+When using the optimizer rule `splice-subqueries` the plan is as follows:
+
+```js
 Execution plan:
  Id   NodeType                  Est.   Comment
   1   SingletonNode                1   * ROOT
@@ -224,6 +224,13 @@ Optimization rules applied:
   3   remove-unnecessary-calculations-2
   4   splice-subqueries
 ```
+
+The first subquery is unsuitable for the optimization because it contains
+a `LIMIT` statement and is therefore not spliced. The second subquery is
+suitable and hence is spliced – which one can tell from the different node
+type `SubqueryStartNode` (beginning of spliced subquery). Note how it is
+not followed by a `SingletonNode`. The end of the spliced subquery is
+marked by a `SubqueryEndNode`.
 
 ### Miscellaneous AQL changes
 
