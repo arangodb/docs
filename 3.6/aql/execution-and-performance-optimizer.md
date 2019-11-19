@@ -578,8 +578,8 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   will appear when a subquery has been spliced into the surrounding query.
   Only suitable subqueries can be spliced.
   A subquery becomes unsuitable if it contains a *LIMIT*, *REMOTE*, *GATHER*
-  or a *COLLECT* node where the operation is *COUNT*. A subquery *also*
-  becomes unsuitable if it is contained in an unsuitable subquery.
+  or a *COLLECT* node where the operation is *WITH COUNT INTO*. A subquery
+  *also* becomes unsuitable if it is contained in an unsuitable subquery.
   
   This optimization is applied after all other optimizations, and reduces
   overhead for executing subqueries by inlining the execution. This mainly
