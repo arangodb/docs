@@ -224,6 +224,108 @@ compared to previous versions.
 Finally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND` to bin a date/time 
 into a set of equal-distance buckets.
 
+### Subquery Splicing Optimization
+
+In earlier versions of ArangoDB, on every execution of a subquery the following
+happened for each input row:
+
+- The subquery tree issues one initializeCursor cascade through all nodes
+- The subquery node pulls rows until the subquery node is empty for this input
+
+On subqueries with many results per input row (10000 or more) the
+above steps did not contribute significantly to query execution time.
+On subqueries with few results per input, there was a serious performance impact.
+
+Subquery splicing inlines the execution of subqueries using an optimizer rule
+called `splice-subqueries`. Only suitable queries can be spliced.
+A subquery becomes unsuitable if it contains a `LIMIT`, `REMOTE`, `GATHER` or a
+`COLLECT` node where the operation is `WITH COUNT INTO`. A subquery also becomes
+unsuitable if it is contained in an unsuitable subquery.
+
+Consider the following query to illustrates the difference.
+
+```js
+FOR x IN c1
+  LET firstJoin = (
+    FOR y IN c2
+      FILTER y._id == x.c2_id
+      LIMIT 1
+      RETURN y
+  )
+  LET secondJoin = (
+    FOR z IN c3
+      FILTER z.value == x.value
+      RETURN z
+  )
+  RETURN { x, firstJoin, secondJoin }
+```
+
+The execution plan **without** subquery splicing:
+
+```js
+Execution plan:
+ Id   NodeType                  Est.   Comment
+  1   SingletonNode                1   * ROOT
+  2   EnumerateCollectionNode      0     - FOR x IN c1   /* full collection scan */
+  9   SubqueryNode                 0       - LET firstJoin = ...   /* subquery */
+  3   SingletonNode                1         * ROOT
+ 18   IndexNode                    0           - FOR y IN c2   /* primary index scan */    
+  7   LimitNode                    0             - LIMIT 0, 1
+  8   ReturnNode                   0             - RETURN y
+ 15   SubqueryNode                 0       - LET secondJoin = ...   /* subquery */
+ 10   SingletonNode                1         * ROOT
+ 11   EnumerateCollectionNode      0           - FOR z IN c3   /* full collection scan */
+ 12   CalculationNode              0             - LET #11 = (z.`value` == x.`value`)   /* simple expression */   /* collections used: z : c3, x : c1 */
+ 13   FilterNode                   0             - FILTER #11
+ 14   ReturnNode                   0             - RETURN z
+ 16   CalculationNode              0       - LET #13 = { "x" : x, "firstJoin" : firstJoin, "secondJoin" : secondJoin }   /* simple expression */   /* collections used: x : c1 */
+ 17   ReturnNode                   0       - RETURN #13
+
+Optimization rules applied:
+ Id   RuleName
+  1   use-indexes
+  2   remove-filter-covered-by-index
+  3   remove-unnecessary-calculations-2
+```
+
+Note in particular the `SubqueryNode`s, followed by a `SingleNode` in
+both cases.
+
+When using the optimizer rule `splice-subqueries` the plan is as follows:
+
+```js
+Execution plan:
+ Id   NodeType                  Est.   Comment
+  1   SingletonNode                1   * ROOT
+  2   EnumerateCollectionNode      0     - FOR x IN c1   /* full collection scan */
+  9   SubqueryNode                 0       - LET firstJoin = ...   /* subquery */
+  3   SingletonNode                1         * ROOT
+ 18   IndexNode                    0           - FOR y IN c2   /* primary index scan */    
+  7   LimitNode                    0             - LIMIT 0, 1
+  8   ReturnNode                   0             - RETURN y
+ 19   SubqueryStartNode            0       - LET secondJoin = ( /* subquery begin */
+ 11   EnumerateCollectionNode      0         - FOR z IN c3   /* full collection scan */
+ 12   CalculationNode              0           - LET #11 = (z.`value` == x.`value`)   /* simple expression */   /* collections used: z : c3, x : c1 */
+ 13   FilterNode                   0           - FILTER #11
+ 20   SubqueryEndNode              0       - ) /* subquery end */
+ 16   CalculationNode              0       - LET #13 = { "x" : x, "firstJoin" : firstJoin, "secondJoin" : secondJoin }   /* simple expression */   /* collections used: x : c1 */
+ 17   ReturnNode                   0       - RETURN #13
+
+Optimization rules applied:
+ Id   RuleName
+  1   use-indexes
+  2   remove-filter-covered-by-index
+  3   remove-unnecessary-calculations-2
+  4   splice-subqueries
+```
+
+The first subquery is unsuitable for the optimization because it contains
+a `LIMIT` statement and is therefore not spliced. The second subquery is
+suitable and hence is spliced – which one can tell from the different node
+type `SubqueryStartNode` (beginning of spliced subquery). Note how it is
+not followed by a `SingletonNode`. The end of the spliced subquery is
+marked by a `SubqueryEndNode`.
+
 ### Miscellaneous AQL changes
 
 ArangoDB 3.6 provides the following new AQL functionality:
