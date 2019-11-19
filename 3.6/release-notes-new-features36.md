@@ -134,8 +134,10 @@ into a set of equal-distance buckets.
 
 ArangoDB 3.6 provides the following new AQL functionality:
 
-- a function `GEO_AREA()` for area calculations
-- a query option `timeout` to restrict the execution to a given time in seconds
+- a function `GEO_AREA()` for [area calculations](aql/functions-geo.html#geo_area)
+- a [query option](aql/invocation-with-arangosh.html#setting-options) `timeout`
+  to restrict the execution to a given time in seconds. Also see
+  [HTTP API](http/aql-query-cursor-accessing-cursors.html#create-cursor).
 
 HTTP API extensions
 -------------------
