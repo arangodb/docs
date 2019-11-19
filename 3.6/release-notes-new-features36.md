@@ -228,8 +228,37 @@ into a set of equal-distance buckets.
 
 ArangoDB 3.6 provides a new AQL function `GEO_AREA` for area calculations.
 
-HTTP API extensions
--------------------
+HTTP API
+--------
+
+The following APIs have been added:
+
+- Database properties API, HTTP GET `/_api/database/properties`
+
+  The new database properties API provides the attributes `replicationFactor`, 
+  `minReplicationFactor` and `sharding`. A description of these attributes can be found 
+  below.
+
+The following APIs have been expanded:
+
+- Database creation API, HTTP POST `/_api/database`
+
+  The database creation API now handles the `replicationFactor`, `minReplicationFactor` 
+  and `sharding` attributes. All these attributes are optional, and only meaningful
+  in a cluster.
+
+  The values provided for the attributes `replicationFactor` and `minReplicationFactor` 
+  will be used as default values when creating collections in that database, allowing to 
+  omit these attributes when creating collections. However, the values set here are just 
+  defaults for new collections in the database. The values can still be adjusted per 
+  collection when creating new collections in that database via the web UI, the arangosh 
+  or drivers.
+
+  In an Enterprise Edition cluster, the `sharding` attribute can be given a value of 
+  "single", which will make all new collections in that database use the same shard 
+  distribution and use one shard by default. This can still be overridden by setting the 
+  values of `distributeShardsLike` when creating new collections in that database via 
+  the web UI, the arangosh or drivers. 
 
 Web interface
 -------------
@@ -250,10 +279,49 @@ JavaScript
 Client tools
 ------------
 
-Startup option changes
-----------------------
+Startup options
+---------------
 
-### Cluster options
+### OneShard Cluster
+
+{% hint 'info' %}
+This option is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
+
+The option `--cluster.force-one-shard` enables the new OneShard Cluster feature.
+
+When set to `true`, forces the cluster into creating all future collections
+with only a single shard and using the same database server as these collections'
+shards leader. All collections created this way will be eligible for specific AQL
+query optimizations that can improve query performance and provide advanced
+transactional guarantees.
+
+### Cluster upgrade
+
+The new options `--cluster.upgrade` toggles the cluster upgrade mode for
+coordinators. It supports the following values:
+
+- `auto`:
+  perform a cluster upgrade and shut down afterwards if the startup option
+  `--database.auto-upgrade` is set to true. Otherwise, don't perform an upgrade.
+
+- `disable`:
+  never perform a cluster upgrade, regardless of the value of
+  `--database.auto-upgrade`.
+
+- `force`:
+  always perform a cluster upgrade and shut down, regardless of the value of
+  `--database.auto-upgrade`.
+
+- `online`:
+  always perform a cluster upgrade but don't shut down afterwards
+
+The default value is `auto`. The option only affects coordinators. It does not have
+any affect on single servers, agents or database servers.
+
+### Other cluster options
 
 Added startup options to control the minimum and maximum replication factors used for 
 new collections, and the maximum number of shards for new collections.
@@ -262,9 +330,11 @@ The following options have been added:
 
 - `--cluster.max-replication-factor`: maximum replication factor for new collections.
   A value of `0` means that there is no restriction. The default value is `10`.
+
 - `--cluster.min-replication-factor`: minimum replication factor for new collections.
   The default value is `1`. This option can be used to prevent the creation of 
   collections that do not have any or enough replicas.
+
 - `--cluster.write-concern`: default write concern value used for new collections. 
   This option controls the number of replicas that must successfully acknowledge writes
   to a collection. If any write operation gets less acknowledgements than configured
@@ -272,6 +342,7 @@ The following options have been added:
   replicas are available again. The default value is `1`, meaning that writes to just
   the leader are sufficient. To ensure that there is at least one extra copy (i.e. one
   follower), set this option to `2`.
+
 - `--cluster.max-number-of-shards`: maximum number of shards allowed for new collections.
   A value of `0` means that there is no restriction. The default value is `1000`.
 
@@ -279,17 +350,19 @@ Note that the above options only have an effect when set for coordinators, and o
 collections that are created after the options have been set. They do not affect
 already existing collections.
 
-### One shard option
+Furthermore, the following network related options have been added:
 
-{% hint 'info' %}
-This option is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+- `--network.idle-connection-ttl`: default time-to-live for idle cluster-internal 
+  connections (in milliseconds). The default value is `60000`.
 
-The option `--cluster.force-one-shard` will force all new collections to be created with 
-only a single shard, and make all new collections use a similar sharding distribution. 
-The default value for this option is `false`.
+- `--network.io-threads`: number of I/O threads for cluster-internal network requests.
+  The default value is `2`.
+
+- `--network.max-open-connections`: maximum number of open network connections for
+  cluster-internal requests. The default value is `1024`.
+
+- `--network.verify-hosts`: if set to `true`, this will verify peer certificates for
+  cluster-internal requests when TLS is used. The default value is `false`.
 
 ### RocksDB exclusive writes
 
@@ -311,7 +384,6 @@ For example, to turn off the rule `use-indexes-for-sort`, use
 
 The purpose of this startup option is to be able to enable potential future experimental
 optimizer rules, which may be shipped in a disabled-by-default state.
-
 
 TLS v1.3
 --------
