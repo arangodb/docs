@@ -12,7 +12,7 @@ here.
 ArangoSearch
 ------------
 
-ArangoSearch Views are now eligible for SmartJoins in AQL, provided that their
+ArangoSearch views are now eligible for SmartJoins in AQL, provided that their
 underlying collections are eligible too.
 
 AQL
@@ -106,6 +106,97 @@ Indexes used:
   6   idx_1649353982658740224   hash   test         false    false       100.00 %   [ `value1` ]   ((doc.`value1` > 10000) && (doc.`value1` < 30000))
 ```
 
+### Late document materialization
+
+### Parallelization of cluster AQL queries
+
+ArangoDB 3.6 can parallelize work in many cluster AQL queries when there are multiple 
+database servers involved. The parallelization is done in the GatherNode, which then
+can send parallel cluster-internal requests to the database servers attached. The
+database servers can then work fully parallel for the different shards involved.
+
+When parallelization is used, one or multiple GatherNodes in a query's execution plan
+will be tagged with `parallel` as follows:
+
+```
+Query String (26 chars, cacheable: true):
+ FOR doc IN test RETURN doc
+
+Execution plan:
+ Id   NodeType                  Site     Est.   Comment
+  1   SingletonNode             DBS         1   * ROOT
+  2   EnumerateCollectionNode   DBS   1000000     - FOR doc IN test   /* full collection scan, 5 shard(s) */
+  6   RemoteNode                COOR  1000000       - REMOTE
+  7   GatherNode                COOR  1000000       - GATHER   /* parallel */
+  3   ReturnNode                COOR  1000000       - RETURN doc
+```
+
+Parallelization is currently restricted to certain types of queries. These restrictions
+may be lifted in future versions of ArangoDB.
+
+### More efficient execution plans for simple UPDATE and REPLACE queries
+
+AQL query execution plans for simple UPDATE and REPLACE operations that modify multiple
+documents and do not use LIMIT are now more efficient as several steps were removed.
+The existing optimizer rule `undistribute-remove-after-enum-coll` has been extended to
+cover these cases too, in case the collection is sharded by `_key` and the UPDATE/REPLACE
+operation is using the document or the `_key` to find it.
+
+For example, a query such as `FOR doc IN test UPDATE doc WITH { updated: true } IN test`
+is executed as follows in 3.5:
+
+```
+Query String (57 chars, cacheable: false):
+ FOR doc IN test UPDATE doc WITH { updated: true } IN test
+
+Execution plan:
+ Id   NodeType                  Site     Est.   Comment
+  1   SingletonNode             DBS         1   * ROOT
+  3   CalculationNode           DBS         1     - LET #3 = { "updated" : true }   
+  2   EnumerateCollectionNode   DBS   1000000     - FOR doc IN test   /* full collection scan, 5 shard(s) */
+ 11   RemoteNode                COOR  1000000       - REMOTE
+ 12   GatherNode                COOR  1000000       - GATHER   /* parallel */
+  5   DistributeNode            COOR  1000000       - DISTRIBUTE  /* create keys: false, variable: doc */
+  6   RemoteNode                DBS   1000000       - REMOTE
+  4   UpdateNode                DBS         0       - UPDATE doc WITH #3 IN test
+  7   RemoteNode                COOR        0       - REMOTE
+  8   GatherNode                COOR        0       - GATHER
+```
+
+In 3.6 the execution plan is streamlined to just
+
+```
+Query String (57 chars, cacheable: false):
+ FOR doc IN test UPDATE doc WITH { updated: true } IN test
+
+Execution plan:
+ Id   NodeType          Site     Est.   Comment
+  1   SingletonNode     DBS         1   * ROOT
+  3   CalculationNode   DBS         1     - LET #3 = { "updated" : true }   
+ 13   IndexNode         DBS   1000000     - FOR doc IN test   /* primary index scan, index only, projections: `_key`, 5 shard(s) */    
+  4   UpdateNode        DBS         0       - UPDATE doc WITH #3 IN test 
+  7   RemoteNode        COOR        0       - REMOTE
+  8   GatherNode        COOR        0       - GATHER 
+```
+
+The optimization will also work with filters:
+
+```
+Query String (79 chars, cacheable: false):
+ FOR doc IN test FILTER doc.value == 4 UPDATE doc WITH { updated: true } IN test
+
+Execution plan:
+ Id   NodeType                  Site     Est.   Comment
+  1   SingletonNode             DBS         1   * ROOT
+  5   CalculationNode           DBS         1     - LET #5 = { "updated" : true }   
+  2   EnumerateCollectionNode   DBS   1000000     - FOR doc IN test   /* full collection scan, projections: `_key`, `value`, 5 shard(s) */
+  3   CalculationNode           DBS   1000000       - LET #3 = (doc.`value` == 4)   
+  4   FilterNode                DBS   1000000       - FILTER #3
+  6   UpdateNode                DBS         0       - UPDATE doc WITH #5 IN test
+  9   RemoteNode                COOR        0       - REMOTE
+ 10   GatherNode                COOR        0       - GATHER
+```
+
 ### AQL Date functionality
 
 AQL now enforces a valid date range for working with date/time in AQL. The valid date
@@ -127,7 +218,10 @@ for this is
 
     DATE_SUBTRACT("2018-08-22T10:49:00+02:00", 100000, "years")
 
-Additionally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND` to bin a date/time 
+The performance of AQL date operations that work on date strings has been improved
+compared to previous versions.
+
+Finally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND` to bin a date/time 
 into a set of equal-distance buckets.
 
 ### Miscellaneous AQL changes
@@ -204,6 +298,20 @@ exclusive and therefore avoids write-write conflicts. This option was introduced
 a way to upgrade from MMFiles to RocksDB storage engine without modifying client application code.
 Otherwise it should best be avoided as the use of exclusive locks on collections will
 introduce a noticeable throughput penalty.
+
+### AQL options
+
+The new startup option `--query.optimizer-rules` can be used to to selectively enable or disable
+AQL query optimizer rules by default. The option can be specified multiple times, and takes
+the same input as the query option of the same name.
+
+For example, to turn off the rule `use-indexes-for-sort`, use
+
+    --query.optimizer-rules "-use-indexes-for-sort"
+
+The purpose of this startup option is to be able to enable potential future experimental
+optimizer rules, which may be shipped in a disabled-by-default state.
+
 
 TLS v1.3
 --------
