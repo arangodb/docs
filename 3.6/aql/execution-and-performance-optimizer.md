@@ -576,11 +576,15 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 
 - `splice-subqueries`:
   will appear when a subquery has been spliced into the surrounding query.
-  This optimization is applied after all other optimizations, and reduces
-  overhead for executing subqueries. Only suitable subqueries can be spliced.
+  Only suitable subqueries can be spliced.
   A subquery becomes unsuitable if it contains a *LIMIT*, *REMOTE*, *GATHER*
-  or a *COLLECT* node where the operation is not *COUNT*. A subquery *also*
+  or a *COLLECT* node where the operation is *COUNT*. A subquery *also*
   becomes unsuitable if it is contained in an unsuitable subquery.
+  
+  This optimization is applied after all other optimizations, and reduces
+  overhead for executing subqueries by inlining the execution. This mainly
+  benefits queries which execute subqueries very often that only return a
+  few results at a time.
 
 - `use-index-for-sort`:
   will appear if an index can be used to avoid a *SORT* operation. If the rule
