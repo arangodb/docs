@@ -12,7 +12,7 @@ here.
 ArangoSearch
 ------------
 
-ArangoSearch Views are now eligible for SmartJoins in AQL, provided that their
+ArangoSearch views are now eligible for SmartJoins in AQL, provided that their
 underlying collections are eligible too.
 
 AQL
@@ -106,6 +106,97 @@ Indexes used:
   6   idx_1649353982658740224   hash   test         false    false       100.00 %   [ `value1` ]   ((doc.`value1` > 10000) && (doc.`value1` < 30000))
 ```
 
+### Late document materialization
+
+### Parallelization of cluster AQL queries
+
+ArangoDB 3.6 can parallelize work in many cluster AQL queries when there are multiple 
+database servers involved. The parallelization is done in the GatherNode, which then
+can send parallel cluster-internal requests to the database servers attached. The
+database servers can then work fully parallel for the different shards involved.
+
+When parallelization is used, one or multiple GatherNodes in a query's execution plan
+will be tagged with `parallel` as follows:
+
+```
+Query String (26 chars, cacheable: true):
+ FOR doc IN test RETURN doc
+
+Execution plan:
+ Id   NodeType                  Site     Est.   Comment
+  1   SingletonNode             DBS         1   * ROOT
+  2   EnumerateCollectionNode   DBS   1000000     - FOR doc IN test   /* full collection scan, 5 shard(s) */
+  6   RemoteNode                COOR  1000000       - REMOTE
+  7   GatherNode                COOR  1000000       - GATHER   /* parallel */
+  3   ReturnNode                COOR  1000000       - RETURN doc
+```
+
+Parallelization is currently restricted to certain types of queries. These restrictions
+may be lifted in future versions of ArangoDB.
+
+### More efficient execution plans for simple UPDATE and REPLACE queries
+
+AQL query execution plans for simple UPDATE and REPLACE operations that modify multiple
+documents and do not use LIMIT are now more efficient as several steps were removed.
+The existing optimizer rule `undistribute-remove-after-enum-coll` has been extended to
+cover these cases too, in case the collection is sharded by `_key` and the UPDATE/REPLACE
+operation is using the document or the `_key` to find it.
+
+For example, a query such as `FOR doc IN test UPDATE doc WITH { updated: true } IN test`
+is executed as follows in 3.5:
+
+```
+Query String (57 chars, cacheable: false):
+ FOR doc IN test UPDATE doc WITH { updated: true } IN test
+
+Execution plan:
+ Id   NodeType                  Site     Est.   Comment
+  1   SingletonNode             DBS         1   * ROOT
+  3   CalculationNode           DBS         1     - LET #3 = { "updated" : true }   
+  2   EnumerateCollectionNode   DBS   1000000     - FOR doc IN test   /* full collection scan, 5 shard(s) */
+ 11   RemoteNode                COOR  1000000       - REMOTE
+ 12   GatherNode                COOR  1000000       - GATHER   /* parallel */
+  5   DistributeNode            COOR  1000000       - DISTRIBUTE  /* create keys: false, variable: doc */
+  6   RemoteNode                DBS   1000000       - REMOTE
+  4   UpdateNode                DBS         0       - UPDATE doc WITH #3 IN test
+  7   RemoteNode                COOR        0       - REMOTE
+  8   GatherNode                COOR        0       - GATHER
+```
+
+In 3.6 the execution plan is streamlined to just
+
+```
+Query String (57 chars, cacheable: false):
+ FOR doc IN test UPDATE doc WITH { updated: true } IN test
+
+Execution plan:
+ Id   NodeType          Site     Est.   Comment
+  1   SingletonNode     DBS         1   * ROOT
+  3   CalculationNode   DBS         1     - LET #3 = { "updated" : true }   
+ 13   IndexNode         DBS   1000000     - FOR doc IN test   /* primary index scan, index only, projections: `_key`, 5 shard(s) */    
+  4   UpdateNode        DBS         0       - UPDATE doc WITH #3 IN test 
+  7   RemoteNode        COOR        0       - REMOTE
+  8   GatherNode        COOR        0       - GATHER 
+```
+
+The optimization will also work with filters:
+
+```
+Query String (79 chars, cacheable: false):
+ FOR doc IN test FILTER doc.value == 4 UPDATE doc WITH { updated: true } IN test
+
+Execution plan:
+ Id   NodeType                  Site     Est.   Comment
+  1   SingletonNode             DBS         1   * ROOT
+  5   CalculationNode           DBS         1     - LET #5 = { "updated" : true }   
+  2   EnumerateCollectionNode   DBS   1000000     - FOR doc IN test   /* full collection scan, projections: `_key`, `value`, 5 shard(s) */
+  3   CalculationNode           DBS   1000000       - LET #3 = (doc.`value` == 4)   
+  4   FilterNode                DBS   1000000       - FILTER #3
+  6   UpdateNode                DBS         0       - UPDATE doc WITH #5 IN test
+  9   RemoteNode                COOR        0       - REMOTE
+ 10   GatherNode                COOR        0       - GATHER
+```
+
 ### AQL Date functionality
 
 AQL now enforces a valid date range for working with date/time in AQL. The valid date
@@ -127,15 +218,154 @@ for this is
 
     DATE_SUBTRACT("2018-08-22T10:49:00+02:00", 100000, "years")
 
-Additionally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND` to bin a date/time 
+The performance of AQL date operations that work on date strings has been improved
+compared to previous versions.
+
+Finally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND` to bin a date/time 
 into a set of equal-distance buckets.
+
+### Subquery Splicing Optimization
+
+In earlier versions of ArangoDB, on every execution of a subquery the following
+happened for each input row:
+
+- The subquery tree issues one initializeCursor cascade through all nodes
+- The subquery node pulls rows until the subquery node is empty for this input
+
+On subqueries with many results per input row (10000 or more) the
+above steps did not contribute significantly to query execution time.
+On subqueries with few results per input, there was a serious performance impact.
+
+Subquery splicing inlines the execution of subqueries using an optimizer rule
+called `splice-subqueries`. Only suitable queries can be spliced.
+A subquery becomes unsuitable if it contains a `LIMIT`, `REMOTE`, `GATHER` or a
+`COLLECT` node where the operation is `WITH COUNT INTO`. A subquery also becomes
+unsuitable if it is contained in an unsuitable subquery.
+
+Consider the following query to illustrates the difference.
+
+```js
+FOR x IN c1
+  LET firstJoin = (
+    FOR y IN c2
+      FILTER y._id == x.c2_id
+      LIMIT 1
+      RETURN y
+  )
+  LET secondJoin = (
+    FOR z IN c3
+      FILTER z.value == x.value
+      RETURN z
+  )
+  RETURN { x, firstJoin, secondJoin }
+```
+
+The execution plan **without** subquery splicing:
+
+```js
+Execution plan:
+ Id   NodeType                  Est.   Comment
+  1   SingletonNode                1   * ROOT
+  2   EnumerateCollectionNode      0     - FOR x IN c1   /* full collection scan */
+  9   SubqueryNode                 0       - LET firstJoin = ...   /* subquery */
+  3   SingletonNode                1         * ROOT
+ 18   IndexNode                    0           - FOR y IN c2   /* primary index scan */    
+  7   LimitNode                    0             - LIMIT 0, 1
+  8   ReturnNode                   0             - RETURN y
+ 15   SubqueryNode                 0       - LET secondJoin = ...   /* subquery */
+ 10   SingletonNode                1         * ROOT
+ 11   EnumerateCollectionNode      0           - FOR z IN c3   /* full collection scan */
+ 12   CalculationNode              0             - LET #11 = (z.`value` == x.`value`)   /* simple expression */   /* collections used: z : c3, x : c1 */
+ 13   FilterNode                   0             - FILTER #11
+ 14   ReturnNode                   0             - RETURN z
+ 16   CalculationNode              0       - LET #13 = { "x" : x, "firstJoin" : firstJoin, "secondJoin" : secondJoin }   /* simple expression */   /* collections used: x : c1 */
+ 17   ReturnNode                   0       - RETURN #13
+
+Optimization rules applied:
+ Id   RuleName
+  1   use-indexes
+  2   remove-filter-covered-by-index
+  3   remove-unnecessary-calculations-2
+```
+
+Note in particular the `SubqueryNode`s, followed by a `SingleNode` in
+both cases.
+
+When using the optimizer rule `splice-subqueries` the plan is as follows:
+
+```js
+Execution plan:
+ Id   NodeType                  Est.   Comment
+  1   SingletonNode                1   * ROOT
+  2   EnumerateCollectionNode      0     - FOR x IN c1   /* full collection scan */
+  9   SubqueryNode                 0       - LET firstJoin = ...   /* subquery */
+  3   SingletonNode                1         * ROOT
+ 18   IndexNode                    0           - FOR y IN c2   /* primary index scan */    
+  7   LimitNode                    0             - LIMIT 0, 1
+  8   ReturnNode                   0             - RETURN y
+ 19   SubqueryStartNode            0       - LET secondJoin = ( /* subquery begin */
+ 11   EnumerateCollectionNode      0         - FOR z IN c3   /* full collection scan */
+ 12   CalculationNode              0           - LET #11 = (z.`value` == x.`value`)   /* simple expression */   /* collections used: z : c3, x : c1 */
+ 13   FilterNode                   0           - FILTER #11
+ 20   SubqueryEndNode              0       - ) /* subquery end */
+ 16   CalculationNode              0       - LET #13 = { "x" : x, "firstJoin" : firstJoin, "secondJoin" : secondJoin }   /* simple expression */   /* collections used: x : c1 */
+ 17   ReturnNode                   0       - RETURN #13
+
+Optimization rules applied:
+ Id   RuleName
+  1   use-indexes
+  2   remove-filter-covered-by-index
+  3   remove-unnecessary-calculations-2
+  4   splice-subqueries
+```
+
+The first subquery is unsuitable for the optimization because it contains
+a `LIMIT` statement and is therefore not spliced. The second subquery is
+suitable and hence is spliced – which one can tell from the different node
+type `SubqueryStartNode` (beginning of spliced subquery). Note how it is
+not followed by a `SingletonNode`. The end of the spliced subquery is
+marked by a `SubqueryEndNode`.
 
 ### Miscellaneous AQL changes
 
-ArangoDB 3.6 provides a new AQL function `GEO_AREA` for area calculations.
+ArangoDB 3.6 provides the following new AQL functionality:
 
-HTTP API extensions
--------------------
+- a function `GEO_AREA()` for [area calculations](aql/functions-geo.html#geo_area)
+- a [query option](aql/invocation-with-arangosh.html#setting-options) `timeout`
+  to restrict the execution to a given time in seconds. Also see
+  [HTTP API](http/aql-query-cursor-accessing-cursors.html#create-cursor).
+
+HTTP API
+--------
+
+The following APIs have been added:
+
+- Database properties API, HTTP GET `/_api/database/properties`
+
+  The new database properties API provides the attributes `replicationFactor`, 
+  `minReplicationFactor` and `sharding`. A description of these attributes can be found 
+  below.
+
+The following APIs have been expanded:
+
+- Database creation API, HTTP POST `/_api/database`
+
+  The database creation API now handles the `replicationFactor`, `minReplicationFactor` 
+  and `sharding` attributes. All these attributes are optional, and only meaningful
+  in a cluster.
+
+  The values provided for the attributes `replicationFactor` and `minReplicationFactor` 
+  will be used as default values when creating collections in that database, allowing to 
+  omit these attributes when creating collections. However, the values set here are just 
+  defaults for new collections in the database. The values can still be adjusted per 
+  collection when creating new collections in that database via the web UI, the arangosh 
+  or drivers.
+
+  In an Enterprise Edition cluster, the `sharding` attribute can be given a value of 
+  "single", which will make all new collections in that database use the same shard 
+  distribution and use one shard by default. This can still be overridden by setting the 
+  values of `distributeShardsLike` when creating new collections in that database via 
+  the web UI, the arangosh or drivers. 
 
 Web interface
 -------------
@@ -156,10 +386,49 @@ JavaScript
 Client tools
 ------------
 
-Startup option changes
-----------------------
+Startup options
+---------------
 
-### Cluster options
+### OneShard Cluster
+
+{% hint 'info' %}
+This option is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
+
+The option `--cluster.force-one-shard` enables the new OneShard Cluster feature.
+
+When set to `true`, forces the cluster into creating all future collections
+with only a single shard and using the same database server as these collections'
+shards leader. All collections created this way will be eligible for specific AQL
+query optimizations that can improve query performance and provide advanced
+transactional guarantees.
+
+### Cluster upgrade
+
+The new options `--cluster.upgrade` toggles the cluster upgrade mode for
+coordinators. It supports the following values:
+
+- `auto`:
+  perform a cluster upgrade and shut down afterwards if the startup option
+  `--database.auto-upgrade` is set to true. Otherwise, don't perform an upgrade.
+
+- `disable`:
+  never perform a cluster upgrade, regardless of the value of
+  `--database.auto-upgrade`.
+
+- `force`:
+  always perform a cluster upgrade and shut down, regardless of the value of
+  `--database.auto-upgrade`.
+
+- `online`:
+  always perform a cluster upgrade but don't shut down afterwards
+
+The default value is `auto`. The option only affects coordinators. It does not have
+any affect on single servers, agents or database servers.
+
+### Other cluster options
 
 Added startup options to control the minimum and maximum replication factors used for 
 new collections, and the maximum number of shards for new collections.
@@ -168,9 +437,11 @@ The following options have been added:
 
 - `--cluster.max-replication-factor`: maximum replication factor for new collections.
   A value of `0` means that there is no restriction. The default value is `10`.
+
 - `--cluster.min-replication-factor`: minimum replication factor for new collections.
   The default value is `1`. This option can be used to prevent the creation of 
   collections that do not have any or enough replicas.
+
 - `--cluster.write-concern`: default write concern value used for new collections. 
   This option controls the number of replicas that must successfully acknowledge writes
   to a collection. If any write operation gets less acknowledgements than configured
@@ -178,6 +449,7 @@ The following options have been added:
   replicas are available again. The default value is `1`, meaning that writes to just
   the leader are sufficient. To ensure that there is at least one extra copy (i.e. one
   follower), set this option to `2`.
+
 - `--cluster.max-number-of-shards`: maximum number of shards allowed for new collections.
   A value of `0` means that there is no restriction. The default value is `1000`.
 
@@ -185,17 +457,19 @@ Note that the above options only have an effect when set for coordinators, and o
 collections that are created after the options have been set. They do not affect
 already existing collections.
 
-### One shard option
+Furthermore, the following network related options have been added:
 
-{% hint 'info' %}
-This option is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+- `--network.idle-connection-ttl`: default time-to-live for idle cluster-internal 
+  connections (in milliseconds). The default value is `60000`.
 
-The option `--cluster.force-one-shard` will force all new collections to be created with 
-only a single shard, and make all new collections use a similar sharding distribution. 
-The default value for this option is `false`.
+- `--network.io-threads`: number of I/O threads for cluster-internal network requests.
+  The default value is `2`.
+
+- `--network.max-open-connections`: maximum number of open network connections for
+  cluster-internal requests. The default value is `1024`.
+
+- `--network.verify-hosts`: if set to `true`, this will verify peer certificates for
+  cluster-internal requests when TLS is used. The default value is `false`.
 
 ### RocksDB exclusive writes
 
@@ -204,6 +478,20 @@ exclusive and therefore avoids write-write conflicts. This option was introduced
 a way to upgrade from MMFiles to RocksDB storage engine without modifying client application code.
 Otherwise it should best be avoided as the use of exclusive locks on collections will
 introduce a noticeable throughput penalty.
+The option may be removed in a future ArangoDB release.
+
+### AQL options
+
+The new startup option `--query.optimizer-rules` can be used to to selectively enable or disable
+AQL query optimizer rules by default. The option can be specified multiple times, and takes
+the same input as the query option of the same name.
+
+For example, to turn off the rule `use-indexes-for-sort`, use
+
+    --query.optimizer-rules "-use-indexes-for-sort"
+
+The purpose of this startup option is to be able to enable potential future experimental
+optimizer rules, which may be shipped in a disabled-by-default state.
 
 TLS v1.3
 --------
