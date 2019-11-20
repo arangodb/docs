@@ -481,6 +481,9 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 - `geo-index-optimizer`:
   will appear when a geo index is utilized.
 
+- `handle-arangosearch-views`:
+  appears whenever an ArangoSearch View is accessed in a query.
+
 - `inline-subqueries`:
   will appear when a subquery was pulled out in its surrounding scope, e.g.
   `FOR x IN (FOR y IN collection FILTER y.value >= 5 RETURN y.test) RETURN x.a`
@@ -558,6 +561,10 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   because the result of *INTO* is not used. May also appear if a result
   of a *COLLECT* statement's *AGGREGATE* variables is not used.
 
+- `remove-data-modification-out-variables`:
+  avoids setting the pseudo-variables `OLD` and `NEW` if not used in
+  data modification queries.
+
 - `remove-filter-covered-by-index`:
   will appear if a *FilterNode* was removed or replaced because the filter
   condition is already covered by an *IndexNode*.
@@ -575,6 +582,10 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 - `remove-redundant-or`:
   will appear if multiple *OR* conditions for the same variable or attribute
   were combined into a single condition.
+
+- `remove-redundant-path-var`:
+  avoids computing the variables emitted by traversals if they are unused
+  in the query, significantly reducing overhead.
 
 - `remove-redundant-sorts`:
   will appear if multiple *SORT* statements can be merged into fewer sorts.
@@ -595,8 +606,8 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   plan.
 
 - `replace-function-with-index`:
-  will appear when a deprecated index function such as `FULLTEXT`, `NEAR`,
-  `WITHIN` or `WITHIN_RECTANGLE` is replaced with a regular subquery.
+  will appear when a deprecated index function such as `FULLTEXT()`, `NEAR()`,
+  `WITHIN()` or `WITHIN_RECTANGLE()` is replaced with a regular subquery.
 
 - `replace-or-with-in`:
   will appear if multiple *OR*-combined equality conditions on the same
@@ -649,7 +660,22 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   As a consequence, an *EnumerateCollectionNode* was replaced with an
   *IndexNode* in the plan.
 
-The following optimizer rules may appear in the `rules` attribute of cluster plans:
+Some rules are applied a second time at a different optimization stage.
+These rules show in plans with an appended `-2` to their name.
+
+The following optimizer rules may appear in the `rules` attribute of
+**cluster** plans:
+
+- `cluster-one-shard` _(Enterprise Edition only)_:
+  will appear for eligible queries in OneShard deployment mode as well as
+  for queries that only involve collection(s) with a single shard (and identical
+  sharding in case of multiple collections, e.g. via *distributeShardsLike*).
+  Queries involving V8 / JavaScript (e.g. user-defined AQL functions) can not
+  be optimized.
+
+  Offloads the entire query to the DBServer (except the client communication
+  via a Coordinator). This saves all the back and forth that normally exists
+  in regular cluster queries, benefitting traversals and joins in particular.
 
 - `collect-in-cluster`:
   will appear when a *CollectNode* on a coordinator is accompanied by extra
@@ -675,6 +701,14 @@ The following optimizer rules may appear in the `rules` attribute of cluster pla
   case no AQL will be executed on the DB-Servers, instead the coordinator will
   directly work with the documents on the DBServers.
 
+- `parallelize-gather`:
+  will appears if an optimization to execute Coordinator *GatherNodes* in
+  parallel was applied.
+
+- `remove-satellite-joins` _(Enterprise Edition only)_:
+  optimizes *Scatter-*, *Gather-* and *RemoteNode*s for Satellite Collections
+  away. Depends on *remove-unnecessary-remote-scatter* rule.
+
 - `remove-unnecessary-remote-scatter`:
   will appear if a RemoteNode is followed by a ScatterNode, and the ScatterNode
   is only followed by calculations or the SingletonNode. In this case, there is
@@ -692,12 +726,17 @@ The following optimizer rules may appear in the `rules` attribute of cluster pla
   the query, and when the shard keys are covered by a single index (this is
   always true if the shard key is the default `_key`).
 
+- `scatter-arangosearch-view-in-cluster`:
+  will appear when scatter, gather, and remote nodes are inserted into a
+  distributed View query. This is not an optimization rule, and it cannot be
+  turned off.
+
 - `scatter-in-cluster`:
   will appear when scatter, gather, and remote nodes are inserted into a
   distributed query. This is not an optimization rule, and it cannot be
   turned off.
 
-- `smart-joins`:
+- `smart-joins` _(Enterprise Edition only)_:
   will appear when the query optimizer can reduce an inter-node join to a
   server-local join. This rule is only active in the *Enterprise Edition* of
   ArangoDB, and will only be employed when joining two collections with
