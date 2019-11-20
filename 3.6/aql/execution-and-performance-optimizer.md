@@ -655,6 +655,8 @@ The following optimizer rules may appear in the `rules` attribute of cluster pla
   will appear if a RemoveNode can be pushed into the same query part that
   enumerates over the documents of a collection. This saves inter-cluster
   roundtrips between the EnumerateCollectionNode and the RemoveNode.
+  From v3.6.0 on, it includes simple *UPDATE* and *REPLACE* operations
+  that modify multiple documents and do not use *LIMIT*.
 
 Note that some rules may appear multiple times in the list, with number suffixes.
 This is due to the same rule being applied multiple times, at different positions
