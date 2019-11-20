@@ -356,19 +356,17 @@ List of execution nodes
 
 The following execution node types will appear in the output of `explain`:
 
-- **SingletonNode**:
-  the purpose of a *SingletonNode* is to produce an empty document that is
-  used as input for other processing steps. Each execution plan will contain
-  exactly one *SingletonNode* as its top node.
+- **AggregateNode**:
+  aggregates its input and produces new output variables. This will appear
+  once per *COLLECT* statement.
+
+- **CalculationNode**:
+  evaluates an expression. The expression result may be used by
+  other nodes, e.g. *FilterNode*, *EnumerateListNode*, *SortNode* etc.
 
 - **EnumerateCollectionNode**:
   enumeration over documents of a collection (given in its *collection*
   attribute) without using an index.
-
-- **IndexNode**:
-  enumeration over one or many indexes (given in its *indexes* attribute)
-  of a collection. The index ranges are specified in the *condition* attribute
-  of the node.
 
 - **EnumerateListNode**:
   enumeration over a list of (non-collection) values.
@@ -377,31 +375,18 @@ The following execution node types will appear in the output of `explain`:
   only lets values pass that satisfy a filter condition. Will appear once
   per *FILTER* statement.
 
-- **LimitNode**:
-  limits the number of results passed to other processing steps. Will appear
-  once per *LIMIT* statement.
-
-- **CalculationNode**:
-  evaluates an expression. The expression result may be used by
-  other nodes, e.g. *FilterNode*, *EnumerateListNode*, *SortNode* etc.
-
-- **SubqueryNode**:
-  executes a subquery.
-
-- **SortNode**:
-  performs a sort of its input values.
-
-- **AggregateNode**:
-  aggregates its input and produces new output variables. This will appear
-  once per *COLLECT* statement.
-
-- **ReturnNode**:
-  returns data to the caller. Will appear in each read-only query at
-  least once. Subqueries will also contain *ReturnNode*s.
+- **IndexNode**:
+  enumeration over one or many indexes (given in its *indexes* attribute)
+  of a collection. The index ranges are specified in the *condition* attribute
+  of the node.
 
 - **InsertNode**:
   inserts documents into a collection (given in its *collection* attribute).
   Will appear exactly once in a query that contains an *INSERT* statement.
+
+- **LimitNode**:
+  limits the number of results passed to other processing steps. Will appear
+  once per *LIMIT* statement.
 
 - **RemoveNode**:
   removes documents from a collection (given in its *collection* attribute).
@@ -410,6 +395,21 @@ The following execution node types will appear in the output of `explain`:
 - **ReplaceNode**:
   replaces documents in a collection (given in its *collection* attribute).
   Will appear exactly once in a query that contains a *REPLACE* statement.
+
+- **ReturnNode**:
+  returns data to the caller. Will appear in each read-only query at
+  least once. Subqueries will also contain *ReturnNode*s.
+
+- **SingletonNode**:
+  the purpose of a *SingletonNode* is to produce an empty document that is
+  used as input for other processing steps. Each execution plan will contain
+  exactly one *SingletonNode* as its top node.
+
+- **SortNode**:
+  performs a sort of its input values.
+
+- **SubqueryNode**:
+  executes a subquery.
 
 - **UpdateNode**:
   updates documents in a collection (given in its *collection* attribute).
@@ -421,22 +421,15 @@ The following execution node types will appear in the output of `explain`:
 
 For queries in the cluster, the following nodes may appear in execution plans:
 
-- **SingleRemoteOperationNode**:
-  used on a coordinator to directly work with a single
-  document on a DB-Server that was referenced by its `_key`.
-
-- **ScatterNode**:
-  used on a coordinator to fan-out data to one or multiple shards.
+- **DistributeNode**:
+  used on a coordinator to fan-out data to one or multiple shards,
+  taking into account a collection's shard key.
 
 - **GatherNode**:
   used on a coordinator to aggregate results from one or many shards
   into a combined stream of results. Parallelizes work for certain types
   of queries when there are multiple database servers involved
   (shown as `GATHER   /* parallel */` in query explain).
-
-- **DistributeNode**:
-  used on a coordinator to fan-out data to one or multiple shards,
-  taking into account a collection's shard key.
 
 - **RemoteNode**:
   a *RemoteNode* will perform communication with another ArangoDB instances
@@ -445,6 +438,13 @@ For queries in the cluster, the following nodes may appear in execution plans:
   via *RemoteNode*s. The data servers themselves might again pull further data
   from the coordinator, and thus might also employ *RemoteNode*s. So, all of
   the above cluster relevant nodes will be accompanied by a *RemoteNode*.
+
+- **ScatterNode**:
+  used on a coordinator to fan-out data to one or multiple shards.
+
+- **SingleRemoteOperationNode**:
+  used on a coordinator to directly work with a single
+  document on a DB-Server that was referenced by its `_key`.
 
 List of optimizer rules
 -----------------------
