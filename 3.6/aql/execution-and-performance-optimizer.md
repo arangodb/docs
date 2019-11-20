@@ -364,12 +364,18 @@ The following execution node types will appear in the output of `explain`:
   evaluates an expression. The expression result may be used by
   other nodes, e.g. *FilterNode*, *EnumerateListNode*, *SortNode* etc.
 
+- **CollectNode**:
+  
+
 - **EnumerateCollectionNode**:
   enumeration over documents of a collection (given in its *collection*
   attribute) without using an index.
 
 - **EnumerateListNode**:
   enumeration over a list of (non-collection) values.
+
+- **EnumerateViewNode**:
+  
 
 - **FilterNode**:
   only lets values pass that satisfy a filter condition. Will appear once
@@ -384,9 +390,15 @@ The following execution node types will appear in the output of `explain`:
   inserts documents into a collection (given in its *collection* attribute).
   Will appear exactly once in a query that contains an *INSERT* statement.
 
+- **KShortestPathsNode**:
+  
+
 - **LimitNode**:
   limits the number of results passed to other processing steps. Will appear
   once per *LIMIT* statement.
+
+- **MaterializeNode**:
+  
 
 - **RemoveNode**:
   removes documents from a collection (given in its *collection* attribute).
@@ -405,11 +417,23 @@ The following execution node types will appear in the output of `explain`:
   used as input for other processing steps. Each execution plan will contain
   exactly one *SingletonNode* as its top node.
 
+- **ShortestPathNode**:
+  
+
 - **SortNode**:
   performs a sort of its input values.
 
+- **SubqueryEndNode**:
+  
+
 - **SubqueryNode**:
   executes a subquery.
+
+- **SubqueryStartNode**:
+  
+
+- **TraversalNode**:
+  
 
 - **UpdateNode**:
   updates documents in a collection (given in its *collection* attribute).
@@ -424,6 +448,9 @@ For queries in the cluster, the following nodes may appear in execution plans:
 - **DistributeNode**:
   used on a coordinator to fan-out data to one or multiple shards,
   taking into account a collection's shard key.
+
+- **DistributeConsumer**:
+  
 
 - **GatherNode**:
   used on a coordinator to aggregate results from one or many shards
