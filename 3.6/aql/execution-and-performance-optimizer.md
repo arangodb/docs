@@ -411,7 +411,9 @@ For queries in the cluster, the following nodes may appear in execution plans:
 
 - **GatherNode**:
   used on a coordinator to aggregate results from one or many shards
-  into a combined stream of results.
+  into a combined stream of results. Parallelizes work for certain types
+  of queries when there are multiple database servers involved
+  (`GATHER   /* parallel */` in query explain).
 
 - **DistributeNode**:
   used on a coordinator to fan-out data to one or multiple shards,
