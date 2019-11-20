@@ -290,7 +290,7 @@ Optimization rules applied:
   3   remove-unnecessary-calculations-2
 ```
 
-Note in particular the `SubqueryNode`s, followed by a `SingleNode` in
+Note in particular the `SubqueryNode`s, followed by a `SingletonNode` in
 both cases.
 
 When using the optimizer rule `splice-subqueries` the plan is as follows:
