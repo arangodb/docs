@@ -5,9 +5,9 @@ arangosh&gt; db.ids.ensureIndex({ <span class="hljs-attr">type</span>: <span cla
     <span class="hljs-string">"name.first"</span>, 
     <span class="hljs-string">"name.last"</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"ids/74847"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"ids/74846"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650597500526002178"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650695896512331778"</span>, 
   <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"skiplist"</span>, 
@@ -16,20 +16,20 @@ arangosh&gt; db.ids.ensureIndex({ <span class="hljs-attr">type</span>: <span cla
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"hansen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/74851"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74851"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZmEY30---B"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/74850"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74850"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZmawuN2---"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"jens"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/74853"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74853"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZmEY30C---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/74852"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74852"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZmawuN2--A"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/74855"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74855"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZmEY30C--A"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/74854"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74854"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZmawuN2--C"</span> 
 }
-[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1650597500526002178 <span class="hljs-keyword">of</span> type skiplist over <span class="hljs-string">'name.first, name.last'</span>; conflicting key: <span class="hljs-number">74851</span>]
+[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1650695896512331778 <span class="hljs-keyword">of</span> type skiplist over <span class="hljs-string">'name.first, name.last'</span>; conflicting key: <span class="hljs-number">74850</span>]
