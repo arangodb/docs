@@ -5,7 +5,7 @@
 EOF
 
 HTTP/1.1 Accepted
-x-arango-async-id: 88527
+x-arango-async-id: 88528
 x-content-type-options: nosniff
 content-type: text/plain
 
@@ -16,9 +16,9 @@ x-content-type-options: nosniff
 content-type: application/json
 
 [ 
-  <span class="hljs-string">"88527"</span> 
+  <span class="hljs-string">"88528"</span> 
 ]
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/88527/cancel</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/88528/cancel</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
 x-content-type-options: nosniff
@@ -34,5 +34,5 @@ x-content-type-options: nosniff
 content-type: application/json
 
 [ 
-  <span class="hljs-string">"88527"</span> 
+  <span class="hljs-string">"88528"</span> 
 ]

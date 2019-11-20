@@ -2666,6 +2666,23 @@
     "section" : "query",
     "type" : "uint64"
   },
+  "query.optimizer-rules" : {
+    "category" : "option",
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "enable or disable specific optimizer rules (use rule name prefixed with '-' for disabling, '+' for enabling)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "string..."
+  },
   "query.registry-ttl" : {
     "category" : "option",
     "default" : 0,

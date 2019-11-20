@@ -2,35 +2,35 @@
 
 HTTP/1.1 OK
 x-arango-replication-checkmore: false
-x-arango-replication-lastincluded: 198
+x-arango-replication-lastincluded: 200
 x-content-type-options: nosniff
 content-type: application/x-arango-dump
 
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"192"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"194"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"123456"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"testCollection/123456"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZmVR3nW--_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Zmq0cni--_"</span>, 
     <span class="hljs-string">"b"</span> : <span class="hljs-number">1</span>, 
     <span class="hljs-string">"c"</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">"d"</span> : <span class="hljs-string">"additional value"</span> 
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"196"</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-number">2302</span>, 
-  <span class="hljs-string">"data"</span> : { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"foobar"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZmVR3nW--D"</span> 
-  } 
-}&#x21A9;
-{ 
   <span class="hljs-string">"tick"</span> : <span class="hljs-string">"198"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2302</span>, 
   <span class="hljs-string">"data"</span> : { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"foobar"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Zmq0cnm--_"</span> 
+  } 
+}&#x21A9;
+{ 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"200"</span>, 
+  <span class="hljs-string">"type"</span> : <span class="hljs-number">2302</span>, 
+  <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"abcdef"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZmVR3na--_"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Zmq0cnm--B"</span> 
   } 
 }&#x21A9;
