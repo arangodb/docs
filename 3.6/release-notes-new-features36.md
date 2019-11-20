@@ -338,14 +338,6 @@ ArangoDB 3.6 provides the following new AQL functionality:
 HTTP API
 --------
 
-The following APIs have been added:
-
-- Database properties API, HTTP GET `/_api/database/properties`
-
-  The new database properties API provides the attributes `replicationFactor`, 
-  `minReplicationFactor` and `sharding`. A description of these attributes can be found 
-  below.
-
 The following APIs have been expanded:
 
 - Database creation API, HTTP POST `/_api/database`
@@ -366,6 +358,13 @@ The following APIs have been expanded:
   distribution and use one shard by default. This can still be overridden by setting the 
   values of `distributeShardsLike` when creating new collections in that database via 
   the web UI, the arangosh or drivers. 
+
+- Database properties API, HTTP GET `/_api/database/current`
+
+  The existing database properties API additional provides the attributes `replicationFactor`, 
+  `minReplicationFactor` and `sharding` in a cluster. A description of these attributes can 
+  be found above.
+
 
 Web interface
 -------------
