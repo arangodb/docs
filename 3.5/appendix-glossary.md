@@ -24,9 +24,9 @@ Encryption at Rest    | This feature encrypts all data in ArangoDB before it is 
 Foxx                  | A microservice framework that allows Application developers to write their data access and domain logic as microservices running within the database with native access to in-memory data
 HotBackup             | Ability to take a backup on running servers without the need for downtime _(Enterprise Edition only)_
 Joins                 | Creating AQL Query results from multiple collections
-Native Multi-Model    | 
+Native Multi-Model    | A native multi-model database is a combination of several data stores in one. Because of ArangoDB's native multi-model approach, it is possible to store data as key/value pairs, graphs or documents and access all of it with one declarative query language
 Oasis                 | ArangoDB Oasis is the managed service for ArangoDB
-OneShard Cluster      | 
+OneShard Database     | OneShard database in ArangoDB are databases that fit entirely on a single machine. It is an easy setup of replicated databases that behave like single servers providing local performance andACID transactions
 Satellite Collections | A collection with exactly one shard and is replicated across all DB Servers _(Enterprise Edition only)_
 SmartGraphs           | Partitions graph based on smart attribute where all vertices with the same value are stored on the same physical machine, along with all edges connecting these vertices. _(Enterprise Edition only)_
 SmartJoins            | Allows running joins between two sharded collections with performance close to that of a local join operation. _(Enterprise Edition only)_
@@ -45,8 +45,8 @@ Coordinator           | Component of ArangoDB cluster that coordinate tasks such
 Database              | Database is a set of Collection
 Datacenter            | An ArangoDB cluster in a specific region
 DBServer              | Data storing node in an ArangoDB cluster
-Driver                | 
-Document              | A document is a single record in an ArangoDB collection. It stores data in JSON format. It is comparable to rows in relational database systems.
+Driver                | A database driver is a computer program that implements a protocol for a database connection and works like an adaptor which connects a generic interface to a specific database
+Document              | A document is a single record in an ArangoDB collection. It stores data in JSON format. It is comparable to rows in relational database systems
 Document Collection   | 
 Document Store        | 
 Edge                  | Edge is a single document inside an edge collection, it defines which two vertices are connected to through the edge
