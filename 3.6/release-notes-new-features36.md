@@ -239,8 +239,8 @@ On subqueries with few results per input, there was a serious performance impact
 Subquery splicing inlines the execution of subqueries using an optimizer rule
 called `splice-subqueries`. Only suitable queries can be spliced.
 A subquery becomes unsuitable if it contains a `LIMIT`, `REMOTE`, `GATHER` or a
-`COLLECT` node where the operation is `WITH COUNT INTO`. A subquery also becomes
-unsuitable if it is contained in an unsuitable subquery.
+`COLLECT WITH COUNT INTO`. A subquery also becomes unsuitable if it is contained
+in a subquery containing unsuitable nodes.
 
 Consider the following query to illustrates the difference.
 
