@@ -356,16 +356,13 @@ List of execution nodes
 
 The following execution node types will appear in the output of `explain`:
 
-- **AggregateNode**:
-  aggregates its input and produces new output variables. This will appear
-  once per *COLLECT* statement.
-
 - **CalculationNode**:
   evaluates an expression. The expression result may be used by
   other nodes, e.g. *FilterNode*, *EnumerateListNode*, *SortNode* etc.
 
 - **CollectNode**:
-  
+  aggregates its input and produces new output variables. This will appear
+  once per *COLLECT* statement.
 
 - **EnumerateCollectionNode**:
   enumeration over documents of a collection (given in its *collection*
@@ -375,7 +372,7 @@ The following execution node types will appear in the output of `explain`:
   enumeration over a list of (non-collection) values.
 
 - **EnumerateViewNode**:
-  
+  enumeration over documents of a View.
 
 - **FilterNode**:
   only lets values pass that satisfy a filter condition. Will appear once
@@ -391,14 +388,15 @@ The following execution node types will appear in the output of `explain`:
   Will appear exactly once in a query that contains an *INSERT* statement.
 
 - **KShortestPathsNode**:
-  
+  indicates a traversal for k Shortest Paths (`K_SHORTEST_PATHS` in AQL).
 
 - **LimitNode**:
   limits the number of results passed to other processing steps. Will appear
   once per *LIMIT* statement.
 
 - **MaterializeNode**:
-  
+  the presence of this node means that the query is not fully covered by
+  indexes and therefore needs to involve the storage engine.
 
 - **RemoveNode**:
   removes documents from a collection (given in its *collection* attribute).
@@ -418,22 +416,23 @@ The following execution node types will appear in the output of `explain`:
   exactly one *SingletonNode* as its top node.
 
 - **ShortestPathNode**:
-  
+  indicates a traversal for a Shortest Path (`SHORTEST_PATH` in AQL).
 
 - **SortNode**:
   performs a sort of its input values.
 
 - **SubqueryEndNode**:
-  
+  end of a spliced (inlined) subquery.
 
 - **SubqueryNode**:
   executes a subquery.
 
 - **SubqueryStartNode**:
-  
+  beginning of a spliced (inlined) subquery.
 
 - **TraversalNode**:
-  
+  indicates a regular graph traversal, as opposed to a shortest path(s)
+  traversal.
 
 - **UpdateNode**:
   updates documents in a collection (given in its *collection* attribute).
@@ -448,9 +447,6 @@ For queries in the cluster, the following nodes may appear in execution plans:
 - **DistributeNode**:
   used on a coordinator to fan-out data to one or multiple shards,
   taking into account a collection's shard key.
-
-- **DistributeConsumer**:
-  
 
 - **GatherNode**:
   used on a coordinator to aggregate results from one or many shards
@@ -494,6 +490,14 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   will appear if a query contains multiple *FOR* statements whose order were
   permuted. Permutation of *FOR* statements is performed because it may enable
   further optimizations by other rules.
+
+- `late-document-materialization`:
+  tries to read from collections as late as possible if the involved attributes
+  are covered by regular indexes.
+
+- `late-document-materialization-arangosearch`:
+  tries to read from the underlying collections of a View as late as possible
+  if the involved attributes are covered by the View index.
 
 - `move-calculations-down`:
   will appear if a *CalculationNode* was moved down in a plan. The intention of
