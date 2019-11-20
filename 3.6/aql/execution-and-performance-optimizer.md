@@ -314,23 +314,42 @@ bound is reached, no further warnings will be returned.
 Optimization in a cluster
 -------------------------
 
-When you're running AQL in the cluster, the parsing of the query is done on the
-coordinator. The coordinator then chops the query into snippets, which are to
-remain on the coordinator, and others that are to be distributed over the network
-to the shards. The cutting sites are interconnected via *Scatter-*, *Gather-* and *RemoteNodes*.
+When you are running AQL in the cluster, the parsing of the query is done on the
+Coordinator. The Coordinator then chops the query into snippets, which are either
+to remain on the Coordinator or need to be distributed to the shards on the
+DBServers over the network. The cutting sites are interconnected via *Scatter-*,
+*Gather-* and *RemoteNodes*. These nodes mark the network borders of the snippets.
 
-These nodes mark the network borders of the snippets. The optimizer strives to reduce the amount
-of data transferred via these network interfaces by pushing `FILTER`s out to the shards,
-as it is vital to the query performance to reduce that data amount to transfer over the
-network links.
+The optimizer strives to reduce the amount of data transferred via these network
+interfaces by pushing `FILTER`s out to the shards, as it is vital to the query
+performance to reduce that data amount to transfer over the network links.
 
-Snippets marked with **DBS** are executed on the shards, **COOR** ones are executed on the coordinator.
+{% hint 'info' %}
+Some hops between Coordinators and DBServers are unavoidable. An example are
+[user-defined functions](extending.html) (UDFs), which have to be executed on
+the Coordinator. If you cannot modify your query to have a lower amount of
+back and forth between sites, then try to lower the amount of data that has
+to be transferred between them. In case of UDFs, use effective FILTERs before
+calling them.
+{% endhint %}
 
-**As usual, the optimizer can only take certain assumptions for granted when doing so,
-i.e. [user-defined functions have to be executed on the coordinator](extending.html).
-If in doubt, you should modify your query to reduce the number interconnections between your snippets.**
+Using a cluster, there is a *Site* column if you explain a query.
+Snippets marked with **DBS** are executed on DBServers, **COOR** ones are
+executed on the respective Coordinator.
 
-When optimizing your query you may want to look at simpler parts of it first.
+```
+Query String (57 chars, cacheable: false):
+ FOR doc IN test UPDATE doc WITH { updated: true } IN test
+
+Execution plan:
+ Id   NodeType          Site     Est.   Comment
+  1   SingletonNode     DBS         1   * ROOT
+  3   CalculationNode   DBS         1     - LET #3 = { "updated" : true }   
+ 13   IndexNode         DBS   1000000     - FOR doc IN test   /* primary index scan, index only, projections: `_key`, 5 shard(s) */    
+  4   UpdateNode        DBS         0       - UPDATE doc WITH #3 IN test 
+  7   RemoteNode        COOR        0       - REMOTE
+  8   GatherNode        COOR        0       - GATHER 
+```
 
 List of execution nodes
 -----------------------
@@ -413,7 +432,7 @@ For queries in the cluster, the following nodes may appear in execution plans:
   used on a coordinator to aggregate results from one or many shards
   into a combined stream of results. Parallelizes work for certain types
   of queries when there are multiple database servers involved
-  (`GATHER   /* parallel */` in query explain).
+  (shown as `GATHER   /* parallel */` in query explain).
 
 - **DistributeNode**:
   used on a coordinator to fan-out data to one or multiple shards,
