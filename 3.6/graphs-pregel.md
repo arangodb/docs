@@ -360,7 +360,7 @@ const handle = pregel.start("linerank", "yourgraph", {"resultField": "rank"});
 
 ### Community Detection
 
-Graphs based on real world networks often have a community structure. This means it is possible to find groups of vertices such that each each vertex group is internally more densely connected than outside the group.
+Graphs based on real world networks often have a community structure. This means it is possible to find groups of vertices such that each vertex group is internally more densely connected than outside the group.
 This has many applications when you want to analyze your networks, for example
 Social networks include community groups (the origin of the term, in fact) based on common location, interests, occupation, etc.
 
