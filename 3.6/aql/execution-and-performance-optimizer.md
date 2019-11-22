@@ -640,8 +640,8 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 - `splice-subqueries`:
   will appear when a subquery has been spliced into the surrounding query.
   Only suitable subqueries can be spliced.
-  A subquery becomes unsuitable if it contains a `LIMIT`, `REMOTE`, `GATHER`
-  node or a `COLLECT WITH COUNT INTO …` construct (but not due to a
+  A subquery becomes unsuitable if it contains a `LIMIT` node or a
+  `COLLECT WITH COUNT INTO …` construct (but not due to a
   `COLLECT var = <expr> WITH COUNT INTO …`). A subquery *also* becomes
   unsuitable if it is contained in a (sub)query containing unsuitable parts
   *after* the subquery.
