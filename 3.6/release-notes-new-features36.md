@@ -238,9 +238,11 @@ On subqueries with few results per input, there was a serious performance impact
 
 Subquery splicing inlines the execution of subqueries using an optimizer rule
 called `splice-subqueries`. Only suitable queries can be spliced.
-A subquery becomes unsuitable if it contains a `LIMIT`, `REMOTE`, `GATHER` or a
-`COLLECT` node where the operation is `WITH COUNT INTO`. A subquery also becomes
-unsuitable if it is contained in an unsuitable subquery.
+A subquery becomes unsuitable if it contains a `LIMIT` node or a
+`COLLECT WITH COUNT INTO …` construct (but not due to a
+`COLLECT var = <expr> WITH COUNT INTO …`). A subquery *also* becomes
+unsuitable if it is contained in a (sub)query containing unsuitable parts
+*after* the subquery.
 
 Consider the following query to illustrates the difference.
 
@@ -288,7 +290,7 @@ Optimization rules applied:
   3   remove-unnecessary-calculations-2
 ```
 
-Note in particular the `SubqueryNode`s, followed by a `SingleNode` in
+Note in particular the `SubqueryNode`s, followed by a `SingletonNode` in
 both cases.
 
 When using the optimizer rule `splice-subqueries` the plan is as follows:
