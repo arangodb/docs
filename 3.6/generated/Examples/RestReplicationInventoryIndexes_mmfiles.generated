@@ -5,13 +5,18 @@ x-content-type-options: nosniff
 content-type: application/json
 
 { 
+  <span class="hljs-string">"properties"</span> : { 
+    <span class="hljs-string">"id"</span> : <span class="hljs-string">"1"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"_system"</span>, 
+    <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">true</span> 
+  }, 
   <span class="hljs-string">"collections"</span> : [ 
     { 
       <span class="hljs-string">"indexes"</span> : [ 
         { 
           <span class="hljs-string">"id"</span> : <span class="hljs-string">"217"</span>, 
           <span class="hljs-string">"type"</span> : <span class="hljs-string">"hash"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650766522498416640"</span>, 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650942797012795392"</span>, 
           <span class="hljs-string">"fields"</span> : [ 
             <span class="hljs-string">"name"</span> 
           ], 
@@ -22,7 +27,7 @@ content-type: application/json
         { 
           <span class="hljs-string">"id"</span> : <span class="hljs-string">"221"</span>, 
           <span class="hljs-string">"type"</span> : <span class="hljs-string">"skiplist"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650766522499465216"</span>, 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650942797013843968"</span>, 
           <span class="hljs-string">"fields"</span> : [ 
             <span class="hljs-string">"a"</span>, 
             <span class="hljs-string">"b"</span> 
@@ -38,7 +43,7 @@ content-type: application/json
         <span class="hljs-string">"count"</span> : <span class="hljs-number">0</span>, 
         <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"doCompact"</span> : <span class="hljs-literal">true</span>, 
-        <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h89891638CE83/210"</span>, 
+        <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h470BD87150FF/210"</span>, 
         <span class="hljs-string">"id"</span> : <span class="hljs-string">"210"</span>, 
         <span class="hljs-string">"indexBuckets"</span> : <span class="hljs-number">8</span>, 
         <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">false</span>, 
@@ -71,7 +76,7 @@ content-type: application/json
         { 
           <span class="hljs-string">"id"</span> : <span class="hljs-string">"231"</span>, 
           <span class="hljs-string">"type"</span> : <span class="hljs-string">"fulltext"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650766522522533890"</span>, 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650942797015941122"</span>, 
           <span class="hljs-string">"fields"</span> : [ 
             <span class="hljs-string">"text"</span> 
           ], 
@@ -82,7 +87,7 @@ content-type: application/json
         { 
           <span class="hljs-string">"id"</span> : <span class="hljs-string">"235"</span>, 
           <span class="hljs-string">"type"</span> : <span class="hljs-string">"skiplist"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650766522523582464"</span>, 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650942797016989696"</span>, 
           <span class="hljs-string">"fields"</span> : [ 
             <span class="hljs-string">"a"</span> 
           ], 
@@ -97,7 +102,7 @@ content-type: application/json
         <span class="hljs-string">"count"</span> : <span class="hljs-number">0</span>, 
         <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"doCompact"</span> : <span class="hljs-literal">true</span>, 
-        <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h89891638CE83/224"</span>, 
+        <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h470BD87150FF/224"</span>, 
         <span class="hljs-string">"id"</span> : <span class="hljs-string">"224"</span>, 
         <span class="hljs-string">"indexBuckets"</span> : <span class="hljs-number">8</span>, 
         <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">false</span>, 
@@ -202,7 +207,7 @@ content-type: application/json
         { 
           <span class="hljs-string">"id"</span> : <span class="hljs-string">"49"</span>, 
           <span class="hljs-string">"type"</span> : <span class="hljs-string">"hash"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650766514992709634"</span>, 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650942789327781891"</span>, 
           <span class="hljs-string">"fields"</span> : [ 
             <span class="hljs-string">"mount"</span> 
           ], 
@@ -358,7 +363,7 @@ content-type: application/json
         { 
           <span class="hljs-string">"id"</span> : <span class="hljs-string">"33"</span>, 
           <span class="hljs-string">"type"</span> : <span class="hljs-string">"hash"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650766514991661056"</span>, 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1650942789326733312"</span>, 
           <span class="hljs-string">"fields"</span> : [ 
             <span class="hljs-string">"user"</span> 
           ], 
@@ -409,7 +414,7 @@ content-type: application/json
         <span class="hljs-string">"count"</span> : <span class="hljs-number">0</span>, 
         <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"doCompact"</span> : <span class="hljs-literal">true</span>, 
-        <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h89891638CE83/101"</span>, 
+        <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h470BD87150FF/101"</span>, 
         <span class="hljs-string">"id"</span> : <span class="hljs-string">"101"</span>, 
         <span class="hljs-string">"indexBuckets"</span> : <span class="hljs-number">8</span>, 
         <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">false</span>, 
@@ -445,7 +450,7 @@ content-type: application/json
         <span class="hljs-string">"count"</span> : <span class="hljs-number">0</span>, 
         <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"doCompact"</span> : <span class="hljs-literal">true</span>, 
-        <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h89891638CE83/92"</span>, 
+        <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h470BD87150FF/92"</span>, 
         <span class="hljs-string">"id"</span> : <span class="hljs-string">"92"</span>, 
         <span class="hljs-string">"indexBuckets"</span> : <span class="hljs-number">8</span>, 
         <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">false</span>, 
@@ -476,7 +481,7 @@ content-type: application/json
   ], 
   <span class="hljs-string">"views"</span> : [ 
     { 
-      <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h89891638CE83/107"</span>, 
+      <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h470BD87150FF/107"</span>, 
       <span class="hljs-string">"id"</span> : <span class="hljs-string">"107"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"demoView"</span>, 
       <span class="hljs-string">"type"</span> : <span class="hljs-string">"arangosearch"</span>, 
@@ -504,7 +509,7 @@ content-type: application/json
     <span class="hljs-string">"lastLogTick"</span> : <span class="hljs-string">"202"</span>, 
     <span class="hljs-string">"lastUncommittedLogTick"</span> : <span class="hljs-string">"237"</span>, 
     <span class="hljs-string">"totalEvents"</span> : <span class="hljs-number">68</span>, 
-    <span class="hljs-string">"time"</span> : <span class="hljs-string">"2019-11-20T23:47:14Z"</span> 
+    <span class="hljs-string">"time"</span> : <span class="hljs-string">"2019-11-22T22:29:03Z"</span> 
   }, 
   <span class="hljs-string">"tick"</span> : <span class="hljs-string">"237"</span> 
 }
