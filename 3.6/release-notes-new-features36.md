@@ -12,87 +12,101 @@ here.
 ArangoSearch
 ------------
 
-ArangoSearch views are now eligible for SmartJoins in AQL, provided that their
+### SmartJoins and Views
+
+ArangoSearch Views are now eligible for SmartJoins in AQL, provided that their
 underlying collections are eligible too.
 
-## AQL
+### Dynamic search expressions with arrays
 
-### Added support of array comparison operators
-
-For array comparison operators ArangoSearch accepts expression in the form of:
-```
-<array> [ <ALL|ANY|NONE> ] [ <=|<|==|!=|>|>=|IN ] d.<attribute>
-```
-i.e. array always takes LHS
+ArangoSearch now accepts expressions with array comparison operators in the
+form of:
 
 ```
+<array> [ <ALL|ANY|NONE> ] [ <=|<|==|!=|>|>=|IN ] doc.<attribute>
+```
+
+i.e. the left-hand side operand is always an array, which can be dynamic.
+
+```js
 LET tokens = TOKENS("some input", "text_en")
-FOR d IN myView SEARCH tokens ALL IN d.title RETURN d   // dynamic conjunction
-FOR d IN myView SEARCH tokens ANY IN d.title RETURN d   // dynamic disjunction
-FOR d IN myView SEARCH tokens NONE IN d.title RETURN d  // dynamic negation
-FOR d IN myView SEARCH tokens ALL > d.title RETURN d    // dynamic conjunction with comparison
-FOR d IN myView SEARCH tokens ANY <= d.title RETURN d   // dynamic disjunction with comparison
+FOR doc IN myView SEARCH tokens ALL IN doc.title RETURN d   // dynamic conjunction
+FOR doc IN myView SEARCH tokens ANY IN doc.title RETURN d   // dynamic disjunction
+FOR doc IN myView SEARCH tokens NONE IN doc.title RETURN d  // dynamic negation
+FOR doc IN myView SEARCH tokens ALL > doc.title RETURN d    // dynamic conjunction with comparison
+FOR doc IN myView SEARCH tokens ANY <= doc.title RETURN d   // dynamic disjunction with comparison
 ```
 
-### Added support of array for TOKENS function
-Function `TOKENS` accepts recursive arrays of strings as the first argument:
+In addition, both the `TOKENS()` and the `PHRASE()` functions were
+extended with array support.
 
-```
+`TOKENS()` accepts recursive arrays of strings as the first argument:
+
+```js
 RETURN TOKENS("quick brown fox", "text_en")        // returns [ "quick", "brown", "fox" ]
-RETURN TOKENS([“quick brown”, “fox”], “text_en”)   // returns [ [“quick brown”], [“fox”] ]
-RETURN TOKENS([“quick brown”, [“fox”]], “text_en”) // returns [ [“quick brown”], [[“fox”]] ]
+RETURN TOKENS(["quick brown", "fox"], "text_en")   // returns [ ["quick brown"], ["fox"] ]
+RETURN TOKENS(["quick brown", ["fox"]], "text_en") // returns [ ["quick brown"], [["fox"]] ]
 ```
 
-### Added support of arrays for PHRASE function
-Function `PHRASE` accepts arrays as the second argument:
-```
-LET tokens = TOKENS("quick brown fox", "text_en");
-FOR d IN myView SEARCH PHRASE(d.title, tokens, "text_en") RETURN d
+`PHRASE()` accepts an array as the second argument:
+
+```js
+LET tokens = TOKENS("quick brown fox", "text_en") // ["quick", "brown", "fox"]
+FOR doc IN myView SEARCH PHRASE(doc.title, tokens, "text_en") RETURN d
 ```
 
-## Analyzers
+### Analyzers
 
-### Added UTF-8 support and ability to mark beginning/end of the sequence to `ngram` analyzer
+Added UTF-8 support and ability to mark beginning/end of the sequence to `ngram` Analyzer
 
 The following optional properties can be provided with `ngram` analyzer definition:
-* `startMarker` : `<string>`, default: ""
-    this value will be prepended to ngrams at the beginning of input sequence
-* `endMarker` : `<string>`, default: ""
-    this value will be appended to ngrams at the beginning of input sequence
-* `streamType` : `"binary"|"utf8"`, default: "binary"
-    type of the input stream
+
+- `startMarker` : `<string>`, default: ""<br>
+  this value will be prepended to ngrams at the beginning of input sequence
+
+- `endMarker` : `<string>`, default: ""<br>
+  this value will be appended to ngrams at the beginning of input sequence
+
+- `streamType` : `"binary"|"utf8"`, default: "binary"<br>
+  type of the input stream
 
 ### Added "Edge ngram" support to `text` analyzer
-The following optional properties can be provided with `text` analyzer definition:
-* `edgeNgram` : <object>, default - not set
-    `min` : <number>, default: not set
-      min ngram length
-    `max` : <number>, default: not set
-      max ngram length
-    `preserveOriginal`: <bool>, default: not set
-      preserve original token if its length < min or > max
+
+The following optional properties can be provided with `text`
+Analyzer definition:
+
+- `edgeNgram` : <object>, default - not set
+  - `min` : <number>, default: not set<br>
+    min ngram length
+  - `max` : <number>, default: not set<br>
+    max ngram length
+  - `preserveOriginal`: <bool>, default: not set<br>
+    preserve original token if its length < min or > max
 
 AQL
 ---
 
 ### Late document materialization
 
-With “Late document materialization” optimization ArangoDB tres to read only documents that are
-absolutely necessary for query result reducing load to the storage engine.
+With "Late document materialization" optimization ArangoDB tries to
+read only documents that are absolutely necessary for query result
+reducing load to the storage engine.
 
-In 3.6 the optimization can only be applied to the queries containing `SORT`+`LIMIT` combination, e.g:
-```
-FOR d IN documentSource // documentSource can be either collection or ArangoSearch view
+In 3.6 the optimization can only be applied to the queries containing
+`SORT`+`LIMIT` combination, e.g:
+
+```js
+FOR d IN documentSource // documentSource can be either collection or ArangoSearch View
 SORT d.foo
 LIMIT 100
 RETURN d
 ```
 
-For collection the optimization is possible IFF:
-* there is an index of type `hash`, `skip` or `edge` picked by the optimizer
-* all attribute accesses can be covered by indexed attributes
+For the collection case the optimization is possible IFF:
+- there is an index of type `hash`, `skip` or `edge` picked by the optimizer
+- all attribute accesses can be covered by indexed attributes
 
-```
+```js
 // Given we have hash index on attributes [  "foo", "bar", "baz" ]
 
 FOR d IN myCollection
@@ -102,17 +116,17 @@ LIMIT 100                   // only 100 documents will be materialized
 RETURN d
 ```
 
-For ArangoSearch view optimization is possible IFF:
-* all attribute accesses can be covered by stored attributes (e.g. using `primarySort`)
+For the ArangoSearch View case the optimization is possible IFF:
+- all attribute accesses can be covered by stored attributes (e.g. using `primarySort`)
 
-```
+```js
 FOR d IN myView SEARCH d.foo == 'baz'
 SORT BM25(d) DESC  // BM25(d) will be evaluated by the view node above
 LIMIT 100          // only 100 documents will be materialized
 RETURN d 
 ```
 
-```
+```js
 // Given we have primary sort on fields [“foo”, “bar”]
 FOR d IN myView SEARCH d.foo == ‘baz’
 SORT d.bar DESC    // field “bar” will be read from the view
