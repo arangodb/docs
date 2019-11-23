@@ -1,8 +1,7 @@
 ---
 layout: default
-description: Securing an ArangoDB deployment involves encrypting its connections andauthenticated access control
+description: Securing an ArangoDB deployment involves encrypting its connections and authenticated access control
 ---
-
 # Security
 
 Securing an ArangoDB deployment involves encrypting its connections and

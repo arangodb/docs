@@ -1,8 +1,7 @@
 ---
 layout: default
-description: This function implements theHTTP API for single roundtrip AQL queries
+description: This function implements the HTTP API for single roundtrip AQL queries
 ---
-
 # Queries
 
 This function implements the
@@ -155,6 +154,10 @@ a new _ArangoCursor_ instance for the result list.
     cache, count and fullCount will not work on streaming queries. Additionally
     query statistics, warnings and profiling data will only be available after
     the query is finished. The default value is false.
+
+  - **streamTransactionId**: `String`
+
+    If set, the operation will be executed within the transaction
 
 - **type**: `Class<T>`
 

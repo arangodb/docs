@@ -16,6 +16,7 @@ Getting Information about a Collection
 <!-- js/actions/api-collection.js -->
 {% docublock get_api_collection_figures %}
 {% docublock get_api_collection_getResponsibleShard %}
+{% docublock get_api_collection_shards %}
 
 <!-- js/actions/api-collection.js -->
 {% docublock get_api_collection_revision %}

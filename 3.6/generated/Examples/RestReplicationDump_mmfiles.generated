@@ -1,37 +1,36 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/dump?collection=testCollection</span>
 
 HTTP/1.1 OK
-content-type: application/x-arango-dump; charset=utf-8
-keep-alive: timeout=300
 x-arango-replication-checkmore: false
-x-arango-replication-lastincluded: 204
+x-arango-replication-lastincluded: 213
 x-content-type-options: nosniff
+content-type: application/x-arango-dump
 
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"198"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"207"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"123456"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"testCollection/123456"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZEGcmim--_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZZV6e--_"</span>, 
     <span class="hljs-string">"b"</span> : <span class="hljs-number">1</span>, 
     <span class="hljs-string">"c"</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">"d"</span> : <span class="hljs-string">"additional value"</span> 
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"202"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"211"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2302</span>, 
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"foobar"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZEGcmiq--B"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZZV6i--B"</span> 
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"204"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"213"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2302</span>, 
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"abcdef"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZEGcmiu--_"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZZV6m--_"</span> 
   } 
 }&#x21A9;

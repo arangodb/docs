@@ -3,7 +3,6 @@ layout: default
 description: ArangoJS - the JavaScript driver to access ArangoDB from outside the database, primarily with Node.js
 title: ArangoDB JavaScript Driver
 ---
-
 # ArangoDB JavaScript Driver
 
 The official ArangoDB low-level JavaScript client.

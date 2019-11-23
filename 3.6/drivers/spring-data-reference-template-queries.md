@@ -2,7 +2,6 @@
 layout: default
 description: Performs a database query using the given query and bindVars, then returns a new ArangoCursor instance for the result list
 ---
-
 ## ArangoOperations.query
 
 ```

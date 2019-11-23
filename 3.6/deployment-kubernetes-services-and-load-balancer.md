@@ -1,8 +1,7 @@
 ---
 layout: default
-description: The ArangoDB Kubernetes Operator will create services that can be used toreach the ArangoDB servers from inside the Kubernetes cluster
+description: The ArangoDB Kubernetes Operator will create services that can be used to reach the ArangoDB servers from inside the Kubernetes cluster
 ---
-
 # Services and load balancer
 
 The ArangoDB Kubernetes Operator will create services that can be used to

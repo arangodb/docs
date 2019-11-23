@@ -1,13 +1,25 @@
 ---
 layout: default
-description: This section describes how to start an Active Failover setup the tool Starter(the arangodb binary program)
+description: This section describes how to start an Active Failover setup the tool Starter (the arangodb binary program)
 ---
-
 Using the ArangoDB Starter
 ==========================
 
 This section describes how to start an Active Failover setup the tool [_Starter_](programs-starter.html)
 (the _arangodb_ binary program).
+
+As a precondition you should create a _secret_ to activate authentication. The _Starter_ provides a handy
+functionality to generate such a file:
+
+```bash
+arangodb create jwt-secret --secret=arangodb.secret
+```
+
+Set appropriate privilege on the generated _secret_ file, e.g. on Linux:
+
+```bash
+chmod 400 arangodb.secret
+```
 
 Local Tests
 -----------
@@ -17,28 +29,36 @@ option of the _Starter_. This will start all servers within the context of a sin
 starter process:
 
 ```bash
-arangodb --starter.local --starter.mode=activefailover --starter.data-dir=./localdata
+arangodb --starter.local --starter.mode=activefailover --starter.data-dir=./localdata --auth.jwt-secret=/etc/arangodb.secret --agents.agency.supervision-grace-period=30
 ```
+
+Please adapt the path to your _secret_ file accordingly.
+
+Note that to avoid unnecessary failovers, it may make sense to increase the value
+for the startup option `--agents.agency.supervision-grace-period` to a value
+beyond 30 seconds.
 
 **Note:** When you restart the _Starter_, it remembers the original `--starter.local` flag.
 
 Multiple Machines
 -----------------
 
-If you want to start an Active Failover setup using the _Starter_, use the `--starter.mode=activefailover`
-option of the _Starter_. A 3 "machine" _Agency_ is started as well as 2 single servers,
+If you want to start an Active Failover setup using the _Starter_, you need to copy the
+_secret_ file to every machine and use the `--starter.mode=activefailover` option of the
+_Starter_. A 3 "machine" _Agency_ is started as well as 3 single servers,
 that perform asynchronous replication and failover:
 
 ```bash
-arangodb --starter.mode=activefailover --server.storage-engine=rocksdb --starter.data-dir=./data --starter.join A,B,C
+arangodb --starter.mode=activefailover --starter.data-dir=./data --auth.jwt-secret=/etc/arangodb.secret --agents.agency.supervision.grace-period=30 --starter.join A,B,C
 ```
 
-Run the above command on machine A, B & C.
+Please adapt the path to your _secret_ file accordingly.
 
-The _Starter_ will decide on which 2 machines to run a single server instance.
-To override this decision (only valid while bootstrapping), add a
-`--cluster.start-single=false` to the machine where the single server
-instance should _not_ be started.
+Note that to avoid unnecessary failovers, it may make sense to increase the value
+for the startup option `--agents.agency.supervision-grace-period` to a value
+beyond 30 seconds.
+
+Run the above command on machine A, B & C.
 
 Once all the processes started by the _Starter_ are up and running, and joined the
 Active Failover setup (this may take a while depending on your system), the _Starter_ will inform
@@ -61,12 +81,17 @@ docker run -it --name=adb --rm -p 8528:8528 \
     -v arangodb:/data \
     -v /var/run/docker.sock:/var/run/docker.sock \
     arangodb/arangodb-starter \
+    --agents.agency.supervision-grace-period=30 \
     --starter.address=$IP \
     --starter.mode=activefailover \
     --starter.join=A,B,C
 ```
 
 Run the above command on machine A, B & C.
+
+Note that to avoid unnecessary failovers, it may make sense to increase the value
+for the startup option `--agents.agency.supervision-grace-period` to a value
+beyond 30 seconds.
 
 The _Starter_ will decide on which 2 machines to run a single server instance.
 To override this decision (only valid while bootstrapping), add a
@@ -81,9 +106,9 @@ variable by adding this option to the above `docker` command:
     -e ARANGO_LICENSE_KEY=<thekey>
 ```
 
-You can get a free evaluation license key by visiting
+You can get a free evaluation license key by visiting:
 
-     https://www.arangodb.com/download-arangodb-enterprise/
+[www.arangodb.com/download-arangodb-enterprise/](https://www.arangodb.com/download-arangodb-enterprise/){:target="_blank"}
 
 Then replace `<thekey>` above with the actual license key. The start
 will then hand on the license key to the Docker containers it launches
@@ -107,12 +132,13 @@ docker run -it --name=adb --rm -p 8528:8528 \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /path/to/certificate:/path/to/certificate
     arangodb/arangodb-starter \
+    --agents.agency.supervision-grace-period=30 \
     --starter.address=$IP \
     --starter.mode=activefailover \
     --starter.join=A,B,C
 ```
 
-Note that the enviroment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
+Note that the environment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
 as well as the additional mountpoint containing the certificate have been added above. 
 directory. The assignment of `DOCKER_CERT_PATH` is optional, in which case it 
 is mandatory that the certificates are stored in `$HOME/.docker`. So
@@ -127,6 +153,7 @@ docker run -it --name=adb --rm -p 8528:8528 \
     -v /path/to/cert:/root/.docker \
     -e DOCKER_TLS_VERIFY=1 \
     arangodb/arangodb-starter \
+    --agents.agency.supervision-grace-period=30 \
     --starter.address=$IP \
     --starter.mode=activefailover \
     --starter.join=A,B,C

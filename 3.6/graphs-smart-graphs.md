@@ -1,13 +1,15 @@
 ---
 layout: default
-description: This feature is only available in theEnterprise Edition
+description: SmartGraphs enable you to manage graphs at scale.
+title: ArangoDB SmartGraphs
 ---
 SmartGraphs
 ===========
 
 {% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+SmartGraphs are only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 This chapter describes the `smart-graph` module, which enables you to manage
@@ -76,45 +78,76 @@ General Graph.
 Getting started
 ---------------
 
-First of all SmartGraphs *cannot use existing collections*, when switching to
-SmartGraph from an existing data set you have to import the data into a fresh
+First of all, SmartGraphs **cannot use existing collections**. When switching to
+SmartGraph from an existing dataset you have to import the data into a fresh
 SmartGraph. This switch can be easily achieved with
 [arangodump](programs-arangodump.html) and
 [arangorestore](programs-arangorestore.html).
 The only thing you have to change in this pipeline is that you create the new
-collections with the SmartGraph before starting `arangorestore`.
+collections with the SmartGraph module before starting `arangorestore`.
 
-- Create a graph
+**Create a graph**
 
-  In comparison to General Graph we have to add more options when creating the
-  graph. The two options `smartGraphAttribute` and `numberOfShards` are
-  required and cannot be modified later. 
+In contrast to General Graphs we have to add more options when creating the
+graph. The two options `smartGraphAttribute` and `numberOfShards` are
+required and cannot be modified later. 
 
-    @startDocuBlockInline smartGraphCreateGraphHowTo1
-      arangosh> var graph_module = require("@arangodb/smart-graph");
-      arangosh> var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      arangosh> graph;
-      [ SmartGraph myGraph EdgeDefinitions: [ ] VertexCollections: [ ] ]
-    @endDocuBlock smartGraphCreateGraphHowTo1
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline smartGraphCreateGraphHowTo1_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo1_cluster}
+      var graph_module = require("@arangodb/smart-graph");
+      var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock smartGraphCreateGraphHowTo1_cluster
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
-- Add some vertex collections
+**Add vertex collections**
 
-  This is again identical to General Graph. The module will setup correct
-  sharding for all these collections. *Note*: The collections have to be new.
+This is analogous to General Graphs. Unlike with General Graphs, the
+**collections must not exist** when creating the SmartGraph. The SmartGraph
+module will create them for you automatically to set up the sharding for all
+these collections correctly. If you create collections via the SmartGraph
+module and remove them from the graph definition, then you may re-add them
+without trouble however, as they will have the correct sharding.
 
-    @startDocuBlockInline smartGraphCreateGraphHowTo2
-      arangosh> graph._addVertexCollection("shop");
-      arangosh> graph._addVertexCollection("customer");
-      arangosh> graph._addVertexCollection("pet");
-      arangosh> graph;
-      [ SmartGraph myGraph EdgeDefinitions: [ ] VertexCollections: [ "shop", "customer", "pet" ] ]
-    @endDocuBlock smartGraphCreateGraphHowTo2
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline smartGraphCreateGraphHowTo2_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo2_cluster}
+     ~var graph_module = require("@arangodb/smart-graph");
+     ~var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+      graph._addVertexCollection("shop");
+      graph._addVertexCollection("customer");
+      graph._addVertexCollection("pet");
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph", true);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock smartGraphCreateGraphHowTo2_cluster
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
-- Define relations on the Graph
+**Define relations on the Graph**
 
-    @startDocuBlockInline smartGraphCreateGraphHowTo3
-      arangosh> var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
-      arangosh> graph._extendEdgeDefinitions(rel);
-      arangosh> graph;
-      [ SmartGraph myGraph EdgeDefinitions: [ "isCustomer: [shop] -> [customer]" ] VertexCollections: [ "pet" ] ]
-    @endDocuBlock smartGraphCreateGraphHowTo3
+Adding edge collections works the same as with General Graphs, but again, the
+collections are created by the SmartGraph module to set up sharding correctly
+so they must not exist when creating the SmartGraph (unless they have the
+correct sharding already).
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline smartGraphCreateGraphHowTo3_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo3_cluster}
+     ~var graph_module = require("@arangodb/smart-graph");
+     ~var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
+     ~graph._addVertexCollection("shop");
+     ~graph._addVertexCollection("customer");
+     ~graph._addVertexCollection("pet");
+      var rel = graph_module._relation("isCustomer", ["shop"], ["customer"]);
+      graph._extendEdgeDefinitions(rel);
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph", true);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock smartGraphCreateGraphHowTo3_cluster
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}

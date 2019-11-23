@@ -2,7 +2,6 @@
 layout: default
 description: There are several ways to start an ArangoDB cluster
 ---
-
 # ArangoDB cluster
 
 There are several ways to start an ArangoDB cluster. In this section we will focus
@@ -12,8 +11,8 @@ _Datacenter to datacenter replication_ requires the `rocksdb` storage engine. Th
 example setup described in this section will have `rocksdb` enabled. If you choose
 to deploy with a different strategy keep in mind to set the storage engine.
 
-For the other possibilities to deploy an ArangoDB cluster please refer to
-[this](deployment-cluster.html) section.
+For other possibilities to deploy an ArangoDB cluster see
+[Cluster Deployment](deployment-cluster.html).
 
 The _Starter_ simplifies things for the operator and will coordinate a distributed
 cluster startup across several machines and assign cluster roles automatically.
@@ -60,8 +59,7 @@ This must be shared between cluster nodes.
 Sharing secrets is obviously a very delicate topic. The above workflow assumes
 that the operator will put a secret in a file named `${CLUSTERSECRETPATH}`.
 
-We recommend to use a dedicated system for managing secrets like HashiCorps' `Vault` or the
-secret management of `DC/OS`.
+We recommend to use a dedicated system for managing secrets like HashiCorp's `Vault`.
 
 ## Required ports
 

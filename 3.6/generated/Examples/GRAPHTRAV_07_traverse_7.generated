@@ -5,7 +5,7 @@
       RETURN v._key
 
 @R
-Query String:
+Query String (173 chars, cacheable: false):
    FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph'
        LET localScopeVar = RAND() &gt; 0.5
        FILTER p.edges[0].theTruth != localScopeVar
@@ -24,7 +24,7 @@ Execution plan:
 
 Indexes used:
  By   Name   Type   Collection   Unique   Sparse   Selectivity   Fields        Ranges
-  2   edge   edge   edges        false    false            n/a   [ `_from` ]   base OUTBOUND
+  2   edge   edge   edges        false    false       100.00 %   [ `_from` ]   base OUTBOUND
 
 Functions used:
  Name   Deterministic   Cacheable   Uses V8

@@ -50,6 +50,7 @@ arangod --server.endpoint tcp://0.0.0.0:5001 \
   --agency.size 3 \
   --agency.endpoint tcp://127.0.0.1:5001 \
   --agency.supervision true \
+  --agency.supervision-grace-period 30 \
   --database.directory agent1 &
    
 arangod --server.endpoint tcp://0.0.0.0:5002 \
@@ -59,6 +60,7 @@ arangod --server.endpoint tcp://0.0.0.0:5002 \
   --agency.size 3 \
   --agency.endpoint tcp://127.0.0.1:5001 \
   --agency.supervision true \
+  --agency.supervision-grace-period 30 \
   --database.directory agent2 &
 
 arangod --server.endpoint tcp://0.0.0.0:5003 \
@@ -68,8 +70,12 @@ arangod --server.endpoint tcp://0.0.0.0:5003 \
   --agency.size 3 \
   --agency.endpoint tcp://127.0.0.1:5001 \
   --agency.supervision true \
+  --agency.supervision-grace-period 30 \
   --database.directory agent3 &
 ```
+
+Note that to avoid unnecessary failovers, it may make sense to increase the value for 
+the startup option `--agency.supervision-grace-period` to a value beyond 30 seconds.
 
 ### Single Server Test Instances
 
@@ -136,6 +142,7 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.activate true \
   --agency.size 3 \
   --agency.supervision true \
+  --agency.supervision-grace-period 30 \
   --database.directory agent 
 ```
 
@@ -148,6 +155,7 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.activate true \
   --agency.size 3 \
   --agency.supervision true \
+  --agency.supervision-grace-period 30 \
   --database.directory agent
 ```
 
@@ -163,8 +171,12 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --agency.endpoint tcp://192.168.1.2:8531 \ 
   --agency.endpoint tcp://192.168.1.3:8531 \
   --agency.supervision true \
+  --agency.supervision-grace-period 30 \
   --database.directory agent
 ```
+
+Note that to avoid unnecessary failovers, it may make sense to increase the value for 
+the startup option `--agency.supervision-grace-period` to a value beyond 30 seconds.
 
 ### Single Server Instances
 
@@ -262,6 +274,7 @@ options:
    Let ArangoDB generate a random root password.
        
 For an in depth guide about Docker and ArangoDB please check the official documentation:
-https://hub.docker.com/r/arangodb/arangodb/ . Note that we are using the image
-`arangodb/arangodb` here which is always the most current one. There is also the
-"official" one called `arangodb` whose documentation is here: https://hub.docker.com/_/arangodb/
+[hub.docker.com/r/arangodb/arangodb/](https://hub.docker.com/r/arangodb/arangodb/){:target="_blank"}.
+Note that we are using the image `arangodb/arangodb` here which is always the most current one.
+There is also the "official" one called `arangodb` whose documentation is here:
+[hub.docker.com/_/arangodb/](https://hub.docker.com/_/arangodb/){:target="_blank"}

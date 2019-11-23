@@ -1,8 +1,7 @@
 ---
 layout: default
-description: These functions implement theHTTP API for manipulating indexes
+description: These functions implement the HTTP API for manipulating indexes
 ---
-
 # Manipulating indexes
 
 These functions implement the
@@ -331,7 +330,7 @@ see [Compatibility](js-getting-started.html#compatibility).
 If _size_ is a number, it will be interpreted as _size.size_.
 
 For more information on the properties of the _size_ object see the
-[HTTP API for creating cap constraints](https://docs.arangodb.com/2.8/HttpIndexes/Cap.html){:target="_blank"}.
+[HTTP API for creating cap constraints](../../2.8/http-indexes-cap.html).
 
 **Examples**
 

@@ -31,16 +31,17 @@ FOR u IN users
     RETURN { status, age }
 ```
 
-
-Alternatively `RETURN DISTINCT` can be used to make a result set unique. `RETURN DISTINCT` supports a
-single criterion only:
+Alternatively `RETURN DISTINCT` can be used to make a result set unique.
+`RETURN DISTINCT` supports a single criterion only:
 
 ```js
 FOR u IN users
     RETURN DISTINCT u.age
 ```
 
-Note: the order of results is undefined for `RETURN DISTINCT`.
+`RETURN DISTINCT` does not change the order of results. For above query that
+means the order is undefined because no particular order is guaranteed when
+iterating over a collection without explicit `SORT` operation.
 
 Fetching group values
 ---------------------

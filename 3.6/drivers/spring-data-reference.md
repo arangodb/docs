@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 # Spring Data ArangoDB - Reference
 
 - [Template](spring-data-reference-template.html)

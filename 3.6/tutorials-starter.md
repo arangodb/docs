@@ -1,12 +1,11 @@
 ---
 layout: default
-description: Starting an ArangoDB cluster involves starting various servers withdifferent roles (agents, dbservers & coordinators)
+description: Starting an ArangoDB cluster involves starting various servers with different roles (agents, dbservers & coordinators)
 ---
-
 # Starting an ArangoDB cluster or database the easy way
 
 Starting an ArangoDB cluster involves starting various servers with
-different roles (agents, dbservers & coordinators).
+different roles (Agents, DBServers & Coordinators).
 
 The ArangoDB Starter is designed to make it easy to start and
 maintain an ArangoDB cluster or single server database.
@@ -14,6 +13,11 @@ maintain an ArangoDB cluster or single server database.
 Besides starting and maintaining ArangoDB deployments, the starter also provides
 various commands to create TLS certificates & JWT token secrets to secure your
 ArangoDB deployment.
+
+{% hint 'info %}
+ArangoDB is also available as
+[**managed service** (ArangoDB Oasis)](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
 
 ## Installation
 
@@ -123,7 +127,7 @@ docker run -it --name=adb --rm -p 8528:8528 \
     --starter.join=A,B,C
 ```
 
-Note that the enviroment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
+Note that the environment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
 as well as the additional mountpoint containing the certificate have been added above. 
 directory. The assignment of `DOCKER_CERT_PATH` is optional, in which case it 
 is mandatory that the certificates are stored in `$HOME/.docker`. So
@@ -201,8 +205,9 @@ Note: When you restart the starter, it remembers the original `--starter.local` 
 ## Starting a cluster with datacenter to datacenter synchronization
 
 {% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+Datacenter to datacenter replication is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 Datacenter to datacenter replication (DC2DC) requires a normal ArangoDB cluster in both data centers
@@ -251,7 +256,7 @@ docker run -it --name=adb --rm -p 8528:8528 \
 ## Starting a resilient single server pair
 
 If you want to start a resilient single database server, use `--starter.mode=activefailover`.
-In this mode a 3 machine agency is started and 2 single servers that perform
+In this mode a 3 machine _Agency_ is started as well as 3 single servers that perform
 asynchronous replication an failover if needed.
 
 ```bash
@@ -259,11 +264,6 @@ arangodb --starter.mode=activefailover --starter.join A,B,C
 ```
 
 Run this on machine A, B & C.
-
-The starter will decide on which 2 machines to run a single server instance.
-To override this decision (only valid while bootstrapping), add a
-`--cluster.start-single=false` to the machine where the single server
-instance should NOT be scheduled.
 
 ## Starting a resilient single server pair in Docker
 

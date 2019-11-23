@@ -2,7 +2,6 @@
 layout: default
 description: Spring Data ArangoDB supports three kinds of queries
 ---
-
 # Queries
 
 Spring Data ArangoDB supports three kinds of queries:
