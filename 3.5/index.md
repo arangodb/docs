@@ -48,7 +48,7 @@ ArangoDB is a native multi-model, open-source database with flexible data models
 
 Key features include:
 
-* installing ArangoDB on a [**cluster**](deployment.html) is as easy as installing an app on your mobile
+* Installing ArangoDB on a [**cluster**](deployment.html) is as easy as installing an app on your mobile
 * [**Flexible data modeling**](data-modeling.html): model your data as combination of key-value pairs, documents or graphs - perfect for social relations
 * [**Powerful query language**](../aql/) (AQL) to retrieve and modify data 
 * Use ArangoDB as an [**application server**](foxx.html) and fuse your application and database together for maximal throughput

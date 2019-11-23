@@ -2,7 +2,6 @@
 layout: default
 description: Cursor instances provide an abstraction over the HTTP API's limitations
 ---
-
 # Cursor API
 
 _Cursor_ instances provide an abstraction over the HTTP API's limitations.
@@ -12,7 +11,7 @@ _Cursor_ instances are incrementally depleted as they are read from.
 
 ```js
 const db = new Database();
-const cursor = await db.query('FOR x IN 1..5 RETURN x');
+const cursor = await db.query(aql`FOR x IN 1..5 RETURN x`);
 // query result list: [1, 2, 3, 4, 5]
 const value = await cursor.next();
 assert.equal(value, 1);
@@ -36,8 +35,8 @@ remaining result list.
 **Examples**
 
 ```js
-const cursor = await db.query('FOR x IN 1..5 RETURN x');
-const result = await cursor.all()
+const cursor = await db.query(aql`FOR x IN 1..5 RETURN x`);
+const result = await cursor.all();
 // result is an array containing the entire query result
 assert.deepEqual(result, [1, 2, 3, 4, 5]);
 assert.equal(cursor.hasNext(), false);
@@ -77,6 +76,25 @@ await cursor.all(); // exhausts the cursor
 assert.equal(cursor.hasNext(), false);
 ```
 
+## cursor.nextBatch
+
+`async cursor.nextBatch(): Object`
+
+Advances the cursor and returns all remaining values in the cursor's current
+batch. If the current batch has already been exhausted, fetches the next batch
+from the server and returns it. If no more batches are available, returns
+`undefined` instead.
+
+**Examples**
+
+```js
+const cursor = await db.query(aql`FOR i IN 1..10 RETURN i`, { batchSize: 5 });
+await cursor.nextBatch(); // [1, 2, 3, 4, 5]
+await cursor.next(); // 6
+await cursor.nextBatch(); // [7, 8, 9, 10]
+cursor.hasNext(); // false
+```
+
 ## cursor.each
 
 `async cursor.each(fn): any`
@@ -91,22 +109,22 @@ Equivalent to _Array.prototype.forEach_ (except async).
 
 **Arguments**
 
-* **fn**: `Function`
+- **fn**: `Function`
 
   A function that will be invoked for each value in the cursor's remaining
   result list until it explicitly returns `false` or the cursor is exhausted.
 
   The function receives the following arguments:
 
-  * **value**: `any`
+  - **value**: `any`
 
     The value in the cursor's remaining result list.
 
-  * **index**: `number`
+  - **index**: `number`
 
     The index of the value in the cursor's remaining result list.
 
-  * **cursor**: `Cursor`
+  - **cursor**: `Cursor`
 
     The cursor itself.
 
@@ -120,11 +138,11 @@ function doStuff(value) {
   return VALUE;
 }
 
-const cursor = await db.query('FOR x IN ["a", "b", "c"] RETURN x')
+const cursor = await db.query(aql`FOR x IN ["a", "b", "c"] RETURN x`);
 const last = await cursor.each(doStuff);
-assert.deepEqual(results, ['A', 'B', 'C']);
+assert.deepEqual(results, ["A", "B", "C"]);
 assert.equal(cursor.hasNext(), false);
-assert.equal(last, 'C');
+assert.equal(last, "C");
 ```
 
 ## cursor.every
@@ -142,7 +160,7 @@ Equivalent to _Array.prototype.every_ (except async).
 
 **Arguments**
 
-* **fn**: `Function`
+- **fn**: `Function`
 
   A function that will be invoked for each value in the cursor's remaining
   result list until it returns a value that evaluates to `false` or the cursor
@@ -150,27 +168,27 @@ Equivalent to _Array.prototype.every_ (except async).
 
   The function receives the following arguments:
 
-  * **value**: `any`
+  - **value**: `any`
 
     The value in the cursor's remaining result list.
 
-  * **index**: `number`
+  - **index**: `number`
 
     The index of the value in the cursor's remaining result list.
 
-  * **cursor**: `Cursor`
+  - **cursor**: `Cursor`
 
     The cursor itself.
 
 ```js
 const even = value => value % 2 === 0;
 
-const cursor = await db.query('FOR x IN 2..5 RETURN x');
+const cursor = await db.query(aql`FOR x IN 2..5 RETURN x`);
 const result = await cursor.every(even);
 assert.equal(result, false); // 3 is not even
 assert.equal(cursor.hasNext(), true);
 
-const value = await cursor.next();
+const value = await cursor.nextBatch();
 assert.equal(value, 4); // next value after 3
 ```
 
@@ -192,7 +210,7 @@ Equivalent to _Array.prototype.some_ (except async).
 ```js
 const even = value => value % 2 === 0;
 
-const cursor = await db.query('FOR x IN 1..5 RETURN x');
+const cursor = await db.query(aql`FOR x IN 1..5 RETURN x`);
 const result = await cursor.some(even);
 assert.equal(result, true); // 2 is even
 assert.equal(cursor.hasNext(), true);
@@ -203,7 +221,7 @@ assert.equal(value, 3); // next value after 2
 
 ## cursor.map
 
-`cursor.map(fn): Array<any>`
+`async cursor.map(fn): Array<any>`
 
 Advances the cursor by applying the function _fn_ to each value in the cursor's
 remaining result list until the cursor is exhausted.
@@ -217,22 +235,22 @@ to do this for very large query result sets.
 
 **Arguments**
 
-* **fn**: `Function`
+- **fn**: `Function`
 
   A function that will be invoked for each value in the cursor's remaining
   result list until the cursor is exhausted.
 
   The function receives the following arguments:
 
-  * **value**: `any`
+  - **value**: `any`
 
     The value in the cursor's remaining result list.
 
-  * **index**: `number`
+  - **index**: `number`
 
     The index of the value in the cursor's remaining result list.
 
-  * **cursor**: `Cursor`
+  - **cursor**: `Cursor`
 
     The cursor itself.
 
@@ -240,7 +258,7 @@ to do this for very large query result sets.
 
 ```js
 const square = value => value * value;
-const cursor = await db.query('FOR x IN 1..5 RETURN x');
+const cursor = await db.query(aql`FOR x IN 1..5 RETURN x`);
 const result = await cursor.map(square);
 assert.equal(result.length, 5);
 assert.deepEqual(result, [1, 4, 9, 16, 25]);
@@ -249,7 +267,7 @@ assert.equal(cursor.hasNext(), false);
 
 ## cursor.reduce
 
-`cursor.reduce(fn, [accu]): any`
+`async cursor.reduce(fn, [accu]): any`
 
 Exhausts the cursor by reducing the values in the cursor's remaining result list
 with the given function _fn_. If _accu_ is not provided, the first value in the
@@ -260,28 +278,28 @@ Equivalent to _Array.prototype.reduce_ (except async).
 
 **Arguments**
 
-* **fn**: `Function`
+- **fn**: `Function`
 
   A function that will be invoked for each value in the cursor's remaining
   result list until the cursor is exhausted.
 
   The function receives the following arguments:
 
-  * **accu**: `any`
+  - **accu**: `any`
 
     The return value of the previous call to _fn_. If this is the first call,
     _accu_ will be set to the _accu_ value passed to _reduce_ or the first value
     in the cursor's remaining result list.
 
-  * **value**: `any`
+  - **value**: `any`
 
     The value in the cursor's remaining result list.
 
-  * **index**: `number`
+  - **index**: `number`
 
     The index of the value in the cursor's remaining result list.
 
-  * **cursor**: `Cursor`
+  - **cursor**: `Cursor`
 
     The cursor itself.
 
@@ -291,8 +309,8 @@ Equivalent to _Array.prototype.reduce_ (except async).
 const add = (a, b) => a + b;
 const baseline = 1000;
 
-const cursor = await db.query('FOR x IN 1..5 RETURN x');
-const result = await cursor.reduce(add, baseline)
+const cursor = await db.query(aql`FOR x IN 1..5 RETURN x`);
+const result = await cursor.reduce(add, baseline);
 assert.equal(result, baseline + 1 + 2 + 3 + 4 + 5);
 assert.equal(cursor.hasNext(), false);
 
@@ -301,4 +319,22 @@ assert.equal(cursor.hasNext(), false);
 const result = await cursor.reduce(add);
 assert.equal(result, 1 + 2 + 3 + 4 + 5);
 assert.equal(cursor.hasNext(), false);
+```
+
+## cursor.kill
+
+`async cursor.kill(): void`
+
+Kills the cursor and frees up associated database resources.
+
+This method has no effect if all result batches have already been fetched.
+
+**Examples**
+
+```js
+const cursor = await db.query(aql`FOR x IN 1..5 RETURN x`);
+await cursor.kill(); // has no effect
+
+const cursor2 = await db.query(aql`FOR x IN 1..5 RETURN x`, { batchSize: 2 });
+await cursor2.kill(); // this kills the cursor
 ```

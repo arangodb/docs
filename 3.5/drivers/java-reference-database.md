@@ -2,7 +2,6 @@
 layout: default
 description: Database API
 ---
-
 # Database API
 
 ## ArangoDB.db

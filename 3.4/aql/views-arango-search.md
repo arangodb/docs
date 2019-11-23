@@ -210,9 +210,11 @@ In plain terms this means a user can match a document attribute when its
 value matches at least one entry from a set,
 e.g. to match docs with 'word == quick' OR 'word == brown' OR 'word == fox'
 
-    FOR doc IN someCollection
-      FILTER doc.word IN TOKENS('a quick brown fox', 'text_en')
-      RETURN doc
+```js
+FOR doc IN someCollection
+  FILTER doc.word IN TOKENS('a quick brown fox', 'text_en')
+  RETURN doc
+```
 
 ArangoSearch filters
 --------------------

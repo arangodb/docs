@@ -169,7 +169,8 @@ Example output:
   </instructions>
 </recipe>
 ```
-**Note:** The [fields mandatory to ArangoDB documents](https://docs.arangodb.com/Documents/index.html){:target="_blank"} are added; If they break your XML schema you have to remove them.
+**Note:** The [fields mandatory to ArangoDB documents](../documents.html)
+are added; If they break your XML schema you have to remove them.
 
 Query raw data example:
 ```java

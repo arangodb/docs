@@ -1,11 +1,11 @@
 ---
 layout: default
-description: This Section describes upgrading an ArangoDB single-server installation, whichwas installed via Homebrew or via the provided ArangoDB packages (*
+description: This section describes upgrading an ArangoDB single-server installation, whichwas installed via Homebrew or via the provided ArangoDB packages (*
 ---
 Upgrading on macOS
 ==================
 
-This _Section_ describes upgrading an ArangoDB single-server installation, which
+This section describes upgrading an ArangoDB single-server installation, which
 was installed via Homebrew or via the provided ArangoDB packages (*.dmg). 
 
 Upgrading via Homebrew

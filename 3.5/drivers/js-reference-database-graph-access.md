@@ -1,8 +1,7 @@
 ---
 layout: default
-description: These functions implement theHTTP API for accessing general graphs
+description: These functions implement the HTTP API for accessing general graphs
 ---
-
 # Accessing graphs
 
 These functions implement the
@@ -33,7 +32,7 @@ const graphs = await db.listGraphs();
 `async database.graphs(): Array<Graph>`
 
 Fetches all graphs from the database and returns an array of _Graph_ instances
-for the graphs.
+for those graphs.
 
 **Examples**
 

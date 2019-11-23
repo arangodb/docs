@@ -1,12 +1,17 @@
 ---
 layout: default
-description: This Chapter describes various possibilities to deploy ArangoDB. By ArangoDB Deployment Mode or by Technology. You can deploy ArangoDB in the Cloud.
+description: This chapter describes various possibilities to deploy ArangoDB.
 title: ArangoDB Deployment
 ---
 Deployment
 ==========
 
-This _Chapter_ describes various possibilities to deploy ArangoDB.
+This chapter describes various possibilities to deploy ArangoDB.
+
+{% hint 'info %}
+ArangoDB is also available as
+[**managed service** (ArangoDB Oasis)](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
 
 For installation instructions, please refer to the [Installation](installation.html) _Chapter_.
 
@@ -32,7 +37,6 @@ By _Technology_:
 - [ArangoDB Starter](deployment-arango-dbstarter.html)
 - [Docker](deployment-docker.html)
 - [Kubernetes](deployment-kubernetes.html)
-- [Mesos, DC/OS](deployment-dcos.html)
 
 In the _Cloud_:
 

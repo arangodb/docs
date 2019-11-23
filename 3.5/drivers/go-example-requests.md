@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 # ArangoDB GO Driver - Example requests 
 
 ## Connecting to ArangoDB

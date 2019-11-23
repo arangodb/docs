@@ -10,7 +10,8 @@ I want to create an API with FoxxGenerator. As an example I want to use the stat
 
 ## Solution
 
-In order to create a FoxxGenerator app, we first have to create the according folder structure. Create a folder `foxx_apps` somewhere where you have write access. Create a folder `databases` inside of it, and one called `_system` inside of that. Inside of this folder, create a folder for your app. Let's call it `books`. From now on we will work in that folder. We now create a file called `manifest.json` where we will add some meta information (if you want to get more information about the manifest file, check out [the documentation](https://docs.arangodb.com/Foxx/Develop/Manifest.html){:target="_blank"}):
+In order to create a FoxxGenerator app, we first have to create the according folder structure. Create a folder `foxx_apps` somewhere where you have write access. Create a folder `databases` inside of it, and one called `_system` inside of that. Inside of this folder, create a folder for your app. Let's call it `books`. From now on we will work in that folder. We now create a file called `manifest.json` where we will add some meta information (if you want to get more information about the manifest file, check out
+[the documentation](../foxx-develop-manifest.html)):
 
 ```json
 {

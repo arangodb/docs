@@ -2,12 +2,11 @@
 layout: default
 description: Manipulating edges
 ---
-
 # Manipulating edges
 
 ## ArangoEdgeCollection.getEdge
 
-`ArangoEdgeCollection.getEdge(String key, Class<T> type, DocumentReadOptions options) : T`
+`ArangoEdgeCollection.getEdge(String key, Class<T> type, GraphDocumentReadOptions options) : T`
 
 Retrieves the edge document with the given `key` from the collection.
 
@@ -21,7 +20,7 @@ Retrieves the edge document with the given `key` from the collection.
 
   The type of the edge-document (POJO class, `VPackSlice` or `String` for JSON)
 
-- **options**: `DocumentReadOptions`
+- **options**: `GraphDocumentReadOptions`
 
   - **ifNoneMatch**: `String`
 
@@ -34,6 +33,10 @@ Retrieves the edge document with the given `key` from the collection.
   - **catchException**: `Boolean`
 
     Whether or not catch possible thrown exceptions
+
+  - **streamTransactionId**: `String`
+
+    If set, the operation will be executed within the transaction
 
 ## ArangoEdgeCollection.insertEdge
 
@@ -93,6 +96,10 @@ a edge and no precondition is violated.
 
     Replace a document based on target revision
 
+  - **streamTransactionId**: `String`
+
+    If set, the operation will be executed within the transaction
+
 **Examples**
 
 ```Java
@@ -140,6 +147,10 @@ edge and no precondition is violated.
     from the existing document that are contained in the patch document with an
     attribute value of null.
 
+  - **streamTransactionId**: `String`
+
+    If set, the operation will be executed within the transaction
+
 **Examples**
 
 ```Java
@@ -173,6 +184,10 @@ Deletes the edge with the given _key_ from the collection.
   - **ifMatch**: `String`
 
     Remove a document based on target revision
+
+  - **streamTransactionId**: `String`
+
+    If set, the operation will be executed within the transaction
 
 **Examples**
 

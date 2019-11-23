@@ -10,7 +10,6 @@ Drop
 
 <!-- arangod/V8Server/v8-collection.cpp -->
 
-
 drops a collection
 `collection.drop(options)`
 
@@ -18,12 +17,14 @@ Drops a *collection* and all its indexes and data.
 In order to drop a system collection, an *options* object
 with attribute *isSystem* set to *true* must be specified.
 
-**Note**: dropping a collection in a cluster, which is prototype for
-sharing in other collections is prohibited. In order to be able to
-drop such a collection, all dependent collections must be dropped
-first. 
+{% hint 'info' %}
+Dropping a collection in a cluster, which is prototype for sharing
+in other collections is prohibited. In order to be able to drop
+such a collection, all dependent collections must be dropped first.
+{% endhint %}
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDrop
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDrop}
@@ -35,7 +36,9 @@ first.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDrop
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDropSystem
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDropSystem}
     ~ db._create("_example", { isSystem: true });
@@ -60,11 +63,10 @@ truncates a collection
 Truncates a *collection*, removing all documents but keeping all its
 indexes.
 
-
 **Examples**
 
-
 Truncates a collection:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionTruncate
     @EXAMPLE_ARANGOSH_OUTPUT{collectionTruncate}
@@ -104,11 +106,11 @@ operations, the disk data for a collection may contain a lot of outdated data
 for which the space shall be reclaimed. In this case the compaction operation
 can be used.
 
-
 Properties
 ----------
 
 <!-- arangod/V8Server/v8-collection.cpp -->
+
 {% docublock collectionProperties %}
 
 Figures
@@ -116,13 +118,14 @@ Figures
 
 <!-- arangod/V8Server/v8-collection.cpp -->
 
-
 returns the figures of a collection
 `collection.figures()`
 
 Returns an object containing statistics about the collection.
-**Note** : Retrieving the figures will always load the collection into 
-memory.
+
+{% hint 'info' %}
+Retrieving the figures will always load the collection into memory.
+{% endhint %}
 
 * *alive.count*: The number of currently active documents in all datafiles and
   journals of the collection. Documents that are contained in the
@@ -207,10 +210,9 @@ a collection is normally slightly higher than the sum of the reported
 *fileSize* values. Still the sum of the *fileSize* values can still be 
 used as a lower bound approximation of the disk usage.
 
-
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionFigures
     @EXAMPLE_ARANGOSH_OUTPUT{collectionFigures}
     ~ require("internal").wal.flush(true, true);
@@ -225,7 +227,6 @@ GetResponsibleShard
 
 <!-- arangod/V8Server/v8-collection.cpp -->
 
-
 returns the responsible shard for the given document.
 `collection.getResponsibleShard(document)`
 
@@ -233,25 +234,49 @@ Returns a string with the responsible shard's ID. Note that the
 returned shard ID is the ID of responsible shard for the document's
 shard key values, and it will be returned even if no such document exists.
 
-**Note**: this function can only be used on a coordinator in a cluster.
+{% hint 'info' %}
+The `getResponsibleShard()` method can only be used on Coordinators
+in clusters.
+{% endhint %}
 
+Shards
+------
+
+<!-- arangod/V8Server/v8-collection.cpp -->
+
+returns the available shards for the collection.
+`collection.shards(details)`
+
+If `details` is not set, or set to `false`, returns an array with the names of 
+the available shards of the collection.
+
+If `details` is set to `true`, returns an object with the shard names as
+object attribute keys, and the responsible servers as an array mapped to each
+shard attribute key.
+
+The leader shards are always first in the arrays of responsible servers.
+
+{% hint 'info' %}
+The `shards()` method can only be used on Coordinators in clusters.
+{% endhint %}
 
 Load
 ----
 
 <!-- arangod/V8Server/v8-collection.cpp -->
 
-
 loads a collection
 `collection.load()`
 
 Loads a collection into memory.
 
-**Note**: cluster collections are loaded at all times.
+{% hint 'info' %}
+Cluster collections are loaded at all times.
+{% endhint %}
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionLoad
     @EXAMPLE_ARANGOSH_OUTPUT{collectionLoad}
     ~ db._create("example");
@@ -269,7 +294,6 @@ Revision
 
 <!-- arangod/V8Server/v8-collection.cpp -->
 
-
 returns the revision id of a collection
 `collection.revision()`
 
@@ -285,10 +309,8 @@ previous fetch of the revision id.
 The revision id returned is a string value. Clients should treat this value
 as an opaque string, and only use it for equality/non-equality comparisons.
 
-
 Path
 ----
-
 
 returns the physical path of the collection
 `collection.path()`
@@ -296,17 +318,16 @@ returns the physical path of the collection
 The *path* operation returns a string with the physical storage path for
 the collection data.
 
-**Note**: this method will return nothing meaningful in a cluster. In a 
-single-server ArangoDB, this method will only return meaningful data for the 
-MMFiles engine.
-
-
+{% hint 'info' %}
+The `path()` method will return nothing meaningful in a cluster.
+In a single-server ArangoDB, this method will only return meaningful data
+for the MMFiles storage engine.
+{% endhint %}
 
 Checksum
 --------
 
 <!-- arangod/V8Server/v8-query.cpp -->
-
 
 calculates a checksum for the data in a collection
 `collection.checksum(withRevisions, withData)`
@@ -324,14 +345,14 @@ checksumming will make the calculation slower, but is more accurate.
 The checksum calculation algorithm changed in ArangoDB 3.0, so checksums from
 3.0 and earlier versions for the same data will differ.
 
-**Note**: this method is not available in a cluster.
-
+{% hint 'info' %}
+The `checksum()` method can not be used in clusters.
+{% endhint %}
 
 Unload
 ------
 
 <!-- arangod/V8Server/v8-collection.cpp -->
-
 
 unloads a collection
 `collection.unload()`
@@ -339,11 +360,13 @@ unloads a collection
 Starts unloading a collection from memory. Note that unloading is deferred
 until all query have finished.
 
-**Note**: cluster collections cannot be unloaded.
+{% hint 'info' %}
+Cluster collections cannot be unloaded.
+{% endhint %}
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline CollectionUnload
     @EXAMPLE_ARANGOSH_OUTPUT{CollectionUnload}
     ~ db._create("example");
@@ -361,7 +384,6 @@ Rename
 
 <!-- arangod/V8Server/v8-collection.cpp -->
 
-
 renames a collection
 `collection.rename(new-name)`
 
@@ -375,12 +397,13 @@ If renaming the collection succeeds, then the collection is also renamed in
 all graph definitions inside the `_graphs` collection in the current
 database.
 
-**Note**: this method is not available in a cluster.
-
+{% hint 'info' %}
+The `rename()` method can not be used in clusters.
+{% endhint %}
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionRename
     @EXAMPLE_ARANGOSH_OUTPUT{collectionRename}
     ~ db._create("example");
@@ -398,7 +421,6 @@ Rotate
 
 <!-- arangod/V8Server/v8-collection.cpp -->
 
-
 rotates the current journal of a collection
 `collection.rotate()`
 
@@ -407,12 +429,16 @@ current journal of the collection a read-only datafile so it may become a
 candidate for garbage collection. If there is currently no journal available
 for the collection, the operation will fail with an error.
 
-**Note**: this method is specific for the MMFiles storage engine, and there
-it is not available in a cluster.
+{% hint 'info' %}
+The `rotate()` method is specific to the MMFiles storage engine and can
+not be used in clusters.
+{% endhint %}
 
-**Note**: please note that you need appropriate user permissions to execute this. 
- - To do the rename collections in first place you need to have administrative rights on the database
- - To have access to the resulting renamed collection you either need to have access to 
-   all collections of that database (`*`) or a main system administrator has to give you access to 
-   the newly named one.
-
+{% hint 'tip' %}
+You need appropriate user permissions to execute this.
+- To do the rename collections in first place you need to have
+  administrative rights on the database.
+- To have access to the resulting renamed collection you either need
+  to have access to all collections of that database (`*`) or a main
+  system administrator has to give you access to the newly named one.
+{% endhint %}

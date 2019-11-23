@@ -2,7 +2,6 @@
 layout: default
 description: ArangoDB Kubernetes Operator
 ---
-
 # ArangoDB Kubernetes Operator
 
 The ArangoDB Kubernetes Operator (`kube-arangodb`) is a set of operators
@@ -16,6 +15,8 @@ Each of these uses involves a different custom resource.
 
 - Use an [`ArangoDeployment` resource](deployment-kubernetes-deployment-resource.html) to
   create an ArangoDB database deployment.
+- Use an [`ArangoBackup` resource](deployment-kubernetes-backup-resource.html) to
+  create an ArangoDB backup.
 - Use an [`ArangoLocalStorage` resource](deployment-kubernetes-storage-resource.html) to
   provide local `PersistentVolumes` for optimal I/O performance.
 - Use an [`ArangoDeploymentReplication` resource](deployment-kubernetes-deployment-replication-resource.html) to

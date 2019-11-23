@@ -1,12 +1,14 @@
 ---
 layout: default
-description: This feature is only available in theEnterprise Edition
+description: LDAP authentication options in the ArangoDB server
+title: ArangoDB LDAP Configuration
 ---
 # ArangoDB Server LDAP Options
 
 {% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+LDAP authentication is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
 ## Basics Concepts

@@ -2,7 +2,6 @@
 layout: default
 description: To use the driver, first fetch the sources into your GOPATH
 ---
-
 # ArangoDB GO Driver - Getting Started
 
 ## Supported versions
@@ -114,7 +113,9 @@ All error checking functions use the `Cause` function to get the cause of an err
 Note that `WithStack` and `Cause` are actually variables to you can implement it using your own error 
 wrapper library. 
 
-If you for example use https://github.com/pkg/errors, you want to initialize to go driver like this:
+If you for example use [github.com/pkg/errors](https://github.com/pkg/errors){:target="_blank"},
+you want to initialize to go driver like this:
+
 ```go
 import (
     driver "github.com/arangodb/go-driver"

@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 # ArangoDB JavaScript Driver - Reference
 
 - [Database](js-reference-database.html)
@@ -12,6 +11,7 @@ layout: default
   - [AQL User Functions](js-reference-database-aql-user-functions.html)
   - [Transactions](js-reference-database-transactions.html)
   - [Graph Access](js-reference-database-graph-access.html)
+  - [Analyzer Access](js-reference-database-analyzer-access.html)
   - [Foxx Services](js-reference-database-foxx-services.html)
   - [HTTP Routes](js-reference-database-http-routes.html)
 - [Collection](js-reference-collection.html)
@@ -23,7 +23,8 @@ layout: default
   - [Simple Queries](js-reference-collection-simple-queries.html)
   - [Bulk Import](js-reference-collection-bulk-import.html)
 - [AQL Helpers](js-reference-aql.html)
-- [View Manipulation](js-reference-view-manipulation.html)
+- [View](js-reference-view.html)
+- [Analyzer](js-reference-analyzer.html)
 - [Cursor](js-reference-cursor.html)
 - [Graph](js-reference-graph.html)
   - [Vertices](js-reference-graph-vertices.html)

@@ -229,4 +229,5 @@ $ wget --method=PUT -qSO - http://localhost:8529/_api/job/152223973119118 | jq .
 
 The final response will look like the response of the `GET` call.
 If an error occurred the response should contain details on how to proceed.
-If in doubt, ask as on Slack: https://arangodb.com/community/
+If in doubt, ask as on Slack:
+[arangodb.com/community/](https://arangodb.com/community/){:target="_blank"}

@@ -1,8 +1,8 @@
 ---
 layout: default
-description: The ArangoDB Starter is a program used to create ArangoDB database deploymentson bare-metal (or virtual machines) with ease
+description: The ArangoDB Starter is a program used to create ArangoDB database deployments on bare-metal (or virtual machines) with ease
+title: Architecture of the ArangoDB Starter Tools
 ---
-
 # ArangoDB Starter Architecture
 
 ## What does the Starter do
@@ -13,7 +13,7 @@ It enables you to create everything from a simple Single server instance
 to a full blown Cluster with datacenter to datacenter replication in under 5 minutes.
 
 The Starter is intended to be used in environments where there is no higher
-level orchestration system (e.g. Kubernetes or DC/OS) available.
+level orchestration system (e.g. Kubernetes) available.
 
 ## Starter versions
 

@@ -10,7 +10,9 @@ const fetch = require('node-fetch');
 
 async function migrateMds(basePath, targetPath) {
     const absoluteBasePath = await fs.realpath(basePath);
-    const paths = (await globby([path.join(basePath, "**/*.md")])).filter(filePath => {
+    // NOTE globby >= 10 does not support backslashes anymore
+    const searchPath = path.join(basePath, "**/*.md").replace(/\\/g, '/')
+    const paths = (await globby([searchPath])).filter(filePath => {
         return path.relative(basePath, filePath).toLowerCase() !== 'summary.md';
     });
 
@@ -23,7 +25,7 @@ async function migrateMds(basePath, targetPath) {
         let book = path.basename(basePath);
         const version = targetPath.split("/")[0];
         let urlVersion = version;
-        if (urlVersion == "3.5") {
+        if (urlVersion == "3.6") {
             urlVersion = "devel";
         }
 
@@ -63,7 +65,7 @@ async function migrateMds(basePath, targetPath) {
                 }
             } else {
                 description = paragraph.textContent
-                    .replace(/\n/g, '')
+                    .replace(/\n/g, ' ')
                     .replace(/(.*?)[\.:].*/ms, '\$1')
                     .replace(/{%\s*hint[^%]*\s*%}/, '')
                     .replace(/{%\s*endhint\s*%}/, '')
@@ -87,6 +89,17 @@ async function migrateMds(basePath, targetPath) {
         }
         content = content.replace("ArangoDB VERSION_NUMBER", "ArangoDB {{ site.data.versions[page.version.name] }}");
         
+        // HACK: Fix cross-links
+        content = content.replace(/\]\(https:\/\/docs\.arangodb\.com\/latest\/(.*?)\)/g, (fullMatch, link) => {
+            link = path.relative(relative, link).replace(/\\/g, '/').replace(/\/index\.html/, '.html').replace(/\/README.md/, '.html');
+            return `](${link})`;
+        });
+        content = content.replace(/\]\(https:\/\/www\.arangodb\.com\/docs\/stable\/(.*?)\)/g, (fullMatch, link) => {
+            link = path.relative(relative, link).replace(/\\/g, '/').replace(/\/index\.html/, '.html').replace(/\/README.md/, '.html');
+            console.dir({fullMatch, link});
+            return `](${link})`;
+        });
+
         // replace all md links with their changed link
         content = content.replace(/\]\((?!https?:)(.*?\.(html|md))(#[^\)]+)?\)/g, (x, link, fileExt, anchor) => {
             if (!link.startsWith('/')) {
@@ -156,7 +169,9 @@ async function migrateMds(basePath, targetPath) {
 
 // verified beforehand that all imagenames are unique over all directories
 async function migrateImages(basePath, targetPath) {
-    const paths = await globby([path.join(basePath + "/**/*.png")]);
+    // NOTE globby >= 10 does not support backslashes anymore
+    searchPath = path.join(basePath + "/**/*.png").replace(/\\/g, '/')
+    const paths = await globby([searchPath]);
     let imagePath;
     if (path.basename(basePath) == "Manual" || path.basename(basePath) == "Users") {
         imagePath = path.join(targetPath, "images");

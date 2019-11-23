@@ -1,8 +1,7 @@
 ---
 layout: default
-description: The ArangoDB Starter provides a lot of options to control various aspectsof the cluster or database you want to run
+description: The ArangoDB Starter provides a lot of options to control various aspects of the cluster or database you want to run
 ---
-
 # Option reference
 
 The ArangoDB Starter provides a lot of options to control various aspects
@@ -95,7 +94,7 @@ a docker container, the starter will auto-detect its container name.
 The arango starter by default creates a cluster that uses no authentication.
 
 To create a cluster that uses authentication, create a file containing a random JWT secret (single line)
-and pass it through the `--auth.jwt-secret-path` option.
+and pass it through the `--auth.jwt-secret` option.
 
 For example:
 

@@ -2,7 +2,6 @@
 layout: default
 description: ArangoDeploymentReplication Custom Resource
 ---
-
 # ArangoDeploymentReplication Custom Resource
 
 The ArangoDB Replication Operator creates and maintains ArangoDB

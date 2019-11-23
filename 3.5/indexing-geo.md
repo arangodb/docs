@@ -35,12 +35,12 @@ collection.ensureIndex({ type: "geo", fields: [ "geometry" ], geoJson:true })
 ```
 
 This creates the index on all documents and uses _geometry_ as the attributed
-field where the value is either a [Geometry
-Object](https://tools.ietf.org/html/rfc7946#section-3.1){:target="_blank"} **or** a _coordinate
-array_. The array must contain at least two numeric values with longitude (first
-value) and the latitude (second value). This  corresponds to the format
-described in [RFC 7946
-Position](https://tools.ietf.org/html/rfc7946#section-3.1.1){:target="_blank"}
+field where the value is either a
+[Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1){:target="_blank"}
+**or** a _coordinate array_. The array must contain at least two numeric values
+with longitude (first value) and the latitude (second value). This corresponds
+to the format described in
+[RFC 7946 Position](https://tools.ietf.org/html/rfc7946#section-3.1.1){:target="_blank"}.
 
 All documents, which do not have the attribute path or have a non-conform
 value in it, are excluded from the index.
@@ -194,9 +194,10 @@ degrees.
 
 Internally ArangoDB maps all coordinates onto a unit sphere. Distances are
 projected onto a sphere with the Earth's *Volumetric mean radius* of *6371
-km*. ArangoDB implements a useful subset of the GeoJSON format [(RFC
-7946)](https://tools.ietf.org/html/rfc7946){:target="_blank"}. We do not support Feature Objects
-or the GeometryCollection type. Supported geometry object types are:
+km*. ArangoDB implements a useful subset of the GeoJSON format
+[(RFC 7946)](https://tools.ietf.org/html/rfc7946){:target="_blank"}.
+Feature Objects and the GeometryCollection type are not supported.
+Supported geometry object types are:
 
 - Point
 - MultiPoint
@@ -280,6 +281,10 @@ Any subsequent elements represent interior rings (holes within the surface).
 - A linear ring may not be empty, it needs at least three _distinct_ coordinates
 - Within the same linear ring consecutive coordinates may be the same, otherwise
   (except the first and last one) all coordinates need to be distinct
+- A linear ring defines two regions on the sphere. ArangoDB will always interpret
+  the region of smaller area to be the interior of the ring. This introduces a
+  practical limitation that no polygon may have an outer ring enclosing more
+  than half the Earth's surface
 
 No Holes:
 
@@ -302,7 +307,8 @@ With Holes:
 
 - The exterior ring should not self-intersect.
 - The interior rings must be contained in the outer ring
-- No two rings can cross each other, i.e. no ring may intersect both the interior and exterior face of another ring
+- No two rings can cross each other, i.e. no ring may intersect both
+  the interior and exterior face of another ring
 - Rings cannot share edges, they may however share vertices
 - No ring may be empty
 - Polygon rings should follow the right-hand rule for orientation
@@ -338,7 +344,11 @@ _Polygon_ coordinate arrays.
 
 - Polygons in the same MultiPolygon may not share edges, they may share coordinates
 - Polygons and rings must not be empty
-- Linear Rings **MUST** follow the right-hand rule for orientation
+- A linear ring defines two regions on the sphere. ArangoDB will always interpret
+  the region of smaller area to be the interior of the ring. This introduces a
+  practical limitation that no polygon may have an outer ring enclosing more
+  than half the Earth's surface
+- Linear rings **must** follow the right-hand rule for orientation
   (counterclockwise external rings, clockwise internal rings).
 
 Example with two polygons, the second one with a hole:

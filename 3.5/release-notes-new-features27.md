@@ -90,8 +90,8 @@ locks. These changes allow higher concurrency and throughput in these components
 which can also make the server handle more requests in a given period of time.
 
 What gains can be expected depends on which operations are executed, but there
-are real-world cases in which [throughput increased by between 25 % and 70 % when
-compared to 2.6](https://www.arangodb.com/2015/08/throughput-enhancements/){:target="_blank"}. 
+are real-world cases in which throughput increased by between 25 % and 70 % when
+compared to 2.6 (see [blog post](https://www.arangodb.com/2015/08/throughput-enhancements/){:target="_blank"}).
 
 
 ### Madvise hints

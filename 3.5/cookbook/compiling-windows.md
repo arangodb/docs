@@ -11,7 +11,7 @@ Problem
 I want to compile ArangoDB 3.4 and onwards under Windows.
 
 **Note:** If you want to compile version 3.3 or earlier, then look at the
-[Compiling ArangoDB under Windows](https://docs.arangodb.com/3.3/Cookbook/Compiling/Windows.html){:target="_blank"}
+[Compiling ArangoDB under Windows](../../2.8/cookbook/compiling-under-windows.html)
 recipe in the 3.3 documentation.
 
 Solution
@@ -80,7 +80,8 @@ Note that the V8 build scripts and gyp aren't compatible with Python 3.x hence y
 
 ### Building ArangoDB
 
-Download and extract the release tarball from https://www.arangodb.com/download/
+Download and extract the release tarball from
+[www.arangodb.com/download/](https://www.arangodb.com/download/){:target="_blank"}
 
 Or clone the GitHub repository and checkout the branch or tag you need (e.g. `devel`)
 

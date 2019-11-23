@@ -223,5 +223,6 @@ in an ArangoDB server:
 - `--foxx.store`:
   If set to `false`, this option disables the Foxx app store in ArangoDB's web interface,
   which will also prevent ArangoDB and its web interface from making calls to the main Foxx 
-  application Github repository at https://github.com/arangodb/foxx-apps.
+  application Github repository at
+  [github.com/arangodb/foxx-apps](https://github.com/arangodb/foxx-apps){:target="_blank"}.
   The default value is `true`.

@@ -348,6 +348,10 @@ minimum length will be included in the index.
 The fulltext index is used via dedicated functions in AQL or the simple queries, but will
 not be enabled for other types of queries or conditions.
 
+{% hint 'tip' %}
+For advanced full-text search capabilities consider [ArangoSearch](arangosearch.html).
+{% endhint %}
+
 
 Persistent Index
 ----------------

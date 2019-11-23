@@ -58,7 +58,7 @@ This function can be **optimized** by a S2 based [geospatial index](../indexing-
 
 <small>Introduced in: v3.4.0</small>
 
-`GEO_DISTANCE(geoJsonA, geoJsonB) → distance`
+`GEO_DISTANCE(geoJsonA, geoJsonB, ellipsoid) → distance`
 
 Return the distance between two GeoJSON objects, measured from the **centroid**
 of each shape. For a list of supported types see the
@@ -66,8 +66,10 @@ of each shape. For a list of supported types see the
 
 - **geoJsonA** (object): first GeoJSON object
 - **geoJsonB** (object): second GeoJSON object
+- **ellipsoid** (string, *optional*): reference ellipsoid to use.
+  Supported are `"sphere"` (default) and `"wgs84"`.
 - returns **distance** (number): the distance between the centroid points of
-  the two objects
+  the two objects on the reference ellipsoid
 
 ```js
 LET polygon = {
@@ -77,6 +79,29 @@ LET polygon = {
 FOR doc IN collectionName
   LET distance = GEO_DISTANCE(doc.geometry, polygon) // calculates the distance
   RETURN distance
+```
+
+### GEO_AREA()
+
+<small>Introduced in: v3.5.1</small>
+
+`GEO_AREA(geoJson, ellipsoid) → area`
+
+Return the area for a polygon or multi-polygon on a sphere with the
+average Earth radius, or an ellipsoid. For a list of supported types
+see the [geo index page](../indexing-geo.html#geojson).
+
+- **geoJson** (object): a GeoJSON object
+- **ellipsoid** (string, *optional*): reference ellipsoid to use.
+  Supported are `"sphere"` (default) and `"wgs84"`.
+- returns **area** (number): the area in square meters of the polygon
+
+```js
+LET polygon = {
+  type: "Polygon",
+  coordinates: [[[-11.5, 23.5], [-10.5, 26.1], [-11.2, 27.1], [-11.5, 23.5]]]
+}
+RETURN GEO_AREA(polygon, "wgs84")
 ```
 
 ### GEO_EQUALS()

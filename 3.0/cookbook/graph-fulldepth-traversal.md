@@ -63,7 +63,7 @@ cat traverse.js | arangosh
 ```
 
 If you want to use it in production you should have a look at the Foxx framework which allows you to store and execute this script on server side and make it accessible via your own API:
-[Foxx](https://docs.arangodb.com/2.8/Foxx/index.html){:target="_blank"}
+[Foxx](../foxx.html)
 
 ## Comment
 You only compute the connections of one vertex once and cache it then.

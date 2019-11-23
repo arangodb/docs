@@ -1,13 +1,25 @@
 ---
 layout: default
-description: This section describes how to start a Cluster using the tool Starter(the arangodb binary program)
+description: This section describes how to start a Cluster using the tool Starter (the arangodb binary program)
 ---
-
 Using the ArangoDB Starter
 ==========================
 
 This section describes how to start a Cluster using the tool [_Starter_](programs-starter.html)
 (the _arangodb_ binary program).
+
+As a precondition you should create a _secret_ to activate authentication. The _Starter_ provides a handy
+functionality to generate such a file:
+
+```bash
+arangodb create jwt-secret --secret=arangodb.secret
+```
+
+Set appropriate privilege on the generated _secret_ file, e.g. on Linux:
+
+```bash
+chmod 400 arangodb.secret
+```
 
 Local Tests
 -----------
@@ -16,8 +28,10 @@ If you only want a local test Cluster, you can run a single _Starter_ with the
 `--starter.local` argument. It will start a 3 "machine" Cluster on your local PC:
 
 ```
-arangodb --starter.local --starter.data-dir=./localdata
+arangodb --starter.local --starter.data-dir=./localdata --auth.jwt-secret=/etc/arangodb.secret
 ```
+
+Please adapt the path to your _secret_ file accordingly.
 
 **Note:** a local Cluster is intended only for test purposes since a failure of 
 a single PC will bring down the entire Cluster.
@@ -25,11 +39,14 @@ a single PC will bring down the entire Cluster.
 Multiple Machines
 -----------------
 
-If you want to start a Cluster using the _Starter_, you can use the following command:
+If you want to start a Cluster using the _Starter_, you need to copy the _secret_ file to every machine
+and start the Cluster using the following command:
 
 ```
-arangodb --server.storage-engine=rocksdb --starter.data-dir=./data --starter.join A,B,C
+arangodb --server.storage-engine=rocksdb --auth.jwt-secret=/etc/arangodb.secret --starter.data-dir=./data --starter.join A,B,C
 ```
+
+Please adapt the path to your _secret_ file accordingly.
 
 Run the above command on machine A, B & C.
 
@@ -66,9 +83,9 @@ variable by adding this option to the above `docker` command:
     -e ARANGO_LICENSE_KEY=<thekey>
 ```
 
-You can get a free evaluation license key by visiting
+You can get a free evaluation license key by visiting:
 
-     https://www.arangodb.com/download-arangodb-enterprise/
+[www.arangodb.com/download-arangodb-enterprise/](https://www.arangodb.com/download-arangodb-enterprise/){:target="_blank"}
 
 Then replace `<thekey>` above with the actual license key. The start
 will then hand on the license key to the Docker containers it launches
@@ -97,7 +114,7 @@ docker run -it --name=adb --rm -p 8528:8528 \
     --starter.join=A,B,C
 ```
 
-Note that the enviroment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
+Note that the environment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
 as well as the additional mountpoint containing the certificate have been added above. 
 directory. The assignment of `DOCKER_CERT_PATH` is optional, in which case it 
 is mandatory that the certificates are stored in `$HOME/.docker`. So

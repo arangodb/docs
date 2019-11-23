@@ -305,7 +305,7 @@ that for some workloads the amount of memory that the Linux kernel tracks as
 overcommit limit (physical RAM * `overcommit_ratio` + swap space).
 
 The solution is to
-[modify the value of `vm.overcommit_memory`](installation-linux-osconfiguration.html#over-commit-memory)
+[modify the value of `vm.overcommit_memory`](installation-linux-osconfiguration.html#overcommit-memory)
 from **2** to either **0** or **1**. This will fix both of these problems.
 We still observe ever-increasing *virtual memory* consumption when using
 jemalloc regardless of the overcommit setting, but in practice this should not

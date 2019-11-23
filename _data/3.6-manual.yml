@@ -59,6 +59,8 @@
               href: programs-arangod-audit.html
             - text: Cache
               href: programs-arangod-cache.html
+            - text: Backup
+              href: programs-arangod-backup.html
             - text: Cluster
               href: programs-arangod-cluster.html
             - text: Compaction
@@ -85,6 +87,8 @@
               href: programs-arangod-random.html
             - text: Replication
               href: programs-arangod-replication.html
+            - text: Rclone
+              href: programs-arangod-rclone.html
             - text: RocksDB
               href: programs-arangod-rocksdb.html
             - text: Server
@@ -160,6 +164,13 @@
           href: programs-arangorestore-fast-cluster-restore.html
         - text: Options
           href: programs-arangorestore-options.html
+    - text: Arangobackup
+      href: programs-arangobackup.html
+      children:
+        - text: Examples
+          href: programs-arangobackup-examples.html
+        - text: Options
+          href: programs-arangobackup-options.html
     - text: Arangoimport
       href: programs-arangoimport.html
       children:
@@ -318,19 +329,15 @@
       href: graphs-edges.html
     - text: Pregel
       href: graphs-pregel.html
-- text: ArangoSearch Views
-  href: views-arango-search.html
+- text: ArangoSearch
+  href: arangosearch.html
   children:
-    - text: Getting Started
-      href: views-arango-search-getting-started.html
-    - text: Detailed Overview
-      href: views-arango-search-detailed-overview.html
+    - text: Views
+      href: arangosearch-views.html
     - text: Analyzers
-      href: views-arango-search-analyzers.html
-    - text: Scorers
-      href: views-arango-search-scorers.html
-- text: Analyzers
-  href: analyzers.html
+      href: arangosearch-analyzers.html
+    - text: Examples
+      href: arangosearch-examples.html
 - subtitle: ADVANCED TOPICS
 - text: Architecture
   href: architecture.html
@@ -359,8 +366,10 @@
           children:
             - text: Architecture
               href: architecture-deployment-modes-cluster-architecture.html
-            - text: Data models
+            - text: Data Models
               href: architecture-deployment-modes-cluster-data-models.html
+            - text: Data Sharding
+              href: architecture-deployment-modes-cluster-sharding.html
             - text: Limitations
               href: architecture-deployment-modes-cluster-limitations.html
         - text: Datacenter to datacenter replication
@@ -563,8 +572,6 @@
               href: deployment-cluster-manual-start.html
             - text: Kubernetes
               href: deployment-cluster-kubernetes.html
-            - text: 'Mesos, DC/OS'
-              href: deployment-cluster-mesos.html
         - text: Multiple Datacenters
           href: deployment-dc2-dc.html
           children:
@@ -598,6 +605,10 @@
               href: deployment-kubernetes-dashboards.html
             - text: Deployment Resource Reference
               href: deployment-kubernetes-deployment-resource.html
+            - text: Backup Resource
+              href: deployment-kubernetes-backup-resource.html
+            - text: BackupPolicy Resource
+              href: deployment-kubernetes-backup-policy-resource.html
             - text: Driver Configuration
               href: deployment-kubernetes-driver-configuration.html
             - text: Helm
@@ -626,14 +637,6 @@
               href: deployment-kubernetes-tls.html
             - text: Troubleshooting
               href: deployment-kubernetes-troubleshooting.html
-        - text: 'Mesos, DC/OS'
-          href: deployment-dcos.html
-          children:
-            - text: Cluster Deployments
-              href: deployment-dcos-cluster-mesos.html
-              children:
-                - text: Choosing Container Engine
-                  href: deployment-dcos-mesos-containers.html
     - text: In the Cloud
       href: deployment-cloud.html
       children:
@@ -789,6 +792,15 @@
 - text: Release Notes
   href: release-notes.html
   children:
+    - text: Version 3.6
+      href: release-notes-36.html
+      children:
+        - text: What's New in 3.6
+          href: release-notes-new-features36.html
+        - text: Known Issues in 3.6
+          href: release-notes-known-issues36.html
+        - text: Incompatible changes in 3.6
+          href: release-notes-upgrading-changes36.html
     - text: Version 3.5
       href: release-notes-35.html
       children:
@@ -908,6 +920,8 @@
       children:
         - text: '@arangodb'
           href: appendix-java-script-modules-arango-db.html
+        - text: analyzers
+          href: appendix-java-script-modules-analyzers.html
         - text: console
           href: appendix-java-script-modules-console.html
         - text: crypto
