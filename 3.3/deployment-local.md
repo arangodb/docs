@@ -5,7 +5,7 @@ description: An ArangoDB cluster consists of several running tasks (or server pr
 Launching an ArangoDB cluster for testing
 =========================================
 
-An ArangoDB cluster consists of several running tasks (or server processes) which form the cluster. ArangoDB itself won't start or monitor any of these tasks. So it will need some kind of supervisor which is monitoring and starting these tasks. For production usage we recommend using Apache Mesos as the cluster supervisor.
+An ArangoDB cluster consists of several running tasks (or server processes) which form the cluster. ArangoDB itself won't start or monitor any of these tasks. So it will need some kind of supervisor which is monitoring and starting these tasks.
 
 However starting a cluster manually is possible and is a very easy method to get a first impression of what an ArangoDB cluster looks like.
 
