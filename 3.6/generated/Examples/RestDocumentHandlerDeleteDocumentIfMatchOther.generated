@@ -1,7 +1,7 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'If-Match: "_ZnS6poS--A"'</span> --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/69713</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'If-Match: "_ZnnhUx2--A"'</span> --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/69713</span>
 
 HTTP/<span class="hljs-number">1.1</span> Precondition Failed
-etag: <span class="hljs-string">"_ZnS6poS---"</span>
+etag: <span class="hljs-string">"_ZnnhUx2---"</span>
 x-content-type-options: nosniff
 content-type: application/json
 
@@ -12,5 +12,5 @@ content-type: application/json
   <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"precondition failed"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69713"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69713"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnS6poS---"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnnhUx2---"</span> 
 }
