@@ -3,31 +3,31 @@ arangosh&gt; db.five.all().toArray();
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88588"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/88588"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnCqWH---A"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnY2Sia--A"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"one"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88590"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/88590"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnCqWHC---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnY2Sie--_"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"two"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88592"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/88592"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnCqWHC--A"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnY2Sie--B"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"three"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88594"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/88594"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnCqWHG---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnY2Sii---"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"four"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88596"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/88596"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnCqWHG--A"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnY2Sii--A"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"five"</span> 
   } 
 ]
@@ -36,13 +36,13 @@ arangosh&gt; db.five.all().limit(<span class="hljs-number">2</span>).toArray();
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88588"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/88588"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnCqWH---A"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnY2Sia--A"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"one"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88590"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"five/88590"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnCqWHC---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZnY2Sie--_"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"two"</span> 
   } 
 ]
