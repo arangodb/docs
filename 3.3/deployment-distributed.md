@@ -5,8 +5,7 @@ description: Launching an ArangoDB cluster on multiple machines
 Launching an ArangoDB cluster on multiple machines
 --------------------------------------------------
 
-Essentially, one can use the method from [the previous
-section](deployment-local.html) to start an ArangoDB cluster on multiple machines as
+Essentially, one can use the method from [the previous section](deployment-local.html) to start an ArangoDB cluster on multiple machines as
 well. The only changes are that one has to replace all local addresses `127.0.0.1` by the actual IP address of the corresponding server.
 
 If we assume that you want to start you ArangoDB cluster on three different machines with IP addresses
@@ -53,5 +52,3 @@ arangod --server.authentication=false --server.endpoint tcp://0.0.0.0:8531 --clu
 ```
 
 Obviously, it would no longer be necessary to use different port numbers on different servers. We have chosen to keep all port numbers in comparison to the local setup to minimize the necessary changes.
-
-After having swallowed these longish commands, we hope that you appreciate the simplicity of the setup with Apache Mesos and DC/OS.

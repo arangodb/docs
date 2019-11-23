@@ -37,7 +37,6 @@ By _Technology_:
 - [ArangoDB Starter](deployment-arango-dbstarter.html)
 - [Docker](deployment-docker.html)
 - [Kubernetes](deployment-kubernetes.html)
-- [Mesos, DC/OS](deployment-dcos.html)
 
 In the _Cloud_:
 
