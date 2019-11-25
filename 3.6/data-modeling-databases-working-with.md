@@ -138,8 +138,13 @@ change into the current database to the new database. Changing the current
 database must explicitly be requested by using the
 *db._useDatabase* method.
 
-The *options* attribute currently has no meaning and is reserved for
-future use.
+The *options* attribute can be used to set defaults for collections that will
+be created in the new database:
+
+* *sharding*: The sharding method to use. Valid values are: "" or "single
+* *replicationFactor*: Default replication factor. Special values include "satellite",
+  which will replicate the collection to every DB-server, and 1, which disables replication.
+* *minReplicationFactor*: Default minimum replication factor.
 
 The optional *users* attribute can be used to create initial users for
 the new database. If specified, it must be a list of user objects. Each user
