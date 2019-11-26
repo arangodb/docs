@@ -333,7 +333,7 @@ marked by a `SubqueryEndNode`.
 ArangoDB 3.6 provides the following new AQL functionality:
 
 - a function `GEO_AREA()` for [area calculations](aql/functions-geo.html#geo_area)
-- a [query option](aql/invocation-with-arangosh.html#setting-options) `timeout`
+- a [query option](aql/invocation-with-arangosh.html#setting-options) `maxRuntime`
   to restrict the execution to a given time in seconds. Also see
   [HTTP API](http/aql-query-cursor-accessing-cursors.html#create-cursor).
 
