@@ -510,7 +510,7 @@ The following AQL functions have been added in ArangoDB 3.4:
 * `REGEX_MATCHES`: finds matches in a string using a regular expression
 * `REGEX_SPLIT`: splits a string using a regular expression
 * `UUID`: generates a universally unique identifier value
-* `TOKENS`: splits a string into tokens using a language-specific text analyzer
+* `TOKENS`: splits a string into tokens using a language-specific text Analyzer
 * `VERSION`: returns the server version as a string
  
 The following AQL functions have been added to make working with geographical 

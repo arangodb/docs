@@ -18,7 +18,7 @@ conditions, similar to queries to web search engines.
 Analyzers can be used on their own to tokenize and normalize strings in AQL
 queries with the [`TOKENS()` function](aql/functions-arangosearch.html#tokens).
 
-How analyzers process values depends on their type and configuration.
+How Analyzers process values depends on their type and configuration.
 The configuration is comprised of type-specific properties and list of features.
 The features control the additional metadata to be generated to augment View
 indexes, to be able to rank results for instance.
@@ -174,7 +174,7 @@ attributes:
 
 **Example**
 
-With `min` = 4 and `max` = 5, the analyzer will produce the following n-grams
+With `min` = 4 and `max` = 5, the Analyzer will produce the following n-grams
 for the input string `"foobar"`:
 - `"foobar"` (if `preserveOriginal` is enabled)
 - `"fooba"`
@@ -256,11 +256,11 @@ Currently the following *features* are supported:
 Built-in Analyzers
 ------------------
 
-There is a set of built-in analyzers which are available by default for
+There is a set of built-in Analyzers which are available by default for
 convenience and backward compatibility. They can not be removed.
 
-The `identity` analyzer has the features `frequency` and `norm`.
-The analyzers of type `text` all tokenize strings with stemming enabled,
+The `identity` Analyzer has the features `frequency` and `norm`.
+The Analyzers of type `text` all tokenize strings with stemming enabled,
 no stopwords configured, case conversion set to `lower`, accent removal
 turned on and the features `frequency`, `norm` and `position`:
 
