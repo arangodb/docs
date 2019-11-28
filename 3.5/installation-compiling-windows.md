@@ -201,11 +201,3 @@ You can then run the integration tests in the cygwin shell like that:
 
 Additional options `--ruby c:/tools/ruby25/bin/ruby` and `--rspec c:/tools/ruby25/bin/rspec`
 should be used only if Ruby is not in the *PATH*.
-
-**Authors**:
-[Frank Celler](https://github.com/fceller){:target="_blank"},
-[Wilfried Goesgens](https://github.com/dothebart){:target="_blank"},
-[Simran Brucherseifer](https://github.com/Simran-B){:target="_blank"} and
-[Vadim Kondratyev](https://github.com/KVS85){:target="_blank"}.
-
-**Tags**: #windows
