@@ -11,7 +11,7 @@ content-type: application/json
     { 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/social"</span>, 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"social"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Zo58x3y---"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZpOpP_6--A"</span>, 
       <span class="hljs-string">"edgeDefinitions"</span> : [ 
         { 
           <span class="hljs-string">"collection"</span> : <span class="hljs-string">"relation"</span>, 
@@ -30,12 +30,13 @@ content-type: application/json
       <span class="hljs-string">"numberOfShards"</span> : <span class="hljs-number">1</span>, 
       <span class="hljs-string">"orphanCollections"</span> : [ ], 
       <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">1</span>, 
+      <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"social"</span> 
     }, 
     { 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/routeplanner"</span>, 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"routeplanner"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Zo58x4G---"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZpOpPAO--A"</span>, 
       <span class="hljs-string">"edgeDefinitions"</span> : [ 
         { 
           <span class="hljs-string">"collection"</span> : <span class="hljs-string">"frenchHighway"</span>, 
@@ -72,6 +73,7 @@ content-type: application/json
       <span class="hljs-string">"numberOfShards"</span> : <span class="hljs-number">1</span>, 
       <span class="hljs-string">"orphanCollections"</span> : [ ], 
       <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">1</span>, 
+      <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"routeplanner"</span> 
     } 
   ] 
