@@ -367,8 +367,5 @@ Cookbook examples
 
 The above referenced chapters describe the various APIs of ArangoDBs graph engine with small examples. Our cookbook has some more real life examples:
 
- - [Traversing a graph in full depth](cookbook/graph-fulldepth-traversal.html)
- - [Retrieving documents from ArangoDB without knowing the structure](cookbook/use-cases-java-driver-base-document.html)
- - [Using a custom visitor from node.js](cookbook/graph-custom-visitor-from-node-js.html)
- - [AQL Example Queries on an Actors and Movies Database](cookbook/graph-example-actors-and-movies.html)
-
+ - [Retrieving documents from ArangoDB without knowing the structure](drivers/java-examples-base-document.html)
+ - [AQL Example Queries on an Actors and Movies Database](aql/examples-actors-and-movies.html)

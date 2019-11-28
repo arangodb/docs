@@ -1,6 +1,9 @@
 ---
 layout: default
 description: Note
+redirect_from:
+  - /3.6/cookbook/monitoring-foxx-apps.html # 3.5 -> 3.5
+# TODO Update to Foxx 3.x or consider removing
 ---
 Monitoring your Foxx applications
 =================================
@@ -137,7 +140,3 @@ third_values    value:GAUGE:U:U
 fourth_values    value:GAUGE:U:U
 fifth_values    value:GAUGE:U:U
 ```
-
-**Author:** [Wilfried Goesgens](https://github.com/dothebart){:target="_blank"}
-
-**Tags:** #monitoring #foxx #json

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Please note, that for backward compatibility the server access levels follow from the database access level on the database _system
+description: The module @arangodb/users exposes a JavaScript API to manage user accounts.
 ---
 Managing Users in the ArangoDB Shell
 ====================================

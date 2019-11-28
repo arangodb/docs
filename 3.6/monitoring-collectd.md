@@ -1,6 +1,8 @@
 ---
 layout: default
 description: The ArangoDB web interface shows a nice summary of the current state
+redirect_from:
+  - /3.6/cookbook/monitoring-collectd.html # 3.5 -> 3.5
 ---
 Monitoring ArangoDB using collectd
 ==================================
@@ -37,9 +39,9 @@ We assume your `collectd` comes from your distribution and reads its config from
 
 This way we can make each metric group on compact set config files. It consists of three components:
 
-* loading the plug-in
-* adding metrics to the TypesDB
-* the configuration for the plug-in itself
+- loading the plug-in
+- adding metrics to the TypesDB
+- the configuration for the plug-in itself
 
 ### rrdtool
 
@@ -71,7 +73,8 @@ For the RRD we will go pretty much with defaults:
 `Collectd` comes with a wide range of metric aggregation plug-ins.
 Many tools today use [JSON](http://json.org){:target="_blank"} as data formatting grammar; so does ArangoDB.
 
-Therefore a plug-in offering to fetch JSON documents via HTTP is the perfect match to query ArangoDBs [administrative Statistics interface](../http/administration-and-monitoring.html#read-the-statistics):
+Therefore a plug-in offering to fetch JSON documents via HTTP is the perfect match to query ArangoDBs
+[administrative Statistics interface](http/administration-and-monitoring.html#read-the-statistics):
 
     # Load the plug-in:
     LoadPlugin curl_json
@@ -325,7 +328,6 @@ This `config` snippet will parse the JSON above:
       # Expect: 6
     </Key
 
-
 ### Get it served
 
 Now we will (re)start `collectd` so it picks up our configuration:
@@ -344,12 +346,8 @@ We will inspect the syslog to revalidate nothing went wrong:
 
 Now we start `kcollectd` to view the values in the RRD file:
 
-![Kcollectd screenshot](../images/KCollectdJson.png)
+![Kcollectd screenshot](images/KCollectdJson.png)
 
 Since we started putting values in just now, we need to choose 'last hour' and zoom in a little more to inspect the values.
 
 Finished with this dish, wait for more metrics to come in other recipes.
-
-**Author:** [Wilfried Goesgens](https://github.com/dothebart){:target="_blank"}
-
-**Tags:** #json #monitoring

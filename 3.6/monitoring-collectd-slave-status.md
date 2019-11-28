@@ -1,6 +1,9 @@
 ---
 layout: default
 description: Note
+redirect_from:
+  - /3.6/cookbook/monitoring-slave-status.html # 3.5 -> 3.5
+# TODO Update to Foxx 3.x or consider removing
 ---
 Monitoring replication slave
 ============================
@@ -15,7 +18,7 @@ How to monitor the slave status using the `collectd curl_JSON` plugin.
 Solution
 --------
 
-Since arangodb [reports the replication status in JSON](../http/replications-replication-applier.html#state-of-the-replication-applier),
+Since arangodb [reports the replication status in JSON](http/replications-replication-applier.html#state-of-the-replication-applier),
 integrating it with the [collectd curl_JSON plugin](monitoring-collectd.html)
 should be an easy exercise. However, only very recent versions of collectd will handle boolean flags correctly.
 
@@ -129,8 +132,3 @@ boolean                     value:ABSOLUTE:0:1
 ```
 
 So, basically `state/running` will give you `0`/`1` if its (not / ) running through the collectd monitor.
-
-
-**Author:** [Wilfried Goesgens](https://github.com/dothebart){:target="_blank"}
-
-**Tags:** #monitoring #foxx #json

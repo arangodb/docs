@@ -1,6 +1,8 @@
 ---
 layout: default
 description: We run a cluster and want to know whether the traffic is unbalanced or something like that
+redirect_from:
+  - /3.6/cookbook/monitoring-traffic-with-ipaccounting.html # 3.5 -> 3.5
 ---
 Monitoring ArangoDB Cluster network usage
 =========================================
@@ -203,8 +205,4 @@ Now we restart collectd with `/etc/init.d/collectd restart`, watch the syslog fo
 
 We can inspect our values with kcollectd:
 
-![Kcollectd screenshot](../images/KCollectdIPtablesAccounting.png)
-
-**Author:** [Wilfried Goesgens](https://github.com/dothebart){:target="_blank"}
-
-**Tags:**  #monitoring
+![Kcollectd screenshot](images/KCollectdIPtablesAccounting.png)

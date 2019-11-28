@@ -1,33 +1,34 @@
 ---
 layout: default
-description: I want to compile ArangoDB 3
+description: Guide for ArangoDB 3.4 and later
+title: Compiling ArangoDB under Windows
+redirect_from:
+  - /3.6/cookbook/compiling-windows.html # 3.5 -> 3.5
 ---
 Compiling ArangoDB under Windows
 ================================
 
-Problem
--------
-
-I want to compile ArangoDB 3.4 and onwards under Windows.
+This guide describes how to compile ArangoDB 3.4 and onwards under Windows.
 
 **Note:** If you want to compile version 3.3 or earlier, then look at the
-[Compiling ArangoDB under Windows](../../2.8/cookbook/compiling-under-windows.html)
+[Compiling ArangoDB under Windows](../2.8/cookbook/compiling-under-windows.html)
 recipe in the 3.3 documentation.
 
-Solution
---------
+Install chocolatey
+------------------
 
-With ArangoDB 3.0 a complete cmake environment was introduced. This also streamlines the dependencies on Windows.
-We suggest to use [chocolatey.org](https://chocolatey.org/){:target="_blank"} to install most of the dependencies. For sure
-most projects offer their own setup & install packages, chocolatey offers a simplified way to install them
-with less user interactions. You can even use chocolatey via
+With ArangoDB 3.0 a complete cmake environment was introduced. This also
+streamlines the dependencies on Windows. We suggest to use
+[chocolatey.org](https://chocolatey.org/){:target="_blank"} to install most of
+the dependencies. For sure most projects offer their own setup & install
+packages, chocolatey offers a simplified way to install them with less user
+interactions. You can even use chocolatey via
 [ansibles 2.7 winrm facility](https://docs.ansible.com/ansible/latest/user_guide/windows.html){:target="_blank"}
 to do unattended installations of some software on Windows.
 
-### Ingredients
-
-First install the choco package manager by pasting this tiny cmdlet into a command window
-*(needs to be run with Administrator privileges; Right click start menu, **Command Prompt (Admin)**)*:
+First install the choco package manager by pasting this tiny cmdlet into a
+command window with Administrator privileges (press Windows key, type `cmd`
+and hit Ctrl+Shift+Enter):
 
     @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
 
@@ -59,10 +60,18 @@ Then we need to install the [OpenSSL](https://openssl.org){:target="_blank"} lib
 
 #### Optional Dependencies
 
-If you intend to run the unit tests or compile from git, you also need
-*(needs to be run with Administrator privileges again)*:
+_Remember that you need to run below commands with Administrator privileges!_
 
-    choco install -y git winflexbison ruby
+If you want to checkout the code with git, install it like this:
+
+    choco install -y git
+    
+You need to allow and
+[enable symlinks for your user](https://github.com/git-for-windows/git/wiki/Symbolic-Links#allowing-non-administrators-to-create-symbolic-links){:target="_blank"}.
+
+If you intend to run the unit tests, you also need the following:
+
+    choco install -y winflexbison ruby
 
 Close and reopen the Administrator command window in order to continue with the ruby devkit:
 
@@ -170,7 +179,7 @@ right click on `This PC` in the tree on the left, choose `Properties` in the ope
 in the Popup `Environment Variables`, another popup opens, in the `System Variables` part you click `New`, 
 And variable name: `ICU_DATA` to the value: `c:\\Windows`
 
-![HowtoSetEnv](../images/SetEnvironmentVar.png)
+![HowtoSetEnv](images/SetEnvironmentVar.png)
 
 #### Running Unit tests
 

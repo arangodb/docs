@@ -1,19 +1,28 @@
 ---
 layout: default
-description: Speeding up slave initialization
+description: A slave can be faster initialized using a backup of the master in Master/Slave replication.
+title: Speeding up slave initialization
+redirect_from:
+  - /3.6/cookbook/administration-replication-replication-from-backup.html # 3.5 -> 3.5
 ---
 # Speeding up slave initialization
 
-## Problem
+If you have a very big database and want to set up a Master/Slave replication
+between two or more ArangoDB instances, then transferring the entire database
+over the network may take a long time. In order to speed-up the replication
+initialization process the slave can be initialized **using a backup** of
+the master.
 
-You have a very big database and want to set up a `master-slave` replication between two or more ArangoDB instances. Transfering the entire database over the network may take a long time, if the database is big. In order to speed-up the replication initialization process the **slave** can be initialized using a backup of the **master**.
+For the following example setup, we will use the instance with endpoint
+`tcp://master.domain.org:8529` as master, and the instance with endpoint
+`tcp://slave.domain.org:8530` as slave.
 
-For the following example setup, we will use the instance with endpoint `tcp://master.domain.org:8529` as master, and the instance with endpoint `tcp://slave.domain.org:8530` as slave.
+The goal is to have all data from the database ` _system` on master replicated
+to the database `_system` on the slave (the same process can be applied for
+other databases).
 
-The goal is to have all data from the database ` _system` on master replicated to the database `_system` on the slave (the same process can be applied for other databases) .
+## Preparation
 
-## Solution
- 
 First of all you have to start the master server, using a command like the above:
 
 ```sh
@@ -22,21 +31,20 @@ arangod --server.endpoint tcp://master.domain.org:8529
 
 Depending on your storage engine you also want to adjust the following options:
 
-For MMFiles:
+- MMFiles:<br>
+  `--wal.historic-logfiles`<br>
+  maximum number of historic logfiles to keep after collection (default: 10)
 
-```sh
---wal.historic-logfiles		(maximum number of historic logfiles to keep after collection
-                                (default: 10))
-```
+- RocksDB:<br>
+  `--rocksdb.wal-file-timeout`<br>
+  timeout after which unused WAL files are deleted in seconds (default: 10)
 
-For RocksDB:
-
-```sh
---rocksdb.wal-file-timeout	(timeout after which unused WAL files are deleted
-                                in seconds (default: 10))
-```
-
-The options above prevent the premature removal of old WAL files from the master, and are useful in case intense write operations happen on the master while you are initializing the slave. In fact, if you do not tune these options, what can happen is that the master WAL files do not include all the write operations happened after the backup is taken. This may lead to situations in which the initialized slave is missing some data, or fails to start.
+The options above prevent the premature removal of old WAL files from the master,
+and are useful in case intense write operations happen on the master while you
+are initializing the slave. In fact, if you do not tune these options, what can
+happen is that the master WAL files do not include all the write operations
+happened after the backup is taken. This may lead to situations in which the
+initialized slave is missing some data, or fails to start.
 
 Now you have to create a dump from the master using the tool `arangodump`:
 
@@ -65,7 +73,9 @@ Last tick provided by server is: 37276350
 Processed 9 collection(s), wrote 1298855504 byte(s) into datafiles, sent 32 batch(es)
 ```
 
-In line *4* the last server `tick` is displayed. This value will be useful when we will start the replication, to have the `replication-applier` start replicating exactly from that `tick`. 
+In line *4* the last server `tick` is displayed. This value will be useful when
+we will start the replication, to have the `replication-applier` start
+replicating exactly from that `tick`.
 
 Next you have to start the slave:
 
@@ -73,7 +83,8 @@ Next you have to start the slave:
 arangod --server.endpoint tcp://slave.domain.org:8530
 ```
 
-If you are running master and slave on the same server (just for test), please make sure you give your slave a different data directory.
+If you are running master and slave on the same server (just for test), please
+make sure you give your slave a different data directory.
 
 Now you are ready to restore the dump with the tool `arangorestore`:
 
@@ -81,9 +92,14 @@ Now you are ready to restore the dump with the tool `arangorestore`:
 arangorestore --input-directory "dump" --server.endpoint tcp://slave.domain.org:8530
 ```
 
-Again, please adapt the command above in case you are using a database different than `_system`.
+Again, please adapt the command above in case you are using a database different
+than `_system`.
 
-Once the restore is finished there are two possible approaches to start the replication.
+Once the restore is finished there are two possible approaches to start the
+replication:
+
+1. with sync check (slower, but easier)
+2. without sync check (faster, but last server tick needs to be provided correctly)
 
 ### Approach 1: All-in-one setup
 
@@ -150,21 +166,34 @@ still synchronizing... last received status: 2017-12-06T14:13:59Z: fetching coll
 }
 ```
 
-This is the same command that you would use to start replication even without taking a backup first. The difference, in this case, is that the data that is present already on the slave (and that has been restored from the backup) this time is not transferred over the network from the master to the slave. 
+This is the same command that you would use to start replication even without
+taking a backup first. The difference, in this case, is that the data that is
+present already on the slave (and that has been restored from the backup) this
+time is not transferred over the network from the master to the slave.
 
-The command above will only check that the data already included in the slave is in sync with the master. After this check, the `replication-applier` will make sure that all write operations that happened on the master after the backup are replicated on the slave.
+The command above will only check that the data already included in the slave
+is in sync with the master. After this check, the `replication-applier` will
+make sure that all write operations that happened on the master after the
+backup are replicated on the slave.
 
-While this approach is definitely faster than transferring the whole database over the network, since a sync check is performed, it can still require some time. 
+While this approach is definitely faster than transferring the whole database
+over the network, since a sync check is performed, it can still require some time.
 
 ### Approach 2: Apply replication by tick
 
-In this approach, the sync check described above is not performed. As a result this approach is faster as the existing slave data is not checked. Write operations are executed starting from the `tick` you provide and continue with the master's available `ticks`.  
+In this approach, the sync check described above is not performed. As a result
+this approach is faster as the existing slave data is not checked.
+Write operations are executed starting from the `tick` you provide and continue
+with the master's available `ticks`.
 
-This is still a secure way to start replication as far as the correct `tick` is passed.
+This is still a secure way to start replication as far as the correct `tick`
+is passed.
 
-As previously mentioned the last `tick` provided by the master is displayed when using `arangodump`. In our example the last tick was **37276350**.
+As previously mentioned the last `tick` provided by the master is displayed
+when using `arangodump`. In our example the last tick was **37276350**.
 
-First of all you have to apply the properties of the replication, using `arangosh` on the slave:
+First of all you have to apply the properties of the replication, using
+`arangosh` on the slave:
 
 ```sh
 arangosh --server.endpoint tcp://slave.domain.org:8530
@@ -182,7 +211,8 @@ require("@arangodb/replication").applier.properties({
   autoResync: true});
 ```
 
-Then you can start the replication with the last provided `logtick` of the master (output of `arangodump`):
+Then you can start the replication with the last provided `logtick` of the
+master (output of `arangodump`):
 
 ```js
 require("@arangodb/replication").applier.start(37276350)
@@ -221,7 +251,9 @@ The following is the printed output:
 }
 ```
 
-After the replication has been started with the command above, you can use the `applier.state` command to check how far the last applied `tick` on the slave is far from the last available master `tick`:
+After the replication has been started with the command above, you can use the
+`applier.state` command to check how far the last applied `tick` on the slave
+is far from the last available master `tick`:
 
 ```sh
 require("@arangodb/replication").applier.state()
@@ -254,8 +286,3 @@ require("@arangodb/replication").applier.state()
   "database" : "_system" 
 }
 ```
-
-
-**Author:** [Max Kernbach](https://github.com/maxkernbach){:target="_blank"}
-
-**Tags:** #database #replication #arangodump #arangorestore

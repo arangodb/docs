@@ -1,6 +1,9 @@
 ---
 layout: default
-description: Applications that handle monetary data often require to capture fractional unitsof currency and need to emulate decimal rounding without precision loss
+description: Storing decimal values as integers or strings as alternative to JSON numbers
+title: Monetary data without precision loss in ArangoDB
+redirect_from:
+  - /3.6/cookbook/use-cases-monetary-data-without-precision-loss.html # 3.5 -> 3.5
 ---
 Working with monetary data without precision loss in ArangoDB
 =============================================================
@@ -32,10 +35,3 @@ In ArangoDB there are two ways to handle monetary data:
    strings for monetary data values it will not be possible to do calculations
    on them on the server. Calculations have to happen in application logic
    that is capable of doing arithmetic on string-encoded integers.
-   
- **Authors:**
- [Jan Stücke](https://github.com/MrPieces){:target="_blank"},
- [Jan Steemann](https://github.com/jsteemann){:target="_blank"}
- 
- **Tags**: #howto #datamodel #numbers
- 

@@ -1,24 +1,23 @@
 ---
 layout: default
 description: You've already built a custom version of ArangoDB and want to run it
+redirect_from:
+  - /3.6/cookbook/compiling-running-custom-build.html # 3.5 -> 3.5
 ---
 Running a custom build
 ======================
 
-Problem
--------
+Once you built a custom version of ArangoDB (see
+[Compiling](installation-compiling.html)), you may want to run it using
+existing data or possibly in isolation from an existing installation.
 
-You've already built a custom version of ArangoDB and want to run it. Possibly in isolation from an existing installation or you may want to re-use the data.
+We assumes that you are in the root directory of the ArangoDB distribution
+and compiling has successfully finished.
 
-Solution
---------
+Note that this guide is for Linux only.
 
-First, you need to build your own version of ArangoDB. If you haven't done so
-already, have a look at any of the [Compiling](compiling.html) recipes.
-
-This recipe assumes you're in the root directory of the ArangoDB distribution and compiling has successfully finished.
-
-### Running in isolation
+Running in isolation
+--------------------
 
 This part shows how to run your custom build with an empty database directory
 
@@ -32,15 +31,16 @@ bin/arangod \
      --database.directory /tmp/arangodb
 ```
 
-### Running with data
+Running with data
+-----------------
 
 This part shows how to run your custom build with the config and data from a pre-existing stable installation.
 
 {% hint 'danger' %}
 ArangoDB's developers may change the db file format and after running with a
 changed file format, there may be no way back. Alternatively you can run your
-build in isolation and [dump](../programs-arangodump.html) and
-[restore](../programs-arangorestore.html) the data from the
+build in isolation and [dump](programs-arangodump.html) and
+[restore](programs-arangorestore.html) the data from the
 stable to your custom build.
 {% endhint %}
 
@@ -57,7 +57,3 @@ su
 su - arangod
 bin/arangod --configuration /etc/arangodb/arangod.conf
 ```
-
-**Author:** [Patrick Huber](https://github.com/stackmagic){:target="_blank"}
-
-**Tags:** #build
