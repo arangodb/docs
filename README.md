@@ -280,6 +280,15 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
   The error is issued once per page of the same book because the target page is
   linked in the navigation.
 
+  Another reason can be a faulty reference in the navigation file (e.g.
+  `_data/3.5-manual.yml`). The file name or directory might simply be wrong,
+  or the file extension could be wrong or incomplete in the `href` attribute:
+
+  ```
+  - text: Missing L in .html
+    href: page.htm
+  ```
+
 - ```
   docs/page.html
     hash does not exist --- docs/page.html --> target.html#hash

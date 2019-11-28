@@ -1,6 +1,9 @@
 ---
 layout: default
 description: How do you model document inheritance given that collections do not support that feature?
+redirect_from:
+  - /3.5/cookbook/document-inheritance.html # 3.5 -> 3.5
+  - /3.6/cookbook/document-inheritance.html # 3.5 -> 3.5
 ---
 # Model document inheritance
 

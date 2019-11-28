@@ -1,18 +1,21 @@
 ---
 layout: default
-description: Please note, that for backward compatibility the server access levelsfollow from the database access level on the database _system
+description: The module @arangodb/users exposes a JavaScript API to manage user accounts.
 ---
 Managing Users in the ArangoDB Shell
 ====================================
+
+Connect with `arangosh` to the server or a Coordinator respectively.
+The module `@arangodb/users` exposes a JavaScript API to manage user accounts.
 
 Please note, that for backward compatibility the server access levels
 follow from the database access level on the database *_system*.
 
 Also note that the server and database access levels are represented as
 
-* `rw`: for *Administrate*
-* `ro`: for *Access*
-* `none`: for *No access*
+- `rw`: for *Administrate*
+- `ro`: for *Access*
+- `none`: for *No access*
 
 This is again for backward compatibility.
 
@@ -21,31 +24,93 @@ This is again for backward compatibility.
 Fire up *arangosh* and require the users module. Use it to create a new user:
 
 ```
-arangosh> const users = require('@arangodb/users');
-arangosh> users.save('JohnSmith', 'mypassword');
+arangosh --server.endpoint tcp://127.0.0.1:8529 ...
+...
+> const users = require('@arangodb/users');
+> users.save('JohnSmith', 'mypassword');
 ```
 
-Creates a user called *JohnSmith*. This user will have no access at all.
+It creates a user called *JohnSmith* with *mypassword* as password. This user
+will have no access at all.
+
+Note that running the command like this may store the password literally in
+ArangoShell's history. To avoid that, either disable the history
+(`--console.history false`) or use a dynamically created password, e.g.:
 
 ```
-arangosh> users.grantDatabase('JohnSmith', 'testdb', 'rw');
+> passwd = require('internal').genRandomAlphaNumbers(20);
+> users.save('JohnSmith', passwd);
+```
+
+The above will print the password on screen (so you can memorize it) but will
+not store it in the command history.
+
+While there, you probably want to change the password of the default `root`
+user too. Otherwise one will be able to connect with the default `root` user
+and its empty password. The following commands change the `root` user's password:
+
+```
+> passwd = require('internal').genRandomAlphaNumbers(20);
+> require('@arangodb/users').update('root', passwd);
+```
+
+Back to our user account *JohnSmith*. Let us create a new database
+and grant him access to it with `grantDatabase()`:
+
+```
+> db._createDatabase('testdb');
+> users.grantDatabase('JohnSmith', 'testdb', 'rw');
 ```
 
 This grants the user *Administrate* access to the database
-*testdb*. `revokeDatabase` will revoke this access level setting.
+*testdb*. `revokeDatabase()` will revoke this access level setting.
 
-**Note**: Be aware that from 3.2 onwards the `grantDatabase` will not
+**Note**: Be aware that from 3.2 onwards the `grantDatabase()` will not
 automatically grant users the access level to write or read collections in a
 database. If you grant access to a database `testdb` you will
 additionally need to explicitly grant access levels to individual
-collections via `grantCollection`.
+collections via `grantCollection()`.
 
 The upgrade procedure from 3.1 to 3.2 sets the wildcard database access
 level for all users to *Administrate* and sets the wildcard collection
 access level for all user/database pairs to *Read/Write*.
 
+Before we can grant *JohnSmith* access to a collection, we first have to
+connect to the new database and create a collection. Disconnect `arangosh`
+by pressing Ctrl+C twice. Then reconnect, but to the database we created:
+
 ```
-arangosh> users.grantCollection('JohnSmith', 'testdb', 'testcoll', 'rw');
+arangosh --server.endpoint tcp://127.0.0.1:8529 --server.database testdb ...
+...
+> db._create('testcoll');
+> const users = require('@arangodb/users');
+> users.grantCollection('JohnSmith', 'testdb', 'testcoll', 'rw');
+```
+
+It is not necessary to reconnect to the `_system` database in order to grant
+access to the collection.
+
+To confirm that the authentication works as expected, try to connect to
+different databases as *JohnSmith*:
+
+```
+arangosh --server.endpoint tcp://127.0.0.1:8529 --server.username JohnSmith --server.database testdb ...
+...
+> Connected to ArangoDB 'http+tcp://127.0.0.1:8529, version: 3.5.2 [SINGLE, server], database: 'testdb', username: 'JohnSmith'
+```
+
+```
+arangosh --server.endpoint tcp://127.0.0.1:8529 --server.username JohnSmith --server.database _system ...
+...
+> Could not connect to endpoint 'tcp://127.0.0.1:8529', database: '_system', username: 'JohnSmith'
+> Error message: 'not authorized to execute this request'
+```
+
+You can also use curl to check that you are actually getting HTTP 401
+(Unauthorized) server responses for requests that require authentication:
+
+```
+curl --dump - http://127.0.0.1:8529/_api/version
 ```
 
 Save
@@ -54,7 +119,8 @@ Save
 `users.save(user, passwd, active, extra)`
 
 This will create a new ArangoDB user. The user name must be specified in *user*
-and must not be empty.
+and must not be empty. Note that usernames *must* not start with `:role:`
+(reserved for LDAP authentication).
 
 The password must be given as a string, too, but can be left empty if
 required. If you pass the special value *ARANGODB_DEFAULT_ROOT_PASSWORD*, the
@@ -74,6 +140,7 @@ to grant the access rights for one or more databases using
 [grantDatabase](#grant-database).
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_02_saveUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_02_saveUser}
@@ -82,6 +149,7 @@ to grant the access rights for one or more databases using
     @endDocuBlock USER_02_saveUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Grant Database
 --------------
 
@@ -145,6 +213,7 @@ database.
 **Note**: this function will not work from within the web interface
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_03_replaceUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_03_replaceUser}
@@ -153,6 +222,7 @@ database.
     @endDocuBlock USER_03_replaceUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Update
 ------
 
@@ -173,6 +243,7 @@ or given in a wrong format, or if the specified user cannot be found in the
 database.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_04_updateUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_04_updateUser}
@@ -181,6 +252,7 @@ database.
     @endDocuBlock USER_04_updateUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 isValid
 -------
 
@@ -194,6 +266,7 @@ Each call to this function is penalized by the server sleeping a random
 amount of time.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_05_isValidUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_05_isValidUser}
@@ -202,6 +275,7 @@ amount of time.
     @endDocuBlock USER_05_isValidUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Remove
 ------
 
@@ -215,6 +289,7 @@ the database.
 This method will fail if the user cannot be found in the database.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_07_removeUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_07_removeUser}
@@ -223,6 +298,7 @@ This method will fail if the user cannot be found in the database.
     @endDocuBlock USER_07_removeUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Document
 --------
 
@@ -235,6 +311,7 @@ The user name must be specified in *user*.
 This method will fail if the user cannot be found in the database.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_04_documentUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_04_documentUser}
@@ -243,6 +320,7 @@ This method will fail if the user cannot be found in the database.
     @endDocuBlock USER_04_documentUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 All
 ---
 
@@ -251,6 +329,7 @@ All
 Fetches all existing ArangoDB users from the database.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_06_AllUsers
     @EXAMPLE_ARANGOSH_OUTPUT{USER_06_AllUsers}
@@ -259,6 +338,7 @@ Fetches all existing ArangoDB users from the database.
     @endDocuBlock USER_06_AllUsers
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Reload
 ------
 
@@ -271,6 +351,7 @@ cached after that. When users get added or deleted, a cache flush is done
 automatically, and this can be performed by a call to this method.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_03_reloadUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_03_reloadUser}
@@ -293,6 +374,7 @@ the collection name.
 This method will fail if the user cannot be found in the database.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_05_permission
     @EXAMPLE_ARANGOSH_OUTPUT{USER_05_permission}
@@ -302,4 +384,3 @@ This method will fail if the user cannot be found in the database.
     @endDocuBlock USER_05_permission
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-
