@@ -42,8 +42,9 @@ factor. The number of _followers_ can be controlled using the
 `replicationFactor` parameter is the total number of copies being
 kept, that is, it is one plus the number of _followers_.
 
-In addition to the `replicationFactor` there is a `minReplicationFactor` that
-locks down a collection for writing as soon as we have lost too many followers.
+In addition to the `replicationFactor` there is a `writeConcern` that
+specifies the lowest number of in-sync followers. Specifiying the write concern
+with a value greater than _1_  locks down a collection for writing as soon as we have lost too many followers.
 
 Asynchronous replication
 ------------------------

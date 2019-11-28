@@ -344,11 +344,11 @@ The following APIs have been expanded:
 
 - Database creation API, HTTP POST `/_api/database`
 
-  The database creation API now handles the `replicationFactor`, `minReplicationFactor` 
+  The database creation API now handles the `replicationFactor`, `writeConcern` 
   and `sharding` attributes. All these attributes are optional, and only meaningful
   in a cluster.
 
-  The values provided for the attributes `replicationFactor` and `minReplicationFactor` 
+  The values provided for the attributes `replicationFactor` and `writeConcern` 
   will be used as default values when creating collections in that database, allowing to 
   omit these attributes when creating collections. However, the values set here are just 
   defaults for new collections in the database. The values can still be adjusted per 
@@ -364,8 +364,10 @@ The following APIs have been expanded:
 - Database properties API, HTTP GET `/_api/database/current`
 
   The existing database properties API additional provides the attributes `replicationFactor`, 
-  `minReplicationFactor` and `sharding` in a cluster. A description of these attributes can 
+  `writeConcern` and `sharding` in a cluster. A description of these attributes can 
   be found above.
+  
+  - Collection API attribute `minReplicationFactor` has been renamed `writeConcern`.
 
 
 Web interface
