@@ -247,14 +247,17 @@ not be suited for.
   It must be ensured that for the hot backup no such changes are made to the
   cluster's inventory, as this could lead to inconsistent hot backups.
 
-- **Identical Minor Version**
+- **Restoring from a Different Version**
 
-  Hot backups sets can only be restored to an ArangoDB deployment of the same
-  minor version as that of the creating deployment. This explicitly implies that
-  every minor version upgrade of an ArangoDB instance makes hot backups created
-  with the previous versions of the same installation obsolete. For example,
-  an upgraded 3.4.7 to 3.4.8 will allow a restore to the old hot backups while
-  one from 3.4.7 to 3.5.1 will not.
+  Hot backups share the same limitations with respect to different versions
+  than ArangoDB itself. This means that a hot backup created with some version
+  a.b.c can without any limitations be restored on any version a.b.d with d
+  not equal to c, that is, the patch level can be changed arbitrarily. With
+  respect to minor versions (second digit), one can only upgrade and *not downgrade*.
+  That is, a hot backup created with a version a.b.c can be restored on
+  a version a.d.e for d greater than b but not for d less than b. At this stage,
+  we do not guarantee any compatibility between versions with a different
+  major version number (first digit).
 
 - **Identical Topology**
 
@@ -304,6 +307,10 @@ not be suited for.
   that the process has to be retried over and over. Every unsuccessful try would
   then lead to the release of all partial locks.
 
+  At this stage, index creation constitutes a write transactions, which means
+  that during index creation one cannot create a hot backup. We intend to lift
+  this limitation in a future version.
+  
 - **Services on Single Server**
 
   On a single server the installed Foxx microservices are not backed up and are
