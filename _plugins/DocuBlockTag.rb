@@ -150,6 +150,7 @@ class DocuBlockBlock < Liquid::Tag
                         Jekyll.logger.debug "Missing @startDocuBlock #{line}. Ignoring"
                     end
                 when /^@RESTHEADER\s*{([^,]+),\s*([^,\}]+)/
+                    # route ($1), description ($2), operation ID ($3)
                     local["header"] = "### #{$2}\n#{local['header']}\n`#{$1}`\n"
                 when /^@RESTDESCRIPTION/
                     currentObject = local
@@ -163,49 +164,142 @@ class DocuBlockBlock < Liquid::Tag
                         currentKey = "examples"
                     end
                 when /^@RESTALLBODYPARAM{([a-z-]+),(\w+),(\w+)}/
+                    # name ($1), data type ($2), required/optional ($3)
                     local["fullbody"] = {
                         "type" => $2,
+                        "required" => $3,
                         "description" => ""
                     }
                     currentObject = local["fullbody"]
                     currentKey = "description"
                 when /^@RESTBODYPARAM{([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),?(\s*(([a-zA-Z0-9_-]+)))?}/
+                    # name ($1), data type ($2), required/optional ($3), subtype ($4)
                     if !local["body"]
-                        local["body"] = {
-                        }
+                        local["body"] = {}
                     end
                     local["body"][$1] = {
                         "type" => $2,
-                        "description" => "",
-                        "subdescription" => {},
+                        "required" => $3,
+                        "subtype" => $4,
+                        "description" => ""
                     }
                     currentObject = local["body"][$1]
                     currentKey = "description"
                 when /^@RESTSTRUCT{([\]\[\. \*a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)?}/
-                    # hacki hack: so next struct property is assigned to the parent
-                    if currentObject["subdescription"] || currentObject["parent"]
-                        if currentObject["parent"]
-                            currentObject = currentObject["parent"]
+                    # name ($1), parent subtype ($2), data type ($3), required/optional ($4), subtype ($5)
+
+                    # TODO: It still does not find the parent subtype properly
+
+                    # only if the previous @REST... is the parent
+                    if currentObject["subtype"] == $2
+                        Jekyll.logger.error "#{$1} - Matching subtype (currentObject): #{$2} (type #{$3})"
+                        if !currentObject["body"]
+                            currentObject["body"] = {}
                         end
-                        currentObject["subdescription"][$1] = {
+                        currentObject["body"][$1] = {
                             "parent" => currentObject,
-                            "description" => "",
-                            "subdescription" => {},
+                            "type" => $3,
+                            "required" => $4,
+                            "subtype" => $5, # only set type is object?
+                            "description" => ""
                         }
-                        currentObject = currentObject["subdescription"][$1]
-                        currentKey = "description"
+                        currentObject["body"][$1]
+
+                    # check parent of previous @REST...
+                    elsif currentObject["parent"] and currentObject["parent"]["subtype"] == $2
+                        Jekyll.logger.error "#{$1} - Matching subtype (parent of currentObject): #{$2} (type #{$3})"
+                        if !currentObject["parent"]["body"]
+                            currentObject["parent"]["body"] = {}
+                        end
+                        currentObject["parent"]["body"][$1] = {
+                            "parent" => currentObject["parent"], # TODO is this correct?
+                            "type" => $3,
+                            "required" => $4,
+                            "subtype" => $5,
+                            "description" => ""
+                        }
+                        currentObject = currentObject["parent"]["body"][$1]
+
+                    # check previous siblings and the parent siblings (?)
                     else
-                        Jekyll.logger.debug "Ignoring RESTSTRUCT. No subdescription"
+                        Jekyll.logger.error "#{$1} No subtype found yet: #{$2} (type #{$3})\n  currentObject: #{currentObject}\n  Parent: #{currentObject["parent"]}\n"
+                        
+                        found = false
+                        if currentObject["body"]
+                            currentObject["body"].each { | key, value |
+                                if value["subtype"] == $2
+                                    Jekyll.logger.error "  Potential parent: #{key}"
+                                    if !value["body"]
+                                        value["body"] = {}
+                                    end
+                                    value["body"][$1] = {
+                                        "parent" => value, # TODO is this correct?
+                                        "type" => $3,
+                                        "required" => $4,
+                                        "subtype" => $5,
+                                        "description" => ""
+                                    }
+                                    currentObject = value["body"][$1]
+                                    found = true
+                                    #break # there can be multiple parents!!!
+                                end
+                            }
+                        end
+                        if !found and currentObject["parent"] and currentObject["parent"]["body"]
+                            currentObject["parent"]["body"].each { | key, value |
+                                if value["subtype"] == $2
+                                    raise 'never reached'
+                                    Jekyll.logger.error "  Match in parent's body: #{key}"
+                                    if !value["body"]
+                                        value["body"] = {}
+                                    end
+                                    value["body"][$1] = {
+                                        "parent" => value, # TODO is this correct?
+                                        "type" => $3,
+                                        "required" => $4,
+                                        "subtype" => $5,
+                                        "description" => ""
+                                    }
+                                    currentObject = value["body"][$1]
+                                    found = true
+                                    #break # there can be multiple parents!!!
+                                end
+                            }
+                        end
+                        if !found
+                            raise "GAVE UP ON #{$1} (parent subtype: #{$2})\n  currentObject: #{currentObject}\n  Parent: #{currentObject["parent"]}"
+                        end
                     end
-                    #puts "#{$1} | #{$2} | #{$3} | #{$4} | #{$5}"
+                    # Find out whether this RESTSTRUCT is a sibling of a previous one
+                    # or if it belongs to the parent. currentObject is the parent block!
+                    #while !(
+                    #    (currentObject["subdescription"] and
+                    #    currentObject["subdescription"].values.any? { |v| v["subtype"] == $2 }) or
+                    #    currentObject["subtype"] == $2
+                    #)
+                    #    if currentObject["parent"]
+                    #        currentObject = currentObject["parent"]
+                    #    else 
+                    #        Jekyll.logger.error "Trouble finding RESTSTRUCT parent of #{$1}\nSiblings: #{currentObject["subdescription"].values}\nCurrent: #{currentObject["subtype"]}\nParent Subtype: #{$2}\nOwn Subtype: #{$5}"
+                    #        break
+                    #    end
+                    #end
+
+                    #currentObject["subdescription"][$1] = {
+
+                    #}
+
+                    currentKey = "description"
                 when /^@RESTURLPARAMETERS/
                     currentObject = local
                 when /^@RESTURLPARAM{([a-zA-Z_-]+),(\w+),(\w+)}/
+                    # name ($1), data type ($2), required/optional ($3)
                     if !local["urlParams"]
                         local["urlParams"] = {}
                     end
                     local["urlParams"][$1] = {
-                        "type" => $3,
+                        "type" => $2,
+                        "required" => $3,
                         "description" => ""
                     }
                     currentObject = local["urlParams"][$1]
@@ -213,11 +307,13 @@ class DocuBlockBlock < Liquid::Tag
                 when /^@RESTQUERYPARAMETERS/
                     currentObject = local
                 when /^@RESTQUERYPARAM{([a-zA-Z_-]+),(\w+),(\w+)}/
+                    # name ($1), data type ($2), required/optional ($3)
                     if !local["queryParams"]
                         local["queryParams"] = {}
                     end
                     local["queryParams"][$1] = {
-                        "type" => $3,
+                        "type" => $2,
+                        "required" => $3,
                         "description" => ""
                     }
                     currentObject = local["queryParams"][$1]
@@ -225,26 +321,29 @@ class DocuBlockBlock < Liquid::Tag
                 when /^@RESTHEADERPARAMETERS/
                     currentObject = local
                 when /^@RESTHEADERPARAM{([a-zA-Z_-]+),(\w+),(\w+)}/
+                    # name ($1), data type ($2), required/optional ($3)
                     if !local["headerParams"]
                         local["headerParams"] = {}
                     end
                     local["headerParams"][$1] = {
-                        "type" => $3,
+                        "type" => $2,
+                        "required" => $3,
                         "description" => ""
                     }
                     currentObject = local["headerParams"][$1]
                     currentKey = "description"
                 when /^@HINTS/
                 when /^@RESTRETURNCODE{(\d+)}/
+                    # code ($1)
                     currentReturnCode = {
                         "code"=> $1,
-                        "description"=> "",
-                        "subdescription" => {},
+                        "description"=> ""
                     }
                     currentObject = currentReturnCode
                     currentKey = "description"
                     local["returnCodes"].push(currentReturnCode)
                 when /^@RESTREPLYBODY{([a-zA-Z0-9_-]*),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)?}/
+                    # name ($1), data type ($2), required/optional ($3), subtype ($4)
                     if local["returnCodes"].length == 0
                         Jekyll.logger.debug "No returncode found for #{line}"
                     else
@@ -253,8 +352,10 @@ class DocuBlockBlock < Liquid::Tag
                             returnCode["body"] = {}
                         end
                         returnCode["body"][$1] = {
-                            "description" => "",
-                            "subdescription" => {},
+                            "type" => $2,
+                            "required" => $3,
+                            "subtype" => $4,
+                            "description" => ""
                         }
                         currentObject = returnCode["body"][$1]
                         currentKey = "description"
