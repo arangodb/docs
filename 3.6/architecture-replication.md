@@ -16,9 +16,12 @@ Cluster.
 
 Asynchronous replication is used:
 
-- between the _master_ and the _slave_ of an ArangoDB [_Master/Slave_](architecture-deployment-modes-master-slave.html) setup
-- between the _Leader_ and the _Follower_ of an ArangoDB [_Active Failover_](architecture-deployment-modes-active-failover.html) setup
-- between multiple ArangoDB [Data Centers](architecture-deployment-modes-dc2-dc.html) (inside the same Data Center replication is synchronous)
+- between the _master_ and the _slave_ of an ArangoDB
+  [_Master/Slave_](architecture-deployment-modes-master-slave.html) setup
+- between the _Leader_ and the _Follower_ of an ArangoDB
+  [_Active Failover_](architecture-deployment-modes-active-failover.html) setup
+- between multiple ArangoDB [Data Centers](architecture-deployment-modes-dc2-dc.html)
+  (inside the same Data Center replication is synchronous)
 
 Synchronous replication
 -----------------------
@@ -42,8 +45,10 @@ factor. The number of _followers_ can be controlled using the
 `replicationFactor` parameter is the total number of copies being
 kept, that is, it is one plus the number of _followers_.
 
-In addition to the `replicationFactor` there is a `minReplicationFactor` that
-locks down a collection for writing as soon as we have lost too many followers.
+In addition to the `replicationFactor` there is a `writeConcern` that
+specifies the lowest number of in-sync followers. Specifying the write concern
+with a value greater than _1_  locks down a collection for writing as soon as
+we have lost too many followers.
 
 Asynchronous replication
 ------------------------
@@ -84,7 +89,7 @@ to setup global replication.
 
 ### Replication lag
 
-As decribed above, write operations are applied first in the _master_, and then applied 
+As described above, write operations are applied first in the _master_, and then applied 
 in the _slaves_. 
 
 For example, let's assume a write operation is executed in the _master_ 
@@ -96,9 +101,9 @@ The difference between _t1_ and _t0_ is called the _replication lag_, and it is 
 in asynchronous replication. The amount of replication _lag_ depends on many factors, a 
 few of which are:
 
-* the network capacity between the _slaves_ and the _master_
-* the load of the _master_ and the _slaves_
-* the frequency in which _slaves_ poll the _master_ for updates
+- the network capacity between the _slaves_ and the _master_
+- the load of the _master_ and the _slaves_
+- the frequency in which _slaves_ poll the _master_ for updates
 
 Between _t0_ and _t1_, the state of data on the _master_ is newer than the state of data
 on the _slaves_. At point in time _t1_, the state of data on the _master_ and _slaves_
@@ -107,4 +112,9 @@ between). Thus, the replication will lead to an _eventually consistent_ state of
 
 ### Replication overhead
 
-As the _master_ servers are logging any write operation in the _write-ahead-log_ anyway replication doesn't cause any extra overhead on the _master_. However it will of course cause some overhead for the _master_ to serve incoming read requests of the _slaves_. Returning the requested data is however a trivial task for the _master_ and should not result in a notable performance degration in production.
+As the _master_ servers are logging any write operation in the _write-ahead-log_
+anyway replication doesn't cause any extra overhead on the _master_. However it
+will of course cause some overhead for the _master_ to serve incoming read
+requests of the _slaves_. Returning the requested data is however a trivial
+task for the _master_ and should not result in a notable performance
+degradation in production.
