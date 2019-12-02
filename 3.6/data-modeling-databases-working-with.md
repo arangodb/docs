@@ -142,9 +142,9 @@ The *options* attribute can be used to set defaults for collections that will
 be created in the new database:
 
 * *sharding*: The sharding method to use. Valid values are: "" or "single".
-  Setting this option to "single" will enable the one-shard feature in the enterprise edition.
-* *replicationFactor*: Default replication factor. Special values include "satellite",
-  which will replicate the collection to every DB-server, and 1, which disables replication.
+  Setting this option to "single" will enable the OneShard feature in the Enterprise Edition.
+* *replicationFactor*: Default replication factor. Special values include `"satellite"`,
+  which will replicate the collection to every DB-server, and `1`, which disables replication.
 * *minReplicationFactor*: Default minimum replication factor. If there are
   less than minReplication replicas available the collection will become
   read-only.
