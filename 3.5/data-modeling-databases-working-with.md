@@ -88,6 +88,31 @@ database management operations such as create or drop can only be executed
 from within this database. Additionally, the *_system* database itself
 cannot be dropped.
 
+### Properties
+
+<!-- arangod/V8Server/v8-vocbase.cpp -->
+
+return the path to database files
+`db._queryProperties()`
+
+Returns the properties of the current database as an object with the following
+attributes:
+
+- *id*: the database id
+- *name*: the database name
+- *isSystem*: the database type
+- *path*: the path to database files
+
+**Examples**
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+@startDocuBlockInline dbProperties
+@EXAMPLE_ARANGOSH_OUTPUT{dbProperties}
+  require("@arangodb").db._queryProperties();
+@END_EXAMPLE_ARANGOSH_OUTPUT
+@endDocuBlock dbProperties
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Use Database
 <!-- arangod/V8Server/v8-vocbase.cpp -->
@@ -203,10 +228,29 @@ as a list of supported features (types of indexes and
 
 ### Engine statistics
 
-retrieve statistics related to the storage engine (rocksdb)
+retrieve statistics related to the storage engine (RocksDB)
 `db._engineStats()`
 
 Returns some statistics related to the storage engine activity, including figures
 about data size, cache usage, etc.
 
 **Note**: Currently this only produces useful output for the RocksDB engine.
+
+Get the Version of ArangoDB
+---------------------------
+
+`db._version()`
+
+Returns the server version string. Note that this is not the version of the
+database.
+
+**Examples**
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline dbVersion
+    @EXAMPLE_ARANGOSH_OUTPUT{dbVersion}
+      require("@arangodb").db._version();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock dbVersion
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}

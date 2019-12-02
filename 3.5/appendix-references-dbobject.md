@@ -30,7 +30,7 @@ The following methods exists on the *_db* object:
 * [db._isSystem()](data-modeling-databases-working-with.html#issystem)
 * [db._name()](data-modeling-databases-working-with.html#name)
 * [db._path()](data-modeling-databases-working-with.html#path)
-* [db._version()](data-modeling-documents-document-methods.html#get-the-version-of-arangodb)
+* [db._queryProperties()](data-modeling-databases-working-with.html#properties)
 
 *Collection*
 
@@ -67,3 +67,4 @@ The following methods exists on the *_db* object:
 * [db._engine()](data-modeling-databases-working-with.html#engine)
 * [db._engineStats()](data-modeling-databases-working-with.html#engine-statistics)
 * [db._executeTransaction()](transactions-transaction-invocation.html)
+* [db._version()](data-modeling-databases-working-with.html#get-the-version-of-arangodb)
