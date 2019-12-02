@@ -30,7 +30,7 @@ The following methods exists on the *_db* object:
 * [db._isSystem()](data-modeling-databases-working-with.html#issystem)
 * [db._name()](data-modeling-databases-working-with.html#name)
 * [db._path()](data-modeling-databases-working-with.html#path)
-* [db._properties()](data-modeling-databases-working-with.html#properties)
+* [db._queryProperties()](data-modeling-databases-working-with.html#properties)
 
 *Collection*
 

@@ -93,7 +93,7 @@ cannot be dropped.
 <!-- arangod/V8Server/v8-vocbase.cpp -->
 
 return the path to database files
-`db._properties()`
+`db._queryProperties()`
 
 Returns the properties of the current database as an object with the following
 attributes:
@@ -106,11 +106,11 @@ attributes:
 **Examples**
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-@startDocuBlockInline dbProperties_cluster
-@EXAMPLE_ARANGOSH_OUTPUT{dbProperties_cluster}
-  require("@arangodb").db._properties();
+@startDocuBlockInline dbProperties
+@EXAMPLE_ARANGOSH_OUTPUT{dbProperties}
+  require("@arangodb").db._queryProperties();
 @END_EXAMPLE_ARANGOSH_OUTPUT
-@endDocuBlock dbProperties_cluster
+@endDocuBlock dbProperties
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
