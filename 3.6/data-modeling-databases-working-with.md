@@ -164,7 +164,7 @@ database must explicitly be requested by using the
 *db._useDatabase* method.
 
 The *options* attribute can be used to set defaults for collections that will
-be created in the new database:
+be created in the new database (*Cluster only*):
 
 - *sharding*: The sharding method to use. Valid values are: `""` or `"single"`.
   Setting this option to `"single"` will enable the OneShard feature in the
@@ -172,9 +172,10 @@ be created in the new database:
 - *replicationFactor*: Default replication factor. Special values include
   `"satellite"`, which will replicate the collection to every DBServer, and
   `1`, which disables replication.
-- *minReplicationFactor*: Default minimum replication factor. If there are
-  less than minReplication replicas available the collection will become
-  read-only.
+- *writeConcern*: how many copies of each shard are required to be in sync on
+  the different DBServers. If there are less then these many copies in the
+  cluster a shard will refuse to write. The value of *writeConcern* can not be
+  larger than *replicationFactor*.
 
 The optional *users* attribute can be used to create initial users for
 the new database. If specified, it must be a list of user objects. Each user
