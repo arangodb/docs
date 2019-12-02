@@ -367,6 +367,11 @@ The following APIs have been expanded:
   `minReplicationFactor` and `sharding` in a cluster. A description of these attributes can 
   be found above.
 
+- Metrics API, HTTP GET `/_admin/metrics`
+
+  This new API has been added to replace the arango-exporter and adds new
+  metrics from RocksDB, Agency, etc. The exports are formatted for the Prometheus
+  metrics collector.
 
 Web interface
 -------------
@@ -389,6 +394,11 @@ Client tools
 
 Startup options
 ---------------
+
+### Metrics API disabling
+
+The new option `--server.enable-metrics-api` allow one to disable the metrics API by setting
+the otherwise default value true to false. `_admin/metrics`, then, responds with 404.
 
 ### OneShard Cluster
 
