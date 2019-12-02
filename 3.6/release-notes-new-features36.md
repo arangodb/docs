@@ -78,7 +78,7 @@ Execution plan:
  Id   NodeType           Est.   Comment
   1   SingletonNode         1   * ROOT
   6   IndexNode         26666     - FOR doc IN test   /* hash index scan */
-  7   CalculationNode   26666       - LET #1 = (doc.`value2` == "test854")   
+  7   CalculationNode   26666       - LET #1 = (doc.`value2` == "test854")
   4   FilterNode        26666       - FILTER #1
   5   ReturnNode        26666       - RETURN doc
 
@@ -110,7 +110,7 @@ Indexes used:
 
 ### Parallelization of cluster AQL queries
 
-ArangoDB 3.6 can parallelize work in many cluster AQL queries when there are multiple 
+ArangoDB 3.6 can parallelize work in many cluster AQL queries when there are multiple
 database servers involved. The parallelization is done in the GatherNode, which then
 can send parallel cluster-internal requests to the database servers attached. The
 database servers can then work fully parallel for the different shards involved.
@@ -152,7 +152,7 @@ Query String (57 chars, cacheable: false):
 Execution plan:
  Id   NodeType                  Site     Est.   Comment
   1   SingletonNode             DBS         1   * ROOT
-  3   CalculationNode           DBS         1     - LET #3 = { "updated" : true }   
+  3   CalculationNode           DBS         1     - LET #3 = { "updated" : true }
   2   EnumerateCollectionNode   DBS   1000000     - FOR doc IN test   /* full collection scan, 5 shard(s) */
  11   RemoteNode                COOR  1000000       - REMOTE
  12   GatherNode                COOR  1000000       - GATHER   /* parallel */
@@ -172,11 +172,11 @@ Query String (57 chars, cacheable: false):
 Execution plan:
  Id   NodeType          Site     Est.   Comment
   1   SingletonNode     DBS         1   * ROOT
-  3   CalculationNode   DBS         1     - LET #3 = { "updated" : true }   
- 13   IndexNode         DBS   1000000     - FOR doc IN test   /* primary index scan, index only, projections: `_key`, 5 shard(s) */    
-  4   UpdateNode        DBS         0       - UPDATE doc WITH #3 IN test 
+  3   CalculationNode   DBS         1     - LET #3 = { "updated" : true }
+ 13   IndexNode         DBS   1000000     - FOR doc IN test   /* primary index scan, index only, projections: `_key`, 5 shard(s) */
+  4   UpdateNode        DBS         0       - UPDATE doc WITH #3 IN test
   7   RemoteNode        COOR        0       - REMOTE
-  8   GatherNode        COOR        0       - GATHER 
+  8   GatherNode        COOR        0       - GATHER
 ```
 
 The optimization will also work with filters:
@@ -188,9 +188,9 @@ Query String (79 chars, cacheable: false):
 Execution plan:
  Id   NodeType                  Site     Est.   Comment
   1   SingletonNode             DBS         1   * ROOT
-  5   CalculationNode           DBS         1     - LET #5 = { "updated" : true }   
+  5   CalculationNode           DBS         1     - LET #5 = { "updated" : true }
   2   EnumerateCollectionNode   DBS   1000000     - FOR doc IN test   /* full collection scan, projections: `_key`, `value`, 5 shard(s) */
-  3   CalculationNode           DBS   1000000       - LET #3 = (doc.`value` == 4)   
+  3   CalculationNode           DBS   1000000       - LET #3 = (doc.`value` == 4)
   4   FilterNode                DBS   1000000       - FILTER #3
   6   UpdateNode                DBS         0       - UPDATE doc WITH #5 IN test
   9   RemoteNode                COOR        0       - REMOTE
@@ -221,7 +221,7 @@ for this is
 The performance of AQL date operations that work on date strings has been improved
 compared to previous versions.
 
-Finally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND` to bin a date/time 
+Finally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND()` to bin a date/time
 into a set of equal-distance buckets.
 
 ### Subquery Splicing Optimization
@@ -271,7 +271,7 @@ Execution plan:
   2   EnumerateCollectionNode      0     - FOR x IN c1   /* full collection scan */
   9   SubqueryNode                 0       - LET firstJoin = ...   /* subquery */
   3   SingletonNode                1         * ROOT
- 18   IndexNode                    0           - FOR y IN c2   /* primary index scan */    
+ 18   IndexNode                    0           - FOR y IN c2   /* primary index scan */
   7   LimitNode                    0             - LIMIT 0, 1
   8   ReturnNode                   0             - RETURN y
  15   SubqueryNode                 0       - LET secondJoin = ...   /* subquery */
@@ -302,7 +302,7 @@ Execution plan:
   2   EnumerateCollectionNode      0     - FOR x IN c1   /* full collection scan */
   9   SubqueryNode                 0       - LET firstJoin = ...   /* subquery */
   3   SingletonNode                1         * ROOT
- 18   IndexNode                    0           - FOR y IN c2   /* primary index scan */    
+ 18   IndexNode                    0           - FOR y IN c2   /* primary index scan */
   7   LimitNode                    0             - LIMIT 0, 1
   8   ReturnNode                   0             - RETURN y
  19   SubqueryStartNode            0       - LET secondJoin = ( /* subquery begin */
@@ -342,39 +342,43 @@ HTTP API
 
 The following APIs have been expanded:
 
-- Database creation API, HTTP POST `/_api/database`
+- Database creation API, HTTP route `POST /_api/database`
 
-  The database creation API now handles the `replicationFactor`, `minReplicationFactor` 
-  and `sharding` attributes. All these attributes are optional, and only meaningful
-  in a cluster.
+  The database creation API now handles the `replicationFactor`, `writeConcern`
+  and `sharding` attributes. All these attributes are optional, and only
+  meaningful in a cluster.
 
-  The values provided for the attributes `replicationFactor` and `minReplicationFactor` 
-  will be used as default values when creating collections in that database, allowing to 
-  omit these attributes when creating collections. However, the values set here are just 
-  defaults for new collections in the database. The values can still be adjusted per 
-  collection when creating new collections in that database via the web UI, the arangosh 
-  or drivers.
+  The values provided for the attributes `replicationFactor` and `writeConcern`
+  will be used as default values when creating collections in that database,
+  allowing to omit these attributes when creating collections. However, the
+  values set here are just defaults for new collections in the database.
+  The values can still be adjusted per collection when creating new collections
+  in that database via the web UI, the arangosh or drivers.
 
-  In an Enterprise Edition cluster, the `sharding` attribute can be given a value of 
-  "single", which will make all new collections in that database use the same shard 
-  distribution and use one shard by default. This can still be overridden by setting the 
-  values of `distributeShardsLike` when creating new collections in that database via 
-  the web UI, the arangosh or drivers. 
+  In an Enterprise Edition cluster, the `sharding` attribute can be given a
+  value of `"single"`, which will make all new collections in that database use
+  the same shard distribution and use one shard by default. This can still be
+  overridden by setting the values of `distributeShardsLike` when creating new
+  collections in that database via the web UI, the arangosh or drivers.
 
-- Database properties API, HTTP GET `/_api/database/current`
+- Database properties API, HTTP route `GET /_api/database/current`
 
-  The existing database properties API additional provides the attributes `replicationFactor`, 
-  `minReplicationFactor` and `sharding` in a cluster. A description of these attributes can 
-  be found above.
+  The database properties endpoints returns the new additional attributes
+  `replicationFactor`, `writeConcern` and `sharding` in a cluster.
+  A description of these attributes can be found above.
 
+- Collection APIs
+
+  `minReplicationFactor` has been renamed to `writeConcern` for consistency.
+  The old attribute name is still accepted and returned for compatibility.
 
 Web interface
 -------------
 
-The web interface now shows the shards of all collections (including system collections) 
-in the shard distribution view. Displaying system collections here is necessary to access 
-the prototype collections of a collection sharded via `distributeShardsLike` in case the 
-prototype is a system collection, and the prototype collection shall be moved to another 
+The web interface now shows the shards of all collections (including system collections)
+in the shard distribution view. Displaying system collections here is necessary to access
+the prototype collections of a collection sharded via `distributeShardsLike` in case the
+prototype is a system collection, and the prototype collection shall be moved to another
 server using the web interface.
 
 The web interface now also allows setting a default replication factor when a creating
@@ -431,7 +435,7 @@ any affect on single servers, agents or database servers.
 
 ### Other cluster options
 
-Added startup options to control the minimum and maximum replication factors used for 
+Added startup options to control the minimum and maximum replication factors used for
 new collections, and the maximum number of shards for new collections.
 
 The following options have been added:
@@ -440,10 +444,10 @@ The following options have been added:
   A value of `0` means that there is no restriction. The default value is `10`.
 
 - `--cluster.min-replication-factor`: minimum replication factor for new collections.
-  The default value is `1`. This option can be used to prevent the creation of 
+  The default value is `1`. This option can be used to prevent the creation of
   collections that do not have any or enough replicas.
 
-- `--cluster.write-concern`: default write concern value used for new collections. 
+- `--cluster.write-concern`: default write concern value used for new collections.
   This option controls the number of replicas that must successfully acknowledge writes
   to a collection. If any write operation gets less acknowledgements than configured
   here, the collection will go into read-only mode until the configured number of
@@ -454,13 +458,13 @@ The following options have been added:
 - `--cluster.max-number-of-shards`: maximum number of shards allowed for new collections.
   A value of `0` means that there is no restriction. The default value is `1000`.
 
-Note that the above options only have an effect when set for coordinators, and only for 
+Note that the above options only have an effect when set for coordinators, and only for
 collections that are created after the options have been set. They do not affect
 already existing collections.
 
 Furthermore, the following network related options have been added:
 
-- `--network.idle-connection-ttl`: default time-to-live for idle cluster-internal 
+- `--network.idle-connection-ttl`: default time-to-live for idle cluster-internal
   connections (in milliseconds). The default value is `60000`.
 
 - `--network.io-threads`: number of I/O threads for cluster-internal network requests.
@@ -500,7 +504,7 @@ TLS v1.3
 ArangoDB 3.6 adds support for TLS 1.3 for the arangod server and the client tools.
 
 The arangod server can be started with option `--ssl.protocol 6` to make it require
-TLS 1.3 for incoming client connections. The server can be started with option 
+TLS 1.3 for incoming client connections. The server can be started with option
 `--ssl.protocol 5` to make it require TLS 1.2, as in previous versions of arangod.
 
 The default TLS protocol for the arangod server is now generic TLS
@@ -520,7 +524,7 @@ where VALUE is one of the following:
 - 6 = TLSv1.3
 - 9 = generic TLS
 
-Note: TLS v1.3 support has been added in ArangoDB v3.5.1 already, but the default TLS 
+Note: TLS v1.3 support has been added in ArangoDB v3.5.1 already, but the default TLS
 version in ArangoDB 3.5 was still TLS v1.2. ArangoDB v3.6 uses "generic TLS" as its
 default TLS version, which will allows clients to negotiate the TLS version with the
 server, dynamically choosing the **highest** mutually supported version of TLS.

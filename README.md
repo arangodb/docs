@@ -154,9 +154,10 @@ Add the actual content below the frontmatter.
 
 ### When adding a new release
 
-- Copy over the navs in `_data`, e.g.
+- Copy the latest devel version to a new directory i.e. `cp -a 3.5 3.6`
+- Create the necessary navigation definition files in `_data` by copying, e.g.
   ```
-  for book in aql cookbook drivers http manual; do
+  for book in aql drivers http manual oasis; do
     cp -a "3.5-${book}.yml" "3.6-${book}.yml"
   done
   ```
@@ -166,7 +167,13 @@ Add the actual content below the frontmatter.
     ln -s "../3.6/generated/arango${prog}-options.json" "3.6-program-options-arango${prog}.json"
   done
   ```
-- Copy the latest devel version to a new directory i.e. `cp -a 3.5 3.6`
+- Adjust the version numbers in `site.data` references in all pages which
+  include program startup options (`program-option.html`), e.g.
+  ```diff
+  -{% assign options = site.data["35-program-options-arangobackup"] %}
+  +{% assign options = site.data["36-program-options-arangobackup"] %}
+   {% include program-option.html options=options name="arangobackup" %}
+  ```
 - Add the version to `_data/versions.yml` with the full version name
 - Add all books of that version to `_data/books.yml`
 - Adjust the following fields in `_config.yml` as needed:
