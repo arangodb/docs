@@ -12,11 +12,172 @@ here.
 ArangoSearch
 ------------
 
-ArangoSearch views are now eligible for SmartJoins in AQL, provided that their
+### SmartJoins and Views
+
+ArangoSearch Views are now eligible for SmartJoins in AQL, provided that their
 underlying collections are eligible too.
+
+### Dynamic search expressions with arrays
+
+ArangoSearch now accepts expressions with array comparison operators in the
+form of:
+
+```
+<array> [ ALL|ANY|NONE ] [ <=|<|==|!=|>|>=|IN ] doc.<attribute>
+```
+
+i.e. the left-hand side operand is always an array, which can be dynamic.
+
+```js
+LET tokens = TOKENS("some input", "text_en")                 // ["some", "input"]
+FOR doc IN myView SEARCH tokens  ALL IN doc.title RETURN doc // dynamic conjunction
+FOR doc IN myView SEARCH tokens  ANY IN doc.title RETURN doc // dynamic disjunction
+FOR doc IN myView SEARCH tokens NONE IN doc.title RETURN doc // dynamic negation
+FOR doc IN myView SEARCH tokens  ALL >  doc.title RETURN doc // dynamic conjunction with comparison
+FOR doc IN myView SEARCH tokens  ANY <= doc.title RETURN doc // dynamic disjunction with comparison
+```
+
+In addition, both the `TOKENS()` and the `PHRASE()` functions were
+extended with array support for convenience.
+
+`TOKENS()` accepts recursive arrays of strings as the first argument:
+
+```js
+TOKENS("quick brown fox", "text_en")        // [ "quick", "brown", "fox" ]
+TOKENS(["quick brown", "fox"], "text_en")   // [ ["quick", "brown"], ["fox"] ]
+TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
+```
+
+In most cases you will want to flatten the resulting array for further usage,
+because nested arrays are not accepted in `SEARCH` statements such as
+`<array> ALL IN doc.<attribute>`:
+
+```js
+LET tokens = TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
+LET tokens_flat = FLATTEN(tokens, 2)                     // [ "quick", "brown", "fox" ]
+FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETURN doc
+```
+
+`PHRASE()` accepts an array as the second argument:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, ["quick brown fox"], "text_en") RETURN doc
+FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", "brown", "fox"], "text_en") RETURN doc
+
+LET tokens = TOKENS("quick brown fox", "text_en") // ["quick", "brown", "fox"]
+FOR doc IN myView SEARCH PHRASE(doc.title, tokens, "text_en") RETURN doc
+```
+
+It is equivalent to the more cumbersome and static form:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 0, "brown", 0, "fox", "text_en") RETURN doc
+```
+
+You can optionally specify the number of _skipTokens_ in the array form before
+every string element:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", 1, "fox", "jumps"], "text_en") RETURN doc
+```
+
+It is the same as the following:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
+```
+
+### Analyzers
+
+- Added UTF-8 support and ability to mark beginning/end of the sequence to
+  the `ngram` Analyzer type.
+
+  The following optional properties can be provided for an `ngram` Analyzer
+  definition:
+
+  - `startMarker` : `<string>`, default: ""<br>
+    this value will be prepended to n-grams at the beginning of input sequence
+
+  - `endMarker` : `<string>`, default: ""<br>
+    this value will be appended to n-grams at the beginning of input sequence
+
+  - `streamType` : `"binary"|"utf8"`, default: "binary"<br>
+    type of the input stream (support for UTF-8 is new)
+
+- Added _edge n-gram_ support to the `text` Analyzer type. The input gets
+  tokenized as usual, but then n-grams are generated from each token. UTF-8
+  encoding is assumed (whereas the `ngram` Analyzer has a configurable stream
+  type and defaults to binary).
+
+  The following optional properties can be provided for a `text`
+  Analyzer definition:
+
+  - `edgeNgram` (object, _optional_):
+    - `min` (number, _optional_): minimal n-gram length
+    - `max` (number, _optional_): maximal n-gram length
+    - `preserveOriginal` (boolean, _optional_): include the original token
+      if its length is less than *min* or greater than *max*
 
 AQL
 ---
+
+### Late document materialization (RocksDB)
+
+With the _late document materialization_ optimization ArangoDB tries to
+read only documents that are absolutely necessary to compute the query result,
+reducing load to the storage engine. This is only supported for the RocksDB
+storage engine.
+
+In 3.6 the optimization can only be applied to queries containing a
+`SORT`+`LIMIT` combination, e.g:
+
+```js
+FOR d IN documentSource // documentSource can be either a collection or an ArangoSearch View
+SORT d.foo
+LIMIT 100
+RETURN d
+```
+
+For the collection case the optimization is possible if and only if:
+- there is an index of type `primary`, `hash`, `skiplist`, `persistent`
+  or `edge` picked by the optimizer
+- all attribute accesses can be covered by indexed attributes
+
+```js
+// Given we have hash index on attributes [  "foo", "bar", "baz" ]
+
+FOR d IN myCollection
+FILTER d.foo == "someValue" // hash index will be picked to optimize filtering
+SORT d.baz DESC             // field "baz" will be read from index
+LIMIT 100                   // only 100 documents will be materialized
+RETURN d
+```
+
+For the ArangoSearch View case the optimization is possible if and only if:
+- all attribute accesses can be covered by stored attributes
+  (e.g. using `primarySort`)
+
+```js
+FOR d IN myView
+SEARCH d.foo == "baz"
+SORT BM25(d) DESC  // BM25(d) will be evaluated by the View node above
+LIMIT 100          // only 100 documents will be materialized
+RETURN d
+```
+
+```js
+// Given we have primary sort on fields ["foo", "bar"]
+FOR d IN myView
+SEARCH d.foo == "baz"
+SORT d.bar DESC    // field "bar" will be read from the View
+LIMIT 100          // only 100 documents will be materialized
+RETURN d
+```
+
+The respective optimizer rules are called `late-document-materialization`
+(collection source) and `late-document-materialization-arangosearch`
+(ArangoSearch View source). If applied, you will find `MaterializeNode`s
+in [execution plans](aql/execution-and-performance-optimizer.html#list-of-execution-nodes).
 
 ### Early pruning of non-matching documents
 
@@ -105,8 +266,6 @@ Indexes used:
  By   Name                      Type   Collection   Unique   Sparse   Selectivity   Fields         Ranges
   6   idx_1649353982658740224   hash   test         false    false       100.00 %   [ `value1` ]   ((doc.`value1` > 10000) && (doc.`value1` < 30000))
 ```
-
-### Late document materialization
 
 ### Parallelization of cluster AQL queries
 
@@ -363,7 +522,7 @@ The following APIs have been expanded:
 
 - Database properties API, HTTP route `GET /_api/database/current`
 
-  The database properties endpoints returns the new additional attributes
+  The database properties endpoint returns the new additional attributes
   `replicationFactor`, `writeConcern` and `sharding` in a cluster.
   A description of these attributes can be found above.
 
