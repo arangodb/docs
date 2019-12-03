@@ -19,7 +19,6 @@ ArangoDB is also available as
 - [Using the ArangoDB Starter](deployment-cluster-using-the-starter.html)
 - [Manual Start](deployment-cluster-manual-start.html)
 - [Kubernetes](deployment-cluster-kubernetes.html)
-- [Mesos, DC/OS](deployment-cluster-mesos.html)
 
 Go through the detailed
 [ArangoDB Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}

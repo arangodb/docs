@@ -382,7 +382,7 @@ for this is
 The performance of AQL date operations that work on date strings has been improved
 compared to previous versions.
 
-Finally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND` to bin a date/time
+Finally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND()` to bin a date/time
 into a set of equal-distance buckets.
 
 ### Subquery Splicing Optimization
@@ -399,9 +399,11 @@ On subqueries with few results per input, there was a serious performance impact
 
 Subquery splicing inlines the execution of subqueries using an optimizer rule
 called `splice-subqueries`. Only suitable queries can be spliced.
-A subquery becomes unsuitable if it contains a `LIMIT`, `REMOTE`, `GATHER` or a
-`COLLECT` node where the operation is `WITH COUNT INTO`. A subquery also becomes
-unsuitable if it is contained in an unsuitable subquery.
+A subquery becomes unsuitable if it contains a `LIMIT` node or a
+`COLLECT WITH COUNT INTO …` construct (but not due to a
+`COLLECT var = <expr> WITH COUNT INTO …`). A subquery *also* becomes
+unsuitable if it is contained in a (sub)query containing unsuitable parts
+*after* the subquery.
 
 Consider the following query to illustrates the difference.
 
@@ -449,7 +451,7 @@ Optimization rules applied:
   3   remove-unnecessary-calculations-2
 ```
 
-Note in particular the `SubqueryNode`s, followed by a `SingleNode` in
+Note in particular the `SubqueryNode`s, followed by a `SingletonNode` in
 both cases.
 
 When using the optimizer rule `splice-subqueries` the plan is as follows:
@@ -492,7 +494,7 @@ marked by a `SubqueryEndNode`.
 ArangoDB 3.6 provides the following new AQL functionality:
 
 - a function `GEO_AREA()` for [area calculations](aql/functions-geo.html#geo_area)
-- a [query option](aql/invocation-with-arangosh.html#setting-options) `timeout`
+- a [query option](aql/invocation-with-arangosh.html#setting-options) `maxRuntime`
   to restrict the execution to a given time in seconds. Also see
   [HTTP API](http/aql-query-cursor-accessing-cursors.html#create-cursor).
 
@@ -501,31 +503,35 @@ HTTP API
 
 The following APIs have been expanded:
 
-- Database creation API, HTTP POST `/_api/database`
+- Database creation API, HTTP route `POST /_api/database`
 
-  The database creation API now handles the `replicationFactor`, `minReplicationFactor`
-  and `sharding` attributes. All these attributes are optional, and only meaningful
-  in a cluster.
+  The database creation API now handles the `replicationFactor`, `writeConcern`
+  and `sharding` attributes. All these attributes are optional, and only
+  meaningful in a cluster.
 
-  The values provided for the attributes `replicationFactor` and `minReplicationFactor`
-  will be used as default values when creating collections in that database, allowing to
-  omit these attributes when creating collections. However, the values set here are just
-  defaults for new collections in the database. The values can still be adjusted per
-  collection when creating new collections in that database via the web UI, the arangosh
-  or drivers.
+  The values provided for the attributes `replicationFactor` and `writeConcern`
+  will be used as default values when creating collections in that database,
+  allowing to omit these attributes when creating collections. However, the
+  values set here are just defaults for new collections in the database.
+  The values can still be adjusted per collection when creating new collections
+  in that database via the web UI, the arangosh or drivers.
 
-  In an Enterprise Edition cluster, the `sharding` attribute can be given a value of
-  "single", which will make all new collections in that database use the same shard
-  distribution and use one shard by default. This can still be overridden by setting the
-  values of `distributeShardsLike` when creating new collections in that database via
-  the web UI, the arangosh or drivers.
+  In an Enterprise Edition cluster, the `sharding` attribute can be given a
+  value of `"single"`, which will make all new collections in that database use
+  the same shard distribution and use one shard by default. This can still be
+  overridden by setting the values of `distributeShardsLike` when creating new
+  collections in that database via the web UI, the arangosh or drivers.
 
-- Database properties API, HTTP GET `/_api/database/current`
+- Database properties API, HTTP route `GET /_api/database/current`
 
-  The existing database properties API additional provides the attributes `replicationFactor`,
-  `minReplicationFactor` and `sharding` in a cluster. A description of these attributes can
-  be found above.
+  The database properties endpoint returns the new additional attributes
+  `replicationFactor`, `writeConcern` and `sharding` in a cluster.
+  A description of these attributes can be found above.
 
+- Collection APIs
+
+  `minReplicationFactor` has been renamed to `writeConcern` for consistency.
+  The old attribute name is still accepted and returned for compatibility.
 
 Web interface
 -------------
@@ -652,6 +658,20 @@ For example, to turn off the rule `use-indexes-for-sort`, use
 
 The purpose of this startup option is to be able to enable potential future experimental
 optimizer rules, which may be shipped in a disabled-by-default state.
+
+HotBackup
+---------
+
+### View Data
+
+HotBackup now includes View data. Previously the Views had to be rebuilt after a
+restore. Now the Views are available immediately.
+
+### Force Backup
+
+When creating backups there is an additional option `force`. This option **aborts**
+all ongoing transactions to obtain the global lock for creating the backup. Most
+likely this is _not_ what you want to do, but maybe someone wants to.
 
 TLS v1.3
 --------

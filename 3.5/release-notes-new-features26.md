@@ -216,9 +216,6 @@ And the blog post on Foxx dependencies can be found here:
 You can now write tests for your Foxx apps using the Mocha testing framework:
 [www.arangodb.com/2015/04/testing-foxx-mocha/](https://www.arangodb.com/2015/04/testing-foxx-mocha/){:target="_blank"}
 
-A recipe for writing tests for your Foxx apps can be found in the cookbook:
-[www.arangodb.com/docs/2.8/cookbook/foxx-testing.html](https://www.arangodb.com/docs/2.8/cookbook/foxx-testing.html){:target="_blank"}
-
 ### API Documentation
 
 The API documentation has been updated to Swagger 2. You can now also mount API

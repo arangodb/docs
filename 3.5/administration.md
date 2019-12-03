@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Deployments of ArangoDB servers can be managed with the following tools
+redirect_from:
+  - /3.5/cookbook/administration.html # 3.5 -> 3.5
 ---
 Administration
 ==============

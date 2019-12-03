@@ -135,6 +135,8 @@ queries which iterate over a View and sort by one or multiple of the
 attributes. If the field(s) and the sorting direction(s) match then the
 the data can be read directly from the index without actual sort operation.
 
+{% include youtube.html id="bKeKzexInm0" %}
+
 View definition example:
 
 ```json
