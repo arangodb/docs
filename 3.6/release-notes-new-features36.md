@@ -267,8 +267,6 @@ Indexes used:
   6   idx_1649353982658740224   hash   test         false    false       100.00 %   [ `value1` ]   ((doc.`value1` > 10000) && (doc.`value1` < 30000))
 ```
 
-### Late document materialization
-
 ### Parallelization of cluster AQL queries
 
 ArangoDB 3.6 can parallelize work in many cluster AQL queries when there are multiple
