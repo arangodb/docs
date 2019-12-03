@@ -352,6 +352,36 @@ DATE_TRUNC('2017-02-03', 'month') // 2017-02-01T00:00:00.000Z
 DATE_TRUNC('2017-02-03 04:05:06', 'hours') // 2017-02-03 04:00:00.000Z
 ```
 
+### DATE_ROUND()
+
+`DATE_ROUND(date, amount, unit) → isoDate`
+
+Bin a date/time into a set of equal-distance buckets, to be used for
+grouping.
+
+- **date** (string\|number): a date string or timestamp
+- **amount** (number): number of *unit*s
+- **unit** (string): either of the following to specify the time unit (case-insensitive):
+  - y, year, years
+  - m, month, months
+  - d, day, days
+  - h, hour, hours
+  - i, minute, minutes
+  - s, second, seconds
+  - f, millisecond, milliseconds
+- returns **isoDate** (string): the rounded ISO 8601 date time string
+
+```js
+DATE_ROUND('2000-04-28', 1, 'day') // 2000-04-28T00:00:00.000Z
+DATE_ROUND('2000-04-10T11:39:29Z', 15, 'minutes') // 2000-04-10T11:30:00.000Z
+```
+
+```js
+FOR doc IN coll
+  COLLECT date = DATE_ROUND(doc.timestamp) INTO bucket
+  RETURN { date, bucket }
+```
+
 ### DATE_FORMAT()
 
 `DATE_FORMAT(date, format) → str`
