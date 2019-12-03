@@ -498,6 +498,17 @@ For example, to turn off the rule `use-indexes-for-sort`, use
 The purpose of this startup option is to be able to enable potential future experimental
 optimizer rules, which may be shipped in a disabled-by-default state.
 
+Hotbackup
+---------
+
+### View Data
+
+Hotbackup now includes view data. Previously the views had to be rebuild after a restore. Now the views are available immediately.
+
+### Force Backup
+
+When creating backups there is an additional option `force`. This option **aborts** all ongoing transactions to obtain the global lock for creating the backup. Most likly this is _not_ what you want to do, but maybe someone wants to. 
+
 TLS v1.3
 --------
 
