@@ -181,9 +181,9 @@ in [execution plans](aql/execution-and-performance-optimizer.html#list-of-execut
 
 ### Early pruning of non-matching documents
 
-Previously, AQL queries with filter conditions that could not be satisfied by any index
-required all documents to be copied from the storage engine into the AQL scope in order
-to be fed into the filter.
+Previously, AQL queries with filter conditions that could not be satisfied by
+any index required all documents to be copied from the storage engine into the
+AQL scope in order to be fed into the filter.
 
 An example query execution plan for such query from ArangoDB 3.5 looks like this:
 
@@ -200,12 +200,12 @@ Execution plan:
   5   ReturnNode                100000       - RETURN doc
 ```
 
-ArangoDB 3.6 adds an optimizer rule `move-filters-into-enumerate` which allows applying
-the filter condition directly while scanning the documents, so copying of any documents
-that don't match the filter condition can be avoided.
+ArangoDB 3.6 adds an optimizer rule `move-filters-into-enumerate` which allows
+applying the filter condition directly while scanning the documents, so copying
+of any documents that don't match the filter condition can be avoided.
 
-The query execution plan for the above query from 3.6 with that optimizer rule applied
-looks as follows:
+The query execution plan for the above query from 3.6 with that optimizer rule
+applied looks as follows:
 
 ```
 Query String (75 chars, cacheable: true):
@@ -660,16 +660,16 @@ optimizer rules, which may be shipped in a disabled-by-default state.
 HotBackup
 ---------
 
-### View Data
+- View Data
 
-HotBackup now includes View data. Previously the Views had to be rebuilt after a
-restore. Now the Views are available immediately.
+  HotBackup now includes View data. Previously the Views had to be rebuilt after a
+  restore. Now the Views are available immediately.
 
-### Force Backup
+- Force Backup
 
-When creating backups there is an additional option `force`. This option **aborts**
-all ongoing transactions to obtain the global lock for creating the backup. Most
-likely this is _not_ what you want to do, but maybe someone wants to.
+  When creating backups there is an additional option `force`. This option **aborts**
+  all ongoing transactions to obtain the global lock for creating the backup. Most
+  likely this is _not_ what you want to do, but maybe someone wants to.
 
 TLS v1.3
 --------
