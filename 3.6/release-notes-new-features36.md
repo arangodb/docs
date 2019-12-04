@@ -218,17 +218,18 @@ Execution plan:
   5   ReturnNode                100000       - RETURN doc
 ```
 
-Note that in this execution plan the scanning and filtering are combined in one node, so
-the copying of all non-matching documents from the storage engine into the AQL scope is
-completely avoided.
+Note that in this execution plan the scanning and filtering are combined in one
+node, so the copying of all non-matching documents from the storage engine into
+the AQL scope is completely avoided.
 
-This optimization will be beneficial if the filter condition is very selective and will
-filter out many documents, and if documents are large. In this case a lot of copying will
-be avoided.
+This optimization will be beneficial if the filter condition is very selective
+and will filter out many documents, and if documents are large. In this case a
+lot of copying will be avoided.
 
-The optimizer rule also works if an index is used, but there are also filter conditions
-that cannot be satisfied by the index alone. Here is a 3.5 query execution plan for a
-query using a filter on an indexed value plus a filter on a non-indexed value:
+The optimizer rule also works if an index is used, but there are also filter
+conditions that cannot be satisfied by the index alone. Here is a 3.5 query
+execution plan for a query using a filter on an indexed value plus a filter on
+a non-indexed value:
 
 ```
 Query String (101 chars, cacheable: true):
@@ -248,8 +249,8 @@ Indexes used:
   6   idx_1649353982658740224   hash   test         false    false       100.00 %   [ `value1` ]   ((doc.`value1` > 10000) && (doc.`value1` < 30000))
 ```
 
-In 3.6, the same query will be executed using a combined index scan & filtering approach, again
-avoiding any copies of non-matching documents:
+In 3.6, the same query will be executed using a combined index scan & filtering
+approach, again avoiding any copies of non-matching documents:
 
 ```
 Query String (101 chars, cacheable: true):
@@ -269,13 +270,14 @@ Indexes used:
 
 ### Parallelization of cluster AQL queries
 
-ArangoDB 3.6 can parallelize work in many cluster AQL queries when there are multiple
-database servers involved. The parallelization is done in the GatherNode, which then
-can send parallel cluster-internal requests to the database servers attached. The
-database servers can then work fully parallel for the different shards involved.
+ArangoDB 3.6 can parallelize work in many cluster AQL queries when there are
+multiple database servers involved. The parallelization is done in the
+*GatherNode*, which then can send parallel cluster-internal requests to the
+database servers attached. The database servers can then work fully parallel
+for the different shards involved.
 
-When parallelization is used, one or multiple GatherNodes in a query's execution plan
-will be tagged with `parallel` as follows:
+When parallelization is used, one or multiple *GatherNode*s in a query's
+execution plan will be tagged with `parallel` as follows:
 
 ```
 Query String (26 chars, cacheable: true):
@@ -290,54 +292,60 @@ Execution plan:
   3   ReturnNode                COOR  1000000       - RETURN doc
 ```
 
-Parallelization is currently restricted to certain types and parts of queries. GatherNodes
-will go into parallel mode only if the database server query part above it ("above" here
-in terms of query execution plan layout) is a terminal part of the query, i.e. when the
-database server part above does not itself contain any RemoteNode, ScatterNode, GatherNode
-or DistributeNode.
+Parallelization is currently restricted to certain types and parts of queries.
+*GatherNode*s will go into parallel mode only if the database server query part
+above it (in terms of query execution plan layout) is a terminal part of the
+query, i.e. when the database server part above does not itself contain any
+*RemoteNode*, *ScatterNode*, *GatherNode* or *DistributeNode*.
 
-Please note that the parallelization of AQL execution may lead to a different resource
-usage pattern for eligible AQL queries in the cluster. In isolation, queries are expected to 
-complete faster with parallelization than when executing their work serially on all
-involved database servers. However, working on multiple database server in parallel may 
-also mean that more work than before is happening at the very same time. If this is not
-desired because of resource scarcity, there are options to control the parallelization:
+Please note that the parallelization of AQL execution may lead to a different
+resource usage pattern for eligible AQL queries in the cluster. In isolation,
+queries are expected to complete faster with parallelization than when executing
+their work serially on all involved database servers. However, working on
+multiple database server in parallel may also mean that more work than before
+is happening at the very same time. If this is not desired because of resource
+scarcity, there are options to control the parallelization:
 
-The startup option `--query.parallelize-gather-writes` can be used to control whether
-eligible write operation parts will be parallelized. This option defaults to `true`, 
-meaning that eligible write operations are also parallelized by default. This can be turned
-off so that potential I/O overuse can be avoided for write operations when used together
-with a high replication factor.
+The startup option `--query.parallelize-gather-writes` can be used to control
+whether eligible write operation parts will be parallelized. This option
+defaults to `true`, meaning that eligible write operations are also parallelized
+by default. This can be turned off so that potential I/O overuse can be avoided
+for write operations when used together with a high replication factor.
 
-Additionally, the startup option `--query.optimizer-rules` can be used to globally toggle
-the usage of certain optimizer rules for all queries. By default, all optimizations are
-turned on. However, specific optimizations can be turned off using the option.
+Additionally, the startup option `--query.optimizer-rules` can be used to
+globally toggle the usage of certain optimizer rules for all queries.
+By default, all optimizations are turned on. However, specific optimizations
+can be turned off using the option.
 
-For example, to turn off the parallelization entirely (including parallel gather writes),
-one can use the following configuration:
+For example, to turn off the parallelization entirely (including parallel
+gather writes), one can use the following configuration:
 
     --query.optimizer-rules "-parallelize-gather"
 
-This toggle works for any other non-mandatory optimizer rules as well. To specify multiple
-optimizer rules, the option can be used multiple times, e.g.
+This toggle works for any other non-mandatory optimizer rules as well.
+To specify multiple optimizer rules, the option can be used multiple times, e.g.
 
     --query.optimizer-rules "-parallelize-gather" --query.optimizer-rules "-splice-subqueries"
 
-You can overrule which optimizer rules to use or not use on a per-query basis still.
-`--query.optimizer-rules` merely defines a default. However,
-`--query.parallelize-gather-writes false` turns off parallel gather writes completely
-and it cannot be re-enabled for individual queries.
+You can overrule which optimizer rules to use or not use on a per-query basis
+still. `--query.optimizer-rules` merely defines a default. However,
+`--query.parallelize-gather-writes false` turns off parallel gather writes
+completely and it cannot be re-enabled for individual queries.
 
-### More efficient execution plans for simple UPDATE and REPLACE queries
+### Optimizations for simple UPDATE and REPLACE queries
 
-AQL query execution plans for simple UPDATE and REPLACE operations that modify multiple
-documents and do not use LIMIT are now more efficient as several steps were removed.
-The existing optimizer rule `undistribute-remove-after-enum-coll` has been extended to
-cover these cases too, in case the collection is sharded by `_key` and the UPDATE/REPLACE
+AQL query execution plans for simple `UPDATE` and `REPLACE` operations that
+modify multiple documents and do not use `LIMIT` are now more efficient as
+several steps were removed. The existing optimizer rule
+`undistribute-remove-after-enum-coll` has been extended to cover these cases
+too, in case the collection is sharded by `_key` and the `UPDATE`/`REPLACE`
 operation is using the document or the `_key` to find it.
 
-For example, a query such as `FOR doc IN test UPDATE doc WITH { updated: true } IN test`
-is executed as follows in 3.5:
+For example, a query such as:
+
+    FOR doc IN test UPDATE doc WITH { updated: true } IN test
+
+… is executed as follows in 3.5:
 
 ```
 Query String (57 chars, cacheable: false):
@@ -357,7 +365,7 @@ Execution plan:
   8   GatherNode                COOR        0       - GATHER
 ```
 
-In 3.6 the execution plan is streamlined to just
+In 3.6 the execution plan is streamlined to just:
 
 ```
 Query String (57 chars, cacheable: false):
@@ -393,8 +401,8 @@ Execution plan:
 
 ### AQL Date functionality
 
-AQL now enforces a valid date range for working with date/time in AQL. The valid date
-ranges for any AQL date/time function are:
+AQL now enforces a valid date range for working with date/time in AQL.
+The valid date ranges for any AQL date/time function are:
 
 - for string date/time values: `"0000-01-01T00:00:00.000Z"` (including) up to
   `"9999-12-31T23:59:59.999Z"` (including)
@@ -403,20 +411,20 @@ ranges for any AQL date/time function are:
   `"0000-01-01T00:00:00.000Z"` and `"9999-12-31T23:59:59.999Z"`.
 
 Any date/time values outside the given range that are passed into an AQL date
-function will make the function return `null` and trigger a warning in the query,
-which can optionally be escalated to an error and stop the query.
+function will make the function return `null` and trigger a warning in the
+query, which can optionally be escalated to an error and stop the query.
 
 Any date/time operations that produce date/time outside the valid ranges stated
-above will make the function return `null` and trigger a warning too. An example
-for this is
+above will make the function return `null` and trigger a warning too.
+An example for this is:
 
     DATE_SUBTRACT("2018-08-22T10:49:00+02:00", 100000, "years")
 
-The performance of AQL date operations that work on date strings has been improved
-compared to previous versions.
+The performance of AQL date operations that work on date strings has been
+improved compared to previous versions.
 
-Finally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND()` to bin a date/time
-into a set of equal-distance buckets.
+Finally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND()` to bin a
+date/time into a set of equal-distance buckets.
 
 ### Subquery Splicing Optimization
 
@@ -426,9 +434,9 @@ happened for each input row:
 - The subquery tree issues one initializeCursor cascade through all nodes
 - The subquery node pulls rows until the subquery node is empty for this input
 
-On subqueries with many results per input row (10000 or more) the
-above steps did not contribute significantly to query execution time.
-On subqueries with few results per input, there was a serious performance impact.
+On subqueries with many results per input row (10000 or more) the above steps
+did not contribute significantly to query execution time. On subqueries with
+few results per input, there was a serious performance impact.
 
 Subquery splicing inlines the execution of subqueries using an optimizer rule
 called `splice-subqueries`. Only suitable queries can be spliced.
@@ -527,9 +535,11 @@ marked by a `SubqueryEndNode`.
 In addition, ArangoDB 3.6 provides the following new AQL functionality:
 
 - a function `GEO_AREA()` for [area calculations](aql/functions-geo.html#geo_area)
-- a [query option](aql/invocation-with-arangosh.html#setting-options) `maxRuntime`
-  to restrict the execution to a given time in seconds. Also see
-  [HTTP API](http/aql-query-cursor-accessing-cursors.html#create-cursor).
+
+- a [query option](aql/invocation-with-arangosh.html#setting-options)
+  `maxRuntime` to restrict the execution to a given time in seconds.
+  Also see [HTTP API](http/aql-query-cursor-accessing-cursors.html#create-cursor).
+
 - a startup option `--query.optimizer-rules` to turn certain AQL query optimizer
   rules off (or on) by default. This can be used to turn off certain optimizations
   that would otherwise lead to undesired changes in server resource usage patterns.
@@ -572,15 +582,15 @@ The following APIs have been expanded:
 Web interface
 -------------
 
-The web interface now shows the shards of all collections (including system collections)
-in the shard distribution view. Displaying system collections here is necessary to access
-the prototype collections of a collection sharded via `distributeShardsLike` in case the
-prototype is a system collection, and the prototype collection shall be moved to another
-server using the web interface.
+The web interface now shows the shards of all collections (including system
+collections) in the shard distribution view. Displaying system collections here
+is necessary to access the prototype collections of a collection sharded via
+`distributeShardsLike` in case the prototype is a system collection, and the
+prototype collection shall be moved to another server using the web interface.
 
-The web interface now also allows setting a default replication factor when a creating
-a new database. This default replication factor will be used for all collections created
-in the new database, unless explicitly overridden.
+The web interface now also allows setting a default replication factor when a
+creating a new database. This default replication factor will be used for all
+collections created in the new database, unless explicitly overridden.
 
 Startup options
 ---------------
@@ -597,8 +607,8 @@ The option `--cluster.force-one-shard` enables the new OneShard Cluster feature.
 
 When set to `true`, forces the cluster into creating all future collections
 with only a single shard and using the same database server as these collections'
-shards leader. All collections created this way will be eligible for specific AQL
-query optimizations that can improve query performance and provide advanced
+shards leader. All collections created this way will be eligible for specific
+AQL query optimizations that can improve query performance and provide advanced
 transactional guarantees.
 
 ### Cluster upgrade
@@ -621,87 +631,93 @@ coordinators. It supports the following values:
 - `online`:
   always perform a cluster upgrade but don't shut down afterwards
 
-The default value is `auto`. The option only affects coordinators. It does not have
-any affect on single servers, agents or database servers.
+The default value is `auto`. The option only affects coordinators. It does not
+have any affect on single servers, agents or database servers.
 
 ### Other cluster options
 
-Added startup options to control the minimum and maximum replication factors used for
-new collections, and the maximum number of shards for new collections.
+Added startup options to control the minimum and maximum replication factors
+used for new collections, and the maximum number of shards for new collections.
 
 The following options have been added:
 
-- `--cluster.max-replication-factor`: maximum replication factor for new collections.
-  A value of `0` means that there is no restriction. The default value is `10`.
+- `--cluster.max-replication-factor`: maximum replication factor for new
+  collections. A value of `0` means that there is no restriction.
+  The default value is `10`.
 
-- `--cluster.min-replication-factor`: minimum replication factor for new collections.
-  The default value is `1`. This option can be used to prevent the creation of
-  collections that do not have any or enough replicas.
+- `--cluster.min-replication-factor`: minimum replication factor for new
+  collections. The default value is `1`. This option can be used to prevent the
+  creation of collections that do not have any or enough replicas.
 
-- `--cluster.write-concern`: default write concern value used for new collections.
-  This option controls the number of replicas that must successfully acknowledge writes
-  to a collection. If any write operation gets less acknowledgements than configured
-  here, the collection will go into read-only mode until the configured number of
-  replicas are available again. The default value is `1`, meaning that writes to just
-  the leader are sufficient. To ensure that there is at least one extra copy (i.e. one
+- `--cluster.write-concern`: default write concern value used for new
+  collections. This option controls the number of replicas that must
+  successfully acknowledge writes to a collection. If any write operation gets
+  less acknowledgements than configured here, the collection will go into
+  read-only mode until the configured number of replicas are available again.
+  The default value is `1`, meaning that writes to just the leader are
+  sufficient. To ensure that there is at least one extra copy (i.e. one
   follower), set this option to `2`.
 
-- `--cluster.max-number-of-shards`: maximum number of shards allowed for new collections.
-  A value of `0` means that there is no restriction. The default value is `1000`.
+- `--cluster.max-number-of-shards`: maximum number of shards allowed for new
+  collections. A value of `0` means that there is no restriction.
+  The default value is `1000`.
 
-Note that the above options only have an effect when set for coordinators, and only for
-collections that are created after the options have been set. They do not affect
-already existing collections.
+Note that the above options only have an effect when set for coordinators, and
+only for collections that are created after the options have been set. They do
+not affect already existing collections.
 
 Furthermore, the following network related options have been added:
 
 - `--network.idle-connection-ttl`: default time-to-live for idle cluster-internal
   connections (in milliseconds). The default value is `60000`.
 
-- `--network.io-threads`: number of I/O threads for cluster-internal network requests.
-  The default value is `2`.
+- `--network.io-threads`: number of I/O threads for cluster-internal network
+  requests. The default value is `2`.
 
-- `--network.max-open-connections`: maximum number of open network connections for
-  cluster-internal requests. The default value is `1024`.
+- `--network.max-open-connections`: maximum number of open network connections
+  for cluster-internal requests. The default value is `1024`.
 
-- `--network.verify-hosts`: if set to `true`, this will verify peer certificates for
-  cluster-internal requests when TLS is used. The default value is `false`.
+- `--network.verify-hosts`: if set to `true`, this will verify peer certificates
+  for cluster-internal requests when TLS is used. The default value is `false`.
 
 ### RocksDB exclusive writes
 
-The new option `--rocksdb.exclusive-writes` allows to make all writes to the RocksDB storage
-exclusive and therefore avoids write-write conflicts. This option was introduced to open
-a way to upgrade from MMFiles to RocksDB storage engine without modifying client application code.
-Otherwise it should best be avoided as the use of exclusive locks on collections will
-introduce a noticeable throughput penalty.
-The option may be removed in a future ArangoDB release.
+The new option `--rocksdb.exclusive-writes` allows to make all writes to the
+RocksDB storage exclusive and therefore avoids write-write conflicts.
+This option was introduced to open a way to upgrade from MMFiles to RocksDB
+storage engine without modifying client application code. Otherwise it should
+best be avoided as the use of exclusive locks on collections will introduce a
+noticeable throughput penalty. The option may get removed again in a future
+ArangoDB release.
 
 ### AQL options
 
-The new startup option `--query.optimizer-rules` can be used to to selectively enable or disable
-AQL query optimizer rules by default. The option can be specified multiple times, and takes
-the same input as the query option of the same name.
+The new startup option `--query.optimizer-rules` can be used to to selectively
+enable or disable AQL query optimizer rules by default. The option can be
+specified multiple times, and takes the same input as the query option of the
+same name.
 
 For example, to turn off the rule `use-indexes-for-sort`, use
 
     --query.optimizer-rules "-use-indexes-for-sort"
 
-The purpose of this startup option is to be able to enable potential future experimental
-optimizer rules, which may be shipped in a disabled-by-default state.
+The purpose of this startup option is to be able to enable potential future
+experimental optimizer rules, which may be shipped in a disabled-by-default state.
 
 HotBackup
 ---------
 
 - View Data
 
-  HotBackup now includes View data. Previously the Views had to be rebuilt after a
-  restore. Now the Views are available immediately.
+  HotBackup now includes View data. Previously the Views had to be rebuilt
+  after a restore. Now the Views are available immediately.
 
 - Force Backup
 
-  When creating backups there is an additional option `force`. This option **aborts**
-  all ongoing transactions to obtain the global lock for creating the backup. Most
-  likely this is _not_ what you want to do, but maybe someone wants to.
+  When creating backups there is an additional option `force`. This option
+  **aborts** all ongoing transactions to obtain the global lock for creating
+  the backup. Most likely this is _not_ what you want to do, but maybe someone
+  wants to.
 
 TLS v1.3
 --------
@@ -738,11 +754,11 @@ Miscellaneous
 -------------
 
 - Remove operations for documents in the cluster will now use an optimization,
-  if all sharding keys are specified. Should the sharding keys not match the values in
-  the actual document, a not found error will be returned.
+  if all sharding keys are specified. Should the sharding keys not match the
+  values in the actual document, a not found error will be returned.
 
-- Collection names in ArangoDB can now be up to 256 characters long, instead of 64 characters
-  in previous versions.
+- Collection names in ArangoDB can now be up to 256 characters long, instead
+  of 64 characters in previous versions.
 
 - Disallow using `_id` or `_rev` as shard keys in clustered collections.
 
@@ -751,9 +767,9 @@ Miscellaneous
   the shard key, without making the caller aware of that an unsupported shard
   key was used.
 
-- Make the scheduler enforce the configured queue lengths. The values of the options
-  `--server.scheduler-queue-size`, `--server.prio1-size` and `--server.maximal-queue-size`
-  will now be honored and not exceeded.
+- Make the scheduler enforce the configured queue lengths. The values of the
+  options `--server.scheduler-queue-size`, `--server.prio1-size` and
+  `--server.maximal-queue-size` will now be honored and not exceeded.
 
   The default queue sizes in the scheduler for requests buffering have
   also been changed as follows:
@@ -770,15 +786,18 @@ Miscellaneous
 Internal
 --------
 
-Release packages are now built using inter-procedural optimizations (IPO).
+Release packages for Linux are now built using inter-procedural
+optimizations (IPO).
 
-We have moved from C++14 to C++17, which allows us to use some of the simplifications,
-features and guarantees that this standard has in stock.
-To compile ArangoDB 3.6 from source, a compiler that supports C++17 is now required.
+We have moved from C++14 to C++17, which allows us to use some of the
+simplifications, features and guarantees that this standard has in stock.
+To compile ArangoDB 3.6 from source, a compiler that supports C++17 is now
+required.
 
-The bundled JEMalloc memory allocator used in ArangoDB release packages has been
-upgraded from version 5.2.0 to version 5.2.1.
+The bundled JEMalloc memory allocator used in ArangoDB release packages has
+been upgraded from version 5.2.0 to version 5.2.1.
 
-The bundled version of the Boost library has been upgraded from 1.69.0 to 1.71.0.
+The bundled version of the Boost library has been upgraded from 1.69.0 to
+1.71.0.
 
 The bundled version of xxhash has been upgraded from 0.5.1 to 0.7.2.
