@@ -9,175 +9,8 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.6. ArangoDB 3.6 also contains several bug fixes that are not listed
 here.
 
-ArangoSearch
-------------
-
-### SmartJoins and Views
-
-ArangoSearch Views are now eligible for SmartJoins in AQL, provided that their
-underlying collections are eligible too.
-
-### Dynamic search expressions with arrays
-
-ArangoSearch now accepts expressions with array comparison operators in the
-form of:
-
-```
-<array> [ ALL|ANY|NONE ] [ <=|<|==|!=|>|>=|IN ] doc.<attribute>
-```
-
-i.e. the left-hand side operand is always an array, which can be dynamic.
-
-```js
-LET tokens = TOKENS("some input", "text_en")                 // ["some", "input"]
-FOR doc IN myView SEARCH tokens  ALL IN doc.title RETURN doc // dynamic conjunction
-FOR doc IN myView SEARCH tokens  ANY IN doc.title RETURN doc // dynamic disjunction
-FOR doc IN myView SEARCH tokens NONE IN doc.title RETURN doc // dynamic negation
-FOR doc IN myView SEARCH tokens  ALL >  doc.title RETURN doc // dynamic conjunction with comparison
-FOR doc IN myView SEARCH tokens  ANY <= doc.title RETURN doc // dynamic disjunction with comparison
-```
-
-In addition, both the `TOKENS()` and the `PHRASE()` functions were
-extended with array support for convenience.
-
-`TOKENS()` accepts recursive arrays of strings as the first argument:
-
-```js
-TOKENS("quick brown fox", "text_en")        // [ "quick", "brown", "fox" ]
-TOKENS(["quick brown", "fox"], "text_en")   // [ ["quick", "brown"], ["fox"] ]
-TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
-```
-
-In most cases you will want to flatten the resulting array for further usage,
-because nested arrays are not accepted in `SEARCH` statements such as
-`<array> ALL IN doc.<attribute>`:
-
-```js
-LET tokens = TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
-LET tokens_flat = FLATTEN(tokens, 2)                     // [ "quick", "brown", "fox" ]
-FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETURN doc
-```
-
-`PHRASE()` accepts an array as the second argument:
-
-```js
-FOR doc IN myView SEARCH PHRASE(doc.title, ["quick brown fox"], "text_en") RETURN doc
-FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", "brown", "fox"], "text_en") RETURN doc
-
-LET tokens = TOKENS("quick brown fox", "text_en") // ["quick", "brown", "fox"]
-FOR doc IN myView SEARCH PHRASE(doc.title, tokens, "text_en") RETURN doc
-```
-
-It is equivalent to the more cumbersome and static form:
-
-```js
-FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 0, "brown", 0, "fox", "text_en") RETURN doc
-```
-
-You can optionally specify the number of _skipTokens_ in the array form before
-every string element:
-
-```js
-FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", 1, "fox", "jumps"], "text_en") RETURN doc
-```
-
-It is the same as the following:
-
-```js
-FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
-```
-
-### Analyzers
-
-- Added UTF-8 support and ability to mark beginning/end of the sequence to
-  the `ngram` Analyzer type.
-
-  The following optional properties can be provided for an `ngram` Analyzer
-  definition:
-
-  - `startMarker` : `<string>`, default: ""<br>
-    this value will be prepended to n-grams at the beginning of input sequence
-
-  - `endMarker` : `<string>`, default: ""<br>
-    this value will be appended to n-grams at the beginning of input sequence
-
-  - `streamType` : `"binary"|"utf8"`, default: "binary"<br>
-    type of the input stream (support for UTF-8 is new)
-
-- Added _edge n-gram_ support to the `text` Analyzer type. The input gets
-  tokenized as usual, but then n-grams are generated from each token. UTF-8
-  encoding is assumed (whereas the `ngram` Analyzer has a configurable stream
-  type and defaults to binary).
-
-  The following optional properties can be provided for a `text`
-  Analyzer definition:
-
-  - `edgeNgram` (object, _optional_):
-    - `min` (number, _optional_): minimal n-gram length
-    - `max` (number, _optional_): maximal n-gram length
-    - `preserveOriginal` (boolean, _optional_): include the original token
-      if its length is less than *min* or greater than *max*
-
 AQL
 ---
-
-### Late document materialization (RocksDB)
-
-With the _late document materialization_ optimization ArangoDB tries to
-read only documents that are absolutely necessary to compute the query result,
-reducing load to the storage engine. This is only supported for the RocksDB
-storage engine.
-
-In 3.6 the optimization can only be applied to queries containing a
-`SORT`+`LIMIT` combination, e.g:
-
-```js
-FOR d IN documentSource // documentSource can be either a collection or an ArangoSearch View
-SORT d.foo
-LIMIT 100
-RETURN d
-```
-
-For the collection case the optimization is possible if and only if:
-- there is an index of type `primary`, `hash`, `skiplist`, `persistent`
-  or `edge` picked by the optimizer
-- all attribute accesses can be covered by indexed attributes
-
-```js
-// Given we have hash index on attributes [  "foo", "bar", "baz" ]
-
-FOR d IN myCollection
-FILTER d.foo == "someValue" // hash index will be picked to optimize filtering
-SORT d.baz DESC             // field "baz" will be read from index
-LIMIT 100                   // only 100 documents will be materialized
-RETURN d
-```
-
-For the ArangoSearch View case the optimization is possible if and only if:
-- all attribute accesses can be covered by stored attributes
-  (e.g. using `primarySort`)
-
-```js
-FOR d IN myView
-SEARCH d.foo == "baz"
-SORT BM25(d) DESC  // BM25(d) will be evaluated by the View node above
-LIMIT 100          // only 100 documents will be materialized
-RETURN d
-```
-
-```js
-// Given we have primary sort on fields ["foo", "bar"]
-FOR d IN myView
-SEARCH d.foo == "baz"
-SORT d.bar DESC    // field "bar" will be read from the View
-LIMIT 100          // only 100 documents will be materialized
-RETURN d
-```
-
-The respective optimizer rules are called `late-document-materialization`
-(collection source) and `late-document-materialization-arangosearch`
-(ArangoSearch View source). If applied, you will find `MaterializeNode`s
-in [execution plans](aql/execution-and-performance-optimizer.html#list-of-execution-nodes).
 
 ### Early pruning of non-matching documents
 
@@ -267,6 +100,168 @@ Indexes used:
  By   Name                      Type   Collection   Unique   Sparse   Selectivity   Fields         Ranges
   6   idx_1649353982658740224   hash   test         false    false       100.00 %   [ `value1` ]   ((doc.`value1` > 10000) && (doc.`value1` < 30000))
 ```
+
+### Subquery Splicing Optimization
+
+In earlier versions of ArangoDB, on every execution of a subquery the following
+happened for each input row:
+
+- The subquery tree issues one initializeCursor cascade through all nodes
+- The subquery node pulls rows until the subquery node is empty for this input
+
+On subqueries with many results per input row (10000 or more) the above steps
+did not contribute significantly to query execution time. On subqueries with
+few results per input, there was a serious performance impact.
+
+Subquery splicing inlines the execution of subqueries using an optimizer rule
+called `splice-subqueries`. Only suitable queries can be spliced.
+A subquery becomes unsuitable if it contains a `LIMIT` node or a
+`COLLECT WITH COUNT INTO …` construct (but not due to a
+`COLLECT var = <expr> WITH COUNT INTO …`). A subquery *also* becomes
+unsuitable if it is contained in a (sub)query containing unsuitable parts
+*after* the subquery.
+
+Consider the following query to illustrates the difference.
+
+```js
+FOR x IN c1
+  LET firstJoin = (
+    FOR y IN c2
+      FILTER y._id == x.c2_id
+      LIMIT 1
+      RETURN y
+  )
+  LET secondJoin = (
+    FOR z IN c3
+      FILTER z.value == x.value
+      RETURN z
+  )
+  RETURN { x, firstJoin, secondJoin }
+```
+
+The execution plan **without** subquery splicing:
+
+```js
+Execution plan:
+ Id   NodeType                  Est.   Comment
+  1   SingletonNode                1   * ROOT
+  2   EnumerateCollectionNode      0     - FOR x IN c1   /* full collection scan */
+  9   SubqueryNode                 0       - LET firstJoin = ...   /* subquery */
+  3   SingletonNode                1         * ROOT
+ 18   IndexNode                    0           - FOR y IN c2   /* primary index scan */
+  7   LimitNode                    0             - LIMIT 0, 1
+  8   ReturnNode                   0             - RETURN y
+ 15   SubqueryNode                 0       - LET secondJoin = ...   /* subquery */
+ 10   SingletonNode                1         * ROOT
+ 11   EnumerateCollectionNode      0           - FOR z IN c3   /* full collection scan */
+ 12   CalculationNode              0             - LET #11 = (z.`value` == x.`value`)   /* simple expression */   /* collections used: z : c3, x : c1 */
+ 13   FilterNode                   0             - FILTER #11
+ 14   ReturnNode                   0             - RETURN z
+ 16   CalculationNode              0       - LET #13 = { "x" : x, "firstJoin" : firstJoin, "secondJoin" : secondJoin }   /* simple expression */   /* collections used: x : c1 */
+ 17   ReturnNode                   0       - RETURN #13
+
+Optimization rules applied:
+ Id   RuleName
+  1   use-indexes
+  2   remove-filter-covered-by-index
+  3   remove-unnecessary-calculations-2
+```
+
+Note in particular the `SubqueryNode`s, followed by a `SingletonNode` in
+both cases.
+
+When using the optimizer rule `splice-subqueries` the plan is as follows:
+
+```js
+Execution plan:
+ Id   NodeType                  Est.   Comment
+  1   SingletonNode                1   * ROOT
+  2   EnumerateCollectionNode      0     - FOR x IN c1   /* full collection scan */
+  9   SubqueryNode                 0       - LET firstJoin = ...   /* subquery */
+  3   SingletonNode                1         * ROOT
+ 18   IndexNode                    0           - FOR y IN c2   /* primary index scan */
+  7   LimitNode                    0             - LIMIT 0, 1
+  8   ReturnNode                   0             - RETURN y
+ 19   SubqueryStartNode            0       - LET secondJoin = ( /* subquery begin */
+ 11   EnumerateCollectionNode      0         - FOR z IN c3   /* full collection scan */
+ 12   CalculationNode              0           - LET #11 = (z.`value` == x.`value`)   /* simple expression */   /* collections used: z : c3, x : c1 */
+ 13   FilterNode                   0           - FILTER #11
+ 20   SubqueryEndNode              0       - ) /* subquery end */
+ 16   CalculationNode              0       - LET #13 = { "x" : x, "firstJoin" : firstJoin, "secondJoin" : secondJoin }   /* simple expression */   /* collections used: x : c1 */
+ 17   ReturnNode                   0       - RETURN #13
+
+Optimization rules applied:
+ Id   RuleName
+  1   use-indexes
+  2   remove-filter-covered-by-index
+  3   remove-unnecessary-calculations-2
+  4   splice-subqueries
+```
+
+The first subquery is unsuitable for the optimization because it contains
+a `LIMIT` statement and is therefore not spliced. The second subquery is
+suitable and hence is spliced – which one can tell from the different node
+type `SubqueryStartNode` (beginning of spliced subquery). Note how it is
+not followed by a `SingletonNode`. The end of the spliced subquery is
+marked by a `SubqueryEndNode`.
+
+### Late document materialization (RocksDB)
+
+With the _late document materialization_ optimization ArangoDB tries to
+read only documents that are absolutely necessary to compute the query result,
+reducing load to the storage engine. This is only supported for the RocksDB
+storage engine.
+
+In 3.6 the optimization can only be applied to queries containing a
+`SORT`+`LIMIT` combination, e.g:
+
+```js
+FOR d IN documentSource // documentSource can be either a collection or an ArangoSearch View
+SORT d.foo
+LIMIT 100
+RETURN d
+```
+
+For the collection case the optimization is possible if and only if:
+- there is an index of type `primary`, `hash`, `skiplist`, `persistent`
+  or `edge` picked by the optimizer
+- all attribute accesses can be covered by indexed attributes
+
+```js
+// Given we have hash index on attributes [  "foo", "bar", "baz" ]
+
+FOR d IN myCollection
+FILTER d.foo == "someValue" // hash index will be picked to optimize filtering
+SORT d.baz DESC             // field "baz" will be read from index
+LIMIT 100                   // only 100 documents will be materialized
+RETURN d
+```
+
+For the ArangoSearch View case the optimization is possible if and only if:
+- all attribute accesses can be covered by stored attributes
+  (e.g. using `primarySort`)
+
+```js
+FOR d IN myView
+SEARCH d.foo == "baz"
+SORT BM25(d) DESC  // BM25(d) will be evaluated by the View node above
+LIMIT 100          // only 100 documents will be materialized
+RETURN d
+```
+
+```js
+// Given we have primary sort on fields ["foo", "bar"]
+FOR d IN myView
+SEARCH d.foo == "baz"
+SORT d.bar DESC    // field "bar" will be read from the View
+LIMIT 100          // only 100 documents will be materialized
+RETURN d
+```
+
+The respective optimizer rules are called `late-document-materialization`
+(collection source) and `late-document-materialization-arangosearch`
+(ArangoSearch View source). If applied, you will find `MaterializeNode`s
+in [execution plans](aql/execution-and-performance-optimizer.html#list-of-execution-nodes).
 
 ### Parallelization of cluster AQL queries
 
@@ -426,110 +421,6 @@ improved compared to previous versions.
 Finally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND()` to bin a
 date/time into a set of equal-distance buckets.
 
-### Subquery Splicing Optimization
-
-In earlier versions of ArangoDB, on every execution of a subquery the following
-happened for each input row:
-
-- The subquery tree issues one initializeCursor cascade through all nodes
-- The subquery node pulls rows until the subquery node is empty for this input
-
-On subqueries with many results per input row (10000 or more) the above steps
-did not contribute significantly to query execution time. On subqueries with
-few results per input, there was a serious performance impact.
-
-Subquery splicing inlines the execution of subqueries using an optimizer rule
-called `splice-subqueries`. Only suitable queries can be spliced.
-A subquery becomes unsuitable if it contains a `LIMIT` node or a
-`COLLECT WITH COUNT INTO …` construct (but not due to a
-`COLLECT var = <expr> WITH COUNT INTO …`). A subquery *also* becomes
-unsuitable if it is contained in a (sub)query containing unsuitable parts
-*after* the subquery.
-
-Consider the following query to illustrates the difference.
-
-```js
-FOR x IN c1
-  LET firstJoin = (
-    FOR y IN c2
-      FILTER y._id == x.c2_id
-      LIMIT 1
-      RETURN y
-  )
-  LET secondJoin = (
-    FOR z IN c3
-      FILTER z.value == x.value
-      RETURN z
-  )
-  RETURN { x, firstJoin, secondJoin }
-```
-
-The execution plan **without** subquery splicing:
-
-```js
-Execution plan:
- Id   NodeType                  Est.   Comment
-  1   SingletonNode                1   * ROOT
-  2   EnumerateCollectionNode      0     - FOR x IN c1   /* full collection scan */
-  9   SubqueryNode                 0       - LET firstJoin = ...   /* subquery */
-  3   SingletonNode                1         * ROOT
- 18   IndexNode                    0           - FOR y IN c2   /* primary index scan */
-  7   LimitNode                    0             - LIMIT 0, 1
-  8   ReturnNode                   0             - RETURN y
- 15   SubqueryNode                 0       - LET secondJoin = ...   /* subquery */
- 10   SingletonNode                1         * ROOT
- 11   EnumerateCollectionNode      0           - FOR z IN c3   /* full collection scan */
- 12   CalculationNode              0             - LET #11 = (z.`value` == x.`value`)   /* simple expression */   /* collections used: z : c3, x : c1 */
- 13   FilterNode                   0             - FILTER #11
- 14   ReturnNode                   0             - RETURN z
- 16   CalculationNode              0       - LET #13 = { "x" : x, "firstJoin" : firstJoin, "secondJoin" : secondJoin }   /* simple expression */   /* collections used: x : c1 */
- 17   ReturnNode                   0       - RETURN #13
-
-Optimization rules applied:
- Id   RuleName
-  1   use-indexes
-  2   remove-filter-covered-by-index
-  3   remove-unnecessary-calculations-2
-```
-
-Note in particular the `SubqueryNode`s, followed by a `SingletonNode` in
-both cases.
-
-When using the optimizer rule `splice-subqueries` the plan is as follows:
-
-```js
-Execution plan:
- Id   NodeType                  Est.   Comment
-  1   SingletonNode                1   * ROOT
-  2   EnumerateCollectionNode      0     - FOR x IN c1   /* full collection scan */
-  9   SubqueryNode                 0       - LET firstJoin = ...   /* subquery */
-  3   SingletonNode                1         * ROOT
- 18   IndexNode                    0           - FOR y IN c2   /* primary index scan */
-  7   LimitNode                    0             - LIMIT 0, 1
-  8   ReturnNode                   0             - RETURN y
- 19   SubqueryStartNode            0       - LET secondJoin = ( /* subquery begin */
- 11   EnumerateCollectionNode      0         - FOR z IN c3   /* full collection scan */
- 12   CalculationNode              0           - LET #11 = (z.`value` == x.`value`)   /* simple expression */   /* collections used: z : c3, x : c1 */
- 13   FilterNode                   0           - FILTER #11
- 20   SubqueryEndNode              0       - ) /* subquery end */
- 16   CalculationNode              0       - LET #13 = { "x" : x, "firstJoin" : firstJoin, "secondJoin" : secondJoin }   /* simple expression */   /* collections used: x : c1 */
- 17   ReturnNode                   0       - RETURN #13
-
-Optimization rules applied:
- Id   RuleName
-  1   use-indexes
-  2   remove-filter-covered-by-index
-  3   remove-unnecessary-calculations-2
-  4   splice-subqueries
-```
-
-The first subquery is unsuitable for the optimization because it contains
-a `LIMIT` statement and is therefore not spliced. The second subquery is
-suitable and hence is spliced – which one can tell from the different node
-type `SubqueryStartNode` (beginning of spliced subquery). Note how it is
-not followed by a `SingletonNode`. The end of the spliced subquery is
-marked by a `SubqueryEndNode`.
-
 ### Miscellaneous AQL changes
 
 In addition, ArangoDB 3.6 provides the following new AQL functionality:
@@ -543,6 +434,115 @@ In addition, ArangoDB 3.6 provides the following new AQL functionality:
 - a startup option `--query.optimizer-rules` to turn certain AQL query optimizer
   rules off (or on) by default. This can be used to turn off certain optimizations
   that would otherwise lead to undesired changes in server resource usage patterns.
+
+ArangoSearch
+------------
+
+### Analyzers
+
+- Added UTF-8 support and ability to mark beginning/end of the sequence to
+  the `ngram` Analyzer type.
+
+  The following optional properties can be provided for an `ngram` Analyzer
+  definition:
+
+  - `startMarker` : `<string>`, default: ""<br>
+    this value will be prepended to n-grams at the beginning of input sequence
+
+  - `endMarker` : `<string>`, default: ""<br>
+    this value will be appended to n-grams at the beginning of input sequence
+
+  - `streamType` : `"binary"|"utf8"`, default: "binary"<br>
+    type of the input stream (support for UTF-8 is new)
+
+- Added _edge n-gram_ support to the `text` Analyzer type. The input gets
+  tokenized as usual, but then n-grams are generated from each token. UTF-8
+  encoding is assumed (whereas the `ngram` Analyzer has a configurable stream
+  type and defaults to binary).
+
+  The following optional properties can be provided for a `text`
+  Analyzer definition:
+
+  - `edgeNgram` (object, _optional_):
+    - `min` (number, _optional_): minimal n-gram length
+    - `max` (number, _optional_): maximal n-gram length
+    - `preserveOriginal` (boolean, _optional_): include the original token
+      if its length is less than *min* or greater than *max*
+
+### Dynamic search expressions with arrays
+
+ArangoSearch now accepts expressions with array comparison operators in the
+form of:
+
+```
+<array> [ ALL|ANY|NONE ] [ <=|<|==|!=|>|>=|IN ] doc.<attribute>
+```
+
+i.e. the left-hand side operand is always an array, which can be dynamic.
+
+```js
+LET tokens = TOKENS("some input", "text_en")                 // ["some", "input"]
+FOR doc IN myView SEARCH tokens  ALL IN doc.title RETURN doc // dynamic conjunction
+FOR doc IN myView SEARCH tokens  ANY IN doc.title RETURN doc // dynamic disjunction
+FOR doc IN myView SEARCH tokens NONE IN doc.title RETURN doc // dynamic negation
+FOR doc IN myView SEARCH tokens  ALL >  doc.title RETURN doc // dynamic conjunction with comparison
+FOR doc IN myView SEARCH tokens  ANY <= doc.title RETURN doc // dynamic disjunction with comparison
+```
+
+In addition, both the `TOKENS()` and the `PHRASE()` functions were
+extended with array support for convenience.
+
+`TOKENS()` accepts recursive arrays of strings as the first argument:
+
+```js
+TOKENS("quick brown fox", "text_en")        // [ "quick", "brown", "fox" ]
+TOKENS(["quick brown", "fox"], "text_en")   // [ ["quick", "brown"], ["fox"] ]
+TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
+```
+
+In most cases you will want to flatten the resulting array for further usage,
+because nested arrays are not accepted in `SEARCH` statements such as
+`<array> ALL IN doc.<attribute>`:
+
+```js
+LET tokens = TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
+LET tokens_flat = FLATTEN(tokens, 2)                     // [ "quick", "brown", "fox" ]
+FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETURN doc
+```
+
+`PHRASE()` accepts an array as the second argument:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, ["quick brown fox"], "text_en") RETURN doc
+FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", "brown", "fox"], "text_en") RETURN doc
+
+LET tokens = TOKENS("quick brown fox", "text_en") // ["quick", "brown", "fox"]
+FOR doc IN myView SEARCH PHRASE(doc.title, tokens, "text_en") RETURN doc
+```
+
+It is equivalent to the more cumbersome and static form:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 0, "brown", 0, "fox", "text_en") RETURN doc
+```
+
+You can optionally specify the number of _skipTokens_ in the array form before
+every string element:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", 1, "fox", "jumps"], "text_en") RETURN doc
+```
+
+It is the same as the following:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
+```
+
+### SmartJoins and Views
+
+ArangoSearch Views are now eligible for SmartJoins in AQL, provided that their
+underlying collections are eligible too.
 
 HTTP API
 --------
