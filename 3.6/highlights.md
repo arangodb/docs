@@ -15,7 +15,8 @@ Version 3.6
   Improved query performance thanks to
   [early pruning](release-notes-new-features36.html#early-pruning-of-non-matching-documents),
   [subquery splicing](release-notes-new-features36.html#subquery-splicing-optimization),
-  [late document materialization](release-notes-new-features36.html#late-document-materialization-rocksdb)
+  [late document materialization](release-notes-new-features36.html#late-document-materialization-rocksdb),
+  [parallelization](release-notes-new-features36.html#parallelization-of-cluster-aql-queries) for certain cluster queries
   and more. New server-side [`maxRuntime`](aql/invocation-with-arangosh.html#setting-options)
   option for queries.
 
