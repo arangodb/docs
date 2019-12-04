@@ -6,7 +6,7 @@
         {%- if include.bind | strip %}
         <b>Bind Parameters:</b>
         <pre>{{ include.bind | strip }}</pre>
-        {% endif -%}
+        {%- endif %}
         <div class="show-button">
             <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('hide-result', 'show-result')">Show query results</div>
         </div>
