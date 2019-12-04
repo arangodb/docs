@@ -27,8 +27,7 @@ For a list of available storage engines, and more information on their
 differences, please refer to the [Storage Engines](architecture-storage-engines.html)
 page under the [Architecture](architecture.html) chapter.
 
-Starting with version 3.6.0, ArangoDB deprecates the MMFiles
-storage engine and will remove it in the v4.0.0 release.
-While ArangoDB 3.x will maintain full support for MMFiles, we recommend to
-switch to RocksDB even before the removal of MMFiles.
+The MMFiles storage engine is deprecated starting with version
+3.6.0 and it will be removed in a future release.
+We recommend to switch to RocksDB even before the removal of MMFiles.
 {% endhint %}

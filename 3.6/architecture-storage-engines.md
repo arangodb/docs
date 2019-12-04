@@ -51,8 +51,8 @@ Indexes are always in memory and are rebuilt on startup. This
 gives better performance but imposes a longer startup time.
 
 {% hint 'warning' %}
-Starting with version 3.6.0, ArangoDB deprecates the MMFiles
-storage engine and will remove it in the v4.0.0 release.
+The MMFiles storage engine is deprecated starting with version
+3.6.0 and it will be removed in a future release.
 To change your MMFiles storage engine deployment to RocksDB, see:
 [Switch storage engine](administration-engine-switch-engine.html)
 {% endhint %}
