@@ -290,8 +290,38 @@ Execution plan:
   3   ReturnNode                COOR  1000000       - RETURN doc
 ```
 
-Parallelization is currently restricted to certain types of queries. These restrictions
-may be lifted in future versions of ArangoDB.
+Parallelization is currently restricted to certain types and parts of queries. GatherNodes
+will go into parallel mode only if the database server query part above it ("above" here
+in terms of query execution plan layout) is a terminal part of the query, i.e. when the
+database server part above does not itself contain any RemoteNode, ScatterNode, GatherNode
+or DistributeNode.
+
+Please note that the parallelization of AQL execution may lead to a different resource
+usage pattern for eligible AQL queries in the cluster. In isolation, queries are expected to 
+complete faster with parallelization than when executing their work serially on all
+involved database servers. However, working on multiple database server in parallel may 
+also mean that more work than before is happening at the very same time. If this is not
+desired because of resource scarcity, there are options to control the parallelization:
+
+The startup option `--query.parallelize-gather-writes` can be used to control whether
+eligible write operation parts will be parallelized. This option defaults to `true`, 
+meaning that eligible write operations are also parallelized by default. This can be turned
+off so that potential I/O overuse can be avoided for write operations when used together
+with a high replication factor.
+
+Additionally, the startup option `--query.optimizer-rules` can be used to globally toggle
+the usage of certain optimizer rules for all queries. By default, all optimizations are
+turned on. However, specific optimizations can be turned off using the option.
+  
+For example, to turn off the parallelization entirely, one can use the following configuration:
+```
+--query.optimizer-rules "-parallelize-gather"
+```
+This toggle works for any other non-mandatory optimizer rules as well. To specify multiple
+optimizer rules, the option can be used multiple times, e.g.
+```
+--query.optimizer-rules "-parallelize-gather" --query.optimizer-rules "-splice-subqueries"
+```
 
 ### More efficient execution plans for simple UPDATE and REPLACE queries
 
@@ -489,12 +519,15 @@ marked by a `SubqueryEndNode`.
 
 ### Miscellaneous AQL changes
 
-ArangoDB 3.6 provides the following new AQL functionality:
+In addition, ArangoDB 3.6 provides the following new AQL functionality:
 
 - a function `GEO_AREA()` for [area calculations](aql/functions-geo.html#geo_area)
 - a [query option](aql/invocation-with-arangosh.html#setting-options) `maxRuntime`
   to restrict the execution to a given time in seconds. Also see
   [HTTP API](http/aql-query-cursor-accessing-cursors.html#create-cursor).
+- a startup option `--query.optimizer-rules` to turn certain AQL query optimizer
+  rules off (or on) by default. This can be used to turn off certain optimizations
+  that would otherwise lead to undesired changes in server resource usage patterns.
 
 HTTP API
 --------
@@ -543,12 +576,6 @@ server using the web interface.
 The web interface now also allows setting a default replication factor when a creating
 a new database. This default replication factor will be used for all collections created
 in the new database, unless explicitly overridden.
-
-JavaScript
-----------
-
-Client tools
-------------
 
 Startup options
 ---------------
