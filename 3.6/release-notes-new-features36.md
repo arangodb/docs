@@ -426,6 +426,7 @@ date/time into a set of equal-distance buckets.
 In addition, ArangoDB 3.6 provides the following new AQL functionality:
 
 - a function `GEO_AREA()` for [area calculations](aql/functions-geo.html#geo_area)
+  (also added to v3.5.1)
 
 - a [query option](aql/invocation-with-arangosh.html#setting-options)
   `maxRuntime` to restrict the execution to a given time in seconds.
@@ -722,7 +723,8 @@ HotBackup
 TLS v1.3
 --------
 
-ArangoDB 3.6 adds support for TLS 1.3 for the arangod server and the client tools.
+Added support for TLS 1.3 for the arangod server and the client tools
+(also added to v3.5.1).
 
 The arangod server can be started with option `--ssl.protocol 6` to make it require
 TLS 1.3 for incoming client connections. The server can be started with option
