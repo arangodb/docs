@@ -17,23 +17,25 @@ Also see [{{ section[0] | capitalize_section }} details](programs-{{ include.nam
 {%- endif -%}
 {{option[1].description | upcase_first -}}
 {%- if option[1].requiresValue != true and option[1].category != "command" -%}
-<br/>This option can be specified without value to enable it.
+<br>This option can be specified without value to enable it.
 {%- endif -%}
 {%- if option[1].category == "command" -%}
-<br/>This is a command, no value needs to be specified. The process terminates after executing the command.
+<br>This is a command, no value needs to be specified. The process terminates after executing the command.
 {%- endif -%}
 <br>
+{%- if option[1].has_key? 'default' and option[1].category != "command" -%}
 {%- if option[1].dynamic -%}
 Default: *dynamic* (e.g. `{{ option[1].default | jsonify }}`)
 {%- else -%}
 Default: `{{ option[1].default | jsonify }}`
 {%- endif -%}
-{% if option[1].values %}<br/>{{ option[1].values }}{% endif %}
+{%- endif -%}
+{% if option[1].values %}<br>{{ option[1].values }}{% endif %}
 {%- if option[1].introducedIn -%}
-<br/><small>Introduced in: {{ option[1].introducedIn | join: ", " }}</small>
+<br><small>Introduced in: {{ option[1].introducedIn | join: ", " }}</small>
 {%- endif -%}
 {%- if option[1].deprecatedIn -%}
-<br/><small>Deprecated in: {{ option[1].deprecatedIn | join: ", " }}</small>
+<br><small>Deprecated in: {{ option[1].deprecatedIn | join: ", " }}</small>
 {%- endif -%}
 {%- endcapture -%}
 | `{{ option[0] }}` | {{ option[1].type }} | {{ description }} |
