@@ -312,16 +312,21 @@ with a high replication factor.
 Additionally, the startup option `--query.optimizer-rules` can be used to globally toggle
 the usage of certain optimizer rules for all queries. By default, all optimizations are
 turned on. However, specific optimizations can be turned off using the option.
-  
-For example, to turn off the parallelization entirely, one can use the following configuration:
-```
---query.optimizer-rules "-parallelize-gather"
-```
+
+For example, to turn off the parallelization entirely (including parallel gather writes),
+one can use the following configuration:
+
+    --query.optimizer-rules "-parallelize-gather"
+
 This toggle works for any other non-mandatory optimizer rules as well. To specify multiple
 optimizer rules, the option can be used multiple times, e.g.
-```
---query.optimizer-rules "-parallelize-gather" --query.optimizer-rules "-splice-subqueries"
-```
+
+    --query.optimizer-rules "-parallelize-gather" --query.optimizer-rules "-splice-subqueries"
+
+You can overrule which optimizer rules to use or not use on a per-query basis still.
+`--query.optimizer-rules` merely defines a default. However,
+`--query.parallelize-gather-writes false` turns off parallel gather writes completely
+and it cannot be re-enabled for individual queries.
 
 ### More efficient execution plans for simple UPDATE and REPLACE queries
 
