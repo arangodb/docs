@@ -1255,25 +1255,6 @@ Throws if the document key is invalid. Note that this method does not
 check whether the document already exists in this collection.
 
 
-Get the Version of ArangoDB
----------------------------
-
-`db._version()`
-
-Returns the server version string. Note that this is not the version of the
-database.
-
-
-**Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
-    @startDocuBlockInline dbVersion
-    @EXAMPLE_ARANGOSH_OUTPUT{dbVersion}
-      require("@arangodb").db._version();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock dbVersion
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
 Edges
 -----
 

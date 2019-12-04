@@ -73,7 +73,7 @@ Version 3.4
   ranking algorithms (BM25, TFDIF). Support of e.g. relevance-based searching,
   phrase and prefix-matching, complex boolean searches and query time relevance
   tuning. Search can be combined with all supported data models in a single
-  query. Many specialized language analyzers are already included for e.g.
+  query. Many specialized language Analyzers are already included for e.g.
   English, German, French, Chinese, Spanish and many other language.
 
 - [**GeoJSON Support**](aql/functions-geo.html) and
