@@ -250,14 +250,14 @@ not be suited for.
 - **Restoring from a Different Version**
 
   Hot backups share the same limitations with respect to different versions
-  than ArangoDB itself. This means that a hot backup created with some version
-  a.b.c can without any limitations be restored on any version a.b.d with d
-  not equal to c, that is, the patch level can be changed arbitrarily. With
-  respect to minor versions (second digit), one can only upgrade and *not downgrade*.
-  That is, a hot backup created with a version a.b.c can be restored on
-  a version a.d.e for d greater than b but not for d less than b. At this stage,
+  as ArangoDB itself. This means that a hot backup created with some version
+  `a.b.c` can without any limitations be restored on any version `a.b.d` with `d`
+  not equal to `c`, that is, the patch level can be changed arbitrarily. With
+  respect to minor versions (second number, `b`), one can only upgrade and **not downgrade**.
+  That is, a hot backup created with a version `a.b.c` can be restored on
+  a version `a.d.e` for `d` greater than `b` but not for `d` less than `b`. At this stage,
   we do not guarantee any compatibility between versions with a different
-  major version number (first digit).
+  major version number (first number).
 
 - **Identical Topology**
 
