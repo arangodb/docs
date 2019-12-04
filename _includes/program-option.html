@@ -23,7 +23,7 @@ Also see [{{ section[0]|capitalize }} details](programs-{{ include.name }}-{{ se
 <br>This is a command, no value needs to be specified. The process terminates after executing the command.
 {%- endif -%}
 <br>
-{%- if option[1].has_key? 'default' -%}
+{%- if option[1].has_key? 'default' and option[1].category != "command" -%}
 {%- if option[1].dynamic -%}
 Default: *dynamic* (e.g. `{{ option[1].default|jsonify }}`)
 {%- else -%}
