@@ -7,9 +7,9 @@ Native and Docker Clusters
 
 Automatic native Clusters
 -------------------------
-Similarly to how the Mesos framework aranges an ArangoDB cluster in a
-DC/OS environment for you, `arangodb` can do this for you in a plain
-environment.
+
+The ArangoDB Starter (`arangodb`) can arrange an ArangoDB cluster
+for you in a plain environment.
 
 By invoking the first `arangodb` you launch a primary node. It will
 bind a network port, and output the commands you need to cut'n'paste

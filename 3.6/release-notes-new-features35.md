@@ -16,13 +16,13 @@ ArangoSearch
 
 Analyzers can split string values into smaller parts and perform additional
 processing such as word stemming and case conversion. In ArangoDB 3.4 there
-is a fixed set of text analyzers for 12 different languages, which tokenize
+is a fixed set of text Analyzers for 12 different languages, which tokenize
 strings into case-insensitive word stems using language-dependent rules based
 on the chosen locale, without discarding any stop-words (common words which
-carry little meaning such as "the"). An additional no-operation analyzer
+carry little meaning such as "the"). An additional no-operation Analyzer
 *identity* is available to keep the input unaltered in its entirety.
 
-In 3.5, analyzers can be customized as well as used independent of
+In 3.5, Analyzers can be customized as well as used independent of
 ArangoSearch Views in AQL. It is possible to tokenize strings without
 word stemming, remove user-defined stop-words, split by a delimiting
 character only, perform case conversion and/or removal of diacritic

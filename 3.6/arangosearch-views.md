@@ -135,6 +135,8 @@ queries which iterate over a View and sort by one or multiple of the
 attributes. If the field(s) and the sorting direction(s) match then the
 the data can be read directly from the index without actual sort operation.
 
+{% include youtube.html id="bKeKzexInm0" %}
+
 View definition example:
 
 ```json
@@ -245,7 +247,7 @@ During view modification the following directives apply:
 - **analyzers** (_optional_; type: `array`; subtype: `string`; default: `[
   'identity' ]`)
 
-  A list of analyzers, by name as defined via the [Analyzers](arangosearch-analyzers.html),
+  A list of Analyzers, by name as defined via the [Analyzers](arangosearch-analyzers.html),
   that should be applied to values of processed document attributes.
 
 - **fields** (_optional_; type: `object`; default: `{}`)

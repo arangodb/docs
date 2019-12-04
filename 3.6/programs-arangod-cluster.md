@@ -119,6 +119,26 @@ start, and not a new one. For the first start, the UUID file must either be
 created manually in the database directory, or the option must be set to 
 false for the initial startup and only turned on for restarts.
 
+## Upgrade
+
+<small>Introduced in: v3.6.0</small>
+
+Toggle cluster upgrade mode on a coordinator:
+
+`--cluster.upgrade <string>`
+                     
+The following values can be used for the options:
+
+* `auto`: perform a cluster upgrade and shut down afterwards if the startup option 
+  `--database.auto-upgrade` is set to true. Otherwise, don't perform an upgrade.
+* `disable`: never perform a cluster upgrade, regardless of the value of `--database.auto-upgrade`.
+* `force`: always perform a cluster upgrade and shut down, regardless of the value of
+  `--database.auto-upgrade`.
+* `online`: always perform a cluster upgrade but don't shut down afterwards
+
+The default value is `auto`. The option only affects coordinators. It does not have
+any affect on single servers, agents or database servers.
+
 ## More advanced options
 
 {% hint 'warning' %}
@@ -137,6 +157,11 @@ The default value is `1000`.
 When changing the value of this setting and restarting servers, no changes will be 
 applied to existing collections that would violate the new setting.
 
+The option only affects coordinators. It does not have any affect on single servers, 
+agents or database servers. 
+
+<small>Introduced in: v3.5.1</small>
+
 **Force one shard**
 
 `--cluster.force-one-shard <bool>`
@@ -152,6 +177,11 @@ only a single shard and using the same database server as these collections'
 shards leader. 
 All collections created this way will be eligible for specific AQL query optimizations
 that can improve query performance and provide advanced transactional guarantees.
+
+The option only affects coordinators. It does not have any affect on single servers, 
+agents or database servers. 
+
+<small>Introduced in: v3.6.0</small>
 
 **Synchronous replication minimum timeout**
 
@@ -189,6 +219,9 @@ Default at `1.0`.
 
 Change default replication factor for system collections. Default at `2`.
 
+The option only affects coordinators. It does not have any affect on single servers, 
+agents or database servers. 
+
 **Minimum replication factor**
 
 `--cluster.min-replication-factor <integer>`
@@ -198,6 +231,11 @@ The default value is `1`.
 When changing the value of this setting and restarting servers, no changes will be
 applied to existing collections that would violate the new setting.
 
+The option only affects coordinators. It does not have any affect on single servers, 
+agents or database servers. 
+
+<small>Introduced in: v3.5.1</small>
+
 **Maximum replication factor**
 
 `--cluster.max-replication-factor <integer>`
@@ -206,6 +244,11 @@ Maximum replication factor that can be used when creating new collections.
 The default value is `10`.
 When changing the value of this setting and restarting servers, no changes will be
 applied to existing collections that would violate the new setting.
+
+The option only affects coordinators. It does not have any affect on single servers, 
+agents or database servers. 
+
+<small>Introduced in: v3.5.1</small>
 
 **Default replication factor**
 
@@ -220,6 +263,9 @@ Note that the replication factor can still be adjusted per collection. This
 value is only the default value used for new collections when no replication factor 
 is specified when creating a collection.
 
+The option only affects coordinators. It does not have any affect on single servers, 
+agents or database servers. 
+
 **Write concern**
 
 `--cluster.write-concern <integer>`
@@ -231,3 +277,8 @@ This value is the default value for the required minimum number of copies when c
 new collections. It can still be adjusted per collection.
 The default value for this option is `1`. The value must be smaller or equal compared 
 to the replication factor. 
+
+The option only affects coordinators. It does not have any affect on single servers, 
+agents or database servers. 
+
+<small>Introduced in: v3.6.0</small>
