@@ -689,7 +689,8 @@ This option was introduced to open a way to upgrade from MMFiles to RocksDB
 storage engine without modifying client application code. Otherwise it should
 best be avoided as the use of exclusive locks on collections will introduce a
 noticeable throughput penalty. The option may get removed again in a future
-ArangoDB release.
+ArangoDB release. Note that the MMFiles engine is [deprecated](appendix-deprecated.html)
+from v3.6.0 on and will be removed in v4.0.0.
 
 ### AQL options
 

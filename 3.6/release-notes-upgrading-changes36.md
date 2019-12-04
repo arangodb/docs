@@ -42,3 +42,15 @@ The following startup options have been removed in ArangoDB 3.6:
   maximum size (in bytes) of VelocyPack chunks when using the VelocyStream
   (VST) protocol. This is now handled automatically by the server and does not
   need any configuration.
+
+Deprecation of MMFiles Storage Engine
+-------------------------------------
+
+Starting with version 3.6.0, ArangoDB deprecates the MMFiles
+storage engine and will remove it in the v4.0.0 release.
+To change your MMFiles storage engine deployment to RocksDB, see:
+[Switch storage engine](administration-engine-switch-engine.html)
+
+While ArangoDB 3.x will maintain full support for MMFiles, we recommend to
+switch to RocksDB even before the removal of MMFiles. RocksDB is the default
+[storage engine](architecture-storage-engines.html) since v3.4.0.

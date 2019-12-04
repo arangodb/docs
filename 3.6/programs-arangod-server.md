@@ -159,6 +159,7 @@ default storage engine up to including ArangoDB 3.3.
 Since ArangoDB 3.2, an alternative engine based on [RocksDB](http://rocksdb.org){:target="_blank"}
 is also provided and could be turned on manually. Since ArangoDB 3.4, the RocksDB
 storage engine is the default storage engine for new installations.
+The MMFiles engine is [deprecated](appendix-deprecated.html) from 3.6 on.
 
 One storage engine type is supported per server per installation.
 Live switching of storage engines on already installed systems isn't supported.
