@@ -1,10 +1,10 @@
 
-{% assign sections=include.options|options_by_section %}
+{% assign sections=include.options | options_by_section %}
 {% for section in sections %}
-## {{ section[0]|capitalize }}
+## {{ section[0] | capitalize_section }}
 
 {% if include.name=="arangod" %}
-Also see [{{ section[0]|capitalize }} details](programs-{{ include.name }}-{{ section[0] }}.html).
+Also see [{{ section[0] | capitalize_section }} details](programs-{{ include.name }}-{{ section[0] }}.html).
 {% endif %}
 
 | Name | Type | Description |
@@ -15,7 +15,7 @@ Also see [{{ section[0]|capitalize }} details](programs-{{ include.name }}-{{ se
 {%- if option[1].enterpriseOnly -%}
 *Enterprise Edition only*<br>
 {%- endif -%}
-{{option[1].description|slice: 0|upcase}}{{ option[1].description|slice: 1,999999999 -}}
+{{option[1].description | upcase_first -}}
 {%- if option[1].requiresValue != true and option[1].category != "command" -%}
 <br>This option can be specified without value to enable it.
 {%- endif -%}
@@ -25,17 +25,17 @@ Also see [{{ section[0]|capitalize }} details](programs-{{ include.name }}-{{ se
 <br>
 {%- if option[1].has_key? 'default' and option[1].category != "command" -%}
 {%- if option[1].dynamic -%}
-Default: *dynamic* (e.g. `{{ option[1].default|jsonify }}`)
+Default: *dynamic* (e.g. `{{ option[1].default | jsonify }}`)
 {%- else -%}
-Default: `{{ option[1].default|jsonify }}`
+Default: `{{ option[1].default | jsonify }}`
 {%- endif -%}
 {%- endif -%}
 {% if option[1].values %}<br>{{ option[1].values }}{% endif %}
 {%- if option[1].introducedIn -%}
-<br><small>Introduced in: {{ option[1].introducedIn| join: ", " }}</small>
+<br><small>Introduced in: {{ option[1].introducedIn | join: ", " }}</small>
 {%- endif -%}
 {%- if option[1].deprecatedIn -%}
-<br><small>Deprecated in: {{ option[1].deprecatedIn| join: ", " }}</small>
+<br><small>Deprecated in: {{ option[1].deprecatedIn | join: ", " }}</small>
 {%- endif -%}
 {%- endcapture -%}
 | `{{ option[0] }}` | {{ option[1].type }} | {{ description }} |
