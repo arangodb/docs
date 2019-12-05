@@ -311,7 +311,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 7818534912,
+    "default" : 16341597184,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -325,7 +325,6 @@
   },
   "check-configuration" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "check the configuration and exit",
     "dynamic" : false,
@@ -829,7 +828,6 @@
   },
   "database.check-version" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "checks the versions of the database and exit",
     "dynamic" : false,
@@ -885,7 +883,6 @@
   },
   "database.init-database" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "initializes an empty database",
     "dynamic" : false,
@@ -942,7 +939,6 @@
   },
   "database.restore-admin" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "resets the admin users and sets a new password",
     "dynamic" : false,
@@ -1027,7 +1023,6 @@
   },
   "dump-dependencies" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "dump dependency graph",
     "dynamic" : false,
@@ -1041,7 +1036,6 @@
   },
   "dump-options" : {
     "category" : "command",
-    "default" : true,
     "deprecatedIn" : null,
     "description" : "dump configuration options in JSON format",
     "dynamic" : false,
@@ -2138,7 +2132,7 @@
     "default" : true,
     "deprecatedIn" : null,
     "description" : "use colors for TTY logging",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
@@ -2228,7 +2222,7 @@
     "default" : false,
     "deprecatedIn" : null,
     "description" : "also log to tty if backgrounded",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : null,
@@ -2954,7 +2948,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 9382241894,
+    "default" : 19609916620,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -3449,7 +3443,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 12509655859,
+    "default" : 26146555494,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -3789,7 +3783,7 @@
   },
   "server.io-threads" : {
     "category" : "option",
-    "default" : 2,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "Number of threads used to handle IO",
     "dynamic" : true,
@@ -3876,7 +3870,7 @@
   },
   "server.maintenance-threads" : {
     "category" : "option",
-    "default" : 3,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
@@ -4273,7 +4267,6 @@
   },
   "version" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "reports the version and exits",
     "dynamic" : false,
