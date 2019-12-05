@@ -5,7 +5,7 @@
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> Accepted
-etag: <span class="hljs-string">"_ZrLmTqq--B"</span>
+etag: <span class="hljs-string">"_ZrfDH6y--B"</span>
 location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">69748</span>
 x-content-type-options: nosniff
 content-type: application/json
@@ -13,8 +13,8 @@ content-type: application/json
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69748"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69748"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrLmTqq--B"</span>, 
-  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_ZrLmTqq---"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrfDH6y--B"</span>, 
+  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_ZrfDH6y---"</span> 
 }
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/69748</span> &lt;&lt;EOF
 { 
@@ -28,7 +28,7 @@ content-type: application/json
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> Accepted
-etag: <span class="hljs-string">"_ZrLmTqy--_"</span>
+etag: <span class="hljs-string">"_ZrfDH66--_"</span>
 location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">69748</span>
 x-content-type-options: nosniff
 content-type: application/json
@@ -36,20 +36,20 @@ content-type: application/json
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69748"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69748"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrLmTqy--_"</span>, 
-  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_ZrLmTqq--B"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrfDH66--_"</span>, 
+  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_ZrfDH6y--B"</span> 
 }
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/69748</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-etag: <span class="hljs-string">"_ZrLmTqy--_"</span>
+etag: <span class="hljs-string">"_ZrfDH66--_"</span>
 x-content-type-options: nosniff
 content-type: application/json
 
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69748"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69748"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrLmTqy--_"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrfDH66--_"</span>, 
   <span class="hljs-string">"one"</span> : <span class="hljs-string">"world"</span>, 
   <span class="hljs-string">"hello"</span> : <span class="hljs-string">"world"</span>, 
   <span class="hljs-string">"numbers"</span> : { 
@@ -69,7 +69,7 @@ content-type: application/json
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> Accepted
-etag: <span class="hljs-string">"_ZrLmTrC--_"</span>
+etag: <span class="hljs-string">"_ZrfDH7G--_"</span>
 location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">69748</span>
 x-content-type-options: nosniff
 content-type: application/json
@@ -77,20 +77,20 @@ content-type: application/json
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69748"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69748"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrLmTrC--_"</span>, 
-  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_ZrLmTqy--_"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrfDH7G--_"</span>, 
+  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_ZrfDH66--_"</span> 
 }
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/69748</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-etag: <span class="hljs-string">"_ZrLmTrC--_"</span>
+etag: <span class="hljs-string">"_ZrfDH7G--_"</span>
 x-content-type-options: nosniff
 content-type: application/json
 
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69748"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69748"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrLmTrC--_"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrfDH7G--_"</span>, 
   <span class="hljs-string">"one"</span> : <span class="hljs-string">"world"</span>, 
   <span class="hljs-string">"numbers"</span> : { 
     <span class="hljs-string">"empty"</span> : <span class="hljs-literal">null</span>, 
