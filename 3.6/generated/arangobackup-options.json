@@ -116,7 +116,7 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "abort transactions if needed to ensure a consistent snapshot(create operation)",
+    "description" : "abort transactions if needed to ensure a consistent snapshot. (create operation). Note that this is rather brutal and is almost certainly not what your application is going to like. In the presence of intermediate commits using this option can even destroy the atomicity of your transactions. Use at your own risk and only if you really need a consistent backup at all costs.",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
