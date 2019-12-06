@@ -231,7 +231,7 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
     @END_EXAMPLE_AQL
     @endDocuBlock joinTuples
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 ```
 
 ## Guidelines

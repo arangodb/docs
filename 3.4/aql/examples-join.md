@@ -39,7 +39,7 @@ separately. The AQL query to generate such result is:
     @END_EXAMPLE_AQL
     @endDocuBlock joinTuples
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 We iterate over the collection users. Only the 'active' users will be examined.
 For each of these users we will search for up to 4 friends. We locate friends
 by comparing the *userId* of our current user with the *friendOf* attribute of the

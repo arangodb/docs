@@ -197,7 +197,7 @@ Using `SHORTEST_PATH`:
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_01_Aberdeen_to_London
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Using `K_SHORTEST_PATHS`:
 
@@ -212,7 +212,7 @@ Using `K_SHORTEST_PATHS`:
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_02_Aberdeen_to_London
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 With `K_SHORTEST_PATHS` we can ask for more than one option for a route:
 
@@ -231,7 +231,7 @@ With `K_SHORTEST_PATHS` we can ask for more than one option for a route:
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_03_Aberdeen_to_London
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 If we ask for routes that don't exist we get an empty result
 (from **Aberdeen** to **Toronto**):
@@ -251,7 +251,7 @@ If we ask for routes that don't exist we get an empty result
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_04_Aberdeen_to_Toronto
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 We can use the attribute *travelTime* that connections have as edge weights to
 take into account which connections are quicker. A high default weight is set,
@@ -279,7 +279,7 @@ to **Cologne**:
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_05_StAndrews_to_Cologne
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 And finally clean up by removing the named graph:
 

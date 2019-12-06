@@ -364,7 +364,7 @@ traversal queries using [the explainer](execution-and-performance-optimizer.html
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_07_traverse_7
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 
     @startDocuBlockInline GRAPHTRAV_07_traverse_8
     @EXAMPLE_AQL{GRAPHTRAV_07_traverse_8}
@@ -376,7 +376,7 @@ traversal queries using [the explainer](execution-and-performance-optimizer.html
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_07_traverse_8
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 We now see two queries: In one we add a variable *localScopeVar*, which is outside
 the scope of the traversal itself - it is not known inside of the traverser.
 Therefore, this filter can only be executed after the traversal, which may be

@@ -372,7 +372,7 @@ DATE_TRUNC('2017-02-03 04:05:06', 'hours') // 2017-02-03 04:00:00.000Z
     @END_EXAMPLE_AQL
     @endDocuBlock dateTruncGroup
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DATE_ROUND()
 
@@ -421,7 +421,7 @@ DATE_ROUND('2000-04-10T11:39:29Z', 15, 'minutes') // 2000-04-10T11:30:00.000Z
     @END_EXAMPLE_AQL
     @endDocuBlock dateRoundAggregate
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DATE_FORMAT()
 
