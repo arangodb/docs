@@ -247,7 +247,7 @@ During view modification the following directives apply:
 - **analyzers** (_optional_; type: `array`; subtype: `string`; default: `[
   'identity' ]`)
 
-  A list of analyzers, by name as defined via the [Analyzers](arangosearch-analyzers.html),
+  A list of Analyzers, by name as defined via the [Analyzers](arangosearch-analyzers.html),
   that should be applied to values of processed document attributes.
 
 - **fields** (_optional_; type: `object`; default: `{}`)
