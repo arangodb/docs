@@ -3,19 +3,25 @@ layout: default
 description: queries using the OneShard feature can be faster
 ---
 
-OneShard enterpise-feature
+OneShard Cluster Deployment
 ==========================
+
+{% hint 'info' %}
+This option is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
 
 What is the OneShard feature?
 -----------------------------
 
-Under certain conditions big parts of the execution can be pushed to a single
-db-servers. This can result in big performance gains because usually multiple
-db-servers and a coordinator are involved in the execution of a query.
+Under certain conditions large parts of the execution can be pushed to a single
+DB-Servers. This can result in performance gains because usually multiple
+DB-Servers (and a Coordinator) are involved in the execution of a query.
 
-Without the OneShard feature query processing works as follows. The coordinator
-accepts and analyses the query. If collections are accessed the coordinator
-distributes the accesses to collections to different db-servers that hold parts
+Without the OneShard feature query processing works as follows: The Coordinator
+accepts and analyzes the query. If collections are accessed the Coordinator
+distributes the accesses to collections to different DB-Servers that hold parts
 (shards) of the collections in question.
 This distributed access requires network-traffic from coordinator to dbservers
 and back from dbserves to coordinators and is therefore expensive. Another cost
@@ -27,7 +33,7 @@ from the received parts followed by further processing.
 If the one shard feature can be used for a query then the whole query is pushed
 to a db-server and executed on the server. The coordinator will only get back
 the final result. This can reduce resource usage and communication overhead
-for the coordinator dramatically as show in the [example]() below.
+for the coordinator dramatically as shown in the [example]() below.
 
 
 
@@ -35,9 +41,11 @@ How to use the OneShard feature?
 --------------------------------
 
 In order to use the OneShard feature you just need to have the ArangoDB enterprise
-edition installed. Then the optimizer will automatically make use of the of the
+edition installed. Then the optimizer will automatically make use of the
 OneShard feature if the collections used in the query are eligible. To be eligible
-the single shards of all the collections in question have to be on the same dbserver.
+the single shards of all the collections in question have to be on the same DB-Server
+and have to use the same sharding instructions. Internally, this is ensured by
+setting the `distributeShardsLike` attribute for collections properly.
 
 
 ### Setting up Databases and Collections
@@ -196,8 +204,7 @@ Optimization rules applied:
  11   parallelize-gather
 ```
 
-Without the oneshard feature all documents have potentially to be send to the
+Without the OneShard feature all documents have potentially to be sent to the
 coordinator for further processing. With this simple query this is actually not
-true, because we do some super awesome optimization that is able to reduce
-the number of documents, but when the queries become more complex and more
-collections are involved the optimizer will not be able to help as much.
+true, because we perform some other optimization that reduces
+the number of documents.
