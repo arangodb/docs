@@ -1,6 +1,7 @@
 ---
 layout: default
-description: queries using the OneShard feature can be faster
+description: Queries in a OneShard deployment can perform better
+title: ArangoDB OneShard Cluster
 ---
 
 OneShard Cluster Deployment
@@ -19,38 +20,42 @@ Under certain conditions large parts of the execution can be pushed to a single
 DB-Servers. This can result in performance gains because usually multiple
 DB-Servers (and a Coordinator) are involved in the execution of a query.
 
-Without the OneShard feature query processing works as follows: The Coordinator
-accepts and analyzes the query. If collections are accessed the Coordinator
-distributes the accesses to collections to different DB-Servers that hold parts
-(shards) of the collections in question.
-This distributed access requires network-traffic from coordinator to dbservers
-and back from dbserves to coordinators and is therefore expensive. Another cost
-factor is the memory and cpu-time required on the coordinator, when it has to
-process several concurrent complex queries. In such situations coordinators
-might become a bottleneck in query processing. Because they need to send and
-receive data on several connections, build up results for collection accesses
-from the received parts followed by further processing.
-If the one shard feature can be used for a query then the whole query is pushed
-to a db-server and executed on the server. The coordinator will only get back
-the final result. This can reduce resource usage and communication overhead
-for the coordinator dramatically as shown in the [example]() below.
+Without the OneShard feature query processing works as follows:
 
+- The Coordinator accepts and analyzes the query.
+- If collections are accessed then the Coordinator distributes the accesses
+  to collections to different DB-Servers that hold parts (shards) of the
+  collections in question.
+- This distributed access requires network-traffic from Coordinator to
+  DB-Servers and back from DB-Servers to Coordinators and is therefore
+  expensive.
 
+Another cost factor is the memory and CPU time required on the Coordinator
+when it has to process several concurrent complex queries. In such
+situations Coordinators may become a bottleneck in query processing,
+because they need to send and receive data on several connections, build up
+results for collection accesses from the received parts followed by further
+processing.
+
+If the OneShard feature can be used for a query then the whole query is
+pushed to a DB-Server and executed on that server. The Coordinator will only
+get back the final result. This can reduce resource usage and communication
+overhead for the coordinator dramatically as shown below.
 
 How to use the OneShard feature?
 --------------------------------
 
-In order to use the OneShard feature you just need to have the ArangoDB enterprise
-edition installed. Then the optimizer will automatically make use of the
-OneShard feature if the collections used in the query are eligible. To be eligible
-the single shards of all the collections in question have to be on the same DB-Server
-and have to use the same sharding instructions. Internally, this is ensured by
-setting the `distributeShardsLike` attribute for collections properly.
-
+In order to use the OneShard feature you just need to have the ArangoDB
+Enterprise Edition installed. Then the optimizer will automatically make use
+of the OneShard feature if the collections used in the query are eligible.
+To be eligible the single shards of all the collections in question have to
+be on the same DB-Server and have to use the same sharding instructions.
+Internally, this is ensured by setting the `distributeShardsLike` attribute
+for collections properly.
 
 ### Setting up Databases and Collections
 
-The easiest way to make use of the OneShard Feature is to create a database
+The easiest way to make use of the OneShard feature is to create a database
 with the extra option `{ sharding: "single" }`. As done in the following
 example:
 
@@ -101,20 +106,26 @@ Now we can go ahead and create a collection as it usually done:
 }
 ```
 
-As you can see the `numberOfShards` is set to `1` and `distributeShardsLike` is set to `_graphs`.
-These attributes have been automatically been set because we specified the `{ "sharding" : "single" }`
-options object when creating the database. To do this manually one would create a collection in the
-following way `db._create("example2", {"numberOfShards":1 , "distributeShardsLike":"_graphs"})`
-Here we used again the `_graphs` collection, but any other existing collection, that has not been
-created with the `distributesShardsLike` option could have been used here.
+As you can see the `numberOfShards` is set to `1` and `distributeShardsLike`
+is set to `_graphs`. These attributes have been automatically been set
+because we specified the `{ "sharding": "single" }` options object when
+creating the database. To do this manually one would create a collection in
+the following way:
 
+```js
+db._create("example2", {"numberOfShards":1 , "distributeShardsLike":"_graphs"})
+```
+
+Here we used again the `_graphs` collection, but any other existing
+collection, that has not been created with the `distributesShardsLike`
+option could have been used here.
 
 ### Running Queries
 
-First we insert a few documents into a collection, create a query and explain
-what will be done.
+First we insert a few documents into a collection, create a query and
+explain what will be done.
 
-```
+```js
 127.0.0.1:8529@oneShardDB> for(let i=0; i<10000; i++) { db.example.insert( {"value":i} ) }
 {
   "_id" : "example/6010134",
@@ -155,12 +166,12 @@ Optimization rules applied:
 
 ```
 
-As it can be seen in the explain output almost the complete query is executed
-on the dbserver (`DBS` for nodes 1-7) and only 10 documents are transferred to
-the coordinator. In case we do the same with a collection that consists of
-several shards we get a different result:
+As it can be seen in the explain output almost the complete query is
+executed on the DB-Server (`DBS` for nodes 1-7) and only 10 documents are
+transferred to the Coordinator. In case we do the same with a collection
+that consists of several shards we get a different result:
 
-```
+```js
 127.0.0.1:8529@_system> db._create("example", { numberOfShards : 5})
 [ArangoCollection 6863477, "example" (type document, status loaded)]
 
@@ -204,7 +215,7 @@ Optimization rules applied:
  11   parallelize-gather
 ```
 
-Without the OneShard feature all documents have potentially to be sent to the
-coordinator for further processing. With this simple query this is actually not
-true, because we perform some other optimization that reduces
-the number of documents.
+Without the OneShard feature all documents have potentially to be sent to
+the Coordinator for further processing. With this simple query this is actually
+not true, because we perform some other optimization that reduces the number
+of documents.
