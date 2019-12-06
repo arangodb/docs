@@ -1,7 +1,7 @@
 # Other Licenses
 
-All files in this repository are licensed according to the LICENSE file
-with the exception of the following third-party products.
+All files in this repository are licensed according to the [LICENSE](LICENSE)
+file with the exception of the following third-party products:
 
 ## Jekyll Plugin
 
