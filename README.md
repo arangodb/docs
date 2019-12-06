@@ -356,7 +356,7 @@ For details please check out the
 ## LICENSE
 
 The ArangoDB documentation is licensed under Apache-2.0.
-See [LICENSE.md](LICENSE.md) for details.
+See [LICENSE](LICENSE) for details.
 
 Parts not licensed under Apache-2.0 are outlined in
 [LICENSES-OTHER-COMPONENTS.md](LICENSES-OTHER-COMPONENTS.md)
