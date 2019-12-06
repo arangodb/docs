@@ -29,7 +29,6 @@
   },
   "check-configuration" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "check the configuration and exit",
     "dynamic" : false,
@@ -142,7 +141,6 @@
   },
   "dump-dependencies" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "dump dependency graph",
     "dynamic" : false,
@@ -156,7 +154,6 @@
   },
   "dump-options" : {
     "category" : "command",
-    "default" : true,
     "deprecatedIn" : null,
     "description" : "dump configuration options in JSON format",
     "dynamic" : false,
@@ -219,7 +216,7 @@
     "default" : true,
     "deprecatedIn" : null,
     "description" : "use colors for TTY logging",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
@@ -309,7 +306,7 @@
     "default" : false,
     "deprecatedIn" : null,
     "description" : "also log to tty if backgrounded",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : null,
@@ -829,7 +826,6 @@
   },
   "version" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "reports the version and exits",
     "dynamic" : false,
