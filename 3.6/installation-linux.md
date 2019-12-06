@@ -42,6 +42,8 @@ For unattended installations, you can set the password using the
 ```
 echo arangodb3 arangodb3/password password NEWPASSWORD | debconf-set-selections
 echo arangodb3 arangodb3/password_again password NEWPASSWORD | debconf-set-selections
+echo arangodb3 arangodb3/upgrade string no | debconf-set-selections
+echo arangodb3 arangodb3/storage_engine string 1 | debconf-set-selections
 ```
 
 The commands above should be executed prior to the installation.
