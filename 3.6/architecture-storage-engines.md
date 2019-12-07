@@ -1,6 +1,7 @@
 ---
 layout: default
-description: At the very bottom of the ArangoDB database lies the storageengine
+description: ArangoDB supports two storage engines, MMFiles and RocksDB.
+title: ArangoDB Storage Engines
 ---
 # Storage Engines
 
@@ -48,6 +49,13 @@ level.
 
 Indexes are always in memory and are rebuilt on startup. This
 gives better performance but imposes a longer startup time.
+
+{% hint 'warning' %}
+The MMFiles storage engine is deprecated starting with version
+3.6.0 and it will be removed in a future release.
+To change your MMFiles storage engine deployment to RocksDB, see:
+[Switch storage engine](administration-engine-switch-engine.html)
+{% endhint %}
 
 ## RocksDB
 
