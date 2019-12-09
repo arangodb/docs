@@ -132,7 +132,7 @@ First we insert a few documents into a collection, create a query and
 explain what will be done.
 
 ```js
-127.0.0.1:8529@oneShardDB> for(let i=0; i<10000; i++) { db.example.insert( {"value":i} ) }
+127.0.0.1:8529@oneShardDB> for (let i = 0; i < 10000; i++) { db.example.insert({ "value" : i }); }
 {
   "_id" : "example/6010134",
   "_key" : "6010134",
