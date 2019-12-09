@@ -67,10 +67,8 @@ example:
 
 ```
 127.0.0.1:8529@_system> db._createDatabase("oneShardDB", { sharding: "single" } )
-true
 
 127.0.0.1:8529@_system> db._useDatabase("oneShardDB")
-true
 
 127.0.0.1:8529@oneShardDB> db._properties()
 {
@@ -88,7 +86,6 @@ Now we can go ahead and create a collection as it usually done:
 
 ```
 127.0.0.1:8529@oneShardDB> db._create("example1")
-[ArangoCollection 6010029, "example1" (type document, status loaded)]
 
 127.0.0.1:8529@oneShardDB> db.example1.properties()
 {
@@ -133,14 +130,8 @@ explain what will be done.
 
 ```js
 127.0.0.1:8529@oneShardDB> for (let i = 0; i < 10000; i++) { db.example.insert({ "value" : i }); }
-{
-  "_id" : "example/6010134",
-  "_key" : "6010134",
-  "_rev" : "_ZrqaOt2---"
-}
 
 127.0.0.1:8529@oneShardDB> q="FOR doc IN @@collection FILTER doc.value % 2 == 0 SORT doc.value ASC LIMIT 10 RETURN doc"
-FOR doc IN @@collection FILTER doc.value % 2 == 0 SORT doc.value ASC LIMIT 10 RETURN doc
 
 127.0.0.1:8529@oneShardDB> db._explain(q, { "@collection" : "example" })
 Query String (88 chars, cacheable: true):
@@ -179,14 +170,8 @@ that consists of several shards we get a different result:
 
 ```js
 127.0.0.1:8529@_system> db._create("example", { numberOfShards : 5})
-[ArangoCollection 6863477, "example" (type document, status loaded)]
 
 127.0.0.1:8529@_system> for (let i = 0; i < 10000; i++) { db.example.insert({ "value" : i }); }
-{
-  "_id" : "example/6873482",
-  "_key" : "6873482",
-  "_rev" : "_ZrrC_0K---"
-}
 
 127.0.0.1:8529@_system> db._explain(q, { "@collection" : "example" })
 Query String (88 chars, cacheable: true):
