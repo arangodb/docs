@@ -123,7 +123,7 @@ db._create("example2", {"numberOfShards":1 , "distributeShardsLike":"_graphs"})
 ```
 
 Here we used again the `_graphs` collection, but any other existing
-collection, that has not been created with the `distributesShardsLike`
+collection, that has not been created with the `distributeShardsLike`
 option could have been used here.
 
 ### Running Queries
