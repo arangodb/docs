@@ -2,7 +2,6 @@
 {%- assign resultlines=include.result | newline_to_br | split: "<br" | size %}
 <div id="{{ include.id }}" class="example-container {% if resultlines > 5 %}hide-result{% endif %}">
     <div>
-        <strong>Query:</strong>
         <pre>{{ include.query | strip }}</pre>
     </div>
     <div class="show-button">
@@ -15,11 +14,11 @@
         {%- if include.bind != "" %}
         <strong>Bind Parameters:</strong>
         <pre>{{ include.bind | strip }}</pre>
-        {%- endif %}
         {%- if include.type == "explain" %}
         <strong>Explain:</strong>
         {%- else %}
         <strong>Result:</strong>
+        {%- endif %}
         {%- endif %}
         <pre>{{ include.result | strip }}</pre>
     </div>
