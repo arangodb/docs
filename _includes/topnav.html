@@ -28,7 +28,7 @@
     {%- endfor %}
   </select>
   <script type="text/javascript">
-    var versionAliases = {{ site.versions|jsonify }};
+    var versionAliases = {{ site.versions | jsonify }};
     var current = location.href;
 
     var selectedVersion = current.split('/')[4];
