@@ -37,10 +37,16 @@ because they need to send and receive data on several connections, build up
 results for collection accesses from the received parts followed by further
 processing.
 
-If the OneShard feature can be used for a query then the whole query is
-pushed to a DB-Server and executed on that server. The Coordinator will only
-get back the final result. This can reduce resource usage and communication
-overhead for the coordinator dramatically as shown below.
+If the OneShard feature can be used for a query then the whole query is pushed
+to a DB-Server and executed on that server. The Coordinator will only get back
+the final result. This can reduce resource usage and communication overhead for
+the coordinator dramatically as shown in the next section. The Feature has
+shown some very positive effect on traversals, but it can not be used on edge
+collections of SmartGraphs.
+
+Note: It can be checked whether the OneShard feature is active or not by
+inspecting the explain output. If the list of rules contains `cluster-one-shard`
+then the feature is active for the given query.
 
 How to use the OneShard feature?
 --------------------------------
