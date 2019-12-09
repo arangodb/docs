@@ -181,7 +181,7 @@ that consists of several shards we get a different result:
 127.0.0.1:8529@_system> db._create("example", { numberOfShards : 5})
 [ArangoCollection 6863477, "example" (type document, status loaded)]
 
-127.0.0.1:8529@_system> for(let i=0; i<10000; i++) { db.example.insert( {"value":i} ) }
+127.0.0.1:8529@_system> for (let i = 0; i < 10000; i++) { db.example.insert({ "value" : i }); }
 {
   "_id" : "example/6873482",
   "_key" : "6873482",
