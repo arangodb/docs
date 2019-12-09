@@ -188,7 +188,7 @@ that consists of several shards we get a different result:
   "_rev" : "_ZrrC_0K---"
 }
 
-127.0.0.1:8529@_system> db._explain(q, { "@collection":"example" })
+127.0.0.1:8529@_system> db._explain(q, { "@collection" : "example" })
 Query String (88 chars, cacheable: true):
  FOR doc IN @@collection FILTER doc.value % 2 == 0 SORT doc.value ASC LIMIT 10 RETURN doc
 
