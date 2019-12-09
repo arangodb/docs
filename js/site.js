@@ -14,7 +14,7 @@ var versionSwitcherSetAvailable = function(versions) {
 
 var anchorForId = function(id) {
   var anchor = document.createElement("a");
-  anchor.className = "header-link";
+  anchor.className = "anchor-link";
   anchor.href = "#" + id;
   anchor.innerHTML =
     '<span class="sr-only">Permalink</span><i class="fa fa-link"></i>';
@@ -29,6 +29,17 @@ var linkifyAnchors = function(level, containingElement) {
 
     if (typeof header.id !== "undefined" && header.id !== "") {
       header.appendChild(anchorForId(header.id));
+    }
+  }
+};
+
+var linkifyExamples = function(className, containingElement) {
+  var examples = containingElement.getElementsByClassName(className);
+  for (var e = 0; e < examples.length; e++) {
+    var example = examples[e];
+
+    if (typeof example.id !== "undefined" && example.id !== "") {
+      example.insertBefore(anchorForId(example.id), example.firstChild);
     }
   }
 };
@@ -51,6 +62,8 @@ var linkify = function() {
   for (var level = 2; level <= 6; level++) {
     linkifyAnchors(level, contentBlock);
   }
+
+  linkifyExamples("example-container", contentBlock);
 }
 
 document.onreadystatechange = function() {
@@ -63,7 +76,18 @@ var loadPage = function(target, fn) {
   var href = target.href;
   var pathname = target.pathname;
   var url = href.replace(/#.*$/, "");
+  var elem;
+  console.dir({ url, currentPage, hash: target.hash })
   if (url == currentPage) {
+    // pushState to fix anchor scrolling using the back button?
+    if (target.hash == "") {
+      elem = document.querySelector(".page-inner");
+    } else if (location.hash != target.hash) {
+      elem = document.querySelector(target.hash);
+    }
+    if (elem) {
+      elem.scrollIntoView();
+    }
     return;
   }
   $.get({
@@ -117,8 +141,18 @@ var loadPage = function(target, fn) {
 }
 
 window.onpopstate = function(event) {
+  console.log("popstate " + event.target.location)
   loadPage(event.target.location);
 };
+
+$(document).ready(function scrollToAnchor() {
+  if (location.hash.length > 1) {
+    var elem = document.querySelector(location.hash);
+    if (elem) {
+      elem.scrollIntoView();
+    }
+  }
+});
 
 $(document).ready(function handleNav() {
   $("div.book-summary nav a").click(function(event) {
@@ -218,4 +252,4 @@ var generateToc = function() {
   wrapper.insertBefore(nav, wrapper.firstChild);
 };
 
-window.currentPage = location.href;
+window.currentPage = location.href.replace(/#.*$/, "");
