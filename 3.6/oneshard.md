@@ -131,7 +131,7 @@ explain what will be done.
 ```js
 127.0.0.1:8529@oneShardDB> for (let i = 0; i < 10000; i++) { db.example.insert({ "value" : i }); }
 
-127.0.0.1:8529@oneShardDB> q="FOR doc IN @@collection FILTER doc.value % 2 == 0 SORT doc.value ASC LIMIT 10 RETURN doc"
+127.0.0.1:8529@oneShardDB> q = "FOR doc IN @@collection FILTER doc.value % 2 == 0 SORT doc.value ASC LIMIT 10 RETURN doc";
 
 127.0.0.1:8529@oneShardDB> db._explain(q, { "@collection" : "example" })
 Query String (88 chars, cacheable: true):
