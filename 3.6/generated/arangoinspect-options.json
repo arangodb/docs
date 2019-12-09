@@ -1,7 +1,6 @@
 {
   "check-configuration" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "check the configuration and exit",
     "dynamic" : false,
@@ -71,10 +70,10 @@
   },
   "console.colors" : {
     "category" : "option",
-    "default" : true,
+    "default" : false,
     "deprecatedIn" : null,
     "description" : "enable color support",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
@@ -187,7 +186,6 @@
   },
   "dump-dependencies" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "dump dependency graph",
     "dynamic" : false,
@@ -201,7 +199,6 @@
   },
   "dump-options" : {
     "category" : "command",
-    "default" : true,
     "deprecatedIn" : null,
     "description" : "dump configuration options in JSON format",
     "dynamic" : false,
@@ -278,7 +275,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "syntax check code Javascript code from file",
+    "description" : "syntax check code JavaScript code from file",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -417,7 +414,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "execute Javascript code from file",
+    "description" : "execute JavaScript code from file",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -432,7 +429,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "execute Javascript code from string",
+    "description" : "execute JavaScript code from string",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -508,7 +505,7 @@
     "category" : "option",
     "default" : "./js",
     "deprecatedIn" : null,
-    "description" : "startup paths containing the Javascript files",
+    "description" : "startup paths containing the JavaScript files",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
@@ -648,7 +645,7 @@
     "default" : true,
     "deprecatedIn" : null,
     "description" : "use colors for TTY logging",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
@@ -738,7 +735,7 @@
     "default" : false,
     "deprecatedIn" : null,
     "description" : "also log to tty if backgrounded",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : null,
@@ -1187,7 +1184,6 @@
   },
   "version" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "reports the version and exits",
     "dynamic" : false,
