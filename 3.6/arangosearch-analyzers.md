@@ -175,30 +175,36 @@ attributes:
   - `true` to include the original value as well
   - `false` to produce the n-grams based on *min* and *max* only
 - `startMarker` (string, _optional_): this value will be prepended to n-grams
-  at the beginning of the input sequence
+  which include the beginning of the input
 - `endMarker` (string, _optional_): this value will be appended to n-grams
-  at the beginning of the input sequence
+  which include the end of the input
 - `streamType` (string, _optional_): type of the input stream
-  - `"binary"`: one byte is considered one character (default)
+  - `"binary"`: one byte is considered as one character (default)
   - `"utf8"`: one Unicode codepoint is treated as one character
 
 **Examples**
 
-With `min` = 4 and `max` = 5, the Analyzer will produce the following n-grams
-for the input string `"foobar"`:
-- `"foobar"` (if `preserveOriginal` is enabled)
-- `"fooba"`
+With *min* = `4` and *max* = `5`, the Analyzer will produce the following
+n-grams for the input string `"foobar"`:
 - `"foob"`
-- `"oobar"`
+- `"fooba"`
+- `"foobar"` (if *preserveOriginal* is enabled)
 - `"ooba"`
+- `"oobar"`
 - `"obar"`
 
 An input string `"foo"` will not produce any n-gram because it is shorter
-than the `min` length of 4.
+than the *min* length of 4.
 
-Above example with `startMarker` = "^" and `endMarker` = "$" will produce:
-
-<!-- TODO -->
+Above example but with *startMarker* = `"^"` and *endMarker* = `"$"` would
+produce the following:
+- `"^foob"`
+- `"^fooba"`
+- `"^foobar"` (if *preserveOriginal* is enabled)
+- `"foobar$"` (if *preserveOriginal* is enabled)
+- `"ooba"`
+- `"oobar$"`
+- `"obar$"`
 
 ### Text
 
@@ -226,12 +232,16 @@ attributes:
 - `stemming` (boolean, _optional_):
   - `true` to apply stemming on returned words (default)
   - `false` to leave the tokenized words as-is
-- `edgeNgram` (object, _optional_): if present, then n-grams are created
-  similar to the [n-gram](#n-gram) Analyzer, but for each tokenized word
+- `edgeNgram` (object, _optional_): if present, then edge n-grams are generated
+  for each token (word). That is, the start of the n-gram is anchored to the
+  beginning of the token, whereas the `ngram` Analyzer would produce all
+  possible substrings from a single input token (within the defined length
+  restrictions). Edge n-grams can be used to cover word-based auto-completion
+  queries with an index.
   - `min` (number, _optional_): minimal n-gram length
   - `max` (number, _optional_): maximal n-gram length
-  - `preserveOriginal` (boolean, _optional_): include the original token if
-    its length is less than min or greater than max
+  - `preserveOriginal` (boolean, _optional_): whether to include the original
+    token even if its length is less than *min* or greater than *max*
 - `stopwords` (array, _optional_): an array of strings with words to omit
   from result. Default: load words from `stopwordsPath`. To disable stop-word
   filtering provide an empty array `[]`. If both *stopwords* and
