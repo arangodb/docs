@@ -162,8 +162,9 @@ An Analyzer capable of producing n-grams from a specified input in a range of
 min..max (inclusive). Can optionally preserve the original input.
 
 This Analyzer type can be used to implement substring matching.
-Note that it currently supports single-byte characters only.
-Multi-byte UTF-8 characters raise an *Invalid UTF-8 sequence* query error.
+Note that it slices the input based on bytes and not characters by default
+(*streamType*). The *"binary"* mode supports single-byte characters only;
+multi-byte UTF-8 characters raise an *Invalid UTF-8 sequence* query error.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
@@ -173,8 +174,15 @@ attributes:
 - `preserveOriginal` (boolean):
   - `true` to include the original value as well
   - `false` to produce the n-grams based on *min* and *max* only
+- `startMarker` (string, _optional_): this value will be prepended to n-grams
+  at the beginning of the input sequence
+- `endMarker` (string, _optional_): this value will be appended to n-grams
+  at the beginning of the input sequence
+- `streamType` (string, _optional_): type of the input stream
+  - `"binary"`: one byte is considered one character (default)
+  - `"utf8"`: one Unicode codepoint is treated as one character
 
-**Example**
+**Examples**
 
 With `min` = 4 and `max` = 5, the Analyzer will produce the following n-grams
 for the input string `"foobar"`:
@@ -187,6 +195,10 @@ for the input string `"foobar"`:
 
 An input string `"foo"` will not produce any n-gram because it is shorter
 than the `min` length of 4.
+
+Above example with `startMarker` = "^" and `endMarker` = "$" will produce:
+
+<!-- TODO -->
 
 ### Text
 
@@ -214,6 +226,12 @@ attributes:
 - `stemming` (boolean, _optional_):
   - `true` to apply stemming on returned words (default)
   - `false` to leave the tokenized words as-is
+- `edgeNgram` (object, _optional_): if present, then n-grams are created
+  similar to the [n-gram](#n-gram) Analyzer, but for each tokenized word
+  - `min` (number, _optional_): minimal n-gram length
+  - `max` (number, _optional_): maximal n-gram length
+  - `preserveOriginal` (boolean, _optional_): include the original token if
+    its length is less than min or greater than max
 - `stopwords` (array, _optional_): an array of strings with words to omit
   from result. Default: load words from `stopwordsPath`. To disable stop-word
   filtering provide an empty array `[]`. If both *stopwords* and
