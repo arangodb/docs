@@ -175,9 +175,11 @@ attributes:
   - `true` to include the original value as well
   - `false` to produce the n-grams based on *min* and *max* only
 - `startMarker` (string, _optional_): this value will be prepended to n-grams
-  which include the beginning of the input
+  which include the beginning of the input. Can be used for matching prefixes.
+  Choose a character or sequence as marker which does not occur in the input.
 - `endMarker` (string, _optional_): this value will be appended to n-grams
-  which include the end of the input
+  which include the end of the input. Can be used for matching suffixes.
+  Choose a character or sequence as marker which does not occur in the input.
 - `streamType` (string, _optional_): type of the input stream
   - `"binary"`: one byte is considered as one character (default)
   - `"utf8"`: one Unicode codepoint is treated as one character
@@ -193,8 +195,8 @@ n-grams for the input string `"foobar"`:
 - `"oobar"`
 - `"obar"`
 
-An input string `"foo"` will not produce any n-gram because it is shorter
-than the *min* length of 4.
+An input string `"foo"` will not produce any n-gram unless *preserveOriginal*
+is enabled, because it is shorter than the *min* length of 4.
 
 Above example but with *startMarker* = `"^"` and *endMarker* = `"$"` would
 produce the following:
