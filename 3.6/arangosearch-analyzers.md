@@ -237,7 +237,8 @@ attributes:
   beginning of the token, whereas the `ngram` Analyzer would produce all
   possible substrings from a single input token (within the defined length
   restrictions). Edge n-grams can be used to cover word-based auto-completion
-  queries with an index.
+  queries with an index, for which you should set the following other options:
+  `accent: false`, `case: "lower"` and most importantly `stemming: false`.
   - `min` (number, _optional_): minimal n-gram length
   - `max` (number, _optional_): maximal n-gram length
   - `preserveOriginal` (boolean, _optional_): whether to include the original
@@ -297,8 +298,8 @@ disabled like this:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Custom text Analyzer with the edge n-grams feature enabled and `"the"` defined
-as stop-word to exclude it:
+Custom text Analyzer with the edge n-grams feature and normalization enabled,
+stemming disabled and `"the"` defined as stop-word to exclude it:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerTextEdgeNgram
