@@ -567,7 +567,7 @@ The following APIs have been expanded:
   value of `"single"`, which will make all new collections in that database use
   the same shard distribution and use one shard by default. This can still be
   overridden by setting the values of `distributeShardsLike` when creating new
-  collections in that database via the web UI, the arangosh or drivers.
+  collections in that database via the web UI, arangosh or drivers.
 
 - Database properties API, HTTP route `GET /_api/database/current`
 
@@ -575,7 +575,7 @@ The following APIs have been expanded:
   `replicationFactor`, `writeConcern` and `sharding` in a cluster.
   A description of these attributes can be found above.
 
-- Collection APIs
+- Collection / Graph APIs
 
   `minReplicationFactor` has been renamed to `writeConcern` for consistency.
   The old attribute name is still accepted and returned for compatibility.
