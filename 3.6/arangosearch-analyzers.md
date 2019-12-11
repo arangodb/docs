@@ -264,6 +264,60 @@ attributes:
   discovered for an existing Analyzer during startup then the server will
   abort with a fatal error.
 
+**Examples**
+
+The built-in `text_en` Analyzer has stemming enabled (note the word endings):
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerTextStem
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextStem}
+      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en")`)
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerTextStem
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+You may create a custom Analyzer with the same configuration but with stemming
+disabled like this:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerTextNoStem
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextNoStem}
+      var analyzers = require("@arangodb/analyzers")
+    | analyzers.save("text_en_nostem", "text", {
+    |   locale: "en.utf-8",
+    |   case: "lower",
+    |   accent: false,
+    |   stemming: false,
+    |   stopwords: []
+      }, ["frequency","norm","position"])
+      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en_nostem")`)
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerTextNoStem
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Custom text Analyzer with the edge n-grams feature enabled and `"the"` defined
+as stop-word to exclude it:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerTextEdgeNgram
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextEdgeNgram}
+    ~ var analyzers = require("@arangodb/analyzers")
+    | analyzers.save("text_edge_ngrams", "text", {
+    |   edgeNgram: { min: 3, max: 8, preserveOriginal: true },
+    |   locale: "en.utf-8",
+    |   case: "lower",
+    |   accent: false,
+    |   stemming: false,
+    |   stopwords: [ "the" ]
+      }, ["frequency","norm","position"])
+      db._query(`RETURN TOKENS("The quick brown fox jumps over the dogWithAVeryLongName", "text_edge_ngrams")`)
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerTextEdgeNgram
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 Analyzer Features
 -----------------
 
