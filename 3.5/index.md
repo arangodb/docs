@@ -11,6 +11,8 @@ redirect_from:
 ArangoDB {{ site.data.versions[page.version.name] }} Documentation
 =====================================
 
+**Environment:** {{ jekyll.environment }}
+
 Welcome to the ArangoDB documentation!
 
 {% hint 'info' %}
