@@ -35,7 +35,7 @@ to the [_Cluster Architecture_](architecture-deployment-modes-cluster-architectu
 Synchronous replication can be enabled per _collection_. When creating a
 _collection_ you may specify the number of _replicas_ using the
 *replicationFactor* parameter. The default value is set to `1` which
-effectively *disables* synchronous replication among _DBServers_. 
+effectively *disables* synchronous replication among _DB-Servers_. 
 
 Whenever you specify a _replicationFactor_ greater than 1 when creating a
 collection, synchronous replication will be activated for this collection. 
@@ -55,11 +55,11 @@ Preparing growth
 ----------------
 
 You may create a _collection_ with higher _replication factor_ than
-available _DBServers_. When additional _DBServers_ become available 
-the _shards_ are automatically replicated to the newly available _DBServers_. 
+available _DB-Servers_. When additional _DB-Servers_ become available 
+the _shards_ are automatically replicated to the newly available _DB-Servers_. 
 
 To create a _collection_ with higher _replication factor_ than
-available _DBServers_ please set the option _enforceReplicationFactor_ to _false_, 
+available _DB-Servers_ please set the option _enforceReplicationFactor_ to _false_, 
 when creating the collection from _ArangoShell_ (the option is not available
 from the web interface), e.g.:
 
@@ -143,7 +143,7 @@ included in the list of attribute paths for the index:
 | a, b, c   | a, b      | not allowed |
 | a, b, c   | a, b, c   |     allowed |
 
-On which DBServer in a Cluster a particular _shard_ is kept is undefined.
+On which DB-Server in a Cluster a particular _shard_ is kept is undefined.
 There is no option to configure an affinity based on certain _shard_ keys.
 
 Sharding strategy
@@ -179,7 +179,7 @@ benefit, but it may later in case other sharding strategies are added.
 Moving/Rebalancing _shards_
 ---------------------------
 
-A _shard_ can be moved from a _DBServer_ to another, and the entire shard distribution
+A _shard_ can be moved from a _DB-Server_ to another, and the entire shard distribution
 can be rebalanced using the corresponding buttons in the web [UI](programs-web-interface-cluster.html).
 
 Replacing/Removing a _Coordinator_
@@ -203,34 +203,34 @@ integrated as a new _Coordinator_ into the cluster. You may also just
 restart the _Coordinator_ as before and it will reintegrate itself into
 the cluster.
 
-Replacing/Removing a _DBServer_
+Replacing/Removing a _DB-Server_
 -------------------------------
 
-_DBServers_ are where the data of an ArangoDB cluster is stored. They
+_DB-Servers_ are where the data of an ArangoDB cluster is stored. They
 do not publish a web UI and are not meant to be accessed by any other
-entity than _Coordinators_ to perform client requests or other _DBServers_
+entity than _Coordinators_ to perform client requests or other _DB-Servers_
 to uphold replication and resilience.
 
-The clean way of removing a _DBServer_ is to first relieve it of all
+The clean way of removing a _DB-Server_ is to first relieve it of all
 its responsibilities for shards. This applies to _followers_ as well as
 _leaders_ of shards. The requirement for this operation is that no
 collection in any of the databases has a `relicationFactor` greater or
-equal to the current number of _DBServers_ minus one. For the purpose of
+equal to the current number of _DB-Servers_ minus one. For the purpose of
 cleaning out `DBServer004` for example would work as follows, when
 issued to any _Coordinator_ of the cluster:
 
 `curl <coord-ip:coord-port>/_admin/cluster/cleanOutServer -d '{"server":"DBServer004"}'`
 
-After the _DBServer_ has been cleaned out, you will find a trash bin
-icon to the right of the name of the _DBServer_ on any _Coordinators_'
-UI. Clicking on it will remove the _DBServer_ in question from the
+After the _DB-Server_ has been cleaned out, you will find a trash bin
+icon to the right of the name of the _DB-Server_ on any _Coordinators_'
+UI. Clicking on it will remove the _DB-Server_ in question from the
 cluster.
 
-Firing up any _DBServer_ from a clean data directory by specifying the
-any of all agency endpoints will integrate the new _DBServer_ into the
+Firing up any _DB-Server_ from a clean data directory by specifying the
+any of all agency endpoints will integrate the new _DB-Server_ into the
 cluster.
 
-To distribute shards onto the new _DBServer_ either click on the
+To distribute shards onto the new _DB-Server_ either click on the
 `Distribute Shards` button at the bottom of the `Shards` page in every
 database.
 
@@ -296,8 +296,8 @@ arangosh --server.username root --server.password pass --javascript.execute ~./s
 ```
 
 The current status is logged every 10 seconds. You may adjust the
-interval by passing a number after the DBServer name, e.g.
+interval by passing a number after the DB-Server name, e.g.
 `arangosh <options> -- DBServer0002 60` for every 60 seconds.
 
-Once the count is `0` all shards of the underlying DBServer have been moved
+Once the count is `0` all shards of the underlying DB-Server have been moved
 and the `cleanOutServer` process has finished.

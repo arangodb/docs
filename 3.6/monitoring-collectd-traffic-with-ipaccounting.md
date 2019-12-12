@@ -75,7 +75,7 @@ According to the ports we found in the last section, we will configure our firew
     @def &ARANGO_ACCOUNTING($CHAINNAME) = {
     # The coordinators:
         &TCP_ACCOUNTING(8530, "Claus", $CHAINNAME);
-    # The db-servers:
+    # The DB-Servers:
         &TCP_ACCOUNTING(8629, "Pavel", $CHAINNAME);
         &TCP_ACCOUNTING(8630, "Perry", $CHAINNAME);
     # The agency:

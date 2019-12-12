@@ -317,7 +317,7 @@ Optimization in a cluster
 When you are running AQL in the cluster, the parsing of the query is done on the
 Coordinator. The Coordinator then chops the query into snippets, which are either
 to remain on the Coordinator or need to be distributed to the shards on the
-DBServers over the network. The cutting sites are interconnected via *Scatter-*,
+DB-Servers over the network. The cutting sites are interconnected via *Scatter-*,
 *Gather-* and *RemoteNodes*. These nodes mark the network borders of the snippets.
 
 The optimizer strives to reduce the amount of data transferred via these network
@@ -325,7 +325,7 @@ interfaces by pushing `FILTER`s out to the shards, as it is vital to the query
 performance to reduce that data amount to transfer over the network links.
 
 {% hint 'info' %}
-Some hops between Coordinators and DBServers are unavoidable. An example are
+Some hops between Coordinators and DB-Servers are unavoidable. An example are
 [user-defined functions](extending.html) (UDFs), which have to be executed on
 the Coordinator. If you cannot modify your query to have a lower amount of
 back and forth between sites, then try to lower the amount of data that has
@@ -334,7 +334,7 @@ calling them.
 {% endhint %}
 
 Using a cluster, there is a *Site* column if you explain a query.
-Snippets marked with **DBS** are executed on DBServers, **COOR** ones are
+Snippets marked with **DBS** are executed on DB-Servers, **COOR** ones are
 executed on the respective Coordinator.
 
 ```
@@ -451,7 +451,7 @@ For queries in the cluster, the following nodes may appear in execution plans:
 - **GatherNode**:
   used on a coordinator to aggregate results from one or many shards
   into a combined stream of results. Parallelizes work for certain types
-  of queries when there are multiple database servers involved
+  of queries when there are multiple DB-Servers involved
   (shown as `GATHER   /* parallel */` in query explain).
 
 - **RemoteNode**:
@@ -673,13 +673,13 @@ The following optimizer rules may appear in the `rules` attribute of
   Queries involving V8 / JavaScript (e.g. user-defined AQL functions) can not
   be optimized.
 
-  Offloads the entire query to the DBServer (except the client communication
+  Offloads the entire query to the DB-Server (except the client communication
   via a Coordinator). This saves all the back and forth that normally exists
   in regular cluster queries, benefitting traversals and joins in particular.
 
 - `collect-in-cluster`:
   will appear when a *CollectNode* on a coordinator is accompanied by extra
-  *CollectNode*s on the database servers, which will do the heavy processing and
+  *CollectNode*s on the DB-Servers, which will do the heavy processing and
   allow the *CollectNode* on the coordinator to a light-weight aggregation only.
 
 - `distribute-filtercalc-to-cluster`:
@@ -699,7 +699,7 @@ The following optimizer rules may appear in the `rules` attribute of
 - `optimize-cluster-single-document-operations`:
   it may appear if you directly reference a document by its `_key`; in this
   case no AQL will be executed on the DB-Servers, instead the coordinator will
-  directly work with the documents on the DBServers.
+  directly work with the documents on the DB-Servers.
 
 - `parallelize-gather`:
   will appears if an optimization to execute Coordinator *GatherNodes* in

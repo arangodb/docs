@@ -170,10 +170,10 @@ be created in the new database (*Cluster only*):
   Setting this option to `"single"` will enable the OneShard feature in the
   Enterprise Edition.
 - *replicationFactor*: Default replication factor. Special values include
-  `"satellite"`, which will replicate the collection to every DBServer, and
+  `"satellite"`, which will replicate the collection to every DB-Server, and
   `1`, which disables replication.
 - *writeConcern*: how many copies of each shard are required to be in sync on
-  the different DBServers. If there are less then these many copies in the
+  the different DB-Servers. If there are less then these many copies in the
   cluster a shard will refuse to write. The value of *writeConcern* can not be
   larger than *replicationFactor*.
 

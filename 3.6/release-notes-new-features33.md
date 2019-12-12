@@ -196,8 +196,7 @@ is set to at least `2`. The number of shards is often set to rather high values
 when creating collections. 
 
 Creating a collection in the cluster will make the coordinator store the setup
-metadata of the new collection in the agency first. Subsequentially all database
-servers of the cluster will detect that there is work to do and will begin creating
+metadata of the new collection in the agency first. Subsequentially all DB-Servers of the cluster will detect that there is work to do and will begin creating
 the shards. This will first happen for the shard leaders. For each shard leader
 that finishes with the setup, the synchronous replication with its followers is
 then established. That will make sure that every future data modification will not 
@@ -241,7 +240,7 @@ Miscellaneous features
 - when creating a collection in the cluster, there is now an optional 
   parameter `enforceReplicationFactor`: when set, this parameter
   enforces that the collection will only be created if there are not
-  enough database servers available for the desired `replicationFactor`.
+  enough DB-Servers available for the desired `replicationFactor`.
 
 - AQL DISTINCT is not changing the order of previous (sorted) results
 

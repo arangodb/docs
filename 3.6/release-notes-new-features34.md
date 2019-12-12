@@ -386,7 +386,7 @@ coordinator to save the forwarding.
 
 ### Refusal to start mixed-engine clusters
 
-Starting a cluster with coordinators and DB servers using different storage
+Starting a cluster with coordinators and DB-Servers using different storage
 engines is not supported. Doing it anyway will now log an error and abort a
 coordinator's startup.
 
@@ -421,7 +421,7 @@ must be set to `false` for the initial startup and later be changed to `true`.
 In previous versions of ArangoDB, cluster coordinator nodes used the storage
 engine selected by the database administrator (i.e. MMFiles or RocksDB).
 Although all database and document data was forwarded from coordinators to be
-stored on the database servers and not on the coordinator nodes, the storage
+stored on the DB-Servers and not on the coordinator nodes, the storage
 engine used on the coordinator was checking and initializing its on-disk state
 on startup.
 Especially because no "real" data was stored by the coordinator's storage engine,
@@ -437,7 +437,7 @@ files, it also reduces the possibility of data corruption on coordinator nodes.
 
 ### `DBSERVER` role as alias of `PRIMARY`
 
-When starting a _DBServer_, the value `DBSERVER` can now be specified (as alias of
+When starting a _DB-Server_, the value `DBSERVER` can now be specified (as alias of
 `PRIMARY`) in the option `--cluster.my-role`. The value `PRIMARY` is still accepted.
 
 All REST APIs that currently return "PRIMARY" as _role_, will continue to return
@@ -476,7 +476,7 @@ individual shards one by one. The more shards were involved in a query, the more
 cluster-internal requests this required, and the longer the setup took.
 
 In ArangoDB 3.4 the coordinator will now only send a single request to each of
-the involved database servers (in contrast to one request per shard involved).
+the involved DB-Servers (in contrast to one request per shard involved).
 This will speed up the setup phase of most AQL queries, which will be noticable for
 queries that affect a lot of shards.
 
@@ -543,17 +543,17 @@ The following function aliases have been created for existing AQL functions:
 ### Distributed COLLECT
 
 In the general case, AQL COLLECT operations are expensive to execute in a cluster,
-because the database servers need to send all shard-local data to the coordinator
+because the DB-Servers need to send all shard-local data to the coordinator
 for a centralized aggregation.
 
 The AQL query optimizer can push some parts of certain COLLECT operations to the
-database servers so they can do a per-shard aggregation. The database servers can
+DB-Servers so they can do a per-shard aggregation. The DB-Servers can
 then send only the already aggregated results to the coordinator for a final aggregation.
 For several queries this will reduce the amount of data that has to be transferred
-between the database servers servers and the coordinator by a great extent, and thus
+between the DB-Servers servers and the coordinator by a great extent, and thus
 will speed up these queries. Work on this has started with ArangoDB 3.3.5, but
 ArangoDB 3.4 allows more cases in which COLLECT operations can partially be pushed to
-the database servers.
+the DB-Servers.
 
 In ArangoDB 3.3, the following aggregation functions could make use of a distributed
 COLLECT in addition to `COLLECT WITH COUNT INTO` and `RETURN DISTINCT`:
@@ -689,8 +689,7 @@ trivial AQL queries that will only access a single document, e.g.
 
 All of the above queries will affect at most a single document, identified by its
 primary key. The AQL query optimizer can now detect this, and use a specialized
-code path for directly carrying out the operation on the participating database
-server(s). This special code path bypasses the general AQL query cluster setup and
+code path for directly carrying out the operation on the participating DB-Server(s). This special code path bypasses the general AQL query cluster setup and
 shutdown, which would have prohibitive costs for these kinds of queries.
 
 In case the optimizer makes use of the special code path, the explain output will
@@ -980,7 +979,7 @@ JavaScript-based implementations to C++-based implementations in ArangoDB 3.4:
 * the implementations of all built-in AQL functions
 * all other parts of AQL except user-defined functions
 * database creation and setup
-* all the DBserver internal maintenance tasks for shard creation, index
+* all the DB-Server internal maintenance tasks for shard creation, index
   creation and the like in the cluster
 
 By making the listed functionality not use and not depend on the V8 JavaScript 
@@ -989,7 +988,7 @@ server, without requiring the conversion of data between ArangoDB's native forma
 and V8's internal formats. For the maintenance operations this will lead to
 improved stability in the cluster.
 
-As a consequence, ArangoDB agency and database server nodes in an ArangoDB 3.4 
+As a consequence, ArangoDB agency and DB-Server nodes in an ArangoDB 3.4 
 cluster will now turn off the V8 JavaScript engine at startup entirely and automatically.
 The V8 engine will still be enabled on cluster coordinators, single servers and
 active failover instances. But even the latter instance types will not require as 

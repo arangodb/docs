@@ -10,7 +10,7 @@ distributeShardsLike
 
 Before versions 3.2.12 and 3.3.4 there was a bug in the collection creation
 which could lead to a violation of the property that its shards were
-distributed on the DBServers exactly as the prototype collection from the
+distributed on the DB-Servers exactly as the prototype collection from the
 `distributeShardsLike` setting.
 
 **Please read everything carefully before using this API!** 
@@ -21,7 +21,7 @@ job is running,
   prototype collection (i.e. set in `distributeShardsLike`, including
   [SmartGraphs](../graphs-smart-graphs.html)),
 - *neither should shards be moved* of one of those prototypes
-- and shutdown of DBServers *should be avoided*
+- and shutdown of DB-Servers *should be avoided*
 during the repairs. Also only one repair job should run at any given time.
 Failure to meet those requirements will mostly cause the job to abort, but still
 allow to restart it safely. However, changing the `replicationFactor` during
@@ -35,8 +35,8 @@ move is finished, repairing the affected collection will fail, but the repair
 can be restarted safely.
 
 If there is any affected collection which `replicationFactor` is equal to
-the total number of DBServers, the repairs might abort. In this case, it is
-necessary to reduce the `replicationFactor` by one (or add a DBServer). The
+the total number of DB-Servers, the repairs might abort. In this case, it is
+necessary to reduce the `replicationFactor` by one (or add a DB-Server). The
 job will not do that automatically.
 
 Generally, the job will abort if any of its assumptions fail, at the start

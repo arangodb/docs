@@ -215,7 +215,7 @@ As an example the decoded JWT body would look like this:
 
 #### Superuser JWT-Token
 
-To access specific internal APIs as well as Agency and DBServer instances a token generated via `/open/auth` is not 
+To access specific internal APIs as well as Agency and DB-Server instances a token generated via `/open/auth` is not 
 good enough. For these special APIs you will need to generate a special JWT token which grants superuser access.
 Note that using superuser access for normal database operations is **NOT advised**.
 

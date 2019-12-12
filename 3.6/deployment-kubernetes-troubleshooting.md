@@ -108,7 +108,7 @@ those `PersistentVolumes`, it depends on the type of server that was using the v
 
 - If an `Agent` was using the volume, it can be repaired as long as 2 other agents are still     healthy.
 - If a `DBServer` was using the volume, and the replication factor of all database
-  collections is 2 or higher, and the remaining dbservers are still healthy,
+  collections is 2 or higher, and the remaining DB-Servers are still healthy,
   the cluster will duplicate the remaining replicas to
   bring the number of replicas back to the original number.
 - If a `DBServer` was using the volume, and the replication factor of a database

@@ -115,7 +115,7 @@ Satellite Collections
 
 With SatelliteCollections, you can define collections to shard to a cluster and
 collections to replicate to each machine. The ArangoDB query optimizer knows where
-each shard is located and sends the requests to the DBServers involved, which then
+each shard is located and sends the requests to the DB-Servers involved, which then
 executes the query, locally. With this approach, network hops during join
 operations on sharded collections can be avoided and response times can be close to
 that of a single instance.

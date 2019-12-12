@@ -16,7 +16,7 @@ When doing joins in an ArangoDB cluster data has to be exchanged between differe
 
 Joins will be executed on a coordinator. It will prepare an execution plan
 and execute it. When executing, the coordinator will contact all shards of the
-starting point of the join and ask for their data. The database servers carrying
+starting point of the join and ask for their data. The DB-Servers carrying
 out this operation will load all their local data and then ask the cluster for
 the other part of the join. This again will be distributed to all involved shards
 of this join part.
@@ -27,9 +27,9 @@ amount of data that has to be sent throughout the cluster.
 Satellite collections are collections that are intended to address this issue.
 
 They will facilitate the synchronous replication and replicate all its data
-to all database servers that are part of the cluster.
+to all DB-Servers that are part of the cluster.
 
-This enables the database servers to execute that part of any join locally.
+This enables the DB-Servers to execute that part of any join locally.
 
 This greatly improves performance for such joins at the costs of increased
 storage requirements and poorer write performance on this data.
@@ -133,14 +133,14 @@ it may be removed as a follower. This is being reported to the Agency.
 The follower (once back in business) will then periodically check the Agency and know
 that it is out of sync. It will then automatically catch up. This may take a while
 depending on how much data has to be synced. When doing a join involving the satellite
-you can specify how long the DBServer is allowed to wait for sync until the query
+you can specify how long the DB-Server is allowed to wait for sync until the query
 is being aborted.
 
 Check [Accessing Cursors](http/aql-query-cursor-accessing-cursors.html)
 for details.
 
 During network failure there is also a minimal chance that a query was properly
-distributed to the DBServers but that a previous satellite write could not be
+distributed to the DB-Servers but that a previous satellite write could not be
 replicated to a follower and the leader dropped the follower. The follower however
 only checks every few seconds if it is really in sync so it might indeed deliver
 stale results.

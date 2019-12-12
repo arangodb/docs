@@ -103,7 +103,7 @@ This server's role:
 
 `--cluster.my-role <dbserver|coordinator>`
 
-The server's role. Is this instance a DBServer (backend data server)
+The server's role. Is this instance a DB-Server (backend data server)
 or a Coordinator (frontend server for external and application access).
 
 ## Require existing ID
@@ -137,7 +137,7 @@ The following values can be used for the options:
 * `online`: always perform a cluster upgrade but don't shut down afterwards
 
 The default value is `auto`. The option only affects coordinators. It does not have
-any affect on single servers, agents or database servers.
+any affect on single servers, agents or DB-Servers.
 
 ## More advanced options
 
@@ -175,7 +175,7 @@ also available as [**managed service**](https://www.arangodb.com/managed-service
 {% endhint %}
 
 When set to `true`, forces the cluster into creating all future collections with 
-only a single shard and using the same database server as these collections' 
+only a single shard and using the same DB-Server as these collections' 
 shards leader. 
 All collections created this way will be eligible for specific AQL query optimizations
 that can improve query performance and provide advanced transactional guarantees.
@@ -194,7 +194,7 @@ This option should generally remain untouched and only changed with great care.
 {% endhint %}
 
 The minimum timeout in seconds for the internal synchronous replication
-mechanism between DBServers. If replication requests are slow, but the servers
+mechanism between DB-Servers. If replication requests are slow, but the servers
 are otherwise healthy, timeouts can cause followers to be dropped
 unnecessarily, resulting in costly resync operations. Increasing this value may
 help avoid such resyncs. Conversely, decreasing it may cause more resyncs,
@@ -210,7 +210,7 @@ This option should generally remain untouched and only changed with great care.
 {% endhint %}
 
 Stretch or clinch timeouts for internal synchronous replication mechanism
-between DBServers. All such timeouts are affected by this change.
+between DB-Servers. All such timeouts are affected by this change.
 Default at `1.0`.
 
 **System replication factor**

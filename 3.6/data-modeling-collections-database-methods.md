@@ -153,9 +153,9 @@ to the [naming conventions](data-modeling-naming-conventions.html).
 
 - *replicationFactor* (optional, default is 1): in a cluster, this
   attribute determines how many copies of each shard are kept on 
-  different DBServers. The value 1 means that only one copy (no
+  different DB-Servers. The value 1 means that only one copy (no
   synchronous replication) is kept. A value of k means that
-  k-1 replicas are kept. Any two copies reside on different DBServers.
+  k-1 replicas are kept. Any two copies reside on different DB-Servers.
   Replication between them is synchronous, that is, every write operation
   to the "leader" copy will be replicated to all "follower" replicas,
   before the write operation is reported successful.
@@ -166,13 +166,13 @@ to the [naming conventions](data-modeling-naming-conventions.html).
 
   When using the *Enterprise Edition* of ArangoDB the replicationFactor
   may be set to "satellite" making the collection locally joinable
-  on every database server. This reduces the number of network hops
+  on every DB-Server. This reduces the number of network hops
   dramatically when using joins in AQL at the costs of reduced write
   performance on these collections.
 
 - *writeConcern* (optional, default is 1): in a cluster, this
   attribute determines how many copies of each shard are required
-  to be in sync on the different DBServers. If there are less then these
+  to be in sync on the different DB-Servers. If there are less then these
   many copies in the cluster a shard will refuse to write. The value of
   *writeConcern* can not be larger than *replicationFactor*.
   Please note: during server failures this might lead to writes

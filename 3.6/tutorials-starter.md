@@ -1,11 +1,11 @@
 ---
 layout: default
-description: Starting an ArangoDB cluster involves starting various servers with different roles (agents, dbservers & coordinators)
+description: Starting an ArangoDB cluster involves starting various servers with different roles (agents, DB-Servers & coordinators)
 ---
 # Starting an ArangoDB cluster or database the easy way
 
 Starting an ArangoDB cluster involves starting various servers with
-different roles (Agents, DBServers & Coordinators).
+different roles (Agents, DB-Servers & Coordinators).
 
 The ArangoDB Starter is designed to make it easy to start and
 maintain an ArangoDB cluster or single server database.
@@ -56,10 +56,10 @@ arangodb --starter.join A
 This will contact A on port 8528 and register.
 
 From the moment on when 3 have joined, each will fire up an agent, a
-coordinator and a dbserver and the cluster is up. Ports are shown on
+coordinator and a DB-Server and the cluster is up. Ports are shown on
 the console, the starter uses the next few ports above the starter
 port. That is, if one uses port 8528 for the starter, the coordinator
-will use 8529 (=8528+1), the dbserver 8530 (=8528+2), and the agent 8531
+will use 8529 (=8528+1), the DB-Server 8530 (=8528+2), and the agent 8531
 (=8528+3). You can change the default starter port with the `--starter.port`
 [option](programs-starter-options.html).
 

@@ -12,7 +12,7 @@ The cluster section displays statistics about the general cluster performance.
 Statistics:
 
  - Available and missing coordinators
- - Available and missing database servers
+ - Available and missing DB-Servers
  - Memory usage (percent)
  - Current connections
  - Data (bytes)
@@ -24,7 +24,7 @@ Nodes
  
 ### Overview
 
-The overview shows available and missing coordinators and database servers.
+The overview shows available and missing coordinators and DB-Servers.
 
 ![Nodes](images/nodesView.png)
 
@@ -32,7 +32,7 @@ Functions:
 
 - Coordinator Dashboard: Click on a Coordinator will open a statistics dashboard.
 
-Information (Coordinator / Database servers):
+Information (Coordinator / DB-Servers):
 
 - Name
 - Endpoint
@@ -49,14 +49,12 @@ The shard section displays all available sharded collections.
 Functions:
 
 - Move Shard Leader: Click on a leader database of a shard server will open a move shard dialog. Shards can be
-  transferred to all available databas servers, except the leading database
-  server or an available follower.
+  transferred to all available databas servers, except the leading DB-Server or an available follower.
 - Move Shard Follower: Click on a follower database of a shard will open a move shard dialog. Shards can be
-  transferred to all available databas servers, except the leading database
-  server or an available follower.
-- Rebalance Shards: A new database server will not have any shards. With the
+  transferred to all available databas servers, except the leading DB-Server or an available follower.
+- Rebalance Shards: A new DB-Server will not have any shards. With the
   rebalance functionality the cluster will start to rebalance shards including
-  empty database servers.
+  empty DB-Servers.
 
 Information (collection):
 

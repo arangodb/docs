@@ -165,7 +165,7 @@ Version 3.2
 
 - [**Satellite Collections**](satellites.html): Faster join operations when
   working with sharded datasets by synchronously replicating selected
-  collections to all database servers in a cluster, so that joins can be
+  collections to all DB-Servers in a cluster, so that joins can be
   executed locally.
 
 Also see [What's New in 3.2](release-notes-new-features32.html).

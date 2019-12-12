@@ -56,7 +56,7 @@ Several settings are for various groups of servers. These are indicated
 with `<group>` where `<group>` can be any of:
 
 - `agents` for all agents of a `Cluster` or `ActiveFailover` pair.
-- `dbservers` for all dbservers of a `Cluster`.
+- `dbservers` for all DB-Servers of a `Cluster`.
 - `coordinators` for all coordinators of a `Cluster`.
 - `single` for all single servers of a `Single` instance or `ActiveFailover` pair.
 - `syncmasters` for all syncmasters of a `Cluster`.
@@ -67,7 +67,7 @@ with `<group>` where `<group>` can be any of:
 This setting specifies the type of deployment you want to create.
 Possible values are:
 
-- `Cluster` (default) Full cluster. Defaults to 3 agents, 3 dbservers & 3 coordinators.
+- `Cluster` (default) Full cluster. Defaults to 3 agents, 3 DB-Servers & 3 coordinators.
 - `ActiveFailover` Active-failover single pair. Defaults to 3 agents and 2 single servers.
 - `Single` Single server only (note this does not provide high availability or reliability).
 
@@ -81,7 +81,7 @@ Possible values are:
 - `Development` (default) This value optimizes the deployment for development
   use. It is possible to run a deployment on a small number of nodes (e.g. minikube).
 - `Production` This value optimizes the deployment for production use.
-  It puts required affinity constraints on all pods to avoid agents & dbservers
+  It puts required affinity constraints on all pods to avoid agents & DB-Servers
   from running on the same machine.
 
 ### `spec.image: string`
@@ -152,7 +152,7 @@ an encryption key that is exactly 32 bytes long.
 The default of this option is `false`. If set to `true`, and the
 deployed ArangoDB version is new enough (>= 3.4.8 for 3.4 and >= 3.5.1
 for 3.5), a `ResignLeaderShip` operation
-will be triggered when a dbserver pod is evicted (rather than a
+will be triggered when a DB-Server pod is evicted (rather than a
 `CleanOutServer` operation). Furthermore, the pod will simply be
 redeployed on a different node, rather than cleaned and retired and
 replaced by a new member. You must only set this option to `true` if
@@ -412,7 +412,7 @@ There are two magic values for the secret name:
 ### `spec.metrics.enabled: bool`
 
 If this is set to `true`, the operator runs a sidecar container for
-every DBserver pod and every coordinator pod. The sidecar container runs
+every DB-Server pod and every coordinator pod. The sidecar container runs
 the ArangoDB-exporter and exposes metrics of the corresponding `arangod`
 instance in Prometheus format on port 9101 under path `/metrics`. You
 also have to specify a string for `spec.metrics.image`, which is the

@@ -98,7 +98,7 @@ It contains the following files & sub-directories.
 For the `activefailover` & `cluster` mode, it is required to run multiple
 Starters, as every Starter will only launch a subset of all servers needed
 to form the entire deployment.
-For example in `cluster` mode, a Starter will launch a single agent, a single dbserver
+For example in `cluster` mode, a Starter will launch a single agent, a single DB-Server
 and a single coordinator.
 
 It is the responsibility of the user to run the Starter on multiple machines such

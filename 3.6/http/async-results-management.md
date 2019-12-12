@@ -114,7 +114,7 @@ discarded.
 If you cancel a job running on a coordinator of a cluster (Sharding),
 then only the code running on the coordinator is stopped, there may
 remain tasks within the cluster which have already been distributed to
-the DBservers and it is currently not possible to cancel them as well.
+the DB-Servers and it is currently not possible to cancel them as well.
 
 ### Async Execution and Authentication
 

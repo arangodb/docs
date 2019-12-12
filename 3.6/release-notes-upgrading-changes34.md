@@ -119,8 +119,8 @@ unsupported.
 
 To validate that the different nodes in a cluster deployment use the same storage
 engine throughout the entire cluster, there is now a startup check performed by
-each coordinator. Each coordinator will contact all DB servers and check if the
-same engine on the DB server is the same as its local storage engine. In case 
+each coordinator. Each coordinator will contact all DB-Servers and check if the
+same engine on the DB-Server is the same as its local storage engine. In case 
 there is any discrepancy, the coordinator will abort its startup.
 
 
@@ -466,8 +466,8 @@ AQL
   particular warning will not be raised.
 
   Additionally, using collections in arbitrary AQL expressions as above is unsupported
-  in a mixed cluster that is running a 3.3 coordinator and 3.4 DB server(s). The
-  DB server(s) running 3.4 will in this case not be able to use a collection in an
+  in a mixed cluster that is running a 3.3 coordinator and 3.4 DB-Server(s). The
+  DB-Server(s) running 3.4 will in this case not be able to use a collection in an
   arbitrary expression, and instead throw an error.
 
 - the undocumented built-in visitor functions for AQL traversals have been removed,
@@ -564,8 +564,8 @@ Compared to ArangoDB 3.3, the following parts of ArangoDB can now be used
 without the V8 engine:
 
 - agency nodes in a cluster
-- database server nodes in a cluster 
-- cluster plan application on database server nodes
+- DB-Server nodes in a cluster 
+- cluster plan application on DB-Server nodes
 - all of AQL (with the exception of user-defined functions)
 - the graph modification APIs at endpoint `/_api/gharial`
 - background statistics gathering
@@ -583,7 +583,7 @@ The default values for these startup options have not been changed in ArangoDB
 3.4, but depending on the actual workload, 3.4 ArangoDB instances may need
 less V8 contexts than 3.3.
 
-As mentioned above, agency and database server nodes in a cluster does not
+As mentioned above, agency and DB-Server nodes in a cluster does not
 require V8 for any operation in 3.4, so the V8 engine is turned off entirely on
 such nodes, regardless of the number of configured V8 contexts there.
 
@@ -708,7 +708,7 @@ option to `true`.
 Mixed-engine clusters
 ---------------------
 
-Starting a cluster with coordinators and DB servers using different storage 
+Starting a cluster with coordinators and DB-Servers using different storage 
 engines is not supported. Doing it anyway will now log an error and abort a 
 coordinator's startup.
 

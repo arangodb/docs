@@ -266,9 +266,9 @@ in [execution plans](aql/execution-and-performance-optimizer.html#list-of-execut
 ### Parallelization of cluster AQL queries
 
 ArangoDB 3.6 can parallelize work in many cluster AQL queries when there are
-multiple database servers involved. The parallelization is done in the
+multiple DB-Servers involved. The parallelization is done in the
 *GatherNode*, which then can send parallel cluster-internal requests to the
-database servers attached. The database servers can then work fully parallel
+DB-Servers attached. The DB-Servers can then work fully parallel
 for the different shards involved.
 
 When parallelization is used, one or multiple *GatherNode*s in a query's
@@ -288,16 +288,16 @@ Execution plan:
 ```
 
 Parallelization is currently restricted to certain types and parts of queries.
-*GatherNode*s will go into parallel mode only if the database server query part
+*GatherNode*s will go into parallel mode only if the DB-Server query part
 above it (in terms of query execution plan layout) is a terminal part of the
-query, i.e. when the database server part above does not itself contain any
+query, i.e. when the DB-Server part above does not itself contain any
 *RemoteNode*, *ScatterNode*, *GatherNode* or *DistributeNode*.
 
 Please note that the parallelization of AQL execution may lead to a different
 resource usage pattern for eligible AQL queries in the cluster. In isolation,
 queries are expected to complete faster with parallelization than when executing
-their work serially on all involved database servers. However, working on
-multiple database server in parallel may also mean that more work than before
+their work serially on all involved DB-Servers. However, working on
+multiple DB-Servers in parallel may also mean that more work than before
 is happening at the very same time. If this is not desired because of resource
 scarcity, there are options to control the parallelization:
 
@@ -609,7 +609,7 @@ also available as [**managed service**](https://www.arangodb.com/managed-service
 The option `--cluster.force-one-shard` enables the new OneShard Cluster feature.
 
 When set to `true`, forces the cluster into creating all future collections
-with only a single shard and using the same database server as these collections'
+with only a single shard and using the same DB-Server as these collections'
 shards leader. All collections created this way will be eligible for specific
 AQL query optimizations that can improve query performance and provide advanced
 transactional guarantees.
@@ -635,7 +635,7 @@ coordinators. It supports the following values:
   always perform a cluster upgrade but don't shut down afterwards
 
 The default value is `auto`. The option only affects coordinators. It does not
-have any affect on single servers, agents or database servers.
+have any affect on single servers, agents or DB-Servers.
 
 ### Other cluster options
 

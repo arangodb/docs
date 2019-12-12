@@ -458,7 +458,7 @@ transactions is enforced on the coordinator to ensure that transactions cannot b
 cluster from operating properly:
 
 - Maximum idle timeout of **10 seconds** between operations
-- Maximum transaction size of **128 MB** per DBServer
+- Maximum transaction size of **128 MB** per DB-Server
 
 These limits are also enforced for stream transactions on single servers.
 
@@ -644,15 +644,15 @@ Also see:
 - [Arangodump](programs-arangodump.html)
 - [Arangorestore](programs-arangorestore.html)
 
-### Warning if connected to DBServer
+### Warning if connected to DB-Server
 
 Under normal circumstances there should be no need to connect to a 
-database server in a cluster with one of the client tools, and it is 
+DB-Server in a cluster with one of the client tools, and it is 
 likely that any user operations carried out there with one of the client
 tools may cause trouble. 
 
 The client tools arangosh, arangodump and arangorestore will now emit 
-a warning when connecting with them to a database server node in a cluster.
+a warning when connecting with them to a DB-Server node in a cluster.
 
 Startup option changes
 ----------------------

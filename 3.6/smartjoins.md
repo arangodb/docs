@@ -29,7 +29,7 @@ shards of these collections for fetching the data. Requests are routed through a
 coordinator hop.
 
 For example, with two collections *c1* and *c2* with 4 shards each, the coordinator will 
-initially contact the 4 shards of *c1*. In order to perform the join, the DBServer nodes 
+initially contact the 4 shards of *c1*. In order to perform the join, the DB-Server nodes 
 which manage the actual data of *c1* need to pull the data from the other collection, *c2*. 
 This causes extra roundtrips via the coordinator, which will then pull the data for *c2* 
 from the responsible shards:

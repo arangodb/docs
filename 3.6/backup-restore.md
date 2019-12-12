@@ -112,24 +112,24 @@ hot backup the following is done:
 - Obtain a dump of the Agency's `Plan` key.
 - Stop all write access to the **entire cluster** installation using a
   global write transaction lock, this amounts to get each local write
-  transaction lock on each DBserver, all at the same time.
-- Getting all the locks on the DBservers is tried using subsequently growing
+  transaction lock on each DB-Server, all at the same time.
+- Getting all the locks on the DB-Servers is tried using subsequently growing
   time periods, and if not all local locks can be acquired during a period,
   all locks are released again to allow writes to continue. If it is not
   possible to acquire all local locks in the same period, and this continues
   for an extended, configurable amount of time, the coordinator gives
   up. With the `allowInconsistent` option set to `true`, it proceeds instead
   to create a potentially non-consistent hot backup.
-- **On each database server** create a new local directory under
+- **On each DB-Server** create a new local directory under
   `<data-dir>/backups/<timestamp>_<backup-label>`.
-- **On each database server** create hard links to the active database files
+- **On each DB-Server** create hard links to the active database files
   in `<data-dir>` in the newly created backup directory.
-- **On each database server** store a redundant copy of the above agency dump.
+- **On each DB-Server** store a redundant copy of the above agency dump.
 - Release the global write transaction lock to resume normal operation.
 - Report success of the operation.
 
 Again under good conditions, a complete hot backup could be obtained from a
-cluster with many database servers within a very short time in the range
+cluster with many DB-Servers within a very short time in the range
 of that of the single server installation.
 
 ### Technical Details
@@ -299,7 +299,7 @@ not be suited for.
   In single server deployments constant invocation of very long running
   transactions could prevent that from ever happening during a timeout period.
   The same holds true for clusters, where this lock must now be obtained on all
-  database servers at the same time.
+  DB-Servers at the same time.
 
   Especially in the cluster the result of these successively longer tries to
   obtain the global transaction lock might become visible in periods of apparent
