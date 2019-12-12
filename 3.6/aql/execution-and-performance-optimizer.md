@@ -215,7 +215,7 @@ This will return a list of all plans in the `plans` attribute instead of in the
 
 To retrieve the plan which closely matches your query, you may turn off most
 optimization rules (i.e. cluster rules cannot be disabled if you're running
-the explain on a cluster coordinator) set the option `rules` to `-all`:
+the explain on a cluster Coordinator) set the option `rules` to `-all`:
 
 This will return an unoptimized plan in the `plan`:
 
@@ -445,28 +445,28 @@ The following execution node types will appear in the output of `explain`:
 For queries in the cluster, the following nodes may appear in execution plans:
 
 - **DistributeNode**:
-  used on a coordinator to fan-out data to one or multiple shards,
+  used on a Coordinator to fan-out data to one or multiple shards,
   taking into account a collection's shard key.
 
 - **GatherNode**:
-  used on a coordinator to aggregate results from one or many shards
+  used on a Coordinator to aggregate results from one or many shards
   into a combined stream of results. Parallelizes work for certain types
   of queries when there are multiple DB-Servers involved
   (shown as `GATHER   /* parallel */` in query explain).
 
 - **RemoteNode**:
   a *RemoteNode* will perform communication with another ArangoDB instances
-  in the cluster. For example, the cluster coordinator will need to communicate
+  in the cluster. For example, the cluster Coordinator will need to communicate
   with other servers to fetch the actual data from the shards. It will do so
   via *RemoteNode*s. The data servers themselves might again pull further data
-  from the coordinator, and thus might also employ *RemoteNode*s. So, all of
+  from the Coordinator, and thus might also employ *RemoteNode*s. So, all of
   the above cluster relevant nodes will be accompanied by a *RemoteNode*.
 
 - **ScatterNode**:
-  used on a coordinator to fan-out data to one or multiple shards.
+  used on a Coordinator to fan-out data to one or multiple shards.
 
 - **SingleRemoteOperationNode**:
-  used on a coordinator to directly work with a single
+  used on a Coordinator to directly work with a single
   document on a DB-Server that was referenced by its `_key`.
 
 List of optimizer rules
@@ -678,9 +678,9 @@ The following optimizer rules may appear in the `rules` attribute of
   in regular cluster queries, benefitting traversals and joins in particular.
 
 - `collect-in-cluster`:
-  will appear when a *CollectNode* on a coordinator is accompanied by extra
+  will appear when a *CollectNode* on a Coordinator is accompanied by extra
   *CollectNode*s on the DB-Servers, which will do the heavy processing and
-  allow the *CollectNode* on the coordinator to a light-weight aggregation only.
+  allow the *CollectNode* on the Coordinator to a light-weight aggregation only.
 
 - `distribute-filtercalc-to-cluster`:
   will appear when filters are moved up in a
@@ -698,7 +698,7 @@ The following optimizer rules may appear in the `rules` attribute of
 
 - `optimize-cluster-single-document-operations`:
   it may appear if you directly reference a document by its `_key`; in this
-  case no AQL will be executed on the DB-Servers, instead the coordinator will
+  case no AQL will be executed on the DB-Servers, instead the Coordinator will
   directly work with the documents on the DB-Servers.
 
 - `parallelize-gather`:

@@ -51,7 +51,7 @@ We can now check which ports they occupied:
     tcp        0      0 127.0.0.1:8630          0.0.0.0:*               LISTEN      21410/arangod
 
 - The agent has 7001 and 4001. Since it's running in single server mode its cluster port (7001) should not show any traffic, port 4001 is the interesting one.
-- Claus - This is the coordinator. Your Application will talk to it on port 8530
+- Claus - This is the Coordinator. Your Application will talk to it on port 8530
 - Pavel - This is the first DB-Server; Claus will talk to it on port 8629
 - Perry - This is the second DB-Server; Claus will talk to it on port 8630
 
@@ -73,7 +73,7 @@ According to the ports we found in the last section, we will configure our firew
     }
 
     @def &ARANGO_ACCOUNTING($CHAINNAME) = {
-    # The coordinators:
+    # The Coordinators:
         &TCP_ACCOUNTING(8530, "Claus", $CHAINNAME);
     # The DB-Servers:
         &TCP_ACCOUNTING(8629, "Pavel", $CHAINNAME);

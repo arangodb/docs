@@ -195,7 +195,7 @@ _Coordinator_'s instance by issuing `kill -SIGTERM <pid>`.
 Ca. 15 seconds later the cluster UI on any other _Coordinator_ will mark
 the _Coordinator_ in question as failed. Almost simultaneously, a trash bin
 icon will appear to the right of the name of the _Coordinator_. Clicking
-that icon will remove the _Coordinator_ from the coordinator registry.
+that icon will remove the _Coordinator_ from the Coordinator registry.
 
 Any new _Coordinator_ instance that is informed of where to find any/all
 agent/s, `--cluster.agency-endpoint` `<some agent endpoint>` will be

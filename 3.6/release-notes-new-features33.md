@@ -195,7 +195,7 @@ When using a cluster, one normally wants resilience, so `replicationFactor`
 is set to at least `2`. The number of shards is often set to rather high values
 when creating collections. 
 
-Creating a collection in the cluster will make the coordinator store the setup
+Creating a collection in the cluster will make the Coordinator store the setup
 metadata of the new collection in the agency first. Subsequentially all DB-Servers of the cluster will detect that there is work to do and will begin creating
 the shards. This will first happen for the shard leaders. For each shard leader
 that finishes with the setup, the synchronous replication with its followers is
@@ -277,14 +277,14 @@ Miscellaneous features
 
 - There are new startup options for the logging to aid debugging and error reporting:
 
-  - `--log.role`: will show one-letter code of server role (A = agent, C = coordinator, ...)
+  - `--log.role`: will show one-letter code of server role (A = agent, C = Coordinator, ...)
     This is especially useful when aggregating logs.
 
     The existing roles used in logs are:
 
     - U: undefined/unclear (used at startup)
     - S: single server
-    - C: coordinator
+    - C: Coordinator
     - P: primary
     - A: agent
 

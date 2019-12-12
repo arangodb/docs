@@ -123,7 +123,7 @@ false for the initial startup and only turned on for restarts.
 
 <small>Introduced in: v3.6.0</small>
 
-Toggle cluster upgrade mode on a coordinator:
+Toggle cluster upgrade mode on a Coordinator:
 
 `--cluster.upgrade <string>`
                      
@@ -136,7 +136,7 @@ The following values can be used for the options:
   `--database.auto-upgrade`.
 * `online`: always perform a cluster upgrade but don't shut down afterwards
 
-The default value is `auto`. The option only affects coordinators. It does not have
+The default value is `auto`. The option only affects Coordinators. It does not have
 any affect on single servers, agents or DB-Servers.
 
 ## More advanced options

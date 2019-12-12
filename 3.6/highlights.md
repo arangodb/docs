@@ -150,7 +150,7 @@ Version 3.2
 - [**Fault-Tolerant Foxx**](http/foxx.html): The Foxx management
   internals have been rewritten from the ground up to make sure
   multi-coordinator cluster setups always keep their services in sync and
-  new coordinators are fully initialized even when all existing coordinators
+  new Coordinators are fully initialized even when all existing Coordinators
   are unavailable.
 
 **Enterprise Edition**

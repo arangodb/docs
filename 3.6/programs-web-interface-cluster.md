@@ -11,7 +11,7 @@ The cluster section displays statistics about the general cluster performance.
 
 Statistics:
 
- - Available and missing coordinators
+ - Available and missing Coordinators
  - Available and missing DB-Servers
  - Memory usage (percent)
  - Current connections
@@ -24,7 +24,7 @@ Nodes
  
 ### Overview
 
-The overview shows available and missing coordinators and DB-Servers.
+The overview shows available and missing Coordinators and DB-Servers.
 
 ![Nodes](images/nodesView.png)
 

@@ -208,7 +208,7 @@ character with the server's role into each logged message. The roles are:
   
 - U: undefined/unclear (used at startup)
 - S: single server
-- C: coordinator
+- C: Coordinator
 - P: primary
 - A: agent
 

@@ -94,7 +94,7 @@ traversals.
 
 Single document operations can have a higher throughput in cluster but
 will also have a higher latency, due to an additional network hop from
-coordinator to DB-Server.
+Coordinator to DB-Server.
 
 Any operation that needs to find documents by anything else but the
 shard key will have to fan out to all shards, so it will be a lot
@@ -104,9 +104,9 @@ lookups, e.g. not for range lookups.
 
 ### Memory usage
 
-Some query results must be built up in memory on a coordinator, for
+Some query results must be built up in memory on a Coordinator, for
 example if a dataset needs to be sorted on the fly. This can relatively
-easily overwhelm a coordinator if the dataset is sharded across multiple
+easily overwhelm a Coordinator if the dataset is sharded across multiple
 DB-Servers. Use indexes and streaming cursors (>= 3.4) to circumvent this
 problem.
 
@@ -135,7 +135,7 @@ colon. A similar restriction applies for the edges.
 Foxx
 ----
 
-Foxx apps run on the coordinators of a cluster. Since coordinators are
+Foxx apps run on the Coordinators of a cluster. Since Coordinators are
 stateless, one must not use regular file accesses in Foxx apps in a
 cluster.
 

@@ -28,8 +28,8 @@ allow to restart it safely. However, changing the `replicationFactor` during
 repairs may leave it in a state that is not repairable without manual
 intervention!
 
-Shutting down the coordinator which executes the job will abort it, but it can
-safely be restarted on another coordinator. However, there may still be a shard
+Shutting down the Coordinator which executes the job will abort it, but it can
+safely be restarted on another Coordinator. However, there may still be a shard
 move ongoing even after the job stopped. If the job is started again before the
 move is finished, repairing the affected collection will fail, but the repair
 can be restarted safely.
@@ -178,7 +178,7 @@ be called synchronously*, but only via
 header `x-arango-async: store` to put the job into background and get
 its results later. Otherwise the request will most probably result in a
 timeout and the response will be lost! The job will still continue unless
-the coordinator is stopped, but there is no way to find out if it is
+the Coordinator is stopped, but there is no way to find out if it is
 still running, or get success or error information afterwards.
 
 Starting the job in background can be done like so:

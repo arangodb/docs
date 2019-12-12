@@ -26,12 +26,12 @@ Cluster joins without being smart
 When doing joins in an ArangoDB cluster, data has to be exchanged between different servers.
 Joins between different collections in a cluster normally require roundtrips between the 
 shards of these collections for fetching the data. Requests are routed through an extra
-coordinator hop.
+Coordinator hop.
 
-For example, with two collections *c1* and *c2* with 4 shards each, the coordinator will 
+For example, with two collections *c1* and *c2* with 4 shards each, the Coordinator will 
 initially contact the 4 shards of *c1*. In order to perform the join, the DB-Server nodes 
 which manage the actual data of *c1* need to pull the data from the other collection, *c2*. 
-This causes extra roundtrips via the coordinator, which will then pull the data for *c2* 
+This causes extra roundtrips via the Coordinator, which will then pull the data for *c2* 
 from the responsible shards:
 
     arangosh> db._explain("FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == doc2._key RETURN doc1");
@@ -64,7 +64,7 @@ Sharding two collections identically using distributeShardsLike
 
 In the specific case that the two collections have the same number of shards, the 
 data of the two collections can be co-located on the same server for the same shard 
-key values. In this case the extra hop via the coordinator will not be necessary.
+key values. In this case the extra hop via the Coordinator will not be necessary.
 
 The query optimizer will remove the extra hop for the join in case it can prove
 that data for the two collections is co-located.
@@ -172,7 +172,7 @@ optimizer's "smart-joins" optimization:
        11   GatherNode                COOR     0         - GATHER 
         6   ReturnNode                COOR     0         - RETURN doc1
 
-As can be seen above, the extra hop via the coordinator is gone here, which will mean
+As can be seen above, the extra hop via the Coordinator is gone here, which will mean
 less cluster-internal traffic and a faster response time.
 
 

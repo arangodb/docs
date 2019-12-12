@@ -617,7 +617,7 @@ transactional guarantees.
 ### Cluster upgrade
 
 The new options `--cluster.upgrade` toggles the cluster upgrade mode for
-coordinators. It supports the following values:
+Coordinators. It supports the following values:
 
 - `auto`:
   perform a cluster upgrade and shut down afterwards if the startup option
@@ -634,7 +634,7 @@ coordinators. It supports the following values:
 - `online`:
   always perform a cluster upgrade but don't shut down afterwards
 
-The default value is `auto`. The option only affects coordinators. It does not
+The default value is `auto`. The option only affects Coordinators. It does not
 have any affect on single servers, agents or DB-Servers.
 
 ### Other cluster options
@@ -665,7 +665,7 @@ The following options have been added:
   collections. A value of `0` means that there is no restriction.
   The default value is `1000`.
 
-Note that the above options only have an effect when set for coordinators, and
+Note that the above options only have an effect when set for Coordinators, and
 only for collections that are created after the options have been set. They do
 not affect already existing collections.
 

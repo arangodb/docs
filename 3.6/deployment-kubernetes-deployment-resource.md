@@ -57,7 +57,7 @@ with `<group>` where `<group>` can be any of:
 
 - `agents` for all agents of a `Cluster` or `ActiveFailover` pair.
 - `dbservers` for all DB-Servers of a `Cluster`.
-- `coordinators` for all coordinators of a `Cluster`.
+- `coordinators` for all Coordinators of a `Cluster`.
 - `single` for all single servers of a `Single` instance or `ActiveFailover` pair.
 - `syncmasters` for all syncmasters of a `Cluster`.
 - `syncworkers` for all syncworkers of a `Cluster`.
@@ -67,7 +67,7 @@ with `<group>` where `<group>` can be any of:
 This setting specifies the type of deployment you want to create.
 Possible values are:
 
-- `Cluster` (default) Full cluster. Defaults to 3 agents, 3 DB-Servers & 3 coordinators.
+- `Cluster` (default) Full cluster. Defaults to 3 agents, 3 DB-Servers & 3 Coordinators.
 - `ActiveFailover` Active-failover single pair. Defaults to 3 agents and 2 single servers.
 - `Single` Single server only (note this does not provide high availability or reliability).
 
@@ -197,7 +197,7 @@ If you do not specify this setting, a random port will be chosen automatically.
 
 ### `spec.externalAccess.advertisedEndpoint: string`
 
-This setting specifies the advertised endpoint for all coordinators.
+This setting specifies the advertised endpoint for all Coordinators.
 
 ### `spec.auth.jwtSecretName: string`
 
@@ -412,7 +412,7 @@ There are two magic values for the secret name:
 ### `spec.metrics.enabled: bool`
 
 If this is set to `true`, the operator runs a sidecar container for
-every DB-Server pod and every coordinator pod. The sidecar container runs
+every DB-Server pod and every Coordinator pod. The sidecar container runs
 the ArangoDB-exporter and exposes metrics of the corresponding `arangod`
 instance in Prometheus format on port 9101 under path `/metrics`. You
 also have to specify a string for `spec.metrics.image`, which is the

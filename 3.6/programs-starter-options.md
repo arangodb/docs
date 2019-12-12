@@ -159,7 +159,7 @@ Every option that start with a pass through prefix is passed through to the comm
 of one or more server instances.
 
 - `--all.<section>.<key>=<value>` is pass as `--<section>.<key>=<value>` to all servers started by this starter.
-- `--coordinators.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all coordinators started by this starter.
+- `--coordinators.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all Coordinators started by this starter.
 - `--dbservers.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all DB-Servers started by this starter.
 - `--agents.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all agents started by this starter.
 
@@ -167,7 +167,7 @@ Some options are essential to the function of the starter. Therefore these optio
 
 Example:
 
-To activate HTTP request logging at debug level for all coordinators, use a command like this.
+To activate HTTP request logging at debug level for all Coordinators, use a command like this.
 
 ```bash
 arangodb --coordinators.log.level=requests=debug
@@ -271,7 +271,7 @@ On `arangod` version 3.4 and later, the default value is `rocksdb`.
 
 - `--cluster.start-coordinator=bool`
 
-This indicates whether or not a coordinator instance should be started
+This indicates whether or not a Coordinator instance should be started
 (default true).
 
 - `--cluster.start-dbserver=bool`

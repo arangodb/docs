@@ -105,7 +105,7 @@ and could technically finish in under a millisecond. The unknown factor above is
 of course, when the hot backup process is able to obtain the write transaction lock.
 
 When considering the ArangoDB cluster two more steps need to integrate while
-others just become slightly more exciting. On the coordinator tasked with the
+others just become slightly more exciting. On the Coordinator tasked with the
 hot backup the following is done:
 
 - Using the agency, make sure that no two hot backups collide.
@@ -117,7 +117,7 @@ hot backup the following is done:
   time periods, and if not all local locks can be acquired during a period,
   all locks are released again to allow writes to continue. If it is not
   possible to acquire all local locks in the same period, and this continues
-  for an extended, configurable amount of time, the coordinator gives
+  for an extended, configurable amount of time, the Coordinator gives
   up. With the `allowInconsistent` option set to `true`, it proceeds instead
   to create a potentially non-consistent hot backup.
 - **On each DB-Server** create a new local directory under
@@ -154,7 +154,7 @@ of that of the single server installation.
   amount of time.
 
   In clusters things are a little more complicated and noticeable.
-  A coordinator, which is trying to obtain the global write transaction
+  A Coordinator, which is trying to obtain the global write transaction
   lock must try to get local locks
   on all _DBServers_ simultaneously; potentially succeeding on some and not
   succeeding on others, leading to apparent dead times in the cluster's write

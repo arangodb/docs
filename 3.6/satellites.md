@@ -14,8 +14,8 @@ also available as [**managed service**](https://www.arangodb.com/managed-service
 
 When doing joins in an ArangoDB cluster data has to be exchanged between different servers.
 
-Joins will be executed on a coordinator. It will prepare an execution plan
-and execute it. When executing, the coordinator will contact all shards of the
+Joins will be executed on a Coordinator. It will prepare an execution plan
+and execute it. When executing, the Coordinator will contact all shards of the
 starting point of the join and ask for their data. The DB-Servers carrying
 out this operation will load all their local data and then ask the cluster for
 the other part of the join. This again will be distributed to all involved shards
@@ -82,8 +82,8 @@ Optimization rules applied:
 ```
 
 All shards involved querying the `nonsatellite` collection will fan out via the
-coordinator to the shards of `nonsatellite`. In sum 8 shards will open 8 connections
-to the coordinator asking for the results of the `nonsatellite2` join. The coordinator
+Coordinator to the shards of `nonsatellite`. In sum 8 shards will open 8 connections
+to the Coordinator asking for the results of the `nonsatellite2` join. The Coordinator
 will fan out to the 8 shards of `nonsatellite2`. So there will be quite some
 network traffic.
 

@@ -99,7 +99,7 @@ For the `activefailover` & `cluster` mode, it is required to run multiple
 Starters, as every Starter will only launch a subset of all servers needed
 to form the entire deployment.
 For example in `cluster` mode, a Starter will launch a single agent, a single DB-Server
-and a single coordinator.
+and a single Coordinator.
 
 It is the responsibility of the user to run the Starter on multiple machines such
 that enough servers are started to form the entire deployment.
