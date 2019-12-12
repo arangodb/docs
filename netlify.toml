@@ -1,5 +1,4 @@
 # global context
 [build]
   publish = "_site/"
-  command = "jekyll build"
-  environment = { JEKYLL_ENV = "netlify2" }
+  command = "sh netlify.sh"

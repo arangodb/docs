@@ -1,0 +1,1 @@
+JEKYLL_ENV="netlify3" jekyll build
