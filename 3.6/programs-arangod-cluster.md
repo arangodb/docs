@@ -160,7 +160,7 @@ applied to existing collections that would violate the new setting.
 The option only affects coordinators. It does not have any affect on single servers, 
 agents or database servers. 
 
-<small>Introduced in: v3.5.1</small>
+**Force OneShard**
 
 **Force one shard**
 

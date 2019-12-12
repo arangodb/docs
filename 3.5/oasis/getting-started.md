@@ -118,25 +118,25 @@ Also see the video
 
 ### In the _Configuration_ section
 
-Choose between a **One shard** and **Sharded** deployment.
+Choose between a **OneShard** and **Sharded** deployment.
 
-One shard deployments are suitable when your data set fits in a single node.
+OneShard deployments are suitable when your data set fits in a single node.
 They are ideal for graph use cases.
 
 Sharded deployments are suitable when your data set is larger than a single node.
 The data will be sharded across multiple nodes.
 
-#### One shard
+#### OneShard
 
 1. Select the memory size of your node.
 2. Select the disk size of your node. The available ranges for the disk size
    depend on the selected memory size.
 
-![Oasis Deployment One Shard](../images/oasis-new-deployment2.png)
+![Oasis Deployment OneShard](../images/oasis-new-deployment2.png)
 
 #### Sharded
 
-- In addition to memory and disk size as in the one shard configuration, select
+- In addition to memory and disk size as in the OneShard configuration, select
   the number of nodes for your deployment. The more nodes you have, the higher
   the replication factor.
 
