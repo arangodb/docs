@@ -565,9 +565,11 @@ The following APIs have been expanded:
 
   In an Enterprise Edition cluster, the `sharding` attribute can be given a
   value of `"single"`, which will make all new collections in that database use
-  the same shard distribution and use one shard by default. This can still be
-  overridden by setting the values of `distributeShardsLike` when creating new
-  collections in that database via the web UI, arangosh or drivers.
+  the same shard distribution and use one shard by default (OneShard
+  configuration). This can still be overridden by setting the values of
+  `numberOfShards` and `distributeShardsLike` when creating new collections in
+  that database via the web UI, arangosh or drivers (unless the startup option
+  `--cluster.force-one-shard` is enabled).
 
 - Database properties API, HTTP route `GET /_api/database/current`
 

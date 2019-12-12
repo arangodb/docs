@@ -47,8 +47,8 @@ kept, that is, it is one plus the number of _followers_.
 
 In addition to the `replicationFactor` there is a `writeConcern` that
 specifies the lowest number of in-sync followers. Specifying the write concern
-with a value greater than _1_  locks down a collection for writing as soon as
-we have lost too many followers.
+with a value greater than _1_ locks down a collection's leader shards for
+writing as soon as too many followers were lost.
 
 Asynchronous replication
 ------------------------
