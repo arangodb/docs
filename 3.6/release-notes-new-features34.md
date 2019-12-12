@@ -988,7 +988,7 @@ server, without requiring the conversion of data between ArangoDB's native forma
 and V8's internal formats. For the maintenance operations this will lead to
 improved stability in the cluster.
 
-As a consequence, ArangoDB agency and DB-Server nodes in an ArangoDB 3.4 
+As a consequence, ArangoDB Agency and DB-Server nodes in an ArangoDB 3.4 
 cluster will now turn off the V8 JavaScript engine at startup entirely and automatically.
 The V8 engine will still be enabled on cluster Coordinators, single servers and
 active failover instances. But even the latter instance types will not require as 

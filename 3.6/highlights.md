@@ -203,7 +203,7 @@ Version 3.0
 
 - [**self-organizing cluster**](architecture-deployment-modes-cluster-architecture.html) with
   synchronous replication, master/master setup, shared nothing
-  architecture, cluster management agency.
+  architecture, cluster management Agency.
 
 - Deeply integrated, native [**AQL graph traversal**](aql/graphs.html)
 

@@ -6,7 +6,7 @@ title: Removing Machines from Cluster with ArangoDB Starter
 # ArangoDB Starter Removal Procedure
 
 {% hint 'danger' %}
-**Do not** apply this procedure to machines that have an **agent** on it.
+**Do not** apply this procedure to machines that have an **Agent** on it.
 {% endhint %}
 
 This procedure is intended to remove a machine from a cluster
@@ -15,10 +15,10 @@ that was started with the ArangoDB _Starter_.
 It is possible to run this procedure while the machine is still running
 or when it has already been removed.
 
-It is not possible to remove machines that have an agent on it!
+It is not possible to remove machines that have an Agent on it!
 The _Agency_ needs to remain functional for the cluster to operate.
 Use the [recovery procedure](administration-starter-recovery.html) if you have
-a failed machine with an agent on it.
+a failed machine with an Agent on it.
 
 Note that it is highly recommended to remove a machine while it is still running.
 

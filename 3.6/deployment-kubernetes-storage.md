@@ -14,7 +14,7 @@ In the `ArangoDeployment` resource, one can specify the type of storage
 used by groups of servers using the `spec.<group>.storageClassName`
 setting.
 
-This is an example of a `Cluster` deployment that stores its agent & DB-Server
+This is an example of a `Cluster` deployment that stores its Agent & DB-Server
 data on `PersistentVolumes` that use the `my-local-ssd` `StorageClass`
 
 ```yaml
@@ -85,8 +85,8 @@ Kubernetes cluster. ON Kubernetes 1.10 this is enabled by default, on version
 ### Manually creating `PersistentVolumes`
 
 The alternative is to create `PersistentVolumes` manually, for all servers that
-need persistent storage (single, agents & DB-Servers).
-E.g. for a `Cluster` with 3 agents and 5 DB-Servers, you must create 8 volumes.
+need persistent storage (single, Agents & DB-Servers).
+E.g. for a `Cluster` with 3 Agents and 5 DB-Servers, you must create 8 volumes.
 
 Note that each volume must have a capacity that is equal to or higher than the
 capacity needed for each server.

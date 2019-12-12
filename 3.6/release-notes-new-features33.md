@@ -142,7 +142,7 @@ the two servers fight for leadership. The follower will automatically start
 replication from the master for all available databases, using the server-level
 replication introduced in 3.3.
 
-When the master goes down, this is automatically detected by an agency
+When the master goes down, this is automatically detected by an Agency
 instance, which is also started in this mode. This instance will make the
 previous follower stop its replication and make it the new leader.
 
@@ -196,7 +196,7 @@ is set to at least `2`. The number of shards is often set to rather high values
 when creating collections. 
 
 Creating a collection in the cluster will make the Coordinator store the setup
-metadata of the new collection in the agency first. Subsequentially all DB-Servers of the cluster will detect that there is work to do and will begin creating
+metadata of the new collection in the Agency first. Subsequently all DB-Servers of the cluster will detect that there is work to do and will begin creating
 the shards. This will first happen for the shard leaders. For each shard leader
 that finishes with the setup, the synchronous replication with its followers is
 then established. That will make sure that every future data modification will not 
@@ -277,7 +277,7 @@ Miscellaneous features
 
 - There are new startup options for the logging to aid debugging and error reporting:
 
-  - `--log.role`: will show one-letter code of server role (A = agent, C = Coordinator, ...)
+  - `--log.role`: will show one-letter code of server role (A = Agent, C = Coordinator, ...)
     This is especially useful when aggregating logs.
 
     The existing roles used in logs are:
@@ -286,7 +286,7 @@ Miscellaneous features
     - S: single server
     - C: Coordinator
     - P: primary
-    - A: agent
+    - A: Agent
 
   - `--log.line-number true`: this option will now additionally show the name of the C++ 
     function that triggered the log message (file name and line number were already logged 

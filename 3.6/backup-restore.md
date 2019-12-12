@@ -108,7 +108,7 @@ When considering the ArangoDB cluster two more steps need to integrate while
 others just become slightly more exciting. On the Coordinator tasked with the
 hot backup the following is done:
 
-- Using the agency, make sure that no two hot backups collide.
+- Using the Agency, make sure that no two hot backups collide.
 - Obtain a dump of the Agency's `Plan` key.
 - Stop all write access to the **entire cluster** installation using a
   global write transaction lock, this amounts to get each local write
@@ -124,7 +124,7 @@ hot backup the following is done:
   `<data-dir>/backups/<timestamp>_<backup-label>`.
 - **On each DB-Server** create hard links to the active database files
   in `<data-dir>` in the newly created backup directory.
-- **On each DB-Server** store a redundant copy of the above agency dump.
+- **On each DB-Server** store a redundant copy of the above Agency dump.
 - Release the global write transaction lock to resume normal operation.
 - Report success of the operation.
 

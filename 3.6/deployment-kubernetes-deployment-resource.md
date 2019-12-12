@@ -55,7 +55,7 @@ Below you'll find all settings of the `ArangoDeployment` custom resource.
 Several settings are for various groups of servers. These are indicated
 with `<group>` where `<group>` can be any of:
 
-- `agents` for all agents of a `Cluster` or `ActiveFailover` pair.
+- `agents` for all Agents of a `Cluster` or `ActiveFailover` pair.
 - `dbservers` for all DB-Servers of a `Cluster`.
 - `coordinators` for all Coordinators of a `Cluster`.
 - `single` for all single servers of a `Single` instance or `ActiveFailover` pair.
@@ -67,8 +67,8 @@ with `<group>` where `<group>` can be any of:
 This setting specifies the type of deployment you want to create.
 Possible values are:
 
-- `Cluster` (default) Full cluster. Defaults to 3 agents, 3 DB-Servers & 3 Coordinators.
-- `ActiveFailover` Active-failover single pair. Defaults to 3 agents and 2 single servers.
+- `Cluster` (default) Full cluster. Defaults to 3 Agents, 3 DB-Servers & 3 Coordinators.
+- `ActiveFailover` Active-failover single pair. Defaults to 3 Agents and 2 single servers.
 - `Single` Single server only (note this does not provide high availability or reliability).
 
 This setting cannot be changed after the deployment has been created.
@@ -81,7 +81,7 @@ Possible values are:
 - `Development` (default) This value optimizes the deployment for development
   use. It is possible to run a deployment on a small number of nodes (e.g. minikube).
 - `Production` This value optimizes the deployment for production use.
-  It puts required affinity constraints on all pods to avoid agents & DB-Servers
+  It puts required affinity constraints on all pods to avoid Agents & DB-Servers
   from running on the same machine.
 
 ### `spec.image: string`
@@ -460,7 +460,7 @@ deployment is used.
 ### `spec.<group>.count: number`
 
 This setting specifies the number of servers to start for the given group.
-For the agent group, this value must be a positive, odd number.
+For the Agent group, this value must be a positive, odd number.
 The default value is `3` for all groups except `single` (there the default is `1`
 for `spec.mode: Single` and `2` for `spec.mode: ActiveFailover`).
 

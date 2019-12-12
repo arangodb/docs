@@ -563,7 +563,7 @@ anymore.
 Compared to ArangoDB 3.3, the following parts of ArangoDB can now be used 
 without the V8 engine:
 
-- agency nodes in a cluster
+- Agency nodes in a cluster
 - DB-Server nodes in a cluster 
 - cluster plan application on DB-Server nodes
 - all of AQL (with the exception of user-defined functions)
@@ -583,7 +583,7 @@ The default values for these startup options have not been changed in ArangoDB
 3.4, but depending on the actual workload, 3.4 ArangoDB instances may need
 less V8 contexts than 3.3.
 
-As mentioned above, agency and DB-Server nodes in a cluster does not
+As mentioned above, Agency and DB-Server nodes in a cluster does not
 require V8 for any operation in 3.4, so the V8 engine is turned off entirely on
 such nodes, regardless of the number of configured V8 contexts there.
 

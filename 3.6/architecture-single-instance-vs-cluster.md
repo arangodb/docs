@@ -143,11 +143,11 @@ Agency
 ------
 
 A cluster deployment needs a central, RAFT-based key/value store called
-"the agency" to keep the current cluster configuration and manage
+"the Agency" to keep the current cluster configuration and manage
 failover. Being RAFT-based, this is a real-time system. If your servers
-running the agency instances (typically three or five) receive too much
+running the Agency instances (typically three or five) receive too much
 load, the RAFT protocol stops working and the whole stability of the
-cluster is endangered. If you foresee this problem, run the agency
+cluster is endangered. If you foresee this problem, run the Agency
 instances on separate nodes. All this is not necessary in a single
 server deployment.
 

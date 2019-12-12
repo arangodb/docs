@@ -635,7 +635,7 @@ Coordinators. It supports the following values:
   always perform a cluster upgrade but don't shut down afterwards
 
 The default value is `auto`. The option only affects Coordinators. It does not
-have any affect on single servers, agents or DB-Servers.
+have any affect on single servers, Agents or DB-Servers.
 
 ### Other cluster options
 

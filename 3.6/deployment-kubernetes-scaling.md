@@ -8,7 +8,7 @@ The ArangoDB Kubernetes Operator supports up and down scaling of
 the number of DB-Servers & Coordinators.
 
 Currently it is not possible to change the number of
-agents of a cluster.
+Agents of a cluster.
 
 The scale up or down, change the number of servers in the custom
 resource.

@@ -26,7 +26,7 @@ Below you'll find an overview of these connections and the TCP ports that should
 1. The sync masters must be allowed to connect to the following components
    within the same datacenter:
 
-   - ArangoDB agents and Coordinators (default ports: `8531` and `8529`)
+   - ArangoDB Agents and Coordinators (default ports: `8531` and `8529`)
    - Kafka brokers (only when using `kafka` type message queue) (default port `9092`)
    - Sync workers (default port `8729`)
 

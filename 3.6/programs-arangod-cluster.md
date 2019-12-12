@@ -8,12 +8,12 @@ description: ArangoDB Server Clusters Options
 
 <!-- arangod/Cluster/ClusterFeature.h -->
 
-List of agency endpoints:
+List of Agency endpoints:
 
 `--cluster.agency-endpoint <endpoint>`
 
-An agency endpoint the server can connect to. The option can be specified
-multiple times, so the server can use a cluster of agency servers.
+An Agency endpoint the server can connect to. The option can be specified
+multiple times, so the server can use a cluster of Agency servers.
 Endpoints have the following pattern:
 
 - `tcp://ipv4-address:port` - TCP/IP endpoint, using IPv4
@@ -48,7 +48,7 @@ must have the following pattern:
 - `ssl://[ipv6-address]:port` - TCP/IP endpoint, using IPv6, SSL encryption
 
 If no *endpoint* is specified, the server will look up its internal
-endpoint address in the agency. If no endpoint can be found in the agency
+endpoint address in the Agency. If no endpoint can be found in the Agency
 for the server's id, ArangoDB will refuse to start.
 
 **Examples**
@@ -137,7 +137,7 @@ The following values can be used for the options:
 * `online`: always perform a cluster upgrade but don't shut down afterwards
 
 The default value is `auto`. The option only affects Coordinators. It does not have
-any affect on single servers, agents or DB-Servers.
+any affect on single servers, Agents or DB-Servers.
 
 ## More advanced options
 

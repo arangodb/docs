@@ -198,7 +198,7 @@ icon will appear to the right of the name of the _Coordinator_. Clicking
 that icon will remove the _Coordinator_ from the Coordinator registry.
 
 Any new _Coordinator_ instance that is informed of where to find any/all
-agent/s, `--cluster.agency-endpoint` `<some agent endpoint>` will be
+Agent(s), `--cluster.agency-endpoint` `<some agent endpoint>` will be
 integrated as a new _Coordinator_ into the cluster. You may also just
 restart the _Coordinator_ as before and it will reintegrate itself into
 the cluster.
@@ -214,7 +214,7 @@ to uphold replication and resilience.
 The clean way of removing a _DB-Server_ is to first relieve it of all
 its responsibilities for shards. This applies to _followers_ as well as
 _leaders_ of shards. The requirement for this operation is that no
-collection in any of the databases has a `relicationFactor` greater or
+collection in any of the databases has a `replicationFactor` greater or
 equal to the current number of _DB-Servers_ minus one. For the purpose of
 cleaning out `DBServer004` for example would work as follows, when
 issued to any _Coordinator_ of the cluster:
@@ -227,7 +227,7 @@ UI. Clicking on it will remove the _DB-Server_ in question from the
 cluster.
 
 Firing up any _DB-Server_ from a clean data directory by specifying the
-any of all agency endpoints will integrate the new _DB-Server_ into the
+any of all Agency endpoints will integrate the new _DB-Server_ into the
 cluster.
 
 To distribute shards onto the new _DB-Server_ either click on the

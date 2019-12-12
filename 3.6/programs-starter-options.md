@@ -50,10 +50,10 @@ high availability features that a cluster provides you.
 
 - `--cluster.agency-size=int`
 
-number of agents in agency (default 3).
+number of Agents in Agency (default 3).
 
 This number has to be positive and odd, and anything beyond 5 probably
-does not make sense. The default 3 allows for the failure of one agent.
+does not make sense. The default 3 allows for the failure of one Agent.
 
 - `--starter.address=addr`
 
@@ -61,7 +61,7 @@ does not make sense. The default 3 allows for the failure of one agent.
 outside.
 
 Use this option only in the case that `--cluster.agency-size` is set to 1. 
-In a single agent setup, the sole starter has to start on its own with
+In a single Agent setup, the sole starter has to start on its own with
 no reliable way to learn its own address. Using this option the master will 
 know under which address it can be reached from the outside. If you specify
 `localhost` here, then all instances must run on the local machine.
@@ -161,7 +161,7 @@ of one or more server instances.
 - `--all.<section>.<key>=<value>` is pass as `--<section>.<key>=<value>` to all servers started by this starter.
 - `--coordinators.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all Coordinators started by this starter.
 - `--dbservers.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all DB-Servers started by this starter.
-- `--agents.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all agents started by this starter.
+- `--agents.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all Agents started by this starter.
 
 Some options are essential to the function of the starter. Therefore these options cannot be passed through like this.
 
