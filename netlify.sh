@@ -2,7 +2,7 @@
 
 set -e
 
-jekyll build
+JEKYLL_ENV="netlify" jekyll build
 ruby sitemap.rb
 rm -rf htmltest
 mkdir -p htmltest
