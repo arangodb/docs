@@ -66,6 +66,7 @@ details, including the index-identifier, is returned.
     @endDocuBlock ensureUniqueConstraint
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Non-unique Hash Indexes
 
 <!-- js/server/modules/@arangodb/arango-collection.js-->
@@ -96,6 +97,7 @@ details, including the index-identifier, is returned.
     @endDocuBlock ensureHashIndex
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Hash Array Indexes
 
 Ensures that a hash array index exists (non-unique):

@@ -66,6 +66,7 @@ can use the `db._useDatabase()` command in Arangosh:
     @endDocuBlock shellUseDB
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 To get a list of available commands, Arangosh provides a *help()* function.
 Calling it will display helpful information.
 

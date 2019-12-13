@@ -44,6 +44,7 @@ Then a simple query filtering for `value < 10` will return 10 results:
 @endDocuBlock 01_workWithAQL_profileQuerySimple
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 An AQL query is essentially executed in a pipeline that chains together different
 functional execution blocks. Each block gets the input rows from the parent above
 it, does some processing and then outputs a certain number of output rows.
@@ -91,6 +92,7 @@ db.acollection.ensureIndex({type:"skiplist", fields:["value"]});
 @endDocuBlock 02_workWithAQL_profileQuerySimpleIndex
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 This results in replacing the collection scan and filter block with an
 `IndexNode`. The execution pipeleine of the AQL query has become much shorter.
 Also the number of rows processed by each pipeline block is only 10, because
@@ -117,6 +119,7 @@ Let us consider a query containing a subquery:
 @endDocuBlock 03_workWithAQL_profileQuerySubquery
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The resulting query profile contains a _SubqueryNode_ which has the runtime of
 all its children combined.
 
@@ -154,6 +157,7 @@ The following query gets us all age groups in buckets (0-9, 10-19, 20-29, ...):
 @endDocuBlock 04_workWithAQL_profileQueryAggregation
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Without any indexes this query should have to perform the following operations:
 
 1. Perfom a full collection scan via a _EnumerateCollectionNode_ and outputing

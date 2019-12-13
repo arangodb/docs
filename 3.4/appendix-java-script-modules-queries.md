@@ -24,6 +24,7 @@ Properties
     @endDocuBlock QUERY_01_properyOfQueries
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Currently running queries
 -------------------------
 
@@ -67,6 +68,7 @@ The function returns the last AQL queries that exceeded the slow query threshold
     @endDocuBlock QUERY_03_listSlowQueries
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Clear slow queries
 ------------------
 
@@ -81,6 +83,7 @@ Clear the list of slow AQL queries:
     @endDocuBlock QUERY_04_clearSlowQueries
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Kill
 ----
 

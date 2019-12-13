@@ -43,6 +43,7 @@ by default:
     @endDocuBlock lastExpressionResult
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}    
+
 In order to prevent printing the result of the last evaluated expression,
 the expression result can be captured in a variable, e.g.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -53,6 +54,7 @@ the expression result can be captured in a variable, e.g.
     @endDocuBlock lastExpressionResultCaptured
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 There is also the `print` function to explicitly print out values in the
 ArangoDB shell:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -63,6 +65,7 @@ ArangoDB shell:
     @endDocuBlock printFunction
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 By default, the ArangoDB shell uses a pretty printer when JSON documents are
 printed. This ensures documents are printed in a human-readable way:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -76,6 +79,7 @@ printed. This ensures documents are printed in a human-readable way:
     @endDocuBlock usingToArray
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 While the pretty-printer produces nice looking results, it will need a lot of
 screen space for each document. Sometimes a more dense output might be better.
 In this case, the pretty printer can be turned off using the command
@@ -116,6 +120,7 @@ For a list of available methods for the *db* object, type
     @endDocuBlock shellHelp
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}  
+
 The [`db` object](appendix-references-dbobject.html) is available in *arangosh*
 as well as on *arangod* i.e. if you're using [Foxx](foxx.html). While its
 interface is persistent between the *arangosh* and the *arangod* implementations,

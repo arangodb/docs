@@ -82,6 +82,7 @@ to grant the access rights for one or more databases using
     @endDocuBlock USER_02_saveUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Grant Database
 --------------
 
@@ -153,6 +154,7 @@ database.
     @endDocuBlock USER_03_replaceUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Update
 ------
 
@@ -181,6 +183,7 @@ database.
     @endDocuBlock USER_04_updateUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 isValid
 -------
 
@@ -202,6 +205,7 @@ amount of time.
     @endDocuBlock USER_05_isValidUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Remove
 ------
 
@@ -223,6 +227,7 @@ This method will fail if the user cannot be found in the database.
     @endDocuBlock USER_07_removeUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Document
 --------
 
@@ -243,6 +248,7 @@ This method will fail if the user cannot be found in the database.
     @endDocuBlock USER_04_documentUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 All
 ---
 
@@ -259,6 +265,7 @@ Fetches all existing ArangoDB users from the database.
     @endDocuBlock USER_06_AllUsers
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Reload
 ------
 

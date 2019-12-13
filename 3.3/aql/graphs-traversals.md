@@ -252,6 +252,7 @@ We will create a simple symmetric traversal demonstration graph:
     @endDocuBlock GRAPHTRAV_01_create_graph
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 To get started we select the full graph. For better overview we only return
 the vertex IDs:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -263,6 +264,7 @@ the vertex IDs:
     @endDocuBlock GRAPHTRAV_02_traverse_all
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 We can nicely see that it is heading for the first outer vertex, then goes back to
 the branch to descend into the next tree. After that it returns to our start node,
 to descend again. As we can see both queries return the same result, the first one
@@ -279,6 +281,7 @@ are right behind the fork:
     @endDocuBlock GRAPHTRAV_03_traverse_3
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 As you can see, we can express this in two ways: with or without *max* parameter
 in the expression.
 
@@ -298,6 +301,7 @@ side of the graph, we may filter in two ways:
     @endDocuBlock GRAPHTRAV_04_traverse_4
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 As we can see all vertices behind **G** are skipped in both queries.
 The first filters on the vertex `_key`, the second on an edge label.
 Note again, as soon as a filter is not fulfilled for any of the three elements
@@ -314,6 +318,7 @@ We also may combine several filters, for instance to filter out the right branch
     @endDocuBlock GRAPHTRAV_05_traverse_5
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 As you can see, combining two `FILTER` statements with an `AND` has the same result.
 
 Comparing OUTBOUND / INBOUND / ANY
@@ -333,6 +338,7 @@ from `circles/E`:
     @endDocuBlock GRAPHTRAV_06_traverse_reverse_6
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The first traversal will only walk in the forward (`OUTBOUND`) direction.
 Therefore from **E** we only can see **F**. Walking in reverse direction
 (`INBOUND`), we see the path to **A**: **B** → **A**.
@@ -377,6 +383,7 @@ traversal queries using [the explainer](execution-and-performance-optimizer.html
     @endDocuBlock GRAPHTRAV_07_traverse_8
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 We now see two queries: In one we add a variable *localScopeVar*, which is outside
 the scope of the traversal itself - it is not known inside of the traverser.
 Therefore, this filter can only be executed after the traversal, which may be

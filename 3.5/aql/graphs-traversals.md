@@ -268,6 +268,7 @@ Similar to filtering the edges on the path you can also filter the vertices:
     @endDocuBlock GRAPHTRAV_graphFilterVertices
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 #### Combining several filters
 
 And of course you can combine these filters in any way you like:
@@ -284,6 +285,7 @@ And of course you can combine these filters in any way you like:
     @endDocuBlock GRAPHTRAV_graphFilterCombine
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 The query will filter all paths where the first edge has the attribute
 *theTruth* equal to *true*, the first vertex is "G" and the second edge has
 the attribute *theFalse* equal to *false*. The resulting paths will be up to
@@ -308,6 +310,7 @@ on the entire path, like ALL edges should have theTruth == true:
     @endDocuBlock GRAPHTRAV_graphFilterEntirePath
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 Or NONE of the edges should have theTruth == true:
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphFilterPathEdges
@@ -320,6 +323,7 @@ Or NONE of the edges should have theTruth == true:
     @endDocuBlock GRAPHTRAV_graphFilterPathEdges
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 Both examples above are recognized by the optimizer and can potentially use other indexes
 than the edge index.
 
@@ -335,6 +339,7 @@ It is also possible to define that at least one edge on the path has to fulfill 
     @endDocuBlock GRAPHTRAV_graphFilterPathAnyEdge
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 It is guaranteed that at least one, but potentially more edges fulfill the condition.
 All of the above filters can be defined on vertices in the exact same way.
 
@@ -370,6 +375,7 @@ We will create a simple symmetric traversal demonstration graph:
     @endDocuBlock GRAPHTRAV_01_create_graph
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 To get started we select the full graph. For better overview we only return
 the vertex IDs:
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
@@ -390,6 +396,7 @@ the vertex IDs:
     @endDocuBlock GRAPHTRAV_02_traverse_all_b
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 We can nicely see that it is heading for the first outer vertex, then goes back to
 the branch to descend into the next tree. After that it returns to our start node,
 to descend again. As we can see both queries return the same result, the first one
@@ -416,6 +423,7 @@ are right behind the fork:
     @endDocuBlock GRAPHTRAV_03_traverse_3b
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 As you can see, we can express this in two ways: with or without *max* parameter
 in the expression.
 
@@ -447,6 +455,7 @@ side of the graph, we may filter in two ways:
     @endDocuBlock GRAPHTRAV_04_traverse_4b
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 As we can see all vertices behind **G** are skipped in both queries.
 The first filters on the vertex `_key`, the second on an edge label.
 Note again, as soon as a filter is not fulfilled for any of the three elements
@@ -476,6 +485,7 @@ We also may combine several filters, for instance to filter out the right branch
     @endDocuBlock GRAPHTRAV_05_traverse_5b
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 As you can see, combining two `FILTER` statements with an `AND` has the same result.
 
 Comparing OUTBOUND / INBOUND / ANY
@@ -513,6 +523,7 @@ from `circles/E`:
     @endDocuBlock GRAPHTRAV_06_traverse_6c
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 The first traversal will only walk in the forward (`OUTBOUND`) direction.
 Therefore from **E** we only can see **F**. Walking in reverse direction
 (`INBOUND`), we see the path to **A**: **B** → **A**.
@@ -556,6 +567,7 @@ traversal queries using [the explainer](execution-and-performance-optimizer.html
     @endDocuBlock GRAPHTRAV_07_traverse_8
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 We now see two queries: In one we add a variable *localScopeVar*, which is outside
 the scope of the traversal itself - it is not known inside of the traverser.
 Therefore, this filter can only be executed after the traversal, which may be
@@ -574,6 +586,7 @@ And finally clean it up again:
     @endDocuBlock GRAPHTRAV_99_drop_graph
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 If this traversal is not powerful enough for your needs, like you cannot describe
 your conditions as AQL filter statements, then you might want to have a look at
 [manually crafted traversers](../graphs-traversals.html).

@@ -650,6 +650,7 @@ skiplist indices:
     @endDocuBlock working_with_date_time
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The first and the last timestamp in the array are excluded from the result by the `FILTER`.
 
 Limitations

@@ -30,6 +30,7 @@ return value's `stats` attribute:
     @endDocuBlock 06_workWithAQL_statementsExtra
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The meaning of the statistics attributes is as follows:
 
 * *writesExecuted*: the total number of data-modification operations successfully executed.

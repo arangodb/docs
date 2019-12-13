@@ -113,6 +113,7 @@ details, including the index-identifier, is returned.
     @endDocuBlock ensureSkiplist
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Skiplist Array Index
 
 Ensures that a skiplist array index exists (non-unique):
@@ -141,6 +142,7 @@ details, including the index-identifier, is returned.
     @endDocuBlock ensureSkiplistArray
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Query by example using a skiplist index
 
 Constructs a query-by-example using a skiplist index:

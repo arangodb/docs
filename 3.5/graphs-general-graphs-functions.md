@@ -131,6 +131,7 @@ A route planner example, all neighbors of capitals.
     @endDocuBlock generalGraphModuleNeighbors1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, all outbound neighbors of Hamburg.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphModuleNeighbors2
@@ -179,6 +180,7 @@ A route planner example, all common neighbors of capitals.
     @endDocuBlock generalGraphModuleCommonNeighbors1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, all common outbound neighbors of Hamburg with any other location
 which have a maximal depth of 2 :
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -227,6 +229,7 @@ A route planner example, all common neighbors of capitals.
     @endDocuBlock generalGraphModuleCommonNeighborsAmount1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, all common outbound neighbors of Hamburg with any other location
 which have a maximal depth of 2 :
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -288,6 +291,7 @@ A route planner example, all locations with the same properties:
     @endDocuBlock generalGraphModuleProperties1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, all cities which share same properties except for population.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphModuleProperties2
@@ -330,6 +334,7 @@ A route planner example, all locations with the same properties:
     @endDocuBlock generalGraphModuleAmountProperties1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, all German cities which share same properties except for population.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphModuleAmountProperties2
@@ -389,6 +394,7 @@ Return all paths of the graph "social":
     @endDocuBlock generalGraphModulePaths1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Return all inbound paths of the graph "social" with a maximal
 length of 1 and a minimal length of 2:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -462,6 +468,7 @@ A route planner example, shortest path from all german to all french cities:
     @endDocuBlock generalGraphModuleShortestPaths1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, shortest path from Hamburg and Cologne to Lyon:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphModuleShortestPaths2
@@ -506,6 +513,7 @@ A route planner example, shortest distance from all german to all french cities:
     @endDocuBlock generalGraphModuleDistanceTo1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, shortest distance from Hamburg and Cologne to Lyon:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphModuleDistanceTo2
@@ -570,6 +578,7 @@ A route planner example, the absolute eccentricity of all locations.
     @endDocuBlock generalGraphModuleAbsEccentricity1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the absolute eccentricity of all locations.
 This considers the actual distances.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -583,6 +592,7 @@ This considers the actual distances.
     @endDocuBlock generalGraphModuleAbsEccentricity2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the absolute eccentricity of all cities regarding only
 outbound paths.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -628,6 +638,7 @@ A route planner example, the eccentricity of all locations.
     @endDocuBlock generalGraphModuleEccentricity2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the weighted eccentricity.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphModuleEccentricity3
@@ -690,6 +701,7 @@ A route planner example, the absolute closeness of all locations.
     @endDocuBlock generalGraphModuleAbsCloseness1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the absolute closeness of all locations.
 This considers the actual distances.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -703,6 +715,7 @@ This considers the actual distances.
     @endDocuBlock generalGraphModuleAbsCloseness2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the absolute closeness of all German Cities regarding only
 outbound paths.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -748,6 +761,7 @@ A route planner example, the normalized closeness of all locations.
     @endDocuBlock generalGraphModuleCloseness1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the closeness of all locations.
 This considers the actual distances.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -761,6 +775,7 @@ This considers the actual distances.
     @endDocuBlock generalGraphModuleCloseness2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the closeness of all cities regarding only
 outbound paths.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -816,6 +831,7 @@ A route planner example, the absolute betweenness of all locations.
     @endDocuBlock generalGraphModuleAbsBetweenness1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the absolute betweenness of all locations.
 This considers the actual distances.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -829,6 +845,7 @@ This considers the actual distances.
     @endDocuBlock generalGraphModuleAbsBetweenness2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the absolute betweenness of all cities regarding only
 outbound paths.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -873,6 +890,7 @@ A route planner example, the betweenness of all locations.
     @endDocuBlock generalGraphModuleBetweenness1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the betweenness of all locations.
 This considers the actual distances.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -886,6 +904,7 @@ This considers the actual distances.
     @endDocuBlock generalGraphModuleBetweenness2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the betweenness of all cities regarding only
 outbound paths.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -940,6 +959,7 @@ A route planner example, the radius of the graph.
     @endDocuBlock generalGraphModuleRadius1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the radius of the graph.
 This considers the actual distances.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -953,6 +973,7 @@ This considers the actual distances.
     @endDocuBlock generalGraphModuleRadius2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the radius of the graph regarding only
 outbound paths.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -1007,6 +1028,7 @@ A route planner example, the diameter of the graph.
     @endDocuBlock generalGraphModuleDiameter1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the diameter of the graph.
 This considers the actual distances.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -1020,6 +1042,7 @@ This considers the actual distances.
     @endDocuBlock generalGraphModuleDiameter2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 A route planner example, the diameter of the graph regarding only
 outbound paths.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}

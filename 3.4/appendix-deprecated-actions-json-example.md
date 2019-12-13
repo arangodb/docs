@@ -21,6 +21,7 @@ If you change the example slightly, then a JSON object will be delivered.
     @endDocuBlock JSON_01_routingCreateJsonHelloWorld
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Again check with your browser or cURL http://localhost:8529/hello/json
 
 Depending on your browser and installed add-ons you will either see the JSON
@@ -47,6 +48,7 @@ a browser. Or use *curl* to access the server.
     @endDocuBlock JSON_03_routingCleanupJsonHelloWorld
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Delivering Content
 ------------------
 
@@ -90,6 +92,7 @@ You can specify a body and a content-type.
     @endDocuBlock JSON_05c_routingCleanupContentTypeHelloWorld
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 If the content type is *text/plain* then you can use the short-cut
 
 ```js
@@ -141,6 +144,7 @@ function (req, res, options, next)
     @endDocuBlock JSON_06_routingCreateHelloEcho
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Reload the routing and check http:// 127.0.0.1:8529/hello/echo
 
 You should see something like
@@ -160,6 +164,7 @@ You should see something like
     @endDocuBlock JSON_08_routingCleanupHelloEcho
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The request might contain *path*, *prefix*, *suffix*, and *urlParameters*
 attributes.  *path* is the complete path as supplied by the user and always
 available.  If a prefix was matched, then this prefix is stored in the attribute
@@ -209,6 +214,7 @@ called.
     @endDocuBlock JSON_09_routingCreateEchoController
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Reload the routing and check http:// 127.0.0.1:8529/hello/echo:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_10_fetchroutingCreateEchoController
@@ -295,6 +301,7 @@ You can also store a function directly in the routing table.
     @endDocuBlock JSON_12b_fetchroutingEchoFunction
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Requests and Responses
 
 The controller must define handler functions which take a request object and
@@ -330,6 +337,7 @@ Install it via:
     @endDocuBlock JSON_13_routingCreateEchoAction
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Reload the routing and check http:// 127.0.0.1:8529/hello/echo
 
 You should see something like
@@ -343,6 +351,7 @@ You should see something like
     @endDocuBlock JSON_14_fetchroutingRequestHelloEcho
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 You may also pass options to the called function:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_15_routingCreateEchoRequestOptions
@@ -361,6 +370,7 @@ You may also pass options to the called function:
     @endDocuBlock JSON_15_routingCreateEchoRequestOptions
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 You now see the options in the result:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_16_fetchroutingEchoRequestOptions

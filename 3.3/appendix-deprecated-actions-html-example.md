@@ -48,6 +48,7 @@ For the above example, add the following document to the _routing collection:
     @endDocuBlock HTML_01_routingCreateHtml
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 In order to activate the new routing, you must either restart the server or call
 the internal reload function.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -58,6 +59,7 @@ the internal reload function.
     @endDocuBlock HTML_02_routingReload
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Now use the browser and access http:// localhost:8529/hello/world
 
 You should see the *Hello World* in our browser:
@@ -273,6 +275,7 @@ Consider the following definitions
     @endDocuBlock HTML_04_routingCreateMultiPath
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Then
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline HTML_05_routingGetMultiPath

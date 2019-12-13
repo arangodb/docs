@@ -206,6 +206,7 @@ of the collection should have priority over others.
     @endDocuBlock LoadIndexesIntoMemory
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Database Methods
 ----------------
 

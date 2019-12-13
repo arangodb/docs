@@ -233,6 +233,7 @@ RETURN GEO_LINESTRING([
 @endDocuBlock aqlGeoLineString_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### GEO_MULTILINESTRING()
 
 `GEO_MULTILINESTRING(points) → geoJson`
@@ -253,6 +254,7 @@ RETURN GEO_MULTILINESTRING([
 @endDocuBlock aqlGeoMultiLineString_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### GEO_MULTIPOINT()
 
 `GEO_MULTIPOINT(points) → geoJson`
@@ -271,6 +273,7 @@ RETURN GEO_MULTIPOINT([
 @endDocuBlock aqlGeoMultiPoint_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### GEO_POINT()
 
 `GEO_POINT(longitude, latitude) → geoJson`
@@ -288,6 +291,7 @@ RETURN GEO_POINT(1.0, 2.0)
 @endDocuBlock aqlGeoPoint_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### GEO_POLYGON()
 
 `GEO_POLYGON(points) → geoJson`
@@ -311,6 +315,7 @@ RETURN GEO_POLYGON([
 @endDocuBlock aqlGeoPolygon_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 Advanced Polygon with a hole inside:
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoPolygon_2
@@ -323,6 +328,7 @@ RETURN GEO_POLYGON([
 @endDocuBlock aqlGeoPolygon_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### GEO_MULTIPOLYGON()
 
 `GEO_MULTIPOLYGON(polygons) → geoJson`
@@ -350,6 +356,7 @@ RETURN GEO_MULTIPOLYGON([
 @endDocuBlock aqlGeoMultiPolygon_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 Geo Index Functions
 -------------------
 

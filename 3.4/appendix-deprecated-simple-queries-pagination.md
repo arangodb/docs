@@ -112,6 +112,7 @@ Ignore any limit with count:
     @endDocuBlock cursorCountUnLimited
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Counting any limit or skip:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline cursorCountLimit

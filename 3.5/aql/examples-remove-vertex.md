@@ -33,6 +33,7 @@ REMOVE 'eve' IN persons
     @endDocuBlock GRAPHTRAV_removeVertex1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 This query executed several actions:
 * use a graph traversal of depth 1 to get the `_key` of **eve's** adjacent edges
 * remove all of these edges from the `knows` collection
@@ -50,6 +51,7 @@ REMOVE 'eve' IN persons
     @endDocuBlock GRAPHTRAV_removeVertex2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 **Note**: The query has to be adjusted to match a graph with multiple vertex/edge collections.
 
 For example, the [city graph](../graphs.html#the-city-graph) 

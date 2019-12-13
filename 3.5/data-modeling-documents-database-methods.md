@@ -321,6 +321,7 @@ Remove a document:
     @endDocuBlock documentsCollectionRemoveSuccess
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Remove the document in the revision `a1` with a conflict:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollectionRemoveConflict
@@ -336,6 +337,7 @@ Remove the document in the revision `a1` with a conflict:
     @endDocuBlock documentsCollectionRemoveConflict
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Remove a document using new signature:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollectionRemoveSignature
@@ -349,6 +351,7 @@ Remove a document using new signature:
     @endDocuBlock documentsCollectionRemoveSignature
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 **Changes in 3.0 from 2.8:**
 
 The method now returns not only *true* but information about the removed

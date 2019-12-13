@@ -150,6 +150,7 @@ lead to the same result:
     @endDocuBlock executeQueryNoBatchSize
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The following two alternatives both use a batchSize and return the same
 result:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}

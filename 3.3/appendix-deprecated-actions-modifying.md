@@ -90,6 +90,7 @@ To start, we'll define a simple action handler in a module */ownTest*:
     @endDocuBlock MOD_01a_routingCreateOwnTest
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 This does nothing but register a do action handler in a module */ownTest*.  The
 action handler is not yet callable, but must be mapped to a route first.  To map
 the action to the route */ourtest*, execute the following command:
@@ -107,6 +108,7 @@ the action to the route */ourtest*, execute the following command:
     @endDocuBlock MOD_01b_routingEnableOwnTest
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Now use the browser or cURL and access http://localhost:8529/ourtest :
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_01c_routingCurlOwnTest
@@ -142,6 +144,7 @@ collection. Whenever you change this collection manually, you need to call
     @endDocuBlock MOD_05_routingModifyReload
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 in order to rebuild the cache.
 
 
@@ -183,6 +186,7 @@ Use the following for a permanent redirect:
     @endDocuBlock MOD_06b_routingCurlRedirect
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Routing Bundles
 
 Instead of adding all routes for package separately, you can
@@ -228,6 +232,7 @@ specify a bundle:
     @endDocuBlock MOD_07b_routingCurlMulti
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The advantage is, that you can put all your routes into one document
 and use a common prefix.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -255,6 +260,7 @@ and use a common prefix.
     @endDocuBlock MOD_07c_routingMulti
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 will define the URL */test/url1*, */test/url2*, and */test/url3*:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_07d_routingCurlMulti
@@ -273,6 +279,7 @@ will define the URL */test/url1*, */test/url2*, and */test/url3*:
     @endDocuBlock MOD_07d_routingCurlMulti
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Writing Middleware
 
 Assume, you want to log every request in your namespace to the console. *(if ArangoDB is running
@@ -296,6 +303,7 @@ the requests, calls the next in line, and logs the response:
     @endDocuBlock MOD_08a_routingCreateOwnConsoleLog
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 This function will now be available as *db://OwnMiddlewareTest/logRequest*. You need to
 tell ArangoDB that it is should use a prefix match and that the shortest match
 should win in this case:
@@ -318,6 +326,7 @@ should win in this case:
     @endDocuBlock MOD_08b_routingCreateRouteToOwnConsoleLog
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 When you call *next()* in that action, the next specific routing will
 be used for the original URL. Even if you modify the URL in the request
 object *req*, this will not cause the *next()* to jump to the routing
@@ -354,6 +363,7 @@ Now we add some other simple routings to test all this:
     @endDocuBlock MOD_08c_routingCreateRouteToOwnConsoleLog
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Then we send some curl requests to these sample routes:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_08d_routingCurlToOwnConsoleLog
@@ -376,6 +386,7 @@ Then we send some curl requests to these sample routes:
     @endDocuBlock MOD_08d_routingCurlToOwnConsoleLog
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 and the console (and / or the logfile) will show requests and replies.
 *Note that logging doesn't warrant the sequence in which these lines
 will appear.*
@@ -408,6 +419,7 @@ make the changes "live" by calling the following functions from within arangosh:
     @endDocuBlock MOD_09_routingReload
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 You might also be affected by client-side caching.
 Browsers tend to cache content and also redirection URLs. You might need to
 clear or disable the browser cache in some cases to see your changes in effect.
@@ -494,6 +506,7 @@ whereas this definition allows HTTP *GET*, *POST*, and *PUT*:
     @endDocuBlock MOD_09b_routingCurlSpecifyMethods
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The former definition (defining *url* as an object with a *match* attribute)
 will result in the URL being accessible via all supported HTTP methods (e.g.
 *GET*, *POST*, *PUT*, *DELETE*, ...), whereas the latter definition (providing a string

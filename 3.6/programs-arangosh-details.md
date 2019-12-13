@@ -45,6 +45,7 @@ by default:
     @endDocuBlock lastExpressionResult
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}    
+
 In order to prevent printing the result of the last evaluated expression,
 the expression result can be captured in a variable, e.g.
 
@@ -124,6 +125,7 @@ For a list of available methods for the *db* object, type
     @endDocuBlock shellHelp
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}  
+
 The [`db` object](appendix-references-dbobject.html) is available in *arangosh*
 as well as on *arangod* i.e. if you're using [Foxx](foxx.html). While its
 interface is persistent between the *arangosh* and the *arangod* implementations,

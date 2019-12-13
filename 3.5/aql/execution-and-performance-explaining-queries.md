@@ -34,6 +34,7 @@ object in arangosh. You may use it like this: (we disable syntax highlighting he
     @endDocuBlock 01_workWithAQL_databaseExplain
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The plan contains all execution nodes that are used during a query. These nodes represent different
 stages in a query. Each stage gets the input from the stage directly above (its dependencies). 
 The plan will show you the estimated number of items (results) for each query stage (under _Est._). Each

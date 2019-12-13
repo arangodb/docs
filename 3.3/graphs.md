@@ -257,6 +257,7 @@ The example has the cities as *vertices* in several *vertex collections* - `germ
     @endDocuBlock graph_create_cities_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### The Traversal Graph
 
 This graph was designed to demonstrate filters in traversals. It has some labels to filter on it.
@@ -277,6 +278,7 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
     @endDocuBlock graph_create_traversal_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### The World Graph
 
 The world country graph structures its nodes like that: world → continent → country → capital. In some cases edge directions aren't forward (therefore it will be displayed disjunct in the graph viewer). It has two ways of creating it. One using the named graph utilities (*worldCountry*), one without (*worldCountryUnManaged*). 
@@ -295,6 +297,7 @@ It is used to demonstrate raw traversal operations.
     @endDocuBlock graph_create_world_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Cookbook examples
 -----------------
 

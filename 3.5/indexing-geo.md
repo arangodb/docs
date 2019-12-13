@@ -443,6 +443,7 @@ Create a geo index for an array attribute:
     @endDocuBlock geoIndexCreateForArrayAttribute1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Create a geo index for a hash array attribute:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute2
@@ -461,6 +462,7 @@ Create a geo index for a hash array attribute:
     @endDocuBlock geoIndexCreateForArrayAttribute2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Use GeoIndex with AQL SORT statement:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexSortOptimization
@@ -480,6 +482,7 @@ Use GeoIndex with AQL SORT statement:
     @endDocuBlock geoIndexSortOptimization
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Use GeoIndex with AQL FILTER statement:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexFilterOptimization

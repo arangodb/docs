@@ -56,6 +56,7 @@ This can be created with the following way:
     @endDocuBlock ensureVertexCentricHashIndex
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 All options that are supported by the respective indexes are supported by the vertex-centric index as well.
 
 Index usage

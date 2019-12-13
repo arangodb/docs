@@ -53,6 +53,7 @@ can use the `db._useDatabase()` command in arangosh:
     @endDocuBlock shellUseDB
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 To get a list of available commands, arangosh provides a *help()* function.
 Calling it will display helpful information.
 
@@ -74,6 +75,7 @@ For a list of available methods for the *db* object, type
     @endDocuBlock shellHelp
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 you can paste multiple lines into arangosh, given the first line ends with an
 opening brace:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}

@@ -161,6 +161,7 @@ Create an empty graph, edge definitions can be added at runtime:
     @endDocuBlock generalGraphCreateGraphNoData
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Create a graph using an edge collection `edges` and a single vertex collection `vertices` 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraphSingle
@@ -175,6 +176,7 @@ Create a graph using an edge collection `edges` and a single vertex collection `
     @endDocuBlock generalGraphCreateGraphSingle
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Create a graph with edge definitions and orphan collections:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraph2
@@ -475,6 +477,7 @@ Remove an edge definition but keep the edge collection:
     @endDocuBlock general_graph__deleteEdgeDefinitionNoDrop
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Remove an edge definition and drop the edge collection:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline general_graph__deleteEdgeDefinitionWithDrop
@@ -772,6 +775,7 @@ Creates an edge from vertex *from* to vertex *to* in collection edgeCollectionNa
     @endDocuBlock generalGraphEdgeCollectionSave1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 If the collections of *from* and *to* are not defined in an edge definition of the graph,
 the edge will not be stored.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}

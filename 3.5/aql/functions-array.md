@@ -48,6 +48,7 @@ RETURN APPEND([ 1, 2, 3 ], [ 5, 6, 9 ])
 @endDocuBlock aqlArrayAppend_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayAppend_2
 @EXAMPLE_AQL{aqlArrayAppend_2}
 RETURN APPEND([ 1, 2, 3 ], [ 3, 4, 5, 2, 9 ], true)
@@ -55,6 +56,7 @@ RETURN APPEND([ 1, 2, 3 ], [ 3, 4, 5, 2, 9 ], true)
 @endDocuBlock aqlArrayAppend_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## CONTAINS_ARRAY()
 
 This is an alias for [POSITION()](#position).
@@ -82,6 +84,7 @@ RETURN COUNT_DISTINCT([ 1, 2, 3 ])
 @endDocuBlock aqlArrayCountDistinct_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayCountDistinct_2
 @EXAMPLE_AQL{aqlArrayCountDistinct_2}
 RETURN COUNT_DISTINCT([ "yes", "no", "yes", "sauron", "no", "yes" ])
@@ -89,6 +92,7 @@ RETURN COUNT_DISTINCT([ "yes", "no", "yes", "sauron", "no", "yes" ])
 @endDocuBlock aqlArrayCountDistinct_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## COUNT_UNIQUE()
 
 This is an alias for [COUNT_DISTINCT()](#count_distinct).
@@ -112,6 +116,7 @@ RETURN FIRST([ 1, 2, 3 ])
 @endDocuBlock aqlArrayFirst_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayFirst_2
 @EXAMPLE_AQL{aqlArrayFirst_2}
 RETURN FIRST([])
@@ -119,6 +124,7 @@ RETURN FIRST([])
 @endDocuBlock aqlArrayFirst_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## FLATTEN()
 
 `FLATTEN(anyArray, depth) → flatArray`
@@ -142,6 +148,7 @@ RETURN FLATTEN( [ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ] ] )
 @endDocuBlock aqlArrayFlatten_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 To fully flatten the example array, use a *depth* of 2:
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlArrayFlatten_2
@@ -151,6 +158,7 @@ RETURN FLATTEN( [ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ] ], 2 )
 @endDocuBlock aqlArrayFlatten_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## INTERSECTION()
 
 `INTERSECTION(array1, array2, ... arrayN) → newArray`
@@ -176,6 +184,7 @@ RETURN INTERSECTION( [1,2,3,4,5], [2,3,4,5,6], [3,4,5,6,7] )
 @endDocuBlock aqlArrayIntersection_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayIntersection_2
 @EXAMPLE_AQL{aqlArrayIntersection_2}
 RETURN INTERSECTION( [2,4,6], [8,10,12], [14,16,18] )
@@ -183,6 +192,7 @@ RETURN INTERSECTION( [2,4,6], [8,10,12], [14,16,18] )
 @endDocuBlock aqlArrayIntersection_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## LAST()
 
 `LAST(anyArray) → lastElement`
@@ -202,6 +212,7 @@ RETURN LAST( [1,2,3,4,5] )
 @endDocuBlock aqlArrayLast_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## LENGTH()
 
 `LENGTH(anyArray) → length`
@@ -234,6 +245,7 @@ RETURN LENGTH( "🥑" )
 @endDocuBlock aqlArrayLength_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayLength_2
 @EXAMPLE_AQL{aqlArrayLength_2}
 RETURN LENGTH( 1234 )
@@ -241,6 +253,7 @@ RETURN LENGTH( 1234 )
 @endDocuBlock aqlArrayLength_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayLength_3
 @EXAMPLE_AQL{aqlArrayLength_3}
 RETURN LENGTH( [1,2,3,4,5,6,7] )
@@ -248,6 +261,7 @@ RETURN LENGTH( [1,2,3,4,5,6,7] )
 @endDocuBlock aqlArrayLength_3
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayLength_4
 @EXAMPLE_AQL{aqlArrayLength_4}
 RETURN LENGTH( [1,2,3,4,5,6,7] )
@@ -255,6 +269,7 @@ RETURN LENGTH( [1,2,3,4,5,6,7] )
 @endDocuBlock aqlArrayLength_4
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayLength_5
 @EXAMPLE_AQL{aqlArrayLength_5}
 RETURN LENGTH( {a:1, b:2, c:3, d:4, e:{f:5,g:6}} )
@@ -262,6 +277,7 @@ RETURN LENGTH( {a:1, b:2, c:3, d:4, e:{f:5,g:6}} )
 @endDocuBlock aqlArrayLength_5
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## MINUS()
 
 `MINUS(array1, array2, ... arrayN) → newArray`
@@ -287,6 +303,7 @@ RETURN MINUS( [1,2,3,4], [3,4,5,6], [5,6,7,8] )
 @endDocuBlock aqlArrayMinus_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## NTH()
 
 `NTH(anyArray, position) → nthElement`
@@ -309,6 +326,7 @@ RETURN NTH( [ "foo", "bar", "baz" ], 2 )
 @endDocuBlock aqlArrayNth_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayNth_2
 @EXAMPLE_AQL{aqlArrayNth_2}
 RETURN NTH( [ "foo", "bar", "baz" ], 3 )
@@ -316,6 +334,7 @@ RETURN NTH( [ "foo", "bar", "baz" ], 3 )
 @endDocuBlock aqlArrayNth_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayNth_3
 @EXAMPLE_AQL{aqlArrayNth_3}
 RETURN NTH( [ "foo", "bar", "baz" ], -1 )
@@ -323,6 +342,7 @@ RETURN NTH( [ "foo", "bar", "baz" ], -1 )
 @endDocuBlock aqlArrayNth_3
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## OUTERSECTION()
 
 `OUTERSECTION(array1, array2, ... arrayN) → newArray`
@@ -347,6 +367,7 @@ RETURN OUTERSECTION( [ 1, 2, 3 ], [ 2, 3, 4 ], [ 3, 4, 5 ] )
 @endDocuBlock aqlArrayOutersection_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## POP()
 
 `POP(anyArray) → newArray`
@@ -370,6 +391,7 @@ RETURN POP( [ 1, 2, 3, 4 ] )
 @endDocuBlock aqlArrayPop_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayPop_2
 @EXAMPLE_AQL{aqlArrayPop_2}
 RETURN POP( [ 1 ] )
@@ -377,6 +399,7 @@ RETURN POP( [ 1 ] )
 @endDocuBlock aqlArrayPop_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## POSITION()
 
 `POSITION(anyArray, search, returnIndex) → position`
@@ -403,6 +426,7 @@ RETURN POSITION( [2,4,6,8], 4 )
 @endDocuBlock aqlArrayPosition_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayPosition_2
 @EXAMPLE_AQL{aqlArrayPosition_2}
 RETURN POSITION( [2,4,6,8], 4, true )
@@ -410,6 +434,7 @@ RETURN POSITION( [2,4,6,8], 4, true )
 @endDocuBlock aqlArrayPosition_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## PUSH()
 
 `PUSH(anyArray, value, unique) → newArray`
@@ -440,6 +465,7 @@ RETURN PUSH([ 1, 2, 3 ], 4)
 @endDocuBlock aqlArrayPush_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayPush_2
 @EXAMPLE_AQL{aqlArrayPush_2}
 RETURN PUSH([ 1, 2, 2, 3 ], 2, true)
@@ -447,6 +473,7 @@ RETURN PUSH([ 1, 2, 2, 3 ], 2, true)
 @endDocuBlock aqlArrayPush_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## REMOVE_NTH()
 
 `REMOVE_NTH(anyArray, position) → newArray`
@@ -471,6 +498,7 @@ RETURN REMOVE_NTH( [ "a", "b", "c", "d", "e" ], 1 )
 @endDocuBlock aqlArrayRemoveNth_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayRemoveNth_2
 @EXAMPLE_AQL{aqlArrayRemoveNth_2}
 RETURN REMOVE_NTH( [ "a", "b", "c", "d", "e" ], -2 )
@@ -478,6 +506,7 @@ RETURN REMOVE_NTH( [ "a", "b", "c", "d", "e" ], -2 )
 @endDocuBlock aqlArrayRemoveNth_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## REMOVE_VALUE()
 
 `REMOVE_VALUE(anyArray, value, limit) → newArray`
@@ -499,6 +528,7 @@ RETURN REMOVE_VALUE( [ "a", "b", "b", "a", "c" ], "a" )
 @endDocuBlock aqlArrayRemoveValue_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayRemoveValue_2
 @EXAMPLE_AQL{aqlArrayRemoveValue_2}
 RETURN REMOVE_VALUE( [ "a", "b", "b", "a", "c" ], "a", 1 )
@@ -506,6 +536,7 @@ RETURN REMOVE_VALUE( [ "a", "b", "b", "a", "c" ], "a", 1 )
 @endDocuBlock aqlArrayRemoveValue_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## REMOVE_VALUES()
 
 `REMOVE_VALUES(anyArray, values) → newArray`
@@ -526,6 +557,7 @@ RETURN REMOVE_VALUES( [ "a", "a", "b", "c", "d", "e", "f" ], [ "a", "f", "d" ] )
 @endDocuBlock aqlArrayRemoveValues_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## REVERSE()
 
 `REVERSE(anyArray) → reversedArray`
@@ -545,6 +577,7 @@ RETURN REVERSE ( [2,4,6,8,10] )
 @endDocuBlock aqlArrayReverse_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## SHIFT()
 
 `SHIFT(anyArray) → newArray`
@@ -568,6 +601,7 @@ RETURN SHIFT( [ 1, 2, 3, 4 ] )
 @endDocuBlock aqlArrayShift_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayShift_2
 @EXAMPLE_AQL{aqlArrayShift_2}
 RETURN SHIFT( [ 1 ] )
@@ -575,6 +609,7 @@ RETURN SHIFT( [ 1 ] )
 @endDocuBlock aqlArrayShift_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## SLICE()
 
 `SLICE(anyArray, start, length) → newArray`
@@ -598,6 +633,7 @@ RETURN SLICE( [ 1, 2, 3, 4, 5 ], 0, 1 )
 @endDocuBlock aqlArraySlice_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArraySlice_2
 @EXAMPLE_AQL{aqlArraySlice_2}
 RETURN SLICE( [ 1, 2, 3, 4, 5 ], 1, 2 )
@@ -605,6 +641,7 @@ RETURN SLICE( [ 1, 2, 3, 4, 5 ], 1, 2 )
 @endDocuBlock aqlArraySlice_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArraySlice_3
 @EXAMPLE_AQL{aqlArraySlice_3}
 RETURN SLICE( [ 1, 2, 3, 4, 5 ], 3 )
@@ -612,6 +649,7 @@ RETURN SLICE( [ 1, 2, 3, 4, 5 ], 3 )
 @endDocuBlock aqlArraySlice_3
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArraySlice_4
 @EXAMPLE_AQL{aqlArraySlice_4}
 RETURN SLICE( [ 1, 2, 3, 4, 5 ], 1, -1 )
@@ -619,6 +657,7 @@ RETURN SLICE( [ 1, 2, 3, 4, 5 ], 1, -1 )
 @endDocuBlock aqlArraySlice_4
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArraySlice_5
 @EXAMPLE_AQL{aqlArraySlice_5}
 RETURN SLICE( [ 1, 2, 3, 4, 5 ], 0, -2 )
@@ -626,6 +665,7 @@ RETURN SLICE( [ 1, 2, 3, 4, 5 ], 0, -2 )
 @endDocuBlock aqlArraySlice_5
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArraySlice_6
 @EXAMPLE_AQL{aqlArraySlice_6}
 RETURN SLICE( [ 1, 2, 3, 4, 5 ], -3, 2 )
@@ -633,6 +673,7 @@ RETURN SLICE( [ 1, 2, 3, 4, 5 ], -3, 2 )
 @endDocuBlock aqlArraySlice_6
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## SORTED()
 
 `SORTED(anyArray) → newArray`
@@ -652,6 +693,7 @@ RETURN SORTED( [ 8,4,2,10,6 ] )
 @endDocuBlock aqlArraySorted_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## SORTED_UNIQUE()
 
 `SORTED_UNIQUE(anyArray) → newArray`
@@ -673,6 +715,7 @@ RETURN SORTED_UNIQUE( [ 8,4,2,10,6,2,8,6,4 ] )
 @endDocuBlock aqlArraySortedUnique_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## UNION()
 
 `UNION(array1, array2, ... arrayN) → newArray`
@@ -700,6 +743,7 @@ RETURN UNION(
 @endDocuBlock aqlArrayUnion_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 Note: No duplicates will be removed. In order to remove duplicates, please use
 either [UNION_DISTINCT()](#union_distinct)
 or apply [UNIQUE()](#unique) on the
@@ -717,6 +761,7 @@ RETURN UNIQUE(
 @endDocuBlock aqlArrayUnion_2
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## UNION_DISTINCT()
 
 `UNION_DISTINCT(array1, array2, ... arrayN) → newArray`
@@ -740,6 +785,7 @@ RETURN UNION_DISTINCT(
 @endDocuBlock aqlArrayUnionDistinct_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## UNIQUE()
 
 `UNIQUE(anyArray) → newArray`
@@ -759,6 +805,7 @@ RETURN UNIQUE( [ 1,2,2,3,3,3,4,4,4,4,5,5,5,5,5 ] )
 @endDocuBlock aqlArrayUnique_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## UNSHIFT()
 
 `UNSHIFT(anyArray, value, unique) → newArray`
@@ -788,6 +835,7 @@ RETURN UNSHIFT( [ 1, 2, 3 ], 4 )
 @endDocuBlock aqlArrayUnshift_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+
 @startDocuBlockInline aqlArrayUnshift_2
 @EXAMPLE_AQL{aqlArrayUnshift_2}
 RETURN UNSHIFT( [ 1, 2, 3 ], 2, true )

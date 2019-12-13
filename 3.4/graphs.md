@@ -213,6 +213,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
     @endDocuBlock graph_create_knows_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 **Note:** with the default "Search Depth" of 2 of the graph viewer you may not see all edges of this graph.
 
 ### The Social Graph
@@ -259,6 +260,7 @@ The example has the cities as *vertices* in several *vertex collections* - `germ
     @endDocuBlock graph_create_cities_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### The Traversal Graph
 
 This graph was designed to demonstrate filters in traversals. It has some labels to filter on it.
@@ -279,6 +281,7 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
     @endDocuBlock graph_create_traversal_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 **Note:** with the default "Search Depth" of 2 of the graph viewer you may not see all nodes of this graph.
 
 ### The World Graph
@@ -301,6 +304,7 @@ It is used to demonstrate raw traversal operations.
     @endDocuBlock graph_create_world_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### The Mps Graph
 
 This graph was created to demonstrate a use case of the shortest path algorithm. Even though the algorithm can only determine one shortest path, it is possible to return multiple shortest paths with two separate queries. Therefore the graph is named after the [**m**ultiple **p**ath **s**earch](aql/examples-multiple-paths.html) use case.
@@ -322,6 +326,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
     @endDocuBlock graph_create_mps_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Higher volume graph examples
 
 All of the above examples are rather small so they are easier to comprehend and can demonstrate the way the functionality works.

@@ -25,6 +25,7 @@ Returns the view with the given name or null if no such view exists.
     @endDocuBlock viewDatabaseGet
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 `db._view(view-identifier)`
 
 Returns the view with the given identifier or null if no such view exists.
@@ -43,6 +44,7 @@ Get a view by name:
     @endDocuBlock viewDatabaseNameKnown
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Unknown view:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDatabaseNameUnknown
@@ -111,6 +113,7 @@ List all views:
     @endDocuBlock viewDatabaseList
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Drop
 ----
 

@@ -36,6 +36,7 @@ Get a collection by name:
     @endDocuBlock collectionDatabaseNameKnown
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Get a collection by id:
 
 ```
@@ -256,6 +257,7 @@ With defaults:
     @endDocuBlock collectionDatabaseCreateSuccess
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 With properties:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateProperties
@@ -268,6 +270,7 @@ With properties:
     @endDocuBlock collectionDatabaseCreateProperties
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 With a key generator:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateKey
@@ -282,6 +285,7 @@ With a key generator:
     @endDocuBlock collectionDatabaseCreateKey
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 With a special key option:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateSpecialKey
@@ -428,6 +432,7 @@ Drops a collection:
     @endDocuBlock collectionDatabaseDropByObject
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Drops a collection identified by name:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseDropName
@@ -440,6 +445,7 @@ Drops a collection identified by name:
     @endDocuBlock collectionDatabaseDropName
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Drops a system collection
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseDropSystem
@@ -452,6 +458,7 @@ Drops a system collection
     @endDocuBlock collectionDatabaseDropSystem
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Truncate
 --------
 
@@ -493,6 +500,7 @@ Truncates a collection:
     @endDocuBlock collectionDatabaseTruncateByObject
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Truncates a collection identified by name:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseTruncateName
