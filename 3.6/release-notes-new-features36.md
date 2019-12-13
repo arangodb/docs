@@ -121,7 +121,7 @@ A subquery becomes unsuitable if it contains a `LIMIT` node or a
 unsuitable if it is contained in a (sub)query containing unsuitable parts
 *after* the subquery.
 
-Consider the following query to illustrates the difference.
+Consider the following query to illustrate the difference.
 
 ```js
 FOR x IN c1
@@ -217,9 +217,9 @@ In 3.6 the optimization can only be applied to queries containing a
 
 ```js
 FOR d IN documentSource // documentSource can be either a collection or an ArangoSearch View
-SORT d.foo
-LIMIT 100
-RETURN d
+  SORT d.foo
+  LIMIT 100
+  RETURN d
 ```
 
 For the collection case the optimization is possible if and only if:
@@ -228,13 +228,13 @@ For the collection case the optimization is possible if and only if:
 - all attribute accesses can be covered by indexed attributes
 
 ```js
-// Given we have hash index on attributes [  "foo", "bar", "baz" ]
+// Given we have a hash index on attributes [  "foo", "bar", "baz" ]
 
 FOR d IN myCollection
-FILTER d.foo == "someValue" // hash index will be picked to optimize filtering
-SORT d.baz DESC             // field "baz" will be read from index
-LIMIT 100                   // only 100 documents will be materialized
-RETURN d
+  FILTER d.foo == "someValue" // hash index will be picked to optimize filtering
+  SORT d.baz DESC             // field "baz" will be read from index
+  LIMIT 100                   // only 100 documents will be materialized
+  RETURN d
 ```
 
 For the ArangoSearch View case the optimization is possible if and only if:
@@ -243,19 +243,19 @@ For the ArangoSearch View case the optimization is possible if and only if:
 
 ```js
 FOR d IN myView
-SEARCH d.foo == "baz"
-SORT BM25(d) DESC  // BM25(d) will be evaluated by the View node above
-LIMIT 100          // only 100 documents will be materialized
-RETURN d
+  SEARCH d.foo == "baz"
+  SORT BM25(d) DESC  // BM25(d) will be evaluated by the View node above
+  LIMIT 100          // only 100 documents will be materialized
+  RETURN d
 ```
 
 ```js
 // Given we have primary sort on fields ["foo", "bar"]
 FOR d IN myView
-SEARCH d.foo == "baz"
-SORT d.bar DESC    // field "bar" will be read from the View
-LIMIT 100          // only 100 documents will be materialized
-RETURN d
+  SEARCH d.foo == "baz"
+  SORT d.bar DESC    // field "bar" will be read from the View
+  LIMIT 100          // only 100 documents will be materialized
+  RETURN d
 ```
 
 The respective optimizer rules are called `late-document-materialization`
@@ -275,10 +275,6 @@ When parallelization is used, one or multiple *GatherNode*s in a query's
 execution plan will be tagged with `parallel` as follows:
 
 ```
-Query String (26 chars, cacheable: true):
- FOR doc IN test RETURN doc
-
-Execution plan:
  Id   NodeType                  Site     Est.   Comment
   1   SingletonNode             DBS         1   * ROOT
   2   EnumerateCollectionNode   DBS   1000000     - FOR doc IN test   /* full collection scan, 5 shard(s) */
@@ -329,12 +325,12 @@ completely and it cannot be re-enabled for individual queries.
 
 ### Optimizations for simple UPDATE and REPLACE queries
 
-AQL query execution plans for simple `UPDATE` and `REPLACE` operations that
+Cluster query execution plans for simple `UPDATE` and `REPLACE` queries that
 modify multiple documents and do not use `LIMIT` are now more efficient as
 several steps were removed. The existing optimizer rule
 `undistribute-remove-after-enum-coll` has been extended to cover these cases
 too, in case the collection is sharded by `_key` and the `UPDATE`/`REPLACE`
-operation is using the document or the `_key` to find it.
+operation is using the full document or the `_key` attribute to find it.
 
 For example, a query such as:
 
@@ -343,16 +339,12 @@ For example, a query such as:
 … is executed as follows in 3.5:
 
 ```
-Query String (57 chars, cacheable: false):
- FOR doc IN test UPDATE doc WITH { updated: true } IN test
-
-Execution plan:
  Id   NodeType                  Site     Est.   Comment
   1   SingletonNode             DBS         1   * ROOT
   3   CalculationNode           DBS         1     - LET #3 = { "updated" : true }
   2   EnumerateCollectionNode   DBS   1000000     - FOR doc IN test   /* full collection scan, 5 shard(s) */
  11   RemoteNode                COOR  1000000       - REMOTE
- 12   GatherNode                COOR  1000000       - GATHER   /* parallel */
+ 12   GatherNode                COOR  1000000       - GATHER  
   5   DistributeNode            COOR  1000000       - DISTRIBUTE  /* create keys: false, variable: doc */
   6   RemoteNode                DBS   1000000       - REMOTE
   4   UpdateNode                DBS         0       - UPDATE doc WITH #3 IN test
@@ -363,20 +355,22 @@ Execution plan:
 In 3.6 the execution plan is streamlined to just:
 
 ```
-Query String (57 chars, cacheable: false):
- FOR doc IN test UPDATE doc WITH { updated: true } IN test
-
-Execution plan:
  Id   NodeType          Site     Est.   Comment
   1   SingletonNode     DBS         1   * ROOT
   3   CalculationNode   DBS         1     - LET #3 = { "updated" : true }
  13   IndexNode         DBS   1000000     - FOR doc IN test   /* primary index scan, index only, projections: `_key`, 5 shard(s) */
   4   UpdateNode        DBS         0       - UPDATE doc WITH #3 IN test
   7   RemoteNode        COOR        0       - REMOTE
-  8   GatherNode        COOR        0       - GATHER
+  8   GatherNode        COOR        0       - GATHER   /* parallel */
 ```
 
-The optimization will also work with filters:
+As can be seen above, the benefit of applying the optimization is that the extra
+communication between the Coordinator and DB-Server is removed. This will
+mean less cluster-internal traffic and thus can result in faster execution.
+As an extra benefit, the optimization will also make the affected queries
+eligible for parallel execution. It is only applied in cluster deployments.
+
+The optimization will also work when a filter is involved:
 
 ```
 Query String (79 chars, cacheable: false):
