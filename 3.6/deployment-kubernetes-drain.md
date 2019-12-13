@@ -409,7 +409,7 @@ completely risk-free, even with a small grace period.
 ## Performing the drain
 
 After all above [checks before a node drain](#things-to-check-in-arangodb-before-a-node-drain)
-and the [manual clean out of the DB-Server](#clean-out-a-dbserver-manually)
+and the [manual clean out of the DB-Server](#clean-out-a-db-server-manually)
 have been done successfully, it is safe to perform the drain operation, similar to this command:
 
 ```bash
@@ -425,7 +425,7 @@ much data is stored in the pod, your mileage may vary, moving a terabyte
 of data can take considerably longer!
 
 If the highly recommended step of
-[cleaning out a DB-Server manually](#clean-out-a-dbserver-manually)
+[cleaning out a DB-Server manually](#clean-out-a-db-server-manually)
 has been performed beforehand, the grace period can easily be reduced to 60
 seconds - at least from the perspective of ArangoDB, since the server is already
 cleaned out, so it can be dropped readily and there is still no risk.
