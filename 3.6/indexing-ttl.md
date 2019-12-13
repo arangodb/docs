@@ -179,6 +179,7 @@ one attribute path has to be given. The index will be sparse in all cases.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureTtlIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureTtlIndex}

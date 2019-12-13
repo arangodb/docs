@@ -165,6 +165,7 @@ We load an example graph to get a named graph that reflects some possible
 train connections in Europe and North America.
 
 ![Train Connection Map](../images/train_map.png)
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHKSP_01_create_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHKSP_01_create_graph}
