@@ -19,7 +19,7 @@
       {%- else -%}
         {%- assign version_number = v.version.name -%}
       {%- endif -%}
-      {%- if v.version.tag -%}
+      {%- if v.version.tag and jekyll.environment != "netlify" -%}
         {%- assign version_alias = v.version.tag -%}
       {%- else -%}
         {%- assign version_alias = v.version.name -%}
