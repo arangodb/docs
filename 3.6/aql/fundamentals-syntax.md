@@ -209,7 +209,8 @@ Names
 In general, names are used to identify objects (collections, attributes,
 variables, and functions) in AQL queries.
 
-The maximum supported length of any name is 64 bytes. Names in AQL are always
+<!-- TODO: variable names can apparently be longer than 256 bytes -->
+The maximum supported length of any name is 256 bytes. Names in AQL are always
 case-sensitive.
 
 Keywords must not be used as names. If a reserved keyword should be used as a

@@ -62,7 +62,7 @@ naming conventions, similar to collection names:
   upper case), the numbers `0` to `9`, underscore (`_`) and dash (`-`) symbols.
   This also means that any non-ASCII names are not allowed.
 - It must always start with a letter.
-- The maximum allowed length of a name is 64 bytes.
+- The maximum allowed length of a name is 254 bytes. <!-- TODO: same as document key? -->
 - Analyzer names are case-sensitive.
 
 Custom Analyzers are stored per database, in a system collection `_analyzers`.
