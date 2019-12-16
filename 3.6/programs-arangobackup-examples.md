@@ -38,16 +38,20 @@ If the `label` marker is omitted then a unique identifier string is
 generated instead.
 {% endhint %}
 
-There are two more options for the cluster mode regarding the
-acquisition of the global write transaction lock. One is that one can
-configure how long the system tries to get the global write transaction
-lock before it reports failure. This is the `--max-wait-for-lock`
+There are more options for the cluster mode regarding the acquisition of the global 
+write transaction lock. One is that one can configure how long the system tries to 
+get the global write transaction lock before it reports failure. This is the `--max-wait-for-lock`
 option. Its value must be a number in seconds and the default is 120
 seconds. The second is the `--allow-inconsistent` option, whose default is `false`.
 If set to `false`, the operation is considered to have failed if the
 maximal waiting time for the lock is exceeded. If `--allow-inconsistent` is set to
 `true`, the system will take a potentially non-consistent hot backup when
-the timeout is exceeded.
+the timeout is exceeded. 
+The third option is `--force`, which will make arangobackup abort ongoing write
+transactions in order to more quickly acquire the global write transaction lock.
+This option should be used with caution, as it will potentially abort valid write
+transactions, meaning client applications will see errors for otherwise valid
+operations and queries.
 
 Restore
 -------

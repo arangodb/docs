@@ -710,10 +710,11 @@ HotBackup
 
 - Force Backup
 
-  When creating backups there is an additional option `force`. This option
-  **aborts** all ongoing transactions to obtain the global lock for creating
-  the backup. Most likely this is _not_ what you want to do, but maybe someone
-  wants to.
+  When creating backups there is an additional option `--force`. This option
+  **aborts** all ongoing write transactions to obtain the global lock for creating
+  the backup. Most likely this is _not_ what you want to do because it will abort
+  valid ongoing write operations, but it makes sure that backups can always be
+  acquired.
 
 TLS v1.3
 --------

@@ -307,6 +307,10 @@ not be suited for.
   that the process has to be retried over and over. Every unsuccessful try would
   then lead to the release of all partial locks.
 
+  Please not that since ArangoDB 3.6 the _arangobackup_ tool provides a `--force`
+  option that can be used to abort ongoing write transactions and thus to more 
+  quickly obtain the global transaction lock.
+
   At this stage, index creation constitutes a write transactions, which means
   that during index creation one cannot create a hot backup. We intend to lift
   this limitation in a future version.
