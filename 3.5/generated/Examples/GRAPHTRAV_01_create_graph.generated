@@ -5,67 +5,67 @@ arangosh&gt; db.circles.toArray();
   { 
     "_key" : "A", 
     "_id" : "circles/A", 
-    "_rev" : "_Zuzdwvy---", 
+    "_rev" : "_ZvJjOem---", 
     "label" : "1" 
   }, 
   { 
     "_key" : "B", 
     "_id" : "circles/B", 
-    "_rev" : "_Zuzdwvy--A", 
+    "_rev" : "_ZvJjOem--A", 
     "label" : "2" 
   }, 
   { 
     "_key" : "C", 
     "_id" : "circles/C", 
-    "_rev" : "_Zuzdwv2---", 
+    "_rev" : "_ZvJjOem--C", 
     "label" : "3" 
   }, 
   { 
     "_key" : "D", 
     "_id" : "circles/D", 
-    "_rev" : "_Zuzdwv2--A", 
+    "_rev" : "_ZvJjOeq---", 
     "label" : "4" 
   }, 
   { 
     "_key" : "E", 
     "_id" : "circles/E", 
-    "_rev" : "_Zuzdwv2--C", 
+    "_rev" : "_ZvJjOeq--A", 
     "label" : "5" 
   }, 
   { 
     "_key" : "F", 
     "_id" : "circles/F", 
-    "_rev" : "_Zuzdwv2--E", 
+    "_rev" : "_ZvJjOeq--C", 
     "label" : "6" 
   }, 
   { 
     "_key" : "G", 
     "_id" : "circles/G", 
-    "_rev" : "_Zuzdwv2--G", 
+    "_rev" : "_ZvJjOeq--E", 
     "label" : "7" 
   }, 
   { 
     "_key" : "H", 
     "_id" : "circles/H", 
-    "_rev" : "_Zuzdwv6---", 
+    "_rev" : "_ZvJjOeq--G", 
     "label" : "8" 
   }, 
   { 
     "_key" : "I", 
     "_id" : "circles/I", 
-    "_rev" : "_Zuzdwv6--A", 
+    "_rev" : "_ZvJjOeu---", 
     "label" : "9" 
   }, 
   { 
     "_key" : "J", 
     "_id" : "circles/J", 
-    "_rev" : "_Zuzdwv6--C", 
+    "_rev" : "_ZvJjOeu--A", 
     "label" : "10" 
   }, 
   { 
     "_key" : "K", 
     "_id" : "circles/K", 
-    "_rev" : "_Zuzdwv6--E", 
+    "_rev" : "_ZvJjOeu--C", 
     "label" : "11" 
   } 
 ]
@@ -76,7 +76,7 @@ arangosh&gt; db.edges.toArray();
     "_id" : "edges/66245", 
     "_from" : "circles/A", 
     "_to" : "circles/B", 
-    "_rev" : "_Zuzdww----", 
+    "_rev" : "_ZvJjOeu--E", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "left_bar" 
@@ -86,7 +86,7 @@ arangosh&gt; db.edges.toArray();
     "_id" : "edges/66247", 
     "_from" : "circles/B", 
     "_to" : "circles/C", 
-    "_rev" : "_Zuzdww---A", 
+    "_rev" : "_ZvJjOey---", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "left_blarg" 
@@ -96,7 +96,7 @@ arangosh&gt; db.edges.toArray();
     "_id" : "edges/66249", 
     "_from" : "circles/C", 
     "_to" : "circles/D", 
-    "_rev" : "_Zuzdww---C", 
+    "_rev" : "_ZvJjOey--A", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "left_blorg" 
@@ -106,7 +106,7 @@ arangosh&gt; db.edges.toArray();
     "_id" : "edges/66251", 
     "_from" : "circles/B", 
     "_to" : "circles/E", 
-    "_rev" : "_Zuzdww---E", 
+    "_rev" : "_ZvJjOey--C", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "left_blub" 
@@ -116,7 +116,7 @@ arangosh&gt; db.edges.toArray();
     "_id" : "edges/66253", 
     "_from" : "circles/E", 
     "_to" : "circles/F", 
-    "_rev" : "_ZuzdwwC---", 
+    "_rev" : "_ZvJjOey--E", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "left_schubi" 
@@ -126,7 +126,7 @@ arangosh&gt; db.edges.toArray();
     "_id" : "edges/66255", 
     "_from" : "circles/A", 
     "_to" : "circles/G", 
-    "_rev" : "_ZuzdwwC--A", 
+    "_rev" : "_ZvJjOey--G", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "right_foo" 
@@ -136,7 +136,7 @@ arangosh&gt; db.edges.toArray();
     "_id" : "edges/66257", 
     "_from" : "circles/G", 
     "_to" : "circles/H", 
-    "_rev" : "_ZuzdwwC--C", 
+    "_rev" : "_ZvJjOe2---", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "right_blob" 
@@ -146,7 +146,7 @@ arangosh&gt; db.edges.toArray();
     "_id" : "edges/66259", 
     "_from" : "circles/H", 
     "_to" : "circles/I", 
-    "_rev" : "_ZuzdwwC--E", 
+    "_rev" : "_ZvJjOe2--A", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "right_blub" 
@@ -156,7 +156,7 @@ arangosh&gt; db.edges.toArray();
     "_id" : "edges/66261", 
     "_from" : "circles/G", 
     "_to" : "circles/J", 
-    "_rev" : "_ZuzdwwG---", 
+    "_rev" : "_ZvJjOe2--C", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "right_zip" 
@@ -166,7 +166,7 @@ arangosh&gt; db.edges.toArray();
     "_id" : "edges/66263", 
     "_from" : "circles/J", 
     "_to" : "circles/K", 
-    "_rev" : "_ZuzdwwG--A", 
+    "_rev" : "_ZvJjOe2--E", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "right_zup" 
