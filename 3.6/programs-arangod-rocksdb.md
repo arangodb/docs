@@ -318,6 +318,12 @@ MMFiles to RocksDB storage engine without modifying client application code.
 Otherwise it should best be avoided as the use of exclusive locks on collections
 will introduce a noticeable throughput penalty.
 
+Note that the MMFiles engine is [deprecated](appendix-deprecated.html)
+from v3.6.0 on and will be removed in a future release. The removal will also
+affect this option, which will then become unnecessary.
+
+The option has effect on single servers and on DB-servers in the cluster.
+
 `--rocksdb.throttle`
 
 If enabled, throttles the ingest rate of writes if necessary to reduce chances 
