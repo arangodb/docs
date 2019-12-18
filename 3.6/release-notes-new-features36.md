@@ -685,8 +685,8 @@ best be avoided as the use of exclusive locks on collections will introduce a
 noticeable throughput penalty. 
 
 Note that the MMFiles engine is [deprecated](appendix-deprecated.html)
-from v3.6.0 on and will be removed in a future release. The removal will also
-affect this option, which will then become unnecessary.
+from v3.6.0 on and will be removed in a future release. So will be this option,
+which is a stopgap measure only.
 
 ### AQL options
 
