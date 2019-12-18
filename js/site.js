@@ -77,12 +77,13 @@ var loadPage = function(target, fn) {
   var pathname = target.pathname;
   var url = href.replace(/#.*$/, "");
   var elem;
-  console.dir({ url, currentPage, hash: target.hash })
   if (url == currentPage) {
-    // pushState to fix anchor scrolling using the back button?
+    // same page, but anchor might have changed
     if (target.hash == "") {
-      elem = document.querySelector(".page-inner");
-    } else if (location.hash != target.hash) {
+      // user clicked on current page in navigation, scroll to top
+      elem = document.querySelector(".book-header");
+    } else {
+      // location.hash is already target.hash here
       elem = document.querySelector(target.hash);
     }
     if (elem) {
@@ -141,7 +142,6 @@ var loadPage = function(target, fn) {
 }
 
 window.onpopstate = function(event) {
-  console.log("popstate " + event.target.location)
   loadPage(event.target.location);
 };
 
