@@ -286,7 +286,7 @@ RETURN LENGTH( [1,2,3,4,5,6,7] )
 
 @startDocuBlockInline aqlArrayLength_4
 @EXAMPLE_AQL{aqlArrayLength_4}
-RETURN LENGTH( [1,2,3,4,5,6,7] )
+RETURN LENGTH( false )
 @END_EXAMPLE_AQL
 @endDocuBlock aqlArrayLength_4
 {% endaqlexample %}
