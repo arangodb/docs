@@ -291,6 +291,7 @@ The cursor results can then be dumped or iterated over as usual, e.g.:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 or 
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 05_workWithAQL_statements7
     @EXAMPLE_ARANGOSH_OUTPUT{05_workWithAQL_statements7}

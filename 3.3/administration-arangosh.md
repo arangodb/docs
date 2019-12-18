@@ -68,6 +68,7 @@ be used for switching to a different database and managing collections inside th
 current database.
 
 For a list of available methods for the *db* object, type 
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline shellHelp
     @EXAMPLE_ARANGOSH_OUTPUT{shellHelp}

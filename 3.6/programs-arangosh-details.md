@@ -116,7 +116,8 @@ _Arangosh_ provides the *db* object by default, and this object can
 be used for switching to a different database and managing collections inside the
 current database.
 
-For a list of available methods for the *db* object, type 
+For a list of available methods for the *db* object, type
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline shellHelp
     @EXAMPLE_ARANGOSH_OUTPUT{shellHelp}

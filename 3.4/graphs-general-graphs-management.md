@@ -166,6 +166,7 @@ Create an empty graph, edge definitions can be added at runtime:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Create a graph using an edge collection `edges` and a single vertex collection `vertices` 
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraphSingle
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphSingle}
