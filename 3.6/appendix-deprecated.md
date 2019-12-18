@@ -36,8 +36,9 @@ replace the old features with:
   - `--database.throw-collection-not-loaded-error`
   - `--wal.*`
 
-  The collection attributes `doCompact`, `indexBuckets`, `isVolatile`, `journalSize` 
-  and `path` are only used with MMFiles and are thus also deprecated.
+  The collection attributes `doCompact`, `indexBuckets`, `isVolatile`,
+  `journalSize` and `path` are only used with MMFiles and are thus also
+  deprecated.
 
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](../aql/), which can also
