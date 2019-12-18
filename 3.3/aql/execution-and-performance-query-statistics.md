@@ -8,6 +8,7 @@ Query statistics
 A query that has been executed will always return execution statistics. Execution statistics
 can be retrieved by calling `getExtra()` on the cursor. The statistics are returned in the
 return value's `stats` attribute:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 06_workWithAQL_statementsExtra
     @EXAMPLE_ARANGOSH_OUTPUT{06_workWithAQL_statementsExtra}

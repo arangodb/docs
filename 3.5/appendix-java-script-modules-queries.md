@@ -13,6 +13,7 @@ Properties
 ----------
 
 `queries.properties()` Returns the servers current query tracking configuration; we change the slow query threshold to get better results:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline QUERY_01_properyOfQueries
     @EXAMPLE_ARANGOSH_OUTPUT{QUERY_01_properyOfQueries}
@@ -30,6 +31,7 @@ Currently running queries
 
 We [create a task](appendix-java-script-modules-tasks.html) that spawns queries, so we have nice output. Since this task
 uses resources, you may want to increase `period` (and not forget to remove it... afterwards):
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline QUERY_02_listQueries
     @EXAMPLE_ARANGOSH_OUTPUT{QUERY_02_listQueries}
@@ -59,6 +61,7 @@ Slow queries
 ------------
 
 The function returns the last AQL queries that exceeded the slow query threshold as an array:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline QUERY_03_listSlowQueries
     @EXAMPLE_ARANGOSH_OUTPUT{QUERY_03_listSlowQueries}
@@ -73,6 +76,7 @@ Clear slow queries
 ------------------
 
 Clear the list of slow AQL queries:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline QUERY_04_clearSlowQueries
     @EXAMPLE_ARANGOSH_OUTPUT{QUERY_04_clearSlowQueries}
@@ -88,6 +92,7 @@ Kill
 ----
 
 Kill a running AQL query:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline QUERY_05_killQueries
     @EXAMPLE_ARANGOSH_OUTPUT{QUERY_05_killQueries}

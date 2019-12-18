@@ -313,6 +313,7 @@ To list the configuration options of a running `arangod` instance, you can
 connect with an [ArangoShell](programs-arangosh.html) and invoke a
 [Transaction](transactions.html) by calling `db._executeTransaction()`
 and providing a JavaScript function to retrieve the server options:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline listCurrentConfigOpts
     @EXAMPLE_ARANGOSH_OUTPUT{listCurrentConfigOpts}

@@ -28,6 +28,7 @@ Example: Simple AQL query
 Assuming we got a collection named `acollection` and insert 10000 documents
 via `for (let i=0; i < 10000;i++) db.acollection.insert({value:i})`.
 Then a simple query filtering for `value < 10` will return 10 results:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline 01_workWithAQL_profileQuerySimple
 @EXAMPLE_ARANGOSH_OUTPUT{01_workWithAQL_profileQuerySimple}
@@ -76,6 +77,7 @@ Let us add a skiplist index on `value` to speed up the query:
 ```js
 db.acollection.ensureIndex({type:"skiplist", fields:["value"]});
 ```
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline 02_workWithAQL_profileQuerySimpleIndex
 @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_profileQuerySimpleIndex}
@@ -102,6 +104,7 @@ Example: AQL with Subquery
 --------------------------
 
 Let us consider a query containing a subquery:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline 03_workWithAQL_profileQuerySubquery
 @EXAMPLE_ARANGOSH_OUTPUT{03_workWithAQL_profileQuerySubquery}
@@ -136,6 +139,7 @@ statement. Assume we have a user collection with each document having a city,
 a username and an age attribute.
 
 The following query gets us all age groups in buckets (0-9, 10-19, 20-29, ...):
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline 04_workWithAQL_profileQueryAggregation
 @EXAMPLE_ARANGOSH_OUTPUT{04_workWithAQL_profileQueryAggregation}

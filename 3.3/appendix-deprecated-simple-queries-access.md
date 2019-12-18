@@ -38,6 +38,7 @@ documents. In this case the next document can be accessed using the
 
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline cursorHasNext
     @EXAMPLE_ARANGOSH_OUTPUT{cursorHasNext}
@@ -72,6 +73,7 @@ exhausted cursor, then *undefined* is returned.
 
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline cursorNext
     @EXAMPLE_ARANGOSH_OUTPUT{cursorNext}
@@ -130,6 +132,7 @@ The batchSize cannot be adjusted after the query is first executed.
 **Note**: There is no need to explicitly call the execute method if another
 means of fetching the query results is chosen. The following two approaches
 lead to the same result:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline executeQueryNoBatchSize
     @EXAMPLE_ARANGOSH_OUTPUT{executeQueryNoBatchSize}
@@ -147,6 +150,7 @@ lead to the same result:
 
 The following two alternatives both use a batchSize and return the same
 result:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline executeQueryBatchSize
     @EXAMPLE_ARANGOSH_OUTPUT{executeQueryBatchSize}

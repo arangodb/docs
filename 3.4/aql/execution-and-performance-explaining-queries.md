@@ -25,6 +25,7 @@ Inspecting query plans
 The `explain` method of `ArangoStatement` as shown in the next chapters creates very verbose output.
 To get a human-readable output of the query plan you can use the `explain` method on our database
 object in arangosh. You may use it like this: (we disable syntax highlighting here)
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 01_workWithAQL_databaseExplain
     @EXAMPLE_ARANGOSH_OUTPUT{01_workWithAQL_databaseExplain}
@@ -55,6 +56,7 @@ To use this in an interactive fashion on the shell you can use the
 `_profileQuery()` method on the `ArangoDatabase` object or use the web interface.
 
 For more information see [Profiling Queries](execution-and-performance-query-profiler.html).
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 01_workWithAQL_databaseProfileQuery
     @EXAMPLE_ARANGOSH_OUTPUT{01_workWithAQL_databaseProfileQuery}
@@ -85,6 +87,7 @@ Each plan in the result is an object with the following attributes:
   internal variables created by the optimizer)
 
 Here is an example for retrieving the execution plan of a simple query:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 07_workWithAQL_statementsExplain
     @EXAMPLE_ARANGOSH_OUTPUT{07_workWithAQL_statementsExplain}
@@ -98,6 +101,7 @@ Here is an example for retrieving the execution plan of a simple query:
 
 As the output of `explain` is very detailed, it is recommended to use some
 scripting to make the output less verbose:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 08_workWithAQL_statementsPlans
     @EXAMPLE_ARANGOSH_OUTPUT{08_workWithAQL_statementsPlans}
@@ -113,6 +117,7 @@ scripting to make the output less verbose:
 
 If a query contains bind parameters, they must be added to the statement **before**
 `explain` is called:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 09_workWithAQL_statementsPlansBind
     @EXAMPLE_ARANGOSH_OUTPUT{09_workWithAQL_statementsPlansBind}
@@ -132,6 +137,7 @@ discarded. To retrieve all plans the optimizer has generated, `explain` can be c
 with the option `allPlans` set to `true`.
 
 In the following example, the optimizer has created two plans:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 10_workWithAQL_statementsPlansOptimizer0
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer0}
@@ -144,6 +150,7 @@ In the following example, the optimizer has created two plans:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 To see a slightly more compact version of the plan, the following transformation can be applied:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 10_workWithAQL_statementsPlansOptimizer1
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer1}
@@ -163,6 +170,7 @@ To see a slightly more compact version of the plan, the following transformation
   with a `+`. There is also a pseudo-rule `all`, which will match all optimizer rules.
 
 The following example disables all optimizer rules but `remove-redundant-calculations`:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 10_workWithAQL_statementsPlansOptimizer2
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer2}
@@ -176,6 +184,7 @@ The following example disables all optimizer rules but `remove-redundant-calcula
 
 The contents of an execution plan are meant to be machine-readable. To get a human-readable
 version of a query's execution plan, the following commands can be used:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 10_workWithAQL_statementsPlansOptimizer3
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer3}
@@ -199,6 +208,7 @@ as possible, there is a built-in command in ArangoShell for packaging the query,
 bind parameters and all data required to execute the query elsewhere.
 
 The command will store all data in a file with a configurable filename:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 10_workWithAQL_debugging1
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_debugging1}
@@ -214,6 +224,7 @@ reproduction and debugging.
 
 If a query contains bind parameters, they will need to specified along with the query
 string:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline 10_workWithAQL_debugging2
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_debugging2}
@@ -233,6 +244,7 @@ the contents of string attributes in the examples with "XXX". It will however no
 replace any other types of data (e.g. numeric values) or attribute names. Attribute
 names in the examples will always be preserved because they may be indexed and used in
 queries:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline 10_workWithAQL_debugging3
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_debugging3}

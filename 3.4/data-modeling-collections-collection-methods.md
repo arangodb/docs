@@ -24,6 +24,7 @@ drop such a collection, all dependent collections must be dropped
 first. 
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDrop
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDrop}
@@ -67,6 +68,7 @@ indexes.
 
 
 Truncates a collection:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionTruncate
     @EXAMPLE_ARANGOSH_OUTPUT{collectionTruncate}
@@ -211,6 +213,7 @@ used as a lower bound approximation of the disk usage.
 
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionFigures
     @EXAMPLE_ARANGOSH_OUTPUT{collectionFigures}
@@ -236,6 +239,7 @@ Loads a collection into memory.
 **Note**: cluster collections are loaded at all times.
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionLoad
     @EXAMPLE_ARANGOSH_OUTPUT{collectionLoad}
@@ -327,6 +331,7 @@ until all query have finished.
 **Note**: cluster collections cannot be unloaded.
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline CollectionUnload
     @EXAMPLE_ARANGOSH_OUTPUT{CollectionUnload}
@@ -363,6 +368,7 @@ database.
 
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionRename
     @EXAMPLE_ARANGOSH_OUTPUT{collectionRename}

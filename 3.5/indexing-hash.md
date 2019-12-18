@@ -52,6 +52,7 @@ indexed and will be taken into account for uniqueness checks.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureUniqueConstraint
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueConstraint}
@@ -84,6 +85,7 @@ To create a sparse unique index, set the *sparse* attribute to `true`:
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureHashIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureHashIndex}
@@ -113,6 +115,7 @@ It is possible to combine array indexing with standard indexing:
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureHashIndexArray
     @EXAMPLE_ARANGOSH_OUTPUT{ensureHashIndexArray}

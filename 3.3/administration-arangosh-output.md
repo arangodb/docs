@@ -7,6 +7,7 @@ ArangoDB Shell Output
 
 The ArangoDB shell will print the output of the last evaluated expression
 by default:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline lastExpressionResult
     @EXAMPLE_ARANGOSH_OUTPUT{lastExpressionResult}
@@ -18,6 +19,7 @@ by default:
 
 In order to prevent printing the result of the last evaluated expression,
 the expression result can be captured in a variable, e.g.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline lastExpressionResultCaptured
     @EXAMPLE_ARANGOSH_OUTPUT{lastExpressionResultCaptured}
@@ -29,6 +31,7 @@ the expression result can be captured in a variable, e.g.
 
 There is also the `print` function to explicitly print out values in the
 ArangoDB shell:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline printFunction
     @EXAMPLE_ARANGOSH_OUTPUT{printFunction}
@@ -40,6 +43,7 @@ ArangoDB shell:
 
 By default, the ArangoDB shell uses a pretty printer when JSON documents are
 printed. This ensures documents are printed in a human-readable way:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline usingToArray
     @EXAMPLE_ARANGOSH_OUTPUT{usingToArray}

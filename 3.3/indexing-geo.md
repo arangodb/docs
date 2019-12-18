@@ -62,6 +62,7 @@ details, including the index-identifier, is returned.
 
 
 Create a geo index for an array attribute:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute1
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute1}
@@ -82,6 +83,7 @@ Create a geo index for an array attribute:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Create a geo index for a hash array attribute:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute2
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute2}
@@ -101,6 +103,7 @@ Create a geo index for a hash array attribute:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Use GeoIndex with AQL SORT statement:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexSortOptimization
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexSortOptimization}
@@ -121,6 +124,7 @@ Use GeoIndex with AQL SORT statement:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Use GeoIndex with AQL FILTER statement:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexFilterOptimization
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexFilterOptimization}

@@ -26,6 +26,7 @@ Inspecting query plans
 The `explain` method of `ArangoStatement` as shown in the next chapters creates very verbose output.
 To get a human-readable output of the query plan you can use the `explain` method on our database
 object in arangosh. You may use it like this: (we disable syntax highlighting here)
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 01_workWithAQL_databaseExplain
     @EXAMPLE_ARANGOSH_OUTPUT{01_workWithAQL_databaseExplain}
@@ -56,6 +57,7 @@ To use this in an interactive fashion on the shell you can use the
 `_profileQuery()` method on the `ArangoDatabase` object or use the web interface.
 
 For more information see [Profiling Queries](execution-and-performance-query-profiler.html).
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 01_workWithAQL_databaseProfileQuery
     @EXAMPLE_ARANGOSH_OUTPUT{01_workWithAQL_databaseProfileQuery}

@@ -12,6 +12,7 @@ Our first example will locate the start vertex for a graph traversal via [a geo 
 We use [the city graph](../graphs.html#the-city-graph) and its geo indices:
 
 ![Cities Example Graph](../images/cities_graph.png)
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline COMBINING_GRAPH_01_create_graph
     @EXAMPLE_ARANGOSH_OUTPUT{COMBINING_GRAPH_01_create_graph}
@@ -107,6 +108,7 @@ Alternatively we could use a `LET` statement with a subquery to group the traver
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Finally, we clean up again:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline COMBINING_GRAPH_06_cleanup
     @EXAMPLE_ARANGOSH_OUTPUT{COMBINING_GRAPH_06_cleanup}

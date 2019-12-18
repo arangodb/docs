@@ -39,6 +39,7 @@ first argument. No revision can be specified in this case.
 
 
 Returns the document:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsDocumentName
     @EXAMPLE_ARANGOSH_OUTPUT{documentsDocumentName}
@@ -147,6 +148,7 @@ first argument. No revision precondition is tested.
 
 
 Create and replace a document:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsDocumentReplace
     @EXAMPLE_ARANGOSH_OUTPUT{documentsDocumentReplace}
@@ -235,6 +237,7 @@ first argument. No revision precondition is tested.
 
 
 Create and update a document:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentDocumentUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{documentDocumentUpdate}
@@ -308,6 +311,7 @@ first argument. No revision check is performed.
 
 
 Remove a document:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollectionRemoveSuccess
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveSuccess}
@@ -323,6 +327,7 @@ Remove a document:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Remove the document in the revision `a1` with a conflict:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollectionRemoveConflict
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveConflict}
@@ -339,6 +344,7 @@ Remove the document in the revision `a1` with a conflict:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Remove a document using new signature:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollectionRemoveSignature
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionRemoveSignature}

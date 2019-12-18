@@ -31,6 +31,7 @@ You can work on the output programmatically, or use this handsome tool that we c
 to generate a more human readable representation.
 
 You may use it like this: (we disable syntax highlighting here)
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_01_axplainer
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_01_axplainer}
@@ -50,6 +51,7 @@ You may use it like this: (we disable syntax highlighting here)
 
 Let's have a look at the raw json output of the same execution plan
 using the `explain` method of `ArangoStatement`:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_01_explainCreate
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_01_explainCreate}
@@ -70,6 +72,7 @@ Each processing step is carried out by a so-called *execution node*
 
 The `nodes` attribute of the `explain` result contains these *execution nodes* in
 the *execution plan*. The output is still very verbose, so here's a shorted form of it:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_02_explainOverview
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_02_explainOverview}
@@ -121,6 +124,7 @@ anyway, the extra *SortNode* would have been redundant and was removed.
 Additionally, the optimizer has done more work to generate an execution plan that
 avoids as much expensive operations as possible. Here is the list of optimizer rules
 that were applied to the plan:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_03_explainRules
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_03_explainRules}
@@ -161,6 +165,7 @@ in the optimizer pipeline.
 
 The list of collections used in a plan (and query) is contained in the `collections`
 attribute of a plan:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_04_explainCollections
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_04_explainCollections}
@@ -198,6 +203,7 @@ generated, set the option `allPlans` to `true`:
 
 This will return a list of all plans in the `plans` attribute instead of in the
 `plan` attribute:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_05_explainAllPlans
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_05_explainAllPlans}
@@ -215,6 +221,7 @@ optimization rules (i.e. cluster rules cannot be disabled if you're running
 the explain on a cluster coordinator) set the option `rules` to `-all`:
 
 This will return an unoptimized plan in the `plan`:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_06_explainUnoptimizedPlans
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_06_explainUnoptimizedPlans}
@@ -239,6 +246,7 @@ pseudo-rule `all` matches all rules.
 
 Rules specified in `rules` are evaluated from left to right, so the following works to
 turn on just the one specific rule:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_07_explainSingleRulePlans
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_07_explainSingleRulePlans}
@@ -251,6 +259,7 @@ turn on just the one specific rule:
 
 By default, all rules are turned on. To turn off just a few specific rules, use something
 like this:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_08_explainDisableSingleRulePlans
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_08_explainDisableSingleRulePlans}
@@ -263,6 +272,7 @@ like this:
 
 The maximum number of plans created by the optimizer can also be limited using the
 `maxNumberOfPlans` attribute:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_09_explainMaxNumberOfPlans
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_09_explainMaxNumberOfPlans}
@@ -290,6 +300,7 @@ Warnings
 
 For some queries, the optimizer may produce warnings. These will be returned in
 the `warnings` attribute of the `explain` result:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_10_explainWarn
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_10_explainWarn}

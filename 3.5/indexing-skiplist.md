@@ -53,6 +53,7 @@ account for uniqueness checks.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureUniqueSkiplistSingle
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueSkiplistSingle}
@@ -100,6 +101,7 @@ To create a sparse non-unique index, set the *sparse* attribute to `true`.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureSkiplist
     @EXAMPLE_ARANGOSH_OUTPUT{ensureSkiplist}
@@ -131,6 +133,7 @@ It is possible to combine array indexing with standard indexing:
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureSkiplistArray
     @EXAMPLE_ARANGOSH_OUTPUT{ensureSkiplistArray}

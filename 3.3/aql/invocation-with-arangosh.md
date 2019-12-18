@@ -16,6 +16,7 @@ One can execute queries with the *_query* method of the *db* object.
 This will run the specified query in the context of the currently
 selected database and return the query results in a cursor. The results of the cursor
 can be printed using its *toArray* method:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline 01_workWithAQL_all
     @EXAMPLE_ARANGOSH_OUTPUT{01_workWithAQL_all}
@@ -32,6 +33,7 @@ can be printed using its *toArray* method:
 
 To pass bind parameters into a query, they can be specified as second argument to the
 *_query* method:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 02_workWithAQL_bindValues
     @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_bindValues}
@@ -61,6 +63,7 @@ aql`FOR c IN mycollection FILTER c._key == ${key} RETURN c._key`;
   } 
 }
 ```
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 02_workWithAQL_aqlQuery
     @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_aqlQuery}
@@ -75,6 +78,7 @@ aql`FOR c IN mycollection FILTER c._key == ${key} RETURN c._key`;
 
 Arbitrary JavaScript expressions can be used in queries that are generated with the 
 *aql* template string generator. Collection objects are handled automatically:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 02_workWithAQL_aqlCollectionQuery
     @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_aqlCollectionQuery}
@@ -93,6 +97,7 @@ contains an extra *RETURN* statement). When not using a *RETURN* statement in th
 ### Statistics and extra Information
  
 It is always possible to retrieve statistics for a query with the *getExtra* method:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 03_workWithAQL_getExtra
     @EXAMPLE_ARANGOSH_OUTPUT{03_workWithAQL_getExtra}
@@ -116,6 +121,7 @@ allowed to use. When a single AQL query reaches the specified limit value,
 the query will be aborted with a *resource limit exceeded* exception. In a 
 cluster, the memory accounting is done per shard, so the limit value is 
 effectively a memory limit per query per shard.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 02_workWithAQL_memoryLimit
     @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_memoryLimit}
@@ -188,6 +194,7 @@ The *_query* method is a shorthand for creating an ArangoStatement object,
 executing it and iterating over the resulting cursor. If more control over the
 result set iteration is needed, it is recommended to first create an
 ArangoStatement object as follows:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 04_workWithAQL_statements1
     @EXAMPLE_ARANGOSH_OUTPUT{04_workWithAQL_statements1}
@@ -199,6 +206,7 @@ ArangoStatement object as follows:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 To execute the query, use the *execute* method of the statement:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 05_workWithAQL_statements2
     @EXAMPLE_ARANGOSH_OUTPUT{05_workWithAQL_statements2}
@@ -215,6 +223,7 @@ Once the query executed the query results are available in a cursor.
 The cursor can return all its results at once using the *toArray* method.
 This is a short-cut that you can use if you want to access the full result
 set without iterating over it yourself.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 05_workWithAQL_statements3
     @EXAMPLE_ARANGOSH_OUTPUT{05_workWithAQL_statements3}
@@ -229,6 +238,7 @@ set without iterating over it yourself.
 
 Cursors can also be used to iterate over the result set document-by-document.
 To do so, use the *hasNext* and *next* methods of the cursor:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 05_workWithAQL_statements4
     @EXAMPLE_ARANGOSH_OUTPUT{05_workWithAQL_statements4}
@@ -251,6 +261,7 @@ backwards iteration or random access to elements in a cursor.
 
 To execute an AQL query using bind parameters, you need to create a statement first
 and then bind the parameters to it before execution:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 05_workWithAQL_statements5
     @EXAMPLE_ARANGOSH_OUTPUT{05_workWithAQL_statements5}
@@ -265,6 +276,7 @@ and then bind the parameters to it before execution:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 The cursor results can then be dumped or iterated over as usual, e.g.:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline 05_workWithAQL_statements6
     @EXAMPLE_ARANGOSH_OUTPUT{05_workWithAQL_statements6}
@@ -294,6 +306,7 @@ or
 
 Please note that bind parameters can also be passed into the *_createStatement* method directly,
 making it a bit more convenient:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline 05_workWithAQL_statements8
     @EXAMPLE_ARANGOSH_OUTPUT{05_workWithAQL_statements8}
@@ -314,6 +327,7 @@ making it a bit more convenient:
 Cursors also optionally provide the total number of results. By default, they do not. 
 To make the server return the total number of results, you may set the *count* attribute to 
 *true* when creating a statement:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline 05_workWithAQL_statements9
     @EXAMPLE_ARANGOSH_OUTPUT{05_workWithAQL_statements9}
@@ -327,6 +341,7 @@ To make the server return the total number of results, you may set the *count* a
 
 After executing this query, you can use the *count* method of the cursor to get the 
 number of total results from the result set:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 05_workWithAQL_statements10
     @EXAMPLE_ARANGOSH_OUTPUT{05_workWithAQL_statements10}
@@ -362,6 +377,7 @@ Cursors can also optionally provide statistics of the internal execution phases.
 To get to know how long parsing, otpimisation, instanciation and execution took,
 make the server return that by setting the *profile* attribute to
 *true* when creating a statement:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 06_workWithAQL_statements11
     @EXAMPLE_ARANGOSH_OUTPUT{06_workWithAQL_statements11}
@@ -375,6 +391,7 @@ make the server return that by setting the *profile* attribute to
 
 After executing this query, you can use the *getExtra()* method of the cursor to get the 
 produced statistics:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 06_workWithAQL_statements12
     @EXAMPLE_ARANGOSH_OUTPUT{06_workWithAQL_statements12}

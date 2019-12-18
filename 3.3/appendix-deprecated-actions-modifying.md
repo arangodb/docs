@@ -74,6 +74,7 @@ Modules are a means of organizing action handlers and making them loadable under
 specific names.
 
 To start, we'll define a simple action handler in a module */ownTest*:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_01a_routingCreateOwnTest
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_01a_routingCreateOwnTest}
@@ -94,6 +95,7 @@ To start, we'll define a simple action handler in a module */ownTest*:
 This does nothing but register a do action handler in a module */ownTest*.  The
 action handler is not yet callable, but must be mapped to a route first.  To map
 the action to the route */ourtest*, execute the following command:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_01b_routingEnableOwnTest
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_01b_routingEnableOwnTest}
@@ -110,6 +112,7 @@ the action to the route */ourtest*, execute the following command:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Now use the browser or cURL and access http://localhost:8529/ourtest :
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_01c_routingCurlOwnTest
     @EXAMPLE_ARANGOSH_RUN{MOD_01c_routingCurlOwnTest}
@@ -136,6 +139,7 @@ culprit could be the routing caches:
 
 The routing cache stores the routing information computed from the *_routing*
 collection. Whenever you change this collection manually, you need to call
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_05_routingModifyReload
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_05_routingModifyReload}
@@ -156,6 +160,7 @@ For detailed information see the reference manual.
 ### Redirects
 
 Use the following for a permanent redirect:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_06a_routingRedirect
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_06a_routingRedirect}
@@ -193,6 +198,7 @@ Use the following for a permanent redirect:
 
 Instead of adding all routes for package separately, you can
 specify a bundle:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_07a_routingMulti
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_07a_routingMulti}
@@ -238,6 +244,7 @@ specify a bundle:
 
 The advantage is, that you can put all your routes into one document
 and use a common prefix.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_07c_routingMulti
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_07c_routingMulti}
@@ -265,6 +272,7 @@ and use a common prefix.
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 will define the URL */test/url1*, */test/url2*, and */test/url3*:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_07d_routingCurlMulti
     @EXAMPLE_ARANGOSH_RUN{MOD_07d_routingCurlMulti}
@@ -289,6 +297,7 @@ Assume, you want to log every request in your namespace to the console. *(if Ara
 as a daemon, this will end up in the logfile)*. In this case you can easily define an
 action for the URL */subdirectory*. This action simply logs
 the requests, calls the next in line, and logs the response:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_08a_routingCreateOwnConsoleLog
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_08a_routingCreateOwnConsoleLog}
@@ -310,6 +319,7 @@ the requests, calls the next in line, and logs the response:
 This function will now be available as *db://OwnMiddlewareTest/logRequest*. You need to
 tell ArangoDB that it is should use a prefix match and that the shortest match
 should win in this case:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_08b_routingCreateRouteToOwnConsoleLog
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_08b_routingCreateRouteToOwnConsoleLog}
@@ -340,6 +350,7 @@ called without modifying the URL in the request object
 *req*. Otherwise an endless loop will occur.
 
 Now we add some other simple routings to test all this:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_08c_routingCreateRouteToOwnConsoleLog
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_08c_routingCreateRouteToOwnConsoleLog}
@@ -368,6 +379,7 @@ Now we add some other simple routings to test all this:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Then we send some curl requests to these sample routes:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_08d_routingCurlToOwnConsoleLog
     @EXAMPLE_ARANGOSH_RUN{MOD_08d_routingCurlToOwnConsoleLog}
@@ -414,6 +426,7 @@ caching issues.
 
 After any modification to the routing or actions, it is thus recommended to
 make the changes "live" by calling the following functions from within arangosh:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_09_routingReload
     @EXAMPLE_ARANGOSH_RUN{MOD_09_routingReload}
@@ -466,6 +479,7 @@ For example, this definition only allows access via *GET* and *HEAD*:
 ```
 
 whereas this definition allows HTTP *GET*, *POST*, and *PUT*:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_09a_routingSpecifyMethods
     @EXAMPLE_ARANGOSH_OUTPUT{MOD_09a_routingSpecifyMethods}

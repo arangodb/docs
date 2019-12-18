@@ -362,6 +362,7 @@ you may be interested in documents further down the path.
 We will create a simple symmetric traversal demonstration graph:
 
 ![traversal graph](../images/traversal_graph.png)
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_01_create_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_01_create_graph}
@@ -598,6 +599,7 @@ path, and therefore this condition can be used during the execution of the trave
 Paths that are filtered out by this condition won't be processed at all.
 
 And finally clean it up again:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_99_drop_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_99_drop_graph}

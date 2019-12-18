@@ -239,6 +239,7 @@ you may be interested in documents further down the path.
 We will create a simple symmetric traversal demonstration graph:
 
 ![traversal graph](../images/traversal_graph.png)
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_01_create_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_01_create_graph}
@@ -255,6 +256,7 @@ We will create a simple symmetric traversal demonstration graph:
 
 To get started we select the full graph. For better overview we only return
 the vertex IDs:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_02_traverse_all
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_02_traverse_all}
@@ -272,6 +274,7 @@ uses the named graph, the second uses the edge collections directly.
 
 Now we only want the elements of a specific depth (min = max = 2), the ones that
 are right behind the fork:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_03_traverse_3
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_03_traverse_3}
@@ -292,6 +295,7 @@ side of the graph, we may filter in two ways:
 
 - we know the vertex at depth 1 has `_key` == `G`
 - we know the `label` attribute of the edge connecting **A** to **G** is `right_foo`
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_04_traverse_4
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_04_traverse_4}
@@ -309,6 +313,7 @@ Note again, as soon as a filter is not fulfilled for any of the three elements
 
 We also may combine several filters, for instance to filter out the right branch
 (**G**), and the **E** branch:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_05_traverse_5
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_05_traverse_5}
@@ -328,6 +333,7 @@ All our previous examples traversed the graph in `OUTBOUND` edge direction.
 You may however want to also traverse in reverse direction (`INBOUND`) or
 both (`ANY`). Since `circles/A` only has outbound edges, we start our queries
 from `circles/E`:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_06_traverse_reverse_6
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_06_traverse_reverse_6}
@@ -394,6 +400,7 @@ path, and therefore this condition can be used during the execution of the trave
 Paths that are filtered out by this condition won't be processed at all.
 
 And finally clean it up again:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_99_drop_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_99_drop_graph}

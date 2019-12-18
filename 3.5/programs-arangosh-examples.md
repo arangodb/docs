@@ -55,6 +55,7 @@ Using Arangosh
 
 To change the current database after the connection has been made, you
 can use the `db._useDatabase()` command in Arangosh:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline shellUseDB
     @EXAMPLE_ARANGOSH_OUTPUT{shellUseDB}
