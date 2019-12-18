@@ -15,7 +15,6 @@ then a shortest path query from **A** to **C** may return the path `A -> B -> C`
 You can use the efficient shortest path algorithm however, to determine the shortest path length:
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-
     @startDocuBlockInline GRAPHTRAV_multiplePathSearch
     @EXAMPLE_AQL{GRAPHTRAV_multiplePathSearch}
     @DATASET{mps_graph}
@@ -34,7 +33,6 @@ The result is 3 for the example graph (includes the start vertex). Now, subtract
 The following query returns all parts with length 2, start vertex **A** and target vertex **C**:
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-
     @startDocuBlockInline GRAPHTRAV_multiplePathSearch2
     @EXAMPLE_AQL{GRAPHTRAV_multiplePathSearch2}
     @DATASET{mps_graph}

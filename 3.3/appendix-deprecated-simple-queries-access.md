@@ -39,7 +39,6 @@ documents. In this case the next document can be accessed using the
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline cursorHasNext
     @EXAMPLE_ARANGOSH_OUTPUT{cursorHasNext}
     ~ db._create("five");
@@ -74,7 +73,6 @@ exhausted cursor, then *undefined* is returned.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline cursorNext
     @EXAMPLE_ARANGOSH_OUTPUT{cursorNext}
     ~ db._create("five");

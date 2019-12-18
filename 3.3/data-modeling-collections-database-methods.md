@@ -294,7 +294,6 @@ Returns all collections of the given database.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline collectionsDatabaseName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionsDatabaseName}
     ~ db._create("example");
@@ -322,7 +321,6 @@ default properties.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline collectionDatabaseCollectionName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCollectionName}
     ~ db._create("example");

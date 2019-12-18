@@ -13,7 +13,6 @@ We use [the city graph](../graphs.html#the-city-graph) and its geo indices:
 
 ![Cities Example Graph](../images/cities_graph.png)
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline COMBINING_GRAPH_01_create_graph
     @EXAMPLE_ARANGOSH_OUTPUT{COMBINING_GRAPH_01_create_graph}
     ~addIgnoreCollection("germanHighway");

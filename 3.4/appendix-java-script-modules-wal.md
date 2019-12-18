@@ -39,7 +39,6 @@ array with the following attributes:
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline WalPropertiesGet
     @EXAMPLE_ARANGOSH_OUTPUT{WalPropertiesGet}
       require("internal").wal.properties();
@@ -74,7 +73,6 @@ will be ignored and the configuration for them will not be modified.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline WalPropertiesSet
     @EXAMPLE_ARANGOSH_OUTPUT{WalPropertiesSet}
     | require("internal").wal.properties({ 
@@ -113,7 +111,6 @@ the write-ahead log garbage collector cannot finish garbage collection.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline WalFlush
     @EXAMPLE_ARANGOSH_OUTPUT{WalFlush}
       require("internal").wal.flush();

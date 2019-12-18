@@ -38,7 +38,6 @@ Returns the vertex defined with the attribute *_from* of the edge with *edgeId* 
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphGetFromVertex
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphGetFromVertex}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -71,7 +70,6 @@ Returns the vertex defined with the attribute *_to* of the edge with *edgeId* as
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphGetToVertex
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphGetToVertex}
       var examples = require("@arangodb/graph-examples/example-graph.js");

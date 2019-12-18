@@ -32,7 +32,6 @@ This function is the entry point for the management and will return the correct 
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphEdgeDefinitionsSimple
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeDefinitionsSimple}
       var graph_module = require("@arangodb/general-graph");
@@ -64,7 +63,6 @@ this function can be used to add more definitions to the initial list.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphEdgeDefinitionsExtend
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeDefinitionsExtend}
       var graph_module = require("@arangodb/general-graph");
@@ -103,7 +101,6 @@ to any collection in *toVertexCollections*.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphRelationDefinitionSave
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphRelationDefinitionSave}
       var graph_module = require("@arangodb/general-graph");
@@ -259,7 +256,6 @@ Lists all graph names stored in this database.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphList
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphList}
       var graph_module = require("@arangodb/general-graph");
@@ -387,7 +383,6 @@ graph with different *from* and/or *to* collections an error is thrown.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline general_graph__extendEdgeDefinitions
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__extendEdgeDefinitions}
       var graph_module = require("@arangodb/general-graph")
@@ -427,7 +422,6 @@ definition will be modified, too.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline general_graph__editEdgeDefinition
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__editEdgeDefinition}
       var graph_module = require("@arangodb/general-graph")
@@ -528,7 +522,6 @@ definition of the graph, an error will be thrown.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline general_graph__addVertexCollection
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__addVertexCollection}
       var graph_module = require("@arangodb/general-graph");
@@ -557,7 +550,6 @@ Returns all vertex collections of the graph that are not used in any edge defini
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline general_graph__orphanCollections
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__orphanCollections}
       var graph_module = require("@arangodb/general-graph")
@@ -594,7 +586,6 @@ Optionally the collection can be deleted, if it is not used in any other graph.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline general_graph__removeVertexCollections
     @EXAMPLE_ARANGOSH_OUTPUT{general_graph__removeVertexCollections}
       var graph_module = require("@arangodb/general-graph")
@@ -634,7 +625,6 @@ Create a new vertex in vertexCollectionName
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphVertexCollectionSave
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionSave}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -665,7 +655,6 @@ Replaces the data of a vertex in collection vertexCollectionName
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphVertexCollectionReplace
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionReplace}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -696,7 +685,6 @@ Updates the data of a vertex in collection vertexCollectionName
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphVertexCollectionUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionUpdate}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -730,7 +718,6 @@ Additionally removes all ingoing and outgoing edges of the vertex recursively
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphVertexCollectionRemove
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphVertexCollectionRemove}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -768,7 +755,6 @@ Creates an edge from vertex *from* to vertex *to* in collection edgeCollectionNa
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphEdgeCollectionSave1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionSave1}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -815,7 +801,6 @@ Replaces the data of an edge in collection edgeCollectionName. Note that `_from`
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphEdgeCollectionReplace
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionReplace}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -847,7 +832,6 @@ Updates the data of an edge in collection edgeCollectionName
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphEdgeCollectionUpdate
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionUpdate}
       var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -880,7 +864,6 @@ If this edge is used as a vertex by another edge, the other edge will be removed
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline generalGraphEdgeCollectionRemove
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphEdgeCollectionRemove}
       var examples = require("@arangodb/graph-examples/example-graph.js");

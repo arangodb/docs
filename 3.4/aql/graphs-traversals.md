@@ -237,7 +237,6 @@ or relative positions to the end of the path by specifying a negative number.
 #### Filtering edges on the path
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-
     @startDocuBlockInline GRAPHTRAV_graphFilterEdges
     @EXAMPLE_AQL{GRAPHTRAV_graphFilterEdges}
     @DATASET{traversalGraph}

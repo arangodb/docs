@@ -176,7 +176,6 @@ As alternative you can supply an array of paths and values.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline collectionFirstExample
     @EXAMPLE_ARANGOSH_OUTPUT{collectionFirstExample}
     ~ db._create("users");
@@ -314,7 +313,6 @@ Returns the number of living documents in the collection.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline collectionCount
     @EXAMPLE_ARANGOSH_OUTPUT{collectionCount}
     ~ db._create("users");
@@ -540,7 +538,6 @@ This method is deprecated in favour of the array variant of *document*.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline collectionLookupByKeys
     @EXAMPLE_ARANGOSH_OUTPUT{collectionLookupByKeys}
     ~ db._drop("example");
@@ -618,7 +615,6 @@ multiple documents with one call.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline documentsCollectionInsertSingle
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionInsertSingle}
     ~ db._create("example");
@@ -1053,7 +1049,6 @@ This method is deprecated in favour of the array variant of *remove*.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline collectionRemoveByKeys
     @EXAMPLE_ARANGOSH_OUTPUT{collectionRemoveByKeys}
     ~ db._drop("example");
@@ -1103,7 +1098,6 @@ removed.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline 010_documentsCollectionRemoveByExample
     @EXAMPLE_ARANGOSH_OUTPUT{010_documentsCollectionRemoveByExample}
     ~ db._create("example");
@@ -1151,7 +1145,6 @@ replaced.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline 011_documentsCollectionReplaceByExample
     @EXAMPLE_ARANGOSH_OUTPUT{011_documentsCollectionReplaceByExample}
     ~ db._create("example");
@@ -1218,7 +1211,6 @@ an object with the following sub-attributes:
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline 012_documentsCollectionUpdateByExample
     @EXAMPLE_ARANGOSH_OUTPUT{012_documentsCollectionUpdateByExample}
     ~ db._create("example");
@@ -1252,7 +1244,6 @@ database.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline dbVersion
     @EXAMPLE_ARANGOSH_OUTPUT{dbVersion}
       require("@arangodb").db._version();

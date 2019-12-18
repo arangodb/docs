@@ -219,7 +219,6 @@ specify a bundle:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline MOD_07b_routingCurlMulti
     @EXAMPLE_ARANGOSH_RUN{MOD_07b_routingCurlMulti}
     var url = ["/url1", "/url2", "/url3"];

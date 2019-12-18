@@ -40,7 +40,6 @@ unclear which documents will be included in the result set.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline queryLimit
     @EXAMPLE_ARANGOSH_OUTPUT{queryLimit}
     ~ db._create("five");
@@ -79,7 +78,6 @@ will not be supported in future versions of ArangoDB.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline querySkip
     @EXAMPLE_ARANGOSH_OUTPUT{querySkip}
     ~ db._create("five");

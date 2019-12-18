@@ -113,7 +113,6 @@ regardless of the value of this attribute.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline collectionEnsureIndex
     @EXAMPLE_ARANGOSH_OUTPUT{collectionEnsureIndex}
     ~db._create("test");

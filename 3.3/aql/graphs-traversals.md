@@ -374,7 +374,6 @@ traversal queries using [the explainer](execution-and-performance-optimizer.html
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-
     @startDocuBlockInline GRAPHTRAV_07_traverse_8
     @EXAMPLE_AQL{GRAPHTRAV_07_traverse_8}
     @DATASET{traversalGraph}

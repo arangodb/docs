@@ -187,7 +187,6 @@ used as a lower bound approximation of the disk usage.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline collectionFigures
     @EXAMPLE_ARANGOSH_OUTPUT{collectionFigures}
     ~ require("internal").wal.flush(true, true);
@@ -213,7 +212,6 @@ Loads a collection into memory.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline collectionLoad
     @EXAMPLE_ARANGOSH_OUTPUT{collectionLoad}
     ~ db._create("example");
@@ -305,7 +303,6 @@ until all query have finished.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline CollectionUnload
     @EXAMPLE_ARANGOSH_OUTPUT{CollectionUnload}
     ~ db._create("example");
@@ -342,7 +339,6 @@ database.
 
 **Examples**
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-
     @startDocuBlockInline collectionRename
     @EXAMPLE_ARANGOSH_OUTPUT{collectionRename}
     ~ db._create("example");
