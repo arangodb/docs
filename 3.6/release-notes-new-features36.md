@@ -608,7 +608,7 @@ transactional guarantees.
 
 ### Cluster upgrade
 
-The new options `--cluster.upgrade` toggles the cluster upgrade mode for
+The new option `--cluster.upgrade` toggles the cluster upgrade mode for
 Coordinators. It supports the following values:
 
 - `auto`:
@@ -682,9 +682,11 @@ RocksDB storage exclusive and therefore avoids write-write conflicts.
 This option was introduced to open a way to upgrade from MMFiles to RocksDB
 storage engine without modifying client application code. Otherwise it should
 best be avoided as the use of exclusive locks on collections will introduce a
-noticeable throughput penalty. The option may get removed again in a future
-ArangoDB release. Note that the MMFiles engine is [deprecated](appendix-deprecated.html)
-from v3.6.0 on and will be removed in a future release.
+noticeable throughput penalty. 
+
+Note that the MMFiles engine is [deprecated](appendix-deprecated.html)
+from v3.6.0 on and will be removed in a future release. So will be this option,
+which is a stopgap measure only.
 
 ### AQL options
 
