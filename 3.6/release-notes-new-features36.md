@@ -712,10 +712,12 @@ HotBackup
 
 - Force Backup
 
-  When creating backups there is an additional option `force`. This option
-  **aborts** all ongoing transactions to obtain the global lock for creating
-  the backup. Most likely this is _not_ what you want to do, but maybe someone
-  wants to.
+  When creating backups there is an additional option `--force` for
+  _arangobackup_. This option **aborts** ongoing write transactions to obtain
+  the global lock for creating the backup. Most likely this is _not_ what you
+  want to do because it will abort valid ongoing write operations, but it makes
+  sure that backups can be acquired more quickly. The force flag currently only
+  aborts stream transactions but no JavaScript transactions.
 
 TLS v1.3
 --------
