@@ -702,7 +702,7 @@ The following optimizer rules may appear in the `rules` attribute of
   directly work with the documents on the DBServers.
 
 - `parallelize-gather`:
-  will appears if an optimization to execute Coordinator *GatherNodes* in
+  will appear if an optimization to execute Coordinator *GatherNodes* in
   parallel was applied.
 
 - `remove-satellite-joins` _(Enterprise Edition only)_:
