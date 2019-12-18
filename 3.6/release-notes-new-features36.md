@@ -542,7 +542,7 @@ underlying collections are eligible too.
 HTTP API
 --------
 
-The following APIs have been expanded:
+The following APIs have been expanded / changed:
 
 - Database creation API, HTTP route `POST /_api/database`
 
@@ -574,6 +574,15 @@ The following APIs have been expanded:
   `minReplicationFactor` has been renamed to `writeConcern` for consistency.
   The old attribute name is still accepted and returned for compatibility.
 
+- New Metrics API, HTTP route `GET /_admin/metrics`
+
+  Returns the instance's current metrics in Prometheus format. The returned
+  document collects all instance metrics, which are measured at any given
+  time and exposes them for collection by Prometheus.
+  
+  The new endpoint can be used instead of the additional tool
+  [arangodb-exporter](https://github.com/arangodb-helper/arangodb-exporter){:target="_blank"}.
+
 Web interface
 -------------
 
@@ -589,6 +598,11 @@ collections created in the new database, unless explicitly overridden.
 
 Startup options
 ---------------
+
+### Metrics API
+
+The new option `--server.enable-metrics-api` allows you to disable the metrics API by
+setting it to `false`, which is otherwise turned on by default.
 
 ### OneShard Cluster
 
