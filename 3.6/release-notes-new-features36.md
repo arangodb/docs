@@ -286,8 +286,8 @@ execution plan will be tagged with `parallel` as follows:
 Parallelization is currently restricted to certain types and parts of queries.
 *GatherNode*s will go into parallel mode only if the DB-Server query part
 above it (in terms of query execution plan layout) is a terminal part of the
-query, i.e. when the DB-Server part above does not itself contain any
-*RemoteNode*, *ScatterNode*, *GatherNode* or *DistributeNode*.
+query. To trigger the optimization, there must not be other nodes of type 
+*ScatterNode*, *GatherNode* or *DistributeNode* present in the query.
 
 Please note that the parallelization of AQL execution may lead to a different
 resource usage pattern for eligible AQL queries in the cluster. In isolation,
