@@ -242,6 +242,7 @@ pseudo-rule `all` matches all rules.
 
 Rules specified in `rules` are evaluated from left to right, so the following works to
 turn on just the one specific rule:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_07_explainSingleRulePlans
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_07_explainSingleRulePlans}

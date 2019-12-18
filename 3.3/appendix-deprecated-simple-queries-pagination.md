@@ -39,8 +39,8 @@ unclear which documents will be included in the result set.
 
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline queryLimit
     @EXAMPLE_ARANGOSH_OUTPUT{queryLimit}
     ~ db._create("five");
@@ -78,8 +78,8 @@ will not be supported in future versions of ArangoDB.
 
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline querySkip
     @EXAMPLE_ARANGOSH_OUTPUT{querySkip}
     ~ db._create("five");
@@ -97,6 +97,7 @@ will not be supported in future versions of ArangoDB.
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Ignore any limit with count:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline cursorCountUnLimited
     @EXAMPLE_ARANGOSH_OUTPUT{cursorCountUnLimited}
@@ -112,7 +113,9 @@ Ignore any limit with count:
     @endDocuBlock cursorCountUnLimited
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Counting any limit or skip:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline cursorCountLimit
     @EXAMPLE_ARANGOSH_OUTPUT{cursorCountLimit}

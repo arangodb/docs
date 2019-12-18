@@ -17,6 +17,7 @@ Drops a *view* and all its data.
 **Examples**
 
 Drop a view:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDrop
     @EXAMPLE_ARANGOSH_OUTPUT{viewDrop}
@@ -42,6 +43,7 @@ Returns the name of the *view*.
 **Examples**
 
 Get view name:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewName
     @EXAMPLE_ARANGOSH_OUTPUT{viewName}
@@ -69,6 +71,7 @@ If renaming fails for any reason, an error is thrown.
 **Note**: this method is not available in a cluster.
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewRename
     @EXAMPLE_ARANGOSH_OUTPUT{viewRename}
@@ -94,6 +97,7 @@ Returns the type of the *view*.
 **Examples**
 
 Get view type:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewType
     @EXAMPLE_ARANGOSH_OUTPUT{viewType}
@@ -117,6 +121,7 @@ each of the supported [View Types](data-modeling-views.html).
 **Examples**
 
 Get view properties:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewGetProperties
     @EXAMPLE_ARANGOSH_OUTPUT{viewGetProperties}
@@ -148,6 +153,7 @@ can be found in
 **Examples**
 
 Modify view properties:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewModifyProperties
     @EXAMPLE_ARANGOSH_OUTPUT{viewModifyProperties}
