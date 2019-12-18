@@ -35,7 +35,9 @@ first.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionDrop
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDropSystem
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDropSystem}
     ~ db._create("_example", { isSystem: true });

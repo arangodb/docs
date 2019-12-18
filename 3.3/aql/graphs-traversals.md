@@ -358,6 +358,7 @@ Use the AQL explainer for optimizations
 
 Now let's have a look what the optimizer does behind the curtain and inspect
 traversal queries using [the explainer](execution-and-performance-optimizer.html):
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_07_traverse_7
     @EXAMPLE_AQL{GRAPHTRAV_07_traverse_7}
@@ -370,7 +371,9 @@ traversal queries using [the explainer](execution-and-performance-optimizer.html
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_07_traverse_7
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 
     @startDocuBlockInline GRAPHTRAV_07_traverse_8
     @EXAMPLE_AQL{GRAPHTRAV_07_traverse_8}

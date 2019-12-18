@@ -173,7 +173,9 @@ Use the following for a permanent redirect:
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_06a_routingRedirect
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_06b_routingCurlRedirect
     @EXAMPLE_ARANGOSH_RUN{MOD_06b_routingCurlRedirect}
     var url = "/redirectMe";
@@ -214,7 +216,9 @@ specify a bundle:
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_07a_routingMulti
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
     @startDocuBlockInline MOD_07b_routingCurlMulti
     @EXAMPLE_ARANGOSH_RUN{MOD_07b_routingCurlMulti}
@@ -479,7 +483,9 @@ whereas this definition allows HTTP *GET*, *POST*, and *PUT*:
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock MOD_09a_routingSpecifyMethods
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline MOD_09b_routingCurlSpecifyMethods
     @EXAMPLE_ARANGOSH_RUN{MOD_09b_routingCurlSpecifyMethods}
     var url = "/hello/world"

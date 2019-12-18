@@ -111,7 +111,9 @@ to any collection in *toVertexCollections*.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphRelationDefinitionSave
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphRelationDefinitionSingle
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphRelationDefinitionSingle}
       var graph_module = require("@arangodb/general-graph");
@@ -340,7 +342,9 @@ Drop a graph and keep collections:
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock generalGraphDropGraphKeep
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphDropGraphDropCollections
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphDropGraphDropCollections}
     ~ var examples = require("@arangodb/graph-examples/example-graph.js");

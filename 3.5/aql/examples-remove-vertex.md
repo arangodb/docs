@@ -22,6 +22,7 @@ The involved graph and its only edge collection has to be known. In this case it
 is the graph **knows_graph** and the edge collection **knows**.
 
 This query will delete **eve** with its adjacent edges:
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_removeVertex1
     @EXAMPLE_AQL{GRAPHTRAV_removeVertex1}
@@ -40,6 +41,7 @@ This query executed several actions:
 * remove vertex **eve** from the `persons` collection
 
 The following query shows a different design to achieve the same result:
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_removeVertex2
     @EXAMPLE_AQL{GRAPHTRAV_removeVertex2}
@@ -64,6 +66,7 @@ To delete city **Berlin** all edge collections `french / german / international 
 have to be considered. The **REMOVE** operation has to be applied on all edge
 collections with `OPTIONS { ignoreErrors: true }`. Not using this option will stop the query
 whenever a non existing key should be removed in a collection.
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_removeVertex3
     @EXAMPLE_AQL{GRAPHTRAV_removeVertex3}

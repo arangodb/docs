@@ -19,6 +19,7 @@ Join tuples
 
 We'll start with a SQL-ish result set and return each tuple (user name, friends userId) 
 separately. The AQL query to generate such result is:
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 
     @startDocuBlockInline joinTuples

@@ -69,7 +69,9 @@ details, including the index-identifier, is returned.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureUniquePersistentSingle
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}    
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline ensureUniquePersistentMultiColmun
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniquePersistentMultiColmun}
     ~db._create("ids");

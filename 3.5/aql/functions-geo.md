@@ -223,6 +223,7 @@ Needs at least two longitude/latitude pairs.
 
 - **points** (array): number array of longitude/latitude pairs
 - returns **geoJson** (object): a valid GeoJSON LineString
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoLineString_1
 @EXAMPLE_AQL{aqlGeoLineString_1}
@@ -243,6 +244,7 @@ Needs at least two elements consisting valid LineStrings coordinate arrays.
 
 - **points** (array): array of LineStrings
 - returns **geoJson** (object): a valid GeoJSON MultiLineString
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoMultiLineString_1
 @EXAMPLE_AQL{aqlGeoMultiLineString_1}
@@ -263,6 +265,7 @@ Construct a GeoJSON LineString. Needs at least two longitude/latitude pairs.
 
 - **points** (array): number array of longitude/latitude pairs
 - returns **geoJson** (object): a valid GeoJSON Point
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoMultiPoint_1
 @EXAMPLE_AQL{aqlGeoMultiPoint_1}
@@ -283,6 +286,7 @@ Construct a valid GeoJSON Point.
 - **longitude** (number): the longitude portion of the point
 - **latitude** (number): the latitude portion of the point
 - returns **geoJson** (object): a GeoJSON Point
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoPoint_1
 @EXAMPLE_AQL{aqlGeoPoint_1}
@@ -305,6 +309,7 @@ as holes.
 - returns **geoJson** (object\|null): a valid GeoJSON Polygon
 
 Simple Polygon:
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoPolygon_1
 @EXAMPLE_AQL{aqlGeoPolygon_1}
@@ -317,6 +322,7 @@ RETURN GEO_POLYGON([
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Advanced Polygon with a hole inside:
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoPolygon_2
 @EXAMPLE_AQL{aqlGeoPolygon_2}
@@ -340,6 +346,7 @@ See [GEO_POLYGON()](#geo_polygon) for the rules of Polygon construction.
 - returns **geoJson** (object\|null): a valid GeoJSON MultiPolygon
 
 MultiPolygon comprised of a simple Polygon and a Polygon with hole:
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoMultiPolygon_1
 @EXAMPLE_AQL{aqlGeoMultiPolygon_1}

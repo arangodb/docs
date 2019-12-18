@@ -66,7 +66,9 @@ details, including the index-identifier, is returned.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureUniqueSkiplistSingle
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureUniqueSkiplistMultiColumn
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueSkiplistMultiColumn}
     ~db._create("ids");

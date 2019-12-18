@@ -636,7 +636,9 @@ multiple documents with one call.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionInsertSingle
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollectionInsertMulti
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionInsertMulti}
     ~ db._create("example");
@@ -646,7 +648,9 @@ multiple documents with one call.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock documentsCollectionInsertMulti
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline documentsCollectionInsertSingleOverwrite
     @EXAMPLE_ARANGOSH_OUTPUT{documentsCollectionInsertSingleOverwrite}
     ~ db._create("example");
