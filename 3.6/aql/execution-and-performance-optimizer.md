@@ -703,7 +703,11 @@ The following optimizer rules may appear in the `rules` attribute of
 
 - `parallelize-gather`:
   will appear if an optimization to execute Coordinator *GatherNodes* in
-  parallel was applied.
+  parallel was applied. *GatherNode*s will go into parallel mode only if the
+  DB-Server query part above it (in terms of query execution plan layout) is a
+  terminal part of the query. To trigger the optimization, there must not be
+  other nodes of type *ScatterNode*, *GatherNode* or *DistributeNode* present
+  in the query.
 
 - `remove-satellite-joins` _(Enterprise Edition only)_:
   optimizes *Scatter-*, *Gather-* and *RemoteNode*s for Satellite Collections
