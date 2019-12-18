@@ -112,20 +112,6 @@
     "section" : "",
     "type" : "boolean"
   },
-  "force" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "abort transactions if needed to ensure a consistent snapshot(create operation)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
-  },
   "identifier" : {
     "category" : "option",
     "default" : "",
@@ -139,20 +125,6 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
-  },
-  "ignore-version" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "ignore stored version of a backuprestore may not work if version mismatch (restore operation)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
   },
   "label" : {
     "category" : "option",
@@ -599,6 +571,20 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
+  },
+  "save-current" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "whether to save the current state as a backup before restoring to another state (restore operation)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
   },
   "server.authentication" : {
     "category" : "option",
