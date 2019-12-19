@@ -539,6 +539,37 @@ FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_
 ArangoSearch Views are now eligible for SmartJoins in AQL, provided that their
 underlying collections are eligible too.
 
+OneShard
+--------
+
+{% hint 'info' %}
+This option is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
+
+Not all use cases require horizontal scalability. In such cases, a OneShard
+deployment offers a practicable solution that enables significant performance
+improvements by massively reducing cluster-internal communication.
+
+A database created with OneShard enabled is limited to a single DB-Server node
+but still replicated synchronously to ensure resilience. This configuration
+allows running transactions with ACID guarantees on shard leaders.
+
+This setup is highly recommended for most graph use cases and join-heavy
+queries.
+
+Unlike a (flexibly) sharded cluster, where the Coordinator distributes access
+to shards across different DB-Server nodes, collects and processes partial
+results, the Coordinator in a OneShard setup moves the query execution directly
+to the respective DB-Server for local query execution. The Coordinator receives
+only the final result. This can drastically reduce resource consumption and
+communication effort for the Coordinator.
+
+An entire cluster, selected databases or selected collections can be made
+eligible for the [OneShard](architecture-deployment-modes-cluster-architecture.htmld#oneshard)
+optimization.
+
 HTTP API
 --------
 
@@ -594,19 +625,12 @@ Startup options
 
 ### OneShard Cluster
 
-{% hint 'info' %}
-This option is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
-
-The option `--cluster.force-one-shard` enables the new OneShard Cluster feature.
-
-When set to `true`, forces the cluster into creating all future collections
-with only a single shard and using the same DB-Server as these collections'
-shards leader. All collections created this way will be eligible for specific
-AQL query optimizations that can improve query performance and provide advanced
-transactional guarantees.
+The option `--cluster.force-one-shard` enables the new OneShard feature for
+the entire cluster deployment. It forces the cluster into creating all future
+collections with only a single shard and using the same DB-Server as these
+collections' shards leader. All collections created this way will be eligible
+for specific AQL query optimizations that can improve query performance and
+provide advanced transactional guarantees.
 
 ### Cluster upgrade
 
