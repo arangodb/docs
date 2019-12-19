@@ -63,7 +63,7 @@ available _DBServers_ please set the option _enforceReplicationFactor_ to _false
 when creating the collection from _ArangoShell_ (the option is not available
 from the web interface), e.g.:
 
-```
+```js
 db._create("test", { replicationFactor: 4 }, { enforceReplicationFactor: false });
 ```
 
@@ -76,19 +76,19 @@ Sharding
 --------
 
 For an introduction about _Sharding_ in Cluster, please refer to the
-[_Cluster Sharding_](architecture-deployment-modes-cluster-sharding.html) section. 
+[_Cluster Sharding_](architecture-deployment-modes-cluster-sharding.html) section.
 
 Number of _shards_ can be configured at _collection_ creation time, e.g. the UI,
 or the _ArangoDB Shell_:
 
-```
-127.0.0.1:8529@_system> db._create("sharded_collection", {"numberOfShards": 4});
+```js
+db._create("sharded_collection", {"numberOfShards": 4});
 ```
 
 To configure a custom _hashing_ for another attribute (default is __key_):
 
-```
-127.0.0.1:8529@_system> db._create("sharded_collection", {"numberOfShards": 4, "shardKeys": ["country"]});
+```js
+db._create("sharded_collection", {"numberOfShards": 4, "shardKeys": ["country"]});
 ```
 
 The example above, where 'country' has been used as _shardKeys_ can be useful
@@ -149,7 +149,7 @@ There is no option to configure an affinity based on certain _shard_ keys.
 Sharding strategy
 -----------------
 
-strategy to use for the collection. Since ArangoDB 3.4 there are
+Strategy to use for the collection. Since ArangoDB 3.4 there are
 different sharding strategies to select from when creating a new 
 collection. The selected *shardingStrategy* value will remain
 fixed for the collection and cannot be changed afterwards. This is
@@ -171,10 +171,12 @@ The available sharding strategies are:
 
 If no sharding strategy is specified, the default will be `hash` for
 all collections, and `enterprise-hash-smart-edge` for all smart edge
-collections (requires the *Enterprise Edition* of ArangoDB). 
-Manually overriding the sharding strategy does not yet provide a 
+collections (requires the *Enterprise Edition* of ArangoDB).
+Manually overriding the sharding strategy does not yet provide a
 benefit, but it may later in case other sharding strategies are added.
 
+The [OneShard](architecture-deployment-modes-cluster-architecture.md#oneshard)
+feature does not have its own sharding strategy, it uses `hash` instead.
 
 Moving/Rebalancing _shards_
 ---------------------------

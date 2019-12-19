@@ -74,6 +74,10 @@ creation ideally distributes 15 shards, 5 of which are leaders to each 2
 replicas. This in turn implies, that a complete pristine replication would
 involve 10 shards which need to catch up with their leaders.
 
+Not all use cases require horizontal scalability. In such cases, consider the
+[OneShard](architecture-deployment-modes-cluster-architecture.md#oneshard)
+feature as alternative to flexible sharding.
+
 Shard Keys
 ----------
 
