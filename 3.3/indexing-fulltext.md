@@ -75,6 +75,7 @@ specify this value.
 
 In case that the index was successfully created, an object with the index
 details is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureFulltextIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureFulltextIndex}

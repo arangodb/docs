@@ -286,8 +286,8 @@ execution plan will be tagged with `parallel` as follows:
 Parallelization is currently restricted to certain types and parts of queries.
 *GatherNode*s will go into parallel mode only if the DB-Server query part
 above it (in terms of query execution plan layout) is a terminal part of the
-query, i.e. when the DB-Server part above does not itself contain any
-*RemoteNode*, *ScatterNode*, *GatherNode* or *DistributeNode*.
+query. To trigger the optimization, there must not be other nodes of type 
+*ScatterNode*, *GatherNode* or *DistributeNode* present in the query.
 
 Please note that the parallelization of AQL execution may lead to a different
 resource usage pattern for eligible AQL queries in the cluster. In isolation,
@@ -542,7 +542,7 @@ underlying collections are eligible too.
 HTTP API
 --------
 
-The following APIs have been expanded:
+The following APIs have been expanded / changed:
 
 - Database creation API, HTTP route `POST /_api/database`
 
@@ -574,6 +574,15 @@ The following APIs have been expanded:
   `minReplicationFactor` has been renamed to `writeConcern` for consistency.
   The old attribute name is still accepted and returned for compatibility.
 
+- New Metrics API, HTTP route `GET /_admin/metrics`
+
+  Returns the instance's current metrics in Prometheus format. The returned
+  document collects all instance metrics, which are measured at any given
+  time and exposes them for collection by Prometheus.
+  
+  The new endpoint can be used instead of the additional tool
+  [arangodb-exporter](https://github.com/arangodb-helper/arangodb-exporter){:target="_blank"}.
+
 Web interface
 -------------
 
@@ -589,6 +598,11 @@ collections created in the new database, unless explicitly overridden.
 
 Startup options
 ---------------
+
+### Metrics API
+
+The new option `--server.enable-metrics-api` allows you to disable the metrics API by
+setting it to `false`, which is otherwise turned on by default.
 
 ### OneShard Cluster
 
@@ -608,7 +622,7 @@ transactional guarantees.
 
 ### Cluster upgrade
 
-The new options `--cluster.upgrade` toggles the cluster upgrade mode for
+The new option `--cluster.upgrade` toggles the cluster upgrade mode for
 Coordinators. It supports the following values:
 
 - `auto`:
@@ -682,9 +696,11 @@ RocksDB storage exclusive and therefore avoids write-write conflicts.
 This option was introduced to open a way to upgrade from MMFiles to RocksDB
 storage engine without modifying client application code. Otherwise it should
 best be avoided as the use of exclusive locks on collections will introduce a
-noticeable throughput penalty. The option may get removed again in a future
-ArangoDB release. Note that the MMFiles engine is [deprecated](appendix-deprecated.html)
-from v3.6.0 on and will be removed in a future release.
+noticeable throughput penalty. 
+
+Note that the MMFiles engine is [deprecated](appendix-deprecated.html)
+from v3.6.0 on and will be removed in a future release. So will be this option,
+which is a stopgap measure only.
 
 ### AQL options
 
@@ -710,10 +726,12 @@ HotBackup
 
 - Force Backup
 
-  When creating backups there is an additional option `force`. This option
-  **aborts** all ongoing transactions to obtain the global lock for creating
-  the backup. Most likely this is _not_ what you want to do, but maybe someone
-  wants to.
+  When creating backups there is an additional option `--force` for
+  _arangobackup_. This option **aborts** ongoing write transactions to obtain
+  the global lock for creating the backup. Most likely this is _not_ what you
+  want to do because it will abort valid ongoing write operations, but it makes
+  sure that backups can be acquired more quickly. The force flag currently only
+  aborts stream transactions but no JavaScript transactions.
 
 TLS v1.3
 --------

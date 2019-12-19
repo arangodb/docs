@@ -192,6 +192,7 @@ generator and the Mersenne Twister.
 
 
 ### Enable/disable authentication
+
 {% docublock server_authentication %}
 
 ### JWT Secret
@@ -224,6 +225,7 @@ The default value is *false*.
 domain sockets.
 
 ### Enable/disable authentication for system API requests only
+
 {% docublock serverAuthenticateSystemOnly %}
 
 
@@ -329,9 +331,11 @@ to the web interface (/_admin/aardvark) and related areas.
 Sessions are only used when authentication is turned on.
 
 ### Foxx queues
+
 {% docublock foxxQueues %}
 
 ### Foxx queues poll interval
+
 {% docublock foxxQueuesPollInterval %}
 
 ### Directory
@@ -376,14 +380,17 @@ in a specific state on startup. the options for this value are:
 
 
 ### Journal size
+
 {% docublock databaseMaximalJournalSize %}
 
 
 ### Wait for sync
+
 {% docublock databaseWaitForSync %}
 
 
 ### Force syncing of properties
+
 {% docublock databaseForceSyncProperties %}
 
 

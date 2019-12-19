@@ -67,7 +67,7 @@ In cluster mode, single-document operations are also *fully ACID*.
 
 Multi-document / multi-collection queries and transactions offer different guarantees.
 Understanding these differences is important when designing applications that need
-to be resilient agains outages of individual servers.
+to be resilient against outages of individual servers.
 
 Cluster transactions share the underlying characteristics of the [storage engine](architecture-storage-engines.html)
 that is used for the cluster deployment. 
