@@ -154,11 +154,14 @@ filled up faster than the server can process requests.
 ## Storage engine
 
 ArangoDB's "traditional" storage engine is called `MMFiles`, which also was the
-default storage engine up to including ArangoDB 3.3.
+default storage engine up to including ArangoDB v3.3.0.
 
-Since ArangoDB 3.2, an alternative engine based on [RocksDB](http://rocksdb.org){:target="_blank"}
-is also provided and could be turned on manually. Since ArangoDB 3.4, the RocksDB
-storage engine is the default storage engine for new installations.
+Since ArangoDB v3.2.0, an alternative engine based on
+[RocksDB](http://rocksdb.org){:target="_blank"} is also provided and could be
+turned on manually. Since ArangoDB v3.4.0, the RocksDB storage engine is the
+default storage engine for new installations.
+
+The MMFiles engine is [deprecated](appendix-deprecated.html) from v3.6.0 on.
 
 One storage engine type is supported per server per installation.
 Live switching of storage engines on already installed systems isn't supported.
@@ -185,6 +188,7 @@ If the option is set to false, no such checks will be performed. All non-Linux
 operating systems do not provide this option and will ignore it.
 
 ## Enable/disable authentication
+
 {% docublock server_authentication %}
 
 ## JWT Secret
@@ -217,6 +221,7 @@ The default value is *false*.
 domain sockets.
 
 ## Enable/disable authentication for system API requests only
+
 {% docublock serverAuthenticateSystemOnly %}
 
 ## Enable authentication cache timeout

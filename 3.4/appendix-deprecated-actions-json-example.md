@@ -6,6 +6,7 @@ A Hello World Example for JSON
 ==============================
 
 If you change the example slightly, then a JSON object will be delivered.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_01_routingCreateJsonHelloWorld
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_01_routingCreateJsonHelloWorld}
@@ -21,6 +22,7 @@ If you change the example slightly, then a JSON object will be delivered.
     @endDocuBlock JSON_01_routingCreateJsonHelloWorld
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Again check with your browser or cURL http://localhost:8529/hello/json
 
 Depending on your browser and installed add-ons you will either see the JSON
@@ -28,6 +30,7 @@ object or a download dialog. If your browser wants to open an external
 application to display the JSON object, you can change the *contentType* to
 *"text/plain"* for the example. This makes it easier to check the example using
 a browser. Or use *curl* to access the server.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_02_routingCurlJsonHelloWorld
     @EXAMPLE_ARANGOSH_RUN{JSON_02_routingCurlJsonHelloWorld}
@@ -38,7 +41,9 @@ a browser. Or use *curl* to access the server.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock JSON_02_routingCurlJsonHelloWorld
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_03_routingCleanupJsonHelloWorld
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_03_routingCleanupJsonHelloWorld}
     ~db._query("FOR route IN _routing FILTER route.url == '/hello/json' REMOVE route in _routing")
@@ -47,6 +52,7 @@ a browser. Or use *curl* to access the server.
     @endDocuBlock JSON_03_routingCleanupJsonHelloWorld
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Delivering Content
 ------------------
 
@@ -57,6 +63,7 @@ starts when delivering dynamic content.
 ### Static Content
 
 You can specify a body and a content-type.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_05a_routingCreateContentTypeHelloWorld
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_05a_routingCreateContentTypeHelloWorld}
@@ -71,7 +78,9 @@ You can specify a body and a content-type.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock JSON_05a_routingCreateContentTypeHelloWorld
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_05b_routingCurlContentTypeHelloWorld
     @EXAMPLE_ARANGOSH_RUN{JSON_05b_routingCurlContentTypeHelloWorld}
     var url = "/hello/contentType";
@@ -81,7 +90,9 @@ You can specify a body and a content-type.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock JSON_05b_routingCurlContentTypeHelloWorld
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_05c_routingCleanupContentTypeHelloWorld
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_05c_routingCleanupContentTypeHelloWorld}
     ~db._query("FOR route IN _routing FILTER route.url == '/hello/contentType' REMOVE route in _routing")
@@ -90,6 +101,7 @@ You can specify a body and a content-type.
     @endDocuBlock JSON_05c_routingCleanupContentTypeHelloWorld
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 If the content type is *text/plain* then you can use the short-cut
 
 ```js
@@ -127,6 +139,7 @@ function (req, res, options, next)
 ```
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_06_routingCreateHelloEcho
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_06_routingCreateHelloEcho}
@@ -141,9 +154,11 @@ function (req, res, options, next)
     @endDocuBlock JSON_06_routingCreateHelloEcho
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Reload the routing and check http:// 127.0.0.1:8529/hello/echo
 
 You should see something like
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_07_fetchroutingCreateHelloEcho
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_07_fetchroutingCreateHelloEcho}
@@ -151,7 +166,9 @@ You should see something like
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock JSON_07_fetchroutingCreateHelloEcho
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_08_routingCleanupHelloEcho
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_08_routingCleanupHelloEcho}
     ~db._query("FOR route IN _routing FILTER route.url == '/hello/echo' REMOVE route in _routing")
@@ -160,6 +177,7 @@ You should see something like
     @endDocuBlock JSON_08_routingCleanupHelloEcho
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The request might contain *path*, *prefix*, *suffix*, and *urlParameters*
 attributes.  *path* is the complete path as supplied by the user and always
 available.  If a prefix was matched, then this prefix is stored in the attribute
@@ -195,6 +213,7 @@ a module, defines the function *get*, *put*, *post*, *delete*, *head*,
 called.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_09_routingCreateEchoController
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_09_routingCreateEchoController}
@@ -209,7 +228,9 @@ called.
     @endDocuBlock JSON_09_routingCreateEchoController
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Reload the routing and check http:// 127.0.0.1:8529/hello/echo:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_10_fetchroutingCreateEchoController
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_10_fetchroutingCreateEchoController}
@@ -217,7 +238,9 @@ Reload the routing and check http:// 127.0.0.1:8529/hello/echo:
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock JSON_10_fetchroutingCreateEchoController
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_11_routingCleanupEchoController
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_11_routingCleanupEchoController}
     ~db._query("FOR route IN _routing FILTER route.url == '/hello/echo' REMOVE route in _routing")
@@ -272,6 +295,7 @@ is a short-cut for a prefix controller definition.
 You can also store a function directly in the routing table.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_12a_routingCreateEchoFunction
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_12a_routingCreateEchoFunction}
@@ -285,7 +309,9 @@ You can also store a function directly in the routing table.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock JSON_12a_routingCreateEchoFunction
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_12b_fetchroutingEchoFunction
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_12b_fetchroutingEchoFunction}
     arango.GET_RAW("hello/echo", { "accept" : "application/json" })
@@ -295,6 +321,7 @@ You can also store a function directly in the routing table.
     @endDocuBlock JSON_12b_fetchroutingEchoFunction
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Requests and Responses
 
 The controller must define handler functions which take a request object and
@@ -316,6 +343,7 @@ function (req, res, options, next) {
 ```
 
 Install it via:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_13_routingCreateEchoAction
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_13_routingCreateEchoAction}
@@ -330,9 +358,11 @@ Install it via:
     @endDocuBlock JSON_13_routingCreateEchoAction
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Reload the routing and check http:// 127.0.0.1:8529/hello/echo
 
 You should see something like
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_14_fetchroutingRequestHelloEcho
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_14_fetchroutingRequestHelloEcho}
@@ -343,7 +373,9 @@ You should see something like
     @endDocuBlock JSON_14_fetchroutingRequestHelloEcho
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 You may also pass options to the called function:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_15_routingCreateEchoRequestOptions
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_15_routingCreateEchoRequestOptions}
@@ -361,7 +393,9 @@ You may also pass options to the called function:
     @endDocuBlock JSON_15_routingCreateEchoRequestOptions
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 You now see the options in the result:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline JSON_16_fetchroutingEchoRequestOptions
     @EXAMPLE_ARANGOSH_OUTPUT{JSON_16_fetchroutingEchoRequestOptions}

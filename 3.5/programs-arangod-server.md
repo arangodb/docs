@@ -185,6 +185,7 @@ If the option is set to false, no such checks will be performed. All non-Linux
 operating systems do not provide this option and will ignore it.
 
 ## Enable/disable authentication
+
 {% docublock server_authentication %}
 
 ## JWT Secret
@@ -217,6 +218,7 @@ The default value is *false*.
 domain sockets.
 
 ## Enable/disable authentication for system API requests only
+
 {% docublock serverAuthenticateSystemOnly %}
 
 ## Enable authentication cache timeout

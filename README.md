@@ -3,7 +3,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/1df8b69b-25f8-4b73-b8f1-af8735269c35/deploy-status)](https://app.netlify.com/sites/zealous-morse-14392b/deploys)
 
 This is the ArangoDB documentation repository containing all documentation
-for all versions.
+for all versions as published on [arangodb.com/docs](https://www.arangodb.com/docs).
 
 The documentation uses the static site generator [Jekyll](https://jekyllrb.com).
 
@@ -212,7 +212,6 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
 
 ```
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-
     @startDocuBlockInline joinTuples
     @EXAMPLE_AQL{joinTuples}
     @DATASET{joinSampleDataset}
@@ -231,7 +230,7 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
     @END_EXAMPLE_AQL
     @endDocuBlock joinTuples
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 ```
 
 ## Guidelines
@@ -355,8 +354,8 @@ For details please check out the
 
 ## LICENSE
 
-The ArangoDB Docs are licensed under Apache2. See [LICENSE.md](LICENSE.md)
-for details.
+The ArangoDB documentation is licensed under Apache-2.0.
+See [LICENSE](LICENSE) for details.
 
-Parts not licensed under Apache2 are outlines in
+Parts not licensed under Apache-2.0 are outlined in
 [LICENSES-OTHER-COMPONENTS.md](LICENSES-OTHER-COMPONENTS.md)

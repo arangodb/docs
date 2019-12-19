@@ -6,7 +6,9 @@ Arangodump Options
 ==================
 
 Usage: `arangodump [<options>]`
-{% assign options = site.data["35-program-options-arangodump"] %}{% include program-option.html options=options name="arangodump" %}
+
+{% assign options = site.data["36-program-options-arangodump"] %}
+{% include program-option.html options=options name="arangodump" %}
 
 Notes
 -----

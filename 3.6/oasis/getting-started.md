@@ -22,7 +22,8 @@ A video series on how to get started with Oasis is also available:
 Please have following information at hand for registration:
 
 - An **email address**, required for email verification.
-- A **mobile phone number**, required for SMS verification.
+- A **mobile phone number**, required for SMS verification
+  (only if you use a public email service provider, e.g. Gmail).
 
 {% hint 'info' %}
 One mobile phone number will be associated with one account and cannot be
@@ -37,7 +38,7 @@ used for multiple accounts.
 3. Once on the sign up page, select the _Sign up_ tab.
 4. Select the type of sign up you would like to use (GitHub, Google, or
    email address).
-    - For Github or Google please follow on-screen instructions.
+    - For GitHub or Google please follow on-screen instructions.
     - For the email address option, type your desired email address in the
       email field and type a strong password in the password field.
     - Press the _Sign up_ button
@@ -46,10 +47,13 @@ used for multiple accounts.
    _Verify my email address_ link or button.
 5. In case the ArangoDB Oasis start page opens, press the _Log in_ button or
    click the _Log in_ link in the header navigation.
-6. A form appears asking for your mobile phone number. Enter the country code
+6. A form may appear asking for your mobile phone number. Enter the country code
    and the number of the mobile phone you want to use for this account.
-7. A verification code will be sent via SMS to the mobile number you entered.
-   Enter the verification code.
+   This step is skipped if you signed up with an email address of a non-public
+   email service provider (e.g. company email address).
+7. If you had to enter your phone number in the previous step, a verification
+   code will be sent via SMS to the mobile number you entered. Enter the
+   verification code.
 8. A form will appear asking for your name. Enter your first and last name, and
    then press the _Save_ button.
 9. A form will appear asking for the name of your organization. Enter your
