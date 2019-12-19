@@ -254,6 +254,7 @@ set without iterating over it yourself.
 
 Cursors can also be used to iterate over the result set document-by-document.
 To do so, use the *hasNext* and *next* methods of the cursor:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 05_workWithAQL_statements4
     @EXAMPLE_ARANGOSH_OUTPUT{05_workWithAQL_statements4}

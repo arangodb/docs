@@ -26,6 +26,20 @@ replace the old features with:
   RocksDB is the default [storage engine](architecture-storage-engines.html)
   since v3.4.0.
 
+  Once the MMFiles engine is removed, all MMFiles specific startup options will
+  also be removed. This will affect the following options:
+
+  - `--compaction.*`
+  - `--database.force-sync-properties`
+  - `--database.index-threads`
+  - `--database.maximal-journal-size`
+  - `--database.throw-collection-not-loaded-error`
+  - `--wal.*`
+
+  The collection attributes `doCompact`, `indexBuckets`, `isVolatile`,
+  `journalSize` and `path` are only used with MMFiles and are thus also
+  deprecated.
+
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](../aql/), which can also
   be run in arangosh. AQL is a language on its own and way more powerful than

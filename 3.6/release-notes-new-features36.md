@@ -121,7 +121,7 @@ A subquery becomes unsuitable if it contains a `LIMIT` node or a
 unsuitable if it is contained in a (sub)query containing unsuitable parts
 *after* the subquery.
 
-Consider the following query to illustrates the difference.
+Consider the following query to illustrate the difference.
 
 ```js
 FOR x IN c1
@@ -217,9 +217,9 @@ In 3.6 the optimization can only be applied to queries containing a
 
 ```js
 FOR d IN documentSource // documentSource can be either a collection or an ArangoSearch View
-SORT d.foo
-LIMIT 100
-RETURN d
+  SORT d.foo
+  LIMIT 100
+  RETURN d
 ```
 
 For the collection case the optimization is possible if and only if:
@@ -228,13 +228,13 @@ For the collection case the optimization is possible if and only if:
 - all attribute accesses can be covered by indexed attributes
 
 ```js
-// Given we have hash index on attributes [  "foo", "bar", "baz" ]
+// Given we have a hash index on attributes [  "foo", "bar", "baz" ]
 
 FOR d IN myCollection
-FILTER d.foo == "someValue" // hash index will be picked to optimize filtering
-SORT d.baz DESC             // field "baz" will be read from index
-LIMIT 100                   // only 100 documents will be materialized
-RETURN d
+  FILTER d.foo == "someValue" // hash index will be picked to optimize filtering
+  SORT d.baz DESC             // field "baz" will be read from index
+  LIMIT 100                   // only 100 documents will be materialized
+  RETURN d
 ```
 
 For the ArangoSearch View case the optimization is possible if and only if:
@@ -243,19 +243,19 @@ For the ArangoSearch View case the optimization is possible if and only if:
 
 ```js
 FOR d IN myView
-SEARCH d.foo == "baz"
-SORT BM25(d) DESC  // BM25(d) will be evaluated by the View node above
-LIMIT 100          // only 100 documents will be materialized
-RETURN d
+  SEARCH d.foo == "baz"
+  SORT BM25(d) DESC  // BM25(d) will be evaluated by the View node above
+  LIMIT 100          // only 100 documents will be materialized
+  RETURN d
 ```
 
 ```js
 // Given we have primary sort on fields ["foo", "bar"]
 FOR d IN myView
-SEARCH d.foo == "baz"
-SORT d.bar DESC    // field "bar" will be read from the View
-LIMIT 100          // only 100 documents will be materialized
-RETURN d
+  SEARCH d.foo == "baz"
+  SORT d.bar DESC    // field "bar" will be read from the View
+  LIMIT 100          // only 100 documents will be materialized
+  RETURN d
 ```
 
 The respective optimizer rules are called `late-document-materialization`
@@ -266,19 +266,15 @@ in [execution plans](aql/execution-and-performance-optimizer.html#list-of-execut
 ### Parallelization of cluster AQL queries
 
 ArangoDB 3.6 can parallelize work in many cluster AQL queries when there are
-multiple database servers involved. The parallelization is done in the
+multiple DB-Servers involved. The parallelization is done in the
 *GatherNode*, which then can send parallel cluster-internal requests to the
-database servers attached. The database servers can then work fully parallel
+DB-Servers attached. The DB-Servers can then work fully parallel
 for the different shards involved.
 
 When parallelization is used, one or multiple *GatherNode*s in a query's
 execution plan will be tagged with `parallel` as follows:
 
 ```
-Query String (26 chars, cacheable: true):
- FOR doc IN test RETURN doc
-
-Execution plan:
  Id   NodeType                  Site     Est.   Comment
   1   SingletonNode             DBS         1   * ROOT
   2   EnumerateCollectionNode   DBS   1000000     - FOR doc IN test   /* full collection scan, 5 shard(s) */
@@ -288,16 +284,16 @@ Execution plan:
 ```
 
 Parallelization is currently restricted to certain types and parts of queries.
-*GatherNode*s will go into parallel mode only if the database server query part
+*GatherNode*s will go into parallel mode only if the DB-Server query part
 above it (in terms of query execution plan layout) is a terminal part of the
-query, i.e. when the database server part above does not itself contain any
-*RemoteNode*, *ScatterNode*, *GatherNode* or *DistributeNode*.
+query. To trigger the optimization, there must not be other nodes of type 
+*ScatterNode*, *GatherNode* or *DistributeNode* present in the query.
 
 Please note that the parallelization of AQL execution may lead to a different
 resource usage pattern for eligible AQL queries in the cluster. In isolation,
 queries are expected to complete faster with parallelization than when executing
-their work serially on all involved database servers. However, working on
-multiple database server in parallel may also mean that more work than before
+their work serially on all involved DB-Servers. However, working on
+multiple DB-Servers in parallel may also mean that more work than before
 is happening at the very same time. If this is not desired because of resource
 scarcity, there are options to control the parallelization:
 
@@ -329,12 +325,12 @@ completely and it cannot be re-enabled for individual queries.
 
 ### Optimizations for simple UPDATE and REPLACE queries
 
-AQL query execution plans for simple `UPDATE` and `REPLACE` operations that
+Cluster query execution plans for simple `UPDATE` and `REPLACE` queries that
 modify multiple documents and do not use `LIMIT` are now more efficient as
 several steps were removed. The existing optimizer rule
 `undistribute-remove-after-enum-coll` has been extended to cover these cases
 too, in case the collection is sharded by `_key` and the `UPDATE`/`REPLACE`
-operation is using the document or the `_key` to find it.
+operation is using the full document or the `_key` attribute to find it.
 
 For example, a query such as:
 
@@ -343,16 +339,12 @@ For example, a query such as:
 … is executed as follows in 3.5:
 
 ```
-Query String (57 chars, cacheable: false):
- FOR doc IN test UPDATE doc WITH { updated: true } IN test
-
-Execution plan:
  Id   NodeType                  Site     Est.   Comment
   1   SingletonNode             DBS         1   * ROOT
   3   CalculationNode           DBS         1     - LET #3 = { "updated" : true }
   2   EnumerateCollectionNode   DBS   1000000     - FOR doc IN test   /* full collection scan, 5 shard(s) */
  11   RemoteNode                COOR  1000000       - REMOTE
- 12   GatherNode                COOR  1000000       - GATHER   /* parallel */
+ 12   GatherNode                COOR  1000000       - GATHER  
   5   DistributeNode            COOR  1000000       - DISTRIBUTE  /* create keys: false, variable: doc */
   6   RemoteNode                DBS   1000000       - REMOTE
   4   UpdateNode                DBS         0       - UPDATE doc WITH #3 IN test
@@ -363,20 +355,22 @@ Execution plan:
 In 3.6 the execution plan is streamlined to just:
 
 ```
-Query String (57 chars, cacheable: false):
- FOR doc IN test UPDATE doc WITH { updated: true } IN test
-
-Execution plan:
  Id   NodeType          Site     Est.   Comment
   1   SingletonNode     DBS         1   * ROOT
   3   CalculationNode   DBS         1     - LET #3 = { "updated" : true }
  13   IndexNode         DBS   1000000     - FOR doc IN test   /* primary index scan, index only, projections: `_key`, 5 shard(s) */
   4   UpdateNode        DBS         0       - UPDATE doc WITH #3 IN test
   7   RemoteNode        COOR        0       - REMOTE
-  8   GatherNode        COOR        0       - GATHER
+  8   GatherNode        COOR        0       - GATHER   /* parallel */
 ```
 
-The optimization will also work with filters:
+As can be seen above, the benefit of applying the optimization is that the extra
+communication between the Coordinator and DB-Server is removed. This will
+mean less cluster-internal traffic and thus can result in faster execution.
+As an extra benefit, the optimization will also make the affected queries
+eligible for parallel execution. It is only applied in cluster deployments.
+
+The optimization will also work when a filter is involved:
 
 ```
 Query String (79 chars, cacheable: false):
@@ -548,7 +542,7 @@ underlying collections are eligible too.
 HTTP API
 --------
 
-The following APIs have been expanded:
+The following APIs have been expanded / changed:
 
 - Database creation API, HTTP route `POST /_api/database`
 
@@ -580,6 +574,15 @@ The following APIs have been expanded:
   `minReplicationFactor` has been renamed to `writeConcern` for consistency.
   The old attribute name is still accepted and returned for compatibility.
 
+- New Metrics API, HTTP route `GET /_admin/metrics`
+
+  Returns the instance's current metrics in Prometheus format. The returned
+  document collects all instance metrics, which are measured at any given
+  time and exposes them for collection by Prometheus.
+  
+  The new endpoint can be used instead of the additional tool
+  [arangodb-exporter](https://github.com/arangodb-helper/arangodb-exporter){:target="_blank"}.
+
 Web interface
 -------------
 
@@ -596,6 +599,11 @@ collections created in the new database, unless explicitly overridden.
 Startup options
 ---------------
 
+### Metrics API
+
+The new option `--server.enable-metrics-api` allows you to disable the metrics API by
+setting it to `false`, which is otherwise turned on by default.
+
 ### OneShard Cluster
 
 {% hint 'info' %}
@@ -607,15 +615,15 @@ also available as [**managed service**](https://www.arangodb.com/managed-service
 The option `--cluster.force-one-shard` enables the new OneShard Cluster feature.
 
 When set to `true`, forces the cluster into creating all future collections
-with only a single shard and using the same database server as these collections'
+with only a single shard and using the same DB-Server as these collections'
 shards leader. All collections created this way will be eligible for specific
 AQL query optimizations that can improve query performance and provide advanced
 transactional guarantees.
 
 ### Cluster upgrade
 
-The new options `--cluster.upgrade` toggles the cluster upgrade mode for
-coordinators. It supports the following values:
+The new option `--cluster.upgrade` toggles the cluster upgrade mode for
+Coordinators. It supports the following values:
 
 - `auto`:
   perform a cluster upgrade and shut down afterwards if the startup option
@@ -632,8 +640,8 @@ coordinators. It supports the following values:
 - `online`:
   always perform a cluster upgrade but don't shut down afterwards
 
-The default value is `auto`. The option only affects coordinators. It does not
-have any affect on single servers, agents or database servers.
+The default value is `auto`. The option only affects Coordinators. It does not
+have any affect on single servers, Agents or DB-Servers.
 
 ### Other cluster options
 
@@ -663,7 +671,7 @@ The following options have been added:
   collections. A value of `0` means that there is no restriction.
   The default value is `1000`.
 
-Note that the above options only have an effect when set for coordinators, and
+Note that the above options only have an effect when set for Coordinators, and
 only for collections that are created after the options have been set. They do
 not affect already existing collections.
 
@@ -688,9 +696,11 @@ RocksDB storage exclusive and therefore avoids write-write conflicts.
 This option was introduced to open a way to upgrade from MMFiles to RocksDB
 storage engine without modifying client application code. Otherwise it should
 best be avoided as the use of exclusive locks on collections will introduce a
-noticeable throughput penalty. The option may get removed again in a future
-ArangoDB release. Note that the MMFiles engine is [deprecated](appendix-deprecated.html)
-from v3.6.0 on and will be removed in a future release.
+noticeable throughput penalty. 
+
+Note that the MMFiles engine is [deprecated](appendix-deprecated.html)
+from v3.6.0 on and will be removed in a future release. So will be this option,
+which is a stopgap measure only.
 
 ### AQL options
 
@@ -716,10 +726,12 @@ HotBackup
 
 - Force Backup
 
-  When creating backups there is an additional option `force`. This option
-  **aborts** all ongoing transactions to obtain the global lock for creating
-  the backup. Most likely this is _not_ what you want to do, but maybe someone
-  wants to.
+  When creating backups there is an additional option `--force` for
+  _arangobackup_. This option **aborts** ongoing write transactions to obtain
+  the global lock for creating the backup. Most likely this is _not_ what you
+  want to do because it will abort valid ongoing write operations, but it makes
+  sure that backups can be acquired more quickly. The force flag currently only
+  aborts stream transactions but no JavaScript transactions.
 
 TLS v1.3
 --------
