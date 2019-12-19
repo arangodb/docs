@@ -126,15 +126,17 @@ false for the initial startup and only turned on for restarts.
 Toggle cluster upgrade mode on a Coordinator:
 
 `--cluster.upgrade <string>`
-                     
+
 The following values can be used for the options:
 
-* `auto`: perform a cluster upgrade and shut down afterwards if the startup option 
-  `--database.auto-upgrade` is set to true. Otherwise, don't perform an upgrade.
-* `disable`: never perform a cluster upgrade, regardless of the value of `--database.auto-upgrade`.
-* `force`: always perform a cluster upgrade and shut down, regardless of the value of
+- `auto`: perform a cluster upgrade and shut down afterwards if the startup
+  option `--database.auto-upgrade` is set to true. Otherwise, do not perform
+  an upgrade.
+- `disable`: never perform a cluster upgrade, regardless of the value of
   `--database.auto-upgrade`.
-* `online`: always perform a cluster upgrade but don't shut down afterwards
+- `force`: always perform a cluster upgrade and shut down, regardless of the
+  value of `--database.auto-upgrade`.
+- `online`: always perform a cluster upgrade but don't shut down afterwards
 
 The default value is `auto`. The option only affects Coordinators. It does not have
 any affect on single servers, Agents or DB-Servers.
@@ -156,8 +158,9 @@ values on all Coordinators.
 
 Maximum number of shards than can be configured when creating new collections.
 The default value is `1000`.
-When changing the value of this setting and restarting servers, no changes will be 
-applied to existing collections that would violate the new setting.
+
+When changing the value of this setting and restarting servers, no changes will
+be applied to existing collections that would violate the new setting.
 
 The option only affects Coordinators. It does not have any affect on single servers,
 Agents or DB-Servers.
@@ -254,14 +257,15 @@ Agents or DB-Servers.
 
 `--cluster.default-replication-factor <integer>`
 
-Default replication factor to be used implicit for new collections when no 
-replication factor is set. 
+Default replication factor to be used implicit for new collections when no
+replication factor is set.
+
 If this value is not set, it will default to the value of the option
 `--cluster.min-replication-factor`. If set, the value must be between the
-values of `--cluster.min-replication-factor` and `--cluster.max-replication-factor`.
-Note that the replication factor can still be adjusted per collection. This 
-value is only the default value used for new collections when no replication factor 
-is specified when creating a collection.
+values of `--cluster.min-replication-factor` and
+`--cluster.max-replication-factor`. Note that the replication factor can still
+be adjusted per collection. This value is only the default value used for new
+collections when no replication factor is specified when creating a collection.
 
 The option only affects Coordinators. It does not have any affect on single servers,
 Agents or DB-Servers.
