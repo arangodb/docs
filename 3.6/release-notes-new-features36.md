@@ -409,11 +409,12 @@ An example for this is:
 
     DATE_SUBTRACT("2018-08-22T10:49:00+02:00", 100000, "years")
 
-The performance of AQL date operations that work on date strings has been
-improved compared to previous versions.
+The performance of AQL date operations that work on
+[date strings](aql/functions-date.html#date-functions) has been improved
+compared to previous versions.
 
-Finally, ArangoDB 3.6 provides a new AQL function `DATE_ROUND()` to bin a
-date/time into a set of equal-distance buckets.
+Finally, ArangoDB 3.6 provides a new [AQL function](aql/functions-date.html#date_round)
+`DATE_ROUND()` to bin a date/time into a set of equal-distance buckets.
 
 ### Miscellaneous AQL changes
 
@@ -436,7 +437,7 @@ ArangoSearch
 ### Analyzers
 
 - Added UTF-8 support and ability to mark beginning/end of the sequence to
-  the `ngram` Analyzer type.
+  the [`ngram` Analyzer type](arangosearch-analyzers.html#n-gram).
 
   The following optional properties can be provided for an `ngram` Analyzer
   definition:
@@ -450,10 +451,10 @@ ArangoSearch
   - `streamType` : `"binary"|"utf8"`, default: "binary"<br>
     type of the input stream (support for UTF-8 is new)
 
-- Added _edge n-gram_ support to the `text` Analyzer type. The input gets
-  tokenized as usual, but then n-grams are generated from each token. UTF-8
-  encoding is assumed (whereas the `ngram` Analyzer has a configurable stream
-  type and defaults to binary).
+- Added _edge n-gram_ support to the [`text` Analyzer type](arangosearch-analyzers.html#text).
+  The input gets tokenized as usual, but then n-grams are generated from each
+  token. UTF-8 encoding is assumed (whereas the `ngram` Analyzer has a
+  configurable stream type and defaults to binary).
 
   The following optional properties can be provided for a `text`
   Analyzer definition:
@@ -466,8 +467,8 @@ ArangoSearch
 
 ### Dynamic search expressions with arrays
 
-ArangoSearch now accepts expressions with array comparison operators in the
-form of:
+ArangoSearch now accepts [SEARCH expressions](aql/operations-search.html#general-syntax)
+with array comparison operators in the form of:
 
 ```
 <array> [ ALL|ANY|NONE ] [ <=|<|==|!=|>|>=|IN ] doc.<attribute>
@@ -487,7 +488,8 @@ FOR doc IN myView SEARCH tokens  ANY <= doc.title RETURN doc // dynamic disjunct
 In addition, both the `TOKENS()` and the `PHRASE()` functions were
 extended with array support for convenience.
 
-`TOKENS()` accepts recursive arrays of strings as the first argument:
+[TOKENS()](aql/functions-arangosearch.html#tokens) accepts recursive arrays of
+strings as the first argument:
 
 ```js
 TOKENS("quick brown fox", "text_en")        // [ "quick", "brown", "fox" ]
@@ -505,7 +507,8 @@ LET tokens_flat = FLATTEN(tokens, 2)                     // [ "quick", "brown", 
 FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETURN doc
 ```
 
-`PHRASE()` accepts an array as the second argument:
+[PHRASE()](aql/functions-arangosearch.html#phrase) accepts an array as the
+second argument:
 
 ```js
 FOR doc IN myView SEARCH PHRASE(doc.title, ["quick brown fox"], "text_en") RETURN doc
@@ -536,8 +539,8 @@ FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_
 
 ### SmartJoins and Views
 
-ArangoSearch Views are now eligible for SmartJoins in AQL, provided that their
-underlying collections are eligible too.
+ArangoSearch Views are now eligible for [SmartJoins](smartjoins.html) in AQL,
+provided that their underlying collections are eligible too.
 
 OneShard
 --------
@@ -575,7 +578,8 @@ HTTP API
 
 The following APIs have been expanded / changed:
 
-- Database creation API, HTTP route `POST /_api/database`
+- [Database creation API](http/database-database-management.html#create-database),
+  HTTP route `POST /_api/database`
 
   The database creation API now handles the `replicationFactor`, `writeConcern`
   and `sharding` attributes. All these attributes are optional, and only
@@ -596,18 +600,20 @@ The following APIs have been expanded / changed:
   that database via the web UI, arangosh or drivers (unless the startup option
   `--cluster.force-one-shard` is enabled).
 
-- Database properties API, HTTP route `GET /_api/database/current`
+- [Database properties API](http/database-database-management.html#information-of-the-database),
+  HTTP route `GET /_api/database/current`
 
   The database properties endpoint returns the new additional attributes
   `replicationFactor`, `writeConcern` and `sharding` in a cluster.
   A description of these attributes can be found above.
 
-- Collection / Graph APIs
+- [Collection](http/collection.html) / [Graph APIs](http/gharial-management.html)
 
   `minReplicationFactor` has been renamed to `writeConcern` for consistency.
   The old attribute name is still accepted and returned for compatibility.
 
-- New Metrics API, HTTP route `GET /_admin/metrics`
+- New [Metrics API](http/administration-and-monitoring.html#read-the-metrics),
+  HTTP route `GET /_admin/metrics`
 
   Returns the instance's current metrics in Prometheus format. The returned
   document collects all instance metrics, which are measured at any given
@@ -634,22 +640,25 @@ Startup options
 
 ### Metrics API
 
-The new option `--server.enable-metrics-api` allows you to disable the metrics API by
-setting it to `false`, which is otherwise turned on by default.
+The new [option](programs-arangod-server.html#metrics-api)
+`--server.enable-metrics-api` allows you to disable the metrics API by setting
+it to `false`, which is otherwise turned on by default.
 
 ### OneShard Cluster
 
-The option `--cluster.force-one-shard` enables the new OneShard feature for
-the entire cluster deployment. It forces the cluster into creating all future
-collections with only a single shard and using the same DB-Server as these
-collections' shards leader. All collections created this way will be eligible
-for specific AQL query optimizations that can improve query performance and
-provide advanced transactional guarantees.
+The [option](programs-arangod-cluster.html#force-oneshard)
+`--cluster.force-one-shard` enables the new OneShard feature for the entire
+cluster deployment. It forces the cluster into creating all future collections
+with only a single shard and using the same DB-Server as these collections'
+shards leader. All collections created this way will be eligible for specific
+AQL query optimizations that can improve query performance and provide advanced
+transactional guarantees.
 
 ### Cluster upgrade
 
-The new option `--cluster.upgrade` toggles the cluster upgrade mode for
-Coordinators. It supports the following values:
+The new [option](programs-arangod-cluster.html#upgrade) `--cluster.upgrade`
+toggles the cluster upgrade mode for Coordinators. It supports the following
+values:
 
 - `auto`:
   perform a cluster upgrade and shut down afterwards if the startup option
@@ -671,10 +680,7 @@ have any affect on single servers, Agents or DB-Servers.
 
 ### Other cluster options
 
-Added startup options to control the minimum and maximum replication factors
-used for new collections, and the maximum number of shards for new collections.
-
-The following options have been added:
+The following [options](programs-arangod-cluster.html) have been added:
 
 - `--cluster.max-replication-factor`: maximum replication factor for new
   collections. A value of `0` means that there is no restriction.
@@ -701,7 +707,8 @@ Note that the above options only have an effect when set for Coordinators, and
 only for collections that are created after the options have been set. They do
 not affect already existing collections.
 
-Furthermore, the following network related options have been added:
+Furthermore, the following network related [options](programs-arangod-network.html)
+have been added:
 
 - `--network.idle-connection-ttl`: default time-to-live for idle cluster-internal
   connections (in milliseconds). The default value is `60000`.
@@ -739,8 +746,9 @@ For example, to turn off the rule `use-indexes-for-sort`, use
 
     --query.optimizer-rules "-use-indexes-for-sort"
 
-The purpose of this startup option is to be able to enable potential future
-experimental optimizer rules, which may be shipped in a disabled-by-default state.
+The purpose of this [startup option](programs-arangod-query.html#optimizer-rule-defaults)
+is to be able to enable potential future experimental optimizer rules, which
+may be shipped in a disabled-by-default state.
 
 HotBackup
 ---------
@@ -753,17 +761,18 @@ HotBackup
 - Force Backup
 
   When creating backups there is an additional option `--force` for
-  _arangobackup_. This option **aborts** ongoing write transactions to obtain
-  the global lock for creating the backup. Most likely this is _not_ what you
-  want to do because it will abort valid ongoing write operations, but it makes
-  sure that backups can be acquired more quickly. The force flag currently only
-  aborts stream transactions but no JavaScript transactions.
+  [arangobackup](programs-arangobackup-examples.html). This option **aborts**
+  ongoing write transactions to obtain the global lock for creating the backup.
+  Most likely this is _not_ what you want to do because it will abort valid
+  ongoing write operations, but it makes sure that backups can be acquired more
+  quickly. The force flag currently only aborts stream transactions but no
+  JavaScript transactions.
 
 TLS v1.3
 --------
 
-Added support for TLS 1.3 for the arangod server and the client tools
-(also added to v3.5.1).
+Added support for TLS 1.3 for the [arangod server](programs-arangod-ssl.html#ssl-protocol)
+and the client tools (also added to v3.5.1).
 
 The arangod server can be started with option `--ssl.protocol 6` to make it require
 TLS 1.3 for incoming client connections. The server can be started with option
@@ -798,8 +807,9 @@ Miscellaneous
   if all sharding keys are specified. Should the sharding keys not match the
   values in the actual document, a not found error will be returned.
 
-- Collection names in ArangoDB can now be up to 256 characters long, instead
-  of 64 characters in previous versions.
+- [Collection names](data-modeling-naming-conventions-collection-and-view-names.html)
+  in ArangoDB can now be up to 256 characters long, instead of 64 characters in
+  previous versions.
 
 - Disallow using `_id` or `_rev` as shard keys in clustered collections.
 
