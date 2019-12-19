@@ -646,7 +646,7 @@ it to `false`, which is otherwise turned on by default.
 
 ### OneShard Cluster
 
-The [option](programs-arangod-cluster.html#force-oneshard)
+The [option](programs-arangod-cluster.html#more-advanced-options)
 `--cluster.force-one-shard` enables the new OneShard feature for the entire
 cluster deployment. It forces the cluster into creating all future collections
 with only a single shard and using the same DB-Server as these collections'
