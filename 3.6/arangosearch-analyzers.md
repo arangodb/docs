@@ -56,13 +56,13 @@ Analyzer Names
 --------------
 
 Each Analyzer has a name for identification with the following
-naming conventions, similar to collection names:
+naming conventions:
 
 - The name must only consist of the letters `a` to `z` (both in lower and
   upper case), the numbers `0` to `9`, underscore (`_`) and dash (`-`) symbols.
   This also means that any non-ASCII names are not allowed.
 - It must always start with a letter.
-- The maximum allowed length of a name is 254 bytes. <!-- TODO: same as document key? -->
+- The maximum allowed length of a name is 254 bytes.
 - Analyzer names are case-sensitive.
 
 Custom Analyzers are stored per database, in a system collection `_analyzers`.
@@ -87,7 +87,7 @@ The currently implemented Analyzer types are:
 - `norm`: apply normalization to the value as a whole
 - `ngram`: create n-grams from value with user-defined lengths
 - `text`: tokenize into words, optionally with stemming,
-  normalization and stop-word filtering
+  normalization, stop-word filtering and edge n-gram generation
 
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
@@ -97,6 +97,7 @@ Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text
 **Tokenization**   | No       | No      | (Yes)     | No   | No   | Yes
 **Stemming**       | No       | No      | No        | Yes  | No   | Yes
 **Normalization**  | No       | No      | No        | No   | Yes  | Yes
+**N-grams**        | No       | Yes     | No        | No   | No   | (Yes)
 
 Analyzer Properties
 -------------------
