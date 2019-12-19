@@ -16,7 +16,11 @@ SmartJoins are only available in the
 also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
-SmartJoins allow to execute co-located join operations among identically sharded collections.
+SmartJoins allow to execute co-located join operations among identically
+sharded collections.
+
+ArangoSearch Views are eligible for SmartJoins, provided that their underlying
+collections are eligible too (introduced in v3.6.0).
 
 {% include youtube.html id="WGFIEdihRS8" %}
 
