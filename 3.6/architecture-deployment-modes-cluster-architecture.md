@@ -163,6 +163,259 @@ hash is being created from the document __key_.
 For further information, please refer to the
 [_Cluster Sharding_](architecture-deployment-modes-cluster-sharding.html) section.
 
+OneShard
+--------
+
+{% hint 'info' %}
+The OneShard feature is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+{% endhint %}
+
+A OneShard deployment offers a practicable solution that enables significant
+performance improvements by massively reducing cluster-internal communication
+and allows running transactions with ACID guarantees on shard leaders.
+
+By restricting collections to a single shard and placing them on one DB-Server
+node, whole queries can be pushed to and executed on that server. The
+Coordinator will only get back the final result. This setup is highly
+recommended for most graph use cases and join-heavy queries.
+
+{% hint 'info' %}
+For graphs larger than what fits on a single DB-Server node, you can use the
+[**SmartGraphs**](graphs-smart-graphs.html) feature to efficiently limit the
+network hops between Coordinator and DB-Servers.
+{% endhint %}
+
+Without the OneShard feature query processing works as follows in a cluster:
+
+- The Coordinator accepts and analyzes the query.
+- If collections are accessed then the Coordinator distributes the accesses
+  to collections to different DB-Servers that hold parts (shards) of the
+  collections in question.
+- This distributed access requires network-traffic from Coordinator to
+  DB-Servers and back from DB-Servers to Coordinators and is therefore
+  expensive.
+
+Another cost factor is the memory and CPU time required on the Coordinator
+when it has to process several concurrent complex queries. In such
+situations Coordinators may become a bottleneck in query processing,
+because they need to send and receive data on several connections, build up
+results for collection accesses from the received parts followed by further
+processing.
+
+![OneShard vs. Sharded Cluster Setup](images/cluster-sharded-oneshard.png)
+
+If the collections involved in a query have one shard and are guaranteed to be
+on the same DB-Server, then the OneShard optimization is applied to run the
+query on the responsible node like on a single server. However, it still being
+a cluster setup means collections can be replicated synchronously to ensure
+resilience etc.
+
+### How to use the OneShard feature?
+
+The OneShard feature is enabled by default. If you use ArangoDB Enterprise
+Edition and if the collections used in the query are eligible, then the
+optimizer rule `cluster-one-shard` is applied automatically. To be eligible,
+all collections in question have to have a single shard only and the
+`distributeShardsLike` property needs to be set to a common collection name
+(except the prototype collection) to ensure that their single shards are placed
+on the same DB-Server. There are multiple ways to achieve this:
+
+- If you want your entire cluster to be a OneShard deployment, use the
+  [startup option](programs-arangod-options.html#cluster)
+  `--cluster.force-one-shard`. It sets the immutable `sharding` database
+  property to `"single"` for all newly created databases, which in turn
+  enforces the OneShard conditions for collections that will be created in it.
+
+- For individual OneShard databases, set the `sharding` database property to
+  `"single"` to enforce the OneShard conditions for collections that will be
+  created in it. For non-OneShard databases the value is either `""` or
+  `"flexible"`.
+
+- For individual OneShard collections, set the `numberOfShards` collection
+  property to `1` for the first collection which acts as sharding prototype for
+  the others. Set the `distributeShardsLike` property to the name of the
+  prototype collection for all other collections.
+
+**Example**
+
+The easiest way to make use of the OneShard feature is to create a database
+with the extra option `{ sharding: "single" }`. As done in the following
+example:
+
+```js
+arangosh> db._createDatabase("oneShardDB", { sharding: "single" } )
+
+arangosh> db._useDatabase("oneShardDB")
+
+arangosh@oneShardDB> db._properties()
+{
+  "id" : "6010005",
+  "name" : "oneShardDB",
+  "isSystem" : false,
+  "sharding" : "single",
+  "replicationFactor" : 1,
+  "writeConcern" : 1,
+  "path" : ""
+}
+```
+
+Now we can go ahead and create a collection as usual:
+
+```js
+arangosh@oneShardDB> db._create("example1")
+
+arangosh@oneShardDB> db.example1.properties()
+{
+  "isSmart" : false,
+  "isSystem" : false,
+  "waitForSync" : false,
+  "shardKeys" : [
+    "_key"
+  ],
+  "numberOfShards" : 1,
+  "keyOptions" : {
+    "allowUserKeys" : true,
+    "type" : "traditional"
+  },
+  "replicationFactor" : 2,
+  "minReplicationFactor" : 1,
+  "writeConcern" : 1,
+  "distributeShardsLike" : "_graphs",
+  "shardingStrategy" : "hash",
+  "cacheEnabled" : false
+}
+```
+
+As you can see the `numberOfShards` is set to `1` and `distributeShardsLike`
+is set to `_graphs`. These attributes have been automatically been set
+because we specified the `{ "sharding": "single" }` options object when
+creating the database. To do this manually one would create a collection in
+the following way:
+
+```js
+db._create("example2", { "numberOfShards": 1 , "distributeShardsLike": "_graphs" })
+```
+
+Here we used again the `_graphs` collection, but any other existing
+collection, that has not been created with the `distributeShardsLike`
+option could have been used here.
+
+### Running Queries
+
+For this arangosh example, we first insert a few documents into a collection,
+then create a query and explain it to inspect the execution plan.
+
+```js
+arangosh@oneShardDB> for (let i = 0; i < 10000; i++) { db.example.insert({ "value" : i }); }
+
+arangosh@oneShardDB> q = "FOR doc IN @@collection FILTER doc.value % 2 == 0 SORT doc.value ASC LIMIT 10 RETURN doc";
+
+arangosh@oneShardDB> db._explain(q, { "@collection" : "example" })
+
+Query String (88 chars, cacheable: true):
+ FOR doc IN @@collection FILTER doc.value % 2 == 0 SORT doc.value ASC LIMIT 10 RETURN doc
+
+Execution plan:
+ Id   NodeType                  Site   Est.   Comment
+  1   SingletonNode             DBS       1   * ROOT
+  2   EnumerateCollectionNode   DBS   10000     - FOR doc IN example   /* full collection scan, 1 shard(s) */   FILTER ((doc.`value` % 2) == 0)   /* early pruning */
+  5   CalculationNode           DBS   10000       - LET #3 = doc.`value`   /* attribute expression */   /* collections used: doc : example */
+  6   SortNode                  DBS   10000       - SORT #3 ASC   /* sorting strategy: constrained heap */
+  7   LimitNode                 DBS      10       - LIMIT 0, 10
+  9   RemoteNode                COOR     10       - REMOTE
+ 10   GatherNode                COOR     10       - GATHER
+  8   ReturnNode                COOR     10       - RETURN doc
+
+Indexes used:
+ none
+
+Optimization rules applied:
+ Id   RuleName
+  1   move-calculations-up
+  2   move-filters-up
+  3   move-calculations-up-2
+  4   move-filters-up-2
+  5   cluster-one-shard
+  6   sort-limit
+  7   move-filters-into-enumerate
+
+```
+
+As it can be seen in the explain output almost the complete query is
+executed on the DB-Server (`DBS` for nodes 1-7) and only 10 documents are
+transferred to the Coordinator. In case we do the same with a collection
+that consists of several shards we get a different result:
+
+```js
+arangosh> db._createDatabase("shardedDB")
+
+arangosh> db._useDatabase("shardedDB")
+
+arangosh@shardedDB> db._properties()
+{
+  "id" : "6010017",
+  "name" : "shardedDB",
+  "isSystem" : false,
+  "sharding" : "flexible",
+  "replicationFactor" : 1,
+  "writeConcern" : 1,
+  "path" : ""
+}
+
+arangosh@shardedDB> db._create("example", { numberOfShards : 5})
+
+arangosh@shardedDB> for (let i = 0; i < 10000; i++) { db.example.insert({ "value" : i }); }
+
+arangosh@shardedDB> db._explain(q, { "@collection" : "example" })
+
+Query String (88 chars, cacheable: true):
+ FOR doc IN @@collection FILTER doc.value % 2 == 0 SORT doc.value ASC LIMIT 10 RETURN doc
+
+Execution plan:
+ Id   NodeType                  Site   Est.   Comment
+  1   SingletonNode             DBS       1   * ROOT
+  2   EnumerateCollectionNode   DBS   10000     - FOR doc IN example   /* full collection scan, 5 shard(s) */   FILTER ((doc.`value` % 2) == 0)   /* early pruning */
+  5   CalculationNode           DBS   10000       - LET #3 = doc.`value`   /* attribute expression */   /* collections used: doc : example */
+  6   SortNode                  DBS   10000       - SORT #3 ASC   /* sorting strategy: constrained heap */
+ 11   RemoteNode                COOR  10000       - REMOTE
+ 12   GatherNode                COOR  10000       - GATHER #3 ASC  /* parallel, sort mode: heap */
+  7   LimitNode                 COOR     10       - LIMIT 0, 10
+  8   ReturnNode                COOR     10       - RETURN doc
+
+Indexes used:
+ none
+
+Optimization rules applied:
+ Id   RuleName
+  1   move-calculations-up
+  2   move-filters-up
+  3   move-calculations-up-2
+  4   move-filters-up-2
+  5   scatter-in-cluster
+  6   distribute-filtercalc-to-cluster
+  7   distribute-sort-to-cluster
+  8   remove-unnecessary-remote-scatter
+  9   sort-limit
+ 10   move-filters-into-enumerate
+ 11   parallelize-gather
+```
+
+{% hint 'tip' %}
+It can be checked whether the OneShard feature is active or not by
+inspecting the explain output. If the list of rules contains
+`cluster-one-shard` then the feature is active for the given query.
+{% endhint %}
+
+Without the OneShard feature all documents have potentially to be sent to
+the Coordinator for further processing. With this simple query this is actually
+not true, because some other optimizations are performed that reduce the number
+of documents. But still, a considerable amount of documents has to be
+transferred from DB-Server to Coordinator only to apply a `LIMIT` of 10
+documents there. The estimate for the *RemoteNode* is 10,000 in this example,
+whereas it is 10 in the OneShard case.
+
 Synchronous replication
 -----------------------
 
