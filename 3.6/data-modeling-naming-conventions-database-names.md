@@ -16,5 +16,5 @@ names conform to the following constraints:
 * Database names must always start with a letter. Database names starting 
   with an underscore are considered to be system databases, and users should 
   not create or delete those
-* The maximum allowed length of a database name is 255 bytes <!-- TODO: why?! -->
+* The maximum allowed length of a database name is 64 bytes
 * Database names are case-sensitive
