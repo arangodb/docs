@@ -31,12 +31,12 @@ Version 3.6
 
 **Enterprise Edition**
 
-- [**OneShard**]()
-  cluster deployment option. If the data stored in one database fits on a single
-  node, then you can get the transactional guarantees and performance close to
-  that of a single server deployment. Creates collections with a single shard
-  and uses the same database server as shard leader. AQL queries get optimized
-  automatically for OneShard clusters.
+- [**OneShard**](architecture-deployment-modes-cluster-architecture.html#oneshard)
+  deployments offer a practicable solution that enables significant performance
+  improvements by massively reducing cluster-internal communication. A database
+  created with OneShard enabled is limited to a single DB-Server node but still
+  replicated synchronously to ensure resilience. This configuration allows
+  running transactions with ACID guarantees on shard leaders.
 
 Also see [What's New in 3.6](release-notes-new-features36.html).
 
