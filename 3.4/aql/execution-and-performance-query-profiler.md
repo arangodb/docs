@@ -28,6 +28,7 @@ Example: Simple AQL query
 Assuming we got a collection named `acollection` and insert 10000 documents
 via `for (let i=0; i < 10000;i++) db.acollection.insert({value:i})`.
 Then a simple query filtering for `value < 10` will return 10 results:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline 01_workWithAQL_profileQuerySimple
 @EXAMPLE_ARANGOSH_OUTPUT{01_workWithAQL_profileQuerySimple}
@@ -44,6 +45,7 @@ Then a simple query filtering for `value < 10` will return 10 results:
 @endDocuBlock 01_workWithAQL_profileQuerySimple
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 An AQL query is essentially executed in a pipeline that chains together different
 functional execution blocks. Each block gets the input rows from the parent above
 it, does some processing and then outputs a certain number of output rows.
@@ -75,6 +77,7 @@ Let us add a skiplist index on `value` to speed up the query:
 ```js
 db.acollection.ensureIndex({type:"skiplist", fields:["value"]});
 ```
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline 02_workWithAQL_profileQuerySimpleIndex
 @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_profileQuerySimpleIndex}
@@ -91,6 +94,7 @@ db.acollection.ensureIndex({type:"skiplist", fields:["value"]});
 @endDocuBlock 02_workWithAQL_profileQuerySimpleIndex
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 This results in replacing the collection scan and filter block with an
 `IndexNode`. The execution pipeleine of the AQL query has become much shorter.
 Also the number of rows processed by each pipeline block is only 10, because
@@ -100,6 +104,7 @@ Example: AQL with Subquery
 --------------------------
 
 Let us consider a query containing a subquery:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline 03_workWithAQL_profileQuerySubquery
 @EXAMPLE_ARANGOSH_OUTPUT{03_workWithAQL_profileQuerySubquery}
@@ -117,6 +122,7 @@ Let us consider a query containing a subquery:
 @endDocuBlock 03_workWithAQL_profileQuerySubquery
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The resulting query profile contains a _SubqueryNode_ which has the runtime of
 all its children combined.
 
@@ -133,6 +139,7 @@ statement. Assume we have a user collection with each document having a city,
 a username and an age attribute.
 
 The following query gets us all age groups in buckets (0-9, 10-19, 20-29, ...):
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline 04_workWithAQL_profileQueryAggregation
 @EXAMPLE_ARANGOSH_OUTPUT{04_workWithAQL_profileQueryAggregation}
@@ -154,6 +161,7 @@ The following query gets us all age groups in buckets (0-9, 10-19, 20-29, ...):
 @endDocuBlock 04_workWithAQL_profileQueryAggregation
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Without any indexes this query should have to perform the following operations:
 
 1. Perfom a full collection scan via a _EnumerateCollectionNode_ and outputing

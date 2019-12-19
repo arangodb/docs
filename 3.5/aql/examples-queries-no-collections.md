@@ -20,7 +20,7 @@ RETURN "this will be returned"
 @END_EXAMPLE_AQL
 @endDocuBlock aqlWithoutCollections_1
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 You may use variables, call functions and return arbitrarily structured results:
 
@@ -32,7 +32,7 @@ RETURN { array, sum: SUM(array) }
 @END_EXAMPLE_AQL
 @endDocuBlock aqlWithoutCollections_2
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Language constructs such as the FOR loop can be used too. Below query
 creates the Cartesian product of two arrays and concatenates the value pairs:
@@ -50,4 +50,4 @@ FOR year IN [ 2011, 2012, 2013 ]
 @END_EXAMPLE_AQL
 @endDocuBlock aqlWithoutCollections_3
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}

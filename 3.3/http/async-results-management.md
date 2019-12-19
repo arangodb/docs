@@ -125,6 +125,7 @@ rejected instantly in the same way as a "regular", non-queued request.
 
 Managing Async Results via HTTP
 -------------------------------
+
 {% docublock JSF_job_fetch_result %}
 {% docublock JSF_job_cancel %}
 {% docublock JSF_job_delete %}
