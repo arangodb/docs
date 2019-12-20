@@ -3,7 +3,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/1df8b69b-25f8-4b73-b8f1-af8735269c35/deploy-status)](https://app.netlify.com/sites/zealous-morse-14392b/deploys)
 
 This is the ArangoDB documentation repository containing all documentation
-for all versions.
+for all versions as published on [arangodb.com/docs](https://www.arangodb.com/docs).
 
 The documentation uses the static site generator [Jekyll](https://jekyllrb.com).
 
@@ -154,9 +154,10 @@ Add the actual content below the frontmatter.
 
 ### When adding a new release
 
-- Copy over the navs in `_data`, e.g.
+- Copy the latest devel version to a new directory i.e. `cp -a 3.5 3.6`
+- Create the necessary navigation definition files in `_data` by copying, e.g.
   ```
-  for book in aql cookbook drivers http manual; do
+  for book in aql drivers http manual oasis; do
     cp -a "3.5-${book}.yml" "3.6-${book}.yml"
   done
   ```
@@ -166,7 +167,13 @@ Add the actual content below the frontmatter.
     ln -s "../3.6/generated/arango${prog}-options.json" "3.6-program-options-arango${prog}.json"
   done
   ```
-- Copy the latest devel version to a new directory i.e. `cp -a 3.5 3.6`
+- Adjust the version numbers in `site.data` references in all pages which
+  include program startup options (`program-option.html`), e.g.
+  ```diff
+  -{% assign options = site.data["35-program-options-arangobackup"] %}
+  +{% assign options = site.data["36-program-options-arangobackup"] %}
+   {% include program-option.html options=options name="arangobackup" %}
+  ```
 - Add the version to `_data/versions.yml` with the full version name
 - Add all books of that version to `_data/books.yml`
 - Adjust the following fields in `_config.yml` as needed:
@@ -205,7 +212,6 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
 
 ```
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-
     @startDocuBlockInline joinTuples
     @EXAMPLE_AQL{joinTuples}
     @DATASET{joinSampleDataset}
@@ -224,7 +230,7 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
     @END_EXAMPLE_AQL
     @endDocuBlock joinTuples
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 ```
 
 ## Guidelines
@@ -261,6 +267,11 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
     target does not exist --- docs/page2.html --> target.html
   ...
   ```
+  or
+  ```
+  docs/page.html
+    target is a directory, no index --- docs/page.html --> /docs/newfolder/
+  ```
 
   If you get dozens of these errors for the same target, then you likely forgot
   to add a frontmatter to that page (`docs/target.md`):
@@ -275,6 +286,15 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
   The error is issued once per page of the same book because the target page is
   linked in the navigation.
 
+  Another reason can be a faulty reference in the navigation file (e.g.
+  `_data/3.5-manual.yml`). The file name or directory might simply be wrong,
+  or the file extension could be wrong or incomplete in the `href` attribute:
+
+  ```
+  - text: Missing L in .html
+    href: page.htm
+  ```
+
 - ```
   docs/page.html
     hash does not exist --- docs/page.html --> target.html#hash
@@ -288,6 +308,22 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
   Look at the generated `.html` file if in doubt. A `redirect_from` frontmatter
   might be bad (e.g. wrong version number in path) and accidentally overwrite
   a page, removing the original content and links.
+
+- ```
+  Configuration file: none
+              Source: /path/to/docs/3.5
+         Destination: /path/to/docs/3.5/_site
+   Incremental build: disabled. Enable with --incremental
+        Generating...
+       Build Warning: Layout 'default' requested in subfolder/page.md does not exist.
+       Build Warning: Layout 'default' requested in other.md does not exist.
+    Liquid Exception: Liquid syntax error (line 11): Unknown tag 'docublock' in
+  ```
+
+  Warnings and exceptions like above show if you try to run Jekyll from a
+  subfolder. Change your working directory to the root folder of the working
+  copy (`/path/to/docs`).
+
 
 ## CI/Netlify
 
@@ -318,8 +354,8 @@ For details please check out the
 
 ## LICENSE
 
-The ArangoDB Docs are licensed under Apache2. See [LICENSE.md](LICENSE.md)
-for details.
+The ArangoDB documentation is licensed under Apache-2.0.
+See [LICENSE](LICENSE) for details.
 
-Parts not licensed under Apache2 are outlines in
+Parts not licensed under Apache-2.0 are outlined in
 [LICENSES-OTHER-COMPONENTS.md](LICENSES-OTHER-COMPONENTS.md)

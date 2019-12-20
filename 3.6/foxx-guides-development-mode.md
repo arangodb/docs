@@ -76,13 +76,13 @@ Using development mode in a production cluster
 is extremely unsafe and highly discouraged.
 {% endhint %}
 
-Development mode in a cluster applies to each coordinator individually.
-Changes to the service's file system on a single coordinator will be reflected
-as usual but only on that single coordinator.
-When development mode is disabled on one coordinator,
+Development mode in a cluster applies to each Coordinator individually.
+Changes to the service's file system on a single Coordinator will be reflected
+as usual but only on that single Coordinator.
+When development mode is disabled on one Coordinator,
 it will create a new service bundle from the local changes and
-distribute it across the cluster to the other coordinators.
+distribute it across the cluster to the other Coordinators.
 
 This can result in problems when service code is modified
-on multiple coordinators. Development mode should therefore only be used
+on multiple Coordinators. Development mode should therefore only be used
 for diagnostic purposes and avoided if possible.

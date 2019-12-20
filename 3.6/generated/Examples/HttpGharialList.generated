@@ -1,7 +1,6 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/gharial</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
 
@@ -10,13 +9,9 @@ content-type: application/json
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">"graphs"</span> : [ 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"social"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/social"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB-Z_K---"</span>, 
-      <span class="hljs-string">"numberOfShards"</span> : <span class="hljs-number">1</span>, 
-      <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">1</span>, 
-      <span class="hljs-string">"minReplicationFactor"</span> : <span class="hljs-number">1</span>, 
-      <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"social"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrtX6WW---"</span>, 
       <span class="hljs-string">"edgeDefinitions"</span> : [ 
         { 
           <span class="hljs-string">"collection"</span> : <span class="hljs-string">"relation"</span>, 
@@ -30,16 +25,18 @@ content-type: application/json
           ] 
         } 
       ], 
-      <span class="hljs-string">"orphanCollections"</span> : [ ] 
+      <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">"minReplicationFactor"</span> : <span class="hljs-number">1</span>, 
+      <span class="hljs-string">"numberOfShards"</span> : <span class="hljs-number">1</span>, 
+      <span class="hljs-string">"orphanCollections"</span> : [ ], 
+      <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">1</span>, 
+      <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"social"</span> 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"routeplanner"</span>, 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/routeplanner"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB-Z_e--A"</span>, 
-      <span class="hljs-string">"numberOfShards"</span> : <span class="hljs-number">1</span>, 
-      <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">1</span>, 
-      <span class="hljs-string">"minReplicationFactor"</span> : <span class="hljs-number">1</span>, 
-      <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"routeplanner"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrtX6Wy--A"</span>, 
       <span class="hljs-string">"edgeDefinitions"</span> : [ 
         { 
           <span class="hljs-string">"collection"</span> : <span class="hljs-string">"frenchHighway"</span>, 
@@ -71,7 +68,13 @@ content-type: application/json
           ] 
         } 
       ], 
-      <span class="hljs-string">"orphanCollections"</span> : [ ] 
+      <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">"minReplicationFactor"</span> : <span class="hljs-number">1</span>, 
+      <span class="hljs-string">"numberOfShards"</span> : <span class="hljs-number">1</span>, 
+      <span class="hljs-string">"orphanCollections"</span> : [ ], 
+      <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">1</span>, 
+      <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"routeplanner"</span> 
     } 
   ] 
 }

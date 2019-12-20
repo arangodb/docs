@@ -22,6 +22,6 @@ following naming constraints are not violated:
   collections that are for ArangoDB's internal use only. System collection names
   should not be used by end users for their own collections.
 
-- The maximum allowed length of a name is 64 bytes.
+- The maximum allowed length of a name is 256 bytes.
 
 - Collection and View names are case-sensitive.

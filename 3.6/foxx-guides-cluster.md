@@ -1,13 +1,13 @@
 ---
 layout: default
-description: When running ArangoDB in a cluster the Foxx services will run on eachcoordinator
+description: When running ArangoDB in a cluster the Foxx services will run on eachCoordinator
 ---
 Foxx in a cluster setup
 =======================
 
 When running ArangoDB in a cluster the Foxx services will run on each
-coordinator. Installing, upgrading and uninstalling services on any coordinator
-will automatically distribute the changes to the service to the other coordinators,
+Coordinator. Installing, upgrading and uninstalling services on any Coordinator
+will automatically distribute the changes to the service to the other Coordinators,
 making deployments as easy as in single-server mode.
 
 The same considerations that apply to writing Foxx services for a
@@ -26,8 +26,8 @@ How ArangoDB distributes services
 ---------------------------------
 
 When you install, replace, upgrade or remove a service, these actions first
-take place on a single coordinator and are then distributed to the other
-coordinators. If a coordinator for some reason fails to be informed,
+take place on a single Coordinator and are then distributed to the other
+Coordinators. If a Coordinator for some reason fails to be informed,
 its periodic self-healing process will pick up the changes eventually
 and apply them anyway.
 
@@ -36,13 +36,13 @@ and apply them anyway.
     and parses the referenced scripts and main file.
 
 2.  When replacing, upgrading or removing a service, the old service's teardown
-    script is executed in a single thread of the coordinator as desired.
+    script is executed in a single thread of the Coordinator as desired.
 
 3.  When replacing, upgrading or installing a service, the new service's setup
-    script is executed in a single thread of the coordinator as desired.
+    script is executed in a single thread of the Coordinator as desired.
 
-4.  The validated service bundle is copied to the coordinator's service bundles
-    directory, extracted to the coordinator's service directory and committed
+4.  The validated service bundle is copied to the Coordinator's service bundles
+    directory, extracted to the Coordinator's service directory and committed
     to an internal collection along with a signature.
 
 5.  The service metadata stored in another internal collection is updated,
@@ -50,15 +50,15 @@ and apply them anyway.
     retains existing metadata like configuration and dependencies whereas
     a replace completely discards any existing metadata.
 
-6.  The existing service is unloaded from the coordinator's worker threads
+6.  The existing service is unloaded from the Coordinator's worker threads
     and the new service is reloaded. If the new service runs into an error
     at this point, the service will be marked as broken and
     needs to be replaced manually.
 
-7.  The coordinator triggers a local self-heal followed by triggering
-    a self-heal on all other coordinators.
+7.  The Coordinator triggers a local self-heal followed by triggering
+    a self-heal on all other Coordinators.
 
-8.  During the self-heal the coordinator compares the signature of the
+8.  During the self-heal the Coordinator compares the signature of the
     local bundle of each service against the signature stored in that
     service's metadata in the database. If necessary, the corresponding
     new bundle is downloaded from the database and extracted and the service

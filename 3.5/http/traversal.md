@@ -24,6 +24,7 @@ are offered.
 
 Executing Traversals via HTTP
 -----------------------------
+
 {% docublock HTTP_API_TRAVERSAL %}
 
 All examples were using this graph:

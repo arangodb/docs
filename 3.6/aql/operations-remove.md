@@ -18,7 +18,7 @@ That behavior can be controlled by adjusting the intermediate commit settings fo
 the RocksDB engine. 
 
 For sharded collections, the entire query and/or remove operation may not be transactional,
-especially if it involves different shards and/or database servers.
+especially if it involves different shards and/or DB-Servers.
 
 Each `REMOVE` operation is restricted to a single collection, and the 
 [collection name](../appendix-glossary.html#collection-name) must not be dynamic.

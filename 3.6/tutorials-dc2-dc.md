@@ -111,10 +111,10 @@ consult the [reference manual](deployment-dc2-dc.html).
 Datacenter to datacenter replication requires an ArangoDB cluster in both data centers,
 configured with the `rocksdb` storage engine.
 
-Since the cluster agents are so critical to the availability of both the ArangoDB and the ArangoSync cluster,
-it is recommended to run agents on dedicated machines. Consider these machines "pets".
+Since the cluster Agents are so critical to the availability of both the ArangoDB and the ArangoSync cluster,
+it is recommended to run Agents on dedicated machines. Consider these machines "pets".
 
-Coordinators and DBServers can be deployed on other machines that should be considered "cattle".
+Coordinators and DB-Servers can be deployed on other machines that should be considered "cattle".
 
 ### Sync Master
 
@@ -141,7 +141,7 @@ Consider these machines "pets".
 
 The Sync Worker is responsible for executing synchronization tasks.
 <br/> For optimal performance at least 1 worker instance must be placed on
-every machine that has an ArangoDB DBServer running. This ensures that tasks
+every machine that has an ArangoDB DB-Server running. This ensures that tasks
 can be executed with minimal network traffic outside of the machine.
 
 Since sync workers will automatically stop once their TLS server certificate expires
@@ -153,7 +153,7 @@ down for a restart.
 The sync worker must be reachable on a TCP port 8729 (default).
 This port must be reachable from inside the datacenter (by sync masters).
 
-The sync workers should be run on all machines that also contain an ArangoDB DBServer.
+The sync workers should be run on all machines that also contain an ArangoDB DB-Server.
 The sync worker can be memory intensive when running lots of databases & collections.
 
 Consider these machines "cattle".

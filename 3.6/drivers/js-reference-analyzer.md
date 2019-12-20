@@ -155,7 +155,7 @@ definition.
 const db = new Database();
 const analyzer = db.analyzer("potatoes");
 await analyzer.create({ type: "identity" });
-// the identity analyzer "potatoes" now exists
+// the identity Analyzer "potatoes" now exists
 ```
 
 ## analyzer.drop

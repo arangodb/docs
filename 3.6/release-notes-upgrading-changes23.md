@@ -16,7 +16,7 @@ Configuration file changes
 
 The number of server threads specified is now the minimum of threads
 started. There are situation in which threads are waiting for results of
-distributed database servers. In this case the number of threads is dynamically
+distributed DB-Servers. In this case the number of threads is dynamically
 increased.
 
 With ArangoDB 2.3, the number of server threads can be configured independently

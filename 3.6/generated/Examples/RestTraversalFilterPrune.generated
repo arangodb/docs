@@ -8,7 +8,6 @@
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> OK
-keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
 
@@ -19,13 +18,13 @@ content-type: application/json
         { 
           <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
           <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB_DRa---"</span>, 
+          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrtYlwm---"</span>, 
           <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
         }, 
         { 
           <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
           <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB_DRe---"</span>, 
+          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrtYlwm--A"</span>, 
           <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
         } 
       ], 
@@ -36,7 +35,7 @@ content-type: application/json
             { 
               <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB_DRa---"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrtYlwm---"</span>, 
               <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
             } 
           ] 
@@ -44,11 +43,11 @@ content-type: application/json
         { 
           <span class="hljs-string">"edges"</span> : [ 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71555"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/71555"</span>, 
+              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71523"</span>, 
+              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/71523"</span>, 
               <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/alice"</span>, 
               <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB_DRi---"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrtYlwu---"</span>, 
               <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
             } 
           ], 
@@ -56,13 +55,13 @@ content-type: application/json
             { 
               <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB_DRa---"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrtYlwm---"</span>, 
               <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
             }, 
             { 
               <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB_DRe---"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrtYlwm--A"</span>, 
               <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
             } 
           ] 

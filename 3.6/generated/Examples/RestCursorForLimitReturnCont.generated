@@ -6,30 +6,29 @@
 }
 EOF
 
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/cursor/69552</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/cursor/69520</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
 
 { 
   <span class="hljs-string">"result"</span> : [ 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69546"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69546"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB_-BW---"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69514"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69514"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrtYgP---C"</span>, 
       <span class="hljs-string">"hello3"</span> : <span class="hljs-string">"world1"</span> 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69548"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69548"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB_-BW--A"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69516"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69516"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZrtYgPC---"</span>, 
       <span class="hljs-string">"hello4"</span> : <span class="hljs-string">"world1"</span> 
     } 
   ], 
   <span class="hljs-string">"hasMore"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69552"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69520"</span>, 
   <span class="hljs-string">"count"</span> : <span class="hljs-number">5</span>, 
   <span class="hljs-string">"extra"</span> : { 
     <span class="hljs-string">"stats"</span> : { 
@@ -39,7 +38,7 @@ content-type: application/json
       <span class="hljs-string">"scannedIndex"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00012564659118652344</span>, 
+      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00015687942504882812</span>, 
       <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">2583</span> 
     }, 
     <span class="hljs-string">"warnings"</span> : [ ] 

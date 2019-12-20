@@ -26,6 +26,8 @@ indexes, to be able to rank results for instance.
 Analyzers can be managed via an [HTTP API](http/analyzers.html) and through
 a [JavaScript module](appendix-java-script-modules-analyzers.html).
 
+{% include youtube.html id="tbOTYL26reg" %}
+
 Value Handling
 --------------
 
@@ -91,7 +93,7 @@ Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
 Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text
--------------------|----------|---------|-----------|------|------|-----
+:------------------|:---------|:--------|:----------|:-----|:-----|:----
 **Tokenization**   | No       | No      | (Yes)     | No   | No   | Yes
 **Stemming**       | No       | No      | No        | Yes  | No   | Yes
 **Normalization**  | No       | No      | No        | No   | Yes  | Yes

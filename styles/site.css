@@ -1,18 +1,20 @@
-h1 a.header-link,
-h2 a.header-link,
-h3 a.header-link,
-h4 a.header-link,
-h5 a.header-link,
-h6 a.header-link {
+h1 a.anchor-link,
+h2 a.anchor-link,
+h3 a.anchor-link,
+h4 a.anchor-link,
+h5 a.anchor-link,
+h6 a.anchor-link,
+.example-container a.anchor-link {
     visibility: hidden;
 }
 
-h1:hover a.header-link,
-h2:hover a.header-link,
-h3:hover a.header-link,
-h4:hover a.header-link,
-h5:hover a.header-link,
-h6:hover a.header-link {
+h1:hover a.anchor-link,
+h2:hover a.anchor-link,
+h3:hover a.anchor-link,
+h4:hover a.anchor-link,
+h5:hover a.anchor-link,
+h6:hover a.anchor-link,
+.example-container:hover a.anchor-link {
     visibility: visible;
 }
 
@@ -48,7 +50,7 @@ h6:hover a.header-link {
     line-height: 1.7;
 }
 
-.header-link {
+.anchor-link {
     padding-left: 0.375em;
 }
 
@@ -129,10 +131,6 @@ pre.highlight .nb {
 .page-toc-min-paragraph-width {
     width: 200px;
     overflow: hidden;
-}
-
-.example-result pre {
-    margin-top: -1.275em;
 }
 
 .searchbar {

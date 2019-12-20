@@ -59,6 +59,7 @@ Begin a Transaction
 
 Check Status of a Transaction
 -----------------------------
+
 {% docublock get_api_transaction %}
 
 Commit or Abort a Transaction
@@ -77,17 +78,18 @@ until the entire transaction times out.
 
 List currently ongoing Transactions
 -----------------------------------
+
 {% docublock get_api_transactions %}
 
 Limitations
 -----------
 
 A maximum lifetime and transaction size for stream transactions is enforced
-on the coordinator to ensure that transactions cannot block the cluster from
+on the Coordinator to ensure that transactions cannot block the cluster from
 operating properly:
 
 - Maximum idle timeout of **10 seconds** between operations
-- Maximum transaction size of **128 MB** per DBServer
+- Maximum transaction size of **128 MB** per DB-Server
 
 These limits are also enforced for stream transactions on single servers.
 
