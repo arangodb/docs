@@ -16,7 +16,7 @@ ArangoDB 3.1 adds a first major Enterprise Edition feature called SmartGraphs.
 SmartGraphs form an addition to the already existing graph features and allow to
 scale graphs beyond a single machine while keeping almost the same query performance.
 The SmartGraph feature is suggested for all graph database use cases that require
-a cluster of database servers for what ever reason.
+a cluster of DB-Servers for what ever reason.
 You can either have a graph that is too large to be stored on a single machine only.
 Or you can have a small graph, but at the same time need additional data with has to be
 sharded and you want to keep all of them in the same environment.
@@ -29,7 +29,7 @@ Data format
 -----------
 
 The format of the revision values stored in the `_rev` attribute of documents
-has been changed in 3.1. Up to 3.0 they were strings containing largish decimal numbers. With 3.1, revision values are still strings, but are actually encoded time stamps of the creation date of the revision of the document. The time stamps are acquired using a hybrid logical clock (HLC) on the DBserver that holds the
+has been changed in 3.1. Up to 3.0 they were strings containing largish decimal numbers. With 3.1, revision values are still strings, but are actually encoded time stamps of the creation date of the revision of the document. The time stamps are acquired using a hybrid logical clock (HLC) on the DB-Server that holds the
 revision (for the concept of a hybrid logical clock see
 [this paper](http://www.cse.buffalo.edu/tech-reports/2014-04.pdf){:target="_blank"}).
 See [this manual section](data-modeling-documents-document-address.html#document-revision) for details.

@@ -8,22 +8,23 @@ description: ArangoDB Server Network Options
 
 `--network.idle-connection-ttl`
 
-Default time-to-live of idle connections (in milliseconds).
+Default time-to-live of idle cluster-internal connections (in milliseconds).
 
 ## I/O Threads
 
 `--network.io-threads`
 
-Number of network I/O threads.
+Number of network I/O threads for cluster-internal network requests.
 
 ## Max Open Connections
 
 `--network.max-open-connections`
 
-Maximum number of open network connections.
+Maximum number of open network connections for cluster-internal requests.
 
 ## Verify Hosts
 
 `network.verify-hosts`
 
-Verify hosts when using TLS.
+If set to true, this will verify peer certificates for cluster-internal
+requests when TLS is used.

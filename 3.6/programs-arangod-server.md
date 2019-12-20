@@ -262,7 +262,7 @@ handling. The default value is
 
 ## Toggling server statistics
 
-`--server.statistics value`
+`--server.statistics`
 
 If this option is *value* is *false*, then ArangoDB's statistics gathering
 is turned off. Statistics gathering causes regular background CPU activity and
@@ -281,3 +281,10 @@ value too low can easily overwhelm the server, while setting the value too high
 may result in high memory usage and periodic slowdowns. Value is given in
 microseconds, with a typical range of 100000 (100ms) to 10000000 (10s) and a
 default of 1000000 (1s). Use caution when changing from the default.
+
+## Metrics API
+
+`--server.enable-metrics-api`
+
+Enables or disables the
+[metrics HTTP API](http/administration-and-monitoring.html#read-the-metrics).

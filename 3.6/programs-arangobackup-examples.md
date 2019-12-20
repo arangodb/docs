@@ -66,7 +66,7 @@ instance to that "snapshot".
 Keep in mind that such a restore is a global operation and affects
 **all databases** in an installation. The restore will roll back all data
 including in the meantime databases, collections, indexes etc.
-The database server of a single server instance and all database servers
+The DB-Server of a single server instance and all DB-Servers
 of a cluster will subsequently be restarted.
 {% endhint %}
 
@@ -165,7 +165,7 @@ credentials for the remote site. Here is an example:
 ```
 
 This process may take as long as it needs to upload the data from the
-single server or all of the cluster's db servers to the remote
+single server or all of the cluster's DB-Servers to the remote
 location. However, the upload will take advantage from previously
 uploaded hot backups which might contain identical files. Therefore, the
 functionality is incremental, if regular hot backups are taken and uploaded
@@ -210,7 +210,7 @@ The output will look like this:
 ```
 
 This process may take as long as it needs to download the data to
-the single server or all of the cluster's db servers from the remote
+the single server or all of the cluster's DB-Servers from the remote
 endpoint given network limitations. However, the download will take
 advantage from other hot backups which might already or still be present
 locally that contain identical files. Therefore, the functionality is

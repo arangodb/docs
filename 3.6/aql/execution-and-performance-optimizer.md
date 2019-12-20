@@ -215,7 +215,7 @@ This will return a list of all plans in the `plans` attribute instead of in the
 
 To retrieve the plan which closely matches your query, you may turn off most
 optimization rules (i.e. cluster rules cannot be disabled if you're running
-the explain on a cluster coordinator) set the option `rules` to `-all`:
+the explain on a cluster Coordinator) set the option `rules` to `-all`:
 
 This will return an unoptimized plan in the `plan`:
 
@@ -318,7 +318,7 @@ Optimization in a cluster
 When you are running AQL in the cluster, the parsing of the query is done on the
 Coordinator. The Coordinator then chops the query into snippets, which are either
 to remain on the Coordinator or need to be distributed to the shards on the
-DBServers over the network. The cutting sites are interconnected via *Scatter-*,
+DB-Servers over the network. The cutting sites are interconnected via *Scatter-*,
 *Gather-* and *RemoteNodes*. These nodes mark the network borders of the snippets.
 
 The optimizer strives to reduce the amount of data transferred via these network
@@ -326,7 +326,7 @@ interfaces by pushing `FILTER`s out to the shards, as it is vital to the query
 performance to reduce that data amount to transfer over the network links.
 
 {% hint 'info' %}
-Some hops between Coordinators and DBServers are unavoidable. An example are
+Some hops between Coordinators and DB-Servers are unavoidable. An example are
 [user-defined functions](extending.html) (UDFs), which have to be executed on
 the Coordinator. If you cannot modify your query to have a lower amount of
 back and forth between sites, then try to lower the amount of data that has
@@ -335,7 +335,7 @@ calling them.
 {% endhint %}
 
 Using a cluster, there is a *Site* column if you explain a query.
-Snippets marked with **DBS** are executed on DBServers, **COOR** ones are
+Snippets marked with **DBS** are executed on DB-Servers, **COOR** ones are
 executed on the respective Coordinator.
 
 ```
@@ -446,28 +446,28 @@ The following execution node types will appear in the output of `explain`:
 For queries in the cluster, the following nodes may appear in execution plans:
 
 - **DistributeNode**:
-  used on a coordinator to fan-out data to one or multiple shards,
+  used on a Coordinator to fan-out data to one or multiple shards,
   taking into account a collection's shard key.
 
 - **GatherNode**:
-  used on a coordinator to aggregate results from one or many shards
+  used on a Coordinator to aggregate results from one or many shards
   into a combined stream of results. Parallelizes work for certain types
-  of queries when there are multiple database servers involved
+  of queries when there are multiple DB-Servers involved
   (shown as `GATHER   /* parallel */` in query explain).
 
 - **RemoteNode**:
   a *RemoteNode* will perform communication with another ArangoDB instances
-  in the cluster. For example, the cluster coordinator will need to communicate
+  in the cluster. For example, the cluster Coordinator will need to communicate
   with other servers to fetch the actual data from the shards. It will do so
   via *RemoteNode*s. The data servers themselves might again pull further data
-  from the coordinator, and thus might also employ *RemoteNode*s. So, all of
+  from the Coordinator, and thus might also employ *RemoteNode*s. So, all of
   the above cluster relevant nodes will be accompanied by a *RemoteNode*.
 
 - **ScatterNode**:
-  used on a coordinator to fan-out data to one or multiple shards.
+  used on a Coordinator to fan-out data to one or multiple shards.
 
 - **SingleRemoteOperationNode**:
-  used on a coordinator to directly work with a single
+  used on a Coordinator to directly work with a single
   document on a DB-Server that was referenced by its `_key`.
 
 List of optimizer rules
@@ -674,14 +674,14 @@ The following optimizer rules may appear in the `rules` attribute of
   Queries involving V8 / JavaScript (e.g. user-defined AQL functions) can not
   be optimized.
 
-  Offloads the entire query to the DBServer (except the client communication
+  Offloads the entire query to the DB-Server (except the client communication
   via a Coordinator). This saves all the back and forth that normally exists
   in regular cluster queries, benefitting traversals and joins in particular.
 
 - `collect-in-cluster`:
-  will appear when a *CollectNode* on a coordinator is accompanied by extra
-  *CollectNode*s on the database servers, which will do the heavy processing and
-  allow the *CollectNode* on the coordinator to a light-weight aggregation only.
+  will appear when a *CollectNode* on a Coordinator is accompanied by extra
+  *CollectNode*s on the DB-Servers, which will do the heavy processing and
+  allow the *CollectNode* on the Coordinator to a light-weight aggregation only.
 
 - `distribute-filtercalc-to-cluster`:
   will appear when filters are moved up in a
@@ -699,8 +699,8 @@ The following optimizer rules may appear in the `rules` attribute of
 
 - `optimize-cluster-single-document-operations`:
   it may appear if you directly reference a document by its `_key`; in this
-  case no AQL will be executed on the DB-Servers, instead the coordinator will
-  directly work with the documents on the DBServers.
+  case no AQL will be executed on the DB-Servers, instead the Coordinator will
+  directly work with the documents on the DB-Servers.
 
 - `parallelize-gather`:
   will appear if an optimization to execute Coordinator *GatherNodes* in

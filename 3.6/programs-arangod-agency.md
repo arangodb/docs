@@ -8,7 +8,7 @@ description: ArangoDB Server Agency Options
 
 `agency.activate`
 
-Activate agency.
+Activate Agency.
 
 ## Compaction
 
@@ -20,11 +20,11 @@ Keep as many indices before compaction point.
 
 `agency.election-timeout-max`
 
-Maximum timeout before an agent calls for new election in seconds.
+Maximum timeout before an Agent calls for new election in seconds.
 
 `agency.election-timeout-min`
 
-Minimum timeout before an agent calls for new election in seconds.
+Minimum timeout before an Agent calls for new election in seconds.
 
 ## Endpoint
 
@@ -42,13 +42,13 @@ Which address to advertise to the outside.
 
 `agency.pool-size`
 
-Number of agent pool.
+Number of Agent pool.
 
 ## Size
 
 `agency.size`
 
-Number of agents.
+Number of Agents.
 
 ## Supervision
 

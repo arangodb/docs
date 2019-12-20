@@ -50,10 +50,10 @@ high availability features that a cluster provides you.
 
 - `--cluster.agency-size=int`
 
-number of agents in agency (default 3).
+number of Agents in Agency (default 3).
 
 This number has to be positive and odd, and anything beyond 5 probably
-does not make sense. The default 3 allows for the failure of one agent.
+does not make sense. The default 3 allows for the failure of one Agent.
 
 - `--starter.address=addr`
 
@@ -61,7 +61,7 @@ does not make sense. The default 3 allows for the failure of one agent.
 outside.
 
 Use this option only in the case that `--cluster.agency-size` is set to 1. 
-In a single agent setup, the sole starter has to start on its own with
+In a single Agent setup, the sole starter has to start on its own with
 no reliable way to learn its own address. Using this option the master will 
 know under which address it can be reached from the outside. If you specify
 `localhost` here, then all instances must run on the local machine.
@@ -154,20 +154,20 @@ name of the server that will be used in the self-signed certificate created by t
 ## Other database options
 
 Options for `arangod` that are not supported by the starter can still be passed to
-the database servers using a pass through option.
+the DB-Servers using a pass through option.
 Every option that start with a pass through prefix is passed through to the commandline
 of one or more server instances.
 
 - `--all.<section>.<key>=<value>` is pass as `--<section>.<key>=<value>` to all servers started by this starter.
-- `--coordinators.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all coordinators started by this starter.
-- `--dbservers.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all dbservers started by this starter.
-- `--agents.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all agents started by this starter.
+- `--coordinators.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all Coordinators started by this starter.
+- `--dbservers.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all DB-Servers started by this starter.
+- `--agents.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all Agents started by this starter.
 
 Some options are essential to the function of the starter. Therefore these options cannot be passed through like this.
 
 Example:
 
-To activate HTTP request logging at debug level for all coordinators, use a command like this.
+To activate HTTP request logging at debug level for all Coordinators, use a command like this.
 
 ```bash
 arangodb --coordinators.log.level=requests=debug
@@ -271,12 +271,12 @@ On `arangod` version 3.4 and later, the default value is `rocksdb`.
 
 - `--cluster.start-coordinator=bool`
 
-This indicates whether or not a coordinator instance should be started
+This indicates whether or not a Coordinator instance should be started
 (default true).
 
 - `--cluster.start-dbserver=bool`
 
-This indicates whether or not a DB server instance should be started
+This indicates whether or not a DB-Server instance should be started
 (default true).
 
 - `--server.rr=path`
@@ -311,7 +311,7 @@ set a custom directory to which all log files will be written to.
 When using the Starter in docker, make sure that this directory is
 mounted as a volume for the Starter.
 
-Note: When using a custom log directory, all database server files will be named as `arangod-<role>-<port>.log`.
+Note: When using a custom log directory, all DB-Server files will be named as `arangod-<role>-<port>.log`.
 The log for the starter itself is still called `arangodb.log`.
 
 - `--log.rotate-files-to-keep=int`

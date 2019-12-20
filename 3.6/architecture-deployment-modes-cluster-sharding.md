@@ -12,7 +12,7 @@ constitute a single database system.
 
 Sharding is used to distribute data across physical machines in an ArangoDB
 Cluster. It is a method to determine the optimal placement of documents on
-individual DBServers.
+individual DB-Servers.
 
 This enables you to store much more data, since ArangoDB distributes the data
 automatically to the different servers. In many situations one can also reap a
@@ -143,7 +143,7 @@ a new document but must use the automatically generated one. This latter
 restriction comes from the fact that ensuring uniqueness of the primary key
 would be very inefficient if the user could specify the primary key.
 
-On which DBServer in a Cluster a particular _shard_ is kept is undefined.
+On which DB-Server in a Cluster a particular _shard_ is kept is undefined.
 There is no option to configure an affinity based on certain _shard_ keys.
 
 For more information on shard rebalancing and administration topics please have

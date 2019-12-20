@@ -41,7 +41,7 @@ Rule of thumb is, the closer the UDF is to your final `RETURN` statement
 (or maybe even inside it), the better. 
 
 When used in clusters, UDFs are always executed on the
-[coordinator](../architecture-deployment-modes-cluster-architecture.html).
+[Coordinator](../architecture-deployment-modes-cluster-architecture.html).
 
 As UDFs are written in JavaScript, each query that executes a UDF will acquire
 one V8 context to execute the UDFs in it. V8 contexts can be re-used across subsequent
@@ -65,11 +65,11 @@ of the selected database. When an AQL statement refers to such a UDF,
 it is loaded from that collection. The UDFs will be exclusively
 available for queries in that particular database.
 
-Since the coordinator doesn't have own local collections, the `_aqlfunctions`
+Since the Coordinator doesn't have own local collections, the `_aqlfunctions`
 collection is sharded across the cluster. Therefore (as usual), it has to be
-accessed through a coordinator - you mustn't talk to the shards directly.
+accessed through a Coordinator - you mustn't talk to the shards directly.
 Once it is in the `_aqlfunctions` collection, it is available on all
-coordinators without additional effort.
+Coordinators without additional effort.
 
 Keep in mind that system collections are excluded from dumps created with
 [arangodump](../programs-arangodump.html) by default.

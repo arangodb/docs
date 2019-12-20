@@ -27,7 +27,7 @@ with every request. The authorization header _must_ contain a *superuser JWT Tok
 
 Generally, all document IO to and from the key-value store consists of JSON arrays. The outer array is an envelope for multiple read or write transactions. The results are arrays are an envelope around the results corresponding to the order of the incoming transactions.
 
-Consider the following write operation into a pristine agency:
+Consider the following write operation into a pristine Agency:
 
 
 ```
@@ -57,7 +57,7 @@ curl -L http://$SERVER:$PORT/_api/agency/read -d '[["/"]]'
 ]
 ```
 
-In the first step we committed a single transaction that commits the JSON document inside the inner transaction array to the agency. The result is `[1]`, which is the replicated log index. Repeated invocation will yield growing log numbers 2, 3, 4, etc. 
+In the first step we committed a single transaction that commits the JSON document inside the inner transaction array to the Agency. The result is `[1]`, which is the replicated log index. Repeated invocation will yield growing log numbers 2, 3, 4, etc. 
 
 The read access is a complete access to the key-value store indicated by access to its root element and returns the result as an array corresponding to the outermost array in the read transaction.
 
@@ -99,7 +99,7 @@ curl -L http://$SERVER:$PORT/_api/agency/read -d '[["/a/b/c"]]'
 ]
 ```
 
-Note that the above results are identical, meaning that results obtained from the agency are always return with full path.
+Note that the above results are identical, meaning that results obtained from the Agency are always return with full path.
 
 The second outer array brackets in read operations correspond to transactions, meaning that the result is guaranteed to have been acquired without a write transaction in between:
 
@@ -191,7 +191,7 @@ is a precondition specifying that the previous value of the key `"/a/b/c"` key m
 { "/a/b/c": [1, 2, 3] }
 ```
 
-Consider the agency in initialized as above let's review the responses from the agency as follows:
+Consider the Agency in initialized as above let's review the responses from the Agency as follows:
 
 ```
 curl -L http://$SERVER:$PORT/_api/agency/write -d '[[{"/a/b/c":{"op":"set","new":[1,2,3,4]},"/a/b/pi":{"op":"set","new":"some text"}},{"/a/b/c":{"old":[1,2,3]}}]]'
@@ -316,9 +316,9 @@ In the last case, `"noWait"`, the operation returns immediately, an empty body i
 
 ### Observers
 
-External services to the agency may announce themselves or others to be observers of arbitrary existing or future keys in the key-value-store. The agency must then inform the observing service of any changes to the subtree below the observed key. The notification is done by virtue of POST requests to a required valid URL.
+External services to the Agency may announce themselves or others to be observers of arbitrary existing or future keys in the key-value-store. The Agency must then inform the observing service of any changes to the subtree below the observed key. The notification is done by virtue of POST requests to a required valid URL.
 
-In order to observe any future modification below say `"/a/b/c"`, a observer is announced through posting the below document to the agency’s write REST handler:
+In order to observe any future modification below say `"/a/b/c"`, a observer is announced through posting the below document to the Agency’s write REST handler:
 
 ```js
 [ { "/a/b/c": 
@@ -355,7 +355,7 @@ The notifying POST requests are submitted immediately with any complete array of
 
 ### Configuration
 
-At all times, i.e. regardless of the state of the agents and the current health of the RAFT consensus, one can invoke the configuration API:
+At all times, i.e. regardless of the state of the Agents and the current health of the RAFT consensus, one can invoke the configuration API:
 
     curl http://$SERVER:$PORT/_api/agency/config
 
@@ -400,6 +400,6 @@ The output might look somewhat like this
 }
 ```
 
-This is the actual output of a healthy agency. The configuration of the agency is found in the `configuration` section as you might have guessed. It is populated by static information on the startup parameters like `agency size`, the once generated `unique id` etc. It holds information on the invariants of the RAFT algorithm and data compaction.
+This is the actual output of a healthy Agency. The configuration of the Agency is found in the `configuration` section as you might have guessed. It is populated by static information on the startup parameters like `agency size`, the once generated `unique id` etc. It holds information on the invariants of the RAFT algorithm and data compaction.
 
-The remaining data reflect the variant entities in RAFT, as `term` and `leaderId`, also some debug information on how long the last leadership vote was received from any particular agency member. Low term numbers on a healthy network are an indication of good operation environment, while often increasing term numbers indicate, that the network environment and stability suggest to raise the RAFT parameters `min ping` and 'max ping' accordingly.
+The remaining data reflect the variant entities in RAFT, as `term` and `leaderId`, also some debug information on how long the last leadership vote was received from any particular Agency member. Low term numbers on a healthy network are an indication of good operation environment, while often increasing term numbers indicate, that the network environment and stability suggest to raise the RAFT parameters `min ping` and 'max ping' accordingly.

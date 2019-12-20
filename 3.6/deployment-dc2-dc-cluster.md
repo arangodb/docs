@@ -70,7 +70,7 @@ Each of these tasks needs a port to communicate. Please make sure that the follo
 ports are available on all machines:
 
 - `8529` for Coordinators
-- `8530` for DBservers
+- `8530` for DB-Servers
 - `8531` for Agents
 
 The _Starter_ itself will use port `8528`.

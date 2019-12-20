@@ -16,4 +16,4 @@ Foxx services can be deployed in multiple ways:
 - [web interface](programs-web-interface-services.html) under *SERVICES*
 
 See [the Foxx cluster guide](foxx-guides-cluster.html#how-arangodb-distributes-services)
-for how Foxx services are distributed to coordinators.
+for how Foxx services are distributed to Coordinators.

@@ -88,7 +88,7 @@ This snapshot is based on the state of the database at the moment in time when t
 begins. No locks are acquired on the underlying data to keep this snapshot, which permits 
 other transactions to execute without being blocked by an older uncompleted transaction 
 (so long as they do not try to modify the same documents or unique index-entries concurrently).
-In the cluster a snapshot is acquired on each DBServer individually. 
+In the cluster a snapshot is acquired on each DB-Server individually. 
 
 Lazily adding collections
 -------------------------

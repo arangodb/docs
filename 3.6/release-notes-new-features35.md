@@ -257,7 +257,7 @@ the SmartJoins optimization, e.g.
         FILTER p._key == o.productId 
         RETURN o
 
-In this query's execution plan, the extra hop via the coordinator can be saved
+In this query's execution plan, the extra hop via the Coordinator can be saved
 that is normally there for generic joins. Thanks to the SmartJoins optimization,
 the query's execution is as simple as:
 
@@ -271,7 +271,7 @@ the query's execution is as simple as:
       6   ReturnNode                COOR     0         - RETURN o
 
 Without the SmartJoins optimization, there will be an extra hop via the 
-coordinator for shipping the data from each shard of the one collection to
+Coordinator for shipping the data from each shard of the one collection to
 each shard of the other collection, which will be a lot more expensive:
 
     Execution plan:
@@ -430,7 +430,7 @@ A method `collection.getResponsibleShard(document)` was added to the JS API as w
 It does not matter if the document actually exists or not, as the shard responsibility 
 is determined from the document's attribute values only. 
 
-Please note that this API is only meaningful and available on a cluster coordinator.
+Please note that this API is only meaningful and available on a cluster Coordinator.
 
 See:
 - [Get responsible shard in JS API](data-modeling-collections-collection-methods.html#getresponsibleshard)
@@ -454,11 +454,11 @@ longer necessary. Otherwise resources and locks acquired by the transactions
 will be in use until the server decides to garbage-collect them.
 
 In order to keep resource usage low, a maximum lifetime and transaction size for stream 
-transactions is enforced on the coordinator to ensure that transactions cannot block the 
+transactions is enforced on the Coordinator to ensure that transactions cannot block the 
 cluster from operating properly:
 
 - Maximum idle timeout of **10 seconds** between operations
-- Maximum transaction size of **128 MB** per DBServer
+- Maximum transaction size of **128 MB** per DB-Server
 
 These limits are also enforced for stream transactions on single servers.
 
@@ -644,15 +644,15 @@ Also see:
 - [Arangodump](programs-arangodump.html)
 - [Arangorestore](programs-arangorestore.html)
 
-### Warning if connected to DBServer
+### Warning if connected to DB-Server
 
 Under normal circumstances there should be no need to connect to a 
-database server in a cluster with one of the client tools, and it is 
+DB-Server in a cluster with one of the client tools, and it is 
 likely that any user operations carried out there with one of the client
 tools may cause trouble. 
 
 The client tools arangosh, arangodump and arangorestore will now emit 
-a warning when connecting with them to a database server node in a cluster.
+a warning when connecting with them to a DB-Server node in a cluster.
 
 Startup option changes
 ----------------------

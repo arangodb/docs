@@ -119,9 +119,9 @@ unsupported.
 
 To validate that the different nodes in a cluster deployment use the same storage
 engine throughout the entire cluster, there is now a startup check performed by
-each coordinator. Each coordinator will contact all DB servers and check if the
-same engine on the DB server is the same as its local storage engine. In case 
-there is any discrepancy, the coordinator will abort its startup.
+each Coordinator. Each Coordinator will contact all DB-Servers and check if the
+same engine on the DB-Server is the same as its local storage engine. In case 
+there is any discrepancy, the Coordinator will abort its startup.
 
 
 Geo indexes
@@ -466,8 +466,8 @@ AQL
   particular warning will not be raised.
 
   Additionally, using collections in arbitrary AQL expressions as above is unsupported
-  in a mixed cluster that is running a 3.3 coordinator and 3.4 DB server(s). The
-  DB server(s) running 3.4 will in this case not be able to use a collection in an
+  in a mixed cluster that is running a 3.3 Coordinator and 3.4 DB-Server(s). The
+  DB-Server(s) running 3.4 will in this case not be able to use a collection in an
   arbitrary expression, and instead throw an error.
 
 - the undocumented built-in visitor functions for AQL traversals have been removed,
@@ -563,9 +563,9 @@ anymore.
 Compared to ArangoDB 3.3, the following parts of ArangoDB can now be used 
 without the V8 engine:
 
-- agency nodes in a cluster
-- database server nodes in a cluster 
-- cluster plan application on database server nodes
+- Agency nodes in a cluster
+- DB-Server nodes in a cluster 
+- cluster plan application on DB-Server nodes
 - all of AQL (with the exception of user-defined functions)
 - the graph modification APIs at endpoint `/_api/gharial`
 - background statistics gathering
@@ -583,11 +583,11 @@ The default values for these startup options have not been changed in ArangoDB
 3.4, but depending on the actual workload, 3.4 ArangoDB instances may need
 less V8 contexts than 3.3.
 
-As mentioned above, agency and database server nodes in a cluster does not
+As mentioned above, Agency and DB-Server nodes in a cluster does not
 require V8 for any operation in 3.4, so the V8 engine is turned off entirely on
 such nodes, regardless of the number of configured V8 contexts there.
 
-The V8 engine is still enabled on coordinator servers in a cluster and on single
+The V8 engine is still enabled on Coordinator servers in a cluster and on single
 server instances. Here the numbe of started V8 contexts may actually be reduced
 in case a lot of the above features are used.
 
@@ -708,9 +708,9 @@ option to `true`.
 Mixed-engine clusters
 ---------------------
 
-Starting a cluster with coordinators and DB servers using different storage 
+Starting a cluster with Coordinators and DB-Servers using different storage 
 engines is not supported. Doing it anyway will now log an error and abort a 
-coordinator's startup.
+Coordinator's startup.
 
 Previous versions of ArangoDB did not detect the usage of different storage
 engines in a cluster, but the runtime behavior of the cluster was undefined.
@@ -796,7 +796,7 @@ removed in future versions of ArangoDB:
 
   The API `/_api/endpoint` is deprecated since ArangoDB version 3.1. 
   For cluster mode there is `/_api/cluster/endpoints` to find all current 
-  coordinator endpoints.
+  Coordinator endpoints.
 
 * accessing collections via their numeric IDs instead of their names. This mostly
   affects the REST APIs at

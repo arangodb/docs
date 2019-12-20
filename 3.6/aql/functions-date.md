@@ -6,11 +6,11 @@ title: AQL Date Functions
 Date functions
 ==============
 
-AQL offers functionality to work with dates. Dates are no data types of their own in
-AQL (neither are they in JSON, which is usually used as format to ship data into and
+AQL offers functionality to work with dates, but it does not have a special data type
+for dates (neither does JSON, which is usually used as format to ship data into and
 out of ArangoDB). Instead, dates in AQL are represented by either numbers or strings.
 
-All date function operations are done in the *unix time* system. Unix time counts
+All date function operations are done in the *Unix time* system. Unix time counts
 all non leap seconds beginning with January 1st 1970 00:00:00.000 UTC, also know as
 the Unix epoch. A point in time is called timestamp. A timestamp has the same value
 at every point on earth. The date functions use millisecond precision for timestamps.
@@ -33,6 +33,8 @@ All functions that require dates as arguments accept the following input values:
   An example timestamp value is `1399472349522`, which translates to
   `2014-05-07T14:19:09.522Z`.
 
+  Valid range: `-62167219200000` .. `253402300799999` (inclusive)
+
 - **date time strings** in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601){:target="_blank"} format:
   - `YYYY-MM-DDTHH:MM:SS.MMM`
   - `YYYY-MM-DD HH:MM:SS.MMM`
@@ -51,6 +53,13 @@ All functions that require dates as arguments accept the following input values:
   to indicate UTC / Zulu time. An example value is `2014-05-07T14:19:09.522Z`
   meaning May 7th 2014, 14:19:09 and 522 milliseconds, UTC / Zulu time.
   Another example value without time component is `2014-05-07Z`.
+
+  Valid range: `"0000-01-01T00:00:00.000Z"` .. `"9999-12-31T23:59:59.999Z"` (inclusive)
+
+Any date/time values outside the valid range that are passed into an AQL date
+function will make the function return `null` and trigger a warning for the query,
+which can optionally be escalated to an error and abort the query. This also
+applies to operations which produce an invalid value.
 
 ```js
 DATE_HOUR( 2 * 60 * 60 * 1000 ) // 2
