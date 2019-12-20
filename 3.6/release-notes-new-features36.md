@@ -578,7 +578,7 @@ HTTP API
 
 The following APIs have been expanded / changed:
 
-- [Database creation API](http/database-database-management.html#create-database),
+- [Database creation API](http/database-database-management.html#create-database),<br>
   HTTP route `POST /_api/database`
 
   The database creation API now handles the `replicationFactor`, `writeConcern`
@@ -600,19 +600,26 @@ The following APIs have been expanded / changed:
   that database via the web UI, arangosh or drivers (unless the startup option
   `--cluster.force-one-shard` is enabled).
 
-- [Database properties API](http/database-database-management.html#information-of-the-database),
+- [Database properties API](http/database-database-management.html#information-of-the-database),<br>
   HTTP route `GET /_api/database/current`
 
   The database properties endpoint returns the new additional attributes
   `replicationFactor`, `writeConcern` and `sharding` in a cluster.
   A description of these attributes can be found above.
 
-- [Collection](http/collection.html) / [Graph APIs](http/gharial-management.html)
+- [Collection](http/collection.html) / [Graph APIs](http/gharial-management.html),<br>
+  HTTP routes `POST /_api/collection`, `GET /_api/collection/{collection-name}/properties`
+  and various `/_api/gharial/*` endpoints
 
   `minReplicationFactor` has been renamed to `writeConcern` for consistency.
   The old attribute name is still accepted and returned for compatibility.
 
-- New [Metrics API](http/administration-and-monitoring.html#read-the-metrics),
+- [Hot Backup API](http/hot-backup.html#create-backup),<br>
+  HTTP route `POST /_admin/backup/create`
+
+  New attribute `force`, see [Hot Backup](#hot-backup) below.
+
+- New [Metrics API](http/administration-and-monitoring.html#read-the-metrics),<br>
   HTTP route `GET /_admin/metrics`
 
   Returns the instance's current metrics in Prometheus format. The returned
@@ -750,23 +757,24 @@ The purpose of this [startup option](programs-arangod-query.html#optimizer-rule-
 is to be able to enable potential future experimental optimizer rules, which
 may be shipped in a disabled-by-default state.
 
-HotBackup
----------
+Hot Backup
+----------
+
+- Force Backup
+
+  When creating backups there is an additional option `--force` for
+  [arangobackup](programs-arangobackup-examples.html) and in the HTTP API.
+  This option **aborts** ongoing write transactions to obtain the global lock
+  for creating the backup. Most likely this is _not_ what you want to do
+  because it will abort valid ongoing write operations, but it makes sure that
+  backups can be acquired more quickly. The force flag currently only aborts
+  [Stream Transactions](http/transaction-stream-transaction.html) but no
+  [JavaScript Transactions](http/transaction-js-transaction.html).
 
 - View Data
 
   HotBackup now includes View data. Previously the Views had to be rebuilt
   after a restore. Now the Views are available immediately.
-
-- Force Backup
-
-  When creating backups there is an additional option `--force` for
-  [arangobackup](programs-arangobackup-examples.html). This option **aborts**
-  ongoing write transactions to obtain the global lock for creating the backup.
-  Most likely this is _not_ what you want to do because it will abort valid
-  ongoing write operations, but it makes sure that backups can be acquired more
-  quickly. The force flag currently only aborts stream transactions but no
-  JavaScript transactions.
 
 TLS v1.3
 --------
