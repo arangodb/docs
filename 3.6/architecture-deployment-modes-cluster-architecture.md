@@ -227,16 +227,30 @@ on the same DB-Server. There are multiple ways to achieve this:
   `--cluster.force-one-shard`. It sets the immutable `sharding` database
   property to `"single"` for all newly created databases, which in turn
   enforces the OneShard conditions for collections that will be created in it.
+  The `_graphs` system collection will be used for `distributeShardsLike`.
 
 - For individual OneShard databases, set the `sharding` database property to
   `"single"` to enforce the OneShard conditions for collections that will be
-  created in it. For non-OneShard databases the value is either `""` or
-  `"flexible"`.
+  created in it. The `_graphs` system collection will be used for
+  `distributeShardsLike`. For non-OneShard databases the value is either
+  `""` or `"flexible"`.
 
 - For individual OneShard collections, set the `numberOfShards` collection
   property to `1` for the first collection which acts as sharding prototype for
   the others. Set the `distributeShardsLike` property to the name of the
-  prototype collection for all other collections.
+  prototype collection for all other collections. You may also use an existing
+  collection which does not have `distributeShardsLike` set itself for all your
+  collections, such as the `_graphs` system collection.
+
+{% hint 'info' %}
+The prototype collection does not only control the sharding, but also the
+replication factor for all collections which follow its example. If the
+`_graphs` system collection is used for `distributeShardsLike`, then the
+replication factor can be adjusted by changing the `replicationFactor`
+property of the `_graphs` collection (affecting this and all following
+collections) or via the startup option `--cluster.system-replication-factor`
+(affecting all system collections and all following collections).
+{% endhint %}
 
 **Example**
 
