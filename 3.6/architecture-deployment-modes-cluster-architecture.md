@@ -430,6 +430,23 @@ transferred from DB-Server to Coordinator only to apply a `LIMIT` of 10
 documents there. The estimate for the *RemoteNode* is 10,000 in this example,
 whereas it is 10 in the OneShard case.
 
+### ACID Transactions on Leader Shards
+
+ArangoDB's transactional guarantees are tunable. For transactions to be ACID
+on the leader shards in a cluster, a few things need to be considered:
+
+- The AQL query or [Stream Transaction](http/transaction-stream-transaction.html)
+  must be eligible for the OneShard optimization, so that it is executed on a
+  single DB-Server node.
+- To ensure durability, enable `waitForSync` on query level to wait until data
+  modifications have been written to disk.
+- The collection option `writeConcern: 2` makes sure that a transaction is only
+  successful if at least one replica is in sync.
+- The RocksDB engine supports intermediate commits for larger document
+  operations, potentially breaking the atomicity of transactions. To prevent
+  this for individual queries you can increase `intermediateCommitSize`
+  (default 512 MB) and `intermediateCommitCount` accordingly as query option.
+
 Synchronous replication
 -----------------------
 
