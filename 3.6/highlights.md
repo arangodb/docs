@@ -6,6 +6,40 @@ title: ArangoDB Highlights
 Highlights
 ==========
 
+Version 3.6
+-----------
+
+**All Editions**
+
+- **AQL**:
+  Improved query performance thanks to
+  [early pruning](release-notes-new-features36.html#early-pruning-of-non-matching-documents),
+  [subquery splicing](release-notes-new-features36.html#subquery-splicing-optimization),
+  [late document materialization](release-notes-new-features36.html#late-document-materialization-rocksdb),
+  [parallelization](release-notes-new-features36.html#parallelization-of-cluster-aql-queries) for certain cluster queries
+  and more. New server-side [`maxRuntime`](aql/invocation-with-arangosh.html#setting-options)
+  option for queries.
+
+- **ArangoSearch**:
+  New [Analyzer options](release-notes-new-features36.html#analyzers) for
+  edge n-grams (`text` Analyzer), UTF-8 encoded n-gram input and optional
+  start/end markers (`ngram` Analyzer). Support for
+  [dynamic expressions](release-notes-new-features36.html#dynamic-search-expressions-with-arrays)
+  using arrays (array comparison operators in `SEARCH` queries and the
+  `TOKENS()` / `PHRASE()` functions accept arrays). Views can benefit from the
+  SmartJoins optimization.
+
+**Enterprise Edition**
+
+- [**OneShard**](architecture-deployment-modes-cluster-architecture.html#oneshard)
+  deployments offer a practicable solution that enables significant performance
+  improvements by massively reducing cluster-internal communication. A database
+  created with OneShard enabled is limited to a single DB-Server node but still
+  replicated synchronously to ensure resilience. This configuration allows
+  running transactions with ACID guarantees on shard leaders.
+
+Also see [What's New in 3.6](release-notes-new-features36.html).
+
 Version 3.5
 -----------
 
@@ -61,6 +95,8 @@ Version 3.5
   [data masking functions](programs-arangodump-maskings.html#masking-functions)
   available in the Enterprise Edition, such as for substituting email addresses
   and phone numbers with similar looking pseudo-data.
+
+Also see [What's New in 3.5](release-notes-new-features35.html).
 
 Version 3.4
 -----------
