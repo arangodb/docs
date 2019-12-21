@@ -13,20 +13,20 @@ In many service deployments consisting of arbitrary components distributed over 
 
 Consensus is the keyword here and its realization on a network proves to be far from trivial. Many papers and conference proceedings have discussed and evaluated this key challenge. Two algorithms, historically far apart, have become widely popular, namely Paxos and its derivatives and Raft. Discussing them and their differences, although highly enjoyable, must remain far beyond the scope of this document. Find the references to the main publications at the bottom of this page.
 
-At ArangoDB, we decided to implement Raft as it is arguably the easier to understand and thus implement. In simple terms, Raft guarantees that a linear stream of transactions, is replicated in realtime among a group of machines through an elected leader, who in turn must have access to and project leadership upon an overall majority of participating instances. In ArangoDB we like to call the entirety of the components of the replicated transaction log, that is the machines and the ArangoDB instances, which constitute the replicated log, the agency.
+At ArangoDB, we decided to implement Raft as it is arguably the easier to understand and thus implement. In simple terms, Raft guarantees that a linear stream of transactions, is replicated in realtime among a group of machines through an elected leader, who in turn must have access to and project leadership upon an overall majority of participating instances. In ArangoDB we like to call the entirety of the components of the replicated transaction log, that is the machines and the ArangoDB instances, which constitute the replicated log, the Agency.
 
 Startup
 -------
 
-The agency must consists of an odd number of agents in order to be able to establish an overall majority and some means for the agents to be able to find one another at startup. 
+The Agency must consists of an odd number of Agents in order to be able to establish an overall majority and some means for the Agents to be able to find one another at startup. 
 
-The most obvious way would be to inform all agents of the addresses and ports of the rest. This however, is more information than needed. For example, it would suffice, if all agents would know the address and port of the next agent in a cyclic fashion. Another straightforward solution would be to inform all agents of the address and port of say the first agent.
+The most obvious way would be to inform all Agents of the addresses and ports of the rest. This however, is more information than needed. For example, it would suffice, if all Agents would know the address and port of the next Agent in a cyclic fashion. Another straightforward solution would be to inform all Agents of the address and port of say the first Agent.
 
-Clearly all cases, which would form disjunct subsets of agents would break or in the least impair the functionality of the agency. From there on the agents will gossip the missing information about their peers.
+Clearly all cases, which would form disjunct subsets of Agents would break or in the least impair the functionality of the Agency. From there on the Agents will gossip the missing information about their peers.
 
-Typically, one achieves fairly high fault-tolerance with low, odd number of agents while keeping the necessary network traffic at a minimum. It seems that the typical agency size will be 3, 5 or 7 agents.
+Typically, one achieves fairly high fault-tolerance with low, odd number of Agents while keeping the necessary network traffic at a minimum. It seems that the typical Agency size will be 3, 5 or 7 Agents.
 
-The below commands start up a 3-host agency on one physical/logical box with ports 8531, 8541 and 8551 for demonstration purposes. The address of the first instance, port 8531, is known to the other two. After at most 2 rounds of gossipping, the last 2 agents will have a complete picture of their surroundings and persist it for the next restart.
+The below commands start up a 3-host Agency on one physical/logical box with ports 8531, 8541 and 8551 for demonstration purposes. The address of the first instance, port 8531, is known to the other two. After at most 2 rounds of gossipping, the last 2 Agents will have a complete picture of their surroundings and persist it for the next restart.
 
 ```
 ./arangod --agency.activate true --agency.size 3 --agency.my-address tcp://localhost:8531 --server.authentication false --server.endpoint tcp://0.0.0.0:8531 agency-8531
@@ -34,12 +34,12 @@ The below commands start up a 3-host agency on one physical/logical box with por
 ./arangod --agency.activate true --agency.size 3 --agency.my-address tcp://localhost:8551 --server.authentication false --server.endpoint tcp://0.0.0.0:8551 --agency.endpoint tcp://localhost:8531 agency-8551 
 ```
 
-The parameter `agency.endpoint` is the key ingredient for the second and third instances to find the first instance and thus form a complete agency. Please refer to the shell-script `scripts/startStandaloneAgency.sh` on GitHub or in the source directory.
+The parameter `agency.endpoint` is the key ingredient for the second and third instances to find the first instance and thus form a complete Agency. Please refer to the shell-script `scripts/startStandaloneAgency.sh` on GitHub or in the source directory.
 
 Key-value-store API
 -------------------
 
-The agency should be up and running within a couple of seconds, during which the instances have gossiped their way into knowing the other agents and elected a leader. The public API can be checked for the state of the configuration:
+The Agency should be up and running within a couple of seconds, during which the instances have gossiped their way into knowing the other Agents and elected a leader. The public API can be checked for the state of the configuration:
 
 ```
 curl -s localhost:8531/_api/agency/config
@@ -99,7 +99,7 @@ curl -s localhost:8531/_api/agency/config
 }
 ```
 
-To highlight some details in the above output look for `"term"` and `"leaderId"`. Both are key information about the current state of the Raft algorithm. You may have noted that the first election term has established a random leader for the agency, who is in charge of replication of the state machine and for all external read and write requests until such time that the process gets isolated from the other two subsequently losing its leadership.
+To highlight some details in the above output look for `"term"` and `"leaderId"`. Both are key information about the current state of the Raft algorithm. You may have noted that the first election term has established a random leader for the Agency, who is in charge of replication of the state machine and for all external read and write requests until such time that the process gets isolated from the other two subsequently losing its leadership.
 
 Read and Write APIs
 -------------------
@@ -109,7 +109,7 @@ Generally, all read and write accesses are transactions moreover any read and wr
 Read transaction
 ----------------
 
-An agency started from scratch will deal with the simplest query as follows:
+An Agency started from scratch will deal with the simplest query as follows:
 ```
 curl -L localhost:8531/_api/agency/read -d '[["/"]]'
 ```

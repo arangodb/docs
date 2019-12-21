@@ -339,8 +339,10 @@ The phrase can be expressed as an arbitrary number of *phraseParts* separated by
 *skipTokens* number of tokens (wildcards).
 
 - **path** (attribute path expression): the attribute to test in the document
-- **phrasePart** (string): text to search for in the tokens. May consist of
-  several words/tokens, which will be split using the specified *analyzer*
+- **phrasePart** (string\|array): text to search for in the tokens. May consist
+  of several words/tokens, which will be split using the specified *analyzer*.
+  Can also be an array comprised of token strings or token strings interleaved
+  with numbers of *skipTokens* (introduced in v3.6.0).
 - **skipTokens** (number, _optional_): amount of words/tokens to treat
   as wildcards
 - **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
@@ -387,14 +389,44 @@ PHRASE(doc.text, "ipsum", -1, "lorem", "text_en")
 `PHRASE(path, [ phrasePart1, skipTokens1, ... phrasePartN, skipTokensN ], analyzer)`
 
 The `PHRASE()` function also accepts an array as second argument with
-*phrasePart* and *skipTokens* parameters as elements. This syntax variation
-enables the usage of computed expressions:
+*phrasePart* and *skipTokens* parameters as elements.
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, ["quick brown fox"], "text_en") RETURN doc
+FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", "brown", "fox"], "text_en") RETURN doc
+```
+
+This syntax variation enables the usage of computed expressions:
 
 ```js
 LET proximityCondition = [ "foo", ROUND(RAND()*10), "bar" ]
 FOR doc IN viewName
   SEARCH PHRASE(doc.text, proximityCondition, "text_en")
   RETURN doc
+```
+
+```js
+LET tokens = TOKENS("quick brown fox", "text_en") // ["quick", "brown", "fox"]
+FOR doc IN myView SEARCH PHRASE(doc.title, tokens, "text_en") RETURN doc
+```
+
+Above example is equivalent to the more cumbersome and static form:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 0, "brown", 0, "fox", "text_en") RETURN doc
+```
+
+You can optionally specify the number of skipTokens in the array form before
+every string element:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, ["quick", 1, "fox", "jumps"], "text_en") RETURN doc
+```
+
+It is the same as the following:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
 ```
 
 ### STARTS_WITH()
@@ -463,7 +495,7 @@ FOR doc IN viewName
 
 `TOKENS(input, analyzer) → tokenArray`
 
-Split the **input** string with the help of the specified **analyzer** into an
+Split the **input** string(s) with the help of the specified **analyzer** into an
 array. The resulting array can be used in `FILTER` or `SEARCH` statements with
 the `IN` operator, but also be assigned to variables and returned. This can be
 used to better understand how a specific Analyzer processes an input value.
@@ -473,7 +505,8 @@ is thus not limited to `SEARCH` operations. It is independent of Views.
 A wrapping `ANALYZER()` call in a search expression does not affect the
 *analyzer* argument nor allow you to omit it.
 
-- **input** (string): text to tokenize
+- **input** (string\|array): text to tokenize. Accepts recursive arrays of
+  strings (introduced in v3.6.0).
 - **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
 - returns **tokenArray** (array): array of strings with zero or more elements,
   each element being a token.
@@ -508,6 +541,26 @@ FOR doc IN viewName
 
 It will match `{ "text": "Lorem ipsum, dolor sit amet." }` for instance. If you
 want to search for tokens in a particular order, use [PHRASE()](#phrase) instead.
+
+If an array of strings is passed as first argument, then each string is
+tokenized individually and an array with the same nesting as the input array
+is returned:
+
+```js
+TOKENS("quick brown fox", "text_en")        // [ "quick", "brown", "fox" ]
+TOKENS(["quick brown", "fox"], "text_en")   // [ ["quick", "brown"], ["fox"] ]
+TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
+```
+
+In most cases you will want to flatten the resulting array for further usage,
+because nested arrays are not accepted in `SEARCH` statements such as
+`<array> ALL IN doc.<attribute>`:
+
+```js
+LET tokens = TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
+LET tokens_flat = FLATTEN(tokens, 2)                     // [ "quick", "brown", "fox" ]
+FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETURN doc
+```
 
 Scoring Functions
 -----------------

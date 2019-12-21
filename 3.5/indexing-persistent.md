@@ -1,14 +1,14 @@
 ---
 layout: default
-description: The persistent index type is considered as deprecated from version 3
+description: The persistent index type is deprecated from version 3.4.0 on for the MMFiles storage engine.
 ---
 Persistent indexes
 ==================
 
 {% hint 'warning' %}
-The persistent index type is considered as deprecated from version 3.4.0 on.
-It will be removed in 4.0.0. If you use the RocksDB storage engine, you can
-replace it with a skiplist index, which uses the same implementation.
+The persistent index type is deprecated from version 3.4.0 on for the MMFiles
+storage engine. Use the RocksDB storage engine instead, where all indexes are
+persistent.
 {% endhint %}
 
 Introduction to Persistent Indexes

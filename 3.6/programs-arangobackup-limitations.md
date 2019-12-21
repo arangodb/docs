@@ -94,7 +94,7 @@ a very brief global transaction lock across the entire installation.
 In single server deployments constant invocation of very long running
 transactions could prevent that from ever happening during a timeout period.
 The same holds true for clusters, where this lock must now be obtained on all
-database servers at the same time.
+DB-Servers at the same time.
 
 Especially in the cluster the result of these successively longer tries to
 obtain the global transaction lock might become visible in periods of apparent

@@ -186,7 +186,7 @@ Version 3.2
 - [**Fault-Tolerant Foxx**](http/foxx.html): The Foxx management
   internals have been rewritten from the ground up to make sure
   multi-coordinator cluster setups always keep their services in sync and
-  new coordinators are fully initialized even when all existing coordinators
+  new Coordinators are fully initialized even when all existing Coordinators
   are unavailable.
 
 **Enterprise Edition**
@@ -201,7 +201,7 @@ Version 3.2
 
 - [**Satellite Collections**](satellites.html): Faster join operations when
   working with sharded datasets by synchronously replicating selected
-  collections to all database servers in a cluster, so that joins can be
+  collections to all DB-Servers in a cluster, so that joins can be
   executed locally.
 
 Also see [What's New in 3.2](release-notes-new-features32.html).
@@ -239,7 +239,7 @@ Version 3.0
 
 - [**self-organizing cluster**](architecture-deployment-modes-cluster-architecture.html) with
   synchronous replication, master/master setup, shared nothing
-  architecture, cluster management agency.
+  architecture, cluster management Agency.
 
 - Deeply integrated, native [**AQL graph traversal**](aql/graphs.html)
 

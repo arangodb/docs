@@ -215,7 +215,7 @@ As an example the decoded JWT body would look like this:
 
 #### Superuser JWT-Token
 
-To access specific internal APIs as well as Agency and DBServer instances a token generated via `/open/auth` is not 
+To access specific internal APIs as well as Agency and DB-Server instances a token generated via `/open/auth` is not 
 good enough. For these special APIs you will need to generate a special JWT token which grants superuser access.
 Note that using superuser access for normal database operations is **NOT advised**.
 
@@ -423,8 +423,8 @@ Load-balancer support
 ---------------------
 
 When running in cluster mode, ArangoDB exposes some APIs which store request
-state data on specific coordinator nodes, and thus subsequent requests which
-require access to this state must be served by the coordinator node which owns
+state data on specific Coordinator nodes, and thus subsequent requests which
+require access to this state must be served by the Coordinator node which owns
 this state data. In order to support function behind a load-balancer, ArangoDB
 can transparently forward requests within the cluster to the correct node. If a
 request is forwarded, the response will contain the following custom HTTP header
@@ -440,7 +440,7 @@ The following APIs may use request forwarding:
 
 Note: since forwarding such requests require an additional cluster-internal HTTP
 request, they should be avoided when possible for best performance. Typically
-this is accomplished either by directing the requests to the correct coordinator
+this is accomplished either by directing the requests to the correct Coordinator
 at a client-level or by enabling request "stickiness" on a load balancer. Since
 these approaches are not always possible in a given environment, we support the
 request forwarding as a fall-back solution.

@@ -72,17 +72,17 @@ arangod --server.endpoint tcp://0.0.0.0:5003 \
   --database.directory agent3 &
 ```
 
-### Local Test DBServers and Coordinators
+### Local Test DB-Servers and Coordinators
 
 These two roles share a common set of relevant options. First you should specify
-the role using `--cluster.my-role`. This can either be `PRIMARY` (a database server)
+the role using `--cluster.my-role`. This can either be `PRIMARY` (a DB-Server)
 or `COORDINATOR`. Note that starting from v.3.4 `DBSERVER` is allowed as an alias
 for `PRIMARY` as well. Furthermore please provide the external endpoint (IP and port)
 of the process via `--cluster.my-address`.
 
 The following is a full example of what it might look like.
 
-**DBServers:**
+**DB-Servers:**
 
 ```
 arangod --server.authentication=false \
@@ -211,7 +211,7 @@ arangod --server.endpoint tcp://0.0.0.0:8531 \
   --database.directory agent
 ```
 
-### DBServers
+### DB-Servers
 
 In the commands below, note that `DBSERVER`, as value of the option
 `--cluster.my-role`, is allowed only from version 3.4; for previous

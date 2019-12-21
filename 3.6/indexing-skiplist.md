@@ -1,9 +1,16 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's skiplists
+description: The skiplist index type is deprecated for the RocksDB storage engine.
 ---
 Skiplists
 =========
+
+{% hint 'warning' %}
+The skiplist index type is deprecated for the RocksDB storage engine.
+It is the same as the *persistent* type when using RocksDB. The type *skiplist*
+is still allowed for backward compatibility in the APIs, but the web interface
+does not offer this type anymore.
+{% endhint %}
 
 Introduction to Skiplist Indexes
 --------------------------------

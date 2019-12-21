@@ -18,4 +18,3 @@ names conform to the following constraints:
   not create or delete those
 * The maximum allowed length of a database name is 64 bytes
 * Database names are case-sensitive
-

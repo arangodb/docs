@@ -10,7 +10,7 @@ version = config['versions']['stable']
 baseurl = config['url'] + config['baseurl']
 dir = "_site/#{version}"
 
-puts("\nGenerating sitemap.xml (dir = '#{dir}', baseurl = '#{baseurl}'")
+puts("\nGenerating sitemap.xml (dir = '#{dir}', baseurl = '#{baseurl}')")
 
 if not Dir.exist?(dir)
     raise IOError, "Source directory does not exist: #{dir}"

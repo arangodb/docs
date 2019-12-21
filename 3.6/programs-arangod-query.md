@@ -93,6 +93,24 @@ attribute when running a query.
 
 The default value is *128*.
 
+## Optimizer rule defaults
+
+`--query.optimizer-rules`
+
+This option can be used to to selectively enable or disable AQL query optimizer
+rules by default. The option can be specified multiple times, and takes the
+same input as the query option of the same name.
+
+For example, to turn off the rule `use-indexes-for-sort` by default, use
+
+```
+--query.optimizer-rules "-use-indexes-for-sort"
+```
+
+The purpose of this startup option is to be able to enable potential future
+experimental optimizer rules, which may be shipped in a disabled-by-default
+state.
+
 ## AQL Query results caching mode
 
 `--query.cache-mode`

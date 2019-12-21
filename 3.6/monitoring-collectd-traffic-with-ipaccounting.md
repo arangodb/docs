@@ -33,7 +33,7 @@ Now we need to find out the current configuration of our cluster. For the time b
 
     ./scripts/startLocalCluster.sh
 
-to get you set up. So you know you've got two DB-Servers - one Coordinator, one agent:
+to get you set up. So you know you've got two DB-Servers - one Coordinator, one Agent:
 
     ps -eaf |grep arango
     arangod    21406     1  1 16:59 pts/14   00:00:00 bin/etcd-arango --data-dir /var/tmp/tmp-21550-1347489353/shell_server/agentarango4001 --name agentarango4001 --bind-addr 127.0.0.1:4001 --addr 127.0.0.1:4001 --peer-bind-addr 127.0.0.1:7001 --peer-addr 127.0.0.1:7001 --initial-cluster-state new --initial-cluster agentarango4001=http://127.0.0.1:7001
@@ -50,8 +50,8 @@ We can now check which ports they occupied:
     tcp        0      0 127.0.0.1:8629          0.0.0.0:*               LISTEN      21408/arangod
     tcp        0      0 127.0.0.1:8630          0.0.0.0:*               LISTEN      21410/arangod
 
-- The agent has 7001 and 4001. Since it's running in single server mode its cluster port (7001) should not show any traffic, port 4001 is the interesting one.
-- Claus - This is the coordinator. Your Application will talk to it on port 8530
+- The Agent has 7001 and 4001. Since it's running in single server mode its cluster port (7001) should not show any traffic, port 4001 is the interesting one.
+- Claus - This is the Coordinator. Your Application will talk to it on port 8530
 - Pavel - This is the first DB-Server; Claus will talk to it on port 8629
 - Perry - This is the second DB-Server; Claus will talk to it on port 8630
 
@@ -73,12 +73,12 @@ According to the ports we found in the last section, we will configure our firew
     }
 
     @def &ARANGO_ACCOUNTING($CHAINNAME) = {
-    # The coordinators:
+    # The Coordinators:
         &TCP_ACCOUNTING(8530, "Claus", $CHAINNAME);
-    # The db-servers:
+    # The DB-Servers:
         &TCP_ACCOUNTING(8629, "Pavel", $CHAINNAME);
         &TCP_ACCOUNTING(8630, "Perry", $CHAINNAME);
-    # The agency:
+    # The Agency:
         &TCP_ACCOUNTING(4001, "etcd_client", $CHAINNAME);
     # it shouldn't talk to itself if it is only running with a single instance:
         &TCP_ACCOUNTING(7007, "etcd_cluster", $CHAINNAME);

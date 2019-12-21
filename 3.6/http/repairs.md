@@ -10,7 +10,7 @@ distributeShardsLike
 
 Before versions 3.2.12 and 3.3.4 there was a bug in the collection creation
 which could lead to a violation of the property that its shards were
-distributed on the DBServers exactly as the prototype collection from the
+distributed on the DB-Servers exactly as the prototype collection from the
 `distributeShardsLike` setting.
 
 **Please read everything carefully before using this API!** 
@@ -21,22 +21,22 @@ job is running,
   prototype collection (i.e. set in `distributeShardsLike`, including
   [SmartGraphs](../graphs-smart-graphs.html)),
 - *neither should shards be moved* of one of those prototypes
-- and shutdown of DBServers *should be avoided*
+- and shutdown of DB-Servers *should be avoided*
 during the repairs. Also only one repair job should run at any given time.
 Failure to meet those requirements will mostly cause the job to abort, but still
 allow to restart it safely. However, changing the `replicationFactor` during
 repairs may leave it in a state that is not repairable without manual
 intervention!
 
-Shutting down the coordinator which executes the job will abort it, but it can
-safely be restarted on another coordinator. However, there may still be a shard
+Shutting down the Coordinator which executes the job will abort it, but it can
+safely be restarted on another Coordinator. However, there may still be a shard
 move ongoing even after the job stopped. If the job is started again before the
 move is finished, repairing the affected collection will fail, but the repair
 can be restarted safely.
 
 If there is any affected collection which `replicationFactor` is equal to
-the total number of DBServers, the repairs might abort. In this case, it is
-necessary to reduce the `replicationFactor` by one (or add a DBServer). The
+the total number of DB-Servers, the repairs might abort. In this case, it is
+necessary to reduce the `replicationFactor` by one (or add a DB-Server). The
 job will not do that automatically.
 
 Generally, the job will abort if any of its assumptions fail, at the start
@@ -178,7 +178,7 @@ be called synchronously*, but only via
 header `x-arango-async: store` to put the job into background and get
 its results later. Otherwise the request will most probably result in a
 timeout and the response will be lost! The job will still continue unless
-the coordinator is stopped, but there is no way to find out if it is
+the Coordinator is stopped, but there is no way to find out if it is
 still running, or get success or error information afterwards.
 
 Starting the job in background can be done like so:

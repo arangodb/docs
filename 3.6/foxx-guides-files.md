@@ -63,11 +63,11 @@ the filesystem from within a service:
   may therefore cause race conditions and **result in corrupted data**.
 
 - Writing to files outside the service folder introduces external state. In
-  a cluster this will result in coordinators no longer being interchangeable.
+  a cluster this will result in Coordinators no longer being interchangeable.
 
 - Writing to files during setup is unreliable because the setup script may
   be executed several times or not at all. In a cluster the setup script
-  will only be executed on a single coordinator.
+  will only be executed on a single Coordinator.
 
 Therefore it is almost always a better option to store files using a
 specialized, external file storage service

@@ -70,7 +70,7 @@ servers holding replicas for a shard is "the leader" and all others
 are "followers", this configuration is held in the Agency (see 
 [Cluster](architecture-deployment-modes-cluster.html) for details of the ArangoDB
 cluster architecture). Every write operation is sent to the leader
-by one of the coordinators, and then replicated to all followers
+by one of the Coordinators, and then replicated to all followers
 before the operation is reported to have succeeded. The leader keeps
 a record of which followers are currently in sync. In case of network
 problems or a failure of a follower, a leader can and will drop a follower 
@@ -83,7 +83,7 @@ routine after around 15 seconds, promoting one of the followers to
 leader. The other followers (and the former leader, when it comes back),
 automatically resynchronize with the new leader to restore resilience.
 Usually, this whole failover procedure can be handled transparently
-for the coordinator, such that the user code does not even see an error 
+for the Coordinator, such that the user code does not even see an error 
 message.
 
 Obviously, this fault tolerance comes at a cost of increased latency.

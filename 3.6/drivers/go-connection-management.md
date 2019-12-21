@@ -27,7 +27,7 @@ if err != nil {
 }
 ```
 
-Note that a valid endpoint is an URL to either a standalone server, or a URL to a coordinator 
+Note that a valid endpoint is an URL to either a standalone server, or a URL to a Coordinator 
 in a cluster.
 
 ## Failover: Exact behavior

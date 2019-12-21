@@ -11,7 +11,7 @@ offers.
 
 ArangoDB offers **synchronous** and **asynchronous** replication.
 
-Synchronous replication is used between the _DBServers_ of an ArangoDB
+Synchronous replication is used between the _DB-Servers_ of an ArangoDB
 Cluster.
 
 Asynchronous replication is used:
@@ -29,7 +29,7 @@ Synchronous replication
 Synchronous replication only works within an ArangoDB Cluster and is typically
 used for mission critical data which must be accessible at all
 times. Synchronous replication generally stores a copy of a shard's
-data on another DBServer and keeps it in sync. Essentially, when storing
+data on another DB-Server and keeps it in sync. Essentially, when storing
 data after enabling synchronous replication the Cluster will wait for
 all replicas to write all the data before greenlighting the write
 operation to the client. This will naturally increase the latency a
@@ -47,8 +47,8 @@ kept, that is, it is one plus the number of _followers_.
 
 In addition to the `replicationFactor` there is a `writeConcern` that
 specifies the lowest number of in-sync followers. Specifying the write concern
-with a value greater than _1_  locks down a collection for writing as soon as
-we have lost too many followers.
+with a value greater than _1_ locks down a collection's leader shards for
+writing as soon as too many followers were lost.
 
 Asynchronous replication
 ------------------------

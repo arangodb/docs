@@ -53,9 +53,9 @@ is harnessed and exposed via special [ArangoSearch functions](functions-arangose
 during both the search and sort stages. On top of that, common AQL operators
 are supported:
 
-- `AND`
-- `OR`
-- `NOT`
+- `AND`, `&&`
+- `OR`, `||`
+- `NOT`, `!`
 - `==`
 - `<=`
 - `>=`
@@ -70,9 +70,20 @@ FOR doc IN viewName
 RETURN doc
 ```
 
-Note that array comparison operators, inline expressions and a few other things
-are not supported by `SEARCH`. The server will raise a query error in case of
-an invalid expression.
+[Array comparison operators](operators.html#array-comparison-operators) are
+supported (introduced in v3.6.0):
+
+```js
+LET tokens = TOKENS("some input", "text_en")                 // ["some", "input"]
+FOR doc IN myView SEARCH tokens  ALL IN doc.title RETURN doc // dynamic conjunction
+FOR doc IN myView SEARCH tokens  ANY IN doc.title RETURN doc // dynamic disjunction
+FOR doc IN myView SEARCH tokens NONE IN doc.title RETURN doc // dynamic negation
+FOR doc IN myView SEARCH tokens  ALL >  doc.title RETURN doc // dynamic conjunction with comparison
+FOR doc IN myView SEARCH tokens  ANY <= doc.title RETURN doc // dynamic disjunction with comparison
+```
+
+Note that inline expressions and a few other things are not supported by
+`SEARCH`. The server will raise a query error in case of an invalid expression.
 
 The `OPTIONS` keyword and an object can optionally follow the search expression
 to set [Search Options](#search-options).

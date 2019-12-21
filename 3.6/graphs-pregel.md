@@ -36,7 +36,7 @@ ensure correct results. For more information see the next section.
 To enable iterative graph processing for your data, you will need to ensure
 that your vertex and edge collections are sharded in a specific way.
 
-The Pregel computing model requires all edges to be present on the DB Server where
+The Pregel computing model requires all edges to be present on the DB-Server where
 the vertex document identified by the `_from` value is located.
 This means the vertex collections need to be sharded by '_key' and the edge collection
 will need to be sharded after an attribute which always contains the '_key' of the vertex.
@@ -82,7 +82,7 @@ the corresponding edge documents would have to look as follows:
 As can be seen, all edges are using a value of `A` (the _key value of the vertex) in their shard key 
 attribute "vertex".
 
-This will ensure that outgoing edge documents will be placed on the same DBServer as the vertex.
+This will ensure that outgoing edge documents will be placed on the same DB-Server as the vertex.
 Without the correct placement of the edges, the Pregel graph processing system will not work correctly, because
 edges will not load correctly.
 
@@ -137,7 +137,7 @@ Valid values for the `state` field include:
 - "running" algorithm is still running
 - "done": The execution is done, the result might not be written back into the collection yet.
 - "canceled": The execution was permanently canceled, either by the user or by an error.
-- "in error": The execution is in an error state. This can be caused by primary DBServers being not reachable or being non responsive.
+- "in error": The execution is in an error state. This can be caused by primary DB-Servers being not reachable or being non responsive.
   The execution might recover later, or switch to "canceled" if it was not able to recover successfully
 - "recovering": The execution is actively recovering, will switch back to "running" if the recovery was successful
 
