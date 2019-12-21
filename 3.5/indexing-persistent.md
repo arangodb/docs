@@ -7,8 +7,8 @@ Persistent indexes
 
 {% hint 'warning' %}
 The persistent index type is deprecated from version 3.4.0 on for the MMFiles
-storage engine. If you use the RocksDB storage engine, you can replace it with
-a persistent index, which has the same properties.
+storage engine. Use the RocksDB storage engine instead, where all indexes are
+persistent.
 {% endhint %}
 
 Introduction to Persistent Indexes
