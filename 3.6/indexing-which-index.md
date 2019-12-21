@@ -32,16 +32,20 @@ different usage scenarios:
   The non-unique hash index provides O(1) inserts, updates and removes, and
   will allow looking up documents by index value with amortized O(n) complexity, 
   with *n* being the number of documents with that index value.
-  
+
   A non-unique hash index on an optional document attribute should be declared
   sparse so that it will not index documents for which the index attribute is
   not set.
+
+  Deprecated for RocksDB storage engine (use *persistent* instead).
 
 - skiplist index: skiplists keep the indexed values in an order, so they can
   be used for equality lookups, range queries and for sorting. For high selectivity
   attributes, skiplist indexes will have a higher overhead than hash indexes. For
   low selectivity attributes, skiplist indexes will be more efficient than non-unique
   hash indexes.
+
+  Deprecated for RocksDB storage engine (use *persistent* instead).
 
   Additionally, skiplist indexes allow more use cases (e.g. range queries, sorting)
   than hash indexes. Furthermore, they can be used for lookups based on a leftmost
@@ -54,6 +58,8 @@ different usage scenarios:
   have may have a higher constant factor than the operations in a skiplist index, 
   because the persistent index may need to make extra roundtrips to the primary
   index to fetch the actual documents.
+
+  Deprecated for MMFiles storage engine (use RocksDB storage engine instead).
 
   A persistent index can be used for equality lookups, range queries and for sorting. 
   For high selectivity attributes, persistent indexes will have a higher overhead than 
