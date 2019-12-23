@@ -5,7 +5,7 @@ arangosh&gt; db.frenchCity.toArray();
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Lyon"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"frenchCity/Lyon"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7Ry---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQK--C"</span>, 
     <span class="hljs-string">"population"</span> : <span class="hljs-number">80000</span>, 
     <span class="hljs-string">"isCapital"</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">"geometry"</span> : { 
@@ -19,7 +19,7 @@ arangosh&gt; db.frenchCity.toArray();
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Paris"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"frenchCity/Paris"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7Ry--A"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQO---"</span>, 
     <span class="hljs-string">"population"</span> : <span class="hljs-number">4000000</span>, 
     <span class="hljs-string">"isCapital"</span> : <span class="hljs-literal">true</span>, 
     <span class="hljs-string">"geometry"</span> : { 
@@ -36,7 +36,7 @@ arangosh&gt; db.germanCity.toArray();
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Berlin"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"germanCity/Berlin"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7Ru---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQG---"</span>, 
     <span class="hljs-string">"population"</span> : <span class="hljs-number">3000000</span>, 
     <span class="hljs-string">"isCapital"</span> : <span class="hljs-literal">true</span>, 
     <span class="hljs-string">"geometry"</span> : { 
@@ -50,7 +50,7 @@ arangosh&gt; db.germanCity.toArray();
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Cologne"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"germanCity/Cologne"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7Ru--A"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQK---"</span>, 
     <span class="hljs-string">"population"</span> : <span class="hljs-number">1000000</span>, 
     <span class="hljs-string">"isCapital"</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">"geometry"</span> : { 
@@ -64,7 +64,7 @@ arangosh&gt; db.germanCity.toArray();
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"Hamburg"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"germanCity/Hamburg"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7Ru--C"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQK--A"</span>, 
     <span class="hljs-string">"population"</span> : <span class="hljs-number">1000000</span>, 
     <span class="hljs-string">"isCapital"</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">"geometry"</span> : { 
@@ -83,7 +83,7 @@ arangosh&gt; db.germanHighway.toArray();
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"germanHighway/87604"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Berlin"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"germanCity/Cologne"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7R2--_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQS---"</span>, 
     <span class="hljs-string">"distance"</span> : <span class="hljs-number">850</span> 
   }, 
   { 
@@ -91,7 +91,7 @@ arangosh&gt; db.germanHighway.toArray();
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"germanHighway/87606"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Berlin"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"germanCity/Hamburg"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7R6---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQS--A"</span>, 
     <span class="hljs-string">"distance"</span> : <span class="hljs-number">400</span> 
   }, 
   { 
@@ -99,7 +99,7 @@ arangosh&gt; db.germanHighway.toArray();
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"germanHighway/87608"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Hamburg"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"germanCity/Cologne"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7R6--A"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQS--C"</span>, 
     <span class="hljs-string">"distance"</span> : <span class="hljs-number">500</span> 
   } 
 ]
@@ -110,7 +110,7 @@ arangosh&gt; db.frenchHighway.toArray();
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"frenchHighway/87610"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"frenchCity/Paris"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Lyon"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7R6--C"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQW---"</span>, 
     <span class="hljs-string">"distance"</span> : <span class="hljs-number">550</span> 
   } 
 ]
@@ -121,7 +121,7 @@ arangosh&gt; db.internationalHighway.toArray();
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/87612"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Berlin"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Lyon"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7R6--E"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQW--A"</span>, 
     <span class="hljs-string">"distance"</span> : <span class="hljs-number">1100</span> 
   }, 
   { 
@@ -129,7 +129,7 @@ arangosh&gt; db.internationalHighway.toArray();
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/87614"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Berlin"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Paris"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7S----"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQW--C"</span>, 
     <span class="hljs-string">"distance"</span> : <span class="hljs-number">1200</span> 
   }, 
   { 
@@ -137,7 +137,7 @@ arangosh&gt; db.internationalHighway.toArray();
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/87616"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Hamburg"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Paris"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7S---A"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQa---"</span>, 
     <span class="hljs-string">"distance"</span> : <span class="hljs-number">900</span> 
   }, 
   { 
@@ -145,7 +145,7 @@ arangosh&gt; db.internationalHighway.toArray();
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/87618"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Hamburg"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Lyon"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7S---C"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQa--A"</span>, 
     <span class="hljs-string">"distance"</span> : <span class="hljs-number">1300</span> 
   }, 
   { 
@@ -153,7 +153,7 @@ arangosh&gt; db.internationalHighway.toArray();
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/87620"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Cologne"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Lyon"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7SC---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQa--C"</span>, 
     <span class="hljs-string">"distance"</span> : <span class="hljs-number">700</span> 
   }, 
   { 
@@ -161,7 +161,7 @@ arangosh&gt; db.internationalHighway.toArray();
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/87622"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Cologne"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Paris"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJ7SC--A"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZxKQNQa--E"</span>, 
     <span class="hljs-string">"distance"</span> : <span class="hljs-number">550</span> 
   } 
 ]
