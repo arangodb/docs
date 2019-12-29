@@ -4,12 +4,12 @@ arangosh&gt; graph.female.save({<span class="hljs-attr">name</span>: <span class
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/linda"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"linda"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Zxu2F96--C"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZzDG3hO--C"</span> 
 }
 arangosh&gt; graph.female.update(<span class="hljs-string">"female/linda"</span>, {<span class="hljs-attr">name</span>: <span class="hljs-string">"Linda"</span>, <span class="hljs-attr">_key</span>: <span class="hljs-string">"linda"</span>});
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/linda"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"linda"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Zxu2G----_"</span>, 
-  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_Zxu2F96--C"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZzDG3hS--_"</span>, 
+  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_ZzDG3hO--C"</span> 
 }
