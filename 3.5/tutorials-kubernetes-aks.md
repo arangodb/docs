@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 # Start ArangoDB on Azure Kubernetes Service (AKS)
 
 ## Requirements
@@ -97,7 +96,7 @@ layout: default
     NAMESPACE: default
     STATUS: DEPLOYED
     ...
-    See https://docs.arangodb.com/devel/Manual/Tutorials/Kubernetes/
+    See https://www.arangodb.com/docs/stable/tutorials-kubernetes.html
     for how to get started.
   ```
 

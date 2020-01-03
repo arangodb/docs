@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 # Start ArangoDB on Amazon Elastic Kubernetes Service (EKS)
 
 ## Requirements:

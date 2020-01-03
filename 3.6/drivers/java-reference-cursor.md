@@ -2,7 +2,6 @@
 layout: default
 description: ArangoCursor instances provide an abstraction over the HTTP API's limitations
 ---
-
 # Cursor API
 
 _ArangoCursor_ instances provide an abstraction over the HTTP API's limitations.

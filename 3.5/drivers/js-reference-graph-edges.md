@@ -2,7 +2,6 @@
 layout: default
 description: Manipulating edges
 ---
-
 # Manipulating edges
 
 ## graph.edgeCollection

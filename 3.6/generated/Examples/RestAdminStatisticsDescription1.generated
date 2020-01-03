@@ -1,7 +1,6 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_admin/statistics-description</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
 
@@ -16,6 +15,11 @@ content-type: application/json
       <span class="hljs-string">"group"</span> : <span class="hljs-string">"client"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"Client Connection Statistics"</span>, 
       <span class="hljs-string">"description"</span> : <span class="hljs-string">"Statistics about the connections."</span> 
+    }, 
+    { 
+      <span class="hljs-string">"group"</span> : <span class="hljs-string">"clientUser"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Client User Connection Statistics"</span>, 
+      <span class="hljs-string">"description"</span> : <span class="hljs-string">"Statistics about the connections, only user traffic (ignoring superuser JWT traffic)."</span> 
     }, 
     { 
       <span class="hljs-string">"group"</span> : <span class="hljs-string">"http"</span>, 
@@ -184,6 +188,105 @@ content-type: application/json
       <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"connectionTime"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"Connection Time"</span>, 
       <span class="hljs-string">"description"</span> : <span class="hljs-string">"Total connection time of a client."</span>, 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"distribution"</span>, 
+      <span class="hljs-string">"cuts"</span> : [ 
+        <span class="hljs-number">0.1</span>, 
+        <span class="hljs-number">1</span>, 
+        <span class="hljs-number">60</span> 
+      ], 
+      <span class="hljs-string">"units"</span> : <span class="hljs-string">"seconds"</span> 
+    }, 
+    { 
+      <span class="hljs-string">"group"</span> : <span class="hljs-string">"clientUser"</span>, 
+      <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"httpConnections"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Client Connections"</span>, 
+      <span class="hljs-string">"description"</span> : <span class="hljs-string">"The number of connections that are currently open (only user traffic)."</span>, 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"current"</span>, 
+      <span class="hljs-string">"units"</span> : <span class="hljs-string">"number"</span> 
+    }, 
+    { 
+      <span class="hljs-string">"group"</span> : <span class="hljs-string">"clientUser"</span>, 
+      <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"totalTime"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Total Time"</span>, 
+      <span class="hljs-string">"description"</span> : <span class="hljs-string">"Total time needed to answer a request (only user traffic)."</span>, 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"distribution"</span>, 
+      <span class="hljs-string">"cuts"</span> : [ 
+        <span class="hljs-number">0.01</span>, 
+        <span class="hljs-number">0.05</span>, 
+        <span class="hljs-number">0.1</span>, 
+        <span class="hljs-number">0.2</span>, 
+        <span class="hljs-number">0.5</span>, 
+        <span class="hljs-number">1</span> 
+      ], 
+      <span class="hljs-string">"units"</span> : <span class="hljs-string">"seconds"</span> 
+    }, 
+    { 
+      <span class="hljs-string">"group"</span> : <span class="hljs-string">"clientUser"</span>, 
+      <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"requestTime"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Request Time"</span>, 
+      <span class="hljs-string">"description"</span> : <span class="hljs-string">"Request time needed to answer a request (only user traffic)."</span>, 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"distribution"</span>, 
+      <span class="hljs-string">"cuts"</span> : [ 
+        <span class="hljs-number">0.01</span>, 
+        <span class="hljs-number">0.05</span>, 
+        <span class="hljs-number">0.1</span>, 
+        <span class="hljs-number">0.2</span>, 
+        <span class="hljs-number">0.5</span>, 
+        <span class="hljs-number">1</span> 
+      ], 
+      <span class="hljs-string">"units"</span> : <span class="hljs-string">"seconds"</span> 
+    }, 
+    { 
+      <span class="hljs-string">"group"</span> : <span class="hljs-string">"clientUser"</span>, 
+      <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"queueTime"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Queue Time"</span>, 
+      <span class="hljs-string">"description"</span> : <span class="hljs-string">"Queue time needed to answer a request (only user traffic)."</span>, 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"distribution"</span>, 
+      <span class="hljs-string">"cuts"</span> : [ 
+        <span class="hljs-number">0.01</span>, 
+        <span class="hljs-number">0.05</span>, 
+        <span class="hljs-number">0.1</span>, 
+        <span class="hljs-number">0.2</span>, 
+        <span class="hljs-number">0.5</span>, 
+        <span class="hljs-number">1</span> 
+      ], 
+      <span class="hljs-string">"units"</span> : <span class="hljs-string">"seconds"</span> 
+    }, 
+    { 
+      <span class="hljs-string">"group"</span> : <span class="hljs-string">"clientUser"</span>, 
+      <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"bytesSent"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bytes Sent"</span>, 
+      <span class="hljs-string">"description"</span> : <span class="hljs-string">"Bytes sents for a request (only user traffic)."</span>, 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"distribution"</span>, 
+      <span class="hljs-string">"cuts"</span> : [ 
+        <span class="hljs-number">250</span>, 
+        <span class="hljs-number">1000</span>, 
+        <span class="hljs-number">2000</span>, 
+        <span class="hljs-number">5000</span>, 
+        <span class="hljs-number">10000</span> 
+      ], 
+      <span class="hljs-string">"units"</span> : <span class="hljs-string">"bytes"</span> 
+    }, 
+    { 
+      <span class="hljs-string">"group"</span> : <span class="hljs-string">"clientUser"</span>, 
+      <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"bytesReceived"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bytes Received"</span>, 
+      <span class="hljs-string">"description"</span> : <span class="hljs-string">"Bytes received for a request (only user traffic)."</span>, 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"distribution"</span>, 
+      <span class="hljs-string">"cuts"</span> : [ 
+        <span class="hljs-number">250</span>, 
+        <span class="hljs-number">1000</span>, 
+        <span class="hljs-number">2000</span>, 
+        <span class="hljs-number">5000</span>, 
+        <span class="hljs-number">10000</span> 
+      ], 
+      <span class="hljs-string">"units"</span> : <span class="hljs-string">"bytes"</span> 
+    }, 
+    { 
+      <span class="hljs-string">"group"</span> : <span class="hljs-string">"clientUser"</span>, 
+      <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"connectionTime"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Connection Time"</span>, 
+      <span class="hljs-string">"description"</span> : <span class="hljs-string">"Total connection time of a client (only user traffic)."</span>, 
       <span class="hljs-string">"type"</span> : <span class="hljs-string">"distribution"</span>, 
       <span class="hljs-string">"cuts"</span> : [ 
         <span class="hljs-number">0.1</span>, 

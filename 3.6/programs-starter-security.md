@@ -1,8 +1,7 @@
 ---
 layout: default
-description: Securing an ArangoDB deployment involves encrypting its connections andauthenticated access control
+description: Securing an ArangoDB deployment involves encrypting its connections and authenticated access control
 ---
-
 # Security
 
 Securing an ArangoDB deployment involves encrypting its connections and
@@ -110,7 +109,7 @@ Make sure to protect and store the generated file (`my-secret.jwt`) in a safe pl
 ArangoDB deployments that require authentication can be accessed through standard user+password
 pairs or using a JWT to get "super-user" access.
 
-This super-user access is needed to communicate directly with the agency or with any server
+This super-user access is needed to communicate directly with the Agency or with any server
 in the deployment.
 Note that uses super-user access for normal database access is NOT advised.
 

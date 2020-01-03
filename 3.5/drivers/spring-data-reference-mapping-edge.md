@@ -2,7 +2,6 @@
 layout: default
 description: Edge
 ---
-
 # Edge
 
 ## Annotation @Edge

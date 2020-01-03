@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Deployments of ArangoDB servers can be managed with the following tools
+redirect_from:
+  - /3.6/cookbook/administration.html # 3.5 -> 3.5
 ---
 Administration
 ==============
@@ -15,7 +17,7 @@ Deployments of ArangoDB servers can be managed with the following tools:
   be accessed with a browser via the server port. It provides basic and advanced
   functionality to interact with the server and its data.
   
-  {%- comment %}TODO: In case of a cluster, the web interface can be reached via any of the coordinators. What about other deployment modes?{% endcomment %}
+  {%- comment %}TODO: In case of a cluster, the web interface can be reached via any of the Coordinators. What about other deployment modes?{% endcomment %}
 
 - **ArangoShell**: [_Arangosh_](programs-arangosh.html) is a V8 shell to
   interact with any local or remote ArangoDB server through a JavaScript

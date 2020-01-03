@@ -2,7 +2,6 @@
 layout: default
 description: ArangoRoute instances provide access for arbitrary HTTP requests
 ---
-
 # Route API
 
 _ArangoRoute_ instances provide access for arbitrary HTTP requests.

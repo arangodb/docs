@@ -68,12 +68,15 @@ in a specific state on startup. the options for this value are:
 - any: any directory state allowed
 
 ## Force syncing of properties
+
 {% docublock databaseForceSyncProperties %}
 
 ## Maximal Journal size (MMFiles only)
+
 {% docublock databaseMaximalJournalSize %}
 
 ## Wait for sync
+
 {% docublock databaseWaitForSync %}
 
 ## More advanced options

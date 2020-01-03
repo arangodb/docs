@@ -281,11 +281,11 @@ Earlier versions relied on third party software being installed for the storing 
 cluster state.
 The state is managed by dedicated ArangoDB instances, which can be started in a special
 *agency* mode. These instances can operate in a distributed fashion. They will
-automatically elect one of them to become their leader, being responsibile for storing
+automatically elect one of them to become their leader, being responsible for storing
 the state changes sent from servers in the cluster. The other instances will automatically
 follow the leader and will transparently stand in should it become unavailable.
-The agency instances are also self-organizing: they will continuously probe each
-other and re-elect leaders. The communication between the agency instances use the
+The Agency instances are also self-organizing: they will continuously probe each
+other and re-elect leaders. The communication between the Agency instances use the
 consensus-based RAFT protocol.
 
 The operations for storing and retrieving cluster state information are now much less

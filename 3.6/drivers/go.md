@@ -2,7 +2,6 @@
 layout: default
 description: The official ArangoDB GO Driver
 ---
-
 # ArangoDB GO Driver
 
 The official [ArangoDB](https://arangodb.com){:target="_blank"} GO Driver

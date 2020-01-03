@@ -1,12 +1,11 @@
 ---
 layout: default
-description: Starting an ArangoDB cluster involves starting various servers with different roles (agents, dbservers & coordinators)
+description: Starting an ArangoDB cluster involves starting various servers with different roles (Agents, DB-Servers & Coordinators)
 ---
-
 # Starting an ArangoDB cluster or database the easy way
 
 Starting an ArangoDB cluster involves starting various servers with
-different roles (agents, dbservers & coordinators).
+different roles (Agents, DB-Servers & Coordinators).
 
 The ArangoDB Starter is designed to make it easy to start and
 maintain an ArangoDB cluster or single server database.
@@ -41,7 +40,7 @@ arangodb
 ```
 
 This will use port 8528 to wait for colleagues (3 are needed for a
-resilient agency). On host B (can be the same as A):
+resilient Agency). On host B (can be the same as A):
 
 ```bash
 arangodb --starter.join A
@@ -56,11 +55,11 @@ arangodb --starter.join A
 
 This will contact A on port 8528 and register.
 
-From the moment on when 3 have joined, each will fire up an agent, a
-coordinator and a dbserver and the cluster is up. Ports are shown on
+From the moment on when 3 have joined, each will fire up an Agent, a
+Coordinator and a DB-Server and the cluster is up. Ports are shown on
 the console, the starter uses the next few ports above the starter
-port. That is, if one uses port 8528 for the starter, the coordinator
-will use 8529 (=8528+1), the dbserver 8530 (=8528+2), and the agent 8531
+port. That is, if one uses port 8528 for the starter, the Coordinator
+will use 8529 (=8528+1), the DB-Server 8530 (=8528+2), and the Agent 8531
 (=8528+3). You can change the default starter port with the `--starter.port`
 [option](programs-starter-options.html).
 
@@ -188,7 +187,7 @@ The "master" starter is chosen as follows:
 - In all other cases, the starter becomes a slave.
 
 Note: Once the bootstrap phase is over (all arangod servers have started and are running), the bootstrap
-phase ends and the starters use the Arango agency to elect a master for the runtime phase.
+phase ends and the starters use the Arango Agency to elect a master for the runtime phase.
 
 ## Starting a local test cluster
 
@@ -257,7 +256,7 @@ docker run -it --name=adb --rm -p 8528:8528 \
 ## Starting a resilient single server pair
 
 If you want to start a resilient single database server, use `--starter.mode=activefailover`.
-In this mode a 3 machine agency is started and 2 single servers that perform
+In this mode a 3 machine _Agency_ is started as well as 3 single servers that perform
 asynchronous replication an failover if needed.
 
 ```bash
@@ -265,11 +264,6 @@ arangodb --starter.mode=activefailover --starter.join A,B,C
 ```
 
 Run this on machine A, B & C.
-
-The starter will decide on which 2 machines to run a single server instance.
-To override this decision (only valid while bootstrapping), add a
-`--cluster.start-single=false` to the machine where the single server
-instance should NOT be scheduled.
 
 ## Starting a resilient single server pair in Docker
 

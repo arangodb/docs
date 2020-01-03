@@ -2,7 +2,6 @@
 layout: default
 description: Managing Foxx services
 ---
-
 # Managing Foxx services
 
 ## database.listServices
@@ -771,10 +770,10 @@ bundles missing in the database.
 
 ```js
 await db.commitLocalServiceState();
-// all services available on the coordinator have been written to the db
+// all services available on the Coordinator have been written to the db
 
 // -- or --
 
 await db.commitLocalServiceState(true);
-// all service conflicts have been resolved in favor of this coordinator
+// all service conflicts have been resolved in favor of this Coordinator
 ```

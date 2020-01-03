@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 # ArangoDB Spark Connector - Reference
 
 - [Scala](spark-connector-reference-scala.html)

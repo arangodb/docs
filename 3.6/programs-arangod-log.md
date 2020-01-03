@@ -42,7 +42,7 @@ detailed description of the different levels.
 
 Some relevant log topics available in ArangoDB 3 are:
 
-- `agency`: information about the agency
+- `agency`: information about the Agency
 - `collector`: information about the WAL collector's state
 - `compactor`: information about the collection datafile compactor
 - `datafiles`: datafile-related operations
@@ -208,8 +208,8 @@ character with the server's role into each logged message. The roles are:
   
 - U: undefined/unclear (used at startup)
 - S: single server
-- C: coordinator
+- C: Coordinator
 - P: primary
-- A: agent
+- A: Agent
 
 The default value for this option is `false`, so no roles will be logged. 

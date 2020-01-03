@@ -406,7 +406,7 @@ FOR i IN 1..3 RETURN V8(1 + 1)        // simple expression
 `VERSION() → serverVersion`
 
 Returns the server version as a string. In a cluster, returns the version
-of the coordinator.
+of the Coordinator.
 
 - returns **serverVersion** (string): the server version string
 

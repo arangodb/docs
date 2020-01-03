@@ -3,7 +3,6 @@ layout: default
 description: This chapter documents the ArangoDB Starter (arangodb binary).
 title: ArangoDB Starter Tool
 ---
-
 # ArangoDB Starter
 
 This chapter documents the _ArangoDB Starter_ (`arangodb` binary).

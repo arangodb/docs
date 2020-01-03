@@ -3,7 +3,6 @@ layout: default
 description: The ArangoDB Starter is a program used to create ArangoDB database deployments on bare-metal (or virtual machines) with ease
 title: Architecture of the ArangoDB Starter Tools
 ---
-
 # ArangoDB Starter Architecture
 
 ## What does the Starter do
@@ -99,8 +98,8 @@ It contains the following files & sub-directories.
 For the `activefailover` & `cluster` mode, it is required to run multiple
 Starters, as every Starter will only launch a subset of all servers needed
 to form the entire deployment.
-For example in `cluster` mode, a Starter will launch a single agent, a single dbserver
-and a single coordinator.
+For example in `cluster` mode, a Starter will launch a single Agent, a single DB-Server
+and a single Coordinator.
 
 It is the responsibility of the user to run the Starter on multiple machines such
 that enough servers are started to form the entire deployment.
@@ -121,7 +120,7 @@ arangodb --starter.mode=cluster --starter.join=hostA:8528,hostB:8528,hostC:8528
 
 The state of the cluster (of Starters) is stored in a configuration file called
 `setup.json` in the data directory of every Starter and the ArangoDB
-agency is used to elect a master among all Starters.
+Agency is used to elect a master among all Starters.
 
 The master Starter is responsible for maintaining the list of all Starters
 involved in the cluster and their addresses. The slave Starters (all Starters
@@ -156,11 +155,11 @@ from scratch.
    As soon as they receive confirmation to do so, they also continue with the `running` phase.
 
 In the `running` phase all Starters launch the desired servers and keeps monitoring those
-servers. Once a functional agency is detected, all Starters will try to be
-`running master` by trying to write their ID in a well known location in the agency.
+servers. Once a functional Agency is detected, all Starters will try to be
+`running master` by trying to write their ID in a well known location in the Agency.
 The first Starter to succeed in doing so wins this master election.
 
-The `running master` will keep writing its ID in the agency in order to remaining
+The `running master` will keep writing its ID in the Agency in order to remaining
 the `running master`. Since this ID is written with a short time-to-live,
 other Starters are able to detect when the current `running master` has been stopped
 or is no longer responsible. In that case the remaining Starters will perform

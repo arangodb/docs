@@ -2,7 +2,6 @@
 layout: default
 description: Arbitrary HTTP routes
 ---
-
 # Arbitrary HTTP routes
 
 ## database.route

@@ -2,7 +2,6 @@
 layout: default
 description: Indexes
 ---
-
 # Indexes
 
 ## Annotation @\<IndexType\>Indexed

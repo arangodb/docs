@@ -181,7 +181,7 @@ To stop an instance, the currently running process has to be identified using th
 command above. 
 
 Let's assume we are about to upgrade an _Agent_ instance, so we have to look in the `ps`
-output for an agent instance first, and note its process id (pid) and start command.
+output for an Agent instance first, and note its process id (pid) and start command.
 
 The process can then be stopped using the following command:
 

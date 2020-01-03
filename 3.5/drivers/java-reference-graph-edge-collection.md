@@ -2,7 +2,6 @@
 layout: default
 description: Manipulating the edge collection
 ---
-
 # Manipulating the edge collection
 
 ## ArangoGraph.edgeCollection

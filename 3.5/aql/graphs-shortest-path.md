@@ -128,6 +128,7 @@ Examples
 We will create a simple symmetric traversal demonstration graph:
 
 ![traversal graph](../images/traversal_graph.png)
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHSP_01_create_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHSP_01_create_graph}
@@ -141,7 +142,9 @@ We will create a simple symmetric traversal demonstration graph:
     @endDocuBlock GRAPHSP_01_create_graph
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 We start with the shortest path from **A** to **D** as above:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHSP_02_A_to_D
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHSP_02_A_to_D}
@@ -151,10 +154,12 @@ We start with the shortest path from **A** to **D** as above:
     @endDocuBlock GRAPHSP_02_A_to_D
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 We can see our expectations are fulfilled. We find the vertices in the correct ordering and
 the first edge is *null*, because no edge is pointing to the start vertex on t his path.
 
 We can also compute shortest paths based on documents found in collections:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHSP_03_A_to_D
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHSP_03_A_to_D}
@@ -166,6 +171,7 @@ We can also compute shortest paths based on documents found in collections:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 And finally clean it up again:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHSP_99_drop_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHSP_99_drop_graph}

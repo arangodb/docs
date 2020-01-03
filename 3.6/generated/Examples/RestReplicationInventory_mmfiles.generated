@@ -1,11 +1,15 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/inventory</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-keep-alive: timeout=<span class="hljs-number">300</span>
 x-content-type-options: nosniff
 content-type: application/json
 
 { 
+  <span class="hljs-string">"properties"</span> : { 
+    <span class="hljs-string">"id"</span> : <span class="hljs-string">"1"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"_system"</span>, 
+    <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">true</span> 
+  }, 
   <span class="hljs-string">"collections"</span> : [ 
     { 
       <span class="hljs-string">"indexes"</span> : [ ], 
@@ -39,8 +43,9 @@ content-type: application/json
         }, 
         <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-        <span class="hljs-string">"version"</span> : <span class="hljs-number">7</span>, 
-        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span> 
+        <span class="hljs-string">"version"</span> : <span class="hljs-number">8</span>, 
+        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span> 
       } 
     }, 
     { 
@@ -75,8 +80,9 @@ content-type: application/json
         }, 
         <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-        <span class="hljs-string">"version"</span> : <span class="hljs-number">7</span>, 
-        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span> 
+        <span class="hljs-string">"version"</span> : <span class="hljs-number">8</span>, 
+        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span> 
       } 
     }, 
     { 
@@ -84,7 +90,7 @@ content-type: application/json
         { 
           <span class="hljs-string">"id"</span> : <span class="hljs-string">"49"</span>, 
           <span class="hljs-string">"type"</span> : <span class="hljs-string">"hash"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1646923287313252355"</span>, 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1653459526782812160"</span>, 
           <span class="hljs-string">"fields"</span> : [ 
             <span class="hljs-string">"mount"</span> 
           ], 
@@ -109,7 +115,7 @@ content-type: application/json
         <span class="hljs-string">"keyOptions"</span> : { 
           <span class="hljs-string">"allowUserKeys"</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">"type"</span> : <span class="hljs-string">"traditional"</span>, 
-          <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">71</span> 
+          <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">0</span> 
         }, 
         <span class="hljs-string">"minReplicationFactor"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"_apps"</span>, 
@@ -123,8 +129,9 @@ content-type: application/json
         }, 
         <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-        <span class="hljs-string">"version"</span> : <span class="hljs-number">7</span>, 
-        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span> 
+        <span class="hljs-string">"version"</span> : <span class="hljs-number">8</span>, 
+        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span> 
       } 
     }, 
     { 
@@ -159,8 +166,9 @@ content-type: application/json
         }, 
         <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-        <span class="hljs-string">"version"</span> : <span class="hljs-number">7</span>, 
-        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span> 
+        <span class="hljs-string">"version"</span> : <span class="hljs-number">8</span>, 
+        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span> 
       } 
     }, 
     { 
@@ -195,8 +203,9 @@ content-type: application/json
         }, 
         <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-        <span class="hljs-string">"version"</span> : <span class="hljs-number">7</span>, 
-        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span> 
+        <span class="hljs-string">"version"</span> : <span class="hljs-number">8</span>, 
+        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span> 
       } 
     }, 
     { 
@@ -231,8 +240,9 @@ content-type: application/json
         }, 
         <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-        <span class="hljs-string">"version"</span> : <span class="hljs-number">7</span>, 
-        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span> 
+        <span class="hljs-string">"version"</span> : <span class="hljs-number">8</span>, 
+        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span> 
       } 
     }, 
     { 
@@ -240,7 +250,7 @@ content-type: application/json
         { 
           <span class="hljs-string">"id"</span> : <span class="hljs-string">"33"</span>, 
           <span class="hljs-string">"type"</span> : <span class="hljs-string">"hash"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1646923287312203776"</span>, 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1653459526780715008"</span>, 
           <span class="hljs-string">"fields"</span> : [ 
             <span class="hljs-string">"user"</span> 
           ], 
@@ -265,7 +275,7 @@ content-type: application/json
         <span class="hljs-string">"keyOptions"</span> : { 
           <span class="hljs-string">"allowUserKeys"</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">"type"</span> : <span class="hljs-string">"traditional"</span>, 
-          <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">88</span> 
+          <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">78</span> 
         }, 
         <span class="hljs-string">"minReplicationFactor"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"_users"</span>, 
@@ -279,20 +289,21 @@ content-type: application/json
         }, 
         <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-        <span class="hljs-string">"version"</span> : <span class="hljs-number">7</span>, 
-        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span> 
+        <span class="hljs-string">"version"</span> : <span class="hljs-number">8</span>, 
+        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span> 
       } 
     }, 
     { 
       <span class="hljs-string">"indexes"</span> : [ ], 
       <span class="hljs-string">"parameters"</span> : { 
         <span class="hljs-string">"allowUserKeys"</span> : <span class="hljs-literal">true</span>, 
-        <span class="hljs-string">"cid"</span> : <span class="hljs-string">"111"</span>, 
+        <span class="hljs-string">"cid"</span> : <span class="hljs-string">"91"</span>, 
         <span class="hljs-string">"count"</span> : <span class="hljs-number">0</span>, 
         <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"doCompact"</span> : <span class="hljs-literal">true</span>, 
-        <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h2631D37715B5/111"</span>, 
-        <span class="hljs-string">"id"</span> : <span class="hljs-string">"111"</span>, 
+        <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hEAF8B44F5586/91"</span>, 
+        <span class="hljs-string">"id"</span> : <span class="hljs-string">"91"</span>, 
         <span class="hljs-string">"indexBuckets"</span> : <span class="hljs-number">8</span>, 
         <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
@@ -306,7 +317,7 @@ content-type: application/json
         <span class="hljs-string">"minReplicationFactor"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"animals"</span>, 
         <span class="hljs-string">"numberOfShards"</span> : <span class="hljs-number">1</span>, 
-        <span class="hljs-string">"planId"</span> : <span class="hljs-string">"111"</span>, 
+        <span class="hljs-string">"planId"</span> : <span class="hljs-string">"91"</span>, 
         <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"shardKeys"</span> : [ 
           <span class="hljs-string">"_key"</span> 
@@ -315,20 +326,21 @@ content-type: application/json
         }, 
         <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-        <span class="hljs-string">"version"</span> : <span class="hljs-number">7</span>, 
-        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span> 
+        <span class="hljs-string">"version"</span> : <span class="hljs-number">8</span>, 
+        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span> 
       } 
     }, 
     { 
       <span class="hljs-string">"indexes"</span> : [ ], 
       <span class="hljs-string">"parameters"</span> : { 
         <span class="hljs-string">"allowUserKeys"</span> : <span class="hljs-literal">true</span>, 
-        <span class="hljs-string">"cid"</span> : <span class="hljs-string">"102"</span>, 
+        <span class="hljs-string">"cid"</span> : <span class="hljs-string">"82"</span>, 
         <span class="hljs-string">"count"</span> : <span class="hljs-number">0</span>, 
         <span class="hljs-string">"deleted"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"doCompact"</span> : <span class="hljs-literal">true</span>, 
-        <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h2631D37715B5/102"</span>, 
-        <span class="hljs-string">"id"</span> : <span class="hljs-string">"102"</span>, 
+        <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hEAF8B44F5586/82"</span>, 
+        <span class="hljs-string">"id"</span> : <span class="hljs-string">"82"</span>, 
         <span class="hljs-string">"indexBuckets"</span> : <span class="hljs-number">8</span>, 
         <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
@@ -342,7 +354,7 @@ content-type: application/json
         <span class="hljs-string">"minReplicationFactor"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"demo"</span>, 
         <span class="hljs-string">"numberOfShards"</span> : <span class="hljs-number">1</span>, 
-        <span class="hljs-string">"planId"</span> : <span class="hljs-string">"102"</span>, 
+        <span class="hljs-string">"planId"</span> : <span class="hljs-string">"82"</span>, 
         <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"shardKeys"</span> : [ 
           <span class="hljs-string">"_key"</span> 
@@ -351,15 +363,16 @@ content-type: application/json
         }, 
         <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
         <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-        <span class="hljs-string">"version"</span> : <span class="hljs-number">7</span>, 
-        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span> 
+        <span class="hljs-string">"version"</span> : <span class="hljs-number">8</span>, 
+        <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span> 
       } 
     } 
   ], 
   <span class="hljs-string">"views"</span> : [ 
     { 
-      <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h2631D37715B5/117"</span>, 
-      <span class="hljs-string">"id"</span> : <span class="hljs-string">"117"</span>, 
+      <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hEAF8B44F5586/97"</span>, 
+      <span class="hljs-string">"id"</span> : <span class="hljs-string">"97"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"demoView"</span>, 
       <span class="hljs-string">"type"</span> : <span class="hljs-string">"arangosearch"</span>, 
       <span class="hljs-string">"cleanupIntervalStep"</span> : <span class="hljs-number">2</span>, 
@@ -383,10 +396,10 @@ content-type: application/json
   ], 
   <span class="hljs-string">"state"</span> : { 
     <span class="hljs-string">"running"</span> : <span class="hljs-literal">true</span>, 
-    <span class="hljs-string">"lastLogTick"</span> : <span class="hljs-string">"214"</span>, 
-    <span class="hljs-string">"lastUncommittedLogTick"</span> : <span class="hljs-string">"259"</span>, 
-    <span class="hljs-string">"totalEvents"</span> : <span class="hljs-number">76</span>, 
-    <span class="hljs-string">"time"</span> : <span class="hljs-string">"2019-10-09T13:40:45Z"</span> 
+    <span class="hljs-string">"lastLogTick"</span> : <span class="hljs-string">"193"</span>, 
+    <span class="hljs-string">"lastUncommittedLogTick"</span> : <span class="hljs-string">"238"</span>, 
+    <span class="hljs-string">"totalEvents"</span> : <span class="hljs-number">71</span>, 
+    <span class="hljs-string">"time"</span> : <span class="hljs-string">"2019-12-20T17:11:29Z"</span> 
   }, 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"260"</span> 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"239"</span> 
 }

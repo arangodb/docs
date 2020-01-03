@@ -111,10 +111,10 @@ on the C++ level, which in turn leads to the cancelation of the job.
 No result can be retrieved later, since all data about the request is
 discarded.
 
-If you cancel a job running on a coordinator of a cluster (Sharding),
-then only the code running on the coordinator is stopped, there may
+If you cancel a job running on a Coordinator of a cluster (Sharding),
+then only the code running on the Coordinator is stopped, there may
 remain tasks within the cluster which have already been distributed to
-the DBservers and it is currently not possible to cancel them as well.
+the DB-Servers and it is currently not possible to cancel them as well.
 
 ### Async Execution and Authentication
 
@@ -125,6 +125,7 @@ rejected instantly in the same way as a "regular", non-queued request.
 
 Managing Async Results via HTTP
 -------------------------------
+
 {% docublock job_fetch_result %}
 {% docublock job_cancel %}
 {% docublock job_delete %}

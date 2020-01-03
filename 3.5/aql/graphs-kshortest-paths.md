@@ -20,6 +20,8 @@ Every such path will be returned as a JSON object with three components:
 
 If no *weightAttribute* is given, the weight of the path is just its length.
 
+{% include youtube.html id="XdITulJFdVo" %}
+
 **Example**
 
 Let us take a look at a simple example to explain how it works.
@@ -163,6 +165,7 @@ We load an example graph to get a named graph that reflects some possible
 train connections in Europe and North America.
 
 ![Train Connection Map](../images/train_map.png)
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHKSP_01_create_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHKSP_01_create_graph}
@@ -195,7 +198,7 @@ Using `SHORTEST_PATH`:
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_01_Aberdeen_to_London
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Using `K_SHORTEST_PATHS`:
 
@@ -210,7 +213,7 @@ Using `K_SHORTEST_PATHS`:
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_02_Aberdeen_to_London
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 With `K_SHORTEST_PATHS` we can ask for more than one option for a route:
 
@@ -229,7 +232,7 @@ With `K_SHORTEST_PATHS` we can ask for more than one option for a route:
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_03_Aberdeen_to_London
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 If we ask for routes that don't exist we get an empty result
 (from **Aberdeen** to **Toronto**):
@@ -249,7 +252,7 @@ If we ask for routes that don't exist we get an empty result
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_04_Aberdeen_to_Toronto
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 We can use the attribute *travelTime* that connections have as edge weights to
 take into account which connections are quicker. A high default weight is set,
@@ -277,7 +280,7 @@ to **Cologne**:
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKSP_05_StAndrews_to_Cologne
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 And finally clean up by removing the named graph:
 

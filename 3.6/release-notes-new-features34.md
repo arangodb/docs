@@ -352,8 +352,8 @@ Cluster improvements
 
 ### Load-balancer support
 
-ArangoDB now supports running multiple coordinators behind a load balancer that
-randomly routes client requests to the different coordinators. It is not required
+ArangoDB now supports running multiple Coordinators behind a load balancer that
+randomly routes client requests to the different Coordinators. It is not required
 anymore that load balancers implement session or connection stickiness on behalf
 of ArangoDB.
 
@@ -365,30 +365,30 @@ balancing:
 * the tasks API at endpoint `/_api/tasks`
 * Pregel APIs at endpoint `/_api/pregel`
 
-Some of these APIs build up coordinator-local state in memory when being first
+Some of these APIs build up Coordinator-local state in memory when being first
 accessed, and allow accessing further data using follow-up requests. This caused
 problems in previous versions of ArangoDB, when load balancers routed the follow
-up requests to these APIs to different coordinators that did not have access to
-the other coordinator's in-memory state.
+up requests to these APIs to different Coordinators that did not have access to
+the other Coordinator's in-memory state.
 
 With ArangoDB 3.4, if such an API is accessed by a follow-up request that refers
-to state being created on a different coordinator, the actually accessed coordinator
-will forward the client request to the correct coordinator. Client applications
-and load balancers do not need to be aware of which coordinator they had used
+to state being created on a different Coordinator, the actually accessed Coordinator
+will forward the client request to the correct Coordinator. Client applications
+and load balancers do not need to be aware of which Coordinator they had used
 for the previous requests, though from a performance point of view accessing the
-same coordinator for a sequence of requests will still be beneficial.
+same Coordinator for a sequence of requests will still be beneficial.
 
-If a coordinator forwards a request to a different coordinator, it will send the
+If a Coordinator forwards a request to a different Coordinator, it will send the
 client an extra HTTP header `x-arango-request-forwarded-to` with the id of the
-coordinator it forwarded the request to. Client applications or load balancers
+Coordinator it forwarded the request to. Client applications or load balancers
 can optionally use that information to make follow-up requests to the "correct"
-coordinator to save the forwarding.
+Coordinator to save the forwarding.
 
 ### Refusal to start mixed-engine clusters
 
-Starting a cluster with coordinators and DB servers using different storage
+Starting a cluster with Coordinators and DB-Servers using different storage
 engines is not supported. Doing it anyway will now log an error and abort a
-coordinator's startup.
+Coordinator's startup.
 
 Previous versions of ArangoDB did not detect the usage of different storage
 engines in a cluster, but the runtime behavior of the cluster was undefined.
@@ -396,7 +396,7 @@ engines in a cluster, but the runtime behavior of the cluster was undefined.
 ### Advertised endpoints
 
 It is now possible to configure the endpoints advertised by the
-coordinators to clients to be different from the endpoints which are
+Coordinators to clients to be different from the endpoints which are
 used for cluster internal communication. This is important for client
 drivers which refresh the list of endpoints during the lifetime of the
 cluster (which they should do!). In this way one can make the cluster
@@ -418,26 +418,26 @@ must be set to `false` for the initial startup and later be changed to `true`.
 
 ### Coordinator storage engine
 
-In previous versions of ArangoDB, cluster coordinator nodes used the storage
+In previous versions of ArangoDB, cluster Coordinator nodes used the storage
 engine selected by the database administrator (i.e. MMFiles or RocksDB).
-Although all database and document data was forwarded from coordinators to be
-stored on the database servers and not on the coordinator nodes, the storage
-engine used on the coordinator was checking and initializing its on-disk state
+Although all database and document data was forwarded from Coordinators to be
+stored on the DB-Servers and not on the Coordinator nodes, the storage
+engine used on the Coordinator was checking and initializing its on-disk state
 on startup.
-Especially because no "real" data was stored by the coordinator's storage engine,
+Especially because no "real" data was stored by the Coordinator's storage engine,
 using a storage engine here did not provide any value but only introduced
 unnecessary potential points of failure.
 
-As of ArangoDB 3.4, cluster coordinator nodes will now use an internal "cluster"
+As of ArangoDB 3.4, cluster Coordinator nodes will now use an internal "cluster"
 storage engine, which actually does not store any data. That prevents 3.4
-coordinators from creating any files or directories inside the database directory
+Coordinators from creating any files or directories inside the database directory
 except the meta data files such as `ENGINE`, `LOCK`, `SERVER`, `UUID` and `VERSION`.
-And as no files need to be read on coordinator startup except these mentioned
-files, it also reduces the possibility of data corruption on coordinator nodes.
+And as no files need to be read on Coordinator startup except these mentioned
+files, it also reduces the possibility of data corruption on Coordinator nodes.
 
 ### `DBSERVER` role as alias of `PRIMARY`
 
-When starting a _DBServer_, the value `DBSERVER` can now be specified (as alias of
+When starting a _DB-Server_, the value `DBSERVER` can now be specified (as alias of
 `PRIMARY`) in the option `--cluster.my-role`. The value `PRIMARY` is still accepted.
 
 All REST APIs that currently return "PRIMARY" as _role_, will continue to return
@@ -467,16 +467,16 @@ page.
 
 ### Revised cluster-internal AQL protocol
 
-When running an AQL query in a cluster, the coordinator has to distribute the
+When running an AQL query in a cluster, the Coordinator has to distribute the
 individual parts of the AQL query to the relevant shards that will participate
 in the execution of the query.
 
-Up to including ArangoDB 3.3, the coordinator has deployed the query parts to the
+Up to including ArangoDB 3.3, the Coordinator has deployed the query parts to the
 individual shards one by one. The more shards were involved in a query, the more
 cluster-internal requests this required, and the longer the setup took.
 
-In ArangoDB 3.4 the coordinator will now only send a single request to each of
-the involved database servers (in contrast to one request per shard involved).
+In ArangoDB 3.4 the Coordinator will now only send a single request to each of
+the involved DB-Servers (in contrast to one request per shard involved).
 This will speed up the setup phase of most AQL queries, which will be noticable for
 queries that affect a lot of shards.
 
@@ -510,7 +510,7 @@ The following AQL functions have been added in ArangoDB 3.4:
 * `REGEX_MATCHES`: finds matches in a string using a regular expression
 * `REGEX_SPLIT`: splits a string using a regular expression
 * `UUID`: generates a universally unique identifier value
-* `TOKENS`: splits a string into tokens using a language-specific text analyzer
+* `TOKENS`: splits a string into tokens using a language-specific text Analyzer
 * `VERSION`: returns the server version as a string
  
 The following AQL functions have been added to make working with geographical 
@@ -543,17 +543,17 @@ The following function aliases have been created for existing AQL functions:
 ### Distributed COLLECT
 
 In the general case, AQL COLLECT operations are expensive to execute in a cluster,
-because the database servers need to send all shard-local data to the coordinator
+because the DB-Servers need to send all shard-local data to the Coordinator
 for a centralized aggregation.
 
 The AQL query optimizer can push some parts of certain COLLECT operations to the
-database servers so they can do a per-shard aggregation. The database servers can
-then send only the already aggregated results to the coordinator for a final aggregation.
+DB-Servers so they can do a per-shard aggregation. The DB-Servers can
+then send only the already aggregated results to the Coordinator for a final aggregation.
 For several queries this will reduce the amount of data that has to be transferred
-between the database servers servers and the coordinator by a great extent, and thus
+between the DB-Servers servers and the Coordinator by a great extent, and thus
 will speed up these queries. Work on this has started with ArangoDB 3.3.5, but
 ArangoDB 3.4 allows more cases in which COLLECT operations can partially be pushed to
-the database servers.
+the DB-Servers.
 
 In ArangoDB 3.3, the following aggregation functions could make use of a distributed
 COLLECT in addition to `COLLECT WITH COUNT INTO` and `RETURN DISTINCT`:
@@ -689,8 +689,7 @@ trivial AQL queries that will only access a single document, e.g.
 
 All of the above queries will affect at most a single document, identified by its
 primary key. The AQL query optimizer can now detect this, and use a specialized
-code path for directly carrying out the operation on the participating database
-server(s). This special code path bypasses the general AQL query cluster setup and
+code path for directly carrying out the operation on the participating DB-Server(s). This special code path bypasses the general AQL query cluster setup and
 shutdown, which would have prohibitive costs for these kinds of queries.
 
 In case the optimizer makes use of the special code path, the explain output will
@@ -980,7 +979,7 @@ JavaScript-based implementations to C++-based implementations in ArangoDB 3.4:
 * the implementations of all built-in AQL functions
 * all other parts of AQL except user-defined functions
 * database creation and setup
-* all the DBserver internal maintenance tasks for shard creation, index
+* all the DB-Server internal maintenance tasks for shard creation, index
   creation and the like in the cluster
 
 By making the listed functionality not use and not depend on the V8 JavaScript 
@@ -989,9 +988,9 @@ server, without requiring the conversion of data between ArangoDB's native forma
 and V8's internal formats. For the maintenance operations this will lead to
 improved stability in the cluster.
 
-As a consequence, ArangoDB agency and database server nodes in an ArangoDB 3.4 
+As a consequence, ArangoDB Agency and DB-Server nodes in an ArangoDB 3.4 
 cluster will now turn off the V8 JavaScript engine at startup entirely and automatically.
-The V8 engine will still be enabled on cluster coordinators, single servers and
+The V8 engine will still be enabled on cluster Coordinators, single servers and
 active failover instances. But even the latter instance types will not require as 
 many V8 contexts as previous versions of ArangoDB.
 This should reduce problems with servers running out of available V8 contexts or

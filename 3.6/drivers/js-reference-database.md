@@ -2,7 +2,6 @@
 layout: default
 description: Database API
 ---
-
 # Database API
 
 ## new Database
@@ -25,7 +24,7 @@ If _config_ is a string, it will be interpreted as _config.url_.
 
     When working with a cluster or a single server with leader/follower failover,
     [the method `db.acquireHostList`](#databaseacquirehostlist)
-    can be used to automatically pick up additional coordinators/followers at
+    can be used to automatically pick up additional Coordinators/followers at
     any point.
 
     When running ArangoDB on a unix socket, e.g. `/tmp/arangodb.sock`, the
@@ -168,12 +167,12 @@ If _config_ is a string, it will be interpreted as _config.url_.
 
 `async database.acquireHostList(): this`
 
-Updates the URL list by requesting a list of all coordinators in the cluster
+Updates the URL list by requesting a list of all Coordinators in the cluster
 and adding any endpoints not initially specified in the _url_ configuration.
 
 For long-running processes communicating with an ArangoDB cluster it is
 recommended to run this method repeatedly (e.g. once per hour) to make sure
-new coordinators are picked up correctly and can be used for fail-over or
+new Coordinators are picked up correctly and can be used for fail-over or
 load balancing.
 
 **Note**: This method can not be used when the arangojs instance was created

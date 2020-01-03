@@ -35,7 +35,7 @@ which were created on the _leader_ will also be valid on the newly elected _lead
 Consider the case for two *arangod* instances. The two servers are connected via
 server wide (global) asynchronous replication. One of the servers is
 elected _Leader_, and the other one is made a _Follower_ automatically. At startup,
-the two servers race for the leadership position. This happens through the _agency
+the two servers race for the leadership position. This happens through the _Agency
 locking mechanism_ (which means that the _Agency_ needs to be available at server start).
 You can control which server will become _Leader_ by starting it earlier than
 other server instances in the beginning.

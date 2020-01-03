@@ -2,8 +2,8 @@
 layout: default
 description: The driver supports multiple endpoints to connect to
 ---
-
 # ArangoDB GO Driver - Connection Management
+
 ## Failover 
 
 The driver supports multiple endpoints to connect to. All request are in principle 
@@ -27,7 +27,7 @@ if err != nil {
 }
 ```
 
-Note that a valid endpoint is an URL to either a standalone server, or a URL to a coordinator 
+Note that a valid endpoint is an URL to either a standalone server, or a URL to a Coordinator 
 in a cluster.
 
 ## Failover: Exact behavior

@@ -1,8 +1,7 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'If-Match: "_ZZB_-5O---"'</span> --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/69736</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'If-Match: "_ZwPJx2y--C"'</span> --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/69706</span>
 
 HTTP/<span class="hljs-number">1.1</span> Precondition Failed
-etag: <span class="hljs-string">"_ZZB_-5K--A"</span>
-keep-alive: timeout=<span class="hljs-number">300</span>
+etag: <span class="hljs-string">"_ZwPJx2y--A"</span>
 x-content-type-options: nosniff
 content-type: application/json
 
@@ -11,7 +10,7 @@ content-type: application/json
   <span class="hljs-string">"code"</span> : <span class="hljs-number">412</span>, 
   <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">1200</span>, 
   <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"precondition failed"</span>, 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69736"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69736"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZZB_-5K--A"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69706"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69706"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZwPJx2y--A"</span> 
 }

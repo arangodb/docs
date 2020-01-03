@@ -1,8 +1,7 @@
 ---
 layout: default
-description: These functions implement theHTTP API for simple queries
+description: These functions implement the HTTP API for simple queries
 ---
-
 # Simple queries
 
 These functions implement the
@@ -44,9 +43,6 @@ see [Compatibility](js-getting-started.html#compatibility).
 
 - **opts**: `Object` (optional)
 
-  For information on the possible options see the
-  [HTTP API for returning the first document of a collection](../../2.8/http-simple-query.html#first-document-of-a-collection).
-
   If _opts_ is a number it is treated as _opts.count_.
 
 ## collection.last
@@ -64,9 +60,6 @@ see [Compatibility](js-getting-started.html#compatibility).
 **Arguments**
 
 - **opts**: `Object` (optional)
-
-  For information on the possible options see the
-  [HTTP API for returning the last document of a collection](../../2.8/http-simple-query.html#last-document-of-a-collection).
 
   If _opts_ is a number it is treated as _opts.count_.
 

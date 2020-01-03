@@ -2,7 +2,6 @@
 layout: default
 description: To use the driver, first fetch the sources into your GOPATH
 ---
-
 # ArangoDB GO Driver - Getting Started
 
 ## Supported versions

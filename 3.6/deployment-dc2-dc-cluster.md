@@ -2,7 +2,6 @@
 layout: default
 description: There are several ways to start an ArangoDB cluster
 ---
-
 # ArangoDB cluster
 
 There are several ways to start an ArangoDB cluster. In this section we will focus
@@ -12,8 +11,8 @@ _Datacenter to datacenter replication_ requires the `rocksdb` storage engine. Th
 example setup described in this section will have `rocksdb` enabled. If you choose
 to deploy with a different strategy keep in mind to set the storage engine.
 
-For the other possibilities to deploy an ArangoDB cluster please refer to
-[this](deployment-cluster.html) section.
+For other possibilities to deploy an ArangoDB cluster see
+[Cluster Deployment](deployment-cluster.html).
 
 The _Starter_ simplifies things for the operator and will coordinate a distributed
 cluster startup across several machines and assign cluster roles automatically.
@@ -71,7 +70,7 @@ Each of these tasks needs a port to communicate. Please make sure that the follo
 ports are available on all machines:
 
 - `8529` for Coordinators
-- `8530` for DBservers
+- `8530` for DB-Servers
 - `8531` for Agents
 
 The _Starter_ itself will use port `8528`.

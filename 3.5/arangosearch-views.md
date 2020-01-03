@@ -15,7 +15,7 @@ the documents that satisfy the search criteria by relevance.
 Comparison with the [Full-text Index](indexing-fulltext.html):
 
 Feature                           | ArangoSearch | Full-text Index
-----------------------------------|--------------|----------------
+:---------------------------------|:-------------|:---------------
 Term search                       | Yes          | Yes
 Prefix search                     | Yes          | Yes
 Boolean expressions               | Yes          | Restricted
@@ -134,6 +134,8 @@ attribute (ascending or descending), to enable an optimization for AQL
 queries which iterate over a View and sort by one or multiple of the
 attributes. If the field(s) and the sorting direction(s) match then the
 the data can be read directly from the index without actual sort operation.
+
+{% include youtube.html id="bKeKzexInm0" %}
 
 View definition example:
 

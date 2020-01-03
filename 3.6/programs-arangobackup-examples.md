@@ -38,16 +38,22 @@ If the `label` marker is omitted then a unique identifier string is
 generated instead.
 {% endhint %}
 
-There are two more options for the cluster mode regarding the
-acquisition of the global write transaction lock. One is that one can
-configure how long the system tries to get the global write transaction
-lock before it reports failure. This is the `--max-wait-for-lock`
-option. Its value must be a number in seconds and the default is 120
-seconds. The second is the `--allow-inconsistent` option, whose default is `false`.
-If set to `false`, the operation is considered to have failed if the
-maximal waiting time for the lock is exceeded. If `--allow-inconsistent` is set to
-`true`, the system will take a potentially non-consistent hot backup when
-the timeout is exceeded.
+There are more options for the cluster mode regarding the acquisition of the
+global write transaction lock:
+
+- `--max-wait-for-lock`: configures how long the system tries to get the global
+  write transaction lock before it reports failure. Its value must be a number
+  in seconds (default: 120 seconds).
+- `--allow-inconsistent`: if set to `false` (default), the operation is
+  considered to have failed if the maximal waiting time for the lock is
+  exceeded. If set to `true`, the system will take a potentially non-consistent
+  hot backup when the timeout is exceeded.
+- `--force`: will make arangobackup abort ongoing write transactions in order
+  to more quickly acquire the global write transaction lock. This option should
+  be used with caution, as it will potentially abort valid write transactions,
+  meaning client applications will see errors for otherwise valid operations
+  and queries. The force option currently only aborts stream transactions but
+  no JavaScript transactions.
 
 Restore
 -------
@@ -60,7 +66,7 @@ instance to that "snapshot".
 Keep in mind that such a restore is a global operation and affects
 **all databases** in an installation. The restore will roll back all data
 including in the meantime databases, collections, indexes etc.
-The database server of a single server instance and all database servers
+The DB-Server of a single server instance and all DB-Servers
 of a cluster will subsequently be restarted.
 {% endhint %}
 
@@ -159,7 +165,7 @@ credentials for the remote site. Here is an example:
 ```
 
 This process may take as long as it needs to upload the data from the
-single server or all of the cluster's db servers to the remote
+single server or all of the cluster's DB-Servers to the remote
 location. However, the upload will take advantage from previously
 uploaded hot backups which might contain identical files. Therefore, the
 functionality is incremental, if regular hot backups are taken and uploaded
@@ -181,9 +187,9 @@ The output will look like this:
 2019-07-30T08:11:09Z [17465] INFO [24d75] {backup} SNGL Status: COMPLETED
 2019-07-30T08:11:09Z [17465] INFO [68cc8] {backup} Last progress update 2019-07-30T08:10:10Z: 5/5 files done
 ```
-See the [Download command](programs-arangobackup-examples.html#download) for details
-about the `remote.json` file to configure the remote site for `rclone`
-for different protocols than `S3`.
+
+See [Rclone Configuration](#rclone-configuration) for details about the `remote.json`
+file to configure the remote site for `rclone` for different protocols than S3.
 
 Download
 --------
@@ -204,7 +210,7 @@ The output will look like this:
 ```
 
 This process may take as long as it needs to download the data to
-the single server or all of the cluster's db servers from the remote
+the single server or all of the cluster's DB-Servers from the remote
 endpoint given network limitations. However, the download will take
 advantage from other hot backups which might already or still be present
 locally that contain identical files. Therefore, the functionality is
@@ -225,21 +231,47 @@ The output will look like this:
 2019-07-30T08:18:07Z [17753] INFO [68cc8] {backup} Last progress update 2019-07-30T08:14:43Z: 5/5 files done
 ```
 
-### RClone configuration examples
+Rclone Configuration
+--------------------
 
-Enterprise Editions of ArangoDB come with a bundled version of the
-versatile open-source remote file sync program
-[rclone](https://rclone.org), which is distributed under the MIT
-license. It is used to both download and upload hot backup sets to and
-from local and cloud operated storage resources. 
+[Rclone](https://rclone.org){:target="_blank"} is a versatile open-source
+remote file sync program that can deal with over 30 different remote file
+IO protocols. Enterprise Editions of ArangoDB come with a bundled version
+of Rclone, which is distributed under the MIT license. It is used to
+both download and upload hot backup sets to and from local and cloud
+operated storage resources.
 
-Hot backup directories, which are subject to an ongoing download cannot be
-used for restores until the download has finished.
+{% hint 'info' %}
+Hot backup directories, which are subject to an ongoing download cannot
+be used for restores until the download has finished.
+{% endhint %}
+
+To configure Rclone, use the `rclone-config-file` startup option to
+point arangobackup to a JSON configuration file. The expected format
+is an object with user-chosen remote names as attribute keys, and the
+actual configuration as attribute value (a nested object). The option
+names and values in the [Rclone documentation](https://rclone.org/docs/){:target="_blank"}
+directly translate into attribute/value pairs in the JSON file.
+Note that `"true"` and `"false"` must be enclosed by double quotes.
+
+```json
+{
+  "my-remote": {
+    "option": "value",
+    "boolean": "true"
+  }
+}
+```
+
+The remote path can be specified via the `remote-path` startup option.
+The syntax for remote paths is `remote:path`, where `remote` is the
+name of a top-level attribute in the configuration file, `path` is a
+remote path, and both are separated by a colon (e.g. `my-remote:/a/b/c`).
 
 ### S3
 
 ```bash 
-... --rclone-config-file ~/my-s3.json --remote-path my-s3://remote-endpoint/remote-directory
+… --rclone-config-file ~/my-s3.json --remote-path my-s3://remote-endpoint/remote-directory
 ```
 
 The file `my-s3.json` could look like this:
@@ -259,14 +291,12 @@ The file `my-s3.json` could look like this:
 ```
 
 More examples and details for S3 configurations can be found at
-[rclone.org/s3](https://rclone.org/s3). The option names and values in the
-_rclone_ configuration directly translate into attribute/value pairs in
-the JSON file.
+[rclone.org/s3](https://rclone.org/s3){:target="_blank"}.
 
 ### Locally mounted local or remote volumes
 
 ```bash 
-... --rclone-config-file ~/my-local.json --remote-path my-local://mnt/backup/arangodb
+… --rclone-config-file ~/my-local.json --remote-path my-local://mnt/backup/arangodb
 ```
 
 The file `my-local.json` could look like this:
@@ -275,22 +305,20 @@ The file `my-local.json` could look like this:
 {
   "my-local": {
     "type": "local",
-    "copy-links": false,
-    "links": false,
-    "one_file_system": false
+    "copy-links": "false",
+    "links": "false",
+    "one_file_system": "false"
   }
 }
 ```
 
 More examples and details for local configurations can be found at
-[rclone.org/local](https://rclone.org/local). The option names and values in the
-_rclone_ configuration directly translate into attribute/value pairs in
-the JSON file.
+[rclone.org/local](https://rclone.org/local){:target="_blank"}.
 
 ### WebDAV
 
 ```bash 
-... --rclone-config-file ~/my-dav.json --remote-path my-dav://remote-endpoint/remote-directory
+… --rclone-config-file ~/my-dav.json --remote-path my-dav://remote-endpoint/remote-directory
 ```
 
 Thie file `my-dav.json` could look like this:
@@ -308,14 +336,4 @@ Thie file `my-dav.json` could look like this:
 ```
 
 More examples and details on WebDAV configurations can be found
-[rclone.org/webdav](https://rclone.org/webdav). The option names and values in the
-_rclone_ configuration directly translate into attribute/value pairs in
-the JSON file.
-
-### More examples
-
-`rclone` is a very flexible tool that can deal with over 30 different
-remote file IO protocols. Every industry standard is covered and
-documented to some detail including specificities of individual
-providers. Please refer to the [rclone documentation](https://rclone.org) 
-for more details.
+[rclone.org/webdav](https://rclone.org/webdav){:target="_blank"}.

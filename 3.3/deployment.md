@@ -15,7 +15,6 @@ or using Docker containers.
 - [Single Instance](deployment-single.html)
 - [Single Instance vs. Cluster](architecture-single-instance-vs-cluster.html)
 - [Cluster](deployment-cluster.html)
-  - [DC/OS, Apache Mesos and Marathon](deployment-mesos.html)
   - [Generic & Docker](deployment-arango-dbstarter.html)
   - [Advanced Topics](deployment-advanced.html)
     - [Standalone Agency](deployment-agency.html)

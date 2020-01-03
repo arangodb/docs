@@ -2,7 +2,6 @@
 layout: default
 description: ArangoBackupPolicy Custom Resource
 ---
-
 # ArangoBackupPolicy Custom Resource
 
 The ArangoBackupPolicy represents schedule definition for creating ArangoBackup Custom Resources by operator.

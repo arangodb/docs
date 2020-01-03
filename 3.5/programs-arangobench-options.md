@@ -6,7 +6,8 @@ Arangobench Startup Options
 ===========================
 
 Usage: `arangobench [<options>]`
-{% assign options = site.data["35-program-options-arangobench"] %}{% include program-option.html options=options name="arangobench" %}
+{% assign options = site.data["35-program-options-arangobench"] %}
+{% include program-option.html options=options name="arangobench" %}
 
 Notes
 -----

@@ -59,6 +59,7 @@ Begin a Transaction
 
 Check Status of a Transaction
 -----------------------------
+
 {% docublock get_api_transaction %}
 
 Commit or Abort a Transaction
@@ -77,6 +78,7 @@ until the entire transaction times out.
 
 List currently ongoing Transactions
 -----------------------------------
+
 {% docublock get_api_transactions %}
 
 Limitations

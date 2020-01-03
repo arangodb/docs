@@ -2,7 +2,6 @@
 layout: default
 description: Starting from versions 3
 ---
-
 # Upgrading _Starter_ Deployments
 
 Starting from versions 3.2.15 and 3.3.8, the ArangoDB [_Starter_](programs-starter.html)
@@ -14,7 +13,7 @@ upgrade to a new hotfix, or to perform an upgrade to a new minor version of Aran
 Please refer to the [Upgrade Paths](upgrading-general-info.html#upgrade-paths) section
 for detailed information.
 
-**Important:**
+**Important:** 
 
 - Rolling upgrades of Cluster setups from 3.2 to 3.3 are only supported
   from versions 3.2.15 and 3.3.9.
@@ -154,13 +153,15 @@ situation:
 
 ### Start the upgrade process of all _arangod_ & _arangosync_ servers
 
-Run the following command for any of the starter endpoints (e.g. `http://localhost:8528`) to upgrade the entire cluster:
+Run the following command for any of the starter endpoints
+(e.g. `http://localhost:8528`) to upgrade the entire cluster:
 
 ```bash
 arangodb upgrade --starter.endpoint=<endpoint-of-a-starter>
 ```
 
-**Note:** if you have connected clusters across multiple datacenter, you need to update each of the clusters.
+**Note:** if you have connected clusters across multiple datacenter,
+you need to update each of the clusters.
 
 **Important:**
 
@@ -190,7 +191,7 @@ Inspect the log of the _Starter_ to know when the upgrade has finished.
 #### Deployment mode `activefailover` or `cluster`
 
 The _Starters_ will now perform an initial check that upgrading is possible
-and when that all succeeds, create an upgrade _plan_. This _plan_ is then
+and when that all succeeds, create an upgrade _plan_. This _plan_ is then 
 executed by every _Starter_.
 
 The `arangodb upgrade` command will show the progress of the upgrade
@@ -209,11 +210,11 @@ the old package. This can be done in different ways, depending on the case
 you are:
 
 - Cases 2. and 4.: just remove the old directory created by the `.tar.gz`
-  (assumes your `--starter.data-dir` is located outside of this
+  (assumes your `--starter.data-dir` is located outside of this 
   directory - which is a recommended approach).
 - Case 3.: just remove the old package by running the corresponding
   uninstallation command (the exact command depends on whether you are
-  using a `.deb` or `.rmp` package and it is assumed that your
+  using a `.deb` or `.rmp` package and it is assumed that your 
   `--starter.data-dir` is located outside of the standard directories
   created by the installation package - which is a recommended approach).
 

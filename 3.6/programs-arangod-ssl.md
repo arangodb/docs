@@ -98,8 +98,11 @@ following variants are available:
 - 4: TLSv1
 - 5: TLSv1.2
 - 6: TLSv1.3
+- 9: generic TLS (negotiated)
 
-The default *value* is 5 (TLSv1.2).
+The default *value* is 9 (generic TLS), which will allow the negotiation of
+the TLS version between the client and the server, dynamically choosing the
+highest mutually supported version of TLS.
 
 Note that SSLv2 is unsupported as of ArangoDB 3.4, because of the inherent 
 security vulnerabilities in this protocol. Selecting SSLv2 as protocol will

@@ -2,7 +2,6 @@
 layout: default
 description: Driver setup
 ---
-
 # Driver setup
 
 Setup with default configuration, this automatically loads a properties file
@@ -90,6 +89,10 @@ ArangoDB arangoDB = new ArangoDB.Builder()
   .sslContext(sc)
   .build();
 ```
+
+No additional configuration is required to use TLSv1.3 (if available on the
+server side), but a JVM that supports it is required (OpenJDK 11 or later, or
+distributions of Java 8 with TLSv1.3 support).
 
 ## Connection Pooling
 

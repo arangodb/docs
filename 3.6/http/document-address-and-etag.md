@@ -82,6 +82,7 @@ values.
 
 Document Revision
 -----------------
+
 {% docublock documentRevision %}
 
 
@@ -121,8 +122,7 @@ Note that the *GET*, *HEAD* and *DELETE* HTTP operations generally do
 not allow to pass a message body. Thus, they cannot be used to perform
 multiple document operations in one request. However, there are other
 endpoints to request and delete multiple documents in one request.
-FIXME: ADD SENSIBLE LINKS HERE.
-
+See [Bulk Document Operations](document-working-with-documents.html#bulk-document-operations).
 
 URI of a Document
 -----------------

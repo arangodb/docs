@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 # ArangoDB JavaScript Driver - Reference
 
 - [Database](js-reference-database.html)
