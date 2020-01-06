@@ -26,6 +26,30 @@ ArangoDB arango = new ArangoDB.Builder().build();
 arango.createDatabase("myDB");
 ```
 
+`ArangoDB.createDatabase(DBCreateOptions options) : Boolean`
+
+Creates a new database with the given options.
+
+**Arguments**
+
+- **options**: `DBCreateOptions`
+
+  Options for the database to create
+
+**Examples**
+
+```Java
+ArangoDB arango = new ArangoDB.Builder().build();
+arango.createDatabase(new DBCreateOptions()
+    .name("oneShardDB")
+    .options(new DatabaseOptions()
+        .writeConcern(2)
+        .replicationFactor(3)
+        .sharding("single")
+    )
+);
+```
+
 ## ArangoDatabase.create()
 
 `ArangoDatabase.create() : Boolean`
