@@ -21,7 +21,7 @@ description: HTTP Interface for Analyzers
 
   - **properties**: `Map<String, Object>`
 
-    The properties used to configure the specified type. Value may be a string, an object or null. The default value is null.
+    The properties used to configure the specified type. Value may be an object or null. The default value is null.
 
   - **features**: `Set<AnalyzerFeature>`
 
