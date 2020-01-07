@@ -1,7 +1,8 @@
 ---
 layout: default
-description: The ArangoDB Kubernetes Operator will by default create ArangoDB deployments that require authentication to access the database
+description: The ArangoDB Kubernetes Operator will by default create ArangoDB deploymentsthat require authentication to access the database
 ---
+
 # Authentication
 
 The ArangoDB Kubernetes Operator will by default create ArangoDB deployments
@@ -14,7 +15,7 @@ as well as access from the ArangoDB Operator to the deployment.
 To disable authentication, set `spec.auth.jwtSecretName` to `None`.
 
 Initially the deployment is accessible through the web user-interface and
-APIs, using the user `root` with an empty password.
+API's, using the user `root` with an empty password.
 Make sure to change this password immediately after starting the deployment!
 
 ## See also

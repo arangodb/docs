@@ -1,14 +1,15 @@
 ---
 layout: default
-description: The ArangoDB Kubernetes Operator supports up and down scaling of the number of DB-Servers & Coordinators
+description: The ArangoDB Kubernetes Operator supports up and down scaling ofthe number of dbservers & coordinators
 ---
+
 # Scaling
 
 The ArangoDB Kubernetes Operator supports up and down scaling of
-the number of DB-Servers & Coordinators.
+the number of dbservers & coordinators.
 
 Currently it is not possible to change the number of
-Agents of a cluster.
+agents of a cluster.
 
 The scale up or down, change the number of servers in the custom
 resource.

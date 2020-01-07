@@ -2,6 +2,7 @@
 layout: default
 description: An ArangoDB cluster has lots of configuration options
 ---
+
 # Configuration & secrets
 
 An ArangoDB cluster has lots of configuration options.
