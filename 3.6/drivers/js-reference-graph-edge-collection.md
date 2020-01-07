@@ -9,7 +9,7 @@ The _GraphEdgeCollection API_ extends the
 
 ## graphEdgeCollection.remove
 
-`async graphEdgeCollection.remove(documentHandle): Object`
+`async graphEdgeCollection.remove(documentHandle): TODO`
 
 Deletes the edge with the given _documentHandle_ from the collection.
 
@@ -36,9 +36,9 @@ await collection.remove("edges/some-key");
 // document 'edges/some-key' no longer exists
 ```
 
-## graphEdgeCollection.documentExists
+## graphEdgeCollection.edgeExists
 
-`async graphEdgeCollection.documentExists(documentHandle): boolean`
+`async graphEdgeCollection.edgeExists(documentHandle): boolean`
 
 Checks whether the edge with the given _documentHandle_ exists.
 
@@ -56,17 +56,15 @@ Checks whether the edge with the given _documentHandle_ exists.
 const graph = db.graph("some-graph");
 const collection = graph.edgeCollection("edges");
 
-const exists = await collection.documentExists("some-key");
+const exists = await collection.edgeExists("some-key");
 if (exists === false) {
   // the edge does not exist
 }
 ```
 
-## graphEdgeCollection.document
+## graphEdgeCollection.edge
 
-`async graphEdgeCollection.document(documentHandle, [opts]): Object`
-
-Alias: `graphEdgeCollection.edge`.
+`async graphEdgeCollection.edge(documentHandle, options?): TODO`
 
 Retrieves the edge with the given _documentHandle_ from the collection.
 
@@ -78,9 +76,9 @@ Retrieves the edge with the given _documentHandle_ from the collection.
   of an edge in the collection, or an edge (i.e. an object with an `_id` or
   `_key` property).
 
-- **opts**: `Object` (optional)
+- **options**: `object` (optional)
 
-  If _opts_ is set, it must be an object with any of the following properties:
+  If _options_ is set, it must be an object with any of the following properties:
 
   - **graceful**: `boolean` (Default: `false`)
 
@@ -107,21 +105,21 @@ the _graceful_ option.
 const graph = db.graph("some-graph");
 const collection = graph.edgeCollection("edges");
 
-const edge = await collection.document("some-key");
+const edge = await collection.edge("some-key");
 // the edge exists
 assert.equal(edge._key, "some-key");
 assert.equal(edge._id, "edges/some-key");
 
 // -- or --
 
-const edge = await collection.document("edges/some-key");
+const edge = await collection.edge("edges/some-key");
 // the edge exists
 assert.equal(edge._key, "some-key");
 assert.equal(edge._id, "edges/some-key");
 
 // -- or --
 
-const edge = await collection.document("some-key", true);
+const edge = await collection.edge("some-key", true);
 if (edge === null) {
   // the edge does not exist
 }
@@ -129,14 +127,16 @@ if (edge === null) {
 
 ## graphEdgeCollection.save
 
-`async graphEdgeCollection.save(data, [fromId, toId]): Object`
+`async graphEdgeCollection.save(data, fromId, toId): TODO`
+
+`async graphEdgeCollection.save(data): TODO`
 
 Creates a new edge between the vertices _fromId_ and _toId_ with the given
 _data_.
 
 **Arguments**
 
-- **data**: `Object`
+- **data**: `object`
 
   The data of the new edge. If _fromId_ and _toId_ are not specified, the _data_
   needs to contain the properties **from\_ and **to\_.
@@ -172,7 +172,7 @@ assert.equal(edge._to, "vertices/end-vertex");
 
 ## graphEdgeCollection.edges
 
-`async graphEdgeCollection.edges(documentHandle): Array<Object>`
+`async graphEdgeCollection.edges(documentHandle): Array<TODO>`
 
 Retrieves a list of all edges of the document with the given _documentHandle_.
 
@@ -203,7 +203,7 @@ assert.deepEqual(edges.map(edge => edge._key), ["x", "y", "z"]);
 
 ## graphEdgeCollection.inEdges
 
-`async graphEdgeCollection.inEdges(documentHandle): Array<Object>`
+`async graphEdgeCollection.inEdges(documentHandle): Array<TODO>`
 
 Retrieves a list of all incoming edges of the document with the given
 _documentHandle_.
@@ -235,7 +235,7 @@ assert.equal(edges[0]._key, "z");
 
 ## graphEdgeCollection.outEdges
 
-`async graphEdgeCollection.outEdges(documentHandle): Array<Object>`
+`async graphEdgeCollection.outEdges(documentHandle): Array<TODO>`
 
 Retrieves a list of all outgoing edges of the document with the given
 _documentHandle_.
@@ -267,7 +267,7 @@ assert.deepEqual(edges.map(edge => edge._key), ["x", "y"]);
 
 ## graphEdgeCollection.traversal
 
-`async graphEdgeCollection.traversal(startVertex, opts): Object`
+`async graphEdgeCollection.traversal(startVertex, options): TODO`
 
 Performs a traversal starting from the given _startVertex_ and following edges
 contained in this edge collection.
@@ -280,14 +280,14 @@ contained in this edge collection.
   the database, the `_key` of an edge in the collection, or a document (i.e. an
   object with an `_id` or `_key` property).
 
-- **opts**: `Object`
+- **options**: `object`
 
   See
   [the HTTP API documentation](../http/traversal.html)
   for details on the additional arguments.
 
-  Please note that while _opts.filter_, _opts.visitor_, _opts.init_,
-  _opts.expander_ and _opts.sort_ should be strings evaluating to well-formed
+  Please note that while _options.filter_, _options.visitor_, _options.init_,
+  _options.expander_ and _options.sort_ should be strings evaluating to well-formed
   JavaScript code, it's not possible to pass in JavaScript functions directly
   because the code needs to be evaluated on the server and will be transmitted
   in plain text.

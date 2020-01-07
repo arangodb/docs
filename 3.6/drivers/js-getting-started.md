@@ -11,25 +11,22 @@ the time of the driver release.
 
 The [_arangoVersion_ option](js-reference-database.html)
 can be used to tell arangojs to target a specific
-ArangoDB version. Depending on the version this will enable or disable certain
+ArangoDB version. Depending on the version this may enable or disable certain
 methods and change behavior to maintain compatibility with the given version.
-The oldest version of ArangoDB supported by arangojs when using this option
-is 2.8.0 (using `arangoVersion: 20800`).
 
-The yarn/npm distribution of ArangoJS is compatible with Node.js versions 9.x
-(latest), 8.x (LTS) and 6.x (LTS). Node.js version support follows
+**Note**: As of June 2018 ArangoDB 2.8 has reached its End of Life and is no
+longer supported in arangojs 7.0.0 and later. If your code needs to work with
+ArangoDB 2.8 you can continue using arangojs 6 and enable ArangoDB 2.8
+compatibility mode by setting the option `arangoVersion: 20800`.
+
+The yarn/npm distribution of ArangoJS is compatible with Node.js versions 13.x
+(latest), 12.x (LTS) and 10.x (LTS). Node.js version support follows
 [the official Node.js long-term support schedule](https://github.com/nodejs/LTS){:target="_blank"}.
 
-The included browser build is compatible with Internet Explorer 11 and recent
-versions of all modern browsers (Edge, Chrome, Firefox and Safari).
+The included browser build is compatible with recent versions of all modern
+browsers (Edge, Chrome, Firefox and Safari).
 
 Versions outside this range may be compatible but are not actively supported.
-
-**Note**: Starting with arangojs 6.0.0, all asynchronous functions return
-promises. If you are using a version of Node.js older than Node.js 6.x LTS
-("Boron") make sure you replace the native `Promise` implementation with a
-substitute like [bluebird](https://github.com/petkaantonov/bluebird){:target="_blank"}
-to avoid a known memory leak in older versions of the V8 JavaScript engine.
 
 ## Versions
 
@@ -51,15 +48,11 @@ version of arangojs, you can install that version using the `<name>@<version>`
 syntax:
 
 ```sh
-# for version 4.x.x
-yarn add arangojs@4
+# for version 6.x.x
+yarn add arangojs@6
 # - or -
-npm install --save arangojs@4
+npm install --save arangojs@6
 ```
-
-You can find the documentation for each version by clicking on the corresponding
-date on the left in
-[the list of version tags](https://github.com/arangodb/arangojs/tags){:target="_blank"}.
 
 ## Install
 
@@ -108,12 +101,17 @@ You can also use [unpkg](https://unpkg.com){:target="_blank"} during development
 < !-- note the path includes the version number (e.g. 6.0.0) -- >
 <script src="https://unpkg.com/arangojs@6.0.0/lib/web.js"></script>
 <script>
-var db = new arangojs.Database();
-db.listCollections().then(function (collections) {
-  alert("Your collections: " + collections.map(function (collection) {
-    return collection.name;
-  }).join(", "));
-});
+  var db = new arangojs.Database();
+  db.listCollections().then(function(collections) {
+    alert(
+      "Your collections: " +
+        collections
+          .map(function(collection) {
+            return collection.name;
+          })
+          .join(", ")
+    );
+  });
 </script>
 ```
 
@@ -177,13 +175,7 @@ db.useBasicAuth("admin", "maplesyrup");
 
 // Using ArangoDB behind a reverse proxy
 const db = new Database({
-  url: "http://myproxy.local:8000",
-  isAbsolute: true // don't automatically append database path to URL
-});
-
-// Trigger ArangoDB 2.8 compatibility mode
-const db = new Database({
-  arangoVersion: 20800
+  url: "http://myproxy.local:8000"
 });
 ```
 
@@ -193,7 +185,7 @@ AQL queries without making your code vulnerable to injection attacks.
 ## Error responses
 
 If arangojs encounters an API error, it will throw an _ArangoError_ with an
-[_errorNum_ error code](../appendix-error-codes.html)
+[_errorNum_ error code](../appendix/error-codes.html)
 as well as a _code_ and _statusCode_ property indicating the intended and
 actual HTTP status code of the response.
 

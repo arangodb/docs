@@ -9,20 +9,20 @@ This function implements the
 
 ## collection.import
 
-`async collection.import(data, [opts]): Object`
+`async collection.import(data, options?): object`
 
 Bulk imports the given _data_ into the collection.
 
 **Arguments**
 
-- **data**: `Array | Buffer | string`
+- **data**: `Buffer | Blob | string | Array<Array<string>> | Array<DocumentData>`
 
   The data to import. Depending on the _type_ option this can be any of the
   following:
 
   For type `"documents"` or `"auto"`:
 
-  - an array of documents, e.g.
+  - an array of document data, e.g.
 
     ```json
     [
@@ -31,7 +31,7 @@ Bulk imports the given _data_ into the collection.
     ]
     ```
 
-  - a string or buffer containing one JSON document per line, e.g.
+  - a string or buffer/blob containing one JSON document per line, e.g.
 
     ```
     {"_key":"banana","color":"yellow"}
@@ -40,7 +40,7 @@ Bulk imports the given _data_ into the collection.
 
   For type `"array"` or `"auto"`:
 
-  - a string or buffer containing a JSON array of documents, e.g.
+  - a string or buffer/blob containing a JSON array of documents, e.g.
 
     ```json
     [
@@ -51,7 +51,7 @@ Bulk imports the given _data_ into the collection.
 
   For type `null`:
 
-  - an array containing an array of keys followed by arrays of values, e.g.
+  - an array containing a single array of keys followed by one or more arrays of values, e.g.
 
     ```
     [
@@ -61,7 +61,7 @@ Bulk imports the given _data_ into the collection.
     ]
     ```
 
-  - a string or buffer containing a JSON array of keys followed by
+  - a string or buffer/blob containing a JSON array of keys followed by
     one JSON array of values per line, e.g.
 
     ```
@@ -70,15 +70,16 @@ Bulk imports the given _data_ into the collection.
     ["peach", "pink"]
     ```
 
-- **opts**: `Object` (optional)
+- **options**: `object` (optional)
 
-  If _opts_ is set, it must be an object with any of the following properties:
+  If _options_ is set, it must be an object with any of the following properties:
 
   - **type**: `string | null` (Default: `"auto"`)
 
     Indicates which format the data uses.
-    Can be `"documents"`, `"array"` or `"auto"`.
     Use `null` to explicitly set no type.
+
+    One of `"documents"`, `"array"`, `"auto"`.
 
   - **fromPrefix**: `string` (optional)
 
@@ -99,7 +100,8 @@ Bulk imports the given _data_ into the collection.
   - **onDuplicate**: `string` (Default: `"error"`)
 
     Controls behavior when a unique constraint is violated.
-    Can be `"error"`, `"update"`, `"replace"` or `"ignore"`.
+
+    One of `"error"`, `"update"`, `"replace"`, `"ignore"`.
 
   - **complete**: `boolean` (Default: `false`)
 
@@ -110,8 +112,40 @@ Bulk imports the given _data_ into the collection.
     Whether the response should contain additional details about documents that
     could not be imported.
 
-For more information on the _opts_ object, see the
+For more information on the _options_ object, see the
 [HTTP API documentation for bulk imports](../http/bulk-imports.html).
+
+Returns an object with the following properties:
+
+- **error**: `boolean`
+
+  <!-- TODO -->
+
+- **created**: `number`
+
+  <!-- TODO -->
+
+- **errors**: `number`
+
+  <!-- TODO -->
+
+- **empty**: `number`
+
+  <!-- TODO -->
+
+- **updated**: `number`
+
+  <!-- TODO -->
+
+- **ignored**: `number`
+
+  <!-- TODO -->
+
+If **details** was set to `true`, the object includes the following additional property:
+
+- **details**: `Array<string>`
+
+  Detailed information for every document that failed to be imported.
 
 **Examples**
 

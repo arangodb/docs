@@ -1,17 +1,19 @@
 ---
 layout: default
-description: Route instances provide access for arbitrary HTTP requests
+description: Route API
 ---
 # Route API
 
-_Route_ instances provide access for arbitrary HTTP requests. This allows easy
+`Route` instances provide access for arbitrary HTTP requests. This allows easy
 access to Foxx services and other HTTP APIs not covered by the driver itself.
 
 ## route.route
 
-`route.route([path], [headers]): Route`
+`route.route(path?, headers?): Route`
 
-Returns a new _Route_ instance for the given path (relative to the current
+`route.route(headers?): Route`
+
+Returns a new `Route` instance for the given path (relative to the current
 route) that can be used to perform arbitrary HTTP requests.
 
 **Arguments**
@@ -20,7 +22,7 @@ route) that can be used to perform arbitrary HTTP requests.
 
   The relative URL of the route.
 
-- **headers**: `Object` (optional)
+- **headers**: `object` (optional)
 
   Default headers that should be sent with each request to the route.
 
@@ -37,7 +39,9 @@ const users = route.route("users");
 
 ## route.get
 
-`async route.get([path,] [qs]): Response`
+`async route.get(path?, qs?): Response`
+
+`async route.get(qs?): Response`
 
 Performs a GET request to the given URL and returns the server response.
 
@@ -77,7 +81,13 @@ const response = await route.get("users", { group: "admin" });
 
 ## route.post
 
-`async route.post([path,] [body, [qs]]): Response`
+`async route.post(path?, body, qs?): Response`
+
+`async route.post(path?, body?): Response`
+
+`async route.post(body, qs?): Response`
+
+`async route.post(body?): Response`
 
 Performs a POST request to the given URL and returns the server response.
 
@@ -139,7 +149,13 @@ const response = await route.post(
 
 ## route.put
 
-`async route.put([path,] [body, [qs]]): Response`
+`async route.put(path?, body, qs?): Response`
+
+`async route.put(path?, body?): Response`
+
+`async route.put(body, qs?): Response`
+
+`async route.put(body?): Response`
 
 Performs a PUT request to the given URL and returns the server response.
 
@@ -201,7 +217,13 @@ const response = await route.put(
 
 ## route.patch
 
-`async route.patch([path,] [body, [qs]]): Response`
+`async route.patch(path?, body, qs?): Response`
+
+`async route.patch(path?, body?): Response`
+
+`async route.patch(body, qs?): Response`
+
+`async route.patch(body?): Response`
 
 Performs a PATCH request to the given URL and returns the server response.
 
@@ -261,7 +283,9 @@ const response = await route.patch(
 
 ## route.delete
 
-`async route.delete([path,] [qs]): Response`
+`async route.delete(path?, qs?): Response`
+
+`async route.delete(qs?): Response`
 
 Performs a DELETE request to the given URL and returns the server response.
 
@@ -301,7 +325,9 @@ const response = await route.delete("users/admin", { permanent: true });
 
 ## route.head
 
-`async route.head([path,] [qs]): Response`
+`async route.head(path?, qs?): Response`
+
+`async route.head(qs?): Response`
 
 Performs a HEAD request to the given URL and returns the server response.
 
@@ -329,13 +355,13 @@ const response = await route.head();
 
 ## route.request
 
-`async route.request([opts]): Response`
+`async route.request(options?): Response`
 
 Performs an arbitrary request to the given URL and returns the server response.
 
 **Arguments**
 
-- **opts**: `Object` (optional)
+- **options**: `object` (optional)
 
   An object with any of the following properties:
 
@@ -358,7 +384,7 @@ Performs an arbitrary request to the given URL and returns the server response.
     The query string for the request. If _qs_ is an object, it will be
     translated to a query string.
 
-  - **headers**: `Object` (optional)
+  - **headers**: `object` (optional)
 
     An object containing additional HTTP headers to be sent with the request.
 
