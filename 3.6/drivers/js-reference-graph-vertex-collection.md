@@ -9,7 +9,7 @@ The _GraphVertexCollection API_ extends the
 
 ## graphVertexCollection.remove
 
-`async graphVertexCollection.remove(documentHandle, options?): object`
+`async graphVertexCollection.remove(documentHandle): Object`
 
 Deletes the vertex with the given _documentHandle_ from the collection.
 
@@ -20,10 +20,6 @@ Deletes the vertex with the given _documentHandle_ from the collection.
   The handle of the vertex to retrieve. This can be either the `_id` or the
   `_key` of a vertex in the collection, or a vertex (i.e. an object with an
   `_id` or `_key` property).
-
-- **options**: `object`
-
-  TODO
 
 **Examples**
 
@@ -40,9 +36,9 @@ await collection.remove("vertices/some-key");
 // document 'vertices/some-key' no longer exists
 ```
 
-## graphVertexCollection.vertexExists
+## graphVertexCollection.documentExists
 
-`async graphVertexCollection.vertexExists(documentHandle): boolean`
+`async graphVertexCollection.documentExists(documentHandle): boolean`
 
 Checks whether the vertex with the given _documentHandle_ exists.
 
@@ -60,15 +56,17 @@ Checks whether the vertex with the given _documentHandle_ exists.
 const graph = db.graph("some-graph");
 const collection = graph.vertexCollection("vertices");
 
-const exists = await collection.vertexExists("some-key");
+const exists = await collection.documentExists("some-key");
 if (exists === false) {
   // the vertex does not exist
 }
 ```
 
-## graphVertexCollection.vertex
+## graphVertexCollection.document
 
-`async graphVertexCollection.vertex(documentHandle, graceful?): object`
+`async graphVertexCollection.document(documentHandle, [graceful]): Object`
+
+Alias: `graphVertexCollection.vertex`.
 
 Retrieves the vertex with the given _documentHandle_ from the collection.
 
@@ -80,9 +78,9 @@ Retrieves the vertex with the given _documentHandle_ from the collection.
   `_key` of a vertex in the collection, or a vertex (i.e. an object with an
   `_id` or `_key` property).
 
-- **options**: `object` (optional)
+- **opts**: `Object` (optional)
 
-  If _options_ is set, it must be an object with any of the following properties:
+  If _opts_ is set, it must be an object with any of the following properties:
 
   - **graceful**: `boolean` (Default: `false`)
 
@@ -109,14 +107,14 @@ the _graceful_ option.
 const graph = db.graph("some-graph");
 const collection = graph.vertexCollection("vertices");
 
-const doc = await collection.vertex("some-key");
+const doc = await collection.document("some-key");
 // the vertex exists
 assert.equal(doc._key, "some-key");
 assert.equal(doc._id, "vertices/some-key");
 
 // -- or --
 
-const doc = await collection.vertex("vertices/some-key");
+const doc = await collection.document("vertices/some-key");
 // the vertex exists
 assert.equal(doc._key, "some-key");
 assert.equal(doc._id, "vertices/some-key");
@@ -131,19 +129,15 @@ if (doc === null) {
 
 ## graphVertexCollection.save
 
-`async graphVertexCollection.save(data, options): object`
+`async graphVertexCollection.save(data): Object`
 
 Creates a new vertex with the given _data_.
 
 **Arguments**
 
-- **data**: `object`
+- **data**: `Object`
 
   The data of the vertex.
-
-- **options**: `object`
-
-<!-- TODO -->
 
 **Examples**
 

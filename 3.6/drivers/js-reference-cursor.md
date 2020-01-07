@@ -1,13 +1,13 @@
 ---
 layout: default
-description: Cursor API
+description: Cursor instances provide an abstraction over the HTTP API's limitations
 ---
 # Cursor API
 
-`Cursor` instances provide an abstraction over the HTTP API's limitations.
+_Cursor_ instances provide an abstraction over the HTTP API's limitations.
 Unless a method explicitly exhausts the cursor, the driver will only fetch as
 many batches from the server as necessary. Like the server-side cursors,
-`Cursor` instances are incrementally depleted as they are read from.
+_Cursor_ instances are incrementally depleted as they are read from.
 
 ```js
 const db = new Database();
@@ -27,7 +27,7 @@ The total number of documents in the query result. This is only available if the
 
 ## cursor.all
 
-`async cursor.all(): Array<any>`
+`async cursor.all(): Array<Object>`
 
 Exhausts the cursor, then returns an array containing all values in the cursor's
 remaining result list.
@@ -44,7 +44,7 @@ assert.equal(cursor.hasNext(), false);
 
 ## cursor.next
 
-`async cursor.next(): any | undefined`
+`async cursor.next(): Object`
 
 Advances the cursor and returns the next value in the cursor's remaining result
 list. If the cursor has already been exhausted, returns `undefined` instead.
@@ -78,7 +78,7 @@ assert.equal(cursor.hasNext(), false);
 
 ## cursor.nextBatch
 
-`async cursor.nextBatch(): Array<any> | undefined`
+`async cursor.nextBatch(): Object`
 
 Advances the cursor and returns all remaining values in the cursor's current
 batch. If the current batch has already been exhausted, fetches the next batch
@@ -105,7 +105,7 @@ remaining result list until the cursor is exhausted or _fn_ explicitly returns
 
 Returns the last return value of _fn_.
 
-Equivalent to _Array.prototype.forEach_ (but async).
+Equivalent to _Array.prototype.forEach_ (except async).
 
 **Arguments**
 
@@ -156,7 +156,7 @@ evaluates to `false`.
 Returns `false` if _fn_ returned a value that evaluates to `false`, or `true`
 otherwise.
 
-Equivalent to _Array.prototype.every_ (but async).
+Equivalent to _Array.prototype.every_ (except async).
 
 **Arguments**
 
@@ -228,7 +228,7 @@ remaining result list until the cursor is exhausted.
 
 Returns an array of the return values of _fn_.
 
-Equivalent to _Array.prototype.map_ (but async).
+Equivalent to _Array.prototype.map_ (except async).
 
 **Note**: This creates an array of all return values. It is probably a bad idea
 to do this for very large query result sets.
@@ -267,14 +267,14 @@ assert.equal(cursor.hasNext(), false);
 
 ## cursor.reduce
 
-`async cursor.reduce(fn, accu?): any`
+`async cursor.reduce(fn, [accu]): any`
 
 Exhausts the cursor by reducing the values in the cursor's remaining result list
 with the given function _fn_. If _accu_ is not provided, the first value in the
 cursor's remaining result list will be used instead (the function will not be
 invoked for that value).
 
-Equivalent to _Array.prototype.reduce_ (but async).
+Equivalent to _Array.prototype.reduce_ (except async).
 
 **Arguments**
 

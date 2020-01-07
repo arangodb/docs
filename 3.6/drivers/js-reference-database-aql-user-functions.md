@@ -9,7 +9,7 @@ These functions implement the
 
 ## database.listFunctions
 
-`async database.listFunctions(): Array<object>`
+`async database.listFunctions(): Array<Object>`
 
 Fetches a list of all AQL user functions registered with the database.
 
@@ -23,38 +23,31 @@ const functions = db.listFunctions();
 
 ## database.createFunction
 
-`async database.createFunction(name, code, isDeterministic?): object`
+`async database.createFunction(name, code): Object`
 
 Creates an AQL user function with the given _name_ and _code_ if it does not
 already exist or replaces it if a function with the same name already existed.
 
 **Arguments**
 
-- **name**: `string`
+* **name**: `string`
 
   A valid AQL function name, e.g.: `"myfuncs::accounting::calculate_vat"`.
 
-  The function name must consist of at least two alphanumeric identifiers
-  separated with double colons.
-
-- **code**: `string`
+* **code**: `string`
 
   A string evaluating to a JavaScript function (not a JavaScript function
   object).
-
-- **isDeterministic**: `boolean` (Default: `false`)
-
-  If set to `true`, the function is expected to always return the same result
-  for equivalent inputs. This option currently has no effect but may allow for
-  optimizations in the future.
 
 **Examples**
 
 ```js
 const db = new Database();
 await db.createFunction(
-  "ACME::ACCOUNTING::CALCULATE_VAT",
-  "(price) => price * 0.19"
+  'ACME::ACCOUNTING::CALCULATE_VAT',
+  String(function (price) {
+    return price * 0.19;
+  })
 );
 // Use the new function in an AQL query with template handler:
 const cursor = await db.query(aql`
@@ -69,17 +62,17 @@ const cursor = await db.query(aql`
 
 ## database.dropFunction
 
-`async database.dropFunction(name, group?): object`
+`async database.dropFunction(name, [group]): Object`
 
 Deletes the AQL user function with the given name from the database.
 
 **Arguments**
 
-- **name**: `string`
+* **name**: `string`
 
   The name of the user function to drop.
 
-- **group**: `boolean` (Default: `false`)
+* **group**: `boolean` (Default: `false`)
 
   If set to `true`, all functions with a name starting with _name_ will be
   deleted; otherwise only the function with the exact name will be deleted.
@@ -88,6 +81,6 @@ Deletes the AQL user function with the given name from the database.
 
 ```js
 const db = new Database();
-await db.dropFunction("ACME::ACCOUNTING::CALCULATE_VAT");
+await db.dropFunction('ACME::ACCOUNTING::CALCULATE_VAT');
 // the function no longer exists
 ```

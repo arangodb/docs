@@ -1,21 +1,23 @@
 ---
 layout: default
-description: These functions implement the HTTP API for managing Foxx services
+description: Managing Foxx services
 ---
 # Managing Foxx services
 
-These functions implement the
-[HTTP API for managing Foxx services](../http/foxx.html)
-
 ## database.listServices
 
-`async database.listServices(excludeSystem?): Array<object>`
+`async database.listServices([excludeSystem]): Array<Object>`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Fetches a list of all installed service.
 
 **Arguments**
 
-- **excludeSystem**: `boolean` (Default: `false`)
+- **excludeSystem**: `boolean` (Default: `true`)
 
   Whether system services should be excluded.
 
@@ -31,7 +33,12 @@ const services = await db.listServices(false);
 
 ## database.installService
 
-`async database.installService(mount, source, options?): object`
+`async database.installService(mount, source, [options]): Object`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Installs a new service.
 
@@ -41,22 +48,19 @@ Installs a new service.
 
   The service's mount point, relative to the database.
 
-- **source**: `Buffer | Readable | Blob | string`
+- **source**: `Buffer | Readable | File | string`
 
   The service bundle to install.
 
-  This can be a `string` URL or (server-local) file path, a `Readable` stream,
-  Node `Buffer` or browser `Blob` (e.g. `File`).
-
-- **options**: `object` (optional)
+- **options**: `Object` (optional)
 
   An object with any of the following properties:
 
-  - **configuration**: `object` (optional)
+  - **configuration**: `Object` (optional)
 
     An object mapping configuration option names to values.
 
-  - **dependencies**: `object` (optional)
+  - **dependencies**: `Object` (optional)
 
     An object mapping dependency aliases to mount points.
 
@@ -94,7 +98,12 @@ const info = await db.installService("/hello", source);
 
 ## database.replaceService
 
-`async database.replaceService(mount, source, options?): object`
+`async database.replaceService(mount, source, [options]): Object`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Replaces an existing service with a new service by completely removing the old
 service and installing a new service at the same mount point.
@@ -105,24 +114,21 @@ service and installing a new service at the same mount point.
 
   The service's mount point, relative to the database.
 
-- **source**: `Buffer | Readable | Blob | string`
+- **source**: `Buffer | Readable | File | string`
 
-  The service bundle to replace the existing service.
+  The service bundle to replace the existing service with.
 
-  This can be a `string` URL or (server-local) file path, a `Readable` stream,
-  Node `Buffer` or browser `Blob` (e.g. `File`).
-
-- **options**: `object` (optional)
+- **options**: `Object` (optional)
 
   An object with any of the following properties:
 
-  - **configuration**: `object` (optional)
+  - **configuration**: `Object` (optional)
 
     An object mapping configuration option names to values.
 
     This configuration will replace the existing configuration.
 
-  - **dependencies**: `object` (optional)
+  - **dependencies**: `Object` (optional)
 
     An object mapping dependency aliases to mount points.
 
@@ -166,7 +172,12 @@ const info = await db.replaceService("/hello", source);
 
 ## database.upgradeService
 
-`async database.upgradeService(mount, source, options?): object`
+`async database.upgradeService(mount, source, [options]): Object`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Replaces an existing service with a new service while retaining the old
 service's configuration and dependencies.
@@ -177,24 +188,21 @@ service's configuration and dependencies.
 
   The service's mount point, relative to the database.
 
-- **source**: `Buffer | Readable | Blob | string`
+- **source**: `Buffer | Readable | File | string`
 
-  The service bundle to install.
+  The service bundle to replace the existing service with.
 
-  This can be a `string` URL or (server-local) file path, a `Readable` stream,
-  Node `Buffer` or browser `Blob` (e.g. `File`).
-
-- **options**: `object` (optional)
+- **options**: `Object` (optional)
 
   An object with any of the following properties:
 
-  - **configuration**: `object` (optional)
+  - **configuration**: `Object` (optional)
 
     An object mapping configuration option names to values.
 
     This configuration will be merged into the existing configuration.
 
-  - **dependencies**: `object` (optional)
+  - **dependencies**: `Object` (optional)
 
     An object mapping dependency aliases to mount points.
 
@@ -238,7 +246,12 @@ const info = await db.upgradeService("/hello", source);
 
 ## database.uninstallService
 
-`async database.uninstallService(mount, options?): void`
+`async database.uninstallService(mount, [options]): void`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Completely removes a service from the database.
 
@@ -248,7 +261,7 @@ Completely removes a service from the database.
 
   The service's mount point, relative to the database.
 
-- **options**: `object` (optional)
+- **options**: `Object` (optional)
 
   An object with any of the following properties:
 
@@ -265,7 +278,12 @@ await db.uninstallService("/my-service");
 
 ## database.getService
 
-`async database.getService(mount): object`
+`async database.getService(mount): Object`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Retrieves information about a mounted service.
 
@@ -284,7 +302,12 @@ const info = await db.getService("/my-service");
 
 ## database.getServiceConfiguration
 
-`async database.getServiceConfiguration(mount, minimal?): object`
+`async database.getServiceConfiguration(mount, [minimal]): Object`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Retrieves an object with information about the service's configuration options
 and their current values.
@@ -297,9 +320,7 @@ and their current values.
 
 - **minimal**: `boolean` (Default: `false`)
 
-  If set to `true`, the result will only include each configuration option's
-  current value and any warnings instead of the full definition of each option
-  including additional information.
+  Only return the current values.
 
 **Examples**
 
@@ -310,7 +331,12 @@ const config = await db.getServiceConfiguration("/my-service");
 
 ## database.replaceServiceConfiguration
 
-`async database.replaceServiceConfiguration(mount, configuration, minimal?): object`
+`async database.replaceServiceConfiguration(mount, configuration, [minimal]): Object`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Replaces the configuration of the given service.
 
@@ -320,15 +346,13 @@ Replaces the configuration of the given service.
 
   The service's mount point, relative to the database.
 
-- **configuration**: `object`
+- **configuration**: `Object`
 
   An object mapping configuration option names to values.
 
 - **minimal**: `boolean` (Default: `false`)
 
-  If set to `true`, the result will only include each configuration option's
-  current value and any warnings instead of the full definition of each option
-  including additional information.
+  Only return the current values and warnings (if any).
 
   **Note:** when using ArangoDB 3.2.8 or older, enabling this option avoids
   triggering a second request to the database.
@@ -344,7 +368,12 @@ const info = await db.replaceServiceConfiguration("/my-service", config);
 
 ## database.updateServiceConfiguration
 
-`async database.updateServiceConfiguration(mount, configuration, minimal?): object`
+`async database.updateServiceConfiguration(mount, configuration, [minimal]): Object`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Updates the configuration of the given service my merging the new values into
 the existing ones.
@@ -355,15 +384,13 @@ the existing ones.
 
   The service's mount point, relative to the database.
 
-- **configuration**: `object`
+- **configuration**: `Object`
 
   An object mapping configuration option names to values.
 
 - **minimal**: `boolean` (Default: `false`)
 
-  If set to `true`, the result will only include each configuration option's
-  current value and any warnings instead of the full definition of each option
-  including additional information.
+  Only return the current values and warnings (if any).
 
   **Note:** when using ArangoDB 3.2.8 or older, enabling this option avoids
   triggering a second request to the database.
@@ -379,7 +406,12 @@ const info = await db.updateServiceConfiguration("/my-service", config);
 
 ## database.getServiceDependencies
 
-`async database.getServiceDependencies(mount, minimal?): object`
+`async database.getServiceDependencies(mount, [minimal]): Object`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Retrieves an object with information about the service's dependencies and their
 current mount points.
@@ -392,9 +424,7 @@ current mount points.
 
 - **minimal**: `boolean` (Default: `false`)
 
-  If set to `true`, the result will only include each dependency's current
-  value instead of the full definition of each dependency including additional
-  information.
+  Only return the current values and warnings (if any).
 
 **Examples**
 
@@ -405,7 +435,12 @@ const deps = await db.getServiceDependencies("/my-service");
 
 ## database.replaceServiceDependencies
 
-`async database.replaceServiceDependencies(mount, dependencies, minimal?): object`
+`async database.replaceServiceDependencies(mount, dependencies, [minimal]): Object`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Replaces the dependencies for the given service.
 
@@ -415,15 +450,13 @@ Replaces the dependencies for the given service.
 
   The service's mount point, relative to the database.
 
-- **dependencies**: `object`
+- **dependencies**: `Object`
 
   An object mapping dependency aliases to mount points.
 
 - **minimal**: `boolean` (Default: `false`)
 
-  If set to `true`, the result will only include each dependency's current
-  value instead of the full definition of each dependency including additional
-  information.
+  Only return the current values and warnings (if any).
 
   **Note:** when using ArangoDB 3.2.8 or older, enabling this option avoids
   triggering a second request to the database.
@@ -439,7 +472,12 @@ const info = await db.replaceServiceDependencies("/my-service", deps);
 
 ## database.updateServiceDependencies
 
-`async database.updateServiceDependencies(mount, dependencies, minimal?): object`
+`async database.updateServiceDependencies(mount, dependencies, [minimal]): Object`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Updates the dependencies for the given service by merging the new values into
 the existing ones.
@@ -450,15 +488,13 @@ the existing ones.
 
   The service's mount point, relative to the database.
 
-- **dependencies**: `object`
+- **dependencies**: `Object`
 
   An object mapping dependency aliases to mount points.
 
 - **minimal**: `boolean` (Default: `false`)
 
-  If set to `true`, the result will only include each dependency's current
-  value instead of the full definition of each dependency including additional
-  information.
+  Only return the current values and warnings (if any).
 
   **Note:** when using ArangoDB 3.2.8 or older, enabling this option avoids
   triggering a second request to the database.
@@ -474,7 +510,12 @@ const info = await db.updateServiceDependencies("/my-service", deps);
 
 ## database.enableServiceDevelopmentMode
 
-`async database.enableServiceDevelopmentMode(mount): object`
+`async database.enableServiceDevelopmentMode(mount): Object`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Enables development mode for the given service.
 
@@ -494,10 +535,15 @@ const info = await db.enableServiceDevelopmentMode("/my-service");
 
 ## database.disableServiceDevelopmentMode
 
-`async database.disableServiceDevelopmentMode(mount): object`
+`async database.disableServiceDevelopmentMode(mount): Object`
 
-Disables development mode for the given service and commits the service state
-to the database.
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
+
+Disabled development mode for the given service and commits the service state to
+the database.
 
 **Arguments**
 
@@ -515,12 +561,16 @@ const info = await db.disableServiceDevelopmentMode("/my-service");
 
 ## database.listServiceScripts
 
-`async database.listServiceScripts(mount): object`
+`async database.listServiceScripts(mount): Object`
 
-Retrieves a list of scripts defined in the service manifest's _scripts_
-section.
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
-Returns an object mapping each name to a more human readable representation.
+Retrieves a list of the service's scripts.
+
+Returns an object mapping each name to a more readable representation.
 
 **Arguments**
 
@@ -537,7 +587,12 @@ const scripts = await db.listServiceScripts("/my-service");
 
 ## database.runServiceScript
 
-`async database.runServiceScript(mount, name, params?): any`
+`async database.runServiceScript(mount, name, [scriptArg]): any`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Runs a service script and returns the result.
 
@@ -549,13 +604,11 @@ Runs a service script and returns the result.
 
 - **name**: `string`
 
-  Name of the script to execute. The script must be defined in the service
-  manifest's _scripts_ section.
+  Name of the script to execute.
 
-- **params**: `any` (optional)
+- **scriptArg**: `any`
 
-  Arbitrary value that will be exposed as `module.context.argv[0]` in the
-  script when it is executed. Must be serializable to JSON.
+  Value that will be passed as an argument to the script.
 
 **Examples**
 
@@ -566,7 +619,12 @@ const result = await db.runServiceScript("/my-service", "setup");
 
 ## database.runServiceTests
 
-`async database.runServiceTests(mount, options?): any`
+`async database.runServiceTests(mount, [reporter]): any`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Runs the tests of a given service and returns a formatted report.
 
@@ -576,55 +634,47 @@ Runs the tests of a given service and returns a formatted report.
 
   The service's mount point, relative to the database
 
-- **options**: `object` (optional)
+- **options**: `Object` (optional)
 
   An object with any of the following properties:
-
-  - **filter**: `string` (optional)
-
-    If set, only tests with full names including this string will be executed.
 
   - **reporter**: `string` (Default: `default`)
 
     The reporter to use to process the test results.
 
-    One of `"default"`, `"stream"`, `"suite"`, `"tap"` or `"xunit"`.
+    As of ArangoDB 3.2 the following reporters are supported:
 
-  - **idiomatic**: `boolean` (Default: `true`)
+    - **stream**: an array of event objects
+    - **suite**: nested suite objects with test results
+    - **xunit**: JSONML representation of an XUnit report
+    - **tap**: an array of TAP event strings
+    - **default**: an array of test results
 
-    If not set to `false`, the results will be converted to the appropriate
-    `string` representation if available.
+  - **idiomatic**: `boolean` (Default: `false`)
 
-    If _reporter_ is set to `"xunit"`, the report will be formatted as an XML
-    document.
+    Whether the results should be converted to the apropriate `string`
+    representation:
 
-    If _reporter_ is set to `"tap"`, the report will be formatted as a TAP
-    stream.
-
-    If _reporter_ is set to `"stream"`, the report will be formatted as a
-    JSON-LD stream.
-
-    Otherwise the result will be an object or array representation of the
-    report.
+    - **xunit** reports will be formatted as XML documents
+    - **tap** reports will be formatted as TAP streams
+    - **stream** reports will be formatted as JSON-LD streams
 
 **Examples**
 
 ```js
-const xml = await db.runServiceTests("/my-service", { reporter: "xunit" });
-// xml contains the XUnit report as an XML string
-
-// - or -
-
-const xunitJson = await db.runServiceTests("/my-service", {
-  reporter: "xunit",
-  idiomatic: false
-});
-// xunitJson contains a JSON representation of the XUnit report
+const opts = { reporter: "xunit", idiomatic: true };
+const result = await db.runServiceTests("/my-service", opts);
+// result contains the XUnit report as a string
 ```
 
 ## database.downloadService
 
 `async database.downloadService(mount): Buffer | Blob`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Retrieves a zip bundle containing the service files.
 
@@ -645,7 +695,12 @@ const bundle = await db.downloadService("/my-service");
 
 ## database.getServiceReadme
 
-`async database.getServiceReadme(mount): string | undefined`
+`async database.getServiceReadme(mount): string?`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Retrieves the text content of the service's `README` or `README.md` file.
 
@@ -667,10 +722,15 @@ const readme = await db.getServiceReadme("/my-service");
 
 ## database.getServiceDocumentation
 
-`async database.getServiceDocumentation(mount): object`
+`async database.getServiceDocumentation(mount): Object`
 
-Retrieves an OpenAPI 2.0 compatible Swagger API description object for the
-service installed at the given mount point.
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
+
+Retrieves a Swagger API description object for the service installed at the
+given mount point.
 
 **Arguments**
 
@@ -687,7 +747,12 @@ const spec = await db.getServiceDocumentation("/my-service");
 
 ## database.commitLocalServiceState
 
-`async database.commitLocalServiceState(replace?): void`
+`async database.commitLocalServiceState([replace]): void`
+
+{% hint 'info' %}
+This method is only available when targeting ArangoDB 3.2 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 Writes all locally available services to the database and updates any service
 bundles missing in the database.
@@ -696,7 +761,7 @@ bundles missing in the database.
 
 - **replace**: `boolean` (Default: `false`)
 
-  If set to `true`, outdated services will also be committed.
+  Also commit outdated services.
 
   This can be used to solve some consistency problems when service bundles are
   missing in the database or were deleted manually.
@@ -705,10 +770,10 @@ bundles missing in the database.
 
 ```js
 await db.commitLocalServiceState();
-// all services available on the coordinator have been written to the db
+// all services available on the Coordinator have been written to the db
 
 // -- or --
 
 await db.commitLocalServiceState(true);
-// all service conflicts have been resolved in favor of this coordinator
+// all service conflicts have been resolved in favor of this Coordinator
 ```

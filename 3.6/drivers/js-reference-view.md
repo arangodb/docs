@@ -22,14 +22,14 @@ Checks whether the View exists.
 
 ```js
 const db = new Database();
-const view = db.view("some-view");
+const view = db.arangoSearchView("some-view");
 const result = await view.exists();
 // result indicates whether the View exists
 ```
 
 ### view.get
 
-`async view.get(): object`
+`async view.get(): Object`
 
 Retrieves general information about the View.
 
@@ -37,14 +37,14 @@ Retrieves general information about the View.
 
 ```js
 const db = new Database();
-const view = db.view("some-view");
+const view = db.arangoSearchView("some-view");
 const data = await view.get();
 // data contains general information about the View
 ```
 
 ### view.properties
 
-`async view.properties(): object`
+`async view.properties(): Object`
 
 Retrieves the View's properties.
 
@@ -52,66 +52,81 @@ Retrieves the View's properties.
 
 ```js
 const db = new Database();
-const view = db.view("some-view");
+const view = db.arangoSearchView("some-view");
 const data = await view.properties();
 // data contains the View's properties
 ```
 
 ## view.create
 
-`async view.create(options?): object`
+`async view.create([properties]): Object`
 
-This is a shorthand for calling `database.createArangoSearchView` with this
-View's name and the given _options_, but returning the View properties instead
-of a new _View_ instance.
-
-## view.setProperties
-
-`async view.setProperties(properties): object`
-
-Updates the properties of the View.
+Creates a View with the given _properties_ for this View's name,
+then returns the server response.
 
 **Arguments**
 
-- **properties**: `object`
+- **properties**: `Object` (optional)
 
-  For information on the _properties_ argument see the
-  [HTTP API for modifying views](../http/views-arangosearch.html).
+  For more information on the _properties_ object, see the
+  [HTTP API documentation for creating Views](../http/views-arangosearch.html).
 
 **Examples**
 
 ```js
 const db = new Database();
-const view = db.view("some-view");
+const view = db.arangoSearchView("potatoes");
+await view.create();
+// the ArangoSearch View "potatoes" now exists
+```
+
+## view.setProperties
+
+`async view.setProperties(properties): Object`
+
+Updates the properties of the View.
+
+**Arguments**
+
+- **properties**: `Object`
+
+  For information on the _properties_ argument see the
+  [HTTP API for modifying Views](../http/views-arangosearch.html).
+
+**Examples**
+
+```js
+const db = new Database();
+const view = db.arangoSearchView("some-view");
 const result = await view.setProperties({ consolidationIntervalMsec: 123 });
 assert.equal(result.consolidationIntervalMsec, 123);
 ```
 
 ## view.replaceProperties
 
-`async view.replaceProperties(properties): object`
+`async view.replaceProperties(properties): Object`
 
 Replaces the properties of the View.
 
 **Arguments**
 
-- **properties**: `object`
+- **properties**: `Object`
 
   For information on the _properties_ argument see the
-  [HTTP API for modifying views](../http/views-arangosearch.html).
+  [HTTP API for modifying Views](../http/views-arangosearch.html).
 
 **Examples**
 
 ```js
 const db = new Database();
-const view = db.view("some-view");
+const view = db.arangoSearchView("some-view");
 const result = await view.replaceProperties({ consolidationIntervalMsec: 234 });
 assert.equal(result.consolidationIntervalMsec, 234);
 ```
 
 ## view.rename
 
-`async view.rename(name): object`
+`async view.rename(name): Object`
 
 Renames the View. The _View_ instance will automatically update its
 name when the rename succeeds.
@@ -120,7 +135,7 @@ name when the rename succeeds.
 
 ```js
 const db = new Database();
-const view = db.view("some-view");
+const view = db.arangoSearchView("some-view");
 const result = await view.rename("new-view-name");
 assert.equal(result.name, "new-view-name");
 assert.equal(view.name, result.name);
@@ -129,7 +144,7 @@ assert.equal(view.name, result.name);
 
 ## view.drop
 
-`async view.drop(): boolean`
+`async view.drop(): Object`
 
 Deletes the View from the database.
 
@@ -137,7 +152,7 @@ Deletes the View from the database.
 
 ```js
 const db = new Database();
-const view = db.view("some-view");
+const view = db.arangoSearchView("some-view");
 await view.drop();
 // the View "some-view" no longer exists
 ```

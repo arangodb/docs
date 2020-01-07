@@ -13,6 +13,7 @@ layout: default
   - [Graph Access](js-reference-database-graph-access.html)
   - [Analyzer Access](js-reference-database-analyzer-access.html)
   - [Foxx Services](js-reference-database-foxx-services.html)
+  - [HTTP Routes](js-reference-database-http-routes.html)
 - [Collection](js-reference-collection.html)
   - [Collection Manipulation](js-reference-collection-collection-manipulation.html)
   - [Document Manipulation](js-reference-collection-document-manipulation.html)
@@ -31,4 +32,3 @@ layout: default
   - [VertexCollection](js-reference-graph-vertex-collection.html)
   - [EdgeCollection](js-reference-graph-edge-collection.html)
 - [Route](js-reference-route.html)
-- [Transaction](js-reference-transaction.html)

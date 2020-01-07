@@ -13,157 +13,57 @@ For collection-specific queries see [Simple Queries](js-reference-collection-sim
 
 ## database.query
 
-`async database.query(query, bindVars, options?): Cursor`
+`async database.query(query, [bindVars,] [opts]): Cursor`
 
-`async database.query(query, options?): Cursor`
-
-Performs a database query using the given _query_ and _bindVars_, then returns
-a [new `Cursor` instance](js-reference-cursor.html) for the result set.
+Performs a database query using the given _query_ and _bindVars_, then returns a
+[new _Cursor_ instance](js-reference-cursor.html) for the result list.
 
 **Arguments**
 
 - **query**: `string | AqlQuery | AqlLiteral`
 
-  An AQL query as a string,
-  [`AqlQuery` object](js-reference-aql.html#aql) or
-  [`AqlLiteral` object](js-reference-aql.html#aqlliteral).
+  An AQL query as a string or
+  [AQL query object](js-reference-aql.html#aql) or
+  [AQL literal](js-reference-aql.html#aqlliteral).
+  If the query is an AQL query object, the second argument is treated as the
+  _opts_ argument instead of _bindVars_.
 
-- **bindVars**: `object` (optional)
+- **bindVars**: `Object` (optional)
 
   An object defining the variables to bind the query to.
 
-  If the _query_ is an `AqlQuery` object or an object with the properties
-  _query_ and _bindVars_, this argument will be treated as the
-  _options_ argument instead.
+- **opts**: `Object` (optional)
 
-- **options**: `object` (optional)
+  Additional parameter object that will be passed to the query API.
+  Possible keys are _count_ and _options_ (explained below)
 
-  An object with the following properties:
+If _opts.count_ is set to `true`, the cursor will have a _count_ property set to
+the query result count.
 
-  - **allowDirtyRead**: `boolean` (optional)
+Possible key options in _opts.options_ include: _failOnWarning_, _cache_,
+profile or _skipInaccessibleCollections_.
+For a complete list of query settings please reference the
+[setting options](../aql/invocation-with-arangosh.html#setting-options).
 
-    {% hint 'info' %}
-    Dirty reads were introduced in ArangoDB 3.4 and are not supported by earlier
-    versions of ArangoDB.
-    {% endhint %}
+Additionally if _opts.allowDirtyRead_ is set to `true`, the request will
+explicitly permit ArangoDB to return a potentially dirty or stale result and
+arangojs will load balance the request without distinguishing between leaders
+and followers. Note that dirty reads are only supported for read-only queries
+(e.g. not using `INSERT`, `UPDATE`, `REPLACE` or `REMOVE` expressions).
 
-    If set to `true`, the query will be executed with support for dirty reads
-    enabled, permitting ArangoDB to return a potentially dirty or stale result
-    and arangojs will load balance the request without distinguishing between
-    leaders and followers.
+{% hint 'info' %}
+Dirty reads were introduced in ArangoDB 3.4 and are not supported by earlier
+versions of ArangoDB.
+{% endhint %}
 
-    Note that dirty reads are only supported for read-only queries, not data
-    modification queries (e.g. using `INSERT`, `UPDATE`, `REPLACE` or `REMOVE`).
+Additionally _opts.timeout_ can be set to a non-negative number to force the
+request to be cancelled after that amount of milliseconds. Note that this will
+simply close the connection and not result in the actual query being cancelled
+in ArangoDB, the query will still be executed to completion and continue to
+consume resources in the database or cluster.
 
-  - **timeout**: `number` (optional)
-
-    Maximum time in milliseconds arangojs will wait for a server response.
-    Exceeding this value will result in the request being cancelled
-
-  - **count**: `boolean` (Default: `true`)
-
-    If set to `true`, the number of result values in the result set will be
-    returned in the `count` attribute. This may be disabled by default in a
-    future version of ArangoDB if calculating this value has a performance
-    impact for some queries.
-
-  - **batchSize**: `number` (optional)
-
-    The number of result values to be transferred by the server in each
-    network roundtrip (or "batch").
-
-    Must be greater than zero.
-
-  - **ttl**: `number` (Default: `30`)
-
-    The time-to-live for the cursor in seconds.
-
-  - **cache**: `boolean` (Default: `true`)
-
-    If set to `false`, the AQL query results cache lookup will be skipped for
-    this query.
-
-  - **memoryLimit**: `number` (Default: `0`)
-
-    The maximum memory size in bytes that the query is allowed to use.
-    Exceeding this value will result in the query failing with an error.
-
-    If set to `0`, the memory limit is disabled.
-
-  - **fullCount**: `boolean` (optional)
-
-    If set to `true` and the query has a `LIMIT` clause, the total number of
-    values matched before the last top-level `LIMIT` in the query was applied
-    will be returned in the `extra.stats.fullCount` attribute.
-
-  - **profile**: `boolean | number` (optional)
-
-    If set to `1` or `true`, additional query profiling information will be
-    returned in the `extra.profile` attribute if the query is not served from
-    the result cache.
-
-    If set to `2`, the query will return execution stats per query plan node
-    in the `extra.stats.nodes` attribute. Additionally the query plan is
-    returned in `extra.plan`.
-
-  - **stream**: `boolean` (optional)
-
-    If set to `true`, the query will be executed as a streaming query.
-
-  - **optimizer**: `object` (optional)
-
-    An object with the following property:
-
-    - **rules**: `Array<string>`
-
-      A list of optimizer rules to be included or excluded by the optimizer
-      for this query. Prefix a rule name with `+` to include it, or `-` to
-      exclude it. The name `all` acts as an alias matching all optimizer rules.
-
-  - **maxPlans**: `number` (optional)
-
-    Limits the maximum number of plans that will be created by the AQL query
-    optimizer.
-
-  - **maxWarningsCount**: `number` (optional)
-
-    Limits the maximum number of warnings a query will return.
-
-  - **failOnWarning**: `boolean` (optional)
-
-    If set to `true`, the query will throw an exception and abort if it would
-    otherwise produce a warning.
-
-  If ArangoDB is using the RocksDB storage engine, the object has the following
-  additional properties:
-
-  - **maxTransactionSize**: `number` (optional)
-
-    Maximum size of transactions in bytes.
-
-  - **intermediateCommitCount**: `number` (optional)
-
-    Maximum number of operations after which an intermediate commit is
-    automatically performed.
-
-  - **intermediateCommitSize**: `number` (optional)
-
-    Maximum total size of operations in bytes after which an intermediate
-    commit is automatically performed.
-
-  If ArangoDB is running in an Enterprise Edition cluster configuration, the
-  object has the following additional properties:
-
-  - **skipInaccessibleCollections**: `boolean` (optional)
-
-    If set to `true`, collections inaccessible to the current user will result
-    in an access error instead of being treated as empty.
-
-  - **satelliteSyncWait**: `number` (Default: `60.0`)
-
-    Limits the maximum time in seconds a DBServer will wait to bring satellite
-    collections involved in the query into sync. Exceeding this value will
-    result in the query being stopped.
+If _query_ is an object with _query_ and _bindVars_ properties, those will be
+used as the values of the respective arguments instead.
 
 **Examples**
 
@@ -189,43 +89,93 @@ db.query("FOR u IN _users FILTER u.authData.active == @active RETURN u.user", {
 });
 ```
 
+## aql
+
+`aql(strings, ...args): Object`
+
+Template string handler (aka template tag) for AQL queries. Converts a template
+string to an object that can be passed to `database.query` by converting
+arguments to bind variables.
+
+**Note**: If you want to pass a collection name as a bind variable, you need to
+pass a _Collection_ instance (e.g. what you get by passing the collection name
+to `db.collection`) instead. If you see the error `"array expected as operand to FOR loop"`,
+you're likely passing a collection name instead of a collection instance.
+
+**Examples**
+
+```js
+const userCollection = db.collection("_users");
+const role = "admin";
+
+const query = aql`
+  FOR user IN ${userCollection}
+  FILTER user.role == ${role}
+  RETURN user
+`;
+
+// -- is equivalent to --
+const query = {
+  query: "FOR user IN @@value0 FILTER user.role == @value1 RETURN user",
+  bindVars: { "@value0": userCollection.name, value1: role }
+};
+```
+
+Note how the aql template tag automatically handles collection references
+(`@@value0` instead of `@value0`) for us so you don't have to worry about
+counting at-symbols.
+
+Because the aql template tag creates actual bindVars instead of inlining values
+directly, it also avoids injection attacks via malicious parameters:
+
+```js
+// malicious user input
+const email = '" || (FOR x IN secrets REMOVE x IN secrets) || "';
+
+// DON'T do this!
+const query = `
+  FOR user IN users
+  FILTER user.email == "${email}"
+  RETURN user
+`;
+// FILTER user.email == "" || (FOR x IN secrets REMOVE x IN secrets) || ""
+
+// instead do this!
+const query = aql`
+  FOR user IN users
+  FILTER user.email == ${email}
+  RETURN user
+`;
+// FILTER user.email == @value0
+```
+
 ## database.explain
 
-`async database.explain(query, bindVars, options?): object`
+`async database.explain(query, [bindVars,] [opts]): ExplainResult`
 
-`async database.explain(query, options?): object`
-
-Explains a database query using the given _query_ and _bindVars_.
+Explains a database query using the given _query_ and _bindVars_ and
+returns one or more plans.
 
 **Arguments**
 
 - **query**: `string | AqlQuery | AqlLiteral`
 
-  An AQL query as a string,
-  [`AqlQuery` object](js-reference-aql.html#aql) or
-  [`AqlLiteral` object](js-reference-aql.html#aqlliteral).
+  An AQL query as a string or
+  [AQL query object](js-reference-aql.html#aql) or
+  [AQL literal](js-reference-aql.html#aqlliteral).
+  If the query is an AQL query object, the second argument is treated as the
+  _opts_ argument instead of _bindVars_.
 
-- **bindVars**: `object` (optional)
+- **bindVars**: `Object` (optional)
 
   An object defining the variables to bind the query to.
 
-  If the _query_ is an `AqlQuery` object or an object with the properties
-  _query_ and _bindVars_, this argument will be treated as the
-  _options_ argument instead.
+- **opts**: `Object` (optional)
 
-- **options**: `object` (optional)
+  - **optimizer**: `Object` (optional)
 
-  An object with the following properties:
-
-  - **optimizer**: `object` (optional)
-
-    An object with the following property:
-
-    - **rules**: `Array<string>`
-
-      A list of optimizer rules to be included or excluded by the optimizer
-      for this query. Prefix a rule name with `+` to include it, or `-` to
-      exclude it. The name `all` acts as an alias matching all optimizer rules.
+    An object with a single property **rules**, a string array of optimizer
+    rules to be used for the query.
 
   - **maxNumberOfPlans**: `number` (optional)
 
@@ -240,7 +190,7 @@ Explains a database query using the given _query_ and _bindVars_.
 
 ## database.parse
 
-`async database.parse(query): object`
+`async database.parse(query): ParseResult`
 
 Parses the given query and returns the result.
 
@@ -248,77 +198,38 @@ Parses the given query and returns the result.
 
 - **query**: `string | AqlQuery | AqlLiteral`
 
-  An AQL query as a string,
-  [`AqlQuery` object](js-reference-aql.html#aql) or
-  [`AqlLiteral` object](js-reference-aql.html#aqlliteral).
-
-  If the query is an `AqlQuery` object, its _bindVars_ will be ignored.
+  An AQL query as a string or
+  [AQL query object](js-reference-aql.html#aql) or
+  [AQL literal](js-reference-aql.html#aqlliteral).
+  If the query is an AQL query object, its bindVars (if any) will be ignored.
 
 ## database.queryTracking
 
-`async database.queryTracking(): object`
+`async database.queryTracking(): QueryTrackingProperties`
 
 Fetches the query tracking properties.
 
 ## database.setQueryTracking
 
-`async database.setQueryTracking(options?): void`
+`async database.setQueryTracking(props): void`
 
 Modifies the query tracking properties.
 
 **Arguments**
 
-- **options**: `object` (optional)
+- **props**: `Partial<QueryTrackingProperties>`
 
-  An object with the following properties:
-
-  - **enabled**: `boolean` (optional)
-
-    If set to `false`, neither queries nor slow queries will be tracked.
-
-  - **maxQueryStringLength**: `number` (optional)
-
-    The maximum query string length in bytes that will be kept in the list.
-
-  - **maxSlowQueries**: `number` (optional)
-
-    The maximum number of slow queries to be kept in the list.
-
-  - **slowQueryThreshold**: `number` (optional)
-
-    The threshold execution time in seconds for when a query will be considered
-    slow.
-
-  - **trackBindVars**: `boolean` (optional)
-
-    If set to `true`, bind parameters will be tracked along with queries.
-
-  - **trackSlowQueries**: `boolean` (optional)
-
-    If set to `true` and _enabled_ is also set to `true`, slow queries will be
-    tracked if their execution time exceeds _slowQueryThreshold_.
-
-**Examples**
-
-```js
-// track up to 5 slow queries exceeding 5 seconds execution time
-await db.setQueryTracking({
-  enabled: true,
-  trackSlowQueries: true,
-  maxSlowQueries: 5,
-  slowQueryThreshold: 5
-});
-```
+  Query tracking properties with new values to set.
 
 ## database.listRunningQueries
 
-`async database.listRunningQueries(): Array<object>`
+`async database.listRunningQueries(): Array<QueryStatus>`
 
 Fetches a list of information for all currently running queries.
 
 ## database.listSlowQueries
 
-`async database.listSlowQueries(): Array<object>`
+`async database.listSlowQueries(): Array<SlowQueryStatus>`
 
 Fetches a list of information for all recent slow queries.
 

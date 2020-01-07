@@ -9,198 +9,198 @@ These functions implement the
 
 ## collection.all
 
-`async collection.all(options?): Cursor`
+`async collection.all([opts]): Cursor`
 
 Performs a query to fetch all documents in the collection. Returns a
-[new `Cursor` instance](js-reference-cursor.html) for the query results.
+[new _Cursor_ instance](js-reference-cursor.html) for the query results.
 
 **Arguments**
 
-- **options**: `object` (optional)
+- **opts**: `Object` (optional)
 
-  <!-- TODO -->
+  For information on the possible options see the
   [HTTP API for returning all documents](../http/simple-query.html#return-all-documents).
 
 ## collection.any
 
-`async collection.any(): Document`
+`async collection.any(): Object`
 
 Fetches a document from the collection at random.
 
-## collection.byExample
+## collection.first
 
-`async collection.byExample(example, options?): Cursor`
+`async collection.first([opts]): Array<Object>`
 
-Performs a query to fetch all documents in the collection matching the given
-_example_. Returns a [new `Cursor` instance](js-reference-cursor.html) for the query results.
+Performs a query to fetch the first documents in the collection. Returns an
+array of the matching documents.
+
+{% hint 'warning' %}
+This method is not available when targeting ArangoDB 3.0 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
 
 **Arguments**
 
-- **example**: `object`
+- **opts**: `Object` (optional)
+
+  If _opts_ is a number it is treated as _opts.count_.
+
+## collection.last
+
+`async collection.last([opts]): Array<Object>`
+
+Performs a query to fetch the last documents in the collection. Returns an array
+of the matching documents.
+
+{% hint 'warning' %}
+This method is not available when targeting ArangoDB 3.0 or later,
+see [Compatibility](js-getting-started.html#compatibility).
+{% endhint %}
+
+**Arguments**
+
+- **opts**: `Object` (optional)
+
+  If _opts_ is a number it is treated as _opts.count_.
+
+## collection.byExample
+
+`async collection.byExample(example, [opts]): Cursor`
+
+Performs a query to fetch all documents in the collection matching the given
+_example_. Returns a [new _Cursor_ instance](js-reference-cursor.html) for the query results.
+
+**Arguments**
+
+- **example**: _Object_
 
   An object representing an example for documents to be matched against.
 
-- **options**: `object` (optional)
+- **opts**: _Object_ (optional)
 
-  TODO
+  For information on the possible options see the
   [HTTP API for fetching documents by example](../http/simple-query.html#find-documents-matching-an-example).
 
 ## collection.firstExample
 
-`async collection.firstExample(example): Document`
+`async collection.firstExample(example): Object`
 
 Fetches the first document in the collection matching the given _example_.
 
 **Arguments**
 
-- **example**: `object`
+- **example**: _Object_
 
   An object representing an example for documents to be matched against.
 
 ## collection.removeByExample
 
-`async collection.removeByExample(example, options?): object`
+`async collection.removeByExample(example, [opts]): Object`
 
 Removes all documents in the collection matching the given _example_.
 
 **Arguments**
 
-- **example**: `object`
+- **example**: _Object_
 
   An object representing an example for documents to be matched against.
 
-- **options**: `object` (optional)
+- **opts**: _Object_ (optional)
 
-  TODO
+  For information on the possible options see the
   [HTTP API for removing documents by example](../http/simple-query.html#remove-documents-by-example).
-
-Returns an object with the following property:
-
-- **deleted**: `number`
-
-  Number of documents removed by this query.
 
 ## collection.replaceByExample
 
-`async collection.replaceByExample(example, newValue, options?): object`
+`async collection.replaceByExample(example, newValue, [opts]): Object`
 
 Replaces all documents in the collection matching the given _example_ with the
 given _newValue_.
 
 **Arguments**
 
-- **example**: `object`
+- **example**: _Object_
 
   An object representing an example for documents to be matched against.
 
-- **newValue**: `object`
+- **newValue**: _Object_
 
   The new value to replace matching documents with.
 
-- **options**: `object` (optional)
+- **opts**: _Object_ (optional)
 
-  <!-- TODO -->
+  For information on the possible options see the
   [HTTP API for replacing documents by example](../http/simple-query.html#replace-documents-by-example).
-
-Returns an object with the following property:
-
-- **replaced**: `number`
-
-  Number of documents replaced by this query.
 
 ## collection.updateByExample
 
-`async collection.updateByExample(example, newValue, options?): object`
+`async collection.updateByExample(example, newValue, [opts]): Object`
 
 Updates (patches) all documents in the collection matching the given _example_
 with the given _newValue_.
 
 **Arguments**
 
-- **example**: `object`
+- **example**: _Object_
 
   An object representing an example for documents to be matched against.
 
-- **newValue**: `object`
+- **newValue**: _Object_
 
   The new value to update matching documents with.
 
-- **options**: `object` (optional)
+- **opts**: _Object_ (optional)
 
-  <!-- TODO -->
+  For information on the possible options see the
   [HTTP API for updating documents by example](../http/simple-query.html#update-documents-by-example).
-
-Returns an object with the following property:
-
-- **updated**: `number`
-
-  Number of documents updated by this query.
 
 ## collection.lookupByKeys
 
-`async collection.lookupByKeys(keys): Array<Document>`
+`async collection.lookupByKeys(keys): Array<Object>`
 
 Fetches the documents with the given _keys_ from the collection. Returns an
 array of the matching documents.
 
 **Arguments**
 
-- **keys**: `Array<string>`
+- **keys**: _Array_
 
   An array of document keys to look up.
 
 ## collection.removeByKeys
 
-`async collection.removeByKeys(keys, options?): Array<Document>`
+`async collection.removeByKeys(keys, [opts]): Object`
 
 Deletes the documents with the given _keys_ from the collection.
 
 **Arguments**
 
-- **keys**: `Array<string>`
+- **keys**: _Array_
 
   An array of document keys to delete.
 
-- **options**: `object` (optional)
+- **opts**: _Object_ (optional)
 
-  <!-- TODO -->
+  For information on the possible options see the
   [HTTP API for removing documents by keys](../http/simple-query.html#remove-documents-by-their-keys).
 
 ## collection.fulltext
 
-`async collection.fulltext(fieldName, query, options?): Cursor`
+`async collection.fulltext(fieldName, query, [opts]): Cursor`
 
 Performs a fulltext query in the given _fieldName_ on the collection.
 
 **Arguments**
 
-- **fieldName**: `string`
+- **fieldName**: _String_
 
   Name of the field to search on documents in the collection.
 
-- **query**: `string`
+- **query**: _String_
 
   Fulltext query string to search for.
 
-- **options**: `object` (optional)
+- **opts**: _Object_ (optional)
 
-  <!-- TODO -->
+  For information on the possible options see the
   [HTTP API for fulltext queries](../http/indexes-fulltext.html).
-
-## collection.list
-
-`async collection.list(type?): Cursor<string>`
-
-Retrieves a list of references for all documents in the collection.
-
-**Arguments**
-
-- **type**: `string` (Default: `"id"`)
-
-  The format of the document references:
-
-  If the type is `"id"`, each reference will be the `_id` of the document.
-
-  If the type is `"key"`, each reference will be the `_key` of the document.
-
-  If the type is `"path"`, each reference will be the URI path of the document.

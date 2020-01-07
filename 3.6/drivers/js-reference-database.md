@@ -6,15 +6,15 @@ description: Database API
 
 ## new Database
 
-`new Database(config?): Database`
+`new Database([config]): Database`
 
-Creates a new `Database` instance.
+Creates a new _Database_ instance.
 
 If _config_ is a string, it will be interpreted as _config.url_.
 
 **Arguments**
 
-- **config**: `object` (optional)
+- **config**: `Object` (optional)
 
   An object with the following properties:
 
@@ -24,7 +24,7 @@ If _config_ is a string, it will be interpreted as _config.url_.
 
     When working with a cluster or a single server with leader/follower failover,
     [the method `db.acquireHostList`](#databaseacquirehostlist)
-    can be used to automatically pick up additional coordinators/followers at
+    can be used to automatically pick up additional Coordinators/followers at
     any point.
 
     When running ArangoDB on a unix socket, e.g. `/tmp/arangodb.sock`, the
@@ -72,7 +72,17 @@ If _config_ is a string, it will be interpreted as _config.url_.
     }
     ```
 
-  - **arangoVersion**: `number` (Default: `30400`)
+  - **isAbsolute**: `boolean` (Default: `false`)
+
+    If this option is explicitly set to `true`, the _url_ will be treated as the
+    absolute database path and arangojs will not append the database path to it.
+
+    **Note:** This makes it impossible to switch databases with _useDatabase_
+    or using _acquireHostList_. This is only intended to be used as an escape
+    hatch when working with standalone servers exposing a single database API
+    from behind a reverse proxy, which is not a recommended setup.
+
+  - **arangoVersion**: `number` (Default: `30000`)
 
     Numeric representation of the ArangoDB version the driver should expect.
     The format is defined as `XYYZZ` where `X` is the major version, `Y` is
@@ -82,7 +92,7 @@ If _config_ is a string, it will be interpreted as _config.url_.
     Depending on this value certain methods may become unavailable or change
     their behavior to remain compatible with different versions of ArangoDB.
 
-  - **headers**: `object` (optional)
+  - **headers**: `Object` (optional)
 
     An object with additional headers to send with every request.
 
@@ -95,11 +105,11 @@ If _config_ is a string, it will be interpreted as _config.url_.
 
     By default a new
     [`http.Agent`](https://nodejs.org/api/http.html#http_new_agent_options){:target="_blank"} (or
-    `https.Agent` for TLS) instance will be created using the _agentOptions_.
+    https.Agent) instance will be created using the _agentOptions_.
 
     This option has no effect when using the browser version of arangojs.
 
-  - **agentOptions**: `object` (Default: see below)
+  - **agentOptions**: `Object` (Default: see below)
 
     An object with options for the agent. This will be ignored if _agent_ is
     also provided.
@@ -153,105 +163,30 @@ If _config_ is a string, it will be interpreted as _config.url_.
     **Note**: Requests bound to a specific server (e.g. fetching query results)
     will never be retried automatically and ignore this setting.
 
-## database.version
-
-`async database.version(): object`
-
-Fetches the ArangoDB version information for the active database from the server.
-
-**Examples**
-
-```js
-const db = new Database();
-const version = await db.version();
-// the version object contains the ArangoDB version information.
-// license: "community" or "enterprise"
-// version: ArangoDB version number
-// server: description of the server
-```
-
-## database.route
-
-`database.route(path?, headers?): Route`
-
-`database.route(headers?): Route`
-
-Returns a new `Route` instance for the given path (relative to the database)
-that can be used to perform arbitrary HTTP requests.
-
-**Arguments**
-
-- **path**: `string` (optional)
-
-  The database-relative URL of the route. Defaults to the database API root.
-
-- **headers**: `object` (optional)
-
-  Default headers that should be sent with each request to the route.
-
-If _path_ is missing, the route will refer to the base URL of the database.
-
-For more information on `Route` instances see the
-[_Route API_](js-reference-route.html).
-
-**Examples**
-
-```js
-const db = new Database();
-const myFoxxService = db.route("my-foxx-service");
-const response = await myFoxxService.post("users", {
-  username: "admin",
-  password: "hunter2"
-});
-// response.body is the result of
-// POST /_db/_system/my-foxx-service/users
-// with JSON request body '{"username": "admin", "password": "hunter2"}'
-```
-
 ## database.acquireHostList
 
-`async database.acquireHostList(): void`
+`async database.acquireHostList(): this`
 
-Updates the URL list by requesting a list of all coordinators in the cluster
+Updates the URL list by requesting a list of all Coordinators in the cluster
 and adding any endpoints not initially specified in the _url_ configuration.
 
 For long-running processes communicating with an ArangoDB cluster it is
 recommended to run this method repeatedly (e.g. once per hour) to make sure
-new coordinators are picked up correctly and can be used for fail-over or
+new Coordinators are picked up correctly and can be used for fail-over or
 load balancing.
 
-## database.close
-
-`database.close(): void`
-
-Closes all active connections of the database instance.
-Can be used to clean up idling connections during longer periods of inactivity.
-
-**Note**: This method currently has no effect in the browser version of arangojs.
-
-**Examples**
-
-```js
-const db = new Database();
-const sessions = db.collection("sessions");
-// Clean up expired sessions once per hour
-setInterval(async () => {
-  await db.query(aql`
-    FOR session IN ${sessions}
-    FILTER session.expires < DATE_NOW()
-    REMOVE session IN ${sessions}
-  `);
-  // Making sure to close the connections because they're no longer used
-  db.close();
-}, 1000 * 60 * 60);
-```
+**Note**: This method can not be used when the arangojs instance was created
+with `isAbsolute: true`.
 
 ## database.useDatabase
 
 `database.useDatabase(databaseName): this`
 
-Updates the `Database` instance and its connection string to use the given
+Updates the _Database_ instance and its connection string to use the given
 _databaseName_, then returns itself.
+
+**Note**: This method can not be used when the arangojs instance was created
+with `isAbsolute: true`.
 
 **Arguments**
 
@@ -269,11 +204,9 @@ db.useDatabase("test");
 
 ## database.useBasicAuth
 
-`database.useBasicAuth(username, password?): this`
+`database.useBasicAuth([username, [password]]): this`
 
-`database.useBasicAuth(username?): this`
-
-Updates the `Database` instance's `authorization` header to use Basic
+Updates the _Database_ instance's `authorization` header to use Basic
 authentication with the given _username_ and _password_, then returns itself.
 
 **Arguments**
@@ -300,8 +233,8 @@ db.useBasicAuth("admin", "hunter2");
 
 `database.useBearerAuth(token): this`
 
-Updates the `Database` instance's `authorization` header to use Bearer
-authentication with the given authentication _token_, then returns itself.
+Updates the _Database_ instance's `authorization` header to use Bearer
+authentication with the given authentication token, then returns itself.
 
 **Arguments**
 
@@ -319,9 +252,7 @@ db.useBearerAuth("keyboardcat");
 
 ## database.login
 
-`async database.login(username, password?): string`
-
-`async database.login(username?): string`
+`async database.login([username, [password]]): string`
 
 Validates the given database credentials and exchanges them for an
 authentication token, then uses the authentication token for future
@@ -345,4 +276,44 @@ db.useDatabase("test");
 await db.login("admin", "hunter2");
 // The database instance now uses the database "test"
 // with an authentication token for the "admin" user.
+```
+
+## database.version
+
+`async database.version(): Object`
+
+Fetches the ArangoDB version information for the active database from the server.
+
+**Examples**
+
+```js
+const db = new Database();
+const version = await db.version();
+// the version object contains the ArangoDB version information.
+```
+
+## database.close
+
+`database.close(): void`
+
+Closes all active connections of the database instance.
+Can be used to clean up idling connections during longer periods of inactivity.
+
+**Note**: This method currently has no effect in the browser version of arangojs.
+
+**Examples**
+
+```js
+const db = new Database();
+const sessions = db.collection("sessions");
+// Clean up expired sessions once per hour
+setInterval(async () => {
+  await db.query(aql`
+    FOR session IN ${sessions}
+    FILTER session.expires < DATE_NOW()
+    REMOVE session IN ${sessions}
+  `);
+  // Make sure to close the connections because they're no longer used
+  db.close();
+}, 1000 * 60 * 60);
 ```

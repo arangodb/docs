@@ -7,18 +7,44 @@ description: These functions implement the HTTP API for manipulating databases
 These functions implement the
 [HTTP API for manipulating databases](../http/database.html).
 
-## database.get
+## database.createDatabase
 
-`async database.get(): object`
+`async database.createDatabase(databaseName, [users]): Object`
 
-Fetches the database description for the active database from the server.
+Creates a new database with the given _databaseName_.
+
+**Arguments**
+
+- **databaseName**: `string`
+
+  Name of the database to create.
+
+- **users**: `Array<Object>` (optional)
+
+  If specified, the array must contain objects with the following properties:
+
+  - **username**: `string`
+
+    The username of the user to create for the database.
+
+  - **passwd**: `string` (Default: empty)
+
+    The password of the user.
+
+  - **active**: `boolean` (Default: `true`)
+
+    Whether the user is active.
+
+  - **extra**: `Object` (optional)
+
+    An object containing additional user data.
 
 **Examples**
 
 ```js
 const db = new Database();
-const info = await db.get();
-// the database exists
+const info = await db.createDatabase("mydb", [{ username: "root" }]);
+// the database has been created
 ```
 
 ## database.exists
@@ -35,70 +61,18 @@ const result = await db.exists();
 // result indicates whether the database exists
 ```
 
-## database.createDatabase
+## database.get
 
-`async database.createDatabase(databaseName, options?): boolean`
+`async database.get(): Object`
 
-`async database.createDatabase(databaseName, users?): boolean`
-
-Creates a new database with the given _databaseName_ with the given _options_.
-
-**Arguments**
-
-- **databaseName**: `string`
-
-  Name of the database to create.
-
-- **options**: `object` (optional)
-
-  An object with the following properties:
-
-  - **users**: `Array<object>` (optional)
-
-    If specified, the array must contain objects with the following properties:
-
-    - **username**: `string`
-
-      The username of the user to create for the database.
-
-    - **passwd**: `string` (Default: `""`)
-
-      The password of the user.
-
-    - **active**: `boolean` (Default: `true`)
-
-      Whether the user is active.
-
-    - **extra**: `object` (optional)
-
-      An object containing additional user data.
-
-  If ArangoDB is running in a cluster configuration, the object has the
-  following additional properties:
-
-  - **sharding**: `string` (optional)
-
-    The sharding method to use for new collections in this database.
-
-    One of `""`, `"flexible"` or `"single"`.
-
-  - **replicationFactor**: `number | "satellite"` (optional)
-
-    Default replication factor for new collections in this database.
-
-    Setting this to `1` disables replication. Setting this to `"satellite"`
-    will replicate to every DBServer.
-
-If _options_ is an array, it will be interpreted as _options.users_.
+Fetches the database description for the active database from the server.
 
 **Examples**
 
 ```js
 const db = new Database();
-const info = await db.createDatabase("mydb", [{ username: "root" }]);
-// the database has been created
-db.useDatabase("mydb");
-db.useBasicAuth("root", "");
+const info = await db.get();
+// the database exists
 ```
 
 ## database.listDatabases
@@ -132,7 +106,7 @@ const names = await db.listUserDatabases();
 
 ## database.dropDatabase
 
-`async database.dropDatabase(databaseName): boolean`
+`async database.dropDatabase(databaseName): Object`
 
 Deletes the database with the given _databaseName_ from the server.
 
@@ -140,4 +114,27 @@ Deletes the database with the given _databaseName_ from the server.
 const db = new Database();
 await db.dropDatabase("mydb");
 // database "mydb" no longer exists
+```
+
+## database.truncate
+
+`async database.truncate([excludeSystem]): Object`
+
+Deletes **all documents in all collections** in the active database.
+
+**Arguments**
+
+- **excludeSystem**: `boolean` (Default: `true`)
+
+  Whether system collections should be excluded. Note that this option will be
+  ignored because truncating system collections is not supported anymore for
+  some system collections.
+
+**Examples**
+
+```js
+const db = new Database();
+
+await db.truncate();
+// all non-system collections in this database are now empty
 ```

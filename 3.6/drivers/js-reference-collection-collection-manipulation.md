@@ -9,25 +9,29 @@ These functions implement the
 
 ## collection.create
 
-`async collection.create(options?): object`
+`async collection.create([properties]): Object`
 
-Creates a collection with the given _options_ and this instance's name.
+Creates a collection with the given _properties_ for this collection's name,
+then returns the server response.
 
-This is a shorthand for calling `database.createCollection` with this
-collection's name and the given _options_, but returning the collection
-properties instead of a new _Collection_ instance.
+**Arguments**
+
+- **properties**: `Object` (optional)
+
+  For more information on the _properties_ object, see the
+  [HTTP API documentation for creating collections](../http/collection-creating.html).
 
 **Examples**
 
 ```js
 const db = new Database();
-const collection = db.collection("potatoes");
-await collection.create();
+const collection = db.collection('potatoes');
+await collection.create()
 // the document collection "potatoes" now exists
 
 // -- or --
 
-const collection = db.collection("friends");
+const collection = db.edgeCollection('friends');
 await collection.create({
   waitForSync: true // always sync document changes to disk
 });
@@ -36,7 +40,7 @@ await collection.create({
 
 ## collection.load
 
-`async collection.load(count?): object`
+`async collection.load([count]): Object`
 
 Tells the server to load the collection into memory.
 
@@ -47,56 +51,49 @@ Tells the server to load the collection into memory.
   If set to `false`, the return value will not include the number of documents
   in the collection (which may speed up the process).
 
-Returns an object. If **count** is not explicitly set to `false`, the object includes the following property:
-
-- **count**: `number`
-
-  The number of documents in the collection.
-
 **Examples**
 
 ```js
 const db = new Database();
-const collection = db.collection("some-collection");
-await collection.load(false);
+const collection = db.collection('some-collection');
+await collection.load(false)
 // the collection has now been loaded into memory
 ```
 
 ## collection.unload
 
-`async collection.unload(): object`
+`async collection.unload(): Object`
 
 Tells the server to remove the collection from memory.
-
-Returns an object with all properties returned by `collection.get()`.
 
 **Examples**
 
 ```js
 const db = new Database();
-const collection = db.collection("some-collection");
-await collection.unload();
+const collection = db.collection('some-collection');
+await collection.unload()
 // the collection has now been unloaded from memory
 ```
 
-## collection.properties
+## collection.setProperties
 
-`async collection.properties(properties): object`
+`async collection.setProperties(properties): Object`
 
 Replaces the properties of the collection.
 
 **Arguments**
 
-- **properties**: `object`
+- **properties**: `Object`
 
-  <!-- TODO -->
+  For information on the _properties_ argument see the
+  [HTTP API for modifying collections](../http/collection-modifying.html).
 
 **Examples**
 
 ```js
 const db = new Database();
-const collection = db.collection("some-collection");
-const result = await collection.setProperties({ waitForSync: true });
+const collection = db.collection('some-collection');
+const result = await collection.setProperties({waitForSync: true})
 assert.equal(result.waitForSync, true);
 // the collection will now wait for data being written to disk
 // whenever a document is changed
@@ -104,85 +101,78 @@ assert.equal(result.waitForSync, true);
 
 ## collection.rename
 
-`async collection.rename(name): object`
+`async collection.rename(name): Object`
 
 Renames the collection. The _Collection_ instance will automatically update its
 name when the rename succeeds.
-
-Returns an object with all properties returned by `collection.get()`.
 
 **Examples**
 
 ```js
 const db = new Database();
-const collection = db.collection("some-collection");
-const result = await collection.rename("new-collection-name");
-assert.equal(result.name, "new-collection-name");
+const collection = db.collection('some-collection');
+const result = await collection.rename('new-collection-name')
+assert.equal(result.name, 'new-collection-name');
 assert.equal(collection.name, result.name);
 // result contains additional information about the collection
 ```
 
 ## collection.rotate
 
-`async collection.rotate(): object`
+`async collection.rotate(): Object`
 
 Rotates the journal of the collection.
-
-Returns an object with the following properties:
-
-- **result**: `boolean`
-
-  <!-- TODO -->
 
 **Examples**
 
 ```js
 const db = new Database();
-const collection = db.collection("some-collection");
+const collection = db.collection('some-collection');
 const data = await collection.rotate();
 // data.result will be true if rotation succeeded
 ```
 
 ## collection.truncate
 
-`async collection.truncate(): object`
+`async collection.truncate(): Object`
 
 Deletes **all documents** in the collection in the database.
-
-Returns an object with all properties returned by `collection.get()`.
 
 **Examples**
 
 ```js
 const db = new Database();
-const collection = db.collection("some-collection");
+const collection = db.collection('some-collection');
 await collection.truncate();
 // the collection "some-collection" is now empty
 ```
 
 ## collection.drop
 
-`async collection.drop(options?): object`
+`async collection.drop([properties]): Object`
 
 Deletes the collection from the database.
 
 **Arguments**
 
-- **options**: `object` (optional)
+- **properties**: `Object` (optional)
 
   An object with the following properties:
 
   - **isSystem**: `Boolean` (Default: `false`)
 
-    Whether the collection should be dropped even if it is a system collection. If not set to `true`, the server will refuse to drop system collections even if the user has the necessary permissions.
+    Whether the collection should be dropped even if it is a system collection.
 
-<!-- TODO Returns an object. -->
+    This parameter must be set to `true` when dropping a system collection.
+
+  For more information on the _properties_ object, see the
+  [HTTP API documentation for dropping collections](../http/collection-creating.html#drops-a-collection).
 
 **Examples**
 
 ```js
 const db = new Database();
-const collection = db.collection("some-collection");
+const collection = db.collection('some-collection');
 await collection.drop();
 // the collection "some-collection" no longer exists
 ```
