@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 # ArangoDB Java Driver - Reference
 
 - [Driver Setup](java-reference-setup.html)
@@ -12,6 +11,7 @@ layout: default
   - [Queries](java-reference-database-queries.html)
   - [AQL User Functions](java-reference-database-aql-user-functions.html)
   - [Transactions](java-reference-database-transactions.html)
+  - [Stream Transactions](java-reference-database-stream-transactions.html)
   - [Graph Access](java-reference-database-graph-access.html)
   - [HTTP Routes](java-reference-database-http-routes.html)
 - [Collection](java-reference-collection.html)
@@ -21,7 +21,8 @@ layout: default
   - [Bulk Import](java-reference-collection-bulk-import.html)
 - [View](java-reference-view.html)
   - [View Manipulation](java-reference-view-view-manipulation.html)
-  - [ArangoSearch Views](java-reference-view-arango-search.html)
+  - [ArangoSearch Views](java-reference-view-arangosearch.html)
+  - [Analyzers](java-reference-view-analyzers.html)
 - [Cursor](java-reference-cursor.html)
 - [Graph](java-reference-graph.html)
   - [Vertex Collection](java-reference-graph-vertex-collection.html)
