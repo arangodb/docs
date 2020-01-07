@@ -1,8 +1,7 @@
 ---
 layout: default
-description: The ArangoDB Kubernetes Operator will create services that can be used toreach the ArangoDB servers from inside the Kubernetes cluster
+description: The ArangoDB Kubernetes Operator will create services that can be used to reach the ArangoDB servers from inside the Kubernetes cluster
 ---
-
 # Services and load balancer
 
 The ArangoDB Kubernetes Operator will create services that can be used to
@@ -55,12 +54,12 @@ For a full cluster deployment, the operator creates two `Services`.
   DNS names for all pods created by the operator.
   It selects all ArangoDB & ArangoSync servers in the cluster.
 
-- `<deployment-name>` a normal `Service` that selects only the coordinators
+- `<deployment-name>` a normal `Service` that selects only the Coordinators
   of the cluster. This `Service` is configured with `ClientIP` session
   affinity. This is needed for cursor requests, since they are bound to
-  a specific coordinator.
+  a specific Coordinator.
 
-When the coordinators are asked to provide endpoints of the cluster
+When the Coordinators are asked to provide endpoints of the cluster
 (e.g. when calling `client.SynchronizeEndpoints()` in the go driver)
 the DNS names of the individual `Pods` will be returned
 (`<pod>.<deployment-name>-int.<namespace>.svc`)
@@ -77,7 +76,7 @@ additions:
 ## Load balancer
 
 If you want full control of the `Services` needed to access the ArangoDB deployment
-from outside your Kubernetes cluster, set `spec.externalAccess.Type` of the `ArangoDeployment` to `None`
+from outside your Kubernetes cluster, set `spec.externalAccess.type` of the `ArangoDeployment` to `None`
 and create a `Service` as specified below.
 
 Create  a `Service` of type `LoadBalancer` or `NodePort`, depending on your
