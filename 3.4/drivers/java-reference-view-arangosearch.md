@@ -7,7 +7,7 @@ redirect_from:
 # ArangoSearch API
 
 These functions implement the
-[HTTP API for ArangoSearch Views](../http/views-arangosearch.html).
+[HTTP API for ArangoSearch Views](../http/views-arango-search.html).
 
 ## ArangoDatabase.createArangoSearch
 

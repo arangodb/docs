@@ -4,7 +4,7 @@ description: See HTTP Interface for Stream Transactions
 ---
 # Transactions
 
-See [HTTP Interface for Stream Transactions](../http/transaction-stream-transaction.html).
+See [HTTP Interface for Stream Transactions](../../stable/http/transaction-stream-transaction.html).
 
 
 ## ArangoDatabase.beginStreamTransaction

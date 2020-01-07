@@ -5,7 +5,7 @@ description: This function implements the HTTP API for JS transactions
 # Transactions
 
 This function implements the
-[HTTP API for JS transactions](../http/transaction-js-transaction.html).
+[HTTP API for JS transactions](../../stable/http/transaction-js-transaction.html).
 Also see [ArangoDB Transactions](../transactions.html).
 
 ## ArangoDatabase.transaction
