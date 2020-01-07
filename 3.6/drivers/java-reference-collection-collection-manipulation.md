@@ -75,6 +75,7 @@ then returns collection information from the server.
     datafiles (as there are no datafiles). This option should therefore be used
     for cache-type collections only, and not for data that cannot be re-created
     otherwise. (The default is false)
+    This option is meaningful for the MMFiles storage engine only.
 
   - **shardKeys**: `String...`
 
@@ -189,6 +190,7 @@ Alternative for [ArangoDatabase.createCollection](#arangodatabasecreatecollectio
     datafiles (as there are no datafiles). This option should therefore be used
     for cache-type collections only, and not for data that cannot be re-created
     otherwise. (The default is false)
+    This option is meaningful for the MMFiles storage engine only.
 
   - **shardKeys**: `String...`
 

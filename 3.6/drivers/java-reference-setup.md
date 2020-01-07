@@ -90,6 +90,10 @@ ArangoDB arangoDB = new ArangoDB.Builder()
   .build();
 ```
 
+No additional configuration is required to use TLSv1.3 (if available on the
+server side), but a JVM that supports it is required (OpenJDK 11 or later, or
+distributions of Java 8 with TLSv1.3 support).
+
 ## Connection Pooling
 
 The driver supports connection pooling for VelocyStream with a default of 1 and

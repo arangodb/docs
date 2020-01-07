@@ -1,9 +1,16 @@
 ---
 layout: default
-description: It is possible to define a hash index on one or more attributes (or paths) of adocument
+description: The hash index type is deprecated for the RocksDB storage engine.
 ---
 Hash Indexes
 ============
+
+{% hint 'warning' %}
+The hash index type is deprecated for the RocksDB storage engine.
+It is the same as the *persistent* type when using RocksDB. The type *hash*
+is still allowed for backward compatibility in the APIs, but the web interface
+does not offer this type anymore.
+{% endhint %}
 
 Introduction to Hash Indexes
 ----------------------------
