@@ -2,7 +2,6 @@
 layout: default
 description: ArangoLocalStorage Custom Resource
 ---
-
 # ArangoLocalStorage Custom Resource
 
 The ArangoDB Storage Operator creates and maintains ArangoDB
