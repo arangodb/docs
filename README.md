@@ -324,6 +324,30 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
   subfolder. Change your working directory to the root folder of the working
   copy (`/path/to/docs`).
 
+- ```
+  Please append `--trace` to the `build` command
+  for any additional information or backtrace.
+  ```
+  
+  This is a generic error message which requires the inspection of the
+  stack trace to figure out the root cause of the problem.
+  
+  - ```
+    …lib/jekyll/utils.rb:141:in `initialize': No such file or directory @ rb_sysopen - /path/to/file
+    ```
+    
+    Jekyll can't open the specified file. A possible reason is that it is a
+    binary file which is not supposed to be in the source tree in the first
+    place or which should be excluded via `_config.yml`
+    
+  - ```
+    …lib/safe_yaml/load.rb:143:in `parse': (/path/to/docs/_data/3.x-manual.yml):
+    mapping values are not allowed in this context at line 274 column 15 (Psych::SyntaxError)
+    ```
+    
+    The specified navigation definition file is not valid YAML. Check if the
+    indention is correct and that you use `children:` if the following entries
+    are child pages.
 
 ## CI/Netlify
 
