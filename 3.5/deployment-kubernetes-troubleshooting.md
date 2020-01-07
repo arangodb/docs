@@ -106,13 +106,14 @@ the database is lost and must be restored from a backup.
 If an `ArangoDeployment` of type `ActiveFailover` or `Cluster` was using one of
 those `PersistentVolumes`, it depends on the type of server that was using the volume.
 
-- If an `Agent` was using the volume, it can be repaired as long as 2 other agents are still     healthy.
+- If an `Agent` was using the volume, it can be repaired as long as 2 other
+  Agents are still healthy.
 - If a `DBServer` was using the volume, and the replication factor of all database
-  collections is 2 or higher, and the remaining dbservers are still healthy,
+  collections is 2 or higher, and the remaining DB-Servers are still healthy,
   the cluster will duplicate the remaining replicas to
   bring the number of replicas back to the original number.
 - If a `DBServer` was using the volume, and the replication factor of a database
-  collection is 1 and happens to be stored on that dbserver, the data is lost.
+  collection is 1 and happens to be stored on that DB-Server, the data is lost.
 - If a single server of an `ActiveFailover` deployment was using the volume, and the
   other single server is still healthy, the other single server will become leader.
   After replacing the failed single server, the new follower will synchronize with
