@@ -1,0 +1,23 @@
+arangosh&gt; result = db.users.all().toArray();
+[ 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74935"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/74935"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z2KDQIK--A"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Gerhard"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74937"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/74937"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z2KDQIO---"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Helmut"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74939"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/74939"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z2KDQIO--A"</span>, 
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Angela"</span> 
+  } 
+]
+arangosh&gt; q = db.users.all(); q.execute(); result = [ ]; <span class="hljs-keyword">while</span> (q.hasNext()) { result.push(q.next()); }
+SimpleQueryAll(users)

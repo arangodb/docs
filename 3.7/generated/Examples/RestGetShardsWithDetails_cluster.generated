@@ -1,0 +1,8 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
+
+HTTP/1.1 OK
+location: /_api/collection/testCollection/shards
+x-content-type-options: nosniff
+content-type: application/json
+
+"{\"error\":false,\"code\":200,\"shards\":{\"s2010047\":[\"PRMR-16a8fde9-fea2-435c-8007-dda192e8e139\"],\"s2010048\":[\"PRMR-89fad538-90de-4e2c-8d3d-82b2fdc45f9c\"],\"s2010049\":[\"PRMR-16a8fde9-fea2-435c-8007-dda192e8e139\"]},\"writeConcern\":1,\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":1,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"globallyUniqueId\":\"c2010046/\",\"id\":\"2010046\",\"cacheEnabled\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false,\"name\":\"testCollection\",\"minReplicationFactor\":1,\"waitForSync\":false,\"numberOfShards\":3}"
