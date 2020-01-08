@@ -174,6 +174,9 @@ Add the actual content below the frontmatter.
   +{% assign options = site.data["36-program-options-arangobackup"] %}
    {% include program-option.html options=options name="arangobackup" %}
   ```
+  ```
+  grep -r -F 'site.data["35-' --include '*.md' -l 3.6 | xargs sed -i 's/site\.data\["35-/site.data["36-/g'
+  ```
 - Add the version to `_data/versions.yml` with the full version name
 - Add all books of that version to `_data/books.yml`
 - Adjust the following fields in `_config.yml` as needed:
