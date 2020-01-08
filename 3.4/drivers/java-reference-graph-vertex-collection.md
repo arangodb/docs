@@ -2,7 +2,6 @@
 layout: default
 description: Manipulating the vertex collection
 ---
-
 # Manipulating the vertex collection
 
 ## ArangoGraph.vertexCollection

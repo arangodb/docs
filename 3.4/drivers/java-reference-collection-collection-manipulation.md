@@ -1,8 +1,7 @@
 ---
 layout: default
-description: These functions implementthe HTTP API for modifying collections
+description: These functions implement the HTTP API for modifying collections
 ---
-
 # Manipulating the collection
 
 These functions implement
@@ -31,14 +30,25 @@ then returns collection information from the server.
   - **replicationFactor**: `Integer`
 
     (The default is 1): in a cluster, this attribute determines how many copies
-    of each shard are kept on different DBServers. The value 1 means that only
+    of each shard are kept on different DB-Servers. The value 1 means that only
     one copy (no synchronous replication) is kept. A value of k means that
-    k-1 replicas are kept. Any two copies reside on different DBServers.
+    k-1 replicas are kept. Any two copies reside on different DB-Servers.
     Replication between them is synchronous, that is, every write operation to
     the "leader" copy will be replicated to all "follower" replicas, before the
     write operation is reported successful. If a server fails, this is detected
     automatically and one of the servers holding copies take over, usually
     without an error being reported.
+
+  - **minReplicationFactor**: `Integer`
+
+    (optional, default is 1): in a cluster, this
+    attribute determines how many copies of each shard are required
+    to be in sync on the different DB-Servers. If we have less then these
+    many copies in the cluster a shard will refuse to write. The
+    minReplicationFactor can not be larger than replicationFactor.
+    Please note: during server failures this might lead to writes
+    not being possible until the failover is sorted out and might cause
+    write slow downs in trade of data durability.
 
   - **satellite**: `Boolean`
 
@@ -65,6 +75,7 @@ then returns collection information from the server.
     datafiles (as there are no datafiles). This option should therefore be used
     for cache-type collections only, and not for data that cannot be re-created
     otherwise. (The default is false)
+    This option is meaningful for the MMFiles storage engine only.
 
   - **shardKeys**: `String...`
 
@@ -145,9 +156,9 @@ Alternative for [ArangoDatabase.createCollection](#arangodatabasecreatecollectio
   - **replicationFactor**: `Integer`
 
     (The default is 1): in a cluster, this attribute determines how many copies
-    of each shard are kept on different DBServers. The value 1 means that only
+    of each shard are kept on different DB-Servers. The value 1 means that only
     one copy (no synchronous replication) is kept. A value of k means that k-1
-    replicas are kept. Any two copies reside on different DBServers.
+    replicas are kept. Any two copies reside on different DB-Servers.
     Replication between them is synchronous, that is, every write operation to
     the "leader" copy will be replicated to all "follower" replicas, before the
     write operation is reported successful. If a server fails, this is detected
@@ -179,6 +190,7 @@ Alternative for [ArangoDatabase.createCollection](#arangodatabasecreatecollectio
     datafiles (as there are no datafiles). This option should therefore be used
     for cache-type collections only, and not for data that cannot be re-created
     otherwise. (The default is false)
+    This option is meaningful for the MMFiles storage engine only.
 
   - **shardKeys**: `String...`
 

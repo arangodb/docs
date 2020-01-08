@@ -2,7 +2,6 @@
 layout: default
 description: Serialization
 ---
-
 # Serialization
 
 ## VelocyPack serialization
@@ -12,7 +11,8 @@ registering additional `VPackModule`s on `ArangoDB.Builder`.
 
 ### Java 8 types
 
-GitHub: https://github.com/arangodb/java-velocypack-module-jdk8
+GitHub:
+[github.com/arangodb/java-velocypack-module-jdk8](https://github.com/arangodb/java-velocypack-module-jdk8){:target="_blank"}
 
 Added support for:
 
@@ -43,7 +43,8 @@ ArangoDB arangoDB = new ArangoDB.Builder().registerModule(new VPackJdk8Module())
 
 ### Scala types
 
-GitHub: https://github.com/arangodb/java-velocypack-module-scala
+GitHub:
+[github.com/arangodb/java-velocypack-module-scala](https://github.com/arangodb/java-velocypack-module-scala){:target="_blank"}
 
 Added support for:
 
@@ -69,7 +70,8 @@ val arangoDB: ArangoDB = new ArangoDB.Builder().registerModule(new VPackScalaMod
 
 ### Joda-Time
 
-GitHub: https://github.com/arangodb/java-velocypack-module-joda
+GitHub:
+[github.com/arangodb/java-velocypack-module-joda](https://github.com/arangodb/java-velocypack-module-joda){:target="_blank"}
 
 Added support for:
 

@@ -1,8 +1,7 @@
 ---
 layout: default
-description: These functions implement theHTTP API for accessing general graphs
+description: These functions implement the HTTP API for accessing general graphs
 ---
-
 # Accessing graphs
 
 These functions implement the
