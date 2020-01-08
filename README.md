@@ -174,6 +174,16 @@ Add the actual content below the frontmatter.
   +{% assign options = site.data["36-program-options-arangobackup"] %}
    {% include program-option.html options=options name="arangobackup" %}
   ```
+  ```
+  grep -r -F 'site.data["35-' --include '*.md' -l 3.6 | xargs sed -i 's/site\.data\["35-/site.data["36-/g'
+  ```
+- Adjust the version numbers in `redirect_from` URLs in the frontmatter
+  to match the new version folder, e.g.
+  ```diff
+   redirect_from:
+  -  - /3.5/path/to/file.html # 3.4 -> 3.5
+  +  - /3.6/path/to/file.html # 3.4 -> 3.5
+  ```
 - Add the version to `_data/versions.yml` with the full version name
 - Add all books of that version to `_data/books.yml`
 - Adjust the following fields in `_config.yml` as needed:
