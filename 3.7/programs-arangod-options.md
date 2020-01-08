@@ -30,5 +30,5 @@ See
 [Fetch Current Configuration Options](administration-configuration.html#fetch-current-configuration-options)
 if you want to query the `arangod` server for the current settings at runtime.
 
-{% assign options = site.data["36-program-options-arangod"] %}
+{% assign options = site.data["37-program-options-arangod"] %}
 {% include program-option.html options=options name="arangod" %}
