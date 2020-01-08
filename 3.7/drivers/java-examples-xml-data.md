@@ -2,7 +2,7 @@
 layout: default
 description: You want to store XML data files into a database to have the ability to make queries onto them
 redirect_from:
-  - /3.6/cookbook/use-cases-java-driver-xml-data.html # 3.5 -> 3.5
+  - /3.7/cookbook/use-cases-java-driver-xml-data.html # 3.5 -> 3.5
 ---
 How to add XML data to ArangoDB?
 ================================

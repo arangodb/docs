@@ -3,7 +3,7 @@ layout: default
 description: SmartJoins allow to execute co-located join operations among identically sharded collections.
 title: SmartJoins for ArangoDB Clusters
 redirect_from:
-  - /3.6/smart-joins.html # 3.4 -> 3.4
+  - /3.7/smart-joins.html # 3.4 -> 3.4
 ---
 SmartJoins
 ==========

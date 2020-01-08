@@ -3,11 +3,11 @@ layout: default
 description: HTTP interface to manage Views of type ArangoSearch
 title: ArangoSearch Views HTTP API
 redirect_from:
-  - /3.6/http/views-creating.html # 3.4 -> 3.5
-  - /3.6/http/views-dropping.html # 3.4 -> 3.5
-  - /3.6/http/views-modifying.html # 3.4 -> 3.5
-  - /3.6/http/views-getting.html # 3.4 -> 3.5
-  - /3.6/http/views-arango-search.html # 3.4 -> 3.5
+  - /3.7/http/views-creating.html # 3.4 -> 3.5
+  - /3.7/http/views-dropping.html # 3.4 -> 3.5
+  - /3.7/http/views-modifying.html # 3.4 -> 3.5
+  - /3.7/http/views-getting.html # 3.4 -> 3.5
+  - /3.7/http/views-arango-search.html # 3.4 -> 3.5
 ---
 ArangoSearch View
 =================
