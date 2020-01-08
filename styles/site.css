@@ -50,6 +50,12 @@ h6:hover a.anchor-link,
     line-height: 1.7;
 }
 
+.page-inner h1::before {
+    content: "";
+    display: flex;
+    width: 200px;
+}
+
 .anchor-link {
     padding-left: 0.375em;
 }
