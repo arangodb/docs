@@ -50,6 +50,12 @@ h6:hover a.anchor-link,
     line-height: 1.7;
 }
 
+.page-inner h1::before {
+    content: "";
+    display: flex;
+    width: 200px;
+}
+
 .anchor-link {
     padding-left: 0.375em;
 }
@@ -187,6 +193,17 @@ pre.highlight .nb {
 
 nav {
     margin-bottom: 40px;
+}
+
+.video {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+}
+
+.video iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 @media screen and (max-width: 1020px) {

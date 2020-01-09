@@ -174,6 +174,16 @@ Add the actual content below the frontmatter.
   +{% assign options = site.data["36-program-options-arangobackup"] %}
    {% include program-option.html options=options name="arangobackup" %}
   ```
+  ```
+  grep -r -F 'site.data["35-' --include '*.md' -l 3.6 | xargs sed -i 's/site\.data\["35-/site.data["36-/g'
+  ```
+- Adjust the version numbers in `redirect_from` URLs in the frontmatter
+  to match the new version folder, e.g.
+  ```diff
+   redirect_from:
+  -  - /3.5/path/to/file.html # 3.4 -> 3.5
+  +  - /3.6/path/to/file.html # 3.4 -> 3.5
+  ```
 - Add the version to `_data/versions.yml` with the full version name
 - Add all books of that version to `_data/books.yml`
 - Adjust the following fields in `_config.yml` as needed:
@@ -324,6 +334,30 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
   subfolder. Change your working directory to the root folder of the working
   copy (`/path/to/docs`).
 
+- ```
+  Please append `--trace` to the `build` command
+  for any additional information or backtrace.
+  ```
+  
+  This is a generic error message which requires the inspection of the
+  stack trace to figure out the root cause of the problem.
+  
+  - ```
+    …lib/jekyll/utils.rb:141:in `initialize': No such file or directory @ rb_sysopen - /path/to/file
+    ```
+    
+    Jekyll can't open the specified file. A possible reason is that it is a
+    binary file which is not supposed to be in the source tree in the first
+    place or which should be excluded via `_config.yml`
+    
+  - ```
+    …lib/safe_yaml/load.rb:143:in `parse': (/path/to/docs/_data/3.x-manual.yml):
+    mapping values are not allowed in this context at line 274 column 15 (Psych::SyntaxError)
+    ```
+    
+    The specified navigation definition file is not valid YAML. Check if the
+    indention is correct and that you use `children:` if the following entries
+    are child pages.
 
 ## CI/Netlify
 
