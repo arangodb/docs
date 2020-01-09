@@ -150,7 +150,7 @@ instead of specifying the type of the connection inside the edge document.
 A few things to consider:
 - Adding an extra collection always incurs a small amount of overhead for the
   collection metadata and indexes.
-- You cannot use more than _2048_ collections per AQL query
+- You cannot use more than _2048_ collections/shards per AQL query
 - Uniqueness constraints on certain attributes (via an unique index) can only
   be enforced by ArangoDB within one collection
 - Only with the _MMFiles storage engine_: Creating extra databases will require
