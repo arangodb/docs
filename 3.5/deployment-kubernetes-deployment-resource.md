@@ -55,9 +55,9 @@ Below you'll find all settings of the `ArangoDeployment` custom resource.
 Several settings are for various groups of servers. These are indicated
 with `<group>` where `<group>` can be any of:
 
-- `agents` for all agents of a `Cluster` or `ActiveFailover` pair.
-- `dbservers` for all dbservers of a `Cluster`.
-- `coordinators` for all coordinators of a `Cluster`.
+- `agents` for all Agents of a `Cluster` or `ActiveFailover` pair.
+- `dbservers` for all DB-Servers of a `Cluster`.
+- `coordinators` for all Coordinators of a `Cluster`.
 - `single` for all single servers of a `Single` instance or `ActiveFailover` pair.
 - `syncmasters` for all syncmasters of a `Cluster`.
 - `syncworkers` for all syncworkers of a `Cluster`.
@@ -67,8 +67,8 @@ with `<group>` where `<group>` can be any of:
 This setting specifies the type of deployment you want to create.
 Possible values are:
 
-- `Cluster` (default) Full cluster. Defaults to 3 agents, 3 dbservers & 3 coordinators.
-- `ActiveFailover` Active-failover single pair. Defaults to 3 agents and 2 single servers.
+- `Cluster` (default) Full cluster. Defaults to 3 Agents, 3 DB-Servers & 3 Coordinators.
+- `ActiveFailover` Active-failover single pair. Defaults to 3 Agents and 2 single servers.
 - `Single` Single server only (note this does not provide high availability or reliability).
 
 This setting cannot be changed after the deployment has been created.
@@ -81,7 +81,7 @@ Possible values are:
 - `Development` (default) This value optimizes the deployment for development
   use. It is possible to run a deployment on a small number of nodes (e.g. minikube).
 - `Production` This value optimizes the deployment for production use.
-  It puts required affinity constraints on all pods to avoid agents & dbservers
+  It puts required affinity constraints on all pods to avoid Agents & DB-Servers
   from running on the same machine.
 
 ### `spec.image: string`
@@ -103,6 +103,10 @@ Possible values are:
 ### `spec.imagePullSecrets: []string`
 
 This setting specifies the list of image pull secrets for the docker image to use for all ArangoDB servers.
+
+### `spec.annotations: map[string]string`
+
+This setting set specified annotations to all ArangoDeployment owned resources (pods, services, PVC's, PDB's).
 
 ### `spec.storageEngine: string`
 
@@ -152,7 +156,7 @@ an encryption key that is exactly 32 bytes long.
 The default of this option is `false`. If set to `true`, and the
 deployed ArangoDB version is new enough (>= 3.4.8 for 3.4 and >= 3.5.1
 for 3.5), a `ResignLeaderShip` operation
-will be triggered when a dbserver pod is evicted (rather than a
+will be triggered when a DB-Server pod is evicted (rather than a
 `CleanOutServer` operation). Furthermore, the pod will simply be
 redeployed on a different node, rather than cleaned and retired and
 replaced by a new member. You must only set this option to `true` if
@@ -197,7 +201,7 @@ If you do not specify this setting, a random port will be chosen automatically.
 
 ### `spec.externalAccess.advertisedEndpoint: string`
 
-This setting specifies the advertised endpoint for all coordinators.
+This setting specifies the advertised endpoint for all Coordinators.
 
 ### `spec.auth.jwtSecretName: string`
 
@@ -412,7 +416,7 @@ There are two magic values for the secret name:
 ### `spec.metrics.enabled: bool`
 
 If this is set to `true`, the operator runs a sidecar container for
-every DBserver pod and every coordinator pod. The sidecar container runs
+every DB-Server pod and every Coordinator pod. The sidecar container runs
 the ArangoDB-exporter and exposes metrics of the corresponding `arangod`
 instance in Prometheus format on port 9101 under path `/metrics`. You
 also have to specify a string for `spec.metrics.image`, which is the
@@ -460,7 +464,7 @@ deployment is used.
 ### `spec.<group>.count: number`
 
 This setting specifies the number of servers to start for the given group.
-For the agent group, this value must be a positive, odd number.
+For the Agent group, this value must be a positive, odd number.
 The default value is `3` for all groups except `single` (there the default is `1`
 for `spec.mode: Single` and `2` for `spec.mode: ActiveFailover`).
 
@@ -520,6 +524,10 @@ rules:
 
 If you are using a different service account, please grant these rights
 to that service account.
+
+### `spec.<group>.annotations: map[string]string`
+
+This setting set annotations overrides for pods in this group. Annotations are merged with `spec.annotations`.
 
 ### `spec.<group>.priorityClassName: string`
 

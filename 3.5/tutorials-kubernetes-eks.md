@@ -181,10 +181,10 @@ $ kubectl apply -f https://raw.githubusercontent.com/arangodb/kube-arangodb/mast
 ```
 
 ### Wait for cluster to become ready
-Get `LoadBalancer` address from below command to access your coordinator.
+Get `LoadBalancer` address from below command to access your Coordinator.
 ```
 $ kubectl get svc
 ```
 
 ### Secure ArangoDB cluster
-Do not forget to immediately assign a secure database `root` password once on coordinator
+Do not forget to immediately assign a secure database `root` password once on Coordinator

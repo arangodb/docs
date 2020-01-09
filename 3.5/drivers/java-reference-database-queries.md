@@ -54,6 +54,11 @@ a new _ArangoCursor_ instance for the result list.
     in case it allocates too much memory. A value of 0 indicates that there is
     no memory limit.
 
+  - **maxRuntime**: `Double`
+
+    The query has to be executed within the given runtime or it will be killed.
+    The value is specified in seconds. The default value is 0.0 (no timeout).
+
   - **cache**: `Boolean`
 
     Flag to determine whether the AQL query cache shall be used.
@@ -99,7 +104,7 @@ a new _ArangoCursor_ instance for the result list.
 
   - **satelliteSyncWait**: `Double`
 
-    This Enterprise Edition parameter allows to configure how long a DBServer
+    This Enterprise Edition parameter allows to configure how long a DB-Server
     will have time to bring the satellite collections involved in the query
     into sync. The default value is 60.0 (seconds). When the max time has been
     reached the query will be stopped.
