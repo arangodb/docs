@@ -609,15 +609,31 @@ used to specify the following options:
     a default *waitForSync* value of *true*.
   - *silent*: If this flag is set to *true*, the method does not return
     any output.
-  - *overwrite*: If set to *true*, the insert becomes a replace-insert.
-    If a document with the same *_key* already exists the new document
-    is not rejected with unique constraint violated but will replace
-    the old document.
   - *returnNew*: If this flag is set to *true*, the complete new document
     is returned in the output under the attribute *new*.
   - *returnOld*: If this flag is set to *true*, the complete old document
     is returned in the output under the attribute *old*. Only available 
     in combination with the *overwrite* option
+  - *overwrite*: If set to *true*, the insert becomes a replace-insert.
+    If a document with the same *_key* already exists the new document
+    is not rejected with unique constraint violated but will replace
+    the old document.
+  - *overwriteMethod*: If optional flag is set to *replace* or *update*,
+    it implicitly activates the overwrite mode. In case it is set to
+    *update*, the replace-insert becomes a update-insert.
+    Otherwise this option follows the rules of the overwrite parameter.
+    The *update* operation can be controlled by the *keepNull* and
+    *mergeObjects* parameters.
+  - *keepNull*: The optional *keepNull* parameter can be used to modify
+    the behavior when handling *null* values. Normally, *null* values
+    are stored in the database. By setting the *keepNull* parameter to
+    *false*, this behavior can be changed so that all attributes in
+    *data* with *null* values will be removed from the target document.
+  - *mergeObjects*: Controls whether objects (not arrays) will be
+    merged if present in both the existing and the patch document. If
+    set to *false*, the value in the patch document will overwrite the
+    existing document's value. If set to *true*, objects will be merged.
+    The default is *true*.
 
 `collection.insert(array)`
 
