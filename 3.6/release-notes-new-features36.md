@@ -542,7 +542,7 @@ FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_
 ArangoSearch Views are now eligible for [SmartJoins](smartjoins.html) in AQL,
 provided that their underlying collections are eligible too.
 
-<span id="#oneshard-cluster"></span>
+<span id="oneshard-cluster"></span>
 
 OneShard
 --------
