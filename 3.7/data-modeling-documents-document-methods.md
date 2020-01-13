@@ -619,7 +619,7 @@ used to specify the following options:
     is not rejected with unique constraint violated but will replace
     the old document.
   - *overwriteMethod*: If this optional flag is set to *replace* or *update*,
-    it implicitly activates the overwrite mode. In case it is set to
+    it implicitly activates the *overwrite* mode. In case it is set to
     *update*, the replace-insert becomes an update-insert.
     Otherwise this option follows the rules of the overwrite parameter.
     The *update* operation can be controlled by the *keepNull* and
