@@ -635,6 +635,7 @@ used to specify the following options:
     set to *false*, the value in the patch document will overwrite the
     existing document's value. If set to *true*, objects will be merged.
     The default is *true*.
+    This option controls the update-insert behavior only.
 
 `collection.insert(array)`
 
