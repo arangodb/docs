@@ -12,7 +12,7 @@ here.
 ### Insert-Update
 
 ArangoDB 3.7 adds an insert-update operation that is similar to the already
-existing insert-replace functionality. Thew new `overwriteMode` flag has been
+existing insert-replace functionality. The new `overwriteMode` flag has been
 introduced to control the type of the overwrite operation in case of colliding
 keys during the insert. Furthermore the insert now takes the *keepNull* and
 *mergeObjects* parameters to provide more control over the update operation.
