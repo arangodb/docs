@@ -572,8 +572,9 @@ only the final result. This can drastically reduce resource consumption and
 communication effort for the Coordinator.
 
 An entire cluster, selected databases or selected collections can be made
-eligible for the [OneShard](architecture-deployment-modes-cluster-architecture.html#oneshard)
-optimization.
+eligible for the OneShard optimization. See
+[OneShard cluster architecture](architecture-deployment-modes-cluster-architecture.html#oneshard)
+for details and usage examples.
 
 HTTP API
 --------
