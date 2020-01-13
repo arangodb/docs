@@ -14,4 +14,4 @@ Cluster
 -------
 
 ### Parallel Move Shard
-Shards can now move in parallel. The old locking mechanism was replaced by a read-write-lock and thus allows multiple jobs for the same _to_ server. The actual transfere rates are still limited on dbserver side but there is a huge overall speedup. This also affects `CleanOutServer` and `ResignLeadership` jobs. 
+Shards can now move in parallel. The old locking mechanism was replaced by a read-write-lock and thus allows multiple jobs for the same _to_ server. The actual transfer rates are still limited on dbserver side but there is a huge overall speedup. This also affects `CleanOutServer` and `ResignLeadership` jobs. 
