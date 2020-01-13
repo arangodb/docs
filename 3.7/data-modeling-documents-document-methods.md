@@ -629,6 +629,7 @@ used to specify the following options:
     are stored in the database. By setting the *keepNull* parameter to
     *false*, this behavior can be changed so that all attributes in
     *data* with *null* values will be removed from the target document.
+    This option controls the update-insert behavior only.
   - *mergeObjects*: Controls whether objects (not arrays) will be
     merged if present in both the existing and the patch document. If
     set to *false*, the value in the patch document will overwrite the
