@@ -104,6 +104,22 @@ FOR i IN 1..1000
   } INTO users OPTIONS { overwrite: true }
 ```
 
+To update existing documents with documents having the same key there is the
+*overwriteMode* query option, which implicitly enables the *overwrite* option .
+This will let you chose between "replace" and "update" overwrite mode. In case
+the *overwriteMode* is "update" the *keepNull* and *mergeObjects* options will
+modify how the replacement is done. Please consult the UPDATE documentation for
+more detail on these options.
+
+```js
+FOR i IN 1..1000
+  INSERT {
+    _key: CONCAT('test', i),
+    name: "test",
+    foobar: true
+  } INTO users OPTIONS { overwriteMode: "update", keepNull: true, mergeObjects: false }
+```
+
 In contrast to the MMFiles engine, the RocksDB engine does not require collection-level
 locks. Different write operations on the same collection do not block each other, as
 long as there are no _write-write conficts_ on the same documents. From an application
