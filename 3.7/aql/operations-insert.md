@@ -106,7 +106,7 @@ FOR i IN 1..1000
 
 To update existing documents with documents having the same key there is the
 *overwriteMode* query option, which implicitly enables the *overwrite* option .
-This will let you chose between "replace" and "update" overwrite mode. In case
+This will let you choose between "replace" and "update" overwrite mode. In case
 the *overwriteMode* is "update" the *keepNull* and *mergeObjects* options will
 modify how the replacement is done. Please consult the UPDATE documentation for
 more detail on these options.
