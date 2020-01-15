@@ -542,6 +542,8 @@ FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_
 ArangoSearch Views are now eligible for [SmartJoins](smartjoins.html) in AQL,
 provided that their underlying collections are eligible too.
 
+<span id="oneshard-cluster"></span>
+
 OneShard
 --------
 
@@ -570,8 +572,9 @@ only the final result. This can drastically reduce resource consumption and
 communication effort for the Coordinator.
 
 An entire cluster, selected databases or selected collections can be made
-eligible for the [OneShard](architecture-deployment-modes-cluster-architecture.html#oneshard)
-optimization.
+eligible for the OneShard optimization. See
+[OneShard cluster architecture](architecture-deployment-modes-cluster-architecture.html#oneshard)
+for details and usage examples.
 
 HTTP API
 --------
@@ -645,13 +648,13 @@ collections created in the new database, unless explicitly overridden.
 Startup options
 ---------------
 
-### Metrics API
+### Metrics API option
 
 The new [option](programs-arangod-server.html#metrics-api)
 `--server.enable-metrics-api` allows you to disable the metrics API by setting
 it to `false`, which is otherwise turned on by default.
 
-### OneShard Cluster
+### OneShard cluster option
 
 The [option](programs-arangod-cluster.html#more-advanced-options)
 `--cluster.force-one-shard` enables the new OneShard feature for the entire
@@ -661,7 +664,7 @@ shards leader. All collections created this way will be eligible for specific
 AQL query optimizations that can improve query performance and provide advanced
 transactional guarantees.
 
-### Cluster upgrade
+### Cluster upgrade option
 
 The new [option](programs-arangod-cluster.html#upgrade) `--cluster.upgrade`
 toggles the cluster upgrade mode for Coordinators. It supports the following
@@ -729,7 +732,7 @@ have been added:
 - `--network.verify-hosts`: if set to `true`, this will verify peer certificates
   for cluster-internal requests when TLS is used. The default value is `false`.
 
-### RocksDB exclusive writes
+### RocksDB exclusive writes option
 
 The new option `--rocksdb.exclusive-writes` allows to make all writes to the
 RocksDB storage exclusive and therefore avoids write-write conflicts.
