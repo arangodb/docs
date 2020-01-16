@@ -31,7 +31,7 @@ oasisctl list [flags]
 
 ## See also
 
-* [oasisctl](oasisctl.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
 * [oasisctl list apikeys](oasisctl-list-apikeys.html)	 - List all API keys created for the current user
 * [oasisctl list arangodb](oasisctl-list-arangodb.html)	 - List ArangoDB information
 * [oasisctl list backups](oasisctl-list-backups.html)	 - List backups

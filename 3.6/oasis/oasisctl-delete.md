@@ -31,7 +31,7 @@ oasisctl delete [flags]
 
 ## See also
 
-* [oasisctl](oasisctl.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
 * [oasisctl delete apikey](oasisctl-delete-apikey.html)	 - Delete an API key with given identifier
 * [oasisctl delete backup](oasisctl-delete-backup.html)	 - Delete a backup for a given ID.
 * [oasisctl delete cacertificate](oasisctl-delete-cacertificate.html)	 - Delete a CA certificate the authenticated user has access to

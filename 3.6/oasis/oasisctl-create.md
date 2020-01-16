@@ -31,7 +31,7 @@ oasisctl create [flags]
 
 ## See also
 
-* [oasisctl](oasisctl.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
 * [oasisctl create apikey](oasisctl-create-apikey.html)	 - Create a new API key
 * [oasisctl create backup](oasisctl-create-backup.html)	 - Create a new backup
 * [oasisctl create cacertificate](oasisctl-create-cacertificate.html)	 - Create a new CA certificate

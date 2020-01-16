@@ -39,7 +39,7 @@ def main()
     # We rely on the files being in alphabetical order
     Dir.glob(File.join(inpath, "oasisctl*.md")).each { |infile|
         base = File.basename(infile)
-        base = "oasisctl-options.md" if base == "oasisctl.md" # TODO: need to fix internal links!
+        base = "oasisctl-options.md" if base == "oasisctl.md"
         outfile = File.join(outpath, base.gsub('_', '-'))
         rewrite_content(infile, outfile)
         title_arr = File.basename(infile, '.md').split('_')
@@ -67,6 +67,7 @@ def main()
 end
 
 def rewrite_content(infile, outfile)
+    is_root = File.basename(infile) == "oasisctl.md"
     lines = File.readlines(infile)
     f = File.open(outfile, "w")
     lines.each { |line|
@@ -80,9 +81,9 @@ def rewrite_content(infile, outfile)
         elsif line.start_with?("### ")
             f.write(line[1..])
         # Monkey-patching frontmatter (TODO: port to oasisctl?)
-        elsif line.start_with?("description: ")
+        elsif is_root and line.start_with?("description: ")
             f.write("description: Command-line client tool for managing ArangoDB Oasis\n")
-        elsif line.start_with?("title: ")
+        elsif is_root and line.start_with?("title: ")
             f.write("title: ArangoDB Oasis Shell oasisctl\n")
         else
             f.write(line.gsub("[oasisctl](oasisctl.html)", "[oasisctl](oasisctl-options.html)"))

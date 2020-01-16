@@ -31,7 +31,7 @@ oasisctl update [flags]
 
 ## See also
 
-* [oasisctl](oasisctl.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
 * [oasisctl update backup](oasisctl-update-backup.html)	 - Update a backup
 * [oasisctl update cacertificate](oasisctl-update-cacertificate.html)	 - Update a CA certificate the authenticated user has access to
 * [oasisctl update deployment](oasisctl-update-deployment.html)	 - Update a deployment the authenticated user has access to

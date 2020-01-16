@@ -32,5 +32,5 @@ oasisctl generate-docs [flags]
 
 ## See also
 
-* [oasisctl](oasisctl.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
 

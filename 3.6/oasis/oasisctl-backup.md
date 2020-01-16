@@ -31,6 +31,6 @@ oasisctl backup [flags]
 
 ## See also
 
-* [oasisctl](oasisctl.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
 * [oasisctl backup download](oasisctl-backup-download.html)	 - Download a backup
 

@@ -31,7 +31,7 @@ oasisctl get [flags]
 
 ## See also
 
-* [oasisctl](oasisctl.html)	 - ArangoDB Oasis
+* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
 * [oasisctl get backup](oasisctl-get-backup.html)	 - Get a backup
 * [oasisctl get cacertificate](oasisctl-get-cacertificate.html)	 - Get a CA certificate the authenticated user has access to
 * [oasisctl get deployment](oasisctl-get-deployment.html)	 - Get a deployment the authenticated user has access to
