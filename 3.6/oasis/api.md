@@ -18,4 +18,4 @@ Aspects:
 
 Where to go from here
 
-Link to [reference documentation](#hosted-on-github-pages-for-example)
+Link to [reference documentation](http://hosted-on-github-pages-or.similar){:target="_blank"}
