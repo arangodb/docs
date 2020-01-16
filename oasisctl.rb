@@ -46,6 +46,7 @@ def main()
         title = command = "Options"
         if title_arr.length > 1
             title = title_arr[1..].map{|word| word.capitalize}.join(' ')
+            # TODO: Fix inter-word capitalization of navigation labels?
             command = title_arr[1]
         end
 
@@ -73,6 +74,7 @@ def rewrite_content(infile, outfile)
     lines.each { |line|
         if line.start_with?("###### Auto generated")
             # ignore
+        # TODO: Fix inter-word capitalization of headlines?
         elsif line.start_with?("## ")
             # Capitalize first letter of each word in main headline
             f.write(line[1..].split(" ").map{|word| word.capitalize}.join(" ") + "\n")
@@ -86,6 +88,7 @@ def rewrite_content(infile, outfile)
         elsif is_root and line.start_with?("title: ")
             f.write("title: ArangoDB Oasis Shell oasisctl\n")
         else
+            # TODO: Fix capitalization of link labels?
             f.write(line.gsub("[oasisctl](oasisctl.html)", "[oasisctl](oasisctl-options.html)"))
         end
     }
