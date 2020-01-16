@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # This script adjusts the generated output of
-# > oasisctl --generate-docs --replace-underscore
+# > oasisctl generate-docs --replace-underscore
 #
 # - Replace underscore with hyphen in file names
 # - Fix headline levels (start at <h1>)
@@ -25,23 +25,44 @@ def main()
     inpath = Pathname.new(ARGV[0]).cleanpath
     outpath = Pathname.new(ARGV[1]).cleanpath
 
+    raise ArgumentError, "The supplied directories are the same" if inpath == outpath
+
     [inpath, outpath].each { |dir|
         if not Dir.exist?(dir)
             raise IOError, "Directory does not exist: #{dir}"
         end
     }
 
+    spaces = "    "
+    prev_command = ""
+    first_child = false
+    # We rely on the files being in alphabetical order
     Dir.glob(File.join(inpath, "oasisctl*.md")).each { |infile|
         base = File.basename(infile)
+        base = "oasisctl-options.md" if base == "oasisctl.md" # TODO: need to fix internal links!
         outfile = File.join(outpath, base.gsub('_', '-'))
         rewrite_content(infile, outfile)
         title_arr = File.basename(infile, '.md').split('_')
-        title = "Oasisctl"
+        title = command = "Options"
         if title_arr.length > 1
             title = title_arr[1..].map{|word| word.capitalize}.join(' ')
+            command = title_arr[1]
         end
+
         # Output for pasting into x.x-oasis.yml navigation definition
-        puts "    - text: #{title}\n      href: #{File.basename(outfile, '.md') + '.html'}"
+        entry = [
+            "- text: #{title}",
+            "  href: #{File.basename(outfile, '.md') + '.html'}"
+        ]
+        if command != prev_command
+            puts entry.map{ |l| spaces + l}.join("\n")
+            first_child = true
+        else
+            puts spaces + "  children:" if first_child
+            puts entry.map{ |l| spaces * 2 + l}.join("\n")
+            first_child = false
+        end
+        prev_command = command
     }
 end
 
@@ -64,7 +85,7 @@ def rewrite_content(infile, outfile)
         elsif line.start_with?("title: ")
             f.write("title: ArangoDB Oasis Shell oasisctl\n")
         else
-            f.write(line)
+            f.write(line.gsub("[oasisctl](oasisctl.html)", "[oasisctl](oasisctl-options.html)"))
         end
     }
     f.close()
