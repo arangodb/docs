@@ -12,9 +12,10 @@ Aspects:
 - [gRPC](https://grpc.io/){:target="_blank"} interface based on
   [Protocol Buffers](https://developers.google.com/protocol-buffers/){:target="_blank"}
 
-- oasisctl command-line client tool
+- authentication etc.
 
-- language drivers(?)
+[oasisctl](oasisctl.html) is a command-line tool which uses the API, but there
+are also language drivers(?)...
 
 Where to go from here
 
