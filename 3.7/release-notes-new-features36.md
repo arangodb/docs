@@ -542,6 +542,8 @@ FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_
 ArangoSearch Views are now eligible for [SmartJoins](smartjoins.html) in AQL,
 provided that their underlying collections are eligible too.
 
+<span id="oneshard-cluster"></span>
+
 OneShard
 --------
 
@@ -570,8 +572,9 @@ only the final result. This can drastically reduce resource consumption and
 communication effort for the Coordinator.
 
 An entire cluster, selected databases or selected collections can be made
-eligible for the [OneShard](architecture-deployment-modes-cluster-architecture.html#oneshard)
-optimization.
+eligible for the OneShard optimization. See
+[OneShard cluster architecture](architecture-deployment-modes-cluster-architecture.html#oneshard)
+for details and usage examples.
 
 HTTP API
 --------

@@ -35,8 +35,8 @@ automatically figure out which collections are going to be used by the query.
 via traversals, shortest path operations or the *DOCUMENT()* function.
 
 ```
-WITH managers, usersHaveManagers
-FOR v, e, p IN OUTBOUND 'users/1' GRAPH 'userGraph'
+WITH managers
+FOR v, e, p IN OUTBOUND 'users/1' usersHaveManagers
   RETURN { v, e, p }
 ```
 
