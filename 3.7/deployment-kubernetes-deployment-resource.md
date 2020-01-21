@@ -467,7 +467,7 @@ deployment is used.
 
 This setting specifies the resources required by the metrics container. 
 This includes requests and limits. 
-See https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container for details.
+See [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container){:target="_blank"}.
 
 ### `spec.lifecycle.resources: ResourceRequirements`
 
@@ -475,7 +475,7 @@ See https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-c
 
 This setting specifies the resources required by the lifecycle init container. 
 This includes requests and limits.
-See https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container for details.
+See [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container){:target="_blank"}.
 
 ### `spec.<group>.count: number`
 
