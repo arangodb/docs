@@ -2,7 +2,7 @@
 layout: default
 description: ArangoDB exposes its API via HTTP, making the server accessible easily witha variety of clients and tools (e
 ---
-General HTTP Request Handling in ArangoDB
+HTTP Request Handling in ArangoDB
 =========================================
 
 Protocol
@@ -10,22 +10,20 @@ Protocol
 
 ArangoDB exposes its API via HTTP, making the server accessible easily with
 a variety of clients and tools (e.g. browsers, curl, telnet). The communication
-can optionally be SSL-encrypted.
+can optionally be SSL-encrypted. 
+Additionnaly there is a custom binary protocol called [VelocyStream](https://github.com/arangodb/velocystream) 
+which can be used for better throughput.
 
 ArangoDB uses the standard HTTP methods (e.g. *GET*, *POST*, *PUT*, *DELETE*) plus
 the *PATCH* method described in [RFC 5789](http://tools.ietf.org/html/rfc5789){:target="_blank"}.
 
 Most server APIs expect clients to send any payload data in [JSON](http://www.json.org){:target="_blank"}
-format. Details on the expected format and JSON attributes can be found in the
+format or our custom [VelocyPack](https://github.com/arangodb/velocypack) format. 
+Details on the expected format and JSON attributes can be found in the
 documentation of the individual server methods.
 
-Clients sending requests to ArangoDB must use either HTTP 1.0 or HTTP 1.1.
-Other HTTP versions are not supported by ArangoDB and any attempt to send
-a different HTTP version signature will result in the server responding with
-an HTTP 505 (HTTP version not supported) error.
-
-ArangoDB will always respond to client requests with HTTP 1.1. Clients
-should therefore support HTTP version 1.1.
+Clients sending requests to ArangoDB must use either HTTP 1.0 or HTTP 1.1 or HTTP 2 or VelocyStream.
+Other HTTP versions or protocols are not supported by ArangoDB.
 
 Clients are required to include the *Content-Length* HTTP header with the
 correct content length in every request that can have a body (e.g. *POST*,
@@ -56,6 +54,28 @@ Each request is treated independently by definition. You can use this feature
 to build up a so called *connection pool* with several established
 connections in your client application, and dynamically re-use
 one of those then idle connections for subsequent requests.
+
+
+Switching Protocols
+-----------------------
+
+Connections are initialized expecting the HTTP 1.1 protocol by default. To use
+other protocols the client must indicate this to the server so that the protocol may be switched.
+
+Upgrading to HTTP 2 is supported according to the ways outlined in [RFC7540](https://tools.ietf.org/html/rfc7540#section-3).
+We support upgrade from non-encrypted connections and encrypted connections:
+
+On Non-encrypted connections with "http" URIs we expect the client to use HTTP 1.1 for at least one request.
+Upgrading happens by sending a request with the `Upgrade: h2c` header and exactly one `HTTP2-Settings` header. 
+The server will then respond with the `101 Switching Protocols` and begin using H2.
+
+On TLS encrypted connections with "https" URIs we support the ALPN extension with the "h2" protocol identifier. 
+This means the connection may switch to using H2 right away after a successful TLS handshake.
+
+We do not support starting HTTP/2 with Prior Knowledge.
+
+An upgrade to the VelocyStream protocol may happen by sending `VST/1.1\r\n\r\n` (11 bytes) to the server
+_before_ sending anything else. The server will then start using VelocyStream 1.1 sending anything else is an error.
 
 Blocking vs. Non-blocking HTTP Requests
 ---------------------------------------
