@@ -25,7 +25,3 @@ Deployment steps:
 - [ArangoSync Master](deployment-dc2-dc-arango-sync-master.html)
 - [ArangoSync Workers](deployment-dc2-dc-arango-sync-workers.html)
 - [Prometheus & Grafana (optional)](deployment-dc2-dc-prometheus-grafana.html)
-
-When using the `kafka` type message queue, you also have to deploy:
-
-- [Kafka & Zookeeper](deployment-dc2-dc-kafka-zookeeper.html)

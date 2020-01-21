@@ -44,15 +44,6 @@ TimeoutStopSec=60
 WantedBy=multi-user.target
 ```
 
-When using the `kafka` type message queue, replace `--mq.type=direct` with `--mq.type=kafka`
-and add the following arguments.
-
-```text
-    --mq.kafka-addr=${KAFKAENDPOINTS} \
-    --mq.kafka-client-keyfile=${CERTIFICATEDIR}/kafka-client.key \
-    --mq.kafka-cacert=${CERTIFICATEDIR}/tls-ca.crt
-```
-
 The _sync master_ needs a TLS server certificate and a
 If you want the service to create a TLS certificate & client authentication
 certificate, for authenticating with _ArangoSync Masters_ in another datacenter,
@@ -68,13 +59,6 @@ ExecStartPre=/usr/sbin/arangosync create tls keyfile \
     --host=${PRIVATEIP} \
     --host=${HOST} \
     --host=${CLUSTERDNSNAME}
-ExecStartPre=/usr/sbin/arangosync create client-auth keyfile \
-    --cacert=${CERTIFICATEDIR}/tls-ca.crt \
-    --cakey=${CERTIFICATEDIR}/tls-ca.key \
-    --keyfile=${CERTIFICATEDIR}/kafka-client.key \
-    --host=${PUBLICIP} \
-    --host=${PRIVATEIP} \
-    --host=${HOST}
 ```
 
 The _ArangoSync Master_ must be reachable on a TCP port `${MASTERPORT}` (used with `--server.port` option).

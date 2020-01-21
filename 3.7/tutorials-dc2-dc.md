@@ -82,7 +82,6 @@ To use ArangoSync you need the following:
 - A network connection between both datacenters with accessible endpoints
   for several components (see individual components for details).
 - TLS certificates for ArangoSync master instances (can be self-signed).
-- TLS certificates for Kafka brokers (can be self-signed).
 - Optional (but recommended) TLS certificates for ArangoDB clusters (can be self-signed).
 - Client certificates CA for ArangoSync masters (typically self-signed).
 - Client certificates for ArangoSync masters (typically self-signed).
@@ -103,7 +102,7 @@ Besides the above list, you probably want to use the following:
 
 In the following paragraphs you'll learn which components have to be deployed
 for datacenter to datacenter replication using the `direct` message queue.
-For detailed deployment instructions or instructions for the `kafka` message queue,
+For detailed deployment instructions or instructions
 consult the [reference manual](deployment-dc2-dc.html).
 
 ### ArangoDB cluster
