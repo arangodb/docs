@@ -58,9 +58,6 @@ Once configured, _ArangoSync_ will replicate both **structure and data** of an
 changes when adding/removing databases or collections.
 <br/>Also meta data such as users, Foxx application & jobs are automatically replicated.
 
-A message queue is used for replication. You can use either of the following:
-
-- **DirectMQ** (recommended):
-  Message queue developed by ArangoDB in Go. Tailored for DC2DC replication
-  with efficient native networking routines. Available since ArangoSync version 0.5.0
-  (shipped with ArangoDB Enterprise Edition v3.3.8).
+A message queue developed by ArangoDB in Go and called **DirectMQ** is used for
+replication. It is tailored for DC2DC replication with efficient native
+networking routines.
