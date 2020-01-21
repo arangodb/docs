@@ -1,6 +1,7 @@
 ---
 layout: default
-description: The most important suggestions listed in this section can be easily applied by making use of a script
+description: Recommendations regarding file systems, memory settings etc.
+title: Linux System Configuration for ArangoDB
 ---
 Linux Operating System Configuration
 ====================================
@@ -19,7 +20,9 @@ We recommend to **not** use BTRFS on linux, as user have reported issues using i
 conjunction with ArangoDB. We experienced ArangoDB facing latency issues when accessing
 its database files on BTRFS partitions. In conjunction with BTRFS and AUFS we also saw
 data loss on restart.
-We would not recommend to use NFS for performance reasons, furthermore we experienced some issues with hard links required for Hot Backup.
+
+We would not recommend to use NFS for performance reasons, furthermore we
+experienced some issues with hard links required for Hot Backup.
 
 Page Sizes
 ----------
