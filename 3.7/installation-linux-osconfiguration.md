@@ -21,8 +21,8 @@ conjunction with ArangoDB. We experienced ArangoDB facing latency issues when ac
 its database files on BTRFS partitions. In conjunction with BTRFS and AUFS we also saw
 data loss on restart.
 
-We would not recommend to use NFS for performance reasons, furthermore we
-experienced some issues with hard links required for Hot Backup.
+We would not recommend network filesystems such as NFS for performance reasons,
+furthermore we experienced some issues with hard links required for Hot Backup.
 
 Page Sizes
 ----------
