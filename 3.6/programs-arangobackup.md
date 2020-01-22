@@ -30,8 +30,8 @@ of the entire instance. Therefore, no such thing as database or
 collection level hot backup exists. Consequently, unlike with
 _arangodump_/_arangorestore_, one may only restore a hot backup set to
 the same layout, for example one can only restore a single server hot backup 
-to a single server instance and a 3 _DBServer_ cluster's hot backup to a 3
-_DBServer_ instance.
+to a single server instance and a 3 _DB-Server_ cluster's hot backup to a 3
+_DB-Server_ instance.
 
 Snapshots can be uploaded to or downloaded from remote repositories.
 

@@ -18,10 +18,10 @@ The _Starter_ simplifies things for the operator and will coordinate a distribut
 cluster startup across several machines and assign cluster roles automatically.
 
 When started on several machines and enough machines have joined, the _Starters_
-will start _Agents_, _Coordinators_ and _DBservers_ on these machines.
+will start _Agents_, _Coordinators_ and _DB-Servers_ on these machines.
 
 When running the _Starter_ will supervise its child tasks (namely _Coordinators_,
-_DBservers_ and _Agents_) and restart them in case of failure.
+_DB-Servers_ and _Agents_) and restart them in case of failure.
 
 To start the cluster using a `systemd` unit file use the following:
 
@@ -64,7 +64,7 @@ We recommend to use a dedicated system for managing secrets like HashiCorp's `Va
 ## Required ports
 
 As soon as enough machines have joined, the _Starter_ will begin starting _Agents_,
-_Coordinators_ and _DBservers_.
+_Coordinators_ and _DB-Servers_.
 
 Each of these tasks needs a port to communicate. Please make sure that the following
 ports are available on all machines:
@@ -77,7 +77,18 @@ The _Starter_ itself will use port `8528`.
 
 ## Recommended deployment environment
 
-Since the _Agents_ are so critical to the availability of both the ArangoDB and the ArangoSync cluster,
-it is recommended to run _Agents_ on dedicated machines. Consider these machines "pets".
+Since the _Agents_ are so critical to the availability of both the ArangoDB and
+the ArangoSync cluster, it is recommended to run _Agents_ on dedicated machines.
+They run a real-time system for the elections and bad performance can negatively
+affect the availability of the whole cluster.
 
-_Coordinators_ and _DBServers_ can be deployed on other machines that should be considered "cattle".
+_DB-Servers_ are also important and you do not want to lose them, but
+depending on your replication factor, the system can tolerate some
+loss and bad performance will slow things down but not stop things from
+working.
+
+_Coordinators_ can be deployed on other machines, since they do not hold
+persistent state. They might have some in-memory state about running
+transactions or queries, but losing a Coordinator will not lose any
+persisted data. Furthermore, new Coordinators can be added to a cluster
+without much effort.

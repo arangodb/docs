@@ -94,5 +94,7 @@ with applicable values from your environment.
 _Prometheus_ can be a memory & CPU intensive process. It is recommended to keep them
 on other machines than used to run the ArangoDB cluster or _ArangoSync_ components.
 
-Consider these machines "cattle", unless you configure alerting on _prometheus_,
-in which case it is recommended to consider these machines "pets".
+Consider these machines to be easily replaceable, unless you configure
+alerting on _prometheus_, in which case it is recommended to keep a
+close eye on them, such that you do not lose any alerts due to failures
+of Prometheus.
