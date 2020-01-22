@@ -110,8 +110,10 @@ consult the [reference manual](deployment-dc2-dc.html).
 Datacenter to datacenter replication requires an ArangoDB cluster in both data centers,
 configured with the `rocksdb` storage engine.
 
-Since the _Agents_ are so critical to the availability of both the ArangoDB and the ArangoSync cluster,
-it is recommended to run _Agents_ on dedicated machines. They run a real-time system for the elections and bad performance can negatively affect the availability of the whole cluster.
+Since the _Agents_ are so critical to the availability of both the ArangoDB and
+the ArangoSync cluster, it is recommended to run _Agents_ on dedicated machines.
+They run a real-time system for the elections and bad performance can negatively
+affect the availability of the whole cluster.
 
 _DBServers_ are also important and you do not want to lose them, but
 depending on your replication factor, the system can tolerate some

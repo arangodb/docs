@@ -77,8 +77,10 @@ The _Starter_ itself will use port `8528`.
 
 ## Recommended deployment environment
 
-Since the _Agents_ are so critical to the availability of both the ArangoDB and the ArangoSync cluster,
-it is recommended to run _Agents_ on dedicated machines. They run a real-time system for the elections and bad performance can negatively affect the availability of the whole cluster.
+Since the _Agents_ are so critical to the availability of both the ArangoDB and
+the ArangoSync cluster, it is recommended to run _Agents_ on dedicated machines.
+They run a real-time system for the elections and bad performance can negatively
+affect the availability of the whole cluster.
 
 _DBServers_ are also important and you do not want to lose them, but
 depending on your replication factor, the system can tolerate some
