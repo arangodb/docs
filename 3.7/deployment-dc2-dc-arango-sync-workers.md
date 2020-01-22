@@ -7,7 +7,7 @@ description: The ArangoSync Worker is responsible for executing synchronization 
 The _ArangoSync Worker_ is responsible for executing synchronization tasks.
 
 For optimal performance at least 1 _worker_ instance must be placed on
-every machine that has an ArangoDB _DBserver_ running. This ensures that tasks
+every machine that has an ArangoDB _DB-Server_ running. This ensures that tasks
 can be executed with minimal network traffic outside of the machine.
 
 Since _sync workers_ will automatically stop once their TLS server certificate expires
@@ -50,5 +50,5 @@ you can decide to run multiple _sync workers_ on each machine in order to spread
 
 ## Recommended deployment environment
 
-The _sync workers_ should be run on all machines that also contain an ArangoDB _DBServer_.
+The _sync workers_ should be run on all machines that also contain an ArangoDB _DB-Server_.
 The _sync worker_ can be memory intensive when running lots of databases & collections.

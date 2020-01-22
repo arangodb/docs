@@ -115,15 +115,15 @@ the ArangoSync cluster, it is recommended to run _Agents_ on dedicated machines.
 They run a real-time system for the elections and bad performance can negatively
 affect the availability of the whole cluster.
 
-_DBServers_ are also important and you do not want to lose them, but
+_DB-Servers_ are also important and you do not want to lose them, but
 depending on your replication factor, the system can tolerate some
 loss and bad performance will slow things down but not stop things from
 working.
 
 _Coordinators_ can be deployed on other machines, since they do not hold
 persistent state. They might have some in-memory state about running
-transactions or queries, but losing a coordinator will not lose any
-persisted data. Furthermore, new coordinators can be added to a cluster
+transactions or queries, but losing a Coordinator will not lose any
+persisted data. Furthermore, new Coordinators can be added to a cluster
 without much effort.
 
 ### Sync Master
