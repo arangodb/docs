@@ -75,4 +75,4 @@ through the endpoint specified in `--master.endpoint`.
 Since the _sync masters_ can be CPU intensive when running lots of databases & collections,
 it is recommended to run them on dedicated machines with a lot of CPU power.
 
-Consider these machines "pets".
+Consider these machines crucial for you DC2DC replication setup.
