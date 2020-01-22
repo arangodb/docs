@@ -15,14 +15,14 @@ Cluster Troubleshooting
   * Check if all cluster nodes have been started with SSL either
     dis- or enabled. If not decide what mode of operation you would
     like to run your cluster in, and consistently stick with for all
-    _Agents_, _Coordinators_ and _DBServers_.
+    _Agents_, _Coordinators_ and _DB-Servers_.
   * Check if network communication between the cluster nodes is such
     that all processes can directly access their peers. Do not
     operate proxies between the cluster nodes.
 
 * Cluster front end announces errors on any number of nodes
   * This is an indication that the _Agency_ is running but either
-    _Coordinators_ or _DBServers_ are disconnected or shut
+    _Coordinators_ or _DB-Servers_ are disconnected or shut
     down. Establish network connection to or start the according
     nodes.
   * Make sure that the nodes in question share the same `JWT_SECRET`

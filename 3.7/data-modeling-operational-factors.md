@@ -162,7 +162,7 @@ Cluster Sharding
 ----------------
 
 The ArangoDB cluster _partitions_ your collections into one or more _shards_
-across multiple _DBServers_. This enables efficient _horizontal scaling_:
+across multiple _DB-Servers_. This enables efficient _horizontal scaling_:
 It allows you to store much more data, since ArangoDB distributes the data
 automatically to the different servers. In many situations one can also reap
 a benefit in data throughput, again because the load can be distributed to
@@ -174,7 +174,7 @@ your performance can reduce network traffic and increase performance.
 
 ArangoDB uses consistent hashing to compute the target shard from the given
 values (as specified via 'shardKeys'). The ideal set of shard keys allows
-ArangoDB to distribute documents evenly across your shards and your _DBServers_.
+ArangoDB to distribute documents evenly across your shards and your _DB-Servers_.
 By default ArangoDB uses the `_key` field as a shard key. For a custom shard key
 you should consider a few different properties:
 
