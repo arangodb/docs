@@ -1,6 +1,7 @@
 ---
 layout: default
-description: The following checklist can help to understand if important steps have been performed on your production system before you go live
+description: Important steps to perform before you go live.
+title: ArangoDB Production Checklist
 ---
 ArangoDB Production Checklist
 =============================
@@ -46,19 +47,20 @@ ArangoDB
   ```
 
 - If you have deployed a Cluster (and/or are using DC2DC) the
-  _replication factor_  and _minimal_replication_factor_ of your collections is
-  set to a value equal or higher than 2, otherwise you run at the risk of
+  _replication factor_  and _minimal_replication_factor_ of your collections
+  is set to a value equal or higher than 2, otherwise you run at the risk of
   losing data in case of node failure. See
-  [cluster documentation](programs-arangod-cluster.html).
+  [cluster startup options](programs-arangod-cluster.html).
 
-- Verify that your **Storage Performance** is at least 100 IOPS for each Volume
-  in Production mode. This is the bare minimum and we would recommend providing
-  more for performance. Please note that IOPS  might be calculated from size,
-  so please check your storage provider for details. Furthermore you should be
-  careful with burst mode guarantees as ArangoDB requires a sustainable high
-  IOPS rate.
+- Verify that your **storage performance** is at least 100 IOPS for each
+  volume in production mode. This is the bare minimum and we would recommend
+  providing more for performance. It is probably only a concern if you use
+  cloud infrastructure. Note that IOPS might be allotted based on volume size,
+  so please check your storage provider for details. Furthermore you should
+  be careful with burst mode guarantees as ArangoDB requires a sustainable
+  high IOPS rate.
 
-- Whenever possible use block storage. Database data is based on append
+- Whenever possible use **block storage**. Database data is based on append
   operations, so filesystem which support this should be used for best
   performance. We would not recommend to use NFS for performance reasons,
   furthermore we experienced some issues with hard links required for
@@ -73,7 +75,7 @@ Kubernetes Operator (kube-arangodb)
   for Kubernetes, operator and supported Kubernetes distributions.
 
 - The [**ReclaimPolicy**](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#reclaiming){:target="_blank"}
-  of your persistent volumes must be set to retain to prevent volumes to be
-  prevent volumes to be prematurely deleted.
+  of your persistent volumes must be set to `Retain` to prevent volumes
+  to be prevent volumes to be prematurely deleted.
 
-- Using native networking whenever possible to reduce delays.
+- Use native networking whenever possible to reduce delays.
