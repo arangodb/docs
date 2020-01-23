@@ -206,21 +206,22 @@ for your own variables if you want to access the special variable values.
 Names
 -----
 
-In general, names are used to identify objects (collections, attributes,
-variables, and functions) in AQL queries.
+In general, names are used to identify the following things in AQL queries:
+- collections
+- attributes
+- variables
+- functions
 
 Names in AQL are always case-sensitive.
 The maximum supported length for collection/View names is 256 bytes.
 Variable names can be longer, but are discouraged.
 
-Keywords must not be used as names. If a reserved keyword should be used as a
-name, the name must be enclosed in backticks or forward ticks. Enclosing a name in 
-backticks or forward ticks makes it possible to use otherwise reserved keywords 
-as names. An example for this is:
+Keywords must not be used as names. If a reserved keyword should be used as
+a name, the name must be enclosed in backticks or forward ticks.
 
 ```js
-FOR f IN `filter`
-  RETURN f.`sort`
+FOR doc IN `filter`
+  RETURN doc.`sort`
 ```
 
 Due to the backticks, *filter* and *sort* are interpreted as names and not as
@@ -242,6 +243,19 @@ FOR f IN `filter`
 
 `sort` is a **quoted** string literal in this alternative and does thus not
 conflict with the reserved word.
+
+Escaping is also required if special characters such as hyphen minus (`-`) are
+contained in a name:
+
+```js
+FOR doc IN `my-coll`
+  RETURN doc
+```
+
+The collection `my-coll` has a dash in its name, but `-` is an arithmetic
+operator for subtraction in AQL. The backticks escape the collection name to
+refer to the collection correctly. Note that quoting the name with `"` or `'`
+is not possible for collections.
 
 ### Collection names
 
