@@ -242,6 +242,53 @@ jwtgen -s <my-secret> -e 3600 -v -a "HS256" -c 'iss=arangodb' -c 'server_id=mycl
 curl -v -H "Authorization: bearer $(jwtgen -s <my-secret> -e 3600 -a "HS256" -c 'iss=arangodb' -c 'server_id=myclient')" http://<database-ip>:8529/_api/version
 ```
 
+#### Hot-Reload of JWT Secrets
+
+To perform a hot reload the JWT secrets of a local arangod process you may use the following 
+HTTP restful API. Perform a **POST** request to reload the secret, a **GET** request may 
+be used to load information obout the currently used secrets.
+
+Hot-Reload the secrets from disk use:
+
+`POST /_admin/server/jwt`
+
+To fetch information about the currently loaded secrets use:
+
+`GET /_admin/server/jwt`
+
+A successful response contains a JSON with the "result" field and an "error" field containing _false_.
+The field _result_ which in turn has the fields _active_ and _passive_, which contain the sha256 hashes of the loaded secrets.
+The field _passive_ is always an array.
+
+```json
+{
+  "error": false,
+  "code": 200,
+  "result": {
+    "active": {
+      "sha256": "c6c1021286dfe870b7050f9e704df93c7f1de3c89dbdadc3fb30394bebd81e97"
+    },
+    "passive": [
+      {
+        "sha256": "6d2fe32dc4249ef7e7359c6d874fffbbf335e832e49a2681236e1b686af78794"
+      },
+      {
+        "sha256": "448a28491967ea4f7599f454af261a685153c27a7d5748456022565947820fb9"
+      },
+      {
+        "sha256": "6745d49264bdfc2e89d4333fe88f0fce94615fdbdb8990e95b5fda0583336da8"
+      }
+    ]
+  }
+}
+```
+
+In case of an error the response may contain the error code  in the field "errorCode" and the message
+in the field "errorMessage"
+
+To utilize the API a superuser JWT token is necessary, otherwise the response will be 
+_HTTP 403 Forbidden_.
+
 Error Handling
 --------------
 

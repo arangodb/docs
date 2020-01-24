@@ -191,19 +191,44 @@ operating systems do not provide this option and will ignore it.
 
 {% docublock server_authentication %}
 
-## JWT Secret
+## JWT Secrets
 
-`--server.jwt-secret secret`
+`--server.jwt-secret-keyfile <file-with-secret>`
 
 ArangoDB will use JWTs to authenticate requests. Using this option let's
-you specify a JWT. When specified, the JWT secret must be at most 64 bytes
+you specify a JWT secret. When specified, the JWT secret must be at most 64 bytes
 long.
 
-In single server setups and when not specifying this secret ArangoDB will
-generate a secret.
+In single server setups ArangoDB will generate a secret if none was specified.
 
 In cluster deployments which have authentication enabled a secret must
 be set consistently across all cluster nodes so they can talk to each other.
+
+ArangoDB also supports an option to pass the secret without a file, however
+this is discouraged for security reasons.
+
+`--server.jwt-secret >secret>`
+
+### Multiple Secrets (Enterprise Only)
+
+You may use multiple secrets, where the _active_ secret is used to sign new JWT tokens
+and all other _passive_ secrets are just used to validate incoming JWT tokens.
+
+
+`--server.jwt-secret-folder <folder-with-secrets>`
+
+The list of files in this folder is sorted alphabetically. The first is used
+as the _active_ secret to sign new tokens. All other secrets are passively
+used during verification. Only one secret needs to verifiy a JWT token
+for it to be accepted.
+
+### Hot-Reload of JWT Secrets (Enterprise Only)
+
+There is an API introduced in ArangoDB v3.7 to hot reload JWT secrets from disk.
+This can be used to reload secrets from the (single) keyfile or from the secret folder.
+
+This may be used to roll out new JWT secrets throughout an ArangoDB cluster.
+For more information on the API see the [Http Docs](http/general.html#hot-reload-of-jwt-secrets)
 
 ## Enable/disable authentication for UNIX domain sockets
 
