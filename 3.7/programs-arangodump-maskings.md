@@ -388,6 +388,85 @@ but it would mask all other string attributes as well, which may not be what
 you want. A syntax `"path": "mail.*` to only match the sub-attributes of the
 top-level `mail` attribute is not supported.
 
+### Rule precedence
+
+Masking rules may overlap, for instance if you specify the same path multiple
+times, or if you define a rule for a specific field but also one which matches
+all leaf attributes of the same name.
+
+The precedence is determined by the order in which the rules are defined in the
+masking configuration file in such cases, giving priority to the first matching
+rule (i.e. the rule above the other ambiguous ones).
+
+```json
+{
+  "<collection>": {
+    "type": "masked",
+    "maskings": [
+      {
+        "path": "address",
+        "type": "xifyFront"
+      },
+      {
+        "path": ".address",
+        "type": "random"
+      }
+    ]
+  }
+}
+```
+
+Above masking definition will obfuscate the top-level attribute `address` with
+the `xifyFront` function, whereas all nested attributes with name `address`
+will use the `random` masking function. If the rules are defined in reverse
+order however, then all attributes called `address` will be obfuscated using
+`random`. The second, overlapping rule is effectively ignored:
+
+```json
+{
+  "<collection>": {
+    "type": "masked",
+    "maskings": [
+      {
+        "path": ".address",
+        "type": "random"
+      },
+      {
+        "path": "address",
+        "type": "xifyFront"
+      }
+    ]
+  }
+}
+```
+
+This behavior also applies to the catch-all path `"*"`, which means it should
+generally be placed below all other rules for a collection so that it is used
+for all unspecified attribute paths. Otherwise all document attributes will be
+processed by a single masking function, ignoring any other rules below it.
+
+```json
+{
+  "<collection>": {
+    "type": "masked",
+    "maskings": [
+      {
+        "path": "address",
+        "type": "random"
+      },
+      {
+        "path": ".address",
+        "type": "xifyFront"
+      },
+      {
+        "path": "*",
+        "type": "email"
+      }
+    ]
+  }
+}
+```
+
 Masking Functions
 -----------------
 
