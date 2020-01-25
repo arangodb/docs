@@ -70,7 +70,7 @@ db._create("test", { replicationFactor: 4 }, { enforceReplicationFactor: false }
 The default value for _enforceReplicationFactor_ is true. 
 
 **Note:** multiple _replicas_ of the same _shard_ can never coexist on the same
-_DBServer_ instance.
+_DB-Server_ instance.
 
 Sharding
 --------

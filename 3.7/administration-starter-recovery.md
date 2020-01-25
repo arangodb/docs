@@ -36,6 +36,6 @@ The _Starter_ will now:
 1. Remove the `RECOVERY` file from the data directory.
 
 The cluster will now recover automatically. It will however have one more _Coordinators_
-and _DBServers_ than expected. Exactly one _Coordinator_ and one _DBServer_ will
+and _DB-Servers_ than expected. Exactly one _Coordinator_ and one _DB-Server_ will
 be listed "red" in the web UI of the database. They will have to be removed manually
 using the ArangoDB Web UI.
