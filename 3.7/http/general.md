@@ -244,15 +244,15 @@ curl -v -H "Authorization: bearer $(jwtgen -s <my-secret> -e 3600 -a "HS256" -c 
 
 #### Hot-Reload of JWT Secrets
 
-To perform a hot reload the JWT secrets of a local arangod process you may use the following 
-HTTP restful API. Perform a **POST** request to reload the secret, a **GET** request may 
-be used to load information obout the currently used secrets.
+To reload the JWT secrets of a local arangod process without a restart, you may use the following 
+restful API. A **POST** request reloads the secret, a **GET** request may 
+be used to load information about the currently used secrets:
 
-Hot-Reload the secrets from disk use:
+Hot-Reload the secrets from disk:
 
 `POST /_admin/server/jwt`
 
-To fetch information about the currently loaded secrets use:
+To fetch information about the currently loaded secrets:
 
 `GET /_admin/server/jwt`
 
@@ -288,6 +288,10 @@ in the field "errorMessage"
 
 To utilize the API a superuser JWT token is necessary, otherwise the response will be 
 _HTTP 403 Forbidden_.
+
+Note that only the files specified via the arangod startup options `--server.jwt-secret-keyfile` 
+or `--server.jwt-secret-folder` are used, it is not possible to change the locations where 
+files are loaded from without restarting the process.
 
 Error Handling
 --------------
