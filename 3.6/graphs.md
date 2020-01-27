@@ -5,6 +5,30 @@ description: A Graph consists of vertices and edges
 ArangoDB Graphs
 ===============
 
+What is a Graph?
+----------------
+
+In discrete mathematics, a graph is defined as set of **vertices** and **edges**.
+In computing it is considered an abstract data type which is really good to
+represent **connections** or **relations** – unlike the tabular data structures of
+relational database systems, which are ironically very limited in expressing
+relations.
+
+A good metaphor for graphs is to think of **nodes** as circles and edges as
+**lines** or arcs. The terms node and vertex are used interchangeably here.
+
+
+Vertices are usually connected to other vertices by edges, making up a **graph**.
+Vertices don't have to be connected, they can be loose. But they may also be
+connected with more than one other vertex via multiple edges. You may also
+find vertices connected to themselves (self-referencing). A special case is
+edges pointing to other edges, which is referred to as **hypergraph**.
+
+Edges can be **undirected** or have a notation of direction, pointing one or both
+ways like a (double-sided) arrow. The 
+
+ like a one-way street
+
 First Steps with Graphs
 -----------------------
 
