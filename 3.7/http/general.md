@@ -257,8 +257,8 @@ To fetch information about the currently loaded secrets:
 `GET /_admin/server/jwt`
 
 A successful response contains a JSON with the "result" field and an "error" field containing _false_.
-The field _result_ which in turn has the fields _active_ and _passive_, which contain the sha256 hashes of the loaded secrets.
-The field _passive_ is always an array.
+The field _result_ contains the sub-fields _active_ and _passive_, which contain the sha256 hashes of the loaded secrets.
+The _field_ active is always an object, the field _passive_ is always an array of objects. However, _passive_ may be an empty array if there is only an active secret but no passive ones.
 
 ```json
 {
