@@ -7,6 +7,14 @@ redirect_from:
 Graphs in AQL
 =============
 
+{% assign version = page.dir | replace_first: "/", "" | split: "/" | first -%}
+
+## Direct Include
+
+{% include blocks/snippet.md version=version %}
+
+---
+
 There are multiple ways to work with [graphs in ArangoDB](../graphs.html),
 as well as different ways to query your graphs using AQL.
 

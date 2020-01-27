@@ -5,6 +5,20 @@ description: A Graph consists of vertices and edges
 ArangoDB Graphs
 ===============
 
+<!-- NOTE: this gets us the raw version, not its alias (i.e. stable or devel) -->
+{% assign version = page.dir | replace_first: "/", "" | split: "/" | first -%}
+
+## Direct Include
+
+{% include blocks/snippet.md version=version %}
+
+## Captured Include
+
+{% capture my_include %}{% include blocks/snippet.md version=version %}{% endcapture %}
+{{ my_include | markdownify }}
+
+---
+
 First Steps with Graphs
 -----------------------
 
