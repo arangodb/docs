@@ -541,7 +541,7 @@ RETURN REMOVE_NTH( [ "a", "b", "c", "d", "e" ], -2 )
 
 `REPLACE_NTH(anyArray, position, replaceValue, defaultPaddingValue) → newArray`
 
-Replace the element at *position* from the *anyArray* with *replaceValue*. If *defaultPaddValue* is specified, and *position* points after an already existing entry in *anyArray*, *defaultPaddValue* is inserted as many times as needed to place *replaceValue* at the end of *annyArray*
+Replace the element at *position* from the *anyArray* with *replaceValue*. If *defaultPaddingValue* is specified, and *position* points behind an already existing entry in *anyArray*, *defaultPaddingValue* is inserted as many times as needed to place *replaceValue* at the end of *anyArray*
 
 - **anyArray** (array): array with elements of arbitrary type
 - **position** (number): the position of the element to replace. Positions start
