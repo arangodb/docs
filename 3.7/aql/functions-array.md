@@ -536,6 +536,43 @@ RETURN REMOVE_NTH( [ "a", "b", "c", "d", "e" ], -2 )
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+
+## REPLACE_NTH()
+
+`REPLACE_NTH(anyArray, position, replaceValue, defaultPaddValue) → newArray`
+
+Replace the element at *position* from the *anyArray* with *replaceValue*. If *defaultPaddValue* is specified, and *position* points after an already existing entry in *anyArray*, *defaultPaddValue* is inserted as many times as needed to place *replaceValue* at the end of *annyArray*
+
+- **anyArray** (array): array with elements of arbitrary type
+- **position** (number): the position of the element to replace. Positions start
+  at 0. Negative positions are unsupported.
+  If *position* is out of bounds, and *defaultPaddValue* is not specified, 
+  the array is returned unmodified and a warning is emitted.
+- **replaceValue** the value to be inserted at *position*
+- **defaultPaddValue** to be used for padding if *position* is after the last element in *anyArray*
+- returns **newArray** (array): *anyArray* with the element at *position* replaced by *replaceValue*
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayReplaceNth_1
+@EXAMPLE_AQL{aqlArrayReplaceNth_1}
+RETURN REPLACE_NTH( [ "a", "b", "c", "d", "e" ], 1 , "z")
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayReplaceNth_1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayReplaceNth_2
+@EXAMPLE_AQL{aqlArrayReplaceNth_2}
+RETURN REMOVE_NTH( [ "a", "b", "c", "d", "e" ], 6, "z", "y" )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayReplaceNth_2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+
 ## REMOVE_VALUE()
 
 `REMOVE_VALUE(anyArray, value, limit) → newArray`
