@@ -539,18 +539,26 @@ RETURN REMOVE_NTH( [ "a", "b", "c", "d", "e" ], -2 )
 
 ## REPLACE_NTH()
 
-`REPLACE_NTH(anyArray, position, replaceValue, defaultPaddValue) → newArray`
+`REPLACE_NTH(anyArray, position, replaceValue, defaultPaddingValue) → newArray`
 
-Replace the element at *position* from the *anyArray* with *replaceValue*. If *defaultPaddValue* is specified, and *position* points after an already existing entry in *anyArray*, *defaultPaddValue* is inserted as many times as needed to place *replaceValue* at the end of *annyArray*
+Replace the element at *position* in *anyArray* with *replaceValue*.
+
+It is allowed to specify a position beyond the upper array boundary:
+- *replaceValue* is appended if *position* is equal to the array length
+- if it is higher, *defaultPaddingValue* is appended to *anyArray* as many
+  times as needed to place *replaceValue* at *position*
+- if no *defaultPaddingValue* is supplied in above case, then a query error
+  is raised
 
 - **anyArray** (array): array with elements of arbitrary type
 - **position** (number): the position of the element to replace. Positions start
-  at 0. Negative positions are unsupported.
-  If *position* is out of bounds, and *defaultPaddValue* is not specified, 
-  the array is returned unmodified and a warning is emitted.
+  at 0. Negative positions are not supported.
 - **replaceValue** the value to be inserted at *position*
-- **defaultPaddValue** to be used for padding if *position* is after the last element in *anyArray*
-- returns **newArray** (array): *anyArray* with the element at *position* replaced by *replaceValue*
+- **defaultPaddingValue** to be used for padding if *position* is two or more
+  elements beyond the last element in *anyArray*
+- returns **newArray** (array): *anyArray* with the element at *position*
+  replaced by *replaceValue*, or appended to *anyArray* and possibly padded by
+  *defaultPaddingValue*
 
 **Examples**
 
