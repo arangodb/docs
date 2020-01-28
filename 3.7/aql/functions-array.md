@@ -592,7 +592,7 @@ RETURN REPLACE_NTH( [ "a", "b", "c" ], 3 , "z")
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlArrayReplaceNth_4
 @EXAMPLE_AQL{aqlArrayReplaceNth_4}
-RETURN REMOVE_NTH( [ "a", "b", "c" ], 6, "z", "y" )
+RETURN REPLACE_NTH( [ "a", "b", "c" ], 6, "z", "y" )
 @END_EXAMPLE_AQL
 @endDocuBlock aqlArrayReplaceNth_4
 {% endaqlexample %}
