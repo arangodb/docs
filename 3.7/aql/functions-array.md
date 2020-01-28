@@ -546,7 +546,7 @@ Replace the element at *position* from the *anyArray* with *replaceValue*. If *d
 - **anyArray** (array): array with elements of arbitrary type
 - **position** (number): the position of the element to replace. Positions start
   at 0. Negative positions are unsupported.
-  If *position* is out of bounds, and *defaultPaddValue* is not specified, 
+  If *position* is out of bounds, and *defaultPaddingValue* is not specified, 
   the array is returned unmodified and a warning is emitted.
 - **replaceValue** the value to be inserted at *position*
 - **defaultPaddValue** to be used for padding if *position* is after the last element in *anyArray*
