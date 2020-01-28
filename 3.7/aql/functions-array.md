@@ -543,13 +543,6 @@ RETURN REMOVE_NTH( [ "a", "b", "c", "d", "e" ], -2 )
 
 Replace the element at *position* in *anyArray* with *replaceValue*.
 
-It is allowed to specify a position beyond the upper array boundary:
-- *replaceValue* is appended if *position* is equal to the array length
-- if it is higher, *defaultPaddingValue* is appended to *anyArray* as many
-  times as needed to place *replaceValue* at *position*
-- if no *defaultPaddingValue* is supplied in above case, then a query error
-  is raised
-
 - **anyArray** (array): array with elements of arbitrary type
 - **position** (number): the position of the element to replace. Positions start
   at 0. Negative positions are not supported.
@@ -559,6 +552,13 @@ It is allowed to specify a position beyond the upper array boundary:
 - returns **newArray** (array): *anyArray* with the element at *position*
   replaced by *replaceValue*, or appended to *anyArray* and possibly padded by
   *defaultPaddingValue*
+
+It is allowed to specify a position beyond the upper array boundary:
+- *replaceValue* is appended if *position* is equal to the array length
+- if it is higher, *defaultPaddingValue* is appended to *anyArray* as many
+  times as needed to place *replaceValue* at *position*
+- if no *defaultPaddingValue* is supplied in above case, then a query error
+  is raised
 
 **Examples**
 
