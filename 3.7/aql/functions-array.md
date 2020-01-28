@@ -580,14 +580,14 @@ RETURN REPLACE_NTH( [ "a", "b", "c" ], 3 , "z")
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlArrayReplaceNth_3
-@EXAMPLE_AQL{aqlArrayReplaceNth_3}
-RETURN REPLACE_NTH( [ "a", "b", "c" ], 6 , "z") // xpError(ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH)
-@END_EXAMPLE_AQL
-@endDocuBlock aqlArrayReplaceNth_3
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline aqlArrayReplaceNth_3
+    @EXAMPLE_ARANGOSH_OUTPUT{aqlArrayReplaceNth_3}
+      db._query('RETURN REPLACE_NTH( [ "a", "b", "c" ], 6 , "z")'); // xpError(ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH)
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock aqlArrayReplaceNth_3
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlArrayReplaceNth_4
