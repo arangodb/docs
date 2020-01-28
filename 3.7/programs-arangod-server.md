@@ -207,7 +207,7 @@ be set consistently across all cluster nodes so they can talk to each other.
 ArangoDB also supports an option to pass the secret without a file, however
 this is discouraged for security reasons.
 
-`--server.jwt-secret >secret>`
+`--server.jwt-secret <secret>`
 
 ### Multiple Secrets (Enterprise Only)
 
@@ -219,7 +219,7 @@ and all other _passive_ secrets are just used to validate incoming JWT tokens.
 
 The list of files in this folder is sorted alphabetically. The first is used
 as the _active_ secret to sign new tokens. All other secrets are passively
-used during verification. Only one secret needs to verifiy a JWT token
+used during verification. Only one secret needs to verify a JWT token
 for it to be accepted.
 
 ### Hot-Reload of JWT Secrets (Enterprise Only)
