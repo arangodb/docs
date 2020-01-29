@@ -12,6 +12,9 @@
       ] 
     } 
   ], 
+  <span class="hljs-string">"orphanCollections"</span> : [ 
+    <span class="hljs-string">"orphanVertices"</span> 
+  ], 
   <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">"options"</span> : { 
     <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">2</span>, 
@@ -22,7 +25,7 @@
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> Accepted
-etag: _Z2KCgme--A
+etag: _Z7LiE9K--A
 x-content-type-options: nosniff
 content-type: application/json
 
@@ -47,8 +50,10 @@ content-type: application/json
         ] 
       } 
     ], 
-    <span class="hljs-string">"orphanCollections"</span> : [ ], 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z2KCgme--A"</span>, 
+    <span class="hljs-string">"orphanCollections"</span> : [ 
+      <span class="hljs-string">"orphanVertices"</span> 
+    ], 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z7LiE9K--A"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/myGraph"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"myGraph"</span> 
   } 

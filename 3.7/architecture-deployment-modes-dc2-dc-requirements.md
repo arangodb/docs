@@ -18,10 +18,6 @@ To use _datacenter to datacenter replication_ you need the following:
 - At least 2 instances of the _ArangoSync master_ in each datacenter.
 - One instances of the _ArangoSync worker_ on every machine in each datacenter.
 
-When using the `kafka` type message queue, you also need:
-
-- TLS certificates for Kafka brokers (can be self-signed).
-
 Note: In several places you will need a (x509) certificate.
 <br/>The [Certificates](security-dc2-dc.html#certificates) section provides more guidance for creating
 and renewing these certificates.

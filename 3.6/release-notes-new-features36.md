@@ -212,15 +212,8 @@ read only documents that are absolutely necessary to compute the query result,
 reducing load to the storage engine. This is only supported for the RocksDB
 storage engine.
 
-In 3.6 the optimization can only be applied to queries containing a
-`SORT`+`LIMIT` combination, e.g:
-
-```js
-FOR d IN documentSource // documentSource can be either a collection or an ArangoSearch View
-  SORT d.foo
-  LIMIT 100
-  RETURN d
-```
+In 3.6 the optimization can only be applied to queries retrieving data from a
+collection or an ArangoSearch and that contain a SORT`+`LIMIT` combination, e.g:
 
 For the collection case the optimization is possible if and only if:
 - there is an index of type `primary`, `hash`, `skiplist`, `persistent`
@@ -228,7 +221,7 @@ For the collection case the optimization is possible if and only if:
 - all attribute accesses can be covered by indexed attributes
 
 ```js
-// Given we have a hash index on attributes [  "foo", "bar", "baz" ]
+// Given we have a hash index on attributes [ "foo", "bar", "baz" ]
 
 FOR d IN myCollection
   FILTER d.foo == "someValue" // hash index will be picked to optimize filtering
@@ -240,6 +233,13 @@ FOR d IN myCollection
 For the ArangoSearch View case the optimization is possible if and only if:
 - all attribute accesses can be covered by stored attributes
   (e.g. using `primarySort`)
+
+```js
+FOR d IN myView
+  SORT d.foo
+  LIMIT 100
+  RETURN d
+```
 
 ```js
 FOR d IN myView

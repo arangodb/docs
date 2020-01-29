@@ -62,11 +62,11 @@ _collection_ as a whole. To determine in which _shard_ the data is to be stored
 ArangoDB performs a hash across the values. By default this hash is being
 created from the `_key` document attribute.
 
-Every shard is a local collection on any _DBServer_, that houses such a shard
+Every shard is a local collection on any _DB-Server_, that houses such a shard
 as depicted above for our example with 5 shards and 3 replicas. Here, every
 leading shard _S1_ through _S5_ is followed each by 2 replicas _R1_ through _R5_.
 The collection creation mechanism on ArangoDB _Coordinators_ tries to best
-distribute the shards of a collection among the _DBServers_. This seems to
+distribute the shards of a collection among the _DB-Servers_. This seems to
 suggest, that one shards the data in 5 parts, to make best use of all our
 machines. We further choose a replication factor of 3 as it is a reasonable
 compromise between performance and data safety. This means, that the collection
@@ -91,7 +91,7 @@ performance.
 ArangoDB uses consistent hashing to compute the target shard from the given
 values (as specified via by the `shardKeys` collection property). The ideal set
 of shard keys allows ArangoDB to distribute documents evenly across your shards
-and your _DBServers_. By default ArangoDB uses the `_key` field as a shard key.
+and your _DB-Servers_. By default ArangoDB uses the `_key` field as a shard key.
 For a custom shard key you should consider a few different properties:
 
 - **Cardinality**: The cardinality of a set is the number of distinct values

@@ -1,8 +1,7 @@
 ---
 layout: default
-description: The ArangoSync Master is responsible for managing all synchronization, creatingtasks and assigning those to the ArangoSync Workers
+description: The ArangoSync Master is responsible for managing all synchronization, creating tasks and assigning those to the ArangoSync Workers
 ---
-
 # ArangoSync Master
 
 The _ArangoSync Master_ is responsible for managing all synchronization, creating
@@ -14,7 +13,7 @@ leader is gone for a short while, one of the other instances will take over.
 
 With clusters of a significant size, the _sync master_ will require a
 significant set of resources. Therefore it is recommended to deploy the _sync masters_
-on their own servers, equiped with sufficient CPU power and memory capacity.
+on their own servers, equipped with sufficient CPU power and memory capacity.
 
 To start an _ArangoSync Master_ using a `systemd` service, use a unit like this:
 
@@ -84,7 +83,7 @@ and from inside of the other datacenter (by sync masters in the other datacenter
 
 Note that other sync masters in the same datacenter will contact this sync master
 through the endpoint specified in `--server.endpoint`.
-Sync masters (&sync workers) from the other datacenter will contains this sync master
+Sync masters (and sync workers) from the other datacenter will contact this sync master
 through the endpoint specified in `--master.endpoint`.
 
 ## Recommended deployment environment
@@ -92,4 +91,4 @@ through the endpoint specified in `--master.endpoint`.
 Since the _sync masters_ can be CPU intensive when running lots of databases & collections,
 it is recommended to run them on dedicated machines with a lot of CPU power.
 
-Consider these machines "pets".
+Consider these machines crucial for you DC2DC replication setup.

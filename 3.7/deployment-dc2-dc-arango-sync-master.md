@@ -13,7 +13,7 @@ leader is gone for a short while, one of the other instances will take over.
 
 With clusters of a significant size, the _sync master_ will require a
 significant set of resources. Therefore it is recommended to deploy the _sync masters_
-on their own servers, equiped with sufficient CPU power and memory capacity.
+on their own servers, equipped with sufficient CPU power and memory capacity.
 
 To start an _ArangoSync Master_ using a `systemd` service, use a unit like this:
 
@@ -44,15 +44,6 @@ TimeoutStopSec=60
 WantedBy=multi-user.target
 ```
 
-When using the `kafka` type message queue, replace `--mq.type=direct` with `--mq.type=kafka`
-and add the following arguments.
-
-```text
-    --mq.kafka-addr=${KAFKAENDPOINTS} \
-    --mq.kafka-client-keyfile=${CERTIFICATEDIR}/kafka-client.key \
-    --mq.kafka-cacert=${CERTIFICATEDIR}/tls-ca.crt
-```
-
 The _sync master_ needs a TLS server certificate and a
 If you want the service to create a TLS certificate & client authentication
 certificate, for authenticating with _ArangoSync Masters_ in another datacenter,
@@ -68,13 +59,6 @@ ExecStartPre=/usr/sbin/arangosync create tls keyfile \
     --host=${PRIVATEIP} \
     --host=${HOST} \
     --host=${CLUSTERDNSNAME}
-ExecStartPre=/usr/sbin/arangosync create client-auth keyfile \
-    --cacert=${CERTIFICATEDIR}/tls-ca.crt \
-    --cakey=${CERTIFICATEDIR}/tls-ca.key \
-    --keyfile=${CERTIFICATEDIR}/kafka-client.key \
-    --host=${PUBLICIP} \
-    --host=${PRIVATEIP} \
-    --host=${HOST}
 ```
 
 The _ArangoSync Master_ must be reachable on a TCP port `${MASTERPORT}` (used with `--server.port` option).
@@ -83,7 +67,7 @@ and from inside of the other datacenter (by sync masters in the other datacenter
 
 Note that other sync masters in the same datacenter will contact this sync master
 through the endpoint specified in `--server.endpoint`.
-Sync masters (&sync workers) from the other datacenter will contains this sync master
+Sync masters (and sync workers) from the other datacenter will contact this sync master
 through the endpoint specified in `--master.endpoint`.
 
 ## Recommended deployment environment
@@ -91,4 +75,4 @@ through the endpoint specified in `--master.endpoint`.
 Since the _sync masters_ can be CPU intensive when running lots of databases & collections,
 it is recommended to run them on dedicated machines with a lot of CPU power.
 
-Consider these machines "pets".
+Consider these machines crucial for you DC2DC replication setup.

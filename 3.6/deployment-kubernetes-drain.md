@@ -34,7 +34,7 @@ loss, and is simply the price one pays for running a stateful service.
 When a `kubectl drain` operation is triggered for a node, k8s first
 checks if there are any pods with local data on disk. Our ArangoDB pods have
 this property (the _Coordinators_ do use `EmptyDir` volumes, and _Agents_
-and _DBServers_ could have persistent volumes which are actually stored on
+and _DB-Servers_ could have persistent volumes which are actually stored on
 a locally attached disk), so one has to override this with the
 `--delete-local-data=true` option.
 
@@ -264,14 +264,14 @@ short and a pod is killed the hard way, data loss can happen.
 {% endhint %}
 
 If all `replicationFactor`s of all collections are at least 2, then the
-system can tolerate the failure of a single _DBserver_. If you have set
+system can tolerate the failure of a single _DB-Server_. If you have set
 the `Environment` to `Production` in the specs of the ArangoDB
-deployment, you will only ever have one _DBserver_ on each k8s node and
+deployment, you will only ever have one _DB-Server_ on each k8s node and
 therefore the drain operation is relatively safe, even if the grace
 period is chosen too small.
 
-Furthermore, we recommend to have one k8s node more than _DBservers_ in
-you cluster, such that the deployment of a replacement _DBServer_ can
+Furthermore, we recommend to have one k8s node more than _DB-Servers_ in
+you cluster, such that the deployment of a replacement _DB-Server_ can
 happen quickly and not only after the maintenance work on the drained
 node has been completed. However, with the necessary care described
 below, the procedure should also work without this.
@@ -281,7 +281,7 @@ at the time of a node drain.
 
 ## Clean out a DB-Server manually
 
-In this step we clean out a _DBServer_ manually, **before issuing the
+In this step we clean out a _DB-Server_ manually, **before issuing the
 `kubectl drain` command**. Previously, we have denoted this step as optional,
 but for safety reasons, we consider it mandatory now, since it is near
 impossible to choose the grace period long enough in a reliable way.
@@ -293,7 +293,7 @@ do with ArangoDB: We have observed, that some k8s internal services like
 `fluentd` and some DNS services will always wait for the full grace
 period to finish a node drain. Therefore, the node drain operation will
 always take as long as the grace period. Since we have to choose this
-grace period long enough for ArangoDB to move all data on the _DBServer_
+grace period long enough for ArangoDB to move all data on the _DB-Server_
 pod away to some other node, this can take a considerable amount of
 time, depending on the size of the data you keep in ArangoDB.
 
@@ -302,7 +302,7 @@ beforehand. One can observe completion and as soon as it is completed
 successfully, we can then issue the drain command with a relatively
 small grace period and still have a nearly risk-free procedure.
 
-To clean out a _DBServer_ manually, we have to use this API:
+To clean out a _DB-Server_ manually, we have to use this API:
 
 ```
 POST /_admin/cluster/cleanOutServer
@@ -326,7 +326,7 @@ my-arangodb-cluster-prmr-wbsq47rz-5676ed
 ```
 
 … where `my-arangodb-cluster` is the ArangoDB deployment name, therefore
-the internal name of the _DBserver_ is `PRMR-wbsq47rz`. Note that `PRMR`
+the internal name of the _DB-Server_ is `PRMR-wbsq47rz`. Note that `PRMR`
 must be all capitals since pod names are always all lower case. So, we
 could use the body:
 
@@ -399,7 +399,7 @@ the job has completed, the answer will be:
 }
 ```
 
-From this moment on the _DBserver_ can no longer be used to move
+From this moment on the _DB-Server_ can no longer be used to move
 shards to. At the same time, it will no longer hold any data of the
 cluster.
 
@@ -418,7 +418,7 @@ kubectl drain gke-draintest-default-pool-394fe601-glts --delete-local-data --ign
 
 As described above, the options `--delete-local-data` for ArangoDB and
 `--ignore-daemonsets` for other services have been added. A `--grace-period` of
-300 seconds has been chosen because for this example we are confident that all the data on our _DBServer_ pod
+300 seconds has been chosen because for this example we are confident that all the data on our _DB-Server_ pod
 can be moved to a different server within 5 minutes. Note that this is
 **not saying** that 300 seconds will always be enough. Regardless of how
 much data is stored in the pod, your mileage may vary, moving a terabyte
@@ -436,7 +436,7 @@ approximately within a minute.
 ## Things to check after a node drain
 
 After a node has been drained, there will usually be one of the
-_DBservers_ gone from the cluster. As a replacement, another _DBServer_ has
+_DB-Servers_ gone from the cluster. As a replacement, another _DB-Server_ has
 been deployed on a different node, if there is a different node
 available. If not, the replacement can only be deployed when the
 maintenance work on the drained node has been completed and it is
@@ -448,7 +448,7 @@ After that, one should perform the same checks as described in
 above.
 
 Finally, it is likely that the shard distribution in the "new" cluster
-is not balanced out. In particular, the new _DBSserver_ is not automatically
+is not balanced out. In particular, the new _DB-Server_ is not automatically
 used to store shards. We recommend to
 [re-balance](administration-cluster.html#movingrebalancing-shards) the shard distribution,
 either manually by moving shards or by using the _Rebalance Shards_

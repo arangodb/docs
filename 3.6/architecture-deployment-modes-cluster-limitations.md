@@ -6,7 +6,7 @@ Cluster Limitations
 ===================
 
 ArangoDB has no built-in limitations to horizontal scalability. The
-central resilient _Agency_ will easily sustain hundreds of _DBservers_
+central resilient _Agency_ will easily sustain hundreds of _DB-Servers_
 and _Coordinators_, and the usual database operations work completely
 decentrally and do not require assistance of the _Agency_.
 
