@@ -28,7 +28,7 @@ RocksDB storage engine soon.
 HTTP REST API
 -------------
 
-### REST API endpoints changed
+### HTTP REST API endpoints moved
 
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
 naming consistency:
@@ -49,7 +49,7 @@ naming consistency:
 The above endpoints are part of ArangoDB's exposed REST API, however, they are
 not supposed to be called directly by drivers or client
 
-### REST API endpoints removed
+### HTTP REST API endpoints removed
 
 The REST API endpoint at `/_admin/aql/reload` has been removed in ArangoDB 3.7. 
 There is no necessity to call this endpoint from a driver or a client application
