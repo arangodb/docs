@@ -231,7 +231,7 @@ FOR d IN myCollection
 ```
 
 For the ArangoSearch View case the optimization is possible if and only if:
-- all attribute accesses can be covered by stored attributes
+- all attribute accesses can be covered by attributes stored in the View index
   (e.g. using `primarySort`)
 
 ```js
