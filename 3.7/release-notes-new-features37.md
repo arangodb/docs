@@ -73,10 +73,16 @@ The REST API descriptions for ArangoDB's built-in API now only show the REST API
 by default, but hide unnecessary auxilliary data type descriptions by default. This
 reduces clutter.
 
-
-
 Internal changes
 ----------------
+
+### Supported compilers
+
+Manually compiling ArangoDB from source will require a C++17-ready compiler. 
+Older versions of g++ that could be used to compile previous verions of ArangoDB,
+namely g++7, cannot be used anymore for compiling ArangoDB. g++9 is known to work.
+
+### Documentation generation
 
 The following features have been added for auto-generating documentation:
 
