@@ -237,7 +237,7 @@ For the ArangoSearch View case the optimization is possible if and only if:
 ```js
 FOR d IN myView
   SORT d.foo
-  LIMIT 100
+  LIMIT 100  // only 100 documents will be materialized
   RETURN d
 ```
 
