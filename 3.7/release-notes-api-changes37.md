@@ -48,7 +48,3 @@ not supposed to be called directly by drivers or client
 The REST API endpoint at `/_admin/aql/reload` has been removed in ArangoDB 3.7. 
 There is no necessity to call this endpoint from a driver or a client application
 directly.
-
-The following list shows in detail which features have been added or improved in
-ArangoDB 3.7. ArangoDB 3.7 also contains several bug fixes that are not listed
-here.
