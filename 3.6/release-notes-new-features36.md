@@ -213,7 +213,7 @@ reducing load to the storage engine. This is only supported for the RocksDB
 storage engine.
 
 In 3.6 the optimization can only be applied to queries retrieving data from a
-collection or an ArangoSearch and that contain a SORT`+`LIMIT` combination, e.g:
+collection or an ArangoSearch View and that contain a `SORT`+`LIMIT` combination, e.g:
 
 For the collection case the optimization is possible if and only if:
 - there is an index of type `primary`, `hash`, `skiplist`, `persistent`
