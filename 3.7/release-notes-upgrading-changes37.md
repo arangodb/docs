@@ -33,16 +33,16 @@ HTTP REST API
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
 naming consistency:
 
-* the endpoint at `/_admin/clusterNodeVersion` is now merely redirecting requests
+- the endpoint at `/_admin/clusterNodeVersion` is now merely redirecting requests
   to the `/_admin/cluster/nodeVersion` endpoint. The new endpoint will handle
   incoming requests in the same way the old endpoint did.
-* the endpoint at `/_admin/clusterNodeEngine` is now merely redirecting requests
+- the endpoint at `/_admin/clusterNodeEngine` is now merely redirecting requests
   to the endpoint `/_admin/cluster/nodeEngine`. The new endpoint will handle
   incoming requests in the same way the old endpoint did.
-* the endpoint at `/_admin/clusterNodeStats` is now merely redirecting requests
+- the endpoint at `/_admin/clusterNodeStats` is now merely redirecting requests
   to the endpoint `/_admin/cluster/nodeStatistics`. The new endpoint will handle
   incoming requests in the same way the old endpoint did.
-* the endpoint at `/_admin/clusterStatistics` is now merely redirecting requests
+- the endpoint at `/_admin/clusterStatistics` is now merely redirecting requests
   to the endpoint `/_admin/cluster/statistics`. The new endpoint will handle
   incoming requests in the same way the old endpoint did.
 
@@ -51,7 +51,7 @@ not supposed to be called directly by drivers or client
 
 ### HTTP REST API endpoints removed
 
-The REST API endpoint at `/_admin/aql/reload` has been removed in ArangoDB 3.7. 
+The REST API endpoint at `/_admin/aql/reload` has been removed in ArangoDB 3.7.
 There is no necessity to call this endpoint from a driver or a client application
 directly.
 

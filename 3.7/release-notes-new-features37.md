@@ -18,38 +18,42 @@ AQL
 
 The following AQL functions have been added in ArangoDB 3.7:
 
-* REPLACE_NTH
-* LEVENSHTEIN_MATCH
-* JACCARD
+- REPLACE_NTH()
+- LEVENSHTEIN_MATCH()
+- JACCARD()
 
 ### Syntax enhancements
 
 AQL now supports trailing commas in array and object definitions.
 
-This is especially convenient for editing multi-line array/object definitions, since
-there doesn't need to be a distinction between the last element and all others just
-for the comma.
-That means definitions such as the following are now supported:
-```
+This is especially convenient for editing multi-line array/object definitions,
+since there doesn't need to be a distinction between the last element and all
+others just for the comma. That means definitions such as the following are
+now supported:
+
+```js
 [
   1,
   2,
-  3,
+  3, // trailing comma
 ]
+```
 
-{ 
+```js
+{
   "a": 1,
   "b": 2,
-  "c": 3,
+  "c": 3, // trailing comma
 }
 ```
-Previous versions of ArangoDB did not support trailing commas in AQL queries and
-threw query parse errors when they were used.
+
+Previous versions of ArangoDB did not support trailing commas in AQL queries
+and threw query parse errors when they were used.
 
 ### AQL datetime parsing
 
-The performance of parsing string date/times values in AQL has improved significantly.
-
+The performance of parsing ISO 8601 date/time string values in AQL has improved
+significantly thanks to a specialized parser, replacing a regular expression.
 
 ArangoSearch
 ------------
@@ -69,26 +73,26 @@ huge overall speedup. This also affects `CleanOutServer` and
 Web UI
 ------
 
-The REST API descriptions for ArangoDB's built-in API now only show the REST API endpoints
-by default, but hide unnecessary auxilliary data type descriptions by default. This
-reduces clutter.
+The interactive description of ArangoDB's HTTP API (Swagger UI) shows the
+endpoint and model entries collapsed by default now for a better overview.
 
 Internal changes
 ----------------
 
 ### Supported compilers
 
-Manually compiling ArangoDB from source will require a C++17-ready compiler. 
-Older versions of g++ that could be used to compile previous verions of ArangoDB,
-namely g++7, cannot be used anymore for compiling ArangoDB. g++9 is known to work.
+Manually compiling ArangoDB from source will require a C++17-ready compiler.
+Older versions of g++ that could be used to compile previous versions of
+ArangoDB, namely g++7, cannot be used anymore for compiling ArangoDB.
+g++9 is known to work.
 
 ### Documentation generation
 
 The following features have been added for auto-generating documentation:
 
-* the `--dump-options` command for arangod and the client tools now also emits the 
-  attribute `os` which indicates on which operating system(s) the respective
-  options are supported. 
-* the `--dump-options` command for arangod now also emits the attribute `component`
-  which indicates for which node type(s) the respective options are supported, e.g.
-  single server, coordinator, database server, agency node.
+- the `--dump-options` command for arangod and the client tools now also emits
+  an attribute `os` which indicates on which operating system(s) the respective
+  options are supported.
+- the `--dump-options` command for arangod now also emits an attribute
+  `component` which indicates for which node type(s) the respective options are
+  supported (`single` server, `coordinator`, `dbserver`, `agent`).
