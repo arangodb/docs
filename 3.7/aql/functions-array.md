@@ -583,7 +583,7 @@ RETURN REPLACE_NTH( [ "a", "b", "c" ], 3 , "z")
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline aqlArrayReplaceNth_3
     @EXAMPLE_ARANGOSH_OUTPUT{aqlArrayReplaceNth_3}
-      db._query('RETURN REPLACE_NTH( [ "a", "b", "c" ], 6 , "z")'); // xpError(ERROR_QUERY_FUNCTION_ARGUMENT_NUMBER_MISMATCH)
+      db._query('RETURN REPLACE_NTH( [ "a", "b", "c" ], 6 , "z")'); // xpError(ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH)
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock aqlArrayReplaceNth_3
 {% endarangoshexample %}
@@ -597,6 +597,7 @@ RETURN REPLACE_NTH( [ "a", "b", "c" ], 6, "z", "y" )
 @endDocuBlock aqlArrayReplaceNth_4
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 
 ## REMOVE_VALUE()
 
