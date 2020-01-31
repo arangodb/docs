@@ -23,7 +23,8 @@ Please have following information at hand for registration:
 
 - An **email address**, required for email verification.
 
-If you use a public email service provider (e.g. Hotmail), make sure to have the following information at hand as well:
+If you use a public email service provider (e.g. Hotmail), make sure to have
+the following information at hand as well:
 
 - A **mobile phone number**, required for SMS verification
 
@@ -37,7 +38,8 @@ used for multiple accounts.
 1. Go to [cloud.arangodb.com](https://cloud.arangodb.com){:target="_blank"}.
 2. To reach the sign up, press the _Sign to get started_ button or click the
    _Sign Up_ link in the header navigation of the start page.
-3. Review the terms &amp conditions and privacy policy and click _I accept_. You're now send to the sign up page.
+3. Review the terms &amp conditions and privacy policy and click _I accept_.
+   You're now send to the sign up page.
 4. Select the type of sign up you would like to use (GitHub, Google, or
    email address).
     - For GitHub or Google please follow on-screen instructions.
@@ -56,8 +58,8 @@ used for multiple accounts.
 7. If you had to enter your phone number in the previous step, a verification
    code will be sent via SMS to the mobile number you entered. Enter the
    verification code.
-8. A form will appear asking for your name. Enter your first, last and company name, and
-   then press the _Save_ button.
+8. A form will appear asking for your name. Enter your first, last and company
+   name, and then press the _Save_ button.
 9. An organization with a default project will now be prepared for you.
    Once that is completed, you will be redirected to the
    [ArangoDB Oasis dashboard](https://cloud.arangodb.com/dashboard){:target="_blank"}.
@@ -67,7 +69,8 @@ used for multiple accounts.
 **Organizations → Projects → Deployments**
 
 - ArangoDB Oasis supports multi-tenant setups via organizations.
-- You can create your own organization(s) and invite collaborators or join existing ones via invites.
+- You can create your own organization(s) and invite collaborators or join
+  existing ones via invites.
 - Your organization contains projects.
 - Your projects hold your deployments.
 
@@ -75,12 +78,10 @@ Also see the [Project Guide](./project-guide.html).
 
 ## Creating a new project
 
-{% hint 'info' %}
+{% hint 'tip' %}
 A default project is automatically created for you.
-You can skip this paragraph unless you want to add
-additional projects.
+You can skip this paragraph unless you want to add additional projects.
 {% endhint %}
-
 
 1. In the main navigation, in the _Projects_ section, click the _Overview_ link.
 2. Click the _New project_ button.
@@ -96,8 +97,10 @@ Also see the video
 ## Creating a new deployment
 
 1. If you don't have a project, yet, [create one first](#creating-a-new-project).
-2. In the main navigation, in the _Projects_ section, click on the project for which you want to create a new deployment.
-3. Navigate to the _Deployments_ tab. You will see an empty list or a list with your project's deployments.
+2. In the main navigation, in the _Projects_ section, click on the project for
+   which you want to create a new deployment.
+3. Navigate to the _Deployments_ tab. You will see an empty list or a list with
+   your project's deployments.
 4. Press the _New deployment_ button.
 
 ![Oasis Deployments](../images/oasis-deployments-page.png)
@@ -117,19 +120,18 @@ Also see the video
    selected by default.
 3. In the _CA Certificate_ field
     - The default certificate created for your project will automatically be selected.
-    - If you have no default certificate, or want
-      to use a new certificate create a new certificate by typing the desired name for it and
-      hitting enter or clicking on the name when done.
+    - If you have no default certificate, or want to use a new certificate
+      create a new certificate by typing the desired name for it and hitting
+      enter or clicking on the name when done.
     - Or, if you already have multiple certificates, select the desired one.
-4. _Optional but strongly recommended:_ In the _IP whitelist_ field, select the desired one in case you
-   want to limit access to your deployment to certain IP ranges. To create a
-   whitelist, navigate to your project and select the _IP whitelists_ tab
-   (also see the video
+4. _Optional but strongly recommended:_ In the _IP whitelist_ field, select the
+   desired one in case you want to limit access to your deployment to certain
+   IP ranges. To create a whitelist, navigate to your project and select the
+   _IP whitelists_ tab (also see the video
    [IP Whitelists with ArangoDB Oasis](https://www.youtube.com/watch?v=Et6nlTHBI50&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=6&t=0s){:target="_blank"}).
 
 {% hint 'info' %}
-For any kind of production deployment we strongly
-advise to use an IP whitelist.
+For any kind of production deployment we strongly advise to use an IP whitelist.
 {% endhint %}
 
 ![Oasis New Deployment](../images/oasis-new-deployment1.png)
@@ -180,19 +182,24 @@ The data will be sharded across multiple nodes.
 
 ## Installing a new certificate
 
-Certificates that do have the _Use well known certificate_ option enabled do not need any installation and will be supported by almost all
-web-browsers automatically.
+Certificates that do have the _Use well known certificate_ option enabled do
+not need any installation and will be supported by almost all web-browsers
+automatically.
 
-Each certificate you create in ArangoDB Oasis that has the _Use well known certificate_ option disabled, you will also need to install on your local machine. This operation will slightly vary between operating systems.
+Each certificate you create in ArangoDB Oasis that has the
+_Use well known certificate_ option disabled, you will also need to install on
+your local machine. This operation will slightly vary between operating systems.
 
-1. In the main navigation, in the _Projects_ section, click on the project for which you want to install a new certificate.
+1. In the main navigation, in the _Projects_ section, click on the project for
+   which you want to install a new certificate.
 2. Navigate to the _Certificates_ tab.
 
    ![Oasis Certificates](../images/oasis-cert-page-with-cert-present.png)
 
 3. From the list of certificates, click on the one you want to install.
 4. Navigate to the tab of the operating system of your choice.
-5. Under _Installation instructions_, copy the commands by pressing the _Copy to clipboard_ button.
+5. Under _Installation instructions_, copy the commands by pressing the
+   _Copy to clipboard_ button.
 
    ![Oasis Certificate Install Instructions](../images/oasis-cert-install-instructions.png)
 
@@ -225,16 +232,17 @@ Also see the video
 At this point your ArangoDB deployment is available for you to use — **Have fun!**
 
 {% hint 'info' %}
-Each deployment is accessible on 2 ports.
+Each deployment is accessible on two ports:
 
 - Port 8529 is the standard port recommended for use by web-browsers.
 - Port 18529 is the alternate port that is recommended for use by automated services.
 
-The difference between these ports of the certificate used. If you enable _Use well known certificate_, the certificates used on port 8529 is well known and automatically accepted by most web-browsers.
-The certificate used on port 18529 is a self-signed certificate.
-For securing automated services, the use of the self-signed certificate is recommended.
+The difference between these ports is the certificate used. If you enable
+_Use well known certificate_, the certificates used on port 8529 is well known
+and automatically accepted by most web browsers. The certificate used on port
+18529 is a self-signed certificate. For securing automated services, the use of
+a self-signed certificate is recommended.
 {% endhint %}
-
 
 ## Deleting your deployment
 
