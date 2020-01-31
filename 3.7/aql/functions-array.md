@@ -536,8 +536,9 @@ RETURN REMOVE_NTH( [ "a", "b", "c", "d", "e" ], -2 )
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-
 ## REPLACE_NTH()
+
+<small>Introduced in: v3.7.0</small>
 
 `REPLACE_NTH(anyArray, position, replaceValue, defaultPaddingValue) → newArray`
 
@@ -597,7 +598,6 @@ RETURN REPLACE_NTH( [ "a", "b", "c" ], 6, "z", "y" )
 @endDocuBlock aqlArrayReplaceNth_4
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
 
 ## REMOVE_VALUE()
 
