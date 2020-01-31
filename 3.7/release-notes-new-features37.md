@@ -70,6 +70,16 @@ The actual transfer rates are still limited on DB-Server side but there is a
 huge overall speedup. This also affects `CleanOutServer` and
 `ResignLeadership` jobs.
 
+JavaScript API
+--------------
+
+The [`query` helper](appendix-java-script-modules-arango-db.html#the-query-helper)
+was extended to support passing [query options](aql/invocation-with-arangosh.html#setting-options):
+
+```js
+require("@arangodb").query( { maxRuntime: 1 } )`SLEEP(2)`
+```
+
 Web UI
 ------
 
