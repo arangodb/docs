@@ -22,8 +22,10 @@ A video series on how to get started with Oasis is also available:
 Please have following information at hand for registration:
 
 - An **email address**, required for email verification.
+
+If you use a public email service provider (e.g. Hotmail), make sure to have the following information at hand as well:
+
 - A **mobile phone number**, required for SMS verification
-  (only if you use a public email service provider, e.g. Gmail).
 
 {% hint 'info' %}
 One mobile phone number will be associated with one account and cannot be
@@ -33,9 +35,9 @@ used for multiple accounts.
 ## Creating a new account
 
 1. Go to [cloud.arangodb.com](https://cloud.arangodb.com){:target="_blank"}.
-2. To reach the sign up, press the _Sign up for free_ button or click the
+2. To reach the sign up, press the _Sign to get started_ button or click the
    _Sign Up_ link in the header navigation of the start page.
-3. Once on the sign up page, select the _Sign up_ tab.
+3. Review the terms &amp conditions and privacy policy and click _I accept_. You're now send to the sign up page.
 4. Select the type of sign up you would like to use (GitHub, Google, or
    email address).
     - For GitHub or Google please follow on-screen instructions.
@@ -45,21 +47,19 @@ used for multiple accounts.
 
    You will receive a verification email. In that mail, press the
    _Verify my email address_ link or button.
-5. In case the ArangoDB Oasis start page opens, press the _Log in_ button or
-   click the _Log in_ link in the header navigation.
-6. A form may appear asking for your mobile phone number. Enter the country code
+5. You will open a page in ArangoDB Oasis that says _Welcome back!_
+   Click the _Log in_ button to continue and login.
+6. If you signed up with an email address of a public email service provider (e.g. Hotmail),
+   a form appears asking for your mobile phone number. Enter the country code
    and the number of the mobile phone you want to use for this account.
-   This step is skipped if you signed up with an email address of a non-public
-   email service provider (e.g. company email address).
+   For company email addresses, this step is skipped.
 7. If you had to enter your phone number in the previous step, a verification
    code will be sent via SMS to the mobile number you entered. Enter the
    verification code.
-8. A form will appear asking for your name. Enter your first and last name, and
+8. A form will appear asking for your name. Enter your first, last and company name, and
    then press the _Save_ button.
-9. A form will appear asking for the name of your organization. Enter your
-   organization name, and then press the _Create_ button. You can always change
-   it later.
-10. You're done and you should be redirected to the
+9. An organization with a default project will now be prepared for you.
+   Once that is completed, you will be redirected to the
    [ArangoDB Oasis dashboard](https://cloud.arangodb.com/dashboard){:target="_blank"}.
 
 ## General hierarchy
@@ -74,6 +74,13 @@ used for multiple accounts.
 Also see the [Project Guide](./project-guide.html).
 
 ## Creating a new project
+
+{% hint 'info' %}
+A default project is automatically created for you.
+You can skip this paragraph unless you want to add
+additional projects.
+{% endhint %}
+
 
 1. In the main navigation, in the _Projects_ section, click the _Overview_ link.
 2. Click the _New project_ button.
@@ -109,14 +116,21 @@ Also see the video
    **Note**: If you don't know which DB version to select, leave the version
    selected by default.
 3. In the _CA Certificate_ field
-    - Either create a new certificate by typing the desired name for it and
+    - The default certificate created for your project will automatically be selected.
+    - If you have no default certificate, or want
+      to use a new certificate create a new certificate by typing the desired name for it and
       hitting enter or clicking on the name when done.
-    - Or, if you already have certificates, select the desired one.
-4. _Optional:_ In the _IP whitelist_ field, select the desired one in case you
+    - Or, if you already have multiple certificates, select the desired one.
+4. _Optional but strongly recommended:_ In the _IP whitelist_ field, select the desired one in case you
    want to limit access to your deployment to certain IP ranges. To create a
    whitelist, navigate to your project and select the _IP whitelists_ tab
    (also see the video
    [IP Whitelists with ArangoDB Oasis](https://www.youtube.com/watch?v=Et6nlTHBI50&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=6&t=0s){:target="_blank"}).
+
+{% hint 'info' %}
+For any kind of production deployment we strongly
+advise to use an IP whitelist.
+{% endhint %}
 
 ![Oasis New Deployment](../images/oasis-new-deployment1.png)
 
@@ -133,7 +147,8 @@ The data will be sharded across multiple nodes.
 #### OneShard
 
 1. Select the memory size of your node.
-2. Select the disk size of your node. The available ranges for the disk size
+2. Select the CPU size of your node.
+3. Select the disk size of your node. The available ranges for the disk size
    depend on the selected memory size.
 
 ![Oasis Deployment OneShard](../images/oasis-new-deployment2.png)
@@ -165,7 +180,10 @@ The data will be sharded across multiple nodes.
 
 ## Installing a new certificate
 
-Each certificate you create in ArangoDB Oasis you will also need to install on your local machine. This operation will slightly vary between operating systems.
+Certificates that do have the _Use well known certificate_ option enabled do not need any installation and will be supported by almost all
+web-browsers automatically.
+
+Each certificate you create in ArangoDB Oasis that has the _Use well known certificate_ option disabled, you will also need to install on your local machine. This operation will slightly vary between operating systems.
 
 1. In the main navigation, in the _Projects_ section, click on the project for which you want to install a new certificate.
 2. Navigate to the _Certificates_ tab.
@@ -205,6 +223,18 @@ Also see the video
 11. Press the _Select DB: \_system_ button
 
 At this point your ArangoDB deployment is available for you to use — **Have fun!**
+
+{% hint 'info' %}
+Each deployment is accessible on 2 ports.
+
+- Port 8529 is the standard port recommended for use by web-browsers.
+- Port 18529 is the alternate port that is recommended for use by automated services.
+
+The difference between these ports of the certificate used. If you enable _Use well known certificate_, the certificates used on port 8529 is well known and automatically accepted by most web-browsers.
+The certificate used on port 18529 is all a self-signed certificate.
+For securing automated services, the use of the self-signed certificate is recommended.
+{% endhint %}
+
 
 ## Deleting your deployment
 
