@@ -11,7 +11,7 @@ to using the Oasis web interface to set up a test organization, project and
 deployment, as well as accessing and deleting the deployment.
 
 For general information about ArangoDB Oasis, see
-[arangodb.com/managed-service/](https://www.arangodb.com/managed-service/){:target="_blank"}.
+[cloud.arangodb.com](https://cloud.arangodb.com/){:target="_blank"}.
 
 A video series on how to get started with Oasis is also available:
 
@@ -231,7 +231,7 @@ Each deployment is accessible on 2 ports.
 - Port 18529 is the alternate port that is recommended for use by automated services.
 
 The difference between these ports of the certificate used. If you enable _Use well known certificate_, the certificates used on port 8529 is well known and automatically accepted by most web-browsers.
-The certificate used on port 18529 is all a self-signed certificate.
+The certificate used on port 18529 is a self-signed certificate.
 For securing automated services, the use of the self-signed certificate is recommended.
 {% endhint %}
 
