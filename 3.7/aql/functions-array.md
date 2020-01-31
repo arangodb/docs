@@ -536,6 +536,69 @@ RETURN REMOVE_NTH( [ "a", "b", "c", "d", "e" ], -2 )
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+## REPLACE_NTH()
+
+<small>Introduced in: v3.7.0</small>
+
+`REPLACE_NTH(anyArray, position, replaceValue, defaultPaddingValue) → newArray`
+
+Replace the element at *position* in *anyArray* with *replaceValue*.
+
+- **anyArray** (array): array with elements of arbitrary type
+- **position** (number): the position of the element to replace. Positions start
+  at 0. Negative positions are not supported.
+- **replaceValue** the value to be inserted at *position*
+- **defaultPaddingValue** to be used for padding if *position* is two or more
+  elements beyond the last element in *anyArray*
+- returns **newArray** (array): *anyArray* with the element at *position*
+  replaced by *replaceValue*, or appended to *anyArray* and possibly padded by
+  *defaultPaddingValue*
+
+It is allowed to specify a position beyond the upper array boundary:
+- *replaceValue* is appended if *position* is equal to the array length
+- if it is higher, *defaultPaddingValue* is appended to *anyArray* as many
+  times as needed to place *replaceValue* at *position*
+- if no *defaultPaddingValue* is supplied in above case, then a query error
+  is raised
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayReplaceNth_1
+@EXAMPLE_AQL{aqlArrayReplaceNth_1}
+RETURN REPLACE_NTH( [ "a", "b", "c" ], 1 , "z")
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayReplaceNth_1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayReplaceNth_2
+@EXAMPLE_AQL{aqlArrayReplaceNth_2}
+RETURN REPLACE_NTH( [ "a", "b", "c" ], 3 , "z")
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayReplaceNth_2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline aqlArrayReplaceNth_3
+    @EXAMPLE_ARANGOSH_OUTPUT{aqlArrayReplaceNth_3}
+      db._query('RETURN REPLACE_NTH( [ "a", "b", "c" ], 6 , "z")'); // xpError(ERROR_QUERY_FUNCTION_ARGUMENT_TYPE_MISMATCH)
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock aqlArrayReplaceNth_3
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayReplaceNth_4
+@EXAMPLE_AQL{aqlArrayReplaceNth_4}
+RETURN REPLACE_NTH( [ "a", "b", "c" ], 6, "z", "y" )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayReplaceNth_4
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## REMOVE_VALUE()
 
 `REMOVE_VALUE(anyArray, value, limit) → newArray`

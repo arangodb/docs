@@ -72,13 +72,13 @@ It can be specified multiple times if required:
     arangodump --collection myusers --collection myvalues --output-directory "dump"
 
 Structural information for a collection will be saved in files with name pattern
-*<collection-name>.structure.json*. Each structure file will contains a JSON object
+`<collection-name>.structure.json`. Each structure file will contains a JSON object
 with these attributes:
 - *parameters*: contains the collection properties
 - *indexes*: contains the collection indexes
 
 Document data for a collection will be saved in files with name pattern
-*<collection-name>.data.json*. Each line in a data file is a document insertion/update or
+`<collection-name>.data.json`. Each line in a data file is a document insertion/update or
 deletion marker, alongside with some meta data.
 
 Cluster Backup
@@ -201,7 +201,7 @@ engine, which does not have encryption-at-rest.
 Compression
 -----------
 
-<small>Introduced in:  v3.4.6, v3.5.0</small>
+<small>Introduced in: v3.4.6, v3.5.0</small>
 
 `--compress-output`
 
