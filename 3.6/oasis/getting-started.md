@@ -130,7 +130,7 @@ Also see the video
    _IP whitelists_ tab (also see the video
    [IP Whitelists with ArangoDB Oasis](https://www.youtube.com/watch?v=Et6nlTHBI50&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=6&t=0s){:target="_blank"}).
 
-{% hint 'info' %}
+{% hint 'security' %}
 For any kind of production deployment we strongly advise to use an IP whitelist.
 {% endhint %}
 
