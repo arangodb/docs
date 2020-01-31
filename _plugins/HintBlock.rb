@@ -21,7 +21,7 @@ class HintTag < Liquid::Block
         icon = "check"
         className = "success"
       when "security"
-        icon = "lock"
+        icon = "shield"
         className = "warning"
       when "warning"
         icon = "exclamation-triangle"
