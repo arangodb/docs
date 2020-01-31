@@ -36139,6 +36139,31 @@ Returned if the request was successful.
 @endDocuBlock
 
 
+<!-- filename: /work/ArangoDB/Documentation/DocuBlocks/Rest/Administration/post_admin_server_tls.md -->
+@startDocuBlock post_admin_server_tls
+
+@brief Trigger a reload of the TLS data of this server (server key, client-auth CA) and return the new data as a summary.
+
+@RESTHEADER{POST /_admin/server/tls, Trigger a reload of the TLS data and return a summary, handleTLS:post}
+
+@RESTDESCRIPTION
+This API call triggers a reload of all the TLS data and then
+returns a summary. The JSON response is exactly as in the corresponding
+GET request (see there).
+
+This is a protected API and can only be executed with superuser rights.
+
+@RESTRETURNCODES
+
+@RESTRETURNCODE{200}
+This API will return HTTP 200 if everything is ok
+
+@RESTRETURNCODE{403}
+This API will return HTTP 403 FORBIDDEN if it is not called with
+superuser rights.
+@endDocuBlock
+
+
 <!-- filename: /work/ArangoDB/Documentation/DocuBlocks/Rest/Foxx/api_foxx_service_list.md -->
 @startDocuBlock api_foxx_service_list
 
@@ -36851,6 +36876,41 @@ Reloads the routing information from the collection *routing*.
 
 @RESTRETURNCODE{200}
 Routing information was reloaded successfully.
+@endDocuBlock
+
+
+<!-- filename: /work/ArangoDB/Documentation/DocuBlocks/Rest/Administration/get_admin_server_tls.md -->
+@startDocuBlock get_admin_server_tls
+
+@brief Return the TLS data of this server (server key, client-auth CA)
+
+@RESTHEADER{GET /_admin/server/tls, Return a summary of the TLS data, handleMode:get}
+
+@RESTDESCRIPTION
+Return a summary of the TLS data. The JSON response will contain a field
+`result` with the following components:
+
+  - `keyfile`: Information about the key file.
+  - `clientCA`: Information about the CA for client certificate
+    verification.
+
+In both cases the value of the attribute will be a JSON object, which
+has a subset of the following attributes (whatever is appropriate):
+
+  - `SHA256`: The value is a string with the SHA256 of the whole input
+    file.
+  - `certificates`: The value is a JSON array with the public
+    certificates in the chain in the file.
+  - `privateKeySHA256`: In cases where there is a private key (`keyfile`
+    but not `clientCA`), this field is present and contains a
+    JSON string with the SHA256 of the private key.
+
+This is a public API so it does *not* require authentication.
+
+@RESTRETURNCODES
+
+@RESTRETURNCODE{200}
+This API will return HTTP 200 if everything is ok
 @endDocuBlock
 
 
