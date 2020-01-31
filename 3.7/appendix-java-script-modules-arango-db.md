@@ -29,7 +29,7 @@ and run queries. For more information see the [db object reference](appendix-ref
 **Examples**
 
 ```js
-const {db} = require('@arangodb');
+const { db } = require('@arangodb');
 
 const thirteen = db._query('RETURN 5 + 8').next();
 ```
@@ -99,7 +99,7 @@ nested `aql` queries if possible.
 **Examples**
 
 ```js
-const {aql} = require('@arangodb');
+const { aql } = require('@arangodb');
 
 const filterGreen = aql.literal('FILTER d.color == "green"');
 const result = db._query(aql`
@@ -119,7 +119,7 @@ and combines them into a single query. The optional second argument will be
 used as literal string to combine the queries.
 
 ```js
-const {aql} = require('@arangodb');
+const { aql } = require('@arangodb');
 
 // Basic usage
 const parts = [aql`FILTER`, aql`x`, aql`%`, aql`2`];
@@ -174,7 +174,7 @@ the `query` template handler, which behaves exactly like `aql` but also directly
 executes the query and returns the result cursor instead of the query object:
 
 ```js
-const {query} = require('@arangodb');
+const { query } = require('@arangodb');
 
 const filterValue = 23;
 const mydata = db._collection('mydata');
@@ -185,7 +185,7 @@ const result = query`
 `.toArray();
 
 // Nesting with `aql` works as expected
-const {aql} = require('@arangodb');
+const { aql } = require('@arangodb');
 
 const filter = aql`FILTER d.num > ${filterValue}`;
 const result2 = query`
@@ -199,7 +199,7 @@ It is also possible to pass query options to the query helper
 (introduced in v3.7.0):
 
 ```js
-const {query} = require('@arangodb');
+const { query } = require('@arangodb');
 
 const mydata = db._collection('mydata');
 const result = query( { fullCount: true } )`
