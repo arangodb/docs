@@ -7330,6 +7330,45 @@
                 "x-hints": ""
             }
         }, 
+        "/_admin/server/tls": {
+            "get": {
+                "description": "\n\nReturn a summary of the TLS data. The JSON response will contain a field\n`result` with the following components:\n\n  - `keyfile`: Information about the key file.\n  - `clientCA`: Information about the CA for client certificate\n    verification.\n\nIn both cases the value of the attribute will be a JSON object, which\nhas a subset of the following attributes (whatever is appropriate):\n\n  - `SHA256`: The value is a string with the SHA256 of the whole input\n    file.\n  - `certificates`: The value is a JSON array with the public\n    certificates in the chain in the file.\n  - `privateKeySHA256`: In cases where there is a private key (`keyfile`\n    but not `clientCA`), this field is present and contains a\n    JSON string with the SHA256 of the private key.\n\nThis is a public API so it does *not* require authentication.\n\n", 
+                "operationId": "handleMode:get", 
+                "parameters": [], 
+                "responses": {
+                    "200": {
+                        "description": "This API will return HTTP 200 if everything is ok\n\n"
+                    }
+                }, 
+                "summary": "Return a summary of the TLS data", 
+                "tags": [
+                    "Administration"
+                ], 
+                "x-examples": [], 
+                "x-filename": "/work/ArangoDB/Documentation/DocuBlocks/Rest/Administration/get_admin_server_tls.md", 
+                "x-hints": ""
+            }, 
+            "post": {
+                "description": "\n\nThis API call triggers a reload of all the TLS data and then\nreturns a summary. The JSON response is exactly as in the corresponding\nGET request (see there).\n\nThis is a protected API and can only be executed with superuser rights.\n\n", 
+                "operationId": "handleTLS:post", 
+                "parameters": [], 
+                "responses": {
+                    "200": {
+                        "description": "This API will return HTTP 200 if everything is ok\n\n"
+                    }, 
+                    "403": {
+                        "description": "This API will return HTTP 403 FORBIDDEN if it is not called with\nsuperuser rights.\n\n"
+                    }
+                }, 
+                "summary": "Trigger a reload of the TLS data and return a summary", 
+                "tags": [
+                    "Administration"
+                ], 
+                "x-examples": [], 
+                "x-filename": "/work/ArangoDB/Documentation/DocuBlocks/Rest/Administration/post_admin_server_tls.md", 
+                "x-hints": ""
+            }
+        }, 
         "/_admin/shutdown": {
             "delete": {
                 "description": "\n\nThis call initiates a clean shutdown sequence. Requires administrive privileges\n\n", 
