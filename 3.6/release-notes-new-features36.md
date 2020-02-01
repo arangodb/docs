@@ -212,15 +212,9 @@ read only documents that are absolutely necessary to compute the query result,
 reducing load to the storage engine. This is only supported for the RocksDB
 storage engine.
 
-In 3.6 the optimization can only be applied to queries containing a
-`SORT`+`LIMIT` combination, e.g:
-
-```js
-FOR d IN documentSource // documentSource can be either a collection or an ArangoSearch View
-  SORT d.foo
-  LIMIT 100
-  RETURN d
-```
+In 3.6 the optimization can only be applied to queries retrieving data from a
+collection or an ArangoSearch View and that contain a `SORT`+`LIMIT`
+combination.
 
 For the collection case the optimization is possible if and only if:
 - there is an index of type `primary`, `hash`, `skiplist`, `persistent`
@@ -228,8 +222,7 @@ For the collection case the optimization is possible if and only if:
 - all attribute accesses can be covered by indexed attributes
 
 ```js
-// Given we have a hash index on attributes [  "foo", "bar", "baz" ]
-
+// Given we have a persistent index on attributes [ "foo", "bar", "baz" ]
 FOR d IN myCollection
   FILTER d.foo == "someValue" // hash index will be picked to optimize filtering
   SORT d.baz DESC             // field "baz" will be read from index
@@ -238,21 +231,36 @@ FOR d IN myCollection
 ```
 
 For the ArangoSearch View case the optimization is possible if and only if:
-- all attribute accesses can be covered by stored attributes
+- all attribute accesses can be covered by attributes stored in the View index
   (e.g. using `primarySort`)
+- the primary sort order optimization is not applied, because it voids the need
+  for late document materialization
 
 ```js
+// Given primarySort is {"field": "foo", "asc": false}, i.e.
+// field "foo" covered by index but sort optimization not applied
+// (sort order of primarySort and SORT operation mismatch)
 FOR d IN myView
-  SEARCH d.foo == "baz"
+  SORT d.foo
+  LIMIT 100  // only 100 documents will be materialized
+  RETURN d
+```
+
+```js
+// Given primarySort contains field "foo"
+FOR d IN myView
+  SEARCH d.foo == "someValue"
   SORT BM25(d) DESC  // BM25(d) will be evaluated by the View node above
   LIMIT 100          // only 100 documents will be materialized
   RETURN d
 ```
 
 ```js
-// Given we have primary sort on fields ["foo", "bar"]
+// Given primarySort contains fields "foo" and "bar", and "bar" is not the
+// first field or at least not sorted by in descending order, i.e. the sort
+// optimization can not be applied but the late document materialization instead
 FOR d IN myView
-  SEARCH d.foo == "baz"
+  SEARCH d.foo == "someValue"
   SORT d.bar DESC    // field "bar" will be read from the View
   LIMIT 100          // only 100 documents will be materialized
   RETURN d
