@@ -28,6 +28,13 @@ Statistics
 <!-- js/actions/api-system.js -->
 {% docublock get_admin_metrics %}
 
+TLS
+---
+
+<!-- arangod/RestHandler/RestAdminServerHandler.cpp -->
+{% docublock get_admin_server_tls %}
+{% docublock post_admin_server_tls %}
+
 Cluster
 -------
 
