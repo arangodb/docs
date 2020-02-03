@@ -82,6 +82,8 @@ and modern cloud platforms like Kubernetes.
 We also expect improved request throughput in cases where there are many
 concurrent requests.
 
+See: [HTTP Switching Protocols](http/general.html#switching-protocols)
+
 ### JWT secret rotation (Enterprise Edition)
 
 There are now new APIs and startup options for JWT secrets. The new option
