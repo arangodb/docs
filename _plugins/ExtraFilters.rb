@@ -1,6 +1,19 @@
 module Jekyll
     module ExtraFilters
 
+        OS_NAMES = {
+            'linux' => 'Linux',
+            'macos' => 'macOS',
+            'windows' => 'Windows'
+        }
+
+        COMPONENT_NAMES = {
+            'single' => 'Single Servers',
+            'dbserver' => 'DB-Servers',
+            'coordinator' => 'Coordinators',
+            'agent' => 'Agents'
+        }
+
         def upcase_first(input)
             return nil if !input.is_a? String
             input[0].upcase + input[1..-1]
@@ -29,6 +42,21 @@ module Jekyll
         def navvar(page_dir)
             m = page_dir.to_s.match(/\/(\d)\.(\d)\/(\w+)?/)
             [m.captures[0] + m.captures[1], m.captures[2] || 'manual'].join('-')
+        end
+
+        def capitalize_os(arr)
+            arr.map{ |name| OS_NAMES.fetch(name, name) }
+        end
+
+        def capitalize_components(arr)
+            arr.map{ |name| COMPONENT_NAMES.fetch(name, name) }
+        end
+
+        def join_natural(arr)
+            return nil if arr.size == 0
+            return arr[0] if arr.size == 1
+            *a, b = arr
+            a.join(', ') + ' and ' + b
         end
     end
 end
