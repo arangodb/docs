@@ -14,7 +14,7 @@ MMFiles storage engine
 ----------------------
 
 This version of ArangoDB does not allow creating any new deployments with the
-MMFiles storage engine, unless the new [startup option](programs-arangod-server.html#allow-deprecated-storage-engine)
+MMFiles storage engine, unless the new [startup option](programs-arangod-server.html#storage-engine)
 `--server.allow-deprecated-storage-engine` is set to *true*.
 
 All storage engine selection functionality has been removed from the ArangoDB
