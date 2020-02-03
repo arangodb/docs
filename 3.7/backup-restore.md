@@ -44,7 +44,7 @@ Such backups are extremely fast as they only involve file copying.
 
 If ArangoDB is running in Active Failover or Cluster mode, it will be necessary
 to copy the data directories of all the involved processes (_Agents_, _Coordinators_ and
-_DBServers_).
+_DB-Servers_).
 
 {% hint 'warning' %}
 It is extremely important that physical backups are taken only after all the ArangoDB
@@ -156,7 +156,7 @@ of that of the single server installation.
   In clusters things are a little more complicated and noticeable.
   A Coordinator, which is trying to obtain the global write transaction
   lock must try to get local locks
-  on all _DBServers_ simultaneously; potentially succeeding on some and not
+  on all _DB-Servers_ simultaneously; potentially succeeding on some and not
   succeeding on others, leading to apparent dead times in the cluster's write
   operations.
 

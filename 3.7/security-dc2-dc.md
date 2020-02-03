@@ -27,7 +27,6 @@ Below you'll find an overview of these connections and the TCP ports that should
    within the same datacenter:
 
    - ArangoDB Agents and Coordinators (default ports: `8531` and `8529`)
-   - Kafka brokers (only when using `kafka` type message queue) (default port `9092`)
    - Sync workers (default port `8729`)
 
    Additionally the sync masters must be allowed to connect to the sync masters in the other datacenter.
@@ -37,39 +36,9 @@ Below you'll find an overview of these connections and the TCP ports that should
 1. The sync workers must be allowed to connect to the following components within the same datacenter:
 
    - ArangoDB Coordinators (default port `8529`)
-   - Kafka brokers (only when using `kafka` type message queue) (default port `9092`)
    - Sync masters (default port `8629`)
 
    By default the sync workers will operate on port `8729`.
-
-   Additionally (when using `kafka` type message queue) the sync workers must be allowed to
-   connect to the Kafka brokers in the other datacenter.
-
-1. Kafka (when using `kafka` type message queue)
-
-   The kafka brokers must be allowed to connect to the following components within the same datacenter:
-
-   - Other kafka brokers (default port `9092`)
-   - Zookeeper (default ports `2181`, `2888` and `3888`)
-
-   The default port for kafka is `9092`. The default kafka installation will also expose some prometheus
-   metrics on port `7071`. To gain more insight into kafka open this port for your prometheus
-   installation.
-
-1. Zookeeper (when using `kafka` type message queue)
-
-   The zookeeper agents must be allowed to connect to the following components within the same datacenter:
-
-   - Other zookeeper agents
-
-   The setup here is a bit special as zookeeper uses 3 ports for different operations. All agents need to
-   be able to connect to all of these ports.
-
-   By default Zookeeper uses:
-
-   - port `2181` for client communication
-   - port `2888` for follower communication
-   - port `3888` for leader elections
 
 ## Certificates
 

@@ -42,12 +42,6 @@ Below you'll find an overview per component.
   E.g. `--log.output=file://myLogFile` or `--log.level=info`.
   - A statistics API `GET /_admin/statistics`
 
-- Kafka cluster: The kafka brokers provide:
-  - A log file, see settings with `log.` prefix in its `server.properties` configuration file.
-
-- Zookeeper: The zookeeper agents provide:
-  - A log on standard output.
-
 ## What to look for while monitoring status
 
 The very first thing to do when monitoring the status of ArangoSync is to

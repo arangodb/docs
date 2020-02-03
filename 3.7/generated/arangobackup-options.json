@@ -1,14 +1,18 @@
 {
   "abort" : {
-    "category" : "option",
-    "default" : false,
+    "category" : "command",
     "deprecatedIn" : null,
     "description" : "abort transfer with given status-id (upload/download operation)",
     "dynamic" : false,
-    "enterpriseOnly" : false,
+    "enterpriseOnly" : true,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -23,6 +27,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -36,6 +45,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -50,6 +64,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
@@ -64,6 +83,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
@@ -79,6 +103,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string..."
@@ -92,6 +121,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -105,6 +139,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -115,10 +154,15 @@
     "deprecatedIn" : null,
     "description" : "abort transactions if needed to ensure a consistent snapshot. This option can destroy the atomicity of your transactions in the presence of intermediate commits! Use it with great care and only if you really need a consistent backup at all costs (create operation)",
     "dynamic" : false,
-    "enterpriseOnly" : false,
+    "enterpriseOnly" : true,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -133,6 +177,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
@@ -147,6 +196,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -161,6 +215,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
@@ -179,6 +238,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string..."
@@ -193,6 +257,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -207,6 +276,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -221,6 +295,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string"
@@ -238,6 +317,11 @@
       "v3.5.0"
     ],
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string"
@@ -255,6 +339,11 @@
       "v3.5.0"
     ],
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string"
@@ -269,6 +358,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -283,6 +377,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -299,6 +398,11 @@
       "v3.5.0"
     ],
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -313,6 +417,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -329,6 +438,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string..."
@@ -343,6 +457,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -358,6 +477,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string..."
@@ -374,6 +498,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -388,6 +517,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string"
@@ -402,6 +536,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -416,6 +555,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -430,6 +574,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -444,6 +593,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -458,6 +612,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -474,6 +633,11 @@
       "v3.5.0"
     ],
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string",
@@ -491,6 +655,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -507,6 +676,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -521,6 +695,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "double"
@@ -535,6 +714,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "double"
@@ -549,6 +733,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string",
@@ -564,6 +753,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "random",
     "type" : "uint32",
@@ -575,10 +769,15 @@
     "deprecatedIn" : null,
     "description" : "filename of the Rclone configuration file used forfile transfer (upload/download operation)",
     "dynamic" : false,
-    "enterpriseOnly" : false,
+    "enterpriseOnly" : true,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
@@ -589,10 +788,15 @@
     "deprecatedIn" : null,
     "description" : "remote Rclone path of directory used to store or receive backups (upload/download operation)",
     "dynamic" : false,
-    "enterpriseOnly" : false,
+    "enterpriseOnly" : true,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
@@ -607,6 +811,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
@@ -621,6 +830,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "double"
@@ -635,6 +849,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "string"
@@ -649,6 +868,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "string"
@@ -665,6 +889,11 @@
       "v3.6.0"
     ],
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
@@ -679,6 +908,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "uint64"
@@ -693,6 +927,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "string"
@@ -707,6 +946,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "double"
@@ -721,6 +965,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "string"
@@ -735,21 +984,30 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "ssl",
     "type" : "uint64",
     "values" : "Possible values: 1, 2, 3, 4, 5, 6, 9"
   },
   "status-id" : {
-    "category" : "option",
-    "default" : "",
+    "category" : "command",
     "deprecatedIn" : null,
     "description" : "returns the status of a transfer process (upload/download operation)",
     "dynamic" : false,
-    "enterpriseOnly" : false,
+    "enterpriseOnly" : true,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
@@ -763,6 +1021,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
