@@ -161,7 +161,13 @@ Since ArangoDB v3.2.0, an alternative engine based on
 turned on manually. Since ArangoDB v3.4.0, the RocksDB storage engine is the
 default storage engine for new installations.
 
-The MMFiles engine is [deprecated](appendix-deprecated.html) from v3.6.0 on.
+The MMFiles engine is [deprecated](appendix-deprecated.html) from v3.6.0 on
+and new deployments created with v3.7 do not allow MMFiles as storage engine
+anymore unless the startup option `--server.allow-deprecated-storage-engine`
+is set to *true*. Deployments upgraded to v3.7 from earlier versions that are
+using the MMFiles storage engine will still continue to work in ArangoDB 3.7.
+However, 3.7 will be the last ArangoDB version supporting the MMFiles storage
+engines, so users are asked to migrate to the RocksDB storage engine soon.
 
 One storage engine type is supported per server per installation.
 Live switching of storage engines on already installed systems isn't supported.
