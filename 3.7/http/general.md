@@ -1,6 +1,6 @@
 ---
 layout: default
-description: ArangoDB exposes its API via HTTP, making the server accessible easily witha variety of clients and tools (e
+description: ArangoDB exposes its API via HTTP, making the server accessible easily with a variety of clients and tools
 ---
 General HTTP Request Handling in ArangoDB
 =========================================
@@ -113,13 +113,15 @@ For details on the subsequent processing
 Authentication
 --------------
 
-Client authentication can be achieved by using the *Authorization* HTTP header in
-client requests. ArangoDB supports authentication via HTTP Basic or JWT.
+Client authentication can be achieved by using the *Authorization* HTTP header
+in client requests. ArangoDB supports authentication via HTTP Basic or JWT.
 
-Authentication is turned on by default for all internal database APIs but turned off for custom Foxx apps.
-To toggle authentication for incoming requests to the internal database APIs, use the option
+Authentication is turned on by default for all internal database APIs but
+turned off for custom Foxx apps. To toggle authentication for incoming
+requests to the internal database APIs, use the option
 [--server.authentication](../programs-arangod-server.html#enabledisable-authentication).
-This option is turned on by default so authentication is required for the database APIs.
+This option is turned on by default so authentication is required for the
+database APIs.
 
 Please note that requests using the HTTP OPTIONS method will be answered by
 ArangoDB in any case, even if no authentication data is sent by the client or if
@@ -129,45 +131,50 @@ The response to an HTTP OPTIONS request will be generic and not expose any priva
 
 There is an additional option to control authentication for custom Foxx apps. The option
 [--server.authentication-system-only](../programs-arangod-server.html#enabledisable-authentication-for-system-api-requests-only)
-controls whether authentication is required only for requests to the internal database APIs and the admin interface.
-It is turned on by default, meaning that other APIs (this includes custom Foxx apps) do not require authentication.
+controls whether authentication is required only for requests to the internal
+database APIs and the admin interface. It is turned on by default, meaning that
+other APIs (this includes custom Foxx apps) do not require authentication.
 
-The default values allow exposing a public custom Foxx API built with ArangoDB to the outside
-world without the need for HTTP authentication, but still protecting the usage of the
-internal database APIs (i.e. */_api/*, */_admin/*) with HTTP authentication.
+The default values allow exposing a public custom Foxx API built with ArangoDB
+to the outside world without the need for HTTP authentication, but still
+protecting the usage of the internal database APIs (i.e. `/_api/`, `/_admin/`)
+with HTTP authentication.
 
-If the server is started with the *--server.authentication-system-only* option set
-to *false*, all incoming requests will need HTTP authentication if the server is configured
-to require HTTP authentication (i.e. *--server.authentication true*).
-Setting the option to *true* will make the server require authentication only for requests to the
-internal database APIs and will allow unauthenticated requests to all other URLs.
+If the server is started with the `--server.authentication-system-only`
+option set to *false*, all incoming requests will need HTTP authentication
+if the server is configured to require HTTP authentication
+(i.e. `--server.authentication true`). Setting the option to *true* will
+make the server require authentication only for requests to the internal
+database APIs and will allow unauthenticated requests to all other URLs.
 
 Here's a short summary:
 
-* `--server.authentication true --server.authentication-system-only true`: this will require
-  authentication for all requests to the internal database APIs but not custom Foxx apps.
-  This is the default setting.
-* `--server.authentication true --server.authentication-system-only false`: this will require
-  authentication for all requests (including custom Foxx apps).
-* `--server.authentication false`: authentication disabled for all requests
+- `--server.authentication true --server.authentication-system-only true`:
+  This will require authentication for all requests to the internal database
+  APIs but not custom Foxx apps. This is the default setting.
+- `--server.authentication true --server.authentication-system-only false`:
+  This will require authentication for all requests (including custom Foxx apps).
+- `--server.authentication false`: authentication disabled for all requests
 
 Whenever authentication is required and the client has not yet authenticated,
-ArangoDB will return *HTTP 401* (Unauthorized). It will also send the *WWW-Authenticate*
-response header, indicating that the client should prompt the user for username and
-password if supported. If the client is a browser, then sending back this header will
-normally trigger the display of the browser-side HTTP authentication dialog.
-As showing the browser HTTP authentication dialog is undesired in AJAX requests,
-ArangoDB can be told to not send the *WWW-Authenticate* header back to the client.
-Whenever a client sends the *X-Omit-WWW-Authenticate* HTTP header (with an arbitrary value)
-to ArangoDB, ArangoDB will only send status code 401, but no *WWW-Authenticate* header.
-This allows clients to implement credentials handling and bypassing the browser's
-built-in dialog.
+ArangoDB will return *HTTP 401* (Unauthorized). It will also send the
+`WWW-Authenticate` response header, indicating that the client should prompt
+the user for username and password if supported. If the client is a browser,
+then sending back this header will normally trigger the display of the
+browser-side HTTP authentication dialog. As showing the browser HTTP
+authentication dialog is undesired in AJAX requests, ArangoDB can be told to
+not send the *WWW-Authenticate* header back to the client. Whenever a client
+sends the `X-Omit-WWW-Authenticate` HTTP header (with an arbitrary value) to
+ArangoDB, ArangoDB will only send status code 401, but no `WWW-Authenticate`
+header. This allows clients to implement credentials handling and bypassing 
+the browser's built-in dialog.
 
 ### Authentication via JWT
 
 ArangoDB uses a standard JWT based authentication method. 
-To authenticate via JWT you must first obtain a JWT token with a signature generated via HMAC with SHA-256. 
-The secret may either be set using `--server.jwt-secret` or will be randomly generated upon server startup.
+To authenticate via JWT you must first obtain a JWT token with a signature
+generated via HMAC with SHA-256. The secret may either be set using
+`--server.jwt-secret` or will be randomly generated upon server startup.
 
 For more information on JWT please consult RFC7519 and [jwt.io](https://jwt.io){:target="_blank"}.
 
@@ -178,31 +185,40 @@ the _preferred_username_ field with the username.
 You can either let ArangoDB generate this token for you via an API call
 or you can generate it yourself (only if you know the JWT secret).
 
-ArangoDB offers a REST API to generate user tokens for you if you know the username and password. 
-To do so send a POST request to
-
-*/_open/auth*
-containing *username* and *password* JSON-encoded like so:
-
-{"username":"root","password":"rootPassword"}
-
-Upon success the endpoint will return a **200 OK** and an answer containing the JWT in a JSON-
-encoded object like so:
+ArangoDB offers a RESTful API to generate user tokens for you if you know the
+username and password. To do so send a POST request to:
 
 ```
-{"jwt":"eyJhbGciOiJIUzI1NiI..x6EfI"}
+/_open/auth
 ```
 
-This JWT should then be used within the Authorization HTTP header in subsequent requests:
+… containing *username* and *password* JSON-encoded like so:
+
+```json
+{
+  "username": "root",
+  "password": "rootPassword"
+}
+```
+
+Upon success the endpoint will return a **200 OK** and an answer containing
+the JWT in a JSON-encoded object like so:
+
+```json
+{ "jwt": "eyJhbGciOiJIUzI1NiI..x6EfI" }
+```
+
+This JWT should then be used within the Authorization HTTP header in subsequent
+requests:
 
 ```
 Authorization: bearer eyJhbGciOiJIUzI1NiI..x6EfI
 ```
 
-Please note that the JWT will expire after 1 month and needs to be updated. We encode the expiration
-date of the JWT token in the _exp_ field in unix time.
-Please note that all JWT tokens must contain the _iss_ field with string value `arangodb`.
-As an example the decoded JWT body would look like this:
+Please note that the JWT will expire after 1 month and needs to be updated.
+We encode the expiration date of the JWT token in the `exp` field in Unix time.
+Please note that all JWT tokens must contain the `iss` field with string value
+`arangodb`. As an example the decoded JWT body would look like this:
 
 ```json
 {
@@ -215,16 +231,24 @@ As an example the decoded JWT body would look like this:
 
 #### Superuser JWT-Token
 
-To access specific internal APIs as well as Agency and DB-Server instances a token generated via `/open/auth` is not 
-good enough. For these special APIs you will need to generate a special JWT token which grants superuser access.
-Note that using superuser access for normal database operations is **NOT advised**.
+To access specific internal APIs as well as Agency and DB-Server instances a
+token generated via `POST /open/auth` is not good enough. For these special
+APIs you will need to generate a special JWT token which grants superuser
+access. Note that using superuser access for normal database operations is
+**NOT advised**.
 
-_Note_: It is only possible to generate this JWT token with the knowledge of the JWT secret.
+{% hint 'security' %}
+It is only possible to generate this JWT token with the knowledge of the
+JWT secret.
+{% endhint %}
 
-For your convenience it is possible to generate this token via the [ArangoDB starter CLI](../programs-starter-security.html#using-authentication-tokens).
+For your convenience it is possible to generate this token via the
+[ArangoDB starter CLI](../programs-starter-security.html#using-authentication-tokens).
 
-Should you wish to generate the JWT token yourself with a tool of your choice, you need to include the correct body.
-The body must contain the _iss_ field with string value `arangodb` and the `server_id` field with an arbitrary string identifier:
+Should you wish to generate the JWT token yourself with a tool of your choice,
+you need to include the correct body. The body must contain the `iss` field
+with string value `arangodb` and the `server_id` field with an arbitrary string
+identifier:
 
 ```json
 {
@@ -235,7 +259,9 @@ The body must contain the _iss_ field with string value `arangodb` and the `serv
 }
 ```
 
-For example to generate a token via the [jwtgen tool](https://www.npmjs.com/package/jwtgen){:target="_blank"} (note the lifetime of one hour):
+For example to generate a token via the
+[jwtgen tool](https://www.npmjs.com/package/jwtgen){:target="_blank"}
+(note the lifetime of one hour):
 
 ```
 jwtgen -s <my-secret> -e 3600 -v -a "HS256" -c 'iss=arangodb' -c 'server_id=myclient'
@@ -244,9 +270,16 @@ curl -v -H "Authorization: bearer $(jwtgen -s <my-secret> -e 3600 -a "HS256" -c 
 
 #### Hot-Reload of JWT Secrets
 
-To reload the JWT secrets of a local arangod process without a restart, you may use the following 
-restful API. A **POST** request reloads the secret, a **GET** request may 
-be used to load information about the currently used secrets:
+<small>Introduced in: v3.7.0</small>
+
+{% hint 'info' %}
+Support for hot-reloading secrets is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
+{% endhint %}
+
+To reload the JWT secrets of a local arangod process without a restart, you
+may use the following RESTful API. A **POST** request reloads the secret, a
+**GET** request may be used to load information about the currently used secrets.
 
 Hot-Reload the secrets from disk:
 
@@ -256,9 +289,12 @@ To fetch information about the currently loaded secrets:
 
 `GET /_admin/server/jwt`
 
-A successful response contains a JSON with the "result" field and an "error" field containing _false_.
-The field _result_ contains the sub-fields _active_ and _passive_, which contain the sha256 hashes of the loaded secrets.
-The _field_ active is always an object, the field _passive_ is always an array of objects. However, _passive_ may be an empty array if there is only an active secret but no passive ones.
+A successful response contains a JSON with the `result` field and an `error`
+field containing `false`. The field `result` contains the sub-fields `active`
+and `passive`, which contain the SHA 256 hashes of the loaded secrets.
+The `field` active is always an object, the field `passive` is always an array
+of objects. However, `passive` may be an empty array if there is only an active
+secret but no passive ones.
 
 ```json
 {
@@ -283,15 +319,18 @@ The _field_ active is always an object, the field _passive_ is always an array o
 }
 ```
 
-In case of an error the response may contain the error code  in the field "errorCode" and the message
-in the field "errorMessage"
+In case of an error the response may contain the error code in the field
+`errorCode` and the message in the field `errorMessage`.
 
-To utilize the API a superuser JWT token is necessary, otherwise the response will be 
-_HTTP 403 Forbidden_.
+To utilize the API a superuser JWT token is necessary, otherwise the response
+will be _HTTP 403 Forbidden_.
 
-Note that only the files specified via the arangod startup options `--server.jwt-secret-keyfile` 
-or `--server.jwt-secret-folder` are used, it is not possible to change the locations where 
-files are loaded from without restarting the process.
+{% hint 'info' %}
+Only the files specified via the arangod startup options
+`--server.jwt-secret-keyfile` or `--server.jwt-secret-folder` are used.
+It is not possible to change the locations where files are loaded from
+without restarting the process.
+{% endhint %}
 
 Error Handling
 --------------
@@ -299,42 +338,42 @@ Error Handling
 The following should be noted about how ArangoDB handles client errors in its
 HTTP layer:
 
-* client requests using an HTTP version signature different than *HTTP/1.0* or
+- client requests using an HTTP version signature different than *HTTP/1.0* or
   *HTTP/1.1* will get an *HTTP 505* (HTTP version not supported) error in return.
-* ArangoDB will reject client requests with a negative value in the
-  *Content-Length* request header with *HTTP 411* (Length Required).
-* ArangoDB doesn't support POST with *transfer-encoding: chunked* which forbids
-  the *Content-Length* header above.
-* the maximum URL length accepted by ArangoDB is 16K. Incoming requests with
+- ArangoDB will reject client requests with a negative value in the
+  `Content-Length` request header with *HTTP 411* (Length Required).
+- ArangoDB doesn't support POST with `Transfer-Encoding: chunked` which forbids
+  the `Content-Length` header above.
+- the maximum URL length accepted by ArangoDB is 16K. Incoming requests with
   longer URLs will be rejected with an *HTTP 414* (Request-URI too long) error.
-* if the client sends a *Content-Length* header with a value bigger than 0 for
+- if the client sends a `Content-Length` header with a value bigger than 0 for
   an HTTP GET, HEAD, or DELETE request, ArangoDB will process the request, but
   will write a warning to its log file.
-* when the client sends a *Content-Length* header that has a value that is lower
+- when the client sends a `Content-Length` header that has a value that is lower
   than the actual size of the body sent, ArangoDB will respond with *HTTP 400*
   (Bad Request).
-* if clients send a *Content-Length* value bigger than the actual size of the
+- if clients send a `Content-Length` value bigger than the actual size of the
   body of the request, ArangoDB will wait for about 90 seconds for the client to
   complete its request. If the client does not send the remaining body data
   within this time, ArangoDB will close the connection. Clients should avoid
   sending such malformed requests as this will block one tcp connection,
   and may lead to a temporary file descriptor leak.
-* when clients send a body or a *Content-Length* value bigger than the maximum
+- when clients send a body or a `Content-Length` value bigger than the maximum
   allowed value (512 MB), ArangoDB will respond with *HTTP 413* (Request Entity
   Too Large).
-* if the overall length of the HTTP headers a client sends for one request
+- if the overall length of the HTTP headers a client sends for one request
   exceeds the maximum allowed size (1 MB), the server will fail with *HTTP 431*
   (Request Header Fields Too Large).
-* if clients request an HTTP method that is not supported by the server, ArangoDB
+- if clients request an HTTP method that is not supported by the server, ArangoDB
   will return with *HTTP 405* (Method Not Allowed). ArangoDB offers general
   support for the following HTTP methods:
-  * GET
-  * POST
-  * PUT
-  * DELETE
-  * HEAD
-  * PATCH
-  * OPTIONS
+  - GET
+  - POST
+  - PUT
+  - DELETE
+  - HEAD
+  - PATCH
+  - OPTIONS
 
   Please note that not all server actions allow using all of these HTTP methods.
   You should look up the supported methods for each method you intend to use
@@ -362,44 +401,45 @@ be present in the actual request, ArangoDB does not enforce authentication for
 
 ArangoDB will set the following headers in the response:
 
-* `access-control-allow-credentials`: will be set to `false` by default.
+- `access-control-allow-credentials`: will be set to `false` by default.
   For details on when it will be set to `true` see the next section on cookies.
 
-* `access-control-allow-headers`: will be set to the exact value of the
+- `access-control-allow-headers`: will be set to the exact value of the
   request's `access-control-request-headers` header or omitted if no such
   header was sent in the request.
 
-* `access-control-allow-methods`: will be set to a list of all supported HTTP
+- `access-control-allow-methods`: will be set to a list of all supported HTTP
   headers regardless of the target endpoint. In other words that a method is
   listed in this header does not guarantee that it will be supported by the
   endpoint in the actual request.
 
-* `access-control-allow-origin`: will be set to the exact value of the
+- `access-control-allow-origin`: will be set to the exact value of the
   request's `origin` header.
 
-* `access-control-expose-headers`: will be set to a list of response headers used
+- `access-control-expose-headers`: will be set to a list of response headers used
   by the ArangoDB HTTP API.
 
-* `access-control-max-age`: will be set to an implementation-specific value.
+- `access-control-max-age`: will be set to an implementation-specific value.
 
 ### Actual request
 
 If a request using any other HTTP method than `OPTIONS` includes an `origin` header,
 ArangoDB will add the following headers to the response:
 
-* `access-control-allow-credentials`: will be set to `false` by default.
+- `access-control-allow-credentials`: will be set to `false` by default.
   For details on when it will be set to `true` see the next section on cookies.
 
-* `access-control-allow-origin`: will be set to the exact value of the
+- `access-control-allow-origin`: will be set to the exact value of the
   request's `origin` header.
 
-* `access-control-expose-headers`: will be set to a list of response headers used
+- `access-control-expose-headers`: will be set to a list of response headers used
   by the ArangoDB HTTP API.
 
 When making CORS requests to endpoints of Foxx services, the value of the
 `access-control-expose-headers` header will instead be set to a list of
 response headers used in the response itself (but not including the
-`access-control-` headers). Note that [Foxx services may override this behavior](../foxx-guides-browser.html#cross-origin-resource-sharing-cors).
+`access-control-` headers). Note that
+[Foxx services may override this behavior](../foxx-guides-browser.html#cross-origin-resource-sharing-cors).
 
 ### Cookies and authentication
 
@@ -422,14 +462,14 @@ Alternatively you can use the special value `"*"` to trust any origin:
 Note that browsers will not actually include credentials or cookies in cross-origin
 requests unless explicitly told to do so:
 
-* When using the Fetch API you need to set the
+- When using the Fetch API you need to set the
   [`credentials` option to `include`](https://fetch.spec.whatwg.org/#cors-protocol-and-credentials){:target="_blank"}.
 
   ```js
   fetch("./", { credentials:"include" }).then(/* … */)
   ```
 
-* When using `XMLHttpRequest` you need to set the
+- When using `XMLHttpRequest` you need to set the
   [`withCredentials` option to `true`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials){:target="_blank"}.
 
   ```js
@@ -439,7 +479,7 @@ requests unless explicitly told to do so:
   xhr.send(null);
   ```
 
-* When using jQuery you need to set the `xhrFields` option:
+- When using jQuery you need to set the `xhrFields` option:
 
   ```js
   $.ajax({
@@ -457,9 +497,9 @@ ArangoDB provides a startup option *--http.allow-method-override*.
 This option can be set to allow overriding the HTTP request method (e.g. GET, POST,
 PUT, DELETE, PATCH) of a request using one of the following custom HTTP headers:
 
-* *x-http-method-override*
-* *x-http-method*
-* *x-method-override*
+- `x-http-method-override`
+- `x-http-method`
+- `x-method-override`
 
 This allows using HTTP clients that do not support all "common" HTTP methods such as
 PUT, PATCH and DELETE. It also allows bypassing proxies and tools that would otherwise
@@ -481,13 +521,13 @@ can transparently forward requests within the cluster to the correct node. If a
 request is forwarded, the response will contain the following custom HTTP header
 whose value will be the ID of the node which actually answered the request:
 
-* *x-arango-request-forwarded-to*
+- `x-arango-request-forwarded-to`
 
 The following APIs may use request forwarding:
 
-* `/_api/cursor`
-* `/_api/job`
-* `/_api/tasks`
+- `/_api/cursor`
+- `/_api/job`
+- `/_api/tasks`
 
 Note: since forwarding such requests require an additional cluster-internal HTTP
 request, they should be avoided when possible for best performance. Typically

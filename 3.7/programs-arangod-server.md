@@ -12,18 +12,18 @@ The endpoints are normally specified either in ArangoDB's configuration file or
 on the command-line like `--server.endpoint`. ArangoDB supports different
 types of endpoints:
 
-- tcp://ipv4-address:port - TCP/IP endpoint, using IPv4
-- tcp://[ipv6-address]:port - TCP/IP endpoint, using IPv6
-- ssl://ipv4-address:port - TCP/IP endpoint, using IPv4, SSL encryption
-- ssl://[ipv6-address]:port - TCP/IP endpoint, using IPv6, SSL encryption
-- unix:///path/to/socket - Unix domain socket endpoint
+- `tcp://ipv4-address:port` - TCP/IP endpoint, using IPv4
+- `tcp://[ipv6-address]:port` - TCP/IP endpoint, using IPv6
+- `ssl://ipv4-address:port` - TCP/IP endpoint, using IPv4, SSL encryption
+- `ssl://[ipv6-address]:port` - TCP/IP endpoint, using IPv6, SSL encryption
+- `unix:///path/to/socket` - Unix domain socket endpoint
 
 If a TCP/IP endpoint is specified without a port number, then the default port
 (8529) will be used. If multiple endpoints need to be used, the option can be
 repeated multiple times.
 
-The default endpoint for ArangoDB is *tcp://127.0.0.1:8529* or
-*tcp://localhost:8529*.
+The default endpoint for ArangoDB is `tcp://127.0.0.1:8529` or
+`tcp://localhost:8529`.
 
 **Examples**
 
@@ -195,40 +195,52 @@ operating systems do not provide this option and will ignore it.
 
 `--server.jwt-secret-keyfile <file-with-secret>`
 
-ArangoDB will use JWTs to authenticate requests. Using this option let's
-you specify a JWT secret. When specified, the JWT secret must be at most 64 bytes
-long.
+ArangoDB will use JSON Web Tokens to authenticate requests. Using this option
+let's you specify a JWT secret stored in a file. The secret must be at most
+64 bytes long.
 
 In single server setups ArangoDB will generate a secret if none was specified.
 
 In cluster deployments which have authentication enabled a secret must
 be set consistently across all cluster nodes so they can talk to each other.
 
-ArangoDB also supports an option to pass the secret without a file, however
-this is discouraged for security reasons.
+ArangoDB also supports an option `--server.jwt-secret <secret>` to pass the
+secret directly (without a file), however this is discouraged for security
+reasons.
 
-`--server.jwt-secret <secret>`
+### Multiple Secrets
 
-### Multiple Secrets (Enterprise Only)
+{% hint 'info' %}
+Support for multiple secrets is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
+{% endhint %}
 
-You may use multiple secrets, where the _active_ secret is used to sign new JWT tokens
-and all other _passive_ secrets are just used to validate incoming JWT tokens.
-
+You may use multiple secrets, where the _active_ secret is used to sign new
+JWT tokens and all other _passive_ secrets are just used to validate incoming
+JWT tokens.
 
 `--server.jwt-secret-folder <folder-with-secrets>`
 
 The list of files in this folder is sorted alphabetically. The first is used
 as the _active_ secret to sign new tokens. All other secrets are passively
-used during verification. Only one secret needs to verify a JWT token
-for it to be accepted.
+used during verification. Only one secret needs to verify a JWT token for it
+to be accepted.
 
-### Hot-Reload of JWT Secrets (Enterprise Only)
+### Hot-Reload of JWT Secrets
 
-There is an API introduced in ArangoDB v3.7 to hot reload JWT secrets from disk.
-This can be used to reload secrets from the (single) keyfile or from the secret folder.
+<small>Introduced in: v3.7.0</small>
+
+{% hint 'info' %}
+Support for hot-reloading secrets is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
+{% endhint %}
+
+JWT secrets can be reloaded from disk without restarting the server or the
+nodes of a cluster deployment. It is supported for both, single keyfiles
+and secret folders (multiple secrets).
 
 This may be used to roll out new JWT secrets throughout an ArangoDB cluster.
-For more information on the API see the [Http Docs](http/general.html#hot-reload-of-jwt-secrets)
+See [General HTTP Request Handling](http/general.html#hot-reload-of-jwt-secrets).
 
 ## Enable/disable authentication for UNIX domain sockets
 
