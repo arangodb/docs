@@ -94,6 +94,20 @@ Additionally the `/_admin/server/jwt` API can be used to reload the JWT secrets
 of a local arangod process without having to restart it (hot-reload). This may
 be used to roll out new JWT secrets throughout an ArangoDB cluster.
 
+### Insert-Update
+
+ArangoDB 3.7 adds an insert-update operation that is similar to the already
+existing insert-replace functionality. A new `overwriteMode` flag has been
+introduced to control the type of the overwrite operation in case of colliding
+keys during the insert.
+
+In the case of `overwriteMode: "update"`, the parameters `keepNull` and
+`mergeObjects` can be provided to control the update operation.
+
+The query options are available in [AQL](aql/operations-insert.html#setting-query-options),
+the [JS API](data-modeling-documents-document-methods.html#insert--save) and
+[HTTP API](http/document-working-with-documents.html#create-document).
+
 JavaScript API
 --------------
 
