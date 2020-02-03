@@ -22,7 +22,7 @@ Invoking Arangoinspect
 ----------------------
 
 Point the tool to an ArangoDB endpoint. In case of a single server, there
-is only one. You can connect to any node in case of a cluster (_DBServer_,
+is only one. You can connect to any node in case of a cluster (_DB-Server_,
 _Coordinator_, _Agent_).
 
     arangoinspect --server.endpoint tcp://127.0.0.1:8529

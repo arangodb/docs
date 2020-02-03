@@ -163,7 +163,7 @@ Add the actual content below the frontmatter.
   ```
 - Create relative symlinks to program option JSON files in `_data`, like
   ```
-  for prog in bench d dump export import inspect restore sh; do
+  for prog in backup bench d dump export import inspect restore sh; do
     ln -s "../3.6/generated/arango${prog}-options.json" "3.6-program-options-arango${prog}.json"
   done
   ```

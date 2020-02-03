@@ -1,6 +1,7 @@
 ---
 layout: default
-description: The most important suggestions listed in this section can be easily applied by making use of a script
+description: Recommendations regarding file systems, memory settings etc.
+title: Linux System Configuration for ArangoDB
 ---
 Linux Operating System Configuration
 ====================================
@@ -16,19 +17,22 @@ File Systems
 ------------
 
 We recommend to **not** use BTRFS on linux, as user have reported issues using it in
-conjunction with ArangoDB. We experienced ArangoDB facing latency issues when accessing 
-its database files on BTRFS partitions. In conjunction with BTRFS and AUFS we also saw 
+conjunction with ArangoDB. We experienced ArangoDB facing latency issues when accessing
+its database files on BTRFS partitions. In conjunction with BTRFS and AUFS we also saw
 data loss on restart.
+
+We would not recommend network filesystems such as NFS for performance reasons,
+furthermore we experienced some issues with hard links required for Hot Backup.
 
 Page Sizes
 ----------
 
 On Linux ArangoDB uses [jemalloc](https://github.com/jemalloc/jemalloc) as
-its memory allocator. Unfortunately, some OS configurations can interfere with 
-jemalloc's ability to function properly. Specifically, Linux's "transparent hugepages", 
-Windows' "large pages" and other similar features sometimes prevent jemalloc from 
-returning unused memory to the operating system and result in unnecessarily high 
-memory use. Therefore, we recommend disabling these features when using jemalloc with 
+its memory allocator. Unfortunately, some OS configurations can interfere with
+jemalloc's ability to function properly. Specifically, Linux's "transparent hugepages",
+Windows' "large pages" and other similar features sometimes prevent jemalloc from
+returning unused memory to the operating system and result in unnecessarily high
+memory use. Therefore, we recommend disabling these features when using jemalloc with
 ArangoDB. Please consult your operating system's documentation for how to do this.
 
 Execute:
@@ -70,7 +74,7 @@ From [www.kernel.org](https://www.kernel.org/doc/Documentation/sysctl/vm.txt){:t
 - When this flag is 2, the kernel uses a "never overcommit"
   policy that attempts to prevent any overcommit of memory.
 
-Experience has shown that setting `overcommit_memory` to a value of 2 has severe 
+Experience has shown that setting `overcommit_memory` to a value of 2 has severe
 negative side-effects when running arangod, so it should be avoided at all costs.
 
 Max Memory Mappings
@@ -79,8 +83,8 @@ Max Memory Mappings
 Linux kernels by default restrict the maximum number of memory mappings of a
 single process to about 64K mappings. While this value is sufficient for most
 workloads, it may be too low for a process that has lots of parallel threads
-that all require their own memory mappings. In this case all the threads' 
-memory mappings will be accounted to the single arangod process, and the 
+that all require their own memory mappings. In this case all the threads'
+memory mappings will be accounted to the single arangod process, and the
 maximum number of 64K mappings may be reached. When the maximum number of
 mappings is reached, calls to mmap will fail, so the process will think no
 more memory is available although there may be plenty of RAM left.
@@ -89,7 +93,7 @@ To avoid this scenario, it is recommended to raise the default value for the
 maximum number of memory mappings to a sufficiently high value. As a rule of
 thumb, one could use 8 times the number of available cores times 8,000.
 
-For a 32 core server, a good rule-of-thumb value thus would be 2,048,000 
+For a 32 core server, a good rule-of-thumb value thus would be 2,048,000
 (32 * 8 * 8000). For certain workloads, it may be sensible to use even a higher
 value for the number of memory mappings.
 
@@ -99,15 +103,15 @@ To set the value once, use the following command before starting arangod:
 sudo bash -c "sysctl -w 'vm.max_map_count=2048000'"
 ```
 
-To make the settings durable, it will be necessary to store the adjusted 
+To make the settings durable, it will be necessary to store the adjusted
 settings in /etc/sysctl.conf or other places that the operating system is
 looking at.
 
 Memory Limits
 -------------
 
-A long-running arangod process may accumulate a lot of virtual memory after 
-a while, so it is recommended to **not** restrict the amount of virtual memory 
+A long-running arangod process may accumulate a lot of virtual memory after
+a while, so it is recommended to **not** restrict the amount of virtual memory
 that a process can acquire, neither via using `ulimit`, `cgroups` or systemd.
 
 Zone Reclaim

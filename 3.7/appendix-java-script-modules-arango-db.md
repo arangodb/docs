@@ -23,12 +23,13 @@ The `db` object
 
 `arangodb.db`
 
-The `db` object represents the current database and lets you access collections and run queries. For more information see the [db object reference](appendix-references-dbobject.html).
+The `db` object represents the current database and lets you access collections
+and run queries. For more information see the [db object reference](appendix-references-dbobject.html).
 
 **Examples**
 
 ```js
-const {db} = require('@arangodb');
+const { db } = require('@arangodb');
 
 const thirteen = db._query('RETURN 5 + 8').next();
 ```
@@ -98,7 +99,7 @@ nested `aql` queries if possible.
 **Examples**
 
 ```js
-const {aql} = require('@arangodb');
+const { aql } = require('@arangodb');
 
 const filterGreen = aql.literal('FILTER d.color == "green"');
 const result = db._query(aql`
@@ -118,7 +119,7 @@ and combines them into a single query. The optional second argument will be
 used as literal string to combine the queries.
 
 ```js
-const {aql} = require('@arangodb');
+const { aql } = require('@arangodb');
 
 // Basic usage
 const parts = [aql`FILTER`, aql`x`, aql`%`, aql`2`];
@@ -167,13 +168,13 @@ The `query` helper
 
 `arangodb.query`
 
-In most cases you will likely use the `aql` template handler to create a query you directly pass to
-`db._query`. To make this even easier ArangoDB provides the `query` template handler, which behaves
-exactly like `aql` but also directly executes the query and returns the result cursor instead of
-the query object:
+In most cases you will likely use the `aql` template handler to create a query
+you directly pass to `db._query()`. To make this even easier ArangoDB provides
+the `query` template handler, which behaves exactly like `aql` but also directly
+executes the query and returns the result cursor instead of the query object:
 
 ```js
-const {query} = require('@arangodb');
+const { query } = require('@arangodb');
 
 const filterValue = 23;
 const mydata = db._collection('mydata');
@@ -184,7 +185,7 @@ const result = query`
 `.toArray();
 
 // Nesting with `aql` works as expected
-const {aql} = require('@arangodb');
+const { aql } = require('@arangodb');
 
 const filter = aql`FILTER d.num > ${filterValue}`;
 const result2 = query`
@@ -194,14 +195,33 @@ const result2 = query`
 `.toArray();
 ```
 
+It is also possible to pass query options to the query helper
+(introduced in v3.7.0):
+
+```js
+const { query } = require('@arangodb');
+
+const mydata = db._collection('mydata');
+const result = query( { fullCount: true } )`
+  FOR d IN ${mydata}
+  LIMIT 1
+  RETURN d
+`.data;
+```
+
 The `errors` object
 -------------------
 
 `arangodb.errors`
 
-This object provides useful objects for each error code ArangoDB might use in `ArangoError` errors. This is helpful when trying to catch specific errors raised by ArangoDB, e.g. when trying to access a document that does not exist. Each object has a `code` property corresponding to the `errorNum` found on `ArangoError` errors.
+This object provides useful objects for each error code ArangoDB might use in
+`ArangoError` errors. This is helpful when trying to catch specific errors
+raised by ArangoDB, e.g. when trying to access a document that does not exist.
+Each object has a `code` property corresponding to the `errorNum` found on
+`ArangoError` errors.
 
-For a complete list of the error names and codes you may encounter see the [appendix on error codes](appendix-error-codes.html).
+For a complete list of the error names and codes you may encounter see the
+[appendix on error codes](appendix-error-codes.html).
 
 **Examples**
 
@@ -223,9 +243,11 @@ The `time` function
 
 `arangodb.time`
 
-This function provides the current time in seconds as a floating point value with microsecond precisison.
+This function provides the current time in seconds as a floating point value
+with microsecond precision.
 
-This function can be used instead of `Date.now()` when additional precision is needed.
+This function can be used instead of `Date.now()` when additional precision
+is needed.
 
 **Examples**
 
@@ -236,4 +258,3 @@ const start = time();
 db._query(someVerySlowQuery);
 console.log(`Elapsed time: ${time() - start} secs`);
 ```
-

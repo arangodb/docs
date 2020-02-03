@@ -9,6 +9,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -23,6 +28,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "uint64"
@@ -36,6 +46,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -50,6 +65,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
@@ -64,6 +84,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "uint64"
@@ -78,6 +103,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "uint64"
@@ -92,6 +122,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
@@ -106,6 +141,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
@@ -121,6 +161,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string..."
@@ -135,6 +180,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -148,6 +198,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -161,9 +216,97 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
+  },
+  "histogram.interval-size" : {
+    "category" : "option",
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "bucket width, dynamically calculated by default: (first measured time * 20) / num-intervals",
+    "dynamic" : true,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "histogram",
+    "type" : "double"
+  },
+  "histogram.num-intervals" : {
+    "category" : "option",
+    "default" : 1000,
+    "deprecatedIn" : null,
+    "description" : "number of buckets (resolution)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "histogram",
+    "type" : "uint64"
+  },
+  "histogram.percentiles" : {
+    "category" : "option",
+    "default" : [
+      50,
+      80,
+      85,
+      90,
+      95,
+      99
+    ],
+    "deprecatedIn" : null,
+    "description" : "which percentiles to calculate",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "histogram",
+    "type" : "double..."
+  },
+  "json-report-file" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "filename to write a report in JSON format to",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "string"
   },
   "junit-report-file" : {
     "category" : "option",
@@ -175,6 +318,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
@@ -189,6 +337,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -207,6 +360,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string..."
@@ -221,6 +379,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -235,6 +398,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -249,6 +417,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string"
@@ -266,6 +439,11 @@
       "v3.5.0"
     ],
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string"
@@ -283,6 +461,11 @@
       "v3.5.0"
     ],
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string"
@@ -297,6 +480,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -311,6 +499,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -327,6 +520,11 @@
       "v3.5.0"
     ],
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -341,6 +539,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -357,6 +560,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string..."
@@ -371,6 +579,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -386,6 +599,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string..."
@@ -402,6 +620,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -416,6 +639,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string"
@@ -430,6 +658,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -444,6 +677,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -458,6 +696,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -472,6 +715,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -486,6 +734,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -502,6 +755,11 @@
       "v3.5.0"
     ],
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "log",
     "type" : "string",
@@ -519,6 +777,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -535,6 +798,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
@@ -549,6 +817,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "uint64"
@@ -563,6 +836,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -577,6 +855,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -591,6 +874,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "random",
     "type" : "uint32",
@@ -606,6 +894,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "uint64"
@@ -620,6 +913,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "uint64"
@@ -634,6 +932,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "uint64"
@@ -648,6 +951,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
@@ -662,6 +970,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "double"
@@ -676,6 +989,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "string"
@@ -690,6 +1008,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "string"
@@ -706,6 +1029,11 @@
       "v3.6.0"
     ],
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
@@ -720,6 +1048,11 @@
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "uint64"
@@ -734,6 +1067,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "string"
@@ -748,6 +1086,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "double"
@@ -762,6 +1105,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "server",
     "type" : "string"
@@ -776,6 +1124,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "ssl",
     "type" : "uint64",
@@ -791,6 +1144,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "temp",
     "type" : "string"
@@ -805,6 +1163,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : true,
     "section" : "",
     "type" : "string",
@@ -820,6 +1183,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -833,6 +1201,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
@@ -847,6 +1220,11 @@
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
