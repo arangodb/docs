@@ -36,23 +36,23 @@ is not supported.
 HTTP Keep-Alive
 ---------------
 
-ArangoDB supports HTTP keep-alive. If the client does not send a *Connection*
+ArangoDB supports HTTP keep-alive. If the client does not send a `Connection`
 header in its request, and the client uses HTTP version 1.1, ArangoDB will assume
 the client wants to keep alive the connection.
 If clients do not wish to use the keep-alive feature, they should
-explicitly indicate that by sending a *Connection: Close* HTTP header in
+explicitly indicate that by sending a `Connection: Close` HTTP header in
 the request.
 
 ArangoDB will close connections automatically for clients that send requests
-using HTTP 1.0, except if they send an *Connection: Keep-Alive* header.
+using HTTP 1.0, except if they send an `Connection: Keep-Alive` header.
 
 The default Keep-Alive timeout can be specified at server start using the
-*--http.keep-alive-timeout* parameter.
+`--http.keep-alive-timeout` startup option.
 
 Establishing TCP connections is expensive, since it takes several ping pongs
 between the communication parties. Therefore you can use connection keepalive
 to send several HTTP request over one TCP-connection;
-Each request is treated independently by definition. You can use this feature
+each request is treated independently by definition. You can use this feature
 to build up a so called *connection pool* with several established
 connections in your client application, and dynamically re-use
 one of those then idle connections for subsequent requests.
@@ -77,7 +77,7 @@ non-optimal.
 
 To reduce blocking on the client side, ArangoDB offers a generic mechanism for
 non-blocking, asynchronous execution: clients can add the
-HTTP header *x-arango-async: true* to any of their requests, marking
+HTTP header `x-arango-async: true` to any of their requests, marking
 them as to be executed asynchronously on the server. ArangoDB will put such
 requests into an in-memory task queue and return an *HTTP 202* (accepted)
 response to the client instantly and thus finish this HTTP-request.
@@ -107,8 +107,8 @@ case of a crash. Clients should therefore not use the asynchronous feature
 when they have strict durability requirements or if they rely on the immediate
 result of the request they send.
 
-For details on the subsequent processing
-[read on under Async Result handling](async-results-management.html).
+For details on the subsequent processing read on under
+[Async Result handling](async-results-management.html).
 
 Authentication
 --------------
