@@ -546,7 +546,8 @@ Replace the element at *position* in *anyArray* with *replaceValue*.
 
 - **anyArray** (array): array with elements of arbitrary type
 - **position** (number): the position of the element to replace. Positions start
-  at 0. Negative positions are not supported.
+  at 0. Negative positions are supported, with -1 being the last array element.
+  If a negative *position* is out of bounds, the array is returned unmodified.
 - **replaceValue** the value to be inserted at *position*
 - **defaultPaddingValue** to be used for padding if *position* is two or more
   elements beyond the last element in *anyArray*
