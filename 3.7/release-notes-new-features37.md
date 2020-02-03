@@ -73,6 +73,17 @@ huge overall speedup. This also affects `CleanOutServer` and
 General
 -------
 
+### HTTP/2 support
+
+The server now supports upgrading connections from HTTP 1.1 to HTTP 2.
+This should improve ArangoDBs compatibility with various L7 load balancers
+and modern cloud platforms like Kubernetes.
+
+We also expect improved request throughput in cases where there are many
+concurrent requests.
+
+See: [HTTP Switching Protocols](http/general.html#switching-protocols)
+
 ### JWT secret rotation (Enterprise Edition)
 
 There are now new APIs and startup options for JWT secrets. The new option
