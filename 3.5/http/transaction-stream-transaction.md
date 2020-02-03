@@ -33,7 +33,7 @@ Supported transactional API operations include:
 3. Truncate a collection via the [Collection API](collection-creating.html#truncate-collection)
 4. Create an AQL cursor via the [Cursor API](aql-query-cursor-accessing-cursors.html)
 5. Handle [vertices](gharial-vertices.html) and [edges](gharial-edges.html)
-   of managed graphs (General Graph / Gharial API, since v3.5.1)
+   of managed graphs (_General Graph_ / _Gharial_ API, since v3.5.1)
 
 Note that a client *always needs to start the transaction first* and it is required to
 explicitly specify the collections used for write accesses. The client is responsible
