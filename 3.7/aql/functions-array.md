@@ -546,7 +546,8 @@ Replace the element at *position* in *anyArray* with *replaceValue*.
 
 - **anyArray** (array): array with elements of arbitrary type
 - **position** (number): the position of the element to replace. Positions start
-  at 0. Negative positions are not supported.
+  at 0. Negative positions are supported, with -1 being the last array element.
+  If a negative *position* is out of bounds, then it is set to the first element (0)
 - **replaceValue** the value to be inserted at *position*
 - **defaultPaddingValue** to be used for padding if *position* is two or more
   elements beyond the last element in *anyArray*
@@ -596,6 +597,24 @@ RETURN REPLACE_NTH( [ "a", "b", "c" ], 3 , "z")
 RETURN REPLACE_NTH( [ "a", "b", "c" ], 6, "z", "y" )
 @END_EXAMPLE_AQL
 @endDocuBlock aqlArrayReplaceNth_4
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayReplaceNth_5
+@EXAMPLE_AQL{aqlArrayReplaceNth_5}
+RETURN REPLACE_NTH( [ "a", "b", "c" ], -1, "z" )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayReplaceNth_5
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayReplaceNth_6
+@EXAMPLE_AQL{aqlArrayReplaceNth_6}
+RETURN REPLACE_NTH( [ "a", "b", "c" ], -9, "z" )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayReplaceNth_6
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
