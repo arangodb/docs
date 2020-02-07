@@ -31,6 +31,12 @@ Default: `{{ option[1].default | jsonify }}`
 {%- endif -%}
 {%- endif -%}
 {%- if option[1].values %}<br>{{ option[1].values }}{% endif -%}
+{%- if option[1].os and options[1].os.size < 3 -%}
+<br>Available on {{ option[1].os | capitalize_os | join_natural }} only.
+{%- endif -%}
+{%- if option[1].component and option[1].component.size < 4 -%}
+<br>Effective on {{ option[1].component | capitalize_components | join_natural }} only.
+{%- endif -%}
 {%- if option[1].introducedIn -%}
 <br><small>Introduced in: {{ option[1].introducedIn | join: ", " }}</small>
 {%- endif -%}
