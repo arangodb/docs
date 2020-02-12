@@ -104,3 +104,21 @@ dd if=/dev/random bs=1 count=32 of=yourSecretKeyFile
 
 For security, it is best to create these keys offline (away from your database servers) and
 directly store them in your secret management tool.
+
+## Rotating encryption keys
+
+It is possible to rotate the user supplied encryption key.  
+The file supplied via `--rocksdb.encryption-keyfile` will be reloaded and the internal encryption key 
+will be re-encrypted with the new user key.
+
+Just send a POST request to the following endpoint:
+
+`POST /_admin/server/jwt`
+
+The successful response looks like:
+```json
+{
+  "error": false,
+  "code": 200
+}
+```
