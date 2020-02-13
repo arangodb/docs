@@ -230,10 +230,12 @@ on the same DB-Server. There are multiple ways to achieve this:
   The `_graphs` system collection will be used for `distributeShardsLike`.
 
 - For individual OneShard databases, set the `sharding` database property to
-  `"single"` to enforce the OneShard conditions for collections that will be
+  `"single"` to enforce the OneShard conditions for all collections that will be
   created in it. The `_graphs` system collection will be used for
-  `distributeShardsLike`. For non-OneShard databases the value is either
-  `""` or `"flexible"`.
+  `distributeShardsLike`. It is not possible to change the `sharding` database 
+  property afterwards or overwrite this setting for individual collections. 
+  For non-OneShard databases the value of the `sharding` 
+  database property is either `""` or `"flexible"`.
 
 - For individual OneShard collections, set the `numberOfShards` collection
   property to `1` for the first collection which acts as sharding prototype for
