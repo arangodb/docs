@@ -77,6 +77,8 @@ handling library ICU was upgraded to 64.2
 The V8 project [compiles a list of improved features demonstrating them](https://v8.dev/features).
 Here is the list of those improvements that may matter to you as arangodb user:
 
+- ICU now handles emojis, etc, more languages are supported.
+
 - JSON parsing is roughly 60% faster compared to ArangoDB 3.6; you should prefer 
   JSON.parse(string) over deeply nested javascript variable declarations:
   ```
