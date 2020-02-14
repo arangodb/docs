@@ -115,7 +115,7 @@ The bundled V8 JavaScript engine was upgraded to version 7.9.317. The bundled Un
 character handling library ICU was upgraded to version 64.2.
 
 The resource usage of V8 has improved a lot. Memory usage is down by 15%, spawning a 
-new Isolate has become allmost 10 times faster.
+new Isolate has become almost 10 times faster.
 
 The V8 project [compiles a list of improved features demonstrating them](https://v8.dev/features).
 Here is the list of those improvements that may matter to you as an ArangoDB user:
