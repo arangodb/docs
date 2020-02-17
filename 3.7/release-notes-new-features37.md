@@ -122,22 +122,22 @@ spawning a new Isolate has become almost 10 times faster.
 Here is the list of improvements that may matter to you as an ArangoDB user:
 
 - [JSON.parse improvements](https://v8.dev/blog/v8-release-76#json.parse-improvements){:target="_blank"}:
-  JSON parsing is roughly 60% faster. Parsing JSON is generally faster than
-  parsing JavaScript because of the lower syntactic complexity, but with the
-  additional speedup of the JSON parser you should consider to use
-  `JSON.parse(string)` over JavaScript variable declarations for complex data:
-  ```
+  JSON parsing is roughly 60% faster compared to ArangoDB v3.6. Parsing JSON
+  is generally faster than parsing JavaScript because of the lower syntactic
+  complexity, but with the additional speedup of the JSON parser you should
+  consider to use `JSON.parse(string)` over JavaScript variable declarations
+  for complex data:
+  ```js
+  // Parsing a JSON string
   let structuredVar = JSON.parse('{"foo": "bar", …}');
-  ```
-  instead of
-  ```
+  // instead of using an object literal
   let structuredVar = {foo: "bar", …};
   ```
   Also see [Embedding JSON into JavaScript programs with JSON.parse](https://v8.dev/features/subsume-json#embedding-json-parse){:target="_blank"}.
 
 - [BigInt support in formatter](https://v8.dev/features/intl-numberformat){:target="_blank"}:
   Large integer numbers are now supported in number formatters:
-  ```
+  ```js
   const formatter = new Intl.NumberFormat('fr');
   formatter.format(12345678901234567890n);
   ```
@@ -147,7 +147,7 @@ Here is the list of improvements that may matter to you as an ArangoDB user:
 
 - [Object.fromEntries support](https://v8.dev/features/object-fromentries){:target="_blank"}:
   Performs the inverse operation of `Object.entries()`:
-  ```
+  ```js
   const object = { x: 42, y: 50 };
   const entries = Object.entries(object);
   // → [['x', 42], ['y', 50]]
@@ -163,7 +163,7 @@ Here is the list of improvements that may matter to you as an ArangoDB user:
 
 - [matchAll support for strings](https://v8.dev/features/string-matchall){:target="_blank"}:
   A convenient generator for a match object for each match:
-  ```
+  ```js
   const string = 'Favorite GitHub repos: tc39/ecma262 v8/v8.dev';
   const regex = /\b(?<owner>[a-z0-9]+)\/(?<repo>[a-z0-9\.]+)\b/g;
   for (const match of string.matchAll(regex)) {
@@ -178,8 +178,6 @@ Here is the list of improvements that may matter to you as an ArangoDB user:
 Also see:
 - [V8 release blog posts](https://v8.dev/blog){:target="_blank"} (v7.2 to v7.9)
 - [V8 features](https://v8.dev/features){:target="_blank"} (Chrome 79 or lower)
-
-https://v8.dev/features
 
 ### JavaScript APIs
 
