@@ -11,20 +11,21 @@ Encryption at rest is only available in the
 also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
 {% endhint %}
 
-When you store sensitive data in your ArangoDB database, you want 
-to protect that data under all circumstances. 
-At runtime you will protect it with SSL transport encryption and strong authentication, 
-but when the data is already on disk, you also need protection. 
-That is where the Encryption feature comes in. 
+When you store sensitive data in your ArangoDB database, you want to protect
+that data under all circumstances. At runtime you will protect it with SSL
+transport encryption and strong authentication, but when the data is already
+on disk, you also need protection. That is where the Encryption feature comes
+in.
 
-The Encryption feature of ArangoDB will encrypt all data that ArangoDB 
-is storing in your database before it is written to disk.
+The Encryption feature of ArangoDB will encrypt all data that ArangoDB is
+storing in your database before it is written to disk.
 
-The data is encrypted with AES-256-CTR, which is a strong encryption
-algorithm, that is very suitable for multi-processor environments. This means that 
-your data is safe, but your database is still fast, even under load.
+The data is encrypted with AES-256-CTR, which is a strong encryption algorithm,
+that is very suitable for multi-processor environments. This means that your
+data is safe, but your database is still fast, even under load.
 
-Most modern CPU's have builtin support for hardware AES encryption, which makes it even faster.
+Most modern CPU's have builtin support for hardware AES encryption, which makes
+it even faster.
 
 The encryption feature is supported by all ArangoDB deployment modes.
 
@@ -40,25 +41,33 @@ The encryption feature has the following limitations:
   backup.  
 - The Encryption feature requires the RocksDB storage engine.
 
-## Encryption keys 
+## Encryption keys
 
 The encryption feature of ArangoDB requires a single 32-byte key per server.
-It is recommended to use a different key for each server (when operating in a cluster configuration).
-Make sure to protect these keys! 
+It is recommended to use a different key for each server (when operating in a
+cluster configuration).
 
-That means:
+{% hint 'security' %}
+Make sure to protect the encryption keys! That means:
 
-- Do not write them to persistent disks or your server(s), always store them on an in-memory (`tmpfs`) filesystem.
-- Transport your keys safely to your server(s). There are various tools for managing secrets like this (e.g. vaultproject.io).
-- Store a copy of your key offline in a safe place. If you lose your key, there is NO way to get your data back.
+- Do not write them to persistent disks or your server(s), always store them on
+  an in-memory (`tmpfs`) filesystem.
+
+- Transport your keys safely to your server(s). There are various tools for
+  managing secrets like this (e.g.
+  [vaultproject.io](https://www.vaultproject.io/){:target="_blank"}).
+
+- Store a copy of your key offline in a safe place. If you lose your key, there
+  is NO way to get your data back.
+{% endhint %}
 
 ## Configuration
 
-To activate encryption of your database, you need to supply an
-encryption key to the server.
+To activate encryption of your database, you need to supply an encryption key
+to the server.
 
-Make sure to pass this option the very first time you start your
-database. You cannot encrypt a database that already exists.
+Make sure to pass this option the very first time you start your database.
+You cannot encrypt a database that already exists.
 
 Note: You also have to activate the RocksDB storage engine.
 
@@ -92,7 +101,7 @@ The program `path-to-my-generator` output the encryption on standard
 output and exit.
 
 
-## Creating keys 
+## Creating keys
 
 The encryption keyfile must contain 32 bytes of random data.
 
@@ -102,23 +111,14 @@ You can create it with a command line this.
 dd if=/dev/random bs=1 count=32 of=yourSecretKeyFile
 ```
 
-For security, it is best to create these keys offline (away from your database servers) and
-directly store them in your secret management tool.
+For security, it is best to create these keys offline (away from your database
+servers) and directly store them in your secret management tool.
 
 ## Rotating encryption keys
 
-It is possible to rotate the user supplied encryption key.  
-The file supplied via `--rocksdb.encryption-keyfile` will be reloaded and the internal encryption key 
-will be re-encrypted with the new user key.
+It is possible to rotate the user supplied encryption key by sending a POST
+request to the `/_admin/server/jwt` endpoint. The file supplied via
+`--rocksdb.encryption-keyfile` will be reloaded and the internal encryption
+key will be re-encrypted with the new user key.
 
-Just send a POST request to the following endpoint:
-
-`POST /_admin/server/jwt`
-
-The successful response looks like:
-```json
-{
-  "error": false,
-  "code": 200
-}
-```
+Also see [Hot-Reload of JWT Secrets](http/general.html#hot-reload-of-jwt-secrets).
