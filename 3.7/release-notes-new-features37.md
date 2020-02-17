@@ -219,8 +219,9 @@ g++9 is known to work.
 
 ### libcurl dependency
 
-The compile-time dependency on libcurl was removed. Cluster-internal communication
-is now performed using fuerte instead of libcurl.
+The compile-time dependency on libcurl was removed. Cluster-internal
+communication is now performed using [fuerte](https://github.com/arangodb/fuerte){:target="_blank"}
+instead of libcurl.
 
 ### Documentation generation
 
