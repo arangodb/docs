@@ -77,7 +77,9 @@ the certificate.
 
 Sometimes it is desirable to have the same server use different server keys
 and certificates when it is contacted under different names. This is
-what the TLS "server name" extension is for. With this extension,
+what the TLS "server name" extension is for (see
+[Wikipedia](https://de.wikipedia.org/wiki/Server_Name_Indication) for
+details). With this extension,
 the client can choose a server name, and the server can, using this
 information during the TLS handshake, use different server keys and
 certificate chains.
