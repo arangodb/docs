@@ -127,6 +127,19 @@ endpoint and model entries collapsed by default now for a better overview.
 Internal changes
 ----------------
 
+### Crash handler
+
+ArangoDB 3.7 contains a crash handler for Linux and MacOS builds. The crash handler 
+is supposed to log basic crash information to the ArangoDB logfile in case the arangod
+process receives one of the signals SIGSEGV, SIGBUS, SIGILL, SIGFPE or SIGABRT.
+
+If possible, the crash handler will also write a backtrace to the logfile, so the crash 
+location can be found later by ArangoDB support.
+
+By design, the crash handler will not kick in in case the arangod process is killed
+by the operating system with a SIGKILL signal, as it happens on Linux when the
+OOM killer terminates processes that consume lots of memory.
+
 ### Supported compilers
 
 Manually compiling ArangoDB from source will require a C++17-ready compiler.
