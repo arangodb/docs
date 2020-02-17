@@ -75,20 +75,21 @@ the certificate.
 
 ### Server Name Indication (SNI)
 
+<small>Introduced in: v3.7.0</small>
+
 Sometimes it is desirable to have the same server use different server keys
 and certificates when it is contacted under different names. This is
 what the TLS "server name" extension is for (see
-[Wikipedia](https://de.wikipedia.org/wiki/Server_Name_Indication) for
-details). With this extension,
-the client can choose a server name, and the server can, using this
-information during the TLS handshake, use different server keys and
-certificate chains.
+[Wikipedia](https://de.wikipedia.org/wiki/Server_Name_Indication){:target="_blank"}
+for details). With this extension, the client can choose a server name, and the
+server can, using this information during the TLS handshake, use different
+server keys and certificate chains.
 
-This feature is controlled with the
+This feature is controlled with the startup option:
 
 `--ssl.server-name-indication`
 
-option, which can be given multiple times and for which each value
+… which can be given multiple times and for which each value
 must be a string `SERVERNAME=KEYFILENAME`, where `SERVERNAME` is
 replaced by a server name and `KEYFILENAME` is replaced by the file name
 of the key file to be used for that server name. The format of the
@@ -98,8 +99,6 @@ one in the `--ssl.keyfile` option, and only if there is an exact match
 between one server name given with `--ssl.server-name-indication`
 and the one in the handshake, the server switches to the alternative
 key file.
-
-This feature was introduced in Version 3.7.
 
 ### CA File
 
