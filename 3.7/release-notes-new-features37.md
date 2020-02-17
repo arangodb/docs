@@ -102,9 +102,10 @@ basically makes the `arangod` server reload the keyfile from disk.
 
 Furthermore, one can query the current TLS setup at runtime with the
 `GET /_admin/server/tls` API. The public certificates as well as a
-SHA256 hash of the private key is returned.
+SHA-256 hash of the private key is returned.
 
-This allows rotation of keys and certificates without a server restart.
+This allows [rotation of TLS keys and certificates](http/administration-and-monitoring.html#tls)
+without a server restart.
 
 ### Insert-Update
 
