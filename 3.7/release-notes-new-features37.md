@@ -108,8 +108,78 @@ The query options are available in [AQL](aql/operations-insert.html#setting-quer
 the [JS API](data-modeling-documents-document-methods.html#insert--save) and
 [HTTP API](http/document-working-with-documents.html#create-document).
 
-JavaScript API
---------------
+JavaScript
+----------
+
+### V8 and ICU library upgrades
+
+The bundled V8 JavaScript engine was upgraded to version 7.9.317. The bundled
+Unicode character handling library ICU was upgraded to version 64.2.
+
+The resource usage of V8 has improved a lot. Memory usage is down by 15%,
+spawning a new Isolate has become almost 10 times faster.
+
+Here is the list of improvements that may matter to you as an ArangoDB user:
+
+- [JSON.parse improvements](https://v8.dev/blog/v8-release-76#json.parse-improvements){:target="_blank"}:
+  JSON parsing is roughly 60% faster compared to ArangoDB v3.6. Parsing JSON
+  is generally faster than parsing JavaScript because of the lower syntactic
+  complexity, but with the additional speedup of the JSON parser you should
+  consider to use `JSON.parse(string)` over JavaScript variable declarations
+  for complex data:
+  ```js
+  // Parsing a JSON string
+  let structuredVar = JSON.parse('{"foo": "bar", …}');
+  // instead of using an object literal
+  let structuredVar = {foo: "bar", …};
+  ```
+  Also see [Embedding JSON into JavaScript programs with JSON.parse](https://v8.dev/features/subsume-json#embedding-json-parse){:target="_blank"}.
+
+- [BigInt support in formatter](https://v8.dev/features/intl-numberformat){:target="_blank"}:
+  Large integer numbers are now supported in number formatters:
+  ```js
+  const formatter = new Intl.NumberFormat('fr');
+  formatter.format(12345678901234567890n);
+  ```
+  This no longer throws an `Cannot convert a BigInt value to a number` error.
+  Note that ArangoDB does not support BigInt in general but only in JavaScript
+  contexts. AQL, JSON etc. do not support BigInt.
+
+- [Object.fromEntries support](https://v8.dev/features/object-fromentries){:target="_blank"}:
+  Performs the inverse operation of `Object.entries()`:
+  ```js
+  const object = { x: 42, y: 50 };
+  const entries = Object.entries(object);
+  // → [['x', 42], ['y', 50]]
+  
+  const result = Object.fromEntries(entries);
+  // → { x: 42, y: 50 }
+  ```
+
+- [Underscores for better readability of large numbers](https://v8.dev/features/numeric-separators){:target="_blank"}:
+  ```
+  1_000_000_000_000 // → equals 1000000000000
+  ```
+
+- [matchAll support for strings](https://v8.dev/features/string-matchall){:target="_blank"}:
+  A convenient generator for a match object for each match:
+  ```js
+  const string = 'Favorite GitHub repos: tc39/ecma262 v8/v8.dev';
+  const regex = /\b(?<owner>[a-z0-9]+)\/(?<repo>[a-z0-9\.]+)\b/g;
+  for (const match of string.matchAll(regex)) {
+    console.log(`${match[0]} at ${match.index} with '${match.input}'`);
+    console.log(`→ owner: ${match.groups.owner}`);
+    console.log(`→ repo: ${match.groups.repo}`);
+  ```
+
+- ICU supports more languages and characters (Unicode 12.1),
+  emoji handling was improved
+
+Also see:
+- [V8 release blog posts](https://v8.dev/blog){:target="_blank"} (v7.2 to v7.9)
+- [V8 features](https://v8.dev/features){:target="_blank"} (Chrome 79 or lower)
+
+### JavaScript APIs
 
 The [`query` helper](appendix-java-script-modules-arango-db.html#the-query-helper)
 was extended to support passing [query options](aql/invocation-with-arangosh.html#setting-options):
