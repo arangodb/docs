@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The Cluster architecture of ArangoDB is a CP master/master model with nosingle point of failure
+description: The Cluster architecture of ArangoDB is a CP master/master model with no single point of failure
 ---
 Cluster Architecture
 ====================
@@ -232,10 +232,10 @@ on the same DB-Server. There are multiple ways to achieve this:
 - For individual OneShard databases, set the `sharding` database property to
   `"single"` to enforce the OneShard conditions for all collections that will be
   created in it. The `_graphs` system collection will be used for
-  `distributeShardsLike`. It is not possible to change the `sharding` database 
-  property afterwards or overwrite this setting for individual collections. 
-  For non-OneShard databases the value of the `sharding` 
-  database property is either `""` or `"flexible"`.
+  `distributeShardsLike`. It is not possible to change the `sharding` database
+  property afterwards or overwrite this setting for individual collections.
+  For non-OneShard databases the value of the `sharding` database property is
+  either `""` or `"flexible"`.
 
 - For individual OneShard collections, set the `numberOfShards` collection
   property to `1` for the first collection which acts as sharding prototype for
@@ -307,16 +307,18 @@ arangosh@oneShardDB> db.example1.properties()
 As you can see the `numberOfShards` is set to `1` and `distributeShardsLike`
 is set to `_graphs`. These attributes have been automatically been set
 because we specified the `{ "sharding": "single" }` options object when
-creating the database. To do this manually one would create a collection in
-the following way:
+creating the database.
+
+To do this manually for individual collections, use `{ "sharding": "flexible" }`
+on the database level and then create a collection in the following way:
 
 ```js
 db._create("example2", { "numberOfShards": 1 , "distributeShardsLike": "_graphs" })
 ```
 
-Here we used again the `_graphs` collection, but any other existing
-collection, that has not been created with the `distributeShardsLike`
-option could have been used here.
+Here we used the `_graphs` collection again, but any other existing
+collection that has not been created with the `distributeShardsLike`
+option itself can be used as well in a flexibly sharded database.
 
 ### Running Queries
 
