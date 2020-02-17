@@ -111,34 +111,42 @@ the [JS API](data-modeling-documents-document-methods.html#insert--save) and
 JavaScript
 ----------
 
-The bundled V8 JavaScript engine was upgraded to version 7.9.317. The bundled Unicode 
-character handling library ICU was upgraded to version 64.2.
+### V8 and ICU library upgrades
 
-The resource usage of V8 has improved a lot. Memory usage is down by 15%, spawning a 
-new Isolate has become almost 10 times faster.
+The bundled V8 JavaScript engine was upgraded to version 7.9.317. The bundled
+Unicode character handling library ICU was upgraded to version 64.2.
 
-The V8 project [compiles a list of improved features demonstrating them](https://v8.dev/features).
-Here is the list of those improvements that may matter to you as an ArangoDB user:
+The resource usage of V8 has improved a lot. Memory usage is down by 15%,
+spawning a new Isolate has become almost 10 times faster.
 
-- JSON parsing is roughly 60% faster compared to ArangoDB 3.6; you should prefer 
-  `JSON.parse(string)` over deeply nested javascript variable declarations:
+Here is the list of improvements that may matter to you as an ArangoDB user:
+
+- [JSON.parse improvements](https://v8.dev/blog/v8-release-76#json.parse-improvements){:target="_blank"}:
+  JSON parsing is roughly 60% faster. Parsing JSON is generally faster than
+  parsing JavaScript because of the lower syntactic complexity, but with the
+  additional speedup of the JSON parser you should consider to use
+  `JSON.parse(string)` over JavaScript variable declarations for complex data:
   ```
-  let structuredVar = JSON.parse('{foo: "bar"}');
+  let structuredVar = JSON.parse('{"foo": "bar", …}');
   ```
-  instead of 
+  instead of
   ```
-  let structuredVar = {foo: "bar"};
+  let structuredVar = {foo: "bar", …};
   ```
-- [Bigint support in formatter](https://v8.dev/features/intl-numberformat): 
-  Large integer numbers are now supported in integer formatters:
+  Also see [Embedding JSON into JavaScript programs with JSON.parse](https://v8.dev/features/subsume-json#embedding-json-parse){:target="_blank"}.
+
+- [BigInt support in formatter](https://v8.dev/features/intl-numberformat){:target="_blank"}:
+  Large integer numbers are now supported in number formatters:
   ```
   const formatter = new Intl.NumberFormat('fr');
   formatter.format(12345678901234567890n);
   ```
-  previously threw the error `Cannot convert a BigInt value to a number`, but it will
-  work in the current version of ArangoDB.
+  This no longer throws an `Cannot convert a BigInt value to a number` error.
+  Note that ArangoDB does not support BigInt in general but only in JavaScript
+  contexts. AQL, JSON etc. do not support BigInt.
 
-- [Object.fromEntries support](https://v8.dev/features/object-fromentries):
+- [Object.fromEntries support](https://v8.dev/features/object-fromentries){:target="_blank"}:
+  Performs the inverse operation of `Object.entries()`:
   ```
   const object = { x: 42, y: 50 };
   const entries = Object.entries(object);
@@ -147,13 +155,14 @@ Here is the list of those improvements that may matter to you as an ArangoDB use
   const result = Object.fromEntries(entries);
   // → { x: 42, y: 50 }
   ```
-  is now supported.
 
-- [Underscores for better readability of large numbers](https://v8.dev/features/numeric-separators):
+- [Underscores for better readability of large numbers](https://v8.dev/features/numeric-separators){:target="_blank"}:
   ```
-  1_000_000_000_000 // -> quals 1000000000000
+  1_000_000_000_000 // → equals 1000000000000
   ```
-- [MatchAll Support in strings](https://v8.dev/features/string-matchall)
+
+- [matchAll support for strings](https://v8.dev/features/string-matchall){:target="_blank"}:
+  A convenient generator for a match object for each match:
   ```
   const string = 'Favorite GitHub repos: tc39/ecma262 v8/v8.dev';
   const regex = /\b(?<owner>[a-z0-9]+)\/(?<repo>[a-z0-9\.]+)\b/g;
@@ -163,10 +172,16 @@ Here is the list of those improvements that may matter to you as an ArangoDB use
     console.log(`→ repo: ${match.groups.repo}`);
   ```
 
-- ICU now handles emojis, etc, more languages are supported.
+- ICU supports more languages and characters (Unicode 12.1),
+  emoji handling was improved
+
+Also see:
+- [V8 release blog posts](https://v8.dev/blog){:target="_blank"} (v7.2 to v7.9)
+- [V8 features](https://v8.dev/features){:target="_blank"} (Chrome 79 or lower)
+
+https://v8.dev/features
 
 ### JavaScript APIs
--------------------
 
 The [`query` helper](appendix-java-script-modules-arango-db.html#the-query-helper)
 was extended to support passing [query options](aql/invocation-with-arangosh.html#setting-options):
@@ -183,11 +198,6 @@ endpoint and model entries collapsed by default now for a better overview.
 
 Internal changes
 ----------------
-
-### V8 and ICU library upgrades
-
-The V8 JavaScript engine was upgraded to version 7.9.317. The Unicode character
-handling library ICU was upgraded to version 64.2.
 
 ### Supported compilers
 
