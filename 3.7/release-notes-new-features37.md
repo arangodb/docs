@@ -217,6 +217,11 @@ Older versions of g++ that could be used to compile previous versions of
 ArangoDB, namely g++7, cannot be used anymore for compiling ArangoDB.
 g++9 is known to work.
 
+### libcurl dependency
+
+The compile-time dependency on libcurl was removed. Cluster-internal communication
+is now performed using fuerte instead of libcurl.
+
 ### Documentation generation
 
 The following features have been added for auto-generating documentation:
