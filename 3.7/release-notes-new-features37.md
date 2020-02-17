@@ -94,6 +94,19 @@ Additionally the `/_admin/server/jwt` API can be used to reload the JWT secrets
 of a local arangod process without having to restart it (hot-reload). This may
 be used to roll out new JWT secrets throughout an ArangoDB cluster.
 
+### TLS key and certificate rotation
+
+It is now possible to change the TLS keyfile (secret key as well as
+public certificates) at run time. The API `POST /_admin/server/tls`
+basically makes the `arangod` server reload the keyfile from disk.
+
+Furthermore, one can query the current TLS setup at runtime with the
+`GET /_admin/server/tls` API. The public certificates as well as a
+SHA-256 hash of the private key is returned.
+
+This allows [rotation of TLS keys and certificates](http/administration-and-monitoring.html#tls)
+without a server restart.
+
 ### Insert-Update
 
 ArangoDB 3.7 adds an insert-update operation that is similar to the already
