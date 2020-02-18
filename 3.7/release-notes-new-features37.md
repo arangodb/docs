@@ -94,6 +94,15 @@ Additionally the `/_admin/server/jwt` API can be used to reload the JWT secrets
 of a local arangod process without having to restart it (hot-reload). This may
 be used to roll out new JWT secrets throughout an ArangoDB cluster.
 
+### Encryption at rest key rotation (Enterprise Edition)
+
+It is possible to change the user supplied encryption key via the
+[HTTP API](http/administration-and-monitoring.html#encryption-at-rest)
+by sending a POST request without payload to the new endpoint
+`/_admin/server/encryption`. The file supplied via `--rocksdb.encryption-keyfile`
+will be reloaded and the internal encryption key will be re-encrypted with the
+new user key.
+
 ### Insert-Update
 
 ArangoDB 3.7 adds an insert-update operation that is similar to the already
