@@ -91,12 +91,12 @@ concurrent requests.
 
 See: [HTTP Switching Protocols](http/general.html#switching-protocols)
 
-### Server Name Indication (SNI)
+### Server Name Indication (Enterprise Edition)
 
 Sometimes it is desirable to have the same server use different server keys
 and certificates when it is contacted under different names. This is possible
 with the [Server Name Indication](programs-arangod-ssl.html#server-name-indication-sni)
-TLS extension. It is now supported by ArangoDB using a new startup option
+(SNI) TLS extension. It is now supported by ArangoDB using a new startup option
 `--ssl.server-name-indication`.
 
 ### JWT secret rotation (Enterprise Edition)
