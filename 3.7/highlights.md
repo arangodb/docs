@@ -52,6 +52,8 @@ Version 3.7
 - **Encryption at Rest Key Rotation:
 -->
 
+Also see [What's New in 3.7](release-notes-new-features37.html).
+
 Version 3.6
 -----------
 
