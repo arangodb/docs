@@ -9,6 +9,11 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.7. ArangoDB 3.7 also contains several bug fixes that are not listed
 here.
 
+ArangoSearch
+------------
+
+
+
 AQL
 ---
 
@@ -18,7 +23,7 @@ AQL
 
 The following AQL functions have been added in ArangoDB 3.7:
 
-- REPLACE_NTH()
+- [REPLACE_NTH()](aql/functions-array.html#replacenth)
 - LEVENSHTEIN_MATCH()
 - JACCARD()
 
@@ -60,10 +65,6 @@ significantly thanks to a specialized parser, replacing a regular expression.
 Improved the lazy evaluation capabilities of the [ternary operator](aql/operators.html#ternary-operator).
 If the second operand is left out, the expression of the condition is only
 evaluated once now, instead of once more for the true branch.
-
-ArangoSearch
-------------
-
 
 Cluster
 -------
