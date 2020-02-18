@@ -55,6 +55,12 @@ and threw query parse errors when they were used.
 The performance of parsing ISO 8601 date/time string values in AQL has improved
 significantly thanks to a specialized parser, replacing a regular expression.
 
+### Ternary operator
+
+Improved the lazy evaluation capabilities of the [ternary operator](aql/operators.html#ternary-operator).
+If the second operand is left out, the expression of the condition is only
+evaluated once now, instead of once more for the true branch.
+
 ArangoSearch
 ------------
 
