@@ -23,7 +23,7 @@ AQL
 
 The following AQL functions have been added in ArangoDB 3.7:
 
-- [REPLACE_NTH()](aql/functions-array.html#replacenth)
+- [REPLACE_NTH()](aql/functions-array.html#replace_nth)
 - LEVENSHTEIN_MATCH()
 - JACCARD()
 
