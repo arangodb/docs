@@ -6,6 +6,52 @@ title: ArangoDB Highlights
 Highlights
 ==========
 
+Version 3.7
+-----------
+
+**All Editions**
+
+<!--
+- **ArangoSearch**:
+  Wildcard and fuzzy search (Levenshtein distance and n-gram based), enhanced
+  phrase and proximity search, improved late document materialization and Views
+  covering queries using their indexes without touching the storage engine,
+  SIMD-based index format for faster processing
+
+- **AQL**:
+  Subquery and graph traversal performance improvements
+
+- **Document Validation**:
+  Enforce schemas on documents. Invalid documents can be rejected automatically
+  by the database system, making it easy to maintain data quality.
+
+- **HTTP/2 support**:
+
+- **TLS key and certificate rotation**:
+
+- **Crash Handler** (Linux/macOS):
+-->
+
+- [**Insert-Update**](release-notes-new-features37.html#insert-update):
+  Added an insert-update operation that is similar to the already existing
+  insert-replace functionality, but for either creating or updating a document.
+
+- [**V8 upgrade**](release-notes-new-features37.html#v8-and-icu-library-upgrades):
+  Upgraded the JavaScript engine to version 7.9.317, making newer features from
+  the ECMAScript specification available.
+
+**Enterprise Edition**
+
+- [**JWT Secrets**](release-notes-new-features37.html#jwt-secret-rotation-enterprise-edition):
+  Added support for multiple secrets and the ability to hot-reload the files
+  from disk
+
+<!--
+- **Server Name Indication (SNI)**:
+
+- **Encryption at Rest Key Rotation:
+-->
+
 Version 3.6
 -----------
 
