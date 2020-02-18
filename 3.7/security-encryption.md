@@ -116,9 +116,5 @@ servers) and directly store them in your secret management tool.
 
 ## Rotating encryption keys
 
-It is possible to rotate the user supplied encryption key by sending a POST
-request to the `/_admin/server/jwt` endpoint. The file supplied via
-`--rocksdb.encryption-keyfile` will be reloaded and the internal encryption
-key will be re-encrypted with the new user key.
-
-Also see [Hot-Reload of JWT Secrets](http/general.html#hot-reload-of-jwt-secrets).
+It is possible to change the user supplied encryption at rest key via the
+[HTTP API](http/administration-and-monitoring.html#encryption-at-rest).
