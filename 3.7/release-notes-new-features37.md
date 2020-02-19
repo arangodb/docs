@@ -104,9 +104,10 @@ There are now new APIs and startup options for JWT secrets. The new option
 `--server.jwt-secret-folder` can be used to specify a path for more than one
 JWT secret file.
 
-Additionally the `/_admin/server/jwt` API can be used to reload the JWT secrets
-of a local arangod process without having to restart it (hot-reload). This may
-be used to roll out new JWT secrets throughout an ArangoDB cluster.
+Additionally the `/_admin/server/jwt` API can be used to
+[reload the JWT secrets](http/general.html#hot-reload-of-jwt-secrets)
+of a local arangod process without having to restart it (hot-reload).
+This may be used to roll out new JWT secrets throughout an ArangoDB cluster.
 
 ### TLS key and certificate rotation
 
