@@ -97,7 +97,6 @@ update-rc.d -f arangodb3 remove
 ### Stop the _Starter_ without stopping the ArangoDB Server processes
 
 Now all the _Starter_ (_arangodb_) processes have to be stopped.
-
 Please note that **no** _arangod_ processes should be stopped!
 
 In order to stop the _arangodb_ processes, leaving the _arangod_ processes they
@@ -110,8 +109,8 @@ When using _SystemD_ as supervisor, make sure that the
 contains `KillMode=process` (see
 [systemd.kill documentation](https://www.freedesktop.org/software/systemd/man/systemd.kill.html#KillMode=){:target="_blank"}).
 Otherwise `kill -9` will not just kill the respective _arangodb_ starter process,
-but also the _arangod_ processes it started because of the default setting
-`KillMode=control-group`.
+but also the _arangod_ server processes it started because of the
+default setting `KillMode=control-group`.
 {% endhint %}
 
 ```bash
@@ -198,10 +197,8 @@ Run the following command for any of the starter endpoints
 arangodb upgrade --starter.endpoint=<endpoint-of-a-starter>
 ```
 
-{% hint 'tip' %}
 If you have connected clusters across multiple datacenter
 (DC2DC deployment), then you need to update each of the clusters.
-{% endhint %}
 
 {% hint 'warning' %}
 The command above was introduced with 3.3.14 (and 3.2.17). If you are
