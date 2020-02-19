@@ -128,7 +128,8 @@ max      29419  3684  0 11:46 pts/1    00:00:00 arangodb --starter.data-dir=./db
 max      29504  3695  0 11:46 pts/2    00:00:00 arangodb --starter.data-dir=./db2 --starter.join 127.0.0.1
 max      29513  3898  0 11:46 pts/4    00:00:00 arangodb --starter.data-dir=./db3 --starter.join 127.0.0.1
 ```
-We can use `pstree` to inspect the arangodb-server instances launched by one of these starters:
+
+We can use `pstree` to inspect the _arangod_ server instances launched by one of these starters:
 
 ```bash
 pstree -Tp 3511800 
@@ -143,7 +144,7 @@ When using a supervisor like _SystemD_, this will happen automatically. In case
 the _Starter_ was initiated manually, the _arangodb_ processes have to be restarted
 manually with the same command that has been used before.
 
-Inspect which processes belong one starter using the `pstree` command from above.
+You can inspect which processes belong to a starter instance using the `pstree` command (see above).
 
 If you are using the `.tar.gz` distribution (only available from v3.4.0),
 your new version of the executable might be located in a
@@ -151,9 +152,11 @@ different directory. Make sure that you now start the new _Starter_
 executable (`bin/arangodb`) in the new installation place. If you are
 using a supervisor like _SystemD_, you might have to adjust the path to
 the executable in the service description to the new location. Also make sure 
-that the unit file contains
-[`KillMode=process`](https://www.freedesktop.org/software/systemd/man/systemd.kill.html#KillMode=)
-else this procedure will fail.
+that the [unit file](https://www.freedesktop.org/software/systemd/man/systemd.unit.html){:target="_blank"} contains
+`KillMode=process` (see
+[systemd.kill documentation](https://www.freedesktop.org/software/systemd/man/systemd.kill.html#KillMode=){:target="_blank"}).
+Otherwise this procedure will fail, because the default is `KillMode=control-group` which will kill
+the _arangod_ processes that were started by an _arangodb_ starter process.
 
 Do this before you `kill -9` the _Starter_ or else the old version will be
 restarted in this case. If you forgot, simply do the `kill -9` again.
@@ -168,7 +171,7 @@ root     30201       1  0 13:02 pts/45   00:01:09 usr/sbin/arangod ...
 root     30202       1  0 13:02 pts/45   00:00:55 usr/sbin/arangod ...
 root     30217       1  0 13:02 pts/45   00:01:11 usr/sbin/arangod ...
 ```
-If not, rollback to the old Version, and restart that _Starter_, else the subsequent upgrade 
+If not, rollback to the old version and restart that _Starter_, or the subsequent upgrade 
 procedure will fail.
 
 After you have succesfully restarted the _Starter_ you will find yourself in the following
