@@ -9,6 +9,11 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.7. ArangoDB 3.7 also contains several bug fixes that are not listed
 here.
 
+ArangoSearch
+------------
+
+
+
 AQL
 ---
 
@@ -18,7 +23,7 @@ AQL
 
 The following AQL functions have been added in ArangoDB 3.7:
 
-- REPLACE_NTH()
+- [REPLACE_NTH()](aql/functions-array.html#replace_nth)
 - LEVENSHTEIN_MATCH()
 - JACCARD()
 
@@ -61,10 +66,6 @@ Improved the lazy evaluation capabilities of the [ternary operator](aql/operator
 If the second operand is left out, the expression of the condition is only
 evaluated once now, instead of once more for the true branch.
 
-ArangoSearch
-------------
-
-
 Cluster
 -------
 
@@ -90,12 +91,12 @@ concurrent requests.
 
 See: [HTTP Switching Protocols](http/general.html#switching-protocols)
 
-### Server Name Indication (SNI)
+### Server Name Indication (Enterprise Edition)
 
 Sometimes it is desirable to have the same server use different server keys
 and certificates when it is contacted under different names. This is possible
 with the [Server Name Indication](programs-arangod-ssl.html#server-name-indication-sni)
-TLS extension. It is now supported by ArangoDB using a new startup option
+(SNI) TLS extension. It is now supported by ArangoDB using a new startup option
 `--ssl.server-name-indication`.
 
 ### JWT secret rotation (Enterprise Edition)
