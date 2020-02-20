@@ -1,6 +1,7 @@
 ---
 layout: default
-description: AQL comes with a built-in set of functions, but it isnot a fully-featured programming language
+description: You can write UDFs in JavaScript to extend AQL or to simplify queries
+title: AQL User-Defined Functions
 ---
 Extending AQL with User Functions
 =================================

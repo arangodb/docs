@@ -1,6 +1,7 @@
 ---
 layout: default
-description: Built-in AQL functions that are shipped with ArangoDB reside in the namespace_aql, which is also the default namespace to look in if an unqualifiedfunction name is found
+description: User-defined function naming and behavior
+title: AQL UDF Conventions
 ---
 Conventions
 ===========
@@ -9,11 +10,11 @@ Naming
 ------
 
 Built-in AQL functions that are shipped with ArangoDB reside in the namespace
-*_aql*, which is also the default namespace to look in if an unqualified
+`_aql`, which is also the default namespace to look in if an unqualified
 function name is found.
 
 To refer to a user-defined AQL function, the function name must be fully
-qualified to also include the user-defined namespace. The *::* symbol is used
+qualified to also include the user-defined namespace. The `::` symbol is used
 as the namespace separator. Users can create a multi-level hierarchy of function
 groups if required:
 
@@ -34,8 +35,10 @@ User functions can take any number of input arguments and should
 provide one result via a `return` statement. User functions should be kept 
 purely functional and thus free of side effects and state, and state modification.
 
+{% hint 'warning' %}
 Modification of global variables is unsupported, as is reading or changing
 the data of any collection from inside an AQL user function.
+{% endhint %}
 
 User function code is late-bound, and may thus not rely on any variables
 that existed at the time of declaration. If user function code requires
