@@ -64,7 +64,7 @@ ArangoDatabase db = arango.db("myDB");
 ArangoGraph graph = db.graph("some-graph");
 ArangoEdgeCollection collection = graph.edgeCollection("some-edge-collection");
 
-BaseEdgeDocument document = new BaseEdgeDocument("some-from-key", "some-to-key");
+BaseEdgeDocument document = new BaseEdgeDocument("some-from-id", "some-to-id");
 document.addAttribute("some", "data");
 collection.insertEdge(document, new EdgeCreateOptions());
 ```
@@ -108,7 +108,7 @@ ArangoDatabase db = arango.db("myDB");
 ArangoGraph graph = db.graph("some-graph");
 ArangoEdgeCollection collection = graph.edgeCollection("some-edge-collection");
 
-BaseEdgeDocument document = new BaseEdgeDocument("some-from-key", "some-to-key");
+BaseEdgeDocument document = new BaseEdgeDocument("some-from-id", "some-to-id");
 collection.replaceEdge("some-key", document, new EdgeReplaceOptions());
 ```
 
@@ -159,7 +159,7 @@ ArangoDatabase db = arango.db("myDB");
 ArangoGraph graph = db.graph("some-graph");
 ArangoEdgeCollection collection = graph.edgeCollection("some-edge-collection");
 
-BaseEdgeDocument document = new BaseEdgeDocument("some-from-key", "some-to-key");
+BaseEdgeDocument document = new BaseEdgeDocument("some-from-id", "some-to-id");
 collection.updateEdge("some-key", document, new EdgeUpdateOptions());
 ```
 
