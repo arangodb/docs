@@ -143,7 +143,7 @@ You can use `pstree` to inspect the _arangod_ server instances launched by one
 of these starters:
 
 ```bash
-pstree -Tp 3511800 
+pstree -Tp 29419 
 arangodb(29419)─┬─arangod(30201)
                 ├─arangod(30202)
                 └─arangod(30217)
