@@ -117,13 +117,13 @@ default setting `KillMode=control-group`.
 kill -9 <pid-of-starter>
 ```
 
-The _pid_ associated to your _Starter_ can be checked using a command like _ps_:
+The _PID_ associated to your _Starter_ can be checked using a command like `ps`:
 
 ```bash
 ps -C arangodb -fww
 ```
 
-The output of the command above does not only show the PID's of all _arangodb_
+The output of the command above does not only show the PIDs of all _arangodb_
 processes but also the used commands, which can be useful for the following
 restart of all _arangodb_ processes.
 
