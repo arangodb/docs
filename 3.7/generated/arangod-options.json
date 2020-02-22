@@ -536,7 +536,7 @@
       "agent",
       "single"
     ],
-    "default" : 16341534720,
+    "default" : 16341536768,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -1066,7 +1066,9 @@
       "single"
     ],
     "default" : 1,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "sleep interval between two compaction runs (in s)",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -1091,7 +1093,9 @@
       "single"
     ],
     "default" : 16384,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "minimum unused count of documents in a datafile",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -1116,7 +1120,9 @@
       "single"
     ],
     "default" : 0.1,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "how many percent of the source datafile should be unused at least",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -1141,7 +1147,9 @@
       "single"
     ],
     "default" : 131072,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "how many bytes of the source data file are allowed to be unused at most",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -1166,7 +1174,9 @@
       "single"
     ],
     "default" : 3,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "how large the resulting file may be in comparison to the collections '--database.maximal-journal-size' setting",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -1191,7 +1201,9 @@
       "single"
     ],
     "default" : 3,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "Maximum number of files to merge to one file",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -1216,7 +1228,9 @@
       "single"
     ],
     "default" : 134217728,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "how large may the compaction result file become (in bytes)",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -1241,7 +1255,9 @@
       "single"
     ],
     "default" : 10,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "minimum sleep time between two compaction runs (in s)",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -1266,7 +1282,9 @@
       "single"
     ],
     "default" : 131072,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "minimal filesize threshold original data files have to be below for a compaction",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -1538,7 +1556,9 @@
       "single"
     ],
     "default" : 33554432,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "default maximal journal size, can be overwritten when creating a collection",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -1638,7 +1658,9 @@
       "single"
     ],
     "default" : false,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "throw an error when accessing a collection that is still loading",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -5152,7 +5174,7 @@
       "agent",
       "single"
     ],
-    "default" : 19609841664,
+    "default" : 19609844121,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -6032,7 +6054,7 @@
       "agent",
       "single"
     ],
-    "default" : 26146455552,
+    "default" : 26146458828,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -6319,6 +6341,33 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "uint64"
+  },
+  "server.allow-deprecated-storage-engine" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "allow deprecated storage engines for new deployments (only useful for testing - do not use in production)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
   },
   "server.allow-use-database" : {
     "category" : "option",
@@ -7019,7 +7068,7 @@
     ],
     "default" : "auto",
     "deprecatedIn" : null,
-    "description" : "storage engine type",
+    "description" : "storage engine type (the mmfiles engine is deprecated and can only be used for existing deployments)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -7519,7 +7568,9 @@
       "single"
     ],
     "default" : true,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "allow entries that are bigger than '--wal.logfile-size'",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -7544,7 +7595,9 @@
       "single"
     ],
     "default" : "",
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "logfile directory",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -7569,7 +7622,9 @@
       "single"
     ],
     "default" : 15000,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "flush timeout (in milliseconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -7594,7 +7649,9 @@
       "single"
     ],
     "default" : 10,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "maximum number of historic logfiles to keep after collection",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -7619,7 +7676,9 @@
       "single"
     ],
     "default" : false,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "ignore logfile errors. this will read recoverable data from corrupted logfiles but ignore any unrecoverable data",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -7644,7 +7703,9 @@
       "single"
     ],
     "default" : false,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "continue recovery even if re-applying operations fails",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -7669,7 +7730,9 @@
       "single"
     ],
     "default" : 33554432,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "size of each logfile (in bytes)",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -7694,7 +7757,9 @@
       "single"
     ],
     "default" : 0,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "maximum number of parallel open logfiles",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -7719,7 +7784,9 @@
       "single"
     ],
     "default" : 3,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "maximum number of reserve logfiles to maintain",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -7744,7 +7811,9 @@
       "single"
     ],
     "default" : 1048576,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "number of logfile slots to use",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -7769,7 +7838,9 @@
       "single"
     ],
     "default" : 100,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "interval for automatic, non-requested disk syncs (in milliseconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -7794,7 +7865,9 @@
       "single"
     ],
     "default" : 15000,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "maximum wait time per operation when write-throttled (in milliseconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -7819,7 +7892,9 @@
       "single"
     ],
     "default" : 0,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "throttle writes when at least this many operations are waiting for collection (set to 0 to deactivate write-throttling)",
     "dynamic" : false,
     "enterpriseOnly" : false,
@@ -7844,7 +7919,9 @@
       "single"
     ],
     "default" : false,
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.7.0"
+    ],
     "description" : "mlock WAL logfiles in memory (may require elevated privileges or limits)",
     "dynamic" : false,
     "enterpriseOnly" : false,
