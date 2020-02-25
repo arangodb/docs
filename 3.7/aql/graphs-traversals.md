@@ -94,6 +94,22 @@ FOR vertex[, edge[, path]]
       duplicate edge
     - "none" – no uniqueness check is applied on edges. **Note:**
       Using this configuration the traversal will follow edges in cycles.
+  - **edgeCollections** (sting\|array, *optional*): Optionally restrict edge
+    collections considered while traversing a named graph. If omitted, or an
+    empty array is specified, then there are no restrictions.
+    - A string parameter is treated as the equivalent of an array with a single
+      element.
+    - Each element of the array should be a string containing the name of an
+      edge collection.
+  - **vertexCollections** (sting\|array, *optional*): Optionally restrict
+    vertex collections the traversal may visit. If omitted, or an empty array is
+    specified, then there are no restrictions. 
+    - A string parameter is treated as the equivalent of an array with a single
+      element.
+    - Each element of the array should be a string containing the name of a
+      vertex collection.
+    - The starting vertex is always allowed, even if it does not belong to one
+      of the collections specified by a restriction.
 
 ### Working with collection sets
 
@@ -109,7 +125,8 @@ FOR vertex[, edge[, path]]
 
 Instead of `GRAPH graphName` you may specify a list of edge collections. Vertex
 collections are determined by the edges in the edge collections. The traversal
-options are the same as with the [named graph variant](#working-with-named-graphs).
+options are the same as with the [named graph variant](#working-with-named-graphs),
+though the `edgeCollections` restriction option is redundant in this case.
 
 If the same edge collection is specified multiple times, it will behave as if it
 were specified only once. Specifying the same edge collection is only allowed when
