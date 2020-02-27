@@ -9,8 +9,8 @@ page-toc:
 
 [ArangoDB Oasis](https://cloud.arangodb.com/){:target="_blank"},
 the ArangoDB Cloud, provides ArangoDB databases as a Service (DBaaS).
-It enables you to use the entire functionality of an ArangoDB database without
-the need to run or manage the database yourself.
+It enables you to use the entire functionality of an ArangoDB cluster
+deployment without the need to run or manage the system yourself.
 
 The ArangoDB Cloud...
 
