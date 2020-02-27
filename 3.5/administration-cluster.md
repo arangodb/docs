@@ -14,8 +14,8 @@ There is also a detailed
 [Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}
 for download.
 
-Clusters can be deployed by ArangoDB as
-[managed service](https://www.arangodb.com/managed-service/){:target="_blank"}
+Clusters can be easily deployed using the
+[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/){:target="_blank"}
 with full hosting, management, and monitoring.
 
 Please check the following talks as well:
