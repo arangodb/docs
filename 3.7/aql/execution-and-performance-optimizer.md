@@ -535,7 +535,7 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   outer scope and may enable follow-up optimizations.
 
 - `optimize-traversals`:
-  will appear if either the edge or path output variable in an AQL traversal
+  will appear if the vertex, edge or path output variable in an AQL traversal
   was optimized away, or if a *FILTER* condition from the query was moved
   in the *TraversalNode* for early pruning of results.
 
