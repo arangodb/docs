@@ -207,7 +207,7 @@ Note: When you restart the starter, it remembers the original `--starter.local` 
 {% hint 'info' %}
 Datacenter to datacenter replication is only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
 {% endhint %}
 
 Datacenter to datacenter replication (DC2DC) requires a normal ArangoDB cluster in both data centers
