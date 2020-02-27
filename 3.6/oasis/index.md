@@ -14,9 +14,9 @@ the need to run or manage the database yourself.
 
 The ArangoDB Cloud...
 
-- runs your databases in data centers of cloud providers
-  of your choice (e.g. Google, Amazon AWS).
-  This optimizes performance and reduces cost.
+- runs your databases in data centers of the cloud provider
+  of your choice: Google Cloud Platform, Amazon Web Services (AWS),
+  Microsoft Azure. This optimizes performance and reduces cost.
 
 - ensures that your databases are always available and
   healthy by monitoring them 24/7.
