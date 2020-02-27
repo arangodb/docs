@@ -266,8 +266,7 @@ please proceed with caution.
 
 ## Free-to-try vs. professional service
 
-ArangoDB Oasis comes with a free-to-try plan that lets you test our managed
-service for free for 14 days. After the trial period, your deployments will
+ArangoDB Oasis comes with a free-to-try plan that lets you test our ArangoDB Cloud for free for 14 days. After the trial period, your deployments will
 automatically be deleted.
 
 You can convert to the professional service model at any time by adding 
@@ -293,3 +292,11 @@ your billing details and at least one payment method.
 4. Click the _Save_ button.
 
 ![Oasis Payment Method](../images/oasis-add-payment-method-credit-card.png)
+
+## Limitations of ArangoDB Oasis
+
+ArangoDB Oasis aims to make all features of the ArangoDB Enterprise Edition available to you, but there are a few limitations:
+
+1. Encryption (both at rest & network traffic) is always on and cannot be disabled for security reasons.
+2. Foxx services are not allowed to call out to the internet for security reasons. Of course incoming calls to Foxx services are fully supported.
+3. LDAP authentication & Audit trails are currently unavailable, but will be supported in the near future.
