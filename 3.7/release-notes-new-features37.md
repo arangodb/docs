@@ -301,6 +301,8 @@ By design, the crash handler will not kick in in case the arangod process is
 killed by the operating system with a SIGKILL signal, as it happens on Linux
 when the OOM killer terminates processes that consume lots of memory.
 
+Also see [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes).
+
 ### Supported compilers
 
 Manually compiling ArangoDB from source will require a C++17-ready compiler.
