@@ -298,5 +298,5 @@ your billing details and at least one payment method.
 ArangoDB Oasis aims to make all features of the ArangoDB Enterprise Edition available to you, but there are a few limitations:
 
 1. Encryption (both at rest & network traffic) is always on and cannot be disabled for security reasons.
-2. Foxx services are not allowed to call out to the internet for security reasons. Of course incoming calls to Foxx services are fully supported.
+2. Foxx services are not allowed to call out to the internet for security reasons. Incoming calls to Foxx services are fully supported.
 3. LDAP authentication & Audit trails are currently unavailable, but will be supported in the near future.
