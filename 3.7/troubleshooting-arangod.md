@@ -58,7 +58,10 @@ you can skip this section.
 
   You can test connectivity using a simple command such as:
 
-  **curl --dump - -X GET http://127.0.0.1:8529/_api/version && echo**
+  **curl --dump - --user "username:password" -X GET http://127.0.0.1:8529/_api/version && echo**
+
+  (note that it is necessary to replace "username" and "password" with the
+  actual username and password values).
 
   This should return a response with an *HTTP 200* status code when the
   server is running. If it does it also means the server is generally 
