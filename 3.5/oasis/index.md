@@ -15,7 +15,7 @@ deployment without the need to run or manage the system yourself.
 The ArangoDB Cloud...
 
 - runs your databases in data centers of the cloud provider
-  of your choice: Google Cloud Platform, Amazon Web Services (AWS),
+  of your choice: Google Cloud Platform (GCP), Amazon Web Services (AWS),
   Microsoft Azure. This optimizes performance and reduces cost.
 
 - ensures that your databases are always available and
