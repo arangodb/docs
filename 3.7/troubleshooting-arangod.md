@@ -62,7 +62,9 @@ you can skip this section.
 
   You can test connectivity using a simple command such as:
 
-  **curl --dump - --user "username:password" -X GET http://127.0.0.1:8529/_api/version && echo**
+  ```
+  curl --dump - --user "username:password" -X GET http://127.0.0.1:8529/_api/version && echo
+  ```
 
   (Replace `username` and `password` with the actual credentials.)
 
