@@ -517,6 +517,14 @@ If this field is not set and `spec.<group>.resources.requests.storage` is set, t
 with size as specified by `spec.<group>.resources.requests.storage` will be created. In that case `storage`
 and `iops` is not forwarded to the pods resource requirements.
 
+### `spec.<group>.pvcResizeMode: string`
+
+Specifies a resize mode used by operator to resuze PVC's and PV's.
+
+Supported modes:
+- runtime (default) - PVC will be resized in Pod runtime (EKS, GKE)
+- rotate - Pod will be shutdown and PVC will be resized (AKS)
+
 ### `spec.<group>.serviceAccountName: string`
 
 This setting specifies the `serviceAccountName` for the `Pods` created
@@ -553,9 +561,47 @@ Priority class name for pods of this group. Will be forwarded to the pod spec. [
 
 If set to true, the operator does not generate a liveness probe for new pods belonging to this group.
 
+### `spec.<group>.probes.livenessProbeSpec.initialDelaySeconds: int`
+
+Number of seconds after the container has started before liveness or readiness probes are initiated. Defaults to 2 seconds. Minimum value is 0.
+
+### `spec.<group>.probes.livenessProbeSpec.periodSeconds: int`
+
+How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
+
+### `spec.<group>.probes.livenessProbeSpec.timeoutSeconds: int`
+
+Number of seconds after which the probe times out. Defaults to 2 second. Minimum value is 1.
+
+### `spec.<group>.probes.livenessProbeSpec.failureThreshold: int`
+
+When a Pod starts and the probe fails, Kubernetes will try failureThreshold times before giving up.
+Giving up means restarting the container. Defaults to 3. Minimum value is 1.
+
 ### `spec.<group>.probes.readinessProbeDisabled: bool`
 
 If set to true, the operator does not generate a readiness probe for new pods belonging to this group.
+
+### `spec.<group>.probes.readinessProbeSpec.initialDelaySeconds: int`
+
+Number of seconds after the container has started before liveness or readiness probes are initiated. Defaults to 2 seconds. Minimum value is 0.
+
+### `spec.<group>.probes.readinessProbeSpec.periodSeconds: int`
+
+How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
+
+### `spec.<group>.probes.readinessProbeSpec.timeoutSeconds: int`
+
+Number of seconds after which the probe times out. Defaults to 2 second. Minimum value is 1.
+
+### `spec.<group>.probes.readinessProbeSpec.successThreshold: int`
+
+Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Minimum value is 1.
+
+### `spec.<group>.probes.readinessProbeSpec.failureThreshold: int`
+
+When a Pod starts and the probe fails, Kubernetes will try failureThreshold times before giving up.
+Giving up means the Pod will be marked Unready. Defaults to 3. Minimum value is 1.
 
 ### `spec.<group>.tolerations: []Toleration`
 

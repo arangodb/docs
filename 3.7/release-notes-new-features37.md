@@ -19,6 +19,36 @@ AQL
 
 ### Subquery optimizations
 
+### Traversal optimizations
+
+Graph traversal performance is improved via some internal code refactoring:
+
+- Traversal cursors are reused instead of recreated from scratch, if possible.
+  This can save lots of calls to the memory management subsystem.
+- Unnecessary checks have been removed from the cursors, by ensuring some
+  invariants.
+- Each vertex lookup needs to perform slightly less work.
+  
+The traversal speedups observed by these changes alone were around 8 to 10% for
+single-server traversals and traversals in OneShard setups. Cluster traversals
+will also benefit from these changes, but to a lesser extent. This is because 
+the network roundtrips have a higher share of the total query execution times there.
+
+Traversal performance can be further improved by not fetching the visited vertices
+from the storage engine in case the traversal query does not refer to them. 
+For example, in the query:
+
+```js
+FOR v, e, p IN 1..3 OUTBOUND 'collection/startVertex' edges
+  RETURN e
+```
+
+…the vertex variable (`v`) is never accessed, making it unnecessary to fetch the
+vertices from storage. If this optimization is applied, the traversal node will be
+marked with `/* vertex optimized away */` in the query's execution plan output.
+Unused edge and path variables (`e` and `p`) were already optimized away in
+previous versions by the `optimize-traversals` optimizer rule.
+
 ### AQL functions added
 
 The following AQL functions have been added in ArangoDB 3.7:
@@ -65,6 +95,37 @@ significantly thanks to a specialized parser, replacing a regular expression.
 Improved the lazy evaluation capabilities of the [ternary operator](aql/operators.html#ternary-operator).
 If the second operand is left out, the expression of the condition is only
 evaluated once now, instead of once more for the true branch.
+
+### Other AQL improvements
+
+The existing AQL optimizer rule `move-calculations-down` is now able to also move
+unrelated subqueries beyond SORT and LIMIT instructions, which can help avoid the
+execution of subqueries for which the results are later discarded.
+
+For example, in the query:
+
+```js
+FOR doc IN collection1
+  LET sub1 = FIRST(FOR sub IN collection2 FILTER sub.ref == doc._key RETURN sub)
+  LET sub2 = FIRST(FOR sub IN collection3 FILTER sub.ref == doc._key RETURN sub)
+  
+  SORT sub1
+  LIMIT 10
+  RETURN { doc, sub1, sub2 }
+```
+
+…the execution of the `sub2` subquery can be delayed to after the SORT and LIMIT.
+The query optimizer will automatically transform this query into the following:
+
+```js
+FOR doc IN collection1
+  LET sub1 = FIRST(FOR sub IN collection2 FILTER sub.ref == doc._key RETURN sub)
+  SORT sub1
+  LIMIT 10
+
+  LET sub2 = FIRST(FOR sub IN collection3 FILTER sub.ref == doc._key RETURN sub)
+  RETURN { doc, sub1, sub2 }
+```
 
 Cluster
 -------
@@ -240,14 +301,17 @@ By design, the crash handler will not kick in in case the arangod process is
 killed by the operating system with a SIGKILL signal, as it happens on Linux
 when the OOM killer terminates processes that consume lots of memory.
 
+Also see [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes).
+
 ### Supported compilers
 
 Manually compiling ArangoDB from source will require a C++17-ready compiler.
 Older versions of g++ that could be used to compile previous versions of
 ArangoDB, namely g++7, cannot be used anymore for compiling ArangoDB.
-g++9 is known to work.
 
-### libcurl dependency
+g++9.2 is known to work, and is the preferred compiler to build ArangoDB.
+
+### Removed libcurl dependency
 
 The compile-time dependency on libcurl was removed. Cluster-internal
 communication is now performed using [fuerte](https://github.com/arangodb/fuerte){:target="_blank"}
