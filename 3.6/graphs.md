@@ -1,6 +1,7 @@
 ---
 layout: default
-description: A Graph consists of vertices and edges
+description: Graphs consist of vertices stored in document collections and directed edges stored in edge collections in ArangoDB.
+title: Graphs in ArangoDB
 ---
 ArangoDB Graphs
 ===============
@@ -15,8 +16,7 @@ relational database systems, which are ironically very limited in expressing
 relations.
 
 A good metaphor for graphs is to think of **nodes** as circles and edges as
-**lines** or arcs. The terms node and vertex are used interchangeably here.
-
+**lines** or arcs. The terms _node_ and _vertex_ are used interchangeably here.
 
 Vertices are usually connected to other vertices by edges, making up a **graph**.
 Vertices don't have to be connected, they can be loose. But they may also be
@@ -24,42 +24,86 @@ connected with more than one other vertex via multiple edges. You may also
 find vertices connected to themselves (self-referencing). A special case is
 edges pointing to other edges, which is referred to as **hypergraph**.
 
-Edges can be **undirected** or have a notation of direction, pointing one or both
-ways like a (double-sided) arrow. The 
-
- like a one-way street
-
-First Steps with Graphs
------------------------
-
-A Graph consists of *vertices* and *edges*. Edges are stored as documents in *edge collections*.
-A vertex can be a document of a *document collection* or of an *edge collection* (so *edges* can be used as *vertices*).
-Which collections are used within a named graph is defined via *edge definitions*.
-A named graph can contain more than one *edge definition*, at least one is needed.
-Graphs allow you to structure your models in line with your domain and group them logically in collections and giving you the power to query them in the same graph queries.
+Edges can have a notation of direction, like a one way connection. If they all
+point one way then it is a **directed** graph, otherwise it is **undirected**.
 
 {% hint 'info' %}
 New to graphs? [**Take our free graph course for freshers**](https://www.arangodb.com/arangodb-graph-course/){:target="_blank"}
 and get from zero knowledge to advanced query techniques.
 {% endhint %}
 
-Coming from a relational background - what's a graph?
------------------------------------------------------
+Graphs compared to relational database systems
+----------------------------------------------
 
-In SQL you commonly have the construct of a relation table to store *n:m* relations between two data tables.
-An *edge collection* is somewhat similar to these *relation tables*; *vertex collections* resemble the data tables with the objects to connect.
-While simple graph queries with fixed number of hops via the relation table may be doable in SQL with several nested joins,
-graph databases can handle an arbitrary number of these hops over edge collections - this is called *traversal*.
-Also edges in one edge collection may point to several vertex collections.
-Its common to have attributes attached to edges, i.e. a *label* naming this interconnection.
-Edges have a direction, with their relations `_from` and `_to` pointing *from* one document *to* another document stored in vertex collections.
-In queries you can define in which directions the edge relations may be followed (`OUTBOUND`: `_from` → `_to`, `INBOUND`: `_from` ← `_to`, `ANY`: `_from` ↔ `_to`).
+In RDBMS you commonly have the construct of a relation table to store **n:m**
+relations between two data tables. An *edge collection* is somewhat similar to
+these *relation tables*; *vertex collections* resemble the data tables with the
+objects to connect.
 
-Named Graphs
-------------
+While simple graph queries with fixed number of hops via the relation table may
+be doable in SQL with several nested joins, graph databases can handle an
+arbitrary number of these hops over edge collections (*traversal*). Also edges
+in one edge collection may point to several different vertex collections.
 
-Named graphs are completely managed by ArangoDB, and thus also [visible in the web interface](programs-web-interface-graphs.html).
-They use the full spectrum of ArangoDB's graph features. You may access them via several interfaces.
+It is common to have attributes attached to edges, i.e. a *label* naming this
+interconnection. Edges have a direction, with their relations `_from` and `_to`
+pointing *from* one document *to* another document stored in vertex collections.
+In queries you can define in which directions the edge relations may be followed
+(`OUTBOUND`: `_from` → `_to`, `INBOUND`: `_from` ← `_to`, `ANY`: `_from` ↔ `_to`).
+
+Graphs in ArangoDB
+------------------
+
+Graphs are always directed in ArangoDB, which means edges point from one vertex
+to another and this direction matters. However, in graph queries you can decide
+whether you want to follow edges in the defined direction (`OUTBOUND`), against
+that direction (`INBOUND`) or follow edges regardless of their orientation
+(`ANY`). The process of following a graph's edges from a given starting vertex
+to discover neighbor vertices is called **traversal**.
+
+Edges are documents which are stored in **edge collections**. Each edge
+collection has a special edge index which cannot be removed. It enables fast
+graph traversals with the
+[best possible theoretical complexity](https://www.arangodb.com/2016/04/index-free-adjacency-hybrid-indexes-graph-databases/){:target="_blank"}.
+Edge documents have two special attributes: `_from` and `_to`. Otherwise they
+are like regular documents stored in normal collections. They have `_key`,
+`_id` and `_rev` system attributes and you can store whatever information makes
+sense on the edge using any JSON data type, including arrays and nested objects.
+
+The `_from` and `_to` attributes are both expected to be set to a document
+identifier string (`_id` attribute) of an arbitrary document in the same
+database. Both referenced documents are then considered as vertices, an the
+collections they are stored in can be called vertex collections. It is allowed
+to reference documents from regular document/vertex collections as well as from
+edge collections, i.e. you may reference other edges. However, these edges will
+not be followed in a traversal if they appear in a vertex context.
+
+You may create edges that link the same vertices multiple times, in whatever
+direction. This can be restricted to a single edge per direction by creating
+an index over the `_from` and `_to` attributes with the _unique_ option
+enabled.
+
+<!-- TODO: graph algorithms (shortest, k shortest, Pregel?) -->
+
+### Anonymous graphs
+
+If you store edges in edge collections to reference other documents, then your
+data defines a graph already. This is called an _anonymous_ graph in ArangoDB.
+You can [traverse](graphs-traversals.html) anonymous graphs [with AQL](aql/graphs.html)
+and use graph related APIs (see e.g. [Working with Edges](graphs-edges.html)).
+
+It is a raw access, in the sense that there are very few checks regarding
+consistency. It is not guaranteed that edges reference existing documents for
+instance, and if you delete a vertex then connected edges will not be removed
+automatically. You need maintain the graph appropriately in your queries and
+via client-side code, but it gives you more freedom than the stricter
+_named graphs_.
+
+### Named Graphs
+
+To ensure graph consistency, you may create a so called _named_ graph, e.g.
+in the [web interface](programs-web-interface-graphs.html). You may work them
+via several APIs:
 
 - [AQL Graph Operations](aql/graphs.html) with several flavors:
   - [AQL Traversals](aql/graphs-traversals.html) on both named and anonymous graphs
@@ -71,117 +115,136 @@ They use the full spectrum of ArangoDB's graph features. You may access them via
   - [Smart Graph Management](graphs-smart-graphs-management.html); creating & manipulating SmartGraph definitions; Differences to General Graph 
 - [RESTful General Graph interface](http/gharial.html) used to implement graph management in client drivers
 
-### Manipulating collections of named graphs with regular document functions
+A named graph consists of one or multiple **edge definitions**. Each edge
+definition consists of the name of an edge collection and two vertex
+collections, to describe their relationship. The _from_ and _to_ attributes
+may refer to the same vertex collection.
+<!-- TODO: improve description, add limitations regarding multiple graphs using the same collections -->
 
-The underlying collections of the named graphs are still accessible using the standard methods for collections.
-However the graph module adds an additional layer on top of these collections giving you the following guarantees:
+Beware of manipulating collections of named graphs with regular document
+functions! The underlying collections of the named graphs are still accessible
+using the standard methods for working with collections/documents. However the
+[named graph API]() (as used by the [graph module]())
+adds an additional layer on top of these collections giving you the following
+guarantees:
 
 - All modifications are executed transactional
-- If you delete a vertex all edges referring to this vertex will be deleted too
+- If you delete a vertex, all edges referring to this vertex will be deleted too
 - If you insert an edge it is checked if the edge matches the *edge definitions*
 
-Your edge collections will only contain valid edges and you will never have loose ends.
-These guarantees are lost if you access the collections in any other way than the graph module,
-so if you delete documents from your vertex collections directly, the edges pointing to them will be remain in place.
-
-Existing inconsistencies in your data will not be corrected when you create a named graph.
-Therefore, make sure you start with sound data as otherwise there could be dangling edges after all.
-The graph module guarantees to not introduce new inconsistencies only.
-
-Anonymous graphs
-----------------
-
-Sometimes you may not need all the powers of named graphs, but some of its bits may be valuable to you.
-You may use anonymous graphs in the [traversals](graphs-traversals.html) 
-and in the [Working with Edges](graphs-edges.html) chapter.
-Anonymous graphs don't have *edge definitions* describing which *vertex collection* is connected by which *edge collection*. The graph model has to be maintained in the client side code.
-This gives you more freedom than the strict *named graphs*.
-
-- [AQL Graph Operations](aql/graphs.html) are available for both, named and anonymous graphs:
-  - [AQL Traversals](aql/graphs-traversals.html)
-  - [AQL Shortest Path](aql/graphs-shortest-path.html)
+Your edge collections will only contain valid edges and you will never have
+loose ends. These guarantees are lost if you modify the documents by any means
+other than the graph API or graph module. For example, if you delete documents
+from your vertex collections directly, then the edges pointing to them will
+remain in place. Existing inconsistencies in your data will not be corrected
+when you create a named graph. Therefore, make sure you start with sound data
+as otherwise there could be dangling edges after all. The named graph APIs
+guarantee to not introduce new inconsistencies only.
 
 ### When to choose anonymous or named graphs?
 
-As noted above, named graphs ensure graph integrity, both when inserting or removing edges or vertices.
-So you won't encounter dangling edges, even if you use the same vertex collection in several named graphs.
-This involves more operations inside the database which come at a cost.
-Therefore anonymous graphs may be faster in many operations.
-So this question may be narrowed down to: 'Can I afford the additional effort or do I need the warranty for integrity?'. 
+Sometimes you may not need all the powers of named graphs. As noted above,
+named graphs ensure graph integrity, both when inserting or removing edges or
+vertices. So you won't encounter dangling edges, even if you use the same
+vertex collection in several named graphs. This involves more operations inside
+the database system which come at a cost. Therefore anonymous graphs may be
+faster in many operations.
 
-Multiple edge collections vs. `FILTER`s on edge document attributes
--------------------------------------------------------------------
+So this question may be narrowed down to: 'Can I afford the additional effort
+on my part or do I need the warranty for integrity?'.
 
-If you want to only traverse edges of a specific type, there are two ways to achieve this. The first would be
-an attribute in the edge document - i.e. `type`, where you specify a differentiator for the edge -
-i.e. `"friends"`, `"family"`, `"married"` or `"workmates"`, so you can later `FILTER e.type = "friends"`
-if you only want to follow the friend edges.
+### Multiple edge collections vs. `FILTER`s on edge document attributes
 
-Another way, which may be more efficient in some cases, is to use different edge collections for different
-types of edges, so you have `friend_edges`, `family_edges`, `married_edges` and `workmate_edges` as collection names.
-You can then configure several named graphs including a subset of the available edge and vertex collections -
-or you use anonymous graph queries, where you specify a list of edge collections to take into account in that query.
-To only follow friend edges, you would specify `friend_edges` as sole edge collection.
+If you want to only traverse edges of a specific type, there are two ways to
+achieve this. The first would be an attribute in the edge document - i.e.
+`type`, where you specify a differentiator for the edge (`"friends"`,
+`"family"`, `"married"` or `"workmates"`), so you can later
+`FILTER e.type = "friends"` if you only want to follow the friend edges.
 
-Both approaches have advantages and disadvantages. `FILTER` operations on edge attributes will do comparisons on
-each traversed edge, which may become CPU-intense. When not *finding* the edges in the first place because of the
-collection containing them is not traversed at all, there will never be a reason to actually check for their
-`type` attribute with `FILTER`.
+Another way, which may be more efficient in some cases, is to use different
+edge collections for different types of edges. So you would have `friend_edges`,
+`family_edges`, `married_edges` and `workmate_edges` as collection names.
+You can then configure several named graphs including a subset of the available
+edge and vertex collections - or you use anonymous graph queries, where you
+specify a list of edge collections to take into account in that query. To only
+follow friend edges, you would specify `friend_edges` as sole edge collection.
 
-The multiple edge collections approach is limited by the [number of collections that can be used simultaneously in one query](aql/fundamentals-syntax.html#collection-names).
-Every collection used in a query requires some resources inside of ArangoDB and the number is therefore limited
-to cap the resource requirements. You may also have constraints on other edge attributes, such as a hash index
-with a unique constraint, which requires the documents to be in a single collection for the uniqueness guarantee,
-and it may thus not be possible to store the different types of edges in multiple edge collections.
+Both approaches have advantages and disadvantages. `FILTER` operations on edge
+attributes will do comparisons on each traversed edge, which may become
+CPU-intense. When not *finding* the edges in the first place because of the
+collection containing them is not traversed at all, there will never be a
+reason to actually check for their `type` attribute with `FILTER`.
 
-So, if your edges have about a dozen different types, it's okay to choose the collection approach, otherwise
-the `FILTER` approach is preferred. You can still use `FILTER` operations on edges of course. You can get rid
-of a `FILTER` on the `type` with the former approach, everything else can stay the same.
+The multiple edge collections approach is limited by the
+[number of collections that can be used simultaneously in one query](aql/fundamentals-syntax.html#collection-names).
+Every collection used in a query requires some resources inside of ArangoDB and
+the number is therefore limited to cap the resource requirements. You may also
+have constraints on other edge attributes, such as a hash index with a unique
+constraint, which requires the documents to be in a single collection for the
+uniqueness guarantee, and it may thus not be possible to store the different
+types of edges in multiple edge collections.
+
+So, if your edges have about a dozen different types, it is okay to choose the
+collection approach, otherwise the `FILTER` approach is preferred. You can
+still use `FILTER` operations on edges of course. You can get rid of a `FILTER`
+on the `type` with the former approach, everything else can stay the same.
 
 Which part of my data is an Edge and which a Vertex?
 ----------------------------------------------------
 
-The main objects in your data model, such as users, groups or articles, are usually considered to be vertices.
-For each type of object, a document collection (also called vertex collection) should store the individual entities.
-Entities can be connected by edges to express and classify relations between vertices. It often makes sense to have
-an edge collection per relation type.
+The main objects in your data model, such as users, groups or articles, are
+usually considered to be vertices. For each type of object, a document
+collection (also called vertex collection) should store the individual
+entities. Entities can be connected by edges to express and classify relations
+between vertices. It often makes sense to have an edge collection per relation
+type.
 
-ArangoDB does not require you to store your data in graph structures with edges and vertices, you can also decide
-to embed attributes such as which groups a user is part of, or `_id`s of documents in another document instead of
-connecting the documents with edges. It can be a meaningful performance optimization for *1:n* relationships, if
-your data is not focused on relations and you don't need graph traversal with varying depth. It usually means
-to introduce some redundancy and possibly inconsistencies if you embed data, but it can be an acceptable tradeoff.
+ArangoDB does not require you to store your data in graph structures with edges
+and vertices, you can also decide to embed attributes such as which groups a
+user is part of, or `_id`s of documents in another document instead of
+connecting the documents with edges. It can be a meaningful performance
+optimization for **1:n** relationships, if your data is not focused on
+relations and you don't need graph traversal with varying depth. It usually
+means to introduce some redundancy and possibly inconsistencies if you embed
+data, but it can be an acceptable tradeoff.
 
 ### Vertices
 
-Let's say we have two vertex collections, `Users` and `Groups`. Documents in the `Groups` collection contain the attributes
-of the Group, i.e. when it was founded, its subject, an icon URL and so on. `Users` documents contain the data specific to a
-user - like all names, birthdays, Avatar URLs, hobbies...
+Let us say we have two vertex collections, `Users` and `Groups`. Documents in
+the `Groups` collection contain the attributes of the Group, i.e. when it was
+founded, its subject, an icon URL and so on. `Users` documents contain the
+data specific to a user - like all names, birthdays, Avatar URLs, hobbies...
 
 ### Edges
 
-We can use an edge collection to store relations between users and groups. Since multiple users may be in an arbitrary
-number of groups, this is an **m:n** relation. The edge collection can be called `UsersInGroups` with i.e. one edge
-with `_from` pointing to `Users/John` and `_to` pointing to `Groups/BowlingGroupHappyPin`. This makes the user **John**
-a member of the group **Bowling Group Happy Pin**. Attributes of this relation may contain qualifiers to this relation,
-like the permissions of **John** in this group, the date when he joined the group etc.
+We can use an edge collection to store relations between users and groups.
+Since multiple users may be in an arbitrary number of groups, this is an
+**m:n** relation. The edge collection can be called `UsersInGroups` with i.e.
+one edge with `_from` pointing to `Users/John` and `_to` pointing to
+`Groups/BowlingGroupHappyPin`. This makes the user **John** a member of the
+group **Bowling Group Happy Pin**. Attributes of this relation may contain
+qualifiers to this relation, like the permissions of **John** in this group,
+the date when he joined the group etc.
 
 ![User in group example](images/graph_user_in_group.png)
 
-So roughly put, if you use documents and their attributes in a sentence, nouns would typically be vertices, verbs become the edges.
-You can see this in the [knows graph](#the-knows_graph) below:
+So roughly put, if you use documents and their attributes in a sentence, nouns
+would typically be vertices, verbs become the edges. You can see this in the
+[knows graph](#the-knows_graph) below:
 
      Alice knows Bob, who in term knows Charlie.
 
 ### Advantages of this approach
 
-Graphs give you the advantage of not just being able to have a fixed number of **m:n** relations in a row, but an
-arbitrary number. Edges can be traversed in both directions, so it's easy to determine all
-groups a user is in, but also to find out which members a certain group has. Users could also be
-interconnected to create a social network.
+Graphs give you the advantage of not just being able to have a fixed number of
+**m:n** relations in a row, but an arbitrary number. Edges can be traversed in
+both directions, so it's easy to determine all groups a user is in, but also to
+find out which members a certain group has. Users could also be interconnected
+to create a social network.
 
-Using the graph data model, dealing with data that has lots of relations stays manageable and can be queried in very
-flexible ways, whereas it would cause headache to handle it in a relational database system.
+Using the graph data model, dealing with data that has lots of relations stays
+manageable and can be queried in very flexible ways, whereas it would cause
+headache to handle it in a relational database system.
 
 Backup and restore
 ------------------
