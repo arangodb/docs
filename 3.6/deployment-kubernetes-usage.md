@@ -14,12 +14,12 @@ If you have `Helm` available, we recommend installation using `Helm`.
 ### Installation with Helm
 
 To install the ArangoDB Kubernetes Operator with [`helm`](https://www.helm.sh/){:target="_blank"},
-run (replace `<version>` with the version of the operator that you want to install):
+run (replace `<version>` with the version of the operator that you want to install ([`versions`](https://github.com/arangodb/kube-arangodb/releases){:target="_blank"})):
 
 ```bash
 export URLPREFIX=https://github.com/arangodb/kube-arangodb/releases/download/<version>
-helm install $URLPREFIX/kube-arangodb-crd.tgz
-helm install $URLPREFIX/kube-arangodb.tgz
+helm install $URLPREFIX/kube-arangodb-crd-<version>.tgz
+helm install $URLPREFIX/kube-arangodb-<version>.tgz
 ```
 
 This installs operators for the `ArangoDeployment` and `ArangoDeploymentReplication`
