@@ -141,6 +141,17 @@ huge overall speedup. This also affects `CleanOutServer` and
 General
 -------
 
+### Document Validation
+
+ArangoDB now supports JSON-Schema (draft-4) document validation.
+
+In order to enforce a certain structure of documents in a collections we have
+introduce the "validation" collection property. It consists of a `rule`, `level` and
+a `message` that will be given when the validation fails. The validation
+is done for insert, update or replace operations depending on the validation level.
+
+See: [Document Validation](document-validation.html)
+
 ### HTTP/2 support
 
 The server now supports upgrading connections from HTTP 1.1 to HTTP 2.
