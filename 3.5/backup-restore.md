@@ -59,9 +59,9 @@ in conjunction to the backup coming from another backup method.
 Logical Backups
 ---------------
 
-Logical backups can be created and restored with the tools
-[_arangodump_](programs-arangodump.html) and
-[_arangorestore_](programs-arangorestore.html).
+Logical backups can be created and restored with the following tools:
+- [arangodump](programs-arangodump.html)
+- [arangorestore](programs-arangorestore.html)
 
 {% hint 'tip' %}
 In order to speed up the _arangorestore_ performance in a Cluster environment,

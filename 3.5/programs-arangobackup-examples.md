@@ -158,6 +158,8 @@ credentials for the remote site. Here is an example:
 }
 ```
 
+Also see [Rclone configuration](#rclone-configuration)
+
 This process may take as long as it needs to upload the data from the
 single server or all of the cluster's db servers to the remote
 location. However, the upload will take advantage from previously

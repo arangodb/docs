@@ -131,7 +131,7 @@ The output lists all available hot backups:
 Upload
 ------
 
-Hot backups can be uploaded to a remote repository, here is an example which
+Hot backups can be uploaded to a remote repository. Here is an example which
 uses the `S3` protocol:
 
 ```bash
@@ -163,6 +163,8 @@ credentials for the remote site. Here is an example:
   }
 }
 ```
+
+Also see [Rclone configuration](#rclone-configuration)
 
 This process may take as long as it needs to upload the data from the
 single server or all of the cluster's DB-Servers to the remote
