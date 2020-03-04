@@ -119,40 +119,77 @@ will be disallowed from JavaScript operations, with the following exceptions:
 
 #### Endpoint access
 
-The endpoint black/white listing limits access to external HTTP resources. 
-In contrast to the URLs specified in the JavaScript code, the filters have
-to be specified in the ArangoDB endpoints notation: 
+The endpoint black/white listing limits access to external HTTP resources:
 
-- http:// => tcp://
-- https:// => ssl://
-- no protocol will match http and https.
+    --javascript.endpoints-blacklist "<regex>"
+    --javascript.endpoints-whitelist "<regex>"
 
-Filtering is done on the protocol, hostname / IP address, and the port.
+Filtering is done against the protocol, hostname / IP address, and the port.
+It is not possible to restrict URL paths or other parts of a URL.
+
+In contrast to the URLs specified in JavaScript code, the filters have
+to be specified in the ArangoDB endpoints notation for the startup option:
+
+- `tcp://` instead of `http://`
+- `ssl://` instead of `https://`
+- If no protocol is specified, then it will match both (tcp/http and ssl/https).
+
+{% hint 'security' %}
+Keep in mind that these startup options are treated as regular expressions.
+It is recommended to fully specify protocol, host and port and to use a
+leading `^` and trailing `$` to ensure that no other than the intended URLs
+are matched.
+{% endhint %}
 
 Specifying `arangodb.org` will match:
- - `https://arangodb.org:777`
+ - `http://arangodb.org`
  - `https://arangodb.org`
- - `http://arangodb.org` 
- 
-Specifying `ssl://arangodb.org` will match:
- - `https://arangodb.org:777`
+ - `https://arangodb.org:12345`
+ - `https://subdomain.arangodb.organic`
+ - `https://arangodb-org.evil.com`
+ - etc.
+
+An unescaped `.` represents any character. For a literal dot use `\.`.
+
+Specifying `tcp://arangodb\.org` will match:
+ - `http://arangodb.org`
+ - `http://arangodb.org:12345`
+ - `http://arangodb.organic`
+ - etc.
+
+Specifying `^tcp://arangodb\.org:80$` will match:
+ - `http://arangodb.org`
+ - `http://arangodb.org:80`
+
+Note that `^tcp://arangodb\.org$` will not match anything, because the port
+(here: `:80`) is added internally after `.org` but the expression demands that
+the address must not have a port (`\.org$`).
+
+Specifying `^ssl://arangodb\.org:443$` will match:
  - `https://arangodb.org`
+ - `https://arangodb.org:443`
 
-Specifying `ssl://arangodb.org:443` will match:
+Specifying `^(tcp|ssl)://arangodb.org:(80|443)$` will match:
+ - `http://arangodb.org`
+ - `http://arangodb.org:80`
+ - `http://arangodb.org:443`
  - `https://arangodb.org`
+ - `https://arangodb.org:80`
+ - `https://arangodb.org:443`
 
-Specifying `tcp://arangodb.org` will match:
- - `http://arangodb.org` 
-
-This can be tried out using a whitelist - all non matches will be blocked:
+You can test the black/whitelisting in _arangosh_:
 
 ```
-arangosh --javascript.endpoints-whitelist ssl://arangodb.org
-127.0.0.1:8529@_system> require('internal').download('https://arangodb.org:4444')
-<whitelist permitted, error on trying to connect>
-127.0.0.1:8529@_system> require('internal').download('http://arangodb.org')
+arangosh --javascript.endpoints-whitelist "^ssl://arangodb\.org:443$"
+127.0.0.1:8529@_system> require('internal').download('http://arangodb.org/file.zip')
 JavaScript exception: ArangoError 11: not allowed to connect to this endpoint
+
+127.0.0.1:8529@_system> require('internal').download('https://arangodb.org/file.zip')
+<request permitted by whitelist>
 ```
+
+Startup options may require additional escaping in your command line,
+especially the dollar symbol in Linux shells (`\$`).
 
 ### Options for blacklisting and whitelisting
 
