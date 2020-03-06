@@ -49,7 +49,7 @@ _Starter_. A 3 "machine" _Agency_ is started as well as 3 single servers,
 that perform asynchronous replication and failover:
 
 ```bash
-arangodb --starter.mode=activefailover --starter.data-dir=./data --auth.jwt-secret=/etc/arangodb.secret --agents.agency.supervision.grace-period=30 --starter.join A,B,C
+arangodb --starter.mode=activefailover --starter.data-dir=./data --auth.jwt-secret=/etc/arangodb.secret --agents.agency.supervision-grace-period=30 --starter.join A,B,C
 ```
 
 Please adapt the path to your _secret_ file accordingly.
