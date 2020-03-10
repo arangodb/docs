@@ -37,8 +37,8 @@ If a server does not deliver 5 heartbeats in a row (5 seconds without a single h
 it is considered dead.
 
 _Metric:_
-* arangodb_heartbeat_send_time_msec The time a single heartbeat took to be delivered.
-* arangodb_heartbeat_failures Amount of heartbeats which this server failed to deliver. 
+* `arangodb_heartbeat_send_time_msec` The time a single heartbeat took to be delivered.
+* `arangodb_heartbeat_failures` Amount of heartbeats which this server failed to deliver.
 
 _Exposed by:_
 Coordinator, DBServer
@@ -63,9 +63,8 @@ If this is not the case, the network might be overloaded.
 
 
 
-std::string const StaticStrings::HeartbeatSendTimeMs("arangodb_heartbeat_send_time_msec");
-std::string const StaticStrings::HeartbeatFailureCounter("arangodb_heartbeat_failures");
 
+```c++
 std::string const StaticStrings::MaintenancePhaseOneRuntimeMs("arangodb_maintenance_phase1_runtime_msec");
 std::string const StaticStrings::MaintenancePhaseTwoRuntimeMs("arangodb_maintenance_phase2_runtime_msec");
 std::string const StaticStrings::MaintenanceAgencySyncRuntimeMs("arangodb_maintenance_agency_sync_runtime_msec");
@@ -74,20 +73,74 @@ std::string const StaticStrings::MaintenancePhaseOneAccumRuntimeMs("arangodb_mai
 std::string const StaticStrings::MaintenancePhaseTwoAccumRuntimeMs("arangodb_maintenance_phase2_accum_runtime_msec");
 std::string const StaticStrings::MaintenanceAgencySyncAccumRuntimeMs("arangodb_maintenance_agency_sync_accum_runtime_msec");
 
-std::string const StaticStrings::ShardsOutOfSync("arangodb_shards_out_of_sync");
-std::string const StaticStrings::ShardsTotalCount("arangodb_shards_total_count");
-std::string const StaticStrings::ShardsLeaderCount("arangodb_shards_leader_count");
-std::string const StaticStrings::ShardsNotReplicated("arangodb_shards_not_replicated");
 
 std::string const StaticStrings::AgencyCommRequestTimeMs("arangodb_agencycomm_request_time_ms");
 
 std::string const StaticStrings::AqlQueryRuntimeMs("arangodb_aql_total_query_time_ms");
 
-std::string const StaticStrings::SchedulerQueueLength("arangodb_scheduler_queue_length");
-std::string const StaticStrings::SchedulerAwakeWorkers("arangodb_scheduler_awake_threads");
-std::string const StaticStrings::SchedulerNumWorker("arangodb_scheduler_num_worker_threads");
+
 
 std::string const StaticStrings::DroppedFollowerCount("arangodb_dropped_followers_count");
+std::string const StaticStrings::SupervisionRuntimeMs("agency_supervision_runtime_msec");
+
+```
+
+### Shard Distribution
+
+_Description:_
+Allows insight in the shard distribution in the cluster and the state of replication of the data.
+
+_Metric:_
+* `arangodb_shards_out_of_sync` Number of shards not replicated with their required replication factor. (for which this server is the leader)
+* `arangodb_shards_total_count` Number of shards located on this server. (Leader _and_ follower shards)
+* `arangodb_shards_leader_count` Number of shards for which this server is the leader.
+* `arangodb_shards_not_replicated` Number of shards that are not replicated, i.e. this data is at risk as there is no other copy available.
+
+_Exposed by:_
+DBServer
+
+_Threshold:_
+  * For `arangodb_shards_out_of_sync`
+    * Eventually all shards should be in sync and this value eqal to zero.
+    * It can increase when new collections are created or servers are rotated.
+  * For `arangodb_shards_total_count` and `arangodb_shards_leader_count`
+    * This value should be roughly equal for all servers.
+  * For `arangodb_shards_not_replicated`
+    * This value _should_ be zero at all times. If not, you currently have a single point of failure and data is at risk. Please contact our support team.
+
+_Troubleshoot:_
+The distribution of shards should be roughly eqaul. If not please consider rebalancing shards.
+
+
+### Scheduler
+
+_Description:_
+The Scheduler is responsible for managing growing workloads and distributing tasks across the available threads.
+Whenever there is more work available than the system can handle it adapts the number of threads. The scheduler
+maintains an internal queue for tasks ready for execution. A constantly growing queue is a clear sign for the
+system reaching its limits.
+
+_Metric:_
+* `arangodb_scheduler_queue_length` Length of the internal task queue.
+* `arangodb_scheduler_awake_threads` Number of activly working threads.
+* `arangodb_scheduler_num_worker_threads` Total number of currently available threads.
+
+_Exposed by:_
+Coordinator, DBServer, Agents
+
+_Threshold:_
+  * For `arangodb_scheduler_queue_length`:
+    * Typically this should be 0.
+    * Having an non-zero queue length is not a problem as long as it eventually becomes smaller again. This can happen for example during load spikes.
+    * Having a longer queue results in bigger latencies as the requests need to wait longer before they are executed.
+    * If the queue runs full you will eventually get a `queue full` error.
+  * For `arangodb_scheduler_num_worker_threads` and `arangodb_scheduler_awake_threads`
+    * They should increase as load as increases.
+    * If the queue length is non-zero for more than a minute you _should_ see `arangodb_scheduler_awake_threads == arangodb_scheduler_num_worker_threads`. If not, consider contacting our support.
+
+_Troubleshoot:_
+Queuing requests will result in bigger latency. If your queue is growing constantly consider scaling up your system to fit your needs.
+
 
 Metrics API details
 -------------------
