@@ -20,7 +20,7 @@ see future proof so if you setup the monitoring to the recommendations
 described here you will be save with version upgrades.
 
 
-## Cluster Healthyness
+## Cluster Health
 
 This group of metrics are used to measure how healthy the cluster processes
 are and if they can communicate properly to one another
@@ -141,6 +141,30 @@ _Threshold:_
 _Troubleshoot:_
 Queuing requests will result in bigger latency. If your queue is growing constantly consider scaling up your system to fit your needs.
 
+
+### Supervision
+
+_Description:_ The supervision is an intregal part of the cluster and runs on the leading agent. It is responsible for
+handling MoveShard jobs and server failures. It is intended to run every second thus its runime _should_ be below
+one second.
+
+
+_Metric:_
+* `agency_supervision_runtime_msec` Time in ms of a single supervision run.
+* `arangodb_agency_supervision_runtime_wait_for_replication_msec` Time the supervision has to wait for its decisions to be committed.
+
+_Exposed by:_
+Agents
+
+_Threshold:_
+  * For `agency_supervision_runtime_msec`:
+    * This value should stay below 1s. However, when a dbserver is rotated there can be single runs that have much higher runtime.
+      However, this should not be true in general.
+
+      This value will only increase for the leading agent.
+
+_Troubleshoot:_
+If the supervision is not able to run approx. once per second cluster resilience is affected. Please consider contacting our support.
 
 Metrics API details
 -------------------
