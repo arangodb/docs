@@ -62,8 +62,6 @@ If this is not the case, the network might be overloaded.
 
 
 
-
-
 ```c++
 std::string const StaticStrings::MaintenancePhaseOneRuntimeMs("arangodb_maintenance_phase1_runtime_msec");
 std::string const StaticStrings::MaintenancePhaseTwoRuntimeMs("arangodb_maintenance_phase2_runtime_msec");
@@ -72,18 +70,28 @@ std::string const StaticStrings::MaintenanceAgencySyncRuntimeMs("arangodb_mainte
 std::string const StaticStrings::MaintenancePhaseOneAccumRuntimeMs("arangodb_maintenance_phase1_accum_runtime_msec");
 std::string const StaticStrings::MaintenancePhaseTwoAccumRuntimeMs("arangodb_maintenance_phase2_accum_runtime_msec");
 std::string const StaticStrings::MaintenanceAgencySyncAccumRuntimeMs("arangodb_maintenance_agency_sync_accum_runtime_msec");
-
-
-std::string const StaticStrings::AgencyCommRequestTimeMs("arangodb_agencycomm_request_time_ms");
-
-std::string const StaticStrings::AqlQueryRuntimeMs("arangodb_aql_total_query_time_ms");
-
-
-
-std::string const StaticStrings::DroppedFollowerCount("arangodb_dropped_followers_count");
-std::string const StaticStrings::SupervisionRuntimeMs("agency_supervision_runtime_msec");
-
 ```
+
+## Agency Plan Sync on DBServers
+
+_Description:_
+In order to update the data definition on databases servers from the definition stored in the agency dbservers have a repeated
+job called Agency Plan Sync. Timings for collection and database creations are strongly correlated to the overall runtime
+of this job.
+
+_Metric:_
+* `arangodb_maintenance_agency_sync_runtime_msec` Histogram containing the runtimes of individual runs.
+* `arangodb_maintenance_agency_sync_accum_runtime_msec` The accumulated runtime of all runs.
+
+_Exposed by:_
+DBServer
+
+_Threshold:_
+  * For `arangodb_maintenance_agency_sync_runtime_msec`
+    * This should not exceed 1s.
+
+_Troubleshoot:_
+If the Agency Plan Sync becomes the bottleneck of database and collection distribution you should consider reducing the amount of those.
 
 ### Shard Distribution
 
@@ -150,7 +158,7 @@ one second.
 
 
 _Metric:_
-* `agency_supervision_runtime_msec` Time in ms of a single supervision run.
+* `arangodb_agency_supervision_runtime_msec` Time in ms of a single supervision run.
 * `arangodb_agency_supervision_runtime_wait_for_replication_msec` Time the supervision has to wait for its decisions to be committed.
 
 _Exposed by:_
