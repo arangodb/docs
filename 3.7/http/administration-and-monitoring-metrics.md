@@ -62,15 +62,6 @@ If this is not the case, the network might be overloaded.
 
 
 
-```c++
-std::string const StaticStrings::MaintenancePhaseOneRuntimeMs("arangodb_maintenance_phase1_runtime_msec");
-std::string const StaticStrings::MaintenancePhaseTwoRuntimeMs("arangodb_maintenance_phase2_runtime_msec");
-std::string const StaticStrings::MaintenanceAgencySyncRuntimeMs("arangodb_maintenance_agency_sync_runtime_msec");
-
-std::string const StaticStrings::MaintenancePhaseOneAccumRuntimeMs("arangodb_maintenance_phase1_accum_runtime_msec");
-std::string const StaticStrings::MaintenancePhaseTwoAccumRuntimeMs("arangodb_maintenance_phase2_accum_runtime_msec");
-std::string const StaticStrings::MaintenanceAgencySyncAccumRuntimeMs("arangodb_maintenance_agency_sync_accum_runtime_msec");
-```
 
 ## Agency Plan Sync on DBServers
 
@@ -109,15 +100,16 @@ DBServer
 
 _Threshold:_
   * For `arangodb_shards_out_of_sync`
-    * Eventually all shards should be in sync and this value eqal to zero.
+    * Eventually all shards should be in sync and this value equal to zero.
     * It can increase when new collections are created or servers are rotated.
   * For `arangodb_shards_total_count` and `arangodb_shards_leader_count`
     * This value should be roughly equal for all servers.
   * For `arangodb_shards_not_replicated`
     * This value _should_ be zero at all times. If not, you currently have a single point of failure and data is at risk. Please contact our support team.
+    * This can happen if you loose 1 DBServer and have replicationFactor 2, if you loose 2 DBServers on replicationFactor 3 and so on. In this cases the system will try to heal itself, if enough healthy servers remain.
 
 _Troubleshoot:_
-The distribution of shards should be roughly eqaul. If not please consider rebalancing shards.
+The distribution of shards should be roughly equal. If not please consider rebalancing shards.
 
 
 ### Scheduler
@@ -143,11 +135,11 @@ _Threshold:_
     * Having a longer queue results in bigger latencies as the requests need to wait longer before they are executed.
     * If the queue runs full you will eventually get a `queue full` error.
   * For `arangodb_scheduler_num_worker_threads` and `arangodb_scheduler_awake_threads`
-    * They should increase as load as increases.
+    * They should increase as load increases.
     * If the queue length is non-zero for more than a minute you _should_ see `arangodb_scheduler_awake_threads == arangodb_scheduler_num_worker_threads`. If not, consider contacting our support.
 
 _Troubleshoot:_
-Queuing requests will result in bigger latency. If your queue is growing constantly consider scaling up your system to fit your needs.
+Queuing requests will result in bigger latency. If your queue is growing constantly consider scaling up your system to fit your needs. Remember to rebalance shards if you scale up database servers.
 
 
 ### Supervision
