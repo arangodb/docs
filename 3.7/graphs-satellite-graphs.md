@@ -55,8 +55,8 @@ First we setup our graphs and collections.
     @startDocuBlockInline satelliteGraphExplain1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain1_cluster}
     const explain = require("@arangodb/aql/explainer").explain
-    graphModule = require("@arangodb/general-graph")
-    satelliteGraphModule = require("@arangodb/satellite-graph")
+    const graphModule = require("@arangodb/general-graph")
+    const satelliteGraphModule = require("@arangodb/satellite-graph")
     graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {})
     satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {})
     db._create("collection", {numberOfShards: 8})
