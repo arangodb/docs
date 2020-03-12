@@ -28,14 +28,14 @@ Graph traversal performance is improved via some internal code refactoring:
 - Unnecessary checks have been removed from the cursors, by ensuring some
   invariants.
 - Each vertex lookup needs to perform slightly less work.
-  
+
 The traversal speedups observed by these changes alone were around 8 to 10% for
 single-server traversals and traversals in OneShard setups. Cluster traversals
-will also benefit from these changes, but to a lesser extent. This is because 
+will also benefit from these changes, but to a lesser extent. This is because
 the network roundtrips have a higher share of the total query execution times there.
 
 Traversal performance can be further improved by not fetching the visited vertices
-from the storage engine in case the traversal query does not refer to them. 
+from the storage engine in case the traversal query does not refer to them.
 For example, in the query:
 
 ```js
@@ -108,7 +108,7 @@ For example, in the query:
 FOR doc IN collection1
   LET sub1 = FIRST(FOR sub IN collection2 FILTER sub.ref == doc._key RETURN sub)
   LET sub2 = FIRST(FOR sub IN collection3 FILTER sub.ref == doc._key RETURN sub)
-  
+
   SORT sub1
   LIMIT 10
   RETURN { doc, sub1, sub2 }
@@ -241,7 +241,7 @@ Here is the list of improvements that may matter to you as an ArangoDB user:
   const object = { x: 42, y: 50 };
   const entries = Object.entries(object);
   // → [['x', 42], ['y', 50]]
-  
+
   const result = Object.fromEntries(entries);
   // → { x: 42, y: 50 }
   ```
@@ -283,6 +283,13 @@ Web UI
 
 The interactive description of ArangoDB's HTTP API (Swagger UI) shows the
 endpoint and model entries collapsed by default now for a better overview.
+
+Metrics
+-------
+
+The amount of exported metrics has been extended and is now available in a
+format compatible with Prometheus. You can now easily scrape on `_admin/metrics`.
+See [here](http/administration-and-monitoring-metrics.html).
 
 Internal changes
 ----------------
