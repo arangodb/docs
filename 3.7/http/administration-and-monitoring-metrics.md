@@ -15,23 +15,22 @@ The list of exposed metrics is subject to change in every minor version.
 We try to be as backwards compatible as possible, but some Metrics are
 coupled to specific internals that may be replaced by other mechanisms
 in the future.
-We will limit our monitoring recommendations to those metrics that we
-see future proof so if you setup the monitoring to the recommendations
-described here you will be save with version upgrades.
-
+We will limit our monitoring recommendations to those metrics that we 
+consider future-proof. If you setup your monitoring to use the recommendations 
+described here, you can safely upgrade to new versions.
 
 ## Cluster Health
 
 This group of metrics are used to measure how healthy the cluster processes
-are and if they can communicate properly to one another
+are and if they can communicate properly to one another.
 
 ### Heartbeats
 
 _Description:_
 Heartbeats are a core mechanism in ArangoDB Clusters to define the lifelyness
 of Servers. Every server will send heartbeats to the agency, if too many heartbeats
-are skipped, or cannot be delivered in-time the server is declared as dead and
-failover of data will be triggered.
+are skipped or cannot be delivered in time, the server is declared dead and a
+failover of the data will be triggered.
 By default we expect at least 1 heartbeat per second.
 If a server does not deliver 5 heartbeats in a row (5 seconds without a single heartbeat)
 it is considered dead.
@@ -62,20 +61,11 @@ If this is not the case, the network might be overloaded.
 
 
 
-```c++
-std::string const StaticStrings::MaintenancePhaseOneRuntimeMs("arangodb_maintenance_phase1_runtime_msec");
-std::string const StaticStrings::MaintenancePhaseTwoRuntimeMs("arangodb_maintenance_phase2_runtime_msec");
-std::string const StaticStrings::MaintenanceAgencySyncRuntimeMs("arangodb_maintenance_agency_sync_runtime_msec");
-
-std::string const StaticStrings::MaintenancePhaseOneAccumRuntimeMs("arangodb_maintenance_phase1_accum_runtime_msec");
-std::string const StaticStrings::MaintenancePhaseTwoAccumRuntimeMs("arangodb_maintenance_phase2_accum_runtime_msec");
-std::string const StaticStrings::MaintenanceAgencySyncAccumRuntimeMs("arangodb_maintenance_agency_sync_accum_runtime_msec");
-```
 
 ## Agency Plan Sync on DBServers
 
 _Description:_
-In order to update the data definition on databases servers from the definition stored in the agency dbservers have a repeated
+In order to update the data definition on databases servers from the definition stored in the agency, dbservers have a repeated
 job called Agency Plan Sync. Timings for collection and database creations are strongly correlated to the overall runtime
 of this job.
 
@@ -88,7 +78,7 @@ DBServer
 
 _Threshold:_
   * For `arangodb_maintenance_agency_sync_runtime_msec`
-    * This should not exceed 1s.
+    * This should not exceed 1000ms.
 
 _Troubleshoot:_
 If the Agency Plan Sync becomes the bottleneck of database and collection distribution you should consider reducing the amount of those.
@@ -109,22 +99,23 @@ DBServer
 
 _Threshold:_
   * For `arangodb_shards_out_of_sync`
-    * Eventually all shards should be in sync and this value eqal to zero.
+    * Eventually all shards should be in sync and this value equal to zero.
     * It can increase when new collections are created or servers are rotated.
   * For `arangodb_shards_total_count` and `arangodb_shards_leader_count`
     * This value should be roughly equal for all servers.
   * For `arangodb_shards_not_replicated`
     * This value _should_ be zero at all times. If not, you currently have a single point of failure and data is at risk. Please contact our support team.
+    * This can happen if you lose 1 DBServer and have `replicationFactor` 2, if you lose 2 DBServers on `replicationFactor` 3 and so on. In this cases the system will try to heal itself, if enough healthy servers remain.
 
 _Troubleshoot:_
-The distribution of shards should be roughly eqaul. If not please consider rebalancing shards.
+The distribution of shards should be roughly equal. If not please consider rebalancing shards.
 
 
 ### Scheduler
 
 _Description:_
 The Scheduler is responsible for managing growing workloads and distributing tasks across the available threads.
-Whenever there is more work available than the system can handle it adapts the number of threads. The scheduler
+Whenever more work is available than the system can handle, it adjusts the number of threads. The scheduler
 maintains an internal queue for tasks ready for execution. A constantly growing queue is a clear sign for the
 system reaching its limits.
 
@@ -143,17 +134,17 @@ _Threshold:_
     * Having a longer queue results in bigger latencies as the requests need to wait longer before they are executed.
     * If the queue runs full you will eventually get a `queue full` error.
   * For `arangodb_scheduler_num_worker_threads` and `arangodb_scheduler_awake_threads`
-    * They should increase as load as increases.
+    * They should increase as load increases.
     * If the queue length is non-zero for more than a minute you _should_ see `arangodb_scheduler_awake_threads == arangodb_scheduler_num_worker_threads`. If not, consider contacting our support.
 
 _Troubleshoot:_
-Queuing requests will result in bigger latency. If your queue is growing constantly consider scaling up your system to fit your needs.
+Queuing requests will result in bigger latency. If your queue is constantly growing, you should consider scaling your system according to your needs. Remember to rebalance shards if you scale up database servers.
 
 
 ### Supervision
 
-_Description:_ The supervision is an intregal part of the cluster and runs on the leading agent. It is responsible for
-handling MoveShard jobs and server failures. It is intended to run every second thus its runime _should_ be below
+_Description:_ The supervision is an integral part of the cluster and runs on the leading agent. It is responsible for
+handling MoveShard jobs and server failures. It is intended to run every second, thus its runime _should_ be below
 one second.
 
 
@@ -166,13 +157,13 @@ Agents
 
 _Threshold:_
   * For `agency_supervision_runtime_msec`:
-    * This value should stay below 1s. However, when a dbserver is rotated there can be single runs that have much higher runtime.
+    * This value should stay below 1000ms. However, when a DBServer is rotated there can be single runs that have much higher runtime.
       However, this should not be true in general.
 
       This value will only increase for the leading agent.
 
 _Troubleshoot:_
-If the supervision is not able to run approx. once per second cluster resilience is affected. Please consider contacting our support.
+If the supervision is not able to run approx. once per second, cluster resilience is affected. Please consider contacting our support.
 
 Metrics API details
 -------------------
