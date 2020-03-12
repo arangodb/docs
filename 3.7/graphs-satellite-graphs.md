@@ -32,10 +32,10 @@ To create a satellite graph in arangosh, use the `satelliteGraph` module.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphCreate1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreate1_cluster}
-      var satellite_graph_module = require("@arangodb/smart-graph");
-      var graph = satellite_graph_module._create("satelliteGraph", [], [], {});
-      graph_module._graph("satelliteGraph");
-     ~graph_module._drop("satelliteGraph", true);
+      const satelliteGraphModule = require("@arangodb/satellite-graph")
+      var graph = satelliteGraphModule._create("satelliteGraph", [], [], {})
+      satelliteGraphModule._graph("satelliteGraph")
+      ~satelliteGraphModule._drop("satelliteGraph", true)
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock satelliteGraphCreate1_cluster
 {% endarangoshexample %}
@@ -54,15 +54,15 @@ First we setup our graphs and collections.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphExplain1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain1_cluster}
-    var explain = require("@arangodb/aql/explainer").explain
-    graphModule = require("@arangodb/general-graph");
-    satGraphModule = require("@arangodb/satellite-graph");
-    graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
-    satGraphModule._create("satelliteGraph", [ satGM._relation("satEdges", "satVertices", "satVertices") ], [], {});
-    db._create("collection", {numberOfShards: 8});
-    ~db._drop("collection");_
-    ~satGraphModule._drop("satelliteGraph");
-    ~graphModule._drop("normalGraph");
+    const explain = require("@arangodb/aql/explainer").explain
+    graphModule = require("@arangodb/general-graph")
+    satelliteGraphModule = require("@arangodb/satellite-graph")
+    graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {})
+    satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {})
+    db._create("collection", {numberOfShards: 8})
+    ~db._drop("collection")
+    ~satelliteGraphModule._drop("satelliteGraph")
+    ~graphModule._drop("normalGraph")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock satelliteGraphExplain1_cluster
 {% endarangoshexample %}
@@ -73,16 +73,16 @@ Let's analyse a query involving a traversal:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphExplain2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain2_cluster}
-    ~var explain = require("@arangodb/aql/explainer").explain
-    ~graphModule = require("@arangodb/general-graph");
-    ~satGraphModule = require("@arangodb/satellite-graph");
-    ~graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
-    ~satGraphModule._create("satelliteGraph", [ satGM._relation("satEdges", "satVertices", "satVertices") ], [], {});
-    ~db._create("collection", {numberOfShards: 8});
+    ~const explain = require("@arangodb/aql/explainer").explain
+    ~const graphModule = require("@arangodb/general-graph")
+    ~const satelliteGraphModule = require("@arangodb/satellite-graph")
+    ~graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {})
+    ~satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {})
+    ~db._create("collection", {numberOfShards: 8})
     explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "normalGraph" RETURN [doc,v,e,p]`)
-    ~db._drop("collection");_
-    ~satGraphModule._drop("satelliteGraph");
-    ~graphModule._drop("normalGraph");
+    ~db._drop("collection")
+    ~satelliteGraphModule._drop("satelliteGraph")
+    ~graphModule._drop("normalGraph")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock satelliteGraphExplain2_cluster
 {% endarangoshexample %}
@@ -97,16 +97,16 @@ Let's now have a look at the same query using satellite graphs:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphExplain3_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain3_cluster}
-    ~var explain = require("@arangodb/aql/explainer").explain
-    ~graphModule = require("@arangodb/general-graph");
-    ~satGraphModule = require("@arangodb/satellite-graph");
-    ~graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
-    ~satGraphModule._create("satelliteGraph", [ satGM._relation("satEdges", "satVertices", "satVertices") ], [], {});
-    ~db._create("collection", {numberOfShards: 8});
+    ~const explain = require("@arangodb/aql/explainer").explain
+    ~const graphModule = require("@arangodb/general-graph")
+    ~const satelliteGraphModule = require("@arangodb/satellite-graph")
+    ~graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {})
+    ~satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {})
+    ~db._create("collection", {numberOfShards: 8})
     explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "satelliteGraph" RETURN [doc,v,e,p]`)
-    ~db._drop("collection");_
-    ~satGraphModule._drop("satelliteGraph");
-    ~graphModule._drop("normalGraph");
+    ~db._drop("collection")
+    ~satelliteGraphModule._drop("satelliteGraph")
+    ~graphModule._drop("normalGraph")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock satelliteGraphExplain3_cluster
 {% endarangoshexample %}
