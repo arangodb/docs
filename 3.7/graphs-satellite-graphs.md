@@ -32,10 +32,10 @@ To create a satellite graph in arangosh, use the `satelliteGraph` module.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphCreate1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreate1_cluster}
-      const satelliteGraphModule = require("@arangodb/satellite-graph")
-      var graph = satelliteGraphModule._create("satelliteGraph", [], [], {})
-      satelliteGraphModule._graph("satelliteGraph")
-      ~satelliteGraphModule._drop("satelliteGraph", true)
+    var satelliteGraphModule = require("@arangodb/satellite-graph")
+    var graph = satelliteGraphModule._create("satelliteGraph", [], [], {})
+    satelliteGraphModule._graph("satelliteGraph")
+    ~satelliteGraphModule._drop("satelliteGraph", true)
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock satelliteGraphCreate1_cluster
 {% endarangoshexample %}
@@ -54,9 +54,9 @@ First we setup our graphs and collections.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphExplain1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain1_cluster}
-    const explain = require("@arangodb/aql/explainer").explain
-    const graphModule = require("@arangodb/general-graph")
-    const satelliteGraphModule = require("@arangodb/satellite-graph")
+    var explain = require("@arangodb/aql/explainer").explain
+    var graphModule = require("@arangodb/general-graph")
+    var satelliteGraphModule = require("@arangodb/satellite-graph")
     graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {})
     satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {})
     db._create("collection", {numberOfShards: 8})
@@ -73,9 +73,9 @@ Let's analyse a query involving a traversal:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphExplain2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain2_cluster}
-    ~const explain = require("@arangodb/aql/explainer").explain
-    ~const graphModule = require("@arangodb/general-graph")
-    ~const satelliteGraphModule = require("@arangodb/satellite-graph")
+    ~var explain = require("@arangodb/aql/explainer").explain
+    ~var graphModule = require("@arangodb/general-graph")
+    ~var satelliteGraphModule = require("@arangodb/satellite-graph")
     ~graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {})
     ~satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {})
     ~db._create("collection", {numberOfShards: 8})
@@ -97,9 +97,9 @@ Let's now have a look at the same query using satellite graphs:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphExplain3_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain3_cluster}
-    ~const explain = require("@arangodb/aql/explainer").explain
-    ~const graphModule = require("@arangodb/general-graph")
-    ~const satelliteGraphModule = require("@arangodb/satellite-graph")
+    ~var explain = require("@arangodb/aql/explainer").explain
+    ~var graphModule = require("@arangodb/general-graph")
+    ~var satelliteGraphModule = require("@arangodb/satellite-graph")
     ~graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {})
     ~satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {})
     ~db._create("collection", {numberOfShards: 8})
