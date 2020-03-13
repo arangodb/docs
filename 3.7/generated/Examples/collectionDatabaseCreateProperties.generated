@@ -1,6 +1,6 @@
 arangosh&gt; c = db._create(<span class="hljs-string">"users"</span>, { <span class="hljs-attr">waitForSync</span> : <span class="hljs-literal">true</span>,
 ........&gt; journalSize : <span class="hljs-number">1024</span> * <span class="hljs-number">1204</span>});
-[ArangoCollection <span class="hljs-number">74382</span>, <span class="hljs-string">"users"</span> (type <span class="hljs-built_in">document</span>, status loaded)]
+[ArangoCollection <span class="hljs-number">74383</span>, <span class="hljs-string">"users"</span> (type <span class="hljs-built_in">document</span>, status loaded)]
 arangosh&gt; c.properties();
 { 
   <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
@@ -12,5 +12,6 @@ arangosh&gt; c.properties();
   }, 
   <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"cacheEnabled"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"validators"</span> : [ ] 
+  <span class="hljs-string">"usesRevisionsAsDocumentIds"</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">"validation"</span> : <span class="hljs-literal">null</span> 
 }

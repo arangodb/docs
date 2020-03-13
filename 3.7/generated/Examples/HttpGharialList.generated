@@ -1,8 +1,8 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/gharial</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-x-content-type-options: nosniff
 content-type: application/json
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
@@ -11,7 +11,7 @@ content-type: application/json
     { 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/social"</span>, 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"social"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aDyXP2m---"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aLR7TYa---"</span>, 
       <span class="hljs-string">"edgeDefinitions"</span> : [ 
         { 
           <span class="hljs-string">"collection"</span> : <span class="hljs-string">"relation"</span>, 
@@ -25,18 +25,13 @@ content-type: application/json
           ] 
         } 
       ], 
-      <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">false</span>, 
-      <span class="hljs-string">"minReplicationFactor"</span> : <span class="hljs-number">1</span>, 
-      <span class="hljs-string">"numberOfShards"</span> : <span class="hljs-number">1</span>, 
       <span class="hljs-string">"orphanCollections"</span> : [ ], 
-      <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">1</span>, 
-      <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"social"</span> 
     }, 
     { 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/routeplanner"</span>, 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"routeplanner"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aDyXP3---A"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aLR7TYy--_"</span>, 
       <span class="hljs-string">"edgeDefinitions"</span> : [ 
         { 
           <span class="hljs-string">"collection"</span> : <span class="hljs-string">"frenchHighway"</span>, 
@@ -68,12 +63,7 @@ content-type: application/json
           ] 
         } 
       ], 
-      <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">false</span>, 
-      <span class="hljs-string">"minReplicationFactor"</span> : <span class="hljs-number">1</span>, 
-      <span class="hljs-string">"numberOfShards"</span> : <span class="hljs-number">1</span>, 
       <span class="hljs-string">"orphanCollections"</span> : [ ], 
-      <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">1</span>, 
-      <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"routeplanner"</span> 
     } 
   ] 

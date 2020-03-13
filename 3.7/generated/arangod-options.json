@@ -5088,6 +5088,33 @@
     "section" : "replication",
     "type" : "double"
   },
+  "replication.sync-by-revision" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Whether to use the newer revision-based replication protocol",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "replication",
+    "type" : "boolean"
+  },
   "rocksdb.allow-fallocate" : {
     "category" : "option",
     "component" : [
@@ -7284,6 +7311,32 @@
     "requiresValue" : false,
     "section" : "ssl",
     "type" : "boolean"
+  },
+  "ssl.server-name-indication" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "add a case SERVERNAME=KEYFILENAME for a different server keyfile for a specific server name, can be given multiple times",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ssl",
+    "type" : "string..."
   },
   "ssl.session-cache" : {
     "category" : "option",
