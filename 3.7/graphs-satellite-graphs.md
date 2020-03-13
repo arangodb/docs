@@ -61,8 +61,8 @@ First we setup our graphs and collections.
     satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {})
     db._create("collection", {numberOfShards: 8})
     ~db._drop("collection")
-    ~satelliteGraphModule._drop("satelliteGraph")
-    ~graphModule._drop("normalGraph")
+    ~satelliteGraphModule._drop("satelliteGraph", true)
+    ~graphModule._drop("normalGraph", true)
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock satelliteGraphExplain1_cluster
 {% endarangoshexample %}
@@ -81,8 +81,8 @@ Let's analyse a query involving a traversal:
     ~db._create("collection", {numberOfShards: 8})
     explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "normalGraph" RETURN [doc,v,e,p]`)
     ~db._drop("collection")
-    ~satelliteGraphModule._drop("satelliteGraph")
-    ~graphModule._drop("normalGraph")
+    ~satelliteGraphModule._drop("satelliteGraph", true)
+    ~graphModule._drop("normalGraph", true)
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock satelliteGraphExplain2_cluster
 {% endarangoshexample %}
@@ -105,8 +105,8 @@ Let's now have a look at the same query using satellite graphs:
     ~db._create("collection", {numberOfShards: 8})
     explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "satelliteGraph" RETURN [doc,v,e,p]`)
     ~db._drop("collection")
-    ~satelliteGraphModule._drop("satelliteGraph")
-    ~graphModule._drop("normalGraph")
+    ~satelliteGraphModule._drop("satelliteGraph", true)
+    ~graphModule._drop("normalGraph", true)
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock satelliteGraphExplain3_cluster
 {% endarangoshexample %}
