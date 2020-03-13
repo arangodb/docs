@@ -39,6 +39,14 @@ parts of the dump results in the same order as they are provided.
 <!-- arangod/RestHandler/RestReplicationHandler.cpp -->
 {% docublock get_api_replication_dump %}
 
+The revision-based methods will only work with the RocksDB engine, and with
+collections created in ArangoDB 3.7 or later.
+
+<!-- arangod/RestHandler/RestReplicationHandler.cpp -->
+{% docublock get_api_replication_revisions_tree %}
+{% docublock post_api_replication_revisions_tree %}
+{% docublock put_api_replication_revisions_ranges %}
+{% docublock put_api_replication_revisions_documents %}
 
 <!-- arangod/RestHandler/RestReplicationHandler.cpp -->
 {% docublock put_api_replication_synchronize %}
