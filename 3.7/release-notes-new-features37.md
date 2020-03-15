@@ -30,6 +30,14 @@ AQL
 
 ### Subquery optimizations
 
+We have internally refactored the execution process of AQL.
+This will allow for more optimizations and better batching of requests.
+This especially pays off in subqueries.
+The first stage of this refactoring has been part of 3.6 already where some subqueries have gained a significant boost.
+Now we have gone the next step in this direction.
+We can now combine skipping and producing of output's in a single call, so all queries with an offset or a fullCount will benefit from this change straight away.
+This also holds true for subqueries, hence the existing AQL optimizer rule `splice-subqueries` is now able to optimize all Subqueries and is enabled by default.
+
 ### Traversal optimizations
 
 Graph traversal performance is improved via some internal code refactoring:
