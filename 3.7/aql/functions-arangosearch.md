@@ -346,9 +346,12 @@ The phrase can be expressed as an arbitrary number of *phraseParts* separated by
   with numbers of *skipTokens* (introduced in v3.6.0). An array token inside an array can be used in `TERMS` case only, see below.
   Each token can be an object (introduced in v3.7.0):
   
-  - `{STARTS_WITH: [prefix]}` (see [STARTS_WITH](#starts_with)). Array brackets are optional.
-  - `{WILDCARD: [token]}` (see [LIKE](#like)). Array brackets are optional.
-  - `{LEVENSHTEIN_MATCH: [token, max_distance, with_transpositions]}` (see [LEVENSHTEIN_MATCH](#levenshtein_match)). with_transpositions is optional, default value is `false`
+  - `{STARTS_WITH: [prefix]}` (see [STARTS_WITH](#starts_with)). Array brackets are optional
+  - `{WILDCARD: [token]}` (see [LIKE](#like)). Array brackets are optional
+  - `{LEVENSHTEIN_MATCH: [token, max_distance, with_transpositions]}`
+    - token (string): a string to search
+    - max_distance (number): maximum Levenshtein (Damerau-Levenshtein) distance
+    - with_transpositions (bool, optional):  whether Damerau-Levenshtein distance should be used, default value is `false`
   - `{TERMS: [token1, ..., tokenN]}`. One of `token1, ..., tokenN` can be found in specified position. Inside an array the object syntax can be replaced with the object field value, e.g., `[..., [token1, ..., tokenN], ...]`
   
   The specified *analyzer* does not split objects content (the same for array `TERMS` syntax)
