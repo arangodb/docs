@@ -22,12 +22,12 @@ violation. If `overwriteMode` is not set, the insert will fail in case of a prim
 key unique constraint violation unless the `overwrite` URL parameter is set. Doing
 so will turn the insert into a replace operation.
 
-The REST API endpoints for creating databases at POST `/_api/database` as well
+The REST API endpoints for creating collections at POST `/_api/collection` as well
 as listing and changing collection properties at PUT/GET
 `/_api/collection/<collection>/properties` will now make use of the additional
 attribute `validation`. The attribute can be used so specify document
-validation at collection level. Please check
-[Document Validation](document-validation.html) for more information.
+validation at collection level. See
+[Document Schema Validation](document-schema-validation.html).
 
 ### HTTP REST API endpoints moved
 
