@@ -934,3 +934,26 @@ UUID()
 Return a universally unique identifier value.
 
 - returns **UUIDString** (string): a universally unique identifier
+
+NGRAM_SIMILARITY()
+------
+
+`NGRAM_SIMILARITY(attribute, target, ngram_size) → similarityValue`
+
+Calculates ngram similarity using ngram size of ngram_size. Similarity is 
+calculated as length of longest common ngram sequence between attribute value 
+and target value, divided by target's ngrams count. This behaviour matches
+similarity measure used in [ArangoSearch NGRAM_MATCH](functions-arangosearch.html#ngram_match)
+
+NGRAM_POSITIONAL_SIMILARITY()
+------
+
+`NGRAM_POSITIONAL_SIMILARITY(attribute, target, ngram_size) → similarityValue`
+
+Calculates ngram similarity using ngram size of ngram_size. Similarity is 
+calculated as length of longest common ngram sequence between attribute value 
+and target value, divided by longest argument ngrams count. Also while 
+[NGRAM_SIMILARITY()](#ngram_similarity) counts only fully matched ngram this 
+function takes into account partially matched ngrams.
+
+ 
