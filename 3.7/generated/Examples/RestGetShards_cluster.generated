@@ -1,8 +1,8 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/testCollection/shards</span>
 
 HTTP/1.1 OK
+content-type: application/json
 location: /_api/collection/testCollection/shards
 x-content-type-options: nosniff
-content-type: application/json
 
-"{\"error\":false,\"code\":200,\"shards\":[\"s51\",\"s52\",\"s53\"],\"writeConcern\":1,\"validators\":[],\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":1,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"globallyUniqueId\":\"c50/\",\"id\":\"50\",\"cacheEnabled\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false,\"name\":\"testCollection\",\"minReplicationFactor\":1,\"waitForSync\":false,\"numberOfShards\":3}"
+"{\"error\":false,\"code\":200,\"shards\":[\"s51\",\"s52\",\"s53\"],\"writeConcern\":1,\"validation\":null,\"usesRevisionsAsDocumentIds\":true,\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":1,\"waitForSync\":false,\"numberOfShards\":3,\"minRevision\":1661342116160208896,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"globallyUniqueId\":\"c50/\",\"isSmartChild\":false,\"id\":\"50\",\"cacheEnabled\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false,\"name\":\"testCollection\",\"minReplicationFactor\":1}"
