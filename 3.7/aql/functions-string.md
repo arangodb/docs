@@ -952,8 +952,7 @@ NGRAM_POSITIONAL_SIMILARITY()
 
 Calculates ngram similarity using ngram size of ngram_size. Similarity is 
 calculated as length of longest common ngram sequence between attribute value 
-and target value, divided by longest argument ngrams count. Also while 
+and target value, divided by longest argument's ngrams count. Also while 
 [NGRAM_SIMILARITY()](#ngram_similarity) counts only fully matched ngram this 
-function takes into account partially matched ngrams.
-
+function adds partially matched ngrams.
  
