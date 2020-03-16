@@ -13,18 +13,23 @@ ArangoSearch
 ------------
 
 Satellite Graphs
--------
+----------------
 
-When doing joins involving graph traversals, shortest paths, or k-shortest paths in an ArangoDB cluster, data has to be exchanged between different servers. In particular graph traversals are usually executed on a Coordinator, because they need global information.
+When doing joins involving graph traversals, shortest path or k-shortest paths
+computation in an ArangoDB cluster, data has to be exchanged between different
+servers. In particular graph traversals are usually executed on a Coordinator,
+because they need global information. This results in a lot of network traffic
+and potentially slow query execution.
 
-This results in a lot of network traffic and potentially slow query execution.
+Satellite Graphs are the natural extension of the concept of Satellite
+collections to graphs. All of the usual benefits and caveats apply.
+Satellite graphs are synchronously replicated to all DB-Servers that are part
+of a cluster, which enables DB-Servers to execute graph traversals locally.
+This includes (k-)shortest path(s) computation and possibly joins with
+traversals and greatly improves performance for such queries.
 
-Satellite Graphs are the natural extension of the concept of Satellite collections to graphs. All of the usual benefits and caveats apply. 
-Satellite graphs are synchronously replicated to all DB-Servers that are part of a cluster, which enables DB-Servers to execute graph traversals (and (k-)shortest paths), and possibly joins with traversals, locally.
-
-This greatly improves performance for such queries.
-
-Satellite Graphs are only available in the Enterprise Edition, and the ArangoDB Cloud.
+Satellite Graphs are only available in the Enterprise Edition and the
+[ArangoDB Cloud](https://cloud.arangodb.com/){:target="_blank"}.
 
 AQL
 ---
