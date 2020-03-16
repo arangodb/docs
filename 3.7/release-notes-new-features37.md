@@ -141,16 +141,20 @@ huge overall speedup. This also affects `CleanOutServer` and
 General
 -------
 
-### Document Validation
+### Document Schema Validation
 
-ArangoDB now supports JSON-Schema (draft-4) document validation.
+ArangoDB now supports validating documents on collection level using
+JSON Schema (draft-4).
 
-In order to enforce a certain structure of documents in a collections we have
-introduce the "validation" collection property. It consists of a `rule`, `level` and
-a `message` that will be given when the validation fails. The validation
-is done for insert, update or replace operations depending on the validation level.
+In order to enforce a certain document structure in a collection we have
+introduced the `validation` collection property. It expects an object comprised
+of a `rule` (JSON Schema object), a `level` and a `message` that will be used
+when validation fails. When documents are validated is controlled by the
+validation level, which can be `none` (off), `new` (insert only), `moderate`
+(on insert and modification, but existing documents can remain invalid)
+or `strict` (always).
 
-See: [Document Validation](document-validation.html)
+See: [Document Schema Validation](document-schema-validation.html)
 
 ### HTTP/2 support
 
