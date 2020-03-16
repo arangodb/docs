@@ -10,15 +10,15 @@ if test "${GITAUTH}" == "migrate"; then
     SOURCES=()
 else
     SOURCES=(
-        "https://@github.com/arangodb-helper/arangodb.git;arangodb-starter;master;docs/;Manual/"
-        "https://@github.com/arangodb/arangosync.git;arangosync;master;docs/;Manual/"
-        "https://@github.com/arangodb/kube-arangodb.git;kube-arangodb;master;docs/;Manual/"
-        "https://@github.com/arangodb/arangodb-java-driver.git;arangodb-java-driver;master;docs/;Drivers/"
-        "https://@github.com/arangodb/arangodb-php.git;arangodb-php;devel;docs/;Drivers/"
-        "https://@github.com/arangodb/arangodb-spark-connector.git;arangodb-spark-connector;master;docs/;Drivers/"
+      # "https://@github.com/arangodb-helper/arangodb.git;arangodb-starter;master;docs/;Manual/"
+      # "https://@github.com/arangodb/arangosync.git;arangosync;master;docs/;Manual/"
+      # "https://@github.com/arangodb/kube-arangodb.git;kube-arangodb;master;docs/;Manual/"
+      # "https://@github.com/arangodb/arangodb-java-driver.git;arangodb-java-driver;master;docs/;Drivers/"
+      # "https://@github.com/arangodb/arangodb-php.git;arangodb-php;devel;docs/;Drivers/"
+      # "https://@github.com/arangodb/arangodb-spark-connector.git;arangodb-spark-connector;master;docs/;Drivers/"
         "https://@github.com/arangodb/arangojs.git;arangojs;master;docs/;Drivers/"
-        "https://@github.com/arangodb/go-driver.git;go-driver;master;docs/;Drivers/"
-        "https://@github.com/arangodb/spring-data.git;spring-data;master;docs/;Drivers/"
+      # "https://@github.com/arangodb/go-driver.git;go-driver;master;docs/;Drivers/"
+      # "https://@github.com/arangodb/spring-data.git;spring-data;master;docs/;Drivers/"
     )
 fi
 
@@ -89,7 +89,7 @@ for source in "${SOURCES[@]}"; do
     done
 done
 
-folder="3.5"
+folder="3.6"
 echo "Migrating to ${folder}"
 node migrate.js temp/Drivers ../${folder}/drivers > /dev/null
 node migrate.js temp/Manual ../${folder} > /dev/null
