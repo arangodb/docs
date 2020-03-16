@@ -339,10 +339,20 @@ The phrase can be expressed as an arbitrary number of *phraseParts* separated by
 *skipTokens* number of tokens (wildcards).
 
 - **path** (attribute path expression): the attribute to test in the document
-- **phrasePart** (string\|array): text to search for in the tokens. May consist
+
+- **phrasePart** (string\|array\|object): text to search for in the tokens. May consist
   of several words/tokens, which will be split using the specified *analyzer*.
-  Can also be an array comprised of token strings or token strings interleaved
-  with numbers of *skipTokens* (introduced in v3.6.0).
+  Can also be an array comprised of tokens (string\|object\|array) or tokens interleaved
+  with numbers of *skipTokens* (introduced in v3.6.0). An array token inside an array can be used in `TERMS` case only, see below.
+  Each token can be an object (introduced in v3.7.0):
+  
+  - `{STARTS_WITH: [prefix]}` (see [STARTS_WITH](#starts_with)). Array brackets are optional.
+  - `{WILDCARD: [token]}` (see [LIKE](#like)). Array brackets are optional.
+  - `{LEVENSHTEIN_MATCH: [token, max_distance, with_transpositions]}` (see [LEVENSHTEIN_MATCH](#levenshtein_match)). with_transpositions is optional, default value is `false`
+  - `{TERMS: [token1, ..., tokenN]}`. One of `token1, ..., tokenN` can be found in specified position. Inside an array the object syntax can be replaced with the object field value, e.g., `[..., [token1, ..., tokenN], ...]`
+  
+  The specified *analyzer* does not split objects content (the same for array `TERMS` syntax)
+  
 - **skipTokens** (number, _optional_): amount of words/tokens to treat
   as wildcards
 - **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
@@ -427,6 +437,18 @@ It is the same as the following:
 
 ```js
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
+```
+
+`STARTS_WITH`, `WILDCARD`, `LEVENSHTEIN_MATCH`, `TERMS` can also be used:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, {STARTS_WITH: ["qui"]}, 0, {WILDCARD: ["b%o_n"]}, 0, {LEVENSHTEIN_MATCH: ["foks", 2]}, {TERMS: ["jumps", "runs"]}, "text_en") RETURN doc
+```
+
+Above example is equivalent to
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, [{STARTS_WITH: "qui"}, 0, {WILDCARD: "b%o_n"}, 0, {LEVENSHTEIN_MATCH: ["foks", 2]}, 0, ["jumps", "runs"]], "text_en") RETURN doc
 ```
 
 ### STARTS_WITH()
