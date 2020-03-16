@@ -491,8 +491,7 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
-LIKE()
-------
+### LIKE()
 
 `LIKE(path, search) → bool`
 
@@ -512,7 +511,7 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
-One can use `LIKE` function in the form of operator:
+`LIKE` can also be used in operator form:
 
 ```js
 FOR doc IN viewName

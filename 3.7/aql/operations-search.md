@@ -63,6 +63,7 @@ are supported:
 - `>`
 - `!=`
 - `IN` (array or range), also `NOT IN`
+- `LIKE` (introduced in v3.7.0), also `NOT LIKE`
 
 ```js
 FOR doc IN viewName
