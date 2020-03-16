@@ -12,6 +12,24 @@ here.
 ArangoSearch
 ------------
 
+### Wildcard search
+
+ArangoSearch was extended to support the `LIKE()` function and `LIKE` operator
+in AQL. This allows to check whether the given search pattern is contained in
+specified attribute using wildcard matching (`_` for any single character and
+`%` for any sequence of characters including none):
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(LIKE(doc.text, "foo%b_r"), "text_en")
+  // or
+  SEARCH ANALYZER(doc.text LIKE "foo%b_r", "text_en")
+  // will match "foobar", "fooANYTHINGbor" etc.
+  RETURN doc.text
+```
+
+See [ArangoSearch functions](aql/functions-arangosearch.html#like)
+
 Satellite Graphs
 -------
 
