@@ -12,23 +12,59 @@ here.
 ArangoSearch
 ------------
 
+### Wildcard search
+
+ArangoSearch was extended to support the `LIKE()` function and `LIKE` operator
+in AQL. This allows to check whether the given search pattern is contained in
+specified attribute using wildcard matching (`_` for any single character and
+`%` for any sequence of characters including none):
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(LIKE(doc.text, "foo%b_r"), "text_en")
+  // or
+  SEARCH ANALYZER(doc.text LIKE "foo%b_r", "text_en")
+  // will match "foobar", "fooANYTHINGbor" etc.
+  RETURN doc.text
+```
+
+See [ArangoSearch functions](aql/functions-arangosearch.html#like)
+
 Satellite Graphs
--------
+----------------
 
-Satellite Graphs are the natural extension of the concept of Satellite collections to graphs. All of the usual benefits and caveats apply. When doing joins involving graph traversals, shortest paths, or k-shortest paths in an ArangoDB cluster, data has to be exchanged between different servers. In particular graph traversals are usually executed on a Coordinator, because they need global information.
+When doing joins involving graph traversals, shortest path or k-shortest paths
+computation in an ArangoDB cluster, data has to be exchanged between different
+servers. In particular graph traversals are usually executed on a Coordinator,
+because they need global information. This results in a lot of network traffic
+and potentially slow query execution.
 
-This results in a lot of network traffic and slow query execution.
+Satellite Graphs are the natural extension of the concept of Satellite
+collections to graphs. All of the usual benefits and caveats apply.
+Satellite graphs are synchronously replicated to all DB-Servers that are part
+of a cluster, which enables DB-Servers to execute graph traversals locally.
+This includes (k-)shortest path(s) computation and possibly joins with
+traversals and greatly improves performance for such queries.
 
-Satellite graphs are synchronously replicated to all DB-Servers that are part of a cluster, which enables DB-Servers to execute graph traversals (and (k-)shortest paths), and possibly joins with traversals, locally.
-
-This greatly improves performance for such queries.
-
-Satellite Graphs are only available in the Enterprise Edition, and the ArangoDB Cloud.
+Satellite Graphs are only available in the Enterprise Edition and the
+[ArangoDB Cloud](https://cloud.arangodb.com/){:target="_blank"}.
 
 AQL
 ---
 
 ### Subquery optimizations
+
+The execution process of AQL has been refactored internally. This especially
+pays off in subqueries. It will allow for more optimizations and better
+batching of requests.
+
+The first stage of this refactoring has been part of 3.6 already where some
+subqueries have gained a significant performance boost. 3.7 takes the next step
+in this direction. AQL can now combine skipping and producing of outputs in a
+single call, so all queries with an offset or the fullCount option enabled will
+benefit from this change straight away. This also holds true for subqueries,
+hence the existing AQL optimizer rule `splice-subqueries` is now able to
+optimize all subqueries and is enabled by default.
 
 ### Traversal optimizations
 

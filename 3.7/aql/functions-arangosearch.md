@@ -491,6 +491,34 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
+### LIKE()
+
+`LIKE(path, search) → bool`
+
+Check whether the pattern *search* is contained in the attribute denoted by *path*,
+using wildcard matching.
+
+- **path** (attribute path expression): the path of the attribute to compare
+  against in the document
+- **search** (string): a search pattern that can contain the wildcard characters
+  `%` (meaning any sequence of characters, including none) and `_` (any single
+  character). Literal `%` and `_` must be escaped with two backslashes (four
+  in arangosh).
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(LIKE(doc.text, "foo%b_r"), "text_en")
+  RETURN doc.text
+```
+
+`LIKE` can also be used in operator form:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(doc.text LIKE "foo%b_r", "text_en")
+  RETURN doc.text
+```
+
 ### TOKENS()
 
 `TOKENS(input, analyzer) → tokenArray`
