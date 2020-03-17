@@ -1,4 +1,4 @@
-arangosh&gt; explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "satelliteGraph" RETURN [doc,v,e,p]`)
+arangosh&gt; db._explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "satelliteGraph" RETURN [doc,v,e,p]`, {}, {colors: false});
 Query String (102 chars, cacheable: true):
  FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "satelliteGraph" RETURN 
  [doc,v,e,p]
@@ -19,7 +19,7 @@ Indexes used:
 
 Traversals on graphs:
  Id  Depth  Vertex collections  Edge collections  Options                                  Filter / Prune Conditions
- 10  1..1                       satEdges          uniqueVertices: none, uniqueEdges: path                           
+ 10  1..1   satVertices         satEdges          uniqueVertices: none, uniqueEdges: path                           
 
 Optimization rules applied:
  Id   RuleName
