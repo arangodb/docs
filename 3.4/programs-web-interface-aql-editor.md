@@ -92,13 +92,18 @@ in the toolbar or via shortcut (see below).
 
 ### AQL Editor Shortcuts
 
-- Ctrl / Cmd + Return to execute a query
-- Ctrl / Cmd + Shift + Return to explain a query
-- Ctrl / Cmd + Shift + S to save the current query
-- Ctrl / Cmd + Shift + C to toggle comments  
-- Ctrl + Space to open up the spotlight search
-- Ctrl + Cmd + Z to undo last change
-- Ctrl + Cmd + Shift + Z to redo last change
+| Key combination | Action |
+|:----------------|:-------|
+| `Ctrl`/`Cmd` + `Return` | Execute query
+| `Ctrl`/`Cmd` + `Alt` + `Return` | Execute selected query
+| `Ctrl`/`Cmd` + `Shift` + `Return` | Explain query
+| `Ctrl`/`Cmd` + `Shift` + `S` | Save query
+| `Ctrl`/`Cmd` + `Shift` + `C` | Toggle comments
+| `Ctrl`/`Cmd` + `Z` | Undo last change
+| `Ctrl`/`Cmd` + `Shift` + `Z` | Redo last change
+| `Shift` + `Alt` + `Up` | Increase font size
+| `Shift` + `Alt` + `Down` | Decrease font size
+| `Ctrl` + `Space` | Open up the spotlight search
   
 Running Queries
 ---------------
