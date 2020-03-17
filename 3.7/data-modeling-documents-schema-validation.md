@@ -15,6 +15,8 @@ on collection level. The desired structure can be described in the popular
 [JSON Schema](https://json-schema.org/){:target="_blank"} format (draft-4).
 The level of validation and a custom error message can be configured.
 
+Also see [v3.7 Known Issues](release-notes-known-issues37.html#other)
+
 Enable validation for a collection
 ----------------------------------
 
