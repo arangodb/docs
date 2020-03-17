@@ -564,16 +564,10 @@ FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETUR
 
 ### NGRAM_MATCH()
 
-`NGRAM_MATCH(attribute, target, threshold, analyzer)`
-
-`NGRAM_MATCH(attribute, target, analyzer)`
-
-`NGRAM_MATCH(attribute, target, threshold)`
+`NGRAM_MATCH(path, target, threshold, analyzer)`
 
 Match documents whose attribute value has an ngram similarity higher than the
-specified threshold. The threshold defaults to `0.7` if none is specified.
-An Analyzer can be set explicitly or by wrapping this function with an
-`ANALYZER()` call.
+specified threshold.
 
 The similarity is calculated as length of longest common ngram sequence between
 attribute value and target value, divided by the target's ngrams count.
@@ -582,9 +576,20 @@ with preserveOriginal=false and min=max. Increasing ngram length will increase
 accuracy, but reduce error tolerance.  In most cases size of ngram 2 or 3 will 
 be a good choice.
 
+- **path** (attribute path expression): the path of the attribute to compare
+  against in the document
+- **target** (string): the string to compare against the stored attribute
+- **threshold** (number, _optional_): value between `0.0` and `1.0`. Defaults
+  to `0.7` if none is specified.
+- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
+- returns **tokenArray** (array): array of strings with zero or more elements,
+  each element being a token.
+- returns nothing: the function can only be called in a
+  [SEARCH operation](operations-search.html) and throws an error otherwise
+
 Given a View indexing an attribute *text* with the `"my2gram"` Analyzer and a
-document `{ "text": "quick red fox" }`,
-the following query would match it:
+document `{ "text": "quick red fox" }`, the following query would match it:
+
 ```js
 FOR doc IN viewName
   SEARCH NGRAM_MATCH(doc.text, "quick fox", "my2gram")
