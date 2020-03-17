@@ -630,7 +630,7 @@ The following APIs have been expanded / changed:
 
   New attribute `force`, see [Hot Backup](#hot-backup) below.
 
-- New [Metrics API](http/administration-and-monitoring-metrics.html#metrics-api),<br>
+- New [Metrics API](http/administration-and-monitoring.html#read-the-metrics),<br>
   HTTP route `GET /_admin/metrics`
 
   Returns the instance's current metrics in Prometheus format. The returned
