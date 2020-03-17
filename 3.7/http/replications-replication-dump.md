@@ -38,11 +38,6 @@ parts of the dump results in the same order as they are provided.
 <!-- arangod/RestHandler/RestReplicationHandler.cpp -->
 {% docublock get_api_replication_dump %}
 
-{% hint 'info' %}
-The revision-based (Merkle tree) methods will only work with the RocksDB
-engine, and with collections created in ArangoDB v3.7.0 or later.
-{% endhint %}
-
 <!-- arangod/RestHandler/RestReplicationHandler.cpp -->
 {% docublock get_api_replication_revisions_tree %}
 {% docublock post_api_replication_revisions_tree %}
