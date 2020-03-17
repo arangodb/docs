@@ -570,12 +570,14 @@ FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETUR
 
 `NGRAM_MATCH(attribute, target, threshold)`
 
-Match the value of the attribute that has ngram similarity with target more than
-specified threshold. If threshold is not set, value 0.7 is the default. Analyzer
-could be set explicitly or by wrapping `ANALYZER()` call.
-Similarity is calculated as length of longest common ngram sequence between 
-attribute value and target value, divided by target's ngrams count. Nrams are 
-produced by specified analyzer. It is recommended to use  analyzer of type ngram
+Match documents whose attribute value has an ngram similarity higher than the
+specified threshold. The threshold defaults to `0.7` if none is specified.
+An Analyzer can be set explicitly or by wrapping this function with an
+`ANALYZER()` call.
+
+The similarity is calculated as length of longest common ngram sequence between
+attribute value and target value, divided by the target's ngrams count.
+The ngrams are produced by the context Analyzer. It is recommended to use analyzer of type ngram
 with preserveOriginal=false and min=max. Increasing ngram length will increase 
 accuracy, but reduce error tolerance.  In most cases size of ngram 2 or 3 will 
 be a good choice.
