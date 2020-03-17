@@ -346,6 +346,7 @@ The phrase can be expressed as an arbitrary number of *phraseParts* separated by
   with numbers of *skipTokens* (introduced in v3.6.0). An array token inside an array can be used in `TERMS` case only, see below.
   Each token can be an object (introduced in v3.7.0):
   
+  - `{TERM: [token]}` Array brackets are optional. Equal to `token` except *analyzer* splitting (see below)
   - `{STARTS_WITH: [prefix]}` (see [STARTS_WITH](#starts_with)). Array brackets are optional
   - `{WILDCARD: [token]}` (see [LIKE](#like)). Array brackets are optional
   - `{LEVENSHTEIN_MATCH: [token, max_distance, with_transpositions]}`
