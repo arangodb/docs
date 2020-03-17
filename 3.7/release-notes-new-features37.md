@@ -245,6 +245,18 @@ The query options are available in [AQL](aql/operations-insert.html#setting-quer
 the [JS API](data-modeling-documents-document-methods.html#insert--save) and
 [HTTP API](http/document-working-with-documents.html#create-document).
 
+### Override detected total memory
+
+`arangod` detects the total amount of RAM present on the system and calculates
+various default sizes based on this value. If you run it alongside other
+services or in a container with a RAM limitation for its cgroup, then you
+probably don't want the server to detect and use all available memory.
+
+An environment variable `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` can now be
+set to restrict the amount of memory it will detect (also available in v3.6.3).
+
+See [ArangoDB Server Environment Variables](programs-arangod-env-vars.html)
+
 JavaScript
 ----------
 
