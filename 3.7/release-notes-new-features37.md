@@ -30,8 +30,8 @@ FOR doc IN viewName
 
 See [ArangoSearch functions](aql/functions-arangosearch.html#like)
 
-Satellite Graphs
-----------------
+SatelliteGraphs
+---------------
 
 When doing joins involving graph traversals, shortest path or k-shortest paths
 computation in an ArangoDB cluster, data has to be exchanged between different
@@ -39,14 +39,14 @@ servers. In particular graph traversals are usually executed on a Coordinator,
 because they need global information. This results in a lot of network traffic
 and potentially slow query execution.
 
-Satellite Graphs are the natural extension of the concept of Satellite
+SatelliteGraphs are the natural extension of the concept of Satellite
 collections to graphs. All of the usual benefits and caveats apply.
-Satellite graphs are synchronously replicated to all DB-Servers that are part
+SatelliteGraphs are synchronously replicated to all DB-Servers that are part
 of a cluster, which enables DB-Servers to execute graph traversals locally.
 This includes (k-)shortest path(s) computation and possibly joins with
 traversals and greatly improves performance for such queries.
 
-Satellite Graphs are only available in the Enterprise Edition and the
+SatelliteGraphs are only available in the Enterprise Edition and the
 [ArangoDB Cloud](https://cloud.arangodb.com/){:target="_blank"}.
 
 AQL
@@ -188,6 +188,21 @@ huge overall speedup. This also affects `CleanOutServer` and
 General
 -------
 
+### Schema Validation for Documents
+
+ArangoDB now supports validating documents on collection level using
+JSON Schema (draft-4).
+
+In order to enforce a certain document structure in a collection we have
+introduced the `validation` collection property. It expects an object comprised
+of a `rule` (JSON Schema object), a `level` and a `message` that will be used
+when validation fails. When documents are validated is controlled by the
+validation level, which can be `none` (off), `new` (insert only), `moderate`
+(on insert and modification, but existing documents can remain invalid)
+or `strict` (always).
+
+See: [Schema Validation](data-modeling-documents-schema-validation.html)
+
 ### HTTP/2 support
 
 The server now supports upgrading connections from HTTP 1.1 to HTTP 2.
@@ -244,6 +259,18 @@ In the case of `overwriteMode: "update"`, the parameters `keepNull` and
 The query options are available in [AQL](aql/operations-insert.html#setting-query-options),
 the [JS API](data-modeling-documents-document-methods.html#insert--save) and
 [HTTP API](http/document-working-with-documents.html#create-document).
+
+### Override detected total memory
+
+`arangod` detects the total amount of RAM present on the system and calculates
+various default sizes based on this value. If you run it alongside other
+services or in a container with a RAM limitation for its cgroup, then you
+probably don't want the server to detect and use all available memory.
+
+An environment variable `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` can now be
+set to restrict the amount of memory it will detect (also available in v3.6.3).
+
+See [ArangoDB Server Environment Variables](programs-arangod-env-vars.html)
 
 JavaScript
 ----------
