@@ -52,9 +52,10 @@ Validation
 
 | Issue      |
 |------------|
-| **Date Added:** 2019-03-17 <br> **Component:** JSON Schema <br> **Deployment Mode:** All <br> **Description:** Validation schemas using `"additionalProperties": false` need to handle built-in attributes: _key, _id, _rev, _from, _to **Affected Versions:** 3.7.alpha2 <br> **Fixed in Versions:** devel <br> **Reference:** N/A |
-| **Date Added:** 2019-03-17 <br> **Component:** JSON Schema <br> **Deployment Mode:** All <br> **Description:** Remote schemas will not work for security reasons this will probably not fix **Affected Versions:** all <br> **Fixed in Versions:** - <br> **Reference:** N/A |
-| **Date Added:** 2019-03-17 <br> **Component:** JSON Schema <br> **Deployment Mode:** All <br> **Description:** There is not proper way to show the user why the validation failed. This is under investigation but very hard to solve for complex schemas. For example when using not and anyOf, this would result in trees of possible errors. For now users should fall back to tools like (https://www.jsonschemavalidator.net/) **Affected Versions:** all <br> **Fixed in Versions:** - <br> **Reference:** N/A |
+| **Date Added:** 2019-03-17 <br> **Component:** JSON Schema <br> **Deployment Mode:** All <br> **Description:** Length of stings is returned as number of bytes and not as number of codepoints. <br> **Fixed in Versions:** devel <br> **Reference:** N/A |
+| **Date Added:** 2019-03-17 <br> **Component:** JSON Schema <br> **Deployment Mode:** All <br> **Description:** Validation schemas using `"additionalProperties": false` need to handle built-in attributes: _key, _id, _rev, _from, _to. **Affected Versions:** 3.7.alpha2 <br> **Fixed in Versions:** devel <br> **Reference:** N/A |
+| **Date Added:** 2019-03-17 <br> **Component:** JSON Schema <br> **Deployment Mode:** All <br> **Description:** Remote schemas will not work for security reasons. (This will probably not fix!) **Affected Versions:** all <br> **Fixed in Versions:** - <br> **Reference:** N/A |
+| **Date Added:** 2019-03-17 <br> **Component:** JSON Schema <br> **Deployment Mode:** All <br> **Description:** There is not proper way to show the user why the validation failed. This is under investigation but very hard to solve for complex schemas. For example when using `not` and `anyOf`, this would result in trees of possible errors. For now users should fall back to tools like: https://www.jsonschemavalidator.net/ **Affected Versions:** all <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 
 Other
 -----
