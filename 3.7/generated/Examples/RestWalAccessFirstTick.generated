@@ -1,14 +1,14 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/wal/lastTick</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-x-content-type-options: nosniff
 content-type: application/json
+x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"time"</span> : <span class="hljs-string">"2020-02-19T10:59:12Z"</span>, 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"191496"</span>, 
+  <span class="hljs-string">"time"</span> : <span class="hljs-string">"2020-03-16T17:21:16Z"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"191929"</span>, 
   <span class="hljs-string">"server"</span> : { 
     <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.7.0-devel"</span>, 
-    <span class="hljs-string">"serverId"</span> : <span class="hljs-string">"27168769824775"</span> 
+    <span class="hljs-string">"serverId"</span> : <span class="hljs-string">"18646781857536"</span> 
   } 
 }
