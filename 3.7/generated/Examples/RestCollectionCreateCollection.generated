@@ -5,16 +5,18 @@
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> OK
-x-content-type-options: nosniff
 content-type: application/json
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
-  <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h18B5B8DFD807/69470"</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69470"</span>, 
+  <span class="hljs-string">"validation"</span> : <span class="hljs-literal">null</span>, 
+  <span class="hljs-string">"usesRevisionsAsDocumentIds"</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
+  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h10F58ACF0F00/69476"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69476"</span>, 
   <span class="hljs-string">"cacheEnabled"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"keyOptions"</span> : { 
@@ -22,12 +24,13 @@ content-type: application/json
     <span class="hljs-string">"type"</span> : <span class="hljs-string">"traditional"</span>, 
     <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">0</span> 
   }, 
-  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69469"</span>, 
+  <span class="hljs-string">"isSmartChild"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69475"</span>, 
+  <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"minRevision"</span> : <span class="hljs-number">1661342075941027800</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"testCollectionBasics"</span>, 
   <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
-  <span class="hljs-string">"statusString"</span> : <span class="hljs-string">"loaded"</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">"validators"</span> : [ ] 
+  <span class="hljs-string">"statusString"</span> : <span class="hljs-string">"loaded"</span> 
 }
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/collection</span> &lt;&lt;EOF
 { 
@@ -37,16 +40,18 @@ content-type: application/json
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> OK
-x-content-type-options: nosniff
 content-type: application/json
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
-  <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h18B5B8DFD807/69475"</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69475"</span>, 
+  <span class="hljs-string">"validation"</span> : <span class="hljs-literal">null</span>, 
+  <span class="hljs-string">"usesRevisionsAsDocumentIds"</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">"type"</span> : <span class="hljs-number">3</span>, 
+  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h10F58ACF0F00/69481"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69481"</span>, 
   <span class="hljs-string">"cacheEnabled"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"keyOptions"</span> : { 
@@ -54,10 +59,11 @@ content-type: application/json
     <span class="hljs-string">"type"</span> : <span class="hljs-string">"traditional"</span>, 
     <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">0</span> 
   }, 
-  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69474"</span>, 
+  <span class="hljs-string">"isSmartChild"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69480"</span>, 
+  <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"minRevision"</span> : <span class="hljs-number">1661342075946270700</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"testCollectionEdges"</span>, 
   <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
-  <span class="hljs-string">"statusString"</span> : <span class="hljs-string">"loaded"</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-number">3</span>, 
-  <span class="hljs-string">"validators"</span> : [ ] 
+  <span class="hljs-string">"statusString"</span> : <span class="hljs-string">"loaded"</span> 
 }
