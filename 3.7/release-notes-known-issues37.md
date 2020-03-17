@@ -47,16 +47,6 @@ Hot Backup
 | **Date Added:** 2019-10-09 <br> **Component:** Hot Backup API / arangobackup <br> **Deployment Mode:** DC2DC <br> **Description:** Hot Backup functionality in Datacenter to Datacenter Replication setups is experimental and may not work. <br> **Affected Versions:** 3.5.x, 3.6.x, 3.7.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 | **Date Added:** 2019-10-09 <br> **Component:** arangobackup <br> **Deployment Mode:** All <br> **Description:** The startup option `--operation` works as positional argument only, e.g. `arangobackup list`. The alternative syntax `arangobackup --operation list` is not accepted. <br> **Affected Versions:** 3.5.x, 3.6.x, 3.7.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 
-Validation
-----------
-
-| Issue      |
-|------------|
-| **Date Added:** 2019-03-17 <br> **Component:** JSON Schema <br> **Deployment Mode:** All <br> **Description:** Length of stings is returned as number of bytes and not as number of codepoints. <br> **Fixed in Versions:** devel <br> **Reference:** N/A |
-| **Date Added:** 2019-03-17 <br> **Component:** JSON Schema <br> **Deployment Mode:** All <br> **Description:** Validation schemas using `"additionalProperties": false` need to handle built-in attributes: _key, _id, _rev, _from, _to. **Affected Versions:** 3.7.alpha2 <br> **Fixed in Versions:** devel <br> **Reference:** N/A |
-| **Date Added:** 2019-03-17 <br> **Component:** JSON Schema <br> **Deployment Mode:** All <br> **Description:** Remote schemas will not work for security reasons. (This will probably not fix!) **Affected Versions:** all <br> **Fixed in Versions:** - <br> **Reference:** N/A |
-| **Date Added:** 2019-03-17 <br> **Component:** JSON Schema <br> **Deployment Mode:** All <br> **Description:** There is not proper way to show the user why the validation failed. This is under investigation but very hard to solve for complex schemas. For example when using `not` and `anyOf`, this would result in trees of possible errors. For now users should fall back to tools like: https://www.jsonschemavalidator.net/ **Affected Versions:** all <br> **Fixed in Versions:** - <br> **Reference:** N/A |
-
 Other
 -----
 
@@ -64,3 +54,7 @@ Other
 |------------|
 | **Date Added:** 2019-05-16 <br> **Component:** Starter <br> **Deployment Mode:** All <br> **Description:** The ArangoDB Starter falls back to the IP `[::1]` under macOS. If there is no entry `::1  localhost` in the `/etc/hosts` file or the option `--starter.disable-ipv6` is passed to the starter to use IPv4, then it will hang during startup. <br> **Affected Versions:** 0.14.3 (macOS only) <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 | **Date Added:** 2019-05-24 <br> **Component:** Web UI <br> **Deployment Mode:** Active Failover <br> **Description:** The web interface shows a wrong replication mode in the replication tab in Active Failover deployments sometimes. It may display Master/Slave mode (the default value) because of timeouts if `/_api/cluster/endpoints` is requested too frequently. <br> **Affected Versions:** 3.5.x, 3.6.x, 3.7.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
+| **Date Added:** 2019-03-17 <br> **Component:** Schema Validation <br> **Deployment Mode:** All <br> **Description:** The length of stings is measured as number of bytes and not as number of codepoints. <br> **Affected Versions:** 3.7.0-alpha.2 <br> **Fixed in Versions:** - <br> **Reference:** N/A |
+| **Date Added:** 2019-03-17 <br> **Component:** Schema Validation <br> **Deployment Mode:** All <br> **Description:** Validation schemas using `"additionalProperties": false` need to describe system attributes: `_key`, `_id`, `_rev` as well as `_from` and `_to` for edge collections. **Affected Versions:** 3.7.0-alpha.2 <br> **Fixed in Versions:** - <br> **Reference:** N/A |
+| **Date Added:** 2019-03-17 <br> **Component:** Schema Validation <br> **Deployment Mode:** All <br> **Description:** The schema validation cannot pin-point which part of a rule made it fail. This is under investigation but very hard to solve for complex schemas. For example, when using `not` and `anyOf`, this would result in trees of possible errors. For now users should fall back to tools like [jsonschemavalidator.net](https://www.jsonschemavalidator.net/){:target="_blank"} <br> **Affected Versions:** 3.7.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
+| **Date Added:** 2019-03-17 <br> **Component:** Schema Validation <br> **Deployment Mode:** All <br> **Description:** Remote schemas are not supported for security reasons. <br> **Affected Versions:** 3.7.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
