@@ -188,7 +188,7 @@ huge overall speedup. This also affects `CleanOutServer` and
 General
 -------
 
-### Document Schema Validation
+### Schema Validation for Documents
 
 ArangoDB now supports validating documents on collection level using
 JSON Schema (draft-4).
@@ -201,7 +201,7 @@ validation level, which can be `none` (off), `new` (insert only), `moderate`
 (on insert and modification, but existing documents can remain invalid)
 or `strict` (always).
 
-See: [Document Schema Validation](document-schema-validation.html)
+See: [Schema Validation](data-modeling-documents-schema-validation.html)
 
 ### HTTP/2 support
 

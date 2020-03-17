@@ -1,10 +1,12 @@
 ---
 layout: default
-description: How to enforce attributes and data types for documents using JSON Schema.
-title: Document Schema Validation
+description: How to enforce attributes and data types for documents using JSON Schema on collection level.
+title: Schema Validation for Documents
+redirect_from:
+  - /3.7/document-schema-validation.html # 3.7 -> 3.7
 ---
-Document Schema Validation
-==========================
+Schema Validation
+=================
 
 <small>Introduced in: v3.7.0</small>
 
@@ -16,7 +18,7 @@ The level of validation and a custom error message can be configured.
 Enable validation for a collection
 ----------------------------------
 
-Document schema validation can be managed via the JavaScript API, typically
+Schema validation can be managed via the JavaScript API, typically
 using _arangosh_, as well as via the HTTP interface.
 
 To enable schema validation either pass the `validation` property on collection
@@ -54,6 +56,10 @@ The `rule` must be a valid JSON Schema object as outlined in the
 [specification](https://json-schema.org/specification.html){:target="_blank"}.
 See [Understanding JSON Schema](https://json-schema.org/understanding-json-schema/reference/object.html){:target="_blank"}
 for a user guide on how to write JSON Schema descriptions.
+
+{% hint 'security' %}
+Remote schemas are not supported for security reasons.
+{% endhint %}
 
 Levels
 ------

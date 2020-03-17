@@ -27,7 +27,7 @@ as listing and changing collection properties at PUT/GET
 `/_api/collection/<collection>/properties` will now make use of the additional
 attribute `validation`. The attribute can be used so specify document
 validation at collection level. See
-[Document Schema Validation](document-schema-validation.html).
+[Schema Validation](data-modeling-documents-schema-validation.html).
 
 ### HTTP REST API endpoints moved
 
