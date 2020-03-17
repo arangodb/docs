@@ -5,6 +5,13 @@ title: ArangoDB Storage Engines
 ---
 # Storage Engines
 
+{% hint 'warning' %}
+The MMFiles storage engine is deprecated starting with version
+3.6.0 and it will be removed in a future release.
+To change your MMFiles storage engine deployment to RocksDB, see:
+[Switch storage engine](administration-engine-switch-engine.html)
+{% endhint %}
+
 At the very bottom of the ArangoDB database lies the storage
 engine. The storage engine is responsible for persisting the documents
 on disk, holding copies in memory, providing indexes and caches to
@@ -32,7 +39,7 @@ page.
 {% endhint %}
 
 | MMFiles | RocksDB |
-|---|---|
+|---------|---------|
 | deprecated | default |
 | dataset needs to fit into memory | work with as much data as fits on disk |
 | indexes in memory | hot set in memory, data and indexes on disk |

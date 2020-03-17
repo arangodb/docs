@@ -22,7 +22,6 @@ as sole storage engine. Beginning with 3.2 ArangoDB has support for
 pluggable storage engines. The default storage engine is **RocksDB** from
 Facebook.
 
-
 Up to including versions 3.3, MMFiles was the default storage engine in
 ArangoDB. Since version 3.4, the default storage engine is RocksDB.
 From version 3.6.0 onwards the MMFiles storage engine is deprecated and will be
@@ -40,7 +39,7 @@ page.
 {% endhint %}
 
 | MMFiles | RocksDB |
-|---|---|
+|---------|---------|
 | deprecated | default |
 | dataset needs to fit into memory | work with as much data as fits on disk |
 | indexes in memory | hot set in memory, data and indexes on disk |
