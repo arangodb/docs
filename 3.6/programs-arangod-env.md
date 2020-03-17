@@ -28,3 +28,6 @@ Currently, `arangod` inspects the following list of environment variables:
     2. If `arangod` is running alongside other services on the same
        machine and thus sharing the RAM with them, one should limit the
        amount of memory using this environment variable.
+
+   This feature was implemented for Version 3.6.3 and is thus available
+   in this and all following versions.
