@@ -29,6 +29,16 @@ attribute `validation`. The attribute can be used so specify document
 validation at collection level. See
 [Schema Validation](data-modeling-documents-schema-validation.html).
 
+The REST API endpoint for creating a graph at POST `/_api/gharial` is now able to
+accept the string value `satellite` as an option parameter for the attribute
+`replicationFactor`. Before only numeric values were allowed. Setting the
+`replicationFactor` to `satellite` will lead to a Satellite Graph being created.
+Satellite Graph creation will ignore the option parameters `numberOfShards`, 
+`minReplicationFactor` and `writeConcern`, as all of them will be set automatically.
+Additionally, the REST API endpoint for reading the graph definition of a graph at
+GET `/_api/gharial/{graph}` will include an additional attribute called `isSatellite`
+(boolean).
+
 ### HTTP REST API endpoints moved
 
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
