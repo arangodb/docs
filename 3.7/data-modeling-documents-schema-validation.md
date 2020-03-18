@@ -12,8 +12,8 @@ Schema Validation
 
 While ArangoDB is schema-less, it allows to enforce certain document structures
 on collection level. The desired structure can be described in the popular
-[JSON Schema](https://json-schema.org/){:target="_blank"} format (draft-4)
-without remote schema support. The level of validation and a custom error
+[JSON Schema](https://json-schema.org/){:target="_blank"} format (draft-4,
+without remote schema support). The level of validation and a custom error
 message can be configured.
 
 Also see [v3.7 Known Issues](release-notes-known-issues37.html#other)
