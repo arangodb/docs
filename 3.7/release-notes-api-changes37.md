@@ -9,6 +9,12 @@ This document summarizes the HTTP API changes and other API changes in ArangoDB 
 The target audience for this document are developers who maintain drivers and
 integrations for ArangoDB 3.7.
 
+### HTTP REST API endpoint return value changes
+
+The REST API endpoint at `/_api/cluster/endpoints` will now return HTTP 501 (Not
+implemented) on single server instead of HTTP 403 (Forbidden), which it returned
+previously.
+
 ### HTTP REST API endpoints added
 
 ### HTTP REST API endpoints augmented
