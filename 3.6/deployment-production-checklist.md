@@ -68,6 +68,9 @@ ArangoDB
 
 - Verify your **Backup** and restore procedures are working.
 
+- [EE only] Please consider creating (and safely store) a [secret key](https://www.arangodb.com/docs/latest/security-encryption.html) to enable encryption at rest.
+
+
 Kubernetes Operator (kube-arangodb)
 -----------------------------------
 
