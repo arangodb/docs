@@ -30,6 +30,47 @@ FOR doc IN viewName
 
 See [ArangoSearch functions](aql/functions-arangosearch.html#like)
 
+### Stemming support for more languages
+
+The Snowball library was updated to the latest version 2, adding stemming
+support for the following languages:
+
+- Arabic (`ar`)
+- Basque (`eu`)
+- Catalan (`ca`)
+- Danish (`da`)
+- Greek (`el`)
+- Hindi (`hi`)
+- Hungarian (`hu`)
+- Indonesian (`id`)
+- Irish (`ga`)
+- Lithuanian (`lt`)
+- Nepali (`ne`)
+- Romanian (`ro`)
+- Serbian (`sr`)
+- Tamil (`ta`)
+- Turkish (`tr`)
+
+Create a custom Analyzer and set the `locale` accordingly in the properties,
+e.g. `"el.utf-8"` for Greek. Arangosh example:
+
+```js
+var analyzers = require("@arangodb/analyzers");
+
+analyzers.save("text_el", "text", {
+  locale: "el.utf-8",
+  stemming: true,
+  case: "lower",
+  accent: false,
+  stopwords: []
+}, ["frequency", "norm", "position"]);
+
+db._query(`RETURN TOKENS("αυτοκινητουσ πρωταγωνιστούσαν", "text_el")`)
+// [ [ "αυτοκινητ", "πρωταγωνιστ" ] ]
+```
+
+Also see [Analyzers: Supported Languages](arangosearch-analyzers.html#supported-languages)
+
 SatelliteGraphs
 ---------------
 
