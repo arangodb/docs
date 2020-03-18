@@ -35,9 +35,9 @@ accept the string value `satellite` as an option parameter for the attribute
 `replicationFactor` to `satellite` will lead to a Satellite Graph being created.
 Satellite Graph creation will ignore the option parameters `numberOfShards`, 
 `minReplicationFactor` and `writeConcern`, as all of them will be set automatically.
-Additionally, the REST API endpoint for reading the graph definition of a graph at
-GET `/_api/gharial/{graph}` will include an additional attribute called `isSatellite`
-(boolean).
+Additionally, the REST API endpoint for reading the graph definitions of all graphs at
+GET `GET /_api/gharial` or a graph definition of a single graph at `/_api/gharial/{graph}`
+will include an additional attribute called `isSatellite` (boolean).
 
 ### HTTP REST API endpoints moved
 
