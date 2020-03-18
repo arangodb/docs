@@ -12,23 +12,59 @@ here.
 ArangoSearch
 ------------
 
-Satellite Graphs
--------
+### Wildcard search
 
-Satellite Graphs are the natural extension of the concept of Satellite collections to graphs. All of the usual benefits and caveats apply. When doing joins involving graph traversals, shortest paths, or k-shortest paths in an ArangoDB cluster, data has to be exchanged between different servers. In particular graph traversals are usually executed on a Coordinator, because they need global information.
+ArangoSearch was extended to support the `LIKE()` function and `LIKE` operator
+in AQL. This allows to check whether the given search pattern is contained in
+specified attribute using wildcard matching (`_` for any single character and
+`%` for any sequence of characters including none):
 
-This results in a lot of network traffic and slow query execution.
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(LIKE(doc.text, "foo%b_r"), "text_en")
+  // or
+  SEARCH ANALYZER(doc.text LIKE "foo%b_r", "text_en")
+  // will match "foobar", "fooANYTHINGbor" etc.
+  RETURN doc.text
+```
 
-Satellite graphs are synchronously replicated to all DB-Servers that are part of a cluster, which enables DB-Servers to execute graph traversals (and (k-)shortest paths), and possibly joins with traversals, locally.
+See [ArangoSearch functions](aql/functions-arangosearch.html#like)
 
-This greatly improves performance for such queries.
+SatelliteGraphs
+---------------
 
-Satellite Graphs are only available in the Enterprise Edition, and the ArangoDB Cloud.
+When doing joins involving graph traversals, shortest path or k-shortest paths
+computation in an ArangoDB cluster, data has to be exchanged between different
+servers. In particular graph traversals are usually executed on a Coordinator,
+because they need global information. This results in a lot of network traffic
+and potentially slow query execution.
+
+SatelliteGraphs are the natural extension of the concept of Satellite
+collections to graphs. All of the usual benefits and caveats apply.
+SatelliteGraphs are synchronously replicated to all DB-Servers that are part
+of a cluster, which enables DB-Servers to execute graph traversals locally.
+This includes (k-)shortest path(s) computation and possibly joins with
+traversals and greatly improves performance for such queries.
+
+SatelliteGraphs are only available in the Enterprise Edition and the
+[ArangoDB Cloud](https://cloud.arangodb.com/).
 
 AQL
 ---
 
 ### Subquery optimizations
+
+The execution process of AQL has been refactored internally. This especially
+pays off in subqueries. It will allow for more optimizations and better
+batching of requests.
+
+The first stage of this refactoring has been part of 3.6 already where some
+subqueries have gained a significant performance boost. 3.7 takes the next step
+in this direction. AQL can now combine skipping and producing of outputs in a
+single call, so all queries with an offset or the fullCount option enabled will
+benefit from this change straight away. This also holds true for subqueries,
+hence the existing AQL optimizer rule `splice-subqueries` is now able to
+optimize all subqueries and is enabled by default.
 
 ### Traversal optimizations
 
@@ -39,14 +75,14 @@ Graph traversal performance is improved via some internal code refactoring:
 - Unnecessary checks have been removed from the cursors, by ensuring some
   invariants.
 - Each vertex lookup needs to perform slightly less work.
-  
+
 The traversal speedups observed by these changes alone were around 8 to 10% for
 single-server traversals and traversals in OneShard setups. Cluster traversals
-will also benefit from these changes, but to a lesser extent. This is because 
+will also benefit from these changes, but to a lesser extent. This is because
 the network roundtrips have a higher share of the total query execution times there.
 
 Traversal performance can be further improved by not fetching the visited vertices
-from the storage engine in case the traversal query does not refer to them. 
+from the storage engine in case the traversal query does not refer to them.
 For example, in the query:
 
 ```js
@@ -119,7 +155,7 @@ For example, in the query:
 FOR doc IN collection1
   LET sub1 = FIRST(FOR sub IN collection2 FILTER sub.ref == doc._key RETURN sub)
   LET sub2 = FIRST(FOR sub IN collection3 FILTER sub.ref == doc._key RETURN sub)
-  
+
   SORT sub1
   LIMIT 10
   RETURN { doc, sub1, sub2 }
@@ -151,6 +187,21 @@ huge overall speedup. This also affects `CleanOutServer` and
 
 General
 -------
+
+### Schema Validation for Documents
+
+ArangoDB now supports validating documents on collection level using
+JSON Schema (draft-4).
+
+In order to enforce a certain document structure in a collection we have
+introduced the `validation` collection property. It expects an object comprised
+of a `rule` (JSON Schema object), a `level` and a `message` that will be used
+when validation fails. When documents are validated is controlled by the
+validation level, which can be `none` (off), `new` (insert only), `moderate`
+(on insert and modification, but existing documents can remain invalid)
+or `strict` (always).
+
+See: [Schema Validation](data-modeling-documents-schema-validation.html)
 
 ### HTTP/2 support
 
@@ -209,6 +260,18 @@ The query options are available in [AQL](aql/operations-insert.html#setting-quer
 the [JS API](data-modeling-documents-document-methods.html#insert--save) and
 [HTTP API](http/document-working-with-documents.html#create-document).
 
+### Override detected total memory
+
+`arangod` detects the total amount of RAM present on the system and calculates
+various default sizes based on this value. If you run it alongside other
+services or in a container with a RAM limitation for its cgroup, then you
+probably don't want the server to detect and use all available memory.
+
+An environment variable `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` can now be
+set to restrict the amount of memory it will detect (also available in v3.6.3).
+
+See [ArangoDB Server Environment Variables](programs-arangod-env-vars.html)
+
 JavaScript
 ----------
 
@@ -252,7 +315,7 @@ Here is the list of improvements that may matter to you as an ArangoDB user:
   const object = { x: 42, y: 50 };
   const entries = Object.entries(object);
   // → [['x', 42], ['y', 50]]
-  
+
   const result = Object.fromEntries(entries);
   // → { x: 42, y: 50 }
   ```
@@ -294,6 +357,13 @@ Web UI
 
 The interactive description of ArangoDB's HTTP API (Swagger UI) shows the
 endpoint and model entries collapsed by default now for a better overview.
+
+Metrics
+-------
+
+The amount of exported metrics has been extended and is now available in a
+format compatible with Prometheus. You can now easily scrape on `_admin/metrics`.
+See [here](http/administration-and-monitoring-metrics.html).
 
 Internal changes
 ----------------

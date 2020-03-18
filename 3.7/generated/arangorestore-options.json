@@ -930,6 +930,27 @@
     "section" : "",
     "type" : "boolean"
   },
+  "preserve-revision-ids" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "preserve `_rev` values for the documents (potentially unsafe)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "progress" : {
     "category" : "option",
     "default" : true,
