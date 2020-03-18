@@ -47,7 +47,7 @@ This includes (k-)shortest path(s) computation and possibly joins with
 traversals and greatly improves performance for such queries.
 
 SatelliteGraphs are only available in the Enterprise Edition and the
-[ArangoDB Cloud](https://cloud.arangodb.com/){:target="_blank"}.
+[ArangoDB Cloud](https://cloud.arangodb.com/).
 
 AQL
 ---
