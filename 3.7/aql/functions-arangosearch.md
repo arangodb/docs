@@ -567,14 +567,15 @@ FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETUR
 `NGRAM_MATCH(path, target, threshold, analyzer)`
 
 Match documents whose attribute value has an ngram similarity higher than the
-specified threshold.
+specified threshold. The similarity is calculated by counting the longest
+sequence of matching ngrams of the attribute and target value, divided by the
+target's total ngram count.
 
-The similarity is calculated as length of longest common ngram sequence between
-attribute value and target value, divided by the target's ngrams count.
-The ngrams are produced by the context Analyzer. It is recommended to use analyzer of type ngram
-with preserveOriginal=false and min=max. Increasing ngram length will increase 
-accuracy, but reduce error tolerance.  In most cases size of ngram 2 or 3 will 
-be a good choice.
+The ngrams for both attribute and target are produced by the specified
+Analyzer. It is recommended to use an Analyzer of type `ngram` with
+`preserveOriginal: false` and `min` equal to `max`. Increasing the ngram
+length will increase accuracy, but reduce error tolerance. In most cases a
+size of 2 or 3 will be a good choice.
 
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
@@ -582,24 +583,46 @@ be a good choice.
 - **threshold** (number, _optional_): value between `0.0` and `1.0`. Defaults
   to `0.7` if none is specified.
 - **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
-- returns **tokenArray** (array): array of strings with zero or more elements,
-  each element being a token.
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
-Given a View indexing an attribute *text* with the `"my2gram"` Analyzer and a
-document `{ "text": "quick red fox" }`, the following query would match it:
+Given a View indexing an attribute `text`, a custom ngram Analyzer `"bigram"`
+(`min: 2, max: 2, preserveOriginal: false, streamType: "utf8"`) and a document
+`{ "text": "quick red fox" }`, the following query would match it:
 
 ```js
 FOR doc IN viewName
-  SEARCH NGRAM_MATCH(doc.text, "quick fox", "my2gram")
+  SEARCH NGRAM_MATCH(doc.text, "quick fox", "bigram")
   RETURN doc.text
 ```
+
+qu
+ui
+ic
+ck
+k 
+ r
+re
+ed
+d 
+ f
+fo
+ox
+
+qu
+ui
+ic
+ck
+k 
+ f
+fo
+ox
+
 The following will also match (note the low threshold value)
 
 ```js
 FOR doc IN viewName
-  SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.4, "my2gram")
+  SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.4, "bigram")
   RETURN doc.text
 ```
 
@@ -607,7 +630,7 @@ The following will not match (note the high threshold value)
 
 ```js
 FOR doc IN viewName
-  SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.9, "my2gram")
+  SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.9, "bigram")
   RETURN doc.text
 ```
 NGRAM_MATCH could be called with constant arguments, but for such call
@@ -615,12 +638,12 @@ analyzer argument is mandatory (even for call inside SEARCH clause).
 
 ```js
 FOR doc IN viewName
-  SEARCH NGRAM_MATCH("quick fox", "quick blue fox", 0.9, "my2gram")
+  SEARCH NGRAM_MATCH("quick fox", "quick blue fox", 0.9, "bigram")
   RETURN doc.text
 ```
 
 ```js
-RETURN NGRAM_MATCH("quick fox", "quick blue fox", "my2gram")
+RETURN NGRAM_MATCH("quick fox", "quick blue fox", "bigram")
 ```
 
 Scoring Functions
