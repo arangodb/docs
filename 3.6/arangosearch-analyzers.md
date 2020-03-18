@@ -215,9 +215,6 @@ An Analyzer capable of breaking up strings into individual words while also
 optionally filtering out stop-words, extracting word stems, applying
 case conversion and accent removal.
 
-Stemming support is provided by
-[Snowball](https://snowballstem.org/){:target="_blank"}.
-
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
@@ -367,3 +364,35 @@ Name       | Type       | Language
 `text_ru`  | `text`     | Russian
 `text_sv`  | `text`     | Swedish
 `text_zh`  | `text`     | Chinese
+
+Supported Languages
+-------------------
+
+Analyzers rely on [ICU](http://site.icu-project.org/){:target="_blank"} for
+language-dependent tokenization and normalization. The ICU data file
+`icudtl.dat` that ArangoDB ships with contains information for a lot of
+languages, which are technically all supported.
+
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries and sorting of Views will not follow the language rules as
+per the defined Analyzer locale or the server startup option
+`--default-language`!
+{% endhint %}
+
+Stemming support is provided by [Snowball](https://snowballstem.org/){:target="_blank"},
+which supports the following languages:
+
+Code  | Language
+------|-----------
+`de`  | German
+`en`  | English
+`es`  | Spanish
+`fi`  | Finnish
+`fr`  | French
+`it`  | Italian
+`nl`  | Dutch
+`no`  | Norwegian
+`pt`  | Portuguese
+`ru`  | Russian
+`sv`  | Swedish
