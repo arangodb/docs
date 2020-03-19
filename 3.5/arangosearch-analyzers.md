@@ -289,9 +289,10 @@ languages, which are technically all supported.
 
 {% hint 'warning' %}
 The alphabetical order of characters is not taken into account by ArangoSearch,
-i.e. range queries and sorting of Views will not follow the language rules as
-per the defined Analyzer locale or the server startup option
-`--default-language`!
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](release-notes-known-issues35.html#arangosearch).
 {% endhint %}
 
 Stemming support is provided by [Snowball](https://snowballstem.org/){:target="_blank"},

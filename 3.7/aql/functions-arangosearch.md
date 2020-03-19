@@ -260,6 +260,14 @@ Match documents where the attribute at **path** is greater than (or equal to)
 *low* and *high* can be numbers or strings (technically also `null`, `true`
 and `false`), but the data type must be the same for both.
 
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](release-notes-known-issues35.html#arangosearch).
+{% endhint %}
+
 - **path** (attribute path expression):
   the path of the attribute to test in the document
 - **low** (number\|string): minimum value of the desired range
@@ -437,6 +445,14 @@ Match the value of the attribute that starts with **prefix**. If the attribute
 is processed by a tokenizing Analyzer (type `"text"` or `"delimiter"`) or if it
 is an array, then a single token/element starting with the prefix is sufficient
 to match the document.
+
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](release-notes-known-issues35.html#arangosearch).
+{% endhint %}
 
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
