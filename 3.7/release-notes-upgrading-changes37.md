@@ -25,6 +25,16 @@ will still continue to work in ArangoDB 3.7. However, 3.7 will be the last Arang
 version supporting the MMFiles storage engines, so users are asked to migrate to the
 RocksDB storage engine soon.
 
+ArangoSearch
+------------
+
+The stemming library Snowball was updated, bringing a breaking change to Analyzers:
+
+There is a 33rd letter in the Russian alphabet, `ё` (`e"`), but it is rarely used
+and often replaced by `е` in informal writing. The original algorithm assumed it
+had already been mapped to `е` (`e`), but now it actively translates this character
+if the locale is set to Russian language.
+
 HTTP REST API
 -------------
 
