@@ -3401,3 +3401,9 @@ BillingService is the API used to fetch billing information.
 | <a name="string" /> string | A string must always contain UTF-8 encoded or 7-bit ASCII text. | string | String | str/unicode |
 | <a name="bytes" /> bytes | May contain any arbitrary sequence of bytes. | string | ByteString | str |
 
+## Protocol Buffers Well-known Types
+
+| Type | Reference |
+| ---- | --------- |
+| <a name="google.protobuf.Timestamp" />Timestamp | [google.protobuf.Timestamp](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#google.protobuf.Timestamp){:target="_blank"}
+| <a name="google.protobuf.Duration" />Duration | [google.protobuf.Duration](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#duration){:target="_blank"}
