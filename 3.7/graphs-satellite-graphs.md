@@ -13,7 +13,7 @@ and the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
 {% endhint %}
 
 SatelliteGraphs are the natural extension of the concept of
-[Satellite collections](satellites.html) to graphs. All of the usual benefits
+[SatelliteCollections](satellites.html) to graphs. All of the usual benefits
 and caveats apply.
 
 When doing queries involving graph traversals, shortest path, or k-shortest
