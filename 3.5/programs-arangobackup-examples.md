@@ -9,8 +9,8 @@ Hot Backup Examples
 Create
 ------
 
-Hot backups are created near instantaneously. The single server as well as the
-Cluster deployment mode try to obtain a global write transaction lock
+Hot backups are created near instantaneously. The single server as
+well as other deployment modes try to obtain a global write transaction lock
 to enforce consistency across all servers, databases, collections
 etc. Hot backups still require no Data Definition operations (e.g., create
 database, create collection) to be active at the time of hot backup, please
@@ -75,7 +75,7 @@ The output will reflect the restore operation's success:
 2019-05-15T15:24:14Z [16201] INFO {backup} Successfully restored '2019-05-15T14.36.38Z_my-label'
 ```
 
-Note that current ArangoSearch Views are not stored in hot backups,
+Note that current ArangoSearch views are not stored in hot backups,
 therefore, after a successful restore operation, all views have to be
 dropped and recreated. This is done automatically in the background, but
 the recreation of the ArangoSearch indexes can take some time, in
@@ -89,7 +89,7 @@ disk usage. With every hot backup a consistent state in time is
 frozen. Later changes will then have to hold a difference to older
 hot backups. Compactions can no longer cover events before the last
 hot backup. Naturally, one may want to be able to free disk space, once
-hot backups become obsolete.
+hot backups become obsolete. 
 
 ```bash
 arangobackup delete --server.username root --identifier <identifier>

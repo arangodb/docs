@@ -37,12 +37,6 @@ dropping of cluster databases, collections and indexes.
 It must be ensured that for the hot backup no such changes are made to the
 cluster's inventory, as this could lead to inconsistent hot backups.
 
-Deployment Modes
-----------------
-
-Hot backups are only supported for single server and cluster deployments.
-They are not supported for Active Failover. <!-- TODO: or Master/Slave setups. -->
-
 Restoring from a different Version
 ----------------------------------
 
