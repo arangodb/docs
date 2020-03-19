@@ -29,15 +29,16 @@ attribute `validation`. The attribute can be used so specify document
 validation at collection level. See
 [Schema Validation](data-modeling-documents-schema-validation.html).
 
-The REST API endpoint for creating a graph at POST `/_api/gharial` is now able to
-accept the string value `satellite` as an option parameter for the attribute
-`replicationFactor`. Before only numeric values were allowed. Setting the
-`replicationFactor` to `satellite` will lead to a Satellite Graph being created.
-Satellite Graph creation will ignore the option parameters `numberOfShards`, 
-`minReplicationFactor` and `writeConcern`, as all of them will be set automatically.
-Additionally, the REST API endpoint for reading the graph definitions of all graphs at
-GET `GET /_api/gharial` or a graph definition of a single graph at `/_api/gharial/{graph}`
-will include an additional attribute called `isSatellite` (boolean).
+The REST API endpoint for creating a graph at POST `/_api/gharial` is now able
+to accept the string value `"satellite"` as an option parameter for the
+attribute `replicationFactor`. Only numeric values were allowed before. Setting
+the `replicationFactor` to `"satellite"` will lead to a SatelliteGraph being
+created. SatelliteGraph creation will ignore the option parameters
+`numberOfShards`, `minReplicationFactor` and `writeConcern`, as all of them
+will be set automatically. Additionally, the REST API endpoint for reading the
+graph definitions of all graphs at GET `GET /_api/gharial` or a graph
+definition of a single graph at `/_api/gharial/{graph}` will include an
+additional boolean attribute called `isSatellite`.
 
 ### HTTP REST API endpoints moved
 
