@@ -42,6 +42,16 @@ dropping of cluster databases, collections and indexes.
 It must be ensured that for the hot backup no such changes are made to the
 cluster's inventory, as this could lead to inconsistent hot backups.
 
+Deployment Modes and Replication
+--------------------------------
+
+Hot backups are only supported for single server and cluster deployments.
+They are not supported for Active Failover. <!-- TODO: or Master/Slave setups. -->
+
+Hot backups are not automatically replicated between instances, i.e. between
+clusters in a Datacenter to Datacenter Replication setup. Simply take
+hot backups on all instances.
+
 Identical Minor Version
 -----------------------
 
@@ -144,12 +154,3 @@ instance which created the backup.
 
 Such an encrypted backup can only be restored to an instance using the
 same encryption key.
-
-Replication and Hot Backup
---------------------------
-
-Hot backups are not automatically replicated between instances. This is
-true for both the Active Failover setup with 2 (or more) single servers
-and for the Datacenter to Datacenter Replication between clusters.
-Simply take hot backups on all instances.
-
