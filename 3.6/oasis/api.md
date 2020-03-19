@@ -5,18 +5,32 @@ title: ArangoDB Oasis Managed Service API
 ---
 # Oasis API
 
-Introduction
+[ArangoDB Oasis](https://cloud.arangodb.com/){:target="_blank"}, the
+ArangoDB Cloud, comes with its own API. This API enables you to control all
+resources inside Oasis in a scriptable manor. Typical use cases are spinning
+up Oasis deployments during continuous integration and infrastructure as code.
 
-Aspects:
+The ArangoDB Oasis API…
 
-- [gRPC](https://grpc.io/){:target="_blank"} interface based on
+- is a well specified API that uses
   [Protocol Buffers](https://developers.google.com/protocol-buffers/){:target="_blank"}
+  as interface definition and [gRPC](https://grpc.io/){:target="_blank"} as
+  underlying protocol.
 
-- authentication etc.
+- allows for automatic generation of clients for a large list of languages.
+  A Go client is available out of the box.
 
-[oasisctl](oasisctl.html) is a command-line tool which uses the API, but there
-are also language drivers(?)...
+- uses API keys for authentication. API keys impersonate a user and inherit
+  the permissions of that user.
 
-Where to go from here
+- is also available as a commandline tool called [oasisctl](oasisctl.html).
 
-Link to [reference documentation](http://hosted-on-github-pages-or.similar){:target="_blank"}
+- is also available as a
+  [Terraform plugin](https://github.com/arangodb-managed/terraform-provider-oasis/){:target="_blank"}.
+  This plugin makes integration of Oasis in infrastructure as code projects
+  very simple. Note that the terraform plugin is still in **prerelease**, so
+  its interface can still change.
+
+Also see:
+- [github.com/arangodb-managed/apis](https://github.com/arangodb-managed/apis/){:target="_blank"}
+- [API definitions](https://arangodb-managed.github.io/apis/index.html){:target="_blank"}
