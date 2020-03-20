@@ -48,9 +48,12 @@ When restoring hot backups in Active Failover setups, it is necessary to
 prevent that a non-restored follower becomes leader by temporarily setting
 the maintenance mode:
 
-1. `curl -X PUT <leader-endpoint>/_admin/cluster/maintenance -d'"on"'`
+1. `curl -X PUT <endpoint>/_admin/cluster/maintenance -d'"on"'`
 2. Restore the Hot Backup
-3. `curl -X PUT <leader-endpoint>/_admin/cluster/maintenance -d'"off"'`
+3. `curl -X PUT <endpoint>/_admin/cluster/maintenance -d'"off"'`
+
+Substitute `<endpoint>` with the actual endpoint of the **leader**
+single server instance.
 
 Identical Minor Version
 -----------------------
