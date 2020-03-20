@@ -21,16 +21,17 @@ Version 3.7
 - **AQL**:
   Subquery and graph traversal performance improvements
 
-- **Document Validation**:
-  Enforce schemas on documents. Invalid documents can be rejected automatically
-  by the database system, making it easy to maintain data quality.
-
 - **HTTP/2 support**:
 
 - **TLS key and certificate rotation**:
 
 - **Crash Handler** (Linux/macOS):
 -->
+
+- [**Schema Validation**](data-modeling-documents-schema-validation.html):
+  Enforce a JSON Schema for documents on collection level. Invalid documents
+  can be rejected automatically by the database system, making it easy to
+  maintain data quality.
 
 - [**Insert-Update**](release-notes-new-features37.html#insert-update):
   Added an insert-update operation that is similar to the already existing
