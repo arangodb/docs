@@ -137,25 +137,27 @@ marked with `/* vertex optimized away */` in the query's execution plan output.
 Unused edge and path variables (`e` and `p`) were already optimized away in
 previous versions by the `optimize-traversals` optimizer rule.
 
-Additionally, traversals now provide the options `vertexCollections` and 
-edgeCollections` to restrict the traversal to certain vertex or edge collections.
+Additionally, traversals now accept the options `vertexCollections` and
+`edgeCollections` to restrict the traversal to certain vertex or edge collections.
 
 The use case for `vertexCollections` is to not follow any edges that will point
 to other than the specified vertex collections, e.g.
-```
+
+```js
 FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
   OPTIONS { vertexCollections: [ "bolts", "screws" ] }
   RETURN v 
 ```
 
-The traversal's start vertex is always considered valid, regardless of whether
-it is present in the `vertexCollections` option.
+The traversal's start vertex is always considered valid, even if it not stored
+in any of the collections listed in the `vertexCollections` option.
 
 The use case for `edgeCollections` is to not take into consideration any edges
 from edge collections other than the specified ones, e.g.
-```
+
+```js
 FOR v, e, p IN 1..3 OUTBOUND 'products/123' GRAPH 'components'
-  OPTIONS { edgeCollections: [ "productsToBotls", "productsToScrews" ] }
+  OPTIONS { edgeCollections: [ "productsToBolts", "productsToScrews" ] }
   RETURN v
 ```
 
@@ -171,10 +173,10 @@ performance optimization.
 The following AQL functions have been added in ArangoDB 3.7:
 
 - [REPLACE_NTH()](aql/functions-array.html#replace_nth)
-- LEVENSHTEIN_MATCH()
-- NGRAM_SIMILARITY()
-- NGRAM_POSITIONAL_SIMILARITY()
 - JACCARD()
+- LEVENSHTEIN_MATCH()
+- NGRAM_POSITIONAL_SIMILARITY()
+- NGRAM_SIMILARITY()
 
 ### Syntax enhancements
 
