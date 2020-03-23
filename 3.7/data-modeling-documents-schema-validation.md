@@ -60,6 +60,12 @@ The `rule` must be a valid JSON Schema object as outlined in the
 See [Understanding JSON Schema](https://json-schema.org/understanding-json-schema/reference/object.html){:target="_blank"}
 for a user guide on how to write JSON Schema descriptions.
 
+System attributes are invisible to the validator, i.e. `_key`, `_rev` and `_id`
+(in edge collections additionally `_from` and `_to`) do not need to be
+specified in the schema. You may set `additionalProperties: false` to only
+allow attributes described by the schema. System attributes will not fall under
+this restriction.
+
 {% hint 'security' %}
 Remote schemas are not supported for security reasons.
 {% endhint %}
@@ -78,3 +84,12 @@ The level controls when the validation is triggered:
   and prohibit that valid documents are changed to invalid documents.
 - `strict`: All new and modified document must strictly pass validation.
   No exceptions are made (default).
+
+Error message
+-------------
+
+If the validation of a schema fails, then a generic error is raised.
+The schema validation cannot pin-point which part of a rule made it fail,
+also see [Known Issues](release-notes-known-issues37.html). You may customize
+the error message via the `message` attribute to provide a summary of what is
+expected or point out common mistakes.
