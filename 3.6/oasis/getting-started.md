@@ -11,7 +11,7 @@ to using the Oasis web interface to set up a test organization, project and
 deployment, as well as accessing and deleting the deployment.
 
 For general information about ArangoDB Oasis, see
-[arangodb.com/managed-service/](https://www.arangodb.com/managed-service/){:target="_blank"}.
+[cloud.arangodb.com](https://cloud.arangodb.com/){:target="_blank"}.
 
 A video series on how to get started with Oasis is also available:
 
@@ -22,8 +22,11 @@ A video series on how to get started with Oasis is also available:
 Please have following information at hand for registration:
 
 - An **email address**, required for email verification.
+
+If you use a public email service provider (e.g. Hotmail), make sure to have
+the following information at hand as well:
+
 - A **mobile phone number**, required for SMS verification
-  (only if you use a public email service provider, e.g. Gmail).
 
 {% hint 'info' %}
 One mobile phone number will be associated with one account and cannot be
@@ -33,9 +36,10 @@ used for multiple accounts.
 ## Creating a new account
 
 1. Go to [cloud.arangodb.com](https://cloud.arangodb.com){:target="_blank"}.
-2. To reach the sign up, press the _Sign up for free_ button or click the
+2. To reach the sign up, press the _Sign to get started_ button or click the
    _Sign Up_ link in the header navigation of the start page.
-3. Once on the sign up page, select the _Sign up_ tab.
+3. Review the terms &amp conditions and privacy policy and click _I accept_.
+   You're now send to the sign up page.
 4. Select the type of sign up you would like to use (GitHub, Google, or
    email address).
     - For GitHub or Google please follow on-screen instructions.
@@ -45,21 +49,19 @@ used for multiple accounts.
 
    You will receive a verification email. In that mail, press the
    _Verify my email address_ link or button.
-5. In case the ArangoDB Oasis start page opens, press the _Log in_ button or
-   click the _Log in_ link in the header navigation.
-6. A form may appear asking for your mobile phone number. Enter the country code
+5. You will open a page in ArangoDB Oasis that says _Welcome back!_
+   Click the _Log in_ button to continue and login.
+6. If you signed up with an email address of a public email service provider (e.g. Hotmail),
+   a form appears asking for your mobile phone number. Enter the country code
    and the number of the mobile phone you want to use for this account.
-   This step is skipped if you signed up with an email address of a non-public
-   email service provider (e.g. company email address).
+   For company email addresses, this step is skipped.
 7. If you had to enter your phone number in the previous step, a verification
    code will be sent via SMS to the mobile number you entered. Enter the
    verification code.
-8. A form will appear asking for your name. Enter your first and last name, and
-   then press the _Save_ button.
-9. A form will appear asking for the name of your organization. Enter your
-   organization name, and then press the _Create_ button. You can always change
-   it later.
-10. You're done and you should be redirected to the
+8. A form will appear asking for your name. Enter your first, last and company
+   name, and then press the _Save_ button.
+9. An organization with a default project will now be prepared for you.
+   Once that is completed, you will be redirected to the
    [ArangoDB Oasis dashboard](https://cloud.arangodb.com/dashboard){:target="_blank"}.
 
 ## General hierarchy
@@ -67,13 +69,19 @@ used for multiple accounts.
 **Organizations → Projects → Deployments**
 
 - ArangoDB Oasis supports multi-tenant setups via organizations.
-- You can create your own organization(s) and invite collaborators or join existing ones via invites.
+- You can create your own organization(s) and invite collaborators or join
+  existing ones via invites.
 - Your organization contains projects.
 - Your projects hold your deployments.
 
 Also see the [Project Guide](./project-guide.html).
 
 ## Creating a new project
+
+{% hint 'tip' %}
+A default project is automatically created for you.
+You can skip this paragraph unless you want to add additional projects.
+{% endhint %}
 
 1. In the main navigation, in the _Projects_ section, click the _Overview_ link.
 2. Click the _New project_ button.
@@ -89,8 +97,10 @@ Also see the video
 ## Creating a new deployment
 
 1. If you don't have a project, yet, [create one first](#creating-a-new-project).
-2. In the main navigation, in the _Projects_ section, click on the project for which you want to create a new deployment.
-3. Navigate to the _Deployments_ tab. You will see an empty list or a list with your project's deployments.
+2. In the main navigation, in the _Projects_ section, click on the project for
+   which you want to create a new deployment.
+3. Navigate to the _Deployments_ tab. You will see an empty list or a list with
+   your project's deployments.
 4. Press the _New deployment_ button.
 
 ![Oasis Deployments](../images/oasis-deployments-page.png)
@@ -109,14 +119,20 @@ Also see the video
    **Note**: If you don't know which DB version to select, leave the version
    selected by default.
 3. In the _CA Certificate_ field
-    - Either create a new certificate by typing the desired name for it and
-      hitting enter or clicking on the name when done.
-    - Or, if you already have certificates, select the desired one.
-4. _Optional:_ In the _IP whitelist_ field, select the desired one in case you
-   want to limit access to your deployment to certain IP ranges. To create a
-   whitelist, navigate to your project and select the _IP whitelists_ tab
-   (also see the video
+    - The default certificate created for your project will automatically be selected.
+    - If you have no default certificate, or want to use a new certificate
+      create a new certificate by typing the desired name for it and hitting
+      enter or clicking on the name when done.
+    - Or, if you already have multiple certificates, select the desired one.
+4. _Optional but strongly recommended:_ In the _IP whitelist_ field, select the
+   desired one in case you want to limit access to your deployment to certain
+   IP ranges. To create a whitelist, navigate to your project and select the
+   _IP whitelists_ tab (also see the video
    [IP Whitelists with ArangoDB Oasis](https://www.youtube.com/watch?v=Et6nlTHBI50&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=6&t=0s){:target="_blank"}).
+
+{% hint 'security' %}
+For any kind of production deployment we strongly advise to use an IP whitelist.
+{% endhint %}
 
 ![Oasis New Deployment](../images/oasis-new-deployment1.png)
 
@@ -133,7 +149,8 @@ The data will be sharded across multiple nodes.
 #### OneShard
 
 1. Select the memory size of your node.
-2. Select the disk size of your node. The available ranges for the disk size
+2. Select the CPU size of your node.
+3. Select the disk size of your node. The available ranges for the disk size
    depend on the selected memory size.
 
 ![Oasis Deployment OneShard](../images/oasis-new-deployment2.png)
@@ -165,16 +182,24 @@ The data will be sharded across multiple nodes.
 
 ## Installing a new certificate
 
-Each certificate you create in ArangoDB Oasis you will also need to install on your local machine. This operation will slightly vary between operating systems.
+Certificates that do have the _Use well known certificate_ option enabled do
+not need any installation and will be supported by almost all web-browsers
+automatically.
 
-1. In the main navigation, in the _Projects_ section, click on the project for which you want to install a new certificate.
+Each certificate you create in ArangoDB Oasis that has the
+_Use well known certificate_ option disabled, you will also need to install on
+your local machine. This operation will slightly vary between operating systems.
+
+1. In the main navigation, in the _Projects_ section, click on the project for
+   which you want to install a new certificate.
 2. Navigate to the _Certificates_ tab.
 
    ![Oasis Certificates](../images/oasis-cert-page-with-cert-present.png)
 
 3. From the list of certificates, click on the one you want to install.
 4. Navigate to the tab of the operating system of your choice.
-5. Under _Installation instructions_, copy the commands by pressing the _Copy to clipboard_ button.
+5. Under _Installation instructions_, copy the commands by pressing the
+   _Copy to clipboard_ button.
 
    ![Oasis Certificate Install Instructions](../images/oasis-cert-install-instructions.png)
 
@@ -206,6 +231,19 @@ Also see the video
 
 At this point your ArangoDB deployment is available for you to use — **Have fun!**
 
+{% hint 'info' %}
+Each deployment is accessible on two ports:
+
+- Port 8529 is the standard port recommended for use by web-browsers.
+- Port 18529 is the alternate port that is recommended for use by automated services.
+
+The difference between these ports is the certificate used. If you enable
+_Use well known certificate_, the certificates used on port 8529 is well known
+and automatically accepted by most web browsers. The certificate used on port
+18529 is a self-signed certificate. For securing automated services, the use of
+a self-signed certificate is recommended.
+{% endhint %}
+
 ## Deleting your deployment
 
 {% hint 'warning' %}
@@ -228,8 +266,8 @@ please proceed with caution.
 
 ## Free-to-try vs. professional service
 
-ArangoDB Oasis comes with a free-to-try plan that lets you test our managed
-service for free for 14 days. After the trial period, your deployments will
+ArangoDB Oasis comes with a free-to-try plan that lets you test our ArangoDB
+Cloud for free for 14 days. After the trial period, your deployments will
 automatically be deleted.
 
 You can convert to the professional service model at any time by adding 
@@ -255,3 +293,15 @@ your billing details and at least one payment method.
 4. Click the _Save_ button.
 
 ![Oasis Payment Method](../images/oasis-add-payment-method-credit-card.png)
+
+## Limitations of ArangoDB Oasis
+
+ArangoDB Oasis aims to make all features of the ArangoDB Enterprise Edition
+available to you, but there are a few limitations:
+
+1. Encryption (both at rest & network traffic) is always on and cannot be
+   disabled for security reasons.
+2. Foxx services are not allowed to call out to the internet for security
+   reasons. Incoming calls to Foxx services are fully supported.
+3. LDAP authentication & Audit trails are currently unavailable, but will be
+   supported in the near future.

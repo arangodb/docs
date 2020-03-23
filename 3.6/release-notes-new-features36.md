@@ -212,15 +212,9 @@ read only documents that are absolutely necessary to compute the query result,
 reducing load to the storage engine. This is only supported for the RocksDB
 storage engine.
 
-In 3.6 the optimization can only be applied to queries containing a
-`SORT`+`LIMIT` combination, e.g:
-
-```js
-FOR d IN documentSource // documentSource can be either a collection or an ArangoSearch View
-  SORT d.foo
-  LIMIT 100
-  RETURN d
-```
+In 3.6 the optimization can only be applied to queries retrieving data from a
+collection or an ArangoSearch View and that contain a `SORT`+`LIMIT`
+combination.
 
 For the collection case the optimization is possible if and only if:
 - there is an index of type `primary`, `hash`, `skiplist`, `persistent`
@@ -228,8 +222,7 @@ For the collection case the optimization is possible if and only if:
 - all attribute accesses can be covered by indexed attributes
 
 ```js
-// Given we have a hash index on attributes [  "foo", "bar", "baz" ]
-
+// Given we have a persistent index on attributes [ "foo", "bar", "baz" ]
 FOR d IN myCollection
   FILTER d.foo == "someValue" // hash index will be picked to optimize filtering
   SORT d.baz DESC             // field "baz" will be read from index
@@ -238,21 +231,36 @@ FOR d IN myCollection
 ```
 
 For the ArangoSearch View case the optimization is possible if and only if:
-- all attribute accesses can be covered by stored attributes
+- all attribute accesses can be covered by attributes stored in the View index
   (e.g. using `primarySort`)
+- the primary sort order optimization is not applied, because it voids the need
+  for late document materialization
 
 ```js
+// Given primarySort is {"field": "foo", "asc": false}, i.e.
+// field "foo" covered by index but sort optimization not applied
+// (sort order of primarySort and SORT operation mismatch)
 FOR d IN myView
-  SEARCH d.foo == "baz"
+  SORT d.foo
+  LIMIT 100  // only 100 documents will be materialized
+  RETURN d
+```
+
+```js
+// Given primarySort contains field "foo"
+FOR d IN myView
+  SEARCH d.foo == "someValue"
   SORT BM25(d) DESC  // BM25(d) will be evaluated by the View node above
   LIMIT 100          // only 100 documents will be materialized
   RETURN d
 ```
 
 ```js
-// Given we have primary sort on fields ["foo", "bar"]
+// Given primarySort contains fields "foo" and "bar", and "bar" is not the
+// first field or at least not sorted by in descending order, i.e. the sort
+// optimization can not be applied but the late document materialization instead
 FOR d IN myView
-  SEARCH d.foo == "baz"
+  SEARCH d.foo == "someValue"
   SORT d.bar DESC    // field "bar" will be read from the View
   LIMIT 100          // only 100 documents will be materialized
   RETURN d
@@ -542,13 +550,15 @@ FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_
 ArangoSearch Views are now eligible for [SmartJoins](smartjoins.html) in AQL,
 provided that their underlying collections are eligible too.
 
+<span id="oneshard-cluster"></span>
+
 OneShard
 --------
 
 {% hint 'info' %}
 This option is only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
 {% endhint %}
 
 Not all use cases require horizontal scalability. In such cases, a OneShard
@@ -570,8 +580,9 @@ only the final result. This can drastically reduce resource consumption and
 communication effort for the Coordinator.
 
 An entire cluster, selected databases or selected collections can be made
-eligible for the [OneShard](architecture-deployment-modes-cluster-architecture.html#oneshard)
-optimization.
+eligible for the OneShard optimization. See
+[OneShard cluster architecture](architecture-deployment-modes-cluster-architecture.html#oneshard)
+for details and usage examples.
 
 HTTP API
 --------
@@ -645,13 +656,13 @@ collections created in the new database, unless explicitly overridden.
 Startup options
 ---------------
 
-### Metrics API
+### Metrics API option
 
 The new [option](programs-arangod-server.html#metrics-api)
 `--server.enable-metrics-api` allows you to disable the metrics API by setting
 it to `false`, which is otherwise turned on by default.
 
-### OneShard Cluster
+### OneShard cluster option
 
 The [option](programs-arangod-cluster.html#more-advanced-options)
 `--cluster.force-one-shard` enables the new OneShard feature for the entire
@@ -661,7 +672,7 @@ shards leader. All collections created this way will be eligible for specific
 AQL query optimizations that can improve query performance and provide advanced
 transactional guarantees.
 
-### Cluster upgrade
+### Cluster upgrade option
 
 The new [option](programs-arangod-cluster.html#upgrade) `--cluster.upgrade`
 toggles the cluster upgrade mode for Coordinators. It supports the following
@@ -729,7 +740,7 @@ have been added:
 - `--network.verify-hosts`: if set to `true`, this will verify peer certificates
   for cluster-internal requests when TLS is used. The default value is `false`.
 
-### RocksDB exclusive writes
+### RocksDB exclusive writes option
 
 The new option `--rocksdb.exclusive-writes` allows to make all writes to the
 RocksDB storage exclusive and therefore avoids write-write conflicts.

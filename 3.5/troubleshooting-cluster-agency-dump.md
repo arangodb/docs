@@ -49,7 +49,7 @@ Please make sure to use the _IP_ (or hostname) and _PORT_ of one _Agent_.
 The two commands above can be easily executed in a single command in the following way:
 
 ```
-curl -L http://<server>:<port>/_api/agency/read [["/"]]' -H "Authorization: bearer $(jwtgen -a H256 -s geheim -c 'iss=arangodb' -c 'server_id=setup')"
+curl -L http://<server>:<port>/_api/agency/read -d '[["/"]]' -H "Authorization: bearer $(jwtgen -a H256 -s geheim -c 'iss=arangodb' -c 'server_id=setup')"
 ```
 
 As always, use the _IP_ (or hostname) and _PORT_ of one _Agent_.

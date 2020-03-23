@@ -12,9 +12,9 @@ EOF
 HTTP/1.1 202 Accepted
 content-type: text/plain; charset=utf-8
 x-content-type-options: nosniff
-x-arango-async-id: 9597
+x-arango-async-id: 9602
 
-shell> curl --header 'accept: application/json' --dump - http://localhost:8529/_api/job/9597
+shell> curl --header 'accept: application/json' --dump - http://localhost:8529/_api/job/9602
 
 HTTP/1.1 204 No Content
 content-type: text/plain; charset=utf-8

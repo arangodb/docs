@@ -1,6 +1,7 @@
 ---
 layout: default
-description: AQL comes with a built-in set of functions, but it isnot a fully-featured programming language
+description: You can write UDFs in JavaScript to extend AQL or to simplify queries
+title: AQL User-Defined Functions
 ---
 Extending AQL with User Functions
 =================================
@@ -26,7 +27,7 @@ Technical Details
 UDFs can have serious effects on the performance of your queries and the resource
 usage in ArangoDB. Especially in cluster setups they should not be used against
 much data, because this data will need to be sent over the network back and forth
-between _DBservers_ and _Coordinators_, potentially adding a lot of latency.
+between _DB-Servers_ and _Coordinators_, potentially adding a lot of latency.
 This can be mitigated by very selective `FILTER`s before calls to UDFs.
 {% endhint %}
 

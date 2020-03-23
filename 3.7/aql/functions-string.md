@@ -308,7 +308,7 @@ LIKE()
 `LIKE(text, search, caseInsensitive) → bool`
 
 Check whether the pattern *search* is contained in the string *text*,
-using wildcard matching. 
+using wildcard matching.
 
 - **text** (string): the string to search in
 - **search** (string): a search pattern that can contain the wildcard characters

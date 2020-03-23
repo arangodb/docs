@@ -260,6 +260,14 @@ Match documents where the attribute at **path** is greater than (or equal to)
 *low* and *high* can be numbers or strings (technically also `null`, `true`
 and `false`), but the data type must be the same for both.
 
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+{% endhint %}
+
 - **path** (attribute path expression):
   the path of the attribute to test in the document
 - **low** (number\|string): minimum value of the desired range
@@ -438,6 +446,14 @@ is processed by a tokenizing Analyzer (type `"text"` or `"delimiter"`) or if it
 is an array, then a single token/element starting with the prefix is sufficient
 to match the document.
 
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+{% endhint %}
+
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
 - **prefix** (string): a string to search at the start of the text
@@ -488,6 +504,34 @@ stemming disabled to avoid this issue, or apply stemming to the prefix:
 ```js
 FOR doc IN viewName
   SEARCH ANALYZER(STARTS_WITH(doc.text, TOKENS("ips", "text_en")[0]), "text_en")
+  RETURN doc.text
+```
+
+### LIKE()
+
+`LIKE(path, search) → bool`
+
+Check whether the pattern *search* is contained in the attribute denoted by *path*,
+using wildcard matching.
+
+- **path** (attribute path expression): the path of the attribute to compare
+  against in the document
+- **search** (string): a search pattern that can contain the wildcard characters
+  `%` (meaning any sequence of characters, including none) and `_` (any single
+  character). Literal `%` and `_` must be escaped with two backslashes (four
+  in arangosh).
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(LIKE(doc.text, "foo%b_r"), "text_en")
+  RETURN doc.text
+```
+
+`LIKE` can also be used in operator form:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(doc.text LIKE "foo%b_r", "text_en")
   RETURN doc.text
 ```
 

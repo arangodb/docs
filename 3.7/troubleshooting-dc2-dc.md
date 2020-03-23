@@ -8,7 +8,7 @@ title: DC2DC Replication Troubleshooting
 {% hint 'info' %}
 Datacenter to datacenter replication is only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
 {% endhint %}
 
 The _datacenter to datacenter replication_ is a distributed system with a lot
@@ -41,12 +41,6 @@ Below you'll find an overview per component.
   - A log file. This is configurable with settings with a `log.` prefix.
   E.g. `--log.output=file://myLogFile` or `--log.level=info`.
   - A statistics API `GET /_admin/statistics`
-
-- Kafka cluster: The kafka brokers provide:
-  - A log file, see settings with `log.` prefix in its `server.properties` configuration file.
-
-- Zookeeper: The zookeeper agents provide:
-  - A log on standard output.
 
 ## What to look for while monitoring status
 

@@ -190,7 +190,7 @@ collections in the Cluster.
 If *arangorestore* is asked to restore a collection, it will use the same
 number of shards, replication factor and shard keys as when the collection
 was dumped. The distribution of the shards to the servers will also be the
-same as at the time of the dump, provided that the number of _DBServers_ in
+same as at the time of the dump, provided that the number of _DB-Servers_ in
 the cluster dumped from is identical to the number of DB-Servers in the
 to-be-restored-to cluster.
 

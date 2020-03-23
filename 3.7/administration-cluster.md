@@ -14,8 +14,8 @@ There is also a detailed
 [Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}
 for download.
 
-Clusters can be deployed by ArangoDB as
-[managed service](https://www.arangodb.com/managed-service/){:target="_blank"}
+Clusters can be easily deployed using the
+[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/){:target="_blank"}
 with full hosting, management, and monitoring.
 
 Please check the following talks as well:
@@ -70,7 +70,7 @@ db._create("test", { replicationFactor: 4 }, { enforceReplicationFactor: false }
 The default value for _enforceReplicationFactor_ is true. 
 
 **Note:** multiple _replicas_ of the same _shard_ can never coexist on the same
-_DBServer_ instance.
+_DB-Server_ instance.
 
 Sharding
 --------

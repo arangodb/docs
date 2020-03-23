@@ -6,7 +6,7 @@ ArangoDB Deploying Options by _Technology_
 
 {% hint 'info %}
 ArangoDB is also available as
-[**managed service** (ArangoDB Oasis)](https://www.arangodb.com/managed-service/){:target="_blank"}.
+[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/){:target="_blank"}.
 {% endhint %}
 
 - [Manually](deployment-manually.html)
