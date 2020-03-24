@@ -25,7 +25,7 @@ oasisctl delete organization [flags]
 ## Options inherited from parent commands
 
 ```
-      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.adbtest.xyz")
+      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
@@ -34,4 +34,5 @@ oasisctl delete organization [flags]
 
 * [oasisctl delete](oasisctl-delete.html)	 - Delete resources
 * [oasisctl delete organization invite](oasisctl-delete-organization-invite.html)	 - Delete an organization invite the authenticated user has access to
+* [oasisctl delete organization members](oasisctl-delete-organization-members.html)	 - Delete members from organization
 
