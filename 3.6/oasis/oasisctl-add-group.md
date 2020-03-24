@@ -1,18 +1,18 @@
 ---
 layout: default
-description: Description of the oasisctl list group command
-title: Oasisctl List Group
+description: Description of the oasisctl add group command
+title: Oasisctl Add Group
 ---
-# Oasisctl List Group
+# Oasisctl Add Group
 
-List group resources
+Add group resources
 
 ## Synopsis
 
-List group resources
+Add group resources
 
 ```
-oasisctl list group [flags]
+oasisctl add group [flags]
 ```
 
 ## Options
@@ -31,6 +31,6 @@ oasisctl list group [flags]
 
 ## See also
 
-* [oasisctl list](oasisctl-list.html)	 - List resources
-* [oasisctl list group members](oasisctl-list-group-members.html)	 - List members of a group the authenticated user is a member of
+* [oasisctl add](oasisctl-add.html)	 - Add resources
+* [oasisctl add group members](oasisctl-add-group-members.html)	 - Add members to group
 

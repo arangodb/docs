@@ -1,26 +1,26 @@
 ---
 layout: default
-description: Description of the oasisctl delete organization invite command
-title: Oasisctl Delete Organization Invite
+description: Description of the oasisctl delete organization members command
+title: Oasisctl Delete Organization Members
 ---
-# Oasisctl Delete Organization Invite
+# Oasisctl Delete Organization Members
 
-Delete an organization invite the authenticated user has access to
+Delete members from organization
 
 ## Synopsis
 
-Delete an organization invite the authenticated user has access to
+Delete members from organization
 
 ```
-oasisctl delete organization invite [flags]
+oasisctl delete organization members [flags]
 ```
 
 ## Options
 
 ```
-  -h, --help                     help for invite
-  -i, --invite-id string         Identifier of the organization invite
+  -h, --help                     help for members
   -o, --organization-id string   Identifier of the organization
+  -u, --user-emails strings      A comma separated list of user email addresses
 ```
 
 ## Options inherited from parent commands

@@ -1,26 +1,27 @@
 ---
 layout: default
-description: Description of the oasisctl list group members command
-title: Oasisctl List Group Members
+description: Description of the oasisctl add group members command
+title: Oasisctl Add Group Members
 ---
-# Oasisctl List Group Members
+# Oasisctl Add Group Members
 
-List members of a group the authenticated user is a member of
+Add members to group
 
 ## Synopsis
 
-List members of a group the authenticated user is a member of
+Add members to group
 
 ```
-oasisctl list group members [flags]
+oasisctl add group members [flags]
 ```
 
 ## Options
 
 ```
-  -g, --group-id string          Identifier of the group
+  -g, --group-id string          Identifier of the group to add members to
   -h, --help                     help for members
   -o, --organization-id string   Identifier of the organization
+  -u, --user-emails strings      A comma separated list of user email addresses
 ```
 
 ## Options inherited from parent commands
@@ -33,5 +34,5 @@ oasisctl list group members [flags]
 
 ## See also
 
-* [oasisctl list group](oasisctl-list-group.html)	 - List group resources
+* [oasisctl add group](oasisctl-add-group.html)	 - Add group resources
 

@@ -1,26 +1,27 @@
 ---
 layout: default
-description: Description of the oasisctl delete project command
-title: Oasisctl Delete Project
+description: Description of the oasisctl list cpusizes command
+title: Oasisctl List Cpusizes
 ---
-# Oasisctl Delete Project
+# Oasisctl List Cpusizes
 
-Delete a project the authenticated user has access to
+List CPU sizes
 
 ## Synopsis
 
-Delete a project the authenticated user has access to
+List CPU sizes
 
 ```
-oasisctl delete project [flags]
+oasisctl list cpusizes [flags]
 ```
 
 ## Options
 
 ```
-  -h, --help                     help for project
+  -h, --help                     help for cpusizes
   -o, --organization-id string   Identifier of the organization
   -p, --project-id string        Identifier of the project
+      --provider-id string       Identifier of the provider
 ```
 
 ## Options inherited from parent commands
@@ -33,5 +34,5 @@ oasisctl delete project [flags]
 
 ## See also
 
-* [oasisctl delete](oasisctl-delete.html)	 - Delete resources
+* [oasisctl list](oasisctl-list.html)	 - List resources
 

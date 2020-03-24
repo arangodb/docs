@@ -18,7 +18,7 @@ oasisctl [flags]
 ## Options
 
 ```
-      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.adbtest.xyz")
+      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
   -h, --help              help for oasisctl
       --token string      Token used to authenticate at ArangoDB Oasis
@@ -27,6 +27,7 @@ oasisctl [flags]
 ## See also
 
 * [oasisctl accept](oasisctl-accept.html)	 - Accept invites
+* [oasisctl add](oasisctl-add.html)	 - Add resources
 * [oasisctl backup](oasisctl-backup.html)	 - Backup commands
 * [oasisctl completion](oasisctl-completion.html)	 - Generates bash completion scripts
 * [oasisctl create](oasisctl-create.html)	 - Create resources

@@ -1,24 +1,24 @@
 ---
 layout: default
-description: Description of the oasisctl list apikeys command
-title: Oasisctl List Apikeys
+description: Description of the oasisctl add command
+title: Oasisctl Add
 ---
-# Oasisctl List Apikeys
+# Oasisctl Add
 
-List all API keys created for the current user
+Add resources
 
 ## Synopsis
 
-List all API keys created for the current user
+Add resources
 
 ```
-oasisctl list apikeys [flags]
+oasisctl add [flags]
 ```
 
 ## Options
 
 ```
-  -h, --help   help for apikeys
+  -h, --help   help for add
 ```
 
 ## Options inherited from parent commands
@@ -31,5 +31,6 @@ oasisctl list apikeys [flags]
 
 ## See also
 
-* [oasisctl list](oasisctl-list.html)	 - List resources
+* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl add group](oasisctl-add-group.html)	 - Add group resources
 
