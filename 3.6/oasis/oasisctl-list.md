@@ -24,7 +24,7 @@ oasisctl list [flags]
 ## Options inherited from parent commands
 
 ```
-      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.adbtest.xyz")
+      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
@@ -36,6 +36,7 @@ oasisctl list [flags]
 * [oasisctl list arangodb](oasisctl-list-arangodb.html)	 - List ArangoDB information
 * [oasisctl list backups](oasisctl-list-backups.html)	 - List backups
 * [oasisctl list cacertificates](oasisctl-list-cacertificates.html)	 - List all CA certificates of the given project
+* [oasisctl list cpusizes](oasisctl-list-cpusizes.html)	 - List CPU sizes
 * [oasisctl list deployments](oasisctl-list-deployments.html)	 - List all deployments of the given project
 * [oasisctl list effective](oasisctl-list-effective.html)	 - List effective information
 * [oasisctl list group](oasisctl-list-group.html)	 - List group resources
