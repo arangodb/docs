@@ -1,3 +1,8 @@
+---
+layout: default
+title: Getting Started with the Oasis API and the Oasisctl command line tool
+description: Oasisctl Tutorial
+---
 # Getting Started with the Oasis API and Oasisctl
 
 Oasisctl is a command line tool for accessing the Oasis API. This tutorial will
