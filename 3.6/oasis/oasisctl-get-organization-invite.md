@@ -26,12 +26,12 @@ oasisctl get organization invite [flags]
 ## Options inherited from parent commands
 
 ```
-      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.adbtest.xyz")
+      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
 
 ## See also
 
-* [oasisctl get organization](oasisctl-get-organization.html)	 - Get an organization the authenticated user is a member of
+* [oasisctl get organization](oasisctl_get_organization.md)	 - Get an organization the authenticated user is a member of
 

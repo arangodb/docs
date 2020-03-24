@@ -24,14 +24,14 @@ oasisctl list organization [flags]
 ## Options inherited from parent commands
 
 ```
-      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.adbtest.xyz")
+      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
 
 ## See also
 
-* [oasisctl list](oasisctl-list.html)	 - List resources
-* [oasisctl list organization invites](oasisctl-list-organization-invites.html)	 - List invites of an organization the authenticated user is a member of
-* [oasisctl list organization members](oasisctl-list-organization-members.html)	 - List members of an organization the authenticated user is a member of
+* [oasisctl list](oasisctl_list.md)	 - List resources
+* [oasisctl list organization invites](oasisctl_list_organization_invites.md)	 - List invites of an organization the authenticated user is a member of
+* [oasisctl list organization members](oasisctl_list_organization_members.md)	 - List members of an organization the authenticated user is a member of
 

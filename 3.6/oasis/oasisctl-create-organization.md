@@ -26,13 +26,13 @@ oasisctl create organization [flags]
 ## Options inherited from parent commands
 
 ```
-      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.adbtest.xyz")
+      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
 
 ## See also
 
-* [oasisctl create](oasisctl-create.html)	 - Create resources
-* [oasisctl create organization invite](oasisctl-create-organization-invite.html)	 - Create a new invite to an organization
+* [oasisctl create](oasisctl_create.md)	 - Create resources
+* [oasisctl create organization invite](oasisctl_create_organization_invite.md)	 - Create a new invite to an organization
 

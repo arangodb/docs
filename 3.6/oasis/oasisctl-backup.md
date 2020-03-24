@@ -24,13 +24,13 @@ oasisctl backup [flags]
 ## Options inherited from parent commands
 
 ```
-      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.adbtest.xyz")
+      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
-* [oasisctl backup download](oasisctl-backup-download.html)	 - Download a backup
+* [oasisctl](oasisctl.md)	 - ArangoDB Oasis
+* [oasisctl backup download](oasisctl_backup_download.md)	 - Download a backup
 

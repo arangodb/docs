@@ -24,21 +24,21 @@ oasisctl create [flags]
 ## Options inherited from parent commands
 
 ```
-      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.adbtest.xyz")
+      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
-* [oasisctl create apikey](oasisctl-create-apikey.html)	 - Create a new API key
-* [oasisctl create backup](oasisctl-create-backup.html)	 - Create a new backup
-* [oasisctl create cacertificate](oasisctl-create-cacertificate.html)	 - Create a new CA certificate
-* [oasisctl create deployment](oasisctl-create-deployment.html)	 - Create a new deployment
-* [oasisctl create group](oasisctl-create-group.html)	 - Create a new group
-* [oasisctl create ipwhitelist](oasisctl-create-ipwhitelist.html)	 - Create a new IP whitelist
-* [oasisctl create organization](oasisctl-create-organization.html)	 - Create a new organization
-* [oasisctl create project](oasisctl-create-project.html)	 - Create a new project
-* [oasisctl create role](oasisctl-create-role.html)	 - Create a new role
+* [oasisctl](oasisctl.md)	 - ArangoDB Oasis
+* [oasisctl create apikey](oasisctl_create_apikey.md)	 - Create a new API key
+* [oasisctl create backup](oasisctl_create_backup.md)	 - Create a new backup
+* [oasisctl create cacertificate](oasisctl_create_cacertificate.md)	 - Create a new CA certificate
+* [oasisctl create deployment](oasisctl_create_deployment.md)	 - Create a new deployment
+* [oasisctl create group](oasisctl_create_group.md)	 - Create a new group
+* [oasisctl create ipwhitelist](oasisctl_create_ipwhitelist.md)	 - Create a new IP whitelist
+* [oasisctl create organization](oasisctl_create_organization.md)	 - Create a new organization
+* [oasisctl create project](oasisctl_create_project.md)	 - Create a new project
+* [oasisctl create role](oasisctl_create_role.md)	 - Create a new role
 

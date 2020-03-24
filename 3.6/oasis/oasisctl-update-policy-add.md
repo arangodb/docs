@@ -24,13 +24,13 @@ oasisctl update policy add [flags]
 ## Options inherited from parent commands
 
 ```
-      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.adbtest.xyz")
+      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
 
 ## See also
 
-* [oasisctl update policy](oasisctl-update-policy.html)	 - Update a policy
-* [oasisctl update policy add binding](oasisctl-update-policy-add-binding.html)	 - Add a role binding to a policy
+* [oasisctl update policy](oasisctl_update_policy.md)	 - Update a policy
+* [oasisctl update policy add binding](oasisctl_update_policy_add_binding.md)	 - Add a role binding to a policy
 

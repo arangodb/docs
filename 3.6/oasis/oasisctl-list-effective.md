@@ -24,13 +24,13 @@ oasisctl list effective [flags]
 ## Options inherited from parent commands
 
 ```
-      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.adbtest.xyz")
+      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
 
 ## See also
 
-* [oasisctl list](oasisctl-list.html)	 - List resources
-* [oasisctl list effective permissions](oasisctl-list-effective-permissions.html)	 - List the effective permissions, the authenticated user has for a given URL
+* [oasisctl list](oasisctl_list.md)	 - List resources
+* [oasisctl list effective permissions](oasisctl_list_effective_permissions.md)	 - List the effective permissions, the authenticated user has for a given URL
 

@@ -24,13 +24,13 @@ oasisctl accept [flags]
 ## Options inherited from parent commands
 
 ```
-      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.adbtest.xyz")
+      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
 
 ## See also
 
-* [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
-* [oasisctl accept organization](oasisctl-accept-organization.html)	 - Accept organization related invites
+* [oasisctl](oasisctl.md)	 - ArangoDB Oasis
+* [oasisctl accept organization](oasisctl_accept_organization.md)	 - Accept organization related invites
 
