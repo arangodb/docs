@@ -366,7 +366,7 @@ oasisctl create deployment \
 
 If everything went according to play you should see similar output:
 
-![Deployment created successfully](images/createFirstDeploymentSuccess.png)
+![Deployment created successfully](../images/createFirstDeploymentSuccess.png)
 
 ### Wait on Deployment Status
 
