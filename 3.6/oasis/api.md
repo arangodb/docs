@@ -1,13 +1,13 @@
 ---
 layout: default
-description: Interface to control all resources inside Oasis in a scriptable manor
+description: Interface to control all resources inside Oasis in a scriptable manner
 title: ArangoDB Oasis API
 ---
 # ArangoDB Oasis API
 
 [ArangoDB Oasis](https://cloud.arangodb.com/){:target="_blank"}, the
 ArangoDB Cloud, comes with its own API. This API enables you to control all
-resources inside Oasis in a scriptable manor. Typical use cases are spinning
+resources inside Oasis in a scriptable manner. Typical use cases are spinning
 up Oasis deployments during continuous integration and infrastructure as code.
 
 The ArangoDB Oasis API…
