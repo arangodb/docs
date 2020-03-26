@@ -344,34 +344,41 @@ which the tokens appear in the specified order. To search for tokens in any
 order use [TOKENS()](#tokens) instead.
 
 The phrase can be expressed as an arbitrary number of *phraseParts* separated by
-*skipTokens* number of tokens (wildcards).
+*skipTokens* number of tokens (wildcards), either as separate arguments or as
+array as second argument.
 
 - **path** (attribute path expression): the attribute to test in the document
-
-- **phrasePart** (string\|array\|object): text to search for in the tokens. May consist
-  of several words/tokens, which will be split using the specified *analyzer*.
-  Can also be an array comprised of tokens (string\|object\|array) or tokens interleaved
-  with numbers of *skipTokens* (introduced in v3.6.0). An array token inside an array can be used in `TERMS` case only, see below.
-  Each token can be an object (introduced in v3.7.0):
-  
-  - `{TERM: [token]}` Array brackets are optional. Equal to `token` except *analyzer* splitting (see below)
-  - `{STARTS_WITH: [prefix]}` (see [STARTS_WITH](#starts_with)). Array brackets are optional
-  - `{WILDCARD: [token]}` (see [LIKE](#like)). Array brackets are optional
-  - `{LEVENSHTEIN_MATCH: [token, max_distance, with_transpositions]}`
-    - token (string): a string to search
-    - max_distance (number): maximum Levenshtein (Damerau-Levenshtein) distance
-    - with_transpositions (bool, optional):  whether Damerau-Levenshtein distance should be used, default value is `false`
-  - `{TERMS: [token1, ..., tokenN]}`. One of `token1, ..., tokenN` can be found in specified position. Inside an array the object syntax can be replaced with the object field value, e.g., `[..., [token1, ..., tokenN], ...]`
-  
-  The specified *analyzer* does not split objects content (but it does in array `TERMS` syntax)
-  
-- **skipTokens** (number, _optional_): amount of words/tokens to treat
+- **phrasePart** (string\|array\|object): text to search for in the tokens.
+  Can also be an array comprised of string, array and object tokens (object
+  tokens introduced in v3.7.0, see below) or tokens interleaved with numbers of
+  *skipTokens* (introduced in v3.6.0). The specified *analyzer* is applied to
+  string and array tokens, but not for object tokens except for `TERMS`.
+- **skipTokens** (number, _optional_): amount of tokens to treat
   as wildcards
 - **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
+
+Object tokens:
+
+- `{TERM: [token]}`: equal to `token` except but without Analyzer tokenization.
+  Array brackets are optional
+- `{STARTS_WITH: [prefix]}`: see [STARTS_WITH()](#starts_with).
+  Array brackets are optional
+- `{WILDCARD: [token]}`: see [LIKE()](#like).
+  Array brackets are optional
+- `{LEVENSHTEIN_MATCH: [token, maxDistance, withTranspositions]}`:
+  - `token` (string): a string to search
+  - `maxDistance` (number): maximum Levenshtein / Damerau-Levenshtein distance
+  - `withTranspositions` (bool, _optional_): whether Damerau-Levenshtein
+    distance should be used. The default value is `false` (Levenshtein distance).
+- `{TERMS: [token1, ..., tokenN]}`: one of `token1, ..., tokenN` can be found
+  in specified position. Inside an array the object syntax can be replaced with
+  the object field value, e.g., `[..., [token1, ..., tokenN], ...]`.
+
+An array token inside an array can be used in the `TERMS` case only.
 
 Given a View indexing an attribute *text* with the `"text_en"` Analyzer and a
 document `{ "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit" }`,
