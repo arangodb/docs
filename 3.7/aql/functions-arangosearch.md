@@ -355,7 +355,7 @@ The phrase can be expressed as an arbitrary number of *phraseParts* separated by
     - with_transpositions (bool, optional):  whether Damerau-Levenshtein distance should be used, default value is `false`
   - `{TERMS: [token1, ..., tokenN]}`. One of `token1, ..., tokenN` can be found in specified position. Inside an array the object syntax can be replaced with the object field value, e.g., `[..., [token1, ..., tokenN], ...]`
   
-  The specified *analyzer* does not split objects content (the same for array `TERMS` syntax)
+  The specified *analyzer* does not split objects content (but it does in array `TERMS` syntax)
   
 - **skipTokens** (number, _optional_): amount of words/tokens to treat
   as wildcards
