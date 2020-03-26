@@ -458,16 +458,27 @@ It is the same as the following:
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
 ```
 
-`STARTS_WITH`, `WILDCARD`, `LEVENSHTEIN_MATCH`, `TERMS` can also be used:
+Using object tokens `STARTS_WITH`, `WILDCARD`, `LEVENSHTEIN_MATCH` and `TERMS`:
 
 ```js
-FOR doc IN myView SEARCH PHRASE(doc.title, {STARTS_WITH: ["qui"]}, 0, {WILDCARD: ["b%o_n"]}, 0, {LEVENSHTEIN_MATCH: ["foks", 2]}, {TERMS: ["jumps", "runs"]}, "text_en") RETURN doc
+FOR doc IN myView SEARCH PHRASE(doc.title,
+  {STARTS_WITH: ["qui"]}, 0,
+  {WILDCARD: ["b%o_n"]}, 0,
+  {LEVENSHTEIN_MATCH: ["foks", 2]}, 0,
+  {TERMS: ["jumps", "runs"]},
+  "text_en") RETURN doc
 ```
 
-Above example is equivalent to
+Above example is equivalent to:
 
 ```js
-FOR doc IN myView SEARCH PHRASE(doc.title, [{STARTS_WITH: "qui"}, 0, {WILDCARD: "b%o_n"}, 0, {LEVENSHTEIN_MATCH: ["foks", 2]}, 0, ["jumps", "runs"]], "text_en") RETURN doc
+FOR doc IN myView SEARCH PHRASE(doc.title,
+[
+  {STARTS_WITH: "qui"}, 0,
+  {WILDCARD: "b%o_n"}, 0,
+  {LEVENSHTEIN_MATCH: ["foks", 2]}, 0,
+  ["jumps", "runs"]
+], "text_en") RETURN doc
 ```
 
 ### STARTS_WITH()
