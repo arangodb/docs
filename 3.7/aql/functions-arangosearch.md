@@ -277,7 +277,7 @@ and `false`), but the data type must be the same for both.
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
-to true, then nothing will match. If *low* is greater than *high* nothing will
+to `false`, then nothing will match. If *low* is greater than *high* nothing will
 match either.
 
 To match documents with the attribute `value >= 3` and `value <= 5` using the
