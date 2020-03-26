@@ -352,7 +352,7 @@ array as second argument.
   Can also be an array comprised of string, array and object tokens (object
   tokens introduced in v3.7.0, see below) or tokens interleaved with numbers of
   *skipTokens* (introduced in v3.6.0). The specified *analyzer* is applied to
-  string and array tokens, but not for object tokens except for `TERMS`.
+  string and array tokens, but not for object tokens.
 - **skipTokens** (number, _optional_): amount of tokens to treat
   as wildcards
 - **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
@@ -363,7 +363,7 @@ array as second argument.
 
 Object tokens:
 
-- `{TERM: [token]}`: equal to `token` except but without Analyzer tokenization.
+- `{TERM: [token]}`: equal to `token` but without Analyzer tokenization.
   Array brackets are optional
 - `{STARTS_WITH: [prefix]}`: see [STARTS_WITH()](#starts_with).
   Array brackets are optional
