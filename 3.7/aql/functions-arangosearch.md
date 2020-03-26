@@ -342,6 +342,7 @@ higher than the specified threshold compared to the target value.
 
 The similarity is calculated by counting how long the longest sequence of
 matching ngrams is, divided by the target's total ngram count.
+Only fully matching ngrams are counted
 
 The ngrams for both attribute and target are produced by the specified
 Analyzer. It is recommended to use an Analyzer of type `ngram` with
