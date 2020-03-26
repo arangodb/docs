@@ -535,7 +535,7 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   outer scope and may enable follow-up optimizations.
 
 - `optimize-traversals`:
-  will appear if either the edge or path output variable in an AQL traversal
+  will appear if the vertex, edge or path output variable in an AQL traversal
   was optimized away, or if a *FILTER* condition from the query was moved
   in the *TraversalNode* for early pruning of results.
 
@@ -640,13 +640,7 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 
 - `splice-subqueries`:
   will appear when a subquery has been spliced into the surrounding query.
-  Only suitable subqueries can be spliced.
-  A subquery becomes unsuitable if it contains a `LIMIT` node or a
-  `COLLECT WITH COUNT INTO …` construct (but not due to a
-  `COLLECT var = <expr> WITH COUNT INTO …`). A subquery *also* becomes
-  unsuitable if it is contained in a (sub)query containing unsuitable parts
-  *after* the subquery.
-
+  This will be performed on all subqueries unless explicitily switched off.
   This optimization is applied after all other optimizations, and reduces
   overhead for executing subqueries by inlining the execution. This mainly
   benefits queries which execute subqueries very often that only return a

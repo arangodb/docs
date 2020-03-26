@@ -558,7 +558,7 @@ OneShard
 {% hint 'info' %}
 This option is only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
 {% endhint %}
 
 Not all use cases require horizontal scalability. In such cases, a OneShard
@@ -630,7 +630,7 @@ The following APIs have been expanded / changed:
 
   New attribute `force`, see [Hot Backup](#hot-backup) below.
 
-- New [Metrics API](http/administration-and-monitoring.html#read-the-metrics),<br>
+- New [Metrics API](http/administration-and-monitoring-metrics.html#metrics-api),<br>
   HTTP route `GET /_admin/metrics`
 
   Returns the instance's current metrics in Prometheus format. The returned

@@ -33,9 +33,14 @@ Search functions can be used in a [SEARCH operation](operations-search.html)
 to form an ArangoSearch expression to filter a View. The functions control the
 ArangoSearch functionality without having a returnable value in AQL.
 
-The `TOKENS()` function is an exception. It can be used standalone as well,
-without a `SEARCH` statement, and has a return value which can be used
-elsewhere in the query.
+The following function are exceptions:
+
+- `TOKENS()`
+- `NGRAM_POSITIONAL_SIMILARITY()`
+- `NGRAM_SIMILARITY()`
+
+They can be used standalone as well, without a `SEARCH` statement, and have a
+return value which can be used elsewhere in the query.
 
 ### ANALYZER()
 
@@ -260,6 +265,14 @@ Match documents where the attribute at **path** is greater than (or equal to)
 *low* and *high* can be numbers or strings (technically also `null`, `true`
 and `false`), but the data type must be the same for both.
 
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+{% endhint %}
+
 - **path** (attribute path expression):
   the path of the attribute to test in the document
 - **low** (number\|string): minimum value of the desired range
@@ -272,7 +285,7 @@ and `false`), but the data type must be the same for both.
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
-to true, then nothing will match. If *low* is greater than *high* nothing will
+to `false`, then nothing will match. If *low* is greater than *high* nothing will
 match either.
 
 To match documents with the attribute `value >= 3` and `value <= 5` using the
@@ -325,6 +338,139 @@ FOR doc IN viewName
 This will match `{ "text": "the quick brown fox" }` and `{ "text": "some brown fox" }`,
 but not `{ "text": "snow fox" }` which only fulfills one of the conditions.
 
+### NGRAM_MATCH()
+
+<small>Introduced in: v3.7.0</small>
+
+`NGRAM_MATCH(path, target, threshold, analyzer)`
+
+Match documents whose attribute value has an
+[ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+higher than the specified threshold compared to the target value.
+
+The similarity is calculated by counting how long the longest sequence of
+matching ngrams is, divided by the target's total ngram count.
+Only fully matching ngrams are counted
+
+The ngrams for both attribute and target are produced by the specified
+Analyzer. It is recommended to use an Analyzer of type `ngram` with
+`preserveOriginal: false` and `min` equal to `max`. Increasing the ngram
+length will increase accuracy, but reduce error tolerance. In most cases a
+size of 2 or 3 will be a good choice.
+
+- **path** (attribute path expression\|string): the path of the attribute in
+  a document or a string
+- **target** (string): the string to compare against the stored attribute
+- **threshold** (number, _optional_): value between `0.0` and `1.0`. Defaults
+  to `0.7` if none is specified.
+- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
+- returns nothing: the function can only be called in a
+  [SEARCH operation](operations-search.html) and throws an error otherwise
+
+Given a View indexing an attribute `text`, a custom ngram Analyzer `"bigram"`
+(`min: 2, max: 2, preserveOriginal: false, streamType: "utf8"`) and a document
+`{ "text": "quick red fox" }`, the following query would match it (with a
+threshold of `1.0`):
+
+```js
+FOR doc IN viewName
+  SEARCH NGRAM_MATCH(doc.text, "quick fox", "bigram")
+  RETURN doc.text
+```
+
+The following will also match (note the low threshold value):
+
+```js
+FOR doc IN viewName
+  SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.4, "bigram")
+  RETURN doc.text
+```
+
+The following will not match (note the high threshold value):
+
+```js
+FOR doc IN viewName
+  SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.9, "bigram")
+  RETURN doc.text
+```
+
+`NGRAM_MATCH()` can be called with constant arguments, but for such calls the
+*analyzer* argument is mandatory (even for calls inside of a `SEARCH` clause):
+
+```js
+FOR doc IN viewName
+  SEARCH NGRAM_MATCH("quick fox", "quick blue fox", 0.9, "bigram")
+  RETURN doc.text
+```
+
+```js
+RETURN NGRAM_MATCH("quick fox", "quick blue fox", "bigram")
+```
+
+### NGRAM_POSITIONAL_SIMILARITY()
+
+<small>Introduced in: v3.7.0</small>
+
+`NGRAM_POSITIONAL_SIMILARITY(input, target, ngramSize) → similarity`
+
+Calculates the [ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+between *input* and *target* using ngrams with minimum and maximum length of
+*ngramSize*.
+
+The similarity is calculated by counting how long the longest sequence of
+matching ngrams is, divided by the **longer argument's** total ngram count.
+Partially matching ngrams are counted, whereas
+[NGRAM_SIMILARITY()](#ngram_similarity) counts only fully matching ngrams.
+
+The ngrams for both input and target are calculated on the fly,
+not involving Analyzers.
+
+- **input** (string): source text to be tokenized into ngrams
+- **target** (string): target text to be tokenized into ngrams
+- **ngramSize** (number): minimum as well as maximum ngram length
+- returns **similarity** (number): value between `0.0` and `1.0`
+
+```js
+RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quick foxx", 2) // [ 0.8888888955116272 ]
+RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quick foxx", 3) // [ 0.875 ]
+
+RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quirky fox", 2) //  [ 0.7222222089767456 ]
+RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quirky fox", 3) // [ 0.6666666865348816 ]
+```
+
+### NGRAM_SIMILARITY()
+
+<small>Introduced in: v3.7.0</small>
+
+`NGRAM_SIMILARITY(input, target, ngramSize) → similarity`
+
+Calculates [ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+between *input* and *target* using ngrams with minimum and maximum length of
+*ngramSize*.
+
+The similarity is calculated by counting how long the longest sequence of
+matching ngrams is, divided by **target's** total ngram count.
+Only fully matching ngrams are counted, whereas
+[NGRAM_POSITIONAL_SIMILARITY()](#ngram_positional_similarity) counts partially
+matching ngrams too. This behavior matches the similarity measure used in
+[NGRAM_MATCH()](#ngram_match).
+
+The ngrams for both input and target are calculated on the fly, not involving
+Analyzers.
+
+- **input** (string): source text to be tokenized into ngrams
+- **target** (string): target text to be tokenized into ngrams
+- **ngramSize** (number): minimum as well as maximum ngram length
+- returns **similarity** (number): value between `0.0` and `1.0`
+
+```js
+RETURN NGRAM_SIMILARITY("quick fox", "quick foxx", 2) // [ 0.8888888955116272 ]
+RETURN NGRAM_SIMILARITY("quick fox", "quick foxx", 3) // [ 0.875 ]
+
+RETURN NGRAM_SIMILARITY("quick fox", "quirky fox", 2) // [ 0.5555555820465088 ]
+RETURN NGRAM_SIMILARITY("quick fox", "quirky fox", 3) // [ 0.375 ]
+```
+
 ### PHRASE()
 
 `PHRASE(path, phrasePart, analyzer)`
@@ -336,20 +482,41 @@ which the tokens appear in the specified order. To search for tokens in any
 order use [TOKENS()](#tokens) instead.
 
 The phrase can be expressed as an arbitrary number of *phraseParts* separated by
-*skipTokens* number of tokens (wildcards).
+*skipTokens* number of tokens (wildcards), either as separate arguments or as
+array as second argument.
 
 - **path** (attribute path expression): the attribute to test in the document
-- **phrasePart** (string\|array): text to search for in the tokens. May consist
-  of several words/tokens, which will be split using the specified *analyzer*.
-  Can also be an array comprised of token strings or token strings interleaved
-  with numbers of *skipTokens* (introduced in v3.6.0).
-- **skipTokens** (number, _optional_): amount of words/tokens to treat
+- **phrasePart** (string\|array\|object): text to search for in the tokens.
+  Can also be an array comprised of string, array and object tokens (object
+  tokens introduced in v3.7.0, see below) or tokens interleaved with numbers of
+  *skipTokens* (introduced in v3.6.0). The specified *analyzer* is applied to
+  string and array tokens, but not for object tokens.
+- **skipTokens** (number, _optional_): amount of tokens to treat
   as wildcards
 - **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
+
+Object tokens:
+
+- `{TERM: [token]}`: equal to `token` but without Analyzer tokenization.
+  Array brackets are optional
+- `{STARTS_WITH: [prefix]}`: see [STARTS_WITH()](#starts_with).
+  Array brackets are optional
+- `{WILDCARD: [token]}`: see [LIKE()](#like).
+  Array brackets are optional
+- `{LEVENSHTEIN_MATCH: [token, maxDistance, withTranspositions]}`:
+  - `token` (string): a string to search
+  - `maxDistance` (number): maximum Levenshtein / Damerau-Levenshtein distance
+  - `withTranspositions` (bool, _optional_): whether Damerau-Levenshtein
+    distance should be used. The default value is `false` (Levenshtein distance).
+- `{TERMS: [token1, ..., tokenN]}`: one of `token1, ..., tokenN` can be found
+  in specified position. Inside an array the object syntax can be replaced with
+  the object field value, e.g., `[..., [token1, ..., tokenN], ...]`.
+
+An array token inside an array can be used in the `TERMS` case only.
 
 Given a View indexing an attribute *text* with the `"text_en"` Analyzer and a
 document `{ "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit" }`,
@@ -429,6 +596,34 @@ It is the same as the following:
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
 ```
 
+Using object tokens `STARTS_WITH`, `WILDCARD`, `LEVENSHTEIN_MATCH` and `TERMS`:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title,
+  {STARTS_WITH: ["qui"]}, 0,
+  {WILDCARD: ["b%o_n"]}, 0,
+  {LEVENSHTEIN_MATCH: ["foks", 2]}, 0,
+  {TERMS: ["jump", "run"]}, // Analyzer not applied!
+  "text_en") RETURN doc
+```
+
+Note that the `text_en` Analyzer has stemming enabled, but for object tokens
+the Analyzer isn't applied. `{TERMS: ["jumps", "runs"]}` would not match the
+indexed (and stemmed!) attribute value. Therefore, the trailing `s` which would
+be stemmed away is removed from both words manually in the example.
+
+Above example is equivalent to:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title,
+[
+  {STARTS_WITH: "qui"}, 0,
+  {WILDCARD: "b%o_n"}, 0,
+  {LEVENSHTEIN_MATCH: ["foks", 2]}, 0,
+  ["jumps", "runs"]
+], "text_en") RETURN doc
+```
+
 ### STARTS_WITH()
 
 `STARTS_WITH(path, prefix)`
@@ -437,6 +632,14 @@ Match the value of the attribute that starts with **prefix**. If the attribute
 is processed by a tokenizing Analyzer (type `"text"` or `"delimiter"`) or if it
 is an array, then a single token/element starting with the prefix is sufficient
 to match the document.
+
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+{% endhint %}
 
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
@@ -488,6 +691,34 @@ stemming disabled to avoid this issue, or apply stemming to the prefix:
 ```js
 FOR doc IN viewName
   SEARCH ANALYZER(STARTS_WITH(doc.text, TOKENS("ips", "text_en")[0]), "text_en")
+  RETURN doc.text
+```
+
+### LIKE()
+
+`LIKE(path, search) → bool`
+
+Check whether the pattern *search* is contained in the attribute denoted by *path*,
+using wildcard matching.
+
+- **path** (attribute path expression): the path of the attribute to compare
+  against in the document
+- **search** (string): a search pattern that can contain the wildcard characters
+  `%` (meaning any sequence of characters, including none) and `_` (any single
+  character). Literal `%` and `_` must be escaped with two backslashes (four
+  in arangosh).
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(LIKE(doc.text, "foo%b_r"), "text_en")
+  RETURN doc.text
+```
+
+`LIKE` can also be used in operator form:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(doc.text LIKE "foo%b_r", "text_en")
   RETURN doc.text
 ```
 

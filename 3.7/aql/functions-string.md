@@ -308,7 +308,7 @@ LIKE()
 `LIKE(text, search, caseInsensitive) → bool`
 
 Check whether the pattern *search* is contained in the string *text*,
-using wildcard matching. 
+using wildcard matching.
 
 - **text** (string): the string to search in
 - **search** (string): a search pattern that can contain the wildcard characters
@@ -385,6 +385,16 @@ string representation.
 MD5("foobar") // "3858f62230ac3c915f300c664312c63f"
 ```
 
+NGRAM_POSITIONAL_SIMILARITY()
+-----------------------------
+
+See [ArangoSearch Functions](functions-arangosearch.html#ngram_positional_similarity).
+
+NGRAM_SIMILARITY()
+------------------
+
+See [ArangoSearch Functions](functions-arangosearch.html#ngram_similarity).
+
 RANDOM_TOKEN()
 --------------
 
@@ -394,7 +404,7 @@ Generate a pseudo-random token string with the specified length.
 The algorithm for token generation should be treated as opaque.
 
 - **length** (number): desired string length for the token. It must be greater
-  or equal to 0 and at most 65536. A *lenght* of 0 returns an empty string.
+  or equal to 0 and at most 65536. A *length* of 0 returns an empty string.
 - returns **randomString** (string): a generated token consisting of lowercase
   letters, uppercase letters and numbers
 
