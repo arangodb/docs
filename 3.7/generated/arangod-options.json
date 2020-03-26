@@ -536,7 +536,7 @@
       "agent",
       "single"
     ],
-    "default" : 16341534720,
+    "default" : 33252958208,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -5143,7 +5143,7 @@
       "agent",
       "single"
     ],
-    "default" : 19609841664,
+    "default" : 39903549849,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -6050,7 +6050,7 @@
       "agent",
       "single"
     ],
-    "default" : 26146455552,
+    "default" : 53204733132,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -7229,6 +7229,31 @@
     "requiresValue" : true,
     "section" : "ssl",
     "type" : "uint64"
+  },
+  "ssl.prefer-http1-in-alpn" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Allows to let the server prefer HTTP/1.1 over HTTP/2 in ALPN protocol negotiations",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "ssl",
+    "type" : "boolean"
   },
   "ssl.protocol" : {
     "category" : "option",
