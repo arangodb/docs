@@ -33,9 +33,14 @@ Search functions can be used in a [SEARCH operation](operations-search.html)
 to form an ArangoSearch expression to filter a View. The functions control the
 ArangoSearch functionality without having a returnable value in AQL.
 
-The `TOKENS()` function is an exception. It can be used standalone as well,
-without a `SEARCH` statement, and has a return value which can be used
-elsewhere in the query.
+The following function are exceptions:
+
+- `TOKENS()`
+- `NGRAM_POSITIONAL_SIMILARITY()`
+- `NGRAM_SIMILARITY()`
+
+They can be used standalone as well, without a `SEARCH` statement, and have a
+return value which can be used elsewhere in the query.
 
 ### ANALYZER()
 
@@ -325,6 +330,138 @@ FOR doc IN viewName
 This will match `{ "text": "the quick brown fox" }` and `{ "text": "some brown fox" }`,
 but not `{ "text": "snow fox" }` which only fulfills one of the conditions.
 
+### NGRAM_MATCH()
+
+<small>Introduced in: v3.7.0</small>
+
+`NGRAM_MATCH(path, target, threshold, analyzer)`
+
+Match documents whose attribute value has an
+[ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+higher than the specified threshold compared to the target value.
+
+The similarity is calculated by counting how long the longest sequence of
+matching ngrams is, divided by the target's total ngram count.
+
+The ngrams for both attribute and target are produced by the specified
+Analyzer. It is recommended to use an Analyzer of type `ngram` with
+`preserveOriginal: false` and `min` equal to `max`. Increasing the ngram
+length will increase accuracy, but reduce error tolerance. In most cases a
+size of 2 or 3 will be a good choice.
+
+- **path** (attribute path expression\|string): the path of the attribute in
+  a document or a string
+- **target** (string): the string to compare against the stored attribute
+- **threshold** (number, _optional_): value between `0.0` and `1.0`. Defaults
+  to `0.7` if none is specified.
+- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
+- returns nothing: the function can only be called in a
+  [SEARCH operation](operations-search.html) and throws an error otherwise
+
+Given a View indexing an attribute `text`, a custom ngram Analyzer `"bigram"`
+(`min: 2, max: 2, preserveOriginal: false, streamType: "utf8"`) and a document
+`{ "text": "quick red fox" }`, the following query would match it (with a
+threshold of `1.0`):
+
+```js
+FOR doc IN viewName
+  SEARCH NGRAM_MATCH(doc.text, "quick fox", "bigram")
+  RETURN doc.text
+```
+
+The following will also match (note the low threshold value):
+
+```js
+FOR doc IN viewName
+  SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.4, "bigram")
+  RETURN doc.text
+```
+
+The following will not match (note the high threshold value):
+
+```js
+FOR doc IN viewName
+  SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.9, "bigram")
+  RETURN doc.text
+```
+
+`NGRAM_MATCH()` can be called with constant arguments, but for such calls the
+*analyzer* argument is mandatory (even for calls inside of a `SEARCH` clause):
+
+```js
+FOR doc IN viewName
+  SEARCH NGRAM_MATCH("quick fox", "quick blue fox", 0.9, "bigram")
+  RETURN doc.text
+```
+
+```js
+RETURN NGRAM_MATCH("quick fox", "quick blue fox", "bigram")
+```
+
+### NGRAM_POSITIONAL_SIMILARITY()
+
+<small>Introduced in: v3.7.0</small>
+
+`NGRAM_POSITIONAL_SIMILARITY(input, target, ngramSize) → similarity`
+
+Calculates the [ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+between *input* and *target* using ngrams with minimum and maximum length of
+*ngramSize*.
+
+The similarity is calculated by counting how long the longest sequence of
+matching ngrams is, divided by the **longer argument's** total ngram count.
+Partially matching ngrams are counted, whereas
+[NGRAM_SIMILARITY()](#ngram_similarity) counts only fully matching ngrams.
+
+The ngrams for both input and target are calculated on the fly,
+not involving Analyzers.
+
+- **input** (string): source text to be tokenized into ngrams
+- **target** (string): target text to be tokenized into ngrams
+- **ngramSize** (number): minimum as well as maximum ngram length
+- returns **similarity** (number): value between `0.0` and `1.0`
+
+```js
+RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quick foxx", 2) // [ 0.8888888955116272 ]
+RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quick foxx", 3) // [ 0.875 ]
+
+RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quirky fox", 2) //  [ 0.7222222089767456 ]
+RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quirky fox", 3) // [ 0.6666666865348816 ]
+```
+
+### NGRAM_SIMILARITY()
+
+<small>Introduced in: v3.7.0</small>
+
+`NGRAM_SIMILARITY(input, target, ngramSize) → similarity`
+
+Calculates [ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+between *input* and *target* using ngrams with minimum and maximum length of
+*ngramSize*.
+
+The similarity is calculated by counting how long the longest sequence of
+matching ngrams is, divided by **target's** total ngram count.
+Only fully matching ngrams are counted, whereas
+[NGRAM_POSITIONAL_SIMILARITY()](#ngram_positional_similarity) counts partially
+matching ngrams too. This behavior matches the similarity measure used in
+[NGRAM_MATCH()](#ngram_match).
+
+The ngrams for both input and target are calculated on the fly, not involving
+Analyzers.
+
+- **input** (string): source text to be tokenized into ngrams
+- **target** (string): target text to be tokenized into ngrams
+- **ngramSize** (number): minimum as well as maximum ngram length
+- returns **similarity** (number): value between `0.0` and `1.0`
+
+```js
+RETURN NGRAM_SIMILARITY("quick fox", "quick foxx", 2) // [ 0.8888888955116272 ]
+RETURN NGRAM_SIMILARITY("quick fox", "quick foxx", 3) // [ 0.875 ]
+
+RETURN NGRAM_SIMILARITY("quick fox", "quirky fox", 2) // [ 0.5555555820465088 ]
+RETURN NGRAM_SIMILARITY("quick fox", "quirky fox", 3) // [ 0.375 ]
+```
+
 ### PHRASE()
 
 `PHRASE(path, phrasePart, analyzer)`
@@ -560,90 +697,6 @@ because nested arrays are not accepted in `SEARCH` statements such as
 LET tokens = TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
 LET tokens_flat = FLATTEN(tokens, 2)                     // [ "quick", "brown", "fox" ]
 FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETURN doc
-```
-
-### NGRAM_MATCH()
-
-`NGRAM_MATCH(path, target, threshold, analyzer)`
-
-Match documents whose attribute value has an ngram similarity higher than the
-specified threshold. The similarity is calculated by counting the longest
-sequence of matching ngrams of the attribute and target value, divided by the
-target's total ngram count.
-
-The ngrams for both attribute and target are produced by the specified
-Analyzer. It is recommended to use an Analyzer of type `ngram` with
-`preserveOriginal: false` and `min` equal to `max`. Increasing the ngram
-length will increase accuracy, but reduce error tolerance. In most cases a
-size of 2 or 3 will be a good choice.
-
-- **path** (attribute path expression): the path of the attribute to compare
-  against in the document
-- **target** (string): the string to compare against the stored attribute
-- **threshold** (number, _optional_): value between `0.0` and `1.0`. Defaults
-  to `0.7` if none is specified.
-- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
-
-Given a View indexing an attribute `text`, a custom ngram Analyzer `"bigram"`
-(`min: 2, max: 2, preserveOriginal: false, streamType: "utf8"`) and a document
-`{ "text": "quick red fox" }`, the following query would match it:
-
-```js
-FOR doc IN viewName
-  SEARCH NGRAM_MATCH(doc.text, "quick fox", "bigram")
-  RETURN doc.text
-```
-
-qu
-ui
-ic
-ck
-k 
- r
-re
-ed
-d 
- f
-fo
-ox
-
-qu
-ui
-ic
-ck
-k 
- f
-fo
-ox
-
-The following will also match (note the low threshold value)
-
-```js
-FOR doc IN viewName
-  SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.4, "bigram")
-  RETURN doc.text
-```
-
-The following will not match (note the high threshold value)
-
-```js
-FOR doc IN viewName
-  SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.9, "bigram")
-  RETURN doc.text
-```
-NGRAM_MATCH could be called with constant arguments, but for such call
-analyzer argument is mandatory (even for call inside SEARCH clause).
-
-```js
-FOR doc IN viewName
-  SEARCH NGRAM_MATCH("quick fox", "quick blue fox", 0.9, "bigram")
-  RETURN doc.text
-```
-
-```js
-RETURN NGRAM_MATCH("quick fox", "quick blue fox", "bigram")
 ```
 
 Scoring Functions
