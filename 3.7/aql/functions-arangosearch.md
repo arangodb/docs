@@ -603,9 +603,14 @@ FOR doc IN myView SEARCH PHRASE(doc.title,
   {STARTS_WITH: ["qui"]}, 0,
   {WILDCARD: ["b%o_n"]}, 0,
   {LEVENSHTEIN_MATCH: ["foks", 2]}, 0,
-  {TERMS: ["jumps", "runs"]},
+  {TERMS: ["jump", "run"]}, // Analyzer not applied!
   "text_en") RETURN doc
 ```
+
+Note that the `text_en` Analyzer has stemming enabled, but for object tokens
+the Analyzer isn't applied. `{TERMS: ["jumps", "runs"]}` would not match the
+indexed (and stemmed!) attribute value. Therefore, the trailing `s` which would
+be stemmed away is removed from both words manually in the example.
 
 Above example is equivalent to:
 
