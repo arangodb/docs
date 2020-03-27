@@ -60,6 +60,12 @@ changes use:
 
 `bundle exec jekyll build`
 
+To serve the content from a previous build without watching for changes use:
+
+`bundle exec jekyll serve --skip-initial-build --no-watch`
+
+You can then browser the docs in a browser at http://127.0.0.1:4000/docs/.
+
 ### Docker container
 
 In the docs directory execute:
