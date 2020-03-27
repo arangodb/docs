@@ -144,7 +144,7 @@ When an encryption key is used, encryption of the data in the cluster is enabled
 without it encryption is disabled.
 The default value is empty.
 
-This requires the Enterprise version.
+This requires the Enterprise Edition.
 
 The encryption key cannot be changed after the cluster has been created.
 
@@ -399,7 +399,7 @@ A new restore attempt is made if and only if either in the status restore is not
 
 This setting specifies the name of a kubernetes `Secret` that contains
 the license key token used for enterprise images. This value is not used for
-the community edition.
+the Community Edition.
 
 ### `spec.bootstrap.passwordSecretNames.root: string`
 
