@@ -29,5 +29,6 @@ layout: default
   - [Edge Collection](java-reference-graph-edge-collection.html)
   - [Vertices Manipulation](java-reference-graph-vertices.html)
   - [Edges Manipulation](java-reference-graph-edges.html)
+  - [Import graph data](java-reference-import-graph-data.html)
 - [Route](java-reference-route.html)
 - [Serialization](java-reference-serialization.html)
