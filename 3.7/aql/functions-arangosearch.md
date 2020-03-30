@@ -360,7 +360,7 @@ size of 2 or 3 will be a good choice.
 
 {% hint 'info' %}
 For correct operation of NGRAM_MATCH function the selected analyzer must 
-have "position" feature enabled. 
+have "position" and "frequency" features enabled. 
 {% endhint %}
 
 - **path** (attribute path expression\|string): the path of the attribute in
