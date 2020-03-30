@@ -359,8 +359,8 @@ length will increase accuracy, but reduce error tolerance. In most cases a
 size of 2 or 3 will be a good choice. 
 
 {% hint 'info' %}
-For correct operation of NGRAM_MATCH function the selected analyzer must 
-have "position" and "frequency" features enabled. 
+The selected Analyzer must have `"position"` and `"frequency"` features
+enabled for correct operation of the NGRAM_MATCH() function.
 {% endhint %}
 
 - **path** (attribute path expression\|string): the path of the attribute in
@@ -505,8 +505,8 @@ array as second argument.
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 {% hint 'info' %}
-For correct operation of PHRASE function the selected analyzer must 
-have "position" and "frequency" features enabled. 
+The selected Analyzer must have `"position"` and `"frequency"` features
+enabled for correct operation of the PHRASE() function.
 {% endhint %}
 
 Object tokens:
