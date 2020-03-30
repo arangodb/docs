@@ -228,7 +228,8 @@ ArangoJavaRDD<MyBean> rddFiltered = rdd.filter("doc.test <= 50");
 
 ## Spark Streaming Integration
 
-RDDs can also be saved to ArangoDB from Spark Streaming using [ArangoSpark.save()](#arangosparksave).
+RDDs can also be saved to ArangoDB from Spark Streaming using
+[ArangoSpark.save()](#arangosparksave).
 
 **Example**
 

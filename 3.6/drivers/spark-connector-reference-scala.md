@@ -212,7 +212,8 @@ val rdd = ArangoSpark.load[MyBean](sc, "myCollection").filter("doc.name == 'John
 
 ## Spark Streaming Integration
 
-RDDs can also be saved to ArangoDB from Spark Streaming using [ArangoSpark.save()](#arangosparksave).
+RDDs can also be saved to ArangoDB from Spark Streaming using
+[ArangoSpark.save()](#arangosparksave).
 
 **Example**
 
