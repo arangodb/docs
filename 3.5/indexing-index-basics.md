@@ -312,8 +312,9 @@ A TTL index is set up by setting an `expireAfter` value and by picking a single
 document attribute which contains the documents' creation date and time. Documents 
 are expired after `expireAfter` seconds after their creation time. The creation time
 is specified as either a numeric timestamp (Unix timestamp) or a date string in format
-`YYYY-MM-DDTHH:MM:SS` with optional milliseconds. All date strings will be interpreted
-as UTC dates.
+`YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a decimal point in the
+format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All date strings
+without timezone offset will be interpreted as UTC dates.
 
 For example, if `expireAfter` is set to 600 seconds (10 minutes) and the index
 attribute is "creationDate" and there is the following document:
@@ -336,15 +337,18 @@ out, so queries may still find and return documents that have already expired. T
 will eventually be removed when the background thread kicks in and has capacity to
 remove the expired documents. It is guaranteed however that only documents which are 
 past their expiration time will actually be removed.
-  
-Please note that the numeric date time values for the index attribute should be 
-specified in milliseconds since January 1st 1970 (Unix timestamp). To calculate the current 
-timestamp from JavaScript in this format, there is `Date.now() / 1000`, to calculate it 
-from an arbitrary Date instance, there is `Date.getTime() / 1000`.
+
+Please note that the numeric date time values for the index attribute has to be
+specified **in seconds** since January 1st 1970 (Unix timestamp). To calculate the current 
+timestamp from JavaScript in this format, there is `Date.now() / 1000`; to calculate it
+from an arbitrary Date instance, there is `Date.getTime() / 1000`. In AQL you can do
+`DATE_NOW() / 1000` or divide an arbitrary Unix timestamp in milliseconds by 1000 to
+convert it to seconds.
 
 Alternatively, the index attribute values can be specified as a date string in format
-`YYYY-MM-DDTHH:MM:SS` with optional milliseconds. All date strings will be interpreted 
-as UTC dates.
+`YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a decimal point in the
+format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All date strings
+without a timezone offset will be interpreted as UTC dates.
     
 The above example document using a datestring attribute value would be
  
