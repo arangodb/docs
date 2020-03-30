@@ -469,6 +469,10 @@ See [here](http/administration-and-monitoring-metrics.html).
 Internal changes
 ----------------
 
+### Upgrade of bundled RocksDB library version
+
+The bundled version of the RocksDB library has been upgraded from 6.2 to 6.8.
+
 ### Crash handler
 
 ArangoDB 3.7 contains a crash handler for Linux and macOS builds. The crash
