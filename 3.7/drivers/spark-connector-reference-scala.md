@@ -209,3 +209,15 @@ Adds a filter condition. If used multiple times, the conditions will be combined
 val sc: SparkContext = ...
 val rdd = ArangoSpark.load[MyBean](sc, "myCollection").filter("doc.name == 'John'")
 ```
+
+## Spark Streaming Integration
+
+RDDs can also be saved to ArangoDB from Spark Streaming using
+[ArangoSpark.save()](#arangosparksave).
+
+**Example**
+
+```Scala
+dStream.foreachRDD(rdd =>
+  ArangoSpark.save(rdd, COLLECTION, new WriteOptions().database(DB)))
+```
