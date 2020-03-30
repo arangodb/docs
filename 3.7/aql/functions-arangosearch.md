@@ -504,6 +504,11 @@ array as second argument.
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
+{% hint 'info' %}
+For correct operation of PHRASE function the selected analyzer must 
+have "position" and "frequency" features enabled. 
+{% endhint %}
+
 Object tokens:
 
 - `{TERM: [token]}`: equal to `token` but without Analyzer tokenization.
