@@ -356,7 +356,12 @@ The ngrams for both attribute and target are produced by the specified
 Analyzer. It is recommended to use an Analyzer of type `ngram` with
 `preserveOriginal: false` and `min` equal to `max`. Increasing the ngram
 length will increase accuracy, but reduce error tolerance. In most cases a
-size of 2 or 3 will be a good choice.
+size of 2 or 3 will be a good choice. 
+
+{% hint 'info' %}
+For correct operation of NGRAM_MATCH function the selected analyzer must 
+have "position" feature enabled. 
+{% endhint %}
 
 - **path** (attribute path expression\|string): the path of the attribute in
   a document or a string
