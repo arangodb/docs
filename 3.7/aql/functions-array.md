@@ -203,6 +203,17 @@ RETURN INTERSECTION( [2,4,6], [8,10,12], [14,16,18] )
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+## JACCARD()
+
+`JACCARD(array1, array2) → jaccardIndex`
+
+Calculate [Jaccard index](https://en.wikipedia.org/wiki/Jaccard_index) between two arrays.
+
+- **array1** (array): array with elements of arbitrary type
+- **array2** (array): array with elements of arbitrary type
+- returns **jaccardIndex** (number): calculated Jaccard index between input
+  arrays *array1* and *array2*
+
 ## LAST()
 
 `LAST(anyArray) → lastElement`
