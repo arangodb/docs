@@ -171,18 +171,18 @@ RETURN FLATTEN( [ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ] ], 2 )
 
 `INTERLEAVE(array1, array2, ... arrayN) → newArray`
 
-Returns a interleaved array of the parameters.
+Interleave the elements of all input arrays and return a new array.
 
-- **arrays** (array, *repeatable*): an arbitrary number of arrays as multiple arguments
-  (at least 2)
-- returns **newArray** (array): The interleaved array.
+- **arrays** (array, *repeatable*): an arbitrary number of arrays as multiple
+  arguments (at least 2)
+- returns **newArray** (array): the interleaved array
 
 **Examples**
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlArrayInterleave_1
 @EXAMPLE_AQL{aqlArrayInterleave_1}
-RETURN INTERLEAVE( [1, 1, 1, 1], [2, 2, 2], [3, 3, 3, 3] )
+RETURN INTERLEAVE( [1, 1, 1], [2, 2, 2], [3, 3, 3] )
 @END_EXAMPLE_AQL
 @endDocuBlock aqlArrayInterleave_1
 {% endaqlexample %}
@@ -191,7 +191,7 @@ RETURN INTERLEAVE( [1, 1, 1, 1], [2, 2, 2], [3, 3, 3, 3] )
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlArrayInterleave_2
 @EXAMPLE_AQL{aqlArrayInterleave_2}
-RETURN INTERLEAVE( [1, 1, 1], [2, 2, 2], [3, 3, 3] )
+RETURN INTERLEAVE( [ 1 ], [2, 2], [3, 3, 3] )
 @END_EXAMPLE_AQL
 @endDocuBlock aqlArrayInterleave_2
 {% endaqlexample %}
