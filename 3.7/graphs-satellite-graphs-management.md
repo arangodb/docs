@@ -69,8 +69,8 @@ created collections will immediately be dropped again in the failure case.
 Create a graph without relations. Edge definitions can be added later:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline satelliteGraphCreate1_1_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreate1_1_cluster}
+    @startDocuBlockInline satelliteGraphCreateManagement_1_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreateManagement_1_cluster}
     var satelliteGraphModule = require("@arangodb/satellite-graph");
     var graph = satelliteGraphModule._create("satelliteGraph");
     satelliteGraphModule._graph("satelliteGraph");
@@ -84,30 +84,30 @@ Create a graph using an edge collection `edges` and a single vertex collection
 `vertices` as relation:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline satelliteGraphCreate1_2_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreate2_1_cluster}
+    @startDocuBlockInline satelliteGraphCreateManagement_2_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreateManagement_2_cluster}
       var graph_module = require("@arangodb/satellite-graph");
       var edgeDefinitions = [ graph_module._relation("edges", "vertices", "vertices") ];
       var graph = graph_module._create("myGraph", edgeDefinitions);
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock satelliteGraphCreate2_1_cluster
+    @endDocuBlock satelliteGraphCreateManagement_2_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Create a graph with edge definitions and orphan collections:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline satelliteGraphCreate1_3_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreate1_3_cluster}
+    @startDocuBlockInline satelliteGraphCreateManagement_3_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreateManagement_3_cluster}
       var graph_module = require("@arangodb/satellite-graph");
       var edgeDefinitions = [ graph_module._relation("myRelation", ["male", "female"], ["male", "female"]) ];
       var graph = graph_module._create("myGraph", edgeDefinitions, ["sessions"]);
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock satelliteGraphCreate1_3_cluster
+    @endDocuBlock satelliteGraphCreateManagement_3_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
