@@ -233,6 +233,63 @@ RETURN INTERSECTION( [2,4,6], [8,10,12], [14,16,18] )
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+## JACCARD()
+
+`JACCARD(array1, array2) → jaccardIndex`
+
+Calculate the [Jaccard index](https://en.wikipedia.org/wiki/Jaccard_index){:target="_blank"}
+of two arrays.
+
+This similarity measure is also known as _Intersection over Union_ and could
+be computed (less efficient and more verbose) as follows:
+
+```js
+COUNT(a) == 0 && COUNT(b) == 0
+? 1 // two empty sets have a similarity of 1 by definition
+: COUNT(INTERSECTION(array1, array2)) / COUNT(UNION_DISTINCT(array1, array2))
+```
+
+- **array1** (array): array with elements of arbitrary type
+- **array2** (array): array with elements of arbitrary type
+- returns **jaccardIndex** (number): calculated Jaccard index of the input
+  arrays *array1* and *array2*
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayJaccard_1
+@EXAMPLE_AQL{aqlArrayJaccard_1}
+RETURN JACCARD( [1,2,3,4], [3,4,5,6] )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayJaccard_1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayJaccard_2
+@EXAMPLE_AQL{aqlArrayJaccard_2}
+RETURN JACCARD( [1,1,2,2,2,3], [2,2,3,4] )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayJaccard_2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayJaccard_3
+@EXAMPLE_AQL{aqlArrayJaccard_3}
+RETURN JACCARD( [1,2,3], [] )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayJaccard_3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayJaccard_4
+@EXAMPLE_AQL{aqlArrayJaccard_4}
+RETURN JACCARD( [], [] )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayJaccard_4
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## LAST()
 
 `LAST(anyArray) → lastElement`

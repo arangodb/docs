@@ -200,7 +200,7 @@ performance optimization.
 The following AQL functions have been added in ArangoDB 3.7:
 
 - [REPLACE_NTH()](aql/functions-array.html#replace_nth)
-- JACCARD()
+- [JACCARD()](aql/functions-array.html#jaccard)
 - LEVENSHTEIN_MATCH()
 - NGRAM_POSITIONAL_SIMILARITY()
 - NGRAM_SIMILARITY()
