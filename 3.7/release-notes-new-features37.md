@@ -469,6 +469,10 @@ See [here](http/administration-and-monitoring-metrics.html).
 Internal changes
 ----------------
 
+### Upgrade of bundled RocksDB library version
+
+The bundled version of the RocksDB library has been upgraded from 6.2 to 6.8.
+
 ### Crash handler
 
 ArangoDB 3.7 contains a crash handler for Linux and macOS builds. The crash
@@ -488,10 +492,17 @@ Also see [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes).
 ### Supported compilers
 
 Manually compiling ArangoDB from source will require a C++17-ready compiler.
+
 Older versions of g++ that could be used to compile previous versions of
 ArangoDB, namely g++7, cannot be used anymore for compiling ArangoDB.
+g++9.2 is known to work, and is the preferred compiler to build ArangoDB
+under Linux.
 
-g++9.2 is known to work, and is the preferred compiler to build ArangoDB.
+Under macOS, the official compiler is clang with a minimal target of
+macOS 10.14 (Mojave).
+
+Under Windows, use the Visual C++ compiler of Visual Studio 2019 v16.5.0 or
+later. VS 2017 might still work, but is not officially supported any longer.
 
 ### Removed libcurl dependency
 
