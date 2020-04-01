@@ -242,6 +242,24 @@ RETURN JACCARD( [1,1,2,2,2,3], [2,2,3,4] )
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayJaccard_3
+@EXAMPLE_AQL{aqlArrayJaccard_3}
+RETURN JACCARD( [1,2,3], [] )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayJaccard_3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayJaccard_4
+@EXAMPLE_AQL{aqlArrayJaccard_4}
+RETURN JACCARD( [], [] )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayJaccard_4
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## LAST()
 
 `LAST(anyArray) → lastElement`
