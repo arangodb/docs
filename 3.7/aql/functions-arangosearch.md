@@ -9,22 +9,59 @@ redirect_from:
 ArangoSearch Functions
 ======================
 
-Most ArangoSearch AQL functions take an expression or attribute path expression
-as argument.
+ArangoSearch AQL functions take either an expression or an
+attribute path expression as first argument.
+
+```js
+ANALYZER(<expression>, …)
+STARTS_WITH(doc.attribute, …)
+```
 
 If an expression is expected, it means that search conditions can expressed in
 AQL syntax. They are typically function calls to ArangoSearch search functions,
 possibly nested and/or using logical operators for multiple conditions.
 
-You need the `ANALYZER()` function to wrap search (sub-)expressions to set the
-Analyzer for it, unless you want to use the default `"identity"` Analyzer.
-You might not need other ArangoSearch functions for certain expressions,
-because comparisons can be done with basic AQL comparison operators.
+```js
+STARTS_WITH(doc.text, "avoca") OR STARTS_WITH(doc.text, "arang")
+```
+
+The default Analyzer that will be used for searching is `"identity"`.
+While many ArangoSearch functions accept an Analyzer argument, it is often
+easier and cleaner to wrap a search (sub-)expressions with an `ANALYZER()` call
+to set the Analyzer for these functions. Their Analyzer argument can then be
+left out.
+
+```js
+// Analyzer specified in each function call
+PHRASE(doc.text, "avocado dish", "text_en") AND PHRASE(doc.text, "lemon", "text_en")
+
+// Analyzer specified using ANALYZER()
+ANALYZER(PHRASE(doc.text, "avocado dish") AND PHRASE(doc.text, "lemon")
+```
+
+Certain expressions do not require any ArangoSearch functions, such as basic
+comparisons. However, the Analyzer used for searching will be `"identity"`
+unless `ANALYZER()` is used to set a different one.
+
+```js
+// The "identity" Analyzer will be used by default
+SEARCH doc.text == "avocado"
+
+// Use the "text_en" Analyzer for searching instead
+SEARCH ANALYZER(doc.text == "avocado", "text_en")
+```
 
 If an attribute path expressions is needed, then you have to reference a
-document object emitted by a View like `FOR doc IN viewName` and the specify
-which attribute you want to test for. For example `doc.attr` or
-`doc.deeply.nested.attr`. You can also use the bracket notation `doc["attr"]`.
+document object emitted by a View like `FOR doc IN viewName` and then specify
+which attribute you want to test for as an unquoted string literal. For example
+`doc.attr` or `doc.deeply.nested.attr` but not `"doc.attr"`. You can also use
+the bracket notation `doc["attr"]`.
+
+```js
+FOR doc IN viewName
+  SEARCH STARTS_WITH(doc.deeply.nested["attr"], "avoca")
+  RETURN doc
+```
 
 Search Functions
 ----------------
@@ -32,15 +69,6 @@ Search Functions
 Search functions can be used in a [SEARCH operation](operations-search.html)
 to form an ArangoSearch expression to filter a View. The functions control the
 ArangoSearch functionality without having a returnable value in AQL.
-
-The following function are exceptions:
-
-- `TOKENS()`
-- `NGRAM_POSITIONAL_SIMILARITY()`
-- `NGRAM_SIMILARITY()`
-
-They can be used standalone as well, without a `SEARCH` statement, and have a
-return value which can be used elsewhere in the query.
 
 ### ANALYZER()
 
@@ -53,8 +81,10 @@ all the nested functions which require such an argument to avoid repeating the
 Analyzer parameter. If an Analyzer argument is passed to a nested function
 regardless, then it takes precedence over the Analyzer set via `ANALYZER()`.
 
-The `TOKENS()` function is an exception, it requires the Analyzer name to be
-passed in all cases even if wrapped in an `ANALYZER()` call.
+The `TOKENS()` function is an exception. It requires the Analyzer name to be
+passed in in all cases even if wrapped in an `ANALYZER()` call, because it is
+not an ArangoSearch function but a regular string function which can be used
+outside of `SEARCH` operations.
 
 - **expr** (expression): any valid search expression
 - **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
@@ -356,7 +386,12 @@ The ngrams for both attribute and target are produced by the specified
 Analyzer. It is recommended to use an Analyzer of type `ngram` with
 `preserveOriginal: false` and `min` equal to `max`. Increasing the ngram
 length will increase accuracy, but reduce error tolerance. In most cases a
-size of 2 or 3 will be a good choice.
+size of 2 or 3 will be a good choice. 
+
+{% hint 'info' %}
+The selected Analyzer must have the `"position"` and `"frequency"` features
+enabled. The `NGRAM_MATCH()` function will otherwise not find anything.
+{% endhint %}
 
 - **path** (attribute path expression\|string): the path of the attribute in
   a document or a string
@@ -409,67 +444,12 @@ RETURN NGRAM_MATCH("quick fox", "quick blue fox", "bigram")
 
 ### NGRAM_POSITIONAL_SIMILARITY()
 
-<small>Introduced in: v3.7.0</small>
-
-`NGRAM_POSITIONAL_SIMILARITY(input, target, ngramSize) → similarity`
-
-Calculates the [ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
-between *input* and *target* using ngrams with minimum and maximum length of
-*ngramSize*.
-
-The similarity is calculated by counting how long the longest sequence of
-matching ngrams is, divided by the **longer argument's** total ngram count.
-Partially matching ngrams are counted, whereas
-[NGRAM_SIMILARITY()](#ngram_similarity) counts only fully matching ngrams.
-
-The ngrams for both input and target are calculated on the fly,
-not involving Analyzers.
-
-- **input** (string): source text to be tokenized into ngrams
-- **target** (string): target text to be tokenized into ngrams
-- **ngramSize** (number): minimum as well as maximum ngram length
-- returns **similarity** (number): value between `0.0` and `1.0`
-
-```js
-RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quick foxx", 2) // [ 0.8888888955116272 ]
-RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quick foxx", 3) // [ 0.875 ]
-
-RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quirky fox", 2) //  [ 0.7222222089767456 ]
-RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quirky fox", 3) // [ 0.6666666865348816 ]
-```
+See [String Functions](functions-arangosearch.html#ngram_positional_similarity).
 
 ### NGRAM_SIMILARITY()
 
-<small>Introduced in: v3.7.0</small>
 
-`NGRAM_SIMILARITY(input, target, ngramSize) → similarity`
-
-Calculates [ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
-between *input* and *target* using ngrams with minimum and maximum length of
-*ngramSize*.
-
-The similarity is calculated by counting how long the longest sequence of
-matching ngrams is, divided by **target's** total ngram count.
-Only fully matching ngrams are counted, whereas
-[NGRAM_POSITIONAL_SIMILARITY()](#ngram_positional_similarity) counts partially
-matching ngrams too. This behavior matches the similarity measure used in
-[NGRAM_MATCH()](#ngram_match).
-
-The ngrams for both input and target are calculated on the fly, not involving
-Analyzers.
-
-- **input** (string): source text to be tokenized into ngrams
-- **target** (string): target text to be tokenized into ngrams
-- **ngramSize** (number): minimum as well as maximum ngram length
-- returns **similarity** (number): value between `0.0` and `1.0`
-
-```js
-RETURN NGRAM_SIMILARITY("quick fox", "quick foxx", 2) // [ 0.8888888955116272 ]
-RETURN NGRAM_SIMILARITY("quick fox", "quick foxx", 3) // [ 0.875 ]
-
-RETURN NGRAM_SIMILARITY("quick fox", "quirky fox", 2) // [ 0.5555555820465088 ]
-RETURN NGRAM_SIMILARITY("quick fox", "quirky fox", 3) // [ 0.375 ]
-```
+See [String Functions](functions-arangosearch.html#ngram_similarity).
 
 ### PHRASE()
 
@@ -498,6 +478,11 @@ array as second argument.
   defaults to `"identity"`
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
+
+{% hint 'info' %}
+The selected Analyzer must have the `"position"` and `"frequency"` features
+enabled. The `PHRASE()` function will otherwise not find anything.
+{% endhint %}
 
 Object tokens:
 
@@ -724,74 +709,7 @@ FOR doc IN viewName
 
 ### TOKENS()
 
-`TOKENS(input, analyzer) → tokenArray`
-
-Split the **input** string(s) with the help of the specified **analyzer** into an
-array. The resulting array can be used in `FILTER` or `SEARCH` statements with
-the `IN` operator, but also be assigned to variables and returned. This can be
-used to better understand how a specific Analyzer processes an input value.
-
-It has a regular return value unlike all other ArangoSearch AQL functions and
-is thus not limited to `SEARCH` operations. It is independent of Views.
-A wrapping `ANALYZER()` call in a search expression does not affect the
-*analyzer* argument nor allow you to omit it.
-
-- **input** (string\|array): text to tokenize. Accepts recursive arrays of
-  strings (introduced in v3.6.0).
-- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
-- returns **tokenArray** (array): array of strings with zero or more elements,
-  each element being a token.
-
-Example query showcasing the `"text_de"` Analyzer (tokenization with stemming,
-case conversion and accent removal for German text):
-
-```js
-RETURN TOKENS("Lörem ipsüm, DOLOR SIT Ämet.", "text_de")
-```
-
-```json
-[
-  [
-    "lor",
-    "ipsum",
-    "dolor",
-    "sit",
-    "amet"
-  ]
-]
-```
-
-To search a View for documents where the `text` attribute contains certain
-words/tokens in any order, you can use the function like this:
-
-```js
-FOR doc IN viewName
-  SEARCH ANALYZER(doc.text IN TOKENS("dolor amet lorem", "text_en"), "text_en")
-  RETURN doc
-```
-
-It will match `{ "text": "Lorem ipsum, dolor sit amet." }` for instance. If you
-want to search for tokens in a particular order, use [PHRASE()](#phrase) instead.
-
-If an array of strings is passed as first argument, then each string is
-tokenized individually and an array with the same nesting as the input array
-is returned:
-
-```js
-TOKENS("quick brown fox", "text_en")        // [ "quick", "brown", "fox" ]
-TOKENS(["quick brown", "fox"], "text_en")   // [ ["quick", "brown"], ["fox"] ]
-TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
-```
-
-In most cases you will want to flatten the resulting array for further usage,
-because nested arrays are not accepted in `SEARCH` statements such as
-`<array> ALL IN doc.<attribute>`:
-
-```js
-LET tokens = TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
-LET tokens_flat = FLATTEN(tokens, 2)                     // [ "quick", "brown", "fox" ]
-FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETURN doc
-```
+See [String Functions](functions-string.html#tokens).
 
 Scoring Functions
 -----------------
