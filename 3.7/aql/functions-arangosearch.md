@@ -33,10 +33,10 @@ left out.
 
 ```js
 // Analyzer specified in each function call
-PHRASE(doc.text, "avocado recipe", "text_en") AND PHRASE(doc.text, "guacamole", "text_en")
+PHRASE(doc.text, "avocado dish", "text_en") AND PHRASE(doc.text, "lemon", "text_en")
 
 // Analyzer specified using ANALYZER()
-ANALYZER(PHRASE(doc.text, "avocado recipe") AND PHRASE(doc.text, "guacamole")
+ANALYZER(PHRASE(doc.text, "avocado dish") AND PHRASE(doc.text, "lemon")
 ```
 
 Certain expressions do not require any ArangoSearch functions, such as basic
