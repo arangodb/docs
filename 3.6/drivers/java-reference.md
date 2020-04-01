@@ -31,3 +31,4 @@ layout: default
   - [Edges Manipulation](java-reference-graph-edges.html)
 - [Route](java-reference-route.html)
 - [Serialization](java-reference-serialization.html)
+- [GraalVM Native Image](java-reference-graalvm-native.html)
