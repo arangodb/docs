@@ -9,22 +9,59 @@ redirect_from:
 ArangoSearch Functions
 ======================
 
-Most ArangoSearch AQL functions take an expression or attribute path expression
-as argument.
+ArangoSearch AQL functions take either an expression or an
+attribute path expression as first argument.
+
+```js
+ANALYZER(<expression>, …)
+STARTS_WITH(doc.attribute, …)
+```
 
 If an expression is expected, it means that search conditions can expressed in
 AQL syntax. They are typically function calls to ArangoSearch search functions,
 possibly nested and/or using logical operators for multiple conditions.
 
-You need the `ANALYZER()` function to wrap search (sub-)expressions to set the
-Analyzer for it, unless you want to use the default `"identity"` Analyzer.
-You might not need other ArangoSearch functions for certain expressions,
-because comparisons can be done with basic AQL comparison operators.
+```js
+STARTS_WITH(doc.text, "avoca") OR STARTS_WITH(doc.text, "arang")
+```
+
+The default Analyzer that will be used for searching is `"identity"`.
+While many ArangoSearch functions accept an Analyzer argument, it is often
+easier and cleaner to wrap a search (sub-)expressions with an `ANALYZER()` call
+to set the Analyzer for these functions. Their Analyzer argument can then be
+left out.
+
+```js
+// Analyzer specified in each function call
+PHRASE(doc.text, "avocado recipe", "text_en") AND PHRASE(doc.text, "guacamole", "text_en")
+
+// Analyzer specified using ANALYZER()
+ANALYZER(PHRASE(doc.text, "avocado recipe") AND PHRASE(doc.text, "guacamole")
+```
+
+Certain expressions do not require any ArangoSearch functions, such as basic
+comparisons. However, the Analyzer used for searching will be `"identity"`
+unless `ANALYZER()` is used to set a different one.
+
+```js
+// The "identity" Analyzer will be used by default
+SEARCH doc.text == "avocado"
+
+// Use the "text_en" Analyzer for searching instead
+SEARCH ANALYZER(doc.text == "avocado", "text_en")
+```
 
 If an attribute path expressions is needed, then you have to reference a
-document object emitted by a View like `FOR doc IN viewName` and the specify
-which attribute you want to test for. For example `doc.attr` or
-`doc.deeply.nested.attr`. You can also use the bracket notation `doc["attr"]`.
+document object emitted by a View like `FOR doc IN viewName` and then specify
+which attribute you want to test for as an unquoted string literal. For example
+`doc.attr` or `doc.deeply.nested.attr` but not `"doc.attr"`. You can also use
+the bracket notation `doc["attr"]`.
+
+```js
+FOR doc IN viewName
+  SEARCH STARTS_WITH(doc.deeply.nested["attr"], "avoca")
+  RETURN doc
+```
 
 Search Functions
 ----------------
@@ -32,15 +69,6 @@ Search Functions
 Search functions can be used in a [SEARCH operation](operations-search.html)
 to form an ArangoSearch expression to filter a View. The functions control the
 ArangoSearch functionality without having a returnable value in AQL.
-
-The following function are exceptions:
-
-- `TOKENS()`
-- `NGRAM_POSITIONAL_SIMILARITY()`
-- `NGRAM_SIMILARITY()`
-
-They can be used standalone as well, without a `SEARCH` statement, and have a
-return value which can be used elsewhere in the query.
 
 ### ANALYZER()
 
@@ -53,8 +81,10 @@ all the nested functions which require such an argument to avoid repeating the
 Analyzer parameter. If an Analyzer argument is passed to a nested function
 regardless, then it takes precedence over the Analyzer set via `ANALYZER()`.
 
-The `TOKENS()` function is an exception, it requires the Analyzer name to be
-passed in all cases even if wrapped in an `ANALYZER()` call.
+The `TOKENS()` function is an exception. It requires the Analyzer name to be
+passed in in all cases even if wrapped in an `ANALYZER()` call, because it is
+not an ArangoSearch function but a regular string function which can be used
+outside of `SEARCH` operations.
 
 - **expr** (expression): any valid search expression
 - **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
