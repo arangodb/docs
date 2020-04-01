@@ -344,26 +344,30 @@ Built-in Analyzers
 There is a set of built-in Analyzers which are available by default for
 convenience and backward compatibility. They can not be removed.
 
-The `identity` Analyzer has the features `frequency` and `norm`.
-The Analyzers of type `text` all tokenize strings with stemming enabled,
-no stopwords configured, case conversion set to `lower`, accent removal
-turned on and the features `frequency`, `norm` and `position`:
+The `identity` Analyzer has no properties and the features `frequency`
+and `norm`. The Analyzers of type `text` all tokenize strings with stemming
+enabled, no stopwords configured, accent removal and case conversion to
+lowercase turned on and the features `frequency`, `norm` and `position`:
 
-Name       | Type       | Language
------------|------------|-----------
-`identity` | `identity` | none
-`text_de`  | `text`     | German
-`text_en`  | `text`     | English
-`text_es`  | `text`     | Spanish
-`text_fi`  | `text`     | Finnish
-`text_fr`  | `text`     | French
-`text_it`  | `text`     | Italian
-`text_nl`  | `text`     | Dutch
-`text_no`  | `text`     | Norwegian
-`text_pt`  | `text`     | Portuguese
-`text_ru`  | `text`     | Russian
-`text_sv`  | `text`     | Swedish
-`text_zh`  | `text`     | Chinese
+Name       | Type       | Locale (Language)       | Case    | Accent  | Stemming | Stopwords | Features |
+-----------|------------|-------------------------|---------|---------|----------|-----------|----------|
+`identity` | `identity` |                         |         |         |          |           | `["frequency", "norm"]`
+`text_de`  | `text`     | `de.utf-8` (German)     | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_en`  | `text`     | `en.utf-8` (English)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_es`  | `text`     | `es.utf-8` (Spanish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_fi`  | `text`     | `fi.utf-8` (Finnish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_fr`  | `text`     | `fr.utf-8` (French)     | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_it`  | `text`     | `it.utf-8` (Italian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_nl`  | `text`     | `nl.utf-8` (Dutch)      | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_no`  | `text`     | `no.utf-8` (Norwegian)  | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_pt`  | `text`     | `pt.utf-8` (Portuguese) | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_ru`  | `text`     | `ru.utf-8` (Russian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_sv`  | `text`     | `sv.utf-8` (Swedish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_zh`  | `text`     | `zh.utf-8` (Chinese)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+
+Note that _locale_, _case_, _accent_, _stemming_ and _stopwords_ are Analyzer
+properties. `text_zh` does not have actual stemming support for Chinese despite
+what the property value suggests.
 
 Supported Languages
 -------------------
