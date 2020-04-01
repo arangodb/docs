@@ -433,7 +433,7 @@ matching ngrams is, divided by **target's** total ngram count.
 Only fully matching ngrams are counted, whereas
 [NGRAM_POSITIONAL_SIMILARITY()](#ngram_positional_similarity) counts partially
 matching ngrams too. This behavior matches the similarity measure used in
-[NGRAM_MATCH()](#ngram_match).
+[NGRAM_MATCH()](functions-arangosearch.html#ngram_match).
 
 The ngrams for both input and target are calculated on the fly, not involving
 Analyzers.
@@ -969,7 +969,8 @@ FOR doc IN viewName
 ```
 
 It will match `{ "text": "Lorem ipsum, dolor sit amet." }` for instance. If you
-want to search for tokens in a particular order, use [PHRASE()](#phrase) instead.
+want to search for tokens in a particular order, use
+[PHRASE()](functions-arangosearch.html#phrase) instead.
 
 If an array of strings is passed as first argument, then each string is
 tokenized individually and an array with the same nesting as the input array
