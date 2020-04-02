@@ -12,10 +12,10 @@ including more advanced configuration possibilities.
 The Initial Collection
 --------------
 
-To create a custom SatelliteGraph we'll explain a little bit more about
-the technical insights. Very important is: A SatelliteGraph always needs
-a leading document collection. First, this collection needs to have the
-`replicationFactor` to be set to `satellite`. This automatically leads
+To create a SatelliteGraph manually managed we'll explain a little bit more
+about the technical insights. Very important is: A SatelliteGraph always
+needs a leading document collection. First, this collection needs to have
+the `replicationFactor` to be set to `satellite`. This automatically leads
 the collection having an exact amount of one shard per collection. This
 collection is selected as the `initial` one. Furthermore, all additional
 collections that are part of the SatelliteGraph need to inherit the
@@ -23,7 +23,7 @@ behavior of their `initial` collection. Those collections are required to
 have the collection attribute `distributeShardsLike` pointing to the
 `initial` collection.
 
-Every SatelliteGraph needs one leading collection. 
+Every SatelliteGraph needs exact one leading collection. 
 
 Initial Collection Examples
 -------------- 
