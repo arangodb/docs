@@ -18,11 +18,12 @@ the underlying collections:
 - SatelliteGraphs enforce and rely on a special properties of the underlying
   collections and hence can only work with collections that are created through
   the SatelliteGraph itself or manually created collections which perfectly fit
-  to the rules of a SatelliteGraph collection (Rules described in: SatelliteGraphs in detail).
-  This means that in comparison to SmartGraphs, SatelliteGraphs can be overlapping.
-  A collection can exist in one SatelliteGraph and also in another as well. If you
-  have a larger SatelliteGraph and want to create an additional SatelliteGraph,
-  which only covers a part of it, you can do that.
+  to the [rules](graphs-satellite-graphs-details.html#the-initial-collection)
+  of a SatelliteGraph collection. This means that in comparison to SmartGraphs,
+  SatelliteGraphs can be overlapping. A collection can exist in one SatelliteGraph
+  and also in another as well. If you have a larger SatelliteGraph and want to
+  create an additional SatelliteGraph, which only covers a part of it, you can do
+  that.
 
 To generally understand the concept of this module please read the chapter
 about [General Graph Management](graphs-general-graphs-management.html) first.
@@ -137,9 +138,9 @@ In most cases this function works identically to the General Graph one.
 But there is one special case: The first vertex collection added to the graph
 (either orphan or a vertex collection within a relation) defines the sharding
 for all collections within the graph. They have their `distributeShardsLike`
-attribute set to the name of the initial collection. This collection can not
-be dropped as long as other collections follow its sharding (i.e. they need to
-be dropped first).
+attribute set to the name of the [initial](graphs-satellite-graphs-details.html#the-initial-collection)
+collection. This collection can not be dropped as long as other collections
+follow its sharding (i.e. they need to be dropped first).
 
 **Examples**
 
