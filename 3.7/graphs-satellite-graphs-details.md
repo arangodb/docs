@@ -82,33 +82,20 @@ The `initial` collection can and also will be automatically selected during the
 graph creation process if at least one document (vertex) collection is supplied
 directly. If more then one are available, they will be chosen randomly as well,
 regardless whether they are set inside the edge definition itself or set as a
-vertex/orphan collection. With that knowledge in mind, it is possible to tune
-and expand the configuration of a SatelliteGraph. More details are explained in
-the next chapter.
-
-An advanced example
---------------
-
-Creating a SatelliteGraph based on another SatelliteGraph:
-
-TODOS:
-* Create a SubSatelliteGraph including example
+vertex/orphan collection.
 
 What qualifies as a SatelliteGraph traversal
 --------------
 
-TODOS:
+Obviously, a SatelliteGraph must be created and be used in a query. Valid
+operations then can be optimized are (k-)shortest path(s) computation and
+joins with traversals.
 
-* explain which conditions need to be set to get fast query performance
-* e.g. a) Explain Traversal Satellite Graph
-* Explain switch optimiser-rules
-    * Example
-	* Profile
-* Link to affected optimiser rules
+If you want to take a look at the details during query execution, here is a
+an example showing the difference between the execution of a GeneralGraph
+and a SatelliteGraph traversal query.
 
-Example:
 First we setup our graphs and collections.
-
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphExplain3_1_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain3_1_cluster}
