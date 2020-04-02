@@ -243,7 +243,7 @@ Delete an edge definition from the graph:
 - `dropCollection` (bool, _optional_):
   If true the collection will be dropped if it is not used in any other graph.
   Default: false.
-K
+
 **Examples**
 
 Create a SatelliteGraph, then delete the edge definition and drop the edge collection:

@@ -1,341 +1,172 @@
 ---
 layout: default
-description: This chapter describes the JavaScript interface for creating and modifying SatelliteGraphs
-title: SatelliteGraphs JS API
+description: This chapter describes the usage of SatelliteGraphs in Detail
+title: SatelliteGraphs In Detail
 ---
 Satellite Graph Details
 ======================
 
-This chapter describes the JavaScript interface for creating and modifying
-SmartGraphs. A SmartGraph is a specialized version of a General Graph, which
-means all of the General Graph functionality is available on a SmartGraph as
-well. The major difference of both modules is handling of the underlying
-collections:
+This chapter explains the details of the usage of a SatelliteGraphs, 
+including more advanced configuration possibilities.
 
-- General Graphs do not enforce or maintain any sharding of the collections
-  and can therefore combine arbitrary sets of existing collections.
-- SmartGraphs enforce and rely on a special sharding of the underlying
-  collections and hence can only work with collections that are created
-  through the SmartGraph itself. This also means that SmartGraphs cannot be
-  overlapping. A collection can either be sharded for one SmartGraph or for
-  another. If you need to make sure that all queries can be executed with
-  SmartGraph performance, just create one large SmartGraph covering everything
-  and query it stating the subset of edge collections explicitly.
-
-To generally understand the concept of this module please read the chapter
-about [General Graph Management](graphs-general-graphs-management.html) first.
-In the following we will only describe the overloaded functionality.
-Everything else works identical in both modules.
-
-Create a Graph
+The Initial Collection
 --------------
 
-SmartGraphs also require edge relations to be created. The format of the
-relations is identical. The only difference is that all collections used within
-the relations to create a new SmartGraph must not exist yet. You have to let
-the SmartGraph module create the Graph collections for you, so that it can
-enforce the correct sharding.
+To create a custom SatelliteGraph we'll explain a little bit more about
+the technical insights. Very important is: A SatelliteGraph always needs
+a leading document collection. First, this collection needs to have the
+`replicationFactor` to be set to `satellite`. This automatically leads
+the collection having an exact amount of one shard per collection. This
+collection is selected as the `initial` one. Furthermore, all additional
+collections that are part of the SatelliteGraph need to inherit the
+behaviour of their `initial` collection. Those collections are required to
+have the collection attribute `distributeShardsLike` pointing to the
+`initial` collection.
 
-`graph_module._create(graphName, edgeDefinitions, orphanCollections, smartOptions)`
+Every SatelliteGraph needs one leading collection. 
 
-- `graphName` (string):
-  Unique identifier of the graph
-- `edgeDefinitions` (array):
-  List of relation definition objects, may be empty
-- `orphanCollections` (array):
-  List of additional vertex collection names, may be empty
-- `smartOptions` (object):
-  A JSON object having the following keys:
-  - `numberOfShards` (number):
-    The number of shards that will be created for each collection. To maintain
-    the correct sharding all collections need an identical number of shards.
-    This cannot be modified after creation of the graph.
-  - `smartGraphAttribute` (string):
-    The attribute that will be used for sharding. All vertices are required to
-    have this attribute set and it has to be a string. Edges derive the
-    attribute from their connected vertices.
+Initial Collection Examples
+-------------- 
 
-The creation of a graph requires the name and some SmartGraph options.
-Due to the API `edgeDefinitions` and `orphanCollections` have to be given, but
-both can be empty arrays and be added later.
+If you are going to use the SatelliteGraph module to create and modify the
+SatelliteGraph, the module itself will take care of the initial collection
+and all the necessary collection configuration. 
 
-The `edgeDefinitions` can be created using the convenience method `_relation`
-known from the `general-graph` module, which is also available here.
-
-`orphanCollections` again is just a list of additional vertex collections which
-are not yet connected via edges but should follow the same sharding to be
-connected later on.
-
-All collections used within the creation process are newly created.
-The process will fail if one of them already exists, unless they have the
-correct sharding already. All newly created collections will immediately
-be dropped again in the failure case.
-
-**Examples**
-
-Create a graph without relations. Edge definitions can be added later:
+1.) Creating an empty SatelliteGraph: No initial collection will be promoted.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreate1_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreate1_cluster}
-      var graph_module = require("@arangodb/smart-graph");
-      var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph_module._graph("myGraph");
-     ~graph_module._drop("myGraph", true);
+    @startDocuBlockInline satelliteGraphInitial3_1_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphInitial3_1_cluster}
+    var satelliteGraphModule = require("@arangodb/satellite-graph");
+    satelliteGraphModule._create("satelliteGraph");
+    ~satelliteGraphModule._drop("satelliteGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreate1_cluster
+    @endDocuBlock satelliteGraphInitial3_1_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Create a graph using an edge collection `edges` and a single vertex collection
-`vertices` as relation:
+2.) Creating an empty SatelliteGraph, then adding a document (vertex) collection:
+This will lead the collection `myNewInitialCol` to be the initial one. 
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreate2_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreate2_cluster}
-      var graph_module = require("@arangodb/smart-graph");
-      var edgeDefinitions = [ graph_module._relation("edges", "vertices", "vertices") ];
-      var graph = graph_module._create("myGraph", edgeDefinitions, [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph_module._graph("myGraph");
-     ~graph_module._drop("myGraph", true);
+    @startDocuBlockInline satelliteGraphInitial3_2_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphInitial3_2_cluster}
+    var satelliteGraphModule = require("@arangodb/satellite-graph");
+    let graph = satelliteGraphModule._create("satelliteGraph");
+    graph._addVertexCollection("myNewInitialCol");
+    ~satelliteGraphModule._drop("satelliteGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreate2_cluster
+    @endDocuBlock satelliteGraphInitial3_2_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Create a graph with edge definitions and orphan collections:
+3.) Creating an empty SatelliteGraph, then adding an edge definition: This will
+lead the collection `person` to be selected as the initial one, as it is the only
+appearing document (vertex) collection. If you supply more than at least one
+document collection, a collection will be randomly chosen to be the `initial` one.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreate3_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreate3_cluster}
-      var graph_module = require("@arangodb/smart-graph");
-      var edgeDefinitions = [ graph_module._relation("myRelation", ["male", "female"], ["male", "female"]) ];
-      var graph = graph_module._create("myGraph", edgeDefinitions, ["sessions"], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph_module._graph("myGraph");
-     ~graph_module._drop("myGraph", true);
+    @startDocuBlockInline satelliteGraphInitial3_3_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphInitial3_3_cluster}
+    var satelliteGraphModule = require("@arangodb/satellite-graph");
+    let graph = satelliteGraphModule._create("satelliteGraph");
+    let relation = g_module._relation("isFriend", ["person"], ["person"]);
+    graph._extendEdgeDefinitions(relation);
+    ~satelliteGraphModule._drop("satelliteGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreate3_cluster
+    @endDocuBlock satelliteGraphInitial3_3_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Modify a graph definition at runtime
-------------------------------------
+The `initial` collection can and also will be automatically selected during the
+graph creation process if at least one document (vertex) collection is supplied
+directly. If more then one are available, they will be chosen randomly as well,
+regardless whether they are set inside the edge definition itself or set as a
+vertex/orphan collection. With that knowledge in mind, it is possible to tune
+and expand the configuration of a SatelliteGraph. More details are explained in
+the next chapter.
 
-After you have created a SmartGraph its definition is not immutable. You can
-still add or remove relations. This is again identical to General Graphs.
+An advanced example
+--------------
 
-However there is one important difference: You can only add collections that
-either *do not exist*, or that have been created by this graph earlier. The
-latter can be achieved if you for example remove an orphan collection from this
-graph, without dropping the collection itself. Than after some time you decide
-to add it again, it can be used. This is because the enforced sharding is still
-applied to this vertex collection, hence it is suitable to be added again.
+Creating a SatelliteGraph based on another SatelliteGraph:
 
-### Remove a vertex collection
+TODOS:
+* Create a SubSatelliteGraph including example
 
-Remove a vertex collection from the graph:
+What qualifies as a SatelliteGraph traversal
+--------------
 
-`graph._removeVertexCollection(vertexCollectionName, dropCollection)`
+TODOS:
 
-- `vertexCollectionName` (string):
-  Name of vertex collection.
-- `dropCollection` (bool, _optional_):
-  If true the collection will be dropped if it is not used in any other graph.
-  Default: false.
+* explain which conditions need to be set to get fast query performance
+* e.g. a) Explain Traversal Satellite Graph
+* Explain switch optimiser-rules
+    * Example
+	* Profile
+* Link to affected optimiser rules
 
-In most cases this function works identically to the General Graph one.
-But there is one special case: The first vertex collection added to the graph
-(either orphan or within a relation) defines the sharding for all collections
-within the graph. They have their `distributeShardsLike` attribute set to the
-name of the initial collection. This collection can not be dropped as long as
-other collections follow its sharding (i.e. they need to be dropped first).
-
-**Examples**
-
-Create a SmartGraph and list its orphan collections:
+Example:
+First we setup our graphs and collections.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphModify1_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify1_cluster}
-      var graph_module = require("@arangodb/smart-graph");
-      var relation = graph_module._relation("edges", "vertices", "vertices");
-      var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph._orphanCollections();
-     ~graph_module._drop("myGraph", true);
+    @startDocuBlockInline satelliteGraphExplain3_1_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain3_1_cluster}
+    var graphModule = require("@arangodb/general-graph");
+    var satelliteGraphModule = require("@arangodb/satellite-graph");
+    graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
+    satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {});
+    db._create("collection", {numberOfShards: 8});
+    ~db._drop("collection");
+    ~satelliteGraphModule._drop("satelliteGraph", true);
+    ~graphModule._drop("normalGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphModify1_cluster
+    @endDocuBlock satelliteGraphExplain3_1_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Remove the orphan collection from the SmartGraph and drop the collection:
+Let us analyze a query involving a traversal:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphModify2_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify2_cluster}
-     ~var graph_module = require("@arangodb/smart-graph");
-     ~var relation = graph_module._relation("edges", "vertices", "vertices");
-     ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph._removeVertexCollection("other", true);
-      graph_module._graph("myGraph");
-     ~graph_module._drop("myGraph", true);
+    @startDocuBlockInline satelliteGraphExplain3_2_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain3_2_cluster}
+    ~var graphModule = require("@arangodb/general-graph");
+    ~var satelliteGraphModule = require("@arangodb/satellite-graph");
+    ~graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
+    ~satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {});
+    ~db._create("collection", {numberOfShards: 8});
+    db._explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "normalGraph" RETURN [doc,v,e,p]`, {}, {colors: false});
+    ~db._drop("collection");
+    ~satelliteGraphModule._drop("satelliteGraph", true);
+    ~graphModule._drop("normalGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphModify2_cluster
+    @endDocuBlock satelliteGraphExplain3_2_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Attempting to remove a non-orphan collection results in an error:
+You can see that the `TraversalNode` is executed on a Coordinator, and only
+the `EnumerateCollectionNode` is executed on DB-Server. This will happen for
+each of the 8 shards in `collection`.
+
+Let us now have a look at the same query using a SatelliteGraph:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphModify3_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify3_cluster}
-     ~var graph_module = require("@arangodb/smart-graph");
-     ~var relation = graph_module._relation("edges", "vertices", "vertices");
-     ~var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph._removeVertexCollection("vertices"); // xpError(ERROR_GRAPH_NOT_IN_ORPHAN_COLLECTION)
-     ~graph_module._drop("myGraph", true);
+    @startDocuBlockInline satelliteGraphExplain3_3_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain3_3_cluster}
+    ~var graphModule = require("@arangodb/general-graph");
+    ~var satelliteGraphModule = require("@arangodb/satellite-graph");
+    ~graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
+    ~satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {});
+    ~db._create("collection", {numberOfShards: 8});
+    db._explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "satelliteGraph" RETURN [doc,v,e,p]`, {}, {colors: false});
+    ~db._drop("collection");
+    ~satelliteGraphModule._drop("satelliteGraph", true);
+    ~graphModule._drop("normalGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphModify3_cluster
+    @endDocuBlock satelliteGraphExplain3_3_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-You cannot drop the initial collection (`vertices`) as long as it defines the
-sharding for other collections (`edges`).
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphModify4_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify4_cluster}
-      var graph_module = require("@arangodb/smart-graph");
-      var relation = graph_module._relation("edges", "vertices", "vertices");
-      var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph._deleteEdgeDefinition("edges");
-      graph._removeVertexCollection("vertices");
-      db._drop("vertices"); // xpError(ERROR_CLUSTER_MUST_NOT_DROP_COLL_OTHER_DISTRIBUTESHARDSLIKE)
-     ~graph_module._drop("myGraph", true);
-     ~db._drop("edges");
-     ~db._drop("vertices");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphModify4_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-You may drop the complete graph, but remember to drop collections that you
-might have removed from the graph beforehand, as they will not be part of the
-graph definition anymore and thus not be dropped for you. Alternatively, you
-can `truncate` the graph if you just want to get rid of the data.
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphModify5_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify5_cluster}
-      var graph_module = require("@arangodb/smart-graph");
-      var relation = graph_module._relation("edges", "vertices", "vertices");
-      var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph._deleteEdgeDefinition("edges");
-      graph._removeVertexCollection("vertices");
-      graph_module._drop("myGraph", true); // does not drop any collections
-      db._drop("edges"); // drop before sharding-defining 'vertices' collection
-      db._drop("vertices");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphModify5_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-### Remove an edge collection
-
-Delete an edge definition from the graph:
-
-`graph._deleteEdgeDefinition(edgeCollectionName, dropCollection)`
-
-- `edgeCollectionName` (string):
-  Name of edge collection.
-- `dropCollection` (bool, _optional_):
-  If true the collection will be dropped if it is not used in any other graph.
-  Default: false.
-
-**Examples**
-
-Create a SmartGraph, then delete the edge definition and drop the edge collection:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphModify6_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify6_cluster}
-      var graph_module = require("@arangodb/smart-graph");
-      var relation = graph_module._relation("edges", "vertices", "vertices");
-      var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph._deleteEdgeDefinition("edges", true);
-      graph_module._graph("myGraph");
-     ~graph_module._drop("myGraph", true);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphModify6_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-It is allowed to remove the vertex collection `vertices` if it's not used in
-any relation (i.e. after the deletion of the edge definition):
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphModify7_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphModify7_cluster}
-     ~var graph_module = require("@arangodb/smart-graph");
-     ~var relation = graph_module._relation("edges", "vertices", "vertices");
-     ~var graph = graph_module._create("myGraph", [relation], [], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph._deleteEdgeDefinition("edges");
-      graph._removeVertexCollection("vertices");
-     ~graph_module._drop("myGraph", true);
-     ~db._drop("edges");
-     ~db._drop("vertices");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphModify7_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-Keep in mind that you can not drop the `vertices` collection until no other
-collection references it anymore (`distributeShardsLike` collection property).
-
-### Remove a Graph
-
-Remove a SmartGraph:
-
-`graph_module._drop(graphName, dropCollections)`
-
-- `graphName` (string):
-  Name of the Graph.
-- `dropCollections` (bool, _optional_):
-  Define if collections should be dropped. Default: false.
-
-**Examples**
-
-Delete a SmartGraph and drop its collections:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphRemove1_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphRemove1_cluster}
-     ~var graph_module = require("@arangodb/smart-graph");
-     ~var relation = graph_module._relation("edges", "vertices", "vertices");
-     ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph_module._drop("myGraph", true);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphRemove1_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-Note that removing a Graph with the option to drop the collections fails if
-you removed collections from the Graph but did not drop these collections.
-This is because their `distributeShardsLike` attribute still references
-collections that are part of the Graph. Dropping collections while others
-point to them in this way is not allowed. Make sure to drop the referencing
-collections first.
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphRemove2_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphRemove2_cluster}
-     ~var graph_module = require("@arangodb/smart-graph");
-     ~var relation = graph_module._relation("edges", "vertices", "vertices");
-     ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
-      graph._removeVertexCollection("other");
-      graph_module._drop("myGraph", true); // xpError(ERROR_CLUSTER_MUST_NOT_DROP_COLL_OTHER_DISTRIBUTESHARDSLIKE)
-     ~db._drop("other");
-     ~db._drop("vertices");
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphRemove2_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+Note that now the `TraversalNode` is executed on each DB-Server, leading to a
+great reduction in required network communication, and hence potential gains
+in query performance.
