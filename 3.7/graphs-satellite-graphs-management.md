@@ -243,7 +243,7 @@ Delete an edge definition from the graph:
 - `dropCollection` (bool, _optional_):
   If true the collection will be dropped if it is not used in any other graph.
   Default: false.
-
+K
 **Examples**
 
 Create a SatelliteGraph, then delete the edge definition and drop the edge collection:
@@ -321,9 +321,9 @@ collections first.
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphRemoveManagement_2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphRemoveManagement_2_cluster}
-     ~var graph_module = require("@arangodb/smart-graph");
+     ~var graph_module = require("@arangodb/satellite-graph");
      ~var relation = graph_module._relation("edges", "vertices", "vertices");
-     ~var graph = graph_module._create("myGraph", [relation], ["other"], {smartGraphAttribute: "region", numberOfShards: 9});
+     ~var graph = graph_module._create("myGraph", [relation], ["other"]);
       graph._removeVertexCollection("other");
       graph_module._drop("myGraph", true); // xpError(ERROR_CLUSTER_MUST_NOT_DROP_COLL_OTHER_DISTRIBUTESHARDSLIKE)
      ~db._drop("other");
