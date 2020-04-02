@@ -70,7 +70,7 @@ document collection, a collection will be randomly chosen to be the `initial` on
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphInitial3_3_cluster}
     var satelliteGraphModule = require("@arangodb/satellite-graph");
     let graph = satelliteGraphModule._create("satelliteGraph");
-    let relation = g_module._relation("isFriend", ["person"], ["person"]);
+    let relation = satelliteGraphModule._relation("isFriend", ["person"], ["person"]);
     graph._extendEdgeDefinitions(relation);
     ~satelliteGraphModule._drop("satelliteGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
