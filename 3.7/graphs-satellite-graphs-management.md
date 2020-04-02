@@ -21,8 +21,8 @@ the underlying collections:
   to the rules of a SatelliteGraph collection (Rules described in: SatelliteGraphs in detail).
   This means that in comparison to SmartGraphs, SatelliteGraphs can be overlapping.
   A collection can exist in one SatelliteGraph and also in another as well. If you
-  have a quite huge SatelliteGraph and want to create an additional "Sub-SatelliteGraph"
-  of it, you can do that (Section: Create an advanced graph).
+  have a larger SatelliteGraph and want to create an additional SatelliteGraph,
+  which only covers a part of it, you can do that.
 
 To generally understand the concept of this module please read the chapter
 about [General Graph Management](graphs-general-graphs-management.html) first.
@@ -36,9 +36,9 @@ In contrast to GeneralGraphs and SmartGraphs, you do not need to take care of th
 sharding and replication properties. The properties `distributeShardsLike`,
 `replicationFactor` and `numberOfShards` will be set automatically. The format of
 the relations is identical. The only difference is that all collections used within
-the relations to create a new SatelliteGraph must fit the collection rules of the
-Satellite. Using the SatelliteGraph module to create the Graph collections, will take
-care of the correct collection properties.
+the relations to create a new SatelliteGraph must fit the [collection rules](graphs-satellite-graphs-details.html#the-initial-collection)
+of the SatelliteGraph. Using the SatelliteGraph module to create the Graph collections,
+will take care of the correct collection properties.
 
 `graph_module._create(graphName, edgeDefinitions, orphanCollections)`
 
@@ -59,8 +59,8 @@ known from the `general-graph` module, which is also available here.
 are not yet connected via edges but should follow the same sharding to be
 connected later on.
 
-All collections used within the creation process are newly created or if already
-available checked against the collection properties. The process will fail if one
+All collections used within the creation process are newly created or ,if already
+available, checked against the collection properties. The process will fail if one
 of them already exists, unless they have the correct sharding already. All newly
 created collections will immediately be dropped again in the failure case.
 
