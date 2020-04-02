@@ -7,7 +7,7 @@ Satellite Graph Management
 ======================
 
 This chapter describes the JavaScript interface for creating and modifying
-SatelliteGraphs. A SatelliteGraph is a specialised version of a GeneralGraph,
+SatelliteGraphs. A SatelliteGraph is a specialized version of a GeneralGraph,
 which means all of the GeneralGraph functionality is available on a
 SatelliteGraph as well. The major difference of both modules is handling of
 the underlying collections:
@@ -139,7 +139,7 @@ But there is one special case: The first vertex collection added to the graph
 for all collections within the graph. They have their `distributeShardsLike`
 attribute set to the name of the initial collection. This collection can not
 be dropped as long as other collections follow its sharding (i.e. they need to
-be dropped first). This is also true if e.g. a SubSatelliteGraph is beeing
+be dropped first). This is also true if e.g. a SubSatelliteGraph is being
 created out of another one and all the collections of the SubSatelliteGraph are
 following the initial collection of the parent SatelliteGraph.
 

@@ -19,7 +19,7 @@ a leading document collection. First, this collection needs to have the
 the collection having an exact amount of one shard per collection. This
 collection is selected as the `initial` one. Furthermore, all additional
 collections that are part of the SatelliteGraph need to inherit the
-behaviour of their `initial` collection. Those collections are required to
+behavior of their `initial` collection. Those collections are required to
 have the collection attribute `distributeShardsLike` pointing to the
 `initial` collection.
 
