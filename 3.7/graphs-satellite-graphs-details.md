@@ -52,7 +52,7 @@ This will lead the collection `myNewInitialCol` to be the initial one.
     @startDocuBlockInline satelliteGraphInitial3_2_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphInitial3_2_cluster}
     var satelliteGraphModule = require("@arangodb/satellite-graph");
-    let graph = satelliteGraphModule._create("satelliteGraph");
+    var graph = satelliteGraphModule._create("satelliteGraph");
     graph._addVertexCollection("myNewInitialCol");
     ~satelliteGraphModule._drop("satelliteGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -69,8 +69,8 @@ document collection, a collection will be randomly chosen to be the `initial` on
     @startDocuBlockInline satelliteGraphInitial3_3_cluster
     @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphInitial3_3_cluster}
     var satelliteGraphModule = require("@arangodb/satellite-graph");
-    let graph = satelliteGraphModule._create("satelliteGraph");
-    let relation = satelliteGraphModule._relation("isFriend", ["person"], ["person"]);
+    var graph = satelliteGraphModule._create("satelliteGraph");
+    var relation = satelliteGraphModule._relation("isFriend", ["person"], ["person"]);
     graph._extendEdgeDefinitions(relation);
     ~satelliteGraphModule._drop("satelliteGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
