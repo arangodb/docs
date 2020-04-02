@@ -500,6 +500,7 @@ Object tokens:
 - `{TERMS: [token1, ..., tokenN]}`: one of `token1, ..., tokenN` can be found
   in specified position. Inside an array the object syntax can be replaced with
   the object field value, e.g., `[..., [token1, ..., tokenN], ...]`.
+- `{IN_RANGE: [low, high, includeLow, includeHigh]}`: see [IN_RANGE()](#in_range). _low_ and _high_ can be strings only.
 
 An array token inside an array can be used in the `TERMS` case only.
 
@@ -581,14 +582,15 @@ It is the same as the following:
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
 ```
 
-Using object tokens `STARTS_WITH`, `WILDCARD`, `LEVENSHTEIN_MATCH` and `TERMS`:
+Using object tokens `STARTS_WITH`, `WILDCARD`, `LEVENSHTEIN_MATCH`, `TERMS` and `IN_RANGE`:
 
 ```js
 FOR doc IN myView SEARCH PHRASE(doc.title,
   {STARTS_WITH: ["qui"]}, 0,
   {WILDCARD: ["b%o_n"]}, 0,
   {LEVENSHTEIN_MATCH: ["foks", 2]}, 0,
-  {TERMS: ["jump", "run"]}, // Analyzer not applied!
+  {TERMS: ["jump", "run"]}, 0, // Analyzer not applied!
+  {IN_RANGE: ['over', 'through', true, false]}
   "text_en") RETURN doc
 ```
 
@@ -605,7 +607,8 @@ FOR doc IN myView SEARCH PHRASE(doc.title,
   {STARTS_WITH: "qui"}, 0,
   {WILDCARD: "b%o_n"}, 0,
   {LEVENSHTEIN_MATCH: ["foks", 2]}, 0,
-  ["jumps", "runs"]
+  ["jumps", "runs"], 0,
+  {IN_RANGE: ['over', 'through', true, false]}
 ], "text_en") RETURN doc
 ```
 
