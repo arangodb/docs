@@ -706,7 +706,8 @@ The following optimizer rules may appear in the `rules` attribute of
 
 - `remove-satellite-joins` _(Enterprise Edition only)_:
   optimizes *Scatter-*, *Gather-* and *RemoteNode*s for Satellite Collections
-  away. Depends on *remove-unnecessary-remote-scatter* rule.
+  and CollectionAccessingNodes away. Depends on *remove-unnecessary-remote-scatter*
+  rule.
 
 - `remove-unnecessary-remote-scatter`:
   will appear if a RemoteNode is followed by a ScatterNode, and the ScatterNode
@@ -747,6 +748,11 @@ The following optimizer rules may appear in the `rules` attribute of
   roundtrips between the EnumerateCollectionNode and the RemoveNode.
   From v3.6.0 on, it includes simple *UPDATE* and *REPLACE* operations
   that modify multiple documents and do not use *LIMIT*.
+
+- `scatter-satellite-graph-in-cluster` _(Enterprise Edition only)_:
+  will appear in case a TraversalNode is found that can operate with SatelliteGraphs.
+  This leads to the TraversalNode being instantiated and executed on the DB-Server
+  instead on a Coordinator. This reduces the amount of total data transferred.
 
 Note that some rules may appear multiple times in the list, with number suffixes.
 This is due to the same rule being applied multiple times, at different positions
