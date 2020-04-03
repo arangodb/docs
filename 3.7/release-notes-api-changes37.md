@@ -15,6 +15,17 @@ The REST API endpoint at `/_api/cluster/endpoints` will now return HTTP 501 (Not
 implemented) on single server instead of HTTP 403 (Forbidden), which it returned
 previously.
 
+When invoked via the PUT HTTP verb with an empty JSON object, the REST API
+endpoint at `/_admin/cluster/numberOfServers` will now return with the
+following response body:
+
+```json
+{"error":false,"code":200}
+```
+
+In previous releases, calling that endpoint with an empty JSON object as
+the request body returned a JSON response that was just `true`.
+
 ### HTTP REST API endpoints added
 
 ### HTTP REST API endpoints augmented

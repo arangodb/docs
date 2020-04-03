@@ -103,15 +103,18 @@ different usage scenarios:
   remove the expired documents. It is guaranteed however that only documents which are 
   past their expiration time will actually be removed.
 
-  Please note that the numeric date time values for the index attribute should be 
-  specified in seconds since January 1st 1970 (Unix timestamp). To calculate the current 
-  timestamp from JavaScript in this format, there is `Date.now() / 1000`, to calculate it 
-  from an arbitrary Date instance, there is `Date.getTime() / 1000`.
+  Please note that the numeric date time values for the index attribute has to be
+  specified **in seconds** since January 1st 1970 (Unix timestamp). To calculate the current 
+  timestamp from JavaScript in this format, there is `Date.now() / 1000`; to calculate it
+  from an arbitrary Date instance, there is `Date.getTime() / 1000`. In AQL you can do
+  `DATE_NOW() / 1000` or divide an arbitrary Unix timestamp in milliseconds by 1000 to
+  convert it to seconds.
 
   Alternatively, the index attribute values can be specified as a date string in format
-  `YYYY-MM-DDTHH:MM:SS` with optional milliseconds. All date strings will be interpreted 
-  as UTC dates.
-    
+  `YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a decimal point in the
+  format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All date strings
+  without a timezone offset will be interpreted as UTC dates.
+
   The above example document using a date string attribute value would be
  
       { "creationDate" : "2019-02-14T17:39:33.000Z" }
