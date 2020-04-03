@@ -296,6 +296,21 @@ During view modification the following directives apply:
   with the *primarySort* definition, then the `SORT` operation is optimized away.
   Also see [Primary Sort Order](arangosearch-views.html#primary-sort-order)
 
+- **primarySortCompression** (_optional_; type: `string`; default: `lz4`; _immutable_)
+  Primary sort compression defines how data in primary sort column being compressed.
+  Default value is `lz4` -  LZ4 fast compression library. This was always used before 
+  version 3.7 Now it is possible to disable compression by setting value to `none`.
+  This will trade index size for speed. 
+
+- **storedValue** (_optional_; type: `array`; default: `[]`; _immutable_)
+  This contains array of objects describing document attributes to be stored with index.
+  Object has form: `{ field: [ 'attr1', 'attr2', 'attr3' ], compression: 'none' }`
+  Where `field` attributes contains array of document attributes or single attribute.
+  All specified attributes are placed into single columnstore in index. And could
+  be used on query time to avoid storage engine access and take data directly from index.
+  `compression` (_optional_) attribute defines compression type used for columnstore. Possible values
+  are `lz4` (LZ4 fast compression library, default type) and `none` (no compression).
+
 An inverted index is the heart of ArangoSearch Views.
 The index consists of several independent segments and the index **segment**
 itself is meant to be treated as a standalone index. **Commit** is meant to be
