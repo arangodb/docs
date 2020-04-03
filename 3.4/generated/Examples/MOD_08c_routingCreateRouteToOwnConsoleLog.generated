@@ -7,7 +7,7 @@ arangosh&gt; db._routing.save({
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_routing/68400"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"68400"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aPoYOpC---"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aR396wS---"</span> 
 }
 arangosh&gt; db._routing.save({
 ........&gt;    url: <span class="hljs-string">"/subdirectory/ourtest/2"</span>,
@@ -18,7 +18,7 @@ arangosh&gt; db._routing.save({
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_routing/68402"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"68402"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aPoYOpG---"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aR396wS--A"</span> 
 }
 arangosh&gt; db._routing.save({
 ........&gt;    url: <span class="hljs-string">"/subdirectory/ourtest/3"</span>,
@@ -29,6 +29,6 @@ arangosh&gt; db._routing.save({
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_routing/68404"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"68404"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aPoYOpG--A"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aR396wW---"</span> 
 }
 arangosh&gt; <span class="hljs-built_in">require</span>(<span class="hljs-string">"internal"</span>).reloadRouting()
