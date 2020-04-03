@@ -302,7 +302,7 @@ During view modification the following directives apply:
   version 3.7 Now it is possible to disable compression by setting value to `none`.
   This will trade index size for speed. 
 
-- **storedValue** (_optional_; type: `array`; default: `[]`; _immutable_)
+- **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
   This contains array of objects describing document attributes to be stored with index.
   Object has form: `{ field: [ 'attr1', 'attr2', 'attr3' ], compression: 'none' }`
   Where `field` attributes contains array of document attributes or single attribute.
