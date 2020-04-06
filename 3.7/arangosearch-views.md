@@ -221,6 +221,9 @@ Note that the `primarySort` option is immutable: it can not be changed after
 View creation. It is therefore not possible to configure it through the Web UI.
 The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
 
+The primary sort data is LZ4 compressed by default (`primarySortCompression` is
+`"lz4"`). Set it to `"none"` on View creation to trade space for speed.
+
 View Definition/Modification
 ----------------------------
 
@@ -245,7 +248,7 @@ During view modification the following directives apply:
 ### Link Properties
 
 - **analyzers** (_optional_; type: `array`; subtype: `string`; default: `[
-  'identity' ]`)
+  "identity" ]`)
 
   A list of Analyzers, by name as defined via the [Analyzers](arangosearch-analyzers.html),
   that should be applied to values of processed document attributes.
@@ -271,11 +274,11 @@ During view modification the following directives apply:
 - **trackListPositions** (_optional_; type: `boolean`; default: `false`)
 
   If set to `true`, then for array values track the value position in arrays.
-  E.g., when querying for the input `{ attr: [ 'valueX', 'valueY', 'valueZ' ]
-  }`, the user must specify: `doc.attr[1] == 'valueY'`. Otherwise, all values in
+  E.g., when querying for the input `{ attr: [ "valueX", "valueY", "valueZ" ] }`,
+  the user must specify: `doc.attr[1] == "valueY"`. Otherwise, all values in
   an array are treated as equal alternatives. E.g., when querying for the input
-  `{ attr: [ 'valueX', 'valueY', 'valueZ' ] }`, the user must specify: `doc.attr
-  == 'valueY'`.
+  `{ attr: [ "valueX", "valueY", "valueZ" ] }`, the user must specify:
+  `doc.attr == "valueY"`.
 
 - **storeValues** (_optional_; type: `string`; default: `"none"`)
 
@@ -294,22 +297,31 @@ During view modification the following directives apply:
   iterates over all documents of a View, wants to sort them by attribute values
   and the (left-most) fields to sort by as well as their sorting direction match
   with the *primarySort* definition, then the `SORT` operation is optimized away.
-  Also see [Primary Sort Order](arangosearch-views.html#primary-sort-order)
+  Also see [Primary Sort Order](#primary-sort-order)
 
 - **primarySortCompression** (_optional_; type: `string`; default: `lz4`; _immutable_)
-  Primary sort compression defines how data in primary sort column being compressed.
-  Default value is `lz4` -  LZ4 fast compression library. This was always used before 
-  version 3.7 Now it is possible to disable compression by setting value to `none`.
-  This will trade index size for speed. 
+
+  Defines how to compress the primary sort data (introduced in v3.7.0).
+  ArangoDB v3.5 and v3.6 always compress the index using LZ4.
+
+  - `"lz4"` (default): use LZ4 fast compression.
+  - `"none"`: disable compression to trade space for speed.
 
 - **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
-  This contains array of objects describing document attributes to be stored with index.
-  Object has form: `{ field: [ 'attr1', 'attr2', 'attr3' ], compression: 'none' }`
-  Where `field` attributes contains array of document attributes or single attribute.
-  All specified attributes are placed into single columnstore in index. And could
-  be used on query time to avoid storage engine access and take data directly from index.
-  `compression` (_optional_) attribute defines compression type used for columnstore. Possible values
-  are `lz4` (LZ4 fast compression library, default type) and `none` (no compression).
+
+  An array of objects to describe which document attributes to store in the
+  View index. It can then cover search queries, which means the data can be
+  taken from the index directly and accessing the storage engine can be avoided.
+
+  Each object is expected in the form
+  `{ field: [ "attr1", "attr2", ... "attrN" ], compression: "none" }`,
+  where the required `field` attribute is an array of strings with one or more
+  document attribute paths. The specified attributes are placed into a single
+  column of the index. A column with all fields that are involved in common
+  search queries is ideal for performance. The column should not include too
+  many unneeded fields however. The optional `compression` attribute defines
+  the compression type used for the internal column-store, which can be `"lz4"`
+  (LZ4 fast compression, default) or `"none"` (no compression).
 
 An inverted index is the heart of ArangoSearch Views.
 The index consists of several independent segments and the index **segment**
