@@ -142,6 +142,49 @@ db._query(`RETURN TOKENS("αυτοκινητουσ πρωταγωνιστούσ�
 
 Also see [Analyzers: Supported Languages](arangosearch-analyzers.html#supported-languages)
 
+### Condition Optimization Option
+
+The `SEARCH` operation in AQL accepts a new option `conditionOptimization` to
+give users control over the search criteria optimization:
+
+```js
+FOR doc IN myView
+  SEARCH doc.val > 10 AND doc.val > 5 /* more conditions */
+  OPTIONS { conditionOptimization: "none" }
+  RETURN doc
+```
+
+By default, all conditions get converted into disjunctive normal form (DNF).
+Numerous optimizations can be applied, like removing redundant or overlapping
+conditions (such as `doc.val > 10` which is included by `doc.val > 5`).
+However, converting to DNF and optimizing the conditions can take quite some
+time even for a low number of nested conditions which produce dozens of
+conjunctions / disjunctions. It can be faster to just search the index without
+optimizations.
+
+See [SEARCH operation](operations-search.html#search-options).
+
+### Primary Sort Compression Option
+
+There is a new option `primarySortCompression` which can be set on View
+creation to disable the compression of the primary sort data:
+
+```json
+{
+  "primarySort": [
+    { "field": "date", "direction": "desc" },
+    { "field": "title", "direction": "asc" }
+  ],
+  "primarySortCompression": "none",
+  ...
+}
+```
+
+It defaults to LZ4 compression (`"lz4"`), which was already used in ArangoDB
+v3.5 and v3.6.
+
+See [ArangoSearch Views](arangosearch-views.html#view-properties).
+
 SatelliteGraphs
 ---------------
 
