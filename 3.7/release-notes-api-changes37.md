@@ -34,35 +34,35 @@ The REST API endpoint for inserting documents at POST `/_api/document/<collectio
 will now handle the URL parameter `overwriteMode`.
 
 This URL parameter supports the following values:
-  
-* "ignore": if a document with the specified `_key` value already exists,
-  nothing will be done, and no write operation will be carried out. The 
-  insert operation will return success in this case. This mode does not 
+
+- `"ignore"`: if a document with the specified `_key` value exists already,
+  nothing will be done and no write operation will be carried out. The
+  insert operation will return success in this case. This mode does not
   support returning the old or new document versions using the `returnOld`
   and `returnNew` attributes.
-* "replace": if a document with the specified `_key` value already exists,
+- `"replace"`: if a document with the specified `_key` value exists already,
   it will be overwritten with the specified document value. This mode will
   also be used when no overwrite mode is specified but the `overwrite`
   flag is set to `true`.
-* "update": if a document with the specified `_key` value already exists,
-  it will be patched (partially updated) with the specified document value. 
-* "conflict": if a document with the specified `_key` value already exists,
+- `"update"`: if a document with the specified `_key` value exists already,
+  it will be patched (partially updated) with the specified document value.
+- `"conflict"`: if a document with the specified `_key` value exists already,
   return a unique constraint violation error so that the insert operation
   fails. This is also the default behavior in case the overwrite mode is
-  not set.
+  not set, and the *overwrite* flag is *false* or not set either.
 
 If `overwriteMode` is not set, the behavior is as follows:
 
-* if the `overwrite` URL parameter is not set, the insert will implicitly
-  use the "conflict" overwrite mode, i.e. the insert will fail in case of a 
+- if the `overwrite` URL parameter is not set, the insert will implicitly
+  use the `"conflict"` overwrite mode, i.e. the insert will fail in case of a 
   primary key unique constraint violation.
-* if the `overwrite` URL parameter is set to true, the insert will implictly
-  use the "replace" overwrite mode, i.e. the insert will replace the existing
+- if the `overwrite` URL parameter is set to true, the insert will implicitly
+  use the `"replace"` overwrite mode, i.e. the insert will replace the existing
   document in case a primary key unique constraint violation occurs.
-  
-The main use case of inserting documents with overwrite mode "ignore" is
+
+The main use case of inserting documents with overwrite mode `"ignore"` is
 to make sure that certain documents exist in the cheapest possible way.
-In case the target document already exists, the "ignore" mode is most
+In case the target document already exists, the `"ignore"` mode is most
 efficient, as it will not retrieve the existing document from storage and
 not write any updates to it.
 
