@@ -615,25 +615,25 @@ used to specify the following options:
     is returned in the output under the attribute *old*. Only available 
     in combination with the *overwrite* option
   - *overwrite*: If set to *true*, the insert becomes a replace-insert.
-    If a document with the same *_key* already exists the new document
+    If a document with the same *_key* exists already the new document
     is not rejected with unique constraint violated but will replace
     the old document.
   - *overwriteMode*: this optional flag can have one of the following values:
-    - *ignore*: if a document with the specified *_key* value already exists,
-      nothing will be done, and no write operation will be carried out. The 
-      insert operation will return success in this case. This mode does not 
+    - *ignore*: if a document with the specified *_key* value exists already,
+      nothing will be done and no write operation will be carried out. The
+      insert operation will return success in this case. This mode does not
       support returning the old or new document versions using the *returnOld*
-      and `returnNew` attributes.
-    - *replace*: if a document with the specified *_key* value already exists,
+      and *returnNew* attributes.
+    - *replace*: if a document with the specified *_key* value exists already,
       it will be overwritten with the specified document value. This mode will
       also be used when no overwrite mode is specified but the *overwrite*
       flag is set to *true*.
-    - *update*: if a document with the specified *_key* value already exists,
-      it will be patched (partially updated) with the specified document value. 
-    - *conflict*: if a document with the specified *_key* value already exists,
+    - *update*: if a document with the specified *_key* value exists already,
+      it will be patched (partially updated) with the specified document value.
+    - *conflict*: if a document with the specified *_key* value exists already,
       return a unique constraint violation error so that the insert operation
       fails. This is also the default behavior in case the overwrite mode is
-      not set.
+      not set, and the *overwrite* flag is *false* or not set either.
     
     The *update* overwrite mode can be further controlled via the *keepNull* 
     and *mergeObjects* parameters.

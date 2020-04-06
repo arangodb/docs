@@ -105,29 +105,28 @@ FOR i IN 1..1000
 ```
 
 To further control the behavior of INSERT on primary index unique constraint
-violations, there is *overwriteMode* option.
+violations, there is the *overwriteMode* option. It offers the following
+modes:
 
-It supports the following value:
-
-* *ignore*: if a document with the specified *_key* value already exists,
-  nothing will be done, and no write operation will be carried out. The 
-  insert operation will return success in this case. This mode does not 
-  support returning the old document version using *RETURN OLD*. When using
-  *RETURN NEW*, *null* will be returned in case the document already existed.
-* *replace*: if a document with the specified *_key* value already exists,
+- `"ignore"`: if a document with the specified *_key* value exists already,
+  nothing will be done and no write operation will be carried out. The
+  insert operation will return success in this case. This mode does not
+  support returning the old document version using `RETURN OLD`. When using
+  `RETURN NEW`, *null* will be returned in case the document already existed.
+ `"replace"`: if a document with the specified *_key* value exists already,
   it will be overwritten with the specified document value. This mode will
   also be used when no overwrite mode is specified but the *overwrite*
   flag is set to *true*.
-* *update*: if a document with the specified *_key* value already exists,
-  it will be patched (partially updated) with the specified document value. 
-* *conflict*: if a document with the specified *_key* value already exists,
+- `"update"`: if a document with the specified *_key* value exists already,
+  it will be patched (partially updated) with the specified document value.
+- `"conflict"`: if a document with the specified *_key* value exists already,
   return a unique constraint violation error so that the insert operation
   fails. This is also the default behavior in case the overwrite mode is
-  not set.
+  not set, and the *overwrite* flag is *false* or not set either.
 
-When using the *update* overwrite mode, the *keepNull* and *mergeObjects* options will
-modify how the update is done. See the [UPDATE operation](operations-update.html#setting-query-options)
-for more details on these options.
+When using the *update* overwrite mode, the *keepNull* and *mergeObjects*
+options control how the update is done.
+See [UPDATE operation](operations-update.html#setting-query-options).
 
 ```js
 FOR i IN 1..1000
@@ -137,7 +136,7 @@ FOR i IN 1..1000
     foobar: true
   } INTO users OPTIONS { overwriteMode: "update", keepNull: true, mergeObjects: false }
 ```
-  
+
 The main use case of inserting documents with overwrite mode *ignore* is
 to make sure that certain documents exist in the cheapest possible way.
 In case the target document already exists, the *ignore* mode is most
