@@ -752,7 +752,7 @@ The following optimizer rules may appear in the `rules` attribute of
 - `scatter-satellite-graph-in-cluster` _(Enterprise Edition only)_:
   will appear in case a TraversalNode is found that can operate with SatelliteGraphs.
   This leads to the TraversalNode being instantiated and executed on the DB-Server
-  instead on a Coordinator. This reduces the amount of total data transferred.
+  instead on a Coordinator. This reduces the total amount of data transferred.
 
 Note that some rules may appear multiple times in the list, with number suffixes.
 This is due to the same rule being applied multiple times, at different positions
