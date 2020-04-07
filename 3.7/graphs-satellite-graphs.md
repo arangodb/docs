@@ -78,7 +78,7 @@ please take a look at [SmartGraphs](graphs-smart-graphs.html)
 Getting started
 --------------
 
-First of all, compared to GeneralGraphs, SatelliteGraphs do have  some rules regarding
+First of all, compared to GeneralGraphs, SatelliteGraphs do have some rules regarding
 a few collection properties. By using the SatelliteGraph module (or the Gharial HTTP
 API), you don't need to manage those properties manually by yourself. This will be
 important for more advanced setups which will be described in the advanced section.
