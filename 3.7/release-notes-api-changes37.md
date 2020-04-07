@@ -38,8 +38,9 @@ This URL parameter supports the following values:
 - `"ignore"`: if a document with the specified `_key` value exists already,
   nothing will be done and no write operation will be carried out. The
   insert operation will return success in this case. This mode does not
-  support returning the old or new document versions using the `returnOld`
-  and `returnNew` attributes.
+  support returning the old document version using the `returnOld`
+  attribute. `returnNew` will only set the `new` attribute in the response
+  if a new document was inserted.
 - `"replace"`: if a document with the specified `_key` value exists already,
   it will be overwritten with the specified document value. This mode will
   also be used when no overwrite mode is specified but the `overwrite`
