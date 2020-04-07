@@ -199,13 +199,16 @@ performance optimization.
 
 The following AQL functions have been added in ArangoDB 3.7:
 
-- [REPLACE_NTH()](aql/functions-array.html#replace_nth)
+- [IN_RANGE()](aql/functions-numeric.html) <!-- TODO #in_range. Maybe under misc? -->
+  (now available outside of `SEARCH` operations)
+- [INTERLEAVE()](aql/functions-array.html#interleave)
 - [JACCARD()](aql/functions-array.html#jaccard)
-- LEVENSHTEIN_MATCH()
-- NGRAM_POSITIONAL_SIMILARITY()
-- NGRAM_SIMILARITY()
-- IN_RANGE()
-- INTERLEAVE()
+- [LEVENSHTEIN_DISTANCE()](aql/functions-string.html#levenshtein_distance)
+- [LEVENSHTEIN_MATCH()](aql/functions-arangosearch.html#levenshtein_match)
+- [NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match)
+- [NGRAM_POSITIONAL_SIMILARITY()](aql/functions-string.html#ngram_positional_similarity)
+- [NGRAM_SIMILARITY()](aql/functions-string.html#ngram_similarity)
+- [REPLACE_NTH()](aql/functions-array.html#replace_nth)
 
 ### Syntax enhancements
 
@@ -483,18 +486,18 @@ See [here](http/administration-and-monitoring-metrics.html).
 MMFiles storage engine
 ----------------------
 
-ArangoDB 3.7 does not contain the MMFiles storage engine anymore. In ArangoDB 3.7, 
-the only available storage engine is the RocksDB storage engine, which is the default 
-storage engine in ArangoDB since version 3.4. The MMFiles storage engine had been 
-deprecated since the release of ArangoDB 3.6.
+ArangoDB 3.7 does not contain the MMFiles storage engine anymore. In ArangoDB
+3.7, the only available storage engine is the RocksDB storage engine, which is
+the default storage engine in ArangoDB since version 3.4. The MMFiles storage
+engine had been deprecated since the release of ArangoDB 3.6.
 
-Any deployments that use the MMFiles storage engine will need to migrate to the
-RocksDB storage engine using ArangoDB 3.6 (or earler versions) in order to upgrade 
-to ArangoDB 3.7.
+Any deployments that use the MMFiles storage engine will need to be migrated to
+the RocksDB storage engine using ArangoDB 3.6 (or earlier versions) in order to
+upgrade to ArangoDB 3.7.
 
-All storage engine selection functionality has also been removed from the ArangoDB 
-package installers. The RocksDB storage engine will be selected automatically for 
-any new deployments created with ArangoDB 3.7.
+All storage engine selection functionality has also been removed from the
+ArangoDB package installers. The RocksDB storage engine will be selected
+automatically for any new deployments created with ArangoDB 3.7.
 
 This change simplifies the installation procedures and internal code paths.
 
