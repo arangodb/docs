@@ -62,7 +62,7 @@ This will lead to the collection `myNewInitialCol` to be the initial one.
 
 3.) Creating an empty SatelliteGraph, then adding an edge definition: This will
 lead to the collection `person` to be selected as the initial one, as it is the only
-appearing document (vertex) collection. If you supply more than at least one
+appearing document (vertex) collection. If you supply more than one
 document collection, a collection will be randomly chosen to be the `initial` one.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
