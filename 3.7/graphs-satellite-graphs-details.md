@@ -88,7 +88,7 @@ What qualifies as a SatelliteGraph traversal
 --------------
 
 Obviously, a SatelliteGraph must be created and be used in a query. Valid
-operations then can be optimized are (k-)shortest path(s) computation and
+operations that can then be optimized are (k-)shortest path(s) computation and
 joins with traversals.
 
 If you want to take a look at the details during query execution, here is a
