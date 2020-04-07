@@ -32,7 +32,7 @@ SatelliteGraphs are the natural extension of the concept of [Satellite collectio
 to graphs. All of the usual benefits and caveats apply. A SatelliteGraph will be
 distributed across the whole cluster. 
 
-That means that SatelliteGraphs are synchronously replicated to all DB-Servers
+This means that SatelliteGraphs are synchronously replicated to all DB-Servers
 that are part of a cluster, which enables DB-Servers to execute graph traversals
 locally. This includes (k-)shortest path(s) computation and possibly joins with
 traversals and greatly improves performance for such queries.
