@@ -15,7 +15,7 @@ the underlying collections:
 
 - GeneralGraphs do not enforce or maintain any sharding of the collections and
   can therefore combine arbitrary sets of existing collections.
-- SatelliteGraphs enforce and rely on a special properties of the underlying
+- SatelliteGraphs enforce and rely on special properties of the underlying
   collections and hence can only work with collections that are created through
   the SatelliteGraph itself or manually created collections which perfectly fit
   to the [rules](graphs-satellite-graphs-details.html#the-initial-collection)
