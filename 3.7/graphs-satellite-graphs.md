@@ -29,7 +29,7 @@ has a reason for being. They are special because their data organisation concept
 is unique for each type of graph. 
 
 SatelliteGraphs are the natural extension of the concept of [Satellite collections](satellites.html)
-to graphs. All of the usual benefits and caveats apply. A SatelliteGraph will be
+to graphs. All of the benefits and caveats apply. A SatelliteGraph will be
 distributed across the whole cluster. 
 
 This means that SatelliteGraphs are synchronously replicated to all DB-Servers
