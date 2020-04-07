@@ -139,7 +139,7 @@ But there is one special case: The first vertex collection added to the graph
 (either orphan or a vertex collection within a relation) defines the sharding
 for all collections within the graph. They have their `distributeShardsLike`
 attribute set to the name of the [initial](graphs-satellite-graphs-details.html#the-initial-collection)
-collection. This collection can not be dropped as long as other collections
+collection. This collection cannot be dropped as long as other collections
 follow its sharding (i.e. they need to be dropped first).
 
 **Examples**
