@@ -120,7 +120,7 @@ still add or remove relations. This is again identical to General Graphs.
 
 However there is one important difference: You can only add collections that
 either *do not exist*, or that have been created with the correct collection
-properties. Either through the graph module or either manually.
+properties. Either through the graph module or manually.
 
 ### Remove a vertex collection
 
