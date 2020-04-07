@@ -114,18 +114,32 @@ This is analogous to GeneralGraphs. Unlike with GeneralGraphs, there are rules f
 Only collections which do not violate the rules are allowed to be added (Details in section: [SatelliteGraphs in detail](graphs-satellite-graphs-details.html)).
 Using the SatelliteGraph module to add new collections, the module will do all the configuration automatically: 
 
-```
-arangosh> let graph = g_module._graph("aSatelliteGraph");
-arangosh> graph._addVertexCollection("aVertexCollection");
-```
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline satelliteGraphCreate2_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreate2_cluster}
+    ~var satelliteGraphModule = require("@arangodb/satellite-graph");
+    var graph = satelliteGraphModule._create("satelliteGraph");
+    graph._addVertexCollection("aVertexCollection");
+    ~satelliteGraphModule._drop("satelliteGraph", true);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock satelliteGraphCreate2_cluster
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Define relations on the SatelliteGraph
 Adding edge collections works the same as with GeneralGraphs, but again, the collections are created by the SatelliteGraph module to fit the collection rules here as well.
 
-```
-arangosh> let graph = g_module._graph("aSatelliteGraph");
-arangosh> let relation = g_module._relation("isFriend", ["person"], ["person"]);
-arangosh> graph._extendEdgeDefinitions(relation);
-```
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline satelliteGraphCreate3_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreate3_cluster}
+    ~var satelliteGraphModule = require("@arangodb/satellite-graph");
+    var graph = satelliteGraphModule._create("satelliteGraph");
+    var relation = satelliteGraphModule._relation("isFriend", ["person"], ["person"]);
+    graph._extendEdgeDefinitions(relation);
+    ~satelliteGraphModule._drop("satelliteGraph", true);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock satelliteGraphCreate3_cluster
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 New collections cannot violate the rules, existing ones can be added. But you need to take care of the correct collection properties. This is explained in the next section.
