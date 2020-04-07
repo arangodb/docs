@@ -23,7 +23,7 @@ behavior of their `initial` collection. Those collections are required to
 have the collection attribute `distributeShardsLike` pointing to the
 `initial` collection.
 
-Every SatelliteGraph needs exact one leading collection. 
+Every SatelliteGraph needs exactly one leading collection.
 
 Initial Collection Examples
 -------------- 
