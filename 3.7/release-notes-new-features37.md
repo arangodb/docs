@@ -30,6 +30,77 @@ FOR doc IN viewName
 
 See [ArangoSearch functions](aql/functions-arangosearch.html#like)
 
+### Covering Indexes
+
+It is possible to directly store the values of document attributes in View
+indexes now via a new View property `storedValues` (not to be confused with
+the existing `storeValues`).
+
+View indexes may fully cover `SEARCH` queries for improved performance.
+While late document materialization reduces the amount of fetched documents,
+this new optimization can avoid to access the storage engine entirely.
+
+```json
+{
+  "links": {
+    "articles": {
+      "fields": {
+        "categories": {}
+      }
+    }
+  },
+  "primarySort": [
+    { "field": "publishedAt", "direction": "desc" }
+  ],
+  "storedValues": [
+    { "fields": [ "title", "categories" ] }
+  ],
+  ...
+}
+```
+
+In above View definition, the document attribute *categories* is indexed for
+searching, *publishedAt* is used as primary sort order and *title* as well as
+*categories* are stored in the View using the new `storedValues` property.
+
+```js
+FOR doc IN articlesView
+  SEARCH doc.categories == "recipes"
+  SORT doc.publishedAt DESC
+  RETURN {
+    title: doc.title,
+    date: doc.publishedAt,
+    tags: doc.categories
+  }
+```
+
+The query searches for articles which contain a certain tag in the *categories*
+array and returns title, date and tags. All three values are stored in the View
+(`publishedAt` via `primarySort` and the two other via `storedValues`), thus
+no documents need to be fetched from the storage engine to answer the query.
+This is shown in the execution plan as a comment to the *EnumerateViewNode*:
+`/* view query without materialization */`
+
+```js
+Execution plan:
+ Id   NodeType            Est.   Comment
+  1   SingletonNode          1   * ROOT
+  2   EnumerateViewNode      1     - FOR doc IN articlesView SEARCH (doc.`categories` == "recipes") SORT doc.`publishedAt` DESC LET #1 = doc.`publishedAt` LET #7 = doc.`categories` LET #5 = doc.`title`   /* view query without materialization */
+  5   CalculationNode        1       - LET #3 = { "title" : #5, "date" : #1, "tags" : #7 }   /* simple expression */
+  6   ReturnNode             1       - RETURN #3
+
+Indexes used:
+ none
+
+Optimization rules applied:
+ Id   RuleName
+  1   move-calculations-up
+  2   move-calculations-up-2
+  3   handle-arangosearch-views
+```
+
+See [ArangoSearch Views](arangosearch-views.html#view-properties).
+
 ### Stemming support for more languages
 
 The Snowball library was updated to the latest version 2, adding stemming
@@ -70,6 +141,49 @@ db._query(`RETURN TOKENS("αυτοκινητουσ πρωταγωνιστούσ�
 ```
 
 Also see [Analyzers: Supported Languages](arangosearch-analyzers.html#supported-languages)
+
+### Condition Optimization Option
+
+The `SEARCH` operation in AQL accepts a new option `conditionOptimization` to
+give users control over the search criteria optimization:
+
+```js
+FOR doc IN myView
+  SEARCH doc.val > 10 AND doc.val > 5 /* more conditions */
+  OPTIONS { conditionOptimization: "none" }
+  RETURN doc
+```
+
+By default, all conditions get converted into disjunctive normal form (DNF).
+Numerous optimizations can be applied, like removing redundant or overlapping
+conditions (such as `doc.val > 10` which is included by `doc.val > 5`).
+However, converting to DNF and optimizing the conditions can take quite some
+time even for a low number of nested conditions which produce dozens of
+conjunctions / disjunctions. It can be faster to just search the index without
+optimizations.
+
+See [SEARCH operation](aql/operations-search.html#search-options).
+
+### Primary Sort Compression Option
+
+There is a new option `primarySortCompression` which can be set on View
+creation to disable the compression of the primary sort data:
+
+```json
+{
+  "primarySort": [
+    { "field": "date", "direction": "desc" },
+    { "field": "title", "direction": "asc" }
+  ],
+  "primarySortCompression": "none",
+  ...
+}
+```
+
+It defaults to LZ4 compression (`"lz4"`), which was already used in ArangoDB
+v3.5 and v3.6.
+
+See [ArangoSearch Views](arangosearch-views.html#view-properties).
 
 SatelliteGraphs
 ---------------
