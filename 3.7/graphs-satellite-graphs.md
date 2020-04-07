@@ -73,7 +73,7 @@ distributed around the whole cluster environment.
 
 If you want to distribute a very large graph and you don't want to replicate all
 graph data to all participating nodes that are part of your cluster. In that case
-please take a look at [SmartGraphs](graphs-smart-graphs.html)
+please take a look at [SmartGraphs](graphs-smart-graphs.html).
 
 Getting started
 --------------
@@ -111,7 +111,7 @@ To create a SatelliteGraph in arangosh, use the `satelliteGraph` module:
 
 ### Add vertex collections
 This is analogous to GeneralGraphs. Unlike with GeneralGraphs, there are rules for collections.
-Only collections which do not violate the rules are allowed to be added (Details in section: SatelliteGraph in detail).
+Only collections which do not violate the rules are allowed to be added (Details in section: [SatelliteGraphs in detail](graphs-satellite-graphs-details.html)).
 Using the SatelliteGraph module to add new collections, the module will do all the configuration automatically: 
 
 ```
