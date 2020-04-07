@@ -162,7 +162,7 @@ time even for a low number of nested conditions which produce dozens of
 conjunctions / disjunctions. It can be faster to just search the index without
 optimizations.
 
-See [SEARCH operation](operations-search.html#search-options).
+See [SEARCH operation](aql/operations-search.html#search-options).
 
 ### Primary Sort Compression Option
 
