@@ -314,8 +314,8 @@ During view modification the following directives apply:
   taken from the index directly and accessing the storage engine can be avoided.
 
   Each object is expected in the form
-  `{ field: [ "attr1", "attr2", ... "attrN" ], compression: "none" }`,
-  where the required `field` attribute is an array of strings with one or more
+  `{ fields: [ "attr1", "attr2", ... "attrN" ], compression: "none" }`,
+  where the required `fields` attribute is an array of strings with one or more
   document attribute paths. The specified attributes are placed into a single
   column of the index. A column with all fields that are involved in common
   search queries is ideal for performance. The column should not include too

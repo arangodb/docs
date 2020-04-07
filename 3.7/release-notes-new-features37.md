@@ -53,7 +53,7 @@ this new optimization can avoid to access the storage engine entirely.
     { "field": "publishedAt", "direction": "desc" }
   ],
   "storedValues": [
-    { "field": [ "title", "categories" ] }
+    { "fields": [ "title", "categories" ] }
   ],
   ...
 }
