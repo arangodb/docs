@@ -60,7 +60,7 @@ known from the `general-graph` module, which is also available here.
 are not yet connected via edges but should follow the same sharding to be
 connected later on.
 
-All collections used within the creation process are newly created or ,if already
+All collections used within the creation process are newly created or, if already
 available, checked against the collection properties. The process will fail if one
 of them already exists, unless they have the correct sharding already. All newly
 created collections will immediately be dropped again in the failure case.
