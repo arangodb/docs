@@ -91,7 +91,7 @@ Obviously, a SatelliteGraph must be created and be used in a query. Valid
 operations that can then be optimized are (k-)shortest path(s) computation and
 traversals. Both also allow for combination with local joins or other SatelliteGraph statements.
 
-If you want to take a look at the details during query execution, here is a
+If you want to take a look at the details during query execution, here is
 an example showing the difference between the execution of a GeneralGraph
 and a SatelliteGraph traversal query.
 
