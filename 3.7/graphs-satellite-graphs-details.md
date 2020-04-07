@@ -46,7 +46,7 @@ and all the necessary collection configuration.
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 2.) Creating an empty SatelliteGraph, then adding a document (vertex) collection:
-This will lead the collection `myNewInitialCol` to be the initial one. 
+This will lead to the collection `myNewInitialCol` to be the initial one. 
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphInitial3_2_cluster
