@@ -32,7 +32,7 @@ SatelliteGraphs are the natural extension of the concept of [Satellite collectio
 to graphs. All of the usual benefits and caveats apply. A SatelliteGraph will be
 distributed across the whole cluster. 
 
-That means that SatelliteGraphs are synchronously replicated to all DB-Servers
+This means that SatelliteGraphs are synchronously replicated to all DB-Servers
 that are part of a cluster, which enables DB-Servers to execute graph traversals
 locally. This includes (k-)shortest path(s) computation and possibly joins with
 traversals and greatly improves performance for such queries.
@@ -78,7 +78,7 @@ please take a look at [SmartGraphs](graphs-smart-graphs.html).
 Getting started
 --------------
 
-First of all, compared to GeneralGraphs, SatelliteGraphs do have  some rules regarding
+First of all, compared to GeneralGraphs, SatelliteGraphs do have some rules regarding
 a few collection properties. By using the SatelliteGraph module (or the Gharial HTTP
 API), you don't need to manage those properties manually by yourself. This will be
 important for more advanced setups which will be described in the advanced section.

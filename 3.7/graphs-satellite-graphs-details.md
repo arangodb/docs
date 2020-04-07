@@ -16,14 +16,14 @@ To create a SatelliteGraph manually we'll explain a little bit more about
 the technical insights. Very important is: A SatelliteGraph always needs
 a leading document collection. First, this collection needs to have the
 `replicationFactor` to be set to `satellite`. This automatically leads
-the collection having an exact amount of one shard per collection. This
+to the collection having an exact amount of one shard per collection. This
 collection is selected as the `initial` one. Furthermore, all additional
 collections that are part of the SatelliteGraph need to inherit the
 behavior of their `initial` collection. Those collections are required to
 have the collection attribute `distributeShardsLike` pointing to the
 `initial` collection.
 
-Every SatelliteGraph needs exact one leading collection. 
+Every SatelliteGraph needs exactly one leading collection.
 
 Initial Collection Examples
 -------------- 
@@ -46,7 +46,7 @@ and all the necessary collection configuration.
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 2.) Creating an empty SatelliteGraph, then adding a document (vertex) collection:
-This will lead the collection `myNewInitialCol` to be the initial one. 
+This will lead to the collection `myNewInitialCol` to be the initial one. 
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline satelliteGraphInitial3_2_cluster
@@ -61,7 +61,7 @@ This will lead the collection `myNewInitialCol` to be the initial one.
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 3.) Creating an empty SatelliteGraph, then adding an edge definition: This will
-lead the collection `person` to be selected as the initial one, as it is the only
+lead to the collection `person` to be selected as the initial one, as it is the only
 appearing document (vertex) collection. If you supply more than at least one
 document collection, a collection will be randomly chosen to be the `initial` one.
 
