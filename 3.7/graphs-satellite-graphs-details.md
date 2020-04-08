@@ -59,7 +59,7 @@ Compared to General Graphs, SatelliteGraphs do have some rules regarding a few
 collection properties. By using the SatelliteGraph module (or the Gharial HTTP
 API), you don't need to manage those properties manually by yourself. This will be
 important for more advanced setups which will be described in the advanced section.
-This is important if you want to transform an existing GeneralGraph or SmartGraph to a
+This is important if you want to transform an existing General Graph or SmartGraph to a
 SatelliteGraph. To be able to switch to a SatelliteGraph you need to dump and restore
 your previous graph. This switch can be easily achieved with arangodump and arangorestore.
 The only thing you have to change in this pipeline is that you create the new collections
@@ -70,7 +70,7 @@ SatelliteGraph before starting the arangorestore process.
 
 ### Define relations
 
-Adding edge collections works the same as with GeneralGraphs, but again, the
+Adding edge collections works the same as with General Graphs, but again, the
 collections are created by the SatelliteGraph module to fit the collection
 rules here as well.
 
@@ -171,7 +171,7 @@ operations that can then be optimized are (k-)shortest path(s) computation and
 traversals. Both also allow for combination with local joins or other SatelliteGraph statements.
 
 If you want to take a look at the details during query execution, here is
-an example showing the difference between the execution of a GeneralGraph
+an example showing the difference between the execution of a General Graph
 and a SatelliteGraph traversal query.
 
 First we setup our graphs and collections.

@@ -12,12 +12,12 @@ create and modify your SatelliteGraphs in ArangoDB.
 <!-- TODO unnecessary repetition?
 
 This chapter describes the JavaScript interface for creating and modifying
-SatelliteGraphs. A SatelliteGraph is a specialized version of a GeneralGraph,
-which means all of the GeneralGraph functionality is available on a
+SatelliteGraphs. A SatelliteGraph is a specialized version of a General Graph,
+which means all of the General Graph functionality is available on a
 SatelliteGraph as well. The major difference of both modules is handling of
 the underlying collections:
 
-- GeneralGraphs do not enforce or maintain any sharding of the collections and
+- General Graphs do not enforce or maintain any sharding of the collections and
   can therefore combine arbitrary sets of existing collections.
 
 - SatelliteGraphs enforce and rely on special properties of the underlying
@@ -40,7 +40,7 @@ Everything else works identical in both modules.
 Create a Graph
 --------------
 
-In contrast to GeneralGraphs and SmartGraphs, you do not need to take care of the
+In contrast to General Graphs and SmartGraphs, you do not need to take care of the
 sharding and replication properties. The properties `distributeShardsLike`,
 `replicationFactor` and `numberOfShards` will be set automatically. The format of
 the relations is identical. The only difference is that all collections used within
