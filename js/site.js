@@ -156,6 +156,12 @@ $(document).ready(function scrollToAnchor() {
 
 $(document).ready(function handleNav() {
   $("div.book-summary nav a").click(function(event) {
+    if (event.target.href && (
+        event.target.href.startsWith("http://") ||
+        event.target.href.startsWith("https://"))) {
+      // let browser handle external link in navigation
+      return
+    }
     event.preventDefault();
     loadPage(event.target, function(title) {
       $(event.target)
