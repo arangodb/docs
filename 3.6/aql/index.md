@@ -41,7 +41,7 @@ It is a pure data manipulation language (DML), not a data definition language
 The syntax of AQL queries is different to SQL, even if some keywords overlap.
 Nevertheless, AQL should be easy to understand for anyone with an SQL background.
 
-Fire up your database and try out the power of AQL in just a few clicks with ArangoDB Oasis: the Cloud Service for ArangoDB. [Start your free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic).
+Fire up your database and try out the power of AQL in just a few clicks with ArangoDB Oasis: the Cloud Service for ArangoDB. [Start your free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
 
 For some example queries, please refer to the chapters
 [Data Queries](data-queries.html),
