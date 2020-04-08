@@ -15,7 +15,7 @@ which makes for an interesting mix of data to work with.
 There is no need to import the data before you start. It is provided as part
 of the AQL queries in this tutorial. You can interact with ArangoDB using its
 [web interface](../getting-started-web-interface.html) to manage
-collections and execute the queries.
+collections and execute the queries. You can also go through this tutorial in ArangoDB Oasis: the Cloud Service for ArangoDB which enables you to fire up your database in just a few clicks. [Start your free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
 
 Chapters
 --------
