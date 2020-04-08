@@ -15,8 +15,8 @@ There is also a detailed
 for download.
 
 Clusters can be easily deployed using the
-[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/){:target="_blank"}
-with full hosting, management, and monitoring.
+[cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}
+with full hosting, management, and monitoring. You can fire up your cluster in just a few clicks with the [14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 
 Please check the following talks as well:
 
