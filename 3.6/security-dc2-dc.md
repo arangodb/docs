@@ -7,8 +7,7 @@ title: DC2DC Security
 
 {% hint 'info' %}
 Datacenter to datacenter replication is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"} and also in the [**ArangoDB Cloud**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=ee_pages&utm_campaign=docs_traffic){:target="_blank"} Take this feature for a spin in just a few clicks with the [14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=ee_pages&utm_campaign=docs_traffic){:target="_blank"}.
 {% endhint %}
 
 This section includes information related to the _datacenter to datacenter replication_
