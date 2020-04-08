@@ -31,6 +31,8 @@ COLLECTIONS()
 In contrast to collection and variable names, function names are case-insensitive, 
 i.e. *LENGTH(foo)* and *length(foo)* are equivalent.
 
+Fire up your database and try out the power of AQL in just a few clicks with ArangoDB Oasis: the Cloud Service for ArangoDB. [Start your free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
+
 Extending AQL
 -------------
  
