@@ -14,5 +14,5 @@ AQL Fundamentals
 * [Query Results](fundamentals-query-results.html): the result of an AQL query is an array of values. 
 * [Query Errors](fundamentals-query-errors.html): errors may arise from the AQL parsing or execution. 
 
-Learn more about optimizing your queries by going through the
-[Performance Course](https://www.arangodb.com/arangodb-performance-course/){:target="_blank"}.
+You can learn more about optimizing your queries by going through the
+[Performance Course](https://www.arangodb.com/arangodb-performance-course/){:target="_blank"} or discover the power of AQL in just a few clicks with ArangoDB Oasis: the Cloud Service for ArangoDB. [Start your free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
