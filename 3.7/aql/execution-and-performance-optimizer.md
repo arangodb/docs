@@ -705,7 +705,7 @@ The following optimizer rules may appear in the `rules` attribute of
   in the query.
 
 - `remove-satellite-joins` _(Enterprise Edition only)_:
-  optimizes *Scatter-*, *Gather-* and *RemoteNode*s for Satellite Collections
+  optimizes *Scatter-*, *Gather-* and *RemoteNode*s for SatelliteCollections
   and SatelliteGraphs away. Depends on *remove-unnecessary-remote-scatter*
   rule.
 
@@ -750,9 +750,11 @@ The following optimizer rules may appear in the `rules` attribute of
   that modify multiple documents and do not use *LIMIT*.
 
 - `scatter-satellite-graph-in-cluster` _(Enterprise Edition only)_:
-  will appear in case a TraversalNode, ShortestPathNode, or KShortestPathsNode is found that operates on a SatelliteGraph.
-  This leads to the Node being instantiated and executed on the DB-Server
-  instead on a Coordinator. This removes the need to transfer data for this node and hence also increases performance.
+  will appear in case a TraversalNode, ShortestPathNode or KShortestPathsNode
+  is found that operates on a SatelliteGraph. This leads to the node being
+  instantiated and executed on the DB-Server instead on a Coordinator.
+  This removes the need to transfer data for this node and hence also
+  increases performance.
 
 Note that some rules may appear multiple times in the list, with number suffixes.
 This is due to the same rule being applied multiple times, at different positions
