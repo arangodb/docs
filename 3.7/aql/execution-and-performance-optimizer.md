@@ -752,7 +752,7 @@ The following optimizer rules may appear in the `rules` attribute of
 - `scatter-satellite-graph-in-cluster` _(Enterprise Edition only)_:
   will appear in case a TraversalNode, ShortestPathNode, or KShortestPathsNode is found that operates on a SatelliteGraph.
   This leads to the Node being instantiated and executed on the DB-Server
-  instead on a Coordinator. This reduces the total amount of data transferred.
+  instead on a Coordinator. This removes the need to transfer data for this node and hence also increases performance.
 
 Note that some rules may appear multiple times in the list, with number suffixes.
 This is due to the same rule being applied multiple times, at different positions
