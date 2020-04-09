@@ -708,7 +708,7 @@ The following optimizer rules may appear in the `rules` attribute of
   optimizes *Scatter-*, *Gather-* and *RemoteNode*s for SatelliteCollections
   and SatelliteGraphs away. Executes the respective query parts on each
   participating DB-Server independently, so that the results become available 
-  ocally without network communication.
+  locally without network communication.
   Depends on *remove-unnecessary-remote-scatter* rule.
 
 - `remove-unnecessary-remote-scatter`:
