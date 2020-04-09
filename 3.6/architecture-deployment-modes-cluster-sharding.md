@@ -24,7 +24,10 @@ data, which would not fit on a single machine. A high rate of write / read
 operations or AQL queries can also overwhelm a single servers RAM and disk
 capacity.
 
-ArangoDB is also available as [cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}. Fire up your cluster in just a few clicks with the [14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
+ArangoDB is also available as
+[cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
+Fire up your cluster in just a few clicks with the
+[14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 
 There are two main ways of scaling a database system:
 - Vertical scaling
