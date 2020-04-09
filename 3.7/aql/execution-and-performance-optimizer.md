@@ -706,8 +706,10 @@ The following optimizer rules may appear in the `rules` attribute of
 
 - `remove-satellite-joins` _(Enterprise Edition only)_:
   optimizes *Scatter-*, *Gather-* and *RemoteNode*s for SatelliteCollections
-  and SatelliteGraphs away. Depends on *remove-unnecessary-remote-scatter*
-  rule.
+  and SatelliteGraphs away. Executes the respective query parts on each
+  participating DB-Server independently, so that the results become available 
+  ocally without network communication.
+  Depends on *remove-unnecessary-remote-scatter* rule.
 
 - `remove-unnecessary-remote-scatter`:
   will appear if a RemoteNode is followed by a ScatterNode, and the ScatterNode
