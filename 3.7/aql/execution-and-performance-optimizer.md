@@ -706,7 +706,7 @@ The following optimizer rules may appear in the `rules` attribute of
 
 - `remove-satellite-joins` _(Enterprise Edition only)_:
   optimizes *Scatter-*, *Gather-* and *RemoteNode*s for Satellite Collections
-  and CollectionAccessingNodes away. Depends on *remove-unnecessary-remote-scatter*
+  and SatelliteGraphs away. Depends on *remove-unnecessary-remote-scatter*
   rule.
 
 - `remove-unnecessary-remote-scatter`:
