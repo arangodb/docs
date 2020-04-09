@@ -5,10 +5,7 @@ title: Encryption at Rest
 ---
 # Encryption at Rest
 
-{% hint 'info' %}
-Encryption at rest is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"} and also in the [**ArangoDB Cloud**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=ee_pages&utm_campaign=docs_traffic){:target="_blank"} Take this feature for a spin in just a few clicks with the [14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=ee_pages&utm_campaign=docs_traffic){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="Encryption at rest" %}
 
 When you store sensitive data in your ArangoDB database, you want
 to protect that data under all circumstances.

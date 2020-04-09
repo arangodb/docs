@@ -166,10 +166,7 @@ For further information, please refer to the
 OneShard
 --------
 
-{% hint 'info' %}
-The OneShard feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"} and also in the [**ArangoDB Cloud**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=ee_pages&utm_campaign=docs_traffic){:target="_blank"} Take this feature for a spin in just a few clicks with the [14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=ee_pages&utm_campaign=docs_traffic){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="The OneShard option" %}
 
 A OneShard deployment offers a practicable solution that enables significant
 performance improvements by massively reducing cluster-internal communication

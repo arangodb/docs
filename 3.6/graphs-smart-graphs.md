@@ -6,10 +6,7 @@ title: ArangoDB SmartGraphs
 SmartGraphs
 ===========
 
-{% hint 'info' %}
-SmartGraphs are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"} and also in the [**ArangoDB Cloud**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=ee_pages&utm_campaign=docs_traffic){:target="_blank"} Take this feature for a spin in just a few clicks with the [14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=ee_pages&utm_campaign=docs_traffic){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="SmartGraphs" plural=true %}
 
 This chapter describes the `smart-graph` module, which enables you to manage
 graphs at scale. It will give a vast performance benefit for all graphs sharded
