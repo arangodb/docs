@@ -409,7 +409,7 @@ ArangoDB now supports validating documents on collection level using
 JSON Schema (draft-4).
 
 In order to enforce a certain document structure in a collection we have
-introduced the `validation` collection property. It expects an object comprised
+introduced the `schema` collection property. It expects an object comprised
 of a `rule` (JSON Schema object), a `level` and a `message` that will be used
 when validation fails. When documents are validated is controlled by the
 validation level, which can be `none` (off), `new` (insert only), `moderate`

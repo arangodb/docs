@@ -370,6 +370,26 @@ explicitly, it is mainly used for internal testing.
 - **value** (any): a value of arbitrary type
 - returns **retVal** (any): *value*
 
+### SCHEMA_GET()
+`SCHEMA_GET(name)  → schema object`
+
+Returns schema object as defined in collection properties of collection named
+in argument.
+
+- **name** (string): name of a collection
+- returns **retVal** (object): schema definition
+
+### SCHEMA_VALIDATE()
+`SCHEMA_VALIDATE(doc, schema) → { valid(bool), errorMessage(string) }`
+
+Returns object reflecting validity of doc with respect to schema. The attribute
+`valid` is set to `true` if the document fulfills the schemas requirements. Other
+wise it is set to false and the `errorMessage` attribute is added to the return value.
+
+- **doc** (doc): document
+- **doc** (schema): schema object
+- returns **retVal** (object): With attributes valid(bool) and [errorMessage(string)]
+
 ### SLEEP()
 
 `SLEEP(seconds) → null`
