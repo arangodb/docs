@@ -53,7 +53,7 @@ var enableHamburger = function enableHamburger() {
 };
 
 var linkify = function() {
-  var contentBlock = document.getElementsByClassName("book-body")[0];
+  var contentBlock = document.querySelector(".markdown-section");
   if (!contentBlock) {
     return;
   }
