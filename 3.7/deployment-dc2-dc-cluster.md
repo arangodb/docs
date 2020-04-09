@@ -14,6 +14,11 @@ to deploy with a different strategy keep in mind to set the storage engine.
 For other possibilities to deploy an ArangoDB cluster see
 [Cluster Deployment](deployment-cluster.html).
 
+ArangoDB is also available as
+[cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
+Fire up your cluster in just a few clicks with the
+[14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
+
 The _Starter_ simplifies things for the operator and will coordinate a distributed
 cluster startup across several machines and assign cluster roles automatically.
 

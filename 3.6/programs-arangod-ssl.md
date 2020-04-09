@@ -118,7 +118,7 @@ Set to true if SSL session caching should be used.
 
 ### SSL peer certificate
 
-{% include hint-ee-oasis.md feature="This option" %}
+{% include hint-ee.md feature="This option" %}
 
 `--ssl.require-peer-certificate`
 

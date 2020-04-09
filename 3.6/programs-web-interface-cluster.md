@@ -7,8 +7,6 @@ Cluster
 
 The cluster section displays statistics about the general cluster performance.
 
-ArangoDB is also available as [cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}. Fire up your cluster in just a few clicks with the [14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
-
 ![Cluster](images/clusterView.png)
 
 Statistics:
@@ -51,9 +49,9 @@ The shard section displays all available sharded collections.
 Functions:
 
 - Move Shard Leader: Click on a leader database of a shard server will open a move shard dialog. Shards can be
-  transferred to all available databas servers, except the leading DB-Server or an available follower.
+  transferred to all available database servers, except the leading DB-Server or an available follower.
 - Move Shard Follower: Click on a follower database of a shard will open a move shard dialog. Shards can be
-  transferred to all available databas servers, except the leading DB-Server or an available follower.
+  transferred to all available database servers, except the leading DB-Server or an available follower.
 - Rebalance Shards: A new DB-Server will not have any shards. With the
   rebalance functionality the cluster will start to rebalance shards including
   empty DB-Servers.

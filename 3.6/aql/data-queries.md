@@ -1,9 +1,18 @@
 ---
 layout: default
-description: Retrieving data from the database with AQL does always include a RETURNoperation
+description: There are two fundamental types of AQL queries, data access and data modification queries.
+title: AQL Data Queries
 ---
 Data Queries
 ============
+
+There are two fundamental types of AQL queries:
+- queries which access data (read documents)
+- queries which modify data (create, update, replace, delete documents)
+
+If you want to try out some of below AQL examples in just a few clicks, then
+[start a free 14-day trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}
+for ArangoDB Oasis: the Cloud Service for ArangoDB.
 
 Data Access Queries
 -------------------
@@ -45,8 +54,6 @@ FOR doc IN users
 For every user document, an object with two attributes is returned. The value
 of the attribute *user* is set to the content of the user document, and
 *newAttribute* is a static attribute with the boolean value *true*.
-
-Fire up your database and try out the power of AQL in just a few clicks with ArangoDB Oasis: the Cloud Service for ArangoDB. [Start your free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
 
 Operations like **FILTER**, **SORT** and **LIMIT** can be added to the loop body
 to narrow and order the result. Instead of above shown call to `DOCUMENT()`,
