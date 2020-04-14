@@ -17,17 +17,12 @@ kept for backward compatibility. There are usually better alternatives to
 replace the old features with:
 
 - **MMFiles Storage Engine**:
-  The MMFiles storage engine is deprecated starting with version
-  3.6.0 and it will be removed in a future release.
+  The MMFiles storage engine was in version 3.6.0 and removed in 3.7.0.
   To change your MMFiles storage engine deployment to RocksDB, see:
   [Switch storage engine](administration-engine-switch-engine.html)
 
-  We recommend to switch to RocksDB even before the removal of MMFiles.
-  RocksDB is the default [storage engine](architecture-storage-engines.html)
-  since v3.4.0.
-
-  Once the MMFiles engine is removed, all MMFiles specific startup options will
-  also be removed. This will affect the following options:
+  MMFiles specific startup options still exist but will also be removed.
+  This will affect the following options:
 
   - `--compaction.*`
   - `--database.force-sync-properties`
