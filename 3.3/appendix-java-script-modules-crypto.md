@@ -18,9 +18,10 @@ These functions deal with cryptographic nonces.
 
 `crypto.createNonce(): string`
 
-Creates a cryptographic nonce.
+Creates a cryptographic nonce consisting of the first 32 bits of a timestamp
+and 64 bit of randomness.
 
-Returns the created nonce.
+Returns the created nonce as base64-encoded string.
 
 ### checkAndMarkNonce
 
@@ -34,7 +35,8 @@ Checks and marks a nonce.
 
   The nonce to check and mark.
 
-Returns nothing.
+Returns `true` if the supplied nonce was issued by the server and not marked
+before, otherwise `false`.
 
 Random values
 -------------
