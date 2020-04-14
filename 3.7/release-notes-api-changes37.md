@@ -9,6 +9,19 @@ This document summarizes the HTTP API changes and other API changes in ArangoDB 
 The target audience for this document are developers who maintain drivers and
 integrations for ArangoDB 3.7.
 
+UTF-8 validation
+----------------
+
+The ArangoDB server will now perform more strict UTF-8 string validation for incoming
+JSON and VelocyPack data. Attribute names or string attribute values with incorrectly
+encoded UTF-8 sequences will be rejected by default, and incoming requests containing
+such invalid data will be responded to with errors by default.
+
+In case an ArangoDB deployment already contains UTF-8 data from previous versions,
+this will be a breaking change. For this case, there is the startup option 
+`--server.validate-utf8-strings` which can be set to `false` in order to ensure
+operability until any invalid UTF-8 string data has been fixed.
+
 ### HTTP REST API endpoint return value changes
 
 The REST API endpoint at `/_api/cluster/endpoints` will now return HTTP 501 (Not
