@@ -1,6 +1,8 @@
 ---
 layout: default
 description: The hash index type is deprecated for the RocksDB storage engine.
+redirect_from:
+  - 3.7/indexing-hash.html # 3.7 -> 3.6
 ---
 Hash Indexes
 ============

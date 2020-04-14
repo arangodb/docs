@@ -4,6 +4,12 @@ description: WAL is an acronym for write-ahead log
 ---
 # ArangoDB Server WAL Options (MMFiles)
 
+{% hint 'warning' %}
+The MMFiles storage engine was [removed](appendix-deprecated.html).
+Below options do not have any effect anymore, including in the RocksDB
+storage engine.
+{% endhint %}
+
 WAL is an acronym for write-ahead log.
 
 The write-ahead log is a sequence of logfiles that are written in an append-only
@@ -14,10 +20,6 @@ a replication backlog.
 
 Since ArangoDB 2.2, the MMFiles storage engine will write all data-modification
 operations into its write-ahead log.
-
-With ArangoDB 3.2 another storage engine option becomes available:
-[RocksDB](architecture-storage-engines.html#rocksdb).
-In case of using RocksDB the subsequent options don't have a useful meaning.
 
 ## Directory
 

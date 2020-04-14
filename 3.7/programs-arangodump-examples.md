@@ -195,8 +195,7 @@ arangorestore --collection "secret-collection" dump --create-collection true --e
 Using a different key will lead to the backup being non-recoverable.
 
 Note that encrypted backups can be used together with the already existing
-RocksDB encryption-at-rest feature, but they can also be used for the MMFiles
-engine, which does not have encryption-at-rest.
+RocksDB encryption-at-rest feature.
 
 Compression
 -----------

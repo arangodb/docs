@@ -31,9 +31,9 @@ The speed improvement obtained by the procedure below is achieved by:
    (steps #4 and #5).
 
 {% hint 'info' %}
-Please refer to
-[this](programs-arangorestore-examples.html#factors-affecting-speed-of-arangorestore-in-a-cluster)
-section for further context on the factors affecting restore speed when restoring
+Please refer to the
+[arangorestore examples](programs-arangorestore-examples.html#factors-affecting-speed-of-arangorestore-in-a-cluster)
+for further context on the factors affecting restore speed when restoring
 using _arangorestore_ in a Cluster.
 {% endhint %}
 

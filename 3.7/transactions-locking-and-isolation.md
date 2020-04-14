@@ -25,44 +25,19 @@ db._executeTransaction({
 });
 ```
 
-*write* here means write access to the collection, and also includes any read accesses. 
-*exclusive* is a synonym for *write* in the MMFiles engine, because both *exclusive* and
-*write* will acquire collection-level locks in this engine. In the RocksDB engine,
+<!-- TODO: does write access imply read access in RocksDB? -->
+*write* here means write access to the collection, and also includes any read accesses.
+
 *exclusive* means exclusive write access to the collection, and *write* means (shared)
 write access to the collection, which can be interleaved with write accesses by other
 concurrent transactions.
 
-MMFiles engine
---------------
-
-The *MMFiles engine* uses the following locking mechanisms to serialize transactions
-on the same data:
-
-All collections specified in the *collections* attribute are locked in the
-requested mode (read or write) at transaction start. Locking of multiple collections
-is performed in alphabetical order.
-When a transaction commits or rolls back, all locks are released in reverse order.
-The locking order is deterministic to avoid deadlocks.
-
-While locks are held, modifications by other transactions to the collections 
-participating in the transaction are prevented.
-A transaction will thus see a consistent view of the participating collections' data.
-
-Additionally, a transaction will not be interrupted or interleaved with any other 
-ongoing operations on the same collection. This means each transaction will run in
-isolation. A transaction should never see uncommitted or rolled back modifications by
-other transactions. Additionally, reads inside a transaction are repeatable.
-
-Note that the above is true only for all collections that are declared in the 
-*collections* attribute of the transaction.
-
-RocksDB engine
+Storage engine
 --------------
 
 The *RocksDB* engine does not lock any collections participating in a transaction
 for read. Read operations can run in parallel to other read or write operations on the
 same collections.
-
 
 ### Locking
 
@@ -182,6 +157,8 @@ collection.
 
 Deadlocks and Deadlock detection
 --------------------------------
+
+<!-- TODO: Obsolete? -->
 
 A deadlock is a situation in which two or more concurrent operations (user transactions
 or AQL queries) try to access the same resources (collections, documents) and need to 

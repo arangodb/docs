@@ -16,6 +16,7 @@ _Arangodump_ has the following limitations:
   a single instance, a master/slave, or active failover setup, where even if
   write operations are ongoing, the created dump is consistent, as a snapshot
   is taken when the dump starts.
+<!-- TOOD Remove when 3.6 reaches EoL -->
 - If the MMFiles engine is in use, on a single instance, a master/slave, or
   active failover setup, even if the write operations are suspended, it is not
   guaranteed that the dump includes all the data that has been previously

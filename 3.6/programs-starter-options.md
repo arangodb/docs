@@ -373,9 +373,9 @@ upon "server ready" requests to the log. This option is mainly intended for inte
 
 ## Environment variables
 
-It is possibe to replace all commandline arguments for the starter with environment variables.
+It is possible to replace all commandline arguments for the starter with environment variables.
 To do so, set an environment variable named `ARANGODB_` + `<name of command line option in uppercase>`,
-where all dashes, underscores and dots are replased with underscores.
+where all dashes, underscores and dots are replaced with underscores.
 
 E.g.
 

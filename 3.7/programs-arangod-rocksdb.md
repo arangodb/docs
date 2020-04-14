@@ -1,19 +1,12 @@
 ---
 layout: default
-description: RocksDB is a highly configurable key-value store used to power our RocksDBstorage engine
+description: RocksDB is a highly configurable key-value store used to power ArangoDB's RocksDB storage engine
 ---
 # ArangoDB Server RocksDB Options
 
-RocksDB is a highly configurable key-value store used to power our RocksDB
+RocksDB is a highly configurable key-value store used to power ArangoDB's RocksDB
 storage engine. Most of the options on this page are pass-through options to the
-underlying RocksDB instance, and we change very few of their default settings.
-
-Depending on the [storage engine you have chosen](programs-arangod-server.html#storage-engine)
-the availability and the scope of these options changes. 
-
-In case you have chosen `mmfiles` some of the following options apply to
-persistent indexes.
-In case of `rocksdb` it will apply to all data stored as well as indexes.
+underlying RocksDB instance, and only a few of its default settings are changed.
 
 ## Pass-through options
 
@@ -314,13 +307,12 @@ is committed automatically and a new transaction is started.
 
 Allows to make all writes to the RocksDB storage exclusive and therefore avoids
 write-write conflicts. This option was introduced to open a way to upgrade from
-MMFiles to RocksDB storage engine without modifying client application code.
-Otherwise it should best be avoided as the use of exclusive locks on collections
-will introduce a noticeable throughput penalty.
+the legacy MMFiles to the RocksDB storage engine without modifying client
+application code. Otherwise it should best be avoided as the use of exclusive
+locks on collections will introduce a noticeable throughput penalty.
 
-Note that the MMFiles engine is [deprecated](appendix-deprecated.html)
-from v3.6.0 on and will be removed in a future release. So will be this option,
-which is a stopgap measure only.
+Note that the MMFiles engine was [removed](appendix-deprecated.html) and that
+this option is a stopgap measure only.
 
 The option has effect on single servers and on DB-Servers in the cluster.
 
