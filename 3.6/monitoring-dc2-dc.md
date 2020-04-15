@@ -5,7 +5,7 @@ title: DC2DC Replication Monitoring
 ---
 # Monitoring datacenter to datacenter replication
 
-{% include hint-ee-oasis.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 This section includes information related to the monitoring of the
 _datacenter to datacenter replication_.

@@ -5,7 +5,7 @@ title: DC2DC Security
 ---
 # Datacenter to datacenter Security
 
-{% include hint-ee-oasis.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 This section includes information related to the _datacenter to datacenter replication_
 security.

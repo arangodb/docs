@@ -5,7 +5,7 @@ title: DC2DC Replication Deployment
 ---
 # Datacenter to datacenter replication deployment
 
-{% include hint-ee-oasis.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 This chapter describes how to deploy all the components needed for
 _datacenter to datacenter replication_.

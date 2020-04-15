@@ -5,7 +5,7 @@ title: Administrating DC2DC Replication
 ---
 # Datacenter to datacenter replication administration
 
-{% include hint-ee-oasis.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 This section includes information related to the administration of the _datacenter
 to datacenter replication_.

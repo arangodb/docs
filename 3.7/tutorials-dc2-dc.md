@@ -5,7 +5,7 @@ title: DC2DC Replication
 ---
 # Datacenter to datacenter Replication
 
-{% include hint-ee-oasis.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 ## About
 

@@ -5,7 +5,7 @@ title: DC2DC Replication Troubleshooting
 ---
 # Troubleshooting datacenter to datacenter replication
 
-{% include hint-ee-oasis.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 The _datacenter to datacenter replication_ is a distributed system with a lot
 different components. As with any such system, it requires some, but not a lot,

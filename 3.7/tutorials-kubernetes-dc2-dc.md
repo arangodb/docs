@@ -9,7 +9,7 @@ This tutorial guides you through the steps needed to configure
 an ArangoDB datacenter to datacenter replication between two ArangoDB
 clusters running in Kubernetes.
 
-{% include hint-ee-oasis.md feature="Datacenter to datacenter replication" %}
+{% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 ## Requirements
 
