@@ -8,8 +8,6 @@ Operators
 AQL supports a number of operators that can be used in expressions.  There are
 comparison, logical, arithmetic, and the ternary operator.
 
-Fire up your database and try out the power of AQL in just a few clicks with ArangoDB Oasis: the Cloud Service for ArangoDB. [Start your free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
-
 Comparison operators
 --------------------
 
@@ -378,3 +376,7 @@ The operator precedence in AQL is similar as in other familiar languages
 
 The parentheses `(` and `)` can be used to enforce a different operator
 evaluation order.
+
+Try out AQL in just a few clicks with ArangoDB Oasis:
+the Cloud Service for ArangoDB. Start your
+[free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
