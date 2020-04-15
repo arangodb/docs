@@ -5,8 +5,8 @@ title: ArangoDB Oasis API
 ---
 # ArangoDB Oasis API
 
-[ArangoDB Oasis](https://cloud.arangodb.com/){:target="_blank"}, the
-ArangoDB Cloud, comes with its own API. This API enables you to control all
+[ArangoDB Oasis](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"},
+the ArangoDB Cloud, comes with its own API. This API enables you to control all
 resources inside Oasis in a scriptable manner. Typical use cases are spinning
 up Oasis deployments during continuous integration and infrastructure as code.
 

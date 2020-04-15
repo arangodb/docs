@@ -16,7 +16,7 @@ ArangoDB deployment.
 
 {% hint 'info %}
 ArangoDB is also available as
-[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/){:target="_blank"}.
+[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 {% endhint %}
 
 ## Installation
