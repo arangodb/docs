@@ -411,6 +411,33 @@ explicitly, it is mainly used for internal testing.
 - **value** (any): a value of arbitrary type
 - returns **retVal** (any): *value*
 
+### SCHEMA_GET()
+
+`SCHEMA_GET(collection) → schema`
+
+Return the schema definition as defined in the properties of the
+specified collection.
+
+- **collection** (string): name of a collection
+- returns **schema** (object): schema definition object
+
+```js
+RETURN SCHEMA_GET("myColl")
+```
+
+### SCHEMA_VALIDATE()
+
+`SCHEMA_VALIDATE(doc, schema) → result`
+
+Test if the given document is valid according to the schema definition.
+
+- **doc** (doc): document
+- **schema** (object): schema definition object
+- returns **result** (object): an object with the following attributes:
+  - **valid** (bool): `true` if the document fulfills the schema's requirements,
+    otherwise it will be `false` and *errorMessage* will be set
+  - **errorMessage** (string): details about the validation failure
+
 ### SLEEP()
 
 `SLEEP(seconds) → null`

@@ -85,7 +85,7 @@ not write any updates to it.
 The REST API endpoints for creating collections at POST `/_api/collection` as well
 as listing and changing collection properties at PUT/GET
 `/_api/collection/<collection>/properties` will now make use of the additional
-attribute `validation`. The attribute can be used so specify document
+attribute `schema`. The attribute can be used so specify document schema
 validation at collection level. See
 [Schema Validation](data-modeling-documents-schema-validation.html).
 
