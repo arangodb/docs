@@ -35,10 +35,24 @@ and often replaced by `е` in informal writing. The original algorithm assumed i
 had already been mapped to `е` (`e`), but now it actively translates this character
 if the locale is set to Russian language.
 
-HTTP REST API
--------------
+UTF-8 validation
+----------------
 
-### HTTP REST API endpoints moved
+The ArangoDB server will now perform more strict UTF-8 string validation for
+incoming JSON and VelocyPack data. Attribute names or string attribute values
+with incorrectly encoded UTF-8 sequences will be rejected by default, and
+incoming requests containing such invalid data will be responded to with errors
+by default.
+
+In case an ArangoDB deployment already contains UTF-8 data from previous
+versions, this will be a breaking change. For this case, there is the startup
+option `--server.validate-utf8-strings` which can be set to `false` in order to
+ensure operability until any invalid UTF-8 string data has been fixed.
+
+HTTP RESTful API
+----------------
+
+### Endpoints moved
 
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
 naming consistency:
@@ -59,7 +73,7 @@ naming consistency:
 The above endpoints are part of ArangoDB's exposed REST API, however, they are
 not supposed to be called directly by drivers or client
 
-### HTTP REST API endpoints removed
+### Endpoints removed
 
 The REST API endpoint at `/_admin/aql/reload` has been removed in ArangoDB 3.7.
 There is no necessity to call this endpoint from a driver or a client application

@@ -9,7 +9,22 @@ This document summarizes the HTTP API changes and other API changes in ArangoDB 
 The target audience for this document are developers who maintain drivers and
 integrations for ArangoDB 3.7.
 
-### HTTP REST API endpoint return value changes
+## UTF-8 validation
+
+The ArangoDB server will now perform more strict UTF-8 string validation for
+incoming JSON and VelocyPack data. Attribute names or string attribute values
+with incorrectly encoded UTF-8 sequences will be rejected by default, and
+incoming requests containing such invalid data will be responded to with errors
+by default.
+
+In case an ArangoDB deployment already contains UTF-8 data from previous
+versions, this will be a breaking change. For this case, there is the startup
+option `--server.validate-utf8-strings` which can be set to `false` in order to
+ensure operability until any invalid UTF-8 string data has been fixed.
+
+## HTTP RESTful API
+
+### Endpoint return value changes
 
 The REST API endpoint at `/_api/cluster/endpoints` will now return HTTP 501 (Not
 implemented) on single server instead of HTTP 403 (Forbidden), which it returned
@@ -26,9 +41,9 @@ following response body:
 In previous releases, calling that endpoint with an empty JSON object as
 the request body returned a JSON response that was just `true`.
 
-### HTTP REST API endpoints added
+### Endpoints added
 
-### HTTP REST API endpoints augmented
+### Endpoints augmented
 
 The REST API endpoint for inserting documents at POST `/_api/document/<collection>`
 will now handle the URL parameter `overwriteMode`.
@@ -85,7 +100,7 @@ graph definitions of all graphs at GET `GET /_api/gharial` or a graph
 definition of a single graph at `/_api/gharial/{graph}` will include an
 additional boolean attribute called `isSatellite`.
 
-### HTTP REST API endpoints moved
+## Endpoints moved
 
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
 naming consistency:
@@ -106,7 +121,7 @@ naming consistency:
 The above endpoints are part of ArangoDB's exposed REST API, however, they are
 not supposed to be called directly by drivers or client
 
-### HTTP REST API endpoints removed
+### Endpoints removed
 
 The REST API endpoint at `/_admin/aql/reload` has been removed in ArangoDB 3.7.
 There is no necessity to call this endpoint from a driver or a client application
