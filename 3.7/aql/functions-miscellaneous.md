@@ -371,24 +371,35 @@ explicitly, it is mainly used for internal testing.
 - returns **retVal** (any): *value*
 
 ### SCHEMA_GET()
-`SCHEMA_GET(name)  → schema object`
 
-Returns schema object as defined in collection properties of collection named
-in argument.
+`SCHEMA_GET(collection) → schema`
 
-- **name** (string): name of a collection
-- returns **retVal** (object): schema definition
+Return the schema definition as defined in the properties of the
+specified collection.
+
+- **collection** (string): name of a collection
+- returns **schema** (object): schema definition object
+
+```js
+RETURN SCHEMA_GET("myColl")
+```
 
 ### SCHEMA_VALIDATE()
-`SCHEMA_VALIDATE(doc, schema) → { valid(bool), errorMessage(string) }`
 
-Returns object reflecting validity of doc with respect to schema. The attribute
+`SCHEMA_VALIDATE(doc, schema) → result`
+
+Test if the given document is valid according to the schema definition.
+
+Returns  The attribute
 `valid` is set to `true` if the document fulfills the schemas requirements. Other
 wise it is set to false and the `errorMessage` attribute is added to the return value.
 
 - **doc** (doc): document
-- **doc** (schema): schema object
-- returns **retVal** (object): With attributes valid(bool) and [errorMessage(string)]
+- **schema** (object): schema definition object
+- returns **result** (object): an object with the following attributes:
+  - **valid** (bool): `true` if the document fulfills the schema requirements,
+    otherwise it will be `false` and *errorMessage* will be set
+  - **errorMessage** (string): error details
 
 ### SLEEP()
 

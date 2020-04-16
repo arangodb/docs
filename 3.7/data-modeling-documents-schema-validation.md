@@ -95,14 +95,10 @@ also see [Known Issues](release-notes-known-issues37.html). You may customize
 the error message via the `message` attribute to provide a summary of what is
 expected or point out common mistakes.
 
-
-Schema related AQL functions
-----------------------------
+Related AQL functions
+---------------------
 
 The following AQL functions are available to work with schemas:
 
- - `SCHEMA_GET(<name>)`: returns schema object as defined in collection properties of collection `<name>`.
- - `SCHEMA_VALIDATE(<doc>, <schema object>)`: checks validity of a given
-   document `<doc>` using a supplied schema `<schema object>` returning an
-   object that contains the attribute `valid` (bool) and a conditional
-   `errorMessage` that is only set if the validation failed.
+ - [SCHEMA_GET()](aql/functions-miscellaneous.html#schema_get)
+ - [SCHEMA_VALIDATE()](aql/functions-miscellaneous.html#schema_validate)
