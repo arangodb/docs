@@ -11,13 +11,18 @@ Version 3.7
 
 **All Editions**
 
-<!--
 - **ArangoSearch**:
-  Wildcard and fuzzy search (Levenshtein distance and n-gram based), enhanced
-  phrase and proximity search, improved late document materialization and Views
-  covering queries using their indexes without touching the storage engine,
-  SIMD-based index format for faster processing
+  [Wildcard](aql/functions-arangosearch.html#like) and fuzzy search
+  ([Levenshtein distance](aql/functions-string.html#levenshtein_distance) and
+  [n-gram based](aql/functions-arangosearch.html#ngram_match)),
+  [enhanced phrase](aql/functions-arangosearch.html#phrase) and
+  [proximity search](aql/functions-array.html#jaccard),
+  improved late document materialization and
+  [Views covering queries](release-notes-new-features37.html#covering-indexes)
+  using their indexes without touching the storage engine, as well as a new
+  SIMD-based index format for faster processing.
 
+<!--
 - **AQL**:
   Subquery and graph traversal performance improvements
 

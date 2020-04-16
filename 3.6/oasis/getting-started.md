@@ -11,7 +11,7 @@ to using the Oasis web interface to set up a test organization, project and
 deployment, as well as accessing and deleting the deployment.
 
 For general information about ArangoDB Oasis, see
-[cloud.arangodb.com](https://cloud.arangodb.com/){:target="_blank"}.
+[cloud.arangodb.com](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 
 A video series on how to get started with Oasis is also available:
 

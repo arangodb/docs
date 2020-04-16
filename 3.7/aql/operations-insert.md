@@ -111,8 +111,10 @@ modes:
 - `"ignore"`: if a document with the specified *_key* value exists already,
   nothing will be done and no write operation will be carried out. The
   insert operation will return success in this case. This mode does not
-  support returning the old document version using `RETURN OLD`. When using
-  `RETURN NEW`, *null* will be returned in case the document already existed.
+  support returning the old document version. Using `RETURN OLD` will trigger
+  a parse error, as there will be no old version to return. `RETURN NEW`
+  will only return the document in case it was inserted. In case the
+  document already existed, `RETURN NEW` will return `null`.
   `"replace"`: if a document with the specified *_key* value exists already,
   it will be overwritten with the specified document value. This mode will
   also be used when no overwrite mode is specified but the *overwrite*
@@ -123,6 +125,12 @@ modes:
   return a unique constraint violation error so that the insert operation
   fails. This is also the default behavior in case the overwrite mode is
   not set, and the *overwrite* flag is *false* or not set either.
+
+The main use case of inserting documents with overwrite mode *ignore* is
+to make sure that certain documents exist in the cheapest possible way.
+In case the target document already exists, the *ignore* mode is most
+efficient, as it will not retrieve the existing document from storage and
+not write any updates to it.
 
 When using the *update* overwrite mode, the *keepNull* and *mergeObjects*
 options control how the update is done.
@@ -136,12 +144,6 @@ FOR i IN 1..1000
     foobar: true
   } INTO users OPTIONS { overwriteMode: "update", keepNull: true, mergeObjects: false }
 ```
-
-The main use case of inserting documents with overwrite mode *ignore* is
-to make sure that certain documents exist in the cheapest possible way.
-In case the target document already exists, the *ignore* mode is most
-efficient, as it will not retrieve the existing document from storage and
-not write any updates to it.
 
 The RocksDB engine does not require collection-level locks. 
 Different write operations on the same collection do not block each other, as
