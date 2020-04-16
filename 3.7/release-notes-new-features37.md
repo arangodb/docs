@@ -313,11 +313,16 @@ performance optimization.
 
 The following AQL functions have been added in ArangoDB 3.7:
 
-- [REPLACE_NTH()](aql/functions-array.html#replace_nth)
+- [IN_RANGE()](aql/functions-miscellaneous.html#in_range)
+  (now available outside of `SEARCH` operations)
+- [INTERLEAVE()](aql/functions-array.html#interleave)
 - [JACCARD()](aql/functions-array.html#jaccard)
-- LEVENSHTEIN_MATCH()
-- NGRAM_POSITIONAL_SIMILARITY()
-- NGRAM_SIMILARITY()
+- [LEVENSHTEIN_DISTANCE()](aql/functions-string.html#levenshtein_distance)
+- [LEVENSHTEIN_MATCH()](aql/functions-arangosearch.html#levenshtein_match)
+- [NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match)
+- [NGRAM_POSITIONAL_SIMILARITY()](aql/functions-string.html#ngram_positional_similarity)
+- [NGRAM_SIMILARITY()](aql/functions-string.html#ngram_similarity)
+- [REPLACE_NTH()](aql/functions-array.html#replace_nth)
 
 ### Syntax enhancements
 
@@ -461,15 +466,27 @@ SHA-256 hash of the private key is returned.
 This allows [rotation of TLS keys and certificates](http/administration-and-monitoring.html#tls)
 without a server restart.
 
-### Insert-Update
+### Insert-Update and Insert-Ignore
 
 ArangoDB 3.7 adds an insert-update operation that is similar to the already
 existing insert-replace functionality. A new `overwriteMode` flag has been
 introduced to control the type of the overwrite operation in case of colliding
-keys during the insert.
+primary keys during the insert.
 
 In the case of `overwriteMode: "update"`, the parameters `keepNull` and
 `mergeObjects` can be provided to control the update operation.
+
+There is now also an insert-ignore operation that allows insert operations
+to do nothing in case of a primary key conflict. This operation is an efficient
+way of making sure a document with a specific primary key exists. If it does
+not exist already, it will be created as specified. Should the document exist
+already, nothing will happen and the insert will return without an error. No
+write operations happens in this case, and only a single primary key lookup 
+needs to be performed in the storage engine. 
+This makes the insert-ignore operation the most efficient way 
+existing insert-replace functionality. A new `overwriteMode` flag has been
+introduced to control the type of the overwrite operation in case of colliding
+primary keys during the insert.
 
 The query options are available in [AQL](aql/operations-insert.html#setting-query-options),
 the [JS API](data-modeling-documents-document-methods.html#insert--save) and
@@ -579,6 +596,24 @@ Metrics
 The amount of exported metrics has been extended and is now available in a
 format compatible with Prometheus. You can now easily scrape on `_admin/metrics`.
 See [here](http/administration-and-monitoring-metrics.html).
+
+MMFiles storage engine
+----------------------
+
+ArangoDB 3.7 does not contain the MMFiles storage engine anymore. In ArangoDB
+3.7, the only available storage engine is the RocksDB storage engine, which is
+the default storage engine in ArangoDB since version 3.4. The MMFiles storage
+engine had been deprecated since the release of ArangoDB 3.6.
+
+Any deployments that use the MMFiles storage engine will need to be migrated to
+the RocksDB storage engine using ArangoDB 3.6 (or earlier versions) in order to
+upgrade to ArangoDB 3.7.
+
+All storage engine selection functionality has also been removed from the
+ArangoDB package installers. The RocksDB storage engine will be selected
+automatically for any new deployments created with ArangoDB 3.7.
+
+This change simplifies the installation procedures and internal code paths.
 
 Internal changes
 ----------------

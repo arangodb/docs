@@ -684,9 +684,42 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
+### LEVENSHTEIN_MATCH()
+
+`LEVENSHTEIN_MATCH(path, target, distance, transpositions)`
+
+Match documents with a [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance){:target=_"blank"}
+lower than or equal to *distance* between the stored attribute value and
+*target*. It can optionally take transpositions into account
+(Damerau-Levenshtein distance).
+
+See [LEVENSHTEIN_DISTANCE()](functions-string.html#levenshtein_distance)
+if you want to calculate the edit distance of two strings.
+
+- **path** (attribute path expression): the path of the attribute to compare
+  against in the document
+- **target** (string): the string to compare against the stored attribute
+- **distance** (number): the maximum edit distance, which can be between
+  `0` and `4` if *transpositions* is `false`, and between `0` and `3` if
+  it is `true`
+- **transpositions** (bool, _optional_): compute Damerau-Levenshtein distance
+  if set to `true`, otherwise Levenshtein distance will be computed (default)
+
+```js
+FOR doc IN viewName
+  SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 2) // matches "quick"
+  RETURN doc.text
+```
+
+```js
+FOR doc IN viewName
+  SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 1, true) // matches "quick"
+  RETURN doc.text
+```
+
 ### LIKE()
 
-`LIKE(path, search) → bool`
+`LIKE(path, search)`
 
 Check whether the pattern *search* is contained in the attribute denoted by *path*,
 using wildcard matching.
