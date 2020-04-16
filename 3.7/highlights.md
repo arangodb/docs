@@ -37,10 +37,9 @@ Version 3.7
   Enforce a JSON Schema for documents on collection level. Invalid documents
   can be rejected automatically by the database system, making it easy to
   maintain data quality.
-
-- [**Insert-Update**](release-notes-new-features37.html#insert-update):
-  Added an insert-update operation that is similar to the already existing
-  insert-replace functionality, but for either creating or updating a document.
+- [**Insert-Update** and **Insert-Ignore**](release-notes-new-features37.html#insert-update-and-insert-ignore):
+  New document API operations to upsert documents and to efficiently insert
+  documents while skipping the creation if the document exists already.
 
 - [**V8 upgrade**](release-notes-new-features37.html#v8-and-icu-library-upgrades):
   Upgraded the JavaScript engine to version 7.9.317, making newer features from
