@@ -107,11 +107,6 @@ body {
   .arangodb-logo {
     margin-left: 10px;
   }
-
-  .google-search {
-    margin-right: 5px !important;
-  }
-
   .downloadIcon {
     margin-right: 0;
   }
@@ -121,15 +116,7 @@ body {
   }
 }
 
-
 @media screen and (max-width: 800px) {
-
-  .google-search,
-  .google-search .gsc-input-box,
-  .google-search .gsc-input-box input {
-    width: 130px !important;
-  }
-
   .arangodb-navmenu li a {
     font-size: 15px;
     padding: 0 7px;
@@ -164,33 +151,12 @@ body {
   .downloadIcon {
     display: none !important;
   }
-
-  .google-search,
-  .google-search .gsc-input-box,
-  .google-search .gsc-input-box input {
-    width: 24px !important;
-  }
-
-  .google-search .gsc-input-box input[style] {
-    background: url(https://docs.arangodb.com/assets/searchIcon.png) left center no-repeat rgb(255, 255, 255) !important;
-  }
-
-  .google-search .gsc-input-box input:focus {
-    width: 200px !important;
-    position: relative;
-    left: -176px;
-    background-position: -9999px -9999px !important;
-  }
-
 }
 
 @media screen and (max-width: 400px) {
   .arangodb-navmenu li a {
     font-size: 13px;
     padding: 0 5px;
-  }
-  .google-search {
-    display: none;
   }
 }
 
