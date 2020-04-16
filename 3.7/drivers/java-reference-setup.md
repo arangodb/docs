@@ -114,6 +114,19 @@ resources when no connection is needed, you can clear the connection pool
 arangoDB.shutdown();
 ```
 
+{% hint 'info' %}
+Opening and closing connections very frequently can exhaust the amount of
+connections allowed by the operating system. TCP connections enter a special
+state `WAIT_TIME` after close, and typically remain in this state for two
+minutes (maximum segment life * 2). These connections count towards the global
+limit, which depends on the operating system but is usually around 28,000.
+Connections should thus be reused as much as possible.
+
+You may run into this problem if you bypass the driver's safe guards by
+setting a very high connection limit or by using multiple ArangoDB objects
+and thus pools.
+{% endhint %}
+
 ## Fallback hosts
 
 The driver supports configuring multiple hosts. The first host is used to open a
