@@ -313,7 +313,7 @@ performance optimization.
 
 The following AQL functions have been added in ArangoDB 3.7:
 
-- [IN_RANGE()](aql/functions-numeric.html) <!-- TODO #in_range. Maybe under misc? -->
+- [IN_RANGE()](aql/functions-miscellaneous.html#in_range)
   (now available outside of `SEARCH` operations)
 - [INTERLEAVE()](aql/functions-array.html#interleave)
 - [JACCARD()](aql/functions-array.html#jaccard)
