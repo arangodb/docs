@@ -390,16 +390,12 @@ RETURN SCHEMA_GET("myColl")
 
 Test if the given document is valid according to the schema definition.
 
-Returns  The attribute
-`valid` is set to `true` if the document fulfills the schemas requirements. Other
-wise it is set to false and the `errorMessage` attribute is added to the return value.
-
 - **doc** (doc): document
 - **schema** (object): schema definition object
 - returns **result** (object): an object with the following attributes:
-  - **valid** (bool): `true` if the document fulfills the schema requirements,
+  - **valid** (bool): `true` if the document fulfills the schema's requirements,
     otherwise it will be `false` and *errorMessage* will be set
-  - **errorMessage** (string): error details
+  - **errorMessage** (string): details about the validation failure
 
 ### SLEEP()
 
