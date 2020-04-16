@@ -96,15 +96,6 @@ distributions of Java 8 with TLSv1.3 support).
 
 ## Connection Pooling
 
-{% hint 'tip' %}
-Opening and closing connections very frequently can exhaust the amount of
-connections allowed by the operating system. TCP connections enter a special
-state `WAIT_TIME` after close, and typically remain in this state for two
-minutes (maximum segment life * 2). These connections count towards the global
-limit, which depends on the operating system but is usually around 28,000.
-Connections should thus be reused as much as possible.
-{% endhint %}
-
 The driver supports connection pooling for VelocyStream with a default of 1 and
 HTTP with a default of 20 maximum connections per host. To change this value
 use the method `maxConnections(Integer)` in `ArangoDB.Builder`.
@@ -122,6 +113,19 @@ resources when no connection is needed, you can clear the connection pool
 ```Java
 arangoDB.shutdown();
 ```
+
+{% hint 'info' %}
+Opening and closing connections very frequently can exhaust the amount of
+connections allowed by the operating system. TCP connections enter a special
+state `WAIT_TIME` after close, and typically remain in this state for two
+minutes (maximum segment life * 2). These connections count towards the global
+limit, which depends on the operating system but is usually around 28,000.
+Connections should thus be reused as much as possible.
+
+You may run into this problem if you bypass the driver's safe guards by
+setting a very high connection limit or by using multiple ArangoDB objects
+and thus pools.
+{% endhint %}
 
 ## Fallback hosts
 
