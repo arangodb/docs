@@ -35,7 +35,7 @@ is to **assume they are all case sensitive**, when being used with Oasisctl.
 
 The first step to using the Oasis API is to generate an API key. To generate a
 key you will need to be signed into your account at
-[cloud.arangodb.com](https://cloud.arangodb.com/){:target="_blank"}.
+[cloud.arangodb.com](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 Once you are signed in, hover over the profile icon in the top right corner.
 
 ![Profile Icon](../images/profileHover.png)
