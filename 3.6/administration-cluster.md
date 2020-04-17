@@ -15,16 +15,17 @@ There is also a detailed
 for download.
 
 Clusters can be easily deployed using the
-[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/){:target="_blank"}
+[cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}
 with full hosting, management, and monitoring.
+You can fire up your cluster in just a few clicks with the
+[14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 
 Please check the following talks as well:
 
-| # | Date            | Title                                                                       | Who                                     | Link                                                                                                            |
-|---|-----------------|-----------------------------------------------------------------------------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| 1 | 10th April 2018 | Fundamentals and Best Practices of ArangoDB Cluster Administration          | Kaveh Vahedipour, ArangoDB Cluster Team | [Online Meetup Page](https://www.meetup.com/online-ArangoDB-meetup/events/248996022/){:target="_blank"} & [Video](https://www.youtube.com/watch?v=RQ33fkgUg64){:target="_blank"} |
-| 2 | 29th May 2018   | Fundamentals and Best Practices of ArangoDB Cluster Administration: Part II | Kaveh Vahedipour, ArangoDB Cluster Team | [Online Meetup Page](https://www.meetup.com/online-ArangoDB-meetup/events/250869684/){:target="_blank"} & [Video](https://www.youtube.com/watch?v=jj7YpTaL3pI){:target="_blank"} |
-
+| Date            | Title                                                                       | Who                                     | Link                                                                                                            |
+|-----------------|-----------------------------------------------------------------------------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| 10th April 2018 | Fundamentals and Best Practices of ArangoDB Cluster Administration          | Kaveh Vahedipour, ArangoDB Cluster Team | [Online Meetup Page](https://www.meetup.com/online-ArangoDB-meetup/events/248996022/){:target="_blank"} & [Video](https://www.youtube.com/watch?v=RQ33fkgUg64){:target="_blank"} |
+| 29th May 2018   | Fundamentals and Best Practices of ArangoDB Cluster Administration: Part II | Kaveh Vahedipour, ArangoDB Cluster Team | [Online Meetup Page](https://www.meetup.com/online-ArangoDB-meetup/events/250869684/){:target="_blank"} & [Video](https://www.youtube.com/watch?v=jj7YpTaL3pI){:target="_blank"} |
 
 Enabling synchronous replication
 --------------------------------

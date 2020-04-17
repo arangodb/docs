@@ -103,55 +103,35 @@ body {
   .arangodb-navmenu li a {
     padding: 0 6px;
   }
-
   .arangodb-logo {
     margin-left: 10px;
   }
-
-  .google-search {
-    margin-right: 5px !important;
-  }
-
   .downloadIcon {
     margin-right: 0;
   }
-  
   .socialIcons {
     display: none !important;
   }
 }
 
-
 @media screen and (max-width: 800px) {
-
-  .google-search,
-  .google-search .gsc-input-box,
-  .google-search .gsc-input-box input {
-    width: 130px !important;
-  }
-
   .arangodb-navmenu li a {
     font-size: 15px;
     padding: 0 7px;
   }
-
   .arangodb-logo {
     display: none;
   }
-
   .arangodb-logo-small {
     display: inline;
     margin-left: 10px;
   }
-
   .arangodb-logo-small img {
     height: 20px;
   }
-
   .arangodb-version-switcher {
     margin: 0;
   }
-
 }
 
 @media screen and (max-width: 600px) {
@@ -159,29 +139,10 @@ body {
     font-size: 15px;
     padding: 0 7px;
   }
-
   .arangodb-version-switcher,
   .downloadIcon {
     display: none !important;
   }
-
-  .google-search,
-  .google-search .gsc-input-box,
-  .google-search .gsc-input-box input {
-    width: 24px !important;
-  }
-
-  .google-search .gsc-input-box input[style] {
-    background: url(https://docs.arangodb.com/assets/searchIcon.png) left center no-repeat rgb(255, 255, 255) !important;
-  }
-
-  .google-search .gsc-input-box input:focus {
-    width: 200px !important;
-    position: relative;
-    left: -176px;
-    background-position: -9999px -9999px !important;
-  }
-
 }
 
 @media screen and (max-width: 400px) {
@@ -189,44 +150,51 @@ body {
     font-size: 13px;
     padding: 0 5px;
   }
-  .google-search {
-    display: none;
-  }
 }
 
 /*Hubspot Cookie notice */
 
 body div#hs-eu-cookie-confirmation {
-    bottom: 0;
-    top: auto;
-    position: fixed;
-    text-align: center !important;
+  bottom: 0;
+  top: auto;
+  position: fixed;
+  text-align: center !important;
+  background: #fff;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.25);
 }
 
 body div#hs-eu-cookie-confirmation.can-use-gradients {
-    background-image: linear-gradient(to bottom, rgba(255,255,255,0.9),rgba(255,255,255,0.75));
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.9),rgba(255,255,255,0.75));
 }
 
 body div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner {
-    display: inline-block;
-    padding: 15px 18px 0;
+  display: inline-block;
+  padding: 15px 18px 0;
 }
 
 body div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner #hs-en-cookie-confirmation-buttons-area {
-    float: left;
+  float: left;
 }
 
 body div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner a#hs-eu-confirmation-button {
-    background-color: #577138 !important;
-    border: none !important;
-    text-shadow: none !important;
-    box-shadow: none;
-    padding: 5px 15px !important;
-    margin-left: 10px;
+  background-color: #577138 !important;
+  border: none !important;
+  text-shadow: none !important;
+  box-shadow: none;
+  padding: 5px 15px !important;
+  margin-left: 10px;
 }
 
 body div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner > p {
-    float: left;
-    color: #000 !important;
-    text-shadow: none;
+  float: left;
+  color: #000 !important;
+  text-shadow: none;
+}
+
+body div#hs-eu-cookie-confirmation div#hs-eu-cookie-confirmation-inner p#hs-eu-policy-wording a#privacy-policy {
+  color: #4183c4 !important;
+}
+
+body div#hs-eu-cookie-confirmation:not([style]) ~ #leadinModal-790626 .leadinModal-content {
+  bottom: 50px;
 }

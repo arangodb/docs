@@ -8,24 +8,25 @@ redirect_from:
 Schema Validation
 =================
 
-<small>Introduced in: v3.7.0</small>
+<small>Introduced in: v3.7.1</small>
 
 While ArangoDB is schema-less, it allows to enforce certain document structures
 on collection level. The desired structure can be described in the popular
 [JSON Schema](https://json-schema.org/){:target="_blank"} format (draft-4,
 without remote schema support). The level of validation and a custom error
-message can be configured.
+message can be configured. The system attributes `_key`, `_id`, `_rev`, `_from`
+and `_to` are ignored by the validation.
 
 Also see [v3.7 Known Issues](release-notes-known-issues37.html#other)
 
-Enable validation for a collection
-----------------------------------
+Enable schema validation for a collection
+-----------------------------------------
 
 Schema validation can be managed via the JavaScript API, typically
 using _arangosh_, as well as via the HTTP interface.
 
-To enable schema validation either pass the `validation` property on collection
-creation or update the properties of an existing collection. It expects an
+To enable schema validation either pass the `schema` property on collection
+creation or when updating the properties of an existing collection. It expects an
 object with the following attributes: `rule`, `level` and `message`.
 
 - The `rule` attribute must contain the JSON Schema description.
@@ -33,7 +34,7 @@ object with the following attributes: `rule`, `level` and `message`.
 - `message` sets the message that will be used when validation fails.
 
 ```js
-var validation =
+var schema =
 { rule: { properties: { nums: { type: "array"
                               , items: { type: "number", maximum: 6 }
                               }
@@ -45,11 +46,11 @@ var validation =
 , message: "The document does not contain an array of numbers in attribute 'nums' or one of the numbers is bigger than 6."
 }
 
-// Create new collection with validation
-db.create("new_collection", { "validation": validation })
+// Create new collection with schema
+db.create("new_collection", { "schema": schema })
 
-// Update validation of existing collection
-db.existing_collection.properties({ "validation": validation })
+// Update schema of existing collection
+db.existing_collection.properties({ "schema": schema })
 ```
 
 JSON Schema Rule
@@ -93,3 +94,11 @@ The schema validation cannot pin-point which part of a rule made it fail,
 also see [Known Issues](release-notes-known-issues37.html). You may customize
 the error message via the `message` attribute to provide a summary of what is
 expected or point out common mistakes.
+
+Related AQL functions
+---------------------
+
+The following AQL functions are available to work with schemas:
+
+ - [SCHEMA_GET()](aql/functions-miscellaneous.html#schema_get)
+ - [SCHEMA_VALIDATE()](aql/functions-miscellaneous.html#schema_validate)

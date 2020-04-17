@@ -285,9 +285,12 @@ During view modification the following directives apply:
   This property controls how the view should keep track of the attribute values.
   Valid values are:
 
-  - **none**: Do not store values with the view.
+  - **none**: Do not store value meta data in the View.
   - **id**: Store information about value presence to allow use of the
     `EXISTS()` function.
+
+  Not to be confused with *storedValues*, which stores attribute values in the
+  View index.
 
 ### View Properties
 
@@ -301,6 +304,8 @@ During view modification the following directives apply:
 
 - **primarySortCompression** (_optional_; type: `string`; default: `lz4`; _immutable_)
 
+  <small>Introduced in: v3.7.1</small>
+
   Defines how to compress the primary sort data (introduced in v3.7.0).
   ArangoDB v3.5 and v3.6 always compress the index using LZ4.
 
@@ -309,12 +314,15 @@ During view modification the following directives apply:
 
 - **storedValues** (_optional_; type: `array`; default: `[]`; _immutable_)
 
+  <small>Introduced in: v3.7.1</small>
+
   An array of objects to describe which document attributes to store in the
   View index. It can then cover search queries, which means the data can be
-  taken from the index directly and accessing the storage engine can be avoided.
+  taken from the index directly and accessing the storage engine can be
+  avoided.
 
   Each object is expected in the form
-  `{ fields: [ "attr1", "attr2", ... "attrN" ], compression: "none" }`,
+  `{ "fields": [ "attr1", "attr2", ... "attrN" ], "compression": "none" }`,
   where the required `fields` attribute is an array of strings with one or more
   document attribute paths. The specified attributes are placed into a single
   column of the index. A column with all fields that are involved in common
@@ -322,6 +330,9 @@ During view modification the following directives apply:
   many unneeded fields however. The optional `compression` attribute defines
   the compression type used for the internal column-store, which can be `"lz4"`
   (LZ4 fast compression, default) or `"none"` (no compression).
+
+  Not to be confused with *storeValues*, which allows to store meta data
+  about attribute values in the View index.
 
 An inverted index is the heart of ArangoSearch Views.
 The index consists of several independent segments and the index **segment**

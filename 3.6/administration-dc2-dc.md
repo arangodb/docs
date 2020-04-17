@@ -5,11 +5,7 @@ title: Administrating DC2DC Replication
 ---
 # Datacenter to datacenter replication administration
 
-{% hint 'info' %}
-Datacenter to datacenter replication is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 This section includes information related to the administration of the _datacenter
 to datacenter replication_.

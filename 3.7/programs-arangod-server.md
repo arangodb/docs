@@ -206,10 +206,7 @@ reasons.
 
 <small>Introduced in: v3.7.0</small>
 
-{% hint 'info' %}
-Support for multiple secrets is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Support for multiple secrets" %}
 
 You may use multiple secrets, where the _active_ secret is used to sign new
 JWT tokens and all other _passive_ secrets are just used to validate incoming
@@ -226,10 +223,7 @@ to be accepted.
 
 <small>Introduced in: v3.7.0</small>
 
-{% hint 'info' %}
-Support for hot-reloading secrets is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Hot-reloading of secrets" %}
 
 JWT secrets can be reloaded from disk without restarting the server or the
 nodes of a cluster deployment. It is supported for both, single keyfiles

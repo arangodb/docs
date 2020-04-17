@@ -555,11 +555,7 @@ provided that their underlying collections are eligible too.
 OneShard
 --------
 
-{% hint 'info' %}
-This option is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="OneShard" %}
 
 Not all use cases require horizontal scalability. In such cases, a OneShard
 deployment offers a practicable solution that enables significant performance
