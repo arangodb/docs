@@ -156,9 +156,11 @@ $(document).ready(function scrollToAnchor() {
 
 $(document).ready(function handleNav() {
   $("div.book-summary nav a").click(function(event) {
-    if (event.target.href && (
-        event.target.href.startsWith("http://") ||
-        event.target.href.startsWith("https://"))) {
+    // get source code value, not the absolute URL from .href!
+    var hrefAttr = event.target.getAttribute("href");
+    if (hrefAttr && (
+        hrefAttr.startsWith("http://") ||
+        hrefAttr.startsWith("https://"))) {
       // let browser handle external link in navigation
       return
     }
