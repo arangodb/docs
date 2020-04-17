@@ -90,7 +90,7 @@ if err != nil {
 
 ## Connection Pooling
 
-The driver has a built-in connection pooling and the a connection limit
+The driver has a built-in connection pooling and the connection limit
 (`connLimit`) defaults to 32.
 
 ```go
