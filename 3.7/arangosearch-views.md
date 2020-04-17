@@ -322,7 +322,7 @@ During view modification the following directives apply:
   avoided.
 
   Each object is expected in the form
-  `{ fields: [ "attr1", "attr2", ... "attrN" ], compression: "none" }`,
+  `{ "fields": [ "attr1", "attr2", ... "attrN" ], "compression": "none" }`,
   where the required `fields` attribute is an array of strings with one or more
   document attribute paths. The specified attributes are placed into a single
   column of the index. A column with all fields that are involved in common
