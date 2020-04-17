@@ -95,15 +95,15 @@ FOR vertex[, edge[, path]]
     - "none" – no uniqueness check is applied on edges. **Note:**
       Using this configuration the traversal will follow edges in cycles.
   - **edgeCollections** (string\|array): Optionally restrict edge
-    collections the traversal may visit. If omitted, or an
-    empty array is specified, then there are no restrictions.
+    collections the traversal may visit (introduced in v3.7.0). If omitted,
+    or an empty array is specified, then there are no restrictions.
     - A string parameter is treated as the equivalent of an array with a single
       element.
     - Each element of the array should be a string containing the name of an
       edge collection.
   - **vertexCollections** (string\|array): Optionally restrict vertex
-    collections the traversal may visit. If omitted, or an empty array is
-    specified, then there are no restrictions.
+    collections the traversal may visit (introduced in v3.7.0). If omitted,
+    or an empty array is specified, then there are no restrictions.
     - A string parameter is treated as the equivalent of an array with a single
       element.
     - Each element of the array should be a string containing the name of a

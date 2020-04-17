@@ -319,6 +319,8 @@ Other functions
 
 ### IN_RANGE()
 
+<small>Introduced in: v3.7.0</small>
+
 `IN_RANGE(value, low, high, includeLow, includeHigh) → included`
 
 Returns true if *value* is greater than (or equal to) *low* and less than

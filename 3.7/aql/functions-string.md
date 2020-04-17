@@ -285,6 +285,8 @@ the [amount of documents](functions-miscellaneous.html#length) in a collection.
 LEVENSHTEIN_DISTANCE()
 ----------------------
 
+<small>Introduced in: v3.7.1</small>
+
 `LEVENSHTEIN_DISTANCE(value1, value2) → levenshteinDistance`
 
 Calculate the [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance){:target="_blank"}
