@@ -6,6 +6,8 @@ title: ArangoDB SatelliteGraphs
 SatelliteGraphs
 ===============
 
+<small>Introduced in: v3.7.0</small>
+
 {% hint 'info' %}
 SatelliteGraphs are only available in the
 [**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
