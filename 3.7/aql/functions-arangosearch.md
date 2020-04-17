@@ -618,7 +618,9 @@ FOR doc IN myView SEARCH PHRASE(doc.title,
 
 `STARTS_WITH(path, prefix)`
 
-Match the value of the attribute that starts with **prefix**. If the attribute
+`STARTS_WITH(path, prefixes, minMatchCount)`
+
+Match the value of the attribute that starts with **prefix** or one of **prefixes**. If the attribute
 is processed by a tokenizing Analyzer (type `"text"` or `"delimiter"`) or if it
 is an array, then a single token/element starting with the prefix is sufficient
 to match the document.
@@ -634,6 +636,9 @@ Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
 - **prefix** (string): a string to search at the start of the text
+- **prefixes** (array): an array of strings to search at the start of the text
+- **minMatchCount** (number, _optional_): minimum number of search prefixes that should
+  be satisfied. The default is `1`
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
@@ -653,6 +658,22 @@ attribute and processes it with the `"text_en"` Analyzer:
 ```js
 FOR doc IN viewName
   SEARCH ANALYZER(STARTS_WITH(doc.text, "ips"), "text_en")
+  RETURN doc.text
+```
+
+For `{ "text": "lorem ipsum" }` it is the same as the following:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(STARTS_WITH(doc.text, ["wrong", "ips"], 1), "text_en")
+  RETURN doc.text
+```
+
+Or the following:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(STARTS_WITH(doc.text, ["lo", "ips"], 2), "text_en")
   RETURN doc.text
 ```
 
