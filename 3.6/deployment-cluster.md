@@ -12,7 +12,8 @@ For a general introduction to the _ArangoDB Cluster_, please refer to the
 
 {% hint 'info %}
 ArangoDB is also available as
-[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/){:target="_blank"}.
+[cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
+Fire up your cluster in just a few clicks with the [14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 {% endhint %}
 
 - [Preliminary Information](deployment-cluster-preliminary-information.html)

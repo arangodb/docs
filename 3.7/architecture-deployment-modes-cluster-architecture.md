@@ -166,11 +166,7 @@ For further information, please refer to the
 OneShard
 --------
 
-{% hint 'info' %}
-The OneShard feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="The OneShard option" %}
 
 A OneShard deployment offers a practicable solution that enables significant
 performance improvements by massively reducing cluster-internal communication
@@ -677,6 +673,11 @@ starting all the needed instances, by using the tool
 
 See the [Cluster Deployment](deployment-cluster.html)
 chapter for instructions.
+
+ArangoDB is also available as
+[cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
+You can fire up your cluster in just a few clicks with the
+[14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 
 Cluster ID
 ----------

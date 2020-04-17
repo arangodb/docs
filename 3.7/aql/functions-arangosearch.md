@@ -486,20 +486,22 @@ enabled. The `PHRASE()` function will otherwise not find anything.
 
 Object tokens:
 
-- `{TERM: [token]}`: equal to `token` but without Analyzer tokenization.
-  Array brackets are optional
-- `{STARTS_WITH: [prefix]}`: see [STARTS_WITH()](#starts_with).
-  Array brackets are optional
-- `{WILDCARD: [token]}`: see [LIKE()](#like).
-  Array brackets are optional
+- `{IN_RANGE: [low, high, includeLow, includeHigh]}`:
+  see [IN_RANGE()](#in_range). *low* and *high* can only be strings.
 - `{LEVENSHTEIN_MATCH: [token, maxDistance, withTranspositions]}`:
   - `token` (string): a string to search
   - `maxDistance` (number): maximum Levenshtein / Damerau-Levenshtein distance
   - `withTranspositions` (bool, _optional_): whether Damerau-Levenshtein
     distance should be used. The default value is `false` (Levenshtein distance).
+- `{STARTS_WITH: [prefix]}`: see [STARTS_WITH()](#starts_with).
+  Array brackets are optional
+- `{TERM: [token]}`: equal to `token` but without Analyzer tokenization.
+  Array brackets are optional
 - `{TERMS: [token1, ..., tokenN]}`: one of `token1, ..., tokenN` can be found
   in specified position. Inside an array the object syntax can be replaced with
   the object field value, e.g., `[..., [token1, ..., tokenN], ...]`.
+- `{WILDCARD: [token]}`: see [LIKE()](#like).
+  Array brackets are optional
 
 An array token inside an array can be used in the `TERMS` case only.
 
@@ -581,14 +583,16 @@ It is the same as the following:
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
 ```
 
-Using object tokens `STARTS_WITH`, `WILDCARD`, `LEVENSHTEIN_MATCH` and `TERMS`:
+Using object tokens `STARTS_WITH`, `WILDCARD`, `LEVENSHTEIN_MATCH`, `TERMS` and
+`IN_RANGE`:
 
 ```js
 FOR doc IN myView SEARCH PHRASE(doc.title,
   {STARTS_WITH: ["qui"]}, 0,
   {WILDCARD: ["b%o_n"]}, 0,
   {LEVENSHTEIN_MATCH: ["foks", 2]}, 0,
-  {TERMS: ["jump", "run"]}, // Analyzer not applied!
+  {TERMS: ["jump", "run"]}, 0, // Analyzer not applied!
+  {IN_RANGE: ["over", "through", true, false]},
   "text_en") RETURN doc
 ```
 
@@ -605,7 +609,8 @@ FOR doc IN myView SEARCH PHRASE(doc.title,
   {STARTS_WITH: "qui"}, 0,
   {WILDCARD: "b%o_n"}, 0,
   {LEVENSHTEIN_MATCH: ["foks", 2]}, 0,
-  ["jumps", "runs"]
+  ["jumps", "runs"], 0, // Analyzer is applied using this syntax
+  {IN_RANGE: ["over", "through", true, false]}
 ], "text_en") RETURN doc
 ```
 
@@ -679,9 +684,42 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
+### LEVENSHTEIN_MATCH()
+
+`LEVENSHTEIN_MATCH(path, target, distance, transpositions)`
+
+Match documents with a [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance){:target=_"blank"}
+lower than or equal to *distance* between the stored attribute value and
+*target*. It can optionally take transpositions into account
+(Damerau-Levenshtein distance).
+
+See [LEVENSHTEIN_DISTANCE()](functions-string.html#levenshtein_distance)
+if you want to calculate the edit distance of two strings.
+
+- **path** (attribute path expression): the path of the attribute to compare
+  against in the document
+- **target** (string): the string to compare against the stored attribute
+- **distance** (number): the maximum edit distance, which can be between
+  `0` and `4` if *transpositions* is `false`, and between `0` and `3` if
+  it is `true`
+- **transpositions** (bool, _optional_): compute Damerau-Levenshtein distance
+  if set to `true`, otherwise Levenshtein distance will be computed (default)
+
+```js
+FOR doc IN viewName
+  SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 2) // matches "quick"
+  RETURN doc.text
+```
+
+```js
+FOR doc IN viewName
+  SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 1, true) // matches "quick"
+  RETURN doc.text
+```
+
 ### LIKE()
 
-`LIKE(path, search) → bool`
+`LIKE(path, search)`
 
 Check whether the pattern *search* is contained in the attribute denoted by *path*,
 using wildcard matching.

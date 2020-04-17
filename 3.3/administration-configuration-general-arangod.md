@@ -179,7 +179,7 @@ already running in this or another mode.
 `--random.generator arg`
 
 The argument is an integer (1,2,3 or 4) which sets the manner in which
-random numbers are generated. The default method (3) is to use the a
+random numbers are generated. The default method (3) is to use the
 non-blocking random (or pseudorandom) number generator supplied by the
 operating system.
 

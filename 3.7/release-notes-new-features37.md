@@ -30,6 +30,77 @@ FOR doc IN viewName
 
 See [ArangoSearch functions](aql/functions-arangosearch.html#like)
 
+### Covering Indexes
+
+It is possible to directly store the values of document attributes in View
+indexes now via a new View property `storedValues` (not to be confused with
+the existing `storeValues`).
+
+View indexes may fully cover `SEARCH` queries for improved performance.
+While late document materialization reduces the amount of fetched documents,
+this new optimization can avoid to access the storage engine entirely.
+
+```json
+{
+  "links": {
+    "articles": {
+      "fields": {
+        "categories": {}
+      }
+    }
+  },
+  "primarySort": [
+    { "field": "publishedAt", "direction": "desc" }
+  ],
+  "storedValues": [
+    { "fields": [ "title", "categories" ] }
+  ],
+  ...
+}
+```
+
+In above View definition, the document attribute *categories* is indexed for
+searching, *publishedAt* is used as primary sort order and *title* as well as
+*categories* are stored in the View using the new `storedValues` property.
+
+```js
+FOR doc IN articlesView
+  SEARCH doc.categories == "recipes"
+  SORT doc.publishedAt DESC
+  RETURN {
+    title: doc.title,
+    date: doc.publishedAt,
+    tags: doc.categories
+  }
+```
+
+The query searches for articles which contain a certain tag in the *categories*
+array and returns title, date and tags. All three values are stored in the View
+(`publishedAt` via `primarySort` and the two other via `storedValues`), thus
+no documents need to be fetched from the storage engine to answer the query.
+This is shown in the execution plan as a comment to the *EnumerateViewNode*:
+`/* view query without materialization */`
+
+```js
+Execution plan:
+ Id   NodeType            Est.   Comment
+  1   SingletonNode          1   * ROOT
+  2   EnumerateViewNode      1     - FOR doc IN articlesView SEARCH (doc.`categories` == "recipes") SORT doc.`publishedAt` DESC LET #1 = doc.`publishedAt` LET #7 = doc.`categories` LET #5 = doc.`title`   /* view query without materialization */
+  5   CalculationNode        1       - LET #3 = { "title" : #5, "date" : #1, "tags" : #7 }   /* simple expression */
+  6   ReturnNode             1       - RETURN #3
+
+Indexes used:
+ none
+
+Optimization rules applied:
+ Id   RuleName
+  1   move-calculations-up
+  2   move-calculations-up-2
+  3   handle-arangosearch-views
+```
+
+See [ArangoSearch Views](arangosearch-views.html#view-properties).
+
 ### Stemming support for more languages
 
 The Snowball library was updated to the latest version 2, adding stemming
@@ -71,6 +142,49 @@ db._query(`RETURN TOKENS("αυτοκινητουσ πρωταγωνιστούσ�
 
 Also see [Analyzers: Supported Languages](arangosearch-analyzers.html#supported-languages)
 
+### Condition Optimization Option
+
+The `SEARCH` operation in AQL accepts a new option `conditionOptimization` to
+give users control over the search criteria optimization:
+
+```js
+FOR doc IN myView
+  SEARCH doc.val > 10 AND doc.val > 5 /* more conditions */
+  OPTIONS { conditionOptimization: "none" }
+  RETURN doc
+```
+
+By default, all conditions get converted into disjunctive normal form (DNF).
+Numerous optimizations can be applied, like removing redundant or overlapping
+conditions (such as `doc.val > 10` which is included by `doc.val > 5`).
+However, converting to DNF and optimizing the conditions can take quite some
+time even for a low number of nested conditions which produce dozens of
+conjunctions / disjunctions. It can be faster to just search the index without
+optimizations.
+
+See [SEARCH operation](aql/operations-search.html#search-options).
+
+### Primary Sort Compression Option
+
+There is a new option `primarySortCompression` which can be set on View
+creation to disable the compression of the primary sort data:
+
+```json
+{
+  "primarySort": [
+    { "field": "date", "direction": "desc" },
+    { "field": "title", "direction": "asc" }
+  ],
+  "primarySortCompression": "none",
+  ...
+}
+```
+
+It defaults to LZ4 compression (`"lz4"`), which was already used in ArangoDB
+v3.5 and v3.6.
+
+See [ArangoSearch Views](arangosearch-views.html#view-properties).
+
 SatelliteGraphs
 ---------------
 
@@ -88,7 +202,7 @@ This includes (k-)shortest path(s) computation and possibly joins with
 traversals and greatly improves performance for such queries.
 
 SatelliteGraphs are only available in the Enterprise Edition and the
-[ArangoDB Cloud](https://cloud.arangodb.com/).
+[ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
 
 AQL
 ---
@@ -199,11 +313,16 @@ performance optimization.
 
 The following AQL functions have been added in ArangoDB 3.7:
 
-- [REPLACE_NTH()](aql/functions-array.html#replace_nth)
+- [IN_RANGE()](aql/functions-miscellaneous.html#in_range)
+  (now available outside of `SEARCH` operations)
+- [INTERLEAVE()](aql/functions-array.html#interleave)
 - [JACCARD()](aql/functions-array.html#jaccard)
-- LEVENSHTEIN_MATCH()
-- NGRAM_POSITIONAL_SIMILARITY()
-- NGRAM_SIMILARITY()
+- [LEVENSHTEIN_DISTANCE()](aql/functions-string.html#levenshtein_distance)
+- [LEVENSHTEIN_MATCH()](aql/functions-arangosearch.html#levenshtein_match)
+- [NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match)
+- [NGRAM_POSITIONAL_SIMILARITY()](aql/functions-string.html#ngram_positional_similarity)
+- [NGRAM_SIMILARITY()](aql/functions-string.html#ngram_similarity)
+- [REPLACE_NTH()](aql/functions-array.html#replace_nth)
 
 ### Syntax enhancements
 
@@ -295,7 +414,7 @@ ArangoDB now supports validating documents on collection level using
 JSON Schema (draft-4).
 
 In order to enforce a certain document structure in a collection we have
-introduced the `validation` collection property. It expects an object comprised
+introduced the `schema` collection property. It expects an object comprised
 of a `rule` (JSON Schema object), a `level` and a `message` that will be used
 when validation fails. When documents are validated is controlled by the
 validation level, which can be `none` (off), `new` (insert only), `moderate`
@@ -347,15 +466,27 @@ SHA-256 hash of the private key is returned.
 This allows [rotation of TLS keys and certificates](http/administration-and-monitoring.html#tls)
 without a server restart.
 
-### Insert-Update
+### Insert-Update and Insert-Ignore
 
 ArangoDB 3.7 adds an insert-update operation that is similar to the already
 existing insert-replace functionality. A new `overwriteMode` flag has been
 introduced to control the type of the overwrite operation in case of colliding
-keys during the insert.
+primary keys during the insert.
 
 In the case of `overwriteMode: "update"`, the parameters `keepNull` and
 `mergeObjects` can be provided to control the update operation.
+
+There is now also an insert-ignore operation that allows insert operations
+to do nothing in case of a primary key conflict. This operation is an efficient
+way of making sure a document with a specific primary key exists. If it does
+not exist already, it will be created as specified. Should the document exist
+already, nothing will happen and the insert will return without an error. No
+write operations happens in this case, and only a single primary key lookup 
+needs to be performed in the storage engine. 
+This makes the insert-ignore operation the most efficient way 
+existing insert-replace functionality. A new `overwriteMode` flag has been
+introduced to control the type of the overwrite operation in case of colliding
+primary keys during the insert.
 
 The query options are available in [AQL](aql/operations-insert.html#setting-query-options),
 the [JS API](data-modeling-documents-document-methods.html#insert--save) and
@@ -465,6 +596,24 @@ Metrics
 The amount of exported metrics has been extended and is now available in a
 format compatible with Prometheus. You can now easily scrape on `_admin/metrics`.
 See [here](http/administration-and-monitoring-metrics.html).
+
+MMFiles storage engine
+----------------------
+
+ArangoDB 3.7 does not contain the MMFiles storage engine anymore. In ArangoDB
+3.7, the only available storage engine is the RocksDB storage engine, which is
+the default storage engine in ArangoDB since version 3.4. The MMFiles storage
+engine had been deprecated since the release of ArangoDB 3.6.
+
+Any deployments that use the MMFiles storage engine will need to be migrated to
+the RocksDB storage engine using ArangoDB 3.6 (or earlier versions) in order to
+upgrade to ArangoDB 3.7.
+
+All storage engine selection functionality has also been removed from the
+ArangoDB package installers. The RocksDB storage engine will be selected
+automatically for any new deployments created with ArangoDB 3.7.
+
+This change simplifies the installation procedures and internal code paths.
 
 Internal changes
 ----------------

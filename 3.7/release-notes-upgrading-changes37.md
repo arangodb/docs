@@ -13,17 +13,28 @@ The following incompatible changes have been made in ArangoDB 3.7:
 MMFiles storage engine
 ----------------------
 
-This version of ArangoDB does not allow creating any new deployments with the
-MMFiles storage engine. All storage engine selection functionality has been removed
-from the ArangoDB package installers. The RocksDB storage engine will be selected
-for any new deployments created with ArangoDB 3.7.
-The RocksDB storage engine is the default storage engine since ArangoDB 3.4, and
-the MMFiles storage engine has been deprecated in ArangoDB 3.6.
+This version of ArangoDB does not contain the MMFiles storage engine anymore. In
+ArangoDB 3.7, the only available storage engine is the RocksDB storage engine,
+which is the default storage engine in ArangoDB since version 3.4. The MMFiles 
+storage engine had been deprecated since the release of ArangoDB 3.6.
 
-Deployments upgrading from ArangoDB 3.6 that are using the MMFiles storage engine 
-will still continue to work in ArangoDB 3.7. However, 3.7 will be the last ArangoDB
-version supporting the MMFiles storage engines, so users are asked to migrate to the
-RocksDB storage engine soon.
+Any deployments that use the MMFiles storage engine will need to migrate to the
+RocksDB storage engine using ArangoDB 3.6 (or earler versions) in order to upgrade 
+to ArangoDB 3.7.
+
+All storage engine selection functionality has also been removed from the ArangoDB 
+package installers. The RocksDB storage engine will be selected automatically for 
+any new deployments created with ArangoDB 3.7.
+
+A side effect of this change is that any MMFiles-specific startup options lose 
+their functionality in 3.7. This affects all startup options starting with `--wal.`,
+which could be used in earlier versions of ArangoDB to configure the write-ahead
+log of the MMFiles storage engine. Another option that is now non-functional is
+the MMFiles-specific `--database.journal-size` startup option, which previously
+controlled the size of journal files for the MMFiles engine. 
+Using these options in ArangoDB 3.7 is not an error, meaning that the server can 
+still be started if any of these options are specified. Nevertheless using these
+options does not have any effect.
 
 ArangoSearch
 ------------
@@ -35,10 +46,24 @@ and often replaced by `е` in informal writing. The original algorithm assumed i
 had already been mapped to `е` (`e`), but now it actively translates this character
 if the locale is set to Russian language.
 
-HTTP REST API
--------------
+UTF-8 validation
+----------------
 
-### HTTP REST API endpoints moved
+The ArangoDB server will now perform more strict UTF-8 string validation for
+incoming JSON and VelocyPack data. Attribute names or string attribute values
+with incorrectly encoded UTF-8 sequences will be rejected by default, and
+incoming requests containing such invalid data will be responded to with errors
+by default.
+
+In case an ArangoDB deployment already contains UTF-8 data from previous
+versions, this will be a breaking change. For this case, there is the startup
+option `--server.validate-utf8-strings` which can be set to `false` in order to
+ensure operability until any invalid UTF-8 string data has been fixed.
+
+HTTP RESTful API
+----------------
+
+### Endpoints moved
 
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
 naming consistency:
@@ -59,7 +84,7 @@ naming consistency:
 The above endpoints are part of ArangoDB's exposed REST API, however, they are
 not supposed to be called directly by drivers or client
 
-### HTTP REST API endpoints removed
+### Endpoints removed
 
 The REST API endpoint at `/_admin/aql/reload` has been removed in ArangoDB 3.7.
 There is no necessity to call this endpoint from a driver or a client application
