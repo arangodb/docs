@@ -5,6 +5,8 @@ description: Transactions in ArangoDB have been designed with particular use cas
 Limitations
 ===========
 
+<!-- TODO: Update for RocksDB -->
+
 In General
 ----------
 
@@ -120,7 +122,7 @@ It is guaranteed that successfully committed transactions are persistent. Using
 replication and / or *waitForSync* increases the durability (Just as with the single-server).
 
 RocksDB storage engine
----------------------------
+----------------------
 
 {% hint 'info' %}
 The following restrictions and limitations do not apply to JavaScript

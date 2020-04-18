@@ -5,7 +5,7 @@ description: This is an introduction to ArangoDB's interface for indexes in gene
 Handling Indexes
 ================
 
-This is an introduction to ArangoDB's interface for indexes in general.  
+This is an introduction to ArangoDB's interface for indexes in general.
 There are special sections for 
 
 - [Index Basics](indexing-index-basics.html): Introduction to all index types
@@ -13,8 +13,6 @@ There are special sections for
 - [Index Utilization](indexing-index-utilization.html): How ArangoDB uses indexes
 - [Working with Indexes](indexing-working-with-indexes.html): How to handle indexes
   programmatically using the `db` object
-  - [Hash Indexes](indexing-hash.html)
-  - [Skiplists](indexing-skiplist.html)
   - [Persistent Indexes](indexing-persistent.html)
   - [TTL Indexes](indexing-ttl.html)
   - [Fulltext Indexes](indexing-fulltext.html)

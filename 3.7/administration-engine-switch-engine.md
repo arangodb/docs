@@ -22,12 +22,4 @@ When the server is up and running with the desired storage engine, the data
 can be re-imported using the tool
 [_arangorestore_](programs-arangorestore.html).
 
-{% hint 'tip' %}
-For a list of available storage engines, and more information on their
-differences, please refer to the [Storage Engines](architecture-storage-engines.html)
-page under the [Architecture](architecture.html) chapter.
-
-The MMFiles storage engine is deprecated starting with version
-3.6.0 and it will be removed in a future release.
-We recommend to switch to RocksDB even before the removal of MMFiles.
-{% endhint %}
+Also see [Storage Engines](architecture-storage-engines.html).

@@ -58,16 +58,13 @@ Executes a server-side transaction, as specified by *object*.
 
 Additionally, *object* can have the following optional attributes:
 - *waitForSync*: boolean flag indicating whether the transaction
-  is forced to be synchronous.
+  is forced to be synchronous. <!-- TODO: obsolete? -->
 - *lockTimeout*: a numeric value that can be used to set a timeout for
   waiting on collection locks. If not specified, a default value will be
   used. Setting *lockTimeout* to *0* will make ArangoDB not time
-  out waiting for a lock.
+  out waiting for a lock. <!-- TODO: obsolete? -->
 - *params*: optional arguments passed to the function specified in
   *action*.
-
-The following attributes can be used for transactions in the RocksDB storage engine:
-
 - *maxTransactionSize*: transaction size limit in bytes
 
 Declaration of collections
@@ -166,7 +163,7 @@ access the collections declared in *collections*.
 *action* may be a Javascript function as shown above, or a string representation
 of a Javascript function:
 
-```
+```js
 db._executeTransaction({
   collections: {
     write: "users"
@@ -180,7 +177,7 @@ variables defined on the client-side or in some other server context from inside
 a transaction may not work.
 Instead, any variables used inside *action* should be defined inside *action* itself:
 
-```
+```js
 db._executeTransaction({
   collections: {
     write: "users"
