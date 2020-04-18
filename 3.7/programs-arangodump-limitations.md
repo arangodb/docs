@@ -22,5 +22,4 @@ _Arangodump_ has the following limitations:
   guaranteed that the dump includes all the data that has been previously
   written as _arangodump_ will only dump the data included in the _datafiles_
   but not the data that has not been transferred from the _WAL_ to the
-  _datafiles_. A WAL flush can be forced as documented in the
-  [WAL flush](appendix-java-script-modules-wal.html#flushing) section.
+  _datafiles_. A WAL flush can be forced however.

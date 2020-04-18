@@ -304,8 +304,6 @@ instance, or adjusted at runtime via an API call. Examples:
 
 - [Query cache configuration](aql/execution-and-performance-query-cache.html#global-configuration)
   via JavaScript API
-- [Change WAL settings](http/miscellaneous-functions.html#configures-the-write-ahead-log)
-  via an HTTP API request
 
 ## Fetch Current Configuration Options
 
