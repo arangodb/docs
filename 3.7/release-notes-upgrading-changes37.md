@@ -90,6 +90,22 @@ The REST API endpoint at `/_admin/aql/reload` has been removed in ArangoDB 3.7.
 There is no necessity to call this endpoint from a driver or a client application
 directly.
 
+The REST API endpoint at `/_api/collection/<collection>/rotate` has been removed 
+in ArangoDB 3.7. This endpoint was previously only available for the MMFiles
+storage engine, but not for the RocksDB storage engine.
+
+JavaScript API
+--------------
+
+The `rotate` function has been removed on the ArangoCollection object. This 
+means the following JavaScript code will not work in ArangoDB 3.7, neither in
+the ArangoShell nor in arangod (when using Foxx):
+```js
+db.<collection>.rotate();
+```
+The `rotate` function was previously only supported for the MMFiles storage 
+engine, but not for the RocksDB storage engine.
+
 DC2DC
 -----
 
