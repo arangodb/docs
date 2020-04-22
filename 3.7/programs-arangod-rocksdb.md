@@ -37,9 +37,13 @@ files). This option, together with the block cache size configuration option,
 can be used to limit memory usage. If set to 0, the memory usage is not limited.
 
 If set to a value larger than 0, this will cap memory usage for write buffers 
-but may have an effect on performance. If there is less than 4GiB of RAM on the 
-system, the default value is 512MiB. If there is more, the default is 
-`(system RAM size - 2GiB) * 0.5`.
+but may have an effect on performance. If there is more than 4GiB of RAM on the 
+system, the default value is `(system RAM size - 2GiB) * 0.5`.
+
+For systems with less RAM, the default values are:
+
+* 512MiB for systems with between 1 and 4GiB of RAM.
+* 256MiB for systems with less than 1GiB of RAM.
 
 `--rocksdb.min-write-buffer-number-to-merge`
 
@@ -167,8 +171,14 @@ Number of threads for low priority operations (e.g. compaction). Default: number
 `--rocksdb.block-cache-size`
 
 This is the maximum size of the block cache in bytes. Increasing this may improve
-performance. If there is less than 4GiB of RAM on the system, the default value
-is 256MiB. If there is more, the default is `(system RAM size - 2GiB) * 0.3`.
+performance. If there is more than 4GiB of RAM on the system, the default value
+is `(system RAM size - 2GiB) * 0.3`.
+
+For systems with less RAM, the default values are:
+
+* 512MiB for systems with between 2 and 4GiB of RAM.
+* 256MiB for systems with between 1 and 2GiB of RAM.
+* 128MiB for systems with less than 1GiB of RAM.
 
 `--rocksdb.enforce-block-cache-size-limit`
 
