@@ -42,8 +42,8 @@ system, the default value is `(system RAM size - 2GiB) * 0.5`.
 
 For systems with less RAM, the default values are:
 
-* 512MiB for systems with between 1 and 4GiB of RAM.
-* 256MiB for systems with less than 1GiB of RAM.
+- 512MiB for systems with between 1 and 4GiB of RAM.
+- 256MiB for systems with less than 1GiB of RAM.
 
 `--rocksdb.min-write-buffer-number-to-merge`
 
@@ -164,7 +164,8 @@ setting this equal to `max-background-flushes`. Default: number of processors / 
 
 `--rocksdb.num-threads-priority-low`
 
-Number of threads for low priority operations (e.g. compaction). Default: number of processors / 2.
+Number of threads for low priority operations (e.g. compaction).
+Default: number of processors / 2.
 
 ### Caching
 
@@ -176,9 +177,9 @@ is `(system RAM size - 2GiB) * 0.3`.
 
 For systems with less RAM, the default values are:
 
-* 512MiB for systems with between 2 and 4GiB of RAM.
-* 256MiB for systems with between 1 and 2GiB of RAM.
-* 128MiB for systems with less than 1GiB of RAM.
+- 512MiB for systems with between 2 and 4GiB of RAM.
+- 256MiB for systems with between 1 and 2GiB of RAM.
+- 128MiB for systems with less than 1GiB of RAM.
 
 `--rocksdb.enforce-block-cache-size-limit`
 
