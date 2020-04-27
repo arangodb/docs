@@ -728,11 +728,6 @@ The following optimizer rules may appear in the `rules` attribute of
   the query, and when the shard keys are covered by a single index (this is
   always true if the shard key is the default `_key`).
 
-- `scatter-arangosearch-view-in-cluster`:
-  will appear when scatter, gather, and remote nodes are inserted into a
-  distributed View query. This is not an optimization rule, and it cannot be
-  turned off.
-
 - `scatter-in-cluster`:
   will appear when scatter, gather, and remote nodes are inserted into a
   distributed query. This is not an optimization rule, and it cannot be
