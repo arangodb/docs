@@ -120,3 +120,24 @@ If you rely on Kafka, then you must use an ArangoSync 0.x version. ArangoDB
 v3.7 ships with ArangoSync 1.x, so be sure to keep the old binary or download
 a compatible version for your deployment. ArangoSync 1.x is otherwise
 compatible with ArangoDB v3.3 and above.
+
+Startup options
+---------------
+
+The default values for the startup options `--rocksdb.block-cache-size` and
+`--rocksdb.total-write-buffer-size` have been decreased for systems with less
+than 4GiB of RAM. The intention is to make arangod use less memory on very
+small systems.
+
+For systems with less than 4GiB of RAM, the default values for 
+`--rocksdb.block-cache-size` are now:
+
+- 512MiB for systems with between 2 and 4GiB of RAM.
+- 256MiB for systems with between 1 and 2GiB of RAM.
+- 128MiB for systems with less than 1GiB of RAM.
+
+For systems with less than 4GiB of RAM, the default values for 
+`--rocksdb.total-write-buffer-size` are now:
+
+- 512MiB for systems with between 1 and 4GiB of RAM.
+- 256MiB for systems with less than 1GiB of RAM.
