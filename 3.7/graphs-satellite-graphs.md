@@ -52,7 +52,16 @@ When to use SatelliteGraphs?
 
 While General Graphs are available in all Editions, the Enterprise Edition
 offers two more _named graph_ types to achieve single-server alike query
-execution times for graph queries in cluster deployments:
+execution times for graph queries in cluster deployments.
+
+- **General Graphs**:
+  The underlying collections of managed graphs can be sharded to distribute the
+  data across multiple DB-Servers. However, General Graphs do not enforce or
+  maintain special sharding properties of the collections. The document
+  distribution is arbitrary and data locality tends to be low. On the positive
+  side, it is possible to combine arbitrary sets of existing collections.
+  If the graph data is on a single shard, then graph queries can be executed
+  locally, but the results still need to be communicated to other nodes.
 
 - **SmartGraphs**:
   Shard the data based on an attribute value, so that documents with the same
