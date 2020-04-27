@@ -502,7 +502,7 @@ probably don't want the server to detect and use all available memory.
 An environment variable `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` can now be
 set to restrict the amount of memory it will detect (also available in v3.6.3).
 
-An environment variable `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES can be
+An environment variable `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` can be
 set to restrict the number of CPU cores that are visible to arangod.
 
 See [ArangoDB Server Environment Variables](programs-arangod-env-vars.html)
