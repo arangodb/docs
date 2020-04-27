@@ -30,9 +30,9 @@ concept to graphs. The same benefits and caveats apply.
 Why use a SatelliteGraph?
 -------------------------
 
-When doing joins involving graph traversals, shortest path or k-shortest paths
-computations in an ArangoDB cluster, data has to be exchanged between different
-cluster nodes. In particular graph traversals are usually executed on a
+When doing queries in an ArangoDB cluster, data has to be exchanged between
+different cluster nodes if the data is sharded and therefore residing
+on multiple nodes. In particular graph traversals are usually executed on a
 Coordinator, because they need global information. This results in a lot of
 network traffic and potentially slow query execution.
 
@@ -43,10 +43,9 @@ information from that large collection. You would do this by traversing the
 graph to figure out the permissions and then join it with the large collection.
 With SatelliteGraphs, the entire permissions graph is available on all
 DB-Servers. Thus, traversals can be executed locally. A traversal can even be
-executed on multiple DB-Servers in parallel and independently, so that the
-traversal results are then available locally on every node, which means that
-the subsequent join operation can also be executed without talking to other
-DB-Servers.
+executed on multiple DB-Servers independently, so that the traversal results
+are then available locally on every node, which means that the subsequent join
+operation can also be executed without talking to other DB-Servers.
 
 When to use SatelliteGraphs?
 ----------------------------
