@@ -11,6 +11,17 @@ SatelliteGraphs. The examples use _arangosh_ and the
 `@arangodb/satellite-graph` module. You can also manage SatelliteGraphs via
 the [HTTP API](http/gharial.html).
 
+
+SatelliteGraphs enforce and rely on special properties of the underlying
+collections and hence can only work with collections that are created through
+the SatelliteGraph itself or manually created collections which perfectly fit
+to the [rules](graphs-satellite-graphs-details.html#the-initial-collection)
+of a SatelliteGraph collection. This means that in comparison to SmartGraphs,
+SatelliteGraphs can be overlapping. A collection can exist in one SatelliteGraph
+and also in another as well. If you have a larger SatelliteGraph and want to
+create an additional SatelliteGraph, which only covers a part of it, you can do
+that.
+
 How to create a SatelliteGraph
 ------------------------------
 
