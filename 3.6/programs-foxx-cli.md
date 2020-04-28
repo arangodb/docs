@@ -12,3 +12,7 @@ can be installed via the package managers NPM and Yarn.
 It is the successor of `foxx-manager`, which is deprecated and will be
 removed eventually. Also see [Foxx Deployment](foxx-deployment.html)
 for additional deployment options.
+
+_foxx-cli_ relies on the [Foxx HTTP API](http/foxx.html).
+
+Repository: <https://github.com/arangodb/foxx-cli/>
