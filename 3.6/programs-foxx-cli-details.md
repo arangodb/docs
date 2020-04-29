@@ -79,7 +79,7 @@ foxx install /hello-foxx # installs the current directory
 
 You should then be able to view the installed service in your browser at the following URL:
 
-<http://localhost:8529/_db/_system/hello-foxx>
+<http://localhost:8529/_db/_system/hello-foxx>{:target="_blank"}
 
 If you continue to work on your Foxx service and want to upgrade the installed
 version with your local changes use the `upgrade` command to do so.

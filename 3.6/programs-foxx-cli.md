@@ -2,7 +2,6 @@
 layout: default
 description: Foxx CLI is command line tool for managing and developing ArangoDBFoxx services
 ---
-
 # Foxx CLI
 
 Foxx CLI is command line tool for managing and developing ArangoDB
@@ -15,4 +14,4 @@ for additional deployment options.
 
 _foxx-cli_ relies on the [Foxx HTTP API](http/foxx.html).
 
-Repository: <https://github.com/arangodb/foxx-cli/>
+Repository: <https://github.com/arangodb/foxx-cli/>{:target="_blank"}
