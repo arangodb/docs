@@ -6,118 +6,82 @@ title: ArangoDB SatelliteGraphs
 SatelliteGraphs
 ===============
 
+<small>Introduced in: v3.7.0</small>
+
 {% include hint-ee-oasis.md feature="SatelliteGraphs" plural=true %}
 
-SatelliteGraphs are the natural extension of the concept of
-[Satellite collections](satellites.html) to graphs. All of the usual benefits
-and caveats apply.
+What is a SatelliteGraph?
+-------------------------
 
-When doing queries involving graph traversals, shortest path, or k-shortest
-paths computations in an ArangoDB cluster, data has to be exchanged between
-different servers. In particular graph traversals are usually executed on a
+_SatelliteGraphs_ are a specialized _named graph_ type available for cluster
+deployments. Their underlying collections are synchronously replicated to all
+DB-Servers that are part of the cluster, which enables DB-Servers to execute
+graph traversals locally. This includes shortest path and k-shortest paths
+computations, and possibly even joins with traversals. They greatly improve
+the performance of such queries.
+
+They are the natural extension of the [SatelliteCollections](satellites.html)
+concept to graphs. The same benefits and caveats apply.
+
+Why use a SatelliteGraph?
+-------------------------
+
+When doing queries in an ArangoDB cluster, data has to be exchanged between
+different cluster nodes if the data is sharded and therefore residing
+on multiple nodes. In particular graph traversals are usually executed on a
 Coordinator, because they need global information. This results in a lot of
-network traffic and slow query execution.
+network traffic and potentially slow query execution.
 
-SatelliteGraphs are synchronously replicated to all DB-Servers that are part
-of a cluster, which enables DB-Servers to execute graph traversals, shortest
-path, and k-shortest paths computations locally. This greatly improves
-performance for such queries.
+Take a permission management use case for example, where you have a permissions
+graph as well as a large, sharded collection of documents. You probably want to
+determine quickly if a user, group or device has permission to access certain
+information from that large collection. You would do this by traversing the
+graph to figure out the permissions and then join it with the large collection.
+With SatelliteGraphs, the entire permissions graph is available on all
+DB-Servers. Thus, traversals can be executed locally. A traversal can even be
+executed on multiple DB-Servers independently, so that the traversal results
+are then available locally on every node, which means that the subsequent join
+operation can also be executed without talking to other DB-Servers.
 
-To create a SatelliteGraph in arangosh, use the `satelliteGraph` module:
+When to use SatelliteGraphs?
+----------------------------
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline satelliteGraphCreate1_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphCreate1_cluster}
-    var satelliteGraphModule = require("@arangodb/satellite-graph");
-    var graph = satelliteGraphModule._create("satelliteGraph", [], [], {});
-    satelliteGraphModule._graph("satelliteGraph");
-    ~satelliteGraphModule._drop("satelliteGraph", true);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock satelliteGraphCreate1_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+While General Graphs are available in all Editions, the Enterprise Edition
+offers two more _named graph_ types to achieve single-server alike query
+execution times for graph queries in cluster deployments.
 
-You can also add vertex and edge collections to a SatelliteGraph manually.
-To achieve this, create them with `replicationFactor` set to `satellite`, and
-`distributeShardsLike` to the prototype vertex collection of the graph, i.e.
-the first vertex collection.
+- **General Graphs**:
+  The underlying collections of managed graphs can be sharded to distribute the
+  data across multiple DB-Servers. However, General Graphs do not enforce or
+  maintain special sharding properties of the collections. The document
+  distribution is arbitrary and data locality tends to be low. On the positive
+  side, it is possible to combine arbitrary sets of existing collections.
+  If the graph data is on a single shard, then graph queries can be executed
+  locally, but the results still need to be communicated to other nodes.
 
-A full example
---------------
+- **SmartGraphs**:
+  Shard the data based on an attribute value, so that documents with the same
+  value are stored on the same DB-Server. This can improve data locality and
+  reduce the number of network hops between cluster nodes depending on the
+  graph layout and traversal query. It is suitable for large scale graphs,
+  because the graph data gets sharded to distribute it across multiple
+  DB-Servers. Use SmartGraphs instead of General Graphs whenever possible for
+  a performance boost.
 
-First we setup our graphs and collections.
+- **SatelliteGraph**:
+  Make the entire graph available on all DB-Servers using synchronous
+  replication. All vertices and edges will be available on every node for
+  maximum data locality. No network hops are required to traverse the graph.
+  The graph data must fit on each node, therefore it will typically be a small
+  to medium sized graph. The performance will be the highest if you are not
+  permanently updating the graph's structure and content because every change
+  needs to be replicated to all other DB-Servers.
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline satelliteGraphExplain1_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain1_cluster}
-    var graphModule = require("@arangodb/general-graph");
-    var satelliteGraphModule = require("@arangodb/satellite-graph");
-    graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
-    satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {});
-    db._create("collection", {numberOfShards: 8});
-    ~db._drop("collection");
-    ~satelliteGraphModule._drop("satelliteGraph", true);
-    ~graphModule._drop("normalGraph", true);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock satelliteGraphExplain1_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+With SmartGraphs, the performance of writes into the affected graph collections
+will become slower due the fact that the graph data is replicated to the
+participating DB-Servers. Also, as writes are performed on every DB-Server, it
+will allocate more storage distributed around the whole cluster environment.
 
-Let us analyze a query involving a traversal:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline satelliteGraphExplain2_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain2_cluster}
-    ~var graphModule = require("@arangodb/general-graph");
-    ~var satelliteGraphModule = require("@arangodb/satellite-graph");
-    ~graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
-    ~satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {});
-    ~db._create("collection", {numberOfShards: 8});
-    db._explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "normalGraph" RETURN [doc,v,e,p]`, {}, {colors: false});
-    ~db._drop("collection");
-    ~satelliteGraphModule._drop("satelliteGraph", true);
-    ~graphModule._drop("normalGraph", true);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock satelliteGraphExplain2_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-You can see that the `TraversalNode` is executed on a Coordinator, and only
-the `EnumerateCollectionNode` is executed on DB-Server. This will happen for
-each of the 8 shards in `collection`.
-
-Let us now have a look at the same query using a SatelliteGraph:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline satelliteGraphExplain3_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{satelliteGraphExplain3_cluster}
-    ~var graphModule = require("@arangodb/general-graph");
-    ~var satelliteGraphModule = require("@arangodb/satellite-graph");
-    ~graphModule._create("normalGraph", [ graphModule._relation("edges", "vertices", "vertices") ], [], {});
-    ~satelliteGraphModule._create("satelliteGraph", [ satelliteGraphModule._relation("satEdges", "satVertices", "satVertices") ], [], {});
-    ~db._create("collection", {numberOfShards: 8});
-    db._explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "satelliteGraph" RETURN [doc,v,e,p]`, {}, {colors: false});
-    ~db._drop("collection");
-    ~satelliteGraphModule._drop("satelliteGraph", true);
-    ~graphModule._drop("normalGraph", true);
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock satelliteGraphExplain3_cluster
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-Note that now the `TraversalNode` is executed on each DB-Server, leading to a
-great reduction in required network communication, and hence potential gains
-in query performance.
-
-Caveats
--------
-
-The cluster will automatically distribute all SatelliteGraphs to all
-DB-Servers, and apply synchronous replication. This means that writes are
-executed on the leader only, and then have to be replicated to all followers,
-leading to degradation in write performance.
-
-There is also a chance that a write has not been replicated in time before a
-query is instantiated, leading to different DB-Servers seeing inconsistent
-states of SatelliteGraphs involved. This leads to inconsistent query results
-depending on which DB-Server a query snippet is executed on.
+If you want to distribute a very large graph and you don't want to replicate
+all graph data to all DB-Servers that are part of your cluster, then you should
+consider [SmartGraphs](graphs-smart-graphs.html) instead.
