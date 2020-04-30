@@ -536,7 +536,7 @@
       "agent",
       "single"
     ],
-    "default" : 33252956160,
+    "default" : 33252958208,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -4873,7 +4873,7 @@
       "agent",
       "single"
     ],
-    "default" : 39903547392,
+    "default" : 39903549849,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -5747,6 +5747,56 @@
     "section" : "rocksdb",
     "type" : "uint64"
   },
+  "rocksdb.target-file-size-base" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 67108864,
+    "deprecatedIn" : null,
+    "description" : "per-file target file size for compaction (in bytes). the actual target file size for each level is `--rocksdb.target-file-size-base` multiplied by `--rocksdb.target-file-size-multiplier` ^ (level - 1)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.target-file-size-multiplier" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 1,
+    "deprecatedIn" : null,
+    "description" : "multiplier for `--rocksdb.target-file-size`, a value of 1 means that files in different levels will have the same size",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
   "rocksdb.throttle" : {
     "category" : "option",
     "component" : [
@@ -5780,7 +5830,7 @@
       "agent",
       "single"
     ],
-    "default" : 53204729856,
+    "default" : 53204733132,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,

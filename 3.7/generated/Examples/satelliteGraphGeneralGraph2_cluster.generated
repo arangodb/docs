@@ -7,7 +7,7 @@ Execution plan:
   1   SingletonNode             DBS      1   * ROOT
   2   EnumerateCollectionNode   DBS      0     - FOR doc IN collection   /* full collection scan, 8 shard(s) */
   8   RemoteNode                COOR     0       - REMOTE
-  9   GatherNode                COOR     0       - GATHER 
+  9   GatherNode                COOR     0       - GATHER   /* unsorted */
   3   TraversalNode             COOR     1       - FOR v  /* vertex */, e  /* edge */, p  /* paths */ IN 1..1  /* min..maxPathDepth */ OUTBOUND 'vertices/start' /* startnode */  GRAPH 'normalGraph'
   4   CalculationNode           COOR     1         - LET #6 = [ doc, v, e, p ]   /* simple expression */   /* collections used: doc : collection */
   5   ReturnNode                COOR     1         - RETURN #6

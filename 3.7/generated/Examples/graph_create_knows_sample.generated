@@ -5,74 +5,74 @@ arangosh&gt; db.persons.toArray()
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aWoxNcC---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aankcEa---"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aWoxNcG---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aankcEe---"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"charlie"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/charlie"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aWoxNcK---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aankcEi---"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"Charlie"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"dave"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/dave"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aWoxNcO---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aankcEm---"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"Dave"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"eve"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/eve"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aWoxNcO--_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aankcEq---"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"Eve"</span> 
   } 
 ]
 arangosh&gt; db.knows.toArray();
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88727"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/88727"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"90530"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/90530"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/alice"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/bob"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aWoxNcS---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aankcEu---"</span>, 
     <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88729"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/88729"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"90532"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/90532"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/bob"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/charlie"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aWoxNcW---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aankcEu--_"</span>, 
     <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"bob"</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88731"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/88731"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"90534"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/90534"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/bob"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/dave"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aWoxNca---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aankcEy---"</span>, 
     <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"bob"</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88733"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/88733"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"90536"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/90536"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/eve"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/alice"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aWoxNca--_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aankcE2---"</span>, 
     <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"eve"</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"88735"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/88735"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"90538"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/90538"</span>, 
     <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/eve"</span>, 
     <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/bob"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aWoxNce---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aankcE6---"</span>, 
     <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"eve"</span> 
   } 
 ]
