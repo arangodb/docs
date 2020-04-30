@@ -167,6 +167,38 @@ RETURN FLATTEN( [ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ] ], 2 )
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+## INTERLEAVE()
+
+<small>Introduced in: v3.7.1</small>
+
+`INTERLEAVE(array1, array2, ... arrayN) → newArray`
+
+Interleave the elements of all input arrays and return a new array.
+
+- **arrays** (array, *repeatable*): an arbitrary number of arrays as multiple
+  arguments (at least 2)
+- returns **newArray** (array): the interleaved array
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayInterleave_1
+@EXAMPLE_AQL{aqlArrayInterleave_1}
+RETURN INTERLEAVE( [1, 1, 1], [2, 2, 2], [3, 3, 3] )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayInterleave_1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayInterleave_2
+@EXAMPLE_AQL{aqlArrayInterleave_2}
+RETURN INTERLEAVE( [ 1 ], [2, 2], [3, 3, 3] )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayInterleave_2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## INTERSECTION()
 
 `INTERSECTION(array1, array2, ... arrayN) → newArray`
@@ -200,6 +232,65 @@ RETURN INTERSECTION( [1,2,3,4,5], [2,3,4,5,6], [3,4,5,6,7] )
 RETURN INTERSECTION( [2,4,6], [8,10,12], [14,16,18] )
 @END_EXAMPLE_AQL
 @endDocuBlock aqlArrayIntersection_2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+## JACCARD()
+
+<small>Introduced in: v3.7.0</small>
+
+`JACCARD(array1, array2) → jaccardIndex`
+
+Calculate the [Jaccard index](https://en.wikipedia.org/wiki/Jaccard_index){:target="_blank"}
+of two arrays.
+
+This similarity measure is also known as _Intersection over Union_ and could
+be computed (less efficient and more verbose) as follows:
+
+```js
+COUNT(a) == 0 && COUNT(b) == 0
+? 1 // two empty sets have a similarity of 1 by definition
+: COUNT(INTERSECTION(array1, array2)) / COUNT(UNION_DISTINCT(array1, array2))
+```
+
+- **array1** (array): array with elements of arbitrary type
+- **array2** (array): array with elements of arbitrary type
+- returns **jaccardIndex** (number): calculated Jaccard index of the input
+  arrays *array1* and *array2*
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayJaccard_1
+@EXAMPLE_AQL{aqlArrayJaccard_1}
+RETURN JACCARD( [1,2,3,4], [3,4,5,6] )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayJaccard_1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayJaccard_2
+@EXAMPLE_AQL{aqlArrayJaccard_2}
+RETURN JACCARD( [1,1,2,2,2,3], [2,2,3,4] )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayJaccard_2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayJaccard_3
+@EXAMPLE_AQL{aqlArrayJaccard_3}
+RETURN JACCARD( [1,2,3], [] )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayJaccard_3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayJaccard_4
+@EXAMPLE_AQL{aqlArrayJaccard_4}
+RETURN JACCARD( [], [] )
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayJaccard_4
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -801,7 +892,7 @@ RETURN SLICE( [ 1, 2, 3, 4, 5 ], -3, 2 )
 
 `SORTED(anyArray) → newArray`
 
-Sort all elements in *anyArray*. The function will use the default comparison 
+Sort all elements in *anyArray*. The function will use the default comparison
 order for AQL value types.
 
 - **anyArray** (array): array with elements of arbitrary type
@@ -822,7 +913,7 @@ RETURN SORTED( [ 8,4,2,10,6 ] )
 
 `SORTED_UNIQUE(anyArray) → newArray`
 
-Sort all elements in *anyArray*. The function will use the default comparison 
+Sort all elements in *anyArray*. The function will use the default comparison
 order for AQL value types. Additionally, the values in the result array will
 be made unique.
 

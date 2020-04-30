@@ -314,6 +314,49 @@ CALL( "SUBSTRING", "this is a test", 0, 4 )
 // "this"
 ```
 
+Other functions
+---------------
+
+### IN_RANGE()
+
+<small>Introduced in: v3.7.0</small>
+
+`IN_RANGE(value, low, high, includeLow, includeHigh) → included`
+
+Returns true if *value* is greater than (or equal to) *low* and less than
+(or equal to) *high*. The values can be of different types. They are compared
+as described in [Type and value order](fundamentals-type-value-order.html) and
+is thus identical to the comparison operators `<`, `<=`, `>` and `>=` in
+behavior.
+
+- **value** (any): an element of arbitrary type
+- **low** (any): minimum value of the desired range
+- **high** (any): maximum value of the desired range
+- **includeLow** (bool): whether the minimum value shall be included in
+  the range (left-closed interval) or not (left-open interval)
+- **includeHigh** (bool): whether the maximum value shall be included in
+  the range (right-closed interval) or not (right-open interval)
+- returns **included** (bool): whether *value* is in the range
+
+If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
+to `false`, then nothing will match. If *low* is greater than *high* nothing will
+match either.
+
+```js
+LET value = 4
+RETURN IN_RANGE(value, 3, 5, true, true)
+// same as:
+//RETURN value >= 3 AND value <= 5
+```
+
+```js
+FOR doc IN coll
+  FILTER IN_RANGE(doc.text,"fo", "g", true, false) // values with prefix "fo"
+  // same as:
+  //FILTER doc.text >= "fo" AND doc.text < "g"
+  RETURN doc
+```
+
 Internal functions
 ------------------
 
@@ -369,6 +412,33 @@ explicitly, it is mainly used for internal testing.
 
 - **value** (any): a value of arbitrary type
 - returns **retVal** (any): *value*
+
+### SCHEMA_GET()
+
+`SCHEMA_GET(collection) → schema`
+
+Return the schema definition as defined in the properties of the
+specified collection.
+
+- **collection** (string): name of a collection
+- returns **schema** (object): schema definition object
+
+```js
+RETURN SCHEMA_GET("myColl")
+```
+
+### SCHEMA_VALIDATE()
+
+`SCHEMA_VALIDATE(doc, schema) → result`
+
+Test if the given document is valid according to the schema definition.
+
+- **doc** (doc): document
+- **schema** (object): schema definition object
+- returns **result** (object): an object with the following attributes:
+  - **valid** (bool): `true` if the document fulfills the schema's requirements,
+    otherwise it will be `false` and *errorMessage* will be set
+  - **errorMessage** (string): details about the validation failure
 
 ### SLEEP()
 

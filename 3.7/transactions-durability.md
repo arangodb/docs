@@ -8,19 +8,18 @@ Durability
 Transactions are executed until there is either a rollback
 or a commit. On rollback the operations from the transaction will be reversed.
 
-On commit, all modifications done in the transaction will be written to the 
-collection datafiles. These writes will be synchronized to disk if any of the
-modified collections has the *waitForSync* property set to *true*, or if any
-individual operation in the transaction was executed with the *waitForSync* 
-attribute. 
-Additionally, transactions that modify data in more than one collection are
-automatically synchronized to disk. This synchronization is done to not only
-ensure durability, but to also ensure consistency in case of a server crash.
+The RocksDB storage engine applies operations of a transaction in main memory
+only until they are committed. In case of an a rollback the entire transaction
+is just cleared, no extra rollback steps are required.
 
-That means if you only modify data in a single collection, and that collection 
-has its *waitForSync* property set to *false*, the whole transaction will not 
-be synchronized to disk instantly, but with a small delay.
+<!-- TODO: point out data loss (query accepted by server, but will be lost) -->
+<!-- TODO: intermediate commits?! -->
 
+In the event of a server-crash the storage engine will scan the write-ahead log
+to restore certain meta-data like the number of documents in collection 
+or the selectivity estimates of secondary indexes.
+
+<!-- TODO: obsolete?
 There is thus the potential risk of losing data between the commit of the 
 transaction and the actual (delayed) disk synchronization. This is the same as 
 writing into collections that have the *waitForSync* property set to *false*
@@ -62,28 +61,4 @@ will only return after the data of all modified collections has been synchronize
 to disk and the transaction has been made fully durable. This not only reduces the
 risk of losing data in case of a crash but also ensures consistency after a
 restart.
-
-MMFiles Storage Engine
-----------------------
-
-The MMFiles storage engine continuously writes the transaction operation into 
-a journal file on the disk (Journal is sometimes also referred to as write-ahead-log).
-
-This means that the commit operation can be very fast because the engine only needs
-to write the *commit* marker into the journal (and perform a disk-sync if 
-*waitForSync* was set to *true*). This also means that failed or aborted
-transactions need to be rolled back by reversing every single operation.
-
-In case of a server crash, any multi-collection transactions that were not yet 
-committed or in preparation to be committed will be rolled back on server restart.
-
-RocksDB Storage Engine
-----------------------
-
-The RocksDB Storage Engine applies operations in a transaction only in main memory
-until they are committed. In case of an a rollback the entire transaction is just 
-cleared, no extra rollback steps are required.
-
-In the event of a server-crash the storage engine will scan the write-ahead log
-to restore certain meta-data like the number of documents in collection 
-or the selectivity estimates of secondary indexes.
+-->

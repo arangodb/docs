@@ -1,36 +1,33 @@
 ---
 layout: default
-description: ArangoDB supports two storage engines, MMFiles and RocksDB.
+description: At the very bottom of the ArangoDB database system lies the RocksDB storage engine
 title: ArangoDB Storage Engines
 ---
 # Storage Engines
 
 {% hint 'warning' %}
-The MMFiles storage engine is deprecated starting with version
-3.6.0 and it will be removed in a future release.
+The MMFiles storage engine was removed.
 To change your MMFiles storage engine deployment to RocksDB, see:
 [Switch storage engine](administration-engine-switch-engine.html)
 {% endhint %}
 
-At the very bottom of the ArangoDB database lies the storage
+At the very bottom of the ArangoDB database system lies the storage
 engine. The storage engine is responsible for persisting the documents
 on disk, holding copies in memory, providing indexes and caches to
 speed up queries.
 
 Up to version 3.1 ArangoDB only supported memory-mapped files (**MMFiles**)
-as sole storage engine. Beginning with 3.2 ArangoDB has support for
-pluggable storage engines. The default storage engine is **RocksDB** from
-Facebook.
+as sole storage engine. In version 3.2, ArangoDB gained support for pluggable
+storage engines and a second engine based on Facebook's **RocksDB** was added.
+MMFiles remained the default engine for 3.3, but in 3.4 RocksDB became the new
+default. MMFiles was deprecated in version 3.6.0 and removed in 3.7.0.
 
-Up to including versions 3.3, MMFiles was the default storage engine in
-ArangoDB. Since version 3.4, the default storage engine is RocksDB.
-From version 3.6.0 onwards the MMFiles storage engine is deprecated and will be
-in a future release.
-
+<!-- TODO: remove?
 The engine must be selected for the whole server / cluster. It is not
 possible to mix engines. The transaction handling and write-ahead-log
 format in the individual engines is very different and therefore cannot
 be mixed.
+-->
 
 {% hint 'tip' %}
 For practical information on how to switch storage engine please refer to the
@@ -40,7 +37,7 @@ page.
 
 | MMFiles | RocksDB |
 |---------|---------|
-| deprecated | default |
+| removed | default |
 | dataset needs to fit into memory | work with as much data as fits on disk |
 | indexes in memory | hot set in memory, data and indexes on disk |
 | slow restart due to index rebuilding | fast startup (no rebuilding of indexes) |
@@ -51,20 +48,13 @@ page.
 
 ## MMFiles
 
-The MMFiles (Memory-Mapped Files) engine is optimized for the use-case where
-the data fits into the main memory. It allows for very fast concurrent
-reads. However, writes block reads and locking is on collection
+The MMFiles (Memory-Mapped Files) engine was optimized for the use-case where
+the data fit into the main memory. It allowed for very fast concurrent
+reads. However, writes blocked reads and locking was on collection
 level.
 
-Indexes are always in memory and are rebuilt on startup. This
-gives better performance but imposes a longer startup time.
-
-{% hint 'warning' %}
-The MMFiles storage engine is deprecated starting with version
-3.6.0 and it will be removed in a future release.
-To change your MMFiles storage engine deployment to RocksDB, see:
-[Switch storage engine](administration-engine-switch-engine.html)
-{% endhint %}
+Indexes were always in memory and rebuilt on startup. This
+gave better performance but imposed a longer startup time.
 
 ## RocksDB
 
@@ -97,7 +87,7 @@ will avoid write conflicts but also inhibits concurrent writes.
 
 Currently, another restriction is due to the transaction handling in
 RocksDB. Transactions are limited in total size. If you have a statement
-modifying a lot of documents it is necessary to commit data inbetween. This will
+modifying a lot of documents it is necessary to commit data in-between. This will
 be done automatically for AQL by default. Transactions that get too big (in terms of
 number of operations involved or the total size of data modified by the transaction)
 will be committed automatically. Effectively this means that big user transactions
@@ -187,7 +177,7 @@ L0 will hold at most B bytes.
     --rocksdb.max-bytes-for-level-multiplier M
 
 Each level is at most M times as much bytes as the previous
-one. Therefore the maximum number of bytes forlevel L can be
+one. Therefore the maximum number of bytes-for-level L can be
 calculated as
 
     max-bytes-for-level-base * (max-bytes-for-level-multiplier ^ (L-1))

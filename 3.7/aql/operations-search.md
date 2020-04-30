@@ -305,6 +305,12 @@ The `SEARCH` operation accepts an options object with the following attributes:
 
 - `collections` (array, _optional_): array of strings with collection names to
   restrict the search to certain source collections
+- `conditionOptimization` (string, _optional_): controls how search criteria
+  get optimized (introduced in v3.7.0). Possible values:
+  - `"auto"` (default): convert conditions to disjunctive normal form (DNF) and
+    apply optimizations. Removes redundant or overlapping conditions, but can
+    take quite some time even for a low number of nested conditions.
+  - `"none"`: search the index without optimizing the conditions.
 
 **Examples**
 

@@ -23,4 +23,6 @@ stage of the query execution.
 
 Be sure to check out the
 [ArangoDB Performance Course](https://www.arangodb.com/arangodb-performance-course/){:target="_blank"}
-for freshers as well.
+for freshers as well and discover the power of AQL in just a few clicks with
+ArangoDB Oasis: the Cloud Service for ArangoDB. Start a
+[free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.

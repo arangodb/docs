@@ -274,7 +274,7 @@ Drops the index with *index-handle*.
 
 finds an index
 
-So you've created an index, and since its maintainance isn't for free,
+So you've created an index, and since its maintenance isn't for free,
 you definitely want to know whether your query can utilize it.
 
 You can use explain to verify whether **skiplists** or **hash indexes** are

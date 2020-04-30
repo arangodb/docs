@@ -52,8 +52,8 @@ Collection Methods
 ------------------
 
 ### Listing all indexes of a collection
-<!-- arangod/V8Server/v8-vocindex.cpp -->
 
+<!-- arangod/V8Server/v8-vocindex.cpp -->
 
 returns information about the indexes
 `getIndexes()`
@@ -67,10 +67,10 @@ Note that `_key` implicitly has an index assigned to it.
     @startDocuBlockInline collectionGetIndexes
     @EXAMPLE_ARANGOSH_OUTPUT{collectionGetIndexes}
     ~db._create("test");
-    ~db.test.ensureUniqueSkiplist("skiplistAttribute");
-    ~db.test.ensureUniqueSkiplist("skiplistUniqueAttribute");
-    |~db.test.ensureHashIndex("hashListAttribute",
-                              "hashListSecondAttribute.subAttribute");
+    ~db.test.ensureIndex({ type: "persistent", fields: ["attribute"], unique: true });
+    ~db.test.ensureIndex({ type: "persistent", fields: ["uniqueAttribute"], unique: true });
+    |~db.test.ensureIndex({ type: "persistent", fields: [
+        "attribute", "secondAttribute.subAttribute"] });
     db.test.getIndexes();
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -79,12 +79,8 @@ Note that `_key` implicitly has an index assigned to it.
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Creating an index
-Indexes should be created using the general method *ensureIndex*. This
-method obsoletes the specialized index-specific methods *ensureHashIndex*,
-*ensureSkiplist*, *ensureUniqueConstraint* etc.
 
 <!-- arangod/V8Server/v8-vocindex.cpp -->
-
 
 ensures that an index exists
 `collection.ensureIndex(index-description)`
@@ -96,8 +92,7 @@ The *index-description* must contain at least a *type* attribute.
 Other attributes may be necessary, depending on the index type.
 
 **type** can be one of the following values:
-- *hash*: hash index
-- *skiplist*: skiplist index
+- *persistent*: persistent index
 - *fulltext*: fulltext index
 - *geo*: geo index, with _one_ or _two_ attributes
 
@@ -107,17 +102,17 @@ that it is unique with respect to the collection, e.g. `idx_832910498`.
 
 **sparse** can be *true* or *false*.
 
-For *hash*, and *skiplist* the sparsity can be controlled, *fulltext* and *geo*
+For *persistent* the sparsity can be controlled, *fulltext* and *geo*
 are [sparse](indexing-which-index.html) by definition.
 
-**unique** can be *true* or *false* and is supported by *hash* or *skiplist*
+**unique** can be *true* or *false* and is supported by *persistent*
 
 Calling this method returns an index object. Whether or not the index
 object existed before the call is indicated in the return attribute
 *isNewlyCreated*.
 
 **deduplicate** can be *true* or *false* and is supported by array indexes of
-type *hash* or *skiplist*. It controls whether inserting duplicate index values
+type *persistent*. It controls whether inserting duplicate index values
 from the same document into a unique array index will lead to a unique constraint
 error or not. The default value is *true*, so only a single instance of each
 non-unique index value will be inserted into the index per document. Trying to
@@ -131,8 +126,8 @@ regardless of the value of this attribute.
     @startDocuBlockInline collectionEnsureIndex
     @EXAMPLE_ARANGOSH_OUTPUT{collectionEnsureIndex}
     ~db._create("test");
-    db.test.ensureIndex({ type: "hash", fields: [ "a" ], sparse: true });
-    db.test.ensureIndex({ type: "hash", fields: [ "a", "b" ], unique: true });
+    db.test.ensureIndex({ type: "persistent", fields: [ "a" ], sparse: true });
+    db.test.ensureIndex({ type: "persistent", fields: [ "a", "b" ], unique: true });
     ~db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionEnsureIndex
@@ -141,8 +136,8 @@ regardless of the value of this attribute.
 
 
 ### Dropping an index via a collection handle
-<!-- arangod/V8Server/v8-vocindex.cpp -->
 
+<!-- arangod/V8Server/v8-vocindex.cpp -->
 
 drops an index
 `collection.dropIndex(index)`
@@ -160,7 +155,7 @@ Same as above. Instead of an index an index handle can be given.
     @startDocuBlockInline col_dropIndex
     @EXAMPLE_ARANGOSH_OUTPUT{col_dropIndex}
     ~db._create("example");
-    db.example.ensureSkiplist("a", "b");
+    db.example.ensureIndex({ type: "persistent", fields: ["a", "b"] });
     var indexInfo = db.example.getIndexes();
     indexInfo;
     db.example.dropIndex(indexInfo[0])
@@ -173,8 +168,8 @@ Same as above. Instead of an index an index handle can be given.
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Load Indexes into Memory
-<!-- arangod/V8Server/v8-vocindex.cpp -->
 
+<!-- arangod/V8Server/v8-vocindex.cpp -->
 
 Loads all indexes of this collection into Memory.
 `collection.loadIndexesIntoMemory()`
@@ -188,15 +183,11 @@ All lookups that could be found in the cache are much faster
 than lookups not stored in the cache so you get a nice performance boost.
 It is also guaranteed that the cache is consistent with the stored data.
 
-For the time being this function is only useful on RocksDB storage engine,
-as in MMFiles engine all indexes are in memory anyways.
-
-On RocksDB this function honors all memory limits, if the indexes you want
-to load are smaller than your memory limit this function guarantees that most
-index values are cached.
-If the index is larger than your memory limit this function will fill up values
-up to this limit and for the time being there is no way to control which indexes
-of the collection should have priority over others.
+This function honors memory limits. If the indexes you want to load are smaller
+than your memory limit this function guarantees that most index values are
+cached. If the index is larger than your memory limit this function will fill
+up values up to this limit and for the time being there is no way to control
+which indexes of the collection should have priority over others.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline LoadIndexesIntoMemory
@@ -214,8 +205,8 @@ Database Methods
 ----------------
 
 ### Fetching an index by handle
-<!-- js/server/modules/@arangodb/arango-database.js -->
 
+<!-- js/server/modules/@arangodb/arango-database.js -->
 
 finds an index
 `db._index(index-handle)`
@@ -226,7 +217,7 @@ Returns the index with *index-handle* or null if no such index exists.
     @startDocuBlockInline IndexHandle
     @EXAMPLE_ARANGOSH_OUTPUT{IndexHandle}
     ~db._create("example");
-    db.example.ensureIndex({ type: "skiplist", fields: [ "a", "b" ] });
+    db.example.ensureIndex({ type: "persistent", fields: [ "a", "b" ] });
     var indexInfo = db.example.getIndexes().map(function(x) { return x.id; });
     indexInfo;
     db._index(indexInfo[0])
@@ -238,8 +229,8 @@ Returns the index with *index-handle* or null if no such index exists.
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Dropping an index via a database handle
-<!-- js/server/modules/@arangodb/arango-database.js -->
 
+<!-- js/server/modules/@arangodb/arango-database.js -->
 
 drops an index
 `db._dropIndex(index)`
@@ -256,7 +247,7 @@ Drops the index with *index-handle*.
     @startDocuBlockInline dropIndex
     @EXAMPLE_ARANGOSH_OUTPUT{dropIndex}
     ~db._create("example");
-    db.example.ensureIndex({ type: "skiplist", fields: [ "a", "b" ] });
+    db.example.ensureIndex({ type: "persistent", fields: [ "a", "b" ] });
     var indexInfo = db.example.getIndexes();
     indexInfo;
     db._dropIndex(indexInfo[0])
@@ -269,16 +260,15 @@ Drops the index with *index-handle*.
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Revalidating whether an index is used
-<!-- js/server/modules/@arangodb/arango-database.js -->
 
+<!-- js/server/modules/@arangodb/arango-database.js -->
 
 finds an index
 
-So you've created an index, and since its maintainance isn't for free,
+So you've created an index, and since its maintenance isn't for free,
 you definitely want to know whether your query can utilize it.
 
-You can use explain to verify whether **skiplists** or **hash indexes** are
-used (if you omit `colors: false` you will get nice colors in ArangoShell):
+You can use explain to verify that a certain index is used:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline IndexVerify
@@ -286,9 +276,11 @@ used (if you omit `colors: false` you will get nice colors in ArangoShell):
     ~db._create("example");
     var explain = require("@arangodb/aql/explainer").explain;
     db.example.ensureIndex({ type: "skiplist", fields: [ "a", "b" ] });
-    explain("FOR doc IN example FILTER doc.a < 23 RETURN doc", {colors:false});
+    explain("FOR doc IN example FILTER doc.a < 23 RETURN doc", {colors: false});
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock IndexVerify
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+(If you omit `colors: false` you will get nice colors in ArangoShell.)

@@ -6,10 +6,7 @@ title: Auditing Events
 Audit Events
 ============
 
-{% hint 'info' %}
-Auditing is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Auditing" %}
 
 Unless otherwise noted, all events are logged to their respective topics at the
 `info` level. To suppress events from a given topic, set the topic to the `warn`

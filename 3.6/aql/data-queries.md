@@ -1,9 +1,18 @@
 ---
 layout: default
-description: Retrieving data from the database with AQL does always include a RETURNoperation
+description: There are two fundamental types of AQL queries, data access and data modification queries.
+title: AQL Data Queries
 ---
 Data Queries
 ============
+
+There are two fundamental types of AQL queries:
+- queries which access data (read documents)
+- queries which modify data (create, update, replace, delete documents)
+
+If you want to try out some of below AQL examples in just a few clicks, then
+[start a free 14-day trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}
+for ArangoDB Oasis: the Cloud Service for ArangoDB.
 
 Data Access Queries
 -------------------

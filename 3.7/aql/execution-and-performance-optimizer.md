@@ -705,8 +705,11 @@ The following optimizer rules may appear in the `rules` attribute of
   in the query.
 
 - `remove-satellite-joins` _(Enterprise Edition only)_:
-  optimizes *Scatter-*, *Gather-* and *RemoteNode*s for Satellite Collections
-  away. Depends on *remove-unnecessary-remote-scatter* rule.
+  optimizes *Scatter-*, *Gather-* and *RemoteNode*s for SatelliteCollections
+  and SatelliteGraphs away. Executes the respective query parts on each
+  participating DB-Server independently, so that the results become available 
+  locally without network communication.
+  Depends on *remove-unnecessary-remote-scatter* rule.
 
 - `remove-unnecessary-remote-scatter`:
   will appear if a RemoteNode is followed by a ScatterNode, and the ScatterNode
@@ -725,11 +728,6 @@ The following optimizer rules may appear in the `rules` attribute of
   the query, and when the shard keys are covered by a single index (this is
   always true if the shard key is the default `_key`).
 
-- `scatter-arangosearch-view-in-cluster`:
-  will appear when scatter, gather, and remote nodes are inserted into a
-  distributed View query. This is not an optimization rule, and it cannot be
-  turned off.
-
 - `scatter-in-cluster`:
   will appear when scatter, gather, and remote nodes are inserted into a
   distributed query. This is not an optimization rule, and it cannot be
@@ -747,6 +745,13 @@ The following optimizer rules may appear in the `rules` attribute of
   roundtrips between the EnumerateCollectionNode and the RemoveNode.
   From v3.6.0 on, it includes simple *UPDATE* and *REPLACE* operations
   that modify multiple documents and do not use *LIMIT*.
+
+- `scatter-satellite-graph-in-cluster` _(Enterprise Edition only)_:
+  will appear in case a TraversalNode, ShortestPathNode or KShortestPathsNode
+  is found that operates on a SatelliteGraph. This leads to the node being
+  instantiated and executed on the DB-Server instead on a Coordinator.
+  This removes the need to transfer data for this node and hence also
+  increases performance.
 
 Note that some rules may appear multiple times in the list, with number suffixes.
 This is due to the same rule being applied multiple times, at different positions

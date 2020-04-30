@@ -25,13 +25,6 @@ startup parameters, installation in a cluster and so on, see
 [Installation](installation.html) and
 [Deployment](deployment.html).
 
-{% hint 'info' %}
-ArangoDB offers two [**storage engines**](architecture-storage-engines.html):
-MMFiles ([deprecated](appendix-deprecated.html)) and RocksDB. Choose the one
-which suits your needs best in the installation process or on first startup.
-{% endhint %}
-
-
 Securing the installation
 -------------------------
 

@@ -8,11 +8,7 @@ SatelliteGraphs
 
 <small>Introduced in: v3.7.0</small>
 
-{% hint 'info' %}
-SatelliteGraphs are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-and the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="SatelliteGraphs" plural=true %}
 
 What is a SatelliteGraph?
 -------------------------

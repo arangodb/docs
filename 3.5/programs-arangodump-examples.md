@@ -28,7 +28,7 @@ following startup options:
   password)
 - `--server.authentication <bool>`: whether or not to use authentication
 
-If you want to connect to a different database or dump all databases you can additionaly
+If you want to connect to a different database or dump all databases you can additionally
 use the following startup options:
 
 - `--all-databases true`: must have access to all databases, and not specify a database.

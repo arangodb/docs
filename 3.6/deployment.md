@@ -10,7 +10,9 @@ This chapter describes various possibilities to deploy ArangoDB.
 
 {% hint 'info %}
 ArangoDB is also available as
-[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/){:target="_blank"}.
+[cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
+Fire up your cluster in just a few clicks with the
+[14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 {% endhint %}
 
 For installation instructions, please refer to the [Installation](installation.html) _Chapter_.

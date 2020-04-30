@@ -32,8 +32,8 @@ by changing the `_config.yml`:
 
 ```yml
 exclude:
-  #- 3.5/
-  #- 3.4/
+ #- 3.5/
+ #- 3.4/
   - 3.3/
   - 3.2/
   - 3.1/
@@ -64,7 +64,9 @@ To serve the content from a previous build without watching for changes use:
 
 `bundle exec jekyll serve --skip-initial-build --no-watch`
 
-You can then browser the docs in a browser at http://127.0.0.1:4000/docs/.
+You can then browse the docs in a browser at http://127.0.0.1:4000/docs/.
+Note that it has to be `/docs/`. Both `/` and `/docs` do not work
+(_404 Page not found_) because of the configured baseurl.
 
 ### Docker container
 
@@ -86,7 +88,7 @@ Please note that you still need to put them into a `/docs` subdirectory.
 
 Example:
 
-```
+```bash
 mkdir -p /tmp/arangodocs
 cp -a _site /tmp/arangodocs/docs
 cd /tmp/arangodocs
@@ -255,6 +257,7 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
 - Wrap text at 80 characters. This helps tremendously in version control.
 - Put Markdown links on a single line `[link label](target.html#hash)`,
   even if it violates the guideline of 80 characters per line.
+- Append `{:target="_blank"}` to Markdown links which point to external sites.
 
 ## Troubleshooting
 

@@ -8,15 +8,6 @@ Arangorestore Examples
 To restore data from a dump previously created with [_Arangodump_](programs-arangodump.html),
 ArangoDB provides the _arangorestore_ tool.
 
-{% hint 'danger' %}
-In versions older than 3.3, _Arangorestore_
-**must not be used to create several similar database instances in one installation**.
-
-This means that if you have an _Arangodump_ output of database ***A***, create a second database ***B***
-on the same instance of ArangoDB, and restore the dump of ***A*** into ***B*** - data integrity can not
-be guaranteed. This limitation was solved starting from ArangoDB v3.3.0.
-{% endhint %}
-
 Invoking Arangorestore
 ----------------------
 
