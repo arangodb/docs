@@ -32,7 +32,7 @@ Returns the created nonce as base64-encoded string.
 
 `crypto.checkAndMarkNonce(nonce): void`
 
-Checks and marks a nonce.
+Checks if the nonce is valid and marks it as used.
 
 **Arguments**
 
