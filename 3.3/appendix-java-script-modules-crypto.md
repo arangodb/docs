@@ -12,7 +12,10 @@ The crypto module provides implementations of various hashing algorithms as well
 Nonces
 ------
 
-These functions deal with cryptographic nonces.
+These functions deal with
+[cryptographic nonces](https://en.wikipedia.org/wiki/Cryptographic_nonce){:target="_blank"}.
+
+For single server use only.
 
 ### createNonce
 
@@ -20,6 +23,8 @@ These functions deal with cryptographic nonces.
 
 Creates a cryptographic nonce consisting of the first 32 bits of a timestamp
 and 64 bit of randomness.
+
+The nonce is held in memory for approximately one hour by the server.
 
 Returns the created nonce as base64-encoded string.
 
