@@ -40,7 +40,8 @@ x-content-type-options: nosniff
           <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">10</span>, 
           <span class="hljs-string">"outVariable"</span> : { 
             <span class="hljs-string">"id"</span> : <span class="hljs-number">0</span>, 
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"p"</span> 
+            <span class="hljs-string">"name"</span> : <span class="hljs-string">"p"</span>, 
+            <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">true</span> 
           }, 
           <span class="hljs-string">"projections"</span> : [ ], 
           <span class="hljs-string">"producesResult"</span> : <span class="hljs-literal">true</span>, 
@@ -48,13 +49,14 @@ x-content-type-options: nosniff
           <span class="hljs-string">"collection"</span> : <span class="hljs-string">"products"</span>, 
           <span class="hljs-string">"satellite"</span> : <span class="hljs-literal">false</span>, 
           <span class="hljs-string">"isSatellite"</span> : <span class="hljs-literal">false</span>, 
+          <span class="hljs-string">"isSatelliteOf"</span> : <span class="hljs-literal">null</span>, 
           <span class="hljs-string">"needsGatherNodeSort"</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">"indexCoversProjections"</span> : <span class="hljs-literal">false</span>, 
           <span class="hljs-string">"indexes"</span> : [ 
             { 
-              <span class="hljs-string">"id"</span> : <span class="hljs-string">"70521"</span>, 
+              <span class="hljs-string">"id"</span> : <span class="hljs-string">"71247"</span>, 
               <span class="hljs-string">"type"</span> : <span class="hljs-string">"skiplist"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1662228450287550466"</span>, 
+              <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1665388911036203009"</span>, 
               <span class="hljs-string">"fields"</span> : [ 
                 <span class="hljs-string">"id"</span> 
               ], 
@@ -95,7 +97,8 @@ x-content-type-options: nosniff
           }, 
           <span class="hljs-string">"outVariable"</span> : { 
             <span class="hljs-string">"id"</span> : <span class="hljs-number">1</span>, 
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"a"</span> 
+            <span class="hljs-string">"name"</span> : <span class="hljs-string">"a"</span>, 
+            <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
           }, 
           <span class="hljs-string">"canThrow"</span> : <span class="hljs-literal">false</span>, 
           <span class="hljs-string">"expressionType"</span> : <span class="hljs-string">"attribute"</span> 
@@ -130,7 +133,8 @@ x-content-type-options: nosniff
           }, 
           <span class="hljs-string">"outVariable"</span> : { 
             <span class="hljs-string">"id"</span> : <span class="hljs-number">4</span>, 
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"3"</span> 
+            <span class="hljs-string">"name"</span> : <span class="hljs-string">"3"</span>, 
+            <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
           }, 
           <span class="hljs-string">"canThrow"</span> : <span class="hljs-literal">false</span>, 
           <span class="hljs-string">"expressionType"</span> : <span class="hljs-string">"simple"</span> 
@@ -145,7 +149,8 @@ x-content-type-options: nosniff
           <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">10</span>, 
           <span class="hljs-string">"inVariable"</span> : { 
             <span class="hljs-string">"id"</span> : <span class="hljs-number">4</span>, 
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"3"</span> 
+            <span class="hljs-string">"name"</span> : <span class="hljs-string">"3"</span>, 
+            <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
           } 
         }, 
         { 
@@ -171,7 +176,8 @@ x-content-type-options: nosniff
           }, 
           <span class="hljs-string">"outVariable"</span> : { 
             <span class="hljs-string">"id"</span> : <span class="hljs-number">2</span>, 
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"name"</span> 
+            <span class="hljs-string">"name"</span> : <span class="hljs-string">"name"</span>, 
+            <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
           }, 
           <span class="hljs-string">"canThrow"</span> : <span class="hljs-literal">false</span>, 
           <span class="hljs-string">"expressionType"</span> : <span class="hljs-string">"attribute"</span> 
@@ -199,7 +205,8 @@ x-content-type-options: nosniff
           }, 
           <span class="hljs-string">"outVariable"</span> : { 
             <span class="hljs-string">"id"</span> : <span class="hljs-number">6</span>, 
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"5"</span> 
+            <span class="hljs-string">"name"</span> : <span class="hljs-string">"5"</span>, 
+            <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
           }, 
           <span class="hljs-string">"canThrow"</span> : <span class="hljs-literal">false</span>, 
           <span class="hljs-string">"expressionType"</span> : <span class="hljs-string">"attribute"</span> 
@@ -226,7 +233,8 @@ x-content-type-options: nosniff
           <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">1</span>, 
           <span class="hljs-string">"inVariable"</span> : { 
             <span class="hljs-string">"id"</span> : <span class="hljs-number">2</span>, 
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"name"</span> 
+            <span class="hljs-string">"name"</span> : <span class="hljs-string">"name"</span>, 
+            <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
           }, 
           <span class="hljs-string">"count"</span> : <span class="hljs-literal">true</span> 
         } 
@@ -243,23 +251,28 @@ x-content-type-options: nosniff
       <span class="hljs-string">"variables"</span> : [ 
         { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">6</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"5"</span> 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"5"</span>, 
+          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
         }, 
         { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">4</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"3"</span> 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"3"</span>, 
+          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
         }, 
         { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">2</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"name"</span> 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"name"</span>, 
+          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
         }, 
         { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">1</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"a"</span> 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"a"</span>, 
+          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
         }, 
         { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">0</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"p"</span> 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"p"</span>, 
+          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">true</span> 
         } 
       ], 
       <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">63</span>, 

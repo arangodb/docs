@@ -245,7 +245,7 @@ negatively impact the write performance:
   This means that transactions have to be split if they become too big, see the
   [limitations section](transactions-limitations.html#with-rocksdb-storage-engine).
 
-### Improving Update Query Perfromance
+### Improving Update Query Performance
 
 You may use the _exclusive_ query option for modifying AQL queries, to improve the performance drastically.
 This has the downside that no concurrent writes may occur on the collection, but ArangoDB is able

@@ -90,6 +90,24 @@ The REST API endpoint at `/_admin/aql/reload` has been removed in ArangoDB 3.7.
 There is no necessity to call this endpoint from a driver or a client application
 directly.
 
+The REST API endpoint at `/_api/collection/<collection>/rotate` has been removed 
+in ArangoDB 3.7. This endpoint was previously only available for the MMFiles
+storage engine, but not for the RocksDB storage engine.
+
+JavaScript API
+--------------
+
+The `rotate` function has been removed on the ArangoCollection object. This 
+means the following JavaScript code will not work in ArangoDB 3.7, neither in
+the ArangoShell nor in arangod (when using Foxx):
+
+```js
+db.<collection>.rotate();
+```
+
+The `rotate` function was previously only supported for the MMFiles storage 
+engine, but not for the RocksDB storage engine.
+
 DC2DC
 -----
 
@@ -102,3 +120,24 @@ If you rely on Kafka, then you must use an ArangoSync 0.x version. ArangoDB
 v3.7 ships with ArangoSync 1.x, so be sure to keep the old binary or download
 a compatible version for your deployment. ArangoSync 1.x is otherwise
 compatible with ArangoDB v3.3 and above.
+
+Startup options
+---------------
+
+The default values for the startup options `--rocksdb.block-cache-size` and
+`--rocksdb.total-write-buffer-size` have been decreased for systems with less
+than 4GiB of RAM. The intention is to make arangod use less memory on very
+small systems.
+
+For systems with less than 4GiB of RAM, the default values for 
+`--rocksdb.block-cache-size` are now:
+
+- 512MiB for systems with between 2 and 4GiB of RAM.
+- 256MiB for systems with between 1 and 2GiB of RAM.
+- 128MiB for systems with less than 1GiB of RAM.
+
+For systems with less than 4GiB of RAM, the default values for 
+`--rocksdb.total-write-buffer-size` are now:
+
+- 512MiB for systems with between 1 and 4GiB of RAM.
+- 256MiB for systems with less than 1GiB of RAM.

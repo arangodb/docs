@@ -1057,249 +1057,6 @@
     "section" : "cluster",
     "type" : "uint32"
   },
-  "compaction.db-sleep-time" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 1,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "sleep interval between two compaction runs (in s)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "compaction",
-    "type" : "double"
-  },
-  "compaction.dead-documents-threshold" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 16384,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "minimum unused count of documents in a datafile",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "compaction",
-    "type" : "uint64"
-  },
-  "compaction.dead-size-percent-threshold" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 0.1,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "how many percent of the source datafile should be unused at least",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "compaction",
-    "type" : "double"
-  },
-  "compaction.dead-size-threshold" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 131072,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "how many bytes of the source data file are allowed to be unused at most",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "compaction",
-    "type" : "uint64"
-  },
-  "compaction.max-file-size-factor" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 3,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "how large the resulting file may be in comparison to the collections '--database.maximal-journal-size' setting",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "compaction",
-    "type" : "uint64"
-  },
-  "compaction.max-files" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 3,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "Maximum number of files to merge to one file",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "compaction",
-    "type" : "uint64"
-  },
-  "compaction.max-result-file-size" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 134217728,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "how large may the compaction result file become (in bytes)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "compaction",
-    "type" : "uint64"
-  },
-  "compaction.min-interval" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 10,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "minimum sleep time between two compaction runs (in s)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "compaction",
-    "type" : "double"
-  },
-  "compaction.min-small-data-file-size" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 131072,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "minimal filesize threshold original data files have to be below for a compaction",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "compaction",
-    "type" : "uint64"
-  },
   "config" : {
     "category" : "option",
     "component" : [
@@ -1546,33 +1303,6 @@
     "requiresValue" : false,
     "section" : "database",
     "type" : "boolean"
-  },
-  "database.maximal-journal-size" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 33554432,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "default maximal journal size, can be overwritten when creating a collection",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "database",
-    "type" : "uint64"
   },
   "database.password" : {
     "category" : "option",
@@ -5038,7 +4768,7 @@
       "agent",
       "single"
     ],
-    "default" : false,
+    "default" : true,
     "deprecatedIn" : null,
     "description" : "Whether to use the newer revision-based replication protocol",
     "dynamic" : false,
@@ -6017,6 +5747,56 @@
     "section" : "rocksdb",
     "type" : "uint64"
   },
+  "rocksdb.target-file-size-base" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 67108864,
+    "deprecatedIn" : null,
+    "description" : "per-file target file size for compaction (in bytes). the actual target file size for each level is `--rocksdb.target-file-size-base` multiplied by `--rocksdb.target-file-size-multiplier` ^ (level - 1)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.target-file-size-multiplier" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 1,
+    "deprecatedIn" : null,
+    "description" : "multiplier for `--rocksdb.target-file-size`, a value of 1 means that files in different levels will have the same size",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
   "rocksdb.throttle" : {
     "category" : "option",
     "component" : [
@@ -6337,33 +6117,6 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "uint64"
-  },
-  "server.allow-deprecated-storage-engine" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "allow deprecated storage engines for new deployments (only useful for testing - do not use in production)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : [
-      "v3.7.0"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : false,
-    "section" : "server",
-    "type" : "boolean"
   },
   "server.allow-use-database" : {
     "category" : "option",
@@ -7064,7 +6817,7 @@
     ],
     "default" : "auto",
     "deprecatedIn" : null,
-    "description" : "storage engine type (the mmfiles engine is deprecated and can only be used for existing deployments)",
+    "description" : "storage engine type (note that the mmfiles engine is unavailable since v3.7.0 and cannot be used anymore)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -7078,7 +6831,7 @@
     "requiresValue" : true,
     "section" : "server",
     "type" : "string",
-    "values" : "Possible values: \"auto\", \"mmfiles\", \"rocksdb\""
+    "values" : "Possible values: \"auto\", \"rocksdb\""
   },
   "server.uid" : {
     "category" : "option",
@@ -7104,6 +6857,33 @@
     "requiresValue" : true,
     "section" : "server",
     "type" : "string"
+  },
+  "server.validate-utf8-strings" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "perform UTF-8 string validation for incoming JSON and VelocyPack data",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
   },
   "ssl.cafile" : {
     "category" : "option",
@@ -7604,384 +7384,6 @@
     ],
     "requiresValue" : false,
     "section" : "",
-    "type" : "boolean"
-  },
-  "wal.allow-oversize-entries" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : true,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "allow entries that are bigger than '--wal.logfile-size'",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : false,
-    "section" : "wal",
-    "type" : "boolean"
-  },
-  "wal.directory" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : "",
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "logfile directory",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "wal",
-    "type" : "string"
-  },
-  "wal.flush-timeout" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 15000,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "flush timeout (in milliseconds)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "wal",
-    "type" : "uint64"
-  },
-  "wal.historic-logfiles" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 10,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "maximum number of historic logfiles to keep after collection",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "wal",
-    "type" : "uint32"
-  },
-  "wal.ignore-logfile-errors" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : false,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "ignore logfile errors. this will read recoverable data from corrupted logfiles but ignore any unrecoverable data",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : false,
-    "section" : "wal",
-    "type" : "boolean"
-  },
-  "wal.ignore-recovery-errors" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : false,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "continue recovery even if re-applying operations fails",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : false,
-    "section" : "wal",
-    "type" : "boolean"
-  },
-  "wal.logfile-size" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 33554432,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "size of each logfile (in bytes)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "wal",
-    "type" : "uint32"
-  },
-  "wal.open-logfiles" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 0,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "maximum number of parallel open logfiles",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "wal",
-    "type" : "uint32"
-  },
-  "wal.reserve-logfiles" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 3,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "maximum number of reserve logfiles to maintain",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "wal",
-    "type" : "uint32"
-  },
-  "wal.slots" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 1048576,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "number of logfile slots to use",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "wal",
-    "type" : "uint32"
-  },
-  "wal.sync-interval" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 100,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "interval for automatic, non-requested disk syncs (in milliseconds)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "wal",
-    "type" : "uint64"
-  },
-  "wal.throttle-wait" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 15000,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "maximum wait time per operation when write-throttled (in milliseconds)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "wal",
-    "type" : "uint64"
-  },
-  "wal.throttle-when-pending" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : 0,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "throttle writes when at least this many operations are waiting for collection (set to 0 to deactivate write-throttling)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "wal",
-    "type" : "uint64"
-  },
-  "wal.use-mlock" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default" : false,
-    "deprecatedIn" : [
-      "v3.7.0"
-    ],
-    "description" : "mlock WAL logfiles in memory (may require elevated privileges or limits)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : false,
-    "section" : "wal",
     "type" : "boolean"
   },
   "working-directory" : {

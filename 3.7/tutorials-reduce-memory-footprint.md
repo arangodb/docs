@@ -8,7 +8,7 @@ Reducing the Memory Footprint of ArangoDB servers
 ArangoDB's memory usage can be restricted and the CPU utilization be reduced
 by different configuration options:
 
-- storage engine (this tutorial focuses on the RocksDB engine)
+- storage engine
 - edge cache
 - server statistics
 - background threads
@@ -32,11 +32,10 @@ sometimes being a little less grabby on system resources may still be fast
 enough, for example if your working data set is not huge. The goal is to reduce
 the overall memory footprint.
 
-There are the following big areas, which might eat up memory:
+There are two big areas, which might eat up memory:
 
-- RocksDB
-- WAL (Write Ahead Log) 
-- Write Buffers
+- Buffers & Caches
+- WAL (Write Ahead Log)
 
 WAL & Write Buffers
 -------------------

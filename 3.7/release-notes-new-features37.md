@@ -502,6 +502,9 @@ probably don't want the server to detect and use all available memory.
 An environment variable `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` can now be
 set to restrict the amount of memory it will detect (also available in v3.6.3).
 
+An environment variable `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` can be
+set to restrict the number of CPU cores that are visible to arangod.
+
 See [ArangoDB Server Environment Variables](programs-arangod-env-vars.html)
 
 JavaScript
@@ -573,7 +576,7 @@ Here is the list of improvements that may matter to you as an ArangoDB user:
 
 Also see:
 - [V8 release blog posts](https://v8.dev/blog){:target="_blank"} (v7.2 to v7.9)
-- [V8 features](https://v8.dev/features){:target="_blank"} (Chrome 79 or lower)
+- [V8 features](https://v8.dev/features){:target="_blank"} (up to Chrome 79)
 
 ### JavaScript APIs
 
@@ -594,7 +597,7 @@ Metrics
 -------
 
 The amount of exported metrics has been extended and is now available in a
-format compatible with Prometheus. You can now easily scrape on `_admin/metrics`.
+format compatible with Prometheus. You can now easily scrape on `/_admin/metrics`.
 See [here](http/administration-and-monitoring-metrics.html).
 
 MMFiles storage engine

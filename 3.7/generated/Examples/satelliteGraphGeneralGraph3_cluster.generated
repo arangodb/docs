@@ -7,11 +7,11 @@ Execution plan:
  Id   NodeType                  Site  Est.   Comment
   1   SingletonNode             DBS      1   * ROOT
   2   EnumerateCollectionNode   DBS      0     - FOR doc IN collection   /* full collection scan, 8 shard(s) */
- 10   TraversalNode             DBS      0       - FOR v  /* vertex */, e  /* edge */, p  /* paths */ IN 1..1  /* min..maxPathDepth */ OUTBOUND 'vertices/start' /* startnode */  satEdges
- 13   RemoteNode                COOR     0         - REMOTE
- 14   GatherNode                COOR     0         - GATHER 
-  4   CalculationNode           COOR     0         - LET #6 = [ doc, v, e, p ]   /* simple expression */   /* collections used: doc : collection */
-  5   ReturnNode                COOR     0         - RETURN #6
+ 10   TraversalNode             DBS      1       - FOR v  /* vertex */, e  /* edge */, p  /* paths */ IN 1..1  /* min..maxPathDepth */ OUTBOUND 'vertices/start' /* startnode */  satEdges /* satellite node, used as satellite */
+  4   CalculationNode           DBS      1         - LET #6 = [ doc, v, e, p ]   /* simple expression */   /* collections used: doc : collection */
+ 13   RemoteNode                COOR     1         - REMOTE
+ 14   GatherNode                COOR     1         - GATHER   /* parallel, unsorted */
+  5   ReturnNode                COOR     1         - RETURN #6
 
 Indexes used:
  By   Name   Type   Collection   Unique   Sparse   Selectivity   Fields        Ranges
@@ -24,8 +24,10 @@ Traversals on graphs:
 Optimization rules applied:
  Id   RuleName
   1   scatter-in-cluster
-  2   remove-unnecessary-remote-scatter
-  3   scatter-satellite-graphs
-  4   remove-satellite-joins
+  2   scatter-satellite-graphs
+  3   remove-satellite-joins
+  4   distribute-filtercalc-to-cluster
+  5   remove-unnecessary-remote-scatter
+  6   parallelize-gather
 
 

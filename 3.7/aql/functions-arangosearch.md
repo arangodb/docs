@@ -618,7 +618,7 @@ FOR doc IN myView SEARCH PHRASE(doc.title,
 
 `STARTS_WITH(path, prefix)`
 
-Match the value of the attribute that starts with **prefix**. If the attribute
+Match the value of the attribute that starts with *prefix*. If the attribute
 is processed by a tokenizing Analyzer (type `"text"` or `"delimiter"`) or if it
 is an array, then a single token/element starting with the prefix is sufficient
 to match the document.
@@ -634,6 +634,21 @@ Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
 - **prefix** (string): a string to search at the start of the text
+- returns nothing: the function can only be called in a
+  [SEARCH operation](operations-search.html) and throws an error otherwise
+
+`STARTS_WITH(path, prefixes, minMatchCount)`
+
+<small>Introduced in: v3.7.1</small>
+
+Match the value of the attribute that starts with one of the *prefixes*, or
+optionally with at least *minMatchCount* of the prefixes.
+
+- **path** (attribute path expression): the path of the attribute to compare
+  against in the document
+- **prefixes** (array): an array of strings to search at the start of the text
+- **minMatchCount** (number, _optional_): minimum number of search prefixes
+  that should be satisfied. The default is `1`
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
@@ -656,8 +671,26 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
-Note that it will not match `{ "text": "IPS (in-plane switching)" }` because
-the Analyzer has stemming enabled, but the prefix was passed in as-is:
+For `{ "text": "lorem ipsum" }` it is the same as the following:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(STARTS_WITH(doc.text, ["wrong", "ips"], 1), "text_en")
+  RETURN doc.text
+```
+
+Or the following:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(STARTS_WITH(doc.text, ["lo", "ips", "other"], 2), "text_en")
+  RETURN doc.text
+```
+
+Note that it will not match `{ "text": "IPS (in-plane switching)" }` without
+modification to the query. The prefixes were passed to `STARTS_WITH()` as-is,
+but the Analyzer used for indexing has stemming enabled. So the indexes values
+are the following:
 
 ```js
 RETURN TOKENS("IPS (in-plane switching)", "text_en")
@@ -676,15 +709,17 @@ RETURN TOKENS("IPS (in-plane switching)", "text_en")
 
 The *s* is removed from *ips*, which leads to the prefix *ips* not matching
 the indexed token *ip*. You may either create a custom text Analyzer with
-stemming disabled to avoid this issue, or apply stemming to the prefix:
+stemming disabled to avoid this issue, or apply stemming to the prefixes:
 
 ```js
 FOR doc IN viewName
-  SEARCH ANALYZER(STARTS_WITH(doc.text, TOKENS("ips", "text_en")[0]), "text_en")
+  SEARCH ANALYZER(STARTS_WITH(doc.text, TOKENS("ips", "text_en")), "text_en")
   RETURN doc.text
 ```
 
 ### LEVENSHTEIN_MATCH()
+
+<small>Introduced in: v3.7.0</small>
 
 `LEVENSHTEIN_MATCH(path, target, distance, transpositions)`
 
@@ -718,6 +753,8 @@ FOR doc IN viewName
 ```
 
 ### LIKE()
+
+<small>Introduced in: v3.7.0</small>
 
 `LIKE(path, search)`
 
