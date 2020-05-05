@@ -183,7 +183,7 @@ can be queried for like:
 
 ```js
 FOR doc IN viewName
-  SERACH doc.value.nested.deep == 2
+  SEARCH doc.value.nested.deep == 2
   RETURN doc
 ```
 
