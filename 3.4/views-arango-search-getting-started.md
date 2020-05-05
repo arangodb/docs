@@ -22,16 +22,16 @@ the following commands:
 ```js
 c0 = db._create("ExampleCollection0");
 c1 = db._create("ExampleCollection1");
- 
+
 c0.save({ i: 0, name: "full", text: "是一个 多模 型数 据库" });
 c0.save({ i: 1, name: "half", text: "是一个 多模" });
 c0.save({ i: 2, name: "other half", text: "型数 据库" });
 c0.save({ i: 3, name: "quarter", text: "是一" });
- 
-c1.save({ a: "foo", b: "bar", i: 4 });
-c1.save({ a: "foo", b: "baz", i: 5 });
-c1.save({ a: "bar", b: "foo", i: 6 });
-c1.save({ a: "baz", b: "foo", i: 7 });
+
+c1.save({ i: 4, a: "foo", b: "bar" });
+c1.save({ i: 5, a: "foo", b: "baz" });
+c1.save({ i: 6, a: "bar", b: "foo" });
+c1.save({ i: 7, a: "baz", b: "foo" });
 ```
 
 ## Creating a View (with default parameters)
@@ -129,7 +129,7 @@ will be applied during a search:
     "_rev" : "_XPoMzCu--_",
     "a" : "foo",
     "b" : "bar",
-    "c" : 0
+    "i" : 4
   },
   {
     "_key" : "130",
@@ -137,7 +137,7 @@ will be applied during a search:
     "_rev" : "_XPoMzCy--_",
     "a" : "foo",
     "b" : "baz",
-    "c" : 1
+    "i" : 5
   }
 ]
 ```
