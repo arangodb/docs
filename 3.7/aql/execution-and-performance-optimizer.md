@@ -526,6 +526,17 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   rule is to move filters up in the processing pipeline as far as possible
   (ideally out of inner loops) so they filter results as early as possible.
 
+- `optimize-count`:
+  will appear if a subquery was modified to use the optimized code path for
+  counting documents.
+  The requirements are that the subquery result must only be used with the
+  `COUNT`/`LENGTH` AQL function and not for anything else. The subquery itself 
+  must be read-only (no data-modification subquery), not use nested FOR loops,
+  no LIMIT clause and no FILTER condition or calculation that requires
+  accessing document data. Accessing index data is supported for filtering (as
+  in the above example that would use the edge index), but not for further 
+  calculations.
+
 - `optimize-subqueries`:
   will appear when optimizations are applied to a subquery. The optimizer rule
   will add a *LIMIT* statement to qualifying subqueries to make them return
