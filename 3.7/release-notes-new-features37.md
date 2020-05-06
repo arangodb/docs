@@ -230,7 +230,8 @@ collection scan or an index scan, without any additional filtering on document
 attributes (early pruning or document post-filtering) and without using LIMIT.
 
 The optimization will help in the following situation:
-```
+
+```js
 FOR doc IN collection
   LET count = COUNT(
     FOR sub IN subCollection
@@ -247,8 +248,9 @@ no LIMIT clause and no FILTER condition or calculation that requires
 accessing document data. Accessing index data is supported for filtering (as
 in the above example that would use the edge index), but not for further 
 calculations.
+
 In case a subquery does not match these criteria, it will not use the 
-optimized code path for counting, but will executed normally.
+optimized code path for counting, but will execute normally.
 
 If the optimization is triggered, it will show up in the query execution
 plan under the rule name `optimize-count`.
