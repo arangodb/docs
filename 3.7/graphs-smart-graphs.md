@@ -71,6 +71,20 @@ overhead. The more subgraphs are touched the more network cost will apply.
 However the overall performance is never worse than the same query using a
 General Graph.
 
+Benefits of DisjointSmartGraphs
+-----------------------
+
+DisjointSmartGraphs are a more specialized type of SmartGraphs. Compared to 
+SmartGraphs they are quite equal compared to their origin, expect one important
+detail:
+
+Where SmartGraphs are almost local, DisjointSmartGraphs are guaranteed to be
+local in any case by definition. A DisjointSmartGraph prohibids connected edges
+between different SmartGraph components. As no connections between subgraphs
+are existing, no network overhead will ever appear, which will lead to faster
+query traversal execution times. Besides that difference, the behaviour of
+all other functionalities are the same.
+
 Getting started
 ---------------
 
