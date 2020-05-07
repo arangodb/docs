@@ -114,6 +114,24 @@ required and cannot be modified later.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+**Create a disjoint graph**
+
+In contrast to regular SmartGraphs we have to add one option when creating the
+graph. The boolean option `isDisjoint` is required, needs to be set to `true`
+and cannot be modified later. 
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline smartGraphCreateGraphHowTo1_disjoint_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo1_disjoint_cluster}
+      var graph_module = require("@arangodb/smart-graph");
+      var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9, isDisjoint: true});
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock smartGraphCreateGraphHowTo1_disjoint_cluster
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 **Add vertex collections**
 
 This is analogous to General Graphs. Unlike with General Graphs, the
