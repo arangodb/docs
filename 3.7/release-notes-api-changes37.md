@@ -100,6 +100,17 @@ graph definitions of all graphs at GET `GET /_api/gharial` or a graph
 definition of a single graph at `/_api/gharial/{graph}` will include an
 additional boolean attribute called `isSatellite`.
 
+The REST API endpoint for creating a graph at POST `/_api/gharial` accepts now a
+new boolean parameter called `isDisjoint` to be able to the newly introduced
+graph type: **Disjoint Smart Graph**. The `isDisjoint` parameter is an additional
+parameter strongly related to a **Smart Graph**. Setting the value to `true`,
+will create a **Disjoint Smart Graph** instead of a **Smart Graph**. Setting it
+to false or not providing any value will create **Smart Graph** as before.
+Additionally, the REST API endpoint for reading the graph definitions of all
+graphs at GET `GET /_api/gharial` or a graph definition of a single graph at
+`/_api/gharial/{graph}` will include an additional boolean attribute called
+`isDisjoint` in case of a **Disjoint Smart Graph** being found.
+
 ### Endpoints moved
 
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
