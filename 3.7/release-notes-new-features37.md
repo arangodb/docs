@@ -204,6 +204,20 @@ traversals and greatly improves performance for such queries.
 SatelliteGraphs are only available in the Enterprise Edition and the
 [ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
 
+DisjointSmartGraphs
+---------------
+
+SmartGraphs have been extended to a new subtype, called **DisjointSmartGraphs**.
+A DisjointSmartGraph prohibids connected edges between different SmartGraph
+components. In case the graph schema is able to be represented without the need
+of connected SmartGraph components, a DisjointSmartGraph should be used as this
+knowledge can be used by the internal optimizer to gain even better query
+traversal execution times.
+
+
+DisjointSmartGraphs are only available in the Enterprise Edition and the
+[ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
+
 AQL
 ---
 
