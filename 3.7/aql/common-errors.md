@@ -64,8 +64,8 @@ Assembling query strings with simple **string concatenation** looks trivial,
 but is potentially **unsafe**. You should use
 [bind parameters](fundamentals-bind-parameters.html) instead whenever possible,
 use query building functionality if provided by a driver (see
-[arangojs AQL Helpers](../drivers/js-reference-aql.html) for example)
-or at least sanitize user input with great care.
+[arangojs AQL Helpers](http://arangodb.github.io/arangojs/modules/_aql_.aql.html){:target="_blank"}
+for example) or at least sanitize user input with great care.
 
 ### Parameter injection examples
 

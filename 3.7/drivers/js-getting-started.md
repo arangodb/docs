@@ -9,7 +9,7 @@ description: ArangoJS is compatible with the latest stable version of ArangoDB a
 ArangoJS is compatible with the latest stable version of ArangoDB available at
 the time of the driver release.
 
-The [_arangoVersion_ option](js-reference-database.html)
+The [_arangoVersion_ option](http://arangodb.github.io/arangojs/modules/_connection_.html#config){:target="_blank"}
 can be used to tell arangojs to target a specific
 ArangoDB version. Depending on the version this will enable or disable certain
 methods and change behavior to maintain compatibility with the given version.
