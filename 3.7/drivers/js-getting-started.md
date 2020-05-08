@@ -187,8 +187,10 @@ const db = new Database({
 });
 ```
 
-For AQL please check out the [aql template tag](js-reference-database-queries.html#aql) for writing parametrized
-AQL queries without making your code vulnerable to injection attacks.
+For AQL please check out the
+[aql template tag](http://arangodb.github.io/arangojs/modules/_aql_.aql.html){:target="_blank"}
+for writing parametrized AQL queries without making your code vulnerable to
+injection attacks.
 
 ## Error responses
 
