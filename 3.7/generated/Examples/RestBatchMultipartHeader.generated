@@ -80,7 +80,7 @@ HTTP/1.1 200 OK
 Server: 
 Connection: Close 
 Content-Type: application/json; charset=utf-8
-Content-Length: 451
+Content-Length: 470
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
@@ -90,23 +90,24 @@ Content-Length: 451
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
   <span class="hljs-string">"tempObjectId"</span> : <span class="hljs-string">"0"</span>, 
   <span class="hljs-string">"syncByRevision"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"70182"</span>, 
+  <span class="hljs-string">"statusString"</span> : <span class="hljs-string">"loaded"</span>, 
+  <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"70176"</span>, 
   <span class="hljs-string">"cacheEnabled"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"isSmartChild"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"70175"</span>, 
+  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h6DEFF431029E/70176"</span>, 
+  <span class="hljs-string">"schema"</span> : <span class="hljs-literal">null</span>, 
   <span class="hljs-string">"keyOptions"</span> : { 
     <span class="hljs-string">"allowUserKeys"</span> : <span class="hljs-literal">true</span>, 
     <span class="hljs-string">"type"</span> : <span class="hljs-string">"traditional"</span>, 
     <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">0</span> 
   }, 
-  <span class="hljs-string">"isSmartChild"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"70181"</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h65B7DC89598A/70182"</span>, 
-  <span class="hljs-string">"schema"</span> : <span class="hljs-literal">null</span>, 
+  <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"minRevision"</span> : <span class="hljs-number">1665388908183027700</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"products"</span>, 
-  <span class="hljs-string">"statusString"</span> : <span class="hljs-string">"loaded"</span>, 
-  <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span> 
+  <span class="hljs-string">"minRevision"</span> : <span class="hljs-number">1666477388340396000</span>, 
+  <span class="hljs-string">"isDisjoint"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"products"</span> 
 }&#x21A9;
 
 --SomeBoundaryValue
@@ -118,7 +119,7 @@ Server:
 Location: /_api/collection/products/figures
 Connection: Close 
 Content-Type: application/json; charset=utf-8
-Content-Length: 570
+Content-Length: 589
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
@@ -130,7 +131,9 @@ Content-Length: 570
   <span class="hljs-string">"statusString"</span> : <span class="hljs-string">"loaded"</span>, 
   <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
   <span class="hljs-string">"schema"</span> : <span class="hljs-literal">null</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h65B7DC89598A/70182"</span>, 
+  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h6DEFF431029E/70176"</span>, 
+  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"70175"</span>, 
+  <span class="hljs-string">"isSmartChild"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"tempObjectId"</span> : <span class="hljs-string">"0"</span>, 
   <span class="hljs-string">"figures"</span> : { 
     <span class="hljs-string">"indexes"</span> : { 
@@ -143,11 +146,9 @@ Content-Length: 570
     <span class="hljs-string">"cacheUsage"</span> : <span class="hljs-number">0</span> 
   }, 
   <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"minRevision"</span> : <span class="hljs-number">1665388908183027700</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"70182"</span>, 
+  <span class="hljs-string">"minRevision"</span> : <span class="hljs-number">1666477388340396000</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"70176"</span>, 
   <span class="hljs-string">"cacheEnabled"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"isSmartChild"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"70181"</span>, 
   <span class="hljs-string">"count"</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">"keyOptions"</span> : { 
     <span class="hljs-string">"allowUserKeys"</span> : <span class="hljs-literal">true</span>, 
@@ -155,6 +156,7 @@ Content-Length: 570
     <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">0</span> 
   }, 
   <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"isDisjoint"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"products"</span> 
 }&#x21A9;
 
@@ -171,7 +173,7 @@ Content-Length: 39
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"70182"</span> 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"70176"</span> 
 }&#x21A9;
 
 --SomeBoundaryValue--

@@ -536,7 +536,7 @@
       "agent",
       "single"
     ],
-    "default" : 33252958208,
+    "default" : 16341532672,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -600,29 +600,6 @@
     "requiresValue" : true,
     "section" : "cluster",
     "type" : "string..."
-  },
-  "cluster.agency-prefix" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "dbserver"
-    ],
-    "default" : "",
-    "deprecatedIn" : null,
-    "description" : "agency prefix",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "cluster",
-    "type" : "string"
   },
   "cluster.create-waits-for-sync-replication" : {
     "category" : "option",
@@ -4873,7 +4850,7 @@
       "agent",
       "single"
     ],
-    "default" : 39903549849,
+    "default" : 19609839206,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -5005,6 +4982,33 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.edge-cache" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "use in-memory cache for edges",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.4"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -5830,7 +5834,7 @@
       "agent",
       "single"
     ],
-    "default" : 53204733132,
+    "default" : 26146452275,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
