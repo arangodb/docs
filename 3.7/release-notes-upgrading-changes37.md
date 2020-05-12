@@ -46,6 +46,25 @@ and often replaced by `е` in informal writing. The original algorithm assumed i
 had already been mapped to `е` (`e`), but now it actively translates this character
 if the locale is set to Russian language.
 
+AQL
+---
+
+The memory usage reported by AQL queries may now be slightly higher in 3.7 than in
+previous versions of ArangoDB. This is not due to queries using more memory in 3.7, 
+but due to a change in the memory accounting code, which is slightly more accurate
+now.
+
+For cluster AQL queries the memory usage now is now tracked on a per-server basis
+and not on a per-shard basis as in previous versions of ArangoDB.
+These changes can affect queries that set a memory limit via the query options
+or are employing a global limit via the `--query.memory-limit` option. It may be
+required to raise the configured memory limit value in either client applications 
+or the ArangoDB configuration to take these changes into account.
+
+The number of HTTP requests reported for cluster AQL queries now also includes the
+requests for deploying the queries to the database servers. These requests weren't
+tracked in previous versions of ArangoDB.
+
 UTF-8 validation
 ----------------
 
