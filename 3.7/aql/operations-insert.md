@@ -115,7 +115,7 @@ modes:
   a parse error, as there will be no old version to return. `RETURN NEW`
   will only return the document in case it was inserted. In case the
   document already existed, `RETURN NEW` will return `null`.
-  `"replace"`: if a document with the specified *_key* value exists already,
+- `"replace"`: if a document with the specified *_key* value exists already,
   it will be overwritten with the specified document value. This mode will
   also be used when no overwrite mode is specified but the *overwrite*
   flag is set to *true*.
