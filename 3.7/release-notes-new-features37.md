@@ -208,7 +208,7 @@ DisjointSmartGraphs
 ---------------
 
 SmartGraphs have been extended to a new subtype, called **DisjointSmartGraphs**.
-A DisjointSmartGraph prohibids connected edges between different SmartGraph
+A DisjointSmartGraph prohibits connected edges between different SmartGraph
 components. In case the graph schema is able to be represented without the need
 of connected SmartGraph components, a DisjointSmartGraph should be used as this
 knowledge can be used by the internal optimizer to gain even better query
