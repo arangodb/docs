@@ -493,9 +493,9 @@ Object tokens:
   - `maxDistance` (number): maximum Levenshtein / Damerau-Levenshtein distance
   - `withTranspositions` (bool, _optional_): whether Damerau-Levenshtein
     distance should be used. The default value is `false` (Levenshtein distance).
-  - `maxTerms` (number, _optional_): consider only a specified number the
-    most relevant terms. One can pass 0 to consider all matched terms.
-  The default value is 64.
+  - `maxTerms` (number, _optional_): consider only a specified number of the
+    most relevant terms. One can pass `0` to consider all matched terms, but it may
+    impact performance negatively. The default value is `64`.
 - `{STARTS_WITH: [prefix]}`: see [STARTS_WITH()](#starts_with).
   Array brackets are optional
 - `{TERM: [token]}`: equal to `token` but without Analyzer tokenization.
@@ -742,9 +742,9 @@ if you want to calculate the edit distance of two strings.
   it is `true`
 - **transpositions** (bool, _optional_): compute Damerau-Levenshtein distance
   if set to `true`, otherwise Levenshtein distance will be computed (default)
-- **maxTerms** (number, _optional_): consider only a specified number the
-  most relevant terms. One can pass 0 to consider all matched terms.
-  The default value is 64.
+- **maxTerms** (number, _optional_): consider only a specified number of the
+  most relevant terms. One can pass `0` to consider all matched terms, but it may
+  impact performance negatively. The default value is `64`.
 
 ```js
 FOR doc IN viewName
