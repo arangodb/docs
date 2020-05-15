@@ -74,7 +74,7 @@ General Graph.
 Benefits of DisjointSmartGraphs
 -----------------------
 
-DisjointSmartGraphs are a more specialized type of SmartGraphs. Compared to 
+DisjointSmartGraphs are a specialized type of SmartGraphs. 
 SmartGraphs they are quite equal compared to their origin, expect one important
 detail:
 
