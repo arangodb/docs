@@ -712,7 +712,7 @@ The following optimizer rules may appear in the `rules` attribute of
   Depends on *remove-unnecessary-remote-scatter* rule.
 
 - `remove-distribute-nodes` _(Enterprise Edition only)_:
-  combines *DistributeNode*s into one if possible. This rule will trigger if e.g.
+  combines *DistributeNode*s into one if possible. This rule will trigger if 
   two *DistributeNode*s share the same input variables and therefore can be
   optimized into a single *DistributeNode*.
 
