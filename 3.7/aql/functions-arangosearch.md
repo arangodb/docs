@@ -488,11 +488,14 @@ Object tokens:
 
 - `{IN_RANGE: [low, high, includeLow, includeHigh]}`:
   see [IN_RANGE()](#in_range). *low* and *high* can only be strings.
-- `{LEVENSHTEIN_MATCH: [token, maxDistance, withTranspositions]}`:
+- `{LEVENSHTEIN_MATCH: [token, maxDistance, withTranspositions, maxTerms]}`:
   - `token` (string): a string to search
   - `maxDistance` (number): maximum Levenshtein / Damerau-Levenshtein distance
   - `withTranspositions` (bool, _optional_): whether Damerau-Levenshtein
     distance should be used. The default value is `false` (Levenshtein distance).
+  - `maxTerms` (number, _optional_): consider only a specified number the
+    most relevant terms. One can pass 0 to consider all matched terms.
+  The default value is 64.
 - `{STARTS_WITH: [prefix]}`: see [STARTS_WITH()](#starts_with).
   Array brackets are optional
 - `{TERM: [token]}`: equal to `token` but without Analyzer tokenization.
@@ -721,7 +724,7 @@ FOR doc IN viewName
 
 <small>Introduced in: v3.7.0</small>
 
-`LEVENSHTEIN_MATCH(path, target, distance, transpositions)`
+`LEVENSHTEIN_MATCH(path, target, distance, transpositions, maxTerms)`
 
 Match documents with a [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance){:target=_"blank"}
 lower than or equal to *distance* between the stored attribute value and
@@ -739,6 +742,9 @@ if you want to calculate the edit distance of two strings.
   it is `true`
 - **transpositions** (bool, _optional_): compute Damerau-Levenshtein distance
   if set to `true`, otherwise Levenshtein distance will be computed (default)
+- **maxTerms** (number, _optional_): consider only a specified number the
+  most relevant terms. One can pass 0 to consider all matched terms.
+  The default value is 64.
 
 ```js
 FOR doc IN viewName
