@@ -711,6 +711,11 @@ The following optimizer rules may appear in the `rules` attribute of
   locally without network communication.
   Depends on *remove-unnecessary-remote-scatter* rule.
 
+- `remove-distribute-nodes` _(Enterprise Edition only)_:
+  combines *DistributeNode*s into one if possible. This rule will trigger if 
+  two adjacent *DistributeNode*s share the same input variables and therefore can be
+  optimized into a single *DistributeNode*.
+
 - `remove-unnecessary-remote-scatter`:
   will appear if a RemoteNode is followed by a ScatterNode, and the ScatterNode
   is only followed by calculations or the SingletonNode. In this case, there is
