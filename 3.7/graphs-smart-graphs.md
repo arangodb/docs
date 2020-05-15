@@ -75,8 +75,6 @@ Benefits of DisjointSmartGraphs
 -----------------------
 
 DisjointSmartGraphs are a specialized type of SmartGraphs. 
-SmartGraphs they are quite equal compared to their origin, expect one important
-detail:
 
 Where SmartGraphs are almost local, DisjointSmartGraphs are guaranteed to be
 local in any case by definition. A DisjointSmartGraph prohibits edges between
