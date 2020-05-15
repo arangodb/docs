@@ -79,9 +79,9 @@ SmartGraphs they are quite equal compared to their origin, expect one important
 detail:
 
 Where SmartGraphs are almost local, DisjointSmartGraphs are guaranteed to be
-local in any case by definition. A DisjointSmartGraph prohibits connected edges
-between different SmartGraph components. As no connections between subgraphs
-are existing, no network overhead will ever appear, which will lead to faster
+local in any case by definition. A DisjointSmartGraph prohibits edgesbetween
+different SmartGraph components. As no connections between subgraphs are
+existing, no network overhead will ever appear, which will lead to faster
 query traversal execution times. Besides that difference, the behaviour of
 all other functionalities are the same.
 
