@@ -76,12 +76,12 @@ Benefits of DisjointSmartGraphs
 
 DisjointSmartGraphs are a specialized type of SmartGraphs. 
 
-Where SmartGraphs are almost local, DisjointSmartGraphs are guaranteed to be
-local in any case by definition. A DisjointSmartGraph prohibits edges between
-different SmartGraph components. As no connections between subgraphs are
-existing, no network overhead will ever appear, which will lead to faster
-query traversal execution times. Besides that difference, the behaviour of
-all other functionalities are the same.
+In addition to the guaranteed sharding in SmartGraphs, a DisjointSmartGraph
+prohibits edges between vertices with different smartGraphAttribute values.
+
+This ensures graph traversals, shortest path, and k-shortest-paths queries
+can be executed locally on a DB-Server, achieving improved performance for
+this type of query.
 
 Getting started
 ---------------
