@@ -707,7 +707,7 @@ The following optimizer rules may appear in the `rules` attribute of
 - `push-subqueries-to-dbserver` _(Enterprise Edition only)_:
   will appear if a subquery is determined to be executable entirely on a database
   server.
-  Currently a subquery can be executed on a dbserver if it contains exactly one
+  Currently a subquery can be executed on a DB-Server if it contains exactly one
   distribute/gather section, and only contains one collection access or
   traversal, shortest path, or k-shortest paths query.
 
