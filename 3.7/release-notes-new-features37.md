@@ -221,6 +221,40 @@ benefit from this change straight away. This also holds true for subqueries,
 hence the existing AQL optimizer rule `splice-subqueries` is now able to
 optimize all subqueries and is enabled by default.
 
+### Count optimizations
+
+Subqueries can now use an optimized code path for counting documents if they
+are supposed to only return the number of matching documents.
+The optimization will be triggered for read-only subqueries that use a full 
+collection scan or an index scan, without any additional filtering on document
+attributes (early pruning or document post-filtering) and without using LIMIT.
+
+The optimization will help in the following situation:
+
+```js
+FOR doc IN collection
+  LET count = COUNT(
+    FOR sub IN subCollection
+      FILTER sub._from == doc._id
+      RETURN sub
+  )
+  ...
+```
+
+The restrictions are that the subquery result must only be used with the
+`COUNT`/`LENGTH` AQL function and not for anything else. The subquery itself 
+must be read-only (no data-modification subquery), not use nested FOR loops,
+no LIMIT clause and no FILTER condition or calculation that requires
+accessing document data. Accessing index data is supported for filtering (as
+in the above example that would use the edge index), but not for further 
+calculations.
+
+In case a subquery does not match these criteria, it will not use the 
+optimized code path for counting, but will execute normally.
+
+If the optimization is triggered, it will show up in the query execution
+plan under the rule name `optimize-count`.
+
 ### Traversal optimizations
 
 Graph traversal performance is improved via some internal code refactoring:
