@@ -704,6 +704,13 @@ The following optimizer rules may appear in the `rules` attribute of
   other nodes of type *ScatterNode*, *GatherNode* or *DistributeNode* present
   in the query.
 
+- `push-subqueries-to-dbserver` _(Enterprise Edition only)_:
+  will appear if a subquery is determined to be executable entirely on a database
+  server.
+  Currently a subquery can be executed on a DB-Server if it contains exactly one
+  distribute/gather section, and only contains one collection access or
+  traversal, shortest path, or k-shortest paths query.
+
 - `remove-satellite-joins` _(Enterprise Edition only)_:
   optimizes *Scatter-*, *Gather-* and *RemoteNode*s for SatelliteCollections
   and SatelliteGraphs away. Executes the respective query parts on each
