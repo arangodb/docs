@@ -201,7 +201,8 @@ of a cluster, which enables DB-Servers to execute graph traversals locally.
 This includes (k-)shortest path(s) computation and possibly joins with
 traversals and greatly improves performance for such queries.
 
-SatelliteGraphs are only available in the Enterprise Edition and the
+[SatelliteGraphs](graphs-satellite-graphs.html)
+are only available in the Enterprise Edition and the
 [ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
 
 Disjoint SmartGraphs
@@ -213,7 +214,8 @@ components. If your graph doesn't need edges between vertices with different
 SmartGraph attribute values, then you should enable this option. This topology
 restriction allows the query optimizer to improve traversal execution times.
 
-Disjoint SmartGraphs are only available in the Enterprise Edition and the
+[Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-disjoint-smartgraphs)
+are only available in the Enterprise Edition and the
 [ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
 
 AQL
