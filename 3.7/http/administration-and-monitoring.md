@@ -32,6 +32,12 @@ TLS
 {% docublock get_admin_server_tls %}
 {% docublock post_admin_server_tls %}
 
+Encryption at Rest
+------------------
+
+<!-- arangod/RestHandler/RestAdminServerHandler.cpp -->
+{% docublock post_admin_server_encryption %}
+
 Cluster
 -------
 
