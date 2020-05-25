@@ -214,7 +214,8 @@ components. If your graph doesn't need edges between vertices with different
 SmartGraph attribute values, then you should enable this option. This topology
 restriction allows the query optimizer to improve traversal execution times.
 
-Disjoint SmartGraphs are only available in the Enterprise Edition and the
+[Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-disjoint-smartgraphs)
+are only available in the Enterprise Edition and the
 [ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
 
 AQL
