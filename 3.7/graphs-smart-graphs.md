@@ -71,17 +71,17 @@ overhead. The more subgraphs are touched the more network cost will apply.
 However the overall performance is never worse than the same query using a
 General Graph.
 
-Benefits of DisjointSmartGraphs
------------------------
+Benefits of Disjoint SmartGraphs
+-------------------------------
 
-DisjointSmartGraphs are a specialized type of SmartGraphs. 
+Disjoint SmartGraphs are a specialized type of SmartGraphs. 
 
-In addition to the guaranteed sharding in SmartGraphs, a DisjointSmartGraph
-prohibits edges between vertices with different smartGraphAttribute values.
+In addition to the guaranteed sharding in SmartGraphs, a Disjoint SmartGraph
+prohibits edges between vertices with different `smartGraphAttribute` values.
 
-This ensures graph traversals, shortest path, and k-shortest-paths queries
+This ensures that graph traversals, shortest path, and k-shortest-paths queries
 can be executed locally on a DB-Server, achieving improved performance for
-this type of query.
+these type of queries.
 
 Getting started
 ---------------
@@ -112,21 +112,21 @@ required and cannot be modified later.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-**Create a disjoint graph**
+**Create a Disjoint SmartGraph**
 
 In contrast to regular SmartGraphs we have to add one option when creating the
 graph. The boolean option `isDisjoint` is required, needs to be set to `true`
 and cannot be modified later. 
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline smartGraphCreateGraphHowTo1_disjoint_cluster
-    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowTo1_disjoint_cluster}
+    @startDocuBlockInline smartGraphCreateGraphHowToDisjoint1_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowToDisjoint1_cluster}
       var graph_module = require("@arangodb/smart-graph");
       var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9, isDisjoint: true});
       graph_module._graph("myGraph");
      ~graph_module._drop("myGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock smartGraphCreateGraphHowTo1_disjoint_cluster
+    @endDocuBlock smartGraphCreateGraphHowToDisjoint1_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
