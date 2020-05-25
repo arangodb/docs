@@ -214,8 +214,8 @@ the server.
 The memory limit specifies the maximum number of bytes that the query is
 allowed to use. When a single AQL query reaches the specified limit value, 
 the query will be aborted with a *resource limit exceeded* exception. In a 
-cluster, the memory accounting is done per shard, so the limit value is 
-effectively a memory limit per query per shard.
+cluster, the memory accounting is done per server, so the limit value is 
+effectively a memory limit per query per server.
 
 ```js
 > curl --data @- -X POST --dump - http://localhost:8529/_api/cursor

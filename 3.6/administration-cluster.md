@@ -217,9 +217,10 @@ to uphold replication and resilience.
 The clean way of removing a _DB-Server_ is to first relieve it of all
 its responsibilities for shards. This applies to _followers_ as well as
 _leaders_ of shards. The requirement for this operation is that no
-collection in any of the databases has a `replicationFactor` greater or
-equal to the current number of _DB-Servers_ minus one. For the purpose of
-cleaning out `DBServer004` for example would work as follows, when
+collection in any of the databases has a `replicationFactor` greater than
+the current number of _DB-Servers_ minus one. In other words, the highest
+replication factor must not exceed the future _DB-Server_ count. For the
+purpose of cleaning out `DBServer004` for example would work as follows, when
 issued to any _Coordinator_ of the cluster:
 
 `curl <coord-ip:coord-port>/_admin/cluster/cleanOutServer -d '{"server":"DBServer004"}'`
