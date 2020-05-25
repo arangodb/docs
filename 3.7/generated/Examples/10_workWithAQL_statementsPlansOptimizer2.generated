@@ -25,14 +25,16 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">optimizer</span>: {
         }, 
         <span class="hljs-string">"outVariable"</span> : { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">0</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"user"</span> 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"user"</span>, 
+          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">true</span> 
         }, 
         <span class="hljs-string">"projections"</span> : [ ], 
         <span class="hljs-string">"producesResult"</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">"database"</span> : <span class="hljs-string">"_system"</span>, 
         <span class="hljs-string">"collection"</span> : <span class="hljs-string">"_users"</span>, 
         <span class="hljs-string">"satellite"</span> : <span class="hljs-literal">false</span>, 
-        <span class="hljs-string">"isSatellite"</span> : <span class="hljs-literal">false</span> 
+        <span class="hljs-string">"isSatellite"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"isSatelliteOf"</span> : <span class="hljs-literal">null</span> 
       }, 
       { 
         <span class="hljs-string">"type"</span> : <span class="hljs-string">"CalculationNode"</span>, 
@@ -71,7 +73,8 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">optimizer</span>: {
         }, 
         <span class="hljs-string">"outVariable"</span> : { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">2</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"1"</span> 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"1"</span>, 
+          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
         }, 
         <span class="hljs-string">"canThrow"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"expressionType"</span> : <span class="hljs-string">"simple"</span> 
@@ -86,7 +89,8 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">optimizer</span>: {
         <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"inVariable"</span> : { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">2</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"1"</span> 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"1"</span>, 
+          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
         } 
       }, 
       { 
@@ -99,7 +103,8 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">optimizer</span>: {
         <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"inVariable"</span> : { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">0</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"user"</span> 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"user"</span>, 
+          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">true</span> 
         }, 
         <span class="hljs-string">"count"</span> : <span class="hljs-literal">true</span> 
       } 
@@ -114,11 +119,13 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">optimizer</span>: {
     <span class="hljs-string">"variables"</span> : [ 
       { 
         <span class="hljs-string">"id"</span> : <span class="hljs-number">2</span>, 
-        <span class="hljs-string">"name"</span> : <span class="hljs-string">"1"</span> 
+        <span class="hljs-string">"name"</span> : <span class="hljs-string">"1"</span>, 
+        <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
       }, 
       { 
         <span class="hljs-string">"id"</span> : <span class="hljs-number">0</span>, 
-        <span class="hljs-string">"name"</span> : <span class="hljs-string">"user"</span> 
+        <span class="hljs-string">"name"</span> : <span class="hljs-string">"user"</span>, 
+        <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">true</span> 
       } 
     ], 
     <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">6</span>, 

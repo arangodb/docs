@@ -1,8 +1,8 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
 
 HTTP/1.1 OK
+content-type: application/json
 location: /_api/collection/testCollection/shards
 x-content-type-options: nosniff
-content-type: application/json
 
-"{\"error\":false,\"code\":200,\"shards\":{\"s2000048\":[\"PRMR-8d130a28-c6a8-4bf2-8dca-70307fd61c49\"],\"s2000049\":[\"PRMR-9ac93429-d3ff-4d81-b51f-99ecac1c87a4\"],\"s2000050\":[\"PRMR-8d130a28-c6a8-4bf2-8dca-70307fd61c49\"]},\"writeConcern\":1,\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":1,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"globallyUniqueId\":\"c2000047/\",\"id\":\"2000047\",\"cacheEnabled\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false,\"name\":\"testCollection\",\"minReplicationFactor\":1,\"waitForSync\":false,\"numberOfShards\":3}"
+"{\"error\":false,\"code\":200,\"shards\":{\"s2000048\":[\"PRMR-65b87e24-5608-4ad2-a4a5-13d930932903\"],\"s2000049\":[\"PRMR-74cf8ffd-85d4-42d7-b8f2-7e52ba8c8bc5\"],\"s2000050\":[\"PRMR-65b87e24-5608-4ad2-a4a5-13d930932903\"]},\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isDisjoint\":false,\"minReplicationFactor\":1,\"isSystem\":false,\"name\":\"testCollection\",\"cacheEnabled\":false,\"id\":\"2000047\",\"isSmartChild\":false,\"globallyUniqueId\":\"c2000047/\",\"schema\":null,\"type\":2,\"status\":3,\"minRevision\":1666485402829062144,\"numberOfShards\":3,\"statusString\":\"loaded\",\"waitForSync\":false,\"isSmart\":false,\"shardKeys\":[\"_key\"],\"shardingStrategy\":\"hash\",\"replicationFactor\":1,\"syncByRevision\":true,\"usesRevisionsAsDocumentIds\":true,\"writeConcern\":1}"

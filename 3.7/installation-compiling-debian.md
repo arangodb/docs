@@ -11,6 +11,11 @@ This guide describes how to compile and run the devel branch under a Debian
 based system. It was tested using a fresh Debian Testing machine on Amazon EC2.
 For completeness, the steps pertaining to AWS are also included here.
 
+{% hint 'info' %}
+ArangoDB v3.7 requires at least g++ 9.2 as compiler. Older versions, especially
+g++ 7, do not work anymore unlike for ArangoDB v3.6 and older.
+{% endhint %}
+
 Launch the VM
 -------------
 
@@ -22,7 +27,7 @@ network and the instance store is on SSDs which can be switched to provisioned
 IOPs.
 
 The Current AMI ID's can be found in the Debian Wiki:
-[wiki.debian.org/Cloud/AmazonEC2Image/Jessie](https://wiki.debian.org/Cloud/AmazonEC2Image/Jessie){:target="_blank"}
+[wiki.debian.org/Cloud/AmazonEC2Image/](https://wiki.debian.org/Cloud/AmazonEC2Image/){:target="_blank"}
 
 Upgrade to the very latest version
 ----------------------------------
@@ -44,6 +49,7 @@ packages. Sometimes you need to run safe/full upgrade more than once. When you
 are done, reboot.
 
 ```bash
+apt-get update
 apt-get install aptitude
 aptitude -y update
 aptitude -y safe-upgrade
@@ -149,12 +155,21 @@ This option activates additional code in the server that intentionally makes
 the server crash or misbehave (e.g. by pretending the system ran out of memory)
 when certain tests are run. This option is useful for writing tests.
 
+    -DUSE_GOOGLE_TESTS=off
+
+This option disables all unit tests based on
+[Googletest](https://github.com/google/googletest){:target="_blank"}.
+
     -DUSE_JEMALLOC=Off
 
 By default ArangoDB will be built with a bundled version of the JEMalloc
 allocator. This however will not work when using runtime analyzers such as ASAN
 or Valgrind. In order to use these tools for instrumenting an ArangoDB binary,
 JEMalloc must be turned off during compilation.
+
+For **release builds** configure CMake with the following options:
+
+    cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DUSE_MAINTAINER_MODE=off -DUSE_OPTIMIZE_FOR_ARCHITECTURE=On -DUSE_GOOGLE_TESTS=off
 
 Shared memory
 -------------
@@ -175,6 +190,8 @@ Compile the programs (server, client, utilities) by executing
 
 in the build subdirectory. This will compile ArangoDB and create the binary executable
 in file `build/bin/arangod`.
+
+To run multiple jobs in parallel pass `-j<numJobs>`, e.g. `make -j8`.
 
 Starting and testing
 --------------------

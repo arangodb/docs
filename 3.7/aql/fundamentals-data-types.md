@@ -136,6 +136,16 @@ supported.
 [ [ "fox", "marshal" ] ]
 ```
 
+A trailing comma after the last element is allowed (introduced in v3.7.0):
+
+```js
+[
+  1,
+  2,
+  3, // trailing comma
+]
+```
+
 Individual array values can later be accessed by their positions using the `[]`
 accessor. The position of the accessed element must be a numeric
 value. Positions start at 0. It is also possible to use negative index values
@@ -202,6 +212,16 @@ then the attribute name must be quoted or escaped by ticks or backticks:
 { "return": … }  // quoted
 { `return`: … }  // escaped (backticks)
 { ´return´: … }  // escaped (ticks)
+```
+
+A trailing comma after the last element is allowed (introduced in v3.7.0):
+
+```js
+{
+  "a": 1,
+  "b": 2,
+  "c": 3, // trailing comma
+}
 ```
 
 Attribute names can be computed using dynamic expressions, too.

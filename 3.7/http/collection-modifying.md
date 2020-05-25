@@ -20,7 +20,4 @@ Modifying a Collection
 {% docublock put_api_collection_rename %}
 
 <!-- js/actions/api-collection.js -->
-{% docublock put_api_collection_rotate %}
-
-<!-- js/actions/api-collection.js -->
 {% docublock put_api_collection_recalculate_count %}

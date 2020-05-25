@@ -12,21 +12,27 @@ The crypto module provides implementations of various hashing algorithms as well
 Nonces
 ------
 
-These functions deal with cryptographic nonces.
+These functions deal with
+[cryptographic nonces](https://en.wikipedia.org/wiki/Cryptographic_nonce){:target="_blank"}.
+
+For single server use only.
 
 ### createNonce
 
 `crypto.createNonce(): string`
 
-Creates a cryptographic nonce.
+Creates a cryptographic nonce consisting of the first 32 bits of a timestamp
+and 64 bit of randomness.
 
-Returns the created nonce.
+The nonce is held in memory for approximately one hour by the server.
+
+Returns the created nonce as base64-encoded string.
 
 ### checkAndMarkNonce
 
 `crypto.checkAndMarkNonce(nonce): void`
 
-Checks and marks a nonce.
+Checks if the nonce is valid and marks it as used.
 
 **Arguments**
 
@@ -34,7 +40,8 @@ Checks and marks a nonce.
 
   The nonce to check and mark.
 
-Returns nothing.
+Returns `true` if the supplied nonce was issued by the server and not marked
+before, otherwise `false`.
 
 Random values
 -------------

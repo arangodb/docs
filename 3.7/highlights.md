@@ -6,6 +6,66 @@ title: ArangoDB Highlights
 Highlights
 ==========
 
+Version 3.7
+-----------
+
+**All Editions**
+
+- **ArangoSearch**:
+  [Wildcard](aql/functions-arangosearch.html#like) and fuzzy search
+  ([Levenshtein distance](aql/functions-string.html#levenshtein_distance) and
+  [n-gram based](aql/functions-arangosearch.html#ngram_match)),
+  [enhanced phrase](aql/functions-arangosearch.html#phrase) and
+  [proximity search](aql/functions-array.html#jaccard),
+  improved late document materialization and
+  [Views covering queries](release-notes-new-features37.html#covering-indexes)
+  using their indexes without touching the storage engine, as well as a new
+  SIMD-based index format for faster processing.
+
+<!--
+- **AQL**:
+  Subquery and graph traversal performance improvements
+
+- **HTTP/2 support**:
+
+- **TLS key and certificate rotation**:
+
+- **Crash Handler** (Linux/macOS):
+-->
+
+- [**Schema Validation**](data-modeling-documents-schema-validation.html):
+  Enforce a JSON Schema for documents on collection level. Invalid documents
+  can be rejected automatically by the database system, making it easy to
+  maintain data quality.
+- [**Insert-Update** and **Insert-Ignore**](release-notes-new-features37.html#insert-update-and-insert-ignore):
+  New document API operations to upsert documents and to efficiently insert
+  documents while skipping the creation if the document exists already.
+
+- [**V8 upgrade**](release-notes-new-features37.html#v8-and-icu-library-upgrades):
+  Upgraded the JavaScript engine to version 7.9.317, making newer features from
+  the ECMAScript specification available.
+
+**Enterprise Edition**
+
+- [**SatelliteGraphs**](release-notes-new-features37.html#satellitegraphs):
+  Synchronously replicated graphs with local traversal execution.
+
+- [**Disjoint SmartGraphs**](release-notes-new-features37.html#disjoint-smartgraphs):
+  Improve traversal execution times for SmartGraphs without edges between
+  vertices with different SmartGraph attributes.
+
+- [**JWT Secrets**](release-notes-new-features37.html#jwt-secret-rotation-enterprise-edition):
+  Added support for multiple secrets and the ability to hot-reload the files
+  from disk.
+
+<!--
+- **Server Name Indication (SNI)**:
+
+- **Encryption at Rest Key Rotation:
+-->
+
+Also see [What's New in 3.7](release-notes-new-features37.html).
+
 Version 3.6
 -----------
 

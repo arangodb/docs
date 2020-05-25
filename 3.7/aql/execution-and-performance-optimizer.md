@@ -526,6 +526,17 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   rule is to move filters up in the processing pipeline as far as possible
   (ideally out of inner loops) so they filter results as early as possible.
 
+- `optimize-count`:
+  will appear if a subquery was modified to use the optimized code path for
+  counting documents.
+  The requirements are that the subquery result must only be used with the
+  `COUNT`/`LENGTH` AQL function and not for anything else. The subquery itself 
+  must be read-only (no data-modification subquery), not use nested FOR loops,
+  no LIMIT clause and no FILTER condition or calculation that requires
+  accessing document data. Accessing index data is supported for filtering (as
+  in the above example that would use the edge index), but not for further 
+  calculations.
+
 - `optimize-subqueries`:
   will appear when optimizations are applied to a subquery. The optimizer rule
   will add a *LIMIT* statement to qualifying subqueries to make them return
@@ -535,7 +546,7 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   outer scope and may enable follow-up optimizations.
 
 - `optimize-traversals`:
-  will appear if either the edge or path output variable in an AQL traversal
+  will appear if the vertex, edge or path output variable in an AQL traversal
   was optimized away, or if a *FILTER* condition from the query was moved
   in the *TraversalNode* for early pruning of results.
 
@@ -640,13 +651,7 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 
 - `splice-subqueries`:
   will appear when a subquery has been spliced into the surrounding query.
-  Only suitable subqueries can be spliced.
-  A subquery becomes unsuitable if it contains a `LIMIT` node or a
-  `COLLECT WITH COUNT INTO …` construct (but not due to a
-  `COLLECT var = <expr> WITH COUNT INTO …`). A subquery *also* becomes
-  unsuitable if it is contained in a (sub)query containing unsuitable parts
-  *after* the subquery.
-
+  This will be performed on all subqueries unless explicitily switched off.
   This optimization is applied after all other optimizations, and reduces
   overhead for executing subqueries by inlining the execution. This mainly
   benefits queries which execute subqueries very often that only return a
@@ -710,9 +715,24 @@ The following optimizer rules may appear in the `rules` attribute of
   other nodes of type *ScatterNode*, *GatherNode* or *DistributeNode* present
   in the query.
 
+- `push-subqueries-to-dbserver` _(Enterprise Edition only)_:
+  will appear if a subquery is determined to be executable entirely on a database
+  server.
+  Currently a subquery can be executed on a DB-Server if it contains exactly one
+  distribute/gather section, and only contains one collection access or
+  traversal, shortest path, or k-shortest paths query.
+
 - `remove-satellite-joins` _(Enterprise Edition only)_:
-  optimizes *Scatter-*, *Gather-* and *RemoteNode*s for Satellite Collections
-  away. Depends on *remove-unnecessary-remote-scatter* rule.
+  optimizes *Scatter-*, *Gather-* and *RemoteNode*s for SatelliteCollections
+  and SatelliteGraphs away. Executes the respective query parts on each
+  participating DB-Server independently, so that the results become available 
+  locally without network communication.
+  Depends on *remove-unnecessary-remote-scatter* rule.
+
+- `remove-distribute-nodes` _(Enterprise Edition only)_:
+  combines *DistributeNode*s into one if possible. This rule will trigger if 
+  two adjacent *DistributeNode*s share the same input variables and therefore can be
+  optimized into a single *DistributeNode*.
 
 - `remove-unnecessary-remote-scatter`:
   will appear if a RemoteNode is followed by a ScatterNode, and the ScatterNode
@@ -731,11 +751,6 @@ The following optimizer rules may appear in the `rules` attribute of
   the query, and when the shard keys are covered by a single index (this is
   always true if the shard key is the default `_key`).
 
-- `scatter-arangosearch-view-in-cluster`:
-  will appear when scatter, gather, and remote nodes are inserted into a
-  distributed View query. This is not an optimization rule, and it cannot be
-  turned off.
-
 - `scatter-in-cluster`:
   will appear when scatter, gather, and remote nodes are inserted into a
   distributed query. This is not an optimization rule, and it cannot be
@@ -753,6 +768,13 @@ The following optimizer rules may appear in the `rules` attribute of
   roundtrips between the EnumerateCollectionNode and the RemoveNode.
   From v3.6.0 on, it includes simple *UPDATE* and *REPLACE* operations
   that modify multiple documents and do not use *LIMIT*.
+
+- `scatter-satellite-graph-in-cluster` _(Enterprise Edition only)_:
+  will appear in case a TraversalNode, ShortestPathNode or KShortestPathsNode
+  is found that operates on a SatelliteGraph. This leads to the node being
+  instantiated and executed on the DB-Server instead on a Coordinator.
+  This removes the need to transfer data for this node and hence also
+  increases performance.
 
 Note that some rules may appear multiple times in the list, with number suffixes.
 This is due to the same rule being applied multiple times, at different positions

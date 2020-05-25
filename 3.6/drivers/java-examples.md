@@ -10,3 +10,6 @@ Java Driver Examples
 
 - [XML data](java-examples-xml-data.html):<br>
   How to add XML data to ArangoDB?
+
+- [Import Graph data with Stream Transactions](java-examples-import-graph-data.html):<br>
+  How to write small subgraphs

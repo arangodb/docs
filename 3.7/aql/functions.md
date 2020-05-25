@@ -33,7 +33,7 @@ i.e. *LENGTH(foo)* and *length(foo)* are equivalent.
 
 Extending AQL
 -------------
- 
+
 It is possible to extend AQL with user-defined functions. These functions need to
 be written in JavaScript, and have to be registered before they can be used in a query.
 Please refer to [Extending AQL](extending.html) for more details.

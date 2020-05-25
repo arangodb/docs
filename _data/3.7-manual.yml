@@ -107,6 +107,8 @@
               href: programs-arangod-vst.html
             - text: WAL
               href: programs-arangod-wal.html
+        - text: Environment variables
+          href: programs-arangod-env-vars.html
     - text: Web Interface
       href: programs-web-interface.html
       children:
@@ -205,11 +207,6 @@
           href: programs-arangoinspect-examples.html
         - text: Options
           href: programs-arangoinspect-options.html
-    - text: Datafile Debugger
-      href: programs-arango-dfdb.html
-      children:
-        - text: Examples
-          href: programs-arango-dfdb-examples.html
     - text: Foxx CLI
       href: programs-foxx-cli.html
       children:
@@ -244,6 +241,8 @@
           href: data-modeling-documents-document-methods.html
         - text: Database Methods
           href: data-modeling-documents-database-methods.html
+        - text: Schema Validation
+          href: data-modeling-documents-schema-validation.html
         - text: Monetary data without precision loss
           href: data-modeling-monetary-data-without-precision-loss.html
     - text: 'Graphs, Vertices & Edges'
@@ -280,10 +279,6 @@
     - text: Working with Indexes
       href: indexing-working-with-indexes.html
       children:
-        - text: Hash Indexes
-          href: indexing-hash.html
-        - text: Skiplists
-          href: indexing-skiplist.html
         - text: Persistent
           href: indexing-persistent.html
         - text: TTL Indexes
@@ -317,6 +312,13 @@
           href: graphs-general-graphs-management.html
         - text: Graph Functions
           href: graphs-general-graphs-functions.html
+    - text: SatelliteGraphs
+      href: graphs-satellite-graphs.html
+      children:
+        - text: Management
+          href: graphs-satellite-graphs-management.html
+        - text: Details
+          href: graphs-satellite-graphs-details.html
     - text: SmartGraphs
       href: graphs-smart-graphs.html
       children:

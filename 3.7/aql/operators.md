@@ -293,20 +293,29 @@ evaluates to true, and the third operand otherwise.
 
 *Examples*
 
+The expression gives back `u.userId` if `u.age` is greater than 15 or if
+`u.active` is *true*. Otherwise it returns *null*:
+
 ```js
 u.age > 15 || u.active == true ? u.userId : null
 ```
 
 There is also a shortcut variant of the ternary operator with just two
 operands. This variant can be used when the expression for the boolean
-condition and the return value should be the same:
+condition and the return value should be the same.
 
 *Examples*
+
+The expression evaluates to `u.value` if `u.value` is truthy, otherwise a
+fixed string is given back:
 
 ```js
 u.value ? : 'value is null, 0 or not present'
 ```
 
+The condition (here just `u.value`) is only evaluated once if the second
+operand between `?` and `:` is omitted, whereas it would be evaluated twice
+in case of `u.value ? u.value : 'value is null'`.
 
 Range operator
 --------------
@@ -376,3 +385,7 @@ The operator precedence in AQL is similar as in other familiar languages
 
 The parentheses `(` and `)` can be used to enforce a different operator
 evaluation order.
+
+Try out AQL in just a few clicks with ArangoDB Oasis:
+the Cloud Service for ArangoDB. Start your
+[free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.

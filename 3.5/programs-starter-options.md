@@ -2,7 +2,7 @@
 layout: default
 description: The ArangoDB Starter provides a lot of options to control various aspects of the cluster or database you want to run
 ---
-# Option reference
+# ArangoDB Starter Options
 
 The ArangoDB Starter provides a lot of options to control various aspects
 of the cluster or database you want to run.
@@ -151,7 +151,7 @@ name of the server that will be used in the self-signed certificate created by t
 
 name of the server that will be used in the self-signed certificate created by the `--ssl.auto-key` option.
 
-## Other database options
+## Passing through other database options
 
 Options for `arangod` that are not supported by the starter can still be passed to
 the database servers using a pass through option.
@@ -171,6 +171,27 @@ To activate HTTP request logging at debug level for all coordinators, use a comm
 
 ```bash
 arangodb --coordinators.log.level=requests=debug
+```
+
+## Passing through `arangosync` options
+
+Options for `arangosync` that are not supported by the starter can still be passed to
+the syncmasters & syncworkers using a pass through option.
+Every option that start with a pass through prefix is passed through to the commandline
+of one or more `arangosync` instances.
+
+- `--sync.<section>.<key>=<value>` is pass as `--<section>.<key>=<value>` to all arangosync instances started by this starter.
+- `--syncmasters.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all syncmasters started by this starter.
+- `--syncworkers.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all syncworkers started by this starter.
+
+Some options are essential to the function of the starter. Therefore these options cannot be passed through like this.
+
+Example:
+
+To set a custom token TTL for direct message queue, use a command like this.
+
+```bash
+arangodb --syncmasters.mq.direct-token-ttl=12h ...
 ```
 
 ## Datacenter to datacenter replication options
@@ -203,28 +224,7 @@ TLS keyfile of local sync master.
 
 CA Certificate used for client certificate verification.
 
-## Other `arangosync` options
-
-Options for `arangosync` that are not supported by the starter can still be passed to
-the syncmasters & syncworkers using a pass through option.
-Every option that start with a pass through prefix is passed through to the commandline
-of one or more `arangosync` instances.
-
-- `--sync.<section>.<key>=<value>` is pass as `--<section>.<key>=<value>` to all arangosync instances started by this starter.
-- `--syncmasters.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all syncmasters started by this starter.
-- `--syncworkers.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all syncworkers started by this starter.
-
-Some options are essential to the function of the starter. Therefore these options cannot be passed through like this.
-
-Example:
-
-To set a custom token TTL for direct message queue, use a command like this.
-
-```bash
-arangodb --syncmasters.mq.direct-token-ttl=12h ...
-```
-
-## Esoteric options
+## Miscellaneous options
 
 - `--version`
 
@@ -373,9 +373,9 @@ upon "server ready" requests to the log. This option is mainly intended for inte
 
 ## Environment variables
 
-It is possibe to replace all commandline arguments for the starter with environment variables.
+It is possible to replace all commandline arguments for the starter with environment variables.
 To do so, set an environment variable named `ARANGODB_` + `<name of command line option in uppercase>`,
-where all dashes, underscores and dots are replased with underscores.
+where all dashes, underscores and dots are replaced with underscores.
 
 E.g.
 

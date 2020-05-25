@@ -135,7 +135,7 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB.
+  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
 
 ###  Norm
 
@@ -148,7 +148,7 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB.
+  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
 - `accent` (boolean, _optional_):
   - `true` to preserve accented characters (default)
   - `false` to convert accented characters to their base characters
@@ -215,16 +215,13 @@ An Analyzer capable of breaking up strings into individual words while also
 optionally filtering out stop-words, extracting word stems, applying
 case conversion and accent removal.
 
-Stemming support is provided by
-[Snowball](https://snowballstem.org/){:target="_blank"}.
-
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB.
+  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
 - `accent` (boolean, _optional_):
   - `true` to preserve accented characters
   - `false` to convert accented characters to their base characters (default)
@@ -347,23 +344,77 @@ Built-in Analyzers
 There is a set of built-in Analyzers which are available by default for
 convenience and backward compatibility. They can not be removed.
 
-The `identity` Analyzer has the features `frequency` and `norm`.
-The Analyzers of type `text` all tokenize strings with stemming enabled,
-no stopwords configured, case conversion set to `lower`, accent removal
-turned on and the features `frequency`, `norm` and `position`:
+The `identity` Analyzer has no properties and the features `frequency`
+and `norm`. The Analyzers of type `text` all tokenize strings with stemming
+enabled, no stopwords configured, accent removal and case conversion to
+lowercase turned on and the features `frequency`, `norm` and `position`:
 
-Name       | Type       | Language
------------|------------|-----------
-`identity` | `identity` | none
-`text_de`  | `text`     | German
-`text_en`  | `text`     | English
-`text_es`  | `text`     | Spanish
-`text_fi`  | `text`     | Finnish
-`text_fr`  | `text`     | French
-`text_it`  | `text`     | Italian
-`text_nl`  | `text`     | Dutch
-`text_no`  | `text`     | Norwegian
-`text_pt`  | `text`     | Portuguese
-`text_ru`  | `text`     | Russian
-`text_sv`  | `text`     | Swedish
-`text_zh`  | `text`     | Chinese
+Name       | Type       | Locale (Language)       | Case    | Accent  | Stemming | Stopwords | Features |
+-----------|------------|-------------------------|---------|---------|----------|-----------|----------|
+`identity` | `identity` |                         |         |         |          |           | `["frequency", "norm"]`
+`text_de`  | `text`     | `de.utf-8` (German)     | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_en`  | `text`     | `en.utf-8` (English)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_es`  | `text`     | `es.utf-8` (Spanish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_fi`  | `text`     | `fi.utf-8` (Finnish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_fr`  | `text`     | `fr.utf-8` (French)     | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_it`  | `text`     | `it.utf-8` (Italian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_nl`  | `text`     | `nl.utf-8` (Dutch)      | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_no`  | `text`     | `no.utf-8` (Norwegian)  | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_pt`  | `text`     | `pt.utf-8` (Portuguese) | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_ru`  | `text`     | `ru.utf-8` (Russian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_sv`  | `text`     | `sv.utf-8` (Swedish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+`text_zh`  | `text`     | `zh.utf-8` (Chinese)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+
+Note that _locale_, _case_, _accent_, _stemming_ and _stopwords_ are Analyzer
+properties. `text_zh` does not have actual stemming support for Chinese despite
+what the property value suggests.
+
+Supported Languages
+-------------------
+
+Analyzers rely on [ICU](http://site.icu-project.org/){:target="_blank"} for
+language-dependent tokenization and normalization. The ICU data file
+`icudtl.dat` that ArangoDB ships with contains information for a lot of
+languages, which are technically all supported.
+
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](release-notes-known-issues37.html#arangosearch).
+{% endhint %}
+
+Stemming support is provided by [Snowball](https://snowballstem.org/){:target="_blank"},
+which supports the following languages:
+
+Language     | Code
+-------------|-----
+Arabic     * | `ar`
+Basque     * | `eu`
+Catalan    * | `ca`
+Danish     * | `da`
+Dutch        | `nl`
+English      | `en`
+Finnish      | `fi`
+French       | `fr`
+German       | `de`
+Greek      * | `el`
+Hindi      * | `hi`
+Hungarian  * | `hu`
+Indonesian * | `id`
+Irish      * | `ga`
+Italian      | `it`
+Lithuanian * | `lt`
+Nepali     * | `ne`
+Norwegian    | `no`
+Portuguese   | `pt`
+Romanian   * | `ro`
+Russian      | `ru`
+Serbian    * | `sr`
+Spanish      | `es`
+Swedish      | `sv`
+Tamil      * | `ta`
+Turkish    * | `tr`
+
+\* <small>Introduced in: v3.7.0</small>

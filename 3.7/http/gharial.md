@@ -1,10 +1,15 @@
 ---
 layout: default
-description: This chapter describes the REST interface for the multi-collection graph module
+description: HTTP API for managing named graphs (General Graphs, SmartGraphs, SatelliteGraphs)
+title: Graph HTTP API (Gharial)
 ---
-General Graphs
-==============
+Gharial Graph API
+=================
 
-This chapter describes the REST interface for the [multi-collection graph module](../graphs.html).
-It allows you to define a graph that is spread across several edge and document collections.
-There is no need to include the referenced collections within the query, this module will handle it for you.
+This chapter describes the RESTful interface for
+[named graphs](../graphs.html#named-graphs) called _Gharial_.
+
+You can manage all types of named graphs with Gharial:
+- [General Graphs](../graphs-general-graphs.html)
+- [SmartGraphs](../graphs-smart-graphs.html)
+- [SatelliteGraphs](../graphs-satellite-graphs.html)

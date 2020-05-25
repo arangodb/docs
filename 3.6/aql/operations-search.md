@@ -64,6 +64,14 @@ are supported:
 - `!=`
 - `IN` (array or range), also `NOT IN`
 
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+{% endhint %}
+
 ```js
 FOR doc IN viewName
   SEARCH ANALYZER(doc.text == "quick" OR doc.text == "brown", "text_en")
@@ -175,7 +183,7 @@ can be queried for like:
 
 ```js
 FOR doc IN viewName
-  SERACH doc.value.nested.deep == 2
+  SEARCH doc.value.nested.deep == 2
   RETURN doc
 ```
 

@@ -6,11 +6,7 @@ title: ArangoDB SmartGraphs
 SmartGraphs
 ===========
 
-{% hint 'info' %}
-SmartGraphs are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="SmartGraphs" plural=true %}
 
 This chapter describes the `smart-graph` module, which enables you to manage
 graphs at scale. It will give a vast performance benefit for all graphs sharded
@@ -75,6 +71,18 @@ overhead. The more subgraphs are touched the more network cost will apply.
 However the overall performance is never worse than the same query using a
 General Graph.
 
+Benefits of Disjoint SmartGraphs
+-------------------------------
+
+Disjoint SmartGraphs are a specialized type of SmartGraphs. 
+
+In addition to the guaranteed sharding in SmartGraphs, a Disjoint SmartGraph
+prohibits edges between vertices with different `smartGraphAttribute` values.
+
+This ensures that graph traversals, shortest path, and k-shortest-paths queries
+can be executed locally on a DB-Server, achieving improved performance for
+these type of queries.
+
 Getting started
 ---------------
 
@@ -101,6 +109,24 @@ required and cannot be modified later.
      ~graph_module._drop("myGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo1_cluster
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+**Create a Disjoint SmartGraph**
+
+In contrast to regular SmartGraphs we have to add one option when creating the
+graph. The boolean option `isDisjoint` is required, needs to be set to `true`
+and cannot be modified later. 
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline smartGraphCreateGraphHowToDisjoint1_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{smartGraphCreateGraphHowToDisjoint1_cluster}
+      var graph_module = require("@arangodb/smart-graph");
+      var graph = graph_module._create("myGraph", [], [], {smartGraphAttribute: "region", numberOfShards: 9, isDisjoint: true});
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock smartGraphCreateGraphHowToDisjoint1_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 

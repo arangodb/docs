@@ -9,20 +9,107 @@ This document summarizes the HTTP API changes and other API changes in ArangoDB 
 The target audience for this document are developers who maintain drivers and
 integrations for ArangoDB 3.7.
 
-### HTTP REST API endpoints added
+## UTF-8 validation
 
-### HTTP REST API endpoints augmented
+The ArangoDB server will now perform more strict UTF-8 string validation for
+incoming JSON and VelocyPack data. Attribute names or string attribute values
+with incorrectly encoded UTF-8 sequences will be rejected by default, and
+incoming requests containing such invalid data will be responded to with errors
+by default.
+
+In case an ArangoDB deployment already contains UTF-8 data from previous
+versions, this will be a breaking change. For this case, there is the startup
+option `--server.validate-utf8-strings` which can be set to `false` in order to
+ensure operability until any invalid UTF-8 string data has been fixed.
+
+## HTTP RESTful API
+
+### Endpoint return value changes
+
+The REST API endpoint at `/_api/cluster/endpoints` will now return HTTP 501 (Not
+implemented) on single server instead of HTTP 403 (Forbidden), which it returned
+previously.
+
+When invoked via the PUT HTTP verb with an empty JSON object, the REST API
+endpoint at `/_admin/cluster/numberOfServers` will now return with the
+following response body:
+
+```json
+{"error":false,"code":200}
+```
+
+In previous releases, calling that endpoint with an empty JSON object as
+the request body returned a JSON response that was just `true`.
+
+### Endpoints added
+
+### Endpoints augmented
 
 The REST API endpoint for inserting documents at POST `/_api/document/<collection>`
-will now handle the URL parameter `overwriteMode`. If set to a value of `update`,
-this will turn the insert operation into an update operation in case of a primary
-key unique constraint violation. If set to a value of `replace`, it will turn the
-insert operation into a replace operation in case of a primary key unique constraint
-violation. If `overwriteMode` is not set, the insert will fail in case of a primary
-key unique constraint violation unless the `overwrite` URL parameter is set. Doing
-so will turn the insert into a replace operation.
+will now handle the URL parameter `overwriteMode`.
 
-### HTTP REST API endpoints moved
+This URL parameter supports the following values:
+
+- `"ignore"`: if a document with the specified `_key` value exists already,
+  nothing will be done and no write operation will be carried out. The
+  insert operation will return success in this case. This mode does not
+  support returning the old document version using the `returnOld`
+  attribute. `returnNew` will only set the `new` attribute in the response
+  if a new document was inserted.
+- `"replace"`: if a document with the specified `_key` value exists already,
+  it will be overwritten with the specified document value. This mode will
+  also be used when no overwrite mode is specified but the `overwrite`
+  flag is set to `true`.
+- `"update"`: if a document with the specified `_key` value exists already,
+  it will be patched (partially updated) with the specified document value.
+- `"conflict"`: if a document with the specified `_key` value exists already,
+  return a unique constraint violation error so that the insert operation
+  fails. This is also the default behavior in case the overwrite mode is
+  not set, and the *overwrite* flag is *false* or not set either.
+
+If `overwriteMode` is not set, the behavior is as follows:
+
+- if the `overwrite` URL parameter is not set, the insert will implicitly
+  use the `"conflict"` overwrite mode, i.e. the insert will fail in case of a
+  primary key unique constraint violation.
+- if the `overwrite` URL parameter is set to true, the insert will implicitly
+  use the `"replace"` overwrite mode, i.e. the insert will replace the existing
+  document in case a primary key unique constraint violation occurs.
+
+The main use case of inserting documents with overwrite mode `"ignore"` is
+to make sure that certain documents exist in the cheapest possible way.
+In case the target document already exists, the `"ignore"` mode is most
+efficient, as it will not retrieve the existing document from storage and
+not write any updates to it.
+
+The REST API endpoints for creating collections at POST `/_api/collection` as well
+as listing and changing collection properties at PUT/GET
+`/_api/collection/<collection>/properties` will now make use of the additional
+attribute `schema`. The attribute can be used so specify document schema
+validation at collection level. See
+[Schema Validation](data-modeling-documents-schema-validation.html).
+
+The REST API endpoint for creating a graph at POST `/_api/gharial` is now able
+to accept the string value `"satellite"` as an option parameter for the
+attribute `replicationFactor`. Only numeric values were allowed before. Setting
+the `replicationFactor` to `"satellite"` will lead to a SatelliteGraph being
+created. SatelliteGraph creation will ignore the option parameters
+`numberOfShards`, `minReplicationFactor` and `writeConcern`, as all of them
+will be set automatically. Additionally, the REST API endpoint for reading the
+graph definitions of all graphs at GET `GET /_api/gharial` or a graph
+definition of a single graph at `/_api/gharial/{graph}` will include an
+additional boolean attribute called `isSatellite`.
+
+The REST API endpoint for creating a graph at POST `/_api/gharial` accepts a
+new boolean parameter `isDisjoint`. In combination with `smartGraphAttribute`
+it allows to create the newly introduced graph type **Disjoint SmartGraph**.
+`isDisjoint` defaults to `false`, which will create a regular **SmartGraph**.
+Additionally, the REST API endpoint for reading the graph definitions of all
+graphs at GET `/_api/gharial` or a graph definition of a single graph at
+GET `/_api/gharial/{graph}` will include an additional boolean attribute
+called `isDisjoint` in case of **Disjoint SmartGraphs**.
+
+### Endpoints moved
 
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
 naming consistency:
@@ -43,8 +130,36 @@ naming consistency:
 The above endpoints are part of ArangoDB's exposed REST API, however, they are
 not supposed to be called directly by drivers or client
 
-### HTTP REST API endpoints removed
+### Endpoints removed
 
 The REST API endpoint at `/_admin/aql/reload` has been removed in ArangoDB 3.7.
 There is no necessity to call this endpoint from a driver or a client application
 directly.
+
+The REST API endpoint at `/_api/collection/<collection>/rotate` has been removed
+in ArangoDB 3.7. This endpoint was previously only available for the MMFiles
+storage engine, but not for the RocksDB storage engine.
+
+## JavaScript API
+
+### Functions removed
+
+The `rotate` function has been removed on the ArangoCollection object. This
+means the following JavaScript code will not work in ArangoDB 3.7, neither in
+the ArangoShell nor in arangod (when using Foxx):
+
+```js
+db.<collection>.rotate();
+```
+
+The `rotate` function was previously only supported for the MMFiles storage
+engine, but not for the RocksDB storage engine.
+
+## ArangoDB Server Environment Variables
+
+### Variables added
+
+The following [ArangoDB Server environment variables](https://www.arangodb.com/docs/devel/programs-arangod-env-vars.html) have been added in ArangoDB 3.7:
+
+- `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` can be used to override the automatic detection of the total amount of RAM present on the system.
+- `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` can be used to override the automatic detection of the number of CPU cores present on the system.

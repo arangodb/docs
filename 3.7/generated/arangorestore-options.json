@@ -893,7 +893,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "override value for numberOfShards (can be specified multiple times, e.g. --numberOfShards 2 --numberOfShards myCollection=3)",
+    "description" : "override value for numberOfShards (can be specified multiple times, e.g. --number-of-shards 2 --number-of-shards myCollection=3)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -920,6 +920,27 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
+  "preserve-revision-ids" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "preserve `_rev` values for the documents (potentially unsafe)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.0"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -974,7 +995,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "override value for replicationFactor (can be specified multiple times, e.g. --replicationFactor 2 --replicationFactor myCollection=3)",
+    "description" : "override value for replicationFactor (can be specified multiple times, e.g. --replication-factor 2 --replication-factor myCollection=3)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,

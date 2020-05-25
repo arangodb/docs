@@ -302,29 +302,16 @@ curl -v -H "Authorization: bearer $(jwtgen -s <my-secret> -e 3600 -a "HS256" -c 
 
 <small>Introduced in: v3.7.0</small>
 
-{% hint 'info' %}
-Support for hot-reloading secrets is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Hot-reloading of secrets" %}
 
 To reload the JWT secrets of a local arangod process without a restart, you
 may use the following RESTful API. A **POST** request reloads the secret, a
 **GET** request may be used to load information about the currently used secrets.
 
-Hot-Reload the secrets from disk:
+{% docublock get_admin_server_jwt %}
+{% docublock post_admin_server_jwt %}
 
-`POST /_admin/server/jwt`
-
-To fetch information about the currently loaded secrets:
-
-`GET /_admin/server/jwt`
-
-A successful response contains a JSON with the `result` field and an `error`
-field containing `false`. The field `result` contains the sub-fields `active`
-and `passive`, which contain the SHA 256 hashes of the loaded secrets.
-The `field` active is always an object, the field `passive` is always an array
-of objects. However, `passive` may be an empty array if there is only an active
-secret but no passive ones.
+Example result:
 
 ```json
 {
@@ -348,19 +335,6 @@ secret but no passive ones.
   }
 }
 ```
-
-In case of an error the response may contain the error code in the field
-`errorCode` and the message in the field `errorMessage`.
-
-To utilize the API a superuser JWT token is necessary, otherwise the response
-will be _HTTP 403 Forbidden_.
-
-{% hint 'info' %}
-Only the files specified via the arangod startup options
-`--server.jwt-secret-keyfile` or `--server.jwt-secret-folder` are used.
-It is not possible to change the locations where files are loaded from
-without restarting the process.
-{% endhint %}
 
 Error Handling
 --------------

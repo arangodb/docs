@@ -9,22 +9,59 @@ redirect_from:
 ArangoSearch Functions
 ======================
 
-Most ArangoSearch AQL functions take an expression or attribute path expression
-as argument.
+ArangoSearch AQL functions take either an expression or an
+attribute path expression as first argument.
+
+```js
+ANALYZER(<expression>, …)
+STARTS_WITH(doc.attribute, …)
+```
 
 If an expression is expected, it means that search conditions can expressed in
 AQL syntax. They are typically function calls to ArangoSearch search functions,
 possibly nested and/or using logical operators for multiple conditions.
 
-You need the `ANALYZER()` function to wrap search (sub-)expressions to set the
-Analyzer for it, unless you want to use the default `"identity"` Analyzer.
-You might not need other ArangoSearch functions for certain expressions,
-because comparisons can be done with basic AQL comparison operators.
+```js
+STARTS_WITH(doc.text, "avoca") OR STARTS_WITH(doc.text, "arang")
+```
+
+The default Analyzer that will be used for searching is `"identity"`.
+While many ArangoSearch functions accept an Analyzer argument, it is often
+easier and cleaner to wrap a search (sub-)expressions with an `ANALYZER()` call
+to set the Analyzer for these functions. Their Analyzer argument can then be
+left out.
+
+```js
+// Analyzer specified in each function call
+PHRASE(doc.text, "avocado dish", "text_en") AND PHRASE(doc.text, "lemon", "text_en")
+
+// Analyzer specified using ANALYZER()
+ANALYZER(PHRASE(doc.text, "avocado dish") AND PHRASE(doc.text, "lemon")
+```
+
+Certain expressions do not require any ArangoSearch functions, such as basic
+comparisons. However, the Analyzer used for searching will be `"identity"`
+unless `ANALYZER()` is used to set a different one.
+
+```js
+// The "identity" Analyzer will be used by default
+SEARCH doc.text == "avocado"
+
+// Use the "text_en" Analyzer for searching instead
+SEARCH ANALYZER(doc.text == "avocado", "text_en")
+```
 
 If an attribute path expressions is needed, then you have to reference a
-document object emitted by a View like `FOR doc IN viewName` and the specify
-which attribute you want to test for. For example `doc.attr` or
-`doc.deeply.nested.attr`. You can also use the bracket notation `doc["attr"]`.
+document object emitted by a View like `FOR doc IN viewName` and then specify
+which attribute you want to test for as an unquoted string literal. For example
+`doc.attr` or `doc.deeply.nested.attr` but not `"doc.attr"`. You can also use
+the bracket notation `doc["attr"]`.
+
+```js
+FOR doc IN viewName
+  SEARCH STARTS_WITH(doc.deeply.nested["attr"], "avoca")
+  RETURN doc
+```
 
 Search Functions
 ----------------
@@ -32,10 +69,6 @@ Search Functions
 Search functions can be used in a [SEARCH operation](operations-search.html)
 to form an ArangoSearch expression to filter a View. The functions control the
 ArangoSearch functionality without having a returnable value in AQL.
-
-The `TOKENS()` function is an exception. It can be used standalone as well,
-without a `SEARCH` statement, and has a return value which can be used
-elsewhere in the query.
 
 ### ANALYZER()
 
@@ -48,8 +81,10 @@ all the nested functions which require such an argument to avoid repeating the
 Analyzer parameter. If an Analyzer argument is passed to a nested function
 regardless, then it takes precedence over the Analyzer set via `ANALYZER()`.
 
-The `TOKENS()` function is an exception, it requires the Analyzer name to be
-passed in all cases even if wrapped in an `ANALYZER()` call.
+The `TOKENS()` function is an exception. It requires the Analyzer name to be
+passed in in all cases even if wrapped in an `ANALYZER()` call, because it is
+not an ArangoSearch function but a regular string function which can be used
+outside of `SEARCH` operations.
 
 - **expr** (expression): any valid search expression
 - **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
@@ -260,6 +295,14 @@ Match documents where the attribute at **path** is greater than (or equal to)
 *low* and *high* can be numbers or strings (technically also `null`, `true`
 and `false`), but the data type must be the same for both.
 
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+{% endhint %}
+
 - **path** (attribute path expression):
   the path of the attribute to test in the document
 - **low** (number\|string): minimum value of the desired range
@@ -272,7 +315,7 @@ and `false`), but the data type must be the same for both.
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
-to true, then nothing will match. If *low* is greater than *high* nothing will
+to `false`, then nothing will match. If *low* is greater than *high* nothing will
 match either.
 
 To match documents with the attribute `value >= 3` and `value <= 5` using the
@@ -325,6 +368,89 @@ FOR doc IN viewName
 This will match `{ "text": "the quick brown fox" }` and `{ "text": "some brown fox" }`,
 but not `{ "text": "snow fox" }` which only fulfills one of the conditions.
 
+### NGRAM_MATCH()
+
+<small>Introduced in: v3.7.0</small>
+
+`NGRAM_MATCH(path, target, threshold, analyzer)`
+
+Match documents whose attribute value has an
+[ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+higher than the specified threshold compared to the target value.
+
+The similarity is calculated by counting how long the longest sequence of
+matching ngrams is, divided by the target's total ngram count.
+Only fully matching ngrams are counted
+
+The ngrams for both attribute and target are produced by the specified
+Analyzer. It is recommended to use an Analyzer of type `ngram` with
+`preserveOriginal: false` and `min` equal to `max`. Increasing the ngram
+length will increase accuracy, but reduce error tolerance. In most cases a
+size of 2 or 3 will be a good choice. 
+
+{% hint 'info' %}
+The selected Analyzer must have the `"position"` and `"frequency"` features
+enabled. The `NGRAM_MATCH()` function will otherwise not find anything.
+{% endhint %}
+
+- **path** (attribute path expression\|string): the path of the attribute in
+  a document or a string
+- **target** (string): the string to compare against the stored attribute
+- **threshold** (number, _optional_): value between `0.0` and `1.0`. Defaults
+  to `0.7` if none is specified.
+- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
+- returns nothing: the function can only be called in a
+  [SEARCH operation](operations-search.html) and throws an error otherwise
+
+Given a View indexing an attribute `text`, a custom ngram Analyzer `"bigram"`
+(`min: 2, max: 2, preserveOriginal: false, streamType: "utf8"`) and a document
+`{ "text": "quick red fox" }`, the following query would match it (with a
+threshold of `1.0`):
+
+```js
+FOR doc IN viewName
+  SEARCH NGRAM_MATCH(doc.text, "quick fox", "bigram")
+  RETURN doc.text
+```
+
+The following will also match (note the low threshold value):
+
+```js
+FOR doc IN viewName
+  SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.4, "bigram")
+  RETURN doc.text
+```
+
+The following will not match (note the high threshold value):
+
+```js
+FOR doc IN viewName
+  SEARCH NGRAM_MATCH(doc.text, "quick blue fox", 0.9, "bigram")
+  RETURN doc.text
+```
+
+`NGRAM_MATCH()` can be called with constant arguments, but for such calls the
+*analyzer* argument is mandatory (even for calls inside of a `SEARCH` clause):
+
+```js
+FOR doc IN viewName
+  SEARCH NGRAM_MATCH("quick fox", "quick blue fox", 0.9, "bigram")
+  RETURN doc.text
+```
+
+```js
+RETURN NGRAM_MATCH("quick fox", "quick blue fox", "bigram")
+```
+
+### NGRAM_POSITIONAL_SIMILARITY()
+
+See [String Functions](functions-arangosearch.html#ngram_positional_similarity).
+
+### NGRAM_SIMILARITY()
+
+
+See [String Functions](functions-arangosearch.html#ngram_similarity).
+
 ### PHRASE()
 
 `PHRASE(path, phrasePart, analyzer)`
@@ -336,20 +462,48 @@ which the tokens appear in the specified order. To search for tokens in any
 order use [TOKENS()](#tokens) instead.
 
 The phrase can be expressed as an arbitrary number of *phraseParts* separated by
-*skipTokens* number of tokens (wildcards).
+*skipTokens* number of tokens (wildcards), either as separate arguments or as
+array as second argument.
 
 - **path** (attribute path expression): the attribute to test in the document
-- **phrasePart** (string\|array): text to search for in the tokens. May consist
-  of several words/tokens, which will be split using the specified *analyzer*.
-  Can also be an array comprised of token strings or token strings interleaved
-  with numbers of *skipTokens* (introduced in v3.6.0).
-- **skipTokens** (number, _optional_): amount of words/tokens to treat
+- **phrasePart** (string\|array\|object): text to search for in the tokens.
+  Can also be an array comprised of string, array and object tokens (object
+  tokens introduced in v3.7.0, see below) or tokens interleaved with numbers of
+  *skipTokens* (introduced in v3.6.0). The specified *analyzer* is applied to
+  string and array tokens, but not for object tokens.
+- **skipTokens** (number, _optional_): amount of tokens to treat
   as wildcards
 - **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
+
+{% hint 'info' %}
+The selected Analyzer must have the `"position"` and `"frequency"` features
+enabled. The `PHRASE()` function will otherwise not find anything.
+{% endhint %}
+
+Object tokens:
+
+- `{IN_RANGE: [low, high, includeLow, includeHigh]}`:
+  see [IN_RANGE()](#in_range). *low* and *high* can only be strings.
+- `{LEVENSHTEIN_MATCH: [token, maxDistance, withTranspositions]}`:
+  - `token` (string): a string to search
+  - `maxDistance` (number): maximum Levenshtein / Damerau-Levenshtein distance
+  - `withTranspositions` (bool, _optional_): whether Damerau-Levenshtein
+    distance should be used. The default value is `false` (Levenshtein distance).
+- `{STARTS_WITH: [prefix]}`: see [STARTS_WITH()](#starts_with).
+  Array brackets are optional
+- `{TERM: [token]}`: equal to `token` but without Analyzer tokenization.
+  Array brackets are optional
+- `{TERMS: [token1, ..., tokenN]}`: one of `token1, ..., tokenN` can be found
+  in specified position. Inside an array the object syntax can be replaced with
+  the object field value, e.g., `[..., [token1, ..., tokenN], ...]`.
+- `{WILDCARD: [token]}`: see [LIKE()](#like).
+  Array brackets are optional
+
+An array token inside an array can be used in the `TERMS` case only.
 
 Given a View indexing an attribute *text* with the `"text_en"` Analyzer and a
 document `{ "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit" }`,
@@ -429,18 +583,72 @@ It is the same as the following:
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
 ```
 
+Using object tokens `STARTS_WITH`, `WILDCARD`, `LEVENSHTEIN_MATCH`, `TERMS` and
+`IN_RANGE`:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title,
+  {STARTS_WITH: ["qui"]}, 0,
+  {WILDCARD: ["b%o_n"]}, 0,
+  {LEVENSHTEIN_MATCH: ["foks", 2]}, 0,
+  {TERMS: ["jump", "run"]}, 0, // Analyzer not applied!
+  {IN_RANGE: ["over", "through", true, false]},
+  "text_en") RETURN doc
+```
+
+Note that the `text_en` Analyzer has stemming enabled, but for object tokens
+the Analyzer isn't applied. `{TERMS: ["jumps", "runs"]}` would not match the
+indexed (and stemmed!) attribute value. Therefore, the trailing `s` which would
+be stemmed away is removed from both words manually in the example.
+
+Above example is equivalent to:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title,
+[
+  {STARTS_WITH: "qui"}, 0,
+  {WILDCARD: "b%o_n"}, 0,
+  {LEVENSHTEIN_MATCH: ["foks", 2]}, 0,
+  ["jumps", "runs"], 0, // Analyzer is applied using this syntax
+  {IN_RANGE: ["over", "through", true, false]}
+], "text_en") RETURN doc
+```
+
 ### STARTS_WITH()
 
 `STARTS_WITH(path, prefix)`
 
-Match the value of the attribute that starts with **prefix**. If the attribute
+Match the value of the attribute that starts with *prefix*. If the attribute
 is processed by a tokenizing Analyzer (type `"text"` or `"delimiter"`) or if it
 is an array, then a single token/element starting with the prefix is sufficient
 to match the document.
 
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+{% endhint %}
+
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
 - **prefix** (string): a string to search at the start of the text
+- returns nothing: the function can only be called in a
+  [SEARCH operation](operations-search.html) and throws an error otherwise
+
+`STARTS_WITH(path, prefixes, minMatchCount)`
+
+<small>Introduced in: v3.7.1</small>
+
+Match the value of the attribute that starts with one of the *prefixes*, or
+optionally with at least *minMatchCount* of the prefixes.
+
+- **path** (attribute path expression): the path of the attribute to compare
+  against in the document
+- **prefixes** (array): an array of strings to search at the start of the text
+- **minMatchCount** (number, _optional_): minimum number of search prefixes
+  that should be satisfied. The default is `1`
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
@@ -463,8 +671,26 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
-Note that it will not match `{ "text": "IPS (in-plane switching)" }` because
-the Analyzer has stemming enabled, but the prefix was passed in as-is:
+For `{ "text": "lorem ipsum" }` it is the same as the following:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(STARTS_WITH(doc.text, ["wrong", "ips"], 1), "text_en")
+  RETURN doc.text
+```
+
+Or the following:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(STARTS_WITH(doc.text, ["lo", "ips", "other"], 2), "text_en")
+  RETURN doc.text
+```
+
+Note that it will not match `{ "text": "IPS (in-plane switching)" }` without
+modification to the query. The prefixes were passed to `STARTS_WITH()` as-is,
+but the Analyzer used for indexing has stemming enabled. So the indexes values
+are the following:
 
 ```js
 RETURN TOKENS("IPS (in-plane switching)", "text_en")
@@ -483,84 +709,82 @@ RETURN TOKENS("IPS (in-plane switching)", "text_en")
 
 The *s* is removed from *ips*, which leads to the prefix *ips* not matching
 the indexed token *ip*. You may either create a custom text Analyzer with
-stemming disabled to avoid this issue, or apply stemming to the prefix:
+stemming disabled to avoid this issue, or apply stemming to the prefixes:
 
 ```js
 FOR doc IN viewName
-  SEARCH ANALYZER(STARTS_WITH(doc.text, TOKENS("ips", "text_en")[0]), "text_en")
+  SEARCH ANALYZER(STARTS_WITH(doc.text, TOKENS("ips", "text_en")), "text_en")
+  RETURN doc.text
+```
+
+### LEVENSHTEIN_MATCH()
+
+<small>Introduced in: v3.7.0</small>
+
+`LEVENSHTEIN_MATCH(path, target, distance, transpositions)`
+
+Match documents with a [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance){:target=_"blank"}
+lower than or equal to *distance* between the stored attribute value and
+*target*. It can optionally take transpositions into account
+(Damerau-Levenshtein distance).
+
+See [LEVENSHTEIN_DISTANCE()](functions-string.html#levenshtein_distance)
+if you want to calculate the edit distance of two strings.
+
+- **path** (attribute path expression): the path of the attribute to compare
+  against in the document
+- **target** (string): the string to compare against the stored attribute
+- **distance** (number): the maximum edit distance, which can be between
+  `0` and `4` if *transpositions* is `false`, and between `0` and `3` if
+  it is `true`
+- **transpositions** (bool, _optional_): compute Damerau-Levenshtein distance
+  if set to `true`, otherwise Levenshtein distance will be computed (default)
+
+```js
+FOR doc IN viewName
+  SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 2) // matches "quick"
+  RETURN doc.text
+```
+
+```js
+FOR doc IN viewName
+  SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 1, true) // matches "quick"
+  RETURN doc.text
+```
+
+### LIKE()
+
+<small>Introduced in: v3.7.0</small>
+
+`LIKE(path, search)`
+
+Check whether the pattern *search* is contained in the attribute denoted by *path*,
+using wildcard matching.
+
+- **path** (attribute path expression): the path of the attribute to compare
+  against in the document
+- **search** (string): a search pattern that can contain the wildcard characters
+  `%` (meaning any sequence of characters, including none) and `_` (any single
+  character). Literal `%` and `_` must be escaped with two backslashes (four
+  in arangosh).
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(LIKE(doc.text, "foo%b_r"), "text_en")
+  RETURN doc.text
+```
+
+`LIKE` can also be used in operator form:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(doc.text LIKE "foo%b_r", "text_en")
   RETURN doc.text
 ```
 
 ### TOKENS()
 
-`TOKENS(input, analyzer) → tokenArray`
-
-Split the **input** string(s) with the help of the specified **analyzer** into an
-array. The resulting array can be used in `FILTER` or `SEARCH` statements with
-the `IN` operator, but also be assigned to variables and returned. This can be
-used to better understand how a specific Analyzer processes an input value.
-
-It has a regular return value unlike all other ArangoSearch AQL functions and
-is thus not limited to `SEARCH` operations. It is independent of Views.
-A wrapping `ANALYZER()` call in a search expression does not affect the
-*analyzer* argument nor allow you to omit it.
-
-- **input** (string\|array): text to tokenize. Accepts recursive arrays of
-  strings (introduced in v3.6.0).
-- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
-- returns **tokenArray** (array): array of strings with zero or more elements,
-  each element being a token.
-
-Example query showcasing the `"text_de"` Analyzer (tokenization with stemming,
-case conversion and accent removal for German text):
-
-```js
-RETURN TOKENS("Lörem ipsüm, DOLOR SIT Ämet.", "text_de")
-```
-
-```json
-[
-  [
-    "lor",
-    "ipsum",
-    "dolor",
-    "sit",
-    "amet"
-  ]
-]
-```
-
-To search a View for documents where the `text` attribute contains certain
-words/tokens in any order, you can use the function like this:
-
-```js
-FOR doc IN viewName
-  SEARCH ANALYZER(doc.text IN TOKENS("dolor amet lorem", "text_en"), "text_en")
-  RETURN doc
-```
-
-It will match `{ "text": "Lorem ipsum, dolor sit amet." }` for instance. If you
-want to search for tokens in a particular order, use [PHRASE()](#phrase) instead.
-
-If an array of strings is passed as first argument, then each string is
-tokenized individually and an array with the same nesting as the input array
-is returned:
-
-```js
-TOKENS("quick brown fox", "text_en")        // [ "quick", "brown", "fox" ]
-TOKENS(["quick brown", "fox"], "text_en")   // [ ["quick", "brown"], ["fox"] ]
-TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
-```
-
-In most cases you will want to flatten the resulting array for further usage,
-because nested arrays are not accepted in `SEARCH` statements such as
-`<array> ALL IN doc.<attribute>`:
-
-```js
-LET tokens = TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
-LET tokens_flat = FLATTEN(tokens, 2)                     // [ "quick", "brown", "fox" ]
-FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETURN doc
-```
+See [String Functions](functions-string.html#tokens).
 
 Scoring Functions
 -----------------

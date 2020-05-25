@@ -23,7 +23,8 @@ arangosh&gt; stmt.explain();
         <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"outVariable"</span> : { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">0</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"doc"</span> 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"doc"</span>, 
+          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">true</span> 
         }, 
         <span class="hljs-string">"projections"</span> : [ ], 
         <span class="hljs-string">"producesResult"</span> : <span class="hljs-literal">true</span>, 
@@ -31,13 +32,14 @@ arangosh&gt; stmt.explain();
         <span class="hljs-string">"collection"</span> : <span class="hljs-string">"_users"</span>, 
         <span class="hljs-string">"satellite"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"isSatellite"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"isSatelliteOf"</span> : <span class="hljs-literal">null</span>, 
         <span class="hljs-string">"needsGatherNodeSort"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"indexCoversProjections"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"indexes"</span> : [ 
           { 
             <span class="hljs-string">"id"</span> : <span class="hljs-string">"46"</span>, 
             <span class="hljs-string">"type"</span> : <span class="hljs-string">"hash"</span>, 
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1657251222053191680"</span>, 
+            <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1666485314524282880"</span>, 
             <span class="hljs-string">"fields"</span> : [ 
               <span class="hljs-string">"user"</span> 
             ], 
@@ -102,7 +104,8 @@ arangosh&gt; stmt.explain();
         <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"inVariable"</span> : { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">0</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"doc"</span> 
+          <span class="hljs-string">"name"</span> : <span class="hljs-string">"doc"</span>, 
+          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">true</span> 
         }, 
         <span class="hljs-string">"count"</span> : <span class="hljs-literal">true</span> 
       } 
@@ -121,11 +124,13 @@ arangosh&gt; stmt.explain();
     <span class="hljs-string">"variables"</span> : [ 
       { 
         <span class="hljs-string">"id"</span> : <span class="hljs-number">2</span>, 
-        <span class="hljs-string">"name"</span> : <span class="hljs-string">"1"</span> 
+        <span class="hljs-string">"name"</span> : <span class="hljs-string">"1"</span>, 
+        <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
       }, 
       { 
         <span class="hljs-string">"id"</span> : <span class="hljs-number">0</span>, 
-        <span class="hljs-string">"name"</span> : <span class="hljs-string">"doc"</span> 
+        <span class="hljs-string">"name"</span> : <span class="hljs-string">"doc"</span>, 
+        <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">true</span> 
       } 
     ], 
     <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">3.04475</span>, 

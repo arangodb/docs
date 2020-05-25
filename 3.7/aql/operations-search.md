@@ -63,6 +63,15 @@ are supported:
 - `>`
 - `!=`
 - `IN` (array or range), also `NOT IN`
+- `LIKE` (introduced in v3.7.0), also `NOT LIKE`
+
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](../release-notes-known-issues37.html#arangosearch).
+{% endhint %}
 
 ```js
 FOR doc IN viewName
@@ -175,7 +184,7 @@ can be queried for like:
 
 ```js
 FOR doc IN viewName
-  SERACH doc.value.nested.deep == 2
+  SEARCH doc.value.nested.deep == 2
   RETURN doc
 ```
 
@@ -296,6 +305,12 @@ The `SEARCH` operation accepts an options object with the following attributes:
 
 - `collections` (array, _optional_): array of strings with collection names to
   restrict the search to certain source collections
+- `conditionOptimization` (string, _optional_): controls how search criteria
+  get optimized (introduced in v3.7.0). Possible values:
+  - `"auto"` (default): convert conditions to disjunctive normal form (DNF) and
+    apply optimizations. Removes redundant or overlapping conditions, but can
+    take quite some time even for a low number of nested conditions.
+  - `"none"`: search the index without optimizing the conditions.
 
 **Examples**
 
