@@ -186,7 +186,6 @@ v3.5 and v3.6.
 See [ArangoSearch Views](arangosearch-views.html#view-properties).
 
 ### SatelliteGraphs
----------------
 
 When doing joins involving graph traversals, shortest path or k-shortest paths
 computation in an ArangoDB cluster, data has to be exchanged between different
@@ -205,7 +204,6 @@ SatelliteGraphs are only available in the Enterprise Edition and the
 [ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
 
 ### Disjoint SmartGraphs
---------------------
 
 SmartGraphs have been extended with a new option `isDisjoint`.
 A Disjoint SmartGraph prohibits edges connecting different SmartGraph
