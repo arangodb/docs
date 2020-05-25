@@ -185,7 +185,7 @@ v3.5 and v3.6.
 
 See [ArangoSearch Views](arangosearch-views.html#view-properties).
 
-SatelliteGraphs
+### SatelliteGraphs
 ---------------
 
 When doing joins involving graph traversals, shortest path or k-shortest paths
@@ -204,7 +204,7 @@ traversals and greatly improves performance for such queries.
 SatelliteGraphs are only available in the Enterprise Edition and the
 [ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
 
-Disjoint SmartGraphs
+### Disjoint SmartGraphs
 --------------------
 
 SmartGraphs have been extended with a new option `isDisjoint`.
