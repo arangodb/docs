@@ -526,7 +526,7 @@ The query options are available in [AQL](aql/operations-insert.html#setting-quer
 the [JS API](data-modeling-documents-document-methods.html#insert--save) and
 [HTTP API](http/document-working-with-documents.html#create-document).
 
-### Override detected total memory
+### Override detected total memory and CPU cores
 
 `arangod` detects the total amount of RAM present on the system and calculates
 various default sizes based on this value. If you run it alongside other
