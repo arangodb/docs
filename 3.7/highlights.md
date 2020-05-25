@@ -47,9 +47,16 @@ Version 3.7
 
 **Enterprise Edition**
 
+- [**SatelliteGraphs**](release-notes-new-features37.html#satellitegraphs):
+  Synchronously replicated graphs with local traversal execution.
+
+- [**Disjoint SmartGraphs**](release-notes-new-features37.html#disjoint-smartgraphs):
+  Improve traversal execution times for SmartGraphs without edges between
+  vertices with different SmartGraph attributes.
+
 - [**JWT Secrets**](release-notes-new-features37.html#jwt-secret-rotation-enterprise-edition):
   Added support for multiple secrets and the ability to hot-reload the files
-  from disk
+  from disk.
 
 <!--
 - **Server Name Indication (SNI)**:
