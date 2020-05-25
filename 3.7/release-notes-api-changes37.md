@@ -70,7 +70,7 @@ This URL parameter supports the following values:
 If `overwriteMode` is not set, the behavior is as follows:
 
 - if the `overwrite` URL parameter is not set, the insert will implicitly
-  use the `"conflict"` overwrite mode, i.e. the insert will fail in case of a 
+  use the `"conflict"` overwrite mode, i.e. the insert will fail in case of a
   primary key unique constraint violation.
 - if the `overwrite` URL parameter is set to true, the insert will implicitly
   use the `"replace"` overwrite mode, i.e. the insert will replace the existing
@@ -136,7 +136,7 @@ The REST API endpoint at `/_admin/aql/reload` has been removed in ArangoDB 3.7.
 There is no necessity to call this endpoint from a driver or a client application
 directly.
 
-The REST API endpoint at `/_api/collection/<collection>/rotate` has been removed 
+The REST API endpoint at `/_api/collection/<collection>/rotate` has been removed
 in ArangoDB 3.7. This endpoint was previously only available for the MMFiles
 storage engine, but not for the RocksDB storage engine.
 
@@ -144,7 +144,7 @@ storage engine, but not for the RocksDB storage engine.
 
 ### Functions removed
 
-The `rotate` function has been removed on the ArangoCollection object. This 
+The `rotate` function has been removed on the ArangoCollection object. This
 means the following JavaScript code will not work in ArangoDB 3.7, neither in
 the ArangoShell nor in arangod (when using Foxx):
 
@@ -152,5 +152,14 @@ the ArangoShell nor in arangod (when using Foxx):
 db.<collection>.rotate();
 ```
 
-The `rotate` function was previously only supported for the MMFiles storage 
+The `rotate` function was previously only supported for the MMFiles storage
 engine, but not for the RocksDB storage engine.
+
+## ArangoDB Server Environment Variables
+
+### Variables added
+
+The following [ArangoDB Server environment variables](https://www.arangodb.com/docs/devel/programs-arangod-env-vars.html) have been added in ArangoDB 3.7:
+
+- `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` can be used to override the automatic detection of the total amount of RAM present on the system.
+- `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` can be used to override the automatic detection of the number of CPU cores present on the system.
