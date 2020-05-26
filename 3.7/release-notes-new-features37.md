@@ -521,7 +521,9 @@ It is possible to change the user supplied encryption key via the
 by sending a POST request without payload to the new endpoint
 `/_admin/server/encryption`. The file supplied via `--rocksdb.encryption-keyfile`
 will be reloaded and the internal encryption key will be re-encrypted with the
-new user key.
+new user key. Similarly the new option `--rocksdb.encryption-keyfolder` can be used
+to supply multiple user keys. A random internal key will be generated and
+encrypted with each of the provided user keys.
 
 ### Insert-Update and Insert-Ignore
 
