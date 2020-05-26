@@ -79,6 +79,20 @@ versions, this will be a breaking change. For this case, there is the startup
 option `--server.validate-utf8-strings` which can be set to `false` in order to
 ensure operability until any invalid UTF-8 string data has been fixed.
 
+Requests statistics
+-------------------
+
+Previous versions of ArangoDB excluded all requests made to the web interface at 
+`/_admin/aardvark` from the requests statistics if the request was made for the
+`_system` database. Requests for all other endpoints or requests to the same
+endpoint for any non-system database were already counted.
+ArangoDB 3.7 now treats all incoming requests to the web interface in the same
+way as requests to other endpoints, so the request counters may show higher
+values in 3.7 than before in case the web interface was used a lot on the `_system`
+database.
+This change in behavior was also backported to ArangoDB 3.6.5.
+
+
 HTTP RESTful API
 ----------------
 
