@@ -15,16 +15,17 @@ There is also a detailed
 for download.
 
 Clusters can be easily deployed using the
-[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/){:target="_blank"}
+[cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}
 with full hosting, management, and monitoring.
+You can fire up your cluster in just a few clicks with the
+[14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 
 Please check the following talks as well:
 
-| # | Date            | Title                                                                       | Who                                     | Link                                                                                                            |
-|---|-----------------|-----------------------------------------------------------------------------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| 1 | 10th April 2018 | Fundamentals and Best Practices of ArangoDB Cluster Administration          | Kaveh Vahedipour, ArangoDB Cluster Team | [Online Meetup Page](https://www.meetup.com/online-ArangoDB-meetup/events/248996022/){:target="_blank"} & [Video](https://www.youtube.com/watch?v=RQ33fkgUg64){:target="_blank"} |
-| 2 | 29th May 2018   | Fundamentals and Best Practices of ArangoDB Cluster Administration: Part II | Kaveh Vahedipour, ArangoDB Cluster Team | [Online Meetup Page](https://www.meetup.com/online-ArangoDB-meetup/events/250869684/){:target="_blank"} & [Video](https://www.youtube.com/watch?v=jj7YpTaL3pI){:target="_blank"} |
-
+| Date            | Title                                                                       | Who                                     | Link                                                                                                            |
+|-----------------|-----------------------------------------------------------------------------|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| 10th April 2018 | Fundamentals and Best Practices of ArangoDB Cluster Administration          | Kaveh Vahedipour, ArangoDB Cluster Team | [Online Meetup Page](https://www.meetup.com/online-ArangoDB-meetup/events/248996022/){:target="_blank"} & [Video](https://www.youtube.com/watch?v=RQ33fkgUg64){:target="_blank"} |
+| 29th May 2018   | Fundamentals and Best Practices of ArangoDB Cluster Administration: Part II | Kaveh Vahedipour, ArangoDB Cluster Team | [Online Meetup Page](https://www.meetup.com/online-ArangoDB-meetup/events/250869684/){:target="_blank"} & [Video](https://www.youtube.com/watch?v=jj7YpTaL3pI){:target="_blank"} |
 
 Enabling synchronous replication
 --------------------------------
@@ -216,9 +217,10 @@ to uphold replication and resilience.
 The clean way of removing a _DB-Server_ is to first relieve it of all
 its responsibilities for shards. This applies to _followers_ as well as
 _leaders_ of shards. The requirement for this operation is that no
-collection in any of the databases has a `replicationFactor` greater or
-equal to the current number of _DB-Servers_ minus one. For the purpose of
-cleaning out `DBServer004` for example would work as follows, when
+collection in any of the databases has a `replicationFactor` greater than
+the current number of _DB-Servers_ minus one. In other words, the highest
+replication factor must not exceed the future _DB-Server_ count. For the
+purpose of cleaning out `DBServer004` for example would work as follows, when
 issued to any _Coordinator_ of the cluster:
 
 `curl <coord-ip:coord-port>/_admin/cluster/cleanOutServer -d '{"server":"DBServer004"}'`

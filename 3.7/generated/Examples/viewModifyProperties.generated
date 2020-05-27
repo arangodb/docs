@@ -1,5 +1,5 @@
 arangosh&gt; v = db._view(<span class="hljs-string">"example"</span>);
-[ArangoView <span class="hljs-number">89869</span>, <span class="hljs-string">"example"</span> (type arangosearch)]
+[ArangoView <span class="hljs-number">91701</span>, <span class="hljs-string">"example"</span> (type arangosearch)]
 arangosh&gt; v.properties();
 ........&gt; <span class="hljs-comment">// set cleanupIntervalStep to 12</span>
 { 
@@ -20,7 +20,8 @@ arangosh&gt; v.properties();
   <span class="hljs-string">"cleanupIntervalStep"</span> : <span class="hljs-number">2</span>, 
   <span class="hljs-string">"commitIntervalMsec"</span> : <span class="hljs-number">1000</span>, 
   <span class="hljs-string">"links"</span> : { 
-  } 
+  }, 
+  <span class="hljs-string">"primarySortCompression"</span> : <span class="hljs-string">"lz4"</span> 
 }
 arangosh&gt; v.properties({<span class="hljs-attr">cleanupIntervalStep</span>: <span class="hljs-number">12</span>});
 ........&gt; <span class="hljs-comment">// add a link</span>
@@ -37,6 +38,7 @@ arangosh&gt; v.properties({<span class="hljs-attr">cleanupIntervalStep</span>: <
     <span class="hljs-string">"minScore"</span> : <span class="hljs-number">0</span> 
   }, 
   <span class="hljs-string">"primarySort"</span> : [ ], 
+  <span class="hljs-string">"primarySortCompression"</span> : <span class="hljs-string">"lz4"</span>, 
   <span class="hljs-string">"storedValues"</span> : [ ], 
   <span class="hljs-string">"writebufferActive"</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">"writebufferIdle"</span> : <span class="hljs-number">64</span>, 
@@ -59,6 +61,7 @@ arangosh&gt; v.properties({<span class="hljs-attr">links</span>: {<span class="h
     <span class="hljs-string">"minScore"</span> : <span class="hljs-number">0</span> 
   }, 
   <span class="hljs-string">"primarySort"</span> : [ ], 
+  <span class="hljs-string">"primarySortCompression"</span> : <span class="hljs-string">"lz4"</span>, 
   <span class="hljs-string">"storedValues"</span> : [ ], 
   <span class="hljs-string">"writebufferActive"</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">"writebufferIdle"</span> : <span class="hljs-number">64</span>, 
@@ -90,6 +93,7 @@ arangosh&gt; v.properties({<span class="hljs-attr">links</span>: {<span class="h
     <span class="hljs-string">"minScore"</span> : <span class="hljs-number">0</span> 
   }, 
   <span class="hljs-string">"primarySort"</span> : [ ], 
+  <span class="hljs-string">"primarySortCompression"</span> : <span class="hljs-string">"lz4"</span>, 
   <span class="hljs-string">"storedValues"</span> : [ ], 
   <span class="hljs-string">"writebufferActive"</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">"writebufferIdle"</span> : <span class="hljs-number">64</span>, 

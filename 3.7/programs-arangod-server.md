@@ -153,26 +153,20 @@ filled up faster than the server can process requests.
 
 ## Storage engine
 
-ArangoDB's "traditional" storage engine is called `MMFiles`, which also was the
-default storage engine up to including ArangoDB v3.3.0.
+ArangoDB's storage engine is based on [RocksDB](http://rocksdb.org){:target="_blank"}
+and the only available engine in ArangoDB v3.7 and above.
 
-Since ArangoDB v3.2.0, an alternative engine based on
-[RocksDB](http://rocksdb.org){:target="_blank"} is also provided and could be
-turned on manually. Since ArangoDB v3.4.0, the RocksDB storage engine is the
-default storage engine for new installations.
-
-The MMFiles engine is [deprecated](appendix-deprecated.html) from v3.6.0 on.
+The legacy storage engine called MMFiles was [removed](appendix-deprecated.html).
 
 One storage engine type is supported per server per installation.
 Live switching of storage engines on already installed systems isn't supported.
 Configuring the wrong engine (not matching the previously used one) will result
-in the server refusing to start. You may however use `auto` to let ArangoDB choose
-the previously used one.
+in the server refusing to start. You may however use `auto` to let ArangoDB
+choose the previously used one.
 
-`--server.storage-engine [auto|mmfiles|rocksdb]`
+`--server.storage-engine [auto|rocksdb]`
 
-Note that `auto` will default to `rocksdb` starting with ArangoDB 3.4, but in
-previous versions it defaulted to `mmfiles`.
+Note that `auto` defaults to `rocksdb`.
 
 ## Check max memory mappings
 
@@ -212,10 +206,7 @@ reasons.
 
 <small>Introduced in: v3.7.0</small>
 
-{% hint 'info' %}
-Support for multiple secrets is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Support for multiple secrets" %}
 
 You may use multiple secrets, where the _active_ secret is used to sign new
 JWT tokens and all other _passive_ secrets are just used to validate incoming
@@ -232,10 +223,7 @@ to be accepted.
 
 <small>Introduced in: v3.7.0</small>
 
-{% hint 'info' %}
-Support for hot-reloading secrets is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Hot-reloading of secrets" %}
 
 JWT secrets can be reloaded from disk without restarting the server or the
 nodes of a cluster deployment. It is supported for both, single keyfiles

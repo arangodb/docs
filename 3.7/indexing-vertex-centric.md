@@ -23,9 +23,11 @@ To take an example, if we have an attribute called `type` on the edges, we can u
 vertex-centric index on this attribute to find all edges attached to a vertex with a given `type`.
 The following query example could benefit from such an index:
 
-    FOR v, e, p IN 3..5 OUTBOUND @start GRAPH @graphName
-      FILTER p.edges[*].type ALL == "friend"
-      RETURN v
+```js
+FOR v, e, p IN 3..5 OUTBOUND @start GRAPH @graphName
+  FILTER p.edges[*].type ALL == "friend"
+  RETURN v
+```
 
 Using the built-in edge-index ArangoDB can find the list of all edges attached to the vertex fast,
 but still it has to walk through this list and check if all of them have the attribute `type == "friend"`.
@@ -35,30 +37,27 @@ in the same time and can save the iteration to verify the condition.
 Index creation
 --------------
 
-A vertex-centric can be either of the following types:
+A vertex-centric has to be of the type [Persistent Index](indexing-persistent.html)
+and is created using its normal creation operations. However, in the list of
+fields used to create the index we have to include either `_from` or `_to`.
 
-* [Hash Index](indexing-hash.html)
-* [Skiplist Index](indexing-skiplist.html)
-* [Persistent Index](indexing-persistent.html)
-
-And is created using their creation operations.
-However in the list of fields used to create the index we have to include either `_from` or `_to`.
 Let us again explain this by an example.
 Assume we want to create an hash-based outbound vertex-centric index on the attribute `type`.
 This can be created with the following way:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline ensureVertexCentricHashIndex
-    @EXAMPLE_ARANGOSH_OUTPUT{ensureVertexCentricHashIndex}
+    @startDocuBlockInline ensureVertexCentricIndex
+    @EXAMPLE_ARANGOSH_OUTPUT{ensureVertexCentricIndex}
     ~db._createEdgeCollection("collection");
-    db.collection.ensureIndex({ type: "hash", fields: [ "_from", "type" ] })
+    db.collection.ensureIndex({ type: "persistent", fields: [ "_from", "type" ] })
     ~db._drop("collection");
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock ensureVertexCentricHashIndex
+    @endDocuBlock ensureVertexCentricIndex
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-All options that are supported by the respective indexes are supported by the vertex-centric index as well.
+All options that are supported by persistent indexes are supported by the
+vertex-centric index as well.
 
 Index usage
 -----------
@@ -67,12 +66,16 @@ The AQL optimizer can decide to use a vertex-centric whenever suitable, however 
 index is used, the optimizer may estimate that an other index is assumed to be better.
 The optimizer will consider this type of indexes on explicit filtering of `_from` respectively `_to`:
 
-    FOR edge IN collection
-      FILTER edge._from == "vertices/123456" AND edge.type == "friend"
-      RETURN edge
+```js
+FOR edge IN collection
+  FILTER edge._from == "vertices/123456" AND edge.type == "friend"
+  RETURN edge
+```
 
 and during pattern matching queries:
 
-    FOR v, e, p IN 3..5 OUTBOUND @start GRAPH @graphName
-      FILTER p.edges[*].type ALL == "friend"
-      RETURN v
+```js
+FOR v, e, p IN 3..5 OUTBOUND @start GRAPH @graphName
+  FILTER p.edges[*].type ALL == "friend"
+  RETURN v
+```

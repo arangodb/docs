@@ -285,6 +285,8 @@ the [amount of documents](functions-miscellaneous.html#length) in a collection.
 LEVENSHTEIN_DISTANCE()
 ----------------------
 
+<small>Introduced in: v3.7.1</small>
+
 `LEVENSHTEIN_DISTANCE(value1, value2) → levenshteinDistance`
 
 Calculate the [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance){:target="_blank"}
@@ -385,6 +387,72 @@ string representation.
 MD5("foobar") // "3858f62230ac3c915f300c664312c63f"
 ```
 
+NGRAM_POSITIONAL_SIMILARITY()
+-----------------------------
+
+<small>Introduced in: v3.7.0</small>
+
+`NGRAM_POSITIONAL_SIMILARITY(input, target, ngramSize) → similarity`
+
+Calculates the [ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+between *input* and *target* using ngrams with minimum and maximum length of
+*ngramSize*.
+
+The similarity is calculated by counting how long the longest sequence of
+matching ngrams is, divided by the **longer argument's** total ngram count.
+Partially matching ngrams are counted, whereas
+[NGRAM_SIMILARITY()](#ngram_similarity) counts only fully matching ngrams.
+
+The ngrams for both input and target are calculated on the fly,
+not involving Analyzers.
+
+- **input** (string): source text to be tokenized into ngrams
+- **target** (string): target text to be tokenized into ngrams
+- **ngramSize** (number): minimum as well as maximum ngram length
+- returns **similarity** (number): value between `0.0` and `1.0`
+
+```js
+RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quick foxx", 2) // [ 0.8888888955116272 ]
+RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quick foxx", 3) // [ 0.875 ]
+
+RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quirky fox", 2) //  [ 0.7222222089767456 ]
+RETURN NGRAM_POSITIONAL_SIMILARITY("quick fox", "quirky fox", 3) // [ 0.6666666865348816 ]
+```
+
+NGRAM_SIMILARITY()
+------------------
+
+<small>Introduced in: v3.7.0</small>
+
+`NGRAM_SIMILARITY(input, target, ngramSize) → similarity`
+
+Calculates [ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+between *input* and *target* using ngrams with minimum and maximum length of
+*ngramSize*.
+
+The similarity is calculated by counting how long the longest sequence of
+matching ngrams is, divided by **target's** total ngram count.
+Only fully matching ngrams are counted, whereas
+[NGRAM_POSITIONAL_SIMILARITY()](#ngram_positional_similarity) counts partially
+matching ngrams too. This behavior matches the similarity measure used in
+[NGRAM_MATCH()](functions-arangosearch.html#ngram_match).
+
+The ngrams for both input and target are calculated on the fly, not involving
+Analyzers.
+
+- **input** (string): source text to be tokenized into ngrams
+- **target** (string): target text to be tokenized into ngrams
+- **ngramSize** (number): minimum as well as maximum ngram length
+- returns **similarity** (number): value between `0.0` and `1.0`
+
+```js
+RETURN NGRAM_SIMILARITY("quick fox", "quick foxx", 2) // [ 0.8888888955116272 ]
+RETURN NGRAM_SIMILARITY("quick fox", "quick foxx", 3) // [ 0.875 ]
+
+RETURN NGRAM_SIMILARITY("quick fox", "quirky fox", 2) // [ 0.5555555820465088 ]
+RETURN NGRAM_SIMILARITY("quick fox", "quirky fox", 3) // [ 0.375 ]
+```
+
 RANDOM_TOKEN()
 --------------
 
@@ -394,7 +462,7 @@ Generate a pseudo-random token string with the specified length.
 The algorithm for token generation should be treated as opaque.
 
 - **length** (number): desired string length for the token. It must be greater
-  or equal to 0 and at most 65536. A *lenght* of 0 returns an empty string.
+  or equal to 0 and at most 65536. A *length* of 0 returns an empty string.
 - returns **randomString** (string): a generated token consisting of lowercase
   letters, uppercase letters and numbers
 
@@ -856,7 +924,75 @@ To return the leftmost characters, see [LEFT()](#left).
 TOKENS()
 --------
 
-See [ArangoSearch Functions](functions-arangosearch.html#tokens).
+`TOKENS(input, analyzer) → tokenArray`
+
+Split the **input** string(s) with the help of the specified **analyzer** into an
+array. The resulting array can be used in `FILTER` or `SEARCH` statements with
+the `IN` operator, but also be assigned to variables and returned. This can be
+used to better understand how a specific Analyzer processes an input value.
+
+It has a regular return value unlike all other ArangoSearch AQL functions and
+is thus not limited to `SEARCH` operations. It is independent of Views.
+A wrapping `ANALYZER()` call in a search expression does not affect the
+*analyzer* argument nor allow you to omit it.
+
+- **input** (string\|array): text to tokenize. Accepts recursive arrays of
+  strings (introduced in v3.6.0).
+- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
+- returns **tokenArray** (array): array of strings with zero or more elements,
+  each element being a token.
+
+Example query showcasing the `"text_de"` Analyzer (tokenization with stemming,
+case conversion and accent removal for German text):
+
+```js
+RETURN TOKENS("Lörem ipsüm, DOLOR SIT Ämet.", "text_de")
+```
+
+```json
+[
+  [
+    "lor",
+    "ipsum",
+    "dolor",
+    "sit",
+    "amet"
+  ]
+]
+```
+
+To search a View for documents where the `text` attribute contains certain
+words/tokens in any order, you can use the function like this:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(doc.text IN TOKENS("dolor amet lorem", "text_en"), "text_en")
+  RETURN doc
+```
+
+It will match `{ "text": "Lorem ipsum, dolor sit amet." }` for instance. If you
+want to search for tokens in a particular order, use
+[PHRASE()](functions-arangosearch.html#phrase) instead.
+
+If an array of strings is passed as first argument, then each string is
+tokenized individually and an array with the same nesting as the input array
+is returned:
+
+```js
+TOKENS("quick brown fox", "text_en")        // [ "quick", "brown", "fox" ]
+TOKENS(["quick brown", "fox"], "text_en")   // [ ["quick", "brown"], ["fox"] ]
+TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
+```
+
+In most cases you will want to flatten the resulting array for further usage,
+because nested arrays are not accepted in `SEARCH` statements such as
+`<array> ALL IN doc.<attribute>`:
+
+```js
+LET tokens = TOKENS(["quick brown", ["fox"]], "text_en") // [ ["quick", "brown"], [["fox"]] ]
+LET tokens_flat = FLATTEN(tokens, 2)                     // [ "quick", "brown", "fox" ]
+FOR doc IN myView SEARCH ANALYZER(tokens_flat ALL IN doc.title, "text_en") RETURN doc
+```
 
 TO_BASE64()
 -----------

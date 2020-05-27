@@ -13,18 +13,6 @@ This is an overview of ArangoDB's HTTP interface for miscellaneous functions.
 <!-- lib/Admin/RestEngineHandler.cpp -->
 {% docublock get_engine %}
 
-<!-- ljs/actions/api-system.js -->
-{% docublock put_admin_wal_flush %}
-
-<!-- ljs/actions/api-system.js -->
-{% docublock get_admin_wal_properties %}
-
-<!-- ljs/actions/api-system.js -->
-{% docublock put_admin_wal_properties %}
-
-<!-- ljs/actions/api-system.js -->
-{% docublock get_admin_wal_transactions %}
-
 <!-- js/actions/api-system.js -->
 {% docublock get_admin_time %}
 
@@ -40,4 +28,3 @@ This is an overview of ArangoDB's HTTP interface for miscellaneous functions.
 
 <!-- /_admin/status -->
 {% docublock JSF_get_admin_status %}
-

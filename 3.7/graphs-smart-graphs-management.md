@@ -54,6 +54,9 @@ enforce the correct sharding.
     The attribute that will be used for sharding. All vertices are required to
     have this attribute set and it has to be a string. Edges derive the
     attribute from their connected vertices.
+  - `isDisjoint` (bool, optional):
+    If set to true, a Disjoint SmartGraph will be created. This flag is not
+    editable after creation. Default: false.
 
 The creation of a graph requires the name and some SmartGraph options.
 Due to the API `edgeDefinitions` and `orphanCollections` have to be given, but

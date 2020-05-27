@@ -40,7 +40,7 @@ ArangoDB provides the following index types:
 Primary Index
 -------------
 
-For each collection there will always be a *primary index* which is a hash index 
+For each collection there will always be a *primary index* which is a persistent index
 for the [document keys](appendix-glossary.html#document-key) (`_key` attribute)
 of all documents in the collection. The primary index allows quick selection
 of documents in the collection using either the `_key` or `_id` attributes. It will
@@ -55,12 +55,11 @@ db.collection.document("<document-key>");
 db._document("<document-id>");
 ```
 
-As the primary index is an unsorted hash index, it cannot be used for non-equality 
-range queries or for sorting.
+The primary index can be used for range queries and sorting as persistent
+indexes are sorted.
 
 The primary index of a collection cannot be dropped or changed, and there is no
 mechanism to create user-defined primary indexes.
-
 
 Edge Index
 ----------
@@ -85,25 +84,17 @@ db.collection.inEdges("<from-value>");
 db.collection.inEdges("<to-value>");
 ```
 
-Internally, the edge index is implemented as a hash index, which stores the union
-of all `_from` and `_to` attributes. It can be used for equality 
-lookups, but not for range queries or for sorting. Edge indexes are automatically 
-created for edge collections. It is not possible to create user-defined edge indexes.
-However, it is possible to freely use the `_from` and `_to` attributes in user-defined
-indexes.
+The edge index stores the union of all `_from` and `_to` attributes.
+It can be used for equality lookups, but not for range queries or for sorting.
+Edge indexes are automatically created for edge collections.
+
+It is not possible to create user-defined edge indexes.
+However, it is possible to freely use the `_from` and `_to` attributes in
+user-defined indexes.
 
 An edge index cannot be dropped or changed.
 
-Hash Index
-----------
-
-{% hint 'warning' %}
-The hash index type is deprecated for the RocksDB storage engine.
-It is the same as the *persistent* type when using RocksDB. The type *hash*
-is still allowed for backward compatibility in the APIs, but the web interface
-does not offer this type anymore.
-{% endhint %}
-
+<!-- TODO: Remove, possibly reuse some of the information for persistent index
 A hash index can be used to quickly find documents with specific attribute values.
 The hash index is unsorted, so it supports equality lookups but no range queries or sorting.
 
@@ -169,15 +160,6 @@ Hash indexes support [indexing array values](#indexing-array-values) if the inde
 attribute name is extended with a `[*]`.
 
 
-Skiplist Index
---------------
-
-{% hint 'warning' %}
-The skiplist index type is deprecated for the RocksDB storage engine.
-It is the same as the *persistent* type when using RocksDB. The type *skiplist*
-is still allowed for backward compatibility in the APIs, but the web interface
-does not offer this type anymore.
-{% endhint %}
 
 A skiplist is a sorted index structure. It can be used to quickly find documents 
 with specific attribute values, for range queries and for returning documents from
@@ -268,18 +250,10 @@ with the number of documents in the index.
 Skiplist indexes support [indexing array values](#indexing-array-values) if the index
 attribute name is extended with a `[*]``.
 
+-->
+
 Persistent Index
 ----------------
-
-{% hint 'warning' %}
-The persistent index type is deprecated for the MMFiles storage engine.
-Use the RocksDB storage engine instead, where all indexes are persistent.
-
-The index types *hash*, *skiplist* and *persistent* are equivalent when using
-the RocksDB storage engine. The types *hash* and *skiplist* are still allowed
-for backward compatibility in the APIs, but the web interface does not offer
-these types anymore.
-{% endhint %}
 
 The persistent index is a sorted index with persistence. The index entries are written to
 disk when documents are stored or updated. That means the index entries do not need to be
@@ -302,6 +276,31 @@ As the persistent index is sorted, it can be used for point lookups, range queri
 operations, but only if either all index attributes are provided in a query, or if a leftmost 
 prefix of the index attributes is specified.
 
+<!-- TODO
+
+Ensure uniqueness of relations in edge collections
+--------------------------------------------------
+It is possible to create secondary indexes using the edge attributes `_from`
+and `_to`, starting with ArangoDB 3.0. A combined index over both fields together
+with the unique option enabled can be used to prevent duplicate relations from
+being created.
+For example, a document collection *verts* might contain vertices with the document
+handles `verts/A`, `verts/B` and `verts/C`. Relations between these documents can
+be stored in an edge collection *edges* for instance. Now, you may want to make sure
+that the vertex `verts/A` is never linked to `verts/B` by an edge more than once.
+This can be achieved by adding a unique, non-sparse persistent index for the fields `_from`
+and `_to`:
+    db.edges.ensureIndex({ type: "persistent", fields: [ "_from", "_to" ], unique: true });
+Creating an edge `{ _from: "verts/A", _to: "verts/B" }` in *edges* will be accepted,
+but only once. Another attempt to store an edge with the relation **A** → **B** will
+be rejected by the server with a *unique constraint violated* error. This includes
+updates to the `_from` and `_to` fields.
+Note that adding a relation **B** → **A** is still possible, so is **A** → **A**
+and **B** → **B**, because they are all different relations in a directed graph.
+Each one can only occur once however.
+
+-->
+
 TTL (time-to-live) Index
 ------------------------
 
@@ -312,8 +311,9 @@ A TTL index is set up by setting an `expireAfter` value and by picking a single
 document attribute which contains the documents' creation date and time. Documents 
 are expired after `expireAfter` seconds after their creation time. The creation time
 is specified as either a numeric timestamp (Unix timestamp) or a date string in format
-`YYYY-MM-DDTHH:MM:SS` with optional milliseconds. All date strings will be interpreted
-as UTC dates.
+`YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a decimal point in the
+format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All date strings
+without a timezone offset will be interpreted as UTC dates.
 
 For example, if `expireAfter` is set to 600 seconds (10 minutes) and the index
 attribute is "creationDate" and there is the following document:
@@ -336,18 +336,21 @@ out, so queries may still find and return documents that have already expired. T
 will eventually be removed when the background thread kicks in and has capacity to
 remove the expired documents. It is guaranteed however that only documents which are 
 past their expiration time will actually be removed.
-  
-Please note that the numeric date time values for the index attribute should be 
-specified in milliseconds since January 1st 1970 (Unix timestamp). To calculate the current 
-timestamp from JavaScript in this format, there is `Date.now() / 1000`, to calculate it 
-from an arbitrary Date instance, there is `Date.getTime() / 1000`.
+
+Please note that the numeric date time values for the index attribute has to be
+specified **in seconds** since January 1st 1970 (Unix timestamp). To calculate the current 
+timestamp from JavaScript in this format, there is `Date.now() / 1000`; to calculate it
+from an arbitrary Date instance, there is `Date.getTime() / 1000`. In AQL you can do
+`DATE_NOW() / 1000` or divide an arbitrary Unix timestamp in milliseconds by 1000 to
+convert it to seconds.
 
 Alternatively, the index attribute values can be specified as a date string in format
-`YYYY-MM-DDTHH:MM:SS` with optional milliseconds. All date strings will be interpreted 
-as UTC dates.
-    
+`YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a decimal point in the
+format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All date strings
+without a timezone offset will be interpreted as UTC dates.
+
 The above example document using a datestring attribute value would be
- 
+
     { "creationDate" : "2019-02-14T17:39:33.000Z" }
 
 In case the index attribute does not contain a numeric value nor a proper date string,
@@ -410,16 +413,16 @@ combined index over multiple fields, simply add more members to the *fields* arr
 
 ```js
 // { name: "Smith", age: 35 }
-db.posts.ensureIndex({ type: "hash", fields: [ "name" ] })
-db.posts.ensureIndex({ type: "hash", fields: [ "name", "age" ] })
+db.posts.ensureIndex({ type: "persistent", fields: [ "name" ] })
+db.posts.ensureIndex({ type: "persistent", fields: [ "name", "age" ] })
 ```
 
 To index sub-attributes, specify the attribute path using the dot notation:
 
 ```js
 // { name: {last: "Smith", first: "John" } }
-db.posts.ensureIndex({ type: "hash", fields: [ "name.last" ] })
-db.posts.ensureIndex({ type: "hash", fields: [ "name.last", "name.first" ] })
+db.posts.ensureIndex({ type: "persistent", fields: [ "name.last" ] })
+db.posts.ensureIndex({ type: "persistent", fields: [ "name.last", "name.first" ] })
 ```
 
 Indexing array values
@@ -431,15 +434,15 @@ way.
 
 To make an index insert the individual array members into the index instead of the entire array
 value, a special array index needs to be created for the attribute. Array indexes can be set up 
-like regular hash or skiplist indexes using the `collection.ensureIndex()` function. To make a 
-hash or skiplist index an array index, the index attribute name needs to be extended with `[*]`
+like regular persistent indexes using the `collection.ensureIndex()` function. To make a 
+persistent index an array index, the index attribute name needs to be extended with `[*]`
 when creating the index and when filtering in an AQL query using the `IN` operator.
 
-The following example creates an array hash index on the `tags` attribute in a collection named
+The following example creates an persistent array index on the `tags` attribute in a collection named
 `posts`:
 
 ```js
-db.posts.ensureIndex({ type: "hash", fields: [ "tags[*]" ] });
+db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*]" ] });
 db.posts.insert({ tags: [ "foobar", "baz", "quux" ] });
 ```
 
@@ -476,7 +479,7 @@ It is also possible to create an index on subattributes of array values. This ma
 if the index attribute is an array of objects, e.g.
 
 ```js
-db.posts.ensureIndex({ type: "hash", fields: [ "tags[*].name" ] });
+db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*].name" ] });
 db.posts.insert({ tags: [ { name: "foobar" }, { name: "baz" }, { name: "quux" } ] });
 ```
 
@@ -497,7 +500,7 @@ ArangoDB supports creating array indexes with a single `[*]` operator per index
 attribute. For example, creating an index as follows is **not supported**:
 
 ```js
-db.posts.ensureIndex({ type: "hash", fields: [ "tags[*].name[*].value" ] });
+db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*].name[*].value" ] });
 ```
 
 Array values will automatically be de-duplicated before being inserted into an array index.
@@ -524,7 +527,7 @@ on the array index to `false`. The default value for **deduplicate** is `true` h
 de-duplication will take place if not explicitly turned off.
 
 ```js
-db.posts.ensureIndex({ type: "hash", fields: [ "tags[*]" ], deduplicate: false });
+db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*]" ], deduplicate: false });
 
 // will fail now
 db.posts.insert({ tags: [ "foobar", "bar", "bar" ] }); 
@@ -534,7 +537,7 @@ If an array index is declared and you store documents that do not have an array 
 this document will not be inserted in the index. Hence the following objects will not be indexed:
 
 ```js
-db.posts.ensureIndex({ type: "hash", fields: [ "tags[*]" ] });
+db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*]" ] });
 db.posts.insert({ something: "else" });
 db.posts.insert({ tags: null });
 db.posts.insert({ tags: "this is no array" });
@@ -546,7 +549,7 @@ will only return those documents having explicitly `null` stored in the array, i
 return any documents that do not have the array at all.
 
 ```js
-db.posts.ensureIndex({ type: "hash", fields: [ "tags[*]" ] });
+db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*]" ] });
 db.posts.insert({tags: null}) // Will not be indexed
 db.posts.insert({tags: []})  // Will not be indexed
 db.posts.insert({tags: [null]}); // Will be indexed for null
@@ -558,7 +561,7 @@ this in particular means that explicit `null` values are also indexed in the **s
 If an index is combined from an array and a normal attribute the sparsity will apply for the attribute e.g.:
 
 ```js
-db.posts.ensureIndex({ type: "hash", fields: [ "tags[*]", "name" ], sparse: true });
+db.posts.ensureIndex({ type: "persistent", fields: [ "tags[*]", "name" ], sparse: true });
 db.posts.insert({tags: null, name: "alice"}) // Will not be indexed
 db.posts.insert({tags: [], name: "alice"}) // Will not be indexed
 db.posts.insert({tags: [1, 2, 3]}) // Will not be indexed
@@ -571,8 +574,8 @@ db.posts.insert({tags: [null], name: "bob"})
 
 Please note that filtering using array indexes only works from within AQL queries and
 only if the query filters on the indexed attribute using the `IN` operator. The other
-comparison operators (`==`, `!=`, `>`, `>=`, `<`, `<=`, `ANY`, `ALL`, `NONE`) currently
-cannot use array indexes.
+comparison operators (`==`, `!=`, `>`, `>=`, `<`, `<=`, `ANY`, `ALL`, `NONE`)
+cannot use array indexes currently.
 
 Vertex centric indexes
 ----------------------
@@ -595,11 +598,11 @@ for _OUTBOUND_ traversals, or first by `_to` and then by other attributes
 for _INBOUND_ traversals. For traversals in _ANY_ direction two indexes
 are needed, one with `_from` and the other with `_to` as first indexed field.
 
-If we for example have a skiplist index on the attributes `_from` and 
+If we for example have a persistent index on the attributes `_from` and 
 `timestamp` of an edge collection, we can answer the above question
 very quickly with a single range lookup in the index.
 
-Since ArangoDB 3.0 one can create sorted indexes (type "skiplist" and 
+Since ArangoDB 3.0 one can create sorted indexes (type
 "persistent") that index the special edge attributes `_from` or `_to`
 and additionally other attributes. Since ArangoDB 3.1, these are used
 in graph traversals, when appropriate `FILTER` statements are found
@@ -609,7 +612,7 @@ For example, to create a vertex centric index of the above type, you
 would simply do
 
 ```js
-db.edges.ensureIndex({"type":"skiplist", "fields": ["_from", "timestamp"]});
+db.edges.ensureIndex({"type":"persistent", "fields": ["_from", "timestamp"]});
 ```
 
 in arangosh. Then, queries like
@@ -633,13 +636,9 @@ Creating Indexes in Background
 
 <small>Introduced in: v3.5.0</small>
 
-{% hint 'info' %}
-Background indexing is available for the *RocksDB* storage engine only.
-{% endhint %}
-
 Creating new indexes is by default done under an exclusive collection lock. This means
 that the collection (or the respective shards) are not available for write operations
-as long as the index is created. This "foreground" index creation can be undesirable, 
+as long as the index is being created. This "foreground" index creation can be undesirable,
 if you have to perform it on a live system without a dedicated maintenance window.
 
 Indexes can also be created in "background", not using an 
@@ -651,15 +650,11 @@ To create an index in the background in *arangosh* just specify `inBackground: t
 like in the following examples:
 
 ```js
-// create the hash index in the background
-db.collection.ensureIndex({ type: "hash", fields: [ "value" ], unique: false, inBackground: true });
-db.collection.ensureIndex({ type: "hash", fields: [ "email" ], unique: true, inBackground: true });
+// create the persistent index in the background
+db.collection.ensureIndex({ type: "persistent", fields: [ "value" ], unique: false, inBackground: true });
+db.collection.ensureIndex({ type: "persistent", fields: [ "email" ], unique: true, inBackground: true });
 
-// skiplist indexes work also of course
-db.collection.ensureIndex({ type :"skiplist", fields: ["abc", "cdef"], unique: true, inBackground: true });
-db.collection.ensureIndex({ type :"skiplist", fields: ["abc", "cdef"], sparse: true, inBackground: true });
-
-// also supported on fulltext indexes
+// also supported for geo and fulltext indexes
 db.collection.ensureIndex({ type: "geo", fields: [ "latitude", "longitude"], inBackground: true });
 db.collection.ensureIndex({ type: "geo", fields: [ "latitude", "longitude"], inBackground: true });
 db.collection.ensureIndex({ type: "fulltext", fields: [ "text" ], minLength: 4, inBackground: true })

@@ -261,13 +261,11 @@ this is coupled to the search for the executable).
 
 This option only has to be specified if the standard search fails.
 
-- `--server.storage-engine=mmfiles|rocksdb`
+- `--server.storage-engine=rocksdb`
 
 Sets the storage engine used by the `arangod` servers.
-The value `rocksdb` is only allowed on `arangod` version 3.2 and up.
-
-On `arangod` version 3.3 and earlier, the default value is `mmfiles`.
-On `arangod` version 3.4 and later, the default value is `rocksdb`.
+Defaults to `rocksdb`, which is also the only available option for
+ArangoDB v3.7 and above.
 
 - `--cluster.start-coordinator=bool`
 
@@ -373,9 +371,9 @@ upon "server ready" requests to the log. This option is mainly intended for inte
 
 ## Environment variables
 
-It is possibe to replace all commandline arguments for the starter with environment variables.
+It is possible to replace all commandline arguments for the starter with environment variables.
 To do so, set an environment variable named `ARANGODB_` + `<name of command line option in uppercase>`,
-where all dashes, underscores and dots are replased with underscores.
+where all dashes, underscores and dots are replaced with underscores.
 
 E.g.
 

@@ -16,7 +16,7 @@ title: Arangod environment variables
    If `K` or `k` is appended, the value is multiplied by `2^10`. That is,
    `64G` means 64 gigabytes.
 
-   The total amount of RAM detected is logged as an Info message at
+   The total amount of RAM detected is logged as an INFO message at
    server start. If the variable is set, the overridden value is shown.
    Various default sizes are calculated based on this value (e.g.
    RocksDB buffer cache size).
@@ -30,6 +30,19 @@ title: Arangod environment variables
    2. If `arangod` is running alongside other services on the same
       machine and thus sharing the RAM with them, one should limit the
       amount of memory using this environment variable.
+ 
+ - `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` _(introduced in v3.7.1)_
+   
+   This variable can be used to override the automatic detection of the
+   number of CPU cores present on the system. 
+
+   The number of CPU cores detected is logged as an INFO message at
+   server start. If the variable is set, the overridden value is shown.
+   Various default values for threading are calculated based on this value.
+
+   Setting this option is useful if `arangod` is running in a container
+   or alongside other services on the same machine and shall not use
+   all available CPUs.
 
 - `IRESEARCH_TEXT_STOPWORD_PATH` _(introduced in v3.5.0)_
 

@@ -8,13 +8,13 @@ Arangobackup
 
 <small>Introduced in: v3.5.1</small>
 
-{% hint 'info' %}
-Arangobackup is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
+{% capture alternative %}
+
 Use [_arangodump_](programs-arangodump.html) and
 [_arangorestore_](programs-arangorestore.html) for
 [logical backups](backup-restore.html#logical-backups) in the Community Edition.
-{% endhint %}
+{% endcapture %}
+{% include hint-ee.md feature="Arangobackup" extra=alternative %}
 
 _Arangobackup_ is a command-line client tool for instantaneous and
 consistent [hot backups](backup-restore.html#hot-backups) of the data and

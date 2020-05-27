@@ -11,13 +11,18 @@ Version 3.7
 
 **All Editions**
 
-<!--
 - **ArangoSearch**:
-  Wildcard and fuzzy search (Levenshtein distance and n-gram based), enhanced
-  phrase and proximity search, improved late document materialization and Views
-  covering queries using their indexes without touching the storage engine,
-  SIMD-based index format for faster processing
+  [Wildcard](aql/functions-arangosearch.html#like) and fuzzy search
+  ([Levenshtein distance](aql/functions-string.html#levenshtein_distance) and
+  [n-gram based](aql/functions-arangosearch.html#ngram_match)),
+  [enhanced phrase](aql/functions-arangosearch.html#phrase) and
+  [proximity search](aql/functions-array.html#jaccard),
+  improved late document materialization and
+  [Views covering queries](release-notes-new-features37.html#covering-indexes)
+  using their indexes without touching the storage engine, as well as a new
+  SIMD-based index format for faster processing.
 
+<!--
 - **AQL**:
   Subquery and graph traversal performance improvements
 
@@ -32,10 +37,9 @@ Version 3.7
   Enforce a JSON Schema for documents on collection level. Invalid documents
   can be rejected automatically by the database system, making it easy to
   maintain data quality.
-
-- [**Insert-Update**](release-notes-new-features37.html#insert-update):
-  Added an insert-update operation that is similar to the already existing
-  insert-replace functionality, but for either creating or updating a document.
+- [**Insert-Update** and **Insert-Ignore**](release-notes-new-features37.html#insert-update-and-insert-ignore):
+  New document API operations to upsert documents and to efficiently insert
+  documents while skipping the creation if the document exists already.
 
 - [**V8 upgrade**](release-notes-new-features37.html#v8-and-icu-library-upgrades):
   Upgraded the JavaScript engine to version 7.9.317, making newer features from
@@ -43,9 +47,16 @@ Version 3.7
 
 **Enterprise Edition**
 
+- [**SatelliteGraphs**](release-notes-new-features37.html#satellitegraphs):
+  Synchronously replicated graphs with local traversal execution.
+
+- [**Disjoint SmartGraphs**](release-notes-new-features37.html#disjoint-smartgraphs):
+  Improve traversal execution times for SmartGraphs without edges between
+  vertices with different SmartGraph attributes.
+
 - [**JWT Secrets**](release-notes-new-features37.html#jwt-secret-rotation-enterprise-edition):
   Added support for multiple secrets and the ability to hot-reload the files
-  from disk
+  from disk.
 
 <!--
 - **Server Name Indication (SNI)**:

@@ -394,7 +394,7 @@ Generate a pseudo-random token string with the specified length.
 The algorithm for token generation should be treated as opaque.
 
 - **length** (number): desired string length for the token. It must be greater
-  or equal to 0 and at most 65536. A *lenght* of 0 returns an empty string.
+  or equal to 0 and at most 65536. A *length* of 0 returns an empty string.
 - returns **randomString** (string): a generated token consisting of lowercase
   letters, uppercase letters and numbers
 

@@ -107,8 +107,7 @@ on `_from` and `_to` (for edge collections).
 Should you decide to create an index you should consider a few things:
 
 - Indexes are a trade-off between storage space, maintenance cost and query speed.
-- Each new index will increase the amount of RAM and (for the RocksDB storage)
-  the amount of disk space needed.
+- Each new index will increase the amount of RAM and the amount of disk space needed.
 - Indexes with [indexed array values](indexing-index-basics.html#indexing-array-values)
   need an extra index entry per array entry
 - Adding indexes increases the write-amplification i.e. it negatively affects
@@ -153,10 +152,6 @@ A few things to consider:
 - You cannot use more than _2048_ collections/shards per AQL query
 - Uniqueness constraints on certain attributes (via an unique index) can only
   be enforced by ArangoDB within one collection
-- Only with the _MMFiles storage engine_: Creating extra databases will require
-  two compaction and cleanup threads per database. This might lead to
-  undesirable effects should you decide to create many databases compared to
-  the number of available CPU cores.
 
 Cluster Sharding
 ----------------
@@ -222,7 +217,7 @@ become significant if your store a large amount of very small documents.
 
 Very large documents may reduce your write throughput:
 This is due to the extra time needed to send larger documents over the
-network as well as more copying work required inside the storage engines.
+network as well as more copying work required inside the storage engine.
 
 Consider some ways to minimize the required amount of storage space:
 
@@ -240,18 +235,19 @@ Consider some ways to minimize the required amount of storage space:
   store one entry. This will only be beneficial if the combined documents are
   regularly retrieved together and not just subsets.
 
-RockDB Storage Engine
----------------------
+Storage Engine
+--------------
 
-Especially for the RocksDB storage engine large documents and transactions may
-negatively impact the write performance:
+Large documents and transactions may negatively impact the write performance
+of the RocksDB storage engine.
+
 - Consider a maximum size of 50-75 kB _per document_ as a good rule of thumb.
   This will allow you to maintain steady write throughput even under very high load.
 - Transactions are held in-memory before they are committed.
   This means that transactions have to be split if they become too big, see the
   [limitations section](transactions-limitations.html#rocksdb-storage-engine).
 
-### Improving Update Query Perfromance
+### Improving Update Query Performance
 
 You may use the _exclusive_ query option for modifying AQL queries, to improve the performance drastically.
 This has the downside that no concurrent writes may occur on the collection, but ArangoDB is able

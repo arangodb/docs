@@ -18,7 +18,6 @@ The following methods exist on the collection object (returned by *db.name*):
 * [collection.load()](data-modeling-collections-collection-methods.html#load)
 * [collection.properties(options)](data-modeling-collections-collection-methods.html#properties)
 * [collection.revision()](data-modeling-collections-collection-methods.html#revision)
-* [collection.rotate()](data-modeling-collections-collection-methods.html#rotate)
 * [collection.shards()](data-modeling-collections-collection-methods.html#shards)
 * [collection.toArray()](data-modeling-documents-document-methods.html#toarray)
 * [collection.truncate()](data-modeling-collections-collection-methods.html#truncate)

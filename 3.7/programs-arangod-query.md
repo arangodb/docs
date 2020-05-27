@@ -11,8 +11,8 @@ description: ArangoDB Server Query Options
 The default maximum amount of memory (in bytes) that a single AQL query can use.
 When a single AQL query reaches the specified limit value, the query will be
 aborted with a *resource limit exceeded* exception. In a cluster, the memory
-accounting is done per shard, so the limit value is effectively a memory limit per
-query per shard.
+accounting is done per server, so the limit value is effectively a memory limit per
+query per server.
 
 The global limit value can be overridden per query by setting the *memoryLimit*
 option value for individual queries when running an AQL query.

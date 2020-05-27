@@ -30,6 +30,161 @@ FOR doc IN viewName
 
 See [ArangoSearch functions](aql/functions-arangosearch.html#like)
 
+### Covering Indexes
+
+It is possible to directly store the values of document attributes in View
+indexes now via a new View property `storedValues` (not to be confused with
+the existing `storeValues`).
+
+View indexes may fully cover `SEARCH` queries for improved performance.
+While late document materialization reduces the amount of fetched documents,
+this new optimization can avoid to access the storage engine entirely.
+
+```json
+{
+  "links": {
+    "articles": {
+      "fields": {
+        "categories": {}
+      }
+    }
+  },
+  "primarySort": [
+    { "field": "publishedAt", "direction": "desc" }
+  ],
+  "storedValues": [
+    { "fields": [ "title", "categories" ] }
+  ],
+  ...
+}
+```
+
+In above View definition, the document attribute *categories* is indexed for
+searching, *publishedAt* is used as primary sort order and *title* as well as
+*categories* are stored in the View using the new `storedValues` property.
+
+```js
+FOR doc IN articlesView
+  SEARCH doc.categories == "recipes"
+  SORT doc.publishedAt DESC
+  RETURN {
+    title: doc.title,
+    date: doc.publishedAt,
+    tags: doc.categories
+  }
+```
+
+The query searches for articles which contain a certain tag in the *categories*
+array and returns title, date and tags. All three values are stored in the View
+(`publishedAt` via `primarySort` and the two other via `storedValues`), thus
+no documents need to be fetched from the storage engine to answer the query.
+This is shown in the execution plan as a comment to the *EnumerateViewNode*:
+`/* view query without materialization */`
+
+```js
+Execution plan:
+ Id   NodeType            Est.   Comment
+  1   SingletonNode          1   * ROOT
+  2   EnumerateViewNode      1     - FOR doc IN articlesView SEARCH (doc.`categories` == "recipes") SORT doc.`publishedAt` DESC LET #1 = doc.`publishedAt` LET #7 = doc.`categories` LET #5 = doc.`title`   /* view query without materialization */
+  5   CalculationNode        1       - LET #3 = { "title" : #5, "date" : #1, "tags" : #7 }   /* simple expression */
+  6   ReturnNode             1       - RETURN #3
+
+Indexes used:
+ none
+
+Optimization rules applied:
+ Id   RuleName
+  1   move-calculations-up
+  2   move-calculations-up-2
+  3   handle-arangosearch-views
+```
+
+See [ArangoSearch Views](arangosearch-views.html#view-properties).
+
+### Stemming support for more languages
+
+The Snowball library was updated to the latest version 2, adding stemming
+support for the following languages:
+
+- Arabic (`ar`)
+- Basque (`eu`)
+- Catalan (`ca`)
+- Danish (`da`)
+- Greek (`el`)
+- Hindi (`hi`)
+- Hungarian (`hu`)
+- Indonesian (`id`)
+- Irish (`ga`)
+- Lithuanian (`lt`)
+- Nepali (`ne`)
+- Romanian (`ro`)
+- Serbian (`sr`)
+- Tamil (`ta`)
+- Turkish (`tr`)
+
+Create a custom Analyzer and set the `locale` accordingly in the properties,
+e.g. `"el.utf-8"` for Greek. Arangosh example:
+
+```js
+var analyzers = require("@arangodb/analyzers");
+
+analyzers.save("text_el", "text", {
+  locale: "el.utf-8",
+  stemming: true,
+  case: "lower",
+  accent: false,
+  stopwords: []
+}, ["frequency", "norm", "position"]);
+
+db._query(`RETURN TOKENS("αυτοκινητουσ πρωταγωνιστούσαν", "text_el")`)
+// [ [ "αυτοκινητ", "πρωταγωνιστ" ] ]
+```
+
+Also see [Analyzers: Supported Languages](arangosearch-analyzers.html#supported-languages)
+
+### Condition Optimization Option
+
+The `SEARCH` operation in AQL accepts a new option `conditionOptimization` to
+give users control over the search criteria optimization:
+
+```js
+FOR doc IN myView
+  SEARCH doc.val > 10 AND doc.val > 5 /* more conditions */
+  OPTIONS { conditionOptimization: "none" }
+  RETURN doc
+```
+
+By default, all conditions get converted into disjunctive normal form (DNF).
+Numerous optimizations can be applied, like removing redundant or overlapping
+conditions (such as `doc.val > 10` which is included by `doc.val > 5`).
+However, converting to DNF and optimizing the conditions can take quite some
+time even for a low number of nested conditions which produce dozens of
+conjunctions / disjunctions. It can be faster to just search the index without
+optimizations.
+
+See [SEARCH operation](aql/operations-search.html#search-options).
+
+### Primary Sort Compression Option
+
+There is a new option `primarySortCompression` which can be set on View
+creation to disable the compression of the primary sort data:
+
+```json
+{
+  "primarySort": [
+    { "field": "date", "direction": "desc" },
+    { "field": "title", "direction": "asc" }
+  ],
+  "primarySortCompression": "none",
+  ...
+}
+```
+
+It defaults to LZ4 compression (`"lz4"`), which was already used in ArangoDB
+v3.5 and v3.6.
+
+See [ArangoSearch Views](arangosearch-views.html#view-properties).
+
 SatelliteGraphs
 ---------------
 
@@ -46,8 +201,22 @@ of a cluster, which enables DB-Servers to execute graph traversals locally.
 This includes (k-)shortest path(s) computation and possibly joins with
 traversals and greatly improves performance for such queries.
 
-SatelliteGraphs are only available in the Enterprise Edition and the
-[ArangoDB Cloud](https://cloud.arangodb.com/).
+[SatelliteGraphs](graphs-satellite-graphs.html)
+are only available in the Enterprise Edition and the
+[ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
+
+Disjoint SmartGraphs
+--------------------
+
+SmartGraphs have been extended with a new option `isDisjoint`.
+A Disjoint SmartGraph prohibits edges connecting different SmartGraph
+components. If your graph doesn't need edges between vertices with different
+SmartGraph attribute values, then you should enable this option. This topology
+restriction allows the query optimizer to improve traversal execution times.
+
+[Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-disjoint-smartgraphs)
+are only available in the Enterprise Edition and the
+[ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
 
 AQL
 ---
@@ -65,6 +234,40 @@ single call, so all queries with an offset or the fullCount option enabled will
 benefit from this change straight away. This also holds true for subqueries,
 hence the existing AQL optimizer rule `splice-subqueries` is now able to
 optimize all subqueries and is enabled by default.
+
+### Count optimizations
+
+Subqueries can now use an optimized code path for counting documents if they
+are supposed to only return the number of matching documents.
+The optimization will be triggered for read-only subqueries that use a full 
+collection scan or an index scan, without any additional filtering on document
+attributes (early pruning or document post-filtering) and without using LIMIT.
+
+The optimization will help in the following situation:
+
+```js
+FOR doc IN collection
+  LET count = COUNT(
+    FOR sub IN subCollection
+      FILTER sub._from == doc._id
+      RETURN sub
+  )
+  ...
+```
+
+The restrictions are that the subquery result must only be used with the
+`COUNT`/`LENGTH` AQL function and not for anything else. The subquery itself 
+must be read-only (no data-modification subquery), not use nested FOR loops,
+no LIMIT clause and no FILTER condition or calculation that requires
+accessing document data. Accessing index data is supported for filtering (as
+in the above example that would use the edge index), but not for further 
+calculations.
+
+In case a subquery does not match these criteria, it will not use the 
+optimized code path for counting, but will execute normally.
+
+If the optimization is triggered, it will show up in the query execution
+plan under the rule name `optimize-count`.
 
 ### Traversal optimizations
 
@@ -96,13 +299,78 @@ marked with `/* vertex optimized away */` in the query's execution plan output.
 Unused edge and path variables (`e` and `p`) were already optimized away in
 previous versions by the `optimize-traversals` optimizer rule.
 
+Additionally, traversals now accept the options `vertexCollections` and
+`edgeCollections` to restrict the traversal to certain vertex or edge collections.
+
+The use case for `vertexCollections` is to not follow any edges that will point
+to other than the specified vertex collections, e.g.
+
+```js
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' components
+  OPTIONS { vertexCollections: [ "bolts", "screws" ] }
+  RETURN v 
+```
+
+The traversal's start vertex is always considered valid, even if it not stored
+in any of the collections listed in the `vertexCollections` option.
+
+The use case for `edgeCollections` is to not take into consideration any edges
+from edge collections other than the specified ones, e.g.
+
+```js
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' GRAPH 'components'
+  OPTIONS { edgeCollections: [ "productsToBolts", "productsToScrews" ] }
+  RETURN v
+```
+
+This is mostly useful in the context of named graphs, when the named graph
+contains many edge collections. Not restricting the edge collections for the
+traversal will make the traversal search for edges in all edge collections of
+the graph, which can be expensive. In case it is known that only certain edges
+from the named graph are needed, the `edgeCollections` option can be a handy
+performance optimization.
+
+### Traversal collection restrictions
+
+Added traversal options `vertexCollections` and `edgeCollections` to restrict
+traversal to certain vertex or edge collections.
+
+The use case for `vertexCollections` is to not follow any edges that will point
+to other than the specified vertex collections, e.g.
+
+    FOR v, e, p IN 1..3 OUTBOUND 'products/123' components 
+      OPTIONS { vertexCollections: [ "bolts", "screws" ] }
+
+The traversal's start vertex is always considered valid, regardless of whether
+it is present in the `vertexCollections` option.
+
+The use case for `edgeCollections` is to not take into consideration any edges
+from edge collections other than the specified ones, e.g.
+
+    FOR v, e, p IN 1..3 OUTBOUND 'products/123' GRAPH 'components' 
+      OPTIONS { edgeCollections: [ "productsToBolts", "productsToScrews" ] }
+
+This is mostly useful in the context of named graphs, when the named graph
+contains many edge collections. Not restricting the edge collections for the
+traversal will make the traversal search for edges in all edge collections of
+the graph, which can be expensive. In case it is known that only certain edges
+from the named graph are needed, the `edgeCollections` option can be a handy
+performance optimization.
+
 ### AQL functions added
 
 The following AQL functions have been added in ArangoDB 3.7:
 
+- [IN_RANGE()](aql/functions-miscellaneous.html#in_range)
+  (now available outside of `SEARCH` operations)
+- [INTERLEAVE()](aql/functions-array.html#interleave)
+- [JACCARD()](aql/functions-array.html#jaccard)
+- [LEVENSHTEIN_DISTANCE()](aql/functions-string.html#levenshtein_distance)
+- [LEVENSHTEIN_MATCH()](aql/functions-arangosearch.html#levenshtein_match)
+- [NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match)
+- [NGRAM_POSITIONAL_SIMILARITY()](aql/functions-string.html#ngram_positional_similarity)
+- [NGRAM_SIMILARITY()](aql/functions-string.html#ngram_similarity)
 - [REPLACE_NTH()](aql/functions-array.html#replace_nth)
-- LEVENSHTEIN_MATCH()
-- JACCARD()
 
 ### Syntax enhancements
 
@@ -194,7 +462,7 @@ ArangoDB now supports validating documents on collection level using
 JSON Schema (draft-4).
 
 In order to enforce a certain document structure in a collection we have
-introduced the `validation` collection property. It expects an object comprised
+introduced the `schema` collection property. It expects an object comprised
 of a `rule` (JSON Schema object), a `level` and a `message` that will be used
 when validation fails. When documents are validated is controlled by the
 validation level, which can be `none` (off), `new` (insert only), `moderate`
@@ -246,21 +514,42 @@ SHA-256 hash of the private key is returned.
 This allows [rotation of TLS keys and certificates](http/administration-and-monitoring.html#tls)
 without a server restart.
 
-### Insert-Update
+### Encryption at rest key rotation (Enterprise Edition)
+
+It is possible to change the user supplied encryption key via the
+[HTTP API](http/administration-and-monitoring.html#encryption-at-rest)
+by sending a POST request without payload to the new endpoint
+`/_admin/server/encryption`. The file supplied via `--rocksdb.encryption-keyfile`
+will be reloaded and the internal encryption key will be re-encrypted with the
+new user key.
+
+### Insert-Update and Insert-Ignore
 
 ArangoDB 3.7 adds an insert-update operation that is similar to the already
 existing insert-replace functionality. A new `overwriteMode` flag has been
 introduced to control the type of the overwrite operation in case of colliding
-keys during the insert.
+primary keys during the insert.
 
 In the case of `overwriteMode: "update"`, the parameters `keepNull` and
 `mergeObjects` can be provided to control the update operation.
+
+There is now also an insert-ignore operation that allows insert operations
+to do nothing in case of a primary key conflict. This operation is an efficient
+way of making sure a document with a specific primary key exists. If it does
+not exist already, it will be created as specified. Should the document exist
+already, nothing will happen and the insert will return without an error. No
+write operations happens in this case, and only a single primary key lookup 
+needs to be performed in the storage engine. 
+This makes the insert-ignore operation the most efficient way 
+existing insert-replace functionality. A new `overwriteMode` flag has been
+introduced to control the type of the overwrite operation in case of colliding
+primary keys during the insert.
 
 The query options are available in [AQL](aql/operations-insert.html#setting-query-options),
 the [JS API](data-modeling-documents-document-methods.html#insert--save) and
 [HTTP API](http/document-working-with-documents.html#create-document).
 
-### Override detected total memory
+### Override detected total memory and CPU cores
 
 `arangod` detects the total amount of RAM present on the system and calculates
 various default sizes based on this value. If you run it alongside other
@@ -269,6 +558,9 @@ probably don't want the server to detect and use all available memory.
 
 An environment variable `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` can now be
 set to restrict the amount of memory it will detect (also available in v3.6.3).
+
+An environment variable `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` can be
+set to restrict the number of CPU cores that are visible to arangod.
 
 See [ArangoDB Server Environment Variables](programs-arangod-env-vars.html)
 
@@ -341,7 +633,7 @@ Here is the list of improvements that may matter to you as an ArangoDB user:
 
 Also see:
 - [V8 release blog posts](https://v8.dev/blog){:target="_blank"} (v7.2 to v7.9)
-- [V8 features](https://v8.dev/features){:target="_blank"} (Chrome 79 or lower)
+- [V8 features](https://v8.dev/features){:target="_blank"} (up to Chrome 79)
 
 ### JavaScript APIs
 
@@ -362,11 +654,33 @@ Metrics
 -------
 
 The amount of exported metrics has been extended and is now available in a
-format compatible with Prometheus. You can now easily scrape on `_admin/metrics`.
+format compatible with Prometheus. You can now easily scrape on `/_admin/metrics`.
 See [here](http/administration-and-monitoring-metrics.html).
+
+MMFiles storage engine
+----------------------
+
+ArangoDB 3.7 does not contain the MMFiles storage engine anymore. In ArangoDB
+3.7, the only available storage engine is the RocksDB storage engine, which is
+the default storage engine in ArangoDB since version 3.4. The MMFiles storage
+engine had been deprecated since the release of ArangoDB 3.6.
+
+Any deployments that use the MMFiles storage engine will need to be migrated to
+the RocksDB storage engine using ArangoDB 3.6 (or earlier versions) in order to
+upgrade to ArangoDB 3.7.
+
+All storage engine selection functionality has also been removed from the
+ArangoDB package installers. The RocksDB storage engine will be selected
+automatically for any new deployments created with ArangoDB 3.7.
+
+This change simplifies the installation procedures and internal code paths.
 
 Internal changes
 ----------------
+
+### Upgrade of bundled RocksDB library version
+
+The bundled version of the RocksDB library has been upgraded from 6.2 to 6.8.
 
 ### Crash handler
 
@@ -387,10 +701,17 @@ Also see [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes).
 ### Supported compilers
 
 Manually compiling ArangoDB from source will require a C++17-ready compiler.
+
 Older versions of g++ that could be used to compile previous versions of
 ArangoDB, namely g++7, cannot be used anymore for compiling ArangoDB.
+g++9.2 is known to work, and is the preferred compiler to build ArangoDB
+under Linux.
 
-g++9.2 is known to work, and is the preferred compiler to build ArangoDB.
+Under macOS, the official compiler is clang with a minimal target of
+macOS 10.14 (Mojave).
+
+Under Windows, use the Visual C++ compiler of Visual Studio 2019 v16.5.0 or
+later. VS 2017 might still work, but is not officially supported any longer.
 
 ### Removed libcurl dependency
 

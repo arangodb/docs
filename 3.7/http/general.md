@@ -302,10 +302,7 @@ curl -v -H "Authorization: bearer $(jwtgen -s <my-secret> -e 3600 -a "HS256" -c 
 
 <small>Introduced in: v3.7.0</small>
 
-{% hint 'info' %}
-Support for hot-reloading secrets is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Hot-reloading of secrets" %}
 
 To reload the JWT secrets of a local arangod process without a restart, you
 may use the following RESTful API. A **POST** request reloads the secret, a
