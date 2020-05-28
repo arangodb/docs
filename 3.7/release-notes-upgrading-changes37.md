@@ -19,7 +19,7 @@ which is the default storage engine in ArangoDB since version 3.4. The MMFiles
 storage engine had been deprecated since the release of ArangoDB 3.6.
 
 Any deployments that use the MMFiles storage engine will need to migrate to the
-RocksDB storage engine using ArangoDB 3.6 (or earler versions) in order to upgrade 
+RocksDB storage engine using ArangoDB 3.6 (or earlier versions) in order to upgrade 
 to ArangoDB 3.7.
 
 All storage engine selection functionality has also been removed from the ArangoDB 
@@ -82,16 +82,16 @@ ensure operability until any invalid UTF-8 string data has been fixed.
 Requests statistics
 -------------------
 
-Previous versions of ArangoDB excluded all requests made to the web interface at 
+Previous versions of ArangoDB excluded all requests made to the web interface at
 `/_admin/aardvark` from the requests statistics if the request was made for the
 `_system` database. Requests for all other endpoints or requests to the same
 endpoint for any non-system database were already counted.
 ArangoDB 3.7 now treats all incoming requests to the web interface in the same
 way as requests to other endpoints, so the request counters may show higher
-values in 3.7 than before in case the web interface was used a lot on the `_system`
-database.
-This change in behavior was also backported to ArangoDB 3.6.5.
+values in 3.7 than before in case the web interface was used a lot on the
+`_system` database.
 
+This change in behavior was also backported to ArangoDB v3.6.5.
 
 HTTP RESTful API
 ----------------
