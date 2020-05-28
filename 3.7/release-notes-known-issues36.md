@@ -22,7 +22,30 @@ ArangoSearch
 | **Date Added:** 2018-12-03 <br> **Component:** ArangoSearch <br> **Deployment Mode:** All <br> **Description:** Using a loop variable in expressions within a corresponding SEARCH condition is not supported <br> **Affected Versions:** 3.4.x, 3.5.x, 3.6.x <br> **Fixed in Versions:** - <br> **Reference:** [arangodb/backlog#318](https://github.com/arangodb/backlog/issues/318){:target="_blank"} (internal) |
 | **Date Added:** 2019-06-25 <br> **Component:** ArangoSearch <br> **Deployment Mode:** All <br> **Description:** The `primarySort` attribute in ArangoSearch View definitions can not be set via the web interface. The option is immutable, but the web interface does not allow to set any View properties upfront (it creates a View with default parameters before the user has a chance to configure it). <br> **Affected Versions:** 3.5.x, 3.6.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 | **Date Added:** 2020-03-19 <br> **Component:** ArangoSearch <br> **Deployment Mode:** All <br> **Description:** Operators and functions in `SEARCH` clauses of AQL queries which compare values such as `>`, `>=`, `<`, `<=`, `IN_RANGE()` and `STARTS_WITH()` neither take the server language (`--default-language`) nor the Analyzer locale into account. The alphabetical order of characters as defined by a language is thus not honored and can lead to unexpected results in range queries. <br> **Affected Versions:** 3.5.x, 3.6.x <br> **Fixed in Versions:** - <br> **Reference:** [arangodb/backlog#679](https://github.com/arangodb/backlog/issues/679){:target="_blank"} (internal) |
+| **Date Added:** 2020-05-22 <br> **Component:** ArangoSearch <br> **Deployment Mode:** Cluster <br> **Description:** The immediate recreation of ArangoSearch Analyzers in cluster deployments (deleting and shortly after creating one with the same name but different properties) causes errors in queries which involve such recreated Analyzers. For a workaround see [Purge Analyzer cache](#purge-analyzer-cache) below. <br> **Affected Versions:** 3.5.x, 3.6.x <br> **Fixed in Versions:** - <br> **Reference:** [arangodb/backlog#669](https://github.com/arangodb/backlog/issues/669){:target="_blank"} (internal), [arangodb/backlog#695](https://github.com/arangodb/backlog/issues/695){:target="_blank"} (internal) |
 
+### Purge Analyzer cache
+
+To fix query errors caused by an immediately re-created Analyzer, the
+DB-Servers need to be forced to clear their Analyzer caches. This can be
+achieved by using below code in _arangosh_:
+
+1. Connect to a Coordinator with `arangosh`
+2. `var analyzers = require("@arangodb/analyzers");`
+3. `analyzers.remove("<PROBLEMATIC ANALYZER>");`
+4. `var dummy = "dummy_analyzer_" + Date.now();`
+4. `analyzers.save(dummy, "identity", {});`
+5. `db._query("FOR d IN <ANY EXISTING VIEW> SEARCH ANALYZER(STARTS_WITH(d.test, 'something'), @a) RETURN d", {a: dummy});`
+
+   This query with a new Analyzer will force cache purging. If this query
+   reports an error about a missing Analyzer, then wait for a minute and
+   retry until it succeeds.
+6. Re-create your Analyzer (`<PROBLEMATIC ANALYZER>`) with the new,
+   correct properties.
+7. `analyzers.remove(dummy);`
+8. Check if the original query still fails. It is possible that it reports a
+   missing Analyzer, but the problem should go away in a minute and the query
+   execute normally.
 
 AQL
 ---
