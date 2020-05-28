@@ -123,15 +123,13 @@ to encrypt a randomly generated internal master key.
 It is possible to change the user supplied encryption at rest key via the
 [HTTP API](http/administration-and-monitoring.html#encryption-at-rest).
 
-
 To enable smooth rollout of new keys you can use the new option 
 `--rocksdb.encryption-keyfolder` to provide a set of secrets.
-Arangod will then store the master key encrypted with the provided secrets.
+_arangod_ will then store the master key encrypted with the provided secrets.
 
 ```
 $ arangod \
-    --rocksdb.encryption-keyfolder=/mytmpfs/mySecrets \
-    --server.storage-engine=rocksdb
+    --rocksdb.encryption-keyfolder=/mytmpfs/mySecrets
 ```
 
 To start an arangod instance only one of the secrets needs to be correct, 
