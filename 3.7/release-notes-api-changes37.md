@@ -159,7 +159,10 @@ engine, but not for the RocksDB storage engine.
 
 ### Variables added
 
-The following [ArangoDB Server environment variables](https://www.arangodb.com/docs/devel/programs-arangod-env-vars.html) have been added in ArangoDB 3.7:
+The following [ArangoDB Server environment variables](programs-arangod-env-vars.html)
+have been added:
 
-- `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` can be used to override the automatic detection of the total amount of RAM present on the system.
-- `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` can be used to override the automatic detection of the number of CPU cores present on the system.
+- `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY` can be used to override the
+  automatic detection of the total amount of RAM present on the system.
+- `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` can be used to override the
+  automatic detection of the number of CPU cores present on the system.
