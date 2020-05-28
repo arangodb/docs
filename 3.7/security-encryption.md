@@ -116,5 +116,21 @@ servers) and directly store them in your secret management tool.
 
 ## Rotating encryption keys
 
+ArangoDB supports rotating the user supplied encryption at rest key.
+This is implemented via key indirection. The user supplied key is used 
+to encrypt a randomly generated internal master key.
+
 It is possible to change the user supplied encryption at rest key via the
 [HTTP API](http/administration-and-monitoring.html#encryption-at-rest).
+
+To enable smooth rollout of new keys you can use the new option 
+`--rocksdb.encryption-keyfolder` to provide a set of secrets.
+_arangod_ will then store the master key encrypted with the provided secrets.
+
+```
+$ arangod \
+    --rocksdb.encryption-keyfolder=/mytmpfs/mySecrets
+```
+
+To start an arangod instance only one of the secrets needs to be correct, 
+this should guard against service interruptions during the rotation process.
