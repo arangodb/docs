@@ -526,6 +526,17 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   rule is to move filters up in the processing pipeline as far as possible
   (ideally out of inner loops) so they filter results as early as possible.
 
+- `optimize-count`:
+  will appear if a subquery was modified to use the optimized code path for
+  counting documents.
+  The requirements are that the subquery result must only be used with the
+  `COUNT`/`LENGTH` AQL function and not for anything else. The subquery itself 
+  must be read-only (no data-modification subquery), not use nested FOR loops,
+  no LIMIT clause and no FILTER condition or calculation that requires
+  accessing document data. Accessing index data is supported for filtering (as
+  in the above example that would use the edge index), but not for further 
+  calculations.
+
 - `optimize-subqueries`:
   will appear when optimizations are applied to a subquery. The optimizer rule
   will add a *LIMIT* statement to qualifying subqueries to make them return
@@ -703,6 +714,13 @@ The following optimizer rules may appear in the `rules` attribute of
   terminal part of the query. To trigger the optimization, there must not be
   other nodes of type *ScatterNode*, *GatherNode* or *DistributeNode* present
   in the query.
+
+- `push-subqueries-to-dbserver` _(Enterprise Edition only)_:
+  will appear if a subquery is determined to be executable entirely on a database
+  server.
+  Currently a subquery can be executed on a DB-Server if it contains exactly one
+  distribute/gather section, and only contains one collection access or
+  traversal, shortest path, or k-shortest paths query.
 
 - `remove-satellite-joins` _(Enterprise Edition only)_:
   optimizes *Scatter-*, *Gather-* and *RemoteNode*s for SatelliteCollections

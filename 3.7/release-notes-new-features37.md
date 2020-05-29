@@ -201,7 +201,21 @@ of a cluster, which enables DB-Servers to execute graph traversals locally.
 This includes (k-)shortest path(s) computation and possibly joins with
 traversals and greatly improves performance for such queries.
 
-SatelliteGraphs are only available in the Enterprise Edition and the
+[SatelliteGraphs](graphs-satellite-graphs.html)
+are only available in the Enterprise Edition and the
+[ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
+
+Disjoint SmartGraphs
+--------------------
+
+SmartGraphs have been extended with a new option `isDisjoint`.
+A Disjoint SmartGraph prohibits edges connecting different SmartGraph
+components. If your graph doesn't need edges between vertices with different
+SmartGraph attribute values, then you should enable this option. This topology
+restriction allows the query optimizer to improve traversal execution times.
+
+[Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-disjoint-smartgraphs)
+are only available in the Enterprise Edition and the
 [ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
 
 AQL
@@ -220,6 +234,40 @@ single call, so all queries with an offset or the fullCount option enabled will
 benefit from this change straight away. This also holds true for subqueries,
 hence the existing AQL optimizer rule `splice-subqueries` is now able to
 optimize all subqueries and is enabled by default.
+
+### Count optimizations
+
+Subqueries can now use an optimized code path for counting documents if they
+are supposed to only return the number of matching documents.
+The optimization will be triggered for read-only subqueries that use a full 
+collection scan or an index scan, without any additional filtering on document
+attributes (early pruning or document post-filtering) and without using LIMIT.
+
+The optimization will help in the following situation:
+
+```js
+FOR doc IN collection
+  LET count = COUNT(
+    FOR sub IN subCollection
+      FILTER sub._from == doc._id
+      RETURN sub
+  )
+  ...
+```
+
+The restrictions are that the subquery result must only be used with the
+`COUNT`/`LENGTH` AQL function and not for anything else. The subquery itself 
+must be read-only (no data-modification subquery), not use nested FOR loops,
+no LIMIT clause and no FILTER condition or calculation that requires
+accessing document data. Accessing index data is supported for filtering (as
+in the above example that would use the edge index), but not for further 
+calculations.
+
+In case a subquery does not match these criteria, it will not use the 
+optimized code path for counting, but will execute normally.
+
+If the optimization is triggered, it will show up in the query execution
+plan under the rule name `optimize-count`.
 
 ### Traversal optimizations
 
@@ -466,6 +514,17 @@ SHA-256 hash of the private key is returned.
 This allows [rotation of TLS keys and certificates](http/administration-and-monitoring.html#tls)
 without a server restart.
 
+### Encryption at rest key rotation (Enterprise Edition)
+
+It is possible to change the user supplied encryption key via the
+[HTTP API](http/administration-and-monitoring.html#encryption-at-rest)
+by sending a POST request without payload to the new endpoint
+`/_admin/server/encryption`. The file supplied via `--rocksdb.encryption-keyfile`
+will be reloaded and the internal encryption key will be re-encrypted with the
+new user key. Similarly the new option `--rocksdb.encryption-keyfolder` can be used
+to supply multiple user keys. A random internal key will be generated and
+encrypted with each of the provided user keys.
+
 ### Insert-Update and Insert-Ignore
 
 ArangoDB 3.7 adds an insert-update operation that is similar to the already
@@ -492,7 +551,7 @@ The query options are available in [AQL](aql/operations-insert.html#setting-quer
 the [JS API](data-modeling-documents-document-methods.html#insert--save) and
 [HTTP API](http/document-working-with-documents.html#create-document).
 
-### Override detected total memory
+### Override detected total memory and CPU cores
 
 `arangod` detects the total amount of RAM present on the system and calculates
 various default sizes based on this value. If you run it alongside other

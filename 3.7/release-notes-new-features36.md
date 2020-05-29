@@ -432,7 +432,8 @@ In addition, ArangoDB 3.6 provides the following new AQL functionality:
   (also added to v3.5.1)
 
 - a [query option](aql/invocation-with-arangosh.html#setting-options)
-  `maxRuntime` to restrict the execution to a given time in seconds.
+  `maxRuntime` to restrict the execution to a given time in seconds
+  (also added to v3.5.4).
   Also see [HTTP API](http/aql-query-cursor-accessing-cursors.html#create-cursor).
 
 - a startup option `--query.optimizer-rules` to turn certain AQL query optimizer
@@ -549,6 +550,9 @@ FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_
 
 ArangoSearch Views are now eligible for [SmartJoins](smartjoins.html) in AQL,
 provided that their underlying collections are eligible too.
+
+All collections forming the View must be sharded equally. The other join
+operand can be a collection or another View.
 
 <span id="oneshard-cluster"></span>
 

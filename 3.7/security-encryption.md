@@ -7,20 +7,21 @@ title: Encryption at Rest
 
 {% include hint-ee-oasis.md feature="Encryption at rest" %}
 
-When you store sensitive data in your ArangoDB database, you want
-to protect that data under all circumstances.
-At runtime you will protect it with SSL transport encryption and strong authentication,
-but when the data is already on disk, you also need protection.
-That is where the Encryption feature comes in.
+When you store sensitive data in your ArangoDB database, you want to protect
+that data under all circumstances. At runtime you will protect it with SSL
+transport encryption and strong authentication, but when the data is already
+on disk, you also need protection. That is where the Encryption feature comes
+in.
 
-The Encryption feature of ArangoDB will encrypt all data that ArangoDB
-is storing in your database before it is written to disk.
+The Encryption feature of ArangoDB will encrypt all data that ArangoDB is
+storing in your database before it is written to disk.
 
-The data is encrypted with AES-256-CTR, which is a strong encryption
-algorithm, that is very suitable for multi-processor environments. This means that
-your data is safe, but your database is still fast, even under load.
+The data is encrypted with AES-256-CTR, which is a strong encryption algorithm,
+that is very suitable for multi-processor environments. This means that your
+data is safe, but your database is still fast, even under load.
 
-Most modern CPU's have builtin support for hardware AES encryption, which makes it even faster.
+Most modern CPU's have builtin support for hardware AES encryption, which makes
+it even faster.
 
 The encryption feature is supported by all ArangoDB deployment modes.
 
@@ -39,22 +40,30 @@ The encryption feature has the following limitations:
 ## Encryption keys
 
 The encryption feature of ArangoDB requires a single 32-byte key per server.
-It is recommended to use a different key for each server (when operating in a cluster configuration).
-Make sure to protect these keys!
+It is recommended to use a different key for each server (when operating in a
+cluster configuration).
 
-That means:
+{% hint 'security' %}
+Make sure to protect the encryption keys! That means:
 
-- Do not write them to persistent disks or your server(s), always store them on an in-memory (`tmpfs`) filesystem.
-- Transport your keys safely to your server(s). There are various tools for managing secrets like this (e.g. vaultproject.io).
-- Store a copy of your key offline in a safe place. If you lose your key, there is NO way to get your data back.
+- Do not write them to persistent disks or your server(s), always store them on
+  an in-memory (`tmpfs`) filesystem.
+
+- Transport your keys safely to your server(s). There are various tools for
+  managing secrets like this (e.g.
+  [vaultproject.io](https://www.vaultproject.io/){:target="_blank"}).
+
+- Store a copy of your key offline in a safe place. If you lose your key, there
+  is NO way to get your data back.
+{% endhint %}
 
 ## Configuration
 
-To activate encryption of your database, you need to supply an
-encryption key to the server.
+To activate encryption of your database, you need to supply an encryption key
+to the server.
 
-Make sure to pass this option the very first time you start your
-database. You cannot encrypt a database that already exists.
+Make sure to pass this option the very first time you start your database.
+You cannot encrypt a database that already exists.
 
 Note: You also have to activate the RocksDB storage engine.
 
@@ -102,5 +111,26 @@ You can create it with a command line this.
 dd if=/dev/random bs=1 count=32 of=yourSecretKeyFile
 ```
 
-For security, it is best to create these keys offline (away from your database servers) and
-directly store them in your secret management tool.
+For security, it is best to create these keys offline (away from your database
+servers) and directly store them in your secret management tool.
+
+## Rotating encryption keys
+
+ArangoDB supports rotating the user supplied encryption at rest key.
+This is implemented via key indirection. The user supplied key is used 
+to encrypt a randomly generated internal master key.
+
+It is possible to change the user supplied encryption at rest key via the
+[HTTP API](http/administration-and-monitoring.html#encryption-at-rest).
+
+To enable smooth rollout of new keys you can use the new option 
+`--rocksdb.encryption-keyfolder` to provide a set of secrets.
+_arangod_ will then store the master key encrypted with the provided secrets.
+
+```
+$ arangod \
+    --rocksdb.encryption-keyfolder=/mytmpfs/mySecrets
+```
+
+To start an arangod instance only one of the secrets needs to be correct, 
+this should guard against service interruptions during the rotation process.
