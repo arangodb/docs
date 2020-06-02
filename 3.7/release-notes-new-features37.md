@@ -525,7 +525,7 @@ new user key. Similarly the new option `--rocksdb.encryption-keyfolder` can be u
 to supply multiple user keys. A random internal key will be generated and
 encrypted with each of the provided user keys.
 
-### rocksdb storage engine options exposed
+### RocksDB storage engine options exposed
 * Multiple more rocksdb configuration options will now be exposed to be configurable
   via arangodb:
   * `--rocksdb.cache-index-and-filter-blocks` to make the RocksDB block cache quota
