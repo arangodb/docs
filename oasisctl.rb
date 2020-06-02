@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # This script adjusts the generated output of
-# > oasisctl generate-docs --replace-underscore
+# > oasisctl generate-docs --link-file-ext .html --replace-underscore-with -
 #
 # - Replace underscore with hyphen in file names
 # - Fix headline levels (start at <h1>)
@@ -75,13 +75,13 @@ def rewrite_content(infile, outfile)
         if line.start_with?("###### Auto generated")
             # ignore
         # TODO: Fix inter-word capitalization of headlines?
-        #elsif line.start_with?("## ")
+        elsif line.start_with?("## ")
             # Capitalize first letter of each word in main headline
-            #f.write(line[1..].split(" ").map{|word| word.capitalize}.join(" ") + "\n")
-        #elsif line == "### SEE ALSO\n"
-            #f.write("## See also\n")
-        #elsif line.start_with?("### ")
-            #f.write(line[1..])
+            f.write(line[1..].split(" ").map{|word| word.capitalize}.join(" ") + "\n")
+        elsif line == "### SEE ALSO\n"
+            f.write("## See also\n")
+        elsif line.start_with?("### ")
+            f.write(line[1..])
         # Monkey-patching frontmatter (TODO: port to oasisctl?)
         elsif is_root and line.start_with?("description: ")
             f.write("description: Command-line client tool for managing ArangoDB Oasis\n")
@@ -90,8 +90,7 @@ def rewrite_content(infile, outfile)
         else
             # TODO: Fix capitalization of link labels?
             f.write(line
-                .gsub("[oasisctl](oasisctl.md)", "[oasisctl](oasisctl-options.html)")
-                .gsub(/(\]\(oasisctl_.+\.md\))/) { |match| match.gsub("_", "-").gsub(".md)", ".html)") }
+                .gsub("[oasisctl](oasisctl.html)", "[oasisctl](oasisctl-options.html)")
             )
         end
     }
