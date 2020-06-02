@@ -1,10 +1,10 @@
 ---
 layout: default
 description: Collections synchronously replicated to all servers, available in the Enterprise Edition
-title: ArangoDB Satellite Collections
+title: ArangoDB SatelliteCollections
 ---
-Satellite Collections
-=====================
+SatelliteCollections
+====================
 
 {% include hint-ee-oasis.md feature="SatelliteCollections" plural=true %}
 
@@ -20,7 +20,7 @@ of this join part.
 In sum this results in much network traffic and slow results depending of the
 amount of data that has to be sent throughout the cluster.
 
-Satellite collections are collections that are intended to address this issue.
+SatelliteCollections are collections that are intended to address this issue.
 
 They will facilitate the synchronous replication and replicate all its data
 to all DB-Servers that are part of the cluster.
@@ -30,7 +30,7 @@ This enables the DB-Servers to execute that part of any join locally.
 This greatly improves performance for such joins at the costs of increased
 storage requirements and poorer write performance on this data.
 
-To create a satellite collection set the *replicationFactor* of this collection
+To create a SatelliteCollection set the *replicationFactor* of this collection
 to "satellite".
 
 Using arangosh:
@@ -45,7 +45,7 @@ A full example
     arangosh> db._create("nonsatellite", {numberOfShards: 8})
     arangosh> db._create("nonsatellite2", {numberOfShards: 8})
 
-Let's analyse a normal join not involving satellite collections:
+Let's analyse a normal join not involving SatelliteCollections:
 
 ```
 arangosh> explain("FOR doc in nonsatellite FOR doc2 in nonsatellite2 RETURN 1")
@@ -83,7 +83,7 @@ to the Coordinator asking for the results of the `nonsatellite2` join. The Coord
 will fan out to the 8 shards of `nonsatellite2`. So there will be quite some
 network traffic.
 
-Let's now have a look at the same using satellite collections:
+Let's now have a look at the same using SatelliteCollections:
 
 ```
 arangosh> db._query("FOR doc in nonsatellite FOR doc2 in satellite RETURN 1")
@@ -120,7 +120,7 @@ dramatically.
 Caveats
 -------
 
-The cluster will automatically keep all satellite collections on all servers in sync
+The cluster will automatically keep all SatelliteCollections on all servers in sync
 by facilitating the synchronous replication. This means that write will be executed
 on the leader only and this server will coordinate replication to the followers.
 If a follower doesn't answer in time (due to network problems, temporary shutdown etc.)

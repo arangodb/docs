@@ -194,8 +194,8 @@ servers. In particular graph traversals are usually executed on a Coordinator,
 because they need global information. This results in a lot of network traffic
 and potentially slow query execution.
 
-SatelliteGraphs are the natural extension of the concept of Satellite
-collections to graphs. All of the usual benefits and caveats apply.
+SatelliteGraphs are the natural extension of the concept of
+SatelliteCollections to graphs. All of the usual benefits and caveats apply.
 SatelliteGraphs are synchronously replicated to all DB-Servers that are part
 of a cluster, which enables DB-Servers to execute graph traversals locally.
 This includes (k-)shortest path(s) computation and possibly joins with

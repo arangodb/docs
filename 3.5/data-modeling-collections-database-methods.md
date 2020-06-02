@@ -219,7 +219,7 @@ to the [naming conventions](data-modeling-naming-conventions.html).
 
 - *smartJoinAttribute: in an *Enterprise Edition* cluster, this attribute 
   determines an attribute of the collection that must contain the shard key value 
-  of the referred-to smart join collection. Additionally, the sharding key 
+  of the referred-to SmartJoin collection. Additionally, the sharding key 
   for a document in this collection must contain the value of this attribute, 
   followed by a colon, followed by the actual primary key of the document.
 

@@ -2,8 +2,8 @@
 layout: default
 description: This chapter describes the JavaScript interface for creating and modifying SmartGraphs
 ---
-Smart Graph Management
-======================
+SmartGraph Management
+=====================
 
 This chapter describes the JavaScript interface for [creating and modifying SmartGraphs](graphs.html).
 At first you have to note that every SmartGraph is a specialized version of a General Graph, which means all of the General Graph functionality is available on a SmartGraph as well.
