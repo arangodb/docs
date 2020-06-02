@@ -213,6 +213,34 @@
     "section" : "",
     "type" : "boolean"
   },
+  "encryption.key-generator" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "program providing the encryption key on stdout. If set, encryption will be enabled.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "encryption",
+    "type" : "string"
+  },
+  "encryption.keyfile" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "file containing the encryption key. If set, encryption will be enabled.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "encryption",
+    "type" : "string"
+  },
   "javascript.allow-external-process-control" : {
     "category" : "option",
     "default" : true,
@@ -449,7 +477,7 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "disables access to JavaScript functions in the internal module: getPid(), processStatistics() andl logLevel()",
+    "description" : "disables access to JavaScript functions in the internal module: getPid() and logLevel()",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -785,7 +813,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "log destination(s)",
+    "description" : "log destination(s), e.g. file:///path/to/file (Linux, macOS) or file://C:\\path\\to\\file (Windows)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -1117,7 +1145,7 @@
     "category" : "option",
     "default" : 5,
     "deprecatedIn" : null,
-    "description" : "ssl protocol (1 = SSLv2 (unsupported), 2 = SSLv2 or SSLv3 (negotiated), 3 = SSLv3, 4 = TLSv1, 5 = TLSv1.2)",
+    "description" : "ssl protocol (1 = SSLv2 (unsupported), 2 = SSLv2 or SSLv3 (negotiated), 3 = SSLv3, 4 = TLSv1, 5 = TLSv1.2, 6 = TLSv1.3)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -1126,7 +1154,7 @@
     "requiresValue" : true,
     "section" : "ssl",
     "type" : "uint64",
-    "values" : "Possible values: 1, 2, 3, 4, 5"
+    "values" : "Possible values: 1, 2, 3, 4, 5, 6"
   },
   "temp.path" : {
     "category" : "option",

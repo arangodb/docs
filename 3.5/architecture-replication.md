@@ -40,7 +40,10 @@ _leader_ and `r-1` _followers_, where `r` denoted the replication
 factor. The number of _followers_ can be controlled using the
 `replicationFactor` parameter whenever you create a _collection_, the
 `replicationFactor` parameter is the total number of copies being
-kept, that is, it is one plus the number of _followers_. 
+kept, that is, it is one plus the number of _followers_.
+
+In addition to the `replicationFactor` there is a `minReplicationFactor` that
+locks down a collection for writing as soon as we have lost too many followers.
 
 Asynchronous replication
 ------------------------

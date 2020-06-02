@@ -1,8 +1,7 @@
 ---
 layout: default
-description: In this chapter you'll learn how to configure a driver for accessingan ArangoDB deployment in Kubernetes
+description: In this chapter you'll learn how to configure a driver for accessing an ArangoDB deployment in Kubernetes
 ---
-
 # Configuring your driver for ArangoDB access
 
 In this chapter you'll learn how to configure a driver for accessing
@@ -110,27 +109,27 @@ load-balancer.
 {% endhint %}
 
 The exception to this is cursor-related requests made to an ArangoDB `Cluster`
-deployment. The coordinator that handles an initial query request (that results
-in a `Cursor`) will save some in-memory state in that coordinator, if the result
+deployment. The Coordinator that handles an initial query request (that results
+in a `Cursor`) will save some in-memory state in that Coordinator, if the result
 of the query is too big to be transfer back in the response of the initial
 request.
 
 Follow-up requests have to be made to fetch the remaining data. These follow-up
-requests must be handled by the same coordinator to which the initial request
+requests must be handled by the same Coordinator to which the initial request
 was made. As soon as there is a load-balancer between your client application
-and the ArangoDB cluster, it is uncertain which coordinator will receive the
+and the ArangoDB cluster, it is uncertain which Coordinator will receive the
 follow-up request.
 
 ArangoDB will transparently forward any mismatched requests to the correct
-coordinator, so the requests can be answered correctly without any additional
+Coordinator, so the requests can be answered correctly without any additional
 configuration. However, this incurs a small latency penalty due to the extra
 request across the internal network.
 
 To prevent this uncertainty client-side, make sure to run your client
 application in the same Kubernetes cluster and synchronize your endpoints before
 making the initial query request. This will result in the use (by the driver) of
-internal DNS names of all coordinators. A follow-up request can then be sent to
-exactly the same coordinator.
+internal DNS names of all Coordinators. A follow-up request can then be sent to
+exactly the same Coordinator.
 
 If your client application is running outside the Kubernetes cluster the easiest
 way to work around it is by making sure that the query results are small enough

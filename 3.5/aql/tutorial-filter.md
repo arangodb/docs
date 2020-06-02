@@ -37,7 +37,7 @@ Range conditions
 
 Strict equality is one possible condition we can state. There are plenty of
 other conditions we can formulate however. For example, we could ask for all
-young characters:
+adult characters:
 
 ```js
 FOR c IN Characters

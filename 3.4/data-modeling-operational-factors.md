@@ -150,7 +150,7 @@ instead of specifying the type of the connection inside the edge document.
 A few things to consider:
 - Adding an extra collection always incurs a small amount of overhead for the
   collection metadata and indexes.
-- You cannot use more than _2048_ collections per AQL query
+- You cannot use more than _2048_ collections/shards per AQL query
 - Uniqueness constraints on certain attributes (via an unique index) can only
   be enforced by ArangoDB within one collection
 - Only with the _MMFiles storage engine_: Creating extra databases will require
@@ -245,7 +245,7 @@ negatively impact the write performance:
   This means that transactions have to be split if they become too big, see the
   [limitations section](transactions-limitations.html#with-rocksdb-storage-engine).
 
-### Improving Update Query Perfromance
+### Improving Update Query Performance
 
 You may use the _exclusive_ query option for modifying AQL queries, to improve the performance drastically.
 This has the downside that no concurrent writes may occur on the collection, but ArangoDB is able

@@ -9,6 +9,19 @@ Using the ArangoDB Starter
 This section describes how to start an ArangoDB stand-alone instance using the tool
 [_Starter_](programs-starter.html) (the _arangodb_ binary program).
 
+As a precondition you should create a _secret_ to activate authentication. The _Starter_ provides a handy
+functionality to generate such a file:
+
+```bash
+arangodb create jwt-secret --secret=arangodb.secret
+```
+
+Set appropriate privilege on the generated _secret_ file, e.g. on Linux:
+
+```bash
+chmod 400 arangodb.secret
+```
+
 Local Start
 -----------
 
@@ -16,8 +29,9 @@ If you want to start a stand-alone instance of ArangoDB, use the `--starter.mode
 option of the _Starter_: 
 
 ```bash
-arangodb --starter.mode=single
+arangodb --starter.mode=single --auth.jwt-secret=/etc/arangodb.secret
 ```
+Please adapt the path to your secret file accordingly.
 
 Using the ArangoDB Starter in Docker
 ------------------------------------
@@ -74,7 +88,7 @@ docker run -it --name=adb --rm -p 8528:8528 \
     --starter.mode=single
 ```
 
-Note that the enviroment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
+Note that the environment variables `DOCKER_TLS_VERIFY` and `DOCKER_CERT_PATH` 
 as well as the additional mountpoint containing the certificate have been added above. 
 directory. The assignment of `DOCKER_CERT_PATH` is optional, in which case it 
 is mandatory that the certificates are stored in `$HOME/.docker`. So

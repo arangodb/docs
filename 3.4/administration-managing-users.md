@@ -293,8 +293,9 @@ database. All changes to the access levels must be done using the
 ### LDAP Users
 
 {% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+LDAP authentication is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
 {% endhint %}
 
 ArangoDB supports LDAP as an external authentication system. For detailed

@@ -1,13 +1,14 @@
 ---
 layout: default
-description: This feature is only available in theEnterprise Edition
+description: Examples of audit event logging
+title: Auditing Events
 ---
 Audit Events
 ============
 
 {% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+Auditing is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
 {% endhint %}
 
 Authentication

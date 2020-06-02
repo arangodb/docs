@@ -143,8 +143,11 @@ The complete list of keywords is currently:
 Names
 -----
 
-In general, names are used to identify objects (collections, attributes,
-variables, and functions) in AQL queries.
+In general, names are used to identify the following things in AQL queries:
+- collections
+- attributes
+- variables
+- functions
 
 The maximum supported length of any name is 64 bytes. Names in AQL are always
 case-sensitive.
@@ -168,6 +171,19 @@ The example can alternatively written as:
 FOR f IN ´filter´
   RETURN f.´sort´
 ```
+
+Escaping is also required if special characters such as hyphen minus (`-`) are
+contained in a name:
+
+```js
+FOR doc IN `my-coll`
+  RETURN doc
+```
+
+The collection `my-coll` has a dash in its name, but `-` is an arithmetic
+operator for subtraction in AQL. The backticks escape the collection name to
+refer to the collection correctly. Note that quoting the name with `"` or `'`
+is not possible for collections.
 
 ### Collection names
 

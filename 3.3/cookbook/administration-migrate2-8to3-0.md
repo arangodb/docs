@@ -31,7 +31,7 @@ from your ArangoDB 2.8 distribution!):
     arangodump --server.endpoint tcp://localhost:8530 --output-directory dump
 
 or a variation of it, for details see the above mentioned manual page and
-[this section](https://docs.arangodb.com/2.8/HttpBulkImports/Arangodump.html){:target="_blank"}.
+[this section](../administration-arangodump.html).
 If your ArangoDB 2.8 instance is a cluster, simply use one of the
 coordinator endpoints as the above `--server.endpoint`.
 
@@ -74,7 +74,7 @@ use replication factor 1 for all collections. If the source was a
 single server, the same will happen, additionally, `arangorestore`
 will always create collections with just a single shard.
 
-There are essentially 3 ways to change this behaviour:
+There are essentially 3 ways to change this behavior:
 
  1. The first is to create the collections explicitly on the
     ArangoDB 3.0 cluster, and then set the `--create-collection false` flag.

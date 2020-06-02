@@ -1,13 +1,14 @@
 ---
 layout: default
-description: This feature is only available in theEnterprise Edition
+description: Datacenter to datacenter replication, available in the Enterprise Edition
+title: DC2DC Replication
 ---
-
 # Datacenter to datacenter replication
 
 {% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+Datacenter to datacenter replication is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
 {% endhint %}
 
 This chapter introduces ArangoDB's _datacenter to datacenter replication_ (DC2DC).

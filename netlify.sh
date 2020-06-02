@@ -2,7 +2,8 @@
 
 set -e
 
-jekyll build
+JEKYLL_ENV="netlify" jekyll build
+ruby sitemap.rb
 rm -rf htmltest
 mkdir -p htmltest
 # our baseUrl is /docs so we need to create that structure for htmltest
@@ -16,4 +17,3 @@ cp _redirects htmltest
 )
 
 /tmp/htmltest -s
-

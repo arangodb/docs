@@ -17,6 +17,7 @@ Drops a *view* and all its data.
 **Examples**
 
 Drop a view:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewDrop
     @EXAMPLE_ARANGOSH_OUTPUT{viewDrop}
@@ -29,6 +30,7 @@ Drop a view:
     @endDocuBlock viewDrop
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Query Name
 ----------
 
@@ -41,6 +43,7 @@ Returns the name of the *view*.
 **Examples**
 
 Get view name:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewName
     @EXAMPLE_ARANGOSH_OUTPUT{viewName}
@@ -50,6 +53,7 @@ Get view name:
     @endDocuBlock viewName
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Rename
 ------
 
@@ -67,6 +71,7 @@ If renaming fails for any reason, an error is thrown.
 **Note**: this method is not available in a cluster.
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewRename
     @EXAMPLE_ARANGOSH_OUTPUT{viewRename}
@@ -79,6 +84,7 @@ If renaming fails for any reason, an error is thrown.
     @endDocuBlock viewRename
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Query Type
 ----------
 
@@ -91,6 +97,7 @@ Returns the type of the *view*.
 **Examples**
 
 Get view type:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewType
     @EXAMPLE_ARANGOSH_OUTPUT{viewType}
@@ -100,6 +107,7 @@ Get view type:
     @endDocuBlock viewType
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Query Properties
 ----------------
 
@@ -113,6 +121,7 @@ each of the supported [View Types](data-modeling-views.html).
 **Examples**
 
 Get view properties:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewGetProperties
     @EXAMPLE_ARANGOSH_OUTPUT{viewGetProperties}
@@ -122,6 +131,7 @@ Get view properties:
     @endDocuBlock viewGetProperties
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Modify Properties
 -----------------
 
@@ -138,11 +148,12 @@ additionally, removes all other properties if `false`).
 
 Currently, the only supported view type is `arangosearch`, and its properties
 can be found in
-[](views-arango-search-detailed-overview.html#view-properties).
+[ArangoSearch detailed overview](views-arango-search-detailed-overview.html#view-properties).
 
 **Examples**
 
 Modify view properties:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline viewModifyProperties
     @EXAMPLE_ARANGOSH_OUTPUT{viewModifyProperties}

@@ -72,7 +72,7 @@ The option can be specified multiple times in order to configure the output
 for different log topics. To set up a per-topic output configuration, use
 `--log.output <topic>=<definition>`, e.g.
 
-  queries=file://queries.txt
+    queries=file://queries.txt
 
 logs all queries to the file "queries.txt".
 

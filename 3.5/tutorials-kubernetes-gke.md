@@ -2,7 +2,6 @@
 layout: default
 description: In this guide you'll learn how to run ArangoDB on Google Kubernetes Engine (GKE)
 ---
-
 # Start ArangoDB on Google Kubernetes Engine (GKE)
 
 In this guide you'll learn how to run ArangoDB on Google Kubernetes Engine (GKE).
@@ -45,58 +44,16 @@ permissions, you need "administrator" permissions.
 
 To get these permissions, do the following.
 
-Prepare your `~/.kube/config` with the following content:
-
-```yaml
-apiVersion: v1
-clusters:
-- cluster:
-    certificate-authority-data:
-    server: https://
-  name: my_cluster
-contexts:
-- context:
-    cluster: my_cluster
-    user: my_cluster
-  name: my_cluster
-current-context: my_cluster
-kind: Config
-preferences: {}
-users:
-- name: my_cluster
-  user:
-    username: admin
-    password:
-```
-
-Click on the `Edit` button (pencil image) next to your cluster.
-This will lead you to the following page.
-
-![edit cluster](images/gke-edit-cluster.png)
-
-Copy the `Endpoint` IP address and paste it after `server: https://`.
-
-The click on `Show credentials`.
-The following popup will appear.
-
-![show credentials](images/gke-show-credentials.png)
-
-Copy the `Password` and paste it after `password:`.
-
-Close the popup and then return to the cluster list.
-
 Click on `Connect` next to your cluster.
 The following popup will appear.
 
 ![connect to cluster](images/gke-connect-to-cluster.png)
 
 Click on `Run in Cloud Shell`.
+
 It will take some time to launch a shell (in your browser).
 
 Once ready, run the `gcloud` command that is already prepare in your commandline.
-
-The run `cat ~/.kube/config` and copy the line that starts with `certificate-authority-data:`.
-Override the corresponding line in your local `~/.kube.config` file.
 
 You should now be able to access your cluster using `kubectl`.
 

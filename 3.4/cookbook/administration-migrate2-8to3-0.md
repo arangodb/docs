@@ -1,6 +1,9 @@
 ---
 layout: default
 description: I want to use ArangoDB 3
+redirect_from:
+  - /3.5/cookbook/administration-migrate2-8to3-0.html # 3.5 -> 3.5
+  - /3.6/cookbook/administration-migrate2-8to3-0.html # 3.5 -> 3.5
 ---
 Migration from ArangoDB 2.8 to 3.0
 ==================================
@@ -31,7 +34,7 @@ from your ArangoDB 2.8 distribution!):
     arangodump --server.endpoint tcp://localhost:8530 --output-directory dump
 
 or a variation of it, for details see the above mentioned manual page and
-[this section](https://docs.arangodb.com/2.8/HttpBulkImports/Arangodump.html){:target="_blank"}.
+[this section](../programs-arangodump.html).
 If your ArangoDB 2.8 instance is a cluster, simply use one of the
 coordinator endpoints as the above `--server.endpoint`.
 

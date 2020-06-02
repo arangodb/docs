@@ -201,7 +201,7 @@ JavaScript
 
 * updated V8 version to 5.7.0.0
 
-* change undocumented behaviour in case of invalid revision ids in
+* change undocumented behavior in case of invalid revision ids in
   `If-Match` and `If-None-Match` headers from 400 (BAD) to 412 (PRECONDITION
   FAILED).
 

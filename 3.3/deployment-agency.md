@@ -34,7 +34,7 @@ The below commands start up a 3-host agency on one physical/logical box with por
 ./build/bin/arangod --agency.activate true --agency.size 3 --agency.endpoint tcp://localhost:8529 --agency.my-address tcp://localhost:8531 --server.authentication false --server.endpoint tcp://0.0.0.0:8531 agency-8531 
 ```
 
-The parameter `agency.endpoint` is the key ingredient for the second and third instances to find the first instance and thus form a complete agency. Please refer to the the shell-script `scripts/startStandaloneAgency.sh` on github or in the source directory.
+The parameter `agency.endpoint` is the key ingredient for the second and third instances to find the first instance and thus form a complete agency. Please refer to the shell-script `scripts/startStandaloneAgency.sh` on github or in the source directory.
 
 Key-value-store API
 -------------------

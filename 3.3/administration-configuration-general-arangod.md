@@ -179,7 +179,7 @@ already running in this or another mode.
 `--random.generator arg`
 
 The argument is an integer (1,2,3 or 4) which sets the manner in which
-random numbers are generated. The default method (3) is to use the a
+random numbers are generated. The default method (3) is to use the
 non-blocking random (or pseudorandom) number generator supplied by the
 operating system.
 
@@ -192,6 +192,7 @@ generator and the Mersenne Twister.
 
 
 ### Enable/disable authentication
+
 {% docublock server_authentication %}
 
 ### JWT Secret
@@ -224,6 +225,7 @@ The default value is *false*.
 domain sockets.
 
 ### Enable/disable authentication for system API requests only
+
 {% docublock serverAuthenticateSystemOnly %}
 
 
@@ -329,9 +331,11 @@ to the web interface (/_admin/aardvark) and related areas.
 Sessions are only used when authentication is turned on.
 
 ### Foxx queues
+
 {% docublock foxxQueues %}
 
 ### Foxx queues poll interval
+
 {% docublock foxxQueuesPollInterval %}
 
 ### Directory
@@ -363,7 +367,7 @@ directory as argument.
 
 ### Database directory state precondition
 
-`--database.require-directory-state state`
+`--database.required-directory-state state`
   
 Using this option it is possible to require the database directory to be
 in a specific state on startup. the options for this value are:
@@ -376,14 +380,17 @@ in a specific state on startup. the options for this value are:
 
 
 ### Journal size
+
 {% docublock databaseMaximalJournalSize %}
 
 
 ### Wait for sync
+
 {% docublock databaseWaitForSync %}
 
 
 ### Force syncing of properties
+
 {% docublock databaseForceSyncProperties %}
 
 

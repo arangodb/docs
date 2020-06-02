@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 # Spring Data ArangoDB
 
 - [Getting Started](spring-data-getting-started.html)

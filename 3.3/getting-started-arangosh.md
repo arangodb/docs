@@ -64,7 +64,7 @@ Database Wrappers
 
 The [`db` object](appendix-references-dbobject.html) is available in *arangosh*
 as well as on *arangod* i.e. if you're using [Foxx](foxx.html). While its
-interface is persistant between the *arangosh* and the *arangod* implementations,
+interface is persistent between the *arangosh* and the *arangod* implementations,
 its underpinning is not. The *arangod* implementation are JavaScript wrappers
 around ArangoDB's native C++ implementation, whereas the *arangosh* implementation
 wraps HTTP accesses to ArangoDB's [RESTfull API](../http/).

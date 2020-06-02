@@ -1,6 +1,7 @@
 ---
 layout: default
-description: The COLLECT keyword can be used to group an array by one or multiple groupcriteria
+description: The COLLECT keyword can be used to group an array by one or multiple grouping criteria
+title: Grouping and aggregation with COLLECT in AQL
 ---
 COLLECT
 =======
@@ -12,20 +13,22 @@ The `COLLECT` statement will eliminate all local variables in the current
 scope. After `COLLECT` only the variables introduced by `COLLECT` itself are
 available.
 
-The general syntaxes for `COLLECT` are:
+There are several syntax variants for `COLLECT` operations:
 
 ```
-COLLECT variableName = expression options
-COLLECT variableName = expression INTO groupsVariable options
-COLLECT variableName = expression INTO groupsVariable = projectionExpression options
-COLLECT variableName = expression INTO groupsVariable KEEP keepVariable options
-COLLECT variableName = expression WITH COUNT INTO countVariable options
-COLLECT variableName = expression AGGREGATE variableName = aggregateExpression options
-COLLECT AGGREGATE variableName = aggregateExpression options
-COLLECT WITH COUNT INTO countVariable options
+COLLECT variableName = expression
+COLLECT variableName = expression INTO groupsVariable
+COLLECT variableName = expression INTO groupsVariable = projectionExpression
+COLLECT variableName = expression INTO groupsVariable KEEP keepVariable
+COLLECT variableName = expression WITH COUNT INTO countVariable
+COLLECT variableName = expression AGGREGATE variableName = aggregateExpression
+COLLECT variableName = expression AGGREGATE variableName = aggregateExpression INTO groupsVariable
+COLLECT AGGREGATE variableName = aggregateExpression
+COLLECT AGGREGATE variableName = aggregateExpression INTO groupsVariable
+COLLECT WITH COUNT INTO countVariable
 ```
 
-`options` is optional in all variants.
+All variants can optionally end with an `OPTIONS { … }` clause.
 
 Grouping syntaxes
 -----------------
@@ -338,5 +341,13 @@ FOR u IN users
   RETURN age
 ```
 
-However, `COLLECT` is vastly more flexible than `RETURN DISTINCT`. Additionally, the order of results is 
-undefined for a `RETURN DISTINCT`, whereas for a `COLLECT` the results will be sorted.
+However, `COLLECT` is vastly more flexible than `RETURN DISTINCT`. Aside from
+its sophisticated grouping and aggregation capabilities, `COLLECT` also allows
+you to place a `LIMIT` operation before `RETURN` to potentially stop the
+`COLLECT` operation early.
+Additionally, `COLLECT` supports [options](#setting-collect-options).
+
+`RETURN DISTINCT` does not change the order of results, whereas `COLLECT` sorts
+them (regardless of the method, _sorted_ or _hash_) unless explicitly disabled
+by the user with a subsequent `SORT null`
+(see [COLLECT variants](#collect-variants)).

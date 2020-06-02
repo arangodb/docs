@@ -1,6 +1,12 @@
 ---
 layout: default
-description: Features listed in this section should no longer be used, because they areconsidered obsolete and may get removed in a future release
+description: Features listed in this section should no longer be used, because they are considered obsolete and may get removed in a future release
+title: Deprecated Features
+redirect_from:
+  - /3.5/appendix-deprecated-actions.html # 3.4 -> 3.5
+  - /3.5/appendix-deprecated-actions-html-example.html # 3.4 -> 3.5
+  - /3.5/appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
+  - /3.5/appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
 ---
 Deprecated
 ==========
@@ -29,5 +35,5 @@ replace the old features with:
   restoration from previous versions.
 
   You can still find the
-  [Actions documentation](https://docs.arangodb.com/3.4/Manual/Appendix/Deprecated/Actions/){:target="_blank"}
+  [Actions documentation](https://www.arangodb.com/docs/3.4/appendix-deprecated-actions.html){:target="_blank"}
   in 3.4 or older versions of the documentation.

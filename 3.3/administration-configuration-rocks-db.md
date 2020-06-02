@@ -1,6 +1,6 @@
 ---
 layout: default
-description: RocksDB is a highly configurable key-value store used to power our RocksDBstorage engine
+description: RocksDB is a highly configurable key-value store used to power our RocksDB storage engine
 ---
 RocksDB engine options
 ======================
@@ -37,7 +37,9 @@ The maximum number of write buffers that built up in memory. If this number is
 reached before the buffers can be flushed, writes will be slowed or stalled.
 Default: 2.
 
-`--rocksdb.total-write-buffer-size` (Hidden)
+`--rocksdb.total-write-buffer-size`
+
+<small>Introduced in: v3.3.20</small>
 
 The total amount of data to build up in all in-memory buffers (backed by log
 files, in bytes). This option, together with the block cache size configuration 
@@ -64,7 +66,7 @@ so that WAL files can be moved to the archive.
 Setting this to a high value will avoid regular flushing but may prevent WAL
 files from being moved to the archive and being removed.
 
-`--rocksdb.delayed-write-rate` (Hidden)
+`--rocksdb.delayed-write-rate`
 
 Limited write rate to DB (in bytes per second) if we are writing to the last
 in-memory buffer allowed and we allow more than 3 buffers. Default: 16MiB/s.
@@ -124,16 +126,16 @@ If non-zero, we perform bigger reads when doing compaction. If you're  running
 RocksDB on spinning disks, you should set this to at least 2MiB. That way
 RocksDB's compaction is doing sequential instead of random reads. Default: 0.
 
-`--rocksdb.use-direct-reads` (Hidden)
+`--rocksdb.use-direct-reads`
 
 Only meaningful on Linux. If set, use `O_DIRECT` for reading files. Default:
 false.
 
-`--rocksdb.use-direct-io-for-flush-and-compaction` (Hidden)
+`--rocksdb.use-direct-io-for-flush-and-compaction`
 
 Only meaningful on Linux. If set, use `O_DIRECT` for writing files. Default: false.
 
-`--rocksdb.use-fsync` (Hidden)
+`--rocksdb.use-fsync`
 
 If set, issue an `fsync` call when writing to disk (set to false to issue
 `fdatasync` only. Default: false.
@@ -164,6 +166,11 @@ is 256MiB. If there is more, the default is `(system RAM size - 2GiB) * 0.3`.
 
 `--rocksdb.enforce-block-cache-size-limit`
 
+{% hint 'warning' %}
+This option is ignored because it could cause errors in RocksDB 5.6.
+Consider upgrading to ArangoDB v3.4 or later with a more recent RocksDB bundled.
+{% endhint %}
+
 Whether or not the maximum size of the RocksDB block cache is strictly enforced.
 This option can be set to limit the memory usage of the block cache to at most the
 specified size. If then inserting a data block into the cache would exceed the 
@@ -182,13 +189,13 @@ value to at most `block-cache-shard-bits / 512KB`. Default: `block-cache-size /
 
 Approximate size of user data (in bytes) packed per block for uncompressed data.
 
-`--rocksdb.recycle-log-file-num` (Hidden)
+`--rocksdb.recycle-log-file-num`
 
 Number of log files to keep around for recycling. Default: 0.
 
 ### Miscellaneous
 
-`--rocksdb.optimize-filters-for-hits` (Hidden)
+`--rocksdb.optimize-filters-for-hits`
 
 This flag specifies that the implementation should optimize the filters mainly
 for cases where keys are found rather than also optimize for the case where
@@ -196,13 +203,13 @@ keys are not. This would be used in cases where the application knows that
 there are very few misses or the performance in the case of misses is not as
 important. Default: false.
 
-`--rocksdb.wal-recovery-skip-corrupted` (Hidden)
+`--rocksdb.wal-recovery-skip-corrupted`
 
 If true, skip corrupted records in WAL recovery. Default: false.
 
 ## Non-Pass-Through Options
 
-`--rocksdb.wal-file-timeout` (Hidden)
+`--rocksdb.wal-file-timeout`
 
 Timeout after which unused WAL files are deleted (in seconds). Default: 10.0s.
 

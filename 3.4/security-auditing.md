@@ -1,13 +1,14 @@
 ---
 layout: default
-description: This feature is only available in theEnterprise Edition
+description: Audit logging, available in the Enterprise Edition
+title: Auditing
 ---
 Auditing
 ========
 
 {% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+Auditing is only available in the
+[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
 {% endhint %}
 
 Auditing allows you to monitor access to the database in detail. In general

@@ -14,7 +14,7 @@ var versionSwitcherSetAvailable = function(versions) {
 
 var anchorForId = function(id) {
   var anchor = document.createElement("a");
-  anchor.className = "header-link";
+  anchor.className = "anchor-link";
   anchor.href = "#" + id;
   anchor.innerHTML =
     '<span class="sr-only">Permalink</span><i class="fa fa-link"></i>';
@@ -33,6 +33,17 @@ var linkifyAnchors = function(level, containingElement) {
   }
 };
 
+var linkifyExamples = function(className, containingElement) {
+  var examples = containingElement.getElementsByClassName(className);
+  for (var e = 0; e < examples.length; e++) {
+    var example = examples[e];
+
+    if (typeof example.id !== "undefined" && example.id !== "") {
+      example.insertBefore(anchorForId(example.id), example.firstChild);
+    }
+  }
+};
+
 var enableHamburger = function enableHamburger() {
   $(".book-header .hamburger").click(function(event) {
     event.preventDefault();
@@ -42,7 +53,7 @@ var enableHamburger = function enableHamburger() {
 };
 
 var linkify = function() {
-  var contentBlock = document.getElementsByClassName("book-body")[0];
+  var contentBlock = document.querySelector(".markdown-section");
   if (!contentBlock) {
     return;
   }
@@ -51,6 +62,8 @@ var linkify = function() {
   for (var level = 2; level <= 6; level++) {
     linkifyAnchors(level, contentBlock);
   }
+
+  linkifyExamples("example-container", contentBlock);
 }
 
 document.onreadystatechange = function() {
@@ -63,7 +76,19 @@ var loadPage = function(target, fn) {
   var href = target.href;
   var pathname = target.pathname;
   var url = href.replace(/#.*$/, "");
+  var elem;
   if (url == currentPage) {
+    // same page, but anchor might have changed
+    if (target.hash == "") {
+      // user clicked on current page in navigation, scroll to top
+      elem = document.querySelector(".book-header");
+    } else {
+      // location.hash is already target.hash here
+      elem = document.querySelector(target.hash);
+    }
+    if (elem) {
+      elem.scrollIntoView();
+    }
     return;
   }
   $.get({
@@ -120,8 +145,25 @@ window.onpopstate = function(event) {
   loadPage(event.target.location);
 };
 
+$(document).ready(function scrollToAnchor() {
+  if (location.hash.length > 1) {
+    var elem = document.querySelector(location.hash);
+    if (elem) {
+      elem.scrollIntoView();
+    }
+  }
+});
+
 $(document).ready(function handleNav() {
   $("div.book-summary nav a").click(function(event) {
+    // get source code value, not the absolute URL from .href!
+    var hrefAttr = event.target.getAttribute("href");
+    if (hrefAttr && (
+        hrefAttr.startsWith("http://") ||
+        hrefAttr.startsWith("https://"))) {
+      // let browser handle external link in navigation
+      return
+    }
     event.preventDefault();
     loadPage(event.target, function(title) {
       $(event.target)
@@ -150,12 +192,12 @@ $(document).ready(function hideSummaryOnMobile() {
 })
 
 var generateToc = function() {
-  var contentBlock = document.getElementsByClassName("book-body")[0];
+  var contentBlock = document.querySelector(".markdown-section");
   if (!contentBlock) {
     return;
   }
 
-  var nodes = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+  var nodes = contentBlock.querySelectorAll("h1, h2, h3, h4, h5, h6");
   if (nodes.length < 3) {
     return;
   }
@@ -214,8 +256,7 @@ var generateToc = function() {
 
   nav.appendChild(root);
 
-  var wrapper = document.querySelector(".markdown-section");
-  wrapper.insertBefore(nav, wrapper.firstChild);
+  contentBlock.insertBefore(nav, contentBlock.firstChild);
 };
 
-window.currentPage = location.href;
+window.currentPage = location.href.replace(/#.*$/, "");

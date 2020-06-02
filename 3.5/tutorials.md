@@ -26,6 +26,10 @@ Tutorials
 Deployment & Administration
 ---------------------------
 
+- [Reduce Memory Footprint](tutorials-reduce-memory-footprint.html):
+  Configuration options to restrict ArangoDB's memory usage and to reduce
+  the CPU utilization
+
 - [ArangoDB Starter](tutorials-starter.html):
   Starting an ArangoDB Cluster or database the easy way
 
@@ -43,6 +47,9 @@ Deployment & Administration
 
 - [Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}:
   Concepts, maintenance, resilience and troubleshooting
+
+- [ArangoDB Oasis](https://cloud.arangodb.com/){:target="_blank"}:
+  Cloud service for cluster deployments of any size
 
 Graphs
 ------

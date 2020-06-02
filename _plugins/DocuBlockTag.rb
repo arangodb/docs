@@ -251,15 +251,30 @@ class DocuBlockBlock < Liquid::Tag
         @@paths[path][blockname]
     end
 
+    def convertHintBox(context, content)
+        site = context.registers[:site]
+        converter = site.find_converter_instance(::Jekyll::Converters::Markdown)
+
+        # Remove indention based on first actual line (but only spaces)
+        content = content.sub(/^[\r\n]+/, '')
+        indent = content.index(/[^ ]/) || 0
+        content = content.lines.map{ |line| line.slice([indent, line.index(/[^ ]/) || 0].min, line.length) }.join ''
+        # Parse Markdown and strip trailing whitespace (especially line breaks).
+        # Otherwise below <div>s will be wrapped in <p> for some reason!
+        content = converter.convert(content).sub(/\s+$/, '')
+        content
+    end
+
     def render(context)
         if context["page"]["dir"] =~ /\d\.\d\/?$/
             dir = context["page"]["dir"] + "/"
         else
             dir = context["page"]["dir"] + "/../"
         end
-        content = get_docu_block(Dir.pwd + dir + "generated/", @blockname)
+        fullpath = Dir.pwd + dir + "generated/"
+        content = get_docu_block(fullpath, @blockname)
         if !content
-            Jekyll.logger.error "DocuBlock \"#{@blockname}\" undefined. Content will be empty."
+            Jekyll.logger.error "DocuBlock \"#{@blockname}\" in \"#{File.expand_path(fullpath)}\" undefined. Content will be empty."
             return ""
         end
         # should match migrate.js more or less :S
@@ -298,7 +313,7 @@ class DocuBlockBlock < Liquid::Tag
             "<div class=\"alert alert-#{$1}\" style=\"display: flex\">
     <i class=\"fa fa-info-circle\" style=\"margin-right: 10px; margin-top: 4px;\"></i>
     <div>
-        #{$2}
+        #{convertHintBox(context, $2)}
     </div>
 </div>"}
         content

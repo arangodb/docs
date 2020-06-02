@@ -28,6 +28,7 @@ end users. End users should access collections using the collection name.
 
 
 Get a collection by name:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseNameKnown
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseNameKnown}
@@ -36,6 +37,7 @@ Get a collection by name:
     @endDocuBlock collectionDatabaseNameKnown
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Get a collection by id:
 
 ```
@@ -44,6 +46,7 @@ arangosh> db._collection(123456);
 ```
 
 Unknown collection:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseNameUnknown
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseNameUnknown}
@@ -170,6 +173,15 @@ to the [naming conventions](data-modeling-naming-conventions.html).
   dramatically when using joins in AQL at the costs of reduced write
   performance on these collections.
 
+- *minReplicationFactor* (optional, default is 1):  in a cluster, this
+  attribute determines how many copies of each shard are required
+  to be in sync on the different DBServers. If we have less then these
+  many copies in the cluster a shard will refuse to write. The
+  minReplicationFactor can not be larger than replicationFactor.
+  Please note: during server failures this might lead to writes
+  not being possible until the failover is sorted out and might cause
+  write slow downs in trade of data durability.
+
 - *distributeShardsLike*: distribute the shards of this collection
   cloning the shard distribution of another. If this value is set,
   it will copy the attributes *replicationFactor*, *numberOfShards* and 
@@ -246,6 +258,7 @@ creation time and will not be persisted:
 
 
 With defaults:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateSuccess
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateSuccess}
@@ -256,7 +269,9 @@ With defaults:
     @endDocuBlock collectionDatabaseCreateSuccess
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 With properties:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateProperties
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateProperties}
@@ -268,7 +283,9 @@ With properties:
     @endDocuBlock collectionDatabaseCreateProperties
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 With a key generator:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateKey
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateKey}
@@ -282,7 +299,9 @@ With a key generator:
     @endDocuBlock collectionDatabaseCreateKey
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 With a special key option:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateSpecialKey
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateSpecialKey}
@@ -342,8 +361,8 @@ Returns all collections of the given database.
 
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionsDatabaseName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionsDatabaseName}
     ~ db._create("example");
@@ -370,8 +389,8 @@ default properties.
 
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCollectionName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCollectionName}
     ~ db._create("example");
@@ -416,6 +435,7 @@ with *distributeShardsLike* parameter, cannot be dropped.
 *Examples*
 
 Drops a collection:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseDropByObject
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropByObject}
@@ -428,7 +448,9 @@ Drops a collection:
     @endDocuBlock collectionDatabaseDropByObject
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Drops a collection identified by name:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseDropName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropName}
@@ -440,7 +462,9 @@ Drops a collection identified by name:
     @endDocuBlock collectionDatabaseDropName
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Drops a system collection
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseDropSystem
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseDropSystem}
@@ -452,6 +476,7 @@ Drops a system collection
     @endDocuBlock collectionDatabaseDropSystem
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Truncate
 --------
 
@@ -479,6 +504,7 @@ there is no such collection.
 
 
 Truncates a collection:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseTruncateByObject
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncateByObject}
@@ -493,7 +519,9 @@ Truncates a collection:
     @endDocuBlock collectionDatabaseTruncateByObject
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Truncates a collection identified by name:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseTruncateName
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseTruncateName}

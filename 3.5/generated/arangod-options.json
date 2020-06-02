@@ -196,6 +196,20 @@
     "section" : "agency",
     "type" : "double"
   },
+  "agency.supervision-ok-threshold" : {
+    "category" : "option",
+    "default" : 5,
+    "deprecatedIn" : null,
+    "description" : "supervision time, after which a server is considered to be bad [s]",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "agency",
+    "type" : "double"
+  },
   "agency.wait-for-sync" : {
     "category" : "option",
     "default" : true,
@@ -267,6 +281,34 @@
     "section" : "audit",
     "type" : "string..."
   },
+  "backup.api-enabled" : {
+    "category" : "option",
+    "default" : "true",
+    "deprecatedIn" : null,
+    "description" : "whether the backup api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "backup",
+    "type" : "string"
+  },
+  "backup.local-path-prefix" : {
+    "category" : "option",
+    "default" : "/",
+    "deprecatedIn" : null,
+    "description" : "this option restricts any backup target to a given path prefix",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "backup",
+    "type" : "string"
+  },
   "cache.rebalancing-interval" : {
     "category" : "option",
     "default" : 2000000,
@@ -283,7 +325,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341557248,
+    "default" : 33252961280,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -352,6 +394,22 @@
     "section" : "cluster",
     "type" : "boolean"
   },
+  "cluster.default-replication-factor" : {
+    "category" : "option",
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "default replication factor for new collections",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.1"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "cluster",
+    "type" : "uint32"
+  },
   "cluster.index-create-timeout" : {
     "category" : "option",
     "default" : 3600,
@@ -365,6 +423,54 @@
     "requiresValue" : true,
     "section" : "cluster",
     "type" : "double"
+  },
+  "cluster.max-number-of-shards" : {
+    "category" : "option",
+    "default" : 1000,
+    "deprecatedIn" : null,
+    "description" : "maximum number of shards when creating new collections (0 = unrestricted)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.1"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "cluster",
+    "type" : "uint32"
+  },
+  "cluster.max-replication-factor" : {
+    "category" : "option",
+    "default" : 10,
+    "deprecatedIn" : null,
+    "description" : "maximum replication factor for new collections (0 = unrestricted)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.1"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "cluster",
+    "type" : "uint32"
+  },
+  "cluster.min-replication-factor" : {
+    "category" : "option",
+    "default" : 1,
+    "deprecatedIn" : null,
+    "description" : "minimum replication factor for new collections",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.1"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "cluster",
+    "type" : "uint32"
   },
   "cluster.my-address" : {
     "category" : "option",
@@ -422,6 +528,20 @@
     "section" : "cluster",
     "type" : "boolean"
   },
+  "cluster.resign-leadership-on-shutdown" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "create resign leader ship job for this dbsever on shutdown",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "cluster",
+    "type" : "boolean"
+  },
   "cluster.synchronous-replication-timeout-factor" : {
     "category" : "option",
     "default" : 1,
@@ -431,6 +551,23 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "cluster",
+    "type" : "double"
+  },
+  "cluster.synchronous-replication-timeout-minimum" : {
+    "category" : "option",
+    "default" : 30,
+    "deprecatedIn" : null,
+    "description" : "all synchronous replication timeouts will be at least this value (in seconds)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.1",
+      "v3.4.8"
+    ],
     "obsolete" : false,
     "requiresValue" : true,
     "section" : "cluster",
@@ -1293,7 +1430,7 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "disables access to JavaScript functions in the internal module: getPid(), processStatistics() andl logLevel()",
+    "description" : "disables access to JavaScript functions in the internal module: getPid() and logLevel()",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -2136,7 +2273,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "log destination(s)",
+    "description" : "log destination(s), e.g. file:///path/to/file (Linux, macOS) or file://C:\\path\\to\\file (Windows)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -2537,6 +2674,20 @@
     "type" : "uint32",
     "values" : "Possible values: 1, 2, 3, 4"
   },
+  "rclone.executable" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "rclone executable used for up and download of backups",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "rclone",
+    "type" : "string"
+  },
   "replication.active-failover" : {
     "category" : "option",
     "default" : false,
@@ -2578,6 +2729,56 @@
     "requiresValue" : false,
     "section" : "replication",
     "type" : "boolean"
+  },
+  "replication.connect-timeout" : {
+    "category" : "option",
+    "default" : 10,
+    "deprecatedIn" : null,
+    "description" : "Default timeout value for replication connection attempts (in seconds)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.9",
+      "v3.5.3"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "replication",
+    "type" : "double"
+  },
+  "replication.max-parallel-tailing-invocations" : {
+    "category" : "option",
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "Maximum number of concurrently allowed WAL tailing invocations (0 = unlimited)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "replication",
+    "type" : "uint64"
+  },
+  "replication.request-timeout" : {
+    "category" : "option",
+    "default" : 600,
+    "deprecatedIn" : null,
+    "description" : "Default timeout value for replication requests (in seconds)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.9",
+      "v3.5.3"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "replication",
+    "type" : "double"
   },
   "rocksdb.allow-fallocate" : {
     "category" : "option",
@@ -2626,7 +2827,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609868697,
+    "default" : 39903553536,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -2651,6 +2852,20 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "uint64"
+  },
+  "rocksdb.create-sha-files" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "enable generation of sha256 files for each .sst file",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
   },
   "rocksdb.debug-logging" : {
     "category" : "option",
@@ -2937,7 +3152,7 @@
   },
   "rocksdb.max-write-buffer-number" : {
     "category" : "option",
-    "default" : 2,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "maximum number of write buffers that built up in memory",
     "dynamic" : false,
@@ -3091,7 +3306,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146491596,
+    "default" : 53204738048,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -3560,7 +3775,7 @@
   },
   "server.prio1-size" : {
     "category" : "option",
-    "default" : 1048576,
+    "default" : 4096,
     "deprecatedIn" : null,
     "description" : "size of the priority 1 fifo",
     "dynamic" : false,
@@ -3588,7 +3803,7 @@
   },
   "server.scheduler-queue-size" : {
     "category" : "option",
-    "default" : 128,
+    "default" : 4096,
     "deprecatedIn" : null,
     "description" : "number of simultaneously queued requests inside the scheduler",
     "dynamic" : false,
@@ -3609,6 +3824,23 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
+  },
+  "server.statistics-history" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "turn storing statistics in database on or off",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.4.9",
+      "v3.5.1"
+    ],
     "obsolete" : false,
     "requiresValue" : false,
     "section" : "server",
@@ -3717,7 +3949,7 @@
     "category" : "option",
     "default" : 5,
     "deprecatedIn" : null,
-    "description" : "ssl protocol (1 = SSLv2 (unsupported), 2 = SSLv2 or SSLv3 (negotiated), 3 = SSLv3, 4 = TLSv1, 5 = TLSv1.2)",
+    "description" : "ssl protocol (1 = SSLv2 (unsupported), 2 = SSLv2 or SSLv3 (negotiated), 3 = SSLv3, 4 = TLSv1, 5 = TLSv1.2, 6 = TLSv1.3)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -3726,7 +3958,7 @@
     "requiresValue" : true,
     "section" : "ssl",
     "type" : "uint64",
-    "values" : "Possible values: 1, 2, 3, 4, 5"
+    "values" : "Possible values: 1, 2, 3, 4, 5, 6"
   },
   "ssl.require-peer-certificate" : {
     "category" : "option",

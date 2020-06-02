@@ -1,8 +1,7 @@
 ---
 layout: default
-description: This procedure is intended to recover a cluster (that was started with the ArangoDBStarter) when a machine of that cluster is broken without the possibility to recoverit (e
+description: This procedure is intended to recover a cluster (that was started with the ArangoDB Starter) when a machine of that cluster is broken without the possibility to recover it (e
 ---
-
 # ArangoDB Starter Recovery Procedure
 
 This procedure is intended to recover a cluster (that was started with the ArangoDB

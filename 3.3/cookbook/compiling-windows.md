@@ -10,9 +10,6 @@ Problem
 
 I want to compile ArangoDB 3.0 and onwards under Windows.
 
-**Note:** For this recipe you need at least ArangoDB 3.0;
-For ArangoDB version before 3.0 look at the [old Compiling ArangoDB under Windows](https://docs.arangodb.com/2.8/Cookbook/CompilingUnderWindows.html){:target="_blank"}.
-
 Solution
 --------
 
