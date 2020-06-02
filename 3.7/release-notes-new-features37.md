@@ -526,17 +526,18 @@ to supply multiple user keys. A random internal key will be generated and
 encrypted with each of the provided user keys.
 
 ### RocksDB storage engine options exposed
-* Multiple more rocksdb configuration options will now be exposed to be configurable
-  via arangodb:
-  * `--rocksdb.cache-index-and-filter-blocks` to make the RocksDB block cache quota
-    also include RocksDB memtable sizes
-  * `--rocksdb.cache-index-and-filter-blocks-with-high-priority` to use cache index
-    and filter blocks with high priority making index and filter blocks be less
-    likely to be evicted than data blocks
-  * `--rocksdb.pin-l0-filter-and-index-blocks-in-cache` make filter and index blocks
-    be pinned and only evicted from cache when the table reader is freed
-  * `--rocksdb.pin-top-level-index-and-filter` make the top-level index of partitioned
-    filter and index blocks pinned and only be evicted from cache when the table reader is freed
+Multiple additional RocksDB configuration options are now exposed to be configurable
+in _arangod_:
+
+* `--rocksdb.cache-index-and-filter-blocks` to make the RocksDB block cache quota
+  also include RocksDB memtable sizes
+* `--rocksdb.cache-index-and-filter-blocks-with-high-priority` to use cache index
+  and filter blocks with high priority making index and filter blocks be less
+  likely to be evicted than data blocks
+* `--rocksdb.pin-l0-filter-and-index-blocks-in-cache` make filter and index blocks
+  be pinned and only evicted from cache when the table reader is freed
+* `--rocksdb.pin-top-level-index-and-filter` make the top-level index of partitioned
+  filter and index blocks pinned and only be evicted from cache when the table reader is freed
 
 ### Insert-Update and Insert-Ignore
 
