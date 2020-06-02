@@ -35,6 +35,7 @@ oasisctl get [flags]
 * [oasisctl get backup](oasisctl-get-backup.html)	 - Get a backup
 * [oasisctl get cacertificate](oasisctl-get-cacertificate.html)	 - Get a CA certificate the authenticated user has access to
 * [oasisctl get deployment](oasisctl-get-deployment.html)	 - Get a deployment the authenticated user has access to
+* [oasisctl get example](oasisctl-get-example.html)	 - Get a single example dataset
 * [oasisctl get group](oasisctl-get-group.html)	 - Get a group the authenticated user has access to
 * [oasisctl get ipwhitelist](oasisctl-get-ipwhitelist.html)	 - Get an IP whitelist the authenticated user has access to
 * [oasisctl get organization](oasisctl-get-organization.html)	 - Get an organization the authenticated user is a member of
