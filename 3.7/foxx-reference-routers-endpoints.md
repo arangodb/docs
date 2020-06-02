@@ -334,7 +334,7 @@ If the endpoint is a child router, all routes of that router will use this
 error description unless overridden. If the endpoint is a middleware,
 this method has no effect.
 
-This method only affects the generated API documentation and has not other
+This method only affects the generated API documentation and has no other
 effect within the service itself.
 
 **Arguments**
@@ -372,7 +372,7 @@ Adds a short description to the endpoint's API documentation.
 If the endpoint is a child router, all routes of that router will use this
 summary unless overridden. If the endpoint is a middleware, this method has no effect.
 
-This method only affects the generated API documentation and has not other
+This method only affects the generated API documentation and has no other
 effect within the service itself.
 
 **Arguments**
@@ -438,7 +438,7 @@ Marks the endpoint as deprecated.
 If the endpoint is a child router, all routes of that router will also be
 marked as deprecated. If the endpoint is a middleware, this method has no effect.
 
-This method only affects the generated API documentation and has not other
+This method only affects the generated API documentation and has no other
 effect within the service itself.
 
 **Arguments**
@@ -469,7 +469,7 @@ routes in the generated API documentation.
 If the endpoint is a child router, all routes of that router will also be
 marked with the tags. If the endpoint is a middleware, this method has no effect.
 
-This method only affects the generated API documentation and has not other
+This method only affects the generated API documentation and has no other
 effect within the service itself.
 
 **Arguments**
@@ -494,7 +494,7 @@ securityScheme
 
 Defines an OpenAPI security scheme for this endpoint.
 
-This method only affects the generated API documentation and has not other
+This method only affects the generated API documentation and has no other
 effect within the service itself.
 
 **Arguments**
