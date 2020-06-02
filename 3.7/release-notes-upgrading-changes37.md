@@ -93,6 +93,16 @@ values in 3.7 than before in case the web interface was used a lot on the
 
 This change in behavior was also backported to ArangoDB v3.6.5.
 
+Client tools
+------------
+
+_arangodump_ and _arangorestore_ will now fail when using the `--collection` 
+option and none of the specified collections actually exist in the database (on dump) 
+or in the dump to restore (on restore). In case only some of the specified collections 
+exist, _arangodump_ / _arangorestore_ will issue warnings about the invalid collections, 
+but will continue to work for the valid collections.
+
+
 HTTP RESTful API
 ----------------
 
