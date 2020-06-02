@@ -100,7 +100,7 @@ Creates an OAuth1.0a client.
 
 **Arguments**
 
-* **options**: `object`
+* **options**: `Object`
 
   An object with the following properties:
 
@@ -240,7 +240,7 @@ Throws an exception if the remote server responds with an empty response body.
 
   The fully-qualified URL of your application's OAuth 1.0a callback.
 
-* **opts**: `object` (optional)
+* **opts**: `Object` (optional)
 
   An object with additional query parameters to include in the request.
 
@@ -304,7 +304,7 @@ Throws an exception if the remote server responds with an empty response body.
 
   The `oauth_verifier` passed to the callback URL by the provider.
 
-* **opts**: `object` (optional)
+* **opts**: `Object` (optional)
 
   An object with additional query parameters to include in the request.
 
@@ -315,7 +315,7 @@ Returns the parsed response object.
 Fetch the active user
 ---------------------
 
-`oauth1.fetchActiveUser(oauth_token, oauth_token_secret, opts): object`
+`oauth1.fetchActiveUser(oauth_token, oauth_token_secret, opts): Object`
 
 Fetches details of the active user.
 
@@ -335,7 +335,7 @@ Returns `null` if the *activeUserEndpoint* is not configured.
 
   An OAuth 1.0a access token secret as returned by *exchangeRequestToken*.
 
-* **opts**: `object` (optional)
+* **opts**: `Object` (optional)
 
   An object with additional query parameters to include in the request.
 
@@ -370,7 +370,7 @@ provider with the provided token credentials.
 
   The URL may optionally contain any number of query parameters.
 
-* **parameters**: `string | object | null`
+* **parameters**: `string | Object | null`
 
   An additional object or query string containing query parameters or body
   parameters that will be part of the signed request.

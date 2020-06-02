@@ -105,7 +105,7 @@ Creates an OAuth 2.0 client.
 
 **Arguments**
 
-* **options**: `object`
+* **options**: `Object`
 
   An object with the following properties:
 
@@ -256,7 +256,7 @@ Throws an exception if the remote server responds with an empty response body.
 
   The original callback URL with which the code was requested.
 
-* **args**: `object` (optional)
+* **args**: `Object` (optional)
 
   An object with any of the following properties:
 
@@ -269,7 +269,7 @@ Returns the parsed response object.
 Fetch the active user
 ---------------------
 
-`oauth2.fetchActiveUser(access_token): object`
+`oauth2.fetchActiveUser(access_token): Object`
 
 Fetches details of the active user.
 

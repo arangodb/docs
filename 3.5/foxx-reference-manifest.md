@@ -60,7 +60,7 @@ The following fields are allowed in manifests:
 
   The JSON schema. See above.
 
-- **configuration**: `object` (optional)
+- **configuration**: `Object` (optional)
 
   An object defining the [configuration options](foxx-reference-configuration.html) this service requires.
 
@@ -87,7 +87,7 @@ The following fields are allowed in manifests:
   **Note**: As of 3.0.0 this field can safely be omitted; the value no longer
   defaults to `"index.html"`.
 
-- **dependencies**: `object` (optional)
+- **dependencies**: `Object` (optional)
 
   An object mapping local aliases to dependency definitions.
   Each entry can be a dependency name and version range in the format
@@ -119,7 +119,7 @@ The following fields are allowed in manifests:
 
   See [the dependencies guide](foxx-guides-dependencies.html) for more information.
 
-- **engines**: `object` (optional)
+- **engines**: `Object` (optional)
 
   An object indicating the [semantic version ranges](http://semver.org){:target="_blank"} of
   ArangoDB (or compatible environments) the service will be compatible with, e.g.:
@@ -136,7 +136,7 @@ The following fields are allowed in manifests:
   (e.g. `^3.0.0` to match any version greater or equal to `3.0.0` and below
   `4.0.0`) for maximum compatibility.
 
-- **files**: `object` (optional)
+- **files**: `Object` (optional)
 
   An object defining file assets served by this service.
 
@@ -200,13 +200,13 @@ The following fields are allowed in manifests:
   likely want to provide an entry point to your service as this is the only
   way to expose HTTP routes or export a JavaScript API.
 
-- **provides**: `object` (optional)
+- **provides**: `Object` (optional)
 
   An object mapping dependency names to version ranges of that dependency
   provided by this service. See [the dependencies guide](foxx-guides-dependencies.html)
   for more information.
 
-- **scripts**: `object` (optional)
+- **scripts**: `Object` (optional)
 
   An object defining [named scripts](foxx-guides-scripts.html) provided by this
   service, which can either be used directly or as queued jobs by other services.

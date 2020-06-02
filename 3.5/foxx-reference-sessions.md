@@ -47,7 +47,7 @@ Creates a session middleware.
 
 **Arguments**
 
-* **options**: `object`
+* **options**: `Object`
 
   An object with the following properties:
 

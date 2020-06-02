@@ -18,7 +18,7 @@ Creates a [Storage](foxx-reference-sessions-storages.html) that can be used in t
 
 **Arguments**
 
-* **options**: `object`
+* **options**: `Object`
 
   An object with the following properties:
 

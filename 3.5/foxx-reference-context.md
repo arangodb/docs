@@ -68,11 +68,11 @@ The service context specifies the following properties:
   the names of service-specific collections. This is derived from the
   service's mount point, e.g. `/my-foxx` becomes `my_foxx`.
 
-* **configuration**: `object`
+* **configuration**: `Object`
 
   [Configuration options](foxx-reference-configuration.html) for the service.
 
-* **dependencies**: `object`
+* **dependencies**: `Object`
 
   Configured [dependencies](foxx-guides-dependencies.html) for the service.
 
@@ -84,7 +84,7 @@ The service context specifies the following properties:
 
   The inverse of *isDevelopment*.
 
-* **manifest**: `object`
+* **manifest**: `Object`
 
   The parsed [manifest file](foxx-reference-manifest.html) of the service.
 
@@ -131,7 +131,7 @@ Creates a router that serves the API documentation.
 
 **Arguments**
 
-* **options**: `object` (optional)
+* **options**: `Object` (optional)
 
   An object with any of the following properties:
 
@@ -273,7 +273,7 @@ TODO
 
   TODO
 
-* **def**: `object`
+* **def**: `Object`
 
   TODO
 

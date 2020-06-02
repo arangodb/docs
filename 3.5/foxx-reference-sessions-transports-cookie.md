@@ -36,7 +36,7 @@ Creates a [Transport](foxx-reference-sessions-transports.html) that can be used 
 
 **Arguments**
 
-* **options**: `object` (optional)
+* **options**: `Object` (optional)
 
   An object with the following properties:
 

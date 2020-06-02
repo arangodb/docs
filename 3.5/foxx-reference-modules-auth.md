@@ -19,7 +19,7 @@ Creates an authenticator.
 
 **Arguments**
 
-* **options**: `object` (optional)
+* **options**: `Object` (optional)
 
   An object with the following properties:
 
