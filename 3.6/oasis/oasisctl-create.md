@@ -36,6 +36,7 @@ oasisctl create [flags]
 * [oasisctl create backup](oasisctl-create-backup.html)	 - Create a new backup
 * [oasisctl create cacertificate](oasisctl-create-cacertificate.html)	 - Create a new CA certificate
 * [oasisctl create deployment](oasisctl-create-deployment.html)	 - Create a new deployment
+* [oasisctl create example](oasisctl-create-example.html)	 - Create example ...
 * [oasisctl create group](oasisctl-create-group.html)	 - Create a new group
 * [oasisctl create ipwhitelist](oasisctl-create-ipwhitelist.html)	 - Create a new IP whitelist
 * [oasisctl create organization](oasisctl-create-organization.html)	 - Create a new organization
