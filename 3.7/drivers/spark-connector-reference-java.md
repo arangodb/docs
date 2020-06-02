@@ -60,6 +60,14 @@ Save data from rdd into ArangoDB
 
     Alternative sslProtocol to context property `arangodb.ssl.protocol`
 
+  - **method**: `WriteOptions.Method`
+
+    Write method to use, it can be one of: 
+    - `WriteOptions.INSERT$.MODULE$`
+    - `WriteOptions.UPDATE$.MODULE$`
+    - `WriteOptions.REPLACE$.MODULE$`
+
+
 **Examples**
 
 ```Java
@@ -129,6 +137,13 @@ Save data from dataframe into ArangoDB
   - **sslProtocol**: `String`
 
     Alternative sslProtocol to context property `arangodb.ssl.protocol`
+
+  - **method**: `WriteOptions.Method`
+
+    Write method to use, it can be one of: 
+    - `WriteOptions.INSERT$.MODULE$`
+    - `WriteOptions.UPDATE$.MODULE$`
+    - `WriteOptions.REPLACE$.MODULE$`
 
 **Examples**
 
