@@ -102,7 +102,6 @@ or in the dump to restore (on restore). In case only some of the specified colle
 exist, _arangodump_ / _arangorestore_ will issue warnings about the invalid collections, 
 but will continue to work for the valid collections.
 
-
 HTTP RESTful API
 ----------------
 
