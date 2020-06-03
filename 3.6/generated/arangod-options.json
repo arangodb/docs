@@ -15,7 +15,7 @@
   },
   "agency.compaction-keep-size" : {
     "category" : "option",
-    "default" : 50000,
+    "default" : 2000,
     "deprecatedIn" : null,
     "description" : "keep as many indices before compaction point",
     "dynamic" : false,
@@ -29,7 +29,7 @@
   },
   "agency.compaction-step-size" : {
     "category" : "option",
-    "default" : 1000,
+    "default" : 100,
     "deprecatedIn" : null,
     "description" : "step size between state machine compactions",
     "dynamic" : false,
@@ -325,7 +325,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341536768,
+    "default" : 15293472768,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -1659,6 +1659,20 @@
     "section" : "javascript",
     "type" : "string..."
   },
+  "ldap.allow-offline" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "If a refresh attempt fails to connect to the LDAP server, continue with the cached authentication data",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "ldap",
+    "type" : "boolean"
+  },
   "ldap.async-connect" : {
     "category" : "option",
     "default" : false,
@@ -2962,7 +2976,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609844121,
+    "default" : 18352167321,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -3039,6 +3053,22 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.edge-cache" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "use in-memory cache for edges",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.4"
+    ],
     "obsolete" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
@@ -3457,7 +3487,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146458828,
+    "default" : 24469556428,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -3797,7 +3827,7 @@
   },
   "server.io-threads" : {
     "category" : "option",
-    "default" : 8,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "Number of threads used to handle IO",
     "dynamic" : true,
@@ -3884,7 +3914,7 @@
   },
   "server.maintenance-threads" : {
     "category" : "option",
-    "default" : 9,
+    "default" : 5,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
@@ -4039,6 +4069,22 @@
     "requiresValue" : true,
     "section" : "server",
     "type" : "string"
+  },
+  "server.validate-utf8-strings" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "perform UTF-8 string validation for incoming JSON and VelocyPack data",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.3"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
   },
   "ssl.cafile" : {
     "category" : "option",

@@ -1,17 +1,17 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=188633&amp;chunkSize=400</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=188716&amp;chunkSize=400</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
+content-type: application/x-arango-dump
 x-arango-replication-active: <span class="hljs-literal">true</span>
 x-arango-replication-checkmore: <span class="hljs-literal">true</span>
 x-arango-replication-frompresent: <span class="hljs-literal">true</span>
-x-arango-replication-lastincluded: <span class="hljs-number">188638</span>
-x-arango-replication-lastscanned: <span class="hljs-number">188635</span>
-x-arango-replication-lasttick: <span class="hljs-number">188661</span>
+x-arango-replication-lastincluded: <span class="hljs-number">188721</span>
+x-arango-replication-lastscanned: <span class="hljs-number">188718</span>
+x-arango-replication-lasttick: <span class="hljs-number">188744</span>
 x-content-type-options: nosniff
-content-type: application/x-arango-dump
 
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188636"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188719"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
@@ -20,14 +20,14 @@ content-type: application/x-arango-dump
   <span class="hljs-string">"data"</span> : { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"87"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/87"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a-sxis6--_"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_alp-A1---_"</span>, 
     <span class="hljs-string">"user"</span> : <span class="hljs-string">"root"</span>, 
     <span class="hljs-string">"source"</span> : <span class="hljs-string">"LOCAL"</span>, 
     <span class="hljs-string">"authData"</span> : { 
       <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>, 
       <span class="hljs-string">"simple"</span> : { 
-        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"87bb37e0f9df3714808c99c881610d74915a808718ef7aeaa163d4b2a37c33fe"</span>, 
-        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"71325b69"</span>, 
+        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"6dd4495a92d35fb058d86b5fbda7c92d6c5065d6f1a56fc1404072fce196023e"</span>, 
+        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"585d36c7"</span>, 
         <span class="hljs-string">"method"</span> : <span class="hljs-string">"sha256"</span> 
       } 
     }, 
@@ -70,13 +70,13 @@ content-type: application/x-arango-dump
               <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
             } 
           }, 
-          <span class="hljs-string">"products1"</span> : { 
+          <span class="hljs-string">"animals"</span> : { 
             <span class="hljs-string">"permissions"</span> : { 
               <span class="hljs-string">"read"</span> : <span class="hljs-literal">true</span>, 
               <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
             } 
           }, 
-          <span class="hljs-string">"animals"</span> : { 
+          <span class="hljs-string">"products1"</span> : { 
             <span class="hljs-string">"permissions"</span> : { 
               <span class="hljs-string">"read"</span> : <span class="hljs-literal">true</span>, 
               <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
