@@ -1,29 +1,32 @@
 ---
 layout: default
 description: Quick guide about how to clone a deployment using a backup in ArangoDB Oasis.
-title: Clone a deployment from backup in ArangoDB Oasis
+title: How to clone a deployment using a backup in ArangoDB Oasis
 ---
-# Clone a deployment from backup
+# How to clone a deployment using a backup in ArangoDB Oasis
 
-These instructions contain steps to clone a deployment using an uploaded Oasis Backup.
+These instructions contain steps to clone a deployment using an uploaded Oasis Deployment Backup.
 
 ## Prerequisites
 
-Make sure that you already have a running deployment. Please follow the [Getting Started](getting-started.md)
-page to create one.
+Make sure that you already have a running deployment. Please follow the [Getting Started](getting-started.md) page to create one.
 
 ## Creating a backup
 
 First, you will need a backup to clone from.
+
 1. Select an organization
 1. Select a project
 1. Select a deployment to create a backup from
-1. Navigate to backup screen
+1. Navigate to the backup screen
 ![Oasis Backup Deployment](../images/oasis-backup-deployment.png)
 1. Create a New Manual backup (or use an automated one which is uploaded)
 ![Oasis Create Uploaded Backup](../images/oasis-create-uploaded-backup.png)
 1. Wait for the backup to be uploaded
-1. Highlight the backup and hit **Clone backup to new deployment**
+
+## Clone from backup
+
+1. Highlight the backup you wish to clone from and hit **Clone backup to new deployment**
 ![Oasis Clone Deployment From Backup](../images/oasis-clone-deployment-from-backup.png)
 1. The view should navigate to the new deployment being bootstrapped
 ![Oasis Cloned Deployment](../images/oasis-cloned-deployment.png)
