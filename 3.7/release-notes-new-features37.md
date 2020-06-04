@@ -685,25 +685,30 @@ The bundled version of the RocksDB library has been upgraded from 6.2 to 6.8.
 ### Crash handler
 
 The Linux builds of the arangod executable contain a built-in crash handler
-The crash handler is supposed to log basic crash information to the ArangoDB logfile in
-case the arangod process receives one of the signals SIGSEGV, SIGBUS, SIGILL, SIGFPE or
-SIGABRT. SIGKILL signals, which the operating system can send to a process in case of OOM
-(out of memory), are not interceptable and thus cannot be intercepted by the crash handler,
+The crash handler is supposed to log basic crash information to the ArangoDB
+logfile in case the arangod process receives one of the signals SIGSEGV,
+SIGBUS, SIGILL, SIGFPE or SIGABRT. SIGKILL signals, which the operating system
+can send to a process in case of OOM (out of memory), are not interceptable and
+thus cannot be intercepted by the crash handler.
 
-In case the crash handler receives one of the mentioned interceptable signals, it will
-write basic crash information to the logfile and a backtrace of the call site.
-The backtrace can be provided to the ArangoDB support for further inspection. Note that
-backtaces are only usable if debug symbols for ArangoDB have been installed as well.
+In case the crash handler receives one of the mentioned interceptable signals,
+it will write basic crash information to the logfile and a backtrace of the
+call site. The backtrace can be provided to the ArangoDB support for further
+inspection. Note that backtaces are only usable if debug symbols for ArangoDB
+have been installed as well.
 
-After logging the crash information, the crash handler will execute the default action for
-the signal it has caught. If core dumps are enabled, the default action for these signals
-is to generate a core file. If core dumps are not enabled, the crash handler will simply
-terminate the program with a non-zero exit code.
+After logging the crash information, the crash handler will execute the default
+action for the signal it has caught. If core dumps are enabled, the default
+action for these signals is to generate a core file. If core dumps are not
+enabled, the crash handler will simply terminate the program with a non-zero
+exit code.
 
-The crash handler can be disabled at server start by setting the environment variable
-`ARANGODB_OVERRIDE_CRASH_HANDLER` to `0` or `off`.
+The crash handler can be disabled at server start by setting the environment
+variable `ARANGODB_OVERRIDE_CRASH_HANDLER` to an empty string, `0` or `off`.
 
-Also see [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes).
+Also see:
+- [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes)
+- [Server environment variables](programs-arangod-env-vars.html)
 
 ### Supported compilers
 

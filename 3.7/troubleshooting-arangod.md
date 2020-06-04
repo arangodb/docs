@@ -91,27 +91,32 @@ ArangoDB was killed because of an out-of-memory situation.
 Other crashes
 -------------
 
-The Linux builds of the arangod execuable contain a built-in crash handler
+The Linux builds of the arangod executable contain a built-in crash handler
 (introduced in v3.7.0).
-The crash handler is supposed to log basic crash information to the ArangoDB logfile in
-case the arangod process receives one of the signals SIGSEGV, SIGBUS, SIGILL, SIGFPE or
-SIGABRT. SIGKILL signals, which the operating system can send to a process in case of OOM 
-(out of memory), are not interceptable and thus cannot be intercepted by the crash handler,  
 
-In case the crash handler receives one of the mentioned interceptable signals, it will
-write basic crash information to the logfile and a backtrace of the call site.
-The backtrace can be provided to the ArangoDB support for further inspection. Note that 
-backtaces are only usable if debug symbols for ArangoDB have been installed as well.
+The crash handler is supposed to log basic crash information to the ArangoDB
+logfile in case the arangod process receives one of the signals SIGSEGV,
+SIGBUS, SIGILL, SIGFPE or SIGABRT. SIGKILL signals, which the operating system
+can send to a process in case of OOM (out of memory), are not interceptable and
+thus cannot be intercepted by the crash handler.
 
-After logging the crash information, the crash handler will execute the default action for
-the signal it has caught. If core dumps are enabled, the default action for these signals
-is to generate a core file. If core dumps are not enabled, the crash handler will simply
-terminate the program with a non-zero exit code.
+In case the crash handler receives one of the mentioned interceptable signals,
+it will write basic crash information to the logfile and a backtrace of the
+call site. The backtrace can be provided to the ArangoDB support for further
+inspection. Note that backtaces are only usable if debug symbols for ArangoDB
+have been installed as well.
 
-The crash handler can be disabled at server start by setting the environment variable
-`ARANGODB_OVERRIDE_CRASH_HANDLER` to `0` or `off`.
+After logging the crash information, the crash handler will execute the default
+action for the signal it has caught. If core dumps are enabled, the default
+action for these signals is to generate a core file. If core dumps are not
+enabled, the crash handler will simply terminate the program with a non-zero
+exit code.
+
+The crash handler can be disabled at server start by setting the environment
+variable `ARANGODB_OVERRIDE_CRASH_HANDLER` to an empty string, `0` or `off`.
 
 An example log output from the crash handler looks like this:
+
 ```
 2020-05-26T23:26:10Z [16657] FATAL [a7902] {crash} ArangoDB 3.7.1-devel enterprise [linux], thread 22 [Console] caught unexpected signal 11 (SIGSEGV) accessing address 0x0000000000000000: signal handler invoked
 2020-05-26T23:26:10Z [16657] INFO [308c3] {crash} frame 1 [0x00007f9124e93ece]: _ZN12_GLOBAL__N_112crashHandlerEiP9siginfo_tPv (+0x000000000000002e)
@@ -125,9 +130,11 @@ An example log output from the crash handler looks like this:
 2020-05-26T23:26:10Z [16657] INFO [ded81] {crash} available physical memory: 41721995264, rss usage: 294256640, vsz usage: 1217839104, threads: 46
 Segmentation fault (core dumped)
 ```
-The first line of the crash output will contain the cause of the crash (SIGSEGV in
-this case). The following lines contain information about the stack frames. The 
-hexadecimal value presented for each frame is the instruction pointer, and if debug 
-symbols are installed, there will be name information about the called procedures (in
-mangled format) plus the offsets into the procedures. If no debug symbols are
-installed, symbol names and offsets cannot be shown for the stack frames.
+
+The first line of the crash output will contain the cause of the crash
+(SIGSEGV in this case). The following lines contain information about the
+stack frames. The hexadecimal value presented for each frame is the instruction
+pointer, and if debug symbols are installed, there will be name information
+about the called procedures (in mangled format) plus the offsets into the
+procedures. If no debug symbols are installed, symbol names and offsets cannot
+be shown for the stack frames.
