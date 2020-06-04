@@ -10,7 +10,7 @@ To backup data in Oasis for an ArangoDB installation, navigate to the **Backups*
 
 ![Backup ArangoDB](../images/oasis-backup-section.png)
 
-There are two ways to create backups. Create periodic backups using a Backup policy, or create a backup manually.
+There are two ways to create backups. Create periodic backups using a **Backup policy**, or create a backup manually.
 
 ## Periodic backups
 
@@ -18,7 +18,7 @@ Periodic backups are created at a given schedule. To see when the new backup is 
 
 ![Backup Policy schedule](../images/oasis-backup-policy-schedule.png)
 
-When a new deployment is created, a default backup policy is created for it as well. This policy will create backups every two hours. To edit this policy (or any policy), highlight it in the row above and hit the pencil icon.
+When a new deployment is created, a default **Backup policy** is created for it as well. This policy will create backups every two hours. To edit this policy (or any policy), highlight it in the row above and hit the pencil icon.
 
 ![Edit Backup Policy](../images/oasis-edit-backup-policy.png)
 
