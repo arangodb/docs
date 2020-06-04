@@ -685,9 +685,53 @@ endpoint and model entries collapsed by default now for a better overview.
 Metrics
 -------
 
-The amount of exported metrics has been extended and is now available in a
-format compatible with Prometheus. You can now easily scrape on `/_admin/metrics`.
+The amount of exported metrics for monitoring has been extended and is now 
+available in a format compatible with Prometheus. You can now easily scrape 
+on `/_admin/metrics`.
 See [here](http/administration-and-monitoring-metrics.html).
+
+The following metrics have been added in ArangoDB 3.7:
+
+* `arangodb_agencycomm_request_time_msec`: Request time for Agency requests
+* `arangodb_aql_total_query_time_msec`: Total execution time of all queries
+* `arangodb_client_connection_statistics_bytes_received_bucket`: Bytes received for a request
+* `arangodb_client_connection_statistics_bytes_sent_bucket`: Bytes sent for a request
+* `arangodb_client_connection_statistics_io_time_bucket`: Request time needed to answer a request
+* `arangodb_client_connection_statistics_queue_time_bucket`: Request time needed to answer a request
+* `arangodb_client_connection_statistics_request_time_bucket`: Request time needed to answer a request
+* `arangodb_client_connection_statistics_total_time_bucket`: Total time needed to answer a request
+* `arangodb_heartbeat_failures`: Counting failed heartbeat transmissions
+* `arangodb_heartbeat_send_time_msec`: Time required to send heartbeat
+* `arangodb_http_request_statistics_async_requests`: Number of asynchronously executed HTTP requests
+* `arangodb_http_request_statistics_http_delete_requests`: Number of HTTP DELETE requests
+* `arangodb_http_request_statistics_http_get_requests`: Number of HTTP GET requests
+* `arangodb_http_request_statistics_http_head_requests`: Number of HTTP HEAD requests
+* `arangodb_http_request_statistics_http_options_requests`: Number of HTTP OPTIONS requests
+* `arangodb_http_request_statistics_http_patch_requests`: Number of HTTP PATH requests
+* `arangodb_http_request_statistics_http_post_requests`: Number of HTTP POST requests
+* `arangodb_http_request_statistics_http_put_requests`: Number of HTTP PUT requests
+* `arangodb_http_request_statistics_other_http_requests`: Number of other HTTP requests
+* `arangodb_http_request_statistics_total_requests`: Total number of HTTP requests
+* `arangodb_load_current_runtime`: Current loading runtimes
+* `arangodb_load_plan_runtime`: Plan loading runtimes
+* `arangodb_scheduler_awake_threads`: Number of awake worker threads
+* `arangodb_scheduler_num_worker_threads`: Number of worker threads
+* `arangodb_scheduler_queue_length`: Server's internal queue length
+* `arangodb_server_statistics_physical_memory`: Physical memory in bytes
+* `arangodb_server_statistics_server_uptime`: Number of seconds elapsed since server start
+
+Client tools
+------------
+
+_arangodump_ and _arangorestore_ will now fail when using the `--collection` 
+option and none of the specified collections actually exist in the database (on dump) 
+or in the dump to restore (on restore). In case only some of the specified collections 
+exist, _arangodump_ / _arangorestore_ will issue warnings about the invalid collections, 
+but will continue to work for the valid collections.
+
+These change were made to make end users more aware of that the executed
+commands for dumping or restoring data refer to non-existing collections and 
+that backup or restore operations are potentially incomplete.
 
 MMFiles storage engine
 ----------------------
