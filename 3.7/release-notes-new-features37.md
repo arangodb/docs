@@ -879,19 +879,31 @@ instead of libcurl.
 
 ### Crash handler
 
-ArangoDB 3.7 contains a crash handler for Linux and macOS builds. The crash
-handler is supposed to log basic crash information to the ArangoDB logfile in
-case the arangod process receives one of the signals SIGSEGV, SIGBUS, SIGILL,
-SIGFPE or SIGABRT.
+The Linux builds of the arangod executable contain a built-in crash handler
+The crash handler is supposed to log basic crash information to the ArangoDB
+logfile in case the arangod process receives one of the signals SIGSEGV,
+SIGBUS, SIGILL, SIGFPE or SIGABRT. SIGKILL signals, which the operating system
+can send to a process in case of OOM (out of memory), are not interceptable and
+thus cannot be intercepted by the crash handler.
 
-If possible, the crash handler will also write a backtrace to the logfile, so
-that the crash location can be found later by ArangoDB support.
+In case the crash handler receives one of the mentioned interceptable signals,
+it will write basic crash information to the logfile and a backtrace of the
+call site. The backtrace can be provided to the ArangoDB support for further
+inspection. Note that backtaces are only usable if debug symbols for ArangoDB
+have been installed as well.
 
-By design, the crash handler will not kick in in case the arangod process is
-killed by the operating system with a SIGKILL signal, as it happens on Linux
-when the OOM killer terminates processes that consume lots of memory.
+After logging the crash information, the crash handler will execute the default
+action for the signal it has caught. If core dumps are enabled, the default
+action for these signals is to generate a core file. If core dumps are not
+enabled, the crash handler will simply terminate the program with a non-zero
+exit code.
 
-Also see [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes).
+The crash handler can be disabled at server start by setting the environment
+variable `ARANGODB_OVERRIDE_CRASH_HANDLER` to an empty string, `0` or `off`.
+
+Also see:
+- [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes)
+- [Server environment variables](programs-arangod-env-vars.html)
 
 ### Supported compilers
 
