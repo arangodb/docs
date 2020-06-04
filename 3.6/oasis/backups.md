@@ -6,7 +6,7 @@ title: Backups in Oasis
 
 # How to create backups
 
-The backup data in Oasis for an ArangoDB installation, navigate to the backup section of your deployment created previously.
+To backup data in Oasis for an ArangoDB installation, navigate to the backup section of your deployment created previously.
 
 ![Backup ArangoDB](../images/oasis-backup-section.png)
 
