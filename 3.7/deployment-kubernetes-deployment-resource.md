@@ -506,6 +506,12 @@ This setting specifies the resources required by pods of this group. This includ
 
 See https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ for details.
 
+### `spec.<group>.overrideDetectedTotalMemory: bool`
+
+<small>Introduced in: v1.0.1 (kube-arangodb), 3.6.3 (arangod)</small>
+
+Set additional flag in ArangoDeployment pods to propagate Memory resource limits
+
 ### `spec.<group>.volumeClaimTemplate.Spec: PersistentVolumeClaimSpec`
 
 Specifies a volumeClaimTemplate used by operator to create to volume claims for pods of this group.
