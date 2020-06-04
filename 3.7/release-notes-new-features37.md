@@ -692,6 +692,17 @@ See [here](http/administration-and-monitoring-metrics.html).
 
 The following metrics have been added in ArangoDB 3.7:
 
+* `arangodb_agency_append_hist`: Agency RAFT follower append histogram
+* `arangodb_agency_commit_hist`: Agency RAFT commit histogram
+* `arangodb_agency_compaction_hist`: Agency compaction histogram
+* `arangodb_agency_local_commit_index`: This agent's commit index
+* `arangodb_agency_log_size_bytes`: Agency replicated log size [bytes]
+* `arangodb_agency_supervision_accum_runtime_msec`: Accumulated Supervision Runtime
+* `arangodb_agency_supervision_accum_runtime_wait_for_replication_msec`: Accumulated Supervision  wait for replication time
+* `arangodb_agency_supervision_failed_server_count`: Counter for FailedServer jobs
+* `arangodb_agency_supervision_runtime_msec`: Agency Supervision runtime histogram [ms]
+* `arangodb_agency_supervision_runtime_wait_for_replication_msec`: Agency Supervision wait for replication time [ms]
+* `arangodb_agency_term`: Agency's term
 * `arangodb_agencycomm_request_time_msec`: Request time for Agency requests
 * `arangodb_aql_total_query_time_msec`: Total execution time of all queries
 * `arangodb_client_connection_statistics_bytes_received_bucket`: Bytes received for a request
@@ -700,6 +711,7 @@ The following metrics have been added in ArangoDB 3.7:
 * `arangodb_client_connection_statistics_queue_time_bucket`: Request time needed to answer a request
 * `arangodb_client_connection_statistics_request_time_bucket`: Request time needed to answer a request
 * `arangodb_client_connection_statistics_total_time_bucket`: Total time needed to answer a request
+* `arangodb_dropped_followers_count`:  Number of drop-follower events
 * `arangodb_heartbeat_failures`: Counting failed heartbeat transmissions
 * `arangodb_heartbeat_send_time_msec`: Time required to send heartbeat
 * `arangodb_http_request_statistics_async_requests`: Number of asynchronously executed HTTP requests
@@ -714,11 +726,29 @@ The following metrics have been added in ArangoDB 3.7:
 * `arangodb_http_request_statistics_total_requests`: Total number of HTTP requests
 * `arangodb_load_current_runtime`: Current loading runtimes
 * `arangodb_load_plan_runtime`: Plan loading runtimes
+* `arangodb_maintenance_action_accum_queue_time_msec`: Accumulated action queue time
+* `arangodb_maintenance_action_accum_runtime_msec`: Accumulated action runtime
+* `arangodb_maintenance_action_done_counter`: Counter of action that are done and have been removed from the registry
+* `arangodb_maintenance_action_duplicate_counter`: Counter of action that have been discarded because of a duplicate
+* `arangodb_maintenance_action_failure_counter`: Failure counter for the action
+* `arangodb_maintenance_action_queue_time_msec`: Time spend in the queue before execution
+* `arangodb_maintenance_action_registered_counter`: Counter of action that have been registered in the action registry
+* `arangodb_maintenance_action_runtime_msec`: Time spend execution the action
+* `arangodb_maintenance_agency_sync_accum_runtime_msec`: Accumulated runtime of agency sync phase
+* `arangodb_maintenance_agency_sync_runtime_msec`: Total time spend on agency sync
+* `arangodb_maintenance_phase1_accum_runtime_msec`: Accumulated runtime of phase one
+* `arangodb_maintenance_phase1_runtime_msec`:  Maintenance Phase 1 runtime histogram
+* `arangodb_maintenance_phase2_accum_runtime_msec`: Accumulated runtime of phase two
+* `arangodb_maintenance_phase2_runtime_msec`: Maintenance Phase 2 runtime histogram 
 * `arangodb_scheduler_awake_threads`: Number of awake worker threads
 * `arangodb_scheduler_num_worker_threads`: Number of worker threads
 * `arangodb_scheduler_queue_length`: Server's internal queue length
 * `arangodb_server_statistics_physical_memory`: Physical memory in bytes
 * `arangodb_server_statistics_server_uptime`: Number of seconds elapsed since server start
+* `arangodb_shards_leader_count gauge`: Number of leader shards on this machine
+* `arangodb_shards_not_replicated`: Number of shards not replicated at all
+* `arangodb_shards_out_of_sync`: Number of leader shards not fully replicated
+* `arangodb_shards_total_count`: Number of shards on this machine
 
 Client tools
 ------------
