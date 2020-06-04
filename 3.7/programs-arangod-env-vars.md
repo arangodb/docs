@@ -43,6 +43,13 @@ title: Arangod environment variables
    Setting this option is useful if `arangod` is running in a container
    or alongside other services on the same machine and shall not use
    all available CPUs.
+ 
+ - `ARANGODB_OVERRIDE_CRASH_HANDLER` _(introduced in v3.7.1)_
+   
+   This variable can be used to toggle the built-in crash handler in the
+   Linux builds of `arangod`. The crash handler is turned on by default
+   for Linux builds, and it can be turned off by setting this environment
+   variable to an empty string, the value of `0` or `off`.
 
 - `IRESEARCH_TEXT_STOPWORD_PATH` _(introduced in v3.5.0)_
 

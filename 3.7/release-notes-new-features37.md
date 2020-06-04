@@ -686,19 +686,31 @@ The bundled version of the RocksDB library has been upgraded from 6.2 to 6.8.
 
 ### Crash handler
 
-ArangoDB 3.7 contains a crash handler for Linux and macOS builds. The crash
-handler is supposed to log basic crash information to the ArangoDB logfile in
-case the arangod process receives one of the signals SIGSEGV, SIGBUS, SIGILL,
-SIGFPE or SIGABRT.
+The Linux builds of the arangod executable contain a built-in crash handler
+The crash handler is supposed to log basic crash information to the ArangoDB
+logfile in case the arangod process receives one of the signals SIGSEGV,
+SIGBUS, SIGILL, SIGFPE or SIGABRT. SIGKILL signals, which the operating system
+can send to a process in case of OOM (out of memory), are not interceptable and
+thus cannot be intercepted by the crash handler.
 
-If possible, the crash handler will also write a backtrace to the logfile, so
-that the crash location can be found later by ArangoDB support.
+In case the crash handler receives one of the mentioned interceptable signals,
+it will write basic crash information to the logfile and a backtrace of the
+call site. The backtrace can be provided to the ArangoDB support for further
+inspection. Note that backtaces are only usable if debug symbols for ArangoDB
+have been installed as well.
 
-By design, the crash handler will not kick in in case the arangod process is
-killed by the operating system with a SIGKILL signal, as it happens on Linux
-when the OOM killer terminates processes that consume lots of memory.
+After logging the crash information, the crash handler will execute the default
+action for the signal it has caught. If core dumps are enabled, the default
+action for these signals is to generate a core file. If core dumps are not
+enabled, the crash handler will simply terminate the program with a non-zero
+exit code.
 
-Also see [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes).
+The crash handler can be disabled at server start by setting the environment
+variable `ARANGODB_OVERRIDE_CRASH_HANDLER` to an empty string, `0` or `off`.
+
+Also see:
+- [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes)
+- [Server environment variables](programs-arangod-env-vars.html)
 
 ### Supported compilers
 
@@ -706,8 +718,8 @@ Manually compiling ArangoDB from source will require a C++17-ready compiler.
 
 Older versions of g++ that could be used to compile previous versions of
 ArangoDB, namely g++7, cannot be used anymore for compiling ArangoDB.
-g++9.2 is known to work, and is the preferred compiler to build ArangoDB
-under Linux.
+g++9.2 and g++9.3 are known to work, and are the preferred compilers to build 
+ArangoDB under Linux.
 
 Under macOS, the official compiler is clang with a minimal target of
 macOS 10.14 (Mojave).
