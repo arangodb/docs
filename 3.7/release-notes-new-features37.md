@@ -212,7 +212,8 @@ SmartGraphs have been extended with a new option `isDisjoint`.
 A Disjoint SmartGraph prohibits edges connecting different SmartGraph
 components. If your graph doesn't need edges between vertices with different
 SmartGraph attribute values, then you should enable this option. This topology
-restriction allows the query optimizer to improve traversal execution times.
+restriction allows the query optimizer to improve traversal execution times,
+because in many cases the execution can be pushed down to a single DB-Server.
 
 [Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-disjoint-smartgraphs)
 are only available in the Enterprise Edition and the
@@ -230,8 +231,8 @@ batching of requests.
 The first stage of this refactoring has been part of 3.6 already where some
 subqueries have gained a significant performance boost. 3.7 takes the next step
 in this direction. AQL can now combine skipping and producing of outputs in a
-single call, so all queries with an offset or the fullCount option enabled will
-benefit from this change straight away. This also holds true for subqueries,
+single call, so all queries with a LIMIT offset or the fullCount option enabled 
+will benefit from this change straight away. This also holds true for subqueries,
 hence the existing AQL optimizer rule `splice-subqueries` is now able to
 optimize all subqueries and is enabled by default.
 
@@ -444,6 +445,35 @@ FOR doc IN collection1
 
 Cluster
 -------
+
+### Incremental Plan Updates
+
+In ArangoDB clusters, the Agency is the single source of truth for data definition 
+(databases, collections, shards, indexes, views), the cluster configuration and the 
+current cluster setup (e.g. shard distribution, shard leadership).
+
+Coordinators and DB-Servers in the cluster maintain a local cache of the Agency's
+information, in order to access it in a performant way whenever they need any 
+information about the setup.
+However, any change that was applied to the `Plan` and `Current` sections in the 
+Agency led to the server-local caches being invalidated, which triggered a full
+reload of either `Plan` or `Current` by all Coordinators and DB-Servers.
+The size of `Plan` and `Current` is proportional to the number of database objects,
+so fully reloading the data from the Agency is an expensive operation for deployments
+which have a high number of databases, collections, or shards.
+
+In ArangoDB 3.7 the mechanism for filling the local caches on Coordinators and
+DB-Servers with Agency data has changed fundamentally. Instead of invalidating the
+entire cache and reloading the full `Plan` or `Current` section on every change,
+each server is now using a permanent connection to the Agency and uses it to
+poll for changes. Changes to the Agency data are sent over these connections as
+soon as they are applied in the Agency, meaning that Coordinators and DB-Servers 
+can apply them immediately and incrementally. This removes the need for full
+reloads. As a consequence, a significant reduction of overall network traffic between 
+Agents and other cluster nodes is expected, plus a significant reduction in CPU
+usage for assembling, parsing and applying the full `Plan` or `Current` parts.
+Another positive side effect of this modification is that changes made to Agency 
+data should propagate faster in the cluster.
 
 ### Parallel Move Shard
 
