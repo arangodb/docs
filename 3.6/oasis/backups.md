@@ -6,19 +6,19 @@ title: Backups in Oasis
 
 # How to create backups
 
-To backup data in Oasis for an ArangoDB installation, navigate to the backup section of your deployment created previously.
+To backup data in Oasis for an ArangoDB installation, navigate to the **Backups** section of your deployment created previously.
 
 ![Backup ArangoDB](../images/oasis-backup-section.png)
 
-There are two types of backups. Periodic backups taken through backup policies and manual backups taken by hand.
+There are two ways to create backups. Create periodic backups using a Backup policy, or create a backup manually.
 
 ## Periodic backups
 
-Periodic backups are taken on a given timeframe via a Backup Policy. To see when the new backup is due, observe the schedule section.
+Periodic backups are created at a given schedule. To see when the new backup is due, observe the schedule section.
 
 ![Backup Policy schedule](../images/oasis-backup-policy-schedule.png)
 
-Upon creating a deployment, by default, a new policy is created which will take backups of a deployment hourly every two hours. To edit this policy (or any policy), highlight it in the row above and hit the pencil icon.
+When a new deployment is created, a default backup policy is created for it as well. This policy will create backups every two hours. To edit this policy (or any policy), highlight it in the row above and hit the pencil icon.
 
 ![Edit Backup Policy](../images/oasis-edit-backup-policy.png)
 
@@ -34,11 +34,17 @@ It's also possible to create a backup on demand. To do this, click **Back up now
 
 ## Uploading backups
 
-By default a backup is not uploaded to the cloud, meaning it's ephemeral. It will go away and not persist (by default in 6 hours). To keep a backup for a longer period of time, upload it to the cloud storage. Uploaded backups are required for [cloning](#how-to-clone-a-deployment-using-a-backup).
+By default a backup is not uploaded to the cloud, instead it remains on the servers of the deployment.
+To make a backup that is resilient against server (disk) failures, upload the backup to cloud storage.
+Uploaded backups are required for [cloning](#how-to-clone-a-deployment-using-a-backup).
 
 # Restoring from backup
 
 To restore a database from a backup, highlight the desired backup and click on the restore icon.
+
+**Warning!**
+All current data will be lost when restoring.
+During restore the deployment is temporarily not available.
 
 ![Restore From Backup](../images/oasis-restore-from-backup.png)
 
@@ -57,10 +63,10 @@ To restore a database from a backup, highlight the desired backup and click on t
 
 ## Details about the cloned deployment
 
-This deployment will have the exact same features as the previous deployment
-including server specs, mode, provider, project and organization. The data
+The cloned deployment will have the exact same features as the previous deployment
+including node size, model, cloud provider & region. The data
 contained in the backup will be restored to this new deployment.
 
-The *password* for this deployment, however, will be generated anew.
+The *root password* for this deployment will be different.
 
-This feature is also available through Oasisctl, including an optional parameter to specify a new region. The provider stays the same.
+This feature is also available through [oasisctl](https://github.com/arangodb-managed/oasisctl).
