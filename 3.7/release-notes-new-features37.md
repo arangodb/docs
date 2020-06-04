@@ -684,7 +684,7 @@ The bundled version of the RocksDB library has been upgraded from 6.2 to 6.8.
 
 ### Crash handler
 
-The Linux builds of the arangod execuable contain a built-in crash handler
+The Linux builds of the arangod executable contain a built-in crash handler
 The crash handler is supposed to log basic crash information to the ArangoDB logfile in
 case the arangod process receives one of the signals SIGSEGV, SIGBUS, SIGILL, SIGFPE or
 SIGABRT. SIGKILL signals, which the operating system can send to a process in case of OOM
