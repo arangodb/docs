@@ -236,6 +236,10 @@ will benefit from this change straight away. This also holds true for subqueries
 hence the existing AQL optimizer rule `splice-subqueries` is now able to
 optimize all subqueries and is enabled by default.
 
+The query planner can now also reuse internal registers that were allocated for 
+storing temporary results inside subqueries, but not outside of subqueries.
+which are used inside subqueries only.
+
 ### Count optimizations
 
 Subqueries can now use an optimized code path for counting documents if they
@@ -498,6 +502,35 @@ usage for assembling, parsing and applying the full `Plan` or `Current` parts.
 Another positive side effect of this modification is that changes made to Agency 
 data should propagate faster in the cluster.
 
+### Improved Replication Protocol
+
+ArangoDB 3.7 provides a new Merkle tree-based protocol to help improve the speed 
+of incremental replication in the cluster.
+This protocol kicks in when there is a shard on a follower which is out of sync 
+with the leader and needs to get back in sync. This happens, for instance, when a 
+server has gone down and rejoins the cluster.
+
+The previous protocol operated in three passes. The first took time proportional 
+to the total number of documents in the shard, while the second and third passes 
+were linear in the number of documents which changed and the size of the changed 
+documents, respectively. 
+
+The new protocol introduced in ArangoDB 3.7 makes the first pass _constant_ with 
+respect to the size of the shard and the differences between leader and follower
+shard, so it is longer linear in the total number of documents in the shard.
+
+This should greatly help in the common case where little or nothing has changed, 
+but the shard itself is very large.
+
+Using the new replication protocol requires collections/shards to be created
+with ArangoDB 3.7 or later. For these collections/shards, the new protocol will 
+be used automatically.
+Collections/shards that were created with previous versions of ArangoDB will
+use the previous protocol, which is still supported. We are currently working on
+an upgrade procedure that can convert collections/shards from the previous
+format to the new format, so that they can use the new replication protocol as
+well.
+
 ### Parallel Move Shard
 
 Shards can now move in parallel. The old locking mechanism was replaced by a
@@ -619,6 +652,15 @@ set to restrict the number of CPU cores that are visible to arangod.
 
 See [ArangoDB Server Environment Variables](programs-arangod-env-vars.html)
 
+Foxx
+----
+
+Foxx endpoints now provide the methods `securityScheme`, `securityScope` and 
+`security` to allow defining Swagger security schemes.
+
+Foxx routes now always have a Swagger `operationId`. If the route is unnamed,
+a distinct operationId will be generated based on the HTTP method and URL.
+
 JavaScript
 ----------
 
@@ -704,6 +746,9 @@ Web UI
 
 The interactive description of ArangoDB's HTTP API (Swagger UI) shows the
 endpoint and model entries collapsed by default now for a better overview.
+ 
+The bundled version of Swagger has been upgraded to 3.25.1. This change has
+also been backported to ArangoDB v3.6.5.
 
 Metrics
 -------
@@ -807,9 +852,30 @@ This change simplifies the installation procedures and internal code paths.
 Internal changes
 ----------------
 
-### Upgrade of bundled RocksDB library version
+### Upgraded bundled RocksDB library version
 
 The bundled version of the RocksDB library has been upgraded from 6.2 to 6.8.
+
+### Upgraded bundled OpenLDAP library version
+
+The OpenLDAP version used for the LDAP integration in the ArangoDB Enterprise 
+Edition has been upgraded to 2.4.50.
+This change has been backported to ArangoDB v3.6.5 as well.
+
+### Added libunwind library dependency
+
+The Linux builds of ArangoDB now use the third-party library
+[libunwind](https://github.com/libunwind/libunwind){:target="_blank"} to get
+backtraces and symbolize stack frames.
+
+Building against libunwind can be turned off at compile time using the
+`-DUSE_LIBUNWIND` CMake variable.
+
+### Removed libcurl library dependency
+
+The compile-time dependency on libcurl was removed. Cluster-internal
+communication is now performed using [fuerte](https://github.com/arangodb/fuerte){:target="_blank"}
+instead of libcurl.
 
 ### Crash handler
 
@@ -833,20 +899,14 @@ Manually compiling ArangoDB from source will require a C++17-ready compiler.
 
 Older versions of g++ that could be used to compile previous versions of
 ArangoDB, namely g++7, cannot be used anymore for compiling ArangoDB.
-g++9.2 is known to work, and is the preferred compiler to build ArangoDB
-under Linux.
+g++9.2, g++9.3 and g++10 are known to work, and are the preferred compilers 
+to build ArangoDB under Linux.
 
 Under macOS, the official compiler is clang with a minimal target of
 macOS 10.14 (Mojave).
 
 Under Windows, use the Visual C++ compiler of Visual Studio 2019 v16.5.0 or
 later. VS 2017 might still work, but is not officially supported any longer.
-
-### Removed libcurl dependency
-
-The compile-time dependency on libcurl was removed. Cluster-internal
-communication is now performed using [fuerte](https://github.com/arangodb/fuerte){:target="_blank"}
-instead of libcurl.
 
 ### Documentation generation
 
