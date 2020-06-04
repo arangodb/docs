@@ -414,6 +414,29 @@ evaluated once now, instead of once more for the true branch.
 
 ### Other AQL improvements
 
+#### "remove-unnecessary-calculations" optimizer rule
+
+The AQL query optimizer now tries to not move potentially expensive AQL function 
+calls into loops in the `remove-unnecessary-calculations` rule.
+
+For example, in the query
+```
+LET x = NOOPT(1..100)
+LET values = SORTED(x)
+FOR j IN 1..100 
+  FILTER j IN values
+  RETURN j
+```
+there is only one use of the `values` variable. So the optimizer can remove 
+that variable and replace the filter condition with `FILTER j IN SORTED(x)`. 
+However, that would move the potentially expensive function call into the 
+inner loop, which could be a pessimization.
+
+Now the optimizer will not move the calculation of values into the loop when 
+it merges calculations in the `remove-unnecessary-calculations` optimizer rule.
+
+#### "move-calculations-down" optimizer rule
+
 The existing AQL optimizer rule `move-calculations-down` is now able to also move
 unrelated subqueries beyond SORT and LIMIT instructions, which can help avoid the
 execution of subqueries for which the results are later discarded.
