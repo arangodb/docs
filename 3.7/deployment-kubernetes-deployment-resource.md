@@ -508,9 +508,9 @@ See https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-c
 
 ### `spec.<group>.overrideDetectedTotalMemory: bool`
 
-Set additional flag in ArangoDeployment pods to propagate Memory resource limits
+<small>Introduced in: v1.0.1 (kube-arangodb), 3.6.3 (arangod)</small>
 
-<small>Introduced in: v1.0.1 (kube-arangodb) and 3.6.3 (ArangoDB CE & EE)</small>
+Set additional flag in ArangoDeployment pods to propagate Memory resource limits
 
 ### `spec.<group>.volumeClaimTemplate.Spec: PersistentVolumeClaimSpec`
 
