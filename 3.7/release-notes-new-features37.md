@@ -865,7 +865,7 @@ This change has been backported to ArangoDB v3.6.5 as well.
 
 The Linux builds of ArangoDB now use the third-party library
 [libunwind](https://github.com/libunwind/libunwind){:target="_blank"} to get
-backtraces and symbolize stack frames.
+backtraces and to symbolize stack frames.
 
 Building against libunwind can be turned off at compile time using the
 `-DUSE_LIBUNWIND` CMake variable.
