@@ -756,7 +756,7 @@ Metrics
 The amount of exported metrics for monitoring has been extended and is now 
 available in a format compatible with Prometheus. You can now easily scrape 
 on `/_admin/metrics`.
-See [here](http/administration-and-monitoring-metrics.html).
+See [Metrics HTTP API](http/administration-and-monitoring-metrics.html).
 
 The following metrics have been added in ArangoDB 3.7:
 
