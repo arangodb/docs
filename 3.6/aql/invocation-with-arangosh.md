@@ -143,6 +143,18 @@ amount of memory for the query is not restricted.
 
 There are further options that can be passed in the *options* attribute of the *_query* method:
 
+- *fullCount*: if set to _true_ and the query contains a _LIMIT_ clause, then the
+  result will have an extra attribute with the sub-attributes _stats_ and _fullCount_,
+  `{ ... , "extra": { "stats": { "fullCount": 123 } } }`. The _fullCount_ attribute will
+  contain the number of documents in the result before the last top-level LIMIT in the
+  query was applied. It can be used to count the number of documents that match certain
+  filter criteria, but only return a subset of them, in one go. It is thus similar to
+  MySQL's _SQL_CALC_FOUND_ROWS_ hint. Note that setting the option will disable a few
+  LIMIT optimizations and may lead to more documents being processed, and thus make
+  queries run longer. Note that the _fullCount_ attribute may only be present in the
+  result if the query has a top-level LIMIT clause and the LIMIT clause is actually
+  used in the query.
+
 - *failOnWarning*: when set to *true*, this will make the query throw an exception and
   abort in case a warning occurs. This option should be used in development to catch
   errors early. If set to *false*, warnings will not be propagated to exceptions and
@@ -169,6 +181,13 @@ There are further options that can be passed in the *options* attribute of the *
   creation and optimization for complex queries, but normally there is no need to adjust
   this value.
 
+- *optimizer*: Options related to the query optimizer.
+
+  - *rules*: A list of to-be-included or to-be-excluded optimizer rules can be put into
+  this attribute, telling the optimizer to include or exclude specific rules. To disable
+  a rule, prefix its name with a `-`, to enable a rule, prefix it with a `+`. There is also
+  a pseudo-rule `all`, which matches all optimizer rules. `-all` disables all rules.
+
 - *stream*: Specify *true* and the query will be executed in a **streaming** fashion. The query result is
   not stored on the server, but calculated on the fly. *Beware*: long-running queries will
   need to hold the collection locks for as long as the query cursor exists. It is advisable
@@ -181,6 +200,19 @@ There are further options that can be passed in the *options* attribute of the *
   queries. Additionally query statistics, warnings and profiling data will only be available
   after the query is finished. 
   The default value is *false*
+
+- *satelliteSyncWait*: This Enterprise Edition parameter allows to configure how long
+  a DB-Server will have time to bring the SatelliteCollections involved in the query
+  into sync. The default value is 60.0 (seconds). When the max time has been reached
+  the query will be stopped.
+
+- *skipInaccessibleCollections*: AQL queries (especially graph traversals) will treat
+  collection to which a user has no access rights as if these collections were empty.
+  Instead of returning a forbidden access error, your queries will execute normally.
+  This is intended to help with certain use-cases: A graph contains several collections
+  and different users execute AQL queries on that graph. You can now naturally limit the
+  accessible results by changing the access rights of users on collections.
+  This feature is only available in the Enterprise Edition.
 
 - *maxRuntime*: The query has to be executed within the given runtime or it will be killed.
   The value is specified in seconds. The default value is *0.0* (no timeout).
