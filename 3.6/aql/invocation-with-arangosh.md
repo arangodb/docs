@@ -201,19 +201,6 @@ There are further options that can be passed in the *options* attribute of the *
   after the query is finished. 
   The default value is *false*
 
-- *satelliteSyncWait*: This Enterprise Edition parameter allows to configure how long
-  a DB-Server will have time to bring the SatelliteCollections involved in the query
-  into sync. The default value is 60.0 (seconds). When the max time has been reached
-  the query will be stopped.
-
-- *skipInaccessibleCollections*: AQL queries (especially graph traversals) will treat
-  collection to which a user has no access rights as if these collections were empty.
-  Instead of returning a forbidden access error, your queries will execute normally.
-  This is intended to help with certain use-cases: A graph contains several collections
-  and different users execute AQL queries on that graph. You can now naturally limit the
-  accessible results by changing the access rights of users on collections.
-  This feature is only available in the Enterprise Edition.
-
 - *maxRuntime*: The query has to be executed within the given runtime or it will be killed.
   The value is specified in seconds. The default value is *0.0* (no timeout).
 
@@ -235,6 +222,11 @@ In the ArangoDB Enterprise Edition there is an additional parameter:
   This is intended to help with certain use-cases: A graph contains several collections
   and different users execute AQL queries on that graph. You can now naturally limit the 
   accessible results by changing the access rights of users on collections.
+
+- *satelliteSyncWait*: This Enterprise Edition parameter allows to configure how long
+  a DB-Server will have time to bring the SatelliteCollections involved in the query
+  into sync. The default value is 60.0 (seconds). When the max time has been reached
+  the query will be stopped.
 
 With _createStatement (ArangoStatement)
 ---------------------------------------
