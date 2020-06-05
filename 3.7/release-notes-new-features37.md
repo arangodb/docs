@@ -238,7 +238,6 @@ optimize all subqueries and is enabled by default.
 
 The query planner can now also reuse internal registers that were allocated for 
 storing temporary results inside subqueries, but not outside of subqueries.
-which are used inside subqueries only.
 
 ### Count optimizations
 
