@@ -47,8 +47,8 @@ They use the full spectrum of ArangoDB's graph features. You may access them via
 - [JavaScript General Graph implementation, as you may use it in Foxx Services](graphs-general-graphs.html)
   - [Graph Management](graphs-general-graphs-management.html); creating & manipulating graph definitions; inserting, updating and deleting vertices and edges into graphs
   - [Graph Functions](graphs-general-graphs-functions.html) for working with edges and vertices, to analyze them and their relations
-- [JavaScript Smart Graph implementation, for scalable graphs](graphs-smart-graphs.html)
-  - [Smart Graph Management](graphs-smart-graphs-management.html); creating & manipulating SmartGraph definitions; Differences to General Graph 
+- [JavaScript SmartGraph implementation, for scalable graphs](graphs-smart-graphs.html)
+  - [SmartGraph Management](graphs-smart-graphs-management.html); creating & manipulating SmartGraph definitions; Differences to General Graph 
 - [RESTful General Graph interface](http/gharial.html) used to implement graph management in client drivers
 
 ### Manipulating collections of named graphs with regular document functions
