@@ -39,6 +39,8 @@ oasisctl list [flags]
 * [oasisctl list cpusizes](oasisctl-list-cpusizes.html)	 - List CPU sizes
 * [oasisctl list deployments](oasisctl-list-deployments.html)	 - List all deployments of the given project
 * [oasisctl list effective](oasisctl-list-effective.html)	 - List effective information
+* [oasisctl list example](oasisctl-list-example.html)	 - List example ...
+* [oasisctl list examples](oasisctl-list-examples.html)	 - List all example datasets
 * [oasisctl list group](oasisctl-list-group.html)	 - List group resources
 * [oasisctl list groups](oasisctl-list-groups.html)	 - List all groups of the given organization
 * [oasisctl list ipwhitelists](oasisctl-list-ipwhitelists.html)	 - List all IP whitelists of the given project

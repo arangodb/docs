@@ -190,13 +190,13 @@ a lot of performance on the table.
 See [_Cluster Sharding_](architecture-deployment-modes-cluster-sharding.html) 
 for more information.
 
-### Smart Graphs
+### SmartGraphs
 
-Smart Graphs are an Enterprise Edition feature of ArangoDB. It enables you to
+SmartGraphs are an Enterprise Edition feature of ArangoDB. It enables you to
 manage graphs at scale, it will give a vast performance benefit for all graphs
 sharded in an ArangoDB Cluster.
 
-To add a Smart Graph you need a smart graph attribute that partitions your
+To add a SmartGraph you need a SmartGraph attribute that partitions your
 graph into several smaller sub-graphs. Ideally these sub-graphs follow a
 "natural" structure in your data. These subgraphs have a large amount of edges
 that only connect vertices in the same subgraph and only have few edges

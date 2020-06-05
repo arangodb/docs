@@ -93,6 +93,39 @@ values in 3.7 than before in case the web interface was used a lot on the
 
 This change in behavior was also backported to ArangoDB v3.6.5.
 
+Client tools
+------------
+
+_arangodump_ and _arangorestore_ will now fail when using the `--collection` 
+option and none of the specified collections actually exist in the database (on dump) 
+or in the dump to restore (on restore). In case only some of the specified collections 
+exist, _arangodump_ / _arangorestore_ will issue warnings about the invalid collections, 
+but will continue to work for the valid collections.
+
+Metrics
+-------
+
+The following existing metrics for monitoring that are exposed via the HTTP
+REST endpoint `/_admin/metrics` have been renamed in ArangoDB 3.7:
+
+- `agency_agent_read_no_leader`
+- `agency_agent_read_ok`
+- `agency_agent_write_hist`
+- `agency_agent_write_no_leader`
+- `agency_agent_write_ok`
+
+The new names are:
+
+- `arangodb_agency_agent_read_no_leader`
+- `arangodb_agency_agent_read_ok`
+- `arangodb_agency_agent_write_hist`
+- `arangodb_agency_agent_write_no_leader`
+- `arangodb_agency_agent_write_ok`
+
+This change was made to put the metrics into the "arangodb" namespace, so
+that metrics from different systems can unambiguously combined into a single
+monitoring system.
+
 HTTP RESTful API
 ----------------
 

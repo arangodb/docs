@@ -3,8 +3,8 @@ layout: default
 description: This chapter describes the JavaScript interface for creating and modifying SmartGraphs
 title: SmartGraphs JS API
 ---
-Smart Graph Management
-======================
+SmartGraph Management
+=====================
 
 This chapter describes the JavaScript interface for creating and modifying
 SmartGraphs. A SmartGraph is a specialized version of a General Graph, which

@@ -144,7 +144,7 @@ When an encryption key is used, encryption of the data in the cluster is enabled
 without it encryption is disabled.
 The default value is empty.
 
-This requires the Enterprise version.
+This requires the Enterprise Edition.
 
 The encryption key cannot be changed after the cluster has been created.
 
@@ -399,7 +399,7 @@ A new restore attempt is made if and only if either in the status restore is not
 
 This setting specifies the name of a kubernetes `Secret` that contains
 the license key token used for enterprise images. This value is not used for
-the community edition.
+the Community Edition.
 
 ### `spec.bootstrap.passwordSecretNames.root: string`
 
@@ -505,6 +505,12 @@ The default value is an empty array.
 This setting specifies the resources required by pods of this group. This includes requests and limits.
 
 See https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ for details.
+
+### `spec.<group>.overrideDetectedTotalMemory: bool`
+
+<small>Introduced in: v1.0.1 (kube-arangodb), 3.6.3 (arangod)</small>
+
+Set additional flag in ArangoDeployment pods to propagate Memory resource limits
 
 ### `spec.<group>.volumeClaimTemplate.Spec: PersistentVolumeClaimSpec`
 

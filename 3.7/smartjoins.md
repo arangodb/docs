@@ -240,10 +240,10 @@ prefix a document's *_key* attribute value with the value of the *smartJoinAttri
 will also lead to the document being rejected:
 
     arangosh> db.c2.insert({ parent: 123 });
-    JavaScript exception in file './js/client/modules/@arangodb/arangosh.js' at 99,7: ArangoError 4008: smart join attribute not given or invalid
+    JavaScript exception in file './js/client/modules/@arangodb/arangosh.js' at 99,7: ArangoError 4008: SmartJoin attribute not given or invalid
 
     arangosh> db.c2.insert({ _key: "123:test1", parent: "124" });
-    JavaScript exception in file './js/client/modules/@arangodb/arangosh.js' at 99,7: ArangoError 4007: shard key value must be prefixed with the value of the smart join attribute
+    JavaScript exception in file './js/client/modules/@arangodb/arangosh.js' at 99,7: ArangoError 4007: shard key value must be prefixed with the value of the SmartJoin attribute
 
 The join can now be performed via the collection's *smartJoinAttribute*:
 

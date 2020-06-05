@@ -105,7 +105,7 @@ a new _ArangoCursor_ instance for the result list.
   - **satelliteSyncWait**: `Double`
 
     This Enterprise Edition parameter allows to configure how long a DB-Server
-    will have time to bring the satellite collections involved in the query
+    will have time to bring the SatelliteCollections involved in the query
     into sync. The default value is 60.0 (seconds). When the max time has been
     reached the query will be stopped.
 

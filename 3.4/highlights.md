@@ -106,7 +106,7 @@ Version 3.2
   persist your sensitive data strongly encrypted to protect it even if the
   physical storage medium gets stolen.
 
-- [**Satellite Collections**](satellites.html): Faster join operations when
+- [**SatelliteCollections**](satellites.html): Faster join operations when
   working with sharded datasets by synchronously replicating selected
   collections to all database servers in a cluster, so that joins can be
   executed locally.

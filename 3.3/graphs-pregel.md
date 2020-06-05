@@ -25,7 +25,7 @@ better, if the number of your shards / collections matches the number of CPU cor
 When you use ArangoDB Community edition in cluster mode, you might need to model your collections in a certain way to
 ensure correct results. For more information see the next section.
 
-### Requirements for Collections in a Cluster (Non Smart Graph)
+### Requirements for Collections in a Cluster (Non SmartGraph)
 
 To enable iterative graph processing for your data, you will need to ensure
 that your vertex and edge collections are sharded in a specific way.

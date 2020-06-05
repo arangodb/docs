@@ -1,24 +1,24 @@
 ---
 layout: default
-description: Description of the oasisctl get server limits command
-title: Oasisctl Get Server Limits
+description: Description of the oasisctl list nodesizes command
+title: Oasisctl List Nodesizes
 ---
-# Oasisctl Get Server Limits
+# Oasisctl List Nodesizes
 
-Get limits for servers in a project for a specific region
+List node sizes
 
 ## Synopsis
 
-Get limits for servers in a project for a specific region
+List node sizes
 
 ```
-oasisctl get server limits [flags]
+oasisctl list nodesizes [flags]
 ```
 
 ## Options
 
 ```
-  -h, --help                     help for limits
+  -h, --help                     help for nodesizes
   -o, --organization-id string   Identifier of the organization
   -p, --project-id string        Identifier of the project
       --provider-id string       Identifier of the provider
@@ -28,12 +28,12 @@ oasisctl get server limits [flags]
 ## Options inherited from parent commands
 
 ```
-      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.adbtest.xyz")
+      --endpoint string   API endpoint of the ArangoDB Oasis (default "api.cloud.arangodb.com")
       --format string     Output format (table|json) (default "table")
       --token string      Token used to authenticate at ArangoDB Oasis
 ```
 
 ## See also
 
-* [oasisctl get server](oasisctl-get-server.html)	 - Get server information
+* [oasisctl list](oasisctl-list.html)	 - List resources
 

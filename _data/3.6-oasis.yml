@@ -41,6 +41,13 @@
       children:
         - text: Backup Download
           href: oasisctl-backup-download.html
+    - text: Clone
+      href: oasisctl-clone.html
+      children:
+        - text: Clone Deployment
+          href: oasisctl-clone-deployment.html
+        - text: Clone Deployment Backup
+          href: oasisctl-clone-deployment-backup.html
     - text: Completion
       href: oasisctl-completion.html
     - text: Create
@@ -54,6 +61,10 @@
           href: oasisctl-create-cacertificate.html
         - text: Create Deployment
           href: oasisctl-create-deployment.html
+        - text: Create Example
+          href: oasisctl-create-example.html
+        - text: Create Example Installation
+          href: oasisctl-create-example-installation.html
         - text: Create Group
           href: oasisctl-create-group.html
         - text: Create Ipwhitelist
@@ -77,6 +88,10 @@
           href: oasisctl-delete-cacertificate.html
         - text: Delete Deployment
           href: oasisctl-delete-deployment.html
+        - text: Delete Example
+          href: oasisctl-delete-example.html
+        - text: Delete Example Installation
+          href: oasisctl-delete-example-installation.html
         - text: Delete Group
           href: oasisctl-delete-group.html
         - text: Delete Group Members
@@ -104,6 +119,10 @@
           href: oasisctl-get-cacertificate.html
         - text: Get Deployment
           href: oasisctl-get-deployment.html
+        - text: Get Example
+          href: oasisctl-get-example.html
+        - text: Get Example Installation
+          href: oasisctl-get-example-installation.html
         - text: Get Group
           href: oasisctl-get-group.html
         - text: Get Ipwhitelist
@@ -126,8 +145,6 @@
           href: oasisctl-get-self.html
         - text: Get Server
           href: oasisctl-get-server.html
-        - text: Get Server Limits
-          href: oasisctl-get-server-limits.html
     - text: List
       href: oasisctl-list.html
       children:
@@ -141,14 +158,20 @@
           href: oasisctl-list-backups.html
         - text: List Cacertificates
           href: oasisctl-list-cacertificates.html
-        - text: List Deployments
-          href: oasisctl-list-deployments.html
         - text: List Cpusizes
           href: oasisctl-list-cpusizes.html
+        - text: List Deployments
+          href: oasisctl-list-deployments.html
         - text: List Effective
           href: oasisctl-list-effective.html
         - text: List Effective Permissions
           href: oasisctl-list-effective-permissions.html
+        - text: List Example
+          href: oasisctl-list-example.html
+        - text: List Examples
+          href: oasisctl-list-examples.html
+        - text: List Example Installations
+          href: oasisctl-list-example-installations.html
         - text: List Group
           href: oasisctl-list-group.html
         - text: List Groups
@@ -181,6 +204,8 @@
           href: oasisctl-list-servers.html
     - text: Login
       href: oasisctl-login.html
+    - text: Logs
+      href: oasisctl-logs.html
     - text: Reject
       href: oasisctl-reject.html
       children:
@@ -188,6 +213,11 @@
           href: oasisctl-reject-organization.html
         - text: Reject Organization Invite
           href: oasisctl-reject-organization-invite.html
+    - text: Resume
+      href: oasisctl-resume.html
+      children:
+        - text: Resume Deployment
+          href: oasisctl-resume-deployment.html
     - text: Revoke
       href: oasisctl-revoke.html
       children:
