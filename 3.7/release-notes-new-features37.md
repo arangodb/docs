@@ -303,8 +303,10 @@ marked with `/* vertex optimized away */` in the query's execution plan output.
 Unused edge and path variables (`e` and `p`) were already optimized away in
 previous versions by the `optimize-traversals` optimizer rule.
 
-Additionally, traversals now accept the options `vertexCollections` and
-`edgeCollections` to restrict the traversal to certain vertex or edge collections.
+### Traversal collection restrictions
+
+AQL traversals now accept the options `vertexCollections` and `edgeCollections`
+to restrict the traversal to certain vertex or edge collections.
 
 The use case for `vertexCollections` is to not follow any edges that will point
 to other than the specified vertex collections, e.g.
@@ -329,37 +331,19 @@ FOR v, e, p IN 1..3 OUTBOUND 'products/123' GRAPH 'components'
 
 This is mostly useful in the context of named graphs, when the named graph
 contains many edge collections. Not restricting the edge collections for the
-traversal will make the traversal search for edges in all edge collections of
-the graph, which can be expensive. In case it is known that only certain edges
-from the named graph are needed, the `edgeCollections` option can be a handy
-performance optimization.
+traversal will make the traversal search for edges in all edge collections
+of the graph, which can be expensive. In case it is known that only certain
+edges from the named graph are needed, the `edgeCollections` option can be a
+handy performance optimization. It can replace less efficient post-filtering:
 
-### Traversal collection restrictions
+```js
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' GRAPH 'components'
+  FILTER p.edges[* RETURN IS_SAME_COLLECTION("productsToBolts", CURRENT)
+                       OR IS_SAME_COLLECTION("productsToScrews", CURRENT)] ALL == true
+  RETURN v
+```
 
-Added traversal options `vertexCollections` and `edgeCollections` to restrict
-traversal to certain vertex or edge collections.
-
-The use case for `vertexCollections` is to not follow any edges that will point
-to other than the specified vertex collections, e.g.
-
-    FOR v, e, p IN 1..3 OUTBOUND 'products/123' components 
-      OPTIONS { vertexCollections: [ "bolts", "screws" ] }
-
-The traversal's start vertex is always considered valid, regardless of whether
-it is present in the `vertexCollections` option.
-
-The use case for `edgeCollections` is to not take into consideration any edges
-from edge collections other than the specified ones, e.g.
-
-    FOR v, e, p IN 1..3 OUTBOUND 'products/123' GRAPH 'components' 
-      OPTIONS { edgeCollections: [ "productsToBolts", "productsToScrews" ] }
-
-This is mostly useful in the context of named graphs, when the named graph
-contains many edge collections. Not restricting the edge collections for the
-traversal will make the traversal search for edges in all edge collections of
-the graph, which can be expensive. In case it is known that only certain edges
-from the named graph are needed, the `edgeCollections` option can be a handy
-performance optimization.
+Also see [AQL Traversal Options](aql/graphs-traversals.html#working-with-named-graphs)
 
 ### AQL functions added
 
