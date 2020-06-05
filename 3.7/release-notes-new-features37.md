@@ -747,7 +747,7 @@ The interactive description of ArangoDB's HTTP API (Swagger UI) shows the
 endpoint and model entries collapsed by default now for a better overview.
  
 The bundled version of Swagger has been upgraded to 3.25.1. This change has
-also been backported to ArangoDB v3.6.5.
+also been backported to ArangoDB v3.6.4.
 
 Metrics
 -------
