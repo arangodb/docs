@@ -517,7 +517,7 @@ documents, respectively.
 
 The new protocol introduced in ArangoDB 3.7 makes the first pass _constant_ with 
 respect to the size of the shard and the differences between leader and follower
-shard, so it is longer linear in the total number of documents in the shard.
+shard, so it is no longer linear to the total number of documents in the shard.
 
 This should greatly help in the common case where little or nothing has changed, 
 but the shard itself is very large.
