@@ -22,6 +22,29 @@ versions, this will be a breaking change. For this case, there is the startup
 option `--server.validate-utf8-strings` which can be set to `false` in order to
 ensure operability until any invalid UTF-8 string data has been fixed.
 
+## Metrics
+
+The following existing metrics for monitoring that are exposed via the HTTP
+REST endpoint `/_admin/metrics` have been renamed in ArangoDB 3.7:
+
+- `agency_agent_read_no_leader`
+- `agency_agent_read_ok`
+- `agency_agent_write_hist`
+- `agency_agent_write_no_leader`
+- `agency_agent_write_ok`
+
+The new names are:
+
+- `arangodb_agency_agent_read_no_leader`
+- `arangodb_agency_agent_read_ok`
+- `arangodb_agency_agent_write_hist`
+- `arangodb_agency_agent_write_no_leader`
+- `arangodb_agency_agent_write_ok`
+
+This change was made to put the metrics into the "arangodb" namespace, so
+that metrics from different systems can unambiguously combined into a single
+monitoring system.
+
 ## HTTP RESTful API
 
 ### Endpoint return value changes
