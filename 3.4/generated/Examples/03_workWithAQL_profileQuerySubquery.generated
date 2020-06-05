@@ -13,15 +13,15 @@ Query String (116 chars, cacheable: false):
 Execution plan:
  Id   NodeType                  Calls   Items   Runtime [s]   Comment
   1   SingletonNode                 1       1       0.00000   * ROOT
-  7   SubqueryNode                  1       1       0.01402     - LET list = ...   /* const subquery */
+  7   SubqueryNode                  1       1       0.01317     - LET list = ...   /* const subquery */
   2   SingletonNode                 1       1       0.00000       * ROOT
-  3   EnumerateCollectionNode      10   10000       0.00390         - FOR doc IN acollection   /* full collection scan */
-  4   CalculationNode              10   10000       0.00278           - LET #5 = (doc.`value` &gt; 90)   /* simple expression */   /* collections used: doc : acollection */
-  5   FilterNode                   10    9909       0.00508           - FILTER #5
-  6   ReturnNode                   10    9909       0.00223           - RETURN doc
+  3   EnumerateCollectionNode      10   10000       0.00363         - FOR doc IN acollection   /* full collection scan */
+  4   CalculationNode              10   10000       0.00277           - LET #5 = (doc.`value` &gt; 90)   /* simple expression */   /* collections used: doc : acollection */
+  5   FilterNode                   10    9909       0.00467           - FILTER #5
+  6   ReturnNode                   10    9909       0.00207           - RETURN doc
   8   EnumerateListNode            10    9909       0.00343     - FOR a IN list   /* list iteration */
-  9   CalculationNode              10    9909       0.00276       - LET #7 = (a.`value` &lt; 91)   /* simple expression */
- 10   FilterNode                    1       0       0.00150       - FILTER #7
+  9   CalculationNode              10    9909       0.00259       - LET #7 = (a.`value` &lt; 91)   /* simple expression */
+ 10   FilterNode                    1       0       0.00147       - FILTER #7
  11   ReturnNode                    1       0       0.00000       - RETURN a
 
 Indexes used:
@@ -32,7 +32,7 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Exec Time [s]
-           0            0       10000            0      10000         0.02215
+           0            0       10000            0      10000         0.02113
 
 Query Profile:
  Query Stage           Duration [s]
@@ -40,9 +40,9 @@ Query Profile:
  parsing                    0.00008
  optimizing ast             0.00001
  loading collections        0.00000
- instantiating plan         0.00004
+ instantiating plan         0.00003
  optimizing plan            0.00012
- executing                  0.02176
- finalizing                 0.00012
+ executing                  0.02069
+ finalizing                 0.00018
 
 
