@@ -35,7 +35,7 @@ used for multiple accounts.
 
 ## Creating a new account
 
-1. Go to [cloud.arangodb.com](https://cloud.arangodb.com){:target="_blank"}.
+1. Go to [cloud.arangodb.com](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 2. To reach the sign up, press the _Sign to get started_ button or click the
    _Sign Up_ link in the header navigation of the start page.
 3. Review the terms &amp conditions and privacy policy and click _I accept_.

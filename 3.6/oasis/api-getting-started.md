@@ -13,11 +13,11 @@ all examples can be easily translated to many different languages.
 
 ## Prerequisites
 
-Make sure that you have already [signed up for Oasis](https://cloud.arangodb.com).
+Make sure that you have already [signed up for Oasis](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
 
 ## Creating an API key
 
-1. Go to [cloud.arangodb.com](https://cloud.arangodb.com){:target="_blank"} and login.
+1. Go to [cloud.arangodb.com](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"} and login.
 2. Click on the user icon in the top-right of the dashboard.
 3. Select _My API keys_
 4. Click _New API key_

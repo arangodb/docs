@@ -14,7 +14,7 @@ Also see the video
 
 ## Inviting persons to join your ArangoDB Oasis organization
 
-1. Log into [ArangoDB Oasis](https://cloud.arangodb.com){:target="_blank"}.
+1. Log into [ArangoDB Oasis](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 2. Select the desired organization, if needed.
 3. In the main navigation, in the _Organization_ section, click on _Invites_.
 4. Press the _New organization invite_ button.
