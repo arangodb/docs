@@ -260,13 +260,18 @@ pregel.start("sssp", "graphname", {source:"vertices/1337"})
 
 ### Connected Components
 
-There are two algorithms to find connected components in a graph. To find weakly connected components (WCC)
-you can use the algorithm named "connectedcomponents", to find strongly connected components (SCC) you can use the algorithm
-named "scc". Both algorithm will assign a component ID to each vertex.
+There are three algorithms to find connected components in a graph.
 
-A weakly connected components means that there exist a path from every vertex pair in that component.
-WCC is a very simple and fast algorithm, which will only work correctly on undirected graphs.
+If you graph is effectively undirected (you have edges in both directions) then the simple connected components algorithm is suitable.
+This is a very simple and fast algorithm, which will only work correctly on undirected graphs.
 Your results on directed graphs may vary, depending on how connected your components are.
+
+To find **weakly connected components** (WCC) you can use the algorithm named "wcc". 
+A weakly connected components means that there exist a path from every vertex pair in that component.
+This algorithm will work on directed graphs but requires a greater amount of traffic between your DBServers.
+
+To find **strongly connected components** (SCC) you can use the algorithm
+named "scc". Both algorithm will assign a component ID to each vertex.
 
 In the case of SCC a component means every vertex is reachable from any other vertex in the same component.
 The algorithm is more complex than the WCC algorithm and requires more RAM, because each vertex needs to store much more state. 
@@ -274,8 +279,12 @@ Consider using WCC if you think your data may be suitable for it.
 
 ```javascript
 var pregel = require("@arangodb/pregel");
-// weakly connected components
+// connected components
 pregel.start("connectedcomponents", "graphname")
+
+// weakly connected components
+pregel.start("wcc", "graphname")
+
 // strongly connected components
 pregel.start("scc", "graphname")
 ```
