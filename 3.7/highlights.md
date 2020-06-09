@@ -33,6 +33,14 @@ Version 3.7
   New document API operations to upsert documents and to efficiently insert
   documents while skipping the creation if the document exists already.
 
+- **AQL**:
+  Improved [subquery](release-notes-new-features37.html#subquery-optimizations) and
+  [graph traversal performance](release-notes-new-features37.html#traversal-optimizations),
+  among many optimization and enhancements.
+
+- [**HTTP/2 support**](release-notes-new-features37.html#http2-support):
+  Better load-balancer and Kubernetes compatibility, improved request throughput.
+
 **Enterprise Edition**
 
 - [**SatelliteGraphs**](release-notes-new-features37.html#satellitegraphs):
@@ -41,6 +49,14 @@ Version 3.7
 - [**Disjoint SmartGraphs**](release-notes-new-features37.html#disjoint-smartgraphs):
   Improve traversal execution times for SmartGraphs without edges between
   vertices with different SmartGraph attributes.
+
+- **Security**:
+  Added support for multiple
+  [JWT Secrets](release-notes-new-features37.html#jwt-secret-rotation-enterprise-edition)
+  and the ability to hot-reload them from disk,
+  [TLS key and certificate rotation](release-notes-new-features37.html#tls-key-and-certificate-rotation),
+  [Encryption at rest key rotation](release-notes-new-features37.html#encryption-at-rest-key-rotation-enterprise-edition)
+  and [Server Name Indication (SNI)](release-notes-new-features37.html#server-name-indication-enterprise-edition).
 
 Also see [What's New in 3.7](release-notes-new-features37.html).
 
