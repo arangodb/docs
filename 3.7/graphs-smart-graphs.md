@@ -94,7 +94,7 @@ SmartGraph. This switch can be easily achieved with
 The only thing you have to change in this pipeline is that you create the new
 collections with the SmartGraph module before starting `arangorestore`.
 
-**Create a graph**
+**Create a SmartGraph**
 
 In contrast to General Graphs we have to add more options when creating the
 graph. The two options `smartGraphAttribute` and `numberOfShards` are

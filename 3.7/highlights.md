@@ -36,7 +36,7 @@ Version 3.7
 - **AQL**:
   Improved [subquery](release-notes-new-features37.html#subquery-optimizations) and
   [graph traversal performance](release-notes-new-features37.html#traversal-optimizations),
-  among many optimization and enhancements.
+  among many optimizations and enhancements.
 
 - [**HTTP/2 support**](release-notes-new-features37.html#http2-support):
   Better load-balancer and Kubernetes compatibility, improved request throughput.
