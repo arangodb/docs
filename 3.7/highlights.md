@@ -50,6 +50,10 @@ Version 3.7
   Improve traversal execution times for SmartGraphs without edges between
   vertices with different SmartGraph attributes.
 
+- [**Traversal parallelization**](release-notes-new-features37.html#traversal-parallelization-enterprise-edition):
+  Optional parallel execution of nested traversals for single servers and
+  OneShard clusters.
+
 - **Security**:
   Added support for multiple
   [JWT Secrets](release-notes-new-features37.html#jwt-secret-rotation-enterprise-edition)
