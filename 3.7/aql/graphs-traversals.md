@@ -111,20 +111,22 @@ FOR vertex[, edge[, path]]
     - The starting vertex is always allowed, even if it does not belong to one
       of the collections specified by a restriction.
   - **parallelism** (number, *optional*): Optionally parallelize traversal
-    execution (introduced in v3.7.1): If omitted or set to a value of `1`, 
+    execution (introduced in v3.7.1). If omitted or set to a value of `1`,
     traversal execution is not parallelized. If set to a value greater than `1`,
-    then up to that many worker threads can be used for concurrently executing 
+    then up to that many worker threads can be used for concurrently executing
     the traversal. The value is capped by the number of available cores on the
     target machine.
-    Parallelizing a traversal is normally useful when there are many inputs (start 
-    vertices) that the nested traversal can work on concurrently. This is often the 
-    case when a nested traversal is fed with several tens of thousands of start 
-    vertices, which can then be distributed randomly to worker threads for parallel 
+
+    Parallelizing a traversal is normally useful when there are many inputs (start
+    vertices) that the nested traversal can work on concurrently. This is often the
+    case when a nested traversal is fed with several tens of thousands of start
+    vertices, which can then be distributed randomly to worker threads for parallel
     execution.
+
     Traversal parallelization is only available in the *Enterprise Edition*, and
-    limited to traversals in single server deployments and to cluster traversals 
-    that are running in a OneShard setup. Cluster traversals that run on a coordinator 
-    node and SmartGraph traversals are currently not parallelized, even if the 
+    limited to traversals in single server deployments and to cluster traversals
+    that are running in a OneShard setup. Cluster traversals that run on a coordinator
+    node and SmartGraph traversals are currently not parallelized, even if the
     options is specified.
 
 ### Working with collection sets

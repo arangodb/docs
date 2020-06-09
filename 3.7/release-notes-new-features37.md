@@ -347,32 +347,38 @@ Also see [AQL Traversal Options](aql/graphs-traversals.html#working-with-named-g
 
 ### Traversal parallelization (Enterprise Edition)
 
-Nested traversals that run on a single server or a cluster DB-Server can now be executed 
-in parallel. 
+Nested traversals that run on a single server or a cluster DB-Server can now
+be executed in parallel.
 
-Traversals have a new option `parallelism` which can be used to specify the level of 
-parallelism:
+Traversals have a new option `parallelism` which can be used to specify the
+level of parallelism:
+
 ```js
 FOR doc IN outerCollection
-  FOR v, e, p IN 1..3 OUTBOUND doc._id GRAPH 'components' OPTIONS { parallelism: 4 }
+  FOR v, e, p IN 1..3 OUTBOUND doc._id GRAPH 'components'
+  OPTIONS { parallelism: 4 }
   ...
 ```
 
-Traversal parallelism is opt-in. If not specified, the `parallelism` value implicitly 
-defaults to 1, which means no parallelism will be used. The maximum value for `parallelism` 
-is capped to the number of available cores on the target machine.
+Traversal parallelism is opt-in. If not specified, the `parallelism` value
+implicitly defaults to 1, which means no parallelism will be used. The maximum
+value for `parallelism` is capped to the number of available cores on the
+target machine.
 
-Due to the required synchronization for splitting up traversal inputs and merging results, 
-using traversal parallelization may incur some overhead. So it is not a silver bullet for 
-all use cases.
-However, parallelizing a traversal is normally useful when there are many inputs (start 
-vertices) that the nested traversal can work on concurrently. This is often the case when 
-a nested traversal is fed with several tens of thousands of start vertices, which can then 
-be distributed randomly to worker threads for parallel execution.
+Due to the required synchronization for splitting up traversal inputs and
+merging results, using traversal parallelization may incur some overhead. So it
+is not a silver bullet for all use cases. However, parallelizing a traversal is
+normally useful when there are many inputs (start vertices) that the nested
+traversal can work on concurrently. This is often the case when a nested
+traversal is fed with several tens of thousands of start vertices, which can
+then be distributed randomly to worker threads for parallel execution.
 
-Right now, traversal parallelization is limited to traversals in single server deployments 
-and to cluster traversals that are running in a OneShard setup. Cluster traversals that 
-run on a coordinator node and SmartGraph traversals are currently not parallelized.
+Right now, traversal parallelization is limited to traversals in single server
+deployments and to cluster traversals that are running in a OneShard setup.
+Cluster traversals that run on a coordinator node and SmartGraph traversals are
+currently not parallelized.
+
+See [Graph traversal options](aql/graphs-traversals.html#working-with-named-graphs)
 
 ### AQL functions added
 
