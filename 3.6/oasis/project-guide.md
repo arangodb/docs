@@ -127,53 +127,7 @@ Deleting a deployment will delete all its data and backups.
 This operation is **irreversible**.
 {% endhint %}
 
-## Members
 
-Members are a list of users that can access an organization.
-
-![Oasis Member Access Control](../images/oasis-access-control-members.png)
-
-### Adding a new member to the organization
-
-See [Organization invites](#organization-invites).
-
-Also see the video
-[Invite Members to an ArangoDB Oasis Organization](https://www.youtube.com/watch?v=lqGgmuNHRQQ&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=8&t=0s){:target="_blank"}
-
-### Viewing and managing organization members
-
-- Click the _Members_ link in the main navigation.
-- You can convert a member to a normal user by pressing the _User_ icon in the
-  _Actions_ column.
-- You can convert a member to an organization owner by pressing the _Key_ icon
-  in the _Actions_ column.
-- You can delete a member by pressing the _Trash_ icon in the _Actions_ column.
-
-**Notes**
-
-- You can't delete members who are organization owners.
-
-## Groups
-
-A group is a defined set of members. Groups can then be bound to roles. These
-bindings contribute to the respective organization, project or deployment policy.
-
-![Oasis Groups](../images/oasis-groups.png)
-
-### Creating a new group
-
-1. In the main navigation, in the _Access Control_ section, click on _Groups_.
-2. Press the _New group_ button.
-3. Enter a name and optional description for your new group.
-4. Select the members you want to be part of the group.
-5. Press the _Create_ button.
-
-![Oasis New Group](../images/oasis-new-group.png)
-
-### Viewing and managing the members of an existing group
-
-1. In the main navigation, in the _Access Control_ section, click on _Groups_.
-2. Press the icons in the _Actions_ column to view, edit or delete a group.
 
 ## Roles
 
@@ -202,32 +156,6 @@ project or deployment policy.
 
 - You cannot delete predefined system roles.
 - Also see [Reference: predefined roles](#reference-predefined-roles)
-
-## Organization invites
-
-### Creating a new organization invite
-
-1. In the main navigation, in the _Organization_ section, click on _Invites_.
-2. Press the _New organization invite_ button.
-3. In the form that appears, enter the email address of the person you want to
-   invite.
-4. Press the _Create_ button.
-5. An email with an organization invite will now be sent to the specified
-   email address.
-6. After accepting the invite the person will be added to the organization
-   [members](#members).
-
-![Oasis Organization Invites](../images/oasis-invites.png)
-
-See [Organizational Invite](./organizational-invite.html) for details.
-
-Also see the video
-[Invite Members to an ArangoDB Oasis Organization](https://www.youtube.com/watch?v=lqGgmuNHRQQ&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=8&t=0s){:target="_blank"}.
-
-**Notes**
-
-- On the _Invites_ page you can also see the status of all pending, accepted
-  and rejected invites that have been created.
 
 ## Policy
 
@@ -310,22 +238,37 @@ Deployment Z of project B                  | ✓ | — | —
 These are predefined roles that already provide a specific set of permissions
 for performing specific functions or operations.
 
-- CA Certificate Administrator `cacertificate-admin`
-- CA Certificate Viewer `cacertificate-viewer`
-- Deployment Administrator `deployment-admin`
-- Deployment Viewer `deployment-viewer`
-- Group Administrator `group-admin`
-- Group Viewer `group-viewer`
-- IP whitelist Administrator `ipwhitelist-admin`
-- IP whitelist Viewer `ipwhitelist-viewer`
-- Organization Administrator `organization-admin`
-- Organization Viewer `organization-viewer`
-- Policy Administrator `policy-admin`
-- Policy Viewer `policy-viewer`
-- Project Administrator `project-admin`
-- Project Viewer `project-viewer`
-- Role Administrator `role-admin`
-- Role Viewer `role-viewer`
+| Name | Description |
+|:-----|:------------|
+| Backup Administrator | `backup-admin` |
+| Backup Viewer | `backup-viewer` |
+| Backup Policy Administrator | `backuppolicy-admin` |
+| Backup Policy Viewer | `backuppolicy-viewer` |
+| Billing Administrator | `billing-admin` |
+| Billing Viewer | `billing-viewer` |
+| CA Certificate Administrator | `cacertificate-admin` |
+| CA Certificate Viewer | `cacertificate-viewer` |
+| Deployment Administrator | `deployment-admin` |
+| Deployment Content Administrator | `deployment-content-admin` |
+| Deployment Viewer | `deployment-viewer` |
+| Example Datasets Viewer | `exampledataset-viewer` |
+| Example Dataset Installation Administrator | `exampledatasetinstallation-admin` |
+| Example Dataset Installation Viewer | `exampledatasetinstallation-viewer` |
+| Group Administrator | `group-admin` |
+| Group Viewer | `group-viewer` |
+| IAM provider Administrator | `iamprovider-admin` |
+| IAM provider Viewer | `iamprovider-viewer` |
+| IP whitelist Administrator | `ipwhitelist-admin` |
+| IP whitelist Viewer | `ipwhitelist-viewer` |
+| Organization Administrator | `organization-admin` |
+| Organization Viewer | `organization-viewer` |
+| Policy Administrator | `policy-admin` |
+| Policy Viewer | `policy-viewer` |
+| Project Administrator | `project-admin` |
+| Project Viewer | `project-viewer` |
+| Replication Administrator | `replication-admin` |
+| Role Administrator | `role-admin` |
+| Role Viewer | `role-viewer` |
 
 ## Reference: ArangoDB Oasis Site Hierarchy
 
