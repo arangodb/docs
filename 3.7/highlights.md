@@ -34,9 +34,9 @@ Version 3.7
   documents while skipping the creation if the document exists already.
 
 - **AQL**:
-  [Subquery](release-notes-new-features37.html#subquery-optimizations) and
-  [graph traversal performance improvements](release-notes-new-features37.html#traversal-optimizations),
-  including parallel traversals.
+  Improved [subquery](release-notes-new-features37.html#subquery-optimizations) and
+  [graph traversal performance](release-notes-new-features37.html#traversal-optimizations),
+  among many optimization and enhancements.
 
 - [**HTTP/2 support**](release-notes-new-features37.html#http2-support):
   Better load-balancer and Kubernetes compatibility, improved request throughput.
