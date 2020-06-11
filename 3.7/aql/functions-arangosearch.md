@@ -756,7 +756,7 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
-The Damerau-Levenshtein distance is `1` (move _c_ to the end).
+The Damerau-Levenshtein distance is `1` (move _k_ to the end).
 
 ```js
 FOR doc IN viewName
