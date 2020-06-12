@@ -17,19 +17,19 @@ arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span cla
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/73955"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73955"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_amMvzHa---"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aof3vK----"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"jens"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/73957"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73957"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_amMvzHe---"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aof3vKC---"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/73959"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73959"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_amMvzHe--A"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aof3vKC--A"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"hansen"</span> }});
 [ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index <span class="hljs-number">73953</span> <span class="hljs-keyword">of</span> type rocksdb-skiplist over [<span class="hljs-string">"name.first"</span>,<span class="hljs-string">"name.last"</span>]; conflicting key: <span class="hljs-number">73955</span>]

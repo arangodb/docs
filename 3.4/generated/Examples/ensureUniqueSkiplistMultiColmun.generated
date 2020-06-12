@@ -17,18 +17,18 @@ arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span cla
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/73937"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73937"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_amMvzG6---"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aof3vJe---"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"jens"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/73939"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73939"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_amMvzG6--A"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aof3vJe--A"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/73941"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73941"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_amMvzH----"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aof3vJi---"</span> 
 }
 [ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index <span class="hljs-number">73935</span> <span class="hljs-keyword">of</span> type rocksdb-skiplist over [<span class="hljs-string">"name.first"</span>,<span class="hljs-string">"name.last"</span>]; conflicting key: <span class="hljs-number">73937</span>]
