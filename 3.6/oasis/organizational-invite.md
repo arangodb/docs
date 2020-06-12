@@ -26,7 +26,7 @@ Also see the video
 8. After accepting the invite the person will be added to the organization
    members.
 
-![Oasis Organization Invites](../images/oasis-pending-invite.png)
+![Oasis Organization Invites](../images/oasis-invites.png)
 
 On the _Invites_ page you can also see the status of all pending, accepted and
 rejected invites that have been created.

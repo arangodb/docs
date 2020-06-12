@@ -23,10 +23,11 @@ arangosh&gt; analyzers.save(<span class="hljs-string">"text_edge_ngrams"</span>,
       <span class="hljs-string">"preserveOriginal"</span> : <span class="hljs-literal">true</span> 
     } 
   }, 
+  <span class="hljs-string">"revision"</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">"features"</span> : [ 
-    <span class="hljs-string">"position"</span>, 
+    <span class="hljs-string">"frequency"</span>, 
     <span class="hljs-string">"norm"</span>, 
-    <span class="hljs-string">"frequency"</span> 
+    <span class="hljs-string">"position"</span> 
   ] 
 }
 arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("The quick brown fox jumps over the dogWithAVeryLongName", "text_edge_ngrams")`</span>)
