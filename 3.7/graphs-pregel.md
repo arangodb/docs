@@ -260,25 +260,35 @@ pregel.start("sssp", "graphname", {source:"vertices/1337"})
 
 ### Connected Components
 
-There are three algorithms to find connected components in a graph.
+There are three algorithms to find connected components in a graph:
 
-If your graph is effectively undirected (you have edges in both directions) then the simple connected components algorithm is suitable.
-This is a very simple and fast algorithm, which will only work correctly on undirected graphs.
-Your results on directed graphs may vary, depending on how connected your components are.
+1. If your graph is effectively undirected (you have edges in both directions) then the
+   simple **connected components** algorithm named `"connectedcomponents"` is suitable.
 
-To find **weakly connected components** (WCC) you can use the algorithm named "wcc". 
-Weakly connected components means that there exists a path from every vertex pair in that component.
-This algorithm will work on directed graphs but requires a greater amount of traffic between your DBServers.
+   It is a very simple and fast algorithm, but will only work correctly on undirected
+   graphs. Your results on directed graphs may vary, depending on how connected your
+   components are.
 
-To find **strongly connected components** (SCC) you can use the algorithm
-named "scc". Both algorithms will assign a component ID to each vertex.
+2. To find **weakly connected components** (WCC) you can use the algorithm named `"wcc"`.
+   Weakly connected means that there exists a path from every vertex pair in that
+   component.
+   
+   This algorithm will work on directed graphs but requires a greater amount of traffic
+   between your DB-Servers.
 
-In the case of SCC a component means every vertex is reachable from any other vertex in the same component.
-The algorithm is more complex than the WCC algorithm and requires more RAM, because each vertex needs to store much more state. 
-Consider using WCC if you think your data may be suitable for it.
+3. To find **strongly connected components** (SCC) you can use the algorithm named `"scc"`.
+   Strongly connected means every vertex is reachable from any other vertex in the
+   same component.
+
+   The algorithm is more complex than the WCC algorithm and requires more memory, because
+   each vertex needs to store much more state. Consider using WCC if you think your data
+   may be suitable for it.
+
+All above algorithms will assign a component ID to each vertex.
 
 ```javascript
 var pregel = require("@arangodb/pregel");
+
 // connected components
 pregel.start("connectedcomponents", "graphname")
 
