@@ -6,7 +6,7 @@ arangosh&gt; db.test.ensureIndex({ <span class="hljs-attr">type</span>: <span cl
   ], 
   <span class="hljs-string">"id"</span> : <span class="hljs-string">"test/74468"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1669299513964101632"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1669927535426666498"</span>, 
   <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"hash"</span>, 
@@ -17,17 +17,17 @@ arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/74472"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74472"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aogv_Hi--_"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aqvh5ry---"</span> 
 }
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span> });
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/74474"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74474"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aogv_Hi--B"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aqvh5ry--A"</span> 
 }
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-literal">null</span> });
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/74476"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74476"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aogv_Hm---"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_aqvh5r2---"</span> 
 }
