@@ -6,6 +6,19 @@ title: ArangoDB Highlights
 Highlights
 ==========
 
+Version 3.8
+-----------
+
+**All Editions**
+
+
+
+**Enterprise Edition**
+
+
+
+Also see [What's New in 3.8](release-notes-new-features38.html).
+
 Version 3.7
 -----------
 
