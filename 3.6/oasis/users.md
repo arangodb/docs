@@ -31,7 +31,7 @@ Members are a list of users that can access an organization.
 
 ### How to respond to an organization invite
 
-See [How to respond to my invites](my-account.html#how-to-respond-to-my-invites)
+See [My Account: How to respond to my invites](my-account.html#how-to-respond-to-my-invites)
 
 ### How to remove a member from the organization
 

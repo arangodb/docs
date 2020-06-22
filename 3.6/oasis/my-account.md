@@ -70,9 +70,8 @@ Please proceed with caution.
 4. Enter `Delete!` to confirm and click on _Yes_.
 
 {% hint 'info' %}
-A new organizations is automatically created if you don't create one within a couple of minutes if I recall correctly.
-14:32
-and if you delete it and log out and log back in you are redirected to create an organization
+If you are no longer a member of any organization, then a new organization is
+created for you when you log in again.
 {% endhint %}
 
 ![Oasis New Organization](../images/oasis-new-org.png)
@@ -84,7 +83,7 @@ pending invites.
 
 ### How to create invites
 
-See [How to add a new member to the organization](users.html#how-to-add-a-new-member-to-the-organization)
+See [Users and Groups: How to add a new member to the organization](users.html#how-to-add-a-new-member-to-the-organization)
 
 ### How to respond to my invites
 

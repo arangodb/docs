@@ -3,6 +3,12 @@ layout: default
 description: This guide explains which access control concepts are available in Oasis and how to use them.
 title: Access control in ArangoDB Oasis
 ---
+
+- Organizations contain exactly **one policy**.
+- Within that policy, you can define role bindings to regulate access control
+  on an organization level.
+
+
 # Access control in ArangoDB Oasis
 
 This guide explains which access control concepts are available in
