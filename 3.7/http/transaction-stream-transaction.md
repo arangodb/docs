@@ -100,6 +100,6 @@ transactions, for example from transactions that are abandoned by client
 applications due to programming errors or that were left over because client 
 connections were interrupted.
 
-A given transaction needs to be used **serially**. No concurrent requests using the same transaction ID may be issues.
-The server can make some effort to serialize certain operations, however this will degrade the servers performance and
+A given transaction needs to be used **serially**. No concurrent requests using the same transaction ID may be issued.
+The server can make some effort to serialize certain operations, however this will degrade the server's performance and
 may lead to sporadic errors with code '28' i.e. "locked".
