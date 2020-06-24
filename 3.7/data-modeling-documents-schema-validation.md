@@ -3,7 +3,7 @@ layout: default
 description: How to enforce attributes and data types for documents using JSON Schema on collection level.
 title: Schema Validation for Documents
 redirect_from:
-  - /3.7/document-schema-validation.html # 3.7 -> 3.7
+  - /3.8/document-schema-validation.html # 3.7 -> 3.7
 ---
 Schema Validation
 =================
@@ -15,7 +15,7 @@ on collection level. The desired structure can be described in the popular
 [JSON Schema](https://json-schema.org/){:target="_blank"} format (draft-4,
 without remote schema support). The level of validation and a custom error
 message can be configured. The system attributes `_key`, `_id`, `_rev`, `_from`
-and `_to` are ignored by the validation.
+and `_to` are ignored by the schema validation.
 
 Also see [v3.7 Known Issues](release-notes-known-issues37.html#other)
 
@@ -34,23 +34,19 @@ object with the following attributes: `rule`, `level` and `message`.
 - `message` sets the message that will be used when validation fails.
 
 ```js
-var schema =
-{ rule: { properties: { nums: { type: "array"
-                              , items: { type: "number", maximum: 6 }
-                              }
-                      }
-        , additionalProperties: { type: "string" }
-        , required: ["nums"]
-        }
-, level: "moderate"
-, message: "The document does not contain an array of numbers in attribute 'nums' or one of the numbers is bigger than 6."
-}
+schema = {
+  rule: { 
+    properties: { nums: { type: "array", items: { type: "number", maximum: 6 } } }, 
+    additionalProperties: { type: "string" }, required: ["nums"] },
+  level: "moderate",
+  message: "The document does not contain an array of numbers in attribute 'nums', or one of the numbers is bigger than 6."
+};
 
-// Create new collection with schema
-db.create("new_collection", { "schema": schema })
+/* Create a new collection with schema */
+db._create("schemaCollection", { "schema": schema });
 
-// Update schema of existing collection
-db.existing_collection.properties({ "schema": schema })
+/* Update the schema of an existing collection */
+db.schemaCollection.properties({ "schema": schema });
 ```
 
 JSON Schema Rule
