@@ -34,10 +34,12 @@ object with the following attributes: `rule`, `level` and `message`.
 - `message` sets the message that will be used when validation fails.
 
 ```js
-schema = {
+var schema = {
   rule: { 
     properties: { nums: { type: "array", items: { type: "number", maximum: 6 } } }, 
-    additionalProperties: { type: "string" }, required: ["nums"] },
+    additionalProperties: { type: "string" },
+    required: ["nums"]
+  },
   level: "moderate",
   message: "The document does not contain an array of numbers in attribute 'nums', or one of the numbers is bigger than 6."
 };
