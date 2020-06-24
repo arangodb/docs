@@ -700,7 +700,8 @@ RETURN REPLACE_NTH( [ "a", "b", "c" ], -9, "z" )
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-trying to access out of bounds, without providing a padding value will result in an error:
+Trying to access out of bounds, without providing a padding value will result in an error:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline aqlArrayReplaceNth_3
     @EXAMPLE_ARANGOSH_OUTPUT{aqlArrayReplaceNth_3}
