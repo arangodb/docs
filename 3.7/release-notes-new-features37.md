@@ -247,7 +247,8 @@ The optimization will be triggered for read-only subqueries that use a full
 collection scan or an index scan, without any additional filtering on document
 attributes (early pruning or document post-filtering) and without using LIMIT.
 
-The optimization will help in the following situation:
+The optimization will help in the following situation (in case `subCollection`
+is an edge collection):
 
 ```js
 FOR doc IN collection
@@ -271,7 +272,8 @@ In case a subquery does not match these criteria, it will not use the
 optimized code path for counting, but will execute normally.
 
 If the optimization is triggered, it will show up in the query execution
-plan under the rule name `optimize-count`.
+plan under the rule name `optimize-count`, and the subquery's FOR loop will
+be marked with a `with count optimization` tag.
 
 ### Traversal optimizations
 
