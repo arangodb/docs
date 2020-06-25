@@ -342,12 +342,22 @@ If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
 to `false`, then nothing will match. If *low* is greater than *high* nothing will
 match either.
 
-```js
+Please note that using `IN_RANGE` above regular comparison operators (*<>=*) may spoil
+index usage. Advantage of this function may come to play, if all its operands are known
+at parse time, and it thus can be executed only once.
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline AQLMiscInRange_1
+@EXAMPLE_AQL{AQLMiscInRange_1}
 LET value = 4
 RETURN IN_RANGE(value, 3, 5, true, true)
 // same as:
 //RETURN value >= 3 AND value <= 5
-```
+@END_EXAMPLE_AQL
+@endDocuBlock AQLMiscInRange_3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 
 ```js
 FOR doc IN coll
@@ -356,6 +366,17 @@ FOR doc IN coll
   //FILTER doc.text >= "fo" AND doc.text < "g"
   RETURN doc
 ```
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline AQLMiscInRange_3
+@EXAMPLE_AQL{AQLMiscInRange_3}
+FOR value IN [ 4, 5, 7, 8, 9, 0]
+let yes=(IN_RANGE(value, 3, 5, true, true))?"yes":"no"
+RETURN {[value]: yes}
+@END_EXAMPLE_AQL
+@endDocuBlock AQLMiscInRange_3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Internal functions
 ------------------
