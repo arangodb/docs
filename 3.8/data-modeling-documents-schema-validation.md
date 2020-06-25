@@ -51,6 +51,14 @@ db._create("schemaCollection", { "schema": schema });
 db.schemaCollection.properties({ "schema": schema });
 ```
 
+To remove an existing schema from a collection, a schema value of either `null`
+or `{}` (empty object) can be stored:
+
+```js
+/* Remove the schema of an existing collection */
+db.schemaCollection.properties({ "schema": null });
+```
+
 JSON Schema Rule
 ----------------
 
@@ -59,7 +67,7 @@ The `rule` must be a valid JSON Schema object as outlined in the
 See [Understanding JSON Schema](https://json-schema.org/understanding-json-schema/reference/object.html){:target="_blank"}
 for a user guide on how to write JSON Schema descriptions.
 
-System attributes are invisible to the validator, i.e. `_key`, `_rev` and `_id`
+System attributes are invisible to the schema validation, i.e. `_key`, `_rev` and `_id`
 (in edge collections additionally `_from` and `_to`) do not need to be
 specified in the schema. You may set `additionalProperties: false` to only
 allow attributes described by the schema. System attributes will not fall under
@@ -87,11 +95,19 @@ The level controls when the validation is triggered:
 Error message
 -------------
 
-If the validation of a schema fails, then a generic error is raised.
+If the schema validation for a document fails, then a generic error is raised.
 The schema validation cannot pin-point which part of a rule made it fail,
 also see [Known Issues](release-notes-known-issues37.html). You may customize
 the error message via the `message` attribute to provide a summary of what is
 expected or point out common mistakes.
+
+Performance
+-----------
+
+The schema validation is executed for data-modification operations according
+to the levels described above. That means that it can slow down document 
+write operations, with more complex schemas typically taking more time for the 
+validation than very simple schemas.
 
 Related AQL functions
 ---------------------

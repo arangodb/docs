@@ -440,6 +440,12 @@ Test if the given document is valid according to the schema definition.
     otherwise it will be `false` and *errorMessage* will be set
   - **errorMessage** (string): details about the validation failure
 
+If the input document **doc** is not an object, the function will return
+a *null* value and register a warning in the query.
+Using an empty **schema** object is equivalent to specifying a **schema**
+value of *null*, which will make all input objects successfully pass the 
+validation.
+
 ### SLEEP()
 
 `SLEEP(seconds) → null`
