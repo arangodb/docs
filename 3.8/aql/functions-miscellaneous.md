@@ -342,6 +342,7 @@ If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
 to `false`, then nothing will match. If *low* is greater than *high* nothing will
 match either.
 
+{% hint 'tip' %}
 Please note that using `IN_RANGE` above regular comparison operators (*<>=*) may spoil
 index usage. Advantage of this function may come to play, if all its operands are known
 at parse time, and it thus can be executed only once or index usage is not desired.
