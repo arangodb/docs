@@ -344,7 +344,8 @@ match either.
 
 Please note that using `IN_RANGE` above regular comparison operators (*<>=*) may spoil
 index usage. Advantage of this function may come to play, if all its operands are known
-at parse time, and it thus can be executed only once.
+at parse time, and it thus can be executed only once or index usage is not desired.
+{% endhint %}
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline AQLMiscInRange_1
