@@ -14,10 +14,10 @@ x-content-type-options: nosniff
     <span class="hljs-string">"asan"</span> : <span class="hljs-string">"false"</span>, 
     <span class="hljs-string">"asm-crc32"</span> : <span class="hljs-string">"true"</span>, 
     <span class="hljs-string">"assertions"</span> : <span class="hljs-string">"false"</span>, 
-    <span class="hljs-string">"avx2"</span> : <span class="hljs-string">"false"</span>, 
+    <span class="hljs-string">"avx2"</span> : <span class="hljs-string">"true"</span>, 
     <span class="hljs-string">"boost-version"</span> : <span class="hljs-string">"1.69.0"</span>, 
-    <span class="hljs-string">"build-date"</span> : <span class="hljs-string">"2020-06-19 11:32:41"</span>, 
-    <span class="hljs-string">"build-repository"</span> : <span class="hljs-string">"heads/3.5-0-g8ea141f53e5"</span>, 
+    <span class="hljs-string">"build-date"</span> : <span class="hljs-string">"2020-06-26 12:24:14"</span>, 
+    <span class="hljs-string">"build-repository"</span> : <span class="hljs-string">"heads/3.5-0-g8ea141f53e"</span>, 
     <span class="hljs-string">"compiler"</span> : <span class="hljs-string">"gcc [8.3.0]"</span>, 
     <span class="hljs-string">"cplusplus"</span> : <span class="hljs-string">"201402"</span>, 
     <span class="hljs-string">"curl-version"</span> : <span class="hljs-string">"libcurl/7.66.0 OpenSSL/1.1.1g"</span>, 
@@ -27,7 +27,7 @@ x-content-type-options: nosniff
     <span class="hljs-string">"failure-tests"</span> : <span class="hljs-string">"false"</span>, 
     <span class="hljs-string">"fd-client-event-handler"</span> : <span class="hljs-string">"poll"</span>, 
     <span class="hljs-string">"fd-setsize"</span> : <span class="hljs-string">"1024"</span>, 
-    <span class="hljs-string">"full-version-string"</span> : <span class="hljs-string">"ArangoDB 3.5.6 enterprise [linux] 64bit, using jemalloc, build heads/3.5-0-g8ea141f53e5, VPack 0.1.33, RocksDB 6.2.0, ICU 58.1, V8 7.1.302.28, OpenSSL 1.1.1g  21 Apr 2020"</span>, 
+    <span class="hljs-string">"full-version-string"</span> : <span class="hljs-string">"ArangoDB 3.5.6 enterprise [linux] 64bit, using jemalloc, build heads/3.5-0-g8ea141f53e, VPack 0.1.33, RocksDB 6.2.0, ICU 58.1, V8 7.1.302.28, OpenSSL 1.1.1g  21 Apr 2020"</span>, 
     <span class="hljs-string">"icu-version"</span> : <span class="hljs-string">"58.1"</span>, 
     <span class="hljs-string">"iresearch-version"</span> : <span class="hljs-string">"1.0.0.0"</span>, 
     <span class="hljs-string">"jemalloc"</span> : <span class="hljs-string">"true"</span>, 
@@ -36,7 +36,7 @@ x-content-type-options: nosniff
     <span class="hljs-string">"ndebug"</span> : <span class="hljs-string">"true"</span>, 
     <span class="hljs-string">"openssl-version-compile-time"</span> : <span class="hljs-string">"OpenSSL 1.1.1g  21 Apr 2020"</span>, 
     <span class="hljs-string">"openssl-version-run-time"</span> : <span class="hljs-string">"OpenSSL 1.1.1g  21 Apr 2020"</span>, 
-    <span class="hljs-string">"optimization-flags"</span> : <span class="hljs-string">"-march=sandybridge -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mno-sse4a -mno-fma -mno-bmi2 -mno-avx2 -mno-xop -mno-fma4 -mno-avx512f -mno-avx512vl -mno-avx512pf -mno-avx512er -mno-avx512cd -mno-avx512dq -mno-avx512bw -mno-avx512ifma -mno-avx512vbmi"</span>, 
+    <span class="hljs-string">"optimization-flags"</span> : <span class="hljs-string">"-march=skylake-avx512 -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mfma -mbmi2 -mavx2 -mavx512f -mavx512vl -mavx512cd -mavx512dq -mavx512bw -mno-sse4a -mno-xop -mno-fma4 -mno-avx512pf -mno-avx512er -mno-avx512ifma -mno-avx512vbmi"</span>, 
     <span class="hljs-string">"pic"</span> : <span class="hljs-string">"2"</span>, 
     <span class="hljs-string">"pie"</span> : <span class="hljs-string">"2"</span>, 
     <span class="hljs-string">"platform"</span> : <span class="hljs-string">"linux"</span>, 
@@ -53,6 +53,6 @@ x-content-type-options: nosniff
     <span class="hljs-string">"zlib-version"</span> : <span class="hljs-string">"1.2.11"</span>, 
     <span class="hljs-string">"mode"</span> : <span class="hljs-string">"server"</span>, 
     <span class="hljs-string">"role"</span> : <span class="hljs-string">"SINGLE"</span>, 
-    <span class="hljs-string">"host"</span> : <span class="hljs-string">"hw6-linux.test"</span> 
+    <span class="hljs-string">"host"</span> : <span class="hljs-string">"gce-2n6pdv"</span> 
   } 
 }
