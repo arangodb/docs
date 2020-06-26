@@ -769,7 +769,7 @@ The following optimizer rules may appear in the `rules` attribute of
   From v3.6.0 on, it includes simple *UPDATE* and *REPLACE* operations
   that modify multiple documents and do not use *LIMIT*.
 
-- `scatter-satellite-graph-in-cluster` _(Enterprise Edition only)_:
+- `scatter-satellite-graphs` _(Enterprise Edition only)_:
   will appear in case a TraversalNode, ShortestPathNode or KShortestPathsNode
   is found that operates on a SatelliteGraph. This leads to the node being
   instantiated and executed on the DB-Server instead on a Coordinator.
