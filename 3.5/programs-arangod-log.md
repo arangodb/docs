@@ -213,3 +213,29 @@ character with the server's role into each logged message. The roles are:
 - A: agent
 
 The default value for this option is `false`, so no roles will be logged. 
+
+### The `/_admin/log` API
+
+Credentials data is not written to log files. Nevertheless, some logged
+data might be sensitive depending on the context of the deployment. For
+example, if request logging is switched on, user requests and
+corresponding data might end up in log files.
+
+Therefore, a certain care with log files is recommended.
+
+Since the database server offers an API to control logging and query
+logging data, this API has to be secured properly. By default, the API
+is accessible for admin users (administrative access to the `_system`
+database). However, one can lock this down further.
+
+Log API control: `--log.api-enabled true`
+
+The possible values for this option are:
+
+ - `true`: The API `/_admin/log` is accessible for admin users.
+ - `jwt`: The API `/_admin/log` is accessible only for the superuser
+   (authentication with JWT token and empty username).
+ - `false`: The API `/_admin/log` is not accessible at all.
+
+The default value is `true`.
+
