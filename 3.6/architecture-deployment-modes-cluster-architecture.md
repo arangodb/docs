@@ -202,21 +202,17 @@ processing.
 
 ![OneShard vs. Sharded Cluster Setup](images/cluster-sharded-oneshard.png)
 
-If the collections involved in a query have one shard and are guaranteed to be
-on the same DB-Server, then the OneShard optimization is applied to run the
+If the database involved in a query is a OneShard database, then the OneShard optimization is applied to run the
 query on the responsible node like on a single server. However, it still being
 a cluster setup means collections can be replicated synchronously to ensure
 resilience etc.
 
 ### How to use the OneShard feature?
 
-The OneShard feature is enabled by default. If you use ArangoDB Enterprise
-Edition and if the collections used in the query are eligible, then the
-optimizer rule `cluster-one-shard` is applied automatically. To be eligible,
-all collections in question have to have a single shard only and the
-`distributeShardsLike` property needs to be set to a common collection name
-(except the prototype collection) to ensure that their single shards are placed
-on the same DB-Server. There are multiple ways to achieve this:
+The OneShard feature is enabled by default if you use ArangoDB Enterprise
+Edition and if the database is sharded as `"single"`. In this case the
+optimizer rule `cluster-one-shard` is applied automatically. 
+There are two ways to achieve this:
 
 - If you want your entire cluster to be a OneShard deployment, use the
   [startup option](programs-arangod-options.html#cluster)
@@ -226,19 +222,11 @@ on the same DB-Server. There are multiple ways to achieve this:
   The `_graphs` system collection will be used for `distributeShardsLike`.
 
 - For individual OneShard databases, set the `sharding` database property to
-  `"single"` to enforce the OneShard conditions for all collections that will be
-  created in it. The `_graphs` system collection will be used for
+  `"single"` to enforce the OneShard condition. The `_graphs` system collection will be used for
   `distributeShardsLike`. It is not possible to change the `sharding` database
   property afterwards or overwrite this setting for individual collections.
   For non-OneShard databases the value of the `sharding` database property is
   either `""` or `"flexible"`.
-
-- For individual OneShard collections, set the `numberOfShards` collection
-  property to `1` for the first collection which acts as sharding prototype for
-  the others. Set the `distributeShardsLike` property to the name of the
-  prototype collection for all other collections. You may also use an existing
-  collection which does not have `distributeShardsLike` set itself for all your
-  collections, such as the `_graphs` system collection.
 
 {% hint 'info' %}
 The prototype collection does not only control the sharding, but also the
