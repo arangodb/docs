@@ -7,13 +7,14 @@ description: Spring Data ArangoDB
 
 ## Supported versions
 
-Spring Data ArangoDB is compatible with all the supported stable versions of ArangoDB server, see 
-[Support End-of-life Announcements](https://www.arangodb.com/eol-notice).
+Spring Data ArangoDB is compatible with all supported stable versions of ArangoDB server, see 
+[Product Support End-of-life Announcements](https://www.arangodb.com/eol-notice).
 
 ## Maven
 
-To use Spring Data ArangoDB in your project, your build automation tool needs to be configured to include and use the 
-Spring Data ArangoDB dependency. Example with Maven (substitute `x.x.x` with the latest Spring Data ArangoDB version):
+To use Spring Data ArangoDB in your project, your build automation tool needs to
+be configured to include and use the Spring Data ArangoDB dependency.
+Example with Maven (substitute `x.x.x` with the latest Spring Data ArangoDB version):
 
 ```xml
 <dependency>
