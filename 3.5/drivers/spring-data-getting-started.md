@@ -8,7 +8,7 @@ description: Spring Data ArangoDB
 ## Supported versions
 
 Spring Data ArangoDB is compatible with all supported stable versions of ArangoDB server, see 
-[Product Support End-of-life Announcements](https://www.arangodb.com/eol-notice).
+[Product Support End-of-life Announcements](https://www.arangodb.com/eol-notice){:target="_blank"}.
 
 ## Maven
 
