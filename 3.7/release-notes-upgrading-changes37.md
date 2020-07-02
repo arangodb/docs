@@ -129,6 +129,19 @@ monitoring system.
 HTTP RESTful API
 ----------------
 
+### Privilege changes
+
+The access privileges for the REST API endpoint at `/_admin/cluster/numberOfServers`
+can now be controlled via the `--server.harden` startup option. The behavior is
+as follows:
+
+* for HTTP GET requests, all authenticated users can access the API if `--server.harden`
+  is `false` (which is the default).
+* for HTTP GET requests, only admin users can access the API if `--server.harden`
+  is `true`. This is a change compared to previous versions.
+* for HTTP PUT requests, only admin users can access the API, regardless of the value
+  of `--server.harden`.
+
 ### Endpoints moved
 
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
