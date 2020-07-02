@@ -202,15 +202,16 @@ processing.
 
 ![OneShard vs. Sharded Cluster Setup](images/cluster-sharded-oneshard.png)
 
-If the database involved in a query is a OneShard database, then the OneShard optimization is applied to run the
+If the database involved in a query is a OneShard database,
+then the OneShard optimization is applied to run the
 query on the responsible node like on a single server. However, it still being
 a cluster setup means collections can be replicated synchronously to ensure
 resilience etc.
 
 ### How to use the OneShard feature?
 
-The OneShard feature is enabled by default if you use the ArangoDB Enterprise
-Edition and if the database is sharded as `"single"`. In this case the
+The OneShard feature is enabled by default if you use the ArangoDB
+Enterprise Edition and if the database is sharded as `"single"`. In this case the
 optimizer rule `cluster-one-shard` is applied automatically. 
 There are two ways to achieve this:
 
@@ -221,8 +222,8 @@ There are two ways to achieve this:
   enforces the OneShard conditions for collections that will be created in it.
   The `_graphs` system collection will be used for `distributeShardsLike`.
 
-- For individual OneShard databases, set the `sharding` database property to
-  `"single"` to enforce the OneShard condition. The `_graphs` system collection will be used for
+- For individual OneShard databases, set the `sharding` database property to `"single"`
+  to enforce the OneShard condition. The `_graphs` system collection will be used for
   `distributeShardsLike`. It is not possible to change the `sharding` database
   property afterwards or overwrite this setting for individual collections.
   For non-OneShard databases the value of the `sharding` database property is
