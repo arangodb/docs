@@ -3,7 +3,7 @@ layout: default
 description: How to enforce attributes and data types for documents using JSON Schema on collection level.
 title: Schema Validation for Documents
 redirect_from:
-  - /3.7/document-schema-validation.html # 3.7 -> 3.7
+  - document-schema-validation.html # 3.7 -> 3.7
 ---
 Schema Validation
 =================
