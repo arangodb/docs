@@ -3,7 +3,7 @@ layout: default
 description: AQL Example Queries on an Actors and Movies Dataset
 title: AQL Movie Dataset Examples
 redirect_from:
-  - /3.6/cookbook/graph-example-actors-and-movies.html # 3.5 -> 3.5
+  - ../cookbook/graph-example-actors-and-movies.html # 3.5 -> 3.5
 # https://stackoverflow.com/questions/32729314/aql-graph-queries-examples
 ---
 AQL Example Queries on an Actors and Movies Dataset
