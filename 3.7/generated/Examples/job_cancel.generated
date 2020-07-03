@@ -6,7 +6,7 @@ EOF
 
 HTTP/1.1 Accepted
 content-type: text/plain
-x-arango-async-id: 91486
+x-arango-async-id: 91606
 x-content-type-options: nosniff
 
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/pending</span>
@@ -16,9 +16,9 @@ content-type: application/json
 x-content-type-options: nosniff
 
 [ 
-  <span class="hljs-string">"91486"</span> 
+  <span class="hljs-string">"91606"</span> 
 ]
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/91486/cancel</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/91606/cancel</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
 content-type: application/json
@@ -34,5 +34,5 @@ content-type: application/json
 x-content-type-options: nosniff
 
 [ 
-  <span class="hljs-string">"91486"</span> 
+  <span class="hljs-string">"91606"</span> 
 ]
