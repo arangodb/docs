@@ -173,9 +173,11 @@ RETURN FLATTEN( [ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ] ], 2 )
 
 `INTERLEAVE(array1, array2, ... arrayN) → newArray`
 
-Interleave accepts a list of arrays, and produces a new result array from them.
-It will iterate the arrays in a round robin fashion, and pick one entry from each 
-input array per iteration, and combine them in that sequence into a result array.
+```suggestion
+Accepts an arbitrary number of arrays and produces a new array with the elements
+interleaved. It iterates over the input arrays in a round robin fashion, picks one element
+from each array per iteration, and combines them in that sequence into a result array.
+The input arrays can have different amounts of elements.
 
 - **arrays** (array, *repeatable*): an arbitrary number of arrays as multiple
   arguments (at least 2)
