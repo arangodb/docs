@@ -201,6 +201,17 @@ RETURN INTERLEAVE( [ 1 ], [2, 2], [3, 3, 3] )
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayInterleave_3
+@EXAMPLE_AQL{aqlArrayInterleave_3}
+@DATASET{kShortestPathsGraph}
+FOR v, e, p IN 1..3 OUTBOUND 'places/Toronto' GRAPH 'kShortestPathsGraph'
+  RETURN INTERLEAVE(p.vertices[*]._id, p.edges[*]._id)
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayInterleave_3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ## INTERSECTION()
 
 `INTERSECTION(array1, array2, ... arrayN) → newArray`
