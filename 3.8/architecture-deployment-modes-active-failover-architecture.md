@@ -9,7 +9,7 @@ An _Active Failover_ is defined as:
 
 - One ArangoDB Single-Server instance which is read / writable by clients called **Leader**
 - One or more ArangoDB Single-Server instances, which are passive and not writable 
-  called **Followers**, which asynchronously replicate data from the master
+  called **Followers**, which asynchronously replicate data from the Leader
 - At least one _Agency_ acting as a "witness" to determine which server becomes the _leader_
   in a _failure_ situation
 

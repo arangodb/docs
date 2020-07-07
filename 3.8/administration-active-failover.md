@@ -85,7 +85,7 @@ the _Leader_.
 
 To upgrade a _follower_ you only need to stop the process and start it
 with `--database.auto-upgrade`. The server process will automatically resync
-with the master after a restart.
+with the Leader after a restart.
 
 The clean way of removing a _Follower_ is to first start a replacement _Follower_
 (otherwise you will lose resiliency). To start a _Follower_ please have a look
