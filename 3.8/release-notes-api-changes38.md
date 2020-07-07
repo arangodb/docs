@@ -17,6 +17,14 @@ integrations for ArangoDB 3.8.
 
 ### Endpoints augmented
 
+The REST endpoint at GET `/_api/engine/stats` now returns useful information in cluster
+setups too. Previously calling this API on a coordinator always produced an empty JSON
+object result, whereas now it will produce a JSON object with one key per DB-Server.
+The mapped value per DB-Server are the engine statistics for this particular server.
+
+The return value structure is different to the return value structure in single server,
+where the return value is a simple JSON object with the statistics at the top level.
+
 ### Endpoints moved
 
 ### Endpoints removed
