@@ -105,7 +105,7 @@ For example, when using the following startup options
 The file `/etc/issue` will be allowed to accessed and all files in the directories
 `/etc/required` and `/etc/mtab` plus their subdirectories will be accessible,
 while access to files in any other directories will be disallowed from JavaScript 
-  operations, with the following exceptions:
+operations, with the following exceptions:
 
 - ArangoDB's temporary directory: JavaScript code is given access to this
   directory for storing temporary files. The temporary directory location 
