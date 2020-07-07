@@ -29,7 +29,7 @@ Options
 Several options are available to scale ArangoDB, each of them has its own pros
 and cons:
 
-- [Master/Slave](architecture-deployment-modes-master-slave.html)
+- [Leader/Follower](architecture-deployment-modes-leader-follower.html)
 - [Active Failover](architecture-deployment-modes-active-failover.html)
 - [Cluster](architecture-deployment-modes-cluster.html)
 - [Multiple Datacenters](architecture-deployment-modes-dc2-dc.html)

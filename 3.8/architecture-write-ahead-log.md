@@ -12,8 +12,8 @@ its write-ahead log. The write-ahead log is sequence of append-only files contai
 all the write operations that were executed on the server.
 
 It is used to run data recovery after a server crash, and can also be used in
-a replication setup when slaves need to replay the same sequence of operations as
-on the master.
+a replication setup when Followers need to replay the same sequence of operations as
+on the Leader.
 
 MMFiles WAL Details
 -------------------
@@ -37,8 +37,8 @@ because it is unclear whether a transaction will commit or abort. Long-running t
 can thus block the garbage-collection progress and should therefore be avoided at 
 all costs.
 
-On a system that acts as a replication master, it is useful to keep a few of the 
-already collected write-ahead logfiles so replication slaves still can fetch data from
+On a system that acts as a replication leader, it is useful to keep a few of the 
+already collected write-ahead logfiles so replication Followers still can fetch data from
 them if required. How many collected logfiles will be kept before they get deleted is
 configurable via the option *--wal.historic-logfiles*.
 

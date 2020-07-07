@@ -13,11 +13,11 @@ _Arangodump_ has the following limitations:
   [Hot Backups](backup-restore.html#hot-backups) for an alternative). It is
   therefore recommended not to  perform any data-modification operations on the
   cluster while _arangodump_ is running. This is in contrast to what happens on
-  a single instance, a master/slave, or active failover setup, where even if
+  a single instance, a Leader/Follower, or active failover setup, where even if
   write operations are ongoing, the created dump is consistent, as a snapshot
   is taken when the dump starts.
 <!-- TOOD Remove when 3.6 reaches EoL -->
-- If the MMFiles engine is in use, on a single instance, a master/slave, or
+- If the MMFiles engine is in use, on a single instance, a Leader/Follower, or
   active failover setup, even if the write operations are suspended, it is not
   guaranteed that the dump includes all the data that has been previously
   written as _arangodump_ will only dump the data included in the _datafiles_

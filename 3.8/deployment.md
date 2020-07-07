@@ -27,7 +27,7 @@ Also check the description of
 By ArangoDB _Deployment Mode_:
 
 - [Single instance](deployment-single-instance.html)
-- [Master/Slave](deployment-master-slave.html)
+- [Leader/Follower](deployment-leader-follower.html)
 - [Active Failover](deployment-active-failover.html)
 - [Cluster](deployment-cluster.html)
 - [Multiple Datacenters](deployment-dc2-dc.html) 
