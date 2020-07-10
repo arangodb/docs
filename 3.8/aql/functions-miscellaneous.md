@@ -355,7 +355,7 @@ RETURN IN_RANGE(value, 3, 5, true, true)
 // same as:
 //RETURN value >= 3 AND value <= 5
 @END_EXAMPLE_AQL
-@endDocuBlock aqlMiscInRange_3
+@endDocuBlock aqlMiscInRange_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
