@@ -342,41 +342,51 @@ If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
 to `false`, then nothing will match. If *low* is greater than *high* nothing will
 match either.
 
-{% hint 'tip' %}
-Please note that using `IN_RANGE` above regular comparison operators (*<>=*) may spoil
-index usage. Advantage of this function may come to play, if all its operands are known
-at parse time, and it thus can be executed only once or index usage is not desired.
+{% hint 'info' %}
+The regular `IN_RANGE()` function can not utilize indexes, unlike its
+ArangoSearch counterpart which can use the View index.
 {% endhint %}
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline AQLMiscInRange_1
-@EXAMPLE_AQL{AQLMiscInRange_1}
+@startDocuBlockInline aqlMiscInRange_1
+@EXAMPLE_AQL{aqlMiscInRange_1}
 LET value = 4
 RETURN IN_RANGE(value, 3, 5, true, true)
 // same as:
 //RETURN value >= 3 AND value <= 5
 @END_EXAMPLE_AQL
-@endDocuBlock AQLMiscInRange_3
+@endDocuBlock aqlMiscInRange_3
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-
-```js
-FOR doc IN coll
-  FILTER IN_RANGE(doc.text,"fo", "g", true, false) // values with prefix "fo"
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlMiscInRange_2
+@EXAMPLE_AQL{aqlMiscInRange_2}
+FOR value IN 2..6
+  RETURN { value, in_range: IN_RANGE(value, 3, 5, false, true) }
   // same as:
-  //FILTER doc.text >= "fo" AND doc.text < "g"
-  RETURN doc
-```
+  //RETURN { value, in_range: value > 3 AND value <= 5 }
+@END_EXAMPLE_AQL
+@endDocuBlock aqlMiscInRange_2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline AQLMiscInRange_3
-@EXAMPLE_AQL{AQLMiscInRange_3}
-FOR value IN [ 4, 5, 7, 8, 9, 0]
-let yes=(IN_RANGE(value, 3, 5, true, true))?"yes":"no"
-RETURN {[value]: yes}
+@startDocuBlockInline aqlMiscInRange_3
+@EXAMPLE_AQL{aqlMiscInRange_3}
+LET coll = [
+  { text: "fennel" },
+  { text: "fox grape" },
+  { text: "forest strawberry" },
+  { text: "fungus" }
+]
+FOR doc IN coll
+  FILTER IN_RANGE(doc.text,"fo", "fp", true, false) // values with prefix "fo"
+  // same as:
+  //FILTER doc.text >= "fo" AND doc.text < "fp"
+  RETURN doc
 @END_EXAMPLE_AQL
-@endDocuBlock AQLMiscInRange_3
+@endDocuBlock aqlMiscInRange_3
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
