@@ -442,6 +442,7 @@ Test if the given document is valid according to the schema definition.
 
 If the input document **doc** is not an object, the function will return
 a *null* value and register a warning in the query.
+
 Using an empty **schema** object is equivalent to specifying a **schema**
 value of *null*, which will make all input objects successfully pass the 
 validation.
