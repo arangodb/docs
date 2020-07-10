@@ -15727,6 +15727,73 @@ RETURN INTERLEAVE( [ <span class="hljs-number">1</span> ], [<span class="hljs-nu
 
 
 <!-- filename: /work/ArangoDB/Documentation/Books/AQL/functions-array.md -->
+@startDocuBlockInline aqlArrayInterleave_3
+
+
+<div class="example-container" id="aqlArrayInterleave_3_container">
+<div id="aqlArrayInterleave_3_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> OUTBOUND <span class="hljs-string">'places/Toronto'</span> GRAPH <span class="hljs-string">'kShortestPathsGraph'</span>
+RETURN INTERLEAVE(p.vertices[*]._id, p.edges[*]._id)
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  [
+    <span class="hljs-string">"places/Toronto"</span>,
+    <span class="hljs-string">"connections/75150"</span>,
+    <span class="hljs-string">"places/Winnipeg"</span>
+  ],
+  [
+    <span class="hljs-string">"places/Toronto"</span>,
+    <span class="hljs-string">"connections/75150"</span>,
+    <span class="hljs-string">"places/Winnipeg"</span>,
+    <span class="hljs-string">"connections/75152"</span>,
+    <span class="hljs-string">"places/Toronto"</span>
+  ],
+  [
+    <span class="hljs-string">"places/Toronto"</span>,
+    <span class="hljs-string">"connections/75150"</span>,
+    <span class="hljs-string">"places/Winnipeg"</span>,
+    <span class="hljs-string">"connections/75154"</span>,
+    <span class="hljs-string">"places/Saskatoon"</span>
+  ],
+  [
+    <span class="hljs-string">"places/Toronto"</span>,
+    <span class="hljs-string">"connections/75150"</span>,
+    <span class="hljs-string">"places/Winnipeg"</span>,
+    <span class="hljs-string">"connections/75154"</span>,
+    <span class="hljs-string">"places/Saskatoon"</span>,
+    <span class="hljs-string">"connections/75156"</span>,
+    <span class="hljs-string">"places/Winnipeg"</span>
+  ],
+  [
+    <span class="hljs-string">"places/Toronto"</span>,
+    <span class="hljs-string">"connections/75150"</span>,
+    <span class="hljs-string">"places/Winnipeg"</span>,
+    <span class="hljs-string">"connections/75154"</span>,
+    <span class="hljs-string">"places/Saskatoon"</span>,
+    <span class="hljs-string">"connections/75158"</span>,
+    <span class="hljs-string">"places/Edmonton"</span>
+  ]
+]</pre>
+<div id="aqlArrayInterleave_3_container_collapse" onclick="$('#aqlArrayInterleave_3_long').hide(); $('#aqlArrayInterleave_3_short').show(); window.location.hash='aqlArrayInterleave_3_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlArrayInterleave_3_short" onclick="$('#aqlArrayInterleave_3_short').hide(); $('#aqlArrayInterleave_3_long').show();">
+<strong>Query:</strong>
+<pre>
+FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> OUTBOUND <span class="hljs-string">'places/Toronto'</span> GRAPH <span class="hljs-string">'kShortestPathsGraph'</span>
+RETURN INTERLEAVE(p.vertices[*]._id, p.edges[*]._id)
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+@endDocuBlock aqlArrayInterleave_3
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/AQL/functions-array.md -->
 @startDocuBlockInline aqlArrayIntersection_1
 
 
