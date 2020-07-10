@@ -173,7 +173,6 @@ RETURN FLATTEN( [ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ] ], 2 )
 
 `INTERLEAVE(array1, array2, ... arrayN) → newArray`
 
-```suggestion
 Accepts an arbitrary number of arrays and produces a new array with the elements
 interleaved. It iterates over the input arrays in a round robin fashion, picks one element
 from each array per iteration, and combines them in that sequence into a result array.
