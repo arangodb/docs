@@ -72,7 +72,7 @@ Upgrading to HTTP 2 is supported according to the ways outlined in
 from non-encrypted connections and encrypted connections:
 
 On non-encrypted connections with `http` scheme in the URI clients may
-use HTTP 1.1 for the *first request*. Upgrading the connection is initiated 
+use HTTP 1.1 initially until an upgrade is performed. Upgrading the connection is initiated 
 by sending a request with the `Upgrade: h2c` header and exactly one `HTTP2-Settings` header.
 The server will then respond with `101 Switching Protocols` and begin using
 HTTP/2. For details please look into the RFC.
