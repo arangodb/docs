@@ -71,20 +71,24 @@ Upgrading to HTTP 2 is supported according to the ways outlined in
 [RFC7540](https://tools.ietf.org/html/rfc7540#section-3). We support upgrade
 from non-encrypted connections and encrypted connections:
 
-On non-encrypted connections with `http` scheme in the URI we expect the client
-to use HTTP 1.1 for at least one request. Upgrading happens by sending a
-request with the `Upgrade: h2c` header and exactly one `HTTP2-Settings` header.
+On non-encrypted connections with `http` scheme in the URI clients may
+use HTTP 1.1 for the *first request*. Upgrading the connection is initiated 
+by sending a request with the `Upgrade: h2c` header and exactly one `HTTP2-Settings` header.
 The server will then respond with `101 Switching Protocols` and begin using
-HTTP/2.
+HTTP/2. For details please look into the RFC.
+
+For non-encrypted TCP connections ArangoDB does also support *Starting HTTP/2 with Prior Knowledge*, 
+as specified in [RFC7540 Section 4.](https://tools.ietf.org/html/rfc7540#section-3.4).
+The server will check the first 24 octets received over the connection and
+compare it to the HTTP 2 connection preface `PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n`,
+as outlined in RFC7540 Section 5.
 
 On TLS encrypted connections with `https` scheme in the URI we support the
 ALPN extension with the `h2` protocol identifier. This means the connection may
 switch to using HTTP/2 right away after a successful TLS handshake.
 
-ArangoDB does not support *Starting HTTP/2 with Prior Knowledge*.
-
 An upgrade to the VelocyStream protocol may happen by sending `VST/1.1\r\n\r\n`
-(11 bytes) to the server _before_ sending anything else. The server will then
+(11 octets) to the server _before_ sending anything else. The server will then
 start using VelocyStream 1.1 sending anything else is an error.
 
 Blocking vs. Non-blocking HTTP Requests
