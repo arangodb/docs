@@ -13,13 +13,11 @@ The `AbstractArangoConfiguration` provides a convenient way to register Spring `
 
 ```Java
 @Configuration
-public class MyConfiguration extends AbstractArangoConfiguration {
+public class MyConfiguration implements ArangoConfiguration {
 
   @Override
   protected Collection<Converter<?, ?>> customConverters() {
-    Collection<Converter<?, ?>> converters = new ArrayList<>();
-    converters.add(new MyConverter());
-    return converters;
+    return Arrays.asList(new MyConverter());
   }
 
 }
@@ -46,4 +44,4 @@ public class MyConverter implements Converter<MyObject, VPackSlice> {
 }
 ```
 
-For performance reasons `VPackSlice` should always be used within a converter. If your object is too complexe, you can also use `DBDocumentEntity` to simplify the mapping.
+For performance reasons `VPackSlice` should always be used within a converter. If your object is too complex, you can also use `DBDocumentEntity` to simplify the mapping.
