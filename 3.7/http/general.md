@@ -59,7 +59,6 @@ to build up a so called *connection pool* with several established
 connections in your client application, and dynamically re-use
 one of those then idle connections for subsequent requests.
 
-
 Switching Protocols
 -------------------
 
@@ -68,22 +67,23 @@ other protocols the client must indicate this to the server so that the
 protocol may be switched.
 
 Upgrading to HTTP 2 is supported according to the ways outlined in
-[RFC7540](https://tools.ietf.org/html/rfc7540#section-3). We support upgrade
-from non-encrypted connections and encrypted connections:
+[RFC 7540 Section 3](https://tools.ietf.org/html/rfc7540#section-3){:target="_blank"},
+from non-encrypted connections as well as encrypted connections.
 
-On non-encrypted connections with `http` scheme in the URI clients may
-use HTTP 1.1 initially until an upgrade is performed. Upgrading the connection is initiated 
-by sending a request with the `Upgrade: h2c` header and exactly one `HTTP2-Settings` header.
-The server will then respond with `101 Switching Protocols` and begin using
-HTTP/2. For details please look into the RFC.
+On non-encrypted connections with `http` scheme in the URI clients may use
+HTTP 1.1 initially until an upgrade is performed. Upgrading the connection is
+initiated by sending a request with the `Upgrade: h2c` header and exactly one
+`HTTP2-Settings` header. The server will then respond with `101 Switching Protocols`
+and begin using HTTP/2. See the RFC for details.
 
-For non-encrypted TCP connections ArangoDB does also support *Starting HTTP/2 with Prior Knowledge*, 
-as specified in [RFC7540 Section 4.](https://tools.ietf.org/html/rfc7540#section-3.4).
-The server will check the first 24 octets received over the connection and
-compare it to the HTTP 2 connection preface `PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n`,
-as outlined in RFC7540 Section 5.
+For non-encrypted TCP connections ArangoDB also supports
+*Starting HTTP/2 with Prior Knowledge*, as specified in
+[RFC 7540 Section 3.4](https://tools.ietf.org/html/rfc7540#section-3.4){:target="_blank"}.
+The server will check the first 24 octets received over the connection and compare
+it to the HTTP 2 connection preface `PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n`, as outlined
+in [Section 5](https://tools.ietf.org/html/rfc7540#section-5){:target="_blank"}.
 
-On TLS encrypted connections with `https` scheme in the URI we support the
+On TLS encrypted connections with `https` scheme in the URI ArangoDB supports the
 ALPN extension with the `h2` protocol identifier. This means the connection may
 switch to using HTTP/2 right away after a successful TLS handshake.
 
