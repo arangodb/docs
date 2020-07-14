@@ -89,7 +89,7 @@ switch to using HTTP/2 right away after a successful TLS handshake.
 
 An upgrade to the VelocyStream protocol may happen by sending `VST/1.1\r\n\r\n`
 (11 octets) to the server _before_ sending anything else. The server will then
-start using VelocyStream 1.1 sending anything else is an error.
+start using VelocyStream 1.1. Sending anything else is an error.
 
 Blocking vs. Non-blocking HTTP Requests
 ---------------------------------------
