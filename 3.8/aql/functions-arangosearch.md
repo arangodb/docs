@@ -448,7 +448,6 @@ See [String Functions](functions-string.html#ngram_positional_similarity).
 
 ### NGRAM_SIMILARITY()
 
-
 See [String Functions](functions-string.html#ngram_similarity).
 
 ### PHRASE()
