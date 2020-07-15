@@ -444,12 +444,12 @@ RETURN NGRAM_MATCH("quick fox", "quick blue fox", "bigram")
 
 ### NGRAM_POSITIONAL_SIMILARITY()
 
-See [String Functions](../functions-string.html#ngram_positional_similarity).
+See [String Functions](functions-string.html#ngram_positional_similarity).
 
 ### NGRAM_SIMILARITY()
 
 
-See [String Functions](../functions-string.html#ngram_similarity).
+See [String Functions](functions-string.html#ngram_similarity).
 
 ### PHRASE()
 
