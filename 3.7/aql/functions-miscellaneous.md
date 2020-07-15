@@ -351,9 +351,9 @@ ArangoSearch counterpart which can use the View index.
 @startDocuBlockInline aqlMiscInRange_1
 @EXAMPLE_AQL{aqlMiscInRange_1}
 LET value = 4
-RETURN IN_RANGE(value, 3, 5, true, true)
-// same as:
-//RETURN value >= 3 AND value <= 5
+  RETURN IN_RANGE(value, 3, 5, true, true)
+  // same as:
+  //RETURN value >= 3 AND value <= 5
 @END_EXAMPLE_AQL
 @endDocuBlock aqlMiscInRange_1
 {% endaqlexample %}
