@@ -352,24 +352,30 @@ ArangoSearch counterpart which can use the View index.
     @EXAMPLE_AQL{aqlMiscInRange_1}
     LET value = 4
     RETURN IN_RANGE(value, 3, 5, true, true)
-    // same as:
-    //RETURN value >= 3 AND value <= 5
+    /* same as:
+       RETURN value >= 3 AND value <= 5
+    */
     @END_EXAMPLE_AQL
     @endDocuBlock aqlMiscInRange_1
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+<!-- separator -->
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlMiscInRange_2
     @EXAMPLE_AQL{aqlMiscInRange_2}
     FOR value IN 2..6
       RETURN { value, in_range: IN_RANGE(value, 3, 5, false, true) }
-      // same as:
-      //RETURN { value, in_range: value > 3 AND value <= 5 }
+      /* same as:
+         RETURN { value, in_range: value > 3 AND value <= 5 }
+      */
     @END_EXAMPLE_AQL
     @endDocuBlock aqlMiscInRange_2
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+<!-- separator -->
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlMiscInRange_3
@@ -382,8 +388,9 @@ ArangoSearch counterpart which can use the View index.
     ]
     FOR doc IN coll
       FILTER IN_RANGE(doc.text,"fo", "fp", true, false) // values with prefix "fo"
-      // same as:
-      //FILTER doc.text >= "fo" AND doc.text < "fp"
+      /* same as:
+         FILTER doc.text >= "fo" AND doc.text < "fp"
+      */
       RETURN doc
     @END_EXAMPLE_AQL
     @endDocuBlock aqlMiscInRange_3
