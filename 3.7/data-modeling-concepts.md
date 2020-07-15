@@ -43,8 +43,10 @@ attributes a document can have. Every single document can have a completely
 different structure and still be stored together with other documents in a
 single collection. In practice, there will be common denominators among the
 documents in a collection, but the database system itself doesn't force you to
-limit yourself to a certain data structure. To validate and/or enforce such common schema
-ArangoDB supports optional [**schema validation** for documents](data-modeling-documents-schema-validation.html).
+limit yourself to a certain data structure. To check for and/or enforce a
+common structure ArangoDB supports optional
+[**schema validation** for documents](data-modeling-documents-schema-validation.html)
+on collection level.
 
 There are two types of collections: **document collection** (also refered to as
 *vertex collections* in the context of graphs) as well as **edge collections**.
