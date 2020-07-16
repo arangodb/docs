@@ -807,7 +807,7 @@ The following metrics have been added in ArangoDB 3.7:
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
 | `arangodb_http_request_statistics_total_requests` | Total number of HTTP requests |
-| `arangodb_load_current_accum_runtime_msc` | Accumulated Current loading time |
+| `arangodb_load_current_accum_runtime_msec` | Accumulated Current loading time |
 | `arangodb_load_current_runtime` | Current loading runtimes |
 | `arangodb_load_plan_accum_runtime_msec` | Accumulated Plan loading time |
 | `arangodb_load_plan_runtime` | Plan loading runtimes |
