@@ -38,11 +38,14 @@ mvn clean install -DskipTests=true -Dgpg.skip=true -Dmaven.javadoc.skip=true -B
 
 The driver supports GraalVM Native Image generation since version `6.6.1`.
 The related configuration can be found here:
-[native-image](https://github.com/arangodb/arangodb-java-driver/tree/master/src/main/resources/META-INF/native-image){:target="_blank"}
 
-### Quarkus support
+- [native-image](https://github.com/arangodb/arangodb-java-driver/tree/master/src/main/resources/META-INF/native-image){:target="_blank"}
 
-The driver can be used from Quarkus applications and does not require any
-additional configuration for GraalVM native image generation. An example can be
-found here:
-[arango-quarkus-native-example](https://github.com/arangodb-helper/arango-quarkus-native-example){:target="_blank"}
+### Quarkus and Helidon support
+
+The driver can be used from Quarkus and Helidon applications and does not
+require any additional configuration for GraalVM native image generation.
+Examples can be found here:
+
+- [arango-quarkus-native-example](https://github.com/arangodb-helper/arango-quarkus-native-example){:target="_blank"}
+- [arango-helidon-native-example](https://github.com/arangodb-helper/arango-helidon-native-example){:target="_blank"}
