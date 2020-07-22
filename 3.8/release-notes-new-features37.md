@@ -747,7 +747,7 @@ The [`query` helper](appendix-java-script-modules-arango-db.html#the-query-helpe
 was extended to support passing [query options](aql/invocation-with-arangosh.html#setting-options):
 
 ```js
-require("@arangodb").query( { maxRuntime: 1 } )`SLEEP(2)`
+require("@arangodb").query( { maxRuntime: 1 } )`RETURN SLEEP(2)`
 ```
 
 Web UI

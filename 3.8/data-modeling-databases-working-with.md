@@ -237,13 +237,11 @@ as a list of supported features such as types of indexes.
 
 ### Engine statistics
 
-retrieve statistics related to the storage engine (RocksDB)
+retrieve statistics related to the storage engine
 `db._engineStats()`
 
 Returns some statistics related to the storage engine activity, including figures
 about data size, cache usage, etc.
-
-**Note**: Currently this only produces useful output for the RocksDB engine.
 
 Get the Version of ArangoDB
 ---------------------------
