@@ -194,34 +194,33 @@ option. By default `--log.thread-name` is set to `false`.
 
 ### Role
 
-Log role: `--log.role true`
+Log role: `--log.role`
 
-When set to `true`, this option will make the ArangoDB logger print a single 
-character with the server's role into each logged message. The roles are: 
-  
+When set to `true`, this option will make the ArangoDB logger print a single
+character with the server's role into each logged message. The roles are:
+
 - U: undefined/unclear (used at startup)
 - S: single server
 - C: coordinator
 - P: primary
 - A: agent
 
-The default value for this option is `false`, so no roles will be logged. 
+The default value for this option is `false`, so no roles will be logged.
 
-### The `/_admin/log` API
+### Log API
+
+Log API control: `--log.api-enabled`
 
 Credentials data is not written to log files. Nevertheless, some logged
 data might be sensitive depending on the context of the deployment. For
 example, if request logging is switched on, user requests and
 corresponding data might end up in log files.
-
 Therefore, a certain care with log files is recommended.
 
 Since the database server offers an API to control logging and query
 logging data, this API has to be secured properly. By default, the API
 is accessible for admin users (administrative access to the `_system`
 database). However, one can lock this down further.
-
-Log API control: `--log.api-enabled true`
 
 The possible values for this option are:
 
@@ -231,4 +230,3 @@ The possible values for this option are:
  - `false`: The API `/_admin/log` is not accessible at all.
 
 The default value is `true`.
-
