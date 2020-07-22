@@ -207,9 +207,11 @@ character with the server's role into each logged message. The roles are:
 
 The default value for this option is `false`, so no roles will be logged.
 
-### Log API
+### Log API Access
 
-Log API control: `--log.api-enabled`
+<small>Introduced in: 3.4.11, 3.5.6, 3.6.5</small>
+
+`/_admin/log` control: `--log.api-enabled`
 
 Credentials data is not written to log files. Nevertheless, some logged
 data might be sensitive depending on the context of the deployment. For
