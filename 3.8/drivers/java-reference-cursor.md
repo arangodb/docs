@@ -358,17 +358,3 @@ ArangoDatabase db = arango.db("myDB");
 ArangoCursor<Integer> cursor = db.query("FOR x IN 1..5 RETURN x", Integer.class)
 boolean cached = cursor.isCached();
 ```
-
-## ArangoCursor.close
-
-`ArangoCursor.close() : void`
-
-Deletes the cursor and frees the resources associated with it.
-
-**Examples**
-
-```Java
-ArangoCursor<Integer> cursor = db.query("FOR doc IN col RETURN doc", BaseDocument.class);
-// ...
-cursor.close();
-```
