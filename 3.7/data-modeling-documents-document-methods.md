@@ -617,7 +617,9 @@ used to specify the following options:
   - *overwrite*: If set to *true*, the insert becomes a replace-insert.
     If a document with the same *_key* exists already the new document
     is not rejected with unique constraint violated but will replace
-    the old document.
+    the old document. Note that operations with `overwrite` parameter require
+    `_key` attribute in the request payload, therefore they can only be
+    performed on collections sharded by `_key`.
   - *overwriteMode*: this optional flag can have one of the following values:
     - *ignore*: if a document with the specified *_key* value exists already,
       nothing will be done and no write operation will be carried out

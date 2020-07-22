@@ -137,6 +137,9 @@ to make sure that certain documents exist in the cheapest possible way.
 In case the target document already exists, the `"ignore"` mode is most
 efficient, as it will not retrieve the existing document from storage and
 not write any updates to it.
+Note that operations with `overwriteMode` parameter require `_key` attribute in
+the request payload, therefore they can only be performed on collections sharded
+by `_key`.
 
 The REST API endpoints for creating collections at POST `/_api/collection` as well
 as listing and changing collection properties at PUT/GET

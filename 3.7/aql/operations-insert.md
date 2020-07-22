@@ -132,6 +132,10 @@ In case the target document already exists, the *ignore* mode is most
 efficient, as it will not retrieve the existing document from storage and
 not write any updates to it.
 
+Note that operations with `overwrite` parameter require `_key` attribute in
+the request payload, therefore they can only be performed on collections sharded
+by `_key`.
+
 When using the *update* overwrite mode, the *keepNull* and *mergeObjects*
 options control how the update is done.
 See [UPDATE operation](operations-update.html#setting-query-options).
