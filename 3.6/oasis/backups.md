@@ -64,6 +64,14 @@ During restore the deployment is temporarily not available.
 
 ## How to clone deployments using backups
 
+{% hint 'info' %}
+The cloned deployment will have the exact same features as the previous
+deployment including node size, model, cloud provider & region. The data
+contained in the backup will be restored to this new deployment.
+
+The *root password* for this deployment will be different.
+{% endhint %}
+
 1. Highlight the backup you wish to clone from and hit **Clone backup to new deployment**
 
    ![Oasis Clone Deployment From Backup](../images/oasis-clone-deployment-from-backup.png)
@@ -71,13 +79,5 @@ During restore the deployment is temporarily not available.
 2. The view should navigate to the new deployment being bootstrapped
 
    ![Oasis Cloned Deployment](../images/oasis-cloned-deployment.png)
-
-### Details about the cloned deployment
-
-The cloned deployment will have the exact same features as the previous
-deployment including node size, model, cloud provider & region. The data
-contained in the backup will be restored to this new deployment.
-
-The *root password* for this deployment will be different.
 
 This feature is also available through [oasisctl](oasisctl.html).

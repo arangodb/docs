@@ -33,24 +33,23 @@ One mobile phone number will be associated with one account and cannot be
 used for multiple accounts.
 {% endhint %}
 
-## Creating a new account
+## How to create a new account
 
 1. Go to [cloud.arangodb.com](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
-2. To reach the sign up, press the _Sign to get started_ button or click the
-   _Sign Up_ link in the header navigation of the start page.
-3. Review the terms &amp conditions and privacy policy and click _I accept_.
-   You're now send to the sign up page.
+2. Click the _Start Free_ button or click the _Sign Up_ link in the top
+   right corner.
+3. Review the terms & conditions and privacy policy and click _I accept_.
 4. Select the type of sign up you would like to use (GitHub, Google, or
    email address).
     - For GitHub or Google please follow on-screen instructions.
     - For the email address option, type your desired email address in the
       email field and type a strong password in the password field.
-    - Press the _Sign up_ button
+    - Click the _Sign up_ button
 
-   You will receive a verification email. In that mail, press the
+   You will receive a verification email. In that mail, click the
    _Verify my email address_ link or button.
-5. You will open a page in ArangoDB Oasis that says _Welcome back!_
-   Click the _Log in_ button to continue and login.
+   It will open a page in ArangoDB Oasis that says _Welcome back!_
+5. Click the _Log in_ button to continue and login.
 6. If you signed up with an email address of a public email service provider (e.g. Hotmail),
    a form appears asking for your mobile phone number. Enter the country code
    and the number of the mobile phone you want to use for this account.
@@ -64,15 +63,22 @@ used for multiple accounts.
    Once that is completed, you will be redirected to the
    [ArangoDB Oasis dashboard](https://cloud.arangodb.com/dashboard){:target="_blank"}.
 
+![Oasis Sign up](../images/oasis-signup.png)
+
 ## General hierarchy
 
-**Organizations → Projects → Deployments**
+ArangoDB Oasis supports multi-tenant setups via organizations.
+You can create your own organization(s) and invite collaborators or join
+existing ones via invites. Your organization contains projects.
+Your projects hold your deployments.
 
-- ArangoDB Oasis supports multi-tenant setups via organizations.
-- You can create your own organization(s) and invite collaborators or join
-  existing ones via invites.
-- Your organization contains projects.
-- Your projects hold your deployments.
+- **Organizations**<br>
+  represent (commercial) entities such as companies.
+  You can be part of multiple organizations with a single user account.
+  - **Projects**<br>
+    represent organizational units such as teams or applications.
+    - **Deployments**<br>
+      the actual instances of ArangoDB clusters.
 
 Also see the [Project Guide](./project-guide.html).
 

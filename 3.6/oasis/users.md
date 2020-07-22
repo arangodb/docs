@@ -5,8 +5,30 @@ title: Users and Groups in ArangoDB Oasis
 ---
 # Users and Groups
 
-In the **People** section of the dashboard you can manage members, groups and
+## Users, groups & members
+
+When you use Oasis, you are logged in as a user.
+A user has properties such as name & email address.
+Most important of the user is that it serves as an identity of a person.
+
+A user is member of one or more organizations in Oasis.
+You can become a member of an organization in the following ways:
+
+- Create a new organization. You will become the first member and owner of that
+  organization.
+- Be invited to join an organization. Once accepted (by the invited user), this
+  user becomes a member of the organization.
+
+If the number of members of an organization becomes large, it helps to group
+users. In Oasis a group is part of an organization and a group contains
+a list of users. All users of the group must be member of the owning organization.
+
+
+
+In the **People** section of the dashboard you can manage users, groups and
 invites for the organization.
+
+To edit permissions of members see [Access Control](access-control.html).
 
 ## Members
 

@@ -3,14 +3,14 @@ layout: default
 description: How to manage your user account
 title: ArangoDB Oasis My Account
 redirect_from:
-  - 3.6/oasis/organizational-invite.html # 3.6 -> 3.6
+  - organizational-invite.html # 3.6 -> 3.6
 ---
 # My Account
 
 The _User Toolbar_ is in the top right corner in the Oasis dashboard and
 accessible from every view. There are three elements:
 
-- _Bell icon_: Notifications (Invites)
+- _Bell icon_: Notifications ([Invites](#invites))
 - _Question mark icon_: Help
 - _User icon_: My Account
 

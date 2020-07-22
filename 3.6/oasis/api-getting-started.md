@@ -8,7 +8,7 @@ title: Getting Started with ArangoDB Oasis API
 The instructions below are a quick start guide on how to set up a connection to the ArangoDB Oasis API.
 
 All examples below will use the Go programming language.
-Since the Oasis API is using GRPC with protocol buffers,
+Since the Oasis API is using gRPC with protocol buffers,
 all examples can be easily translated to many different languages.
 
 ## Prerequisites
@@ -95,7 +95,7 @@ for _, depl := range list.GetItems() {
 
 ## API Errors
 
-All API methods return errors as GRPC error codes.
+All API methods return errors as gRPC error codes.
 
 The `github.com/arangodb-managed/apis/common/v1` package contains several helpers to check for common errors.
 
