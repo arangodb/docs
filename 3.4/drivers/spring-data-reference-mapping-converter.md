@@ -7,17 +7,19 @@ description: Converter
 
 ## Registering a Spring Converter
 
-The `ArangoConfiguration` provides a convenient way to register Spring `Converter` by implementing the method `customConverters()`.
+The `AbstractArangoConfiguration` provides a convenient way to register Spring `Converter` by overriding the method `customConverters()`.
 
 **Examples**
 
 ```Java
 @Configuration
-public class MyConfiguration implements ArangoConfiguration {
+public class MyConfiguration extends AbstractArangoConfiguration {
 
   @Override
   protected Collection<Converter<?, ?>> customConverters() {
-    return Arrays.asList(new MyConverter());
+    Collection<Converter<?, ?>> converters = new ArrayList<>();
+    converters.add(new MyConverter());
+    return converters;
   }
 
 }
@@ -44,4 +46,4 @@ public class MyConverter implements Converter<MyObject, VPackSlice> {
 }
 ```
 
-For performance reasons `VPackSlice` should always be used within a converter. If your object is too complex, you can also use `DBDocumentEntity` to simplify the mapping.
+For performance reasons `VPackSlice` should always be used within a converter. If your object is too complexe, you can also use `DBDocumentEntity` to simplify the mapping.
