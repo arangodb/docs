@@ -5,9 +5,6 @@ description: Indexes
 
 # Indexes
 
-Indexes can be ensured using the following annotations. For reference see [indexing](https://www.arangodb.com/docs/stable/indexing.html)
-documentation and specific aspects that apply to [indexes on shards](https://www.arangodb.com/docs/stable/architecture-deployment-modes-cluster-sharding.html#indexes-on-shards).
-
 ## Annotation @\<IndexType\>Indexed
 
 With the `@<IndexType>Indexed` annotations user defined indexes can be created at a collection level by annotating single fields of a class.
