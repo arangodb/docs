@@ -520,7 +520,7 @@ soon as they are applied in the Agency, meaning that Coordinators and DB-Servers
 can apply them immediately and incrementally. This removes the need for full
 reloads. As a consequence, a significant reduction of overall network traffic between 
 Agents and other cluster nodes is expected, plus a significant reduction in CPU
-usage on Agents for assembling and sending the `Plan` or `Current` parts.
+usage for assembling, parsing and applying the full `Plan` or `Current` parts.
 Another positive side effect of this modification is that changes made to Agency 
 data should propagate faster in the cluster.
 
@@ -600,13 +600,9 @@ It is possible to change the user supplied encryption key via the
 by sending a POST request without payload to the new endpoint
 `/_admin/server/encryption`. The file supplied via `--rocksdb.encryption-keyfile`
 will be reloaded and the internal encryption key will be re-encrypted with the
-new user key. 
-
-Similarly the new option `--rocksdb.encryption-keyfolder` can be used
-to supply multiple user keys. By default, the first available user-supplied key 
-will be used as the internal encryption key. Alternatively, if the option 
-`--rocksdb.encryption-gen-internal-key` is set to `true`, a random internal 
-key will be generated and encrypted with each of the provided user keys.
+new user key. Similarly the new option `--rocksdb.encryption-keyfolder` can be used
+to supply multiple user keys. A random internal key will be generated and
+encrypted with each of the provided user keys.
 
 ### Insert-Update and Insert-Ignore
 
@@ -807,9 +803,7 @@ The following metrics have been added in ArangoDB 3.7:
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
 | `arangodb_http_request_statistics_total_requests` | Total number of HTTP requests |
-| `arangodb_load_current_accum_runtime_msec` | Accumulated Current loading time |
 | `arangodb_load_current_runtime` | Current loading runtimes |
-| `arangodb_load_plan_accum_runtime_msec` | Accumulated Plan loading time |
 | `arangodb_load_plan_runtime` | Plan loading runtimes |
 | `arangodb_maintenance_action_accum_queue_time_msec` | Accumulated action queue time |
 | `arangodb_maintenance_action_accum_runtime_msec` | Accumulated action runtime |

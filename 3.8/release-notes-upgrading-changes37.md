@@ -200,14 +200,6 @@ v3.7 ships with ArangoSync 1.x, so be sure to keep the old binary or download
 a compatible version for your deployment. ArangoSync 1.x is otherwise
 compatible with ArangoDB v3.3 and above.
 
-Memory usage
-------------
-
-Coordinators and DB-Servers in a cluster will need memory for buffering Agency
-data in their local caches. The memory usage for these caches should be proportional
-to the total number of database objects (databases, collections, shards, indexes, 
-views) in the cluster.
-
 Startup options
 ---------------
 
