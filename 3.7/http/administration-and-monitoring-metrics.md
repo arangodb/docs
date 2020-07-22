@@ -246,7 +246,9 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
 | `arangodb_http_request_statistics_total_requests` | Total number of HTTP requests |
+| `arangodb_load_current_accum_runtime_msec` | Accumulated Current loading time |
 | `arangodb_load_current_runtime` | Current loading runtimes |
+| `arangodb_load_plan_accum_runtime_msec` | Accumulated Plan loading time |
 | `arangodb_load_plan_runtime` | Plan loading runtimes |
 | `arangodb_maintenance_action_accum_queue_time_msec` | Accumulated action queue time |
 | `arangodb_maintenance_action_accum_runtime_msec` | Accumulated action runtime |
