@@ -4,8 +4,9 @@ description: Indexes
 ---
 # Indexes
 
-Indexes can be ensured using the following annotations. For reference see [indexing](https://www.arangodb.com/docs/stable/indexing.html)
-documentation and specific aspects that apply to [indexes on shards](https://www.arangodb.com/docs/stable/architecture-deployment-modes-cluster-sharding.html#indexes-on-shards).
+Indexes can be ensured using the following annotations. For reference see the
+[indexing](../indexing.html) documentation and specific aspects that apply to
+[indexes on shards](../architecture-deployment-modes-cluster-sharding.html#indexes-on-shards).
 
 ## Annotation @\<IndexType\>Indexed
 
