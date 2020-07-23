@@ -444,12 +444,11 @@ RETURN NGRAM_MATCH("quick fox", "quick blue fox", "bigram")
 
 ### NGRAM_POSITIONAL_SIMILARITY()
 
-See [String Functions](functions-arangosearch.html#ngram_positional_similarity).
+See [String Functions](functions-string.html#ngram_positional_similarity).
 
 ### NGRAM_SIMILARITY()
 
-
-See [String Functions](functions-arangosearch.html#ngram_similarity).
+See [String Functions](functions-string.html#ngram_similarity).
 
 ### PHRASE()
 
@@ -756,7 +755,7 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
-The Damerau-Levenshtein distance is `1` (move _c_ to the end).
+The Damerau-Levenshtein distance is `1` (move _k_ to the end).
 
 ```js
 FOR doc IN viewName

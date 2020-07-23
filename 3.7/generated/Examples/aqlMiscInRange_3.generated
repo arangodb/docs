@@ -1,0 +1,23 @@
+@Q:
+  LET coll = [
+    { <span class="hljs-attr">text</span>: <span class="hljs-string">"fennel"</span> },
+    { <span class="hljs-attr">text</span>: <span class="hljs-string">"fox grape"</span> },
+    { <span class="hljs-attr">text</span>: <span class="hljs-string">"forest strawberry"</span> },
+    { <span class="hljs-attr">text</span>: <span class="hljs-string">"fungus"</span> }
+  ]
+  FOR doc IN coll
+    FILTER IN_RANGE(doc.text,<span class="hljs-string">"fo"</span>, <span class="hljs-string">"fp"</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>) <span class="hljs-comment">// values with prefix "fo"</span>
+    <span class="hljs-comment">/* same as:
+       FILTER doc.text &gt;= "fo" AND doc.text &lt; "fp"
+    */</span>
+    RETURN doc
+
+@R
+[
+  {
+    <span class="hljs-string">"text"</span>: <span class="hljs-string">"fox grape"</span>
+  },
+  {
+    <span class="hljs-string">"text"</span>: <span class="hljs-string">"forest strawberry"</span>
+  }
+]

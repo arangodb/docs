@@ -45,7 +45,23 @@ This change was made to put the metrics into the "arangodb" namespace, so
 that metrics from different systems can unambiguously combined into a single
 monitoring system.
 
+The REST endpoint `/_admin/metrics` also returns additional metrics in 3.7,
+compared to the list of metrics that it returned in 3.6.
+
 ## HTTP RESTful API
+
+### Privilege changes
+
+The access privileges for the REST API endpoint at `/_admin/cluster/numberOfServers`
+can now be controlled via the `--server.harden` startup option. The behavior is
+as follows:
+
+- for HTTP GET requests, all authenticated users can access the API if `--server.harden`
+  is `false` (which is the default).
+- for HTTP GET requests, only admin users can access the API if `--server.harden`
+  is `true`. This is a change compared to previous versions.
+- for HTTP PUT requests, only admin users can access the API, regardless of the value
+  of `--server.harden`.
 
 ### Endpoint return value changes
 
@@ -65,6 +81,23 @@ In previous releases, calling that endpoint with an empty JSON object as
 the request body returned a JSON response that was just `true`.
 
 ### Endpoints added
+
+The following REST API endpoints have been added in 3.7:
+
+- HTTP POST `/_admin/server/tls`: this endpoint can be used to change the 
+  TLS keyfile (secret key as well as public certificates) at run time. The API
+  basically makes the `arangod` server reload the keyfile from disk.
+- HTTP POST `/_admin/server/jwt`: can be used to
+  [reload the JWT secrets](http/general.html#hot-reload-of-jwt-secrets)
+  of a local arangod process without having to restart it (hot-reload).
+  This may be used to roll out new JWT secrets throughout an ArangoDB cluster.
+  This endpoint is available only in the Enterprise Edition.
+- HTTP POST `/_admin/server/encryption` can be used to
+  [reload the user-supplied key(s)](http/administration-and-monitoring.html#encryption-at-rest)
+  used for encryption at rest, after they have been changed on disk.
+  This endpoint is available only in the Enterprise Edition.
+
+Using these endpoints requires superuser privileges.
 
 ### Endpoints augmented
 
@@ -132,6 +165,9 @@ graphs at GET `/_api/gharial` or a graph definition of a single graph at
 GET `/_api/gharial/{graph}` will include an additional boolean attribute
 called `isDisjoint` in case of **Disjoint SmartGraphs**.
 
+The REST endpoint `/_admin/metrics` also returns additional metrics in 3.7,
+compared to the list of metrics that it returned in 3.6.
+
 ### Endpoints moved
 
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
@@ -189,3 +225,5 @@ have been added:
   automatic detection of the total amount of RAM present on the system.
 - `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` can be used to override the
   automatic detection of the number of CPU cores present on the system.
+- `ARANGODB_OVERRIDE_CRASH_HANDLER` can be used to toggle the presence
+  of the built-in crash handler on Linux deployments.
