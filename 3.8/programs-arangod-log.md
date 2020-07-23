@@ -225,47 +225,41 @@ Log role: `--log.role`
 When set to `true`, this option will make the ArangoDB logger print a single
 character with the server's role into each logged message. The roles are:
 
-- U: Undefined/unclear (used at startup)
+- U: Undefined / unclear (used at startup)
 - S: Single server
 - C: Coordinator
-- P: Primary/DB-Server
+- P: Primary / DB-Server
 - A: Agent
 
 The default value for this option is `false`, so no roles will be logged.
 
-## Logging to memory buffers
+## JSON log output
 
-Log to memory: `--log.in-memory true`
+<small>Introduced in: 3.8.0</small>
 
-The option `--log.in-memory` can be used to toggle storing log messages in 
-memory, from which they can be consumed via the `/_admin/log` REST API and via
-the web UI. By default, this option is turned on, so log messages are consumable 
-via REST API and the web UI. Turning this option off will disable that 
-functionality, save a tiny bit of memory for the in-memory log buffers and
-prevent potential log information leakage via these means. 
+Toggle JSON log output: `--log.use-json-format`
 
-## JSON log output 
-
-Toggle JSON log output: `--log.use-json-format true`
-
-The option `--log.use-json-format` can be used to switch log output to JSON format.
-Each log message then produces a seperate line with JSON-encoded log data,
+This option can be used to switch log output to JSON format.
+Each log message then produces a separate line with JSON-encoded log data,
 which can be consumed by applications.
+
 The attributes produced for each log message JSON object are:
 
-* time: date/time of log message, in format specified by `--log.time-format`
-* prefix: only emitted if `--log.prefix` is set
-* pid: process id, only emitted if `--log.process` is set
-* tid: thread id, only emitted if `--log.thread` is set
-* thread: thread name, only emitted if `--log.thread-name` is set
-* role: server role (1 character), only emitted if `--log.role` is set
-* level: log level (e.g. "WARN", "INFO")
-* file: source file name of log message, only emitted if `--log.file-name` is set
-* line: source file line of log message, only emitted if `--log.file-name` is set 
-* function: source file function name, only emitted if `--log.file-name` is set
-* topic: log topic name
-* id: log id (5 digit hexadecimal string), only emitted if `--log.ids` is set
-* message: the actual log message payload
+| Key        | Value      |
+|:-----------|:-----------|
+| `time`     | date/time of log message, in format specified by `--log.time-format`
+| `prefix`   | only emitted if `--log.prefix` is set
+| `pid`      | process id, only emitted if `--log.process` is set
+| `tid`      | thread id, only emitted if `--log.thread` is set
+| `thread`   | thread name, only emitted if `--log.thread-name` is set
+| `role`     | server role (1 character), only emitted if `--log.role` is set
+| `level`    | log level (e.g. `"WARN"`, `"INFO"`)
+| `file`     | source file name of log message, only emitted if `--log.file-name` is set
+| `line`     | source file line of log message, only emitted if `--log.file-name` is set 
+| `function` | source file function name, only emitted if `--log.file-name` is set
+| `topic`    | log topic name
+| `id`       | log id (5 digit hexadecimal string), only emitted if `--log.ids` is set
+| `message`  | the actual log message payload
 
 ### Log API Access
 
@@ -292,3 +286,16 @@ The possible values for this option are:
  - `false`: The API `/_admin/log` is not accessible at all.
 
 The default value is `true`.
+
+## Logging to memory buffers
+
+<small>Introduced in: 3.8.0</small>
+
+Log to memory: `--log.in-memory`
+
+This option can be used to toggle storing log messages in memory, from which
+they can be consumed via the `/_admin/log` HTTP API and via the Web UI.
+By default, this option is turned on, so log messages are consumable via the
+API and UI. Turning this option off will disable that functionality, save a
+tiny bit of memory for the in-memory log buffers and prevent potential log
+information leakage via these means.
