@@ -247,7 +247,8 @@ The optimization will be triggered for read-only subqueries that use a full
 collection scan or an index scan, without any additional filtering on document
 attributes (early pruning or document post-filtering) and without using LIMIT.
 
-The optimization will help in the following situation:
+The optimization will help in the following situation (in case `subCollection`
+is an edge collection):
 
 ```js
 FOR doc IN collection
@@ -271,7 +272,8 @@ In case a subquery does not match these criteria, it will not use the
 optimized code path for counting, but will execute normally.
 
 If the optimization is triggered, it will show up in the query execution
-plan under the rule name `optimize-count`.
+plan under the rule name `optimize-count`, and the subquery's FOR loop will
+be marked with a `with count optimization` tag.
 
 ### Traversal optimizations
 
@@ -518,38 +520,9 @@ soon as they are applied in the Agency, meaning that Coordinators and DB-Servers
 can apply them immediately and incrementally. This removes the need for full
 reloads. As a consequence, a significant reduction of overall network traffic between 
 Agents and other cluster nodes is expected, plus a significant reduction in CPU
-usage for assembling, parsing and applying the full `Plan` or `Current` parts.
+usage on Agents for assembling and sending the `Plan` or `Current` parts.
 Another positive side effect of this modification is that changes made to Agency 
 data should propagate faster in the cluster.
-
-### Improved Replication Protocol
-
-ArangoDB 3.7 provides a new Merkle tree-based protocol to help improve the speed 
-of incremental replication in the cluster.
-This protocol kicks in when there is a shard on a follower which is out of sync 
-with the leader and needs to get back in sync. This happens, for instance, when a 
-server has gone down and rejoins the cluster.
-
-The previous protocol operated in three passes. The first took time proportional 
-to the total number of documents in the shard, while the second and third passes 
-were linear in the number of documents which changed and the size of the changed 
-documents, respectively. 
-
-The new protocol introduced in ArangoDB 3.7 makes the first pass _constant_ with 
-respect to the size of the shard and the differences between leader and follower
-shard, so it is no longer linear to the total number of documents in the shard.
-
-This should greatly help in the common case where little or nothing has changed, 
-but the shard itself is very large.
-
-Using the new replication protocol requires collections/shards to be created
-with ArangoDB 3.7 or later. For these collections/shards, the new protocol will 
-be used automatically.
-Collections/shards that were created with previous versions of ArangoDB will
-use the previous protocol, which is still supported. We are currently working on
-an upgrade procedure that can convert collections/shards from the previous
-format to the new format, so that they can use the new replication protocol as
-well.
 
 ### Parallel Move Shard
 
@@ -627,9 +600,13 @@ It is possible to change the user supplied encryption key via the
 by sending a POST request without payload to the new endpoint
 `/_admin/server/encryption`. The file supplied via `--rocksdb.encryption-keyfile`
 will be reloaded and the internal encryption key will be re-encrypted with the
-new user key. Similarly the new option `--rocksdb.encryption-keyfolder` can be used
-to supply multiple user keys. A random internal key will be generated and
-encrypted with each of the provided user keys.
+new user key. 
+
+Similarly the new option `--rocksdb.encryption-keyfolder` can be used
+to supply multiple user keys. By default, the first available user-supplied key 
+will be used as the internal encryption key. Alternatively, if the option 
+`--rocksdb.encryption-gen-internal-key` is set to `true`, a random internal 
+key will be generated and encrypted with each of the provided user keys.
 
 ### Insert-Update and Insert-Ignore
 
@@ -774,7 +751,7 @@ The [`query` helper](appendix-java-script-modules-arango-db.html#the-query-helpe
 was extended to support passing [query options](aql/invocation-with-arangosh.html#setting-options):
 
 ```js
-require("@arangodb").query( { maxRuntime: 1 } )`SLEEP(2)`
+require("@arangodb").query( { maxRuntime: 1 } )`RETURN SLEEP(2)`
 ```
 
 Web UI
@@ -830,7 +807,9 @@ The following metrics have been added in ArangoDB 3.7:
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
 | `arangodb_http_request_statistics_total_requests` | Total number of HTTP requests |
+| `arangodb_load_current_accum_runtime_msec` | Accumulated Current loading time |
 | `arangodb_load_current_runtime` | Current loading runtimes |
+| `arangodb_load_plan_accum_runtime_msec` | Accumulated Plan loading time |
 | `arangodb_load_plan_runtime` | Plan loading runtimes |
 | `arangodb_maintenance_action_accum_queue_time_msec` | Accumulated action queue time |
 | `arangodb_maintenance_action_accum_runtime_msec` | Accumulated action runtime |

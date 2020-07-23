@@ -4255,6 +4255,34 @@
     "section" : "temp",
     "type" : "string"
   },
+  "transaction.streaming-lock-timeout": {
+    "category": "option",
+    "component": [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default": 8,
+    "deprecatedIn": null,
+    "description": "lock timeout in seconds in case of parallel access to the same streaming transaction",
+    "dynamic": false,
+    "enterpriseOnly": false,
+    "hidden": true,
+    "introducedIn": [
+      "v3.6.5",
+      "v3.7.1"
+    ],
+    "obsolete": false,
+    "os": [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue": true,
+    "section": "transaction",
+    "type": "double"
+  },
   "ttl.frequency" : {
     "category" : "option",
     "default" : 30000,
