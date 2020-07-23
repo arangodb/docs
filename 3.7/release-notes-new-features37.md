@@ -672,8 +672,9 @@ A new algorithm `"wcc"` has been added to Pregel to find connected components.
 
 There are now three algorithms to find connected components in a graph:
 
-1. If your graph is effectively undirected (you have edges in both directions) then the
-   simple connected components algorithm named `"connectedcomponents"` is suitable.
+1. If your graph is effectively undirected (you have edges in both directions
+   between vertices) then the simple connected components algorithm named
+   `"connectedcomponents"` is suitable.
 
    It is a very simple and fast algorithm, but will only work correctly on undirected
    graphs. Your results on directed graphs may vary, depending on how connected your
