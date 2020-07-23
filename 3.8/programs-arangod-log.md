@@ -139,14 +139,14 @@ This option toggles the escaping of log output.
 
 If set to `true`, the following characters in the log output are escaped:
 
-* the carriage return character (hex 0d)
-* the newline character (hex 0a)
-* the tabstop character (hex 09)
-* any other characters with an ordinal value less than hex 20
+- the carriage return character (hex `0d`)
+- the newline character (hex `0a`)
+- the tabstop character (hex `09`)
+- any other characters with an ordinal value less than hex `20`
 
 If the option is set to `false`, no characters are escaped. Characters with
-an ordinal value less than hex 20 will not be printed in this mode but will
-be replaced with a space character (hex 20).
+an ordinal value less than hex `20` will not be printed in this mode but will
+be replaced with a space character (hex `20`).
 
 A side effect of turning off the escaping is that it will reduce the CPU 
 overhead for the logging. However, this will only be noticeable when logging

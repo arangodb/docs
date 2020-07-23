@@ -56,7 +56,7 @@ Some relevant log topics available in ArangoDB 3 are:
 
 See more [log levels](http/administration-and-monitoring.html#modify-and-return-the-current-server-log-level)
 
-### Log outputs
+## Log outputs
 
 The log option `--log.output <definition>` allows directing the global
 or per-topic log output to different outputs. The output definition `<definition>`
@@ -106,7 +106,7 @@ a member of that group. Otherwise the group ownership will not be
 changed. Please note that this option is only available under Linux
 and Mac. It is not available under Windows.
 
-### Forcing direct output
+## Forcing direct output
 
 The option `--log.force-direct` can be used to disable logging in an extra
 logging thread. If set to `true`, any log messages are immediately printed in the
@@ -114,7 +114,7 @@ thread that triggered the log message. This is non-optimal for performance but
 can aid debugging. If set to `false`, log messages are handed off to an extra
 logging thread, which asynchronously writes the log messages.
 
-### Local time
+## Local time
 
 Log dates and times in local time zone: `--log.use-local-time`
 
@@ -124,7 +124,7 @@ will be printed in UTC / Zulu time. The date and time format used in logs
 is always `YYYY-MM-DD HH:MM:SS`, regardless of this setting. If UTC time
 is used, a `Z` will be appended to indicate Zulu time.
 
-### Escaping
+## Escaping
 
 `--log.escape value`
 
@@ -147,7 +147,7 @@ is set to a very verbose level (e.g. debug or trace).
 
 The default value for this option is `true`.
 
-### Color logging
+## Color logging
 
 `--log.color value`
 
@@ -163,13 +163,13 @@ logged, no information about the file and line number is provided. The
 file and line number is only logged for debug and trace message. This option
 can be use to always log these pieces of information.
 
-### Prefix
+## Prefix
 
 Log prefix: `--log.prefix prefix`
 
 This option is used specify an prefix to logged text.
 
-### Threads
+## Threads
 
 Log thread identifier: `--log.thread true`
 
@@ -192,7 +192,7 @@ when this command line option is set.
 To also log thread names, it is possible to set the `--log.thread-name`
 option. By default `--log.thread-name` is set to `false`.
 
-### Role
+## Role
 
 Log role: `--log.role`
 
@@ -207,7 +207,7 @@ character with the server's role into each logged message. The roles are:
 
 The default value for this option is `false`, so no roles will be logged.
 
-### Log API Access
+## Log API Access
 
 <small>Introduced in: 3.4.11</small>
 
