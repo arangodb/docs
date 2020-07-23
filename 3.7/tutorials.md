@@ -1,6 +1,7 @@
 ---
 layout: default
-description: CRUD
+description: Learn about Data Modeling, Queries, Graphs, Foxx, Deployment, Administration and more.
+title: ArangoDB Tutorials
 ---
 Tutorials
 =========
