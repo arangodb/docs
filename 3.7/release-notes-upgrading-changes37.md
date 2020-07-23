@@ -129,6 +129,19 @@ monitoring system.
 HTTP RESTful API
 ----------------
 
+### Privilege changes
+
+The access privileges for the REST API endpoint at `/_admin/cluster/numberOfServers`
+can now be controlled via the `--server.harden` startup option. The behavior is
+as follows:
+
+- for HTTP GET requests, all authenticated users can access the API if `--server.harden`
+  is `false` (which is the default).
+- for HTTP GET requests, only admin users can access the API if `--server.harden`
+  is `true`. This is a change compared to previous versions.
+- for HTTP PUT requests, only admin users can access the API, regardless of the value
+  of `--server.harden`.
+
 ### Endpoints moved
 
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
@@ -186,6 +199,14 @@ If you rely on Kafka, then you must use an ArangoSync 0.x version. ArangoDB
 v3.7 ships with ArangoSync 1.x, so be sure to keep the old binary or download
 a compatible version for your deployment. ArangoSync 1.x is otherwise
 compatible with ArangoDB v3.3 and above.
+
+Memory usage
+------------
+
+Coordinators and DB-Servers in a cluster will need memory for buffering Agency
+data in their local caches. The memory usage for these caches should be proportional
+to the total number of database objects (databases, collections, shards, indexes, 
+views) in the cluster.
 
 Startup options
 ---------------
