@@ -665,6 +665,37 @@ configurable in _arangod_:
   partitioned filter and index blocks pinned and only be evicted from cache
   when the table reader is freed
 
+Pregel
+------
+
+A new algorithm `"wcc"` has been added to Pregel to find connected components.
+
+There are now three algorithms to find connected components in a graph:
+
+1. If your graph is effectively undirected (you have edges in both directions
+   between vertices) then the simple connected components algorithm named
+   `"connectedcomponents"` is suitable.
+
+   It is a very simple and fast algorithm, but will only work correctly on undirected
+   graphs. Your results on directed graphs may vary, depending on how connected your
+   components are.
+
+2. To find **weakly connected components** (WCC) you can now use the new algorithm named
+   `"wcc"`. Weakly connected means that there exists a path from every vertex pair in
+   that component.
+
+   This algorithm will work on directed graphs but requires a greater amount of traffic
+   between your DB-Servers.
+
+3. to find **strongly connected components** (SCC) you can use the algorithm named
+   `"scc"`. Strongly connected means every vertex is reachable from any other vertex in
+   the same component.
+
+   The algorithm is more complex than the WCC algorithm and requires more memory,
+   because each vertex needs to store much more state.
+
+Also see [Pregel](graphs-pregel.html#connected-components)
+
 Foxx
 ----
 
