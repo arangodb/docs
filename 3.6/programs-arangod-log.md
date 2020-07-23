@@ -172,9 +172,13 @@ can be use to always log these pieces of information.
 
 ## Prefix
 
-Log prefix: `--log.prefix prefix`
+This option specifies a prefix for log messages.
 
-This option is used specify an prefix to logged text.
+Example: `arangod ... --log.prefix "-->"`
+
+```
+2020-07-23T09:46:03Z --> [17493] INFO ...
+```
 
 ## Threads
 

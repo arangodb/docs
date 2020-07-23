@@ -172,34 +172,52 @@ can be use to always log these pieces of information.
 
 ## Prefix
 
-Log prefix: `--log.prefix prefix`
+Log prefix: `--log.prefix`
 
-This option is used specify an prefix to logged text.
+This option specifies a prefix for log messages.
 
-## Process ID and Thread ID
-
-Log Process identifier: `--log.process true`
-
-Log thread identifier: `--log.thread true`
-
-When log output is generated, the process ID is emitted as part of the log 
-information by default. This can be turned off by adjusting the `--log.process`
-option. The thread ID is not emitted by default, but it can be enabled by
-setting the option `--log.thread`.
-here is an example that only contains the process ID (19355 in this case):
+Example: `arangod ... --log.prefix "-->"`
 
 ```
-2010-09-20T13:04:01Z [19355] INFO ready for business
+2020-07-23T09:46:03Z --> [17493] INFO ...
+```
+
+## Process ID, Thread ID and Name
+
+Log Process identifier: `--log.process` (introduced in 3.8.0)
+
+Log thread identifier: `--log.thread`
+
+Log thread name: `--log.thread-name`
+
+When log output is generated, the process ID is emitted as part of the log
+information by default. This can be turned off by adjusting the `--log.process`
+option.
+
+The thread ID is not emitted by default, but it can be enabled by setting the
+option `--log.thread`.
+
+To also log thread names, it is possible to set the `--log.thread-name`
+option. By default `--log.thread-name` is set to `false`.
+
+Here is an example that only contains the process ID (19355 in this case):
+
+```
+2010-09-20T13:04:01Z [19355] ... ready for business
 ```
 
 And here is an example that also contains the thread ID in addition:
 
 ```
-2010-09-20T13:04:17Z [19371-18446744072487317056] ready for business
+2010-09-20T13:04:17Z [19371-18446744072487317056] ... ready for business
 ```
 
-To also log thread names, it is possible to set the `--log.thread-name`
-option. By default `--log.thread-name` is set to `false`.
+And another example with process and thread identifier logging disabled,
+but thread name logging turned on:
+
+```
+2010-09-20T13:04:29Z [main] ... ready for business
+```
 
 ## IDs
 
