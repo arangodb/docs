@@ -20,9 +20,6 @@ The data is encrypted with AES-256-CTR, which is a strong encryption algorithm,
 that is very suitable for multi-processor environments. This means that your
 data is safe, but your database is still fast, even under load.
 
-Most modern CPU's have builtin support for hardware AES encryption, which makes
-it even faster.
-
 The encryption feature is supported by all ArangoDB deployment modes.
 
 ## Limitations
@@ -117,11 +114,15 @@ servers) and directly store them in your secret management tool.
 ## Rotating encryption keys
 
 ArangoDB supports rotating the user supplied encryption at rest key.
-This is implemented via key indirection. The user supplied key is used 
-to encrypt a randomly generated internal master key.
+This is implemented via key indirection. At initial startup, the first found 
+user-supplied key is used as the internal master key. Alternatively, the internal 
+master key can be generated from random characters if the startup option
+`--rocksdb.encryption-gen-internal-key` is set to `true`.
 
 It is possible to change the user supplied encryption at rest key via the
-[HTTP API](http/administration-and-monitoring.html#encryption-at-rest).
+[HTTP API](http/administration-and-monitoring.html#encryption-at-rest). This API
+is disabled by default, but can be turned on by setting the startup option
+`--rocksdb.encryption-key-rotation` to `true`.
 
 To enable smooth rollout of new keys you can use the new option 
 `--rocksdb.encryption-keyfolder` to provide a set of secrets.
