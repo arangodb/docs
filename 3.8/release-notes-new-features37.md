@@ -609,6 +609,9 @@ will be used as the internal encryption key. Alternatively, if the option
 `--rocksdb.encryption-gen-internal-key` is set to `true`, a random internal 
 key will be generated and encrypted with each of the provided user keys.
 
+Please be aware that the encryption at rest key rotation is an **experimental** 
+feature, and its APIs and behavior are still subject to change. 
+
 ### Insert-Update and Insert-Ignore
 
 ArangoDB 3.7 adds an insert-update operation that is similar to the already
