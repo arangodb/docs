@@ -135,3 +135,6 @@ $ arangod \
 
 To start an arangod instance only one of the secrets needs to be correct, 
 this should guard against service interruptions during the rotation process.
+
+Please be aware that the encryption at rest key rotation is an **experimental** 
+feature, and its APIs and behavior are still subject to change. 
