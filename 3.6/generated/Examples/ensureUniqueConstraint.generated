@@ -5,9 +5,9 @@ arangosh&gt; db.test.ensureIndex({ <span class="hljs-attr">type</span>: <span cl
     <span class="hljs-string">"a"</span>, 
     <span class="hljs-string">"b.c"</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"test/74824"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"test/74830"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1668555308765544448"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1673466541490831360"</span>, 
   <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"hash"</span>, 
@@ -16,17 +16,17 @@ arangosh&gt; db.test.ensureIndex({ <span class="hljs-attr">type</span>: <span cl
 }
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span>, <span class="hljs-attr">b</span> : { <span class="hljs-attr">c</span> : <span class="hljs-number">1</span> } });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/74828"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74828"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hYBC--_"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/74834"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74834"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a3UNN7G---"</span> 
 }
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span>, <span class="hljs-attr">b</span> : { <span class="hljs-attr">c</span> : <span class="hljs-number">1</span> } });
-[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1668555308765544448 <span class="hljs-keyword">of</span> type hash over <span class="hljs-string">'a, b.c'</span>; conflicting key: <span class="hljs-number">74828</span>]
+[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1673466541490831360 <span class="hljs-keyword">of</span> type hash over <span class="hljs-string">'a, b.c'</span>; conflicting key: <span class="hljs-number">74834</span>]
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span>, <span class="hljs-attr">b</span> : { <span class="hljs-attr">c</span> : <span class="hljs-literal">null</span> } });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/74832"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74832"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hYBG--A"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"test/74838"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74838"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a3UNN7O---"</span> 
 }
 arangosh&gt; db.test.save({ <span class="hljs-attr">a</span> : <span class="hljs-number">1</span> });
-[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1668555308765544448 <span class="hljs-keyword">of</span> type hash over <span class="hljs-string">'a, b.c'</span>; conflicting key: <span class="hljs-number">74832</span>]
+[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index idx_1673466541490831360 <span class="hljs-keyword">of</span> type hash over <span class="hljs-string">'a, b.c'</span>; conflicting key: <span class="hljs-number">74838</span>]
