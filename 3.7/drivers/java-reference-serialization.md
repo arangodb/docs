@@ -105,34 +105,6 @@ which is based on [Jackson](https://github.com/FasterXML/jackson){:target="_blan
 **Note**: Any registered custom [serializer/deserializer or module](#custom-serialization)
 will be ignored.
 
-## custom serialization
-
-```Java
-ArangoDB arangoDB = new ArangoDB.Builder().registerModule(new VPackModule() {
-  @Override
-  public <C extends VPackSetupContext<C>> void setup(final C context) {
-    context.registerDeserializer(MyObject.class, new VPackDeserializer<MyObject>() {
-      @Override
-      public MyObject deserialize(VPackSlice parent,VPackSlice vpack,
-          VPackDeserializationContext context) throws VPackException {
-        MyObject obj = new MyObject();
-        obj.setName(vpack.get("name").getAsString());
-        return obj;
-      }
-    });
-    context.registerSerializer(MyObject.class, new VPackSerializer<MyObject>() {
-      @Override
-      public void serialize(VPackBuilder builder,String attribute,MyObject value,
-          VPackSerializationContext context) throws VPackException {
-        builder.add(attribute, ValueType.OBJECT);
-        builder.add("name", value.getName());
-        builder.close();
-      }
-    });
-  }
-}).build();
-```
-
 ## JavaBeans
 
 The driver can serialize/deserialize JavaBeans. They need at least a
@@ -240,6 +212,24 @@ ArangoDB arangoDB = new ArangoDB.Builder().registerModule(new VPackModule() {
     });
   }
 }).build();
+```
+
+## Disable type hints
+
+The Java VelocyPack library automatically adds a type hint field
+(named `_class` by default) to help figure out the correct class to instantiate
+during the deserialization phase. In case you want to use custom deserializers,
+this feature can be disabled in the following way:
+
+```java
+ArangoDB arangoDB = new ArangoDB.Builder()
+        .registerModule(new VPackModule() {
+            @Override
+            public <C extends VPackSetupContext<C>> void setup(final C context) {
+                context.useTypeHints(false);
+            }
+        })
+        .build();
 ```
 
 ## Manual serialization
