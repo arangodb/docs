@@ -216,9 +216,10 @@ ArangoDB arangoDB = new ArangoDB.Builder().registerModule(new VPackModule() {
 
 ## Disable type hints
 
-Java Velocypack library automatically adds a type hint field (named `_class` by default) to help figure out the correct 
-class to instantiate during the deserialization phase. This feature can be disabled, eg. in case you want to use custom
-deserializers, in the following way:
+The Java VelocyPack library automatically adds a type hint field
+(named `_class` by default) to help figure out the correct class to instantiate
+during the deserialization phase. In case you want to use custom deserializers,
+this feature can be disabled in the following way:
 
 ```java
 ArangoDB arangoDB = new ArangoDB.Builder()
