@@ -102,7 +102,7 @@ documents, edges and query results. One implementation is
 which is based on [Jackson](https://github.com/FasterXML/jackson){:target="_blank"} working with
 [jackson-dataformat-velocypack](https://github.com/arangodb/jackson-dataformat-velocypack){:target="_blank"}.
 
-**Note**: Any registered custom [serializer/deserializer or module](#custom-serialization)
+**Note**: Any registered custom [serializer/deserializer or module](#custom-serializer)
 will be ignored.
 
 ## JavaBeans
