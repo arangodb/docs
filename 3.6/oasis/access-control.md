@@ -28,14 +28,12 @@ levels **inherit** permissions from their parent resources.
 To give a user (or a group of users) access to resources of Oasis, you assign
 a role to that user (or group). This is done in a *policy*.
 
-TODO: A policy is a set of bindings that binds roles to groups or individual members.
-
-A policy contains a list of a bindings from role to user(s) for a specific
+A policy is the set of a bindings of roles to users (or groups) for a specific
 resource. This means that there is a unique policy per resource.
 
-For example, the `Example.com` organization has exactly one policy, which binds
-roles to members of the organization. These bindings are used to give these
-users permissions to invoke operations on the `Example.com` organization.
+For example, the *Oasis Introduction* organization has exactly one policy,
+which binds roles to members of the organization. These bindings are used to
+give these users permissions to invoke operations on this organization.
 
 ### How to view, edit or remove role bindings of a policy
 
@@ -69,21 +67,20 @@ Currently, you cannot edit a role binding, you can only delete it.
 
 ## Roles
 
-As we've seen before, operations on resources in Oasis require zero or more
-permissions. Since the number of permissions is large and very detailed, it is
-not practical to assign permissions directly to users. Instead Oasis has
-*roles*. A role is a list of permissions.
+Operations on resources in Oasis require zero or more permissions. Since the
+number of permissions is large and very detailed, it is not practical to assign
+permissions directly to users. Instead Oasis has *roles*. A role is a set of
+permissions.
 
-Roles can be predefined or created custom.
+There are predefined roles, but you can also create custom roles.
+
+### Predefined roles
 
 Predefined roles are created by Oasis and group permissions together in a
 logical role. An example of a predefine role is `deployment-viewer`. That role
 contains all permissions needed to view deployments in a project.
 
-### Pre-defined roles
-
-These are predefined roles that already provide a specific set of permissions
-for performing specific functions or operations.
+Predefined roles cannot be deleted.
 
 {% comment %}
 Windows cmd:
@@ -154,6 +151,8 @@ oasisctl list roles --format json | jq -r ".[] | \"\(.description) (`\(.id)`):\n
 | Replication Administrator | `replication-admin` | `replication.deployment.clone-from-backup` |
 | Role Administrator | `role-admin` | `iam.role.create` <br> `iam.role.delete` <br> `iam.role.list` <br> `iam.role.get` <br> `iam.role.update` |
 | Role Viewer | `role-viewer` | `iam.role.get` <br> `iam.role.list` |
+
+Below roles are listed in the schema
 
 Description (`ID`):
 - `Permission`
@@ -359,11 +358,17 @@ Role Viewer (`role-viewer`):
 - `iam.role.get`
 - `iam.role.list`
 
+### How to create a custom role
+
+### How to view or remove a custom role
+
 ## Permissions
 
 Each operation (invoked on a resource) requires zero or more *permissions*.
-A permission is a constant string such as `resourcemanager.project.create`.
-Permissions are defined in the Oasis API and are constant.
+A permission is a constant string such as `resourcemanager.project.create`,
+following the schema `<api>.<kind>.<verb>`.
+
+Permissions are solely defined by the Oasis API.
 
 | API               | Kind                         | Verbs
 |:------------------|:-----------------------------|:-------------------------------------------
@@ -399,31 +404,27 @@ Permissions are defined in the Oasis API and are constant.
 
 ## Permission inheritance
 
-Each resource in this structure has its own policy, but this does not
-mean that you have to repeat access control bindings on all these policies.
+Each resource has its own policy, but this does not mean that you have to
+repeat access control bindings on all these policies.
 
 Once you assign a role to a user (or group of users) in a policy at one level,
-all the permissions of that role are inherited in lower levels.
+all the permissions of that role are inherited in lower levels. That is,
+permissions are inherited downwards from an organization to its projects and
+from a project to its deployments.
 
-For example if you bind the role `deployment-viewer` to user `John` in the
+For more inclusive permissions, add the highest permission for a member or
+group at the at the organization level.
+For example, if you bind the role `deployment-viewer` to user `John` in the
 policy of an organization, `John` will have all the permissions contained in
 that role in all projects of that organization and all deployments in those
 projects as well.
 
-An other example. If you bind the role `deployment-viewer` to user `John`
+For more restrictive permissions, add the highest permission at the project
+or even deployment level, and least permission at the organization level.
+For example, if you bind the role `deployment-viewer` to user `John`
 in a project, `John` will have all the permissions contained in that role in
 that project as well as in all deployments contained in that project, but not
 in other projects of the containing organization.
-
-
-### Oasis permission inheritance
-
-- Permissions are inherited downwards from an organization to its projects and
-  from a project to its deployments.
-- For more inclusive permissions, add the highest permission for a member or
-  group at the at the organization level.
-- For more restrictive permissions, add the highest permission at the project
-  or even deployment level, and least permission at the organization level.
 
 **Inheritance example**
 
