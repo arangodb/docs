@@ -193,8 +193,10 @@ Add the actual content below the frontmatter.
   -  - /3.7/path/to/file.html # 3.4 -> 3.5
   +  - /3.8/path/to/file.html # 3.4 -> 3.5
   ```
-  If pages were removed, then you may want to keep the old version number
-  or redirect to a completely different page.
+  This is only necessary for absolute redirects. Relative redirects are
+  preferred, e.g. `- old.html` in `new.html` (may also include `..`).
+  If pages were removed, then you may want to use absolute redirects to point
+  to older versions or redirect to completely different pages.
 - Create release note pages for the new version (here: `3.8` / `38`)
   and add them to the navigation (`3.8-manual.yml`):
   ```diff
