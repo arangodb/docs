@@ -75,8 +75,8 @@
           href: oasisctl-create-example-installation.html
         - text: Create Group
           href: oasisctl-create-group.html
-        - text: Create Ipwhitelist
-          href: oasisctl-create-ipwhitelist.html
+        - text: Create Ipallowlist
+          href: oasisctl-create-ipallowlist.html
         - text: Create Organization
           href: oasisctl-create-organization.html
         - text: Create Organization Invite
@@ -104,8 +104,8 @@
           href: oasisctl-delete-group.html
         - text: Delete Group Members
           href: oasisctl-delete-group-members.html
-        - text: Delete Ipwhitelist
-          href: oasisctl-delete-ipwhitelist.html
+        - text: Delete Ipallowlist
+          href: oasisctl-delete-ipallowlist.html
         - text: Delete Organization
           href: oasisctl-delete-organization.html
         - text: Delete Organization Invite
@@ -133,8 +133,8 @@
           href: oasisctl-get-example-installation.html
         - text: Get Group
           href: oasisctl-get-group.html
-        - text: Get Ipwhitelist
-          href: oasisctl-get-ipwhitelist.html
+        - text: Get Ipallowlist
+          href: oasisctl-get-ipallowlist.html
         - text: Get Organization
           href: oasisctl-get-organization.html
         - text: Get Organization Invite
@@ -153,6 +153,12 @@
           href: oasisctl-get-self.html
         - text: Get Server
           href: oasisctl-get-server.html
+        - text: Get Server Status
+          href: oasisctl-get-server-status.html
+        - text: Get Tandc
+          href: oasisctl-get-tandc.html
+    - text: Import
+      href: oasisctl-import.html
     - text: List
       href: oasisctl-list.html
       children:
@@ -186,8 +192,8 @@
           href: oasisctl-list-groups.html
         - text: List Group Members
           href: oasisctl-list-group-members.html
-        - text: List Ipwhitelists
-          href: oasisctl-list-ipwhitelists.html
+        - text: List Ipallowlists
+          href: oasisctl-list-ipallowlists.html
         - text: List Nodesizes
           href: oasisctl-list-nodesizes.html
         - text: List Organization
@@ -221,6 +227,13 @@
           href: oasisctl-reject-organization.html
         - text: Reject Organization Invite
           href: oasisctl-reject-organization-invite.html
+    - text: Renew
+      href: oasisctl-renew.html
+      children:
+        - text: Renew Apikey
+          href: oasisctl-renew-apikey.html
+        - text: Renew Apikey Token
+          href: oasisctl-renew-apikey-token.html
     - text: Resume
       href: oasisctl-resume.html
       children:
@@ -231,6 +244,8 @@
       children:
         - text: Revoke Apikey
           href: oasisctl-revoke-apikey.html
+        - text: Revoke Apikey Token
+          href: oasisctl-revoke-apikey-token.html
     - text: Update
       href: oasisctl-update.html
       children:
@@ -242,8 +257,8 @@
           href: oasisctl-update-deployment.html
         - text: Update Group
           href: oasisctl-update-group.html
-        - text: Update Ipwhitelist
-          href: oasisctl-update-ipwhitelist.html
+        - text: Update Ipallowlist
+          href: oasisctl-update-ipallowlist.html
         - text: Update Organization
           href: oasisctl-update-organization.html
         - text: Update Policy

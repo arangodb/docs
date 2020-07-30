@@ -38,7 +38,7 @@ oasisctl create [flags]
 * [oasisctl create deployment](oasisctl-create-deployment.html)	 - Create a new deployment
 * [oasisctl create example](oasisctl-create-example.html)	 - Create example ...
 * [oasisctl create group](oasisctl-create-group.html)	 - Create a new group
-* [oasisctl create ipwhitelist](oasisctl-create-ipwhitelist.html)	 - Create a new IP whitelist
+* [oasisctl create ipallowlist](oasisctl-create-ipallowlist.html)	 - Create a new IP allowlist
 * [oasisctl create organization](oasisctl-create-organization.html)	 - Create a new organization
 * [oasisctl create project](oasisctl-create-project.html)	 - Create a new project
 * [oasisctl create role](oasisctl-create-role.html)	 - Create a new role

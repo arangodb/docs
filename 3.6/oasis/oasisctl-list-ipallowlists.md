@@ -1,25 +1,24 @@
 ---
 layout: default
-description: Description of the oasisctl get ipwhitelist command
-title: Oasisctl Get Ipwhitelist
+description: Description of the oasisctl list ipallowlists command
+title: Oasisctl List Ipallowlists
 ---
-# Oasisctl Get Ipwhitelist
+# Oasisctl List Ipallowlists
 
-Get an IP whitelist the authenticated user has access to
+List all IP allowlists of the given project
 
 ## Synopsis
 
-Get an IP whitelist the authenticated user has access to
+List all IP allowlists of the given project
 
 ```
-oasisctl get ipwhitelist [flags]
+oasisctl list ipallowlists [flags]
 ```
 
 ## Options
 
 ```
-  -h, --help                     help for ipwhitelist
-  -i, --ipwhitelist-id string    Identifier of the IP whitelist
+  -h, --help                     help for ipallowlists
   -o, --organization-id string   Identifier of the organization
   -p, --project-id string        Identifier of the project
 ```
@@ -34,5 +33,5 @@ oasisctl get ipwhitelist [flags]
 
 ## See also
 
-* [oasisctl get](oasisctl-get.html)	 - Get information
+* [oasisctl list](oasisctl-list.html)	 - List resources
 
