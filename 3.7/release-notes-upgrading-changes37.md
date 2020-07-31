@@ -142,6 +142,33 @@ as follows:
 - for HTTP PUT requests, only admin users can access the API, regardless of the value
   of `--server.harden`.
 
+### Endpoints API return value changes
+
+The REST API endpoint at `/_api/cluster/endpoints` will now return HTTP 501 (Not
+implemented) on single server instead of HTTP 403 (Forbidden), which it returned
+previously.
+
+When invoked via the PUT HTTP verb with an empty JSON object, the REST API
+endpoint at `/_admin/cluster/numberOfServers` will now return with the
+following response body:
+
+```json
+{"error":false,"code":200}
+```
+
+In previous releases, calling that endpoint with an empty JSON object as
+the request body returned a JSON response that was just `true`.
+
+### Precondition failed error message changes
+
+The REST API endpoints for updating, replacing and removing documents using a
+revision ID guard value now may return a different error message string in case
+the document exists on the server with a revision ID value other than the
+specified one. The API still returns HTTP 412, and ArangoDB error code 1200 as
+previously, but the error message string in the `errorMessage` return value
+attribute may change from "precondition failed" to "conflict",
+"write-write conflict" or other values.
+
 ### Endpoints moved
 
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
