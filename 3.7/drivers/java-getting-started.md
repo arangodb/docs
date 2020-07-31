@@ -7,8 +7,9 @@ description: Getting started with the ArangoDB Java Driver
 ## Supported versions
 
 Only the latest version of this driver is maintained to support the most recent
-ArangoDB server features. It is compatible with the latest 3 minor releases of
-the ArangoDB server (versions 3.3, 3.4 and 3.5).
+ArangoDB server features. 
+It is compatible with all supported stable versions of ArangoDB server, see 
+[Product Support End-of-life Announcements](https://www.arangodb.com/eol-notice){:target="_blank"}.
 
 The minimum required Java version is 1.8+ (since driver version 6.x.x).
 
@@ -37,11 +38,14 @@ mvn clean install -DskipTests=true -Dgpg.skip=true -Dmaven.javadoc.skip=true -B
 
 The driver supports GraalVM Native Image generation since version `6.6.1`.
 The related configuration can be found here:
-[native-image](https://github.com/arangodb/arangodb-java-driver/tree/master/src/main/resources/META-INF/native-image){:target="_blank"}
 
-### Quarkus support
+- [native-image](https://github.com/arangodb/arangodb-java-driver/tree/master/src/main/resources/META-INF/native-image){:target="_blank"}
 
-The driver can be used from Quarkus applications and does not require any
-additional configuration for GraalVM native image generation. An example can be
-found here:
-[arango-quarkus-native-example](https://github.com/arangodb-helper/arango-quarkus-native-example){:target="_blank"}
+### Quarkus and Helidon support
+
+The driver can be used from Quarkus and Helidon applications and does not
+require any additional configuration for GraalVM native image generation.
+Examples can be found here:
+
+- [arango-quarkus-native-example](https://github.com/arangodb-helper/arango-quarkus-native-example){:target="_blank"}
+- [arango-helidon-native-example](https://github.com/arangodb-helper/arango-helidon-native-example){:target="_blank"}

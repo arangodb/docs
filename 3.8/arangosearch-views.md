@@ -292,6 +292,12 @@ During view modification the following directives apply:
   Not to be confused with *storedValues*, which stores attribute values in the
   View index.
 
+- **inBackground** (_optional_; type: `boolean`; default: `false`)
+
+  If set to `true`, then no exclusive lock is used on the source collection
+  during View index creation, so that it remains basically available. Also see:
+  [Creating Indexes in Background](indexing-index-basics.html#creating-indexes-in-background)
+
 ### View Properties
 
 - **primarySort** (_optional_; type: `array`; default: `[]`; _immutable_)
