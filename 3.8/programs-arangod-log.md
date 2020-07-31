@@ -56,7 +56,7 @@ Some relevant log topics available in ArangoDB 3 are:
 
 See more [log levels](http/administration-and-monitoring.html#modify-and-return-the-current-server-log-level)
 
-### Log outputs
+## Log outputs
 
 The log option `--log.output <definition>` allows directing the global
 or per-topic log output to different outputs. The output definition `<definition>`
@@ -106,7 +106,7 @@ a member of that group. Otherwise the group ownership will not be
 changed. Please note that this option is only available under Linux
 and Mac. It is not available under Windows.
 
-### Forcing direct output
+## Forcing direct output
 
 The option `--log.force-direct` can be used to disable logging in an extra
 logging thread. If set to `true`, any log messages are immediately printed in the
@@ -114,7 +114,7 @@ thread that triggered the log message. This is non-optimal for performance but
 can aid debugging. If set to `false`, log messages are handed off to an extra
 logging thread, which asynchronously writes the log messages.
 
-### Time format
+## Time format
 
 The option `--log.time-format` controls the time format used in log output.
 The possible values for this option are:
@@ -131,7 +131,7 @@ Format                  | Example                  | Description
 `utc-datestring-millis` | 2019-03-28T09:55:23.123Z | like `utc-datestring`, but with millisecond precision
 `local-datestring`      | 2019-03-28T10:55:23      | local date and time in format YYYY-MM-DDTHH:MM:SS
 
-### Escaping
+## Escaping
 
 `--log.escape value`
 
@@ -139,14 +139,14 @@ This option toggles the escaping of log output.
 
 If set to `true`, the following characters in the log output are escaped:
 
-* the carriage return character (hex 0d)
-* the newline character (hex 0a)
-* the tabstop character (hex 09)
-* any other characters with an ordinal value less than hex 20
+- the carriage return character (hex `0d`)
+- the newline character (hex `0a`)
+- the tabstop character (hex `09`)
+- any other characters with an ordinal value less than hex `20`
 
 If the option is set to `false`, no characters are escaped. Characters with
-an ordinal value less than hex 20 will not be printed in this mode but will
-be replaced with a space character (hex 20).
+an ordinal value less than hex `20` will not be printed in this mode but will
+be replaced with a space character (hex `20`).
 
 A side effect of turning off the escaping is that it will reduce the CPU 
 overhead for the logging. However, this will only be noticeable when logging
@@ -154,14 +154,14 @@ is set to a very verbose level (e.g. debug or trace).
 
 The default value for this option is `true`.
 
-### Color logging
+## Color logging
 
 `--log.color value`
 
 Logging to terminal output is by default colored. Colorful logging can be 
 turned off by setting the value to false.
 
-### Source file and Line number
+## Source file and Line number
 
 Log line number: `--log.line-number`
 
@@ -170,49 +170,114 @@ logged, no information about the file and line number is provided. The
 file and line number is only logged for debug and trace message. This option
 can be use to always log these pieces of information.
 
-### Prefix
+## Prefix
 
-Log prefix: `--log.prefix prefix`
+Log prefix: `--log.prefix`
 
-This option is used specify an prefix to logged text.
+This option specifies a prefix for log messages.
 
-### Threads
-
-Log thread identifier: `--log.thread true`
-
-Whenever log output is generated, the process ID is written as part of the
-log information. Setting this option appends the thread id of the calling
-thread to the process id. For example,
+Example: `arangod ... --log.prefix "-->"`
 
 ```
-2010-09-20T13:04:01Z [19355] INFO ready for business
+2020-07-23T09:46:03Z --> [17493] INFO ...
 ```
 
-when no thread is logged and
+## Process ID, Thread ID and Name
 
-```
-2010-09-20T13:04:17Z [19371-18446744072487317056] ready for business
-```
+Log Process identifier: `--log.process` (introduced in 3.8.0)
 
-when this command line option is set.
+Log thread identifier: `--log.thread`
+
+Log thread name: `--log.thread-name`
+
+When log output is generated, the process ID is emitted as part of the log
+information by default. This can be turned off by adjusting the `--log.process`
+option.
+
+The thread ID is not emitted by default, but it can be enabled by setting the
+option `--log.thread`.
 
 To also log thread names, it is possible to set the `--log.thread-name`
 option. By default `--log.thread-name` is set to `false`.
 
-### Role
+Here is an example that only contains the process ID (19355 in this case):
+
+```
+2010-09-20T13:04:01Z [19355] ... ready for business
+```
+
+And here is an example that also contains the thread ID in addition:
+
+```
+2010-09-20T13:04:17Z [19371-18446744072487317056] ... ready for business
+```
+
+And another example with process and thread identifier logging disabled,
+but thread name logging turned on:
+
+```
+2010-09-20T13:04:29Z [main] ... ready for business
+```
+
+## IDs
+
+Log IDs: `--log.ids true`
+
+Since ArangoDB 3.5, each log invocation in the ArangoDB source code contains
+a unique log ID, which can be used to quickly find the location in the source
+code that produced a specific log message. These log IDs are shown by
+default, unless the option `--log.ids` is set to `false`.
+
+Log IDs are printed as 5-digit hexadecimal identifiers in square brackets
+between the log level and the log topic, e.g.
+
+```
+2020-06-22T21:16:48Z [39028] INFO [144fe] {general} using storage engine 'rocksdb'
+```
+(where `144fe` is the log ID).
+
+## Role
 
 Log role: `--log.role`
 
 When set to `true`, this option will make the ArangoDB logger print a single
 character with the server's role into each logged message. The roles are:
 
-- U: undefined/unclear (used at startup)
-- S: single server
+- U: Undefined / unclear (used at startup)
+- S: Single server
 - C: Coordinator
-- P: DB-Server (primary)
+- P: Primary / DB-Server
 - A: Agent
 
 The default value for this option is `false`, so no roles will be logged.
+
+## JSON log output
+
+<small>Introduced in: 3.8.0</small>
+
+Toggle JSON log output: `--log.use-json-format`
+
+This option can be used to switch log output to JSON format.
+Each log message then produces a separate line with JSON-encoded log data,
+which can be consumed by applications.
+
+The attributes produced for each log message JSON object are:
+
+| Key        | Value      |
+|:-----------|:-----------|
+| `time`     | date/time of log message, in format specified by `--log.time-format`
+| `prefix`   | only emitted if `--log.prefix` is set
+| `pid`      | process id, only emitted if `--log.process` is set
+| `tid`      | thread id, only emitted if `--log.thread` is set
+| `thread`   | thread name, only emitted if `--log.thread-name` is set
+| `role`     | server role (1 character), only emitted if `--log.role` is set
+| `level`    | log level (e.g. `"WARN"`, `"INFO"`)
+| `file`     | source file name of log message, only emitted if `--log.file-name` is set
+| `line`     | source file line of log message, only emitted if `--log.file-name` is set 
+| `function` | source file function name, only emitted if `--log.file-name` is set
+| `topic`    | log topic name
+| `id`       | log id (5 digit hexadecimal string), only emitted if `--log.ids` is set
+| `message`  | the actual log message payload
 
 ### Log API Access
 
@@ -239,3 +304,16 @@ The possible values for this option are:
  - `false`: The API `/_admin/log` is not accessible at all.
 
 The default value is `true`.
+
+## Logging to memory buffers
+
+<small>Introduced in: 3.8.0</small>
+
+Log to memory: `--log.in-memory`
+
+This option can be used to toggle storing log messages in memory, from which
+they can be consumed via the `/_admin/log` HTTP API and via the Web UI.
+By default, this option is turned on, so log messages are consumable via the
+API and UI. Turning this option off will disable that functionality, save a
+tiny bit of memory for the in-memory log buffers and prevent potential log
+information leakage via these means.
