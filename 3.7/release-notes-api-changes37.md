@@ -86,8 +86,8 @@ The REST API endpoints for updating, replacing and removing documents using a re
 id guard value now may return a different error message string in case the document
 exists on the server with a revision id value other than the specified one.
 The API still returns HTTP 412, and ArangoDB error code 1200 as previously, but the
-error message string in the `errorMessage` return value attribute changes from 
-"precondition failed" to "conflict". 
+error message string in the `errorMessage` return value attribute may change from 
+"precondition failed" to "conflict", "write-write conflict" or other values. 
 
 ### REST endpoints added
 
