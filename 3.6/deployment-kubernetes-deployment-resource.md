@@ -46,7 +46,7 @@ spec:
     storageClassName: ssd
   coordinators:
     count: 3
-  image: "arangodb/arangodb:3.6.5"
+  image: "arangodb/arangodb:3.3.4"
 ```
 
 ## Specification reference
@@ -468,25 +468,6 @@ deployment is used.
 This setting specifies the resources required by the metrics container. 
 This includes requests and limits. 
 See [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container){:target="_blank"}.
-
-### `spec.metrics.mode: string`
-
-<small>Introduced in: v1.0.2 (kube-arangodb)</small>
-
-Defines metrics exporter mode.
-
-Possible values:
-- `exporter` (default) - add sidecar to pods (except Agency pods) and exposes metrics collected by exporter from ArangoDB Container. Exporter in this mode expose metrics which are accessible without authentication.
-- `sidecar` - add sidecar to all pods and expose metrics from ArangoDB metrics endpoint. Exporter in this mode expose metrics which are accessible without authentication.
-- `internal` - configure ServiceMonitor to use internal ArangoDB metrics endpoint (proper JWT token is generated for this endpoint)
-
-### `spec.metrics.tls: bool`
-
-<small>Introduced in: v1.1.0 (kube-arangodb)</small>
-
-Defines if TLS should be enabled on Metrics exporter endpoint. Default value is set to `true`.
-
-This option will enable TLS only if TLS is enabled on ArangoDeployment, otherwise `true` value will not take any effect.
 
 ### `spec.lifecycle.resources: ResourceRequirements`
 
