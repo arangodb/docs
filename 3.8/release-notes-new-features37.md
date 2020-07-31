@@ -600,17 +600,9 @@ It is possible to change the user supplied encryption key via the
 by sending a POST request without payload to the new endpoint
 `/_admin/server/encryption`. The file supplied via `--rocksdb.encryption-keyfile`
 will be reloaded and the internal encryption key will be re-encrypted with the
-new user key. Note that this API is turned off by default. It can be enabled
-via the `--rocksdb.encryption-key-rotation` startup option.
-
-Similarly the new option `--rocksdb.encryption-keyfolder` can be used
-to supply multiple user keys. By default, the first available user-supplied key 
-will be used as the internal encryption key. Alternatively, if the option 
-`--rocksdb.encryption-gen-internal-key` is set to `true`, a random internal 
-key will be generated and encrypted with each of the provided user keys.
-
-Please be aware that the encryption at rest key rotation is an **experimental** 
-feature, and its APIs and behavior are still subject to change. 
+new user key. Similarly the new option `--rocksdb.encryption-keyfolder` can be used
+to supply multiple user keys. A random internal key will be generated and
+encrypted with each of the provided user keys.
 
 ### Insert-Update and Insert-Ignore
 
