@@ -24,8 +24,6 @@ The data is encrypted with AES-256-CTR, which is a strong encryption
 algorithm, that is very suitable for multi-processor environments. This means that
 your data is safe, but your database is still fast, even under load.
 
-Most modern CPU's have builtin support for hardware AES encryption, which makes it even faster.
-
 The encryption feature is supported by all ArangoDB deployment modes.
 
 ## Limitations
