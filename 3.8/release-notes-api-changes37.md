@@ -60,7 +60,7 @@ as follows:
 - for HTTP PUT requests, only admin users can access the API, regardless of the value
   of `--server.harden`.
 
-### Endpoints API return value changes
+### Endpoint return value changes
 
 The REST API endpoint at `/_api/cluster/endpoints` will now return HTTP 501 (Not
 implemented) on single server instead of HTTP 403 (Forbidden), which it returned
@@ -77,16 +77,9 @@ following response body:
 In previous releases, calling that endpoint with an empty JSON object as
 the request body returned a JSON response that was just `true`.
 
-### Precondition failed error message changes
+### Endpoints added
 
-The REST API endpoints for updating, replacing and removing documents using a revision
-id guard value now may return a different error message string in case the document
-exists on the server with a revision id value other than the specified one.
-The API still returns HTTP 412, and ArangoDB error code 1200 as previously, but the
-error message string in the `errorMessage` return value attribute may change from 
-"precondition failed" to "conflict, _rev values do not match", "write-write conflict" or other values. 
-
-### REST Endpoints augmented
+### Endpoints augmented
 
 The REST API endpoint for inserting documents at POST `/_api/document/<collection>`
 will now handle the URL parameter `overwriteMode`.
@@ -152,7 +145,7 @@ graphs at GET `/_api/gharial` or a graph definition of a single graph at
 GET `/_api/gharial/{graph}` will include an additional boolean attribute
 called `isDisjoint` in case of **Disjoint SmartGraphs**.
 
-### REST endpoints moved
+### Endpoints moved
 
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
 naming consistency:
@@ -173,7 +166,7 @@ naming consistency:
 The above endpoints are part of ArangoDB's exposed REST API, however, they are
 not supposed to be called directly by drivers or client
 
-### REST endpoints removed
+### Endpoints removed
 
 The REST API endpoint at `/_admin/aql/reload` has been removed in ArangoDB 3.7.
 There is no necessity to call this endpoint from a driver or a client application
