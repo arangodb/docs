@@ -476,17 +476,24 @@ See [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration
 Defines metrics exporter mode.
 
 Possible values:
-- `exporter` (default) - add sidecar to pods (except Agency pods) and exposes metrics collected by exporter from ArangoDB Container. Exporter in this mode expose metrics which are accessible without authentication.
-- `sidecar` - add sidecar to all pods and expose metrics from ArangoDB metrics endpoint. Exporter in this mode expose metrics which are accessible without authentication.
-- `internal` - configure ServiceMonitor to use internal ArangoDB metrics endpoint (proper JWT token is generated for this endpoint)
+- `exporter` (default): add sidecar to pods (except Agency pods) and exposes
+   metrics collected by exporter from ArangoDB Container. Exporter in this mode
+   expose metrics which are accessible without authentication.
+- `sidecar`: add sidecar to all pods and expose metrics from ArangoDB metrics
+   endpoint. Exporter in this mode expose metrics which are accessible without
+   authentication.
+- `internal`: configure ServiceMonitor to use internal ArangoDB metrics endpoint
+  (proper JWT token is generated for this endpoint).
 
 ### `spec.metrics.tls: bool`
 
 <small>Introduced in: v1.1.0 (kube-arangodb)</small>
 
-Defines if TLS should be enabled on Metrics exporter endpoint. Default value is set to `true`.
+Defines if TLS should be enabled on Metrics exporter endpoint.
+The default is `true`.
 
-This option will enable TLS only if TLS is enabled on ArangoDeployment, otherwise `true` value will not take any effect.
+This option will enable TLS only if TLS is enabled on ArangoDeployment,
+otherwise `true` value will not take any effect.
 
 ### `spec.lifecycle.resources: ResourceRequirements`
 
