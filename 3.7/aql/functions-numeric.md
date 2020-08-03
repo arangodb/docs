@@ -374,6 +374,23 @@ POW( 5, -1 ) // 0.2
 POW( 5, 0 ) // 1
 ```
 
+PRODUCT()
+-----
+
+`PRODUCT(numArray) → product`
+
+Return the product of the values in *array*.
+
+- **numArray** (array): an array of numbers, *null* values are ignored
+- returns **product** (number): the product of all values in *numArray*. If the array
+  is empty or only *null* values are contained in the array, *1* will be returned.
+
+```js
+PRODUCT( [1, 2, 3, 4] ) // 24
+PRODUCT( [null, -5, 6] ) // -30
+PRODUCT( [ ] ) // 1
+```
+
 RADIANS()
 ---------
 
