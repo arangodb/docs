@@ -268,7 +268,9 @@ IS_IPV4("12.34") // false
 IS_IPV4(8888) // false
 ```
 
+<!-- TODO
 Ein- und zweistellige Zahlen dürfen hierbei nicht mit einer vorangestellten Ziffer 0 auf ein gleichförmiges Längenformat gebracht werden (eine führende 0 ist nach RFC nicht erlaubt, da sie häufig als Oktalzahl interpretiert wird). Jedes Oktett repräsentiert 8 Bit; somit ergibt sich für jedes Oktett ein Wertebereich von 0 bis 255
+-->
 
 JSON_PARSE()
 ------------

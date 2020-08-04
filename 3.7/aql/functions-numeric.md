@@ -375,7 +375,7 @@ POW( 5, 0 ) // 1
 ```
 
 PRODUCT()
------
+---------
 
 `PRODUCT(numArray) → product`
 
