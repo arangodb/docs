@@ -372,6 +372,8 @@ what the property value suggests.
 Supported Languages
 -------------------
 
+### Tokenization and Normalization
+
 Analyzers rely on [ICU](http://site.icu-project.org/){:target="_blank"} for
 language-dependent tokenization and normalization. The ICU data file
 `icudtl.dat` that ArangoDB ships with contains information for a lot of
@@ -385,36 +387,159 @@ language rules as per the defined Analyzer locale nor the server language
 Also see [Known Issues](release-notes-known-issues37.html#arangosearch).
 {% endhint %}
 
+{% comment %}
+Language list based on tags listed under "localeFilter" in V8's ICU config file:
+https://chromium.googlesource.com/chromium/deps/icu.git/+/5005010d694e16571b8dfbf07d70817841f80a69/filters/common.json
+(dependency commit hash was determined by https://github.com/v8/v8/blob/7.9.317.34/DEPS#L78)
+
+Language names via:
+https://unicode-org.github.io/cldr-staging/charts/37/summary/root.html
+https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+{% endcomment %}
+
+| Language        | Code  |
+|:----------------|:------|
+| Afrikaans       | `af`  |
+| Akan            | `ak`  |
+| Amharic         | `am`  |
+| Arabic          | `ar`  |
+| Aragonese       | `an`  |
+| Armenian        | `hy`  |
+| Asturian        | `ast` |
+| Azeri           | `az`  |
+| Bangla          | `bn`  |
+| Basque          | `eu`  |
+| Belarusian      | `be`  |
+| Bemba           | `bem` |
+| Bosnian         | `bs`  |
+| Breton          | `br`  |
+| Bulgarian       | `bg`  |
+| Burmese         | `my`  |
+| Catalan         | `ca`  |
+| Central Kurdish | `ckb` |
+| Chinese         | `zh`  |
+| Croatian        | `hr`  |
+| Czech           | `cs`  |
+| Danish          | `da`  |
+| Dutch           | `nl`  |
+| English         | `en`  |
+| Esperanto       | `eo`  |
+| Estonian        | `et`  |
+| Ewe             | `ee`  |
+| Faroese         | `fo`  |
+| Filipino        | `fil` |
+| Finnish         | `fi`  |
+| French          | `fr`  |
+| Galician        | `gl`  |
+| Ganda           | `lg`  |
+| Georgian        | `ka`  |
+| German          | `de`  |
+| Greek           | `el`  |
+| Gujarati        | `gu`  |
+| Hausa           | `ha`  |
+| Hawaiian        | `haw` |
+| Hebrew          | `he`, `iw` (deprecated) |
+| Hindi           | `hi`  |
+| Hungarian       | `hu`  |
+| Icelandic       | `is`  |
+| Igbo            | `ig`  |
+| Indonesian      | `id`, `in` (deprecated) |
+| Irish           | `ga`  |
+| Italian         | `it`  |
+| Japanese        | `ja`  |
+| Kannada         | `kn`  |
+| Kazakh          | `kk`  |
+| Khmer           | `km`  |
+| Kinyarwanda     | `rw`  |
+| Korean          | `ko`  |
+| Kurdish         | `ku`  |
+| Kyrgyz          | `ky`  |
+| Lao             | `lo`  |
+| Latvian         | `lv`  |
+| Lingala         | `ln`  |
+| Lithuanian      | `lt`  |
+| Macedonian      | `mk`  |
+| Malagasy        | `mg`  |
+| Malay           | `ms`  |
+| Malayalam       | `ml`  |
+| Maltese         | `mt`  |
+| Marathi         | `mr`  |
+| Mongolian       | `mn`  |
+| Morisyen        | `mfe` |
+| Nepali          | `ne`  |
+| Norwegian       | `no`, `nb` (Bokmål), `nn` (Nynorsk) |
+| Nyankole        | `nyn` |
+| Odia            | `or`  |
+| Oromo           | `om`  |
+| Pashto          | `ps`  |
+| Persian         | `fa`  |
+| Polish          | `pl`  |
+| Portuguese      | `pt`  |
+| Punjabi         | `pa`  |
+| Romanian        | `ro`, `ro_MD` (Moldavian), `mo` (Moldavian, deprecated) |
+| Romansh         | `rm`  |
+| Rundi           | `rn`  |
+| Russian         | `ru`  |
+| Sango           | `sq`  |
+| Serbian         | `sr`  |
+| Serbo-Croatian  | `sh` (deprecated) |
+| Shona           | `sn`  |
+| Sinhala         | `si`  |
+| Slovak          | `sk`  |
+| Slovenian       | `sl`  |
+| Somali          | `so`  |
+| Spanish         | `es`  |
+| Swahili         | `sw`  |
+| Swedish         | `sv`  |
+| Tagalog         | `tl`  |
+| Tajik           | `tg`  |
+| Tamil           | `ta`  |
+| Telugu          | `te`  |
+| Thai            | `th`  |
+| Tigrinya        | `ti`  |
+| Tonga           | `to`  |
+| Turkish         | `tr`  |
+| Ukrainian       | `uk`  |
+| Urdu            | `ur`  |
+| Uzbek           | `uz`  |
+| Vietnamese      | `vi`  |
+| Walloon         | `wa`  |
+| Welsh           | `cy`  |
+| Yoruba          | `yo`  |
+| Zulu            | `zu`  |
+
+### Stemming
+
 Stemming support is provided by [Snowball](https://snowballstem.org/){:target="_blank"},
 which supports the following languages:
 
-Language     | Code
--------------|-----
-Arabic     * | `ar`
-Basque     * | `eu`
-Catalan    * | `ca`
-Danish     * | `da`
-Dutch        | `nl`
-English      | `en`
-Finnish      | `fi`
-French       | `fr`
-German       | `de`
-Greek      * | `el`
-Hindi      * | `hi`
-Hungarian  * | `hu`
-Indonesian * | `id`
-Irish      * | `ga`
-Italian      | `it`
-Lithuanian * | `lt`
-Nepali     * | `ne`
-Norwegian    | `no`
-Portuguese   | `pt`
-Romanian   * | `ro`
-Russian      | `ru`
-Serbian    * | `sr`
-Spanish      | `es`
-Swedish      | `sv`
-Tamil      * | `ta`
-Turkish    * | `tr`
+| Language     | Code |
+|:-------------|:-----|
+| Arabic     * | `ar` |
+| Basque     * | `eu` |
+| Catalan    * | `ca` |
+| Danish     * | `da` |
+| Dutch        | `nl` |
+| English      | `en` |
+| Finnish      | `fi` |
+| French       | `fr` |
+| German       | `de` |
+| Greek      * | `el` |
+| Hindi      * | `hi` |
+| Hungarian  * | `hu` |
+| Indonesian * | `id` |
+| Irish      * | `ga` |
+| Italian      | `it` |
+| Lithuanian * | `lt` |
+| Nepali     * | `ne` |
+| Norwegian    | `no` |
+| Portuguese   | `pt` |
+| Romanian   * | `ro` |
+| Russian      | `ru` |
+| Serbian    * | `sr` |
+| Spanish      | `es` |
+| Swedish      | `sv` |
+| Tamil      * | `ta` |
+| Turkish    * | `tr` |
 
 \* <small>Introduced in: v3.7.0</small>
