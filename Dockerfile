@@ -4,8 +4,8 @@ RUN apt-get update && \
     apt-get install -y ruby-full build-essential zlib1g-dev wget python2.7 libpython2.7
 
 RUN cd /tmp && \
-    wget https://github.com/wjdp/htmltest/releases/download/v0.10.1/htmltest_0.10.1_linux_amd64.tar.gz && \
-    tar xvzf htmltest_0.10.1_linux_amd64.tar.gz && \
+    wget https://github.com/wjdp/htmltest/releases/download/v0.12.1/htmltest_0.12.1_linux_amd64.tar.gz && \
+    tar xvzf htmltest_0.12.1_linux_amd64.tar.gz && \
     mv htmltest /usr/local/bin
 
 RUN mkdir /root/gems
