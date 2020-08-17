@@ -45,9 +45,25 @@ This change was made to put the metrics into the "arangodb" namespace, so
 that metrics from different systems can unambiguously combined into a single
 monitoring system.
 
+The REST endpoint `/_admin/metrics` also returns additional metrics in 3.7,
+compared to the list of metrics that it returned in 3.6.
+
 ## HTTP RESTful API
 
-### Endpoint return value changes
+### Privilege changes
+
+The access privileges for the REST API endpoint at `/_admin/cluster/numberOfServers`
+can now be controlled via the `--server.harden` startup option. The behavior is
+as follows:
+
+- for HTTP GET requests, all authenticated users can access the API if `--server.harden`
+  is `false` (which is the default).
+- for HTTP GET requests, only admin users can access the API if `--server.harden`
+  is `true`. This is a change compared to previous versions.
+- for HTTP PUT requests, only admin users can access the API, regardless of the value
+  of `--server.harden`.
+
+### Endpoints API return value changes
 
 The REST API endpoint at `/_api/cluster/endpoints` will now return HTTP 501 (Not
 implemented) on single server instead of HTTP 403 (Forbidden), which it returned
@@ -64,9 +80,36 @@ following response body:
 In previous releases, calling that endpoint with an empty JSON object as
 the request body returned a JSON response that was just `true`.
 
-### Endpoints added
+### Precondition failed error message changes
 
-### Endpoints augmented
+The REST API endpoints for updating, replacing and removing documents using a
+revision ID guard value now may return a different error message string in case
+the document exists on the server with a revision ID value other than the
+specified one. The API still returns HTTP 412, and ArangoDB error code 1200 as
+previously, but the error message string in the `errorMessage` return value
+attribute may change from "precondition failed" to "conflict",
+"write-write conflict" or other values.
+
+### REST endpoints added
+
+The following REST API endpoints have been added in 3.7:
+
+- HTTP POST `/_admin/server/tls`: this endpoint can be used to change the 
+  TLS keyfile (secret key as well as public certificates) at run time. The API
+  basically makes the `arangod` server reload the keyfile from disk.
+- HTTP POST `/_admin/server/jwt`: can be used to
+  [reload the JWT secrets](http/general.html#hot-reload-of-jwt-secrets)
+  of a local arangod process without having to restart it (hot-reload).
+  This may be used to roll out new JWT secrets throughout an ArangoDB cluster.
+  This endpoint is available only in the Enterprise Edition.
+- HTTP POST `/_admin/server/encryption` can be used to
+  [reload the user-supplied key(s)](http/administration-and-monitoring.html#encryption-at-rest)
+  used for encryption at rest, after they have been changed on disk.
+  This endpoint is available only in the Enterprise Edition.
+
+Using these endpoints requires superuser privileges.
+
+### REST endpoints augmented
 
 The REST API endpoint for inserting documents at POST `/_api/document/<collection>`
 will now handle the URL parameter `overwriteMode`.
@@ -105,6 +148,10 @@ In case the target document already exists, the `"ignore"` mode is most
 efficient, as it will not retrieve the existing document from storage and
 not write any updates to it.
 
+Note that operations with `overwrite` or `overwriteMode` parameter require
+a `_key` attribute in the request payload, therefore they can only be performed
+on collections sharded by `_key`.
+
 The REST API endpoints for creating collections at POST `/_api/collection` as well
 as listing and changing collection properties at PUT/GET
 `/_api/collection/<collection>/properties` will now make use of the additional
@@ -132,7 +179,10 @@ graphs at GET `/_api/gharial` or a graph definition of a single graph at
 GET `/_api/gharial/{graph}` will include an additional boolean attribute
 called `isDisjoint` in case of **Disjoint SmartGraphs**.
 
-### Endpoints moved
+The REST endpoint `/_admin/metrics` also returns additional metrics in 3.7,
+compared to the list of metrics that it returned in 3.6.
+
+### REST endpoints moved
 
 The following existing REST APIs have moved in ArangoDB 3.7 to improve API
 naming consistency:
@@ -153,7 +203,7 @@ naming consistency:
 The above endpoints are part of ArangoDB's exposed REST API, however, they are
 not supposed to be called directly by drivers or client
 
-### Endpoints removed
+### REST endpoints removed
 
 The REST API endpoint at `/_admin/aql/reload` has been removed in ArangoDB 3.7.
 There is no necessity to call this endpoint from a driver or a client application
@@ -189,3 +239,5 @@ have been added:
   automatic detection of the total amount of RAM present on the system.
 - `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` can be used to override the
   automatic detection of the number of CPU cores present on the system.
+- `ARANGODB_OVERRIDE_CRASH_HANDLER` can be used to toggle the presence
+  of the built-in crash handler on Linux deployments.

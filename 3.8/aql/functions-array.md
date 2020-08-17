@@ -173,7 +173,10 @@ RETURN FLATTEN( [ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ] ], 2 )
 
 `INTERLEAVE(array1, array2, ... arrayN) → newArray`
 
-Interleave the elements of all input arrays and return a new array.
+Accepts an arbitrary number of arrays and produces a new array with the elements
+interleaved. It iterates over the input arrays in a round robin fashion, picks one element
+from each array per iteration, and combines them in that sequence into a result array.
+The input arrays can have different amounts of elements.
 
 - **arrays** (array, *repeatable*): an arbitrary number of arrays as multiple
   arguments (at least 2)
@@ -196,6 +199,17 @@ RETURN INTERLEAVE( [1, 1, 1], [2, 2, 2], [3, 3, 3] )
 RETURN INTERLEAVE( [ 1 ], [2, 2], [3, 3, 3] )
 @END_EXAMPLE_AQL
 @endDocuBlock aqlArrayInterleave_2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlArrayInterleave_3
+@EXAMPLE_AQL{aqlArrayInterleave_3}
+@DATASET{kShortestPathsGraph}
+FOR v, e, p IN 1..3 OUTBOUND 'places/Toronto' GRAPH 'kShortestPathsGraph'
+  RETURN INTERLEAVE(p.vertices[*]._id, p.edges[*]._id)
+@END_EXAMPLE_AQL
+@endDocuBlock aqlArrayInterleave_3
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 

@@ -12,6 +12,7 @@ here.
 ArangoSearch
 ------------
 
+{% comment %}
 ### Wildcard search
 
 ArangoSearch was extended to support the `LIKE()` function and `LIKE` operator
@@ -29,6 +30,7 @@ FOR doc IN viewName
 ```
 
 See [ArangoSearch functions](aql/functions-arangosearch.html#like)
+{% endcomment %}
 
 ### Covering Indexes
 
@@ -520,7 +522,7 @@ soon as they are applied in the Agency, meaning that Coordinators and DB-Servers
 can apply them immediately and incrementally. This removes the need for full
 reloads. As a consequence, a significant reduction of overall network traffic between 
 Agents and other cluster nodes is expected, plus a significant reduction in CPU
-usage for assembling, parsing and applying the full `Plan` or `Current` parts.
+usage on Agents for assembling and sending the `Plan` or `Current` parts.
 Another positive side effect of this modification is that changes made to Agency 
 data should propagate faster in the cluster.
 
@@ -600,9 +602,17 @@ It is possible to change the user supplied encryption key via the
 by sending a POST request without payload to the new endpoint
 `/_admin/server/encryption`. The file supplied via `--rocksdb.encryption-keyfile`
 will be reloaded and the internal encryption key will be re-encrypted with the
-new user key. Similarly the new option `--rocksdb.encryption-keyfolder` can be used
-to supply multiple user keys. A random internal key will be generated and
-encrypted with each of the provided user keys.
+new user key. Note that this API is turned off by default. It can be enabled
+via the `--rocksdb.encryption-key-rotation` startup option.
+
+Similarly the new option `--rocksdb.encryption-keyfolder` can be used
+to supply multiple user keys. By default, the first available user-supplied key 
+will be used as the internal encryption key. Alternatively, if the option 
+`--rocksdb.encryption-gen-internal-key` is set to `true`, a random internal 
+key will be generated and encrypted with each of the provided user keys.
+
+Please be aware that the encryption at rest key rotation is an **experimental** 
+feature, and its APIs and behavior are still subject to change. 
 
 ### Insert-Update and Insert-Ignore
 
@@ -660,6 +670,37 @@ configurable in _arangod_:
 - `--rocksdb.pin-top-level-index-and-filter` make the top-level index of
   partitioned filter and index blocks pinned and only be evicted from cache
   when the table reader is freed
+
+Pregel
+------
+
+A new algorithm `"wcc"` has been added to Pregel to find connected components.
+
+There are now three algorithms to find connected components in a graph:
+
+1. If your graph is effectively undirected (you have edges in both directions
+   between vertices) then the simple connected components algorithm named
+   `"connectedcomponents"` is suitable.
+
+   It is a very simple and fast algorithm, but will only work correctly on undirected
+   graphs. Your results on directed graphs may vary, depending on how connected your
+   components are.
+
+2. To find **weakly connected components** (WCC) you can now use the new algorithm named
+   `"wcc"`. Weakly connected means that there exists a path from every vertex pair in
+   that component.
+
+   This algorithm will work on directed graphs but requires a greater amount of traffic
+   between your DB-Servers.
+
+3. to find **strongly connected components** (SCC) you can use the algorithm named
+   `"scc"`. Strongly connected means every vertex is reachable from any other vertex in
+   the same component.
+
+   The algorithm is more complex than the WCC algorithm and requires more memory,
+   because each vertex needs to store much more state.
+
+Also see [Pregel](graphs-pregel.html#connected-components)
 
 Foxx
 ----
@@ -747,7 +788,7 @@ The [`query` helper](appendix-java-script-modules-arango-db.html#the-query-helpe
 was extended to support passing [query options](aql/invocation-with-arangosh.html#setting-options):
 
 ```js
-require("@arangodb").query( { maxRuntime: 1 } )`SLEEP(2)`
+require("@arangodb").query( { maxRuntime: 1 } )`RETURN SLEEP(2)`
 ```
 
 Web UI
@@ -803,7 +844,9 @@ The following metrics have been added in ArangoDB 3.7:
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
 | `arangodb_http_request_statistics_total_requests` | Total number of HTTP requests |
+| `arangodb_load_current_accum_runtime_msec` | Accumulated Current loading time |
 | `arangodb_load_current_runtime` | Current loading runtimes |
+| `arangodb_load_plan_accum_runtime_msec` | Accumulated Plan loading time |
 | `arangodb_load_plan_runtime` | Plan loading runtimes |
 | `arangodb_maintenance_action_accum_queue_time_msec` | Accumulated action queue time |
 | `arangodb_maintenance_action_accum_runtime_msec` | Accumulated action runtime |
