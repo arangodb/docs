@@ -780,7 +780,7 @@ FOR doc IN viewName
 
 ### LIKE()
 
-<small>Introduced in: v3.7.0</small>
+<small>Introduced in: v3.7.2</small>
 
 `LIKE(path, search)`
 
