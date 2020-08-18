@@ -12,7 +12,6 @@ here.
 ArangoSearch
 ------------
 
-{% comment %}
 ### Wildcard search
 
 ArangoSearch was extended to support the `LIKE()` function and `LIKE` operator
@@ -30,7 +29,6 @@ FOR doc IN viewName
 ```
 
 See [ArangoSearch functions](aql/functions-arangosearch.html#like)
-{% endcomment %}
 
 ### Covering Indexes
 

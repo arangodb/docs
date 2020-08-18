@@ -502,10 +502,8 @@ Object tokens:
 - `{TERMS: [token1, ..., tokenN]}`: one of `token1, ..., tokenN` can be found
   in specified position. Inside an array the object syntax can be replaced with
   the object field value, e.g., `[..., [token1, ..., tokenN], ...]`.
-{% comment %}
 - `{WILDCARD: [token]}`: see [LIKE()](#like).
   Array brackets are optional
-{% endcomment %}
 
 An array token inside an array can be used in the `TERMS` case only.
 
@@ -780,7 +778,6 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
-{% comment %}
 ### LIKE()
 
 <small>Introduced in: v3.7.0</small>
@@ -810,7 +807,6 @@ FOR doc IN viewName
   SEARCH ANALYZER(doc.text LIKE "foo%b_r", "text_en")
   RETURN doc.text
 ```
-{% endcomment %}
 
 ### TOKENS()
 
