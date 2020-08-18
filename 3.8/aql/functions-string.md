@@ -191,7 +191,7 @@ FIND_LAST("foobarbaz", "ba", 0, 4) // 3
 ```
 
 FNV64()
------
+-------
 
 `FNV64(text) → hash`
 
@@ -285,16 +285,14 @@ the [amount of documents](functions-miscellaneous.html#length) in a collection.
 LEVENSHTEIN_DISTANCE()
 ----------------------
 
-<small>Introduced in: v3.7.1</small>
+`LEVENSHTEIN_DISTANCE(value1, value2) → distance`
 
-`LEVENSHTEIN_DISTANCE(value1, value2) → levenshteinDistance`
-
-Calculate the [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance){:target="_blank"}
+Calculate the [Damerau-Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance){:target="_blank"}
 between two strings.
 
 - **value1** (string): a string
 - **value2** (string): a string
-- returns **levenshteinDistance** (number): calculated Levenshtein distance
+- returns **distance** (number): calculated Damerau-Levenshtein distance
   between the input strings *value1* and *value2*
 
 ```js
