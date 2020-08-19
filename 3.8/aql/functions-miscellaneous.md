@@ -421,7 +421,7 @@ RETURN 1 == 2 && FAIL("error") ? true : false // false
 RETURN 1 == 1 && FAIL("error") ? true : false // aborted with error
 ```
 
-### NOOPT()
+### NOOPT() / NOEVAL()
 
 `NOOPT(value) → retVal`
 
