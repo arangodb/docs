@@ -3,6 +3,7 @@ arangosh&gt; db._query(<span class="hljs-string">`FOR i IN 1..100
 ........&gt;                INTO mycollection`</span>
 ........&gt; ).getExtra();
 { 
+  <span class="hljs-string">"warnings"</span> : [ ], 
   <span class="hljs-string">"stats"</span> : { 
     <span class="hljs-string">"writesExecuted"</span> : <span class="hljs-number">100</span>, 
     <span class="hljs-string">"writesIgnored"</span> : <span class="hljs-number">0</span>, 
@@ -10,8 +11,7 @@ arangosh&gt; db._query(<span class="hljs-string">`FOR i IN 1..100
     <span class="hljs-string">"scannedIndex"</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.002196788787841797</span>, 
-    <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">71560</span> 
-  }, 
-  <span class="hljs-string">"warnings"</span> : [ ] 
+    <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.003725968999788165</span>, 
+    <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">39544</span> 
+  } 
 }

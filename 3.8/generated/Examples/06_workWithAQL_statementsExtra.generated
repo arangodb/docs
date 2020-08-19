@@ -7,6 +7,7 @@ arangosh&gt; db._query(<span class="hljs-string">`
 ........&gt;  {<span class="hljs-attr">fullCount</span>: <span class="hljs-literal">true</span>}
 ........&gt; ).getExtra();
 { 
+  <span class="hljs-string">"warnings"</span> : [ ], 
   <span class="hljs-string">"stats"</span> : { 
     <span class="hljs-string">"writesExecuted"</span> : <span class="hljs-number">100</span>, 
     <span class="hljs-string">"writesIgnored"</span> : <span class="hljs-number">0</span>, 
@@ -15,10 +16,9 @@ arangosh&gt; db._query(<span class="hljs-string">`
     <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">"fullCount"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.0023794174194335938</span>, 
-    <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">73792</span> 
-  }, 
-  <span class="hljs-string">"warnings"</span> : [ ] 
+    <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.004427175037562847</span>, 
+    <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">41776</span> 
+  } 
 }
 arangosh&gt; db._query({
 ........&gt;  <span class="hljs-string">"query"</span>: <span class="hljs-string">`FOR i IN 200..@count INSERT
@@ -28,6 +28,7 @@ arangosh&gt; db._query({
 ........&gt;  <span class="hljs-string">"options"</span>: { <span class="hljs-attr">fullCount</span>: <span class="hljs-literal">true</span>}
 ........&gt; }).getExtra();
 { 
+  <span class="hljs-string">"warnings"</span> : [ ], 
   <span class="hljs-string">"stats"</span> : { 
     <span class="hljs-string">"writesExecuted"</span> : <span class="hljs-number">101</span>, 
     <span class="hljs-string">"writesIgnored"</span> : <span class="hljs-number">0</span>, 
@@ -36,8 +37,7 @@ arangosh&gt; db._query({
     <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">"fullCount"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.0021543502807617188</span>, 
-    <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">73955</span> 
-  }, 
-  <span class="hljs-string">"warnings"</span> : [ ] 
+    <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.0042801471427083015</span>, 
+    <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">41939</span> 
+  } 
 }
