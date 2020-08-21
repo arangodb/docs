@@ -120,7 +120,7 @@ to compile with the `Debug` build type:
     
     cmake .. -DCMAKE_BUILD_TYPE=Debug
 
-The `Debug` target enables additional sanity checks etc. which would slow down
+The `Debug` target enables additional checks etc. which would slow down
 production binaries. If no build type is specified, ArangoDB will be compiled
 with build type `RelWithDebInfo`, which is a compromise between good
 performance and medium debugging experience.

@@ -25,7 +25,7 @@ Version 3.7
 **All Editions**
 
 - **ArangoSearch**:
-  Fuzzy search
+  [Wildcard](aql/functions-arangosearch.html#like) and fuzzy search
   ([Levenshtein distance](aql/functions-arangosearch.html#levenshtein_match) and
   [n-gram based](aql/functions-arangosearch.html#ngram_match)),
   [enhanced phrase](aql/functions-arangosearch.html#phrase) and

@@ -6,7 +6,7 @@ description: arangod provides a variety of options to make a setup more secure
 
 _arangod_ provides a variety of options to make a setup more secure. 
 Administrators can use these options to limit access to certain ArangoDB
-server functionality as well as providing the leakage of information about
+server functionality as well as preventing the leakage of information about
 the environment that a server is running in.
 
 ## General security options
@@ -36,24 +36,24 @@ The following security options are available:
 secure when it comes to running application code in it. Below you will find 
 an overview of the relevant options.
 
-### Blacklist and whitelists
+### Allowlists and denylists
 
-Several options exists to restrict JavaScript application code functionality 
+Several options exist to restrict JavaScript application code functionality 
 to just certain allowed subsets. Which subset of functionality is available
-can be controlled via blacklisting and whitelisting access to individual 
+can be controlled via "denylisting" and "allowlisting" access to individual 
 components.
 
 The set theory for these lists works as follow:
 
-- **Only a blacklist is specified:**
-  Everything is allowed except a set of items matching the blacklist.
-- **Only a whitelist is specified:**
-  Everything is disallowed except the set of items matching the whitelist.
-- **Both whitelist and blacklist are specified:**
-  Everything is disallowed except the set of items matching the whitelist.
-  From this whitelisted set, subsets can be forbidden again using the blacklist.
+- **Only a denylist is specified:**
+  Everything is allowed except a set of items matching the denylist.
+- **Only an allowlist is specified:**
+  Everything is disallowed except the set of items matching the allowlist.
+- **Both allowlist and denylist are specified:**
+  Everything is disallowed except the set of items matching the allowlist.
+  From this allowed set, subsets can be forbidden again using the denylist.
 
-Values for blacklist and whitelist options need to be specified as ECMAScript 
+Values for denylist and allowlist options need to be specified as ECMAScript 
 regular expressions.
 Each option can be used multiple times. When specifying more than one 
 pattern, these patterns will be combined with a _logical or_ to the actual pattern
@@ -67,19 +67,19 @@ These patterns and how they are applied can be observed by enabling
 The security option to observe the behavior of the pattern matching most easily
 is the masquerading of the startup options:
 
-    --javascript.startup-options-whitelist "^server\."
-    --javascript.startup-options-whitelist "^log\."
-    --javascript.startup-options-blacklist "^javascript\."
-    --javascript.startup-options-blacklist "^endpoint$"
+    --javascript.startup-options-allowlist "^server\."
+    --javascript.startup-options-allowlist "^log\."
+    --javascript.startup-options-denylist "^javascript\."
+    --javascript.startup-options-denylist "^endpoint$"
 
 These sets will resolve internally to the following regular expressions:
 
 ```
---javascript.startup-options-whitelist = "^server\.|^log\."
---javascript.startup-options-blacklist = "^javascript\.|endpoint"
+--javascript.startup-options-allowlist = "^server\.|^log\."
+--javascript.startup-options-denylist = "^javascript\.|endpoint"
 ```
 
-Invoking an arangosh with these options will hide the blacklisted commandline
+Invoking an arangosh with these options will hide the denied commandline
 options from the output of: 
 
 ```js
@@ -92,21 +92,21 @@ in the same way as if they weren't there in first place.
 #### File access
 
 In contrast to other areas, access to directories and files from JavaScript
-operations is only controlled via a whitelist, which can be specified via the
-startup option `--javascript.files-whitelist`. Thus any files or directories
-not matching the whitelist will be inaccessible from JavaScript filesystem
+operations is only controlled via an allowlist, which can be specified via the
+startup option `--javascript.files-allowlist`. Thus any files or directories
+not matching the allowlist will be inaccessible from JavaScript filesystem
 functions.
 
 For example, when using the following startup options
 
-    --javascript.files-whitelist "^/etc/required/"
-    --javascript.files-whitelist "^/etc/mtab/"
-    --javascript.files-whitelist "^/etc/issue$"
+    --javascript.files-allowlist "^/etc/required/"
+    --javascript.files-allowlist "^/etc/mtab/"
+    --javascript.files-allowlist "^/etc/issue$"
 
 The file `/etc/issue` will be allowed to accessed and all files in the directories
 `/etc/required` and `/etc/mtab` plus their subdirectories will be accessible,
-while access to files in any other directories 
-will be disallowed from JavaScript operations, with the following exceptions:
+while access to files in any other directories will be disallowed from JavaScript 
+operations, with the following exceptions:
 
 - ArangoDB's temporary directory: JavaScript code is given access to this
   directory for storing temporary files. The temporary directory location 
@@ -120,7 +120,7 @@ will be disallowed from JavaScript operations, with the following exceptions:
 
 #### Endpoint access
 
-The endpoint black/white listing limits access to external HTTP resources. 
+The endpoint allow-/denylisting limits access to external HTTP resources. 
 In contrast to the URLs specified in the JavaScript code, the filters have
 to be specified in the ArangoDB endpoints notation: 
 
@@ -145,30 +145,30 @@ Specifying `ssl://arangodb.org:443` will match:
 Specifying `tcp://arangodb.org` will match:
  - `http://arangodb.org` 
 
-This can be tried out using a whitelist - all non matches will be blocked:
+This can be tried out using an allowlist - all non matches will be blocked:
 
 ```
-arangosh --javascript.endpoints-whitelist ssl://arangodb.org
+arangosh --javascript.endpoints-allowlist ssl://arangodb.org
 127.0.0.1:8529@_system> require('internal').download('https://arangodb.org:4444')
-<whitelist permitted, error on trying to connect>
+<allowlist permitted, error on trying to connect>
 127.0.0.1:8529@_system> require('internal').download('http://arangodb.org')
 JavaScript exception: ArangoError 11: not allowed to connect to this endpoint
 ```
 
-### Options for blacklisting and whitelisting
+### Options supporting allowlisting and denylisting
 
-The following options are available for blacklisting and whitelisting access
+The following options are available for allowing and denying access
 to dedicated functionality for application code:
 
-- `--javascript.startup-options-[whitelist|blacklist]`:
+- `--javascript.startup-options-[allowlist|denylist]`:
   These options control which startup options will be exposed to JavaScript code, 
-  following above rules for blacklists and whitelists.
+  following above rules for allowlists and denylists.
 
-- `--javascript.environment-variables-[whitelist|blacklist]`:
+- `--javascript.environment-variables-[allowlist|denylist]`:
   These options control which environment variables will be exposed to JavaScript
-  code, following above rules for blacklists and whitelists.
+  code, following above rules for allowlists and denylists.
 
-- `--javascript.endpoints-[whitelist|blacklist]`:
+- `--javascript.endpoints-[allowlist|denylist]`:
   These options control which endpoints can be used from within the `@arangodb/request`
   JavaScript module.
   Endpoint values are passed into the filter in a normalized format starting
@@ -177,12 +177,12 @@ to dedicated functionality for application code:
   and that the endpoint can be specified either as an IP address or host name
   from application code.
 
-- `--javascript.files-whitelist`:
+- `--javascript.files-allowlist`:
   This option controls which filesystem paths can be accessed from JavaScript code.
 
 ### Additional JavaScript security options
 
-In addition to the blacklisting and whitelisting security options, the following
+In addition to the allowlisting and denylisting security options, the following
 extra options are available for locking down JavaScript access to server functionality:
 
 - `--javascript.allow-port-testing`:

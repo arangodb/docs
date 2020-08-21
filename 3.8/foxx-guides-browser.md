@@ -135,9 +135,9 @@ you will need to enable CORS in ArangoDB.
 
 First you need to
 [configure ArangoDB for CORS](http/general.html#cross-origin-resource-sharing-cors-requests).
-As of 3.2 Foxx will then automatically whitelist all response headers as they are used.
+As of 3.2 Foxx will then automatically allow all response headers as they are used.
 
-If you want more control over the whitelist or are using an older version of
+If you want more control over what is exposed or are using an older version of
 ArangoDB you can set the following response headers in your request handler:
 
 - `access-control-expose-headers`: a comma-separated list of response headers.

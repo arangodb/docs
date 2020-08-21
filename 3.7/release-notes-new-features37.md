@@ -12,7 +12,6 @@ here.
 ArangoSearch
 ------------
 
-{% comment %}
 ### Wildcard search
 
 ArangoSearch was extended to support the `LIKE()` function and `LIKE` operator
@@ -30,7 +29,6 @@ FOR doc IN viewName
 ```
 
 See [ArangoSearch functions](aql/functions-arangosearch.html#like)
-{% endcomment %}
 
 ### Covering Indexes
 
@@ -392,7 +390,6 @@ The following AQL functions have been added in ArangoDB 3.7:
   (now available outside of `SEARCH` operations)
 - [INTERLEAVE()](aql/functions-array.html#interleave)
 - [JACCARD()](aql/functions-array.html#jaccard)
-- [LEVENSHTEIN_DISTANCE()](aql/functions-string.html#levenshtein_distance)
 - [LEVENSHTEIN_MATCH()](aql/functions-arangosearch.html#levenshtein_match)
 - [NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match)
 - [NGRAM_POSITIONAL_SIMILARITY()](aql/functions-string.html#ngram_positional_similarity)
