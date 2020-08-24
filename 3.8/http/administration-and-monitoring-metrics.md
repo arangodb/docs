@@ -229,8 +229,8 @@ resilience is affected. Please consider contacting our support.
 
 ### List of exposed metrics
 
-| Name | Description |
-|:-----|:------------|
+| Label | Description |
+|:------|:------------|
 | `arangodb_agency_agent_read_no_leader` |  |
 | `arangodb_agency_agent_read_ok` |  |
 | `arangodb_agency_agent_write_hist` |  |
