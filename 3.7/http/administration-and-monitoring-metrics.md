@@ -172,6 +172,28 @@ Queuing requests will result in bigger latency. If your queue is constantly
 growing, you should consider scaling your system according to your needs.
 Remember to rebalance shards if you scale up DB-Servers.
 
+**Metric**
+- `arangodb_scheduler_queue_full_failures`:
+  Number of times a request/task could not be added to the scheduler queue 
+  because the queue was full. If this happens, the corresponding request will
+  be responded to with an HTTP 503 ("Service Unavailable") response.
+
+**Exposed by**
+Coordinator, DB-Server, Agents
+
+**Threshold**
+- For `arangodb_scheduler_queue_full_failures`:
+  - This should be 0, as dropping requests is an extremely undesirable event.
+
+**Troubleshoot**
+
+If the number of queue full failures is greater than zero and even growing over
+time, it indicates that the server (or one of the server in a cluster) is
+overloaded and cannot keep up with the workload. There are many potential
+reasons for this, e.g. servers with too little capacity, spiky workloads,
+or even network connectivity issues. Whenever this problem happens, it needs
+further detailed analysis of what could be the root cause.
+
 ### Supervision
 
 The supervision is an integral part of the cluster and runs on the leading
@@ -226,7 +248,8 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_agency_supervision_runtime_wait_for_replication_msec` | Agency Supervision wait for replication time (ms) |
 | `arangodb_agency_term` | Agency's term |
 | `arangodb_agencycomm_request_time_msec` | Request time for Agency requests |
-| `arangodb_aql_total_query_time_msec` | Total execution time of all queries |
+| `arangodb_aql_slow_query` | Number of AQL slow queries |
+| `arangodb_aql_total_query_time_msec` | Total execution time of all AQL queries |
 | `arangodb_client_connection_statistics_bytes_received_bucket` | Bytes received for a request |
 | `arangodb_client_connection_statistics_bytes_sent_bucket` | Bytes sent for a request |
 | `arangodb_client_connection_statistics_io_time_bucket` | Request time needed to answer a request |
@@ -266,6 +289,7 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_maintenance_phase2_runtime_msec` | Maintenance Phase 2 runtime histogram  |
 | `arangodb_scheduler_awake_threads` | Number of awake worker threads |
 | `arangodb_scheduler_num_worker_threads` | Number of worker threads |
+| `arangodb_scheduler_queue_full_failures` | Number of times the scheduler queue was full and a task/request was rejected |
 | `arangodb_scheduler_queue_length` | Server's internal queue length |
 | `arangodb_server_statistics_physical_memory` | Physical memory in bytes |
 | `arangodb_server_statistics_server_uptime` | Number of seconds elapsed since server start |
@@ -273,3 +297,8 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_shards_not_replicated` | Number of shards not replicated at all |
 | `arangodb_shards_out_of_sync` | Number of leader shards not fully replicated |
 | `arangodb_shards_total_count` | Number of shards on this machine |
+| `arangodb_v8_context_created` | Number of V8 contexts created |
+| `arangodb_v8_context_destroyed` | Number of V8 contexts destroyed |
+| `arangodb_v8_context_enter_failures` | Number of times a V8 context could not be entered/acquired |
+| `arangodb_v8_context_entered` | Number of times a V8 context was successfully entered |
+| `arangodb_v8_context_exited` | Number of times a V8 context was successfully exited |
