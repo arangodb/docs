@@ -17,6 +17,3 @@ The official ArangoDB PHP Driver.
 - More example code, containing some code to create, delete and rename collections, is provided in the [examples](https://github.com/arangodb/arangodb-php/tree/devel/examples){:target="_blank"} subdirectory that is provided with the library.
 
 - [PHPDoc documentation](http://arangodb.github.io/arangodb-php/){:target="_blank"} for the complete library
-
-- [Follow us on Twitter](https://twitter.com/arangodbphp){:target="_blank"}
-  [@arangodbphp](https://twitter.com/arangodbphp){:target="_blank"} to receive updates on the PHP driver
