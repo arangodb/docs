@@ -233,8 +233,7 @@ retrieve the storage engine type used by the server
 `db._engine()`
 
 Returns the name of the storage engine in use (`mmfiles` or `rocksdb`), as well
-as a list of supported features (types of indexes and
-[dfdb](programs-arango-dfdb.html)).
+as a list of supported features such as types of indexes.
 
 ### Engine statistics
 

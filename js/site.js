@@ -162,7 +162,7 @@ $(document).ready(function handleNav() {
         hrefAttr.startsWith("http://") ||
         hrefAttr.startsWith("https://"))) {
       // let browser handle external link in navigation
-      return
+      return true;
     }
     event.preventDefault();
     loadPage(event.target, function(title) {

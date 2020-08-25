@@ -167,7 +167,7 @@ See [SEARCH operation](aql/operations-search.html#search-options).
 ### Primary Sort Compression Option
 
 There is a new option `primarySortCompression` which can be set on View
-creation to disable the compression of the primary sort data:
+creation to enable or disable the compression of the primary sort data:
 
 ```json
 {
@@ -181,7 +181,7 @@ creation to disable the compression of the primary sort data:
 ```
 
 It defaults to LZ4 compression (`"lz4"`), which was already used in ArangoDB
-v3.5 and v3.6.
+v3.5 and v3.6. Set it to `"none"` on View creation to trade space for speed.
 
 See [ArangoSearch Views](arangosearch-views.html#view-properties).
 
@@ -194,14 +194,29 @@ servers. In particular graph traversals are usually executed on a Coordinator,
 because they need global information. This results in a lot of network traffic
 and potentially slow query execution.
 
-SatelliteGraphs are the natural extension of the concept of Satellite
-collections to graphs. All of the usual benefits and caveats apply.
+SatelliteGraphs are the natural extension of the concept of
+SatelliteCollections to graphs. All of the usual benefits and caveats apply.
 SatelliteGraphs are synchronously replicated to all DB-Servers that are part
 of a cluster, which enables DB-Servers to execute graph traversals locally.
 This includes (k-)shortest path(s) computation and possibly joins with
 traversals and greatly improves performance for such queries.
 
-SatelliteGraphs are only available in the Enterprise Edition and the
+[SatelliteGraphs](graphs-satellite-graphs.html)
+are only available in the Enterprise Edition and the
+[ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
+
+Disjoint SmartGraphs
+--------------------
+
+SmartGraphs have been extended with a new option `isDisjoint`.
+A Disjoint SmartGraph prohibits edges connecting different SmartGraph
+components. If your graph doesn't need edges between vertices with different
+SmartGraph attribute values, then you should enable this option. This topology
+restriction allows the query optimizer to improve traversal execution times,
+because in many cases the execution can be pushed down to a single DB-Server.
+
+[Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-disjoint-smartgraphs)
+are only available in the Enterprise Edition and the
 [ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
 
 AQL
@@ -216,10 +231,49 @@ batching of requests.
 The first stage of this refactoring has been part of 3.6 already where some
 subqueries have gained a significant performance boost. 3.7 takes the next step
 in this direction. AQL can now combine skipping and producing of outputs in a
-single call, so all queries with an offset or the fullCount option enabled will
-benefit from this change straight away. This also holds true for subqueries,
+single call, so all queries with a LIMIT offset or the fullCount option enabled 
+will benefit from this change straight away. This also holds true for subqueries,
 hence the existing AQL optimizer rule `splice-subqueries` is now able to
 optimize all subqueries and is enabled by default.
+
+The query planner can now also reuse internal registers that were allocated for 
+storing temporary results inside subqueries, but not outside of subqueries.
+
+### Count optimizations
+
+Subqueries can now use an optimized code path for counting documents if they
+are supposed to only return the number of matching documents.
+The optimization will be triggered for read-only subqueries that use a full 
+collection scan or an index scan, without any additional filtering on document
+attributes (early pruning or document post-filtering) and without using LIMIT.
+
+The optimization will help in the following situation (in case `subCollection`
+is an edge collection):
+
+```js
+FOR doc IN collection
+  LET count = COUNT(
+    FOR sub IN subCollection
+      FILTER sub._from == doc._id
+      RETURN sub
+  )
+  ...
+```
+
+The restrictions are that the subquery result must only be used with the
+`COUNT`/`LENGTH` AQL function and not for anything else. The subquery itself 
+must be read-only (no data-modification subquery), not use nested FOR loops,
+no LIMIT clause and no FILTER condition or calculation that requires
+accessing document data. Accessing index data is supported for filtering (as
+in the above example that would use the edge index), but not for further 
+calculations.
+
+In case a subquery does not match these criteria, it will not use the 
+optimized code path for counting, but will execute normally.
+
+If the optimization is triggered, it will show up in the query execution
+plan under the rule name `optimize-count`, and the subquery's FOR loop will
+be marked with a `with count optimization` tag.
 
 ### Traversal optimizations
 
@@ -228,7 +282,7 @@ Graph traversal performance is improved via some internal code refactoring:
 - Traversal cursors are reused instead of recreated from scratch, if possible.
   This can save lots of calls to the memory management subsystem.
 - Unnecessary checks have been removed from the cursors, by ensuring some
-  invariants.
+  invariants beforehand.
 - Each vertex lookup needs to perform slightly less work.
 
 The traversal speedups observed by these changes alone were around 8 to 10% for
@@ -251,8 +305,10 @@ marked with `/* vertex optimized away */` in the query's execution plan output.
 Unused edge and path variables (`e` and `p`) were already optimized away in
 previous versions by the `optimize-traversals` optimizer rule.
 
-Additionally, traversals now accept the options `vertexCollections` and
-`edgeCollections` to restrict the traversal to certain vertex or edge collections.
+### Traversal collection restrictions
+
+AQL traversals now accept the options `vertexCollections` and `edgeCollections`
+to restrict the traversal to certain vertex or edge collections.
 
 The use case for `vertexCollections` is to not follow any edges that will point
 to other than the specified vertex collections, e.g.
@@ -277,37 +333,54 @@ FOR v, e, p IN 1..3 OUTBOUND 'products/123' GRAPH 'components'
 
 This is mostly useful in the context of named graphs, when the named graph
 contains many edge collections. Not restricting the edge collections for the
-traversal will make the traversal search for edges in all edge collections of
-the graph, which can be expensive. In case it is known that only certain edges
-from the named graph are needed, the `edgeCollections` option can be a handy
-performance optimization.
+traversal will make the traversal search for edges in all edge collections
+of the graph, which can be expensive. In case it is known that only certain
+edges from the named graph are needed, the `edgeCollections` option can be a
+handy performance optimization. It can replace less efficient post-filtering:
 
-### Traversal collection restrictions
+```js
+FOR v, e, p IN 1..3 OUTBOUND 'products/123' GRAPH 'components'
+  FILTER p.edges[* RETURN IS_SAME_COLLECTION("productsToBolts", CURRENT)
+                       OR IS_SAME_COLLECTION("productsToScrews", CURRENT)] ALL == true
+  RETURN v
+```
 
-Added traversal options `vertexCollections` and `edgeCollections` to restrict
-traversal to certain vertex or edge collections.
+Also see [AQL Traversal Options](aql/graphs-traversals.html#working-with-named-graphs)
 
-The use case for `vertexCollections` is to not follow any edges that will point
-to other than the specified vertex collections, e.g.
+### Traversal parallelization (Enterprise Edition)
 
-    FOR v, e, p IN 1..3 OUTBOUND 'products/123' components 
-      OPTIONS { vertexCollections: [ "bolts", "screws" ] }
+Nested traversals that run on a single server or a cluster DB-Server can now
+be executed in parallel.
 
-The traversal's start vertex is always considered valid, regardless of whether
-it is present in the `vertexCollections` option.
+Traversals have a new option `parallelism` which can be used to specify the
+level of parallelism:
 
-The use case for `edgeCollections` is to not take into consideration any edges
-from edge collections other than the specified ones, e.g.
+```js
+FOR doc IN outerCollection
+  FOR v, e, p IN 1..3 OUTBOUND doc._id GRAPH 'components'
+  OPTIONS { parallelism: 4 }
+  ...
+```
 
-    FOR v, e, p IN 1..3 OUTBOUND 'products/123' GRAPH 'components' 
-      OPTIONS { edgeCollections: [ "productsToBolts", "productsToScrews" ] }
+Traversal parallelism is opt-in. If not specified, the `parallelism` value
+implicitly defaults to 1, which means no parallelism will be used. The maximum
+value for `parallelism` is capped to the number of available cores on the
+target machine.
 
-This is mostly useful in the context of named graphs, when the named graph
-contains many edge collections. Not restricting the edge collections for the
-traversal will make the traversal search for edges in all edge collections of
-the graph, which can be expensive. In case it is known that only certain edges
-from the named graph are needed, the `edgeCollections` option can be a handy
-performance optimization.
+Due to the required synchronization for splitting up traversal inputs and
+merging results, using traversal parallelization may incur some overhead. So it
+is not a silver bullet for all use cases. However, parallelizing a traversal is
+normally useful when there are many inputs (start vertices) that the nested
+traversal can work on concurrently. This is often the case when a nested
+traversal is fed with several tens of thousands of start vertices, which can
+then be distributed randomly to worker threads for parallel execution.
+
+Right now, traversal parallelization is limited to traversals in single server
+deployments and to cluster traversals that are running in a OneShard setup.
+Cluster traversals that run on a coordinator node and SmartGraph traversals are
+currently not parallelized.
+
+See [Graph traversal options](aql/graphs-traversals.html#working-with-named-graphs)
 
 ### AQL functions added
 
@@ -317,7 +390,6 @@ The following AQL functions have been added in ArangoDB 3.7:
   (now available outside of `SEARCH` operations)
 - [INTERLEAVE()](aql/functions-array.html#interleave)
 - [JACCARD()](aql/functions-array.html#jaccard)
-- [LEVENSHTEIN_DISTANCE()](aql/functions-string.html#levenshtein_distance)
 - [LEVENSHTEIN_MATCH()](aql/functions-arangosearch.html#levenshtein_match)
 - [NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match)
 - [NGRAM_POSITIONAL_SIMILARITY()](aql/functions-string.html#ngram_positional_similarity)
@@ -365,6 +437,31 @@ evaluated once now, instead of once more for the true branch.
 
 ### Other AQL improvements
 
+#### "remove-unnecessary-calculations" optimizer rule
+
+The AQL query optimizer now tries to not move potentially expensive AQL function
+calls into loops in the `remove-unnecessary-calculations` rule.
+
+For example, in the query:
+
+```js
+LET x = NOOPT(1..100)
+LET values = SORTED(x)
+FOR j IN 1..100 
+  FILTER j IN values
+  RETURN j
+```
+
+… there is only one use of the `values` variable. So the optimizer can remove
+that variable and replace the filter condition with `FILTER j IN SORTED(x)`.
+However, that would move the potentially expensive function call into the
+inner loop, which could be a pessimization.
+
+The optimizer will not move the calculation of values into the loop anymore when
+it merges calculations in the `remove-unnecessary-calculations` optimizer rule.
+
+#### "move-calculations-down" optimizer rule
+
 The existing AQL optimizer rule `move-calculations-down` is now able to also move
 unrelated subqueries beyond SORT and LIMIT instructions, which can help avoid the
 execution of subqueries for which the results are later discarded.
@@ -381,7 +478,7 @@ FOR doc IN collection1
   RETURN { doc, sub1, sub2 }
 ```
 
-…the execution of the `sub2` subquery can be delayed to after the SORT and LIMIT.
+… the execution of the `sub2` subquery can be delayed to after the SORT and LIMIT.
 The query optimizer will automatically transform this query into the following:
 
 ```js
@@ -396,6 +493,35 @@ FOR doc IN collection1
 
 Cluster
 -------
+
+### Incremental Plan Updates
+
+In ArangoDB clusters, the Agency is the single source of truth for data definition 
+(databases, collections, shards, indexes, views), the cluster configuration and the 
+current cluster setup (e.g. shard distribution, shard leadership).
+
+Coordinators and DB-Servers in the cluster maintain a local cache of the Agency's
+information, in order to access it in a performant way whenever they need any 
+information about the setup.
+However, any change that was applied to the `Plan` and `Current` sections in the 
+Agency led to the server-local caches being invalidated, which triggered a full
+reload of either `Plan` or `Current` by all Coordinators and DB-Servers.
+The size of `Plan` and `Current` is proportional to the number of database objects,
+so fully reloading the data from the Agency is an expensive operation for deployments
+which have a high number of databases, collections, or shards.
+
+In ArangoDB 3.7 the mechanism for filling the local caches on Coordinators and
+DB-Servers with Agency data has changed fundamentally. Instead of invalidating the
+entire cache and reloading the full `Plan` or `Current` section on every change,
+each server is now using a permanent connection to the Agency and uses it to
+poll for changes. Changes to the Agency data are sent over these connections as
+soon as they are applied in the Agency, meaning that Coordinators and DB-Servers 
+can apply them immediately and incrementally. This removes the need for full
+reloads. As a consequence, a significant reduction of overall network traffic between 
+Agents and other cluster nodes is expected, plus a significant reduction in CPU
+usage on Agents for assembling and sending the `Plan` or `Current` parts.
+Another positive side effect of this modification is that changes made to Agency 
+data should propagate faster in the cluster.
 
 ### Parallel Move Shard
 
@@ -466,6 +592,25 @@ SHA-256 hash of the private key is returned.
 This allows [rotation of TLS keys and certificates](http/administration-and-monitoring.html#tls)
 without a server restart.
 
+### Encryption at rest key rotation (Enterprise Edition)
+
+It is possible to change the user supplied encryption key via the
+[HTTP API](http/administration-and-monitoring.html#encryption-at-rest)
+by sending a POST request without payload to the new endpoint
+`/_admin/server/encryption`. The file supplied via `--rocksdb.encryption-keyfile`
+will be reloaded and the internal encryption key will be re-encrypted with the
+new user key. Note that this API is turned off by default. It can be enabled
+via the `--rocksdb.encryption-key-rotation` startup option.
+
+Similarly the new option `--rocksdb.encryption-keyfolder` can be used
+to supply multiple user keys. By default, the first available user-supplied key 
+will be used as the internal encryption key. Alternatively, if the option 
+`--rocksdb.encryption-gen-internal-key` is set to `true`, a random internal 
+key will be generated and encrypted with each of the provided user keys.
+
+Please be aware that the encryption at rest key rotation is an **experimental** 
+feature, and its APIs and behavior are still subject to change. 
+
 ### Insert-Update and Insert-Ignore
 
 ArangoDB 3.7 adds an insert-update operation that is similar to the already
@@ -492,7 +637,7 @@ The query options are available in [AQL](aql/operations-insert.html#setting-quer
 the [JS API](data-modeling-documents-document-methods.html#insert--save) and
 [HTTP API](http/document-working-with-documents.html#create-document).
 
-### Override detected total memory
+### Override detected total memory and CPU cores
 
 `arangod` detects the total amount of RAM present on the system and calculates
 various default sizes based on this value. If you run it alongside other
@@ -506,6 +651,62 @@ An environment variable `ARANGODB_OVERRIDE_DETECTED_NUMBER_OF_CORES` can be
 set to restrict the number of CPU cores that are visible to arangod.
 
 See [ArangoDB Server Environment Variables](programs-arangod-env-vars.html)
+
+### RocksDB storage engine options exposed
+
+Multiple additional RocksDB configuration options are now exposed to be
+configurable in _arangod_:
+
+- `--rocksdb.cache-index-and-filter-blocks` to make the RocksDB block cache
+  quota also include RocksDB memtable sizes
+- `--rocksdb.cache-index-and-filter-blocks-with-high-priority` to use cache
+  index and filter blocks with high priority making index and filter blocks
+  be less likely to be evicted than data blocks
+- `--rocksdb.pin-l0-filter-and-index-blocks-in-cache` make filter and index
+  blocks be pinned and only evicted from cache when the table reader is freed
+- `--rocksdb.pin-top-level-index-and-filter` make the top-level index of
+  partitioned filter and index blocks pinned and only be evicted from cache
+  when the table reader is freed
+
+Pregel
+------
+
+A new algorithm `"wcc"` has been added to Pregel to find connected components.
+
+There are now three algorithms to find connected components in a graph:
+
+1. If your graph is effectively undirected (you have edges in both directions
+   between vertices) then the simple connected components algorithm named
+   `"connectedcomponents"` is suitable.
+
+   It is a very simple and fast algorithm, but will only work correctly on undirected
+   graphs. Your results on directed graphs may vary, depending on how connected your
+   components are.
+
+2. To find **weakly connected components** (WCC) you can now use the new algorithm named
+   `"wcc"`. Weakly connected means that there exists a path from every vertex pair in
+   that component.
+
+   This algorithm will work on directed graphs but requires a greater amount of traffic
+   between your DB-Servers.
+
+3. to find **strongly connected components** (SCC) you can use the algorithm named
+   `"scc"`. Strongly connected means every vertex is reachable from any other vertex in
+   the same component.
+
+   The algorithm is more complex than the WCC algorithm and requires more memory,
+   because each vertex needs to store much more state.
+
+Also see [Pregel](graphs-pregel.html#connected-components)
+
+Foxx
+----
+
+Foxx endpoints now provide the methods `securityScheme`, `securityScope` and 
+`security` to allow defining Swagger security schemes.
+
+Foxx routes now always have a Swagger `operationId`. If the route is unnamed,
+a distinct operationId will be generated based on the HTTP method and URL.
 
 JavaScript
 ----------
@@ -584,7 +785,7 @@ The [`query` helper](appendix-java-script-modules-arango-db.html#the-query-helpe
 was extended to support passing [query options](aql/invocation-with-arangosh.html#setting-options):
 
 ```js
-require("@arangodb").query( { maxRuntime: 1 } )`SLEEP(2)`
+require("@arangodb").query( { maxRuntime: 1 } )`RETURN SLEEP(2)`
 ```
 
 Web UI
@@ -592,13 +793,94 @@ Web UI
 
 The interactive description of ArangoDB's HTTP API (Swagger UI) shows the
 endpoint and model entries collapsed by default now for a better overview.
+ 
+The bundled version of Swagger has been upgraded to 3.25.1. This change has
+also been backported to ArangoDB v3.6.4.
 
 Metrics
 -------
 
-The amount of exported metrics has been extended and is now available in a
-format compatible with Prometheus. You can now easily scrape on `/_admin/metrics`.
-See [here](http/administration-and-monitoring-metrics.html).
+The amount of exported metrics for monitoring has been extended and is now 
+available in a format compatible with Prometheus. You can now easily scrape 
+on `/_admin/metrics`.
+See [Metrics HTTP API](http/administration-and-monitoring-metrics.html).
+
+The following metrics have been added in ArangoDB 3.7:
+
+| Name | Description |
+|:-----|:------------|
+| `arangodb_agency_append_hist` | Agency RAFT follower append histogram |
+| `arangodb_agency_commit_hist` | Agency RAFT commit histogram |
+| `arangodb_agency_compaction_hist` | Agency compaction histogram |
+| `arangodb_agency_local_commit_index` | This agent's commit index |
+| `arangodb_agency_log_size_bytes` | Agency replicated log size (bytes) |
+| `arangodb_agency_supervision_accum_runtime_msec` | Accumulated Supervision Runtime |
+| `arangodb_agency_supervision_accum_runtime_wait_for_replication_msec` | Accumulated Supervision  wait for replication time |
+| `arangodb_agency_supervision_failed_server_count` | Counter for FailedServer jobs |
+| `arangodb_agency_supervision_runtime_msec` | Agency Supervision runtime histogram (ms) |
+| `arangodb_agency_supervision_runtime_wait_for_replication_msec` | Agency Supervision wait for replication time (ms) |
+| `arangodb_agency_term` | Agency's term |
+| `arangodb_agencycomm_request_time_msec` | Request time for Agency requests |
+| `arangodb_aql_total_query_time_msec` | Total execution time of all queries |
+| `arangodb_client_connection_statistics_bytes_received_bucket` | Bytes received for a request |
+| `arangodb_client_connection_statistics_bytes_sent_bucket` | Bytes sent for a request |
+| `arangodb_client_connection_statistics_io_time_bucket` | Request time needed to answer a request |
+| `arangodb_client_connection_statistics_queue_time_bucket` | Request time needed to answer a request |
+| `arangodb_client_connection_statistics_request_time_bucket` | Request time needed to answer a request |
+| `arangodb_client_connection_statistics_total_time_bucket` | Total time needed to answer a request |
+| `arangodb_dropped_followers_count` |  Number of drop-follower events |
+| `arangodb_heartbeat_failures` | Counting failed heartbeat transmissions |
+| `arangodb_heartbeat_send_time_msec` | Time required to send heartbeat |
+| `arangodb_http_request_statistics_async_requests` | Number of asynchronously executed HTTP requests |
+| `arangodb_http_request_statistics_http_delete_requests` | Number of HTTP DELETE requests |
+| `arangodb_http_request_statistics_http_get_requests` | Number of HTTP GET requests |
+| `arangodb_http_request_statistics_http_head_requests` | Number of HTTP HEAD requests |
+| `arangodb_http_request_statistics_http_options_requests` | Number of HTTP OPTIONS requests |
+| `arangodb_http_request_statistics_http_patch_requests` | Number of HTTP PATH requests |
+| `arangodb_http_request_statistics_http_post_requests` | Number of HTTP POST requests |
+| `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
+| `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
+| `arangodb_http_request_statistics_total_requests` | Total number of HTTP requests |
+| `arangodb_load_current_accum_runtime_msec` | Accumulated Current loading time |
+| `arangodb_load_current_runtime` | Current loading runtimes |
+| `arangodb_load_plan_accum_runtime_msec` | Accumulated Plan loading time |
+| `arangodb_load_plan_runtime` | Plan loading runtimes |
+| `arangodb_maintenance_action_accum_queue_time_msec` | Accumulated action queue time |
+| `arangodb_maintenance_action_accum_runtime_msec` | Accumulated action runtime |
+| `arangodb_maintenance_action_done_counter` | Counter of action that are done and have been removed from the registry |
+| `arangodb_maintenance_action_duplicate_counter` | Counter of action that have been discarded because of a duplicate |
+| `arangodb_maintenance_action_failure_counter` | Failure counter for the action |
+| `arangodb_maintenance_action_queue_time_msec` | Time spend in the queue before execution |
+| `arangodb_maintenance_action_registered_counter` | Counter of action that have been registered in the action registry |
+| `arangodb_maintenance_action_runtime_msec` | Time spend execution the action |
+| `arangodb_maintenance_agency_sync_accum_runtime_msec` | Accumulated runtime of agency sync phase |
+| `arangodb_maintenance_agency_sync_runtime_msec` | Total time spend on agency sync |
+| `arangodb_maintenance_phase1_accum_runtime_msec` | Accumulated runtime of phase one |
+| `arangodb_maintenance_phase1_runtime_msec` |  Maintenance Phase 1 runtime histogram |
+| `arangodb_maintenance_phase2_accum_runtime_msec` | Accumulated runtime of phase two |
+| `arangodb_maintenance_phase2_runtime_msec` | Maintenance Phase 2 runtime histogram  |
+| `arangodb_scheduler_awake_threads` | Number of awake worker threads |
+| `arangodb_scheduler_num_worker_threads` | Number of worker threads |
+| `arangodb_scheduler_queue_length` | Server's internal queue length |
+| `arangodb_server_statistics_physical_memory` | Physical memory in bytes |
+| `arangodb_server_statistics_server_uptime` | Number of seconds elapsed since server start |
+| `arangodb_shards_leader_count gauge` | Number of leader shards on this machine |
+| `arangodb_shards_not_replicated` | Number of shards not replicated at all |
+| `arangodb_shards_out_of_sync` | Number of leader shards not fully replicated |
+| `arangodb_shards_total_count` | Number of shards on this machine |
+
+Client tools
+------------
+
+_arangodump_ and _arangorestore_ will now fail when using the `--collection` 
+option and none of the specified collections actually exist in the database (on dump) 
+or in the dump to restore (on restore). In case only some of the specified collections 
+exist, _arangodump_ / _arangorestore_ will issue warnings about the invalid collections, 
+but will continue to work for the valid collections.
+
+These change were made to make end users more aware of that the executed
+commands for dumping or restoring data refer to non-existing collections and 
+that backup or restore operations are potentially incomplete.
 
 MMFiles storage engine
 ----------------------
@@ -621,25 +903,58 @@ This change simplifies the installation procedures and internal code paths.
 Internal changes
 ----------------
 
-### Upgrade of bundled RocksDB library version
+### Upgraded bundled RocksDB library version
 
 The bundled version of the RocksDB library has been upgraded from 6.2 to 6.8.
 
+### Upgraded bundled OpenLDAP library version
+
+The OpenLDAP version used for the LDAP integration in the ArangoDB Enterprise 
+Edition has been upgraded to 2.4.50.
+This change has been backported to ArangoDB v3.6.5 as well.
+
+### Added libunwind library dependency
+
+The Linux builds of ArangoDB now use the third-party library
+[libunwind](https://github.com/libunwind/libunwind){:target="_blank"} to get
+backtraces and to symbolize stack frames.
+
+Building with libunwind can be turned off at compile time using the
+`-DUSE_LIBUNWIND` CMake variable.
+
+### Removed libcurl library dependency
+
+The compile-time dependency on libcurl was removed. Cluster-internal
+communication is now performed using [fuerte](https://github.com/arangodb/fuerte){:target="_blank"}
+instead of libcurl.
+
 ### Crash handler
 
-ArangoDB 3.7 contains a crash handler for Linux and macOS builds. The crash
-handler is supposed to log basic crash information to the ArangoDB logfile in
-case the arangod process receives one of the signals SIGSEGV, SIGBUS, SIGILL,
-SIGFPE or SIGABRT.
+The Linux builds of the arangod executable contain a built-in crash handler
+The crash handler is supposed to log basic crash information to the ArangoDB
+logfile in case the arangod process receives one of the signals SIGSEGV,
+SIGBUS, SIGILL, SIGFPE or SIGABRT. SIGKILL signals, which the operating system
+can send to a process in case of OOM (out of memory), are not interceptable and
+thus cannot be intercepted by the crash handler.
 
-If possible, the crash handler will also write a backtrace to the logfile, so
-that the crash location can be found later by ArangoDB support.
+In case the crash handler receives one of the mentioned interceptable signals,
+it will write basic crash information to the logfile and a backtrace of the
+call site. The backtrace can be provided to the ArangoDB support for further
+inspection. Note that backtaces are only usable if debug symbols for ArangoDB
+have been installed as well.
 
-By design, the crash handler will not kick in in case the arangod process is
-killed by the operating system with a SIGKILL signal, as it happens on Linux
-when the OOM killer terminates processes that consume lots of memory.
+After logging the crash information, the crash handler will execute the default
+action for the signal it has caught. If core dumps are enabled, the default
+action for these signals is to generate a core file. If core dumps are not
+enabled, the crash handler will simply terminate the program with a non-zero
+exit code.
 
-Also see [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes).
+The crash handler can be disabled at server start by setting the environment
+variable `ARANGODB_OVERRIDE_CRASH_HANDLER` to an empty string, `0` or `off`.
+
+Also see:
+- [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes)
+- [Server environment variables](programs-arangod-env-vars.html)
 
 ### Supported compilers
 
@@ -647,20 +962,14 @@ Manually compiling ArangoDB from source will require a C++17-ready compiler.
 
 Older versions of g++ that could be used to compile previous versions of
 ArangoDB, namely g++7, cannot be used anymore for compiling ArangoDB.
-g++9.2 is known to work, and is the preferred compiler to build ArangoDB
-under Linux.
+g++9.2, g++9.3 and g++10 are known to work, and are the preferred compilers 
+to build ArangoDB under Linux.
 
 Under macOS, the official compiler is clang with a minimal target of
 macOS 10.14 (Mojave).
 
 Under Windows, use the Visual C++ compiler of Visual Studio 2019 v16.5.0 or
 later. VS 2017 might still work, but is not officially supported any longer.
-
-### Removed libcurl dependency
-
-The compile-time dependency on libcurl was removed. Cluster-internal
-communication is now performed using [fuerte](https://github.com/arangodb/fuerte){:target="_blank"}
-instead of libcurl.
 
 ### Documentation generation
 

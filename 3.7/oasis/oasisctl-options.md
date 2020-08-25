@@ -29,6 +29,7 @@ oasisctl [flags]
 * [oasisctl accept](oasisctl-accept.html)	 - Accept invites
 * [oasisctl add](oasisctl-add.html)	 - Add resources
 * [oasisctl backup](oasisctl-backup.html)	 - Backup commands
+* [oasisctl clone](oasisctl-clone.html)	 - Clone resources
 * [oasisctl completion](oasisctl-completion.html)	 - Generates bash completion scripts
 * [oasisctl create](oasisctl-create.html)	 - Create resources
 * [oasisctl delete](oasisctl-delete.html)	 - Delete resources
@@ -36,7 +37,9 @@ oasisctl [flags]
 * [oasisctl get](oasisctl-get.html)	 - Get information
 * [oasisctl list](oasisctl-list.html)	 - List resources
 * [oasisctl login](oasisctl-login.html)	 - Login to ArangoDB Oasis using an API key
+* [oasisctl logs](oasisctl-logs.html)	 - Get logs of the servers of a deployment the authenticated user has access to
 * [oasisctl reject](oasisctl-reject.html)	 - Reject invites
+* [oasisctl resume](oasisctl-resume.html)	 - Resume resources
 * [oasisctl revoke](oasisctl-revoke.html)	 - Revoke keys & tokens
 * [oasisctl update](oasisctl-update.html)	 - Update resources
 * [oasisctl version](oasisctl-version.html)	 - Show the current version of this tool

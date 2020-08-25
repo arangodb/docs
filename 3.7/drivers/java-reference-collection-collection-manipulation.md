@@ -52,7 +52,7 @@ then returns collection information from the server.
 
   - **satellite**: `Boolean`
 
-    If the true the collection is created as a satellite collection.
+    If the true the collection is created as a SatelliteCollection.
     In this case the _replicationFactor_ is ignored.
 
   - **waitForSync**: `Boolean`
@@ -167,7 +167,7 @@ Alternative for [ArangoDatabase.createCollection](#arangodatabasecreatecollectio
 
   - **satellite**: `Boolean`
 
-    If the true the collection is created as a satellite collection.
+    If the true the collection is created as a SatelliteCollection.
     In this case the _replicationFactor_ is ignored.
 
   - **waitForSync**: `Boolean`

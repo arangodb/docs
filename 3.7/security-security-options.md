@@ -23,6 +23,7 @@ The following security options are available:
   - `/_admin/statistics`
   - `/_admin/statistics-description`
   - `/_api/engine/stats`
+  - `/_admin/cluster/numberOfServers`
  
   Additionally, no version details will be revealed by the version REST API at 
   `/_api/version`.
