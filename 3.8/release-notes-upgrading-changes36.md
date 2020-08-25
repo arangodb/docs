@@ -58,7 +58,7 @@ since v3.4.0.
 Requests statistics
 -------------------
 
-<small>Introduced in: 3.6.5</small>
+<small>Introduced in: v3.6.5</small>
 
 Previous versions of ArangoDB excluded all requests made to the web interface at
 `/_admin/aardvark` from the requests statistics if the request was made for the

@@ -209,7 +209,7 @@ The default value for this option is `false`, so no roles will be logged.
 
 ## Log API Access
 
-<small>Introduced in: 3.4.11</small>
+<small>Introduced in: v3.4.11</small>
 
 `/_admin/log` control: `--log.api-enabled`
 
