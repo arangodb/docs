@@ -9,7 +9,7 @@ description: ArangoJS is compatible with the latest stable version of ArangoDB a
 ArangoJS is compatible with the latest stable version of ArangoDB available at
 the time of the driver release.
 
-The [_arangoVersion_ option](http://arangodb.github.io/arangojs/modules/_connection_.html#config){:target="_blank"}
+The [_arangoVersion_ option](http://arangodb.github.io/arangojs/latest/modules/_connection_.html#config){:target="_blank"}
 can be used to tell arangojs to target a specific
 ArangoDB version. Depending on the version this will enable or disable certain
 methods and change behavior to maintain compatibility with the given version.
@@ -188,7 +188,7 @@ const db = new Database({
 ```
 
 For AQL please check out the
-[aql template tag](http://arangodb.github.io/arangojs/modules/_aql_.aql.html){:target="_blank"}
+[aql template tag](http://arangodb.github.io/arangojs/latest/modules/_aql_.aql.html){:target="_blank"}
 for writing parametrized AQL queries without making your code vulnerable to
 injection attacks.
 
