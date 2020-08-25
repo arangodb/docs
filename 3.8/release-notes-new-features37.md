@@ -824,7 +824,7 @@ The following metrics have been added in ArangoDB 3.7:
 | `arangodb_scheduler_queue_length` | Server's internal queue length |
 | `arangodb_server_statistics_physical_memory` | Physical memory in bytes |
 | `arangodb_server_statistics_server_uptime` | Number of seconds elapsed since server start |
-| `arangodb_shards_leader_count gauge` | Number of leader shards on this machine |
+| `arangodb_shards_leader_count` | Number of leader shards on this machine |
 | `arangodb_shards_not_replicated` | Number of shards not replicated at all |
 | `arangodb_shards_out_of_sync` | Number of leader shards not fully replicated |
 | `arangodb_shards_total_count` | Number of shards on this machine |
