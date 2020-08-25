@@ -17,3 +17,4 @@ JavaScript driver is **only** meant to be used when accessing ArangoDB from
 
 - [Getting Started](js-getting-started.html)
 - [Changelog](https://github.com/arangodb/arangojs/blob/master/CHANGELOG.md#readme){:target="_blank"}
+- [Reference](http://arangodb.github.io/arangojs/){:target="_blank"}
