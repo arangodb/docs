@@ -274,26 +274,6 @@ APPLY( "SUBSTRING", [ "this is a test", 0, 7 ] )
 // "this is"
 ```
 
-### ASSERT() / WARN()
-
-`ASSERT(expr, message) → retVal`<br>
-`WARN(expr, message) → retVal`
-
-The two functions evaluate an expression. In case the expression evaluates to
-*true* both functions will return *true*. If the expression evaluates to
-*false* *ASSERT* will throw an error and *WARN* will issue a warning and return
-*false*. This behavior allows the use of *ASSERT* and *WARN* in `FILTER`
-conditions.
-
-- **expr** (expression): AQL expression to be evaluated
-- **message** (string): message that will be used in exception or warning if expression evaluates to false
-- returns **retVal** (bool): returns true if expression evaluates to true
-
-```js
-FOR i IN 1..3 FILTER ASSERT(i > 0, "i is not greater 0") RETURN i
-FOR i IN 1..3 FILTER WARN(i < 2, "i is not smaller 2") RETURN i
-```
-
 ### CALL()
 
 `CALL(funcName, arg1, arg2, ... argN) → retVal`
@@ -316,6 +296,26 @@ CALL( "SUBSTRING", "this is a test", 0, 4 )
 
 Other functions
 ---------------
+
+### ASSERT() / WARN()
+
+`ASSERT(expr, message) → retVal`<br>
+`WARN(expr, message) → retVal`
+
+The two functions evaluate an expression. In case the expression evaluates to
+*true* both functions will return *true*. If the expression evaluates to
+*false* *ASSERT* will throw an error and *WARN* will issue a warning and return
+*false*. This behavior allows the use of *ASSERT* and *WARN* in `FILTER`
+conditions.
+
+- **expr** (expression): AQL expression to be evaluated
+- **message** (string): message that will be used in exception or warning if expression evaluates to false
+- returns **retVal** (bool): returns true if expression evaluates to true
+
+```js
+FOR i IN 1..3 FILTER ASSERT(i > 0, "i is not greater 0") RETURN i
+FOR i IN 1..3 FILTER WARN(i < 2, "i is not smaller 2") RETURN i
+```
 
 ### IN_RANGE()
 
