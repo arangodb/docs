@@ -205,7 +205,10 @@ string representation.
 FNV64("foobar") // "85944171F73967E8"
 ```
 
-### IPV4_FROM_NUMBER()
+IPV4_FROM_NUMBER()
+------------------
+
+<small>Introduced in: v3.7.2</small>
 
 `IPV4_FROM_NUMBER(numericAddress) → stringAddress`
 
@@ -227,7 +230,10 @@ IPV4_FROM_NUMBER(3232235522) // "192.168.0.2"
 IPV4_FROM_NUMBER(-23) // null (and produces a warning)
 ```
 
-### IPV4_TO_NUMBER()
+IPV4_TO_NUMBER()
+----------------
+
+<small>Introduced in: v3.7.2</small>
 
 `IPV4_TO_NUMBER(stringAddress) → numericAddress`
 
@@ -247,7 +253,10 @@ IPV4_TO_NUMBER("192.168.0.2") // 3232235522
 IPV4_TO_NUMBER("milk") // null (and produces a warning)
 ```
 
-### IS_IPV4()
+IS_IPV4()
+---------
+
+<small>Introduced in: v3.7.2</small>
 
 `IS_IPV4(value) → bool`
 
