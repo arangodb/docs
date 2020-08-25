@@ -215,16 +215,16 @@ IPV4_FROM_NUMBER()
 Converts a numeric IPv4 address value into its string representation.
 
 - **numericAddress** (number): a numeric representation of an IPv4 address, for
-  example produced by function IPV4_TO_NUMBER. The number must be an unsigned integer
-  between 0 and 4294967295 (both inclusive).
-- returns **stringAddress** (string): the string representation of the IPv4 address.
-  If the input *numberAddress* is not a valid representation of an IPv4 address, the 
-  function returns *null* and produces a warning.
+  example produced by [IPV4_TO_NUMBER()](#ipv4_to_number). The number must be
+  an unsigned integer between 0 and 4294967295 (both inclusive).
+- returns **stringAddress** (string): the string representation of the IPv4
+  address. If the input *numberAddress* is not a valid representation of an
+  IPv4 address, the function returns *null* and produces a warning.
 
 ```js
 IPV4_FROM_NUMBER(0) // "0.0.0.0"
 IPV4_FROM_NUMBER(134744072) // "8.8.8.8"
-IPV4_FROM_NUMBER(2130706433) // "127.0.0.1") 
+IPV4_FROM_NUMBER(2130706433) // "127.0.0.1")
 IPV4_FROM_NUMBER(3232235521) // "192.168.0.1"
 IPV4_FROM_NUMBER(3232235522) // "192.168.0.2"
 IPV4_FROM_NUMBER(-23) // null (and produces a warning)
@@ -240,9 +240,10 @@ IPV4_TO_NUMBER()
 Converts an IPv4 address string into its numeric representation.
 
 - **stringAddress** (string): a string representing an IPv4 address
-- returns **numericAddress** (number): the numeric representation of the IPv4 address,
-  as an unsigned integer. If the input *stringAddress* is not a valid representation
-  of an IPv4 address, the function returns *null* and produces a warning.
+- returns **numericAddress** (number): the numeric representation of the IPv4
+  address, as an unsigned integer. If the input *stringAddress* is not a valid
+  representation of an IPv4 address, the function returns *null* and produces
+  a warning.
 
 ```js
 IPV4_TO_NUMBER("0.0.0.0") // 0
@@ -266,7 +267,7 @@ Check if an arbitrary string is suitable for interpretation as an IPv4 address.
 - returns **bool** (bool): *true* if *value* is a string that can be interpreted
   as an IPv4 address. To be considered valid, the string must contain of 4 octets
   of decimal numbers with 1 to 3 digits length each, allowing the values 0 to 255.
-  The octets must be separated by periods.
+  The octets must be separated by periods and must not have padding zeroes.
 
 ```js
 IS_IPV4("127.0.0.1") // true
@@ -276,10 +277,6 @@ IS_IPV4("12345.2.3.4") // false
 IS_IPV4("12.34") // false
 IS_IPV4(8888) // false
 ```
-
-<!-- TODO
-Ein- und zweistellige Zahlen dürfen hierbei nicht mit einer vorangestellten Ziffer 0 auf ein gleichförmiges Längenformat gebracht werden (eine führende 0 ist nach RFC nicht erlaubt, da sie häufig als Oktalzahl interpretiert wird). Jedes Oktett repräsentiert 8 Bit; somit ergibt sich für jedes Oktett ein Wertebereich von 0 bis 255
--->
 
 JSON_PARSE()
 ------------
