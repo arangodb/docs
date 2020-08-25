@@ -428,19 +428,26 @@ RETURN 1 == 1 && FAIL("error") ? true : false // aborted with error
 No-operation that prevents certain query compile-time and run-time optimizations. 
 Constant expressions can be forced to be evaluated at runtime with this.
 This function is marked as non-deterministic so its argument withstands
-query optimization. There is no need to call this function explicitly, it is 
-mainly used for internal testing.
+query optimization.
+
+`NOEVAL(value) → retVal`
+
+Same as `NOOPT()`, except that it is marked as deterministic.
+
+There is no need to call these functions explicitly, they are mainly used for
+internal testing.
 
 - **value** (any): a value of arbitrary type
 - returns **retVal** (any): *value*
 
 ```js
 // differences in execution plan (explain)
-FOR i IN 1..3 RETURN (1 + 1)      // const assignment
-FOR i IN 1..3 RETURN NOOPT(1 + 1) // simple expression
+FOR i IN 1..3 RETURN (1 + 1)       // const assignment
+FOR i IN 1..3 RETURN NOOPT(1 + 1)  // simple expression
+FOR i IN 1..3 RETURN NOEVAL(1 + 1) // simple expression
 
-NOOPT( 123 ) // evaluates 123 at runtime
-NOOPT( CONCAT("a", "b") ) // evaluates concatenation at runtime
+RETURN NOOPT( 123 ) // evaluates 123 at runtime
+RETURN NOOPT( CONCAT("a", "b") ) // evaluates concatenation at runtime
 ```
 
 ### PASSTHRU()
