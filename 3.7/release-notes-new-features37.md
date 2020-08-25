@@ -389,12 +389,16 @@ The following AQL functions have been added in ArangoDB 3.7:
 - [IN_RANGE()](aql/functions-miscellaneous.html#in_range)
   (now available outside of `SEARCH` operations)
 - [INTERLEAVE()](aql/functions-array.html#interleave)
+- [IPV4_FROM_NUMBER()](aql/functions-string.html#ipv4_from_number)
+- [IPV4_TO_NUMBER()](aql/functions-string.html#ipv4_to_number)
+- [IS_IPV4()](aql/functions-string.html#is_ipv4)
 - [JACCARD()](aql/functions-array.html#jaccard)
 - [LEVENSHTEIN_DISTANCE()](aql/functions-string.html#levenshtein_distance)
 - [LEVENSHTEIN_MATCH()](aql/functions-arangosearch.html#levenshtein_match)
 - [NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match)
 - [NGRAM_POSITIONAL_SIMILARITY()](aql/functions-string.html#ngram_positional_similarity)
 - [NGRAM_SIMILARITY()](aql/functions-string.html#ngram_similarity)
+- [PRODUCT()](aql/functions-numeric.html#product)
 - [REPLACE_NTH()](aql/functions-array.html#replace_nth)
 
 ### Syntax enhancements
