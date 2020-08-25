@@ -237,6 +237,10 @@ containing properly formatted but invalid dates such as *"2015-02-31"*.
   *false* otherwise including all non-string values, even if some of them may be usable
   in date functions (numeric timestamps)
 
+### IS_IPV4()
+
+See [String Functions](functions-string.html#is_ipv4).
+
 ### IS_KEY()
 
 `IS_KEY(str) → bool`
