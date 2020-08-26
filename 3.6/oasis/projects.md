@@ -10,6 +10,8 @@ represent organizational units such as teams, product groups, environments
 (e.g. staging vs. production). You can have any number of projects under one
 organization.
 
+**Organizations → <u>Projects</u> → Deployments**
+
 Projects are a container for related deployments, certificates & IP allowlists.
 Projects also come with their own policy for access control. You can have any
 number of deployment under one project.
@@ -92,45 +94,16 @@ your local machine. This operation will slightly vary between operating systems.
 3. In the _Certificates_ section, click on:
    - The _New certificate_ button to create a new certificate.
    - A name or the _eye_ icon in the _Actions_ column to view a certificate.
-     The dialog that opens provides instructions on how to install and uninstall
-     the certificate.
+     The dialog that opens provides commands for installing and uninstalling
+     the certificate through a console.
    - The _pencil_ icon to edit a certificate.
      You can also view a certificate and click on the _Edit_ button.
    - The _tag_ icon to make the certificate the new default.
    - The _trash can_ icon to delete a certificate.
 
- ![Oasis Certificates](../images/oasis-cert-page-with-cert-present.png)
+![Oasis Certificates](../images/oasis-cert-page-with-cert-present.png)
 
-{% comment %}
-TODO
-## Installing a new certificate
-
-Certificates that do have the _Use well known certificate_ option enabled do
-not need any installation and will be supported by almost all web-browsers
-automatically.
-
-Each certificate you create in ArangoDB Oasis that has the
-_Use well known certificate_ option disabled, you will also need to install on
-your local machine. This operation will slightly vary between operating systems.
-
-1. In the main navigation, in the _Projects_ section, click on the project for
-   which you want to install a new certificate.
-2. Navigate to the _Certificates_ tab.
-
-   ![Oasis Certificates](../images/oasis-cert-page-with-cert-present.png)
-
-3. From the list of certificates, click on the one you want to install.
-4. Navigate to the tab of the operating system of your choice.
-5. Under _Installation instructions_, copy the commands by pressing the
-   _Copy to clipboard_ button.
-
-   ![Oasis Certificate Install Instructions](../images/oasis-cert-install-instructions.png)
-
-6. Open a console on your local computer and run the commands that are provided.
-
-Also see the video
-[Certificates with ArangoDB Oasis](https://www.youtube.com/watch?v=TBU7TIvewV0&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=5&t=0s){:target="_blank"}.
-{% endcomment %}
+![Oasis Certificate Install Instructions](../images/oasis-cert-install-instructions.png)
 
 ## How to manage role bindings
 

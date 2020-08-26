@@ -9,6 +9,8 @@ Below projects in the Oasis deployment hierarchy are deployments. A deployment
 contains an ArangoDB, configured as you choose. You can have any number of
 deployments under one project.
 
+**Organizations → Projects → <u>Deployments</u>**
+
 Each deployment can also be backed up manually or automatically by schedules
 you can define.
 
@@ -32,6 +34,9 @@ Also see the video
 5. Set up your deployment. The configuration options are described below.
 
 ![Oasis New Deployment](../images/oasis-new-deployment1.png)
+
+Also see the video
+[Create a Deployment on ArangoDB Oasis](https://www.youtube.com/watch?v=yg2FfcNsKFc&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=9&t=0s){:target="_blank"}.
 
 {% hint 'info' %}
 Deployments contain exactly **one policy**. Within that policy, you can define

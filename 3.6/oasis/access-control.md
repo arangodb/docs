@@ -88,9 +88,8 @@ contains all permissions needed to view deployments in a project.
 Predefined roles cannot be deleted.
 
 {% comment %}
-Windows cmd:
+Windows command to generate below list (cmd.exe):
 oasisctl list roles --format json | jq -r ".[] | \"**\(.description)** (`\(.id)`):\n\(.permissions ^| split(\", \") ^| map(\"- `\(.)`\n\") ^| join(\"\"))""
-oasisctl list roles --format json | jq -r ".[] | \"^| \(.description) ^| `\(.id)` ^| \(.permissions | split(\", \") | map(\"`\(.)`\") | join(\" ^<br^> \")) ^|\""
 {% endcomment %}
 
 {% details 'List of predefined roles and their permissions' %}

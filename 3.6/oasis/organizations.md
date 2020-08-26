@@ -8,6 +8,8 @@ title: Organizations in ArangoDB Oasis
 At the highest level of the Oasis deployment hierarchy are organizations.
 Organizations are a container for projects.
 
+**<u>Organizations</u> → Projects → Deployments**
+
 An organization typically represents a (commercial) entity such as a company,
 company division, institution or non-profit organization.
 
@@ -64,10 +66,12 @@ additional organizations and projects and have more and larger deployments.
 ![Oasis Payment Method](../images/oasis-add-payment-method-credit-card.png)
 
 {% comment %}
-TODO
+TODO: Need screenshot with invoice
+
 ### How to view invoices
 
 1. In the _Invoices_ section,
+
 {% endcomment %}
 
 ## How to create a new organization

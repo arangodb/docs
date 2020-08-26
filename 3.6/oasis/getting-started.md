@@ -5,10 +5,8 @@ title: Getting Started with ArangoDB Oasis
 ---
 # Getting Started with ArangoDB Oasis
 
-The instructions below are a quick start guide on how to set up your first
-ArangoDB deployment in Oasis. It covers everything from creating an account
-to using the Oasis web interface to set up a test organization, project and
-deployment, as well as accessing and deleting the deployment.
+This quick start guide covers the basics from creating an account to setting up
+and accessing your first ArangoDB deployment in Oasis.
 
 For general information about ArangoDB Oasis, see
 [cloud.arangodb.com](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
@@ -80,24 +78,23 @@ Your projects hold your deployments.
     - [**Deployments**](deployments.html)
       are the actual instances of ArangoDB clusters.
 
-## Creating a new project
+In the previous step, an organization and a default project were automatically
+created for you. What is still missing is a deployment.
 
-{% hint 'tip' %}
-A default project is automatically created for you.
-You can skip this paragraph unless you want to add additional projects.
-{% endhint %}
+## Take the tour
 
-See [Projects: How to create a new project](projects.html#how-to-create-a-new-project)
+In the top right corner you find the _User toolbar_. Click the icon with the
+question mark to bring up the help menu and choose _Start tour_. This guided
+tour walks you through the creation of a deployment and shows you how to load
+example datasets and manage projects and deployments.
 
-Also see the video
-[Projects with ArangoDB Oasis](https://www.youtube.com/watch?v=b7q-PdLEpug&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=4&t=0s){:target="_blank"}.
+Alternatively, see the following documentation sections:
+- [Projects: How to create a new project](projects.html#how-to-create-a-new-project)
+- [Deployments: How to create a new deployment](deployments.html#how-to-create-a-new-deployment)
 
-## Creating a new deployment
-
-See [Deployments: How to create a new deployment](deployments.html#how-to-create-a-new-deployment)
-
-Also see the video
-[Create a Deployment on ArangoDB Oasis](https://www.youtube.com/watch?v=yg2FfcNsKFc&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=9&t=0s){:target="_blank"}.
+{% comment %}
+TODO: Only a single project and deployment are allowed on free-to-try plan.
+{% endcomment %}
 
 ## Free-to-try vs. professional service
 
@@ -106,9 +103,7 @@ Cloud for free for 14 days. After the trial period, your deployments will
 automatically be deleted.
 
 You can convert to the professional service model at any time by adding 
-your billing details and at least one payment method.
-
-See:
+your billing details and at least one payment method. See:
 - [Organizations: How to add billing details](organizations.html#how-to-add-billing-details)
 - [Organizations: How to add a payment method](organizations.html#how-to-add-a-payment-method)
 
