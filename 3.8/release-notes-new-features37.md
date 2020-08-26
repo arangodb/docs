@@ -792,7 +792,7 @@ The following metrics have been added in ArangoDB 3.7:
 | `arangodb_client_connection_statistics_total_time_bucket` | Total time needed to answer a request |
 | `arangodb_dropped_followers_count` |  Number of drop-follower events |
 | `arangodb_heartbeat_failures` | Counting failed heartbeat transmissions |
-| `arangodb_heartbeat_send_time_msec` | Time required to send heartbeat |
+| `arangodb_heartbeat_send_time_msec` | Time required to send heartbeat (ms) |
 | `arangodb_http_request_statistics_async_requests` | Number of asynchronously executed HTTP requests |
 | `arangodb_http_request_statistics_http_delete_requests` | Number of HTTP DELETE requests |
 | `arangodb_http_request_statistics_http_get_requests` | Number of HTTP GET requests |
@@ -824,7 +824,7 @@ The following metrics have been added in ArangoDB 3.7:
 | `arangodb_scheduler_queue_length` | Server's internal queue length |
 | `arangodb_server_statistics_physical_memory` | Physical memory in bytes |
 | `arangodb_server_statistics_server_uptime` | Number of seconds elapsed since server start |
-| `arangodb_shards_leader_count gauge` | Number of leader shards on this machine |
+| `arangodb_shards_leader_count` | Number of leader shards on this machine |
 | `arangodb_shards_not_replicated` | Number of shards not replicated at all |
 | `arangodb_shards_out_of_sync` | Number of leader shards not fully replicated |
 | `arangodb_shards_total_count` | Number of shards on this machine |
