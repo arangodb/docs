@@ -260,19 +260,19 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_client_connection_statistics_connection_time_bucket` | Total connection time of a client |
 | `arangodb_client_connection_statistics_connection_time_count` | Total connection time of a client |
 | `arangodb_client_connection_statistics_connection_time_sum` | Total connection time of a client |
-| `arangodb_client_connection_statistics_io_time_bucket` | Request time needed to answer a request |
-| `arangodb_client_connection_statistics_io_time_count` | Request time needed to answer a request |
-| `arangodb_client_connection_statistics_io_time_sum` | Request time needed to answer a request |
-| `arangodb_client_connection_statistics_queue_time_bucket` | Request time needed to answer a request |
-| `arangodb_client_connection_statistics_queue_time_count` | Request time needed to answer a request |
-| `arangodb_client_connection_statistics_queue_time_sum` | Request time needed to answer a request |
-| `arangodb_client_connection_statistics_request_time_bucket` | Request time needed to answer a request |
-| `arangodb_client_connection_statistics_request_time_count` | Request time needed to answer a request |
-| `arangodb_client_connection_statistics_request_time_sum` | Request time needed to answer a request |
-| `arangodb_client_connection_statistics_total_time_bucket` | Total time needed to answer a request |
-| `arangodb_client_connection_statistics_total_time_count` | Total time needed to answer a request |
-| `arangodb_client_connection_statistics_total_time_sum` | Total time needed to answer a request |
-| `arangodb_dropped_followers_count` |  Number of drop-follower events |
+| `arangodb_client_connection_statistics_io_time_bucket` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_io_time_count` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_io_time_sum` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_queue_time_bucket` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_queue_time_count` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_queue_time_sum` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_request_time_bucket` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_request_time_count` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_request_time_sum` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_total_time_bucket` | Total time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_total_time_count` | Total time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_total_time_sum` | Total time needed to answer a request (ms) |
+| `arangodb_dropped_followers_count` | Number of drop-follower events |
 | `arangodb_heartbeat_failures` | Counting failed heartbeat transmissions |
 | `arangodb_heartbeat_send_time_msec` | Time required to send heartbeat (ms) |
 | `arangodb_http_request_statistics_async_requests` | Number of asynchronously executed HTTP requests |
@@ -301,9 +301,9 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_maintenance_agency_sync_accum_runtime_msec` | Accumulated runtime of agency sync phase (ms) |
 | `arangodb_maintenance_agency_sync_runtime_msec` | Total time spend on agency sync (ms) |
 | `arangodb_maintenance_phase1_accum_runtime_msec` | Accumulated runtime of phase one (ms) |
-| `arangodb_maintenance_phase1_runtime_msec` |  Maintenance Phase 1 runtime histogram (ms) |
+| `arangodb_maintenance_phase1_runtime_msec` | Maintenance Phase 1 runtime histogram (ms) |
 | `arangodb_maintenance_phase2_accum_runtime_msec` | Accumulated runtime of phase two (ms) |
-| `arangodb_maintenance_phase2_runtime_msec` | Maintenance Phase 2 runtime histogram  (ms) |
+| `arangodb_maintenance_phase2_runtime_msec` | Maintenance Phase 2 runtime histogram (ms) |
 | `arangodb_process_statistics_major_page_faults` | On Windows, this figure contains the total number of page faults. On other system, this figure contains the number of major faults the process has made which have required loading a memory page from disk |
 | `arangodb_process_statistics_minor_page_faults` | The number of minor faults the process has made which have not required loading a memory page from disk. This figure is not reported on Windows |
 | `arangodb_process_statistics_number_of_threads` | Number of threads in the arangod process |
