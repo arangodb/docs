@@ -666,11 +666,16 @@ configurable in _arangod_:
 - `--rocksdb.cache-index-and-filter-blocks-with-high-priority` to use cache
   index and filter blocks with high priority making index and filter blocks
   be less likely to be evicted than data blocks
-- `--rocksdb.pin-l0-filter-and-index-blocks-in-cache` make filter and index
+- `--rocksdb.pin-l0-filter-and-index-blocks-in-cache` to make filter and index
   blocks be pinned and only evicted from cache when the table reader is freed
-- `--rocksdb.pin-top-level-index-and-filter` make the top-level index of
+- `--rocksdb.pin-top-level-index-and-filter` to make the top-level index of
   partitioned filter and index blocks pinned and only be evicted from cache
   when the table reader is freed
+- `--rocksdb.target-file-size-base`: Per-file target file size for compaction
+  (in bytes). the actual target file size for each level is
+  `--rocksdb.target-file-size-base` multiplied by `--rocksdb.target-file-size-multiplier ^ (level - 1)`
+- `--rocksdb.target-file-size-multiplier`: Multiplier for `--rocksdb.target-file-size`,
+  a value of 1 means that files in different levels will have the same size (default)
 
 Pregel
 ------
