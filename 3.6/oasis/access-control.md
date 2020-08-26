@@ -37,17 +37,17 @@ give these users permissions to invoke operations on this organization.
 
 ### How to view, edit or remove role bindings of a policy
 
-1. Decide whether you want to edit the policy of the organization or of a
+Decide whether you want to edit the policy of the organization or of a
 project or deployment and navigate the resource's _Policy_ tab.
-   - **Organization**: Click on _Access Control_ in the main navigation, then
-     click on the _Policy_ tab.
-   - **Project**: Click on the desired project in the main navigation, then click
-     on the _Policy_ tab.
-   - **Deployment**: Click on the desired project in the main navigation, then
-     on the title or _view_ button of the desired deployment and finally click
-     on the _Policy_ tab.
-2. Click on the _Trash bin_ icon in the _Actions_ column to delete a
-   role binding.
+- **Organization**: Click on _Access Control_ in the main navigation, then
+  click on the _Policy_ tab.
+- **Project**: Click on the desired project in the main navigation, then click
+  on the _Policy_ tab.
+- **Deployment**: Click on the desired project in the main navigation, then
+  on the title or _view_ button of the desired deployment and finally click
+  on the _Policy_ tab.
+
+To delete a role binding, click on the _Trash bin_ icon in the _Actions_ column.
 
 {% hint 'info' %}
 Currently, you cannot edit a role binding, you can only delete it.
@@ -84,80 +84,20 @@ Predefined roles cannot be deleted.
 
 {% comment %}
 Windows cmd:
+oasisctl list roles --format json | jq -r ".[] | \"**\(.description)** (`\(.id)`):\n\(.permissions ^| split(\", \") ^| map(\"- `\(.)`\n\") ^| join(\"\"))""
 oasisctl list roles --format json | jq -r ".[] | \"^| \(.description) ^| `\(.id)` ^| \(.permissions | split(\", \") | map(\"`\(.)`\") | join(\" ^<br^> \")) ^|\""
-oasisctl list roles --format json | jq -r ".[] | \"\(.description) (`\(.id)`):\n\(.permissions ^| split(\", \") ^| map(\"- `\(.)`\n\") ^| join(\"\"))""
 {% endcomment %}
 
-| Description | Name |
-|:------------|:-----|
-| Backup Administrator | `backup-admin` |
-| Backup Viewer | `backup-viewer` |
-| Backup Policy Administrator | `backuppolicy-admin` |
-| Backup Policy Viewer | `backuppolicy-viewer` |
-| Billing Administrator | `billing-admin` |
-| Billing Viewer | `billing-viewer` |
-| CA Certificate Administrator | `cacertificate-admin` |
-| CA Certificate Viewer | `cacertificate-viewer` |
-| Deployment Administrator | `deployment-admin` |
-| Deployment Content Administrator | `deployment-content-admin` |
-| Deployment Viewer | `deployment-viewer` |
-| Example Datasets Viewer | `exampledataset-viewer` |
-| Example Dataset Installation Administrator | `exampledatasetinstallation-admin` |
-| Example Dataset Installation Viewer | `exampledatasetinstallation-viewer` |
-| Group Administrator | `group-admin` |
-| Group Viewer | `group-viewer` |
-| IAM provider Administrator | `iamprovider-admin` |
-| IAM provider Viewer | `iamprovider-viewer` |
-| IP whitelist Administrator | `ipwhitelist-admin` |
-| IP whitelist Viewer | `ipwhitelist-viewer` |
-| Organization Administrator | `organization-admin` |
-| Organization Viewer | `organization-viewer` |
-| Policy Administrator | `policy-admin` |
-| Policy Viewer | `policy-viewer` |
-| Project Administrator | `project-admin` |
-| Project Viewer | `project-viewer` |
-| Replication Administrator | `replication-admin` |
-| Role Administrator | `role-admin` |
-| Role Viewer | `role-viewer` |
+{% details 'List of predefined roles and their permissions' %}
 
-| Description | ID | Permissions |
-|:------------|:---|:------------|
-| Backup Administrator | `backup-admin` | `backup.backup.create` <br> `backup.backup.delete` <br> `backup.backup.list` <br> `backup.backup.get` <br> `backup.backup.update` <br> `backup.backup.download` <br> `backup.backup.restore` <br> `data.deployment.restore-backup` |
-| Backup Viewer | `backup-viewer` | `backup.feature.get` <br> `backup.backup.get` <br> `backup.backup.list` |
-| Backup Policy Administrator | `backuppolicy-admin` | `backup.backuppolicy.create` <br> `backup.backuppolicy.delete` <br> `backup.backuppolicy.list` <br> `backup.backuppolicy.get` <br> `backup.backuppolicy.update` |
-| Backup Policy Viewer | `backuppolicy-viewer` | `backup.feature.get` <br> `backup.backuppolicy.get` <br> `backup.backuppolicy.list` |
-| Billing Administrator | `billing-admin` | `billing.config.get` <br> `billing.config.set` <br> `billing.invoice.get` <br> `billing.invoice.get-statistics` <br> `billing.invoice.list` <br> `billing.organization.get` <br> `billing.paymentmethod.create` <br> `billing.paymentmethod.delete` <br> `billing.paymentmethod.get` <br> `billing.paymentmethod.get-default` <br> `billing.paymentmethod.list` <br> `billing.paymentmethod.set-default` <br> `billing.paymentmethod.update` <br> `billing.paymentprovider.list` |
-| Billing Viewer | `billing-viewer` | `billing.config.get` <br> `billing.invoice.get` <br> `billing.invoice.get-statistics` <br> `billing.invoice.list` <br> `billing.organization.get` <br> `billing.paymentmethod.get` <br> `billing.paymentmethod.get-default` <br> `billing.paymentmethod.list` <br> `billing.paymentprovider.list` |
-| CA Certificate Administrator | `cacertificate-admin` | `crypto.cacertificate.create` <br> `crypto.cacertificate.delete` <br> `crypto.cacertificate.list` <br> `crypto.cacertificate.get` <br> `crypto.cacertificate.set-default` <br> `crypto.cacertificate.update` |
-| CA Certificate Viewer | `cacertificate-viewer` | `crypto.cacertificate.get` <br> `crypto.cacertificate.list` |
-| Deployment Administrator | `deployment-admin` | `data.cpusize.list` <br> `data.deployment.create` <br> `data.deployment.create-test-database` <br> `data.deployment.delete` <br> `data.deployment.resume` <br> `data.deployment.get` <br> `data.deployment.list` <br> `data.deployment.update` <br> `data.deploymentfeatures.get` <br> `data.deploymentprice.calculate` <br> `data.limits.get` <br> `data.nodesize.list` <br> `data.presets.list` <br> `monitoring.logs.get` |
-| Deployment Content Administrator | `deployment-content-admin` | `data.cpusize.list` <br> `data.deployment.create-test-database` <br> `data.deployment.get` <br> `data.deployment.list` <br> `data.deploymentcredentials.get` <br> `data.deploymentfeatures.get` <br> `data.limits.get` <br> `data.nodesize.list` <br> `data.presets.list` <br> `monitoring.logs.get` |
-| Deployment Viewer | `deployment-viewer` | `data.cpusize.list` <br> `data.deployment.get` <br> `data.deployment.list` <br> `data.deploymentfeatures.get` <br> `data.limits.get` <br> `data.nodesize.list` <br> `data.presets.list` |
-| Example Datasets Viewer | `exampledataset-viewer` | `example.exampledataset.list` <br> `example.exampledataset.get` |
-| Example Dataset Installation Administrator | `exampledatasetinstallation-admin` | `example.exampledatasetinstallation.list` <br> `example.exampledatasetinstallation.get` <br> `example.exampledatasetinstallation.create` <br> `example.exampledatasetinstallation.update` <br> `example.exampledatasetinstallation.delete` |
-| Example Dataset Installation Viewer | `exampledatasetinstallation-viewer` | `example.exampledatasetinstallation.list` <br> `example.exampledatasetinstallation.get` |
-| Group Administrator | `group-admin` | `iam.group.create` <br> `iam.group.delete` <br> `iam.group.list` <br> `iam.group.get` <br> `iam.group.update` |
-| Group Viewer | `group-viewer` | `iam.group.get` <br> `iam.group.list` |
-| IAM provider Administrator | `iamprovider-admin` | `security.iamprovider.create` <br> `security.iamprovider.delete` <br> `security.iamprovider.get` <br> `security.iamprovider.list` <br> `security.iamprovider.set-default` <br> `security.iamprovider.update` |
-| IAM provider Viewer | `iamprovider-viewer` | `security.iamprovider.get` <br> `security.iamprovider.list` |
-| IP whitelist Administrator | `ipwhitelist-admin` | `security.ipwhitelist.create` <br> `security.ipwhitelist.delete` <br> `security.ipwhitelist.get` <br> `security.ipwhitelist.list` <br> `security.ipwhitelist.update` |
-| IP whitelist Viewer | `ipwhitelist-viewer` | `security.ipwhitelist.get` <br> `security.ipwhitelist.list` |
-| Organization Administrator | `organization-admin` | `billing.organization.get` <br> `resourcemanager.organization.delete` <br> `resourcemanager.organization.get` <br> `resourcemanager.organization.update` <br> `resourcemanager.organization-invite.create` <br> `resourcemanager.organization-invite.delete` <br> `resourcemanager.organization-invite.get` <br> `resourcemanager.organization-invite.list` <br> `resourcemanager.organization-invite.update` |
-| Organization Viewer | `organization-viewer` | `billing.organization.get` <br> `resourcemanager.organization.get` <br> `resourcemanager.organization-invite.get` <br> `resourcemanager.organization-invite.list` |
-| Policy Administrator | `policy-admin` | `iam.policy.get` <br> `iam.policy.update` |
-| Policy Viewer | `policy-viewer` | `iam.policy.get` |
-| Project Administrator | `project-admin` | `resourcemanager.project.create` <br> `resourcemanager.project.delete` <br> `resourcemanager.project.get` <br> `resourcemanager.project.list` <br> `resourcemanager.project.update` |
-| Project Viewer | `project-viewer` | `resourcemanager.project.get` <br> `resourcemanager.project.list` |
-| Replication Administrator | `replication-admin` | `replication.deployment.clone-from-backup` |
-| Role Administrator | `role-admin` | `iam.role.create` <br> `iam.role.delete` <br> `iam.role.list` <br> `iam.role.get` <br> `iam.role.update` |
-| Role Viewer | `role-viewer` | `iam.role.get` <br> `iam.role.list` |
+{% hint 'tip' %}
+Below roles are listed in this schema:
 
-Below roles are listed in the schema
-
-Description (`ID`):
+**Description** (`ID`):
 - `Permission`
+{% endhint %}
 
-Backup Administrator (`backup-admin`):
+**Backup Administrator** (`backup-admin`):
 - `backup.backup.create`
 - `backup.backup.delete`
 - `backup.backup.list`
@@ -167,24 +107,24 @@ Backup Administrator (`backup-admin`):
 - `backup.backup.restore`
 - `data.deployment.restore-backup`
 
-Backup Viewer (`backup-viewer`):
+**Backup Viewer** (`backup-viewer`):
 - `backup.feature.get`
 - `backup.backup.get`
 - `backup.backup.list`
 
-Backup Policy Administrator (`backuppolicy-admin`):
+**Backup Policy Administrator** (`backuppolicy-admin`):
 - `backup.backuppolicy.create`
 - `backup.backuppolicy.delete`
 - `backup.backuppolicy.list`
 - `backup.backuppolicy.get`
 - `backup.backuppolicy.update`
 
-Backup Policy Viewer (`backuppolicy-viewer`):
+**Backup Policy Viewer** (`backuppolicy-viewer`):
 - `backup.feature.get`
 - `backup.backuppolicy.get`
 - `backup.backuppolicy.list`
 
-Billing Administrator (`billing-admin`):
+**Billing Administrator** (`billing-admin`):
 - `billing.config.get`
 - `billing.config.set`
 - `billing.invoice.get`
@@ -200,7 +140,7 @@ Billing Administrator (`billing-admin`):
 - `billing.paymentmethod.update`
 - `billing.paymentprovider.list`
 
-Billing Viewer (`billing-viewer`):
+**Billing Viewer** (`billing-viewer`):
 - `billing.config.get`
 - `billing.invoice.get`
 - `billing.invoice.get-statistics`
@@ -211,7 +151,7 @@ Billing Viewer (`billing-viewer`):
 - `billing.paymentmethod.list`
 - `billing.paymentprovider.list`
 
-CA Certificate Administrator (`cacertificate-admin`):
+**CA Certificate Administrator** (`cacertificate-admin`):
 - `crypto.cacertificate.create`
 - `crypto.cacertificate.delete`
 - `crypto.cacertificate.list`
@@ -219,11 +159,11 @@ CA Certificate Administrator (`cacertificate-admin`):
 - `crypto.cacertificate.set-default`
 - `crypto.cacertificate.update`
 
-CA Certificate Viewer (`cacertificate-viewer`):
+**CA Certificate Viewer** (`cacertificate-viewer`):
 - `crypto.cacertificate.get`
 - `crypto.cacertificate.list`
 
-Deployment Administrator (`deployment-admin`):
+**Deployment Administrator** (`deployment-admin`):
 - `data.cpusize.list`
 - `data.deployment.create`
 - `data.deployment.create-test-database`
@@ -239,7 +179,7 @@ Deployment Administrator (`deployment-admin`):
 - `data.presets.list`
 - `monitoring.logs.get`
 
-Deployment Content Administrator (`deployment-content-admin`):
+**Deployment Content Administrator** (`deployment-content-admin`):
 - `data.cpusize.list`
 - `data.deployment.create-test-database`
 - `data.deployment.get`
@@ -251,7 +191,7 @@ Deployment Content Administrator (`deployment-content-admin`):
 - `data.presets.list`
 - `monitoring.logs.get`
 
-Deployment Viewer (`deployment-viewer`):
+**Deployment Viewer** (`deployment-viewer`):
 - `data.cpusize.list`
 - `data.deployment.get`
 - `data.deployment.list`
@@ -260,33 +200,33 @@ Deployment Viewer (`deployment-viewer`):
 - `data.nodesize.list`
 - `data.presets.list`
 
-Example Datasets Viewer (`exampledataset-viewer`):
+**Example Datasets Viewer** (`exampledataset-viewer`):
 - `example.exampledataset.list`
 - `example.exampledataset.get`
 
-Example Dataset Installation Administrator (`exampledatasetinstallation-admin`):
+**Example Dataset Installation Administrator** (`exampledatasetinstallation-admin`):
 - `example.exampledatasetinstallation.list`
 - `example.exampledatasetinstallation.get`
 - `example.exampledatasetinstallation.create`
 - `example.exampledatasetinstallation.update`
 - `example.exampledatasetinstallation.delete`
 
-Example Dataset Installation Viewer (`exampledatasetinstallation-viewer`):
+**Example Dataset Installation Viewer** (`exampledatasetinstallation-viewer`):
 - `example.exampledatasetinstallation.list`
 - `example.exampledatasetinstallation.get`
 
-Group Administrator (`group-admin`):
+**Group Administrator** (`group-admin`):
 - `iam.group.create`
 - `iam.group.delete`
 - `iam.group.list`
 - `iam.group.get`
 - `iam.group.update`
 
-Group Viewer (`group-viewer`):
+**Group Viewer** (`group-viewer`):
 - `iam.group.get`
 - `iam.group.list`
 
-IAM provider Administrator (`iamprovider-admin`):
+**IAM provider Administrator** (`iamprovider-admin`):
 - `security.iamprovider.create`
 - `security.iamprovider.delete`
 - `security.iamprovider.get`
@@ -294,22 +234,29 @@ IAM provider Administrator (`iamprovider-admin`):
 - `security.iamprovider.set-default`
 - `security.iamprovider.update`
 
-IAM provider Viewer (`iamprovider-viewer`):
+**IAM provider Viewer** (`iamprovider-viewer`):
 - `security.iamprovider.get`
 - `security.iamprovider.list`
 
-IP whitelist Administrator (`ipwhitelist-admin`):
+**IP whitelist Administrator** (`ipwhitelist-admin`):
+- `security.ipallowlist.create`
+- `security.ipallowlist.delete`
+- `security.ipallowlist.get`
+- `security.ipallowlist.list`
+- `security.ipallowlist.update`
 - `security.ipwhitelist.create`
 - `security.ipwhitelist.delete`
 - `security.ipwhitelist.get`
 - `security.ipwhitelist.list`
 - `security.ipwhitelist.update`
 
-IP whitelist Viewer (`ipwhitelist-viewer`):
+**IP whitelist Viewer** (`ipwhitelist-viewer`):
+- `security.ipallowlist.get`
+- `security.ipallowlist.list`
 - `security.ipwhitelist.get`
 - `security.ipwhitelist.list`
 
-Organization Administrator (`organization-admin`):
+**Organization Administrator** (`organization-admin`):
 - `billing.organization.get`
 - `resourcemanager.organization.delete`
 - `resourcemanager.organization.get`
@@ -320,43 +267,45 @@ Organization Administrator (`organization-admin`):
 - `resourcemanager.organization-invite.list`
 - `resourcemanager.organization-invite.update`
 
-Organization Viewer (`organization-viewer`):
+**Organization Viewer** (`organization-viewer`):
 - `billing.organization.get`
 - `resourcemanager.organization.get`
 - `resourcemanager.organization-invite.get`
 - `resourcemanager.organization-invite.list`
 
-Policy Administrator (`policy-admin`):
+**Policy Administrator** (`policy-admin`):
 - `iam.policy.get`
 - `iam.policy.update`
 
-Policy Viewer (`policy-viewer`):
+**Policy Viewer** (`policy-viewer`):
 - `iam.policy.get`
 
-Project Administrator (`project-admin`):
+**Project Administrator** (`project-admin`):
 - `resourcemanager.project.create`
 - `resourcemanager.project.delete`
 - `resourcemanager.project.get`
 - `resourcemanager.project.list`
 - `resourcemanager.project.update`
 
-Project Viewer (`project-viewer`):
+**Project Viewer** (`project-viewer`):
 - `resourcemanager.project.get`
 - `resourcemanager.project.list`
 
-Replication Administrator (`replication-admin`):
+**Replication Administrator** (`replication-admin`):
 - `replication.deployment.clone-from-backup`
 
-Role Administrator (`role-admin`):
+**Role Administrator** (`role-admin`):
 - `iam.role.create`
 - `iam.role.delete`
 - `iam.role.list`
 - `iam.role.get`
 - `iam.role.update`
 
-Role Viewer (`role-viewer`):
+**Role Viewer** (`role-viewer`):
 - `iam.role.get`
 - `iam.role.list`
+
+{% enddetails %}
 
 ### How to create a custom role
 
