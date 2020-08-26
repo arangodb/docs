@@ -1,8 +1,8 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'If-Match: "_a4Rbb26---"'</span> --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/70841</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'If-Match: "_bAwsULu---"'</span> --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/70841</span>
 
 HTTP/<span class="hljs-number">1.1</span> Precondition Failed
 content-type: application/json
-etag: <span class="hljs-string">"_a4Rbb22---"</span>
+etag: <span class="hljs-string">"_bAwsULq---"</span>
 x-content-type-options: nosniff
 
 { 
@@ -12,5 +12,5 @@ x-content-type-options: nosniff
   <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"conflict"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70841"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70841"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbb22---"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bAwsULq---"</span> 
 }
