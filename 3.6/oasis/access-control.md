@@ -69,10 +69,15 @@ Currently, you cannot edit a role binding, you can only delete it.
 
 Operations on resources in Oasis require zero or more permissions. Since the
 number of permissions is large and very detailed, it is not practical to assign
-permissions directly to users. Instead Oasis has *roles*. A role is a set of
-permissions.
+permissions directly to users. Instead Oasis has *roles*.
+
+A role is a set of permissions. Roles can be bound to groups (preferably)
+or individual members. These bindings contribute to the respective organization,
+project or deployment policy.
 
 There are predefined roles, but you can also create custom roles.
+
+![Oasis Roles](../images/oasis-access-control-roles.png)
 
 ### Predefined roles
 
@@ -314,6 +319,8 @@ Below roles are listed in this schema:
 3. Enter a name and optionally a description for the new role.
 4. Select the desired permissions.
 5. Click the _Create_ button.
+
+![Oasis New Role](../images/oasis-create-role.png)
 
 ### How to view, edit or remove a custom role
 

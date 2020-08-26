@@ -53,19 +53,22 @@ additional organizations and projects and have more and larger deployments.
 
 ### How to add a payment method
 
-1. In the _Payment methods_ section, click the _Add_ button.
-2. From the dropdown, select a payment type
+1. Click on _Overview_ in the _Organization_ section of the main navigation.
+2. Click on the _Billing_ tab.
+3. In the _Payment methods_ section, click the _Add_ button.
+4. From the dropdown, select a payment type
    (currently, only credit card is supported).
-3. Fill out the form with your credit card details.
-4. Click the _Save_ button.
+5. Fill out the form with your credit card details.
+6. Click the _Save_ button.
 
 ![Oasis Payment Method](../images/oasis-add-payment-method-credit-card.png)
 
+{% comment %}
+TODO
 ### How to view invoices
 
 1. In the _Invoices_ section,
-
-TODO
+{% endcomment %}
 
 ## How to create a new organization
 

@@ -165,4 +165,4 @@ You have to store it in a safe place.
 {% comment %}
 TODO: Copy to clipboard button
 Access token that should expire after 1 hour unless renewed, might get removed as it's confusing.
-{ endcomment %}
+{% endcomment %}
