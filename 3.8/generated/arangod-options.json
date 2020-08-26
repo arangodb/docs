@@ -536,7 +536,7 @@
       "agent",
       "single"
     ],
-    "default" : 33252956160,
+    "default" : 16341522432,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -865,10 +865,7 @@
   "cluster.resign-leadership-on-shutdown" : {
     "category" : "option",
     "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
+      "dbserver"
     ],
     "default" : false,
     "deprecatedIn" : null,
@@ -2016,33 +2013,7 @@
     "section" : "javascript",
     "type" : "boolean"
   },
-  "javascript.endpoints-blacklist" : {
-    "category" : "option",
-    "component" : [
-      "coordinator",
-      "single"
-    ],
-    "default" : [
-    ],
-    "deprecatedIn" : null,
-    "description" : "endpoints that cannot be connected to via @arangodb/request module in JavaScript actions if not whitelisted",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "javascript",
-    "type" : "string..."
-  },
-  "javascript.endpoints-whitelist" : {
+  "javascript.endpoints-allowlist" : {
     "category" : "option",
     "component" : [
       "coordinator",
@@ -2068,7 +2039,7 @@
     "section" : "javascript",
     "type" : "string..."
   },
-  "javascript.environment-variables-blacklist" : {
+  "javascript.endpoints-denylist" : {
     "category" : "option",
     "component" : [
       "coordinator",
@@ -2077,7 +2048,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "environment variables that will be inaccessible in JavaScript if not whitelisted",
+    "description" : "endpoints that cannot be connected to via @arangodb/request module in JavaScript actions (if not in allowlist)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -2094,7 +2065,7 @@
     "section" : "javascript",
     "type" : "string..."
   },
-  "javascript.environment-variables-whitelist" : {
+  "javascript.environment-variables-allowlist" : {
     "category" : "option",
     "component" : [
       "coordinator",
@@ -2120,7 +2091,33 @@
     "section" : "javascript",
     "type" : "string..."
   },
-  "javascript.files-whitelist" : {
+  "javascript.environment-variables-denylist" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "environment variables that will be inaccessible in JavaScript (if not in allowlist)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "javascript",
+    "type" : "string..."
+  },
+  "javascript.files-allowlist" : {
     "category" : "option",
     "component" : [
       "coordinator",
@@ -2317,7 +2314,7 @@
     "section" : "javascript",
     "type" : "string"
   },
-  "javascript.startup-options-blacklist" : {
+  "javascript.startup-options-allowlist" : {
     "category" : "option",
     "component" : [
       "coordinator",
@@ -2326,7 +2323,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "startup options whose names match this regular expression will not be exposed (if not whitelisted) to JavaScript actions",
+    "description" : "startup options whose names match this regular expression will be allowed and exposed to JavaScript",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -2343,7 +2340,7 @@
     "section" : "javascript",
     "type" : "string..."
   },
-  "javascript.startup-options-whitelist" : {
+  "javascript.startup-options-denylist" : {
     "category" : "option",
     "component" : [
       "coordinator",
@@ -2352,7 +2349,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "startup options whose names match this regular expression will be whitelisted and exposed to JavaScript",
+    "description" : "startup options whose names match this regular expression will not be exposed (if not in allowlist) to JavaScript actions",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -3389,6 +3386,35 @@
     "section" : "",
     "type" : "string..."
   },
+  "log.api-enabled" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "true",
+    "deprecatedIn" : null,
+    "description" : "whether the log api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.11",
+      "v3.5.6",
+      "v3.6.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string"
+  },
   "log.color" : {
     "category" : "option",
     "component" : [
@@ -3597,6 +3623,33 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.in-memory" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "use in-memory log appender, which can be queried via API and web UI",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "log",
+    "type" : "boolean"
+  },
   "log.keep-logrotate" : {
     "category" : "option",
     "component" : [
@@ -3753,6 +3806,33 @@
     "section" : "log",
     "type" : "string"
   },
+  "log.process" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "show process identifier (pid) in log message",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "log",
+    "type" : "boolean"
+  },
   "log.request-parameters" : {
     "category" : "option",
     "component" : [
@@ -3905,6 +3985,33 @@
     "section" : "log",
     "type" : "string",
     "values" : "Possible values: \"local-datestring\", \"timestamp\", \"timestamp-micros\", \"timestamp-millis\", \"uptime\", \"uptime-micros\", \"uptime-millis\", \"utc-datestring\", \"utc-datestring-millis\""
+  },
+  "log.use-json-format" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "use json output format",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "log",
+    "type" : "boolean"
   },
   "log.use-local-time" : {
     "category" : "option",
@@ -4294,6 +4401,33 @@
     "requiresValue" : false,
     "section" : "query",
     "type" : "boolean"
+  },
+  "query.max-parallelism" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 4,
+    "deprecatedIn" : null,
+    "description" : "maximum number of threads to use for a single query; actual query execution may use less depending on various factors",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "uint64"
   },
   "query.memory-limit" : {
     "category" : "option",
@@ -4902,7 +5036,7 @@
       "agent",
       "single"
     ],
-    "default" : 39903547392,
+    "default" : 19609826918,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -4933,7 +5067,9 @@
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
-    "introducedIn" : null,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -4958,7 +5094,9 @@
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
-    "introducedIn" : null,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -5171,6 +5309,33 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.encryption-gen-internal-key" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Generate internal encryption-at-rest key.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
   "rocksdb.encryption-key-generator" : {
     "category" : "option",
     "component" : [
@@ -5195,6 +5360,33 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "string"
+  },
+  "rocksdb.encryption-key-rotation" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "allow encryption key rotation",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
   },
   "rocksdb.encryption-keyfile" : {
     "category" : "option",
@@ -5283,10 +5475,10 @@
     ],
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "if true, writes are exclusive. This allows the RocksDB engine to mimic the MMFiles collection locks behavior, but will inhibit concurrent write operations",
+    "description" : "if true, writes are exclusive. This allows the RocksDB engine to mimic the collection locking behavior of the now-removed MMFiles storage engine, but will inhibit concurrent write operations",
     "dynamic" : false,
     "enterpriseOnly" : false,
-    "hidden" : false,
+    "hidden" : true,
     "introducedIn" : [
       "v3.5.4"
     ],
@@ -5792,7 +5984,9 @@
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
-    "introducedIn" : null,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -5817,7 +6011,9 @@
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
-    "introducedIn" : null,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -5917,7 +6113,9 @@
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
-    "introducedIn" : null,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -5942,7 +6140,9 @@
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
-    "introducedIn" : null,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -5986,7 +6186,7 @@
       "agent",
       "single"
     ],
-    "default" : 53204729856,
+    "default" : 26146435891,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -6688,10 +6888,7 @@
   "server.maintenance-actions-block" : {
     "category" : "option",
     "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
+      "dbserver"
     ],
     "default" : 2,
     "deprecatedIn" : null,
@@ -6713,10 +6910,7 @@
   "server.maintenance-actions-linger" : {
     "category" : "option",
     "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
+      "dbserver"
     ],
     "default" : 3600,
     "deprecatedIn" : null,
@@ -6738,10 +6932,7 @@
   "server.maintenance-threads" : {
     "category" : "option",
     "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
+      "dbserver"
     ],
     "default" : 9,
     "deprecatedIn" : null,
@@ -7393,33 +7584,33 @@
     "section" : "temp",
     "type" : "string"
   },
-  "transaction.streaming-lock-timeout": {
-    "category": "option",
-    "component": [
+  "transaction.streaming-lock-timeout" : {
+    "category" : "option",
+    "component" : [
       "coordinator",
       "dbserver",
       "agent",
       "single"
     ],
-    "default": 8,
-    "deprecatedIn": null,
-    "description": "lock timeout in seconds in case of parallel access to the same streaming transaction",
-    "dynamic": false,
-    "enterpriseOnly": false,
-    "hidden": true,
-    "introducedIn": [
+    "default" : 8,
+    "deprecatedIn" : null,
+    "description" : "lock timeout in seconds in case of parallel access to the same streaming transaction",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
       "v3.6.5",
       "v3.7.1"
     ],
-    "obsolete": false,
-    "os": [
+    "obsolete" : false,
+    "os" : [
       "linux",
       "macos",
       "windows"
     ],
-    "requiresValue": true,
-    "section": "transaction",
-    "type": "double"
+    "requiresValue" : true,
+    "section" : "transaction",
+    "type" : "double"
   },
   "ttl.frequency" : {
     "category" : "option",
