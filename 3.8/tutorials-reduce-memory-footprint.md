@@ -83,6 +83,27 @@ configured as large as the hot-set size of your dataset.
 
 These restrictions may have an impact on query performance.
 
+Index and Filter Block Cache
+----------------------------
+
+Index and filter blocks are not cached by default, which means that they do
+not count towards the `--rocksdb.block-cache-size` limit. Enable the option
+`--rocksdb.cache-index-and-filter-blocks` to include them in the cap.
+
+There are additional options you can enable to avoid that the index and filter
+blocks get evicted from cache.
+
+```
+--rocksdb.cache-index-and-filter-blocks`
+--rocksdb.cache-index-and-filter-blocks-with-high-priority
+--rocksdb.pin-l0-filter-and-index-blocks-in-cache
+--rocksdb.pin-top-level-index-and-filter
+```
+
+Also see:
+- [RocksDB Server Options](programs-arangod-options.html#rocksdb)
+- [Write Buffer Manager](https://github.com/facebook/rocksdb/wiki/Write-Buffer-Manager){:target="_blank"}
+
 Edge-Cache
 ----------
 
