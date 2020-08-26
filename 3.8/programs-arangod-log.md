@@ -253,7 +253,7 @@ The default value for this option is `false`, so no roles will be logged.
 
 ## JSON log output
 
-<small>Introduced in: 3.8.0</small>
+<small>Introduced in: v3.8.0</small>
 
 Toggle JSON log output: `--log.use-json-format`
 
@@ -281,7 +281,7 @@ The attributes produced for each log message JSON object are:
 
 ### Log API Access
 
-<small>Introduced in: 3.4.11, 3.5.6, 3.6.5, 3.7.1</small>
+<small>Introduced in: v3.4.11, v3.5.6, v3.6.5, v3.7.1</small>
 
 `/_admin/log` control: `--log.api-enabled`
 
@@ -307,7 +307,7 @@ The default value is `true`.
 
 ## Logging to memory buffers
 
-<small>Introduced in: 3.8.0</small>
+<small>Introduced in: v3.8.0</small>
 
 Log to memory: `--log.in-memory`
 
