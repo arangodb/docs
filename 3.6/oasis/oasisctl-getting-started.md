@@ -307,7 +307,7 @@ items that won’t have defaults available when you attempt to create your
 first deployment and you will need to supply:
 
 - CA Certificate ID (name)
-- IP Whitelist ID (id) (optional)
+- IP Allowlist ID (id) (optional)
 - Node Size ID (id)
 - Node Disk Size (GB disk size dependent on Node Size ID)
 - Organization ID (name)
@@ -403,7 +403,7 @@ The inevitable time comes when something about your deployment must change and
 this is where the update command comes in. You can use update to change or
 update a number of things including updating the groups, policies, and roles
 for user access control. You can also update some of your deployment
-information or, for our situation, add an IP Whitelist if you didn’t add one
+information or, for our situation, add an IP Allowlist if you didn’t add one
 during creation.
 
 There are, of course, many options available and it is always recommended to
@@ -412,15 +412,15 @@ start with the --help flag to read about all of them.
 ### Update a Deployment
 
 This section will show an example of how to update a deployment to use a
-pre-existing whitelist. To add an IP Whitelist after the fact we are really
-just updating the IP Whitelist value, which is currently empty. In order to
-update the IP Whitelist of a deployment you must create a whitelist and then
+pre-existing allowlist. To add an IP Allowlist after the fact we are really
+just updating the IP Allowlist value, which is currently empty. In order to
+update the IP Allowlist of a deployment you must create a allowlist and then
 you can simply reference its id like so:
 
 ```bash
 oasisctl update deployment \
   --deployment-id hmkuedzw9oavvjmjdo0i \
-  --ipwhitelist-id abc123WhitelistID
+  --ipallowlist-id abc123AllowlistID
 ```
 
 You should receive a response with the deployment information and an indication

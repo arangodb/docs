@@ -10,7 +10,7 @@ represent organizational units such as teams, product groups, environments
 (e.g. staging vs. production). You can have any number of projects under one
 organization.
 
-Projects are a container for related deployments, certificates & IP whitelists.
+Projects are a container for related deployments, certificates & IP allowlists.
 Projects also come with their own policy for access control. You can have any
 number of deployment under one project.
 
@@ -41,7 +41,7 @@ its projects and deployments.
 ## How to delete a project
 
 {% hint 'danger' %}
-Deleting a project will delete contained deployments, certificates & IP whitelists.
+Deleting a project will delete contained deployments, certificates & IP allowlists.
 This operation is **irreversible**.
 {% endhint %}
 
@@ -56,7 +56,7 @@ Alternatively, you can also delete a project via the project page:
 3. Click the _Delete project..._ button.
 4. Enter `Delete!` to confirm and click _Yes_.
 
-## How to manage IP whitelists
+## How to manage IP allowlists
 
 ## How to manage certificates
 

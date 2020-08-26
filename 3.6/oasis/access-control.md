@@ -238,23 +238,23 @@ Below roles are listed in this schema:
 - `security.iamprovider.get`
 - `security.iamprovider.list`
 
-**IP whitelist Administrator** (`ipwhitelist-admin`):
+**IP allowlist Administrator** (`ipallowlist-admin`):
 - `security.ipallowlist.create`
 - `security.ipallowlist.delete`
 - `security.ipallowlist.get`
 - `security.ipallowlist.list`
 - `security.ipallowlist.update`
-- `security.ipwhitelist.create`
-- `security.ipwhitelist.delete`
-- `security.ipwhitelist.get`
-- `security.ipwhitelist.list`
-- `security.ipwhitelist.update`
-
-**IP whitelist Viewer** (`ipwhitelist-viewer`):
+- `security.ipallowlist.create`
+- `security.ipallowlist.delete`
 - `security.ipallowlist.get`
 - `security.ipallowlist.list`
-- `security.ipwhitelist.get`
-- `security.ipwhitelist.list`
+- `security.ipallowlist.update`
+
+**IP allowlist Viewer** (`ipallowlist-viewer`):
+- `security.ipallowlist.get`
+- `security.ipallowlist.list`
+- `security.ipallowlist.get`
+- `security.ipallowlist.list`
 
 **Organization Administrator** (`organization-admin`):
 - `billing.organization.get`
@@ -363,7 +363,7 @@ Permissions are solely defined by the Oasis API.
 | `resourcemanager` | `organization`               | `delete`, `get`, `update`
 | `resourcemanager` | `project`                    | `create`, `delete`, `get`, `list`, `update`
 | `security`        | `iamprovider`                | `create`, `delete`, `get`, `list`, `set-default`, `update`
-| `security`        | `ipwhitelist`                | `create`, `delete`, `get`, `list`, `update`
+| `security`        | `ipallowlist`                | `create`, `delete`, `get`, `list`, `update`
 
 ## Permission inheritance
 

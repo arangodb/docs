@@ -7,7 +7,8 @@ redirect_from:
 ---
 # My Account
 
-The _User Toolbar_ is in the top right corner in the Oasis dashboard and
+You can access information related to your account via the _User Toolbar_.
+The toolbar is in the top right corner in the Oasis dashboard and
 accessible from every view. There are three elements:
 
 - _Bell icon_: Notifications ([Invites](#invites))
@@ -160,3 +161,8 @@ You have to store it in a safe place.
    - _Counter-clockwise arrow icon_: Revoke API key
    - _Trash can icon_: Delete API key
 4. Click the _Yes_ button to confirm.
+
+{% comment %}
+TODO: Copy to clipboard button
+Access token that should expire after 1 hour unless renewed, might get removed as it's confusing.
+{ endcomment %}

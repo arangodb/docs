@@ -29,7 +29,7 @@ group deployments in your organization.
   on a project level.
 
 {% hint 'warning' %}
-Deleting a project will delete contained deployments, certificates & IP whitelists.
+Deleting a project will delete contained deployments, certificates & IP allowlists.
 This operation is **irreversible**.
 {% endhint %}
 

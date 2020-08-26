@@ -130,14 +130,14 @@ Also see the video
       create a new certificate by typing the desired name for it and hitting
       enter or clicking on the name when done.
     - Or, if you already have multiple certificates, select the desired one.
-4. _Optional but strongly recommended:_ In the _IP whitelist_ field, select the
+4. _Optional but strongly recommended:_ In the _IP allowlist_ field, select the
    desired one in case you want to limit access to your deployment to certain
-   IP ranges. To create a whitelist, navigate to your project and select the
-   _IP whitelists_ tab (also see the video
-   [IP Whitelists with ArangoDB Oasis](https://www.youtube.com/watch?v=Et6nlTHBI50&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=6&t=0s){:target="_blank"}).
+   IP ranges. To create a allowlist, navigate to your project and select the
+   _IP allowlists_ tab (also see the video
+   [IP allowlists with ArangoDB Oasis](https://www.youtube.com/watch?v=Et6nlTHBI50&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=6&t=0s){:target="_blank"}).
 
 {% hint 'security' %}
-For any kind of production deployment we strongly advise to use an IP whitelist.
+For any kind of production deployment we strongly advise to use an IP allowlist.
 {% endhint %}
 
 ![Oasis New Deployment](../images/oasis-new-deployment1.png)

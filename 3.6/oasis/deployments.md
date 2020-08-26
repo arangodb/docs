@@ -7,7 +7,7 @@ title: Deployments in ArangoDB Oasis
 
 edit:
 provider, region, certificate locked
-DB Version, IP whitelist and configuration can be changed
+DB Version, IP allowlist and configuration can be changed
 
 backup:
 daily: can select days (mon-sun)
