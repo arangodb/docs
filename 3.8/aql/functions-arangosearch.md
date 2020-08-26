@@ -444,12 +444,11 @@ RETURN NGRAM_MATCH("quick fox", "quick blue fox", "bigram")
 
 ### NGRAM_POSITIONAL_SIMILARITY()
 
-See [String Functions](functions-arangosearch.html#ngram_positional_similarity).
+See [String Functions](functions-string.html#ngram_positional_similarity).
 
 ### NGRAM_SIMILARITY()
 
-
-See [String Functions](functions-arangosearch.html#ngram_similarity).
+See [String Functions](functions-string.html#ngram_similarity).
 
 ### PHRASE()
 
@@ -488,11 +487,11 @@ Object tokens:
 
 - `{IN_RANGE: [low, high, includeLow, includeHigh]}`:
   see [IN_RANGE()](#in_range). *low* and *high* can only be strings.
-- `{LEVENSHTEIN_MATCH: [token, maxDistance, withTranspositions, maxTerms]}`:
+- `{LEVENSHTEIN_MATCH: [token, maxDistance, transpositions, maxTerms]}`:
   - `token` (string): a string to search
   - `maxDistance` (number): maximum Levenshtein / Damerau-Levenshtein distance
-  - `withTranspositions` (bool, _optional_): whether Damerau-Levenshtein
-    distance should be used. The default value is `false` (Levenshtein distance).
+  - `transpositions` (bool, _optional_): if set to `false`, a Levenshtein
+    distance is computed, otherwise a Damerau-Levenshtein distance (default)
   - `maxTerms` (number, _optional_): consider only a specified number of the
     most relevant terms. One can pass `0` to consider all matched terms, but it may
     impact performance negatively. The default value is `64`.
@@ -726,10 +725,9 @@ FOR doc IN viewName
 
 `LEVENSHTEIN_MATCH(path, target, distance, transpositions, maxTerms)`
 
-Match documents with a [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance){:target=_"blank"}
+Match documents with a [Damerau-Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance){:target=_"blank"}
 lower than or equal to *distance* between the stored attribute value and
-*target*. It can optionally take transpositions into account
-(Damerau-Levenshtein distance).
+*target*. It can optionally match documents using a pure Levenshtein distance.
 
 See [LEVENSHTEIN_DISTANCE()](functions-string.html#levenshtein_distance)
 if you want to calculate the edit distance of two strings.
@@ -740,8 +738,8 @@ if you want to calculate the edit distance of two strings.
 - **distance** (number): the maximum edit distance, which can be between
   `0` and `4` if *transpositions* is `false`, and between `0` and `3` if
   it is `true`
-- **transpositions** (bool, _optional_): compute Damerau-Levenshtein distance
-  if set to `true`, otherwise Levenshtein distance will be computed (default)
+- **transpositions** (bool, _optional_): if set to `false`, a Levenshtein
+  distance is computed, otherwise a Damerau-Levenshtein distance (default)
 - **maxTerms** (number, _optional_): consider only a specified number of the
   most relevant terms. One can pass `0` to consider all matched terms, but it may
   impact performance negatively. The default value is `64`.
@@ -752,7 +750,7 @@ different position).
 
 ```js
 FOR doc IN viewName
-  SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 2) // matches "quick"
+  SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 2, false) // matches "quick"
   RETURN doc.text
 ```
 
@@ -760,7 +758,7 @@ The Damerau-Levenshtein distance is `1` (move _k_ to the end).
 
 ```js
 FOR doc IN viewName
-  SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 1, true) // matches "quick"
+  SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 1) // matches "quick"
   RETURN doc.text
 ```
 
@@ -775,13 +773,13 @@ LET target = "input"
 LET targetLength = LENGTH(target)
 LET maxDistance = (targetLength > 5 ? 2 : (targetLength >= 3 ? 1 : 0))
 FOR doc IN viewName
-  SEARCH LEVENSHTEIN_MATCH(doc.text, target, false, maxDistance)
+  SEARCH LEVENSHTEIN_MATCH(doc.text, target, true, maxDistance)
   RETURN doc.text
 ```
 
 ### LIKE()
 
-<small>Introduced in: v3.7.0</small>
+<small>Introduced in: v3.7.2</small>
 
 `LIKE(path, search)`
 

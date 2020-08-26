@@ -38,12 +38,15 @@ documents. If you are familiar with relational database management systems (RDBM
 then it is safe to compare collections to tables and documents to rows. The
 difference is that in a traditional RDBMS, you have to define columns before
 you can store records in a table. Such definitions are also known as schemas.
-ArangoDB is schema-less, which means that there is no need to define what
+ArangoDB is by default schema-less, which means that there is no need to define what
 attributes a document can have. Every single document can have a completely
 different structure and still be stored together with other documents in a
 single collection. In practice, there will be common denominators among the
 documents in a collection, but the database system itself doesn't force you to
-limit yourself to a certain data structure.
+limit yourself to a certain data structure. To check for and/or enforce a
+common structure ArangoDB supports optional
+[**schema validation** for documents](data-modeling-documents-schema-validation.html)
+on collection level.
 
 There are two types of collections: **document collection** (also refered to as
 *vertex collections* in the context of graphs) as well as **edge collections**.

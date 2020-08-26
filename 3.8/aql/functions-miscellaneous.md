@@ -274,26 +274,6 @@ APPLY( "SUBSTRING", [ "this is a test", 0, 7 ] )
 // "this is"
 ```
 
-### ASSERT() / WARN()
-
-`ASSERT(expr, message) → retVal`<br>
-`WARN(expr, message) → retVal`
-
-The two functions evaluate an expression. In case the expression evaluates to
-*true* both functions will return *true*. If the expression evaluates to
-*false* *ASSERT* will throw an error and *WARN* will issue a warning and return
-*false*. This behavior allows the use of *ASSERT* and *WARN* in `FILTER`
-conditions.
-
-- **expr** (expression): AQL expression to be evaluated
-- **message** (string): message that will be used in exception or warning if expression evaluates to false
-- returns **retVal** (bool): returns true if expression evaluates to true
-
-```js
-FOR i IN 1..3 FILTER ASSERT(i > 0, "i is not greater 0") RETURN i
-FOR i IN 1..3 FILTER WARN(i < 2, "i is not smaller 2") RETURN i
-```
-
 ### CALL()
 
 `CALL(funcName, arg1, arg2, ... argN) → retVal`
@@ -316,6 +296,26 @@ CALL( "SUBSTRING", "this is a test", 0, 4 )
 
 Other functions
 ---------------
+
+### ASSERT() / WARN()
+
+`ASSERT(expr, message) → retVal`<br>
+`WARN(expr, message) → retVal`
+
+The two functions evaluate an expression. In case the expression evaluates to
+*true* both functions will return *true*. If the expression evaluates to
+*false* *ASSERT* will throw an error and *WARN* will issue a warning and return
+*false*. This behavior allows the use of *ASSERT* and *WARN* in `FILTER`
+conditions.
+
+- **expr** (expression): AQL expression to be evaluated
+- **message** (string): message that will be used in exception or warning if expression evaluates to false
+- returns **retVal** (bool): returns true if expression evaluates to true
+
+```js
+FOR i IN 1..3 FILTER ASSERT(i > 0, "i is not greater 0") RETURN i
+FOR i IN 1..3 FILTER WARN(i < 2, "i is not smaller 2") RETURN i
+```
 
 ### IN_RANGE()
 
@@ -347,48 +347,55 @@ The regular `IN_RANGE()` function can not utilize indexes, unlike its
 ArangoSearch counterpart which can use the View index.
 {% endhint %}
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlMiscInRange_1
-@EXAMPLE_AQL{aqlMiscInRange_1}
-LET value = 4
-RETURN IN_RANGE(value, 3, 5, true, true)
-// same as:
-//RETURN value >= 3 AND value <= 5
-@END_EXAMPLE_AQL
-@endDocuBlock aqlMiscInRange_1
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlMiscInRange_1
+    @EXAMPLE_AQL{aqlMiscInRange_1}
+    LET value = 4
+    RETURN IN_RANGE(value, 3, 5, true, true)
+    /* same as:
+       RETURN value >= 3 AND value <= 5
+    */
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlMiscInRange_1
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlMiscInRange_2
-@EXAMPLE_AQL{aqlMiscInRange_2}
-FOR value IN 2..6
-  RETURN { value, in_range: IN_RANGE(value, 3, 5, false, true) }
-  // same as:
-  //RETURN { value, in_range: value > 3 AND value <= 5 }
-@END_EXAMPLE_AQL
-@endDocuBlock aqlMiscInRange_2
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+<!-- separator -->
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlMiscInRange_3
-@EXAMPLE_AQL{aqlMiscInRange_3}
-LET coll = [
-  { text: "fennel" },
-  { text: "fox grape" },
-  { text: "forest strawberry" },
-  { text: "fungus" }
-]
-FOR doc IN coll
-  FILTER IN_RANGE(doc.text,"fo", "fp", true, false) // values with prefix "fo"
-  // same as:
-  //FILTER doc.text >= "fo" AND doc.text < "fp"
-  RETURN doc
-@END_EXAMPLE_AQL
-@endDocuBlock aqlMiscInRange_3
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlMiscInRange_2
+    @EXAMPLE_AQL{aqlMiscInRange_2}
+    FOR value IN 2..6
+      RETURN { value, in_range: IN_RANGE(value, 3, 5, false, true) }
+      /* same as:
+         RETURN { value, in_range: value > 3 AND value <= 5 }
+      */
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlMiscInRange_2
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+<!-- separator -->
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlMiscInRange_3
+    @EXAMPLE_AQL{aqlMiscInRange_3}
+    LET coll = [
+      { text: "fennel" },
+      { text: "fox grape" },
+      { text: "forest strawberry" },
+      { text: "fungus" }
+    ]
+    FOR doc IN coll
+      FILTER IN_RANGE(doc.text,"fo", "fp", true, false) // values with prefix "fo"
+      /* same as:
+         FILTER doc.text >= "fo" AND doc.text < "fp"
+      */
+      RETURN doc
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlMiscInRange_3
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Internal functions
 ------------------
@@ -414,26 +421,33 @@ RETURN 1 == 2 && FAIL("error") ? true : false // false
 RETURN 1 == 1 && FAIL("error") ? true : false // aborted with error
 ```
 
-### NOOPT()
+### NOOPT() / NOEVAL()
 
 `NOOPT(value) → retVal`
 
 No-operation that prevents certain query compile-time and run-time optimizations. 
 Constant expressions can be forced to be evaluated at runtime with this.
 This function is marked as non-deterministic so its argument withstands
-query optimization. There is no need to call this function explicitly, it is 
-mainly used for internal testing.
+query optimization.
+
+`NOEVAL(value) → retVal`
+
+Same as `NOOPT()`, except that it is marked as deterministic.
+
+There is no need to call these functions explicitly, they are mainly used for
+internal testing.
 
 - **value** (any): a value of arbitrary type
 - returns **retVal** (any): *value*
 
 ```js
 // differences in execution plan (explain)
-FOR i IN 1..3 RETURN (1 + 1)      // const assignment
-FOR i IN 1..3 RETURN NOOPT(1 + 1) // simple expression
+FOR i IN 1..3 RETURN (1 + 1)       // const assignment
+FOR i IN 1..3 RETURN NOOPT(1 + 1)  // simple expression
+FOR i IN 1..3 RETURN NOEVAL(1 + 1) // simple expression
 
-NOOPT( 123 ) // evaluates 123 at runtime
-NOOPT( CONCAT("a", "b") ) // evaluates concatenation at runtime
+RETURN NOOPT( 123 ) // evaluates 123 at runtime
+RETURN NOOPT( CONCAT("a", "b") ) // evaluates concatenation at runtime
 ```
 
 ### PASSTHRU()

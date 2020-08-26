@@ -21570,6 +21570,144 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR d IN exampleTime FILTER d.
     @endDocuBlock joinTuples
 
 
+<!-- filename: /work/ArangoDB/Documentation/Books/AQL/functions-miscellaneous.md -->
+    @startDocuBlockInline aqlMiscInRange_1
+
+
+<div class="example-container" id="aqlMiscInRange_1_container">
+<div id="aqlMiscInRange_1_long">
+<strong>Query:</strong>
+<pre>
+  LET value = <span class="hljs-number">4</span>
+  RETURN IN_RANGE(value, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">true</span>)
+  <span class="hljs-comment">/* same as:
+     RETURN value &gt;= 3 AND value &lt;= 5
+  */</span>
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  <span class="hljs-literal">true</span>
+]</pre>
+</div>
+</div>
+
+    @endDocuBlock aqlMiscInRange_1
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/AQL/functions-miscellaneous.md -->
+    @startDocuBlockInline aqlMiscInRange_2
+
+
+<div class="example-container" id="aqlMiscInRange_2_container">
+<div id="aqlMiscInRange_2_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  FOR value IN <span class="hljs-number">2.</span><span class="hljs-number">.6</span>
+    RETURN { value, <span class="hljs-attr">in_range</span>: IN_RANGE(value, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>) }
+    <span class="hljs-comment">/* same as:
+       RETURN { value, in_range: value &gt; 3 AND value &lt;= 5 }
+    */</span>
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  {
+    <span class="hljs-string">"value"</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-string">"in_range"</span>: <span class="hljs-literal">false</span>
+  },
+  {
+    <span class="hljs-string">"value"</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-string">"in_range"</span>: <span class="hljs-literal">false</span>
+  },
+  {
+    <span class="hljs-string">"value"</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-string">"in_range"</span>: <span class="hljs-literal">true</span>
+  },
+  {
+    <span class="hljs-string">"value"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-string">"in_range"</span>: <span class="hljs-literal">true</span>
+  },
+  {
+    <span class="hljs-string">"value"</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-string">"in_range"</span>: <span class="hljs-literal">false</span>
+  }
+]</pre>
+<div id="aqlMiscInRange_2_container_collapse" onclick="$('#aqlMiscInRange_2_long').hide(); $('#aqlMiscInRange_2_short').show(); window.location.hash='aqlMiscInRange_2_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlMiscInRange_2_short" onclick="$('#aqlMiscInRange_2_short').hide(); $('#aqlMiscInRange_2_long').show();">
+<strong>Query:</strong>
+<pre>
+  FOR value IN <span class="hljs-number">2.</span><span class="hljs-number">.6</span>
+    RETURN { value, <span class="hljs-attr">in_range</span>: IN_RANGE(value, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>) }
+    <span class="hljs-comment">/* same as:
+       RETURN { value, in_range: value &gt; 3 AND value &lt;= 5 }
+    */</span>
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlMiscInRange_2
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/AQL/functions-miscellaneous.md -->
+    @startDocuBlockInline aqlMiscInRange_3
+
+
+<div class="example-container" id="aqlMiscInRange_3_container">
+<div id="aqlMiscInRange_3_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  LET coll = [
+    { <span class="hljs-attr">text</span>: <span class="hljs-string">"fennel"</span> },
+    { <span class="hljs-attr">text</span>: <span class="hljs-string">"fox grape"</span> },
+    { <span class="hljs-attr">text</span>: <span class="hljs-string">"forest strawberry"</span> },
+    { <span class="hljs-attr">text</span>: <span class="hljs-string">"fungus"</span> }
+  ]
+  FOR doc IN coll
+    FILTER IN_RANGE(doc.text,<span class="hljs-string">"fo"</span>, <span class="hljs-string">"fp"</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>) <span class="hljs-comment">// values with prefix "fo"</span>
+    <span class="hljs-comment">/* same as:
+       FILTER doc.text &gt;= "fo" AND doc.text &lt; "fp"
+    */</span>
+    RETURN doc
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  {
+    <span class="hljs-string">"text"</span>: <span class="hljs-string">"fox grape"</span>
+  },
+  {
+    <span class="hljs-string">"text"</span>: <span class="hljs-string">"forest strawberry"</span>
+  }
+]</pre>
+<div id="aqlMiscInRange_3_container_collapse" onclick="$('#aqlMiscInRange_3_long').hide(); $('#aqlMiscInRange_3_short').show(); window.location.hash='aqlMiscInRange_3_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlMiscInRange_3_short" onclick="$('#aqlMiscInRange_3_short').hide(); $('#aqlMiscInRange_3_long').show();">
+<strong>Query:</strong>
+<pre>
+  LET coll = [
+    { <span class="hljs-attr">text</span>: <span class="hljs-string">"fennel"</span> },
+    { <span class="hljs-attr">text</span>: <span class="hljs-string">"fox grape"</span> },
+    { <span class="hljs-attr">text</span>: <span class="hljs-string">"forest strawberry"</span> },
+    { <span class="hljs-attr">text</span>: <span class="hljs-string">"fungus"</span> }
+  ]
+  FOR doc IN coll
+    FILTER IN_RANGE(doc.text,<span class="hljs-string">"fo"</span>, <span class="hljs-string">"fp"</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>) <span class="hljs-comment">// values with prefix "fo"</span>
+    <span class="hljs-comment">/* same as:
+       FILTER doc.text &gt;= "fo" AND doc.text &lt; "fp"
+    */</span>
+    RETURN doc
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlMiscInRange_3
+
+
 <!-- filename: /work/ArangoDB/Documentation/Books/AQL/invocation-with-arangosh.md -->
     @startDocuBlockInline 01_workWithAQL_all
 
