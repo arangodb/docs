@@ -74,7 +74,7 @@ Also see the video
 4. Click the _Create_ button.
 5. You will now be taken to the project summary page.
 
-   ![Oasis Project Summary](../images/oasis-project-summary.png)
+   ![Oasis Project Summary](../images/oasis-project.png)
 
 **Notes**
 
@@ -158,7 +158,7 @@ Also see the video
 A group is a defined set of members. Groups can then be bound to roles. These
 bindings contribute to the respective organization, project or deployment policy.
 
-![Oasis Groups](../images/oasis-groups-with-new-group-added.png)
+![Oasis Groups](../images/oasis-groups.png)
 
 ### Creating a new group
 
@@ -217,7 +217,7 @@ project or deployment policy.
 6. After accepting the invite the person will be added to the organization
    [members](#members).
 
-![Oasis New Organization Invite](../images/oasis-pending-invite.png)
+![Oasis Organization Invites](../images/oasis-invites.png)
 
 See [Organizational Invite](./organizational-invite.html) for details.
 

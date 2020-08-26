@@ -536,7 +536,7 @@
       "agent",
       "single"
     ],
-    "default" : 16341532672,
+    "default" : 33252955136,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -865,10 +865,7 @@
   "cluster.resign-leadership-on-shutdown" : {
     "category" : "option",
     "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
+      "dbserver"
     ],
     "default" : false,
     "deprecatedIn" : null,
@@ -2512,6 +2509,31 @@
     "section" : "javascript",
     "type" : "string..."
   },
+  "ldap.allow-offline" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "If a refresh attempt fails to connect to the LDAP server, continue with the cached authentication data",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "ldap",
+    "type" : "boolean"
+  },
   "ldap.async-connect" : {
     "category" : "option",
     "component" : [
@@ -3364,6 +3386,35 @@
     "section" : "",
     "type" : "string..."
   },
+  "log.api-enabled" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "true",
+    "deprecatedIn" : null,
+    "description" : "whether the log api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.11",
+      "v3.5.6",
+      "v3.6.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string"
+  },
   "log.color" : {
     "category" : "option",
     "component" : [
@@ -3940,15 +3991,14 @@
     "component" : [
       "coordinator",
       "dbserver",
-      "agent",
-      "single"
+      "agent"
     ],
     "default" : 60000,
     "deprecatedIn" : null,
     "description" : "default time-to-live of idle connections (in milliseconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
-    "hidden" : false,
+    "hidden" : true,
     "introducedIn" : [
       "v3.6.0"
     ],
@@ -3967,15 +4017,14 @@
     "component" : [
       "coordinator",
       "dbserver",
-      "agent",
-      "single"
+      "agent"
     ],
     "default" : 2,
     "deprecatedIn" : null,
     "description" : "number of network IO threads",
     "dynamic" : false,
     "enterpriseOnly" : false,
-    "hidden" : false,
+    "hidden" : true,
     "introducedIn" : [
       "v3.6.0"
     ],
@@ -3994,15 +4043,14 @@
     "component" : [
       "coordinator",
       "dbserver",
-      "agent",
-      "single"
+      "agent"
     ],
     "default" : 1024,
     "deprecatedIn" : null,
     "description" : "max open network connections",
     "dynamic" : false,
     "enterpriseOnly" : false,
-    "hidden" : false,
+    "hidden" : true,
     "introducedIn" : [
       "v3.6.0"
     ],
@@ -4021,15 +4069,14 @@
     "component" : [
       "coordinator",
       "dbserver",
-      "agent",
-      "single"
+      "agent"
     ],
     "default" : "",
     "deprecatedIn" : null,
     "description" : "network protocol to use",
     "dynamic" : false,
     "enterpriseOnly" : false,
-    "hidden" : false,
+    "hidden" : true,
     "introducedIn" : [
       "v3.7.0"
     ],
@@ -4049,15 +4096,14 @@
     "component" : [
       "coordinator",
       "dbserver",
-      "agent",
-      "single"
+      "agent"
     ],
     "default" : false,
     "deprecatedIn" : null,
     "description" : "verify hosts when using TLS",
     "dynamic" : false,
     "enterpriseOnly" : false,
-    "hidden" : false,
+    "hidden" : true,
     "introducedIn" : [
       "v3.6.0"
     ],
@@ -4270,6 +4316,33 @@
     "section" : "query",
     "type" : "boolean"
   },
+  "query.max-parallelism" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 4,
+    "deprecatedIn" : null,
+    "description" : "maximum number of threads to use for a single query; actual query execution may use less depending on various factors",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "uint64"
+  },
   "query.memory-limit" : {
     "category" : "option",
     "component" : [
@@ -4375,6 +4448,33 @@
     "section" : "query",
     "type" : "boolean"
   },
+  "query.parallelize-traversals" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "enable traversal parallelization",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "query",
+    "type" : "boolean"
+  },
   "query.registry-ttl" : {
     "category" : "option",
     "component" : [
@@ -4460,7 +4560,7 @@
     ],
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "enable smart joins query optimization",
+    "description" : "enable SmartJoins query optimization",
     "dynamic" : false,
     "enterpriseOnly" : true,
     "hidden" : true,
@@ -4850,7 +4950,7 @@
       "agent",
       "single"
     ],
-    "default" : 19609839206,
+    "default" : 39903546163,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -4866,6 +4966,56 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "uint64"
+  },
+  "rocksdb.cache-index-and-filter-blocks" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "if turned on, the RocksDB block cache quota will also include RocksDB memtable sizes",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.cache-index-and-filter-blocks-with-high-priority" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "if true and `--rocksdb.cache-index-and-filter-blocks` is also true, cache index and filter blocks with high priority, making index and filter blocks be less likely to be evicted than data blocks",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
   },
   "rocksdb.compaction-read-ahead-size" : {
     "category" : "option",
@@ -5069,6 +5219,33 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.encryption-gen-internal-key" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Generate internal encryption-at-rest key.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
   "rocksdb.encryption-key-generator" : {
     "category" : "option",
     "component" : [
@@ -5093,6 +5270,33 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "string"
+  },
+  "rocksdb.encryption-key-rotation" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "allow encryption key rotation",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.1"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
   },
   "rocksdb.encryption-keyfile" : {
     "category" : "option",
@@ -5181,10 +5385,10 @@
     ],
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "if true, writes are exclusive. This allows the RocksDB engine to mimic the MMFiles collection locks behavior, but will inhibit concurrent write operations",
+    "description" : "if true, writes are exclusive. This allows the RocksDB engine to mimic the collection locking behavior of the now-removed MMFiles storage engine, but will inhibit concurrent write operations",
     "dynamic" : false,
     "enterpriseOnly" : false,
-    "hidden" : false,
+    "hidden" : true,
     "introducedIn" : [
       "v3.5.4"
     ],
@@ -5676,6 +5880,56 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.pin-l0-filter-and-index-blocks-in-cache" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "if true and `--rocksdb.cache-index-and-filter-blocks` is also true, filter and index blocks are pinned and only evicted from cache when the table reader is freed",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.pin-top-level-index-and-filter" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "If true and `--rocksdb.cache-index-and-filter-blocks` is also true, the top-level index of partitioned filter and index blocks are pinned and only evicted from cache when the table reader is freed",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
   "rocksdb.recycle-log-file-num" : {
     "category" : "option",
     "component" : [
@@ -5834,7 +6088,7 @@
       "agent",
       "single"
     ],
-    "default" : 26146452275,
+    "default" : 53204728217,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -6466,9 +6720,9 @@
     ],
     "default" : "",
     "deprecatedIn" : null,
-    "description" : "folder containing one or more jwt secret files to use for jwt authentication. Files are sorted alphabetically: First secret is used for signining + verifying jwt tokens. (Enterprise only) The latter secrets are only used for verifying.",
+    "description" : "folder containing one or more jwt secret files to use for jwt authentication. Files are sorted alphabetically: First secret is used for signing + verifying JWT tokens. The latter secrets are only used for verifying.",
     "dynamic" : false,
-    "enterpriseOnly" : false,
+    "enterpriseOnly" : true,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.0"
@@ -6536,10 +6790,7 @@
   "server.maintenance-actions-block" : {
     "category" : "option",
     "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
+      "dbserver"
     ],
     "default" : 2,
     "deprecatedIn" : null,
@@ -6561,10 +6812,7 @@
   "server.maintenance-actions-linger" : {
     "category" : "option",
     "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
+      "dbserver"
     ],
     "default" : 3600,
     "deprecatedIn" : null,
@@ -6586,10 +6834,7 @@
   "server.maintenance-threads" : {
     "category" : "option",
     "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
+      "dbserver"
     ],
     "default" : 9,
     "deprecatedIn" : null,
@@ -7240,6 +7485,34 @@
     "requiresValue" : true,
     "section" : "temp",
     "type" : "string"
+  },
+  "transaction.streaming-lock-timeout" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 8,
+    "deprecatedIn" : null,
+    "description" : "lock timeout in seconds in case of parallel access to the same streaming transaction",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.5",
+      "v3.7.1"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "transaction",
+    "type" : "double"
   },
   "ttl.frequency" : {
     "category" : "option",

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The most convenient method to import a lot of data into ArangoDB is to use thearangoimport command-line tool
+description: The most convenient method to import a lot of data into ArangoDB is to use the arangoimport command-line tool
 ---
 Arangoimport Details
 ====================
@@ -9,6 +9,15 @@ The most convenient method to import a lot of data into ArangoDB is to use the
 *arangoimport* command-line tool. It allows you to bulk import data records
 from a file into a database collection. Multiple files can be imported into
 the same or different collections by invoking it multiple times.
+
+{% hint 'tip' %}
+Import files are expected to be UTF-8 encoded **without**
+[byte order mark (BOM)](https://en.wikipedia.org/wiki/Byte_order_mark){:target="_blank"}.
+Other encodings are not supported, but may not raise warnings or errors.
+
+In case of CSV/TSV files, BOMs will become part of the first column's name
+(possibly mangled), so be sure the files have none.
+{% endhint %}
 
 Importing into an Edge Collection
 ---------------------------------
