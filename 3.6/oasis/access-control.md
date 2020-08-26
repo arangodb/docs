@@ -309,7 +309,21 @@ Below roles are listed in this schema:
 
 ### How to create a custom role
 
-### How to view or remove a custom role
+1. Click on _Access Control_ in the main navigation.
+2. On the _Roles_ tab, click on the _New role_ button.
+3. Enter a name and optionally a description for the new role.
+4. Select the desired permissions.
+5. Click the _Create_ button.
+
+### How to view, edit or remove a custom role
+
+1. Click on _Access Control_ in the main navigation.
+2. On the _Roles_ tab, click on:
+   - A role name or the _eye_ icon in the _Actions_ column to view the role.
+   - The _pencil_ icon in the _Actions_ column to edit the role.
+     You can also view a role and click the _Edit_ button in the detail view.
+   - The _trash can_ icon to delete the role.
+     You can also view a role and click the _Delete_ button in the detail view.
 
 ## Permissions
 
