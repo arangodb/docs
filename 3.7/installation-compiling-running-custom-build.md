@@ -2,7 +2,7 @@
 layout: default
 description: You've already built a custom version of ArangoDB and want to run it
 redirect_from:
-  - /3.7/cookbook/compiling-running-custom-build.html # 3.5 -> 3.5
+  - cookbook/compiling-running-custom-build.html # 3.5 -> 3.5
 ---
 Running a custom build
 ======================
