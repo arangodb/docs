@@ -5,7 +5,7 @@ title: ArangoDB Oasis - The ArangoDB Cloud
 page-toc:
   disable: true
 ---
-![ArangoDB Oasis Logo](../images/arangodb-oasis-logo-right.svg){: .center-image style="width: 66%; margin-bottom: 80px;"}
+![ArangoDB Oasis Logo](images/arangodb-oasis-logo-right.svg){: .center-image style="width: 66%; margin-bottom: 80px;"}
 
 [ArangoDB Oasis](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"},
 the ArangoDB Cloud, provides ArangoDB databases as a Service (DBaaS).
