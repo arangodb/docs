@@ -227,16 +227,16 @@ Version 3.3
 
 **All Editions**
 
-- [**Server-level Replication**](administration-master-slave-server-level-setup.html):
+- [**Server-level Replication**](administration-leader-follower-server-level-setup.html):
   In addition to per-database replication, there is now an additional
-  `globalApplier`. Start the global replication on the slave once and all
-  current and future databases will be replicated from the master to the
-  slave automatically.
+  `globalApplier`. Start the global replication on the Follower once and all
+  current and future databases will be replicated from the Leader to the
+  Follower automatically.
 
 - [**Asynchronous Failover**](release-notes-new-features33.html#asynchronous-failover):
   Make a single server instance resilient with a second server instance, one
-  as master and the other as asynchronously replicating slave, with automatic
-  failover to the slave if the master goes down.
+  as Leader and the other as asynchronously replicating Follower, with automatic
+  failover to the Follower if the Leader goes down.
 
 Also see [What's New in 3.3](release-notes-new-features33.html).
 

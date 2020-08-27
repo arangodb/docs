@@ -355,13 +355,13 @@
       children:
         - text: Single Instance
           href: architecture-deployment-modes-single-instance.html
-        - text: Master/Slave
-          href: architecture-deployment-modes-master-slave.html
+        - text: Leader/Follower
+          href: architecture-deployment-modes-leader-follower.html
           children:
             - text: Architecture
-              href: architecture-deployment-modes-master-slave-architecture.html
+              href: architecture-deployment-modes-leader-follower-architecture.html
             - text: Limitations
-              href: architecture-deployment-modes-master-slave-limitations.html
+              href: architecture-deployment-modes-leader-follower-limitations.html
         - text: Active Failover
           href: architecture-deployment-modes-active-failover.html
           children:
@@ -566,11 +566,11 @@
               href: deployment-single-instance-using-the-starter.html
             - text: Manual Start
               href: deployment-single-instance-manual-start.html
-        - text: Master/Slave
-          href: deployment-master-slave.html
+        - text: Leader/Follower
+          href: deployment-leader-follower.html
           children:
             - text: Manual Start
-              href: deployment-master-slave-manual-start.html
+              href: deployment-leader-follower-manual-start.html
         - text: Active Failover
           href: deployment-active-failover.html
           children:
@@ -735,22 +735,22 @@
           href: administration-managing-users-in-arangosh.html
     - text: Switch Storage Engine
       href: administration-engine-switch-engine.html
-    - text: Master/Slave
-      href: administration-master-slave.html
+    - text: Leader/Follower
+      href: administration-leader-follower.html
       children:
         - text: Setting up
-          href: administration-master-slave-setting-up.html
+          href: administration-leader-follower-setting-up.html
           children:
             - text: Replication Applier
-              href: administration-master-slave-replication-applier.html
+              href: administration-leader-follower-replication-applier.html
             - text: Per-Database Setup
-              href: administration-master-slave-database-setup.html
+              href: administration-leader-follower-database-setup.html
             - text: Server-Level Setup
-              href: administration-master-slave-server-level-setup.html
-            - text: Speeding Up Slave Initialization
-              href: administration-master-slave-initialize-from-backup.html
+              href: administration-leader-follower-server-level-setup.html
+            - text: Speeding Up Follower Initialization
+              href: administration-leader-follower-initialize-from-backup.html
         - text: Syncing Collections
-          href: administration-master-slave-syncing-collections.html
+          href: administration-leader-follower-syncing-collections.html
     - text: Active Failover
       href: administration-active-failover.html
     - text: Cluster
@@ -794,8 +794,8 @@
     - text: Collectd
       href: monitoring-collectd.html
       children:
-        - text: Replication Slaves
-          href: monitoring-collectd-slave-status.html
+        - text: Replication Followers
+          href: monitoring-collectd-follower-status.html
         - text: Network usage
           href: monitoring-collectd-traffic-with-ipaccounting.html
         - text: More metrics

@@ -38,7 +38,7 @@ For a full list of tools, please refer to the [Programs & Tools](programs.html) 
 Deployment Administration
 -------------------------
 
-- [Master/Slave](administration-master-slave.html)
+- [Leader/Follower](administration-leader-follower.html)
 - [Active Failover](administration-active-failover.html)
 - [Cluster](administration-cluster.html)
 - [Datacenter to datacenter replication](administration-dc2-dc.html)

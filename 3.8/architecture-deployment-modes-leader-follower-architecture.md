@@ -1,19 +1,21 @@
 ---
 layout: default
-description: In a Master/Slave setup one or more ArangoDB slaves asynchronously replicatefrom a master
+description: In a Leader/Follower setup one or more ArangoDB Followers asynchronously replicatefrom a Leader
+redirect_from:
+  - architecture-deployment-modes-master-slave-architecture.html # 3.8 -> 3.8
 ---
-Master/Slave Architecture
-=========================
+Leader/Follower Architecture
+============================
 
 Introduction
 ------------
 
-In a _Master/Slave_ setup one or more ArangoDB _slaves_ asynchronously replicate
-from a _master_. 
+In a _Leader/Follower_ setup one or more ArangoDB _Followers_ asynchronously replicate
+from a _Leader_. 
 
-The _master_ is the ArangoDB instance where all data-modification operations should
-be directed to. The _slave_ is the ArangoDB instance that replicates the data from
-the master.
+The _Leader_ is the ArangoDB instance where all data-modification operations should
+be directed to. The _Follower_ is the ArangoDB instance that replicates the data from
+the Leader.
 
 Components
 ----------
@@ -72,8 +74,8 @@ value contains the _id_ of the last uncommitted operation that was written to th
 server's WAL. For the RocksDB storage engine, *lastLogTick* and *lastUncommittedLogTick* 
 are identical, as the WAL only contains committed operations.
 
-The *clients* attribute reveals which clients (slaves) have connected to the
-master recently, and up to which tick value they caught up with the replication.
+The *clients* attribute reveals which clients (Followers) have connected to the
+Leader recently, and up to which tick value they caught up with the replication.
 
 **Note**: The replication logger state can also be queried via the
 [HTTP API](http/replications.html).
@@ -93,26 +95,26 @@ and maximum tick values per logfile:
 
 **Purpose**
 
-The purpose of the _replication applier_ is to read data from a master database's
-event log, and apply them locally. The _applier_ will check the master database
+The purpose of the _replication applier_ is to read data from a Leader database's
+event log, and apply them locally. The _applier_ will check the Leader database
 for new operations periodically. It will perform an incremental synchronization,
-i.e. only asking the master for operations that occurred after the last synchronization.
+i.e. only asking the Leader for operations that occurred after the last synchronization.
 
-The _replication applier_ does not get notified by the master database when there
+The _replication applier_ does not get notified by the Leader database when there
 are "new" operations available, but instead uses the pull principle. It might thus
-take some time (the so-called *replication lag*) before an operation from the master
-database gets shipped to, and applied in, a slave database. 
+take some time (the so-called *replication lag*) before an operation from the Leader
+database gets shipped to, and applied in, a Follower database. 
 
 The _replication applier_ of a database is run in a separate thread. It may encounter
-problems when an operation from the master cannot be applied safely, or when the
-connection to the master database goes down (network outage, master database is
+problems when an operation from the Leader cannot be applied safely, or when the
+connection to the Leader database goes down (network outage, Leader database is
 down or unavailable etc.). In this case, the database's _replication applier_ thread
 might terminate itself. It is then up to the administrator to fix the problem and
 restart the database's _replication applier_.
 
-If the _replication applier_ cannot connect to the master database, or the
+If the _replication applier_ cannot connect to the Leader database, or the
 communication fails at some point during the synchronization, the _replication applier_
-will try to reconnect to the master database. It will give up reconnecting only
+will try to reconnect to the Leader database. It will give up reconnecting only
 after a configurable amount of connection attempts.
 
 The _replication applier_ state is queryable at any time by using the *state* command
@@ -137,7 +139,7 @@ The result might look like this:
     "ticksBehind" : 2, 
     "progress" : { 
       "time" : "2019-03-01T11:36:33Z", 
-      "message" : "fetching master log from tick 2050694546, last scanned tick 2050664547, first regular tick 2050544543, barrier: 0, open transactions: 1, chunk size 6291456", 
+      "message" : "fetching leader log from tick 2050694546, last scanned tick 2050664547, first regular tick 2050544543, barrier: 0, open transactions: 1, chunk size 6291456", 
       "failedConnects" : 0 
     }, 
     "totalRequests" : 2, 
@@ -160,13 +162,13 @@ The result might look like this:
     "version" : "3.4.4", 
     "serverId" : "46402312160836" 
   }, 
-  "endpoint" : "tcp://master.example.org", 
+  "endpoint" : "tcp://leader.example.org", 
   "database" : "test" 
 }
 ```
 
 The *running* attribute indicates whether the _replication applier_ of the current
-database is currently running and polling the master at *endpoint* for new events.
+database is currently running and polling the Leader at *endpoint* for new events.
 
 The *started* attribute shows at what date and time the applier was started (if at all).
 
@@ -174,19 +176,19 @@ The *progress.failedConnects* attribute shows how many failed connection attempt
 the _replication applier_ currently has encountered in a row. In contrast, the
 *totalFailedConnects* attribute indicates how many failed connection attempts the
 _applier_ has made in total. The *totalRequests* attribute shows how many requests
-the _applier_ has sent to the master database in total. 
+the _applier_ has sent to the Leader database in total. 
 
 The *totalEvents* attribute shows how many log events the _applier_ has read from the 
-master. The *totalDocuments* and *totalRemovals* attributes indicate how may document
-operations the slave has applied locally.
+Leader. The *totalDocuments* and *totalRemovals* attributes indicate how may document
+operations the Follower has applied locally.
 
 The attributes *totalApplyTime* and *totalFetchTime* show the total time the applier
 spent for applying data batches locally, and the total time the applier waited on
-data-fetching requests to the master, respectively.
+data-fetching requests to the Leader, respectively.
 The *averageApplyTime* and *averageFetchTime* attributes show the average times clocked
 for these operations. Note that the average times will greatly be influenced by the
 chunk size used in the applier configuration (bigger chunk sizes mean less requests to
-the slave, but the batches will include more data and take more time to create
+the Follower, but the batches will include more data and take more time to create
 and apply).
 
 The *progress.message* sub-attribute provides a brief hint of what the _applier_
@@ -228,7 +230,7 @@ due to (repeated) connection problems:
     "lastError" : { 
       "errorNum" : 1400, 
       "time" : "2019-03-01T11:52:45Z", 
-      "errorMessage" : "could not connect to master at tcp://127.0.0.1:8529 for URL /_api/wal/tail?chunkSize=6291456&barrier=0&from=2101606369&lastScanned=2101606370&serverId=46402312160836&includeSystem=true&includeFoxxQueues=false: Could not connect to 'http+tcp://127.0.0.1:852..." 
+      "errorMessage" : "could not connect to leader at tcp://127.0.0.1:8529 for URL /_api/wal/tail?chunkSize=6291456&barrier=0&from=2101606369&lastScanned=2101606370&serverId=46402312160836&includeSystem=true&includeFoxxQueues=false: Could not connect to 'http+tcp://127.0.0.1:852..." 
     }, 
     "time" : "2019-03-01T11:52:56Z" 
   }, 
@@ -236,7 +238,7 @@ due to (repeated) connection problems:
     "version" : "3.4.4", 
     "serverId" : "46402312160836" 
   }, 
-  "endpoint" : "tcp://master.example.org", 
+  "endpoint" : "tcp://leader.example.org", 
   "database" : "test" 
 }
 ```
