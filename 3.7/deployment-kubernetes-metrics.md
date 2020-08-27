@@ -16,4 +16,6 @@ with Prometheus through the [Prometheus-Operator by CoreOS](https://github.com/c
 Furthermore, the operator can run sidecar containers for ArangoDB
 deployments of type Cluster which expose metrics in Prometheus format. See:
 - [`spec.metrics` reference](deployment-kubernetes-deployment-resource.html#specmetricsenabled-bool)
+{% if page.version.version >= "3.7" %}
 - [List of exposed server metrics](http/administration-and-monitoring-metrics.html#list-of-exposed-metrics)
+{% endif %}
