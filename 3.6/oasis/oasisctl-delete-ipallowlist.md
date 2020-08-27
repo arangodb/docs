@@ -1,24 +1,25 @@
 ---
 layout: default
-description: Description of the oasisctl list ipwhitelists command
-title: Oasisctl List Ipwhitelists
+description: Description of the oasisctl delete ipallowlist command
+title: Oasisctl Delete Ipallowlist
 ---
-# Oasisctl List Ipwhitelists
+# Oasisctl Delete Ipallowlist
 
-List all IP whitelists of the given project
+Delete an IP allowlist the authenticated user has access to
 
 ## Synopsis
 
-List all IP whitelists of the given project
+Delete an IP allowlist the authenticated user has access to
 
 ```
-oasisctl list ipwhitelists [flags]
+oasisctl delete ipallowlist [flags]
 ```
 
 ## Options
 
 ```
-  -h, --help                     help for ipwhitelists
+  -h, --help                     help for ipallowlist
+  -i, --ipallowlist-id string    Identifier of the IP allowlist
   -o, --organization-id string   Identifier of the organization
   -p, --project-id string        Identifier of the project
 ```
@@ -33,5 +34,5 @@ oasisctl list ipwhitelists [flags]
 
 ## See also
 
-* [oasisctl list](oasisctl-list.html)	 - List resources
+* [oasisctl delete](oasisctl-delete.html)	 - Delete resources
 

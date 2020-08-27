@@ -29,6 +29,19 @@
 
 require 'pathname'
 
+TITLE_CASE = {
+    'apikey' => 'API Key',
+    'apikeys' => 'API Keys',
+    'cacertificate' => 'CA Certificate',
+    'cacertificates' => 'CA Certificates',
+    'ipallowlist' => 'IP Allowlist',
+    'ipallowlists' => 'IP Allowlists',
+    'tandc' => 'Terms & Conditions',
+    'arangodb' => 'ArangoDB',
+    'cpusizes' => 'CPU Sizes',
+    'nodesizes' => 'Node Sizes'
+}
+
 def main()
     if ARGV.length < 2
         puts "Usage:\nruby #{File.basename(__FILE__)} <source-dir> <target-dir>"
@@ -49,17 +62,25 @@ def main()
     spaces = "    "
     prev_command = ""
     first_child = false
-    # We rely on the files being in alphabetical order
-    Dir.glob(File.join(inpath, "oasisctl*.md")).each { |infile|
+    Dir.glob(File.join(inpath, "oasisctl*.md"))
+    .sort { |a,b|
+        # Should not rely on the files being in alphabetical order
+        # File extensions needs to be stripped because '-' comes before '.'
+        base_a = File.basename(a, '.md')
+        base_b = File.basename(b, '.md')
+        base_a <=> base_b
+    }
+    .each { |infile|
         base = File.basename(infile)
         base = "oasisctl-options.md" if base == "oasisctl.md"
         outfile = File.join(outpath, base.gsub('_', '-'))
         rewrite_content(infile, outfile)
-        title_arr = File.basename(infile, '.md').split('_')
+        title_arr = File.basename(infile, '.md').split(/[_-]/)
         title = command = "Options"
         if title_arr.length > 1
-            title = title_arr[1..].map{|word| word.capitalize}.join(' ')
-            # TODO: Fix inter-word capitalization of navigation labels?
+            title = title_arr[1..].map{|word|
+                TITLE_CASE.fetch(word, word.capitalize)
+            }.join(' ')
             command = title_arr[1]
         end
 

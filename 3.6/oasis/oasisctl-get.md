@@ -37,7 +37,7 @@ oasisctl get [flags]
 * [oasisctl get deployment](oasisctl-get-deployment.html)	 - Get a deployment the authenticated user has access to
 * [oasisctl get example](oasisctl-get-example.html)	 - Get a single example dataset
 * [oasisctl get group](oasisctl-get-group.html)	 - Get a group the authenticated user has access to
-* [oasisctl get ipwhitelist](oasisctl-get-ipwhitelist.html)	 - Get an IP whitelist the authenticated user has access to
+* [oasisctl get ipallowlist](oasisctl-get-ipallowlist.html)	 - Get an IP allowlist the authenticated user has access to
 * [oasisctl get organization](oasisctl-get-organization.html)	 - Get an organization the authenticated user is a member of
 * [oasisctl get policy](oasisctl-get-policy.html)	 - Get a policy the authenticated user has access to
 * [oasisctl get project](oasisctl-get-project.html)	 - Get a project the authenticated user has access to
@@ -46,4 +46,5 @@ oasisctl get [flags]
 * [oasisctl get role](oasisctl-get-role.html)	 - Get a role the authenticated user has access to
 * [oasisctl get self](oasisctl-get-self.html)	 - Get information about the authenticated user
 * [oasisctl get server](oasisctl-get-server.html)	 - Get server information
+* [oasisctl get tandc](oasisctl-get-tandc.html)	 - Get current terms and conditions or get one by ID
 

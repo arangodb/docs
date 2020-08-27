@@ -43,7 +43,7 @@ oasisctl list [flags]
 * [oasisctl list examples](oasisctl-list-examples.html)	 - List all example datasets
 * [oasisctl list group](oasisctl-list-group.html)	 - List group resources
 * [oasisctl list groups](oasisctl-list-groups.html)	 - List all groups of the given organization
-* [oasisctl list ipwhitelists](oasisctl-list-ipwhitelists.html)	 - List all IP whitelists of the given project
+* [oasisctl list ipallowlists](oasisctl-list-ipallowlists.html)	 - List all IP allowlists of the given project
 * [oasisctl list nodesizes](oasisctl-list-nodesizes.html)	 - List node sizes
 * [oasisctl list organization](oasisctl-list-organization.html)	 - List organization resources
 * [oasisctl list organizations](oasisctl-list-organizations.html)	 - List all organizations the authenticated user is a member of
