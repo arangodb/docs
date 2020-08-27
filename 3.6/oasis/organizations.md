@@ -25,9 +25,9 @@ member of one _Free to try_ tier organization at a time.
 3. The overview will open for the selected organization, showing the number of
    projects, the tier and when it was created.
 
-![Oasis Organization Switcher](../images/oasis-organization-switcher.png)
+![Oasis Organization Switcher](images/oasis-organization-switcher.png)
 
-![Oasis Organization Overview](../images/oasis-organization-overview.png)
+![Oasis Organization Overview](images/oasis-organization-overview.png)
 
 ## How to upgrade to professional
 
@@ -39,7 +39,7 @@ You can convert to the professional service model at any time by adding
 your billing details and at least one payment method. You can then create
 additional organizations and projects and have more and larger deployments.
 
-![Oasis Billing](../images/oasis-billing.png)
+![Oasis Billing](images/oasis-billing.png)
 
 ### How to add billing details
 
@@ -51,7 +51,7 @@ additional organizations and projects and have more and larger deployments.
    to automatically.
 6. Click on _Save_.
 
-![Oasis Billing Details](../images/oasis-billing-details.png)
+![Oasis Billing Details](images/oasis-billing-details.png)
 
 ### How to add a payment method
 
@@ -63,7 +63,7 @@ additional organizations and projects and have more and larger deployments.
 5. Fill out the form with your credit card details.
 6. Click the _Save_ button.
 
-![Oasis Payment Method](../images/oasis-add-payment-method-credit-card.png)
+![Oasis Payment Method](images/oasis-add-payment-method-credit-card.png)
 
 {% comment %}
 TODO: Need screenshot with invoice

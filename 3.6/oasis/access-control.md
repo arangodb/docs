@@ -53,7 +53,7 @@ To delete a role binding, click on the _Trash bin_ icon in the _Actions_ column.
 Currently, you cannot edit a role binding, you can only delete it.
 {% endhint %}
 
-![Oasis Organization Policy](../images/oasis-policy-page.png)
+![Oasis Organization Policy](images/oasis-policy-page.png)
 
 ### How to add a role binding to a policy
 
@@ -63,7 +63,7 @@ Currently, you cannot edit a role binding, you can only delete it.
 4. Select the roles that you want to bind to the specified members.
 5. Click the _Create_ button.
 
-![Oasis New Role Binding](../images/oasis-new-policy-role-binding.png)
+![Oasis New Role Binding](images/oasis-new-policy-role-binding.png)
 
 ## Roles
 
@@ -77,7 +77,7 @@ project or deployment policy.
 
 There are predefined roles, but you can also create custom roles.
 
-![Oasis Roles](../images/oasis-access-control-roles.png)
+![Oasis Roles](images/oasis-access-control-roles.png)
 
 ### Predefined roles
 
@@ -319,7 +319,7 @@ Below roles are listed in this schema:
 4. Select the desired permissions.
 5. Click the _Create_ button.
 
-![Oasis New Role](../images/oasis-create-role.png)
+![Oasis New Role](images/oasis-create-role.png)
 
 ### How to view, edit or remove a custom role
 

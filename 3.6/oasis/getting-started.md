@@ -61,7 +61,7 @@ used for multiple accounts.
    Once that is completed, you will be redirected to the
    [ArangoDB Oasis dashboard](https://cloud.arangodb.com/dashboard){:target="_blank"}.
 
-![Oasis Sign up](../images/oasis-signup.png)
+![Oasis Sign up](images/oasis-signup.png)
 
 ## General hierarchy
 

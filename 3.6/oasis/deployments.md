@@ -17,7 +17,7 @@ you can define.
 In essence, you can create whatever structure fits you for a given organization,
 its projects and deployments.
 
-![Oasis Deployments](../images/oasis-deployments-page.png)
+![Oasis Deployments](images/oasis-deployments-page.png)
 
 Also see the video
 [Create a Deployment on ArangoDB Oasis](https://www.youtube.com/watch?v=yg2FfcNsKFc&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=9&t=0s){:target="_blank"}.
@@ -33,7 +33,7 @@ Also see the video
 4. Click the _New deployment_ button.
 5. Set up your deployment. The configuration options are described below.
 
-![Oasis New Deployment](../images/oasis-new-deployment1.png)
+![Oasis New Deployment](images/oasis-new-deployment1.png)
 
 Also see the video
 [Create a Deployment on ArangoDB Oasis](https://www.youtube.com/watch?v=yg2FfcNsKFc&list=PL0tn-TSss6NWH3DNyF96Zbz8LQ0OaFmvS&index=9&t=0s){:target="_blank"}.
@@ -69,7 +69,7 @@ role bindings to regulate access control on a deployment level.
 For any kind of production deployment we strongly advise to use an IP allowlist.
 {% endhint %}
 
-![Oasis New Deployment](../images/oasis-new-deployment1.png)
+![Oasis New Deployment](images/oasis-new-deployment1.png)
 
 ### In the _Configuration_ section
 
@@ -88,7 +88,7 @@ The data will be sharded across multiple nodes.
 3. Select the disk size of your node. The available ranges for the disk size
    depend on the selected memory size.
 
-![Oasis Deployment OneShard](../images/oasis-new-deployment2.png)
+![Oasis Deployment OneShard](images/oasis-new-deployment2.png)
 
 #### Sharded
 
@@ -96,12 +96,12 @@ The data will be sharded across multiple nodes.
   the number of nodes for your deployment. The more nodes you have, the higher
   the replication factor.
 
-![Oasis Deployment Sharded](../images/oasis-new-deployment3-sharded.png)
+![Oasis Deployment Sharded](images/oasis-new-deployment3-sharded.png)
 
 - If you're unsure about the sharded setup, you can go through our wizard.
   Click on _Help me decide_ to open the recommendation process.
 
-![Oasis Deployment Sharded](../images/oasis-new-deployment3-sharded-wizard.png)
+![Oasis Deployment Sharded](images/oasis-new-deployment3-sharded-wizard.png)
 
 - The wizard will guide you through a set of questions and display a
   recommendation.

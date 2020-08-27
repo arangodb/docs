@@ -19,7 +19,7 @@ number of deployment under one project.
 In essence, you can create whatever structure fits you for a given organization,
 its projects and deployments.
 
-![Oasis Projects Overview](../images/oasis-projects-overview.png)
+![Oasis Projects Overview](images/oasis-projects-overview.png)
 
 ## How to create a new project
 
@@ -30,9 +30,9 @@ its projects and deployments.
 5. You will be taken to the project page.
 6. To change the name or description, click on either at the top of the page.
 
-![Oasis New Project](../images/oasis-new-project.png)
+![Oasis New Project](images/oasis-new-project.png)
 
-![Oasis Project Summary](../images/oasis-project.png)
+![Oasis Project Summary](images/oasis-project.png)
 
 {% hint 'info' %}
 Projects contain exactly **one policy**. Within that policy, you can define
@@ -101,9 +101,9 @@ your local machine. This operation will slightly vary between operating systems.
    - The _tag_ icon to make the certificate the new default.
    - The _trash can_ icon to delete a certificate.
 
-![Oasis Certificates](../images/oasis-cert-page-with-cert-present.png)
+![Oasis Certificates](images/oasis-cert-page-with-cert-present.png)
 
-![Oasis Certificate Install Instructions](../images/oasis-cert-install-instructions.png)
+![Oasis Certificate Install Instructions](images/oasis-cert-install-instructions.png)
 
 ## How to manage role bindings
 

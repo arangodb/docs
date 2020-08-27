@@ -34,7 +34,7 @@ To edit permissions of members see [Access Control](access-control.html).
 
 Members are a list of users that can access an organization.
 
-![Oasis Member Access Control](../images/oasis-access-control-members.png)
+![Oasis Member Access Control](images/oasis-access-control-members.png)
 
 ### How to add a new member to the organization
 
@@ -49,7 +49,7 @@ Members are a list of users that can access an organization.
 7. After accepting the invite the person will be added to the organization
    [members](#members).
 
-![Oasis Organization Invites](../images/oasis-new-invite.png)
+![Oasis Organization Invites](images/oasis-new-invite.png)
 
 ### How to respond to an organization invite
 
@@ -78,7 +78,7 @@ You cannot delete members who are organization owners.
 A group is a defined set of members. Groups can then be bound to roles. These
 bindings contribute to the respective organization, project or deployment policy.
 
-![Oasis Groups](../images/oasis-groups.png)
+![Oasis Groups](images/oasis-groups.png)
 
 ### How to create a new group
 
@@ -88,7 +88,7 @@ bindings contribute to the respective organization, project or deployment policy
 4. Select the members you want to be part of the group.
 5. Press the _Create_ button.
 
-![Oasis New Group](../images/oasis-new-group.png)
+![Oasis New Group](images/oasis-new-group.png)
 
 ### How to view, edit or remove a group
 
@@ -101,7 +101,7 @@ bindings contribute to the respective organization, project or deployment policy
 You can also click on a group name to view it. There are buttons to _Edit_ and
 _Delete_ the currently viewed group.
 
-![Oasis Group](../images/oasis-group.png)
+![Oasis Group](images/oasis-group.png)
 
 {% hint 'info' %}
 The groups _Organization members_ and _Organization owners_ are virtual groups
@@ -124,4 +124,4 @@ See [How to add a new member to the organization](#how-to-add-a-new-member-to-th
 4. You may delete pending invites by clicking on the trash can icon in the
    _Actions_ column.
 
-![Oasis Organization Invites](../images/oasis-org-invites.png)
+![Oasis Organization Invites](images/oasis-org-invites.png)

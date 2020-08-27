@@ -15,7 +15,7 @@ accessible from every view. There are three elements:
 - _Question mark icon_: Help
 - _User icon_: My Account
 
-![Oasis My Account](../images/oasis-my-account.png)
+![Oasis My Account](images/oasis-my-account.png)
 
 ## Overview
 
@@ -33,7 +33,7 @@ accessible from every view. There are three elements:
 3. Click the _Edit_ button.
 4. Change your personal information and click on _Save_.
 
-![Oasis My Account Info](../images/oasis-my-account-info.png)
+![Oasis My Account Info](images/oasis-my-account-info.png)
 
 ## Organizations
 
@@ -75,7 +75,7 @@ If you are no longer a member of any organization, then a new organization is
 created for you when you log in again.
 {% endhint %}
 
-![Oasis New Organization](../images/oasis-new-org.png)
+![Oasis New Organization](images/oasis-new-org.png)
 
 ## Invites
 
@@ -114,7 +114,7 @@ See [Users and Groups: How to add a new member to the organization](users.html#h
    will be granted access to the organization and its related projects and
    deployments.
 
-![Oasis Organization Invite Email](../images/oasis-org-invite-email.png)
+![Oasis Organization Invite Email](images/oasis-org-invite-email.png)
 
 ## API Keys
 
@@ -130,7 +130,7 @@ authentication.
 2. Click on _My API keys_ in the _My account_ section.
 3. Information about the API keys are listed in the _My API keys_ section.
 
-![Oasis My API keys](../images/oasis-my-api-keys.png)
+![Oasis My API keys](images/oasis-my-api-keys.png)
 
 ### How to create a new API key
 
@@ -149,9 +149,9 @@ The secret is only shown once at creation time.
 You have to store it in a safe place.
 {% endhint %}
 
-![Oasis New API key](../images/oasis-new-api-key.png)
+![Oasis New API key](images/oasis-new-api-key.png)
 
-![Oasis API key Secret](../images/oasis-api-key-secret.png)
+![Oasis API key Secret](images/oasis-api-key-secret.png)
 
 ### How to revoke or delete an API key
 
