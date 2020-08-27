@@ -10,7 +10,7 @@ default, and can also be imported and used in Foxx services.
 
 *db.name* returns a [collection object](appendix-references-collection-object.html) for the collection *name*.
 
-The following methods exists on the *_db* object:
+The following methods exist on the *_db* object:
 
 *Database*
 

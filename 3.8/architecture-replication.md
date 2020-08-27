@@ -16,8 +16,8 @@ Cluster.
 
 Asynchronous replication is used:
 
-- between the _master_ and the _slave_ of an ArangoDB
-  [_Master/Slave_](architecture-deployment-modes-master-slave.html) setup
+- between the _Leader_ and the _Follower_ of an ArangoDB
+  [_Leader/Follower_](architecture-deployment-modes-leader-follower.html) setup
 - between the _Leader_ and the _Follower_ of an ArangoDB
   [_Active Failover_](architecture-deployment-modes-active-failover.html) setup
 - between multiple ArangoDB [Data Centers](architecture-deployment-modes-dc2-dc.html)
@@ -56,65 +56,65 @@ Asynchronous replication
 In ArangoDB any write operation is logged in the _write-ahead
 log_. 
 
-When using asynchronous replication _slaves_ (or _followers_)  
-connect to a _master_ (or _leader_) and apply locally all the events from
-the master log in the same order. As a result the _slaves_ (_followers_) 
-will have the same state of data as the _master_ (_leader_).
+When using asynchronous replication _Followers_ (or _followers_)  
+connect to a _Leader_ (or _leader_) and apply locally all the events from
+the Leader log in the same order. As a result the _Followers_ (_followers_) 
+will have the same state of data as the _Leader_ (_leader_).
 
-_Slaves_ (_followers_) are only eventually consistent with the _master_ (_leader_).
+_Followers_ (_followers_) are only eventually consistent with the _Leader_ (_leader_).
 
 Transactions are honored in replication, i.e. transactional write operations will 
-become visible on _slaves_ atomically.
+become visible on _Followers_ atomically.
 
-As all write operations will be logged to a master database's _write-ahead log_, the 
+As all write operations will be logged to a Leader database's _write-ahead log_, the 
 replication in ArangoDB currently cannot be used for write-scaling. The main purposes 
 of the replication in current ArangoDB are to provide read-scalability and "hot backups" 
 of specific databases.
 
-It is possible to connect multiple _slave_ to the same _master_. _Slaves_ should be used
+It is possible to connect multiple _Follower_ to the same _Leader_. _Followers_ should be used
 as read-only instances, and no user-initiated write operations 
 should be carried out on them. Otherwise data conflicts may occur that cannot be solved 
 automatically, and that will make the replication stop.
 
-In an asynchronous replication scenario slaves will _pull_ changes 
-from the _master_. _Slaves_ need to know to which _master_ they should 
-connect to, but a _master_ is not aware of the _slaves_ that replicate from it. 
-When the network connection between the _master_ and a _slave_ goes down, write 
-operations on the master can continue normally. When the network is up again, _slaves_ 
-can reconnect to the _master_ and transfer the remaining changes. This will 
-happen automatically provided _slaves_ are configured appropriately.
+In an asynchronous replication scenario Followers will _pull_ changes 
+from the _Leader_. _Followers_ need to know to which _Leader_ they should 
+connect to, but a _Leader_ is not aware of the _Followers_ that replicate from it. 
+When the network connection between the _Leader_ and a _Follower_ goes down, write 
+operations on the Leader can continue normally. When the network is up again, _Followers_ 
+can reconnect to the _Leader_ and transfer the remaining changes. This will 
+happen automatically provided _Followers_ are configured appropriately.
 
 Before 3.3.0 asynchronous replication was per database. Starting with 3.3.0 it is possible
 to setup global replication.
 
 ### Replication lag
 
-As described above, write operations are applied first in the _master_, and then applied 
-in the _slaves_. 
+As described above, write operations are applied first in the _Leader_, and then applied 
+in the _Followers_. 
 
-For example, let's assume a write operation is executed in the _master_ 
-at point in time _t0_. To make a _slave_ apply the same operation, it must first 
-fetch the write operation's data from master's write-ahead log, then parse it and 
+For example, let's assume a write operation is executed in the _Leader_ 
+at point in time _t0_. To make a _Follower_ apply the same operation, it must first 
+fetch the write operation's data from Leader's write-ahead log, then parse it and 
 apply it locally. This will happen at some point in time after _t0_, let's say _t1_. 
 
 The difference between _t1_ and _t0_ is called the _replication lag_, and it is unavoidable 
 in asynchronous replication. The amount of replication _lag_ depends on many factors, a 
 few of which are:
 
-- the network capacity between the _slaves_ and the _master_
-- the load of the _master_ and the _slaves_
-- the frequency in which _slaves_ poll the _master_ for updates
+- the network capacity between the _Followers_ and the _Leader_
+- the load of the _Leader_ and the _Followers_
+- the frequency in which _Followers_ poll the _Leader_ for updates
 
-Between _t0_ and _t1_, the state of data on the _master_ is newer than the state of data
-on the _slaves_. At point in time _t1_, the state of data on the _master_ and _slaves_
-is consistent again (provided no new data modifications happened on the _master_ in
+Between _t0_ and _t1_, the state of data on the _Leader_ is newer than the state of data
+on the _Followers_. At point in time _t1_, the state of data on the _Leader_ and _Followers_
+is consistent again (provided no new data modifications happened on the _Leader_ in
 between). Thus, the replication will lead to an _eventually consistent_ state of data.
 
 ### Replication overhead
 
-As the _master_ servers are logging any write operation in the _write-ahead-log_
-anyway replication doesn't cause any extra overhead on the _master_. However it
-will of course cause some overhead for the _master_ to serve incoming read
-requests of the _slaves_. Returning the requested data is however a trivial
-task for the _master_ and should not result in a notable performance
+As the _Leader_ servers are logging any write operation in the _write-ahead-log_
+anyway replication doesn't cause any extra overhead on the _Leader_. However it
+will of course cause some overhead for the _Leader_ to serve incoming read
+requests of the _Followers_. Returning the requested data is however a trivial
+task for the _Leader_ and should not result in a notable performance
 degradation in production.
