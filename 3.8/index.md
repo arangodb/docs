@@ -5,8 +5,8 @@ title: Introduction to ArangoDB Documentation
 page-toc:
   disable: true
 redirect_from:
-  - /3.8/cookbook/index.html # 3.5 -> 3.5
-  - /3.8/cookbook/use-cases.html # 3.5 -> 3.5
+  - cookbook/index.html # 3.5 -> 3.5
+  - cookbook/use-cases.html # 3.5 -> 3.5
 ---
 ArangoDB {{ site.data.versions[page.version.name] }} Documentation
 =====================================
@@ -56,7 +56,7 @@ Key features include:
 - [**Powerful query language**](aql/) (AQL) to retrieve and modify data 
 - Use ArangoDB as an [**application server**](foxx.html) and fuse your application and database together for maximal throughput
 - [**Transactions**](transactions.html): run queries on multiple documents or collections with optional transactional consistency and isolation
-- [**Replication** and **Sharding**](administration.html): set up the database in a master-slave configuration or spread bigger datasets across multiple servers
+- [**Replication** and **Sharding**](administration.html): set up the database in a Leader/Follower configuration or spread bigger datasets across multiple servers
 - Configurable **durability**: let the application decide if it needs more durability or more performance
 - No-nonsense storage: ArangoDB uses all of the power of **modern storage hardware**, like SSD and large caches
 - JavaScript for all: **no language zoo**, you can use one language from your browser to your back-end

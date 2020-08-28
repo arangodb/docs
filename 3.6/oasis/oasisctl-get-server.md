@@ -32,4 +32,5 @@ oasisctl get server [flags]
 ## See also
 
 * [oasisctl get](oasisctl-get.html)	 - Get information
+* [oasisctl get server status](oasisctl-get-server-status.html)	 - Get the status of servers for a deployment
 

@@ -10,9 +10,9 @@ Manual Deployment
 - [Manually created processes](deployment-single-instance-manual-start.html)
 - [Manually created Docker containers](deployment-single-instance-manual-start.html#manual-start-in-docker)
 
-**Master/Slave:**
+**Leader/Follower:**
 
-- [Manually created processes](deployment-master-slave-manual-start.html)
+- [Manually created processes](deployment-leader-follower-manual-start.html)
 
 **Active Failover:**
 

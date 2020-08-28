@@ -3,7 +3,7 @@ layout: default
 description: Storing decimal values as integers or strings as alternative to JSON numbers
 title: Monetary data without precision loss in ArangoDB
 redirect_from:
-  - /3.6/cookbook/use-cases-monetary-data-without-precision-loss.html # 3.5 -> 3.5
+  - cookbook/use-cases-monetary-data-without-precision-loss.html # 3.5 -> 3.5
 ---
 Working with monetary data without precision loss in ArangoDB
 =============================================================

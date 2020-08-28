@@ -38,7 +38,7 @@ oasisctl delete [flags]
 * [oasisctl delete deployment](oasisctl-delete-deployment.html)	 - Delete a deployment the authenticated user has access to
 * [oasisctl delete example](oasisctl-delete-example.html)	 - Delete example ...
 * [oasisctl delete group](oasisctl-delete-group.html)	 - Delete a group the authenticated user has access to
-* [oasisctl delete ipwhitelist](oasisctl-delete-ipwhitelist.html)	 - Delete an IP whitelist the authenticated user has access to
+* [oasisctl delete ipallowlist](oasisctl-delete-ipallowlist.html)	 - Delete an IP allowlist the authenticated user has access to
 * [oasisctl delete organization](oasisctl-delete-organization.html)	 - Delete an organization the authenticated user has access to
 * [oasisctl delete project](oasisctl-delete-project.html)	 - Delete a project the authenticated user has access to
 * [oasisctl delete role](oasisctl-delete-role.html)	 - Delete a role the authenticated user has access to

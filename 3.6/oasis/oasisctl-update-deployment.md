@@ -26,7 +26,7 @@ oasisctl update deployment [flags]
   -d, --deployment-id string            Identifier of the deployment
       --description string              Description of the deployment
   -h, --help                            help for deployment
-  -i, --ipwhitelist-id string           Identifier of the IP whitelist to use for the deployment
+  -i, --ipallowlist-id string           Identifier of the IP allowlist to use for the deployment
       --model string                    Set model of the deployment (default "oneshard")
       --name string                     Name of the deployment
       --node-count int32                Set the number of desired nodes (default 3)

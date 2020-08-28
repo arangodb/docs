@@ -389,11 +389,15 @@ The following AQL functions have been added in ArangoDB 3.7:
 - [IN_RANGE()](aql/functions-miscellaneous.html#in_range)
   (now available outside of `SEARCH` operations)
 - [INTERLEAVE()](aql/functions-array.html#interleave)
+- [IPV4_FROM_NUMBER()](aql/functions-string.html#ipv4_from_number)
+- [IPV4_TO_NUMBER()](aql/functions-string.html#ipv4_to_number)
+- [IS_IPV4()](aql/functions-string.html#is_ipv4)
 - [JACCARD()](aql/functions-array.html#jaccard)
 - [LEVENSHTEIN_MATCH()](aql/functions-arangosearch.html#levenshtein_match)
 - [NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match)
 - [NGRAM_POSITIONAL_SIMILARITY()](aql/functions-string.html#ngram_positional_similarity)
 - [NGRAM_SIMILARITY()](aql/functions-string.html#ngram_similarity)
+- [PRODUCT()](aql/functions-numeric.html#product)
 - [REPLACE_NTH()](aql/functions-array.html#replace_nth)
 
 ### Syntax enhancements
@@ -662,11 +666,16 @@ configurable in _arangod_:
 - `--rocksdb.cache-index-and-filter-blocks-with-high-priority` to use cache
   index and filter blocks with high priority making index and filter blocks
   be less likely to be evicted than data blocks
-- `--rocksdb.pin-l0-filter-and-index-blocks-in-cache` make filter and index
+- `--rocksdb.pin-l0-filter-and-index-blocks-in-cache` to make filter and index
   blocks be pinned and only evicted from cache when the table reader is freed
-- `--rocksdb.pin-top-level-index-and-filter` make the top-level index of
+- `--rocksdb.pin-top-level-index-and-filter` to make the top-level index of
   partitioned filter and index blocks pinned and only be evicted from cache
   when the table reader is freed
+- `--rocksdb.target-file-size-base`: Per-file target file size for compaction
+  (in bytes). the actual target file size for each level is
+  `--rocksdb.target-file-size-base` multiplied by `--rocksdb.target-file-size-multiplier ^ (level - 1)`
+- `--rocksdb.target-file-size-multiplier`: Multiplier for `--rocksdb.target-file-size`,
+  a value of 1 means that files in different levels will have the same size (default)
 
 Pregel
 ------
@@ -807,30 +816,42 @@ See [Metrics HTTP API](http/administration-and-monitoring-metrics.html).
 
 The following metrics have been added in ArangoDB 3.7:
 
-| Name | Description |
-|:-----|:------------|
+| Label | Description |
+|:------|:------------|
 | `arangodb_agency_append_hist` | Agency RAFT follower append histogram |
 | `arangodb_agency_commit_hist` | Agency RAFT commit histogram |
 | `arangodb_agency_compaction_hist` | Agency compaction histogram |
 | `arangodb_agency_local_commit_index` | This agent's commit index |
 | `arangodb_agency_log_size_bytes` | Agency replicated log size (bytes) |
+| `arangodb_agency_read_no_leader` | Agency read no leader |
+| `arangodb_agency_read_ok` | Agency read ok |
 | `arangodb_agency_supervision_accum_runtime_msec` | Accumulated Supervision Runtime |
-| `arangodb_agency_supervision_accum_runtime_wait_for_replication_msec` | Accumulated Supervision  wait for replication time |
+| `arangodb_agency_supervision_accum_runtime_wait_for_replication_msec` | Accumulated Supervision wait for replication time |
 | `arangodb_agency_supervision_failed_server_count` | Counter for FailedServer jobs |
 | `arangodb_agency_supervision_runtime_msec` | Agency Supervision runtime histogram (ms) |
 | `arangodb_agency_supervision_runtime_wait_for_replication_msec` | Agency Supervision wait for replication time (ms) |
 | `arangodb_agency_term` | Agency's term |
+| `arangodb_agency_write_hist` | Agency write histogram (ms) |
+| `arangodb_agency_write_no_leader` | Agency write no leader |
+| `arangodb_agency_write_ok` | Agency write ok |
 | `arangodb_agencycomm_request_time_msec` | Request time for Agency requests |
+| `arangodb_aql_slow_query` | Number of AQL slow queries |
 | `arangodb_aql_total_query_time_msec` | Total execution time of all queries |
-| `arangodb_client_connection_statistics_bytes_received_bucket` | Bytes received for a request |
-| `arangodb_client_connection_statistics_bytes_sent_bucket` | Bytes sent for a request |
-| `arangodb_client_connection_statistics_io_time_bucket` | Request time needed to answer a request |
-| `arangodb_client_connection_statistics_queue_time_bucket` | Request time needed to answer a request |
-| `arangodb_client_connection_statistics_request_time_bucket` | Request time needed to answer a request |
-| `arangodb_client_connection_statistics_total_time_bucket` | Total time needed to answer a request |
-| `arangodb_dropped_followers_count` |  Number of drop-follower events |
+| `arangodb_client_connection_statistics_io_time_bucket` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_io_time_count` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_io_time_sum` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_queue_time_bucket` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_queue_time_count` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_queue_time_sum` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_request_time_bucket` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_request_time_count` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_request_time_sum` | Request time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_total_time_bucket` | Total time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_total_time_count` | Total time needed to answer a request (ms) |
+| `arangodb_client_connection_statistics_total_time_sum` | Total time needed to answer a request (ms) |
+| `arangodb_dropped_followers_count` | Number of drop-follower events |
 | `arangodb_heartbeat_failures` | Counting failed heartbeat transmissions |
-| `arangodb_heartbeat_send_time_msec` | Time required to send heartbeat |
+| `arangodb_heartbeat_send_time_msec` | Time required to send heartbeat (ms) |
 | `arangodb_http_request_statistics_async_requests` | Number of asynchronously executed HTTP requests |
 | `arangodb_http_request_statistics_http_delete_requests` | Number of HTTP DELETE requests |
 | `arangodb_http_request_statistics_http_get_requests` | Number of HTTP GET requests |
@@ -841,9 +862,9 @@ The following metrics have been added in ArangoDB 3.7:
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
 | `arangodb_http_request_statistics_total_requests` | Total number of HTTP requests |
-| `arangodb_load_current_accum_runtime_msec` | Accumulated Current loading time |
+| `arangodb_load_current_accum_runtime_msec` | Accumulated Current loading time (ms) |
 | `arangodb_load_current_runtime` | Current loading runtimes |
-| `arangodb_load_plan_accum_runtime_msec` | Accumulated Plan loading time |
+| `arangodb_load_plan_accum_runtime_msec` | Accumulated runtime of Plan loading (ms) |
 | `arangodb_load_plan_runtime` | Plan loading runtimes |
 | `arangodb_maintenance_action_accum_queue_time_msec` | Accumulated action queue time |
 | `arangodb_maintenance_action_accum_runtime_msec` | Accumulated action runtime |
@@ -856,18 +877,24 @@ The following metrics have been added in ArangoDB 3.7:
 | `arangodb_maintenance_agency_sync_accum_runtime_msec` | Accumulated runtime of agency sync phase |
 | `arangodb_maintenance_agency_sync_runtime_msec` | Total time spend on agency sync |
 | `arangodb_maintenance_phase1_accum_runtime_msec` | Accumulated runtime of phase one |
-| `arangodb_maintenance_phase1_runtime_msec` |  Maintenance Phase 1 runtime histogram |
+| `arangodb_maintenance_phase1_runtime_msec` | Maintenance Phase 1 runtime histogram |
 | `arangodb_maintenance_phase2_accum_runtime_msec` | Accumulated runtime of phase two |
-| `arangodb_maintenance_phase2_runtime_msec` | Maintenance Phase 2 runtime histogram  |
+| `arangodb_maintenance_phase2_runtime_msec` | Maintenance Phase 2 runtime histogram |
 | `arangodb_scheduler_awake_threads` | Number of awake worker threads |
 | `arangodb_scheduler_num_worker_threads` | Number of worker threads |
+| `arangodb_scheduler_queue_full_failures` | Number of times the scheduler queue was full and a task/request was rejected |
 | `arangodb_scheduler_queue_length` | Server's internal queue length |
 | `arangodb_server_statistics_physical_memory` | Physical memory in bytes |
 | `arangodb_server_statistics_server_uptime` | Number of seconds elapsed since server start |
-| `arangodb_shards_leader_count gauge` | Number of leader shards on this machine |
+| `arangodb_shards_leader_count` | Number of leader shards on this machine |
 | `arangodb_shards_not_replicated` | Number of shards not replicated at all |
 | `arangodb_shards_out_of_sync` | Number of leader shards not fully replicated |
 | `arangodb_shards_total_count` | Number of shards on this machine |
+| `arangodb_v8_context_created` | Number of V8 contexts created |
+| `arangodb_v8_context_destroyed` | Number of V8 contexts destroyed |
+| `arangodb_v8_context_enter_failures` | Number of times a V8 context could not be entered/acquired |
+| `arangodb_v8_context_entered` | Number of times a V8 context was successfully entered |
+| `arangodb_v8_context_exited` | Number of times a V8 context was successfully exited |
 
 Client tools
 ------------

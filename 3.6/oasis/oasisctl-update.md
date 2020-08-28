@@ -36,7 +36,7 @@ oasisctl update [flags]
 * [oasisctl update cacertificate](oasisctl-update-cacertificate.html)	 - Update a CA certificate the authenticated user has access to
 * [oasisctl update deployment](oasisctl-update-deployment.html)	 - Update a deployment the authenticated user has access to
 * [oasisctl update group](oasisctl-update-group.html)	 - Update a group the authenticated user has access to
-* [oasisctl update ipwhitelist](oasisctl-update-ipwhitelist.html)	 - Update an IP whitelist the authenticated user has access to
+* [oasisctl update ipallowlist](oasisctl-update-ipallowlist.html)	 - Update an IP allowlist the authenticated user has access to
 * [oasisctl update organization](oasisctl-update-organization.html)	 - Update an organization the authenticated user has access to
 * [oasisctl update policy](oasisctl-update-policy.html)	 - Update a policy
 * [oasisctl update project](oasisctl-update-project.html)	 - Update a project the authenticated user has access to

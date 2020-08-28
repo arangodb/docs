@@ -3,7 +3,7 @@ layout: default
 description: This is a walkthrough to install ArangoDB on Windows. You will find two possible methods to do so, automatically or manually. 
 title: Installing ArangoDB on Windows
 redirect_from:
-  - /3.8/cookbook/administration-nsissilent-mode.html # 3.5 -> 3.5
+  - cookbook/administration-nsissilent-mode.html # 3.5 -> 3.5
 ---
 Installing ArangoDB on Windows
 ==============================
@@ -230,6 +230,6 @@ you can edit `etc\arangodb3\arangod.conf` to change or add configuration options
 
 After installation, you may start ArangoDB in several ways. The exact start-up command
 depends on the type of ArangoDB deployment you are interested in
-(_Single Instance_, _Master-Slave_, _Active Failover_ or _Cluster_).
+(_Single Instance_, _Leader/Follower_, _Active Failover_ or _Cluster_).
 
 Please refer to the [_Deployment_](deployment.html) chapter for details.

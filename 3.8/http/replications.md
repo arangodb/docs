@@ -15,10 +15,10 @@ The replication architecture and components are described in more details in
 The HTTP replication interface serves four main purposes:
 - fetch initial data from a server (e.g. for a backup, or for the initial synchronization 
   of data before starting the continuous replication applier)
-- querying the state of a master
-- fetch continuous changes from a master (used for incremental synchronization of changes)
+- querying the state of a Leader
+- fetch continuous changes from a Leader (used for incremental synchronization of changes)
 - administer the replication applier (starting, stopping, configuring, querying state) on 
-  a slave
+  a Follower
 
 Please note that if a per-database setup is used (as opposed to server-level replication,
 available since v3.3.0), then the replication system must be configured individually per

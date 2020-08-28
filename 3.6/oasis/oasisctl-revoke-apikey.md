@@ -33,4 +33,5 @@ oasisctl revoke apikey [flags]
 ## See also
 
 * [oasisctl revoke](oasisctl-revoke.html)	 - Revoke keys & tokens
+* [oasisctl revoke apikey token](oasisctl-revoke-apikey-token.html)	 - Revoke an API key token
 

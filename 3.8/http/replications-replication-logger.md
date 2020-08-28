@@ -29,7 +29,7 @@ from an ArangoDB database.
 To check what range of changes is available (identified by tick values), the HTTP
 interface provides the methods `logger-first-tick` and `logger-tick-ranges`.
 Replication clients can use the methods to determine if certain data (identified
-by a tick *date*) is still available on the master.
+by a tick *date*) is still available on the Leader.
 {% docublock get_api_replication_logger_first_tick %}
 {% docublock get_api_replication_logger_tick_ranges %}
 

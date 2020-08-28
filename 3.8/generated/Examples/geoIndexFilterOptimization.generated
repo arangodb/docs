@@ -1,56 +1,66 @@
-arangosh&gt; db.geoFilter.ensureIndex({ <span class="hljs-attr">type</span>: <span class="hljs-string">"geo"</span>, <span class="hljs-attr">fields</span>: [ <span class="hljs-string">"latitude"</span>, <span class="hljs-string">"longitude"</span> ] });
+arangosh&gt; db.geoFilter.ensureIndex({ type: "geo", fields: [ "latitude", "longitude" ] });
 { 
-  <span class="hljs-string">"bestIndexedLevel"</span> : <span class="hljs-number">17</span>, 
-  <span class="hljs-string">"fields"</span> : [ 
-    <span class="hljs-string">"latitude"</span>, 
-    <span class="hljs-string">"longitude"</span> 
+  "bestIndexedLevel" : 17, 
+  "fields" : [ 
+    "latitude", 
+    "longitude" 
   ], 
-  <span class="hljs-string">"geoJson"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"geoFilter/86151"</span>, 
-  <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"maxNumCoverCells"</span> : <span class="hljs-number">8</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1668923856905043968"</span>, 
-  <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-string">"geo"</span>, 
-  <span class="hljs-string">"unique"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"worstIndexedLevel"</span> : <span class="hljs-number">4</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">201</span> 
+  "geoJson" : false, 
+  "id" : "geoFilter/86292", 
+  "isNewlyCreated" : true, 
+  "maxNumCoverCells" : 8, 
+  "name" : "idx_1676117727278792704", 
+  "sparse" : true, 
+  "type" : "geo", 
+  "unique" : false, 
+  "worstIndexedLevel" : 4, 
+  "code" : 201 
 }
-arangosh&gt; <span class="hljs-keyword">for</span> (i = <span class="hljs-number">-90</span>;  i &lt;= <span class="hljs-number">90</span>;  i += <span class="hljs-number">10</span>) {
-........&gt;     <span class="hljs-keyword">for</span> (j = <span class="hljs-number">-180</span>; j &lt;= <span class="hljs-number">180</span>; j += <span class="hljs-number">10</span>) {
-........&gt;         db.geoFilter.save({ <span class="hljs-attr">name</span> : <span class="hljs-string">"Name/"</span> + i + <span class="hljs-string">"/"</span> + j, <span class="hljs-attr">latitude</span> : i, <span class="hljs-attr">longitude</span> : j });
+arangosh&gt; for (i = -90;  i &lt;= 90;  i += 10) {
+........&gt;     for (j = -180; j &lt;= 180; j += 10) {
+........&gt;         db.geoFilter.save({ name : "Name/" + i + "/" + j, latitude : i, longitude : j });
 ........&gt;     }
 ........&gt; }
-arangosh&gt; <span class="hljs-keyword">var</span> query = <span class="hljs-string">"FOR doc in geoFilter FILTER DISTANCE(doc.latitude, doc.longitude, 0, 0) &lt; 2000 RETURN doc"</span>
-arangosh&gt; db._explain(query, {}, {<span class="hljs-attr">colors</span>: <span class="hljs-literal">false</span>});
-Query <span class="hljs-built_in">String</span> (<span class="hljs-number">89</span> chars, <span class="hljs-attr">cacheable</span>: <span class="hljs-literal">true</span>):
- FOR doc <span class="hljs-keyword">in</span> geoFilter FILTER DISTANCE(doc.latitude, doc.longitude, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>) &lt; <span class="hljs-number">2000</span> RETURN doc
+arangosh&gt; var query = "FOR doc in geoFilter FILTER DISTANCE(doc.latitude, doc.longitude, 0, 0) &lt; 2000 RETURN doc"
+arangosh&gt; db._explain(query, {}, {colors: false});
+Query String (89 chars, cacheable: true):
+ FOR doc in geoFilter FILTER DISTANCE(doc.latitude, doc.longitude, 0, 0) &lt; 2000 RETURN doc
 
 Execution plan:
  Id   NodeType        Est.   Comment
-  <span class="hljs-number">1</span>   SingletonNode      <span class="hljs-number">1</span>   * ROOT
-  <span class="hljs-number">6</span>   IndexNode        <span class="hljs-number">703</span>     - FOR doc IN geoFilter   <span class="hljs-comment">/* geo index scan */</span>    
-  <span class="hljs-number">5</span>   ReturnNode       <span class="hljs-number">703</span>       - RETURN doc
+  1   SingletonNode      1   * ROOT
+  6   IndexNode        703     - FOR doc IN geoFilter   /* geo index scan */    
+  5   ReturnNode       703       - RETURN doc
 
 Indexes used:
  By   Name                      Type   Collection   Unique   Sparse   Selectivity   Fields                        Ranges
-  <span class="hljs-number">6</span>   idx_1668923856905043968   geo    geoFilter    <span class="hljs-literal">false</span>    <span class="hljs-literal">true</span>             n/a   [ <span class="hljs-string">`latitude`</span>, <span class="hljs-string">`longitude`</span> ]   (GEO_DISTANCE([ <span class="hljs-number">0</span>, <span class="hljs-number">0</span> ], [ doc.<span class="hljs-string">`longitude`</span>, doc.<span class="hljs-string">`latitude`</span> ]) &lt; <span class="hljs-number">2000</span>)
+  6   idx_1676117727278792704   geo    geoFilter    false    true             n/a   [ `latitude`, `longitude` ]   (GEO_DISTANCE([ 0, 0 ], [ doc.`longitude`, doc.`latitude` ]) &lt; 2000)
 
 Optimization rules applied:
  Id   RuleName
-  <span class="hljs-number">1</span>   geo-index-optimizer
-  <span class="hljs-number">2</span>   remove-unnecessary-calculations<span class="hljs-number">-2</span>
+  1   geo-index-optimizer
+  2   remove-unnecessary-calculations-2
+
+Optimization rules with highest execution times:
+ RuleName                                    Duration [s]
+ geo-index-optimizer                              0.00003
+ remove-unnecessary-calculations-2                0.00000
+ replace-function-with-index                      0.00000
+ reduce-extraction-to-projection                  0.00000
+ optimize-subqueries                              0.00000
+
+41 rule(s) executed, 1 plan(s) created
 
 
 arangosh&gt; db._query(query);
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"86857"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geoFilter/86857"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_anLUdTS--C"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Name/0/0"</span>, 
-    <span class="hljs-string">"latitude"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"longitude"</span> : <span class="hljs-number">0</span> 
+    "_key" : "86998", 
+    "_id" : "geoFilter/86998", 
+    "_rev" : "_bAvBDPi---", 
+    "name" : "Name/0/0", 
+    "latitude" : 0, 
+    "longitude" : 0 
   } 
 ]
-[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+[object ArangoQueryCursor, count: 1, cached: false, hasMore: false]

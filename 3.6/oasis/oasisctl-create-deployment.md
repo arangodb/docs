@@ -18,6 +18,7 @@ oasisctl create deployment [flags]
 ## Options
 
 ```
+      --accept                          Accept the current terms and conditions.
   -c, --cacertificate-id string         Identifier of the CA certificate to use for the deployment
       --coordinator-memory-size int32   Set memory size of coordinators for flexible deployments (GB) (default 4)
       --coordinators int32              Set number of coordinators for flexible deployments (default 3)
@@ -26,7 +27,7 @@ oasisctl create deployment [flags]
       --dbservers int32                 Set number of dbservers for flexible deployments (default 3)
       --description string              Description of the deployment
   -h, --help                            help for deployment
-  -i, --ipwhitelist-id string           Identifier of the IP whitelist to use for the deployment
+  -i, --ipallowlist-id string           Identifier of the IP allowlist to use for the deployment
       --model string                    Set model of the deployment (default "oneshard")
       --name string                     Name of the deployment
       --node-count int32                Set the number of desired nodes (default 3)
