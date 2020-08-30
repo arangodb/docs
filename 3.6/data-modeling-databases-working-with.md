@@ -227,6 +227,29 @@ database. The *_system* database itself cannot be dropped.
 Databases are dropped asynchronously, and will be physically removed if
 all clients have disconnected and references have been garbage-collected.
 
+### Compact
+
+compact the entire data, for all databases
+`db._compact(options)`
+
+Compacts the entire data of all databases. 
+The command can be used to reclaim disk space after substantial data deletions 
+have taken place. 
+
+The optional *options* attribute can be used to get more control over the 
+compaction. The following attributes can be used in it: 
+
+* *changeLevel*: whether or not compacted data should be moved to the minimum
+  possible level. The default value is *false*.
+* *compactBottomMostLevel*: whether or not to compact the bottommost level of
+  data. The default value is *false*.
+
+**Warning**: this command can cause a full rewrite of all data in all databases, 
+which may take long for large databases. It should thus only be used with care.
+
+This command requires superuser access and is only available for the RocksDB
+storage engine.
+
 ### Engine
 
 retrieve the storage engine type used by the server
