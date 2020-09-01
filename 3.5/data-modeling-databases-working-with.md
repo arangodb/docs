@@ -238,7 +238,8 @@ compaction. The following attributes can be used in it:
   data. The default value is *false*.
 
 **Warning**: this command can cause a full rewrite of all data in all databases, 
-which may take long for large databases. It should thus only be used with care.
+which may take very long for large databases. It should thus only be used with care.
+and only when additional I/O load can be tolerated for a prolonged time.
 
 This command requires superuser access and is only available for the RocksDB
 storage engine.
