@@ -248,8 +248,7 @@ compaction. The following attributes can be used in it:
 which may take long for large databases. It should thus only be used with care
 and only when additional I/O load can be tolerated for a prolonged time.
 
-This command requires superuser access and is only available for the RocksDB
-storage engine.
+This command requires superuser access.
 
 ### Engine
 
