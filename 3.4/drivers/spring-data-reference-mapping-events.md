@@ -35,6 +35,6 @@ To register the listener add `@ComponentScan` with the package of your listener 
 ```Java
 @Configuration
 @ComponentScan("my.mapping.events")
-public class MyConfiguration extends AbstractArangoConfiguration {
+public class MyConfiguration implements ArangoConfiguration {
   ...
 ```
