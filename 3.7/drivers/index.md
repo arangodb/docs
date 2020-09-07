@@ -12,7 +12,7 @@ Official drivers
 ----------------
 
 Name | Language | Repository | &nbsp;
------|----------|------------|-------
+:----|:---------|:-----------|:------
 [ArangoDB-Java-Driver](java.html) | Java | [github.com/arangodb/arangodb-java-driver](https://github.com/arangodb/arangodb-java-driver){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-java-driver/blob/master/ChangeLog.md#readme){:target="_blank"}
 [ArangoJS](js.html) | JavaScript | [github.com/arangodb/arangojs](https://github.com/arangodb/arangojs){:target="_blank"} | [Changelog](https://github.com/arangodb/arangojs/blob/master/CHANGELOG.md#readme){:target="_blank"}
 [ArangoDB-PHP](php.html) | PHP | [github.com/arangodb/arangodb-php](https://github.com/arangodb/arangodb-php){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-php/blob/devel/CHANGELOG.md#readme){:target="_blank"}
@@ -22,7 +22,7 @@ Integrations
 ------------
 
 Name | Language | Repository | &nbsp;
------|----------|------------|-------
+:----|:---------|:-----------|:------
 [Spring Data](spring-data.html) | Java | [github.com/arangodb/spring-data](https://github.com/arangodb/spring-data){:target="_blank"} | [Changelog](https://github.com/arangodb/spring-data/blob/master/ChangeLog.md#readme){:target="_blank"}
 [ArangoDB-Spark-Connector](spark-connector.html) | Scala, Java | [github.com/arangodb/arangodb-spark-connector](https://github.com/arangodb/arangodb-spark-connector){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-spark-connector/blob/master/ChangeLog.md#readme){:target="_blank"}
 
@@ -32,7 +32,7 @@ Community drivers
 Please note that this list is not exhaustive.
 
 Name | Language | Repository
------|----------|-----------
+:----|:---------|:----------
 ArangoDB-PHP-Core | PHP | [github.com/frankmayer/ArangoDB-PHP-Core](https://github.com/frankmayer/ArangoDB-PHP-Core){:target="_blank"}
 ArangoDB-NET | .NET | [github.com/yojimbo87/ArangoDB-NET](https://github.com/yojimbo87/ArangoDB-NET){:target="_blank"}
 aranGO | Go | [github.com/diegogub/aranGO](https://github.com/diegogub/aranGO){:target="_blank"}
@@ -43,3 +43,10 @@ python-arango | Python | [github.com/Joowani/python-arango](https://github.com/J
 Scarango | Scala | [github.com/outr/scarango](https://github.com/outr/scarango){:target="_blank"}
 ArangoRB | Ruby | [github.com/StefanoMartin/ArangoRB](https://github.com/StefanoMartin/ArangoRB){:target="_blank"}
 Tash | C++ | [https://gitlab.com/neel.basu/tash](https://gitlab.com/neel.basu/tash){:target="_blank"}
+
+Community resources
+-------------------
+
+Name | Repository
+:----|:----------
+Docker Swarm example configuration | [github.com/dumstruck/arango-swarm](https://github.com/dumstruck/arango-swarm){:target="_blank"}
