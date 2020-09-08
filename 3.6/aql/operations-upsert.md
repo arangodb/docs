@@ -147,7 +147,6 @@ RETURN { doc: NEW, type: OLD ? 'update' : 'insert' }
 Limitations
 -----------
 
-
 Using very large transactions in an UPSERT (e.g. UPSERT over all documents in a collection)
 an **intermediate commit** can be triggered. This intermediate commit will write the data
 that has been modified so far. However this will have the side-effect that atomicity
