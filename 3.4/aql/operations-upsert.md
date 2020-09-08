@@ -144,15 +144,17 @@ UPDATE { logins: OLD.logins + 1 } IN users
 RETURN { doc: NEW, type: OLD ? 'update' : 'insert' }
 ```
 
-Note on Intermediate commits
-----------------------------
+Limitations
+-----------
+
 
 Using very large transactions in an UPSERT (e.g. UPSERT over all documents in a collection)
-an intermediate commit can be triggered. This intermediate commit will write the data
+an **intermediate commit** can be triggered. This intermediate commit will write the data
 that has been modified so far. However this will have the side-effect that atomicity
-of this operation cannot be guarenteed anymore and that we cannot guarantee to that
+of this operation cannot be guaranteed anymore and that ArangoDB cannot guarantee to that
 read your own writes in upsert will work.
+
 This will only be an issue if you write a query where your search condition would hit the
 same document multiple times, and only if you have large transactions.
-In order to avoid this issues you can increase the intermediateCommit thresholds for
+In order to avoid this issues you can increase the `intermediateCommit` thresholds for
 data and operation counts.
