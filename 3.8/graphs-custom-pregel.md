@@ -633,7 +633,11 @@ Each vertex accumulator requires a name as `string`:
 
 ## Global Accumulator
 
+TODO: needs to be written
+
 ## Custom Accumulator
+
+TODO: needs to be written
 
 Execute a Programmable Pregel Algorithm
 ------
