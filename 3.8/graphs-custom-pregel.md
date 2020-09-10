@@ -89,6 +89,7 @@ The format of a custom algorithm right now is based on a JSON object.
   * Global Accumulators are able to access variables at shared global level.
 * customAccumulators (optional): An `object` defining all used custom accumulators.
 * phases (optional?): Array of a single or multiple phase definitions. More info below in the next chapter.
+* debug (optional): See _Debugging_.
 
 Phases
 ------
@@ -118,6 +119,42 @@ Computation:
  * The _updateProgram_ will be executed **during every pregel execution round** and each **per vertex**. 
 * onPostStep Program as `array of operations` to be executed.
 * The _onPostStep_ program will run **once after** each pregel execution round. 
+
+Debugging
+---------
+
+Using the `debug` field in the algorithm specification you instruct the Pregel system to generate additional tracing information 
+for debugging purpose. Currently only send messages can be traced but in future this will be expanded as needed.
+
+```
+{
+  debug: {
+    traceMessages: {
+      "my-vertex-id": {}
+    }
+  }
+}
+```
+
+This will generate a _report_ for every message that is send to the vertex `my-vertex-id`. Additionally you can specify a filter by adding a `filter` field.
+```
+{
+  filter: {
+    bySender: ["my-sender-vertex"],
+    byAccumulator: ["some-accumulator"]
+  }
+}
+```
+This for example only generates trace reports for messages that were send by `my-sender-vertex` and use the `some-accumulator` accumulator. You can add more than one vertex or accumulator
+to that list. The filters are combined using `and` semantics, i.e. only those messages that pass _all_ filters are traced.
+
+**Specification**
+
+* `traceMessages` (optional) a mapping from `vertex-id` to a dict described below
+  * `filter` (optional)
+    * `bySender` (optional) a list of vertex document ids. Only messages send by those vertices are traced.
+    * `byAccumulator` (optional) a list of accumulator names. Only messages send to those accumulators are traced.
+
 
 Program
 ------
