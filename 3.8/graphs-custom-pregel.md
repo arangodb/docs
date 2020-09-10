@@ -701,9 +701,10 @@ vertex we are attached to.
 ["send-to-global-accum", name, value]
 ```
 
-`global-accum-ref` evaluates the global accumulator `name`.
-`send-to-global-accum` send `value` to the global accumulator `name`.
-See [Update Visibility](#update-visibility).
+- `global-accum-ref` evaluates the global accumulator `name`.
+- `send-to-global-accum` send `value` to the global accumulator `name`.
+
+Also see the remarks about [update visibility](#vertex-accumulators).
 
 #### Message Passing
 
