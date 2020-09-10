@@ -13,3 +13,4 @@ AQL Fundamentals
 * [Accessing Data from Collections](fundamentals-document-data.html): describes the impact of non-existent or null attributes for selection queries. 
 * [Query Results](fundamentals-query-results.html): the result of an AQL query is an array of values. 
 * [Query Errors](fundamentals-query-errors.html): errors may arise from the AQL parsing or execution. 
+* [Limits](fundamentals-limits.html): known limitations for AQL queries.
