@@ -18,4 +18,4 @@ The following limitations are known for AQL queries:
   function, or traversals working with collection sets (instead of named graphs).
 - Subqueries that are used inside expressions are pulled out of these
   expressions and executed beforehand. That means that subqueries do not
-  participate in lazy evaluation of operands.
+  participate in lazy evaluation of operands, like the ternary operator.
