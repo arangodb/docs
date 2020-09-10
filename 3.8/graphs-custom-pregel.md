@@ -690,7 +690,7 @@ vertex we are attached to.
 - `accum-ref` evaluates to the current value of the accumulator `name`.
 - `accum-set!` sets the current value of the accumulator `name` to `value`.
 - `accum-clear!` resets the current value of the accumulator `name` to a
-  well-known one. Currently numeric limits for 
+  well-known one. Currently numeric limits for
 - `max` and `min` accumulators, 0 for sums, false for or, true for and, and
   empty for lists and VelocyPack.
 
@@ -734,7 +734,7 @@ See [Update Visibility](#update-visibility).
 - `this-outbound-edges` returns a list of outbound edges of the form
 
 ```json
-{ 
+{
   "document": <edge-document>,
   "to-pregel-id": <to-vertex-pregel-id>
 }
@@ -789,7 +789,7 @@ The following functions are only available when running inside a custom accumula
    returns the current value of the accumulator
 - `["get-current-value"]`
    returns the current value but calls the `getProgram` to do so.
-- `["input-value"]` 
+- `["input-value"]`
    returns the _input value_. This is the value received as update in
    `updateProgram`. Or the value the accumulator is set to in `setProgram`.
 - `["input-sender"]`
@@ -798,7 +798,7 @@ The following functions are only available when running inside a custom accumula
 - `["input-state"]`
    return the input state for a merge operation. This is only available in
    `aggregateStateProgram`.
-- `["this-set!", value]` 
+- `["this-set!", value]`
    set the new value of the accumulator to `value`.
 - `["this-set-value!", value]`
    set the new value of the accumulator but calls the `setProgram` to do so.
@@ -836,7 +836,7 @@ Imagine a simple part of a graph like this:
 
 ```
        B  ←  E
-    ↗ 
+    ↗
   A →  C
     ↘
        D
@@ -885,7 +885,7 @@ Further modifications can be done here.
 ##### Phase - Computation (Superstep S+1)
 
 The latest Accumulator states are visible. New messages can be sent.
-They will be visible in the next round. 
+They will be visible in the next round.
 
 #### Vertex Accumulator Definition
 
@@ -896,7 +896,7 @@ Each vertex accumulator requires a name as `string`:
   "<name>": {
     "accumulatorType": "<accumulator-type>",
     "valueType": "<valueType>",
-    "customType": "<custom-accumulator-type>" 
+    "customType": "<custom-accumulator-type>"
   }
 }
 ```
@@ -1206,7 +1206,7 @@ therefor set the `accumulatorType` to `sum`.
 ```js
 initProgram: [
   "seq",
-  
+
   ["accum-set!", "outDegree", ["this-outbound-edges-count"]], // Sets our outDegree accumulator with ["this-outbound-edges-count"]
 
   // Init in degree to 0
@@ -1259,7 +1259,7 @@ Let us take a look at row 4:
   "attrib-set",
   ["dict"],                  // creates a dict (which is an empty object type)
   "inDegree",                // the key we want to store as a string
-  ["accum-ref", "inDegree"]  // the accumulator reference we're reading from, which will be inserted in our new dict 
+  ["accum-ref", "inDegree"]  // the accumulator reference we're reading from, which will be inserted in our new dict
 ]
 ```
 
