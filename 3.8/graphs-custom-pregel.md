@@ -24,9 +24,8 @@ Requirements
 ------
 
 PPAs can be run on a single-server instance but as it is designed to run in parallel
-in a distributed environment, you'll only be able to add computing power in a clustered environment. Also   
-PPAs do require proper graph sharding to be efficient. Using SmartGraphs is the recommend way to run Pregel
-algorithms. 
+in a distributed environment, you'll only be able to add computing power in a clustered environment. Also PPAs do
+require proper graph sharding to be efficient. Using SmartGraphs is the recommend way to run Pregel algorithms. 
 
 As this is an extension of the native Pregel framework, more detailed information on prerequisites and
 requirements can be found [here](graphs-pregel.html#prerequisites).
@@ -645,16 +644,28 @@ The following functions are only available when running inside a custom accumula
 
 ## Accumulators
 
-In PPAs there are special types, called: `Accumulators`. Accumulators are used to consume and process messages which
-are being sent to them during the computational phase (either in the `initProgram` or the `updateProgram`) of a
-superstep. After a superstep is done, all messages will be processed. The manner on how they are going to be processed
-depends on their `accumulatorType`. There is only one exception: A vertex is able to modify their own local
-accumulator directly during the computational phase, **but only their own**.
+In PPAs there are special types, called: `Accumulators`. There are three different types of Accumulators:
+- VertexAccumulators
+- GlobalAccumulators
+- CustomAccumulators
+
+Accumulators are used to consume and process messages which are being sent to them during the computational phase
+(`initProgram`, `updateProgram`, `onPreStep`, `onPostStep`) of a superstep. After a superstep is done, all messages
+will be processed. 
+
+The manner on how they are going to be processed depends on their `accumulatorType`. 
+
+### Vertex Accumulators
+
+Vertex Accumulators are following the general definition of an Accumulator. There is only one exception:
+A vertex is able to modify their own local accumulator directly during the computational phase, **but only their own**.
 
 In short: Modifications which will be done via messages, will be visible in the next superstep round. Changes done
 locally, are visible directly - but cannot be done from one vertex to another.    
 
-For example, imagine a simple part of the graph like this:
+#### Example
+
+Imagine a simple part of a graph like this:
 ```
        B  ←  E
     ↗ 
@@ -700,16 +711,16 @@ will be visible here as well. Further modifications can be done here.
 
 The latest Accumulator states are visible. New messages can be sent. They will be visible in the next round. 
 
-### Vertex Accumulator
+#### Vertex Accumulator Definition
 
 Each vertex accumulator requires a name as `string`:
 
 ```json
   {
     "<name>": {
-      "accumulatorType": "<accumulator-name>",
+      "accumulatorType": "<accumulator-type>",
       "valueType": "<valueType>",
-      "customType": "<accumulator-type>" 
+      "customType": "<custom-accumulator-type>" 
     }
   }
 ```
@@ -726,11 +737,13 @@ Each vertex accumulator requires a name as `string`:
     * `doubles`: (Double type)
     * `bools`: (Boolean type)
     * `strings`: (String type)
-* customType (optional): The name of the used custom accumulator type as a `string`. 
+* customType (optional): The name of the used custom accumulator type as a `string`.
 
 ### Global Accumulator
 
-TODO: needs to be written
+Global Accumulators are following the general definition of an Accumulator. Compared to a Vertex Accumulator they do
+not have local access to the Accumulator. Changes can only take place when sending messages and therefore can only be
+visible in the next superstep round (or in the `onPostStep` routine in the current round).
 
 ### Custom Accumulator
 
