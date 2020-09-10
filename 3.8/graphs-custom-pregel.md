@@ -38,7 +38,7 @@ A Pregel computation consists of a sequence of iterations, each one of them is c
 During a superstep, the custom algorithm will be executed for each vertex. This is happening in parallel,
 as the vertices are communicating via messages and not with shared memory.
 
-The basic methods are:
+The basic methods are (we're in superstep round S here):
 - Read messages which are sent to the vertex V in the previous superstep (S-1)
 - Send messages to other vertices that will be received in the next superstep (S+1)
 - Modify the state of the vertex V
@@ -643,7 +643,9 @@ The following functions are only available when running inside a custom accumula
  * `["this-set!", value]` 
     set the new value of the accumulator to `value`.
 
-## Vertex Accumulator
+## Accumulators
+
+### Vertex Accumulator
 
 Each vertex accumulator requires a name as `string`:
 
@@ -671,11 +673,11 @@ Each vertex accumulator requires a name as `string`:
     * `strings`: (String type)
 * customType (optional): The name of the used custom accumulator type as a `string`. 
 
-## Global Accumulator
+### Global Accumulator
 
 TODO: needs to be written
 
-## Custom Accumulator
+### Custom Accumulator
 
 TODO: needs to be written
 
