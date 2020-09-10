@@ -15,9 +15,9 @@ will be opened. If any of the referenced collections is not present, query
 execution will again be aborted and an appropriate error message will be
 returned.
 
-Under some circumstances, executing a query may also produce run-time errors 
-or warnings that cannot be predicted from inspecting the query text alone. 
-This is because queries may use data from collections that may also be inhomogeneous.  
+Under some circumstances, executing a query may also produce run-time errors
+or warnings that cannot be predicted from inspecting the query text alone.
+This is because queries may use data from collections that may also be inhomogeneous.
 Some examples that will cause run-time errors or warnings are:
 
 - Division by zero: Will be triggered when an attempt is made to use the value
