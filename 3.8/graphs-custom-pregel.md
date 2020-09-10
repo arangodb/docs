@@ -763,7 +763,7 @@ You can define a custom accumulator in the `customAccumulators` field of the alg
 the custom accumulator to its definition. To use it, set the `accumulatorType` to `custom` and the `valueType` to `slice`.
 In `customType` put the name of the custom accumulator.
 
-The definition of a custom accumulator contains the following fields:
+The definition of a custom vertex accumulator contains the following fields:
 * `updateProgram` this code is executed whenever the accumulator receives a message. The `input-value` and `input-sender` functions are available here.
   This program should either return `"hot"` when the accumulator changed, i.e. its vertex will be activated in the next step, or `"cold"` if not.
 * `clearProgram` this code is executed whenever the accumulator is cleared, for example when `accum-clear` is called.
@@ -794,15 +794,23 @@ A simple sum accumulator could look like this:
 }
 ```
 
+### Global Custom Accumulators
+
+Based on a vertex accumulator you can also write a custom global accumulator. Before a new superstep begins the global accumulators are distributed to the dbservers by the conductor.
+During the superstep vertex program can read from those accumulators and send messages to them. Those messages are then accumulated per database server in a cleared version of the accumulator,
+i.e. sending a message does call updated but the _write accumulator_ is cleared when the superset begins.
+
+After the superstep the accumulated values are collected by the conductor and then aggregated. Finally the new value of the global accumulator is available in the `onPostStep` program.
 
 
-```
-  PregelProgram setStateProgram;
-  PregelProgram getStateProgram;
-  PregelProgram getStateUpdateProgram;
-  PregelProgram aggregateStateProgram;
-```
-
+There are more fields, some of them required, involved in
+when using accumulator as global accumulator.
+* `setStateProgram` this code is executed when the database server receives a new value for the global accumulator. `input-state` is available in this context. The default implementation
+  replaces the internal state of the accumulator with `input-state`.
+* `getStateProgram` this code is executed when the conductor serializes the value of the global accumulator before distributing it to the database servers. 
+  The default implementation just copies the internal state.
+* `getStateUpdateProgram` this code is executed when the database server serialized the accumulated value of the accumulator during the collect phase, sending its result back to the database server.
+* `aggregateStateProgram` this code is executedn on the conductor after it received the _update states_. This code merges the different aggregates.
 
 
 Execute a Programmable Pregel Algorithm
