@@ -14,8 +14,10 @@ The following limitations are known for AQL queries:
 - It is not possible to use a collection in a read operation after
   it was used for a write operation in the same AQL query.
 - In the cluster, all collections that are accessed dynamically must be stated in the 
-  query's initial `WITH` statement. These are either accesses via the `DOCUMENT` AQL
-  function, or traversals working with collection sets (instead of named graphs).
+  query's initial `WITH` statement. These are either accesses via the
+  [`DOCUMENT()` function](functions-miscellaneous.html#document), or
+  [traversals working with collection sets](../aql/graphs-traversals.html#working-with-collection-sets)
+  (instead of named graphs).
 - Subqueries that are used inside expressions are pulled out of these
   expressions and executed beforehand. That means that subqueries do not
-  participate in lazy evaluation of operands, like the ternary operator.
+  participate in lazy evaluation of operands, for example in the ternary operator.

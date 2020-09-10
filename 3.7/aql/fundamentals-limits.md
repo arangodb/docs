@@ -13,9 +13,11 @@ The following limitations are known for AQL queries:
 - An AQL query cannot use more than _2048_ collections/shards.
 - It is not possible to use a collection in a read operation after
   it was used for a write operation in the same AQL query.
-- In the cluster, all vertex collections and collection that are accessed
-  dynamically via the `DOCUMENT` AQL function must be stated in the 
-  query's initial `WITH` statement.
+- In the cluster, all collections that are accessed dynamically must be stated in the 
+  query's initial `WITH` statement. These are either accesses via the 
+  [`DOCUMENT()` function](functions-miscellaneous.html#document), or 
+  [traversals working with collection sets](../aql/graphs-traversals.html#working-with-collection-sets)
+  (instead of named graphs).
 - Subqueries that are used inside expressions are pulled out of these
   expressions and executed beforehand. That means that subqueries do not
-  participate in lazy evaluation of operands.
+  participate in lazy evaluation of operands, for example in the ternary operator.
