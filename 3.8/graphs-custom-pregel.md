@@ -95,14 +95,17 @@ Phases
 ------
 
 Phases will run sequentially during your Pregel computation. The definition of multiple phases is allowed. 
-Each phase requires instructions based on the operations you want to perform.
+Each phase requires instructions based on the operations you want to perform. The initialization program (1) will run
+a single time in the very first round. All upcoming rounds will execute the update program (2).
   
 The pregel program execution will follow the order:
 
-Initialization:
-1. `initProgram` (database server)  
+Step 1: Initialization
+1. `onPreStep` (coordinator)
+2. `initProgram` (database server)
+3. `onPostStep` (coordinator)
 
-Computation: 
+Step 2 (+n): Computation
 1. `onPreStep` (coordinator)
 2. `updateProgram` (database server)
 3. `onPostStep` (coordinator)
