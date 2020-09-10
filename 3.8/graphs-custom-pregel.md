@@ -645,6 +645,61 @@ The following functions are only available when running inside a custom accumula
 
 ## Accumulators
 
+In PPAs there are special types, called: `Accumulators`. Accumulators are used to consume and process messages which
+are being sent to them during the computational phase (either in the `initProgram` or the `updateProgram`) of a
+superstep. After a superstep is done, all messages will be processed. The manner on how they are going to be processed
+depends on their `accumulatorType`. There is only one exception: A vertex is able to modify their own local
+accumulator directly during the computational phase, **but only their own**.
+
+In short: Modifications which will be done via messages, will be visible in the next superstep round. Changes done
+locally, are visible directly - but cannot be done from one vertex to another.    
+
+For example, imagine a simple part of the graph like this:
+```
+       B  ←  E
+    ↗ 
+  A →  C
+    ↘
+       D
+```
+The vertex `A` has edges pointing to the vertices `B`, `C` and `D`. Additionally, the vertex `E` is pointing to the
+vertex `B`. If we want to calculate now, how many incoming edges `B`, `C` and `D` have, we need to sent a message with
+the value `1`, which represents an incoming edge, along all outgoing edges of our vertices. As only `A` and `E` do
+have outgoing edges, only those two vertices will sent messages:
+
+##### Phase - Computation (Superstep S)
+Vertex A: 
+- Sending **1** to B
+- Sending **1** to C
+- Sending **1** to D
+
+Vertex E: 
+- Sending **1** to B
+
+As we want to sum up all received values, the `sumAccumulator` needs to be used. It will automatically compute the 
+value out of all received messages:
+
+##### Phase - Aggregation 
+* Vertex `B` receives two messages
+  - Result is: **2**. (1+1)
+* Vertex `C` receives one messages
+  - Result is: **1**. (1)
+* Vertex `D` receives one messages
+  - Result is: **1**. (1)
+
+##### Phase - onPostStep (Superstep S)
+
+Aggregated Accumulators are visible now. Additional modifications can be implemented here. 
+
+##### Phase - onPreStep (Superstep S+1)
+
+Aggregated Accumulators are visible now. They could be modified in the previous `onPostStep` routine. Latest changes
+will be visible here as well. Further modifications can be done here.
+
+##### Phase - Computation (Superstep S+1)
+
+The latest Accumulator states are visible. New messages can be sent. They will be visible in the next round. 
+
 ### Vertex Accumulator
 
 Each vertex accumulator requires a name as `string`:
