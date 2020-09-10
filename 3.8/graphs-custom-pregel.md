@@ -639,8 +639,12 @@ The following functions are only available when running inside a custom accumula
     accumulator is set to in `setProgram`.
  * `["input-sender"]`
     returns the _vertex-id_ of the sending vertex. This is only available in `updateProgram`.
+ * `["input-state"]`
+    return the input state for a merge operation. This is only available in `aggregateStateProgram`.
  * `["this-set!", value]` 
     set the new value of the accumulator to `value`.
+ * `["this-set-value!", value]`
+    set the new value of the accumulator but calls the `setProgram` to do so.
 
 ## Accumulators
 
@@ -729,7 +733,14 @@ Each vertex accumulator requires a name as `string`:
 
 * accumulatorType (required): The name of the used accumulator type as a `string`.
   * Valid values are:
-    * `sum`
+    * `max`: stores the maximum of all messages received.
+    * `min`: stores the minimum of all messages received.
+    * `sum`: sums up all messages received.
+    * `and`: computes `and` on all messages received.
+    * `or`: computes `or` and all messages received.
+    * `store`: holds the last recevied value. (non-deterministic)
+    * `list`: stores all received values in list. (order is non-deterministic)
+    * `custom`: see below.
 * valueType (required): The name of the value type as a `string`.
   * Valid value types are:
     * `slice` (VelocyPack Slice)
@@ -747,7 +758,52 @@ visible in the next superstep round (or in the `onPostStep` routine in the curre
 
 ### Custom Accumulator
 
-TODO: needs to be written
+Because the above list of accumulators feels limited and my not suite your case best you can create your own custom accumulator.
+You can define a custom accumulator in the `customAccumulators` field of the algorithm, which is an object, mapping the name of
+the custom accumulator to its definition. To use it, set the `accumulatorType` to `custom` and the `valueType` to `slice`.
+In `customType` put the name of the custom accumulator.
+
+The definition of a custom accumulator contains the following fields:
+* `updateProgram` this code is executed whenever the accumulator receives a message. The `input-value` and `input-sender` functions are available here.
+  This program should either return `"hot"` when the accumulator changed, i.e. its vertex will be activated in the next step, or `"cold"` if not.
+* `clearProgram` this code is executed whenever the accumulator is cleared, for example when `accum-clear` is called.
+* `setProgram` this code is executed whenever the accumulator is set to a specific value. 
+  The `input-value` function is available to receive the new value, for example when `accum-set!` is called.
+  By default this program replaces the internal state of the accumulator with the given value.
+* `getProgram` this code is executed whenever the accumulator is read from. Its return value is the actual value that will be returned by for example `accum-ref`.
+  By default this program returns the internal state of the accumulator.
+* `finalizeProgram` this code is executed when the value of the accumulator is written back into the vertex document. It defaults to `getProgram`.
+
+Each custom accumulator has an internal buffer. You can access this buffer using the `current-value` function. To set a new value use the `this-set!`. Note that `this-set!` will not
+invoke the `setProgram` but instead copy the provided value to the internal buffer.
+
+A simple sum accumulator could look like this:
+```json
+{
+  "updateProgram": ["if",
+      [["eq?", ["input-value"], 0],
+          "cold"],
+      [true,
+          ["seq",
+              ["this-set!", ["+", ["current-value"], ["input-value"]]],
+              "hot"]]],
+  "clearProgram": ["this-set!", 0],
+  "getProgram": ["current-value"],
+  "setProgram": ["this-set!", ["input-value"]],
+  "finalizeProgram": ["current-value"],
+}
+```
+
+
+
+```
+  PregelProgram setStateProgram;
+  PregelProgram getStateProgram;
+  PregelProgram getStateUpdateProgram;
+  PregelProgram aggregateStateProgram;
+```
+
+
 
 Execute a Programmable Pregel Algorithm
 ------
