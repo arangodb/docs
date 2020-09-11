@@ -149,6 +149,11 @@ Step 2 (+n): Computation
 - **onPostStep**: Program as `array of operations` to be executed.
   The _onPostStep_ program will run **once after** each Pregel execution round.
 
+`initProgram` and `updateProgram` return value is inspected. If it is not `none`,
+it must be one of the following:
+* `"vote-halt"` or `false`: indicates that this vertex voted halt.
+* `"vote-active"` or `true`: indicates that this vertex voted active and is active in the next round.
+
 Debugging
 ---------
 
@@ -203,7 +208,7 @@ Arango Intermediate Representation (AIR).
 
 We developed a Lisp-like intermediate representation to be able to transport
 programs into the existing Pregel implementation in ArangoDB. These programs
-are executed using the Greenspun interpreter inside the AIR Pregel algorithm.
+are executed using the interpreter inside the AIR Pregel algorithm.
 
 At the moment this interpreter is a prototype and hence not optimized and
 (probably) slow. It is very flexible in terms of what we can implement,
