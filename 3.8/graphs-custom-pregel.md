@@ -301,7 +301,7 @@ _sequence of commands_
 last expression. An empty `seq` evaluates to `none`.
 
 ```js
-> ["seq", ["print, "Hello World!"], 2, 3]
+> ["seq", ["print", "Hello World!"], 2, 3]
 Hello World!
  = 3
 ```
@@ -1034,9 +1034,10 @@ accumulator as global accumulator.
 - `getStateProgram` this code is executed when the conductor serializes the
   value of the global accumulator before distributing it to the DB-Servers.
   The default implementation just copies the internal state.
-- `getStateUpdateProgram` this code is executed when the DB-Server serialized
+- `getStateUpdateProgram` this code is executed when the DB-Server serializes
   the accumulated value of the accumulator during the collect phase, sending
-  its result back to the DB-Server.
+  its result back to the Conductor.
+  The default implementation is to call `getStateProgram`.
 - `aggregateStateProgram` this code is executed on the conductor after it
   received the _update states_. This code merges the different aggregates.
 
