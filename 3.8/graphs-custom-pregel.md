@@ -383,8 +383,29 @@ something, for example at top-level.
 
 _like `quote` but can be unquoted_
 
+```js
+["quasi-quote", expr...]
+["unquote", expr...]
+["unquote-splice", expr...]
+```
+
 `quasi-quote` is like `quote` but can be unquoted using
 `unquote`/`unquote-splice`.
+
+Unlike `quote` `quasi-quote` scans all the unevaluated values passed as parameters but copies them. 
+When it finds a `unquote` or `unquote-splice` it evaluates its parameters and copies/splices the 
+resulting value into the output.
+
+```js
+["quasi-quote", 
+  ["this", "list", "is", "copied"], // this is not evaluated as call 
+  ["this", "is",                    // this neither
+    ["unquote-splice", ["f", 2]]    // this will splice f(2) into the result
+  ]
+]
+
+= [["this", "list", "is", "copied"], ["this", "is", f(2)]]
+```
 
 ```js
 > ["quasi-quote", ["foo"], ["unquote", ["list", 1, 2]], ["unquote-splice", ["list", 1, 2]]]
