@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Issuing an invalid query to the server will result in a parse error if the queryis syntactically invalid
+description: Issuing an invalid query to the server will result in a parse error if the query is syntactically invalid
 ---
 Errors
 ======
@@ -15,10 +15,10 @@ will be opened. If any of the referenced collections is not present, query
 execution will again be aborted and an appropriate error message will be
 returned.
 
-Under some circumstances, executing a query may also produce run-time errors 
-that cannot be predicted from inspecting the query text alone. This is because
-queries may use data from collections that may also be inhomogeneous.  Some
-examples that will cause run-time errors are:
+Under some circumstances, executing a query may also produce run-time errors
+or warnings that cannot be predicted from inspecting the query text alone.
+This is because queries may use data from collections that may also be inhomogeneous.
+Some examples that will cause run-time errors or warnings are:
 
 - Division by zero: Will be triggered when an attempt is made to use the value
   *0* as the divisor in an arithmetic division or modulus operation
@@ -33,4 +33,3 @@ examples that will cause run-time errors are:
 
 Please refer to the [Arango Errors](../appendix-error-codes.html) page
 for a list of error codes and meanings.
-
