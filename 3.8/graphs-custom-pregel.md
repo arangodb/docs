@@ -364,8 +364,8 @@ is guaranteed to be reversed lexicographic order.
 _escape sequences for lisp_
 
 ```js
-["quote", expr...]
-["quote-splice", expr...]
+["quote", expr]
+["quote-splice", expr]
 ```
 
 `quote`/`quote-splice` copies/splices its parameter verbatim into its output.
@@ -373,10 +373,10 @@ _escape sequences for lisp_
 something, for example at top-level.
 
 ```js
-> ["quote", "foo", ["bar"]]
- = ["foo", ["bar"]]
-> ["foo", ["quote-splice", ["bar"], "baz"]
- = ["foo", ["bar"], "baz"]
+> ["quote", ["foo"]]
+ = ["foo"]
+> ["list", "foo", ["quote-splice", ["bar"]] ]
+ = ["foo","bar"]
 ```
 
 #### `quasi-quote`, `unquote` and `unquote-splice` statements
@@ -384,9 +384,9 @@ something, for example at top-level.
 _like `quote` but can be unquoted_
 
 ```js
-["quasi-quote", expr...]
-["unquote", expr...]
-["unquote-splice", expr...]
+["quasi-quote", expr]
+["unquote", expr]
+["unquote-splice", expr]
 ```
 
 `quasi-quote` is like `quote` but can be unquoted using
@@ -397,18 +397,18 @@ When it finds a `unquote` or `unquote-splice` it evaluates its parameters and co
 resulting value into the output.
 
 ```js
-["quasi-quote", 
+["quasi-quote", [
   ["this", "list", "is", "copied"], // this is not evaluated as call 
   ["this", "is",                    // this neither
     ["unquote-splice", ["f", 2]]    // this will splice f(2) into the result
   ]
-]
+]]
 
 = [["this", "list", "is", "copied"], ["this", "is", f(2)]]
 ```
 
 ```js
-> ["quasi-quote", ["foo"], ["unquote", ["list", 1, 2]], ["unquote-splice", ["list", 1, 2]]]
+> ["quasi-quote", [["foo"], ["unquote", ["list", 1, 2]], ["unquote-splice", ["list", 1, 2]]]]
  = [["foo"],[1,2],1,2]
 ```
 
