@@ -74,7 +74,7 @@ The format of a custom algorithm right now is based on a JSON object.
 }
 ```
 
-### Algorithm parameters:
+### Algorithm parameters
 
 - **resultField** (string, _optional_): Name of the document attribute to store
   the result in.
@@ -86,11 +86,14 @@ The format of a custom algorithm right now is based on a JSON object.
 - **dataAccess** (object, _optional_): Allows to define `writeVertex`,
   `readVertex` and `readEdge`.
 
-  - **writeVertex**: A `<program>` that is used to write the results into vertices. If `writeVertex` is used, the `resultField` will be ignored.
-  - **readVertex**: An `array` that consists of `strings` and/or additional `arrays` (that represents a path).
+  - **writeVertex**: A [program](#program) that is used to write the results
+    into vertices. If `writeVertex` is used, the `resultField` will be ignored.
+  - **readVertex**: An `array` that consists of `strings` and/or additional `arrays`
+    (that represents a path).
     - `string`: Represents a single path at the top level which is **not** nested.
     - `array of strings`: Represents a nested path
-  - **readEdge**: An `array` that consists of `strings` and/or additional `arrays` (that represents a path).
+  - **readEdge**: An `array` that consists of `strings` and/or additional `arrays`
+    (that represents a path).
       - `string`: Represents a single path at the top level which is **not** nested.
       - `array of strings`: Represents a nested path
 
@@ -122,27 +125,27 @@ update program (2).
 The Pregel program execution will follow the order:
 
 Step 1: Initialization
-1. `onPreStep` (coordinator)
-2. `initProgram` (database server)
-3. `onPostStep` (coordinator)
+1. `onPreStep` (Coordinator)
+2. `initProgram` (DB-Server)
+3. `onPostStep` (Coordinator)
 
 Step 2 (+n): Computation
-1. `onPreStep` (coordinator)
-2. `updateProgram` (database server)
-3. `onPostStep` (coordinator)
+1. `onPreStep` (Coordinator)
+2. `updateProgram` (DB-Server)
+3. `onPostStep` (Coordinator)
 
 #### Phase parameters
 
 - **name** (string, _required_): Phase name
   The given name of the defined phase.
+- **onPreStep**: Program as `array of operations` to be executed.
+  The _onPreStep_ program will run **once before** each Pregel execution round.
 - **initProgram**: Program as `array of operations` to be executed.
   The init program will run **initially once** per all vertices that are part
   of your graph.
-- **onPreStep**: Program as `array of operations` to be executed.
-  - The _onPreStep_ program will run **once before** each Pregel execution round.
 - **updateProgram**: Program as `array of operations` to be executed.
- - The _updateProgram_ will be executed **during every Pregel execution round**
-   and each **per vertex**.
+  The _updateProgram_ will be executed **during every Pregel execution round**
+  and each **per vertex**.
 - **onPostStep**: Program as `array of operations` to be executed.
   The _onPostStep_ program will run **once after** each Pregel execution round.
 
@@ -151,7 +154,7 @@ Debugging
 
 Using the `debug` field in the algorithm specification you instruct the Pregel
 system to generate additional tracing information for debugging purpose.
-Currently only send messages can be traced but in future this will be expanded
+Currently, only sent messages can be traced but in future this will be expanded
 as needed.
 
 ```js
@@ -198,7 +201,7 @@ Arango Intermediate Representation (AIR).
 
 ## Arango Intermediate Representation
 
-We developed a LISP-like intermediate representation to be able to transport
+We developed a Lisp-like intermediate representation to be able to transport
 programs into the existing Pregel implementation in ArangoDB. These programs
 are executed using the Greenspun interpreter inside the AIR Pregel algorithm.
 
@@ -224,11 +227,11 @@ A surface language / syntax will be available later.
 ## AIR specification
 
 The following list of functions and special forms is available in all contexts.
-_AIR_ is based on lisp, but represented in JSON and supports its data types.
+_AIR_ is based on Lisp, but represented in JSON and supports its data types.
 
 Strings, numeric constants, booleans and objects (dicts) are self-evaluating,
 i.e. the result of the evaluation of those values is the value itself.
-Array are not self-evaluating. In general you should read an array like a
+Arrays are not self-evaluating. In general you should read an array like a
 function call:
 
 ```js
@@ -236,19 +239,21 @@ function call:
 ```
 
 The first element of a list specifies the function. This can either be a string
-containing the function name, or a lambda object. See `lambda` function below.
+containing the function name, or a [lambda object](#lambdas).
 
 To prevent unwanted evaluation or to actually write down a list there are
 multiple options:
-- `quote`
+
 - `list`
+- `quote`
 - `quasi-quote`
 
 ```js
 ["list", 1, 2, ["foo", "bar"]] // evaluates to [1, 2, foo("bar")] -- evaluated parameters
 ["quote", 1, 2, ["foo", "bar"]] // evaluates to [1, 2, ["foo", "bar"]] -- unevaluated parameters
 ```
-For more see below.
+
+They are described in more detail below.
 
 ### Truthiness of values
 
@@ -733,20 +738,18 @@ Also see the remarks about [update visibility](#vertex-accumulators).
 - `this-doc` returns the document slice stored in vertex data.
 - `this-outdegree` returns the number of outgoing edges.
 - `this-outbound-edges` returns a list of outbound edges of the form
-
-```json
-{
-  "document": <edge-document>,
-  "to-pregel-id": <to-vertex-pregel-id>
-}
-```
-
-- `this-vertex-id` returns the vertex document id.
+  ```json
+  {
+    "document": <edge-document>,
+    "to-pregel-id": <to-vertex-pregel-id>
+  }
+  ```
+- `this-vertex-id` returns the vertex document identifier.
 - `this-unique-id` returns a unique but opaque numeric value associated with
    this vertex.
 - `this-pregel-id` returns a identifier used by Pregel to send messages.
 
-#### Misc
+#### Miscellaneous
 
 - `["vertex-count"]` returns the number of vertices in the graph under
   consideration.
@@ -779,8 +782,9 @@ computation.
 ```
 
 `global-accum-ref`, `global-accum-set!`, `global-accum-clear!` like for
-accumulators but for global accumulators-
-### Foreign calls in _Custom Accumulator_context
+accumulators but for global accumulators.
+
+### Foreign calls in _Custom Accumulator_ context
 
 The following functions are only available when running inside a custom accumulators.
 
@@ -848,45 +852,45 @@ Additionally, the vertex `E` is pointing to the vertex `B`. If we want to
 calculate now, how many incoming edges `B`, `C` and `D` have, we need to sent
 a message with the value `1`, which represents an incoming edge, along all
 outgoing edges of our vertices. As only `A` and `E` do have outgoing edges,
-only those two vertices will sent messages:
+only those two vertices will send messages:
 
-##### Phase - Computation (Superstep S)
+1. **Phase - Computation (Superstep S)**
 
-Vertex A:
-- Sending **1** to B
-- Sending **1** to C
-- Sending **1** to D
+   Vertex A:
+   - Sending **1** to B
+   - Sending **1** to C
+   - Sending **1** to D
 
-Vertex E:
-- Sending **1** to B
+   Vertex E:
+   - Sending **1** to B
 
-As we want to sum up all received values, the `sumAccumulator` needs to be
-used. It will automatically compute the value out of all received messages:
+   As we want to sum up all received values, the `sumAccumulator` needs to be
+   used. It will automatically compute the value out of all received messages:
 
-##### Phase - Aggregation
+2. **Phase - Aggregation**
 
-- Vertex `B` receives two messages
-  - Result is: **2**. (1+1)
-- Vertex `C` receives one messages
-  - Result is: **1**. (1)
-- Vertex `D` receives one messages
-  - Result is: **1**. (1)
+   - Vertex `B` receives two messages
+     - Result is: **2**. (1+1)
+   - Vertex `C` receives one messages
+     - Result is: **1**. (1)
+   - Vertex `D` receives one messages
+     - Result is: **1**. (1)
 
-##### Phase - onPostStep (Superstep S)
+3. **Phase - onPostStep (Superstep S)**
 
-Aggregated Accumulators are visible now. Additional modifications can be
-implemented here.
+   Aggregated Accumulators are visible now. Additional modifications can be
+   implemented here.
 
-##### Phase - onPreStep (Superstep S+1)
+4. **Phase - onPreStep (Superstep S+1)**
 
-Aggregated Accumulators are visible now. They could be modified in the
-previous `onPostStep` routine. Latest changes will be visible here as well.
-Further modifications can be done here.
+   Aggregated Accumulators are visible now. They could be modified in the
+   previous `onPostStep` routine. Latest changes will be visible here as well.
+   Further modifications can be done here.
 
-##### Phase - Computation (Superstep S+1)
+5. **Phase - Computation (Superstep S+1)**
 
-The latest Accumulator states are visible. New messages can be sent.
-They will be visible in the next round.
+   The latest Accumulator states are visible. New messages can be sent.
+   They will be visible in the next round.
 
 #### Vertex Accumulator Definition
 
@@ -1020,11 +1024,7 @@ require the Pregel module in _arangosh_.
 
 ```js
 const pregel = require("@arangodb/pregel");
-  return pregel.start(
-    "air",
-    graphName,
-    "<custom-algorithm>"
-  );
+return pregel.start("air", "<graphName>", "<custom-algorithm>");
 ```
 
 Status of a PPA
@@ -1047,7 +1047,7 @@ received messages. Also see
 Additionally, the status objects for custom algorithms is extended and contains
 more info as the general pregel one. More details in the next section.
 
-## Error reporting
+### Error reporting
 
 Before the execution of a PPAs starts, it will be validated and checked for
 potential errors. This helps a lot during development. If a PPA fails, the
@@ -1086,11 +1086,10 @@ Developing a PPA
 
 There are two ways of developing your PPA. You can either run and develop in
 the ArangoShell (as shown above) or you can use the Foxx Service "Pregelator"
-(_Development name: This might change in the future as well_). The Pregelator
-can be installed separately and provides a nice UI to write a PPA, execute it
-and get direct feedback in both "success" and "error" cases.
+The Pregelator can be installed separately and provides a nice UI to write a
+PPA, execute it and get direct feedback in both "success" and "error" cases.
 
-## Pregelator
+### Pregelator
 
 The Pregelator Service is available on GitHub:
 <https://github.com/arangodb-foxx/pregelator>
@@ -1115,7 +1114,7 @@ here:
 - [Single Source Shortest Path](https://github.com/arangodb/arangodb/blob/feature/pregel-vertex-accumulation-algorithm-2/js/client/modules/%40arangodb/air/single-source-shortest-paths.js)
 - [Strongly Connected Components](https://github.com/arangodb/arangodb/blob/feature/pregel-vertex-accumulation-algorithm-2/js/client/modules/%40arangodb/air/strongly-connected-components.js)
 
-## Vertex Degree
+### Vertex Degree
 
 The algorithm calculates the vertex degree for incoming and outgoing edges.
 First, take a look at the complete vertex degree implementation.
@@ -1156,12 +1155,12 @@ individual section.
   }
 ```
 
-### Used Accumulators
+#### Used Accumulators
 
-In the example, we're using two vertex accumulators: `outDegree` and `inDegree`,
+In the example, we are using two vertex accumulators: `outDegree` and `inDegree`,
 as we want to calculate and store two values.
 
-#### outDegree
+##### outDegree
 
 ```json
 "outDegree": {
@@ -1178,7 +1177,7 @@ no further calculations need to take place. As the possible amount of
 outgoing edges is even, we are setting `valueType` to `ints`. Additionally, we
 do not need to store the sender as that value is out of interest in that example.
 
-#### inDegree
+##### inDegree
 
 What a vertex does **not know** is, how many incoming edges it has.
 Therefore we need to get them to know that value.
@@ -1200,9 +1199,9 @@ will send **n** messages. As in our case, a single message represents a single
 incoming edge, we need to add **"+1"** to our accumulator per each message, and
 therefor set the `accumulatorType` to `sum`.
 
-### Program
+#### Program
 
-#### initProgram
+##### initProgram
 
 ```js
 initProgram: [
@@ -1216,7 +1215,7 @@ initProgram: [
 ]
 ```
 
-### updateProgram
+##### updateProgram
 
 ```
 updateProgram: ["seq",
@@ -1229,7 +1228,7 @@ As in our case, we do not need an update program. We are just inserting a dummy
 because our update program needs to run once to accumulate the inDegrees values
 that have been sent out in our `initProgram`. Therefore `maxGSS` is set to `2`.
 
-### Storing the result
+#### Storing the result
 
 To be able to store the result, we either need to define a `resultField`
 (which will just store all accumulators into the given resultField attribute)
