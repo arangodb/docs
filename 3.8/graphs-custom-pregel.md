@@ -1041,6 +1041,26 @@ accumulator as global accumulator.
 - `aggregateStateProgram` this code is executed on the conductor after it
   received the _update states_. This code merges the different aggregates.
 
+Coming back to our sum accumulator we would expand it like so:
+```js
+{
+  updateProgram: ["if",
+      [["eq?", ["input-value"], 0],
+          "cold"],
+      [true,
+          ["seq",
+              ["this-set!", ["+", ["current-value"], ["input-value"]]],
+              "hot"]]],
+  clearProgram: ["this-set!", 0],
+  getProgram: ["current-value"],
+  setProgram: ["this-set!", ["input-value"]],
+  finalizeProgram: ["current-value"],
+  aggregateStateProgram: ["seq",
+    ["this-set!", ["+", ["current-value"], ["input-state"]]],
+    "hot"
+  ],
+}
+```
 
 Execute a PPA
 -------------
