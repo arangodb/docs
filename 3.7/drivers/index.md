@@ -42,3 +42,4 @@ pyArango | Python | [www.github.com/tariqdaouda/pyArango](http://www.github.com/
 python-arango | Python | [github.com/Joowani/python-arango](https://github.com/Joowani/python-arango){:target="_blank"}
 Scarango | Scala | [github.com/outr/scarango](https://github.com/outr/scarango){:target="_blank"}
 ArangoRB | Ruby | [github.com/StefanoMartin/ArangoRB](https://github.com/StefanoMartin/ArangoRB){:target="_blank"}
+Tash | C++ | [https://gitlab.com/neel.basu/tash](https://gitlab.com/neel.basu/tash){:target="_blank"}
