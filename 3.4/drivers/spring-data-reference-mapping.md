@@ -167,3 +167,24 @@ To deactivate the type mapping process, you can return `null` from the `typeKey(
 | @CreatedDate            | field                     | Declares a field as the one representing the date the entity containing the field was created.                                                      |
 | @LastModifiedBy         | field                     | Declares a field as the one representing the principal that recently modified the entity containing the field.                                      |
 | @LastModifiedDate       | field                     | Declares a field as the one representing the date the entity containing the field was recently modified.                                            |
+
+## Invoking conversion manually
+
+In order to invoke entity serialization and deserialization to and from `VPackSlice` manually, you can inject an
+instance of `ArangoConverter` and respectively call the methods `write` and `read` on it, e.g.:
+
+```java
+// ...
+
+@Autowired
+ArangoConverter arangoConverter;
+
+  // ...
+  VPackSlice vPackSlice = converter.write(entity);
+
+  // ...
+  MyEntity entity = converter.read(MyEntity.class, vPackSlice);
+```
+
+This is useful for cases where you need to use the underlying Java driver directly (accessible from
+`ArangoOperations#driver()`), while keeping Spring Data ArangoDB serialization behavior.
