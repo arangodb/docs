@@ -47,3 +47,15 @@ The following logging-related options have been added:
   via the API and UI. Turning this option off will disable that functionality,
   save a tiny bit of memory for the in-memory log buffers and prevent potential
   log information leakage via these means.
+
+Metrics
+-------
+
+The following metrics have been added to the
+[Metrics HTTP API](http/administration-and-monitoring-metrics.html)
+in ArangoDB 3.8:
+
+| Label | Description |
+|:------|:------------|
+| `arangodb_rocksdb_free_disk_space` | Free disk space for the RocksDB database directory mount (bytes) |
+| `arangodb_rocksdb_total_disk_space` | Total disk space for the RocksDB database directory mount (bytes) |
