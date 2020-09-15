@@ -86,7 +86,7 @@ explicitly.
 To make sure data are durable when an update query returns, there is the *waitForSync* 
 query option.
 
-In order to not accidentially update documents that have been written and updated since 
+In order to not accidentally update documents that have been written and updated since 
 you last fetched them you can use the option *ignoreRevs* to either let ArangoDB compare 
 the `_rev` value and only succeed if they still match, or let ArangoDB ignore them (default):
 
@@ -143,3 +143,41 @@ INSERT { name: 'superuser', logins: 1, dateCreated: DATE_NOW() }
 UPDATE { logins: OLD.logins + 1 } IN users
 RETURN { doc: NEW, type: OLD ? 'update' : 'insert' }
 ```
+
+Limitations
+-----------
+
+- The lookup and the insert/update/replace parts are executed non-atomically.
+  That means if multiple UPSERT queries run concurrently, they may all
+  determine that the target document does not exist and then create it multiple
+  times!
+
+  Note that due to the non-atomicity of the lookup and insert/update/replace,
+  even with a unique index there may be duplicate key errors or conflicts.
+  But if they occur, the application/client code can execute the same query
+  again.
+
+  To prevent this from happening, one should add a unique index to the lookup
+  attribute(s). Note that in the cluster a unique index can only be created if
+  it is equal to the shard key attribute of the collection or at least contains
+  it as a part.
+
+  An alternative to making an UPSERT statement work atomically is to use the
+  `exclusive` option to limit write concurrency for this collection to 1, which
+  helps avoiding conflicts but is bad for throughput!
+
+- Using very large transactions in an UPSERT (e.g. UPSERT over all documents in
+  a collection) an **intermediate commit** can be triggered. This intermediate
+  commit will write the data that has been modified so far. However this will
+  have the side-effect that atomicity of this operation cannot be guaranteed
+  anymore and that ArangoDB cannot guarantee to that read your own writes in
+  upsert will work.
+
+  This will only be an issue if you write a query where your search condition
+  would hit the same document multiple times, and only if you have large
+  transactions. In order to avoid this issues you can increase the
+  `intermediateCommit` thresholds for data and operation counts.
+
+- The lookup attribute(s) from the search expression should be indexed in order
+  to improve UPSERT performance. Ideally, the search expression contains the
+  shard key, as this allows the lookup to be restricted to a single shard.
