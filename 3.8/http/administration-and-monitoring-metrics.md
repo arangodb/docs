@@ -312,6 +312,8 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_process_statistics_system_time` | Amount of time that this process has been scheduled in kernel mode, measured in seconds |
 | `arangodb_process_statistics_user_time` | On Windows, this figure contains the total amount of memory that the memory manager has committed for the arangod process. On other systems, this figure contains The size of the virtual memory the process is using |
 | `arangodb_process_statistics_virtual_memory_size` | On Windows, this figure contains the total amount of memory that the memory manager has committed for the arangod process. On other systems, this figure contains The size of the virtual memory the process is using |
+| `arangodb_rocksdb_free_disk_space` | Free disk space for the RocksDB database directory mount (bytes) |
+| `arangodb_rocksdb_total_disk_space` | Total disk space for the RocksDB database directory mount (bytes) |
 | `arangodb_scheduler_awake_threads` | Number of awake worker threads |
 | `arangodb_scheduler_num_worker_threads` | Number of worker threads |
 | `arangodb_scheduler_queue_full_failures` | Number of times the scheduler queue was full and a task/request was rejected |
