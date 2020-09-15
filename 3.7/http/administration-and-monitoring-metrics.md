@@ -249,7 +249,7 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_agency_write_ok` | Agency write ok |
 | `arangodb_agencycomm_request_time_msec` | Request time for Agency requests |
 | `arangodb_aql_slow_query` | Number of AQL slow queries |
-| `arangodb_aql_total_query_time_msec` | Total execution time of all AQL queries |
+| `arangodb_aql_total_query_time_msec` | Total execution time of all AQL queries (ms) |
 | `arangodb_client_connection_statistics_bytes_received_bucket` | Bytes received for a request |
 | `arangodb_client_connection_statistics_bytes_received_count` | Bytes received for a request |
 | `arangodb_client_connection_statistics_bytes_received_sum` | Bytes received for a request |
