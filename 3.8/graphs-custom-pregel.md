@@ -149,10 +149,12 @@ Step 2 (+n): Computation
 - **onPostStep**: Program as `array of operations` to be executed.
   The _onPostStep_ program will run **once after** each Pregel execution round.
 
-`initProgram` and `updateProgram` return value is inspected. If it is not `none`,
-it must be one of the following:
-* `"vote-halt"` or `false`: indicates that this vertex voted halt.
-* `"vote-active"` or `true`: indicates that this vertex voted active and is active in the next round.
+`initProgram` and `updateProgram` return value is inspected. If it is not
+`none`, it must be one of the following:
+- `"vote-halt"` or `false`:
+  indicates that this vertex voted halt.
+- `"vote-active"` or `true`:
+  indicates that this vertex voted active and is active in the next round.
 
 Debugging
 ---------
