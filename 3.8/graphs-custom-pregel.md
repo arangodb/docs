@@ -605,6 +605,13 @@ preorder.
 strings. The function will recurse into the dict using that path. `attrib-set`
 returns the whole dict but with updated subdict.
 
+```js
+> ["attrib-ref", {"foo": "bar"}, "foo"]
+ = "bar"
+> ["dict", ["quote", "foo", "bar"], ["quote", "x", 2]]
+ = {"foo":"bar", "x": 2}
+```
+
 #### Lambdas
 
 ```js
@@ -703,6 +710,50 @@ error. This like a panic or an uncaught exception.
 `assert` checks if cond is considered true if it an error with the remaining
 parameters as message is raised. It is equivalent to
 `["if", [cond, ["error", msg...]]]`.
+
+### Math Library
+
+The following mathematical functions are available in all context. They all interpret the data as a `double` and directly forward their
+input to the respective C/C++ library implementation.
+
+  * `abs`
+  * `fmod`
+
+  * `exp`
+  * `expm1`
+  * `exp2`
+  * `log`
+  * `log10`
+  * `log2`
+  * `log1p`
+
+  * `pow`
+  * `sqrt`
+  * `cbrt`
+  * `hypot`
+
+
+  * `sin`
+  * `cos`
+  * `tan`
+  * `asin`
+  * `acos`
+  * `atan`
+  * `atan2`
+
+  * `sinh`
+  * `cosh`
+  * `tanh`
+  * `asinh`
+  * `acosh`
+  * `atanh`
+
+  * `ceil`
+  * `floor`
+  * `trunc`
+  * `round`
+
+More information on how those functions behave can be found [here](https://en.cppreference.com/w/cpp/numeric/math).
 
 ### Foreign calls in _Vertex Computation_ context
 
