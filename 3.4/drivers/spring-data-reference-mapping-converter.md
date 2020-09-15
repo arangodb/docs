@@ -7,13 +7,13 @@ description: Converter
 
 ## Registering a Spring Converter
 
-The `AbstractArangoConfiguration` provides a convenient way to register Spring `Converter` by overriding the method `customConverters()`.
+The `ArangoConfiguration` provides a convenient way to register Spring `Converter` by overriding the method `customConverters()`.
 
 **Examples**
 
 ```Java
 @Configuration
-public class MyConfiguration extends AbstractArangoConfiguration {
+public class MyConfiguration implements ArangoConfiguration {
 
   @Override
   protected Collection<Converter<?, ?>> customConverters() {

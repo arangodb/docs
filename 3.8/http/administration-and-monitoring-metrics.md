@@ -340,6 +340,8 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_replication_tailing_removals` | Number of replication tailing document removals processed |
 | `arangodb_replication_tailing_request_time` | Wait time for replication tailing requests (ms) |
 | `arangodb_replication_tailing_requests` | Number of replication tailing requests |
+| `arangodb_rocksdb_free_disk_space` | Free disk space for the RocksDB database directory mount (bytes) |
+| `arangodb_rocksdb_total_disk_space` | Total disk space for the RocksDB database directory mount (bytes) |
 | `arangodb_scheduler_awake_threads` | Number of awake worker threads |
 | `arangodb_scheduler_num_worker_threads` | Number of worker threads |
 | `arangodb_scheduler_queue_full_failures` | Number of times the scheduler queue was full and a task/request was rejected |
@@ -353,8 +355,14 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_transactions_aborted` | Transactions aborted |
 | `arangodb_transactions_committed` | Transactions committed |
 | `arangodb_transactions_started` | Transactions started |
+| `arangodb_v8_context_alive` | Number of V8 contexts currently alive |
+| `arangodb_v8_context_busy` | Number of V8 contexts currently busy |
 | `arangodb_v8_context_created` | Number of V8 contexts created |
 | `arangodb_v8_context_destroyed` | Number of V8 contexts destroyed |
+| `arangodb_v8_context_dirty` | Number of V8 contexts currently dirty (waiting for garbage collection) |
 | `arangodb_v8_context_enter_failures` | Number of times a V8 context could not be entered/acquired |
 | `arangodb_v8_context_entered` | Number of times a V8 context was successfully entered |
 | `arangodb_v8_context_exited` | Number of times a V8 context was successfully exited |
+| `arangodb_v8_context_free` | Number of V8 contexts currently free |
+| `arangodb_v8_context_max` | Maximum number of concurrent V8 contexts allowed |
+| `arangodb_v8_context_min` | Minimum number of concurrent V8 contexts allowed |

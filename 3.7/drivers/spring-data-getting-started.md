@@ -33,7 +33,7 @@ You can use Java to configure your Spring Data environment as show below. Settin
 ```java
 @Configuration
 @EnableArangoRepositories(basePackages = { "com.company.mypackage" })
-public class MyConfiguration extends AbstractArangoConfiguration {
+public class MyConfiguration implements ArangoConfiguration {
 
   @Override
   public ArangoDB.Builder arango() {
