@@ -98,15 +98,15 @@ The format of a custom algorithm right now is based on a JSON object.
       - `array of strings`: Represents a nested path
 
 - **vertexAccumulators** (object, _optional_):
-  Definition of all used vertex accumulators.
+  Definition of all used [vertex accumulators](#vertex-accumulators).
   <!-- TODO: Vertex Accumulators -->
 
 - **globalAccumulators** (object, _optional_):
   Definition all used global accumulators.
-  Global Accumulators are able to access variables at shared global level.
+  [Global Accumulators](#global-accumulator) are able to access variables at shared global level.
 
 - **customAccumulators** (object, _optional_):
-  Definition of all used custom accumulators.
+  Definition of all used [custom accumulators](#custom-accumulator).
 
 - **phases** (array, _optional?_):
   Array of a single or multiple [phase definitions](#phases).
@@ -125,14 +125,14 @@ update program (2).
 The Pregel program execution will follow the order:
 
 Step 1: Initialization
-1. `onPreStep` (Coordinator)
-2. `initProgram` (DB-Server)
-3. `onPostStep` (Coordinator)
+1. `onPreStep` (Conductor, executed on Coordinator instances)
+2. `initProgram` (Worker, executed on DBServer instances)
+3. `onPostStep` (Conductor)
 
 Step 2 (+n): Computation
-1. `onPreStep` (Coordinator)
-2. `updateProgram` (DB-Server)
-3. `onPostStep` (Coordinator)
+1. `onPreStep` (Conductor)
+2. `updateProgram` (Worker)
+3. `onPostStep` (Conductor)
 
 #### Phase parameters
 
@@ -343,6 +343,17 @@ First evaluates `proto`, then evaluates each `c` until `["eq?", val, c]` is
 considered true. Then the corresponding `body` is evaluated and its return
 value is returned. If no branch matches, `none` is returned. This is a C-like
 `switch` statement except that its `case`-values are not treated as constants.
+
+```js
+> ["match", 5, 
+  [1, ["A"]],
+  [2, ["B"]],
+  [3, ["C"]],
+  [4, ["D"]],
+  [5, ["E"]]
+]
+  = "E"
+```
 
 #### `for-each` statement
 
