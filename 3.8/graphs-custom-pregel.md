@@ -185,6 +185,7 @@ This will generate a _report_ for every message that is send to the vertex
   }
 }
 ```
+
 This for example only generates trace reports for messages that were send by
 `my-sender-vertex` and use the `some-accumulator` accumulator. You can add more
 than one vertex or accumulator to that list. The filters are combined using
@@ -715,47 +716,41 @@ parameters as message is raised. It is equivalent to
 
 ### Math Library
 
-The following mathematical functions are available in all context. They all interpret the data as a `double` and directly forward their
-input to the respective C/C++ library implementation.
+The following mathematical functions are available in all context. They all
+interpret the data as a `double` and directly forward their input to the
+respective [C/C++ library implementation](https://en.cppreference.com/w/cpp/numeric/math){:target="_blank"}.
 
-  * `abs`
-  * `fmod`
-
-  * `exp`
-  * `expm1`
-  * `exp2`
-  * `log`
-  * `log10`
-  * `log2`
-  * `log1p`
-
-  * `pow`
-  * `sqrt`
-  * `cbrt`
-  * `hypot`
-
-
-  * `sin`
-  * `cos`
-  * `tan`
-  * `asin`
-  * `acos`
-  * `atan`
-  * `atan2`
-
-  * `sinh`
-  * `cosh`
-  * `tanh`
-  * `asinh`
-  * `acosh`
-  * `atanh`
-
-  * `ceil`
-  * `floor`
-  * `trunc`
-  * `round`
-
-More information on how those functions behave can be found [here](https://en.cppreference.com/w/cpp/numeric/math).
+- `abs`
+- `acos`
+- `acosh`
+- `asin`
+- `asinh`
+- `atan`
+- `atan2`
+- `atanh`
+- `cbrt`
+- `ceil`
+- `cos`
+- `cosh`
+- `exp`
+- `exp2`
+- `expm1`
+- `floor`
+- `fmod`
+- `hypot`
+- `log`
+- `log10`
+- `log1p`
+- `log2`
+- `pow`
+- `round`
+- `sin`
+- `sinh`
+- `sqrt`
+- `tan`
+- `tanh`
+- `trunc`
+{:class="columns-3"}
 
 ### Foreign calls in _Vertex Computation_ context
 
@@ -1095,6 +1090,7 @@ accumulator as global accumulator.
   received the _update states_. This code merges the different aggregates.
 
 Coming back to our sum accumulator we would expand it like so:
+
 ```js
 {
   updateProgram: ["if",
