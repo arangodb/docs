@@ -250,8 +250,8 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_agencycomm_request_time_msec` | Request time for Agency requests |
 | `arangodb_aql_all_query` | Number of all AQL queries (including slow queries) |
 | `arangodb_aql_query_time` | Histogram with AQL query times distribution |
-| `arangodb_aql_slow_query` | Number of AQL slow queries |
 | `arangodb_aql_slow_query_time` | Histogram with AQL slow query times distribution |
+| `arangodb_aql_slow_query` | Total number of slow AQL queries |
 | `arangodb_aql_total_query_time_msec` | Total execution time of all AQL queries (ms) |
 | `arangodb_client_connection_statistics_bytes_received_bucket` | Bytes received for a request |
 | `arangodb_client_connection_statistics_bytes_received_count` | Bytes received for a request |
