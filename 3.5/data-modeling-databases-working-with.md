@@ -225,24 +225,23 @@ all clients have disconnected and references have been garbage-collected.
 compact the entire data, for all databases
 `db._compact(options)`
 
-Compacts the entire data of all databases. 
-The command can be used to reclaim disk space after substantial data deletions 
-have taken place. 
+This command can be used to reclaim disk space after substantial data deletions
+have taken place. It requires superuser access and is only available for the
+RocksDB storage engine.
 
 The optional *options* attribute can be used to get more control over the 
-compaction. The following attributes can be used in it: 
+compaction. The following attributes can be used in it:
 
-* *changeLevel*: whether or not compacted data should be moved to the minimum
+- *changeLevel*: whether or not compacted data should be moved to the minimum
   possible level. The default value is *false*.
-* *compactBottomMostLevel*: whether or not to compact the bottommost level of
+- *compactBottomMostLevel*: whether or not to compact the bottommost level of
   data. The default value is *false*.
 
-**Warning**: this command can cause a full rewrite of all data in all databases, 
-which may take very long for large databases. It should thus only be used with care.
+{% hint 'warning' %}
+This command can cause a full rewrite of all data in all databases, which may
+take very long for large databases. It should thus only be used with care
 and only when additional I/O load can be tolerated for a prolonged time.
-
-This command requires superuser access and is only available for the RocksDB
-storage engine.
+{% endhint %}
 
 ### Engine
 
