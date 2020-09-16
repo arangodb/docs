@@ -222,6 +222,8 @@ all clients have disconnected and references have been garbage-collected.
 
 ### Compact
 
+<small>Introduced in: v3.5.6, v3.6.7, v3.7.3, v3.8.0</small>
+
 compact the entire data, for all databases
 `db._compact(options)`
 
