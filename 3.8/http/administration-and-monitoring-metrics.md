@@ -321,12 +321,14 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_replication_dump_documents` | Number of documents received in replication dump requests |
 | `arangodb_replication_dump_request_time` | Wait time for replication dump requests (ms) |
 | `arangodb_replication_dump_requests` | Number of replication dump requests made |
+| `arangodb_replication_failed_connects` | Number of failed connection attempts and response errors during replication |
 | `arangodb_replication_initial_chunks_requests_time` | Wait time for replication key chunks determination requests (ms) |
 | `arangodb_replication_initial_docs_requests_time` | Time needed to apply replication docs data (ms) |
 | `arangodb_replication_initial_insert_apply_time` | Time needed to apply replication initial sync insertions (ms) |
 | `arangodb_replication_initial_keys_requests_time` | Wait time for replication keys requests (ms) |
 | `arangodb_replication_initial_lookup_time` | Time needed for replication initial sync key lookups (ms) |
 | `arangodb_replication_initial_remove_apply_time` | Time needed to apply replication initial sync removals (ms) |
+| `arangodb_replication_initial_sync_bytes_received` | Number of bytes received during replication initial sync |
 | `arangodb_replication_initial_sync_docs_inserted` | Number of documents inserted by replication initial sync |
 | `arangodb_replication_initial_sync_docs_removed` | Number of documents inserted by replication initial sync |
 | `arangodb_replication_initial_sync_docs_requested` | Number of documents requested via replication initial sync requests |
@@ -366,3 +368,5 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_v8_context_free` | Number of V8 contexts currently free |
 | `arangodb_v8_context_max` | Maximum number of concurrent V8 contexts allowed |
 | `arangodb_v8_context_min` | Minimum number of concurrent V8 contexts allowed |
+| `rocksdb_free_inodes` | Number of free inodes for the file system with the RocksDB database directory (always `0` on Windows) |
+| `rocksdb_total_inodes` | Total number of inodes for the file system with the RocksDB database directory (always `0` on Windows) |
