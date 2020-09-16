@@ -126,7 +126,7 @@ The Pregel program execution will follow the order:
 
 Step 1: Initialization
 1. `onPreStep` (Conductor, executed on Coordinator instances)
-2. `initProgram` (Worker, executed on DBServer instances)
+2. `initProgram` (Worker, executed on DB-Server instances)
 3. `onPostStep` (Conductor)
 
 Step 2 (+n): Computation
