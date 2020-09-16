@@ -248,8 +248,11 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_agency_write_no_leader` | Agency write no leader |
 | `arangodb_agency_write_ok` | Agency write ok |
 | `arangodb_agencycomm_request_time_msec` | Request time for Agency requests |
-| `arangodb_aql_slow_query` | Number of AQL slow queries |
-| `arangodb_aql_total_query_time_msec` | Total execution time of all AQL queries |
+| `arangodb_aql_all_query` | Number of all AQL queries (including slow queries) |
+| `arangodb_aql_query_time` | Histogram with AQL query times distribution |
+| `arangodb_aql_slow_query_time` | Histogram with AQL slow query times distribution |
+| `arangodb_aql_slow_query` | Total number of slow AQL queries |
+| `arangodb_aql_total_query_time_msec` | Total execution time of all AQL queries (ms) |
 | `arangodb_client_connection_statistics_bytes_received_bucket` | Bytes received for a request |
 | `arangodb_client_connection_statistics_bytes_received_count` | Bytes received for a request |
 | `arangodb_client_connection_statistics_bytes_received_sum` | Bytes received for a request |
@@ -280,7 +283,7 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_http_request_statistics_http_get_requests` | Number of HTTP GET requests |
 | `arangodb_http_request_statistics_http_head_requests` | Number of HTTP HEAD requests |
 | `arangodb_http_request_statistics_http_options_requests` | Number of HTTP OPTIONS requests |
-| `arangodb_http_request_statistics_http_patch_requests` | Number of HTTP PATH requests |
+| `arangodb_http_request_statistics_http_patch_requests` | Number of HTTP PATCH requests |
 | `arangodb_http_request_statistics_http_post_requests` | Number of HTTP POST requests |
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
@@ -304,6 +307,7 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_maintenance_phase1_runtime_msec` | Maintenance Phase 1 runtime histogram (ms) |
 | `arangodb_maintenance_phase2_accum_runtime_msec` | Accumulated runtime of phase two (ms) |
 | `arangodb_maintenance_phase2_runtime_msec` | Maintenance Phase 2 runtime histogram (ms) |
+| `arangodb_network_forwarded_requests` | Number of requests forwarded from one coordinator to another in a load-balancing setup |
 | `arangodb_process_statistics_major_page_faults` | On Windows, this figure contains the total number of page faults. On other system, this figure contains the number of major faults the process has made which have required loading a memory page from disk |
 | `arangodb_process_statistics_minor_page_faults` | The number of minor faults the process has made which have not required loading a memory page from disk. This figure is not reported on Windows |
 | `arangodb_process_statistics_number_of_threads` | Number of threads in the arangod process |
@@ -312,6 +316,32 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_process_statistics_system_time` | Amount of time that this process has been scheduled in kernel mode, measured in seconds |
 | `arangodb_process_statistics_user_time` | On Windows, this figure contains the total amount of memory that the memory manager has committed for the arangod process. On other systems, this figure contains The size of the virtual memory the process is using |
 | `arangodb_process_statistics_virtual_memory_size` | On Windows, this figure contains the total amount of memory that the memory manager has committed for the arangod process. On other systems, this figure contains The size of the virtual memory the process is using |
+| `arangodb_replication_dump_apply_time` | Time required for applying data from replication dump responses (ms) |
+| `arangodb_replication_dump_bytes_received` | Number of bytes received in replication dump requests |
+| `arangodb_replication_dump_documents` | Number of documents received in replication dump requests |
+| `arangodb_replication_dump_request_time` | Wait time for replication dump requests (ms) |
+| `arangodb_replication_dump_requests` | Number of replication dump requests made |
+| `arangodb_replication_initial_chunks_requests_time` | Wait time for replication key chunks determination requests (ms) |
+| `arangodb_replication_initial_docs_requests_time` | Time needed to apply replication docs data (ms) |
+| `arangodb_replication_initial_insert_apply_time` | Time needed to apply replication initial sync insertions (ms) |
+| `arangodb_replication_initial_keys_requests_time` | Wait time for replication keys requests (ms) |
+| `arangodb_replication_initial_lookup_time` | Time needed for replication initial sync key lookups (ms) |
+| `arangodb_replication_initial_remove_apply_time` | Time needed to apply replication initial sync removals (ms) |
+| `arangodb_replication_initial_sync_docs_inserted` | Number of documents inserted by replication initial sync |
+| `arangodb_replication_initial_sync_docs_removed` | Number of documents inserted by replication initial sync |
+| `arangodb_replication_initial_sync_docs_requested` | Number of documents requested via replication initial sync requests |
+| `arangodb_replication_initial_sync_docs_requests` | Number of replication initial sync docs requests made |
+| `arangodb_replication_initial_sync_keys_requests` | Number of replication initial sync keys requests made |
+| `arangodb_replication_tailing_apply_time` | Time needed to apply replication tailing markers (ms) |
+| `arangodb_replication_tailing_bytes_received` | Number of bytes received for replication tailing requests |
+| `arangodb_replication_tailing_documents` | Number of replication tailing document inserts/replaces processed |
+| `arangodb_replication_tailing_follow_tick_failures` | Number of replication tailing failures due to missing tick on leader |
+| `arangodb_replication_tailing_markers` | Number of replication tailing markers processed |
+| `arangodb_replication_tailing_removals` | Number of replication tailing document removals processed |
+| `arangodb_replication_tailing_request_time` | Wait time for replication tailing requests (ms) |
+| `arangodb_replication_tailing_requests` | Number of replication tailing requests |
+| `arangodb_rocksdb_free_disk_space` | Free disk space for the RocksDB database directory mount (bytes) |
+| `arangodb_rocksdb_total_disk_space` | Total disk space for the RocksDB database directory mount (bytes) |
 | `arangodb_scheduler_awake_threads` | Number of awake worker threads |
 | `arangodb_scheduler_num_worker_threads` | Number of worker threads |
 | `arangodb_scheduler_queue_full_failures` | Number of times the scheduler queue was full and a task/request was rejected |
@@ -325,8 +355,14 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_transactions_aborted` | Transactions aborted |
 | `arangodb_transactions_committed` | Transactions committed |
 | `arangodb_transactions_started` | Transactions started |
+| `arangodb_v8_context_alive` | Number of V8 contexts currently alive |
+| `arangodb_v8_context_busy` | Number of V8 contexts currently busy |
 | `arangodb_v8_context_created` | Number of V8 contexts created |
 | `arangodb_v8_context_destroyed` | Number of V8 contexts destroyed |
+| `arangodb_v8_context_dirty` | Number of V8 contexts currently dirty (waiting for garbage collection) |
 | `arangodb_v8_context_enter_failures` | Number of times a V8 context could not be entered/acquired |
 | `arangodb_v8_context_entered` | Number of times a V8 context was successfully entered |
 | `arangodb_v8_context_exited` | Number of times a V8 context was successfully exited |
+| `arangodb_v8_context_free` | Number of V8 contexts currently free |
+| `arangodb_v8_context_max` | Maximum number of concurrent V8 contexts allowed |
+| `arangodb_v8_context_min` | Minimum number of concurrent V8 contexts allowed |

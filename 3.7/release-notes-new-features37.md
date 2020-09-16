@@ -857,7 +857,7 @@ The following metrics have been added in ArangoDB 3.7:
 | `arangodb_http_request_statistics_http_get_requests` | Number of HTTP GET requests |
 | `arangodb_http_request_statistics_http_head_requests` | Number of HTTP HEAD requests |
 | `arangodb_http_request_statistics_http_options_requests` | Number of HTTP OPTIONS requests |
-| `arangodb_http_request_statistics_http_patch_requests` | Number of HTTP PATH requests |
+| `arangodb_http_request_statistics_http_patch_requests` | Number of HTTP PATCH requests |
 | `arangodb_http_request_statistics_http_post_requests` | Number of HTTP POST requests |
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
@@ -890,11 +890,17 @@ The following metrics have been added in ArangoDB 3.7:
 | `arangodb_shards_not_replicated` | Number of shards not replicated at all |
 | `arangodb_shards_out_of_sync` | Number of leader shards not fully replicated |
 | `arangodb_shards_total_count` | Number of shards on this machine |
+| `arangodb_v8_context_alive` | Number of V8 contexts currently alive |
+| `arangodb_v8_context_busy` | Number of V8 contexts currently busy |
 | `arangodb_v8_context_created` | Number of V8 contexts created |
 | `arangodb_v8_context_destroyed` | Number of V8 contexts destroyed |
+| `arangodb_v8_context_dirty` | Number of V8 contexts currently dirty (waiting for garbage collection) |
 | `arangodb_v8_context_enter_failures` | Number of times a V8 context could not be entered/acquired |
 | `arangodb_v8_context_entered` | Number of times a V8 context was successfully entered |
 | `arangodb_v8_context_exited` | Number of times a V8 context was successfully exited |
+| `arangodb_v8_context_free` | Number of V8 contexts currently free |
+| `arangodb_v8_context_max` | Maximum number of concurrent V8 contexts allowed |
+| `arangodb_v8_context_min` | Minimum number of concurrent V8 contexts allowed |
 
 Client tools
 ------------
