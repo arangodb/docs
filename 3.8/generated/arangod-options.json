@@ -536,7 +536,7 @@
       "agent",
       "single"
     ],
-    "default" : 16341522432,
+    "default" : 16341509120,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -4077,7 +4077,7 @@
     ],
     "default" : 60000,
     "deprecatedIn" : null,
-    "description" : "default time-to-live of idle connections (in milliseconds)",
+    "description" : "default time-to-live of idle connections for cluster-internal communication (in milliseconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -4104,7 +4104,7 @@
     ],
     "default" : 2,
     "deprecatedIn" : null,
-    "description" : "number of network IO threads",
+    "description" : "number of network IO threads for cluster-internal communication",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -4131,7 +4131,7 @@
     ],
     "default" : 1024,
     "deprecatedIn" : null,
-    "description" : "max open network connections",
+    "description" : "max open network connections for cluster-internal communication",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -4158,7 +4158,7 @@
     ],
     "default" : "",
     "deprecatedIn" : null,
-    "description" : "network protocol to use",
+    "description" : "network protocol to use for cluster-internal communication",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -4186,7 +4186,7 @@
     ],
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "verify hosts when using TLS",
+    "description" : "verify hosts when using TLS in cluster-internal communication",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -4429,6 +4429,34 @@
     "section" : "query",
     "type" : "uint64"
   },
+  "query.max-runtime" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "runtime threshold for AQL queries (in seconds, 0 = no limit)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.7",
+      "v3.7.3"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "double"
+  },
   "query.memory-limit" : {
     "category" : "option",
     "component" : [
@@ -4439,7 +4467,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "memory threshold for AQL queries (in bytes)",
+    "description" : "memory threshold for AQL queries (in bytes, 0 = no limit)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -5036,7 +5064,7 @@
       "agent",
       "single"
     ],
-    "default" : 19609826918,
+    "default" : 19609810944,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -5820,6 +5848,33 @@
     "section" : "rocksdb",
     "type" : "uint64"
   },
+  "rocksdb.max-write-buffer-size-to-maintain" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "maximum size of immutable write buffers that build up in memory per column family (larger values mean that more in-memory data can be used for transaction conflict checking (-1 = use automatic default value, 0 = do not keep immutable flushed write buffers, which is the default and usually correct))",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.3"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "int64"
+  },
   "rocksdb.min-write-buffer-number-to-merge" : {
     "category" : "option",
     "component" : [
@@ -6186,7 +6241,7 @@
       "agent",
       "single"
     ],
-    "default" : 26146435891,
+    "default" : 26146414592,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,

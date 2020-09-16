@@ -9,7 +9,7 @@ arangosh&gt; db.geoFilter.ensureIndex({ type: "geo", fields: [ "latitude", "long
   "id" : "geoFilter/86292", 
   "isNewlyCreated" : true, 
   "maxNumCoverCells" : 8, 
-  "name" : "idx_1676117727278792704", 
+  "name" : "idx_1677994017892073472", 
   "sparse" : true, 
   "type" : "geo", 
   "unique" : false, 
@@ -34,7 +34,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type   Collection   Unique   Sparse   Selectivity   Fields                        Ranges
-  6   idx_1676117727278792704   geo    geoFilter    false    true             n/a   [ `latitude`, `longitude` ]   (GEO_DISTANCE([ 0, 0 ], [ doc.`longitude`, doc.`latitude` ]) &lt; 2000)
+  6   idx_1677994017892073472   geo    geoFilter    false    true             n/a   [ `latitude`, `longitude` ]   (GEO_DISTANCE([ 0, 0 ], [ doc.`longitude`, doc.`latitude` ]) &lt; 2000)
 
 Optimization rules applied:
  Id   RuleName
@@ -43,11 +43,11 @@ Optimization rules applied:
 
 Optimization rules with highest execution times:
  RuleName                                    Duration [s]
- geo-index-optimizer                              0.00003
- remove-unnecessary-calculations-2                0.00000
- replace-function-with-index                      0.00000
+ geo-index-optimizer                              0.00004
+ remove-unnecessary-calculations-2                0.00001
  reduce-extraction-to-projection                  0.00000
  optimize-subqueries                              0.00000
+ replace-function-with-index                      0.00000
 
 41 rule(s) executed, 1 plan(s) created
 
@@ -57,7 +57,7 @@ arangosh&gt; db._query(query);
   { 
     "_key" : "86998", 
     "_id" : "geoFilter/86998", 
-    "_rev" : "_bAvBDPi---", 
+    "_rev" : "_bHZorD6--_", 
     "name" : "Name/0/0", 
     "latitude" : 0, 
     "longitude" : 0 
