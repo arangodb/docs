@@ -25,6 +25,9 @@ it cannot be followed by read or write operations that access the same collectio
 traversal operations, or AQL functions that can read documents.
 The system attributes *_id*, *_key* and *_rev* cannot be updated, *_from* and *_to* can.
 
+Syntax
+------
+
 The two syntaxes for an update operation are:
 
 ```
@@ -146,10 +149,18 @@ UPDATE doc WITH {
 If the attribute `hobbies` doesn't exist yet, it is conveniently initialized
 as `[ "swimming" ]` and otherwise extended.
 
-Setting query options
----------------------
+Query options
+-------------
 
-*options* can be used to suppress query errors that may occur when trying to
+You can optionally set query options for the `UPDATE` operation:
+
+```js
+UPDATE ... IN users OPTIONS { ... }
+```
+
+### `ignoreErrors`
+
+`ignoreErrors` can be used to suppress query errors that may occur when trying to
 update non-existing documents or violating unique key constraints:
 
 ```js
@@ -166,6 +177,8 @@ leave other attributes untouched. Internal attributes (such as *_id*, *_key*, *_
 *_from* and *_to*) cannot be updated and are ignored when specified in *document*.
 Updating a document will modify the document's revision number with a server-generated value.
 
+### `keepNull`
+
 When updating an attribute with a null value, ArangoDB will not remove the attribute 
 from the document but store a null value for it. To get rid of attributes in an update
 operation, set them to null and provide the *keepNull* option:
@@ -181,7 +194,9 @@ FOR u IN users
 The above query will remove the *notNeeded* attribute from the documents and update
 the *foobar* attribute normally.
 
-There is also the option *mergeObjects* that controls whether object contents will be
+### `mergeObjects`
+
+The option `mergeObjects` controls whether object contents will be
 merged if an object attribute is present in both the `UPDATE` query and in the 
 to-be-updated document.
 
@@ -213,6 +228,8 @@ with the values specified in the query.
 Note: the default value for *mergeObjects* is *true*, so there is no need to specify it
 explicitly.
 
+### `waitForSync`
+
 To make sure data are durable when an update query returns, there is the *waitForSync* 
 query option:
 
@@ -222,6 +239,8 @@ FOR u IN users
     foobar: true
   } IN users OPTIONS { waitForSync: true }
 ```
+
+### `ignoreRevs`
 
 In order to not accidentally overwrite documents that have been updated since you last fetched
 them, you can use the option *ignoreRevs* to either let ArangoDB compare the `_rev` value and 
@@ -233,6 +252,8 @@ FOR i IN 1..1000
   WITH { foobar: true } IN users
   OPTIONS { ignoreRevs: false }
 ```
+
+### `exclusive`
 
 In contrast to the MMFiles engine, the RocksDB engine does not require collection-level
 locks. Different write operations on the same collection do not block each other, as
@@ -249,7 +270,6 @@ FOR doc IN collection
   WITH { updated: true } IN collection 
   OPTIONS { exclusive: true }
 ```
-
 
 Returning the modified documents
 --------------------------------
