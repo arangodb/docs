@@ -7,6 +7,10 @@ redirect_from:
 ---
 # ArangoSearch
 
+You can index full-text and rank results with ArangoDB's built-in
+ArangoSearch feature
+{:class="lead"}
+
 ArangoSearch provides information retrieval features, natively integrated
 into ArangoDB's query language and with support for all data models. It is
 primarily a full-text search engine, a much more powerful alternative to the
