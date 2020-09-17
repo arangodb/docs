@@ -134,7 +134,7 @@ not write any updates to it.
 
 When using the *update* overwrite mode, the *keepNull* and *mergeObjects*
 options control how the update is done.
-See [UPDATE operation](operations-update.html#setting-query-options).
+See [UPDATE operation](operations-update.html#query-options).
 
 ```js
 FOR i IN 1..1000

@@ -165,7 +165,7 @@ based on the context:
   [SEARCH](operations-search.html#search-options) /
   [COLLECT](operations-collect.html#setting-collect-options) /
   [INSERT](operations-insert.html#setting-query-options) /
-  [UPDATE](operations-update.html#setting-query-options) /
+  [UPDATE](operations-update.html#query-options) /
   [REPLACE](operations-replace.html#setting-query-options) /
   [UPSERT](operations-upsert.html#setting-query-options) /
   [REMOVE](operations-remove.html#setting-query-options)
