@@ -327,3 +327,21 @@ FOR u IN users
 
 To increase readability, the repeated expression *LENGTH(group)* was put into a variable
 *numUsers*. The `FILTER` on *numUsers* is the equivalent an SQL *HAVING* clause.
+
+
+Aggregating data in local time
+-----------------------------
+If you store datetimes in UTC in your collections and need to group data for each day in your local timezone:
+
+```js
+FOR a IN activities
+    COLLECT day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate), 'Europe/Berlin'), 'day')
+    AGGREGATE hours = SUM(a.duration),
+              revenue = SUM(a.duration * a.rate)
+	SORT day ASC
+    RETURN {
+        day,
+        hours,
+        revenue
+    }
+```

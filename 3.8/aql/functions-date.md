@@ -742,6 +742,28 @@ FOR user IN users
     RETURN user
 ```
 
+### DATE_UTCTOLOCAL()
+
+Converts *date* assumed in Zulu time (UTC) to local *timezone*.
+
+`DATE_UTCTOLOCAL(date, timezone) → dateString`
+
+- **date** (number\|string): numeric timestamp or ISO 8601 date time string
+- **timezone** (string): IANA timezone name [List](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"} eg. 'America/New_York', 'Europe/Berlin' or 'UTC' 
+  ArangoDB will throw an exception if timezone cannot be found in database
+- returns **dateString**: date and time expressed according to ISO 8601, in unqualified local time
+
+### DATE_LOCALTOUTC()
+
+Converts *date* assumed in local *timezone* to Zulu time (UTC).
+
+`DATE_LOCALTOUTC(date, timezone) → dateString`
+
+- **date** (number\|string): numeric timestamp or ISO 8601 date time string
+- **timezone** (string): IANA timezone name [List](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"} eg. 'America/New_York', 'Europe/Berlin' or 'UTC' 
+  ArangoDB will throw an exception if timezone cannot be found in database
+- returns **dateString**: date and time expressed according to ISO 8601, in Zulu time
+
 Working with dates and indices
 ------------------------------
 
