@@ -100,4 +100,4 @@ The following AQL functions have been added for converting datetimes in UTC to a
 - added AQL function DATE_LOCALTOUTC(datetime, timezone)
   example: DATE_UTCTOLOCAL('2020-10-14T21:00:00.999', 'America/New_York') → '2020-10-15T01:00:00.999Z'
   
-- added IANA timezone database [TZDATA](https://www.iana.org/time-zones){:target="_blank"} to /usr/share/tzdata
+- added IANA timezone database [TZDATA](https://www.iana.org/time-zones){:target="_blank"} to share/arangodb3/tzdata
