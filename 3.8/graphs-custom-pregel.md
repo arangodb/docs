@@ -593,6 +593,20 @@ by `value`. Writing a index that is out of bounds is an error. `list-empty?`
 returns true if and only if the given value is an empty list. `list-length`
 returns the length of the list.
 
+#### Sort
+_sort a list_
+```js
+["sort", compare, list]
+```
+`sort` sorts a list by using the compare function. `compare` is called with
+two parameters `a` and `b`. `a` is considered less than `b` is the return value
+of this call is considered true. The sort is **not** stable.
+
+```js
+> ["sort", "lt?", ["list", 3, 1, 2]]
+ = [1, 2, 3]
+```
+
 #### Dicts
 
 ```js
