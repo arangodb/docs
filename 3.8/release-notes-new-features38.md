@@ -9,6 +9,11 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.8. ArangoDB 3.8 also contains several bug fixes that are not listed
 here.
 
+ArangoSearch
+-------
+
+Added new analyzer type "pipeline" for chaining multiple analyzers into one.
+
 Metrics
 -------
 

@@ -82,6 +82,7 @@ Analyzer Types
 The currently implemented Analyzer types are:
 
 - `identity`: treat value as atom (no transformation)
+- `pipeline`: for chaining multiple analyzers
 - `delimiter`: split into tokens at user-defined character
 - `stem`: apply stemming to the value as a whole
 - `norm`: apply normalization to the value as a whole
@@ -316,6 +317,28 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
       db._query(`RETURN TOKENS("The quick brown fox jumps over the dogWithAVeryLongName", "text_edge_ngrams")`)
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextEdgeNgram
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+### Pipeline
+
+An analyzer capable of chaining effects of multiple analyzers into one.
+Consists of "pipeline" where output of upstream analyzer is transferred to downstream
+analyzer. Final token value is determined by last analyzer in pipeline. Designed for 
+cases like applying ngram tokenization and converting all produced ngram to upper (or lower)
+case. Or splitting input with `delimiter` analyzer and following stemming with `stem` analyzer.
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerPipelineNgramUpper
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineNgramUpper}
+      var analyzers = require("@arangodb/analyzers")
+    | analyzers.save("ngram_upper", "pipeline", { pipeline:[
+    |   {type: "norm", properties:{locale: "en.utf-8", case: "upper"}},
+    |   {type: "ngram", properties:{min:2, max:2, preserveOriginal:false, streamType:"utf8"}}]
+      }, ["frequency","norm","position"])
+      db._query(`RETURN TOKENS("Quick brown foX", "ngram_upper")`)
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerPipelineNgramUpper
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
