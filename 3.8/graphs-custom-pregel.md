@@ -619,6 +619,8 @@ of this call is considered true. The sort is **not** stable.
 ["attrib-ref", dict, path]
 ["attrib-ref-or", dict, key, default]
 ["attrib-ref-or", dict, path, default]
+["attrib-ref-or-fail", dict, key]
+["attrib-ref-or-fail", dict, path]
 ["attrib-set", dict, key, value]
 ["attrib-set", dict, path, value]
 ```
@@ -636,7 +638,7 @@ strings. The function will recurse into the dict using that path. `attrib-set`
 returns the whole dict but with updated subdict.
 
 `attrib-ref-or` is similar to `attrib-ref` except that it returns `default` if
-the key was not present.
+the key was not present. `attrib-ref-or-fail` returns an error instead.
 
 ```js
 > ["attrib-ref", {"foo": "bar"}, "foo"]
