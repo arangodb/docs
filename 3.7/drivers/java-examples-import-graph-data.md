@@ -6,7 +6,8 @@ title: Import Graph data with Stream Transactions
 # Import Graph data with Stream Transactions
 
 Importing graph data is possible using
-[bulk import](java-reference-collection-bulk-import.html) functions for every
+[bulk import](http://arangodb.github.io/arangodb-java-driver/latest/com/arangodb/ArangoCollection.html#importDocuments-java.util.Collection-com.arangodb.model.DocumentImportOptions-)
+functions for every
 vertex and edge collection of the graph. Nevertheless sometimes one could have
 the need to preserve certain domain specific invariants (consistency) while
 inserting the data. For example while populating a movie database, it would be
@@ -14,9 +15,9 @@ desirable to insert together with each movie, all its actors and the related
 outgoing edges reaching them.
 
 This can be achieved using a
-[Stream Transaction](java-reference-database-stream-transactions.html) which
-inserts data into all the related vertex and edge collections using
-[batch insert](java-reference-collection-document-manipulation.html#arangocollectioninsertdocuments).
+[Stream Transaction](http://arangodb.github.io/arangodb-java-driver/latest/com/arangodb/ArangoDatabase.html#beginStreamTransaction-com.arangodb.model.StreamTransactionOptions-)
+which inserts data into all the related vertex and edge collections using
+[batch insert](http://arangodb.github.io/arangodb-java-driver/latest/com/arangodb/ArangoCollection.html#insertDocuments-java.util.Collection-com.arangodb.model.DocumentCreateOptions-).
 On the other side this would not be possible using _bulk import_ functions,
 since they do not support _Stream Transactions_.
 
