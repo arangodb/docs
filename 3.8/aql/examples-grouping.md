@@ -345,3 +345,29 @@ FOR a IN activities
         revenue
     }
 ```
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline GROUPING_LOCAL_TIME_01
+    @EXAMPLE_AQL{GROUPING_LOCAL_TIME_01}
+    @DATASET{routeplanner}
+	FOR a IN @activities
+	COLLECT day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate), @timezone), 'day')
+	AGGREGATE hours = SUM(a.duration),
+	      revenue = SUM(a.duration * a.rate)
+	SORT day ASC
+	RETURN {
+		day,
+		hours,
+		revenue
+	}
+    @BV {
+      activities: [
+      	{startDate: '2020-01-31T23:00:00Z', 'endDate': '2020-02-01T03:00:00Z', duration: 4, rate: 250},
+	{startDate: '2020-02-01T09:00:00Z', 'endDate': '2020-02-01T17:00:00Z', duration: 8, rate: 250}
+      ],
+      timezone: 'Europe/Berlin'
+    }
+    @END_EXAMPLE_AQL
+    @endDocuBlock GROUPING_LOCAL_TIME_01
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
