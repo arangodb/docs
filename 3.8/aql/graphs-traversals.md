@@ -72,12 +72,17 @@ FOR vertex[, edge[, path]]
   as well as all variables defined before this Traversal statement.
 - `OPTIONS` **options** (object, *optional*): used to modify the execution of the
   traversal. Only the following attributes have an effect, all others are ignored:
-  - **bfs** (bool): optionally use the alternative breadth-first traversal algorithm
-    - true – the traversal will be executed breadth-first. The results will first
+  - **mode** (string): optionally specify which traversal algorithm to use
+    - "weighted" - the traversal will be a weighted traversal. Paths are enumerated
+      with increasing cost. See `weightAttribute` and `defaultWeight` for more options.
+      A returned path has an additional attribute `weight` containing the cost of the
+      path after every step. The order of paths having the same cost is non-deterministic.
+    - "bfs" – the traversal will be executed breadth-first. The results will first
       contain all vertices at depth 1. Than all vertices at depth 2 and so on.
-    - false (default) – the traversal will be executed depth-first. It will first
+    - "dfs" (default) – the traversal will be executed depth-first. It will first
       return all paths from *min* depth to *max* depth for one vertex at depth 1.
       Than for the next vertex at depth 1 and so on.
+  - **bfs** (bool): deprecated, use `mode: "bfs"` instead.
   - **uniqueVertices** (string): optionally ensure vertex uniqueness
     - "path" – it is guaranteed that there is no path returned with a duplicate vertex
     - "global" – it is guaranteed that each vertex is visited at most once during
@@ -128,6 +133,11 @@ FOR vertex[, edge[, path]]
     that are running in a OneShard setup. Cluster traversals that run on a coordinator
     node and SmartGraph traversals are currently not parallelized, even if the
     options is specified.
+  - **weightAttribute** (string, *optional*): Specifies the name of an attribute that is
+    used to look up the weight of an edge. If no attribute is specified or it is not present
+    in the edge document the `defaultWeight` is used.
+  - **defaultWeight** (number, *optional*): Specifies the default weight of an edge. The
+    default value is `1`.
 
 ### Working with collection sets
 
