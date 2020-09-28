@@ -331,29 +331,28 @@ To increase readability, the repeated expression *LENGTH(group)* was put into a 
 
 Aggregating data in local time
 -----------------------------
-If you store datetimes in UTC in your collections and need to group data for each day in your local timezone:
+If you store datetimes in UTC in your collections and need to group data for each day in your local timezone
+you can use DATE_UTCTOLOCAL and DATE_TRUNC to adjust for that.
 
-```js
-FOR a IN activities
-    COLLECT day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate), 'Europe/Berlin'), 'day')
-    AGGREGATE hours = SUM(a.duration),
-              revenue = SUM(a.duration * a.rate)
-	SORT day ASC
-    RETURN {
-        day,
-        hours,
-        revenue
-    }
-```
+Note: In the timezone 'Europe/Berlin' daylight saving activated on 2020-03-29, 
+thus 2020-01-31T*23*:00:00Z is 2020-02-01 midnight in germany
+and 2020-03-31T*22*:00:00Z is 2020-04-01 midnight in germany
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GROUPING_LOCAL_TIME_01
     @EXAMPLE_AQL{GROUPING_LOCAL_TIME_01}
     @DATASET{routeplanner}
-	FOR a IN @activities
-	COLLECT day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate), @timezone), 'day')
-	AGGREGATE hours = SUM(a.duration),
-	      revenue = SUM(a.duration * a.rate)
+	FOR a IN [
+		{startDate: '2020-01-31T23:00:00Z', endDate: '2020-02-01T03:00:00Z', duration: 4, rate: 250},
+		{startDate: '2020-02-01T09:00:00Z', endDate: '2020-02-01T17:00:00Z', duration: 8, rate: 250},
+
+		{startDate: '2020-03-31T21:00:00Z', endDate: '2020-03-31T22:00:00Z', duration: 1, rate: 250},
+
+		{startDate: '2020-03-31T22:00:00Z', endDate: '2020-04-01T03:00:00Z', duration: 4, rate: 250},
+		{startDate: '2020-04-01T13:00:00Z', endDate: '2020-04-01T16:00:00Z', duration: 3, rate: 250}
+	]
+	COLLECT day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate, 'Europe/Berlin'), 'day')
+	AGGREGATE hours = SUM(a.duration), revenue = SUM(a.duration * a.rate)
 	SORT day ASC
 	RETURN {
 		day,
@@ -361,11 +360,6 @@ FOR a IN activities
 		revenue
 	}
     @BV {
-      activities: [
-      	{startDate: '2020-01-31T23:00:00Z', 'endDate': '2020-02-01T03:00:00Z', duration: 4, rate: 250},
-	{startDate: '2020-02-01T09:00:00Z', 'endDate': '2020-02-01T17:00:00Z', duration: 8, rate: 250}
-      ],
-      timezone: 'Europe/Berlin'
     }
     @END_EXAMPLE_AQL
     @endDocuBlock GROUPING_LOCAL_TIME_01
