@@ -90,7 +90,7 @@ The format of a custom algorithm right now is based on a JSON object.
     into vertices. If `writeVertex` is used, the `resultField` will be ignored.
   - **readVertex**: An `array` that consists of `strings` and/or additional `arrays`
     (that represents a path).
-    - `string`: Represents a single path at the top level which is **not** nested.
+    - `string`: Represents a single attribute at the top level.
     - `array of strings`: Represents a nested path
   - **readEdge**: An `array` that consists of `strings` and/or additional `arrays`
     (that represents a path).
