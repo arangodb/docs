@@ -348,7 +348,7 @@ and 2020-03-31T*22*:00:00Z is 2020-04-01 midnight in germany
 
 		{startDate: '2020-03-31T21:00:00Z', endDate: '2020-03-31T22:00:00Z', duration: 1, rate: 250},
 
-		{startDate: '2020-03-31T22:00:00Z', endDate: '2020-04-01T03:00:00Z', duration: 4, rate: 250},
+		{startDate: '2020-03-31T22:00:00Z', endDate: '2020-04-01T03:00:00Z', duration: 5, rate: 250},
 		{startDate: '2020-04-01T13:00:00Z', endDate: '2020-04-01T16:00:00Z', duration: 3, rate: 250}
 	]
 	COLLECT day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate, 'Europe/Berlin'), 'day')
