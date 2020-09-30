@@ -100,10 +100,10 @@ versa:
 
 - [DATE_UTCTOLOCAL()](aql/functions-date.html#date_utctolocal)
 
-  Example: `DATE_UTCTOLOCAL("2020-10-15T01:00:00.999Z", "America/New_York")`
+  `DATE_UTCTOLOCAL("2020-10-15T01:00:00.999Z", "America/New_York")`
   → `"2020-10-14T21:00:00.999"`
 
 - [DATE_LOCALTOUTC()](aql/functions-date.html#date_localtoutc)
 
-  Example: `DATE_UTCTOLOCAL("2020-10-14T21:00:00.999", "America/New_York")`
+  `DATE_UTCTOLOCAL("2020-10-14T21:00:00.999", "America/New_York")`
   → `"2020-10-15T01:00:00.999Z"`
