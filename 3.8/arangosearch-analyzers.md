@@ -82,23 +82,23 @@ Analyzer Types
 The currently implemented Analyzer types are:
 
 - `identity`: treat value as atom (no transformation)
-- `pipeline`: for chaining multiple analyzers
 - `delimiter`: split into tokens at user-defined character
 - `stem`: apply stemming to the value as a whole
 - `norm`: apply normalization to the value as a whole
 - `ngram`: create n-grams from value with user-defined lengths
 - `text`: tokenize into words, optionally with stemming,
   normalization, stop-word filtering and edge n-gram generation
+- `pipeline`: for chaining multiple Analyzers
 
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
-Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text
-:------------------|:---------|:--------|:----------|:-----|:-----|:----
-**Tokenization**   | No       | No      | (Yes)     | No   | No   | Yes
-**Stemming**       | No       | No      | No        | Yes  | No   | Yes
-**Normalization**  | No       | No      | No        | No   | Yes  | Yes
-**N-grams**        | No       | Yes     | No        | No   | No   | (Yes)
+Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text  | Pipeline
+:------------------|:---------|:--------|:----------|:-----|:-----|:------|:--------
+**Tokenization**   | No       | No      | (Yes)     | No   | No   | Yes   | (Yes)
+**Stemming**       | No       | No      | No        | Yes  | No   | Yes   | (Yes)
+**Normalization**  | No       | No      | No        | No   | Yes  | Yes   | (Yes)
+**N-grams**        | No       | Yes     | No        | No   | No   | (Yes) | (Yes)
 
 Analyzer Properties
 -------------------
@@ -322,11 +322,11 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
 
 ### Pipeline
 
-An analyzer capable of chaining effects of multiple analyzers into one.
-Consists of "pipeline" where output of upstream analyzer is transferred to downstream
-analyzer. Final token value is determined by last analyzer in pipeline. Designed for 
+An Analyzer capable of chaining effects of multiple Analyzers into one.
+Consists of "pipeline" where output of upstream Analyzer is transferred to downstream
+Analyzer. Final token value is determined by last Analyzer in pipeline. Designed for 
 cases like applying ngram tokenization and converting all produced ngram to upper (or lower)
-case. Or splitting input with `delimiter` analyzer and following stemming with `stem` analyzer.
+case. Or splitting input with `delimiter` Analyzer and following stemming with `stem` Analyzer.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerPipelineNgramUpper

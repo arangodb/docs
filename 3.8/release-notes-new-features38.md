@@ -10,9 +10,9 @@ ArangoDB 3.8. ArangoDB 3.8 also contains several bug fixes that are not listed
 here.
 
 ArangoSearch
--------
+------------
 
-Added new analyzer type "pipeline" for chaining multiple analyzers into one.
+Added new Analyzer type `"pipeline"` for chaining multiple Analyzers into one.
 
 Metrics
 -------
