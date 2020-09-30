@@ -777,7 +777,8 @@ Converts *date* assumed in Zulu time (UTC) to local *timezone*.
     RETURN [
       DATE_UTCTOLOCAL("2020-03-15T00:00:00.000", "Asia/Shanghai"),
       DATE_UTCTOLOCAL("2020-03-15T00:00:00.000Z", "Asia/Shanghai"),
-      DATE_UTCTOLOCAL("2020-03-15T00:00:00.000-02:00", "Asia/Shanghai")
+      DATE_UTCTOLOCAL("2020-03-15T00:00:00.000-02:00", "Asia/Shanghai"),
+      DATE_UTCTOLOCAL(1584230400000, "Asia/Shanghai")
     ]
     @END_EXAMPLE_AQL
     @endDocuBlock aqlDateTimeToLocal2
@@ -819,7 +820,8 @@ Converts *date* assumed in local *timezone* to Zulu time (UTC).
     RETURN [
       DATE_LOCALTOUTC("2020-03-15T00:00:00.000", "Asia/Shanghai"),
       DATE_LOCALTOUTC("2020-03-15T00:00:00.000Z", "Asia/Shanghai"),
-      DATE_LOCALTOUTC("2020-03-15T00:00:00.000-02:00", "Asia/Shanghai")
+      DATE_LOCALTOUTC("2020-03-15T00:00:00.000-02:00", "Asia/Shanghai"),
+      DATE_LOCALTOUTC("1584230400000", "Asia/Shanghai")
     ]
     @END_EXAMPLE_AQL
     @endDocuBlock aqlDateTimeToUTC2
