@@ -212,7 +212,6 @@ Using an `AGGREGATE` clause will ensure the aggregation is run while the groups 
 in the collect operation. This is normally more efficient than collecting all group values
 for all groups and then doing a post-aggregation.
 
-
 Post-aggregation
 ----------------
 
@@ -258,9 +257,8 @@ FOR u IN users
 ]
 ```
 
-This is in constrast to the previous query that used an `AGGREGATE` clause to perform
+This is in contrast to the previous query that used an `AGGREGATE` clause to perform
 the aggregation during the collect operation, at the earliest possible stage.
-
 
 Post-filtering aggregated data
 ------------------------------
@@ -328,35 +326,42 @@ FOR u IN users
 To increase readability, the repeated expression *LENGTH(group)* was put into a variable
 *numUsers*. The `FILTER` on *numUsers* is the equivalent an SQL *HAVING* clause.
 
-
 Aggregating data in local time
------------------------------
-If you store datetimes in UTC in your collections and need to group data for each day in your local timezone
-you can use DATE_UTCTOLOCAL and DATE_TRUNC to adjust for that.
+------------------------------
 
-Note: In the timezone 'Europe/Berlin' daylight saving activated on 2020-03-29, 
-thus 2020-01-31T*23*:00:00Z is 2020-02-01 midnight in germany
-and 2020-03-31T*22*:00:00Z is 2020-04-01 midnight in germany
+If you store datetimes in UTC in your collections and need to group data for
+each day in your local timezone, you can use `DATE_UTCTOLOCAL()` and
+`DATE_TRUNC()` to adjust for that.
+
+Note: In the timezone `Europe/Berlin` daylight saving activated on 2020-03-29,
+thus 2020-01-31T**23**:00:00Z is 2020-02-01 midnight in Germany and
+2020-03-31T**22**:00:00Z is 2020-04-01 midnight in Germany.
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline GROUPING_LOCAL_TIME_01
-    @EXAMPLE_AQL{GROUPING_LOCAL_TIME_01}
-	FOR a IN [
-		{startDate: '2020-01-31T23:00:00Z', endDate: '2020-02-01T03:00:00Z', duration: 4, rate: 250},
-		{startDate: '2020-02-01T09:00:00Z', endDate: '2020-02-01T17:00:00Z', duration: 8, rate: 250},
-		{startDate: '2020-03-31T21:00:00Z', endDate: '2020-03-31T22:00:00Z', duration: 1, rate: 250},
-		{startDate: '2020-03-31T22:00:00Z', endDate: '2020-04-01T03:00:00Z', duration: 5, rate: 250},
-		{startDate: '2020-04-01T13:00:00Z', endDate: '2020-04-01T16:00:00Z', duration: 3, rate: 250}
-	]
-	COLLECT day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate, 'Europe/Berlin'), 'day')
-	AGGREGATE hours = SUM(a.duration), revenue = SUM(a.duration * a.rate)
-	SORT day ASC
-	RETURN {
-		day,
-		hours,
-		revenue
-	}
+    @startDocuBlockInline aqlDateGroupingLocalTime_1
+    @EXAMPLE_AQL{aqlDateGroupingLocalTime_1}
+    FOR a IN @activities
+    COLLECT
+      day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate, 'Europe/Berlin'), 'day')
+    AGGREGATE
+      hours = SUM(a.duration),
+      revenue = SUM(a.duration * a.rate)
+    SORT day ASC
+    RETURN {
+      day,
+      hours,
+      revenue
+    }
+    @BV {
+      activities: [
+        {startDate: '2020-01-31T23:00:00Z', endDate: '2020-02-01T03:00:00Z', duration: 4, rate: 250},
+        {startDate: '2020-02-01T09:00:00Z', endDate: '2020-02-01T17:00:00Z', duration: 8, rate: 250},
+        {startDate: '2020-03-31T21:00:00Z', endDate: '2020-03-31T22:00:00Z', duration: 1, rate: 250},
+        {startDate: '2020-03-31T22:00:00Z', endDate: '2020-04-01T03:00:00Z', duration: 5, rate: 250},
+        {startDate: '2020-04-01T13:00:00Z', endDate: '2020-04-01T16:00:00Z', duration: 3, rate: 250}
+      ]
+    }
     @END_EXAMPLE_AQL
-    @endDocuBlock GROUPING_LOCAL_TIME_01
+    @endDocuBlock aqlDateGroupingLocalTime_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
