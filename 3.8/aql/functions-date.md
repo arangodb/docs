@@ -759,21 +759,21 @@ Converts *date* assumed in Zulu time (UTC) to local *timezone*.
   in unqualified local time
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlDateTimeToLocal1
-    @EXAMPLE_AQL{aqlDateTimeToLocal1}
+    @startDocuBlockInline aqlDateTimeToLocal_1
+    @EXAMPLE_AQL{aqlDateTimeToLocal_1}
     RETURN [
       DATE_UTCTOLOCAL("2020-03-15T00:00:00.000", "Europe/Berlin"),
       DATE_UTCTOLOCAL("2020-03-15T00:00:00.000", "America/New_York"),
       DATE_UTCTOLOCAL("2020-03-15T00:00:00.000", "UTC")
     ]
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlDateTimeToLocal1
+    @endDocuBlock aqlDateTimeToLocal_1
     {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlDateTimeToLocal2
-    @EXAMPLE_AQL{aqlDateTimeToLocal2}
+    @startDocuBlockInline aqlDateTimeToLocal_2
+    @EXAMPLE_AQL{aqlDateTimeToLocal_2}
     RETURN [
       DATE_UTCTOLOCAL("2020-03-15T00:00:00.000", "Asia/Shanghai"),
       DATE_UTCTOLOCAL("2020-03-15T00:00:00.000Z", "Asia/Shanghai"),
@@ -781,7 +781,7 @@ Converts *date* assumed in Zulu time (UTC) to local *timezone*.
       DATE_UTCTOLOCAL(1584230400000, "Asia/Shanghai")
     ]
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlDateTimeToLocal2
+    @endDocuBlock aqlDateTimeToLocal_2
     {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -802,29 +802,29 @@ Converts *date* assumed in local *timezone* to Zulu time (UTC).
   in Zulu time
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlDateTimeToUTC1
-    @EXAMPLE_AQL{aqlDateTimeToUTC1}
+    @startDocuBlockInline aqlDateTimeToUTC_1
+    @EXAMPLE_AQL{aqlDateTimeToUTC_1}
     RETURN [
       DATE_LOCALTOUTC("2020-03-15T00:00:00.000", "Europe/Berlin"),
       DATE_LOCALTOUTC("2020-03-15T00:00:00.000", "America/New_York"),
       DATE_LOCALTOUTC("2020-03-15T00:00:00.000", "UTC")
     ]
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlDateTimeToUTC1
+    @endDocuBlock aqlDateTimeToUTC_1
     {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline aqlDateTimeToUTC2
-    @EXAMPLE_AQL{aqlDateTimeToUTC2}
+    @startDocuBlockInline aqlDateTimeToUTC_2
+    @EXAMPLE_AQL{aqlDateTimeToUTC_2}
     RETURN [
       DATE_LOCALTOUTC("2020-03-15T00:00:00.000", "Asia/Shanghai"),
       DATE_LOCALTOUTC("2020-03-15T00:00:00.000Z", "Asia/Shanghai"),
       DATE_LOCALTOUTC("2020-03-15T00:00:00.000-02:00", "Asia/Shanghai"),
-      DATE_LOCALTOUTC("1584230400000", "Asia/Shanghai")
+      DATE_LOCALTOUTC(1584230400000, "Asia/Shanghai")
     ]
     @END_EXAMPLE_AQL
-    @endDocuBlock aqlDateTimeToUTC2
+    @endDocuBlock aqlDateTimeToUTC_2
     {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
