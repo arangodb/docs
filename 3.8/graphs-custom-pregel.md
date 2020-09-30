@@ -1258,13 +1258,11 @@ individual section.
     "vertexAccumulators": {
       "outDegree": {
         "accumulatorType": "store",
-        "valueType": "ints",
-        "storeSender": false
+        "valueType": "ints"
       },
       "inDegree": {
         "accumulatorType": "store",
-        "valueType": "ints",
-        "storeSender": false
+        "valueType": "ints"
       }
     },
     "phases": [{
@@ -1296,8 +1294,7 @@ as we want to calculate and store two values.
 ```json
 "outDegree": {
   "accumulatorType": "store",
-  "valueType": "ints",
-  "storeSender": false
+  "valueType": "ints"
 }
 ```
 
@@ -1316,12 +1313,11 @@ Therefore we need to get them to know that value.
 ```json
 "inDegree": {
   "accumulatorType": "sum",
-  "valueType": "ints",
-  "storeSender": false
+  "valueType": "ints"
 }
 ```
 
-The choice for `valueType` and `storeSender` are equal compared to "outDegree"
+The choice for `valueType` is equal compared to "outDegree"
 because of the same reason. But as you can see, the `accumulatorType` is now
 set to `sum`. As our vertices do not know how many incoming edges there are,
 each vertex needs to send a message to all outgoing. In our program, a message
