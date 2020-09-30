@@ -89,15 +89,21 @@ The following logging-related options have been added:
   save a tiny bit of memory for the in-memory log buffers and prevent potential
   log information leakage via these means.
 
- 
 Timezone conversion
--------
-The following AQL functions have been added for converting datetimes in UTC to any timezone in the world including historical daylight saving times and vice versa:
+-------------------
 
-- added AQL function DATE_UTCTOLOCAL(datetime, timezone)
-  example: DATE_UTCTOLOCAL('2020-10-15T01:00:00.999Z', 'America/New_York') → '2020-10-14T21:00:00.999'
+Added IANA timezone database [tzdata](https://www.iana.org/time-zones){:target="_blank"}.
 
-- added AQL function DATE_LOCALTOUTC(datetime, timezone)
-  example: DATE_UTCTOLOCAL('2020-10-14T21:00:00.999', 'America/New_York') → '2020-10-15T01:00:00.999Z'
-  
-- added IANA timezone database [TZDATA](https://www.iana.org/time-zones){:target="_blank"} to share/arangodb3/tzdata
+The following AQL functions have been added for converting datetimes in UTC to
+any timezone in the world including historical daylight saving times and vice
+versa:
+
+- [DATE_UTCTOLOCAL()](aql/functions-date.html#date_utctolocal)
+
+  Example: `DATE_UTCTOLOCAL("2020-10-15T01:00:00.999Z", "America/New_York")`
+  → `"2020-10-14T21:00:00.999"`
+
+- [DATE_LOCALTOUTC()](aql/functions-date.html#date_localtoutc)
+
+  Example: `DATE_UTCTOLOCAL("2020-10-14T21:00:00.999", "America/New_York")`
+  → `"2020-10-15T01:00:00.999Z"`
