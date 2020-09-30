@@ -744,25 +744,87 @@ FOR user IN users
 
 ### DATE_UTCTOLOCAL()
 
+<small>Introduced in: v3.8.0</small>
+
 Converts *date* assumed in Zulu time (UTC) to local *timezone*.
 
 `DATE_UTCTOLOCAL(date, timezone) → dateString`
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
-- **timezone** (string): IANA timezone name [List](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"} eg. 'America/New_York', 'Europe/Berlin' or 'UTC' 
-  ArangoDB will throw an exception if timezone cannot be found in database
-- returns **dateString**: date and time expressed according to ISO 8601, in unqualified local time
+- **timezone** (string):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`. Will throw an error
+  if the timezone is not known to ArangoDB
+- returns **dateString**: date and time expressed according to ISO 8601,
+  in unqualified local time
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlDateTimeToLocal1
+    @EXAMPLE_AQL{aqlDateTimeToLocal1}
+    RETURN [
+      DATE_UTCTOLOCAL("2020-03-15T00:00:00.000", "Europe/Berlin"),
+      DATE_UTCTOLOCAL("2020-03-15T00:00:00.000", "America/New_York"),
+      DATE_UTCTOLOCAL("2020-03-15T00:00:00.000", "UTC")
+    ]
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlDateTimeToLocal1
+    {% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlDateTimeToLocal2
+    @EXAMPLE_AQL{aqlDateTimeToLocal2}
+    RETURN [
+      DATE_UTCTOLOCAL("2020-03-15T00:00:00.000", "Asia/Shanghai"),
+      DATE_UTCTOLOCAL("2020-03-15T00:00:00.000Z", "Asia/Shanghai"),
+      DATE_UTCTOLOCAL("2020-03-15T00:00:00.000-02:00", "Asia/Shanghai")
+    ]
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlDateTimeToLocal2
+    {% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DATE_LOCALTOUTC()
+
+<small>Introduced in: v3.8.0</small>
 
 Converts *date* assumed in local *timezone* to Zulu time (UTC).
 
 `DATE_LOCALTOUTC(date, timezone) → dateString`
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
-- **timezone** (string): IANA timezone name [List](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"} eg. 'America/New_York', 'Europe/Berlin' or 'UTC' 
-  ArangoDB will throw an exception if timezone cannot be found in database
-- returns **dateString**: date and time expressed according to ISO 8601, in Zulu time
+- **timezone** (string):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`. Will throw an error
+  if the timezone is not known to ArangoDB
+- returns **dateString**: date and time expressed according to ISO 8601,
+  in Zulu time
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlDateTimeToUTC1
+    @EXAMPLE_AQL{aqlDateTimeToUTC1}
+    RETURN [
+      DATE_LOCALTOUTC("2020-03-15T00:00:00.000", "Europe/Berlin"),
+      DATE_LOCALTOUTC("2020-03-15T00:00:00.000", "America/New_York"),
+      DATE_LOCALTOUTC("2020-03-15T00:00:00.000", "UTC")
+    ]
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlDateTimeToUTC1
+    {% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlDateTimeToUTC2
+    @EXAMPLE_AQL{aqlDateTimeToUTC2}
+    RETURN [
+      DATE_LOCALTOUTC("2020-03-15T00:00:00.000", "Asia/Shanghai"),
+      DATE_LOCALTOUTC("2020-03-15T00:00:00.000Z", "Asia/Shanghai"),
+      DATE_LOCALTOUTC("2020-03-15T00:00:00.000-02:00", "Asia/Shanghai")
+    ]
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlDateTimeToUTC2
+    {% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Working with dates and indices
 ------------------------------
