@@ -43,6 +43,7 @@ python-arango | Python | [github.com/Joowani/python-arango](https://github.com/J
 Scarango | Scala | [github.com/outr/scarango](https://github.com/outr/scarango){:target="_blank"}
 ArangoRB | Ruby | [github.com/StefanoMartin/ArangoRB](https://github.com/StefanoMartin/ArangoRB){:target="_blank"}
 Tash | C++ | [https://gitlab.com/neel.basu/tash](https://gitlab.com/neel.basu/tash){:target="_blank"}
+erlArango | Erlang | [github.com/SisMaker/erlArango](https://github.com/SisMaker/erlArango){:target="_blank"}
 
 Community resources
 -------------------
