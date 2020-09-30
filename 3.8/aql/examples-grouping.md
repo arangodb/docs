@@ -341,13 +341,10 @@ and 2020-03-31T*22*:00:00Z is 2020-04-01 midnight in germany
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GROUPING_LOCAL_TIME_01
     @EXAMPLE_AQL{GROUPING_LOCAL_TIME_01}
-    @DATASET{routeplanner}
 	FOR a IN [
 		{startDate: '2020-01-31T23:00:00Z', endDate: '2020-02-01T03:00:00Z', duration: 4, rate: 250},
 		{startDate: '2020-02-01T09:00:00Z', endDate: '2020-02-01T17:00:00Z', duration: 8, rate: 250},
-
 		{startDate: '2020-03-31T21:00:00Z', endDate: '2020-03-31T22:00:00Z', duration: 1, rate: 250},
-
 		{startDate: '2020-03-31T22:00:00Z', endDate: '2020-04-01T03:00:00Z', duration: 5, rate: 250},
 		{startDate: '2020-04-01T13:00:00Z', endDate: '2020-04-01T16:00:00Z', duration: 3, rate: 250}
 	]
@@ -359,8 +356,6 @@ and 2020-03-31T*22*:00:00Z is 2020-04-01 midnight in germany
 		hours,
 		revenue
 	}
-    @BV {
-    }
     @END_EXAMPLE_AQL
     @endDocuBlock GROUPING_LOCAL_TIME_01
 {% endaqlexample %}
