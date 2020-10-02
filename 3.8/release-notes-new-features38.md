@@ -9,6 +9,31 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.8. ArangoDB 3.8 also contains several bug fixes that are not listed
 here.
 
+Weighted Traversals
+-------------------
+
+Weighted traversals have been added. Use `order: "weighted"` as [option](aql/graphs-traverals.md) to 
+enumerate paths by increasing weights. The cost of an edge can be read from
+an attribute which can be specified using `weightAttribute` option.
+
+```
+FOR x, v, p IN 0..10  "places/York" GRAPH "kShortestPathsGraph" 
+    OPTIONS {order: "weighted", weightAttribute: "travelTime", uniqueVertices: "path"}
+    FILTER p.edges[*].travelTime ALL < 3
+    LET totalTime = LAST(p.weights)
+    FILTER totalTime < 6
+    SORT totalTime DESC
+    RETURN {path: p.vertices[*]._key, weight: LAST(p.weights), weights: p.edges[*].travelTime}
+```
+
+path | weight | weights
+-- | -- | --
+["York","London","Birmingham","Carlisle"] | 5.3 | [1.8,2.5,1]
+["York","London","Birmingham"] | 4.3 | [1.8,2.5]
+["York","London","Brussels"] | 4.3 | [1.8,2.5]
+["York","London"] | 1.8 | [1.8]
+["York"] | 0 | []
+
 Metrics
 -------
 
