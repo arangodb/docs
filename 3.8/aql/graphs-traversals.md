@@ -72,7 +72,7 @@ FOR vertex[, edge[, path]]
   as well as all variables defined before this Traversal statement.
 - `OPTIONS` **options** (object, *optional*): used to modify the execution of the
   traversal. Only the following attributes have an effect, all others are ignored:
-  - **mode** (string): optionally specify which traversal algorithm to use
+  - **order** (string): optionally specify which traversal algorithm to use
     - "weighted" - the traversal will be a weighted traversal. Paths are enumerated
       with increasing cost. See `weightAttribute` and `defaultWeight` for more options.
       A returned path has an additional attribute `weight` containing the cost of the
@@ -82,7 +82,7 @@ FOR vertex[, edge[, path]]
     - "dfs" (default) – the traversal will be executed depth-first. It will first
       return all paths from *min* depth to *max* depth for one vertex at depth 1.
       Than for the next vertex at depth 1 and so on.
-  - **bfs** (bool): deprecated, use `mode: "bfs"` instead.
+  - **bfs** (bool): deprecated, use `order: "bfs"` instead.
   - **uniqueVertices** (string): optionally ensure vertex uniqueness
     - "path" – it is guaranteed that there is no path returned with a duplicate vertex
     - "global" – it is guaranteed that each vertex is visited at most once during
