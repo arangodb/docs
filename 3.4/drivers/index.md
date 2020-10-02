@@ -15,7 +15,7 @@ Name | Language | Repository | &nbsp;
 -----|----------|------------|-------
 [ArangoDB-Java-Driver](java.html) | Java | [github.com/arangodb/arangodb-java-driver](https://github.com/arangodb/arangodb-java-driver){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-java-driver/blob/master/ChangeLog.md#readme){:target="_blank"}
 <span title="Same API as synchronous driver, except that it returns a CompletableFuture&lt;T&gt; instead of the result T directly" style="cursor: help;">ArangoDB-Java-Driver-Async</span> | Java | [github.com/arangodb/arangodb-java-driver-async](https://github.com/arangodb/arangodb-java-driver-async){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-java-driver-async/blob/master/ChangeLog.md#readme){:target="_blank"}
-[ArangoJS](js.html) | JavaScript | [github.com/arangodb/arangojs](https://github.com/arangodb/arangojs){:target="_blank"} | [Changelog](https://github.com/arangodb/arangojs/blob/master/CHANGELOG.md#readme){:target="_blank"}
+[ArangoJS](js.html) | JavaScript | [github.com/arangodb/arangojs](https://github.com/arangodb/arangojs){:target="_blank"} | [Changelog](https://github.com/arangodb/arangojs/blob/main/CHANGELOG.md#readme){:target="_blank"}
 [ArangoDB-PHP](php.html) | PHP | [github.com/arangodb/arangodb-php](https://github.com/arangodb/arangodb-php){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-php/blob/devel/CHANGELOG.md#readme){:target="_blank"}
 [Go-Driver](go.html) | Go | [github.com/arangodb/go-driver](https://github.com/arangodb/go-driver){:target="_blank"} | [Changelog](https://github.com/arangodb/go-driver/blob/master/CHANGELOG.md#readme){:target="_blank"}
 
@@ -43,3 +43,4 @@ pyArango | Python | [www.github.com/tariqdaouda/pyArango](http://www.github.com/
 python-arango | Python | [github.com/Joowani/python-arango](https://github.com/Joowani/python-arango){:target="_blank"}
 Scarango | Scala | [github.com/outr/scarango](https://github.com/outr/scarango){:target="_blank"}
 ArangoRB | Ruby | [github.com/StefanoMartin/ArangoRB](https://github.com/StefanoMartin/ArangoRB){:target="_blank"}
+Tash | C++ | [https://gitlab.com/neel.basu/tash](https://gitlab.com/neel.basu/tash){:target="_blank"}
