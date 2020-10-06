@@ -420,6 +420,7 @@ Name       | Type       | Locale (Language)       | Case    | Accent  | Stemming
 `text_ru`  | `text`     | `ru.utf-8` (Russian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
 `text_sv`  | `text`     | `sv.utf-8` (Swedish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
 `text_zh`  | `text`     | `zh.utf-8` (Chinese)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+{:class="table-scroll"}
 
 Note that _locale_, _case_, _accent_, _stemming_ and _stopwords_ are Analyzer
 properties. `text_zh` does not have actual stemming support for Chinese despite
