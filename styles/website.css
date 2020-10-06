@@ -74,14 +74,10 @@ div.example_show_button {
   min-width: 250px;
 }
 
-/* min-width may lead to clipped content!
-.book .book-body table td {
-  overflow-wrap: break-word;
-  word-break: break-word;
-  min-width: 8em;
-  max-width: 60em;
+.markdown-section table.table-scroll {
+  display:inline-block;
+  white-space: nowrap;
 }
-*/
 
 .localized-footer {
   opacity: 0.5;
