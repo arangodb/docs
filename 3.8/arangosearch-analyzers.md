@@ -323,22 +323,51 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
 ### Pipeline
 
 An Analyzer capable of chaining effects of multiple Analyzers into one.
-Consists of "pipeline" where output of upstream Analyzer is transferred to downstream
-Analyzer. Final token value is determined by last Analyzer in pipeline. Designed for 
-cases like applying ngram tokenization and converting all produced ngram to upper (or lower)
-case. Or splitting input with `delimiter` Analyzer and following stemming with `stem` Analyzer.
+The pipeline is a list of Analyzers, where the output of an Analyzer is passed
+to the next for further processing. The final token value is determined by last
+Analyzer in the pipeline.
+
+The Analyzer is designed for cases like the following:
+- Normalize text for a case insensitive search and apply ngram tokenization
+- Split input with `delimiter` Analyzer, followed by stemming with the `stem`
+  Analyzer
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `pipeline` (array): an array of Analyzer definition-like objects with
+  `type` and `properties` attributes
+
+Normalize to all uppercase and compute bigrams:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline analyzerPipelineNgramUpper
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineNgramUpper}
-      var analyzers = require("@arangodb/analyzers")
-    | analyzers.save("ngram_upper", "pipeline", { pipeline:[
-    |   {type: "norm", properties:{locale: "en.utf-8", case: "upper"}},
-    |   {type: "ngram", properties:{min:2, max:2, preserveOriginal:false, streamType:"utf8"}}]
-      }, ["frequency","norm","position"])
-      db._query(`RETURN TOKENS("Quick brown foX", "ngram_upper")`)
+    @startDocuBlockInline analyzerPipelineUpperNgram
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineUpperNgram}
+      var analyzers = require("@arangodb/analyzers");
+    | analyzers.save("ngram_upper", "pipeline", { pipeline: [
+    |   { type: "norm", properties: { locale: "en.utf-8", case: "upper" } },
+    |   { type: "ngram", properties: { min: 2, max: 2, preserveOriginal: false, streamType: "utf8" } }
+      ] }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("Quick brown foX", "ngram_upper")`);
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock analyzerPipelineNgramUpper
+    @endDocuBlock analyzerPipelineUpperNgram
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Split at delimiting characters `,` and `;`, then stem the tokens:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerPipelineDelimiterStem
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineDelimiterStem}
+      var analyzers = require("@arangodb/analyzers");
+    | analyzers.save("delimiter_stem", "pipeline", { pipeline: [
+    |   { type: "delimiter", properties: { delimiter: "," } },
+    |   { type: "delimiter", properties: { delimiter: ";" } },
+    |   { type: "stem", properties: { locale: "en.utf-8" } }
+      ] }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerPipelineDelimiterStem
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
