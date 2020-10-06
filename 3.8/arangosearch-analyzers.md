@@ -322,6 +322,8 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
 
 ### Pipeline
 
+<small>Introduced in: v3.8.0</small>
+
 An Analyzer capable of chaining effects of multiple Analyzers into one.
 The pipeline is a list of Analyzers, where the output of an Analyzer is passed
 to the next for further processing. The final token value is determined by last
@@ -337,6 +339,8 @@ attributes:
 
 - `pipeline` (array): an array of Analyzer definition-like objects with
   `type` and `properties` attributes
+
+**Examples**
 
 Normalize to all uppercase and compute bigrams:
 
