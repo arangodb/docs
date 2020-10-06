@@ -7852,6 +7852,156 @@ arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("The quick brown
     @endDocuBlock analyzerTextEdgeNgram
 
 
+<!-- filename: /home/simran/oskar/work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerPipelineUpperNgram
+
+
+<div class="example-container" id="analyzerPipelineUpperNgram_container">
+<div id="analyzerPipelineUpperNgram_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; analyzers.save(<span class="hljs-string">"ngram_upper"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-attr">pipeline</span>: [
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"norm"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">"en.utf-8"</span>, <span class="hljs-attr">case</span>: <span class="hljs-string">"upper"</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"ngram"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">min</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">preserveOriginal</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">streamType</span>: <span class="hljs-string">"utf8"</span> } }
+........&gt; ] }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+{ 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"_system::ngram_upper"</span>, 
+  <span class="hljs-string">"type"</span> : <span class="hljs-string">"pipeline"</span>, 
+  <span class="hljs-string">"properties"</span> : { 
+    <span class="hljs-string">"pipeline"</span> : [ 
+      { 
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"norm"</span>, 
+        <span class="hljs-string">"properties"</span> : { 
+          <span class="hljs-string">"locale"</span> : <span class="hljs-string">"en.utf-8"</span>, 
+          <span class="hljs-string">"case"</span> : <span class="hljs-string">"upper"</span>, 
+          <span class="hljs-string">"accent"</span> : <span class="hljs-literal">true</span> 
+        } 
+      }, 
+      { 
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"ngram"</span>, 
+        <span class="hljs-string">"properties"</span> : { 
+          <span class="hljs-string">"min"</span> : <span class="hljs-number">2</span>, 
+          <span class="hljs-string">"max"</span> : <span class="hljs-number">2</span>, 
+          <span class="hljs-string">"preserveOriginal"</span> : <span class="hljs-literal">false</span>, 
+          <span class="hljs-string">"streamType"</span> : <span class="hljs-string">"utf8"</span> 
+        } 
+      } 
+    ] 
+  }, 
+  <span class="hljs-string">"features"</span> : [ 
+    <span class="hljs-string">"frequency"</span>, 
+    <span class="hljs-string">"norm"</span>, 
+    <span class="hljs-string">"position"</span> 
+  ] 
+}
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Quick brown foX", "ngram_upper")`</span>);
+[ 
+  [ 
+    <span class="hljs-string">"QU"</span>, 
+    <span class="hljs-string">"UI"</span>, 
+    <span class="hljs-string">"IC"</span>, 
+    <span class="hljs-string">"CK"</span>, 
+    <span class="hljs-string">"K "</span>, 
+    <span class="hljs-string">" B"</span>, 
+    <span class="hljs-string">"BR"</span>, 
+    <span class="hljs-string">"RO"</span>, 
+    <span class="hljs-string">"OW"</span>, 
+    <span class="hljs-string">"WN"</span>, 
+    <span class="hljs-string">"N "</span>, 
+    <span class="hljs-string">" F"</span>, 
+    <span class="hljs-string">"FO"</span>, 
+    <span class="hljs-string">"OX"</span> 
+  ] 
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+</pre>
+<div id="analyzerPipelineUpperNgram_container_collapse" onclick="$('#analyzerPipelineUpperNgram_long').hide(); $('#analyzerPipelineUpperNgram_short').show(); window.location.hash='analyzerPipelineUpperNgram_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerPipelineUpperNgram_short" onclick="$('#analyzerPipelineUpperNgram_short').hide(); $('#analyzerPipelineUpperNgram_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; analyzers.save(<span class="hljs-string">"ngram_upper"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-attr">pipeline</span>: [
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"norm"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">"en.utf-8"</span>, <span class="hljs-attr">case</span>: <span class="hljs-string">"upper"</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"ngram"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">min</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">preserveOriginal</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">streamType</span>: <span class="hljs-string">"utf8"</span> } }
+........&gt; ] }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Quick brown foX", "ngram_upper")`</span>);
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerPipelineUpperNgram
+
+
+<!-- filename: /home/simran/oskar/work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerPipelineDelimiterStem
+
+
+<div class="example-container" id="analyzerPipelineDelimiterStem_container">
+<div id="analyzerPipelineDelimiterStem_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; analyzers.save(<span class="hljs-string">"delimiter_stem"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-attr">pipeline</span>: [
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"delimiter"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">","</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"delimiter"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">";"</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"stem"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">"en.utf-8"</span> } }
+........&gt; ] }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+{ 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"_system::delimiter_stem"</span>, 
+  <span class="hljs-string">"type"</span> : <span class="hljs-string">"pipeline"</span>, 
+  <span class="hljs-string">"properties"</span> : { 
+    <span class="hljs-string">"pipeline"</span> : [ 
+      { 
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"delimiter"</span>, 
+        <span class="hljs-string">"properties"</span> : { 
+          <span class="hljs-string">"delimiter"</span> : <span class="hljs-string">","</span> 
+        } 
+      }, 
+      { 
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"delimiter"</span>, 
+        <span class="hljs-string">"properties"</span> : { 
+          <span class="hljs-string">"delimiter"</span> : <span class="hljs-string">";"</span> 
+        } 
+      }, 
+      { 
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"stem"</span>, 
+        <span class="hljs-string">"properties"</span> : { 
+          <span class="hljs-string">"locale"</span> : <span class="hljs-string">"en.utf-8"</span> 
+        } 
+      } 
+    ] 
+  }, 
+  <span class="hljs-string">"features"</span> : [ 
+    <span class="hljs-string">"frequency"</span>, 
+    <span class="hljs-string">"norm"</span>, 
+    <span class="hljs-string">"position"</span> 
+  ] 
+}
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`</span>);
+[ 
+  [ 
+    <span class="hljs-string">"delimit"</span>, 
+    <span class="hljs-string">"stemmabl"</span>, 
+    <span class="hljs-string">"word"</span> 
+  ] 
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+</pre>
+<div id="analyzerPipelineDelimiterStem_container_collapse" onclick="$('#analyzerPipelineDelimiterStem_long').hide(); $('#analyzerPipelineDelimiterStem_short').show(); window.location.hash='analyzerPipelineDelimiterStem_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerPipelineDelimiterStem_short" onclick="$('#analyzerPipelineDelimiterStem_short').hide(); $('#analyzerPipelineDelimiterStem_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; analyzers.save(<span class="hljs-string">"delimiter_stem"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-attr">pipeline</span>: [
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"delimiter"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">","</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"delimiter"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">";"</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"stem"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">"en.utf-8"</span> } }
+........&gt; ] }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`</span>);
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerPipelineDelimiterStem
+
+
 <!-- filename: /work/ArangoDB/Documentation/Books/Manual/graphs.md -->
     @startDocuBlockInline graph_create_knows_sample
 
