@@ -1,41 +1,10 @@
 arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
-arangosh&gt; analyzers.save(<span class="hljs-string">"delimiter_stem"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-attr">pipeline</span>: [
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"delimiter_stem"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-attr">pipeline</span>: [
 ........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"delimiter"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">","</span> } },
 ........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"delimiter"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">";"</span> } },
 ........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"stem"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">"en.utf-8"</span> } }
 ........&gt; ] }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
-{ 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"_system::delimiter_stem"</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-string">"pipeline"</span>, 
-  <span class="hljs-string">"properties"</span> : { 
-    <span class="hljs-string">"pipeline"</span> : [ 
-      { 
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"delimiter"</span>, 
-        <span class="hljs-string">"properties"</span> : { 
-          <span class="hljs-string">"delimiter"</span> : <span class="hljs-string">","</span> 
-        } 
-      }, 
-      { 
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"delimiter"</span>, 
-        <span class="hljs-string">"properties"</span> : { 
-          <span class="hljs-string">"delimiter"</span> : <span class="hljs-string">";"</span> 
-        } 
-      }, 
-      { 
-        <span class="hljs-string">"type"</span> : <span class="hljs-string">"stem"</span>, 
-        <span class="hljs-string">"properties"</span> : { 
-          <span class="hljs-string">"locale"</span> : <span class="hljs-string">"en.utf-8"</span> 
-        } 
-      } 
-    ] 
-  }, 
-  <span class="hljs-string">"features"</span> : [ 
-    <span class="hljs-string">"frequency"</span>, 
-    <span class="hljs-string">"norm"</span>, 
-    <span class="hljs-string">"position"</span> 
-  ] 
-}
-arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`</span>);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`</span>).toArray();
 [ 
   [ 
     <span class="hljs-string">"delimit"</span>, 
@@ -43,4 +12,3 @@ arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("delimited,stemm
     <span class="hljs-string">"word"</span> 
   ] 
 ]
-[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
