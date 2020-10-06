@@ -344,11 +344,11 @@ Normalize to all uppercase and compute bigrams:
     @startDocuBlockInline analyzerPipelineUpperNgram
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineUpperNgram}
       var analyzers = require("@arangodb/analyzers");
-    | analyzers.save("ngram_upper", "pipeline", { pipeline: [
+    | var a = analyzers.save("ngram_upper", "pipeline", { pipeline: [
     |   { type: "norm", properties: { locale: "en.utf-8", case: "upper" } },
     |   { type: "ngram", properties: { min: 2, max: 2, preserveOriginal: false, streamType: "utf8" } }
       ] }, ["frequency", "norm", "position"]);
-      db._query(`RETURN TOKENS("Quick brown foX", "ngram_upper")`);
+      db._query(`RETURN TOKENS("Quick brown foX", "ngram_upper")`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerPipelineUpperNgram
 {% endarangoshexample %}
@@ -360,12 +360,12 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
     @startDocuBlockInline analyzerPipelineDelimiterStem
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineDelimiterStem}
       var analyzers = require("@arangodb/analyzers");
-    | analyzers.save("delimiter_stem", "pipeline", { pipeline: [
+    | var a = analyzers.save("delimiter_stem", "pipeline", { pipeline: [
     |   { type: "delimiter", properties: { delimiter: "," } },
     |   { type: "delimiter", properties: { delimiter: ";" } },
     |   { type: "stem", properties: { locale: "en.utf-8" } }
       ] }, ["frequency", "norm", "position"]);
-      db._query(`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`);
+      db._query(`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerPipelineDelimiterStem
 {% endarangoshexample %}
