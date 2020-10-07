@@ -9,6 +9,16 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.8. ArangoDB 3.8 also contains several bug fixes that are not listed
 here.
 
+ArangoSearch
+------------
+
+Added new Analyzer type `"pipeline"` for chaining effects of multiple Analyzers
+into one. It allows you to combine text normalization for a case insensitive
+search with ngram tokenization, or to split text at multiple delimiting
+characters followed by stemming.
+
+See [ArangoSearch Pipeline Analyzer](arangosearch-analyzers.html#pipeline)
+
 Metrics
 -------
 
