@@ -273,7 +273,7 @@ The built-in `text_en` Analyzer has stemming enabled (note the word endings):
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerTextStem
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextStem}
-      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en")`)
+      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en")`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextStem
 {% endarangoshexample %}
@@ -286,14 +286,14 @@ disabled like this:
     @startDocuBlockInline analyzerTextNoStem
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextNoStem}
       var analyzers = require("@arangodb/analyzers")
-    | analyzers.save("text_en_nostem", "text", {
+    | var a = analyzers.save("text_en_nostem", "text", {
     |   locale: "en.utf-8",
     |   case: "lower",
     |   accent: false,
     |   stemming: false,
     |   stopwords: []
       }, ["frequency","norm","position"])
-      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en_nostem")`)
+      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en_nostem")`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextNoStem
 {% endarangoshexample %}
@@ -306,7 +306,7 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
     @startDocuBlockInline analyzerTextEdgeNgram
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextEdgeNgram}
     ~ var analyzers = require("@arangodb/analyzers")
-    | analyzers.save("text_edge_ngrams", "text", {
+    | var a = analyzers.save("text_edge_ngrams", "text", {
     |   edgeNgram: { min: 3, max: 8, preserveOriginal: true },
     |   locale: "en.utf-8",
     |   case: "lower",
@@ -314,7 +314,10 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
     |   stemming: false,
     |   stopwords: [ "the" ]
       }, ["frequency","norm","position"])
-      db._query(`RETURN TOKENS("The quick brown fox jumps over the dogWithAVeryLongName", "text_edge_ngrams")`)
+    | db._query(`RETURN TOKENS(
+    |   "The quick brown fox jumps over the dogWithAVeryLongName",
+    |   "text_edge_ngrams"
+      )`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextEdgeNgram
 {% endarangoshexample %}
