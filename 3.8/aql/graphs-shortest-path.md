@@ -118,8 +118,8 @@ Conditional shortest path
 The SHORTEST_PATH computation will only find an unconditioned shortest path.
 With this construct it is not possible to define a condition like: "Find the
 shortest path where all edges are of type *X*". If you want to do this, use a
-normal [Traversal](graphs-traversals.html) instead with the option `{bfs: true}` in
-combination with `LIMIT 1`.
+normal [Traversal](graphs-traversals.html) instead with the option
+`{order: "bfs"}` in combination with `LIMIT 1`.
 
 Please also consider [to use `WITH`](operations-with.html) to specify the collections you expect to be involved.
 
