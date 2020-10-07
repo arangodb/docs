@@ -11,6 +11,10 @@ Version 3.8
 
 **All Editions**
 
+- [**Pipeline Analyzer**](arangosearch-analyzers.html#pipeline):
+  ArangoSearch now allows you to combine multiple Analyzers, enabling
+  case-insensitive ngram-based fuzzy search and more
+
 
 
 **Enterprise Edition**
