@@ -11,7 +11,8 @@ Version 3.8
 
 **All Editions**
 
-
+- [**Weighted traversals**](release-notes-new-features38.html#weighted-traversals):
+  New AQL graph traversal option to emit paths in order of increasing weights.
 
 **Enterprise Edition**
 

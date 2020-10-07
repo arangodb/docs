@@ -12,27 +12,44 @@ here.
 Weighted Traversals
 -------------------
 
-Weighted traversals have been added. Use `order: "weighted"` as [option](aql/graphs-traverals.md) to 
-enumerate paths by increasing weights. The cost of an edge can be read from
-an attribute which can be specified using `weightAttribute` option.
+The graph traversal option `bfs` is now deprecated and superseded by the new
+option `order`. It supports a new traversal type `"weighted"`, which enumerate
+paths by increasing weights.
 
-```
-FOR x, v, p IN 0..10  "places/York" GRAPH "kShortestPathsGraph" 
-    OPTIONS {order: "weighted", weightAttribute: "travelTime", uniqueVertices: "path"}
+The cost of an edge can be read from an attribute which can be specified with
+the `weightAttribute` option.
+
+```js
+FOR x, v, p IN 0..10  "places/York" GRAPH "kShortestPathsGraph"
+    OPTIONS {
+      order: "weighted",
+      weightAttribute: "travelTime",
+      uniqueVertices: "path"
+    }
     FILTER p.edges[*].travelTime ALL < 3
     LET totalTime = LAST(p.weights)
     FILTER totalTime < 6
     SORT totalTime DESC
-    RETURN {path: p.vertices[*]._key, weight: LAST(p.weights), weights: p.edges[*].travelTime}
+    RETURN {
+      path: p.vertices[*]._key,
+      weight: LAST(p.weights),
+      weights: p.edges[*].travelTime
+    }
 ```
 
-path | weight | weights
--- | -- | --
-["York","London","Birmingham","Carlisle"] | 5.3 | [1.8,2.5,1]
-["York","London","Birmingham"] | 4.3 | [1.8,2.5]
-["York","London","Brussels"] | 4.3 | [1.8,2.5]
-["York","London"] | 1.8 | [1.8]
-["York"] | 0 | []
+`path` | `weight` | `weights`
+:------|:---------|:---------
+`["York","London","Birmingham","Carlisle"]` | `5.3` | `[1.8,2.5,1]`
+`["York","London","Birmingham"]`            | `4.3` | `[1.8,2.5]`
+`["York","London","Brussels"]`              | `4.3` | `[1.8,2.5]`
+`["York","London"]`                         | `1.8` | `[1.8]`
+`["York"]`                                  |   `0` | `[]`
+
+The preferred way to start a breadth-first search from now on is with
+`order: "bfs"`. The default remains depth-first search if no `order` is
+specified, but can also be explicitly requested with `order: "dfs"`.
+
+Also see [AQL graph traversals](aql/graphs-traversals.html)
 
 Metrics
 -------

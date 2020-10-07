@@ -517,7 +517,7 @@ arangosh> db._query(
 ...> "LET authorsByBook = ( " +
 ...> "    FOR author IN INBOUND b written " +
 ...> "    OPTIONS { " +
-...> "        bfs: true, " +
+...> "        order: 'bfs', " +
 ...> "        uniqueVertices: 'global' " +
 ...> "    } " +
 ...> "    RETURN author " +
@@ -570,7 +570,7 @@ arangosh> db._query(
 ...> "LET authors = ( " +
 ...> "    FOR author IN INBOUND b written " +
 ...> "    OPTIONS { " +
-...> "        bfs: true, " +
+...> "        order: 'bfs', " +
 ...> "        uniqueVertices: 'global' " +
 ...> "    } " +
 ...> "    RETURN author " +
@@ -618,7 +618,7 @@ If you need the authors and their books, simply reverse the direction.
 ...> "LET booksByAuthor = ( " +
 ...> "    FOR b IN OUTBOUND a written " +
 ...> "    OPTIONS { " +
-...> "        bfs: true, " +
+...> "        order: 'bfs', " +
 ...> "        uniqueVertices: 'global' " +
 ...> "    } " +
 ...> "    RETURN b" +
