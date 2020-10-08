@@ -90,11 +90,21 @@ einige shards out of sync:
 Shard Leader Followers Sync
 s21713989 DBServer0001 DBServer0002, DBServer0003 n/A
 ```
+resync dauert > 10 minuten
 
 - db server / mit kill -STOP und kill -CONT für fünf minuten am arbeiten hindern.
-
+ aehnlich wie 1 minuten ding.
+ 
 
 - coordinatoren  mit kill -STOP und kill -CONT mal für eine - fünf minuten am arbeiten hindern.
+webinterface works again after ~5s 
+- coordinatoren  mit kill -STOP und kill -CONT mal für eine - fünf minuten am arbeiten hindern.
+Cluster uebersicht klemmt
+nodes Uebersicht klemmt fuer ~2 minuten
+load auf dem knoten mit dem gestoppten koordinator steigt auf 10, auf den anderen beiden auf 5
+
+der 'coordinators' und 'dbservers' count braucht ewig zum anzeigen, es fehlt dann trotzdem noch der andere coordinator.
+
 
 - dann die starter killen
 
