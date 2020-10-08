@@ -108,10 +108,28 @@ der 'coordinators' und 'dbservers' count braucht ewig zum anzeigen, es fehlt dan
 
 - dann die starter killen
 
-- db server richtig killen und wieder bringen
+- db server richtig killen und nach 5 minuten wieder bringen
+```
+2020-10-08T12:51:29Z [31069] INFO [805b2] {cluster} using heartbeat interval value '1000 ms' from agency
+2020-10-08T12:51:32Z [31069] WARNING [66666] {cluster} Loading the new plan took: 3.05402s
+```
+
+```
+ 6556 kaveh     20   0 75.839g 0.012t  33028 S  81.2 19.1   2001:55 /tmp/arangodb3e-3.7.3/usr/sbin/arangod -c /opt/kaveh/agent8531/arangod.conf --database.directory /opt/kaveh/agent8531/data --javascript.startup-directory /tmp/arangodb3e-3.7.3/usr/share/arangodb3/js --javascript.app-path /opt/kaveh/agent8531/apps --+
+```
+
+- db server richtig killen und nach 30 minuten wieder bringen
+```
+2020-10-08T14:54:19Z [8379] ERROR [abcde] {communication} communication error: 'Request timeout' from destination 'tcp://192.168.10.12:8530'
+2020-10-08T14:54:19Z [8379] ERROR [abcde] {communication} communication error: 'Request timeout' from destination 'tcp://192.168.10.12:8530'
+
+```
+
+Keine weitere auffaelligkeiten ab von der steigenden Agency ram benutzung. Sync dauert weiter an.
+
 - coord richtig killen und wieder bringen
 
-
+alle killen und neu starten
 
 so alles etwas dokumentieren, wenn du fehler entdeckst "ALARM HIER!" schreien
 
@@ -122,7 +140,7 @@ das musst du dann jedes mal neu setzen, wenn du eine instanz neu startest.
 ```
 for machine in c11 c12 c13; do
     for port in 8531 8528 8529 8530; do
-      curl -X POST "${machine}:${port}/_admin/log/level" -d '{"agency":"info", "supervision": "debug", "requests":"trace", "cluster":"debug", "maintainance":"debug"}'
+      curl -X PUT "${machine}:${port}/_admin/log/level" -d '{"agency":"info", "supervision": "debug", "requests":"trace", "cluster":"debug", "maintainance":"debug"}'
     done
 done
 ```
