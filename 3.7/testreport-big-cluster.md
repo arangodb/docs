@@ -2,6 +2,7 @@
 hier ist der plan. einfach mal schweinereien machen.
 - einzelne instanzen der coordinatoren abschießen und schauen, wie sie wieder erreichbar werden. (das sollte nichts aufregendes ergeben)
   - C11 coordinator neustart dauert etwa eine minuten
+- einzelne db server ab schießen und schauen, wie alles läuft.
   -  C11 11:14:48 dbserver shutdown dauert die agency waechst im RAM waerenddessen 
 
 ```
@@ -70,12 +71,29 @@ cpu auf den anderen DB-Servern geht wieder hoch
 2020-10-08T09:44:59Z [13584] WARNING [77655] {heartbeat} ATTENTION: Sending a heartbeat took longer than 2 seconds, this might be causing trouble with health checks. Please contact ArangoDB Support.
 ```
 
-- einzelne db server ab schießen und schauen, wie alles läuft.
+
+12:00 - mehr und mehr shards kommen in sync, aber noch nicht fertig.
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND                                                                                                                                                                    
+ 6556 kaveh     20   0 70.583g 8.625g  33028 S  44.2 13.7   1932:34 /tmp/arangodb3e-3.7.3/usr/sbin/arangod -c /opt/kaveh/agent8531/arangod.conf --database.directory /opt/kaveh/agent8531/data --javascript.startup-directory /tmp/arangodb3e-3.7.3/usr/share/arangodb3/js --javascript.app-path /opt/kaveh/agent8531/apps --+
+13584 kaveh     20   0 10.769g 5.467g  36524 S  29.7  8.7 132:33.97 /tmp/arangodb3e-3.7.3/usr/sbin/arangod -c /opt/kaveh/dbserver8530/arangod.conf --database.directory /opt/kaveh/dbserver8530/data --javascript.startup-directory /tmp/arangodb3e-3.7.3/usr/share/arangodb3/js --javascript.app-path /opt/kaveh/dbserver853+
+12700 kaveh     20   0 4574696 1.109g  43944 S   2.0  1.8  15:52.88 /tmp/arangodb3e-3.7.3/usr/sbin/arangod -c /opt/kaveh/coordinator8529/arangod.conf --database.directory /opt/kaveh/coordinator8529/data --javascript.startup-directory /tmp/arangodb3e-3.7.3/usr/share/arangodb3/js --javascript.app-path /opt/kaveh/coord+
+
 - die beiden oberen actions sind wahrscheinlich komplett harmlos, das der starter die biester sofort zurück bringt.
+ - nein. SIG_TERM funktioniert nicht (10 minuten) und re-sync dauert > 30 minuten; vermutlich hat die Agency zwischendurch neu gewaehlt.
 
 dann kommen die schweinereien das sollte schon richtig unheil anrichtien.
 
-- db server / mit kill -STOP und kill -CONT mal für eine - fünf minuten am arbeiten hindern.
+- db server / mit kill -STOP und kill -CONT für eine minuten am arbeiten hindern.
+einige shards out of sync:
+```
+Shard Leader Followers Sync
+s21713989 DBServer0001 DBServer0002, DBServer0003 n/A
+```
+
+- db server / mit kill -STOP und kill -CONT für fünf minuten am arbeiten hindern.
+
+
 - coordinatoren  mit kill -STOP und kill -CONT mal für eine - fünf minuten am arbeiten hindern.
 
 - dann die starter killen
