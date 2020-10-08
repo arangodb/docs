@@ -65,6 +65,10 @@ s24077333 DBServer0001 DBServer0002, DBServer0003 n/A
 ```
 cpu auf den anderen DB-Servern geht wieder hoch
 
+```
+2020-10-08T09:44:58Z [13584] WARNING [22e0a] {maintenance} addShardFollower: could not add us to the leader's follower list. timeout in cluster operation
+2020-10-08T09:44:59Z [13584] WARNING [77655] {heartbeat} ATTENTION: Sending a heartbeat took longer than 2 seconds, this might be causing trouble with health checks. Please contact ArangoDB Support.
+```
 
 - einzelne db server ab schießen und schauen, wie alles läuft.
 - die beiden oberen actions sind wahrscheinlich komplett harmlos, das der starter die biester sofort zurück bringt.
@@ -86,9 +90,11 @@ so alles etwas dokumentieren, wenn du fehler entdeckst "ALARM HIER!" schreien
 
 vielleicht lässt du die db server mit "cluster" / "maintenance" in debug laufen. die agenten mit "supervision" in debug.
 das musst du dann jedes mal neu setzen, wenn du eine instanz neu startest.
+
+```
 for machine in c11 c12 c13; do
     for port in 8531 8528 8529 8530; do
       curl -X POST "${machine}:${port}/_admin/log/level" -d '{"agency":"info", "supervision": "debug", "requests":"trace", "cluster":"debug", "maintainance":"debug"}'
     done
 done
-                                     
+```
