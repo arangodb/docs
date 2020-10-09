@@ -748,13 +748,16 @@ FOR user IN users
 
 Converts *date* assumed in Zulu time (UTC) to local *timezone*.
 
+It takes historic daylight saving times into account.
+
 `DATE_UTCTOLOCAL(date, timezone) → dateString`
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - **timezone** (string):
   [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
-  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`. Will throw an error
-  if the timezone is not known to ArangoDB
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB
 - returns **dateString**: date and time expressed according to ISO 8601,
   in unqualified local time
 
@@ -791,13 +794,16 @@ Converts *date* assumed in Zulu time (UTC) to local *timezone*.
 
 Converts *date* assumed in local *timezone* to Zulu time (UTC).
 
+It takes historic daylight saving times into account.
+
 `DATE_LOCALTOUTC(date, timezone) → dateString`
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - **timezone** (string):
   [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
-  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`. Will throw an error
-  if the timezone is not known to ArangoDB
+  e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
+  Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
+  Will throw an error if the timezone is not known to ArangoDB
 - returns **dateString**: date and time expressed according to ISO 8601,
   in Zulu time
 
