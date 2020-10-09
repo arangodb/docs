@@ -124,11 +124,11 @@ returns the figures of a collection
 Returns an object containing statistics about the collection.
 
 Setting `details` to `true` will return extended storage engine-specific
-details to the figures. The details are intended for debugging ArangoDB itself
-and their format is subject to change. Currently, the details are returned for
-the RocksDB storage engine only. By default, `details` is set to `false`, so no
-details are returned and the behavior is identical to previous versions of
-ArangoDB.
+details to the figures (introduced in v3.6.7). The details are intended for
+debugging ArangoDB itself and their format is subject to change. Currently,
+the details are returned for the RocksDB storage engine only. By default,
+`details` is set to `false`, so no details are returned and the behavior is
+identical to previous versions of ArangoDB.
 
 {% hint 'info' %}
 Retrieving the figures will always load the collection into memory.

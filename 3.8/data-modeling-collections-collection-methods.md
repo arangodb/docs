@@ -124,10 +124,10 @@ returns the figures of a collection
 Returns an object containing statistics about the collection.
 
 Setting `details` to `true` will return extended storage engine-specific
-details to the figures. The details are intended for debugging ArangoDB itself
-and their format is subject to change. By default, `details` is set to `false`,
-so no details are returned and the behavior is identical to previous versions
-of ArangoDB.
+details to the figures (introduced in v3.8.0). The details are intended for
+debugging ArangoDB itself and their format is subject to change. By default,
+`details` is set to `false`, so no details are returned and the behavior is
+identical to previous versions of ArangoDB.
 
 * *indexes.count*: The total number of indexes defined for the
   collection, including the pre-defined indexes (e.g. primary index).
