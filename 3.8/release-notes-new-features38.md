@@ -140,3 +140,22 @@ The following logging-related options have been added:
   via the API and UI. Turning this option off will disable that functionality,
   save a tiny bit of memory for the in-memory log buffers and prevent potential
   log information leakage via these means.
+
+Timezone conversion
+-------------------
+
+Added IANA timezone database [tzdata](https://www.iana.org/time-zones){:target="_blank"}.
+
+The following AQL functions have been added for converting datetimes in UTC to
+any timezone in the world including historical daylight saving times and vice
+versa:
+
+- [DATE_UTCTOLOCAL()](aql/functions-date.html#date_utctolocal)
+
+  `DATE_UTCTOLOCAL("2020-10-15T01:00:00.999Z", "America/New_York")`
+  → `"2020-10-14T21:00:00.999"`
+
+- [DATE_LOCALTOUTC()](aql/functions-date.html#date_localtoutc)
+
+  `DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")`
+  → `"2020-10-15T01:00:00.999Z"`

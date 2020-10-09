@@ -17422,6 +17422,143 @@ RETURN UNSHIFT( [ <span class="hljs-number">1</span>, <span class="hljs-number">
 @endDocuBlock aqlArrayUnshift_2
 
 
+<!-- filename: /home/simran/oskar/work/ArangoDB/Documentation/Books/AQL/examples-grouping.md -->
+    @startDocuBlockInline aqlDateGroupingLocalTime_1
+
+
+<div class="example-container" id="aqlDateGroupingLocalTime_1_container">
+<div id="aqlDateGroupingLocalTime_1_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  FOR a IN @activities
+  COLLECT
+    day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate, <span class="hljs-string">'Europe/Berlin'</span>), <span class="hljs-string">'day'</span>)
+  AGGREGATE
+    hours = SUM(a.duration),
+    revenue = SUM(a.duration * a.rate)
+  SORT day ASC
+  RETURN {
+    day,
+    hours,
+    revenue
+  }
+</pre>
+<strong>Bind Values:</strong>
+<pre>
+{
+  <span class="hljs-string">"activities"</span>: [
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-01-31T23:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-02-01T03:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">4</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-02-01T09:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-02-01T17:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-03-31T21:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-03-31T22:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-03-31T22:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-04-01T03:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">5</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-04-01T13:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-04-01T16:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">3</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    }
+  ]
+}
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  {
+    <span class="hljs-string">"day"</span>: <span class="hljs-string">"2020-02-01T00:00:00.000Z"</span>,
+    <span class="hljs-string">"hours"</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-string">"revenue"</span>: <span class="hljs-number">3000</span>
+  },
+  {
+    <span class="hljs-string">"day"</span>: <span class="hljs-string">"2020-03-31T00:00:00.000Z"</span>,
+    <span class="hljs-string">"hours"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">"revenue"</span>: <span class="hljs-number">250</span>
+  },
+  {
+    <span class="hljs-string">"day"</span>: <span class="hljs-string">"2020-04-01T00:00:00.000Z"</span>,
+    <span class="hljs-string">"hours"</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-string">"revenue"</span>: <span class="hljs-number">2000</span>
+  }
+]</pre>
+<div id="aqlDateGroupingLocalTime_1_container_collapse" onclick="$('#aqlDateGroupingLocalTime_1_long').hide(); $('#aqlDateGroupingLocalTime_1_short').show(); window.location.hash='aqlDateGroupingLocalTime_1_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlDateGroupingLocalTime_1_short" onclick="$('#aqlDateGroupingLocalTime_1_short').hide(); $('#aqlDateGroupingLocalTime_1_long').show();">
+<strong>Query:</strong>
+<pre>
+  FOR a IN @activities
+  COLLECT
+    day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate, <span class="hljs-string">'Europe/Berlin'</span>), <span class="hljs-string">'day'</span>)
+  AGGREGATE
+    hours = SUM(a.duration),
+    revenue = SUM(a.duration * a.rate)
+  SORT day ASC
+  RETURN {
+    day,
+    hours,
+    revenue
+  }
+</pre>
+<strong>Bind Values:</strong>
+<pre>
+{
+  <span class="hljs-string">"activities"</span>: [
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-01-31T23:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-02-01T03:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">4</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-02-01T09:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-02-01T17:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-03-31T21:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-03-31T22:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-03-31T22:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-04-01T03:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">5</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-04-01T13:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-04-01T16:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">3</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    }
+  ]
+}
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlDateGroupingLocalTime_1
+
+
 <!-- filename: /work/ArangoDB/Documentation/Books/AQL/examples-remove-vertex.md -->
     @startDocuBlockInline GRAPHTRAV_removeVertex1
 
@@ -21603,6 +21740,176 @@ FOR quarter IN [ <span class="hljs-number">1</span>, <span class="hljs-number">2
 </div>
 
     @endDocuBlock dateRoundAggregate
+
+
+<!-- filename: /home/simran/oskar/work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
+    @startDocuBlockInline aqlDateTimeToLocal_1
+
+
+<div class="example-container" id="aqlDateTimeToLocal_1_container">
+<div id="aqlDateTimeToLocal_1_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Europe/Berlin"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"America/New_York"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"UTC"</span>)
+  ]
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  [
+    <span class="hljs-string">"2020-03-15T01:00:00.000"</span>,
+    <span class="hljs-string">"2020-03-14T20:00:00.000"</span>,
+    <span class="hljs-string">"2020-03-15T00:00:00.000Z"</span>
+  ]
+]</pre>
+<div id="aqlDateTimeToLocal_1_container_collapse" onclick="$('#aqlDateTimeToLocal_1_long').hide(); $('#aqlDateTimeToLocal_1_short').show(); window.location.hash='aqlDateTimeToLocal_1_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlDateTimeToLocal_1_short" onclick="$('#aqlDateTimeToLocal_1_short').hide(); $('#aqlDateTimeToLocal_1_long').show();">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Europe/Berlin"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"America/New_York"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"UTC"</span>)
+  ]
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlDateTimeToLocal_1
+
+
+<!-- filename: /home/simran/oskar/work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
+    @startDocuBlockInline aqlDateTimeToLocal_2
+
+
+<div class="example-container" id="aqlDateTimeToLocal_2_container">
+<div id="aqlDateTimeToLocal_2_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000Z"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000-02:00"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-number">1584230400000</span>, <span class="hljs-string">"Asia/Shanghai"</span>)
+  ]
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  [
+    <span class="hljs-string">"2020-03-15T08:00:00.000"</span>,
+    <span class="hljs-string">"2020-03-15T08:00:00.000"</span>,
+    <span class="hljs-string">"2020-03-15T10:00:00.000"</span>,
+    <span class="hljs-string">"2020-03-15T08:00:00.000"</span>
+  ]
+]</pre>
+<div id="aqlDateTimeToLocal_2_container_collapse" onclick="$('#aqlDateTimeToLocal_2_long').hide(); $('#aqlDateTimeToLocal_2_short').show(); window.location.hash='aqlDateTimeToLocal_2_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlDateTimeToLocal_2_short" onclick="$('#aqlDateTimeToLocal_2_short').hide(); $('#aqlDateTimeToLocal_2_long').show();">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000Z"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000-02:00"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-number">1584230400000</span>, <span class="hljs-string">"Asia/Shanghai"</span>)
+  ]
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlDateTimeToLocal_2
+
+
+<!-- filename: /home/simran/oskar/work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
+    @startDocuBlockInline aqlDateTimeToUTC_1
+
+
+<div class="example-container" id="aqlDateTimeToUTC_1_container">
+<div id="aqlDateTimeToUTC_1_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Europe/Berlin"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"America/New_York"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"UTC"</span>)
+  ]
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  [
+    <span class="hljs-string">"2020-03-14T23:00:00.000Z"</span>,
+    <span class="hljs-string">"2020-03-15T04:00:00.000Z"</span>,
+    <span class="hljs-string">"2020-03-15T00:00:00.000Z"</span>
+  ]
+]</pre>
+<div id="aqlDateTimeToUTC_1_container_collapse" onclick="$('#aqlDateTimeToUTC_1_long').hide(); $('#aqlDateTimeToUTC_1_short').show(); window.location.hash='aqlDateTimeToUTC_1_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlDateTimeToUTC_1_short" onclick="$('#aqlDateTimeToUTC_1_short').hide(); $('#aqlDateTimeToUTC_1_long').show();">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Europe/Berlin"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"America/New_York"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"UTC"</span>)
+  ]
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlDateTimeToUTC_1
+
+
+<!-- filename: /home/simran/oskar/work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
+    @startDocuBlockInline aqlDateTimeToUTC_2
+
+
+<div class="example-container" id="aqlDateTimeToUTC_2_container">
+<div id="aqlDateTimeToUTC_2_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000Z"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000-02:00"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-number">1584230400000</span>, <span class="hljs-string">"Asia/Shanghai"</span>)
+  ]
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  [
+    <span class="hljs-string">"2020-03-14T16:00:00.000Z"</span>,
+    <span class="hljs-string">"2020-03-14T16:00:00.000Z"</span>,
+    <span class="hljs-string">"2020-03-14T18:00:00.000Z"</span>,
+    <span class="hljs-string">"2020-03-14T16:00:00.000Z"</span>
+  ]
+]</pre>
+<div id="aqlDateTimeToUTC_2_container_collapse" onclick="$('#aqlDateTimeToUTC_2_long').hide(); $('#aqlDateTimeToUTC_2_short').show(); window.location.hash='aqlDateTimeToUTC_2_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlDateTimeToUTC_2_short" onclick="$('#aqlDateTimeToUTC_2_short').hide(); $('#aqlDateTimeToUTC_2_long').show();">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000Z"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000-02:00"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-number">1584230400000</span>, <span class="hljs-string">"Asia/Shanghai"</span>)
+  ]
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlDateTimeToUTC_2
 
 
 <!-- filename: /work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
