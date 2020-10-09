@@ -6,10 +6,10 @@ arangosh&gt; db.geoFilter.ensureIndex({ type: "geo", fields: [ "latitude", "long
     "longitude" 
   ], 
   "geoJson" : false, 
-  "id" : "geoFilter/86292", 
+  "id" : "geoFilter/86303", 
   "isNewlyCreated" : true, 
   "maxNumCoverCells" : 8, 
-  "name" : "idx_1676117727278792704", 
+  "name" : "idx_1678011890014355456", 
   "sparse" : true, 
   "type" : "geo", 
   "unique" : false, 
@@ -34,7 +34,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type   Collection   Unique   Sparse   Selectivity   Fields                        Ranges
-  6   idx_1676117727278792704   geo    geoFilter    false    true             n/a   [ `latitude`, `longitude` ]   (GEO_DISTANCE([ 0, 0 ], [ doc.`longitude`, doc.`latitude` ]) &lt; 2000)
+  6   idx_1678011890014355456   geo    geoFilter    false    true             n/a   [ `latitude`, `longitude` ]   (GEO_DISTANCE([ 0, 0 ], [ doc.`longitude`, doc.`latitude` ]) &lt; 2000)
 
 Optimization rules applied:
  Id   RuleName
@@ -45,9 +45,9 @@ Optimization rules with highest execution times:
  RuleName                                    Duration [s]
  geo-index-optimizer                              0.00003
  remove-unnecessary-calculations-2                0.00000
- replace-function-with-index                      0.00000
  reduce-extraction-to-projection                  0.00000
  optimize-subqueries                              0.00000
+ replace-function-with-index                      0.00000
 
 41 rule(s) executed, 1 plan(s) created
 
@@ -55,9 +55,9 @@ Optimization rules with highest execution times:
 arangosh&gt; db._query(query);
 [ 
   { 
-    "_key" : "86998", 
-    "_id" : "geoFilter/86998", 
-    "_rev" : "_bAvBDPi---", 
+    "_key" : "87009", 
+    "_id" : "geoFilter/87009", 
+    "_rev" : "_bHdsvwy---", 
     "name" : "Name/0/0", 
     "latitude" : 0, 
     "longitude" : 0 

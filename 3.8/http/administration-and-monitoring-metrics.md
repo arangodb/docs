@@ -283,7 +283,7 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_http_request_statistics_http_get_requests` | Number of HTTP GET requests |
 | `arangodb_http_request_statistics_http_head_requests` | Number of HTTP HEAD requests |
 | `arangodb_http_request_statistics_http_options_requests` | Number of HTTP OPTIONS requests |
-| `arangodb_http_request_statistics_http_patch_requests` | Number of HTTP PATH requests |
+| `arangodb_http_request_statistics_http_patch_requests` | Number of HTTP PATCH requests |
 | `arangodb_http_request_statistics_http_post_requests` | Number of HTTP POST requests |
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
