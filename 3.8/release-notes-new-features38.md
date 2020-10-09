@@ -9,6 +9,58 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.8. ArangoDB 3.8 also contains several bug fixes that are not listed
 here.
 
+Weighted Traversals
+-------------------
+
+The graph traversal option `bfs` is now deprecated and superseded by the new
+option `order`. It supports a new traversal type `"weighted"`, which enumerate
+paths by increasing weights.
+
+The cost of an edge can be read from an attribute which can be specified with
+the `weightAttribute` option.
+
+```js
+FOR x, v, p IN 0..10  "places/York" GRAPH "kShortestPathsGraph"
+    OPTIONS {
+      order: "weighted",
+      weightAttribute: "travelTime",
+      uniqueVertices: "path"
+    }
+    FILTER p.edges[*].travelTime ALL < 3
+    LET totalTime = LAST(p.weights)
+    FILTER totalTime < 6
+    SORT totalTime DESC
+    RETURN {
+      path: p.vertices[*]._key,
+      weight: LAST(p.weights),
+      weights: p.edges[*].travelTime
+    }
+```
+
+`path` | `weight` | `weights`
+:------|:---------|:---------
+`["York","London","Birmingham","Carlisle"]` | `5.3` | `[1.8,2.5,1]`
+`["York","London","Birmingham"]`            | `4.3` | `[1.8,2.5]`
+`["York","London","Brussels"]`              | `4.3` | `[1.8,2.5]`
+`["York","London"]`                         | `1.8` | `[1.8]`
+`["York"]`                                  |   `0` | `[]`
+
+The preferred way to start a breadth-first search from now on is with
+`order: "bfs"`. The default remains depth-first search if no `order` is
+specified, but can also be explicitly requested with `order: "dfs"`.
+
+Also see [AQL graph traversals](aql/graphs-traversals.html)
+
+ArangoSearch
+------------
+
+Added new Analyzer type `"pipeline"` for chaining effects of multiple Analyzers
+into one. It allows you to combine text normalization for a case insensitive
+search with ngram tokenization, or to split text at multiple delimiting
+characters followed by stemming.
+
+See [ArangoSearch Pipeline Analyzer](arangosearch-analyzers.html#pipeline)
+
 Metrics
 -------
 
@@ -88,3 +140,22 @@ The following logging-related options have been added:
   via the API and UI. Turning this option off will disable that functionality,
   save a tiny bit of memory for the in-memory log buffers and prevent potential
   log information leakage via these means.
+
+Timezone conversion
+-------------------
+
+Added IANA timezone database [tzdata](https://www.iana.org/time-zones){:target="_blank"}.
+
+The following AQL functions have been added for converting datetimes in UTC to
+any timezone in the world including historical daylight saving times and vice
+versa:
+
+- [DATE_UTCTOLOCAL()](aql/functions-date.html#date_utctolocal)
+
+  `DATE_UTCTOLOCAL("2020-10-15T01:00:00.999Z", "America/New_York")`
+  → `"2020-10-14T21:00:00.999"`
+
+- [DATE_LOCALTOUTC()](aql/functions-date.html#date_localtoutc)
+
+  `DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")`
+  → `"2020-10-15T01:00:00.999Z"`

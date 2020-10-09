@@ -88,16 +88,17 @@ The currently implemented Analyzer types are:
 - `ngram`: create n-grams from value with user-defined lengths
 - `text`: tokenize into words, optionally with stemming,
   normalization, stop-word filtering and edge n-gram generation
+- `pipeline`: for chaining multiple Analyzers
 
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
-Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text
-:------------------|:---------|:--------|:----------|:-----|:-----|:----
-**Tokenization**   | No       | No      | (Yes)     | No   | No   | Yes
-**Stemming**       | No       | No      | No        | Yes  | No   | Yes
-**Normalization**  | No       | No      | No        | No   | Yes  | Yes
-**N-grams**        | No       | Yes     | No        | No   | No   | (Yes)
+Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text  | Pipeline
+:------------------|:---------|:--------|:----------|:-----|:-----|:------|:--------
+**Tokenization**   | No       | No      | (Yes)     | No   | No   | Yes   | (Yes)
+**Stemming**       | No       | No      | No        | Yes  | No   | Yes   | (Yes)
+**Normalization**  | No       | No      | No        | No   | Yes  | Yes   | (Yes)
+**N-grams**        | No       | Yes     | No        | No   | No   | (Yes) | (Yes)
 
 Analyzer Properties
 -------------------
@@ -272,7 +273,7 @@ The built-in `text_en` Analyzer has stemming enabled (note the word endings):
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerTextStem
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextStem}
-      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en")`)
+      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en")`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextStem
 {% endarangoshexample %}
@@ -285,14 +286,14 @@ disabled like this:
     @startDocuBlockInline analyzerTextNoStem
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextNoStem}
       var analyzers = require("@arangodb/analyzers")
-    | analyzers.save("text_en_nostem", "text", {
+    | var a = analyzers.save("text_en_nostem", "text", {
     |   locale: "en.utf-8",
     |   case: "lower",
     |   accent: false,
     |   stemming: false,
     |   stopwords: []
       }, ["frequency","norm","position"])
-      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en_nostem")`)
+      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en_nostem")`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextNoStem
 {% endarangoshexample %}
@@ -305,7 +306,7 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
     @startDocuBlockInline analyzerTextEdgeNgram
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextEdgeNgram}
     ~ var analyzers = require("@arangodb/analyzers")
-    | analyzers.save("text_edge_ngrams", "text", {
+    | var a = analyzers.save("text_edge_ngrams", "text", {
     |   edgeNgram: { min: 3, max: 8, preserveOriginal: true },
     |   locale: "en.utf-8",
     |   case: "lower",
@@ -313,9 +314,67 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
     |   stemming: false,
     |   stopwords: [ "the" ]
       }, ["frequency","norm","position"])
-      db._query(`RETURN TOKENS("The quick brown fox jumps over the dogWithAVeryLongName", "text_edge_ngrams")`)
+    | db._query(`RETURN TOKENS(
+    |   "The quick brown fox jumps over the dogWithAVeryLongName",
+    |   "text_edge_ngrams"
+      )`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextEdgeNgram
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+### Pipeline
+
+<small>Introduced in: v3.8.0</small>
+
+An Analyzer capable of chaining effects of multiple Analyzers into one.
+The pipeline is a list of Analyzers, where the output of an Analyzer is passed
+to the next for further processing. The final token value is determined by last
+Analyzer in the pipeline.
+
+The Analyzer is designed for cases like the following:
+- Normalize text for a case insensitive search and apply ngram tokenization
+- Split input with `delimiter` Analyzer, followed by stemming with the `stem`
+  Analyzer
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `pipeline` (array): an array of Analyzer definition-like objects with
+  `type` and `properties` attributes
+
+**Examples**
+
+Normalize to all uppercase and compute bigrams:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerPipelineUpperNgram
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineUpperNgram}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("ngram_upper", "pipeline", { pipeline: [
+    |   { type: "norm", properties: { locale: "en.utf-8", case: "upper" } },
+    |   { type: "ngram", properties: { min: 2, max: 2, preserveOriginal: false, streamType: "utf8" } }
+      ] }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("Quick brown foX", "ngram_upper")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerPipelineUpperNgram
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Split at delimiting characters `,` and `;`, then stem the tokens:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerPipelineDelimiterStem
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineDelimiterStem}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("delimiter_stem", "pipeline", { pipeline: [
+    |   { type: "delimiter", properties: { delimiter: "," } },
+    |   { type: "delimiter", properties: { delimiter: ";" } },
+    |   { type: "stem", properties: { locale: "en.utf-8" } }
+      ] }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerPipelineDelimiterStem
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
@@ -364,6 +423,7 @@ Name       | Type       | Locale (Language)       | Case    | Accent  | Stemming
 `text_ru`  | `text`     | `ru.utf-8` (Russian)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
 `text_sv`  | `text`     | `sv.utf-8` (Swedish)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
 `text_zh`  | `text`     | `zh.utf-8` (Chinese)    | `lower` | `false` | `true`   | `[ ]`     | `["frequency", "norm", "position"]`
+{:class="table-scroll"}
 
 Note that _locale_, _case_, _accent_, _stemming_ and _stopwords_ are Analyzer
 properties. `text_zh` does not have actual stemming support for Chinese despite
