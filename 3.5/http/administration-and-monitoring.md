@@ -43,5 +43,8 @@ Cluster
 Other
 -----
 
+<!-- arangod/RocksDBEngine/RocksDBRestHandlers.cpp -->
+{% docublock put_admin_compact %}
+
 <!-- js/actions/api-system.js -->
 {% docublock get_admin_routing_reloads %}
