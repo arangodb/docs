@@ -74,6 +74,8 @@ in ArangoDB 3.8 and can be used for monitoring and alerting:
 | `arangodb_aql_query_time` | Histogram with AQL query times distribution |
 | `arangodb_aql_slow_query_time` | Histogram with AQL slow query times distribution |
 | `arangodb_aql_slow_query` | Total number of slow AQL queries |
+| `arangodb_http_request_statistics_superuser_requests` | Total number of HTTP requests executed by superuser/JWT |
+| `arangodb_http_request_statistics_user_requests` | Total number of HTTP requests executed by clients |
 | `arangodb_network_forwarded_requests` | Number of requests forwarded from one Coordinator to another in a load-balancing setup |
 | `arangodb_replication_dump_apply_time` | Time required for applying data from replication dump responses (ms) |
 | `arangodb_replication_dump_bytes_received` | Number of bytes received in replication dump requests |
