@@ -105,6 +105,8 @@ in ArangoDB 3.8 and can be used for monitoring and alerting:
 | `arangodb_replication_tailing_requests` | Number of replication tailing requests |
 | `arangodb_rocksdb_free_disk_space` | Free disk space for the RocksDB database directory mount (bytes) |
 | `arangodb_rocksdb_total_disk_space` | Total disk space for the RocksDB database directory mount (bytes) |
+| `arangodb_scheduler_threads_started` | Number of scheduler threads started |
+| `arangodb_scheduler_threads_stopped` | Number of scheduler threads stopped |
 | `rocksdb_free_inodes` | Number of free inodes for the file system with the RocksDB database directory (always `0` on Windows) |
 | `rocksdb_total_inodes` | Total number of inodes for the file system with the RocksDB database directory (always `0` on Windows) |
 

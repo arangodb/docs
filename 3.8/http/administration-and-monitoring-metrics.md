@@ -350,6 +350,8 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_scheduler_num_worker_threads` | Number of worker threads |
 | `arangodb_scheduler_queue_full_failures` | Number of times the scheduler queue was full and a task/request was rejected |
 | `arangodb_scheduler_queue_length` | Server's internal queue length |
+| `arangodb_scheduler_threads_started` | Number of scheduler threads started |
+| `arangodb_scheduler_threads_stopped` | Number of scheduler threads stopped |
 | `arangodb_server_statistics_physical_memory` | Physical memory in bytes |
 | `arangodb_server_statistics_server_uptime` | Number of seconds elapsed since server start |
 | `arangodb_shards_leader_count` | Number of leader shards on this machine |
