@@ -26,6 +26,11 @@ ArangoSearch Views. This made the attribute relatively useless for any
 real-world use cases, and so we are now hard-coding it to simplify the internal
 code. Using the attribute in client applications is also deprecated.
 
+The endpoint `/_api/transaction` previously would allow users to list, query,
+commit, and abort transactions operating in any database as long as the user had
+sufficient permissions. Now the endpoint will restrict operations to
+transactions within the current database.
+
 ### Endpoints added
 
 ### Endpoints augmented
