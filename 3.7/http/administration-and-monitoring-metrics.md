@@ -284,7 +284,9 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_http_request_statistics_http_post_requests` | Number of HTTP POST requests |
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
+| `arangodb_http_request_statistics_superuser_requests` | Total number of HTTP requests executed by superuser/JWT |
 | `arangodb_http_request_statistics_total_requests` | Total number of HTTP requests |
+| `arangodb_http_request_statistics_user_requests` | Total number of HTTP requests executed by clients |
 | `arangodb_intermediate_commits` | Intermediate commits |
 | `arangodb_load_current_accum_runtime_msec` | Accumulated Current loading time (ms) |
 | `arangodb_load_current_runtime` | Current loading runtimes (ms) |
@@ -316,6 +318,8 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_scheduler_num_worker_threads` | Number of worker threads |
 | `arangodb_scheduler_queue_full_failures` | Number of times the scheduler queue was full and a task/request was rejected |
 | `arangodb_scheduler_queue_length` | Server's internal queue length |
+| `arangodb_scheduler_threads_started` | Number of scheduler threads started |
+| `arangodb_scheduler_threads_stopped` | Number of scheduler threads stopped |
 | `arangodb_server_statistics_physical_memory` | Physical memory in bytes |
 | `arangodb_server_statistics_server_uptime` | Number of seconds elapsed since server start |
 | `arangodb_shards_leader_count` | Number of leader shards on this machine |

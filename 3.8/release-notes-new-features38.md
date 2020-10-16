@@ -74,18 +74,22 @@ in ArangoDB 3.8 and can be used for monitoring and alerting:
 | `arangodb_aql_query_time` | Histogram with AQL query times distribution |
 | `arangodb_aql_slow_query_time` | Histogram with AQL slow query times distribution |
 | `arangodb_aql_slow_query` | Total number of slow AQL queries |
+| `arangodb_http_request_statistics_superuser_requests` | Total number of HTTP requests executed by superuser/JWT |
+| `arangodb_http_request_statistics_user_requests` | Total number of HTTP requests executed by clients |
 | `arangodb_network_forwarded_requests` | Number of requests forwarded from one Coordinator to another in a load-balancing setup |
 | `arangodb_replication_dump_apply_time` | Time required for applying data from replication dump responses (ms) |
 | `arangodb_replication_dump_bytes_received` | Number of bytes received in replication dump requests |
 | `arangodb_replication_dump_documents` | Number of documents received in replication dump requests |
 | `arangodb_replication_dump_request_time` | Wait time for replication dump requests (ms) |
 | `arangodb_replication_dump_requests` | Number of replication dump requests made |
+| `arangodb_replication_failed_connects` | Number of failed connection attempts and response errors during replication |
 | `arangodb_replication_initial_chunks_requests_time` | Wait time for replication key chunks determination requests (ms) |
 | `arangodb_replication_initial_docs_requests_time` | Time needed to apply replication docs data (ms) |
 | `arangodb_replication_initial_insert_apply_time` | Time needed to apply replication initial sync insertions (ms) |
 | `arangodb_replication_initial_keys_requests_time` | Wait time for replication keys requests (ms) |
 | `arangodb_replication_initial_lookup_time` | Time needed for replication initial sync key lookups (ms) |
 | `arangodb_replication_initial_remove_apply_time` | Time needed to apply replication initial sync removals (ms) |
+| `arangodb_replication_initial_sync_bytes_received` | Number of bytes received during replication initial sync |
 | `arangodb_replication_initial_sync_docs_inserted` | Number of documents inserted by replication initial sync |
 | `arangodb_replication_initial_sync_docs_removed` | Number of documents inserted by replication initial sync |
 | `arangodb_replication_initial_sync_docs_requested` | Number of documents requested via replication initial sync requests |
@@ -101,6 +105,10 @@ in ArangoDB 3.8 and can be used for monitoring and alerting:
 | `arangodb_replication_tailing_requests` | Number of replication tailing requests |
 | `arangodb_rocksdb_free_disk_space` | Free disk space for the RocksDB database directory mount (bytes) |
 | `arangodb_rocksdb_total_disk_space` | Total disk space for the RocksDB database directory mount (bytes) |
+| `arangodb_scheduler_threads_started` | Number of scheduler threads started |
+| `arangodb_scheduler_threads_stopped` | Number of scheduler threads stopped |
+| `rocksdb_free_inodes` | Number of free inodes for the file system with the RocksDB database directory (always `0` on Windows) |
+| `rocksdb_total_inodes` | Total number of inodes for the file system with the RocksDB database directory (always `0` on Windows) |
 
 Logging
 -------

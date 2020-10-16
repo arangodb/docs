@@ -119,9 +119,15 @@ Figures
 <!-- arangod/V8Server/v8-collection.cpp -->
 
 returns the figures of a collection
-`collection.figures()`
+`collection.figures(details)`
 
 Returns an object containing statistics about the collection.
+
+Setting `details` to `true` will return extended storage engine-specific
+details to the figures (introduced in v3.7.3). The details are intended for
+debugging ArangoDB itself and their format is subject to change. By default,
+`details` is set to `false`, so no details are returned and the behavior is
+identical to previous versions of ArangoDB.
 
 * *indexes.count*: The total number of indexes defined for the
   collection, including the pre-defined indexes (e.g. primary index).
@@ -141,6 +147,16 @@ Returns an object containing statistics about the collection.
       db.demo.figures()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionFigures
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline collectionFiguresDetails
+    @EXAMPLE_ARANGOSH_OUTPUT{collectionFiguresDetails}
+    ~ require("internal").wal.flush(true, true);
+      db.demo.figures(true)
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock collectionFiguresDetails
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 

@@ -79,6 +79,18 @@ div.example_show_button {
   white-space: nowrap;
 }
 
+.markdown-section table a {
+  word-break: break-word;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.markdown-section table a.no-wrap {
+  word-break: initial;
+  word-wrap: initial;
+  overflow-wrap: initial;
+}
+
 .localized-footer {
   opacity: 0.5;
 }
