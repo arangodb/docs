@@ -10,6 +10,36 @@ upgrading to ArangoDB 3.8, and adjust any client programs if necessary.
 
 The following incompatible changes have been made in ArangoDB 3.8:
 
+Foxx
+----
+
+The default value of the startup option `--foxx.force-update-on-startup` changes
+from `true` to `false` in ArangoDB 3.8.
+This option controls whether the startup procedure should synchronize all Foxx
+apps in all databases before making them available, or whether startup should
+proceed without ensuring all Foxx apps are in sync. In the latter case, the 
+synchronization will happen eventually.
+
+In ArangoDB 3.6 and 3.7, the option's default value is `true`, meaning all Foxx apps 
+in all databases will be synchronized on server startup. This can delay the startup
+procedure for installations with many databases, and is unnecessary in case no
+Foxx apps are used.
+
+In ArangoDB 3.8 the default value for the option is `false`, meaning a server will
+complete the boot sequence faster, and the Foxx services will be synchronized in 
+a background operation. Until that operation has completed, any requests to a 
+Foxx app may be responded to with an HTTP 500 error and message 
+
+    waiting for initialization of Foxx services in this database 
+
+This can cause an unavailability window for Foxx apps for the initial requests to
+Foxx apps.
+
+This option only has an effect for cluster setups. On single servers and in
+active failover mode, all Foxx apps will always be initialized completely when
+the server starts up, and there will be no unavailability window.
+
+
 Startup options
 ---------------
 
