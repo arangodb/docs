@@ -230,7 +230,11 @@ due to (repeated) connection problems:
     "lastError" : { 
       "errorNum" : 1400, 
       "time" : "2019-03-01T11:52:45Z", 
+<<<<<<< Updated upstream:3.8/architecture-deployment-modes-leader-follower-architecture.md
       "errorMessage" : "could not connect to leader at tcp://127.0.0.1:8529 for URL /_api/wal/tail?chunkSize=6291456&barrier=0&from=2101606369&lastScanned=2101606370&serverId=46402312160836&includeSystem=true&includeFoxxQueues=false: Could not connect to 'http+tcp://127.0.0.1:852..." 
+=======
+      "errorMessage" : "could not connect to master at tcp://127.0.0.1:8529 for URL /_api/wal/tail?chunkSize=6291456&from=2101606369&lastScanned=2101606370&serverId=46402312160836&includeSystem=true&includeFoxxQueues=false: Could not connect to 'http+tcp://127.0.0.1:852..." 
+>>>>>>> Stashed changes:3.8/architecture-deployment-modes-master-slave-architecture.md
     }, 
     "time" : "2019-03-01T11:52:56Z" 
   }, 
