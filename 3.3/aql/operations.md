@@ -20,3 +20,4 @@ The following high-level operations are described here after:
 * [INSERT](operations-insert.html): Insert new documents into a collection.
 * [UPSERT](operations-upsert.html): Update/replace an existing document, or create it in the case it does not exist.
 * [WITH](operations-with.html): Specify collections used in a query (at query begin only).
+* [WINDOW](operations-window.html): Perform aggregations over related rows.
