@@ -101,7 +101,7 @@ FOR t IN observations
 
 To better support WINDOW frames over timeseries, the WINDOW operation supports ISO duration strings in `following` and `preceding`.
 If a ISO duration was used the current row value is treated as numeric **timestamp with millisecond** precision. 
-See [Date functions](functions-date.md#Comparison-and-calculation) for more information.
+See [Date functions](functions-date.html#comparison-and-calculation) for more information.
 
 The following query demonstrates the use of window frames to compute running totals over observations 
 in the last 3 weeks and 2 days:
