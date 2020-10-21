@@ -27,12 +27,13 @@ WINDOW {preceding: numPrecedingRows, following: numFollowingRows} AGGREGATE vari
 WINDOW rangeValue WITH {preceding: offsetPreceding, following: offsetFollowing} AGGREGATE variableName = aggregateExpression
 ```
 
-WINDOW Row syntax
------------------------
+Row based Syntax
+----------------
 
-The first syntax form of `WINDOW` only allows aggregating over a fixed number of rows, following or preceding the current row.
+The first syntax form of `WINDOW` allows aggregating over a fixed number of rows, 
+following or preceding the current row. The number of rows has to be determined at query compile time.
 
-The following query demonstrates the use of window frames to compute running totals
+The below query demonstrates the use of window frames to compute running totals
 as well as rolling averages computed from the current row and the rows that immediately precede and follow it: 
 
 ```
@@ -45,7 +46,7 @@ FOR t IN observations
 ")
 ```
 
-The following query demonstrates the use of window frames to compute running totals within each group of *time*-ordered query rows, 
+The below query demonstrates the use of window frames to compute running totals within each group of *time*-ordered query rows, 
 as well as rolling averages computed from the current row and the rows that immediately precede and follow it: 
 
 ```
@@ -78,14 +79,15 @@ FOR t IN observations
 ```
 
 
-WINDOW Range syntax
------------------------
+Range based Syntax
+------------------
 
 The second syntax form of `WINDOW` allows aggregating over a all rows within a value range. 
 Offsets are differences in row values from the current row value. 
 
 Row values have to be numeric. The offset calculations are performed by adding / subtracting the numeric
-offsets specified in the `following` and `preceding` field. The default value for these is a double *0.0*
+offsets specified in the `following` and `preceding` attribute. The offset numbers have to be positive and have
+to be determined at query compile time. The default offset is *0*.
 
 The following query demonstrates the use of window frames to compute running totals
 as well as rolling averages computed from the current row and the rows that have row values in `t.time` 
@@ -97,11 +99,18 @@ FOR t IN observations
 	RETURN {time: t.time, running_average: rollingAvg, rolling_sum: rollSum}
 ```
 
-###  ISO Durations 
+The range based window syntax required the input rows to be sorted by the row value.
+To ensure correctness of the result, the AQL optimizer will automatically insert a `SORT` 
+statement into the query in front of the `WINDOW` statement. The optimizer may be able to 
+optimize away that `SORT` statement later if a sorted index is present on the group criteria. 
 
-To better support WINDOW frames over timeseries, the WINDOW operation supports ISO duration strings in `following` and `preceding`.
-If a ISO duration was used the current row value is treated as numeric **timestamp with millisecond** precision. 
-See [Date functions](functions-date.html#comparison-and-calculation) for more information.
+Duration Syntax
+---------------
+
+To support WINDOW frames over time-series data the WINDOW operation 
+may calculate timestamp offsets using positive ISO duration strings specified in `following` and `preceding`.
+If a ISO duration was used the current row value is treated as numeric **timestamp** with **millisecond precision**. 
+See [Date functions, comparison and calculation](functions-date.html#comparison-and-calculation) for more information.
 
 The following query demonstrates the use of window frames to compute running totals over observations 
 in the last 3 weeks and 2 days:
