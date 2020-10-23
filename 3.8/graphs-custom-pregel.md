@@ -348,7 +348,7 @@ value is returned. If no branch matches, `none` is returned. This is a C-like
 `switch` statement except that its `case`-values are not treated as constants.
 
 ```js
-> ["match", 5, 
+> ["match", 5,
   [1, ["A"]],
   [2, ["B"]],
   [3, ["C"]],
@@ -411,13 +411,13 @@ _like `quote` but can be unquoted_
 `quasi-quote` is like `quote` but can be unquoted using
 `unquote`/`unquote-splice`.
 
-Unlike `quote` `quasi-quote` scans all the unevaluated values passed as parameters but copies them. 
-When it finds a `unquote` or `unquote-splice` it evaluates its parameters and copies/splices the 
+Unlike `quote` `quasi-quote` scans all the unevaluated values passed as parameters but copies them.
+When it finds a `unquote` or `unquote-splice` it evaluates its parameters and copies/splices the
 resulting value into the output.
 
 ```js
 ["quasi-quote", [
-  ["this", "list", "is", "copied"], // this is not evaluated as call 
+  ["this", "list", "is", "copied"], // this is not evaluated as call
   ["this", "is",                    // this neither
     ["unquote-splice", ["f", 2]]    // this will splice f(2) into the result
   ]
@@ -662,7 +662,7 @@ that the parameters are bound to. Both can be accessed using their name via
 `var-ref`. `body` is evaluated when the lambda is called.
 
 ```js
-> [["lambda", ["quote"], ["quote", "x"], ["quote", "+", ["var-ref", "x"], 4]], 6]
+> [["lambda", ["quote", []], ["quote", ["x"]], ["quote", ["+", ["var-ref", "x"], 4]]], 6]
  = 10
 ```
 
@@ -700,20 +700,29 @@ to its decimal representation.
 ["apply", func, list]
 ["map", func, list]
 ["map", func, dict]
+["filter", func, list]
+["filter", func, dict]
 ```
 
 `id` returns its argument. `apply` invokes `func` using the values from `list`
 as arguments. `map` invokes `func` for every value/key-value-pair in the
-`list`/`dict`. `func` should accept one parameter `(value)`/two parameters
-`(key, value)`.
+`list`/`dict`. `func` should accept two parameter `(index, value)`/`(key, value)`.
+`filter` returns a new list/dict that contains all entries for which the return value
+of `func` invoked with `(index, value)`/`(key, value)` is considered true.
 
 ```js
 > ["id", 12]
  = 12
 > ["apply", "min", ["quote", 1, 2, 3]]
  = 1
-> ["map", "int-to-string", ["quote", 1, 2, 3, 4]]
+> ["map", ["lambda", ["list"], ["list", "idx", "value"], ["quote", ["int-to-str", ["var-ref", "value"]]]], ["list", 1, 2, 3, 4]]
  = ["1", "2", "3", "4"]
+> ["filter", ["lambda",
+        ["list"],
+        ["list", "idx", "value"],
+        ["quote", ["gt?", ["var-ref", "value"], 3]]
+      ], ["list", 1, 2, 3, 4, 5, 6]]
+ = [4,5,6]
 ```
 
 #### Variables
