@@ -56,3 +56,98 @@ option `order`.
 The preferred way to start a breadth-first search from now on is with
 `order: "bfs"`. The default remains depth-first search if no `order` is
 specified, but can also be explicitly requested with `order: "dfs"`.
+
+### UPDATE queries with keepNull = false
+
+AQL update queries using the `keepNull` option set to false had an inconsistent 
+behavior in previous versions of ArangoDB. 
+
+For example, given a collection `test` with an empty document with just key `testDoc`, 
+the following query would return different results when running for the first time or 
+the second time:
+
+```
+UPDATE 'testDoc' 
+WITH {test: {sub1: true, sub2: null}} IN test
+OPTIONS { keepNull: false, mergeObjects: true }
+```
+
+On its first run, the query would return
+```
+{
+  "_key": "testDoc",
+  "test": {
+    "sub1": true,
+    "sub2": null
+  }
+}
+```
+(with the `null` attribute value not being removed). For all subsequent runs, 
+the same query would return
+```      
+{
+  "_key": "testDoc",
+  "test": {
+    "sub1": true,
+  }
+}
+```
+(with the `null` value removed as requested). 
+
+This inconsistency was due to how the `keepNull` attribute was handled if
+the attribute already existed in the to-be-updated document or not. The 
+behavior is now consistent, so `null` values are now properly removed from 
+sub-attributes even if in the to-be-updated document the target attribute
+did not yet exist. This makes such updates idempotent again.
+
+This a behavior change compared previous versions, but it will only have
+effect when `keepNull` is set to `false` (the default value is `true` however),
+and only when just-inserted object sub-attributes contained `null` values.
+
+Document operations
+-------------------
+
+### Update operations with keepNull = false
+
+Non-AQL document update operations using the `keepNull` option set to false had 
+an inconsistent behavior in previous versions of ArangoDB. 
+
+For example, given a collection `test` with an empty document with just key `testDoc`, 
+the following operation would produce different documents when running for the first 
+time or the second time:
+
+```
+db.test.update("testDoc", {test: {sub1: true, sub2: null}}", {keepNull: false});
+```
+
+On its first run, the operation would produce the following document:
+```
+{
+  "_key": "testDoc",
+  "test": {
+    "sub1": true,
+    "sub2": null
+  }
+}
+```
+(with the `null` attribute value not being removed). For all subsequent runs, 
+the same operation would produce just
+```      
+{
+  "_key": "testDoc",
+  "test": {
+    "sub1": true,
+  }
+}
+```
+(with the `null` value removed as requested). 
+
+This inconsistency was due to how the `keepNull` attribute was handled if
+the attribute already existed in the to-be-updated document or not. The 
+behavior is now consistent, so `null` values are now properly removed from 
+sub-attributes even if in the to-be-updated document the target attribute
+did not yet exist. This makes such updates idempotent again.
+
+This a behavior change compared previous versions, but it will only have
+effect when `keepNull` is set to `false` (the default value is `true` however),
+and only when just-inserted object sub-attributes contained `null` values.
