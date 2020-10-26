@@ -666,6 +666,87 @@ that the parameters are bound to. Both can be accessed using their name via
  = 10
 ```
 
+#### Reduce
+
+```js
+["reduce", value, lambda, accumulator]
+```
+
+The reduce method executes a reducer function (lambda - required) on each element of the array or object.
+In general, it is being used to generate a single output value, yet it can be used to generate any supported
+types. 
+
+The lambda function accepts three parameters, the current index (which is either the
+position in an array, or the current key in case of an object), the value and the accumulator.
+
+Example:
+
+Addition of all array elements (initial accumulator / start value set to 100).
+
+```js
+["reduce",
+  ["list", 1, 2, 3],
+    ["lambda",
+      ["quote", []],
+      ["quote", ["key", "value", "accum" ]],
+      ["quote",
+        ["+", ["var-ref", "value"], ["var-ref", "accum"] ]       
+      ]
+    ],
+  100
+]
+```
+
+Will produce:
+```
+ => 106
+```
+
+Explanation:
+```
+1.) Iteration:
+  - Take 100 as the initial accumulator value
+  - Calculate and return the sum of 100 and 1
+2.) Iteration
+  - Take result of the first iteration as accumulator value
+  - Calculate and return the sum of 101 and 2
+3.) Iteration
+  - Take result of the second iteration as accumulator value
+  - Calculate and return the sum of 103 and 3
+  - Return 106 as we've reached the end of our array 
+```
+
+Advanced example:
+
+Calculate the sum of all available object values
+
+```
+["reduce",
+  {"a": 1, "b": 2, "c": 3},
+  ["lambda",
+    ["quote", []],
+    ["quote", ["key", "value", "accum" ]],
+    ["seq",
+      ["quote",
+        [
+          "attrib-set",
+          ["var-ref", "accum"],
+          ["var-ref", "key"],
+          ["+", ["var-ref", "value"], ["attrib-ref", ["var-ref", "accum"], ["var-ref", "key"]] ]
+        ]
+      ]
+    ]
+  ],
+  {"a": 1, "b": 2, "c": 3, "d": 4}
+]
+```
+
+Will produce:
+```
+=> {"a":2, "b":4, "c":6, "d":4}
+```
+
+
 #### Utilities
 
 _random functions that fit no other category_
