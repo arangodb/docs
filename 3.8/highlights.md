@@ -18,6 +18,9 @@ Version 3.8
   ArangoSearch now allows you to combine multiple Analyzers, enabling
   case-insensitive ngram-based fuzzy search and more
 
+- [**Aql Analyzer**](arangosearch-analyzers.html#aql):
+  ArangoSearch now allows you to use AQL query for tokenizing
+  your data.
 
 
 **Enterprise Edition**

@@ -89,16 +89,17 @@ The currently implemented Analyzer types are:
 - `text`: tokenize into words, optionally with stemming,
   normalization, stop-word filtering and edge n-gram generation
 - `pipeline`: for chaining multiple Analyzers
+- `aql`: for running AQL query to prepare tokens for index
 
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
-Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text  | Pipeline
-:------------------|:---------|:--------|:----------|:-----|:-----|:------|:--------
-**Tokenization**   | No       | No      | (Yes)     | No   | No   | Yes   | (Yes)
-**Stemming**       | No       | No      | No        | Yes  | No   | Yes   | (Yes)
-**Normalization**  | No       | No      | No        | No   | Yes  | Yes   | (Yes)
-**N-grams**        | No       | Yes     | No        | No   | No   | (Yes) | (Yes)
+Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text  | Pipeline |   Aql  
+:------------------|:---------|:--------|:----------|:-----|:-----|:------|:---------|:-------
+**Tokenization**   | No       | No      | (Yes)     | No   | No   | Yes   | (Yes)    | (Yes)  
+**Stemming**       | No       | No      | No        | Yes  | No   | Yes   | (Yes)    | (Yes)  
+**Normalization**  | No       | No      | No        | No   | Yes  | Yes   | (Yes)    | (Yes)  
+**N-grams**        | No       | Yes     | No        | No   | No   | (Yes) | (Yes)    | (Yes)  
 
 Analyzer Properties
 -------------------
@@ -377,6 +378,86 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
     @endDocuBlock analyzerPipelineDelimiterStem
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+
+### Aql
+
+<small>Introduced in: v3.8.0</small>
+
+An Analyzer capable of running arbitrary (with some restrictions) AQL query to perform data manipulation/filtering.
+Query should not do any data access (e.g. no collection/view access, no graph traversal). Also user defined functions
+are not permitted. Regular AQL functions are permitted as soon as they do not involve analyzers (e.g. TOKENS, PHRASE, 
+NGRAM_MATCH, ANALYZER) and could be run on DBServer. This is essential for cluster enviroments as actual indexing is 
+performed on DBServers. Access to indexed data is provided to the query via `@param` binded parameter. For current
+implementation data is always a string, and query result should be string, null or array of string/nulls.
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `queryString` (string): AQL query to be executed.
+- `collapsePositions` (boolean):
+    - `true` to set position 0 for all members of query results array 
+    - `false` (default) to place each result array member on corresponding position
+
+- `keepNull` (boolean):
+    - `true` (default) to index null as empty string
+    - `false`  to discard nulls from index. Could be used for index filtering 
+    (e.g. make your query return null for unwanted data)
+- `batchSize` (integer): number between 1 and 1000 (default = 1) determines
+   batch size for reading data from query. In general 1 token is expected to be
+   returned. However if query is expected to return many results increasing
+   `batchSize` would trade memory for performance.
+
+**Examples**
+
+Soundex analyzer (for searching terms that "sounds" similar):
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerAqlSoundex
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlSoundex}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("soundex", "aql", { queryString: "RETURN SOUNDEX(@param)"},
+      ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("ArangoDB", "soundex")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerAqlSoundex
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+
+Concatenating analyzer (for adding custom prefix):
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerAqlConcat
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlConcat}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("concat", "aql", { queryString: "RETURN LEFT(UPPER(@param),3) == 'FOO'
+    | ? CONCAT('foobar', @param) : CONCAT('boo', @param) "},
+      ["frequency", "norm", "position"]);
+      db._query("RETURN TOKENS('baby', 'concat')");
+      db._query("RETURN TOKENS('fooby', 'concat')");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerAqlConcat
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+
+Filtering analyzer (discarding unwanted data by prefix):
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerAqlFilter
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlFilter}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("filter", "aql", { queryString: "RETURN LEFT(UPPER(@param),3) == 'FOO'
+    | ? CONCAT('foobar', @param) : null ", keepNull:false},
+      ["frequency", "norm", "position"]);
+      db._query("RETURN TOKENS('baby', 'filter')");
+      db._query("RETURN TOKENS('fooby', 'filter')");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerAqlFilter
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 
 Analyzer Features
 -----------------

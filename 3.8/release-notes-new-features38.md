@@ -61,6 +61,11 @@ characters followed by stemming.
 
 See [ArangoSearch Pipeline Analyzer](arangosearch-analyzers.html#pipeline)
 
+Added new analyzer type `"aql"` capable of running arbitrary (with some 
+restrictions) AQL query to perform data manipulation/filtering.
+
+See [ArangoSearch Aql Analyzer](arangosearch-analyzers.html#aql)
+
 Metrics
 -------
 
