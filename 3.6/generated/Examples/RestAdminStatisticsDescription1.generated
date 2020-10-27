@@ -305,6 +305,22 @@ x-content-type-options: nosniff
     }, 
     { 
       <span class="hljs-string">"group"</span> : <span class="hljs-string">"http"</span>, 
+      <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"requestsSuperuser"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Total superuser requests"</span>, 
+      <span class="hljs-string">"description"</span> : <span class="hljs-string">"Total number of HTTP requests executed by superuser/JWT."</span>, 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"accumulated"</span>, 
+      <span class="hljs-string">"units"</span> : <span class="hljs-string">"number"</span> 
+    }, 
+    { 
+      <span class="hljs-string">"group"</span> : <span class="hljs-string">"http"</span>, 
+      <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"requestsUser"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Total user requests"</span>, 
+      <span class="hljs-string">"description"</span> : <span class="hljs-string">"Total number of HTTP requests executed by clients."</span>, 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"accumulated"</span>, 
+      <span class="hljs-string">"units"</span> : <span class="hljs-string">"number"</span> 
+    }, 
+    { 
+      <span class="hljs-string">"group"</span> : <span class="hljs-string">"http"</span>, 
       <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"requestsAsync"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"Async requests"</span>, 
       <span class="hljs-string">"description"</span> : <span class="hljs-string">"Number of asynchronously executed HTTP requests."</span>, 
