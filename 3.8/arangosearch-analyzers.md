@@ -467,6 +467,33 @@ Filtering Analyzer that discards unwanted data based on prefix:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+
+Custom tokenizing (with explained collapsePositions)
+
+% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerAqlCollapse
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlCollapse}
+      var analyzers = require("@arangodb/analyzers");
+    | analyzers.save("uncollapsed", "aql", {queryString:"FOR d IN SPLIT(@param, '-') RETURN
+      d"},["frequency", "norm", "position"]);
+    | analyzers.save("collapsed", "aql", {collapsePositions: true, queryString:"FOR d IN
+      SPLIT(@param, '-') RETURN d"}, ["frequency", "norm", "position"]);
+      db._create("test");
+    | db._createView("cv", "arangosearch", {links:{test:{analyzers:['collapsed'],
+      includeAllFields:true}}});
+    | db._createView("uv", "arangosearch", {links:{test:{analyzers:['uncollapsed'],
+      includeAllFields:true}}});
+      db.test.save({text:"A-B-C-D"});
+    | db._query("FOR d IN uv SEARCH PHRASE(d.text, {TERM:'B'}, 1, {TERM:'D'}, 'uncollapsed')
+      RETURN d");
+    | db._query("FOR d IN cv SEARCH PHRASE(d.text, {TERM:'B'}, -1, {TERM:'D'}, 'collapsed')
+      RETURN d");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerAqlCollapse
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+
 Analyzer Features
 -----------------
 
