@@ -469,7 +469,7 @@ Filtering Analyzer that discards unwanted data based on prefix:
 
 Custom tokenization with `collapsePositions` on and off:
 
-% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerAqlCollapse
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlCollapse}
       var analyzers = require("@arangodb/analyzers");
