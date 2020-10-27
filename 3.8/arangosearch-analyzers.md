@@ -380,43 +380,50 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 
-### Aql
+### AQL
 
 <small>Introduced in: v3.8.0</small>
 
-An Analyzer capable of running arbitrary (with some restrictions) AQL query to perform data manipulation/filtering.
-Query should not do any data access (e.g. no collection/view access, no graph traversal). Also user defined functions
-are not permitted. Regular AQL functions are permitted as soon as they do not involve analyzers (e.g. TOKENS, PHRASE, 
-NGRAM_MATCH, ANALYZER) and could be run on DBServer. This is essential for cluster enviroments as actual indexing is 
-performed on DBServers. Access to indexed data is provided to the query via `@param` binded parameter. For current
-implementation data is always a string, and query result should be string, null or array of string/nulls.
+An Analyzer capable of running a restricted AQL query to perform
+data manipulation / filtering.
+
+The query must not access the storage engine. This means no `FOR` loops over
+collections or Views, no use of the `DOCUMENT()` function, no graph traversals.
+AQL functions are allowed as long as they do not involve Analyzers (`TOKENS()`,
+`PHRASE()`, `NGRAM_MATCH()`, `ANALYZER()` etc.) or data access, and if they can
+be run on DB-Servers in case of a cluster deployment. User-defined functions
+are not permitted.
+
+The data that gets indexed is provided to the query via a bind parameter
+`@param`. It is always a string. The query result should be string, `null` or
+an array of strings and `null`s.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `queryString` (string): AQL query to be executed.
+- `queryString` (string): AQL query to be executed
 - `collapsePositions` (boolean):
-    - `true` to set position 0 for all members of query results array 
-    - `false` (default) to place each result array member on corresponding position
-
+  - `true` to set position 0 for all members of query results array
+  - `false` (default) to place each result array member on corresponding position
 - `keepNull` (boolean):
-    - `true` (default) to index null as empty string
-    - `false`  to discard nulls from index. Could be used for index filtering 
+  - `true` (default) to index null as empty string
+  - `false` to discard nulls from index. Can be used for index filtering
     (e.g. make your query return null for unwanted data)
-- `batchSize` (integer): number between 1 and 1000 (default = 1) determines
-   batch size for reading data from query. In general 1 token is expected to be
-   returned. However if query is expected to return many results increasing
-   `batchSize` would trade memory for performance.
+- `batchSize` (integer): number between 1 and 1000 (default = 1) that
+  determines the batch size for reading data from the query. In general, a
+  single token is expected to be returned. However, if the query is expected
+  to return many results, then increasing `batchSize` trades memory for
+  performance.
 
 **Examples**
 
-Soundex analyzer (for searching terms that "sounds" similar):
+Soundex Analyzer for a phonetically similar term search:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerAqlSoundex
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlSoundex}
       var analyzers = require("@arangodb/analyzers");
-    | var a = analyzers.save("soundex", "aql", { queryString: "RETURN SOUNDEX(@param)"},
+    | var a = analyzers.save("soundex", "aql", { queryString: "RETURN SOUNDEX(@param)" },
       ["frequency", "norm", "position"]);
       db._query(`RETURN TOKENS("ArangoDB", "soundex")`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -424,14 +431,13 @@ Soundex analyzer (for searching terms that "sounds" similar):
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
-Concatenating analyzer (for adding custom prefix):
+Concatenating Analyzer for adding custom prefix:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerAqlConcat
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlConcat}
       var analyzers = require("@arangodb/analyzers");
-    | var a = analyzers.save("concat", "aql", { queryString: "RETURN LEFT(UPPER(@param),3) == 'FOO'
+    | var a = analyzers.save("concat", "aql", { queryString: "RETURN LEFT(UPPER(@param), 3) == 'FOO'
     | ? CONCAT('foobar', @param) : CONCAT('boo', @param) "},
       ["frequency", "norm", "position"]);
       db._query("RETURN TOKENS('baby', 'concat')");
@@ -441,15 +447,14 @@ Concatenating analyzer (for adding custom prefix):
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
-Filtering analyzer (discarding unwanted data by prefix):
+Filtering Analyzer that discards unwanted data based on prefix:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerAqlFilter
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlFilter}
       var analyzers = require("@arangodb/analyzers");
-    | var a = analyzers.save("filter", "aql", { queryString: "RETURN LEFT(UPPER(@param),3) == 'FOO'
-    | ? CONCAT('foobar', @param) : null ", keepNull:false},
+    | var a = analyzers.save("filter", "aql", { queryString: "RETURN LEFT(UPPER(@param), 3) == 'FOO'
+    | ? CONCAT('foobar', @param) : null", keepNull: false },
       ["frequency", "norm", "position"]);
       db._query("RETURN TOKENS('baby', 'filter')");
       db._query("RETURN TOKENS('fooby', 'filter')");
@@ -457,7 +462,6 @@ Filtering analyzer (discarding unwanted data by prefix):
     @endDocuBlock analyzerAqlFilter
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-
 
 Analyzer Features
 -----------------
