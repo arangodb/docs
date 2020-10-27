@@ -19,8 +19,8 @@ Version 3.8
   case-insensitive ngram-based fuzzy search and more
 
 - [**Aql Analyzer**](arangosearch-analyzers.html#aql):
-  ArangoSearch now allows you to use AQL query for tokenizing
-  your data.
+  ArangoSearch now allows you to use AQL query to pre-process
+  and filer your data for indexing
 
 
 **Enterprise Edition**
