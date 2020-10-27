@@ -94,12 +94,16 @@ The currently implemented Analyzer types are:
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
-Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text  | Pipeline |   Aql  
-:------------------|:---------|:--------|:----------|:-----|:-----|:------|:---------|:-------
-**Tokenization**   | No       | No      | (Yes)     | No   | No   | Yes   | (Yes)    | (Yes)  
-**Stemming**       | No       | No      | No        | Yes  | No   | Yes   | (Yes)    | (Yes)  
-**Normalization**  | No       | No      | No        | No   | Yes  | Yes   | (Yes)    | (Yes)  
-**N-grams**        | No       | Yes     | No        | No   | No   | (Yes) | (Yes)    | (Yes)  
+Analyzer   /   Feature  | Tokenization | Stemming | Normalization | N-grams
+:-----------------------|:------------:|:--------:|:-------------:|:------:
+[Identity](#identity)   |      No      |    No    |      No       |   No
+[N-gram](#n-gram)       |      No      |    No    |      No       |   Yes
+[Delimiter](#delimiter) |     (Yes)    |    No    |      No       |   No
+[Stem](#stem)           |      No      |    Yes   |      No       |   No
+[Norm](#norm)           |      No      |    No    |      Yes      |   No
+[Text](#text)           |      Yes     |    Yes   |      Yes      |  (Yes)
+[Pipeline](#pipeline)   |     (Yes)    |   (Yes)  |     (Yes)     |  (Yes)
+[AQL](#aql)             |     (Yes)    |   (Yes)  |     (Yes)     |  (Yes)
 
 Analyzer Properties
 -------------------
