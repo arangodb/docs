@@ -20,7 +20,7 @@ Version 3.8
 
 - [**Aql Analyzer**](arangosearch-analyzers.html#aql):
   ArangoSearch now allows you to use AQL query to pre-process
-  and filer your data for indexing
+  and filter your data for indexing
 
 
 **Enterprise Edition**
