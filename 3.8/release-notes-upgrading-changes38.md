@@ -124,4 +124,4 @@ time and the second time:
 db.test.update("testDoc", { test: { sub1: true, sub2: null } }, { keepNull: false });
 ```
 
-Also see [AQL UPDATE queries with `keepNull: false`](#update-queries-with-keepnull--false)
+Also see [AQL UPDATE queries with `keepNull: false`](#update-queries-with-keepnull-false)
