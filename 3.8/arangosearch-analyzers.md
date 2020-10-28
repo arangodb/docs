@@ -418,6 +418,8 @@ attributes:
   single token is expected to be returned. However, if the query is expected
   to return many results, then increasing `batchSize` trades memory for
   performance.
+- `memoryLimit` (integer): memory limit for query execution in bytes.
+  (default is 1048576 = 1Mb) Maximum is 33554432U (32Mb)
 
 **Examples**
 
