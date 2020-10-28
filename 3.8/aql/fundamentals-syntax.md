@@ -76,6 +76,7 @@ On the top level, AQL offers the following
 | `REMOVE`  | Removal of existing documents
 | `UPSERT`  | Insertion of new or update of existing documents
 | `WITH`    | Collection declaration
+| `WINDOW   | Aggregations over related rows
 
 Each of the above operations can be initiated in a query by using a keyword of
 the same name. An AQL query can (and typically does) consist of multiple of the
@@ -147,6 +148,7 @@ The complete list of keywords is currently:
   <li><code>UPDATE</code></li>
   <li><code>UPSERT</code></li>
   <li><code>WITH</code></li>
+  <li><code>WINDOW</code></li>
 </ul>
 </div>
 
