@@ -27,6 +27,17 @@ The following startup options have been renamed in ArangoDB 3.8:
 
 Using the old option names will still work in ArangoDB 3.8, but is discouraged.
 
+The following server startup options have been obsoleted in ArangoDB 3.8:
+
+- `--database.throw-collection-not-loaded-error`
+- `--ttl.only-loaded-collection`
+
+These options were meaningful for the MMFiles storage engine only, but for 
+the RocksDB storage engine they did not make any difference. Using these startup
+options is still possible, but will have no effect other than generating a 
+warning at server startup.
+
+
 HTTP RESTful API
 ----------------
 
