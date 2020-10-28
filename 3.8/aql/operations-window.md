@@ -9,8 +9,8 @@ WINDOW
 The `WINDOW` keyword can be used for aggregations over related rows
 i.e. preceding and / or following rows.
 
- The WINDOW operation performs an COLLECT AGGREGATE-like operation on a set of query rows. 
- However, whereas an COLLECT operation groups multiple query rows into a single result group, 
+ The WINDOW operation performs a COLLECT AGGREGATE-like operation on a set of query rows. 
+ However, whereas a COLLECT operation groups multiple query rows into a single result group, 
  a WINDOW operation produces a result for each query row:
  
  - The row for which function evaluation occurs is called the current row.
