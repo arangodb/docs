@@ -402,6 +402,19 @@ not be enabled for other types of queries or conditions.
 For advanced full-text search capabilities consider [ArangoSearch](arangosearch.html).
 {% endhint %}
 
+
+Indexes and non-ASCII texts
+---------------------------
+Before strings are put into an index, they are
+[normalized by using ICU](http://www.unicode.org/reports/tr15/). There are several characters
+in the Unicode space, that have a similar meaning. In order to have all variants of them
+in a result set when querying, the strings are normalized for the index.
+This slightly changes the behaviour of `FILTER` statements with `==` -
+comparisons when ran on non-indexed document attributes. While the index may still be usefull
+by fetching a little more results then you want to actually work with, you may want to have an 
+additional `FILTER MD5(doc.attr) == MD5(@comparisonstring)` to make sure in the end result
+only contains the actual values you desire. 
+
 Indexing attributes and sub-attributes
 --------------------------------------
 

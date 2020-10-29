@@ -133,6 +133,18 @@ value used is 0xFFFFFFFF, and the final xor value is also 0xFFFFFFFF.
 CRC32("foobar") // "D5F5C7F"
 ```
 
+NORMALIZE_UTF8
+--------------
+
+`NORMALIZE_UTF8('some utf8 text')`
+
+In Unicode there may be more than one representation of a glyph. 
+Use [ICU Normalisation](http://www.unicode.org/reports/tr15/) in order to convert
+to a similar character. It may also be usefull to run this normalisation before 
+writing the documents into the database. If you have strings with different representation, 
+functions like [`FIND_FIRST`](#FIND_FIRST) may not find all matches you desire.
+
+
 ENCODE_URI_COMPONENT()
 -----------
 
