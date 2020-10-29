@@ -140,7 +140,7 @@ NORMALIZE_UTF8
 
 In Unicode there may be more than one representation of a glyph. 
 Use [ICU Normalization](http://www.unicode.org/reports/tr15/) in order to convert
-to a similar character. It may also be usefull to run this normalisation before 
+to a similar character. It may also be useful to run this normalization before 
 writing the documents into the database. If you have strings with different representation, 
 functions like [`FIND_FIRST`](#FIND_FIRST) may not find all matches you desire.
 
