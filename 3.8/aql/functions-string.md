@@ -5,6 +5,10 @@ description: For string processing, AQL offers the following functions
 String functions
 ================
 
+Please note that you may neet to execute [`NORMALIZE_UTF8()`](#NORMALIZE_UTF8)
+on input strings if you intend to i.e. locate glyphs that have multiple 
+representations in Unicode / UTF-8.
+
 For string processing, AQL offers the following functions:
 
 CHAR_LENGTH()
