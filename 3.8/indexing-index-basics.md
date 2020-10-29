@@ -410,7 +410,7 @@ Before strings are put into an index, they are
 in the Unicode space, that have a similar meaning. In order to have all variants of them
 in a result set when querying, the strings are normalized for the index.
 This slightly changes the behaviour of `FILTER` statements with `==` -
-comparisons when ran on non-indexed document attributes. While the index may still be usefull
+comparisons when ran on non-indexed document attributes. While the index may still be useful
 by fetching a little more results then you want to actually work with, you may want to have an 
 additional `FILTER MD5(doc.attr) == MD5(@comparisonstring)` to make sure in the end result
 only contains the actual values you desire. 
@@ -702,4 +702,3 @@ become unsustainable if this list grows to tens of millions of entries.
 
 Building an index is always a write heavy operation (internally), it is always a good idea to build indexes
 during times with less load.
-
