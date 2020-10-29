@@ -136,7 +136,7 @@ CRC32("foobar") // "D5F5C7F"
 NORMALIZE_UTF8
 --------------
 
-`NORMALIZE_UTF8('some utf8 text')`
+`NORMALIZE_UTF8(text) → normalized`
 
 In Unicode there may be more than one representation of a glyph. 
 Use [ICU Normalization](http://www.unicode.org/reports/tr15/) in order to convert
@@ -144,6 +144,8 @@ to a similar character. It may also be useful to run this normalization before
 writing the documents into the database. If you have strings with different representations, 
 functions like [`FIND_FIRST`](#FIND_FIRST) may not find all matches you desire.
 
+- **text** (string): a UTF8-string
+- returns **nomalized UTF8-string** (string): the normalized string.
 
 ENCODE_URI_COMPONENT()
 -----------
