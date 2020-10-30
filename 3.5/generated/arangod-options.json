@@ -325,7 +325,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341527552,
+    "default" : 16341509120,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -2845,7 +2845,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609833062,
+    "default" : 19609810944,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -3324,7 +3324,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146444083,
+    "default" : 26146414592,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -3650,7 +3650,7 @@
   },
   "server.io-threads" : {
     "category" : "option",
-    "default" : 4,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "Number of threads used to handle IO",
     "dynamic" : true,
@@ -3737,7 +3737,7 @@
   },
   "server.maintenance-threads" : {
     "category" : "option",
-    "default" : 5,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
