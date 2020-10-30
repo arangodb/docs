@@ -536,7 +536,7 @@
       "agent",
       "single"
     ],
-    "default" : 33252951040,
+    "default" : 15268141056,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -1268,6 +1268,36 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "database",
+    "type" : "boolean"
+  },
+  "database.old-system-collections" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : [
+      "v3.8.0"
+    ],
+    "description" : "create and use deprecated system collection (_modules, _fishbowl)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.8",
+      "v3.7.4"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -4343,6 +4373,34 @@
     "section" : "query",
     "type" : "uint64"
   },
+  "query.max-runtime" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "runtime threshold for AQL queries (in seconds, 0 = no limit)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.7",
+      "v3.7.3"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "double"
+  },
   "query.memory-limit" : {
     "category" : "option",
     "component" : [
@@ -4353,7 +4411,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "memory threshold for AQL queries (in bytes)",
+    "description" : "memory threshold for AQL queries (in bytes, 0 = no limit)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -4588,11 +4646,38 @@
     ],
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "whether to track slow AQL queries",
+    "description" : "whether to track queries",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "query",
+    "type" : "boolean"
+  },
+  "query.tracking-slow-queries" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "whether to track slow queries",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.4"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -4618,6 +4703,60 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "query",
+    "type" : "boolean"
+  },
+  "query.tracking-with-datasources" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "whether to track data sources with AQL queries",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.4"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "query",
+    "type" : "boolean"
+  },
+  "query.tracking-with-querystring" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "whether to track the query string",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.4"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -4950,7 +5089,7 @@
       "agent",
       "single"
     ],
-    "default" : 39903541248,
+    "default" : 18321769267,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -5734,6 +5873,33 @@
     "section" : "rocksdb",
     "type" : "uint64"
   },
+  "rocksdb.max-write-buffer-size-to-maintain" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "maximum size of immutable write buffers that build up in memory per column family (larger values mean that more in-memory data can be used for transaction conflict checking (-1 = use automatic default value, 0 = do not keep immutable flushed write buffers, which is the default and usually correct))",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.3"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "int64"
+  },
   "rocksdb.min-write-buffer-number-to-merge" : {
     "category" : "option",
     "component" : [
@@ -5963,13 +6129,36 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.sync-delay-threshold" : {
+    "category" : "option",
+    "component" : [
+      "dbserver"
+    ],
+    "default" : 5000,
+    "deprecatedIn" : null,
+    "description" : "threshold value for self-observation of WAL disk syncs. any WAL disk sync longer ago than this threshold will trigger a warning (in milliseconds, use 0 for no warnings)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.0",
+      "v3.7.5",
+      "v3.6.8"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
   "rocksdb.sync-interval" : {
     "category" : "option",
     "component" : [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
+      "dbserver"
     ],
     "default" : 100,
     "deprecatedIn" : null,
@@ -6100,7 +6289,7 @@
       "agent",
       "single"
     ],
-    "default" : 53204721664,
+    "default" : 24429025689,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -6677,7 +6866,7 @@
       "agent",
       "single"
     ],
-    "default" : 8,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "Number of threads used to handle IO",
     "dynamic" : true,
@@ -6848,7 +7037,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 9,
+    "default" : 5,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,

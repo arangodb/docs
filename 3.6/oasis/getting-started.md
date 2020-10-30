@@ -88,24 +88,25 @@ question mark to bring up the help menu and choose _Start tour_. This guided
 tour walks you through the creation of a deployment and shows you how to load
 example datasets and manage projects and deployments.
 
-Alternatively, see the following documentation sections:
-- [Projects: How to create a new project](projects.html#how-to-create-a-new-project)
-- [Deployments: How to create a new deployment](deployments.html#how-to-create-a-new-deployment)
+![Start tour in menu](images/oasis-tour-start.png)
 
-{% comment %}
-TODO: Only a single project and deployment are allowed on free-to-try plan.
-{% endcomment %}
+Alternatively, follow the steps of the linked guides:
+- [Create a new project](projects.html#how-to-create-a-new-project)
+- [Create a new deployment](deployments.html#how-to-create-a-new-deployment)
+- [Install a new certificate](projects.html#how-to-manage-certificates) (optional)
+- [Access your deployment](deployments.html#how-to-access-your-deployment)
+- [Delete your deployment](deployments.html#how-to-delete-a-deployment)
 
 ## Free-to-try vs. professional service
 
 ArangoDB Oasis comes with a free-to-try plan that lets you test our ArangoDB
-Cloud for free for 14 days. After the trial period, your deployments will
-automatically be deleted.
+Cloud for free for 14 days. It includes one project and one deployment.
+After the trial period, your deployments will automatically be deleted.
 
 You can convert to the professional service model at any time by adding 
 your billing details and at least one payment method. See:
-- [Organizations: How to add billing details](organizations.html#how-to-add-billing-details)
-- [Organizations: How to add a payment method](organizations.html#how-to-add-a-payment-method)
+- [How to add billing details to organizations](organizations.html#how-to-add-billing-details)
+- [How to add a payment method to an organization](organizations.html#how-to-add-a-payment-method)
 
 ## Limitations of ArangoDB Oasis
 
