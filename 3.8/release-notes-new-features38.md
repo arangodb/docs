@@ -61,6 +61,9 @@ characters followed by stemming.
 
 See [ArangoSearch Pipeline Analyzer](arangosearch-analyzers.html#pipeline)
 
+Added support of GEO-spatial queries powered by GEO [functions](TBD) and
+[analyzers](arangosearch-analyzers.html#geojson)
+
 Metrics
 -------
 

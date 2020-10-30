@@ -18,7 +18,9 @@ Version 3.8
   ArangoSearch now allows you to combine multiple Analyzers, enabling
   case-insensitive ngram-based fuzzy search and more
 
-
+- [**Geo support for ArangoSearch**]
+  ArangoSearch now supports GEO-spatial queries powered by GEO [functions](TBD) and
+  [analyzers](arangosearch-analyzers.html#geojson)
 
 **Enterprise Edition**
 

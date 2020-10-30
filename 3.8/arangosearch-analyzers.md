@@ -89,6 +89,9 @@ The currently implemented Analyzer types are:
 - `text`: tokenize into words, optionally with stemming,
   normalization, stop-word filtering and edge n-gram generation
 - `pipeline`: for chaining multiple Analyzers
+- `geojson`: breaking up GeoJSON object a set of indexable tokens
+- `geopoint`: breaking up JSON object describing a GEO point into
+              a set of indexable tokens
 
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
@@ -377,6 +380,48 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
     @endDocuBlock analyzerPipelineDelimiterStem
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+### GeoJSON analyzer
+
+<small>Introduced in: v3.8.0</small>
+
+An Analyzer capable of breaking up a GeoJSON object into a set
+indexable tokens for further usage GEO functions.
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `type` (string, _optional_):
+  - `"shape"` to convert to all valid GeoJSON object to a set of indexable tokens (default)
+  - `"centroid"` to convert centroids of all valid GeoJSON shapes to a set of indexable tokens
+  - `"point"` accept only JSON object denoting GEO point and convert it to a set of indexable tokens
+- `options` (object, _optional_): if present, contains options for geo queries fine-tuning, this is 
+  meant to be treated as an expert API.
+  - `minCells` (number, _optional_): minimum number of S2 cells (default: 8)
+  - `minLevel` (number, _optional_): the least precise S2 level (default: 0)
+  - `maxLevel` (number, _optional_): the most precise S2 level (default: 30)
+  
+
+### GeoPoint analyzer
+
+- `latitude` (array of strings, _optional_)/`longitude` (array of strings, _optional_):
+  if present, attributes denote path to latitude/longitude pair in a JSON object. If not present, 
+  analyzers GEO point in form of JSON array [<latitude>, <longitude>].
+- `options` (object, _optional_): if present, contains options for geo queries fine-tuning, this is 
+  meant to be treated as an expert API.
+  - `minCells` (number, _optional_): minimum number of S2 cells (default: 8)
+  - `minLevel` (number, _optional_): the least precise S2 level (default: 0)
+  - `maxLevel` (number, _optional_): the most precise S2 level (default: 30)
+
+<small>Introduced in: v3.8.0</small>
+
+An Analyzer capable of breaking up JSON object describing a GEO point into a set
+indexable tokens for further usage GEO functions.
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+<small>Introduced in: v3.8.0</small>
 
 Analyzer Features
 -----------------
