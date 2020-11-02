@@ -397,9 +397,9 @@ attributes:
   - `"point"` accept only JSON object denoting GEO point and convert it to a set of indexable tokens
 - `options` (object, _optional_): if present, contains options for geo queries fine-tuning, this is 
   meant to be treated as an expert API.
-  - `minCells` (number, _optional_): minimum number of S2 cells (default: 8)
-  - `minLevel` (number, _optional_): the least precise S2 level (default: 0)
-  - `maxLevel` (number, _optional_): the most precise S2 level (default: 30)
+  - `maxCells` (number, _optional_): maximum number of S2 cells (default: 20)
+  - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
+  - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
   
 
 ### GeoPoint analyzer
@@ -409,9 +409,9 @@ attributes:
   analyzers GEO point in form of JSON array [<latitude>, <longitude>].
 - `options` (object, _optional_): if present, contains options for geo queries fine-tuning, this is 
   meant to be treated as an expert API.
-  - `minCells` (number, _optional_): minimum number of S2 cells (default: 8)
-  - `minLevel` (number, _optional_): the least precise S2 level (default: 0)
-  - `maxLevel` (number, _optional_): the most precise S2 level (default: 30)
+  - `minCells` (number, _optional_): maximum number of S2 cells (default: 20)
+  - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
+  - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
 
 <small>Introduced in: v3.8.0</small>
 
