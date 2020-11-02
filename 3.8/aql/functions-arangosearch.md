@@ -88,8 +88,7 @@ outside of `SEARCH` operations.
 
 - **expr** (expression): any valid search expression
 - **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns: the wrapped expression result
 
 Assuming a View definition with an Analyzer whose name and type is `delimiter`:
 
@@ -178,8 +177,7 @@ value equal to `1.0`.
 
 - **expr** (expression): any valid search expression
 - **boost** (number): numeric boost value
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns: the wrapped expression result
 
 ```js
 FOR doc IN viewName
@@ -236,7 +234,8 @@ View definition (the default is `"none"`).
 Match documents where the attribute at **path** is present.
 
 - **path** (attribute path expression): the attribute to test in the document
-- returns nothing: the function can only be called in a
+- returns **bool**: `true` if the attribute at **path** is present in a document,
+  `false` otherwise. The function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 ```js
@@ -257,7 +256,8 @@ specified data type.
     - `"numeric"`
     - `"string"`
     - `"analyzer"` (see below)
-- returns nothing: the function can only be called in a
+- returns **bool**: `true` if the attribute at **path** of the given **type** 
+  is present in a document, `false` otherwise. The function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 ```js
@@ -276,8 +276,9 @@ by the specified **analyzer**.
 - **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **bool**: `true` if the attribute at **path** is analyzed with the speicifed
+  **analyzer** is present in a document, `false` otherwise. The function can only be 
+  called in a [SEARCH operation](operations-search.html) and throws an error otherwise
 
 ```js
 FOR doc IN viewName
@@ -311,8 +312,7 @@ Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
   the range (left-closed interval) or not (left-open interval)
 - **includeHigh** (bool): whether the maximum value shall be included in
   the range (right-closed interval) or not (right-open interval)
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **bool**: whether value is in the range
 
 If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
 to `false`, then nothing will match. If *low* is greater than *high* nothing will
@@ -353,8 +353,7 @@ search expressions are satisfied.
 - **expr** (expression, _repeatable_): any valid search expression
 - **minMatchCount** (number): minimum number of search expressions that should
   be satisfied
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **bool**: whether at least **minMatchCount** of the specified expressions are `true`
 
 Assuming a View with a text Analyzer, you may use it to match documents where
 the attribute contains at least two out of three tokens:
@@ -399,8 +398,8 @@ enabled. The `NGRAM_MATCH()` function will otherwise not find anything.
 - **threshold** (number, _optional_): value between `0.0` and `1.0`. Defaults
   to `0.7` if none is specified.
 - **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **bool**: `true` if the evaluated ngram similarity value is greater or equal
+  than the specified threshold, `false` otherwise
 
 Given a View indexing an attribute `text`, a custom ngram Analyzer `"bigram"`
 (`min: 2, max: 2, preserveOriginal: false, streamType: "utf8"`) and a document
@@ -475,8 +474,9 @@ array as second argument.
 - **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **bool**: whether document attribute values matches the specified phrase 
+  structure or not. The function can only be called in a [SEARCH operation](operations-search.html) 
+  and throws an error otherwise.
 
 {% hint 'info' %}
 The selected Analyzer must have the `"position"` and `"frequency"` features
@@ -636,8 +636,7 @@ Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
 - **prefix** (string): a string to search at the start of the text
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **bool**: whether the specified attribute starts with the given prefix
 
 `STARTS_WITH(path, prefixes, minMatchCount)`
 
@@ -651,8 +650,8 @@ optionally with at least *minMatchCount* of the prefixes.
 - **prefixes** (array): an array of strings to search at the start of the text
 - **minMatchCount** (number, _optional_): minimum number of search prefixes
   that should be satisfied. The default is `1`
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **bool**: whether the specified attribute starts with the at least 
+  *minMatchCount* of the given prefixes
 
 To match a document `{ "text": "lorem ipsum..." }` using a prefix and the
 `"identity"` Analyzer you can use it like this:
@@ -924,3 +923,69 @@ FOR doc IN viewName
   SORT doc.text, TFIDF(doc) DESC
   RETURN doc
 ```
+
+Geo functions
+=============
+
+### GEO_CONTAINS()
+
+<small>Introduced in: v3.8.0</small>
+
+`GEO_CONTAINS(geoJsonA, geoJsonB) → bool`
+
+Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
+fully contains `geoJsonB` (Every point in B is also in A).
+
+- **geoJsonA** (object): first GeoJSON object or coordinate array (in longitude, latitude order)
+- **geoJsonB** (object): second GeoJSON object or coordinate array (in longitude, latitude order)
+- returns **bool** (bool): true when every point in B is also contained in A, false otherwise
+
+
+### GEO_DISTANCE()
+
+<small>Introduced in: v3.8.0</small>
+
+`GEO_DISTANCE(geoJsonA, geoJsonB) → distance`
+
+Return the distance between two GeoJSON objects, measured from the **centroid**
+of each shape. For a list of supported types see the
+[geo index page](../indexing-geo.html#geojson).
+
+- **geoJsonA** (object): first GeoJSON object or coordinate array (in longitude, latitude order)
+- **geoJsonB** (object): second GeoJSON object or coordinate array (in longitude, latitude order)
+- returns **distance** (number): the distance between the centroid points of
+  the two objects on the reference ellipsoid
+
+### GEO_IN_RANGE()
+
+<small>Introduced in: v3.8.0</small>
+
+`GEO_IN_RANGE(geoJsonA, geoJsonB, low, high, includeLow, includeHigh) → bool`
+
+Checks whether the distance between two GeoJSON[GeoJSON object](../indexing-geo.html#geojson) objects
+(denoted by `geoJsonA` and `geoJsonB` correspondingly), measured from the **centroid** of each shape 
+lies within a given interval.
+intersects with `geoJsonB` (i.e. at least one point in B is also A or vice-versa).
+
+- **geoJsonA** (object): first GeoJSON object or coordinate array (in longitude, latitude order)
+- **geoJsonB** (object): second GeoJSON object or coordinate array (in longitude, latitude order)
+- low (number): minimum value of the desired range
+- high (number): maximum value of the desired range
+- includeLow (bool, optional): whether the minimum value shall be included in the range 
+  (left-closed interval) or not (left-open interval). The default value is `true`.
+- includeHigh (bool): whether the maximum value shall be included in the range 
+  (right-closed interval) or not (right-open interval). The default value is `true`
+- returns **bool** (bool): whether the evaluated distance lies within the range
+
+### GEO_INTERSECTS()
+
+<small>Introduced in: v3.8.0</small>
+
+`GEO_INTERSECTS(geoJsonA, geoJsonB) → bool`
+
+Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
+intersects with `geoJsonB` (i.e. at least one point in B is also A or vice-versa).
+
+- **geoJsonA** (object): first GeoJSON object or coordinate array (in longitude, latitude order)
+- **geoJsonB** (object): second GeoJSON object or coordinate array (in longitude, latitude order)
+- returns **bool** (bool): true if B intersects A, false otherwise
