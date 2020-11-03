@@ -436,6 +436,29 @@ on the leader shards in a cluster, a few things need to be considered:
   this for individual queries you can increase `intermediateCommitSize`
   (default 512 MB) and `intermediateCommitCount` accordingly as query option.
 
+### Limitations
+
+The OneShard optimization will be used automatically for all eligible AQL queries
+and streaming transactions. For AQL queries, any of the following factors currently 
+makes a query uneligible for the OneShard optimization:
+
+- the query access collections with more than a single shard, different leader
+  DB-Servers, or different `distributeShardsLike` prototypes
+- usage of AQL user-defined functions
+- usage of AQL functions that can only execute on coordinators. These functions
+  are:
+  - COLLECTION_COUNT
+  - CURRENT_DATABASE
+  - CURRENT_USER
+  - COLLECTIONS
+  - DOCUMENT
+  - VERSION
+  - SCHEMA_GET
+  - SCHEMA_VALIDATE
+  - V8
+- the query writes into a SatelliteCollection
+- the query accesses an edge collection of a SmartGraph
+
 Synchronous replication
 -----------------------
 

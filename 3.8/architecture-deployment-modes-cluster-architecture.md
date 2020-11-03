@@ -203,8 +203,8 @@ processing.
 ![OneShard vs. Sharded Cluster Setup](images/cluster-sharded-oneshard.png)
 
 If the database involved in a query is a OneShard database,
-then the OneShard optimization is applied to run the
-query on the responsible node like on a single server. However, it still being
+then the OneShard optimization can be applied to run the query on the 
+responsible DB-Server node like on a single server. However, it still being
 a cluster setup means collections can be replicated synchronously to ensure
 resilience etc.
 
@@ -435,6 +435,29 @@ on the leader shards in a cluster, a few things need to be considered:
   operations, potentially breaking the atomicity of transactions. To prevent
   this for individual queries you can increase `intermediateCommitSize`
   (default 512 MB) and `intermediateCommitCount` accordingly as query option.
+
+### Limitations
+
+The OneShard optimization will be used automatically for all eligible AQL queries
+and streaming transactions. For AQL queries, any of the following factors currently 
+makes a query uneligible for the OneShard optimization:
+
+- the query access collections with more than a single shard, different leader
+  DB-Servers, or different `distributeShardsLike` prototypes
+- usage of AQL user-defined functions
+- usage of AQL functions that can only execute on coordinators. These functions
+  are:
+  - COLLECTION_COUNT
+  - CURRENT_DATABASE
+  - CURRENT_USER
+  - COLLECTIONS
+  - DOCUMENT
+  - VERSION
+  - SCHEMA_GET
+  - SCHEMA_VALIDATE
+  - V8
+- the query writes into a SatelliteCollection
+- the query accesses an edge collection of a SmartGraph
 
 Synchronous replication
 -----------------------
