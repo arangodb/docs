@@ -464,6 +464,7 @@ Filtering Analyzer that discards unwanted data based on prefix:
       ["frequency", "norm", "position"]);
       db._query("RETURN TOKENS('baby', 'filter')");
       db._query("RETURN TOKENS('fooby', 'filter')");
+    ~ analyzers.remove(a.name());
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerAqlFilter
 {% endarangoshexample %}
@@ -487,6 +488,11 @@ Custom tokenization with `collapsePositions` on and off:
       db.test.save({ text: "A-B-C-D" });
       db._query("FOR d IN vu SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'uncollapsed') RETURN d");
       db._query("FOR d IN vc SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'collapsed') RETURN d");
+    ~ db._dropView("vu");
+    ~ db._dropView("vc");
+    ~ analyzers.remove(a1.name());
+    ~ analyzers.remove(a2.name());
+    ~ db._drop("test");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerAqlCollapse
 {% endarangoshexample %}
