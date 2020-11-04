@@ -113,11 +113,16 @@ The unit for the radius is meters. The example uses a radius of 200,000
 meters (200 kilometers):
 
 ```js
-FOR loc IN WITHIN(Locations, 53.35, -6.26, 200 * 1000)
+FOR place IN places
+  LET latitude = place.coordinate[0]
+  LET longitude = place.coordiante[1]
+  LET distance = DISTANCE(latitude, longitude, 53.35, -6.25)
+  FILTER distance <= 200 * 1000
     RETURN {
-        name: loc.name,
-        latitude: loc.coordinate[0],
-        longitude: loc.coordinate[1]
+        name: place.name,
+        latitude,
+        longitude,
+        distance
     }
 ```
 
