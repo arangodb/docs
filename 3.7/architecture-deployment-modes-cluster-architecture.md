@@ -451,7 +451,6 @@ makes a query uneligible for the OneShard optimization:
   - CURRENT_DATABASE
   - CURRENT_USER
   - COLLECTIONS
-  - DOCUMENT
   - VERSION
   - SCHEMA_GET
   - SCHEMA_VALIDATE
