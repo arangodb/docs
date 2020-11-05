@@ -272,6 +272,10 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_client_connection_statistics_total_time_bucket` | Total time needed to answer a request (ms) |
 | `arangodb_client_connection_statistics_total_time_count` | Total time needed to answer a request (ms) |
 | `arangodb_client_connection_statistics_total_time_sum` | Total time needed to answer a request (ms) |
+| `arangodb_collection_lock_acquisition_micros` | Total amount of collection lock acquisition time (μs) |
+| `arangodb_collection_lock_acquisitiontime` | Collection lock acquisition time histogram (s) |
+| `arangodb_collection_lock_timeouts_exclusive` | Number of timeouts when trying to acquire collection exclusive locks |
+| `arangodb_collection_lock_timeouts_write` | Number of timeouts when trying to acquire collection write locks |
 | `arangodb_dropped_followers_count` | Number of drop-follower events |
 | `arangodb_heartbeat_failures` | Counting failed heartbeat transmissions |
 | `arangodb_heartbeat_send_time_msec` | Time required to send heartbeat (ms) |
@@ -314,6 +318,7 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_process_statistics_system_time` | Amount of time that this process has been scheduled in kernel mode, measured in seconds |
 | `arangodb_process_statistics_user_time` | Amount of time that this process has been scheduled in user mode, measured in seconds |
 | `arangodb_process_statistics_virtual_memory_size` | On Windows, this figure contains the total amount of memory that the memory manager has committed for the arangod process. On other systems, this figure contains The size of the virtual memory the process is using |
+| `arangodb_refused_followers_count` | Number of refusal answers from a follower during synchronous replication |
 | `arangodb_scheduler_awake_threads` | Number of awake worker threads |
 | `arangodb_scheduler_num_worker_threads` | Number of worker threads |
 | `arangodb_scheduler_queue_full_failures` | Number of times the scheduler queue was full and a task/request was rejected |
@@ -326,6 +331,7 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_shards_not_replicated` | Number of shards not replicated at all |
 | `arangodb_shards_out_of_sync` | Number of leader shards not fully replicated |
 | `arangodb_shards_total_count` | Number of shards on this machine |
+| `arangodb_sync_wrong_checksum` | Number of times a mismatching shard checksum was detected when syncing shards |
 | `arangodb_transactions_aborted` | Transactions aborted |
 | `arangodb_transactions_committed` | Transactions committed |
 | `arangodb_transactions_started` | Transactions started |
