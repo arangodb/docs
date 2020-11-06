@@ -33,7 +33,7 @@ example datasets and manage projects and deployments.
 ![Start tour in menu](images/oasis-tour-start.png)
 
 Alternatively, follow the steps of the linked guides:
-- [Create a new project](projects.html#how-to-create-a-new-project)
+- [Create a new project](projects.html#how-to-create-a-new-project) (optional)
 - [Create a new deployment](deployments.html#how-to-create-a-new-deployment)
 - [Install a new certificate](projects.html#how-to-manage-certificates) (optional)
 - [Access your deployment](deployments.html#how-to-access-your-deployment)
