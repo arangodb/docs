@@ -10,6 +10,23 @@ upgrading to ArangoDB 3.8, and adjust any client programs if necessary.
 
 The following incompatible changes have been made in ArangoDB 3.8:
 
+Collection attributes
+---------------------
+   
+The collection properties `indexBuckets`, `journalSize`, `doCompact` and
+`isVolatile` only had a meaning for the MMFiles storage engine, which is not
+available anymore since ArangoDB 3.7. 
+
+ArangoDB 3.8 now removes any special handling for these obsolete collection 
+properties, meaning these attributes will not be processed by the server and
+not be returned by any server APIs. Using these attributes in any API call
+will be ignored, and will not trigger any errors.
+
+Client applications and tests that rely on the behavior that setting any of 
+these obsolete properties produces an error on the server side may need to
+be adjusted now.
+
+
 Startup options
 ---------------
 
