@@ -67,7 +67,7 @@ used for multiple accounts.
 
 ## Get a deployment up and running
 
-1. The first tile in the Oasis Dashboard has a dropdown menu to select a cloud
+1. The first card in the Oasis Dashboard has a dropdown menu to select a cloud
    provider and region. Pick one, click on _Create deployment_ and accept the
    terms and conditions.
 
@@ -86,7 +86,7 @@ used for multiple accounts.
 
    ![Oasis Deployment Ready Email](images/oasis-deployment-ready-email.png){:style="max-height: 50vh"}
 
-3. Click on the name or the _View_ button of the deployment tile (or the
+3. Click on the name or the _View_ button of the deployment card (or the
    _Open deployment details_ link in the email) to get to the deployment
    details.
 
@@ -98,7 +98,7 @@ used for multiple accounts.
    (user `root` and its password) and log in.
 
 5. You can install example datasets and follow the accompanying guides to get
-   started with ArangoDB and its query language. In the Oasis interface, click
+   started with ArangoDB and its query language. In the Oasis dashboard, click
    on the _Examples_ tab of the deployment. Click on _Install_ of one of the
    examples to let Oasis create a separate database and import the dataset.
    Click on _Guide_ for instructions on how to access and run queries against
@@ -110,7 +110,7 @@ used for multiple accounts.
 
 ## Free-to-try vs. professional service
 
-ArangoDB Oasis comes with a free-to-try plan that lets you test our ArangoDB
+ArangoDB Oasis comes with a free-to-try tier that lets you test our ArangoDB
 Cloud for free for 14 days. It includes one project and one deployment.
 After the trial period, your deployments will automatically be deleted.
 
