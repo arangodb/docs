@@ -36,16 +36,20 @@ used for multiple accounts.
 1. Go to [cloud.arangodb.com](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 2. Click the _Start Free_ button or click the _Sign Up_ link in the top
    right corner.
+
+   ![Oasis Homepage](images/oasis-homepage.png)
+
 3. Review the terms & conditions and privacy policy and click _I accept_.
 4. Select the type of sign up you would like to use (GitHub, Google, or
    email address).
-    - For GitHub or Google please follow on-screen instructions.
-    - For the email address option, type your desired email address in the
-      email field and type a strong password in the password field.
-    - Click the _Sign up_ button
+     - For GitHub or Google please follow on-screen instructions.
+     - For the email address option, type your desired email address in the
+       email field and type a strong password in the password field.
 
-   You will receive a verification email. In that mail, click the
-   _Verify my email address_ link or button.
+     ![Oasis Sign up](images/oasis-signup.png){:style="max-height: 50vh"}
+
+   Click the _Sign up_ button. You will receive a verification email. In that
+   mail, click the _Verify my email address_ link or button.
    It will open a page in ArangoDB Oasis that says _Welcome back!_
 5. Click the _Log in_ button to continue and login.
 6. If you signed up with an email address of a public email service provider (e.g. Hotmail),
@@ -61,45 +65,52 @@ used for multiple accounts.
    Once that is completed, you will be redirected to the
    [ArangoDB Oasis dashboard](https://cloud.arangodb.com/dashboard){:target="_blank"}.
 
-![Oasis Sign up](images/oasis-signup.png)
+## Get a deployment up and running
 
-## General hierarchy
+1. The first card in the Oasis Dashboard has a dropdown menu to select a cloud
+   provider and region. Pick one, click on _Create deployment_ and accept the
+   terms and conditions.
 
-ArangoDB Oasis supports multi-tenant setups via organizations.
-You can create your own organization(s) and invite collaborators or join
-existing ones via invites. Your organization contains projects.
-Your projects hold your deployments.
+   ![Oasis Dashboard](images/oasis-dashboard.png)
 
-- [**Organizations**](organizations.html)
-  represent (commercial) entities such as companies.
-  You can be part of multiple organizations with a single user account.
-  - [**Projects**](projects.html)
-    represent organizational units such as teams or applications.
-    - [**Deployments**](deployments.html)
-      are the actual instances of ArangoDB clusters.
+   You can also [create a deployment](deployments.html#how-to-create-a-new-deployment)
+   manually if you want fine-grained configuration options.
+2. The new deployment will show up in the list of deployments for the 
+   respective project (here: _Avocado_).
 
-In the previous step, an organization and a default project were automatically
-created for you. What is still missing is a deployment.
+   ![Oasis Deployments Bootstrapping](images/oasis-deployments-bootstrapping.png)
 
-## Take the tour
+   It takes a couple of minutes before the deployment can be used. The status
+   will change from _Bootstrapping_ to _OK_ eventually and you will also
+   receive an email when it is ready.
 
-In the top right corner you find the _User toolbar_. Click the icon with the
-question mark to bring up the help menu and choose _Start tour_. This guided
-tour walks you through the creation of a deployment and shows you how to load
-example datasets and manage projects and deployments.
+   ![Oasis Deployment Ready Email](images/oasis-deployment-ready-email.png){:style="max-height: 50vh"}
 
-![Start tour in menu](images/oasis-tour-start.png)
+3. Click on the name or the _View_ button of the deployment card (or the
+   _Open deployment details_ link in the email) to get to the deployment
+   details.
 
-Alternatively, follow the steps of the linked guides:
-- [Create a new project](projects.html#how-to-create-a-new-project)
-- [Create a new deployment](deployments.html#how-to-create-a-new-deployment)
-- [Install a new certificate](projects.html#how-to-manage-certificates) (optional)
-- [Access your deployment](deployments.html#how-to-access-your-deployment)
-- [Delete your deployment](deployments.html#how-to-delete-a-deployment)
+   ![Oasis Deployment Ready](images/oasis-deployment-ready.png)
+
+4. You can copy the ArangoDB password for the root user by clicking the second
+   button below the label _ROOT PASSWORD_. Then click on the _Open endpoint_
+   button to bring up the ArangoDB web interface. Enter the credentials
+   (user `root` and its password) and log in.
+
+5. You can install example datasets and follow the accompanying guides to get
+   started with ArangoDB and its query language. In the Oasis dashboard, click
+   on the _Examples_ tab of the deployment. Click on _Install_ of one of the
+   examples to let Oasis create a separate database and import the dataset.
+   Click on _Guide_ for instructions on how to access and run queries against
+   this data.
+
+   ![Oasis Deployment Examples](images/oasis-deployment-examples.png)
+
+   ![Oasis Deployment Examples IMDB Guide](images/oasis-deployment-examples-imdb-guide.png)
 
 ## Free-to-try vs. professional service
 
-ArangoDB Oasis comes with a free-to-try plan that lets you test our ArangoDB
+ArangoDB Oasis comes with a free-to-try tier that lets you test our ArangoDB
 Cloud for free for 14 days. It includes one project and one deployment.
 After the trial period, your deployments will automatically be deleted.
 
