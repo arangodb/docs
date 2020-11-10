@@ -222,7 +222,7 @@ vertex, the edge and the path and any variable defined before.
 
 **Note**: While building a PRUNE condition for the 'edge' variable one should keep in mind that for starting
 vertex the edge is null. So having PRUNE condition like (edge.label != 'foo') could undesirable be 
-true and terminate traversal too early. Construction like (!IS_NULL(edge) AND edge.label != 'foo') should be
+true and terminate the traversal too early. A construction like `(!IS_NULL(edge) AND edge.label != 'foo')` should be
 used in such cases.
 
 {% include youtube.html id="4LVeeC0ciCQ" %}
