@@ -123,6 +123,8 @@ var loadPage = function(target, fn) {
         }
         current = current.parent();
       }
+      $("nav .expanded").addClass("selected");
+
       linkify();
       if (fn) {
         fn();
