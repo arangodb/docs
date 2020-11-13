@@ -2,19 +2,19 @@ arangosh&gt; q = db.users.all(); q.setBatchSize(<span class="hljs-number">20</sp
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74937"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/74937"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bX1Maxm---"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_baE47qO--A"</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"Gerhard"</span> 
 }
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74939"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/74939"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bX1Maxm--A"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_baE47qS---"</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"Helmut"</span> 
 }
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74941"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/74941"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bX1Maxq---"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_baE47qS--A"</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"Angela"</span> 
 }
 SimpleQueryAll(users)
@@ -22,19 +22,19 @@ arangosh&gt; q = db.users.all(); q.execute(<span class="hljs-number">20</span>);
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74937"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/74937"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bX1Maxm---"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_baE47qO--A"</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"Gerhard"</span> 
 }
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74939"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/74939"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bX1Maxm--A"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_baE47qS---"</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"Helmut"</span> 
 }
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"74941"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/74941"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bX1Maxq---"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_baE47qS--A"</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"Angela"</span> 
 }
 SimpleQueryAll(users)
