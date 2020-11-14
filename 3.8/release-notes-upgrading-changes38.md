@@ -30,6 +30,7 @@ be adjusted now.
 Startup options
 ---------------
 
+### Renamed options
 The following startup options have been renamed in ArangoDB 3.8:
 
 | Old name | New name |
@@ -43,6 +44,34 @@ The following startup options have been renamed in ArangoDB 3.8:
 | `--javascript.files-whitelist` | `--javascript.files-allowlist`
 
 Using the old option names will still work in ArangoDB 3.8, but is discouraged.
+
+### Changed default values
+
+The default value of the startup option `--server.unavailability-queue-fill-grade`
+has been changed from value `1` in previous versions to a value of `0.75` in ArangoDB
+3.8.
+
+This change has a consequence for the `/_admin/server/availability` REST API only, 
+which is often called by load-balancers and other availability probing systems. 
+
+The `/_admin/server/availability` API will return HTTP 200 if the fill grade of the 
+scheduler's queue is below the configured value, or HTTP 503 if the fill grade is 
+above it. This can be used to flag a server as unavailable in case it is already 
+highly loaded.
+
+The default value change for this option will lead to server's reporting their
+unavailability earlier than previous versions of ArangoDB. With only the default
+values used, ArangoDB versions prior to 3.8 reported unavailability only if the
+queue was completely full, which means 4096 pending requests in the queue.
+ArangoDB 3.8 will report as unavailable if the queue is 75% full, i.e when 3072
+or more jobs are queued in the scheduler.
+  
+Although this is a behavior change, 75% is still a high watermark and should not 
+cause unavailability false-positives.
+However, to restore the pre-3.8 behavior, it is possible to set the value of 
+this option to `1`. The value can even be set to `0` to disable using the 
+scheduler's queue fill grade as an (un)availability indicator.
+
 
 HTTP RESTful API
 ----------------

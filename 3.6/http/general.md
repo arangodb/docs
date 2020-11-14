@@ -80,13 +80,13 @@ non-blocking, asynchronous execution: clients can add the
 HTTP header *x-arango-async: true* to any of their requests, marking
 them as to be executed asynchronously on the server. ArangoDB will put such
 requests into an in-memory task queue and return an *HTTP 202* (accepted)
-response to the client instantly and thus finish this HTTP-request.
+response to the client instantly and thus finish this HTTP request.
 The server will execute the tasks from the queue asynchronously as fast
 as possible, while clients can continue to do other work.
 If the server queue is full (i.e. contains as many tasks as specified by the
 option ["--server.maximal-queue-size"](../programs-arangod-options.html#arangodb-server-options)),
-then the request will be rejected instantly with an *HTTP 500* (internal
-server error) response.
+then the request will be rejected instantly with an *HTTP 503* (Service
+unavailable) response.
 
 Asynchronous execution decouples the request/response handling from the actual
 work to be performed, allowing fast server responses and greatly reducing wait
