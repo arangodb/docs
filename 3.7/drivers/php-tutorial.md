@@ -334,6 +334,23 @@ In this example we want to
     var_dump($userFromServer);
 ```
 
+The document that is updated using the previous example must have been fetched from the server before. If you want to update a document without having fetched it from the server before, use updateById():
+
+```php
+    // update a document, identified by collection and document id
+    $user        = new ArangoDocument();
+    $user->name  = 'John';
+    $user->likes = ['Running', 'Rowing'];
+
+    // Notice that for the example we're getting the existing 
+    // document id via a method call. Normally we would use the known id
+    $result = $handler->updateById('users', $userFromServer->getId(), $user);
+    var_dump($result);
+
+    $userFromServer = $handler->get('users', $id);
+    var_dump($userFromServer);
+```
+
 To completely replace an existing document, the replace() method of the *DocumentHandler* class can be used.
 In this example we want to remove the `state` attribute.
 
@@ -349,14 +366,13 @@ In this example we want to remove the `state` attribute.
     var_dump($userFromServer);
 ```
 
-The document that is replaced using the previous example must have been fetched from the server before. If you want to update a document without having fetched it from the server before, use updateById():
+The document that is replaced using the previous example must have been fetched from the server before. If you want to replace a document without having fetched it from the server before, use replaceById():
 
 ```php
     // replace a document, identified by collection and document id
     $user        = new ArangoDocument();
     $user->name  = 'John';
     $user->likes = ['Running', 'Rowing'];
-    $userFromServer->state = 'CA';
 
     // Notice that for the example we're getting the existing 
     // document id via a method call. Normally we would use the known id
@@ -365,7 +381,6 @@ The document that is replaced using the previous example must have been fetched 
 
     $userFromServer = $handler->get('users', $id);
     var_dump($userFromServer);
-
 ```
 
 ## Deleting a document
