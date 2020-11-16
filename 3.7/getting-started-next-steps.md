@@ -5,7 +5,7 @@ description: There is a lot more to discover in AQL and much morefunctionality t
 Next Steps
 ==========
 
-There is a lot more to [discover in AQL](../aql/) and much more
+There is a lot more to [discover in AQL](aql/index.html) and much more
 functionality that ArangoDB offers. Continue reading the other chapters and
 experiment with a test database to foster your knowledge.
 
