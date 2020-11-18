@@ -18,10 +18,29 @@ module JekyllRedirectFrom
     # to   - the relative path or URL which the page should redirect to
     def self.from_paths(site, from, to)
       page = RedirectPage.new(site, site.source, "", "redirect.html")
+      ##### BEGIN ArangoDB customization #####
+      if Jekyll.env != 'netlify'
+        to = RedirectPage.to_canonical(site.config, to)
+      end
+      ##### END ArangoDB customization #####
       page.set_paths(from, to)
       page
     end
 
+    ##### BEGIN ArangoDB customization #####
+    def self.to_canonical(config, url)
+      return url if url.start_with?('/stable/', '/devel/')
+      stable = config['versions']['stable']
+      devel = config['versions']['devel']
+      url
+        .sub(RedirectPage.version_regexp(stable), '/stable/')
+        .sub(RedirectPage.version_regexp(devel), '/devel/')
+    end
+
+    def self.version_regexp(version)
+      Regexp.new("^#{Regexp.escape("/#{version}/")}")
+    end
+    ##### END ArangoDB customization #####
 
     # Creates a new RedirectPage instance from the path to the given doc
     def self.redirect_from(doc, path)
