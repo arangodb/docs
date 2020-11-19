@@ -10,11 +10,14 @@ It is mandatory to specify a `RETURN` statement at the end of each block in a
 data-selection query, otherwise the query result would be undefined. Using 
 `RETURN` on the main level in data-modification queries is optional.
 
+Syntax
+------
+
 The general syntax for `RETURN` is:
 
-```
-RETURN expression
-```
+<pre><code>RETURN <em>expression</em></code></pre>
+
+There is also a variant [`RETURN DISTINCT`](#return-distinct).
 
 The *expression* returned by `RETURN` is produced for each iteration in the block the
 `RETURN` statement is placed in. That means the result of a `RETURN` statement
@@ -24,14 +27,15 @@ query and a single return value returned as array with one element.
 To return all elements from the currently iterated array without modification,
 the following simple form can be used:
 
-```
-FOR variableName IN expression
-  RETURN variableName
-```
+<pre><code>FOR <em>variableName</em> IN <em>expression</em>
+  RETURN <em>variableName</em></code></pre>
 
 As `RETURN` allows specifying an expression, arbitrary computations can be
 performed to calculate the result elements. Any of the variables valid in the
 scope the `RETURN` is placed in can be used for the computations.
+
+Usage
+-----
 
 To iterate over all documents of a collection called *users* and return the
 full documents, you can write:
@@ -134,17 +138,15 @@ FOR u IN users
 ]
 ```
 
-RETURN DISTINCT
----------------
+`RETURN DISTINCT`
+-----------------
 
-Since ArangoDB 2.7, `RETURN` can optionally be followed by the `DISTINCT` keyword.
+`RETURN` can optionally be followed by the `DISTINCT` keyword.
 The `DISTINCT` keyword will ensure uniqueness of the values returned by the
 `RETURN` statement:
 
-```
-FOR variableName IN expression
-  RETURN DISTINCT expression
-```
+<pre><code>FOR <em>variableName</em> IN <em>expression</em>
+  RETURN DISTINCT <em>expression</em></code></pre>
 
 `RETURN DISTINCT` is not allowed on the top-level of a query if there is no `FOR`
 loop preceding it.
@@ -158,7 +160,7 @@ array or the subquery.
 For example, the following query will apply `DISTINCT` on its subquery results,
 but not inside the subquery:
 
-```
+```js
 FOR what IN 1..2
   RETURN DISTINCT (
     FOR i IN [ 1, 2, 3, 4, 1, 3 ] 
@@ -166,12 +168,12 @@ FOR what IN 1..2
   )
 ```
 
-Here we'll have a `FOR` loop with two iterations that each execute a subquery. The
+Here we will have a `FOR` loop with two iterations that each execute a subquery. The
 `DISTINCT` here is applied on the two subquery results. Both subqueries return the
-same result value (that is [ 1, 2, 3, 4, 1, 3 ]), so after `DISTINCT` there will
-only be one occurrence of the value [ 1, 2, 3, 4, 1, 3 ] left:
+same result value (that is `[ 1, 2, 3, 4, 1, 3 ]`), so after `DISTINCT` there will
+only be one occurrence of the value `[ 1, 2, 3, 4, 1, 3 ]` left:
 
-```
+```json
 [
   [ 1, 2, 3, 4, 1, 3 ]
 ]
@@ -180,7 +182,7 @@ only be one occurrence of the value [ 1, 2, 3, 4, 1, 3 ] left:
 If the goal is to apply the `DISTINCT` inside the subquery, it needs to be moved
 there:
 
-```
+```js
 FOR what IN 1..2
   LET sub = (
     FOR i IN [ 1, 2, 3, 4, 1, 3 ] 
@@ -190,11 +192,11 @@ FOR what IN 1..2
 ```
 
 In the above case, the `DISTINCT` will make the subquery results unique, so that
-each subquery will return a unique array of values ([ 1, 2, 3, 4 ]). As the subquery
+each subquery will return a unique array of values (`[ 1, 2, 3, 4 ]`). As the subquery
 is executed twice and there is no `DISTINCT` on the top-level, that array will be
 returned twice:
 
-```
+```json
 [
   [ 1, 2, 3, 4 ],
   [ 1, 2, 3, 4 ]

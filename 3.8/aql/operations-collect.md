@@ -93,7 +93,6 @@ In the above example, the array `users` is grouped by country first and then
 by city, and for each distinct combination of country and city, the users
 will be returned.
 
-
 Discarding obsolete variables
 -----------------------------
 
