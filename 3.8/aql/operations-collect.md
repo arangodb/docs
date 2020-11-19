@@ -13,6 +13,9 @@ The `COLLECT` statement will eliminate all local variables in the current
 scope. After `COLLECT` only the variables introduced by `COLLECT` itself are
 available.
 
+Syntax
+------
+
 There are several syntax variants for `COLLECT` operations:
 
 ```
@@ -38,10 +41,10 @@ criteria specified in *expression*. In order to further process the results
 produced by `COLLECT`, a new variable (specified by *variableName*) is introduced. 
 This variable contains the group value.
 
-Here's an example query that find the distinct values in *u.city* and makes
-them available in variable *city*:
+Here's an example query that find the distinct values in `u.city` and makes
+them available in variable `city`:
 
-```
+```js
 FOR u IN users
   COLLECT city = u.city
   RETURN { 
@@ -61,7 +64,7 @@ on the top level, in which case all variables are taken. Furthermore note
 that it is possible that the optimizer moves `LET` statements out of `FOR`
 statements to improve performance. 
 
-```
+```js
 FOR u IN users
   COLLECT city = u.city INTO groups
   RETURN { 
@@ -70,15 +73,15 @@ FOR u IN users
   }
 ```
 
-In the above example, the array *users* will be grouped by the attribute
-*city*. The result is a new array of documents, with one element per distinct
-*u.city* value. The elements from the original array (here: *users*) per city are
-made available in the variable *groups*. This is due to the `INTO` clause.
+In the above example, the array `users` will be grouped by the attribute
+`city`. The result is a new array of documents, with one element per distinct
+`u.city` value. The elements from the original array (here: `users`) per city are
+made available in the variable `groups`. This is due to the `INTO` clause.
 
 `COLLECT` also allows specifying multiple group criteria. Individual group
 criteria can be separated by commas:
 
-```
+```js
 FOR u IN users
   COLLECT country = u.country, city = u.city INTO groups
   RETURN { 
@@ -88,7 +91,7 @@ FOR u IN users
   }
 ```
 
-In the above example, the array *users* is grouped by country first and then
+In the above example, the array `users` is grouped by country first and then
 by city, and for each distinct combination of country and city, the users
 will be returned.
 
@@ -99,7 +102,7 @@ Discarding obsolete variables
 The third form of `COLLECT` allows rewriting the contents of the *groupsVariable* 
 using an arbitrary *projectionExpression*:
 
-```
+```js
 FOR u IN users
   COLLECT country = u.country, city = u.city INTO groups = u.name
   RETURN { 
@@ -109,14 +112,14 @@ FOR u IN users
   }
 ```
 
-In the above example, only the *projectionExpression* is *u.name*. Therefore,
+In the above example, only the *projectionExpression* is `u.name`. Therefore,
 only this attribute is copied into the *groupsVariable* for each document. 
 This is probably much more efficient than copying all variables from the scope into 
 the *groupsVariable* as it would happen without a *projectionExpression*.
 
 The expression following `INTO` can also be used for arbitrary computations:
 
-```
+```js
 FOR u IN users
   COLLECT country = u.country, city = u.city INTO groups = { 
     "name" : u.name, 
@@ -137,10 +140,10 @@ This is safe but can have a negative impact on performance if there
 are many variables in scope or the variables contain massive amounts of data. 
 
 The following example limits the variables that are copied into the *groupsVariable*
-to just *name*. The variables *u* and *someCalculation* also present in the scope
+to just `name`. The variables `u` and `someCalculation` also present in the scope
 will not be copied into *groupsVariable* because they are not listed in the `KEEP` clause:
 
-```
+```js
 FOR u IN users
   LET name = u.name
   LET someCalculation = u.value1 + u.value2
@@ -155,17 +158,16 @@ FOR u IN users
 be used in the `KEEP` clause. `KEEP` supports the specification of multiple 
 variable names.
 
-
 Group length calculation
 ------------------------
 
-`COLLECT` also provides a special *WITH COUNT* clause that can be used to 
+`COLLECT` also provides a special `WITH COUNT` clause that can be used to 
 determine the number of group members efficiently.
 
 The simplest form just returns the number of items that made it into the
 `COLLECT`:
 
-```
+```js
 FOR u IN users
   COLLECT WITH COUNT INTO length
   RETURN length
@@ -173,14 +175,14 @@ FOR u IN users
 
 The above is equivalent to, but less efficient than:
 
-```
+```js
 RETURN LENGTH(users)
 ```
 
-The *WITH COUNT* clause can also be used to efficiently count the number
+The `WITH COUNT` clause can also be used to efficiently count the number
 of items in each group:
 
-```
+```js
 FOR u IN users
   COLLECT age = u.age WITH COUNT INTO length
   RETURN { 
@@ -189,8 +191,9 @@ FOR u IN users
   }
 ```
 
-Note: the *WITH COUNT* clause can only be used together with an `INTO` clause.
-
+{% hint 'info' %}
+The `WITH COUNT` clause can only be used together with an `INTO` clause.
+{% endhint %}
 
 Aggregation
 -----------
@@ -202,7 +205,7 @@ used as described before.
 For other aggregations, it is possible to run aggregate functions on the `COLLECT`
 results:
 
-```
+```js
 FOR u IN users
   COLLECT ageGroup = FLOOR(u.age / 5) * 5 INTO g
   RETURN { 
@@ -220,7 +223,7 @@ incrementally during the collect operation, and is therefore often more efficien
 
 With the `AGGREGATE` variant the above query becomes:
 
-```
+```js
 FOR u IN users
   COLLECT ageGroup = FLOOR(u.age / 5) * 5 
   AGGREGATE minAge = MIN(u.age), maxAge = MAX(u.age)
@@ -235,8 +238,7 @@ The `AGGREGATE` keyword can only be used after the `COLLECT` keyword. If used, i
 must directly follow the declaration of the grouping keys. If no grouping keys 
 are used, it must follow the `COLLECT` keyword directly:
 
-
-```
+```js
 FOR u IN users
   COLLECT AGGREGATE minAge = MIN(u.age), maxAge = MAX(u.age)
   RETURN {
@@ -244,8 +246,8 @@ FOR u IN users
     maxAge 
   }
 ```
-      
-Only specific expressions are allowed on the right-hand side of each `AGGREGATE` 
+
+Only specific expressions are allowed on the right-hand side of each `AGGREGATE`
 assignment:
 
 - on the top level, an aggregate expression must be a call to one of the supported 
@@ -257,12 +259,11 @@ assignment:
 
 - an aggregate expression must not refer to variables introduced by the `COLLECT` itself
 
-
 COLLECT variants
 ----------------
 
 Since ArangoDB 2.6, there are two variants of `COLLECT` that the optimizer can
-choose from: the *sorted* variant and the *hash* variant. The *hash* variant only becomes a
+choose from: the `sorted` variant and the `hash` variant. The *hash* variant only becomes a
 candidate for `COLLECT` statements that do not use an `INTO` clause.
 
 The optimizer will always generate a plan that employs the *sorted* method. The *sorted* method 
@@ -276,16 +277,16 @@ plan for it at the beginning of the planning phase. In this plan, no extra `SORT
 added in front of the `COLLECT`. This is because the *hash* variant of `COLLECT` does not require
 sorted input. Instead, a `SORT` statement will be added after the `COLLECT` to sort its output. 
 This `SORT` statement may be optimized away again in later stages. 
-If the sort order of the `COLLECT` is irrelevant to the user, adding the extra instruction *SORT null* 
+If the sort order of the `COLLECT` is irrelevant to the user, adding the extra instruction `SORT null` 
 after the `COLLECT` will allow the optimizer to remove the sorts altogether:
 
-```
+```js
 FOR u IN users
   COLLECT age = u.age
   SORT null  /* note: will be optimized away */
   RETURN age
 ```
-  
+
 Which `COLLECT` variant is used by the optimizer depends on the optimizer's cost estimations. The 
 created plans with the different `COLLECT` variants will be shipped through the regular optimization 
 pipeline. In the end, the optimizer will pick the plan with the lowest estimated total cost as usual. 
@@ -301,26 +302,26 @@ of `COLLECT`, which does not require its input to be sorted.
 Which variant of `COLLECT` was actually used can be figured out by looking into the execution plan of
 a query, specifically the *AggregateNode* and its *aggregationOptions* attribute.
 
+COLLECT options
+---------------
 
-Setting COLLECT options
------------------------
+### `method`
 
-*options* can be used in a `COLLECT` statement to inform the optimizer about the preferred `COLLECT`
+`method` can be used in a `COLLECT` statement to inform the optimizer about the preferred `COLLECT`
 method. When specifying the following appendix to a `COLLECT` statement, the optimizer will always use
-the *sorted* variant of `COLLECT` and not even create a plan using the *hash* variant:
+the `"sorted"` variant of `COLLECT` and not even create a plan using the `"hash"` variant:
 
-```
+```js
 OPTIONS { method: "sorted" }
 ```
 
-It is also possible to specify *hash* as the preferred method. In this case the optimizer will create
+It is also possible to specify `"hash"` as the preferred method. In this case the optimizer will create
 a plan using the *hash* method only if the COLLECT statement qualifies (not all COLLECT statements
 can use the *hash* method). In case the COLLECT statement qualifies, there will be only a one plan
 that uses the *hash* method. If it does not qualify, the optimizer will use the *sorted* method.
 
 If no method is specified, then the optimizer will create a plan that uses the *sorted* method, and
 an additional plan using the *hash* method if the COLLECT statement qualifies for it.
-
 
 COLLECT vs. RETURN DISTINCT
 ---------------------------
@@ -330,12 +331,12 @@ scenes, both variants will work by creating an *AggregateNode*. For both variant
 may try the sorted and the hashed variant of `COLLECT`. The difference is therefore mainly syntactical,
 with `RETURN DISTINCT` saving a bit of typing when compared to an equivalent `COLLECT`:
 
-```
+```js
 FOR u IN users
   RETURN DISTINCT u.age
 ```
 
-```
+```js
 FOR u IN users
   COLLECT age = u.age
   RETURN age
