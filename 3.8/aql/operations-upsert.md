@@ -17,17 +17,18 @@ traversal operations, or AQL functions that can read documents.
 Syntax
 ------
 
-The syntax for an upsert operation is:
+The syntax for upsert and repsert operations is:
 
-```
-UPSERT searchExpression INSERT insertExpression UPDATE updateExpression IN collection options
-UPSERT searchExpression INSERT insertExpression REPLACE updateExpression IN collection options
-```
+<pre><code>UPSERT <em>searchExpression</em> INSERT <em>insertExpression</em> UPDATE <em>updateExpression</em> IN <em>collection</em>
+UPSERT <em>searchExpression</em> INSERT <em>insertExpression</em> REPLACE <em>updateExpression</em> IN <em>collection</em></code></pre>
 
-When using the `UPDATE` variant of the upsert operation, the found document will be 
-partially updated, meaning only the attributes specified in *updateExpression* will be 
-updated or added. When using the `REPLACE` variant of upsert, existing documents will 
-be replaced with the contexts of *updateExpression*.
+Both variants can optionally end with an `OPTIONS { … }` clause.
+
+When using the `UPDATE` variant of the upsert operation, the found document
+will be partially updated, meaning only the attributes specified in
+*updateExpression* will be updated or added. When using the `REPLACE` variant
+of upsert (repsert), existing documents will be replaced with the contexts of
+*updateExpression*.
 
 Updating a document will modify the document's revision number with a server-generated value.
 The system attributes `_id`, `_key` and `_rev` cannot be updated, `_from` and `_to` can.
@@ -80,7 +81,7 @@ to-be-updated document.
 {% hint 'tip' %}
 The default value for `mergeObjects` is `true`, so there is no need to specify it
 explicitly.
-{% hint %}
+{% endhint %}
 
 ### `waitForSync`
 

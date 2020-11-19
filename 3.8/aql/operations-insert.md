@@ -18,9 +18,9 @@ Syntax
 
 The syntax for an insert operation is:
 
-```
-INSERT document INTO collection [ OPTIONS options ]
-```
+<pre><code>INSERT <em>document</em> INTO <em>collection</em></code></pre>
+
+It can optionally end with an `OPTIONS { … }` clause.
 
 {% hint 'tip' %}
 The `IN` keyword is allowed in place of `INTO` and has the same meaning.

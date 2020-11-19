@@ -18,18 +18,16 @@ Syntax
 
 There are several syntax variants for `COLLECT` operations:
 
-```
-COLLECT variableName = expression
-COLLECT variableName = expression INTO groupsVariable
-COLLECT variableName = expression INTO groupsVariable = projectionExpression
-COLLECT variableName = expression INTO groupsVariable KEEP keepVariable
-COLLECT variableName = expression WITH COUNT INTO countVariable
-COLLECT variableName = expression AGGREGATE variableName = aggregateExpression
-COLLECT variableName = expression AGGREGATE variableName = aggregateExpression INTO groupsVariable
-COLLECT AGGREGATE variableName = aggregateExpression
-COLLECT AGGREGATE variableName = aggregateExpression INTO groupsVariable
-COLLECT WITH COUNT INTO countVariable
-```
+<pre><code>COLLECT <em>variableName</em> = <em>expression</em>
+COLLECT <em>variableName</em> = <em>expression</em> INTO <em>groupsVariable</em>
+COLLECT <em>variableName</em> = <em>expression</em> INTO <em>groupsVariable</em> = <em>projectionExpression</em>
+COLLECT <em>variableName</em> = <em>expression</em> INTO <em>groupsVariable</em> KEEP <em>keepVariable</em>
+COLLECT <em>variableName</em> = <em>expression</em> WITH COUNT INTO <em>countVariable</em>
+COLLECT <em>variableName</em> = <em>expression</em> AGGREGATE variableName = <em>aggregateExpression</em>
+COLLECT <em>variableName</em> = <em>expression</em> AGGREGATE variableName = <em>aggregateExpression</em> INTO <em>groupsVariable</em>
+COLLECT AGGREGATE <em>variableName</em> = <em>aggregateExpression</em>
+COLLECT AGGREGATE <em>variableName</em> = <em>aggregateExpression</em> INTO <em>groupsVariable</em>
+COLLECT WITH COUNT INTO <em>countVariable</em></code></pre>
 
 All variants can optionally end with an `OPTIONS { … }` clause.
 
@@ -259,72 +257,8 @@ assignment:
 
 - an aggregate expression must not refer to variables introduced by the `COLLECT` itself
 
-COLLECT variants
-----------------
-
-Since ArangoDB 2.6, there are two variants of `COLLECT` that the optimizer can
-choose from: the `sorted` variant and the `hash` variant. The *hash* variant only becomes a
-candidate for `COLLECT` statements that do not use an `INTO` clause.
-
-The optimizer will always generate a plan that employs the *sorted* method. The *sorted* method 
-requires its input to be sorted by the group criteria specified in the `COLLECT` clause. 
-To ensure correctness of the result, the AQL optimizer will automatically insert a `SORT` 
-statement into the query in front of the `COLLECT` statement. The optimizer may be able to 
-optimize away that `SORT` statement later if a sorted index is present on the group criteria. 
-
-In case a `COLLECT` statement qualifies for using the *hash* variant, the optimizer will create an extra 
-plan for it at the beginning of the planning phase. In this plan, no extra `SORT` statement will be
-added in front of the `COLLECT`. This is because the *hash* variant of `COLLECT` does not require
-sorted input. Instead, a `SORT` statement will be added after the `COLLECT` to sort its output. 
-This `SORT` statement may be optimized away again in later stages. 
-If the sort order of the `COLLECT` is irrelevant to the user, adding the extra instruction `SORT null` 
-after the `COLLECT` will allow the optimizer to remove the sorts altogether:
-
-```js
-FOR u IN users
-  COLLECT age = u.age
-  SORT null  /* note: will be optimized away */
-  RETURN age
-```
-
-Which `COLLECT` variant is used by the optimizer depends on the optimizer's cost estimations. The 
-created plans with the different `COLLECT` variants will be shipped through the regular optimization 
-pipeline. In the end, the optimizer will pick the plan with the lowest estimated total cost as usual. 
-
-In general, the *sorted* variant of `COLLECT` should be preferred in cases when there is a sorted index
-present on the group criteria. In this case the optimizer can eliminate the `SORT` statement in front
-of the `COLLECT`, so that no `SORT` will be left. 
-
-If there is no sorted index available on the group criteria, the up-front sort required by the *sorted* 
-variant can be expensive. In this case it is likely that the optimizer will prefer the *hash* variant
-of `COLLECT`, which does not require its input to be sorted. 
-
-Which variant of `COLLECT` was actually used can be figured out by looking into the execution plan of
-a query, specifically the *AggregateNode* and its *aggregationOptions* attribute.
-
-COLLECT options
----------------
-
-### `method`
-
-`method` can be used in a `COLLECT` statement to inform the optimizer about the preferred `COLLECT`
-method. When specifying the following appendix to a `COLLECT` statement, the optimizer will always use
-the `"sorted"` variant of `COLLECT` and not even create a plan using the `"hash"` variant:
-
-```js
-OPTIONS { method: "sorted" }
-```
-
-It is also possible to specify `"hash"` as the preferred method. In this case the optimizer will create
-a plan using the *hash* method only if the COLLECT statement qualifies (not all COLLECT statements
-can use the *hash* method). In case the COLLECT statement qualifies, there will be only a one plan
-that uses the *hash* method. If it does not qualify, the optimizer will use the *sorted* method.
-
-If no method is specified, then the optimizer will create a plan that uses the *sorted* method, and
-an additional plan using the *hash* method if the COLLECT statement qualifies for it.
-
-COLLECT vs. RETURN DISTINCT
----------------------------
+`COLLECT` vs. `RETURN DISTINCT`
+-------------------------------
 
 In order to make a result set unique, one can either use `COLLECT` or `RETURN DISTINCT`. Behind the
 scenes, both variants will work by creating an *AggregateNode*. For both variants, the optimizer
@@ -346,9 +280,91 @@ However, `COLLECT` is vastly more flexible than `RETURN DISTINCT`. Aside from
 its sophisticated grouping and aggregation capabilities, `COLLECT` also allows
 you to place a `LIMIT` operation before `RETURN` to potentially stop the
 `COLLECT` operation early.
-Additionally, `COLLECT` supports [options](#setting-collect-options).
+Additionally, `COLLECT` supports [options](#collect-options).
 
 `RETURN DISTINCT` does not change the order of results, whereas `COLLECT` sorts
 them (regardless of the method, _sorted_ or _hash_) unless explicitly disabled
 by the user with a subsequent `SORT null`
 (see [COLLECT variants](#collect-variants)).
+
+`COLLECT` options
+-----------------
+
+### `method`
+
+There are two variants of `COLLECT` that the optimizer can choose from:
+the *sorted* and the *hash* variant. The `method` option can be used in a
+`COLLECT` statement to inform the optimizer about the preferred method,
+`"sorted"` or `"hash"`.
+
+```js
+COLLECT ... OPTIONS { method: "sorted" }
+```
+
+If no method is specified by the user, then the optimizer will create a plan
+that uses the *sorted* method, and an additional plan using the *hash* method
+if the `COLLECT` statement qualifies for it.
+
+If the method is explicitly set to *sorted*, then the optimizer will always use
+the *sorted* variant of `COLLECT` and not even create a plan using the *hash*
+variant. If it is explicitly set to *hash*, then the optimizer will create a
+plan using the *hash* method **only if the `COLLECT` statement qualifies**.
+Not all `COLLECT` statements can use the *hash* method, in particular ones with
+an `INTO` clause are not eligible. In case the `COLLECT` statement qualifies,
+there will only be one plan that uses the *hash* method. Otherwise, the
+optimizer will default to the *sorted* method.
+
+The *sorted* method requires its input to be sorted by the group criteria
+specified in the `COLLECT` clause. To ensure correctness of the result, the
+optimizer will automatically insert a `SORT` operation into the query in front
+of the `COLLECT` statement. The optimizer may be able to optimize away that
+`SORT` operation later if a sorted index is present on the group criteria.
+
+In case a `COLLECT` statement qualifies for using the *hash* variant, the
+optimizer will create an extra plan for it at the beginning of the planning
+phase. In this plan, no extra `SORT` statement will be added in front of the
+`COLLECT`. This is because the *hash* variant of `COLLECT` does not require
+sorted input. Instead, a `SORT` statement will be added after the `COLLECT` to
+sort its output. This `SORT` statement may be optimized away again in later
+stages.
+
+If the sort order of the `COLLECT` is irrelevant to the user, adding the extra
+instruction `SORT null` after the `COLLECT` will allow the optimizer to remove
+the sorts altogether:
+
+```js
+FOR u IN users
+  COLLECT age = u.age
+  SORT null  /* note: will be optimized away */
+  RETURN age
+```
+
+Which `COLLECT` variant is used by the optimizer if no preferred method is set
+explicitly depends on the optimizer's cost estimations. The created plans with
+the different `COLLECT` variants will be shipped through the regular
+optimization pipeline. In the end, the optimizer will pick the plan with the
+lowest estimated total cost as usual.
+
+In general, the *sorted* variant of `COLLECT` should be preferred in cases when
+there is a sorted index present on the group criteria. In this case the
+optimizer can eliminate the `SORT` operation in front of the `COLLECT`, so that
+no `SORT` will be left.
+
+If there is no sorted index available on the group criteria, the up-front sort
+required by the *sorted* variant can be expensive. In this case it is likely
+that the optimizer will prefer the *hash* variant of `COLLECT`, which does not
+require its input to be sorted.
+
+Which variant of `COLLECT` will actually be used can be figured out by looking
+at the execution plan of a query, specifically the comment of the *CollectNode*:
+
+```js
+Execution plan:
+ Id   NodeType                  Est.   Comment
+  1   SingletonNode                1   * ROOT
+  2   EnumerateCollectionNode      5     - FOR doc IN coll   /* full collection scan, projections: `name` */
+  3   CalculationNode              5       - LET #2 = doc.`name`   /* attribute expression */   /* collections used: doc : coll */
+  4   CollectNode                  5       - COLLECT name = #2   /* hash */
+  6   SortNode                     5       - SORT name ASC   /* sorting strategy: standard */
+  5   ReturnNode                   5       - RETURN name
+```

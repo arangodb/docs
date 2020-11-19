@@ -19,10 +19,10 @@ Syntax
 
 The two syntaxes for a replace operation are:
 
-```
-REPLACE document IN collection options
-REPLACE keyExpression WITH document IN collection options
-```
+<pre><code>REPLACE <em>document</em> IN <em>collection</em>
+REPLACE <em>keyExpression</em> WITH <em>document</em> IN <em>collection</em></code></pre>
+
+Both variants can optionally end with an `OPTIONS { … }` clause.
 
 `collection` must contain the name of the collection in which the documents should
 be replaced. `document` is the replacement document. When using the first syntax, `document` 
@@ -50,13 +50,19 @@ The following queries are equivalent:
 ```js
 FOR u IN users
   REPLACE { _key: u._key, name: CONCAT(u.firstName, u.lastName) } IN users
+```
 
+```js
 FOR u IN users
   REPLACE u._key WITH { name: CONCAT(u.firstName, u.lastName) } IN users
+```
 
+```js
 FOR u IN users
   REPLACE { _key: u._key } WITH { name: CONCAT(u.firstName, u.lastName) } IN users
+```
 
+```js
 FOR u IN users
   REPLACE u WITH { name: CONCAT(u.firstName, u.lastName) } IN users
 ```

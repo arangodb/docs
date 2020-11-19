@@ -19,9 +19,9 @@ Syntax
 
 The syntax for a remove operation is:
 
-```
-REMOVE keyExpression IN collection options
-```
+<pre><code>REMOVE <em>keyExpression</em> IN <em>collection</em></code></pre>
+
+It can optionally end with an `OPTIONS { … }` clause.
 
 `collection` must contain the name of the collection to remove the documents 
 from. `keyExpression` must be an expression that contains the document identification.
@@ -34,10 +34,14 @@ The following queries are thus equivalent:
 ```js
 FOR u IN users
   REMOVE { _key: u._key } IN users
+```
 
+```js
 FOR u IN users
   REMOVE u._key IN users
+```
 
+```js
 FOR u IN users
   REMOVE u IN users
 ```

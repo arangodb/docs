@@ -19,10 +19,10 @@ Syntax
 
 The two syntaxes for an update operation are:
 
-```
-UPDATE document IN collection options
-UPDATE keyExpression WITH document IN collection options
-```
+<pre><code>UPDATE <em>document</em> IN <em>collection</em>
+UPDATE <em>keyExpression</em> WITH <em>document</em> IN <em>collection</em></code></pre>
+
+Both variants can optionally end with an `OPTIONS { … }` clause.
 
 `collection` must contain the name of the collection in which the documents should
 be updated. `document` must be a document that contains the attributes and values 
@@ -56,10 +56,14 @@ The following queries are equivalent:
 ```js
 FOR u IN users
   UPDATE u._key WITH { name: CONCAT(u.firstName, " ", u.lastName) } IN users
+```
 
+```js
 FOR u IN users
   UPDATE { _key: u._key } WITH { name: CONCAT(u.firstName, " ", u.lastName) } IN users
+```
 
+```js
 FOR u IN users
   UPDATE u WITH { name: CONCAT(u.firstName, " ", u.lastName) } IN users
 ```
@@ -70,7 +74,9 @@ to the ones produced by a preceding `FOR` statement:
 ```js
 FOR i IN 1..1000
   UPDATE CONCAT('test', i) WITH { foobar: true } IN users
+```
 
+```js
 FOR u IN users
   FILTER u.active == false
   UPDATE u WITH { status: 'inactive' } IN backup
