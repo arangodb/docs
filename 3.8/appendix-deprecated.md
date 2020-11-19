@@ -29,6 +29,7 @@ replace the old features with:
   - `--database.index-threads`
   - `--database.maximal-journal-size`
   - `--database.throw-collection-not-loaded-error`
+  - `--ttl.only-loaded-collection`
   - `--wal.*`
 
   The collection attributes `doCompact`, `indexBuckets`, `isVolatile`,
