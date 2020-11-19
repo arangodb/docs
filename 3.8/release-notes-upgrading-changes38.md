@@ -58,6 +58,20 @@ warning at server startup.
 The default value for the number of network I/O threads `--network.io-threads`
 was changed to `2` in ArangoDB 3.8, up from a value of `1` in previous version.
 
+### Audit Logging (Enterprise Edition)
+
+The Enterprise Edition's audit log feature now honors the configured 
+date/time output format. Previously the audit logging always logged date/time 
+values in the server's local time, and logged them in format YYYY-MM-DDTHH:MM:SS.
+
+From 3.8 onwards, the audit logging will honor the date/time format specified 
+via the `--log.time-format` startup option, which defaults to `utc-datestring`. 
+That means the audit logging will by default log all dates/times in UTC time. 
+
+To restore the pre-3.8 format, please set the option `--log.time-format` to 
+`local-datestring`, which will make the audit logger (and all other server log 
+messages) use the server's local time.
+
 HTTP RESTful API
 ----------------
 
