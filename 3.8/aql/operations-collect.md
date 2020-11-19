@@ -259,10 +259,11 @@ assignment:
 `COLLECT` vs. `RETURN DISTINCT`
 -------------------------------
 
-In order to make a result set unique, one can either use `COLLECT` or `RETURN DISTINCT`. Behind the
-scenes, both variants will work by creating an *AggregateNode*. For both variants, the optimizer
-may try the sorted and the hashed variant of `COLLECT`. The difference is therefore mainly syntactical,
-with `RETURN DISTINCT` saving a bit of typing when compared to an equivalent `COLLECT`:
+In order to make a result set unique, one can either use `COLLECT` or
+`RETURN DISTINCT`. Behind the scenes, both variants create a *CollectNode*.
+For both variants, the optimizer may try the sorted and the hashed variant of
+`COLLECT`. The difference is therefore mainly syntactical, with
+`RETURN DISTINCT` saving a bit of typing when compared to an equivalent `COLLECT`:
 
 ```js
 FOR u IN users
