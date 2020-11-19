@@ -34,16 +34,3 @@ This option controls the maximum number of documents to be removed per collectio
 in each background thread run. This value can be configured separately from the
 total removal amount so that the per-collection time window for locking and potential
 write-write conflicts can be reduced.
-
-## TTL only for loaded collections
-
-`--ttl.only-loaded-collection`
-
-This option will only scan TTL indexes of collections that are already loaded into
-memory. Setting the option to false will make the background thread ignore collections
-that are currently not loaded. This saves the background thread from loading all
-collections into memory.
-
-This option is useful for the MMFiles engine only, where collections need to be
-loaded into memory first. For the RocksDB engine, collections do not need to be loaded
-into memory first, so this option does not make any difference.
