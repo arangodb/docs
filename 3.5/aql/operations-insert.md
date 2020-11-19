@@ -61,8 +61,8 @@ FOR u IN users
     INSERT { _from: u._id, _to: p._id } INTO recommendations
 ```
 
-Setting query options
----------------------
+Query options
+-------------
 
 The *OPTIONS* keyword followed by an object with query options can optionally
 be provided in an `INSERT` operation.

@@ -283,8 +283,7 @@ Additionally, `COLLECT` supports [options](#collect-options).
 
 `RETURN DISTINCT` does not change the order of results, whereas `COLLECT` sorts
 them (regardless of the method, _sorted_ or _hash_) unless explicitly disabled
-by the user with a subsequent `SORT null`
-(see [COLLECT variants](#collect-variants)).
+by the user with a subsequent `SORT null` (see [`method`](#method)).
 
 `COLLECT` options
 -----------------
