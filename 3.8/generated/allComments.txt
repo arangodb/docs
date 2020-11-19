@@ -2409,6 +2409,46 @@ arangosh&gt; db.demo.figures()
     @endDocuBlock collectionFigures
 
 
+<!-- filename: /home/simran/oskar/work/ArangoDB/Documentation/Books/Manual/data-modeling-collections-collection-methods.md -->
+    @startDocuBlockInline collectionFiguresDetails
+
+
+<div class="example-container" id="collectionFiguresDetails_container">
+<div id="collectionFiguresDetails_long" style="display: none;">
+<pre>
+arangosh&gt; db.demo.figures(<span class="hljs-literal">true</span>)
+{ 
+  <span class="hljs-string">"indexes"</span> : { 
+    <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">"size"</span> : <span class="hljs-number">1580</span> 
+  }, 
+  <span class="hljs-string">"documentsSize"</span> : <span class="hljs-number">3292</span>, 
+  <span class="hljs-string">"cacheInUse"</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">"cacheSize"</span> : <span class="hljs-number">0</span>, 
+  <span class="hljs-string">"cacheUsage"</span> : <span class="hljs-number">0</span>, 
+  <span class="hljs-string">"engine"</span> : { 
+    <span class="hljs-string">"documents"</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">"indexes"</span> : [ 
+      { 
+        <span class="hljs-string">"type"</span> : <span class="hljs-string">"primary"</span>, 
+        <span class="hljs-string">"id"</span> : <span class="hljs-number">0</span>, 
+        <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span> 
+      } 
+    ] 
+  } 
+}
+</pre>
+<div id="collectionFiguresDetails_container_collapse" onclick="$('#collectionFiguresDetails_long').hide(); $('#collectionFiguresDetails_short').show(); window.location.hash='collectionFiguresDetails_container';" class="example_show_button">Hide execution results</div></div>
+<div id="collectionFiguresDetails_short" onclick="$('#collectionFiguresDetails_short').hide(); $('#collectionFiguresDetails_long').show();">
+<pre>
+arangosh&gt; db.demo.figures(<span class="hljs-literal">true</span>)
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock collectionFiguresDetails
+
+
 <!-- filename: /work/ArangoDB/Documentation/Books/Manual/data-modeling-collections-collection-methods.md -->
     @startDocuBlockInline collectionLoad
 
@@ -7686,7 +7726,7 @@ arangosh&gt; db._query(query);
 <div class="example-container" id="analyzerTextStem_container">
 <div id="analyzerTextStem_long" style="display: none;">
 <pre>
-arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en")`</span>)
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en")`</span>).toArray();
 [ 
   [ 
     <span class="hljs-string">"crazi"</span>, 
@@ -7695,12 +7735,11 @@ arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Crazy fast NoSQ
     <span class="hljs-string">"databas"</span> 
   ] 
 ]
-[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
 </pre>
 <div id="analyzerTextStem_container_collapse" onclick="$('#analyzerTextStem_long').hide(); $('#analyzerTextStem_short').show(); window.location.hash='analyzerTextStem_container';" class="example_show_button">Hide execution results</div></div>
 <div id="analyzerTextStem_short" onclick="$('#analyzerTextStem_short').hide(); $('#analyzerTextStem_long').show();">
 <pre>
-arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en")`</span>)
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en")`</span>).toArray();
 </pre><div class="example_show_button">Show execution results</div>
 </div>
 </div>
@@ -7716,30 +7755,14 @@ arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Crazy fast NoSQ
 <div id="analyzerTextNoStem_long" style="display: none;">
 <pre>
 arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>)
-arangosh&gt; analyzers.save(<span class="hljs-string">"text_en_nostem"</span>, <span class="hljs-string">"text"</span>, {
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"text_en_nostem"</span>, <span class="hljs-string">"text"</span>, {
 ........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>,
 ........&gt;   <span class="hljs-keyword">case</span>: <span class="hljs-string">"lower"</span>,
 ........&gt;   accent: <span class="hljs-literal">false</span>,
 ........&gt;   stemming: <span class="hljs-literal">false</span>,
 ........&gt;   stopwords: []
 ........&gt; }, [<span class="hljs-string">"frequency"</span>,<span class="hljs-string">"norm"</span>,<span class="hljs-string">"position"</span>])
-{ 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"_system::text_en_nostem"</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-string">"text"</span>, 
-  <span class="hljs-string">"properties"</span> : { 
-    <span class="hljs-string">"locale"</span> : <span class="hljs-string">"en.utf-8"</span>, 
-    <span class="hljs-string">"case"</span> : <span class="hljs-string">"lower"</span>, 
-    <span class="hljs-string">"stopwords"</span> : [ ], 
-    <span class="hljs-string">"accent"</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">"stemming"</span> : <span class="hljs-literal">false</span> 
-  }, 
-  <span class="hljs-string">"features"</span> : [ 
-    <span class="hljs-string">"frequency"</span>, 
-    <span class="hljs-string">"norm"</span>, 
-    <span class="hljs-string">"position"</span> 
-  ] 
-}
-arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en_nostem")`</span>)
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en_nostem")`</span>).toArray();
 [ 
   [ 
     <span class="hljs-string">"crazy"</span>, 
@@ -7748,20 +7771,19 @@ arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Crazy fast NoSQ
     <span class="hljs-string">"database"</span> 
   ] 
 ]
-[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
 </pre>
 <div id="analyzerTextNoStem_container_collapse" onclick="$('#analyzerTextNoStem_long').hide(); $('#analyzerTextNoStem_short').show(); window.location.hash='analyzerTextNoStem_container';" class="example_show_button">Hide execution results</div></div>
 <div id="analyzerTextNoStem_short" onclick="$('#analyzerTextNoStem_short').hide(); $('#analyzerTextNoStem_long').show();">
 <pre>
 arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>)
-arangosh&gt; analyzers.save(<span class="hljs-string">"text_en_nostem"</span>, <span class="hljs-string">"text"</span>, {
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"text_en_nostem"</span>, <span class="hljs-string">"text"</span>, {
 ........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>,
 ........&gt;   <span class="hljs-keyword">case</span>: <span class="hljs-string">"lower"</span>,
 ........&gt;   accent: <span class="hljs-literal">false</span>,
 ........&gt;   stemming: <span class="hljs-literal">false</span>,
 ........&gt;   stopwords: []
 ........&gt; }, [<span class="hljs-string">"frequency"</span>,<span class="hljs-string">"norm"</span>,<span class="hljs-string">"position"</span>])
-arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en_nostem")`</span>)
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en_nostem")`</span>).toArray();
 </pre><div class="example_show_button">Show execution results</div>
 </div>
 </div>
@@ -7776,7 +7798,7 @@ arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Crazy fast NoSQ
 <div class="example-container" id="analyzerTextEdgeNgram_container">
 <div id="analyzerTextEdgeNgram_long" style="display: none;">
 <pre>
-arangosh&gt; analyzers.save(<span class="hljs-string">"text_edge_ngrams"</span>, <span class="hljs-string">"text"</span>, {
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"text_edge_ngrams"</span>, <span class="hljs-string">"text"</span>, {
 ........&gt;   edgeNgram: { <span class="hljs-attr">min</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">8</span>, <span class="hljs-attr">preserveOriginal</span>: <span class="hljs-literal">true</span> },
 ........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>,
 ........&gt;   <span class="hljs-keyword">case</span>: <span class="hljs-string">"lower"</span>,
@@ -7784,30 +7806,10 @@ arangosh&gt; analyzers.save(<span class="hljs-string">"text_edge_ngrams"</span>,
 ........&gt;   stemming: <span class="hljs-literal">false</span>,
 ........&gt;   stopwords: [ <span class="hljs-string">"the"</span> ]
 ........&gt; }, [<span class="hljs-string">"frequency"</span>,<span class="hljs-string">"norm"</span>,<span class="hljs-string">"position"</span>])
-{ 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"_system::text_edge_ngrams"</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-string">"text"</span>, 
-  <span class="hljs-string">"properties"</span> : { 
-    <span class="hljs-string">"locale"</span> : <span class="hljs-string">"en.utf-8"</span>, 
-    <span class="hljs-string">"case"</span> : <span class="hljs-string">"lower"</span>, 
-    <span class="hljs-string">"stopwords"</span> : [ 
-      <span class="hljs-string">"the"</span> 
-    ], 
-    <span class="hljs-string">"accent"</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">"stemming"</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">"edgeNgram"</span> : { 
-      <span class="hljs-string">"min"</span> : <span class="hljs-number">3</span>, 
-      <span class="hljs-string">"max"</span> : <span class="hljs-number">8</span>, 
-      <span class="hljs-string">"preserveOriginal"</span> : <span class="hljs-literal">true</span> 
-    } 
-  }, 
-  <span class="hljs-string">"features"</span> : [ 
-    <span class="hljs-string">"frequency"</span>, 
-    <span class="hljs-string">"norm"</span>, 
-    <span class="hljs-string">"position"</span> 
-  ] 
-}
-arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("The quick brown fox jumps over the dogWithAVeryLongName", "text_edge_ngrams")`</span>)
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS(
+........&gt;   "The quick brown fox jumps over the dogWithAVeryLongName",
+........&gt;   "text_edge_ngrams"
+........&gt; )`</span>).toArray();
 [ 
   [ 
     <span class="hljs-string">"qui"</span>, 
@@ -7831,12 +7833,11 @@ arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("The quick brown
     <span class="hljs-string">"dogwithaverylongname"</span> 
   ] 
 ]
-[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
 </pre>
 <div id="analyzerTextEdgeNgram_container_collapse" onclick="$('#analyzerTextEdgeNgram_long').hide(); $('#analyzerTextEdgeNgram_short').show(); window.location.hash='analyzerTextEdgeNgram_container';" class="example_show_button">Hide execution results</div></div>
 <div id="analyzerTextEdgeNgram_short" onclick="$('#analyzerTextEdgeNgram_short').hide(); $('#analyzerTextEdgeNgram_long').show();">
 <pre>
-arangosh&gt; analyzers.save(<span class="hljs-string">"text_edge_ngrams"</span>, <span class="hljs-string">"text"</span>, {
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"text_edge_ngrams"</span>, <span class="hljs-string">"text"</span>, {
 ........&gt;   edgeNgram: { <span class="hljs-attr">min</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">8</span>, <span class="hljs-attr">preserveOriginal</span>: <span class="hljs-literal">true</span> },
 ........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>,
 ........&gt;   <span class="hljs-keyword">case</span>: <span class="hljs-string">"lower"</span>,
@@ -7844,12 +7845,103 @@ arangosh&gt; analyzers.save(<span class="hljs-string">"text_edge_ngrams"</span>,
 ........&gt;   stemming: <span class="hljs-literal">false</span>,
 ........&gt;   stopwords: [ <span class="hljs-string">"the"</span> ]
 ........&gt; }, [<span class="hljs-string">"frequency"</span>,<span class="hljs-string">"norm"</span>,<span class="hljs-string">"position"</span>])
-arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("The quick brown fox jumps over the dogWithAVeryLongName", "text_edge_ngrams")`</span>)
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS(
+........&gt;   "The quick brown fox jumps over the dogWithAVeryLongName",
+........&gt;   "text_edge_ngrams"
+........&gt; )`</span>).toArray();
 </pre><div class="example_show_button">Show execution results</div>
 </div>
 </div>
 
     @endDocuBlock analyzerTextEdgeNgram
+
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerPipelineUpperNgram
+
+
+<div class="example-container" id="analyzerPipelineUpperNgram_container">
+<div id="analyzerPipelineUpperNgram_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"ngram_upper"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-attr">pipeline</span>: [
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"norm"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">"en.utf-8"</span>, <span class="hljs-attr">case</span>: <span class="hljs-string">"upper"</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"ngram"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">min</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">preserveOriginal</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">streamType</span>: <span class="hljs-string">"utf8"</span> } }
+........&gt; ] }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Quick brown foX", "ngram_upper")`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">"QU"</span>, 
+    <span class="hljs-string">"UI"</span>, 
+    <span class="hljs-string">"IC"</span>, 
+    <span class="hljs-string">"CK"</span>, 
+    <span class="hljs-string">"K "</span>, 
+    <span class="hljs-string">" B"</span>, 
+    <span class="hljs-string">"BR"</span>, 
+    <span class="hljs-string">"RO"</span>, 
+    <span class="hljs-string">"OW"</span>, 
+    <span class="hljs-string">"WN"</span>, 
+    <span class="hljs-string">"N "</span>, 
+    <span class="hljs-string">" F"</span>, 
+    <span class="hljs-string">"FO"</span>, 
+    <span class="hljs-string">"OX"</span> 
+  ] 
+]
+</pre>
+<div id="analyzerPipelineUpperNgram_container_collapse" onclick="$('#analyzerPipelineUpperNgram_long').hide(); $('#analyzerPipelineUpperNgram_short').show(); window.location.hash='analyzerPipelineUpperNgram_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerPipelineUpperNgram_short" onclick="$('#analyzerPipelineUpperNgram_short').hide(); $('#analyzerPipelineUpperNgram_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"ngram_upper"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-attr">pipeline</span>: [
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"norm"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">"en.utf-8"</span>, <span class="hljs-attr">case</span>: <span class="hljs-string">"upper"</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"ngram"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">min</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">preserveOriginal</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">streamType</span>: <span class="hljs-string">"utf8"</span> } }
+........&gt; ] }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Quick brown foX", "ngram_upper")`</span>).toArray();
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerPipelineUpperNgram
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerPipelineDelimiterStem
+
+
+<div class="example-container" id="analyzerPipelineDelimiterStem_container">
+<div id="analyzerPipelineDelimiterStem_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"delimiter_stem"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-attr">pipeline</span>: [
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"delimiter"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">","</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"delimiter"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">";"</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"stem"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">"en.utf-8"</span> } }
+........&gt; ] }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">"delimit"</span>, 
+    <span class="hljs-string">"stemmabl"</span>, 
+    <span class="hljs-string">"word"</span> 
+  ] 
+]
+</pre>
+<div id="analyzerPipelineDelimiterStem_container_collapse" onclick="$('#analyzerPipelineDelimiterStem_long').hide(); $('#analyzerPipelineDelimiterStem_short').show(); window.location.hash='analyzerPipelineDelimiterStem_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerPipelineDelimiterStem_short" onclick="$('#analyzerPipelineDelimiterStem_short').hide(); $('#analyzerPipelineDelimiterStem_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"delimiter_stem"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-attr">pipeline</span>: [
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"delimiter"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">","</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"delimiter"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">";"</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"stem"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">"en.utf-8"</span> } }
+........&gt; ] }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`</span>).toArray();
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerPipelineDelimiterStem
 
 
 <!-- filename: /work/ArangoDB/Documentation/Books/Manual/graphs.md -->
@@ -17370,6 +17462,143 @@ RETURN UNSHIFT( [ <span class="hljs-number">1</span>, <span class="hljs-number">
 @endDocuBlock aqlArrayUnshift_2
 
 
+<!-- filename: /home/simran/oskar/work/ArangoDB/Documentation/Books/AQL/examples-grouping.md -->
+    @startDocuBlockInline aqlDateGroupingLocalTime_1
+
+
+<div class="example-container" id="aqlDateGroupingLocalTime_1_container">
+<div id="aqlDateGroupingLocalTime_1_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  FOR a IN @activities
+  COLLECT
+    day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate, <span class="hljs-string">'Europe/Berlin'</span>), <span class="hljs-string">'day'</span>)
+  AGGREGATE
+    hours = SUM(a.duration),
+    revenue = SUM(a.duration * a.rate)
+  SORT day ASC
+  RETURN {
+    day,
+    hours,
+    revenue
+  }
+</pre>
+<strong>Bind Values:</strong>
+<pre>
+{
+  <span class="hljs-string">"activities"</span>: [
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-01-31T23:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-02-01T03:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">4</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-02-01T09:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-02-01T17:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-03-31T21:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-03-31T22:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-03-31T22:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-04-01T03:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">5</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-04-01T13:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-04-01T16:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">3</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    }
+  ]
+}
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  {
+    <span class="hljs-string">"day"</span>: <span class="hljs-string">"2020-02-01T00:00:00.000Z"</span>,
+    <span class="hljs-string">"hours"</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-string">"revenue"</span>: <span class="hljs-number">3000</span>
+  },
+  {
+    <span class="hljs-string">"day"</span>: <span class="hljs-string">"2020-03-31T00:00:00.000Z"</span>,
+    <span class="hljs-string">"hours"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">"revenue"</span>: <span class="hljs-number">250</span>
+  },
+  {
+    <span class="hljs-string">"day"</span>: <span class="hljs-string">"2020-04-01T00:00:00.000Z"</span>,
+    <span class="hljs-string">"hours"</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-string">"revenue"</span>: <span class="hljs-number">2000</span>
+  }
+]</pre>
+<div id="aqlDateGroupingLocalTime_1_container_collapse" onclick="$('#aqlDateGroupingLocalTime_1_long').hide(); $('#aqlDateGroupingLocalTime_1_short').show(); window.location.hash='aqlDateGroupingLocalTime_1_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlDateGroupingLocalTime_1_short" onclick="$('#aqlDateGroupingLocalTime_1_short').hide(); $('#aqlDateGroupingLocalTime_1_long').show();">
+<strong>Query:</strong>
+<pre>
+  FOR a IN @activities
+  COLLECT
+    day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate, <span class="hljs-string">'Europe/Berlin'</span>), <span class="hljs-string">'day'</span>)
+  AGGREGATE
+    hours = SUM(a.duration),
+    revenue = SUM(a.duration * a.rate)
+  SORT day ASC
+  RETURN {
+    day,
+    hours,
+    revenue
+  }
+</pre>
+<strong>Bind Values:</strong>
+<pre>
+{
+  <span class="hljs-string">"activities"</span>: [
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-01-31T23:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-02-01T03:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">4</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-02-01T09:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-02-01T17:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-03-31T21:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-03-31T22:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-03-31T22:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-04-01T03:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">5</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    },
+    {
+      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-04-01T13:00:00Z"</span>,
+      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-04-01T16:00:00Z"</span>,
+      <span class="hljs-string">"duration"</span>: <span class="hljs-number">3</span>,
+      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+    }
+  ]
+}
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlDateGroupingLocalTime_1
+
+
 <!-- filename: /work/ArangoDB/Documentation/Books/AQL/examples-remove-vertex.md -->
     @startDocuBlockInline GRAPHTRAV_removeVertex1
 
@@ -21551,6 +21780,176 @@ FOR quarter IN [ <span class="hljs-number">1</span>, <span class="hljs-number">2
 </div>
 
     @endDocuBlock dateRoundAggregate
+
+
+<!-- filename: /home/simran/oskar/work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
+    @startDocuBlockInline aqlDateTimeToLocal_1
+
+
+<div class="example-container" id="aqlDateTimeToLocal_1_container">
+<div id="aqlDateTimeToLocal_1_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Europe/Berlin"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"America/New_York"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"UTC"</span>)
+  ]
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  [
+    <span class="hljs-string">"2020-03-15T01:00:00.000"</span>,
+    <span class="hljs-string">"2020-03-14T20:00:00.000"</span>,
+    <span class="hljs-string">"2020-03-15T00:00:00.000Z"</span>
+  ]
+]</pre>
+<div id="aqlDateTimeToLocal_1_container_collapse" onclick="$('#aqlDateTimeToLocal_1_long').hide(); $('#aqlDateTimeToLocal_1_short').show(); window.location.hash='aqlDateTimeToLocal_1_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlDateTimeToLocal_1_short" onclick="$('#aqlDateTimeToLocal_1_short').hide(); $('#aqlDateTimeToLocal_1_long').show();">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Europe/Berlin"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"America/New_York"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"UTC"</span>)
+  ]
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlDateTimeToLocal_1
+
+
+<!-- filename: /home/simran/oskar/work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
+    @startDocuBlockInline aqlDateTimeToLocal_2
+
+
+<div class="example-container" id="aqlDateTimeToLocal_2_container">
+<div id="aqlDateTimeToLocal_2_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000Z"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000-02:00"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-number">1584230400000</span>, <span class="hljs-string">"Asia/Shanghai"</span>)
+  ]
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  [
+    <span class="hljs-string">"2020-03-15T08:00:00.000"</span>,
+    <span class="hljs-string">"2020-03-15T08:00:00.000"</span>,
+    <span class="hljs-string">"2020-03-15T10:00:00.000"</span>,
+    <span class="hljs-string">"2020-03-15T08:00:00.000"</span>
+  ]
+]</pre>
+<div id="aqlDateTimeToLocal_2_container_collapse" onclick="$('#aqlDateTimeToLocal_2_long').hide(); $('#aqlDateTimeToLocal_2_short').show(); window.location.hash='aqlDateTimeToLocal_2_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlDateTimeToLocal_2_short" onclick="$('#aqlDateTimeToLocal_2_short').hide(); $('#aqlDateTimeToLocal_2_long').show();">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000Z"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-string">"2020-03-15T00:00:00.000-02:00"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_UTCTOLOCAL(<span class="hljs-number">1584230400000</span>, <span class="hljs-string">"Asia/Shanghai"</span>)
+  ]
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlDateTimeToLocal_2
+
+
+<!-- filename: /home/simran/oskar/work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
+    @startDocuBlockInline aqlDateTimeToUTC_1
+
+
+<div class="example-container" id="aqlDateTimeToUTC_1_container">
+<div id="aqlDateTimeToUTC_1_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Europe/Berlin"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"America/New_York"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"UTC"</span>)
+  ]
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  [
+    <span class="hljs-string">"2020-03-14T23:00:00.000Z"</span>,
+    <span class="hljs-string">"2020-03-15T04:00:00.000Z"</span>,
+    <span class="hljs-string">"2020-03-15T00:00:00.000Z"</span>
+  ]
+]</pre>
+<div id="aqlDateTimeToUTC_1_container_collapse" onclick="$('#aqlDateTimeToUTC_1_long').hide(); $('#aqlDateTimeToUTC_1_short').show(); window.location.hash='aqlDateTimeToUTC_1_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlDateTimeToUTC_1_short" onclick="$('#aqlDateTimeToUTC_1_short').hide(); $('#aqlDateTimeToUTC_1_long').show();">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Europe/Berlin"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"America/New_York"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"UTC"</span>)
+  ]
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlDateTimeToUTC_1
+
+
+<!-- filename: /home/simran/oskar/work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
+    @startDocuBlockInline aqlDateTimeToUTC_2
+
+
+<div class="example-container" id="aqlDateTimeToUTC_2_container">
+<div id="aqlDateTimeToUTC_2_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000Z"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000-02:00"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-number">1584230400000</span>, <span class="hljs-string">"Asia/Shanghai"</span>)
+  ]
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  [
+    <span class="hljs-string">"2020-03-14T16:00:00.000Z"</span>,
+    <span class="hljs-string">"2020-03-14T16:00:00.000Z"</span>,
+    <span class="hljs-string">"2020-03-14T18:00:00.000Z"</span>,
+    <span class="hljs-string">"2020-03-14T16:00:00.000Z"</span>
+  ]
+]</pre>
+<div id="aqlDateTimeToUTC_2_container_collapse" onclick="$('#aqlDateTimeToUTC_2_long').hide(); $('#aqlDateTimeToUTC_2_short').show(); window.location.hash='aqlDateTimeToUTC_2_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlDateTimeToUTC_2_short" onclick="$('#aqlDateTimeToUTC_2_short').hide(); $('#aqlDateTimeToUTC_2_long').show();">
+<strong>Query:</strong>
+<pre>
+  RETURN [
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000Z"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000-02:00"</span>, <span class="hljs-string">"Asia/Shanghai"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-number">1584230400000</span>, <span class="hljs-string">"Asia/Shanghai"</span>)
+  ]
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlDateTimeToUTC_2
 
 
 <!-- filename: /work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
@@ -41716,9 +42115,9 @@ x-content-type-options: nosniff
 <!-- filename: /work/ArangoDB/Documentation/DocuBlocks/Rest/Administration/put_admin_compact.md -->
 @startDocuBlock put_admin_compact
 
-@brief compact entire database
+@brief compact all databases
 
-@RESTHEADER{PUT /_admin/compact, Compact the entire database data, RestCompactHandler}
+@RESTHEADER{PUT /_admin/compact, Compact the entire database system data, RestCompactHandler}
 
 @HINTS
 {% hint 'warning' %}

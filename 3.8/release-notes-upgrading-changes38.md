@@ -10,6 +10,23 @@ upgrading to ArangoDB 3.8, and adjust any client programs if necessary.
 
 The following incompatible changes have been made in ArangoDB 3.8:
 
+Collection attributes
+---------------------
+   
+The collection properties `indexBuckets`, `journalSize`, `doCompact` and
+`isVolatile` only had a meaning for the MMFiles storage engine, which is not
+available anymore since ArangoDB 3.7. 
+
+ArangoDB 3.8 now removes any special handling for these obsolete collection 
+properties, meaning these attributes will not be processed by the server and
+not be returned by any server APIs. Using these attributes in any API call
+will be ignored, and will not trigger any errors.
+
+Client applications and tests that rely on the behavior that setting any of 
+these obsolete properties produces an error on the server side may need to
+be adjusted now.
+
+
 Startup options
 ---------------
 
@@ -27,6 +44,9 @@ The following startup options have been renamed in ArangoDB 3.8:
 
 Using the old option names will still work in ArangoDB 3.8, but is discouraged.
 
+HTTP RESTful API
+----------------
+
 ### Endpoint return value changes
 
 The endpoint `/_api/replication/clusterInventory` returns, among other things,
@@ -41,3 +61,84 @@ data for the collection changed, or when a collection contained links to
 ArangoSearch Views. This made the attribute relatively useless for any
 real-world use cases, and so we are now hard-coding it to simplify the internal
 code. Using the attribute in client applications is also deprecated.
+
+AQL
+---
+
+### Graph traversal option `bfs` deprecated
+
+The graph traversal option `bfs` is now deprecated and superseded by the new
+option `order`.
+
+The preferred way to start a breadth-first search from now on is with
+`order: "bfs"`. The default remains depth-first search if no `order` is
+specified, but can also be explicitly requested with `order: "dfs"`.
+
+### UPDATE queries with `keepNull: false`
+
+AQL update queries using the `keepNull` option set to false had an inconsistent
+behavior in previous versions of ArangoDB.
+
+For example, given a collection `test` with an empty document with just key
+`testDoc`, the following query would return different results when running for
+the first time and the second time:
+
+```js
+UPDATE 'testDoc' 
+WITH { test: { sub1: true, sub2: null } } IN test
+OPTIONS { keepNull: false, mergeObjects: true }
+```
+
+On its first run, the query would return:
+
+```json
+{
+  "_key": "testDoc",
+  "test": {
+    "sub1": true,
+    "sub2": null
+  }
+}
+```
+
+(with the `null` attribute value not being removed). For all subsequent runs, 
+the same query would return:
+
+```json
+{
+  "_key": "testDoc",
+  "test": {
+    "sub1": true,
+  }
+}
+```
+
+(with the `null` value removed as requested). 
+
+This inconsistency was due to how the `keepNull` attribute was handled if
+the attribute already existed in the to-be-updated document or not. The 
+behavior is now consistent, so `null` values are now properly removed from 
+sub-attributes even if in the to-be-updated document the target attribute
+did not yet exist. This makes such updates idempotent again.
+
+This a behavior change compared previous versions, but it will only have
+effect when `keepNull` is set to `false` (the default value is `true`),
+and only when just-inserted object sub-attributes contained `null` values.
+
+Document operations
+-------------------
+
+### Update operations with `keepNull: false`
+
+Non-AQL document update operations using the `keepNull` option set to false had 
+an inconsistent behavior in previous versions of ArangoDB. 
+
+For example, given a collection `test` with an empty document with just key `testDoc`, 
+the following operation would produce different documents when running for the first 
+time and the second time:
+
+```js
+db.test.update("testDoc", { test: { sub1: true, sub2: null } }, { keepNull: false });
+```
+
+Also see [AQL UPDATE queries with `keepNull: false`](#update-queries-with-keepnull-false)

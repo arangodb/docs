@@ -284,7 +284,9 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_http_request_statistics_http_post_requests` | Number of HTTP POST requests |
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
+| `arangodb_http_request_statistics_superuser_requests` | Total number of HTTP requests executed by superuser/JWT |
 | `arangodb_http_request_statistics_total_requests` | Total number of HTTP requests |
+| `arangodb_http_request_statistics_user_requests` | Total number of HTTP requests executed by clients |
 | `arangodb_intermediate_commits` | Intermediate commits |
 | `arangodb_load_current_accum_runtime_msec` | Accumulated Current loading time (ms) |
 | `arangodb_load_current_runtime` | Current loading runtimes (ms) |
@@ -310,12 +312,14 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_process_statistics_resident_set_size_percent` | The relative size of the number of pages the process has in real memory compared to system memory. This is just the pages which count toward text, data, or stack space. This does not include pages which have not been demand-loaded in, or which are swapped out. The value is a ratio between 0.00 and 1.00 |
 | `arangodb_process_statistics_resident_set_size` | The total size of the number of pages the process has in real memory. This is just the pages which count toward text, data, or stack space. This does not include pages which have not been demand-loaded in, or which are swapped out. The resident set size is reported in bytes |
 | `arangodb_process_statistics_system_time` | Amount of time that this process has been scheduled in kernel mode, measured in seconds |
-| `arangodb_process_statistics_user_time` | On Windows, this figure contains the total amount of memory that the memory manager has committed for the arangod process. On other systems, this figure contains The size of the virtual memory the process is using |
+| `arangodb_process_statistics_user_time` | Amount of time that this process has been scheduled in user mode, measured in seconds |
 | `arangodb_process_statistics_virtual_memory_size` | On Windows, this figure contains the total amount of memory that the memory manager has committed for the arangod process. On other systems, this figure contains The size of the virtual memory the process is using |
 | `arangodb_scheduler_awake_threads` | Number of awake worker threads |
 | `arangodb_scheduler_num_worker_threads` | Number of worker threads |
 | `arangodb_scheduler_queue_full_failures` | Number of times the scheduler queue was full and a task/request was rejected |
 | `arangodb_scheduler_queue_length` | Server's internal queue length |
+| `arangodb_scheduler_threads_started` | Number of scheduler threads started |
+| `arangodb_scheduler_threads_stopped` | Number of scheduler threads stopped |
 | `arangodb_server_statistics_physical_memory` | Physical memory in bytes |
 | `arangodb_server_statistics_server_uptime` | Number of seconds elapsed since server start |
 | `arangodb_shards_leader_count` | Number of leader shards on this machine |

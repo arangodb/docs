@@ -287,7 +287,9 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_http_request_statistics_http_post_requests` | Number of HTTP POST requests |
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
+| `arangodb_http_request_statistics_superuser_requests` | Total number of HTTP requests executed by superuser/JWT |
 | `arangodb_http_request_statistics_total_requests` | Total number of HTTP requests |
+| `arangodb_http_request_statistics_user_requests` | Total number of HTTP requests executed by clients |
 | `arangodb_intermediate_commits` | Intermediate commits |
 | `arangodb_load_current_accum_runtime_msec` | Accumulated Current loading time (ms) |
 | `arangodb_load_current_runtime` | Current loading runtimes (ms) |
@@ -314,19 +316,21 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_process_statistics_resident_set_size_percent` | The relative size of the number of pages the process has in real memory compared to system memory. This is just the pages which count toward text, data, or stack space. This does not include pages which have not been demand-loaded in, or which are swapped out. The value is a ratio between 0.00 and 1.00 |
 | `arangodb_process_statistics_resident_set_size` | The total size of the number of pages the process has in real memory. This is just the pages which count toward text, data, or stack space. This does not include pages which have not been demand-loaded in, or which are swapped out. The resident set size is reported in bytes |
 | `arangodb_process_statistics_system_time` | Amount of time that this process has been scheduled in kernel mode, measured in seconds |
-| `arangodb_process_statistics_user_time` | On Windows, this figure contains the total amount of memory that the memory manager has committed for the arangod process. On other systems, this figure contains The size of the virtual memory the process is using |
+| `arangodb_process_statistics_user_time` | Amount of time that this process has been scheduled in user mode, measured in seconds |
 | `arangodb_process_statistics_virtual_memory_size` | On Windows, this figure contains the total amount of memory that the memory manager has committed for the arangod process. On other systems, this figure contains The size of the virtual memory the process is using |
 | `arangodb_replication_dump_apply_time` | Time required for applying data from replication dump responses (ms) |
 | `arangodb_replication_dump_bytes_received` | Number of bytes received in replication dump requests |
 | `arangodb_replication_dump_documents` | Number of documents received in replication dump requests |
 | `arangodb_replication_dump_request_time` | Wait time for replication dump requests (ms) |
 | `arangodb_replication_dump_requests` | Number of replication dump requests made |
+| `arangodb_replication_failed_connects` | Number of failed connection attempts and response errors during replication |
 | `arangodb_replication_initial_chunks_requests_time` | Wait time for replication key chunks determination requests (ms) |
 | `arangodb_replication_initial_docs_requests_time` | Time needed to apply replication docs data (ms) |
 | `arangodb_replication_initial_insert_apply_time` | Time needed to apply replication initial sync insertions (ms) |
 | `arangodb_replication_initial_keys_requests_time` | Wait time for replication keys requests (ms) |
 | `arangodb_replication_initial_lookup_time` | Time needed for replication initial sync key lookups (ms) |
 | `arangodb_replication_initial_remove_apply_time` | Time needed to apply replication initial sync removals (ms) |
+| `arangodb_replication_initial_sync_bytes_received` | Number of bytes received during replication initial sync |
 | `arangodb_replication_initial_sync_docs_inserted` | Number of documents inserted by replication initial sync |
 | `arangodb_replication_initial_sync_docs_removed` | Number of documents inserted by replication initial sync |
 | `arangodb_replication_initial_sync_docs_requested` | Number of documents requested via replication initial sync requests |
@@ -346,6 +350,8 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_scheduler_num_worker_threads` | Number of worker threads |
 | `arangodb_scheduler_queue_full_failures` | Number of times the scheduler queue was full and a task/request was rejected |
 | `arangodb_scheduler_queue_length` | Server's internal queue length |
+| `arangodb_scheduler_threads_started` | Number of scheduler threads started |
+| `arangodb_scheduler_threads_stopped` | Number of scheduler threads stopped |
 | `arangodb_server_statistics_physical_memory` | Physical memory in bytes |
 | `arangodb_server_statistics_server_uptime` | Number of seconds elapsed since server start |
 | `arangodb_shards_leader_count` | Number of leader shards on this machine |
@@ -366,3 +372,5 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_v8_context_free` | Number of V8 contexts currently free |
 | `arangodb_v8_context_max` | Maximum number of concurrent V8 contexts allowed |
 | `arangodb_v8_context_min` | Minimum number of concurrent V8 contexts allowed |
+| `rocksdb_free_inodes` | Number of free inodes for the file system with the RocksDB database directory (always `0` on Windows) |
+| `rocksdb_total_inodes` | Total number of inodes for the file system with the RocksDB database directory (always `0` on Windows) |
