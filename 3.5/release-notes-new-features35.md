@@ -185,7 +185,7 @@ from a given collection. The index hint works with the [named indices](#named-in
 feature, making it easy to specify which index to use.
 
 See:
-- [AQL Index Hints](aql/operations-for.html#index-hints)
+- [AQL Index Hints](aql/operations-for.html#indexhint)
 - [An introduction to index hints and named indices](https://www.arangodb.com/arangodb-training-center/index-hints-named-indices/){:target="_blank"}
   (tutorial)
 
