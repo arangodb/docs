@@ -7,7 +7,7 @@ COLLECT
 =======
 
 The `COLLECT` keyword can be used to group an array by one or multiple group
-criteria. 
+criteria.
 
 The `COLLECT` statement will eliminate all local variables in the current
 scope. After `COLLECT` only the variables introduced by `COLLECT` itself are
@@ -260,10 +260,7 @@ assignment:
 -------------------------------
 
 In order to make a result set unique, one can either use `COLLECT` or
-`RETURN DISTINCT`. Behind the scenes, both variants create a *CollectNode*.
-For both variants, the optimizer may try the sorted and the hashed variant of
-`COLLECT`. The difference is therefore mainly syntactical, with
-`RETURN DISTINCT` saving a bit of typing when compared to an equivalent `COLLECT`:
+`RETURN DISTINCT`.
 
 ```js
 FOR u IN users
@@ -276,15 +273,18 @@ FOR u IN users
   RETURN age
 ```
 
-However, `COLLECT` is vastly more flexible than `RETURN DISTINCT`. Aside from
-its sophisticated grouping and aggregation capabilities, `COLLECT` also allows
-you to place a `LIMIT` operation before `RETURN` to potentially stop the
-`COLLECT` operation early.
-Additionally, `COLLECT` supports [options](#collect-options).
+Behind the scenes, both variants create a *CollectNode*. However, they use
+different implementations of `COLLECT` that have different properties:
 
-`RETURN DISTINCT` does not change the order of results, whereas `COLLECT` sorts
-them (regardless of the method, _sorted_ or _hash_) unless explicitly disabled
-by the user with a subsequent `SORT null` (see [`method`](#method)).
+- `RETURN DISTINCT` **maintains the order of results**, but it is limited to
+  a single value.
+
+- `COLLECT` **changes the order of results** (sorted or undefined), but it
+  supports multiple values and is more flexible than `RETURN DISTINCT`.
+
+Aside from `COLLECT`s sophisticated grouping and aggregation capabilities, it
+allows you to place a `LIMIT` operation before `RETURN` to potentially stop the
+`COLLECT` operation early.
 
 `COLLECT` options
 -----------------
