@@ -27,8 +27,8 @@ The optional `SEARCH` operation provides the capabilities to:
 
 See [ArangoSearch Views](../arangosearch-views.html) on how to set up a View.
 
-General Syntax
---------------
+Syntax
+------
 
 The `SEARCH` keyword is followed by an ArangoSearch filter expressions, which
 is mostly comprised of calls to ArangoSearch AQL functions.

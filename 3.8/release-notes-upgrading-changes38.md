@@ -12,7 +12,7 @@ The following incompatible changes have been made in ArangoDB 3.8:
 
 Collection attributes
 ---------------------
-   
+
 The collection properties `indexBuckets`, `journalSize`, `doCompact` and
 `isVolatile` only had a meaning for the MMFiles storage engine, which is not
 available anymore since ArangoDB 3.7. 
@@ -25,7 +25,6 @@ will be ignored, and will not trigger any errors.
 Client applications and tests that rely on the behavior that setting any of 
 these obsolete properties produces an error on the server side may need to
 be adjusted now.
-
 
 Startup options
 ---------------
@@ -43,6 +42,21 @@ The following startup options have been renamed in ArangoDB 3.8:
 | `--javascript.files-whitelist` | `--javascript.files-allowlist`
 
 Using the old option names will still work in ArangoDB 3.8, but is discouraged.
+
+The following server startup options have been obsoleted in ArangoDB 3.8:
+
+- `--database.throw-collection-not-loaded-error`
+- `--ttl.only-loaded-collection`
+
+These options were meaningful for the MMFiles storage engine only, but for 
+the RocksDB storage engine they did not make any difference. Using these startup
+options is still possible, but will have no effect other than generating a 
+warning at server startup.
+
+### Default value changes
+
+The default value for the number of network I/O threads `--network.io-threads`
+was changed to `2` in ArangoDB 3.8, up from a value of `1` in previous version.
 
 HTTP RESTful API
 ----------------
@@ -76,7 +90,8 @@ constructed. The object was always reconstructed in case the underlying Plan
 data for the collection changed, or when a collection contained links to
 ArangoSearch Views. This made the attribute relatively useless for any
 real-world use cases, and so we are now hard-coding it to simplify the internal
-code. Using the attribute in client applications is also deprecated.
+code. Using the attribute in client applications is also deprecated, because
+it will be removed from the API's return value in future versions of ArangoDB.
 
 AQL
 ---

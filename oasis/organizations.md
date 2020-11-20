@@ -31,7 +31,7 @@ member of one _Free to try_ tier organization at a time.
 
 ## How to upgrade to professional
 
-ArangoDB Oasis comes with a free-to-try plan that lets you test our ArangoDB
+ArangoDB Oasis comes with a free-to-try tier that lets you test our ArangoDB
 Cloud for free for 14 days. After the trial period, your deployments will
 automatically be deleted.
 
