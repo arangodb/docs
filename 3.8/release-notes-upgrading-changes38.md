@@ -61,16 +61,16 @@ was changed to `2` in ArangoDB 3.8, up from a value of `1` in previous version.
 HTTP RESTful API
 ----------------
 
-### WWW-Authenticate response header
+### Www-Authenticate response header
 
-ArangoDB 3.8 adds back the `WWW-Authenticate` response header for HTTP server
-responses with a status code of 401. Returning the `WWW-Authenticate` header for
-401 responses is required by the HTTP/1.1 specification and was also advertised 
+ArangoDB 3.8 adds back the `Www-Authenticate` response header for HTTP server
+responses with a status code of 401. Returning the `Www-Authenticate` header for
+401 responses is required by the HTTP/1.1 specification and was also advertised
 functionality in the ArangoDB documentation, but wasn't happening in practice.
 
-Now the functionality of returning `WWW-Authenticate` response headers for HTTP
-401 responses is restored, along with the already advertised functionality of 
-suppressing this header in case the client sends an `X-Omit-WWW-Authenticate`
+Now the functionality of returning `Www-Authenticate` response headers for HTTP
+401 responses is restored, along with the already advertised functionality of
+suppressing this header in case the client sends an `X-Omit-Www-Authenticate`
 header with the request.
 
 This change should not have any impact for client applications that use ArangoDB
