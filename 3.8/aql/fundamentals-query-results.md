@@ -23,9 +23,11 @@ FOR u IN users
 ```
 
 ```json
-[ { "id": 1, "name": "John", "active": false }, 
-  { "age": 32, "id": 2, "name": "Vanessa" }, 
-  { "friends": [ "John", "Vanessa" ], "id": 3, "name": "Amy" } ]
+[
+  { "id": 1, "name": "John", "active": false },
+  { "age": 32, "id": 2, "name": "Vanessa" },
+  { "friends": [ "John", "Vanessa" ], "id": 3, "name": "Amy" }
+]
 ```
 
 However, if a fixed set of attributes from the collection is queried, then the 
@@ -38,9 +40,11 @@ FOR u IN users
 ```
 
 ```json
-[ { "id": 1, "name": "John" }, 
-  { "id": 2, "name": "Vanessa" }, 
-  { "id": 3, "name": "Amy" } ]
+[
+  { "id": 1, "name": "John" },
+  { "id": 2, "name": "Vanessa" },
+  { "id": 3, "name": "Amy" }
+]
 ```
 
 It is also possible to query just scalar values. In this case, the result set

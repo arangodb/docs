@@ -20,13 +20,13 @@ or warnings that cannot be predicted from inspecting the query text alone.
 This is because queries may use data from collections that may also be inhomogeneous.
 Some examples that will cause run-time errors or warnings are:
 
-- Division by zero: Will be triggered when an attempt is made to use the value
+- **Division by zero**: Will be triggered when an attempt is made to use the value
   *0* as the divisor in an arithmetic division or modulus operation
-- Invalid operands for arithmetic operations: Will be triggered when an attempt
+- **Invalid operands for arithmetic operations**: Will be triggered when an attempt
   is made to use any non-numeric values as operands in arithmetic operations.
   This includes unary (unary minus, unary plus) and binary operations (plus,
   minus, multiplication, division, and modulus)
-- Invalid operands for logical operations: Will be triggered when an attempt is
+- **Invalid operands for logical operations**: Will be triggered when an attempt is
   made to use any non-boolean values as operand(s) in logical operations. This
   includes unary (logical not/negation), binary (logical and, logical or), and
   the ternary operators
