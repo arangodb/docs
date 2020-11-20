@@ -12,7 +12,7 @@ The following incompatible changes have been made in ArangoDB 3.8:
 
 Collection attributes
 ---------------------
-   
+
 The collection properties `indexBuckets`, `journalSize`, `doCompact` and
 `isVolatile` only had a meaning for the MMFiles storage engine, which is not
 available anymore since ArangoDB 3.7. 
@@ -25,7 +25,6 @@ will be ignored, and will not trigger any errors.
 Client applications and tests that rely on the behavior that setting any of 
 these obsolete properties produces an error on the server side may need to
 be adjusted now.
-
 
 Startup options
 ---------------
@@ -46,9 +45,8 @@ Using the old option names will still work in ArangoDB 3.8, but is discouraged.
 
 ### Default value changes
 
-The default value for the number of network I/O threads was changed to `2` in
-ArangoDB 3.8, up from a value of `1` in previous version.
-
+The default value for the number of network I/O threads `--network.io-threads`
+was changed to `2` in ArangoDB 3.8, up from a value of `1` in previous version.
 
 HTTP RESTful API
 ----------------
@@ -66,8 +64,8 @@ constructed. The object was always reconstructed in case the underlying Plan
 data for the collection changed, or when a collection contained links to
 ArangoSearch Views. This made the attribute relatively useless for any
 real-world use cases, and so we are now hard-coding it to simplify the internal
-code. Using the attribute in client applications is also deprecated, because 
-it will be removed from the API's return value in future versions of ArangoDB..
+code. Using the attribute in client applications is also deprecated, because
+it will be removed from the API's return value in future versions of ArangoDB.
 
 AQL
 ---
