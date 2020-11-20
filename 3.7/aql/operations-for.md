@@ -87,7 +87,7 @@ suffix to modify behavior. The general syntax is:
 FOR variableName IN expression OPTIONS {option: value, ...}
 ```
 
-### Index hints
+### `indexHint`
 
 For collections, index hints are provided though this inline options mechanism.
 Hints can be specified in two different formats.
