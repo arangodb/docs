@@ -458,7 +458,7 @@ See [String Functions](functions-string.html#ngram_similarity).
 
 Search for a phrase in the referenced attribute. It only matches documents in
 which the tokens appear in the specified order. To search for tokens in any
-order use [TOKENS()](#tokens) instead.
+order use [`TOKENS()`](functions-string.html#tokens) instead.
 
 The phrase can be expressed as an arbitrary number of *phraseParts* separated by
 *skipTokens* number of tokens (wildcards), either as separate arguments or as
@@ -806,10 +806,6 @@ FOR doc IN viewName
   SEARCH ANALYZER(doc.text LIKE "foo%b_r", "text_en")
   RETURN doc.text
 ```
-
-### TOKENS()
-
-See [String Functions](functions-string.html#tokens).
 
 Scoring Functions
 -----------------
