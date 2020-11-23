@@ -29,6 +29,8 @@ be adjusted now.
 Startup options
 ---------------
 
+### Renamed options
+
 The following startup options have been renamed in ArangoDB 3.8:
 
 | Old name | New name |
@@ -42,6 +44,8 @@ The following startup options have been renamed in ArangoDB 3.8:
 | `--javascript.files-whitelist` | `--javascript.files-allowlist`
 
 Using the old option names will still work in ArangoDB 3.8, but is discouraged.
+
+### Deprecated options
 
 The following server startup options have been obsoleted in ArangoDB 3.8:
 
@@ -60,16 +64,16 @@ was changed to `2` in ArangoDB 3.8, up from a value of `1` in previous version.
 
 ### Audit Logging (Enterprise Edition)
 
-The Enterprise Edition's audit log feature now honors the configured 
-date/time output format. Previously the audit logging always logged date/time 
-values in the server's local time, and logged them in format YYYY-MM-DDTHH:MM:SS.
+The Enterprise Edition's audit log feature now honors the configured
+date/time output format. Previously, the audit logging always logged date/time
+values in the server's local time in the format `YYYY-MM-DDTHH:MM:SS`.
 
-From 3.8 onwards, the audit logging will honor the date/time format specified 
-via the `--log.time-format` startup option, which defaults to `utc-datestring`. 
-That means the audit logging will by default log all dates/times in UTC time. 
+From 3.8 onwards, the audit logging will honor the date/time format specified
+via the `--log.time-format` startup option, which defaults to `utc-datestring`.
+That means the audit logging will log all dates/times in UTC time by default.
 
-To restore the pre-3.8 format, please set the option `--log.time-format` to 
-`local-datestring`, which will make the audit logger (and all other server log 
+To restore the pre-3.8 format, please set the option `--log.time-format` to
+`local-datestring`, which will make the audit logger (and all other server log
 messages) use the server's local time.
 
 HTTP RESTful API
