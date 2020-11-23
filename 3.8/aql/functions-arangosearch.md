@@ -63,9 +63,10 @@ FOR doc IN viewName
   RETURN doc
 ```
 
-Search Functions
-----------------
+Context Functions
+-----------------
 
+<!-- TODO -->
 Search functions can be used in a [SEARCH operation](operations-search.html)
 to form an ArangoSearch expression to filter a View. The functions control the
 ArangoSearch functionality without having a returnable value in AQL.
@@ -222,6 +223,11 @@ Assuming a View with the following documents indexed and processed by the
   }
 ]
 ```
+
+Context Functions
+-----------------
+
+<!-- TODO -->
 
 ### EXISTS()
 
