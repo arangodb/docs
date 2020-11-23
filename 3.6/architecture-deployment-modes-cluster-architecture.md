@@ -439,25 +439,24 @@ on the leader shards in a cluster, a few things need to be considered:
 ### Limitations
 
 The OneShard optimization will be used automatically for all eligible AQL queries
-and streaming transactions. For AQL queries, any of the following factors currently 
-makes a query uneligible for the OneShard optimization:
+and streaming transactions. For AQL queries, any of the following factors
+currently makes a query unsuitable for the OneShard optimization:
 
-- the query access collections with more than a single shard, different leader
-  DB-Servers, or different `distributeShardsLike` prototypes
-- usage of AQL user-defined functions
-- usage of AQL functions that can only execute on coordinators. These functions
-  are:
-  - COLLECTION_COUNT
-  - CURRENT_DATABASE
-  - CURRENT_USER
-  - COLLECTIONS
-  - DOCUMENT
-  - VERSION
-  - SCHEMA_GET
-  - SCHEMA_VALIDATE
-  - V8
-- the query writes into a SatelliteCollection
+- The query accesses collections with more than a single shard, different leader
+  DB-Servers, or different `distributeShardsLike` prototype collections
+- The query writes into a SatelliteCollection
 - the query accesses an edge collection of a SmartGraph
+- Usage of AQL user-defined functions
+- Usage of AQL functions that can only execute on Coordinators. These functions
+  are:
+  - `COLLECTION_COUNT()`
+  - `CURRENT_DATABASE()`
+  - `CURRENT_USER()`
+  - `COLLECTIONS()`
+  - `VERSION()`
+  - `SCHEMA_GET()`
+  - `SCHEMA_VALIDATE()`
+  - `V8()`
 
 Synchronous replication
 -----------------------
