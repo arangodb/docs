@@ -71,8 +71,8 @@ in ArangoDB 3.8 and can be used for monitoring and alerting:
 | Label | Description |
 |:------|:------------|
 | `arangodb_aql_all_query` | Total number of all AQL queries (including slow queries) |
-| `arangodb_aql_query_time` | Histogram with AQL query times distribution |
-| `arangodb_aql_slow_query_time` | Histogram with AQL slow query times distribution |
+| `arangodb_aql_query_time` | Histogram with AQL query times distribution (s) |
+| `arangodb_aql_slow_query_time` | Histogram with AQL slow query times distribution (s) |
 | `arangodb_aql_slow_query` | Total number of slow AQL queries |
 | `arangodb_http_request_statistics_superuser_requests` | Total number of HTTP requests executed by superuser/JWT |
 | `arangodb_http_request_statistics_user_requests` | Total number of HTTP requests executed by clients |
