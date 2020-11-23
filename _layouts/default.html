@@ -4,7 +4,7 @@
   {%- include head.html %}
 </head>
 <body>
-  {% include topnav.html %} 
+  {% include topnav.html %}
   <div class="book with-summary font-size-2 font-family-1">
     <div class="book-summary">
       {% include sidebar.html %}
@@ -28,7 +28,18 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <a class="btn pull-left js-toolbar-action hamburger" aria-label=""><i class="fa fa-align-justify"></i></a>
-          <a class="btn pull-left js-toolbar-action" aria-label="" href="https://github.com/arangodb/docs/edit/main/{{ page["path"] }}" target="_blank"><i class="fa fa-github"></i> Contribute</a>
+          {% assign pathChunks = page.path | split: '/' %}
+          {% if pathChunks[1] == 'oasis' %}
+                {% assign isOasis = true  %}
+            {% else %}
+                {% assign isOasis = false  %}
+            {% endif %}
+          {% if isOasis %}
+                {% assign realPagePath = page.path | slice: 4, 9999 %}
+            {% else %}
+                {% assign realPagePath = page.path %}
+           {% endif %}
+          <a class="btn pull-left js-toolbar-action" aria-label="" href="https://github.com/arangodb/docs/edit/main/{{ realPagePath }}" target="_blank"><i class="fa fa-github"></i> Contribute</a>
         </div>
         <div class="page-wrapper" tabindex="-1" role="main">
           <div class="page-inner">
