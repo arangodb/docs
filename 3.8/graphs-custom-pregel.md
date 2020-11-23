@@ -672,14 +672,15 @@ that the parameters are bound to. Both can be accessed using their name via
 ["reduce", value, lambda, accumulator]
 ```
 
-The reduce method executes a reducer function (lambda - required) on each element of the array or object.
-In general, it is being used to generate a single output value, yet it can be used to generate any supported
-types. 
+The reduce method executes a reducer function (lambda - required) on each
+element of the array or object. In general, it is being used to generate a
+single output value, yet it can be used to generate any supported type.
 
-The lambda function accepts three parameters, the current index (which is either the
-position in an array, or the current key in case of an object), the value and the accumulator.
+The lambda function accepts three parameters, the current index (which is
+either the position in an array, or the current key in case of an object),
+the value and the accumulator.
 
-Example:
+**Example:**
 
 Addition of all array elements (initial accumulator / start value set to 100).
 
@@ -690,7 +691,7 @@ Addition of all array elements (initial accumulator / start value set to 100).
       ["quote", []],
       ["quote", ["key", "value", "accum" ]],
       ["quote",
-        ["+", ["var-ref", "value"], ["var-ref", "accum"] ]       
+        ["+", ["var-ref", "value"], ["var-ref", "accum"] ]
       ]
     ],
   100
@@ -698,29 +699,29 @@ Addition of all array elements (initial accumulator / start value set to 100).
 ```
 
 Will produce:
+
 ```
  => 106
 ```
 
-Explanation:
-```
-1.) Iteration:
+**Explanation:**
+
+- Iteration 1:
   - Take 100 as the initial accumulator value
   - Calculate and return the sum of 100 and 1
-2.) Iteration
+- Iteration 2:
   - Take result of the first iteration as accumulator value
   - Calculate and return the sum of 101 and 2
-3.) Iteration
+- Iteration 3:
   - Take result of the second iteration as accumulator value
   - Calculate and return the sum of 103 and 3
-  - Return 106 as we've reached the end of our array 
-```
+  - Return 106 as we've reached the end of our array
 
-Advanced example:
+**Advanced example:**
 
 Calculate the sum of all available object values
 
-```
+```js
 ["reduce",
   {"a": 1, "b": 2, "c": 3},
   ["lambda",
@@ -746,7 +747,6 @@ Will produce:
 => {"a":2, "b":4, "c":6, "d":4}
 ```
 
-
 #### Utilities
 
 _random functions that fit no other category_
@@ -757,11 +757,14 @@ _random functions that fit no other category_
 ["min", numbers...]
 ["max", numbers...]
 ["avg", numbers...]
+["rand"]
+["rand-range", min, max]
 ```
 
 `string-cat` concatenates the given strings. `int-to-string` converts a integer
 to its decimal representation.
 `min`/`max`/`avg` computes the minimum/maximum/average of its values.
+`rand`/`rand-range` produces a pseudo random number uniformly distributed in `[0,1]`/`[min,max]`.
 
 ```js
 > ["string-cat", "hello", " ", "world"]
@@ -772,6 +775,10 @@ to its decimal representation.
  = 3
 > ["avg", 1, 2, 3]
  = 2
+> ["rand"]
+ = 0.8401877171547095
+> ["rand-range", 5, 7]
+ = 5.788765853638186
 ```
 
 #### Functional
