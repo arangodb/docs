@@ -88,8 +88,8 @@ The currently implemented Analyzer types are:
 - `ngram`: create n-grams from value with user-defined lengths
 - `text`: tokenize into words, optionally with stemming,
   normalization, stop-word filtering and edge n-gram generation
-- `pipeline`: for chaining multiple Analyzers
 - `aql`: for running AQL query to prepare tokens for index
+- `pipeline`: for chaining multiple Analyzers
 
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
@@ -102,8 +102,8 @@ Analyzer   /   Feature  | Tokenization | Stemming | Normalization | N-grams
 [Stem](#stem)           |      No      |   Yes    |      No       |   No
 [Norm](#norm)           |      No      |    No    |     Yes       |   No
 [Text](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
-[Pipeline](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [AQL](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[Pipeline](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 
 Analyzer Properties
 -------------------
@@ -407,8 +407,9 @@ attributes:
 
 - `queryString` (string): AQL query to be executed
 - `collapsePositions` (boolean):
-  - `true` to set position 0 for all members of query results array
-  - `false` (default) to place each result array member on corresponding position
+  - `true`: set the position to 0 for all members of the query result array
+  - `false` (default): set the position corresponding to the index of the
+    result array member
 - `keepNull` (boolean):
   - `true` (default) to index null as empty string
   - `false` to discard nulls from index. Can be used for index filtering
@@ -470,7 +471,12 @@ Filtering Analyzer that discards unwanted data based on prefix:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Custom tokenization with `collapsePositions` on and off:
+Custom tokenization with `collapsePositions` on and off.
+The input string `"A-B-C-D"` is split into an array of strings
+`["A", "B", "C", "D"]`. The position metadata (as used by the `PHRASE()`
+function) is set to 0 for all four strings if `collapsePosition` is enabled.
+Otherwise the position is set to the respective array index, 0 for `"A"`,
+1 for `"B"` and so on.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerAqlCollapse
@@ -486,7 +492,11 @@ Custom tokenization with `collapsePositions` on and off:
       db._createView("vc", "arangosearch", { links: { test: { analyzers: ['collapsed'], includeAllFields: true }}});
       db._createView("vu", "arangosearch", { links: { test: { analyzers: ['uncollapsed'], includeAllFields: true }}});
       db.test.save({ text: "A-B-C-D" });
+      db._query("FOR d IN vu OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+      db._query("FOR d IN vc OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
       db._query("FOR d IN vu SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'uncollapsed') RETURN d");
+      db._query("FOR d IN vu SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'uncollapsed') RETURN d");
+      db._query("FOR d IN vc SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'collapsed') RETURN d");
       db._query("FOR d IN vc SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'collapsed') RETURN d");
     ~ db._dropView("vu");
     ~ db._dropView("vc");

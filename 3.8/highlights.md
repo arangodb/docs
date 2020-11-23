@@ -14,14 +14,13 @@ Version 3.8
 - [**Weighted traversals**](release-notes-new-features38.html#weighted-traversals):
   New AQL graph traversal option to emit paths in order of increasing weights.
 
-- [**Pipeline Analyzer**](arangosearch-analyzers.html#pipeline):
-  ArangoSearch now allows you to combine multiple Analyzers, enabling
-  case-insensitive ngram-based fuzzy search and more
-
-- [**Aql Analyzer**](arangosearch-analyzers.html#aql):
-  ArangoSearch now allows you to use AQL query to pre-process
-  and filter your data for indexing
-
+- **ArangoSearch**:
+  New [**Pipeline Analyzer**](arangosearch-analyzers.html#pipeline)
+  that allows you to combine multiple Analyzers, enabling case-insensitive
+  ngram-based fuzzy search and more. New
+  [**AQL Analyzer**](arangosearch-analyzers.html#aql)
+  so that you can use an AQL query to pre-process and filter your data for
+  indexing.
 
 **Enterprise Edition**
 
