@@ -931,11 +931,13 @@ Also see the remarks about [update visibility](#vertex-accumulators).
 ["this-unique-id"]
 ["this-pregel-id"]
 ["this-outdegree"]
+["this-outbound-edges-count"]
 ["this-outbound-edges"]
 ```
 
 - `this-doc` returns the document slice stored in vertex data.
 - `this-outdegree` returns the number of outgoing edges.
+- `this-outbound-edges-count` alias for `this-outdegree`.
 - `this-outbound-edges` returns a list of outbound edges of the form
   ```json
   {
