@@ -471,12 +471,17 @@ Filtering Analyzer that discards unwanted data based on prefix:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Custom tokenization with `collapsePositions` on and off.
+Custom tokenization with `collapsePositions` on and off:
 The input string `"A-B-C-D"` is split into an array of strings
 `["A", "B", "C", "D"]`. The position metadata (as used by the `PHRASE()`
 function) is set to 0 for all four strings if `collapsePosition` is enabled.
 Otherwise the position is set to the respective array index, 0 for `"A"`,
 1 for `"B"` and so on.
+
+| `collapsePosition` | A | B | C | D |
+|-------------------:|---|---|---|---|
+|             `true` | 0 | 0 | 0 | 0 |
+|            `false` | 0 | 1 | 2 | 3 |
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerAqlCollapse
@@ -507,6 +512,11 @@ Otherwise the position is set to the respective array index, 0 for `"A"`,
     @endDocuBlock analyzerAqlCollapse
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+The position data is not directly exposed, but we can see its effects through
+the `PHRASE()` function. There is one token between `"B"` and `"D"` to skip in
+case of uncollapsed positions. With positions collapsed, both are in the same
+position, thus there is negative one to skip to match the tokens.
 
 Analyzer Features
 -----------------
