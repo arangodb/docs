@@ -57,7 +57,6 @@ please refer to the version specific changelogs:
 Additional changelogs for tools not included in the main repository:
 
 - [ArangoDB Starter](https://github.com/arangodb-helper/arangodb/blob/master/CHANGELOG.md){:target="_blank"}
-- [ArangoSync](https://github.com/arangodb/arangosync/blob/master/CHANGELOG){:target="_blank"}
 
 Incompatible changes
 --------------------
