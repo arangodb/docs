@@ -434,7 +434,7 @@ Soundex Analyzer for a phonetically similar term search:
     | var a = analyzers.save("soundex", "aql", { queryString: "RETURN SOUNDEX(@param)" },
         ["frequency", "norm", "position"]);
       db._query("RETURN TOKENS('ArangoDB', 'soundex')").toArray();
-    ~ analyzers.remove(a.name());
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerAqlSoundex
 {% endarangoshexample %}
@@ -451,6 +451,7 @@ Concatenating Analyzer for conditionally adding a custom prefix or suffix:
       }, ["frequency", "norm", "position"]);
       db._query("RETURN TOKENS('state', 'concat')");
       db._query("RETURN TOKENS('international', 'concat')");
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerAqlConcat
 {% endarangoshexample %}
@@ -468,7 +469,7 @@ with `keepNull: false` and explicitly returning `null`:
       }, ["frequency", "norm", "position"]);
       db._query("RETURN TOKENS('regular', 'filter')");
       db._query("RETURN TOKENS('irregular', 'filter')");
-    ~ analyzers.remove(a.name());
+    ~ analyzers.remove(a.name);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerAqlFilterNull
 {% endarangoshexample %}
@@ -493,7 +494,7 @@ without `keepNull: false`:
     ~ db._query("FOR doc IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
       db._query("FOR doc IN view SEARCH ANALYZER(doc.value IN ['regular', 'irregular'], 'filter') RETURN doc");
     ~ db._dropView(view.name())
-    ~ analyzers.remove(a.name());
+    ~ analyzers.remove(a.name);
     ~ db._drop(coll.name());
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerAqlFilter
@@ -533,8 +534,8 @@ Otherwise the position is set to the respective array index, 0 for `"A"`,
       db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'collapsed') RETURN d");
       db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'collapsed') RETURN d");
     ~ db._dropView(view.name());
-    ~ analyzers.remove(a1.name());
-    ~ analyzers.remove(a2.name());
+    ~ analyzers.remove(a1.name);
+    ~ analyzers.remove(a2.name);
     ~ db._drop(coll.name());
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerAqlCollapse
