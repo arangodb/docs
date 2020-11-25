@@ -509,7 +509,7 @@ Otherwise the position is set to the respective array index, 0 for `"A"`,
 1 for `"B"` and so on.
 
 | `collapsePosition` | A | B | C | D |
-|-------------------:|---|---|---|---|
+|-------------------:|:-:|:-:|:-:|:-:|
 |             `true` | 0 | 0 | 0 | 0 |
 |            `false` | 0 | 1 | 2 | 3 |
 
