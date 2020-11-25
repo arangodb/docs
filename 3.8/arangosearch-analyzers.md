@@ -398,9 +398,9 @@ AQL functions are allowed as long as they do not involve Analyzers (`TOKENS()`,
 be run on DB-Servers in case of a cluster deployment. User-defined functions
 are not permitted.
 
-The data that gets indexed is provided to the query via a bind parameter
-`@param`. It is always a string. The query result should be string, `null` or
-an array of strings and `null`s.
+The input data is provided to the query via a bind parameter `@param`.
+It is always a string. The query result should be a string, `null` or
+an array of strings (and `null`s).
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
@@ -411,9 +411,10 @@ attributes:
   - `false` (default): set the position corresponding to the index of the
     result array member
 - `keepNull` (boolean):
-  - `true` (default) to index null as empty string
-  - `false` to discard nulls from index. Can be used for index filtering
-    (e.g. make your query return null for unwanted data)
+  - `true` (default): treat `null` like an empty string
+  - `false`: discard `null`s from View index. Can be used for index filtering
+    (i.e. make your query return null for unwanted data). Note that empty
+    results are always discarded.
 - `batchSize` (integer): number between 1 and 1000 (default = 1) that
   determines the batch size for reading data from the query. In general, a
   single token is expected to be returned. However, if the query is expected
@@ -431,41 +432,69 @@ Soundex Analyzer for a phonetically similar term search:
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlSoundex}
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("soundex", "aql", { queryString: "RETURN SOUNDEX(@param)" },
-      ["frequency", "norm", "position"]);
-      db._query(`RETURN TOKENS("ArangoDB", "soundex")`).toArray();
+        ["frequency", "norm", "position"]);
+      db._query("RETURN TOKENS('ArangoDB', 'soundex')").toArray();
+    ~ analyzers.remove(a.name());
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerAqlSoundex
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Concatenating Analyzer for adding custom prefix:
+Concatenating Analyzer for conditionally adding a custom prefix or suffix:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerAqlConcat
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlConcat}
       var analyzers = require("@arangodb/analyzers");
-    | var a = analyzers.save("concat", "aql", { queryString: "RETURN LEFT(UPPER(@param), 3) == 'FOO'
-    | ? CONCAT('foobar', @param) : CONCAT('boo', @param) "},
-      ["frequency", "norm", "position"]);
-      db._query("RETURN TOKENS('baby', 'concat')");
-      db._query("RETURN TOKENS('fooby', 'concat')");
+    | var a = analyzers.save("concat", "aql", { queryString:
+    |   "RETURN LOWER(LEFT(@param, 5)) == 'inter' ? CONCAT(@param, 'ism') : CONCAT('inter', @param)"
+      }, ["frequency", "norm", "position"]);
+      db._query("RETURN TOKENS('state', 'concat')");
+      db._query("RETURN TOKENS('international', 'concat')");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerAqlConcat
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Filtering Analyzer that discards unwanted data based on prefix:
+Filtering Analyzer that ignores unwanted data based on the prefix `"ir"`,
+with `keepNull: false` and explicitly returning `null`:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerAqlFilterNull
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlFilterNull}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("filter", "aql", { keepNull: false, queryString:
+    |   "RETURN LOWER(LEFT(@param, 2)) == 'ir' ? null : @param"
+      }, ["frequency", "norm", "position"]);
+      db._query("RETURN TOKENS('regular', 'filter')");
+      db._query("RETURN TOKENS('irregular', 'filter')");
+    ~ analyzers.remove(a.name());
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerAqlFilterNull
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Filtering Analyzer that discards unwanted data based on the prefix `"ir"`,
+using a filter for an empty result, which is discarded from the View index even
+without `keepNull: false`:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerAqlFilter
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlFilter}
       var analyzers = require("@arangodb/analyzers");
-    | var a = analyzers.save("filter", "aql", { queryString: "RETURN LEFT(UPPER(@param), 3) == 'FOO'
-    | ? CONCAT('foobar', @param) : null", keepNull: false },
-      ["frequency", "norm", "position"]);
-      db._query("RETURN TOKENS('baby', 'filter')");
-      db._query("RETURN TOKENS('fooby', 'filter')");
+    | var a = analyzers.save("filter", "aql", { queryString:
+    |   "FILTER LOWER(LEFT(@param, 2)) != 'ir' RETURN @param"
+      }, ["frequency", "norm", "position"]);
+      var coll = db._create("coll");
+      var doc1 = db.coll.save({ value: "regular" });
+      var doc2 = db.coll.save({ value: "irregular" });
+    | var view = db._createView("view", "arangosearch",
+        { links: { coll: { fields: { value: { analyzers: ["filter"] }}}}})
+    ~ db._query("FOR doc IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+      db._query("FOR doc IN view SEARCH ANALYZER(doc.value IN ['regular', 'irregular'], 'filter') RETURN doc");
+    ~ db._dropView(view.name())
     ~ analyzers.remove(a.name());
+    ~ db._drop(coll.name());
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerAqlFilter
 {% endarangoshexample %}
@@ -487,27 +516,26 @@ Otherwise the position is set to the respective array index, 0 for `"A"`,
     @startDocuBlockInline analyzerAqlCollapse
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlCollapse}
       var analyzers = require("@arangodb/analyzers");
-    | var a1 = analyzers.save("collapsed", "aql",
-    | { collapsePositions: true, queryString: "FOR d IN SPLIT(@param, '-') RETURN d"},
-      ["frequency", "norm", "position"]);
-    | var a2 = analyzers.save("uncollapsed", "aql",
-    | { queryString: "FOR d IN SPLIT(@param, '-') RETURN d" },
-      ["frequency", "norm", "position"]);
-      db._create("test");
-      db._createView("vc", "arangosearch", { links: { test: { analyzers: ['collapsed'], includeAllFields: true }}});
-      db._createView("vu", "arangosearch", { links: { test: { analyzers: ['uncollapsed'], includeAllFields: true }}});
-      db.test.save({ text: "A-B-C-D" });
-      db._query("FOR d IN vu OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
-      db._query("FOR d IN vc OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
-      db._query("FOR d IN vu SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'uncollapsed') RETURN d");
-      db._query("FOR d IN vu SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'uncollapsed') RETURN d");
-      db._query("FOR d IN vc SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'collapsed') RETURN d");
-      db._query("FOR d IN vc SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'collapsed') RETURN d");
-    ~ db._dropView("vu");
-    ~ db._dropView("vc");
+    | var a1 = analyzers.save("collapsed", "aql", { collapsePositions: true, queryString:
+    |   "FOR d IN SPLIT(@param, '-') RETURN d"
+      }, ["frequency", "norm", "position"]);
+    | var a2 = analyzers.save("uncollapsed", "aql", { collapsePositions: false, queryString:
+    |   "FOR d IN SPLIT(@param, '-') RETURN d"
+      }, ["frequency", "norm", "position"]);
+      var coll = db._create("coll");
+    | var view = db._createView("view", "arangosearch",
+        { links: { coll: { analyzers: [ "collapsed", "uncollapsed" ], includeAllFields: true }}});
+      var doc = db.coll.save({ text: "A-B-C-D" });
+    ~ db._query("FOR d IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+    ~ db._query("FOR d IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+      db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'uncollapsed') RETURN d");
+      db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'uncollapsed') RETURN d");
+      db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'collapsed') RETURN d");
+      db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'collapsed') RETURN d");
+    ~ db._dropView(view.name());
     ~ analyzers.remove(a1.name());
     ~ analyzers.remove(a2.name());
-    ~ db._drop("test");
+    ~ db._drop(coll.name());
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerAqlCollapse
 {% endarangoshexample %}
