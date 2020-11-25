@@ -528,7 +528,6 @@ Otherwise the position is set to the respective array index, 0 for `"A"`,
         { links: { coll: { analyzers: [ "collapsed", "uncollapsed" ], includeAllFields: true }}});
       var doc = db.coll.save({ text: "A-B-C-D" });
     ~ db._query("FOR d IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
-    ~ db._query("FOR d IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
       db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'uncollapsed') RETURN d");
       db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'uncollapsed') RETURN d");
       db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'collapsed') RETURN d");
