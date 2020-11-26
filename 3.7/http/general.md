@@ -200,12 +200,12 @@ authentication dialog is undesired in AJAX requests, ArangoDB can be told to
 not send the *Www-Authenticate* header back to the client. Whenever a client
 sends the `X-Omit-Www-Authenticate` HTTP header (with an arbitrary value) to
 ArangoDB, ArangoDB will only send status code 401, but no `Www-Authenticate`
-header. This allows clients to implement credentials handling and bypassing 
+header. This allows clients to implement credentials handling and bypassing
 the browser's built-in dialog.
 
 ### Authentication via JWT
 
-ArangoDB uses a standard JWT based authentication method. 
+ArangoDB uses a standard JWT based authentication method.
 To authenticate via JWT you must first obtain a JWT token with a signature
 generated via HMAC with SHA-256. The secret may either be set using
 `--server.jwt-secret` or will be randomly generated upon server startup.
@@ -215,7 +215,7 @@ For more information on JWT please consult RFC7519 and [jwt.io](https://jwt.io){
 #### User JWT-Token
 
 To authenticate with a specific user you need to supply a JWT token containing
-the _preferred_username_ field with the username. 
+the _preferred_username_ field with the username.
 You can either let ArangoDB generate this token for you via an API call
 or you can generate it yourself (only if you know the JWT secret).
 

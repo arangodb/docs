@@ -165,8 +165,8 @@ built-in dialog.
 
 ### Authentication via JWT
 
-ArangoDB uses a standard JWT based authentication method. 
-To authenticate via JWT you must first obtain a JWT token with a signature generated via HMAC with SHA-256. 
+ArangoDB uses a standard JWT based authentication method.
+To authenticate via JWT you must first obtain a JWT token with a signature generated via HMAC with SHA-256.
 The secret may either be set using `--server.jwt-secret` or will be randomly generated upon server startup.
 
 For more information on JWT please consult RFC7519 and [jwt.io](https://jwt.io){:target="_blank"}.
@@ -174,11 +174,11 @@ For more information on JWT please consult RFC7519 and [jwt.io](https://jwt.io){
 #### User JWT-Token
 
 To authenticate with a specific user you need to supply a JWT token containing
-the _preferred_username_ field with the username. 
+the _preferred_username_ field with the username.
 You can either let ArangoDB generate this token for you via an API call
 or you can generate it yourself (only if you know the JWT secret).
 
-ArangoDB offers a REST API to generate user tokens for you if you know the username and password. 
+ArangoDB offers a REST API to generate user tokens for you if you know the username and password.
 To do so send a POST request to
 
 */_open/auth*
@@ -215,7 +215,7 @@ As an example the decoded JWT body would look like this:
 
 #### Superuser JWT-Token
 
-To access specific internal APIs as well as Agency and DB-Server instances a token generated via `/open/auth` is not 
+To access specific internal APIs as well as Agency and DB-Server instances a token generated via `/open/auth` is not
 good enough. For these special APIs you will need to generate a special JWT token which grants superuser access.
 Note that using superuser access for normal database operations is **NOT advised**.
 

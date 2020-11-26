@@ -104,14 +104,14 @@ Use telnet to test the connection.
     Connected to my-machine.
     Escape character is '^]'.
     GET / HTTP/1.1
-    
+
     HTTP/1.1 301 Moved Permanently
     Location: /_db/_system/_admin/aardvark/index.html
     Content-Type: text/html
     Server: ArangoDB
     Connection: Keep-Alive
     Content-Length: 197
-    
+
     <html><head><title>Moved</title></head><body><h1>Moved</h1><p>This page has moved to <a href="/_db/_system/_admin/aardvark/index.html">/_db/_system/_admin/aardvark/index.html</a>.</p></body></html>
 
 ### Reuse address
@@ -148,8 +148,8 @@ size`
 Specifies the maximum *size* of the queue for asynchronous task
 execution. If the queue already contains *size* tasks, new tasks will
 be rejected until other tasks are popped from the queue. Setting this
-value may help preventing an instance from being overloaded or from 
-running out of memory if the queue is filled up faster than the server 
+value may help preventing an instance from being overloaded or from
+running out of memory if the queue is filled up faster than the server
 can process requests.
 
 ## Scheduler queue unavailable fill grade
@@ -159,22 +159,22 @@ to set a high-watermark for the scheduler's queue fill grade, from which
 onwards the server will start reporting unavailability via its availability
 API.
 
-This option has a consequence for the `/_admin/server/availability` REST API 
-only, which is often called by load-balancers and other availability probing 
-systems. 
-  
-The `/_admin/server/availability` REST API will return HTTP 200 if the fill 
-grade of the scheduler's queue is below the configured value, or HTTP 503 if 
-the fill grade is equal to or above it. This can be used to flag a server as 
+This option has a consequence for the `/_admin/server/availability` REST API
+only, which is often called by load-balancers and other availability probing
+systems.
+
+The `/_admin/server/availability` REST API will return HTTP 200 if the fill
+grade of the scheduler's queue is below the configured value, or HTTP 503 if
+the fill grade is equal to or above it. This can be used to flag a server as
 unavailable in case it is already highly loaded.
-  
-The default value for this option is `0.75` since ArangoDB 3.8, i.e. 75%. 
-  
-To prevent sending more traffic to an already overloaded server, it can be 
+
+The default value for this option is `0.75` since ArangoDB 3.8, i.e. 75%.
+
+To prevent sending more traffic to an already overloaded server, it can be
 sensible to reduce the default value to even `0.5`.
-This would mean that instances with a queue longer than 50% of their 
-maximum queue capacity would return HTTP 503 instead of HTTP 200 when their 
-availability API is probed. 
+This would mean that instances with a queue longer than 50% of their
+maximum queue capacity would return HTTP 503 instead of HTTP 200 when their
+availability API is probed.
 
 ## Storage engine
 
@@ -305,21 +305,21 @@ handling. The default value is
 
 If this option's value is *false*, then ArangoDB's statistics gathering
 is turned off. Statistics gathering causes regular background CPU activity,
-memory usage and writes to the storage engine, so using this option to turn 
+memory usage and writes to the storage engine, so using this option to turn
 statistics off might relieve heavily-loaded instances a bit.
 
 A side effect of setting this option to *false* is that no statistics will be
-shown in the dashboard of ArangoDB's web interface, and that the REST API for 
+shown in the dashboard of ArangoDB's web interface, and that the REST API for
 server statistics at `/_admin/statistics` will return HTTP 404.
 
 `--server.statistics-history`
 
 If this option's value is *false*, then ArangoDB's statistics gathering
 is turned off. Statistics gathering causes regular background CPU activity,
-memory usage and writes to the storage engine, so using this option to turn 
+memory usage and writes to the storage engine, so using this option to turn
 statistics off might relieve heavily-loaded instances a bit.
 
-When setting this option to *false*, no statistics will be shown in the 
+When setting this option to *false*, no statistics will be shown in the
 dashboard of ArangoDB's web interface, but the current statistics are available
 and can be queries using the REST API for server statistics at `/_admin/statistics`.
 
