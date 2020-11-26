@@ -14,11 +14,13 @@ Version 3.8
 - [**Weighted traversals**](release-notes-new-features38.html#weighted-traversals):
   New AQL graph traversal option to emit paths in order of increasing weights.
 
-- [**Pipeline Analyzer**](arangosearch-analyzers.html#pipeline):
-  ArangoSearch now allows you to combine multiple Analyzers, enabling
-  case-insensitive ngram-based fuzzy search and more
-
-
+- **ArangoSearch**:
+  New [**Pipeline Analyzer**](arangosearch-analyzers.html#pipeline)
+  that allows you to combine multiple Analyzers, enabling case-insensitive
+  ngram-based fuzzy search and more. New
+  [**AQL Analyzer**](arangosearch-analyzers.html#aql)
+  so that you can use an AQL query to pre-process and filter your data for
+  indexing.
 
 **Enterprise Edition**
 
@@ -146,7 +148,7 @@ Version 3.5
   TTL indexes can be used to automatically remove documents in collections for
   use cases like expiring sessions or automatic purging of statistics or logs.
 
-- [**Index Hints**](aql/operations-for.html#index-hints) &
+- [**Index Hints**](aql/operations-for.html#indexhint) &
   [**Named Indexes**](https://www.arangodb.com/arangodb-training-center/index-hints-named-indices/){:target="_blank"}:
   Indexes can be given names and an optional AQL inline query option
   `indexHint` was added to override the internal optimizer decision on which

@@ -6,7 +6,7 @@ Simple Queries
 ==============
 
 {% hint 'warning' %}
-It is recommended to use [**AQL**](../aql/) instead.
+It is recommended to use [**AQL**](aql/index.html) instead.
 {% endhint %}
 
 Simple queries can be used if the query condition is straight forward, i.e., a

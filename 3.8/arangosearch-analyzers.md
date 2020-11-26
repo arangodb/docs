@@ -88,17 +88,22 @@ The currently implemented Analyzer types are:
 - `ngram`: create n-grams from value with user-defined lengths
 - `text`: tokenize into words, optionally with stemming,
   normalization, stop-word filtering and edge n-gram generation
+- `aql`: for running AQL query to prepare tokens for index
 - `pipeline`: for chaining multiple Analyzers
 
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
-Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text  | Pipeline
-:------------------|:---------|:--------|:----------|:-----|:-----|:------|:--------
-**Tokenization**   | No       | No      | (Yes)     | No   | No   | Yes   | (Yes)
-**Stemming**       | No       | No      | No        | Yes  | No   | Yes   | (Yes)
-**Normalization**  | No       | No      | No        | No   | Yes  | Yes   | (Yes)
-**N-grams**        | No       | Yes     | No        | No   | No   | (Yes) | (Yes)
+Analyzer   /   Feature  | Tokenization | Stemming | Normalization | N-grams
+:-----------------------|:------------:|:--------:|:-------------:|:------:
+[Identity](#identity)   |      No      |    No    |      No       |   No
+[N-gram](#n-gram)       |      No      |    No    |      No       |  Yes
+[Delimiter](#delimiter) |    (Yes)     |    No    |      No       |   No
+[Stem](#stem)           |      No      |   Yes    |      No       |   No
+[Norm](#norm)           |      No      |    No    |     Yes       |   No
+[Text](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
+[AQL](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[Pipeline](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 
 Analyzer Properties
 -------------------
@@ -377,6 +382,169 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
     @endDocuBlock analyzerPipelineDelimiterStem
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+
+### AQL
+
+<small>Introduced in: v3.8.0</small>
+
+An Analyzer capable of running a restricted AQL query to perform
+data manipulation / filtering.
+
+The query must not access the storage engine. This means no `FOR` loops over
+collections or Views, no use of the `DOCUMENT()` function, no graph traversals.
+AQL functions are allowed as long as they do not involve Analyzers (`TOKENS()`,
+`PHRASE()`, `NGRAM_MATCH()`, `ANALYZER()` etc.) or data access, and if they can
+be run on DB-Servers in case of a cluster deployment. User-defined functions
+are not permitted.
+
+The input data is provided to the query via a bind parameter `@param`.
+It is always a string. The query result should be a string, `null` or
+an array of strings (and `null`s).
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `queryString` (string): AQL query to be executed
+- `collapsePositions` (boolean):
+  - `true`: set the position to 0 for all members of the query result array
+  - `false` (default): set the position corresponding to the index of the
+    result array member
+- `keepNull` (boolean):
+  - `true` (default): treat `null` like an empty string
+  - `false`: discard `null`s from View index. Can be used for index filtering
+    (i.e. make your query return null for unwanted data). Note that empty
+    results are always discarded.
+- `batchSize` (integer): number between 1 and 1000 (default = 1) that
+  determines the batch size for reading data from the query. In general, a
+  single token is expected to be returned. However, if the query is expected
+  to return many results, then increasing `batchSize` trades memory for
+  performance.
+- `memoryLimit` (integer): memory limit for query execution in bytes.
+  (default is 1048576 = 1Mb) Maximum is 33554432U (32Mb)
+
+**Examples**
+
+Soundex Analyzer for a phonetically similar term search:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerAqlSoundex
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlSoundex}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("soundex", "aql", { queryString: "RETURN SOUNDEX(@param)" },
+        ["frequency", "norm", "position"]);
+      db._query("RETURN TOKENS('ArangoDB', 'soundex')").toArray();
+    ~ analyzers.remove(a.name);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerAqlSoundex
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Concatenating Analyzer for conditionally adding a custom prefix or suffix:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerAqlConcat
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlConcat}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("concat", "aql", { queryString:
+    |   "RETURN LOWER(LEFT(@param, 5)) == 'inter' ? CONCAT(@param, 'ism') : CONCAT('inter', @param)"
+      }, ["frequency", "norm", "position"]);
+      db._query("RETURN TOKENS('state', 'concat')");
+      db._query("RETURN TOKENS('international', 'concat')");
+    ~ analyzers.remove(a.name);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerAqlConcat
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Filtering Analyzer that ignores unwanted data based on the prefix `"ir"`,
+with `keepNull: false` and explicitly returning `null`:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerAqlFilterNull
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlFilterNull}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("filter", "aql", { keepNull: false, queryString:
+    |   "RETURN LOWER(LEFT(@param, 2)) == 'ir' ? null : @param"
+      }, ["frequency", "norm", "position"]);
+      db._query("RETURN TOKENS('regular', 'filter')");
+      db._query("RETURN TOKENS('irregular', 'filter')");
+    ~ analyzers.remove(a.name);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerAqlFilterNull
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Filtering Analyzer that discards unwanted data based on the prefix `"ir"`,
+using a filter for an empty result, which is discarded from the View index even
+without `keepNull: false`:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerAqlFilter
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlFilter}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("filter", "aql", { queryString:
+    |   "FILTER LOWER(LEFT(@param, 2)) != 'ir' RETURN @param"
+      }, ["frequency", "norm", "position"]);
+      var coll = db._create("coll");
+      var doc1 = db.coll.save({ value: "regular" });
+      var doc2 = db.coll.save({ value: "irregular" });
+    | var view = db._createView("view", "arangosearch",
+        { links: { coll: { fields: { value: { analyzers: ["filter"] }}}}})
+    ~ db._query("FOR doc IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+      db._query("FOR doc IN view SEARCH ANALYZER(doc.value IN ['regular', 'irregular'], 'filter') RETURN doc");
+    ~ db._dropView(view.name())
+    ~ analyzers.remove(a.name);
+    ~ db._drop(coll.name());
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerAqlFilter
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Custom tokenization with `collapsePositions` on and off:
+The input string `"A-B-C-D"` is split into an array of strings
+`["A", "B", "C", "D"]`. The position metadata (as used by the `PHRASE()`
+function) is set to 0 for all four strings if `collapsePosition` is enabled.
+Otherwise the position is set to the respective array index, 0 for `"A"`,
+1 for `"B"` and so on.
+
+| `collapsePosition` | A | B | C | D |
+|-------------------:|:-:|:-:|:-:|:-:|
+|             `true` | 0 | 0 | 0 | 0 |
+|            `false` | 0 | 1 | 2 | 3 |
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerAqlCollapse
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerAqlCollapse}
+      var analyzers = require("@arangodb/analyzers");
+    | var a1 = analyzers.save("collapsed", "aql", { collapsePositions: true, queryString:
+    |   "FOR d IN SPLIT(@param, '-') RETURN d"
+      }, ["frequency", "norm", "position"]);
+    | var a2 = analyzers.save("uncollapsed", "aql", { collapsePositions: false, queryString:
+    |   "FOR d IN SPLIT(@param, '-') RETURN d"
+      }, ["frequency", "norm", "position"]);
+      var coll = db._create("coll");
+    | var view = db._createView("view", "arangosearch",
+        { links: { coll: { analyzers: [ "collapsed", "uncollapsed" ], includeAllFields: true }}});
+      var doc = db.coll.save({ text: "A-B-C-D" });
+    ~ db._query("FOR d IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+      db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'uncollapsed') RETURN d");
+      db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'uncollapsed') RETURN d");
+      db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'collapsed') RETURN d");
+      db._query("FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'collapsed') RETURN d");
+    ~ db._dropView(view.name());
+    ~ analyzers.remove(a1.name);
+    ~ analyzers.remove(a2.name);
+    ~ db._drop(coll.name());
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerAqlCollapse
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+The position data is not directly exposed, but we can see its effects through
+the `PHRASE()` function. There is one token between `"B"` and `"D"` to skip in
+case of uncollapsed positions. With positions collapsed, both are in the same
+position, thus there is negative one to skip to match the tokens.
 
 Analyzer Features
 -----------------

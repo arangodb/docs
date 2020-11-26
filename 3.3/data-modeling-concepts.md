@@ -68,7 +68,7 @@ Data Retrieval
 new data, as well as to manipulate or delete existing documents. Queries can be
 as simple as a "query by example" or as complex as ["joins"](aql/examples-join.html)
 using many collections or traversing graph structures. They are written in
-the [ArangoDB Query Language](../aql/) (AQL).
+the [ArangoDB Query Language](aql/index.html) (AQL).
 
 **Cursors** are used to iterate over the result of queries, so that you get
 easily processable batches instead of one big hunk.

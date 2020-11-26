@@ -192,14 +192,14 @@ Here's a short summary:
 
 Whenever authentication is required and the client has not yet authenticated,
 ArangoDB will return *HTTP 401* (Unauthorized). It will also send the
-`WWW-Authenticate` response header, indicating that the client should prompt
+`Www-Authenticate` response header, indicating that the client should prompt
 the user for username and password if supported. If the client is a browser,
 then sending back this header will normally trigger the display of the
 browser-side HTTP authentication dialog. As showing the browser HTTP
 authentication dialog is undesired in AJAX requests, ArangoDB can be told to
-not send the *WWW-Authenticate* header back to the client. Whenever a client
-sends the `X-Omit-WWW-Authenticate` HTTP header (with an arbitrary value) to
-ArangoDB, ArangoDB will only send status code 401, but no `WWW-Authenticate`
+not send the *Www-Authenticate* header back to the client. Whenever a client
+sends the `X-Omit-Www-Authenticate` HTTP header (with an arbitrary value) to
+ArangoDB, ArangoDB will only send status code 401, but no `Www-Authenticate`
 header. This allows clients to implement credentials handling and bypassing 
 the browser's built-in dialog.
 

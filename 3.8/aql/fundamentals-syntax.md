@@ -163,13 +163,12 @@ based on the context:
   [FOR](operations-for.html#options) /
   [Graph Traversal](graphs-traversals.html) /
   [SEARCH](operations-search.html#search-options) /
-  [COLLECT](operations-collect.html#setting-collect-options) /
-  [INSERT](operations-insert.html#setting-query-options) /
-  [UPDATE](operations-update.html#setting-query-options) /
-  [REPLACE](operations-replace.html#setting-query-options) /
-  [UPSERT](operations-upsert.html#setting-query-options) /
-  [REMOVE](operations-remove.html#setting-query-options)
-  operation
+  [COLLECT](operations-collect.html#collect-options) /
+  [INSERT](operations-insert.html#query-options) /
+  [UPDATE](operations-update.html#query-options) /
+  [REPLACE](operations-replace.html#query-options) /
+  [UPSERT](operations-upsert.html#query-options) /
+  [REMOVE](operations-remove.html#query-options) operation
 - `PRUNE` –
   [Graph Traversal](graphs-traversals.html#pruning), FOR operation variant
 - `SEARCH` –

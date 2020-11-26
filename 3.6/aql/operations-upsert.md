@@ -66,8 +66,8 @@ Note that in the `UPDATE` case it is possible to refer to the previous version o
 document using the *OLD* pseudo-value.
 
 
-Setting query options
----------------------
+Query options
+-------------
 
 As in several above examples, the *ignoreErrors* option can be used to suppress query 
 errors that may occur when trying to violate unique key constraints.
