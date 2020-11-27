@@ -61,6 +61,11 @@ characters followed by stemming.
 
 See [ArangoSearch Pipeline Analyzer](arangosearch-analyzers.html#pipeline)
 
+Added new Analyzer type `"aql"` capable of running an AQL query (with some
+restrictions) to perform data manipulation/filtering.
+
+See [ArangoSearch Aql Analyzer](arangosearch-analyzers.html#aql)
+
 Metrics
 -------
 
@@ -71,12 +76,17 @@ in ArangoDB 3.8 and can be used for monitoring and alerting:
 | Label | Description |
 |:------|:------------|
 | `arangodb_aql_all_query` | Total number of all AQL queries (including slow queries) |
-| `arangodb_aql_query_time` | Histogram with AQL query times distribution |
-| `arangodb_aql_slow_query_time` | Histogram with AQL slow query times distribution |
+| `arangodb_aql_query_time` | Histogram with AQL query times distribution (s) |
+| `arangodb_aql_slow_query_time` | Histogram with AQL slow query times distribution (s) |
 | `arangodb_aql_slow_query` | Total number of slow AQL queries |
+| `arangodb_collection_lock_acquisition_micros` | Total amount of collection lock acquisition time (μs) |
+| `arangodb_collection_lock_acquisitiontime` | Collection lock acquisition time histogram (s) |
+| `arangodb_collection_lock_timeouts_exclusive` | Number of timeouts when trying to acquire collection exclusive locks |
+| `arangodb_collection_lock_timeouts_write` | Number of timeouts when trying to acquire collection write locks |
 | `arangodb_http_request_statistics_superuser_requests` | Total number of HTTP requests executed by superuser/JWT |
 | `arangodb_http_request_statistics_user_requests` | Total number of HTTP requests executed by clients |
 | `arangodb_network_forwarded_requests` | Number of requests forwarded from one Coordinator to another in a load-balancing setup |
+| `arangodb_refused_followers_count` | Number of refusal answers from a follower during synchronous replication |
 | `arangodb_replication_dump_apply_time` | Time required for applying data from replication dump responses (ms) |
 | `arangodb_replication_dump_bytes_received` | Number of bytes received in replication dump requests |
 | `arangodb_replication_dump_documents` | Number of documents received in replication dump requests |
@@ -107,6 +117,7 @@ in ArangoDB 3.8 and can be used for monitoring and alerting:
 | `arangodb_rocksdb_total_disk_space` | Total disk space for the RocksDB database directory mount (bytes) |
 | `arangodb_scheduler_threads_started` | Number of scheduler threads started |
 | `arangodb_scheduler_threads_stopped` | Number of scheduler threads stopped |
+| `arangodb_sync_wrong_checksum` | Number of times a mismatching shard checksum was detected when syncing shards |
 | `rocksdb_free_inodes` | Number of free inodes for the file system with the RocksDB database directory (always `0` on Windows) |
 | `rocksdb_total_inodes` | Total number of inodes for the file system with the RocksDB database directory (always `0` on Windows) |
 

@@ -234,7 +234,7 @@ The output will look like this:
 Rclone Configuration
 --------------------
 
-[Rclone](https://rclone.org){:target="_blank"} is a versatile open-source
+[Rclone](https://rclone.org/){:target="_blank"} is a versatile open-source
 remote file sync program that can deal with over 30 different remote file
 IO protocols. Enterprise Editions of ArangoDB come with a bundled version
 of Rclone, which is distributed under the MIT license. It is used to
@@ -291,7 +291,7 @@ The file `my-s3.json` could look like this:
 ```
 
 More examples and details for S3 configurations can be found at
-[rclone.org/s3](https://rclone.org/s3){:target="_blank"}.
+[rclone.org/s3/](https://rclone.org/s3/){:target="_blank"}.
 
 ### Locally mounted local or remote volumes
 
@@ -313,7 +313,7 @@ The file `my-local.json` could look like this:
 ```
 
 More examples and details for local configurations can be found at
-[rclone.org/local](https://rclone.org/local){:target="_blank"}.
+[rclone.org/local/](https://rclone.org/local/){:target="_blank"}.
 
 ### WebDAV
 
@@ -336,4 +336,4 @@ Thie file `my-dav.json` could look like this:
 ```
 
 More examples and details on WebDAV configurations can be found
-[rclone.org/webdav](https://rclone.org/webdav){:target="_blank"}.
+[rclone.org/webdav/](https://rclone.org/webdav/){:target="_blank"}.

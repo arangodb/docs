@@ -8,12 +8,12 @@ GraphQL integration
 `const createGraphQLRouter = require('@arangodb/foxx/graphql');`
 
 Foxx bundles version 0.6 of the
-[`graphql-sync` module](https://github.com/arangodb/graphql-sync){:target="_blank"}, which is a
+[`graphql-sync` module](https://www.npmjs.com/package/graphql-sync){:target="_blank"}, which is a
 synchronous wrapper for the official JavaScript GraphQL reference
 implementation, to allow writing GraphQL schemas directly inside Foxx.
 
 Additionally the `@arangodb/foxx/graphql` lets you create routers for serving
-GraphQL requests, which closely mimicks the behavior of the
+GraphQL requests, which closely mimics the behavior of the
 [`express-graphql` module](https://github.com/graphql/express-graphql){:target="_blank"}.
 
 For more information on `graphql-sync` see the
