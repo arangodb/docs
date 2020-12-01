@@ -89,9 +89,9 @@ The currently implemented Analyzer types are:
 - `text`: tokenize into words, optionally with stemming,
   normalization, stop-word filtering and edge n-gram generation
 - `pipeline`: for chaining multiple Analyzers
-- `geojson`: breaking up GeoJSON object a set of indexable tokens
-- `geopoint`: breaking up JSON object describing a GEO point into
-              a set of indexable tokens
+- `geojson`: breaks up a GeoJSON object into a set of indexable tokens
+- `geopoint`: breaks up a JSON object describing a coordinate into a set of
+  indexable tokens
 
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
@@ -381,12 +381,13 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### GeoJSON analyzer
+### GeoJSON
 
 <small>Introduced in: v3.8.0</small>
 
-An Analyzer capable of breaking up a GeoJSON object into a set
-indexable tokens for further usage GEO functions.
+An Analyzer capable of breaking up a GeoJSON object into a set of
+indexable tokens for further usage with
+[ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
@@ -400,28 +401,29 @@ attributes:
   - `maxCells` (number, _optional_): maximum number of S2 cells (default: 20)
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
-  
 
-### GeoPoint analyzer
-
-- `latitude` (array of strings, _optional_)/`longitude` (array of strings, _optional_):
-  if present, attributes denote path to latitude/longitude pair in a JSON object. If not present, 
-  analyzers GEO point in form of JSON array [<latitude>, <longitude>].
-- `options` (object, _optional_): if present, contains options for geo queries fine-tuning, this is 
-  meant to be treated as an expert API.
-  - `minCells` (number, _optional_): maximum number of S2 cells (default: 20)
-  - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
-  - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
+### GeoPoint
 
 <small>Introduced in: v3.8.0</small>
 
-An Analyzer capable of breaking up JSON object describing a GEO point into a set
-indexable tokens for further usage GEO functions.
+An Analyzer capable of breaking up JSON object describing a coordinate into a
+set of indexable tokens for further usage with
+[ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-<small>Introduced in: v3.8.0</small>
+<!-- TODO -->
+if present, attributes denote path to latitude/longitude pair in a JSON object. If not present, 
+analyzers GEO point in form of JSON array `[<latitude>, <longitude>]`.
+
+- `latitude` (array, _optional_): array of strings
+- `longitude` (array, _optional_): array of strings
+- `options` (object, _optional_): options for fine-tuning geo queries.
+  These options should generally remain unchanged.
+  - `minCells` (number, _optional_): maximum number of S2 cells (default: 20)
+  - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
+  - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
 
 Analyzer Features
 -----------------

@@ -157,19 +157,22 @@ This function can be **optimized** by a S2 based [geospatial index](../indexing-
 
 `GEO_IN_RANGE(geoJsonA, geoJsonB, low, high, includeLow, includeHigh) → bool`
 
-Checks whether the distance between two GeoJSON[GeoJSON object](../indexing-geo.html#geojson) objects
-(denoted by `geoJsonA` and `geoJsonB` correspondingly), measured from the **centroid** of each shape 
-lies within a given interval.
-intersects with `geoJsonB` (i.e. at least one point in B is also A or vice-versa).
+Checks whether the distance between two [GeoJSON objects](../indexing-geo.html#geojson)
+lies within a given interval. The distance is measured from the **centroid** of
+each shape.
 
-- **geoJsonA** (object): first GeoJSON object or coordinate array (in longitude, latitude order)
-- **geoJsonB** (object): second GeoJSON object or coordinate array (in longitude, latitude order)
-- low (number): minimum value of the desired range
-- high (number): maximum value of the desired range
-- includeLow (bool, optional): whether the minimum value shall be included in the range 
-  (left-closed interval) or not (left-open interval). The default value is `true`.
-- includeHigh (bool): whether the maximum value shall be included in the range 
-  (right-closed interval) or not (right-open interval). The default value is `true`
+- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- **low** (number): minimum value of the desired range
+- **high** (number): maximum value of the desired range
+- **includeLow** (bool, optional): whether the minimum value shall be included
+  in the range (left-closed interval) or not (left-open interval). The default
+  value is `true`
+- **includeHigh** (bool): whether the maximum value shall be included in the
+  range (right-closed interval) or not (right-open interval). The default value
+  is `true`
 - returns **bool** (bool): whether the evaluated distance lies within the range
 
 ### IS_IN_POLYGON()
