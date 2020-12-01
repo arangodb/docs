@@ -61,96 +61,29 @@ values.
 Find nearby locations
 ---------------------
 
-A `FOR` loop is used again, but this time to iterate over the results of a
-function call to `NEAR()` to find the *n* closest coordinates to a reference
-point, and return the documents with the nearby locations. The default for
-*n* is 100, which means 100 documents are returned at most, the closest
-matches first.
+A `FOR` loop is used again, with a subsequent `SORT` operation based on the
+`DISTANCE()` between a stored coordinate and a coordinate given in a query.
+This pattern is recognized by the query optimizer. A geo index will be used to
+accelerate such queries if one is available.
+
+The default sorting direction is ascending, so a query finds the coordinates
+closest to the reference point first (lowest distance). `LIMIT` can be used
+to restrict the number of results to at most *n* matches.
 
 In below example, the limit is set to 3. The origin (the reference point) is
 a coordinate somewhere downtown in Dublin, Ireland:
 
 ```js
-FOR loc IN NEAR(Locations, 53.35, -6.26, 3)
-    RETURN {
-        name: loc.name,
-        latitude: loc.coordinate[0],
-        longitude: loc.coordinate[1]
-    }
-```
-
-```json
-[
-  {
-    "name": "Vaes Dothrak",
-    "latitude": 54.16776,
-    "longitude": -6.096125
-  },
-  {
-    "name": "Winterfell",
-    "latitude": 54.368321,
-    "longitude": -5.581312
-  },
-  {
-    "name": "Dragonstone",
-    "latitude": 55.167801,
-    "longitude": -6.815096
+FOR loc IN Locations
+  LET distance = DISTANCE(loc.coordinate[0], loc.coordinate[1], 53.35, -6.25)
+  SORT distance
+  LIMIT 3
+  RETURN {
+    name: loc.name,
+    latitude: loc.coordinate[0],
+    longitude: loc.coordinate[1],
+    distance
   }
-]
-```
-
-The query returns the location name, as well as the coordinate. The coordinate
-is returned as two separate attributes. You may use a simpler `RETURN loc` 
-instead if you want.
-
-Find locations within radius
-----------------------------
-
-`NEAR()` can be swapped out with `WITHIN()`, to search for locations within a
-given radius from a reference point. The syntax is the same as for `NEAR()`,
-except for the fourth parameter, which specifies the radius instead of a limit.
-The unit for the radius is meters. The example uses a radius of 200,000
-meters (200 kilometers):
-
-```js
-FOR loc IN WITHIN(Locations, 53.35, -6.26, 200 * 1000)
-    RETURN {
-        name: loc.name,
-        latitude: loc.coordinate[0],
-        longitude: loc.coordinate[1]
-    }
-```
-
-```json
-[
-  {
-    "name": "Vaes Dothrak",
-    "latitude": 54.16776,
-    "longitude": -6.096125
-  },
-  {
-    "name": "Winterfell",
-    "latitude": 54.368321,
-    "longitude": -5.581312
-  }
-]
-```
-
-Return the distance
--------------------
-
-Both `NEAR()` and `WITHIN()` can return the distance to the reference point
-by adding an optional fifth parameter. It has to be a string, which will be
-used as attribute name for an additional attribute with the distance in meters:
-
-```js
-FOR loc IN NEAR(Locations, 53.35, -6.26, 3, "distance")
-    RETURN {
-        name: loc.name,
-        latitude: loc.coordinate[0],
-        longitude: loc.coordinate[1],
-        distance: loc.distance / 1000
-    }
 ```
 
 ```json
@@ -159,26 +92,64 @@ FOR loc IN NEAR(Locations, 53.35, -6.26, 3, "distance")
     "name": "Vaes Dothrak",
     "latitude": 54.16776,
     "longitude": -6.096125,
-    "distance": 91.56658640314431
+    "distance": 91491.58596795711
   },
   {
     "name": "Winterfell",
     "latitude": 54.368321,
     "longitude": -5.581312,
-    "distance": 121.66399816395028
+    "distance": 121425.66829502625
   },
   {
     "name": "Dragonstone",
     "latitude": 55.167801,
     "longitude": -6.815096,
-    "distance": 205.31879386198324
+    "distance": 205433.7784182078
   }
 ]
 ```
 
-The extra attribute, here called *distance*, is returned as part of the *loc*
-variable, as if it was part of the location document. The value is divided
-by 1000 in the example query, to convert the unit to kilometers, simply to
-make it better readable.
+The query returns the location name, as well as the coordinate and the
+calculated distance in meters. The coordinate is returned as two separate
+attributes. You may return just the document with a simple `RETURN loc` instead
+if you want. Or return the whole document with an added distance attribute using
+`RETURN MERGE(loc, { distance })`.
 
-{%- comment %}TODO: Update to Geo cursor https://www.arangodb.com/using-arangodb-geo-index-cursor-via-aql/{% endcomment %}
+Find locations within radius
+----------------------------
+
+`LIMIT` can be swapped out with a `FILTER` that checks the distance, to find
+locations within a given radius from a reference point. Remember that the unit
+is meters. The example uses a radius of 200,000 meters (200 kilometers):
+
+```js
+FOR loc IN Locations
+  LET distance = DISTANCE(loc.coordinate[0], loc.coordinate[1], 53.35, -6.25)
+  SORT distance
+  FILTER distance < 200 * 1000
+  RETURN {
+    name: loc.name,
+    latitude: loc.coordinate[0],
+    longitude: loc.coordinate[1],
+    distance: ROUND(distance / 1000)
+  }
+```
+
+```json
+[
+  {
+    "name": "Vaes Dothrak",
+    "latitude": 54.16776,
+    "longitude": -6.096125,
+    "distance": 91
+  },
+  {
+    "name": "Winterfell",
+    "latitude": 54.368321,
+    "longitude": -5.581312,
+    "distance": 121
+  }
+]
+```
+
+The distances are converted to kilometers and rounded for readability.
