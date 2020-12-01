@@ -235,9 +235,9 @@ View definition (the default is `"none"`).
 Match documents where the attribute at **path** is present.
 
 - **path** (attribute path expression): the attribute to test in the document
-- returns **bool**: `true` if the attribute at **path** is present in a document,
-  `false` otherwise. The function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns nothing: the function evaluates to a boolean, but this value cannot be
+  returned. The function can only be called in a search expression. It throws
+  an error if used outside of a [SEARCH operation](operations-search.html).
 
 ```js
 FOR doc IN viewName
@@ -257,9 +257,9 @@ specified data type.
     - `"numeric"`
     - `"string"`
     - `"analyzer"` (see below)
-- returns **bool**: `true` if the attribute at **path** of the given **type** 
-  is present in a document, `false` otherwise. The function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns nothing: the function evaluates to a boolean, but this value cannot be
+  returned. The function can only be called in a search expression. It throws
+  an error if used outside of a [SEARCH operation](operations-search.html).
 
 ```js
 FOR doc IN viewName
@@ -277,9 +277,9 @@ by the specified **analyzer**.
 - **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
-- returns **bool**: `true` if the attribute at **path** is analyzed with the speicifed
-  **analyzer** is present in a document, `false` otherwise. The function can only be 
-  called in a [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns nothing: the function evaluates to a boolean, but this value cannot be
+  returned. The function can only be called in a search expression. It throws
+  an error if used outside of a [SEARCH operation](operations-search.html).
 
 ```js
 FOR doc IN viewName
@@ -476,9 +476,9 @@ array as second argument.
 - **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
-- returns **bool**: whether document attribute values matches the specified phrase 
-  structure or not. The function can only be called in a [SEARCH operation](operations-search.html) 
-  and throws an error otherwise.
+- returns nothing: the function evaluates to a boolean, but this value cannot be
+  returned. The function can only be called in a search expression. It throws
+  an error if used outside of a [SEARCH operation](operations-search.html).
 
 {% hint 'info' %}
 The selected Analyzer must have the `"position"` and `"frequency"` features
