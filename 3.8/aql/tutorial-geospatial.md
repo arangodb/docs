@@ -152,4 +152,4 @@ FOR loc IN Locations
 ]
 ```
 
-The returned distances are converted to kilometers and rounded for readability.
+The distances are converted to kilometers and rounded for readability.
