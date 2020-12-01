@@ -61,8 +61,8 @@ FOR u IN users
     INSERT { _from: u._id, _to: p._id } INTO recommendations
 ```
 
-Setting query options
----------------------
+Query options
+-------------
 
 The *OPTIONS* keyword followed by an object with query options can optionally
 be provided in an `INSERT` operation.
@@ -134,7 +134,7 @@ not write any updates to it.
 
 When using the *update* overwrite mode, the *keepNull* and *mergeObjects*
 options control how the update is done.
-See [UPDATE operation](operations-update.html#setting-query-options).
+See [UPDATE operation](operations-update.html#query-options).
 
 ```js
 FOR i IN 1..1000

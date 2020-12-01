@@ -7,16 +7,22 @@ LIMIT
 
 The `LIMIT` statement allows slicing the result array using an
 offset and a count. It reduces the number of elements in the result to at most
-the specified number. Two general forms of `LIMIT` are followed:
+the specified number.
 
-```js
-LIMIT count
-LIMIT offset, count
-```
+Syntax
+------
+
+Two general forms of `LIMIT` are:
+
+<pre><code>LIMIT <em>count</em>
+LIMIT <em>offset</em>, <em>count</em></code></pre>
 
 The first form allows specifying only the *count* value whereas the second form
 allows specifying both *offset* and *count*. The first form is identical using
 the second form with an *offset* value of *0*.
+
+Usage
+-----
 
 ```js
 FOR u IN users
@@ -44,14 +50,15 @@ FOR u IN users
 In above example, the documents of *users* are sorted, the first two results
 get skipped and it returns the next five user documents.
 
-Note that variables, expressions and subqueries can not be used for *offset* and 
-*count*. The values for *offset* and *count* must be known at query compile time, 
-which means that you can only use number literals, bind parameters or expressions
-that can be resolved at query compile time.
+{% hint 'info' %}
+Variables, expressions and subqueries can not be used for *offset* and *count*.
+The values for *offset* and *count* must be known at query compile time,
+which means that you can only use number literals, bind parameters or
+expressions that can be resolved at query compile time.
+{% endhint %}
 
 Where a `LIMIT` is used in relation to other operations in a query has meaning.
 `LIMIT` operations before `FILTER`s in particular can change the result
 significantly, because the operations are executed in the order in which they
-are written in the query. See [FILTER](operations-filter.html#order-of-operations) for a
-detailed example.
- 
+are written in the query. See [FILTER](operations-filter.html#order-of-operations)
+for a detailed example.

@@ -249,8 +249,8 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_agency_write_ok` | Agency write ok |
 | `arangodb_agencycomm_request_time_msec` | Request time for Agency requests |
 | `arangodb_aql_all_query` | Number of all AQL queries (including slow queries) |
-| `arangodb_aql_query_time` | Histogram with AQL query times distribution |
-| `arangodb_aql_slow_query_time` | Histogram with AQL slow query times distribution |
+| `arangodb_aql_query_time` | Histogram with AQL query times distribution (s) |
+| `arangodb_aql_slow_query_time` | Histogram with AQL slow query times distribution (s) |
 | `arangodb_aql_slow_query` | Total number of slow AQL queries |
 | `arangodb_aql_total_query_time_msec` | Total execution time of all AQL queries (ms) |
 | `arangodb_client_connection_statistics_bytes_received_bucket` | Bytes received for a request |
@@ -275,6 +275,10 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_client_connection_statistics_total_time_bucket` | Total time needed to answer a request (ms) |
 | `arangodb_client_connection_statistics_total_time_count` | Total time needed to answer a request (ms) |
 | `arangodb_client_connection_statistics_total_time_sum` | Total time needed to answer a request (ms) |
+| `arangodb_collection_lock_acquisition_micros` | Total amount of collection lock acquisition time (μs) |
+| `arangodb_collection_lock_acquisitiontime` | Collection lock acquisition time histogram (s) |
+| `arangodb_collection_lock_timeouts_exclusive` | Number of timeouts when trying to acquire collection exclusive locks |
+| `arangodb_collection_lock_timeouts_write` | Number of timeouts when trying to acquire collection write locks |
 | `arangodb_dropped_followers_count` | Number of drop-follower events |
 | `arangodb_heartbeat_failures` | Counting failed heartbeat transmissions |
 | `arangodb_heartbeat_send_time_msec` | Time required to send heartbeat (ms) |
@@ -318,6 +322,7 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_process_statistics_system_time` | Amount of time that this process has been scheduled in kernel mode, measured in seconds |
 | `arangodb_process_statistics_user_time` | Amount of time that this process has been scheduled in user mode, measured in seconds |
 | `arangodb_process_statistics_virtual_memory_size` | On Windows, this figure contains the total amount of memory that the memory manager has committed for the arangod process. On other systems, this figure contains The size of the virtual memory the process is using |
+| `arangodb_refused_followers_count` | Number of refusal answers from a follower during synchronous replication |
 | `arangodb_replication_dump_apply_time` | Time required for applying data from replication dump responses (ms) |
 | `arangodb_replication_dump_bytes_received` | Number of bytes received in replication dump requests |
 | `arangodb_replication_dump_documents` | Number of documents received in replication dump requests |
@@ -358,6 +363,7 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_shards_not_replicated` | Number of shards not replicated at all |
 | `arangodb_shards_out_of_sync` | Number of leader shards not fully replicated |
 | `arangodb_shards_total_count` | Number of shards on this machine |
+| `arangodb_sync_wrong_checksum` | Number of times a mismatching shard checksum was detected when syncing shards |
 | `arangodb_transactions_aborted` | Transactions aborted |
 | `arangodb_transactions_committed` | Transactions committed |
 | `arangodb_transactions_started` | Transactions started |

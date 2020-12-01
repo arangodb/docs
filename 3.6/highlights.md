@@ -68,7 +68,7 @@ Version 3.5
   TTL indexes can be used to automatically remove documents in collections for
   use cases like expiring sessions or automatic purging of statistics or logs.
 
-- [**Index Hints**](aql/operations-for.html#index-hints) &
+- [**Index Hints**](aql/operations-for.html#indexhint) &
   [**Named Indexes**](https://www.arangodb.com/arangodb-training-center/index-hints-named-indices/){:target="_blank"}:
   Indexes can be given names and an optional AQL inline query option
   `indexHint` was added to override the internal optimizer decision on which

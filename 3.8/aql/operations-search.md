@@ -27,17 +27,19 @@ The optional `SEARCH` operation provides the capabilities to:
 
 See [ArangoSearch Views](../arangosearch-views.html) on how to set up a View.
 
-General Syntax
---------------
+Syntax
+------
 
 The `SEARCH` keyword is followed by an ArangoSearch filter expressions, which
 is mostly comprised of calls to ArangoSearch AQL functions.
 
-```
-FOR doc IN viewName
-  SEARCH expression OPTIONS {…}
-  ...
-```
+<pre><code>FOR <em>doc</em> IN <em>viewName</em>
+  SEARCH <em>expression</em>
+  OPTIONS { … }
+  ...</code></pre>
+
+Usage
+-----
 
 The `SEARCH` statement, in contrast to `FILTER`, is treated as a part of the
 `FOR` operation, not as an individual statement. It can not be placed freely
@@ -48,7 +50,7 @@ are not allowed in this position. Subsequent operations are possible after
 `SEARCH` and the expression however, including `SORT` to order the search
 results based on a ranking value computed by the ArangoSearch View.
 
-`expression` must be an ArangoSearch expression. The full power of ArangoSearch
+*expression* must be an ArangoSearch expression. The full power of ArangoSearch
 is harnessed and exposed via special [ArangoSearch functions](functions-arangosearch.html),
 during both the search and sort stages. On top of that, common AQL operators
 are supported:
