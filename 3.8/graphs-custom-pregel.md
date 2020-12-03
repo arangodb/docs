@@ -77,8 +77,8 @@ The format of a custom algorithm right now is based on a JSON object.
 ### Algorithm parameters
 
 - **resultField** (string, _optional_): Name of the document attribute to store
-  the result in.
-  The vertex computation results will be in all vertices pointing to the given attribute.
+  the result in. The system replaces the attributes value with an object, mapping
+  accumulator names to their values.
 
 - **maxGSS** (number, _required_): The max amount of global supersteps
   After the amount of max defined supersteps is reached, the Pregel execution will stop.
@@ -86,8 +86,9 @@ The format of a custom algorithm right now is based on a JSON object.
 - **dataAccess** (object, _optional_): Allows to define `writeVertex`,
   `readVertex` and `readEdge`.
 
-  - **writeVertex**: An [AIR program](#program) that is used to write the results
-    into vertices. If `writeVertex` is used, the `resultField` will be ignored.
+  - **writeVertex**: An [AIR program](#air-program) that is used to write the results
+    into vertices. If `writeVertex` is used, the `resultField` must not be set.
+
   - **readVertex**: An `array` that consists of `strings` and/or additional `arrays`
     (that represents a path).
     - `string`: Represents a single attribute at the top level.
@@ -97,9 +98,11 @@ The format of a custom algorithm right now is based on a JSON object.
       - `string`: Represents a single path at the top level which is **not** nested.
       - `array of strings`: Represents a nested path
 
+  `readVertex` and `readEdge` are used to modify the associated data for a vertex or edge.
+  If not provided the default behaviour is to load the whole document.
+
 - **vertexAccumulators** (object, _optional_):
   Definition of all used [vertex accumulators](#vertex-accumulators).
-  <!-- TODO: Vertex Accumulators -->
 
 - **globalAccumulators** (object, _optional_):
   Definition all used global accumulators.
@@ -108,7 +111,7 @@ The format of a custom algorithm right now is based on a JSON object.
 - **customAccumulators** (object, _optional_):
   Definition of all used [custom accumulators](#custom-accumulator).
 
-- **phases** (array, _optional?_):
+- **phases** (array):
   Array of a single or multiple [phase definitions](#phases).
 
 - **debug** (optional): See [Debugging](#debugging).
@@ -139,22 +142,24 @@ Step 2 (+n): Computation
 - **name** (string, _required_): Phase name.
 
   The given name of the defined phase.
-- **onPreStep**: Program as `array of operations` to be executed.
+- **onPreStep**: Program to be executed.
 
   The _onPreStep_ program will run **once before** each Pregel execution round.
-- **initProgram**: Program as `array of operations` to be executed.
+- **initProgram**: Program to be executed.
 
   The init program will run **initially once** per all vertices that are part
   of your graph.
-- **updateProgram**: Program as `array of operations` to be executed.
+- **updateProgram**: Program to be executed.
 
   The _updateProgram_ will be executed **during every Pregel execution round**
   and each **per vertex**.
-- **onPostStep**: Program as `array of operations` to be executed.
+- **onPostStep**: Program to be executed.
 
   The _onPostStep_ program will run **once after** each Pregel execution round.
 
-`initProgram` and `updateProgram` return value is inspected. If it is not
+All programs are specified as [AIR programs](#air-program).
+
+The return value of `initProgram` resp. `updateProgram` is inspected. If it is not
 `none`, it must be one of the following:
 - `"vote-halt"` or `false`:
   indicates that this vertex voted halt.
@@ -274,6 +279,9 @@ multiple options:
 
 They are described in more detail below.
 
+The documentation refers to an array of length two as _pair_. The first entry is
+called `first` and the second entry `second`.
+
 ### Truthiness of values
 
 A value is considered _false_ if it is boolean `false` or absent (`none`).
@@ -289,14 +297,16 @@ its parameters.
 _binding values to variables_
 
 ```js
-["let", [[var, value]...], expr...]
+["let", [[name, value]...], expr...]
 ```
 
 Expects as first parameter a list of name-value-pairs. Both members of each
-pair are evaluated. `first` has to evaluate to a string. The following
+pair are evaluated sequentially. `first` has to evaluate to a string. The following
 expressions are then evaluated in a context where the named variables are
 assigned to their given values. When evaluating the expression, `let` behaves
 like `seq`.
+
+[Variables](#variables) can be dereference using `var-ref`.
 
 ```js
 > ["let", [["x", 12], ["y", 5]], ["+", ["var-ref", "x"], ["var-ref", "y"]]]
@@ -311,7 +321,7 @@ _sequence of commands_
 ["seq", expr ...]
 ```
 
-`seq` evaluates `expr` in order. The result values it the result value of the
+`seq` evaluates `expr` in order. The result value is the result value of the
 last expression. An empty `seq` evaluates to `none`.
 
 ```js
@@ -395,7 +405,7 @@ _escape sequences for lisp_
 
 ```js
 ["quote", expr]
-["quote-splice", expr]
+["quote-splice", list]
 ```
 
 `quote`/`quote-splice` copies/splices its parameter verbatim into its output.
@@ -610,9 +620,9 @@ _sort a list_
 
 ```js
 ["sort", compare, list]
-`sort` sorts a list by using the compare function. `compare` is called with
-two parameters `a` and `b`. `a` is considered less than `b` is the return value
-of this call is considered true. The sort is **not** stable.
+`sort` sorts a list in ascending order by using the compare function. `compare`
+is called with two parameters `a` and `b`. `a` is considered less than `b` is
+the return value of this call is considered true. The sort is **not** stable.
 
 ```js
 > ["sort", "lt?", ["list", 3, 1, 2]]
@@ -672,6 +682,8 @@ are _copied into_ the lambda at creating time. `parameters` is a list of names
 that the parameters are bound to. Both can be accessed using their name via
 `var-ref`. `body` is evaluated when the lambda is called.
 
+Lambdas can be used wherever a function is expected.
+
 ```js
 > [["lambda", ["quote", []], ["quote", ["x"]], ["quote", ["+", ["var-ref", "x"], 4]]], 6]
  = 10
@@ -684,8 +696,9 @@ that the parameters are bound to. Both can be accessed using their name via
 ```
 
 The reduce method executes a reducer function (lambda - required) on each
-element of the array or object. In general, it is being used to generate a
-single output value, yet it can be used to generate any supported type.
+element of the array resp. object in natural resp. undefined order. In
+general, it is being used to generate a single output value, yet it can be used
+to generate any supported type.
 
 The lambda function accepts three parameters, the current index (which is
 either the position in an array, or the current key in case of an object),
@@ -901,7 +914,7 @@ The following functions are only available when running as a vertex computation
 (i.e. as a `initProgram`, `updateProgram`, ...). `this` usually refers to the
 vertex we are attached to.
 
-#### Local Accumulators
+#### Vertex Accumulators
 
 ```js
 ["accum-ref", name]
@@ -953,7 +966,7 @@ Also see the remarks about [update visibility](#vertex-accumulators).
 ["this-outbound-edges"]
 ```
 
-- `this-doc` returns the document slice stored in vertex data.
+- `this-doc` returns the data associated with the vertex.
 - `this-outdegree` returns the number of outgoing edges.
 - `this-outbound-edges-count` alias for `this-outdegree`.
 - `this-outbound-edges` returns a list of outbound edges of the form
@@ -1150,9 +1163,9 @@ Each vertex accumulator requires a name as `string`:
 
 Global Accumulators are following the general definition of an Accumulator.
 Compared to a Vertex Accumulator they do not have local access to the Accumulator.
-Changes can only take place when sending messages and therefore can only be
-visible in the next superstep round (or in the `onPostStep` routine in the
-current round).
+Changes can only take place when sending messages or in pre-step and post-step
+programs and therefore can only be visible in the next superstep round
+(or in the `onPostStep` routine in the current round).
 
 ### Custom Accumulator
 
