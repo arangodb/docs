@@ -86,7 +86,7 @@ The format of a custom algorithm right now is based on a JSON object.
 - **dataAccess** (object, _optional_): Allows to define `writeVertex`,
   `readVertex` and `readEdge`.
 
-  - **writeVertex**: A [program](#program) that is used to write the results
+  - **writeVertex**: An [AIR program](#program) that is used to write the results
     into vertices. If `writeVertex` is used, the `resultField` will be ignored.
   - **readVertex**: An `array` that consists of `strings` and/or additional `arrays`
     (that represents a path).
@@ -122,7 +122,7 @@ operations you want to perform. The initialization program (1) will run a
 single time in the very first round. All upcoming rounds will execute the
 update program (2).
 
-The Pregel program execution will follow the order:
+In each phase, the Pregel program execution will follow the order:
 
 Step 1: Initialization
 1. `onPreStep` (Conductor, executed on Coordinator instances)
@@ -136,17 +136,22 @@ Step 2 (+n): Computation
 
 #### Phase parameters
 
-- **name** (string, _required_): Phase name
+- **name** (string, _required_): Phase name.
+
   The given name of the defined phase.
 - **onPreStep**: Program as `array of operations` to be executed.
+
   The _onPreStep_ program will run **once before** each Pregel execution round.
 - **initProgram**: Program as `array of operations` to be executed.
+
   The init program will run **initially once** per all vertices that are part
   of your graph.
 - **updateProgram**: Program as `array of operations` to be executed.
+
   The _updateProgram_ will be executed **during every Pregel execution round**
   and each **per vertex**.
 - **onPostStep**: Program as `array of operations` to be executed.
+
   The _onPostStep_ program will run **once after** each Pregel execution round.
 
 `initProgram` and `updateProgram` return value is inspected. If it is not
@@ -174,19 +179,25 @@ as needed.
 }
 ```
 
-This will generate a _report_ for every message that is send to the vertex
+This will generate a _report_ for every message that is sent to the vertex
 `my-vertex-id`. Additionally you can specify a filter by adding a `filter` field.
 
 ```js
 {
-  filter: {
-    bySender: ["my-sender-vertex"],
-    byAccumulator: ["some-accumulator"]
+  debug: {
+    traceMessages: {
+      "my-vertex-id": {
+        filter: {
+          bySender: ["my-sender-vertex"],
+          byAccumulator: ["some-accumulator"]
+        }
+      }
+    }
   }
 }
 ```
 
-This for example only generates trace reports for messages that were send by
+This for example only generates trace reports for messages that were sent by
 `my-sender-vertex` and use the `some-accumulator` accumulator. You can add more
 than one vertex or accumulator to that list. The filters are combined using
 `and` semantics, i.e. only those messages that pass _all_ filters are traced.
@@ -195,17 +206,17 @@ than one vertex or accumulator to that list. The filters are combined using
 
 - `traceMessages` (optional) a mapping from `vertex-id` to a dict described below
   - `filter` (optional)
-    - `bySender` (optional) a list of vertex document ids. Only messages send
+    - `bySender` (optional) a list of vertex document ids. Only messages sent
       by those vertices are traced.
     - `byAccumulator` (optional) a list of accumulator names. Only messages
-      send to those accumulators are traced.
+      sent to those accumulators are traced.
 
-Program
+AIR Program
 -------
 
-As the name already indicates, the _Program_ is the part where the actual
-algorithmic action takes place. Currently a program is represented with the
-Arango Intermediate Representation (AIR).
+As the name already indicates, the _AIR program_ is the part where the actual
+algorithmic action takes place. An AIR program is represented with the Arango
+Intermediate Representation (AIR).
 
 ## Arango Intermediate Representation
 
@@ -283,8 +294,8 @@ _binding values to variables_
 
 Expects as first parameter a list of name-value-pairs. Both members of each
 pair are evaluated. `first` has to evaluate to a string. The following
-expression are then evaluated in a context where the named variables are
-assigned to their given values. When evaluating the expression `let` behaves
+expressions are then evaluated in a context where the named variables are
+assigned to their given values. When evaluating the expression, `let` behaves
 like `seq`.
 
 ```js
@@ -320,13 +331,13 @@ _classical if-elseif-else-statement_
 Takes pairs `[cond, body]` of conditions `cond` and expression `body` and
 evaluates the first `body` for which `cond` evaluates to a value that is
 considered true. It does not evaluate the other `cond`s. If no condition
-matches, it evaluates to `none`. To simulate a `else` statement, set the
+matches, it evaluates to `none`. To simulate an `else` statement, set the
 last condition to `true`.
 
 ```js
 > ["if", [
         ["lt?", ["var-ref", "x"], 0],
-        ["-", ["var-ref", "x"]]
+        ["-", 0, ["var-ref", "x"]]
     ], [
         true, // else
         ["var-ref", "x"]
@@ -411,7 +422,7 @@ _like `quote` but can be unquoted_
 `quasi-quote` is like `quote` but can be unquoted using
 `unquote`/`unquote-splice`.
 
-Unlike `quote` `quasi-quote` scans all the unevaluated values passed as parameters but copies them.
+Unlike `quote`, `quasi-quote` scans all the unevaluated values passed as parameters but copies them.
 When it finds a `unquote` or `unquote-splice` it evaluates its parameters and copies/splices the
 resulting value into the output.
 
@@ -567,7 +578,7 @@ except that `proto` is only evaluated once.
 > ["lt?", 1, 3, 0]
  = false
 > ["ne?", "foo", "bar"]
- = false
+ = true
 ```
 
 #### Lists
@@ -589,7 +600,7 @@ concatenates given lists. `list-append` returns a new list, consisting of the
 old list and the evaluated `expr`s. `list-ref` returns the value at `index`.
 Accessing out of bound is an error. Offsets are zero based. `list-set`
 returns a copy of the old list, where the entry and index `index` is replaced
-by `value`. Writing a index that is out of bounds is an error. `list-empty?`
+by `value`. Writing an index that is out of bounds is an error. `list-empty?`
 returns true if and only if the given value is an empty list. `list-length`
 returns the length of the list.
 
@@ -627,8 +638,8 @@ of this call is considered true. The sort is **not** stable.
 ```
 
 `dict` creates a new dict using the specified key-value pairs. It is undefined
-behavior to specified a key more than once. `dict-merge` merges two or more
-dicts, keeping the latest occurrence of a key. `dict-keys` returns a list of
+behavior to specify a key more than once. `dict-merge` merges two or more
+dicts, keeping the latest occurrence of each key. `dict-keys` returns a list of
 all top level keys. `dict-directory` returns a list of all available paths in
 preorder.
 
@@ -794,8 +805,8 @@ to its decimal representation.
 
 `id` returns its argument. `apply` invokes `func` using the values from `list`
 as arguments. `map` invokes `func` for every value/key-value-pair in the
-`list`/`dict`. `func` should accept two parameter `(index, value)`/`(key, value)`.
-`filter` returns a new list/dict that contains all entries for which the return value
+`list`/`dict`. `func` should accept two parameters `(index, value)`/`(key, value)`.
+`filter` returns a new `list`/`dict` that contains all entries for which the return value
 of `func` invoked with `(index, value)`/`(key, value)` is considered true.
 
 ```js
@@ -832,14 +843,14 @@ context. `bind-ref` is an alias of `var-ref`.
 ["assert", cond, msg...]
 ```
 
-`print` print in an context dependent way the string representation of its
+`print` print in a context dependent way the string representation of its
 arguments joined by spaces. Strings represent themselves, numbers are converted
 to decimal representation, booleans are represented as `true` or `false`.
 Dicts and lists are converted to JSON.
 
-`error` creates an error an aborts execution immediately. Errors are reported
+`error` creates an error and aborts execution immediately. Errors are reported
 in a context dependent way. The error message is constructed from the remaining
-parameter like `print`, except that it is not printed but associated with the
+parameters like `print`, except that it is not printed but associated with the
 error. This like a panic or an uncaught exception.
 
 `assert` checks if cond is considered true if it an error with the remaining
@@ -848,7 +859,7 @@ parameters as message is raised. It is equivalent to
 
 ### Math Library
 
-The following mathematical functions are available in all context. They all
+The following mathematical functions are available in all contexts. They all
 interpret the data as a `double` and directly forward their input to the
 respective [C/C++ library implementation](https://en.cppreference.com/w/cpp/numeric/math){:target="_blank"}.
 
@@ -902,8 +913,8 @@ vertex we are attached to.
 - `accum-set!` sets the current value of the accumulator `name` to `value`.
 - `accum-clear!` resets the current value of the accumulator `name` to a
   well-known one. Currently numeric limits for
-- `max` and `min` accumulators, 0 for sums, false for or, true for and, and
-  empty for lists and VelocyPack.
+  `max` and `min` accumulators, `0` for `sum`, `false` for `or`, `true` for `and`, and
+  empty for `list` and VelocyPack.
 
 #### Global Accumulators
 
@@ -913,7 +924,7 @@ vertex we are attached to.
 ```
 
 - `global-accum-ref` evaluates the global accumulator `name`.
-- `send-to-global-accum` send `value` to the global accumulator `name`.
+- `send-to-global-accum` sends `value` to the global accumulator `name`.
 
 Also see the remarks about [update visibility](#vertex-accumulators).
 
@@ -926,7 +937,7 @@ Also see the remarks about [update visibility](#vertex-accumulators).
 
 - `send-to-accum` send the value `value` to the accumulator `name` at vertex
   with pregel-id `to-pregel-vertex`.
-- `send-to-all-neighbors` send the value `value` to the accumulator `name` in
+- `send-to-all-neighbors` sends the value `value` to the accumulator `name` in
   all neighbors reachable by an edge. Note that if there are multiple edges
   from us to the neighbor, the value is sent multiple times.
 
@@ -955,11 +966,11 @@ Also see the remarks about [update visibility](#vertex-accumulators).
 - `this-vertex-id` returns the vertex document identifier.
 - `this-unique-id` returns a unique but opaque numeric value associated with
    this vertex.
-- `this-pregel-id` returns a identifier used by Pregel to send messages.
+- `this-pregel-id` returns an identifier used by Pregel to send messages.
 
 #### Miscellaneous
 
-- `["vertex-count"]` returns the number of vertices in the graph under
+- `["vertex-count"]` returns the total number of vertices in the graph under
   consideration.
 - `["global-superstep"]` the current superstep the algorithm is in.
 - `["phase-superstep"]` the current superstep the current phase is in.
@@ -994,7 +1005,7 @@ accumulators but for global accumulators.
 
 ### Foreign calls in _Custom Accumulator_ context
 
-The following functions are only available when running inside a custom accumulators.
+The following functions are only available when running inside a custom accumulator.
 
 - `["parameters"]`
    returns the object passed as parameter to the accumulator definition
@@ -1145,7 +1156,7 @@ current round).
 
 ### Custom Accumulator
 
-Because the above list of accumulators feels limited and my not suite your case
+Because the above list of accumulators feels limited and may not suite your case
 best you can create your own custom accumulator. You can define a custom
 accumulator in the `customAccumulators` field of the algorithm, which is an
 object, mapping the name of the custom accumulator to its definition.
