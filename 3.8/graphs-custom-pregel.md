@@ -301,10 +301,10 @@ _binding values to variables_
 ```
 
 Expects as first parameter a list of name-value-pairs. Both members of each
-pair are evaluated sequentially. `first` has to evaluate to a string. The following
-expressions are then evaluated in a context where the named variables are
-assigned to their given values. When evaluating the expression, `let` behaves
-like `seq`.
+pair are evaluated. `first` has to evaluate to a string. Declared names become
+visible at the first expr.The following expressions are then evaluated in a
+context where the named variables are assigned to their given values. When
+evaluating the expression, `let` behaves like `seq`.
 
 [Variables](#variables) can be dereference using `var-ref`.
 
@@ -949,7 +949,8 @@ Also see the remarks about [update visibility](#vertex-accumulators).
 ```
 
 - `send-to-accum` send the value `value` to the accumulator `name` at vertex
-  with pregel-id `to-pregel-vertex`.
+  with pregel-id `to-pregel-vertex`. There is not edge required between the sender
+  and the receiver.
 - `send-to-all-neighbors` sends the value `value` to the accumulator `name` in
   all neighbors reachable by an edge. Note that if there are multiple edges
   from us to the neighbor, the value is sent multiple times.
@@ -1152,12 +1153,13 @@ Each vertex accumulator requires a name as `string`:
   - `custom`: see below.
 - **valueType** (string, _required_): The name of the value type.
   Valid value types are:
-  - `slice` (VelocyPack Slice)
-  - `ints` (Integer type)
-  - `doubles`: (Double type)
-  - `bools`: (Boolean type)
-  - `strings`: (String type)
-- **customType** (string, _optional_): The name of the used custom accumulator type
+  - `any` (JSON data)
+  - `int` (Integer type)
+  - `double`: (Double type)
+  - `bool`: (Boolean type)
+  - `string`: (String type)
+- **customType** (string, _optional_): The name of the used custom accumulator type.
+    Has to be set if and only if `accumulatorType == custom`.
 
 ### Global Accumulator
 
