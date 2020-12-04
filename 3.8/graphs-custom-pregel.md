@@ -80,7 +80,8 @@ The format of a custom algorithm right now is based on a JSON object.
   the result in. The system replaces the attributes value with an object, mapping
   accumulator names to their values.
 
-- **maxGSS** (number, _required_): The max amount of global supersteps
+- **maxGSS** (number, _required_): The max amount of global supersteps.
+
   After the amount of max defined supersteps is reached, the Pregel execution will stop.
 
 - **dataAccess** (object, _optional_): Allows to define `writeVertex`,
@@ -408,7 +409,7 @@ _escape sequences for lisp_
 ["quote-splice", list]
 ```
 
-`quote`/`quote-splice` copies/splices its parameter verbatim into its output.
+`quote`/`quote-splice` copies/splices its parameter verbatim into its output, without evaluating them.
 `quote-splice` fails if it is called in a context where it can not splice into
 something, for example at top-level.
 
@@ -1197,7 +1198,7 @@ The definition of a custom vertex accumulator contains the following fields:
   written back into the vertex document. It defaults to `getProgram`.
 
 Each custom accumulator has an internal buffer. You can access this buffer using
-the `current-value` function. To set a new value use the `this-set!`. Note that
+the `current-value` function. To set a new value use `this-set!`. Note that
 `this-set!` will not invoke the `setProgram` but instead copy the provided value
 to the internal buffer.
 
@@ -1223,7 +1224,7 @@ A simple sum accumulator could look like this:
 
 Based on a vertex accumulator you can also write a custom global accumulator.
 Before a new superstep begins the global accumulators are distributed to the
-DB-Servers by the conductor. During the superstep vertex program can read from
+DB-Servers by the conductor. During the superstep, vertex programs can read from
 those accumulators and send messages to them. Those messages are then
 accumulated per DB-Server in a cleared version of the accumulator,
 i.e. sending a message does call updated but the _write accumulator_ is cleared
@@ -1341,7 +1342,7 @@ Developing a PPA
 ----------------
 
 There are two ways of developing your PPA. You can either run and develop in
-the ArangoShell (as shown above) or you can use the Foxx Service "Pregelator"
+the ArangoShell (as shown above), or you can use the Foxx Service "Pregelator".
 The Pregelator can be installed separately and provides a nice UI to write a
 PPA, execute it and get direct feedback in both "success" and "error" cases.
 
@@ -1459,11 +1460,14 @@ therefor set the `accumulatorType` to `sum`.
 initProgram: [
   "seq",
 
-  ["accum-set!", "outDegree", ["this-outbound-edges-count"]], // Sets our outDegree accumulator with ["this-outbound-edges-count"]
+  // Set our outDegree accumulator to ["this-outbound-edges-count"]
+  ["accum-set!", "outDegree", ["this-outbound-edges-count"]],
 
-  // Init in degree to 0
-  ["accum-set!", "inDegree", 0],             // Initializes our inDegree (sum) accumulator to 0
-  ["send-to-all-neighbours", "inDegree", 1]  // Sends value: "1" to all neighbors, so their inDegree can be raised next round!
+  // Initializes our inDegree (sum) accumulator to 0
+  ["accum-set!", "inDegree", 0],
+
+  // Send value: "1" to all neighbors, so their inDegree can be raised next round!
+  ["send-to-all-neighbours", "inDegree", 1]
 ]
 ```
 
@@ -1471,7 +1475,7 @@ initProgram: [
 
 ```
 updateProgram: ["seq",
-  false]
+  "vote-halt"]
 }]
 ```
 
@@ -1488,14 +1492,17 @@ or create a `<program>` which will take care of our store procedure.
 The next code snippet demonstrates how a store program could look like:
 
 ```js
-1. "dataAccess": {
-2.   "writeVertex": [
-3.     "attrib-set",
-4.       ["attrib-set", ["dict"], "inDegree", ["accum-ref", "inDegree"]], // 1st parameter of outer attrib-set
-5.       "outDegree",                                                     // 2nd parameter of outer attrib-set
-6.       ["accum-ref", "outDegree"]                                       // 3rd parameter of outer attrib-set
-7.   ]
-8. }
+"dataAccess": {
+  "writeVertex": [
+    "attrib-set",
+      // 1st parameter of outer attrib-set
+      ["attrib-set", ["dict"], "inDegree", ["accum-ref", "inDegree"]],
+      // 2nd parameter of outer attrib-set
+      "outDegree",
+      // 3rd parameter of outer attrib-set
+      ["accum-ref", "outDegree"]
+  ]
+}
 ```
 
 We do want to store the value of inDegree and outDegree in our vertices in a
@@ -1509,9 +1516,15 @@ Let us take a look at row 4:
 ```js
 [
   "attrib-set",
-  ["dict"],                  // creates a dict (which is an empty object type)
-  "inDegree",                // the key we want to store as a string
-  ["accum-ref", "inDegree"]  // the accumulator reference we're reading from, which will be inserted in our new dict
+
+    // creates a dict (which is an empty object type)
+  ["dict"],
+
+    // the key we want to store as a string
+  "inDegree",
+
+  // the accumulator reference we're reading from, which will be inserted in our new dict
+  ["accum-ref", "inDegree"]
 ]
 ```
 
@@ -1523,7 +1536,7 @@ This will generate a dict:
 }
 ```
 
-The `attrib-set` command from line 3. takes the new created dict as the base,
+The `attrib-set` command from line 3. takes the newly created dict as the base,
 creates a new entry called `outDegree` and adds the referenced (numeric value)
 from `outDegree` there.
 
