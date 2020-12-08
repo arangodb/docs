@@ -47,6 +47,13 @@ commit, and abort transactions operating in any database as long as the user had
 sufficient permissions. Now the endpoint will restrict operations to
 transactions within the current database.
 
+The HTTP API for starting a Pregel run `/_api/control-pregel` now returns the
+Pregel execution number as a stringified execution number, e.g. "12345" instead 
+of 12345. 
+This is not downwards-compatible, so all client applications that depend
+on the return value being a numeric value need to be adjusted to handle
+a string return value and convert that string into a number.
+
 ### Endpoints added
 
 ### Endpoints augmented
