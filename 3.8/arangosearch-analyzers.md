@@ -556,13 +556,20 @@ An Analyzer capable of breaking up a GeoJSON object into a set of
 indexable tokens for further usage with
 [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
 
+GeoJSON object example:
+
+```js
+{
+  "type": "Point",
+  "coordinates": [ -73.97, 40.78 ] // [ longitude, latitude ]
+}
+```
+
 - `type` (string, _optional_):
-  - `"shape"` (default): convert all valid GeoJSON objects to a set of
-    indexable tokens
-  - `"centroid"`: convert centroids of all valid GeoJSON shapes to a set of
-    indexable tokens
-  - `"point"`: accept only JSON object denoting a coordinate and convert it to
-    a set of indexable tokens
+  - `"shape"` (default): index all GeoJSON geometry types (Point, Polygon etc.)
+  - `"centroid"`: compute and only index the centroid of the input geometry
+  - `"point"`: only index GeoJSON objects of type Point, ignore all other
+    geometry types
 - `options` (object, _optional_): options for fine-tuning geo queries.
   These options should generally remain unchanged
   - `maxCells` (number, _optional_): maximum number of S2 cells (default: 20)
@@ -577,15 +584,21 @@ An Analyzer capable of breaking up JSON object describing a coordinate into a
 set of indexable tokens for further usage with
 [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
 
+The Analyzer can be used for two different coordinate representations:
+- an array with two numbers as elements in the format
+  `[<latitude>, <longitude>]`, e.g. `[40.78, -73.97]`
+- two separate number attributes, one for latitude and one for
+  longitude, e.g. `{ location: { lat: 40.78, lon: -73.97 } }`
+
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-<!-- TODO -->
-if present, attributes denote path to latitude/longitude pair in a JSON object. If not present, 
-analyzers GEO point in form of JSON array `[<latitude>, <longitude>]`.
-
-- `latitude` (array, _optional_): array of strings
-- `longitude` (array, _optional_): array of strings
+- `latitude` (array, _optional_): array of strings that describes the
+  attribute path of the latitude value relative to the field for which the
+  Analyzer is defined in the View
+- `longitude` (array, _optional_): array of strings that describes the
+  attribute path of the longitude value relative to the field for which the
+  Analyzer is defined in the View
 - `options` (object, _optional_): options for fine-tuning geo queries.
   These options should generally remain unchanged
   - `minCells` (number, _optional_): maximum number of S2 cells (default: 20)
