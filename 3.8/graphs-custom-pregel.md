@@ -129,14 +129,14 @@ update program (2).
 In each phase, the Pregel program execution will follow the order:
 
 Step 1: Initialization
-1. `onPreStep` (Conductor, executed on Coordinator instances)
+1. `onPreStep` (Coordinator, executed on Coordinator instances)
 2. `initProgram` (Worker, executed on DB-Server instances)
-3. `onPostStep` (Conductor)
+3. `onPostStep` (Coordinator)
 
 Step 2 (+n): Computation
-1. `onPreStep` (Conductor)
+1. `onPreStep` (Coordinator)
 2. `updateProgram` (Worker)
-3. `onPostStep` (Conductor)
+3. `onPostStep` (Coordinator)
 
 #### Phase parameters
 
@@ -991,9 +991,9 @@ Also see the remarks about [update visibility](#vertex-accumulators).
 - `["phase-superstep"]` the current superstep the current phase is in.
 - `["current-phase"]` the current phase name.
 
-### Foreign calls in _Conductor_ context
+### Foreign calls in _Coordinator_ context
 
-The following functions are only available when running in the Conductor
+The following functions are only available when running in the Coordinator
 context to coordinate phases and phase changes and to access and modify
 global accumulators.
 
@@ -1224,13 +1224,13 @@ A simple sum accumulator could look like this:
 
 Based on a vertex accumulator you can also write a custom global accumulator.
 Before a new superstep begins the global accumulators are distributed to the
-DB-Servers by the conductor. During the superstep, vertex programs can read from
+DB-Servers by the coordinator. During the superstep, vertex programs can read from
 those accumulators and send messages to them. Those messages are then
 accumulated per DB-Server in a cleared version of the accumulator,
 i.e. sending a message does call updated but the _write accumulator_ is cleared
 when the superset begins.
 
-After the superstep the accumulated values are collected by the conductor and
+After the superstep the accumulated values are collected by the coordinator and
 then aggregated. Finally the new value of the global accumulator is available
 in the `onPostStep` program.
 
@@ -1240,14 +1240,14 @@ accumulator as global accumulator.
   new value for the global accumulator. `input-state` is available in this
   context. The default implementation replaces the internal state of the
   accumulator with `input-state`.
-- `getStateProgram` this code is executed when the conductor serializes the
+- `getStateProgram` this code is executed when the coordinator serializes the
   value of the global accumulator before distributing it to the DB-Servers.
   The default implementation just copies the internal state.
 - `getStateUpdateProgram` this code is executed when the DB-Server serializes
   the accumulated value of the accumulator during the collect phase, sending
-  its result back to the Conductor.
+  its result back to the Coordinator.
   The default implementation is to call `getStateProgram`.
-- `aggregateStateProgram` this code is executed on the conductor after it
+- `aggregateStateProgram` this code is executed on the coordinator after it
   received the _update states_. This code merges the different aggregates.
 
 Coming back to our sum accumulator we would expand it like so:
