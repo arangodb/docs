@@ -7,40 +7,51 @@ description: ArangoDB Server ArangoSearch Options
 ## Threads
 
 `arangosearch.commit-threads`
-**introduced in 3.7.5**
+
+<small>Introduced in: v3.7.5</small>
 
 The maximum number of threads to use for asynchronous ArangoSearch commit
 tasks (0 == autodetect).
-The option value must fall in range [1..4 * `NumberOfCores`].
+The option value must fall in the range `[ 1..4 * NumberOfCores ]`.
 
 `arangosearch.commit-threads-idle`
-**introduced in 3.7.5**
+
+<small>Introduced in: v3.7.5</small>
 
 The minimum number of threads to use for asynchronous ArangoSearch commit
 tasks (0 == autodetect).
-The option value must fall in range [1..`arangosearch.commit-threads`].
+The option value must fall in the range `[ 1..arangosearch.commit-threads ]`.
 
 `arangosearch.consolidation-threads`
-**introduced in 3.7.5**
+
+<small>Introduced in: v3.7.5</small>
 
 The maximum number of threads to use for asynchronous ArangoSearch consolidation
 tasks (0 == autodetect).
-The option value must fall in range [1..4 * `NumberOfCores`].
+The option value must fall in the range `[ 1..4 * NumberOfCores ]`.
 
 `arangosearch.consolidation-threads-idle`
-**introduced in 3.7.5**
+
+<small>Introduced in: v3.7.5</small>
 
 The minimum number of threads to use for asynchronous ArangoSearch consolidation
 tasks (0 == autodetect).
-The option value must fall in range [1..`arangosearch.consolidation-threads`].
+The option value must fall in the range `[ 1..arangosearch.consolidation-threads ]`.
 
 `arangosearch.threads`
-**deprecated in 3.7.5**
+
+<small>Deprecated in: v3.7.5</small>
 
 The exact number of threads to use for asynchronous tasks (0 == autodetect).
 
+From version 3.7.5 on, `arangosearch.consolidation-threads` and
+`arangosearch.commit-threads` should be set separately instead. They overrule
+`arangosearch.threads`. If only `arangosearch.threads` is specified and greater
+than 0, then the value is divided by 2 and used for both of the new options.
+
 `arangosearch.threads-limit`
-**deprecated in 3.7.5**
+
+<small>Deprecated in: v3.7.5</small>
 
 Upper limit to the auto-detected number of threads to use for asynchronous
 tasks (0 == use default).

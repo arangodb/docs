@@ -57,6 +57,13 @@ the RocksDB storage engine they did not make any difference. Using these startup
 options is still possible, but will have no effect other than generating a
 warning at server startup.
 
+- `--arangosearch.threads`
+- `--arangosearch.threads-limit`
+
+There are two new options for each of the deprecated options, now allowing to
+set the minimum and maximum number of threads for committing and consolidation
+separately. See [ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
+
 ### Changed default values
 
 The default value for the number of network I/O threads `--network.io-threads`
