@@ -178,3 +178,9 @@ versa:
 
   `DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")`
   → `"2020-10-15T01:00:00.999Z"`
+
+Miscellaneous
+-------------
+
+- Add cluster support for collection.checksum() method to calculate CRC checksums for
+  collections.
