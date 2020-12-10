@@ -44,10 +44,22 @@ The option value must fall in the range `[ 1..arangosearch.consolidation-threads
 
 The exact number of threads to use for asynchronous tasks (0 == autodetect).
 
-From version 3.7.5 on, `arangosearch.consolidation-threads` and
-`arangosearch.commit-threads` should be set separately instead. They overrule
-`arangosearch.threads`. If only `arangosearch.threads` is specified and greater
-than 0, then the value is divided by 2 and used for both of the new options.
+{% hint 'info' %}
+From version 3.7.5 on, the commit and consolidation thread counts should be
+set separately via the following options instead:
+- `--arangosearch.commit-threads`
+- `--arangosearch.commit-threads-idle`
+- `--arangosearch.consolidation-threads`
+- `--arangosearch.consolidation-threads-idle`
+
+If either `--arangosearch.commit-threads` or
+`--arangosearch.consolidation-threads` is set, then `--arangosearch.threads`
+and `arangosearch.threads-limit` are ignored. If only the legacy options are
+set, then the commit and consolidation thread counts are calculated as follows:
+- Maximum: The smaller value out of `--arangosearch.threads` and
+  `arangosearch.threads-limit` divided by 2, but at least 1.
+- Minimum: the maximum divided by 2, but at least 1.
+{% endhint %}
 
 `arangosearch.threads-limit`
 
@@ -55,3 +67,20 @@ than 0, then the value is divided by 2 and used for both of the new options.
 
 Upper limit to the auto-detected number of threads to use for asynchronous
 tasks (0 == use default).
+
+{% hint 'info' %}
+From version 3.7.5 on, the commit and consolidation thread counts should be
+set separately via the following options instead:
+- `--arangosearch.commit-threads`
+- `--arangosearch.commit-threads-idle`
+- `--arangosearch.consolidation-threads`
+- `--arangosearch.consolidation-threads-idle`
+
+If either `--arangosearch.commit-threads` or
+`--arangosearch.consolidation-threads` is set, then `--arangosearch.threads`
+and `arangosearch.threads-limit` are ignored. If only the legacy options are
+set, then the commit and consolidation thread counts are calculated as follows:
+- Maximum: The smaller value out of `--arangosearch.threads` and
+  `arangosearch.threads-limit` divided by 2, but at least 1.
+- Minimum: the maximum divided by 2, but at least 1.
+{% endhint %}

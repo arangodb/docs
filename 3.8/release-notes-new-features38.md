@@ -68,9 +68,9 @@ See [ArangoSearch Aql Analyzer](arangosearch-analyzers.html#aql)
 
 ### ArangoSearch thread control
 
-Added new command line options for fine-grained ArangoSearch maintenance
-control, now allowing to set the minimum and maximum number of threads
-for committing and consolidation separately:
+Added new command line options for fine-grained control over ArangoSearch's
+maintenance threads, now allowing to set the minimum and maximum number of
+threads for committing and consolidation separately:
 
 - `--arangosearch.commit-threads`
 - `--arangosearch.commit-threads-idle`

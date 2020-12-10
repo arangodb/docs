@@ -62,7 +62,11 @@ warning at server startup.
 
 There are two new options for each of the deprecated options, now allowing to
 set the minimum and maximum number of threads for committing and consolidation
-separately. See [ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
+separately. If either `--arangosearch.commit-threads` or
+`--arangosearch.consolidation-threads` is set, then both deprecated options are
+ignored. If only the legacy options are set, then they are used to calculate
+the thread count. See
+[ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
 
 ### Changed default values
 
