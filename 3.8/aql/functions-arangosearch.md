@@ -817,6 +817,80 @@ FOR doc IN viewName
 
 See [String Functions](functions-string.html#tokens).
 
+Geo functions
+-------------
+
+### GEO_CONTAINS()
+
+<small>Introduced in: v3.8.0</small>
+
+`GEO_CONTAINS(geoJsonA, geoJsonB) → bool`
+
+Checks whether the [GeoJSON object](../indexing-geo.html#geojson) *geoJsonA*
+fully contains *geoJsonB* (every point in B is also in A).
+
+- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- returns **bool** (bool): `true` when every point in B is also contained in A,
+  `false` otherwise
+
+### GEO_DISTANCE()
+
+<small>Introduced in: v3.8.0</small>
+
+`GEO_DISTANCE(geoJsonA, geoJsonB) → distance`
+
+Return the distance between two [GeoJSON objects](../indexing-geo.html#geojson),
+measured from the **centroid** of each shape.
+
+- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- returns **distance** (number): the distance between the centroid points of
+  the two objects on the reference ellipsoid
+
+### GEO_IN_RANGE()
+
+<small>Introduced in: v3.8.0</small>
+
+`GEO_IN_RANGE(geoJsonA, geoJsonB, low, high, includeLow, includeHigh) → bool`
+
+Checks whether the distance between two [GeoJSON objects](../indexing-geo.html#geojson)
+lies within a given interval. The distance is measured from the **centroid** of
+each shape.
+
+- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- **low** (number): minimum value of the desired range
+- **high** (number): maximum value of the desired range
+- **includeLow** (bool, optional): whether the minimum value shall be included
+  in the range (left-closed interval) or not (left-open interval). The default
+  value is `true`
+- **includeHigh** (bool): whether the maximum value shall be included in the
+  range (right-closed interval) or not (right-open interval). The default value
+  is `true`
+- returns **bool** (bool): whether the evaluated distance lies within the range
+
+### GEO_INTERSECTS()
+
+<small>Introduced in: v3.8.0</small>
+
+`GEO_INTERSECTS(geoJsonA, geoJsonB) → bool`
+
+Checks whether the [GeoJSON object](../indexing-geo.html#geojson) *geoJsonA*
+intersects with *geoJsonB* (i.e. at least one point of B is in A or vice versa).
+
+- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- returns **bool** (bool): `true` if A and B intersect, `false` otherwise
+
 Scoring Functions
 -----------------
 
@@ -930,77 +1004,3 @@ FOR doc IN viewName
   SORT doc.text, TFIDF(doc) DESC
   RETURN doc
 ```
-
-Geo functions
--------------
-
-### GEO_CONTAINS()
-
-<small>Introduced in: v3.8.0</small>
-
-`GEO_CONTAINS(geoJsonA, geoJsonB) → bool`
-
-Checks whether the [GeoJSON object](../indexing-geo.html#geojson) *geoJsonA*
-fully contains *geoJsonB* (every point in B is also in A).
-
-- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
-  (in longitude, latitude order)
-- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
-  (in longitude, latitude order)
-- returns **bool** (bool): `true` when every point in B is also contained in A,
-  `false` otherwise
-
-### GEO_DISTANCE()
-
-<small>Introduced in: v3.8.0</small>
-
-`GEO_DISTANCE(geoJsonA, geoJsonB) → distance`
-
-Return the distance between two [GeoJSON objects](../indexing-geo.html#geojson),
-measured from the **centroid** of each shape.
-
-- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
-  (in longitude, latitude order)
-- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
-  (in longitude, latitude order)
-- returns **distance** (number): the distance between the centroid points of
-  the two objects on the reference ellipsoid
-
-### GEO_IN_RANGE()
-
-<small>Introduced in: v3.8.0</small>
-
-`GEO_IN_RANGE(geoJsonA, geoJsonB, low, high, includeLow, includeHigh) → bool`
-
-Checks whether the distance between two [GeoJSON objects](../indexing-geo.html#geojson)
-lies within a given interval. The distance is measured from the **centroid** of
-each shape.
-
-- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
-  (in longitude, latitude order)
-- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
-  (in longitude, latitude order)
-- **low** (number): minimum value of the desired range
-- **high** (number): maximum value of the desired range
-- **includeLow** (bool, optional): whether the minimum value shall be included
-  in the range (left-closed interval) or not (left-open interval). The default
-  value is `true`
-- **includeHigh** (bool): whether the maximum value shall be included in the
-  range (right-closed interval) or not (right-open interval). The default value
-  is `true`
-- returns **bool** (bool): whether the evaluated distance lies within the range
-
-### GEO_INTERSECTS()
-
-<small>Introduced in: v3.8.0</small>
-
-`GEO_INTERSECTS(geoJsonA, geoJsonB) → bool`
-
-Checks whether the [GeoJSON object](../indexing-geo.html#geojson) *geoJsonA*
-intersects with *geoJsonB* (i.e. at least one point of B is in A or vice versa).
-
-- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
-  (in longitude, latitude order)
-- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
-  (in longitude, latitude order)
-- returns **bool** (bool): `true` if A and B intersect, `false` otherwise
