@@ -66,6 +66,21 @@ restrictions) to perform data manipulation/filtering.
 
 See [ArangoSearch Aql Analyzer](arangosearch-analyzers.html#aql)
 
+### ArangoSearch thread control
+
+Added new command line options for fine-grained control over ArangoSearch's
+maintenance threads, now allowing to set the minimum and maximum number of
+threads for committing and consolidation separately:
+
+- `--arangosearch.commit-threads`
+- `--arangosearch.commit-threads-idle`
+- `--arangosearch.consolidation-threads`
+- `--arangosearch.consolidation-threads-idle`
+
+They supersede the options `--arangosearch.threads` and
+`--arangosearch.threads-limit`. See
+[ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
+
 Metrics
 -------
 
