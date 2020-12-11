@@ -227,24 +227,6 @@ server (or by the external environment, e.g. firewall, intermediate routers,
 operating system, ... ).
 
 This option can be set using the key `arangodb.connections.keepAlive.interval`
-in the properties file or programmatically in the driver builder:
-
-```Java
-ArangoDB arango = new ArangoDB.Builder()
-  .connectionTtl(5 * 60 * 1000)
-  .build();
-```
-
-
-## VST Keep-Alive
-
-Since version 6.8 the driver supports setting keep-alive interval (in seconds)
-for VST connections. If set, every VST connection will perform a no-op request
-at the specified intervals, to avoid to be closed due to inactivity by the
-server (or by the external environment, e.g. firewall, intermediate routers,
-operating system, ... ).
-
-This option can be set using the key `arangodb.connections.keepAlive.interval`
 in the properties file or programmatically from the driver builder:
 
 ```Java
