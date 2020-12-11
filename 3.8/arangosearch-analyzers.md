@@ -107,6 +107,8 @@ Analyzer   /   Feature  | Tokenization | Stemming | Normalization | N-grams
 [Text](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
 [AQL](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [Pipeline](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[GeoJSON](#geojson)     |      No      |    No    |      No       |   No
+[GeoPoint](#geopoint)   |      No      |    No    |      No       |   No
 
 Analyzer Properties
 -------------------
