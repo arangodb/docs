@@ -565,6 +565,9 @@ GeoJSON object example:
 }
 ```
 
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
 - `type` (string, _optional_):
   - `"shape"` (default): index all GeoJSON geometry types (Point, Polygon etc.)
   - `"centroid"`: compute and only index the centroid of the input geometry
@@ -586,9 +589,13 @@ set of indexable tokens for further usage with
 
 The Analyzer can be used for two different coordinate representations:
 - an array with two numbers as elements in the format
-  `[<latitude>, <longitude>]`, e.g. `[40.78, -73.97]`
+  `[<latitude>, <longitude>]`, e.g. `[40.78, -73.97]`.
 - two separate number attributes, one for latitude and one for
-  longitude, e.g. `{ location: { lat: 40.78, lon: -73.97 } }`
+  longitude, e.g. `{ location: { lat: 40.78, lon: -73.97 } }`.
+  The attributes cannot be at the top level of the document, but must be nested
+  like in the example, so that the Analyzer can be defined for the field
+  `location` with the Analyzer properties
+  `{ "latitude": ["lat"], "longitude": ["long"] }`.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
