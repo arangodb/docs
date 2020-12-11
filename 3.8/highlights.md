@@ -20,7 +20,10 @@ Version 3.8
   ngram-based fuzzy search and more. New
   [**AQL Analyzer**](arangosearch-analyzers.html#aql)
   so that you can use an AQL query to pre-process and filter your data for
-  indexing.
+  indexing. Support for **geo-spatial queries** through new
+  [Geo](arangosearch-analyzers.html#geojson)
+  [Analyzers](arangosearch-analyzers.html#geopoint) and
+  [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
 
 **Enterprise Edition**
 

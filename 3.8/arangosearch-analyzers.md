@@ -90,6 +90,9 @@ The currently implemented Analyzer types are:
   normalization, stop-word filtering and edge n-gram generation
 - `aql`: for running AQL query to prepare tokens for index
 - `pipeline`: for chaining multiple Analyzers
+- `geojson`: breaks up a GeoJSON object into a set of indexable tokens
+- `geopoint`: breaks up a JSON object describing a coordinate into a set of
+  indexable tokens
 
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
@@ -104,6 +107,8 @@ Analyzer   /   Feature  | Tokenization | Stemming | Normalization | N-grams
 [Text](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
 [AQL](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [Pipeline](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[GeoJSON](#geojson)     |      –       |    –     |      –        |   –
+[GeoPoint](#geopoint)   |      –       |    –     |      –        |   –
 
 Analyzer Properties
 -------------------
@@ -383,7 +388,6 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
 ### AQL
 
 <small>Introduced in: v3.8.0</small>
@@ -545,6 +549,70 @@ The position data is not directly exposed, but we can see its effects through
 the `PHRASE()` function. There is one token between `"B"` and `"D"` to skip in
 case of uncollapsed positions. With positions collapsed, both are in the same
 position, thus there is negative one to skip to match the tokens.
+
+### GeoJSON
+
+<small>Introduced in: v3.8.0</small>
+
+An Analyzer capable of breaking up a GeoJSON object into a set of
+indexable tokens for further usage with
+[ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
+
+GeoJSON object example:
+
+```js
+{
+  "type": "Point",
+  "coordinates": [ -73.97, 40.78 ] // [ longitude, latitude ]
+}
+```
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `type` (string, _optional_):
+  - `"shape"` (default): index all GeoJSON geometry types (Point, Polygon etc.)
+  - `"centroid"`: compute and only index the centroid of the input geometry
+  - `"point"`: only index GeoJSON objects of type Point, ignore all other
+    geometry types
+- `options` (object, _optional_): options for fine-tuning geo queries.
+  These options should generally remain unchanged
+  - `maxCells` (number, _optional_): maximum number of S2 cells (default: 20)
+  - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
+  - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
+
+### GeoPoint
+
+<small>Introduced in: v3.8.0</small>
+
+An Analyzer capable of breaking up JSON object describing a coordinate into a
+set of indexable tokens for further usage with
+[ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
+
+The Analyzer can be used for two different coordinate representations:
+- an array with two numbers as elements in the format
+  `[<latitude>, <longitude>]`, e.g. `[40.78, -73.97]`.
+- two separate number attributes, one for latitude and one for
+  longitude, e.g. `{ location: { lat: 40.78, lon: -73.97 } }`.
+  The attributes cannot be at the top level of the document, but must be nested
+  like in the example, so that the Analyzer can be defined for the field
+  `location` with the Analyzer properties
+  `{ "latitude": ["lat"], "longitude": ["long"] }`.
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `latitude` (array, _optional_): array of strings that describes the
+  attribute path of the latitude value relative to the field for which the
+  Analyzer is defined in the View
+- `longitude` (array, _optional_): array of strings that describes the
+  attribute path of the longitude value relative to the field for which the
+  Analyzer is defined in the View
+- `options` (object, _optional_): options for fine-tuning geo queries.
+  These options should generally remain unchanged
+  - `minCells` (number, _optional_): maximum number of S2 cells (default: 20)
+  - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
+  - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
 
 Analyzer Features
 -----------------
