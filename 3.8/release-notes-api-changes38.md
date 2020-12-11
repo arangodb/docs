@@ -72,4 +72,11 @@ where the return value is a simple JSON object with the statistics at the top le
 
 ## JavaScript API
 
+The JavaScript API for starting a Pregel run `/_api/control-pregel` now returns the
+Pregel execution number as a stringified execution number, e.g. "12345" instead
+of 12345.
+This is not downwards-compatible. Foxx services, arangosh scripts etc. that depend
+on the return value being a numeric value may need to be adjusted to handle
+a string return value and convert that string into a number.
+
 ## ArangoDB Server Environment Variables
