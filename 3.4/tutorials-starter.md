@@ -207,7 +207,7 @@ Note: When you restart the starter, it remembers the original `--starter.local` 
 
 {% hint 'info' %}
 Datacenter to datacenter replication is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"},
 also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
 {% endhint %}
 
