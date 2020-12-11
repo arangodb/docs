@@ -10,33 +10,39 @@ description: ArangoDB Server ArangoSearch Options
 
 <small>Introduced in: v3.7.5</small>
 
-The maximum number of threads to use for asynchronous ArangoSearch commit
-tasks (0 == autodetect).
+The maximum number of threads to use for asynchronous ArangoSearch commit tasks.
 The option value must fall in the range `[ 1..4 * NumberOfCores ]`.
+Setting it to `0` will automatically choose a sensible number based on the
+number of cores in the system.
 
 `arangosearch.commit-threads-idle`
 
 <small>Introduced in: v3.7.5</small>
 
-The minimum number of threads to use for asynchronous ArangoSearch commit
-tasks (0 == autodetect).
+The minimum number of threads to use for asynchronous ArangoSearch commit tasks.
 The option value must fall in the range `[ 1..arangosearch.commit-threads ]`.
+Setting it to `0` will automatically choose a sensible number based on the
+number of cores in the system.
 
 `arangosearch.consolidation-threads`
 
 <small>Introduced in: v3.7.5</small>
 
-The maximum number of threads to use for asynchronous ArangoSearch consolidation
-tasks (0 == autodetect).
+The maximum number of threads to use for asynchronous ArangoSearch
+consolidation tasks.
 The option value must fall in the range `[ 1..4 * NumberOfCores ]`.
+Setting it to `0` will automatically choose a sensible number based on the
+number of cores in the system.
 
 `arangosearch.consolidation-threads-idle`
 
 <small>Introduced in: v3.7.5</small>
 
-The minimum number of threads to use for asynchronous ArangoSearch consolidation
-tasks (0 == autodetect).
+The minimum number of threads to use for asynchronous ArangoSearch
+consolidation tasks.
 The option value must fall in the range `[ 1..arangosearch.consolidation-threads ]`.
+Setting it to `0` will automatically choose a sensible number based on the
+number of cores in the system.
 
 `arangosearch.threads`
 
