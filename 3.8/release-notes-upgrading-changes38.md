@@ -196,6 +196,22 @@ This a behavior change compared previous versions, but it will only have
 effect when `keepNull` is set to `false` (the default value is `true`),
 and only when just-inserted object sub-attributes contained `null` values.
 
+Pregel
+------
+
+The HTTP and JavaScript APIs for controling Pregel jobs now also accept 
+stringified execution number values, in addition to numeric ones.
+
+This allows passing larger execution numbers as strings, so that any data 
+loss due to numeric data type conversion (uint32 => double) can be avoided. 
+This change is downwards-compatible.
+
+However, the HTTP and JavaScript APIs for starting Pregel runs now also 
+return a stringified execution number, e.g. "12345" instead of 12345. 
+This is not downwards-compatible, so all client applications that depend
+on the return value being a numeric value need to be adjusted to handle
+a string return value and convert that string into a number.
+
 Document operations
 -------------------
 
