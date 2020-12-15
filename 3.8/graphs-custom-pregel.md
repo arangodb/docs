@@ -389,10 +389,10 @@ value is returned. If no branch matches, `none` is returned. This is a C-like
 Behaves similar to `let` but expects a list as `value` for each variable.
 It then produces the cartesian product of all lists and evaluates its
 expression for each n-tuple. The return value is always `none`. The order
-is guaranteed to be reversed lexicographic order.
+is guaranteed to be lexicographic order.
 
 ```js
-> ["for-each", [["x", [1, 2]], ["y", [3, 4]]], ["print", ["var-ref", "x"], ["var-ref", "y"]]]
+> ["for-each", [["x", ["list", 1, 2]], ["y", ["list", 3, 4]]], ["print", ["var-ref", "x"], ["var-ref", "y"]]]
 1 3
 1 4
 2 3
