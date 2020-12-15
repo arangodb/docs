@@ -67,10 +67,12 @@ These patterns and how they are applied can be observed by enabling
 The security option to observe the behavior of the pattern matching most easily
 is the masquerading of the startup options:
 
-    --javascript.startup-options-whitelist "^server\."
-    --javascript.startup-options-whitelist "^log\."
-    --javascript.startup-options-blacklist "^javascript\."
-    --javascript.startup-options-blacklist "^endpoint$"
+```
+--javascript.startup-options-whitelist "^server\."
+--javascript.startup-options-whitelist "^log\."
+--javascript.startup-options-blacklist "^javascript\."
+--javascript.startup-options-blacklist "^endpoint$"
+```
 
 These sets will resolve internally to the following regular expressions:
 
@@ -99,9 +101,11 @@ functions.
 
 For example, when using the following startup options
 
-    --javascript.files-whitelist "^/etc/required/"
-    --javascript.files-whitelist "^/etc/mtab/"
-    --javascript.files-whitelist "^/etc/issue$"
+```
+--javascript.files-whitelist "^/etc/required/"
+--javascript.files-whitelist "^/etc/mtab/"
+--javascript.files-whitelist "^/etc/issue$"
+```
 
 The file `/etc/issue` will be allowed to accessed and all files in the directories
 `/etc/required` and `/etc/mtab` plus their subdirectories will be accessible,
@@ -122,14 +126,16 @@ will be disallowed from JavaScript operations, with the following exceptions:
 
 The endpoint black/white listing limits access to external HTTP resources:
 
-    --javascript.endpoints-blacklist "<regex>"
-    --javascript.endpoints-whitelist "<regex>"
+```
+--javascript.endpoints-blacklist "<regex>"
+--javascript.endpoints-whitelist "<regex>"
+```
 
 Filtering is done against the protocol, hostname / IP address, and the port.
 It is not possible to restrict URL paths or other parts of a URL.
 
 In contrast to the URLs specified in JavaScript code, the filters have
-to be specified in the ArangoDB endpoints notation for the startup option:
+to be specified in the ArangoDB endpoints notation for the startup options:
 
 - `tcp://` instead of `http://`
 - `ssl://` instead of `https://`
@@ -146,8 +152,8 @@ Specifying `arangodb.org` will match:
  - `http://arangodb.org`
  - `https://arangodb.org`
  - `https://arangodb.org:12345`
- - `https://subdomain.arangodb.organic`
- - `https://arangodb-org.evil.com`
+ - `https://subdomain.arangodb.organic` **(!)**
+ - `https://arangodb-org.evil.com` **(!)**
  - etc.
 
 An unescaped `.` represents any character. For a literal dot use `\.`.
@@ -155,7 +161,7 @@ An unescaped `.` represents any character. For a literal dot use `\.`.
 Specifying `tcp://arangodb\.org` will match:
  - `http://arangodb.org`
  - `http://arangodb.org:12345`
- - `http://arangodb.organic`
+ - `http://arangodb.organic` **(!)**
  - etc.
 
 Specifying `^tcp://arangodb\.org:80$` will match:
@@ -189,8 +195,15 @@ JavaScript exception: ArangoError 11: not allowed to connect to this endpoint
 <request permitted by whitelist>
 ```
 
-Startup options may require additional escaping in your command line,
-especially the dollar symbol in Linux shells (`\$`).
+{% hint 'warning' %}
+Startup options may require additional escaping in your command line.
+Examples are:
+- Dollar symbols and backslashes in most Linux and macOS shells (`\$`, `\\`),
+  unless the entire string is wrapped in single quotes (`'tcp://arangodb\.org$'`
+  instead of `tcp://arangodb\\.org\$`)
+- Circumflex accents in Windows `cmd` (`^^`) unless the entire string is
+  wrapped in double quotes (`"^http…"`).
+{% endhint %}
 
 ### Options for blacklisting and whitelisting
 
