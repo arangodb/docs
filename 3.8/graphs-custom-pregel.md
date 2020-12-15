@@ -1222,13 +1222,13 @@ A simple sum accumulator could look like this:
 
 ### Global Custom Accumulators
 
-Based on a vertex accumulator you can also write a custom global accumulator.
+You can upgrade a custom vertex accumulator to a global accumulator as follows.
 Before a new superstep begins the global accumulators are distributed to the
 DB-Servers by the coordinator. During the superstep, vertex programs can read from
 those accumulators and send messages to them. Those messages are then
 accumulated per DB-Server in a cleared version of the accumulator,
-i.e. sending a message does call updated but the _write accumulator_ is cleared
-when the superset begins.
+i.e. sending a message does call `updateProgram` but the _write accumulator_ is cleared
+when the superstep begins.
 
 After the superstep the accumulated values are collected by the coordinator and
 then aggregated. Finally the new value of the global accumulator is available
@@ -1244,7 +1244,7 @@ accumulator as global accumulator.
   value of the global accumulator before distributing it to the DB-Servers.
   The default implementation just copies the internal state.
 - `getStateUpdateProgram` this code is executed when the DB-Server serializes
-  the accumulated value of the accumulator during the collect phase, sending
+  the value of the accumulator during the collect phase, sending
   its result back to the Coordinator.
   The default implementation is to call `getStateProgram`.
 - `aggregateStateProgram` this code is executed on the coordinator after it
@@ -1428,7 +1428,7 @@ A vertex knows exactly how many outgoing edges it has by definition. Therefore
 we only have to set the amount to an accumulator once and not multiple times.
 With that knowledge it makes sense to set the `accumulatorType` to store, as
 no further calculations need to take place. As the possible amount of
-outgoing edges is even, we are setting `valueType` to `ints`. Additionally, we
+outgoing edges is integral, we are setting `valueType` to `ints`. Additionally, we
 do not need to store the sender as that value is out of interest in that example.
 
 ##### inDegree
