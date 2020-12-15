@@ -6,22 +6,25 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Created
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">253</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"result"</span> : [ 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70742"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70742"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bUsfUlq---"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71160"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71160"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfYyK---"</span>, 
       <span class="hljs-string">"text"</span> : <span class="hljs-string">"this text contains word"</span> 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70744"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70744"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bUsfUlu---"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71162"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71162"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfYyK--A"</span>, 
       <span class="hljs-string">"text"</span> : <span class="hljs-string">"this text also has a word"</span> 
     } 
   ], 
