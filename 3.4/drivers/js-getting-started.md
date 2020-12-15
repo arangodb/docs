@@ -17,11 +17,11 @@ methods and change behavior to maintain compatibility with the given version.
 The oldest version of ArangoDB supported by arangojs when using this option
 is 2.8.0 (using `arangoVersion: 20800`).
 
-The yarn/npm distribution of ArangoJS is compatible with Node.js versions 9.x
-(latest), 8.x (LTS) and 6.x (LTS). Node.js version support follows
-[the official Node.js long-term support schedule](https://github.com/nodejs/LTS){:target="_blank"}.
+The latest yarn/npm distribution of ArangoJS is compatible with the current
+Node.js version and the active LTS versions, following the official
+[Node.js long-term support schedule](https://github.com/nodejs/LTS){:target="_blank"}.
 
-The included browser build is compatible with Internet Explorer 11 and recent
+The included browser build is compatible with recent
 versions of all modern browsers (Edge, Chrome, Firefox and Safari).
 
 Versions outside this range may be compatible but are not actively supported.
@@ -52,10 +52,10 @@ version of arangojs, you can install that version using the `<name>@<version>`
 syntax:
 
 ```sh
-# for version 4.x.x
-yarn add arangojs@4
+# for version 6.x.x
+yarn add arangojs@6
 # - or -
-npm install --save arangojs@4
+npm install --save arangojs@6
 ```
 
 You can find the documentation for each version by clicking on the corresponding

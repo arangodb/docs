@@ -37,6 +37,19 @@ dropping of cluster databases, collections and indexes.
 It must be ensured that for the hot backup no such changes are made to the
 cluster's inventory, as this could lead to inconsistent hot backups.
 
+### Active Failover Special Limitations
+
+When restoring hot backups in Active Failover setups, it is necessary to
+prevent that a non-restored follower becomes leader by temporarily setting
+the maintenance mode:
+
+1. `curl -X PUT <endpoint>/_admin/cluster/maintenance -d'"on"'`
+2. Restore the Hot Backup
+3. `curl -X PUT <endpoint>/_admin/cluster/maintenance -d'"off"'`
+
+Substitute `<endpoint>` with the actual endpoint of the **leader**
+single server instance.
+
 Restoring from a different Version
 ----------------------------------
 
@@ -59,12 +72,6 @@ hot backups can only be restored to the same type and structure of deployment.
 This means that one cannot restore a 3-node ArangoDB cluster's hot backup to
 any other deployment than another 3-node ArangoDB cluster of the same version.
 
-RocksDB Storage Engine Only
----------------------------
-
-Hot backups rely on creation of hard links on actual RocksDB data files and
-directories. The same or according file system level mechanisms are not
-available to MMFiles deployments.
 
 Storage Space
 -------------

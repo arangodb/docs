@@ -94,6 +94,40 @@ FOR vertex[, edge[, path]]
       duplicate edge
     - "none" – no uniqueness check is applied on edges. **Note:**
       Using this configuration the traversal will follow edges in cycles.
+  - **edgeCollections** (string\|array): Optionally restrict edge
+    collections the traversal may visit (introduced in v3.7.0). If omitted,
+    or an empty array is specified, then there are no restrictions.
+    - A string parameter is treated as the equivalent of an array with a single
+      element.
+    - Each element of the array should be a string containing the name of an
+      edge collection.
+  - **vertexCollections** (string\|array): Optionally restrict vertex
+    collections the traversal may visit (introduced in v3.7.0). If omitted,
+    or an empty array is specified, then there are no restrictions.
+    - A string parameter is treated as the equivalent of an array with a single
+      element.
+    - Each element of the array should be a string containing the name of a
+      vertex collection.
+    - The starting vertex is always allowed, even if it does not belong to one
+      of the collections specified by a restriction.
+  - **parallelism** (number, *optional*): Optionally parallelize traversal
+    execution (introduced in v3.7.1). If omitted or set to a value of `1`,
+    traversal execution is not parallelized. If set to a value greater than `1`,
+    then up to that many worker threads can be used for concurrently executing
+    the traversal. The value is capped by the number of available cores on the
+    target machine.
+
+    Parallelizing a traversal is normally useful when there are many inputs (start
+    vertices) that the nested traversal can work on concurrently. This is often the
+    case when a nested traversal is fed with several tens of thousands of start
+    vertices, which can then be distributed randomly to worker threads for parallel
+    execution.
+
+    Traversal parallelization is only available in the *Enterprise Edition*, and
+    limited to traversals in single server deployments and to cluster traversals
+    that are running in a OneShard setup. Cluster traversals that run on a coordinator
+    node and SmartGraph traversals are currently not parallelized, even if the
+    options is specified.
 
 ### Working with collection sets
 
@@ -109,7 +143,8 @@ FOR vertex[, edge[, path]]
 
 Instead of `GRAPH graphName` you may specify a list of edge collections. Vertex
 collections are determined by the edges in the edge collections. The traversal
-options are the same as with the [named graph variant](#working-with-named-graphs).
+options are the same as with the [named graph variant](#working-with-named-graphs),
+though the `edgeCollections` restriction option is redundant in this case.
 
 If the same edge collection is specified multiple times, it will behave as if it
 were specified only once. Specifying the same edge collection is only allowed when
@@ -228,6 +263,14 @@ example:
     @endDocuBlock GRAPHTRAV_graphPruneCollection
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% hint 'warning' %}
+The edge emitted for the starting vertex is `null`. Keep this in mind when you
+write `PRUNE` conditions involving the edge variable. A `PRUNE` condition like
+`edge.label != 'foo'` is undesirably true at depth 0 and thus terminates the
+traversal too early. A construction like `(!IS_NULL(edge) AND edge.label != 'foo')`
+can be used to avoid it.
+{% endhint %}
 
 ### Filtering on paths
 

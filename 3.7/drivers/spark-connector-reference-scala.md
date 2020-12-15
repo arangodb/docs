@@ -60,6 +60,13 @@ Save data from rdd or dataset into ArangoDB
 
     Alternative sslProtocol to context property `arangodb.ssl.protocol`
 
+  - **method**: `WriteOptions.Method`
+
+    Write method to use, it can be one of: 
+    - `WriteOptions.INSERT`
+    - `WriteOptions.UPDATE`
+    - `WriteOptions.REPLACE`
+
 **Examples**
 
 ```Scala
@@ -119,6 +126,13 @@ Save data from dataframe into ArangoDB
   - **sslProtocol**: `String`
 
     Alternative sslProtocol to context property `arangodb.ssl.protocol`
+
+  - **method**: `WriteOptions.Method`
+
+    Write method to use, it can be one of: 
+    - `WriteOptions.INSERT`
+    - `WriteOptions.UPDATE`
+    - `WriteOptions.REPLACE`
 
 **Examples**
 
@@ -208,4 +222,16 @@ Adds a filter condition. If used multiple times, the conditions will be combined
 ```Scala
 val sc: SparkContext = ...
 val rdd = ArangoSpark.load[MyBean](sc, "myCollection").filter("doc.name == 'John'")
+```
+
+## Spark Streaming Integration
+
+RDDs can also be saved to ArangoDB from Spark Streaming using
+[ArangoSpark.save()](#arangosparksave).
+
+**Example**
+
+```Scala
+dStream.foreachRDD(rdd =>
+  ArangoSpark.save(rdd, COLLECTION, new WriteOptions().database(DB)))
 ```

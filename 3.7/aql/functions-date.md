@@ -70,7 +70,7 @@ You are free to store age determinations of specimens, incomplete or fuzzy dates
 the like in different, more appropriate ways of course. AQL's date functions will
 most certainly not be of any help for such dates, but you can still use language
 constructs like [SORT](operations-sort.html) (which also supports sorting of arrays)
-and [indexes](../indexing.html) like skiplists.
+and [indexes](../indexing.html).
 
 Current date and time
 ---------------------
@@ -384,6 +384,8 @@ DATE_TRUNC('2017-02-03 04:05:06', 'hours') // 2017-02-03 04:00:00.000Z
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DATE_ROUND()
+
+<small>Introduced in: v3.6.0</small>
 
 `DATE_ROUND(date, amount, unit) → isoDate`
 
@@ -750,10 +752,10 @@ There are two recommended ways to store timestamps in ArangoDB:
 The sort order of both is identical due to the sort properties of ISO date strings.
 You can't mix both types, numbers and strings, in a single attribute however.
 
-You can use [skiplist indices](../indexing-skiplist.html) with both date types.
-When chosing string representations, you can work with string comparisons (less than,
+You can use [persistent indices](../indexing-persistent.html) with both date types.
+When choosing string representations, you can work with string comparisons (less than,
 greater than etc.) to express time ranges in your queries while still utilizing
-skiplist indices:
+persistent indices:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline working_with_date_time

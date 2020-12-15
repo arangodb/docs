@@ -12,7 +12,7 @@ To enable auditing you have to add the annotation `@EnableArangoAuditing` to you
 ```Java
 @Configuration
 @EnableArangoAuditing
-public class MyConfiguration extends AbstractArangoConfiguration {
+public class MyConfiguration implements ArangoConfiguration {
 ```
 
 We can now add fields to our model classes and annotade them with `@CreateDate`, `@CreatedBy`, `@LastModifiedDate` and `@LastModifiedBy` to store the auditing information. All annotation names should be self-explanatory.
@@ -54,7 +54,7 @@ and add the implementation as a bean to our Spring context.
 ```Java
 @Configuration
 @EnableArangoAuditing(auditorAwareRef = "auditorProvider")
-public class MyConfiguration extends AbstractArangoConfiguration {
+public class MyConfiguration implements ArangoConfiguration {
 
   @Bean
   public AuditorAware<User> auditorProvider() {

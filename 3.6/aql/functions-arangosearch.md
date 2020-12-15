@@ -3,8 +3,8 @@ layout: default
 description: ArangoSearch is integrated into AQL and used mainly through the use of special functions.
 title: ArangoSearch related AQL Functions
 redirect_from:
-  - /3.6/views-arango-search-scorers.html # 3.4 -> 3.5
-  - /3.6/aql/views-arango-search.html # 3.4 -> 3.5
+  - ../views-arango-search-scorers.html # 3.4 -> 3.5
+  - views-arango-search.html # 3.4 -> 3.5
 ---
 ArangoSearch Functions
 ======================
@@ -260,6 +260,14 @@ Match documents where the attribute at **path** is greater than (or equal to)
 *low* and *high* can be numbers or strings (technically also `null`, `true`
 and `false`), but the data type must be the same for both.
 
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+{% endhint %}
+
 - **path** (attribute path expression):
   the path of the attribute to test in the document
 - **low** (number\|string): minimum value of the desired range
@@ -272,7 +280,7 @@ and `false`), but the data type must be the same for both.
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
 If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
-to true, then nothing will match. If *low* is greater than *high* nothing will
+to `false`, then nothing will match. If *low* is greater than *high* nothing will
 match either.
 
 To match documents with the attribute `value >= 3` and `value <= 5` using the
@@ -437,6 +445,14 @@ Match the value of the attribute that starts with **prefix**. If the attribute
 is processed by a tokenizing Analyzer (type `"text"` or `"delimiter"`) or if it
 is an array, then a single token/element starting with the prefix is sufficient
 to match the document.
+
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+{% endhint %}
 
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document

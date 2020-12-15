@@ -53,7 +53,7 @@ var enableHamburger = function enableHamburger() {
 };
 
 var linkify = function() {
-  var contentBlock = document.getElementsByClassName("book-body")[0];
+  var contentBlock = document.querySelector(".markdown-section");
   if (!contentBlock) {
     return;
   }
@@ -156,6 +156,14 @@ $(document).ready(function scrollToAnchor() {
 
 $(document).ready(function handleNav() {
   $("div.book-summary nav a").click(function(event) {
+    // get source code value, not the absolute URL from .href!
+    var hrefAttr = event.target.getAttribute("href");
+    if (hrefAttr && (
+        hrefAttr.startsWith("http://") ||
+        hrefAttr.startsWith("https://"))) {
+      // let browser handle external link in navigation
+      return true;
+    }
     event.preventDefault();
     loadPage(event.target, function(title) {
       $(event.target)
@@ -184,12 +192,12 @@ $(document).ready(function hideSummaryOnMobile() {
 })
 
 var generateToc = function() {
-  var contentBlock = document.getElementsByClassName("book-body")[0];
+  var contentBlock = document.querySelector(".markdown-section");
   if (!contentBlock) {
     return;
   }
 
-  var nodes = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+  var nodes = contentBlock.querySelectorAll("h1, h2, h3, h4, h5, h6");
   if (nodes.length < 3) {
     return;
   }
@@ -248,8 +256,7 @@ var generateToc = function() {
 
   nav.appendChild(root);
 
-  var wrapper = document.querySelector(".markdown-section");
-  wrapper.insertBefore(nav, wrapper.firstChild);
+  contentBlock.insertBefore(nav, contentBlock.firstChild);
 };
 
 window.currentPage = location.href.replace(/#.*$/, "");

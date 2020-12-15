@@ -31,7 +31,7 @@ better, if the number of your shards / collections matches the number of CPU cor
 When you use ArangoDB Community Edition in cluster mode, you might need to model your collections in a certain way to
 ensure correct results. For more information see the next section.
 
-### Requirements for Collections in a Cluster (Non-Smart Graph)
+### Requirements for Collections in a Cluster (Non-SmartGraph)
 
 To enable iterative graph processing for your data, you will need to ensure
 that your vertex and edge collections are sharded in a specific way.
@@ -250,8 +250,13 @@ pregel.start("pagerank", "graphname", {maxGSS: 20, threshold:0.00000001, sourceF
 
 ### Single-Source Shortest Path
 
-Calculates the distance of each vertex to a certain shortest path. The algorithm will run until it converges,
-the iterations are bound by the diameter (the longest shortest path) of your graph.
+Calculates the shortest path length between the source and all other vertices.
+The distance to the source vertex itself is returned as `0` and a length above
+`9007199254740991` (max safe integer) means that there is no connection between
+a pair of vertices.
+
+The algorithm will run until it converges, the iterations are bound by the
+diameter (the longest shortest path) of your graph.
 
 ```javascript
 var pregel = require("@arangodb/pregel");

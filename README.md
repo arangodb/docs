@@ -32,8 +32,8 @@ by changing the `_config.yml`:
 
 ```yml
 exclude:
-  #- 3.5/
-  #- 3.4/
+ #- 3.5/
+ #- 3.4/
   - 3.3/
   - 3.2/
   - 3.1/
@@ -60,6 +60,14 @@ changes use:
 
 `bundle exec jekyll build`
 
+To serve the content from a previous build without watching for changes use:
+
+`bundle exec jekyll serve --skip-initial-build --no-watch`
+
+You can then browse the docs in a browser at http://127.0.0.1:4000/docs/.
+Note that it has to be `/docs/`. Both `/` and `/docs` do not work
+(_404 Page not found_) because of the configured baseurl.
+
 ### Docker container
 
 In the docs directory execute:
@@ -80,7 +88,7 @@ Please note that you still need to put them into a `/docs` subdirectory.
 
 Example:
 
-```
+```bash
 mkdir -p /tmp/arangodocs
 cp -a _site /tmp/arangodocs/docs
 cd /tmp/arangodocs
@@ -154,36 +162,63 @@ Add the actual content below the frontmatter.
 
 ### When adding a new release
 
-- Copy the latest devel version to a new directory i.e. `cp -a 3.5 3.6`
+- Copy the latest devel version to a new directory i.e. `cp -a 3.7 3.8`
 - Create the necessary navigation definition files in `_data` by copying, e.g.
   ```
   for book in aql drivers http manual oasis; do
-    cp -a "3.5-${book}.yml" "3.6-${book}.yml"
+    cp -a "3.7-${book}.yml" "3.8-${book}.yml"
   done
   ```
 - Create relative symlinks to program option JSON files in `_data`, like
   ```
   for prog in backup bench d dump export import inspect restore sh; do
-    ln -s "../3.6/generated/arango${prog}-options.json" "3.6-program-options-arango${prog}.json"
+    ln -s "../3.8/generated/arango${prog}-options.json" "3.8-program-options-arango${prog}.json"
   done
   ```
-- Adjust the version numbers in `site.data` references in all pages which
-  include program startup options (`program-option.html`), e.g.
+- Adjust the version numbers in `site.data` references in all pages of the
+  copied folder (here: `3.8`) which include program startup options
+  (`program-option.html`), e.g.
   ```diff
-  -{% assign options = site.data["35-program-options-arangobackup"] %}
-  +{% assign options = site.data["36-program-options-arangobackup"] %}
+  -{% assign options = site.data["37-program-options-arangobackup"] %}
+  +{% assign options = site.data["38-program-options-arangobackup"] %}
    {% include program-option.html options=options name="arangobackup" %}
   ```
   ```
-  grep -r -F 'site.data["35-' --include '*.md' -l 3.6 | xargs sed -i 's/site\.data\["35-/site.data["36-/g'
+  grep -r -F 'site.data["37-' --include '*.md' -l 3.8 | xargs sed -i 's/site\.data\["37-/site.data["38-/g'
   ```
 - Adjust the version numbers in `redirect_from` URLs in the frontmatter
   to match the new version folder, e.g.
   ```diff
    redirect_from:
-  -  - /3.5/path/to/file.html # 3.4 -> 3.5
-  +  - /3.6/path/to/file.html # 3.4 -> 3.5
+  -  - /3.7/path/to/file.html # 3.4 -> 3.5
+  +  - /3.8/path/to/file.html # 3.4 -> 3.5
   ```
+  This is only necessary for absolute redirects. Relative redirects are
+  preferred, e.g. `- old.html` in `new.html` (may also include `..`).
+  If pages were removed, then you may want to use absolute redirects to point
+  to older versions or redirect to completely different pages.
+- Create release note pages for the new version (here: `3.8` / `38`)
+  and add them to the navigation (`3.8-manual.yml`):
+  ```diff
+   - text: Release Notes
+     href: release-notes.html
+     children:
+  +    - text: Version 3.8
+  +      href: release-notes-38.html
+  +      children:
+  +        - text: What's New in 3.8
+  +          href: release-notes-new-features38.html
+  +        - text: Known Issues in 3.8
+  +          href: release-notes-known-issues38.html
+  +        - text: Incompatible changes in 3.8
+  +          href: release-notes-upgrading-changes38.html
+  +        - text: API changes in 3.8
+  +          href: release-notes-api-changes38.html
+  ```
+- Add the relevant links to the release notes overview page
+  `3.8/release-notes.html`
+- Add a section _Version 3.8_ to `3.8/highlights.html` including a link to
+  _What's New in 3.8_
 - Add the version to `_data/versions.yml` with the full version name
 - Add all books of that version to `_data/books.yml`
 - Adjust the following fields in `_config.yml` as needed:
@@ -249,6 +284,7 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
 - Wrap text at 80 characters. This helps tremendously in version control.
 - Put Markdown links on a single line `[link label](target.html#hash)`,
   even if it violates the guideline of 80 characters per line.
+- Append `{:target="_blank"}` to Markdown links which point to external sites.
 
 ## Troubleshooting
 

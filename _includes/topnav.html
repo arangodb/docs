@@ -14,11 +14,7 @@
   </div>
   <select class="arangodb-version-switcher">
     {%- for v in page.versions -%}
-      {%- if v.version.tag == "devel" -%}
-        {%- assign version_number = "devel" -%}
-      {%- else -%}
-        {%- assign version_number = v.version.name -%}
-      {%- endif -%}
+      {%- assign version_number = v.version.name -%}
       {%- if v.version.tag and jekyll.environment != "netlify" -%}
         {%- assign version_alias = v.version.tag -%}
       {%- else -%}

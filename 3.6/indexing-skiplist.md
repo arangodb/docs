@@ -1,6 +1,9 @@
 ---
 layout: default
 description: The skiplist index type is deprecated for the RocksDB storage engine.
+redirect_from:
+  - 3.7/indexing-skiplist.html # 3.7 -> 3.6
+  - 3.8/indexing-skiplist.html # 3.8 -> 3.6
 ---
 Skiplists
 =========

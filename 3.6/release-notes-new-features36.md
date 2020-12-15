@@ -432,7 +432,8 @@ In addition, ArangoDB 3.6 provides the following new AQL functionality:
   (also added to v3.5.1)
 
 - a [query option](aql/invocation-with-arangosh.html#setting-options)
-  `maxRuntime` to restrict the execution to a given time in seconds.
+  `maxRuntime` to restrict the execution to a given time in seconds
+  (also added to v3.5.4).
   Also see [HTTP API](http/aql-query-cursor-accessing-cursors.html#create-cursor).
 
 - a startup option `--query.optimizer-rules` to turn certain AQL query optimizer
@@ -475,7 +476,7 @@ ArangoSearch
 
 ### Dynamic search expressions with arrays
 
-ArangoSearch now accepts [SEARCH expressions](aql/operations-search.html#general-syntax)
+ArangoSearch now accepts [SEARCH expressions](aql/operations-search.html#syntax)
 with array comparison operators in the form of:
 
 ```
@@ -550,16 +551,15 @@ FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_
 ArangoSearch Views are now eligible for [SmartJoins](smartjoins.html) in AQL,
 provided that their underlying collections are eligible too.
 
+All collections forming the View must be sharded equally. The other join
+operand can be a collection or another View.
+
 <span id="oneshard-cluster"></span>
 
 OneShard
 --------
 
-{% hint 'info' %}
-This option is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="This option" %}
 
 Not all use cases require horizontal scalability. In such cases, a OneShard
 deployment offers a practicable solution that enables significant performance
@@ -630,7 +630,7 @@ The following APIs have been expanded / changed:
 
   New attribute `force`, see [Hot Backup](#hot-backup) below.
 
-- New [Metrics API](http/administration-and-monitoring.html#read-the-metrics),<br>
+- New [Metrics API](http/administration-and-monitoring{% if page.version.version >= "3.7" %}-metrics{% endif %}.html#read-the-metrics),<br>
   HTTP route `GET /_admin/metrics`
 
   Returns the instance's current metrics in Prometheus format. The returned

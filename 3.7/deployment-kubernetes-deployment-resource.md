@@ -46,7 +46,7 @@ spec:
     storageClassName: ssd
   coordinators:
     count: 3
-  image: "arangodb/arangodb:3.3.4"
+  image: "arangodb/arangodb:3.6.5"
 ```
 
 ## Specification reference
@@ -144,7 +144,7 @@ When an encryption key is used, encryption of the data in the cluster is enabled
 without it encryption is disabled.
 The default value is empty.
 
-This requires the Enterprise version.
+This requires the Enterprise Edition.
 
 The encryption key cannot be changed after the cluster has been created.
 
@@ -399,7 +399,7 @@ A new restore attempt is made if and only if either in the status restore is not
 
 This setting specifies the name of a kubernetes `Secret` that contains
 the license key token used for enterprise images. This value is not used for
-the community edition.
+the Community Edition.
 
 ### `spec.bootstrap.passwordSecretNames.root: string`
 
@@ -469,6 +469,32 @@ This setting specifies the resources required by the metrics container.
 This includes requests and limits. 
 See [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container){:target="_blank"}.
 
+### `spec.metrics.mode: string`
+
+<small>Introduced in: v1.0.2 (kube-arangodb)</small>
+
+Defines metrics exporter mode.
+
+Possible values:
+- `exporter` (default): add sidecar to pods (except Agency pods) and exposes
+   metrics collected by exporter from ArangoDB Container. Exporter in this mode
+   expose metrics which are accessible without authentication.
+- `sidecar`: add sidecar to all pods and expose metrics from ArangoDB metrics
+   endpoint. Exporter in this mode expose metrics which are accessible without
+   authentication.
+- `internal`: configure ServiceMonitor to use internal ArangoDB metrics endpoint
+  (proper JWT token is generated for this endpoint).
+
+### `spec.metrics.tls: bool`
+
+<small>Introduced in: v1.1.0 (kube-arangodb)</small>
+
+Defines if TLS should be enabled on Metrics exporter endpoint.
+The default is `true`.
+
+This option will enable TLS only if TLS is enabled on ArangoDeployment,
+otherwise `true` value will not take any effect.
+
 ### `spec.lifecycle.resources: ResourceRequirements`
 
 <small>Introduced in: v0.4.3 (kube-arangodb)</small>
@@ -505,6 +531,12 @@ The default value is an empty array.
 This setting specifies the resources required by pods of this group. This includes requests and limits.
 
 See https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ for details.
+
+### `spec.<group>.overrideDetectedTotalMemory: bool`
+
+<small>Introduced in: v1.0.1 (kube-arangodb), 3.6.3 (arangod)</small>
+
+Set additional flag in ArangoDeployment pods to propagate Memory resource limits
 
 ### `spec.<group>.volumeClaimTemplate.Spec: PersistentVolumeClaimSpec`
 

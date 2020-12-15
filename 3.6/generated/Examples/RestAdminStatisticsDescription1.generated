@@ -1,8 +1,8 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_admin/statistics-description</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-x-content-type-options: nosniff
 content-type: application/json
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"groups"</span> : [ 
@@ -300,6 +300,22 @@ content-type: application/json
       <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"requestsTotal"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"Total requests"</span>, 
       <span class="hljs-string">"description"</span> : <span class="hljs-string">"Total number of HTTP requests."</span>, 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"accumulated"</span>, 
+      <span class="hljs-string">"units"</span> : <span class="hljs-string">"number"</span> 
+    }, 
+    { 
+      <span class="hljs-string">"group"</span> : <span class="hljs-string">"http"</span>, 
+      <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"requestsSuperuser"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Total superuser requests"</span>, 
+      <span class="hljs-string">"description"</span> : <span class="hljs-string">"Total number of HTTP requests executed by superuser/JWT."</span>, 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"accumulated"</span>, 
+      <span class="hljs-string">"units"</span> : <span class="hljs-string">"number"</span> 
+    }, 
+    { 
+      <span class="hljs-string">"group"</span> : <span class="hljs-string">"http"</span>, 
+      <span class="hljs-string">"identifier"</span> : <span class="hljs-string">"requestsUser"</span>, 
+      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Total user requests"</span>, 
+      <span class="hljs-string">"description"</span> : <span class="hljs-string">"Total number of HTTP requests executed by clients."</span>, 
       <span class="hljs-string">"type"</span> : <span class="hljs-string">"accumulated"</span>, 
       <span class="hljs-string">"units"</span> : <span class="hljs-string">"number"</span> 
     }, 

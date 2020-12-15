@@ -1,34 +1,26 @@
 ---
 layout: default
-description: Spring Data ArangoDB requires ArangoDB 3
+description: Spring Data ArangoDB
 ---
 
 # Spring Data ArangoDB - Getting Started
 
 ## Supported versions
 
-| Spring Data ArangoDB | Spring Data | ArangoDB    |
-| -------------------- | ----------- | ----------- |
-| 1.3.x                | 1.13.x      | 3.0\*, 3.1+ |
-| 2.3.x                | 2.0.x       | 3.0\*, 3.1+ |
-| 3.0.x                | 2.0.x       | 3.0\*, 3.1+ |
-
-Spring Data ArangoDB requires ArangoDB 3.0 or higher - which you can download [here](https://www.arangodb.com/download/){:target="_blank"} - and Java 8 or higher.
-
-**Note**: ArangoDB 3.0 does not support the default transport protocol
-[VelocyStream](https://github.com/arangodb/velocystream){:target="_blank"}. A manual switch to
-HTTP is required. See chapter [configuration](#configuration). Also ArangoDB 3.0
-does not support geospatial queries.
+Spring Data ArangoDB is compatible with all supported stable versions of ArangoDB server, see 
+[Product Support End-of-life Announcements](https://www.arangodb.com/eol-notice){:target="_blank"}.
 
 ## Maven
 
-To use Spring Data ArangoDB in your project, your build automation tool needs to be configured to include and use the Spring Data ArangoDB dependency. Example with Maven:
+To use Spring Data ArangoDB in your project, your build automation tool needs to
+be configured to include and use the Spring Data ArangoDB dependency.
+Example with Maven (substitute `x.x.x` with the latest Spring Data ArangoDB version):
 
 ```xml
 <dependency>
   <groupId>com.arangodb</groupId>
   <artifactId>arangodb-spring-data</artifactId>
-  <version>3.1.0</version>
+  <version>x.x.x</version>
 </dependency>
 ```
 
@@ -41,7 +33,7 @@ You can use Java to configure your Spring Data environment as show below. Settin
 ```java
 @Configuration
 @EnableArangoRepositories(basePackages = { "com.company.mypackage" })
-public class MyConfiguration extends AbstractArangoConfiguration {
+public class MyConfiguration implements ArangoConfiguration {
 
   @Override
   public ArangoDB.Builder arango() {
@@ -101,23 +93,4 @@ public ArangoDB.Builder arango() {
     .loadProperties(in);
   return arango;
 }
-```
-
-**Note**: When using ArangoDB 3.0 it is required to set the transport protocol to HTTP and fetch the dependency `org.apache.httpcomponents:httpclient`.
-
-```java
-@Override
-public ArangoDB.Builder arango() {
-  ArangoDB.Builder arango = new ArangoDB.Builder()
-    .useProtocol(Protocol.HTTP_JSON);
-  return arango;
-}
-```
-
-```xml
-<dependency>
-  <groupId>org.apache.httpcomponents</groupId>
-  <artifactId>httpclient</artifactId>
-  <version>4.5.1</version>
-</dependency>
 ```

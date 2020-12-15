@@ -1,0 +1,35 @@
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"text_edge_ngrams"</span>, <span class="hljs-string">"text"</span>, {
+........&gt;   edgeNgram: { <span class="hljs-attr">min</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">8</span>, <span class="hljs-attr">preserveOriginal</span>: <span class="hljs-literal">true</span> },
+........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>,
+........&gt;   <span class="hljs-keyword">case</span>: <span class="hljs-string">"lower"</span>,
+........&gt;   accent: <span class="hljs-literal">false</span>,
+........&gt;   stemming: <span class="hljs-literal">false</span>,
+........&gt;   stopwords: [ <span class="hljs-string">"the"</span> ]
+........&gt; }, [<span class="hljs-string">"frequency"</span>,<span class="hljs-string">"norm"</span>,<span class="hljs-string">"position"</span>])
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS(
+........&gt;   "The quick brown fox jumps over the dogWithAVeryLongName",
+........&gt;   "text_edge_ngrams"
+........&gt; )`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">"qui"</span>, 
+    <span class="hljs-string">"quic"</span>, 
+    <span class="hljs-string">"quick"</span>, 
+    <span class="hljs-string">"bro"</span>, 
+    <span class="hljs-string">"brow"</span>, 
+    <span class="hljs-string">"brown"</span>, 
+    <span class="hljs-string">"fox"</span>, 
+    <span class="hljs-string">"jum"</span>, 
+    <span class="hljs-string">"jump"</span>, 
+    <span class="hljs-string">"jumps"</span>, 
+    <span class="hljs-string">"ove"</span>, 
+    <span class="hljs-string">"over"</span>, 
+    <span class="hljs-string">"dog"</span>, 
+    <span class="hljs-string">"dogw"</span>, 
+    <span class="hljs-string">"dogwi"</span>, 
+    <span class="hljs-string">"dogwit"</span>, 
+    <span class="hljs-string">"dogwith"</span>, 
+    <span class="hljs-string">"dogwitha"</span>, 
+    <span class="hljs-string">"dogwithaverylongname"</span> 
+  ] 
+]

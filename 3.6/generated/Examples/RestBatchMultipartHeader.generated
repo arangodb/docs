@@ -35,9 +35,9 @@ DELETE /_api/collection/products HTTP/1.1
 EOF
 
 HTTP/1.1 OK
+content-type: multipart/form-data
 x-arango-errors: 1
 x-content-type-options: nosniff
-content-type: multipart/form-data
 
 --SomeBoundaryValue
 Content-Type: application/x-arango-batchpart
@@ -52,7 +52,7 @@ Content-Length: 60
 { 
   <span class="hljs-string">"server"</span> : <span class="hljs-string">"arango"</span>, 
   <span class="hljs-string">"license"</span> : <span class="hljs-string">"enterprise"</span>, 
-  <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.6.2"</span> 
+  <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.6.9"</span> 
 }&#x21A9;
 
 --SomeBoundaryValue
@@ -80,15 +80,15 @@ HTTP/1.1 200 OK
 Server: 
 Connection: Close 
 Content-Type: application/json; charset=utf-8
-Content-Length: 307
+Content-Length: 306
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h3935388A9C7C/69063"</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69063"</span>, 
+  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hB99AFCB1A26/69068"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69068"</span>, 
   <span class="hljs-string">"cacheEnabled"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"keyOptions"</span> : { 
@@ -96,7 +96,7 @@ Content-Length: 307
     <span class="hljs-string">"type"</span> : <span class="hljs-string">"traditional"</span>, 
     <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">0</span> 
   }, 
-  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69062"</span>, 
+  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69067"</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"products"</span>, 
   <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
   <span class="hljs-string">"statusString"</span> : <span class="hljs-string">"loaded"</span>, 
@@ -112,7 +112,7 @@ Server:
 Location: /_api/collection/products/figures
 Connection: Close 
 Content-Type: application/json; charset=utf-8
-Content-Length: 426
+Content-Length: 425
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
@@ -120,7 +120,7 @@ Content-Length: 426
   <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h3935388A9C7C/69063"</span>, 
+  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hB99AFCB1A26/69068"</span>, 
   <span class="hljs-string">"figures"</span> : { 
     <span class="hljs-string">"indexes"</span> : { 
       <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span>, 
@@ -131,9 +131,9 @@ Content-Length: 426
     <span class="hljs-string">"cacheSize"</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">"cacheUsage"</span> : <span class="hljs-number">0</span> 
   }, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69063"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69068"</span>, 
   <span class="hljs-string">"cacheEnabled"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69062"</span>, 
+  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69067"</span>, 
   <span class="hljs-string">"count"</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">"keyOptions"</span> : { 
     <span class="hljs-string">"allowUserKeys"</span> : <span class="hljs-literal">true</span>, 
@@ -159,7 +159,7 @@ Content-Length: 39
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69063"</span> 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69068"</span> 
 }&#x21A9;
 
 --SomeBoundaryValue--

@@ -6,7 +6,7 @@ description: arangod provides a variety of options to make a setup more secure
 
 _arangod_ provides a variety of options to make a setup more secure. 
 Administrators can use these options to limit access to certain ArangoDB
-server functionality as well as providing the leakage of information about
+server functionality as well as preventing the leakage of information about
 the environment that a server is running in.
 
 ## General security options
@@ -23,6 +23,7 @@ The following security options are available:
   - `/_admin/statistics`
   - `/_admin/statistics-description`
   - `/_api/engine/stats`
+  - `/_admin/cluster/numberOfServers`
  
   Additionally, no version details will be revealed by the version REST API at 
   `/_api/version`.

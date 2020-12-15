@@ -1,26 +1,26 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-tick-ranges</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
-x-content-type-options: nosniff
 content-type: application/json
+x-content-type-options: nosniff
 
 [ 
   { 
-    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/archive/000070.log"</span>, 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/archive/000082.log"</span>, 
     <span class="hljs-string">"status"</span> : <span class="hljs-string">"collected"</span>, 
-    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"185812"</span>, 
-    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"185855"</span> 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"185833"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"185876"</span> 
   }, 
   { 
-    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/archive/000090.log"</span>, 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/archive/000102.log"</span>, 
     <span class="hljs-string">"status"</span> : <span class="hljs-string">"collected"</span>, 
-    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"185855"</span>, 
-    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"185893"</span> 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"185876"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"185914"</span> 
   }, 
   { 
-    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/000097.log"</span>, 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/000107.log"</span>, 
     <span class="hljs-string">"status"</span> : <span class="hljs-string">"open"</span>, 
-    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"185893"</span>, 
-    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"188686"</span> 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"185914"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"188822"</span> 
   } 
 ]

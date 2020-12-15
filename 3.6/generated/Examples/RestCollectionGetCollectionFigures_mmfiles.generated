@@ -1,9 +1,9 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/products/figures</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
+content-type: application/json
 location: <span class="hljs-regexp">/_api/</span>collection/products/figures
 x-content-type-options: nosniff
-content-type: application/json
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
@@ -14,7 +14,7 @@ content-type: application/json
   <span class="hljs-string">"statusString"</span> : <span class="hljs-string">"loaded"</span>, 
   <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
   <span class="hljs-string">"id"</span> : <span class="hljs-string">"101"</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hDA70034CAA00/101"</span>, 
+  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h6D29CFDBF8BE/101"</span>, 
   <span class="hljs-string">"isVolatile"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"journalSize"</span> : <span class="hljs-number">33554432</span>, 
   <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span>, 
@@ -37,7 +37,7 @@ content-type: application/json
     }, 
     <span class="hljs-string">"compactionStatus"</span> : { 
       <span class="hljs-string">"message"</span> : <span class="hljs-string">"skipped compaction because collection has no datafiles"</span>, 
-      <span class="hljs-string">"time"</span> : <span class="hljs-string">"2020-02-03T15:37:01Z"</span>, 
+      <span class="hljs-string">"time"</span> : <span class="hljs-string">"2020-10-27T19:54:21Z"</span>, 
       <span class="hljs-string">"count"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"filesCombined"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"bytesRead"</span> : <span class="hljs-number">0</span>, 

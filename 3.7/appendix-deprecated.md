@@ -3,10 +3,10 @@ layout: default
 description: Features listed in this section should no longer be used, because they are considered obsolete and may get removed in a future release
 title: Deprecated Features
 redirect_from:
-  - /3.7/appendix-deprecated-actions.html # 3.4 -> 3.5
-  - /3.7/appendix-deprecated-actions-html-example.html # 3.4 -> 3.5
-  - /3.7/appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
-  - /3.7/appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
+  - appendix-deprecated-actions.html # 3.4 -> 3.5
+  - appendix-deprecated-actions-html-example.html # 3.4 -> 3.5
+  - appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
+  - appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
 ---
 Deprecated
 ==========
@@ -17,17 +17,12 @@ kept for backward compatibility. There are usually better alternatives to
 replace the old features with:
 
 - **MMFiles Storage Engine**:
-  The MMFiles storage engine is deprecated starting with version
-  3.6.0 and it will be removed in a future release.
-  To change your MMFiles storage engine deployment to RocksDB, see:
+  The MMFiles storage engine was deprecated in version 3.6.0 and removed in
+  3.7.0. To change your MMFiles storage engine deployment to RocksDB, see:
   [Switch storage engine](administration-engine-switch-engine.html)
 
-  We recommend to switch to RocksDB even before the removal of MMFiles.
-  RocksDB is the default [storage engine](architecture-storage-engines.html)
-  since v3.4.0.
-
-  Once the MMFiles engine is removed, all MMFiles specific startup options will
-  also be removed. This will affect the following options:
+  MMFiles specific startup options still exist but will also be removed.
+  This will affect the following options:
 
   - `--compaction.*`
   - `--database.force-sync-properties`
@@ -41,7 +36,7 @@ replace the old features with:
   deprecated.
 
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
-  They are superseded by [AQL queries](../aql/), which can also
+  They are superseded by [AQL queries](aql/index.html), which can also
   be run in arangosh. AQL is a language on its own and way more powerful than
   *Simple Queries* could ever be. In fact, the (still supported) *Simple Queries*
   are translated internally to AQL, then the AQL query is optimized and run

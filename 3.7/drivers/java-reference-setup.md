@@ -114,6 +114,19 @@ resources when no connection is needed, you can clear the connection pool
 arangoDB.shutdown();
 ```
 
+{% hint 'info' %}
+Opening and closing connections very frequently can exhaust the amount of
+connections allowed by the operating system. TCP connections enter a special
+state `WAIT_TIME` after close, and typically remain in this state for two
+minutes (maximum segment life * 2). These connections count towards the global
+limit, which depends on the operating system but is usually around 28,000.
+Connections should thus be reused as much as possible.
+
+You may run into this problem if you bypass the driver's safe guards by
+setting a very high connection limit or by using multiple ArangoDB objects
+and thus pools.
+{% endhint %}
+
 ## Fallback hosts
 
 The driver supports configuring multiple hosts. The first host is used to open a
@@ -203,3 +216,23 @@ Connection TTL can be disabled setting it to `null`:
 ```
 
 The default TTL is `null` (no automatic connection closure).
+
+
+## VST Keep-Alive
+
+Since version 6.8 the driver supports setting keep-alive interval (in seconds)
+for VST connections. If set, every VST connection will perform a no-op request
+at the specified intervals, to avoid to be closed due to inactivity by the
+server (or by the external environment, e.g. firewall, intermediate routers,
+operating system, ... ).
+
+This option can be set using the key `arangodb.connections.keepAlive.interval`
+in the properties file or programmatically from the driver builder:
+
+```Java
+ArangoDB arangoDB = new ArangoDB.Builder()
+  .keepAliveInterval(1800) // 30 minutes
+  .build();
+```
+
+If not set or set to `null` (default), no keep-alive probes will be sent.

@@ -16,7 +16,7 @@ ArangoSearch is a sophisticated, integrated full-text search solution over
 a user-defined set of attributes and collections. It is the first type of
 view in ArangoDB.
 
-- [ArangoSearch tutorial](https://www.arangodb.com/tutorials/arangosearch/){:target="_blank"}
+- [ArangoSearch tutorial](https://www.arangodb.com/learn/search/tutorial/){:target="_blank"}
 - [ArangoSearch overview](views-arango-search.html)
 - [ArangoSearch in AQL](aql/views-arango-search.html)
 
@@ -960,7 +960,7 @@ However, streaming cursors are enabled automatically for the following parts of 
 * when using `db.<collection>.toArray()` from the Arango shell
 
 Please note that AQL queries consumed in a streaming fashion have their own, adjustable
-"slow query" threshold. That means the "slow query" threshold can be configured seperately for 
+"slow query" threshold. That means the "slow query" threshold can be configured separately for 
 regular queries and streaming queries.
 
 Native implementations

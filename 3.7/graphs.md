@@ -31,6 +31,10 @@ Its common to have attributes attached to edges, i.e. a *label* naming this inte
 Edges have a direction, with their relations `_from` and `_to` pointing *from* one document *to* another document stored in vertex collections.
 In queries you can define in which directions the edge relations may be followed (`OUTBOUND`: `_from` → `_to`, `INBOUND`: `_from` ← `_to`, `ANY`: `_from` ↔ `_to`).
 
+Want to see the power of ArangoDB and graphs? Fire up your own ArangoDB in just
+a few clicks with ArangoDB Oasis: the Cloud Service for ArangoDB. Start your
+[free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
+
 Named Graphs
 ------------
 
@@ -43,8 +47,8 @@ They use the full spectrum of ArangoDB's graph features. You may access them via
 - [JavaScript General Graph implementation, as you may use it in Foxx Services](graphs-general-graphs.html)
   - [Graph Management](graphs-general-graphs-management.html); creating & manipulating graph definitions; inserting, updating and deleting vertices and edges into graphs
   - [Graph Functions](graphs-general-graphs-functions.html) for working with edges and vertices, to analyze them and their relations
-- [JavaScript Smart Graph implementation, for scalable graphs](graphs-smart-graphs.html)
-  - [Smart Graph Management](graphs-smart-graphs-management.html); creating & manipulating SmartGraph definitions; Differences to General Graph 
+- [JavaScript SmartGraph implementation, for scalable graphs](graphs-smart-graphs.html)
+  - [SmartGraph Management](graphs-smart-graphs-management.html); creating & manipulating SmartGraph definitions; Differences to General Graph 
 - [RESTful General Graph interface](http/gharial.html) used to implement graph management in client drivers
 
 ### Manipulating collections of named graphs with regular document functions

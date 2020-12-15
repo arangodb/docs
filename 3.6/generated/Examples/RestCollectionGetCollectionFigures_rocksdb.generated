@@ -1,9 +1,9 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/products/figures</span>
 
 HTTP/<span class="hljs-number">1.1</span> OK
+content-type: application/json
 location: <span class="hljs-regexp">/_api/</span>collection/products/figures
 x-content-type-options: nosniff
-content-type: application/json
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
@@ -11,25 +11,25 @@ content-type: application/json
   <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h3935388A9C7C/69342"</span>, 
+  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hB99AFCB1A26/69357"</span>, 
   <span class="hljs-string">"figures"</span> : { 
     <span class="hljs-string">"indexes"</span> : { 
       <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span>, 
       <span class="hljs-string">"size"</span> : <span class="hljs-number">31</span> 
     }, 
-    <span class="hljs-string">"documentsSize"</span> : <span class="hljs-number">84</span>, 
+    <span class="hljs-string">"documentsSize"</span> : <span class="hljs-number">87</span>, 
     <span class="hljs-string">"cacheInUse"</span> : <span class="hljs-literal">false</span>, 
     <span class="hljs-string">"cacheSize"</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">"cacheUsage"</span> : <span class="hljs-number">0</span> 
   }, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69342"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69357"</span>, 
   <span class="hljs-string">"cacheEnabled"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69341"</span>, 
+  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69356"</span>, 
   <span class="hljs-string">"count"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"keyOptions"</span> : { 
     <span class="hljs-string">"allowUserKeys"</span> : <span class="hljs-literal">true</span>, 
     <span class="hljs-string">"type"</span> : <span class="hljs-string">"traditional"</span>, 
-    <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">69347</span> 
+    <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">69362</span> 
   }, 
   <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"products"</span>, 

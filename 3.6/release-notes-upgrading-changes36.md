@@ -54,3 +54,17 @@ To change your MMFiles storage engine deployment to RocksDB, see:
 We recommend to switch to RocksDB even before the removal of MMFiles.
 RocksDB is the default [storage engine](architecture-storage-engines.html)
 since v3.4.0.
+
+Requests statistics
+-------------------
+
+<small>Introduced in: v3.6.5</small>
+
+Previous versions of ArangoDB excluded all requests made to the web interface at
+`/_admin/aardvark` from the requests statistics if the request was made for the
+`_system` database. Requests for all other endpoints or requests to the same
+endpoint for any non-system database were already counted.
+ArangoDB now treats all incoming requests to the web interface in the same
+way as requests to other endpoints, so the request counters may show higher
+values than before in case the web interface was used a lot on the
+`_system` database.

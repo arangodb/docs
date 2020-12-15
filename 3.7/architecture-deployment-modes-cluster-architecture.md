@@ -166,11 +166,7 @@ For further information, please refer to the
 OneShard
 --------
 
-{% hint 'info' %}
-The OneShard feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="The OneShard option" %}
 
 A OneShard deployment offers a practicable solution that enables significant
 performance improvements by massively reducing cluster-internal communication
@@ -206,21 +202,18 @@ processing.
 
 ![OneShard vs. Sharded Cluster Setup](images/cluster-sharded-oneshard.png)
 
-If the collections involved in a query have one shard and are guaranteed to be
-on the same DB-Server, then the OneShard optimization is applied to run the
+If the database involved in a query is a OneShard database,
+then the OneShard optimization is applied to run the
 query on the responsible node like on a single server. However, it still being
 a cluster setup means collections can be replicated synchronously to ensure
 resilience etc.
 
 ### How to use the OneShard feature?
 
-The OneShard feature is enabled by default. If you use ArangoDB Enterprise
-Edition and if the collections used in the query are eligible, then the
-optimizer rule `cluster-one-shard` is applied automatically. To be eligible,
-all collections in question have to have a single shard only and the
-`distributeShardsLike` property needs to be set to a common collection name
-(except the prototype collection) to ensure that their single shards are placed
-on the same DB-Server. There are multiple ways to achieve this:
+The OneShard feature is enabled by default if you use the ArangoDB
+Enterprise Edition and if the database is sharded as `"single"`. In this case the
+optimizer rule `cluster-one-shard` is applied automatically. 
+There are two ways to achieve this:
 
 - If you want your entire cluster to be a OneShard deployment, use the
   [startup option](programs-arangod-options.html#cluster)
@@ -229,20 +222,12 @@ on the same DB-Server. There are multiple ways to achieve this:
   enforces the OneShard conditions for collections that will be created in it.
   The `_graphs` system collection will be used for `distributeShardsLike`.
 
-- For individual OneShard databases, set the `sharding` database property to
-  `"single"` to enforce the OneShard conditions for all collections that will be
-  created in it. The `_graphs` system collection will be used for
+- For individual OneShard databases, set the `sharding` database property to `"single"`
+  to enforce the OneShard condition. The `_graphs` system collection will be used for
   `distributeShardsLike`. It is not possible to change the `sharding` database
   property afterwards or overwrite this setting for individual collections.
   For non-OneShard databases the value of the `sharding` database property is
   either `""` or `"flexible"`.
-
-- For individual OneShard collections, set the `numberOfShards` collection
-  property to `1` for the first collection which acts as sharding prototype for
-  the others. Set the `distributeShardsLike` property to the name of the
-  prototype collection for all other collections. You may also use an existing
-  collection which does not have `distributeShardsLike` set itself for all your
-  collections, such as the `_graphs` system collection.
 
 {% hint 'info' %}
 The prototype collection does not only control the sharding, but also the
@@ -450,6 +435,31 @@ on the leader shards in a cluster, a few things need to be considered:
   operations, potentially breaking the atomicity of transactions. To prevent
   this for individual queries you can increase `intermediateCommitSize`
   (default 512 MB) and `intermediateCommitCount` accordingly as query option.
+
+### Limitations
+
+The OneShard optimization will be used automatically for all eligible AQL queries
+and streaming transactions.
+
+For AQL queries, any of the following factors currently makes a query
+unsuitable for the OneShard optimization:
+
+- The query accesses collections with more than a single shard, different leader
+  DB-Servers, or different `distributeShardsLike` prototype collections
+- The query writes into a SatelliteCollection
+- the query accesses an edge collection of a SmartGraph
+- Usage of AQL user-defined functions
+- Usage of AQL functions that can only execute on Coordinators.
+  These functions are:
+  - `COLLECTION_COUNT()`
+  - `CURRENT_DATABASE()`
+  - `CURRENT_USER()`
+  - `COLLECTIONS()`
+  - `DOCUMENT()` (only in versions before 3.7.5)
+  - `VERSION()`
+  - `SCHEMA_GET()`
+  - `SCHEMA_VALIDATE()`
+  - `V8()`
 
 Synchronous replication
 -----------------------
@@ -677,6 +687,11 @@ starting all the needed instances, by using the tool
 
 See the [Cluster Deployment](deployment-cluster.html)
 chapter for instructions.
+
+ArangoDB is also available as
+[cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
+You can fire up your cluster in just a few clicks with the
+[14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 
 Cluster ID
 ----------
