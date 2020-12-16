@@ -1429,8 +1429,7 @@ A vertex knows exactly how many outgoing edges it has by definition. Therefore
 we only have to set the amount to an accumulator once and not multiple times.
 With that knowledge it makes sense to set the `accumulatorType` to store, as
 no further calculations need to take place. As the possible amount of
-outgoing edges is integral, we are setting `valueType` to `ints`. Additionally, we
-do not need to store the sender as that value is out of interest in that example.
+outgoing edges is integral, we are setting `valueType` to `ints`.
 
 ##### inDegree
 
