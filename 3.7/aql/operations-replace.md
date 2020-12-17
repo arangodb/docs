@@ -86,8 +86,8 @@ FOR u IN users
   REPLACE u WITH { status: 'inactive', name: u.name } IN backup
 ```
 
-Setting query options
----------------------
+Query options
+-------------
 
 *options* can be used to suppress query errors that may occur when trying to
 replace non-existing documents or when violating unique key constraints:

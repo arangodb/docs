@@ -1,0 +1,52 @@
+# htmltest configuration for checking external links
+# https://github.com/wjdp/htmltest
+#
+# Usage: htmltest -c .htmltest-external.yml
+
+# The generated pages usually need to be in a subfolder docs/
+# so that internal links are found, but we only check external links here.
+DirectoryPath: _site
+#DirectoryIndex: index.html
+#FilePath:
+#FileExtension: .html
+CheckDoctype: false
+#CheckAnchors: true
+CheckLinks: false
+CheckImages: false
+CheckScripts: false
+CheckMeta: false
+CheckGeneric: false
+#CheckExternal: true
+CheckInternal: false
+CheckInternalHash: false
+CheckMailto: false
+CheckTel: false
+#CheckFavicon: false
+CheckMetaRefresh: false
+#EnforceHTML5: false
+#EnforceHTTPS: false
+IgnoreURLs:
+  - ^https?://github\.com/arangodb/(backlog|release-qa|planning) # private repos
+  - ^https?://localhost\b
+IgnoreDirs:
+  - ^3\.[34]/cookbook
+#IgnoreInternalEmptyHash: false
+#IgnoreEmptyHref: false
+#IgnoreCanonicalBrokenLinks: true
+#IgnoreExternalBrokenLinks: false
+IgnoreAltMissing: true
+IgnoreDirectoryMissingTrailingSlash: true
+#IgnoreSSLVerify: false
+#IgnoreTagAttribute: data-proofer-ignore
+#HTTPHeaders: { Range: "bytes=0-0", Accept: "*/*" }
+TestFilesConcurrently: true
+#DocumentConcurrencyLimit: 128
+#HTTPConcurrencyLimit: 16
+#LogLevel: 2
+#LogSort: document
+#ExternalTimeout: 15
+#StripQueryString: true
+#OutputDir: tmp/.htmltest
+#OutputCacheFile: refcache.json
+#OutputLogFile: htmltest.log
+#CacheExpires: 336h

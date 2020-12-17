@@ -325,7 +325,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341527552,
+    "default" : 16341509120,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -922,6 +922,22 @@
     "section" : "database",
     "type" : "uint64"
   },
+  "database.old-system-collections" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "create and use deprecated system collection (_modules, _fishbowl)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.9"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "database",
+    "type" : "boolean"
+  },
   "database.password" : {
     "category" : "option",
     "default" : "",
@@ -1085,6 +1101,22 @@
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "foxx",
+    "type" : "boolean"
+  },
+  "foxx.force-update-on-startup" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "ensure all Foxx services are synchronized before completeing the boot sequence",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.9"
     ],
     "obsolete" : false,
     "requiresValue" : false,
@@ -2520,7 +2552,7 @@
   },
   "network.io-threads" : {
     "category" : "option",
-    "default" : 2,
+    "default" : 1,
     "deprecatedIn" : null,
     "description" : "number of network IO threads",
     "dynamic" : false,
@@ -3057,7 +3089,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609833062,
+    "default" : 19609810944,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -3602,7 +3634,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146444083,
+    "default" : 26146414592,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -4184,6 +4216,22 @@
     "requiresValue" : true,
     "section" : "server",
     "type" : "string"
+  },
+  "server.unavailability-queue-fill-grade" : {
+    "category" : "option",
+    "default" : 1,
+    "deprecatedIn" : null,
+    "description" : "queue fill grade from which onwards the server is considered unavailable because of overload (ratio, use a value of 0 to disable it)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.10"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "double"
   },
   "server.validate-utf8-strings" : {
     "category" : "option",

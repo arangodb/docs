@@ -117,7 +117,7 @@ Set to true if SSL session caching should be used.
 
 {% hint 'info' %}
 This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
+[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"},
 also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
 {% endhint %}
 

@@ -185,8 +185,8 @@ from a given collection. The index hint works with the [named indices](#named-in
 feature, making it easy to specify which index to use.
 
 See:
-- [AQL Index Hints](aql/operations-for.html#index-hints)
-- [An introduction to index hints and named indices](https://www.arangodb.com/arangodb-training-center/index-hints-named-indices/){:target="_blank"}
+- [AQL Index Hints](aql/operations-for.html#indexhint)
+- [An introduction to index hints and named indices](https://www.arangodb.com/learn/development/index-hints-named-indices/){:target="_blank"}
   (tutorial)
 
 ### Sorted primary index (RocksDB engine)
@@ -307,7 +307,7 @@ as they will eliminate most of the inter-node data shipping overhead.
 
 Also see:
 - [SmartJoins documentation](smartjoins.html)
-- [SmartJoins tutorial](https://www.arangodb.com/arangodb-training-center/smart-joins/){:target="_blank"}
+- [SmartJoins tutorial](https://www.arangodb.com/enterprise-server/smartjoins/){:target="_blank"}
 
 Background Index Creation
 -------------------------

@@ -132,7 +132,7 @@ as well as on *arangod* i.e. if you're using [Foxx](foxx.html). While its
 interface is persistent between the *arangosh* and the *arangod* implementations,
 its underpinning is not. The *arangod* implementation are JavaScript wrappers
 around ArangoDB's native C++ implementation, whereas the *arangosh* implementation
-wraps HTTP accesses to ArangoDB's [RESTfull API](../http/).
+wraps HTTP accesses to ArangoDB's [RESTful API](http/index.html).
 
 So while this code may produce similar results when executed in *arangosh* and
 *arangod*, the CPU usage and time required will be really different since the

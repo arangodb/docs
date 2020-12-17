@@ -46,7 +46,7 @@ Starting with ArangoDB 3.4 queries generated using the `aql` template tag can
 be used inside other `aql` template strings, allowing arbitrary nesting. Bind
 parameters of nested queries will be merged automatically.
 
-To find out more about AQL see the [AQL documentation](../aql/).
+To find out more about AQL see the [AQL documentation](aql/index.html).
 
 **Examples**
 

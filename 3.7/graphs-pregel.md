@@ -291,7 +291,11 @@ pregel.start("pagerank", "graphname", {maxGSS: 20, threshold: 0.00000001, source
 
 ### Single-Source Shortest Path
 
-Calculates the distance of each vertex to a certain shortest path.
+Calculates the shortest path length between the source and all other vertices.
+The distance to the source vertex itself is returned as `0` and a length above
+`9007199254740991` (max safe integer) means that there is no connection between
+a pair of vertices.
+
 The algorithm will run until it converges, the iterations are bound by the
 diameter (the longest shortest path) of your graph.
 
