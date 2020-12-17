@@ -232,3 +232,10 @@ versa:
 
   `DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")`
   → `"2020-10-15T01:00:00.999Z"`
+
+Miscellaneous
+-------------
+
+- Added cluster support for the JavaScript API method `collection.checksum()`
+  and the HTTP API endpoint `GET /_api/collection/{collection-name}/checksum`,
+  which calculate CRC checksums for collections.
