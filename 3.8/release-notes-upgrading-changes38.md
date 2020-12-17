@@ -145,23 +145,26 @@ The preferred way to start a breadth-first search from now on is with
 `order: "bfs"`. The default remains depth-first search if no `order` is
 specified, but can also be explicitly requested with `order: "dfs"`.
 
-### New WINDOW keyword
+### New `WINDOW` keyword
 
-A new keyword `WINDOW` was added to AQL in ArangoDB 3.8. Any existing AQL queries
-that use `WINDOW` (in any capitalization) as a variable name, collection or view
-name or refer to an attribute named `WINDOW` will likely run into parse errors
-when upgrading to ArangoDB 3.8.
+A new keyword `WINDOW` was added to AQL in ArangoDB 3.8. Any existing AQL
+queries that use `WINDOW` (in any capitalization) as a variable name,
+collection or View name or refer to an attribute named `WINDOW` will likely
+run into parse errors when upgrading to ArangoDB 3.8.
 
-When a query is affect, the fix is to put the name `WINDOW` into backticks inside
-the query, in the same way as when using other reserved keywords as identifiers/names
-in AQL queries.
+When a query is affect, the fix is to put the name `WINDOW` into backticks
+inside the query, in the same way as when using other reserved keywords as
+identifiers/names in AQL queries.
 
-For example, the query
+For example, the query:
+
 ```js
 FOR status IN Window
   RETURN status.open
 ```
-will need to be adjusted to
+
+… will need to be adjusted to:
+
 ```js
 FOR status IN `Window`
   RETURN status.open

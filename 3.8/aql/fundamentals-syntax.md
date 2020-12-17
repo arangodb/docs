@@ -70,13 +70,13 @@ On the top level, AQL offers the following
 | `LIMIT`   | Result slicing
 | `LET`     | Variable assignment
 | `COLLECT` | Result grouping
+| `WINDOW`  | Aggregations over related rows
 | `INSERT`  | Insertion of new documents
 | `UPDATE`  | (Partial) update of existing documents
 | `REPLACE` | Replacement of existing documents
 | `REMOVE`  | Removal of existing documents
 | `UPSERT`  | Insertion of new or update of existing documents
 | `WITH`    | Collection declaration
-| `WINDOW   | Aggregations over related rows
 
 Each of the above operations can be initiated in a query by using a keyword of
 the same name. An AQL query can (and typically does) consist of multiple of the
