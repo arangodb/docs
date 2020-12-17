@@ -25,6 +25,9 @@ Version 3.8
   [Analyzers](arangosearch-analyzers.html#geopoint) and
   [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
 
+- A [**`WINDOW` operation**](aql/operations-window.html) for aggregations over
+  adjacent rows or time windows.
+
 **Enterprise Edition**
 
 

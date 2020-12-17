@@ -70,6 +70,7 @@ On the top level, AQL offers the following
 | `LIMIT`   | Result slicing
 | `LET`     | Variable assignment
 | `COLLECT` | Result grouping
+| `WINDOW`  | Aggregations over related rows
 | `INSERT`  | Insertion of new documents
 | `UPDATE`  | (Partial) update of existing documents
 | `REPLACE` | Replacement of existing documents
@@ -147,6 +148,7 @@ The complete list of keywords is currently:
   <li><code>UPDATE</code></li>
   <li><code>UPSERT</code></li>
   <li><code>WITH</code></li>
+  <li><code>WINDOW</code></li>
 </ul>
 </div>
 

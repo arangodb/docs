@@ -9,6 +9,30 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.8. ArangoDB 3.8 also contains several bug fixes that are not listed
 here.
 
+AQL window operations
+---------------------
+
+The `WINDOW` keyword can be used for aggregations over related rows, usually
+preceding and / or following rows.
+
+The `WINDOW` operation performs a `COLLECT AGGREGATE`-like operation on a set
+of query rows. However, whereas a `COLLECT` operation groups multiple query
+rows into a single result group, a `WINDOW` operation produces a result for
+each query row:
+
+- The row for which function evaluation occurs is called the current row.
+- The query rows related to the current row over which function evaluation
+  occurs, comprise the window frame for the current row.
+
+Window frames are determined with respect to the current row:
+
+- By defining a window frame to be all rows from the query start to the current
+  row, you can compute running totals for each row.
+- By defining a frame as extending *N* rows on either side of the current row,
+  you can compute rolling averages.
+
+See [`WINDOW` operation](aql/operations-window.html).
+
 Weighted Traversals
 -------------------
 
