@@ -182,5 +182,6 @@ versa:
 Miscellaneous
 -------------
 
-- Add cluster support for collection.checksum() method to calculate CRC checksums for
-  collections.
+- Added cluster support for the JavaScript API method `collection.checksum()`
+  and the HTTP API endpoint `GET /_api/collection/{collection-name}/checksum`,
+  which calculate CRC checksums for collections.
