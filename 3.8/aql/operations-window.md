@@ -47,13 +47,14 @@ immediately precede and follow it:
 FOR t IN observations
   SORT t.time
   WINDOW { preceding: 1, following: 1 }
-  AGGREGATE rollingAvg = AVG(t.val), rollSum = SUM(t.val)
+  AGGREGATE rollingAverage = AVG(t.val), rollingSum = SUM(t.val)
   WINDOW { preceding: "unbounded", following: 0}
-  AGGREGATE culSum = SUM(t.val)
+  AGGREGATE cumulativeSum = SUM(t.val)
   RETURN {
     time: t.time,
-    running_average: rollingAvg,
-    running_total: culSum
+    rollingAverage, // average of the window's values
+    rollingSum,     // sum of the window's values
+    cumulativeSum   // running total
   }
 ```
 
@@ -64,21 +65,22 @@ computed from the current row and the rows that immediately precede and follow i
 ```js
 FOR t IN observations
   COLLECT subject = t.subject INTO group
-  LET sq = (FOR t2 IN group
+  LET subquery = (FOR t2 IN group
     SORT t2.time
     WINDOW { preceding: 1, following: 1 }
-    AGGREGATE rollingAvg = AVG(t2.val), rollSum = SUM(t2.val)
+    AGGREGATE rollingAverage = AVG(t2.val), rollingSum = SUM(t2.val)
     WINDOW { preceding: "unbounded", following: 0 }
-    AGGREGATE culSum = SUM(t2.val)
+    AGGREGATE cumulativeSum = SUM(t2.val)
     RETURN {
       time: t2.time,
       subject: t2.subject,
-      running_average: rollingAvg,
-      running_total: culSum
+      rollingAverage,
+      rollingSum,
+      cumulativeSum
     }
   )
-  // flatten sq
-  FOR t2 IN sq
+  // flatten subquery result
+  FOR t2 IN subquery
     RETURN t2
 ```
 
@@ -112,11 +114,11 @@ and following:
 ```js
 FOR t IN observations
   WINDOW t.time WITH { preceding: 1000, following: 500 }
-  AGGREGATE rollingAvg = AVG(t.val), rollSum = SUM(t.val)
+  AGGREGATE rollingAverage = AVG(t.val), rollingSum = SUM(t.val)
   RETURN {
     time: t.time,
-    running_average: rollingAvg,
-    rolling_sum: rollSum
+    rollingAverage,
+    rollingSum
   }
 ```
 
@@ -140,10 +142,10 @@ totals over observations in the last 3 weeks and 2 days:
 ```js
 FOR t IN observations
   WINDOW t.time WITH { preceding: "P3W2D" }
-  AGGREGATE rollingAvg = AVG(t.val), rollSum = SUM(t.val)
+  AGGREGATE rollingAverage = AVG(t.val), rollingSum = SUM(t.val)
   RETURN {
     time: t.time,
-    running_average: rollingAvg,
-    rolling_sum: rollSum
+    rollingAverage,
+    rollingSum
   }
 ```
