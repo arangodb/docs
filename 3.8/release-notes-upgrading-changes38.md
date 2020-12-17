@@ -45,7 +45,7 @@ The following startup options have been renamed in ArangoDB 3.8:
 
 Using the old option names will still work in ArangoDB 3.8, but is discouraged.
 
-## Deprecated options
+### Deprecated options
 
 The following server startup options have been obsoleted in ArangoDB 3.8:
 
@@ -97,6 +97,20 @@ cause unavailability false-positives.
 However, to restore the pre-3.8 behavior, it is possible to set the value of
 this option to `1`. The value can even be set to `0` to disable using the
 scheduler's queue fill grade as an (un)availability indicator.
+
+### Audit Logging (Enterprise Edition)
+
+The Enterprise Edition's audit log feature now honors the configured
+date/time output format. Previously, the audit logging always logged date/time
+values in the server's local time in the format `YYYY-MM-DDTHH:MM:SS`.
+
+From 3.8 onwards, the audit logging will honor the date/time format specified
+via the `--log.time-format` startup option, which defaults to `utc-datestring`.
+That means the audit logging will log all dates/times in UTC time by default.
+
+To restore the pre-3.8 format, please set the option `--log.time-format` to
+`local-datestring`, which will make the audit logger (and all other server log
+messages) use the server's local time.
 
 HTTP RESTful API
 ----------------
