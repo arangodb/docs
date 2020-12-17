@@ -6,8 +6,11 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Not Found
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">404</span> Not Found
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">97</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 

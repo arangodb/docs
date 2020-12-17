@@ -4,15 +4,18 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">123</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"viewNewName"</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hB99AFCB1A26/72109"</span>, 
+  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hD8E5203F43C6/72667"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"arangosearch"</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"72109"</span> 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"72667"</span> 
 }

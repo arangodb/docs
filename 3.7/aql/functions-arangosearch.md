@@ -36,7 +36,7 @@ left out.
 PHRASE(doc.text, "avocado dish", "text_en") AND PHRASE(doc.text, "lemon", "text_en")
 
 // Analyzer specified using ANALYZER()
-ANALYZER(PHRASE(doc.text, "avocado dish") AND PHRASE(doc.text, "lemon")
+ANALYZER(PHRASE(doc.text, "avocado dish") AND PHRASE(doc.text, "lemon"), "text_en")
 ```
 
 Certain expressions do not require any ArangoSearch functions, such as basic

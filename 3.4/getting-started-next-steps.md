@@ -16,5 +16,5 @@ If you want to write more AQL queries right now, have a look here:
   of `FOR`, `FILTER` and more operations not shown in this introduction
 - [Functions](aql/functions.html): a reference of all provided functions
 
-Visit the [ArangoDB Training Center](https://www.arangodb.com/arangodb-training-center/){:target="_blank"}
+Visit the [ArangoDB Training Center](https://www.arangodb.com/learn/){:target="_blank"}
 for courses, tutorials and more.

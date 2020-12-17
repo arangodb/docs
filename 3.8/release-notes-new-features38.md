@@ -54,6 +54,8 @@ Also see [AQL graph traversals](aql/graphs-traversals.html)
 ArangoSearch
 ------------
 
+### Pipeline Analyzer
+
 Added new Analyzer type `"pipeline"` for chaining effects of multiple Analyzers
 into one. It allows you to combine text normalization for a case insensitive
 search with ngram tokenization, or to split text at multiple delimiting
@@ -61,10 +63,38 @@ characters followed by stemming.
 
 See [ArangoSearch Pipeline Analyzer](arangosearch-analyzers.html#pipeline)
 
+### AQL Analyzer
+
 Added new Analyzer type `"aql"` capable of running an AQL query (with some
 restrictions) to perform data manipulation/filtering.
 
-See [ArangoSearch Aql Analyzer](arangosearch-analyzers.html#aql)
+See [ArangoSearch AQL Analyzer](arangosearch-analyzers.html#aql)
+
+### Geo-spatial queries
+
+Added two Geo Analyzers [`"geojson"`](arangosearch-analyzers.html#geojson)
+and [`"geopoint"`](arangosearch-analyzers.html#geopoint) as well as the
+following [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions)
+which enable geo-spatial queries backed by View indexes:
+- `GEO_CONTAINS()`
+- `GEO_DISTANCE()`
+- `GEO_IN_RANGE()`
+- `GEO_INTERSECTS()`
+
+### ArangoSearch thread control
+
+Added new command line options for fine-grained control over ArangoSearch's
+maintenance threads, now allowing to set the minimum and maximum number of
+threads for committing and consolidation separately:
+
+- `--arangosearch.commit-threads`
+- `--arangosearch.commit-threads-idle`
+- `--arangosearch.consolidation-threads`
+- `--arangosearch.consolidation-threads-idle`
+
+They supersede the options `--arangosearch.threads` and
+`--arangosearch.threads-limit`. See
+[ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
 
 Metrics
 -------
