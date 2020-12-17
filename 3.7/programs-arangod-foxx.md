@@ -5,6 +5,8 @@ layout: default
 
 ## Foxx startup
 
+<small>Introduced in: v3.6.10, v3.7.6</small>
+
 {% docublock foxxStartup %}
 
 ## Foxx queues
