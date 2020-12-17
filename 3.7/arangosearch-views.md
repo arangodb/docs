@@ -389,7 +389,7 @@ of removing unused segments after release of internal resources.
   > subsequent ArangoDB transactions, in-progress ArangoDB transactions will
   > still continue to return a repeatable-read state.
 
-- **consolidationIntervalMsec** (_optional_; type: `integer`; default: `60000`;
+- **consolidationIntervalMsec** (_optional_; type: `integer`; default: `1000`;
   to disable use: `0`)
 
   ArangoSearch waits _at least_ this many milliseconds between committing view

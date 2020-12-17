@@ -1,8 +1,11 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/products/count</span>
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">322</span>
 location: <span class="hljs-regexp">/_api/</span>collection/products/count
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
@@ -10,16 +13,16 @@ x-content-type-options: nosniff
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h28748334924B/69133"</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69133"</span>, 
+  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hD8E5203F43C6/69524"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69524"</span>, 
   <span class="hljs-string">"cacheEnabled"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"keyOptions"</span> : { 
     <span class="hljs-string">"allowUserKeys"</span> : <span class="hljs-literal">true</span>, 
     <span class="hljs-string">"type"</span> : <span class="hljs-string">"traditional"</span>, 
-    <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">69336</span> 
+    <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">69727</span> 
   }, 
-  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69132"</span>, 
+  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69523"</span>, 
   <span class="hljs-string">"count"</span> : <span class="hljs-number">100</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"products"</span>, 
   <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 

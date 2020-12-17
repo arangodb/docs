@@ -74,11 +74,26 @@ div.example_show_button {
   min-width: 250px;
 }
 
-.book .book-body table td {
-  overflow-wrap: break-word;
+.markdown-section table.table-scroll {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.markdown-section table a {
   word-break: break-word;
-  min-width: 8em;
-  max-width: 60em;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.markdown-section table a.no-wrap {
+  word-break: initial;
+  word-wrap: initial;
+  overflow-wrap: initial;
+}
+
+.markdown-section img {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .localized-footer {
@@ -94,6 +109,10 @@ div.example_show_button {
   top: 10px;
   right: 10px;
   font: 1em/1 anchorjs-icons;
+}
+
+.highlight .err {
+  border: none;
 }
 
 /* Styling Hubspot pop-up */

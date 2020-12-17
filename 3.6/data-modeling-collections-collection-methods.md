@@ -119,9 +119,16 @@ Figures
 <!-- arangod/V8Server/v8-collection.cpp -->
 
 returns the figures of a collection
-`collection.figures()`
+`collection.figures(details)`
 
 Returns an object containing statistics about the collection.
+
+Setting `details` to `true` will return extended storage engine-specific
+details to the figures (introduced in v3.6.7). The details are intended for
+debugging ArangoDB itself and their format is subject to change. Currently,
+the details are returned for the RocksDB storage engine only. By default,
+`details` is set to `false`, so no details are returned and the behavior is
+identical to previous versions of ArangoDB.
 
 {% hint 'info' %}
 Retrieving the figures will always load the collection into memory.
@@ -219,6 +226,16 @@ used as a lower bound approximation of the disk usage.
       db.demo.figures()
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock collectionFigures
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline collectionFiguresDetails
+    @EXAMPLE_ARANGOSH_OUTPUT{collectionFiguresDetails}
+    ~ require("internal").wal.flush(true, true);
+      db.demo.figures(true)
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock collectionFiguresDetails
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 

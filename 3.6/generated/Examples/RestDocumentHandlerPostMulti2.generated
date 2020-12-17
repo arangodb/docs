@@ -2,41 +2,44 @@
 [{"Hello":"Earth"}, {"Hello":"Venus"}, {"Hello":"Mars"}]
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Accepted
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">432</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 [ 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69856"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69856"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hR_K---"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70268"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70268"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUrO---"</span>, 
     <span class="hljs-string">"new"</span> : { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69856"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69856"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hR_K---"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70268"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70268"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUrO---"</span>, 
       <span class="hljs-string">"Hello"</span> : <span class="hljs-string">"Earth"</span> 
     } 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69857"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69857"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hR_K--A"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70269"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70269"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUrO--A"</span>, 
     <span class="hljs-string">"new"</span> : { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69857"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69857"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hR_K--A"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70269"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70269"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUrO--A"</span>, 
       <span class="hljs-string">"Hello"</span> : <span class="hljs-string">"Venus"</span> 
     } 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69858"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69858"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hR_K--C"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70270"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70270"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUrO--C"</span>, 
     <span class="hljs-string">"new"</span> : { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69858"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69858"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hR_K--C"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70270"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70270"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUrO--C"</span>, 
       <span class="hljs-string">"Hello"</span> : <span class="hljs-string">"Mars"</span> 
     } 
   } 
