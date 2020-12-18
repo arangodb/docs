@@ -62,7 +62,7 @@ module Jekyll
         def resolve_symlink(path)
             site = @context.registers[:site]
             source = site.source # base path
-            Pathname.new(File.realpath(path)).relative_path_from(source).to_s
+            Pathname.new(File.realpath(path)).relative_path_from(Pathname.new(source)).to_s
         end
     end
 end
