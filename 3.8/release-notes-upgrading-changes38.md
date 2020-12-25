@@ -10,6 +10,35 @@ upgrading to ArangoDB 3.8, and adjust any client programs if necessary.
 
 The following incompatible changes have been made in ArangoDB 3.8:
 
+Foxx
+----
+
+The default value of the startup option `--foxx.force-update-on-startup` changes
+from `true` to `false` in ArangoDB 3.8.
+This option controls whether the startup procedure should synchronize all Foxx
+apps in all databases before making them available, or whether startup should
+proceed without ensuring all Foxx apps are in sync. In the latter case, the 
+synchronization will happen eventually.
+
+In ArangoDB 3.6 and 3.7, the option's default value is `true`, meaning all Foxx apps 
+in all databases will be synchronized on server startup. This can delay the startup
+procedure for installations with many databases, and is unnecessary in case no
+Foxx apps are used.
+
+In ArangoDB 3.8 the default value for the option is `false`, meaning a server will
+complete the boot sequence faster, and the Foxx services will be synchronized in 
+a background operation. Until that operation has completed, any requests to a 
+Foxx app may be responded to with an HTTP 500 error and message 
+
+    waiting for initialization of Foxx services in this database 
+
+This can cause an unavailability window for Foxx apps for the initial requests to
+Foxx apps.
+
+This option only has an effect for cluster setups. On single servers and in
+active failover mode, all Foxx apps will always be initialized completely when
+the server starts up, and there will be no unavailability window.
+
 Collection attributes
 ---------------------
 
@@ -45,7 +74,7 @@ The following startup options have been renamed in ArangoDB 3.8:
 
 Using the old option names will still work in ArangoDB 3.8, but is discouraged.
 
-## Deprecated options
+### Deprecated options
 
 The following server startup options have been obsoleted in ArangoDB 3.8:
 
@@ -57,7 +86,21 @@ the RocksDB storage engine they did not make any difference. Using these startup
 options is still possible, but will have no effect other than generating a
 warning at server startup.
 
+- `--arangosearch.threads`
+- `--arangosearch.threads-limit`
+
+There are two new options for each of the deprecated options, now allowing to
+set the minimum and maximum number of threads for committing and consolidation
+separately. If either `--arangosearch.commit-threads` or
+`--arangosearch.consolidation-threads` is set, then both deprecated options are
+ignored. If only the legacy options are set, then they are used to calculate
+the thread count. See
+[ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
+
 ### Changed default values
+
+The default value for `--foxx.force-update-on-startup` changed from `true` to
+`false`, also see [Foxx](#foxx) above.
 
 The default value for the number of network I/O threads `--network.io-threads`
 was changed to `2` in ArangoDB 3.8, up from a value of `1` in previous version.
@@ -86,6 +129,20 @@ cause unavailability false-positives.
 However, to restore the pre-3.8 behavior, it is possible to set the value of
 this option to `1`. The value can even be set to `0` to disable using the
 scheduler's queue fill grade as an (un)availability indicator.
+
+### Audit Logging (Enterprise Edition)
+
+The Enterprise Edition's audit log feature now honors the configured
+date/time output format. Previously, the audit logging always logged date/time
+values in the server's local time in the format `YYYY-MM-DDTHH:MM:SS`.
+
+From 3.8 onwards, the audit logging will honor the date/time format specified
+via the `--log.time-format` startup option, which defaults to `utc-datestring`.
+That means the audit logging will log all dates/times in UTC time by default.
+
+To restore the pre-3.8 format, please set the option `--log.time-format` to
+`local-datestring`, which will make the audit logger (and all other server log
+messages) use the server's local time.
 
 HTTP RESTful API
 ----------------
@@ -133,6 +190,31 @@ option `order`.
 The preferred way to start a breadth-first search from now on is with
 `order: "bfs"`. The default remains depth-first search if no `order` is
 specified, but can also be explicitly requested with `order: "dfs"`.
+
+### New `WINDOW` keyword
+
+A new keyword `WINDOW` was added to AQL in ArangoDB 3.8. Any existing AQL
+queries that use `WINDOW` (in any capitalization) as a variable name,
+collection or View name or refer to an attribute named `WINDOW` will likely
+run into parse errors when upgrading to ArangoDB 3.8.
+
+When a query is affect, the fix is to put the name `WINDOW` into backticks
+inside the query, in the same way as when using other reserved keywords as
+identifiers/names in AQL queries.
+
+For example, the query:
+
+```js
+FOR status IN Window
+  RETURN status.open
+```
+
+… will need to be adjusted to:
+
+```js
+FOR status IN `Window`
+  RETURN status.open
+```
 
 ### UPDATE queries with `keepNull: false`
 
@@ -184,6 +266,22 @@ did not yet exist. This makes such updates idempotent again.
 This a behavior change compared previous versions, but it will only have
 effect when `keepNull` is set to `false` (the default value is `true`),
 and only when just-inserted object sub-attributes contained `null` values.
+
+Pregel
+------
+
+The HTTP and JavaScript APIs for controling Pregel jobs now also accept 
+stringified execution number values, in addition to numeric ones.
+
+This allows passing larger execution numbers as strings, so that any data 
+loss due to numeric data type conversion (uint32 => double) can be avoided. 
+This change is downwards-compatible.
+
+However, the HTTP and JavaScript APIs for starting Pregel runs now also 
+return a stringified execution number, e.g. "12345" instead of 12345. 
+This is not downwards-compatible, so all client applications that depend
+on the return value being a numeric value need to be adjusted to handle
+a string return value and convert that string into a number.
 
 Document operations
 -------------------

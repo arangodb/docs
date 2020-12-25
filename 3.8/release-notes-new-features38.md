@@ -9,6 +9,30 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.8. ArangoDB 3.8 also contains several bug fixes that are not listed
 here.
 
+AQL window operations
+---------------------
+
+The `WINDOW` keyword can be used for aggregations over related rows, usually
+preceding and / or following rows.
+
+The `WINDOW` operation performs a `COLLECT AGGREGATE`-like operation on a set
+of query rows. However, whereas a `COLLECT` operation groups multiple query
+rows into a single result group, a `WINDOW` operation produces a result for
+each query row:
+
+- The row for which function evaluation occurs is called the current row.
+- The query rows related to the current row over which function evaluation
+  occurs, comprise the window frame for the current row.
+
+Window frames are determined with respect to the current row:
+
+- By defining a window frame to be all rows from the query start to the current
+  row, you can compute running totals for each row.
+- By defining a frame as extending *N* rows on either side of the current row,
+  you can compute rolling averages.
+
+See [`WINDOW` operation](aql/operations-window.html).
+
 Weighted Traversals
 -------------------
 
@@ -54,6 +78,8 @@ Also see [AQL graph traversals](aql/graphs-traversals.html)
 ArangoSearch
 ------------
 
+### Pipeline Analyzer
+
 Added new Analyzer type `"pipeline"` for chaining effects of multiple Analyzers
 into one. It allows you to combine text normalization for a case insensitive
 search with ngram tokenization, or to split text at multiple delimiting
@@ -61,10 +87,38 @@ characters followed by stemming.
 
 See [ArangoSearch Pipeline Analyzer](arangosearch-analyzers.html#pipeline)
 
+### AQL Analyzer
+
 Added new Analyzer type `"aql"` capable of running an AQL query (with some
 restrictions) to perform data manipulation/filtering.
 
-See [ArangoSearch Aql Analyzer](arangosearch-analyzers.html#aql)
+See [ArangoSearch AQL Analyzer](arangosearch-analyzers.html#aql)
+
+### Geo-spatial queries
+
+Added two Geo Analyzers [`"geojson"`](arangosearch-analyzers.html#geojson)
+and [`"geopoint"`](arangosearch-analyzers.html#geopoint) as well as the
+following [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions)
+which enable geo-spatial queries backed by View indexes:
+- `GEO_CONTAINS()`
+- `GEO_DISTANCE()`
+- `GEO_IN_RANGE()`
+- `GEO_INTERSECTS()`
+
+### ArangoSearch thread control
+
+Added new command line options for fine-grained control over ArangoSearch's
+maintenance threads, now allowing to set the minimum and maximum number of
+threads for committing and consolidation separately:
+
+- `--arangosearch.commit-threads`
+- `--arangosearch.commit-threads-idle`
+- `--arangosearch.consolidation-threads`
+- `--arangosearch.consolidation-threads-idle`
+
+They supersede the options `--arangosearch.threads` and
+`--arangosearch.threads-limit`. See
+[ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
 
 Metrics
 -------
@@ -178,3 +232,10 @@ versa:
 
   `DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")`
   → `"2020-10-15T01:00:00.999Z"`
+
+Miscellaneous
+-------------
+
+- Added cluster support for the JavaScript API method `collection.checksum()`
+  and the HTTP API endpoint `GET /_api/collection/{collection-name}/checksum`,
+  which calculate CRC checksums for collections.

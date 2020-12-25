@@ -20,7 +20,13 @@ Version 3.8
   ngram-based fuzzy search and more. New
   [**AQL Analyzer**](arangosearch-analyzers.html#aql)
   so that you can use an AQL query to pre-process and filter your data for
-  indexing.
+  indexing. Support for **geo-spatial queries** through new
+  [Geo](arangosearch-analyzers.html#geojson)
+  [Analyzers](arangosearch-analyzers.html#geopoint) and
+  [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
+
+- A [**`WINDOW` operation**](aql/operations-window.html) for aggregations over
+  adjacent rows or time windows.
 
 **Enterprise Edition**
 
@@ -149,7 +155,7 @@ Version 3.5
   use cases like expiring sessions or automatic purging of statistics or logs.
 
 - [**Index Hints**](aql/operations-for.html#indexhint) &
-  [**Named Indexes**](https://www.arangodb.com/arangodb-training-center/index-hints-named-indices/){:target="_blank"}:
+  [**Named Indexes**](https://www.arangodb.com/learn/development/index-hints-named-indices/){:target="_blank"}:
   Indexes can be given names and an optional AQL inline query option
   `indexHint` was added to override the internal optimizer decision on which
   index to utilize.
