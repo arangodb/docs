@@ -313,6 +313,14 @@ The `SEARCH` operation accepts an options object with the following attributes:
     apply optimizations. Removes redundant or overlapping conditions, but can
     take quite some time even for a low number of nested conditions.
   - `"none"`: search the index without optimizing the conditions.
+- `countApproximate` (string, _optional_): controls how total count of rows is
+  calculated when `fullCount` mode for query is set or during COLLECT WITH COUNT 
+  clause execution  (introduced in v3.7.6)
+  - `"exact"` (default): rows are actually enumerated giving precise number.
+  - `"cost"`: cost based approximation is used. Do not enumerates rows, returns
+              approximate result with O(1) complexity. Gives precise result
+              when Search condition is empty or contains only single term query
+              (e.g. doc.field == 'value').
 
 **Examples**
 
