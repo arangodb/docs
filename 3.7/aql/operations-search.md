@@ -315,8 +315,8 @@ The `SEARCH` operation accepts an options object with the following attributes:
   calculated when `fullCount` mode for query is set or during COLLECT WITH COUNT 
   clause execution  (introduced in v3.7.6)
   - `"exact"` (default): rows are actually enumerated giving precise number.
-  - `"cost"`: cost based approximation is used. Do not enumerates rows, returns
-              approximate result but with O(1) complexity. Gives precise result
+  - `"cost"`: cost based approximation is used. Does not enumerates rows, returns
+              approximate result with O(1) complexity. Gives precise result
               when Search condition is empty or contains only single term query
               (e.g. doc.field == 'value').
 
