@@ -233,6 +233,20 @@ versa:
   `DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")`
   → `"2020-10-15T01:00:00.999Z"`
 
+Also a function has been added to get the system timezone:
+  
+- [DATE_TIMEZONE()](aql/functions-date.html#date_timezone)
+
+  `DATE_TIMEZONE()`
+  → `"Etc/UTC"`
+  
+And a function to list all available *canonical* timezone names:
+  
+- [DATE_TIMEZONES()](aql/functions-date.html#date_timezones)
+
+  `DATE_TIMEZONES()`
+  → `[ "Africa/Abidjan", "Africa/Algiers", ..., "Pacific/Wallis" ]`
+
 Miscellaneous
 -------------
 

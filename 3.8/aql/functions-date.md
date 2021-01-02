@@ -834,6 +834,30 @@ It takes historic daylight saving times into account.
     {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+### DATE_TIMEZONE()
+
+<small>Introduced in: v3.8.0</small>
+
+Returns system timezone.
+
+For cloud servers this will most likely be "Etc/UTC".
+
+`DATE_TIMEZONE() → string`
+
+- returns **string**: [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+
+### DATE_TIMEZONES()
+
+<small>Introduced in: v3.8.0</small>
+
+Returns all *canonical* timezones.
+
+Contains some *deprecated* timezones like "CET" and "MST" if they haven't been linked to an alternative.
+
+`DATE_TIMEZONES() → stringArray`
+
+- returns **stringArray** (array): an array of [IANA timezone names](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+
 Working with dates and indices
 ------------------------------
 
