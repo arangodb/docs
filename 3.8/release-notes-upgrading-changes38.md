@@ -158,8 +158,8 @@ Available memory: 549755813888 (524288MB)  Limit: 329853488333 (314572MB), %mem:
 
 As previously, a memory limit value of `0` means no limitation.
 The limit values are per AQL query, so they may still be too high in case queries
-run in parallel. The defaults are intentionally high in order to not stop any valid,
-previously working queries from succedding.
+run in parallel. The defaults are intentionally high in order to not stop too many valid
+queries from working that use _a lot_ of memory.
 
 #### Miscelleaneous changes
 
