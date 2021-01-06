@@ -96,7 +96,7 @@ The format of a custom algorithm right now is based on a JSON object.
     - `array of strings`: Represents a nested path
   - **readEdge**: An `array` that consists of `strings` and/or additional `arrays`
     (that represents a path).
-      - `string`: Represents a single path at the top level which is **not** nested.
+      - `string`: Represents a single attribute at the top level.
       - `array of strings`: Represents a nested path
 
   `readVertex` and `readEdge` are used to modify the associated data for a vertex or edge.
@@ -326,7 +326,7 @@ _sequence of commands_
 last expression. An empty `seq` evaluates to `none`.
 
 ```js
-> ["seq", ["print", "Hello World!"], 2, 3]
+> ["seq", ["report", "Hello World!"], 2, 3]
 Hello World!
  = 3
 ```
@@ -393,7 +393,7 @@ is guaranteed to be lexicographic order. If the list of variables is empty,
 the expressions are evaluated once. If one list is empty, nothing is evaluted.
 
 ```js
-> ["for-each", [["x", ["list", 1, 2]], ["y", ["list", 3, 4]]], ["print", ["var-ref", "x"], ["var-ref", "y"]]]
+> ["for-each", [["x", ["list", 1, 2]], ["y", ["list", 3, 4]]], ["report", ["var-ref", "x"], ["var-ref", "y"]]]
 1 3
 1 4
 2 3
@@ -653,7 +653,7 @@ the return value of this call is considered true. The sort is **not** stable.
 behavior to specify a key more than once. `dict-merge` merges two or more
 dicts, keeping the latest occurrence of each key. `dict-keys` returns a list of
 all top level keys. `dict-directory` returns a list of all available paths in
-preorder.
+preorder, intended to be used with nested directories.
 
 `attrib-ref` returns the value of `key` in `dict`. If `key` is not present
 `none` is returned. `attrib-set` returns a copy of `dict` but with `key` set to
@@ -694,7 +694,7 @@ Lambdas can be used wherever a function is expected.
 #### Reduce
 
 ```js
-["reduce", value, lambda, accumulator]
+["reduce", value, lambda, initialValue]
 ```
 
 The reduce method executes a reducer function (lambda - required) on each
@@ -704,11 +704,11 @@ to generate any supported type.
 
 The lambda function accepts three parameters, the current index (which is
 either the position in an array, or the current key in case of an object),
-the value and the accumulator.
+the value and the current reduced value.
 
 **Example:**
 
-Addition of all array elements (initial accumulator / start value set to 100).
+Addition of all array elements, start value set to 100.
 
 ```js
 ["reduce",
@@ -853,15 +853,17 @@ context. `bind-ref` is an alias of `var-ref`.
 #### Debug operators
 
 ```js
-["print", values...]
+["report", values...]
 ["error", msg...]
 ["assert", cond, msg...]
 ```
 
-`print` print in a context dependent way the string representation of its
+`report` print in a context dependent way the string representation of its
 arguments joined by spaces. Strings represent themselves, numbers are converted
 to decimal representation, booleans are represented as `true` or `false`.
 Dicts and lists are converted to JSON.
+
+This function is not supported in all contexts, yet.
 
 `error` creates an error and aborts execution immediately. Errors are reported
 in a context dependent way. The error message is constructed from the remaining
@@ -954,8 +956,8 @@ Also see the remarks about [update visibility](#vertex-accumulators).
   with pregel-id `to-pregel-vertex`. There is not edge required between the sender
   and the receiver.
 - `send-to-all-neighbors` sends the value `value` to the accumulator `name` in
-  all neighbors reachable by an edge. Note that if there are multiple edges
-  from us to the neighbor, the value is sent multiple times.
+  all neighbors reachable by an edge, i.e. along outbound edges. Note that if
+  there are multiple edges from us to the neighbor, the value is sent multiple times.
 
 #### This Vertex
 
@@ -1045,12 +1047,11 @@ The following functions are only available when running inside a custom accumula
 
 ## Accumulators
 
-In PPAs there are special types, called: `Accumulators`. There are three
-different types of Accumulators:
+In PPAs there are special types, called: `Accumulators`. There are two
+types of Accumulators:
 
-- VertexAccumulators
-- GlobalAccumulators
-- CustomAccumulators
+- VertexAccumulators: one instance per vertex.
+- GlobalAccumulators: a single instance globally.
 
 Accumulators are used to consume and process messages which are being sent to
 them during the computational phase (`initProgram`, `updateProgram`,
@@ -1062,8 +1063,8 @@ The manner on how they are going to be processed depends on their
 
 ### Vertex Accumulators
 
-Vertex Accumulators are following the general definition of an Accumulator.
-There is only one exception: A vertex is able to modify their own local
+Vertex Accumulators are following the general definition of an Accumulator,
+with the following exception: A vertex is able to modify their own local
 accumulator directly during the computational phase, **but only their own**.
 
 In short: Modifications which will be done via messages, will be visible in
@@ -1494,57 +1495,9 @@ The next code snippet demonstrates how a store program could look like:
 ```js
 "dataAccess": {
   "writeVertex": [
-    "attrib-set",
-      // 1st parameter of outer attrib-set
-      ["attrib-set", ["dict"], "inDegree", ["accum-ref", "inDegree"]],
-      // 2nd parameter of outer attrib-set
-      "outDegree",
-      // 3rd parameter of outer attrib-set
-      ["accum-ref", "outDegree"]
+    "dict",
+    ["list", "inDegree", ["accum-ref", "inDegree"]],
+    ["list", "outDegree", ["accum-ref", "outDegree"]]
   ]
-}
-```
-
-We do want to store the value of inDegree and outDegree in our vertices in a
-specific attribute and want to represent them as a JSON Object. Therefore we are
-combining two `attrib-set` commands to achieve that.
-
-The `attrib-set` syntax: `["attrib-set", dict, key, value]`
-
-Let us take a look at row 4:
-
-```js
-[
-  "attrib-set",
-
-    // creates a dict (which is an empty object type)
-  ["dict"],
-
-    // the key we want to store as a string
-  "inDegree",
-
-  // the accumulator reference we're reading from, which will be inserted in our new dict
-  ["accum-ref", "inDegree"]
-]
-```
-
-This will generate a dict:
-
-```json
-{
-  "inDegree": "<numeric-value-fetched-from-accumulator-inDegree>"
-}
-```
-
-The `attrib-set` command from line 3. takes the newly created dict as the base,
-creates a new entry called `outDegree` and adds the referenced (numeric value)
-from `outDegree` there.
-
-The expected result is:
-
-```json
-{
-  "inDegree": "<numeric-value-fetched-from-accumulator-inDegree>",
-  "outDegree": "<numeric-value-fetched-from-accumulator-outDegree>"
 }
 ```
