@@ -221,7 +221,8 @@ Added IANA timezone database [tzdata](https://www.iana.org/time-zones){:target="
 
 The following AQL functions have been added for converting datetimes in UTC to
 any timezone in the world including historical daylight saving times and vice
-versa:
+versa. An optional detail flag returns the timezone information including
+effect range, abbrevation, daylight saving and offset to UTC:
 
 - [DATE_UTCTOLOCAL()](aql/functions-date.html#date_utctolocal)
 
@@ -232,20 +233,49 @@ versa:
 
   `DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")`
   → `"2020-10-15T01:00:00.999Z"`
+  
+- [DATE_LOCALTOUTC()](aql/functions-date.html#date_utctolocal)
 
-Also a function has been added to get the system timezone:
+  `DATE_UTCTOLOCAL("2020-10-15T01:00:00.999Z", "America/New_York", true)`
+  → `{
+    "local": "2020-10-14T21:00:00.999",
+    "tzdb": "2020f",
+    "zoneInfo": {
+      "name": "EDT",
+      "begin": "2020-03-08T07:00:00.000Z",
+      "end": "2020-11-01T06:00:00.000Z",
+      "save": true,
+      "offset": -14400
+    }
+  }`
+  
+- [DATE_LOCALTOUTC()](aql/functions-date.html#date_localtoutc)
+
+  `DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")`
+  → `{
+    "utc": "2020-10-15T01:00:00.999Z",
+    "tzdb": "2020f",
+    "zoneInfo": {
+      "name": "EDT",
+      "begin": "2020-03-08T07:00:00.000Z",
+      "end": "2020-11-01T06:00:00.000Z",
+      "save": true,
+      "offset": -14400
+    }
+  }`
+
+Also some functions have been added to aquire the system timezone ArangoDB is running on 
+and to list all valid timezone names including canonical, aliases and deprecated ones. 
   
 - [DATE_TIMEZONE()](aql/functions-date.html#date_timezone)
 
   `DATE_TIMEZONE()`
   → `"Etc/UTC"`
   
-And a function to list all available *canonical* timezone names:
-  
 - [DATE_TIMEZONES()](aql/functions-date.html#date_timezones)
 
   `DATE_TIMEZONES()`
-  → `[ "Africa/Abidjan", "Africa/Algiers", ..., "Pacific/Wallis" ]`
+  → `[ "Africa/Abidjan", ..., "Europe/Berlin", ..., "Zulu" ]`
 
 Miscellaneous
 -------------

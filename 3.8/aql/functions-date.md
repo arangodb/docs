@@ -750,7 +750,7 @@ Converts *date* assumed in Zulu time (UTC) to local *timezone*.
 
 It takes historic daylight saving times into account.
 
-`DATE_UTCTOLOCAL(date, timezone) → dateString`
+`DATE_UTCTOLOCAL(date, timezone, zoneinfo) → (dateString | object)`
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - **timezone** (string):
@@ -758,8 +758,19 @@ It takes historic daylight saving times into account.
   e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
   Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
   Will throw an error if the timezone is not known to ArangoDB
-- returns **dateString**: date and time expressed according to ISO 8601,
+- **zoneinfo** (boolean, *optional*): if set to *true*, an object with timezone information is returned.
+  The default is *false* and a dateString is returned.
+- returns **dateString** or **object**: date and time expressed according to ISO 8601,
   in unqualified local time
+
+- **local** (dateString): converted local time
+- **tzdb** (string): version of the timezone database used (e.g. 2020f)
+- **zoneInfo**: (object): timezone information
+  - **name** (string): timezone abbrevation (GMT, PST, CET, ...)
+  - **begin** (dateString\|null): begin of the timezone effect as UTC dateString
+  - **end** (dateString\|null): end of the timezone effect as UTC dateString
+  - **save** (boolean): *true* when daylight saving is active, *false* otherwise
+  - **offset** (number): offset to UTC in seconds
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlDateTimeToLocal_1
@@ -796,7 +807,7 @@ Converts *date* assumed in local *timezone* to Zulu time (UTC).
 
 It takes historic daylight saving times into account.
 
-`DATE_LOCALTOUTC(date, timezone) → dateString`
+`DATE_LOCALTOUTC(date, timezone, zoneinfo) → (dateString|object)`
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - **timezone** (string):
@@ -804,8 +815,19 @@ It takes historic daylight saving times into account.
   e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
   Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
   Will throw an error if the timezone is not known to ArangoDB
-- returns **dateString**: date and time expressed according to ISO 8601,
+- **zoneinfo** (boolean, *optional*): if set to *true*, an object with timezone information is returned.
+  The default is *false* and a dateString is returned.
+- returns **dateString** or **object**: date and time expressed according to ISO 8601,
   in Zulu time
+  
+- **utc** (dateString): converted universal time
+- **tzdb** (string): version of the timezone database used (e.g. 2020f)
+- **zoneInfo**: (object): timezone information
+  - **name** (string): timezone abbrevation (GMT, PST, CET, ...)
+  - **begin** (dateString\|null): begin of the timezone effect as UTC dateString
+  - **end** (dateString\|null): end of the timezone effect as UTC dateString
+  - **save** (boolean): *true* when daylight saving is active, *false* otherwise
+  - **offset** (number): offset to UTC in seconds
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlDateTimeToUTC_1
@@ -838,7 +860,7 @@ It takes historic daylight saving times into account.
 
 <small>Introduced in: v3.8.0</small>
 
-Returns system timezone.
+Returns system timezone ArangoDB is running on.
 
 For cloud servers this will most likely be "Etc/UTC".
 
@@ -850,9 +872,7 @@ For cloud servers this will most likely be "Etc/UTC".
 
 <small>Introduced in: v3.8.0</small>
 
-Returns all *canonical* timezones.
-
-Contains some *deprecated* timezones like "CET" and "MST" if they haven't been linked to an alternative.
+Returns all valid timezone names.
 
 `DATE_TIMEZONES() → stringArray`
 
