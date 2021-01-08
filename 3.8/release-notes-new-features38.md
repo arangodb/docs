@@ -228,41 +228,40 @@ effect range, abbrevation, daylight saving and offset to UTC:
 
   `DATE_UTCTOLOCAL("2020-10-15T01:00:00.999Z", "America/New_York")`
   → `"2020-10-14T21:00:00.999"`
+  
+  `DATE_UTCTOLOCAL("2020-10-15T01:00:00.999Z", "America/New_York", true)`
+  → ```
+{
+  "local": "2020-10-14T21:00:00.999",
+  "tzdb": "2020f",
+  "zoneInfo": {
+    "name": "EDT",
+    "begin": "2020-03-08T07:00:00.000Z",
+    "end": "2020-11-01T06:00:00.000Z",
+    "save": true,
+    "offset": -14400
+  }
+}```
 
 - [DATE_LOCALTOUTC()](aql/functions-date.html#date_localtoutc)
 
   `DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")`
   → `"2020-10-15T01:00:00.999Z"`
-  
-- [DATE_LOCALTOUTC()](aql/functions-date.html#date_utctolocal)
-
-  `DATE_UTCTOLOCAL("2020-10-15T01:00:00.999Z", "America/New_York", true)`
-  → `{
-    "local": "2020-10-14T21:00:00.999",
-    "tzdb": "2020f",
-    "zoneInfo": {
-      "name": "EDT",
-      "begin": "2020-03-08T07:00:00.000Z",
-      "end": "2020-11-01T06:00:00.000Z",
-      "save": true,
-      "offset": -14400
-    }
-  }`
-  
-- [DATE_LOCALTOUTC()](aql/functions-date.html#date_localtoutc)
+ `
 
   `DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")`
-  → `{
-    "utc": "2020-10-15T01:00:00.999Z",
-    "tzdb": "2020f",
-    "zoneInfo": {
-      "name": "EDT",
-      "begin": "2020-03-08T07:00:00.000Z",
-      "end": "2020-11-01T06:00:00.000Z",
-      "save": true,
-      "offset": -14400
-    }
-  }`
+  → ```
+{
+  "utc": "2020-10-15T01:00:00.999Z",
+  "tzdb": "2020f",
+  "zoneInfo": {
+    "name": "EDT",
+    "begin": "2020-03-08T07:00:00.000Z",
+    "end": "2020-11-01T06:00:00.000Z",
+    "save": true,
+    "offset": -14400
+  }
+}```
 
 Also some functions have been added to aquire the system timezone ArangoDB is running on 
 and to list all valid timezone names including canonical, aliases and deprecated ones. 

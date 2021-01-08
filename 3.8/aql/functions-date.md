@@ -763,6 +763,7 @@ It takes historic daylight saving times into account.
 - returns **dateString** or **object**: date and time expressed according to ISO 8601,
   in unqualified local time
 
+
 - **local** (dateString): converted local time
 - **tzdb** (string): version of the timezone database used (e.g. 2020f)
 - **zoneInfo**: (object): timezone information
@@ -819,6 +820,7 @@ It takes historic daylight saving times into account.
   The default is *false* and a dateString is returned.
 - returns **dateString** or **object**: date and time expressed according to ISO 8601,
   in Zulu time
+  
   
 - **utc** (dateString): converted universal time
 - **tzdb** (string): version of the timezone database used (e.g. 2020f)
