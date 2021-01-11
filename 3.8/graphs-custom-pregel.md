@@ -1026,7 +1026,7 @@ different types of Accumulators:
 - CustomAccumulators
 
 Accumulators are used to consume and process messages which are being sent to
-them during the computational phase (`initProgram`, `updateProgram`,
+them during the computational steps (`initProgram`, `updateProgram`,
 `onPreStep`, `onPostStep`) of a superstep. After a superstep is done, all
 messages will be processed.
 
@@ -1037,7 +1037,7 @@ The manner on how they are going to be processed depends on their
 
 Vertex Accumulators are following the general definition of an Accumulator.
 There is only one exception: A vertex is able to modify their own local
-accumulator directly during the computational phase, **but only their own**.
+accumulator directly during the computational steps, **but only their own**.
 
 In short: Modifications which will be done via messages, will be visible in
 the next superstep round. Changes done locally, are visible directly - but
