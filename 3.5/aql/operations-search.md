@@ -75,7 +75,7 @@ Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
 ```js
 FOR doc IN viewName
   SEARCH ANALYZER(doc.text == "quick" OR doc.text == "brown", "text_en")
-RETURN doc
+  RETURN doc
 ```
 
 Note that array comparison operators, inline expressions and a few other things
