@@ -787,7 +787,7 @@ _random functions that fit no other category_
 ["rand-range", min, max]
 ```
 
-`string-cat` concatenates the given strings. `int-to-string` converts a integer
+`string-cat` concatenates the given strings. `int-to-string` converts an integer
 to its decimal representation.
 `min`/`max`/`avg` computes the minimum/maximum/average of its values.
 `rand`/`rand-range` produces a pseudo random number uniformly distributed in `[0,1]`/`[min,max]`.
