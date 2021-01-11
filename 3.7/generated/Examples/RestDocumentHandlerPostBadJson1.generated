@@ -2,8 +2,11 @@
 { 1: "World" }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Bad Request
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">400</span> Bad Request
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">97</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
