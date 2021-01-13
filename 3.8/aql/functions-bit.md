@@ -41,7 +41,7 @@ BIT_AND("foo") // null
 ```
 
 BIT_CONSTRUCT()
---------------
+---------------
 
 `BIT_CONSTRUCT(positionsArray) → result`
 
@@ -61,8 +61,29 @@ BIT_CONSTRUCT([0, 4, 8]) // 273
 BIT_CONSTRUCT(([0, 1, 10, 31]) // 2147484675
 ```
 
-BIT_FROM_STRING
----------------
+BIT_DECONSTRUCT()
+-----------------
+
+`BIT_DECONSTRUCT(number) → positionsArray`
+
+Deconstruct a number value into an array with the positions of its set bits.
+
+- **number** (number): the input value to deconstruct
+- returns **positionArray** (array): array with bit positions set (zero-based)
+
+The function turns a numeric value into an array with the positions of all its
+set bits. The positions in the output array are zero-based.
+The input value must be a number between 0 and (2^32) - 1 (including). The function will 
+return null for any other inputs and produce a warning.
+
+```js
+BIT_DECONSTRUCT(14) // [1, 2, 3]
+BIT_DECONSTRUCT(273) // [0, 4, 8]
+BIT_DECONSTRUCT(2147484675) // [0, 1, 10, 31]
+```
+
+BIT_FROM_STRING()
+-----------------
 
 `BIT_FROM_STRING(bitstring) → number`
 
@@ -84,8 +105,8 @@ BIT_FROM_STRING("11010111011101") // 13789
 BIT_FROM_STRING("00000000000100000000000000000000") // 1048756
 ```
 
-BIT_NEGATE
-----------
+BIT_NEGATE()
+------------
 
 `BIT_NEGATE(number, bits) → result`
 
@@ -106,7 +127,7 @@ BIT_NEGATE(446359921, 32) // 3848607374
 ```
 
 BIT_OR()
----------
+--------
 
 `BIT_OR(numbersArray) → result`
 
@@ -148,8 +169,8 @@ BIT_POPCOUNT(69399252) // 12
 BIT_POPCOUNT("foo") // null
 ```
 
-BIT_SHIFT_LEFT
---------------
+BIT_SHIFT_LEFT()
+----------------
 
 `BIT_SHIFT_LEFT(number, shift, bits) → result`
 
@@ -171,8 +192,8 @@ BIT_SHIFT_LEFT(2, 10, 16) // 2048
 BIT_SHIFT_LEFT(878836, 16, 32) // 1760821248
 ```
 
-BIT_SHIFT_RIGHT
----------------
+BIT_SHIFT_RIGHT()
+-----------------
 
 `BIT_SHIFT_RIGHT(number, shift, bits) → result`
 
@@ -194,8 +215,8 @@ BIT_SHIFT_RIGHT(65536, 13, 16) // 8
 BIT_SHIFT_RIGHT(878836, 4, 32) // 54927
 ```
 
-BIT_TEST
---------
+BIT_TEST()
+----------
 
 `BIT_TEST(number, index) → result`
 
@@ -215,8 +236,8 @@ BIT_TEST(7, 2) // true
 BIT_TEST(255, 8) // false
 ```
 
-BIT_TO_STRING
--------------
+BIT_TO_STRING()
+---------------
 
 `BIT_TO_STRING(number) → bitstring`
 
