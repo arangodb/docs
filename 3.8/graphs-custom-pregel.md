@@ -160,8 +160,8 @@ Step 2 (+n): Computation
 
 All programs are specified as [AIR programs](#air-program).
 
-The return value of `initProgram` resp. `updateProgram` is inspected. If it is not
-`none`, it must be one of the following:
+The return value of `initProgram` resp. `updateProgram` is inspected. It must
+be one of the following:
 - `"vote-halt"` or `false`:
   indicates that this vertex voted halt.
 - `"vote-active"` or `true`:
@@ -285,7 +285,7 @@ called `first` and the second entry `second`.
 
 ### Truthiness of values
 
-A value is considered _false_ if it is boolean `false` or absent (`none`).
+A value is considered _false_ if it is boolean `false` or absent (`null`)
 All other values are considered true.
 
 ### Special forms
@@ -323,7 +323,7 @@ _sequence of commands_
 ```
 
 `seq` evaluates `expr` in order. The result value is the result value of the
-last expression. An empty `seq` evaluates to `none`.
+last expression. An empty `seq` evaluates to `null`.
 
 ```js
 > ["seq", ["report", "Hello World!"], 2, 3]
@@ -342,7 +342,7 @@ _classical if-elseif-else-statement_
 Takes pairs `[cond, body]` of conditions `cond` and expression `body` and
 evaluates the first `body` for which `cond` evaluates to a value that is
 considered true. It does not evaluate the other `cond`s. If no condition
-matches, it evaluates to `none`. To simulate an `else` statement, set the
+matches, it evaluates to `null`. To simulate an `else` statement, set the
 last condition to `true`.
 
 ```js
@@ -366,7 +366,7 @@ _not-so-classical switch-statement_
 
 First evaluates `proto`, then evaluates each `c` until `["eq?", val, c]` is
 considered true. Then the corresponding `body` is evaluated and its return
-value is returned. If no branch matches, `none` is returned. This is a C-like
+value is returned. If no branch matches, `null` is returned. This is a C-like
 `switch` statement except that its `case`-values are not treated as constants.
 
 ```js
@@ -388,7 +388,7 @@ value is returned. If no branch matches, `none` is returned. This is a C-like
 
 Behaves similar to `let` but expects a list as `value` for each variable.
 It then produces the cartesian product of all lists and evaluates its
-expression for each n-tuple. The return value is always `none`. The order
+expression for each n-tuple. The return value is always `null`. The order
 is guaranteed to be lexicographic order. If the list of variables is empty,
 the expressions are evaluated once. If one list is empty, nothing is evaluted.
 
@@ -656,7 +656,7 @@ all top level keys. `dict-directory` returns a list of all available paths in
 preorder, intended to be used with nested directories.
 
 `attrib-ref` returns the value of `key` in `dict`. If `key` is not present
-`none` is returned. `attrib-set` returns a copy of `dict` but with `key` set to
+`null` is returned. `attrib-set` returns a copy of `dict` but with `key` set to
 `value`. Both functions have a variant that accepts a path. A path is a list of
 strings. The function will recurse into the dict using that path. `attrib-set`
 returns the whole dict but with updated subdict.
@@ -1319,7 +1319,7 @@ Example:
 ```js
 {
   "reports": [{
-    "msg": "in phase `init` init-program failed: pregel program returned \"vote-halts\", expect one of `none`, `true`, `false`, `\"vote-halt\", or `\"vote-active\"`\n",
+    "msg": "in phase `init` init-program failed: pregel program returned \"vote-halts\", expecting one of `true`, `false`, `\"vote-halt\", or `\"vote-active\"`\n",
     "level": "error",
     "annotations": {
       "vertex": "LineGraph10_V/0:4020479",
