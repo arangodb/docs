@@ -1178,7 +1178,7 @@ Because the above list of accumulators feels limited and may not suite your case
 best you can create your own custom accumulator. You can define a custom
 accumulator in the `customAccumulators` field of the algorithm, which is an
 object, mapping the name of the custom accumulator to its definition.
-To use it, set the `accumulatorType` to `custom` and the `valueType` to `slice`.
+To use it, set the `accumulatorType` to `custom` and the `valueType` to `any`.
 In `customType` put the name of the custom accumulator.
 
 The definition of a custom vertex accumulator contains the following fields:
