@@ -33,10 +33,21 @@ must be numbers, which must not be negative. The maximum supported input number 
 **null** and produce a warning.
 Any null values in the input array are ignored.
 
+`BIT_AND(value1, value2) → result`
+
+If two numbers are passed as individual function parameters to *BIT_AND()*, it will return 
+the bitwise and value of its two operands. Only numbers in the range 0 to (2^32) - 1 are 
+allowed as input values.
+
+- **value1** (number): first operand
+- **value2** (number): second operand
+- returns **result** (number): and-combined result
+
 ```js
 BIT_AND([1, 4, 8, 16]) // 0
 BIT_AND([3, 7, 63]) // 3
 BIT_AND([255, 127 null, 63]) // 63
+BIT_AND(127, 255) // 127
 BIT_AND("foo") // null
 ```
 
@@ -142,10 +153,21 @@ must be numbers, which must not be negative. The maximum supported input number 
 **null** and produce a warning.
 Any null values in the input array are ignored.
 
+`BIT_OR(value1, value2) → result`
+
+If two numbers are passed as individual function parameters to *BIT_OR()*, it will return 
+the bitwise or value of its two operands. Only numbers in the range 0 to (2^32) - 1 are 
+allowed as input values.
+
+- **value1** (number): first operand
+- **value2** (number): second operand
+- returns **result** (number): or-combined result
+
 ```js
 BIT_OR([1, 4, 8, 16]) // 29
 BIT_OR([3, 7, 63]) // 63
 BIT_OR([255, 127 null, 63]) // 255
+BIT_OR(255, 127) // 255
 BIT_OR("foo") // null
 ```
 
@@ -264,7 +286,7 @@ BIT_XOR()
 Exclusive-or-combines the numeric values in *numbersArray* into a single numeric result value.
 
 - **numbersArray** (array): array with numeric input values
-- returns **result** (number): xor-combined result
+- returns **result** (number): exclusive xor-combined result
 
 The function expects an array with numeric values as its input. The values in the array 
 must be numbers, which must not be negative. The maximum supported input number value is 
@@ -272,9 +294,20 @@ must be numbers, which must not be negative. The maximum supported input number 
 **null** and produce a warning.
 Any null values in the input array are ignored.
 
+`BIT_XOR(value1, value2) → result`
+
+If two numbers are passed as individual function parameters to *BIT_OR()*, it will return 
+the bitwise exclusive or value of its two operands. Only numbers in the range 0 to (2^32) - 1 
+are allowed as input values.
+
+- **value1** (number): first operand
+- **value2** (number): second operand
+- returns **result** (number): or-combined result
+
 ```js
 BIT_XOR([1, 4, 8, 16]) // 29
 BIT_XOR([3, 7, 63]) // 59
 BIT_XOR([255, 127 null, 63]) // 191
+BIT_XOR(255, 257) // 510
 BIT_XOR("foo") // null
 ```
