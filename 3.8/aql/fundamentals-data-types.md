@@ -1,6 +1,6 @@
 ---
 layout: default
-description: AQL supports both primitive data types consisting of exactly one value andcompound data types comprised of multiple values
+description: AQL supports both primitive data types consisting of exactly one value and compound data types comprised of multiple values
 ---
 Data types
 ==========
@@ -68,19 +68,20 @@ The following notations are invalid and will throw a syntax error:
 00
 ```
 
-Since ArangoDB 3.8, numeric integer literals can also be expressed as binary (base 2) 
-or hexadecimal (base 16) number literals.
+Since ArangoDB 3.8, numeric integer literals can also be expressed as binary
+(base 2) or hexadecimal (base 16) number literals.
 
-The prefix for binary integer literals is `0b`, e.g. `0b10101110`.
-The prefix for hexadecimal integer literals i `0x`, e.g. `0xabcdef02`.
+- The prefix for binary integer literals is `0b`, e.g. `0b10101110`.
+- The prefix for hexadecimal integer literals i `0x`, e.g. `0xabcdef02`.
 
 Binary and hexadecimal integer literals can only be used for unsigned integers.
-The maximum supported value for binary and hexadecimal numeric literals is `(2 ^ 32) - 1`, 
-i.e. `0xffffffff` (hexadecimal) or `0b11111111111111111111111111111111` (binary).
+The maximum supported value for binary and hexadecimal numeric literals is
+2<sup>32</sup> - 1, i.e. `0b11111111111111111111111111111111` (binary) or
+`0xffffffff` (hexadecimal).
 
-
-All numeric values are treated as 64-bit signed integer or 64-bit double-precision 
-floating point values internally. The internal floating-point format used is IEEE 754.
+All numeric values are treated as 64-bit signed integer or 64-bit
+double-precision floating point values internally. The internal floating-point
+format used is IEEE 754.
 
 ### String literals
 

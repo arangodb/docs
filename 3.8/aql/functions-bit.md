@@ -1,43 +1,48 @@
 ---
 layout: default
 description: AQL offers some bit manipulation and interpretation functions for bitwise arithmetic
+title: AQL Bit Functions
 ---
 Bit functions
 =============
 
-AQL offers some bit manipulation and interpretation functions for bitwise arithmetic. 
-These functions can operate on numeric integer values in the range between 0 and 4294967295 
-`(2^32) - 1`, both included. 
-This allows treating numbers as bitsets of up to 32 members. 
-Using any of the bit functions on numbers outside the supported range will make the function
-return `null` and register a warning.
-The value range for the bit functions is conservatively small, so that no precision loss or
-rounding errors should occur when the input/output values of bit functions are passed around
-or sent over the wire to client applications with unknown precision number types.
+<small>Introduced in: v3.8.0</small>
 
-The following bit functions are supported:
+AQL offers some bit manipulation and interpretation functions for bitwise
+arithmetic.
+
+These functions can operate on numeric integer values in the range between 0
+and 4294967295 (2<sup>32</sup> - 1), both included. This allows treating numbers as
+bitsets of up to 32 members. Using any of the bit functions on numbers outside
+the supported range will make the function return `null` and register a warning.
+
+The value range for the bit functions is conservatively small, so that no
+precision loss or rounding errors should occur when the input/output values of
+bit functions are passed around or sent over the wire to client applications
+with unknown precision number types.
 
 BIT_AND()
 ---------
 
 `BIT_AND(numbersArray) → result`
 
-And-combines the numeric values in *numbersArray* into a single numeric result value.
+And-combines the numeric values in *numbersArray* into a single numeric result
+value.
 
 - **numbersArray** (array): array with numeric input values
 - returns **result** (number): and-combined result
 
-The function expects an array with numeric values as its input. The values in the array 
-must be numbers, which must not be negative. The maximum supported input number value is 
-(2^32) - 1. Input number values outside the allowed range will make the function return
-**null** and produce a warning.
-Any null values in the input array are ignored.
+The function expects an array with numeric values as its input. The values in
+the array must be numbers, which must not be negative. The maximum supported
+input number value is 2<sup>32</sup> - 1. Input number values outside the allowed
+range will make the function return `null` and produce a warning. Any `null`
+values in the input array are ignored.
 
 `BIT_AND(value1, value2) → result`
 
-If two numbers are passed as individual function parameters to *BIT_AND()*, it will return 
-the bitwise and value of its two operands. Only numbers in the range 0 to (2^32) - 1 are 
-allowed as input values.
+If two numbers are passed as individual function parameters to `BIT_AND()`, it
+will return the bitwise and value of its two operands. Only numbers in the
+range 0 to 2<sup>32</sup> - 1 are allowed as input values.
 
 - **value1** (number): first operand
 - **value2** (number): second operand
@@ -61,10 +66,10 @@ Construct a number value with its bits set at the positions given in the array.
 - **positionArray** (array): array with bit positions to set (zero-based)
 - returns **result** (number): the generated number
 
-The function expects an array with numeric values as its input. The values in the array 
-must be numbers, which must not be negative. The maximum supported input number value is 
-31. Input number values outside the allowed range will make the function return
-**null** and produce a warning.
+The function expects an array with numeric values as its input. The values in
+the array must be numbers, which must not be negative. The maximum supported
+input number value is 31. Input number values outside the allowed range will
+make the function return `null` and produce a warning.
 
 ```js
 BIT_CONSTRUCT([1, 2, 3]) // 14
@@ -84,8 +89,8 @@ Deconstruct a number value into an array with the positions of its set bits.
 
 The function turns a numeric value into an array with the positions of all its
 set bits. The positions in the output array are zero-based.
-The input value must be a number between 0 and (2^32) - 1 (including). The function will 
-return null for any other inputs and produce a warning.
+The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
+The function will return null for any other inputs and produce a warning.
 
 ```js
 BIT_DECONSTRUCT(14) // [1, 2, 3]
@@ -121,14 +126,17 @@ BIT_NEGATE()
 
 `BIT_NEGATE(number, bits) → result`
 
-Bitwise-negates the bits in **number**, and keeps up to **bits** bits in the result.
+Bitwise-negates the bits in **number**, and keeps up to **bits** bits in the
+result.
 
 - **number** (number): the number to negate
 - **bits** (number): number of bits to keep in the result (0 to 32)
-- returns **result** (number): the resulting number, with up to **bits** significant bits
+- returns **result** (number): the resulting number, with up to **bits**
+  significant bits
 
-The input value must be a number between 0 and (2^32) - 1 (including). The number of bits
-must be between 0 and 32. The function will return null for any other inputs and produce a warning.
+The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
+The number of bits must be between 0 and 32. The function will return null for
+any other inputs and produce a warning.
 
 ```js
 BIT_NEGATE(0, 8) // 255
@@ -142,22 +150,23 @@ BIT_OR()
 
 `BIT_OR(numbersArray) → result`
 
-Or-combines the numeric values in *numbersArray* into a single numeric result value.
+Or-combines the numeric values in *numbersArray* into a single numeric result
+value.
 
 - **numbersArray** (array): array with numeric input values
 - returns **result** (number): or-combined result
 
-The function expects an array with numeric values as its input. The values in the array 
-must be numbers, which must not be negative. The maximum supported input number value is 
-(2^32) - 1. Input number values outside the allowed range will make the function return
-**null** and produce a warning.
+The function expects an array with numeric values as its input. The values in
+the array must be numbers, which must not be negative. The maximum supported
+input number value is 2<sup>32</sup> - 1. Input number values outside the
+allowed range will make the function return `null` and produce a warning.
 Any null values in the input array are ignored.
 
 `BIT_OR(value1, value2) → result`
 
-If two numbers are passed as individual function parameters to *BIT_OR()*, it will return 
-the bitwise or value of its two operands. Only numbers in the range 0 to (2^32) - 1 are 
-allowed as input values.
+If two numbers are passed as individual function parameters to `BIT_OR()`, it
+will return the bitwise or value of its two operands. Only numbers in the range
+0 to 2<sup>32</sup> - 1 are allowed as input values.
 
 - **value1** (number): first operand
 - **value2** (number): second operand
@@ -176,13 +185,13 @@ BIT_POPCOUNT()
 
 `BIT_POPCOUNT(number) → result`
 
-Counts the number of bits set in the input value. 
+Counts the number of bits set in the input value.
 
 - **number** (number): array with numeric input values
 - returns **result** (number): number of bits set in the input value
 
-The input value must be a number between 0 and (2^32) - 1 (including). The function will 
-return null for any other inputs and produce a warning.
+The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
+The function will return null for any other inputs and produce a warning.
 
 ```js
 BIT_POPCOUNT(0) // 0
@@ -196,16 +205,18 @@ BIT_SHIFT_LEFT()
 
 `BIT_SHIFT_LEFT(number, shift, bits) → result`
 
-Bitwise-shifts the bits in **number** to the left, and keeps up to **bits** bits in the result.
-WHen bits overflow due to the shift, they are discarded.
+Bitwise-shifts the bits in **number** to the left, and keeps up to **bits**
+bits in the result. When bits overflow due to the shift, they are discarded.
 
 - **number** (number): the number to negate
 - **shift** (number): number of bits to shift (0 to 32)
 - **bits** (number): number of bits to keep in the result (0 to 32)
-- returns **result** (number): the resulting number, with up to **bits** significant bits
+- returns **result** (number): the resulting number, with up to **bits**
+  significant bits
 
-The input value must be a number between 0 and (2^32) - 1 (including). The number of bits
-must be between 0 and 32. The function will return null for any other inputs and produce a warning.
+The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
+The number of bits must be between 0 and 32. The function will return null for
+any other inputs and produce a warning.
 
 ```js
 BIT_SHIFT_LEFT(0, 1, 8) // 0
@@ -219,16 +230,18 @@ BIT_SHIFT_RIGHT()
 
 `BIT_SHIFT_RIGHT(number, shift, bits) → result`
 
-Bitwise-shifts the bits in **number** to the right, and keeps up to **bits** bits in the result.
-WHen bits overflow due to the shift, they are discarded.
+Bitwise-shifts the bits in **number** to the right, and keeps up to **bits**
+bits in the result. When bits overflow due to the shift, they are discarded.
 
 - **number** (number): the number to negate
 - **shift** (number): number of bits to shift (0 to 32)
 - **bits** (number): number of bits to keep in the result (0 to 32)
-- returns **result** (number): the resulting number, with up to **bits** significant bits
+- returns **result** (number): the resulting number, with up to **bits**
+  significant bits
 
-The input value must be a number between 0 and (2^32) - 1 (including). The number of bits
-must be between 0 and 32. The function will return null for any other inputs and produce a warning.
+The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
+The number of bits must be between 0 and 32. The function will return null for
+any other inputs and produce a warning.
 
 ```js
 BIT_SHIFT_RIGHT(0, 1, 8) // 0
@@ -248,8 +261,9 @@ Tests if the at position *index* is set in **number**.
 - **index** (number): index of the bit to test (0 to 31)
 - returns **result** (boolean): whether or not the bit was set
 
-The input value must be a number between 0 and (2^32) - 1 (including). The **index** must 
-be between 0 and 31. The function will return null for any other inputs and produce a warning.
+The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
+The **index** must be between 0 and 31. The function will return null for any
+other inputs and produce a warning.
 
 ```js
 BIT_TEST(0, 3) // false
@@ -268,8 +282,8 @@ Converts the numeric input value into a bitstring, consisting of `0` and `1`.
 - **number** (number): the number to stringify
 - returns **bitstring** (string): bitstring generated from the input value
 
-The input value must be a number between 0 and (2^32) - 1 (including). 
-0 and 32. The function will return null for any other inputs and produce a warning.
+The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
+The function will return null for any other inputs and produce a warning.
 
 ```js
 BIT_TO_STRING(7, 4) // "0111"
@@ -283,22 +297,23 @@ BIT_XOR()
 
 `BIT_XOR(numbersArray) → result`
 
-Exclusive-or-combines the numeric values in *numbersArray* into a single numeric result value.
+Exclusive-or-combines the numeric values in *numbersArray* into a single
+numeric result value.
 
 - **numbersArray** (array): array with numeric input values
 - returns **result** (number): exclusive xor-combined result
 
-The function expects an array with numeric values as its input. The values in the array 
-must be numbers, which must not be negative. The maximum supported input number value is 
-(2^32) - 1. Input number values outside the allowed range will make the function return
-**null** and produce a warning.
+The function expects an array with numeric values as its input. The values in
+the array must be numbers, which must not be negative. The maximum supported
+input number value is 2<sup>32</sup> - 1. Input number values outside the
+allowed range will make the function return `null` and produce a warning.
 Any null values in the input array are ignored.
 
 `BIT_XOR(value1, value2) → result`
 
-If two numbers are passed as individual function parameters to *BIT_OR()*, it will return 
-the bitwise exclusive or value of its two operands. Only numbers in the range 0 to (2^32) - 1 
-are allowed as input values.
+If two numbers are passed as individual function parameters to `BIT_OR()`, it
+will return the bitwise exclusive or value of its two operands. Only numbers in
+the range 0 to 2<sup>32</sup> - 1 are allowed as input values.
 
 - **value1** (number): first operand
 - **value2** (number): second operand
