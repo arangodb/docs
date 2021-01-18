@@ -109,8 +109,8 @@ Converts the bitstring (consisting of digits `0` and `1`) into a number.
 - returns **number** (number): the parsed number
 
 The input value must be a bitstring, consisting only of `0` and `1` characters.
-The bitstring can contain up to 32 significant bits, but any leading zeros are
-ignored. Note that the bitstring must not start with `0b`.
+The bitstring can contain up to 32 significant bits, including any leading zeros.
+Note that the bitstring must not start with `0b`.
 If the bitstring has an invalid format, this function returns null and produces
 a warning.
 
@@ -118,7 +118,7 @@ a warning.
 BIT_FROM_STRING("0111") // 7
 BIT_FROM_STRING("000000000000010") // 2
 BIT_FROM_STRING("11010111011101") // 13789
-BIT_FROM_STRING("00000000000100000000000000000000") // 1048756
+BIT_FROM_STRING("100000000000000000000") // 1048756
 ```
 
 BIT_NEGATE()
