@@ -7,16 +7,19 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Created
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">437</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"result"</span> : [ 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71824"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71824"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkV93RS---"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71816"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71816"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_btGzM12--A"</span>, 
       <span class="hljs-string">"a"</span> : { 
         <span class="hljs-string">"k"</span> : <span class="hljs-number">1</span>, 
         <span class="hljs-string">"j"</span> : <span class="hljs-number">1</span> 
@@ -24,9 +27,9 @@ x-content-type-options: nosniff
       <span class="hljs-string">"i"</span> : <span class="hljs-number">1</span> 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71826"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71826"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkV93RS--A"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71818"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71818"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_btGzM16---"</span>, 
       <span class="hljs-string">"a"</span> : { 
         <span class="hljs-string">"j"</span> : <span class="hljs-number">1</span> 
       }, 
@@ -44,8 +47,8 @@ x-content-type-options: nosniff
       <span class="hljs-string">"scannedIndex"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"filtered"</span> : <span class="hljs-number">2</span>, 
       <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00022664107382297516</span>, 
-      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">22469</span> 
+      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.0001589781604707241</span>, 
+      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">22981</span> 
     }, 
     <span class="hljs-string">"warnings"</span> : [ ] 
   }, 

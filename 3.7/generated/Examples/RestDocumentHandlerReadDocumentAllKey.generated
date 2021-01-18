@@ -5,15 +5,18 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Created
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">315</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"result"</span> : [ 
-    <span class="hljs-string">"products/71044"</span>, 
-    <span class="hljs-string">"products/71046"</span>, 
-    <span class="hljs-string">"products/71048"</span> 
+    <span class="hljs-string">"products/71036"</span>, 
+    <span class="hljs-string">"products/71038"</span>, 
+    <span class="hljs-string">"products/71040"</span> 
   ], 
   <span class="hljs-string">"hasMore"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"cached"</span> : <span class="hljs-literal">false</span>, 
@@ -25,8 +28,8 @@ x-content-type-options: nosniff
       <span class="hljs-string">"scannedIndex"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.0003678840585052967</span>, 
-      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">35521</span> 
+      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00030591292306780815</span>, 
+      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">38585</span> 
     }, 
     <span class="hljs-string">"warnings"</span> : [ ] 
   }, 
