@@ -33,8 +33,8 @@ Window frames are determined with respect to the current row:
 
 See [`WINDOW` operation](aql/operations-window.html).
 
-Weighted Graph Traversals
--------------------------
+Weighted Traversals
+-------------------
 
 The graph traversal option `bfs` is now deprecated and superseded by the new
 option `order`. It supports a new traversal type `"weighted"`, which enumerate
