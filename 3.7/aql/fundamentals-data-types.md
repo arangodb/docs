@@ -72,6 +72,12 @@ All numeric values are treated as 64-bit signed integer or 64-bit
 double-precision floating point values internally. The internal floating-point
 format used is IEEE 754.
 
+Please note that when exposing any numeric integer values to JavaScript via
+AQL user-defined functions, numbers that exceed 32 bit precision are converted
+to floating-point values, so large integers can lose some bits of precision.
+The same is true when converting AQL numeric results to JavaScript (e.g. returning
+them to Foxx).
+
 Since ArangoDB v3.7.7, numeric integer literals can also be expressed as binary
 (base 2) or hexadecimal (base 16) number literals.
 
@@ -82,7 +88,6 @@ Binary and hexadecimal integer literals can only be used for unsigned integers.
 The maximum supported value for binary and hexadecimal numeric literals is
 2<sup>32</sup> - 1, i.e. `0b11111111111111111111111111111111` (binary) or
 `0xffffffff` (hexadecimal).
-
 
 ### String literals
 
