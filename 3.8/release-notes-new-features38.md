@@ -278,6 +278,43 @@ versa:
   `DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")`
   → `"2020-10-15T01:00:00.999Z"`
 
+Client tools
+------------
+
+### Arangodump concurrency
+
+Since v3.4.0, _arangodump_ can use multiple threads for dumping database data in
+parallel. _arangodump_ versions prior to v3.8.0 distribute dump jobs for
+individual collections to concurrent worker threads, which is optimal for
+dumping many collections of approximately the same size, but does not help for
+dumping few large collections or few large collections with many shards.
+
+Starting with v3.8.0, _arangodump_ can also dispatch dump jobs for individual
+shards of each collection, allowing higher parallelism if there are many shards
+to dump but only few collections.
+
+Also see [_arangodump_ Threads](programs-arangodump-examples.html#threads).
+
+### Arangodump output format
+
+Since its inception, _arangodump_ wrapped each dumped document into an extra
+JSON envelope, such as follows:
+
+```json
+{"type":2300,"key":"test","data":{"_key":"test","_rev":..., ...}}
+```
+
+In case a dump taken with v3.8.0 or higher is known to never be used in older
+ArangoDB versions, the JSON envelopes can be turned off with the new startup
+option `--envelope false` to reduce the dump size and use a bit less memory
+and bandwidth:
+
+```json
+{"_key":"test","_rev":..., ...}
+```
+
+Also see [_arangodump_ Dump Output Format](programs-arangodump-examples.html#dump-output-format).
+
 Miscellaneous
 -------------
 
