@@ -6,7 +6,7 @@ title: AQL Bit Functions
 Bit functions
 =============
 
-<small>Introduced in: v3.8.0</small>
+<small>Introduced in: v3.7.7</small>
 
 AQL offers some bit manipulation and interpretation functions for bitwise
 arithmetic.
