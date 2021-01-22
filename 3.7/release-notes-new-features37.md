@@ -439,49 +439,6 @@ Improved the lazy evaluation capabilities of the [ternary operator](aql/operator
 If the second operand is left out, the expression of the condition is only
 evaluated once now, instead of once more for the true branch.
 
-### AQL bit functions
-
-The following bit handling functions have been added to AQL in v3.7.7:
-
-- BIT_AND(array): and-combined result
-- BIT_OR(array): or-combined result
-- BIT_XOR(array): xor-combined result
-- BIT_NEGATE(value, bits): bitwise negation of `value`, with a mask of
-  `bits` length
-- BIT_TEST(value, index): test if bit at position `index` is set in `value`
-  (indexes are 0-based)
-- BIT_POPCOUNT(value): return number of bits set in `value`
-- BIT_SHIFT_LEFT(value, shift, bits): bitwise shift-left of `value` by 
-  `shift` bits, with a mask of `bits` length
-- BIT_SHIFT_RIGHT(value, shift, bits): bitwise shift-right of `value` by 
-  `shift` bits, with a mask of `bits` length
-- BIT_CONSTRUCT(array): construct a number with bits set at the positions
-  given in the array
-- BIT_DECONSTRUCT(value): deconstruct a number into an array of its individual
-  set bits
-- BIT_TO_STRING(value): create a bitstring representation from numeric `value`
-- BIT_FROM_STRING(value): parse a bitstring representation into a number
-
-`BIT_AND`, `BIT_OR` and `BIT_XOR` are also available as aggregate functions
-for usage inside `COLLECT AGGREGATE`.
-
-All above bit operations support unsigned integer values with up to 32 bits. 
-Using values outside the supported range will make any of these bit functions
-return `null` and register a warning.
-
-### AQL binary and hexadecimal integer literals
-
-Since v3.7.7 using binary (base 2) and hexadecimal (base 16) integer literals 
-is supported in AQL.
-```
-These literals can be used where regular (base 10) integer literal can used. 
-The prefix for binary integer literals is `0b`, e.g. `0b10101110`.
-The prefix for hexadecimal integer literals i `0x`, e.g. `0xabcdef02`.
-
-Binary and hexadecimal integer literals can only be used for unsigned integers.
-The maximum supported value is `(2 ^ 32) - 1`, i.e. `0xffffffff` (hexadecimal)
-or `0b11111111111111111111111111111111` (binary).
-
 ### Other AQL improvements
 
 #### "remove-unnecessary-calculations" optimizer rule
