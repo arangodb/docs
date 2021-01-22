@@ -30,7 +30,7 @@ And-combines the numeric values in *numbersArray* into a single numeric result
 value.
 
 - **numbersArray** (array): array with numeric input values
-- returns **result** (number): and-combined result
+- returns **result** (number\|null): and-combined result
 
 The function expects an array with numeric values as its input. The values in
 the array must be numbers, which must not be negative. The maximum supported
@@ -46,12 +46,12 @@ range 0 to 2<sup>32</sup> - 1 are allowed as input values.
 
 - **value1** (number): first operand
 - **value2** (number): second operand
-- returns **result** (number): and-combined result
+- returns **result** (number\|null): and-combined result
 
 ```js
 BIT_AND([1, 4, 8, 16]) // 0
 BIT_AND([3, 7, 63]) // 3
-BIT_AND([255, 127 null, 63]) // 63
+BIT_AND([255, 127, null, 63]) // 63
 BIT_AND(127, 255) // 127
 BIT_AND("foo") // null
 ```
@@ -64,7 +64,7 @@ BIT_CONSTRUCT()
 Construct a number value with its bits set at the positions given in the array.
 
 - **positionArray** (array): array with bit positions to set (zero-based)
-- returns **result** (number): the generated number
+- returns **result** (number\|null): the generated number
 
 The function expects an array with numeric values as its input. The values in
 the array must be numbers, which must not be negative. The maximum supported
@@ -74,7 +74,7 @@ make the function return `null` and produce a warning.
 ```js
 BIT_CONSTRUCT([1, 2, 3]) // 14
 BIT_CONSTRUCT([0, 4, 8]) // 273
-BIT_CONSTRUCT(([0, 1, 10, 31]) // 2147484675
+BIT_CONSTRUCT([0, 1, 10, 31]) // 2147484675
 ```
 
 BIT_DECONSTRUCT()
@@ -85,12 +85,12 @@ BIT_DECONSTRUCT()
 Deconstruct a number value into an array with the positions of its set bits.
 
 - **number** (number): the input value to deconstruct
-- returns **positionArray** (array): array with bit positions set (zero-based)
+- returns **positionArray** (array\|null): array with bit positions set (zero-based)
 
 The function turns a numeric value into an array with the positions of all its
 set bits. The positions in the output array are zero-based.
 The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
-The function will return null for any other inputs and produce a warning.
+The function will return `null` for any other inputs and produce a warning.
 
 ```js
 BIT_DECONSTRUCT(14) // [1, 2, 3]
@@ -103,15 +103,17 @@ BIT_FROM_STRING()
 
 `BIT_FROM_STRING(bitstring) → number`
 
-Converts the bitstring (consisting of digits `0` and `1`) into a number.
+Converts a bitstring (consisting of digits `0` and `1`) into a number.
+
+To convert a number into a bitstring, see [BIT_TO_STRING()](#bit_to_string).
 
 - **bitstring** (string): string sequence consisting of `0` and `1` characters
-- returns **number** (number): the parsed number
+- returns **number** (number\|null): the parsed number
 
 The input value must be a bitstring, consisting only of `0` and `1` characters.
 The bitstring can contain up to 32 significant bits, including any leading zeros.
 Note that the bitstring must not start with `0b`.
-If the bitstring has an invalid format, this function returns null and produces
+If the bitstring has an invalid format, this function returns `null` and produces
 a warning.
 
 ```js
@@ -131,11 +133,11 @@ result.
 
 - **number** (number): the number to negate
 - **bits** (number): number of bits to keep in the result (0 to 32)
-- returns **result** (number): the resulting number, with up to **bits**
+- returns **result** (number\|null): the resulting number, with up to **bits**
   significant bits
 
 The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
-The number of bits must be between 0 and 32. The function will return null for
+The number of bits must be between 0 and 32. The function will return `null` for
 any other inputs and produce a warning.
 
 ```js
@@ -154,13 +156,13 @@ Or-combines the numeric values in *numbersArray* into a single numeric result
 value.
 
 - **numbersArray** (array): array with numeric input values
-- returns **result** (number): or-combined result
+- returns **result** (number\|null): or-combined result
 
 The function expects an array with numeric values as its input. The values in
 the array must be numbers, which must not be negative. The maximum supported
 input number value is 2<sup>32</sup> - 1. Input number values outside the
 allowed range will make the function return `null` and produce a warning.
-Any null values in the input array are ignored.
+Any `null` values in the input array are ignored.
 
 `BIT_OR(value1, value2) → result`
 
@@ -170,12 +172,12 @@ will return the bitwise or value of its two operands. Only numbers in the range
 
 - **value1** (number): first operand
 - **value2** (number): second operand
-- returns **result** (number): or-combined result
+- returns **result** (number\|null): or-combined result
 
 ```js
 BIT_OR([1, 4, 8, 16]) // 29
 BIT_OR([3, 7, 63]) // 63
-BIT_OR([255, 127 null, 63]) // 255
+BIT_OR([255, 127, null, 63]) // 255
 BIT_OR(255, 127) // 255
 BIT_OR("foo") // null
 ```
@@ -188,10 +190,10 @@ BIT_POPCOUNT()
 Counts the number of bits set in the input value.
 
 - **number** (number): array with numeric input values
-- returns **result** (number): number of bits set in the input value
+- returns **result** (number\|null): number of bits set in the input value
 
 The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
-The function will return null for any other inputs and produce a warning.
+The function will return `null` for any other inputs and produce a warning.
 
 ```js
 BIT_POPCOUNT(0) // 0
@@ -208,14 +210,14 @@ BIT_SHIFT_LEFT()
 Bitwise-shifts the bits in **number** to the left, and keeps up to **bits**
 bits in the result. When bits overflow due to the shift, they are discarded.
 
-- **number** (number): the number to negate
+- **number** (number): the number to shift
 - **shift** (number): number of bits to shift (0 to 32)
 - **bits** (number): number of bits to keep in the result (0 to 32)
-- returns **result** (number): the resulting number, with up to **bits**
+- returns **result** (number\|null): the resulting number, with up to **bits**
   significant bits
 
 The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
-The number of bits must be between 0 and 32. The function will return null for
+The number of bits must be between 0 and 32. The function will return `null` for
 any other inputs and produce a warning.
 
 ```js
@@ -233,14 +235,14 @@ BIT_SHIFT_RIGHT()
 Bitwise-shifts the bits in **number** to the right, and keeps up to **bits**
 bits in the result. When bits overflow due to the shift, they are discarded.
 
-- **number** (number): the number to negate
+- **number** (number): the number to shift
 - **shift** (number): number of bits to shift (0 to 32)
 - **bits** (number): number of bits to keep in the result (0 to 32)
-- returns **result** (number): the resulting number, with up to **bits**
+- returns **result** (number\|null): the resulting number, with up to **bits**
   significant bits
 
 The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
-The number of bits must be between 0 and 32. The function will return null for
+The number of bits must be between 0 and 32. The function will return `null` for
 any other inputs and produce a warning.
 
 ```js
@@ -259,10 +261,10 @@ Tests if the at position *index* is set in **number**.
 
 - **number** (number): the number to test
 - **index** (number): index of the bit to test (0 to 31)
-- returns **result** (boolean): whether or not the bit was set
+- returns **result** (boolean\|null): whether or not the bit was set
 
 The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
-The **index** must be between 0 and 31. The function will return null for any
+The **index** must be between 0 and 31. The function will return `null` for any
 other inputs and produce a warning.
 
 ```js
@@ -277,13 +279,15 @@ BIT_TO_STRING()
 
 `BIT_TO_STRING(number) → bitstring`
 
-Converts the numeric input value into a bitstring, consisting of `0` and `1`.
+Converts a numeric input value into a bitstring, consisting of `0` and `1`.
+
+To convert a bitstring into a number, see [BIT_FROM_STRING()](#bit_from_string).
 
 - **number** (number): the number to stringify
-- returns **bitstring** (string): bitstring generated from the input value
+- returns **bitstring** (string\|null): bitstring generated from the input value
 
 The input value must be a number between 0 and 2<sup>32</sup> - 1 (including).
-The function will return null for any other inputs and produce a warning.
+The function will return `null` for any other inputs and produce a warning.
 
 ```js
 BIT_TO_STRING(7, 4) // "0111"
@@ -301,28 +305,28 @@ Exclusive-or-combines the numeric values in *numbersArray* into a single
 numeric result value.
 
 - **numbersArray** (array): array with numeric input values
-- returns **result** (number): exclusive xor-combined result
+- returns **result** (number\|null): xor-combined result
 
 The function expects an array with numeric values as its input. The values in
 the array must be numbers, which must not be negative. The maximum supported
 input number value is 2<sup>32</sup> - 1. Input number values outside the
 allowed range will make the function return `null` and produce a warning.
-Any null values in the input array are ignored.
+Any `null` values in the input array are ignored.
 
 `BIT_XOR(value1, value2) → result`
 
-If two numbers are passed as individual function parameters to `BIT_OR()`, it
+If two numbers are passed as individual function parameters to `BIT_XOR()`, it
 will return the bitwise exclusive or value of its two operands. Only numbers in
 the range 0 to 2<sup>32</sup> - 1 are allowed as input values.
 
 - **value1** (number): first operand
 - **value2** (number): second operand
-- returns **result** (number): or-combined result
+- returns **result** (number\|null): xor-combined result
 
 ```js
 BIT_XOR([1, 4, 8, 16]) // 29
 BIT_XOR([3, 7, 63]) // 59
-BIT_XOR([255, 127 null, 63]) // 191
+BIT_XOR([255, 127, null, 63]) // 191
 BIT_XOR(255, 257) // 510
 BIT_XOR("foo") // null
 ```
