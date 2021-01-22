@@ -226,58 +226,65 @@ Dump output format
 
 Since its inception, _arangodump_ wrapped each dumped document into an extra
 JSON envelope, such as follows:
-```
+
+```json
 {"type":2300,"key":"test","data":{"_key":"test","_rev":..., ...}}
 ```
+
 This original dump format was useful when there was the MMFiles storage engine,
-which could use different *type* values in its datafiles.
-However, the RocksDB storage engine only uses *type* 2300 (document) when
-dumping data, so the JSON wrapper provides no further benefit except compatibility
-with older versions of ArangoDB.
+which could use different `type` values in its datafiles.
+However, the RocksDB storage engine only uses `"type":2300` (document) when
+dumping data, so the JSON wrapper provides no further benefit except
+compatibility with older versions of ArangoDB.
 
-In case a dump taken with v3.8 or higher is known to never be used in older
-ArangoDB versions, the JSON envelopes can be turned off.
-since v3.8.0 there is the **--envelope** option to control this. The option 
-defaults to *true*, meaning dumped documents will be wrapped in envelopes, which
-makes v3.8 dumps compatible with older versions of ArangoDB.
+In case a dump taken with v3.8.0 or higher is known to never be used in older
+ArangoDB versions, the JSON envelopes can be turned off. The startup option
+`--envelope` controls this. The option defaults to `true`, meaning dumped
+documents will be wrapped in envelopes, which makes new dumps compatible with
+older versions of ArangoDB.
 
-If that is not needed, the **-envelope** option can be set to *false*.
+If that is not needed, the `--envelope` option can be set to `false`.
 In this case, the dump files will only contain the raw documents, without any
-envelopes around:
-```
+envelopes around them:
+
+```json
 {"_key":"test","_rev":..., ...}
 ```
-Disabling the envelopes can reduce dump sizes a lot, especially if documents are
-small on average and the relative cost of the envelopes is high.
-Omitting the envelopes can also help to save a bit on memory usage and bandwidth
-for building up the dump results and sending them over the wire.
+
+Disabling the envelopes can **reduce dump sizes** a lot, especially if documents
+are small on average and the relative cost of the envelopes is high. Omitting
+the envelopes can also help to **save a bit on memory usage and bandwidth** for
+building up the dump results and sending them over the wire.
 
 As a bonus, turning off the envelopes turns _arangodump_ into a fast, concurrent
 JSONL exporter for one or multiple collections:
+
 ```
 arangodump --collection "collection" --threads 8 --envelope false --compress-output false dump
 ```
+
 The JSONL format is also supported by _arangoimport_ natively.
 
-Please note that when setting the **--envelope** option to *false**, the resulting
-dump cannot be restored into any ArangoDB versions older than v3.8.0.
-
+{% hint 'warning' %}
+Dumps created with the `--envelope false` setting cannot be restored into any
+ArangoDB versions older than v3.8.0!
+{% endhint %}
 
 Threads
---------
+-------
 
-Since v3.4, _arangodump_ can use multiple threads for dumping database data in 
-parallel. To speed up the dump of a database will multiple collections, it is
+Since v3.4.0, _arangodump_ can use multiple threads for dumping database data in 
+parallel. To speed up the dump of a database with multiple collections, it is
 often beneficial to increase the number of _arangodump_ threads.
-The number of threads can be controlled via the **--threads** option, which 
-defaults to *2*.
+The number of threads can be controlled via the `--threads` option, which 
+defaults to `2`.
 
-_arangodump_ versions prior to v3.8 will distribute dump jobs for individual
+_arangodump_ versions prior to v3.8.0 distribute dump jobs for individual
 collections to concurrent worker threads, which is optimal for dumping many
 collections of approximately the same size, but does not help for dumping few
 large collections or few large collections with many shards.
 
-Since v3.8, _arangodump_ can also dispatch dump jobs for individual shards of
+Since v3.8.0, _arangodump_ can also dispatch dump jobs for individual shards of
 each collection, allowing higher parallelism if there are many shards to dump
 but only few collections. Keep in mind that even when concurrently dumping the
 data from multiple shards of the same collection in parallel, the individual
