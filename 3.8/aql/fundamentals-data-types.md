@@ -70,13 +70,15 @@ The following notations are invalid and will throw a syntax error:
 
 All numeric values are treated as 64-bit signed integer or 64-bit
 double-precision floating point values internally. The internal floating-point
-format used is IEEE 754. 
+format used is IEEE 754.
 
-Please note that when exposing any numeric integer values to JavaScript via
-AQL user-defined functions, numbers that exceed 32 bit precision are converted
-to floating-point values, so large integers can lose some bits of precision.
-The same is true when converting AQL numeric results to JavaScript (e.g. returning
-them to Foxx).
+{% hint 'warning' %}
+When exposing any numeric integer values to JavaScript via
+[user-defined AQL functions](extending.html), numbers that exceed 32 bit
+precision are converted to floating-point values, so large integers can lose
+some bits of precision. The same is true when converting AQL numeric results to
+JavaScript (e.g. returning them to Foxx).
+{% endhint %}
 
 Since ArangoDB v3.7.7, numeric integer literals can also be expressed as binary
 (base 2) or hexadecimal (base 16) number literals.
