@@ -105,6 +105,22 @@ which enable geo-spatial queries backed by View indexes:
 - `GEO_IN_RANGE()`
 - `GEO_INTERSECTS()`
 
+### Approximate count
+
+Added a new option `countApproximate` for `SEARCH` queries to control how the
+total count of rows is calculated if the `fullCount` option is enabled for a
+query or when a `COLLECT WITH COUNT` clause is executed:
+
+- `"exact"` (default): rows are actually enumerated for a precise count.
+- `"cost"`: a cost based approximation is used. Does not enumerate rows and
+  returns an approximate result with O(1) complexity. Gives a precise result
+  if the `SEARCH` condition is empty or if it contains a single term query
+  only (e.g. `SEARCH doc.field == "value"`).
+
+Also see: [AQL `SEARCH` Operation](aql/operations-search.md#search-options)
+
+This feature was also backported to v3.7.6.
+
 ### ArangoSearch thread control
 
 Added new command line options for fine-grained control over ArangoSearch's
