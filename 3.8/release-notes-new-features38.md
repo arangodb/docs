@@ -117,7 +117,7 @@ query or when a `COLLECT WITH COUNT` clause is executed:
   if the `SEARCH` condition is empty or if it contains a single term query
   only (e.g. `SEARCH doc.field == "value"`).
 
-Also see: [AQL `SEARCH` Operation](aql/operations-search.md#search-options)
+Also see: [AQL `SEARCH` Operation](aql/operations-search.html#search-options)
 
 This feature was also backported to v3.7.6.
 
