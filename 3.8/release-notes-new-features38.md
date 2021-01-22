@@ -75,55 +75,6 @@ specified, but can also be explicitly requested with `order: "dfs"`.
 
 Also see [AQL graph traversals](aql/graphs-traversals.html)
 
-AQL bit functions
------------------
-
-ArangoDB 3.8 adds the following bit handling functions to AQL:
-
-- BIT_AND(array): and-combined result
-- BIT_OR(array): or-combined result
-- BIT_XOR(array): xor-combined result
-- BIT_NEGATE(value, bits): bitwise negation of `value`, with a mask of
-  `bits` length
-- BIT_TEST(value, index): test if bit at position `index` is set in `value`
-  (indexes are 0-based)
-- BIT_POPCOUNT(value): return number of bits set in `value`
-- BIT_SHIFT_LEFT(value, shift, bits): bitwise shift-left of `value` by 
-  `shift` bits, with a mask of `bits` length
-- BIT_SHIFT_RIGHT(value, shift, bits): bitwise shift-right of `value` by 
-  `shift` bits, with a mask of `bits` length
-- BIT_CONSTRUCT(array): construct a number with bits set at the positions
-  given in the array
-- BIT_DECONSTRUCT(value): deconstruct a number into an array of its individual
-  set bits
-- BIT_TO_STRING(value): create a bitstring representation from numeric `value`
-- BIT_FROM_STRING(value): parse a bitstring representation into a number
-
-`BIT_AND`, `BIT_OR` and `BIT_XOR` are also available as aggregate functions
-for usage inside `COLLECT AGGREGATE`.
-
-All above bit operations support unsigned integer values with up to 32 bits. 
-Using values outside the supported range will make any of these bit functions
-return `null` and register a warning.
-
-Note: this functionality has been backported to v3.7.7 as well.
-
-AQL binary and hexadecimal integer literals
--------------------------------------------
-
-ArangoDB 3.8 allows using binary (base 2) and hexadecimal (base 16) integer 
-literals in AQL.
-```
-These literals can be used where regular (base 10) integer literal can used. 
-The prefix for binary integer literals is `0b`, e.g. `0b10101110`.
-The prefix for hexadecimal integer literals i `0x`, e.g. `0xabcdef02`.
-
-Binary and hexadecimal integer literals can only be used for unsigned integers.
-The maximum supported value is `(2 ^ 32) - 1`, i.e. `0xffffffff` (hexadecimal)
-or `0b11111111111111111111111111111111` (binary).
-
-Note: this functionality has been backported to v3.7.7 as well.
-
 ArangoSearch
 ------------
 
@@ -168,6 +119,51 @@ threads for committing and consolidation separately:
 They supersede the options `--arangosearch.threads` and
 `--arangosearch.threads-limit`. See
 [ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
+
+AQL bit functions
+-----------------
+
+ArangoDB 3.8 adds the following bit handling functions to AQL:
+
+- `BIT_AND()`: and-combine two or more numbers
+- `BIT_OR()`: or-combine two or more numbers
+- `BIT_XOR()`: xor-combine two or more numbers
+- `BIT_NEGATE()`: bitwise negation
+- `BIT_TEST()`: test if bit is set at position
+- `BIT_POPCOUNT()`: number of bits set
+- `BIT_SHIFT_LEFT()`: bitwise shift-left
+- `BIT_SHIFT_RIGHT()`: bitwise shift-right
+- `BIT_CONSTRUCT()`: construct a number with bits set at given positions
+- `BIT_DECONSTRUCT()`: deconstruct a number into an array with the positions of its set bits
+- `BIT_TO_STRING()`: create a bitstring representation from a numeric value
+- `BIT_FROM_STRING()`: parse a bitstring representation into a number
+
+Also see [Bit functions](aql/functions-bit.html).
+
+`BIT_AND()`, `BIT_OR()` and `BIT_XOR()` are also available as aggregate
+functions for usage inside [`COLLECT AGGREGATE`](aql/operations-collect.html#aggregation).
+
+All above bit operations support unsigned integer values with up to 32 bits.
+Using values outside the supported range will make any of these bit functions
+return `null` and register a warning.
+
+This functionality has been backported to v3.7.7 as well.
+
+AQL binary and hexadecimal integer literals
+-------------------------------------------
+
+ArangoDB 3.8 allows using binary (base 2) and hexadecimal (base 16) integer
+literals in AQL. These literals can be used where regular (base 10) integer
+literals can be used.
+
+- The prefix for binary integer literals is `0b`, e.g. `0b10101110`.
+- The prefix for hexadecimal integer literals is `0x`, e.g. `0xabcdef02`.
+
+Binary and hexadecimal integer literals can only be used for unsigned integers.
+The maximum supported value is 2<sup>32</sup> - 1, i.e.
+`0b11111111111111111111111111111111` (binary) or `0xffffffff` (hexadecimal).
+
+This functionality has been backported to v3.7.7 as well.
 
 Metrics
 -------
