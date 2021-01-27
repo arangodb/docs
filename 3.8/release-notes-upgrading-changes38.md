@@ -99,11 +99,31 @@ the thread count. See
 
 ### Changed default values
 
-The default value for `--foxx.force-update-on-startup` changed from `true` to
-`false`, also see [Foxx](#foxx) above.
+The default value for `--foxx.force-update-on-startup` changed from `true` in
+previous version to`false` in ArangoDB 3.8, also see [Foxx](#foxx) above.
 
 The default value for the number of network I/O threads `--network.io-threads`
 was changed to `2` in ArangoDB 3.8, up from a value of `1` in previous version.
+
+The default value for `--server.descriptors-minimum` changed from `0` in previous
+versions to `8192` in ArangoDB 3.8.
+This change means that on Linux and MacOS, the system limits need to allow the
+arangod process to use at least 8192 file descriptors. 
+If less file descriptors are available to the arangod process, then the startup 
+process of the arangod server is automatically aborted.
+
+Even the chosen minimum value of 8192 will often not be high enough to store 
+considerable amounts of data. However, no higher value was chosen in order to not 
+make too many existing installations fail after upgrading.
+
+The required number of file descriptors can be configured using the startup option 
+`--server.descriptors-minimum`. It now defaults to 8192, but it can be increased 
+to ensure that arangod can make use of a sufficiently high number of files.
+
+Setting `--server.descriptors-minimum` to a value of `0` will make the startup 
+require only an absolute minimum limit of 1024 file descriptors, effectively 
+disabling the change. Such low values should only be used to bypass the file 
+descriptors check in case of an emergency, but this is not recommended for production.
 
 The default value of the startup option `--server.unavailability-queue-fill-grade`
 has been changed from value `1` in previous versions to a value of `0.75` in ArangoDB
