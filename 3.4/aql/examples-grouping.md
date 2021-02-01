@@ -258,7 +258,7 @@ FOR u IN users
 ]
 ```
 
-This is in constrast to the previous query that used an `AGGREGATE` clause to perform
+This is in contrast to the previous query that used an `AGGREGATE` clause to perform
 the aggregation during the collect operation, at the earliest possible stage.
 
 

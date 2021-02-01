@@ -8,6 +8,9 @@ redirect_from:
 # ArangoSearch
 
 <!-- TODO: Separate ArangoSearch (Views) and Analyzers -->
+You can index nested fields from multiple collections, use full-text processing
+and rank query results with ArangoDB's built-in ArangoSearch feature
+{:class="lead"}
 
 ArangoSearch provides information retrieval features, natively integrated
 into ArangoDB's query language and with support for all data models. It is

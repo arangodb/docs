@@ -637,7 +637,7 @@ existing insert-replace functionality. A new `overwriteMode` flag has been
 introduced to control the type of the overwrite operation in case of colliding
 primary keys during the insert.
 
-The query options are available in [AQL](aql/operations-insert.html#setting-query-options),
+The query options are available in [AQL](aql/operations-insert.html#query-options),
 the [JS API](data-modeling-documents-document-methods.html#insert--save) and
 [HTTP API](http/document-working-with-documents.html#create-document).
 
@@ -857,7 +857,7 @@ The following metrics have been added in ArangoDB 3.7:
 | `arangodb_http_request_statistics_http_get_requests` | Number of HTTP GET requests |
 | `arangodb_http_request_statistics_http_head_requests` | Number of HTTP HEAD requests |
 | `arangodb_http_request_statistics_http_options_requests` | Number of HTTP OPTIONS requests |
-| `arangodb_http_request_statistics_http_patch_requests` | Number of HTTP PATH requests |
+| `arangodb_http_request_statistics_http_patch_requests` | Number of HTTP PATCH requests |
 | `arangodb_http_request_statistics_http_post_requests` | Number of HTTP POST requests |
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |

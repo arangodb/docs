@@ -4,9 +4,12 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Accepted
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
-etag: _al3gsHW--_
+connection: Keep-Alive
+content-length: <span class="hljs-number">118</span>
+etag: _bkbetOy--B
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
@@ -15,7 +18,7 @@ x-content-type-options: nosniff
   <span class="hljs-string">"vertex"</span> : { 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"female/alice"</span>, 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
-    <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_al3gsHK---"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3gsHW--_"</span> 
+    <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_bkbetOm---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbetOy--B"</span> 
   } 
 }

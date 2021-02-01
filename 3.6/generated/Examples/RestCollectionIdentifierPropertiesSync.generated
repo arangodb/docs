@@ -4,9 +4,12 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">306</span>
 location: <span class="hljs-regexp">/_api/</span>collection/products/properties
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
@@ -14,8 +17,8 @@ x-content-type-options: nosniff
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h28748334924B/69392"</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69392"</span>, 
+  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hD8E5203F43C6/69793"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"69793"</span>, 
   <span class="hljs-string">"cacheEnabled"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"keyOptions"</span> : { 
@@ -23,7 +26,7 @@ x-content-type-options: nosniff
     <span class="hljs-string">"type"</span> : <span class="hljs-string">"traditional"</span>, 
     <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">0</span> 
   }, 
-  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69391"</span>, 
+  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"69792"</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"products"</span>, 
   <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
   <span class="hljs-string">"statusString"</span> : <span class="hljs-string">"loaded"</span>, 

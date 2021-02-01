@@ -8,11 +8,17 @@ LET
 The `LET` statement can be used to assign an arbitrary value to a variable.
 The variable is then introduced in the scope the `LET` statement is placed in.
 
-The general syntax is:
+Syntax
+------
 
-```
-LET variableName = expression
-```
+<pre><code>LET <em>variableName</em> = <em>expression</em></code></pre>
+
+*expression* can be a simple expression or a subquery.
+
+For allowed variable names [AQL Syntax](fundamentals-syntax.html#names).
+
+Usage
+-----
 
 Variables are immutable in AQL, which means they can not be re-assigned:
 
@@ -27,14 +33,14 @@ LET b = PUSH(a, 4) // allowed, result: [1, 2, 3, 4]
 `LET` statements are mostly used to declare complex computations and to avoid
 repeated computations of the same value at multiple parts of a query.
 
-```
+```js
 FOR u IN users
   LET numRecommendations = LENGTH(u.recommendations)
-  RETURN { 
-    "user" : u, 
-    "numRecommendations" : numRecommendations, 
-    "isPowerUser" : numRecommendations >= 10 
-  } 
+  RETURN {
+    "user" : u,
+    "numRecommendations" : numRecommendations,
+    "isPowerUser" : numRecommendations >= 10
+  }
 ```
 
 In the above example, the computation of the number of recommendations is
@@ -44,7 +50,7 @@ the `RETURN` statement.
 Another use case for `LET` is to declare a complex computation in a subquery,
 making the whole query more readable.
 
-```
+```js
 FOR u IN users
   LET friends = (
   FOR f IN friends 

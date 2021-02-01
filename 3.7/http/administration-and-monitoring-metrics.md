@@ -272,6 +272,10 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_client_connection_statistics_total_time_bucket` | Total time needed to answer a request (ms) |
 | `arangodb_client_connection_statistics_total_time_count` | Total time needed to answer a request (ms) |
 | `arangodb_client_connection_statistics_total_time_sum` | Total time needed to answer a request (ms) |
+| `arangodb_collection_lock_acquisition_micros` | Total amount of collection lock acquisition time (μs) |
+| `arangodb_collection_lock_acquisitiontime` | Collection lock acquisition time histogram (s) |
+| `arangodb_collection_lock_timeouts_exclusive` | Number of timeouts when trying to acquire collection exclusive locks |
+| `arangodb_collection_lock_timeouts_write` | Number of timeouts when trying to acquire collection write locks |
 | `arangodb_dropped_followers_count` | Number of drop-follower events |
 | `arangodb_heartbeat_failures` | Counting failed heartbeat transmissions |
 | `arangodb_heartbeat_send_time_msec` | Time required to send heartbeat (ms) |
@@ -280,11 +284,13 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_http_request_statistics_http_get_requests` | Number of HTTP GET requests |
 | `arangodb_http_request_statistics_http_head_requests` | Number of HTTP HEAD requests |
 | `arangodb_http_request_statistics_http_options_requests` | Number of HTTP OPTIONS requests |
-| `arangodb_http_request_statistics_http_patch_requests` | Number of HTTP PATH requests |
+| `arangodb_http_request_statistics_http_patch_requests` | Number of HTTP PATCH requests |
 | `arangodb_http_request_statistics_http_post_requests` | Number of HTTP POST requests |
 | `arangodb_http_request_statistics_http_put_requests` | Number of HTTP PUT requests |
 | `arangodb_http_request_statistics_other_http_requests` | Number of other HTTP requests |
+| `arangodb_http_request_statistics_superuser_requests` | Total number of HTTP requests executed by superuser/JWT |
 | `arangodb_http_request_statistics_total_requests` | Total number of HTTP requests |
+| `arangodb_http_request_statistics_user_requests` | Total number of HTTP requests executed by clients |
 | `arangodb_intermediate_commits` | Intermediate commits |
 | `arangodb_load_current_accum_runtime_msec` | Accumulated Current loading time (ms) |
 | `arangodb_load_current_runtime` | Current loading runtimes (ms) |
@@ -310,18 +316,22 @@ resilience is affected. Please consider contacting our support.
 | `arangodb_process_statistics_resident_set_size_percent` | The relative size of the number of pages the process has in real memory compared to system memory. This is just the pages which count toward text, data, or stack space. This does not include pages which have not been demand-loaded in, or which are swapped out. The value is a ratio between 0.00 and 1.00 |
 | `arangodb_process_statistics_resident_set_size` | The total size of the number of pages the process has in real memory. This is just the pages which count toward text, data, or stack space. This does not include pages which have not been demand-loaded in, or which are swapped out. The resident set size is reported in bytes |
 | `arangodb_process_statistics_system_time` | Amount of time that this process has been scheduled in kernel mode, measured in seconds |
-| `arangodb_process_statistics_user_time` | On Windows, this figure contains the total amount of memory that the memory manager has committed for the arangod process. On other systems, this figure contains The size of the virtual memory the process is using |
+| `arangodb_process_statistics_user_time` | Amount of time that this process has been scheduled in user mode, measured in seconds |
 | `arangodb_process_statistics_virtual_memory_size` | On Windows, this figure contains the total amount of memory that the memory manager has committed for the arangod process. On other systems, this figure contains The size of the virtual memory the process is using |
+| `arangodb_refused_followers_count` | Number of refusal answers from a follower during synchronous replication |
 | `arangodb_scheduler_awake_threads` | Number of awake worker threads |
 | `arangodb_scheduler_num_worker_threads` | Number of worker threads |
 | `arangodb_scheduler_queue_full_failures` | Number of times the scheduler queue was full and a task/request was rejected |
 | `arangodb_scheduler_queue_length` | Server's internal queue length |
+| `arangodb_scheduler_threads_started` | Number of scheduler threads started |
+| `arangodb_scheduler_threads_stopped` | Number of scheduler threads stopped |
 | `arangodb_server_statistics_physical_memory` | Physical memory in bytes |
 | `arangodb_server_statistics_server_uptime` | Number of seconds elapsed since server start |
 | `arangodb_shards_leader_count` | Number of leader shards on this machine |
 | `arangodb_shards_not_replicated` | Number of shards not replicated at all |
 | `arangodb_shards_out_of_sync` | Number of leader shards not fully replicated |
 | `arangodb_shards_total_count` | Number of shards on this machine |
+| `arangodb_sync_wrong_checksum` | Number of times a mismatching shard checksum was detected when syncing shards |
 | `arangodb_transactions_aborted` | Transactions aborted |
 | `arangodb_transactions_committed` | Transactions committed |
 | `arangodb_transactions_started` | Transactions started |

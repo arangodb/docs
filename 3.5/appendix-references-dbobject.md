@@ -64,6 +64,7 @@ The following methods exist on the *_db* object:
 
 *Global*
 
+* [db._compact()](data-modeling-databases-working-with.html#compact)
 * [db._engine()](data-modeling-databases-working-with.html#engine)
 * [db._engineStats()](data-modeling-databases-working-with.html#engine-statistics)
 * [db._executeTransaction()](transactions-transaction-invocation.html)

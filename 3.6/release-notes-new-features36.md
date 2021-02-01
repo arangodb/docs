@@ -476,7 +476,7 @@ ArangoSearch
 
 ### Dynamic search expressions with arrays
 
-ArangoSearch now accepts [SEARCH expressions](aql/operations-search.html#general-syntax)
+ArangoSearch now accepts [SEARCH expressions](aql/operations-search.html#syntax)
 with array comparison operators in the form of:
 
 ```

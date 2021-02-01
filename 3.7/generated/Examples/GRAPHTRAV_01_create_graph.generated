@@ -5,168 +5,168 @@ arangosh&gt; db.circles.toArray();
   { 
     "_key" : "A", 
     "_id" : "circles/A", 
-    "_rev" : "_bAwrghq---", 
+    "_rev" : "_btGyjkW---", 
     "label" : "1" 
   }, 
   { 
     "_key" : "B", 
     "_id" : "circles/B", 
-    "_rev" : "_bAwrghu---", 
+    "_rev" : "_btGyjkW--A", 
     "label" : "2" 
   }, 
   { 
     "_key" : "C", 
     "_id" : "circles/C", 
-    "_rev" : "_bAwrghy---", 
+    "_rev" : "_btGyjkW--C", 
     "label" : "3" 
   }, 
   { 
     "_key" : "D", 
     "_id" : "circles/D", 
-    "_rev" : "_bAwrgh2---", 
+    "_rev" : "_btGyjka---", 
     "label" : "4" 
   }, 
   { 
     "_key" : "E", 
     "_id" : "circles/E", 
-    "_rev" : "_bAwrgh6---", 
+    "_rev" : "_btGyjka--A", 
     "label" : "5" 
   }, 
   { 
     "_key" : "F", 
     "_id" : "circles/F", 
-    "_rev" : "_bAwrgi----", 
+    "_rev" : "_btGyjka--C", 
     "label" : "6" 
   }, 
   { 
     "_key" : "G", 
     "_id" : "circles/G", 
-    "_rev" : "_bAwrgiC---", 
+    "_rev" : "_btGyjka--E", 
     "label" : "7" 
   }, 
   { 
     "_key" : "H", 
     "_id" : "circles/H", 
-    "_rev" : "_bAwrgiG---", 
+    "_rev" : "_btGyjke---", 
     "label" : "8" 
   }, 
   { 
     "_key" : "I", 
     "_id" : "circles/I", 
-    "_rev" : "_bAwrgiG--A", 
+    "_rev" : "_btGyjke--A", 
     "label" : "9" 
   }, 
   { 
     "_key" : "J", 
     "_id" : "circles/J", 
-    "_rev" : "_bAwrgiK---", 
+    "_rev" : "_btGyjke--C", 
     "label" : "10" 
   }, 
   { 
     "_key" : "K", 
     "_id" : "circles/K", 
-    "_rev" : "_bAwrgiO---", 
+    "_rev" : "_btGyjke--E", 
     "label" : "11" 
   } 
 ]
 arangosh&gt; db.edges.toArray();
 [ 
   { 
-    "_key" : "66553", 
-    "_id" : "edges/66553", 
+    "_key" : "66548", 
+    "_id" : "edges/66548", 
     "_from" : "circles/A", 
     "_to" : "circles/B", 
-    "_rev" : "_bAwrgiO--A", 
+    "_rev" : "_btGyjki---", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "left_bar" 
   }, 
   { 
-    "_key" : "66555", 
-    "_id" : "edges/66555", 
+    "_key" : "66550", 
+    "_id" : "edges/66550", 
     "_from" : "circles/B", 
     "_to" : "circles/C", 
-    "_rev" : "_bAwrgiS---", 
+    "_rev" : "_btGyjki--A", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "left_blarg" 
   }, 
   { 
-    "_key" : "66557", 
-    "_id" : "edges/66557", 
+    "_key" : "66552", 
+    "_id" : "edges/66552", 
     "_from" : "circles/C", 
     "_to" : "circles/D", 
-    "_rev" : "_bAwrgiW---", 
+    "_rev" : "_btGyjki--C", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "left_blorg" 
   }, 
   { 
-    "_key" : "66559", 
-    "_id" : "edges/66559", 
+    "_key" : "66554", 
+    "_id" : "edges/66554", 
     "_from" : "circles/B", 
     "_to" : "circles/E", 
-    "_rev" : "_bAwrgia---", 
+    "_rev" : "_btGyjkm---", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "left_blub" 
   }, 
   { 
-    "_key" : "66561", 
-    "_id" : "edges/66561", 
+    "_key" : "66556", 
+    "_id" : "edges/66556", 
     "_from" : "circles/E", 
     "_to" : "circles/F", 
-    "_rev" : "_bAwrgie---", 
+    "_rev" : "_btGyjkm--A", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "left_schubi" 
   }, 
   { 
-    "_key" : "66563", 
-    "_id" : "edges/66563", 
+    "_key" : "66558", 
+    "_id" : "edges/66558", 
     "_from" : "circles/A", 
     "_to" : "circles/G", 
-    "_rev" : "_bAwrgie--A", 
+    "_rev" : "_btGyjkm--C", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "right_foo" 
   }, 
   { 
-    "_key" : "66565", 
-    "_id" : "edges/66565", 
+    "_key" : "66560", 
+    "_id" : "edges/66560", 
     "_from" : "circles/G", 
     "_to" : "circles/H", 
-    "_rev" : "_bAwrgii---", 
+    "_rev" : "_btGyjkq---", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "right_blob" 
   }, 
   { 
-    "_key" : "66567", 
-    "_id" : "edges/66567", 
+    "_key" : "66562", 
+    "_id" : "edges/66562", 
     "_from" : "circles/H", 
     "_to" : "circles/I", 
-    "_rev" : "_bAwrgim---", 
+    "_rev" : "_btGyjkq--A", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "right_blub" 
   }, 
   { 
-    "_key" : "66569", 
-    "_id" : "edges/66569", 
+    "_key" : "66564", 
+    "_id" : "edges/66564", 
     "_from" : "circles/G", 
     "_to" : "circles/J", 
-    "_rev" : "_bAwrgiq---", 
+    "_rev" : "_btGyjkq--C", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "right_zip" 
   }, 
   { 
-    "_key" : "66571", 
-    "_id" : "edges/66571", 
+    "_key" : "66566", 
+    "_id" : "edges/66566", 
     "_from" : "circles/J", 
     "_to" : "circles/K", 
-    "_rev" : "_bAwrgiq--A", 
+    "_rev" : "_btGyjku---", 
     "theFalse" : false, 
     "theTruth" : true, 
     "label" : "right_zup" 

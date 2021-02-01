@@ -1,8 +1,11 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
 
-HTTP/1.1 OK
+HTTP/1.1 200 OK
 content-type: application/json
+connection: Keep-Alive
+content-length: 637
 location: /_api/collection/testCollection/shards
+server: ArangoDB
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":{\"s2010047\":[\"PRMR-fea40c2a-b5e3-4701-8af3-801c60e58d14\"],\"s2010048\":[\"PRMR-5d3600c3-a514-4dab-9f8f-78d56b5ef79c\"],\"s2010049\":[\"PRMR-fea40c2a-b5e3-4701-8af3-801c60e58d14\"]},\"writeConcern\":1,\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":1,\"waitForSync\":false,\"numberOfShards\":3,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"schema\":null,\"globallyUniqueId\":\"c2010046/\",\"isSmartChild\":false,\"id\":\"2010046\",\"cacheEnabled\":false,\"minReplicationFactor\":1,\"name\":\"testCollection\",\"isDisjoint\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false}"
+"{\"error\":false,\"code\":200,\"shards\":{\"s2010047\":[\"PRMR-12e40c17-efaa-4298-b202-f54f92884524\"],\"s2010048\":[\"PRMR-711588e2-edac-4e65-b848-56495ccf69d9\"],\"s2010049\":[\"PRMR-12e40c17-efaa-4298-b202-f54f92884524\"]},\"writeConcern\":1,\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":1,\"waitForSync\":false,\"numberOfShards\":3,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"schema\":null,\"globallyUniqueId\":\"c2010046/\",\"isSmartChild\":false,\"id\":\"2010046\",\"cacheEnabled\":false,\"minReplicationFactor\":1,\"name\":\"testCollection\",\"isDisjoint\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false}"

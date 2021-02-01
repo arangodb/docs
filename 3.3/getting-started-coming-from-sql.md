@@ -16,7 +16,7 @@ more like a programming language. It suits the schema-less model more natural
 and makes the query language very powerful while remaining easy to read and write.
 
 To get started with AQL, have a look at our detailed
-[comparison of SQL and AQL](https://arangodb.com/why-arangodb/sql-aql-comparison/){:target="_blank"}.
+[comparison of SQL and AQL](https://www.arangodb.com/community-server/sql-aql-comparison/){:target="_blank"}.
 It will also help you to translate SQL queries to AQL when migrating to ArangoDB.
 
 Basic queries

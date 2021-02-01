@@ -2,24 +2,27 @@
 [{"Hello":"Earth"}, {"Hello":"Venus"}, {"Hello":"Mars"}]
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Accepted
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">184</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 [ 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69845"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69845"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hR-6---"</span> 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70257"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70257"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUqu---"</span> 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69846"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69846"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hR-6--A"</span> 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70258"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70258"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUqu--A"</span> 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69847"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69847"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hR-6--C"</span> 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70259"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70259"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUqu--C"</span> 
   } 
 ]
