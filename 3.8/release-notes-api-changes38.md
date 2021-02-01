@@ -11,6 +11,49 @@ integrations for ArangoDB 3.8.
 
 ## HTTP RESTful API
 
+### Collection API
+
+The following changes affect the behavior of the RESTful collection APIs at
+endpoints starting with path `/_api/collection/`:
+
+#### Obsoleted attributes
+
+The collection properties `indexBuckets`, `journalSize`, `doCompact` and
+`isVolatile` only had a meaning for the MMFiles storage engine, which is not
+available anymore since ArangoDB 3.7.
+
+ArangoDB 3.8 now removes any special handling for these obsolete collection
+properties, meaning these attributes will not be processed by the server and
+not be returned by any server APIs. Using these attributes in any API call
+will be ignored, and will not trigger any errors.
+
+Client applications and tests that rely on the behavior that setting any of
+these obsolete properties produces an error on the server side may need to
+be adjusted now.
+
+#### Behavior change in context of "distributeShardsLike"
+
+The `replicationFactor` and `writeConcern` properties returned for sharded 
+collections that use the `distributeShardsLike` attribute now also reflect
+changes to these properties for the prototype collection.
+
+In previous versions, the `replicationFactor` and `writeConcern` properties
+returned for a collection that was created with the `distributeShardsLike`
+option were sealed and did not reflect any changes done to these properties 
+in the prototype collection afterwards.
+Now the properties returned are always up-to-date and reflect the _current_
+status of these properties in the prototype collection.
+
+#### Other changes
+
+Trying to change the "writeConcern" value of an existing collection that uses 
+the `distributeShardsLike` attribute is now handled with a proper error message. 
+Previously a cryptic message containing an internal plan id was returned.
+
+Trying to change the `shardingStrategy` attribute of an existing collection 
+will now result in a "bad parameter" error. The previous behavior was to silently 
+ignore the change attempt.
+
 ### Www-Authenticate response header
 
 ArangoDB 3.8 adds back the `Www-Authenticate` response header for HTTP server
@@ -65,6 +108,10 @@ The mapped value per DB-Server are the engine statistics for this particular ser
 
 The return value structure is different to the return value structure in single server,
 where the return value is a simple JSON object with the statistics at the top level.
+
+The REST endpoint at GET `/_api/collection/<collection>/checksum` now also works
+in cluster setups. In previous versions, this endpoint was not supported in cluster
+setups and returned HTTP 501 (Not implemented).
 
 ### Endpoints moved
 
