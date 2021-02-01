@@ -13,6 +13,25 @@ easily applied by making use of a script. Please refer to the page
 ready-to-use examples.
 {% endhint %}
 
+System Locales
+--------------
+
+Some systems may miss the required locale to start the server, resulting in an
+error message like the following:
+
+```
+FATAL [7ef60] {config} specified language 'en_US' does not match previously used language ''
+```
+
+The locale can be generated with the following command:
+
+```
+sudo locale-gen "en_US.UTF-8"
+```
+
+Your distribution may also provide a frontend for doing so, for instance
+[`dpkg-reconfigure locales` on Debian](https://wiki.debian.org/Locale){:target="_blank"}.
+
 File Systems
 ------------
 
