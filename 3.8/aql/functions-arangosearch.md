@@ -9,68 +9,20 @@ redirect_from:
 ArangoSearch Functions
 ======================
 
-ArangoSearch AQL functions take either an expression or an
-attribute path expression as first argument.
+You can form search expressions to filter Views by composing ArangoSearch
+function calls.{:class="lead"}
 
-```js
-ANALYZER(<expression>, …)
-STARTS_WITH(doc.attribute, …)
-```
+The AQL [`SEARCH` operation](operations-search.html) accepts search expressions
+such as `SEARCH ANALYZER(PHRASE(doc.text, "foo bar"), "text_en")`. You can
+combine search and context functions as well as operators like `AND` and `OR`.
 
-If an expression is expected, it means that search conditions can expressed in
-AQL syntax. They are typically function calls to ArangoSearch search functions,
-possibly nested and/or using logical operators for multiple conditions.
+Most functions can also be used without a View and the `SEARCH` keyword, but
+will then not be accelerated by a View index.
 
-```js
-STARTS_WITH(doc.text, "avoca") OR STARTS_WITH(doc.text, "arang")
-```
-
-The default Analyzer that will be used for searching is `"identity"`.
-While many ArangoSearch functions accept an Analyzer argument, it is often
-easier and cleaner to wrap a search (sub-)expressions with an `ANALYZER()` call
-to set the Analyzer for these functions. Their Analyzer argument can then be
-left out.
-
-```js
-// Analyzer specified in each function call
-PHRASE(doc.text, "avocado dish", "text_en") AND PHRASE(doc.text, "lemon", "text_en")
-
-// Analyzer specified using ANALYZER()
-ANALYZER(PHRASE(doc.text, "avocado dish") AND PHRASE(doc.text, "lemon"), "text_en")
-```
-
-Certain expressions do not require any ArangoSearch functions, such as basic
-comparisons. However, the Analyzer used for searching will be `"identity"`
-unless `ANALYZER()` is used to set a different one.
-
-```js
-// The "identity" Analyzer will be used by default
-SEARCH doc.text == "avocado"
-
-// Use the "text_en" Analyzer for searching instead
-SEARCH ANALYZER(doc.text == "avocado", "text_en")
-```
-
-If an attribute path expressions is needed, then you have to reference a
-document object emitted by a View like `FOR doc IN viewName` and then specify
-which attribute you want to test for as an unquoted string literal. For example
-`doc.attr` or `doc.deeply.nested.attr` but not `"doc.attr"`. You can also use
-the bracket notation `doc["attr"]`.
-
-```js
-FOR doc IN viewName
-  SEARCH STARTS_WITH(doc.deeply.nested["attr"], "avoca")
-  RETURN doc
-```
+Scoring functions can be used in `SORT` and `RETURN` operations only.
 
 Context Functions
 -----------------
-
-<!-- TODO -->
-Search functions can be used in a [SEARCH operation](operations-search.html)
-to form an ArangoSearch expression to filter a View. Most functions can also be
-used without a View and the `SEARCH` keyword, but will then not be accelerated
-by a View index.
 
 ### ANALYZER()
 
@@ -223,10 +175,8 @@ Assuming a View with the following documents indexed and processed by the
 ]
 ```
 
-Context Functions
------------------
-
-<!-- TODO -->
+Search Functions
+----------------
 
 ### EXISTS()
 
