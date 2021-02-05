@@ -342,8 +342,9 @@ This option can be used to control which log messages are preserved in memory
 (in case `--log.in-memory` is set to true). 
 The default value is `info`, meaning all log messages of types `info`, `warning`, 
 `error` and `fatal` will be stored by an instance in memory. 
-By setting this option to `warning`, only warning log messages will be preserved 
-in memory, and by setting the option to `error` only error messages  will be kept.
+By setting this option to `warning`, only warning, error and fatal log messages 
+will be preserved in memory, and by setting the option to `error` only error 
+and fatal messages  will be kept.
 This option is useful because the number of in-memory log messages is limited 
 to the latest 2048 messages, and these slots are by default shared between 
 informational, warning and error messages.
