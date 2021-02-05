@@ -274,6 +274,48 @@ The following logging-related options have been added:
   via the API and UI. Turning this option off will disable that functionality,
   save a tiny bit of memory for the in-memory log buffers and prevent potential
   log information leakage via these means.
+    
+- added option `--log.in-memory-level` to control which log messages are 
+  preserved in memory (in case --log.in-memory is set to true). The default 
+  value is `info`, meaning all log messages of types `info`, `warning`, `error` 
+  and `fatal` will be stored by an instance in memory. 
+  By setting this option to `warning`, only warning log messages will be 
+  preserved in memory, and by setting the option to `error` only error messages 
+  will be kept.
+  This option is useful because the number of in-memory log messages is limited 
+  to the latest 2048 messages, and these slots are by default shared between 
+  informational, warning and error messages.
+
+- added option `--log.max-entry-length` to control the maximum line length for 
+  individual log messages that are written into normal logfiles by arangod 
+  (note: this does not include audit log messages).
+  Any log messages longer than the specified value will be truncated and the 
+  suffix '...' will be added to them. 
+  The purpose of this parameter is to shorten long log messages in case there is 
+  not a lot of space for logfiles, and to keep rogue log messages from overusing 
+  resources.
+  The default value is 128 MB, which is very high and should effectively mean 
+  downwards-compatiblity with previous arangod versions, which did not restrict 
+  the maximum size of log messages.
+
+- added option `--audit.max-entry-length` to control the maximum line length 
+  for individual audit log messages that are written into audit logs by arangod. 
+  Any audit log messages longer than the specified value will be truncated and 
+  the suffix '...' will be added to them.
+  The default value is 128 MB, which is very high and should effectively mean 
+  downwards-compatiblity with previous arangod versions, which did not restrict 
+  the maximum size of log messages.
+
+- added option `--audit.queue` to control audit logging queuing behavior 
+  (Enterprise Edition only):
+
+  The option controls whether audit log messages are submitted to a queue
+  and written to disk in batches or if they should be written to disk directly
+  without being queued.
+  Queueing audit log entries may be beneficial for latency, but can lead to
+  unqueued messages being lost in case of a power loss or crash. Setting
+  this option to `false` mimics the behavior from 3.7 and before, where
+  audit log messages were not queued but written in a blocking fashion.
 
 Timezone conversion
 -------------------
