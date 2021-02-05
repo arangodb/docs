@@ -175,7 +175,7 @@ Assuming a View with the following documents indexed and processed by the
 ]
 ```
 
-Search Functions
+Filter Functions
 ----------------
 
 ### EXISTS()

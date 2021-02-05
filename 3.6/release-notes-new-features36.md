@@ -497,7 +497,7 @@ FOR doc IN myView SEARCH tokens  ANY <= doc.title RETURN doc // dynamic disjunct
 In addition, both the `TOKENS()` and the `PHRASE()` functions were
 extended with array support for convenience.
 
-[TOKENS()](aql/functions-arangosearch.html#tokens) accepts recursive arrays of
+[TOKENS()](aql/functions-{% if page.version.version >= "3.8" %}string{% else %}arangosearch{% endif %}.html#tokens) accepts recursive arrays of
 strings as the first argument:
 
 ```js

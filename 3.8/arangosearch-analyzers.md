@@ -16,7 +16,7 @@ searching and sorting to provide the most appropriate match for the specified
 conditions, similar to queries to web search engines.
 
 Analyzers can be used on their own to tokenize and normalize strings in AQL
-queries with the [`TOKENS()` function](aql/functions-arangosearch.html#tokens).
+queries with the [`TOKENS()` function](aql/functions-string.html#tokens).
 
 How Analyzers process values depends on their type and configuration.
 The configuration is comprised of type-specific properties and list of features.
