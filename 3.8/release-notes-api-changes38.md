@@ -56,6 +56,67 @@ a string return value and convert that string into a number.
 
 ### Endpoints added
 
+The new REST endpoint at GET `/_admin/log/entries` can be used to retrieve server log
+messages in a more intuitive format than the already API at GET `/_admin/log`.
+
+The new API returns all matching log messages in an array, with one array entry
+per log message. Each log message is returned as an object containing the properties 
+of the log message:
+
+```
+{ 
+  "total" : 13,
+  "messages: [
+    {
+      "id" : 12,
+      "topic" : "general",
+      "level" : "INFO",
+      "date" : "2021-02-07T01:00:21Z",
+      "message" : "[cf3f4] {general} ArangoDB (version 3.8.0-devel enterprise [linux]) is ready for business. Have fun!"
+    },
+    {
+      "id" : 11,
+      "topic" : "general",
+      "level" : "INFO",
+      "date" : "2021-02-07T01:00:21Z",
+      "message" : [99d80] {general} You are using a milestone/alpha/beta/preview version ('3.8.0-devel') of ArangoDB"
+    }
+  ]
+}
+```
+
+The previous API instead returned an object with 5 attributes at the top-level, which
+contained arrays with the attribute values of all log messages:
+    
+```
+{
+  "totalAmount" : 13,
+  "lid" : [
+    12, 
+    11
+  ],
+  "topic" : [
+    "general", 
+    "general"
+  ],
+  "level" : [
+    3, 
+    3
+  ],
+  "timestamp" : [
+    1612659621, 
+    1612659621
+  ],
+  "text" : [
+    "[cf3f4] {general} ArangoDB (version 3.8.0-devel enterprise [linux]) is ready for business. Have fun!", 
+    "[99d80] {general} You are using a milestone/alpha/beta/preview version ('3.8.0-devel') of ArangoDB"
+  ]
+}
+```
+
+The already existing API endpoint GET `/_admin/log` for retrieving log messages 
+is now deprecated, altough it will stay available for some time.
+
 ### Endpoints augmented
 
 The REST endpoint at GET `/_api/engine/stats` now returns useful information in cluster
