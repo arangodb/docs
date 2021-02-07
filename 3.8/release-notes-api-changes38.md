@@ -56,6 +56,29 @@ a string return value and convert that string into a number.
 
 ### Endpoints added
 
+The foollowing REST endpoints for retrieving cluster shard statistics have been added 
+in ArangoDB 3.8:
+
+* `GET /_api/database/shardDistribution` will return the number of collections, shards, 
+  leaders and followers for the database it is run inside. The request can optionally be 
+  restricted to include data from only a single DB server, by passing the `DBserver` URL
+  parameter and setting it to the name of a DB server.
+
+  This API can only be used on coordinators, and requires read access to the database
+  it is run inside.
+
+* `GET /_admin/cluster/shardDistribution` will return global statistics on the current 
+  shard distribution, providing the total number of databases, collections, shards, 
+  leader and follower shards for the entire cluster. The results can optionally be 
+  restricted to include data from only a single DB server, by passing the `DBserver`
+  URL parameter and setting it to the name of a DB server. 
+  By setting the `details` URL parameter, the response will not contain aggregates, but 
+  instead one entry per available database will be returned, so that the statistics are
+  split across all available databases.
+
+  This API can only be used in the `_system` database on coordinators, and requires 
+  admin user privileges.
+
 ### Endpoints augmented
 
 The REST endpoint at GET `/_api/engine/stats` now returns useful information in cluster
