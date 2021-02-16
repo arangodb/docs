@@ -160,16 +160,24 @@ The default value for this option is `true`.
 
 `--log.max-entry-length value`
 
-This option can be used to limit the maximum line length for individual log 
-messages that are written into normal logfiles by arangod (note: this does not 
-include audit log messages).
-Any log messages longer than the specified value will be truncated and the 
-suffix '...' will be added to them. 
-The purpose of this parameter is to shorten long log messages in case there is 
-lot a lot of space for logfiles, and to keep rogue log messages from overusing 
+This option can be used to limit the maximum line length for individual log
+messages that are written into normal logfiles by arangod.
+
+{% hint 'info' %}
+This option does not include audit log messages. See
+[--audit.max-entry-length](programs-arangod-audit.html#maximum-line-length)
+instead.
+{% endhint %}
+
+Any log messages longer than the specified value will be truncated and the
+suffix `...` will be added to them.
+
+The purpose of this parameter is to shorten long log messages in case there is
+lot a lot of space for logfiles, and to keep rogue log messages from overusing
 resources.
-The default value is 128 MB, which is very high and should effectively mean 
-downwards-compatiblity with previous arangod versions, which did not restrict 
+
+The default value is 128 MB, which is very high and should effectively mean
+downwards-compatibility with previous arangod versions, which did not restrict
 the maximum size of log messages.
 
 ## Color logging
