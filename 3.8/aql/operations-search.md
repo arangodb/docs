@@ -78,7 +78,7 @@ Also see [Known Issues](../release-notes-known-issues37.html#arangosearch).
 ```js
 FOR doc IN viewName
   SEARCH ANALYZER(doc.text == "quick" OR doc.text == "brown", "text_en")
-RETURN doc
+  RETURN doc
 ```
 
 [Array comparison operators](operators.html#array-comparison-operators) are
@@ -313,6 +313,14 @@ The `SEARCH` operation accepts an options object with the following attributes:
     apply optimizations. Removes redundant or overlapping conditions, but can
     take quite some time even for a low number of nested conditions.
   - `"none"`: search the index without optimizing the conditions.
+- `countApproximate` (string, _optional_): controls how the total count of rows
+  is calculated if the `fullCount` option is enabled for a query or when
+  a `COLLECT WITH COUNT` clause is executed (introduced in v3.7.6)
+  - `"exact"` (default): rows are actually enumerated for a precise count.
+  - `"cost"`: a cost based approximation is used. Does not enumerate rows and
+    returns an approximate result with O(1) complexity. Gives a precise result
+    if the `SEARCH` condition is empty or if it contains a single term query
+    only (e.g. `SEARCH doc.field == "value"`).
 
 **Examples**
 

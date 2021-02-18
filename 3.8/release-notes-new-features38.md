@@ -105,6 +105,22 @@ which enable geo-spatial queries backed by View indexes:
 - `GEO_IN_RANGE()`
 - `GEO_INTERSECTS()`
 
+### Approximate count
+
+Added a new option `countApproximate` for `SEARCH` queries to control how the
+total count of rows is calculated if the `fullCount` option is enabled for a
+query or when a `COLLECT WITH COUNT` clause is executed:
+
+- `"exact"` (default): rows are actually enumerated for a precise count.
+- `"cost"`: a cost based approximation is used. Does not enumerate rows and
+  returns an approximate result with O(1) complexity. Gives a precise result
+  if the `SEARCH` condition is empty or if it contains a single term query
+  only (e.g. `SEARCH doc.field == "value"`).
+
+Also see: [AQL `SEARCH` Operation](aql/operations-search.html#search-options)
+
+This feature was also backported to v3.7.6.
+
 ### ArangoSearch thread control
 
 Added new command line options for fine-grained control over ArangoSearch's
@@ -119,6 +135,51 @@ threads for committing and consolidation separately:
 They supersede the options `--arangosearch.threads` and
 `--arangosearch.threads-limit`. See
 [ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
+
+AQL bit functions
+-----------------
+
+ArangoDB 3.8 adds the following bit handling functions to AQL:
+
+- `BIT_AND()`: and-combine two or more numbers
+- `BIT_OR()`: or-combine two or more numbers
+- `BIT_XOR()`: xor-combine two or more numbers
+- `BIT_NEGATE()`: bitwise negation
+- `BIT_TEST()`: test if bit is set at position
+- `BIT_POPCOUNT()`: number of bits set
+- `BIT_SHIFT_LEFT()`: bitwise shift-left
+- `BIT_SHIFT_RIGHT()`: bitwise shift-right
+- `BIT_CONSTRUCT()`: construct a number with bits set at given positions
+- `BIT_DECONSTRUCT()`: deconstruct a number into an array with the positions of its set bits
+- `BIT_TO_STRING()`: create a bitstring representation from a numeric value
+- `BIT_FROM_STRING()`: parse a bitstring representation into a number
+
+Also see [Bit functions](aql/functions-bit.html).
+
+`BIT_AND()`, `BIT_OR()` and `BIT_XOR()` are also available as aggregate
+functions for usage inside [`COLLECT AGGREGATE`](aql/operations-collect.html#aggregation).
+
+All above bit operations support unsigned integer values with up to 32 bits.
+Using values outside the supported range will make any of these bit functions
+return `null` and register a warning.
+
+This functionality has been backported to v3.7.7 as well.
+
+AQL binary and hexadecimal integer literals
+-------------------------------------------
+
+ArangoDB 3.8 allows using binary (base 2) and hexadecimal (base 16) integer
+literals in AQL. These literals can be used where regular (base 10) integer
+literals can be used.
+
+- The prefix for binary integer literals is `0b`, e.g. `0b10101110`.
+- The prefix for hexadecimal integer literals is `0x`, e.g. `0xabcdef02`.
+
+Binary and hexadecimal integer literals can only be used for unsigned integers.
+The maximum supported value is 2<sup>32</sup> - 1, i.e.
+`0b11111111111111111111111111111111` (binary) or `0xffffffff` (hexadecimal).
+
+This functionality has been backported to v3.7.7 as well.
 
 Metrics
 -------
@@ -213,6 +274,48 @@ The following logging-related options have been added:
   via the API and UI. Turning this option off will disable that functionality,
   save a tiny bit of memory for the in-memory log buffers and prevent potential
   log information leakage via these means.
+    
+- added option `--log.in-memory-level` to control which log messages are 
+  preserved in memory (in case --log.in-memory is set to true). The default 
+  value is `info`, meaning all log messages of types `info`, `warning`, `error` 
+  and `fatal` will be stored by an instance in memory. 
+  By setting this option to `warning`, only warning log messages will be 
+  preserved in memory, and by setting the option to `error` only error messages 
+  will be kept.
+  This option is useful because the number of in-memory log messages is limited 
+  to the latest 2048 messages, and these slots are by default shared between 
+  informational, warning and error messages.
+
+- added option `--log.max-entry-length` to control the maximum line length for 
+  individual log messages that are written into normal logfiles by arangod 
+  (note: this does not include audit log messages).
+  Any log messages longer than the specified value will be truncated and the 
+  suffix '...' will be added to them. 
+  The purpose of this parameter is to shorten long log messages in case there is 
+  not a lot of space for logfiles, and to keep rogue log messages from overusing 
+  resources.
+  The default value is 128 MB, which is very high and should effectively mean 
+  downwards-compatiblity with previous arangod versions, which did not restrict 
+  the maximum size of log messages.
+
+- added option `--audit.max-entry-length` to control the maximum line length 
+  for individual audit log messages that are written into audit logs by arangod. 
+  Any audit log messages longer than the specified value will be truncated and 
+  the suffix '...' will be added to them.
+  The default value is 128 MB, which is very high and should effectively mean 
+  downwards-compatiblity with previous arangod versions, which did not restrict 
+  the maximum size of log messages.
+
+- added option `--audit.queue` to control audit logging queuing behavior 
+  (Enterprise Edition only):
+
+  The option controls whether audit log messages are submitted to a queue
+  and written to disk in batches or if they should be written to disk directly
+  without being queued.
+  Queueing audit log entries may be beneficial for latency, but can lead to
+  unqueued messages being lost in case of a power loss or crash. Setting
+  this option to `false` mimics the behavior from 3.7 and before, where
+  audit log messages were not queued but written in a blocking fashion.
 
 Timezone conversion
 -------------------
@@ -232,6 +335,43 @@ versa:
 
   `DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")`
   → `"2020-10-15T01:00:00.999Z"`
+
+Client tools
+------------
+
+### Arangodump concurrency
+
+Since v3.4.0, _arangodump_ can use multiple threads for dumping database data in
+parallel. _arangodump_ versions prior to v3.8.0 distribute dump jobs for
+individual collections to concurrent worker threads, which is optimal for
+dumping many collections of approximately the same size, but does not help for
+dumping few large collections or few large collections with many shards.
+
+Starting with v3.8.0, _arangodump_ can also dispatch dump jobs for individual
+shards of each collection, allowing higher parallelism if there are many shards
+to dump but only few collections.
+
+Also see [_arangodump_ Threads](programs-arangodump-examples.html#threads).
+
+### Arangodump output format
+
+Since its inception, _arangodump_ wrapped each dumped document into an extra
+JSON envelope, such as follows:
+
+```json
+{"type":2300,"key":"test","data":{"_key":"test","_rev":..., ...}}
+```
+
+In case a dump taken with v3.8.0 or higher is known to never be used in older
+ArangoDB versions, the JSON envelopes can be turned off with the new startup
+option `--envelope false` to reduce the dump size and use a bit less memory
+and bandwidth:
+
+```json
+{"_key":"test","_rev":..., ...}
+```
+
+Also see [_arangodump_ Dump Output Format](programs-arangodump-examples.html#dump-output-format).
 
 Miscellaneous
 -------------

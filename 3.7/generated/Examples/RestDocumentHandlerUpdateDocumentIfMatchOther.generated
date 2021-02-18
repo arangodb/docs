@@ -1,10 +1,13 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'If-Match: "_bkV9zVK--A"'</span> --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/71116</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'If-Match: "_b4vz2pu---"'</span> --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/71108</span> &lt;&lt;EOF
 {"other":"content"}
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Precondition Failed
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">412</span> Precondition Failed
 content-type: application/json
-etag: <span class="hljs-string">"_bkV9zVK---"</span>
+connection: Keep-Alive
+content-length: <span class="hljs-number">126</span>
+etag: <span class="hljs-string">"_b4vz2pq--A"</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
@@ -12,7 +15,7 @@ x-content-type-options: nosniff
   <span class="hljs-string">"code"</span> : <span class="hljs-number">412</span>, 
   <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">1200</span>, 
   <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"conflict"</span>, 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71116"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71116"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkV9zVK---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71108"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71108"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_b4vz2pq--A"</span> 
 }

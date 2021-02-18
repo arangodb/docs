@@ -1,8 +1,11 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/products/revision</span>
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">395</span>
 location: <span class="hljs-regexp">/_api/</span>collection/products/revision
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
@@ -16,10 +19,10 @@ x-content-type-options: nosniff
   <span class="hljs-string">"revision"</span> : <span class="hljs-string">"0"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
   <span class="hljs-string">"schema"</span> : <span class="hljs-literal">null</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hAA7904499CA1/70490"</span>, 
-  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"70489"</span>, 
+  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hBE6441029C21/70482"</span>, 
+  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"70481"</span>, 
   <span class="hljs-string">"isSmartChild"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"70490"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"70482"</span>, 
   <span class="hljs-string">"cacheEnabled"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"products"</span>, 
   <span class="hljs-string">"isDisjoint"</span> : <span class="hljs-literal">false</span>, 

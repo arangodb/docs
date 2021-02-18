@@ -154,6 +154,32 @@ is set to a very verbose level (e.g. debug or trace).
 
 The default value for this option is `true`.
 
+## Maximum line length
+
+<small>Introduced in: v3.7.8</small>
+
+`--log.max-entry-length value`
+
+This option can be used to limit the maximum line length for individual log
+messages that are written into normal logfiles by arangod.
+
+{% hint 'info' %}
+This option does not include audit log messages. See
+[--audit.max-entry-length](programs-arangod-audit.html#maximum-line-length)
+instead.
+{% endhint %}
+
+Any log messages longer than the specified value will be truncated and the
+suffix `...` will be added to them.
+
+The purpose of this parameter is to shorten long log messages in case there is
+lot a lot of space for logfiles, and to keep rogue log messages from overusing
+resources.
+
+The default value is 128 MB, which is very high and should effectively mean
+downwards-compatibility with previous arangod versions, which did not restrict
+the maximum size of log messages.
+
 ## Color logging
 
 `--log.color value`
@@ -243,3 +269,21 @@ The possible values for this option are:
  - `false`: The API `/_admin/log` is not accessible at all.
 
 The default value is `true`.
+
+## Logging to memory buffers
+
+<small>Introduced in: v3.7.8</small>
+
+Log level control for in-memory log messages: `--log.in-memory-level`
+
+This option can be used to control which log messages are preserved in memory.
+The default value is `info`, meaning all log messages of types `info`,
+`warning`, `error` and `fatal` will be stored by an instance in memory.
+
+By setting this option to `warning`, only warning, error and fatal log messages
+will be preserved in memory, and by setting the option to `error` only error
+and fatal messages  will be kept.
+
+This option is useful because the number of in-memory log messages is limited
+to the latest 2048 messages, and these slots are by default shared between
+informational, warning and error messages.
