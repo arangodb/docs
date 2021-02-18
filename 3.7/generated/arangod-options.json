@@ -539,6 +539,33 @@
     "section" : "audit",
     "type" : "string"
   },
+  "audit.max-entry-length" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 134217728,
+    "deprecatedIn" : null,
+    "description" : "maximum length of a log entry (in bytes)",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.8"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "audit",
+    "type" : "uint32"
+  },
   "audit.output" : {
     "category" : "option",
     "component" : [
@@ -648,7 +675,7 @@
       "agent",
       "single"
     ],
-    "default" : 16341509120,
+    "default" : 15268139008,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -1710,6 +1737,31 @@
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "foxx",
+    "type" : "boolean"
+  },
+  "foxx.force-update-on-startup" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "ensure all Foxx services are synchronized before completeing the boot sequence",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -3159,7 +3211,7 @@
     ],
     "default" : "objectClass=*",
     "deprecatedIn" : null,
-    "description" : "ldap search filter, eg. (objectClass=simpleSecurityObject)",
+    "description" : "ldap search filter, eg. (objectClass=simpleSecurityObject); '{USER}' is replaced by the supplied user.",
     "dynamic" : false,
     "enterpriseOnly" : true,
     "hidden" : false,
@@ -3765,6 +3817,34 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.in-memory-level" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "info",
+    "deprecatedIn" : null,
+    "description" : "use in-memory log appender only for this log level and higher",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.8"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string",
+    "values" : "Possible values: \"debug\", \"err\", \"error\", \"fatal\", \"info\", \"trace\", \"warn\", \"warning\""
+  },
   "log.keep-logrotate" : {
     "category" : "option",
     "component" : [
@@ -3842,6 +3922,33 @@
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
+  },
+  "log.max-entry-length" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 134217728,
+    "deprecatedIn" : null,
+    "description" : "maximum length of a log entry (in bytes)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "uint32"
   },
   "log.output" : {
     "category" : "option",
@@ -5201,7 +5308,7 @@
       "agent",
       "single"
     ],
-    "default" : 19609810944,
+    "default" : 18321766809,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -6401,7 +6508,7 @@
       "agent",
       "single"
     ],
-    "default" : 26146414592,
+    "default" : 24429022412,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -6893,6 +7000,33 @@
     "section" : "server",
     "type" : "boolean"
   },
+  "server.export-read-write-metrics" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "turn metrics for document read/write metrics on or off",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.8"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
+  },
   "server.flush-interval" : {
     "category" : "option",
     "component" : [
@@ -6978,7 +7112,7 @@
       "agent",
       "single"
     ],
-    "default" : 8,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "Number of threads used to handle IO",
     "dynamic" : true,
@@ -7149,7 +7283,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 9,
+    "default" : 5,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
