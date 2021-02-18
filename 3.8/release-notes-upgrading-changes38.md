@@ -86,6 +86,8 @@ the RocksDB storage engine they did not make any difference. Using these startup
 options is still possible, but will have no effect other than generating a
 warning at server startup.
 
+The following arangosearch-related startup options are deprecated in ArangoDB 3.8:
+
 - `--arangosearch.threads`
 - `--arangosearch.threads-limit`
 
@@ -99,8 +101,36 @@ the thread count. See
 
 ### Changed default values
 
+- The default value for the startup option `--database.old-system-collections` is
+  changed from `true` to `false` in ArangoDB 3.8.
+
+  This means that by default the system collections `_modules` and `_fishbowl` will
+  not be created anymore when a new database is created. These collections are useful 
+  only in very few cases, so it is normally not worth to create them in all databases.
+
+  Already existing `_modules` and `_fishbowl` system collections will not be modified 
+  by this default value change, even though they will likely be empty and unused.
+
+  The long-term side effects of this change will be:
+  - there will be no iteration over all databases at server startup just to check
+    the contents of all `_modules` collections.
+  - less collections/shards will be around for deployments that create a large
+    number of databases (and thus the default system collections).
+
+  Any functionality related to the `_modules` system collection is deprecated in
+  ArangoDB 3.8 and will be removed in ArangoDB 3.9.
+
 - The default value for `--foxx.force-update-on-startup` changed from `true` in
   previous version to `false` in ArangoDB 3.8, also see [Foxx](#foxx) above.
+
+- The value of the startup option `--rocksdb.block-cache-size` is limited to 1 GB 
+  for agent instances to reduce agency RAM usage, unless the option is explicitly
+  configured otherwise. 
+
+  In addition, the value of `--rocksdb.total-write-buffer-size` is limited to 512 MB 
+  on agent instances for the same reason, unless otherwise configuration.
+
+  No limitations apply for DB server instances or single servers.
 
 - The default value for the number of network I/O threads `--network.io-threads`
   was changed to `2` in ArangoDB 3.8, up from a value of `1` in previous version.
@@ -128,7 +158,7 @@ the thread count. See
 - The default value of the startup option `--server.unavailability-queue-fill-grade`
   has been changed from value `1` in previous versions to a value of `0.75` in ArangoDB
   3.8.
-  
+
   This change has a consequence for the `/_admin/server/availability` REST API only,
   which is often called by load-balancers and other availability probing systems.
 
