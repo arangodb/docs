@@ -156,7 +156,7 @@ The default value for this option is `true`.
 
 ## Maximum line length
 
-<small>Introduced in: v3.7.8</small>
+<small>Introduced in: v3.7.9, v3.8.0</small>
 
 `--log.max-entry-length value`
 
