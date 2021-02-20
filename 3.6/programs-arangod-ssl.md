@@ -34,16 +34,10 @@ The file specified by *filename* can be generated using OpenSSL:
 
 ```
 # create private key in file "server.key"
-openssl genpkey -out server.key -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -aes-128-cbc
+openssl genrsa -out server.key 2048
 
 # create certificate signing request (csr) in file "server.csr"
 openssl req -new -key server.key -out server.csr
-
-# copy away original private key to "server.key.org"
-cp server.key server.key.org
-
-# remove passphrase from the private key
-openssl rsa -in server.key.org -out server.key
 
 # sign the csr with the key, creates certificate PEM file "server.crt"
 openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
