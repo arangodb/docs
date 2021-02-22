@@ -301,6 +301,18 @@ FOR status IN `Window`
   RETURN status.open
 ```
 
+## Subqueries
+
+The AQL optimizer rule `splice-subqueries` was introduced in ArangoDB 3.6 to
+optimize most subqueries, and it was extended in 3.7 to work with all types
+of subqueries. It was always turned on by default, but it still could be 
+deactivated manually using a startup option (`--query.optimizer-rules`).
+
+In ArangoDB 3.8, the optimizer rule `splice-subqueries` is now required for
+subquery execution, and cannot be turned off. Trying to disable it via the 
+mentioned startup option has no effect, as the optimizer rule will always 
+run for queries containing subqueries.
+
 ### UPDATE queries with `keepNull: false`
 
 AQL update queries using the `keepNull` option set to false had an inconsistent
