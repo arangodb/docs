@@ -33,6 +33,9 @@ The following high-level operations are described here after:
 - [**COLLECT**](operations-collect.html):
   Group an array by one or multiple group criteria. Can also count and aggregate.
 
+- [**WINDOW**](operations-window.html):
+  Perform aggregations over related rows.
+
 - [**REMOVE**](operations-remove.html):
   Remove documents from a collection.
 

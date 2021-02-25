@@ -1,8 +1,11 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/gharial/social/edge/relation</span>
 
-HTTP/<span class="hljs-number">1.1</span> Accepted
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
-etag: _bAwrhkW---
+connection: Keep-Alive
+content-length: <span class="hljs-number">171</span>
+etag: _b4vzTOS--C
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
@@ -15,7 +18,7 @@ x-content-type-options: nosniff
       <span class="hljs-string">"female"</span>, 
       <span class="hljs-string">"male"</span> 
     ], 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bAwrhkW---"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_b4vzTOS--C"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/social"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"social"</span> 
   } 

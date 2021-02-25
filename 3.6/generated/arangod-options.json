@@ -15,7 +15,7 @@
   },
   "agency.compaction-keep-size" : {
     "category" : "option",
-    "default" : 2000,
+    "default" : 50000,
     "deprecatedIn" : null,
     "description" : "keep as many indices before compaction point",
     "dynamic" : false,
@@ -29,7 +29,7 @@
   },
   "agency.compaction-step-size" : {
     "category" : "option",
-    "default" : 100,
+    "default" : 1000,
     "deprecatedIn" : null,
     "description" : "step size between state machine compactions",
     "dynamic" : false,
@@ -325,7 +325,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341532672,
+    "default" : 16341509120,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -922,6 +922,22 @@
     "section" : "database",
     "type" : "uint64"
   },
+  "database.old-system-collections" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "create and use deprecated system collection (_modules, _fishbowl)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.9"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "database",
+    "type" : "boolean"
+  },
   "database.password" : {
     "category" : "option",
     "default" : "",
@@ -1085,6 +1101,22 @@
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "foxx",
+    "type" : "boolean"
+  },
+  "foxx.force-update-on-startup" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "ensure all Foxx services are synchronized before completeing the boot sequence",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.9"
     ],
     "obsolete" : false,
     "requiresValue" : false,
@@ -2155,6 +2187,24 @@
     "section" : "",
     "type" : "string..."
   },
+  "log.api-enabled" : {
+    "category" : "option",
+    "default" : "true",
+    "deprecatedIn" : null,
+    "description" : "whether the log api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.11",
+      "v3.5.6",
+      "v3.6.5"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string"
+  },
   "log.color" : {
     "category" : "option",
     "default" : true,
@@ -2502,7 +2552,7 @@
   },
   "network.io-threads" : {
     "category" : "option",
-    "default" : 2,
+    "default" : 1,
     "deprecatedIn" : null,
     "description" : "number of network IO threads",
     "dynamic" : false,
@@ -2660,11 +2710,28 @@
     "section" : "query",
     "type" : "boolean"
   },
+  "query.max-runtime" : {
+    "category" : "option",
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "runtime threshold for AQL queries (in seconds, 0 = no limit)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.7",
+      "v3.7.3"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "double"
+  },
   "query.memory-limit" : {
     "category" : "option",
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "memory threshold for AQL queries (in bytes)",
+    "description" : "memory threshold for AQL queries (in bytes, 0 = no limit)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -2784,7 +2851,21 @@
     "category" : "option",
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "whether to track slow AQL queries",
+    "description" : "whether to track queries",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "query",
+    "type" : "boolean"
+  },
+  "query.tracking-slow-queries" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "whether to track slow queries",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -2803,6 +2884,38 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "query",
+    "type" : "boolean"
+  },
+  "query.tracking-with-datasources" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "whether to track data sources with AQL queries",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.8"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "query",
+    "type" : "boolean"
+  },
+  "query.tracking-with-querystring" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "whether to track the query string",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.8"
+    ],
     "obsolete" : false,
     "requiresValue" : false,
     "section" : "query",
@@ -2976,7 +3089,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609839206,
+    "default" : 19609810944,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -3345,6 +3458,22 @@
     "section" : "rocksdb",
     "type" : "uint64"
   },
+  "rocksdb.max-write-buffer-number-to-maintain" : {
+    "category" : "option",
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "maximum number of immutable write buffers that build up in memory per column family (larger values mean that more in-memory data can be used for transaction conflict checking (default depends on RAM size, set to 1 for not to keep immutable flushed write buffers, set to 0 for default size of RocksDB))",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.7"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "int64"
+  },
   "rocksdb.min-write-buffer-number-to-merge" : {
     "category" : "option",
     "default" : 1,
@@ -3443,6 +3572,24 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.sync-delay-threshold" : {
+    "category" : "option",
+    "default" : 5000,
+    "deprecatedIn" : null,
+    "description" : "threshold value for self-observation of WAL disk syncs. any WAL disk sync longer ago than this threshold will trigger a warning (in milliseconds, use 0 for no warnings)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.0",
+      "v3.7.5",
+      "v3.6.8"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
   "rocksdb.sync-interval" : {
     "category" : "option",
     "default" : 100,
@@ -3487,7 +3634,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146452275,
+    "default" : 26146414592,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -4070,6 +4217,22 @@
     "section" : "server",
     "type" : "string"
   },
+  "server.unavailability-queue-fill-grade" : {
+    "category" : "option",
+    "default" : 1,
+    "deprecatedIn" : null,
+    "description" : "queue fill grade from which onwards the server is considered unavailable because of overload (ratio, use a value of 0 to disable it)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.10"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "double"
+  },
   "server.validate-utf8-strings" : {
     "category" : "option",
     "default" : false,
@@ -4255,33 +4418,22 @@
     "section" : "temp",
     "type" : "string"
   },
-  "transaction.streaming-lock-timeout": {
-    "category": "option",
-    "component": [
-      "coordinator",
-      "dbserver",
-      "agent",
-      "single"
-    ],
-    "default": 8,
-    "deprecatedIn": null,
-    "description": "lock timeout in seconds in case of parallel access to the same streaming transaction",
-    "dynamic": false,
-    "enterpriseOnly": false,
-    "hidden": true,
-    "introducedIn": [
+  "transaction.streaming-lock-timeout" : {
+    "category" : "option",
+    "default" : 8,
+    "deprecatedIn" : null,
+    "description" : "lock timeout in seconds in case of parallel access to the same streaming transaction",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
       "v3.6.5",
       "v3.7.1"
     ],
-    "obsolete": false,
-    "os": [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue": true,
-    "section": "transaction",
-    "type": "double"
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "transaction",
+    "type" : "double"
   },
   "ttl.frequency" : {
     "category" : "option",

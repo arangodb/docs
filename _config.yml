@@ -60,32 +60,30 @@ algolia:
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
 exclude:
+  - _illustrations
   - _redirects
   - build.sh
   - Dockerfile
   - Gemfile
   - Gemfile.lock
+  - htmltest
   - LICENSE
   - LICENSE-OTHER-COMPONENTS.md
   - migrate.sh
   - netlify.sh
   - netlify.toml
-  - README.md
-  - README_maintainers.md
-  - TODO.md
-  - htmltest
   - node_modules
+  - oasis/
+  - oasisctl.rb
+  - README_maintainers.md
+  - README.md
   - scripts
+  - sitemap.rb
+  - TODO.md
   - vendor/bundle/
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
-  - scripts
-  - sitemap.rb
-  - oasisctl.rb
-  - Dockerfile
-  - TODO.md
-  - htmltest
   - 3.8/generated
   - 3.7/generated
   - 3.6/generated

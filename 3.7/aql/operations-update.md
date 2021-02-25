@@ -146,8 +146,8 @@ UPDATE doc WITH {
 If the attribute `hobbies` doesn't exist yet, it is conveniently initialized
 as `[ "swimming" ]` and otherwise extended.
 
-Setting query options
----------------------
+Query options
+-------------
 
 *options* can be used to suppress query errors that may occur when trying to
 update non-existing documents or violating unique key constraints:
@@ -223,7 +223,7 @@ FOR u IN users
   } IN users OPTIONS { waitForSync: true }
 ```
 
-In order to not accidentially overwrite documents that have been updated since you last fetched
+In order to not accidentally overwrite documents that have been updated since you last fetched
 them, you can use the option *ignoreRevs* to either let ArangoDB compare the `_rev` value and 
 only succeed if they still match, or let ArangoDB ignore them (default):
 

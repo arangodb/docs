@@ -27,7 +27,7 @@ Specifying the *direction* is optional. The default (implicit) direction for a
 sort expression is the ascending order. To explicitly specify the sort direction, 
 the keywords *ASC* (ascending) and *DESC* can be used. Multiple sort criteria can be
 separated using commas. In this case the direction is specified for each
-expression sperately. For example
+expression separately. For example
 
 ```
 SORT doc.lastName, doc.firstName

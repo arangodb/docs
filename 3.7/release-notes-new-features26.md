@@ -222,7 +222,7 @@ The API documentation has been updated to Swagger 2. You can now also mount API
 documentation in your own Foxx apps.
 
 Also see the blog post introducing this feature:
-[www.arangodb.com/2015/05/document-your-foxx-apps-with-swagger-2/](https://www.arangodb.com/2015/05/document-your-foxx-apps-with-swagger-2/){:target="_blank"}
+[Document your Foxx apps with Swagger 2](https://www.arangodb.com/2015/05/foxx-swagger/){:target="_blank"}
 
 ### Custom Scripts and Foxx Queue
 

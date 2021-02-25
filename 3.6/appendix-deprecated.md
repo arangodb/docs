@@ -41,7 +41,7 @@ replace the old features with:
   deprecated.
 
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
-  They are superseded by [AQL queries](../aql/), which can also
+  They are superseded by [AQL queries](aql/index.html), which can also
   be run in arangosh. AQL is a language on its own and way more powerful than
   *Simple Queries* could ever be. In fact, the (still supported) *Simple Queries*
   are translated internally to AQL, then the AQL query is optimized and run

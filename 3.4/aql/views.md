@@ -37,5 +37,5 @@ Currently there is a single supported view implementation, namely
 `arangosearch` as described in [ArangoSearch View](views-arango-search.html). 
 
 Also see the detailed
-[ArangoSearch tutorial](https://www.arangodb.com/tutorials/arangosearch/){:target="_blank"}
+[ArangoSearch tutorial](https://www.arangodb.com/learn/search/tutorial/){:target="_blank"}
 to learn more.

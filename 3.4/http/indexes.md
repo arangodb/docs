@@ -41,7 +41,7 @@ A skiplist is a sorted index that can be used to find individual documents or ra
 ### Persistent Index
 
 A persistent index is a sorted index that can be used for finding individual documents or ranges of documents.
-In constrast to the other indexes, the contents of a persistent index are stored on disk and thus do not need to be rebuilt in memory from the documents when the collection is loaded.
+In contrast to the other indexes, the contents of a persistent index are stored on disk and thus do not need to be rebuilt in memory from the documents when the collection is loaded.
 
 ### Fulltext Index:
 

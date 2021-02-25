@@ -11,9 +11,12 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Accepted
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
-etag: _al3gr7i--B
+connection: Keep-Alive
+content-length: <span class="hljs-number">393</span>
+etag: _bkbes9y--B
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
@@ -50,7 +53,7 @@ x-content-type-options: nosniff
       } 
     ], 
     <span class="hljs-string">"orphanCollections"</span> : [ ], 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3gr7i--B"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbes9y--B"</span>, 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/social"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">"social"</span> 
   } 

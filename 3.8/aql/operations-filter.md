@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The FILTER statement can be used to restrict the results to elements thatmatch an arbitrary logical condition
+description: The FILTER statement can be used to restrict the results to elements that match an arbitrary logical condition
 ---
 FILTER
 ======
@@ -8,21 +8,24 @@ FILTER
 The `FILTER` statement can be used to restrict the results to elements that
 match an arbitrary logical condition.
 
-General syntax
---------------
+Syntax
+------
 
-```
-FILTER expression
-```
+<pre><code>FILTER <em>expression</em></code></pre>
 
-`expression` must be a condition that evaluates to either *false* or *true*. If
-the condition result is false, the current element is skipped, so it will not be
-processed further and not be part of the result. If the condition is true, the
-current element is not skipped and can be further processed.
+*expression* must be a condition that evaluates to either `false` or `true`.
+
+Usage
+-----
+
+If the condition result is false, the current element is skipped, so it will
+not be processed further and not be part of the result. If the condition is
+true, the current element is not skipped and can be further processed.
+
 See [Operators](operators.html) for a list of comparison operators, logical
 operators etc. that you can use in conditions.
 
-```
+```js
 FOR u IN users
   FILTER u.active == true && u.age < 39
   RETURN u
@@ -30,22 +33,34 @@ FOR u IN users
 
 It is allowed to specify multiple `FILTER` statements in a query, even in
 the same block. If multiple `FILTER` statements are used, their results will be
-combined with a logical AND, meaning all filter conditions must be true to
+combined with a logical `AND`, meaning all filter conditions must be true to
 include an element.
 
-```
+```js
 FOR u IN users
   FILTER u.active == true
   FILTER u.age < 39
   RETURN u
 ```
 
-In the above example, all array elements of *users*  that have an attribute
-*active* with value *true* and that have an attribute *age* with a value less
-than *39* (including *null* ones) will be included in the result. All other
-elements of *users* will be skipped and not be included in the result produced
-by `RETURN`. You may refer to the chapter [Accessing Data from Collections](fundamentals-document-data.html)
+In the above example, all array elements of `users` that have an attribute
+`active` with value `true` and that have an attribute `age` with a value less
+than `39` (including `null` ones) will be included in the result. All other
+elements of `users` will be skipped and not be included in the result produced
+by `RETURN`.
+
+{% hint 'info' %}
+See [Accessing Data from Collections](fundamentals-document-data.html)
 for a description of the impact of non-existent or null attributes.
+{% endhint %}
+
+While `FILTER` typically occurs in combination with `FOR`, it can also be used
+at the top level or in subqueries without a surrounding `FOR` loop.
+
+```js
+FILTER false
+RETURN ASSERT(false, "never reached")
+```
 
 Order of operations
 -------------------
@@ -84,7 +99,7 @@ FOR u IN users
 
 ... it might just return the Chloe document, because the `LIMIT` is applied before
 the second `FILTER`. No more than 5 documents arrive at the second `FILTER` block,
-and not all of them fulfill the gender criterion, eventhough there are more than
+and not all of them fulfill the gender criterion, even though there are more than
 5 active female users in the collection. A more deterministic result can be achieved
 by adding a `SORT` block:
 
@@ -97,7 +112,7 @@ FOR u IN users
   RETURN u
 ```
 
-This will return the users Mariah and Mary. If sorted by age in *DESC* order,
+This will return the users *Mariah* and *Mary*. If sorted by age in `DESC` order,
 then the Sophia, Emma and Madison documents are returned. A `FILTER` after a
 `LIMIT` is not very common however, and you probably want such a query instead:
 
@@ -110,6 +125,6 @@ FOR u IN users
 ```
 
 The significance of where `FILTER` blocks are placed allows that this single
-keyword can assume the roles of two SQL keywords, *WHERE* as well as *HAVING*.
+keyword can assume the roles of two SQL keywords, `WHERE` as well as `HAVING`.
 AQL's `FILTER` thus works with `COLLECT` aggregates the same as with any other
 intermediate result, document attribute etc.

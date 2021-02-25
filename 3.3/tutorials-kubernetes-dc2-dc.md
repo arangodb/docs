@@ -11,7 +11,7 @@ clusters running in Kubernetes.
 
 {% hint 'info' %}
 This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"}
 {% endhint %}
 
 ## Requirements

@@ -113,7 +113,7 @@ The following [NPM modules](https://www.npmjs.com){:target="_blank"} are preinst
 
 <!-- * [extendible] (https://github.com/3rd-Eden/extendible) (only for legacy mode) -->
 
-* [graphql-sync](https://github.com/arangodb/graphql-sync){:target="_blank"}
+* [graphql-sync](https://www.npmjs.com/package/graphql-sync){:target="_blank"}
   is an ArangoDB-compatible GraphQL server/schema implementation.
 
 * [highlight.js](https://highlightjs.org){:target="_blank"}

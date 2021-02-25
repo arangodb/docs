@@ -5,7 +5,7 @@ arangosh&gt; db.ids.ensureIndex({ <span class="hljs-attr">type</span>: <span cla
     <span class="hljs-string">"name.first"</span>, 
     <span class="hljs-string">"name.last"</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"ids/73881"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"ids/73886"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
@@ -15,21 +15,21 @@ arangosh&gt; db.ids.ensureIndex({ <span class="hljs-attr">type</span>: <span cla
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"hansen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/73883"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73883"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z7KH2wm---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/73888"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73888"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHcRRHW---"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"jens"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/73885"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73885"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z7KH2wq---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/73890"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73890"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHcRRHa---"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/73887"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73887"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z7KH2wq--A"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/73892"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73892"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHcRRHe---"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"hansen"</span> }});
-[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index <span class="hljs-number">73881</span> <span class="hljs-keyword">of</span> type rocksdb-persistent over [<span class="hljs-string">"name.first"</span>,<span class="hljs-string">"name.last"</span>]; conflicting key: <span class="hljs-number">73883</span>]
+[ArangoError <span class="hljs-number">1210</span>: unique constraint violated - <span class="hljs-keyword">in</span> index <span class="hljs-number">73886</span> <span class="hljs-keyword">of</span> type rocksdb-persistent over [<span class="hljs-string">"name.first"</span>,<span class="hljs-string">"name.last"</span>]; conflicting key: <span class="hljs-number">73888</span>]

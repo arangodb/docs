@@ -41,7 +41,7 @@ roles:
 
 In the following sections we will shed light on each of them.
 
-![ArangoDB Cluster](images/cluster_topology.png)
+![ArangoDB Cluster](images/cluster-topology.png)
 
 ### Agents
 
@@ -435,6 +435,31 @@ on the leader shards in a cluster, a few things need to be considered:
   operations, potentially breaking the atomicity of transactions. To prevent
   this for individual queries you can increase `intermediateCommitSize`
   (default 512 MB) and `intermediateCommitCount` accordingly as query option.
+
+### Limitations
+
+The OneShard optimization will be used automatically for all eligible AQL queries
+and streaming transactions.
+
+For AQL queries, any of the following factors currently makes a query
+unsuitable for the OneShard optimization:
+
+- The query accesses collections with more than a single shard, different leader
+  DB-Servers, or different `distributeShardsLike` prototype collections
+- The query writes into a SatelliteCollection
+- the query accesses an edge collection of a SmartGraph
+- Usage of AQL user-defined functions
+- Usage of AQL functions that can only execute on Coordinators.
+  These functions are:
+  - `COLLECTION_COUNT()`
+  - `CURRENT_DATABASE()`
+  - `CURRENT_USER()`
+  - `COLLECTIONS()`
+  - `DOCUMENT()`
+  - `VERSION()`
+  - `SCHEMA_GET()`
+  - `SCHEMA_VALIDATE()`
+  - `V8()`
 
 Synchronous replication
 -----------------------

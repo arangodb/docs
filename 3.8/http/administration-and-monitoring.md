@@ -12,6 +12,7 @@ Logs
 ----
 
 <!-- lib/Admin/RestAdminLogHandler.cpp -->
+{% docublock get_admin_log_entries %}
 {% docublock get_admin_log %}
 {% docublock get_admin_loglevel %}
 {% docublock put_admin_loglevel %}
@@ -55,6 +56,9 @@ Cluster
 
 Other
 -----
+
+<!-- arangod/RocksDBEngine/RocksDBRestHandlers.cpp -->
+{% docublock put_admin_compact %}
 
 <!-- js/actions/api-system.js -->
 {% docublock get_admin_routing_reloads %}

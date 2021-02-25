@@ -12,8 +12,11 @@ DELETE _api/collection/notexisting2 HTTP/1.1
 
 EOF
 
-HTTP/1.1 OK
+HTTP/1.1 200 OK
 content-type: unset
+connection: Keep-Alive
+content-length: 598
+server: ArangoDB
 x-arango-errors: 2
 x-content-type-options: nosniff
 
