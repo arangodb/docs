@@ -82,13 +82,15 @@ The format of a custom algorithm right now is based on a JSON object.
 
 - **maxGSS** (number, _required_): The max amount of global supersteps.
 
-  After the amount of max defined supersteps is reached, the Pregel execution will stop.
+  After the amount of max defined supersteps is reached, the Pregel execution
+  will stop.
 
 - **dataAccess** (object, _optional_): Allows to define `writeVertex`,
   `readVertex` and `readEdge`.
 
-  - **writeVertex**: An [AIR program](#air-program) that is used to write the results
-    into vertices. If `writeVertex` is used, the `resultField` must not be set.
+  - **writeVertex**: An [AIR program](#air-program) that is used to write the
+    results into vertices. If `writeVertex` is used, the `resultField` must not
+    be set.
 
   - **readVertex**: An `array` that consists of `strings` and/or additional `arrays`
     (that represents a path).
@@ -99,15 +101,17 @@ The format of a custom algorithm right now is based on a JSON object.
       - `string`: Represents a single attribute at the top level.
       - `array of strings`: Represents a nested path
 
-  `readVertex` and `readEdge` are used to modify the associated data for a vertex or edge.
-  If not provided the default behaviour is to load the whole document.
+  `readVertex` and `readEdge` are used to modify the associated data for a
+  vertex or edge. If not provided the default behavior is to load the whole
+  document.
 
 - **vertexAccumulators** (object, _optional_):
   Definition of all used [vertex accumulators](#vertex-accumulators).
 
 - **globalAccumulators** (object, _optional_):
   Definition all used global accumulators.
-  [Global Accumulators](#global-accumulator) are able to access variables at shared global level.
+  [Global Accumulators](#global-accumulator) are able to access variables at
+  shared global level.
 
 - **customAccumulators** (object, _optional_):
   Definition of all used [custom accumulators](#custom-accumulator).
@@ -303,7 +307,7 @@ _binding values to variables_
 
 Expects as first parameter a list of name-value-pairs. Both members of each
 pair are evaluated. `first` has to evaluate to a string. Declared names become
-visible at the first expr.The following expressions are then evaluated in a
+visible at the first `expr`. The following expressions are then evaluated in a
 context where the named variables are assigned to their given values. When
 evaluating the expression, `let` behaves like `seq`.
 
@@ -390,7 +394,7 @@ Behaves similar to `let` but expects a list as `value` for each variable.
 It then produces the cartesian product of all lists and evaluates its
 expression for each n-tuple. The return value is always `null`. The order
 is guaranteed to be lexicographic order. If the list of variables is empty,
-the expressions are evaluated once. If one list is empty, nothing is evaluted.
+the expressions are evaluated once. If one list is empty, nothing is evaluated.
 
 ```js
 > ["for-each", [["x", ["list", 1, 2]], ["y", ["list", 3, 4]]], ["report", ["var-ref", "x"], ["var-ref", "y"]]]
@@ -410,7 +414,8 @@ _escape sequences for lisp_
 ["quote-splice", list]
 ```
 
-`quote`/`quote-splice` copies/splices its parameter verbatim into its output, without evaluating them.
+`quote`/`quote-splice` copies/splices its parameter verbatim into its output,
+without evaluating them.
 `quote-splice` fails if it is called in a context where it can not splice into
 something, for example at top-level.
 
@@ -434,9 +439,9 @@ _like `quote` but can be unquoted_
 `quasi-quote` is like `quote` but can be unquoted using
 `unquote`/`unquote-splice`.
 
-Unlike `quote`, `quasi-quote` scans all the unevaluated values passed as parameters but copies them.
-When it finds a `unquote` or `unquote-splice` it evaluates its parameters and copies/splices the
-resulting value into the output.
+Unlike `quote`, `quasi-quote` scans all the unevaluated values passed as
+parameters but copies them. When it finds a `unquote` or `unquote-splice` it
+evaluates its parameters and copies/splices the resulting value into the output.
 
 ```js
 ["quasi-quote", [
@@ -821,8 +826,9 @@ to its decimal representation.
 `id` returns its argument. `apply` invokes `func` using the values from `list`
 as arguments. `map` invokes `func` for every value/key-value-pair in the
 `list`/`dict`. `func` should accept two parameters `(index, value)`/`(key, value)`.
-`filter` returns a new `list`/`dict` that contains all entries for which the return value
-of `func` invoked with `(index, value)`/`(key, value)` is considered true.
+`filter` returns a new `list`/`dict` that contains all entries for which the
+return value of `func` invoked with `(index, value)`/`(key, value)` is
+considered true.
 
 ```js
 > ["id", 12]
@@ -957,7 +963,8 @@ Also see the remarks about [update visibility](#vertex-accumulators).
   and the receiver.
 - `send-to-all-neighbors` sends the value `value` to the accumulator `name` in
   all neighbors reachable by an edge, i.e. along outbound edges. Note that if
-  there are multiple edges from us to the neighbor, the value is sent multiple times.
+  there are multiple edges from us to the neighbor, the value is sent multiple
+  times.
 
 #### This Vertex
 
@@ -1229,8 +1236,8 @@ Before a new superstep begins the global accumulators are distributed to the
 DB-Servers by the coordinator. During the superstep, vertex programs can read from
 those accumulators and send messages to them. Those messages are then
 accumulated per DB-Server in a cleared version of the accumulator,
-i.e. sending a message does call `updateProgram` but the _write accumulator_ is cleared
-when the superstep begins.
+i.e. sending a message does call `updateProgram` but the _write accumulator_
+is cleared when the superstep begins.
 
 After the superstep the accumulated values are collected by the coordinator and
 then aggregated. Finally the new value of the global accumulator is available
