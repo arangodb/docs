@@ -18,7 +18,7 @@ Audit destination(s).
 
 ## Maximum line length
 
-<small>Introduced in: v3.8.0</small>
+<small>Introduced in: v3.7.9</small>
 
 `--audit.max-entry-length value`
 

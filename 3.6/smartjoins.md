@@ -8,7 +8,7 @@ redirect_from:
 SmartJoins
 ==========
 
-<small>Introduced in: v3.4.5, v3.5.0</small>
+<small>Introduced in: v3.4.5</small>
 
 {% include hint-ee-oasis.md feature="SmartJoins" plural=true %}
 
