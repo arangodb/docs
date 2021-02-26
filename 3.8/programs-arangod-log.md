@@ -277,6 +277,20 @@ character with the server's role into each logged message. The roles are:
 
 The default value for this option is `false`, so no roles will be logged.
 
+## Hostname
+
+Log hostname: `--log.hostname`
+
+This option specifies an optional hostname to be logged at the beginning of each log
+message (for regular logging) or inside the `hostname` attribute (for JSON-based
+logging).
+
+The default value is the empty string, meaning no hostnames will be logged.
+Setting this option to a value of `auto` will automatically determine the hostname
+and use that value.
+
+Example: `arangod ... --log.hostname "auto"`
+
 ## JSON log output
 
 <small>Introduced in: v3.8.0</small>
@@ -303,6 +317,7 @@ The attributes produced for each log message JSON object are:
 | `function` | source file function name, only emitted if `--log.file-name` is set
 | `topic`    | log topic name
 | `id`       | log id (5 digit hexadecimal string), only emitted if `--log.ids` is set
+| `hostname` | hostname if `--log.hostname` is set
 | `message`  | the actual log message payload
 
 ### Log API Access
