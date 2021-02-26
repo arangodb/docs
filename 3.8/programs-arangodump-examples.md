@@ -196,7 +196,7 @@ RocksDB encryption-at-rest feature.
 Compression
 -----------
 
-<small>Introduced in: v3.4.6, v3.5.0</small>
+<small>Introduced in: v3.4.6</small>
 
 `--compress-output`
 
