@@ -245,6 +245,36 @@ They supersede the options `--arangosearch.threads` and
 `--arangosearch.threads-limit`. See
 [ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
 
+Web interface
+-------------
+
+The web interface can now display the approximate size of the data in a collection for
+both indexes and documents, based on the estimates provided by RocksDB. These are
+estimates which are intended to calculated quickly, but not perfectly accurate. The
+estimates can still be useful to get an idea of how "big" a collection approximately is.
+The sizing information is provided in the "Info" tab of each collection's detail view.
+
+For collections in a cluster, the web interface will also display the number of 
+documents in each shard (data distribution) plus the leader and follower DB servers for
+each shard.
+
+The web interface can now display the most recent server log entries for coordinators
+and DB servers in a cluster. Logs are made available in the `_system` database via the 
+"Nodes" menu item. Up to 2048 log entries will be kept on each instance.
+The privileges for accessing server logs in the web interface are identical to the
+privileges required for accessing logs via the `GET /_admin/log` HTTP REST API. 
+If security is a concern, in-memory logs buffering can be turned off entirely using the
+startup option `--log.in-memory false`, plus the log API can be turned off or restricted
+via the `--log.api-enabled false` or `--log.api-enabled jwt` startup options.
+
+The shard synchronization overview in the web interface now provides a better overview
+of what the shard synchronization is currently doing, and what its progress is. For
+shards that are currently not in sync it will display whether the followers are currently
+syncing or waiting for their turn to come (because the amount of parallelism for syncing 
+multiple shards can be restricted). The progress values displayed for shard synchronization
+should also be more helpful for shards with more than one follower and in situations 
+where one follower is in sync and the other isn't (yet).
+
 Memory usage
 ------------
 
