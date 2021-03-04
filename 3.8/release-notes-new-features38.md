@@ -479,12 +479,18 @@ The following logging-related options have been added:
   | `function` | source file function name, only emitted if `--log.file-name` is set
   | `topic`    | log topic name
   | `id`       | log id (5 digit hexadecimal string), only emitted if `--log.ids` is set
+  | `hostname` | hostname if `--log.hostname` is set
   | `message`  | the actual log message payload
 
 - added option `--log.process` to toggle the logging of the process id
   (pid) in log messages. Logging the process ID is useless when running
   arangod in Docker containers, as the pid will always be 1. So one may
   as well turn it off in these contexts with the new option.
+
+- added option `--log.hostname` to optionally log the current host's name
+  at the beginning of each log message (or inside the `hostname` attribute for
+  JSON-based logging). Setting `--log.hostname` to a value of `auto` will
+  automatically determine the hostname and use that for logging.
 
 - added option `--log.in-memory` to toggle storing log messages in memory,
   from which they can be consumed via the `/_admin/log` HTTP API and by the 
