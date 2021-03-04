@@ -281,13 +281,13 @@ The default value for this option is `false`, so no roles will be logged.
 
 Log hostname: `--log.hostname`
 
-This option specifies an optional hostname to be logged at the beginning of each log
-message (for regular logging) or inside the `hostname` attribute (for JSON-based
-logging).
+This option specifies an optional hostname to be logged at the beginning of
+each log message (for regular logging) or inside the `hostname` attribute
+(for JSON-based logging).
 
 The default value is the empty string, meaning no hostnames will be logged.
-Setting this option to a value of `auto` will automatically determine the hostname
-and use that value.
+Setting this option to a value of `auto` will automatically determine the
+hostname and use that value.
 
 Example: `arangod ... --log.hostname "auto"`
 
