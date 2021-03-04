@@ -62,10 +62,13 @@ STARTS_WITH(doc.text, "avoca") OR STARTS_WITH(doc.text, "arang")
 ```
 
 The default Analyzer that will be used for searching is `"identity"`.
-While many ArangoSearch functions accept an Analyzer argument, it is often
-easier and cleaner to wrap a search (sub-)expressions with an `ANALYZER()` call
-to set the Analyzer for these functions. Their Analyzer argument can then be
-left out.
+While some ArangoSearch functions accept an Analyzer argument, it is often
+necessary to wrap search (sub-)expressions with an `ANALYZER()` call to set the
+correct Analyzer in the query so that it matches one of the Analyzers with
+which the field was indexed.
+
+It can be easier and cleaner to use `ANALYZER()` even if you exclusively
+use functions that take an Analyzer argument and leave that argument out:
 
 ```js
 // Analyzer specified in each function call
