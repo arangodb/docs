@@ -75,6 +75,123 @@ specified, but can also be explicitly requested with `order: "dfs"`.
 
 Also see [AQL graph traversals](aql/graphs-traversals.html)
 
+k Paths
+-------
+
+Added new graph traversal method `K_PATHS` to AQL. This will enumerate all
+paths between a source and a target vertex that match the given length.
+
+For example, the query:
+
+```js
+FOR path IN 2..4 OUTBOUND K_PATHS "v/source" TO "v/target" GRAPH "g"
+  RETURN path
+```
+
+… will yield all paths in format:
+
+```js
+{
+  vertices: ["v/source", ... , "v/target"],
+  edges: ["v/source" -> "v/1", ..., "v/n" -> "v/target"]
+}
+```
+
+… that have length of exactly 2 or 3 or 4, start at `v/source` and end at
+`v/target`. No order is guaranteed for those paths in the result set.
+
+AQL bit functions
+-----------------
+
+ArangoDB 3.8 adds the following bit handling functions to AQL:
+
+- `BIT_AND()`: and-combine two or more numbers
+- `BIT_OR()`: or-combine two or more numbers
+- `BIT_XOR()`: xor-combine two or more numbers
+- `BIT_NEGATE()`: bitwise negation
+- `BIT_TEST()`: test if bit is set at position
+- `BIT_POPCOUNT()`: number of bits set
+- `BIT_SHIFT_LEFT()`: bitwise shift-left
+- `BIT_SHIFT_RIGHT()`: bitwise shift-right
+- `BIT_CONSTRUCT()`: construct a number with bits set at given positions
+- `BIT_DECONSTRUCT()`: deconstruct a number into an array with the positions of its set bits
+- `BIT_TO_STRING()`: create a bitstring representation from a numeric value
+- `BIT_FROM_STRING()`: parse a bitstring representation into a number
+
+Also see [Bit functions](aql/functions-bit.html).
+
+`BIT_AND()`, `BIT_OR()` and `BIT_XOR()` are also available as aggregate
+functions for usage inside [`COLLECT AGGREGATE`](aql/operations-collect.html#aggregation).
+
+All above bit operations support unsigned integer values with up to 32 bits.
+Using values outside the supported range will make any of these bit functions
+return `null` and register a warning.
+
+This functionality has been backported to v3.7.7 as well.
+
+AQL binary and hexadecimal integer literals
+-------------------------------------------
+
+ArangoDB 3.8 allows using binary (base 2) and hexadecimal (base 16) integer
+literals in AQL. These literals can be used where regular (base 10) integer
+literals can be used.
+
+- The prefix for binary integer literals is `0b`, e.g. `0b10101110`.
+- The prefix for hexadecimal integer literals is `0x`, e.g. `0xabcdef02`.
+
+Binary and hexadecimal integer literals can only be used for unsigned integers.
+The maximum supported value is 2<sup>32</sup> - 1, i.e.
+`0b11111111111111111111111111111111` (binary) or `0xffffffff` (hexadecimal).
+
+This functionality has been backported to v3.7.7 as well.
+
+Projections on sub-attributes
+-----------------------------
+
+AQL now also support projections on sub-attributes (e.g. `a.b.c`).
+
+In previous versions of ArangoDB, projections were only supported on top-level
+attributes. For example, in the query:
+
+```js
+FOR doc IN collection
+  RETURN doc.a.b
+```
+
+… the projection that was used was just `a`. Now the projection will be `a.b`,
+which can help reduce the amount of data to be extracted from documents, when
+only some sub-attributes are accessed.
+
+In addition, indexes can now be used to extract the data of sub-attributes
+for projections. If for the above example query an index on `a.b` exists,
+it will be used now. Previously, no index could be used for this projection.
+
+Projections now can also be fed by any attribute in a combined index.
+For example, in the query:
+
+```js
+FOR doc IN collection
+  RETURN doc.b
+```
+
+… the projection can be satisfied by a single-attribute index on attribute `b`,
+but now also by a combined index on attributes `a` and `b` (or `b` and `a`).
+
+AQL optimizer improvements
+--------------------------
+
+The "move-calculations-up" optimizer rule was improved so that it can move
+calculations out of subqueries into the outer query, so that they will be
+executed less often.
+
+In queries or subqueries that return only constant values and/or that assign
+constant values to variables, these constant values are now stored only once
+per query and not once input row. This can slightly improve memory usage and
+execution time of such queries.
+
+Explaining a query now also shows the query optimizer rules with the highest
+execution times in the explain output.
+
 ArangoSearch
 ------------
 
@@ -136,50 +253,149 @@ They supersede the options `--arangosearch.threads` and
 `--arangosearch.threads-limit`. See
 [ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
 
-AQL bit functions
------------------
+Web interface
+-------------
 
-ArangoDB 3.8 adds the following bit handling functions to AQL:
+- The web interface can now display the approximate size of the data in a
+  collection for both indexes and documents, based on the estimates provided by
+  RocksDB.
+  
+  These are estimates which are intended to be calculated quickly, but are not
+  perfectly accurate. The estimates can still be useful to get an idea of how
+  "big" a collection approximately is. The sizing information is provided in the
+  *Info* tab of each collection's detail view.
 
-- `BIT_AND()`: and-combine two or more numbers
-- `BIT_OR()`: or-combine two or more numbers
-- `BIT_XOR()`: xor-combine two or more numbers
-- `BIT_NEGATE()`: bitwise negation
-- `BIT_TEST()`: test if bit is set at position
-- `BIT_POPCOUNT()`: number of bits set
-- `BIT_SHIFT_LEFT()`: bitwise shift-left
-- `BIT_SHIFT_RIGHT()`: bitwise shift-right
-- `BIT_CONSTRUCT()`: construct a number with bits set at given positions
-- `BIT_DECONSTRUCT()`: deconstruct a number into an array with the positions of its set bits
-- `BIT_TO_STRING()`: create a bitstring representation from a numeric value
-- `BIT_FROM_STRING()`: parse a bitstring representation into a number
+- For collections in a cluster, the web interface now displays the number of
+  documents in each shard (data distribution) plus the leader and follower
+  DB-Servers for each shard.
 
-Also see [Bit functions](aql/functions-bit.html).
+- The web interface can now display the most recent server log entries for
+  Coordinators and DB-Servers in a cluster. Logs are made available in the
+  `_system` database via the _Nodes_ menu item. Up to 2048 log entries will be
+  kept on each instance.
 
-`BIT_AND()`, `BIT_OR()` and `BIT_XOR()` are also available as aggregate
-functions for usage inside [`COLLECT AGGREGATE`](aql/operations-collect.html#aggregation).
+  The privileges for accessing server logs in the web interface are identical
+  to the privileges required for accessing logs via the `GET /_admin/log` HTTP
+  REST API. If security is a concern, in-memory logs buffering can be turned
+  off entirely using the startup option `--log.in-memory false`, plus the log
+  API can be turned off or restricted via the `--log.api-enabled false` or
+  `--log.api-enabled jwt` startup options.
 
-All above bit operations support unsigned integer values with up to 32 bits.
-Using values outside the supported range will make any of these bit functions
-return `null` and register a warning.
+- The shard synchronization overview in the web interface now provides a better
+  overview of what the shard synchronization is currently doing, and what its
+  progress is.
 
-This functionality has been backported to v3.7.7 as well.
+  For shards that are currently not in sync it will display whether the
+  followers are currently syncing or waiting for their turn to come (because
+  the amount of parallelism for syncing multiple shards can be restricted).
+  The progress values displayed for shard synchronization should also be more
+  helpful for shards with more than one follower and in situations where one
+  follower is in sync and the other is not (yet).
 
-AQL binary and hexadecimal integer literals
--------------------------------------------
+Memory usage
+------------
 
-ArangoDB 3.8 allows using binary (base 2) and hexadecimal (base 16) integer
-literals in AQL. These literals can be used where regular (base 10) integer
-literals can be used.
+### Agency memory usage
 
-- The prefix for binary integer literals is `0b`, e.g. `0b10101110`.
-- The prefix for hexadecimal integer literals is `0x`, e.g. `0xabcdef02`.
+The in-memory object sizes for Agency data have been reduced in ArangoDB 3.8,
+which should reduce the memory usage of Agent instances for clusters with a
+larger amount of databases/collections/shards. On-disk sizes or sizes of Agency
+dumps retrieved via APIs should not change, however.
 
-Binary and hexadecimal integer literals can only be used for unsigned integers.
-The maximum supported value is 2<sup>32</sup> - 1, i.e.
-`0b11111111111111111111111111111111` (binary) or `0xffffffff` (hexadecimal).
+The change also helps Coordinators and DB-Servers, which since v3.7.4 also
+maintain an in-memory cache of Agency data so that they can reduce the number
+of requests to the Agency.
 
-This functionality has been backported to v3.7.7 as well.
+The default RocksDB settings for Agency instances have been adjusted so that
+the Agency memory usage consumed by RocksDB is limited to a 1 GB RocksDB block
+cache and to 512 MB for the total write buffer size. Previously, Agency memory
+usage could grow a lot higher for systems with a lot of memory if the startup
+parameters were not set explicitly.
+
+### AQL query memory limit
+
+A default memory limit has been introduced for AQL queries, to prevent rogue
+queries from consuming the too much memory of an arangod instance.
+
+The limit is introduced via changing the default value of the option
+`--query.memory-limit` from previously `0` (meaning no limit) to a dynamically
+calculated value. The per-query memory limit defaults are now (depending on the
+amount of available RAM):
+
+```
+Available memory:            0      (0MiB)  Limit:            0   unlimited, %mem:  n/a
+Available memory:    134217728    (128MiB)  Limit:     33554432     (32MiB), %mem: 25.0
+Available memory:    268435456    (256MiB)  Limit:     67108864     (64MiB), %mem: 25.0
+Available memory:    536870912    (512MiB)  Limit:    201326592    (192MiB), %mem: 37.5
+Available memory:    805306368    (768MiB)  Limit:    402653184    (384MiB), %mem: 50.0
+Available memory:   1073741824   (1024MiB)  Limit:    603979776    (576MiB), %mem: 56.2
+Available memory:   2147483648   (2048MiB)  Limit:   1288490189   (1228MiB), %mem: 60.0
+Available memory:   4294967296   (4096MiB)  Limit:   2576980377   (2457MiB), %mem: 60.0
+Available memory:   8589934592   (8192MiB)  Limit:   5153960755   (4915MiB), %mem: 60.0
+Available memory:  17179869184  (16384MiB)  Limit:  10307921511   (9830MiB), %mem: 60.0
+Available memory:  25769803776  (24576MiB)  Limit:  15461882265  (14745MiB), %mem: 60.0
+Available memory:  34359738368  (32768MiB)  Limit:  20615843021  (19660MiB), %mem: 60.0
+Available memory:  42949672960  (40960MiB)  Limit:  25769803776  (24576MiB), %mem: 60.0
+Available memory:  68719476736  (65536MiB)  Limit:  41231686041  (39321MiB), %mem: 60.0
+Available memory: 103079215104  (98304MiB)  Limit:  61847529063  (58982MiB), %mem: 60.0
+Available memory: 137438953472 (131072MiB)  Limit:  82463372083  (78643MiB), %mem: 60.0
+Available memory: 274877906944 (262144MiB)  Limit: 164926744167 (157286MiB), %mem: 60.0
+Available memory: 549755813888 (524288MiB)  Limit: 329853488333 (314572MiB), %mem: 60.0
+```
+
+As previously, a memory limit value of `0` means no limitation.
+The limit values are per AQL query, so they may still be too high in case
+queries run in parallel. The defaults are intentionally high in order to not
+stop any valid, previously working queries from succeeding.
+
+JavaScript security options
+---------------------------
+
+The following options have been added to optionally limit certain areas of
+JavaScript code execution:
+
+- Added startup option `--javascript.tasks` to allow turning off JavaScript
+  tasks if not needed. The default value for this option is `true`, meaning
+  JavaScript tasks are available as before. However, with this option they can
+  be turned off by admins to limit the amount of JavaScript user code that is
+  executed.
+
+- Added startup option `--javascript.transactions` to allow turning off
+  JavaScript transactions if not needed. The default value for this option is
+  `true`, meaning JavaScript transactions are available as before. However,
+  with this option they can be turned off by admins to limit the amount of
+  JavaScript user code that is executed.
+
+Shard synchronization
+---------------------
+
+The initial replication of collections/shards data is now faster by not wrapping
+each document in a separate `{"type":2300,"data":...}` envelope. In addition,
+the follower side of the replication will request data from leaders in
+VelocyPack format if the leader is running at least version 3.8.
+
+Stripping the envelopes and using VelocyPack for transfer allows for smaller
+data sizes when exchanging the documents and faster processing, and thus can
+lead to time savings in document packing and unpacking as well as reduce the
+number of required HTTP requests.
+
+The shard synchronization protocol was also improved by only transferring the
+required parts of the inventory from leader to follower. Previously, for each
+shard the entire inventory was exchanged, which included all shards of the
+respective database with all their details.
+
+In addition, 3 cluster-internal requests are now saved per shard in the initial
+shard synchronization protocol by reusing already existing information in the
+different steps of the replication process. All this can speed up the
+getting-in-sync of followers after a server restart, or when provisioning new
+replicas.
+
+Index selectivity estimates
+---------------------------
+
+When index selectivity estimates are updated and written to disk, they are now
+written in a compressed format. This can reduce the amount of data written to
+disk for each index estimate update.
 
 Metrics
 -------
@@ -238,6 +454,8 @@ in ArangoDB 3.8 and can be used for monitoring and alerting:
 
 Logging
 -------
+
+### New options for logging
 
 The following logging-related options have been added:
 
@@ -317,6 +535,29 @@ The following logging-related options have been added:
   this option to `false` mimics the behavior from 3.7 and before, where
   audit log messages were not queued but written in a blocking fashion.
 
+### Other logging improvements
+
+- The maximum size of log messages buffered in memory was increased from 256
+  bytes per log message to 512 bytes per log message. This should prevent most
+  in-memory log messages returned by the `/_admin/log` HTTP API from being
+  truncated unnecessarily.
+
+- Audit logging and slow query logging for AQL queries now also include the
+  query's result code (success or error code in case the query ran into an
+  error). This can be used to find queries which ran into errors (audit logging)
+  or long-running queries which ran into errors (normal logging).
+
+- Audit logging now also honors the configured logging date/time output format
+  for the regular logger. Previously the audit logging always logged date/time
+  value in the server's local time, and used the format `YYYY-MM-DDTHH:MM:SS`.
+
+  From 3.8 onwards, the audit logger will use the format specified via the
+  `--log.time-format` option, which defaults to `utc-datestring`. The means the
+  audit logging will by default log all dates/times in UTC time. To restore the
+  pre-3.8 behavior, please set the option to `local-datestring`, which will
+  make the audit logger (and all other server log messages) use the server's
+  local time.
+
 Timezone conversion
 -------------------
 
@@ -336,10 +577,13 @@ versa:
   `DATE_LOCALTOUTC("2020-10-14T21:00:00.999", "America/New_York")`
   → `"2020-10-15T01:00:00.999Z"`
 
+There are also new functions `DATE_TIMEZONE()` and `DATE_TIMEZONES()` to get
+more information about a particular or all available timezones.
+
 Client tools
 ------------
 
-### Arangodump concurrency
+### Arangodump concurrency / shard-parallelism
 
 Since v3.4.0, _arangodump_ can use multiple threads for dumping database data in
 parallel. _arangodump_ versions prior to v3.8.0 distribute dump jobs for
@@ -373,9 +617,94 @@ and bandwidth:
 
 Also see [_arangodump_ Dump Output Format](programs-arangodump-examples.html#dump-output-format).
 
+### Arangodump dumping of individual shards
+
+Arangodump can now optionally dump individual shards only, by specifying the
+`--shard` option one or multiple times. This option can be used to split the
+dump of a large collection with multiple shards into multiple separate dump
+processes, which could be run against different Coordinators etc.
+
+### Arangodump and arangorestore JWT secret
+
+Arangodump and arangorestore can now also be invoked by providing the cluster's
+JWT secret instead of the username/password combination. Both tools now provide
+the options `--server.jwt-secret-keyfile` (to read the JWT secret from a file)
+and `--server.ask-jwt-secret` (to enter it manually).
+
+### Arangobench custom queries
+
+In addition to executing the predefined benchmarks, the arangobench client tool
+now offers a new test case named `custom-query` for running arbitrary AQL
+queries against an ArangoDB installation.
+
+To run a custom AQL query, the query needs to be specified in either the
+`--custom-query` option or the `--custom-query-file` option. In the former case
+the query string can be passed on the command-line, in the latter case the
+query string will be read from a file.
+
+### Continuing arangorestore operations
+
+Arangorestore now provides a `--continue` option. Setting it will make
+arangorestore keep track of the restore progress, so if the restore process
+gets aborted it can later be continued from the point it left off.
+
 Miscellaneous
 -------------
 
 - Added cluster support for the JavaScript API method `collection.checksum()`
-  and the HTTP API endpoint `GET /_api/collection/{collection-name}/checksum`,
+  and the REST HTTP API endpoint `GET /_api/collection/{collection-name}/checksum`,
   which calculate CRC checksums for collections.
+
+- Added cluster support for the JavaScript API method `db._engineStats()`
+  and the REST HTTP API endpoint `GET /_api/engine/stats`, which provide
+  runtime information about the storage engine state.
+
+- Added a REST HTTP API endpoint `GET /_admin/cluster/shardDistribution` to
+  retrieve cluster-global shard distribution statistics, and a REST HTTP API
+  endpoint `GET /_api/database/shardDistribution` to retrieve the shard
+  distribution statistics for a single database.
+
+Internal changes
+----------------
+
+### Library version upgrades
+
+The bundled version of the Snappy compression/decompression library has been
+upgraded to 1.1.8.
+
+The bundled version of libunwind has been upgraded to 1.5.
+
+### Spliced subqueries
+
+The AQL optimizer rule "splice-subqueries" is now mandatory, in the sense that
+it cannot be disabled anymore. As a side effect of this change, there will no
+query execution plans created by 3.8 that contain execution nodes of type
+`SubqueryNode`. `SubqueryNode`s will only be used during query planning and
+optimization, but at the end of the query optimization phase will all have
+been replaced with nodes of types `SubqueryStartNode` and `SubqueryEndNode`.
+
+The code to execute non-spliced subqueries remains in place so that 3.8 can
+still execute queries planned on a 3.7 instance with the "splice-subqueries"
+optimizer rule intentionally turned off. The code for executing non-spliced
+subqueries can be removed in 3.9.
+
+### Query register usage
+
+There is an AQL query execution plan register usage optimization that may
+positively affect some AQL queries that use a lot of variables that are only
+needed in certain parts of the query. The positive effect will come from saving
+registers, which directly translates to saving columns in *AqlItemBlocks*.
+
+Previously, the number of registers that were planned for each depth level of
+the query never decreased when going from one level to the next. Even though
+unused registers were recycled since 3.7, this did not lead to unused registers
+being completely dismantled.
+
+Now there is an extra step at the end of the register planning that keeps track
+of the actually used registers on each depth, and that will shrink the number
+of registers for the depth to the id of the maximum register. This is done for
+each depth separately. Unneeded registers on the right hand side of the maximum
+used register are now discarded. Unused registers on the left hand side of the
+maximum used register id are not discarded, because we still need to guarantee
+that registers from depths above stay in the same slot when starting a new
+depth.
