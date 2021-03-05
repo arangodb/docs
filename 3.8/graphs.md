@@ -369,7 +369,7 @@ Also see:
 - [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html)
 - [Pregel HTTP API](http/pregel.html)
 
-![Three subgraphs with 36 nodes and edges in total](images/connected_components.png)
+![Three disjoint subgraphs with 36 nodes and edges in total](images/connected_components.png)
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_connectedcomponentsgraph_sample
