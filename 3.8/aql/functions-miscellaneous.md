@@ -397,6 +397,20 @@ ArangoSearch counterpart which can use the View index.
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+### PREGEL_RESULT()
+
+`PREGEL_RESULT(handle, withId) → results`
+
+Allows to access results of a Pregel job that are only held in memory.
+See [Pregel AQL integration](graphs-pregel.html#aql-integration).
+
+- **handle** (string): the `id` of a Pregel job
+- **withId** (bool): if enabled, then the document `_id` is returned in
+  addition to the `_key` for each vertex
+- returns **results** (array): an array of objects, one element per vertex, with
+  the attributes computed by the Pregel algorithm and the document key (and
+  optionally identifier)
+
 Internal functions
 ------------------
 
