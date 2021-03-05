@@ -359,6 +359,31 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### The Connected Components Graph
+
+An example graph comprised of `components` (vertices) and `connections` (edges).
+Good for running Pregel algorithms such as Weakly Connected Components (WCC)
+against it.
+
+Also see:
+- [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html)
+- [Pregel HTTP API](http/pregel.html)
+
+![Three subgraphs with 36 nodes and edges in total](images/connected_components.png)
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline graph_create_connectedcomponentsgraph_sample
+    @EXAMPLE_ARANGOSH_OUTPUT{graph_create_connectedcomponentsgraph_sample}
+    var examples = require("@arangodb/graph-examples/example-graph.js");
+    var g = examples.loadGraph("connectedComponentsGraph");
+    db.components.toArray();
+    db.connections.toArray();
+    examples.dropGraph("connectedComponentsGraph");
+    @END_EXAMPLE_ARANGOSH_RUN
+    @endDocuBlock graph_create_connectedcomponentsgraph_sample
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Higher volume graph examples
 
 All of the above examples are rather small so they are easier to comprehend and can demonstrate the way the functionality works.
