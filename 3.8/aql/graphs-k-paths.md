@@ -89,7 +89,7 @@ Syntax
 ------
 
 The syntax for k Paths queries is similar to the one for
-[K Shortest Path](graphs-k-shortest-path.html) with the addition to define the
+[K Shortest Path](graphs-kshortest-path.html) with the addition to define the
 minimum and maximum length of the path.
 
 {% hint 'warning' %}
