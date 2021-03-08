@@ -1,22 +1,25 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/70933</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/70895</span> &lt;&lt;EOF
 { 
   <span class="hljs-string">"hello"</span> : <span class="hljs-string">"world"</span> 
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Accepted
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
-etag: <span class="hljs-string">"_bHdsgzS---"</span>
-location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">70933</span>
+connection: Keep-Alive
+content-length: <span class="hljs-number">84</span>
+etag: <span class="hljs-string">"_c_Jj17m---"</span>
+location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">70895</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70933"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70933"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdsgzS---"</span>, 
-  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_bHdsgzO---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70895"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70895"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jj17m---"</span>, 
+  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_c_Jj17i---"</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/70933</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/70895</span> &lt;&lt;EOF
 { 
   <span class="hljs-string">"numbers"</span> : { 
     <span class="hljs-string">"one"</span> : <span class="hljs-number">1</span>, 
@@ -27,29 +30,35 @@ x-content-type-options: nosniff
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Accepted
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
-etag: <span class="hljs-string">"_bHdsgzi---"</span>
-location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">70933</span>
+connection: Keep-Alive
+content-length: <span class="hljs-number">84</span>
+etag: <span class="hljs-string">"_c_Jj172---"</span>
+location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">70895</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70933"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70933"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdsgzi---"</span>, 
-  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_bHdsgzS---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70895"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70895"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jj172---"</span>, 
+  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_c_Jj17m---"</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/70933</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/70895</span>
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
-etag: <span class="hljs-string">"_bHdsgzi---"</span>
+connection: Keep-Alive
+content-length: <span class="hljs-number">141</span>
+etag: <span class="hljs-string">"_c_Jj172---"</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70933"</span>, 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70933"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdsgzi---"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70895"</span>, 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70895"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jj172---"</span>, 
   <span class="hljs-string">"one"</span> : <span class="hljs-string">"world"</span>, 
   <span class="hljs-string">"hello"</span> : <span class="hljs-string">"world"</span>, 
   <span class="hljs-string">"numbers"</span> : { 
@@ -59,7 +68,7 @@ x-content-type-options: nosniff
     <span class="hljs-string">"empty"</span> : <span class="hljs-literal">null</span> 
   } 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/70933?keepNull=<span class="hljs-literal">false</span></span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/70895?keepNull=<span class="hljs-literal">false</span></span> &lt;&lt;EOF
 { 
   <span class="hljs-string">"hello"</span> : <span class="hljs-literal">null</span>, 
   <span class="hljs-string">"numbers"</span> : { 
@@ -68,29 +77,35 @@ x-content-type-options: nosniff
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Accepted
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
-etag: <span class="hljs-string">"_bHdsgz6---"</span>
-location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">70933</span>
+connection: Keep-Alive
+content-length: <span class="hljs-number">84</span>
+etag: <span class="hljs-string">"_c_Jj18W---"</span>
+location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">70895</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70933"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70933"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdsgz6---"</span>, 
-  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_bHdsgzi---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70895"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70895"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jj18W---"</span>, 
+  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_c_Jj172---"</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/70933</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/70895</span>
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
-etag: <span class="hljs-string">"_bHdsgz6---"</span>
+connection: Keep-Alive
+content-length: <span class="hljs-number">134</span>
+etag: <span class="hljs-string">"_c_Jj18W---"</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70933"</span>, 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70933"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdsgz6---"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70895"</span>, 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70895"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jj18W---"</span>, 
   <span class="hljs-string">"one"</span> : <span class="hljs-string">"world"</span>, 
   <span class="hljs-string">"numbers"</span> : { 
     <span class="hljs-string">"empty"</span> : <span class="hljs-literal">null</span>, 

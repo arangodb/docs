@@ -11,14 +11,17 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">245</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"id"</span> : <span class="hljs-string">"sampleTask"</span>, 
   <span class="hljs-string">"name"</span> : <span class="hljs-string">"SampleTask"</span>, 
-  <span class="hljs-string">"created"</span> : <span class="hljs-number">1600276832.2137253</span>, 
+  <span class="hljs-string">"created"</span> : <span class="hljs-number">1615224763.6169543</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"periodic"</span>, 
   <span class="hljs-string">"period"</span> : <span class="hljs-number">2</span>, 
   <span class="hljs-string">"offset"</span> : <span class="hljs-number">0</span>, 

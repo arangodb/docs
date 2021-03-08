@@ -1,0 +1,32 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/control_pregel</span> &lt;&lt;EOF
+{ 
+  <span class="hljs-string">"algorithm"</span> : <span class="hljs-string">"wcc"</span>, 
+  <span class="hljs-string">"graphName"</span> : <span class="hljs-string">"connectedComponentsGraph"</span>, 
+  <span class="hljs-string">"params"</span> : { 
+    <span class="hljs-string">"maxGSS"</span> : <span class="hljs-number">36</span>, 
+    <span class="hljs-string">"resultField"</span> : <span class="hljs-string">"component"</span> 
+  } 
+}
+EOF
+
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/control_pregel/72075</span>
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">185</span>
+server: ArangoDB
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">"state"</span> : <span class="hljs-string">"running"</span>, 
+  <span class="hljs-string">"gss"</span> : <span class="hljs-number">8</span>, 
+  <span class="hljs-string">"totalRuntime"</span> : <span class="hljs-number">0</span>, 
+  <span class="hljs-string">"startupTime"</span> : <span class="hljs-number">0.0009696483612060547</span>, 
+  <span class="hljs-string">"computationTime"</span> : <span class="hljs-number">-0.0009696483612060547</span>, 
+  <span class="hljs-string">"aggregators"</span> : { 
+  }, 
+  <span class="hljs-string">"sendCount"</span> : <span class="hljs-number">309</span>, 
+  <span class="hljs-string">"receivedCount"</span> : <span class="hljs-number">279</span>, 
+  <span class="hljs-string">"reports"</span> : [ ] 
+}

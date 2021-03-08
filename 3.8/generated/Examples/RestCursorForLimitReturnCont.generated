@@ -6,29 +6,32 @@
 }
 EOF
 
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/cursor/70669</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/cursor/70649</span>
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">443</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"result"</span> : [ 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70662"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70662"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdsfkG---"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70642"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70642"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jj0uG---"</span>, 
       <span class="hljs-string">"hello3"</span> : <span class="hljs-string">"world1"</span> 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70664"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70664"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdsfkK---"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70644"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70644"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jj0uG--_"</span>, 
       <span class="hljs-string">"hello4"</span> : <span class="hljs-string">"world1"</span> 
     } 
   ], 
   <span class="hljs-string">"hasMore"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"70669"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"70649"</span>, 
   <span class="hljs-string">"count"</span> : <span class="hljs-number">5</span>, 
   <span class="hljs-string">"extra"</span> : { 
     <span class="hljs-string">"warnings"</span> : [ ], 
@@ -39,8 +42,8 @@ x-content-type-options: nosniff
       <span class="hljs-string">"scannedIndex"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.0002244019997306168</span>, 
-      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">19719</span> 
+      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00026242155581712723</span>, 
+      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">3638</span> 
     } 
   }, 
   <span class="hljs-string">"cached"</span> : <span class="hljs-literal">false</span>, 

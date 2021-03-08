@@ -1,0 +1,441 @@
+arangosh&gt; <span class="hljs-keyword">var</span> examples = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/graph-examples/example-graph.js"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> g = examples.loadGraph(<span class="hljs-string">"connectedComponentsGraph"</span>);
+arangosh&gt; db.components.toArray();
+[ 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"A1"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/A1"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFGy---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"A2"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/A2"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFG2---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"A3"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/A3"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFG6---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"A4"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/A4"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFH----"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B1"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B1"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHC---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B3"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B3"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHC--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B2"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B2"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHG---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B4"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B4"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHK---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B6"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B6"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHO---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B5"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B5"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHO--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B7"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B7"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHS---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B8"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B8"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHW---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B9"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B9"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHW--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B10"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B10"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHa---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B19"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B19"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHe---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B11"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B11"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHe--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B12"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B12"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHi---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B13"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B13"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHi--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B20"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B20"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHm---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B14"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B14"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHm--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B15"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B15"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHq---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B16"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B16"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHq--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B17"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B17"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHq--A"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B18"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B18"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHu---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B21"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B21"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHu--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B22"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/B22"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHy---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"C1"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/C1"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFHy--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"C2"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/C2"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFH2---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"C3"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/C3"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFH2--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"C4"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/C4"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFH2--A"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"C5"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/C5"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFH6---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"C7"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/C7"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFH6--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"C6"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/C6"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFI----"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"C8"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/C8"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFI---_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"C9"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/C9"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIC---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"C10"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"components/C10"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIC--_"</span> 
+  } 
+]
+arangosh&gt; db.connections.toArray();
+[ 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91287"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91287"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/A1"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/A2"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIG---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91289"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91289"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/A2"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/A3"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIG--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91291"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91291"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/A3"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/A4"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIK---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91293"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91293"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/A4"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/A1"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIK--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91295"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91295"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B1"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B3"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIO---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91297"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91297"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B2"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B4"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIO--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91299"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91299"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B3"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B6"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIS---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91301"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91301"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B4"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B3"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIS--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91303"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91303"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B4"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B5"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIW---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91305"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91305"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B6"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B7"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIW--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91307"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91307"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B7"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B8"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIa---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91309"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91309"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B7"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B9"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIa--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91311"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91311"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B7"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B10"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIe---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91313"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91313"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B7"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B19"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIe--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91315"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91315"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B11"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B10"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIi---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91317"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91317"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B12"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B11"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIi--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91319"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91319"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B13"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B12"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIm---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91321"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91321"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B13"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B20"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIm--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91323"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91323"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B14"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B13"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIq---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91325"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91325"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B15"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B14"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIu---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91327"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91327"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B15"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B16"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIu--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91329"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91329"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B17"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B15"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIy---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91331"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91331"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B17"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B18"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFIy--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91333"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91333"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B19"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B17"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFI2---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91335"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91335"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B20"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B21"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFI2--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91337"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91337"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/B20"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/B22"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFI6---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91339"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91339"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/C1"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/C2"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFI6--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91341"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91341"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/C2"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/C3"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFJ----"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91343"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91343"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/C3"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/C4"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFJ---_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91345"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91345"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/C4"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/C5"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFJC---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91347"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91347"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/C4"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/C7"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFJC--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91349"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91349"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/C5"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/C6"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFJG---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91351"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91351"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/C5"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/C7"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFJG--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91353"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91353"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/C7"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/C8"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFJK---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91355"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91355"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/C8"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/C9"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFJO---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"91357"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"connections/91357"</span>, 
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"components/C8"</span>, 
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"components/C10"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkFJO--_"</span> 
+  } 
+]
+arangosh&gt; examples.dropGraph(<span class="hljs-string">"connectedComponentsGraph"</span>);

@@ -7,8 +7,11 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">605</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
@@ -18,13 +21,13 @@ x-content-type-options: nosniff
         { 
           <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
           <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdsmby---"</span>, 
+          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jj7oi---"</span>, 
           <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
         }, 
         { 
           <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
           <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdsmb2---"</span>, 
+          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jj7om---"</span>, 
           <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
         } 
       ], 
@@ -35,7 +38,7 @@ x-content-type-options: nosniff
             { 
               <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdsmby---"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jj7oi---"</span>, 
               <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
             } 
           ] 
@@ -43,11 +46,11 @@ x-content-type-options: nosniff
         { 
           <span class="hljs-string">"edges"</span> : [ 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72971"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/72971"</span>, 
+              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"73373"</span>, 
+              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/73373"</span>, 
               <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/alice"</span>, 
               <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdsmcC---"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jj7oy---"</span>, 
               <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
             } 
           ], 
@@ -55,13 +58,13 @@ x-content-type-options: nosniff
             { 
               <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdsmby---"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jj7oi---"</span>, 
               <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
             }, 
             { 
               <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
               <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdsmb2---"</span>, 
+              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jj7om---"</span>, 
               <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
             } 
           ] 

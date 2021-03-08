@@ -10,9 +10,9 @@ arangosh&gt; <span class="hljs-keyword">var</span> view = db._createView(<span c
 arangosh&gt; db._query(<span class="hljs-string">"FOR doc IN view SEARCH ANALYZER(doc.value IN ['regular', 'irregular'], 'filter') RETURN doc"</span>);
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75103"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/75103"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bd8SxIG---"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75507"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/75507"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_Jk-wi---"</span>, 
     <span class="hljs-string">"value"</span> : <span class="hljs-string">"regular"</span> 
   } 
 ]

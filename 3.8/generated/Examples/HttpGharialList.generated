@@ -1,7 +1,10 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/gharial</span>
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">623</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
@@ -11,7 +14,7 @@ x-content-type-options: nosniff
     { 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/social"</span>, 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"social"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdryTe---"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JjHSa---"</span>, 
       <span class="hljs-string">"edgeDefinitions"</span> : [ 
         { 
           <span class="hljs-string">"collection"</span> : <span class="hljs-string">"relation"</span>, 
@@ -31,7 +34,7 @@ x-content-type-options: nosniff
     { 
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/routeplanner"</span>, 
       <span class="hljs-string">"_key"</span> : <span class="hljs-string">"routeplanner"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdryVy--_"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JjHTa---"</span>, 
       <span class="hljs-string">"edgeDefinitions"</span> : [ 
         { 
           <span class="hljs-string">"collection"</span> : <span class="hljs-string">"frenchHighway"</span>, 
