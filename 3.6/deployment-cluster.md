@@ -22,6 +22,6 @@ Fire up your cluster in just a few clicks with the [14-day free trial](https://c
 - [Kubernetes](deployment-cluster-kubernetes.html)
 
 Go through the detailed
-[ArangoDB Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}
+[ArangoDB Cluster Administration Course](https://www.arangodb.com/learn/operations/cluster-course/){:target="_blank"}
 to dig deeper into maintenance, resilience and troubleshooting of your
 distributed environment.

@@ -20,5 +20,5 @@ For further information about the Cluster, please refer to the following section
 - [Cluster Troubleshooting](troubleshooting-cluster.html)
 
 Be sure to check out the
-[ArangoDB Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}
+[ArangoDB Cluster Administration Course](https://www.arangodb.com/learn/operations/cluster-course/){:target="_blank"}
 as well.

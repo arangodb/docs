@@ -2,28 +2,31 @@
 [ 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"1"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bAwsUg----"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_b4vz2he--A"</span> 
   }, 
   { 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"2"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bAwsUg---A"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_b4vz2he--C"</span> 
   } 
 ]
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">107</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 [ 
   { 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/1"</span>, 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"1"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bAwsUg----"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_b4vz2he--A"</span> 
   }, 
   { 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/2"</span>, 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"2"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bAwsUg---A"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_b4vz2he--C"</span> 
   } 
 ]

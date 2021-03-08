@@ -36,7 +36,7 @@ left out.
 PHRASE(doc.text, "avocado dish", "text_en") AND PHRASE(doc.text, "lemon", "text_en")
 
 // Analyzer specified using ANALYZER()
-ANALYZER(PHRASE(doc.text, "avocado dish") AND PHRASE(doc.text, "lemon")
+ANALYZER(PHRASE(doc.text, "avocado dish") AND PHRASE(doc.text, "lemon"), "text_en")
 ```
 
 Certain expressions do not require any ArangoSearch functions, such as basic
@@ -67,12 +67,13 @@ Search Functions
 ----------------
 
 Search functions can be used in a [SEARCH operation](operations-search.html)
-to form an ArangoSearch expression to filter a View. The functions control the
-ArangoSearch functionality without having a returnable value in AQL.
+to form an ArangoSearch expression to filter a View. Most functions can also be
+used without a View and the `SEARCH` keyword, but will then not be accelerated
+by a View index.
 
 ### ANALYZER()
 
-`ANALYZER(expr, analyzer)`
+`ANALYZER(expr, analyzer) → retVal`
 
 Sets the Analyzer for the given search expression. The default Analyzer is
 `identity` for any ArangoSearch expression. This utility function can be used
@@ -88,8 +89,7 @@ outside of `SEARCH` operations.
 
 - **expr** (expression): any valid search expression
 - **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **retVal** (any): the expression result that it wraps
 
 Assuming a View definition with an Analyzer whose name and type is `delimiter`:
 
@@ -170,7 +170,7 @@ FOR doc IN viewName
 
 ### BOOST()
 
-`BOOST(expr, boost)`
+`BOOST(expr, boost) → retVal`
 
 Override boost in the context of a search expression with a specified value,
 making it available for scorer functions. By default, the context has a boost
@@ -178,8 +178,7 @@ value equal to `1.0`.
 
 - **expr** (expression): any valid search expression
 - **boost** (number): numeric boost value
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **retVal** (any): the expression result that it wraps
 
 ```js
 FOR doc IN viewName
@@ -236,8 +235,9 @@ View definition (the default is `"none"`).
 Match documents where the attribute at **path** is present.
 
 - **path** (attribute path expression): the attribute to test in the document
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns nothing: the function evaluates to a boolean, but this value cannot be
+  returned. The function can only be called in a search expression. It throws
+  an error if used outside of a [SEARCH operation](operations-search.html).
 
 ```js
 FOR doc IN viewName
@@ -257,8 +257,9 @@ specified data type.
     - `"numeric"`
     - `"string"`
     - `"analyzer"` (see below)
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns nothing: the function evaluates to a boolean, but this value cannot be
+  returned. The function can only be called in a search expression. It throws
+  an error if used outside of a [SEARCH operation](operations-search.html).
 
 ```js
 FOR doc IN viewName
@@ -276,8 +277,9 @@ by the specified **analyzer**.
 - **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns nothing: the function evaluates to a boolean, but this value cannot be
+  returned. The function can only be called in a search expression. It throws
+  an error if used outside of a [SEARCH operation](operations-search.html).
 
 ```js
 FOR doc IN viewName
@@ -287,7 +289,7 @@ FOR doc IN viewName
 
 ### IN_RANGE()
 
-`IN_RANGE(path, low, high, includeLow, includeHigh)`
+`IN_RANGE(path, low, high, includeLow, includeHigh) → included`
 
 Match documents where the attribute at **path** is greater than (or equal to)
 **low** and less than (or equal to) **high**.
@@ -311,8 +313,7 @@ Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
   the range (left-closed interval) or not (left-open interval)
 - **includeHigh** (bool): whether the maximum value shall be included in
   the range (right-closed interval) or not (right-open interval)
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **included** (bool): whether *value* is in the range
 
 If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
 to `false`, then nothing will match. If *low* is greater than *high* nothing will
@@ -345,7 +346,7 @@ because the _f_ of _foo_ is excluded (*high* is "f" but *includeHigh* is false).
 
 ### MIN_MATCH()
 
-`MIN_MATCH(expr1, ... exprN, minMatchCount)`
+`MIN_MATCH(expr1, ... exprN, minMatchCount) → fulfilled`
 
 Match documents where at least **minMatchCount** of the specified
 search expressions are satisfied.
@@ -353,8 +354,8 @@ search expressions are satisfied.
 - **expr** (expression, _repeatable_): any valid search expression
 - **minMatchCount** (number): minimum number of search expressions that should
   be satisfied
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **fulfilled** (bool): whether at least **minMatchCount** of the
+  specified expressions are `true`
 
 Assuming a View with a text Analyzer, you may use it to match documents where
 the attribute contains at least two out of three tokens:
@@ -372,7 +373,7 @@ but not `{ "text": "snow fox" }` which only fulfills one of the conditions.
 
 <small>Introduced in: v3.7.0</small>
 
-`NGRAM_MATCH(path, target, threshold, analyzer)`
+`NGRAM_MATCH(path, target, threshold, analyzer) → fulfilled`
 
 Match documents whose attribute value has an
 [ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
@@ -399,8 +400,8 @@ enabled. The `NGRAM_MATCH()` function will otherwise not find anything.
 - **threshold** (number, _optional_): value between `0.0` and `1.0`. Defaults
   to `0.7` if none is specified.
 - **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **fulfilled** (bool): `true` if the evaluated ngram similarity value
+  is greater or equal than the specified threshold, `false` otherwise
 
 Given a View indexing an attribute `text`, a custom ngram Analyzer `"bigram"`
 (`min: 2, max: 2, preserveOriginal: false, streamType: "utf8"`) and a document
@@ -475,8 +476,9 @@ array as second argument.
 - **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns nothing: the function evaluates to a boolean, but this value cannot be
+  returned. The function can only be called in a search expression. It throws
+  an error if used outside of a [SEARCH operation](operations-search.html).
 
 {% hint 'info' %}
 The selected Analyzer must have the `"position"` and `"frequency"` features
@@ -618,7 +620,7 @@ FOR doc IN myView SEARCH PHRASE(doc.title,
 
 ### STARTS_WITH()
 
-`STARTS_WITH(path, prefix)`
+`STARTS_WITH(path, prefix) → startsWith`
 
 Match the value of the attribute that starts with *prefix*. If the attribute
 is processed by a tokenizing Analyzer (type `"text"` or `"delimiter"`) or if it
@@ -636,10 +638,10 @@ Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
 - **prefix** (string): a string to search at the start of the text
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **startsWith** (bool): whether the specified attribute starts with
+  the given prefix
 
-`STARTS_WITH(path, prefixes, minMatchCount)`
+`STARTS_WITH(path, prefixes, minMatchCount) → startsWith`
 
 <small>Introduced in: v3.7.1</small>
 
@@ -651,8 +653,8 @@ optionally with at least *minMatchCount* of the prefixes.
 - **prefixes** (array): an array of strings to search at the start of the text
 - **minMatchCount** (number, _optional_): minimum number of search prefixes
   that should be satisfied. The default is `1`
-- returns nothing: the function can only be called in a
-  [SEARCH operation](operations-search.html) and throws an error otherwise
+- returns **startsWith** (bool): whether the specified attribute starts with at
+  least *minMatchCount* of the given prefixes
 
 To match a document `{ "text": "lorem ipsum..." }` using a prefix and the
 `"identity"` Analyzer you can use it like this:
@@ -723,7 +725,7 @@ FOR doc IN viewName
 
 <small>Introduced in: v3.7.0</small>
 
-`LEVENSHTEIN_MATCH(path, target, distance, transpositions, maxTerms)`
+`LEVENSHTEIN_MATCH(path, target, distance, transpositions, maxTerms) → fulfilled`
 
 Match documents with a [Damerau-Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance){:target=_"blank"}
 lower than or equal to *distance* between the stored attribute value and
@@ -743,6 +745,8 @@ if you want to calculate the edit distance of two strings.
 - **maxTerms** (number, _optional_): consider only a specified number of the
   most relevant terms. One can pass `0` to consider all matched terms, but it may
   impact performance negatively. The default value is `64`.
+- returns **fulfilled** (bool): `true` if the calculated distance is less than
+  or equal to *distance*, `false` otherwise
 
 The Levenshtein distance between _quick_ and _quikc_ is `2` because it requires
 two operations to go from one to the other (remove _k_, insert _k_ at a
@@ -781,7 +785,7 @@ FOR doc IN viewName
 
 <small>Introduced in: v3.7.2</small>
 
-`LIKE(path, search)`
+`LIKE(path, search) → bool`
 
 Check whether the pattern *search* is contained in the attribute denoted by *path*,
 using wildcard matching.
@@ -792,6 +796,8 @@ using wildcard matching.
   `%` (meaning any sequence of characters, including none) and `_` (any single
   character). Literal `%` and `_` must be escaped with two backslashes (four
   in arangosh).
+- returns **bool** (bool): `true` if the pattern is contained in *text*,
+  and `false` otherwise
 
 ```js
 FOR doc IN viewName
@@ -810,6 +816,80 @@ FOR doc IN viewName
 ### TOKENS()
 
 See [String Functions](functions-string.html#tokens).
+
+Geo functions
+-------------
+
+### GEO_CONTAINS()
+
+<small>Introduced in: v3.8.0</small>
+
+`GEO_CONTAINS(geoJsonA, geoJsonB) → bool`
+
+Checks whether the [GeoJSON object](../indexing-geo.html#geojson) *geoJsonA*
+fully contains *geoJsonB* (every point in B is also in A).
+
+- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- returns **bool** (bool): `true` when every point in B is also contained in A,
+  `false` otherwise
+
+### GEO_DISTANCE()
+
+<small>Introduced in: v3.8.0</small>
+
+`GEO_DISTANCE(geoJsonA, geoJsonB) → distance`
+
+Return the distance between two [GeoJSON objects](../indexing-geo.html#geojson),
+measured from the **centroid** of each shape.
+
+- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- returns **distance** (number): the distance between the centroid points of
+  the two objects on the reference ellipsoid
+
+### GEO_IN_RANGE()
+
+<small>Introduced in: v3.8.0</small>
+
+`GEO_IN_RANGE(geoJsonA, geoJsonB, low, high, includeLow, includeHigh) → bool`
+
+Checks whether the distance between two [GeoJSON objects](../indexing-geo.html#geojson)
+lies within a given interval. The distance is measured from the **centroid** of
+each shape.
+
+- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- **low** (number): minimum value of the desired range
+- **high** (number): maximum value of the desired range
+- **includeLow** (bool, optional): whether the minimum value shall be included
+  in the range (left-closed interval) or not (left-open interval). The default
+  value is `true`
+- **includeHigh** (bool): whether the maximum value shall be included in the
+  range (right-closed interval) or not (right-open interval). The default value
+  is `true`
+- returns **bool** (bool): whether the evaluated distance lies within the range
+
+### GEO_INTERSECTS()
+
+<small>Introduced in: v3.8.0</small>
+
+`GEO_INTERSECTS(geoJsonA, geoJsonB) → bool`
+
+Checks whether the [GeoJSON object](../indexing-geo.html#geojson) *geoJsonA*
+intersects with *geoJsonB* (i.e. at least one point of B is in A or vice versa).
+
+- **geoJsonA** (object\|array): first GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- **geoJsonB** (object\|array): second GeoJSON object or coordinate array
+  (in longitude, latitude order)
+- returns **bool** (bool): `true` if A and B intersect, `false` otherwise
 
 Scoring Functions
 -----------------

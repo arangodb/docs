@@ -1,7 +1,10 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/edges/edges?vertex=vertices/1</span>
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">538</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
@@ -11,7 +14,7 @@ x-content-type-options: nosniff
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/5"</span>, 
       <span class="hljs-string">"_from"</span> : <span class="hljs-string">"vertices/1"</span>, 
       <span class="hljs-string">"_to"</span> : <span class="hljs-string">"vertices/3"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bAwsVYu--A"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_b4vz2qO--E"</span>, 
       <span class="hljs-string">"$label"</span> : <span class="hljs-string">"v1 -&gt; v3"</span> 
     }, 
     { 
@@ -19,7 +22,7 @@ x-content-type-options: nosniff
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/6"</span>, 
       <span class="hljs-string">"_from"</span> : <span class="hljs-string">"vertices/2"</span>, 
       <span class="hljs-string">"_to"</span> : <span class="hljs-string">"vertices/1"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bAwsVYy---"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_b4vz2qO--G"</span>, 
       <span class="hljs-string">"$label"</span> : <span class="hljs-string">"v2 -&gt; v1"</span> 
     }, 
     { 
@@ -27,7 +30,7 @@ x-content-type-options: nosniff
       <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/7"</span>, 
       <span class="hljs-string">"_from"</span> : <span class="hljs-string">"vertices/4"</span>, 
       <span class="hljs-string">"_to"</span> : <span class="hljs-string">"vertices/1"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bAwsVY2---"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_b4vz2qS---"</span>, 
       <span class="hljs-string">"$label"</span> : <span class="hljs-string">"v4 -&gt; v1"</span> 
     } 
   ], 
@@ -40,7 +43,7 @@ x-content-type-options: nosniff
     <span class="hljs-string">"scannedIndex"</span> : <span class="hljs-number">3</span>, 
     <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.0006922848988324404</span>, 
-    <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">41674</span> 
+    <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00030431699997279793</span>, 
+    <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">43681</span> 
   } 
 }

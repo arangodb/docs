@@ -283,10 +283,6 @@ checksumming will make the calculation slower, but is more accurate.
 The checksum calculation algorithm changed in ArangoDB 3.0, so checksums from
 3.0 and earlier versions for the same data will differ.
 
-{% hint 'info' %}
-The `checksum()` method can not be used in clusters.
-{% endhint %}
-
 Unload
 ------
 

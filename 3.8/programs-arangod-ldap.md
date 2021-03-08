@@ -254,7 +254,7 @@ ArangoDB configuration together with the fundamental configuration:
 This method will authenticate an LDAP user with the distinguished name
 `{PREFIX}{USERNAME}{SUFFIX}`, in this case for the arango user `alice`
 it will search for: `uid=alice,dc=arangodb,dc=com`.
-This distinguished name will be used as `{{USER}}` for the roles later on.
+This distinguished name will be used as `{USER}` for the roles later on.
 
 ### Search authentication method
 
@@ -272,7 +272,8 @@ are used in the following way:
     `one` (search the base's immediate children) (default: `sub`)
   - `--ldap.search-filter` is an LDAP filter expression which limits the
     set of LDAP users being considered (default: `objectClass=*` which
-    means all objects)
+    means all objects). The placeholder `{USER}` will be replaced by the
+    supplied username.
   - `--ldap.search-attribute` specifies the attribute in the user objects
     which is used to match the ArangoDB user name (default: `uid`)
 
@@ -295,7 +296,7 @@ fundamental LDAP configuration:
 
 This will use the `sub` search scope by default and will find
 all `person` objects where the `uid` is equal to the given username.
-From these the `dn` will be extracted and used as `{{USER}}` in
+From these the `dn` will be extracted and used as `{USER}` in
 the roles later on.
 
 ## Fetching roles for a user

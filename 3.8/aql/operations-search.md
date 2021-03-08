@@ -27,17 +27,19 @@ The optional `SEARCH` operation provides the capabilities to:
 
 See [ArangoSearch Views](../arangosearch-views.html) on how to set up a View.
 
-General Syntax
---------------
+Syntax
+------
 
 The `SEARCH` keyword is followed by an ArangoSearch filter expressions, which
 is mostly comprised of calls to ArangoSearch AQL functions.
 
-```
-FOR doc IN viewName
-  SEARCH expression OPTIONS {…}
-  ...
-```
+<pre><code>FOR <em>doc</em> IN <em>viewName</em>
+  SEARCH <em>expression</em>
+  OPTIONS { … }
+  ...</code></pre>
+
+Usage
+-----
 
 The `SEARCH` statement, in contrast to `FILTER`, is treated as a part of the
 `FOR` operation, not as an individual statement. It can not be placed freely
@@ -48,7 +50,7 @@ are not allowed in this position. Subsequent operations are possible after
 `SEARCH` and the expression however, including `SORT` to order the search
 results based on a ranking value computed by the ArangoSearch View.
 
-`expression` must be an ArangoSearch expression. The full power of ArangoSearch
+*expression* must be an ArangoSearch expression. The full power of ArangoSearch
 is harnessed and exposed via special [ArangoSearch functions](functions-arangosearch.html),
 during both the search and sort stages. On top of that, common AQL operators
 are supported:
@@ -76,7 +78,7 @@ Also see [Known Issues](../release-notes-known-issues37.html#arangosearch).
 ```js
 FOR doc IN viewName
   SEARCH ANALYZER(doc.text == "quick" OR doc.text == "brown", "text_en")
-RETURN doc
+  RETURN doc
 ```
 
 [Array comparison operators](operators.html#array-comparison-operators) are
@@ -311,6 +313,14 @@ The `SEARCH` operation accepts an options object with the following attributes:
     apply optimizations. Removes redundant or overlapping conditions, but can
     take quite some time even for a low number of nested conditions.
   - `"none"`: search the index without optimizing the conditions.
+- `countApproximate` (string, _optional_): controls how the total count of rows
+  is calculated if the `fullCount` option is enabled for a query or when
+  a `COLLECT WITH COUNT` clause is executed (introduced in v3.7.6)
+  - `"exact"` (default): rows are actually enumerated for a precise count.
+  - `"cost"`: a cost based approximation is used. Does not enumerate rows and
+    returns an approximate result with O(1) complexity. Gives a precise result
+    if the `SEARCH` condition is empty or if it contains a single term query
+    only (e.g. `SEARCH doc.field == "value"`).
 
 **Examples**
 

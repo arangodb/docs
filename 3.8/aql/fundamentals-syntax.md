@@ -70,6 +70,7 @@ On the top level, AQL offers the following
 | `LIMIT`   | Result slicing
 | `LET`     | Variable assignment
 | `COLLECT` | Result grouping
+| `WINDOW`  | Aggregations over related rows
 | `INSERT`  | Insertion of new documents
 | `UPDATE`  | (Partial) update of existing documents
 | `REPLACE` | Replacement of existing documents
@@ -111,45 +112,43 @@ There are a few more keywords in addition to the higher-level operation keywords
 Additional keywords may be added in future versions of ArangoDB.
 The complete list of keywords is currently:
 
-<div class="columns-3">
-<ul>
-  <li><code>AGGREGATE</code></li>
-  <li><code>ALL</code></li>
-  <li><code>AND</code></li>
-  <li><code>ANY</code></li>
-  <li><code>ASC</code></li>
-  <li><code>COLLECT</code></li>
-  <li><code>DESC</code></li>
-  <li><code>DISTINCT</code></li>
-  <li><code>FALSE</code></li>
-  <li><code>FILTER</code></li>
-  <li><code>FOR</code></li>
-  <li><code>GRAPH</code></li>
-  <li><code>IN</code></li>
-  <li><code>INBOUND</code></li>
-  <li><code>INSERT</code></li>
-  <li><code>INTO</code></li>
-  <li><code>K_PATHS</code></li>
-  <li><code>K_SHORTEST_PATHS</code></li>
-  <li><code>LET</code></li>
-  <li><code>LIKE</code></li>
-  <li><code>LIMIT</code></li>
-  <li><code>NONE</code></li>
-  <li><code>NOT</code></li>
-  <li><code>NULL</code></li>
-  <li><code>OR</code></li>
-  <li><code>OUTBOUND</code></li>
-  <li><code>REMOVE</code></li>
-  <li><code>REPLACE</code></li>
-  <li><code>RETURN</code></li>
-  <li><code>SHORTEST_PATH</code></li>
-  <li><code>SORT</code></li>
-  <li><code>TRUE</code></li>
-  <li><code>UPDATE</code></li>
-  <li><code>UPSERT</code></li>
-  <li><code>WITH</code></li>
-</ul>
-</div>
+- `AGGREGATE`
+- `ALL`
+- `AND`
+- `ANY`
+- `ASC`
+- `COLLECT`
+- `DESC`
+- `DISTINCT`
+- `FALSE`
+- `FILTER`
+- `FOR`
+- `GRAPH`
+- `IN`
+- `INBOUND`
+- `INSERT`
+- `INTO`
+- `K_PATHS`
+- `K_SHORTEST_PATHS`
+- `LET`
+- `LIKE`
+- `LIMIT`
+- `NONE`
+- `NOT`
+- `NULL`
+- `OR`
+- `OUTBOUND`
+- `REMOVE`
+- `REPLACE`
+- `RETURN`
+- `SHORTEST_PATH`
+- `SORT`
+- `TRUE`
+- `UPDATE`
+- `UPSERT`
+- `WITH`
+- `WINDOW`
+{:class="columns-3"}
 
 On top of that, there are a few words used in language constructs which are not
 reserved keywords. They may thus be used as collection or attribute names
@@ -164,13 +163,12 @@ based on the context:
   [FOR](operations-for.html#options) /
   [Graph Traversal](graphs-traversals.html) /
   [SEARCH](operations-search.html#search-options) /
-  [COLLECT](operations-collect.html#setting-collect-options) /
-  [INSERT](operations-insert.html#setting-query-options) /
-  [UPDATE](operations-update.html#setting-query-options) /
-  [REPLACE](operations-replace.html#setting-query-options) /
-  [UPSERT](operations-upsert.html#setting-query-options) /
-  [REMOVE](operations-remove.html#setting-query-options)
-  operation
+  [COLLECT](operations-collect.html#collect-options) /
+  [INSERT](operations-insert.html#query-options) /
+  [UPDATE](operations-update.html#query-options) /
+  [REPLACE](operations-replace.html#query-options) /
+  [UPSERT](operations-upsert.html#query-options) /
+  [REMOVE](operations-remove.html#query-options) operation
 - `PRUNE` –
   [Graph Traversal](graphs-traversals.html#pruning), FOR operation variant
 - `SEARCH` –

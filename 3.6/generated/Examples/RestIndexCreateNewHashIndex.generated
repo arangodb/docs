@@ -9,8 +9,11 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Created
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">209</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
@@ -19,9 +22,9 @@ x-content-type-options: nosniff
     <span class="hljs-string">"a"</span>, 
     <span class="hljs-string">"b"</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"products/70426"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"products/70851"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1668555301497864192"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1686164946376720386"</span>, 
   <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"hash"</span>, 

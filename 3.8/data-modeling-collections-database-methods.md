@@ -77,27 +77,11 @@ to the [naming conventions](data-modeling-naming-conventions.html).
 - *waitForSync* (optional, default *false*): If *true* creating
   a document will only return after the data was synced to disk.
 
-- *journalSize* (optional, default is a
-  configuration parameter: The maximal
-  size of a journal or datafile. Note that this also limits the maximal
-  size of a single object. Must be at least 1MB.
-
 - *isSystem* (optional, default is *false*): If *true*, create a
   system collection. In this case *collection-name* should start with
   an underscore. End users should normally create non-system collections
   only. API implementors may be required to create system collections in
   very special occasions, but normally a regular collection will do.
-
-- *isVolatile* (optional, default is *false*): If *true* then the
-  collection data is kept in-memory only and not made persistent. Unloading
-  the collection will cause the collection data to be discarded. Stopping
-  or re-starting the server will also cause full loss of data in the
-  collection. The collection itself will remain however (only the data is
-  volatile). Setting this option will make the resulting collection be
-  slightly faster than regular collections because ArangoDB does not
-  enforce any synchronization to disk and does not calculate any CRC
-  checksums for datafiles (as there are no datafiles).
-  This option is meaningful for the MMFiles storage engine only.
 
 - *keyOptions* (optional): additional options for key generation. If
   specified, then *keyOptions* should be a JSON object containing the
@@ -275,8 +259,7 @@ With properties:
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionDatabaseCreateProperties
     @EXAMPLE_ARANGOSH_OUTPUT{collectionDatabaseCreateProperties}
-      |c = db._create("users", { waitForSync : true,
-               journalSize : 1024 * 1204});
+      c = db._create("users", { waitForSync: true });
       c.properties();
     ~ db._drop("users");
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -331,11 +314,6 @@ for *waitForSync* is *false*.
 
 - *waitForSync* (optional, default *false*): If *true* creating
   a document will only return after the data was synced to disk.
-- *journalSize* (optional, default is 
-  "configuration parameter"):  The maximal size of
-  a journal or datafile. Note that this also limits the maximal
-  size of a single object and must be at least 1MB.
-
 
 
 <!-- arangod/V8Server/v8-vocindex.cpp -->
