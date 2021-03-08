@@ -129,6 +129,7 @@ The complete list of keywords is currently:
   <li><code>INBOUND</code></li>
   <li><code>INSERT</code></li>
   <li><code>INTO</code></li>
+  <li><code>K_PATHS</code></li>
   <li><code>K_SHORTEST_PATHS</code></li>
   <li><code>LET</code></li>
   <li><code>LIKE</code></li>

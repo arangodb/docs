@@ -391,6 +391,9 @@ The following execution node types will appear in the output of `explain`:
 - **KShortestPathsNode**:
   indicates a traversal for k Shortest Paths (`K_SHORTEST_PATHS` in AQL).
 
+- **KPathsNode**:
+  indicates a traversal for k Paths (`K_PATHS` in AQL).
+
 - **LimitNode**:
   limits the number of results passed to other processing steps. Will appear
   once per *LIMIT* statement.

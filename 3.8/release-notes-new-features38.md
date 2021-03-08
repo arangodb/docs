@@ -20,7 +20,7 @@ The cost of an edge can be read from an attribute which can be specified with
 the `weightAttribute` option.
 
 ```js
-FOR x, v, p IN 0..10  "places/York" GRAPH "kShortestPathsGraph"
+FOR x, v, p IN 0..10 OUTBOUND "places/York" GRAPH "kShortestPathsGraph"
     OPTIONS {
       order: "weighted",
       weightAttribute: "travelTime",
@@ -50,6 +50,30 @@ The preferred way to start a breadth-first search from now on is with
 specified, but can also be explicitly requested with `order: "dfs"`.
 
 Also see [AQL graph traversals](aql/graphs-traversals.html)
+
+K Paths
+-------
+
+Added a new graph search method to AQL which allows to enumerate
+all paths of a defined length between two vertices.
+The path length can be restricted to a single value or a range, similar
+to the number of steps defining a traversal. Shorter or longer paths
+will not be taken into account.
+
+```js
+FOR path IN 1..4 OUTBOUND K_PATHS "places/York" TO "places/Birmingham" GRAPH "kShortestPathsGraph"
+  RETURN path
+```
+
+```js
+[
+  [ "York", "London", "Birmingham" ],
+  [ "York", "Carlisle", "Birmingham" ],
+  [ "York", "Edinburgh", "Glasgow", "Carlisle", "Birmingham" ]
+]
+```
+
+For more details see [AQL k paths](aql/graphs-k-paths.html)
 
 ArangoSearch
 ------------
