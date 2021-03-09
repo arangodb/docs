@@ -88,6 +88,15 @@ would visit Aberdeen twice and will not be returned by K-Path.
 Example Use Cases
 -----------------
 
+The use-cases for k Paths are about the same as for unweighted k Shortest Paths.
+The main difference is that k Shortest Paths will enumerate all paths with increasing length.
+It will stop as soon as a given limit is reached.
+k Paths will instead only enumerate all paths within a given range of length, and are thereby upper-bounded.
+
+The k Paths can be used as foundation for several other algorithms:
+
+* Transportation of any kind (e.g. road traffic, network package routing)
+* Flow problems (we need to transfer items from A to B, which alternatives do we have? How is their capacity?)
 
 Syntax
 ------
