@@ -12,7 +12,7 @@ This type of query is supposed to find all paths between two given documents,
 *startVertex* and *targetVertex* in your graph. The paths are restricted
 by minimum and maximum length of the paths.
 
-Every such path will be returned as a JSON object with three components:
+Every such path will be returned as a JSON object with two components:
 
 - an array containing the `vertices` on the path
 - an array containing the `edges` on the path
