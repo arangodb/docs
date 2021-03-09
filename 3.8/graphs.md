@@ -361,9 +361,9 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
 
 ### The Connected Components Graph
 
-An example graph comprised of `components` (vertices) and `connections` (edges).
-Good for running Pregel algorithms such as Weakly Connected Components (WCC)
-against it.
+A small example graph comprised of `components` (vertices) and `connections`
+(edges). Good for trying out Pregel algorithms such as Weakly Connected
+Components (WCC).
 
 Also see:
 - [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html)
