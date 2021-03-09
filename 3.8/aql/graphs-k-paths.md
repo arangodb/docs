@@ -178,8 +178,8 @@ train connections in Europe and North America.
 ![Train Connection Map](../images/train_map.png)
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline GRAPHKSP_01_create_graph
-    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHKSP_01_create_graph}
+    @startDocuBlockInline GRAPHKP_01_create_graph
+    @EXAMPLE_ARANGOSH_OUTPUT{GRAPHKP_01_create_graph}
     ~addIgnoreCollection("places");
     ~addIgnoreCollection("connections");
     var examples = require("@arangodb/graph-examples/example-graph.js");
@@ -187,7 +187,7 @@ train connections in Europe and North America.
     db.places.toArray();
     db.connections.toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock GRAPHKSP_01_create_graph
+    @endDocuBlock GRAPHKP_01_create_graph
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
@@ -214,7 +214,6 @@ If we ask for routes that don't exist we get an empty result
     @DATASET{kShortestPathsGraph}
     FOR p IN OUTBOUND K_PATHS 'places/Aberdeen' TO 'places/Toronto'
     GRAPH 'kShortestPathsGraph'
-        LIMIT 3
         RETURN {
             places: p.vertices[*].label,
             travelTimes: p.edges[*].travelTime,
