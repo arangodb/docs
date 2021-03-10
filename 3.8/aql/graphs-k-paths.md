@@ -123,7 +123,15 @@ FOR path
 
 - `FOR`: emits the variable **path** which contains one path as an object containing 
    `vertices` and `edges` of the path.
-- `IN` `OUTBOUND|INBOUND|ANY`: defines in which direction
+- `IN` `MIN..MAX`: the minimal and maximal depth for the traversal:
+  - **min** (number, *optional*): paths returned by this query will
+    have at least a length of *min* many edges.
+    If not specified, it defaults to 1. The minimal possible value is 0.
+  - **max** (number, *optional*): paths returned by this query will
+    have at most a length of *max* many edges.
+    If omitted, *max* defaults to *min*. Thus only the vertices and edges in
+    the range of *min* are returned. *max* can not be specified without *min*.
+- `OUTBOUND|INBOUND|ANY`: defines in which direction
   edges are followed (outgoing, incoming, or both)
 - `K_PATHS`: the keyword to compute all Paths
 - **startVertex** `TO` **targetVertex** (both string\|object): the two vertices between
@@ -140,7 +148,7 @@ FOR path
 
 ```
 FOR path
-  IN OUTBOUND|INBOUND|ANY K_PATHS
+  IN MIN..MAX OUTBOUND|INBOUND|ANY K_PATHS
   startVertex TO targetVertex
   edgeCollection1, ..., edgeCollectionN
   [OPTIONS options]
