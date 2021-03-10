@@ -197,7 +197,7 @@ Suppose we want to query all routes from **Aberdeen** to **London**.
     @startDocuBlockInline GRAPHKP_01_Aberdeen_to_London
     @EXAMPLE_AQL{GRAPHKP_01_Aberdeen_to_London}
     @DATASET{kShortestPathsGraph}
-    FOR p IN OUTBOUND K_PATHS 'places/Aberdeen' TO 'places/London'
+    FOR p IN 1..10 OUTBOUND K_PATHS 'places/Aberdeen' TO 'places/London'
     GRAPH 'kShortestPathsGraph'
         RETURN { places: p.vertices[*].label, travelTimes: p.edges[*].travelTime }
     @END_EXAMPLE_AQL
@@ -212,7 +212,7 @@ If we ask for routes that don't exist we get an empty result
     @startDocuBlockInline GRAPHKP_02_Aberdeen_to_Toronto
     @EXAMPLE_AQL{GRAPHKP_02_Aberdeen_to_Toronto}
     @DATASET{kShortestPathsGraph}
-    FOR p IN OUTBOUND K_PATHS 'places/Aberdeen' TO 'places/Toronto'
+    FOR p IN 1..10 OUTBOUND K_PATHS 'places/Aberdeen' TO 'places/Toronto'
     GRAPH 'kShortestPathsGraph'
         RETURN {
             places: p.vertices[*].label,
