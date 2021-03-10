@@ -253,12 +253,13 @@ They supersede the options `--arangosearch.threads` and
 `--arangosearch.threads-limit`. See
 [ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
 
+This feature was also backported to v3.7.5.
+
 Web interface
 -------------
 
-- The web interface can now display the approximate size of the data in a
-  collection for both indexes and documents, based on the estimates provided by
-  RocksDB.
+- The web interface now displays the approximate size of the data in a collection 
+  for both indexes and documents, based on the estimates provided by RocksDB.
   
   These are estimates which are intended to be calculated quickly, but are not
   perfectly accurate. The estimates can still be useful to get an idea of how
@@ -281,6 +282,13 @@ Web interface
   API can be turned off or restricted via the `--log.api-enabled false` or
   `--log.api-enabled jwt` startup options.
 
+- The web interface can now display the servers' current metrics (as exposed 
+  via the `/_admin/metrics` API) for all Coordinators and DB-Servers in a cluster. 
+  The current metrics are provided in a tabular format output and can be downloaded
+  from the UI for further analysis. This is not meant to be a 100% replacement for
+  Grafana, but rather as a quick self-service alternative to check the servers'
+  statuses.
+
 - The shard synchronization overview in the web interface now provides a better
   overview of what the shard synchronization is currently doing, and what its
   progress is.
@@ -291,6 +299,11 @@ Web interface
   The progress values displayed for shard synchronization should also be more
   helpful for shards with more than one follower and in situations where one
   follower is in sync and the other is not (yet).
+
+- Inside the `_system` database of a cluster, the web interface now displays the
+  cluster supervision maintenance status. This can be used to check if the cluster
+  is currently in maintenance mode. For users with sufficient privileges, it is
+  also possible to toggle the maintenance mode from there.
 
 Memory usage
 ------------
@@ -653,6 +666,14 @@ query string will be read from a file.
 Arangorestore now provides a `--continue` option. Setting it will make
 arangorestore keep track of the restore progress, so if the restore process
 gets aborted it can later be continued from the point it left off.
+
+### Controlling the number of documents per batch for arangoexport
+
+Arangoexport now has a `--documents-per-batch` option that can be used to limit
+the number of documents to be returned in each batch from the server. This is
+useful if a query is run on overly large documents, which would lead to the
+response sizes getting out of hand with the default number of documents per 
+batch (1000).
 
 Miscellaneous
 -------------
