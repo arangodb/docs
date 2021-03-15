@@ -54,7 +54,7 @@ for every field. For each field you can decide if you want to bound
 it from both sides, from one side only (i.e. only an upper or lower bound)
 or not bound it at all.
 
-Futhermore you can use any comparsion operator. The index supports `<=` and `>=`
+Furthermore you can use any comparison operator. The index supports `<=` and `>=`
 naturally, `==` will be translated to the bound `[c, c]`. Strict comparsion
 is translated to their non-strict counterparts and a post-filter is inserted.
 
@@ -71,7 +71,6 @@ Currently there are a few limitations:
 - Using array expansions for attributes is not possible.
 - The `sparse` property is not supported.
 - You can only index numeric values that are representable as IEEE-754 double.
-
 
 
 
