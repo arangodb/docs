@@ -50,12 +50,13 @@ Now we can use the index in a query
 ### Possible range queries
 
 Having an index on a set of fields does not require you to specify a full range
-for every dimension. For each dimension you can decide if you want to only bound
-it from one side (i.e. only an upper or lower bound) or not bound it at all.
+for every field. For each field you can decide if you want to bound
+it from both sides, from one side only (i.e. only an upper or lower bound)
+or not bound it at all.
 
 Futhermore you can use any comparsion operator. The index supports `<=` and `>=`
 naturally, `==` will be translated to the bound `[c, c]`. Strict comparsion
-is translated to they non-strict counterparts and a post-filter is inserted.
+is translated to their non-strict counterparts and a post-filter is inserted.
 
     FOR p IN points
         FILTER 2 <= p.x && p.x < 9
