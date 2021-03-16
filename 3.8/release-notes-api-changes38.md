@@ -156,6 +156,15 @@ in ArangoDB 3.8:
   The return value structure is different to the return value structure in single server,
   where the return value is a simple JSON object with the statistics at the top level.
 
+- The REST endpoint for creating indexes, POST `/_api/index`, can now handle the attribute
+  `estimates`, which determines if the to-be-created index should maintain selectivity
+  estimates or not. If not specified, the default value for this attribute is `true` for
+  indexes of type "persistent", so that selectivity estimates are maintained. They can be
+  optionally turned off by setting the attribute to `false`. Turning off selectivity 
+  estimates can have a slightly positive effect on write performance. The attribute will
+  only be picked up for indexes of type "persistent", "hash" and "skiplist" (where the
+  latter two are aliases for "persistent" nowadays).
+
 ### Endpoints moved
 
 ### Endpoints removed
