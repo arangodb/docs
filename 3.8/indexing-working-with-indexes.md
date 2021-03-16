@@ -119,7 +119,7 @@ non-unique index value will be inserted into the index per document. Trying to
 insert a value into the index that already exists in the index will always fail,
 regardless of the value of this attribute.
 
-**estimates** can *true* or *false* and is supported by indexes of type
+**estimates** can be *true* or *false* and is supported by indexes of type
 *persistent*. This attribute controls whether index selectivity esimtates are
 maintained for the index. Not maintaining index selectivity estimates can have
 a slight positive impact on write performance. 
