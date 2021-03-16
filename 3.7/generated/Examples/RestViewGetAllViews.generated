@@ -1,7 +1,10 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/view</span>
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">129</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
@@ -9,8 +12,8 @@ x-content-type-options: nosniff
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">"result"</span> : [ 
     { 
-      <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hAA7904499CA1/106"</span>, 
-      <span class="hljs-string">"id"</span> : <span class="hljs-string">"106"</span>, 
+      <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hBE6441029C21/102"</span>, 
+      <span class="hljs-string">"id"</span> : <span class="hljs-string">"102"</span>, 
       <span class="hljs-string">"name"</span> : <span class="hljs-string">"demoView"</span>, 
       <span class="hljs-string">"type"</span> : <span class="hljs-string">"arangosearch"</span> 
     } 

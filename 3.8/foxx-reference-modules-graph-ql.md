@@ -44,7 +44,7 @@ implementation.
 to run in ArangoDB. This GraphQL server/schema implementation is deprecated
 and only shipped for backward compatibility. Version 0.12 and newer of the
 official `graphql` package can be used directly. New projects should bundle
-an own copy of this module: <https://www.npmjs.com/package/graphql>
+their own copy of this module: <https://www.npmjs.com/package/graphql>
 {% endhint %}
 
 **Examples**
@@ -78,8 +78,7 @@ router.use('/graphql', createGraphQLRouter({
 ```
 
 For more information on `graphql-sync` see the
-[`graphql-js` API reference](http://graphql.org/docs/api-reference-graphql/){:target="_blank"}
-(note that `graphql-sync` never wraps results in promises).
+[`graphql-js` API reference](http://graphql.org/docs/api-reference-graphql/){:target="_blank"}.
 
 Creating a router
 -----------------

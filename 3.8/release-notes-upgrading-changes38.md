@@ -86,6 +86,8 @@ the RocksDB storage engine they did not make any difference. Using these startup
 options is still possible, but will have no effect other than generating a
 warning at server startup.
 
+The following arangosearch-related startup options are deprecated in ArangoDB 3.8:
+
 - `--arangosearch.threads`
 - `--arangosearch.threads-limit`
 
@@ -99,36 +101,128 @@ the thread count. See
 
 ### Changed default values
 
-The default value for `--foxx.force-update-on-startup` changed from `true` to
-`false`, also see [Foxx](#foxx) above.
+- The default value for the startup option `--database.old-system-collections` is
+  changed from `true` to `false` in ArangoDB 3.8.
 
-The default value for the number of network I/O threads `--network.io-threads`
-was changed to `2` in ArangoDB 3.8, up from a value of `1` in previous version.
+  This means that by default the system collections `_modules` and `_fishbowl` will
+  not be created anymore when a new database is created. These collections are useful 
+  only in very few cases, so it is normally not worth to create them in all databases.
 
-The default value of the startup option `--server.unavailability-queue-fill-grade`
-has been changed from value `1` in previous versions to a value of `0.75` in ArangoDB
-3.8.
+  Already existing `_modules` and `_fishbowl` system collections will not be modified 
+  by this default value change, even though they will likely be empty and unused.
 
-This change has a consequence for the `/_admin/server/availability` REST API only,
-which is often called by load-balancers and other availability probing systems.
+  The long-term side effects of this change will be:
+  - there will be no iteration over all databases at server startup just to check
+    the contents of all `_modules` collections.
+  - less collections/shards will be around for deployments that create a large
+    number of databases (and thus the default system collections).
 
-The `/_admin/server/availability` API will return HTTP 200 if the fill grade of the
-scheduler's queue is below the configured value, or HTTP 503 if the fill grade is
-above it. This can be used to flag a server as unavailable in case it is already
-highly loaded.
+  Any functionality related to the `_modules` system collection is deprecated in
+  ArangoDB 3.8 and will be removed in ArangoDB 3.9.
 
-The default value change for this option will lead to server's reporting their
-unavailability earlier than previous versions of ArangoDB. With only the default
-values used, ArangoDB versions prior to 3.8 reported unavailability only if the
-queue was completely full, which means 4096 pending requests in the queue.
-ArangoDB 3.8 will report as unavailable if the queue is 75% full, i.e when 3072
-or more jobs are queued in the scheduler.
+- The default value for `--foxx.force-update-on-startup` changed from `true` in
+  previous version to `false` in ArangoDB 3.8, also see [Foxx](#foxx) above.
 
-Although this is a behavior change, 75% is still a high watermark and should not
-cause unavailability false-positives.
-However, to restore the pre-3.8 behavior, it is possible to set the value of
-this option to `1`. The value can even be set to `0` to disable using the
-scheduler's queue fill grade as an (un)availability indicator.
+- The value of the startup option `--rocksdb.block-cache-size` is limited to 1 GB 
+  for agent instances to reduce agency RAM usage, unless the option is explicitly
+  configured otherwise. 
+
+  In addition, the value of `--rocksdb.total-write-buffer-size` is limited to 512 MB 
+  on agent instances for the same reason, unless otherwise configuration.
+
+  No limitations apply for DB server instances or single servers.
+
+- The default value for the number of network I/O threads `--network.io-threads`
+  was changed to `2` in ArangoDB 3.8, up from a value of `1` in previous version.
+
+- The default value for `--server.descriptors-minimum` changed from `0` in previous
+  versions to `8192` in ArangoDB 3.8.
+  This change means that on Linux and macOS, the system limits need to allow the
+  arangod process to use at least 8192 file descriptors. 
+  If less file descriptors are available to the arangod process, then the startup 
+  process of the arangod server is automatically aborted.
+
+  Even the chosen minimum value of 8192 will often not be high enough to store 
+  considerable amounts of data. However, no higher value was chosen in order to not 
+  make too many existing installations fail after upgrading.
+
+  The required number of file descriptors can be configured using the startup option 
+  `--server.descriptors-minimum`. It now defaults to 8192, but it can be increased 
+  to ensure that arangod can make use of a sufficiently high number of files.
+
+  Setting `--server.descriptors-minimum` to a value of `0` will make the startup 
+  require only an absolute minimum limit of 1024 file descriptors, effectively 
+  disabling the change. Such low values should only be used to bypass the file 
+  descriptors check in case of an emergency, but this is not recommended for production.
+
+- The default value of the startup option `--server.unavailability-queue-fill-grade`
+  has been changed from value `1` in previous versions to a value of `0.75` in ArangoDB
+  3.8.
+
+  This change has a consequence for the `/_admin/server/availability` REST API only,
+  which is often called by load-balancers and other availability probing systems.
+
+  The `/_admin/server/availability` API will return HTTP 200 if the fill grade of the
+  scheduler's queue is below the configured value, or HTTP 503 if the fill grade is
+  above it. This can be used to flag a server as unavailable in case it is already
+  highly loaded.
+
+  The default value change for this option will lead to server's reporting their
+  unavailability earlier than previous versions of ArangoDB. With only the default
+  values used, ArangoDB versions prior to 3.8 reported unavailability only if the
+  queue was completely full, which means 4096 pending requests in the queue.
+  ArangoDB 3.8 will report as unavailable if the queue is 75% full, i.e when 3072
+  or more jobs are queued in the scheduler.
+
+  Although this is a behavior change, 75% is still a high watermark and should not
+  cause unavailability false-positives.
+  However, to restore the pre-3.8 behavior, it is possible to set the value of
+  this option to `1`. The value can even be set to `0` to disable using the
+  scheduler's queue fill grade as an (un)availability indicator.
+
+### AQL query memory limits
+
+ArangoDB 3.8 introduces a default per-query memory limit for to prevent AQL
+rogue queries from consuming the entire memory available to an arangod
+instance.
+
+The per-query memory limit is introduced via changing the default value of the
+startup option `--query.memory-limit` from previously `0` (meaning: no limit)
+to a dynamically calculated value. The per-query memory limit defaults are now:
+
+```
+Available memory:            0      (0MiB)  Limit:            0   unlimited, %mem:  n/a
+Available memory:    134217728    (128MiB)  Limit:     33554432     (32MiB), %mem: 25.0
+Available memory:    268435456    (256MiB)  Limit:     67108864     (64MiB), %mem: 25.0
+Available memory:    536870912    (512MiB)  Limit:    201326592    (192MiB), %mem: 37.5
+Available memory:    805306368    (768MiB)  Limit:    402653184    (384MiB), %mem: 50.0
+Available memory:   1073741824   (1024MiB)  Limit:    603979776    (576MiB), %mem: 56.2
+Available memory:   2147483648   (2048MiB)  Limit:   1288490189   (1228MiB), %mem: 60.0
+Available memory:   4294967296   (4096MiB)  Limit:   2576980377   (2457MiB), %mem: 60.0
+Available memory:   8589934592   (8192MiB)  Limit:   5153960755   (4915MiB), %mem: 60.0
+Available memory:  17179869184  (16384MiB)  Limit:  10307921511   (9830MiB), %mem: 60.0
+Available memory:  25769803776  (24576MiB)  Limit:  15461882265  (14745MiB), %mem: 60.0
+Available memory:  34359738368  (32768MiB)  Limit:  20615843021  (19660MiB), %mem: 60.0
+Available memory:  42949672960  (40960MiB)  Limit:  25769803776  (24576MiB), %mem: 60.0
+Available memory:  68719476736  (65536MiB)  Limit:  41231686041  (39321MiB), %mem: 60.0
+Available memory: 103079215104  (98304MiB)  Limit:  61847529063  (58982MiB), %mem: 60.0
+Available memory: 137438953472 (131072MiB)  Limit:  82463372083  (78643MiB), %mem: 60.0
+Available memory: 274877906944 (262144MiB)  Limit: 164926744167 (157286MiB), %mem: 60.0
+Available memory: 549755813888 (524288MiB)  Limit: 329853488333 (314572MiB), %mem: 60.0
+```
+
+As before, a memory limit value of `0` means no per-query limitation.
+The limit values are per AQL query, so they may still be too high in case
+queries run in parallel. The defaults are intentionally high in order to not
+stop too many existing and valid queries from working that use _a lot_ of memory.
+
+Starting with ArangoDB 3.8, it is also possible to set a global memory limit in 
+addition to the per-query memory limit, via the startup option 
+`--query.global-memory-limit`.
+
+In ArangoDB 3.8, the peak memory usage reported for AQL queries will only
+return full multiples of 32 KB, whereas in previous versions it may have reported
+values with higher granularity.
 
 ### Audit Logging (Enterprise Edition)
 
@@ -165,19 +259,19 @@ as a database only. It may have an effect for Foxx applications that use HTTP
 
 ### Endpoint return value changes
 
-The endpoint `/_api/replication/clusterInventory` returns, among other things,
-an array of the existing collections. Each collection has a `planVersion`
-attribute, which in ArangoDB 3.8 is now hard-coded to the value of 1.
+- The endpoint `/_api/replication/clusterInventory` returns, among other things,
+  an array of the existing collections. Each collection has a `planVersion`
+  attribute, which in ArangoDB 3.8 is now hard-coded to the value of 1.
 
-Before 3.7, the most recent Plan version from the agency was returned inside
-`planVersion` for each collection. In 3.7, the attribute contained the Plan
-version that was in use when the in-memory LogicalCollection object was last
-constructed. The object was always reconstructed in case the underlying Plan
-data for the collection changed, or when a collection contained links to
-ArangoSearch Views. This made the attribute relatively useless for any
-real-world use cases, and so we are now hard-coding it to simplify the internal
-code. Using the attribute in client applications is also deprecated, because
-it will be removed from the API's return value in future versions of ArangoDB.
+  Before 3.7, the most recent Plan version from the agency was returned inside
+  `planVersion` for each collection. In 3.7, the attribute contained the Plan
+  version that was in use when the in-memory LogicalCollection object was last
+  constructed. The object was always reconstructed in case the underlying Plan
+  data for the collection changed, or when a collection contained links to
+  ArangoSearch Views. This made the attribute relatively useless for any
+  real-world use cases, and so we are now hard-coding it to simplify the internal
+  code. Using the attribute in client applications is also deprecated, because
+  it will be removed from the API's return value in future versions of ArangoDB.
 
 AQL
 ---
@@ -215,6 +309,19 @@ FOR status IN Window
 FOR status IN `Window`
   RETURN status.open
 ```
+
+## Subqueries
+
+The AQL optimizer rule `splice-subqueries` was introduced in ArangoDB 3.6 to
+optimize most subqueries, and it was extended in 3.7 to work with all types
+of subqueries. It was always turned on by default, but it still could be 
+deactivated manually using a startup option (`--query.optimizer-rules`) or
+for individual queries via the `optimizer.rules` query option.
+
+In ArangoDB 3.8, the optimizer rule `splice-subqueries` is now required for
+subquery execution, and cannot be turned off. Trying to disable it via the 
+mentioned startup option or query option has no effect, as the optimizer rule
+will always run for queries containing subqueries.
 
 ### UPDATE queries with `keepNull: false`
 
