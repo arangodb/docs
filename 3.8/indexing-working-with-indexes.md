@@ -119,6 +119,17 @@ non-unique index value will be inserted into the index per document. Trying to
 insert a value into the index that already exists in the index will always fail,
 regardless of the value of this attribute.
 
+**estimates** can be *true* or *false* and is supported by indexes of type
+*persistent*. This attribute controls whether index selectivity estimates are
+maintained for the index. Not maintaining index selectivity estimates can have
+a slightly positive impact on write performance.
+The downside of turning off index selectivity estimates will be that
+the query optimizer will not be able to determine the usefulness of different
+competing indexes in AQL queries when there are multiple candidate indexes to
+choose from.
+The *estimates* attribute is optional and defaults to *true* if not set. It will
+have no effect on indexes other than *persistent* (with *hash* and *skiplist*
+being mere aliases for *persistent* nowadays).
 
 **Examples**
 

@@ -253,44 +253,85 @@ They supersede the options `--arangosearch.threads` and
 `--arangosearch.threads-limit`. See
 [ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
 
+This feature was also backported to v3.7.5.
+
 Web interface
 -------------
 
-- The web interface can now display the approximate size of the data in a
-  collection for both indexes and documents, based on the estimates provided by
-  RocksDB.
-  
-  These are estimates which are intended to be calculated quickly, but are not
-  perfectly accurate. The estimates can still be useful to get an idea of how
-  "big" a collection approximately is. The sizing information is provided in the
-  *Info* tab of each collection's detail view.
+### Dashboard
 
-- For collections in a cluster, the web interface now displays the number of
-  documents in each shard (data distribution) plus the leader and follower
-  DB-Servers for each shard.
+The cluster nodes overview in the web interface will now also display all Agent
+instances. Agent failures are now visible there, too. The overview also shows
+which agent is currently the leader.
 
-- The web interface can now display the most recent server log entries for
-  Coordinators and DB-Servers in a cluster. Logs are made available in the
-  `_system` database via the _Nodes_ menu item. Up to 2048 log entries will be
-  kept on each instance.
+### Shard distribution overview
 
-  The privileges for accessing server logs in the web interface are identical
-  to the privileges required for accessing logs via the `GET /_admin/log` HTTP
-  REST API. If security is a concern, in-memory logs buffering can be turned
-  off entirely using the startup option `--log.in-memory false`, plus the log
-  API can be turned off or restricted via the `--log.api-enabled false` or
-  `--log.api-enabled jwt` startup options.
+The web interface now provides a shard distribution overview for the entire
+cluster. The overview includes general details about cluster-wide distribution
+as well as per-server figures for the number of leader and follower shards.
 
-- The shard synchronization overview in the web interface now provides a better
-  overview of what the shard synchronization is currently doing, and what its
-  progress is.
+The shard distribution overview is only available in the `_system` database.
 
-  For shards that are currently not in sync it will display whether the
-  followers are currently syncing or waiting for their turn to come (because
-  the amount of parallelism for syncing multiple shards can be restricted).
-  The progress values displayed for shard synchronization should also be more
-  helpful for shards with more than one follower and in situations where one
-  follower is in sync and the other is not (yet).
+### Cluster maintenance mode
+
+Inside the `_system` database of a cluster, the web interface now displays the
+cluster supervision maintenance status. This can be used to check if the cluster
+is currently in maintenance mode. For users with sufficient privileges, it is
+also possible to toggle the maintenance mode from there.
+
+### Collection figures
+
+The web interface now displays the approximate size of the data in a collection
+for both indexes and documents, based on the estimates provided by RocksDB.
+
+These are estimates which are intended to be calculated quickly, but are not
+perfectly accurate. The estimates can still be useful to get an idea of how
+"big" a collection approximately is. The sizing information is provided in the
+*Info* tab of each collection's detail view.
+
+For collections in a cluster, the web interface now displays the number of
+documents in each shard (data distribution) plus the leader and follower
+DB-Servers for each shard.
+
+### Server logs in cluster
+
+The web interface can now display the most recent server log entries for
+Coordinators and DB-Servers in a cluster. Logs are made available in the
+`_system` database via the _Nodes_ menu item. Up to 2048 log entries will be
+kept on each instance.
+
+The privileges for accessing server logs in the web interface are identical
+to the privileges required for accessing logs via the `GET /_admin/log` HTTP
+REST API. If security is a concern, in-memory logs buffering can be turned
+off entirely using the startup option `--log.in-memory false`, plus the log
+API can be turned off or restricted via the `--log.api-enabled false` or
+`--log.api-enabled jwt` startup options.
+
+### Server metrics
+
+The statistics view in the web interface now provide some key metrics for
+DB-Servers in case the metrics API is enabled. Different statistics may be
+visible depending on the operating system.
+
+The web interface can now display the servers' current metrics (as exposed
+via the `/_admin/metrics` API) for all Coordinators and DB-Servers in a cluster.
+The current metrics are provided in a tabular format output and can be downloaded
+from the UI for further analysis. This is not meant to be a 100% replacement for
+Grafana, but rather as a quick self-service alternative to check the servers'
+statuses.
+
+### Shard synchronization status
+
+The shard synchronization overview in the web interface now provides a better
+overview of what the shard synchronization is currently doing, and what its
+progress is.
+
+For shards that are currently not in sync it will display whether the
+followers are currently syncing or waiting for their turn to come (because
+the amount of parallelism for syncing multiple shards can be restricted).
+The progress values displayed for shard synchronization should also be more
+helpful for shards with more than one follower and in situations where one
+follower is in sync and the other is not (yet).
 
 Memory usage
 ------------
@@ -314,10 +355,10 @@ parameters were not set explicitly.
 
 ### AQL query memory limit
 
-A default memory limit has been introduced for AQL queries, to prevent rogue
-queries from consuming the too much memory of an arangod instance.
+A default per-query memory limit has been introduced for queries, to prevent rogue
+AQL queries from consuming the too much memory of an arangod instance.
 
-The limit is introduced via changing the default value of the option
+The per-query limit is introduced via changing the default value of the option
 `--query.memory-limit` from previously `0` (meaning no limit) to a dynamically
 calculated value. The per-query memory limit defaults are now (depending on the
 amount of available RAM):
@@ -343,10 +384,42 @@ Available memory: 274877906944 (262144MiB)  Limit: 164926744167 (157286MiB), %me
 Available memory: 549755813888 (524288MiB)  Limit: 329853488333 (314572MiB), %mem: 60.0
 ```
 
-As previously, a memory limit value of `0` means no limitation.
+As before, a per-query memory limit value of `0` means no limitation.
 The limit values are per AQL query, so they may still be too high in case
 queries run in parallel. The defaults are intentionally high in order to not
 stop any valid, previously working queries from succeeding.
+
+The new startup option `--query.global-memory-limit` can be used to set a limit
+on the combined estimated memory usage of all AQL queries (in bytes). If this
+option has a value of `0`, then no global memory limit is in place. This is
+also the default value and the same behavior as in previous versions of ArangoDB.
+
+Setting the option to a value greater than zero will mean that the total memory
+usage of all AQL queries will be limited approximately to the configured value.
+The limit is enforced by each server in a cluster independently, i.e. it can be
+set separately for Coordinators, DB-Servers etc. The memory usage of a query
+that runs on multiple servers in parallel is not summed up, but tracked
+separately on each server.
+
+If a memory allocation in a query would lead to the violation of the configured
+global memory limit, then the query is aborted with error code 32
+("resource limit exceeded").
+
+The global memory limit is approximate, in the same fashion as the per-query
+memory limit exposed by the option `--query.memory-limit` is.  Some operations,
+namely calls to AQL functions and their intermediate results, are currently not
+properly tracked. 
+
+If both `--query.global-memory-limit` and `--query.memory-limit` are set, the
+former must be set at least as high as the latter.
+
+There is now also a startup option `--query.memory-limit-override` which can be
+used to control whether individual AQL queries can increase their memory limit
+via the `memoryLimit` query option. This is the default, so a query that
+increases its memory limit is allowed to use more memory than set via the
+`--query.memory-limit` startup option value. If the option is set to `false`,
+individual queries can only lower their maximum allowed memory usage but not
+increase it.
 
 JavaScript security options
 ---------------------------
@@ -396,6 +469,35 @@ Index selectivity estimates
 When index selectivity estimates are updated and written to disk, they are now
 written in a compressed format. This can reduce the amount of data written to
 disk for each index estimate update.
+
+Changes to the index selectivity estimates will also help a lot to reduce the
+"idle writes" problem, in which an idle arangod instance would still write a
+lot of data to disk over time. These writes happen because the server statistics
+feature periodically stores the current statistics in some system collections,
+so that they can be retrieved later and also inspected from the web interface.
+
+With ArangoDB 3.8 these writes still happen, but their size has been greatly
+reduced: if the statistics collections are created with ArangoDB 3.8 (this will
+happen when creating a new deployment based on 3.8), there will be no updates
+to the index selectivity estimates of the statistics collections, saving the
+majority of the write payload size. For deployments created with an earlier
+version of ArangoDB, the index selectivity estimates for the statistics
+collections will still be updated, but they are written in a compressed format.
+
+For any user-defined index of type "persistent", it is now also possible to
+disable index selectivity estimates for the index, by setting the `estimates`
+flag to `false` when creating the index, e.g.
+
+```js
+db.myCollection.ensureIndex({ type: "persistent", fields: ["value"], estimates: false });
+```
+
+By default index selectivity estimates are maintained for newly created indexes.
+Turning them off can have a slightly positive performance impact for write
+operations. The downside of turning off index selectivity estimates will be that
+the query optimizer will not be able to determine the usefulness of different
+competing indexes in AQL queries when there are multiple candidate indexes to
+choose from.
 
 Metrics
 -------
@@ -653,6 +755,14 @@ query string will be read from a file.
 Arangorestore now provides a `--continue` option. Setting it will make
 arangorestore keep track of the restore progress, so if the restore process
 gets aborted it can later be continued from the point it left off.
+
+### Controlling the number of documents per batch for arangoexport
+
+Arangoexport now has a `--documents-per-batch` option that can be used to limit
+the number of documents to be returned in each batch from the server. This is
+useful if a query is run on overly large documents, which would lead to the
+response sizes getting out of hand with the default number of documents per
+batch (1000).
 
 Miscellaneous
 -------------
