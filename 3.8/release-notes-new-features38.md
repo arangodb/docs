@@ -397,25 +397,25 @@ When index selectivity estimates are updated and written to disk, they are now
 written in a compressed format. This can reduce the amount of data written to
 disk for each index estimate update.
 
-Changes to the index selectivity esimates will also help a lot to reduce the 
+Changes to the index selectivity estimates will also help a lot to reduce the
 "idle writes" problem, in which an idle arangod instance would still write a
-lot of data to disk over time. 
-These writes happen because the server statistics feature periodically stores 
-the current statistics in some system collections, so that they can be retrieved
-later and also inspected from the web interface. 
-With ArangoDB 3.8 these writes still happen, but their size has been greatly 
-reduced: if the statistics collections are created with ArangoDB 3.8 (this will happen
-when creating a new deployment based on 3.8), there will be no updates to the index
-selectivity estimates of the statistics collections, saving the majority of the
-write payload size. For deployments created with an earlier version of ArangoDB, 
-the index selectivity estimates for the statistics collections will still be 
-updated, but they are written in a compressed format.
+lot of data to disk over time. These writes happen because the server statistics
+feature periodically stores the current statistics in some system collections,
+so that they can be retrieved later and also inspected from the web interface.
 
-For any user-defined index of type "persistent", it is now also possible to 
-disable index selectivity esimtates for the index, by setting the `estimates`
+With ArangoDB 3.8 these writes still happen, but their size has been greatly
+reduced: if the statistics collections are created with ArangoDB 3.8 (this will
+happen when creating a new deployment based on 3.8), there will be no updates
+to the index selectivity estimates of the statistics collections, saving the
+majority of the write payload size. For deployments created with an earlier
+version of ArangoDB, the index selectivity estimates for the statistics
+collections will still be updated, but they are written in a compressed format.
+
+For any user-defined index of type "persistent", it is now also possible to
+disable index selectivity estimates for the index, by setting the `estimates`
 flag to `false` when creating the index, e.g.
 
-```
+```js
 db.myCollection.ensureIndex({ type: "persistent", fields: ["value"], estimates: false });
 ```
 
@@ -423,7 +423,7 @@ By default index selectivity estimates are maintained for newly created indexes.
 Turning them off can have a slightly positive performance impact for write
 operations. The downside of turning off index selectivity estimates will be that
 the query optimizer will not be able to determine the usefulness of different
-competing indexes in AQL queries when thee are multiple candidate indexes to
+competing indexes in AQL queries when there are multiple candidate indexes to
 choose from.
 
 Metrics
