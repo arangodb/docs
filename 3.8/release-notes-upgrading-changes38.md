@@ -192,7 +192,7 @@ the thread count. See
   will start sending batches with up to `--batch-size` bytes, and then adapt
   the loading rate dynamically.
 
-### AQL query memory limits
+### AQL query memory limit
 
 ArangoDB 3.8 introduces a default memory limit for AQL queries to prevent
 rogue queries from consuming the entire memory available to an arangod
