@@ -186,3 +186,6 @@ the target system.
 
 To start off with a different chunk size, one can adjust the value of the
 `--batch-size` parameter.
+
+Note: the pacing algorithm was turned on by default in ArangoDB 3.7.10
+and higher, and turned off by default in ArangoDB 3.7.11 and higher.
