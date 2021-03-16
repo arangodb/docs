@@ -222,7 +222,7 @@ Added IANA timezone database [tzdata](https://www.iana.org/time-zones){:target="
 The following AQL functions have been added for converting datetimes in UTC to
 any timezone in the world including historical daylight saving times and vice
 versa. An optional detail flag returns the timezone information including
-effect range, abbrevation, daylight saving and offset to UTC:
+effect range, abbreviation, daylight saving and offset to UTC:
 
 - [DATE_UTCTOLOCAL()](aql/functions-date.html#date_utctolocal)
 

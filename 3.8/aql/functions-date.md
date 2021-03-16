@@ -750,7 +750,7 @@ Converts *date* assumed in Zulu time (UTC) to local *timezone*.
 
 It takes historic daylight saving times into account.
 
-`DATE_UTCTOLOCAL(date, timezone, zoneinfo) → (dateString | object)`
+`DATE_UTCTOLOCAL(date, timezone, zoneinfo) → date`
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - **timezone** (string):
@@ -758,20 +758,19 @@ It takes historic daylight saving times into account.
   e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
   Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
   Will throw an error if the timezone is not known to ArangoDB
-- **zoneinfo** (boolean, *optional*): if set to *true*, an object with timezone information is returned.
-  The default is *false* and a dateString is returned.
-- returns **dateString** or **object**: date and time expressed according to ISO 8601,
-  in unqualified local time
-
-
-- **local** (dateString): converted local time
-- **tzdb** (string): version of the timezone database used (e.g. 2020f)
-- **zoneInfo**: (object): timezone information
-  - **name** (string): timezone abbrevation (GMT, PST, CET, ...)
-  - **begin** (dateString\|null): begin of the timezone effect as UTC dateString
-  - **end** (dateString\|null): end of the timezone effect as UTC dateString
-  - **save** (boolean): *true* when daylight saving is active, *false* otherwise
-  - **offset** (number): offset to UTC in seconds
+- **zoneinfo** (boolean, *optional*): if set to *true*, an object with timezone
+  information is returned. The default is *false* and a date string is returned
+- returns **date** (string\|object): an ISO 8601 date time string in
+  unqualified local time, or an object with the following attributes:
+  - **local** (string): ISO 8601 date time string in unqualified local time
+  - **tzdb** (string): version of the timezone database used (e.g. `"2020f"`)
+  - **zoneInfo**: (object): timezone information
+    - **name** (string): timezone abbreviation (GMT, PST, CET, ...)
+    - **begin** (string\|null): begin of the timezone effect as UTC date time string
+    - **end** (string\|null): end of the timezone effect as UTC date time string
+    - **save** (boolean): *true* when daylight saving time (DST) is active,
+      *false* otherwise
+    - **offset** (number): offset to UTC in seconds
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlDateTimeToLocal_1
@@ -800,6 +799,15 @@ It takes historic daylight saving times into account.
     {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlDateTimeToLocal_3
+    @EXAMPLE_AQL{aqlDateTimeToLocal_3}
+    RETURN DATE_UTCTOLOCAL(DATE_NOW(), "Africa/Lagos", true)
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlDateTimeToLocal_3
+    {% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_LOCALTOUTC()
 
 <small>Introduced in: v3.8.0</small>
@@ -808,7 +816,7 @@ Converts *date* assumed in local *timezone* to Zulu time (UTC).
 
 It takes historic daylight saving times into account.
 
-`DATE_LOCALTOUTC(date, timezone, zoneinfo) → (dateString|object)`
+`DATE_LOCALTOUTC(date, timezone, zoneinfo) → date`
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - **timezone** (string):
@@ -816,20 +824,19 @@ It takes historic daylight saving times into account.
   e.g. `"America/New_York"`, `"Europe/Berlin"` or `"UTC"`.
   Use `"America/Los_Angeles"` for Pacific time (PST/PDT).
   Will throw an error if the timezone is not known to ArangoDB
-- **zoneinfo** (boolean, *optional*): if set to *true*, an object with timezone information is returned.
-  The default is *false* and a dateString is returned.
-- returns **dateString** or **object**: date and time expressed according to ISO 8601,
-  in Zulu time
-  
-  
-- **utc** (dateString): converted universal time
-- **tzdb** (string): version of the timezone database used (e.g. 2020f)
-- **zoneInfo**: (object): timezone information
-  - **name** (string): timezone abbrevation (GMT, PST, CET, ...)
-  - **begin** (dateString\|null): begin of the timezone effect as UTC dateString
-  - **end** (dateString\|null): end of the timezone effect as UTC dateString
-  - **save** (boolean): *true* when daylight saving is active, *false* otherwise
-  - **offset** (number): offset to UTC in seconds
+- **zoneinfo** (boolean, *optional*): if set to *true*, an object with timezone
+  information is returned. The default is *false* and a date string is returned
+- returns **date** (string\|object): an ISO 8601 date time string in
+  Zulu time (UTC), or an object with the following attributes:
+  - **utc** (string): ISO 8601 date time string in Zulu time (UTC)
+  - **tzdb** (string): version of the timezone database used (e.g. `"2020f"`)
+  - **zoneInfo**: (object): timezone information
+    - **name** (string): timezone abbreviation (GMT, PST, CET, ...)
+    - **begin** (string\|null): begin of the timezone effect as UTC date time string
+    - **end** (string\|null): end of the timezone effect as UTC date time string
+    - **save** (boolean): *true* when daylight saving time (DST) is active,
+      *false* otherwise
+    - **offset** (number): offset to UTC in seconds
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlDateTimeToUTC_1
@@ -858,6 +865,15 @@ It takes historic daylight saving times into account.
     {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline aqlDateTimeToUTC_3
+    @EXAMPLE_AQL{aqlDateTimeToUTC_3}
+    RETURN DATE_LOCALTOUTC("2021-03-16T12:00:00.000", "Africa/Lagos", true)
+    @END_EXAMPLE_AQL
+    @endDocuBlock aqlDateTimeToUTC_3
+    {% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_TIMEZONE()
 
 <small>Introduced in: v3.8.0</small>
@@ -866,9 +882,11 @@ Returns system timezone ArangoDB is running on.
 
 For cloud servers this will most likely be "Etc/UTC".
 
-`DATE_TIMEZONE() → string`
+`DATE_TIMEZONE() → timezone`
 
-- returns **string**: [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+- returns **timezone** (string):
+  [IANA timezone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"}
+  of the server timezone.
 
 ### DATE_TIMEZONES()
 
@@ -876,9 +894,10 @@ For cloud servers this will most likely be "Etc/UTC".
 
 Returns all valid timezone names.
 
-`DATE_TIMEZONES() → stringArray`
+`DATE_TIMEZONES() → timezones`
 
-- returns **stringArray** (array): an array of [IANA timezone names](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"},
+- returns **timezones** (array): an array of
+  [IANA timezone names](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){:target="_blank"}
 
 Working with dates and indices
 ------------------------------
