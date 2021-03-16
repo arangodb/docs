@@ -186,8 +186,8 @@ ArangoDB 3.8 introduces a default per-query memory limit for to prevent AQL
 rogue queries from consuming the entire memory available to an arangod
 instance.
 
-The per-query memory limit is introduced via changing the default value of the 
-startup option `--query.memory-limit` from previously `0` (meaning: no limit) 
+The per-query memory limit is introduced via changing the default value of the
+startup option `--query.memory-limit` from previously `0` (meaning: no limit)
 to a dynamically calculated value. The per-query memory limit defaults are now:
 
 ```

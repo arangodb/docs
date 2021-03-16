@@ -33,50 +33,54 @@ issues for administration and database-internal purposes.
 The default maximum amount of memory (in bytes) that a single AQL query can use.
 When a single AQL query reaches the specified limit value, the query will be
 aborted with a *resource limit exceeded* exception. In a cluster, the memory
-accounting is done per server, so the limit value is effectively a memory limit per
-query per server.
+accounting is done per server, so the limit value is effectively a memory limit
+per query per server.
 
-The per-query limit value can be overridden per query by setting the *memoryLimit*
-option value for individual queries when running them. Overriding the per-query
-limit value is only possible if the `--query.memory-limit-override` option is set
-to `true`.
+The per-query limit value can be overridden per query by setting the
+`memoryLimit` option value for individual queries when running them.
+Overriding the per-query limit value is only possible if the
+`--query.memory-limit-override` option is set to `true`.
 
-The default value is *0*, meaning that there is no per-query memory limit.
-It is still possible to set a global memory limit for the total memory used by all
-AQL queries that currently execute via the option `--query.global-memory-limit`.
+The default value is `0`, meaning that there is no per-query memory limit.
+It is still possible to set a global memory limit for the total memory used by
+all AQL queries that currently execute via the option
+`--query.global-memory-limit`.
 
 `--query.memory-limit-override value`
 
-This option can be used to control whether individual AQL queries can increase their 
-memory limit via the `memoryLimit` query option. This is the default, so a query that 
-increases its memory limit is allowed to use more memory than set via the 
-`--query.memory-limit` startup option value.
+This option can be used to control whether individual AQL queries can increase
+their memory limit via the `memoryLimit` query option. This is the default, so
+a query that increases its memory limit is allowed to use more memory than set
+via the `--query.memory-limit` startup option value.
 
-If the option is set to `false`, individual queries can only lower their maximum allowed 
-memory usage but not increase it. 
+If the option is set to `false`, individual queries can only lower their
+maximum allowed memory usage but not increase it.
 
 `--query.global-memory-limit value`
 
-The startup option `--query.global-memory-limit` can be used set a limit on the combined 
-estimated memory usage of all AQL queries (in bytes).
-If this option has a value of `0`, then no global memory limit is in place.
-This is also the default value and the same behavior as in previous versions of ArangoDB.
+The startup option `--query.global-memory-limit` can be used set a limit on the
+combined estimated memory usage of all AQL queries (in bytes). If this option
+has a value of `0`, then no global memory limit is in place. This is also the
+default value and the same behavior as in previous versions of ArangoDB.
 
-Setting the option to a value greater than zero will mean that the total memory usage of 
-all AQL queries will be limited approximately to the configured value.
-The limit is enforced by each server in a cluster independently, i.e. it can be set separately 
-for coordinators, DB servers etc. The memory usage of a query that runs on multiple servers 
-in parallel is not summed up, but tracked separately on each server.
+Setting the option to a value greater than zero will mean that the total memory
+usage of all AQL queries will be limited approximately to the configured value.
+The limit is enforced by each server in a cluster independently, i.e. it can be
+set separately for Coordinators, DB-Servers etc. The memory usage of a query
+that runs on multiple servers in parallel is not summed up, but tracked
+separately on each server.
 
-If a memory allocation in a query would lead to the violation of the configured global 
-memory limit, then the query is aborted with error code 32 ("resource limit exceeded").
+If a memory allocation in a query would lead to the violation of the configured
+global memory limit, then the query is aborted with error code 32
+("resource limit exceeded").
 
-The global memory limit is approximate, in the same fashion as the per-query memory limit 
-exposed by the option `--query.memory-limit` is.  Some operations, namely calls to AQL 
-functions and their intermediate results, are currently not properly tracked. 
+The global memory limit is approximate, in the same fashion as the per-query
+memory limit exposed by the option `--query.memory-limit` is. Some operations,
+namely calls to AQL functions and their intermediate results, are currently not
+properly tracked.
 
-If both `--query.global-memory-limit` and `--query.memory-limit` are set, the former must 
-be set at least as high as the latter.
+If both `--query.global-memory-limit` and `--query.memory-limit` are set, the
+former must be set at least as high as the latter.
 
 ## Turning AQL warnings into errors
 
