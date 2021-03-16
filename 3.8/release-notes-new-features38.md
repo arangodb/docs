@@ -253,44 +253,85 @@ They supersede the options `--arangosearch.threads` and
 `--arangosearch.threads-limit`. See
 [ArangoDB Server ArangoSearch Options](programs-arangod-arangosearch.html).
 
+This feature was also backported to v3.7.5.
+
 Web interface
 -------------
 
-- The web interface can now display the approximate size of the data in a
-  collection for both indexes and documents, based on the estimates provided by
-  RocksDB.
-  
-  These are estimates which are intended to be calculated quickly, but are not
-  perfectly accurate. The estimates can still be useful to get an idea of how
-  "big" a collection approximately is. The sizing information is provided in the
-  *Info* tab of each collection's detail view.
+### Dashboard
 
-- For collections in a cluster, the web interface now displays the number of
-  documents in each shard (data distribution) plus the leader and follower
-  DB-Servers for each shard.
+The cluster nodes overview in the web interface will now also display all Agent
+instances. Agent failures are now visible there, too. The overview also shows
+which agent is currently the leader.
 
-- The web interface can now display the most recent server log entries for
-  Coordinators and DB-Servers in a cluster. Logs are made available in the
-  `_system` database via the _Nodes_ menu item. Up to 2048 log entries will be
-  kept on each instance.
+### Shard distribution overview
 
-  The privileges for accessing server logs in the web interface are identical
-  to the privileges required for accessing logs via the `GET /_admin/log` HTTP
-  REST API. If security is a concern, in-memory logs buffering can be turned
-  off entirely using the startup option `--log.in-memory false`, plus the log
-  API can be turned off or restricted via the `--log.api-enabled false` or
-  `--log.api-enabled jwt` startup options.
+The web interface now provides a shard distribution overview for the entire
+cluster. The overview includes general details about cluster-wide distribution
+as well as per-server figures for the number of leader and follower shards.
 
-- The shard synchronization overview in the web interface now provides a better
-  overview of what the shard synchronization is currently doing, and what its
-  progress is.
+The shard distribution overview is only available in the `_system` database.
 
-  For shards that are currently not in sync it will display whether the
-  followers are currently syncing or waiting for their turn to come (because
-  the amount of parallelism for syncing multiple shards can be restricted).
-  The progress values displayed for shard synchronization should also be more
-  helpful for shards with more than one follower and in situations where one
-  follower is in sync and the other is not (yet).
+### Cluster maintenance mode
+
+Inside the `_system` database of a cluster, the web interface now displays the
+cluster supervision maintenance status. This can be used to check if the cluster
+is currently in maintenance mode. For users with sufficient privileges, it is
+also possible to toggle the maintenance mode from there.
+
+### Collection figures
+
+The web interface now displays the approximate size of the data in a collection
+for both indexes and documents, based on the estimates provided by RocksDB.
+
+These are estimates which are intended to be calculated quickly, but are not
+perfectly accurate. The estimates can still be useful to get an idea of how
+"big" a collection approximately is. The sizing information is provided in the
+*Info* tab of each collection's detail view.
+
+For collections in a cluster, the web interface now displays the number of
+documents in each shard (data distribution) plus the leader and follower
+DB-Servers for each shard.
+
+### Server logs in cluster
+
+The web interface can now display the most recent server log entries for
+Coordinators and DB-Servers in a cluster. Logs are made available in the
+`_system` database via the _Nodes_ menu item. Up to 2048 log entries will be
+kept on each instance.
+
+The privileges for accessing server logs in the web interface are identical
+to the privileges required for accessing logs via the `GET /_admin/log` HTTP
+REST API. If security is a concern, in-memory logs buffering can be turned
+off entirely using the startup option `--log.in-memory false`, plus the log
+API can be turned off or restricted via the `--log.api-enabled false` or
+`--log.api-enabled jwt` startup options.
+
+### Server metrics
+
+The statistics view in the web interface now provide some key metrics for
+DB-Servers in case the metrics API is enabled. Different statistics may be
+visible depending on the operating system.
+
+The web interface can now display the servers' current metrics (as exposed
+via the `/_admin/metrics` API) for all Coordinators and DB-Servers in a cluster.
+The current metrics are provided in a tabular format output and can be downloaded
+from the UI for further analysis. This is not meant to be a 100% replacement for
+Grafana, but rather as a quick self-service alternative to check the servers'
+statuses.
+
+### Shard synchronization status
+
+The shard synchronization overview in the web interface now provides a better
+overview of what the shard synchronization is currently doing, and what its
+progress is.
+
+For shards that are currently not in sync it will display whether the
+followers are currently syncing or waiting for their turn to come (because
+the amount of parallelism for syncing multiple shards can be restricted).
+The progress values displayed for shard synchronization should also be more
+helpful for shards with more than one follower and in situations where one
+follower is in sync and the other is not (yet).
 
 Memory usage
 ------------
@@ -714,6 +755,14 @@ query string will be read from a file.
 Arangorestore now provides a `--continue` option. Setting it will make
 arangorestore keep track of the restore progress, so if the restore process
 gets aborted it can later be continued from the point it left off.
+
+### Controlling the number of documents per batch for arangoexport
+
+Arangoexport now has a `--documents-per-batch` option that can be used to limit
+the number of documents to be returned in each batch from the server. This is
+useful if a query is run on overly large documents, which would lead to the
+response sizes getting out of hand with the default number of documents per
+batch (1000).
 
 Miscellaneous
 -------------
