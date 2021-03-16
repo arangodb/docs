@@ -120,7 +120,7 @@ insert a value into the index that already exists in the index will always fail,
 regardless of the value of this attribute.
 
 **estimates** can be *true* or *false* and is supported by indexes of type
-*persistent*. This attribute controls whether index selectivity esimtates are
+*persistent*. This attribute controls whether index selectivity estimates are
 maintained for the index. Not maintaining index selectivity estimates can have
 a slight positive impact on write performance. 
 The downside of turning off index selectivity estimates will be that
