@@ -260,19 +260,19 @@ Web interface
 
 ### Dashboard
 
-The cluster nodes overview in the web interface will now also display all agent
-instances. Agent failures are now visible there, too. The overview also shows which
-agent is currently the leader.
+The cluster nodes overview in the web interface will now also display all Agent
+instances. Agent failures are now visible there, too. The overview also shows
+which agent is currently the leader.
 
 ### Shard distribution overview
 
-The web interface now provides a shard distribution overview for the entire cluster.
-The overview includes general details about cluster-wide distrubution as well as 
-per-server figures for the number of leader and follower shards.
+The web interface now provides a shard distribution overview for the entire
+cluster. The overview includes general details about cluster-wide distribution
+as well as per-server figures for the number of leader and follower shards.
 
 The shard distribution overview is only available in the `_system` database.
 
-### Cluster maintenance mode 
+### Cluster maintenance mode
 
 Inside the `_system` database of a cluster, the web interface now displays the
 cluster supervision maintenance status. This can be used to check if the cluster
@@ -281,9 +281,9 @@ also possible to toggle the maintenance mode from there.
 
 ### Collection figures
 
-The web interface now displays the approximate size of the data in a collection 
+The web interface now displays the approximate size of the data in a collection
 for both indexes and documents, based on the estimates provided by RocksDB.
-  
+
 These are estimates which are intended to be calculated quickly, but are not
 perfectly accurate. The estimates can still be useful to get an idea of how
 "big" a collection approximately is. The sizing information is provided in the
@@ -309,18 +309,18 @@ API can be turned off or restricted via the `--log.api-enabled false` or
 
 ### Server metrics
 
-The statistics view in the web interface now provide some key metrics for DB servers 
-in case the Metrics API is enabled. Different statistics may be visible depending 
-on the operating system.
+The statistics view in the web interface now provide some key metrics for
+DB-Servers in case the metrics API is enabled. Different statistics may be
+visible depending on the operating system.
 
-The web interface can now display the servers' current metrics (as exposed 
-via the `/_admin/metrics` API) for all Coordinators and DB-Servers in a cluster. 
+The web interface can now display the servers' current metrics (as exposed
+via the `/_admin/metrics` API) for all Coordinators and DB-Servers in a cluster.
 The current metrics are provided in a tabular format output and can be downloaded
 from the UI for further analysis. This is not meant to be a 100% replacement for
 Grafana, but rather as a quick self-service alternative to check the servers'
 statuses.
 
-### Shard synchronisation status 
+### Shard synchronization status
 
 The shard synchronization overview in the web interface now provides a better
 overview of what the shard synchronization is currently doing, and what its
@@ -700,7 +700,7 @@ gets aborted it can later be continued from the point it left off.
 Arangoexport now has a `--documents-per-batch` option that can be used to limit
 the number of documents to be returned in each batch from the server. This is
 useful if a query is run on overly large documents, which would lead to the
-response sizes getting out of hand with the default number of documents per 
+response sizes getting out of hand with the default number of documents per
 batch (1000).
 
 Miscellaneous
