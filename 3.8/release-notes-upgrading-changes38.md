@@ -182,13 +182,13 @@ the thread count. See
 
 ### AQL query memory limits
 
-ArangoDB 3.8 introduces a default memory limit for AQL queries to prevent
+ArangoDB 3.8 introduces a default per-query memory limit for to prevent AQL
 rogue queries from consuming the entire memory available to an arangod
 instance.
 
-The memory limit is introduced via changing the default value of the startup
-option `--query.memory-limit` from previously `0` (meaning: no limit) to a
-dynamically calculated value. The per-query memory limit defaults are now:
+The per-query memory limit is introduced via changing the default value of the
+startup option `--query.memory-limit` from previously `0` (meaning: no limit)
+to a dynamically calculated value. The per-query memory limit defaults are now:
 
 ```
 Available memory:            0      (0MiB)  Limit:            0   unlimited, %mem:  n/a
@@ -211,10 +211,18 @@ Available memory: 274877906944 (262144MiB)  Limit: 164926744167 (157286MiB), %me
 Available memory: 549755813888 (524288MiB)  Limit: 329853488333 (314572MiB), %mem: 60.0
 ```
 
-As previously, a memory limit value of `0` means no limitation.
+As before, a memory limit value of `0` means no per-query limitation.
 The limit values are per AQL query, so they may still be too high in case
 queries run in parallel. The defaults are intentionally high in order to not
-stop too many valid queries from working that use _a lot_ of memory.
+stop too many existing and valid queries from working that use _a lot_ of memory.
+
+Starting with ArangoDB 3.8, it is also possible to set a global memory limit in 
+addition to the per-query memory limit, via the startup option 
+`--query.global-memory-limit`.
+
+In ArangoDB 3.8, the peak memory usage reported for AQL queries will only
+return full multiples of 32 KB, whereas in previous versions it may have reported
+values with higher granularity.
 
 ### Audit Logging (Enterprise Edition)
 
