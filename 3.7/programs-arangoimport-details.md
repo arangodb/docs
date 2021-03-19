@@ -158,7 +158,8 @@ For CSV and TSV imports, the total number of input file lines read will also be 
 _arangoimport_ will also print out details about warnings and errors that happened on the
 server-side (if any).
 
-### Automatic pacing with busy or low throughput disk subsystems
+Automatic pacing with busy or low throughput disk subsystems
+------------------------------------------------------------
 
 Arangoimport has an optional automatic pacing algorithm that can limit 
 how fast data is sent to the ArangoDB servers. This pacing algorithm 

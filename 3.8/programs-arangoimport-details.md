@@ -158,7 +158,8 @@ For CSV and TSV imports, the total number of input file lines read will also be 
 _arangoimport_ will also print out details about warnings and errors that happened on the
 server-side (if any).
 
-### Automatic pacing with busy or low throughput disk subsystems
+Automatic pacing with busy or low throughput disk subsystems
+------------------------------------------------------------
 
 Arangoimport has an optional automatic pacing algorithm that can limit 
 how fast data is sent to the ArangoDB servers. This pacing algorithm 
@@ -182,10 +183,10 @@ by invoking arangoimport with the `--auto-rate-limit true` parameter.
 
 When enabling the pacing, the initial chunk size is 8MB per second. This
 may be too high or too low, depending on the available disk throughput of
-the target system.
+the target system. To start off with a different chunk size, one can
+adjust the value of the `--batch-size` parameter.
 
-To start off with a different chunk size, one can adjust the value of the
-`--batch-size` parameter.
-
-Note: the pacing algorithm was turned on by default in ArangoDB 3.7.10
-and higher, and turned off by default in ArangoDB 3.7.11 and higher.
+{% hint 'tip' %}
+The pacing algorithm is turned on by default up to version 3.7.10
+and turned off by default in version 3.7.11 and higher.
+{% endhint %}
