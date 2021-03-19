@@ -1,13 +1,14 @@
 arangosh&gt; db.ids.ensureIndex({ <span class="hljs-attr">type</span>: <span class="hljs-string">"persistent"</span>, <span class="hljs-attr">fields</span>: [ <span class="hljs-string">"name.first"</span>, <span class="hljs-string">"name.last"</span> ], <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span> });
 { 
   <span class="hljs-string">"deduplicate"</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">"estimates"</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">"fields"</span> : [ 
     <span class="hljs-string">"name.first"</span>, 
     <span class="hljs-string">"name.last"</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"ids/77083"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"ids/77071"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1693685927557201920"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1694620698514817025"</span>, 
   <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"persistent"</span>, 
@@ -16,21 +17,21 @@ arangosh&gt; db.ids.ensureIndex({ <span class="hljs-attr">type</span>: <span cla
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"hansen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/77087"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"77087"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkAnO---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/77075"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"77075"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGt6C---"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"jens"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/77089"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"77089"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkAnS---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/77077"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"77077"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGt6C--_"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"jensen"</span> }});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/77091"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"77091"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_c_JkAnW---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"ids/77079"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"77079"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGt6C--A"</span> 
 }
 arangosh&gt; db.ids.save({ <span class="hljs-string">"name"</span> : { <span class="hljs-string">"first"</span> : <span class="hljs-string">"hans"</span>, <span class="hljs-string">"last"</span>: <span class="hljs-string">"hansen"</span> }});
-[ArangoError <span class="hljs-number">1210</span>:  - <span class="hljs-keyword">in</span> index idx_1693685927557201920 <span class="hljs-keyword">of</span> type persistent over <span class="hljs-string">'name.first, name.last'</span>; conflicting key: <span class="hljs-number">77087</span>]
+[ArangoError <span class="hljs-number">1210</span>:  - <span class="hljs-keyword">in</span> index idx_1694620698514817025 <span class="hljs-keyword">of</span> type persistent over <span class="hljs-string">'name.first, name.last'</span>; conflicting key: <span class="hljs-number">77075</span>]

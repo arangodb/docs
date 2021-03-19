@@ -703,7 +703,7 @@
       "agent",
       "single"
     ],
-    "default" : 16341509120,
+    "default" : 15268141056,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -4781,6 +4781,33 @@
     "section" : "query",
     "type" : "boolean"
   },
+  "query.global-memory-limit" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
+    "dynamic" : true,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "uint64"
+  },
   "query.max-parallelism" : {
     "category" : "option",
     "component" : [
@@ -4844,9 +4871,9 @@
       "agent",
       "single"
     ],
-    "default" : 40508112077,
+    "default" : 37932028723,
     "deprecatedIn" : null,
-    "description" : "memory limit per AQL query (in bytes, 0 = no limit)",
+    "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -4860,6 +4887,33 @@
     "requiresValue" : true,
     "section" : "query",
     "type" : "uint64"
+  },
+  "query.memory-limit-override" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "allow increasing per-query memory limits for individual queries",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "query",
+    "type" : "boolean"
   },
   "query.optimizer-max-plans" : {
     "category" : "option",
@@ -5549,7 +5603,7 @@
       "agent",
       "single"
     ],
-    "default" : 19609810944,
+    "default" : 18321769267,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -6252,6 +6306,33 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "double"
+  },
+  "rocksdb.max-parallel-compactions" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 2,
+    "deprecatedIn" : null,
+    "description" : "maximum number of parallel compactions jobs",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.11"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
   },
   "rocksdb.max-subcompactions" : {
     "category" : "option",
@@ -7007,7 +7088,7 @@
       "agent",
       "single"
     ],
-    "default" : 26146414592,
+    "default" : 24429025689,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -7422,7 +7503,7 @@
       "agent",
       "single"
     ],
-    "default" : 65535,
+    "default" : 8192,
     "deprecatedIn" : null,
     "description" : "minimum number of file descriptors needed to start (0 = no minimum)",
     "dynamic" : false,
@@ -7604,7 +7685,7 @@
       "agent",
       "single"
     ],
-    "default" : 8,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "Number of threads used to handle IO",
     "dynamic" : true,
@@ -7775,7 +7856,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 9,
+    "default" : 5,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
@@ -7827,7 +7908,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 64)",
+    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 32)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : false,
