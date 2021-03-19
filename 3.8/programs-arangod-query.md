@@ -36,15 +36,50 @@ aborted with a *resource limit exceeded* exception. In a cluster, the memory
 accounting is done per server, so the limit value is effectively a memory limit
 per query per server.
 
+Some operations, namely calls to AQL functions and their intermediate results, 
+are currently not properly tracked. This may change in future versions.
+
 The per-query limit value can be overridden per query by setting the
 `memoryLimit` option value for individual queries when running them.
 Overriding the per-query limit value is only possible if the
 `--query.memory-limit-override` option is set to `true`.
 
-The default value is `0`, meaning that there is no per-query memory limit.
-It is still possible to set a global memory limit for the total memory used by
-all AQL queries that currently execute via the option
-`--query.global-memory-limit`.
+The default per-query memory limit value in ArangoDB 3.8 depends on the amount of
+available RAM. In previous versions of ArangoDB, the default value was 0, meaning 
+"unlimited".
+
+The default values in 3.8 are:
+
+```
+Available memory:            0      (0MiB)  Limit:            0   unlimited, %mem:  n/a
+Available memory:    134217728    (128MiB)  Limit:     33554432     (32MiB), %mem: 25.0
+Available memory:    268435456    (256MiB)  Limit:     67108864     (64MiB), %mem: 25.0
+Available memory:    536870912    (512MiB)  Limit:    201326592    (192MiB), %mem: 37.5
+Available memory:    805306368    (768MiB)  Limit:    402653184    (384MiB), %mem: 50.0
+Available memory:   1073741824   (1024MiB)  Limit:    603979776    (576MiB), %mem: 56.2
+Available memory:   2147483648   (2048MiB)  Limit:   1288490189   (1228MiB), %mem: 60.0
+Available memory:   4294967296   (4096MiB)  Limit:   2576980377   (2457MiB), %mem: 60.0
+Available memory:   8589934592   (8192MiB)  Limit:   5153960755   (4915MiB), %mem: 60.0
+Available memory:  17179869184  (16384MiB)  Limit:  10307921511   (9830MiB), %mem: 60.0
+Available memory:  25769803776  (24576MiB)  Limit:  15461882265  (14745MiB), %mem: 60.0
+Available memory:  34359738368  (32768MiB)  Limit:  20615843021  (19660MiB), %mem: 60.0
+Available memory:  42949672960  (40960MiB)  Limit:  25769803776  (24576MiB), %mem: 60.0
+Available memory:  68719476736  (65536MiB)  Limit:  41231686041  (39321MiB), %mem: 60.0
+Available memory: 103079215104  (98304MiB)  Limit:  61847529063  (58982MiB), %mem: 60.0
+Available memory: 137438953472 (131072MiB)  Limit:  82463372083  (78643MiB), %mem: 60.0
+Available memory: 274877906944 (262144MiB)  Limit: 164926744167 (157286MiB), %mem: 60.0
+Available memory: 549755813888 (524288MiB)  Limit: 329853488333 (314572MiB), %mem: 60.0
+```
+
+It is possible to set a global memory limit for the total memory used by all AQL 
+queries that currently execute via the option `--query.global-memory-limit`.
+
+From ArangoDB 3.8 on, the per-query memory tracking has a granularity of 32 KB 
+chunks. That means checking for memory limits such as "1" (e.g. for testing) 
+may not make a query fail, if the total memory allocations in the query will not 
+exceed 32 KB. The effective lowest memory limit value that can be enforced is thus 
+32 KB. Memory limit values higher than 32 KB will be checked whenever the total 
+memory allocations cross a 32 KB boundary. 
 
 `--query.memory-limit-override value`
 
@@ -75,9 +110,8 @@ global memory limit, then the query is aborted with error code 32
 ("resource limit exceeded").
 
 The global memory limit is approximate, in the same fashion as the per-query
-memory limit exposed by the option `--query.memory-limit` is. Some operations,
-namely calls to AQL functions and their intermediate results, are currently not
-properly tracked.
+memory limit exposed by the option `--query.memory-limit` is. 
+The global memory tracking has a granularity of 32 KB chunks. 
 
 If both `--query.global-memory-limit` and `--query.memory-limit` are set, the
 former must be set at least as high as the latter.

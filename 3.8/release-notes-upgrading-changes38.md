@@ -232,8 +232,15 @@ Starting with ArangoDB 3.8, it is also possible to set a global memory limit in
 addition to the per-query memory limit, via the startup option 
 `--query.global-memory-limit`.
 
-In ArangoDB 3.8, the peak memory usage reported for AQL queries will only
-return full multiples of 32 KB, whereas in previous versions it may have reported
+In ArangoDB 3.8, the per-query memory and global query memory tracking have a 
+granularity of 32 KB chunks. That means checking for memory limits such as "1"
+(e.g. for testing) may not make a query fail if the total memory allocations
+in the query will not exceed 32 KB. The effective lowest memory limit value that
+can be enforced is thus 32 KB. Memory limit values higher than 32 KB will be checked
+whenever the total memory allocations cross a 32 KB boundary. 
+
+The peak memory usage reported for AQL queries will also only return full multiples 
+of 32 KB in ArangoDB 3.8, whereas in previous versions it may have reported
 values with higher granularity.
 
 ### Audit Logging (Enterprise Edition)
