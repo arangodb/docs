@@ -499,6 +499,25 @@ the query optimizer will not be able to determine the usefulness of different
 competing indexes in AQL queries when there are multiple candidate indexes to
 choose from.
 
+Encryption at Rest
+------------------
+
+The Encryption at Rest feature in the ArangoDB 3.8 Enterprise Edition will now
+automatically use hardware acceleration for encryption and decryption if
+available.
+
+The AES-NI instruction set (Advanced Encryption Standard New Instructions)
+will be used if available on the target platform. This instruction set is
+available on major Intel and AMD processors for around a decade.
+
+The benefits of using the hardware-accelerated version of AES are better
+performance than for a software-only implementation, plus resistance to
+side-channel attacks.
+
+All other things equal, deployments that use
+[Encryption at Rest](security-encryption.html) should see a reduction of CPU
+usage by using the hardware-accelerated encryption.
+
 Metrics
 -------
 

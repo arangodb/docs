@@ -33,7 +33,9 @@ Version 3.8
 
 **Enterprise Edition**
 
-
+- **Encryption at Rest** utilizes
+  [hardware acceleration](release-notes-new-features38.html#encryption-at-rest)
+  capabilities of modern CPUs.
 
 Also see [What's New in 3.8](release-notes-new-features38.html).
 
