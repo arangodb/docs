@@ -179,3 +179,9 @@ in ArangoDB 3.8:
   a string return value and convert that string into a number.
 
 ## ArangoDB Server Environment Variables
+
+The new environment variable `TZ_DATA` can be used to specify the path to the 
+directory containing the timezone information database for ArangoDB. That directory 
+is normally named `tzdata` and is shipped with ArangoDB releases. It is normally not
+required to set this environment variable, but it may be necessary in unusual setups 
+with non-conventional directory layouts and paths.
