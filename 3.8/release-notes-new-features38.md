@@ -314,7 +314,7 @@ DB-Servers in case the metrics API is enabled. Different statistics may be
 visible depending on the operating system.
 
 The web interface can now display the servers' current metrics (as exposed
-via the `/_admin/metrics` API) for all Coordinators and DB-Servers in a cluster.
+via the `/_admin/metrics/v2` API) for all Coordinators and DB-Servers in a cluster.
 The current metrics are provided in a tabular format output and can be downloaded
 from the UI for further analysis. This is not meant to be a 100% replacement for
 Grafana, but rather as a quick self-service alternative to check the servers'
@@ -521,57 +521,37 @@ usage by using the hardware-accelerated encryption.
 Metrics
 -------
 
-The following server metrics have been added to the
-[Metrics HTTP API](http/administration-and-monitoring-metrics.html)
-in ArangoDB 3.8 and can be used for monitoring and alerting:
+In 3.8, we have created a new metrics API under `/_admin/metrics/v2`.
+This became necessary, since the old metrics output was not following
+all Prometheus conventions for metrics. For example, the naming
+convention says that the name of a counters **must end in** `_total`.
+Furthermore, the histogram bucket counts **must be reported** cumulated.
+Fixing all these is a breaking change, therefore we continue to serve
+the old metrics output (with old names and uncumulated histograms)
+under `/_admin/metrics` and deprecate this API in 3.8. It will be
+removed in future versions.
 
-| Label | Description |
-|:------|:------------|
-| `arangodb_aql_all_query` | Total number of all AQL queries (including slow queries) |
-| `arangodb_aql_query_time` | Histogram with AQL query times distribution (s) |
-| `arangodb_aql_slow_query_time` | Histogram with AQL slow query times distribution (s) |
-| `arangodb_aql_slow_query` | Total number of slow AQL queries |
-| `arangodb_collection_lock_acquisition_micros` | Total amount of collection lock acquisition time (μs) |
-| `arangodb_collection_lock_acquisitiontime` | Collection lock acquisition time histogram (s) |
-| `arangodb_collection_lock_timeouts_exclusive` | Number of timeouts when trying to acquire collection exclusive locks |
-| `arangodb_collection_lock_timeouts_write` | Number of timeouts when trying to acquire collection write locks |
-| `arangodb_http_request_statistics_superuser_requests` | Total number of HTTP requests executed by superuser/JWT |
-| `arangodb_http_request_statistics_user_requests` | Total number of HTTP requests executed by clients |
-| `arangodb_network_forwarded_requests` | Number of requests forwarded from one Coordinator to another in a load-balancing setup |
-| `arangodb_refused_followers_count` | Number of refusal answers from a follower during synchronous replication |
-| `arangodb_replication_dump_apply_time` | Time required for applying data from replication dump responses (ms) |
-| `arangodb_replication_dump_bytes_received` | Number of bytes received in replication dump requests |
-| `arangodb_replication_dump_documents` | Number of documents received in replication dump requests |
-| `arangodb_replication_dump_request_time` | Wait time for replication dump requests (ms) |
-| `arangodb_replication_dump_requests` | Number of replication dump requests made |
-| `arangodb_replication_failed_connects` | Number of failed connection attempts and response errors during replication |
-| `arangodb_replication_initial_chunks_requests_time` | Wait time for replication key chunks determination requests (ms) |
-| `arangodb_replication_initial_docs_requests_time` | Time needed to apply replication docs data (ms) |
-| `arangodb_replication_initial_insert_apply_time` | Time needed to apply replication initial sync insertions (ms) |
-| `arangodb_replication_initial_keys_requests_time` | Wait time for replication keys requests (ms) |
-| `arangodb_replication_initial_lookup_time` | Time needed for replication initial sync key lookups (ms) |
-| `arangodb_replication_initial_remove_apply_time` | Time needed to apply replication initial sync removals (ms) |
-| `arangodb_replication_initial_sync_bytes_received` | Number of bytes received during replication initial sync |
-| `arangodb_replication_initial_sync_docs_inserted` | Number of documents inserted by replication initial sync |
-| `arangodb_replication_initial_sync_docs_removed` | Number of documents inserted by replication initial sync |
-| `arangodb_replication_initial_sync_docs_requested` | Number of documents requested via replication initial sync requests |
-| `arangodb_replication_initial_sync_docs_requests` | Number of replication initial sync docs requests made |
-| `arangodb_replication_initial_sync_keys_requests` | Number of replication initial sync keys requests made |
-| `arangodb_replication_tailing_apply_time` | Time needed to apply replication tailing markers (ms) |
-| `arangodb_replication_tailing_bytes_received` | Number of bytes received for replication tailing requests |
-| `arangodb_replication_tailing_documents` | Number of replication tailing document inserts/replaces processed |
-| `arangodb_replication_tailing_follow_tick_failures` | Number of replication tailing failures due to missing tick on leader |
-| `arangodb_replication_tailing_markers` | Number of replication tailing markers processed |
-| `arangodb_replication_tailing_removals` | Number of replication tailing document removals processed |
-| `arangodb_replication_tailing_request_time` | Wait time for replication tailing requests (ms) |
-| `arangodb_replication_tailing_requests` | Number of replication tailing requests |
-| `arangodb_rocksdb_free_disk_space` | Free disk space for the RocksDB database directory mount (bytes) |
-| `arangodb_rocksdb_total_disk_space` | Total disk space for the RocksDB database directory mount (bytes) |
-| `arangodb_scheduler_threads_started` | Number of scheduler threads started |
-| `arangodb_scheduler_threads_stopped` | Number of scheduler threads stopped |
-| `arangodb_sync_wrong_checksum` | Number of times a mismatching shard checksum was detected when syncing shards |
-| `rocksdb_free_inodes` | Number of free inodes for the file system with the RocksDB database directory (always `0` on Windows) |
-| `rocksdb_total_inodes` | Total number of inodes for the file system with the RocksDB database directory (always `0` on Windows) |
+The new API under `/_admin/metrics/v2` should be used from now on and
+we publish new dashboards for Grafana for it. We have defined multiple
+"personas" and build individual dashboards which each include a certain
+subset of the metrics tailored for the particular persona. So for
+example, a database admin would only see metrics which are relevant
+for the database administration work. Of course, there is also a
+dashboard with all metrics, neatly sorted into categories. In 3.8, 
+we have over 200 metrics and nearly 300 graphs in the complete
+dashboard.
+
+The complete list of metrics together with documentation can be found
+in the 
+[Metrics HTTP API](http/administration-and-monitoring-metrics.html)
+documentation.
+
+The list of renamed metrics can be found
+[in the API changes](release-notes-api-changes38.html#endpoints-added).
+
+For the description of a seamless upgrade path see
+[the upgrade
+notes](release-notes-upgrading-changes38.html#endpoint-return-value-changes).
 
 Logging
 -------
