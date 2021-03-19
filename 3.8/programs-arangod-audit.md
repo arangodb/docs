@@ -15,6 +15,16 @@ Hostname to use.
 `--audit.output`
 
 Audit destination(s).
+One or multiple destinations can be specified. Usually, destinations start with
+`file://`, followed by the absolute or relative path to the target logfile.
+
+Any occurrence of `$PID` inside a filename will be replaced at runtime with the
+actual process id. This enables logging to process-specific files, e.g.
+
+`--audit.output 'file:///var/log/arangod.log.$PID'`
+
+Please note that the dollar sign may need extra escaping when specified from 
+inside shells such as Bash.
 
 ## Maximum line length
 
