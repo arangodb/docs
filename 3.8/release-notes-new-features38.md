@@ -643,6 +643,13 @@ The following logging-related options have been added:
   this option to `false` mimics the behavior from 3.7 and before, where
   audit log messages were not queued but written in a blocking fashion.
 
+- any occurrence of `$PID` inside a log output value (e.g. `--log.output` or
+  `--audit.output`) will be replaced at runtime with the actual process id. 
+  This enables logging to process-specific files.
+
+  Please note that the dollar sign in `$PID` may need extra escaping when 
+  specified from inside shells such as Bash.
+
 ### Other logging improvements
 
 - The maximum size of log messages buffered in memory was increased from 256

@@ -76,6 +76,14 @@ for different log topics. To set up a per-topic output configuration, use
 
 logs all queries to the file "queries.txt".
 
+Any occurrence of `$PID` inside a log output value will be replaced at runtime 
+with the actual process id. This enables logging to process-specific files, e.g.
+
+`--log.output 'file:///var/log/arangod.log.$PID'`
+
+Please note that the dollar sign may need extra escaping when specified from 
+inside shells such as Bash.
+
 The old option `--log.file` is still available in 3.0 for convenience reasons. In
 3.0 it is a shortcut for the more general option `--log.output file://filename`.
 
