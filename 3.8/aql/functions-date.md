@@ -768,7 +768,7 @@ It takes historic daylight saving times into account.
     - **name** (string): timezone abbreviation (GMT, PST, CET, ...)
     - **begin** (string\|null): begin of the timezone effect as UTC date time string
     - **end** (string\|null): end of the timezone effect as UTC date time string
-    - **save** (boolean): *true* when daylight saving time (DST) is active,
+    - **dst** (boolean): *true* when daylight saving time (DST) is active,
       *false* otherwise
     - **offset** (number): offset to UTC in seconds
 
@@ -834,7 +834,7 @@ It takes historic daylight saving times into account.
     - **name** (string): timezone abbreviation (GMT, PST, CET, ...)
     - **begin** (string\|null): begin of the timezone effect as UTC date time string
     - **end** (string\|null): end of the timezone effect as UTC date time string
-    - **save** (boolean): *true* when daylight saving time (DST) is active,
+    - **dst** (boolean): *true* when daylight saving time (DST) is active,
       *false* otherwise
     - **offset** (number): offset to UTC in seconds
 
