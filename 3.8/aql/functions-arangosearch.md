@@ -10,7 +10,7 @@ ArangoSearch Functions
 ======================
 
 You can form search expressions to filter Views by composing ArangoSearch
-function calls.{:class="lead"}
+function calls, logical operators and comparison operators.{:class="lead"}
 
 The AQL [`SEARCH` operation](operations-search.html) accepts search expressions
 such as `SEARCH ANALYZER(PHRASE(doc.text, "foo bar"), "text_en")`. You can
@@ -18,8 +18,6 @@ combine search and context functions as well as operators like `AND` and `OR`.
 
 Most functions can also be used without a View and the `SEARCH` keyword, but
 will then not be accelerated by a View index.
-
-Scoring functions can be used in `SORT` and `RETURN` operations only.
 
 Context Functions
 -----------------
@@ -851,7 +849,8 @@ Scoring functions return a ranking value for the documents found by a
 the search expression the higher the returned number.
 
 The first argument to any scoring function is always the document emitted by
-a `FOR` operation over an ArangoSearch View.
+a `FOR` operation over an ArangoSearch View. Scoring functions can be used in
+`SORT` and `RETURN` operations only.
 
 To sort the result set by relevance, with the more relevant documents coming
 first, sort in **descending order** by the score (e.g. `SORT BM25(...) DESC`).

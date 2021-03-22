@@ -53,7 +53,7 @@
               href: programs-arangod-global.html
             - text: Agency
               href: programs-arangod-agency.html
-            - text: Fulltext Indexing
+            - text: ArangoSearch
               href: programs-arangod-arangosearch.html
             - text: Audit
               href: programs-arangod-audit.html
@@ -278,6 +278,13 @@
       href: indexing-which-index.html
     - text: Index Utilization
       href: indexing-index-utilization.html
+    - text: ArangoSearch
+      href: arangosearch.html
+      children:
+        - text: Views
+          href: arangosearch-views.html
+        - text: Examples
+          href: arangosearch-examples.html
     - text: Working with Indexes
       href: indexing-working-with-indexes.html
       children:
@@ -337,17 +344,8 @@
       href: graphs-edges.html
     - text: Pregel
       href: graphs-pregel.html
-    - text: Custom Pregel
-      href: graph-analytics-custom-pregel.html
-- text: ArangoSearch
-  href: arangosearch.html
-  children:
-    - text: Views
-      href: arangosearch-views.html
-    - text: Analyzers
-      href: arangosearch-analyzers.html
-    - text: Examples
-      href: arangosearch-examples.html
+- text: Text Processing
+  href: analyzers.html
 - subtitle: ADVANCED TOPICS
 - text: Architecture
   href: architecture.html

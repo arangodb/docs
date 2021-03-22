@@ -5,8 +5,17 @@ title: ArangoSearch Examples
 redirect_from:
   - views-arango-search-getting-started.html # 3.4 -> 3.5
 ---
-ArangoSearch Examples
-=====================
+# ArangoSearch Examples
+
+## Matching strictly equal values
+
+## Case-insensitive search
+
+## Prefix search
+
+## Wildcard search
+
+## Fuzzy search
 
 View Configuration and Search
 -----------------------------

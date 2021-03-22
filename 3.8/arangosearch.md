@@ -29,17 +29,54 @@ primarily a full-text search engine, a much more powerful alternative to the
 
 ## Getting Started with ArangoSearch
 
-## Define what to index with ArangoSearch Views
-
 ArangoSearch introduces the concept of **Views** which can be seen as
 virtual collections. Each View represents an inverted index to provide fast
 full-text searching over one or multiple linked collections and holds the
 configuration for the search capabilities, such as the attributes to index.
 It can cover multiple or even all attributes of the documents in the linked
-collections. Search results can be sorted by their similarity ranking to
-return the best matches first using popular scoring algorithms.
+collections.
 
-## Write search expressions with ArangoSearch functions
+{% hint 'info' %}
+ArangoSearch Views are not updated synchronously as the source collections
+change in order to minimize the performance impact. They are
+**eventually consistent**, with a configurable consolidation policy.
+{% endhint %}
+
+The input values can be processed by so called **Analyzers** which can
+normalize strings, tokenize text into words and more, enabling different
+possibilities to search for values later on.
+
+Search results can be sorted by their similarity ranking to return the best
+matches first using popular scoring algorithms.
+
+![Conceptual model of ArangoSearch interacting with Collections and Analyzers](images/arangosearch-variant.png)
+
+### Create an ArangoSearch View
+
+Views can be managed in the Web UI, via an [HTTP API](http/views.html) and
+through a [JavaScript API](data-modeling-views-database-methods.html).
+
+1. Create a test collection (e.g. `testcoll`) and insert a few documents like
+   `{"food": "avocado"}` and `{"food": "apple"}`, so that you have something to
+   index and search for.
+2. In the Web UI, click on _VIEWS_ in the main navigation.
+3. Click on the _Add View_ button, enter a name (e.g. `myview`) and confirm.
+4. You can toggle the mode of the View definition editor from _Tree_ to _Code_
+   to edit the JSON object as text.
+5. Replace `"links": {}` with below configuration, then save the changes:
+   ```json
+   "links": {
+     "testcoll": {
+       "includeAllFields": true
+     }
+   }
+   ```
+
+### Define what to index with ArangoSearch Views
+
+
+
+### Write search expressions with ArangoSearch functions
 
 The ArangoSearch features are integrated into AQL as
 [`SEARCH` operation](aql/operations-search.html) and a set of
@@ -102,4 +139,4 @@ FOR doc IN viewName
   RETURN doc
 ```
 
-## 
+### 
