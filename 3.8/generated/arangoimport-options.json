@@ -1,4 +1,25 @@
 {
+  "auto-rate-limit" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "adjust the data loading rate automatically, starting at --batch-size bytes per thread per second",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.11"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "backslash-escape" : {
     "category" : "option",
     "default" : false,
@@ -20,7 +41,7 @@
   },
   "batch-size" : {
     "category" : "option",
-    "default" : 1048576,
+    "default" : 8388608,
     "deprecatedIn" : null,
     "description" : "size for individual data batches (in bytes)",
     "dynamic" : false,
@@ -382,29 +403,6 @@
     "section" : "",
     "type" : "string..."
   },
-  "log.api-enabled" : {
-    "category" : "option",
-    "default" : "true",
-    "deprecatedIn" : null,
-    "description" : "whether the log api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : [
-      "v3.4.11",
-      "v3.5.6",
-      "v3.6.5"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "log",
-    "type" : "string"
-  },
   "log.color" : {
     "category" : "option",
     "default" : true,
@@ -471,8 +469,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -493,8 +490,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -544,6 +540,27 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.hostname" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "hostname to use in log message (empty for none, use 'auto' to automatically figure out hostname)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string"
+  },
   "log.ids" : {
     "category" : "option",
     "default" : true,
@@ -555,25 +572,6 @@
     "introducedIn" : [
       "v3.5.0"
     ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : false,
-    "section" : "log",
-    "type" : "boolean"
-  },
-  "log.keep-logrotate" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "keep the old log file after receiving a sighup",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -623,6 +621,27 @@
     "requiresValue" : false,
     "section" : "log",
     "type" : "boolean"
+  },
+  "log.max-entry-length" : {
+    "category" : "option",
+    "default" : 134217728,
+    "deprecatedIn" : null,
+    "description" : "maximum length of a log entry (in bytes)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.9"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "uint32"
   },
   "log.output" : {
     "category" : "option",
@@ -693,7 +712,7 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : [
-      "v3.7.1"
+      "v3.8.0"
     ],
     "obsolete" : false,
     "os" : [
@@ -831,7 +850,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.7.1"
+      "v3.8.0"
     ],
     "obsolete" : false,
     "os" : [
@@ -1277,7 +1296,7 @@
     "category" : "option",
     "default" : 2,
     "deprecatedIn" : null,
-    "description" : "Number of parallel import threads. Most useful for the rocksdb engine",
+    "description" : "Number of parallel import threads",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
