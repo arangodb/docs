@@ -353,7 +353,7 @@ cache and to 512 MB for the total write buffer size. Previously, Agency memory
 usage could grow a lot higher for systems with a lot of memory if the startup
 parameters were not set explicitly.
 
-### AQL query memory limit
+### Default AQL query memory limit
 
 A default per-query memory limit has been introduced for queries, to prevent rogue
 AQL queries from consuming the too much memory of an arangod instance.
@@ -389,6 +389,8 @@ The limit values are per AQL query, so they may still be too high in case
 queries run in parallel. The defaults are intentionally high in order to not
 stop any valid, previously working queries from succeeding.
 
+### Global AQL query memory limit
+
 The new startup option `--query.global-memory-limit` can be used to set a limit
 on the combined estimated memory usage of all AQL queries (in bytes). If this
 option has a value of `0`, then no global memory limit is in place. This is
@@ -421,68 +423,90 @@ increases its memory limit is allowed to use more memory than set via the
 individual queries can only lower their maximum allowed memory usage but not
 increase it.
 
-JavaScript security options
----------------------------
-
-The following options have been added to optionally limit certain areas of
-JavaScript code execution:
-
-- Added startup option `--javascript.tasks` to allow turning off JavaScript
-  tasks if not needed. The default value for this option is `true`, meaning
-  JavaScript tasks are available as before. However, with this option they can
-  be turned off by admins to limit the amount of JavaScript user code that is
-  executed.
-
-- Added startup option `--javascript.transactions` to allow turning off
-  JavaScript transactions if not needed. The default value for this option is
-  `true`, meaning JavaScript transactions are available as before. However,
-  with this option they can be turned off by admins to limit the amount of
-  JavaScript user code that is executed.
-
 Shard synchronization
 ---------------------
 
-The initial replication of collections/shards data is now faster by not wrapping
-each document in a separate `{"type":2300,"data":...}` envelope. In addition,
-the follower side of the replication will request data from leaders in
-VelocyPack format if the leader is running at least version 3.8.
+### Improvements for initial synchronization
 
-Stripping the envelopes and using VelocyPack for transfer allows for smaller
-data sizes when exchanging the documents and faster processing, and thus can
-lead to time savings in document packing and unpacking as well as reduce the
-number of required HTTP requests.
+The initial replication of collections/shards data is now faster by not wrapping
+each document in a separate `{"type":2300,"data":...}` envelope. In addition, the 
+follower side of the replication will request initial shard data from leaders in 
+VelocyPack format if the leader is running at least version 3.8. 
+
+Stripping the envelopes and using VelocyPack for data transfer allows for smaller
+data sizes when exchanging the documents and for faster processing, and thus can
+lead to time savings in document packing and unpacking as well as a reduction in
+the number of required roundtrips.
 
 The shard synchronization protocol was also improved by only transferring the
 required parts of the inventory from leader to follower. Previously, for each
 shard the entire inventory was exchanged, which included all shards of the
-respective database with all their details.
+respective database with all their details. This change helps to reduce memory
+usage and speed up initial synchronization for databases with lots of collections
+or shards.
 
 In addition, 3 cluster-internal requests are now saved per shard in the initial
 shard synchronization protocol by reusing already existing information in the
-different steps of the replication process. All this can speed up the
+different steps of the replication process. All these changes can speed up the
 getting-in-sync of followers after a server restart, or when provisioning new
 replicas.
+
+### Replication protocol based on Merkle trees
+
+For collections created with ArangoDB 3.8, a new internal data format is used
+that allows a very fast synchronization of differences between the leader and
+a follower that is trying to reconnect.
+
+The new format used in 3.8 is based on Merkle trees, making it more efficient to 
+pin-point the data differences between the leader and a follower that is trying
+to reconnect. 
+The algorithmic complexity of the new protocol is determined by the amount of 
+differences between the leader and follower shard data, meaning that if there are 
+no or very few differences, the getting-in-sync protocol will run very fast.
+In previous versions of ArangoDB, the complexity of the protocol was determined
+by the number of documents in the shard, and the protocol required a scan over
+all documents in the shard on both the leader and the follower to find the 
+differences.
+
+The new protocol is used automatically for all collections/shards created with
+ArangoDB 3.8. Collections/shards created with earlier versions will use the
+old protocol, which is still fully supported.
+
+New deployments created with ArangoDB 3.8 will automatically benefit from the
+new protocol, and existing deployments will benefit from the new protocol for
+any collections that are created with 3.8 onwards. 
+Existing collections created with previous versions of ArangoDB will only benefit 
+from the new protocol if the collections are logically dumped and recreated/restored 
+using arangodump/arangorestore.
 
 Index selectivity estimates
 ---------------------------
 
+### Compressed estimates format
+
 When index selectivity estimates are updated and written to disk, they are now
-written in a compressed format. This can reduce the amount of data written to
-disk for each index estimate update.
+written in a compressed format. This can greatly reduce the amount of data written 
+to disk for each index estimate update. The compressed format is used automatically
+in ArangoDB 3.8 for all selectivity estimate writes.
 
-Changes to the index selectivity estimates will also help a lot to reduce the
-"idle writes" problem, in which an idle arangod instance would still write a
-lot of data to disk over time. These writes happen because the server statistics
-feature periodically stores the current statistics in some system collections,
-so that they can be retrieved later and also inspected from the web interface.
+### Less impact of selectivity estimate updates for system collections
 
-With ArangoDB 3.8 these writes still happen, but their size has been greatly
-reduced: if the statistics collections are created with ArangoDB 3.8 (this will
-happen when creating a new deployment based on 3.8), there will be no updates
-to the index selectivity estimates of the statistics collections, saving the
-majority of the write payload size. For deployments created with an earlier
-version of ArangoDB, the index selectivity estimates for the statistics
-collections will still be updated, but they are written in a compressed format.
+Previous versions of ArangoDB could suffer from an "idle writes" problem, in which
+an otherwise idle arangod instance would still write a lot of data to disk over time. 
+These writes happened because the server statistics feature periodically stored the 
+current statistics in some system collections, so that they can be retrieved later 
+and also be inspected from the web interface at any point.
+
+With ArangoDB 3.8 these background writes to the statistics collections will still 
+happen, but their impact has been greatly reduced: if the statistics collections are 
+created with ArangoDB 3.8 (this will happen when creating a new deployment based on 
+3.8), there will be no updates to the index selectivity estimates of the statistics 
+collections at all. This will save the majority of the write payload size. 
+For deployments created with earlier versions of ArangoDB, the index selectivity 
+estimates for the statistics collections will still be updated periodically, but 
+they are written in the compressed index selectivity estimates format.
+
+### Optional selectivity estimates for new indexes
 
 For any user-defined index of type "persistent", it is now also possible to
 disable index selectivity estimates for the index, by setting the `estimates`
@@ -492,7 +516,7 @@ flag to `false` when creating the index, e.g.
 db.myCollection.ensureIndex({ type: "persistent", fields: ["value"], estimates: false });
 ```
 
-By default index selectivity estimates are maintained for newly created indexes.
+By default index selectivity estimates are maintained for all newly created indexes.
 Turning them off can have a slightly positive performance impact for write
 operations. The downside of turning off index selectivity estimates will be that
 the query optimizer will not be able to determine the usefulness of different
@@ -517,6 +541,22 @@ side-channel attacks.
 All other things equal, deployments that use
 [Encryption at Rest](security-encryption.html) should see a reduction of CPU
 usage by using the hardware-accelerated encryption.
+
+JavaScript security options
+---------------------------
+
+The following startup options have been added to optionally limit certain areas of
+JavaScript code execution:
+
+- `--javascript.tasks`: the default value for this option is `true`, meaning
+  JavaScript tasks are available as before. However, with this option they can
+  be turned off by admins to limit the amount of JavaScript user code that is
+  executed.
+
+- `--javascript.transactions`: the default value for this option is
+  `true`, meaning JavaScript transactions are available as before. However,
+  with this option they can be turned off by admins to limit the amount of
+  JavaScript user code that is executed.
 
 Metrics
 -------
