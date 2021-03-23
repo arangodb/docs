@@ -441,7 +441,6 @@ db.test.update("testDoc", { test: { sub1: true, sub2: null } }, { keepNull: fals
 
 Also see [AQL UPDATE queries with `keepNull: false`](#update-queries-with-keepnull-false)
 
-
 Client tools
 ------------
 
@@ -449,7 +448,7 @@ The default value for arangoimport's `--batch-size` option was raised from
 1 MB to 8 MB. This means that arangoimport can send larger batches containing
 more documents.
 
-arangoimport also has a rate limiting feature, which was turned on by default
+Arangoimport also has a rate limiting feature, which was turned on by default
 previously. This rate limiting feature limited the import rate to 1 MB per
 second, which is probably too low for most use cases. In ArangoDB 3.8, the
 rate limiting for arangoimport is now turned off by default, but can be
