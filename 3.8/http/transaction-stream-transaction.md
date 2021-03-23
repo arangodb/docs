@@ -86,16 +86,16 @@ List currently ongoing Transactions
 Limitations
 -----------
 
-A maximum lifetime and transaction size for stream transactions is enforced
-on the Coordinator to ensure that transactions cannot block the cluster from
-operating properly:
+A maximum lifetime for stream transactions is enforced on the Coordinator to 
+ensure that abandoned transactions cannot block the cluster from operating properly:
 
-- Maximum idle timeout of **10 seconds** between operations
-- Maximum transaction size of **128 MB** per DB-Server
+The default maximum idle timeout is **60 seconds** between operations in a single
+stream transaction. The maximum value can be bumbed to at most 120 seconds by setting
+the startup option `--transaction.streaming-idle-timeout`.
 
-These limits are also enforced for stream transactions on single servers.
+The idle timeout is also enforced for stream transactions on single servers.
 
-Enforcing the limits is useful to free up resources used by abandoned 
+Enforcing the limit is useful to free up resources used by abandoned 
 transactions, for example from transactions that are abandoned by client 
 applications due to programming errors or that were left over because client 
 connections were interrupted.
