@@ -17,20 +17,20 @@ The default value of the startup option `--foxx.force-update-on-startup` changes
 from `true` to `false` in ArangoDB 3.8.
 This option controls whether the startup procedure should synchronize all Foxx
 apps in all databases before making them available, or whether startup should
-proceed without ensuring all Foxx apps are in sync. In the latter case, the 
+proceed without ensuring all Foxx apps are in sync. In the latter case, the
 synchronization will happen eventually.
 
-In ArangoDB 3.6 and 3.7, the option's default value is `true`, meaning all Foxx apps 
+In ArangoDB 3.6 and 3.7, the option's default value is `true`, meaning all Foxx apps
 in all databases will be synchronized on server startup. This can delay the startup
 procedure for installations with many databases, and is unnecessary in case no
 Foxx apps are used.
 
 In ArangoDB 3.8 the default value for the option is `false`, meaning a server will
-complete the boot sequence faster, and the Foxx services will be synchronized in 
-a background operation. Until that operation has completed, any requests to a 
-Foxx app may be responded to with an HTTP 500 error and message 
+complete the boot sequence faster, and the Foxx services will be synchronized in
+a background operation. Until that operation has completed, any requests to a
+Foxx app may be responded to with an HTTP 500 error and message
 
-    waiting for initialization of Foxx services in this database 
+    waiting for initialization of Foxx services in this database
 
 This can cause an unavailability window for Foxx apps for the initial requests to
 Foxx apps.
@@ -104,13 +104,13 @@ the thread count. See
 #### System collections
 
 The default value for the startup option `--database.old-system-collections` is
- changed from `true` to `false` in ArangoDB 3.8.
+changed from `true` to `false` in ArangoDB 3.8.
 
 This means that by default the system collections `_modules` and `_fishbowl` will
-not be created anymore when a new database is created. These collections are useful 
+not be created anymore when a new database is created. These collections are useful
 only in very few cases, so it is normally not worth to create them in all databases.
 
-Already existing `_modules` and `_fishbowl` system collections will not be modified 
+Already existing `_modules` and `_fishbowl` system collections will not be modified
 by this default value change, even though they will likely be empty and unused.
 
 The long-term side effects of this change will be:
@@ -129,11 +129,11 @@ previous version to `false` in ArangoDB 3.8, also see [Foxx](#foxx) above.
 
 #### RocksDB
 
-The value of the startup option `--rocksdb.block-cache-size` is limited to 1 GB 
+The value of the startup option `--rocksdb.block-cache-size` is limited to 1 GB
 for agent instances to reduce agency RAM usage, unless the option is explicitly
-configured otherwise. 
+configured otherwise.
 
-In addition, the value of `--rocksdb.total-write-buffer-size` is limited to 512 MB 
+In addition, the value of `--rocksdb.total-write-buffer-size` is limited to 512 MB
 on agent instances for the same reason, unless otherwise configuration.
 
 No limitations apply for DB server instances or single servers.
@@ -143,38 +143,40 @@ No limitations apply for DB server instances or single servers.
 The default value for the number of network I/O threads `--network.io-threads`
 was changed to `2` in ArangoDB 3.8, up from a value of `1` in previous version.
 
-#### Streaming transactions
+#### Stream Transactions
 
-The idle timeout for streaming transactions was raised from 10 seconds to 60 seoconds
-in ArangoDB 3.8. The default value can be adjusted via the new startup option
-`--transaction.streaming-idle-timeout`. 
-Streaming transactions will automatically time out after the configured idle period
-if no further operations are posted into them. Posted an operation into a non-expired
-streaming transaction will bump the transaction's timeout forward by the configured
-idle timeout value.
-Previous versions of ArangoDB had a hard-coded idle timeout for streaming transactions
-which could not be adjusted.
+The idle timeout for Stream Transactions was raised from 10 seconds to 60
+seconds in ArangoDB 3.8. The default value can be adjusted via the new startup
+option `--transaction.streaming-idle-timeout`.
+
+Streaming transactions will automatically time out after the configured idle
+period if no further operations are posted into them. Posting an operation into
+a non-expired Stream Transaction will reset the transaction's timeout to the
+configured idle timeout.
+
+Previous versions of ArangoDB had a hard-coded idle timeout for
+Stream Transactions which could not be adjusted.
 
 #### File descriptors
 
 The default value for `--server.descriptors-minimum` changed from `0` in previous
 versions to `8192` in ArangoDB 3.8.
 This change means that on Linux and macOS, the system limits need to allow the
-arangod process to use at least 8192 file descriptors. 
-If less file descriptors are available to the arangod process, then the startup 
+arangod process to use at least 8192 file descriptors.
+If less file descriptors are available to the arangod process, then the startup
 process of the arangod server is automatically aborted.
 
-Even the chosen minimum value of 8192 will often not be high enough to store 
-considerable amounts of data. However, no higher value was chosen in order to not 
+Even the chosen minimum value of 8192 will often not be high enough to store
+considerable amounts of data. However, no higher value was chosen in order to not
 make too many existing installations fail after upgrading.
 
-The required number of file descriptors can be configured using the startup option 
-`--server.descriptors-minimum`. It now defaults to 8192, but it can be increased 
+The required number of file descriptors can be configured using the startup option
+`--server.descriptors-minimum`. It now defaults to 8192, but it can be increased
 to ensure that arangod can make use of a sufficiently high number of files.
 
-Setting `--server.descriptors-minimum` to a value of `0` will make the startup 
-require only an absolute minimum limit of 1024 file descriptors, effectively 
-disabling the change. Such low values should only be used to bypass the file 
+Setting `--server.descriptors-minimum` to a value of `0` will make the startup
+require only an absolute minimum limit of 1024 file descriptors, effectively
+disabling the change. Such low values should only be used to bypass the file
 descriptors check in case of an emergency, but this is not recommended for production.
 
 #### Scheduler
@@ -240,11 +242,11 @@ The limit values are per AQL query, so they may still be too high in case
 queries run in parallel. The defaults are intentionally high in order to not
 stop too many existing and valid queries from working that use _a lot_ of memory.
 
-Starting with ArangoDB 3.8, it is also possible to set a global memory limit in 
-addition to the per-query memory limit, via the startup option 
+Starting with ArangoDB 3.8, it is also possible to set a global memory limit in
+addition to the per-query memory limit, via the startup option
 `--query.global-memory-limit`.
 
-In ArangoDB 3.8, the per-query memory and global query memory tracking have a 
+In ArangoDB 3.8, the per-query memory and global query memory tracking have a
 granularity of 32 KB chunks. That means checking for memory limits such as "1"
 (e.g. for testing) may not make a query fail if the total memory allocations
 in the query will not exceed 32 KB. The effective lowest memory limit value
@@ -345,12 +347,12 @@ FOR status IN `Window`
 
 The AQL optimizer rule `splice-subqueries` was introduced in ArangoDB 3.6 to
 optimize most subqueries, and it was extended in 3.7 to work with all types
-of subqueries. It was always turned on by default, but it still could be 
+of subqueries. It was always turned on by default, but it still could be
 deactivated manually using a startup option (`--query.optimizer-rules`) or
 for individual queries via the `optimizer.rules` query option.
 
 In ArangoDB 3.8, the optimizer rule `splice-subqueries` is now required for
-subquery execution, and cannot be turned off. Trying to disable it via the 
+subquery execution, and cannot be turned off. Trying to disable it via the
 mentioned startup option or query option has no effect, as the optimizer rule
 will always run for queries containing subqueries.
 
@@ -408,15 +410,15 @@ and only when just-inserted object sub-attributes contained `null` values.
 Pregel
 ------
 
-The HTTP and JavaScript APIs for controling Pregel jobs now also accept 
+The HTTP and JavaScript APIs for controlling Pregel jobs now also accept
 stringified execution number values, in addition to numeric ones.
 
-This allows passing larger execution numbers as strings, so that any data 
-loss due to numeric data type conversion (uint32 => double) can be avoided. 
+This allows passing larger execution numbers as strings, so that any data
+loss due to numeric data type conversion (uint32 => double) can be avoided.
 This change is downwards-compatible.
 
-However, the HTTP and JavaScript APIs for starting Pregel runs now also 
-return a stringified execution number, e.g. "12345" instead of 12345. 
+However, the HTTP and JavaScript APIs for starting Pregel runs now also
+return a stringified execution number, e.g. "12345" instead of 12345.
 This is not downwards-compatible, so all client applications that depend
 on the return value being a numeric value need to be adjusted to handle
 a string return value and convert that string into a number.
