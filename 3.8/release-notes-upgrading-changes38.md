@@ -17,20 +17,20 @@ The default value of the startup option `--foxx.force-update-on-startup` changes
 from `true` to `false` in ArangoDB 3.8.
 This option controls whether the startup procedure should synchronize all Foxx
 apps in all databases before making them available, or whether startup should
-proceed without ensuring all Foxx apps are in sync. In the latter case, the 
+proceed without ensuring all Foxx apps are in sync. In the latter case, the
 synchronization will happen eventually.
 
-In ArangoDB 3.6 and 3.7, the option's default value is `true`, meaning all Foxx apps 
+In ArangoDB 3.6 and 3.7, the option's default value is `true`, meaning all Foxx apps
 in all databases will be synchronized on server startup. This can delay the startup
 procedure for installations with many databases, and is unnecessary in case no
 Foxx apps are used.
 
 In ArangoDB 3.8 the default value for the option is `false`, meaning a server will
-complete the boot sequence faster, and the Foxx services will be synchronized in 
-a background operation. Until that operation has completed, any requests to a 
-Foxx app may be responded to with an HTTP 500 error and message 
+complete the boot sequence faster, and the Foxx services will be synchronized in
+a background operation. Until that operation has completed, any requests to a
+Foxx app may be responded to with an HTTP 500 error and message
 
-    waiting for initialization of Foxx services in this database 
+    waiting for initialization of Foxx services in this database
 
 This can cause an unavailability window for Foxx apps for the initial requests to
 Foxx apps.
@@ -101,96 +101,110 @@ the thread count. See
 
 ### Changed default values
 
-- The default value for the startup option `--database.old-system-collections` is
-  changed from `true` to `false` in ArangoDB 3.8.
+#### System collections
 
-  This means that by default the system collections `_modules` and `_fishbowl` will
-  not be created anymore when a new database is created. These collections are useful 
-  only in very few cases, so it is normally not worth to create them in all databases.
+The default value for the startup option `--database.old-system-collections` is
+changed from `true` to `false` in ArangoDB 3.8.
 
-  Already existing `_modules` and `_fishbowl` system collections will not be modified 
-  by this default value change, even though they will likely be empty and unused.
+This means that by default the system collections `_modules` and `_fishbowl` will
+not be created anymore when a new database is created. These collections are useful
+only in very few cases, so it is normally not worth to create them in all databases.
 
-  The long-term side effects of this change will be:
-  - there will be no iteration over all databases at server startup just to check
-    the contents of all `_modules` collections.
-  - less collections/shards will be around for deployments that create a large
-    number of databases (and thus the default system collections).
+Already existing `_modules` and `_fishbowl` system collections will not be modified
+by this default value change, even though they will likely be empty and unused.
 
-  Any functionality related to the `_modules` system collection is deprecated in
-  ArangoDB 3.8 and will be removed in ArangoDB 3.9.
+The long-term side effects of this change will be:
+- there will be no iteration over all databases at server startup just to check
+  the contents of all `_modules` collections.
+- less collections/shards will be around for deployments that create a large
+  number of databases (and thus the default system collections).
 
-- The default value for `--foxx.force-update-on-startup` changed from `true` in
-  previous version to `false` in ArangoDB 3.8, also see [Foxx](#foxx) above.
+Any functionality related to the `_modules` system collection is deprecated in
+ArangoDB 3.8 and will be removed in ArangoDB 3.9.
 
-- The value of the startup option `--rocksdb.block-cache-size` is limited to 1 GB 
-  for agent instances to reduce agency RAM usage, unless the option is explicitly
-  configured otherwise. 
+#### Foxx
 
-  In addition, the value of `--rocksdb.total-write-buffer-size` is limited to 512 MB 
-  on agent instances for the same reason, unless otherwise configuration.
+The default value for `--foxx.force-update-on-startup` changed from `true` in
+previous version to `false` in ArangoDB 3.8, also see [Foxx](#foxx) above.
 
-  No limitations apply for DB server instances or single servers.
+#### RocksDB
 
-- The default value for the number of network I/O threads `--network.io-threads`
-  was changed to `2` in ArangoDB 3.8, up from a value of `1` in previous version.
+The value of the startup option `--rocksdb.block-cache-size` is limited to 1 GB
+for agent instances to reduce agency RAM usage, unless the option is explicitly
+configured otherwise.
 
-- The default value for `--server.descriptors-minimum` changed from `0` in previous
-  versions to `8192` in ArangoDB 3.8.
-  This change means that on Linux and macOS, the system limits need to allow the
-  arangod process to use at least 8192 file descriptors. 
-  If less file descriptors are available to the arangod process, then the startup 
-  process of the arangod server is automatically aborted.
+In addition, the value of `--rocksdb.total-write-buffer-size` is limited to 512 MB
+on agent instances for the same reason, unless otherwise configuration.
 
-  Even the chosen minimum value of 8192 will often not be high enough to store 
-  considerable amounts of data. However, no higher value was chosen in order to not 
-  make too many existing installations fail after upgrading.
+No limitations apply for DB server instances or single servers.
 
-  The required number of file descriptors can be configured using the startup option 
-  `--server.descriptors-minimum`. It now defaults to 8192, but it can be increased 
-  to ensure that arangod can make use of a sufficiently high number of files.
+#### Network
 
-  Setting `--server.descriptors-minimum` to a value of `0` will make the startup 
-  require only an absolute minimum limit of 1024 file descriptors, effectively 
-  disabling the change. Such low values should only be used to bypass the file 
-  descriptors check in case of an emergency, but this is not recommended for production.
+The default value for the number of network I/O threads `--network.io-threads`
+was changed to `2` in ArangoDB 3.8, up from a value of `1` in previous version.
 
-- The default value of the startup option `--server.unavailability-queue-fill-grade`
-  has been changed from value `1` in previous versions to a value of `0.75` in ArangoDB
-  3.8.
+#### Stream Transactions
 
-  This change has a consequence for the `/_admin/server/availability` REST API only,
-  which is often called by load-balancers and other availability probing systems.
+The idle timeout for Stream Transactions was raised from 10 seconds to 60
+seconds in ArangoDB 3.8. The default value can be adjusted via the new startup
+option `--transaction.streaming-idle-timeout`.
 
-  The `/_admin/server/availability` API will return HTTP 200 if the fill grade of the
-  scheduler's queue is below the configured value, or HTTP 503 if the fill grade is
-  above it. This can be used to flag a server as unavailable in case it is already
-  highly loaded.
+Stream Transactions will automatically time out after the configured idle
+period if no further operations are posted into them. Posting an operation into
+a non-expired Stream Transaction will reset the transaction's timeout to the
+configured idle timeout.
 
-  The default value change for this option will lead to server's reporting their
-  unavailability earlier than previous versions of ArangoDB. With only the default
-  values used, ArangoDB versions prior to 3.8 reported unavailability only if the
-  queue was completely full, which means 4096 pending requests in the queue.
-  ArangoDB 3.8 will report as unavailable if the queue is 75% full, i.e when 3072
-  or more jobs are queued in the scheduler.
+Previous versions of ArangoDB had a hard-coded idle timeout for
+Stream Transactions which could not be adjusted.
 
-  Although this is a behavior change, 75% is still a high watermark and should not
-  cause unavailability false-positives.
-  However, to restore the pre-3.8 behavior, it is possible to set the value of
-  this option to `1`. The value can even be set to `0` to disable using the
-  scheduler's queue fill grade as an (un)availability indicator.
+#### File descriptors
 
-- The default value for arangoimport's `--batch-size` option was raised from
-  1 MB to 8 MB. This means that arangoimport can send larger batches containing
-  more documents.
+The default value for `--server.descriptors-minimum` changed from `0` in previous
+versions to `8192` in ArangoDB 3.8.
+This change means that on Linux and macOS, the system limits need to allow the
+arangod process to use at least 8192 file descriptors.
+If less file descriptors are available to the arangod process, then the startup
+process of the arangod server is automatically aborted.
 
-  arangoimport also has a rate limiting feature, which was turned on by default
-  previously. This rate limiting feature limited the import rate to 1 MB per
-  second, which is probably too low for most use cases. In ArangoDB 3.8, the
-  rate limiting for arangoimport is now turned off by default, but can be
-  enabled on demand using the new `--auto-rate-limit` option. When enabled, it
-  will start sending batches with up to `--batch-size` bytes, and then adapt
-  the loading rate dynamically.
+Even the chosen minimum value of 8192 will often not be high enough to store
+considerable amounts of data. However, no higher value was chosen in order to not
+make too many existing installations fail after upgrading.
+
+The required number of file descriptors can be configured using the startup option
+`--server.descriptors-minimum`. It now defaults to 8192, but it can be increased
+to ensure that arangod can make use of a sufficiently high number of files.
+
+Setting `--server.descriptors-minimum` to a value of `0` will make the startup
+require only an absolute minimum limit of 1024 file descriptors, effectively
+disabling the change. Such low values should only be used to bypass the file
+descriptors check in case of an emergency, but this is not recommended for production.
+
+#### Scheduler
+
+The default value of the startup option `--server.unavailability-queue-fill-grade`
+has been changed from value `1` in previous versions to a value of `0.75` in ArangoDB
+3.8.
+
+This change has a consequence for the `/_admin/server/availability` REST API only,
+which is often called by load-balancers and other availability probing systems.
+
+The `/_admin/server/availability` API will return HTTP 200 if the fill grade of the
+scheduler's queue is below the configured value, or HTTP 503 if the fill grade is
+above it. This can be used to flag a server as unavailable in case it is already
+highly loaded.
+
+The default value change for this option will lead to server's reporting their
+unavailability earlier than previous versions of ArangoDB. With only the default
+values used, ArangoDB versions prior to 3.8 reported unavailability only if the
+queue was completely full, which means 4096 pending requests in the queue.
+ArangoDB 3.8 will report as unavailable if the queue is 75% full, i.e when 3072
+or more jobs are queued in the scheduler.
+
+Although this is a behavior change, 75% is still a high watermark and should not
+cause unavailability false-positives.
+However, to restore the pre-3.8 behavior, it is possible to set the value of
+this option to `1`. The value can even be set to `0` to disable using the
+scheduler's queue fill grade as an (un)availability indicator.
 
 ### AQL query memory limit
 
@@ -228,11 +242,11 @@ The limit values are per AQL query, so they may still be too high in case
 queries run in parallel. The defaults are intentionally high in order to not
 stop too many existing and valid queries from working that use _a lot_ of memory.
 
-Starting with ArangoDB 3.8, it is also possible to set a global memory limit in 
-addition to the per-query memory limit, via the startup option 
+Starting with ArangoDB 3.8, it is also possible to set a global memory limit in
+addition to the per-query memory limit, via the startup option
 `--query.global-memory-limit`.
 
-In ArangoDB 3.8, the per-query memory and global query memory tracking have a 
+In ArangoDB 3.8, the per-query memory and global query memory tracking have a
 granularity of 32 KB chunks. That means checking for memory limits such as "1"
 (e.g. for testing) may not make a query fail if the total memory allocations
 in the query will not exceed 32 KB. The effective lowest memory limit value
@@ -333,12 +347,12 @@ FOR status IN `Window`
 
 The AQL optimizer rule `splice-subqueries` was introduced in ArangoDB 3.6 to
 optimize most subqueries, and it was extended in 3.7 to work with all types
-of subqueries. It was always turned on by default, but it still could be 
+of subqueries. It was always turned on by default, but it still could be
 deactivated manually using a startup option (`--query.optimizer-rules`) or
 for individual queries via the `optimizer.rules` query option.
 
 In ArangoDB 3.8, the optimizer rule `splice-subqueries` is now required for
-subquery execution, and cannot be turned off. Trying to disable it via the 
+subquery execution, and cannot be turned off. Trying to disable it via the
 mentioned startup option or query option has no effect, as the optimizer rule
 will always run for queries containing subqueries.
 
@@ -396,15 +410,15 @@ and only when just-inserted object sub-attributes contained `null` values.
 Pregel
 ------
 
-The HTTP and JavaScript APIs for controling Pregel jobs now also accept 
+The HTTP and JavaScript APIs for controlling Pregel jobs now also accept
 stringified execution number values, in addition to numeric ones.
 
-This allows passing larger execution numbers as strings, so that any data 
-loss due to numeric data type conversion (uint32 => double) can be avoided. 
+This allows passing larger execution numbers as strings, so that any data
+loss due to numeric data type conversion (uint32 => double) can be avoided.
 This change is downwards-compatible.
 
-However, the HTTP and JavaScript APIs for starting Pregel runs now also 
-return a stringified execution number, e.g. "12345" instead of 12345. 
+However, the HTTP and JavaScript APIs for starting Pregel runs now also
+return a stringified execution number, e.g. "12345" instead of 12345.
 This is not downwards-compatible, so all client applications that depend
 on the return value being a numeric value need to be adjusted to handle
 a string return value and convert that string into a number.
@@ -426,3 +440,18 @@ db.test.update("testDoc", { test: { sub1: true, sub2: null } }, { keepNull: fals
 ```
 
 Also see [AQL UPDATE queries with `keepNull: false`](#update-queries-with-keepnull-false)
+
+Client tools
+------------
+
+The default value for arangoimport's `--batch-size` option was raised from
+1 MB to 8 MB. This means that arangoimport can send larger batches containing
+more documents.
+
+Arangoimport also has a rate limiting feature, which was turned on by default
+previously. This rate limiting feature limited the import rate to 1 MB per
+second, which is probably too low for most use cases. In ArangoDB 3.8, the
+rate limiting for arangoimport is now turned off by default, but can be
+enabled on demand using the new `--auto-rate-limit` option. When enabled, it
+will start sending batches with up to `--batch-size` bytes, and then adapt
+the loading rate dynamically.

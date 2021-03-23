@@ -439,7 +439,7 @@ on the leader shards in a cluster, a few things need to be considered:
 ### Limitations
 
 The OneShard optimization will be used automatically for all eligible AQL queries
-and streaming transactions.
+and Stream Transactions.
 
 For AQL queries, any of the following factors currently makes a query
 unsuitable for the OneShard optimization:
