@@ -306,6 +306,20 @@ as a database only. It may have an effect for Foxx applications that use HTTP
   code. Using the attribute in client applications is also deprecated, because
   it will be removed from the API's return value in future versions of ArangoDB.
 
+- The endpoint `/_admin/metrics` for server metrics is unchanged but is
+  declared obsolete from 3.8 on. This is, because we have moved to a new
+  endpoint `/_admin/metrics/v2`, which is more in line with Prometheus
+  conventions. See [Features and Improvements in 3.8](release-notes-new-features38.html#metrics).
+
+  The migration from 3.7 to 3.8 is straightforward: You can keep your old
+  metrics collection in Prometheus using the old endpoint and thus have
+  continuous collection of metrics and simply keep your old dashboards
+  for a while after the upgrade. However, you should then add metrics
+  collections from the new endpoint `/_admin/metrics/v2` and use the new
+  dashboards we deliver for 3.8. The new dashboards know all the new
+  names and the new, corrected format of the output. Over time, you can
+  then retire your old metrics collection process and dashboards.
+
 AQL
 ---
 

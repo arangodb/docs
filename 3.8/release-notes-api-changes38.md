@@ -146,6 +146,126 @@ in ArangoDB 3.8:
   The old API endpoint GET `/_admin/log` for retrieving log messages is now
   deprecated, although it will stay available for some time.
 
+- Added endpoint for new version "v2" of the metrics API:
+
+  `GET /_admin/metrics/v2` will return Prometheus-format of the server metrics.
+
+  The old endpoint `GET /_admin/metrics` is still supported but is considered
+  to be obsolete from 3.8 on and will be removed in a future version. Also see
+  [Features and Improvements in 3.8](release-notes-new-features38.html#metrics).
+
+  In the new API V2, there are quite a lot more metrics than in previous
+  versions and a lot have been renamed to follow Prometheus conventions.
+  Below is a list of renamed metrics:
+
+  | `/_admin/metrics` | `/_admin/metrics/v2` |
+  |:------------------|:---------------------|
+  | `arangodb_agency_cache_callback_count` | `arangodb_agency_cache_callback_number` |
+  | `arangodb_agency_callback_count` | `arangodb_agency_callback_number` |
+  | `arangodb_agency_callback_registered` | `arangodb_agency_callback_registered_total` |
+  | `arangodb_agency_read_no_leader` | `arangodb_agency_read_no_leader_total` |
+  | `arangodb_agency_read_ok` | `arangodb_agency_read_ok_total` |
+  | `arangodb_agency_supervision_accum_runtime_msec` | `arangodb_agency_supervision_accum_runtime_msec_total` |
+  | `arangodb_agency_supervision_accum_runtime_wait_for_replication_msec` | `arangodb_agency_supervision_accum_runtime_wait_for_replication_msec_total` |
+  | `arangodb_agency_supervision_failed_server_count` | `arangodb_agency_supervision_failed_server_total` |
+  | `arangodb_agency_write_no_leader` | `arangodb_agency_write_no_leader_total` |
+  | `arangodb_agency_write_ok` | `arangodb_agency_write_ok_total` |
+  | `arangodb_aql_all_query` | `arangodb_aql_all_query_total` |
+  | `arangodb_aql_slow_query` | `arangodb_aql_slow_query_total` |
+  | `arangodb_aql_total_query_time_msec` | `arangodb_aql_total_query_time_msec_total` |
+  | `arangodb_collection_lock_acquisition_micros` | `arangodb_collection_lock_acquisition_micros_total` |
+  | `arangodb_collection_lock_sequential_mode` | `arangodb_collection_lock_sequential_mode_total` |
+  | `arangodb_collection_lock_timeouts_exclusive` | `arangodb_collection_lock_timeouts_exclusive_total` |
+  | `arangodb_collection_lock_timeouts_write` | `arangodb_collection_lock_timeouts_write_total` |
+  | `arangodb_collection_truncates` | `arangodb_collection_truncates_total` |
+  | `arangodb_collection_truncates_replication` | `arangodb_collection_truncates_replication_total` |
+  | `arangodb_connection_connections_current` | `arangodb_connection_pool_connections_current` |
+  | `arangodb_connection_leases_successful` | `arangodb_connection_pool_leases_successful_total` |
+  | `arangodb_connection_pool_connections_created` | `arangodb_connection_pool_connections_created_total` |
+  | `arangodb_connection_pool_leases_failed` | `arangodb_connection_pool_leases_failed_total` |
+  | `arangodb_document_writes` | `arangodb_document_writes_total` |
+  | `arangodb_document_writes_replication` | `arangodb_document_writes_replication_total` |
+  | `arangodb_dropped_followers_count` | `arangodb_dropped_followers_total` |
+  | `arangodb_heartbeat_failures` | `arangodb_heartbeat_failures_total` |
+  | `arangodb_http_request_statistics_async_requests` | `arangodb_http_request_statistics_async_requests_total` |
+  | `arangodb_http_request_statistics_http_delete_requests` | `arangodb_http_request_statistics_http_delete_requests_total` |
+  | `arangodb_http_request_statistics_http_get_requests` | `arangodb_http_request_statistics_http_get_requests_total` |
+  | `arangodb_http_request_statistics_http_head_requests` | `arangodb_http_request_statistics_http_head_requests_total` |
+  | `arangodb_http_request_statistics_http_options_requests` | `arangodb_http_request_statistics_http_options_requests_total` |
+  | `arangodb_http_request_statistics_http_patch_requests` | `arangodb_http_request_statistics_http_patch_requests_total` |
+  | `arangodb_http_request_statistics_http_post_requests` | `arangodb_http_request_statistics_http_post_requests_total` |
+  | `arangodb_http_request_statistics_http_put_requests` | `arangodb_http_request_statistics_http_put_requests_total` |
+  | `arangodb_http_request_statistics_other_http_requests` | `arangodb_http_request_statistics_other_http_requests_total` |
+  | `arangodb_http_request_statistics_superuser_requests` | `arangodb_http_request_statistics_superuser_requests_total` |
+  | `arangodb_http_request_statistics_total_requests` | `arangodb_http_request_statistics_total_requests_total` |
+  | `arangodb_http_request_statistics_user_requests` | `arangodb_http_request_statistics_user_requests_total` |
+  | `arangodb_intermediate_commits` | `arangodb_intermediate_commits_total` |
+  | `arangodb_load_current_accum_runtime_msec` | `arangodb_load_current_accum_runtime_msec_total` |
+  | `arangodb_load_plan_accum_runtime_msec` | `arangodb_load_plan_accum_runtime_msec_total` |
+  | `arangodb_maintenance_action_accum_queue_time_msec` | `arangodb_maintenance_action_accum_queue_time_msec_total` |
+  | `arangodb_maintenance_action_accum_runtime_msec` | `arangodb_maintenance_action_accum_runtime_msec_total` |
+  | `arangodb_maintenance_action_done_counter` | `arangodb_maintenance_action_done_total` |
+  | `arangodb_maintenance_action_duplicate_counter` | `arangodb_maintenance_action_duplicate_total` |
+  | `arangodb_maintenance_action_failure_counter` | `arangodb_maintenance_action_failure_total` |
+  | `arangodb_maintenance_action_registered_counter` | `arangodb_maintenance_action_registered_total` |
+  | `arangodb_maintenance_agency_sync_accum_runtime_msec` | `arangodb_maintenance_agency_sync_accum_runtime_msec_total` |
+  | `arangodb_maintenance_phase1_accum_runtime_msec` | `arangodb_maintenance_phase1_accum_runtime_msec_total` |
+  | `arangodb_maintenance_phase2_accum_runtime_msec` | `arangodb_maintenance_phase2_accum_runtime_msec_total` |
+  | `arangodb_network_forwarded_requests` | `arangodb_network_forwarded_requests_total` |
+  | `arangodb_network_request_timeouts` | `arangodb_network_request_timeouts_total` |
+  | `arangodb_process_statistics_major_page_faults` | `arangodb_process_statistics_major_page_faults_total` |
+  | `arangodb_process_statistics_minor_page_faults` | `arangodb_process_statistics_minor_page_faults_total` |
+  | `arangodb_refused_followers_count` | `arangodb_refused_followers_total` |
+  | `arangodb_replication_cluster_inventory_requests` | `arangodb_replication_cluster_inventory_requests_total` |
+  | `arangodb_replication_dump_apply_time` | `arangodb_replication_dump_apply_time_total` |
+  | `arangodb_replication_dump_bytes_received` | `arangodb_replication_dump_bytes_received_total` |
+  | `arangodb_replication_dump_documents` | `arangodb_replication_dump_documents_total` |
+  | `arangodb_replication_dump_requests` | `arangodb_replication_dump_requests_total` |
+  | `arangodb_replication_dump_request_time` | `arangodb_replication_dump_request_time_total` |
+  | `arangodb_replication_failed_connects` | `arangodb_replication_failed_connects_total` |
+  | `arangodb_replication_initial_chunks_requests_time` | `arangodb_replication_initial_chunks_requests_time_total` |
+  | `arangodb_replication_initial_docs_requests_time` | `arangodb_replication_initial_docs_requests_time_total` |
+  | `arangodb_replication_initial_insert_apply_time` | `arangodb_replication_initial_insert_apply_time_total` |
+  | `arangodb_replication_initial_keys_requests_time` | `arangodb_replication_initial_keys_requests_time_total` |
+  | `arangodb_replication_initial_lookup_time` | `arangodb_replication_initial_lookup_time_total` |
+  | `arangodb_replication_initial_remove_apply_time` | `arangodb_replication_initial_remove_apply_time_total` |
+  | `arangodb_replication_initial_sync_bytes_received` | `arangodb_replication_initial_sync_bytes_received_total` |
+  | `arangodb_replication_initial_sync_docs_inserted` | `arangodb_replication_initial_sync_docs_inserted_total` |
+  | `arangodb_replication_initial_sync_docs_removed` | `arangodb_replication_initial_sync_docs_removed_total` |
+  | `arangodb_replication_initial_sync_docs_requested` | `arangodb_replication_initial_sync_docs_requested_total` |
+  | `arangodb_replication_initial_sync_docs_requests` | `arangodb_replication_initial_sync_docs_requests_total` |
+  | `arangodb_replication_initial_sync_keys_requests` | `arangodb_replication_initial_sync_keys_requests_total` |
+  | `arangodb_replication_synchronous_requests_total_number` | `arangodb_replication_synchronous_requests_total_number_total` |
+  | `arangodb_replication_synchronous_requests_total_time` | `arangodb_replication_synchronous_requests_total_time_total` |
+  | `arangodb_replication_tailing_apply_time` | `arangodb_replication_tailing_apply_time_total` |
+  | `arangodb_replication_tailing_bytes_received` | `arangodb_replication_tailing_bytes_received_total` |
+  | `arangodb_replication_tailing_documents` | `arangodb_replication_tailing_documents_total` |
+  | `arangodb_replication_tailing_follow_tick_failures` | `arangodb_replication_tailing_follow_tick_failures_total` |
+  | `arangodb_replication_tailing_markers` | `arangodb_replication_tailing_markers_total` |
+  | `arangodb_replication_tailing_removals` | `arangodb_replication_tailing_removals_total` |
+  | `arangodb_replication_tailing_requests` | `arangodb_replication_tailing_requests_total` |
+  | `arangodb_replication_tailing_request_time` | `arangodb_replication_tailing_request_time_total` |
+  | `arangodb_scheduler_queue_full_failures` | `arangodb_scheduler_queue_full_failures_total` |
+  | `arangodb_scheduler_threads_started` | `arangodb_scheduler_threads_started_total` |
+  | `arangodb_scheduler_threads_stopped` | `arangodb_scheduler_threads_stopped_total` |
+  | `arangodb_server_statistics_server_uptime` | `arangodb_server_statistics_server_uptime_total` |
+  | `arangodb_shards_leader_count` | `arangodb_shards_leader_number` |
+  | `arangodb_shards_total_count` | `arangodb_shards_number` |
+  | `arangodb_sync_wrong_checksum` | `arangodb_sync_wrong_checksum_total` |
+  | `arangodb_transactions_aborted` | `arangodb_transactions_aborted_total` |
+  | `arangodb_transactions_committed` | `arangodb_transactions_committed_total` |
+  | `arangodb_transactions_expired` | `arangodb_transactions_expired_total` |
+  | `arangodb_transactions_started` | `arangodb_transactions_started_total` |
+  | `arangodb_v8_context_created` | `arangodb_v8_context_created_total` |
+  | `arangodb_v8_context_creation_time_msec` | `arangodb_v8_context_creation_time_msec_total` |
+  | `arangodb_v8_context_destroyed` | `arangodb_v8_context_destroyed_total` |
+  | `arangodb_v8_context_entered` | `arangodb_v8_context_entered_total` |
+  | `arangodb_v8_context_enter_failures` | `arangodb_v8_context_enter_failures_total` |
+  | `arangodb_v8_context_exited` | `arangodb_v8_context_exited_total` |
+  | `rocksdbengine_throttle_bps` | `rocksdb_engine_throttle_bps` |
+  | `rocksdb_write_stalls` | `arangodb_rocksdb_write_stalls_total` |
+  | `rocksdb_write_stops` | `arangodb_rocksdb_write_stops_total` |
+
 ### Endpoints augmented
 
 - The REST endpoint at GET `/_api/engine/stats` now returns useful information in cluster
