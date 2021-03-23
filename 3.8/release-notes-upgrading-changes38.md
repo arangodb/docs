@@ -149,7 +149,7 @@ The idle timeout for Stream Transactions was raised from 10 seconds to 60
 seconds in ArangoDB 3.8. The default value can be adjusted via the new startup
 option `--transaction.streaming-idle-timeout`.
 
-Streaming transactions will automatically time out after the configured idle
+Stream Transactions will automatically time out after the configured idle
 period if no further operations are posted into them. Posting an operation into
 a non-expired Stream Transaction will reset the transaction's timeout to the
 configured idle timeout.
