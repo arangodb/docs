@@ -222,7 +222,16 @@ Agents
 If the supervision is not able to run approximately once per second, cluster
 resilience is affected. Please consider contacting our support.
 
-## Metrics API
+## Metrics API v2
+
+{% include metrics.md %}
+
+## Metrics API (deprecated)
+
+{% hint 'warning' %}
+The endpoint `GET /_api/metrics` is deprecated from v3.8.0 on and will be
+removed in a future version. Please switch to `GET /_api/metrics/v2`.
+{% endhint %}
 
 <!-- js/actions/api-system.js -->
 {% docublock get_admin_metrics %}
