@@ -521,7 +521,7 @@ usage by using the hardware-accelerated encryption.
 Metrics
 -------
 
-In 3.8, we have created a new metrics API under `/_admin/metrics/v2`.
+3.8 features a new metrics API under `/_admin/metrics/v2`.
 This became necessary, since the old metrics output was not following
 all Prometheus conventions for metrics. For example, the naming
 convention says that the name of a counters **must end in** `_total`.
@@ -537,21 +537,19 @@ we publish new dashboards for Grafana for it. We have defined multiple
 subset of the metrics tailored for the particular persona. So for
 example, a database admin would only see metrics which are relevant
 for the database administration work. Of course, there is also a
-dashboard with all metrics, neatly sorted into categories. In 3.8, 
+dashboard with all metrics, neatly sorted into categories. In 3.8,
 we have over 200 metrics and nearly 300 graphs in the complete
 dashboard.
 
 The complete list of metrics together with documentation can be found
-in the 
-[Metrics HTTP API](http/administration-and-monitoring-metrics.html)
+in the [Metrics HTTP API](http/administration-and-monitoring-metrics.html)
 documentation.
 
-The list of renamed metrics can be found
-[in the API changes](release-notes-api-changes38.html#endpoints-added).
+The list of renamed metrics can be found under
+[API Changes in 3.8](release-notes-api-changes38.html#endpoints-added).
 
 For the description of a seamless upgrade path see
-[the upgrade
-notes](release-notes-upgrading-changes38.html#endpoint-return-value-changes).
+[Incompatible changes in 3.8](release-notes-upgrading-changes38.html#endpoint-return-value-changes).
 
 Logging
 -------
