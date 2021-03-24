@@ -11,8 +11,11 @@ Version 3.8
 
 **All Editions**
 
-- [**Weighted traversals**](release-notes-new-features38.html#weighted-traversals):
-  New AQL graph traversal option to emit paths in order of increasing weights.
+- [**Weighted traversals**](release-notes-new-features38.html#weighted-traversals)
+  and [**k Paths**](release-notes-new-features38.html#k-paths):
+  Two new AQL graph traversal methods to emit paths in order of increasing
+  weights and to enumerate all paths between a source and a target vertex that
+  match a given length.
 
 - **ArangoSearch**:
   New [**Pipeline Analyzer**](arangosearch-analyzers.html#pipeline)
@@ -30,7 +33,9 @@ Version 3.8
 
 **Enterprise Edition**
 
-
+- **Encryption at Rest** utilizes
+  [hardware acceleration](release-notes-new-features38.html#encryption-at-rest)
+  capabilities of modern CPUs.
 
 Also see [What's New in 3.8](release-notes-new-features38.html).
 

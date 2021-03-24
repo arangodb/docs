@@ -7,8 +7,11 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Conflict
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">409</span> Conflict
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">154</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 

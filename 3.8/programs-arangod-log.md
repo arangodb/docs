@@ -76,6 +76,14 @@ for different log topics. To set up a per-topic output configuration, use
 
 logs all queries to the file "queries.txt".
 
+Any occurrence of `$PID` inside a log output value will be replaced at runtime 
+with the actual process id. This enables logging to process-specific files, e.g.
+
+`--log.output 'file:///var/log/arangod.log.$PID'`
+
+Please note that the dollar sign may need extra escaping when specified from 
+inside shells such as Bash.
+
 The old option `--log.file` is still available in 3.0 for convenience reasons. In
 3.0 it is a shortcut for the more general option `--log.output file://filename`.
 
@@ -153,6 +161,32 @@ overhead for the logging. However, this will only be noticeable when logging
 is set to a very verbose level (e.g. debug or trace).
 
 The default value for this option is `true`.
+
+## Maximum line length
+
+<small>Introduced in: v3.7.9</small>
+
+`--log.max-entry-length value`
+
+This option can be used to limit the maximum line length for individual log
+messages that are written into normal logfiles by arangod.
+
+{% hint 'info' %}
+This option does not include audit log messages. See
+[--audit.max-entry-length](programs-arangod-audit.html#maximum-line-length)
+instead.
+{% endhint %}
+
+Any log messages longer than the specified value will be truncated and the
+suffix `...` will be added to them.
+
+The purpose of this parameter is to shorten long log messages in case there is
+lot a lot of space for logfiles, and to keep rogue log messages from overusing
+resources.
+
+The default value is 128 MB, which is very high and should effectively mean
+downwards-compatibility with previous arangod versions, which did not restrict
+the maximum size of log messages.
 
 ## Color logging
 
@@ -251,6 +285,20 @@ character with the server's role into each logged message. The roles are:
 
 The default value for this option is `false`, so no roles will be logged.
 
+## Hostname
+
+Log hostname: `--log.hostname`
+
+This option specifies an optional hostname to be logged at the beginning of
+each log message (for regular logging) or inside the `hostname` attribute
+(for JSON-based logging).
+
+The default value is the empty string, meaning no hostnames will be logged.
+Setting this option to a value of `auto` will automatically determine the
+hostname and use that value.
+
+Example: `arangod ... --log.hostname "auto"`
+
 ## JSON log output
 
 <small>Introduced in: v3.8.0</small>
@@ -277,6 +325,7 @@ The attributes produced for each log message JSON object are:
 | `function` | source file function name, only emitted if `--log.file-name` is set
 | `topic`    | log topic name
 | `id`       | log id (5 digit hexadecimal string), only emitted if `--log.ids` is set
+| `hostname` | hostname if `--log.hostname` is set
 | `message`  | the actual log message payload
 
 ### Log API Access
@@ -317,3 +366,16 @@ By default, this option is turned on, so log messages are consumable via the
 API and UI. Turning this option off will disable that functionality, save a
 tiny bit of memory for the in-memory log buffers and prevent potential log
 information leakage via these means.
+
+Log level control for in-memory log messages: `--log.in-memory-level`
+
+This option can be used to control which log messages are preserved in memory 
+(in case `--log.in-memory` is set to true). 
+The default value is `info`, meaning all log messages of types `info`, `warning`, 
+`error` and `fatal` will be stored by an instance in memory. 
+By setting this option to `warning`, only warning, error and fatal log messages 
+will be preserved in memory, and by setting the option to `error` only error 
+and fatal messages  will be kept.
+This option is useful because the number of in-memory log messages is limited 
+to the latest 2048 messages, and these slots are by default shared between 
+informational, warning and error messages.

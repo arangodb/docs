@@ -95,11 +95,11 @@ option. The value can be a single **index name** or a list of index names in
 order of preference:
 
 ```js
-FOR … IN … OPTIONS { indexHint: 'byName' }
+FOR … IN … OPTIONS { indexHint: "byName" }
 ```
 
 ```js
-FOR … IN … OPTIONS { indexHint: ['byName', 'byColor'] }
+FOR … IN … OPTIONS { indexHint: ["byName", "byColor"] }
 ```
 
 Whenever there is a chance to potentially use an index for this `FOR` loop,
