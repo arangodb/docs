@@ -4,14 +4,14 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> O
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">130</span>
-etag: <span class="hljs-string">"_cCeGlHq--A"</span>
+etag: <span class="hljs-string">"_cELyMyO---"</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70903"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70903"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGlHq--A"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cELyMyO---"</span>, 
   <span class="hljs-string">"inhabitants"</span> : { 
     <span class="hljs-string">"china"</span> : <span class="hljs-number">1366980000</span>, 
     <span class="hljs-string">"india"</span> : <span class="hljs-number">1263590000</span>, 
@@ -33,14 +33,14 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> O
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">171</span>
-etag: <span class="hljs-string">"_cCeGlHy---"</span>
+etag: <span class="hljs-string">"_cELyMyW---"</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70903"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70903"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGlHy---"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cELyMyW---"</span>, 
   <span class="hljs-string">"inhabitants"</span> : { 
     <span class="hljs-string">"china"</span> : <span class="hljs-number">1366980000</span>, 
     <span class="hljs-string">"india"</span> : <span class="hljs-number">1263590000</span>, 
@@ -61,7 +61,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> A
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">84</span>
-etag: <span class="hljs-string">"_cCeGlH6---"</span>
+etag: <span class="hljs-string">"_cELyMyi---"</span>
 location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">70903</span>
 server: ArangoDB
 x-content-type-options: nosniff
@@ -69,8 +69,8 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70903"</span>, 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70903"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGlH6---"</span>, 
-  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_cCeGlHy---"</span> 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cELyMyi---"</span>, 
+  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_cELyMyW---"</span> 
 }
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/70903</span>
 
@@ -78,14 +78,14 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> O
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">97</span>
-etag: <span class="hljs-string">"_cCeGlH6---"</span>
+etag: <span class="hljs-string">"_cELyMyi---"</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70903"</span>, 
   <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70903"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGlH6---"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cELyMyi---"</span>, 
   <span class="hljs-string">"inhabitants"</span> : { 
     <span class="hljs-string">"pakistan"</span> : <span class="hljs-number">188346000</span> 
   } 
