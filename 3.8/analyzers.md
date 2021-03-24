@@ -1,13 +1,22 @@
 ---
 layout: default
 description: Analyzers parse input values and transform them into sets of sub-values, for example by breaking up text into words.
-title: ArangoSearch Analyzers
+title: Transforming data with Analyzers
 redirect_from:
   - views-arango-search-analyzers.html # 3.4 -> 3.5
   - arangosearch-analyzers.html # 3.8 -> 3.8
 ---
-ArangoSearch Analyzers
-======================
+Transforming data with Analyzers
+================================
+
+Analyzers allow you to transform data, for sophisticated text processing and
+searching, either standalone or in combination with Views
+{:class="lead"}
+
+While AQL string functions allow for basic text manipulation, true text
+processing including tokenization, language-specific word stemming, case
+conversion and removal of diacritical marks (accents) from characters only
+become possible with Analyzers.
 
 Analyzers parse input values and transform them into sets of sub-values,
 for example by breaking up text into words. If they are used in Views then

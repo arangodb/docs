@@ -7,15 +7,104 @@ redirect_from:
 ---
 # ArangoSearch Examples
 
+This is a collection of usage examples to demonstrate the power of
+ArangoSearch Views
+{:class="lead"}
+
+To try out the examples for yourself, download the
+[IMDB movie dataset](https://github.com/arangodb/example-datasets/tree/master/Graphs/IMDB/dump){:target="_blank"}
+files and use [arangorestore](programs-arangorestore.html) to restore the
+dump to an ArangoDB server. Furthermore, create a View called `imdb`.
+
 ## Matching strictly equal values
 
-## Case-insensitive search
+View definition:
+
+```json
+{
+  "links": {
+    "imdb_vertices": {
+      "fields": {
+        "title": {
+          "analyzers": [
+            "identity"
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+AQL query to match exact movie title:
+
+```js
+FOR doc IN imdb
+  SEARCH ANALYZER(doc.title == "The Matrix", "identity")
+  RETURN doc.title
+```
+
+Match multiple titles using `OR`:
+
+```js
+FOR doc IN imdb
+  SEARCH ANALYZER(doc.title == "The Matrix" OR doc.title == "The Matrix Reloaded", "identity")
+  RETURN doc.title
+```
+
+Match multiple titles using `IN`:
+
+```js
+FOR doc IN imdb
+  SEARCH ANALYZER(doc.title IN ["The Matrix", "The Matrix Reloaded"], "identity")
+  RETURN doc.title
+```
 
 ## Prefix search
 
+View definition:
+
+```json
+{
+  "links": {
+    "imdb_vertices": {
+      "fields": {
+        "title": {
+          "analyzers": [
+            "identity"
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+AQL query to match all titles that start with `"The Matri"`:
+
+```js
+FOR doc IN imdb
+  SEARCH ANALYZER(STARTS_WITH(doc.title, "The Matr"), "identity")
+  RETURN doc.title
+```
+
+## Case-insensitive search
+
+
+
 ## Wildcard search
 
+Match all titles that starts with `"The Matri%"` using `LIKE()`:
+
+```js
+FOR doc IN imdb
+  SEARCH ANALYZER(LIKE(doc.title, "The Matr%"), "identity")
+  RETURN doc.title
+```
+
 ## Fuzzy search
+
+<!--
 
 View Configuration and Search
 -----------------------------
@@ -172,3 +261,5 @@ FOR doc IN viewName
 ```
 
 It will find the documents with the ids `1`, `2`, `3`, `4`, but not `5`.
+
+-->

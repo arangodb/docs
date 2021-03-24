@@ -278,13 +278,6 @@
       href: indexing-which-index.html
     - text: Index Utilization
       href: indexing-index-utilization.html
-    - text: ArangoSearch
-      href: arangosearch.html
-      children:
-        - text: Views
-          href: arangosearch-views.html
-        - text: Examples
-          href: arangosearch-examples.html
     - text: Working with Indexes
       href: indexing-working-with-indexes.html
       children:
@@ -298,6 +291,13 @@
           href: indexing-geo.html
         - text: Vertex Centric Indexes
           href: indexing-vertex-centric.html
+    - text: ArangoSearch
+      href: arangosearch.html
+      children:
+        - text: Views
+          href: arangosearch-views.html
+        - text: Examples
+          href: arangosearch-examples.html
 - text: Transactions
   href: transactions.html
   children:
@@ -344,7 +344,7 @@
       href: graphs-edges.html
     - text: Pregel
       href: graphs-pregel.html
-- text: Text Processing
+- text: Analyzers
   href: analyzers.html
 - subtitle: ADVANCED TOPICS
 - text: Architecture
