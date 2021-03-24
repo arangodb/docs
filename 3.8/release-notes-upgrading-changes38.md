@@ -206,11 +206,12 @@ However, to restore the pre-3.8 behavior, it is possible to set the value of
 this option to `1`. The value can even be set to `0` to disable using the
 scheduler's queue fill grade as an (un)availability indicator.
 
-### AQL query memory limit
+### AQL query memory usage
 
-ArangoDB 3.8 introduces a default per-query memory limit for to prevent AQL
-rogue queries from consuming the entire memory available to an arangod
-instance.
+#### Per-query memory limit
+
+ArangoDB 3.8 introduces a default per-query memory limit to prevent rogue AQL
+queries from consuming the entire memory available to an arangod instance.
 
 The per-query memory limit is introduced via changing the default value of the
 startup option `--query.memory-limit` from previously `0` (meaning: no limit)
@@ -242,9 +243,52 @@ The limit values are per AQL query, so they may still be too high in case
 queries run in parallel. The defaults are intentionally high in order to not
 stop too many existing and valid queries from working that use _a lot_ of memory.
 
-Starting with ArangoDB 3.8, it is also possible to set a global memory limit in
-addition to the per-query memory limit, via the startup option
-`--query.global-memory-limit`.
+Using a per-query memory limit by default is a downwards-incompatible change in 
+ArangoDB 3.8 and may make queries fail if they use a lot of memory. If this happens,
+it may be useful to increase the value of `--query.memory-limit` or even set it to
+`0` (meaning no limitation).
+There is a metric `arangodb_aql_local_query_memory_limit_reached` that can be used
+to check how many times queries reached the per-query memory limit. 
+
+#### Global memory limit
+
+ArangoDB 3.8 also introduces a global memory limit for all AQL queries that limits 
+the total amount of memory that can be used by concurrently running queries.
+Such global memory limit did not exist in previous versions of ArangoDB.
+
+The global query memory limit can be controlled via the new startup option 
+`--query.global-memory-limit`, which has a default value that depends on the amount 
+of available RAM:
+
+```
+Available memory:            0      (0MiB)  Limit:            0   unlimited, %mem:  n/a
+Available memory:    134217728    (128MiB)  Limit:     33554432     (32MiB), %mem: 25.0
+Available memory:    268435456    (256MiB)  Limit:     67108864     (64MiB), %mem: 25.0
+Available memory:    536870912    (512MiB)  Limit:    255013683    (243MiB), %mem: 47.5
+Available memory:    805306368    (768MiB)  Limit:    510027366    (486MiB), %mem: 63.3
+Available memory:   1073741824   (1024MiB)  Limit:    765041049    (729MiB), %mem: 71.2
+Available memory:   2147483648   (2048MiB)  Limit:   1785095782   (1702MiB), %mem: 83.1
+Available memory:   4294967296   (4096MiB)  Limit:   3825205248   (3648MiB), %mem: 89.0
+Available memory:   8589934592   (8192MiB)  Limit:   7752415969   (7393MiB), %mem: 90.2
+Available memory:  17179869184  (16384MiB)  Limit:  15504831938  (14786MiB), %mem: 90.2
+Available memory:  25769803776  (24576MiB)  Limit:  23257247908  (22179MiB), %mem: 90.2
+Available memory:  34359738368  (32768MiB)  Limit:  31009663877  (29573MiB), %mem: 90.2
+Available memory:  42949672960  (40960MiB)  Limit:  38762079846  (36966MiB), %mem: 90.2
+Available memory:  68719476736  (65536MiB)  Limit:  62019327755  (59146MiB), %mem: 90.2
+Available memory: 103079215104  (98304MiB)  Limit:  93028991631  (88719MiB), %mem: 90.2
+Available memory: 137438953472 (131072MiB)  Limit: 124038655509 (118292MiB), %mem: 90.2
+Available memory: 274877906944 (262144MiB)  Limit: 248077311017 (236584MiB), %mem: 90.2
+Available memory: 549755813888 (524288MiB)  Limit: 496154622034 (473169MiB), %mem: 90.2
+```
+
+Using a global memory limit for all queries by default is a downwards-incompatible change 
+in ArangoDB 3.8 and may make queries fail if they use a lot of memory. If this happens,
+it may be useful to increase the value of `--query.global-memory-limit` or even set it to
+`0` (meaning no limitation).
+There is a metric `arangodb_aql_global_query_memory_limit_reached` that can be used
+to check how many times queries reached the global memory limit. 
+
+#### Memory usage granularity
 
 In ArangoDB 3.8, the per-query memory and global query memory tracking have a
 granularity of 32 KB chunks. That means checking for memory limits such as "1"
