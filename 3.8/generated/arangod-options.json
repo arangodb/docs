@@ -4789,7 +4789,7 @@
       "agent",
       "single"
     ],
-    "default" : 0,
+    "default" : 51208238776,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -8611,6 +8611,31 @@
     "requiresValue" : true,
     "section" : "temp",
     "type" : "string"
+  },
+  "transaction.streaming-idle-timeout" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : 60,
+    "deprecatedIn" : null,
+    "description" : "idle timeout for streaming transactions in seconds",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "transaction",
+    "type" : "double"
   },
   "transaction.streaming-lock-timeout" : {
     "category" : "option",
