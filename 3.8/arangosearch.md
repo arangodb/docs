@@ -1,6 +1,6 @@
 ---
 layout: default
-description: ArangoSearch is ArangoDB's built-in search engine for full-text and more
+description: ArangoSearch is ArangoDB's built-in search engine for full-text, complex data structures and more
 title: ArangoSearch - Integrated Search Engine
 redirect_from:
   - views-arango-search.html # 3.4 -> 3.5
@@ -51,31 +51,33 @@ different possibilities to search for values later on.
 Search results can be sorted by their similarity ranking to return the best
 matches first using popular scoring algorithms.
 
-![Conceptual model of ArangoSearch interacting with Collections and Analyzers](images/arangosearch-variant.png)
-
-Views can be queries with AQL, using the
-[`SEARCH` operation](aql/operations-search.html), logical and comparison
-operators (`AND`, `OR`, `==`, `!=`, `IN` etc.), as well as a set of
-[ArangoSearch functions](aql/functions-arangosearch.html).
-
-### Create your first ArangoSearch View
+![Conceptual model of ArangoSearch interacting with Collections and Analyzers](images/arangosearch.png)
 
 Views can be managed in the Web UI, via an [HTTP API](http/views.html) and
 through a [JavaScript API](data-modeling-views-database-methods.html).
 
-1. Create a test collection (e.g. `testcoll`) and insert a few documents so
-   that you have something to, like the following:
-   - `{"name": "avocado", "type": "fruit"}` (yes, it is a fruit)
-   - `{"name": "carrot", "type": "vegetable"}`
+Views can be queried with AQL using the [`SEARCH` operation](aql/operations-search.html).
+It takes a search expression composed of the fields to search, the search terms,
+logical and comparison operators, as well as
+[ArangoSearch functions](aql/functions-arangosearch.html).
+
+### Create your first ArangoSearch View
+
+1. Create a test collection (e.g. `food`) and insert a few documents so
+   that you have something to index and search for:
+   - `{ "name": "avocado", "type": "fruit" }` (yes, it is a fruit)
+   - `{ "name": "carrot", "type": "vegetable" }`
+   - `{ "name": "chili pepper", "type": "vegetable" }`
+   - `{ "name": "tomato", "type": ["fruit", "vegetable"] }`
 2. In the Web UI, click on _VIEWS_ in the main navigation.
-3. Click on the _Add View_ button, enter a name (e.g. `myview`), confirm and
+3. Click on the _Add View_ button, enter a name (e.g. `food_view`), confirm and
    click on the newly created View.
 4. You can toggle the mode of the View definition editor from _Tree_ to _Code_
    to edit the JSON object as text.
 5. Replace `"links": {},` with below configuration, then save the changes:
    ```js
    "links": {
-     "testcoll": {
+     "food": {
        "includeAllFields": true
      }
    },
@@ -84,7 +86,7 @@ through a [JavaScript API](data-modeling-views-database-methods.html).
    definition with default settings added:
    ```js
    "links": {
-     "testcoll": {
+     "food": {
        "analyzers": [
          "identity"
        ],
@@ -96,25 +98,27 @@ through a [JavaScript API](data-modeling-views-database-methods.html).
    },
    ```
    The View will index all attributes (fields) of the documents in the
-   `testcoll` collection from now on (with some delay). The attribute values
-   get processed by the default `identity` Analyzer, which means that are
-   indexed unaltered.
+   `food` collection from now on (with some delay). The attribute values
+   get processed by the default `identity` Analyzer, which means that they
+   get indexed unaltered.
 7. Click on _QUERIES_ in the main navigation and try the following query:
    ```js
-   FOR doc IN myview
+   FOR doc IN food_view
      RETURN doc
    ```
    The View is used like a collection and simply iterated over to return all
-   documents here. You should see the documents stored in `testcoll` as result.
+   (indexed) documents. You should see the documents stored in `food` as result.
 8. Now add a search expression. Unlike with regular collections where you would
    use `FILTER`, a `SEARCH` operation is needed to utilize the View index:
    ```js
-   FOR doc IN myview
+   FOR doc IN food_view
      SEARCH doc.name == "avocado"
      RETURN doc
    ```
    In this basic example, the ArangoSearch expression looks identical to a
-   `FILTER` expression, but this is not always the case.
+   `FILTER` expression, but this is not always the case. You can also combine
+   both, with `FILTER`s after `SEARCH`, in which case the filter criteria will
+   be applied to the search results as a post-processing step.
 
 ### Understanding the Analyzer context
 
@@ -130,13 +134,14 @@ definition - and this happened to be the case. We can rewrite the query to be
 more explicit about the Analyzer context:
 
 ```js
-FOR doc IN myview
+FOR doc IN food_view
   SEARCH ANALYZER(doc.name == "avocado", "identity")
   RETURN doc
 ```
 
 `ANALYZER(… , "identity")` matches the Analyzer defined in the View
-`"analyzers": [ "identity" ]`.
+`"analyzers": [ "identity" ]`. The latter defines how fields are transformed at
+index time, whereas the former selects which index to use at query time.
 
 To use a different Analyzer, such as the built-in `text_en` Analyzer, you would
 change the View definition to `"analyzers": [ "text_en", "identity" ]` (or just
@@ -144,8 +149,8 @@ change the View definition to `"analyzers": [ "text_en", "identity" ]` (or just
 as well as adjust the query to use `ANALYZER(… , "text_en")`.
 
 If a field is not indexed with the Analyzer requested in the query, then you
-will get an empty result back. Make sure that the fields are indexed correctly
-and that you set the Analyzer context.
+will get an **empty result** back. Make sure that the fields are indexed
+correctly and that you set the Analyzer context.
 
 You can test if a field is indexed with particular Analyzer with one of the
 variants of the [`EXISTS()` function](aql/functions-arangosearch.html#exists).
@@ -154,7 +159,7 @@ definition from `"none"` to `"id"`. You can then run a query as shown below:
 
 ```js
 RETURN LENGTH(
-  FOR doc IN myview
+  FOR doc IN food_view
     SEARCH EXISTS(doc.name, "analyzer", "identity")
     LIMIT 1
     RETURN true) > 0
@@ -179,14 +184,37 @@ The same can be expressed with a logical **OR** for multiple conditions:
 
 `doc.name == "avocado" OR doc.name == "carrot"`
 
-Similarly, **AND** can be used to require that both conditions are true:
+Similarly, **AND** can be used to require that multiple conditions must be true:
 
 `doc.name == "avocado" AND doc.type == "fruit"`
 
+An interesting case is the tomato document with its two array elements as type:
+`["fruit", "vegetable"]`. The View definition defaulted to
+`"trackListPositions": false`, which means that the array elements get indexed
+individually as if the attribute both string values at the same time, matching
+the following conditions:
+
+`doc.type == "fruit" AND doc.type == "vegetable"`
+
+To find fruits which are not vegetables at the same time, the latter can be
+excluded with `NOT`:
+
+`doc.type == "fruit" AND NOT doc.type == "vegetable"`
+
+The same can be expressed with `ALL ==` and `ALL IN`. Note that the attribute
+reference and the search conditions are swapped for this:
+
+`["fruit", "vegetable"] ALL == doc.type`
+
 ### Search expressions with ArangoSearch functions
 
-ArangoSearch AQL functions take either an expression or an
-attribute path expression as first argument.
+Basic operators are not enough for complex query needs. Additional search
+functionality is provided via [ArangoSearch functions](aql/functions-arangosearch.html)
+that can be composed with basic operators and other functions to form search
+expressions.
+
+ArangoSearch AQL functions take either an expression or a reference of an
+attribute path as first argument.
 
 ```js
 ANALYZER(<expression>, …)
@@ -198,7 +226,7 @@ AQL syntax. They are typically function calls to ArangoSearch search functions,
 possibly nested and/or using logical operators for multiple conditions.
 
 ```js
-STARTS_WITH(doc.text, "avoca") OR STARTS_WITH(doc.text, "arang")
+STARTS_WITH(doc.name, "chi") OR STARTS_WITH(doc.name, "tom")
 ```
 
 The default Analyzer that will be used for searching is `"identity"`.
@@ -212,10 +240,10 @@ use functions that take an Analyzer argument and leave that argument out:
 
 ```js
 // Analyzer specified in each function call
-PHRASE(doc.text, "avocado dish", "text_en") AND PHRASE(doc.text, "lemon", "text_en")
+PHRASE(doc.name, "chili pepper", "text_en") OR PHRASE(doc.name, "tomato", "text_en")
 
 // Analyzer specified using ANALYZER()
-ANALYZER(PHRASE(doc.text, "avocado dish") AND PHRASE(doc.text, "lemon"), "text_en")
+ANALYZER(PHRASE(doc.name, "chili pepper") OR PHRASE(doc.name, "tomato"), "text_en")
 ```
 
 Certain expressions do not require any ArangoSearch functions, such as basic
@@ -224,10 +252,13 @@ unless `ANALYZER()` is used to set a different one.
 
 ```js
 // The "identity" Analyzer will be used by default
-SEARCH doc.text == "avocado"
+SEARCH doc.name == "avocado"
+
+// Same as before but being explicit
+SEARCH ANALYZER(doc.name == "avocado", "idenity")
 
 // Use the "text_en" Analyzer for searching instead
-SEARCH ANALYZER(doc.text == "avocado", "text_en")
+SEARCH ANALYZER(doc.name == "avocado", "text_en")
 ```
 
 If an attribute path expressions is needed, then you have to reference a
@@ -241,6 +272,8 @@ FOR doc IN viewName
   SEARCH STARTS_WITH(doc.deeply.nested["attr"], "avoca")
   RETURN doc
 ```
+
+## Indexing complex JSON documents
 
 ### Working with nested fields
 
@@ -259,6 +292,8 @@ an array of strings.
 Primitive values other than strings (`null`, `true`, `false`, numbers) are
 indexed unchanged. The values of nested object are optionally indexed under the
 respective attribute path, including objects in arrays.
+
+## Optimizing Search Performance
 
 ### Primary Sort Order
 
@@ -301,7 +336,7 @@ AQL query example:
 
 ```js
 FOR doc IN viewName
-  SORT doc.text
+  SORT doc.name
   RETURN doc
 ```
 
@@ -344,12 +379,12 @@ the `primarySort` array:
 ```
 
 The optimization can be applied to View queries which sort by both fields as
-defined (`SORT doc.date DESC, doc.text`), but also if they sort in descending
+defined (`SORT doc.date DESC, doc.name`), but also if they sort in descending
 order by the `date` attribute only (`SORT doc.date DESC`). Queries which sort
-by `text` alone (`SORT doc.text`) are not eligible, because the View is sorted
+by `text` alone (`SORT doc.name`) are not eligible, because the View is sorted
 by `date` first. This is similar to skiplist indexes, but inverted sorting
 directions are not covered by the View index
-(e.g. `SORT doc.date, doc.text DESC`).
+(e.g. `SORT doc.date, doc.name DESC`).
 
 Note that the `primarySort` option is immutable: it can not be changed after
 View creation. It is therefore not possible to configure it through the Web UI.

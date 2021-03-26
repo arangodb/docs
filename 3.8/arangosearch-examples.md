@@ -16,9 +16,12 @@ To try out the examples for yourself, download the
 files and use [arangorestore](programs-arangorestore.html) to restore the
 dump to an ArangoDB server. Furthermore, create a View called `imdb`.
 
-## Matching strictly equal values
+## Matching exact values
 
-View definition:
+If you want to find strictly equal values, then the `identity` is what you need.
+It will not apply any transformation.
+
+**View definition:**
 
 ```json
 {
@@ -36,7 +39,7 @@ View definition:
 }
 ```
 
-AQL query to match exact movie title:
+**AQL query** to match exact movie title (case-sensitive, full string):
 
 ```js
 FOR doc IN imdb
@@ -62,7 +65,11 @@ FOR doc IN imdb
 
 ## Prefix search
 
-View definition:
+If you want to search for text that starts with a certain string, then the the
+`identity` is sufficient. However, only the original capitalization will match
+(case-sensitive).
+
+**View definition:**
 
 ```json
 {
@@ -80,7 +87,7 @@ View definition:
 }
 ```
 
-AQL query to match all titles that start with `"The Matri"`:
+**AQL query** to match all titles that start with `"The Matri"`:
 
 ```js
 FOR doc IN imdb
@@ -90,11 +97,72 @@ FOR doc IN imdb
 
 ## Case-insensitive search
 
+**Create an Analyzer** to normalize case to all lowercase and to remove diacritics
+in arangosh:
 
+```js
+//db._useDatabase("your_database"); // Analyzer will be created in current database
+var analyzers = require("@arangodb/analyzers");
+analyzers.save("norm_en", "norm", { locale: "en_US.utf-8", accent: false, case: "lower" }, [])
+```
+
+**View definition:**
+
+```json
+{
+  "links": {
+    "imdb_vertices": {
+      "fields": {
+        "title": {
+          "analyzers": [
+            "norm_en"
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+**AQL query** to match movie title, ignoring capitalization and using the base
+characters instead of accented characters (full string):
+
+```js
+FOR doc IN imdb
+  SEARCH ANALYZER(doc.title == "thé mäTRïX", "norm_en")
+  RETURN doc.title
+```
+
+AQL query to match a title prefix (case-insensitive):
+
+```js
+FOR doc IN imdb
+  SEARCH ANALYZER(STARTS_WITH(doc.title, "the matr"), "norm_en")
+  RETURN doc.title
+```
 
 ## Wildcard search
 
-Match all titles that starts with `"The Matri%"` using `LIKE()`:
+**View definition:**
+
+```json
+{
+  "links": {
+    "imdb_vertices": {
+      "fields": {
+        "title": {
+          "analyzers": [
+            "identity"
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+**AQL query** to match all titles that starts with `The Matr` using `LIKE()`,
+where `_` stands for a single wildcard character and `%` for an arbitrary amount:
 
 ```js
 FOR doc IN imdb
@@ -102,9 +170,17 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
-## Fuzzy search
+Match all titles that contain `%Mat%"` using `LIKE()`:
+
+```js
+FOR doc IN imdb
+  SEARCH ANALYZER(LIKE(doc.title, "%Mat%"), "identity")
+  RETURN doc.title
+```
 
 <!--
+## Fuzzy search
+
 
 View Configuration and Search
 -----------------------------

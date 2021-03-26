@@ -123,6 +123,21 @@ different usage scenarios:
   search engine with text pre-processing, ranking capabilities and more.
   It offers more features and configuration options than a fulltext index.
 
+  Comparison with the full-text Index:
+
+  Feature                           | ArangoSearch | Full-text Index
+  :---------------------------------|:-------------|:---------------
+  Term search                       | Yes          | Yes
+  Prefix search                     | Yes          | Yes
+  Boolean expressions               | Yes          | Restricted
+  Range search                      | Yes          | No
+  Phrase search                     | Yes          | No
+  Relevance ranking                 | Yes          | No
+  Configurable Analyzers            | Yes          | No
+  AQL composable language construct	| Yes          | No
+  Indexed attributes per collection | Unlimited    | 1
+  Indexed collections               | Unlimited    | 1
+
 Sparse vs. non-sparse indexes
 -----------------------------
 

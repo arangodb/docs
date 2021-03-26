@@ -22,21 +22,6 @@ Views can be queried with AQL via the
 [SEARCH operation](aql/operations-search.html).
 
 <!--
-Comparison with the [Full-text Index](indexing-fulltext.html):
-
-Feature                           | ArangoSearch | Full-text Index
-:---------------------------------|:-------------|:---------------
-Term search                       | Yes          | Yes
-Prefix search                     | Yes          | Yes
-Boolean expressions               | Yes          | Restricted
-Range search                      | Yes          | No
-Phrase search                     | Yes          | No
-Relevance ranking                 | Yes          | No
-Configurable Analyzers            | Yes          | No
-AQL composable language construct	| Yes          | No
-Indexed attributes per collection | Unlimited    | 1
-Indexed collections               | Unlimited    | 1
-
 Views guarantee the best execution plan (merge join) when querying multiple
 attributes, unlike collections with user-defined indexes.
 
