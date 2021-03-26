@@ -446,7 +446,7 @@ ArangoSearch
 ### Analyzers
 
 - Added UTF-8 support and ability to mark beginning/end of the sequence to
-  the [`ngram` Analyzer type](arangosearch-analyzers.html#n-gram).
+  the [`ngram` Analyzer type]({% if page.version.version < "3.8" %}arangosearch-{% endif %}analyzers.html#n-gram).
 
   The following optional properties can be provided for an `ngram` Analyzer
   definition:
@@ -460,7 +460,7 @@ ArangoSearch
   - `streamType` : `"binary"|"utf8"`, default: "binary"<br>
     type of the input stream (support for UTF-8 is new)
 
-- Added _edge n-gram_ support to the [`text` Analyzer type](arangosearch-analyzers.html#text).
+- Added _edge n-gram_ support to the [`text` Analyzer type]({% if page.version.version < "3.8" %}arangosearch-{% endif %}analyzers.html#text).
   The input gets tokenized as usual, but then n-grams are generated from each
   token. UTF-8 encoding is assumed (whereas the `ngram` Analyzer has a
   configurable stream type and defaults to binary).

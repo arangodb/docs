@@ -109,7 +109,7 @@ During view modification the following directives apply:
   iterates over all documents of a View, wants to sort them by attribute values
   and the (left-most) fields to sort by as well as their sorting direction match
   with the *primarySort* definition, then the `SORT` operation is optimized away.
-  Also see [Primary Sort Order](#primary-sort-order)
+  Also see [Primary Sort Order](arangosearch.html#primary-sort-order)
 
 - **primarySortCompression** (_optional_; type: `string`; default: `lz4`; _immutable_)
 

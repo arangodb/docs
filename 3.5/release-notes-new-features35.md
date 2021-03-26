@@ -101,8 +101,8 @@ Note that the `primarySort` option is immutable: it can not be changed after
 View creation. It is therefore not possible to configure it through the Web UI.
 The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
 
-See [Primary Sort Order](arangosearch-views.html#primary-sort-order) of
-ArangoSearch Views.
+See [Primary Sort Order](arangosearch{% if page.version.version < "3.8" %}-views{% endif %}.html#primary-sort-order)
+of ArangoSearch Views.
 
 ### AQL Integration
 
