@@ -1009,7 +1009,7 @@ A wrapping `ANALYZER()` call in a search expression does not affect the
 
 - **input** (string\|array): text to tokenize. Accepts recursive arrays of
   strings (introduced in v3.6.0).
-- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
+- **analyzer** (string): name of an [Analyzer](../analyzers.html).
 - returns **tokenArray** (array): array of strings with zero or more elements,
   each element being a token.
 

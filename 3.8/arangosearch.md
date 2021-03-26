@@ -49,7 +49,9 @@ which can normalize strings, tokenize text into words and more, enabling
 different possibilities to search for values later on.
 
 Search results can be sorted by their similarity ranking to return the best
-matches first using popular scoring algorithms.
+matches first using popular scoring algorithms
+([Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"},
+[TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf){:target="_blank"})).
 
 ![Conceptual model of ArangoSearch interacting with Collections and Analyzers](images/arangosearch.png)
 

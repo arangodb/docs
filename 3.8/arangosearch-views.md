@@ -4,13 +4,16 @@ description: ArangoSearch Views
 redirect_from:
   - views-arango-search-detailed-overview.html # 3.4 -> 3.5
 ---
-ArangoSearch Views
-==================
+ArangoSearch Views Reference
+============================
 
 ArangoSearch Views enable sophisticated information retrieval queries such as
 full-text search for unstructured or semi-structured data over documents from
 different collections, filtering on multiple document attributes and sorting
 the documents that satisfy the search criteria by relevance.
+
+Views guarantee the best execution plan (merge join) when querying multiple
+attributes, unlike collections with user-defined indexes.
 
 The searching and ranking capabilities are provided by the
 [IResearch library](https://github.com/iresearch-toolkit/iresearch){:target="_blank"}.
@@ -21,13 +24,8 @@ through a [JavaScript API](data-modeling-views-database-methods.html).
 Views can be queried with AQL via the
 [SEARCH operation](aql/operations-search.html).
 
-<!--
-Views guarantee the best execution plan (merge join) when querying multiple
-attributes, unlike collections with user-defined indexes.
-
-- [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}
-- [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf){:target="_blank"}
--->
+See [ArangoSearch](arangosearch.html) for an introduction as well as the
+[ArangoSearch Examples](arangosearch-examples.html).
 
 View Definition/Modification
 ----------------------------
@@ -55,7 +53,7 @@ During view modification the following directives apply:
 - **analyzers** (_optional_; type: `array`; subtype: `string`; default: `[
   "identity" ]`)
 
-  A list of Analyzers, by name as defined via the [Analyzers](arangosearch-analyzers.html),
+  A list of Analyzers, by name as defined via the [Analyzers](analyzers.html),
   that should be applied to values of processed document attributes.
 
 - **fields** (_optional_; type: `object`; default: `{}`)

@@ -15,14 +15,14 @@ Version 3.8
   New AQL graph traversal option to emit paths in order of increasing weights.
 
 - **ArangoSearch**:
-  New [**Pipeline Analyzer**](arangosearch-analyzers.html#pipeline)
+  New [**Pipeline Analyzer**](analyzers.html#pipeline)
   that allows you to combine multiple Analyzers, enabling case-insensitive
   ngram-based fuzzy search and more. New
-  [**AQL Analyzer**](arangosearch-analyzers.html#aql)
+  [**AQL Analyzer**](analyzers.html#aql)
   so that you can use an AQL query to pre-process and filter your data for
   indexing. Support for **geo-spatial queries** through new
-  [Geo](arangosearch-analyzers.html#geojson)
-  [Analyzers](arangosearch-analyzers.html#geopoint) and
+  [Geo](analyzers.html#geojson)
+  [Analyzers](analyzers.html#geopoint) and
   [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
 
 - A [**`WINDOW` operation**](aql/operations-window.html) for aggregations over
@@ -133,7 +133,7 @@ Version 3.5
 
 - **ArangoSearch**:
   The search and ranking engine received an upgrade and now features
-  [Configurable Analyzers](arangosearch-analyzers.html),
+  [Configurable Analyzers](analyzers.html),
   [Sorted Views](arangosearch-views.html#primary-sort-order)
   and several improvements to the
   [AQL integration](release-notes-new-features35.html#arangosearch).
