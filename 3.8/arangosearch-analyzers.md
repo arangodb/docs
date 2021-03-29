@@ -624,7 +624,8 @@ contains only a substring that matches stopword - token is not discarded.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
- - `stopwords` (array): array of strings that describes tokens to be masked.
+
+- `stopwords` (array): array of strings that describes tokens to be masked.
   To be able to mask non-printable chars the values in the array are hex encoded
   values of individual bytes. E.g. to discard token "foo" stopwords array should be set 
   as ["6666F6F"]. (f has ASCII code 0x66 and o has code 0x6F)
