@@ -239,20 +239,19 @@ Concurrent operations
 ---------------------
 
 Starting with ArangoDB 3.8 one can limit the number of concurrent
-operations being executed on each coordinator. Reducing the amount of
-concurrent operations can lower the RAM usage on coordinators. The
-command line option for this is
+operations being executed on each Coordinator. Reducing the amount of
+concurrent operations can lower the RAM usage on Coordinators. The
+startup option for this is:
 
 ```
---server.ongoing-low-priority-multiplier 1
+--server.ongoing-low-priority-multiplier
 ```
 
-The default for this option is 4, which means that a coordinator with t
-scheduler threads can execute up to 4*t requests concurrently. The
+The default for this option is 4, which means that a Coordinator with `t`
+scheduler threads can execute up to `4 * t` requests concurrently. The
 minimal value for this option is 1.
 
-See [this page](programs-arangod-server.html#preventing-cluster-overwhelm)
-for details.
+Also see [Preventing cluster overwhelm](programs-arangod-server.html#preventing-cluster-overwhelm).
 
 CPU usage
 ---------
