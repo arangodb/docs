@@ -178,15 +178,15 @@ availability API is probed.
 
 ## Preventing cluster overwhelm
 
-From 3.8 on, there are some countermeasures built into coordinators to
+From 3.8 on, there are some countermeasures built into Coordinators to
 prevent a cluster from being overwhelmed by too many concurrently
 executing requests.
 
-This essentially works as follows: If a request is executed on a
-coordinator but needs to wait for some operation on a dbserver, the
-OS thread executing the request can often postpone execution on the
-coordinator, put the request to one side and do something else in the
-meantime. When the response from the dbserver arrives, another worker
+This essentially works as follows: If a request is executed on a Coordinator
+but needs to wait for some operation on a DB-Server, the operating system
+thread executing the request can often postpone execution on the
+Coordinator, put the request to one side and do something else in the
+meantime. When the response from the DB-Server arrives, another worker
 thread will continue the work. This is a form of asynchronous
 implementation, which is great to achieve better thread utilization and
 enhance throughput.
@@ -200,17 +200,16 @@ it could lead to excessive latency for individual requests.
 Therefore, beginning with Version 3.8, there is a limit as to how many
 requests coming from the low priority queue (most client requests are of
 this type), can be executed concurrently. The default value for this is
-4 times as many as there are scheduler threads
-(see [here](programs-arangod-server.html#server-threads) ), which is
-good for most workloads. Requests in excess of this will not be started
-but remain on the scheduler's input queue (see
-[here](programs-arangod-server.html#maximal-queue-size) ).
+4 times as many as there are scheduler threads (see
+[Server threads options](#server-threads)), which is good for most workloads.
+Requests in excess of this will not be started but remain on the scheduler's
+input queue (see [Maximal queue size option](#maximal-queue-size)).
 
-This multiple 4 can be controlled with the following option:
+The multiplier can be controlled with the following option:
 
 `--server.ongoing-low-priority-multiplier=<multiple>`
 
-This controls how many requests each coordinator is allowed to execute
+This controls how many requests each Coordinator is allowed to execute
 concurrently, given as multiple of the maximum number of scheduler threads.
 The default is 4 and should be suitable for most workloads.
 
