@@ -389,12 +389,12 @@ The limit values are per AQL query, so they may still be too high in case
 queries run in parallel. The defaults are intentionally high in order to not
 stop any valid, previously working queries from succeeding.
 
-Using a per-query memory limit by default is a downwards-incompatible change in 
-ArangoDB 3.8 and may make queries fail if they use a lot of memory. If this happens,
-it may be useful to increase the value of `--query.memory-limit` or even set it to
-`0` (meaning no limitation).
-There is a metric `arangodb_aql_local_query_memory_limit_reached` that can be used
-to check how many times queries reached the per-query memory limit. 
+Using a per-query memory limit by default is a downwards-incompatible change in
+ArangoDB 3.8 and may make queries fail if they use a lot of memory. If this
+happens, it may be useful to increase the value of `--query.memory-limit` or
+even set it to `0` (meaning no limitation).
+There is a metric `arangodb_aql_local_query_memory_limit_reached` that can be
+used to check how many times queries reached the per-query memory limit.
 
 There is now also a startup option `--query.memory-limit-override` which can be
 used to control whether individual AQL queries can increase their memory limit
@@ -451,12 +451,12 @@ Available memory: 274877906944 (262144MiB)  Limit: 248077311017 (236584MiB), %me
 Available memory: 549755813888 (524288MiB)  Limit: 496154622034 (473169MiB), %mem: 90.2
 ```
 
-Using a global memory limit for all queries by default is a downwards-incompatible change 
-in ArangoDB 3.8 and may make queries fail if they use a lot of memory. If this happens,
-it may be useful to increase the value of `--query.global-memory-limit` or even set it to
-`0` (meaning no limitation).
-There is a metric `arangodb_aql_global_query_memory_limit_reached` that can be used
-to check how many times queries reached the global memory limit. 
+Using a global memory limit for all queries by default is a
+downwards-incompatible change in ArangoDB 3.8 and may make queries fail if they
+use a lot of memory. If this happens, it may be useful to increase the value of
+`--query.global-memory-limit` or even set it to `0` (meaning no limitation).
+There is a metric `arangodb_aql_global_query_memory_limit_reached` that can be
+used to check how many times queries reached the global memory limit.
 
 If both `--query.global-memory-limit` and `--query.memory-limit` are set, the
 former must be set at least as high as the latter.

@@ -243,22 +243,22 @@ The limit values are per AQL query, so they may still be too high in case
 queries run in parallel. The defaults are intentionally high in order to not
 stop too many existing and valid queries from working that use _a lot_ of memory.
 
-Using a per-query memory limit by default is a downwards-incompatible change in 
-ArangoDB 3.8 and may make queries fail if they use a lot of memory. If this happens,
-it may be useful to increase the value of `--query.memory-limit` or even set it to
-`0` (meaning no limitation).
-There is a metric `arangodb_aql_local_query_memory_limit_reached` that can be used
-to check how many times queries reached the per-query memory limit. 
+Using a per-query memory limit by default is a downwards-incompatible change in
+ArangoDB 3.8 and may make queries fail if they use a lot of memory. If this
+happens, it may be useful to increase the value of `--query.memory-limit` or
+even set it to `0` (meaning no limitation).
+There is a metric `arangodb_aql_local_query_memory_limit_reached` that can be
+used to check how many times queries reached the per-query memory limit.
 
 #### Global memory limit
 
-ArangoDB 3.8 also introduces a global memory limit for all AQL queries that limits 
-the total amount of memory that can be used by concurrently running queries.
-Such global memory limit did not exist in previous versions of ArangoDB.
+ArangoDB 3.8 also introduces a global memory limit for all AQL queries that
+limits the total amount of memory that can be used by concurrently running
+queries. Such global memory limit did not exist in previous versions of ArangoDB.
 
-The global query memory limit can be controlled via the new startup option 
-`--query.global-memory-limit`, which has a default value that depends on the amount 
-of available RAM:
+The global query memory limit can be controlled via the new startup option
+`--query.global-memory-limit`, which has a default value that depends on the
+amount of available RAM:
 
 ```
 Available memory:            0      (0MiB)  Limit:            0   unlimited, %mem:  n/a
@@ -281,12 +281,12 @@ Available memory: 274877906944 (262144MiB)  Limit: 248077311017 (236584MiB), %me
 Available memory: 549755813888 (524288MiB)  Limit: 496154622034 (473169MiB), %mem: 90.2
 ```
 
-Using a global memory limit for all queries by default is a downwards-incompatible change 
-in ArangoDB 3.8 and may make queries fail if they use a lot of memory. If this happens,
-it may be useful to increase the value of `--query.global-memory-limit` or even set it to
-`0` (meaning no limitation).
-There is a metric `arangodb_aql_global_query_memory_limit_reached` that can be used
-to check how many times queries reached the global memory limit. 
+Using a global memory limit for all queries by default is a
+downwards-incompatible change in ArangoDB 3.8 and may make queries fail if they
+use a lot of memory. If this happens, it may be useful to increase the value of
+`--query.global-memory-limit` or even set it to `0` (meaning no limitation).
+There is a metric `arangodb_aql_global_query_memory_limit_reached` that can be
+used to check how many times queries reached the global memory limit.
 
 #### Memory usage granularity
 
