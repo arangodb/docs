@@ -222,6 +222,12 @@ which enable geo-spatial queries backed by View indexes:
 - `GEO_IN_RANGE()`
 - `GEO_INTERSECTS()`
 
+### Stopwords Analyzer
+
+Added analyzer capable of removing arbitrary tokens from the input. It
+could add stopwords functionality from text analyzer to other analyzer
+types via Pipeline Analyzer.
+
 ### Approximate count
 
 Added a new option `countApproximate` for `SEARCH` queries to control how the
