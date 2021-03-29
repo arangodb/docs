@@ -109,7 +109,7 @@ Analyzer   /   Feature  | Tokenization | Stemming | Normalization | N-grams
 [Pipeline](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [GeoJSON](#geojson)     |      –       |    –     |      –        |   –
 [GeoPoint](#geopoint)   |      –       |    –     |      –        |   –
-
+[Stopwords](#stopwords) |      No      |    No    |      No       |   No
 Analyzer Properties
 -------------------
 
@@ -613,6 +613,22 @@ attributes:
   - `minCells` (number, _optional_): maximum number of S2 cells (default: 20)
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
+
+### Stopwords
+
+<small>Introduced in: v3.8.0</small>
+
+An Analyzer capable of removing specified tokens from input. Uses binary comparison
+to determine if token needs to be removed. Exact match is checked, e.g. if token
+contains only a substring that matches stopword - token is not discarded. 
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+ - `stopwords` (array): array of strings that describes tokens to be masked.
+  To be able to mask non-printable chars the values in the array are hex encoded
+  values of individual bytes. E.g. to discard token "foo" stopwords array should be set 
+  as ["6666F6F"]. (f has ASCII code 0x66 and o has code 0x6F)
+
 
 Analyzer Features
 -----------------
