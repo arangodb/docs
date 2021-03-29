@@ -1,14 +1,14 @@
 ---
 layout: default
-description: This type of query is supposed to find the first k paths in order of length(or weight) between two given documents, startVertex and targetVertex inyour graph
+description: This type of query finds the first k paths in order of length (or weight) between two given documents, a start and a target vertex in your graph
 ---
 k Shortest Paths in AQL
 =======================
 
 General query idea
---------------------
+------------------
 
-This type of query is supposed to find the first *k* paths in order of length
+This type of query finds the first *k* paths in order of length
 (or weight) between two given documents, *startVertex* and *targetVertex* in
 your graph.
 
@@ -78,9 +78,9 @@ Syntax
 ------
 
 The syntax for k Shortest Paths queries is similar to the one for
-[Shortest Path](graphs-shortest-path.html) and there are also two options to either
-use a named graph or a set of edge collections. It only emits a path
-variable however, whereas SHORTEST_PATH emits a vertex and an edge variable.
+[Shortest Path](graphs-shortest-path.html) and there are also two options to
+either use a named graph or a set of edge collections. It only emits a path
+variable however, whereas `SHORTEST_PATH` emits a vertex and an edge variable.
 
 {% hint 'warning' %}
 It is highly recommended that you use a **LIMIT** statement, as
