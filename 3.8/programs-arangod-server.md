@@ -176,6 +176,54 @@ This would mean that instances with a queue longer than 50% of their
 maximum queue capacity would return HTTP 503 instead of HTTP 200 when their
 availability API is probed.
 
+## Preventing cluster overwhelm
+
+From 3.8 on, there are some countermeasures built into coordinators to
+prevent a cluster from being overwhelmed by too many concurrently
+executing requests.
+
+This essentially works as follows: If a request is executed on a
+coordinator but needs to wait for some operation on a dbserver, the
+OS thread executing the request can often postpone execution on the
+coordinator, put the request to one side and do something else in the
+meantime. When the response from the dbserver arrives, another worker
+thread will continue the work. This is a form of asynchronous
+implementation, which is great to achieve better thread utilization and
+enhance throughput.
+
+On the other hand, this runs the risk that we start to work on new
+requests faster than we can finish off old ones. Before 3.8, this could
+actually happen, over time overwhelm the cluster and lead to nasty
+out of memory situations and other unwanted side effects. For example,
+it could lead to excessive latency for individual requests.
+
+Therefore, beginning with Version 3.8, there is a limit as to how many
+requests coming from the low priority queue (most client requests are of
+this type), can be executed concurrently. The default value for this is
+4 times as many as there are scheduler threads
+(see [here](programs-arangod-server.html#server-threads) ), which is
+good for most workloads. Requests in excess of this will not be started
+but remain on the scheduler's input queue (see
+[here](programs-arangod-server.html#maximal-queue-size) ).
+
+This multiple 4 can be controlled with the following option:
+
+`--server.ongoing-low-priority-multiplier=<multiple>`
+
+This controls how many requests each coordinator is allowed to execute
+concurrently, given as multiple of the maximum number of scheduler threads.
+The default is 4 and should be suitable for most workloads.
+
+Very occasionally, 4 is already too much. You would notice this if the
+latency for individual requests is already too high because the system
+tries to execute too many of them at the same time (for example, if they
+fight for resources).
+
+On the other hand, it is possible in other rare cases that throughput
+can be improved by increasing the value, if latency is not a big issue and
+all requests essentially spend their time waiting, so that a high
+concurrency does not hurt too much. Beware of your memory usage, though.
+
 ## Storage engine
 
 ArangoDB's storage engine is based on [RocksDB](http://rocksdb.org){:target="_blank"}
