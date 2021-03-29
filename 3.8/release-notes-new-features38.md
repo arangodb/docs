@@ -353,7 +353,7 @@ cache and to 512 MB for the total write buffer size. Previously, Agency memory
 usage could grow a lot higher for systems with a lot of memory if the startup
 parameters were not set explicitly.
 
-### Default AQL query memory limit
+### Default per-query memory limit
 
 A default per-query memory limit has been introduced for queries, to prevent rogue
 AQL queries from consuming the too much memory of an arangod instance.
@@ -389,6 +389,21 @@ The limit values are per AQL query, so they may still be too high in case
 queries run in parallel. The defaults are intentionally high in order to not
 stop any valid, previously working queries from succeeding.
 
+Using a per-query memory limit by default is a downwards-incompatible change in
+ArangoDB 3.8 and may make queries fail if they use a lot of memory. If this
+happens, it may be useful to increase the value of `--query.memory-limit` or
+even set it to `0` (meaning no limitation).
+There is a metric `arangodb_aql_local_query_memory_limit_reached` that can be
+used to check how many times queries reached the per-query memory limit.
+
+There is now also a startup option `--query.memory-limit-override` which can be
+used to control whether individual AQL queries can increase their memory limit
+via the `memoryLimit` query option. This is the default, so a query that
+increases its memory limit is allowed to use more memory than set via the
+`--query.memory-limit` startup option value. If the option is set to `false`,
+individual queries can only lower their maximum allowed memory usage but not
+increase it.
+
 ### Global AQL query memory limit
 
 The new startup option `--query.global-memory-limit` can be used to set a limit
@@ -412,16 +427,39 @@ memory limit exposed by the option `--query.memory-limit` is.  Some operations,
 namely calls to AQL functions and their intermediate results, are currently not
 properly tracked. 
 
+The global query memory limit in option `--query.global-memory-limit` has a
+default value that depends on the amount of available RAM:
+
+```
+Available memory:            0      (0MiB)  Limit:            0   unlimited, %mem:  n/a
+Available memory:    134217728    (128MiB)  Limit:     33554432     (32MiB), %mem: 25.0
+Available memory:    268435456    (256MiB)  Limit:     67108864     (64MiB), %mem: 25.0
+Available memory:    536870912    (512MiB)  Limit:    255013683    (243MiB), %mem: 47.5
+Available memory:    805306368    (768MiB)  Limit:    510027366    (486MiB), %mem: 63.3
+Available memory:   1073741824   (1024MiB)  Limit:    765041049    (729MiB), %mem: 71.2
+Available memory:   2147483648   (2048MiB)  Limit:   1785095782   (1702MiB), %mem: 83.1
+Available memory:   4294967296   (4096MiB)  Limit:   3825205248   (3648MiB), %mem: 89.0
+Available memory:   8589934592   (8192MiB)  Limit:   7752415969   (7393MiB), %mem: 90.2
+Available memory:  17179869184  (16384MiB)  Limit:  15504831938  (14786MiB), %mem: 90.2
+Available memory:  25769803776  (24576MiB)  Limit:  23257247908  (22179MiB), %mem: 90.2
+Available memory:  34359738368  (32768MiB)  Limit:  31009663877  (29573MiB), %mem: 90.2
+Available memory:  42949672960  (40960MiB)  Limit:  38762079846  (36966MiB), %mem: 90.2
+Available memory:  68719476736  (65536MiB)  Limit:  62019327755  (59146MiB), %mem: 90.2
+Available memory: 103079215104  (98304MiB)  Limit:  93028991631  (88719MiB), %mem: 90.2
+Available memory: 137438953472 (131072MiB)  Limit: 124038655509 (118292MiB), %mem: 90.2
+Available memory: 274877906944 (262144MiB)  Limit: 248077311017 (236584MiB), %mem: 90.2
+Available memory: 549755813888 (524288MiB)  Limit: 496154622034 (473169MiB), %mem: 90.2
+```
+
+Using a global memory limit for all queries by default is a
+downwards-incompatible change in ArangoDB 3.8 and may make queries fail if they
+use a lot of memory. If this happens, it may be useful to increase the value of
+`--query.global-memory-limit` or even set it to `0` (meaning no limitation).
+There is a metric `arangodb_aql_global_query_memory_limit_reached` that can be
+used to check how many times queries reached the global memory limit.
+
 If both `--query.global-memory-limit` and `--query.memory-limit` are set, the
 former must be set at least as high as the latter.
-
-There is now also a startup option `--query.memory-limit-override` which can be
-used to control whether individual AQL queries can increase their memory limit
-via the `memoryLimit` query option. This is the default, so a query that
-increases its memory limit is allowed to use more memory than set via the
-`--query.memory-limit` startup option value. If the option is set to `false`,
-individual queries can only lower their maximum allowed memory usage but not
-increase it.
 
 Shard synchronization
 ---------------------
