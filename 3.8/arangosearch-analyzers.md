@@ -124,6 +124,20 @@ unmodified.
 
 It does not support any *properties* and will ignore them.
 
+**Examples**
+
+Applying the identity Analyzers does not perform any transformations, hence
+the input is returned unaltered:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerIdentity
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerIdentity}
+      db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "identity")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerIdentity
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Delimiter
 
 An Analyzer capable of breaking up delimited text into tokens as per
@@ -134,6 +148,24 @@ The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
 - `delimiter` (string): the delimiting character(s)
+
+
+**Examples**
+
+Split input strings into tokens at hyphen-minus characters:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerDelimiter
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerDelimiter}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("delimiter_hyphen", "delimiter", {
+    |   delimiter: "-"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("some-delimited-words", "delimiter_hyphen")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerDelimiter
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Stem
 
@@ -147,6 +179,23 @@ attributes:
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
   meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
+
+**Examples**
+
+Apply stemming to the input string as a whole:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerStem
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerStem}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("stem_en", "stem", {
+    |   locale: "en.utf-8"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("databases", "stem_en")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerStem
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ###  Norm
 
@@ -167,6 +216,57 @@ attributes:
   - `"lower"` to convert to all lower-case characters
   - `"upper"` to convert to all upper-case characters
   - `"none"` to not change character case (default)
+
+**Examples**
+
+Convert input string to all upper-case characters:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNorm1
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNorm1}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("norm_upper", "norm", {
+    |   locale: "en.utf-8",
+    |   case: "upper"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_upper")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNorm1
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Convert accented characters to their base characters:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNorm2
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNorm2}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("norm_accent", "norm", {
+    |   locale: "en.utf-8",
+    |   accent: false
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNorm2
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Convert input string to all lower-case characters and remove diacritics:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNorm3
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNorm3}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("norm_accent_lower", "norm", {
+    |   locale: "en.utf-8",
+    |   accent: false,
+    |   case: "lower"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent_lower")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNorm3
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### N-gram
 
@@ -219,6 +319,45 @@ produce the following:
 - `"ooba"`
 - `"oobar$"`
 - `"obar$"`
+
+Create and use a trigram Analyzer with `preserveOriginal` disabled:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNgram1
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNgram1}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("trigram", "ngram", {
+    |   min: 3,
+    |   max: 3,
+    |   preserveOriginal: false,
+    |   streamType: "utf8"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("foobar", "trigram")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNgram1
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Create and use a bigram Analyzer with `preserveOriginal` enabled and with start
+and stop markers:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNgram2
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNgram2}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("bigram_markers", "ngram", {
+    |   min: 2,
+    |   max: 2,
+    |   preserveOriginal: true,
+    |   startMarker: "^",
+    |   endMarker: "$",
+    |   streamType: "utf8"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("foobar", "bigram_markers")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNgram2
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Text
 
@@ -581,6 +720,46 @@ attributes:
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
 
+**Examples**
+
+Create a collection with GeoJSON Points stored in an attribute `location`, a
+`geojson` Analyzer with default properties, and a View using the Analyzer.
+Then query for locations that are within a 3 kilometer radius of a given point:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerGeoJSON
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoJSON}
+      var analyzers = require("@arangodb/analyzers");
+      var a = analyzers.save("geojson", "geojson", {}, ["frequency", "norm", "position"]);
+      db._create("geo");
+    | db.geo.save([
+    |   { location: { type: "Point", coordinates: [50.932, 6.937] } },
+    |   { location: { type: "Point", coordinates: [50.941, 6.956] } },
+    |   { location: { type: "Point", coordinates: [50.932, 6.962] } },
+      ]);
+    | db._createView("geo_view", "arangosearch", {
+    |   links: {
+    |     geo: {
+    |       fields: {
+    |         location: {
+    |           analyzers: ["geojson"]
+    |         }
+    |       }
+    |     }
+    |   }
+      });
+    | db._query(`FOR doc IN geo_view
+    |   SEARCH ANALYZER(GEO_DISTANCE(doc.location, GEO_POINT(50.94, 6.93)) < 3000, "geojson")
+    |   OPTIONS { waitForSync: true }
+        RETURN doc`).toArray();
+    ~ db._dropView("geo_view");
+    ~ analyzers.remove("geojson", true);
+    ~ db._drop("geo");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerGeoJSON
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### GeoPoint
 
 <small>Introduced in: v3.8.0</small>
@@ -613,6 +792,89 @@ attributes:
   - `minCells` (number, _optional_): maximum number of S2 cells (default: 20)
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
+
+**Examples**
+
+Create a collection with coordinates pairs stored in an attribute `location`, a
+`geopoint` Analyzer with default properties, and a View using the Analyzer.
+Then query for locations that are within a 3 kilometer radius of a given point:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerGeoPointPair
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoPointPair}
+      var analyzers = require("@arangodb/analyzers");
+      var a = analyzers.save("geopoint_pair", "geopoint", {}, ["frequency", "norm", "position"]);
+      db._create("geo");
+    | db.geo.save([
+    |   { location: { type: "Point", coordinates: [50.932, 6.937] } },
+    |   { location: { type: "Point", coordinates: [50.941, 6.956] } },
+    |   { location: { type: "Point", coordinates: [50.932, 6.962] } },
+      ]);
+    | db._createView("geo_view", "arangosearch", {
+    |   links: {
+    |     geo: {
+    |       fields: {
+    |         location: {
+    |           analyzers: ["geopoint_pair"]
+    |         }
+    |       }
+    |     }
+    |   }
+      });
+    | db._query(`FOR doc IN geo_view
+    |   SEARCH ANALYZER(GEO_DISTANCE(doc.location, GEO_POINT(50.94, 6.93)) < 3000, "geopoint_pair")
+    |   OPTIONS { waitForSync: true }
+        RETURN doc`).toArray();
+    ~ db._dropView("geo_view");
+    ~ analyzers.remove("geopoint", true);
+    ~ db._drop("geo");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerGeoPointPair
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Create a collection with coordinates stored in an attribute `location` as
+separate nested attributes `lat` and `lng`, a `geopoint` Analyzer that
+specifies the attribute paths to the latitude and longitude attributes
+(relative to `location` attribute), and a View using the Analyzer.
+Then query for locations that are within a 3 kilometer radius of a given point:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerGeoPointLatLng
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoPointLatLng}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("geopoint_lat_lng", "geopoint", {
+    |   latitude: ["lat"],
+    |   longitude: ["lng"]
+      }, ["frequency", "norm", "position"]);
+      db._create("geo");
+    | db.geo.save([
+    |   { location: { type: "Point", coordinates: [50.932, 6.937] } },
+    |   { location: { type: "Point", coordinates: [50.941, 6.956] } },
+    |   { location: { type: "Point", coordinates: [50.932, 6.962] } },
+      ]);
+    | db._createView("geo_view", "arangosearch", {
+    |   links: {
+    |     geo: {
+    |       fields: {
+    |         location: {
+    |           analyzers: ["geopoint_lat_lng"]
+    |         }
+    |       }
+    |     }
+    |   }
+      });
+    | db._query(`FOR doc IN geo_view
+    |   SEARCH ANALYZER(GEO_DISTANCE(doc.location, GEO_POINT(50.94, 6.93)) < 3000, "geopoint_lat_lng")
+    |   OPTIONS { waitForSync: true }
+        RETURN doc`).toArray();
+    ~ db._dropView("geo_view");
+    ~ analyzers.remove("geopoint_lat_lng", true);
+    ~ db._drop("geo");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerGeoPointLatLng
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 Analyzer Features
 -----------------
