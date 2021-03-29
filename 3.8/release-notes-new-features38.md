@@ -938,8 +938,8 @@ concurrently as there are worker threads. The default is chosen such
 that it is sensible for most workloads, but in special situations it
 can help to adjust the value.
 
-See [this section](programs-arangod-server.html#preventing-cluster-overwhelm) for details
-and hints for configuration.
+See [ArangoDB Server _Server_ Options](programs-arangod-server.html#preventing-cluster-overwhelm)
+for details and hints for configuration.
 
 There have been further improvements, in particular to ensure that
 certain APIs to diagnose the situation in the cluster still work, even
@@ -947,7 +947,7 @@ when a lot of normal requests are piling up. For example, the cluster
 health API will still be available in such a case.
 
 Furthermore, followers will now be dropped much later and only if they
-are actually failed, which leads to a lot fewer shard resynchronizations
+are actually failed, which leads to a lot fewer shard re-synchronizations
 in case of very high load.
 
 Overall, these measures should all be below the surface and not be
