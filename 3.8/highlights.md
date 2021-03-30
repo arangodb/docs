@@ -11,8 +11,11 @@ Version 3.8
 
 **All Editions**
 
-- [**Weighted traversals**](release-notes-new-features38.html#weighted-traversals):
-  New AQL graph traversal option to emit paths in order of increasing weights.
+- [**Weighted traversals**](release-notes-new-features38.html#weighted-traversals)
+  and [**k Paths**](release-notes-new-features38.html#k-paths):
+  Two new AQL graph traversal methods to emit paths in order of increasing
+  weights and to enumerate all paths between a source and a target vertex that
+  match a given length.
 
 - **ArangoSearch**:
   New [**Pipeline Analyzer**](arangosearch-analyzers.html#pipeline)
@@ -24,13 +27,17 @@ Version 3.8
   [Geo](arangosearch-analyzers.html#geojson)
   [Analyzers](arangosearch-analyzers.html#geopoint) and
   [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
+  A new [**Stopwords Analyzer**](arangosearch-analyzers.html#stopwords) that
+  can be used standalone or in an Analyzer pipeline.
 
 - A [**`WINDOW` operation**](aql/operations-window.html) for aggregations over
-  adjacent rows or time windows.
+  adjacent rows, value ranges or time windows.
 
 **Enterprise Edition**
 
-
+- **Encryption at Rest** utilizes
+  [hardware acceleration](release-notes-new-features38.html#encryption-at-rest)
+  capabilities of modern CPUs.
 
 Also see [What's New in 3.8](release-notes-new-features38.html).
 

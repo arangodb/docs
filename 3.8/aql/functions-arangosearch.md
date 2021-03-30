@@ -777,7 +777,7 @@ LET target = "input"
 LET targetLength = LENGTH(target)
 LET maxDistance = (targetLength > 5 ? 2 : (targetLength >= 3 ? 1 : 0))
 FOR doc IN viewName
-  SEARCH LEVENSHTEIN_MATCH(doc.text, target, true, maxDistance)
+  SEARCH LEVENSHTEIN_MATCH(doc.text, target, maxDistance, true)
   RETURN doc.text
 ```
 

@@ -2,33 +2,36 @@
 { "collection": "products", "batchSize" : 3 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Created
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">519</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"result"</span> : [ 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71762"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71762"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdslYu---"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72158"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/72158"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGqMW--_"</span>, 
       <span class="hljs-string">"Hello1"</span> : <span class="hljs-string">"World1"</span> 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71764"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71764"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdslYy---"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72160"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/72160"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGqMa---"</span>, 
       <span class="hljs-string">"Hello2"</span> : <span class="hljs-string">"World2"</span> 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71766"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71766"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bHdslY2---"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72162"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/72162"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGqMa--_"</span>, 
       <span class="hljs-string">"Hello3"</span> : <span class="hljs-string">"World3"</span> 
     } 
   ], 
   <span class="hljs-string">"hasMore"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"71773"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"72169"</span>, 
   <span class="hljs-string">"count"</span> : <span class="hljs-number">5</span>, 
   <span class="hljs-string">"extra"</span> : { 
     <span class="hljs-string">"warnings"</span> : [ ], 
@@ -39,8 +42,8 @@ x-content-type-options: nosniff
       <span class="hljs-string">"scannedIndex"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00042227000812999904</span>, 
-      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">19335</span> 
+      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00020549900000332855</span>, 
+      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">0</span> 
     } 
   }, 
   <span class="hljs-string">"cached"</span> : <span class="hljs-literal">false</span>, 

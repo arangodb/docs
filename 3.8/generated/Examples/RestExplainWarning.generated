@@ -4,8 +4,11 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">1686</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
@@ -72,7 +75,8 @@ x-content-type-options: nosniff
         <span class="hljs-string">"outVariable"</span> : { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">4</span>, 
           <span class="hljs-string">"name"</span> : <span class="hljs-string">"3"</span>, 
-          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
+          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span>, 
+          <span class="hljs-string">"constantValue"</span> : <span class="hljs-literal">null</span> 
         }, 
         <span class="hljs-string">"canThrow"</span> : <span class="hljs-literal">false</span>, 
         <span class="hljs-string">"expressionType"</span> : <span class="hljs-string">"json"</span> 
@@ -107,7 +111,8 @@ x-content-type-options: nosniff
         <span class="hljs-string">"inVariable"</span> : { 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">4</span>, 
           <span class="hljs-string">"name"</span> : <span class="hljs-string">"3"</span>, 
-          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
+          <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span>, 
+          <span class="hljs-string">"constantValue"</span> : <span class="hljs-literal">null</span> 
         }, 
         <span class="hljs-string">"count"</span> : <span class="hljs-literal">true</span> 
       } 
@@ -121,7 +126,8 @@ x-content-type-options: nosniff
       { 
         <span class="hljs-string">"id"</span> : <span class="hljs-number">4</span>, 
         <span class="hljs-string">"name"</span> : <span class="hljs-string">"3"</span>, 
-        <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span> 
+        <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">false</span>, 
+        <span class="hljs-string">"constantValue"</span> : <span class="hljs-literal">null</span> 
       }, 
       { 
         <span class="hljs-string">"id"</span> : <span class="hljs-number">2</span>, 
