@@ -195,12 +195,13 @@ execution times in the explain output.
 AQL performance improvements
 ----------------------------
 
-The performance of AQL `standard` sort operations has been improved in ArangoDB 
+The performance of AQL `standard` sort operations has been improved in ArangoDB
 3.8. This is true for sorts carried out explicitly by using the `SORT` keyword
-and for sorts that are implicitly executed due to using a sorting `COLLECT` 
+and for sorts that are implicitly executed due to using a sorting `COLLECT`
 operation. Sort performance is especially better for sorting numeric values.
-Note: the improvements are limited to SortNodes with the `standard` sorting 
-stragegy. SortNodes using the `constrained heap` strategy may not see a speedup.
+
+The improvements are limited to SortNodes with the `standard` sorting strategy.
+SortNodes using the `constrained heap` strategy may not see a speedup.
 
 There are also performance improvements for `COLLECT` operations that only
 count values or that aggregate values using `AGGREGATE`. The exact mileage

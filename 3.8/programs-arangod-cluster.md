@@ -127,13 +127,13 @@ Control the access permissions for the `/_admin/cluster` REST API endpoints:
 
 `--cluster.api-jwt-policy <string>`
 
-This security option controls whether extra access permissions for the 
+This security option controls whether extra access permissions for the
 `/_admin/cluster` REST API endpoints should be enabled.
 
 The possible values for the option are:
 
 - `jwt-all`: requires a valid JWT for all accesses to `/_admin/cluster` and
-  its sub-routes. If this configuration is used, the "Cluster" and "Nodes"
+  its sub-routes. If this configuration is used, the _CLUSTER_ and _NODES_
   sections of the web interface will be disabled, as they are relying on the
   ability to read data from several cluster APIs.
 - `jwt-write`: requires a valid JWT for write accesses (all HTTP methods
@@ -141,16 +141,16 @@ The possible values for the option are:
   privileged users to read data from the cluster APIs, but not to do any
   modifications. Modifications (carried out by write accesses) are then only
   possible by requests with a valid JWT.
-  All existing permissions checks for the cluster API routes are still in effect 
-  with this setting, meaning that read operations without a valid JWT may still 
-  require dedicated other permissions (as in 3.7).
+  All existing permission checks for the cluster API routes are still in effect
+  with this setting, meaning that read operations without a valid JWT may still
+  require dedicated other permissions (as in v3.7).
 - `jwt-compat`: no *additional* access checks are in place for the cluster
   API. However, all existing permissions checks for the cluster API routes
   are still in effect with this setting, meaning that all operations may
-  still require dedicated other permissions (as in 3.7).
+  still require dedicated other permissions (as in v3.7).
 
-The default value for the option is `jwt-compat`, which means this option 
-will not cause any extra JWT checks compared to 3.7.
+The default value for the option is `jwt-compat`, which means that this option
+will not cause any extra JWT checks compared to v3.7.
 
 ## Upgrade
 
