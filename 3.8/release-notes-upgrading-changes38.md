@@ -364,6 +364,38 @@ as a database only. It may have an effect for Foxx applications that use HTTP
   names and the new, corrected format of the output. Over time, you can
   then retire your old metrics collection process and dashboards.
 
+### Optional lockdown of `/_admin/cluster` REST API
+
+ArangoDB 3.8 provides a new startup option `--cluster.api-jwt-policy` that
+allows *additional* checking for valid JWTs in all requests to sub-routes of
+the `/_admin/cluster` REST API endpoint.
+This is a security option to restrict access to these cluster APIs to
+operator tools and privileged users.
+
+The possible values for the startup option are:
+
+- `jwt-all`: requires a valid JWT for all accesses to `/_admin/cluster` and
+  its sub-routes. If this configuration is used, the _CLUSTER_ and _NODES_
+  sections of the web interface will be disabled, as they are relying on the
+  ability to read data from several cluster APIs.
+- `jwt-write`: requires a valid JWT for write accesses (all HTTP methods
+  except HTTP GET) to `/_admin/cluster`. This setting can be used to allow
+  privileged users to read data from the cluster APIs, but not to do any
+  modifications. All existing permissions checks for the cluster API routes
+  are still in effect with this setting, meaning that read operations without
+  a valid JWT may still require dedicated other permissions (as in v3.7).
+- `jwt-compat`: no *additional* access checks are in place for the cluster
+  APIs. However, all existing permissions checks for the cluster API routes
+  are still in effect with this setting, meaning that all operations may
+  still require dedicated other permissions (as in v3.7).
+
+The default value for the option is `jwt-compat`, which means this option will
+not cause any *extra* JWT checks compared to v3.7.
+
+If this option is changed to either `jwt-all` or `jwt-write`, non-conforming
+requests without valid JWTs will be responded with HTTP 403 (Forbidden) errors.
+This can have impact on custom tooling and monitoring etc.
+
 AQL
 ---
 
