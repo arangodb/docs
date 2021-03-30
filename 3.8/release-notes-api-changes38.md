@@ -11,6 +11,24 @@ integrations for ArangoDB 3.8.
 
 ## HTTP RESTful API
 
+### Collection API
+
+The following changes affect the behavior of the RESTful collection APIs at
+endpoints starting with path `/_api/collection/`:
+
+The collection properties `indexBuckets`, `journalSize`, `doCompact` and
+`isVolatile` only had a meaning for the MMFiles storage engine, which is not
+available anymore since ArangoDB 3.7.
+
+ArangoDB 3.8 now removes any special handling for these obsolete collection
+properties, meaning these attributes will not be processed by the server and
+not be returned by any server APIs. Using these attributes in any API call
+will be ignored, and will not trigger any errors.
+
+Client applications and tests that rely on the behavior that setting any of
+these obsolete properties produces an error on the server side may need to
+be adjusted now.
+
 ### Www-Authenticate response header
 
 ArangoDB 3.8 adds back the `Www-Authenticate` response header for HTTP server
@@ -284,6 +302,10 @@ in ArangoDB 3.8:
   estimates can have a slightly positive effect on write performance. The attribute will
   only be picked up for indexes of type "persistent", "hash" and "skiplist" (where the
   latter two are aliases for "persistent" nowadays).
+
+The REST endpoint at GET `/_api/collection/<collection>/checksum` now also works
+in cluster setups. In previous versions, this endpoint was not supported in cluster
+setups and returned HTTP 501 (Not implemented).
 
 ### Endpoints moved
 
