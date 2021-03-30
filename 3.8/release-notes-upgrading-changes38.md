@@ -28,7 +28,7 @@ Foxx apps are used.
 In ArangoDB 3.8 the default value for the option is `false`, meaning a server will
 complete the boot sequence faster, and the Foxx services will be synchronized in
 a background operation. Until that operation has completed, any requests to a
-Foxx app may be responded to with an HTTP 500 error and message
+Foxx app may be responded to with an HTTP 503 error and message
 
     waiting for initialization of Foxx services in this database
 
