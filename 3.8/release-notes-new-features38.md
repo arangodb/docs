@@ -44,21 +44,21 @@ The cost of an edge can be read from an attribute which can be specified with
 the `weightAttribute` option.
 
 ```js
-FOR x, v, p IN 0..10  "places/York" GRAPH "kShortestPathsGraph"
-    OPTIONS {
-      order: "weighted",
-      weightAttribute: "travelTime",
-      uniqueVertices: "path"
-    }
-    FILTER p.edges[*].travelTime ALL < 3
-    LET totalTime = LAST(p.weights)
-    FILTER totalTime < 6
-    SORT totalTime DESC
-    RETURN {
-      path: p.vertices[*]._key,
-      weight: LAST(p.weights),
-      weights: p.edges[*].travelTime
-    }
+FOR x, v, p IN 0..10 OUTBOUND "places/York" GRAPH "kShortestPathsGraph"
+  OPTIONS {
+    order: "weighted",
+    weightAttribute: "travelTime",
+    uniqueVertices: "path"
+  }
+  FILTER p.edges[*].travelTime ALL < 3
+  LET totalTime = LAST(p.weights)
+  FILTER totalTime < 6
+  SORT totalTime DESC
+  RETURN {
+    path: p.vertices[*]._key,
+    weight: LAST(p.weights),
+    weights: p.edges[*].travelTime
+  }
 ```
 
 `path` | `weight` | `weights`
@@ -78,8 +78,8 @@ Also see [AQL graph traversals](aql/graphs-traversals.html)
 k Paths
 -------
 
-Added new graph traversal method `K_PATHS` to AQL. This will enumerate all
-paths between a source and a target vertex that match the given length.
+A new graph traversal method `K_PATHS` was added to AQL. It will enumerate all
+paths between a source and a target vertex that match the given path length.
 
 For example, the query:
 
@@ -88,17 +88,19 @@ FOR path IN 2..4 OUTBOUND K_PATHS "v/source" TO "v/target" GRAPH "g"
   RETURN path
 ```
 
-… will yield all paths in format:
+… will yield all paths in the format:
 
 ```js
 {
-  vertices: ["v/source", ... , "v/target"],
-  edges: ["v/source" -> "v/1", ..., "v/n" -> "v/target"]
+  "vertices": ["v/source", ... , "v/target"],
+  "edges": ["v/source" -> "v/1", ... , "v/n" -> "v/target"]
 }
 ```
 
 … that have length of exactly 2 or 3 or 4, start at `v/source` and end at
 `v/target`. No order is guaranteed for those paths in the result set.
+
+For more details see [AQL k paths](aql/graphs-k-paths.html)
 
 AQL bit functions
 -----------------
@@ -192,6 +194,21 @@ execution time of such queries.
 Explaining a query now also shows the query optimizer rules with the highest
 execution times in the explain output.
 
+AQL performance improvements
+----------------------------
+
+The performance of AQL `standard` sort operations has been improved in ArangoDB
+3.8. This is true for sorts carried out explicitly by using the `SORT` keyword
+and for sorts that are implicitly executed due to using a sorting `COLLECT`
+operation. Sort performance is especially better for sorting numeric values.
+
+The improvements are limited to SortNodes with the `standard` sorting strategy.
+SortNodes using the `constrained heap` strategy may not see a speedup.
+
+There are also performance improvements for `COLLECT` operations that only
+count values or that aggregate values using `AGGREGATE`. The exact mileage
+can vary, but is substantial for some queries.
+
 ArangoSearch
 ------------
 
@@ -221,6 +238,15 @@ which enable geo-spatial queries backed by View indexes:
 - `GEO_DISTANCE()`
 - `GEO_IN_RANGE()`
 - `GEO_INTERSECTS()`
+
+### Stopwords Analyzer
+
+Added new Analyzer `"stopwords"` capable of removing specified tokens from the
+input. It can be used standalone or be combined with other Analyzers via a
+pipeline Analyzer to add stopword functionality to them. Previously, only the
+text Analyzer type provided stopword support.
+
+See [ArangoSearch Stopwords Analyzer](arangosearch-analyzers.html#stopwords)
 
 ### Approximate count
 
@@ -583,6 +609,35 @@ All other things equal, deployments that use
 [Encryption at Rest](security-encryption.html) should see a reduction of CPU
 usage by using the hardware-accelerated encryption.
 
+HTTP security options
+---------------------
+
+ArangoDB 3.8 provides a new startup option `--cluster.api-jwt-policy` that
+allows *additional* checking for valid JWTs in all requests to sub-routes of
+the `/_admin/cluster` REST API endpoint.
+This is a security option to restrict access to these cluster APIs to
+operator tools and privileged users.
+
+The possible values for the startup option are:
+
+- `jwt-all`: requires a valid JWT for all accesses to `/_admin/cluster` and
+  its sub-routes. If this configuration is used, the _CLUSTER_ and _NODES_
+  sections of the web interface will be disabled, as they are relying on the
+  ability to read data from several cluster APIs.
+- `jwt-write`: requires a valid JWT for write accesses (all HTTP methods
+  except HTTP GET) to `/_admin/cluster`. This setting can be used to allow
+  privileged users to read data from the cluster APIs, but not to do any
+  modifications. All existing permissions checks for the cluster API routes
+  are still in effect with this setting, meaning that read operations without
+  a valid JWT may still require dedicated other permissions (as in v3.7).
+- `jwt-compat`: no *additional* access checks are in place for the cluster
+  APIs. However, all existing permissions checks for the cluster API routes
+  are still in effect with this setting, meaning that all operations may
+  still require dedicated other permissions (as in v3.7).
+
+The default value for the option is `jwt-compat`, which means this option will
+not cause any *extra* JWT checks compared to v3.7.
+
 JavaScript security options
 ---------------------------
 
@@ -870,14 +925,14 @@ Arangodump can now optionally dump individual shards only, by specifying the
 dump of a large collection with multiple shards into multiple separate dump
 processes, which could be run against different Coordinators etc.
 
-### Arangodump and arangorestore JWT secret
+### Arangodump and arangorestore with JWT secret
 
 Arangodump and arangorestore can now also be invoked by providing the cluster's
 JWT secret instead of the username/password combination. Both tools now provide
 the options `--server.jwt-secret-keyfile` (to read the JWT secret from a file)
 and `--server.ask-jwt-secret` (to enter it manually).
 
-### Arangobench custom queries
+### Arangobench with custom queries
 
 In addition to executing the predefined benchmarks, the arangobench client tool
 now offers a new test case named `custom-query` for running arbitrary AQL
@@ -962,3 +1017,32 @@ used register are now discarded. Unused registers on the left hand side of the
 maximum used register id are not discarded, because we still need to guarantee
 that registers from depths above stay in the same slot when starting a new
 depth.
+
+### Better protection against overwhelm
+
+The cluster now protects itself better against being overwhelmed by too
+many concurrent requests.
+
+This is mostly achieved by limiting the total amount of requests from
+the low priority queue which are ongoing concurrently. There is a new option
+`--server.ongoing-low-priority-multiplier` (default is 4), which
+essentially says that only 4 times as many requests may be ongoing
+concurrently as there are worker threads. The default is chosen such
+that it is sensible for most workloads, but in special situations it
+can help to adjust the value.
+
+See [ArangoDB Server _Server_ Options](programs-arangod-server.html#preventing-cluster-overwhelm)
+for details and hints for configuration.
+
+There have been further improvements, in particular to ensure that
+certain APIs to diagnose the situation in the cluster still work, even
+when a lot of normal requests are piling up. For example, the cluster
+health API will still be available in such a case.
+
+Furthermore, followers will now be dropped much later and only if they
+are actually failed, which leads to a lot fewer shard re-synchronizations
+in case of very high load.
+
+Overall, these measures should all be below the surface and not be
+visible to the user at all (apart from preventing problems under high
+load).

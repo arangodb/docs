@@ -27,9 +27,11 @@ Version 3.8
   [Geo](arangosearch-analyzers.html#geojson)
   [Analyzers](arangosearch-analyzers.html#geopoint) and
   [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
+  A new [**Stopwords Analyzer**](arangosearch-analyzers.html#stopwords) that
+  can be used standalone or in an Analyzer pipeline.
 
 - A [**`WINDOW` operation**](aql/operations-window.html) for aggregations over
-  adjacent rows or time windows.
+  adjacent rows, value ranges or time windows.
 
 **Enterprise Edition**
 
