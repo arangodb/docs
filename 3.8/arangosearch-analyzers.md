@@ -751,10 +751,10 @@ longitude, latitude order:
     |     }
     |   }
       });
+    ~ db._query("FOR doc IN geo_view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
     | db._query(`LET point = GEO_POINT(6.93, 50.94)
     |   FOR doc IN geo_view
     |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_json")
-    |     OPTIONS { waitForSync: true }
           RETURN MERGE(doc, { distance: GEO_DISTANCE(doc.location, point) })`).toArray();
     ~ db._dropView("geo_view");
     ~ analyzers.remove("geo_json", true);
@@ -827,10 +827,10 @@ The stored coordinates are in latitude, longitude order, but `GEO_POINT()` and
     |     }
     |   }
       });
+    ~ db._query("FOR doc IN geo_view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
     | db._query(`LET point = GEO_POINT(6.93, 50.94)
     |   FOR doc IN geo_view
     |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_pair")
-    |     OPTIONS { waitForSync: true }
           RETURN MERGE(doc, { distance: GEO_DISTANCE([doc.location[1], doc.location[0]], point) })`).toArray();
     ~ db._dropView("geo_view");
     ~ analyzers.remove("geo_pair", true);
@@ -871,10 +871,10 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     |     }
     |   }
       });
+    ~ db._query("FOR doc IN geo_view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
     | db._query(`LET point = GEO_POINT(6.93, 50.94)
     |   FOR doc IN geo_view
     |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_latlng")
-    |     OPTIONS { waitForSync: true }
           RETURN MERGE(doc, { distance: GEO_DISTANCE([doc.location.lng, doc.location.lat], point) })`).toArray();
     ~ db._dropView("geo_view");
     ~ analyzers.remove("geo_latlng", true);
