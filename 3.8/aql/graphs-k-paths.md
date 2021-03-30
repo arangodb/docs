@@ -223,11 +223,7 @@ If we ask for routes that don't exist we get an empty result
     @DATASET{kShortestPathsGraph}
     FOR p IN 1..10 OUTBOUND K_PATHS 'places/Aberdeen' TO 'places/Toronto'
     GRAPH 'kShortestPathsGraph'
-        RETURN {
-            places: p.vertices[*].label,
-            travelTimes: p.edges[*].travelTime,
-            travelTimeTotal: SUM(p.edges[*].travelTime)
-        }
+        RETURN { places: p.vertices[*].label, travelTimes: p.edges[*].travelTime }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHKP_02_Aberdeen_to_Toronto
 {% endaqlexample %}
