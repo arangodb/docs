@@ -7,13 +7,16 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Conflict
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">409</span> Conflict
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">128</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">409</span>, 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"unique constraint violated - in index primary of type primary over '_key'; conflicting key: abc"</span>, 
+  <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">" - in index primary of type primary over '_key'; conflicting key: abc"</span>, 
   <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">1210</span> 
 }

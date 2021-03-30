@@ -20,6 +20,12 @@ The data is encrypted with AES-256-CTR, which is a strong encryption algorithm,
 that is very suitable for multi-processor environments. This means that your
 data is safe, but your database is still fast, even under load.
 
+Hardware acceleration for encryption and decryption is automatically used if
+available. The required AES-NI instruction set (Advanced Encryption Standard
+New Instructions) is available on the majority of Intel and AMD processors from
+the last decade. The benefits over a software-only implementation are better
+performance and resistance to side-channel attacks.
+
 The encryption feature is supported by all ArangoDB deployment modes.
 
 ## Limitations
@@ -31,7 +37,7 @@ The encryption feature has the following limitations:
 - It is not possible to enable encryption at runtime: if you have existing
   data you will need to take a backup first, then enable encryption and
   start your server on an empty data-directory, and finally restore your
-  backup.  
+  backup.
 - The Encryption feature requires the RocksDB storage engine.
 
 ## Encryption keys

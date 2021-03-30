@@ -9,19 +9,23 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Created
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">230</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"deduplicate"</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">"estimates"</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">"fields"</span> : [ 
     <span class="hljs-string">"a"</span>, 
     <span class="hljs-string">"b"</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"products/71612"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"products/71568"</span>, 
   <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1678011875017621504"</span>, 
+  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1694620689429954560"</span>, 
   <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
   <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-string">"skiplist"</span>, 

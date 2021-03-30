@@ -25,7 +25,7 @@ Primitive types
 
 A `null` value can be used to represent an empty or absent value.
 It is different from a numerical value of zero (`null != 0`) and other
-*falsy* values (`false`, zero-length string, empty array or object).
+*falsy* values (`false` or a zero-length string `""`).
 It is also known as *nil* or *None* in other languages.
 
 The system may return `null` in the absence of value, for example
