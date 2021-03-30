@@ -235,6 +235,24 @@ cluster without these limitations. They apply to single server instances. They
 also apply to Coordinator nodes, but you should not disable V8 on Coordinators
 because certain cluster operations depend on it.
 
+Concurrent operations
+---------------------
+
+Starting with ArangoDB 3.8 one can limit the number of concurrent
+operations being executed on each Coordinator. Reducing the amount of
+concurrent operations can lower the RAM usage on Coordinators. The
+startup option for this is:
+
+```
+--server.ongoing-low-priority-multiplier
+```
+
+The default for this option is 4, which means that a Coordinator with `t`
+scheduler threads can execute up to `4 * t` requests concurrently. The
+minimal value for this option is 1.
+
+Also see [Preventing cluster overwhelm](programs-arangod-server.html#preventing-cluster-overwhelm).
+
 CPU usage
 ---------
 

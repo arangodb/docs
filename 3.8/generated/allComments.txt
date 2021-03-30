@@ -19416,6 +19416,45 @@ arangosh&gt; stmt.explain().warnings;
 
 
 <!-- filename: /work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
+    @startDocuBlockInline aqlDateTimeToLocal_3
+
+
+<div class="example-container" id="aqlDateTimeToLocal_3_container">
+<div id="aqlDateTimeToLocal_3_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  RETURN DATE_UTCTOLOCAL(DATE_NOW(), <span class="hljs-string">"Africa/Lagos"</span>, <span class="hljs-literal">true</span>)
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  {
+    <span class="hljs-string">"local"</span>: <span class="hljs-string">"2021-03-30T12:13:33.531"</span>,
+    <span class="hljs-string">"tzdb"</span>: <span class="hljs-string">"2021a"</span>,
+    <span class="hljs-string">"zoneInfo"</span>: {
+      <span class="hljs-string">"name"</span>: <span class="hljs-string">"WAT"</span>,
+      <span class="hljs-string">"begin"</span>: <span class="hljs-string">"1919-08-31T23:30:00.000Z"</span>,
+      <span class="hljs-string">"end"</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-string">"dst"</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-string">"offset"</span>: <span class="hljs-number">3600</span>
+    }
+  }
+]</pre>
+<div id="aqlDateTimeToLocal_3_container_collapse" onclick="$('#aqlDateTimeToLocal_3_long').hide(); $('#aqlDateTimeToLocal_3_short').show(); window.location.hash='aqlDateTimeToLocal_3_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlDateTimeToLocal_3_short" onclick="$('#aqlDateTimeToLocal_3_short').hide(); $('#aqlDateTimeToLocal_3_long').show();">
+<strong>Query:</strong>
+<pre>
+  RETURN DATE_UTCTOLOCAL(DATE_NOW(), <span class="hljs-string">"Africa/Lagos"</span>, <span class="hljs-literal">true</span>)
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlDateTimeToLocal_3
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
     @startDocuBlockInline aqlDateTimeToUTC_1
 
 
@@ -19498,6 +19537,45 @@ arangosh&gt; stmt.explain().warnings;
 </div>
 
     @endDocuBlock aqlDateTimeToUTC_2
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
+    @startDocuBlockInline aqlDateTimeToUTC_3
+
+
+<div class="example-container" id="aqlDateTimeToUTC_3_container">
+<div id="aqlDateTimeToUTC_3_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  RETURN DATE_LOCALTOUTC(<span class="hljs-string">"2021-03-16T12:00:00.000"</span>, <span class="hljs-string">"Africa/Lagos"</span>, <span class="hljs-literal">true</span>)
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  {
+    <span class="hljs-string">"utc"</span>: <span class="hljs-string">"2021-03-16T11:00:00.000Z"</span>,
+    <span class="hljs-string">"tzdb"</span>: <span class="hljs-string">"2021a"</span>,
+    <span class="hljs-string">"zoneInfo"</span>: {
+      <span class="hljs-string">"name"</span>: <span class="hljs-string">"WAT"</span>,
+      <span class="hljs-string">"begin"</span>: <span class="hljs-string">"1919-08-31T23:30:00.000Z"</span>,
+      <span class="hljs-string">"end"</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-string">"dst"</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-string">"offset"</span>: <span class="hljs-number">3600</span>
+    }
+  }
+]</pre>
+<div id="aqlDateTimeToUTC_3_container_collapse" onclick="$('#aqlDateTimeToUTC_3_long').hide(); $('#aqlDateTimeToUTC_3_short').show(); window.location.hash='aqlDateTimeToUTC_3_container';" class="example_show_button">Hide query result</div></div>
+<div id="aqlDateTimeToUTC_3_short" onclick="$('#aqlDateTimeToUTC_3_short').hide(); $('#aqlDateTimeToUTC_3_long').show();">
+<strong>Query:</strong>
+<pre>
+  RETURN DATE_LOCALTOUTC(<span class="hljs-string">"2021-03-16T12:00:00.000"</span>, <span class="hljs-string">"Africa/Lagos"</span>, <span class="hljs-literal">true</span>)
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock aqlDateTimeToUTC_3
 
 
 <!-- filename: /work/ArangoDB/Documentation/Books/AQL/functions-date.md -->
