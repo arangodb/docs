@@ -962,3 +962,32 @@ used register are now discarded. Unused registers on the left hand side of the
 maximum used register id are not discarded, because we still need to guarantee
 that registers from depths above stay in the same slot when starting a new
 depth.
+
+### Better protection against overwhelm
+
+The cluster now protects itself better against being overwhelmed by too
+many concurrent requests.
+
+This is mostly achieved by limiting the total amount of requests from
+the low priority queue which are ongoing concurrently. There is a new option
+`--server.ongoing-low-priority-multiplier` (default is 4), which
+essentially says that only 4 times as many requests may be ongoing
+concurrently as there are worker threads. The default is chosen such
+that it is sensible for most workloads, but in special situations it
+can help to adjust the value.
+
+See [ArangoDB Server _Server_ Options](programs-arangod-server.html#preventing-cluster-overwhelm)
+for details and hints for configuration.
+
+There have been further improvements, in particular to ensure that
+certain APIs to diagnose the situation in the cluster still work, even
+when a lot of normal requests are piling up. For example, the cluster
+health API will still be available in such a case.
+
+Furthermore, followers will now be dropped much later and only if they
+are actually failed, which leads to a lot fewer shard re-synchronizations
+in case of very high load.
+
+Overall, these measures should all be below the surface and not be
+visible to the user at all (apart from preventing problems under high
+load).
