@@ -730,7 +730,7 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     @startDocuBlockInline analyzerGeoJSON
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoJSON}
       var analyzers = require("@arangodb/analyzers");
-      var a = analyzers.save("geojson", "geojson", {}, ["frequency", "norm", "position"]);
+      var a = analyzers.save("geo_json", "geojson", {}, ["frequency", "norm", "position"]);
       db._create("geo");
     | db.geo.save([
     |   { location: { type: "Point", coordinates: [50.932, 6.937] } },
@@ -742,18 +742,18 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     |     geo: {
     |       fields: {
     |         location: {
-    |           analyzers: ["geojson"]
+    |           analyzers: ["geo_json"]
     |         }
     |       }
     |     }
     |   }
       });
     | db._query(`FOR doc IN geo_view
-    |   SEARCH ANALYZER(GEO_DISTANCE(doc.location, GEO_POINT(50.94, 6.93)) < 3000, "geojson")
+    |   SEARCH ANALYZER(GEO_DISTANCE(doc.location, GEO_POINT(50.94, 6.93)) < 3000, "geo_json")
     |   OPTIONS { waitForSync: true }
         RETURN doc`).toArray();
     ~ db._dropView("geo_view");
-    ~ analyzers.remove("geojson", true);
+    ~ analyzers.remove("geo_json", true);
     ~ db._drop("geo");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerGeoJSON
@@ -803,7 +803,7 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     @startDocuBlockInline analyzerGeoPointPair
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoPointPair}
       var analyzers = require("@arangodb/analyzers");
-      var a = analyzers.save("geopoint_pair", "geopoint", {}, ["frequency", "norm", "position"]);
+      var a = analyzers.save("geo_pair", "geopoint", {}, ["frequency", "norm", "position"]);
       db._create("geo");
     | db.geo.save([
     |   { location: { type: "Point", coordinates: [50.932, 6.937] } },
@@ -815,18 +815,18 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     |     geo: {
     |       fields: {
     |         location: {
-    |           analyzers: ["geopoint_pair"]
+    |           analyzers: ["geo_pair"]
     |         }
     |       }
     |     }
     |   }
       });
     | db._query(`FOR doc IN geo_view
-    |   SEARCH ANALYZER(GEO_DISTANCE(doc.location, GEO_POINT(50.94, 6.93)) < 3000, "geopoint_pair")
+    |   SEARCH ANALYZER(GEO_DISTANCE(doc.location, GEO_POINT(50.94, 6.93)) < 3000, "geo_pair")
     |   OPTIONS { waitForSync: true }
         RETURN doc`).toArray();
     ~ db._dropView("geo_view");
-    ~ analyzers.remove("geopoint", true);
+    ~ analyzers.remove("geo_pair", true);
     ~ db._drop("geo");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerGeoPointPair
@@ -843,7 +843,7 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     @startDocuBlockInline analyzerGeoPointLatLng
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoPointLatLng}
       var analyzers = require("@arangodb/analyzers");
-    | var a = analyzers.save("geopoint_lat_lng", "geopoint", {
+    | var a = analyzers.save("geo_latlng", "geopoint", {
     |   latitude: ["lat"],
     |   longitude: ["lng"]
       }, ["frequency", "norm", "position"]);
@@ -858,18 +858,18 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     |     geo: {
     |       fields: {
     |         location: {
-    |           analyzers: ["geopoint_lat_lng"]
+    |           analyzers: ["geo_latlng"]
     |         }
     |       }
     |     }
     |   }
       });
     | db._query(`FOR doc IN geo_view
-    |   SEARCH ANALYZER(GEO_DISTANCE(doc.location, GEO_POINT(50.94, 6.93)) < 3000, "geopoint_lat_lng")
+    |   SEARCH ANALYZER(GEO_DISTANCE(doc.location, GEO_POINT(50.94, 6.93)) < 3000, "geo_latlng")
     |   OPTIONS { waitForSync: true }
         RETURN doc`).toArray();
     ~ db._dropView("geo_view");
-    ~ analyzers.remove("geopoint_lat_lng", true);
+    ~ analyzers.remove("geo_latlng", true);
     ~ db._drop("geo");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerGeoPointLatLng
