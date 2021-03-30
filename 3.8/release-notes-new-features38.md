@@ -224,6 +224,15 @@ which enable geo-spatial queries backed by View indexes:
 - `GEO_IN_RANGE()`
 - `GEO_INTERSECTS()`
 
+### Stopwords Analyzer
+
+Added new Analyzer `"stopwords"` capable of removing specified tokens from the
+input. It can be used standalone or be combined with other Analyzers via a
+pipeline Analyzer to add stopword functionality to them. Previously, only the
+text Analyzer type provided stopword support.
+
+See [ArangoSearch Stopwords Analyzer](arangosearch-analyzers.html#stopwords)
+
 ### Approximate count
 
 Added a new option `countApproximate` for `SEARCH` queries to control how the
