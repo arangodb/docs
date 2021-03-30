@@ -44,21 +44,21 @@ The cost of an edge can be read from an attribute which can be specified with
 the `weightAttribute` option.
 
 ```js
-FOR x, v, p IN 0..10  "places/York" GRAPH "kShortestPathsGraph"
-    OPTIONS {
-      order: "weighted",
-      weightAttribute: "travelTime",
-      uniqueVertices: "path"
-    }
-    FILTER p.edges[*].travelTime ALL < 3
-    LET totalTime = LAST(p.weights)
-    FILTER totalTime < 6
-    SORT totalTime DESC
-    RETURN {
-      path: p.vertices[*]._key,
-      weight: LAST(p.weights),
-      weights: p.edges[*].travelTime
-    }
+FOR x, v, p IN 0..10 OUTBOUND "places/York" GRAPH "kShortestPathsGraph"
+  OPTIONS {
+    order: "weighted",
+    weightAttribute: "travelTime",
+    uniqueVertices: "path"
+  }
+  FILTER p.edges[*].travelTime ALL < 3
+  LET totalTime = LAST(p.weights)
+  FILTER totalTime < 6
+  SORT totalTime DESC
+  RETURN {
+    path: p.vertices[*]._key,
+    weight: LAST(p.weights),
+    weights: p.edges[*].travelTime
+  }
 ```
 
 `path` | `weight` | `weights`
@@ -78,8 +78,8 @@ Also see [AQL graph traversals](aql/graphs-traversals.html)
 k Paths
 -------
 
-Added new graph traversal method `K_PATHS` to AQL. This will enumerate all
-paths between a source and a target vertex that match the given length.
+A new graph traversal method `K_PATHS` was added to AQL. It will enumerate all
+paths between a source and a target vertex that match the given path length.
 
 For example, the query:
 
@@ -88,17 +88,19 @@ FOR path IN 2..4 OUTBOUND K_PATHS "v/source" TO "v/target" GRAPH "g"
   RETURN path
 ```
 
-… will yield all paths in format:
+… will yield all paths in the format:
 
 ```js
 {
-  vertices: ["v/source", ... , "v/target"],
-  edges: ["v/source" -> "v/1", ..., "v/n" -> "v/target"]
+  "vertices": ["v/source", ... , "v/target"],
+  "edges": ["v/source" -> "v/1", ... , "v/n" -> "v/target"]
 }
 ```
 
 … that have length of exactly 2 or 3 or 4, start at `v/source` and end at
 `v/target`. No order is guaranteed for those paths in the result set.
+
+For more details see [AQL k paths](aql/graphs-k-paths.html)
 
 AQL bit functions
 -----------------
