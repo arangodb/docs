@@ -724,7 +724,10 @@ attributes:
 
 Create a collection with GeoJSON Points stored in an attribute `location`, a
 `geojson` Analyzer with default properties, and a View using the Analyzer.
-Then query for locations that are within a 3 kilometer radius of a given point:
+Then query for locations that are within a 3 kilometer radius of a given point
+and return the matched documents, including the calculated distance in meters.
+The stored coordinates and the `GEO_POINT()` arguments are expected in
+longitude, latitude order:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerGeoJSON
@@ -733,9 +736,9 @@ Then query for locations that are within a 3 kilometer radius of a given point:
       var a = analyzers.save("geo_json", "geojson", {}, ["frequency", "norm", "position"]);
       db._create("geo");
     | db.geo.save([
-    |   { location: { type: "Point", coordinates: [50.932, 6.937] } },
-    |   { location: { type: "Point", coordinates: [50.941, 6.956] } },
-    |   { location: { type: "Point", coordinates: [50.932, 6.962] } },
+    |   { location: { type: "Point", coordinates: [6.937, 50.932] } },
+    |   { location: { type: "Point", coordinates: [6.956, 50.941] } },
+    |   { location: { type: "Point", coordinates: [6.962, 50.932] } },
       ]);
     | db._createView("geo_view", "arangosearch", {
     |   links: {
@@ -748,10 +751,11 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     |     }
     |   }
       });
-    | db._query(`FOR doc IN geo_view
-    |   SEARCH ANALYZER(GEO_DISTANCE(doc.location, GEO_POINT(50.94, 6.93)) < 3000, "geo_json")
-    |   OPTIONS { waitForSync: true }
-        RETURN doc`).toArray();
+    | db._query(`LET point = GEO_POINT(6.93, 50.94)
+    |   FOR doc IN geo_view
+    |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_json")
+    |     OPTIONS { waitForSync: true }
+          RETURN MERGE(doc, { distance: GEO_DISTANCE(doc.location, point) })`).toArray();
     ~ db._dropView("geo_view");
     ~ analyzers.remove("geo_json", true);
     ~ db._drop("geo");
@@ -776,7 +780,7 @@ The Analyzer can be used for two different coordinate representations:
   The attributes cannot be at the top level of the document, but must be nested
   like in the example, so that the Analyzer can be defined for the field
   `location` with the Analyzer properties
-  `{ "latitude": ["lat"], "longitude": ["long"] }`.
+  `{ "latitude": ["lat"], "longitude": ["lng"] }`.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
@@ -795,9 +799,11 @@ attributes:
 
 **Examples**
 
-Create a collection with coordinates pairs stored in an attribute `location`, a
-`geopoint` Analyzer with default properties, and a View using the Analyzer.
-Then query for locations that are within a 3 kilometer radius of a given point:
+Create a collection with coordinates pairs stored in an attribute `location`,
+a `geopoint` Analyzer with default properties, and a View using the Analyzer.
+Then query for locations that are within a 3 kilometer radius of a given point.
+The stored coordinates are in latitude, longitude order, but `GEO_POINT()` and
+`GEO_DISTANCE()` expect longitude, latitude order:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerGeoPointPair
@@ -806,9 +812,9 @@ Then query for locations that are within a 3 kilometer radius of a given point:
       var a = analyzers.save("geo_pair", "geopoint", {}, ["frequency", "norm", "position"]);
       db._create("geo");
     | db.geo.save([
-    |   { location: { type: "Point", coordinates: [50.932, 6.937] } },
-    |   { location: { type: "Point", coordinates: [50.941, 6.956] } },
-    |   { location: { type: "Point", coordinates: [50.932, 6.962] } },
+    |   { location: [50.932, 6.937] },
+    |   { location: [50.941, 6.956] },
+    |   { location: [50.932, 6.962] },
       ]);
     | db._createView("geo_view", "arangosearch", {
     |   links: {
@@ -821,10 +827,11 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     |     }
     |   }
       });
-    | db._query(`FOR doc IN geo_view
-    |   SEARCH ANALYZER(GEO_DISTANCE(doc.location, GEO_POINT(50.94, 6.93)) < 3000, "geo_pair")
-    |   OPTIONS { waitForSync: true }
-        RETURN doc`).toArray();
+    | db._query(`LET point = GEO_POINT(6.93, 50.94)
+    |   FOR doc IN geo_view
+    |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_pair")
+    |     OPTIONS { waitForSync: true }
+          RETURN MERGE(doc, { distance: GEO_DISTANCE([doc.location[1], doc.location[0]], point) })`).toArray();
     ~ db._dropView("geo_view");
     ~ analyzers.remove("geo_pair", true);
     ~ db._drop("geo");
@@ -849,9 +856,9 @@ Then query for locations that are within a 3 kilometer radius of a given point:
       }, ["frequency", "norm", "position"]);
       db._create("geo");
     | db.geo.save([
-    |   { location: { type: "Point", coordinates: [50.932, 6.937] } },
-    |   { location: { type: "Point", coordinates: [50.941, 6.956] } },
-    |   { location: { type: "Point", coordinates: [50.932, 6.962] } },
+    |   { location: { lat: 50.932, lng: 6.937 } },
+    |   { location: { lat: 50.941, lng: 6.956 } },
+    |   { location: { lat: 50.932, lng: 6.962 } },
       ]);
     | db._createView("geo_view", "arangosearch", {
     |   links: {
@@ -864,10 +871,11 @@ Then query for locations that are within a 3 kilometer radius of a given point:
     |     }
     |   }
       });
-    | db._query(`FOR doc IN geo_view
-    |   SEARCH ANALYZER(GEO_DISTANCE(doc.location, GEO_POINT(50.94, 6.93)) < 3000, "geo_latlng")
-    |   OPTIONS { waitForSync: true }
-        RETURN doc`).toArray();
+    | db._query(`LET point = GEO_POINT(6.93, 50.94)
+    |   FOR doc IN geo_view
+    |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_latlng")
+    |     OPTIONS { waitForSync: true }
+          RETURN MERGE(doc, { distance: GEO_DISTANCE([doc.location.lng, doc.location.lat], point) })`).toArray();
     ~ db._dropView("geo_view");
     ~ analyzers.remove("geo_latlng", true);
     ~ db._drop("geo");
