@@ -105,11 +105,12 @@ Analyzer   /   Feature  | Tokenization | Stemming | Normalization | N-grams
 [Stem](#stem)           |      No      |   Yes    |      No       |   No
 [Norm](#norm)           |      No      |    No    |     Yes       |   No
 [Text](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
-[AQL](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [Pipeline](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[AQL](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[Stopwords](#stopwords) |      No      |    No    |      No       |   No
 [GeoJSON](#geojson)     |      –       |    –     |      –        |   –
 [GeoPoint](#geopoint)   |      –       |    –     |      –        |   –
-[Stopwords](#stopwords) |      No      |    No    |      No       |   No
+
 Analyzer Properties
 -------------------
 
@@ -550,6 +551,77 @@ the `PHRASE()` function. There is one token between `"B"` and `"D"` to skip in
 case of uncollapsed positions. With positions collapsed, both are in the same
 position, thus there is negative one to skip to match the tokens.
 
+### Stopwords
+
+<small>Introduced in: v3.8.0</small>
+
+An Analyzer capable of removing specified tokens from the input.
+
+It uses binary comparison to determine if an input token should be discarded.
+It checks for exact matches. If the input contains only a substring that
+matches one of the defined stopwords, then it is not discarded. Longer inputs
+such as prefixes of stopwords are also not discarded.
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `stopwords` (array): array of hex-encoded strings that describe the tokens to
+  be discarded. The strings need to be hex-encoded to allow for removing tokens
+  that contain non-printable characters. To encode UTF-8 strings to hex strings
+  you can use e.g.
+  - AQL:
+    ```js
+    FOR token IN ["and","the"] RETURN TO_HEX(token)
+    ```
+  - arangosh / Node.js:
+    ```js
+    ["and","the"].map(token => Buffer(token).toString("hex"))
+    ```
+  - Modern browser:
+    ```js
+    ["and","the"].map(token => Array.from(new TextEncoder().encode(token), byte => byte.toString(16).padStart(2, "0")).join(""))
+    ```
+
+**Examples**
+
+Create and use a stopword Analyzer that removes the tokens `and` and `the`.
+The stopword array with hex-encoded strings for this looks like
+`["616e64","746865"]` (`a` = 0x61, `n` = 0x6e, `d` = 0x64 and so on).
+Note that `a` and `theater` are not removed, because there is no exact match
+with either of the stopwords `and` and `the`:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerStopwords
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerStopwords}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("stop", "stopwords", {
+    |   stopwords: ["616e64","746865"]
+      }, ["frequency", "norm"]);
+      db._query("RETURN FLATTEN(TOKENS(SPLIT('the fox and the dog and a theater', ' '), 'stop'))");
+    ~ analyzers.remove(a.name);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerStopwords
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Create and use an Analyzer pipeline that normalizes the input (convert to
+lower-case and base characters) and then discards the stopwords `and` and `the`:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerPipelineStopwords
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineStopwords}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("norm_stop", "pipeline", { "pipeline": [
+    |   { type: "norm", properties: { locale: "en.utf-8", accent: false, case: "lower" } },
+    |   { type: "stopwords", properties: { stopwords: ["616e64","746865"] } },
+      ]}, ["frequency", "norm"]);
+      db._query("RETURN FLATTEN(TOKENS(SPLIT('The fox AND the dog äñḏ a ţhéäter', ' '), 'norm_stop'))");
+    ~ analyzers.remove(a.name);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerPipelineStopwords
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### GeoJSON
 
 <small>Introduced in: v3.8.0</small>
@@ -613,23 +685,6 @@ attributes:
   - `minCells` (number, _optional_): maximum number of S2 cells (default: 20)
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
-
-### Stopwords
-
-<small>Introduced in: v3.8.0</small>
-
-An Analyzer capable of removing specified tokens from input. Uses binary comparison
-to determine if token needs to be removed. Exact match is checked, e.g. if token
-contains only a substring that matches stopword - token is not discarded. 
-
-The *properties* allowed for this Analyzer are an object with the following
-attributes:
-
-- `stopwords` (array): array of strings that describes tokens to be masked.
-  To be able to mask non-printable chars the values in the array are hex encoded
-  values of individual bytes. E.g. to discard token "foo" stopwords array should be set 
-  as ["6666F6F"]. (f has ASCII code 0x66 and o has code 0x6F)
-
 
 Analyzer Features
 -----------------

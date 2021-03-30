@@ -224,9 +224,12 @@ which enable geo-spatial queries backed by View indexes:
 
 ### Stopwords Analyzer
 
-Added analyzer capable of removing arbitrary tokens from the input. It
-could add stopwords functionality from text analyzer to other analyzer
-types via Pipeline Analyzer.
+Added new Analyzer `"stopwords"` capable of removing specified tokens from the
+input. It can be used standalone or be combined with other Analyzers via a
+pipeline Analyzer to add stopword functionality to them. Previously, only the
+text Analyzer type provided stopword support.
+
+See [ArangoSearch Stopwords Analyzer](arangosearch-analyzers.html#stopwords)
 
 ### Approximate count
 
