@@ -46,7 +46,7 @@ status of these properties in the prototype collection.
 
 #### Other changes
 
-Trying to change the "writeConcern" value of an existing collection that uses 
+Trying to change the `writeConcern` value of an existing collection that uses 
 the `distributeShardsLike` attribute is now handled with a proper error message. 
 Previously a cryptic message containing an internal plan id was returned.
 
