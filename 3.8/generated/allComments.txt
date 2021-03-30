@@ -2937,6 +2937,82 @@ arangosh&gt; items = db.example.getIndexes().map(<span class="hljs-function"><sp
     @endDocuBlock accessViaGeoIndex
 
 
+<!-- filename: /home/simran/oskar2/work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerStopwords
+
+
+<div class="example-container" id="analyzerStopwords_container">
+<div id="analyzerStopwords_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"stop"</span>, <span class="hljs-string">"stopwords"</span>, {
+........&gt;   stopwords: [<span class="hljs-string">"616e64"</span>,<span class="hljs-string">"746865"</span>]
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">"RETURN FLATTEN(TOKENS(SPLIT('the fox and the dog and a theater', ' '), 'stop'))"</span>);
+[ 
+  [ 
+    <span class="hljs-string">"fox"</span>, 
+    <span class="hljs-string">"dog"</span>, 
+    <span class="hljs-string">"a"</span>, 
+    <span class="hljs-string">"theater"</span> 
+  ] 
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+</pre>
+<div id="analyzerStopwords_container_collapse" onclick="$('#analyzerStopwords_long').hide(); $('#analyzerStopwords_short').show(); window.location.hash='analyzerStopwords_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerStopwords_short" onclick="$('#analyzerStopwords_short').hide(); $('#analyzerStopwords_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"stop"</span>, <span class="hljs-string">"stopwords"</span>, {
+........&gt;   stopwords: [<span class="hljs-string">"616e64"</span>,<span class="hljs-string">"746865"</span>]
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">"RETURN FLATTEN(TOKENS(SPLIT('the fox and the dog and a theater', ' '), 'stop'))"</span>);
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerStopwords
+
+
+<!-- filename: /home/simran/oskar2/work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerPipelineStopwords
+
+
+<div class="example-container" id="analyzerPipelineStopwords_container">
+<div id="analyzerPipelineStopwords_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"norm_stop"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-string">"pipeline"</span>: [
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"norm"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">"en.utf-8"</span>, <span class="hljs-attr">accent</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">case</span>: <span class="hljs-string">"lower"</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"stopwords"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">stopwords</span>: [<span class="hljs-string">"616e64"</span>,<span class="hljs-string">"746865"</span>] } },
+........&gt; ]}, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">"RETURN FLATTEN(TOKENS(SPLIT('The fox AND the dog äñḏ a ţhéäter', ' '), 'norm_stop'))"</span>);
+[ 
+  [ 
+    <span class="hljs-string">"fox"</span>, 
+    <span class="hljs-string">"dog"</span>, 
+    <span class="hljs-string">"a"</span>, 
+    <span class="hljs-string">"theater"</span> 
+  ] 
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+</pre>
+<div id="analyzerPipelineStopwords_container_collapse" onclick="$('#analyzerPipelineStopwords_long').hide(); $('#analyzerPipelineStopwords_short').show(); window.location.hash='analyzerPipelineStopwords_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerPipelineStopwords_short" onclick="$('#analyzerPipelineStopwords_short').hide(); $('#analyzerPipelineStopwords_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"norm_stop"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-string">"pipeline"</span>: [
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"norm"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">"en.utf-8"</span>, <span class="hljs-attr">accent</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">case</span>: <span class="hljs-string">"lower"</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"stopwords"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">stopwords</span>: [<span class="hljs-string">"616e64"</span>,<span class="hljs-string">"746865"</span>] } },
+........&gt; ]}, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">"RETURN FLATTEN(TOKENS(SPLIT('The fox AND the dog äñḏ a ţhéäter', ' '), 'norm_stop'))"</span>);
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerPipelineStopwords
+
+
 <!-- filename: /work/ArangoDB/Documentation/Books/Manual/appendix-references-cursor-object.md -->
     @startDocuBlockInline cursorHasNext
 
