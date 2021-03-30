@@ -100,10 +100,10 @@ Available normalizations are case conversion and accent removal
 Analyzer   /   Feature  | Tokenization | Stemming | Normalization | N-grams
 :-----------------------|:------------:|:--------:|:-------------:|:------:
 [Identity](#identity)   |      No      |    No    |      No       |   No
-[N-gram](#n-gram)       |      No      |    No    |      No       |  Yes
 [Delimiter](#delimiter) |    (Yes)     |    No    |      No       |   No
 [Stem](#stem)           |      No      |   Yes    |      No       |   No
 [Norm](#norm)           |      No      |    No    |     Yes       |   No
+[N-gram](#n-gram)       |      No      |    No    |      No       |  Yes
 [Text](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
 [AQL](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [Pipeline](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
@@ -472,61 +472,6 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### Pipeline
-
-<small>Introduced in: v3.8.0</small>
-
-An Analyzer capable of chaining effects of multiple Analyzers into one.
-The pipeline is a list of Analyzers, where the output of an Analyzer is passed
-to the next for further processing. The final token value is determined by last
-Analyzer in the pipeline.
-
-The Analyzer is designed for cases like the following:
-- Normalize text for a case insensitive search and apply ngram tokenization
-- Split input with `delimiter` Analyzer, followed by stemming with the `stem`
-  Analyzer
-
-The *properties* allowed for this Analyzer are an object with the following
-attributes:
-
-- `pipeline` (array): an array of Analyzer definition-like objects with
-  `type` and `properties` attributes
-
-**Examples**
-
-Normalize to all uppercase and compute bigrams:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline analyzerPipelineUpperNgram
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineUpperNgram}
-      var analyzers = require("@arangodb/analyzers");
-    | var a = analyzers.save("ngram_upper", "pipeline", { pipeline: [
-    |   { type: "norm", properties: { locale: "en.utf-8", case: "upper" } },
-    |   { type: "ngram", properties: { min: 2, max: 2, preserveOriginal: false, streamType: "utf8" } }
-      ] }, ["frequency", "norm", "position"]);
-      db._query(`RETURN TOKENS("Quick brown foX", "ngram_upper")`).toArray();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock analyzerPipelineUpperNgram
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-Split at delimiting characters `,` and `;`, then stem the tokens:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline analyzerPipelineDelimiterStem
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineDelimiterStem}
-      var analyzers = require("@arangodb/analyzers");
-    | var a = analyzers.save("delimiter_stem", "pipeline", { pipeline: [
-    |   { type: "delimiter", properties: { delimiter: "," } },
-    |   { type: "delimiter", properties: { delimiter: ";" } },
-    |   { type: "stem", properties: { locale: "en.utf-8" } }
-      ] }, ["frequency", "norm", "position"]);
-      db._query(`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`).toArray();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock analyzerPipelineDelimiterStem
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
 ### AQL
 
 <small>Introduced in: v3.8.0</small>
@@ -688,6 +633,61 @@ The position data is not directly exposed, but we can see its effects through
 the `PHRASE()` function. There is one token between `"B"` and `"D"` to skip in
 case of uncollapsed positions. With positions collapsed, both are in the same
 position, thus there is negative one to skip to match the tokens.
+
+### Pipeline
+
+<small>Introduced in: v3.8.0</small>
+
+An Analyzer capable of chaining effects of multiple Analyzers into one.
+The pipeline is a list of Analyzers, where the output of an Analyzer is passed
+to the next for further processing. The final token value is determined by last
+Analyzer in the pipeline.
+
+The Analyzer is designed for cases like the following:
+- Normalize text for a case insensitive search and apply ngram tokenization
+- Split input with `delimiter` Analyzer, followed by stemming with the `stem`
+  Analyzer
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `pipeline` (array): an array of Analyzer definition-like objects with
+  `type` and `properties` attributes
+
+**Examples**
+
+Normalize to all uppercase and compute bigrams:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerPipelineUpperNgram
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineUpperNgram}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("ngram_upper", "pipeline", { pipeline: [
+    |   { type: "norm", properties: { locale: "en.utf-8", case: "upper" } },
+    |   { type: "ngram", properties: { min: 2, max: 2, preserveOriginal: false, streamType: "utf8" } }
+      ] }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("Quick brown foX", "ngram_upper")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerPipelineUpperNgram
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Split at delimiting characters `,` and `;`, then stem the tokens:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerPipelineDelimiterStem
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineDelimiterStem}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("delimiter_stem", "pipeline", { pipeline: [
+    |   { type: "delimiter", properties: { delimiter: "," } },
+    |   { type: "delimiter", properties: { delimiter: ";" } },
+    |   { type: "stem", properties: { locale: "en.utf-8" } }
+      ] }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerPipelineDelimiterStem
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### GeoJSON
 
