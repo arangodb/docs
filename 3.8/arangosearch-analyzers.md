@@ -90,6 +90,7 @@ The currently implemented Analyzer types are:
   normalization, stop-word filtering and edge n-gram generation
 - `aql`: for running AQL query to prepare tokens for index
 - `pipeline`: for chaining multiple Analyzers
+- `stopwords`: removes the specified tokens from the input
 - `geojson`: breaks up a GeoJSON object into a set of indexable tokens
 - `geopoint`: breaks up a JSON object describing a coordinate into a set of
   indexable tokens
@@ -100,13 +101,13 @@ Available normalizations are case conversion and accent removal
 Analyzer   /   Feature  | Tokenization | Stemming | Normalization | N-grams
 :-----------------------|:------------:|:--------:|:-------------:|:------:
 [Identity](#identity)   |      No      |    No    |      No       |   No
-[N-gram](#n-gram)       |      No      |    No    |      No       |  Yes
 [Delimiter](#delimiter) |    (Yes)     |    No    |      No       |   No
 [Stem](#stem)           |      No      |   Yes    |      No       |   No
 [Norm](#norm)           |      No      |    No    |     Yes       |   No
+[N-gram](#n-gram)       |      No      |    No    |      No       |  Yes
 [Text](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
-[Pipeline](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [AQL](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[Pipeline](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [Stopwords](#stopwords) |      No      |    No    |      No       |   No
 [GeoJSON](#geojson)     |      –       |    –     |      –        |   –
 [GeoPoint](#geopoint)   |      –       |    –     |      –        |   –
@@ -125,6 +126,20 @@ unmodified.
 
 It does not support any *properties* and will ignore them.
 
+**Examples**
+
+Applying the identity Analyzers does not perform any transformations, hence
+the input is returned unaltered:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerIdentity
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerIdentity}
+      db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "identity")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerIdentity
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Delimiter
 
 An Analyzer capable of breaking up delimited text into tokens as per
@@ -135,6 +150,24 @@ The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
 - `delimiter` (string): the delimiting character(s)
+
+
+**Examples**
+
+Split input strings into tokens at hyphen-minus characters:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerDelimiter
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerDelimiter}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("delimiter_hyphen", "delimiter", {
+    |   delimiter: "-"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("some-delimited-words", "delimiter_hyphen")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerDelimiter
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Stem
 
@@ -148,6 +181,23 @@ attributes:
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
   meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
+
+**Examples**
+
+Apply stemming to the input string as a whole:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerStem
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerStem}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("stem_en", "stem", {
+    |   locale: "en.utf-8"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("databases", "stem_en")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerStem
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ###  Norm
 
@@ -168,6 +218,57 @@ attributes:
   - `"lower"` to convert to all lower-case characters
   - `"upper"` to convert to all upper-case characters
   - `"none"` to not change character case (default)
+
+**Examples**
+
+Convert input string to all upper-case characters:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNorm1
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNorm1}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("norm_upper", "norm", {
+    |   locale: "en.utf-8",
+    |   case: "upper"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_upper")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNorm1
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Convert accented characters to their base characters:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNorm2
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNorm2}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("norm_accent", "norm", {
+    |   locale: "en.utf-8",
+    |   accent: false
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNorm2
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Convert input string to all lower-case characters and remove diacritics:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNorm3
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNorm3}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("norm_accent_lower", "norm", {
+    |   locale: "en.utf-8",
+    |   accent: false,
+    |   case: "lower"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent_lower")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNorm3
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### N-gram
 
@@ -220,6 +321,45 @@ produce the following:
 - `"ooba"`
 - `"oobar$"`
 - `"obar$"`
+
+Create and use a trigram Analyzer with `preserveOriginal` disabled:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNgram1
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNgram1}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("trigram", "ngram", {
+    |   min: 3,
+    |   max: 3,
+    |   preserveOriginal: false,
+    |   streamType: "utf8"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("foobar", "trigram")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNgram1
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Create and use a bigram Analyzer with `preserveOriginal` enabled and with start
+and stop markers:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNgram2
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNgram2}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("bigram_markers", "ngram", {
+    |   min: 2,
+    |   max: 2,
+    |   preserveOriginal: true,
+    |   startMarker: "^",
+    |   endMarker: "$",
+    |   streamType: "utf8"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("foobar", "bigram_markers")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNgram2
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Text
 
@@ -331,61 +471,6 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
       )`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextEdgeNgram
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-### Pipeline
-
-<small>Introduced in: v3.8.0</small>
-
-An Analyzer capable of chaining effects of multiple Analyzers into one.
-The pipeline is a list of Analyzers, where the output of an Analyzer is passed
-to the next for further processing. The final token value is determined by last
-Analyzer in the pipeline.
-
-The Analyzer is designed for cases like the following:
-- Normalize text for a case insensitive search and apply ngram tokenization
-- Split input with `delimiter` Analyzer, followed by stemming with the `stem`
-  Analyzer
-
-The *properties* allowed for this Analyzer are an object with the following
-attributes:
-
-- `pipeline` (array): an array of Analyzer definition-like objects with
-  `type` and `properties` attributes
-
-**Examples**
-
-Normalize to all uppercase and compute bigrams:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline analyzerPipelineUpperNgram
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineUpperNgram}
-      var analyzers = require("@arangodb/analyzers");
-    | var a = analyzers.save("ngram_upper", "pipeline", { pipeline: [
-    |   { type: "norm", properties: { locale: "en.utf-8", case: "upper" } },
-    |   { type: "ngram", properties: { min: 2, max: 2, preserveOriginal: false, streamType: "utf8" } }
-      ] }, ["frequency", "norm", "position"]);
-      db._query(`RETURN TOKENS("Quick brown foX", "ngram_upper")`).toArray();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock analyzerPipelineUpperNgram
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-Split at delimiting characters `,` and `;`, then stem the tokens:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline analyzerPipelineDelimiterStem
-    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineDelimiterStem}
-      var analyzers = require("@arangodb/analyzers");
-    | var a = analyzers.save("delimiter_stem", "pipeline", { pipeline: [
-    |   { type: "delimiter", properties: { delimiter: "," } },
-    |   { type: "delimiter", properties: { delimiter: ";" } },
-    |   { type: "stem", properties: { locale: "en.utf-8" } }
-      ] }, ["frequency", "norm", "position"]);
-      db._query(`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`).toArray();
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock analyzerPipelineDelimiterStem
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
@@ -551,6 +636,61 @@ the `PHRASE()` function. There is one token between `"B"` and `"D"` to skip in
 case of uncollapsed positions. With positions collapsed, both are in the same
 position, thus there is negative one to skip to match the tokens.
 
+### Pipeline
+
+<small>Introduced in: v3.8.0</small>
+
+An Analyzer capable of chaining effects of multiple Analyzers into one.
+The pipeline is a list of Analyzers, where the output of an Analyzer is passed
+to the next for further processing. The final token value is determined by last
+Analyzer in the pipeline.
+
+The Analyzer is designed for cases like the following:
+- Normalize text for a case insensitive search and apply ngram tokenization
+- Split input with `delimiter` Analyzer, followed by stemming with the `stem`
+  Analyzer
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `pipeline` (array): an array of Analyzer definition-like objects with
+  `type` and `properties` attributes
+
+**Examples**
+
+Normalize to all uppercase and compute bigrams:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerPipelineUpperNgram
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineUpperNgram}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("ngram_upper", "pipeline", { pipeline: [
+    |   { type: "norm", properties: { locale: "en.utf-8", case: "upper" } },
+    |   { type: "ngram", properties: { min: 2, max: 2, preserveOriginal: false, streamType: "utf8" } }
+      ] }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("Quick brown foX", "ngram_upper")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerPipelineUpperNgram
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Split at delimiting characters `,` and `;`, then stem the tokens:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerPipelineDelimiterStem
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerPipelineDelimiterStem}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("delimiter_stem", "pipeline", { pipeline: [
+    |   { type: "delimiter", properties: { delimiter: "," } },
+    |   { type: "delimiter", properties: { delimiter: ";" } },
+    |   { type: "stem", properties: { locale: "en.utf-8" } }
+      ] }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerPipelineDelimiterStem
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Stopwords
 
 <small>Introduced in: v3.8.0</small>
@@ -653,6 +793,50 @@ attributes:
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
 
+**Examples**
+
+Create a collection with GeoJSON Points stored in an attribute `location`, a
+`geojson` Analyzer with default properties, and a View using the Analyzer.
+Then query for locations that are within a 3 kilometer radius of a given point
+and return the matched documents, including the calculated distance in meters.
+The stored coordinates and the `GEO_POINT()` arguments are expected in
+longitude, latitude order:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerGeoJSON
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoJSON}
+      var analyzers = require("@arangodb/analyzers");
+      var a = analyzers.save("geo_json", "geojson", {}, ["frequency", "norm", "position"]);
+      db._create("geo");
+    | db.geo.save([
+    |   { location: { type: "Point", coordinates: [6.937, 50.932] } },
+    |   { location: { type: "Point", coordinates: [6.956, 50.941] } },
+    |   { location: { type: "Point", coordinates: [6.962, 50.932] } },
+      ]);
+    | db._createView("geo_view", "arangosearch", {
+    |   links: {
+    |     geo: {
+    |       fields: {
+    |         location: {
+    |           analyzers: ["geo_json"]
+    |         }
+    |       }
+    |     }
+    |   }
+      });
+    ~ db._query("FOR doc IN geo_view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+    | db._query(`LET point = GEO_POINT(6.93, 50.94)
+    |   FOR doc IN geo_view
+    |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_json")
+          RETURN MERGE(doc, { distance: GEO_DISTANCE(doc.location, point) })`).toArray();
+    ~ db._dropView("geo_view");
+    ~ analyzers.remove("geo_json", true);
+    ~ db._drop("geo");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerGeoJSON
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### GeoPoint
 
 <small>Introduced in: v3.8.0</small>
@@ -669,7 +853,7 @@ The Analyzer can be used for two different coordinate representations:
   The attributes cannot be at the top level of the document, but must be nested
   like in the example, so that the Analyzer can be defined for the field
   `location` with the Analyzer properties
-  `{ "latitude": ["lat"], "longitude": ["long"] }`.
+  `{ "latitude": ["lat"], "longitude": ["lng"] }`.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
@@ -685,6 +869,93 @@ attributes:
   - `minCells` (number, _optional_): maximum number of S2 cells (default: 20)
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
+
+**Examples**
+
+Create a collection with coordinates pairs stored in an attribute `location`,
+a `geopoint` Analyzer with default properties, and a View using the Analyzer.
+Then query for locations that are within a 3 kilometer radius of a given point.
+The stored coordinates are in latitude, longitude order, but `GEO_POINT()` and
+`GEO_DISTANCE()` expect longitude, latitude order:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerGeoPointPair
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoPointPair}
+      var analyzers = require("@arangodb/analyzers");
+      var a = analyzers.save("geo_pair", "geopoint", {}, ["frequency", "norm", "position"]);
+      db._create("geo");
+    | db.geo.save([
+    |   { location: [50.932, 6.937] },
+    |   { location: [50.941, 6.956] },
+    |   { location: [50.932, 6.962] },
+      ]);
+    | db._createView("geo_view", "arangosearch", {
+    |   links: {
+    |     geo: {
+    |       fields: {
+    |         location: {
+    |           analyzers: ["geo_pair"]
+    |         }
+    |       }
+    |     }
+    |   }
+      });
+    ~ db._query("FOR doc IN geo_view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+    | db._query(`LET point = GEO_POINT(6.93, 50.94)
+    |   FOR doc IN geo_view
+    |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_pair")
+          RETURN MERGE(doc, { distance: GEO_DISTANCE([doc.location[1], doc.location[0]], point) })`).toArray();
+    ~ db._dropView("geo_view");
+    ~ analyzers.remove("geo_pair", true);
+    ~ db._drop("geo");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerGeoPointPair
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Create a collection with coordinates stored in an attribute `location` as
+separate nested attributes `lat` and `lng`, a `geopoint` Analyzer that
+specifies the attribute paths to the latitude and longitude attributes
+(relative to `location` attribute), and a View using the Analyzer.
+Then query for locations that are within a 3 kilometer radius of a given point:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerGeoPointLatLng
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerGeoPointLatLng}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("geo_latlng", "geopoint", {
+    |   latitude: ["lat"],
+    |   longitude: ["lng"]
+      }, ["frequency", "norm", "position"]);
+      db._create("geo");
+    | db.geo.save([
+    |   { location: { lat: 50.932, lng: 6.937 } },
+    |   { location: { lat: 50.941, lng: 6.956 } },
+    |   { location: { lat: 50.932, lng: 6.962 } },
+      ]);
+    | db._createView("geo_view", "arangosearch", {
+    |   links: {
+    |     geo: {
+    |       fields: {
+    |         location: {
+    |           analyzers: ["geo_latlng"]
+    |         }
+    |       }
+    |     }
+    |   }
+      });
+    ~ db._query("FOR doc IN geo_view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+    | db._query(`LET point = GEO_POINT(6.93, 50.94)
+    |   FOR doc IN geo_view
+    |     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) < 2000, "geo_latlng")
+          RETURN MERGE(doc, { distance: GEO_DISTANCE([doc.location.lng, doc.location.lat], point) })`).toArray();
+    ~ db._dropView("geo_view");
+    ~ analyzers.remove("geo_latlng", true);
+    ~ db._drop("geo");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerGeoPointLatLng
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 Analyzer Features
 -----------------

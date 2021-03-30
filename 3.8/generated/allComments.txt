@@ -13375,6 +13375,273 @@ arangosh&gt; queries.kill(runningQueries[<span class="hljs-number">0</span>].id)
     @endDocuBlock QUERY_05_killQueries
 
 
+
+<!-- filename: /work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerDelimiter
+
+
+<div class="example-container" id="analyzerDelimiter_container">
+<div id="analyzerDelimiter_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"delimiter_hyphen"</span>, <span class="hljs-string">"delimiter"</span>, {
+........&gt;   delimiter: <span class="hljs-string">"-"</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("some-delimited-words", "delimiter_hyphen")`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">"some"</span>, 
+    <span class="hljs-string">"delimited"</span>, 
+    <span class="hljs-string">"words"</span> 
+  ] 
+]
+</pre>
+<div id="analyzerDelimiter_container_collapse" onclick="$('#analyzerDelimiter_long').hide(); $('#analyzerDelimiter_short').show(); window.location.hash='analyzerDelimiter_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerDelimiter_short" onclick="$('#analyzerDelimiter_short').hide(); $('#analyzerDelimiter_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"delimiter_hyphen"</span>, <span class="hljs-string">"delimiter"</span>, {
+........&gt;   delimiter: <span class="hljs-string">"-"</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("some-delimited-words", "delimiter_hyphen")`</span>).toArray();
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerDelimiter
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerStem
+
+
+<div class="example-container" id="analyzerStem_container">
+<div id="analyzerStem_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"stem_en"</span>, <span class="hljs-string">"stem"</span>, {
+........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("databases", "stem_en")`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">"databas"</span> 
+  ] 
+]
+</pre>
+<div id="analyzerStem_container_collapse" onclick="$('#analyzerStem_long').hide(); $('#analyzerStem_short').show(); window.location.hash='analyzerStem_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerStem_short" onclick="$('#analyzerStem_short').hide(); $('#analyzerStem_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"stem_en"</span>, <span class="hljs-string">"stem"</span>, {
+........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("databases", "stem_en")`</span>).toArray();
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerStem
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerNorm1
+
+
+<div class="example-container" id="analyzerNorm1_container">
+<div id="analyzerNorm1_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"norm_upper"</span>, <span class="hljs-string">"norm"</span>, {
+........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>,
+........&gt;   <span class="hljs-keyword">case</span>: <span class="hljs-string">"upper"</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("UPPER lower dïäcríticš", "norm_upper")`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">"UPPER LOWER DÏÄCRÍTICŠ"</span> 
+  ] 
+]
+</pre>
+<div id="analyzerNorm1_container_collapse" onclick="$('#analyzerNorm1_long').hide(); $('#analyzerNorm1_short').show(); window.location.hash='analyzerNorm1_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerNorm1_short" onclick="$('#analyzerNorm1_short').hide(); $('#analyzerNorm1_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"norm_upper"</span>, <span class="hljs-string">"norm"</span>, {
+........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>,
+........&gt;   <span class="hljs-keyword">case</span>: <span class="hljs-string">"upper"</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("UPPER lower dïäcríticš", "norm_upper")`</span>).toArray();
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerNorm1
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerNorm2
+
+
+<div class="example-container" id="analyzerNorm2_container">
+<div id="analyzerNorm2_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"norm_accent"</span>, <span class="hljs-string">"norm"</span>, {
+........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>,
+........&gt;   accent: <span class="hljs-literal">false</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent")`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">"UPPER lower diacritics"</span> 
+  ] 
+]
+</pre>
+<div id="analyzerNorm2_container_collapse" onclick="$('#analyzerNorm2_long').hide(); $('#analyzerNorm2_short').show(); window.location.hash='analyzerNorm2_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerNorm2_short" onclick="$('#analyzerNorm2_short').hide(); $('#analyzerNorm2_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"norm_accent"</span>, <span class="hljs-string">"norm"</span>, {
+........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>,
+........&gt;   accent: <span class="hljs-literal">false</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent")`</span>).toArray();
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerNorm2
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerNorm3
+
+
+<div class="example-container" id="analyzerNorm3_container">
+<div id="analyzerNorm3_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"norm_accent_lower"</span>, <span class="hljs-string">"norm"</span>, {
+........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>,
+........&gt;   accent: <span class="hljs-literal">false</span>,
+........&gt;   <span class="hljs-keyword">case</span>: <span class="hljs-string">"lower"</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent_lower")`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">"upper lower diacritics"</span> 
+  ] 
+]
+</pre>
+<div id="analyzerNorm3_container_collapse" onclick="$('#analyzerNorm3_long').hide(); $('#analyzerNorm3_short').show(); window.location.hash='analyzerNorm3_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerNorm3_short" onclick="$('#analyzerNorm3_short').hide(); $('#analyzerNorm3_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"norm_accent_lower"</span>, <span class="hljs-string">"norm"</span>, {
+........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>,
+........&gt;   accent: <span class="hljs-literal">false</span>,
+........&gt;   <span class="hljs-keyword">case</span>: <span class="hljs-string">"lower"</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent_lower")`</span>).toArray();
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerNorm3
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerNgram1
+
+
+<div class="example-container" id="analyzerNgram1_container">
+<div id="analyzerNgram1_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"trigram"</span>, <span class="hljs-string">"ngram"</span>, {
+........&gt;   min: <span class="hljs-number">3</span>,
+........&gt;   max: <span class="hljs-number">3</span>,
+........&gt;   preserveOriginal: <span class="hljs-literal">false</span>,
+........&gt;   streamType: <span class="hljs-string">"utf8"</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("foobar", "trigram")`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">"foo"</span>, 
+    <span class="hljs-string">"oob"</span>, 
+    <span class="hljs-string">"oba"</span>, 
+    <span class="hljs-string">"bar"</span> 
+  ] 
+]
+</pre>
+<div id="analyzerNgram1_container_collapse" onclick="$('#analyzerNgram1_long').hide(); $('#analyzerNgram1_short').show(); window.location.hash='analyzerNgram1_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerNgram1_short" onclick="$('#analyzerNgram1_short').hide(); $('#analyzerNgram1_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"trigram"</span>, <span class="hljs-string">"ngram"</span>, {
+........&gt;   min: <span class="hljs-number">3</span>,
+........&gt;   max: <span class="hljs-number">3</span>,
+........&gt;   preserveOriginal: <span class="hljs-literal">false</span>,
+........&gt;   streamType: <span class="hljs-string">"utf8"</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("foobar", "trigram")`</span>).toArray();
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerNgram1
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerNgram2
+
+
+<div class="example-container" id="analyzerNgram2_container">
+<div id="analyzerNgram2_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"bigram_markers"</span>, <span class="hljs-string">"ngram"</span>, {
+........&gt;   min: <span class="hljs-number">2</span>,
+........&gt;   max: <span class="hljs-number">2</span>,
+........&gt;   preserveOriginal: <span class="hljs-literal">true</span>,
+........&gt;   startMarker: <span class="hljs-string">"^"</span>,
+........&gt;   endMarker: <span class="hljs-string">"$"</span>,
+........&gt;   streamType: <span class="hljs-string">"utf8"</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("foobar", "bigram_markers")`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">"^fo"</span>, 
+    <span class="hljs-string">"^foobar"</span>, 
+    <span class="hljs-string">"foobar$"</span>, 
+    <span class="hljs-string">"oo"</span>, 
+    <span class="hljs-string">"ob"</span>, 
+    <span class="hljs-string">"ba"</span>, 
+    <span class="hljs-string">"ar$"</span> 
+  ] 
+]
+</pre>
+<div id="analyzerNgram2_container_collapse" onclick="$('#analyzerNgram2_long').hide(); $('#analyzerNgram2_short').show(); window.location.hash='analyzerNgram2_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerNgram2_short" onclick="$('#analyzerNgram2_short').hide(); $('#analyzerNgram2_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"bigram_markers"</span>, <span class="hljs-string">"ngram"</span>, {
+........&gt;   min: <span class="hljs-number">2</span>,
+........&gt;   max: <span class="hljs-number">2</span>,
+........&gt;   preserveOriginal: <span class="hljs-literal">true</span>,
+........&gt;   startMarker: <span class="hljs-string">"^"</span>,
+........&gt;   endMarker: <span class="hljs-string">"$"</span>,
+........&gt;   streamType: <span class="hljs-string">"utf8"</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("foobar", "bigram_markers")`</span>).toArray();
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerNgram2
+
+
 <!-- filename: /work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
     @startDocuBlockInline analyzerTextStem
 
@@ -13731,9 +13998,9 @@ arangosh&gt; <span class="hljs-keyword">var</span> view = db._createView(<span c
 arangosh&gt; db._query(<span class="hljs-string">"FOR doc IN view SEARCH ANALYZER(doc.value IN ['regular', 'irregular'], 'filter') RETURN doc"</span>);
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75501"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/75501"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGtN----"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75529"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/75529"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3XXW---"</span>, 
     <span class="hljs-string">"value"</span> : <span class="hljs-string">"regular"</span> 
   } 
 ]
@@ -13780,9 +14047,9 @@ arangosh&gt; <span class="hljs-keyword">var</span> doc = db.coll.save({ <span cl
 arangosh&gt; db._query(<span class="hljs-string">"FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'uncollapsed') RETURN d"</span>);
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75463"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/75463"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGtKC---"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75487"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/75487"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3XQq---"</span>, 
     <span class="hljs-string">"text"</span> : <span class="hljs-string">"A-B-C-D"</span> 
   } 
 ]
@@ -13790,9 +14057,9 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR d IN view SEARCH PHRASE(d.
 arangosh&gt; db._query(<span class="hljs-string">"FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'uncollapsed') RETURN d"</span>);
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75463"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/75463"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGtKC---"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75487"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/75487"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3XQq---"</span>, 
     <span class="hljs-string">"text"</span> : <span class="hljs-string">"A-B-C-D"</span> 
   } 
 ]
@@ -13802,9 +14069,9 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR d IN view SEARCH PHRASE(d.
 arangosh&gt; db._query(<span class="hljs-string">"FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'collapsed') RETURN d"</span>);
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75463"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/75463"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGtKC---"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75487"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/75487"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3XQq---"</span>, 
     <span class="hljs-string">"text"</span> : <span class="hljs-string">"A-B-C-D"</span> 
   } 
 ]
@@ -13833,6 +14100,339 @@ arangosh&gt; db._query(<span class="hljs-string">"FOR d IN view SEARCH PHRASE(d.
 </div>
 
     @endDocuBlock analyzerAqlCollapse
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerGeoJSON
+
+
+<div class="example-container" id="analyzerGeoJSON_container">
+<div id="analyzerGeoJSON_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"geo_json"</span>, <span class="hljs-string">"geojson"</span>, {}, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._create(<span class="hljs-string">"geo"</span>);
+[ArangoCollection <span class="hljs-number">75594</span>, <span class="hljs-string">"geo"</span> (type <span class="hljs-built_in">document</span>, status loaded)]
+arangosh&gt; db.geo.save([
+........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">"Point"</span>, <span class="hljs-attr">coordinates</span>: [<span class="hljs-number">6.937</span>, <span class="hljs-number">50.932</span>] } },
+........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">"Point"</span>, <span class="hljs-attr">coordinates</span>: [<span class="hljs-number">6.956</span>, <span class="hljs-number">50.941</span>] } },
+........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">"Point"</span>, <span class="hljs-attr">coordinates</span>: [<span class="hljs-number">6.962</span>, <span class="hljs-number">50.932</span>] } },
+........&gt; ]);
+[ 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75599"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75599"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3XgC---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75600"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75600"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3XgC--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75601"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75601"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3XgC--A"</span> 
+  } 
+]
+arangosh&gt; db._createView(<span class="hljs-string">"geo_view"</span>, <span class="hljs-string">"arangosearch"</span>, {
+........&gt;   links: {
+........&gt;     geo: {
+........&gt;       fields: {
+........&gt;         location: {
+........&gt;           analyzers: [<span class="hljs-string">"geo_json"</span>]
+........&gt;         }
+........&gt;       }
+........&gt;     }
+........&gt;   }
+........&gt; });
+[ArangoView <span class="hljs-number">75602</span>, <span class="hljs-string">"geo_view"</span> (type arangosearch)]
+arangosh&gt; db._query(<span class="hljs-string">`LET point = GEO_POINT(6.93, 50.94)
+........&gt;   FOR doc IN geo_view
+........&gt;     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) &lt; 2000, "geo_json")
+........&gt;     OPTIONS { waitForSync: true }
+........&gt; RETURN MERGE(doc, { distance: GEO_DISTANCE(doc.location, point) })`</span>).toArray();
+[ 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75599"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75599"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3XgC---"</span>, 
+    <span class="hljs-string">"location"</span> : { 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, 
+      <span class="hljs-string">"coordinates"</span> : [ 
+        <span class="hljs-number">6.937</span>, 
+        <span class="hljs-number">50.932</span> 
+      ] 
+    }, 
+    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1015.8355739436823</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75600"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75600"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3XgC--_"</span>, 
+    <span class="hljs-string">"location"</span> : { 
+      <span class="hljs-string">"type"</span> : <span class="hljs-string">"Point"</span>, 
+      <span class="hljs-string">"coordinates"</span> : [ 
+        <span class="hljs-number">6.956</span>, 
+        <span class="hljs-number">50.941</span> 
+      ] 
+    }, 
+    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1825.1307183571266</span> 
+  } 
+]
+</pre>
+<div id="analyzerGeoJSON_container_collapse" onclick="$('#analyzerGeoJSON_long').hide(); $('#analyzerGeoJSON_short').show(); window.location.hash='analyzerGeoJSON_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerGeoJSON_short" onclick="$('#analyzerGeoJSON_short').hide(); $('#analyzerGeoJSON_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"geo_json"</span>, <span class="hljs-string">"geojson"</span>, {}, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._create(<span class="hljs-string">"geo"</span>);
+arangosh&gt; db.geo.save([
+........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">"Point"</span>, <span class="hljs-attr">coordinates</span>: [<span class="hljs-number">6.937</span>, <span class="hljs-number">50.932</span>] } },
+........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">"Point"</span>, <span class="hljs-attr">coordinates</span>: [<span class="hljs-number">6.956</span>, <span class="hljs-number">50.941</span>] } },
+........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">"Point"</span>, <span class="hljs-attr">coordinates</span>: [<span class="hljs-number">6.962</span>, <span class="hljs-number">50.932</span>] } },
+........&gt; ]);
+arangosh&gt; db._createView(<span class="hljs-string">"geo_view"</span>, <span class="hljs-string">"arangosearch"</span>, {
+........&gt;   links: {
+........&gt;     geo: {
+........&gt;       fields: {
+........&gt;         location: {
+........&gt;           analyzers: [<span class="hljs-string">"geo_json"</span>]
+........&gt;         }
+........&gt;       }
+........&gt;     }
+........&gt;   }
+........&gt; });
+arangosh&gt; db._query(<span class="hljs-string">`LET point = GEO_POINT(6.93, 50.94)
+........&gt;   FOR doc IN geo_view
+........&gt;     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) &lt; 2000, "geo_json")
+........&gt;     OPTIONS { waitForSync: true }
+........&gt; RETURN MERGE(doc, { distance: GEO_DISTANCE(doc.location, point) })`</span>).toArray();
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerGeoJSON
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerGeoPointPair
+
+
+<div class="example-container" id="analyzerGeoPointPair_container">
+<div id="analyzerGeoPointPair_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"geo_pair"</span>, <span class="hljs-string">"geopoint"</span>, {}, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._create(<span class="hljs-string">"geo"</span>);
+[ArangoCollection <span class="hljs-number">75640</span>, <span class="hljs-string">"geo"</span> (type <span class="hljs-built_in">document</span>, status loaded)]
+arangosh&gt; db.geo.save([
+........&gt;   { <span class="hljs-attr">location</span>: [<span class="hljs-number">50.932</span>, <span class="hljs-number">6.937</span>] },
+........&gt;   { <span class="hljs-attr">location</span>: [<span class="hljs-number">50.941</span>, <span class="hljs-number">6.956</span>] },
+........&gt;   { <span class="hljs-attr">location</span>: [<span class="hljs-number">50.932</span>, <span class="hljs-number">6.962</span>] },
+........&gt; ]);
+[ 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75645"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75645"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3Xru---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75646"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75646"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3Xru--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75647"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75647"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3Xru--A"</span> 
+  } 
+]
+arangosh&gt; db._createView(<span class="hljs-string">"geo_view"</span>, <span class="hljs-string">"arangosearch"</span>, {
+........&gt;   links: {
+........&gt;     geo: {
+........&gt;       fields: {
+........&gt;         location: {
+........&gt;           analyzers: [<span class="hljs-string">"geo_pair"</span>]
+........&gt;         }
+........&gt;       }
+........&gt;     }
+........&gt;   }
+........&gt; });
+[ArangoView <span class="hljs-number">75648</span>, <span class="hljs-string">"geo_view"</span> (type arangosearch)]
+arangosh&gt; db._query(<span class="hljs-string">`LET point = GEO_POINT(6.93, 50.94)
+........&gt;   FOR doc IN geo_view
+........&gt;     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) &lt; 2000, "geo_pair")
+........&gt;     OPTIONS { waitForSync: true }
+........&gt; RETURN MERGE(doc, { distance: GEO_DISTANCE([doc.location[1], doc.location[0]], point) })`</span>).toArray();
+[ 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75645"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75645"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3Xru---"</span>, 
+    <span class="hljs-string">"location"</span> : [ 
+      <span class="hljs-number">50.932</span>, 
+      <span class="hljs-number">6.937</span> 
+    ], 
+    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1015.8355739436823</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75646"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75646"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3Xru--_"</span>, 
+    <span class="hljs-string">"location"</span> : [ 
+      <span class="hljs-number">50.941</span>, 
+      <span class="hljs-number">6.956</span> 
+    ], 
+    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1825.1307183571266</span> 
+  } 
+]
+</pre>
+<div id="analyzerGeoPointPair_container_collapse" onclick="$('#analyzerGeoPointPair_long').hide(); $('#analyzerGeoPointPair_short').show(); window.location.hash='analyzerGeoPointPair_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerGeoPointPair_short" onclick="$('#analyzerGeoPointPair_short').hide(); $('#analyzerGeoPointPair_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"geo_pair"</span>, <span class="hljs-string">"geopoint"</span>, {}, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._create(<span class="hljs-string">"geo"</span>);
+arangosh&gt; db.geo.save([
+........&gt;   { <span class="hljs-attr">location</span>: [<span class="hljs-number">50.932</span>, <span class="hljs-number">6.937</span>] },
+........&gt;   { <span class="hljs-attr">location</span>: [<span class="hljs-number">50.941</span>, <span class="hljs-number">6.956</span>] },
+........&gt;   { <span class="hljs-attr">location</span>: [<span class="hljs-number">50.932</span>, <span class="hljs-number">6.962</span>] },
+........&gt; ]);
+arangosh&gt; db._createView(<span class="hljs-string">"geo_view"</span>, <span class="hljs-string">"arangosearch"</span>, {
+........&gt;   links: {
+........&gt;     geo: {
+........&gt;       fields: {
+........&gt;         location: {
+........&gt;           analyzers: [<span class="hljs-string">"geo_pair"</span>]
+........&gt;         }
+........&gt;       }
+........&gt;     }
+........&gt;   }
+........&gt; });
+arangosh&gt; db._query(<span class="hljs-string">`LET point = GEO_POINT(6.93, 50.94)
+........&gt;   FOR doc IN geo_view
+........&gt;     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) &lt; 2000, "geo_pair")
+........&gt;     OPTIONS { waitForSync: true }
+........&gt; RETURN MERGE(doc, { distance: GEO_DISTANCE([doc.location[1], doc.location[0]], point) })`</span>).toArray();
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerGeoPointPair
+
+
+<!-- filename: /work/ArangoDB/Documentation/Books/Manual/arangosearch-analyzers.md -->
+    @startDocuBlockInline analyzerGeoPointLatLng
+
+
+<div class="example-container" id="analyzerGeoPointLatLng_container">
+<div id="analyzerGeoPointLatLng_long" style="display: none;">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"geo_latlng"</span>, <span class="hljs-string">"geopoint"</span>, {
+........&gt;   latitude: [<span class="hljs-string">"lat"</span>],
+........&gt;   longitude: [<span class="hljs-string">"lng"</span>]
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._create(<span class="hljs-string">"geo"</span>);
+[ArangoCollection <span class="hljs-number">75617</span>, <span class="hljs-string">"geo"</span> (type <span class="hljs-built_in">document</span>, status loaded)]
+arangosh&gt; db.geo.save([
+........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">lat</span>: <span class="hljs-number">50.932</span>, <span class="hljs-attr">lng</span>: <span class="hljs-number">6.937</span> } },
+........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">lat</span>: <span class="hljs-number">50.941</span>, <span class="hljs-attr">lng</span>: <span class="hljs-number">6.956</span> } },
+........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">lat</span>: <span class="hljs-number">50.932</span>, <span class="hljs-attr">lng</span>: <span class="hljs-number">6.962</span> } },
+........&gt; ]);
+[ 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75622"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75622"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3Xl6---"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75623"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75623"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3Xl6--_"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75624"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75624"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3Xl6--A"</span> 
+  } 
+]
+arangosh&gt; db._createView(<span class="hljs-string">"geo_view"</span>, <span class="hljs-string">"arangosearch"</span>, {
+........&gt;   links: {
+........&gt;     geo: {
+........&gt;       fields: {
+........&gt;         location: {
+........&gt;           analyzers: [<span class="hljs-string">"geo_latlng"</span>]
+........&gt;         }
+........&gt;       }
+........&gt;     }
+........&gt;   }
+........&gt; });
+[ArangoView <span class="hljs-number">75625</span>, <span class="hljs-string">"geo_view"</span> (type arangosearch)]
+arangosh&gt; db._query(<span class="hljs-string">`LET point = GEO_POINT(6.93, 50.94)
+........&gt;   FOR doc IN geo_view
+........&gt;     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) &lt; 2000, "geo_latlng")
+........&gt;     OPTIONS { waitForSync: true }
+........&gt; RETURN MERGE(doc, { distance: GEO_DISTANCE([doc.location.lng, doc.location.lat], point) })`</span>).toArray();
+[ 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75622"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75622"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3Xl6---"</span>, 
+    <span class="hljs-string">"location"</span> : { 
+      <span class="hljs-string">"lat"</span> : <span class="hljs-number">50.932</span>, 
+      <span class="hljs-string">"lng"</span> : <span class="hljs-number">6.937</span> 
+    }, 
+    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1015.8355739436823</span> 
+  }, 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/75623"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75623"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cGK3Xl6--_"</span>, 
+    <span class="hljs-string">"location"</span> : { 
+      <span class="hljs-string">"lat"</span> : <span class="hljs-number">50.941</span>, 
+      <span class="hljs-string">"lng"</span> : <span class="hljs-number">6.956</span> 
+    }, 
+    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1825.1307183571266</span> 
+  } 
+]
+</pre>
+<div id="analyzerGeoPointLatLng_container_collapse" onclick="$('#analyzerGeoPointLatLng_long').hide(); $('#analyzerGeoPointLatLng_short').show(); window.location.hash='analyzerGeoPointLatLng_container';" class="example_show_button">Hide execution results</div></div>
+<div id="analyzerGeoPointLatLng_short" onclick="$('#analyzerGeoPointLatLng_short').hide(); $('#analyzerGeoPointLatLng_long').show();">
+<pre>
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"geo_latlng"</span>, <span class="hljs-string">"geopoint"</span>, {
+........&gt;   latitude: [<span class="hljs-string">"lat"</span>],
+........&gt;   longitude: [<span class="hljs-string">"lng"</span>]
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._create(<span class="hljs-string">"geo"</span>);
+arangosh&gt; db.geo.save([
+........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">lat</span>: <span class="hljs-number">50.932</span>, <span class="hljs-attr">lng</span>: <span class="hljs-number">6.937</span> } },
+........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">lat</span>: <span class="hljs-number">50.941</span>, <span class="hljs-attr">lng</span>: <span class="hljs-number">6.956</span> } },
+........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">lat</span>: <span class="hljs-number">50.932</span>, <span class="hljs-attr">lng</span>: <span class="hljs-number">6.962</span> } },
+........&gt; ]);
+arangosh&gt; db._createView(<span class="hljs-string">"geo_view"</span>, <span class="hljs-string">"arangosearch"</span>, {
+........&gt;   links: {
+........&gt;     geo: {
+........&gt;       fields: {
+........&gt;         location: {
+........&gt;           analyzers: [<span class="hljs-string">"geo_latlng"</span>]
+........&gt;         }
+........&gt;       }
+........&gt;     }
+........&gt;   }
+........&gt; });
+arangosh&gt; db._query(<span class="hljs-string">`LET point = GEO_POINT(6.93, 50.94)
+........&gt;   FOR doc IN geo_view
+........&gt;     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) &lt; 2000, "geo_latlng")
+........&gt;     OPTIONS { waitForSync: true }
+........&gt; RETURN MERGE(doc, { distance: GEO_DISTANCE([doc.location.lng, doc.location.lat], point) })`</span>).toArray();
+</pre><div class="example_show_button">Show execution results</div>
+</div>
+</div>
+
+    @endDocuBlock analyzerGeoPointLatLng
 
 
 <!-- filename: /work/ArangoDB/Documentation/Books/Manual/data-modeling-views-view-methods.md -->
