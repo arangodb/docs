@@ -312,12 +312,13 @@ setups and returned HTTP 501 (Not implemented).
 ### Endpoints removed
 
 The API endpoint `/_admin/repair/distributeShardsLike` for repairing the
-`distributeShardsLike` settings of cluster collections introduced before 3.2.12 or
-3.3.4, resp., is now deprecated, and removed from documentation.
+`distributeShardsLike` settings of cluster collections introduced before
+version 3.2.12 or 3.3.4 respectively, is now deprecated and removed from
+documentation.
 
-There should not be any reasons to use this API with 3.8 or higher, and there was
-never any driver or official script support for it. The endpoint will be deleted
-in ArangoDB 3.9.
+There should not be any reasons to use this API with 3.8 or higher, and there
+was never any driver or official script support for it. The endpoint will be
+removed in ArangoDB 3.9.
 
 ## JavaScript API
 
