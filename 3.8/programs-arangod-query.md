@@ -136,28 +136,33 @@ The option can also be overridden for each individual AQL query.
 
 `--query.allow-collections-in-expressions value`
 
-When set to *true*, using collection names in arbitrary places in AQL expressions 
-is allowed, although using collection names like this is very likely unintended.
+When set to *true*, using collection names in arbitrary places in AQL
+expressions is allowed, although using collection names like this is very
+likely unintended.
 
 For example, consider the query
-```
+
+```js
 FOR doc IN collection RETURN collection
 ```
 
-Here, the collection name is *collection*, and its usage in the FOR loop is intended
-and valid. However, *collection* is also used in the RETURN statement, which is
-legal but potentially unintended (potentially it should rather be `RETURN doc` or
-`RETURN collection.someAttribute`). 
+Here, the collection name is *collection*, and its usage in the `FOR` loop is
+intended and valid. However, *collection* is also used in the `RETURN`
+statement, which is legal but potentially unintended. It should likely be
+`RETURN doc` or `RETURN doc.someAttribute` instead. Otherwise, the entire
+collection will be materialized and returned as many times as there are
+documents in the collection. This can take a long time and even lead to
+out-of-memory crashes in the worst case.
 
 Setting the option `--query.allow-collections-in-expression` to *false* will
-prohibit such unintentional usage of collection names in queries, and instead make
-the query fail with error 1568 ("collection used as expression operand").
+prohibit such unintentional usage of collection names in queries, and instead
+make the query fail with error 1568 ("collection used as expression operand").
 
-The default value of the option is *true* in 3.8, meaning that potentially unintended
-usage of collection names in queries is still allowed. The default value for the
-option will change to *false* in 3.9. The option will also be deprecated in 3.9
-and removed in future versions. From then on, unintended usage of collection names 
-will always be disallowed.
+The default value of the option is *true* in 3.8, meaning that potentially
+unintended usage of collection names in queries is still allowed. The default
+value for the option will change to *false* in 3.9. The option will also be
+deprecated in 3.9 and removed in future versions. From then on, unintended
+usage of collection names will always be disallowed.
 
 ## Enable/disable AQL query tracking
 

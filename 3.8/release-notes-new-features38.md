@@ -960,6 +960,13 @@ batch (1000).
 Miscellaneous
 -------------
 
+- Added a new startup option `--query.allow-collections-in-expressions` to
+  control whether collection names are allowed in arbitrary places in AQL
+  expressions. It defaults to *true*. It can be set to *false* to make queries
+  like `FOR doc IN collection RETURN collection` fail, where it was probably
+  intended to `RETURN doc` instead. Also see
+  [ArangoDB Server Query Options](programs-arangod-query.html#allowing-the-usage-of-collection-names-in-aql-expressions)
+
 - Added cluster support for the JavaScript API method `collection.checksum()`
   and the REST HTTP API endpoint `GET /_api/collection/{collection-name}/checksum`,
   which calculate CRC checksums for collections.
