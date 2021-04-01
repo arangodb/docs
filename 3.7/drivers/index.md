@@ -80,6 +80,7 @@ Hemera-arango-store | Hemera | JavaScript | [github.com/hemerajs/hemera-arango-s
 ArangoDB.Ecto | Ecto | Elixir | [github.com/ArangoDB-Community/arangodb_ecto](https://github.com/ArangoDB-Community/arangodb_ecto){:target="_blank"}
 Python ORM Layer for ArangoDB |  | Python | [github.com/threatify/arango-orm](https://github.com/threatify/arango-orm){:target="_blank"}
 MopArangoDbBundle | Symfony2 | PHP | [github.com/m0ppers/MopArangoDbBundle](https://github.com/m0ppers/MopArangoDbBundle){:target="_blank"}
+arangoq: a query builder layer |  | Rust | [github.com/element114/arangoq](https://github.com/element114/arangoq){:target="_blank"}
 
 Community projects
 ------------------
