@@ -334,7 +334,8 @@ application code. Otherwise it should best be avoided as the use of exclusive
 locks on collections will introduce a noticeable throughput penalty.
 
 Note that the MMFiles engine was [removed](appendix-deprecated.html) and that
-this option is a stopgap measure only.
+this option is a stopgap measure only. This option is thus deprecated, and will
+be removed in a future version.
 
 The option has effect on single servers and on DB-Servers in the cluster.
 
