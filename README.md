@@ -7,6 +7,9 @@ for all versions as published on [arangodb.com/docs](https://www.arangodb.com/do
 
 The documentation uses the static site generator [Jekyll](https://jekyllrb.com).
 
+View the latest successful [preview build](https://main--zealous-morse-14392b.netlify.app/)
+of the `main` branch.
+
 ## Working with the documentation
 
 To work locally on the documentation you can:
