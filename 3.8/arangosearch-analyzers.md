@@ -489,8 +489,16 @@ be run on DB-Servers in case of a cluster deployment. User-defined functions
 are not permitted.
 
 The input data is provided to the query via a bind parameter `@param`.
-It is always a string. The query result should be a string, `null` or
-an array of strings (and `null`s).
+It is always a string. The query result will be converted according to
+`returnType` parameter value. 
+
+{% hint 'information' %}
+If `returntType` is `"number"` or `"bool"` there is no need 
+to use custom analyzer via `ANALYZER()` function in your queries. Numerics and booleans
+will be available the same way as if these values were directly in indexed documents.
+{% endhint %}
+
+
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
@@ -512,6 +520,16 @@ attributes:
   performance.
 - `memoryLimit` (integer): memory limit for query execution in bytes.
   (default is 1048576 = 1Mb) Maximum is 33554432U (32Mb)
+
+- `returnType` (string): Type of returned tokens.
+  - `"string"` (default) to mark emitted tokens as strings
+  - `"number"` to mark emitted tokens as numerics
+  - `"bool"` to mark emitted tokesn as bools.
+
+  If type does not match
+  actual value type returned by `queryString` implicit type conversion is
+  done according to AQL type conversion rules see [TO_BOOL()](./aql/functions-type-cast.html#to_bool),
+  [TO_NUMBER()](./aql/functions-type-cast.html#to_number), [TO_STRING()](./aql/functions-type-cast.html#to_string)
 
 **Examples**
 
