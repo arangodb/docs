@@ -495,7 +495,7 @@ It is always a string. The query result will be converted according to
 {% hint 'information' %}
 If `returntType` is `"number"` or `"bool"` there is no need 
 to use custom analyzer via `ANALYZER()` function in your queries. Numerics and booleans
-will be available the same way as if these values were directly in indexed documents.
+will be available the same way as if these values were directly in the indexed documents.
 {% endhint %}
 
 
@@ -528,8 +528,8 @@ attributes:
 
   If type does not match
   actual value type returned by `queryString` implicit type conversion is
-  done according to AQL type conversion rules see [TO_BOOL()](./aql/functions-type-cast.html#to_bool),
-  [TO_NUMBER()](./aql/functions-type-cast.html#to_number), [TO_STRING()](./aql/functions-type-cast.html#to_string)
+  done according to AQL type conversion rules see [TO_STRING()](./aql/functions-type-cast.html#to_string),
+  [TO_NUMBER()](./aql/functions-type-cast.html#to_number), [TO_BOOL()](./aql/functions-type-cast.html#to_bool).
 
 **Examples**
 
