@@ -44,20 +44,80 @@ replace the old features with:
   against the database in recent versions, because of better performance and
   reduced maintenance complexity.
 
-- **Outdated AQL functions**: The following AQL functions are deprecated and their usage is
-  discouraged:
-  - `IS_IN_POLYGON` (use `GEO_CONTAINS` instead)
-  - `NEAR` (use [Geo utility functions](aql/functions-geo.html#geo-utility-functions) instead)
-  - `WITHIN` (use [Geo utility functions](aql/functions-geo.html#geo-utility-functions) instead)
-  - `WITHIN_RECTANGLE` (use [Geo utility functions](aql/functions-geo.html#geo-utility-functions) instead)
+- **Actions**: Snippets of JavaScript code on the server-side for minimal
+  custom endpoints. Since the Foxx revamp in 3.0, it became really easy to
+  write [Foxx Microservices](foxx.html), which allow you to define
+  custom endpoints even with complex business logic.
 
-- **bfs** traversal attribute: Using the *bfs* attribute inside traversal options is deprecated 
-  since v3.8.0. The preferred way to start a breadth-first traversal is by using the new
-  `order` attribute, and setting it to a value of `bfs`.
+  From v3.5.0 on, the system collections `_routing` and `_modules` are not
+  created anymore when the `_system` database is first created (blank new data
+  folder). They are not actively removed, they remain on upgrade or backup
+  restoration from previous versions.
+
+  You can still find the
+  [Actions documentation](https://www.arangodb.com/docs/3.4/appendix-deprecated-actions.html){:target="_blank"}
+  in 3.4 or older versions of the documentation.
+
+- **Outdated AQL functions**: The following AQL functions are deprecated and
+  their usage is discouraged:
+  - `IS_IN_POLYGON`
+  - `NEAR`
+  - `WITHIN`
+  - `WITHIN_RECTANGLE`
+
+  See [Geo functions](aql/functions-geo.html) for substitutes.
+
+- **`bfs` option** in AQL graph traversal: Using the *bfs* attribute inside
+  traversal options is deprecated since v3.8.0. The preferred way to start a
+  breadth-first traversal is by using the new `order` attribute, and setting it
+  to a value of `bfs`.
+
+- **Overwrite option**: The `overwrite` option for insert operations (either
+  single document operations or AQL `INSERT` operations) is deprecated in favor
+  of the `overwriteMode` option, which provides more flexibility.
+
+- **`minReplicationFactor` collection option**: The `minReplicationFactor`
+  option for collections has been renamed to `writeConcern`. If
+  `minReplicationFactor` is specified and no `writeConcern` is set, the
+  `minReplicationFactor` value will still be picked up and used as
+  `writeConcern` value. However, this compatibility mode will be removed
+  eventually, so changing applications from using `minReplicationFactor` to
+  `writeConcern` is advised.
+
+- **Outdated startup options**
+
+  The following _arangod_ startup options are deprecated and will be removed
+  in a future version:
+  - `--database.old-system-collections` (no need to use it anymore)
+  - `--server.jwt-secret` (use `--server.jwt-secret-keyfile`) 
+  - `--arangosearch.threads` / `--arangosearch.threads-limit`
+    (use the following options instead):
+    - `--arangosearch.commit-threads`
+    - `--arangosearch.commit-threads-idle`
+    - `--arangosearch.consolidation-threads`
+    - `--arangosearch.consolidation-threads-idle`
+  - `--rocksdb.exclusive-writes` (was intended only as a stopgap measure to
+    make porting applications from MMFiles to RocksDB easier)
+
+  The following options are deprecated for _arangorestore_:
+  - `--default-number-of-shards` (use `--number-of-shards` instead)
+  - `--default-replication-factor` (use `--replication-factor` instead)
+
+  The following startup options are deprecated in _arangod_ and all client tools:
+  - `--log` (use `--log.level` instead)
+  - `--log.use-local-time` (use `--log.time-format` instead)
+  - `--log.use-microtime` (use `--log.time-format` instead)
+  - `--log.performance` (use `--log.level` instead)
+
+- **Obsoleted startup options**: Any startup options marked as obsolete can be
+  removed in any future version of ArangoDB, so their usage is highly
+  discouraged. Their functionality is already removed, but they still exist to
+  prevent unknown startup option errors.
 
 - **JavaScript traversal API**: The [JavaScript traversal API](http/traversal.html)
-  is deprecated from version 3.4.0. The JavaScript traversal module `@arangodb/graph/traversal`
-  is also deprecated since then .The preferred way to traverse graphs is via AQL.
+  is deprecated since version 3.4.0. The JavaScript traversal module
+  `@arangodb/graph/traversal` is also deprecated since then. The preferred way
+  to traverse graphs is via AQL.
 
 - **JavaScript-based AQL graph functions**: The following JavaScript-based AQL
   graph functions are deprecated:
@@ -77,56 +137,3 @@ replace the old features with:
   - `arangodb::GRAPH_BETWEENNESS`
   - `arangodb::GRAPH_RADIUS`
   - `arangodb::GRAPH_DIAMETER`
-
-- **Overwrite option**: The `overwrite` option for insert operations (either single 
-  document operations or AQL INSERT operations) is deprecated in favor of the `overwriteMode`
-  option, which provides more flexibility.
-
-- **minReplicationFactor collection option**: The `minReplicationFactor` option for collections
-  has been renamed to `writeConcern`. If `minReplicationFactor` is specified and no `writeConcern`
-  is set, the `minReplicationFactor` value will still be picked up and used as `writeConcern` 
-  value. However, this compatiblity mode will be removed eventually, so changing applications
-  from using `minReplicationFactor` to `writeConcern` is advised.
-
-- **Outdated startup options**: The following _arangod_ startup options are deprecated 
-  and will be removed in a future version:
-  - `--database.old-system-collections` (no need to use anymore)
-  - `--server.jwt-secret` (use `--server.jwt-secret-keyfile`) 
-  - `--arangosearch.threads` (use `--arangosearch.commit-threads` and 
-    `--arangosearch.consolidation threads` instead)
-  - `--arangosearch.threads-limit` (same)
-  - `--rocksdb.exclusive-writes` (was intended only as a stopgap measure to make porting
-    applications from MMFiles to RocksDB easier)
-
-  The following options are deprecated for _arangorestore_:
-  - `--default-number-of-shards` (use `--number-of-shards` instead)
-  - `--default-replication-factor` (use `--replication-factor` instead)
-
-  The following startup options are deprecated in _arangod_ and all client tools:
-  - `--log` (use `--log.level` instead)
-  - `--log.use-local-time` (use `--log.time-format` instead)
-  - `--log.use-microtime` (use `--log.time-format` instead)
-  - `--log.performance` (use `--log.level` instead)
-
-- **Obsoleted startup options**: Any startup options marked as obsolete can be removed
-  in any future version of ArangoDB, so their usage is highly discouraged.
-
-- **Actions**: Snippets of JavaScript code on the server-side for minimal
-  custom endpoints. Since the Foxx revamp in 3.0, it became really easy to
-  write [Foxx Microservices](foxx.html), which allow you to define
-  custom endpoints even with complex business logic.
-
-  From v3.5.0 on, the system collections `_routing` and `_modules` are not
-  created anymore when the `_system` database is first created (blank new data
-  folder). They are not actively removed, they remain on upgrade or backup
-  restoration from previous versions.
-
-  You can still find the
-  [Actions documentation](https://www.arangodb.com/docs/3.4/appendix-deprecated-actions.html){:target="_blank"}
-  in 3.4 or older versions of the documentation.
-
-- **PlanVersion** in cluster inventory results: The endpoint 
-  `/_api/replication/clusterInventory` returns, among other things,
-  an array of the existing collections. Each collection has a `planVersion`
-  attribute, which from ArangoDB 3.8 is now hard-coded to the value of 1. This
-  attribute will be removed in future versions.
