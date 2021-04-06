@@ -134,6 +134,22 @@ The conversion produces the following `outputFile.jsonl`:
 {"isActive":true,"name":"Coffey Barron","latitude":-37.78772,"longitude":131.218935,"tags":["dolore","exercitation","irure","velit"]}
 ```
 
+Reading compressed input files
+------------------------------
+
+*arangoimport* can transparently process gzip-compressed input files
+if they have a ".gz" file extension, e.g.
+
+    arangoimport --file "users.jsonl.gz" --type jsonl --collection "users"
+
+For other input formats it is possible to decompress the input file using another
+program and piping its output into arangoimport, e.g.
+
+    bzcat data.bz2 | arangoimport --file "-" --type jsonl --collection "users"
+
+This example requires that a `bzcat` utility for decompressing bzip2-compressed
+files is available, and that the shell supports pipes.
+
 Import Example and Common Options
 ---------------------------------
 
