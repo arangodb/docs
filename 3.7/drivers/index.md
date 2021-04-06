@@ -54,7 +54,8 @@ arangoclient.net | C# / .NET | [github.com/ra0o0f/arangoclient.net](https://gith
 arango-driver _(fork of ArangoRB)_ | Ruby | [github.com/isomorfeus/arango-driver](https://github.com/isomorfeus/arango-driver){:target="_blank"}
 arangors | Rust | [github.com/fMeow/arangors](https://github.com/fMeow/arangors){:target="_blank"}
 Tash | C++ | [gitlab.com/neel.basu/tash](https://gitlab.com/neel.basu/tash){:target="_blank"}
-erlArango | Erlang | [github.com/SisMaker/erlArango](https://github.com/SisMaker/erlArango){:target="_blank"}
+erlArango | Erlang | [github.com/ErlGameWorld/erlArango](https://github.com/ErlGameWorld/erlArango){:target="_blank"}
+eArango | Erlang | [github.com/ErlGameWorld/eArango](https://github.com/ErlGameWorld/eArango){:target="_blank"}
 darango | Dart | [github.com/BastienFerbu/darango](https://github.com/BastienFerbu/darango){:target="_blank"}
 arango-dart | Dart | [github.com/xtyxtyx/arango-dart](https://github.com/xtyxtyx/arango-dart){:target="_blank"}
 
