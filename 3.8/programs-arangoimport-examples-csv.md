@@ -178,3 +178,23 @@ attribute in *all* shards of the collection.
 The same thing would apply if your data contains an *_id* attribute:
 
     arangoimport --file "data.csv" --type csv --remove-attribute "_id"
+
+Reading headers from a separate file
+------------------------------------
+
+For the CSV and TSV input formats it is sometimes required to read raw data
+files that do not contain a first line with all attributes names.
+
+For these cases, *arangoimport* supports a `--headers-file` option to specify
+a separate input file just for the header line with all the attribute names.
+The contents of this file will be interpreted as CSV/TSV line with attribute
+names, and the contents of the regular input file (`--file`) will be
+interpreted as the data to import, without any attribute names.
+
+The `--headers-option` can be used as follows:
+
+    arangoimport --file "data.csv" --type csv --headers-file "headers.csv"
+
+If the option is used, it is necessary that the file specified via
+`--headers-file` contains one line with the attribute names in CSV/TSV format
+(taking into account `--backslash-escape`, `--quote` and `--separator`).
