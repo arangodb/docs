@@ -25,10 +25,10 @@ Usage
 -----
 
 Specifying additional collections using the `WITH` operation is only needed for
-queries which dynamically access collections. This is the case if a query uses
-one of the following features:
+cluster queries which dynamically access collections. This is the case if a
+query uses one of the following features:
 
-- **Traversals**: 
+- **Traversals**: Edges can point to vertices in arbitrary collectionsIn graph traversals, 
 
 - **Functions**: 
 
