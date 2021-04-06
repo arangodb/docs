@@ -38,8 +38,8 @@ replace the old features with:
 
 - **Export API**:
   The [export REST API](http/export.html) is deprecated and will be removed in a
-  future version. Instead of using this API, please use an AQL streaming cursor
-  to dump the contents of a collection.
+  future version. Instead of using this API, please use an AQL query with a
+  streaming cursor to dump the contents of a collection.
 
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](aql/index.html), which can also
