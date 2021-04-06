@@ -409,13 +409,18 @@ FOR name IN Names
     ...
 ```
 
+You can set the startup option `--query.allow-collections-in-expressions` to
+*false* to disallow collection names in arbitrary places in AQL expressions
+to prevent such mistakes. Also see
+[ArangoDB Server Query Options](../programs-arangod-query.html#allowing-the-usage-of-collection-names-in-aql-expressions)
+
 {%- comment %}
 Rename to Error Sources?
 
 Quote marks around bind parameter placeholders
 https://github.com/arangodb/arangodb/issues/1634#issuecomment-167808660
 
-FILTER HAS(doc, "attr") instead of FITLER doc.attr / FILTER doc.attr != null
+FILTER HAS(doc, "attr") instead of FILTER doc.attr / FILTER doc.attr != null
 
 collection ... not found error, e.g. access of variable after COLLECT (no longer existing)
 {% endcomment %}
