@@ -34,7 +34,7 @@ replace the old features with:
 
   The collection attributes `doCompact`, `indexBuckets`, `isVolatile`,
   `journalSize` and `path` are only used with MMFiles and are thus also
-  deprecated.
+  deprecated. They are completely ignored when specified in requests.
 
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](aql/index.html), which can also
@@ -57,3 +57,83 @@ replace the old features with:
   You can still find the
   [Actions documentation](https://www.arangodb.com/docs/3.4/appendix-deprecated-actions.html){:target="_blank"}
   in 3.4 or older versions of the documentation.
+
+- **Outdated AQL functions**: The following AQL functions are deprecated and
+  their usage is discouraged:
+  - `IS_IN_POLYGON`
+  - `NEAR`
+  - `WITHIN`
+  - `WITHIN_RECTANGLE`
+
+  See [Geo functions](aql/functions-geo.html) for substitutes.
+
+- **`bfs` option** in AQL graph traversal: Using the *bfs* attribute inside
+  traversal options is deprecated since v3.8.0. The preferred way to start a
+  breadth-first traversal is by using the new `order` attribute, and setting it
+  to a value of `bfs`.
+
+- **Overwrite option**: The `overwrite` option for insert operations (either
+  single document operations or AQL `INSERT` operations) is deprecated in favor
+  of the `overwriteMode` option, which provides more flexibility.
+
+- **`minReplicationFactor` collection option**: The `minReplicationFactor`
+  option for collections has been renamed to `writeConcern`. If
+  `minReplicationFactor` is specified and no `writeConcern` is set, the
+  `minReplicationFactor` value will still be picked up and used as
+  `writeConcern` value. However, this compatibility mode will be removed
+  eventually, so changing applications from using `minReplicationFactor` to
+  `writeConcern` is advised.
+
+- **Outdated startup options**
+
+  The following _arangod_ startup options are deprecated and will be removed
+  in a future version:
+  - `--database.old-system-collections` (no need to use it anymore)
+  - `--server.jwt-secret` (use `--server.jwt-secret-keyfile`) 
+  - `--arangosearch.threads` / `--arangosearch.threads-limit`
+    (use the following options instead):
+    - `--arangosearch.commit-threads`
+    - `--arangosearch.commit-threads-idle`
+    - `--arangosearch.consolidation-threads`
+    - `--arangosearch.consolidation-threads-idle`
+  - `--rocksdb.exclusive-writes` (was intended only as a stopgap measure to
+    make porting applications from MMFiles to RocksDB easier)
+
+  The following options are deprecated for _arangorestore_:
+  - `--default-number-of-shards` (use `--number-of-shards` instead)
+  - `--default-replication-factor` (use `--replication-factor` instead)
+
+  The following startup options are deprecated in _arangod_ and all client tools:
+  - `--log` (use `--log.level` instead)
+  - `--log.use-local-time` (use `--log.time-format` instead)
+  - `--log.use-microtime` (use `--log.time-format` instead)
+  - `--log.performance` (use `--log.level` instead)
+
+- **Obsoleted startup options**: Any startup options marked as obsolete can be
+  removed in any future version of ArangoDB, so their usage is highly
+  discouraged. Their functionality is already removed, but they still exist to
+  prevent unknown startup option errors.
+
+- **JavaScript traversal API**: The [JavaScript traversal API](http/traversal.html)
+  is deprecated since version 3.4.0. The JavaScript traversal module
+  `@arangodb/graph/traversal` is also deprecated since then. The preferred way
+  to traverse graphs is via AQL.
+
+- **JavaScript-based AQL graph functions**: The following JavaScript-based AQL
+  graph functions are deprecated:
+  - `arangodb::GRAPH_EDGES`
+  - `arangodb::GRAPH_VERTICES`
+  - `arangodb::GRAPH_NEIGHBORS`
+  - `arangodb::GRAPH_COMMON_NEIGHBORS`
+  - `arangodb::GRAPH_COMMON_PROPERTIES`
+  - `arangodb::GRAPH_PATHS`
+  - `arangodb::GRAPH_SHORTEST_PATH`
+  - `arangodb::GRAPH_DISTANCE_TO`
+  - `arangodb::GRAPH_ABSOLUTE_ECCENTRICITY`
+  - `arangodb::GRAPH_ECCENTRICITY`
+  - `arangodb::GRAPH_ABSOLUTE_CLOSENESS`
+  - `arangodb::GRAPH_CLOSENESS`
+  - `arangodb::GRAPH_ABSOLUTE_BETWEENNESS`
+  - `arangodb::GRAPH_BETWEENNESS`
+  - `arangodb::GRAPH_RADIUS`
+  - `arangodb::GRAPH_DIAMETER`
