@@ -36,6 +36,11 @@ replace the old features with:
   `journalSize` and `path` are only used with MMFiles and are thus also
   deprecated. They are completely ignored when specified in requests.
 
+- **Export API**:
+  The [export REST API](http/export.html) is deprecated and will be removed in a
+  future version. Instead of using this API, please use an AQL streaming cursor
+  to dump the contents of a collection.
+
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](aql/index.html), which can also
   be run in arangosh. AQL is a language on its own and way more powerful than
