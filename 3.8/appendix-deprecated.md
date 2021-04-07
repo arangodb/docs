@@ -49,6 +49,12 @@ replace the old features with:
   against the database in recent versions, because of better performance and
   reduced maintenance complexity.
 
+- **Old metrics API**:
+  The old metrics API under `/_admin/metrics` is deprecated and replaced by
+  a new one under `/_admin/metrics/v2` from version 3.8.0 on. This step was
+  necessary because the old API did not follow quite a few Prometheus
+  guidelines for metrics.
+
 - **Actions**: Snippets of JavaScript code on the server-side for minimal
   custom endpoints. Since the Foxx revamp in 3.0, it became really easy to
   write [Foxx Microservices](foxx.html), which allow you to define
