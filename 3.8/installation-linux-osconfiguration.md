@@ -37,9 +37,10 @@ for the server explicitly, ArangoDB will use the default locale of your system.
 
 {% hint 'warning' %}
 The server language is stored in the `LANGUAGE` file in the database directory.
-This file should not be changed, because it may render indices invalid.
-To change the language, dump the data and restore it into another instance
-which has the new language set.
+This file should not be modified manually to bypass issues with the locale,
+because it may render indices invalid without raising a warning or error.
+Dumping the data and restoring it into an instance that has the correct
+language configured is advised.
 {% endhint %}
 
 File Systems
