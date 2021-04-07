@@ -86,12 +86,16 @@ List currently ongoing Transactions
 Limitations
 -----------
 
+### Concurrent requests
+
 A given transaction is intended to be used **serially**. No concurrent requests
 using the same transaction ID should be issued by the client. The server can
 make some effort to serialize certain operations (see
 [Streaming Lock Timeout](../programs-arangod-transaction.html#streaming-lock-timeout)),
 however this will degrade the server's performance and may lead to sporadic
 errors with code `28` (locked).
+
+### Timeout
 
 A maximum lifetime for Stream Transactions is enforced on the Coordinator to
 ensure that abandoned transactions cannot block the cluster from operating
@@ -110,3 +114,9 @@ Enforcing the limit is useful to free up resources used by abandoned
 transactions, for example from transactions that are abandoned by client
 applications due to programming errors or that were left over because client
 connections were interrupted.
+
+### Batch requests
+
+The [Batch API](batch-request.html) cannot be used for batching requests for
+Stream transactions as it does not forward the required `x-arango-trx-id`
+header.
