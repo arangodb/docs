@@ -41,6 +41,12 @@ replace the old features with:
   future version. Instead of using this API, please use an AQL query with a
   streaming cursor to dump the contents of a collection.
 
+- **Batch Requests API**:
+  The [batch request REST API](http/batch-request.html) is deprecated and will be 
+  removed in a future version. Instead of using this API, please use the 
+  [HTTP Interface for Documents](http/document.html), which can handle arrays of
+  documents to insert, update, replace, remove.
+
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](aql/index.html), which can also
   be run in arangosh. AQL is a language on its own and way more powerful than
