@@ -99,6 +99,15 @@ The `-c` option enables compact JSON (as opposed to pretty printed JSON).
 `".[]"` is a filter that unpacks the top-level array and effectively puts each
 object in that array on a separate line in combination with the compact option.
 
+jq needs to create an internal representation of the entire input first however,
+making this method unsuitable for large JSON source files. jq v1.5 added
+support for a streaming mode that can perform the conversion on the fly with
+minimal memory usage:
+
+```
+jq -cn --stream "fromstream(1|truncate_stream(inputs))" inputFile.json > outputFile.jsonl
+```
+
 An example `inputFile.json` can look like this:
 
 ```json
