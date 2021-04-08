@@ -149,7 +149,7 @@ and the flexibility of joins for your data model.
 
 ### Many-To-Many
 
-In the relational word you need a third table to model the many-to-many
+In the relational world you need a third table to model the many-to-many
 relation. In ArangoDB you have a choice depending on the information you are
 going to store and the type of questions you are going to ask.
 
