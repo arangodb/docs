@@ -42,6 +42,8 @@ the server starts up, and there will be no unavailability window.
 Collection attributes
 ---------------------
 
+### Obsoleted attributes
+
 The collection properties `indexBuckets`, `journalSize`, `doCompact` and
 `isVolatile` only had a meaning for the MMFiles storage engine, which is not
 available anymore since ArangoDB 3.7.

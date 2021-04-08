@@ -16,6 +16,8 @@ integrations for ArangoDB 3.8.
 The following changes affect the behavior of the RESTful collection APIs at
 endpoints starting with path `/_api/collection/`:
 
+#### Obsoleted attributes
+
 The collection properties `indexBuckets`, `journalSize`, `doCompact` and
 `isVolatile` only had a meaning for the MMFiles storage engine, which is not
 available anymore since ArangoDB 3.7.
