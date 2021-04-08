@@ -31,13 +31,15 @@ The following comparison operators are supported:
 
 Each of the comparison operators returns a boolean value if the comparison can
 be evaluated and returns *true* if the comparison evaluates to true, and *false*
-otherwise. 
+otherwise.
 
-The comparison operators accept any data types for the first and second operands. 
-However, `IN` and `NOT IN` will only return a meaningful result if their right-hand 
-operand is an array, and `LIKE` will only execute if both operands are string values.
-The comparison operators will not perform any implicit type casts if the compared 
-operands have different or non-sensible types.
+The comparison operators accept any data types for the first and second
+operands. However, `IN` and `NOT IN` will only return a meaningful result if
+their right-hand operand is an array. `LIKE` and `NOT LIKE` will only execute
+if both operands are string values. All four operators will not perform
+implicit type casts if the compared operands have different types, i.e.
+they test for strict equality or inequality (`0` is different to `"0"`,
+`[0]`, `false` and `null` for example).
 
 Some examples for comparison operations in AQL:
 
