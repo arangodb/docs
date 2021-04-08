@@ -94,6 +94,18 @@ different usage scenarios:
   result TTL indexes will likely not be used for filtering and sort operations in user-land
   AQL queries.
 
+- multi-dimensional index: a multi dimensional index allows to efficiently intersect
+  multiple range queries. Typical use cases are querying intervals that intersect
+  a given point or interval, e.g. if intervals look like
+
+      { "from": 12, "to": 45 }
+
+  with an index on `from, to` can be used to query via
+
+      FOR i IN intervals FILTER i.from <= t && t <= i.to RETURN i
+
+  Currently only doubles are supported as underlying type for each dimension.
+
 - geo index: the geo index provided by ArangoDB allows searching for documents
   within a radius around a two-dimensional earth coordinate (point), or to
   find documents with are closest to a point. Document coordinates can either 
