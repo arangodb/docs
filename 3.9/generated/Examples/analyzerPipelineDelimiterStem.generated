@@ -1,0 +1,14 @@
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"delimiter_stem"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-attr">pipeline</span>: [
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"delimiter"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">","</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"delimiter"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">delimiter</span>: <span class="hljs-string">";"</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"stem"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">"en.utf-8"</span> } }
+........&gt; ] }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("delimited,stemmable;words", "delimiter_stem")`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">"delimit"</span>, 
+    <span class="hljs-string">"stemmabl"</span>, 
+    <span class="hljs-string">"word"</span> 
+  ] 
+]

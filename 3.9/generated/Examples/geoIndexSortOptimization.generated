@@ -1,0 +1,99 @@
+arangosh&gt; db.geoSort.ensureIndex({ type: "geo", fields: [ "latitude", "longitude" ] });
+{ 
+  "bestIndexedLevel" : 17, 
+  "fields" : [ 
+    "latitude", 
+    "longitude" 
+  ], 
+  "geoJson" : false, 
+  "id" : "geoSort/89701", 
+  "isNewlyCreated" : true, 
+  "maxNumCoverCells" : 8, 
+  "name" : "idx_1694620701258940416", 
+  "sparse" : true, 
+  "type" : "geo", 
+  "unique" : false, 
+  "worstIndexedLevel" : 4, 
+  "code" : 201 
+}
+arangosh&gt; for (i = -90;  i &lt;= 90;  i += 10) {
+........&gt;     for (j = -180; j &lt;= 180; j += 10) {
+........&gt;         db.geoSort.save({ name : "Name/" + i + "/" + j, latitude : i, longitude : j });
+........&gt;     }
+........&gt; }
+arangosh&gt; var query = "FOR doc in geoSort SORT DISTANCE(doc.latitude, doc.longitude, 0, 0) LIMIT 5 RETURN doc"
+arangosh&gt; db._explain(query, {}, {colors: false});
+Query String (86 chars, cacheable: true):
+ FOR doc in geoSort SORT DISTANCE(doc.latitude, doc.longitude, 0, 0) LIMIT 5 RETURN doc
+
+Execution plan:
+ Id   NodeType        Est.   Comment
+  1   SingletonNode      1   * ROOT
+  7   IndexNode        703     - FOR doc IN geoSort   /* geo index scan */    
+  5   LimitNode          5       - LIMIT 0, 5
+  6   ReturnNode         5       - RETURN doc
+
+Indexes used:
+ By   Name                      Type   Collection   Unique   Sparse   Selectivity   Fields                        Ranges
+  7   idx_1694620701258940416   geo    geoSort      false    true             n/a   [ `latitude`, `longitude` ]   (GEO_DISTANCE([ 0, 0 ], [ doc.`longitude`, doc.`latitude` ]) &lt; "unlimited")
+
+Optimization rules applied:
+ Id   RuleName
+  1   geo-index-optimizer
+  2   remove-unnecessary-calculations-2
+
+Optimization rules with highest execution times:
+ RuleName                                    Duration [s]
+ geo-index-optimizer                              0.00002
+ replace-function-with-index                      0.00000
+ remove-unnecessary-calculations-2                0.00000
+ reduce-extraction-to-projection                  0.00000
+ use-indexes                                      0.00000
+
+41 rule(s) executed, 1 plan(s) created
+
+
+arangosh&gt; db._query(query);
+[ 
+  { 
+    "_key" : "90407", 
+    "_id" : "geoSort/90407", 
+    "_rev" : "_cCeGwkS--A", 
+    "name" : "Name/0/0", 
+    "latitude" : 0, 
+    "longitude" : 0 
+  }, 
+  { 
+    "_key" : "90481", 
+    "_id" : "geoSort/90481", 
+    "_rev" : "_cCeGwk6--B", 
+    "name" : "Name/10/0", 
+    "latitude" : 10, 
+    "longitude" : 0 
+  }, 
+  { 
+    "_key" : "90409", 
+    "_id" : "geoSort/90409", 
+    "_rev" : "_cCeGwkS--B", 
+    "name" : "Name/0/10", 
+    "latitude" : 0, 
+    "longitude" : 10 
+  }, 
+  { 
+    "_key" : "90333", 
+    "_id" : "geoSort/90333", 
+    "_rev" : "_cCeGwje--B", 
+    "name" : "Name/-10/0", 
+    "latitude" : -10, 
+    "longitude" : 0 
+  }, 
+  { 
+    "_key" : "90405", 
+    "_id" : "geoSort/90405", 
+    "_rev" : "_cCeGwkS--_", 
+    "name" : "Name/0/-10", 
+    "latitude" : 0, 
+    "longitude" : -10 
+  } 
+]
+[object ArangoQueryCursor, count: 5, cached: false, hasMore: false]
