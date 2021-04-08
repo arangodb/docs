@@ -132,7 +132,8 @@ The option can also be overridden for each individual AQL query.
 
 ## Allowing the usage of collection names in AQL expressions
 
-<small>Introduced in: v3.8.0</small>
+<small>Introduced in: v3.8.0</small><br>
+<small>Deprecated in: v3.9.0</small>
 
 `--query.allow-collections-in-expressions value`
 
@@ -158,10 +159,10 @@ Setting the option `--query.allow-collections-in-expression` to *false* will
 prohibit such unintentional usage of collection names in queries, and instead
 make the query fail with error 1568 ("collection used as expression operand").
 
-The default value of the option is *true* in 3.8, meaning that potentially
-unintended usage of collection names in queries is still allowed. The default
-value for the option will change to *false* in 3.9. The option will also be
-deprecated in 3.9 and removed in future versions. From then on, unintended
+The default value of the option is *true* in v3.8, meaning that potentially
+unintended usage of collection names in queries is still allowed. However,
+the default value for the option is *false* in v3.9. The option is deprecated
+from 3.9.0 on and will be removed in future versions. From then on, unintended
 usage of collection names will always be disallowed.
 
 ## Enable/disable AQL query tracking
