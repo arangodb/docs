@@ -165,18 +165,24 @@ Add the actual content below the frontmatter.
 
 ### When adding a new release
 
+- Run below commands in Bash under Linux. Do not use Git Bash on Windows,
+  it dereferences symlinks (copies the referenced files)!
 - Copy the latest devel version to a new directory i.e. `cp -a 3.7 3.8`
 - Create the necessary navigation definition files in `_data` by copying, e.g.
   ```
+  cd _data
   for book in aql drivers http manual oasis; do
     cp -a "3.7-${book}.yml" "3.8-${book}.yml"
   done
+  cd ..
   ```
 - Create relative symlinks to program option JSON files in `_data`, like
   ```
+  cd _data
   for prog in backup bench d dump export import inspect restore sh; do
     ln -s "../3.8/generated/arango${prog}-options.json" "3.8-program-options-arango${prog}.json"
   done
+  cd ..
   ```
 - Adjust the version numbers in `site.data` references in all pages of the
   copied folder (here: `3.8`) which include program startup options
@@ -220,6 +226,22 @@ Add the actual content below the frontmatter.
   ```
 - Add the relevant links to the release notes overview page
   `3.8/release-notes.html`
+- Delete the release note pages of the previous version (here: `3.7`) in the
+  folder of the new version (here: `3.8`) and symlink the files instead:
+  ```
+  cd 3.8
+  rm release-notes-37.md
+  rm release-notes-new-features37.md
+  rm release-notes-known-issues37.md
+  rm release-notes-upgrading-changes37.md
+  rm release-notes-api-changes37.md
+  ln -s ../3.7/release-notes-37.md release-notes-37.md
+  ln -s ../3.7/release-notes-new-features37.md release-notes-new-features37.md
+  ln -s ../3.7/release-notes-known-issues37.md release-notes-known-issues37.md
+  ln -s ../3.7/release-notes-upgrading-changes37.md release-notes-upgrading-changes37.md
+  ln -s ../3.7/release-notes-api-changes37.md release-notes-api-changes37.md
+  cd ..
+  ```
 - Add a section _Version 3.8_ to `3.8/highlights.html` including a link to
   _What's New in 3.8_
 - Add the version to `_data/versions.yml` with the full version name

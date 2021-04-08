@@ -11,6 +11,8 @@ integrations for ArangoDB 3.9.
 
 ## HTTP RESTful API
 
+### Privilege changes
+
 ### Endpoint return value changes
 
 ### Endpoints added
