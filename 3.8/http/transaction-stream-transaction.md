@@ -86,6 +86,28 @@ List currently ongoing Transactions
 Limitations
 -----------
 
+### Timeout and transaction size
+
+A maximum lifetime and transaction size for Stream Transactions is enforced
+on the Coordinator to ensure that abandoned transactions cannot block the
+cluster from operating properly:
+
+- Maximum idle timeout of up to **120 seconds** between operations
+- Maximum transaction size of **128 MB** per DB-Server
+
+These limits are also enforced for Stream Transactions on single servers.
+
+The default maximum idle timeout is **60 seconds** between operations in a
+single Stream Transaction. The maximum value can be bumped up to at most 120
+seconds by setting the startup option `--transaction.streaming-idle-timeout`.
+Posting an operation into a non-expired Stream Transaction will reset the
+transaction's timeout to the configured idle timeout.
+
+Enforcing the limit is useful to free up resources used by abandoned
+transactions, for example from transactions that are abandoned by client
+applications due to programming errors or that were left over because client
+connections were interrupted.
+
 ### Concurrent requests
 
 A given transaction is intended to be used **serially**. No concurrent requests
@@ -95,28 +117,8 @@ make some effort to serialize certain operations (see
 however this will degrade the server's performance and may lead to sporadic
 errors with code `28` (locked).
 
-### Timeout
-
-A maximum lifetime for Stream Transactions is enforced on the Coordinator to
-ensure that abandoned transactions cannot block the cluster from operating
-properly.
-
-The default maximum idle timeout is **60 seconds** between operations in a
-single Stream Transaction. The maximum value can be bumped up to at most 120
-seconds by setting the startup option `--transaction.streaming-idle-timeout`.
-
-Posting an operation into a non-expired Stream Transaction will reset the
-transaction's timeout to the configured idle timeout.
-
-The idle timeout is also enforced for Stream Transactions on single servers.
-
-Enforcing the limit is useful to free up resources used by abandoned
-transactions, for example from transactions that are abandoned by client
-applications due to programming errors or that were left over because client
-connections were interrupted.
-
 ### Batch requests
 
-The [Batch API](batch-request.html) cannot be used for batching requests for
-Stream transactions as it does not forward the required `x-arango-trx-id`
-header.
+The [Batch API](batch-request.html) cannot be used in combination with
+Stream Transactions for submitting batched requests, because the required
+header `x-arango-trx-id` is not forwarded.
