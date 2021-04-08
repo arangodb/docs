@@ -1,0 +1,15 @@
+@Q:
+  RETURN [
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"Europe/Berlin"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"America/New_York"</span>),
+    DATE_LOCALTOUTC(<span class="hljs-string">"2020-03-15T00:00:00.000"</span>, <span class="hljs-string">"UTC"</span>)
+  ]
+
+@R
+[
+  [
+    <span class="hljs-string">"2020-03-14T23:00:00.000Z"</span>,
+    <span class="hljs-string">"2020-03-15T04:00:00.000Z"</span>,
+    <span class="hljs-string">"2020-03-15T00:00:00.000Z"</span>
+  ]
+]

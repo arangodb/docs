@@ -1,0 +1,12 @@
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"delimiter_hyphen"</span>, <span class="hljs-string">"delimiter"</span>, {
+........&gt;   delimiter: <span class="hljs-string">"-"</span>
+........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("some-delimited-words", "delimiter_hyphen")`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">"some"</span>, 
+    <span class="hljs-string">"delimited"</span>, 
+    <span class="hljs-string">"words"</span> 
+  ] 
+]

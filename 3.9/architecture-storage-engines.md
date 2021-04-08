@@ -1,0 +1,197 @@
+---
+layout: default
+description: At the very bottom of the ArangoDB database system lies the RocksDB storage engine
+title: ArangoDB Storage Engines
+---
+# Storage Engines
+
+{% hint 'warning' %}
+The MMFiles storage engine was removed.
+To change your MMFiles storage engine deployment to RocksDB, see:
+[Switch storage engine](administration-engine-switch-engine.html)
+{% endhint %}
+
+At the very bottom of the ArangoDB database system lies the storage
+engine. The storage engine is responsible for persisting the documents
+on disk, holding copies in memory, providing indexes and caches to
+speed up queries.
+
+Up to version 3.1 ArangoDB only supported memory-mapped files (**MMFiles**)
+as sole storage engine. In version 3.2, ArangoDB gained support for pluggable
+storage engines and a second engine based on Facebook's **RocksDB** was added.
+MMFiles remained the default engine for 3.3, but in 3.4 RocksDB became the new
+default. MMFiles was deprecated in version 3.6.0 and removed in 3.7.0.
+
+<!-- TODO: remove?
+The engine must be selected for the whole server / cluster. It is not
+possible to mix engines. The transaction handling and write-ahead-log
+format in the individual engines is very different and therefore cannot
+be mixed.
+-->
+
+{% hint 'tip' %}
+For practical information on how to switch storage engine please refer to the
+[Switching the storage engine](administration-engine-switch-engine.html)
+page.
+{% endhint %}
+
+| MMFiles | RocksDB |
+|---------|---------|
+| removed | default |
+| dataset needs to fit into memory | work with as much data as fits on disk |
+| indexes in memory | hot set in memory, data and indexes on disk |
+| slow restart due to index rebuilding | fast startup (no rebuilding of indexes) |
+| volatile collections (only in memory, optional) | collection data always persisted |
+| collection level locking (writes block reads) | concurrent reads and writes |
+
+*Blog article: [Comparing new RocksDB and MMFiles storage engines](https://www.arangodb.com/community-server/rocksdb-storage-engine/){:target="_blank"}*
+
+## MMFiles
+
+The MMFiles (Memory-Mapped Files) engine was optimized for the use-case where
+the data fit into the main memory. It allowed for very fast concurrent
+reads. However, writes blocked reads and locking was on collection
+level.
+
+Indexes were always in memory and rebuilt on startup. This
+gave better performance but imposed a longer startup time.
+
+## RocksDB
+
+RocksDB is an embeddable persistent key-value store. It is a log
+structure database and is optimized for fast storage.
+
+The RocksDB engine is optimized for large data-sets and allows for a
+steady insert performance even if the data-set is much larger than the
+main memory. Indexes are always stored on disk but caches are used to
+speed up performance. RocksDB uses document-level locks allowing for
+concurrent writes. Writes do not block reads. Reads do not block writes.
+
+### Advantages
+
+RocksDB is a very flexible engine that can be configured for various use cases.
+
+The main advantages of RocksDB are:
+
+- document-level locks
+- support for large data-sets
+- persistent indexes
+
+### Caveats
+
+RocksDB allows concurrent writes. However, when touching the same document a
+write conflict is raised. This cannot happen with the MMFiles engine, therefore
+applications that switch to RocksDB need to be prepared that such exception can
+arise. It is possible to exclusively lock collections when executing AQL. This
+will avoid write conflicts but also inhibits concurrent writes.
+
+Currently, another restriction is due to the transaction handling in
+RocksDB. Transactions are limited in total size. If you have a statement
+modifying a lot of documents it is necessary to commit data in-between. This will
+be done automatically for AQL by default. Transactions that get too big (in terms of
+number of operations involved or the total size of data modified by the transaction)
+will be committed automatically. Effectively this means that big user transactions
+are split into multiple smaller RocksDB transactions that are committed individually.
+The entire user transaction will not necessarily have ACID properties in this case.
+
+The threshold values for transaction sizes can be configured globally using the
+startup options
+
+- [`--rocksdb.intermediate-commit-size`](programs-arangod-rocksdb.html#non-pass-through-options)
+
+- [`--rocksdb.intermediate-commit-count`](programs-arangod-rocksdb.html#non-pass-through-options)
+
+- [`--rocksdb.max-transaction-size`](programs-arangod-rocksdb.html#non-pass-through-options)
+
+It is also possible to override these thresholds per transaction.
+
+### Performance
+
+RocksDB is based on a log-structured merge tree. A good introduction can be
+found in:
+
+- [www.benstopford.com/2015/02/14/log-structured-merge-trees/](http://www.benstopford.com/2015/02/14/log-structured-merge-trees/){:target="_blank"}
+- [blog.acolyer.org/2014/11/26/the-log-structured-merge-tree-lsm-tree/](https://blog.acolyer.org/2014/11/26/the-log-structured-merge-tree-lsm-tree/){:target="_blank"}
+
+The basic idea is that data is organized in levels were each level is a factor
+larger than the previous. New data will reside in smaller levels while old data
+is moved down to the larger levels. This allows to support high rate of inserts
+over an extended period. In principle it is possible that the different levels
+reside on different storage media. The smaller ones on fast SSD, the larger ones
+on bigger spinning disks.
+
+RocksDB itself provides a lot of different knobs to fine tune the storage
+engine according to your use-case. ArangoDB supports the most common ones
+using the options below.
+
+Performance reports for the storage engine can be found here:
+
+- [github.com/facebook/rocksdb/wiki/performance-benchmarks](https://github.com/facebook/rocksdb/wiki/performance-benchmarks){:target="_blank"}
+- [github.com/facebook/rocksdb/wiki/RocksDB-Tuning-Guide](https://github.com/facebook/rocksdb/wiki/RocksDB-Tuning-Guide){:target="_blank"}
+
+### ArangoDB options
+
+ArangoDB has a cache for the persistent indexes in RocksDB. The total size
+of this cache is controlled by the option
+
+    --cache.size
+
+RocksDB also has a cache for the blocks stored on disk. The size of
+this cache is controlled by the option
+
+    --rocksdb.block-cache-size
+
+ArangoDB distributes the available memory equally between the two
+caches by default.
+
+ArangoDB chooses a size for the various levels in RocksDB that is
+suitable for general purpose applications.
+
+RocksDB log strutured data levels have increasing size
+
+    MEM: --
+    L0:  --
+    L1:  -- --
+    L2:  -- -- -- --
+    ...
+
+New or updated Documents are first stored in memory. If this memtable
+reaches the limit given by
+
+    --rocksdb.write-buffer-size
+
+it will converted to an SST file and inserted at level 0.
+
+The following option controls the size of each level and the depth.
+
+    --rocksdb.num-levels N
+
+Limits the number of levels to N. By default it is 7 and there is
+seldom a reason to change this. A new level is only opened if there is
+too much data in the previous one.
+
+    --rocksdb.max-bytes-for-level-base B
+
+L0 will hold at most B bytes.
+
+    --rocksdb.max-bytes-for-level-multiplier M
+
+Each level is at most M times as much bytes as the previous
+one. Therefore the maximum number of bytes-for-level L can be
+calculated as
+
+    max-bytes-for-level-base * (max-bytes-for-level-multiplier ^ (L-1))
+
+### Future
+
+RocksDB imposes a limit on the transaction size. It is optimized to
+handle small transactions very efficiently, but is effectively limiting
+the total size of transactions.
+
+ArangoDB currently uses RocksDB's transactions to implement the ArangoDB
+transaction handling. Therefore the same restrictions apply for ArangoDB
+transactions when using the RocksDB engine.
+
+We will improve this by introducing distributed transactions in a future
+version of ArangoDB. This will allow handling large transactions as a
+series of small RocksDB transactions and hence removing the size restriction.
