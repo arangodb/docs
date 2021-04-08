@@ -13,7 +13,7 @@ The following incompatible changes have been made in ArangoDB 3.9:
 Startup options
 ---------------
 
-## Disallowed usage of collection names in AQL expressions
+### Disallowed usage of collection names in AQL expressions
 
 The startup option `--query.allow-collections-in-expressions` added in 3.8.0
 controls whether collection names are allowed in arbitrary places in AQL
@@ -30,3 +30,16 @@ From then on, unintended usage of collection names will always be disallowed.
 
 If you use queries like `RETURN collection` then you should replace them with
 `FOR doc IN collection RETURN doc` to ensure future compatibility.
+
+### Replaced arangovpack options
+
+The former options `--json` and `--pretty` of the *arangovpack* utility
+have been removed and have been replaced with separate options for specifying
+the input and output types:
+
+- `--input-type` (`json`, `json-hex`, `vpack`, `vpack-hex`)
+- `--output-type` (`json`, `json-pretty`, `vpack`, `vpack-hex`)
+
+The former option `--print-non-json` has been replaced with the new option
+`--fail-on-non-json` which makes arangovpack fail when trying to emit non-JSON
+types to JSON output.
