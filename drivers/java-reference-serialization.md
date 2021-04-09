@@ -6,15 +6,14 @@ layout: default description: Serialization
 
 While older versions of the driver used mapping features provided by the `velocypack` library, nowadays it is
 recommended to use [jackson-dataformat-velocypack](https://github.com/arangodb/jackson-dataformat-velocypack), which is
-a [Jackson](https://github.com/FasterXML/jackson) extension component for reading and writing VelocyPack and JSON using
-the [Jackson Databind API](https://github.com/FasterXML/jackson-databind).
+a VelocyPack dataformat backend for [Jackson](https://github.com/FasterXML/jackson), supporting the Streaming, Data
+Binding and Tree Model API styles.
 
 ## Import in maven
 
 To add it to your maven project, add the following to `pom.xml`:
 
 ```XML
-
 <dependencies>
     <dependency>
         <groupId>com.arangodb</groupId>
@@ -24,34 +23,79 @@ To add it to your maven project, add the following to `pom.xml`:
 </dependencies>
 ```
 
-## Usage
+The package also depends on `jackson-core`, `jackson-databind` and `jackson-annotations` packages, but when using build
+tools like Maven or Gradle, dependencies are automatically included. You may however want to
+use [jackson-bom](https://github.com/FasterXML/jackson-bom) to ensure dependency convergence across the entire project,
+for example in case there are in your project other libraries depending on different versions of the same Jackson
+packages.
 
-Just create an instance of `ArangoJack` and pass it to the driver
-through `ArangoDB.Builder.serializer(ArangoSerialization)`.
+```XML
 
-```java
-ArangoDB arango=new ArangoDB.Builder().serializer(new ArangoJack()).build();
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson</groupId>
+            <artifactId>jackson-bom</artifactId>
+            <version>...</version>
+            <scope>import</scope>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
 ```
+
+`jackson-dataformat-velocypack` is compatible with Jackson 2.10, 2.11 and 2.12.
 
 ## Configure
 
-Under the hood `jackson-dataformat-velocypack` extends Jackson `ObjectMapper`, which can be configured in the following
-way:
+Create an instance of `ArangoJack`, optionally configure the underlying `ObjectMapper` and pass it to the driver
+through `ArangoDB.Builder.serializer(ArangoSerialization)`:
 
-```java
-ArangoJack arangoJack=new ArangoJack();
-        arangoJack.configure((mapper)->{
-        // your configuration here
-        });
-        ArangoDB arango=new ArangoDB.Builder().serializer(arangoJack).build();
+```Java
+ArangoJack arangoJack = new ArangoJack();
+arangoJack.configure((mapper) -> {
+    // your configuration here
+});
+ArangoDB arango = new ArangoDB.Builder()
+    .serializer(arangoJack)
+    // ...
+    .build();
 ```
 
 where the lambda argument `mapper` is an instance of `VPackMapper`, subclass of `ObjectMapper`.
+See [Jackson Databind](https://github.com/FasterXML/jackson-databind/wiki/JacksonFeatures) configurable features.
 
 ## Mapping API
-TODO
+
+The library is fully compatible with [Jackson Databind](https://github.com/FasterXML/jackson-databind) API. To customize
+the mapping, entities can be annotated with [Jackson Annotations](https://github.com/FasterXML/jackson-annotations).
+
+### Renaming Properties
+
+To use a different serialized name for a field, use the annotation `@JsonProperty`.
+
+```Java
+public class MyObject {
+
+    @JsonProperty("title")
+    private String name;
+
+    // ...
+}
+```
+
+### Ignoring properties
+
+To ignore fields use the annotation `@JsonIgnore`.
+
+```Java
+public class Value {
+  @JsonIgnore public int internalValue;
+}
+```
 
 ## Custom serializer
+
 TODO
 
 ## Jackson datatype and language modules
@@ -91,12 +135,12 @@ val arangoDB = new ArangoDB.Builder()
 
 Support for Java 8 features is offered by [jackson-modules-java8](https://github.com/FasterXML/jackson-modules-java8).
 
-### Joda-Time
+### Joda types
 
 Support for Joda data types, such as DateTime, is offered
 by [jackson-datatype-joda](https://github.com/FasterXML/jackson-datatype-joda).
 
-## Internal fields
+## Metadata fields
 
 To map Arango metadata fields (like `_id`, `_key`, `_rev`, `_from`, `_to`) in your entities, use the
 annotation `DocumentField`.
@@ -108,7 +152,6 @@ public class MyObject {
   private String key;
   
   // ...
-
 }
 ```
 
