@@ -48,8 +48,14 @@ class NavigationTag < Liquid::Tag
                         found = true
                         classNames += " selected"
                     end
+                    if element["expand"]
+                        classNames += " expanded"
+                        if not localFound
+                            classNames += " selected"
+                        end
+                    end
                 end
-                
+
                 output += localIndent + "<li class=\"" + classNames + "\">\n"
                 output += children
                 output += localIndent + "</li>\n"
