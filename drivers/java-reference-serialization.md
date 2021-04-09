@@ -5,8 +5,8 @@ layout: default description: Serialization
 # Serialization
 
 While older versions of the driver used mapping features provided by the `velocypack` library, nowadays it is
-recommended to use `jackson-dataformat-velocypack`, which is a [Jackson](https://github.com/FasterXML/jackson) extension
-component for reading and writing VelocyPack and JSON using
+recommended to use [jackson-dataformat-velocypack](https://github.com/arangodb/jackson-dataformat-velocypack), which is
+a [Jackson](https://github.com/FasterXML/jackson) extension component for reading and writing VelocyPack and JSON using
 the [Jackson Databind API](https://github.com/FasterXML/jackson-databind).
 
 ## Import in maven
