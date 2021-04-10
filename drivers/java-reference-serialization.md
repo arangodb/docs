@@ -103,7 +103,7 @@ The serialization and deserialization can be customized using the lower level St
 creating and registering respectively `JsonSerializer<T>` and `JsonDeserializer<T>`, as specified by the Jackson API
 for [CustomSerializers](https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers).
 
-```text
+```Java
 static class PersonSerializer extends JsonSerializer<Person> {
     @Override
     public void serialize(Person value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
