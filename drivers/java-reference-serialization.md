@@ -68,7 +68,9 @@ See [Jackson Databind](https://github.com/FasterXML/jackson-databind/wiki/Jackso
 ## Mapping API
 
 The library is fully compatible with [Jackson Databind](https://github.com/FasterXML/jackson-databind) API. To customize
-the mapping, entities can be annotated with [Jackson Annotations](https://github.com/FasterXML/jackson-annotations).
+the serialization and deserialization behavior using the Jackson Data Binding API, entities can be annotated
+with [Jackson Annotations](https://github.com/FasterXML/jackson-annotations). For more advanced customizations refer to
+[Custom serializer](#Custom serializer) section.
 
 ### Renaming Properties
 
@@ -90,13 +92,60 @@ To ignore fields use the annotation `@JsonIgnore`.
 
 ```Java
 public class Value {
-  @JsonIgnore public int internalValue;
+    @JsonIgnore
+    public int internalValue;
 }
 ```
 
 ## Custom serializer
 
-TODO
+The serialization and deserialization can be customized using the lower level Streaming API or the Tree Model API,
+creating and registering respectively `JsonSerializer<T>` and `JsonDeserializer<T>`, as specified by the Jackson API
+for [CustomSerializers](https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers).
+
+```text
+static class PersonSerializer extends JsonSerializer<Person> {
+    @Override
+    public void serialize(Person value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+        // example using the Streaming API
+        gen.writeStartObject();
+        gen.writeFieldName("name");
+        gen.writeString(value.name);
+        gen.writeEndObject();
+    }
+}
+
+static class PersonDeserializer extends JsonDeserializer<Person> {
+    @Override
+    public Person deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException {
+        // example using the Tree Model API
+        Person person = new Person();
+        JsonNode rootNode = parser.getCodec().readTree(parser);
+        JsonNode nameNode = rootNode.get("name");
+        if (nameNode != null && nameNode.isTextual()) {
+            person.name = nameNode.asText();
+        }
+        return person;
+    }
+}
+
+// registering using annotation
+@JsonSerialize(using = PersonSerializer.class)
+public static class Person {
+    public String name;
+}
+
+// ...
+
+// registering programmatically
+ArangoJack arangoJack = new ArangoJack();
+arangoJack.configure((mapper) -> {
+    SimpleModule module = new SimpleModule("PersonModule");
+    module.addDeserializer(Person.class, new PersonDeserializer());
+    mapper.registerModule(module);
+});
+ArangoDB arangoDB = new ArangoDB.Builder().serializer(arangoJack).build();
+```
 
 ## Jackson datatype and language modules
 
@@ -162,11 +211,11 @@ To de-/serialize from and to VelocyPack before or after a database call, use the
 `ArangoCollection`, `ArangoGraph`, `ArangoEdgeCollection`or `ArangoVertexCollection`.
 
 ```Java
-ArangoDB arangoDB = new ArangoDB.Builder();
-VPackSlice vpack = arangoDB.util().serialize(myObj);
+ArangoDB arangoDB=new ArangoDB.Builder();
+        VPackSlice vpack=arangoDB.util(CUSTOM).serialize(myObj);
 ```
 
 ```Java
-ArangoDB arangoDB = new ArangoDB.Builder();
-MyObject myObj = arangoDB.util().deserialize(vpack, MyObject.class);
+ArangoDB arangoDB=new ArangoDB.Builder();
+        MyObject myObj=arangoDB.util(CUSTOM).deserialize(vpack,MyObject.class);
 ```
