@@ -501,6 +501,11 @@ requests unless explicitly told to do so:
 HTTP method overriding
 ----------------------
 
+{% hint 'warning' %}
+HTTP method overriding is deprecated from version 3.9.0 on and should no longer
+be used.
+{% endhint %}
+
 ArangoDB provides a startup option *--http.allow-method-override*.
 This option can be set to allow overriding the HTTP request method (e.g. GET, POST,
 PUT, DELETE, PATCH) of a request using one of the following custom HTTP headers:
@@ -533,9 +538,14 @@ whose value will be the ID of the node which actually answered the request:
 
 The following APIs may use request forwarding:
 
+- `/_api/control_pregel`
 - `/_api/cursor`
+- `/_api/document`
 - `/_api/job`
+- `/_api/replication`
+- `/_api/query`
 - `/_api/tasks`
+- `/_api/transaction`
 
 Note: since forwarding such requests require an additional cluster-internal HTTP
 request, they should be avoided when possible for best performance. Typically
