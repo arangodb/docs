@@ -47,6 +47,11 @@ replace the old features with:
   [HTTP Interface for Documents](http/document-working-with-documents.html#bulk-document-operations)
   that can insert, update, replace or remove arrays of documents.
 
+- **Accessing collections by ID instead of by name**:
+  Accessing collections by their internal ID instead of accessing them by name
+  is deprecated and highly discouraged. This functionality may be removed in
+  future versions of ArangoDB.
+
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](aql/index.html), which can also
   be run in arangosh. AQL is a language on its own and way more powerful than
@@ -115,6 +120,14 @@ replace the old features with:
     - `--arangosearch.consolidation-threads-idle`
   - `--rocksdb.exclusive-writes` (was intended only as a stopgap measure to
     make porting applications from MMFiles to RocksDB easier)
+  - `--http.allow-method-override`: this option allows incoming HTTP POST 
+    request to override the actual HTTP method used by setting one of the
+    special HTTP headers `x-http-method`, `x-method-override` or 
+    `x-http-method-override`. This was originally intended for very restricted
+    callers, which only supported HTTP GET and HTTP POST, but seems very
+    unnecessary nowadways.
+  - `--http.hide-product-header`: whether or not to hide the `Server: ArangoDB`
+    header in all responses served by arangod.
 
   The following options are deprecated for _arangorestore_:
   - `--default-number-of-shards` (use `--number-of-shards` instead)
