@@ -242,6 +242,10 @@ guaranteed to remain the same in future versions of ArangoDB. The hash values
 should therefore be used only for temporary calculations, e.g. to compare if two
 documents are the same, or for grouping values in queries.
 
+Note: the internal implementation of the `HASH` AQL function was changed in ArangoDB 
+3.9, making the hash values of ArangoDB 3.9 incompatible to the hash values generated
+by earlier versions.
+
 ### String-based hashing
 
 See the following string functions:
