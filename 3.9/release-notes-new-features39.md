@@ -25,3 +25,17 @@ the input and output types:
 The former option `--print-non-json` has been replaced with the new option
 `--fail-on-non-json` which makes arangovpack fail when trying to emit non-JSON
 types to JSON output.
+
+Internal changes
+----------------
+
+The compiler version used to build the ArangoDB Linux executables has been
+upgraded from g++ 9.3.0 to g++ 10.2.1.
+g++ 10 is also the expected version of g++ when compiling ArangoDB from
+source.
+
+The minimum architecture requirements have been raised from the Westmere
+architecture to the Sandy Bridge architecture. 256 bit AVX instructions are
+now expected to be present on all targets that run ArangoDB 3.9 executables.
+If a target does not support AVX instructions, it may fail with SIGILL at
+runtime.
