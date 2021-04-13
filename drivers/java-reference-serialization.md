@@ -1,13 +1,14 @@
 ---
-layout: default description: Serialization
+layout: default
+description: Serialization
 ---
-
 # Serialization
 
-While older versions of the driver used mapping features provided by the `velocypack` library, nowadays it is
-recommended to use [jackson-dataformat-velocypack](https://github.com/arangodb/jackson-dataformat-velocypack), which is
-a VelocyPack dataformat backend for [Jackson](https://github.com/FasterXML/jackson), supporting the Streaming, Data
-Binding and Tree Model API styles.
+While older versions of the driver used mapping features provided by the
+`velocypack` library, nowadays it is recommended to use
+[jackson-dataformat-velocypack](https://github.com/arangodb/jackson-dataformat-velocypack){:target="_blank"},
+which is a VelocyPack dataformat backend for [Jackson](https://github.com/FasterXML/jackson){:target="_blank"},
+supporting the Streaming, Data Binding and Tree Model API styles.
 
 ## Import in maven
 
@@ -23,14 +24,15 @@ To add it to your maven project, add the following to `pom.xml`:
 </dependencies>
 ```
 
-The package also depends on `jackson-core`, `jackson-databind` and `jackson-annotations` packages, but when using build
-tools like Maven or Gradle, dependencies are automatically included. You may however want to
-use [jackson-bom](https://github.com/FasterXML/jackson-bom) to ensure dependency convergence across the entire project,
-for example in case there are in your project other libraries depending on different versions of the same Jackson
-packages.
+The package also depends on `jackson-core`, `jackson-databind` and
+`jackson-annotations` packages, but when using build tools like Maven or
+Gradle, dependencies are automatically included. You may however want to
+use [jackson-bom](https://github.com/FasterXML/jackson-bom){:target="_blank"}
+to ensure dependency convergence across the entire project, for example in case
+there are in your project other libraries depending on different versions of
+the same Jackson packages.
 
 ```XML
-
 <dependencyManagement>
     <dependencies>
         <dependency>
@@ -48,8 +50,9 @@ packages.
 
 ## Configure
 
-Create an instance of `ArangoJack`, optionally configure the underlying `ObjectMapper` and pass it to the driver
-through `ArangoDB.Builder.serializer(ArangoSerialization)`:
+Create an instance of `ArangoJack`, optionally configure the underlying
+`ObjectMapper` and pass it to the driver through
+`ArangoDB.Builder.serializer(ArangoSerialization)`:
 
 ```Java
 ArangoJack arangoJack = new ArangoJack();
@@ -62,19 +65,23 @@ ArangoDB arango = new ArangoDB.Builder()
     .build();
 ```
 
-where the lambda argument `mapper` is an instance of `VPackMapper`, subclass of `ObjectMapper`.
-See [Jackson Databind](https://github.com/FasterXML/jackson-databind/wiki/JacksonFeatures) configurable features.
+where the lambda argument `mapper` is an instance of `VPackMapper`, subclass
+of `ObjectMapper`. See
+[Jackson Databind](https://github.com/FasterXML/jackson-databind/wiki/JacksonFeatures){:target="_blank"}
+configurable features.
 
 ## Mapping API
 
-The library is fully compatible with [Jackson Databind](https://github.com/FasterXML/jackson-databind) API. To customize
-the serialization and deserialization behavior using the Jackson Data Binding API, entities can be annotated
-with [Jackson Annotations](https://github.com/FasterXML/jackson-annotations). For more advanced customizations refer to
-[Custom serializer](#Custom serializer) section.
+The library is fully compatible with [Jackson Databind](https://github.com/FasterXML/jackson-databind){:target="_blank"}
+API. To customize the serialization and deserialization behavior using the
+Jackson Data Binding API, entities can be annotated with
+[Jackson Annotations](https://github.com/FasterXML/jackson-annotations){:target="_blank"}.
+For more advanced customizations refer to [Custom serializer](#custom-serializer) section.
 
 ### Renaming Properties
 
-To use a different serialized name for a field, use the annotation `@JsonProperty`.
+To use a different serialized name for a field, use the annotation
+`@JsonProperty`.
 
 ```Java
 public class MyObject {
@@ -99,9 +106,10 @@ public class Value {
 
 ## Custom serializer
 
-The serialization and deserialization can be customized using the lower level Streaming API or the Tree Model API,
-creating and registering respectively `JsonSerializer<T>` and `JsonDeserializer<T>`, as specified by the Jackson API
-for [CustomSerializers](https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers).
+The serialization and deserialization can be customized using the lower level
+Streaming API or the Tree Model API, creating and registering respectively
+`JsonSerializer<T>` and `JsonDeserializer<T>`, as specified by the Jackson API
+for [CustomSerializers](https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers){:target="_blank"}.
 
 ```Java
 static class PersonSerializer extends JsonSerializer<Person> {
@@ -150,13 +158,13 @@ ArangoDB arangoDB = new ArangoDB.Builder().serializer(arangoJack).build();
 ## Jackson datatype and language modules
 
 The `VPackMapper` can be configured
-with [Jackson datatype modules](https://github.com/FasterXML/jackson#third-party-datatype-modules)
-as well as [Jackson JVM Language modules](https://github.com/FasterXML/jackson#jvm-language-modules).
+with [Jackson datatype modules](https://github.com/FasterXML/jackson#third-party-datatype-modules){:target="_blank"}
+as well as [Jackson JVM Language modules](https://github.com/FasterXML/jackson#jvm-language-modules){:target="_blank"}.
 
 ### Kotlin
 
-[Kotlin language module](https://github.com/FasterXML/jackson-module-kotlin) enables support for Kotlin native types and
-can be registered in the following way:
+[Kotlin language module](https://github.com/FasterXML/jackson-module-kotlin){:target="_blank"}
+enables support for Kotlin native types and can be registered in the following way:
 
 ```kotlin
 val arangoDB = ArangoDB.Builder()
@@ -168,8 +176,8 @@ val arangoDB = ArangoDB.Builder()
 
 ### Scala
 
-[Scala language module](https://github.com/FasterXML/jackson-module-scala) enables support for Scala native types and
-can be registered in the following way:
+[Scala language module](https://github.com/FasterXML/jackson-module-scala){:target="_blank"}
+enables support for Scala native types and can be registered in the following way:
 
 ```scala
 val arangoJack = new ArangoJack()
@@ -182,17 +190,18 @@ val arangoDB = new ArangoDB.Builder()
 
 ### Java 8 types
 
-Support for Java 8 features is offered by [jackson-modules-java8](https://github.com/FasterXML/jackson-modules-java8).
+Support for Java 8 features is offered by
+[jackson-modules-java8](https://github.com/FasterXML/jackson-modules-java8){:target="_blank"}.
 
 ### Joda types
 
-Support for Joda data types, such as DateTime, is offered
-by [jackson-datatype-joda](https://github.com/FasterXML/jackson-datatype-joda).
+Support for Joda data types, such as DateTime, is offered by
+[jackson-datatype-joda](https://github.com/FasterXML/jackson-datatype-joda){:target="_blank"}.
 
 ## Metadata fields
 
-To map Arango metadata fields (like `_id`, `_key`, `_rev`, `_from`, `_to`) in your entities, use the
-annotation `DocumentField`.
+To map Arango metadata fields (like `_id`, `_key`, `_rev`, `_from`, `_to`) in
+your entities, use the annotation `DocumentField`.
 
 ```Java
 public class MyObject {
