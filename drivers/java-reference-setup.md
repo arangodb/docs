@@ -196,11 +196,12 @@ ArangoDB arangoDB = new ArangoDB.Builder()
   .build();
 ```
 
-
 ## Active Failover
 
-In case of `Active-Failover` deployment the driver should be configured in the following way:
-- the load balancing strategy must be either set to `LoadBalancingStrategy.NONE` or not set at all, since that would be the default
+In case of an _Active Failover_ deployment the driver should be configured in
+the following way:
+- the load balancing strategy must be either set to `LoadBalancingStrategy.NONE`
+  or not set at all, since that would be the default
 - `acquireHostList` should be set to `true`
 
 ```Java
@@ -209,7 +210,6 @@ ArangoDB arangoDB = new ArangoDB.Builder()
   .acquireHostList(true)
   .build();
 ```
-
 
 ## Connection time to live
 
