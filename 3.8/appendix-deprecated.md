@@ -47,11 +47,6 @@ replace the old features with:
   [HTTP Interface for Documents](http/document-working-with-documents.html#bulk-document-operations)
   that can insert, update, replace or remove arrays of documents.
 
-- **Accessing collections by ID instead of by name**:
-  Accessing collections by their internal ID instead of accessing them by name
-  is deprecated and highly discouraged. This functionality may be removed in
-  future versions of ArangoDB.
-
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](aql/index.html), which can also
   be run in arangosh. AQL is a language on its own and way more powerful than
@@ -59,6 +54,11 @@ replace the old features with:
   are translated internally to AQL, then the AQL query is optimized and run
   against the database in recent versions, because of better performance and
   reduced maintenance complexity.
+
+- **Accessing collections by ID instead of by name**:
+  Accessing collections by their internal ID instead of accessing them by name
+  is deprecated and highly discouraged. This functionality may be removed in
+  future versions of ArangoDB.
 
 - **Old metrics API**:
   The old metrics API under `/_admin/metrics` is deprecated and replaced by
