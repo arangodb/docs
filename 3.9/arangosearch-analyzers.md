@@ -885,7 +885,7 @@ attributes:
   Analyzer is defined in the View
 - `options` (object, _optional_): options for fine-tuning geo queries.
   These options should generally remain unchanged
-  - `minCells` (number, _optional_): maximum number of S2 cells (default: 20)
+  - `maxCells` (number, _optional_): maximum number of S2 cells (default: 20)
   - `minLevel` (number, _optional_): the least precise S2 level (default: 4)
   - `maxLevel` (number, _optional_): the most precise S2 level (default: 23)
 
