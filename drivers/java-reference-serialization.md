@@ -4,232 +4,213 @@ description: Serialization
 ---
 # Serialization
 
-## VelocyPack serialization
+While older versions of the driver used mapping features provided by the
+`velocypack` library, nowadays it is recommended to use
+[jackson-dataformat-velocypack](https://github.com/arangodb/jackson-dataformat-velocypack){:target="_blank"},
+which is a VelocyPack dataformat backend for [Jackson](https://github.com/FasterXML/jackson){:target="_blank"},
+supporting the Streaming, Data Binding and Tree Model API styles.
 
-Since version `4.1.11` you can extend the VelocyPack serialization by
-registering additional `VPackModule`s on `ArangoDB.Builder`.
+## Import in maven
 
-### Java 8 types
-
-GitHub:
-[github.com/arangodb/java-velocypack-module-jdk8](https://github.com/arangodb/java-velocypack-module-jdk8){:target="_blank"}
-
-Added support for:
-
-- `java.time.Instant`
-- `java.time.LocalDate`
-- `java.time.LocalDateTime`
-- `java.time.ZonedDateTime`
-- `java.time.OffsetDateTime`
-- `java.time.ZoneId`
-- `java.util.Optional`
-- `java.util.OptionalDouble`
-- `java.util.OptionalInt`
-- `java.util.OptionalLong`
+To add it to your maven project, add the following to `pom.xml`:
 
 ```XML
 <dependencies>
-  <dependency>
-    <groupId>com.arangodb</groupId>
-    <artifactId>velocypack-module-jdk8</artifactId>
-    <version>1.1.0</version>
-  </dependency>
+    <dependency>
+        <groupId>com.arangodb</groupId>
+        <artifactId>jackson-dataformat-velocypack</artifactId>
+        <version>...</version>
+    </dependency>
 </dependencies>
 ```
+
+The package also depends on `jackson-core`, `jackson-databind` and
+`jackson-annotations` packages, but when using build tools like Maven or
+Gradle, dependencies are automatically included. You may however want to
+use [jackson-bom](https://github.com/FasterXML/jackson-bom){:target="_blank"}
+to ensure dependency convergence across the entire project, for example in case
+there are in your project other libraries depending on different versions of
+the same Jackson packages.
+
+```XML
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson</groupId>
+            <artifactId>jackson-bom</artifactId>
+            <version>...</version>
+            <scope>import</scope>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+`jackson-dataformat-velocypack` is compatible with Jackson 2.10, 2.11 and 2.12.
+
+## Configure
+
+Create an instance of `ArangoJack`, optionally configure the underlying
+`ObjectMapper` and pass it to the driver through
+`ArangoDB.Builder.serializer(ArangoSerialization)`:
 
 ```Java
-ArangoDB arangoDB = new ArangoDB.Builder().registerModule(new VPackJdk8Module()).build();
+ArangoJack arangoJack = new ArangoJack();
+arangoJack.configure((mapper) -> {
+    // your configuration here
+});
+ArangoDB arango = new ArangoDB.Builder()
+    .serializer(arangoJack)
+    // ...
+    .build();
 ```
 
-### Scala types
+where the lambda argument `mapper` is an instance of `VPackMapper`, subclass
+of `ObjectMapper`. See
+[Jackson Databind](https://github.com/FasterXML/jackson-databind/wiki/JacksonFeatures){:target="_blank"}
+configurable features.
 
-GitHub:
-[github.com/arangodb/java-velocypack-module-scala](https://github.com/arangodb/java-velocypack-module-scala){:target="_blank"}
+## Mapping API
 
-Added support for:
+The library is fully compatible with [Jackson Databind](https://github.com/FasterXML/jackson-databind){:target="_blank"}
+API. To customize the serialization and deserialization behavior using the
+Jackson Data Binding API, entities can be annotated with
+[Jackson Annotations](https://github.com/FasterXML/jackson-annotations){:target="_blank"}.
+For more advanced customizations refer to [Custom serializer](#custom-serializer) section.
 
-- `scala.Option`
-- `scala.collection.immutable.List`
-- `scala.collection.immutable.Map`
-- `scala.math.BigInt`
-- `scala.math.BigDecimal`
+### Renaming Properties
 
-```XML
-<dependencies>
-  <dependency>
-    <groupId>com.arangodb</groupId>
-    <artifactId>velocypack-module-scala</artifactId>
-    <version>1.0.2</version>
-  </dependency>
-</dependencies>
-```
-
-```Scala
-val arangoDB: ArangoDB = new ArangoDB.Builder().registerModule(new VPackScalaModule).build
-```
-
-### Joda-Time
-
-GitHub:
-[github.com/arangodb/java-velocypack-module-joda](https://github.com/arangodb/java-velocypack-module-joda){:target="_blank"}
-
-Added support for:
-
-- `org.joda.time.DateTime`
-- `org.joda.time.Instant`
-- `org.joda.time.LocalDate`
-- `org.joda.time.LocalDateTime`
-
-```XML
-<dependencies>
-  <dependency>
-    <groupId>com.arangodb</groupId>
-    <artifactId>velocypack-module-joda</artifactId>
-    <version>1.1.1</version>
-  </dependency>
-</dependencies>
-```
-
-```Java
-ArangoDB arangoDB = new ArangoDB.Builder().registerModule(new VPackJodaModule()).build();
-```
-
-## Use of jackson as an alternative serializer
-
-Since version 4.5.2, the driver supports alternative serializer to de-/serialize
-documents, edges and query results. One implementation is
-[VelocyJack](https://github.com/arangodb/jackson-dataformat-velocypack#within-arangodb-java-driver){:target="_blank"}
-which is based on [Jackson](https://github.com/FasterXML/jackson){:target="_blank"} working with
-[jackson-dataformat-velocypack](https://github.com/arangodb/jackson-dataformat-velocypack){:target="_blank"}.
-
-**Note**: Any registered custom [serializer/deserializer or module](#custom-serializer)
-will be ignored.
-
-## JavaBeans
-
-The driver can serialize/deserialize JavaBeans. They need at least a
-constructor without parameter.
+To use a different serialized name for a field, use the annotation
+`@JsonProperty`.
 
 ```Java
 public class MyObject {
 
-  private String name;
-  private Gender gender;
-  private int age;
+    @JsonProperty("title")
+    private String name;
 
-  public MyObject() {
-    super();
-  }
-
+    // ...
 }
 ```
 
-## Internal fields
+### Ignoring properties
 
-To use Arango-internal fields (like \_id, \_key, \_rev, \_from, \_to) in your
-JavaBeans, use the annotation `DocumentField`.
+To ignore fields use the annotation `@JsonIgnore`.
+
+```Java
+public class Value {
+    @JsonIgnore
+    public int internalValue;
+}
+```
+
+## Custom serializer
+
+The serialization and deserialization can be customized using the lower level
+Streaming API or the Tree Model API, creating and registering respectively
+`JsonSerializer<T>` and `JsonDeserializer<T>`, as specified by the Jackson API
+for [CustomSerializers](https://github.com/FasterXML/jackson-docs/wiki/JacksonHowToCustomSerializers){:target="_blank"}.
+
+```Java
+static class PersonSerializer extends JsonSerializer<Person> {
+    @Override
+    public void serialize(Person value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+        // example using the Streaming API
+        gen.writeStartObject();
+        gen.writeFieldName("name");
+        gen.writeString(value.name);
+        gen.writeEndObject();
+    }
+}
+
+static class PersonDeserializer extends JsonDeserializer<Person> {
+    @Override
+    public Person deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException {
+        // example using the Tree Model API
+        Person person = new Person();
+        JsonNode rootNode = parser.getCodec().readTree(parser);
+        JsonNode nameNode = rootNode.get("name");
+        if (nameNode != null && nameNode.isTextual()) {
+            person.name = nameNode.asText();
+        }
+        return person;
+    }
+}
+
+// registering using annotation
+@JsonSerialize(using = PersonSerializer.class)
+public static class Person {
+    public String name;
+}
+
+// ...
+
+// registering programmatically
+ArangoJack arangoJack = new ArangoJack();
+arangoJack.configure((mapper) -> {
+    SimpleModule module = new SimpleModule("PersonModule");
+    module.addDeserializer(Person.class, new PersonDeserializer());
+    mapper.registerModule(module);
+});
+ArangoDB arangoDB = new ArangoDB.Builder().serializer(arangoJack).build();
+```
+
+## Jackson datatype and language modules
+
+The `VPackMapper` can be configured
+with [Jackson datatype modules](https://github.com/FasterXML/jackson#third-party-datatype-modules){:target="_blank"}
+as well as [Jackson JVM Language modules](https://github.com/FasterXML/jackson#jvm-language-modules){:target="_blank"}.
+
+### Kotlin
+
+[Kotlin language module](https://github.com/FasterXML/jackson-module-kotlin){:target="_blank"}
+enables support for Kotlin native types and can be registered in the following way:
+
+```kotlin
+val arangoDB = ArangoDB.Builder()
+    .serializer(ArangoJack().apply {
+        configure { it.registerModule(KotlinModule()) }
+    })
+    .build()
+```
+
+### Scala
+
+[Scala language module](https://github.com/FasterXML/jackson-module-scala){:target="_blank"}
+enables support for Scala native types and can be registered in the following way:
+
+```scala
+val arangoJack = new ArangoJack()
+arangoJack.configure(mapper => mapper.registerModule(DefaultScalaModule))
+
+val arangoDB = new ArangoDB.Builder()
+  .serializer(arangoJack)
+  .build()
+```
+
+### Java 8 types
+
+Support for Java 8 features is offered by
+[jackson-modules-java8](https://github.com/FasterXML/jackson-modules-java8){:target="_blank"}.
+
+### Joda types
+
+Support for Joda data types, such as DateTime, is offered by
+[jackson-datatype-joda](https://github.com/FasterXML/jackson-datatype-joda){:target="_blank"}.
+
+## Metadata fields
+
+To map Arango metadata fields (like `_id`, `_key`, `_rev`, `_from`, `_to`) in
+your entities, use the annotation `DocumentField`.
 
 ```Java
 public class MyObject {
 
   @DocumentField(Type.KEY)
   private String key;
-
-  private String name;
-  private Gender gender;
-  private int age;
-
-  public MyObject() {
-    super();
-  }
-
+  
+  // ...
 }
-```
-
-## Serialized fieldnames
-
-To use a different serialized name for a field, use the annotation `SerializedName`.
-
-```Java
-public class MyObject {
-
-  @SerializedName("title")
-  private String name;
-
-  private Gender gender;
-  private int age;
-
-  public MyObject() {
-    super();
-  }
-
-}
-```
-
-## Ignore fields
-
-To ignore fields at serialization/deserialization, use the annotation `Expose`
-
-```Java
-public class MyObject {
-
-  @Expose
-  private String name;
-  @Expose(serialize = true, deserialize = false)
-  private Gender gender;
-  private int age;
-
-  public MyObject() {
-    super();
-  }
-
-}
-```
-
-## Custom serializer
-
-```Java
-ArangoDB arangoDB = new ArangoDB.Builder().registerModule(new VPackModule() {
-  @Override
-  public <C extends VPackSetupContext<C>> void setup(final C context) {
-    context.registerDeserializer(MyObject.class, new VPackDeserializer<MyObject>() {
-      @Override
-      public MyObject deserialize(VPackSlice parent,VPackSlice vpack,
-          VPackDeserializationContext context) throws VPackException {
-        MyObject obj = new MyObject();
-        obj.setName(vpack.get("name").getAsString());
-        return obj;
-      }
-    });
-    context.registerSerializer(MyObject.class, new VPackSerializer<MyObject>() {
-      @Override
-      public void serialize(VPackBuilder builder,String attribute,MyObject value,
-          VPackSerializationContext context) throws VPackException {
-        builder.add(attribute, ValueType.OBJECT);
-        builder.add("name", value.getName());
-        builder.close();
-      }
-    });
-  }
-}).build();
-```
-
-## Disable type hints
-
-The Java VelocyPack library automatically adds a type hint field
-(named `_class` by default) to help figure out the correct class to instantiate
-during the deserialization phase. In case you want to use custom deserializers,
-this feature can be disabled in the following way:
-
-```java
-ArangoDB arangoDB = new ArangoDB.Builder()
-        .registerModule(new VPackModule() {
-            @Override
-            public <C extends VPackSetupContext<C>> void setup(final C context) {
-                context.useTypeHints(false);
-            }
-        })
-        .build();
 ```
 
 ## Manual serialization
@@ -239,11 +220,11 @@ To de-/serialize from and to VelocyPack before or after a database call, use the
 `ArangoCollection`, `ArangoGraph`, `ArangoEdgeCollection`or `ArangoVertexCollection`.
 
 ```Java
-ArangoDB arangoDB = new ArangoDB.Builder();
-VPackSlice vpack = arangoDB.util().serialize(myObj);
+ArangoDB arangoDB=new ArangoDB.Builder();
+        VPackSlice vpack=arangoDB.util(CUSTOM).serialize(myObj);
 ```
 
 ```Java
-ArangoDB arangoDB = new ArangoDB.Builder();
-MyObject myObj = arangoDB.util().deserialize(vpack, MyObject.class);
+ArangoDB arangoDB=new ArangoDB.Builder();
+        MyObject myObj=arangoDB.util(CUSTOM).deserialize(vpack,MyObject.class);
 ```
