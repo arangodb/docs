@@ -42,15 +42,17 @@ If you use queries like `RETURN collection` then you should replace them with
 
 ### "Old" system collections
 
-The option `--database.old-system-collections` was introduced in 3.6 and 3.7 
-to control if the obsolete system collections `_modules` and `_routing` should 
+The option `--database.old-system-collections` was introduced in 3.6 and 3.7
+to control if the obsolete system collections `_modules` and `_routing` should
 be created with every new database or not.
+
 The option was introduced with a default value of `true` in 3.6 and 3.7 for
 downwards-compatibility reasons. With the introduction of the option, it was
 also announced that the default value would change to `false` in ArangoDB 3.8.
 This has happened, meaning that 3.8 installations by default will not create
 these system collections anymore.
-In ArangoDB 3.9 the option `--database.old-system-collections` is now 
+
+In ArangoDB 3.9 the option `--database.old-system-collections` is now
 completely obsolete, and ArangoDB will never create these system collections
 for any new databases. The option can still be specified at startup, but it
 meaningless now.

@@ -35,7 +35,7 @@ g++ 10 is also the expected version of g++ when compiling ArangoDB from
 source.
 
 The minimum architecture requirements have been raised from the Westmere
-architecture to the Sandy Bridge architecture. 256 bit AVX instructions are
+architecture to the Sandy Bridge architecture. 256-bit AVX instructions are
 now expected to be present on all targets that run ArangoDB 3.9 executables.
 If a target does not support AVX instructions, it may fail with SIGILL at
 runtime.
