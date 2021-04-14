@@ -167,83 +167,83 @@ Add the actual content below the frontmatter.
 
 - Run below commands in Bash under Linux. Do not use Git Bash on Windows,
   it dereferences symlinks (copies the referenced files)!
-- Copy the latest devel version to a new directory i.e. `cp -a 3.7 3.8`
+- Copy the latest devel version to a new directory i.e. `cp -a 3.9 4.0`
 - Create the necessary navigation definition files in `_data` by copying, e.g.
   ```
   cd _data
   for book in aql drivers http manual oasis; do
-    cp -a "3.7-${book}.yml" "3.8-${book}.yml"
+    cp -a "3.9-${book}.yml" "4.0-${book}.yml"
   done
   cd ..
   ```
 - Create relative symlinks to program option JSON files in `_data`, like
   ```
   cd _data
-  for prog in backup bench d dump export import inspect restore sh; do
-    ln -s "../3.8/generated/arango${prog}-options.json" "3.8-program-options-arango${prog}.json"
+  for prog in backup bench d dump export import inspect restore sh vpack; do
+    ln -s "../4.0/generated/arango${prog}-options.json" "4.0-program-options-arango${prog}.json"
   done
   cd ..
   ```
 - Adjust the version numbers in `site.data` references in all pages of the
-  copied folder (here: `3.8`) which include program startup options
+  copied folder (here: `4.0`) which include program startup options
   (`program-option.html`), e.g.
   ```diff
-  -{% assign options = site.data["37-program-options-arangobackup"] %}
-  +{% assign options = site.data["38-program-options-arangobackup"] %}
+  -{% assign options = site.data["39-program-options-arangobackup"] %}
+  +{% assign options = site.data["40-program-options-arangobackup"] %}
    {% include program-option.html options=options name="arangobackup" %}
   ```
   ```
-  grep -r -F 'site.data["37-' --include '*.md' -l 3.8 | xargs sed -i 's/site\.data\["37-/site.data["38-/g'
+  grep -r -F 'site.data["39-' --include '*.md' -l 4.0 | xargs sed -i 's/site\.data\["39-/site.data["40-/g'
   ```
 - Adjust the version numbers in `redirect_from` URLs in the frontmatter
   to match the new version folder, e.g.
   ```diff
    redirect_from:
-  -  - /3.7/path/to/file.html # 3.4 -> 3.5
-  +  - /3.8/path/to/file.html # 3.4 -> 3.5
+  -  - /3.9/path/to/file.html # 3.4 -> 3.5
+  +  - /4.0/path/to/file.html # 3.4 -> 3.5
   ```
   This is only necessary for absolute redirects. Relative redirects are
   preferred, e.g. `- old.html` in `new.html` (may also include `..`).
   If pages were removed, then you may want to use absolute redirects to point
   to older versions or redirect to completely different pages.
-- Create release note pages for the new version (here: `3.8` / `38`)
-  and add them to the navigation (`3.8-manual.yml`):
+- Create release note pages for the new version (here: `4.0` / `40`)
+  and add them to the navigation (`4.0-manual.yml`):
   ```diff
    - text: Release Notes
      href: release-notes.html
      children:
-  +    - text: Version 3.8
-  +      href: release-notes-38.html
+  +    - text: Version 4.0
+  +      href: release-notes-40.html
   +      children:
-  +        - text: What's New in 3.8
-  +          href: release-notes-new-features38.html
-  +        - text: Known Issues in 3.8
-  +          href: release-notes-known-issues38.html
-  +        - text: Incompatible changes in 3.8
-  +          href: release-notes-upgrading-changes38.html
-  +        - text: API changes in 3.8
-  +          href: release-notes-api-changes38.html
+  +        - text: What's New in 4.0
+  +          href: release-notes-new-features40.html
+  +        - text: Known Issues in 4.0
+  +          href: release-notes-known-issues40.html
+  +        - text: Incompatible changes in 4.0
+  +          href: release-notes-upgrading-changes40.html
+  +        - text: API changes in 4.0
+  +          href: release-notes-api-changes40.html
   ```
 - Add the relevant links to the release notes overview page
-  `3.8/release-notes.html`
-- Delete the release note pages of the previous version (here: `3.7`) in the
-  folder of the new version (here: `3.8`) and symlink the files instead:
+  `4.0/release-notes.html`
+- Delete the release note pages of the previous version (here: `3.9`) in the
+  folder of the new version (here: `4.0`) and symlink the files instead:
   ```
-  cd 3.8
-  rm release-notes-37.md
-  rm release-notes-new-features37.md
-  rm release-notes-known-issues37.md
-  rm release-notes-upgrading-changes37.md
-  rm release-notes-api-changes37.md
-  ln -s ../3.7/release-notes-37.md release-notes-37.md
-  ln -s ../3.7/release-notes-new-features37.md release-notes-new-features37.md
-  ln -s ../3.7/release-notes-known-issues37.md release-notes-known-issues37.md
-  ln -s ../3.7/release-notes-upgrading-changes37.md release-notes-upgrading-changes37.md
-  ln -s ../3.7/release-notes-api-changes37.md release-notes-api-changes37.md
+  cd 4.0
+  rm release-notes-39.md
+  rm release-notes-new-features39.md
+  rm release-notes-known-issues39.md
+  rm release-notes-upgrading-changes39.md
+  rm release-notes-api-changes39.md
+  ln -s ../3.9/release-notes-39.md release-notes-39.md
+  ln -s ../3.9/release-notes-new-features39.md release-notes-new-features39.md
+  ln -s ../3.9/release-notes-known-issues39.md release-notes-known-issues39.md
+  ln -s ../3.9/release-notes-upgrading-changes39.md release-notes-upgrading-changes39.md
+  ln -s ../3.9/release-notes-api-changes39.md release-notes-api-changes39.md
   cd ..
   ```
-- Add a section _Version 3.8_ to `3.8/highlights.html` including a link to
-  _What's New in 3.8_
+- Add a section _Version 4.0_ to `4.0/highlights.html` including a link to
+  _What's New in 4.0_
 - Add the version to `_data/versions.yml` with the full version name
 - Add all books of that version to `_data/books.yml`
 - Adjust the following fields in `_config.yml` as needed:
