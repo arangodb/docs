@@ -209,6 +209,48 @@ There are also performance improvements for `COLLECT` operations that only
 count values or that aggregate values using `AGGREGATE`. The exact mileage
 can vary, but is substantial for some queries.
 
+AQL usability options
+---------------------
+
+### Requiring `WITH` statements
+
+The new startup option ``--query.require-with` will make AQL queries in single 
+server mode also require `WITH` clauses in AQL queries where a cluster installation 
+would require them.
+The option is set to *false* by default, but can be turned on in single servers to 
+remove this behavior difference between single servers and clusters, making a 
+later transition from single server to cluster easier.
+
+### Allowing the usage of collection names in AQL expressions
+
+The new startup option `--query.allow-collections-in-expressions` controls whether
+using collection names in arbitrary places in AQL expressions is allowed, although 
+using collection names like this is very likely unintended.
+
+For example, consider the query
+
+```js
+FOR doc IN collection RETURN collection
+```
+
+Here, the collection name is *collection*, and its usage in the `FOR` loop is
+intended and valid. However, *collection* is also used in the `RETURN`
+statement, which is legal but potentially unintended. It should likely be
+`RETURN doc` or `RETURN doc.someAttribute` instead. Otherwise, the entire
+collection will be materialized and returned as many times as there are
+documents in the collection. This can take a long time and even lead to
+out-of-memory crashes in the worst case.
+
+Setting the option `--query.allow-collections-in-expression` to *false* will
+prohibit such unintentional usage of collection names in queries, and instead
+make the query fail with error 1568 ("collection used as expression operand").
+
+The default value of the option is *true* in 3.8, meaning that potentially
+unintended usage of collection names in queries is still allowed. The default
+value for the option will change to *false* in 3.9. The option will also be
+deprecated in 3.9 and removed in future versions. From then on, unintended
+usage of collection names will always be disallowed.
+
 ArangoSearch
 ------------
 
