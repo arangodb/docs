@@ -74,10 +74,10 @@ not possible, if edge collections are used directly. See
 for details. The `WITH` statement is not necessary when using named graphs
 for the traversals.
 
-Since ArangoDB 3.8 there is a startup option `--query.require-with`
+Since ArangoDB 3.8.0 there is a startup option `--query.require-with`
 to make single server installations also require the `WITH` statements
 in the same places where are cluster installation would. This option
-is false by default, but be set to true to remove this behavior 
+is *false* by default, but be set to *true* to remove this behavior
 difference between single servers and clusters.
 
 ### Performance
