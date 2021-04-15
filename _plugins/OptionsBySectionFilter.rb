@@ -28,7 +28,7 @@ module OptionsBySectionFilter
             by_section[section] = Hash.new if !by_section[section]
             by_section[section][k] = v
         }
-        by_section.sort.map {|k, v| [k == "" ? "global" : k, v] }.to_h
+        by_section.sort.map {|k, v| [k == "" ? "general" : k, v] }.to_h
     end
 end
   
