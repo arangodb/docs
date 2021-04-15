@@ -7,7 +7,7 @@ redirect_from:
 ---
 # Information Retrieval with ArangoSearch
 
-{{ page.description}}
+{{ page.description }}
 {:class="lead"}
 
 ArangoSearch provides information retrieval features, natively integrated
@@ -49,9 +49,13 @@ which can normalize strings, tokenize text into words and more, enabling
 different possibilities to search for values later on.
 
 Search results can be sorted by their similarity ranking to return the best
-matches first using popular scoring algorithms
+matches first using popular scoring algorithms (Okapi BM25, TF-IDF),
+user-defined relevance boosting and dynamic score calculation.
+
+<!--
 ([Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"},
 [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf){:target="_blank"}).
+-->
 
 ![Conceptual model of ArangoSearch interacting with Collections and Analyzers](images/arangosearch.png)
 
@@ -208,6 +212,9 @@ reference and the search conditions are swapped for this:
 
 `["fruit", "vegetable"] ALL == doc.type`
 
+For a complete list of operators supported in ArangoSearch expressions see
+[`SEARCH operation`](aql/operations-search.html).
+
 ### Search expressions with ArangoSearch functions
 
 Basic operators are not enough for complex query needs. Additional search
@@ -287,110 +294,107 @@ for each such field.
 ### Indexing and querying arrays
 
 The elements of arrays are indexed individually by default, as if the source
-attribute had each element as value at the same time. Strings may get 
-transformed by Analyzers into multiple tokens, which are handled similarly to
-an array of strings.
+attribute had each element as value at the same time (like a
+_disjunctive superposition_ of their values). This is controlled by the
+View setting [**trackListPositions**](../arangosearch-views.html#link-properties)
+that defaults to `false`.
+
+<!--
+Strings may get transformed by
+Analyzers into multiple tokens, which are handled similarly to an array of
+strings.
 
 Primitive values other than strings (`null`, `true`, `false`, numbers) are
 indexed unchanged. The values of nested object are optionally indexed under the
 respective attribute path, including objects in arrays.
+-->
 
-## Optimizing Search Performance
-
-### Primary Sort Order
-
-The index behind an ArangoSearch View can have a primary sort order.
-A direction can be specified upon View creation for each uniquely named
-attribute (ascending or descending), to enable an optimization for AQL
-queries which iterate over a View and sort by one or multiple of the
-attributes. If the field(s) and the sorting direction(s) match then the
-the data can be read directly from the index without actual sort operation.
-
-{% include youtube.html id="bKeKzexInm0" %}
-
-View definition example:
+Therefore, array comparison operators such as `ALL IN` or `ANY ==` aren't
+really necessary. Consider the following document:
 
 ```json
 {
-  "links": {
-    "coll1": {
-      "fields": {
-        "text": {
-        }
-      }
-    },
-    "coll2": {
-      "fields": {
-        "text": {
-      }
+  "value": {
+    "nested": {
+      "deep": [ 1, 2, 3 ]
     }
-  },
-  "primarySort": [
-    {
-      "field": "text",
-      "direction": "asc"
-    }
-  ]
+  }
 }
 ```
 
-AQL query example:
+A View which is configured to index the field `value` including sub-fields
+will index the individual numbers under the path `value.nested.deep`, which
+can be queried for like:
 
 ```js
 FOR doc IN viewName
-  SORT doc.name
+  SEARCH doc.value.nested.deep == 2
   RETURN doc
 ```
 
-Execution plan **without** a sorted index being used:
+This is different to `FILTER` operations, where you would use an
+[array comparison operator](operators.html#array-comparison-operators)
+to find an element in the array:
 
-```
-Execution plan:
- Id   NodeType            Est.   Comment
-  1   SingletonNode          1   * ROOT
-  2   EnumerateViewNode      1     - FOR doc IN viewName   /* view query */
-  3   CalculationNode        1       - LET #1 = doc.`val`   /* attribute expression */
-  4   SortNode               1       - SORT #1 ASC   /* sorting strategy: standard */
-  5   ReturnNode             1       - RETURN doc
+```js
+FOR doc IN collection
+  FILTER doc.value.nested.deep ANY == 2
+  RETURN doc
 ```
 
-Execution plan with a the primary sort order of the index being utilized:
+You can set `trackListPositions` to `true` if you want to query for a value
+at a specific array index:
 
-```
-Execution plan:
- Id   NodeType            Est.   Comment
-  1   SingletonNode          1   * ROOT
-  2   EnumerateViewNode      1     - FOR doc IN viewName SORT doc.`val` ASC   /* view query */
-  5   ReturnNode             1       - RETURN doc
+```js
+SEARCH doc.value.nested.deep[1] == 2
 ```
 
-To define more than one attribute to sort by, simply add more sub-objects to
-the `primarySort` array:
+With `trackListPositions` enabled there will be **no match** for the document
+anymore if the specification of an array index is left out in the expression:
+
+```js
+SEARCH doc.value.nested.deep == 2
+```
+
+Conversely, there will be no match if an array index is specified but
+`trackListPositions` is disabled.
+
+
+
+String tokens (see [Analyzers](../analyzers.html)) are also
+indexed individually, but not all Analyzer types return multiple tokens.
+If the Analyzer does, then comparison tests are done per token/word.
+For example, given the field `text` is analyzed with `"text_en"` and contains
+the string `"a quick brown fox jumps over the lazy dog"`, the following
+expression will be true:
+
+```js
+ANALYZER(doc.text == 'fox', "text_en")
+```
+
+Note that the `"text_en"` Analyzer stems the words, so this is also true:
+
+```js
+ANALYZER(doc.text == 'jump', "text_en")
+```
+
+So a comparison will actually test if a word is contained in the text. With
+`trackListPositions: false`, this means for arrays if the word is contained in
+any element of the array. For example, given:
 
 ```json
-  "primarySort": [
-    {
-      "field": "date",
-      "direction": "desc"
-    },
-    {
-      "field": "text",
-      "direction": "asc"
-    }
-  ]
+{"text": [ "a quick", "brown fox", "jumps over the", "lazy dog" ] }
 ```
 
-The optimization can be applied to View queries which sort by both fields as
-defined (`SORT doc.date DESC, doc.name`), but also if they sort in descending
-order by the `date` attribute only (`SORT doc.date DESC`). Queries which sort
-by `text` alone (`SORT doc.name`) are not eligible, because the View is sorted
-by `date` first. This is similar to skiplist indexes, but inverted sorting
-directions are not covered by the View index
-(e.g. `SORT doc.date, doc.name DESC`).
+… the following will be true:
 
-Note that the `primarySort` option is immutable: it can not be changed after
-View creation. It is therefore not possible to configure it through the Web UI.
-The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
+```js
+ANALYZER(doc.text == 'jump', "text_en")
+```
 
-The primary sort data is LZ4 compressed by default (`primarySortCompression` is
-`"lz4"`). Set it to `"none"` on View creation to trade space for speed.
+With `trackListPositions: true` you would need to specify the index of the
+array element `"jumps over the"` to be true:
+
+```js
+ANALYZER(doc.text[2] == 'jump', "text_en")
+```

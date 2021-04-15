@@ -357,31 +357,31 @@ Operator precedence
 -------------------
 
 The operator precedence in AQL is similar as in other familiar languages
-(lowest precedence first):
+(highest precedence first):
 
-| Operator(s)          | Description
-|:---------------------|:-----------
-| `,`                  | comma separator
-| `DISTINCT`           | distinct modifier (RETURN operation)
-| `? :`                | ternary operator
-| `=`                  | variable assignment (LET operation)
-| `WITH`               | with operator (WITH / UPDATE / REPLACE / COLLECT operation)
-| `INTO`               | into operator (INSERT / UPDATE / REPLACE / REMOVE / COLLECT operation)
-| `||`                 | logical or
-| `&&`                 | logical and
-| `OUTBOUND`, `INBOUND`, `ANY`, `ALL`, `NONE` | graph traversal directions, array comparison operators
+| Operator(s)           | Description
+|:----------------------|:-----------
+| `::`                  | scope
+| `[*]`                 | expansion
+| `[]`                  | indexed value access
+| `.`                   | member access
+| `()`                  | function call
+| `!` / `NOT`, `+`, `-` | logical negation, unary plus, unary minus
+| `*`, `/`, `%`         | multiplication, division, modulus
+| `+`, `-`              | addition, subtraction
+| `..`                  | range operator
+| `<`, `<=`, `>=`, `>`  | less than, less equal, greater equal, greater than
+| `IN`, `NOT IN`        | (not) in operator
 | `==`, `!=`, `LIKE`, `NOT LIKE`, `=~`, `!~`  | (in-)equality, wildcard (non-)match, regex (non-)match
-| `IN`, `NOT IN`       | (not) in operator
-| `<`, `<=`, `>=`, `>` | less than, less equal, greater equal, greater than
-| `..`                 | range operator
-| `+`, `-`             | addition, subtraction
-| `*`, `/`, `%`        | multiplication, division, modulus
-| `!`, `+`, `-`        | logical negation, unary plus, unary minus
-| `()`                 | function call
-| `.`                  | member access
-| `[]`                 | indexed value access
-| `[*]`                | expansion
-| `::`                 | scope
+| `OUTBOUND`, `INBOUND`, `ANY`, `ALL`, `NONE` | graph traversal directions, array comparison operators
+| `&&` / `AND`          | logical and
+| `||` / `OR`           | logical or
+| `INTO`                | into operator (INSERT / UPDATE / REPLACE / REMOVE / COLLECT operation)
+| `WITH`                | with operator (WITH / UPDATE / REPLACE / COLLECT operation)
+| `=`                   | variable assignment (LET operation)
+| `? :`                 | ternary operator
+| `DISTINCT`            | distinct modifier (RETURN operation)
+| `,`                   | comma separator
 
 The parentheses `(` and `)` can be used to enforce a different operator
 evaluation order.
