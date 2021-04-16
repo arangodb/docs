@@ -72,6 +72,19 @@ replace the old features with:
   The metrics API provides a lot more information than the statistics API, so
   it is much more useful.
 
+- **Older cluster REST API endpoints**:
+  The following endpoints are simply redirects since ArangoDB 3.7 and are thus
+  deprecated from ArangoDB 3.8 onwards:
+
+  - `/_admin/clusterNodeVersion`: redirects to `/_admin/cluster/nodeVersion`
+  - `/_admin/clusterNodeEngine`: redirects to `/_admin/cluster/nodeEngine`
+  - `/_admin/clusterNodeStats`: redirects to `/_admin/cluster/nodeStatistics`
+  - `/_admin/clusterStatistics`: redirects to `/_admin/cluster/statistics`
+
+  The redirecting endpoints will be removed in a future version of ArangoDB.
+  Their usage in client applications can be replaced by the endpoints they 
+  redirect to.
+
 - **Actions**: Snippets of JavaScript code on the server-side for minimal
   custom endpoints. Since the Foxx revamp in 3.0, it became really easy to
   write [Foxx Microservices](foxx.html), which allow you to define
@@ -150,7 +163,7 @@ replace the old features with:
   discouraged. Their functionality is already removed, but they still exist to
   prevent unknown startup option errors.
 
-- **JavaScript traversal API**: The [JavaScript traversal API](http/traversal.html)
+- **HTTP and JavaScript traversal APIs**: The [HTTP traversal API](http/traversal.html)
   is deprecated since version 3.4.0. The JavaScript traversal module
   `@arangodb/graph/traversal` is also deprecated since then. The preferred way
   to traverse graphs is via AQL.
