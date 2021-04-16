@@ -66,6 +66,12 @@ replace the old features with:
   necessary because the old API did not follow quite a few Prometheus
   guidelines for metrics.
 
+- **Statistics API**:
+  The endpoints `/_admin/statistics` and `/_admin/statistics-description`
+  are deprecated in favor of the new metrics API under `/_admin/metrics/v2`.
+  The metrics API provides a lot more information than the statistics API, so
+  it is much more useful.
+
 - **Older cluster REST API endpoints**:
   The following endpoints are simply redirects since ArangoDB 3.7 and are thus
   deprecated from ArangoDB 3.8 onwards:
