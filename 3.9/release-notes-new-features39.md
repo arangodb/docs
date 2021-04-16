@@ -23,8 +23,8 @@ the input and output types:
 - `--output-type` (`json`, `json-pretty`, `vpack`, `vpack-hex`)
 
 The former option `--print-non-json` has been replaced with the new option
-`--fail-on-non-json` which makes arangovpack fail when trying to emit non-JSON
-types to JSON output.
+`--fail-on-non-json` which makes [arangovpack](programs-arangovpack.html)
+fail when trying to emit non-JSON types to JSON output.
 
 Internal changes
 ----------------
