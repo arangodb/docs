@@ -85,19 +85,19 @@ The currently implemented Analyzer types are:
 - `delimiter`: split into tokens at user-defined character
 - `stem`: apply stemming to the value as a whole
 - `norm`: apply normalization to the value as a whole
-- `ngram`: create n-grams from value with user-defined lengths
+- `ngram`: create _n_-grams from value with user-defined lengths
 - `text`: tokenize into words, optionally with stemming,
-  normalization, stop-word filtering and edge n-gram generation
+  normalization, stop-word filtering and edge _n_-gram generation
 
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
-Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text
-:------------------|:---------|:--------|:----------|:-----|:-----|:----
-**Tokenization**   | No       | No      | (Yes)     | No   | No   | Yes
-**Stemming**       | No       | No      | No        | Yes  | No   | Yes
-**Normalization**  | No       | No      | No        | No   | Yes  | Yes
-**N-grams**        | No       | Yes     | No        | No   | No   | (Yes)
+Feature / Analyzer | `identity` | `ngram` | `delimiter` | `stem` | `norm` | `text`
+:------------------|:-----------|:--------|:------------|:-------|:-------|:------
+**Tokenization**   | No         | No      | (Yes)       | No     | No     | Yes
+**Stemming**       | No         | No      | No          | Yes    | No     | Yes
+**Normalization**  | No         | No      | No          | No     | Yes    | Yes
+**_N_-grams**      | No         | Yes     | No          | No     | No     | (Yes)
 
 Analyzer Properties
 -------------------
@@ -106,14 +106,14 @@ The valid attributes/values for the *properties* are dependant on what *type*
 is used. For example, the `delimiter` type needs to know the desired delimiting
 character(s), whereas the `text` type takes a locale, stop-words and more.
 
-### Identity
+### `identity`
 
 An Analyzer applying the `identity` transformation, i.e. returning the input
 unmodified.
 
 It does not support any *properties* and will ignore them.
 
-### Delimiter
+### `delimiter`
 
 An Analyzer capable of breaking up delimited text into tokens as per
 [RFC 4180](https://tools.ietf.org/html/rfc4180)
@@ -124,7 +124,7 @@ attributes:
 
 - `delimiter` (string): the delimiting character(s)
 
-### Stem
+### `stem`
 
 An Analyzer capable of stemming the text, treated as a single token,
 for supported languages.
@@ -137,7 +137,7 @@ attributes:
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
   meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
 
-###  Norm
+### `norm`
 
 An Analyzer capable of normalizing the text, treated as a single
 token, i.e. case conversion and accent removal.
@@ -157,9 +157,9 @@ attributes:
   - `"upper"` to convert to all upper-case characters
   - `"none"` to not change character case (default)
 
-### N-gram
+### `ngram`
 
-An Analyzer capable of producing n-grams from a specified input in a range of
+An Analyzer capable of producing _n_-grams from a specified input in a range of
 min..max (inclusive). Can optionally preserve the original input.
 
 This Analyzer type can be used to implement substring matching.
@@ -170,15 +170,15 @@ multi-byte UTF-8 characters raise an *Invalid UTF-8 sequence* query error.
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `min` (number): unsigned integer for the minimum n-gram length
-- `max` (number): unsigned integer for the maximum n-gram length
+- `min` (number): unsigned integer for the minimum _n_-gram length
+- `max` (number): unsigned integer for the maximum _n_-gram length
 - `preserveOriginal` (boolean):
   - `true` to include the original value as well
-  - `false` to produce the n-grams based on *min* and *max* only
-- `startMarker` (string, _optional_): this value will be prepended to n-grams
+  - `false` to produce the _n_-grams based on *min* and *max* only
+- `startMarker` (string, _optional_): this value will be prepended to _n_-grams
   which include the beginning of the input. Can be used for matching prefixes.
   Choose a character or sequence as marker which does not occur in the input.
-- `endMarker` (string, _optional_): this value will be appended to n-grams
+- `endMarker` (string, _optional_): this value will be appended to _n_-grams
   which include the end of the input. Can be used for matching suffixes.
   Choose a character or sequence as marker which does not occur in the input.
 - `streamType` (string, _optional_): type of the input stream
@@ -188,7 +188,7 @@ attributes:
 **Examples**
 
 With *min* = `4` and *max* = `5`, the Analyzer will produce the following
-n-grams for the input string `"foobar"`:
+_n_-grams for the input string `"foobar"`:
 - `"foob"`
 - `"fooba"`
 - `"foobar"` (if *preserveOriginal* is enabled)
@@ -196,7 +196,7 @@ n-grams for the input string `"foobar"`:
 - `"oobar"`
 - `"obar"`
 
-An input string `"foo"` will not produce any n-gram unless *preserveOriginal*
+An input string `"foo"` will not produce any _n_-gram unless *preserveOriginal*
 is enabled, because it is shorter than the *min* length of 4.
 
 Above example but with *startMarker* = `"^"` and *endMarker* = `"$"` would
@@ -209,7 +209,7 @@ produce the following:
 - `"oobar$"`
 - `"obar$"`
 
-### Text
+### `text`
 
 An Analyzer capable of breaking up strings into individual words while also
 optionally filtering out stop-words, extracting word stems, applying
@@ -232,15 +232,15 @@ attributes:
 - `stemming` (boolean, _optional_):
   - `true` to apply stemming on returned words (default)
   - `false` to leave the tokenized words as-is
-- `edgeNgram` (object, _optional_): if present, then edge n-grams are generated
-  for each token (word). That is, the start of the n-gram is anchored to the
+- `edgeNgram` (object, _optional_): if present, then edge _n_-grams are generated
+  for each token (word). That is, the start of the _n_-gram is anchored to the
   beginning of the token, whereas the `ngram` Analyzer would produce all
   possible substrings from a single input token (within the defined length
-  restrictions). Edge n-grams can be used to cover word-based auto-completion
+  restrictions). Edge _n_-grams can be used to cover word-based auto-completion
   queries with an index, for which you should set the following other options:
   `accent: false`, `case: "lower"` and most importantly `stemming: false`.
-  - `min` (number, _optional_): minimal n-gram length
-  - `max` (number, _optional_): maximal n-gram length
+  - `min` (number, _optional_): minimal _n_-gram length
+  - `max` (number, _optional_): maximal _n_-gram length
   - `preserveOriginal` (boolean, _optional_): whether to include the original
     token even if its length is less than *min* or greater than *max*
 - `stopwords` (array, _optional_): an array of strings with words to omit
@@ -298,7 +298,7 @@ disabled like this:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Custom text Analyzer with the edge n-grams feature and normalization enabled,
+Custom text Analyzer with the edge _n_-grams feature and normalization enabled,
 stemming disabled and `"the"` defined as stop-word to exclude it:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}

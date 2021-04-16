@@ -330,16 +330,16 @@ but not `{ "text": "snow fox" }` which only fulfills one of the conditions.
 `NGRAM_MATCH(path, target, threshold, analyzer) → fulfilled`
 
 Match documents whose attribute value has an
-[ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+[_n_-gram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
 higher than the specified threshold compared to the target value.
 
 The similarity is calculated by counting how long the longest sequence of
-matching ngrams is, divided by the target's total ngram count.
-Only fully matching ngrams are counted.
+matching _n_-grams is, divided by the target's total _n_-gram count.
+Only fully matching _n_-grams are counted.
 
-The ngrams for both attribute and target are produced by the specified
+The _n_-grams for both attribute and target are produced by the specified
 Analyzer. It is recommended to use an Analyzer of type `ngram` with
-`preserveOriginal: false` and `min` equal to `max`. Increasing the ngram
+`preserveOriginal: false` and `min` equal to `max`. Increasing the _n_-gram
 length will increase accuracy, but reduce error tolerance. In most cases a
 size of 2 or 3 will be a good choice. 
 
@@ -354,10 +354,10 @@ enabled. The `NGRAM_MATCH()` function will otherwise not find anything.
 - **threshold** (number, _optional_): value between `0.0` and `1.0`. Defaults
   to `0.7` if none is specified.
 - **analyzer** (string): name of an [Analyzer](../analyzers.html).
-- returns **fulfilled** (bool): `true` if the evaluated ngram similarity value
+- returns **fulfilled** (bool): `true` if the evaluated _n_-gram similarity value
   is greater or equal than the specified threshold, `false` otherwise
 
-Given a View indexing an attribute `text`, a custom ngram Analyzer `"bigram"`
+Given a View indexing an attribute `text`, a custom _n_-gram Analyzer `"bigram"`
 (`min: 2, max: 2, preserveOriginal: false, streamType: "utf8"`) and a document
 `{ "text": "quick red fox" }`, the following query would match it (with a
 threshold of `1.0`):
@@ -396,14 +396,6 @@ FOR doc IN viewName
 ```js
 RETURN NGRAM_MATCH("quick fox", "quick blue fox", "bigram")
 ```
-
-### NGRAM_POSITIONAL_SIMILARITY()
-
-See [String Functions](functions-string.html#ngram_positional_similarity).
-
-### NGRAM_SIMILARITY()
-
-See [String Functions](functions-string.html#ngram_similarity).
 
 ### PHRASE()
 
@@ -882,7 +874,7 @@ FOR a IN viewA
 
 Sorts documents using the
 [**Best Matching 25** algorithm](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}
-(BM25).
+(Okapi BM25).
 
 - **doc** (document): must be emitted by `FOR ... IN viewName`
 - **k** (number, _optional_): calibrates the text term frequency scaling.

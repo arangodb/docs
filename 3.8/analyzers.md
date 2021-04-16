@@ -95,9 +95,9 @@ The currently implemented Analyzer types are:
 - `delimiter`: split into tokens at user-defined character
 - `stem`: apply stemming to the value as a whole
 - `norm`: apply normalization to the value as a whole
-- `ngram`: create n-grams from value with user-defined lengths
+- `ngram`: create _n_-grams from value with user-defined lengths
 - `text`: tokenize into words, optionally with stemming,
-  normalization, stop-word filtering and edge n-gram generation
+  normalization, stop-word filtering and edge _n_-gram generation
 - `aql`: for running AQL query to prepare tokens for index
 - `pipeline`: for chaining multiple Analyzers
 - `geojson`: breaks up a GeoJSON object into a set of indexable tokens
@@ -107,18 +107,18 @@ The currently implemented Analyzer types are:
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
-Analyzer   /   Feature  | Tokenization | Stemming | Normalization | N-grams
-:-----------------------|:------------:|:--------:|:-------------:|:------:
-[Identity](#identity)   |      No      |    No    |      No       |   No
-[N-gram](#n-gram)       |      No      |    No    |      No       |  Yes
-[Delimiter](#delimiter) |    (Yes)     |    No    |      No       |   No
-[Stem](#stem)           |      No      |   Yes    |      No       |   No
-[Norm](#norm)           |      No      |    No    |     Yes       |   No
-[Text](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
-[AQL](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-[Pipeline](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-[GeoJSON](#geojson)     |      –       |    –     |      –        |   –
-[GeoPoint](#geopoint)   |      –       |    –     |      –        |   –
+Analyzer    /    Feature  | Tokenization | Stemming | Normalization | _N_-grams
+:-------------------------|:------------:|:--------:|:-------------:|:--------:
+[`identity`](#identity)   |      No      |    No    |      No       |   No
+[`ngram`](#ngram)         |      No      |    No    |      No       |  Yes
+[`delimiter`](#delimiter) |    (Yes)     |    No    |      No       |   No
+[`stem`](#stem)           |      No      |   Yes    |      No       |   No
+[`norm`](#norm)           |      No      |    No    |     Yes       |   No
+[`text`](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
+[`aql`](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[`pipeline`](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[`geojson`](#geojson)     |      –       |    –     |      –        |   –
+[`geopoint`](#geopoint)   |      –       |    –     |      –        |   –
 
 Analyzer Properties
 -------------------

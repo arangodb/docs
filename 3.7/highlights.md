@@ -14,7 +14,7 @@ Version 3.7
 - **ArangoSearch**:
   [Wildcard](aql/functions-arangosearch.html#like) and fuzzy search
   ([Levenshtein distance](aql/functions-arangosearch.html#levenshtein_match) and
-  [n-gram based](aql/functions-arangosearch.html#ngram_match)),
+  [_n_-gram based](aql/functions-arangosearch.html#ngram_match)),
   [enhanced phrase](aql/functions-arangosearch.html#phrase) and
   [proximity search](aql/functions-array.html#jaccard),
   improved late document materialization and
@@ -80,7 +80,7 @@ Version 3.6
 
 - **ArangoSearch**:
   New [Analyzer options](release-notes-new-features36.html#analyzers) for
-  edge n-grams (`text` Analyzer), UTF-8 encoded n-gram input and optional
+  edge _n_-grams (`text` Analyzer), UTF-8 encoded _n_-gram input and optional
   start/end markers (`ngram` Analyzer). Support for
   [dynamic expressions](release-notes-new-features36.html#dynamic-search-expressions-with-arrays)
   using arrays (array comparison operators in `SEARCH` queries and the
