@@ -7,6 +7,7 @@ redirect_from:
   - appendix-deprecated-actions-html-example.html # 3.4 -> 3.5
   - appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
   - appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
+  - http/export.html # 3.8 -> 3.9
 ---
 Deprecated
 ==========
