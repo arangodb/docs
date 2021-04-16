@@ -61,7 +61,7 @@ arangod --database.directory="my_data_dir"
 
 Many options belong to a section as in `‑‑section.param`, e.g.
 `‑‑server.database`, but there can also be options without any section.
-These options are referred to as _global options_.
+These options are referred to as _general options_.
 
 To list available options, you can run a binary with the `‑‑help` flag:
 

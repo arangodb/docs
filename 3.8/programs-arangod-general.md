@@ -1,10 +1,12 @@
 ---
 layout: default
-description: ArangoDB Server Global Options
+description: ArangoDB Server General Options
+redirect_from:
+  - programs-arangod-global.html # 3.9 -> 3.9
 ---
-# ArangoDB Server Global Options
+# ArangoDB Server General Options
 
-## General help
+## Help
 
 `--help`
 
