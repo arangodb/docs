@@ -29,7 +29,7 @@ Version 3.8
 - **ArangoSearch**:
   New [**Pipeline Analyzer**](arangosearch-analyzers.html#pipeline)
   that allows you to combine multiple Analyzers, enabling case-insensitive
-  ngram-based fuzzy search and more. New
+  _n_-gram-based fuzzy search and more. New
   [**AQL Analyzer**](arangosearch-analyzers.html#aql)
   so that you can use an AQL query to pre-process and filter your data for
   indexing. Support for **geo-spatial queries** through new
@@ -58,7 +58,7 @@ Version 3.7
 - **ArangoSearch**:
   [Wildcard](aql/functions-arangosearch.html#like) and fuzzy search
   ([Levenshtein distance](aql/functions-arangosearch.html#levenshtein_match) and
-  [n-gram based](aql/functions-arangosearch.html#ngram_match)),
+  [_n_-gram based](aql/functions-arangosearch.html#ngram_match)),
   [enhanced phrase](aql/functions-arangosearch.html#phrase) and
   [proximity search](aql/functions-array.html#jaccard),
   improved late document materialization and
@@ -124,7 +124,7 @@ Version 3.6
 
 - **ArangoSearch**:
   New [Analyzer options](release-notes-new-features36.html#analyzers) for
-  edge n-grams (`text` Analyzer), UTF-8 encoded n-gram input and optional
+  edge _n_-grams (`text` Analyzer), UTF-8 encoded _n_-gram input and optional
   start/end markers (`ngram` Analyzer). Support for
   [dynamic expressions](release-notes-new-features36.html#dynamic-search-expressions-with-arrays)
   using arrays (array comparison operators in `SEARCH` queries and the

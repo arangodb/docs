@@ -469,8 +469,8 @@ ArangoSearch
   Analyzer definition:
 
   - `edgeNgram` (object, _optional_):
-    - `min` (number, _optional_): minimal n-gram length
-    - `max` (number, _optional_): maximal n-gram length
+    - `min` (number, _optional_): minimal _n_-gram length
+    - `max` (number, _optional_): maximal _n_-gram length
     - `preserveOriginal` (boolean, _optional_): include the original token
       if its length is less than *min* or greater than *max*
 

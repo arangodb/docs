@@ -85,9 +85,9 @@ The currently implemented Analyzer types are:
 - `delimiter`: split into tokens at user-defined character
 - `stem`: apply stemming to the value as a whole
 - `norm`: apply normalization to the value as a whole
-- `ngram`: create n-grams from value with user-defined lengths
+- `ngram`: create _n_-grams from value with user-defined lengths
 - `text`: tokenize into words, optionally with stemming,
-  normalization, stop-word filtering and edge n-gram generation
+  normalization, stop-word filtering and edge _n_-gram generation
 - `aql`: for running AQL query to prepare tokens for index
 - `pipeline`: for chaining multiple Analyzers
 - `stopwords`: removes the specified tokens from the input
@@ -98,19 +98,19 @@ The currently implemented Analyzer types are:
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
-Analyzer   /   Feature  | Tokenization | Stemming | Normalization | N-grams
-:-----------------------|:------------:|:--------:|:-------------:|:------:
-[Identity](#identity)   |      No      |    No    |      No       |   No
-[Delimiter](#delimiter) |    (Yes)     |    No    |      No       |   No
-[Stem](#stem)           |      No      |   Yes    |      No       |   No
-[Norm](#norm)           |      No      |    No    |     Yes       |   No
-[N-gram](#n-gram)       |      No      |    No    |      No       |  Yes
-[Text](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
-[AQL](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-[Pipeline](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-[Stopwords](#stopwords) |      No      |    No    |      No       |   No
-[GeoJSON](#geojson)     |      –       |    –     |      –        |   –
-[GeoPoint](#geopoint)   |      –       |    –     |      –        |   –
+Analyzer    /    Feature  | Tokenization | Stemming | Normalization | _N_-grams
+:-------------------------|:------------:|:--------:|:-------------:|:--------:
+[`identity`](#identity)   |      No      |    No    |      No       |   No
+[`delimiter`](#delimiter) |    (Yes)     |    No    |      No       |   No
+[`stem`](#stem)           |      No      |   Yes    |      No       |   No
+[`norm`](#norm)           |      No      |    No    |     Yes       |   No
+[`ngram`](#ngram)         |      No      |    No    |      No       |  Yes
+[`text`](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
+[`aql`](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[`pipeline`](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[`stopwords`](#stopwords) |      No      |    No    |      No       |   No
+[`geojson`](#geojson)     |      –       |    –     |      –        |   –
+[`geopoint`](#geopoint)   |      –       |    –     |      –        |   –
 
 Analyzer Properties
 -------------------
@@ -119,7 +119,7 @@ The valid attributes/values for the *properties* are dependant on what *type*
 is used. For example, the `delimiter` type needs to know the desired delimiting
 character(s), whereas the `text` type takes a locale, stop-words and more.
 
-### Identity
+### `identity`
 
 An Analyzer applying the `identity` transformation, i.e. returning the input
 unmodified.
@@ -140,7 +140,7 @@ the input is returned unaltered:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### Delimiter
+### `delimiter`
 
 An Analyzer capable of breaking up delimited text into tokens as per
 [RFC 4180](https://tools.ietf.org/html/rfc4180)
@@ -199,7 +199,7 @@ Apply stemming to the input string as a whole:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-###  Norm
+### `norm`
 
 An Analyzer capable of normalizing the text, treated as a single
 token, i.e. case conversion and accent removal.
@@ -270,9 +270,9 @@ Convert input string to all lower-case characters and remove diacritics:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### N-gram
+### `ngram`
 
-An Analyzer capable of producing n-grams from a specified input in a range of
+An Analyzer capable of producing _n_-grams from a specified input in a range of
 min..max (inclusive). Can optionally preserve the original input.
 
 This Analyzer type can be used to implement substring matching.
@@ -283,15 +283,15 @@ multi-byte UTF-8 characters raise an *Invalid UTF-8 sequence* query error.
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `min` (number): unsigned integer for the minimum n-gram length
-- `max` (number): unsigned integer for the maximum n-gram length
+- `min` (number): unsigned integer for the minimum _n_-gram length
+- `max` (number): unsigned integer for the maximum _n_-gram length
 - `preserveOriginal` (boolean):
   - `true` to include the original value as well
-  - `false` to produce the n-grams based on *min* and *max* only
-- `startMarker` (string, _optional_): this value will be prepended to n-grams
+  - `false` to produce the _n_-grams based on *min* and *max* only
+- `startMarker` (string, _optional_): this value will be prepended to _n_-grams
   which include the beginning of the input. Can be used for matching prefixes.
   Choose a character or sequence as marker which does not occur in the input.
-- `endMarker` (string, _optional_): this value will be appended to n-grams
+- `endMarker` (string, _optional_): this value will be appended to _n_-grams
   which include the end of the input. Can be used for matching suffixes.
   Choose a character or sequence as marker which does not occur in the input.
 - `streamType` (string, _optional_): type of the input stream
@@ -301,7 +301,7 @@ attributes:
 **Examples**
 
 With *min* = `4` and *max* = `5`, the Analyzer will produce the following
-n-grams for the input string `"foobar"`:
+_n_-grams for the input string `"foobar"`:
 - `"foob"`
 - `"fooba"`
 - `"foobar"` (if *preserveOriginal* is enabled)
@@ -309,7 +309,7 @@ n-grams for the input string `"foobar"`:
 - `"oobar"`
 - `"obar"`
 
-An input string `"foo"` will not produce any n-gram unless *preserveOriginal*
+An input string `"foo"` will not produce any _n_-gram unless *preserveOriginal*
 is enabled, because it is shorter than the *min* length of 4.
 
 Above example but with *startMarker* = `"^"` and *endMarker* = `"$"` would
@@ -361,7 +361,7 @@ and stop markers:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### Text
+### `text`
 
 An Analyzer capable of breaking up strings into individual words while also
 optionally filtering out stop-words, extracting word stems, applying
@@ -384,15 +384,15 @@ attributes:
 - `stemming` (boolean, _optional_):
   - `true` to apply stemming on returned words (default)
   - `false` to leave the tokenized words as-is
-- `edgeNgram` (object, _optional_): if present, then edge n-grams are generated
-  for each token (word). That is, the start of the n-gram is anchored to the
+- `edgeNgram` (object, _optional_): if present, then edge _n_-grams are generated
+  for each token (word). That is, the start of the _n_-gram is anchored to the
   beginning of the token, whereas the `ngram` Analyzer would produce all
   possible substrings from a single input token (within the defined length
-  restrictions). Edge n-grams can be used to cover word-based auto-completion
+  restrictions). Edge _n_-grams can be used to cover word-based auto-completion
   queries with an index, for which you should set the following other options:
   `accent: false`, `case: "lower"` and most importantly `stemming: false`.
-  - `min` (number, _optional_): minimal n-gram length
-  - `max` (number, _optional_): maximal n-gram length
+  - `min` (number, _optional_): minimal _n_-gram length
+  - `max` (number, _optional_): maximal _n_-gram length
   - `preserveOriginal` (boolean, _optional_): whether to include the original
     token even if its length is less than *min* or greater than *max*
 - `stopwords` (array, _optional_): an array of strings with words to omit
@@ -450,7 +450,7 @@ disabled like this:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Custom text Analyzer with the edge n-grams feature and normalization enabled,
+Custom text Analyzer with the edge _n_-grams feature and normalization enabled,
 stemming disabled and `"the"` defined as stop-word to exclude it:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -474,7 +474,7 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### AQL
+### `aql`
 
 <small>Introduced in: v3.8.0</small>
 
@@ -655,7 +655,7 @@ the `PHRASE()` function. There is one token between `"B"` and `"D"` to skip in
 case of uncollapsed positions. With positions collapsed, both are in the same
 position, thus there is negative one to skip to match the tokens.
 
-### Pipeline
+### `pipeline`
 
 <small>Introduced in: v3.8.0</small>
 
@@ -665,7 +665,7 @@ to the next for further processing. The final token value is determined by last
 Analyzer in the pipeline.
 
 The Analyzer is designed for cases like the following:
-- Normalize text for a case insensitive search and apply ngram tokenization
+- Normalize text for a case insensitive search and apply _n_-gram tokenization
 - Split input with `delimiter` Analyzer, followed by stemming with the `stem`
   Analyzer
 
@@ -710,7 +710,7 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### Stopwords
+### `stopwords`
 
 <small>Introduced in: v3.8.0</small>
 
@@ -781,7 +781,7 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### GeoJSON
+### `geojson`
 
 <small>Introduced in: v3.8.0</small>
 
@@ -856,7 +856,7 @@ longitude, latitude order:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### GeoPoint
+### `geopoint`
 
 <small>Introduced in: v3.8.0</small>
 

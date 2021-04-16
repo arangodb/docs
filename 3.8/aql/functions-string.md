@@ -465,21 +465,21 @@ NGRAM_POSITIONAL_SIMILARITY()
 
 `NGRAM_POSITIONAL_SIMILARITY(input, target, ngramSize) → similarity`
 
-Calculates the [ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
-between *input* and *target* using ngrams with minimum and maximum length of
+Calculates the [_n_-gram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+between *input* and *target* using _n_-grams with minimum and maximum length of
 *ngramSize*.
 
 The similarity is calculated by counting how long the longest sequence of
-matching ngrams is, divided by the **longer argument's** total ngram count.
-Partially matching ngrams are counted, whereas
-[NGRAM_SIMILARITY()](#ngram_similarity) counts only fully matching ngrams.
+matching _n_-grams is, divided by the **longer argument's** total _n_-gram count.
+Partially matching _n_-grams are counted, whereas
+[NGRAM_SIMILARITY()](#ngram_similarity) counts only fully matching _n_-grams.
 
-The ngrams for both input and target are calculated on the fly,
+The _n_-grams for both input and target are calculated on the fly,
 not involving Analyzers.
 
-- **input** (string): source text to be tokenized into ngrams
-- **target** (string): target text to be tokenized into ngrams
-- **ngramSize** (number): minimum as well as maximum ngram length
+- **input** (string): source text to be tokenized into _n_-grams
+- **target** (string): target text to be tokenized into _n_-grams
+- **ngramSize** (number): minimum as well as maximum _n_-gram length
 - returns **similarity** (number): value between `0.0` and `1.0`
 
 ```js
@@ -497,23 +497,23 @@ NGRAM_SIMILARITY()
 
 `NGRAM_SIMILARITY(input, target, ngramSize) → similarity`
 
-Calculates [ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
-between *input* and *target* using ngrams with minimum and maximum length of
+Calculates [_n_-gram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+between *input* and *target* using _n_-grams with minimum and maximum length of
 *ngramSize*.
 
 The similarity is calculated by counting how long the longest sequence of
-matching ngrams is, divided by **target's** total ngram count.
-Only fully matching ngrams are counted, whereas
+matching _n_-grams is, divided by **target's** total _n_-gram count.
+Only fully matching _n_-grams are counted, whereas
 [NGRAM_POSITIONAL_SIMILARITY()](#ngram_positional_similarity) counts partially
-matching ngrams too. This behavior matches the similarity measure used in
+matching _n_-grams too. This behavior matches the similarity measure used in
 [NGRAM_MATCH()](functions-arangosearch.html#ngram_match).
 
-The ngrams for both input and target are calculated on the fly, not involving
+The _n_-grams for both input and target are calculated on the fly, not involving
 Analyzers.
 
-- **input** (string): source text to be tokenized into ngrams
-- **target** (string): target text to be tokenized into ngrams
-- **ngramSize** (number): minimum as well as maximum ngram length
+- **input** (string): source text to be tokenized into _n_-grams
+- **target** (string): target text to be tokenized into _n_-grams
+- **ngramSize** (number): minimum as well as maximum _n_-gram length
 - returns **similarity** (number): value between `0.0` and `1.0`
 
 ```js

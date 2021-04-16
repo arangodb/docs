@@ -216,7 +216,7 @@ ArangoSearch
 
 Added new Analyzer type `"pipeline"` for chaining effects of multiple Analyzers
 into one. It allows you to combine text normalization for a case insensitive
-search with ngram tokenization, or to split text at multiple delimiting
+search with _n_-gram tokenization, or to split text at multiple delimiting
 characters followed by stemming.
 
 See [ArangoSearch Pipeline Analyzer](analyzers.html#pipeline)

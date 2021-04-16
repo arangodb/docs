@@ -375,16 +375,16 @@ but not `{ "text": "snow fox" }` which only fulfills one of the conditions.
 `NGRAM_MATCH(path, target, threshold, analyzer)`
 
 Match documents whose attribute value has an
-[ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+[_n_-gram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
 higher than the specified threshold compared to the target value.
 
 The similarity is calculated by counting how long the longest sequence of
-matching ngrams is, divided by the target's total ngram count.
-Only fully matching ngrams are counted.
+matching _n_-grams is, divided by the target's total _n_-gram count.
+Only fully matching _n_-grams are counted.
 
-The ngrams for both attribute and target are produced by the specified
+The _n_-grams for both attribute and target are produced by the specified
 Analyzer. It is recommended to use an Analyzer of type `ngram` with
-`preserveOriginal: false` and `min` equal to `max`. Increasing the ngram
+`preserveOriginal: false` and `min` equal to `max`. Increasing the _n_-gram
 length will increase accuracy, but reduce error tolerance. In most cases a
 size of 2 or 3 will be a good choice. 
 
@@ -402,7 +402,7 @@ enabled. The `NGRAM_MATCH()` function will otherwise not find anything.
 - returns nothing: the function can only be called in a
   [SEARCH operation](operations-search.html) and throws an error otherwise
 
-Given a View indexing an attribute `text`, a custom ngram Analyzer `"bigram"`
+Given a View indexing an attribute `text`, a custom _n_-gram Analyzer `"bigram"`
 (`min: 2, max: 2, preserveOriginal: false, streamType: "utf8"`) and a document
 `{ "text": "quick red fox" }`, the following query would match it (with a
 threshold of `1.0`):
