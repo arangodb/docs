@@ -214,18 +214,18 @@ AQL usability options
 
 ### Requiring `WITH` statements
 
-The new startup option ``--query.require-with` will make AQL queries in single 
-server mode also require `WITH` clauses in AQL queries where a cluster installation 
-would require them.
-The option is set to *false* by default, but can be turned on in single servers to 
-remove this behavior difference between single servers and clusters, making a 
-later transition from single server to cluster easier.
+The new startup option `--query.require-with` will make AQL queries in single
+server mode also require `WITH` clauses in AQL queries where a cluster
+installation would require them.
+The option is set to *false* by default, but can be turned on in single servers
+to remove this behavior difference between single servers and clusters, making
+a later transition from single server to cluster easier.
 
 ### Allowing the usage of collection names in AQL expressions
 
-The new startup option `--query.allow-collections-in-expressions` controls whether
-using collection names in arbitrary places in AQL expressions is allowed, although 
-using collection names like this is very likely unintended.
+The new startup option `--query.allow-collections-in-expressions` controls
+whether using collection names in arbitrary places in AQL expressions is
+allowed, although using collection names like this is very likely unintended.
 
 For example, consider the query
 
@@ -250,6 +250,8 @@ unintended usage of collection names in queries is still allowed. The default
 value for the option will change to *false* in 3.9. The option will also be
 deprecated in 3.9 and removed in future versions. From then on, unintended
 usage of collection names will always be disallowed.
+
+Also see [ArangoDB Server Query Options](programs-arangod-query.html#allowing-the-usage-of-collection-names-in-aql-expressions)
 
 ArangoSearch
 ------------
@@ -1001,13 +1003,6 @@ batch (1000).
 
 Miscellaneous
 -------------
-
-- Added a new startup option `--query.allow-collections-in-expressions` to
-  control whether collection names are allowed in arbitrary places in AQL
-  expressions. It defaults to *true*. It can be set to *false* to make queries
-  like `FOR doc IN collection RETURN collection` fail, where it was probably
-  intended to `RETURN doc` instead. Also see
-  [ArangoDB Server Query Options](programs-arangod-query.html#allowing-the-usage-of-collection-names-in-aql-expressions)
 
 - Added cluster support for the JavaScript API method `collection.checksum()`
   and the REST HTTP API endpoint `GET /_api/collection/{collection-name}/checksum`,

@@ -136,11 +136,11 @@ The option can also be overridden for each individual AQL query.
 
 `--query.require-with value`
 
-When set to *true*, AQL queries in single server mode will also require `WITH` 
+When set to *true*, AQL queries in single server mode will also require `WITH`
 clauses in AQL queries where a cluster installation would require them.
-The option is set to *false* by default, but can be turned on in single servers to 
-remove this behavior difference between single servers and clusters, making a 
-later transition from single server to cluster easier.
+The option is set to *false* by default, but can be turned on in single servers
+to remove this behavior difference between single servers and clusters, making
+a later transition from single server to cluster easier.
 
 ## Allowing the usage of collection names in AQL expressions
 
