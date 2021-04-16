@@ -66,6 +66,12 @@ replace the old features with:
   necessary because the old API did not follow quite a few Prometheus
   guidelines for metrics.
 
+- **Statistics API**:
+  The endpoints `/_admin/statistics` and `/_admin/statistics-description`
+  are deprecated in favor of the new metrics API under `/_admin/metrics/v2`.
+  The metrics API provides a lot more information than the statistics API, so
+  it is much more useful.
+
 - **Actions**: Snippets of JavaScript code on the server-side for minimal
   custom endpoints. Since the Foxx revamp in 3.0, it became really easy to
   write [Foxx Microservices](foxx.html), which allow you to define
