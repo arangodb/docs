@@ -4,6 +4,7 @@ description: ArangoSearch is ArangoDB's built-in search engine for full-text, co
 title: ArangoSearch - Integrated Search Engine
 redirect_from:
   - views-arango-search.html # 3.4 -> 3.5
+  - arangosearch-examples.html # 3.8 -> 3.8
 ---
 # Information Retrieval with ArangoSearch
 
@@ -296,7 +297,7 @@ for each such field.
 The elements of arrays are indexed individually by default, as if the source
 attribute had each element as value at the same time (like a
 _disjunctive superposition_ of their values). This is controlled by the
-View setting [**trackListPositions**](../arangosearch-views.html#link-properties)
+View setting [`trackListPositions`](../arangosearch-views.html#link-properties)
 that defaults to `false`.
 
 <!--
@@ -398,3 +399,39 @@ array element `"jumps over the"` to be true:
 ```js
 ANALYZER(doc.text[2] == 'jump', "text_en")
 ```
+
+## How to go from here
+
+To learn more, check out the examples about different features and additional
+topics:
+<!-- range queries? -->
+- [**Exact value matching**](arangosearch-exact-value.html):
+  Search for values as stored in documents (full strings, numbers, booleans).
+- [**Prefix matching**](arangosearch-prefix.html):
+  Search for strings that start with certain strings. A common use case for
+  this is to implement auto-complete kind of functionality.
+<!-- normalized search? -->
+- [**Case-insensitive search**](arangosearch-case-insensitive.html):
+  Strings can be normalized so that it does not matter whether characters are
+  upper or lower case, and diacritics can be ignored for a better search
+  experience. This can be combined with other types of search.
+- [**Wildcard search**](arangosearch-wildcard.html):
+  Search for partial matches in strings (ends with, contains and more).
+<!-- fulltext or fulltext search? -->
+- [**Token search**](arangosearch-fulltext.html):
+  Full-text can be tokenized into words that can then be searched individually,
+  regardless of their original order, also in combination with prefix
+  search. Array values are also indexed as separate tokens.
+- [**Phrase search**](arangosearch-phrase.html):
+  Search tokenized full-text with the tokens in a certain order, such as
+  partial sentences, optionally 
+- [**Fuzzy search**](arangosearch-fuzzy.html):
+  
+- [**Geospatial search**](arangosearch-geospatial.html):
+  
+- [**Ranking**](arangosearch-ranking.html):
+  
+- [**Performance**](arangosearch-performance.html):
+  
+- [**Miscellaneous examples**](arangosearch-misc.html):
+  
