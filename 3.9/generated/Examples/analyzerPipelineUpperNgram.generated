@@ -1,0 +1,24 @@
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"ngram_upper"</span>, <span class="hljs-string">"pipeline"</span>, { <span class="hljs-attr">pipeline</span>: [
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"norm"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">locale</span>: <span class="hljs-string">"en.utf-8"</span>, <span class="hljs-attr">case</span>: <span class="hljs-string">"upper"</span> } },
+........&gt;   { <span class="hljs-attr">type</span>: <span class="hljs-string">"ngram"</span>, <span class="hljs-attr">properties</span>: { <span class="hljs-attr">min</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">preserveOriginal</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">streamType</span>: <span class="hljs-string">"utf8"</span> } }
+........&gt; ] }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Quick brown foX", "ngram_upper")`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">"QU"</span>, 
+    <span class="hljs-string">"UI"</span>, 
+    <span class="hljs-string">"IC"</span>, 
+    <span class="hljs-string">"CK"</span>, 
+    <span class="hljs-string">"K "</span>, 
+    <span class="hljs-string">" B"</span>, 
+    <span class="hljs-string">"BR"</span>, 
+    <span class="hljs-string">"RO"</span>, 
+    <span class="hljs-string">"OW"</span>, 
+    <span class="hljs-string">"WN"</span>, 
+    <span class="hljs-string">"N "</span>, 
+    <span class="hljs-string">" F"</span>, 
+    <span class="hljs-string">"FO"</span>, 
+    <span class="hljs-string">"OX"</span> 
+  ] 
+]

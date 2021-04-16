@@ -51,6 +51,14 @@ title: Arangod environment variables
    for Linux builds, and it can be turned off by setting this environment
    variable to an empty string, the value of `0` or `off`.
 
+- `TZ_DATA` _(introduced in v3.8.0)_
+
+   This variable can be used to specify the path to the directory containing
+   the timezone information database for ArangoDB. That directory is normally
+   named `tzdata` and is shipped with ArangoDB releases. It is normally not
+   required to set this environment variable, but it may be necessary in
+   unusual setups with non-conventional directory layouts and paths.
+
 - `IRESEARCH_TEXT_STOPWORD_PATH` _(introduced in v3.5.0)_
 
   Path to a directory with stopword files for
