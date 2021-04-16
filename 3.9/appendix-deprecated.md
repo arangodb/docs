@@ -67,8 +67,8 @@ replace the old features with:
   guidelines for metrics.
 
 - **Statistics API**:
-  The statistics API under `/_admin/statistics` and `/_admin/statistics` is now
-  deprecated in favor of the new metrics API under `/_admin/metrics/v2`.
+  The endpoints `/_admin/statistics` and `/_admin/statistics-description`
+  are deprecated in favor of the new metrics API under `/_admin/metrics/v2`.
   The metrics API provides a lot more information than the statistics API, so
   it is much more useful.
 
