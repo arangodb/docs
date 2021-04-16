@@ -307,7 +307,25 @@ The REST endpoint at GET `/_api/collection/<collection>/checksum` now also works
 in cluster setups. In previous versions, this endpoint was not supported in cluster
 setups and returned HTTP 501 (Not implemented).
 
-### Endpoints moved
+### Endpoints deprecated
+
+The API endpoint `/_admin/statistics` is now deprecated in favor of the new API endpoint
+`/_admin/metrics/v2`. The metrics endpoint provides a lot more information than the
+statistics endpoint, and will also be augmented with more metrics in the future.
+
+The statistics endpoint will still be functional in 3.8, but will eventually be removed
+in a future version of ArangoDB.
+
+The API endpoint for statistics descriptions, `/_admin/statistics-description` is also
+deprecated in 3.8 for the same reason.
+
+The REST API endpoint `/_api/export` is also deprecated in ArangoDB 3.8. This endpoint 
+was previously only present in single server, but never supported in cluster deployments.
+The purpose of the endpoint was to provide the full data of a collection
+without holding collection locks for a long time, which was useful for
+the MMFile storage engine with its collection-level locks.
+If the functionality provided by this endpoint is still required by client applications, 
+running a streaming AQL query to export the collection data can be used as a substitution.
 
 ### Endpoints removed
 
