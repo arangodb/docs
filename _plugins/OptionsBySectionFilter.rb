@@ -4,6 +4,7 @@ module OptionsBySectionFilter
         'http' => 'HTTP',
         'javascript' => 'JavaScript',
         'ldap' => 'LDAP',
+        'ldap2' => 'LDAP2 (secondary server)',
         'rocksdb' => 'RocksDB',
         'ssl' => 'SSL',
         'tcp' => 'TCP',
