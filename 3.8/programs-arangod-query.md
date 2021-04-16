@@ -132,7 +132,7 @@ The option can also be overridden for each individual AQL query.
 
 ## Requiring `WITH` statements
 
-<small>Introduced in: v3.8.0</small>
+<small>Introduced in: v3.7.12</small>
 
 `--query.require-with value`
 
