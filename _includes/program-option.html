@@ -33,7 +33,7 @@ Also see [{{ section[0] | capitalize_section }} details](programs-arangod-{{ sec
 {%- if option[1].dynamic -%}
 Default: *dynamic* (e.g. `{{ option[1].default | jsonify }}`)
 {%- else -%}
-Default: `{{ option[1].default | jsonify }}`
+Default: <code>{{ option[1].default | jsonify }}</code>
 {%- endif -%}
 {%- endif -%}
 {%- if option[1].values %}<br>{{ option[1].values }}{% endif -%}
