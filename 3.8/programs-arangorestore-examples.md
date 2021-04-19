@@ -238,6 +238,18 @@ The following factors affect speed of _arangorestore_ in a Cluster:
   on multiple _Coordinators_ at the same time. Depending on your specific
   case, parallelizing on multiple _Coordinators_ can still be useful even
   when the `--threads` option is in use (from v.3.4.0).
+- **Dump Format**: Since ArangoDB 3.8 arangodump can produce two different
+  dump formats: an enveloped format, which is the default format and
+  downwards-compatible with previous versions of ArangoDB, and a non-envelope
+  format, which is not compatible with previous versions of ArangoDB, but
+  smaller and slightly faster to produce. In addition, the non-envelope
+  format allows arangorestore to parallelize the restore operations not
+  only across collections but also within collections. The latter is not
+  possible with the envelope dump format (which is the default in ArangoDB
+  3.8 and before). In order to use the non-envelope dump format, invoke
+  arangodump with the option `--envelope false`. arangorestore can 
+  automatically parallelize the restore of such dumps even for individual 
+  collections.
 
 {% hint 'tip' %}
 Please refer to the [Fast Cluster Restore](programs-arangorestore-fast-cluster-restore.html) page

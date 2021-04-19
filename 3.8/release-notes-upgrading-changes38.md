@@ -534,6 +534,8 @@ Also see [AQL UPDATE queries with `keepNull: false`](#update-queries-with-keepnu
 Client tools
 ------------
 
+### arangoimport
+
 The default value for arangoimport's `--batch-size` option was raised from
 1 MB to 8 MB. This means that arangoimport can send larger batches containing
 more documents.
@@ -545,3 +547,17 @@ rate limiting for arangoimport is now turned off by default, but can be
 enabled on demand using the new `--auto-rate-limit` option. When enabled, it
 will start sending batches with up to `--batch-size` bytes, and then adapt
 the loading rate dynamically.
+
+### arangodump
+
+arangodump can now dump multiple shards of cluster collections in parallel.
+While this normally helps with dump performance, it may lead to more arangodump
+issuing more concurrent requests to a cluster than it did before.
+Previously, arangodump's `--threads` option controlled how many collections were
+dumped concurrently, at most. As arangodump can now dump the shards of collections
+in parallel, `--threads` now controls the maximum amount of shards that are
+dumped concurrently.
+If arangodump now causes too much load on a cluster with a high degree of
+parallelism, it is possible to reduce it by decreasing arangodump's `--threads` 
+value. The value of `--threads` will the determine the maximum parallelism 
+used by arangodump.

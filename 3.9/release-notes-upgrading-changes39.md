@@ -92,3 +92,54 @@ anyway. To remove API redundancy, the API endpoint has been deprecated
 in ArangoDB 3.8 and is now removed. If the functionality is still required
 by client applications, running a streaming AQL query can be used as a
 substitution.
+
+Client tools
+------------
+
+### arangodump
+
+The default value of arangodump's `--envelope` option changes from `true`
+in 3.8 to `false` in 3.9. This change turns on the non-envelope dump
+format by default, which will lead to smaller and slightly faster dumps.
+In addition, the non-evelope format allows higher parallelism when
+restoring dumps with arangorestore.
+
+The non-envelope dump format is different to the enveloped dump format 
+used by default in previous versions of ArangoDB. 
+
+In the enveloped format, dumps were JSONL files with a JSON object in each 
+line, and the actual database documents were placed inside a `data` attribute
+inside. There was also a `type` attribute for each line, which designated 
+the type of object in that line (typically this will have been type "2300", 
+meaning "document"). The old, enveloped format looks like this:
+
+```json
+{"type":2300,"key":"test","data":{"_key":"test","_rev":..., ...}}
+```
+
+The non-envelope format which is now enabled by default only contains the
+actual documents, e.g.
+
+```json
+{"_key":"test","_rev":..., ...}
+```
+
+The change of the default dump format may have an effect on third-party
+backup tools or script. arangorestore will work fine with both formats.
+To switch between the formats, arangodump provides the `--envelope` option.
+
+### arangorestore
+
+With the default dump format changing from the enveloped variant to the
+non-enveloped variant, arangorestore will now by default be able to employ
+higher parallelism when restoring data of large collections.
+
+When restoring a collection from a non-enveloped dump, arangorestore can 
+send multiple batches of data for the collection in parallel if it can read 
+the dump files faster than the server can respond to arangorestore's requests. 
+This increased parallelism normally helps to speed up the restore process,
+but it can also lead to arangorestore saturating the server with its restore
+requests.
+In this case it is advised to decrease the value of arangorestore's `--threads`
+option accordingly. The value of `--threads` will the determine the maximum
+parallelism used by arangorestore.
