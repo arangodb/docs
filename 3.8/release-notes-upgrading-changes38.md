@@ -553,10 +553,12 @@ the loading rate dynamically.
 arangodump can now dump multiple shards of cluster collections in parallel.
 While this normally helps with dump performance, it may lead to more arangodump
 issuing more concurrent requests to a cluster than it did before.
+
 Previously, arangodump's `--threads` option controlled how many collections were
-dumped concurrently, at most. As arangodump can now dump the shards of collections
-in parallel, `--threads` now controls the maximum amount of shards that are
-dumped concurrently.
+dumped concurrently, at most. As arangodump can now dump the shards of
+collections in parallel, `--threads` now controls the maximum amount of shards
+that are dumped concurrently.
+
 If arangodump now causes too much load on a cluster with a high degree of
 parallelism, it is possible to reduce it by decreasing arangodump's `--threads` 
 value. The value of `--threads` will the determine the maximum parallelism 

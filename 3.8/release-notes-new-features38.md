@@ -918,16 +918,17 @@ and bandwidth:
 
 Also see [_arangodump_ Dump Output Format](programs-arangodump-examples.html#dump-output-format).
 
-Using the new non-enveloped dump format also allows arangorestore to parallelize 
-restore operations for individual collections. This is not possible with the
-old, enveloped format.
+Using the new non-enveloped dump format also allows arangorestore to
+parallelize restore operations for individual collections. This is not possible
+with the old, enveloped format.
 
 ### Arangorestore parallelization for single collections
 
-Arangorestore can now parallelize restore operations even for single collections,
-which can lead to increase restore performance.
-This requires that a dump in the new non-envelope dump format is used, and that
+Arangorestore can now parallelize restore operations even for single
+collections, which can lead to increased restore performance.
+This requires that a dump in the new non-enveloped dump format is used, and that
 there are enough arangorestore threads to employ.
+
 The dump format can be configured by specifying the `--envelope false` option
 when invoking arangodump, and the number of restore threads can be adjusted by
 setting arangorestore's `--threads` option.
