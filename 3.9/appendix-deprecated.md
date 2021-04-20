@@ -82,6 +82,15 @@ replace the old features with:
   - `/_admin/clusterNodeStats`: redirects to `/_admin/cluster/nodeStatistics`
   - `/_admin/clusterStatistics`: redirects to `/_admin/cluster/statistics`
 
+- **Loading and unloading of collections**:
+  The JavaScript functions for explicitly loading and unloading collections,
+  `db.<collection-name>.load()` and `db.<collection-name>.unload()` and their
+  REST API endpoints `PUT /_api/collection/<collection-name>/load` and
+  `PUT /_api/collection/<collection-name>/unload` are deprecated in 3.8.
+  There should be no need to explicitly load or unload a collection with the
+  RocksDB storage engine. The load/unload functionality was useful only with
+  the MMFiles storage engine, which is not available anymore since 3.7.
+
 - **Actions**: Snippets of JavaScript code on the server-side for minimal
   custom endpoints. Since the Foxx revamp in 3.0, it became really easy to
   write [Foxx Microservices](foxx.html), which allow you to define
