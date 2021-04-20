@@ -74,23 +74,26 @@ as a database only. It may have an effect for Foxx applications that use HTTP
 
 ### Endpoints added
 
-The cursor API endpoint PUT `/_api/cursor/<cursor-id>` to retrieve more data
-from an existing AQL query cursor is now also available under POST `/_api/cursor/<cursor-id>`.
+- The cursor API endpoint `PUT /_api/cursor/<cursor-id>` to retrieve more data
+  from an existing AQL query cursor is now also available under
+  `POST /_api/cursor/<cursor-id>`.
 
-The new POST API is a drop-in replacement for the existing PUT API and functionally 
-equivalent to it. The benefit of using the POST API is that HTTP POST requests will 
-not be considered as idempotent, so proxies may not retry them if they fail. This was 
-the case with the existing PUT API, as HTTP PUT requests can be considered idempotent 
-according to the HTTP specification.
+  The new POST API is a drop-in replacement for the existing PUT API and
+  functionally equivalent to it. The benefit of using the POST API is that
+  HTTP POST requests will not be considered as idempotent, so proxies may not
+  retry them if they fail. This was the case with the existing PUT API, as
+  HTTP PUT requests can be considered idempotent according to the
+  [HTTP specification](https://tools.ietf.org/html/rfc7231#section-4.2){:target="_blank"}.
 
-The POST API is not yet used by ArangoDB 3.8, including the web UI and the client tools. 
-This is to ensure the compatibility of 3.8 with earlier versions, which may be in use
-during upgrade to 3.8, or with one of the 3.8 client tools.
-The PUT API will remain fully functional in this version of ArangoDB and the next.
-The following version of ArangoDB will switch to using the POST variant instead of the 
-PUT for its own requests, including web UI and client tools.
-Driver maintainers should eventually move to the POST variant of the cursor API as
-well. This is safe for drivers targeting 3.8 or higher.
+  The POST API is not yet used by ArangoDB 3.8, including the web UI and the
+  client tools. This is to ensure the compatibility of 3.8 with earlier
+  versions, which may be in use during upgrade to 3.8, or with one of the 3.8
+  client tools. The PUT API will remain fully functional in this version of
+  ArangoDB and the next. The following version of ArangoDB will switch to using
+  the POST variant instead of the PUT for its own requests, including web UI
+  and client tools. Driver maintainers should eventually move to the POST
+  variant of the cursor API as well. This is safe for drivers targeting 3.8
+  or higher.
 
 The following REST endpoints for retrieving cluster shard statistics have been added 
 in ArangoDB 3.8:
