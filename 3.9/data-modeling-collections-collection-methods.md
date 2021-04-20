@@ -212,9 +212,11 @@ Loads a collection into memory.
 Cluster collections are loaded at all times.
 {% endhint %}
 
-Note: the *load* function is **deprecated** as of ArangoDB 3.8.
+{% hint 'warning' %}
+The *load()* function is **deprecated** as of ArangoDB 3.8.0.
 The function may be removed in future versions of ArangoDB. There should not be
 any need to load a collection with the RocksDB storage engine.
+{% endhint %}
 
 **Examples**
 
@@ -302,9 +304,11 @@ until all queries have finished.
 Cluster collections cannot be unloaded.
 {% endhint %}
 
-Note: the *unload* function is **deprecated** as of ArangoDB 3.8.
+{% hint 'warning' %}
+The *unload()* function is **deprecated** as of ArangoDB 3.8.0.
 The function may be removed in future versions of ArangoDB. There should not be
 any need to unload a collection with the RocksDB storage engine.
+{% endhint %}
 
 **Examples**
 

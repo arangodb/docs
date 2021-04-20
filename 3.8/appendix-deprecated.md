@@ -86,12 +86,12 @@ replace the old features with:
   redirect to.
 
 - **Loading and unloading of collections**:
-  The JavaScript functions for explicitly loading and unloading collections, 
+  The JavaScript functions for explicitly loading and unloading collections,
   `db.<collection-name>.load()` and `db.<collection-name>.unload()` and their
-  REST API endpoints PUT `/_api/collection/<collection-name>/load` and PUT 
-  `/_api/collection/<collection-name>/unload` are deprecated in 3.8. 
+  REST API endpoints `PUT /_api/collection/<collection-name>/load` and
+  `PUT /_api/collection/<collection-name>/unload` are deprecated in 3.8.
   There should be no need to explicitly load or unload a collection with the
-  RocksDB storage engine. The load/unload functionality was useful only with 
+  RocksDB storage engine. The load/unload functionality was useful only with
   the MMFiles storage engine, which is not available anymore since 3.7.
 
 - **Actions**: Snippets of JavaScript code on the server-side for minimal
