@@ -48,6 +48,14 @@ replace the old features with:
   [HTTP Interface for Documents](http/document-working-with-documents.html#bulk-document-operations)
   that can insert, update, replace or remove arrays of documents.
 
+- **PUT method in Cursor API**:
+  The HTTP endpoint `PUT /_api/cursor/<cursor-id>` in the
+  [Cursor REST API](http/aql-query-cursor.html) is deprecated and will be
+  removed in a future version. Please use the drop-in replacement
+  `POST /_api/cursor/<cursor-id>` instead. The POST endpoint is functionally
+  equivalent to the PUT endpoint, but does not violate idempotency requirements
+  prescribed by the [HTTP specification](https://tools.ietf.org/html/rfc7231#section-4.2){:target="_blank"}.
+
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](aql/index.html), which can also
   be run in arangosh. AQL is a language on its own and way more powerful than
