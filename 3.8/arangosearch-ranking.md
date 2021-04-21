@@ -10,3 +10,6 @@ redirect_from:
 {{ page.description }}
 {:class="lead"}
 
+## Basic Ranking
+
+## Query Time Relevance Tuning

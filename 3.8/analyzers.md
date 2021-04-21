@@ -28,6 +28,8 @@ conditions, similar to queries to web search engines.
 Analyzers can be used on their own to tokenize and normalize strings in AQL
 queries with the [`TOKENS()` function](aql/functions-string.html#tokens).
 
+<!-- TODO: Add arangosh example how to create and test custom Analyzer -->
+
 How Analyzers process values depends on their type and configuration.
 The configuration is comprised of type-specific properties and list of features.
 The features control the additional metadata to be generated to augment View

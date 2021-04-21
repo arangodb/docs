@@ -4,6 +4,7 @@ description: ArangoSearch is ArangoDB's built-in search engine for full-text, co
 title: ArangoSearch - Integrated Search Engine
 redirect_from:
   - views-arango-search.html # 3.4 -> 3.5
+  - views-arango-search-getting-started.html # 3.4 -> 3.5
   - arangosearch-examples.html # 3.8 -> 3.8
 ---
 # Information Retrieval with ArangoSearch
@@ -52,11 +53,6 @@ different possibilities to search for values later on.
 Search results can be sorted by their similarity ranking to return the best
 matches first using popular scoring algorithms (Okapi BM25, TF-IDF),
 user-defined relevance boosting and dynamic score calculation.
-
-<!--
-([Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"},
-[TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf){:target="_blank"}).
--->
 
 ![Conceptual model of ArangoSearch interacting with Collections and Analyzers](images/arangosearch.png)
 
@@ -214,7 +210,73 @@ reference and the search conditions are swapped for this:
 `["fruit", "vegetable"] ALL == doc.type`
 
 For a complete list of operators supported in ArangoSearch expressions see
-[`SEARCH operation`](aql/operations-search.html).
+[AQL `SEARCH` operation](aql/operations-search.html).
+
+### Searching for tokens from full-text
+
+So far we searched for full matches of name and/or type. Strings could contain
+more than just a single term however. It could be multiple words, sentences, or
+paragraphs. For such text, we need a way to search for individual tokens,
+usually the words that it is comprised of. This is where Text Analyzers come
+in. A Text Analyzer tokenizes an entire string into individual tokens that are
+then stored in an inverted index.
+
+There are a few pre-configured text Analyzers, but you can also add your own as
+needed. For now, let us use the built-in `text_en` Analyzer for tokenizing
+English text.
+
+1. Replace `"fields": {},` in the `food_view` View definition with below code:
+  ```js
+  "fields": {
+    "name": {
+      "analyzers": ["text_en", "identity"]
+    }
+  },
+  ```
+2. Save the change. After a few seconds, the `name` attribute will be indexed
+   with the `text_en` Analyzer in addition to the `identity` Analyzer.
+3. Run below query that sets `text_en` as context Analyzer and searches for
+   the word `pepper`:
+   ```js
+   FOR doc IN food_view
+     SEARCH ANALYZER(doc.name == "pepper", "text_en")
+     RETURN doc.name
+   ```
+4. It matches `chili pepper` because the Analyzer tokenized it into `chili` and
+   `pepper` and the latter matches the search criterion. Compare that to the
+   `identity` Analyzer:
+   ```js
+   FOR doc IN food_view
+     SEARCH ANALYZER(doc.name == "pepper", "identity")
+     RETURN doc.name
+   ```
+   It does not match because `chili pepper` is indexed as a single token that
+   does not match the search criterion.
+5. Switch back to the `text_en` Analyzer but with a different search term:
+   ```js
+   FOR doc IN food_view
+     SEARCH ANALYZER(doc.name == "PéPPêR", "text_en")
+     RETURN doc.name
+   ```
+   This will not match anything, even though this particular Analyzer converts
+   characters to lowercase and accented characters to their base characters.
+   The problem is that this transformation is applied to the document attribute
+   when it gets indexed, but we haven't applied it to the search term.
+6. If we apply the same transformation then we get a match:
+   ```js
+   FOR doc IN food_view
+     SEARCH ANALYZER(doc.name == TOKENS("PéPPêR", "text_en")[0], "text_en")
+     RETURN doc.name
+   ```
+   Note that the [`TOKENS()` functions](aql/functions-string.html#tokens)
+   returns an array. We pick the first element with `[0]`, which is the
+   normalized search term `"pepper"`.
+
+<!--
+Primitive values other than strings (`null`, `true`, `false`, numbers) are
+indexed unchanged. The values of nested object are optionally indexed under the
+respective attribute path, including objects in arrays.
+-->
 
 ### Search expressions with ArangoSearch functions
 
@@ -236,7 +298,7 @@ AQL syntax. They are typically function calls to ArangoSearch search functions,
 possibly nested and/or using logical operators for multiple conditions.
 
 ```js
-STARTS_WITH(doc.name, "chi") OR STARTS_WITH(doc.name, "tom")
+ANALYZER(STARTS_WITH(doc.name, "chi") OR STARTS_WITH(doc.name, "tom"), "identity")
 ```
 
 The default Analyzer that will be used for searching is `"identity"`.
@@ -256,6 +318,13 @@ PHRASE(doc.name, "chili pepper", "text_en") OR PHRASE(doc.name, "tomato", "text_
 ANALYZER(PHRASE(doc.name, "chili pepper") OR PHRASE(doc.name, "tomato"), "text_en")
 ```
 
+{% hint 'tip' %}
+The [`PHRASE()` function](aql/functions-arangosearch.html#phrase) applies the
+`text_en` Analyzer to the search terms in both cases. `chili pepper` gets
+tokenized into `chili` and `pepper` and these tokens are then searched in this
+order. Searching for `pepper chili` would not match.
+{% endhint %}
+
 Certain expressions do not require any ArangoSearch functions, such as basic
 comparisons. However, the Analyzer used for searching will be `"identity"`
 unless `ANALYZER()` is used to set a different one.
@@ -265,7 +334,7 @@ unless `ANALYZER()` is used to set a different one.
 SEARCH doc.name == "avocado"
 
 // Same as before but being explicit
-SEARCH ANALYZER(doc.name == "avocado", "idenity")
+SEARCH ANALYZER(doc.name == "avocado", "identity")
 
 // Use the "text_en" Analyzer for searching instead
 SEARCH ANALYZER(doc.name == "avocado", "text_en")
@@ -283,14 +352,135 @@ FOR doc IN viewName
   RETURN doc
 ```
 
+### Ranking results by relevance
+
+Finding matches is one thing, but especially if there are a lot of results then
+the most relevant documents should be listed first. ArangoSearch implements
+[scoring functions](aql/functions-arangosearch.html#scoring-functions) that
+can be used to rank documents by relevance. The popular ranking schemes
+[Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"} and
+[TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf){:target="_blank"} are
+available.
+
+Here is an example that sorts results from high to low BM25 score and also
+returns the score:
+
+```js
+FOR doc IN food_view
+  SEARCH ANALYZER(doc.type == "vegetable", "identity")
+  SORT BM25(doc) DESC
+  RETURN { name: doc.name, type: doc.type, score: BM25(doc) }
+```
+
+As you can see, the variable emitted by the View in the `FOR … IN` loop is
+passed to the [`BM25()` function](aql/functions-arangosearch.html#bm25).
+
+| name         | type                  | score               |
+|:-------------|:----------------------|:--------------------|
+| tomato       | ["fruit","vegetable"] | 0.43373921513557434 |
+| carrot       | vegetable             | 0.38845786452293396 |
+| chili pepper | vegetable             | 0.38845786452293396 |
+
+The [`TFIDF()` function](aql/functions-arangosearch.html#tfidf) works the same:
+
+```js
+FOR doc IN food_view
+  SEARCH ANALYZER(doc.type == "vegetable", "identity")
+  SORT TFIDF(doc) DESC
+  RETURN { name: doc.name, type: doc.type, score: TFIDF(doc) }
+```
+
+It returns different scores:
+
+| name         | type                  | score               |
+|:-------------|:----------------------|:--------------------|
+| tomato       | ["fruit","vegetable"] | 1.2231435775756836  |
+| carrot       | vegetable             | 1.2231435775756836  |
+| chili pepper | vegetable             | 1.2231435775756836  |
+
+The scores will change whenever you insert, modify or remove documents, because
+the ranking takes factors like how often a term occurs overall and within a
+single document into account. For example, if you insert a hundred more fruit
+documents (`INSERT { type: "fruit" } INTO food`) then the TF-IDF score for
+vegetables will become 1.4054651260375977.
+
+You can adjust the ranking in two different ways:
+- Boost sub-expressions to favor a condition over another with the
+  [`BOOST()` function](aql/functions-arangosearch.html#boost)
+- Calculate a custom score with an expression, optionally taking `BM25()` and
+  `TFIDF()` into account
+Have a look at the [Ranking Examples](arangosearch-ranking.html) for that.
+
 ## Indexing complex JSON documents
 
 ### Working with nested fields
 
-It is possible to index all attributes of documents or particular attributes
-(optionally including nested attributes). Any document attribute at any depth
-can be indexed. A list of Analyzers to process the values with can be defined
-for each such field.
+As with regular indexes, there is no limitation to top-level attributes.
+Any document attribute at any depth can be indexed. However, with ArangoSearch
+it is possible to index all documents attributes or particular attributes
+including their nested attributes with having to modifying the View definition
+as new (nested) attribute are added.
+
+We already used this feature to index all document attributes above when we
+modified the View definition to this:
+
+```js
+{
+  "links": {
+    "food": {
+      "includeAllFields": true
+    }
+  },
+  ...
+}
+```
+
+No matter what attributes you add to your documents, they will automatically
+get indexed. To do this for certain attribute paths only, you can specify it
+like shown below and include a list of Analyzers to process the values with:
+
+```js
+{
+  "links": {
+    "food": {
+      "fields": {
+        "value": {
+          "includeAllFields": true,
+          "analyzers": ["identity", "text_en"]
+        }
+      }
+    }
+  }
+}
+```
+
+This will index the attribute `value` and its nested attributes. Consider the
+following example document:
+
+```json
+{
+  "value": {
+    "nested": {
+      "deep": "apple pie"
+    }
+  }
+}
+```
+
+The View will automatically index `apple pie`, processed with the `identity` and
+`text_en` Analyzers, and it can then be queried like this:
+
+```js
+FOR doc IN food_view
+  SEARCH ANALYZER(doc.value.nested.deep == "apple pie", "identity")
+  RETURN doc
+```
+
+```js
+FOR doc IN food_view
+  SEARCH ANALYZER(doc.value.nested.deep IN TOKENS("pie", "text_en"), "text_en")
+  RETURN doc
+```
 
 ### Indexing and querying arrays
 
@@ -300,18 +490,7 @@ _disjunctive superposition_ of their values). This is controlled by the
 View setting [`trackListPositions`](../arangosearch-views.html#link-properties)
 that defaults to `false`.
 
-<!--
-Strings may get transformed by
-Analyzers into multiple tokens, which are handled similarly to an array of
-strings.
-
-Primitive values other than strings (`null`, `true`, `false`, numbers) are
-indexed unchanged. The values of nested object are optionally indexed under the
-respective attribute path, including objects in arrays.
--->
-
-Therefore, array comparison operators such as `ALL IN` or `ANY ==` aren't
-really necessary. Consider the following document:
+Consider the following document:
 
 ```json
 {
@@ -323,9 +502,9 @@ really necessary. Consider the following document:
 }
 ```
 
-A View which is configured to index the field `value` including sub-fields
+A View that is configured to index the field `value` including sub-fields
 will index the individual numbers under the path `value.nested.deep`, which
-can be queried for like:
+you can query for like:
 
 ```js
 FOR doc IN viewName
@@ -360,10 +539,8 @@ SEARCH doc.value.nested.deep == 2
 Conversely, there will be no match if an array index is specified but
 `trackListPositions` is disabled.
 
-
-
-String tokens (see [Analyzers](../analyzers.html)) are also
-indexed individually, but not all Analyzer types return multiple tokens.
+String tokens are also indexed individually, but only some Analyzer types
+return multiple tokens.
 If the Analyzer does, then comparison tests are done per token/word.
 For example, given the field `text` is analyzed with `"text_en"` and contains
 the string `"a quick brown fox jumps over the lazy dog"`, the following
@@ -400,38 +577,90 @@ array element `"jumps over the"` to be true:
 ANALYZER(doc.text[2] == 'jump', "text_en")
 ```
 
+Arrays of strings are handled similarly. Each array element is treated like a
+token (or possibly multiple tokens if a tokenizing Analyzer is used and
+therefore applied to each element).
+
+## Dealing with eventual consistency
+
+Regular indexes are immediately consistent. If you have a collection with a
+`persistent` index on an attribute `text` and update the value of the attribute
+for instance, then this modification is reflected in the index immediately.
+ArangoSearch View indexes on the other hand are eventual consistent. Document
+changes are not reflected instantly, but only near-realtime. This mainly has
+performance reasons.
+
+If you run a search query shortly after a CRUD operation, then the results may
+be slightly stale, e.g. not include a newly inserted document:
+
+```js
+db._query(`INSERT { text: "cheese cake" } INTO collection`);
+db._query(`FOR doc IN viewName SEARCH doc.text == "cheese cake" RETURN doc`);
+```
+
+Re-running the search query a bit later will include the new document, however.
+
+There is an internal option to wait for the View to update and thus include
+changes just made to documents:
+
+```js
+db._query(`INSERT { text: "pop tart" } INTO collection`);
+db._query(`FOR doc IN viewName SEARCH doc.text == "pop tart" OPTIONS { waitForSync: true } RETURN doc`);
+```
+
+{% hint 'warning' %}
+`SEARCH … OPTIONS { waitForSync: true }` is intended to be used in unit tests
+to block search queries until the View caught up with the underlying
+collections. It is designed to make this use case easier. It should not be used
+for other purposes and especially not in production, as it can stall queries.
+{% endhint %}
+
+{% hint 'danger' %}
+Do not use`SEARCH … OPTIONS { waitForSync: true }` in transactions. View index
+changes cannot be rolled back if transactions get aborted. It will lead to
+permanent inconsistencies the linked collections and the View.
+{% endhint %}
+
 ## How to go from here
 
 To learn more, check out the examples about different features and additional
 topics:
-<!-- range queries? -->
-- [**Exact value matching**](arangosearch-exact-value.html):
+<!-- TODO: Cover range queries here as well? -->
+- [**Exact value matching**](arangosearch-exact-value-matching.html):
   Search for values as stored in documents (full strings, numbers, booleans).
-- [**Prefix matching**](arangosearch-prefix.html):
+- [**Prefix matching**](arangosearch-prefix-matching.html):
   Search for strings that start with certain strings. A common use case for
   this is to implement auto-complete kind of functionality.
-<!-- normalized search? -->
-- [**Case-insensitive search**](arangosearch-case-insensitive.html):
+<!-- TODO: Rename to normalized search or string normalization? -->
+- [**Case-insensitive search**](arangosearch-case-insensitive-search.html):
   Strings can be normalized so that it does not matter whether characters are
   upper or lower case, and diacritics can be ignored for a better search
   experience. This can be combined with other types of search.
-- [**Wildcard search**](arangosearch-wildcard.html):
+- [**Wildcard search**](arangosearch-wildcard-search.html):
   Search for partial matches in strings (ends with, contains and more).
-<!-- fulltext or fulltext search? -->
-- [**Token search**](arangosearch-fulltext.html):
+<!-- TODO: Combine token and phrase search into a single full-text search page? -->
+- [**Token search**](arangosearch-fulltext-search.html):
   Full-text can be tokenized into words that can then be searched individually,
   regardless of their original order, also in combination with prefix
   search. Array values are also indexed as separate tokens.
-- [**Phrase search**](arangosearch-phrase.html):
+- [**Phrase search**](arangosearch-phrase-search.html):
   Search tokenized full-text with the tokens in a certain order, such as
-  partial sentences, optionally 
-- [**Fuzzy search**](arangosearch-fuzzy.html):
-  
-- [**Geospatial search**](arangosearch-geospatial.html):
-  
+  partial or full sentences, optionally with wildcard tokens for a proximity
+  search.
+- [**Fuzzy search**](arangosearch-fuzzy-search.html):
+  Match strings even if they are not exactly the same as the search terms.
+  By allowing some fuzziness you can compensate for typos and match similar
+  tokens that could be relevant too.
+- [**Geospatial search**](arangosearch-geospatial-search.html):
+  You can use ArangoSearch for geographic search queries to find nearby
+  locations, places within a certain area and more. It can be combined with
+  other types of search queries unlike with the regular geo index.
 - [**Ranking**](arangosearch-ranking.html):
-  
+  Sort search results by relevance, fine-tune the importance of certain search
+  conditions, and calculate a custom relevance score.
 - [**Performance**](arangosearch-performance.html):
-  
-- [**Miscellaneous examples**](arangosearch-misc.html):
-  
+  Give the View index a primary sort order to benefit common search queries
+  that you will run and store often used attributes directly in the View index
+  for fast access.
+- [**Views Reference**](arangosearch-views.html):
+  You can find all View properties and options in this reference documentation.
