@@ -957,6 +957,11 @@ useful if a query is run on overly large documents, which would lead to the
 response sizes getting out of hand with the default number of documents per
 batch (1000).
 
+### Controlling the maximum query runtime of arangoexport
+
+Arangoexport now has a `--query-max-runtime` option to limit the runtime of
+queries it executes. 
+
 Miscellaneous
 -------------
 

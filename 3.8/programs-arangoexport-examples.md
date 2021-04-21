@@ -145,3 +145,9 @@ The example exports all books as JSONL that are sold more than 100 times.
 A *fields* list is required for CSV exports, but you can use an AQL query to produce
 these fields. For example, you can de-normalize document structures like arrays and
 nested objects to a tabular form as demonstrated above.
+
+The runtime of the query executed by arangoexport can optionally be limited via the
+arangoexport option `--query-max-runtime`. This specifies the maximum query runtime in
+seconds.
+    
+    arangoexport --type jsonl --query "FOR book IN books FILTER book.sells > 100 RETURN book" --query-max-runtime 10
