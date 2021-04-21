@@ -7,6 +7,7 @@ redirect_from:
   - appendix-deprecated-actions-html-example.html # 3.4 -> 3.5
   - appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
   - appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
+  - http/export.html # 3.8 -> 3.9
 ---
 Deprecated
 ==========
@@ -47,6 +48,14 @@ replace the old features with:
   [HTTP Interface for Documents](http/document-working-with-documents.html#bulk-document-operations)
   that can insert, update, replace or remove arrays of documents.
 
+- **PUT method in Cursor API**:
+  The HTTP endpoint `PUT /_api/cursor/<cursor-id>` in the
+  [Cursor REST API](http/aql-query-cursor.html) is deprecated and will be
+  removed in a future version. Please use the drop-in replacement
+  `POST /_api/cursor/<cursor-id>` instead. The POST endpoint is functionally
+  equivalent to the PUT endpoint, but does not violate idempotency requirements
+  prescribed by the [HTTP specification](https://tools.ietf.org/html/rfc7231#section-4.2){:target="_blank"}.
+
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](aql/index.html), which can also
   be run in arangosh. AQL is a language on its own and way more powerful than
@@ -65,6 +74,30 @@ replace the old features with:
   a new one under `/_admin/metrics/v2` from version 3.8.0 on. This step was
   necessary because the old API did not follow quite a few Prometheus
   guidelines for metrics.
+
+- **Statistics API**:
+  The endpoints `/_admin/statistics` and `/_admin/statistics-description`
+  are deprecated in favor of the new metrics API under `/_admin/metrics/v2`.
+  The metrics API provides a lot more information than the statistics API, so
+  it is much more useful.
+
+- **Older cluster REST API endpoints**:
+  The following endpoints are simply redirects since ArangoDB 3.7 and are thus
+  deprecated from ArangoDB 3.8 onwards:
+
+  - `/_admin/clusterNodeVersion`: redirects to `/_admin/cluster/nodeVersion`
+  - `/_admin/clusterNodeEngine`: redirects to `/_admin/cluster/nodeEngine`
+  - `/_admin/clusterNodeStats`: redirects to `/_admin/cluster/nodeStatistics`
+  - `/_admin/clusterStatistics`: redirects to `/_admin/cluster/statistics`
+
+- **Loading and unloading of collections**:
+  The JavaScript functions for explicitly loading and unloading collections,
+  `db.<collection-name>.load()` and `db.<collection-name>.unload()` and their
+  REST API endpoints `PUT /_api/collection/<collection-name>/load` and
+  `PUT /_api/collection/<collection-name>/unload` are deprecated in 3.8.
+  There should be no need to explicitly load or unload a collection with the
+  RocksDB storage engine. The load/unload functionality was useful only with
+  the MMFiles storage engine, which is not available anymore since 3.7.
 
 - **Actions**: Snippets of JavaScript code on the server-side for minimal
   custom endpoints. Since the Foxx revamp in 3.0, it became really easy to
@@ -144,7 +177,7 @@ replace the old features with:
   discouraged. Their functionality is already removed, but they still exist to
   prevent unknown startup option errors.
 
-- **JavaScript traversal API**: The [JavaScript traversal API](http/traversal.html)
+- **HTTP and JavaScript traversal APIs**: The [HTTP traversal API](http/traversal.html)
   is deprecated since version 3.4.0. The JavaScript traversal module
   `@arangodb/graph/traversal` is also deprecated since then. The preferred way
   to traverse graphs is via AQL.

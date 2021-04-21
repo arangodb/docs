@@ -4,7 +4,13 @@
 ## {{ section[0] | capitalize_section }}
 
 {% if include.name=="arangod" %}
-Also see [{{ section[0] | capitalize_section }} details](programs-{{ include.name }}-{{ section[0] }}.html).
+{% if section[0]=="ldap2" %}
+The `ldap2.*` options are identical to the `ldap.*` options, but configure a
+secondary LDAP server. See
+[LDAP Secondary server options (`ldap2`)](programs-arangod-ldap.html#secondary-server-options-ldap2).
+{% else %}
+Also see [{{ section[0] | capitalize_section }} details](programs-arangod-{{ section[0] }}.html).
+{% endif %}
 {% endif %}
 
 | Name | Type | Description |
@@ -27,7 +33,7 @@ Also see [{{ section[0] | capitalize_section }} details](programs-{{ include.nam
 {%- if option[1].dynamic -%}
 Default: *dynamic* (e.g. `{{ option[1].default | jsonify }}`)
 {%- else -%}
-Default: `{{ option[1].default | jsonify }}`
+Default: <code>{{ option[1].default | jsonify }}</code>
 {%- endif -%}
 {%- endif -%}
 {%- if option[1].values %}<br>{{ option[1].values }}{% endif -%}

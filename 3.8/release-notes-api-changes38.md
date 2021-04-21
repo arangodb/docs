@@ -74,6 +74,27 @@ as a database only. It may have an effect for Foxx applications that use HTTP
 
 ### Endpoints added
 
+- The cursor API endpoint `PUT /_api/cursor/<cursor-id>` to retrieve more data
+  from an existing AQL query cursor is now also available under
+  `POST /_api/cursor/<cursor-id>`.
+
+  The new POST API is a drop-in replacement for the existing PUT API and
+  functionally equivalent to it. The benefit of using the POST API is that
+  HTTP POST requests will not be considered as idempotent, so proxies may not
+  retry them if they fail. This was the case with the existing PUT API, as
+  HTTP PUT requests can be considered idempotent according to the
+  [HTTP specification](https://tools.ietf.org/html/rfc7231#section-4.2){:target="_blank"}.
+
+  The POST API is not yet used by ArangoDB 3.8, including the web UI and the
+  client tools. This is to ensure the compatibility of 3.8 with earlier
+  versions, which may be in use during upgrade to 3.8, or with one of the 3.8
+  client tools. The PUT API will remain fully functional in this version of
+  ArangoDB and the next. The following version of ArangoDB will switch to using
+  the POST variant instead of the PUT for its own requests, including web UI
+  and client tools. Driver maintainers should eventually move to the POST
+  variant of the cursor API as well. This is safe for drivers targeting 3.8
+  or higher.
+
 The following REST endpoints for retrieving cluster shard statistics have been added 
 in ArangoDB 3.8:
 
@@ -307,7 +328,23 @@ The REST endpoint at GET `/_api/collection/<collection>/checksum` now also works
 in cluster setups. In previous versions, this endpoint was not supported in cluster
 setups and returned HTTP 501 (Not implemented).
 
-### Endpoints moved
+### Endpoints deprecated
+
+The API endpoints `/_admin/statistics` and `/_admin/statistics-description` are
+now deprecated in favor of the new metrics API endpoint `/_admin/metrics/v2`.
+The metrics endpoint provides a lot more information than the statistics
+endpoints, and will also be augmented with more metrics in the future.
+The statistics endpoints will still be functional in 3.8, but will eventually
+be removed in a future version of ArangoDB.
+
+The REST API endpoint `/_api/export` is also deprecated in ArangoDB 3.8. This
+endpoint was previously only present in single server, but never supported in
+cluster deployments. The purpose of the endpoint was to provide the full data
+of a collection without holding collection locks for a long time, which was
+useful for the MMFile storage engine with its collection-level locks. If the
+functionality provided by this endpoint is still required by client
+applications, running a streaming AQL query to export the collection data can
+be used as a substitution.
 
 ### Endpoints removed
 
