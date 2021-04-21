@@ -487,7 +487,7 @@ FOR doc IN food_view
 The elements of arrays are indexed individually by default, as if the source
 attribute had each element as value at the same time (like a
 _disjunctive superposition_ of their values). This is controlled by the
-View setting [`trackListPositions`](../arangosearch-views.html#link-properties)
+View setting [`trackListPositions`](arangosearch-views.html#link-properties)
 that defaults to `false`.
 
 Consider the following document:
@@ -513,7 +513,7 @@ FOR doc IN viewName
 ```
 
 This is different to `FILTER` operations, where you would use an
-[array comparison operator](operators.html#array-comparison-operators)
+[array comparison operator](aql/operators.html#array-comparison-operators)
 to find an element in the array:
 
 ```js

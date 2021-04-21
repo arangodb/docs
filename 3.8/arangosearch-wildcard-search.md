@@ -31,7 +31,7 @@ context:
 escaping (`\\\\` in bind variables and `\\\\\\\\` in queries)
 {% endhint %}
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dateset)
+**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
 
 **View definition:**
 

@@ -5,6 +5,9 @@ title: ArangoSearch - Integrated Full-text Search Engine
 redirect_from:
   - views-arango-search.html # 3.4 -> 3.5
 ---
+# Primary Sort Order
+<!-- TODO: Temporary -->
+
 # ArangoSearch
 
 You can index nested fields from multiple collections, use full-text processing

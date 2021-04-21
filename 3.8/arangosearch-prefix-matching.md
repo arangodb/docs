@@ -11,7 +11,7 @@ If you want to search for text that starts with a certain string, then the the
 `identity` is sufficient. However, only the original capitalization will match
 (case-sensitive).
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dateset)
+**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
 
 **View definition:**
 

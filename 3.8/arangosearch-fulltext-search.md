@@ -12,5 +12,5 @@ redirect_from:
 
 
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dateset)
+**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
 

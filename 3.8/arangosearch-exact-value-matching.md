@@ -12,7 +12,7 @@ If you want to find strictly equal values, then the `identity` Analyzer is what
 you need. It will not apply any transformations. It is a no-operation Analyzer
 that passes everything through unaltered.
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dateset)
+**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
 
 **View definition:**
 

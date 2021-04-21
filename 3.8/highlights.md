@@ -27,7 +27,7 @@ Version 3.8
   [Geo](analyzers.html#geojson)
   [Analyzers](analyzers.html#geopoint) and
   [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
-  A new [**Stopwords Analyzer**](arangosearch-analyzers.html#stopwords) that
+  A new [**Stopwords Analyzer**](analyzers.html#stopwords) that
   can be used standalone or in an Analyzer pipeline.
 
 - A [**`WINDOW` operation**](aql/operations-window.html) for aggregations over
@@ -141,7 +141,7 @@ Version 3.5
 - **ArangoSearch**:
   The search and ranking engine received an upgrade and now features
   [Configurable Analyzers](analyzers.html),
-  [Sorted Views](arangosearch.html#primary-sort-order)
+  [Sorted Views](arangosearch-performance.html#primary-sort-order)
   and several improvements to the
   [AQL integration](release-notes-new-features35.html#arangosearch).
 

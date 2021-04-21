@@ -246,7 +246,7 @@ input. It can be used standalone or be combined with other Analyzers via a
 pipeline Analyzer to add stopword functionality to them. Previously, only the
 text Analyzer type provided stopword support.
 
-See [ArangoSearch Stopwords Analyzer](arangosearch-analyzers.html#stopwords)
+See [ArangoSearch Stopwords Analyzer](analyzers.html#stopwords)
 
 ### Approximate count
 

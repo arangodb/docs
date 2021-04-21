@@ -10,4 +10,4 @@ title: Geospatial Search ArangoSearch Examples
 
 
 
-**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dateset)
+**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
