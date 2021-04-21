@@ -88,7 +88,7 @@ not an ArangoSearch function but a regular string function which can be used
 outside of `SEARCH` operations.
 
 - **expr** (expression): any valid search expression
-- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
+- **analyzer** (string): name of an [Analyzer](../analyzers.html).
 - returns **retVal** (any): the expression result that it wraps
 
 Assuming a View definition with an Analyzer whose name and type is `delimiter`:
@@ -274,7 +274,7 @@ by the specified **analyzer**.
 
 - **path** (attribute path expression): the attribute to test in the document
 - **type** (string): string literal `"analyzer"`
-- **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
+- **analyzer** (string, _optional_): name of an [Analyzer](../analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
 - returns nothing: the function evaluates to a boolean, but this value cannot be
@@ -399,7 +399,7 @@ enabled. The `NGRAM_MATCH()` function will otherwise not find anything.
 - **target** (string): the string to compare against the stored attribute
 - **threshold** (number, _optional_): value between `0.0` and `1.0`. Defaults
   to `0.7` if none is specified.
-- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
+- **analyzer** (string): name of an [Analyzer](../analyzers.html).
 - returns **fulfilled** (bool): `true` if the evaluated _n_-gram similarity value
   is greater or equal than the specified threshold, `false` otherwise
 
@@ -473,7 +473,7 @@ array as second argument.
   string and array tokens, but not for object tokens.
 - **skipTokens** (number, _optional_): amount of tokens to treat
   as wildcards
-- **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
+- **analyzer** (string, _optional_): name of an [Analyzer](../analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
 - returns nothing: the function evaluates to a boolean, but this value cannot be

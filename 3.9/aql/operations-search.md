@@ -217,7 +217,7 @@ SEARCH doc.value.nested.deep == 2
 Conversely, there will be no match if an array index is specified but
 `trackListPositions` is disabled.
 
-String tokens (see [Analyzers](../arangosearch-analyzers.html)) are also
+String tokens (see [Analyzers](../analyzers.html)) are also
 indexed individually, but not all Analyzer types return multiple tokens.
 If the Analyzer does, then comparison tests are done per token/word.
 For example, given the field `text` is analyzed with `"text_en"` and contains

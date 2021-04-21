@@ -48,7 +48,7 @@ According to the model, documents and query are represented as vectors in a
 space formed by the _terms_ of the query. Typically terms are single words,
 keywords or even phrases. Value analysis such as splitting text into words
 (tokenization) and normalizing them is possible with the help of
-[Analyzers](arangosearch-analyzers.html). As this is application dependent
+[Analyzers](analyzers.html). As this is application dependent
 ArangoDB offers configurable Analyzers aside from a set of built-in Analyzers.
 
 The document vectors that are closer to a query vector are more relevant.
@@ -250,7 +250,7 @@ During view modification the following directives apply:
 - **analyzers** (_optional_; type: `array`; subtype: `string`; default: `[
   "identity" ]`)
 
-  A list of Analyzers, by name as defined via the [Analyzers](arangosearch-analyzers.html),
+  A list of Analyzers, by name as defined via the [Analyzers](analyzers.html),
   that should be applied to values of processed document attributes.
 
 - **fields** (_optional_; type: `object`; default: `{}`)
