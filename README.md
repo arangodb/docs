@@ -35,13 +35,13 @@ by changing the `_config.yml`:
 
 ```yml
 exclude:
- #- 3.5/
- #- 3.4/
+# - 3.9/
+  - 3.8/
+  - 3.7/
+  - 3.6/
+  - 3.5/
+  - 3.4/
   - 3.3/
-  - 3.2/
-  - 3.1/
-  - 3.0/
-  - 2.8/
 ```
 
 Above example disables versions 2.8 through 3.3, so that 3.4 and 3.5 will be
@@ -241,6 +241,12 @@ Add the actual content below the frontmatter.
   ln -s ../3.9/release-notes-upgrading-changes39.md release-notes-upgrading-changes39.md
   ln -s ../3.9/release-notes-api-changes39.md release-notes-api-changes39.md
   cd ..
+  ```
+- Check if any links to version-specific pages such as the release notes need
+  to be updated, e.g.
+  ```diff
+  -See [Known Issues](release-notes-known-issues39.html).
+  +See [Known Issues](release-notes-known-issues40.html).
   ```
 - Add a section _Version 4.0_ to `4.0/highlights.html` including a link to
   _What's New in 4.0_
