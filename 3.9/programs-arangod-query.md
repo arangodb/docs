@@ -130,6 +130,18 @@ queries early. When set to *false*, AQL queries that produce warnings will not
 abort and return the warnings along with the query results.
 The option can also be overridden for each individual AQL query.
 
+## Requiring `WITH` statements
+
+<small>Introduced in: v3.7.12</small>
+
+`--query.require-with value`
+
+When set to *true*, AQL queries in single server mode will also require `WITH`
+clauses in AQL queries where a cluster installation would require them.
+The option is set to *false* by default, but can be turned on in single servers
+to remove this behavior difference between single servers and clusters, making
+a later transition from single server to cluster easier.
+
 ## Allowing the usage of collection names in AQL expressions
 
 <small>Introduced in: v3.8.0</small><br>
@@ -159,10 +171,10 @@ Setting the option `--query.allow-collections-in-expression` to *false* will
 prohibit such unintentional usage of collection names in queries, and instead
 make the query fail with error 1568 ("collection used as expression operand").
 
-The default value of the option is *true* in v3.8, meaning that potentially
-unintended usage of collection names in queries is still allowed. However,
-the default value for the option is *false* in v3.9. The option is deprecated
-from 3.9.0 on and will be removed in future versions. From then on, unintended
+The default value of the option was *true* in v3.8, meaning that potentially
+unintended usage of collection names in queries were still allowed. In v3.9
+the default value changes to *false*. The option is also deprecated from
+3.9.0 on and will be removed in future versions. From then on, unintended
 usage of collection names will always be disallowed.
 
 ## Enable/disable AQL query tracking
