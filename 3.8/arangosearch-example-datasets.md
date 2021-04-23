@@ -10,7 +10,16 @@ title: ArangoSearch Example Datasets
 
 ## IMDB Movie Dataset
 
-To try out the examples for yourself, download the
-[IMDB movie dataset](https://github.com/arangodb/example-datasets/tree/master/Graphs/IMDB/dump){:target="_blank"}
-files and use [arangorestore](programs-arangorestore.html) to restore the
-dump to an ArangoDB server. Furthermore, create a View called `imdb`.
+This is a movies and actors dataset based on data of the
+[Internet Movie Database](https://www.imdb.com/){:target="_blank"} (IMDB).
+It was converted into a graph. Also see the
+[arangodb/example-datasets](https://github.com/arangodb/example-datasets/tree/master/Graphs/IMDB){:target="_blank"}
+repository.
+
+1. Download [imdb_graph_2017_dump.zip](https://github.com/arangodb/example-datasets/releases/download/imdb-graph-2017/imdb_graph_2017_dump.zip){:target="_blank"}
+   (~10 MB)
+2. Unpack the downloaded archive
+3. Restore the folder `imdb_dump` with [arangorestore](programs-arangorestore.html)
+   into an ArangoDB instance, e.g.
+   `arangorestore --server.endpoint tcp://localhost:8529 --server.database IMDB --create-database --`
+4. Create a View called `imdb`

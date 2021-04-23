@@ -625,25 +625,25 @@ permanent inconsistencies the linked collections and the View.
 
 To learn more, check out the examples about different features and additional
 topics:
-<!-- TODO: Cover range queries here as well? -->
 - [**Exact value matching**](arangosearch-exact-value-matching.html):
   Search for values as stored in documents (full strings, numbers, booleans).
+- [**Range queries**](arangosearch-range-queries.html):
+  Match values that are above, below or between a minimum and a maximum value.
+  This is primarily for numeric values.
 - [**Prefix matching**](arangosearch-prefix-matching.html):
   Search for strings that start with certain strings. A common use case for
   this is to implement auto-complete kind of functionality.
-<!-- TODO: Rename to normalized search or string normalization? -->
-- [**Case-insensitive search**](arangosearch-case-insensitive-search.html):
+- [**Case-sensitivity and diacritics**](arangosearch-case-sensitivity-and-diacritics.html):
   Strings can be normalized so that it does not matter whether characters are
-  upper or lower case, and diacritics can be ignored for a better search
+  upper or lower case, and character accents can be ignored for a better search
   experience. This can be combined with other types of search.
 - [**Wildcard search**](arangosearch-wildcard-search.html):
   Search for partial matches in strings (ends with, contains and more).
-<!-- TODO: Combine token and phrase search into a single full-text search page? -->
-- [**Token search**](arangosearch-fulltext-search.html):
+- [**Full-text token search**](arangosearch-fulltext-token-search.html):
   Full-text can be tokenized into words that can then be searched individually,
   regardless of their original order, also in combination with prefix
   search. Array values are also indexed as separate tokens.
-- [**Phrase search**](arangosearch-phrase-search.html):
+- [**Phrase and proximity search**](arangosearch-phrase-and-proximity-search.html):
   Search tokenized full-text with the tokens in a certain order, such as
   partial or full sentences, optionally with wildcard tokens for a proximity
   search.
