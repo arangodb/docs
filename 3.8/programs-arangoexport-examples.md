@@ -19,12 +19,12 @@ _arangoexport_ will by default connect to the *_system* database using the defau
 endpoint. If you want to connect to a different database or a different endpoint, 
 or use authentication, you can use the following command-line options:
 
-- *--server.database <string>*: name of the database to connect to
-- *--server.endpoint <string>*: endpoint to connect to
-- *--server.username <string>*: username
-- *--server.password <string>*: password to use (omit this and you'll be prompted for the
+- `--server.database <string>`: name of the database to connect to
+- `--server.endpoint <string>`: endpoint to connect to
+- `--server.username <string>`: username
+- `--server.password <string>`: password to use (omit this and you'll be prompted for the
   password)
-- *--server.authentication <bool>*: whether or not to use authentication
+- `--server.authentication <bool>`: whether or not to use authentication
 
 Here's an example of exporting data from a non-standard endpoint, using a dedicated
 [database name](appendix-glossary.html#database-name):
@@ -146,8 +146,8 @@ A *fields* list is required for CSV exports, but you can use an AQL query to pro
 these fields. For example, you can de-normalize document structures like arrays and
 nested objects to a tabular form as demonstrated above.
 
-The runtime of the query executed by arangoexport can optionally be limited via the
-arangoexport option `--query-max-runtime`. This specifies the maximum query runtime in
-seconds.
-    
-    arangoexport --type jsonl --query "FOR book IN books FILTER book.sells > 100 RETURN book" --query-max-runtime 10
+The runtime of the query executed by arangoexport can optionally be limited via
+the arangoexport option `--query-max-runtime`. This specifies the maximum query
+runtime in seconds. Set it to `0` for no limit.
+
+    arangoexport --type jsonl --query-max-runtime 10 --query "FOR book IN books FILTER book.sells > 100 RETURN book"

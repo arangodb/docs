@@ -960,7 +960,7 @@ batch (1000).
 ### Controlling the maximum query runtime of arangoexport
 
 Arangoexport now has a `--query-max-runtime` option to limit the runtime of
-queries it executes. 
+queries it executes.
 
 Miscellaneous
 -------------
