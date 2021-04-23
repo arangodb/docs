@@ -29,6 +29,7 @@ AQL
 | Issue      |
 |------------|
 | **Date Added:** 2018-09-05 <br> **Component:** AQL <br> **Deployment Mode:** Cluster <br> **Description:** In a very uncommon edge case there is an issue with an optimization rule in the cluster. If you are running a cluster and use a custom shard key on a collection (default is `_key`) **and** you provide a wrong shard key in a modifying query (`UPDATE`, `REPLACE`, `DELETE`) **and** the wrong shard key is on a different shard than the correct one, a `DOCUMENT NOT FOUND` error is returned instead of a modification (example query: `UPDATE { _key: "123", shardKey: "wrongKey"} WITH { foo: "bar" } IN mycollection`). Note that the modification always happens if the rule is switched off, so the suggested  workaround is to [deactivate the optimizing rule](aql/execution-and-performance-optimizer.html#turning-specific-optimizer-rules-off) `restrict-to-single-shard`. <br> **Affected Versions:** 3.4.x, 3.5.x, 3.6.x, 3.7.x, 3.8.x <br> **Fixed in Versions:** - <br> **Reference:** [arangodb/arangodb#6399](https://github.com/arangodb/arangodb/issues/6399){:target="_blank"} |
+| **Date Added:** 2021-04-19 <br> **Component:** AQL <br> **Deployment Mode:** All <br> **Description:** User-defined variable names in AQL cannot start with an underscore, in contrast to what the AQL documentation claimed. <br> **Affected Versions:** 3.5.x, 3.6.x, 3.7.x, 3.8.x <br> **Fixed in Versions:** 3.9.0 <br> **Reference:** [arangodb/arangodb#13513](https://github.com/arangodb/arangodb/issues/13513){:target="_blank"} |
 
 Upgrading
 ---------
