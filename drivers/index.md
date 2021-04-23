@@ -41,6 +41,7 @@ arangolite | Go | [github.com/solher/arangolite](https://github.com/solher/arang
 pyArango | Python | [github.com/ArangoDB-Community/pyArango](https://github.com/ArangoDB-Community/pyArango){:target="_blank"}
 python-arango | Python | [github.com/Joowani/python-arango](https://github.com/Joowani/python-arango){:target="_blank"}
 aioarangodb | Python | [github.com/bloodbare/aioarangodb](https://github.com/bloodbare/aioarangodb){:target="_blank"}
+
 Proteus | Scala | [github.com/CharlesAHunt/proteus](https://github.com/CharlesAHunt/proteus){:target="_blank"}
 avokka | Scala | [github.com/avokka/avokka](https://github.com/avokka/avokka){:target="_blank"}
 arangodb-scala-driver | Scala | [github.com/acme-software/arangodb-scala-driver](https://github.com/acme-software/arangodb-scala-driver){:target="_blank"}
@@ -80,6 +81,7 @@ orango | Node.js, Foxx, browser | JavaScript | [github.com/roboncode/orango](htt
 Hemera-arango-store | Hemera | JavaScript | [github.com/hemerajs/hemera-arango-store](https://github.com/hemerajs/hemera-arango-store){:target="_blank"}
 ArangoDB.Ecto | Ecto | Elixir | [github.com/ArangoDB-Community/arangodb_ecto](https://github.com/ArangoDB-Community/arangodb_ecto){:target="_blank"}
 Python ORM Layer for ArangoDB |  | Python | [github.com/threatify/arango-orm](https://github.com/threatify/arango-orm){:target="_blank"}
+arangodol |  | Python | [github.com/i2mint/arangodol](https://github.com/i2mint/arangodol){:target="_blank"}
 MopArangoDbBundle | Symfony2 | PHP | [github.com/m0ppers/MopArangoDbBundle](https://github.com/m0ppers/MopArangoDbBundle){:target="_blank"}
 arangoq: a query builder layer |  | Rust | [github.com/element114/arangoq](https://github.com/element114/arangoq){:target="_blank"}
 
