@@ -77,7 +77,7 @@ for the traversals.
 Since ArangoDB 3.7.12 there is a startup option `--query.require-with`
 to make single server installations also require the `WITH` statements
 in the same places where are cluster installation would. This option
-is *false* by default, but be set to true to remove this behavior 
+is *false* by default, but be set to true to remove this behavior
 difference between single servers and clusters.
 
 ### Performance
