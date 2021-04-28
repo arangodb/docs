@@ -16,8 +16,8 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
             <span class="hljs-number">1</span> 
           ], 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">9</span>, 
-          <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">10.143856189774725</span>, 
-          <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">50</span>, 
+          <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">12.643856189774723</span>, 
+          <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">100</span>, 
           <span class="hljs-string">"outVariable"</span> : { 
             <span class="hljs-string">"id"</span> : <span class="hljs-number">0</span>, 
             <span class="hljs-string">"name"</span> : <span class="hljs-string">"i"</span>, 
@@ -37,9 +37,9 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
           <span class="hljs-string">"indexCoversProjections"</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">"indexes"</span> : [ 
             { 
-              <span class="hljs-string">"id"</span> : <span class="hljs-string">"64933"</span>, 
+              <span class="hljs-string">"id"</span> : <span class="hljs-string">"64937"</span>, 
               <span class="hljs-string">"type"</span> : <span class="hljs-string">"skiplist"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1691883778461401088"</span>, 
+              <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1698302823724220416"</span>, 
               <span class="hljs-string">"fields"</span> : [ 
                 <span class="hljs-string">"value"</span> 
               ], 
@@ -99,8 +99,8 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
             <span class="hljs-number">9</span> 
           ], 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">5</span>, 
-          <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">60.14385618977472</span>, 
-          <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">50</span>, 
+          <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">112.64385618977472</span>, 
+          <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">100</span>, 
           <span class="hljs-string">"expression"</span> : { 
             <span class="hljs-string">"type"</span> : <span class="hljs-string">"attribute access"</span>, 
             <span class="hljs-string">"typeID"</span> : <span class="hljs-number">35</span>, 
@@ -128,8 +128,8 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
             <span class="hljs-number">5</span> 
           ], 
           <span class="hljs-string">"id"</span> : <span class="hljs-number">8</span>, 
-          <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">110.14385618977472</span>, 
-          <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">50</span>, 
+          <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">212.64385618977474</span>, 
+          <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">100</span>, 
           <span class="hljs-string">"inVariable"</span> : { 
             <span class="hljs-string">"id"</span> : <span class="hljs-number">4</span>, 
             <span class="hljs-string">"name"</span> : <span class="hljs-string">"3"</span>, 
@@ -179,8 +179,8 @@ arangosh&gt; stmt.explain({ <span class="hljs-attr">allPlans</span>: <span class
           <span class="hljs-string">"isDataFromCollection"</span> : <span class="hljs-literal">true</span> 
         } 
       ], 
-      <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">110.14385618977472</span>, 
-      <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">50</span>, 
+      <span class="hljs-string">"estimatedCost"</span> : <span class="hljs-number">212.64385618977474</span>, 
+      <span class="hljs-string">"estimatedNrItems"</span> : <span class="hljs-number">100</span>, 
       <span class="hljs-string">"isModificationQuery"</span> : <span class="hljs-literal">false</span> 
     } 
   ], 
