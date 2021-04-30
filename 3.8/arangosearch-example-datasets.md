@@ -16,10 +16,10 @@ It was converted into a graph. Also see the
 [arangodb/example-datasets](https://github.com/arangodb/example-datasets/tree/master/Graphs/IMDB){:target="_blank"}
 repository.
 
-1. Download [imdb_graph_2017_dump.zip](https://github.com/arangodb/example-datasets/releases/download/imdb-graph-2017/imdb_graph_2017_dump.zip){:target="_blank"}
-   (~10 MB)
+1. Download [imdb_graph_dump_rev2.zip](https://github.com/arangodb/example-datasets/releases/download/imdb-graph-dump-rev2/imdb_graph_dump_rev2.zip){:target="_blank"} (6.45 MB)
 2. Unpack the downloaded archive
-3. Restore the folder `imdb_dump` with [arangorestore](programs-arangorestore.html)
+3. Restore the folder `dump` with [arangorestore](programs-arangorestore.html)
    into an ArangoDB instance, e.g.
-   `arangorestore --server.endpoint tcp://localhost:8529 --server.database IMDB --create-database --`
-4. Create a View called `imdb`
+   `arangorestore --server.endpoint tcp://localhost:8529 --server.database IMDB --create-database --include-system-collections --input-directory dump`
+4. Create a View called `imdb` in the IMDB database. You can find various View
+   configuration examples on the following pages.

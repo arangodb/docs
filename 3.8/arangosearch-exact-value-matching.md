@@ -12,6 +12,12 @@ If you want to find strictly equal values, then the `identity` Analyzer is what
 you need. It will not apply any transformations. It is a no-operation Analyzer
 that passes everything through unaltered.
 
+## Matching Exact Strings
+
+You can index and search strings with the `identity` Analyzer for exact
+matching, that is case-sensitive, with accented characters as-is, and only if
+the entire string is equal (not matching substrings).
+
 **Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
 
 **View definition:**
@@ -42,7 +48,7 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
-Match multiple titles using `OR`:
+Match multiple exact movie titles using `OR`:
 
 ```js
 FOR doc IN imdb
@@ -50,7 +56,7 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
-Match multiple titles using `IN`:
+Match multiple exact movie titles using `IN`:
 
 ```js
 FOR doc IN imdb

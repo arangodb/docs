@@ -12,13 +12,13 @@ title: Case-insensitive Search ArangoSearch Examples
 
 **Custom Analyzer:**
 
-Create an Analyzer to normalize case to all lowercase and to remove diacritics
-in arangosh:
+Create a `norm` Analyzer in arangosh to normalize case to all lowercase and to
+remove diacritics:
 
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("norm_en", "norm", { locale: "en_US.utf-8", accent: false, case: "lower" }, [])
+analyzers.save("norm_en", "norm", { locale: "en_US.utf-8", accent: false, case: "lower" }, []);
 ```
 
 **View definition:**
