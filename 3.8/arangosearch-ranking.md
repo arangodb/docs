@@ -27,9 +27,10 @@ Under the hood, both models rely on two main components:
 
 To sort View results from most relevant to least relevant, use a
 [SORT operation](aql/operations-sort.html) with a call to a
-[Ranking function](aql/functions-arangosearch.html#ranking) as expression and
-set the order to descending. Ranking functions expect the document emitted by
-a `FOR … IN` loop that iterates over a View as first argument.
+[Scoring function](aql/functions-arangosearch.html#scoring-functions) as
+expression and set the order to descending. Scoring functions expect the
+document emitted by a `FOR … IN` loop that iterates over a View as first
+argument.
 
 ```js
 FOR doc IN viewName
@@ -45,6 +46,10 @@ FOR doc IN viewName
   SEARCH …
   RETURN MERGE(doc, { bm25: BM25(doc), tfidf: TFIDF(doc) })
 ```
+
+Scoring functions cannot be used outside of `SEARCH` operations, as the scores
+can only be computed in the context of a View, especially because of the
+inverse document frequency (IDF).
 
 **Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
 
