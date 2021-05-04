@@ -199,15 +199,15 @@ the following conditions:
 
 `doc.type == "fruit" AND doc.type == "vegetable"`
 
-To find fruits which are not vegetables at the same time, the latter can be
-excluded with `NOT`:
-
-`doc.type == "fruit" AND NOT doc.type == "vegetable"`
-
 The same can be expressed with `ALL ==` and `ALL IN`. Note that the attribute
 reference and the search conditions are swapped for this:
 
 `["fruit", "vegetable"] ALL == doc.type`
+
+To find fruits which are not vegetables at the same time, the latter can be
+excluded with `NOT`:
+
+`doc.type == "fruit" AND NOT doc.type == "vegetable"`
 
 For a complete list of operators supported in ArangoSearch expressions see
 [AQL `SEARCH` operation](aql/operations-search.html).
@@ -627,11 +627,9 @@ To learn more, check out the examples about different features and additional
 topics:
 - [**Exact value matching**](arangosearch-exact-value-matching.html):
   Search for values as stored in documents (full strings, numbers, booleans).
-<!--
 - [**Range queries**](arangosearch-range-queries.html):
   Match values that are above, below or between a minimum and a maximum value.
   This is primarily for numeric values.
--->
 - [**Prefix matching**](arangosearch-prefix-matching.html):
   Search for strings that start with certain strings. A common use case for
   this is to implement auto-complete kind of functionality.
@@ -649,7 +647,7 @@ topics:
   Search tokenized full-text with the tokens in a certain order, such as
   partial or full sentences, optionally with wildcard tokens for a proximity
   search.
-<!--
+{%- comment %}
 - [**Fuzzy search**](arangosearch-fuzzy-search.html):
   Match strings even if they are not exactly the same as the search terms.
   By allowing some fuzziness you can compensate for typos and match similar
@@ -658,7 +656,7 @@ topics:
   You can use ArangoSearch for geographic search queries to find nearby
   locations, places within a certain area and more. It can be combined with
   other types of search queries unlike with the regular geo index.
--->
+{%- endcomment %}
 - [**Ranking**](arangosearch-ranking.html):
   Sort search results by relevance, fine-tune the importance of certain search
   conditions, and calculate a custom relevance score.

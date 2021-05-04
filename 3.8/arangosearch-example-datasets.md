@@ -23,3 +23,8 @@ repository.
    `arangorestore --server.endpoint tcp://localhost:8529 --server.database IMDB --create-database --include-system-collections --input-directory dump`
 4. Create a View called `imdb` in the IMDB database. You can find various View
    configuration examples on the following pages.
+
+{%- comment %}
+## ArangoBnB Dataset
+
+{%- endcomment %}

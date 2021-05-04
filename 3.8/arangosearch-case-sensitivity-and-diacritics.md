@@ -3,10 +3,12 @@ layout: default
 description: You can normalize values for case-insensitive matching and to ignore diacritics, also in combination with other search techniques
 title: Case-insensitive Search ArangoSearch Examples
 ---
-## Case-insensitive Search with ArangoSearch
+# Case-insensitive Search with ArangoSearch
 
 {{ page.description }}
 {:class="lead"}
+
+## Normalizing a Single Token
 
 **Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
 
@@ -18,7 +20,7 @@ remove diacritics:
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("norm_en", "norm", { locale: "en_US.utf-8", accent: false, case: "lower" }, []);
+analyzers.save("norm_en", "norm", { locale: "en.utf-8", accent: false, case: "lower" }, []);
 ```
 
 **View definition:**
@@ -57,3 +59,8 @@ FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, "the matr"), "norm_en")
   RETURN doc.title
 ```
+
+{%- comment %}
+## Normalizing Full-text
+
+{%- endcomment %}
