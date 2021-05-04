@@ -8,10 +8,24 @@ title: Wildcard Search ArangoSearch Examples
 {{ page.description }}
 {:class="lead"}
 
-You can use this search technique to find strings that start with, contain or
-end with a certain substring, but it can do more than that. You can place the
-special characters `_` and `%` as wildcards for single or zero-or-more
-characters in the search string to match multiple partial strings.
+You can use the `LIKE()` function for this search technique to find strings
+that start with, contain or end with a certain substring, but it can do more
+than that. You can place the special characters `_` and `%` as wildcards for
+single or zero-or-more characters in the search string to match multiple
+partial strings.
+
+The [ArangoSearch `LIKE()` function](aql/functions-arangosearch.html#like)
+is backed by View indexes. In contrast, the
+[String `LIKE()` function`](aql/functions-string.html#like) cannot utilize any
+sort of index. Another difference is that the ArangoSearch variant does not
+accept a third argument to make matching case-insensitive. You can control this
+via Analyzers instead, also see
+[Case-insensitive Search with ArangoSearch](arangosearch-case-sensitivity-and-diacritics.html).
+Which of the two equally named functions is used is determined by the context.
+It is the ArangoSearch variant in `SEARCH` operations and the String variant
+everywhere else.
+
+## Wildcard Syntax
 
 - `_`: A single arbitrary character
 - `%`: Zero, one or many arbitrary characters
@@ -30,6 +44,8 @@ context:
 - Double the amount compared to arangosh in shells that use backslashes for
 escaping (`\\\\` in bind variables and `\\\\\\\\` in queries)
 {% endhint %}
+
+## Wildcard Search Examples
 
 **Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
 
@@ -96,3 +112,20 @@ FOR doc IN imdb
   SEARCH ANALYZER(LIKE(doc.title, "H__ry%"), "identity")
   RETURN doc.title
 ```
+
+Use a bind parameter as input, but escape the characters with special meaning
+and perform a contains-style search by prepending and appending a percent sign:
+
+```js
+FOR doc IN imdb
+  SEARCH ANALYZER(LIKE(doc.title, CONCAT("%", SUBSTITUTE(@term, ["_", "%"], ["\\_", "\\%"]), "%")), "identity")
+  RETURN doc.title
+```
+
+Bind parameters:
+
+```json
+{ "term": "y_" }
+```
+
+The query constructs the wildcard string `%y\\_%` and will match `Cry_Wolf`.

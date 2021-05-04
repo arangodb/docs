@@ -383,11 +383,32 @@ LIKE()
 Check whether the pattern *search* is contained in the string *text*,
 using wildcard matching.
 
+- `_`: A single arbitrary character
+- `%`: Zero, one or many arbitrary characters
+- `\\_`: A literal underscore
+- `\\%`: A literal percent sign
+
+{% hint 'info' %}
+Literal backlashes require different amounts of escaping depending on the
+context:
+- `\` in bind variables (_Table_ view mode) in the Web UI (automatically
+  escaped to `\\` unless the value is wrapped in double quotes and already
+  escaped properly)
+- `\\` in bind variables (_JSON_ view mode) and queries in the Web UI
+- `\\` in bind variables in arangosh
+- `\\\\` in queries in arangosh
+- Double the amount compared to arangosh in shells that use backslashes for
+escaping (`\\\\` in bind variables and `\\\\\\\\` in queries)
+{% endhint %}
+
+The `LIKE()` function cannot be accelerated by any sort of index. However,
+the [ArangoSearch `LIKE()` function](functions-arangosearch.html#like) that
+is used in the context of a `SEARCH` operation is backed by View indexes.
+
 - **text** (string): the string to search in
 - **search** (string): a search pattern that can contain the wildcard characters
   `%` (meaning any sequence of characters, including none) and `_` (any single
-  character). Literal `%` and `_` must be escaped with two backslashes (four
-  in arangosh).
+  character). Literal `%` and `_` must be escaped with backslashes.
   *search* cannot be a variable or a document attribute. The actual value must
   be present at query parse time already.
 - **caseInsensitive** (bool, *optional*): if set to *true*, the matching will be

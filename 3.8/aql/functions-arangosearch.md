@@ -736,12 +736,36 @@ FOR doc IN viewName
 Check whether the pattern *search* is contained in the attribute denoted by *path*,
 using wildcard matching.
 
+- `_`: A single arbitrary character
+- `%`: Zero, one or many arbitrary characters
+- `\\_`: A literal underscore
+- `\\%`: A literal percent sign
+
+{% hint 'info' %}
+Literal backlashes require different amounts of escaping depending on the
+context:
+- `\` in bind variables (_Table_ view mode) in the Web UI (automatically
+  escaped to `\\` unless the value is wrapped in double quotes and already
+  escaped properly)
+- `\\` in bind variables (_JSON_ view mode) and queries in the Web UI
+- `\\` in bind variables in arangosh
+- `\\\\` in queries in arangosh
+- Double the amount compared to arangosh in shells that use backslashes for
+escaping (`\\\\` in bind variables and `\\\\\\\\` in queries)
+{% endhint %}
+
+Searching with the `LIKE()` function in the context of a `SEARCH` operation
+is backed by View indexes. The [String `LIKE()` function](functions-string.html#like)
+is used in other contexts such as in `FILTER` operations and cannot be
+accelerated by any sort of index on the other hand. Another difference is that
+the ArangoSearch variant does not accept a third argument to enable
+case-insensitive matching. This can be controlled with Analyzers instead.
+
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
 - **search** (string): a search pattern that can contain the wildcard characters
   `%` (meaning any sequence of characters, including none) and `_` (any single
-  character). Literal `%` and `_` must be escaped with two backslashes (four
-  in arangosh).
+  character). Literal `%` and `_` must be escaped with backslashes.
 - returns **bool** (bool): `true` if the pattern is contained in *text*,
   and `false` otherwise
 
