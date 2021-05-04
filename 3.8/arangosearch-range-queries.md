@@ -20,9 +20,160 @@ Range queries are also possible for string values.
 
 ## Comparing to a Number
 
+Numbers are not processed by Analyzers. They even bypass the `identity`
+Analyzer. Therefore, you do not need to specify Analyzers in View definitions
+and no Analyzer context in queries with the `ANALYZER()` function for numeric
+fields.
+
+**Dataset:** [IMDB movie dataset](arangosearch-example-datasets.html#imdb-movie-dataset)
+
+**View definition:**
+
+```json
+{
+  "links": {
+    "imdb_vertices": {
+      "fields": {
+        "runtime": { }
+      }
+    }
+  }
+}
+```
+
+You can add a field with an empty object `{}` as shown above, or explicitly set
+no Analyzer using an empty array `[]` as shown below.
+
+```json
+{
+  "links": {
+    "imdb_vertices": {
+      "fields": {
+        "runtime": {
+          "analyzers": [ ]
+        }
+      }
+    }
+  }
+}
+```
+
+**AQL queries**
+
+Match movies with a runtime of exactly `5` minutes:
+
+```js
+FOR doc IN imdb
+  SEARCH doc.runtime == 5
+  RETURN {
+    title: doc.title,
+    runtime: doc.runtime
+  }
+```
+
+Note that no Analyzer context is set as numeric values are not processed by
+Analyzers at all.
+
+Match movies with a runtime of `12`, `24` or `77` minutes:
+
+```js
+FOR doc IN imdb
+  SEARCH doc.runtime IN [12, 24, 77]
+  RETURN {
+    title: doc.title,
+    runtime: doc.runtime
+  }
+```
+
+Match movies with a runtime over `300` minutes and sort them from longest to
+shortest runtime:
+
+```js
+FOR doc IN imdb
+  SEARCH doc.runtime > 300
+  SORT doc.runtime DESC
+  RETURN {
+    title: doc.title,
+    runtime: doc.runtime
+  }
+```
+
+Any of the following comparison operators can be used: `>`, `>=`, `<`, `<=`,
+`==`, `!=`, `IN`, `NOT IN`.
+
 ## Comparing to a Numeric Range
 
+While you can combine a greater than (or equal) and a less than (or equal)
+condition with a logical `AND`, it is more efficient to perform such range
+queries using a single condition. You can use the range operator `..` to query
+for an inclusive range of values. You can also use the
+[`IN_RANGE()` function](aql/functions-arangosearch.html#in_range) that allows
+you to specify individually whether the minimum and maximum value shall be
+included or excluded in the range.
+
+**AQL queries**
+
+Match movies with a runtime of `4` to `6` minutes with the range operator:
+
+```js
+FOR doc IN imdb
+  SEARCH doc.runtime IN 4..6
+  RETURN {
+    title: doc.title,
+    runtime: doc.runtime
+  }
+```
+
+While the dataset only has whole numbers, this query would also find decimal
+fractions within the defined range, e.g. `5.5`. This is different to how
+`FILTER doc.runtime IN 4..6` works, which defines an integer range and only
+matches `4`, `5` and `6`.
+
+Match movies with a runtime of `4` to `6` minutes with the `IN_RANGE()`
+function (inclusive on both ends):
+
+```js
+FOR doc IN imdb
+  SEARCH IN_RANGE(doc.runtime, 4, 6, true, true)
+  RETURN {
+    title: doc.title,
+    runtime: doc.runtime
+  }
+```
+
+The standard comparison operators are still necessary for other kinds of range
+queries, such as for searching for values below and above a range. It is
+possible to express this with `IN_RANGE()` and a negation (`NOT`), but it is
+less efficient than using two comparisons and the negation makes it include
+documents that do not have a runtime attribute (implicitly `null`).
+
+Match movies with a runtime of `5` minutes or less, as well as `500` minutes
+or more, but not with a runtime of `0` minutes. Sort the matches by runtime in
+ascending order:
+
+```js
+FOR doc IN imdb
+  SEARCH (doc.runtime <= 5 OR doc.runtime >= 500) AND doc.runtime != 0
+  SORT doc.runtime
+  RETURN {
+    title: doc.title,
+    runtime: doc.runtime
+  }
+```
+
+The search expression could alternative be written in the following ways
+with the same result:
+
+- `doc.runtime > 0 AND doc.runtime <= 5 OR doc.runtime >= 500`
+- `IN_RANGE(doc.runtime, 0, 5, false, true) OR doc.runtime >= 500`
+- `NOT(IN_RANGE(doc.runtime, 5, 500, false, false)) AND doc.runtime > 0`
+
 ## Comparing Strings
+
+Comparison operators and the `IN_RANGE()` function can also be used with
+strings. Beware that the results can be unexpected in some cases, because the
+internal sort order of ArangoSearch is different to how `FILTER`, `SORT` and
+other operations work.
 
 {% hint 'warning' %}
 The alphabetical order of characters is not taken into account by ArangoSearch,
@@ -32,3 +183,28 @@ language rules as per the defined Analyzer locale nor the server language
 Also see [Known Issues](release-notes-known-issues38.html#arangosearch).
 {% endhint %}
 
+**View definition:**
+
+```json
+{
+  "links": {
+    "imdb_vertices": {
+      "fields": {
+        "name": {
+          "analyzers": [ "identity" ]
+        }
+      }
+    }
+  }
+}
+```
+
+**AQL queries**
+
+Match movies where the name is `>= Wu` and `< Y`:
+
+```js
+FOR doc IN imdb
+  SEARCH ANALYZER(IN_RANGE(doc.name, "Wu", "Y", true, false), "identity")
+  RETURN doc.name
+```
