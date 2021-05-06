@@ -2,8 +2,6 @@
 layout: default
 description: Search for phrases and nearby words in full-text
 title: Phrase and Proximity Search ArangoSearch Examples
-redirect_from:
-  - arangosearch-phrase-search.html # TODO: Temporary
 ---
 # Phrase and Proximity Search with ArangoSearch
 

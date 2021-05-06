@@ -2,8 +2,6 @@
 layout: default
 description: Search for tokens in full-text that can occur in any order
 title: Full-text Search ArangoSearch Examples
-redirect_from:
-  - arangosearch-phrase-search.html # TODO: Temporary
 ---
 # Searching Full-text with ArangoSearch
 
