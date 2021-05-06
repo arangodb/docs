@@ -48,6 +48,10 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
+| Result |
+|:-------|
+| **The Matrix** |
+
 It is not necessary to set the Analyzer context with the `ANALYZER()` function
 here, because the default Analyzer is `identity` anyway. The following query
 will return the exact same results:
@@ -84,6 +88,11 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
+| Result |
+|:-------|
+| **The Matrix** |
+| **The Matrix Reloaded** |
+
 Match multiple exact movie titles using `IN`:
 
 ```js
@@ -91,6 +100,11 @@ FOR doc IN imdb
   SEARCH ANALYZER(doc.title IN ["The Matrix", "The Matrix Reloaded"], "identity")
   RETURN doc.title
 ```
+
+| Result |
+|:-------|
+| **The Matrix** |
+| **The Matrix Reloaded** |
 
 By substituting the array of strings with a bind parameter, it becomes possible
 to use the same query for an arbitrary amount of alternative strings to match:
@@ -115,6 +129,14 @@ Bind parameters:
 }
 ```
 
+| Result |
+|:-------|
+| **The Matrix Revisited** |
+| **The Matrix** |
+| **The Matrix Reloaded** |
+| **The Matrix Revolutions** |
+| **The Matrix Trilogy** |
+
 ## Using Negations
 
 Searching for exact values does not end with one or many equality conditions,
@@ -131,6 +153,23 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
+| Result |
+|:-------|
+| … |
+| null |
+| null |
+| "Ploning" |
+| null |
+| "Code Rush" |
+| null |
+| null |
+| null |
+| null |
+| "Ghost in the Shell 2.0" |
+| "Christmas in Wonderland" |
+| null |
+| … |
+
 Note that this includes documents that do not even have a title attribute,
 with the effect of returning many `null` values in the result.
 
@@ -144,6 +183,16 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
+| Result (~440ms) |
+|:----------------|
+| Ploning |
+| Code Rush |
+| Ghost in the Shell 2.0 |
+| Christmas in Wonderland |
+| Hadashi no Gen |
+| The Magician |
+| … |
+
 A better way to ignore documents without title attribute is to change the View
 property `storeValues` (not to be confused with `storedValues`!) from `"none"`
 to `"id"`. You can then use the [`EXISTS()` function](aql/functions-arangosearch.html#exists)
@@ -154,3 +203,13 @@ FOR doc IN imdb
   SEARCH ANALYZER(EXISTS(doc.title) AND doc.title NOT IN ["The Matrix", "The Matrix Reloaded"], "identity")
   RETURN doc.title
 ```
+
+| Result (~90ms) |
+|:---------------|
+| Ploning |
+| Code Rush |
+| Ghost in the Shell 2.0 |
+| Christmas in Wonderland |
+| Hadashi no Gen |
+| The Magician |
+| … |

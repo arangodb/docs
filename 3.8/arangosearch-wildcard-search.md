@@ -78,8 +78,15 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
+| Result |
+|:-------|
+| **The Matr**ix Revisited |
+| **The Matr**ix |
+| **The Matr**ix Reloaded |
+| **The Matr**ix Revolutions |
+| **The Matr**ix Trilogy |
+
 You can achieve the same with the `STARTS_WITH()` function:
-<!-- TODO: Is STARTS_WITH() faster? -->
 
 ```js
 FOR doc IN imdb
@@ -95,6 +102,20 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
+| Result |
+|:-------|
+| The **Mat**rix Revisited |
+| Gray **Mat**ters |
+| Show: A Night In The Life of **Mat**chbox Twenty |
+| The **Mat**ing Habits of the Earthbound Human |
+| Dark **Mat**ter |
+| Dave **Mat**thews & Tim Reynolds: Live at Radio City |
+| Once Upon A **Mat**tress |
+| Tarzan and His **Mat**e |
+| Donald in **Mat**hmagic Land |
+| Das Geheimnis der **Mat**erie |
+| … |
+
 Match all titles that end with `rix` using `LIKE()`:
 
 ```js
@@ -102,6 +123,16 @@ FOR doc IN imdb
   SEARCH ANALYZER(LIKE(doc.title, "%rix"), "identity")
   RETURN doc.title
 ```
+
+| Result |
+|:-------|
+| Ben 10: Secret of the Omnit**rix** |
+| Pinchcliffe Grand P**rix** |
+| Hend**rix** |
+| The Mat**rix** |
+| The Animat**rix** |
+| Les Douze travaux d'Asté**rix** |
+| Vercingéto**rix** |
 
 Match all titles that have an `H` as first letter, followed by two arbitrary
 characters, followed by `ry` and any amount of characters after that. It will
@@ -112,6 +143,15 @@ FOR doc IN imdb
   SEARCH ANALYZER(LIKE(doc.title, "H__ry%"), "identity")
   RETURN doc.title
 ```
+
+| Result |
+|:-------|
+| **Henry** & June |
+| **Henry** Rollins: Live in the Conversation Pit |
+| **Henry** Rollins: Uncut from NYC |
+| **Harry** Potter and the Sorcerer's Stone |
+| **Harry** Potter and the Chamber Of Secrets |
+| … |
 
 Use a bind parameter as input, but escape the characters with special meaning
 and perform a contains-style search by prepending and appending a percent sign:

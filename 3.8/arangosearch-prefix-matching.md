@@ -63,6 +63,14 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
+| Result |
+|:-------|
+| **The Matr**ix |
+| **The Matr**ix Reloaded |
+| **The Matr**ix Revolutions |
+| **The Matr**ix Trilogy |
+| **The Matr**ix Revisited |
+
 Match movie titles that start with either `"The Matr"` or `"Harry Pot"`
 using `OR`:
 
@@ -71,6 +79,23 @@ FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, "The Matr") OR STARTS_WITH(doc.title, "Harry Pot"), "identity")
   RETURN doc.title
 ```
+
+| Result |
+|:-------|
+| **The Matr**ix Revisited |
+| **The Matr**ix |
+| **The Matr**ix Reloaded |
+| **The Matr**ix Revolutions |
+| **Harry Pot**ter and the Sorcerer's Stone |
+| **Harry Pot**ter and the Chamber Of Secrets |
+| **Harry Pot**ter and the Prisoner of Azkaban |
+| **Harry Pot**ter and the Goblet Of Fire |
+| **Harry Pot**ter and the Order of the Phoenix |
+| **Harry Pot**ter and the Half-Blood Prince |
+| **Harry Pot**ter Collection |
+| **The Matr**ix Trilogy |
+| **Harry Pot**ter and the Deathly Hallows: Part I |
+| **Harry Pot**ter and the Deathly Hallows: Part II |
 
 Match movie titles that start with either `"The Matr"` or `"Harry Pot"`
 utilizing the feature of the `STARTS_WITH()` function that allows you to pass
@@ -81,6 +106,23 @@ FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, ["The Matr", "Harry Pot"]), "identity")
   RETURN doc.title
 ```
+
+| Result |
+|:-------|
+| **The Matr**ix Revisited |
+| **The Matr**ix |
+| **The Matr**ix Reloaded |
+| **The Matr**ix Revolutions |
+| **Harry Pot**ter and the Sorcerer's Stone |
+| **Harry Pot**ter and the Chamber Of Secrets |
+| **Harry Pot**ter and the Prisoner of Azkaban |
+| **Harry Pot**ter and the Goblet Of Fire |
+| **Harry Pot**ter and the Order of the Phoenix |
+| **Harry Pot**ter and the Half-Blood Prince |
+| **Harry Pot**ter Collection |
+| **The Matr**ix Trilogy |
+| **Harry Pot**ter and the Deathly Hallows: Part I |
+| **Harry Pot**ter and the Deathly Hallows: Part II |
 
 ## Match Multiple Token Prefixes
 
@@ -121,6 +163,11 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
+| Result |
+|:-------|
+| **Har**ry **Pot**ter and the **Cham**ber Of **Sec**rets |
+| **Har**ry **Pot**ter and the Order of the **Phoe**nix |
+
 You can calculate the number of prefixes that need to match dynamically, for
 example to require that all prefixes must match:
 
@@ -130,6 +177,11 @@ FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, prefixes, LENGTH(prefixes)), "text_en")
   RETURN doc.title
 ```
+
+| Result |
+|:-------|
+| The **Blu**es **Brot**hers |
+| **Blu**es **Brot**hers 2000 |
 
 ## Edge N-Grams
 
@@ -200,6 +252,15 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
+| Result |
+|:-------|
+| **Ocea**n Voyagers |
+| **Ocea**n's Eleven |
+| **Ocea**n's Twelve |
+| **Ocea**n's Thirteen |
+| **Ocea**n's Eleven |
+| **Ocea**n's Collection |
+
 Note that the search term must be normalized in order to match something.
 You can create a `text` Analyzer that matches the configuration of the
 edge _n_-gram `text` Analyzer to pre-process the search terms in the same way,
@@ -216,9 +277,18 @@ Now we can also match movie titles that start with `"Oceä"`
 
 ```js
 FOR doc IN imdb
-  SEARCH ANALYZER(doc.title == TOKENS("Oceä", "match_edge_ngram"), "edge_ngram")
+  SEARCH ANALYZER(doc.title == TOKENS("Oceä", "match_edge_ngram")[0], "edge_ngram")
   RETURN doc.title
 ```
+
+| Result |
+|:-------|
+| **Ocea**n Voyagers |
+| **Ocea**n's Eleven |
+| **Ocea**n's Twelve |
+| **Ocea**n's Thirteen |
+| **Ocea**n's Eleven |
+| **Ocea**n's Collection |
 
 What we cannot match search terms that are longer than the maximum edge _n_-gram
 size (or shorter than the minimum edge _n_-gram size), except for full tokens
@@ -241,6 +311,10 @@ FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, TOKENS("Equilibri", "match_edge_ngram")), "edge_ngram")
   RETURN doc.title
 ```
+
+| Result |
+|:-------|
+| Equilibrium |
 
 Note however, that this will not be as fast as matching an edge _n_-gram
 directly.

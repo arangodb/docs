@@ -623,8 +623,8 @@ permanent inconsistencies the linked collections and the View.
 
 ## How to go from here
 
-To learn more, check out the examples about different features and additional
-topics:
+To learn more, check out the different search examples:
+
 - [**Exact value matching**](arangosearch-exact-value-matching.html):
   Search for values as stored in documents (full strings, numbers, booleans).
 - [**Range queries**](arangosearch-range-queries.html):
@@ -657,6 +657,9 @@ topics:
   locations, places within a certain area and more. It can be combined with
   other types of search queries unlike with the regular geo index.
 {%- endcomment %}
+
+For relevance and performance tuning, as well as the reference documentation, see:
+
 - [**Ranking**](arangosearch-ranking.html):
   Sort search results by relevance, fine-tune the importance of certain search
   conditions, and calculate a custom relevance score.
@@ -666,3 +669,12 @@ topics:
   for fast access.
 - [**Views Reference**](arangosearch-views.html):
   You can find all View properties and options in this reference documentation.
+
+If you are interested in more technical details, have a look at:
+
+- [**ArangoSearch Tutorial**](https://www.arangodb.com/learn/search/tutorial/#:~:text=Ranking%20in%20ArangoSearch){:target="_blank"}:
+  The tutorial includes sections about the View concept, Analysis, and the
+  ranking model.
+- [**ArangoSearch architecture overview**](https://www.arangodb.com/2018/04/arangosearch-architecture-overview/){:target="_blank"}:
+  A description of ArangoSearch's design, its inverted index and some
+  implementation details.

@@ -63,6 +63,14 @@ FOR doc IN imdb
   }
 ```
 
+| title | description |
+|:------|:------------|
+| Alone in the Wilderness | … the Aleutian Peninsula, in what is now Lake Clark National **Park**. … |
+| Madagascar Collection | … The plot follows the adventures of story of four Central **Park** Zoo animals … |
+| Sea Monsters: A Prehistoric Adventure | Journey 80 million years back in time to an age when mighty **dinosaurs** dominated the land … |
+| Land of the Lost | … their only ally in a world full of **dinosaurs** and other fantastic creatures. |
+| … | … |
+
 Search for movies with both `dinosaur` and `park` in their description:
 
 ```js
@@ -73,6 +81,13 @@ FOR doc IN imdb
     description: doc.description
   }
 ```
+
+| title | description |
+|:------|:------------|
+| Jurassic Park Series | … the Jurassic **Park** films. This trilogy of films brings all our childhood fantasies to life with **dinosaurs** … |
+| Jurassic Park | A wealthy entrepreneur secretly creates a theme **park** featuring living **dinosaurs** … |
+| The Lost World: Jurassic Park | Four years after Jurassic **Park's** genetically bred **dinosaurs** ran amok … |
+| Cesta do pravěku | … Four young boys visit a **dinosaur** exhibit … They then row out onto Central **Park** Lake … |
 
 The results will be the same if you use `park dinosaur` as search terms,
 as the tokens can be ordered arbitrarily.

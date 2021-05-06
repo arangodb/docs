@@ -38,17 +38,54 @@ tokens may occur between defined tokens for word proximity searches.
 
 **AQL Queries:**
 
-Search for movies that have the tokens `biggest` and `blockbluster` in this
-order in their description:
+Search for movies that have the (normalized and stemmed) tokens `biggest` and
+`blockbust` in their description, in this order:
 
 ```js
 FOR doc IN imdb
-  SEARCH ANALYZER(PHRASE(doc.description, "biggest blockbuster"), "text_en")
+  SEARCH ANALYZER(PHRASE(doc.description, "BIGGEST Blockbuster"), "text_en")
   RETURN {
     title: doc.title,
     description: doc.description
   }
 ```
+
+| title | description |
+|:------|:------------|
+| Jurassic Park Series | … Steven Spielberg gives us on of the **biggest blockbusters** of the 1990’s |
+| Scary Movie	| … some of Hollywood's **biggest blockbusters**, …
+
+The `text_en` Analyzer set via the context is applied to the search term
+`BIGGEST Blockbuster`, effectively resulting in the query:
+
+```js
+FOR doc IN imdb
+  SEARCH PHRASE(doc.description, ["biggest", "blockbust"], "text_en")
+  RETURN {
+    title: doc.title,
+    description: doc.description
+  }
+```
+
+The search phrase can be handed in via a bind parameter, but it can also be
+constructed dynamically using a subquery for instance:
+
+```js
+LET p = (
+  FOR word IN ["tale", "of", "a", "woman"]
+    SORT RAND()
+    LIMIT 2
+    RETURN word
+)
+FOR doc IN imdb
+  SEARCH ANALYZER(PHRASE(doc.description, p), "text_en")
+  RETURN {
+    title: doc.title,
+    description: doc.description
+  }
+```
+
+You will get different results if you re-run this query multiple times.
 
 ## Proximity Search
 
@@ -70,8 +107,38 @@ FOR doc IN imdb
   }
 ```
 
+| title | description |
+|:------|:------------|
+| O thiasos | The Travelling Players is an **epic Greek film** from director Theo Angelopoulos …
+| On Your Mark | … The video feels like a very compressed version of an **epic Miyazaki film**. …
+| Double Decade	| … It is with great pride that we present this **epic snowboarding film**. …
+| The Apocalypse | In this **epic disaster film** of faith, a mother and father search for their only child …
+
 Analyzer pre-processing is applied automatically to `epic` and `film` based on
 the Analyzer context or an optional last argument in the call to `PHRASE()`.
+
+The search phrase can also be dynamic. The following query looks up a
+particular movie with the title `Family Business`, tokenizes the title and then
+performs a proximity search for movies with the phrase
+`family <something> business` or `family <something> <something> business` in
+their description:
+
+```js
+LET title = DOCUMENT("imdb_vertices/39967").title // Family Business
+FOR doc IN imdb
+  SEARCH ANALYZER(
+    PHRASE(doc.description, INTERLEAVE(TOKENS(title, "text_en"), [1])) OR
+    PHRASE(doc.description, INTERLEAVE(TOKENS(title, "text_en"), [2])), "text_en")
+  RETURN {
+    title: doc.title,
+    description: doc.description
+  }
+```
+
+| title | description |
+|:------|:------------|
+| Spy Kids 2: The Island of Lost Dreams | … now joined the **family spy business** as … |
+| Do Not Disturb | Combining a **family vacation with business**, … |
 
 ## Combining Phrase Search with other Techniques
 
@@ -91,6 +158,10 @@ FOR doc IN imdb
   SEARCH ANALYZER(PHRASE(doc.title, {STARTS_WITH: TOKENS("Härr", "text_en")[0]}, 6, {WILDCARD: "%eni%"}), "text_en")
   RETURN doc.title
 ```
+
+| Result |
+|:-------|
+| **Harr**y Potter and the Order of the Pho**eni**x |
 
 The search terms used in object tokens need to be pre-processed manually as
 shown above with `STARTS_WITH`.

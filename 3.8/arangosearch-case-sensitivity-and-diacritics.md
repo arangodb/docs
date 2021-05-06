@@ -48,9 +48,13 @@ instead of accented characters (full string):
 
 ```js
 FOR doc IN imdb
-  SEARCH ANALYZER(doc.title == "thé mäTRïX", "norm_en")
+  SEARCH ANALYZER(doc.title == TOKENS("thé mäTRïX", "norm_en")[0], "norm_en")
   RETURN doc.title
 ```
+
+| Result |
+|:-------|
+| **The Matrix** |
 
 Match a title prefix (case-insensitive):
 
@@ -59,6 +63,14 @@ FOR doc IN imdb
   SEARCH ANALYZER(STARTS_WITH(doc.title, "the matr"), "norm_en")
   RETURN doc.title
 ```
+
+| Result |
+|:-------|
+| **The Matrix** Revisited |
+| **The Matrix** |
+| **The Matrix** Reloaded |
+| **The Matrix** Revolutions |
+| **The Matrix** Trilogy |
 
 {%- comment %}
 ## Normalizing Full-text

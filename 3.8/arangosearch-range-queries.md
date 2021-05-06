@@ -71,6 +71,14 @@ FOR doc IN imdb
   }
 ```
 
+| title | runtime |
+|:------|:--------|
+| The Spirit of Christmas | 5 |
+| Super Rhino | 5 |
+| Gone Nutty | 5 |
+| She and Her Cat | 5 |
+| … | … |
+
 Note that no Analyzer context is set as numeric values are not processed by
 Analyzers at all.
 
@@ -85,6 +93,13 @@ FOR doc IN imdb
   }
 ```
 
+| title | runtime |
+|:------|:--------|
+| Frankenstein Punk | 12 |
+| The Vagabond | 24 |
+| The Rescuers Down Under | 77 |
+| The Olsen Gang | 77 |
+
 Match movies with a runtime over `300` minutes and sort them from longest to
 shortest runtime:
 
@@ -97,6 +112,16 @@ FOR doc IN imdb
     runtime: doc.runtime
   }
 ```
+
+| title | runtime |
+|:------|:--------|
+| Planet of the Apes Series | 605 |
+| North and South | 561 |
+| Into the West | 552 |
+| … | … |
+| The Manns - Novel of a Century | 312 |
+| Legenda o Tile | 311 |
+| Nárcisz és Psyché | 302 |
 
 Any of the following comparison operators can be used: `>`, `>=`, `<`, `<=`,
 `==`, `!=`, `IN`, `NOT IN`.
@@ -124,6 +149,14 @@ FOR doc IN imdb
   }
 ```
 
+| title | runtime |
+|:------|:--------|
+| Katedra | 6 |
+| The Spirit of Christmas | 4 |
+| The Spirit of Christmas | 5 |
+| Hell's Bells | 6 |
+| … | … |
+
 While the dataset only has whole numbers, this query would also find decimal
 fractions within the defined range, e.g. `5.5`. This is different to how
 `FILTER doc.runtime IN 4..6` works, which defines an integer range and only
@@ -140,6 +173,14 @@ FOR doc IN imdb
     runtime: doc.runtime
   }
 ```
+
+| title | runtime |
+|:------|:--------|
+| Katedra | 6 |
+| The Spirit of Christmas | 4 |
+| The Spirit of Christmas | 5 |
+| Hell's Bells | 6 |
+| … | … |
 
 The standard comparison operators are still necessary for other kinds of range
 queries, such as for searching for values below and above a range. It is
@@ -160,6 +201,19 @@ FOR doc IN imdb
     runtime: doc.runtime
   }
 ```
+
+| title | runtime |
+|:------|:--------|
+| La Sortie des usines Lumière | 1 |
+| L'Arrivée d'un train à la Ciotat | 1 |
+| … | … |
+| Zippeldy & Fetterig | 5 |
+| Coda | 5 |
+| WWE: Greatest Wrestling Stars of the '90s | 540 |
+| Shogun | 547 |
+| Into the West | 552 |
+| North and South | 561 |
+| Planet of the Apes Series | 605 |
 
 The search expression could alternative be written in the following ways
 with the same result:
@@ -208,3 +262,16 @@ FOR doc IN imdb
   SEARCH ANALYZER(IN_RANGE(doc.name, "Wu", "Y", true, false), "identity")
   RETURN doc.name
 ```
+
+| Result |
+|:-------|
+| … |
+| Wu Zun |
+| Xiong Xin-Xin |
+| Wyatt |
+| Xander Berkeley |
+| Xzibit |
+| Xian Gao |
+| Wylie Watson |
+| Wyclef Jean |
+| … |
