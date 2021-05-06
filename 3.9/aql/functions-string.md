@@ -383,11 +383,32 @@ LIKE()
 Check whether the pattern *search* is contained in the string *text*,
 using wildcard matching.
 
+- `_`: A single arbitrary character
+- `%`: Zero, one or many arbitrary characters
+- `\\_`: A literal underscore
+- `\\%`: A literal percent sign
+
+{% hint 'info' %}
+Literal backlashes require different amounts of escaping depending on the
+context:
+- `\` in bind variables (_Table_ view mode) in the Web UI (automatically
+  escaped to `\\` unless the value is wrapped in double quotes and already
+  escaped properly)
+- `\\` in bind variables (_JSON_ view mode) and queries in the Web UI
+- `\\` in bind variables in arangosh
+- `\\\\` in queries in arangosh
+- Double the amount compared to arangosh in shells that use backslashes for
+escaping (`\\\\` in bind variables and `\\\\\\\\` in queries)
+{% endhint %}
+
+The `LIKE()` function cannot be accelerated by any sort of index. However,
+the [ArangoSearch `LIKE()` function](functions-arangosearch.html#like) that
+is used in the context of a `SEARCH` operation is backed by View indexes.
+
 - **text** (string): the string to search in
 - **search** (string): a search pattern that can contain the wildcard characters
   `%` (meaning any sequence of characters, including none) and `_` (any single
-  character). Literal `%` and `_` must be escaped with two backslashes (four
-  in arangosh).
+  character). Literal `%` and `_` must be escaped with backslashes.
   *search* cannot be a variable or a document attribute. The actual value must
   be present at query parse time already.
 - **caseInsensitive** (bool, *optional*): if set to *true*, the matching will be
@@ -861,6 +882,23 @@ string representation.
 SHA512("foobar") // "0a50261ebd1a390fed2bf326f2673c145582a6342d523204973d0219337f81616a8069b012587cf5635f6925f1b56c360230c19b273500ee013e030601bf2425"
 ```
 
+SOUNDEX()
+-----------
+
+`SOUNDEX(value) → soundexString`
+
+Return the soundex fingerprint of *value*.
+
+- **value** (string): a string
+- returns **soundexString** (string): a soundex fingerprint of *value*
+
+```js
+SOUNDEX( "example" ) // "E251"
+SOUNDEX( "ekzampul")  // "E251"
+SOUNDEX( "soundex" ) // "S532"
+SOUNDEX( "sounteks" ) // "S532"
+```
+
 SPLIT()
 -------
 
@@ -882,21 +920,42 @@ SPLIT( "foo-bar-baz", "-", 1 ) // [ "foo" ]
 SPLIT( "foo, bar & baz", [ ", ", " & " ] ) // [ "foo", "bar", "baz" ]
 ```
 
-SOUNDEX()
------------
+### STARTS_WITH()
 
-`SOUNDEX(value) → soundexString`
+`STARTS_WITH(text, prefix) → startsWith`
 
-Return the soundex fingerprint of *value*.
+Check whether the given string starts with *prefix*.
 
-- **value** (string): a string
-- returns **soundexString** (string): a soundex fingerprint of *value*
+There is a corresponding [`STARTS_WITH()` ArangoSearch function](functions-arangosearch.html#starts_with)
+that can utilize View indexes.
+
+- **text** (string): a string to compare against
+- **prefix** (string): a string to test for at the start of the text
+- returns **startsWith** (bool): whether the text starts with the given prefix
 
 ```js
-SOUNDEX( "example" ) // "E251"
-SOUNDEX( "ekzampul")  // "E251"
-SOUNDEX( "soundex" ) // "S532"
-SOUNDEX( "sounteks" ) // "S532"
+RETURN STARTS_WITH("foobar", "foo") // true
+RETURN STARTS_WITH("foobar", "baz") // false
+```
+
+`STARTS_WITH(text, prefixes, minMatchCount) → startsWith`
+
+<small>Introduced in: v3.7.1</small>
+
+Check if the given string starts with one of the *prefixes*.
+
+- **text** (string): a string to compare against
+- **prefixes** (array): an array of strings to test for at the start of the text
+- **minMatchCount** (number, _optional_): minimum number of prefixes that
+  should be satisfied. The default is `1` and it is the only meaningful value
+  unless `STARTS_WITH()` is used in the context of a `SEARCH` expression where
+  an attribute can have multiple values at the same time
+- returns **startsWith** (bool): whether the text starts with at least
+  *minMatchCount* of the given prefixes
+
+```js
+RETURN STARTS_WITH("foobar", ["bar", "foo"]) // true
+RETURN STARTS_WITH("foobar", ["bar", "baz"]) // false
 ```
 
 SUBSTITUTE()
