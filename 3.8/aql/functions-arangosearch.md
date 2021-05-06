@@ -348,6 +348,11 @@ The selected Analyzer must have the `"position"` and `"frequency"` features
 enabled. The `NGRAM_MATCH()` function will otherwise not find anything.
 {% endhint %}
 
+Also see the String Functions
+[`NGRAM_POSITIONAL_SIMILARITY()`](functions-string.html#ngram_positional_similarity)
+and [`NGRAM_SIMILARITY()`](functions-string.html#ngram_similarity)
+for calculating _n_-gram similarity that cannot be accelerated by a View index.
+
 - **path** (attribute path expression\|string): the path of the attribute in
   a document or a string
 - **target** (string): the string to compare against the stored attribute
@@ -865,8 +870,7 @@ Scoring functions return a ranking value for the documents found by a
 the search expression the higher the returned number.
 
 The first argument to any scoring function is always the document emitted by
-a `FOR` operation over an ArangoSearch View. Scoring functions can be used in
-`SORT` and `RETURN` operations only.
+a `FOR` operation over an ArangoSearch View.
 
 To sort the result set by relevance, with the more relevant documents coming
 first, sort in **descending order** by the score (e.g. `SORT BM25(...) DESC`).
