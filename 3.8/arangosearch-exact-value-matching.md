@@ -90,8 +90,8 @@ FOR doc IN imdb
 
 | Result |
 |:-------|
-| **The Matrix** |
-| **The Matrix Reloaded** |
+| The Matrix |
+| The Matrix Reloaded |
 
 Match multiple exact movie titles using `IN`:
 
@@ -103,8 +103,8 @@ FOR doc IN imdb
 
 | Result |
 |:-------|
-| **The Matrix** |
-| **The Matrix Reloaded** |
+| The Matrix |
+| The Matrix Reloaded |
 
 By substituting the array of strings with a bind parameter, it becomes possible
 to use the same query for an arbitrary amount of alternative strings to match:
@@ -131,11 +131,11 @@ Bind parameters:
 
 | Result |
 |:-------|
-| **The Matrix Revisited** |
-| **The Matrix** |
-| **The Matrix Reloaded** |
-| **The Matrix Revolutions** |
-| **The Matrix Trilogy** |
+| The Matrix Revisited |
+| The Matrix |
+| The Matrix Reloaded |
+| The Matrix Revolutions |
+| The Matrix Trilogy |
 
 ## Using Negations
 
