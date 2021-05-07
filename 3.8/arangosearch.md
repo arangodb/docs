@@ -272,12 +272,6 @@ English text.
    returns an array. We pick the first element with `[0]`, which is the
    normalized search term `"pepper"`.
 
-<!--
-Primitive values other than strings (`null`, `true`, `false`, numbers) are
-indexed unchanged. The values of nested object are optionally indexed under the
-respective attribute path, including objects in arrays.
--->
-
 ### Search expressions with ArangoSearch functions
 
 Basic operators are not enough for complex query needs. Additional search

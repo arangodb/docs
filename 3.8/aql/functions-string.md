@@ -882,6 +882,23 @@ string representation.
 SHA512("foobar") // "0a50261ebd1a390fed2bf326f2673c145582a6342d523204973d0219337f81616a8069b012587cf5635f6925f1b56c360230c19b273500ee013e030601bf2425"
 ```
 
+SOUNDEX()
+-----------
+
+`SOUNDEX(value) → soundexString`
+
+Return the soundex fingerprint of *value*.
+
+- **value** (string): a string
+- returns **soundexString** (string): a soundex fingerprint of *value*
+
+```js
+SOUNDEX( "example" ) // "E251"
+SOUNDEX( "ekzampul")  // "E251"
+SOUNDEX( "soundex" ) // "S532"
+SOUNDEX( "sounteks" ) // "S532"
+```
+
 SPLIT()
 -------
 
@@ -903,21 +920,42 @@ SPLIT( "foo-bar-baz", "-", 1 ) // [ "foo" ]
 SPLIT( "foo, bar & baz", [ ", ", " & " ] ) // [ "foo", "bar", "baz" ]
 ```
 
-SOUNDEX()
------------
+### STARTS_WITH()
 
-`SOUNDEX(value) → soundexString`
+`STARTS_WITH(text, prefix) → startsWith`
 
-Return the soundex fingerprint of *value*.
+Check whether the given string starts with *prefix*.
 
-- **value** (string): a string
-- returns **soundexString** (string): a soundex fingerprint of *value*
+There is a corresponding [`STARTS_WITH()` ArangoSearch function](functions-arangosearch.html#starts_with)
+that can utilize View indexes.
+
+- **text** (string): a string to compare against
+- **prefix** (string): a string to test for at the start of the text
+- returns **startsWith** (bool): whether the text starts with the given prefix
 
 ```js
-SOUNDEX( "example" ) // "E251"
-SOUNDEX( "ekzampul")  // "E251"
-SOUNDEX( "soundex" ) // "S532"
-SOUNDEX( "sounteks" ) // "S532"
+RETURN STARTS_WITH("foobar", "foo") // true
+RETURN STARTS_WITH("foobar", "baz") // false
+```
+
+`STARTS_WITH(text, prefixes, minMatchCount) → startsWith`
+
+<small>Introduced in: v3.7.1</small>
+
+Check if the given string starts with one of the *prefixes*.
+
+- **text** (string): a string to compare against
+- **prefixes** (array): an array of strings to test for at the start of the text
+- **minMatchCount** (number, _optional_): minimum number of prefixes that
+  should be satisfied. The default is `1` and it is the only meaningful value
+  unless `STARTS_WITH()` is used in the context of a `SEARCH` expression where
+  an attribute can have multiple values at the same time
+- returns **startsWith** (bool): whether the text starts with at least
+  *minMatchCount* of the given prefixes
+
+```js
+RETURN STARTS_WITH("foobar", ["bar", "foo"]) // true
+RETURN STARTS_WITH("foobar", ["bar", "baz"]) // false
 ```
 
 SUBSTITUTE()

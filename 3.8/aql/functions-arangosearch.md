@@ -1,6 +1,6 @@
 ---
 layout: default
-description: ArangoSearch is integrated into AQL and used mainly through the use of special functions.
+description: ArangoSearch offers various AQL functions for search queries to control the search context, for filtering and scoring
 title: ArangoSearch related AQL Functions
 redirect_from:
   - ../views-arango-search-scorers.html # 3.4 -> 3.5
@@ -9,15 +9,24 @@ redirect_from:
 ArangoSearch Functions
 ======================
 
+{{ page.description }}
+{:class="lead"}
+
 You can form search expressions to filter Views by composing ArangoSearch
-function calls, logical operators and comparison operators.{:class="lead"}
+function calls, logical operators and comparison operators.
 
 The AQL [`SEARCH` operation](operations-search.html) accepts search expressions
-such as `SEARCH ANALYZER(PHRASE(doc.text, "foo bar"), "text_en")`. You can
-combine search and context functions as well as operators like `AND` and `OR`.
+such as `ANALYZER(PHRASE(doc.text, "foo bar"), "text_en")`. You can
+combine filter and context functions as well as operators like `AND` and `OR`
+to form complex search conditions.
+
+Scoring functions allow you to rank matches and to sort results by relevance.
 
 Most functions can also be used without a View and the `SEARCH` keyword, but
 will then not be accelerated by a View index.
+
+See [Information Retrieval with ArangoSearch](../arangosearch.html) for an
+introduction.
 
 Context Functions
 -----------------
@@ -206,11 +215,11 @@ specified data type.
 
 - **path** (attribute path expression): the attribute to test in the document
 - **type** (string): data type to test for, can be one of:
-    - `"null"`
-    - `"bool"` / `"boolean"`
-    - `"numeric"`
-    - `"string"`
-    - `"analyzer"` (see below)
+  - `"null"`
+  - `"bool"` / `"boolean"`
+  - `"numeric"`
+  - `"string"`
+  - `"analyzer"` (see below)
 - returns nothing: the function evaluates to a boolean, but this value cannot be
   returned. The function can only be called in a search expression. It throws
   an error if used outside of a [SEARCH operation](operations-search.html).
@@ -259,6 +268,9 @@ language rules as per the defined Analyzer locale nor the server language
 Also see [Known Issues](../release-notes-known-issues38.html#arangosearch).
 {% endhint %}
 
+There is a corresponding [`IN_RANGE()` Miscellaneous Function](functions-miscellaneous.html#in_range)
+that is used outside of `SEARCH` operations.
+
 - **path** (attribute path expression):
   the path of the attribute to test in the document
 - **low** (number\|string): minimum value of the desired range
@@ -304,6 +316,9 @@ because the _f_ of _foo_ is excluded (*high* is "f" but *includeHigh* is false).
 
 Match documents where at least **minMatchCount** of the specified
 search expressions are satisfied.
+
+There is a corresponding [`MIN_MATCH()` Miscellaneous function](functions-miscellaneous.html#min_match)
+that is used outside of `SEARCH` operations.
 
 - **expr** (expression, _repeatable_): any valid search expression
 - **minMatchCount** (number): minimum number of search expressions that should
@@ -586,6 +601,9 @@ language rules as per the defined Analyzer locale nor the server language
 Also see [Known Issues](../release-notes-known-issues38.html#arangosearch).
 {% endhint %}
 
+There is a corresponding [`STARTS_WITH()` String function](functions-string.html#starts_with)
+that is used outside of `SEARCH` operations.
+
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
 - **prefix** (string): a string to search at the start of the text
@@ -685,8 +703,8 @@ lower than or equal to *distance* between the stored attribute value and
 See [LEVENSHTEIN_DISTANCE()](functions-string.html#levenshtein_distance)
 if you want to calculate the edit distance of two strings.
 
-- **path** (attribute path expression): the path of the attribute to compare
-  against in the document
+- **path** (attribute path expression\|string): the path of the attribute to
+  compare against in the document or a string
 - **target** (string): the string to compare against the stored attribute
 - **distance** (number): the maximum edit distance, which can be between
   `0` and `4` if *transpositions* is `false`, and between `0` and `3` if
@@ -790,6 +808,11 @@ FOR doc IN viewName
 
 Geo functions
 -------------
+
+The following functions can be accelerated by View indexes. There are
+corresponding [Geo Functions](functions-geo.html) for the regular geo index
+type, but also general purpose functions such as GeoJSON constructors that can
+be used in conjunction with ArangoSearch.
 
 ### GEO_CONTAINS()
 

@@ -24,8 +24,8 @@ through a [JavaScript API](data-modeling-views-database-methods.html).
 Views can be queried with AQL via the
 [SEARCH operation](aql/operations-search.html).
 
-See [ArangoSearch](arangosearch.html) for an introduction as well as the
-[ArangoSearch Examples](arangosearch-examples.html).
+See [Information Retrieval with ArangoSearch](arangosearch.html) for an
+introduction.
 
 View Definition/Modification
 ----------------------------
