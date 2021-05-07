@@ -1,12 +1,22 @@
 ---
 layout: default
 description: Analyzers parse input values and transform them into sets of sub-values, for example by breaking up text into words.
-title: ArangoSearch Analyzers
+title: Transforming data with Analyzers
 redirect_from:
   - views-arango-search-analyzers.html # 3.4 -> 3.5
+  - arangosearch-analyzers.html # 3.8 -> 3.8
 ---
-ArangoSearch Analyzers
-======================
+Transforming data with Analyzers
+================================
+
+Analyzers allow you to transform data, for sophisticated text processing and
+searching, either standalone or in combination with Views
+{:class="lead"}
+
+While AQL string functions allow for basic text manipulation, true text
+processing including tokenization, language-specific word stemming, case
+conversion and removal of diacritical marks (accents) from characters only
+become possible with Analyzers.
 
 Analyzers parse input values and transform them into sets of sub-values,
 for example by breaking up text into words. If they are used in Views then
@@ -16,7 +26,9 @@ searching and sorting to provide the most appropriate match for the specified
 conditions, similar to queries to web search engines.
 
 Analyzers can be used on their own to tokenize and normalize strings in AQL
-queries with the [`TOKENS()` function](aql/functions-arangosearch.html#tokens).
+queries with the [`TOKENS()` function](aql/functions-string.html#tokens).
+
+<!-- TODO: Add arangosh example how to create and test custom Analyzer -->
 
 How Analyzers process values depends on their type and configuration.
 The configuration is comprised of type-specific properties and list of features.
@@ -92,12 +104,14 @@ The currently implemented Analyzer types are:
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
-Feature / Analyzer | `identity` | `ngram` | `delimiter` | `stem` | `norm` | `text`
-:------------------|:-----------|:--------|:------------|:-------|:-------|:------
-**Tokenization**   | No         | No      | (Yes)       | No     | No     | Yes
-**Stemming**       | No         | No      | No          | Yes    | No     | Yes
-**Normalization**  | No         | No      | No          | No     | Yes    | Yes
-**_N_-grams**      | No         | Yes     | No          | No     | No     | (Yes)
+Analyzer    /    Feature  | Tokenization | Stemming | Normalization | _N_-grams
+:-------------------------|:------------:|:--------:|:-------------:|:--------:
+[`identity`](#identity)   |      No      |    No    |      No       |   No
+[`delimiter`](#delimiter) |    (Yes)     |    No    |      No       |   No
+[`stem`](#stem)           |      No      |   Yes    |      No       |   No
+[`norm`](#norm)           |      No      |    No    |     Yes       |   No
+[`ngram`](#ngram)         |      No      |    No    |      No       |  Yes
+[`text`](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
 
 Analyzer Properties
 -------------------
@@ -113,6 +127,20 @@ unmodified.
 
 It does not support any *properties* and will ignore them.
 
+**Examples**
+
+Applying the identity Analyzers does not perform any transformations, hence
+the input is returned unaltered:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerIdentity
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerIdentity}
+      db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "identity")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerIdentity
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### `delimiter`
 
 An Analyzer capable of breaking up delimited text into tokens as per
@@ -123,6 +151,24 @@ The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
 - `delimiter` (string): the delimiting character(s)
+
+
+**Examples**
+
+Split input strings into tokens at hyphen-minus characters:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerDelimiter
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerDelimiter}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("delimiter_hyphen", "delimiter", {
+    |   delimiter: "-"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("some-delimited-words", "delimiter_hyphen")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerDelimiter
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### `stem`
 
@@ -136,6 +182,23 @@ attributes:
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
   meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
+
+**Examples**
+
+Apply stemming to the input string as a whole:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerStem
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerStem}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("stem_en", "stem", {
+    |   locale: "en.utf-8"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("databases", "stem_en")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerStem
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### `norm`
 
@@ -156,6 +219,57 @@ attributes:
   - `"lower"` to convert to all lower-case characters
   - `"upper"` to convert to all upper-case characters
   - `"none"` to not change character case (default)
+
+**Examples**
+
+Convert input string to all upper-case characters:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNorm1
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNorm1}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("norm_upper", "norm", {
+    |   locale: "en.utf-8",
+    |   case: "upper"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_upper")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNorm1
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Convert accented characters to their base characters:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNorm2
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNorm2}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("norm_accent", "norm", {
+    |   locale: "en.utf-8",
+    |   accent: false
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNorm2
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Convert input string to all lower-case characters and remove diacritics:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNorm3
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNorm3}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("norm_accent_lower", "norm", {
+    |   locale: "en.utf-8",
+    |   accent: false,
+    |   case: "lower"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("UPPER lower dïäcríticš", "norm_accent_lower")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNorm3
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### `ngram`
 
@@ -208,6 +322,45 @@ produce the following:
 - `"ooba"`
 - `"oobar$"`
 - `"obar$"`
+
+Create and use a trigram Analyzer with `preserveOriginal` disabled:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNgram1
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNgram1}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("trigram", "ngram", {
+    |   min: 3,
+    |   max: 3,
+    |   preserveOriginal: false,
+    |   streamType: "utf8"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("foobar", "trigram")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNgram1
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+Create and use a bigram Analyzer with `preserveOriginal` enabled and with start
+and stop markers:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerNgram2
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerNgram2}
+      var analyzers = require("@arangodb/analyzers");
+    | var a = analyzers.save("bigram_markers", "ngram", {
+    |   min: 2,
+    |   max: 2,
+    |   preserveOriginal: true,
+    |   startMarker: "^",
+    |   endMarker: "$",
+    |   streamType: "utf8"
+      }, ["frequency", "norm", "position"]);
+      db._query(`RETURN TOKENS("foobar", "bigram_markers")`).toArray();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerNgram2
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### `text`
 
@@ -272,7 +425,7 @@ The built-in `text_en` Analyzer has stemming enabled (note the word endings):
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline analyzerTextStem
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextStem}
-      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en")`)
+      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en")`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextStem
 {% endarangoshexample %}
@@ -285,14 +438,14 @@ disabled like this:
     @startDocuBlockInline analyzerTextNoStem
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextNoStem}
       var analyzers = require("@arangodb/analyzers")
-    | analyzers.save("text_en_nostem", "text", {
+    | var a = analyzers.save("text_en_nostem", "text", {
     |   locale: "en.utf-8",
     |   case: "lower",
     |   accent: false,
     |   stemming: false,
     |   stopwords: []
       }, ["frequency","norm","position"])
-      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en_nostem")`)
+      db._query(`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en_nostem")`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextNoStem
 {% endarangoshexample %}
@@ -305,7 +458,7 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
     @startDocuBlockInline analyzerTextEdgeNgram
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerTextEdgeNgram}
     ~ var analyzers = require("@arangodb/analyzers")
-    | analyzers.save("text_edge_ngrams", "text", {
+    | var a = analyzers.save("text_edge_ngrams", "text", {
     |   edgeNgram: { min: 3, max: 8, preserveOriginal: true },
     |   locale: "en.utf-8",
     |   case: "lower",
@@ -313,7 +466,10 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
     |   stemming: false,
     |   stopwords: [ "the" ]
       }, ["frequency","norm","position"])
-      db._query(`RETURN TOKENS("The quick brown fox jumps over the dogWithAVeryLongName", "text_edge_ngrams")`)
+    | db._query(`RETURN TOKENS(
+    |   "The quick brown fox jumps over the dogWithAVeryLongName",
+    |   "text_edge_ngrams"
+      )`).toArray();
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock analyzerTextEdgeNgram
 {% endarangoshexample %}

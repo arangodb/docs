@@ -105,8 +105,8 @@ Version 3.5
 
 - **ArangoSearch**:
   The search and ranking engine received an upgrade and now features
-  [Configurable Analyzers](arangosearch-analyzers.html),
-  [Sorted Views](arangosearch-views.html#primary-sort-order)
+  [Configurable Analyzers](analyzers.html),
+  [Sorted Views](arangosearch-performance.html#primary-sort-order)
   and several improvements to the
   [AQL integration](release-notes-new-features35.html#arangosearch).
 
