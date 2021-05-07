@@ -98,7 +98,9 @@ During view modification the following directives apply:
 - **inBackground** (_optional_; type: `boolean`; default: `false`)
 
   If set to `true`, then no exclusive lock is used on the source collection
-  during View index creation, so that it remains basically available. Also see:
+  during View index creation, so that it remains basically available.
+  `inBackground` is an option that can be set when adding links. It does not get
+  persisted as it is not a View property, but only a one-off option. Also see:
   [Creating Indexes in Background](indexing-index-basics.html#creating-indexes-in-background)
 
 ### View Properties
