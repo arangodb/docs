@@ -21,6 +21,8 @@ are *null* themselves. It is also known as `COALESCE()` in SQL.
 
 ### FIRST_LIST()
 
+`FIRST_LIST(alternative, ...) → list`
+
 Return the first alternative that is an array, and *null* if none of the
 alternatives is an array.
 
@@ -29,7 +31,7 @@ alternatives is an array.
 
 ### FIRST_DOCUMENT()
 
-`FIRST_DOCUMENT(value) → doc`
+`FIRST_DOCUMENT(alternative, ...) → doc`
 
 Return the first alternative that is a document, and *null* if none of the
 alternatives is a document.
