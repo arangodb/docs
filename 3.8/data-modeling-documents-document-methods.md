@@ -194,105 +194,6 @@ As alternative you can supply an array of paths and values.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
-Range
------
-
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
-
-
-`collection.range(attribute, left, right)`
-
-Returns all documents from a collection such that the *attribute* is
-greater or equal than *left* and strictly less than *right*.
-
-You can use *toArray*, *next*, or *hasNext* to access the
-result. The result can be limited using the *skip* and *limit*
-operator.
-
-An attribute name of the form *a.b* is interpreted as attribute path,
-not as attribute.
-
-Note: the *range* simple query function is **deprecated** as of ArangoDB 2.6.
-The function may be removed in future versions of ArangoDB. The preferred
-way for retrieving documents from a collection within a specific range
-is to use an AQL query as follows:
-
-```js
-FOR doc IN @@collection
-  FILTER doc.value >= @left && doc.value < @right
-  LIMIT @skip, @limit
-  RETURN doc
-```
-
-**Examples**
-
-Use *toArray* to get all documents at once:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline 005_collectionRange
-    @EXAMPLE_ARANGOSH_OUTPUT{005_collectionRange}
-    ~ db._create("old");
-      db.old.ensureIndex({ type: "skiplist", fields: [ "age" ] });
-      db.old.insert({ age: 15 });
-      db.old.insert({ age: 25 });
-      db.old.insert({ age: 30 });
-      db.old.range("age", 10, 30).toArray();
-    ~ db._drop("old")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock 005_collectionRange
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
-Closed range
-------------
-
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
-
-
-`collection.closedRange(attribute, left, right)`
-
-Returns all documents of a collection such that the *attribute* is
-greater or equal than *left* and less or equal than *right*.
-
-You can use *toArray*, *next*, or *hasNext* to access the
-result. The result can be limited using the *skip* and *limit*
-operator.
-
-An attribute name of the form *a.b* is interpreted as attribute path,
-not as attribute.
-
-Note: the *closedRange* simple query function is **deprecated** as of ArangoDB 2.6.
-The function may be removed in future versions of ArangoDB. The preferred
-way for retrieving documents from a collection within a specific range
-is to use an AQL query as follows:
-
-```js
-FOR doc IN @@collection
-  FILTER doc.value >= @left && doc.value <= @right
-  LIMIT @skip, @limit
-  RETURN doc
-```
-
-**Examples**
-
-Use *toArray* to get all documents at once:
-
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline 006_collectionClosedRange
-    @EXAMPLE_ARANGOSH_OUTPUT{006_collectionClosedRange}
-    ~ db._create("old");
-      db.old.ensureIndex({ type: "skiplist", fields: [ "age" ] });
-      db.old.insert({ age: 15 });
-      db.old.insert({ age: 25 });
-      db.old.insert({ age: 30 });
-      db.old.closedRange("age", 10, 30).toArray();
-    ~ db._drop("old")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock 006_collectionClosedRange
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
-
 Any
 ---
 
@@ -304,8 +205,6 @@ Any
 Returns a random document from the collection or *null* if none exists.
 
 **Note**: this method is expensive when using the RocksDB storage engine.
-
-
 
 Count
 -----
