@@ -375,10 +375,6 @@ An error is raised if the handle is invalid:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-**Changes in 3.0 from 2.8:**
-
-*document* can now query multiple documents with one call.
-
 
 Exists
 ------
@@ -423,14 +419,6 @@ The behavior is exactly as if *exists* would have been called on all
 members of the array separately and all results are returned in an array. If an error
 occurs with any of the documents, the operation stops immediately returning
 only an error object.
-
-**Changes in 3.0 from 2.8:**
-
-In the case of a revision mismatch *exists* now throws an error instead
-of simply returning *false*. This is to make it possible to tell the
-difference between a revision mismatch and a non-existing document.
-
-*exists* can now query multiple documents with one call.
 
 
 Lookup By Keys
@@ -563,12 +551,6 @@ members of the array separately and all results are returned in an array. If an
 error occurs with any of the documents, no exception is risen! Instead of a
 document an error object is returned in the result array. The options behave
 exactly as before.
-
-**Changes in 3.0 from 2.8:**
-
-The options *silent* and *returnNew* are new. The method can now insert
-multiple documents with one call.
-
 
 **Examples**
 
@@ -714,11 +696,6 @@ Use a document handle:
     @endDocuBlock documentsCollectionReplaceHandle
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-
-**Changes in 3.0 from 2.8:**
-
-The options *silent*, *returnNew* and *returnOld* are new. The method
-can now replace multiple documents with one call.
 
 
 Update
@@ -885,11 +862,6 @@ Patching array values:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-**Changes in 3.0 from 2.8:**
-
-The options *silent*, *returnNew* and *returnOld* are new. The method
-can now update multiple documents with one call.
-
 
 Remove
 ------
@@ -994,13 +966,6 @@ Remove a document with a conflict:
     @endDocuBlock documentDocumentRemoveConflict
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-
-**Changes in 3.0 from 2.8:**
-
-The method now returns not only *true* but information about the removed
-document(s). The options *silent* and *returnOld* are new. The method
-can now remove multiple documents with one call.
-
 
 
 Remove By Keys
