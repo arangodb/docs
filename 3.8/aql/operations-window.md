@@ -132,16 +132,18 @@ later if a sorted index is present on the group criteria.
 
 To support `WINDOW` frames over time-series data the `WINDOW` operation may
 calculate timestamp offsets using positive ISO 8601 duration strings specified
-in `following` and `preceding`. If such a duration is used then the current row
-value is treated as numeric **timestamp** with **millisecond precision**.
+in `following` and `preceding`. If such a duration is used, then the current
+row value is treated as numeric **timestamp** with **millisecond precision**.
 Also see [Date functions](functions-date.html#comparison-and-calculation).
+If either bound is not specified, it is treated as an empty duration (i.e.,
+`P0D`). 
 
 The following query demonstrates the use of window frames to compute running
-totals over observations in the last 3 weeks and 2 days:
+totals over observations in the last 1 month and 2 days:
 
 ```js
 FOR t IN observations
-  WINDOW t.time WITH { preceding: "P3W2D" }
+  WINDOW t.time WITH { preceding: "P1M2D" }
   AGGREGATE rollingAverage = AVG(t.val), rollingSum = SUM(t.val)
   RETURN {
     time: t.time,
@@ -149,3 +151,9 @@ FOR t IN observations
     rollingSum
   }
 ```
+
+In contrast to the ISO 8601 standard week components may be freely combined
+with other components. For example, `P1WT1H` and `P1M1W` are both valid.
+Fractional values are only supported for seconds, and only with up to three
+decimals after the separator, i.e., millisecond precision. For example,
+`PT0.123S` is a valid duration while `PT0.5H` and `PT0.1234S` are not.
