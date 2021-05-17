@@ -21,7 +21,7 @@ are *null* themselves. It is also known as `COALESCE()` in SQL.
 
 ### FIRST_LIST()
 
-FIRST_LIST(alternative, ...) → list
+`FIRST_LIST(alternative, ...) → list`
 
 Return the first alternative that is an array, and *null* if none of the
 alternatives is an array.
