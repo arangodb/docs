@@ -15,14 +15,14 @@ UI
 ### Configurable root redirect
 
 Added two options to `arangod` to allow HTTP redirection customization for
-root ("/") call of the HTTP API:
+root (`/`) call of the HTTP API:
 
-`--http.permanently-redirect-root`: if true (default), use a permanent
-redirection (use HTTP 301 code), if false fall back to temporary redirection
-(use HTTP 302 code).
+- `--http.permanently-redirect-root`: if true (default), use a permanent
+  redirection (use HTTP 301 code), if false fall back to temporary redirection
+  (use HTTP 302 code).
 
-`--http.redirect-root-to`: redirect of root URL to a specified path (redirects
-to "/_admin/aardvark/index.html" if not set (default)).
+- `--http.redirect-root-to`: redirect of root URL to a specified path.
+  Redirects to `/_admin/aardvark/index.html` if not set (default).
 
 Client tools
 ------------
