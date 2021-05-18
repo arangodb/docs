@@ -18,16 +18,16 @@ Version 3.8
   match a given length.
 
 - **ArangoSearch**:
-  New [**Pipeline Analyzer**](arangosearch-analyzers.html#pipeline)
+  New [**Pipeline Analyzer**](analyzers.html#pipeline)
   that allows you to combine multiple Analyzers, enabling case-insensitive
-  ngram-based fuzzy search and more. New
-  [**AQL Analyzer**](arangosearch-analyzers.html#aql)
+  _n_-gram-based fuzzy search and more. New
+  [**AQL Analyzer**](analyzers.html#aql)
   so that you can use an AQL query to pre-process and filter your data for
   indexing. Support for **geo-spatial queries** through new
-  [Geo](arangosearch-analyzers.html#geojson)
-  [Analyzers](arangosearch-analyzers.html#geopoint) and
+  [Geo](analyzers.html#geojson)
+  [Analyzers](analyzers.html#geopoint) and
   [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
-  A new [**Stopwords Analyzer**](arangosearch-analyzers.html#stopwords) that
+  A new [**Stopwords Analyzer**](analyzers.html#stopwords) that
   can be used standalone or in an Analyzer pipeline.
 
 - A [**`WINDOW` operation**](aql/operations-window.html) for aggregations over
@@ -49,7 +49,7 @@ Version 3.7
 - **ArangoSearch**:
   [Wildcard](aql/functions-arangosearch.html#like) and fuzzy search
   ([Levenshtein distance](aql/functions-arangosearch.html#levenshtein_match) and
-  [n-gram based](aql/functions-arangosearch.html#ngram_match)),
+  [_n_-gram based](aql/functions-arangosearch.html#ngram_match)),
   [enhanced phrase](aql/functions-arangosearch.html#phrase) and
   [proximity search](aql/functions-array.html#jaccard),
   improved late document materialization and
@@ -115,7 +115,7 @@ Version 3.6
 
 - **ArangoSearch**:
   New [Analyzer options](release-notes-new-features36.html#analyzers) for
-  edge n-grams (`text` Analyzer), UTF-8 encoded n-gram input and optional
+  edge _n_-grams (`text` Analyzer), UTF-8 encoded _n_-gram input and optional
   start/end markers (`ngram` Analyzer). Support for
   [dynamic expressions](release-notes-new-features36.html#dynamic-search-expressions-with-arrays)
   using arrays (array comparison operators in `SEARCH` queries and the
@@ -140,8 +140,8 @@ Version 3.5
 
 - **ArangoSearch**:
   The search and ranking engine received an upgrade and now features
-  [Configurable Analyzers](arangosearch-analyzers.html),
-  [Sorted Views](arangosearch-views.html#primary-sort-order)
+  [Configurable Analyzers](analyzers.html),
+  [Sorted Views](arangosearch-performance.html#primary-sort-order)
   and several improvements to the
   [AQL integration](release-notes-new-features35.html#arangosearch).
 

@@ -260,22 +260,22 @@ ArangoSearch
 
 Added new Analyzer type `"pipeline"` for chaining effects of multiple Analyzers
 into one. It allows you to combine text normalization for a case insensitive
-search with ngram tokenization, or to split text at multiple delimiting
+search with _n_-gram tokenization, or to split text at multiple delimiting
 characters followed by stemming.
 
-See [ArangoSearch Pipeline Analyzer](arangosearch-analyzers.html#pipeline)
+See [ArangoSearch Pipeline Analyzer](analyzers.html#pipeline)
 
 ### AQL Analyzer
 
 Added new Analyzer type `"aql"` capable of running an AQL query (with some
 restrictions) to perform data manipulation/filtering.
 
-See [ArangoSearch AQL Analyzer](arangosearch-analyzers.html#aql)
+See [ArangoSearch AQL Analyzer](analyzers.html#aql)
 
 ### Geo-spatial queries
 
-Added two Geo Analyzers [`"geojson"`](arangosearch-analyzers.html#geojson)
-and [`"geopoint"`](arangosearch-analyzers.html#geopoint) as well as the
+Added two Geo Analyzers [`"geojson"`](analyzers.html#geojson)
+and [`"geopoint"`](analyzers.html#geopoint) as well as the
 following [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions)
 which enable geo-spatial queries backed by View indexes:
 - `GEO_CONTAINS()`
@@ -290,7 +290,7 @@ input. It can be used standalone or be combined with other Analyzers via a
 pipeline Analyzer to add stopword functionality to them. Previously, only the
 text Analyzer type provided stopword support.
 
-See [ArangoSearch Stopwords Analyzer](arangosearch-analyzers.html#stopwords)
+See [ArangoSearch Stopwords Analyzer](analyzers.html#stopwords)
 
 ### Approximate count
 
