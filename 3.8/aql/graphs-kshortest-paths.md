@@ -18,7 +18,7 @@ Every such path will be returned as a JSON object with three components:
 - an array containing the `edges` on the path
 - the `weight` of the path, that is the sum of all edge weights
 
-If no *weightAttribute* is given, the weight of the path is just its length.
+If no `weightAttribute` is given, the weight of the path is just its length.
 
 {% include youtube.html id="XdITulJFdVo" %}
 
@@ -116,13 +116,20 @@ FOR path
   traversal. Only the following attributes have an effect, all others are ignored:
   - **weightAttribute** (string): a top-level edge attribute that should be used
   to read the edge weight. If the attribute does not exist or is not numeric, the
-  *defaultWeight* will be used instead.
+  *defaultWeight* will be used instead. The attribute value must not be negative.
   - **defaultWeight** (number): this value will be used as fallback if there is
-  no *weightAttribute* in the edge document, or if it's not a number. The default
-  is 1.
+  no *weightAttribute* in the edge document, or if it's not a number. The value
+  must not be negative. The default is `1`.
 - `LIMIT` (see [LIMIT operation](operations-limit.html), *optional*):
   the maximal number of paths to return. It is highly recommended to use
   a `LIMIT` for `K_SHORTEST_PATHS`.
+
+{% hint 'info' %}
+k Shortest Paths traversals do not support negative weights. If a document
+attribute (as specified by `weightAttribute`) with a negative value is
+encountered during traversal, or if `defaultWeight` is set to a negative
+number, then the query is aborted with an error.
+{% endhint %}
 
 ### Working with collection sets
 
