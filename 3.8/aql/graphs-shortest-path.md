@@ -77,7 +77,7 @@ FOR vertex[, edge]
   *defaultWeight* will be used instead. The attribute value must not be negative.
   - **defaultWeight** (number): this value will be used as fallback if there is
   no *weightAttribute* in the edge document, or if it is not a number.
-  The default is `1`. The value must not be negative.
+  The value must not be negative. The default is `1`.
 
 {% hint 'info' %}
 Shortest Path traversals do not support negative weights. If a document

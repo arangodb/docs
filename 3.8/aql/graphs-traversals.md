@@ -142,7 +142,7 @@ FOR vertex[, edge[, path]]
     or if it is not present in the edge document then the `defaultWeight` is used.
     The attribute value must not be negative.
   - **defaultWeight** (number, *optional*): Specifies the default weight of an edge.
-    The default value is `1`. The value must not be negative.
+    The value must not be negative. The default value is `1`.
 
 {% hint 'info' %}
 Weighted traversals do not support negative weights. If a document

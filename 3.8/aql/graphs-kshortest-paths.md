@@ -118,8 +118,8 @@ FOR path
   to read the edge weight. If the attribute does not exist or is not numeric, the
   *defaultWeight* will be used instead. The attribute value must not be negative.
   - **defaultWeight** (number): this value will be used as fallback if there is
-  no *weightAttribute* in the edge document, or if it's not a number. The default
-  is `1`. The value must not be negative.
+  no *weightAttribute* in the edge document, or if it's not a number. The value
+  must not be negative. The default is `1`.
 - `LIMIT` (see [LIMIT operation](operations-limit.html), *optional*):
   the maximal number of paths to return. It is highly recommended to use
   a `LIMIT` for `K_SHORTEST_PATHS`.
