@@ -69,6 +69,13 @@ FOR x, v, p IN 0..10 OUTBOUND "places/York" GRAPH "kShortestPathsGraph"
 `["York","London"]`                         | `1.8` | `[1.8]`
 `["York"]`                                  |   `0` | `[]`
 
+{% hint 'info' %}
+Weighted traversals do not support negative weights. If a document
+attribute (as specified by `weightAttribute`) with a negative value is
+encountered during traversal, or if `defaultWeight` is set to a negative
+number, then the query is aborted with an error.
+{% endhint %}
+
 The preferred way to start a breadth-first search from now on is with
 `order: "bfs"`. The default remains depth-first search if no `order` is
 specified, but can also be explicitly requested with `order: "dfs"`.
@@ -260,22 +267,22 @@ ArangoSearch
 
 Added new Analyzer type `"pipeline"` for chaining effects of multiple Analyzers
 into one. It allows you to combine text normalization for a case insensitive
-search with ngram tokenization, or to split text at multiple delimiting
+search with _n_-gram tokenization, or to split text at multiple delimiting
 characters followed by stemming.
 
-See [ArangoSearch Pipeline Analyzer](arangosearch-analyzers.html#pipeline)
+See [ArangoSearch Pipeline Analyzer](analyzers.html#pipeline)
 
 ### AQL Analyzer
 
 Added new Analyzer type `"aql"` capable of running an AQL query (with some
 restrictions) to perform data manipulation/filtering.
 
-See [ArangoSearch AQL Analyzer](arangosearch-analyzers.html#aql)
+See [ArangoSearch AQL Analyzer](analyzers.html#aql)
 
 ### Geo-spatial queries
 
-Added two Geo Analyzers [`"geojson"`](arangosearch-analyzers.html#geojson)
-and [`"geopoint"`](arangosearch-analyzers.html#geopoint) as well as the
+Added two Geo Analyzers [`"geojson"`](analyzers.html#geojson)
+and [`"geopoint"`](analyzers.html#geopoint) as well as the
 following [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions)
 which enable geo-spatial queries backed by View indexes:
 - `GEO_CONTAINS()`
@@ -290,7 +297,7 @@ input. It can be used standalone or be combined with other Analyzers via a
 pipeline Analyzer to add stopword functionality to them. Previously, only the
 text Analyzer type provided stopword support.
 
-See [ArangoSearch Stopwords Analyzer](arangosearch-analyzers.html#stopwords)
+See [ArangoSearch Stopwords Analyzer](analyzers.html#stopwords)
 
 ### Approximate count
 

@@ -291,6 +291,35 @@
           href: indexing-geo.html
         - text: Vertex Centric Indexes
           href: indexing-vertex-centric.html
+    - text: ArangoSearch
+      href: arangosearch.html
+      children:
+        - text: Example Datasets
+          href: arangosearch-example-datasets.html
+        - text: Exact value matching
+          href: arangosearch-exact-value-matching.html
+        - text: Range Queries
+          href: arangosearch-range-queries.html
+        - text: Prefix matching
+          href: arangosearch-prefix-matching.html
+        - text: Case-sensitivity and Diacritics
+          href: arangosearch-case-sensitivity-and-diacritics.html
+        - text: Wildcard search
+          href: arangosearch-wildcard-search.html
+        - text: Full-text token search
+          href: arangosearch-fulltext-token-search.html
+        - text: Phrase and proximity search
+          href: arangosearch-phrase-and-proximity-search.html
+#       - text: Fuzzy search
+#         href: arangosearch-fuzzy-search.html
+#       - text: Geospatial search
+#         href: arangosearch-geospatial-search.html
+        - text: Ranking
+          href: arangosearch-ranking.html
+        - text: Performance
+          href: arangosearch-performance.html
+        - text: Views Reference
+          href: arangosearch-views.html
 - text: Transactions
   href: transactions.html
   children:
@@ -337,15 +366,6 @@
       href: graphs-edges.html
     - text: Pregel
       href: graphs-pregel.html
-- text: ArangoSearch
-  href: arangosearch.html
-  children:
-    - text: Views
-      href: arangosearch-views.html
-    - text: Analyzers
-      href: arangosearch-analyzers.html
-    - text: Examples
-      href: arangosearch-examples.html
 - subtitle: ADVANCED TOPICS
 - text: Architecture
   href: architecture.html
@@ -525,6 +545,8 @@
   href: satellites.html
 - text: SmartJoins
   href: smartjoins.html
+- text: Analyzers
+  href: analyzers.html
 - subtitle: OPERATIONS
 - text: Installation
   href: installation.html

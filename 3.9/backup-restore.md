@@ -343,4 +343,4 @@ not be suited for.
 
 - **Known Issues**
 
-  See the list of [Known Issues in ArangoDB v3.6](release-notes-known-issues36.html#hot-backup).
+  See the list of [Known Issues](release-notes-known-issues39.html#hot-backup).

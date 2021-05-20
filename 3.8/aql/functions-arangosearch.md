@@ -1,6 +1,6 @@
 ---
 layout: default
-description: ArangoSearch is integrated into AQL and used mainly through the use of special functions.
+description: ArangoSearch offers various AQL functions for search queries to control the search context, for filtering and scoring
 title: ArangoSearch related AQL Functions
 redirect_from:
   - ../views-arango-search-scorers.html # 3.4 -> 3.5
@@ -9,67 +9,27 @@ redirect_from:
 ArangoSearch Functions
 ======================
 
-ArangoSearch AQL functions take either an expression or an
-attribute path expression as first argument.
+{{ page.description }}
+{:class="lead"}
 
-```js
-ANALYZER(<expression>, …)
-STARTS_WITH(doc.attribute, …)
-```
+You can form search expressions to filter Views by composing ArangoSearch
+function calls, logical operators and comparison operators.
 
-If an expression is expected, it means that search conditions can expressed in
-AQL syntax. They are typically function calls to ArangoSearch search functions,
-possibly nested and/or using logical operators for multiple conditions.
+The AQL [`SEARCH` operation](operations-search.html) accepts search expressions
+such as `ANALYZER(PHRASE(doc.text, "foo bar"), "text_en")`. You can
+combine filter and context functions as well as operators like `AND` and `OR`
+to form complex search conditions.
 
-```js
-STARTS_WITH(doc.text, "avoca") OR STARTS_WITH(doc.text, "arang")
-```
+Scoring functions allow you to rank matches and to sort results by relevance.
 
-The default Analyzer that will be used for searching is `"identity"`.
-While many ArangoSearch functions accept an Analyzer argument, it is often
-easier and cleaner to wrap a search (sub-)expressions with an `ANALYZER()` call
-to set the Analyzer for these functions. Their Analyzer argument can then be
-left out.
+Most functions can also be used without a View and the `SEARCH` keyword, but
+will then not be accelerated by a View index.
 
-```js
-// Analyzer specified in each function call
-PHRASE(doc.text, "avocado dish", "text_en") AND PHRASE(doc.text, "lemon", "text_en")
+See [Information Retrieval with ArangoSearch](../arangosearch.html) for an
+introduction.
 
-// Analyzer specified using ANALYZER()
-ANALYZER(PHRASE(doc.text, "avocado dish") AND PHRASE(doc.text, "lemon"), "text_en")
-```
-
-Certain expressions do not require any ArangoSearch functions, such as basic
-comparisons. However, the Analyzer used for searching will be `"identity"`
-unless `ANALYZER()` is used to set a different one.
-
-```js
-// The "identity" Analyzer will be used by default
-SEARCH doc.text == "avocado"
-
-// Use the "text_en" Analyzer for searching instead
-SEARCH ANALYZER(doc.text == "avocado", "text_en")
-```
-
-If an attribute path expressions is needed, then you have to reference a
-document object emitted by a View like `FOR doc IN viewName` and then specify
-which attribute you want to test for as an unquoted string literal. For example
-`doc.attr` or `doc.deeply.nested.attr` but not `"doc.attr"`. You can also use
-the bracket notation `doc["attr"]`.
-
-```js
-FOR doc IN viewName
-  SEARCH STARTS_WITH(doc.deeply.nested["attr"], "avoca")
-  RETURN doc
-```
-
-Search Functions
-----------------
-
-Search functions can be used in a [SEARCH operation](operations-search.html)
-to form an ArangoSearch expression to filter a View. Most functions can also be
-used without a View and the `SEARCH` keyword, but will then not be accelerated
-by a View index.
+Context Functions
+-----------------
 
 ### ANALYZER()
 
@@ -88,7 +48,7 @@ not an ArangoSearch function but a regular string function which can be used
 outside of `SEARCH` operations.
 
 - **expr** (expression): any valid search expression
-- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
+- **analyzer** (string): name of an [Analyzer](../analyzers.html).
 - returns **retVal** (any): the expression result that it wraps
 
 Assuming a View definition with an Analyzer whose name and type is `delimiter`:
@@ -222,6 +182,9 @@ Assuming a View with the following documents indexed and processed by the
 ]
 ```
 
+Filter Functions
+----------------
+
 ### EXISTS()
 
 {% hint 'info' %}
@@ -252,11 +215,11 @@ specified data type.
 
 - **path** (attribute path expression): the attribute to test in the document
 - **type** (string): data type to test for, can be one of:
-    - `"null"`
-    - `"bool"` / `"boolean"`
-    - `"numeric"`
-    - `"string"`
-    - `"analyzer"` (see below)
+  - `"null"`
+  - `"bool"` / `"boolean"`
+  - `"numeric"`
+  - `"string"`
+  - `"analyzer"` (see below)
 - returns nothing: the function evaluates to a boolean, but this value cannot be
   returned. The function can only be called in a search expression. It throws
   an error if used outside of a [SEARCH operation](operations-search.html).
@@ -274,7 +237,7 @@ by the specified **analyzer**.
 
 - **path** (attribute path expression): the attribute to test in the document
 - **type** (string): string literal `"analyzer"`
-- **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
+- **analyzer** (string, _optional_): name of an [Analyzer](../analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
 - returns nothing: the function evaluates to a boolean, but this value cannot be
@@ -302,8 +265,11 @@ The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
 language rules as per the defined Analyzer locale nor the server language
 (startup option `--default-language`)!
-Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+Also see [Known Issues](../release-notes-known-issues38.html#arangosearch).
 {% endhint %}
+
+There is a corresponding [`IN_RANGE()` Miscellaneous Function](functions-miscellaneous.html#in_range)
+that is used outside of `SEARCH` operations.
 
 - **path** (attribute path expression):
   the path of the attribute to test in the document
@@ -351,6 +317,9 @@ because the _f_ of _foo_ is excluded (*high* is "f" but *includeHigh* is false).
 Match documents where at least **minMatchCount** of the specified
 search expressions are satisfied.
 
+There is a corresponding [`MIN_MATCH()` Miscellaneous function](functions-miscellaneous.html#min_match)
+that is used outside of `SEARCH` operations.
+
 - **expr** (expression, _repeatable_): any valid search expression
 - **minMatchCount** (number): minimum number of search expressions that should
   be satisfied
@@ -376,16 +345,16 @@ but not `{ "text": "snow fox" }` which only fulfills one of the conditions.
 `NGRAM_MATCH(path, target, threshold, analyzer) → fulfilled`
 
 Match documents whose attribute value has an
-[ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+[_n_-gram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
 higher than the specified threshold compared to the target value.
 
 The similarity is calculated by counting how long the longest sequence of
-matching ngrams is, divided by the target's total ngram count.
-Only fully matching ngrams are counted.
+matching _n_-grams is, divided by the target's total _n_-gram count.
+Only fully matching _n_-grams are counted.
 
-The ngrams for both attribute and target are produced by the specified
+The _n_-grams for both attribute and target are produced by the specified
 Analyzer. It is recommended to use an Analyzer of type `ngram` with
-`preserveOriginal: false` and `min` equal to `max`. Increasing the ngram
+`preserveOriginal: false` and `min` equal to `max`. Increasing the _n_-gram
 length will increase accuracy, but reduce error tolerance. In most cases a
 size of 2 or 3 will be a good choice. 
 
@@ -394,16 +363,21 @@ The selected Analyzer must have the `"position"` and `"frequency"` features
 enabled. The `NGRAM_MATCH()` function will otherwise not find anything.
 {% endhint %}
 
+Also see the String Functions
+[`NGRAM_POSITIONAL_SIMILARITY()`](functions-string.html#ngram_positional_similarity)
+and [`NGRAM_SIMILARITY()`](functions-string.html#ngram_similarity)
+for calculating _n_-gram similarity that cannot be accelerated by a View index.
+
 - **path** (attribute path expression\|string): the path of the attribute in
   a document or a string
 - **target** (string): the string to compare against the stored attribute
 - **threshold** (number, _optional_): value between `0.0` and `1.0`. Defaults
   to `0.7` if none is specified.
-- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
-- returns **fulfilled** (bool): `true` if the evaluated ngram similarity value
+- **analyzer** (string): name of an [Analyzer](../analyzers.html).
+- returns **fulfilled** (bool): `true` if the evaluated _n_-gram similarity value
   is greater or equal than the specified threshold, `false` otherwise
 
-Given a View indexing an attribute `text`, a custom ngram Analyzer `"bigram"`
+Given a View indexing an attribute `text`, a custom _n_-gram Analyzer `"bigram"`
 (`min: 2, max: 2, preserveOriginal: false, streamType: "utf8"`) and a document
 `{ "text": "quick red fox" }`, the following query would match it (with a
 threshold of `1.0`):
@@ -443,14 +417,6 @@ FOR doc IN viewName
 RETURN NGRAM_MATCH("quick fox", "quick blue fox", "bigram")
 ```
 
-### NGRAM_POSITIONAL_SIMILARITY()
-
-See [String Functions](functions-string.html#ngram_positional_similarity).
-
-### NGRAM_SIMILARITY()
-
-See [String Functions](functions-string.html#ngram_similarity).
-
 ### PHRASE()
 
 `PHRASE(path, phrasePart, analyzer)`
@@ -459,7 +425,7 @@ See [String Functions](functions-string.html#ngram_similarity).
 
 Search for a phrase in the referenced attribute. It only matches documents in
 which the tokens appear in the specified order. To search for tokens in any
-order use [TOKENS()](#tokens) instead.
+order use [`TOKENS()`](functions-string.html#tokens) instead.
 
 The phrase can be expressed as an arbitrary number of *phraseParts* separated by
 *skipTokens* number of tokens (wildcards), either as separate arguments or as
@@ -473,7 +439,7 @@ array as second argument.
   string and array tokens, but not for object tokens.
 - **skipTokens** (number, _optional_): amount of tokens to treat
   as wildcards
-- **analyzer** (string, _optional_): name of an [Analyzer](../arangosearch-analyzers.html).
+- **analyzer** (string, _optional_): name of an [Analyzer](../analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
 - returns nothing: the function evaluates to a boolean, but this value cannot be
@@ -632,8 +598,11 @@ The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
 language rules as per the defined Analyzer locale nor the server language
 (startup option `--default-language`)!
-Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+Also see [Known Issues](../release-notes-known-issues38.html#arangosearch).
 {% endhint %}
+
+There is a corresponding [`STARTS_WITH()` String function](functions-string.html#starts_with)
+that is used outside of `SEARCH` operations.
 
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
@@ -734,8 +703,8 @@ lower than or equal to *distance* between the stored attribute value and
 See [LEVENSHTEIN_DISTANCE()](functions-string.html#levenshtein_distance)
 if you want to calculate the edit distance of two strings.
 
-- **path** (attribute path expression): the path of the attribute to compare
-  against in the document
+- **path** (attribute path expression\|string): the path of the attribute to
+  compare against in the document or a string
 - **target** (string): the string to compare against the stored attribute
 - **distance** (number): the maximum edit distance, which can be between
   `0` and `4` if *transpositions* is `false`, and between `0` and `3` if
@@ -790,12 +759,36 @@ FOR doc IN viewName
 Check whether the pattern *search* is contained in the attribute denoted by *path*,
 using wildcard matching.
 
+- `_`: A single arbitrary character
+- `%`: Zero, one or many arbitrary characters
+- `\\_`: A literal underscore
+- `\\%`: A literal percent sign
+
+{% hint 'info' %}
+Literal backlashes require different amounts of escaping depending on the
+context:
+- `\` in bind variables (_Table_ view mode) in the Web UI (automatically
+  escaped to `\\` unless the value is wrapped in double quotes and already
+  escaped properly)
+- `\\` in bind variables (_JSON_ view mode) and queries in the Web UI
+- `\\` in bind variables in arangosh
+- `\\\\` in queries in arangosh
+- Double the amount compared to arangosh in shells that use backslashes for
+escaping (`\\\\` in bind variables and `\\\\\\\\` in queries)
+{% endhint %}
+
+Searching with the `LIKE()` function in the context of a `SEARCH` operation
+is backed by View indexes. The [String `LIKE()` function](functions-string.html#like)
+is used in other contexts such as in `FILTER` operations and cannot be
+accelerated by any sort of index on the other hand. Another difference is that
+the ArangoSearch variant does not accept a third argument to enable
+case-insensitive matching. This can be controlled with Analyzers instead.
+
 - **path** (attribute path expression): the path of the attribute to compare
   against in the document
 - **search** (string): a search pattern that can contain the wildcard characters
   `%` (meaning any sequence of characters, including none) and `_` (any single
-  character). Literal `%` and `_` must be escaped with two backslashes (four
-  in arangosh).
+  character). Literal `%` and `_` must be escaped with backslashes.
 - returns **bool** (bool): `true` if the pattern is contained in *text*,
   and `false` otherwise
 
@@ -813,12 +806,13 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
-### TOKENS()
-
-See [String Functions](functions-string.html#tokens).
-
 Geo functions
 -------------
+
+The following functions can be accelerated by View indexes. There are
+corresponding [Geo Functions](functions-geo.html) for the regular geo index
+type, but also general purpose functions such as GeoJSON constructors that can
+be used in conjunction with ArangoSearch.
 
 ### GEO_CONTAINS()
 
@@ -931,7 +925,7 @@ FOR a IN viewA
 
 Sorts documents using the
 [**Best Matching 25** algorithm](https://en.wikipedia.org/wiki/Okapi_BM25){:target="_blank"}
-(BM25).
+(Okapi BM25).
 
 - **doc** (document): must be emitted by `FOR ... IN viewName`
 - **k** (number, _optional_): calibrates the text term frequency scaling.
