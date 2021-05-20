@@ -6,10 +6,10 @@ arangosh&gt; db.geoSort.ensureIndex({ type: "geo", fields: [ "latitude", "longit
     "longitude" 
   ], 
   "geoJson" : false, 
-  "id" : "geoSort/89701", 
+  "id" : "geoSort/78217", 
   "isNewlyCreated" : true, 
   "maxNumCoverCells" : 8, 
-  "name" : "idx_1694620701258940416", 
+  "name" : "idx_1700316902151159808", 
   "sparse" : true, 
   "type" : "geo", 
   "unique" : false, 
@@ -35,7 +35,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type   Collection   Unique   Sparse   Selectivity   Fields                        Ranges
-  7   idx_1694620701258940416   geo    geoSort      false    true             n/a   [ `latitude`, `longitude` ]   (GEO_DISTANCE([ 0, 0 ], [ doc.`longitude`, doc.`latitude` ]) &lt; "unlimited")
+  7   idx_1700316902151159808   geo    geoSort      false    true             n/a   [ `latitude`, `longitude` ]   (GEO_DISTANCE([ 0, 0 ], [ doc.`longitude`, doc.`latitude` ]) &lt; "unlimited")
 
 Optimization rules applied:
  Id   RuleName
@@ -45,10 +45,10 @@ Optimization rules applied:
 Optimization rules with highest execution times:
  RuleName                                    Duration [s]
  geo-index-optimizer                              0.00002
- replace-function-with-index                      0.00000
- remove-unnecessary-calculations-2                0.00000
  reduce-extraction-to-projection                  0.00000
- use-indexes                                      0.00000
+ replace-function-with-index                      0.00000
+ optimize-subqueries                              0.00000
+ remove-unnecessary-calculations-2                0.00000
 
 41 rule(s) executed, 1 plan(s) created
 
@@ -56,41 +56,41 @@ Optimization rules with highest execution times:
 arangosh&gt; db._query(query);
 [ 
   { 
-    "_key" : "90407", 
-    "_id" : "geoSort/90407", 
-    "_rev" : "_cCeGwkS--A", 
+    "_key" : "78923", 
+    "_id" : "geoSort/78923", 
+    "_rev" : "_cWtRZCa--A", 
     "name" : "Name/0/0", 
     "latitude" : 0, 
     "longitude" : 0 
   }, 
   { 
-    "_key" : "90481", 
-    "_id" : "geoSort/90481", 
-    "_rev" : "_cCeGwk6--B", 
+    "_key" : "78997", 
+    "_id" : "geoSort/78997", 
+    "_rev" : "_cWtRZDK--_", 
     "name" : "Name/10/0", 
     "latitude" : 10, 
     "longitude" : 0 
   }, 
   { 
-    "_key" : "90409", 
-    "_id" : "geoSort/90409", 
-    "_rev" : "_cCeGwkS--B", 
+    "_key" : "78925", 
+    "_id" : "geoSort/78925", 
+    "_rev" : "_cWtRZCa--B", 
     "name" : "Name/0/10", 
     "latitude" : 0, 
     "longitude" : 10 
   }, 
   { 
-    "_key" : "90333", 
-    "_id" : "geoSort/90333", 
-    "_rev" : "_cCeGwje--B", 
+    "_key" : "78849", 
+    "_id" : "geoSort/78849", 
+    "_rev" : "_cWtRZBy---", 
     "name" : "Name/-10/0", 
     "latitude" : -10, 
     "longitude" : 0 
   }, 
   { 
-    "_key" : "90405", 
-    "_id" : "geoSort/90405", 
-    "_rev" : "_cCeGwkS--_", 
+    "_key" : "78921", 
+    "_id" : "geoSort/78921", 
+    "_rev" : "_cWtRZCa--_", 
     "name" : "Name/0/-10", 
     "latitude" : 0, 
     "longitude" : -10 
