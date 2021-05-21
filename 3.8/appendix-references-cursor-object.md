@@ -99,19 +99,22 @@ lead to the same result:
     ~ db.users.save({ name: "Gerhard" });
     ~ db.users.save({ name: "Helmut" });
     ~ db.users.save({ name: "Angela" });
+      var result;
       result = db.users.all().toArray();
+      print(result);
     | var q = db._query("FOR x IN users RETURN x");
     | result = [ ];
     | while (q.hasNext()) {
     |   result.push(q.next());
       }
+      print(result);
     ~ db._drop("users")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock executeQueryNoBatchSize
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-The following two alternatives both use a batchSize and return the same
+The following three alternatives all use a batchSize and return the same
 result:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -121,8 +124,15 @@ result:
     ~ db.users.save({ name: "Gerhard" });
     ~ db.users.save({ name: "Helmut" });
     ~ db.users.save({ name: "Angela" });
-      q = db.users.all(); q.setBatchSize(20); q.execute(); while (q.hasNext()) { print(q.next()); }
-      q = db.users.all(); q.execute(20); while (q.hasNext()) { print(q.next()); }
+      var q;
+      q = db.users.all(); q.execute(1); while(q.hasNext()) { print(q.next()) }
+      q = db.users.all(); q.setBatchSize(1); q.execute(); while(q.hasNext()) { print(q.next()) }
+    | q = db._query("FOR x IN users RETURN x", {}, { batchSize: 1 });
+    | var result = [ ];
+    | while (q.hasNext()) {
+    |   result.push(q.next());
+      }
+      print(result);
     ~ db._drop("users")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock executeQueryBatchSize
