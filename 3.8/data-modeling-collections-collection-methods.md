@@ -134,7 +134,7 @@ Returns an object containing all collection properties.
 * *schema* (optional, default is *null*): 
   Object that specifies the collection level document schema for documents.
   The attribute keys `rule`, `level` and `message` must follow the rules
-  documented in [Document Schema Validation](https://www.arangodb.com/docs/devel/document-schema-validation.html)
+  documented in [Document Schema Validation](document-schema-validation.html)
 
 In a cluster setup, the result will also contain the following attributes:
 

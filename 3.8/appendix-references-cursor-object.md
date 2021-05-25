@@ -114,7 +114,7 @@ lead to the same result:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-The following three alternatives all use a batchSize and return the same
+The following two alternatives both use a batch size and return the same
 result:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -126,7 +126,6 @@ result:
     ~ db.users.save({ name: "Angela" });
       var q;
       q = db.users.all(); q.execute(1); while(q.hasNext()) { print(q.next()) }
-      q = db.users.all(); q.setBatchSize(1); q.execute(); while(q.hasNext()) { print(q.next()) }
     | q = db._query("FOR x IN users RETURN x", {}, { batchSize: 1 });
     | var result = [ ];
     | while (q.hasNext()) {
