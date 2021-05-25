@@ -99,14 +99,13 @@ lead to the same result:
     ~ db.users.save({ name: "Gerhard" });
     ~ db.users.save({ name: "Helmut" });
     ~ db.users.save({ name: "Angela" });
-      var result;
-      result = db.users.all().toArray();
-      print(result);
+    | var result = db.users.all().toArray();
+    | print(result);
     | var q = db._query("FOR x IN users RETURN x");
     | result = [ ];
     | while (q.hasNext()) {
     |   result.push(q.next());
-      }
+    | }
       print(result);
     ~ db._drop("users")
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -124,13 +123,18 @@ result:
     ~ db.users.save({ name: "Gerhard" });
     ~ db.users.save({ name: "Helmut" });
     ~ db.users.save({ name: "Angela" });
-      var q;
-      q = db.users.all(); q.execute(1); while(q.hasNext()) { print(q.next()) }
-    | q = db._query("FOR x IN users RETURN x", {}, { batchSize: 1 });
     | var result = [ ];
+    | var q = db.users.all();
+    | q.execute(1);
+    | while(q.hasNext()) {
+    |   result.push(q.next());
+    | }
+    | print(result);
+    | result = [ ];
+    | q = db._query("FOR x IN users RETURN x", {}, { batchSize: 1 });
     | while (q.hasNext()) {
     |   result.push(q.next());
-      }
+    | }
       print(result);
     ~ db._drop("users")
     @END_EXAMPLE_ARANGOSH_OUTPUT
