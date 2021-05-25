@@ -8,6 +8,12 @@ redirect_from:
   - appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
   - appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
   - http/export.html # 3.8 -> 3.9
+  - appendix-deprecated-simple-queries.html # 3.8 -> 3.8
+  - appendix-deprecated-simple-queries-pagination.html # 3.8 -> 3.8
+  - appendix-deprecated-simple-queries-modification-queries.html # 3.8 -> 3.8
+  - appendix-deprecated-simple-queries-geo-queries.html # 3.8 -> 3.8
+  - appendix-deprecated-simple-queries-fulltext-queries.html # 3.8 -> 3.8
+  - http/simple-query.html # 3.8 -> 3.8
 ---
 Deprecated
 ==========

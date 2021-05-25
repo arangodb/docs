@@ -2,6 +2,9 @@
 layout: default
 description: There are two syntaxes for graph traversals in ArangoDB Query Language (AQL), the named graph and the anonymous graph.
 title: Graph Traversals in ArangoDB Query Language (AQL)
+redirect_from:
+  - ../http/traversal.html # 3.8 -> 3.8
+  - ../graphs-traversals-using-traversal-objects.html # 3.8 -> 3.8
 ---
 Graph traversals in AQL
 =======================
