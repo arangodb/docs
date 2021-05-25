@@ -99,17 +99,17 @@ computed from the current row and the rows that immediately precede and follow i
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-| time     | subject | val | rollingAverage | rollingSum | cumulativeSum |
-|----------|---------|----:|---------------:|-----------:|--------------:|
-| 07:00:00 | st113   |  10 |            9.5 |         19 |            10 |
-| 07:15:00 | st113   |   9 |        14.666… |         44 |            19 |
-| 07:30:00 | st113   |  25 |             18 |         54 |            44 |
-| 07:45:00 | st113   |  20 |           22.5 |         45 |            64 |
-| 07:00:00 | xh458   |   0 |              5 |         10 |             0 |
-| 07:15:00 | xh458   |  10 |              5 |         15 |            10 |
-| 07:30:00 | xh458   |   5 |             15 |         45 |            15 |
-| 07:45:00 | xh458   |  30 |             20 |         60 |            45 |
-| 08:00:00 | xh458   |  25 |           27.5 |         55 |            70 |
+| time                | subject | val | rollingAverage | rollingSum | cumulativeSum |
+|---------------------|---------|----:|---------------:|-----------:|--------------:|
+| 2021-05-25 07:00:00 | st113   |  10 |            9.5 |         19 |            10 |
+| 2021-05-25 07:15:00 | st113   |   9 |        14.666… |         44 |            19 |
+| 2021-05-25 07:30:00 | st113   |  25 |             18 |         54 |            44 |
+| 2021-05-25 07:45:00 | st113   |  20 |           22.5 |         45 |            64 |
+| 2021-05-25 07:00:00 | xh458   |   0 |              5 |         10 |             0 |
+| 2021-05-25 07:15:00 | xh458   |  10 |              5 |         15 |            10 |
+| 2021-05-25 07:30:00 | xh458   |   5 |             15 |         45 |            15 |
+| 2021-05-25 07:45:00 | xh458   |  30 |             20 |         60 |            45 |
+| 2021-05-25 08:00:00 | xh458   |  25 |           27.5 |         55 |            70 |
 
 ### Range-based Syntax
 
@@ -133,30 +133,30 @@ and following:
     @DATASET{observationsSampleDataset}
     FOR t IN observations
       WINDOW t.val WITH { preceding: 10, following: 5 }
-      AGGREGATE average = AVG(t.val), sum = SUM(t.val)
+      AGGREGATE rollingAverage = AVG(t.val), rollingSum = SUM(t.val)
       RETURN {
         time: t.time,
         subject: t.subject,
         val: t.val,
-        average,
-        sum
+        rollingAverage,
+        rollingSum
       }
     @END_EXAMPLE_AQL
     @endDocuBlock windowAggregationRangeValue
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-| time     | subject | val | average | sum |
-|----------|---------|----:|--------:|----:|
-| 07:00:00 | xh458   |   0 |     2.5 |   5 |
-| 07:30:00 | xh458   |   5 |     6.8 |  34 |
-| 07:15:00 | st113   |   9 |     6.8 |  34 |
-| 07:00:00 | st113   |  10 |     6.8 |  34 |
-| 07:15:00 | xh458   |  10 |     6.8 |  34 |
-| 07:45:00 | st113   |  20 |      18 |  90 |
-| 07:30:00 | st113   |  25 |      25 | 100 |
-| 08:00:00 | xh458   |  25 |      25 | 100 |
-| 07:45:00 | xh458   |  30 |      25 | 100 |
+| time                | subject | val | rollingAverage | rollingSum |
+|---------------------|---------|----:|---------------:|-----------:|
+| 2021-05-25 07:00:00 | xh458   |   0 |            2.5 |          5 |
+| 2021-05-25 07:30:00 | xh458   |   5 |            6.8 |         34 |
+| 2021-05-25 07:15:00 | st113   |   9 |            6.8 |         34 |
+| 2021-05-25 07:00:00 | st113   |  10 |            6.8 |         34 |
+| 2021-05-25 07:15:00 | xh458   |  10 |            6.8 |         34 |
+| 2021-05-25 07:45:00 | st113   |  20 |             18 |         90 |
+| 2021-05-25 07:30:00 | st113   |  25 |             25 |        100 |
+| 2021-05-25 08:00:00 | xh458   |  25 |             25 |        100 |
+| 2021-05-25 07:45:00 | xh458   |  30 |             25 |        100 |
 
 The range based window syntax required the input rows to be sorted by the row
 value. To ensure correctness of the result, the AQL optimizer will
@@ -167,28 +167,32 @@ later if a sorted index is present on the group criteria.
 ### Duration Syntax
 
 To support `WINDOW` frames over time-series data the `WINDOW` operation may
-calculate timestamp offsets using positive ISO 8601 duration strings specified
-in `following` and `preceding`. If such a duration is used, then the attribute
-value of the current document is treated as numeric **timestamp in seconds**,
-optionally with **millisecond precision**. Also see
+calculate timestamp offsets using positive ISO 8601 duration strings, like
+`P1Y6M` (1 year and 6 months) or `PT12H30M` (12 hours and 30 minutes). Also see
 [Date functions](functions-date.html#comparison-and-calculation).
+
+Durations can be specified separately in `following` and `preceding`.
+If such a duration is used, then the attribute value of the current document
+must be a number and is treated as numeric **timestamp in milliseconds**.
 If either bound is not specified, it is treated as an empty duration
 (i.e., `P0D`).
 
-The following query demonstrates the use of window frames to compute running
-totals and rolling averages over observations in the last 1 month and 2 days:
-
-<!-- TODO: Use different dataset with ISO datetimes and WINDOW DATE_TIMESTAMP(t.time) WITH ... ? -->
+The following query demonstrates the use of window frames to compute rolling
+sums and averages over observations in the last 30 minutes, based on the
+document attribute `time` that is converted from a datetime string to a
+numeric timestamp:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline windowAggregationRangeDuration
     @EXAMPLE_AQL{windowAggregationRangeDuration}
     @DATASET{observationsSampleDataset}
     FOR t IN observations
-      WINDOW t.time WITH { preceding: "P1M2D" }
+      WINDOW DATE_TIMESTAMP(t.time) WITH { preceding: "PT30M" }
       AGGREGATE rollingAverage = AVG(t.val), rollingSum = SUM(t.val)
       RETURN {
         time: t.time,
+        subject: t.subject,
+        val: t.val,
         rollingAverage,
         rollingSum
       }
@@ -196,6 +200,18 @@ totals and rolling averages over observations in the last 1 month and 2 days:
     @endDocuBlock windowAggregationRangeDuration
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+| time                | subject | val | rollingAverage | rollingSum |
+|---------------------|---------|----:|---------------:|-----------:|
+| 2021-05-25 07:00:00 | st113   |  10 |              5 |         10 |
+| 2021-05-25 07:00:00 | xh458   |   0 |              5 |         10 |
+| 2021-05-25 07:15:00 | st113   |   9 |           7.25 |         29 |
+| 2021-05-25 07:15:00 | xh458   |  10 |           7.25 |         29 |
+| 2021-05-25 07:30:00 | st113   |  25 |        9.8333… |         59 |
+| 2021-05-25 07:30:00 | xh458   |   5 |        9.8333… |         59 |
+| 2021-05-25 07:45:00 | st113   |  20 |           16.5 |         99 |
+| 2021-05-25 07:45:00 | xh458   |  30 |           16.5 |         99 |
+| 2021-05-25 08:00:00 | xh458   |  25 |             21 |        105 |
 
 In contrast to the ISO 8601 standard week components may be freely combined
 with other components. For example, `P1WT1H` and `P1M1W` are both valid.
