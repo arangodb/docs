@@ -324,9 +324,16 @@ in ArangoDB 3.8:
   only be picked up for indexes of type "persistent", "hash" and "skiplist" (where the
   latter two are aliases for "persistent" nowadays).
 
-The REST endpoint at GET `/_api/collection/<collection>/checksum` now also works
-in cluster setups. In previous versions, this endpoint was not supported in cluster
-setups and returned HTTP 501 (Not implemented).
+* The REST endpoint at GET `/_api/collection/<collection>/checksum` now also works
+  in cluster setups. In previous versions, this endpoint was not supported in cluster
+  setups and returned HTTP 501 (Not implemented).
+
+* +The HTTP REST API endpoint `POST /_api/cursor` can now handle an 
+  +additional sub-attribute `fillBlockCache` for its `options` attribute.
+  +`fillBlockCache` controls whether the to-be-executed query should
+  +populate the RocksDB block cache with the data read by the query.
+  +This is an optional attribute, and its default value is `true`, meaning
+  +that the block cache will be populated.
 
 ### Endpoints deprecated
 
