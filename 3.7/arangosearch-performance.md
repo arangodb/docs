@@ -199,25 +199,4 @@ optimizations.
 
 Also see [SEARCH operation](aql/operations-search.html#search-options).
 
-## Count Approximation
-
-The `SEARCH` operation in AQL accepts an option `countApproximate` to control
-how the total count of rows is calculated if the `fullCount` option is enabled
-for a query or when a `COLLECT WITH COUNT` clause is executed.
-
-By default, rows are actually enumerated for a precise count. In some cases, an
-estimate might be good enough, however. You can set `countApproximate` to
-`"cost"` for a cost based approximation. It does not enumerate rows and returns
-an approximate result with O(1) complexity. It gives a precise result if the
-`SEARCH` condition is empty or if it contains a single term query only
-(e.g. `SEARCH doc.field == "value"`).
-
-```js
-FOR doc IN viewName
-  SEARCH doc.name == "Carol"
-  OPTIONS { countApproximate: "cost" }
-  COLLECT WITH COUNT INTO count
-  RETURN count
-```
-
 <!-- TODO: The Analyzer feature "norm" has some performance implications -->
