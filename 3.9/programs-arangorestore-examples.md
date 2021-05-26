@@ -60,7 +60,7 @@ Here's an example of reloading data to a non-standard endpoint, using a dedicate
 
     arangorestore --server.endpoint tcp://192.168.173.13:8531 --server.username backup --server.database mydb --input-directory "dump"
 
-To create the target database whe restoring, use a command like this:
+To create the target database when restoring, use a command like this:
 
     arangorestore --server.username backup --server.database newdb --create-database true --input-directory "dump"
 
