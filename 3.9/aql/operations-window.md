@@ -1,12 +1,12 @@
 ---
 layout: default
-description: The WINDOW keyword can be used for aggregations over related rows
+description: Aggregate adjacent documents or value ranges with a sliding window
 title: Aggregation with WINDOW in AQL
 ---
 WINDOW
 =======
 
-Aggregate adjacent documents or value ranges with a sliding window
+{{ page.description }}
 {:class="lead"}
 
 The `WINDOW` operation can be used for aggregations over adjacent documents, or
@@ -45,8 +45,9 @@ There are two syntax variants for `WINDOW` operations.
 ### Row-based Syntax
 
 The first syntax form of `WINDOW` allows aggregating over a fixed number of
-rows, following or preceding the current row. The number of rows has to be
-determined at query compile time.
+rows, following or preceding the current row. It is also possible to define
+that **all** preceding or following rows should be aggregated (`"unbounded"`).
+The number of rows has to be determined at query compile time.
 
 Below query demonstrates the use of window frames to compute **running totals**
 as well as **rolling averages** computed from the current row and the rows that
@@ -74,6 +75,31 @@ immediately precede and follow it:
     @endDocuBlock windowAggregationRow
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+The row order is controlled by the `SORT` operation on the `time` attribute.
+
+The first `WINDOW` operation aggregates the previous, current, and next row
+(preceding and following is set to 1) and calculates the average and sum of
+these three values. In case of the first row, there is no preceding row but a
+following row, hence the values `10` and `0` are added up to calculate the sum,
+which is divided by 2 to compute the average. For the second row, the values
+`10`, `0` and `9` are summed up and divided by 3, and so on.
+
+The second `WINDOW` operation aggregates all previous values (unbounded) to
+calculate a running sum. For the first row, that is just `10`, for the second
+row it is `10` + `0`, for the third `10` + `0` + `9`, and so on.
+
+| time                | subject | val | rollingAverage | rollingSum | cumulativeSum |
+|---------------------|---------|----:|---------------:|-----------:|--------------:|
+| 2021-05-25 07:00:00 |   st113 |  10 |              5 |         10 |            10 |
+| 2021-05-25 07:00:00 |   xh458 |   0 |         6.333… |         19 |            10 |
+| 2021-05-25 07:15:00 |   st113 |   9 |         6.333… |         19 |            19 |
+| 2021-05-25 07:15:00 |   xh458 |  10 |        14.666… |         44 |            29 |
+| 2021-05-25 07:30:00 |   st113 |  25 |        13.333… |         40 |            54 |
+| 2021-05-25 07:30:00 |   xh458 |   5 |        16.666… |         50 |            59 |
+| 2021-05-25 07:45:00 |   st113 |  20 |        18.333… |         55 |            79 |
+| 2021-05-25 07:45:00 |   xh458 |  30 |             25 |         75 |           109 |
+| 2021-05-25 08:00:00 |   xh458 |  25 |           27.5 |         55 |           134 |
 
 The below query demonstrates the use of window frames to compute running totals
 within each group of `time`-ordered query rows, as well as rolling averages
@@ -187,8 +213,8 @@ If either bound is not specified, it is treated as an empty duration
 (i.e., `P0D`).
 
 The following query demonstrates the use of window frames to compute rolling
-sums and averages over observations in the last 30 minutes, based on the
-document attribute `time` that is converted from a datetime string to a
+sums and averages over observations in the last 30 minutes (inclusive), based
+on the document attribute `time` that is converted from a datetime string to a
 numeric timestamp:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
