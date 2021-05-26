@@ -50,8 +50,7 @@ Version 3.7
   [Wildcard](aql/functions-arangosearch.html#like) and fuzzy search
   ([Levenshtein distance](aql/functions-arangosearch.html#levenshtein_match) and
   [_n_-gram based](aql/functions-arangosearch.html#ngram_match)),
-  [enhanced phrase](aql/functions-arangosearch.html#phrase) and
-  [proximity search](aql/functions-array.html#jaccard),
+  enhanced [phrase and proximity search](aql/functions-arangosearch.html#phrase),
   improved late document materialization and
   [Views covering queries](release-notes-new-features37.html#covering-indexes)
   using their indexes without touching the storage engine, as well as a new
