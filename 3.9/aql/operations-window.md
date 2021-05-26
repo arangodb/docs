@@ -6,10 +6,14 @@ title: Aggregation with WINDOW in AQL
 WINDOW
 =======
 
-The `WINDOW` keyword can be used for aggregations over related rows, usually
-preceding and / or following rows.
+Aggregate adjacent documents or value ranges with a sliding window
+{:class="lead"}
 
-The `WINDOW` operation performs a `COLLECT AGGREGATE`-like operation on a set
+The `WINDOW` operation can be used for aggregations over adjacent documents, or
+preceding and / or following rows in other words. It can also aggregate based
+on a value or duration range relative to a document attribute.
+
+The operation performs a `COLLECT AGGREGATE`-like operation on a set
 of query rows. However, whereas a `COLLECT` operation groups multiple query
 rows into a single result group, a `WINDOW` operation produces a result for
 each query row:
@@ -28,10 +32,15 @@ Window frames are determined with respect to the current row:
 Syntax
 ------
 
-There are several syntax variants for `WINDOW` operations:
+There are two syntax variants for `WINDOW` operations.
 
-<pre><code>WINDOW { preceding: <em>numPrecedingRows</em>, following: <em>numFollowingRows</em> } AGGREGATE <em>variableName</em> = <em>aggregateExpression</em>
-WINDOW <em>rangeValue</em> WITH { preceding: <em>offsetPreceding</em>, following: <em>offsetFollowing</em> } AGGREGATE <em>variableName</em> = <em>aggregateExpression</em></code></pre>
+**Row-based** (adjacent documents):
+
+<pre><code>WINDOW { preceding: <em>numPrecedingRows</em>, following: <em>numFollowingRows</em> } AGGREGATE <em>variableName</em> = <em>aggregateExpression</em></code></pre>
+
+**Range-based** (value or duration range):
+
+<pre><code>WINDOW <em>rangeValue</em> WITH { preceding: <em>offsetPreceding</em>, following: <em>offsetFollowing</em> } AGGREGATE <em>variableName</em> = <em>aggregateExpression</em></code></pre>
 
 ### Row-based Syntax
 
@@ -44,8 +53,8 @@ as well as **rolling averages** computed from the current row and the rows that
 immediately precede and follow it:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline windowAggregationRow1
-    @EXAMPLE_AQL{windowAggregationRow1}
+    @startDocuBlockInline windowAggregationRow
+    @EXAMPLE_AQL{windowAggregationRow}
     @DATASET{observationsSampleDataset}
     FOR t IN observations
       SORT t.time
@@ -62,7 +71,7 @@ immediately precede and follow it:
         cumulativeSum   // running total
       }
     @END_EXAMPLE_AQL
-    @endDocuBlock windowAggregationRow1
+    @endDocuBlock windowAggregationRow
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -71,8 +80,8 @@ within each group of `time`-ordered query rows, as well as rolling averages
 computed from the current row and the rows that immediately precede and follow it:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline windowAggregationRow2
-    @EXAMPLE_AQL{windowAggregationRow2}
+    @startDocuBlockInline windowAggregationRowGrouped
+    @EXAMPLE_AQL{windowAggregationRowGrouped}
     @DATASET{observationsSampleDataset}
     FOR t IN observations
       COLLECT subject = t.subject INTO group = t
@@ -95,7 +104,7 @@ computed from the current row and the rows that immediately precede and follow i
       FOR t2 IN subquery
         RETURN t2
     @END_EXAMPLE_AQL
-    @endDocuBlock windowAggregationRow2
+    @endDocuBlock windowAggregationRowGrouped
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
