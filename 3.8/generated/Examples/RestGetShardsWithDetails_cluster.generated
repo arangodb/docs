@@ -3,9 +3,9 @@
 HTTP/1.1 200 OK
 content-type: application/json
 connection: Keep-Alive
-content-length: 853
+content-length: 843
 location: /_api/collection/testCollection/shards
 server: ArangoDB
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":{\"s2010043\":[\"PRMR-1ada441b-3350-417a-8d10-4ac8baf1bfe8\",\"PRMR-284c07fe-f42c-4ac9-b7fc-c364bd1bbebb\"],\"s2010044\":[\"PRMR-284c07fe-f42c-4ac9-b7fc-c364bd1bbebb\",\"PRMR-1ada441b-3350-417a-8d10-4ac8baf1bfe8\"],\"s2010045\":[\"PRMR-1ada441b-3350-417a-8d10-4ac8baf1bfe8\",\"PRMR-284c07fe-f42c-4ac9-b7fc-c364bd1bbebb\"]},\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isDisjoint\":false,\"minReplicationFactor\":1,\"isSystem\":false,\"name\":\"testCollection\",\"cacheEnabled\":false,\"id\":\"2010042\",\"isSmartChild\":false,\"globallyUniqueId\":\"c2010042/\",\"schema\":null,\"type\":2,\"status\":3,\"minRevision\":\"_cCeG75C---\",\"numberOfShards\":3,\"statusString\":\"loaded\",\"waitForSync\":false,\"isSmart\":false,\"shardKeys\":[\"_key\"],\"shardingStrategy\":\"hash\",\"replicationFactor\":2,\"syncByRevision\":true,\"usesRevisionsAsDocumentIds\":true,\"writeConcern\":1}"
+"{\"error\":false,\"code\":200,\"shards\":{\"s10046\":[\"PRMR-feead7a6-147d-470f-aec4-befefc3cc9a7\",\"PRMR-70a5fc99-08c9-487d-8ab3-435cac967cad\"],\"s10047\":[\"PRMR-70a5fc99-08c9-487d-8ab3-435cac967cad\",\"PRMR-feead7a6-147d-470f-aec4-befefc3cc9a7\"],\"s10048\":[\"PRMR-feead7a6-147d-470f-aec4-befefc3cc9a7\",\"PRMR-70a5fc99-08c9-487d-8ab3-435cac967cad\"]},\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isDisjoint\":false,\"minReplicationFactor\":1,\"isSystem\":false,\"name\":\"testCollection\",\"cacheEnabled\":false,\"id\":\"10045\",\"isSmartChild\":false,\"globallyUniqueId\":\"c10045/\",\"schema\":null,\"type\":2,\"status\":3,\"minRevision\":\"_Zz3k4-----\",\"numberOfShards\":3,\"statusString\":\"loaded\",\"waitForSync\":false,\"isSmart\":false,\"shardKeys\":[\"_key\"],\"shardingStrategy\":\"hash\",\"replicationFactor\":2,\"syncByRevision\":true,\"usesRevisionsAsDocumentIds\":true,\"writeConcern\":1}"

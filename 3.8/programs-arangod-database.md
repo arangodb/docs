@@ -69,15 +69,30 @@ in a specific state on startup. the options for this value are:
 
 ## Force syncing of properties
 
-{% docublock databaseForceSyncProperties %}
+`--database.force-sync-properties boolean`
 
-## Maximal Journal size (MMFiles only)
+Force syncing of collection properties to disk
 
-{% docublock databaseMaximalJournalSize %}
+Force syncing of collection properties to disk after creating a collection
+or updating its properties.
+
+If turned off, no fsync will happen for the collection and database
+properties stored in `parameter.json` files in the file system. Turning
+off this option will speed up workloads that create and drop a lot of
+collections (e.g. test suites).
+
+The default is *true*.
 
 ## Wait for sync
 
-{% docublock databaseWaitForSync %}
+`--database.wait-for-sync boolean`
+
+Default wait for sync behavior
+
+Default wait-for-sync value. Can be overwritten when creating a new
+collection.
+
+The default is *false*.
 
 ## More advanced options
 

@@ -3,9 +3,9 @@
 HTTP/1.1 200 OK
 content-type: application/json
 connection: Keep-Alive
-content-length: 583
+content-length: 573
 location: /_api/collection/testCollection/shards
 server: ArangoDB
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":[\"s2010047\",\"s2010048\",\"s2010049\"],\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isDisjoint\":false,\"minReplicationFactor\":1,\"isSystem\":false,\"name\":\"testCollection\",\"cacheEnabled\":false,\"id\":\"2010046\",\"isSmartChild\":false,\"globallyUniqueId\":\"c2010046/\",\"schema\":null,\"type\":2,\"status\":3,\"minRevision\":\"_cCeG77a---\",\"numberOfShards\":3,\"statusString\":\"loaded\",\"waitForSync\":false,\"isSmart\":false,\"shardKeys\":[\"_key\"],\"shardingStrategy\":\"hash\",\"replicationFactor\":2,\"syncByRevision\":true,\"usesRevisionsAsDocumentIds\":true,\"writeConcern\":1}"
+"{\"error\":false,\"code\":200,\"waitForSync\":false,\"shards\":[\"s10050\",\"s10051\",\"s10052\"],\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"usesRevisionsAsDocumentIds\":true,\"schema\":null,\"writeConcern\":1,\"syncByRevision\":true,\"replicationFactor\":2,\"numberOfShards\":3,\"id\":\"10049\",\"name\":\"testCollection\",\"isDisjoint\":false,\"minReplicationFactor\":1,\"status\":3,\"type\":2,\"globallyUniqueId\":\"c10049/\",\"isSmart\":false,\"isSystem\":false,\"isSmartChild\":false,\"statusString\":\"loaded\",\"cacheEnabled\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"minRevision\":\"_Zz3k4-----\"}"
