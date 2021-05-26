@@ -210,7 +210,8 @@ estimate might be good enough, however. You can set `countApproximate` to
 `"cost"` for a cost based approximation. It does not enumerate rows and returns
 an approximate result with O(1) complexity. It gives a precise result if the
 `SEARCH` condition is empty or if it contains a single term query only
-(e.g. `SEARCH doc.field == "value"`).
+(e.g. `SEARCH doc.field == "value"`), the usual eventual consistency
+of Views aside.
 
 ```js
 FOR doc IN viewName

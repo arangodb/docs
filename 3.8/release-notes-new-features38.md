@@ -309,7 +309,8 @@ query or when a `COLLECT WITH COUNT` clause is executed:
 - `"cost"`: a cost based approximation is used. Does not enumerate rows and
   returns an approximate result with O(1) complexity. Gives a precise result
   if the `SEARCH` condition is empty or if it contains a single term query
-  only (e.g. `SEARCH doc.field == "value"`).
+  only (e.g. `SEARCH doc.field == "value"`), the usual eventual consistency
+  of Views aside.
 
 Also see: [AQL `SEARCH` Operation](aql/operations-search.html#search-options)
 

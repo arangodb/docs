@@ -256,10 +256,11 @@ The `SEARCH` operation accepts an options object with the following attributes:
   is calculated if the `fullCount` option is enabled for a query or when
   a `COLLECT WITH COUNT` clause is executed (introduced in v3.7.6)
   - `"exact"` (default): rows are actually enumerated for a precise count.
-  - `"cost"`: a cost based approximation is used. Does not enumerate rows and
+  - `"cost"`: a cost-based approximation is used. Does not enumerate rows and
     returns an approximate result with O(1) complexity. Gives a precise result
     if the `SEARCH` condition is empty or if it contains a single term query
-    only (e.g. `SEARCH doc.field == "value"`).
+    only (e.g. `SEARCH doc.field == "value"`), the usual eventual consistency
+    of Views aside.
 
 **Examples**
 
