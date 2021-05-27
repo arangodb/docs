@@ -920,7 +920,8 @@ SPLIT( "foo-bar-baz", "-", 1 ) // [ "foo" ]
 SPLIT( "foo, bar & baz", [ ", ", " & " ] ) // [ "foo", "bar", "baz" ]
 ```
 
-### STARTS_WITH()
+STARTS_WITH()
+-------------
 
 `STARTS_WITH(text, prefix) → startsWith`
 
