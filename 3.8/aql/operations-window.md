@@ -1,10 +1,11 @@
 ---
 layout: default
-description: Aggregate adjacent documents or value ranges with a sliding window
+description: >
+  Aggregate adjacent documents or value ranges with a sliding window to
+  calculate running totals, rolling averages, and other statistical properties
 title: Aggregation with WINDOW in AQL
 ---
-WINDOW
-=======
+# WINDOW
 
 {{ page.description }}
 {:class="lead"}
@@ -29,8 +30,7 @@ Window frames are determined with respect to the current row:
 - By defining a frame as extending *N* rows on either side of the current row,
   you can compute rolling averages.
 
-Syntax
-------
+## Syntax
 
 There are two syntax variants for `WINDOW` operations.
 
@@ -42,7 +42,7 @@ There are two syntax variants for `WINDOW` operations.
 
 <pre><code>WINDOW <em>rangeValue</em> WITH { preceding: <em>offsetPreceding</em>, following: <em>offsetFollowing</em> } AGGREGATE <em>variableName</em> = <em>aggregateExpression</em></code></pre>
 
-### Row-based Syntax
+## Row-based Aggregation
 
 The first syntax form of `WINDOW` allows aggregating over a fixed number of
 rows, following or preceding the current row. It is also possible to define
@@ -102,8 +102,9 @@ row it is `10` + `0`, for the third `10` + `0` + `9`, and so on.
 | 2021-05-25 08:00:00 |   xh458 |  25 |           27.5 |         55 |           134 |
 
 The below query demonstrates the use of window frames to compute running totals
-within each group of `time`-ordered query rows, as well as rolling averages
-computed from the current row and the rows that immediately precede and follow it:
+within each `subject` group of `time`-ordered query rows, as well as rolling
+sums and averages computed from the current row and the rows that immediately
+precede and follow it, also per `subject` group and sorted by `time`:
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline windowAggregationRowGrouped
@@ -134,6 +135,10 @@ computed from the current row and the rows that immediately precede and follow i
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+If you look at the first row with the subject `xh458`, then you can see the
+cumulative sum reset and that the rolling average and sum does not take the
+previous row into account that belongs to subject `st113`.
+
 | time                | subject | val | rollingAverage | rollingSum | cumulativeSum |
 |---------------------|---------|----:|---------------:|-----------:|--------------:|
 | 2021-05-25 07:00:00 | st113   |  10 |            9.5 |         19 |            10 |
@@ -146,7 +151,7 @@ computed from the current row and the rows that immediately precede and follow i
 | 2021-05-25 07:45:00 | xh458   |  30 |             20 |         60 |            45 |
 | 2021-05-25 08:00:00 | xh458   |  25 |           27.5 |         55 |            70 |
 
-### Range-based Syntax
+## Range-based Aggregation
 
 The second syntax form of `WINDOW` allows aggregating over a all documents
 within a value range. Offsets are differences in attribute values from the
@@ -156,6 +161,12 @@ Attribute values have to be numeric. The offset calculations are performed by
 adding or subtracting the numeric offsets specified in the `following` and
 `preceding` attribute. The offset numbers have to be positive and have to be
 determined at query compile time. The default offset is `0`.
+
+The range based window syntax requires the input rows to be sorted by the row
+value. To ensure correctness of the result, the AQL optimizer will
+automatically insert a `SORT` statement into the query in front of the `WINDOW`
+statement. The optimizer may be able to optimize away that `SORT` statement
+later if a sorted index is present on the group criteria.
 
 The following query demonstrates the use of window frames to compute totals as
 well as averages computed from the current document and the documents that have
@@ -181,6 +192,13 @@ and following:
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+The value range of the first row is `[-10, 5]` since `val` is `0`, thus the
+values from the first and second row are added up to `5` with the average being
+`2.5`. The value range of the last row is `[20, 35]` as `val` is `30`, which
+means that the last four rows get aggregated to a sum of `100` and an average
+of `25` (the range is inclusive, i.e. `val` falls within the range with a value
+of `20`).
+
 | time                | subject | val | rollingAverage | rollingSum |
 |---------------------|---------|----:|---------------:|-----------:|
 | 2021-05-25 07:00:00 | xh458   |   0 |            2.5 |          5 |
@@ -193,24 +211,26 @@ and following:
 | 2021-05-25 08:00:00 | xh458   |  25 |             25 |        100 |
 | 2021-05-25 07:45:00 | xh458   |  30 |             25 |        100 |
 
-The range based window syntax required the input rows to be sorted by the row
-value. To ensure correctness of the result, the AQL optimizer will
-automatically insert a `SORT` statement into the query in front of the `WINDOW`
-statement. The optimizer may be able to optimize away that `SORT` statement
-later if a sorted index is present on the group criteria.
+### Duration-based Aggregation
 
-### Duration Syntax
+Aggregating by time intervals is a subtype of range-based aggregation that
+uses the second syntax form of `WINDOW` but with ISO durations.
 
 To support `WINDOW` frames over time-series data the `WINDOW` operation may
 calculate timestamp offsets using positive ISO 8601 duration strings, like
 `P1Y6M` (1 year and 6 months) or `PT12H30M` (12 hours and 30 minutes). Also see
 [Date functions](functions-date.html#comparison-and-calculation).
+In contrast to the ISO 8601 standard, week components may be freely combined
+with other components. For example, `P1WT1H` and `P1M1W` are both valid.
+Fractional values are only supported for seconds, and only with up to three
+decimals after the separator, i.e., millisecond precision. For example,
+`PT0.123S` is a valid duration while `PT0.5H` and `PT0.1234S` are not.
 
 Durations can be specified separately in `following` and `preceding`.
 If such a duration is used, then the attribute value of the current document
 must be a number and is treated as numeric **timestamp in milliseconds**.
-If either bound is not specified, it is treated as an empty duration
-(i.e., `P0D`).
+The range is inclusive. If either bound is not specified, it is treated as an
+empty duration (i.e., `P0D`).
 
 The following query demonstrates the use of window frames to compute rolling
 sums and averages over observations in the last 30 minutes (inclusive), based
@@ -236,6 +256,10 @@ numeric timestamp:
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+With a time of `07:30:00`, everything from `07:00:00` to `07:30:00` on the same
+day falls within the duration range with `preceding: "PT30M"`, thus aggregating
+the top six rows to a sum of `59` and an average of `9.8333…`.
+
 | time                | subject | val | rollingAverage | rollingSum |
 |---------------------|---------|----:|---------------:|-----------:|
 | 2021-05-25 07:00:00 | st113   |  10 |              5 |         10 |
@@ -247,9 +271,3 @@ numeric timestamp:
 | 2021-05-25 07:45:00 | st113   |  20 |           16.5 |         99 |
 | 2021-05-25 07:45:00 | xh458   |  30 |           16.5 |         99 |
 | 2021-05-25 08:00:00 | xh458   |  25 |             21 |        105 |
-
-In contrast to the ISO 8601 standard week components may be freely combined
-with other components. For example, `P1WT1H` and `P1M1W` are both valid.
-Fractional values are only supported for seconds, and only with up to three
-decimals after the separator, i.e., millisecond precision. For example,
-`PT0.123S` is a valid duration while `PT0.5H` and `PT0.1234S` are not.
