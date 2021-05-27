@@ -211,7 +211,7 @@ of `20`).
 | 2021-05-25 08:00:00 | xh458   |  25 |             25 |        100 |
 | 2021-05-25 07:45:00 | xh458   |  30 |             25 |        100 |
 
-### Duration-based Aggregation
+## Duration-based Aggregation
 
 Aggregating by time intervals is a subtype of range-based aggregation that
 uses the second syntax form of `WINDOW` but with ISO durations.
