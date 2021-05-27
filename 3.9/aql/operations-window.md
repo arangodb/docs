@@ -1,6 +1,6 @@
 ---
 layout: default
-description: >
+description: >-
   Aggregate adjacent documents or value ranges with a sliding window to
   calculate running totals, rolling averages, and other statistical properties
 title: Aggregation with WINDOW in AQL
