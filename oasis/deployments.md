@@ -75,16 +75,16 @@ For any kind of production deployment we strongly advise to use an IP allowlist.
 
 Choose between a **OneShard**, **Sharded** or **Developer** deployment.
 
-OneShard deployments are suitable when your data set fits in a single node.
-They are ideal for graph use cases.
+- OneShard deployments are suitable when your data set fits in a single node.
+  They are ideal for graph use cases.
 
-Sharded deployments are suitable when your data set is larger than a single node.
-The data will be sharded across multiple nodes.
+- Sharded deployments are suitable when your data set is larger than a single
+  node. The data will be sharded across multiple nodes.
 
-Developer deployments are suitable when you want to try out ArangoDB without the
-need for high availability or scalability. The deployment will contains a single
-server only. Your data will not be replicated and your deployment
-can be restarted at any time.
+- Developer deployments are suitable when you want to try out ArangoDB without
+  the need for high availability or scalability. The deployment will contain a
+  single server only. Your data will not be replicated and your deployment can
+  be restarted at any time.
 
 #### OneShard
 
@@ -106,8 +106,8 @@ can be restarted at any time.
 #### Developer
 
 - Like with OneShard and Sharded deployments, you choose memory and disk size.
-  However note that the sizes you choose are for the entire deployment. For OneShard and Sharded deployments
-  the choosen sizes are per node.
+  However note that the sizes you choose are for the entire deployment.
+  For OneShard and Sharded deployments the chosen sizes are per node.
 
 ![Oasis Deployment Developer](images/oasis-new-deployment3-developer.png)
 
