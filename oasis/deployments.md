@@ -106,7 +106,8 @@ can be restarted at any time.
 #### Developer
 
 - Like with OneShard and Sharded deployments, you choose memory and disk size.
-  However note that the sizes you choose are for the entire deployment.
+  However note that the sizes you choose are for the entire deployment. For OneShard and Sharded deployments
+  the choosen sizes are per node.
 
 ![Oasis Deployment Developer](images/oasis-new-deployment3-developer.png)
 
