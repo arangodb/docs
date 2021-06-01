@@ -100,7 +100,7 @@ in ArangoDB 3.8:
 
 - Added endpoint for retrieving cluster shard statistics for the current database.
 
-  `GET /_api/database/shardDistribution` will return the number of collections,
+  `GET /_api/database/shardStatistics` will return the number of collections,
   shards, leaders and followers for the database it is run inside. The request
   can optionally be restricted to include data from only a single DB-Server, by
   passing the `DBserver` URL parameter and setting it to the name of a DB-Server.

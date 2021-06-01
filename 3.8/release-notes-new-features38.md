@@ -1041,7 +1041,7 @@ Miscellaneous
 
 - Added a REST HTTP API endpoint `GET /_admin/cluster/shardDistribution` to
   retrieve cluster-global shard distribution statistics, and a REST HTTP API
-  endpoint `GET /_api/database/shardDistribution` to retrieve the shard
+  endpoint `GET /_api/database/shardStatistics` to retrieve the shard
   distribution statistics for a single database.
 
 Internal changes
