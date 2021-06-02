@@ -1055,7 +1055,7 @@ The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
 language rules as per the defined Analyzer locale nor the server language
 (startup option `--default-language`)!
-Also see [Known Issues](release-notes-known-issues39.html#arangosearch).
+Also see [Known Issues](release-notes-known-issues38.html#arangosearch).
 {% endhint %}
 
 Stemming support is provided by [Snowball](https://snowballstem.org/){:target="_blank"},
