@@ -736,8 +736,10 @@ such as prefixes of stopwords are also not discarded.
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `stopwords` (array): array of hex-encoded strings that describe the tokens to
-  be discarded. The strings need to be hex-encoded to allow for removing tokens
+- `stopwords` (array): array of strings that describe the tokens to
+  be discarded. The interpretation of each string depends on the value of
+  `hex` parameter.
+- `hex` (boolean): If true strings in `stopwords` need to be hex-encoded to allow for removing tokens
   that contain non-printable characters. To encode UTF-8 strings to hex strings
   you can use e.g.
   - AQL:
@@ -752,7 +754,8 @@ attributes:
     ```js
     ["and","the"].map(token => Array.from(new TextEncoder().encode(token), byte => byte.toString(16).padStart(2, "0")).join(""))
     ```
-
+  If false (default) each string is used verbatim.
+  
 **Examples**
 
 Create and use a stopword Analyzer that removes the tokens `and` and `the`.
@@ -766,7 +769,7 @@ with either of the stopwords `and` and `the`:
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerStopwords}
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("stop", "stopwords", {
-    |   stopwords: ["616e64","746865"]
+    |   stopwords: ["616e64","746865"], hex: true
       }, ["frequency", "norm"]);
       db._query("RETURN FLATTEN(TOKENS(SPLIT('the fox and the dog and a theater', ' '), 'stop'))");
     ~ analyzers.remove(a.name);
@@ -784,7 +787,7 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("norm_stop", "pipeline", { "pipeline": [
     |   { type: "norm", properties: { locale: "en.utf-8", accent: false, case: "lower" } },
-    |   { type: "stopwords", properties: { stopwords: ["616e64","746865"] } },
+    |   { type: "stopwords", properties: { stopwords: ["and","the"], hex: false } },
       ]}, ["frequency", "norm"]);
       db._query("RETURN FLATTEN(TOKENS(SPLIT('The fox AND the dog äñḏ a ţhéäter', ' '), 'norm_stop'))");
     ~ analyzers.remove(a.name);
@@ -1052,7 +1055,7 @@ The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
 language rules as per the defined Analyzer locale nor the server language
 (startup option `--default-language`)!
-Also see [Known Issues](release-notes-known-issues38.html#arangosearch).
+Also see [Known Issues](release-notes-known-issues39.html#arangosearch).
 {% endhint %}
 
 Stemming support is provided by [Snowball](https://snowballstem.org/){:target="_blank"},
