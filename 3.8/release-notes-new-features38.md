@@ -1039,11 +1039,6 @@ Miscellaneous
   and the REST HTTP API endpoint `GET /_api/engine/stats`, which provide
   runtime information about the storage engine state.
 
-- Added a REST HTTP API endpoint `GET /_admin/cluster/shardDistribution` to
-  retrieve cluster-global shard distribution statistics, and a REST HTTP API
-  endpoint `GET /_api/database/shardDistribution` to retrieve the shard
-  distribution statistics for a single database.
-
 Internal changes
 ----------------
 
