@@ -659,7 +659,7 @@ Startup options
 ### Metrics API option
 
 The new [option](programs-arangod-server.html#metrics-api)
-`--server.enable-metrics-api` allows you to disable the metrics API by setting
+`--server.export-metrics-api` allows you to disable the metrics API by setting
 it to `false`, which is otherwise turned on by default.
 
 ### OneShard cluster option
