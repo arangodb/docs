@@ -760,9 +760,9 @@ The following logging-related options have been added:
   | `thread`   | thread name, only emitted if `--log.thread-name` is set
   | `role`     | server role (1 character), only emitted if `--log.role` is set
   | `level`    | log level (e.g. `"WARN"`, `"INFO"`)
-  | `file`     | source file name of log message, only emitted if `--log.file-name` is set
-  | `line`     | source file line of log message, only emitted if `--log.file-name` is set 
-  | `function` | source file function name, only emitted if `--log.file-name` is set
+  | `file`     | source file name of log message, only emitted if `--log.line-number` is set
+  | `line`     | source file line of log message, only emitted if `--log.line-number` is set
+  | `function` | source file function name, only emitted if `--log.line-number` is set
   | `topic`    | log topic name
   | `id`       | log id (5 digit hexadecimal string), only emitted if `--log.ids` is set
   | `hostname` | hostname if `--log.hostname` is set
@@ -805,7 +805,7 @@ The following logging-related options have been added:
   not a lot of space for logfiles, and to keep rogue log messages from overusing 
   resources.
   The default value is 128 MB, which is very high and should effectively mean 
-  downwards-compatiblity with previous arangod versions, which did not restrict 
+  downwards-compatibility with previous arangod versions, which did not restrict 
   the maximum size of log messages.
 
 - added option `--audit.max-entry-length` to control the maximum line length 
@@ -813,7 +813,7 @@ The following logging-related options have been added:
   Any audit log messages longer than the specified value will be truncated and 
   the suffix '...' will be added to them.
   The default value is 128 MB, which is very high and should effectively mean 
-  downwards-compatiblity with previous arangod versions, which did not restrict 
+  downwards-compatibility with previous arangod versions, which did not restrict 
   the maximum size of log messages.
 
 - added option `--audit.queue` to control audit logging queuing behavior 

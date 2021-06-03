@@ -320,9 +320,9 @@ The attributes produced for each log message JSON object are:
 | `thread`   | thread name, only emitted if `--log.thread-name` is set
 | `role`     | server role (1 character), only emitted if `--log.role` is set
 | `level`    | log level (e.g. `"WARN"`, `"INFO"`)
-| `file`     | source file name of log message, only emitted if `--log.file-name` is set
-| `line`     | source file line of log message, only emitted if `--log.file-name` is set 
-| `function` | source file function name, only emitted if `--log.file-name` is set
+| `file`     | source file name of log message, only emitted if `--log.line-number` is set
+| `line`     | source file line of log message, only emitted if `--log.line-number` is set 
+| `function` | source file function name, only emitted if `--log.line-number` is set
 | `topic`    | log topic name
 | `id`       | log id (5 digit hexadecimal string), only emitted if `--log.ids` is set
 | `hostname` | hostname if `--log.hostname` is set
