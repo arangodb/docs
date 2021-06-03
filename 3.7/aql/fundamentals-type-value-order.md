@@ -124,8 +124,9 @@ comparison is finished. If there is no unambiguous comparison result, the two
 compared objects / documents are considered equal.
 
 ```js
-{ }  <  { "a" : 1 }
 { }  ==  { "a" : null }
+
+{ }  <  { "a" : 1 }
 { "a" : 1 }  <  { "a" : 2 }
 { "b" : 1 }  <  { "a" : 0 }
 { "a" : { "c" : true } }  <  { "a" : { "c" : 0 } }
