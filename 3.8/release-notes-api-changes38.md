@@ -95,8 +95,6 @@ as a database only. It may have an effect for Foxx applications that use HTTP
   variant of the cursor API as well. This is safe for drivers targeting 3.8
   or higher.
 
-The following REST endpoints for have been added in ArangoDB 3.8:
-
 - The new REST endpoint at GET `/_admin/log/entries` can be used to retrieve
   server log messages in a more intuitive format than the already existing API
   at GET `/_admin/log`.
