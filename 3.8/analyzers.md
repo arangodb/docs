@@ -102,7 +102,7 @@ The currently implemented Analyzer types are:
   normalization, stop-word filtering and edge _n_-gram generation
 - `aql`: for running AQL query to prepare tokens for index
 - `pipeline`: for chaining multiple Analyzers
-- `stopwords`: removes the specified tokens from the input
+{%- comment %}- `stopwords`: removes the specified tokens from the input{% endcomment %}
 - `geojson`: breaks up a GeoJSON object into a set of indexable tokens
 - `geopoint`: breaks up a JSON object describing a coordinate into a set of
   indexable tokens
@@ -120,7 +120,7 @@ Analyzer    /    Feature  | Tokenization | Stemming | Normalization | _N_-grams
 [`text`](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
 [`aql`](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [`pipeline`](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-[`stopwords`](#stopwords) |      No      |    No    |      No       |   No
+{%- comment %}[`stopwords`](#stopwords) |      No      |    No    |      No       |   No{% endcomment %}
 [`geojson`](#geojson)     |      –       |    –     |      –        |   –
 [`geopoint`](#geopoint)   |      –       |    –     |      –        |   –
 
@@ -722,6 +722,7 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+{% comment %}
 ### `stopwords`
 
 <small>Introduced in: v3.8.0</small>
@@ -795,6 +796,7 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
     @endDocuBlock analyzerPipelineStopwords
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+{% endcomment %}
 
 ### `geojson`
 

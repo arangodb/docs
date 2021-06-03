@@ -290,6 +290,7 @@ which enable geo-spatial queries backed by View indexes:
 - `GEO_IN_RANGE()`
 - `GEO_INTERSECTS()`
 
+{% comment %}
 ### Stopwords Analyzer
 
 Added new Analyzer `"stopwords"` capable of removing specified tokens from the
@@ -298,6 +299,7 @@ pipeline Analyzer to add stopword functionality to them. Previously, only the
 text Analyzer type provided stopword support.
 
 See [ArangoSearch Stopwords Analyzer](analyzers.html#stopwords)
+{% endcomment %}
 
 ### Approximate count
 
