@@ -805,7 +805,7 @@ The following logging-related options have been added:
   not a lot of space for logfiles, and to keep rogue log messages from overusing 
   resources.
   The default value is 128 MB, which is very high and should effectively mean 
-  downwards-compatiblity with previous arangod versions, which did not restrict 
+  downwards-compatibility with previous arangod versions, which did not restrict 
   the maximum size of log messages.
 
 - added option `--audit.max-entry-length` to control the maximum line length 
@@ -813,7 +813,7 @@ The following logging-related options have been added:
   Any audit log messages longer than the specified value will be truncated and 
   the suffix '...' will be added to them.
   The default value is 128 MB, which is very high and should effectively mean 
-  downwards-compatiblity with previous arangod versions, which did not restrict 
+  downwards-compatibility with previous arangod versions, which did not restrict 
   the maximum size of log messages.
 
 - added option `--audit.queue` to control audit logging queuing behavior 
