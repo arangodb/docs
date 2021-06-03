@@ -687,6 +687,12 @@ attributes:
 - `pipeline` (array): an array of Analyzer definition-like objects with
   `type` and `properties` attributes
 
+{% hint 'info' %}
+Analyzers of types `geopoint` and `geojson` cannot be used in pipelines and
+will make the creation fail. These Analyzers require additional postprocessing
+and can only be applied to document fields directly.
+{% endhint %}
+
 **Examples**
 
 Normalize to all uppercase and compute bigrams:
