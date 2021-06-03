@@ -738,10 +738,11 @@ attributes:
 
 - `stopwords` (array): array of strings that describe the tokens to
   be discarded. The interpretation of each string depends on the value of
-  `hex` parameter.
-- `hex` (boolean): If true strings in `stopwords` need to be hex-encoded to allow for removing tokens
-  that contain non-printable characters. To encode UTF-8 strings to hex strings
-  you can use e.g.
+  the `hex` parameter.
+- `hex` (boolean): If false (default), then each string in `stopwords` is used
+  verbatim. If true, then the strings need to be hex-encoded. This allows for
+  removing tokens that contain non-printable characters. To encode UTF-8
+  strings to hex strings you can use e.g.
   - AQL:
     ```js
     FOR token IN ["and","the"] RETURN TO_HEX(token)
@@ -754,8 +755,7 @@ attributes:
     ```js
     ["and","the"].map(token => Array.from(new TextEncoder().encode(token), byte => byte.toString(16).padStart(2, "0")).join(""))
     ```
-  If false (default) each string is used verbatim.
-  
+
 **Examples**
 
 Create and use a stopword Analyzer that removes the tokens `and` and `the`.
