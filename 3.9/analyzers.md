@@ -102,7 +102,7 @@ The currently implemented Analyzer types are:
   normalization, stop-word filtering and edge _n_-gram generation
 - `aql`: for running AQL query to prepare tokens for index
 - `pipeline`: for chaining multiple Analyzers
-- `stopwords`: removes the specified tokens from the input
+{%- comment %}- `stopwords`: removes the specified tokens from the input{% endcomment %}
 - `geojson`: breaks up a GeoJSON object into a set of indexable tokens
 - `geopoint`: breaks up a JSON object describing a coordinate into a set of
   indexable tokens
@@ -120,7 +120,7 @@ Analyzer    /    Feature  | Tokenization | Stemming | Normalization | _N_-grams
 [`text`](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
 [`aql`](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [`pipeline`](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-[`stopwords`](#stopwords) |      No      |    No    |      No       |   No
+{%- comment %}[`stopwords`](#stopwords) |      No      |    No    |      No       |   No{% endcomment %}
 [`geojson`](#geojson)     |      –       |    –     |      –        |   –
 [`geopoint`](#geopoint)   |      –       |    –     |      –        |   –
 
@@ -722,6 +722,7 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+{% comment %}
 ### `stopwords`
 
 <small>Introduced in: v3.8.0</small>
@@ -736,10 +737,13 @@ such as prefixes of stopwords are also not discarded.
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
-- `stopwords` (array): array of hex-encoded strings that describe the tokens to
-  be discarded. The strings need to be hex-encoded to allow for removing tokens
-  that contain non-printable characters. To encode UTF-8 strings to hex strings
-  you can use e.g.
+- `stopwords` (array): array of strings that describe the tokens to
+  be discarded. The interpretation of each string depends on the value of
+  the `hex` parameter.
+- `hex` (boolean): If false (default), then each string in `stopwords` is used
+  verbatim. If true, then the strings need to be hex-encoded. This allows for
+  removing tokens that contain non-printable characters. To encode UTF-8
+  strings to hex strings you can use e.g.
   - AQL:
     ```js
     FOR token IN ["and","the"] RETURN TO_HEX(token)
@@ -766,7 +770,7 @@ with either of the stopwords `and` and `the`:
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerStopwords}
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("stop", "stopwords", {
-    |   stopwords: ["616e64","746865"]
+    |   stopwords: ["616e64","746865"], hex: true
       }, ["frequency", "norm"]);
       db._query("RETURN FLATTEN(TOKENS(SPLIT('the fox and the dog and a theater', ' '), 'stop'))");
     ~ analyzers.remove(a.name);
@@ -784,7 +788,7 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
       var analyzers = require("@arangodb/analyzers");
     | var a = analyzers.save("norm_stop", "pipeline", { "pipeline": [
     |   { type: "norm", properties: { locale: "en.utf-8", accent: false, case: "lower" } },
-    |   { type: "stopwords", properties: { stopwords: ["616e64","746865"] } },
+    |   { type: "stopwords", properties: { stopwords: ["and","the"], hex: false } },
       ]}, ["frequency", "norm"]);
       db._query("RETURN FLATTEN(TOKENS(SPLIT('The fox AND the dog äñḏ a ţhéäter', ' '), 'norm_stop'))");
     ~ analyzers.remove(a.name);
@@ -792,6 +796,7 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
     @endDocuBlock analyzerPipelineStopwords
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+{% endcomment %}
 
 ### `geojson`
 
