@@ -555,6 +555,20 @@ It is the same as the following:
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
 ```
 
+Empty arrays are skipped:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, [], 1, "jumps", "text_en") RETURN doc
+```
+
+The query is equivalent to:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 2 "jumps", "text_en") RETURN doc
+```
+
+Providing only empty arrays is valid, but will yield no results.
+
 Using object tokens `STARTS_WITH`, `WILDCARD`, `LEVENSHTEIN_MATCH`, `TERMS` and
 `IN_RANGE`:
 
