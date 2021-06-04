@@ -16,7 +16,7 @@ partial strings.
 
 The [ArangoSearch `LIKE()` function](aql/functions-arangosearch.html#like)
 is backed by View indexes. In contrast, the
-[String `LIKE()` function`](aql/functions-string.html#like) cannot utilize any
+[String `LIKE()` function](aql/functions-string.html#like) cannot utilize any
 sort of index. Another difference is that the ArangoSearch variant does not
 accept a third argument to make matching case-insensitive. You can control this
 via Analyzers instead, also see
