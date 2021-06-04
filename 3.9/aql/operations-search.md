@@ -247,19 +247,21 @@ The `SEARCH` operation accepts an options object with the following attributes:
 - `collections` (array, _optional_): array of strings with collection names to
   restrict the search to certain source collections
 - `conditionOptimization` (string, _optional_): controls how search criteria
-  get optimized (introduced in v3.7.0). Possible values:
+  get optimized (introduced in v3.6.2). Possible values:
   - `"auto"` (default): convert conditions to disjunctive normal form (DNF) and
     apply optimizations. Removes redundant or overlapping conditions, but can
     take quite some time even for a low number of nested conditions.
   - `"none"`: search the index without optimizing the conditions.
+  <!-- Internal only: nodnf, noneg -->
 - `countApproximate` (string, _optional_): controls how the total count of rows
   is calculated if the `fullCount` option is enabled for a query or when
   a `COLLECT WITH COUNT` clause is executed (introduced in v3.7.6)
   - `"exact"` (default): rows are actually enumerated for a precise count.
-  - `"cost"`: a cost based approximation is used. Does not enumerate rows and
+  - `"cost"`: a cost-based approximation is used. Does not enumerate rows and
     returns an approximate result with O(1) complexity. Gives a precise result
     if the `SEARCH` condition is empty or if it contains a single term query
-    only (e.g. `SEARCH doc.field == "value"`).
+    only (e.g. `SEARCH doc.field == "value"`), the usual eventual consistency
+    of Views aside.
 
 **Examples**
 

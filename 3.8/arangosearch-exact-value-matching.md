@@ -183,8 +183,8 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
-| Result (~440ms) |
-|:----------------|
+| Result |
+|:-------|
 | Ploning |
 | Code Rush |
 | Ghost in the Shell 2.0 |
@@ -196,7 +196,9 @@ FOR doc IN imdb
 A better way to ignore documents without title attribute is to change the View
 property `storeValues` (not to be confused with `storedValues`!) from `"none"`
 to `"id"`. You can then use the [`EXISTS()` function](aql/functions-arangosearch.html#exists)
-to test whether there is a title field or not:
+to test whether there is a title field or not. On a single server with this
+particular dataset, the query is roughly five times faster than the previous
+one without `EXISTS()`:
 
 ```js
 FOR doc IN imdb
@@ -204,8 +206,8 @@ FOR doc IN imdb
   RETURN doc.title
 ```
 
-| Result (~90ms) |
-|:---------------|
+| Result |
+|:-------|
 | Ploning |
 | Code Rush |
 | Ghost in the Shell 2.0 |
