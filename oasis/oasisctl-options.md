@@ -28,6 +28,7 @@ oasisctl [flags]
 
 * [oasisctl accept](oasisctl-accept.html)	 - Accept invites
 * [oasisctl add](oasisctl-add.html)	 - Add resources
+* [oasisctl auditlog](oasisctl-auditlog.html)	 - AuditLog resources
 * [oasisctl backup](oasisctl-backup.html)	 - Backup commands
 * [oasisctl clone](oasisctl-clone.html)	 - Clone resources
 * [oasisctl completion](oasisctl-completion.html)	 - Generates bash completion scripts
@@ -37,13 +38,19 @@ oasisctl [flags]
 * [oasisctl get](oasisctl-get.html)	 - Get information
 * [oasisctl import](oasisctl-import.html)	 - Import data from a local database or from another remote database into an Oasis deployment.
 * [oasisctl list](oasisctl-list.html)	 - List resources
+* [oasisctl lock](oasisctl-lock.html)	 - Lock resources
 * [oasisctl login](oasisctl-login.html)	 - Login to ArangoDB Oasis using an API key
 * [oasisctl logs](oasisctl-logs.html)	 - Get logs of the servers of a deployment the authenticated user has access to
+* [oasisctl rebalance](oasisctl-rebalance.html)	 - Rebalance resources
 * [oasisctl reject](oasisctl-reject.html)	 - Reject invites
 * [oasisctl renew](oasisctl-renew.html)	 - Renew keys & tokens
 * [oasisctl resume](oasisctl-resume.html)	 - Resume resources
 * [oasisctl revoke](oasisctl-revoke.html)	 - Revoke keys & tokens
+* [oasisctl rotate](oasisctl-rotate.html)	 - Rotate resources
+* [oasisctl top](oasisctl-top.html)	 - Show the most important server metrics
+* [oasisctl unlock](oasisctl-unlock.html)	 - Unlock resources
 * [oasisctl update](oasisctl-update.html)	 - Update resources
+* [oasisctl upgrade](oasisctl-upgrade.html)	 - Upgrade Oasisctl tool
 * [oasisctl version](oasisctl-version.html)	 - Show the current version of this tool
 * [oasisctl wait](oasisctl-wait.html)	 - Wait for a status change
 
