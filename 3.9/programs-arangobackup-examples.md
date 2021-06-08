@@ -268,6 +268,19 @@ The syntax for remote paths is `remote:path`, where `remote` is the
 name of a top-level attribute in the configuration file, `path` is a
 remote path, and both are separated by a colon (e.g. `my-remote:/a/b/c`).
 
+{% hint 'info' %}
+Some cloud vendors require rclone configuration parameters, which are
+very specific. It is helpful to download a standalone version of
+rclone and try to up and download files to verify that one has a working
+configuration for the cloud storage in question. The exhaustive
+documentation parameters of for example `S3` are found
+[](https://rclone.org/s3/). Every parameter can be executed as an
+option to the program invocation, say `--s3-upload-cutoff=0`, as an
+environment variable `export RCLONE_S3_UPLOAD_CUTOFF=0` or most importantly for
+use with ArangoDB as a key value pair for the JSON files below, `{...,
+upload_cutoff: 0, ...}`.
+{% endhint %}
+
 ### S3
 
 ```bash 
