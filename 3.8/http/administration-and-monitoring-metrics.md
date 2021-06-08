@@ -6,7 +6,8 @@ title: arangod Server Metrics
 # ArangoDB Server Metrics
 
 _arangod_ exports metrics in Prometheus format which can be used to monitor
-the healthiness and performance of the system. The thresholds for alerts are also described.
+the healthiness and performance of the system. The thresholds for alerts are
+also described for relevant metrics.
 
 {% hint 'warning' %}
 The list of exposed metrics is subject to change in every minor version.
@@ -23,7 +24,6 @@ future.
 
 ## Metrics API (deprecated)
 
-<!-- js/actions/api-system.js -->
 {% docublock get_admin_metrics %}
 
 ### List of exposed metrics
