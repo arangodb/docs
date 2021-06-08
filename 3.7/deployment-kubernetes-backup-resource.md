@@ -234,7 +234,7 @@ metadata:
 type: Opaque
 ```
 
-`JSON Token` options are described on the [Rclone](https://rclone.org/){:target="_blank"} page.
+`JSON Token` options are described on the [rclone](https://rclone.org/){:target="_blank"} page.
 We can define more than one protocols at same time in one secret.
 
 This field is defined in json format:
@@ -248,7 +248,7 @@ This field is defined in json format:
 }
 ```
 
-AWS S3 example - based on [Rclone S3](https://rclone.org/s3/){:target="_blank"} documentation and interactive process:
+AWS S3 example - based on [rclone S3](https://rclone.org/s3/){:target="_blank"} documentation and interactive process:
 
 ```json
 {
