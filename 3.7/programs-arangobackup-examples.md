@@ -188,7 +188,7 @@ The output will look like this:
 2019-07-30T08:11:09Z [17465] INFO [68cc8] {backup} Last progress update 2019-07-30T08:10:10Z: 5/5 files done
 ```
 
-See [Rclone Configuration](#rclone-configuration) for details about the `remote.json`
+See [rclone Configuration](#rclone-configuration) for details about the `remote.json`
 file to configure the remote site for `rclone` for different protocols than S3.
 
 Download
@@ -237,7 +237,7 @@ Rclone Configuration
 [Rclone](https://rclone.org/){:target="_blank"} is a versatile open-source
 remote file sync program that can deal with over 30 different remote file
 IO protocols. Enterprise Editions of ArangoDB come with a bundled version
-of Rclone, which is distributed under the MIT license. It is used to
+of rclone, which is distributed under the MIT license. It is used to
 both download and upload hot backup sets to and from local and cloud
 operated storage resources.
 
@@ -246,11 +246,11 @@ Hot backup directories, which are subject to an ongoing download cannot
 be used for restores until the download has finished.
 {% endhint %}
 
-To configure Rclone, use the `rclone-config-file` startup option to
+To configure rclone, use the `rclone-config-file` startup option to
 point arangobackup to a JSON configuration file. The expected format
 is an object with user-chosen remote names as attribute keys, and the
 actual configuration as attribute value (a nested object). The option
-names and values in the [Rclone documentation](https://rclone.org/docs/){:target="_blank"}
+names and values in the [rclone documentation](https://rclone.org/docs/){:target="_blank"}
 directly translate into attribute/value pairs in the JSON file.
 Note that `"true"` and `"false"` must be enclosed by double quotes.
 
