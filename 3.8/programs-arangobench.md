@@ -5,11 +5,11 @@ description: Arangobench is ArangoDB's benchmark and test tool
 Arangobench
 ===========
 
-_Arangobench_ is ArangoDB's benchmark and test tool. It can be used to issue
+_arangobench_ is ArangoDB's benchmark and test tool. It can be used to issue
 test requests to the database system for performance and server function
 testing. It supports parallel querying and batch requests.
 
-_Arangobench_ is a client tool which makes a network connection to an ArangoDB
+_arangobench_ is a client tool which makes network connections to an ArangoDB
 server in about the same way as a client application would do via an ArangoDB
 client driver. It thus often provides good enough throughput and performance
 estimates. It provides different test cases that can be executed, that reflect
@@ -18,7 +18,7 @@ most closely resemble typical or expected workloads.
 
 ## General benchmark configuration
 
-_Arangobench_ can be run on the same host as the ArangoDB server, or on a
+_arangobench_ can be run on the same host as the ArangoDB server, or on a
 different host. When using it against a cluster, it must be connected to one of
 the cluster's Coordinators. It can communicate over normal (unencrypted) TCP
 connections and encrypted SSL/TLS connections.
@@ -78,14 +78,14 @@ Important cluster-specific options are:
 - `--number-of-shards`: number of shards for collections created by _arangobench_. 
   This option is only meaningful for test cases that create collections.
 - `--replication-factor`: number of replicas for each shard in collections created by
-  `arangobench`. This option is only meaningful for test cases that write into collections.
+  _arangobench_. This option is only meaningful for test cases that write into collections.
   The larger the replication factor is, the more expensive write operations will become.
 
 ### Arangobench test cases
 
 _Arangobench_ provides the following predefined test cases. The test case to be executed 
 can be selected via the `--test-case` option.
-Note that these benchmarks have been added over time, and not all of them may be fully
+Note that these test cases have been added over time, and not all of them may be fully
 appropriate for a given workload test.
 
 In order to benchmark custom AQL queries, the appropriate test case is `custom-query`.
@@ -115,7 +115,10 @@ In order to benchmark custom AQL queries, the appropriate test case is `custom-q
 | `stream-cursor` | creates 500 documents in a collection, and then performs a mix of AQL update queries (all on the same document) and a streaming AQL query that returns all documents from the collection. The `--complexity` parameter can be used to control the number of attributes for the inserted documents and the update queries. This test will trigger a lot of write-write conflicts with `--concurrency` bigger than 2. |
 | `version` | queries the server version and then instantly returns. In a cluster, this means that Coordinators instantly respond to the requests without ever accessing database servers. This test can be used to establish a baseline for single server or Coordinator throughput. The `--complexity` parameter is not used. The benchmarks provided by _arangobench_ vary significantly in _how_ they perform operations. |
 
-For example, inserting documents into ArangoDB can be achieved by either
+### Troubleshooting
+
+The test cases provided by _arangobench_ vary significantly in _how_ they perform operations.
+For example, inserting documents into ArangoDB can be achieved by either:
 
 - single-document inserts (one document per request to `/_api/document`)
 - multi-document inserts (multiple documents per request to `/_api/document` or `/_api/import`)
@@ -127,8 +130,6 @@ Especially for insert operations, AQL queries and JavaScript transactions will h
 higher setup and teardown costs than plain document API operations. Thus it is likely that
 higher throughput can be achieved by using the specialized document APIs in throughput tests, 
 rather than AQL queries or JavaScript transactions.
-
-### Troubleshooting
 
 Many test cases can benefit from using request batching, which can be turned on in
 _arangobench_ via the `--batch-size` option. Batching makes sense in cases when a client
@@ -142,10 +143,10 @@ On Linux systems, running `top` during the tests on the participating hosts shou
 details about CPU usage (user, system, iowait) and memory usage. This can used as a quick
 first probe to see if any of the hosts is maxed out on a particular resource (CPU power,
 available RAM, I/O throughput).
-The ArangoDB servers also provide details metrics about CPU usage, IO wait, memory usage etc.,
-which can be monitoring during the benchmarks. The most useful way of analyzing metrics is
+The ArangoDB servers also provide detailed metrics about CPU usage, IO wait, memory usage etc.,
+which can be monitored during the benchmarks. The most useful way of analyzing metrics is
 to have them scraped automatically by a Prometheus instance and made them available via
-Grafana. This allows metrics to be collected over time and to compare them for multiple
+Grafana. This allows metrics to be collected over time and compare them for multiple
 test runs with different configurations.
 If Prometheus/Grafana cannot be used, the ArangoDB web interface also provides a way to 
 access the current values of all metrics for privileged accounts.
@@ -176,7 +177,6 @@ A few useful metrics on the ArangoDB server side include:
 
 Another thing to check is the _arangobench_ location: if _arangobench_ runs on the same host 
 as the ArangoDB server, _arangobench_ and ArangoDB may compete for the same resources. 
-In addition, the setup will be a localhost benchmark. This may be appropriate if the 
-production use case will also use a localhost setup. If this is not the case, _arangobench_ 
-should be executed on a separate host and send its request over the network, in the same way 
-as the client applications are expected to do later.
+This may be appropriate if the production use case will also use a localhost setup. If this 
+is not the case, _arangobench_ should be executed on a separate host and send its request over 
+the network, in the same way as the client applications are expected to do later.
