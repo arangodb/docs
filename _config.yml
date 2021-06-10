@@ -28,9 +28,9 @@ kramdown:
     ndash: "--"
 
 #theme: minima
-plugins:
+#plugins:
  #- jekyll-feed
-  - jekyll-redirect-from
+ #- jekyll-redirect-from
 
 # Certain directories can be excluded from sitemap,
 # but including the stable folder (symlink) does not work.
@@ -95,12 +95,12 @@ exclude:
   - 3.3/generated
 # - 3.9/
 # - 3.8/
-# - 3.7/
-# - 3.6/
-# - 3.5/
-# - 3.4/
-# - 3.3/
+  - 3.7/
+  - 3.6/
+  - 3.5/
+  - 3.4/
+  - 3.3/
 
 versions:
-  stable: "3.7"
+  stable: "3.8"
   devel: "3.9"
