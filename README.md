@@ -402,6 +402,16 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
   copy (`/path/to/docs`).
 
 - ```
+  Liquid Exception: undefined method `captures' for nil:NilClass
+  ```
+
+  This error can be raised by the `navvar` method in `_plugins/ExtraFilters.rb`
+  (run Jekyll with `--trace` to verify). Check that the working copy is clean.
+  Stray folders with untracked Markdown files may cause this problem, e.g. the
+  output of `oasisctl generate-docs`. Either remove the files or add the folder
+  to the list of excludes in `_config.yml`.
+
+- ```
   Please append `--trace` to the `build` command
   for any additional information or backtrace.
   ```
