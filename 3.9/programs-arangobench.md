@@ -15,7 +15,7 @@ estimates. It provides different test cases that can be executed, that reflect
 a broader set of use cases. It is useful to pick and run the test cases that
 most closely resemble typical or expected workloads.
 
-## General benchmark configuration
+## General configuration
 
 _arangobench_ can be run on the same host as the ArangoDB server, or on a
 different host. When using it against a cluster, it must be connected to one of
@@ -31,8 +31,7 @@ The most important general _arangobench_ options are:
   with an existing ArangoDB installation.
 - `--test-case`: selects the test case to be executed by _arangobench_. A list
   of the available test cases can be retrieved by running _arangobench_ with
-  the `--help` option. For a detailed description see
-  [arangobench Test Cases](#arangobench-test-cases).
+  the `--help` option. For detailed descriptions see [Test Cases](#test-cases).
 - `--requests`: total number of requests to be executed by _arangobench_ in the
   selected test case. If batching is used, multiple operations will still be
   counted individually, even though they may be sent together in a single
@@ -90,7 +89,7 @@ Important cluster-specific options are:
   write into collections. The larger the replication factor is, the more
   expensive write operations will become.
 
-### arangobench Test Cases
+## Test Cases
 
 _arangobench_ provides the following predefined test cases. The test case to be
 executed can be selected via the `--test-case` startup option.
@@ -126,7 +125,7 @@ In order to benchmark custom AQL queries, the appropriate test case is
 | `stream-cursor` | creates 500 documents in a collection, and then performs a mix of AQL update queries (all on the same document) and a streaming AQL query that returns all documents from the collection. The `--complexity` parameter can be used to control the number of attributes for the inserted documents and the update queries. This test will trigger a lot of write-write conflicts with `--concurrency` bigger than 2. |
 | `version` | queries the server version and then instantly returns. In a cluster, this means that Coordinators instantly respond to the requests without ever accessing DB-Servers. This test can be used to establish a baseline for single server or Coordinator throughput. The `--complexity` parameter is not used. |
 
-### Troubleshooting
+## Troubleshooting
 
 The test cases provided by _arangobench_ vary significantly in _how_ they
 perform operations. For example, inserting documents into ArangoDB can be
