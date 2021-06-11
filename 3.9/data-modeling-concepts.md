@@ -15,7 +15,7 @@ is provided to interact with the database system.
 
 The [web interface](programs-web-interface.html) that comes with
 ArangoDB, called *Aardvark*, provides graphical user interface that is easy to use.
-An [interactive shell](programs-arangosh.html), called *Arangosh*, is also
+An [interactive shell](programs-arangosh.html), called _arangosh_, is also
 shipped. In addition, there are so called [drivers](drivers/index.html)
 that make it easy to use the database system in various environments and
 programming languages. All these tools use the HTTP interface of the server and

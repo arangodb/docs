@@ -1,7 +1,7 @@
 ---
 layout: default
 description: Environment variables used by arangod
-title: Arangod environment variables
+title: arangod environment variables
 ---
 # ArangoDB Server environment variables
 

@@ -1,18 +1,17 @@
 ---
 layout: default
-description: Arangorestore is a command-line client tool to restore backups created byArangodump toArangoDB servers
+description: arangorestore is a command-line client tool to restore backups created by arangodump to ArangoDB servers
 ---
-Arangorestore
-=============
+# _arangorestore_
 
-_Arangorestore_ is a command-line client tool to restore backups created by
-[_Arangodump_](programs-arangodump.html) to
+_arangorestore_ is a command-line client tool to restore backups created by
+[_arangodump_](programs-arangodump.html) to
 [ArangoDB servers](programs-arangod.html).
 
 If you want to import data in formats like JSON or CSV, see
-[_Arangoimport_](programs-arangoimport.html) instead.
+[_arangoimport_](programs-arangoimport.html) instead.
 
-_Arangorestore_ can restore selected collections or all collections of a backup,
+_arangorestore_ can restore selected collections or all collections of a backup,
 optionally including _system_ collections. One can restore the structure, i.e.
 the collections with their configuration with or without data.
 Views can also be dumped or restored (either all of them or selectively).

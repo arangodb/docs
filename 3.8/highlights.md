@@ -214,7 +214,7 @@ Version 3.4
 - [**Query Profiler**](aql/execution-and-performance-query-profiler.html):
   Enables the analysis of queries and adds additional information for the user
   to identify optimization potentials more easily. The profiler can be accessed
-  via Arangosh with `db._profileQuery(...)` or via the *Profile* button in the
+  via _arangosh_ with `db._profileQuery(...)` or via the *Profile* button in the
   Query Editor of the web interface.
 
 - [**Streaming Cursors**](aql/invocation-with-arangosh.html#setting-options):
@@ -243,7 +243,7 @@ Version 3.3
   in case of a disaster in one datacenter.
 
 - [**Encrypted Backups**](programs-arangodump-examples.html#encryption):
-  Arangodump can create backups encrypted with a secret key using AES256
+  _arangodump_ can create backups encrypted with a secret key using AES256
   block cipher.
 
 **All Editions**

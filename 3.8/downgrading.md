@@ -21,7 +21,7 @@ Supported Downgrade Procedures
 
 In order to downgrade, the following options are available:
 
-- Restore a backup you took using the tool [Arangodump](programs-arangodump.html)
+- Restore a backup you took using the tool [_arangodump_](programs-arangodump.html)
   before the upgrade.
 - Start the old package on the data directory backup you took before the upgrade.
 

@@ -123,7 +123,7 @@ support for the following languages:
 - Turkish (`tr`)
 
 Create a custom Analyzer and set the `locale` accordingly in the properties,
-e.g. `"el.utf-8"` for Greek. Arangosh example:
+e.g. `"el.utf-8"` for Greek. _arangosh_ example:
 
 ```js
 var analyzers = require("@arangodb/analyzers");
@@ -986,7 +986,7 @@ The crash handler can be disabled at server start by setting the environment
 variable `ARANGODB_OVERRIDE_CRASH_HANDLER` to an empty string, `0` or `off`.
 
 Also see:
-- [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes)
+- [Troubleshooting _arangod_](troubleshooting-arangod.html#other-crashes)
 - [Server environment variables](programs-arangod-env-vars.html)
 
 ### Supported compilers

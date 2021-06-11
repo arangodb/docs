@@ -102,7 +102,7 @@ the query will result in an error too.
 Specific information about parameters binding can also be found in:
 
 - [AQL with Web Interface](invocation-with-web-interface.html)
-- [AQL with Arangosh](invocation-with-arangosh.html)
+- [AQL with _arangosh_](invocation-with-arangosh.html)
 - [HTTP Interface for AQL Queries](../http/aql-query-cursor.html)
 
 ### Nested attributes

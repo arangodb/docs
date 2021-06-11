@@ -1,11 +1,10 @@
 ---
 layout: default
-description: Arangobench Startup Options
+description: arangobench Startup Options
 redirect_from:
   - programs-arangobench-examples.html # 3.8 -> 3.8
 ---
-Arangobench Startup Options
-===========================
+# _arangobench_ Startup Options
 
 Usage: `arangobench [<options>]`
 

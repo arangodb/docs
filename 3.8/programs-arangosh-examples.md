@@ -1,9 +1,8 @@
 ---
 layout: default
-description: By default arangosh will try to connect to an ArangoDB server running onserver localhost on port 8529
+description: By default arangosh will try to connect to an ArangoDB server running on server localhost on port 8529
 ---
-Arangosh Examples
-=================
+# _arangosh_ Examples
 
 Connecting to a server
 ----------------------
@@ -50,11 +49,11 @@ VelocyStream | TCP              | `vst+tcp`, `vst+srv`, `vst`
 VelocyStream | TCP with SSL/TLS | `vst+ssl`, `vsts`
 VelocyStream | Unix             | `vst+unix`
 
-Using Arangosh
---------------
+Using _arangosh_
+----------------
 
 To change the current database after the connection has been made, you
-can use the `db._useDatabase()` command in Arangosh:
+can use the `db._useDatabase()` command in _arangosh_:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline shellUseDB
@@ -68,7 +67,7 @@ can use the `db._useDatabase()` command in Arangosh:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-To get a list of available commands, Arangosh provides a *help()* function.
+To get a list of available commands, _arangosh_ provides a *help()* function.
 Calling it will display helpful information.
 
 _arangosh_ also provides auto-completion. Additional information on available 

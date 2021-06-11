@@ -386,8 +386,8 @@ Example with two polygons, the second one with a hole:
 }
 ```
 
-Arangosh Examples
------------------
+_arangosh_ Examples
+-------------------
 
 <!-- js/server/modules/@arangodb/arango-collection.js-->
 

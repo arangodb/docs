@@ -1,9 +1,8 @@
 ---
 layout: default
-description: Arangoinspect Options
+description: arangoinspect Options
 ---
-Arangoinspect Options
-=====================
+# _arangoinspect_ Options
 
 Usage: `arangoinspect [<options>]`
 

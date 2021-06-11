@@ -1,9 +1,8 @@
 ---
 layout: default
-description: Arangovpack Options
+description: arangovpack Options
 ---
-Arangovpack Options
-===================
+# _arangovpack_ Options
 
 Usage: `arangovpack [<options>]`
 
