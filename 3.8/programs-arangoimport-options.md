@@ -1,9 +1,8 @@
 ---
 layout: default
-description: Arangoimport Options
+description: arangoimport Options
 ---
-Arangoimport Options
-====================
+# _arangoimport_ Options
 
 Usage: `arangoimport [<options>]`
 

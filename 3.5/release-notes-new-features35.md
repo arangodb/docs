@@ -642,8 +642,8 @@ arangorestore. Please note that in this case a database user must be used that h
 access to the `_system` database, in order to create the databases on restore. 
 
 Also see:
-- [Arangodump](programs-arangodump.html)
-- [Arangorestore](programs-arangorestore.html)
+- [_arangodump_](programs-arangodump.html)
+- [_arangorestore_](programs-arangorestore.html)
 
 ### Warning if connected to DBServer
 

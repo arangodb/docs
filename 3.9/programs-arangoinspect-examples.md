@@ -1,9 +1,8 @@
 ---
 layout: default
-description: If you are asked by ArangoDB support to provide an inspector output, runthe arangoinspect binary to generate a file in the current working folder
+description: If you are asked by ArangoDB support to provide an inspector output, run the arangoinspect binary to generate a file in the current working folder
 ---
-Arangoinspect Examples
-======================
+# _arangoinspect_ Examples
 
 If you are asked by ArangoDB support to provide an inspector output, run
 the _arangoinspect_ binary to generate a file in the current working folder.
@@ -18,8 +17,8 @@ not allowed/willing to share and obfuscate it before sharing (user names,
 files paths etc.).
 {% endhint %}
 
-Invoking Arangoinspect
-----------------------
+Invoking _arangoinspect_
+------------------------
 
 Point the tool to an ArangoDB endpoint. In case of a single server, there
 is only one. You can connect to any node in case of a cluster (_DB-Server_,

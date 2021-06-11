@@ -1,12 +1,11 @@
 ---
 layout: default
-description: Arangodump limitations in cluster and with MMFiles storage engine
-title: Arangodump Limitations
+description: arangodump limitations in cluster and with MMFiles storage engine
+title: arangodump Limitations
 ---
-Arangodump Limitations
-======================
+# _arangodump_ Limitations
 
-_Arangodump_ has the following limitations:
+_arangodump_ has the following limitations:
 
 - In a cluster, _arangodump_ does not guarantee to dump a consistent snapshot
   if write operations happen while the dump is in progress (see

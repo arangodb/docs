@@ -1,9 +1,8 @@
 ---
 layout: default
-description: Using JSON as data format, records are represented as JSON objects and calleddocuments in ArangoDB
+description: Using JSON as data format, records are represented as JSON objects and called documents in ArangoDB
 ---
-Arangoimport Examples: JSON
-===========================
+# _arangoimport_ Examples: JSON
 
 Using JSON as data format, records are represented as JSON objects and called
 documents in ArangoDB. They are self-contained. Therefore, there is no need

@@ -44,7 +44,7 @@ The installer lets you select:
 - multi user installation (default; admin privileges required)
   Will install ArangoDB as service.
 - single user installation
-  Allow to install Arangodb as normal user.
+  Allow to install ArangoDB as normal user.
   Requires manual starting of the database server.
 
 ### Installation Options

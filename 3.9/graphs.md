@@ -166,8 +166,8 @@ flexible ways, whereas it would cause headache to handle it in a relational data
 Backup and restore
 ------------------
 
-For sure you want to have backups of your graph data, you can use [Arangodump](programs-arangodump.html) to create the backup,
-and [Arangorestore](programs-arangorestore.html) to restore a backup into a new ArangoDB. You should however note that:
+For sure you want to have backups of your graph data, you can use [_arangodump_](programs-arangodump.html) to create the backup,
+and [_arangorestore_](programs-arangorestore.html) to restore a backup into a new ArangoDB. You should however note that:
 
 - you need the system collection `_graphs` if you backup named graphs.
 - you need to backup the complete set of all edge and vertex collections your graph consists of. Partial dump/restore may not work.
