@@ -15,8 +15,9 @@ are similar, alternatively spelled, or mistyped but potentially relevant for
 the search request as well.
 
 {% hint 'info' %}
-If you want to try out fuzzy search with ArangoDB for yourself, check out our
-interactive [**Fuzzy Search tutorial**](https://colab.research.google.com/github/arangodb/interactive_tutorials/blob/master/notebooks/FuzzySearch.ipynb){:target="_blank"}.
+If you want to try out fuzzy search with ArangoDB for yourself, then check out
+our interactive
+[**Fuzzy Search tutorial**](https://colab.research.google.com/github/arangodb/interactive_tutorials/blob/master/notebooks/FuzzySearch.ipynb){:target="_blank"}.
 {% endhint %}
 
 ## Similarity Measures
@@ -35,6 +36,7 @@ to the other. The allowed operations are:
 - insertions
 - deletions
 - substitutions
+
 The lowest possible number of the required operations is the Levenshtein
 distance. Consider the following two strings:
 
