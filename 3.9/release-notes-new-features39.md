@@ -58,12 +58,12 @@ runtime.
 Decay Functions
 ----------------
 
-Added 3 Decay functions to AQL : EXP_DECAY, LINEAR_DECAY and GAUSS_DECAY
+Added 3 Decay functions to AQL : DECAY_EXP, DECAY_LINEAR and DECAY_GAUSS
 
 Decay functions score a document with a function that decays depending on the distance of a numeric field value of the document from a user given origin.
 
 ```js
-GAUSS_DECAY(41, 40, 5, 5, 0.5) // 1
-LINEAR_DECAY(5, 0, 10, 0, 0.2) // 0.6
-EXP_DECAY(2, 0, 10, 0, 0.2)  // 0.7247796636776955
+DECAY_GAUSS(41, 40, 5, 5, 0.5) // 1
+DECAY_LINEAR(5, 0, 10, 0, 0.2) // 0.6
+DECAY_EXP(2, 0, 10, 0, 0.2)  // 0.7247796636776955
 ```
