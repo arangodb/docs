@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Metrics exposed by ArangoDB and how to export them to Prometheus and visualize with Grafana.
+description: Metrics exposed by ArangoDB and how to export them to Prometheus.
 title: arangod Server Metrics
 ---
 # ArangoDB Server Metrics
