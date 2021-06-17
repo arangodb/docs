@@ -25,8 +25,12 @@ our interactive
 How the approximate string matching algorithms usually work is that they
 measure how similar (or different) two strings are. The following similarity
 measures are available in ArangoDB:
-- (Damerau-)Levenshtein distance
-- (Positional) _n_-gram similarity
+
+- **Levenshtein distance** and a variant called Damerau-Levenshtein distance,
+  which work best with short strings
+- **_n_-gram similarity** and a variant called positional _n_-gram similarity,
+  that are well-suited to assess the similarity of longer strings that share
+  subsequences
 
 ### Levenshtein Distance
 
