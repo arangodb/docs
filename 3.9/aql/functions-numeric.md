@@ -196,6 +196,25 @@ EXP2(1) // 2
 EXP2(0) // 1
 ```
 
+EXP_DECAY()
+------
+
+`EXP_DECAY(arg, origin, scale, offset, decay) → num, array`
+
+Score a document or an array of documents with an exponential function that decays depending on the distance of a numeric field value of the document from a user given origin. Return score or an array of scores
+
+- **arg** (number, array, range): the input value, array with input values or range
+- **origin** (number): The point of origin used for calculating distance
+- **scale** (number): Defines the distance from origin + offset at which the computed score will equal decay parameter.
+- **offset** (number): decay function will be computed for documents with a distance greater than the defined offset
+- **decay** (number): The decay parameter defines how documents are scored at the distance given at scale
+
+```js
+EXP_DECAY(41, 40, 5, 5, 0.7) // 1
+EXP_DECAY(49.9889, 50, 0.001, 0.001, 0.2) // 8.717720806626885e-08
+EXP_DECAY(2, 0, 10, 0, 0.2)  // 0.7247796636776955
+```
+
 FLOOR()
 -------
 
@@ -214,6 +233,44 @@ FLOOR(2.49) // 2
 FLOOR(2.50) // 2
 FLOOR(-2.50) // -3
 FLOOR(-2.51) // -3
+```
+
+GAUSS_DECAY()
+------
+
+`GAUSS_DECAY(arg, origin, scale, offset, decay) → num, array`
+
+Score a document or an array of documents with an gaussian function that decays depending on the distance of a numeric field value of the document from a user given origin. Return score or an array of scores
+
+- **arg** (number, array): the input value or array with input values
+- **origin** (number): The point of origin used for calculating distance
+- **scale** (number): Defines the distance from origin + offset at which the computed score will equal decay parameter.
+- **offset** (number): decay function will be computed for documents with a distance greater than the defined offset
+- **decay** (number): The decay parameter defines how documents are scored at the distance given at scale
+
+```js
+GAUSS_DECAY(41, 40, 5, 5, 0.5) // 1
+GAUSS_DECAY([20.0, 41], 40, 5, 5, 0.5) // [0.0019531250000000017, 1.0]
+GAUSS_DECAY(49.9889, 49.987, 0.001, 0.001, 0.2)  // 0.2715403018822964
+```
+
+LINEAR_DECAY()
+------
+
+`LINEAR_DECAY(arg, origin, scale, offset, decay) → num, array`
+
+Score a document or an array of documents with a linear function that decays depending on the distance of a numeric field value of the document from a user given origin. Return score or an array of scores
+
+- **arg** (number, array): the input value or array with input values
+- **origin** (number): The point of origin used for calculating distance
+- **scale** (number): Defines the distance from origin + offset at which the computed score will equal decay parameter.
+- **offset** (number): decay function will be computed for documents with a distance greater than the defined offset
+- **decay** (number): The decay parameter defines how documents are scored at the distance given at scale
+
+```js
+LINEAR_DECAY(41, 40, 5, 5, 0.5) // 1
+LINEAR_DECAY(5, 0, 10, 0, 0.2) // 0.6
+LINEAR_DECAY(9.8, 0, 10, 0, 0.2)  // 0.21599999999999994
 ```
 
 LOG()

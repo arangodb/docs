@@ -54,3 +54,16 @@ architecture to the Sandy Bridge architecture. 256-bit AVX instructions are
 now expected to be present on all targets that run ArangoDB 3.9 executables.
 If a target does not support AVX instructions, it may fail with SIGILL at
 runtime.
+
+Decay Functions
+----------------
+
+Added 3 Decay functions to AQL : EXP_DECAY, LINEAR_DECAY and GAUSS_DECAY
+
+Decay functions score a document with a function that decays depending on the distance of a numeric field value of the document from a user given origin.
+
+```js
+GAUSS_DECAY(41, 40, 5, 5, 0.5) // 1
+LINEAR_DECAY(5, 0, 10, 0, 0.2) // 0.6
+EXP_DECAY(2, 0, 10, 0, 0.2)  // 0.7247796636776955
+```
