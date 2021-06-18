@@ -1,9 +1,6 @@
 ---
 layout: default 
-description: This document serves as a guide to getting started with 
-RDF and ArangoDB. In it, we highlight some potential approaches for working with 
-RDF graphs and then some of the considerations when attempting to bring RDF data 
-into ArangoDB.
+description: This document serves as a guide to getting started with RDF and ArangoDB. In it, we highlight some potential approaches for working with RDF graphs and then some of the considerations when attempting to bring RDF data into ArangoDB.
 title: Mapping RDF data to ArangoDB Graphs
 ---
 Mapping RDF data to ArangoDB Graphs
