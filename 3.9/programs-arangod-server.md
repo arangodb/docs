@@ -356,6 +356,17 @@ If set to *false* only use the external authentication system. If
 
 The default value is *true*.
 
+## Timeout for web interface sessions
+
+`--server.session-timeout value`
+
+The timeout value for web interface sessions is now configurable via the 
+startup option `--server.session-timeout`. The default timeout value for web 
+interface sessions is one hour in ArangoDB 3.9. The value for the option can
+be specified in seconds.
+
+Previous versions of ArangoDB had a longer, hard-coded timeout.
+
 ## Server threads
 
 `--server.minimal-threads number`
