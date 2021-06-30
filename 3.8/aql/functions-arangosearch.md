@@ -732,6 +732,9 @@ if you want to calculate the edit distance of two strings.
   impact performance negatively. The default value is `64`.
 - returns **fulfilled** (bool): `true` if the calculated distance is less than
   or equal to *distance*, `false` otherwise
+- **prefix** (string, _optional_): if defined, Levenshtein or Damerau-Levenshtein 
+  distance is computed for documents which contains specified prefix. The default value 
+  is empty string.
 
 The Levenshtein distance between _quick_ and _quikc_ is `2` because it requires
 two operations to go from one to the other (remove _k_, insert _k_ at a
@@ -748,6 +751,15 @@ The Damerau-Levenshtein distance is `1` (move _k_ to the end).
 ```js
 FOR doc IN viewName
   SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 1) // matches "quick"
+  RETURN doc.text
+```
+
+Match documents on levenshtein distance 1 with prefix `qui`. All edit operations 
+is applied to term `kc`. Prefix `qui` is constant. 
+
+```js
+FOR doc IN viewName
+  SEARCH LEVENSHTEIN_MATCH(doc.text, "kc", 1, false, 64, "qui") // matches "quick"
   RETURN doc.text
 ```
 
