@@ -465,6 +465,9 @@ Object tokens:
   - `maxTerms` (number, _optional_): consider only a specified number of the
     most relevant terms. One can pass `0` to consider all matched terms, but it may
     impact performance negatively. The default value is `64`.
+  - `prefix` (string, _optional_): if defined, Levenshtein or Damerau-Levenshtein 
+    distance is computed for documents which contains specified prefix. The default value 
+    is empty string.
 - `{STARTS_WITH: [prefix]}`: see [STARTS_WITH()](#starts_with).
   Array brackets are optional
 - `{TERM: [token]}`: equal to `token` but without Analyzer tokenization.
