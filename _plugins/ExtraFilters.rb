@@ -64,6 +64,14 @@ module Jekyll
             source = site.source # base path
             Pathname.new(File.realpath(path)).relative_path_from(Pathname.new(source)).to_s
         end
+
+        def has_key(obj, key)
+            if !obj.has_key?(key)
+                file = @context.registers[:page]['path']
+                err = "Missing key '#{key}', in file #{file}"
+                raise err
+            end
+        end
     end
 end
 

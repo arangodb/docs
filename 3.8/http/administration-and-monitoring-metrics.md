@@ -20,7 +20,7 @@ future.
 
 {% docublock get_admin_metrics_v2 %}
 
-{% include metrics.md %}
+{% include metrics.md version=page.version.version %}
 
 ## Metrics API (deprecated)
 
