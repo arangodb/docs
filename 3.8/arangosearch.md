@@ -644,11 +644,11 @@ To learn more, check out the different search examples:
 - [**Faceted search**](arangosearch-faceted-search.html):
   Combine aggregation with search queries to retrieve how often values occur
   overall.
-{%- comment %}
 - [**Fuzzy search**](arangosearch-fuzzy-search.html):
   Match strings even if they are not exactly the same as the search terms.
   By allowing some fuzziness you can compensate for typos and match similar
   tokens that could be relevant too.
+{%- comment %}
 - [**Geospatial search**](arangosearch-geospatial-search.html):
   You can use ArangoSearch for geographic search queries to find nearby
   locations, places within a certain area and more. It can be combined with
