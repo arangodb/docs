@@ -360,10 +360,10 @@ The default value is *true*.
 
 `--server.session-timeout value`
 
-The timeout value for web interface sessions is now configurable via the 
-startup option `--server.session-timeout`. The default timeout value for web 
-interface sessions is one hour in ArangoDB 3.9. The value for the option can
-be specified in seconds.
+The timeout value for web interface sessions is now configurable via the
+startup option `--server.session-timeout`. The value for the option can
+be specified in seconds. The default timeout value for web interface
+sessions is one hour in ArangoDB 3.9.
 
 Previous versions of ArangoDB had a longer, hard-coded timeout.
 
