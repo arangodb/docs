@@ -173,7 +173,8 @@ To perform fuzzy searches, there are two ArangoSearch functions:
 - [NGRAM_MATCH()](aql/functions-arangosearch.html#ngram_match)
 
 They can be used in conjunction with a View for index-accelerated fuzzy search
-queries.
+queries. The string similarity affects the overall `BM25()` / `TFIDF()` score
+when [ranking](arangosearch-ranking.html) results.
 
 ### Searching with `LEVENSHTEIN_MATCH()`
 
