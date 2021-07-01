@@ -641,6 +641,9 @@ To learn more, check out the different search examples:
   Search tokenized full-text with the tokens in a certain order, such as
   partial or full sentences, optionally with wildcard tokens for a proximity
   search.
+- [**Faceted search**](arangosearch-faceted-search.html):
+  Combine aggregation with search queries to retrieve how often values occur
+  overall.
 {%- comment %}
 - [**Fuzzy search**](arangosearch-fuzzy-search.html):
   Match strings even if they are not exactly the same as the search terms.
