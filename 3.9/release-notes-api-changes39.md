@@ -46,13 +46,13 @@ in ArangoDB 3.8 and is now removed. If the functionality is still required
 by client applications, running a streaming AQL query can be used as a
 substitution.
 
-#### Redirects 
+#### Redirects
 
-Since ArangoDB 3.7 some cluster APIs were made available under diffrent
+Since ArangoDB 3.7, some cluster APIs were made available under different
 paths. The old paths were left in place and simply redirected to the new
 address. These redirects have now been removed in ArangoDB 3.9.
 
-The following list shows the old, now dysfunctional paths and their 
+The following list shows the old, now dysfunctional paths and their
 replacements:
 
 - `/_admin/clusterNodeVersion`: replaced by `/_admin/cluster/nodeVersion`
@@ -60,7 +60,7 @@ replacements:
 - `/_admin/clusterNodeStats`: replaced by `/_admin/cluster/nodeStatistics`
 - `/_admin/clusterStatistics`: replaced by `/_admin/cluster/statistics`
 
-Using the replacements will work from ArangoDB 3.7 onwards already, so 
+Using the replacements will work from ArangoDB 3.7 onwards already, so
 any client applications that still call the old addresses can be adjusted
 to call the new addresses from 3.7 onwards.
 
