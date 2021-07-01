@@ -20,13 +20,13 @@ Added three decay functions to AQL:
 - [DECAY_LINEAR()](aql/functions-numeric.html#decay_linear)
 - [DECAY_GAUSS()](aql/functions-numeric.html#decay_gauss)
 
-Decay functions score a document with a function that decays depending on the
-distance of a numeric field value of the document from a user given origin.
+Decay functions calculate a score with a function that decays depending on the
+distance of a numeric value from a user given origin.
 
 ```js
 DECAY_GAUSS(41, 40, 5, 5, 0.5) // 1
 DECAY_LINEAR(5, 0, 10, 0, 0.2) // 0.6
-DECAY_EXP(2, 0, 10, 0, 0.2) // 0.7247796636776955
+DECAY_EXP(2, 0, 10, 0, 0.2)    // 0.7247796636776955
 ```
 
 UI

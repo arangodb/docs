@@ -151,67 +151,82 @@ COS(RADIANS(45)) // 0.7071067811865476
 DECAY_GAUSS()
 -------------
 
+<small>Introduced in: v3.9.0</small>
+
 `DECAY_GAUSS(value, origin, scale, offset, decay) → score`
 
-Score a document or an array of documents with an gaussian function that
-decays depending on the distance of a numeric field value of the document
-from a user given origin.
+Calculate the score for one or multiple values with a **Gaussian function** that
+decays depending on the distance of a numeric value from a user-given origin.
 
 - **value** (number\|array): the input value or an array with input values
-- **origin** (number): the point of origin used for calculating distance
-- **scale** (number): defines the distance from origin + offset at which the computed score will equal decay parameter
-- **offset** (number): the decay function will be computed for documents with a distance greater than the defined offset
-- **decay** (number): the decay parameter defines how documents are scored at the distance given at scale
-- returns **score** (number\|array): a single score or an array of scores depending on the type of `value`
+- **origin** (number): the point of origin used for calculating the distance
+- **scale** (number): defines the distance from `origin` + `offset` at which
+  the computed score will equal the `decay` parameter
+- **offset** (number): the decay function will be evaluated for distance values
+  greater than the defined offset
+- **decay** (number): the decay parameter defines how input values are scored
+  at the distance given by the `scale` parameter
+- returns **score** (number\|array): a single score or an array of scores
+  depending on the type of the input `value`
 
 ```js
 DECAY_GAUSS(41, 40, 5, 5, 0.5) // 1
-DECAY_GAUSS([20.0, 41], 40, 5, 5, 0.5) // [0.0019531250000000017, 1.0]
-DECAY_GAUSS(49.9889, 49.987, 0.001, 0.001, 0.2)  // 0.2715403018822964
+DECAY_GAUSS([20, 41], 40, 5, 5, 0.5) // [0.0019531250000000017, 1.0]
+DECAY_GAUSS(49.9889, 49.987, 0.001, 0.001, 0.2) // 0.2715403018822964
 ```
 
 DECAY_EXP()
 -----------
 
+<small>Introduced in: v3.9.0</small>
+
 `DECAY_EXP(value, origin, scale, offset, decay) → num, array`
 
-Score a document or an array of documents with an exponential function that
-decays depending on the distance of a numeric field value of the document from
-a user given origin.
+Calculate the score for one or multiple values with an **exponential function**
+that decays depending on the distance of a numeric value from a user-given origin.
 
-- **value** (number, array, range): the input value or an array with input values (can also be a [range](operators.html#range-operator))
-- **origin** (number): The point of origin used for calculating distance
-- **scale** (number): Defines the distance from origin + offset at which the computed score will equal decay parameter.
-- **offset** (number): decay function will be computed for documents with a distance greater than the defined offset
-- **decay** (number): The decay parameter defines how documents are scored at the distance given at scale
-- returns **score** (number\|array): a single score or an array of scores depending on the type of `value`
+- **value** (number\|array): the input value or an array with input values
+- **origin** (number): the point of origin used for calculating the distance
+- **scale** (number): defines the distance from `origin` + `offset` at which
+  the computed score will equal the `decay` parameter
+- **offset** (number): the decay function will be evaluated for distance values
+  greater than the defined offset
+- **decay** (number): the decay parameter defines how input values are scored
+  at the distance given by the `scale` parameter
+- returns **score** (number\|array): a single score or an array of scores
+  depending on the type of the input `value`
 
 ```js
 DECAY_EXP(41, 40, 5, 5, 0.7) // 1
-DECAY_EXP(49.9889, 50, 0.001, 0.001, 0.2) // 8.717720806626885e-08
 DECAY_EXP(2, 0, 10, 0, 0.2)  // 0.7247796636776955
+DECAY_EXP(49.9889, 50, 0.001, 0.001, 0.2) // 8.717720806626885e-08
 ```
 
 DECAY_LINEAR()
 --------------
 
+<small>Introduced in: v3.9.0</small>
+
 `DECAY_LINEAR(value, origin, scale, offset, decay) → score`
 
-Score a document or an array of documents with a linear function that decays
-depending on the distance of a numeric field value of the document from a user
-given origin.
+Calculate the score for one or multiple values with a **linear function** that
+decays depending on the distance of a numeric value from a user-given origin.
 
-- **value** (number, array): the input value or an array with input values
-- **origin** (number): The point of origin used for calculating distance
-- **scale** (number): Defines the distance from origin + offset at which the computed score will equal decay parameter.
-- **offset** (number): decay function will be computed for documents with a distance greater than the defined offset
-- **decay** (number): The decay parameter defines how documents are scored at the distance given at scale
-- returns **score** (number\|array): a single score or an array of scores depending on the type of `value`
+- **value** (number\|array): the input value or an array with input values
+- **origin** (number): the point of origin used for calculating the distance
+- **scale** (number): defines the distance from `origin` + `offset` at which
+  the computed score will equal the `decay` parameter
+- **offset** (number): the decay function will be evaluated for distance values
+  greater than the defined offset
+- **decay** (number): the decay parameter defines how input values are scored
+  at the distance given by the `scale` parameter
+- returns **score** (number\|array): a single score or an array of scores
+  depending on the type of the input `value`
 
 ```js
-DECAY_LINEAR(41, 40, 5, 5, 0.5) // 1
-DECAY_LINEAR(5, 0, 10, 0, 0.2) // 0.6
+DECAY_LINEAR(41, 40, 5, 5, 0.5)   // 1
 DECAY_LINEAR(9.8, 0, 10, 0, 0.2)  // 0.21599999999999994
+DECAY_LINEAR(5..7, 0, 10, 0, 0.2) // [0.6, 0.52, 0.44]
 ```
 
 DEGREES()
