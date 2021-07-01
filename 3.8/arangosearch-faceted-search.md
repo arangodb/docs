@@ -85,7 +85,7 @@ FOR doc IN imdb
 For above query with a single, simple condition, there is an optimization you
 can enable that can accurately determine the count from index data faster than
 the standard `COLLECT`. Also see
-[Count Approximation](arangosearch-performance.md#count-approximation).
+[Count Approximation](arangosearch-performance.html#count-approximation).
 
 ```js
 FOR doc IN imdb
