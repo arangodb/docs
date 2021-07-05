@@ -1,4 +1,4 @@
-arangosh&gt; analyzers.save(<span class="hljs-string">"text_edge_ngrams"</span>, <span class="hljs-string">"text"</span>, {
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"text_edge_ngrams"</span>, <span class="hljs-string">"text"</span>, {
 ........&gt;   edgeNgram: { <span class="hljs-attr">min</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">max</span>: <span class="hljs-number">8</span>, <span class="hljs-attr">preserveOriginal</span>: <span class="hljs-literal">true</span> },
 ........&gt;   locale: <span class="hljs-string">"en.utf-8"</span>,
 ........&gt;   <span class="hljs-keyword">case</span>: <span class="hljs-string">"lower"</span>,
@@ -6,30 +6,10 @@ arangosh&gt; analyzers.save(<span class="hljs-string">"text_edge_ngrams"</span>,
 ........&gt;   stemming: <span class="hljs-literal">false</span>,
 ........&gt;   stopwords: [ <span class="hljs-string">"the"</span> ]
 ........&gt; }, [<span class="hljs-string">"frequency"</span>,<span class="hljs-string">"norm"</span>,<span class="hljs-string">"position"</span>])
-{ 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"_system::text_edge_ngrams"</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-string">"text"</span>, 
-  <span class="hljs-string">"properties"</span> : { 
-    <span class="hljs-string">"locale"</span> : <span class="hljs-string">"en.utf-8"</span>, 
-    <span class="hljs-string">"case"</span> : <span class="hljs-string">"lower"</span>, 
-    <span class="hljs-string">"stopwords"</span> : [ 
-      <span class="hljs-string">"the"</span> 
-    ], 
-    <span class="hljs-string">"accent"</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">"stemming"</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">"edgeNgram"</span> : { 
-      <span class="hljs-string">"min"</span> : <span class="hljs-number">3</span>, 
-      <span class="hljs-string">"max"</span> : <span class="hljs-number">8</span>, 
-      <span class="hljs-string">"preserveOriginal"</span> : <span class="hljs-literal">true</span> 
-    } 
-  }, 
-  <span class="hljs-string">"features"</span> : [ 
-    <span class="hljs-string">"frequency"</span>, 
-    <span class="hljs-string">"norm"</span>, 
-    <span class="hljs-string">"position"</span> 
-  ] 
-}
-arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("The quick brown fox jumps over the dogWithAVeryLongName", "text_edge_ngrams")`</span>)
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS(
+........&gt;   "The quick brown fox jumps over the dogWithAVeryLongName",
+........&gt;   "text_edge_ngrams"
+........&gt; )`</span>).toArray();
 [ 
   [ 
     <span class="hljs-string">"qui"</span>, 
@@ -53,4 +33,3 @@ arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("The quick brown
     <span class="hljs-string">"dogwithaverylongname"</span> 
   ] 
 ]
-[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
