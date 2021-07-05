@@ -117,12 +117,12 @@ db.listCollections().then(function (collections) {
 </script>
 ```
 
-If you are targetting browsers older than Internet Explorer 11 you may want to
+If you are targeting browsers older than Internet Explorer 11 you may want to
 use [babel](https://babeljs.io){:target="_blank"} with a
-[polyfill](https://babeljs.io/docs/usage/polyfill){:target="_blank"} to provide missing
+[polyfill](https://babeljs.io/docs/usage/polyfill){:target="_blank"} to provide the missing
 functionality needed to use arangojs.
 
-When loading the browser build with a script tag make sure to load the polyfill first:
+When loading the browser build with a `<script>` tag make sure to load the polyfill first:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.js"></script>
