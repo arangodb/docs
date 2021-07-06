@@ -3,8 +3,7 @@ layout: default
 description: If the server does not start, you cannot connect to it or if it crashes then read on.
 title: Troubleshooting ArangoDB Server
 ---
-Troubleshooting Arangod
-=======================
+# Troubleshooting _arangod_
 
 Server not starting or not reachable
 ------------------------------------

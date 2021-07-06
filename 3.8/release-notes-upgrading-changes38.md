@@ -540,7 +540,7 @@ The default value for arangoimport's `--batch-size` option was raised from
 1 MB to 8 MB. This means that arangoimport can send larger batches containing
 more documents.
 
-Arangoimport also has a rate limiting feature, which was turned on by default
+_arangoimport_ also has a rate limiting feature, which was turned on by default
 previously. This rate limiting feature limited the import rate to 1 MB per
 second, which is probably too low for most use cases. In ArangoDB 3.8, the
 rate limiting for arangoimport is now turned off by default, but can be

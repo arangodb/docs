@@ -1,9 +1,8 @@
 ---
 layout: default
-description: Arangosh Options
+description: arangosh Options
 ---
-Arangosh Options
-================
+# _arangosh_ Options
 
 Usage: `arangosh [<options>]`
 

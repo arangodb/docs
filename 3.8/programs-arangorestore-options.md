@@ -1,9 +1,8 @@
 ---
 layout: default
-description: Arangorestore Options
+description: arangorestore Options
 ---
-Arangorestore Options
-=====================
+# _arangorestore_ Options
 
 Usage: `arangorestore [<options>]`
 

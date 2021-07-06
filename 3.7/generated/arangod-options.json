@@ -675,7 +675,7 @@
       "agent",
       "single"
     ],
-    "default" : 16341516288,
+    "default" : 15268124672,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -2013,6 +2013,60 @@
     "requiresValue" : true,
     "section" : "http",
     "type" : "double"
+  },
+  "http.permanently-redirect-root" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "if true, use a permanent redirect. If false, use a temporary",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.12"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "http",
+    "type" : "boolean"
+  },
+  "http.redirect-root-to" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "/_admin/aardvark/index.html",
+    "deprecatedIn" : null,
+    "description" : "redirect of root URL",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.12"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "http",
+    "type" : "string"
   },
   "http.trusted-origin" : {
     "category" : "option",
@@ -4815,7 +4869,7 @@
     ],
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
@@ -6267,7 +6321,7 @@
       "agent",
       "single"
     ],
-    "default" : 19609819545,
+    "default" : 18321749606,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -7492,7 +7546,7 @@
       "agent",
       "single"
     ],
-    "default" : 26146426060,
+    "default" : 24428999475,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -8096,7 +8150,7 @@
       "agent",
       "single"
     ],
-    "default" : 8,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "Number of threads used to handle IO",
     "dynamic" : true,
@@ -8267,7 +8321,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 9,
+    "default" : 5,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,

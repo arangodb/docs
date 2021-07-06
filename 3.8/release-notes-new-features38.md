@@ -311,7 +311,8 @@ query or when a `COLLECT WITH COUNT` clause is executed:
 - `"cost"`: a cost based approximation is used. Does not enumerate rows and
   returns an approximate result with O(1) complexity. Gives a precise result
   if the `SEARCH` condition is empty or if it contains a single term query
-  only (e.g. `SEARCH doc.field == "value"`).
+  only (e.g. `SEARCH doc.field == "value"`), the usual eventual consistency
+  of Views aside.
 
 Also see: [AQL `SEARCH` Operation](aql/operations-search.html#search-options)
 
@@ -937,7 +938,7 @@ aliases and deprecated ones.
 Client tools
 ------------
 
-### Arangodump concurrency / shard-parallelism
+### _arangodump_ concurrency / shard-parallelism
 
 Since v3.4.0, _arangodump_ can use multiple threads for dumping database data in
 parallel. _arangodump_ versions prior to v3.8.0 distribute dump jobs for
@@ -951,7 +952,7 @@ to dump but only few collections.
 
 Also see [_arangodump_ Threads](programs-arangodump-examples.html#threads).
 
-### Arangodump output format
+### _arangodump_ output format
 
 Since its inception, _arangodump_ wrapped each dumped document into an extra
 JSON envelope, such as follows:
@@ -971,38 +972,38 @@ and bandwidth:
 
 Also see [_arangodump_ Dump Output Format](programs-arangodump-examples.html#dump-output-format).
 
-Using the new non-enveloped dump format also allows arangorestore to
+Using the new non-enveloped dump format also allows _arangorestore_ to
 parallelize restore operations for individual collections. This is not possible
 with the old, enveloped format.
 
-### Arangorestore parallelization for single collections
+### _arangorestore_ parallelization for single collections
 
-Arangorestore can now parallelize restore operations even for single
+_arangorestore_ can now parallelize restore operations even for single
 collections, which can lead to increased restore performance.
 This requires that a dump in the new non-enveloped dump format is used, and that
-there are enough arangorestore threads to employ.
+there are enough _arangorestore_ threads to employ.
 
 The dump format can be configured by specifying the `--envelope false` option
 when invoking arangodump, and the number of restore threads can be adjusted by
-setting arangorestore's `--threads` option.
+setting _arangorestore_'s `--threads` option.
 
-### Arangodump dumping of individual shards
+### _arangodump_ dumping of individual shards
 
-Arangodump can now optionally dump individual shards only, by specifying the
+_arangodump_ can now optionally dump individual shards only, by specifying the
 `--shard` option one or multiple times. This option can be used to split the
 dump of a large collection with multiple shards into multiple separate dump
 processes, which could be run against different Coordinators etc.
 
-### Arangodump and arangorestore with JWT secret
+### _arangodump_ and _arangorestore_ with JWT secret
 
-Arangodump and arangorestore can now also be invoked by providing the cluster's
+_arangodump_ and _arangorestore_ can now also be invoked by providing the cluster's
 JWT secret instead of the username/password combination. Both tools now provide
 the options `--server.jwt-secret-keyfile` (to read the JWT secret from a file)
 and `--server.ask-jwt-secret` (to enter it manually).
 
-### Arangobench with custom queries
+### _arangobench_ with custom queries
 
-In addition to executing the predefined benchmarks, the arangobench client tool
+In addition to executing the predefined benchmarks, the _arangobench_ client tool
 now offers a new test case named `custom-query` for running arbitrary AQL
 queries against an ArangoDB installation.
 
@@ -1011,23 +1012,23 @@ To run a custom AQL query, the query needs to be specified in either the
 the query string can be passed on the command-line, in the latter case the
 query string will be read from a file.
 
-### Continuing arangorestore operations
+### Continuing _arangorestore_ operations
 
-Arangorestore now provides a `--continue` option. Setting it will make
-arangorestore keep track of the restore progress, so if the restore process
+_arangorestore_ now provides a `--continue` option. Setting it will make
+_arangorestore_ keep track of the restore progress, so if the restore process
 gets aborted it can later be continued from the point it left off.
 
-### Controlling the number of documents per batch for arangoexport
+### Controlling the number of documents per batch for _arangoexport_
 
-Arangoexport now has a `--documents-per-batch` option that can be used to limit
+_arangoexport_ now has a `--documents-per-batch` option that can be used to limit
 the number of documents to be returned in each batch from the server. This is
 useful if a query is run on overly large documents, which would lead to the
 response sizes getting out of hand with the default number of documents per
 batch (1000).
 
-### Controlling the maximum query runtime of arangoexport
+### Controlling the maximum query runtime of _arangoexport_
 
-Arangoexport now has a `--query-max-runtime` option to limit the runtime of
+_arangoexport_ now has a `--query-max-runtime` option to limit the runtime of
 queries it executes.
 
 Miscellaneous

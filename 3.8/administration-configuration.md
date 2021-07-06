@@ -22,6 +22,8 @@ ArangoDB package can be configured with various _startup options_.
   such as `‑‑help` and `‑‑version`. They don't take any value
   in contrast to options.
 
+## Available startup options
+
 Find the available options and flags in the _Options_ sub-chapters of the
 respective [Programs & Tools](programs.html) sub-chapter, like the
 [ArangoDB Server Options](programs-arangod-options.html).

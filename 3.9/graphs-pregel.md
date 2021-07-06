@@ -42,8 +42,8 @@ as the vertex. This is guaranteed by [SmartGraphs](graphs-smart-graphs.html).
 Note that the performance may be better, if the number of your shards /
 collections matches the number of CPU cores.
 
-Arangosh API
-------------
+_arangosh_ API
+--------------
 
 ### Starting an Algorithm Execution
 

@@ -2,8 +2,7 @@
 layout: default
 description: arangoexport can be invoked by executing the following command in a command line
 ---
-Arangoexport Examples
-=====================
+# _arangoexport_ Examples
 
 _arangoexport_ can be invoked by executing the following command in a command line:
 

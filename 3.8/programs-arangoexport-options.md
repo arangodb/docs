@@ -1,9 +1,8 @@
 ---
 layout: default
-description: Arangoexport Options
+description: arangoexport Options
 ---
-Arangoexport Options
-====================
+# _arangoexport_ Options
 
 Usage: `arangoexport [<options>]`
 

@@ -1,15 +1,14 @@
 ---
 layout: default
-description: To restore data from a dump previously created with Arangodump,ArangoDB provides the arangorestore tool
+description: To restore data from a dump previously created with arangodump, ArangoDB provides the arangorestore tool
 ---
-Arangorestore Examples
-======================
+# _arangorestore_ Examples
 
-To restore data from a dump previously created with [_Arangodump_](programs-arangodump.html),
+To restore data from a dump previously created with [_arangodump_](programs-arangodump.html),
 ArangoDB provides the _arangorestore_ tool.
 
-Invoking Arangorestore
-----------------------
+Invoking _arangorestore_
+------------------------
 
 _arangorestore_ can be invoked from the command-line as follows:
 
@@ -147,7 +146,7 @@ also restored or already present on the server.
 Encryption
 ----------
 
-See [Arangodump](programs-arangodump-examples.html#encryption) for details.
+See [_arangodump_](programs-arangodump-examples.html#encryption) for details.
 
 Reloading Data into a different Collection
 ------------------------------------------

@@ -1,9 +1,8 @@
 ---
 layout: default
-description: Arangodump Options
+description: arangodump Options
 ---
-Arangodump Options
-==================
+# _arangodump_ Options
 
 Usage: `arangodump [<options>]`
 

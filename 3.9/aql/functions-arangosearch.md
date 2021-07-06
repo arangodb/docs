@@ -353,14 +353,16 @@ matching _n_-grams is, divided by the target's total _n_-gram count.
 Only fully matching _n_-grams are counted.
 
 The _n_-grams for both attribute and target are produced by the specified
-Analyzer. It is recommended to use an Analyzer of type `ngram` with
-`preserveOriginal: false` and `min` equal to `max`. Increasing the _n_-gram
-length will increase accuracy, but reduce error tolerance. In most cases a
-size of 2 or 3 will be a good choice. 
+Analyzer. Increasing the _n_-gram length will increase accuracy, but reduce
+error tolerance. In most cases a size of 2 or 3 will be a good choice.
 
 {% hint 'info' %}
-The selected Analyzer must have the `"position"` and `"frequency"` features
-enabled. The `NGRAM_MATCH()` function will otherwise not find anything.
+Use an Analyzer of type `ngram` with `preserveOriginal: false` and `min` equal
+to `max`. Otherwise, the similarity score calculated internally will be lower
+than expected.
+
+The Analyzer must have the `"position"` and `"frequency"` features enabled or
+the `NGRAM_MATCH()` function will not find anything.
 {% endhint %}
 
 Also see the String Functions
@@ -552,6 +554,20 @@ It is the same as the following:
 ```js
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
 ```
+
+Empty arrays are skipped:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, [], 1, "jumps", "text_en") RETURN doc
+```
+
+The query is equivalent to:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 2 "jumps", "text_en") RETURN doc
+```
+
+Providing only empty arrays is valid, but will yield no results.
 
 Using object tokens `STARTS_WITH`, `WILDCARD`, `LEVENSHTEIN_MATCH`, `TERMS` and
 `IN_RANGE`:

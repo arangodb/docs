@@ -50,8 +50,7 @@ Version 3.7
   [Wildcard](aql/functions-arangosearch.html#like) and fuzzy search
   ([Levenshtein distance](aql/functions-arangosearch.html#levenshtein_match) and
   [_n_-gram based](aql/functions-arangosearch.html#ngram_match)),
-  [enhanced phrase](aql/functions-arangosearch.html#phrase) and
-  [proximity search](aql/functions-array.html#jaccard),
+  enhanced [phrase and proximity search](aql/functions-arangosearch.html#phrase),
   improved late document materialization and
   [Views covering queries](release-notes-new-features37.html#covering-indexes)
   using their indexes without touching the storage engine, as well as a new
@@ -215,7 +214,7 @@ Version 3.4
 - [**Query Profiler**](aql/execution-and-performance-query-profiler.html):
   Enables the analysis of queries and adds additional information for the user
   to identify optimization potentials more easily. The profiler can be accessed
-  via Arangosh with `db._profileQuery(...)` or via the *Profile* button in the
+  via _arangosh_ with `db._profileQuery(...)` or via the *Profile* button in the
   Query Editor of the web interface.
 
 - [**Streaming Cursors**](aql/invocation-with-arangosh.html#setting-options):
@@ -244,7 +243,7 @@ Version 3.3
   in case of a disaster in one datacenter.
 
 - [**Encrypted Backups**](programs-arangodump-examples.html#encryption):
-  Arangodump can create backups encrypted with a secret key using AES256
+  _arangodump_ can create backups encrypted with a secret key using AES256
   block cipher.
 
 **All Editions**

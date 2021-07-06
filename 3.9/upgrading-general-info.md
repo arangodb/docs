@@ -29,7 +29,7 @@ Before upgrading, it is recommended to:
   can deal with them.
 - As an extra precaution, and as a requirement if you want to [downgrade](downgrading.html),
   you might want to:
-  - Take a backup of the old ArangoDB database, using [Arangodump](programs-arangodump.html),
+  - Take a backup of the old ArangoDB database, using [_arangodump_](programs-arangodump.html),
     as well as
   - Copy the entire "old" data directory to a safe place, after stopping the ArangoDB Server
     running on it (if you are running an Active Failover, or a Cluster, you will need to take
