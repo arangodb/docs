@@ -421,4 +421,5 @@ default of 1000000 (1s). Use caution when changing from the default.
 `--server.export-metrics-api`
 
 Enables or disables the
-[Metrics HTTP API](http/administration-and-monitoring-metrics.html#metrics-api).
+[Metrics HTTP API](http/administration-and-monitoring-metrics.html#metrics-api-v2)
+(both the deprecated and the new v2 one).

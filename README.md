@@ -33,10 +33,10 @@ when adding a new page). To be sure you have an up-to-date version remove the
 To speed up the build process you may disable certain versions from being built
 by changing the `_config.yml`:
 
-```yml
+```yaml
 exclude:
 # - 3.9/
-  - 3.8/
+# - 3.8/
   - 3.7/
   - 3.6/
   - 3.5/
@@ -44,8 +44,16 @@ exclude:
   - 3.3/
 ```
 
-Above example disables versions 2.8 through 3.3, so that 3.4 and 3.5 will be
+Above example disables versions 3.3 through 3.7, so that 3.8 and 3.9 will be
 built only. Do not commit these changes of the configuration!
+
+Note that building may fail if you disable required versions as defined by:
+
+```yaml
+versions:
+  stable: "3.8"
+  devel: "3.9"
+```
 
 ## Building the documentation
 
@@ -228,24 +236,15 @@ renamed in (can also be the same version twice, e.g. `# 3.8 -> 3.8`).
   done
   cd ..
   ```
-- Create relative symlinks to program option JSON files in `_data`, like
+- Create relative symlinks to program option JSON files and the metrics YAML
+  file in `_data`, like
   ```
   cd _data
   for prog in backup bench d dump export import inspect restore sh vpack; do
     ln -s "../4.0/generated/arango${prog}-options.json" "4.0-program-options-arango${prog}.json"
   done
+  ln -s "../4.0/generated/allMetrics.yaml" "4.0-allMetrics.yaml"
   cd ..
-  ```
-- Adjust the version numbers in `site.data` references in all pages of the
-  copied folder (here: `4.0`) which include program startup options
-  (`program-option.html`), e.g.
-  ```diff
-  -{% assign options = site.data["39-program-options-arangobackup"] %}
-  +{% assign options = site.data["40-program-options-arangobackup"] %}
-   {% include program-option.html options=options name="arangobackup" %}
-  ```
-  ```
-  grep -r -F 'site.data["39-' --include '*.md' -l 4.0 | xargs sed -i 's/site\.data\["39-/site.data["40-/g'
   ```
 - Adjust the version numbers in `redirect_from` URLs in the frontmatter
   to match the new version folder, e.g.

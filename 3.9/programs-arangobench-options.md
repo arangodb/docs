@@ -37,5 +37,6 @@ using batch requests:
 arangobench --test-case document --requests 1000 --concurrency 2 --batch-size 10
 ```
 
-{% assign options = site.data["38-program-options-arangobench"] %}
+{% assign optionsFile = page.version.version | remove: "." | append: "-program-options-arangobench" -%}
+{% assign options = site.data[optionsFile] -%}
 {% include program-option.html options=options name="arangobench" %}

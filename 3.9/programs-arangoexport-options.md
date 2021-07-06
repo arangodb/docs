@@ -6,5 +6,6 @@ description: arangoexport Options
 
 Usage: `arangoexport [<options>]`
 
-{% assign options = site.data["39-program-options-arangoexport"] %}
+{% assign optionsFile = page.version.version | remove: "." | append: "-program-options-arangoexport" -%}
+{% assign options = site.data[optionsFile] -%}
 {% include program-option.html options=options name="arangoexport" %}
