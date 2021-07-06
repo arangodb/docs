@@ -12,4 +12,4 @@ desired action.
 
 {% assign optionsFile = page.version.version | remove: "." | append: "-program-options-arangobackup" -%}
 {% assign options = site.data[optionsFile] -%}
-{% include program-option.html options=options name="arangobackup" -%}
+{% include program-option.html options=options name="arangobackup" %}
