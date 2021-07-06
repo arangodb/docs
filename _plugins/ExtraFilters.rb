@@ -65,11 +65,15 @@ module Jekyll
             Pathname.new(File.realpath(path)).relative_path_from(Pathname.new(source)).to_s
         end
 
-        def has_key(obj, key)
+        def is_set(var, source)
+            if var.nil? || var.empty?
+                raise "'#{source}' is nil or empty"
+            end
+        end
+        def has_key(obj, key, source)
             if !obj.has_key?(key)
-                file = @context.registers[:page]['path']
-                err = "Missing key '#{key}', in file #{file}"
-                raise err
+                keys = obj.keys.map{ |k| "'#{k}'" }.join(", ")
+                raise "Missing key '#{key}' in #{source}, available: #{keys}"
             end
         end
     end
