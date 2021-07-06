@@ -1,5 +1,6 @@
+{{ include.version | is_set: "include.version" -}}
 {% assign metrics = include.version | remove: "." | append: "-allMetrics" -%}
-{{ site.data | has_key: metrics -}}
+{{ site.data | has_key: metrics, "site.data" -}}
 {% assign groups = site.data[metrics] | group_by:"category" -%}
 {% for group in groups -%}
 ### {{ group.name }}
