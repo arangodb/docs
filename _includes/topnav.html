@@ -38,7 +38,7 @@
         switcher.value = value;
       }
     }
-    
+
     switcher.addEventListener('change', function(event) {
       var current = location.href;
       var urlElements = current.split('/');
@@ -63,62 +63,56 @@
   {%- assign selected = "manual" -%}
   {%- endif %}
   <ul class="arangodb-navmenu">
-    <li{% if selected == "manual" %} class="active-tab"{% endif %}>
+    <li class="not-algolia{% if selected == "manual" %} active-tab{% endif %}">
       <a href="/docs/{{ versionPath }}/" data-book="Manual">Manual</a>
     </li>
     {%- if site.data.books[version] contains "aql" %}
-    <li{% if selected == "aql" %} class="active-tab"{% endif %}>
+    <li class="not-algolia{% if selected == "aql" %} active-tab{% endif %}">
       <a href="/docs/{{ versionPath }}/aql/" data-book="AQL">AQL</a>
     </li>
     {%- endif -%}
     {%- if site.data.books[version] contains "http" %}
-    <li{% if selected == "http" %} class="active-tab"{% endif %}>
+    <li class="not-algolia{% if selected == "http" %} active-tab{% endif %}">
       <a href="/docs/{{ versionPath }}/http/" data-book="HTTP">HTTP</a>
     </li>
     {%- endif -%}
     {%- if site.data.books[version] contains "cookbook" %}
-    <li{% if selected == "cookbook" %} class="active-tab"{% endif %}>
+    <li class="not-algolia{% if selected == "cookbook" %} active-tab{% endif %}">
       <a href="/docs/{{ versionPath }}/cookbook/" data-book="Cookbook">Cookbook</a>
     </li>
     {%- endif -%}
     {%- if site.data.books[version] contains "drivers" %}
-    <li{% if selected == "drivers" %} class="active-tab"{% endif %}>
+    <li class="not-algolia{% if selected == "drivers" %} active-tab{% endif %}">
       <a href="/docs/{{ versionPath }}/drivers/" data-book="Drivers">Drivers</a>
     </li>
     {%- endif %}
     {%- if site.data.books[version] contains "oasis" %}
-    <li{% if selected == "oasis" %} class="active-tab"{% endif %}>
+    <li class="not-algolia{% if selected == "oasis" %} active-tab{% endif %}">
       <a href="/docs/{{ versionPath }}/oasis/" data-book="Oasis">Oasis</a>
     </li>
     {%- endif %}
-    <li class="socialIcons" title="GitHub">
+    <li class="not-algolia socialIcons" title="GitHub">
       <a href="https://github.com/ArangoDB/ArangoDB/issues" target="_blank">
         <i class="fa fa-github"></i>
       </a>
     </li>
-    <li class="socialIcons" title="StackOverflow">
+    <li class="not-algolia socialIcons" title="StackOverflow">
       <a href="http://stackoverflow.com/questions/tagged/arangodb" target="_blank">
         <i class="fa fa-stack-overflow"></i>
       </a>
     </li>
-    <li class="socialIcons socialIcons-googlegroups" title="Google Groups">
+    <li class="not-algolia socialIcons socialIcons-googlegroups" title="Google Groups">
       <a href="https://groups.google.com/forum/#!forum/arangodb" target="_blank">
         <img alt="Google Groups" src="/docs/assets/googlegroupsIcon.png">
       </a>
     </li>
-    <li class="socialIcons" title="Slack">
+    <li class="not-algolia socialIcons" title="Slack">
       <a href="https://slack.arangodb.com" target="_blank">
         <i class="fa fa-slack"></i>
       </a>
     </li>
     <li>
-      <div class="searchbar">
-        <div id="search-searchbar"></div>
-      </div>
-    </li>
-    <li class="placeholder">
-      <div style="width: 15px"></div>
+      <input type="text" class="searchinput" id="search-searchbar" placeholder="Search Documentation..."/>
     </li>
   </ul>
-  <div id="search-hits"></div>
 </div>
