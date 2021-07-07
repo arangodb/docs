@@ -26,6 +26,10 @@ print out all options and exit.
 
 Prints the version of the server and exits.
 
+`--version-json`
+
+Prints the version of the server in JSON format and exits.
+
 ## Daemon
 
 `--daemon`
