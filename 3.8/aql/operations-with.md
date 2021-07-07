@@ -1,15 +1,20 @@
 ---
 layout: default
-description: An AQL query can optionally start with a WITH statement and the list of collections used by the query
+description: Declare implicitly used collections to read-lock them at query start to avoid deadlocks
+title: AQL WITH Operation
 ---
-
 WITH
 ====
 
-An AQL query can optionally start with a `WITH` statement and the list of 
-collections used by the query. All collections specified in `WITH` will be
-read-locked at query start, in addition to the other collections the query
-uses and that are detected by the AQL query parser.
+An AQL query can start with a `WITH` keyword followed by a list of collections
+that the query implicitly reads from. All collections specified in the `WITH`
+statement will be read-locked at query start, in addition to other collections
+that are explicitly used in the query and automatically detected by the AQL
+query parser.
+
+With RocksDB as storage engine, the `WITH` operation is only required if you
+use a cluster deployment and only for AQL queries which dynamically access
+collections for reading.
 
 Syntax
 ------
@@ -19,11 +24,23 @@ Syntax
 Usage
 -----
 
-Specifying further collections in `WITH` can be useful for queries that 
-dynamically access collections (e.g. via traversals or via dynamic 
-document access functions such as `DOCUMENT()`). Such collections may be 
-invisible to the AQL query parser at query compile time, and thus will not
-be read-locked automatically at query start. In this case, the AQL execution 
+Specifying additional collections using the `WITH` operation is only needed for
+queries which dynamically access collections. This is the case if a query uses
+one of the following features:
+
+- **Traversals**: 
+
+- **Functions**: 
+
+ via traversals or via
+dynamic document access functions such as `DOCUMENT()`). Such collections are
+invisible to the AQL query parser at query compile time.
+
+
+
+
+They will thus not
+be read-locked automatically at query start. In this case, the AQL execution
 engine will lazily lock these collections whenever they are used, which can 
 lead to deadlock with other queries. In case such deadlock is detected, the 
 query will automatically be aborted and changes will be rolled back. In this
