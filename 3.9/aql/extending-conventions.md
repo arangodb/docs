@@ -37,7 +37,7 @@ purely functional and thus free of side effects and state, and state modificatio
 
 {% hint 'warning' %}
 Modification of global variables is unsupported, as is reading or changing
-the data of any collection from inside an AQL user function.
+the data of any collection or running queries from inside an AQL user function.
 {% endhint %}
 
 User function code is late-bound, and may thus not rely on any variables
