@@ -457,7 +457,7 @@ Object tokens:
 
 - `{IN_RANGE: [low, high, includeLow, includeHigh]}`:
   see [IN_RANGE()](#in_range). *low* and *high* can only be strings.
-- `{LEVENSHTEIN_MATCH: [token, maxDistance, transpositions, maxTerms]}`:
+- `{LEVENSHTEIN_MATCH: [token, maxDistance, transpositions, maxTerms, prefix]}`:
   - `token` (string): a string to search
   - `maxDistance` (number): maximum Levenshtein / Damerau-Levenshtein distance
   - `transpositions` (bool, _optional_): if set to `false`, a Levenshtein
@@ -465,6 +465,9 @@ Object tokens:
   - `maxTerms` (number, _optional_): consider only a specified number of the
     most relevant terms. One can pass `0` to consider all matched terms, but it may
     impact performance negatively. The default value is `64`.
+  - `prefix` (string, _optional_): if defined, Levenshtein or Damerau-Levenshtein 
+    distance is computed for documents which contains specified prefix. The default value 
+    is empty string.
 - `{STARTS_WITH: [prefix]}`: see [STARTS_WITH()](#starts_with).
   Array brackets are optional
 - `{TERM: [token]}`: equal to `token` but without Analyzer tokenization.
@@ -710,7 +713,7 @@ FOR doc IN viewName
 
 <small>Introduced in: v3.7.0</small>
 
-`LEVENSHTEIN_MATCH(path, target, distance, transpositions, maxTerms) → fulfilled`
+`LEVENSHTEIN_MATCH(path, target, distance, transpositions, maxTerms, prefix) → fulfilled`
 
 Match documents with a [Damerau-Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance){:target=_"blank"}
 lower than or equal to *distance* between the stored attribute value and
@@ -732,6 +735,9 @@ if you want to calculate the edit distance of two strings.
   impact performance negatively. The default value is `64`.
 - returns **fulfilled** (bool): `true` if the calculated distance is less than
   or equal to *distance*, `false` otherwise
+- **prefix** (string, _optional_): if defined, Levenshtein or Damerau-Levenshtein 
+  distance is computed for documents which contains specified prefix. The default value 
+  is empty string.
 
 The Levenshtein distance between _quick_ and _quikc_ is `2` because it requires
 two operations to go from one to the other (remove _k_, insert _k_ at a
@@ -748,6 +754,15 @@ The Damerau-Levenshtein distance is `1` (move _k_ to the end).
 ```js
 FOR doc IN viewName
   SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 1) // matches "quick"
+  RETURN doc.text
+```
+
+Match documents on levenshtein distance 1 with prefix `qui`. All edit operations 
+is applied to term `kc`. Prefix `qui` is constant. 
+
+```js
+FOR doc IN viewName
+  SEARCH LEVENSHTEIN_MATCH(doc.text, "kc", 1, false, 64, "qui") // matches "quick"
   RETURN doc.text
 ```
 
