@@ -9,6 +9,26 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.9. ArangoDB 3.9 also contains several bug fixes that are not listed
 here.
 
+AQL
+---
+
+### Decay Functions
+
+Added three decay functions to AQL:
+
+- [DECAY_EXP()](aql/functions-numeric.html#decay_exp)
+- [DECAY_LINEAR()](aql/functions-numeric.html#decay_linear)
+- [DECAY_GAUSS()](aql/functions-numeric.html#decay_gauss)
+
+Decay functions calculate a score with a function that decays depending on the
+distance of a numeric value from a user given origin.
+
+```js
+DECAY_GAUSS(41, 40, 5, 5, 0.5) // 1
+DECAY_LINEAR(5, 0, 10, 0, 0.2) // 0.6
+DECAY_EXP(2, 0, 10, 0, 0.2)    // 0.7247796636776955
+```
+
 UI
 --
 
@@ -23,6 +43,13 @@ root (`/`) call of the HTTP API:
 
 - `--http.redirect-root-to`: redirect of root URL to a specified path.
   Redirects to `/_admin/aardvark/index.html` if not set (default).
+
+Server options
+--------------
+
+The _arangod_ server now provides a command `--version-json` to print version
+information in JSON format. This output can be used by tools that need to 
+programmatically inspect an _arangod_ executable.
 
 Client tools
 ------------

@@ -6,5 +6,6 @@ description: arangovpack Options
 
 Usage: `arangovpack [<options>]`
 
-{% assign options = site.data["39-program-options-arangovpack"] %}
+{% assign optionsFile = page.version.version | remove: "." | append: "-program-options-arangovpack" -%}
+{% assign options = site.data[optionsFile] -%}
 {% include program-option.html options=options name="arangovpack" %}

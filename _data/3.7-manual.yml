@@ -215,11 +215,9 @@
         - text: Details
           href: programs-foxx-cli-details.html
 - subtitle: CORE TOPICS
-- text: Data models & modeling
-  href: data-modeling.html
+- text: Data Model & Concepts
+  href: data-modeling-concepts.html
   children:
-    - text: Concepts
-      href: data-modeling-concepts.html
     - text: Databases
       href: data-modeling-databases.html
       children:
@@ -245,8 +243,6 @@
           href: data-modeling-documents-database-methods.html
         - text: Schema Validation
           href: data-modeling-documents-schema-validation.html
-        - text: Monetary data without precision loss
-          href: data-modeling-monetary-data-without-precision-loss.html
     - text: 'Graphs, Vertices & Edges'
       href: data-modeling-graphs-vertices-edges.html
     - text: Views
@@ -267,8 +263,15 @@
           href: data-modeling-naming-conventions-document-keys.html
         - text: Attribute Names
           href: data-modeling-naming-conventions-attribute-names.html
+- text: Modeling Data
+  href: data-modeling.html
+  children:
     - text: Operational Factors
       href: data-modeling-operational-factors.html
+    - text: Mapping RDF to Graphs
+      href: data-modeling-graphs-from-rdf.html
+    - text: Monetary data without precision loss
+      href: data-modeling-monetary-data-without-precision-loss.html
 - text: Indexing
   href: indexing.html
   children:
@@ -310,8 +313,8 @@
           href: arangosearch-fulltext-token-search.html
         - text: Phrase and proximity search
           href: arangosearch-phrase-and-proximity-search.html
-#       - text: Fuzzy search
-#         href: arangosearch-fuzzy-search.html
+        - text: Fuzzy search
+          href: arangosearch-fuzzy-search.html
         - text: Ranking
           href: arangosearch-ranking.html
         - text: Performance

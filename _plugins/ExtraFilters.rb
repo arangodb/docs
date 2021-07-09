@@ -64,6 +64,18 @@ module Jekyll
             source = site.source # base path
             Pathname.new(File.realpath(path)).relative_path_from(Pathname.new(source)).to_s
         end
+
+        def is_set(var, source)
+            if var.nil? || var.empty?
+                raise "'#{source}' is nil or empty"
+            end
+        end
+        def has_key(obj, key, source)
+            if !obj.has_key?(key)
+                keys = obj.keys.map{ |k| "'#{k}'" }.join(", ")
+                raise "Missing key '#{key}' in #{source}, available: #{keys}"
+            end
+        end
     end
 end
 
