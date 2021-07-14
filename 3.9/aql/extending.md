@@ -59,6 +59,10 @@ To overcome these mentioned limitations, you may want to increase the
 (at the expense of increased memory usage), and the
 [number of available server threads](../programs-arangod-server.html#server-threads).
 
+In addition, modification of global JavaScript variables from inside UDFs is 
+unsupported, as is reading or changing the data of any collection or running queries
+from inside an AQL user function.
+
 ### Deployment Details
 
 Internally, UDFs are stored in a system collection named `_aqlfunctions`
