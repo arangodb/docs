@@ -6,12 +6,25 @@ description: Scala
 
 ## Maven
 
+### Spark 3.X + 2.4.1 and above
 ```XML
 <dependencies>
   <dependency>
     <groupId>com.arangodb</groupId>
-    <artifactId>arangodb-spark-connector</artifactId>
-    <version>1.0.2</version>
+    <artifactId>arangodb-spark-connector_2.12</artifactId>
+    <version>1.1.0</version>
+  </dependency>
+	....
+</dependencies>
+```
+
+### Spark 2.4.0 and below
+```XML
+<dependencies>
+  <dependency>
+    <groupId>com.arangodb</groupId>
+    <artifactId>arangodb-spark-connector_2.11</artifactId>
+    <version>1.1.0</version>
   </dependency>
 	....
 </dependencies>
@@ -19,8 +32,14 @@ description: Scala
 
 ## SBT
 
+### Spark 3.X + 2.4.1 and above
 ```Json
-libraryDependencies += "com.arangodb" % "arangodb-spark-connector" % "1.0.2"
+libraryDependencies += "com.arangodb" % "arangodb-spark-connector_2.12" % "1.1.0"
+```
+
+### Spark 2.4.0 and below
+```Json
+libraryDependencies += "com.arangodb" % "arangodb-spark-connector_2.11" % "1.1.0"
 ```
 
 ## Configuration
