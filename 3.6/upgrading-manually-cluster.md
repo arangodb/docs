@@ -17,7 +17,7 @@ for detailed information.
 {% hint 'warning' %}
 It is highly recommended to upgrade 3.6.x deployments to at least 3.6.15
 because of a technical problem, see
-[Technical Alert #6](https://www.arangodb.com/alerts/tech06){:target="_blank"}.
+[Technical Alert #6](https://www.arangodb.com/alerts/tech06/){:target="_blank"}.
 {% endhint %}
 
 Preparations
@@ -35,7 +35,7 @@ separate from the ones in your _cluster_ configuration. Also, that you haven't
 modified the init script or systemd unit file for the standalone instance in way
 that it would start or stop your _cluster_ instance instead.
 
-You can read about the details on how to deploy your _cluster_ indendently of the
+You can read about the details on how to deploy your _cluster_ independently of the
 standalone instance in the [_cluster_ deployment preliminary](deployment-cluster-preliminary-information.html).
 
 In the following, we assume that you don't use the standalone instance from the
