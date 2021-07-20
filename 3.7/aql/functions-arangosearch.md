@@ -465,9 +465,12 @@ Object tokens:
   - `maxTerms` (number, _optional_): consider only a specified number of the
     most relevant terms. One can pass `0` to consider all matched terms, but it may
     impact performance negatively. The default value is `64`.
-  - `prefix` (string, _optional_): if defined, Levenshtein or Damerau-Levenshtein 
-    distance is computed for documents which contains specified prefix. The default value 
-    is empty string.
+  - `prefix` (string, _optional_): if defined, then a search for the exact
+    prefix is carried out, using the matches as candidates. The Levenshtein /
+    Damerau-Levenshtein distance is then computed for each candidate using the
+    remainders of the strings. This option can improve performance in cases where
+    there is a known common prefix. The default value is an empty string
+    (introduced in v3.7.13, v3.8.1).
 - `{STARTS_WITH: [prefix]}`: see [STARTS_WITH()](#starts_with).
   Array brackets are optional
 - `{TERM: [token]}`: equal to `token` but without Analyzer tokenization.
@@ -735,9 +738,12 @@ if you want to calculate the edit distance of two strings.
   impact performance negatively. The default value is `64`.
 - returns **fulfilled** (bool): `true` if the calculated distance is less than
   or equal to *distance*, `false` otherwise
-- **prefix** (string, _optional_): if defined, Levenshtein or Damerau-Levenshtein 
-  distance is computed for documents which contains specified prefix. The default value 
-  is empty string.
+- **prefix** (string, _optional_): if defined, then a search for the exact
+  prefix is carried out, using the matches as candidates. The Levenshtein /
+  Damerau-Levenshtein distance is then computed for each candidate using the
+  remainders of the strings. This option can improve performance in cases where
+  there is a known common prefix. The default value is an empty string
+  (introduced in v3.7.13, v3.8.1).
 
 The Levenshtein distance between _quick_ and _quikc_ is `2` because it requires
 two operations to go from one to the other (remove _k_, insert _k_ at a
@@ -757,8 +763,9 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
-Match documents on levenshtein distance 1 with prefix `qui`. All edit operations 
-is applied to term `kc`. Prefix `qui` is constant. 
+Match documents with a Levenshtein distance of 1 with the prefix `qui`. The edit
+distance is calculated using the search term `kc` and the stored value without
+the prefix (e.g. `ck`). The prefix `qui` is constant.
 
 ```js
 FOR doc IN viewName
