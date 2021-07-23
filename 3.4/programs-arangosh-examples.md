@@ -28,6 +28,14 @@ For example, to connect to an ArangoDB server on IP *192.168.173.13* on port
 _arangosh_ will then display a password prompt and try to connect to the 
 server after the password was entered.
 
+{% hint 'warning' %}
+Due to how ArangoSH processes arguments, a command-line argument provided as `--server.username <arg>` or `--server.password <arg>` (non-exhaustive list) containing two `@` will treat the symbols in between as the name of a system environment variable. This edge case may appear when using password generators.
+
+To avoid this behavior, escape all `@` symbols by prefixing them by another `@`.
+
+Example: `password@test@123` would need to become `password@@test@@123` to work correctly. (Please avoid using insecure passwords in production environments)
+{% endhint %}
+
 The shell will print its own version number and if successfully connected
 to a server the version number of the ArangoDB server.
 
