@@ -8,7 +8,7 @@ How to produce an Agency Dump
 One can read out all information of an _Agency_ in the following way:
 
 ```
-curl https://<any-coordinator>:<port>/_api/cluster/agency-dump -d > agency
+curl -k https://<any-coordinator>:<port>/_api/cluster/agency-dump > agency.json
 ```
 
 In case of an authenticated _Cluster_, to access _Agents_ a JWT token is needed.
@@ -24,7 +24,7 @@ AUTH=$(arangodb auth header --auth.jwt-secret <path-to-cluster-jwt-secret>)
 The generated authentication header is then used in the following way with `curl`, to produce the _Agency_ dump:
 
 ```
-curl -kH"$AUTH" https://<any-coordinator>:<port>/_api/cluster/agency-dump
+curl -kH"$AUTH" https://<any-coordinator>:<port>/_api/cluster/agency-dump > agency.json
 ```
 
 Or using username and password like below, where one is prompted to
