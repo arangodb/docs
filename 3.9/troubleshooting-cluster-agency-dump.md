@@ -11,8 +11,6 @@ One can read out all information of an _Agency_ in the following way:
 curl https://<any-coordinator>:<port>/_api/cluster/agency-dump -d > agency
 ```
 
-Please use the _IP_ (or hostname) and _PORT_ of any _Coordinator_.
-
 In case of an authenticated _Cluster_, to access _Agents_ a JWT token is needed.
 
 When authentication is enabled, the user provides either an authentication
