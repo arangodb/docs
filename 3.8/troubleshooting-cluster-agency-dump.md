@@ -11,8 +11,6 @@ One can read out all information of an _Agency_ in the following way:
 curl -k https://<any-coordinator>:<port>/_api/cluster/agency-dump > agency.json
 ```
 
-In case of an authenticated _Cluster_, to access _Agents_ a JWT token is needed.
-
 When authentication is enabled, the user provides either an authentication
 header to access every server or uses the root user credentials. The
 authentication header is generated using the following `arangodb` call:
