@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Arangod serves a frontend also known as Aardvark that allows you to easily manage ArangoDB through a GUI.
+description: arangod serves a frontend also known as Aardvark that allows you to easily manage ArangoDB through a GUI.
 title: ArangoDB Web Interface
 ---
 Web Interface

@@ -3694,6 +3694,60 @@
             "type": "object", 
             "x-filename": "/work/ArangoDB/Documentation/DocuBlocks/Rest/Administration/get_api_return.md"
         }, 
+        "get_api_shutdown_rc_200": {
+            "properties": {
+                "AQLcursors": {
+                    "description": "Number of AQL cursors that are still active.\n\n", 
+                    "format": "", 
+                    "type": "number"
+                }, 
+                "allClear": {
+                    "description": "Whether all active operations finished.\n\n\n", 
+                    "format": "", 
+                    "type": "boolean"
+                }, 
+                "doneJobs": {
+                    "description": "Number of finished asynchronous requests, whose result has not yet been collected.\n\n", 
+                    "format": "", 
+                    "type": "number"
+                }, 
+                "lowPrioOngoingRequests": {
+                    "description": "Number of queued low priority requests.\n\n", 
+                    "format": "", 
+                    "type": "number"
+                }, 
+                "lowPrioQueuedRequests": {
+                    "description": "Number of ongoing low priority requests.\n\n", 
+                    "format": "", 
+                    "type": "number"
+                }, 
+                "pendingJobs": {
+                    "description": "Number of ongoing asynchronous requests.\n\n", 
+                    "format": "", 
+                    "type": "number"
+                }, 
+                "pregelConductors": {
+                    "description": "Number of ongoing Pregel jobs.\n\n", 
+                    "format": "", 
+                    "type": "number"
+                }, 
+                "softShutdownOngoing": {
+                    "description": "Whether a soft shutdown of the Coordinator is in progress.\n\n", 
+                    "format": "", 
+                    "type": "boolean"
+                }, 
+                "transactions": {
+                    "description": "Number of ongoing transactions.\n\n", 
+                    "format": "", 
+                    "type": "number"
+                }
+            }, 
+            "required": [
+                "softShutdownOngoing"
+            ], 
+            "type": "object", 
+            "x-filename": "/home/simran/oskar2/work/ArangoDB/Documentation/DocuBlocks/Rest/Administration/get_api_shutdown.md"
+        }, 
         "get_api_tasks_all_rc_200": {
             "description": "a list of all tasks\n\n", 
             "items": {
@@ -7124,9 +7178,17 @@
         }, 
         "/_admin/shutdown": {
             "delete": {
-                "description": "\n\nThis call initiates a clean shutdown sequence. Requires administrive privileges\n\n", 
+                "description": "\n\nThis call initiates a clean shutdown sequence. Requires administrive privileges.\n\n", 
                 "operationId": "RestShutdownHandler", 
-                "parameters": [], 
+                "parameters": [
+                    {
+                        "description": "<small>Introduced in: v3.7.12, v3.8.1, v3.9.0</small>\n\nIf set to `true`, this initiates a soft shutdown. This is only available\non Coordinators. When issued, the Coordinator tracks a number of ongoing\noperations, waits until all have finished, and then shuts itself down\nnormally. In the meantime, new operations of these types are no longer\naccepted and a 503 response is sent instead. However, further requests\nto finish the ongoing operations are allowed. This feature can be used\nto make restart operations of Coordinators less intrusive for clients.\n\nThe following types of operations are tracked:\n\n - AQL cursors (in particular streaming cursors)\n - Transactions (in particular stream transactions)\n - Pregel runs (conducted by this Coordinator)\n - Ongoing asynchronous requests (using the `x-arango-async: store` HTTP header\n - Finished asynchronous requests, whose result has not yet been\n   collected\n - Queued low priority requests (most normal requests)\n - Ongoing low priority requests\n\nNote that the latter two are tracked but not prevented from being\nstarted, to allow for finishing operations.\n\n", 
+                        "in": "query", 
+                        "name": "soft", 
+                        "required": false, 
+                        "type": "boolean"
+                    }
+                ], 
                 "responses": {
                     "200": {
                         "description": "is returned in all cases, `OK` will be returned in the result buffer on success.\n\n\n"
@@ -7138,6 +7200,30 @@
                 ], 
                 "x-examples": [], 
                 "x-filename": "/work/ArangoDB/Documentation/DocuBlocks/Rest/Administration/delete_api_shutdown.md", 
+                "x-hints": ""
+            }, 
+            "get": {
+                "description": "\n\n<small>Introduced in: v3.7.12, v3.8.1, v3.9.0</small>\n\nThis call reports progress about a soft Coordinator shutdown (see\ndocumentation of `DELETE /_admin/shutdown?soft=true`).\nIn this case, the following types of operations are tracked:\n\n - AQL cursors (in particular streaming cursors)\n - Transactions (in particular stream transactions)\n - Pregel runs (conducted by this Coordinator)\n - Ongoing asynchronous requests (using the `x-arango-async: store` HTTP header\n - Finished asynchronous requests, whose result has not yet been\n   collected\n - Queued low priority requests (most normal requests)\n - Ongoing low priority requests\n\nThis API is only available on Coordinators.\n\n\n**HTTP 200**\n*A json document with these Properties is returned:*\n\nThe response indicates the fact that a soft shutdown is ongoing and the\nnumber of active operations of the various types. Once all numbers have gone\nto 0, the flag `allClear` is set and the Coordinator shuts down automatically.\n\n- **lowPrioOngoingRequests**: Number of queued low priority requests.\n- **transactions**: Number of ongoing transactions.\n- **pendingJobs**: Number of ongoing asynchronous requests.\n- **pregelConductors**: Number of ongoing Pregel jobs.\n- **lowPrioQueuedRequests**: Number of ongoing low priority requests.\n- **AQLcursors**: Number of AQL cursors that are still active.\n- **softShutdownOngoing**: Whether a soft shutdown of the Coordinator is in progress.\n- **doneJobs**: Number of finished asynchronous requests, whose result has not yet been collected.\n- **allClear**: Whether all active operations finished.\n\n", 
+                "operationId": "RestGetShutdownHandler", 
+                "parameters": [], 
+                "produces": [
+                    "application/json"
+                ], 
+                "responses": {
+                    "200": {
+                        "description": "The response indicates the fact that a soft shutdown is ongoing and the\nnumber of active operations of the various types. Once all numbers have gone\nto 0, the flag `allClear` is set and the Coordinator shuts down automatically.\n\n", 
+                        "schema": {
+                            "$ref": "#/definitions/get_api_shutdown_rc_200"
+                        }, 
+                        "x-description-offset": 747
+                    }
+                }, 
+                "summary": "Query progress of soft shutdown process", 
+                "tags": [
+                    "Administration"
+                ], 
+                "x-examples": [], 
+                "x-filename": "/work/ArangoDB/Documentation/DocuBlocks/Rest/Administration/get_api_shutdown.md", 
                 "x-hints": ""
             }
         }, 

@@ -2,8 +2,7 @@
 layout: default
 description: Within the ArangoDB shell, the _query and _createStatement methods of the db object can be used to execute AQL queries
 ---
-Executing queries from Arangosh
-===============================
+# Executing queries from _arangosh_
 
 Within the ArangoDB shell, the *_query* and *_createStatement* methods of the
 *db* object can be used to execute AQL queries. This chapter also describes

@@ -2,8 +2,7 @@
 layout: default
 description: arangoimport can import data from comma and tab delimited files
 ---
-Arangoimport Examples: CSV / TSV
-================================
+# _arangoimport_ Examples: CSV / TSV
 
 Importing CSV Data
 ------------------

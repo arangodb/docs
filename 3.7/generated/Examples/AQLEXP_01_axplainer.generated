@@ -1,5 +1,5 @@
 arangosh&gt; db._create("test");
-[ArangoCollection 64732, "test" (type document, status loaded)]
+[ArangoCollection 64728, "test" (type document, status loaded)]
 arangosh&gt; for (i = 0; i &lt; 100; ++i) { db.test.save({ value: i }); }
 arangosh&gt; db.test.ensureIndex({ type: "skiplist", fields: [ "value" ] });
 { 
@@ -7,9 +7,9 @@ arangosh&gt; db.test.ensureIndex({ type: "skiplist", fields: [ "value" ] });
   "fields" : [ 
     "value" 
   ], 
-  "id" : "test/64937", 
+  "id" : "test/64933", 
   "isNewlyCreated" : true, 
-  "name" : "idx_1698302823724220416", 
+  "name" : "idx_1704438834765234176", 
   "selectivityEstimate" : 1, 
   "sparse" : false, 
   "type" : "skiplist", 
@@ -30,7 +30,7 @@ Execution plan:
 
 Indexes used:
  By   Name                      Type       Collection   Unique   Sparse   Selectivity   Fields        Ranges
-  9   idx_1698302823724220416   skiplist   test         false    false       100.00 %   [ `value` ]   (i.`value` &gt; 97)
+  9   idx_1704438834765234176   skiplist   test         false    false       100.00 %   [ `value` ]   (i.`value` &gt; 97)
 
 Optimization rules applied:
  Id   RuleName

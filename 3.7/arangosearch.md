@@ -641,16 +641,10 @@ To learn more, check out the different search examples:
   Search tokenized full-text with the tokens in a certain order, such as
   partial or full sentences, optionally with wildcard tokens for a proximity
   search.
-{%- comment %}
 - [**Fuzzy search**](arangosearch-fuzzy-search.html):
   Match strings even if they are not exactly the same as the search terms.
   By allowing some fuzziness you can compensate for typos and match similar
   tokens that could be relevant too.
-- [**Geospatial search**](arangosearch-geospatial-search.html):
-  You can use ArangoSearch for geographic search queries to find nearby
-  locations, places within a certain area and more. It can be combined with
-  other types of search queries unlike with the regular geo index.
-{%- endcomment %}
 
 For relevance and performance tuning, as well as the reference documentation, see:
 

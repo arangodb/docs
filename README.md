@@ -33,10 +33,10 @@ when adding a new page). To be sure you have an up-to-date version remove the
 To speed up the build process you may disable certain versions from being built
 by changing the `_config.yml`:
 
-```yml
+```yaml
 exclude:
 # - 3.9/
-  - 3.8/
+# - 3.8/
   - 3.7/
   - 3.6/
   - 3.5/
@@ -44,8 +44,16 @@ exclude:
   - 3.3/
 ```
 
-Above example disables versions 2.8 through 3.3, so that 3.4 and 3.5 will be
+Above example disables versions 3.3 through 3.7, so that 3.8 and 3.9 will be
 built only. Do not commit these changes of the configuration!
+
+Note that building may fail if you disable required versions as defined by:
+
+```yaml
+versions:
+  stable: "3.8"
+  devel: "3.9"
+```
 
 ## Building the documentation
 
@@ -100,32 +108,64 @@ python -m http.server
 
 ## Documentation structure
 
-In the root directory the directories `3.4`, `3.5` etc. represent the
-individual versions and their full documentation. The content used to be
-in version branches in the main repository.
+In the root directory, the directories `3.8`, `3.9` etc. represent the
+individual ArangoDB versions and their full documentation. The content used
+to be in version branches in the `arangodb/arangodb` repository, but now all
+documentation versions live in the `main` branch of this repository. This has
+the advantage that all versions can be built at once, but the drawback of Git
+cherry-picking not being available and therefore requiring to manually apply
+changes to different versions as necessary.
 
-The core book (Manual) of the version will be in the root e.g. `3.4/*.md`.
-The sub-books (AQL, Cookbook etc.) will have their own directory in there.
+The documentation is split into different parts, called "books" for historical
+reasons. The core book (Manual) of a version does not have an own folder for its
+content, but the files are found in the version directory, e.g. `3.8/*.md`.
+Other books (AQL, HTTP) have subfolders in the version folder, e.g. `3.8/aql/`.
+There are also books (Drivers, Oasis) that are not directly couple to ArangoDB
+versions, that have their files in an own folders in the root directory, e.g.
+`oasis/*.md`. These folders are symlinked in multiple version folders. Some
+files, like release notes, are also symlinked to reduce maintenance costs.
 
-The organization of documents is **flat**, namely there are no subdirectories per book
-(as opposed to the old documentation system).
+The organization of documents is **flat**, namely there are no subdirectories
+per book (as opposed to the previous documentation system).
 
-The other directories are:
+Other directories:
 
-- `_data`: data files which are used by plugins and layouts,
-  including the navigation definitions
-- `_includes`: templates for custom tags and layout partials
-- `_layouts`: layout definitions that can be used in YAML frontmatter like
-  `layout: default`
-- `_plugins`: Jekyll extensions for the navigation, version switcher,
-  custom tags / blocks etc.
-- `_site`: default output directory (not committed)
-- `assets`: files not directly related to the documentation content
-  that also need to be served (e.g. the ArangoDB logo)
-- `js`: JavaScript files used by the site
-- `scripts`: Scripts which were used in the migration process from Gitbook
-  to Jekyll (not really needed anymore)
-- `styles`: CSS files for the site, including a lot of legacy from Gitbook
+| Name        | Description
+|:------------|:-----------
+| `_data`     | data files which are used by plugins and layouts, including the navigation definitions
+| `_includes` | templates for custom tags and layout partials
+| `_layouts`  | layout definitions that can be used in YAML frontmatter like `layout: default`
+| `_plugins`  | Jekyll extensions for the navigation, version switcher, custom tags / blocks etc.
+| `_site`     | default output directory (not committed)
+| `assets`    | files not directly related to the documentation content that also need to be served (e.g. the ArangoDB logo)
+| `js`        | JavaScript files used by the site
+| `scripts`   | Scripts which were used in the migration process from Gitbook to Jekyll (not really needed anymore)
+| `styles`    | CSS files for the site, including a lot of legacy from Gitbook
+
+### Adding links
+
+The official way to cross-reference other pages within the documentation would be
+to use Jekyll's `link` tag (`{% link path/to/file.md %}`). This mechanism is not
+used, however. We use plain Markdown links, but this has the drawback of having
+to change the file extension from `.md` to `.html` so that it will work once the
+documentation is built.
+
+```markdown
+This is an [internal link](aql/functions-numeric.html#max).
+```
+
+Note that internal links should be relative, i.e. not include a version number,
+unless it is supposed to point to a different version of the documentation on
+purpose. To point from one book to another, you may need to use `..` to refer
+to the parent folder of a file. You can also link to headlines within a page
+like `[label](#anchor-id)`.
+
+For external links, please add `{:target="_blank"}` so that they open in a new
+tab when clicked:
+
+```markdown
+This is an [external link](https://www.arangodb.com/){:target="_blank"}
+```
 
 ### Navigation
 
@@ -134,7 +174,7 @@ This is being read by the NavigationTag plugin to create the navigation on the
 left-hand side.
 
 The YAML file for a book can be found here: `_data/<version>-<book>.yml`.
-For example, the 3.4 AQL navigation is defined by `_data/3.4-aql.yml`.
+For example, the 3.8 AQL navigation is defined by `_data/3.8-aql.yml`.
 
 ### Adding a page
 
@@ -158,10 +198,30 @@ Then create the Markdown document and add the following frontmatter section:
 ---
 layout: default
 description: A meaningful description of the page
+title: Short title
 ---
 ```
 
 Add the actual content below the frontmatter.
+
+### Renaming a page
+
+The URL of a page is derived from the file name. If you rename a file, e.g.
+from `old-name.md` to `new-name.md`, make sure to add a redirect for the
+old URL by adding the following to the frontmatter:
+
+```diff
+ ---
+ layout: default
+ description: ...
+ title: ...
+ ---
++redirect_from:
++  - old-name.html # 3.8 -> 3.9
+```
+
+The URL should be relative and the comment (`#`) indicate the versions it was
+renamed in (can also be the same version twice, e.g. `# 3.8 -> 3.8`).
 
 ### When adding a new release
 
@@ -176,24 +236,15 @@ Add the actual content below the frontmatter.
   done
   cd ..
   ```
-- Create relative symlinks to program option JSON files in `_data`, like
+- Create relative symlinks to program option JSON files and the metrics YAML
+  file in `_data`, like
   ```
   cd _data
   for prog in backup bench d dump export import inspect restore sh vpack; do
     ln -s "../4.0/generated/arango${prog}-options.json" "4.0-program-options-arango${prog}.json"
   done
+  ln -s "../4.0/generated/allMetrics.yaml" "4.0-allMetrics.yaml"
   cd ..
-  ```
-- Adjust the version numbers in `site.data` references in all pages of the
-  copied folder (here: `4.0`) which include program startup options
-  (`program-option.html`), e.g.
-  ```diff
-  -{% assign options = site.data["39-program-options-arangobackup"] %}
-  +{% assign options = site.data["40-program-options-arangobackup"] %}
-   {% include program-option.html options=options name="arangobackup" %}
-  ```
-  ```
-  grep -r -F 'site.data["39-' --include '*.md' -l 4.0 | xargs sed -i 's/site\.data\["39-/site.data["40-/g'
   ```
 - Adjust the version numbers in `redirect_from` URLs in the frontmatter
   to match the new version folder, e.g.
@@ -400,6 +451,16 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
   Warnings and exceptions like above show if you try to run Jekyll from a
   subfolder. Change your working directory to the root folder of the working
   copy (`/path/to/docs`).
+
+- ```
+  Liquid Exception: undefined method `captures' for nil:NilClass
+  ```
+
+  This error can be raised by the `navvar` method in `_plugins/ExtraFilters.rb`
+  (run Jekyll with `--trace` to verify). Check that the working copy is clean.
+  Stray folders with untracked Markdown files may cause this problem, e.g. the
+  output of `oasisctl generate-docs`. Either remove the files or add the folder
+  to the list of excludes in `_config.yml`.
 
 - ```
   Please append `--trace` to the `build` command
