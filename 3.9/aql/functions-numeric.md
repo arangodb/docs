@@ -148,6 +148,28 @@ COS(-3.141592653589783) // -1
 COS(RADIANS(45)) // 0.7071067811865476
 ```
 
+COSINE_SIMILARITY()
+-----
+
+`COSINE_SIMILARITY(x,y) → num`
+
+Return the cosine similarity between *x* and *y*.
+
+- **x** (array): first input array
+- **y** (array): second input array
+- returns **res** (number\|array): the cosine similarity of given arrays
+
+If one of the arguments is 2d array, then it returns an array. Note that in this case
+length of each rows in 2d array should be equal to length of second input array.
+
+Please note that this function calculates similarity, not the distance.
+
+```js
+COSINE_SIMILARITY([0,1], [1,0]) // 0
+COSINE_SIMILARITY([[0,1,0,1],[1,0,0,1],[1,1,1,0],[0,0,0,1]], [1,1,1,1]) // [0.707, 0.707, 0.866, 0.5]
+COSINE_SIMILARITY([-1,0], [1,0]) // -1
+```
+
 DECAY_GAUSS()
 -------------
 
@@ -347,6 +369,46 @@ Return the base 10 logarithm of *value*.
 LOG10(10000) // 4
 LOG10(10) // 1
 LOG10(0) // null
+```
+
+L1_DISTANCE()
+-----
+
+`L1_DISTANCE(x,y) → num`
+
+Return the L1(Manhattan) distance between *x* and *y*.
+
+- **x** (array): first input array
+- **y** (array): second input array
+- returns **res** (number\|array): the L1(Manhattan) of given arrays
+
+If one of the arguments is 2d array, then it returns an array. Note that in this case
+length of each rows in 2d array should be equal to length of second input array.
+
+```js
+L1_DISTANCE([-1,-1], [2,2]) // 6
+L1_DISTANCE([[1,2,3],[-1,-2,-3],[3,4,5],[-5,2,1]], [1,1,1]) // [3,9,9,7]
+L1_DISTANCE([1.5], [3]) // 1.5
+```
+
+L2_DISTANCE()
+-----
+
+`L2_DISTANCE(x,y) → num`
+
+Return the L2(Euclid) distance between *x* and *y*.
+
+- **x** (array): first input array
+- **y** (array): second input array
+- returns **res** (number\|array): the L2(Euclid) of given arrays
+
+If one of the arguments is 2d array, then it returns an array. Note that in this case
+length of each rows in 2d array should be equal to length of second input array.
+
+```js
+L2_DISTANCE([1,1], [5,2]) // 4.1231056256176606
+L2_DISTANCE([[1,2,3], [4,5,6], [7,8,9]], [3,2,1]) // [2.8284271247461903, 5.916079783099616, 10.770329614269007]
+L2_DISTANCE([0,1], [1,0]) // 1.4142135623730951
 ```
 
 MAX()
