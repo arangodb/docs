@@ -416,7 +416,7 @@ There are two magic values for the secret name:
 ### `spec.metrics.enabled: bool`
 
 If this is set to `true`, the operator runs a sidecar container for
-every Agency, DBServer, Coordinator and Single.
+every Agent, DB-Server, Coordinator and Single server.
 
 In addition to the sidecar containers the operator will deploy a service
 to access the exporter ports (from within the k8s cluster), and a
@@ -631,9 +631,9 @@ Giving up means the Pod will be marked Unready. Defaults to 3. Minimum value is 
 
 <small>Introduced in: v1.2.1 (kube-arangodb)</small>
 
-This setting change member recreation logic based on group:
-- For Sync Masters, Sync Workers, Coordinator and DBServers determines if member can be recreated in case of failure (default true)
-- For Agents and Single this value is hardcoded to False and value provided in spec is ignored.
+This setting changes the member recreation logic based on group:
+- For Sync Masters, Sync Workers, Coordinator and DB-Servers it determines if a member can be recreated in case of failure (default `true`)
+- For Agents and Single this value is hardcoded to `false` and the value provided in spec is ignored.
 
 ### `spec.<group>.tolerations: []Toleration`
 
