@@ -376,11 +376,13 @@ graph with different *from* and/or *to* collections an error is thrown.
 
 Modify a relation definition:
 
-`graph_module._editEdgeDefinitions(edgeDefinition)`
+`graph_module._editEdgeDefinitions(edgeDefinition, options)`
 
 - `edgeDefinition` (object):
   The edge definition to replace the existing edge definition with the same
   attribute *collection*.
+- `options` (object):
+  Additional options related to the edgeDefinition itself.
 
 Edits one relation definition of a graph. The edge definition used as argument will
 replace the existing edge definition of the graph which has the same collection.
