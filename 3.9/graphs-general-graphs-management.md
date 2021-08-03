@@ -343,10 +343,12 @@ You can still add, delete or modify edge definitions and vertex collections.
 
 Add another edge definition to the graph:
 
-`graph._extendEdgeDefinitions(edgeDefinition)`
+`graph._extendEdgeDefinitions(edgeDefinition, options)`
 
 - `edgeDefinition` (object):
   The relation definition to extend the graph
+- `options` (object):
+  Additional options related to the edgeDefinition itself.
 
 Extends the edge definitions of a graph. If an orphan collection is used in this
 edge definition, it will be removed from the orphanage. If the edge collection of
