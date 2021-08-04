@@ -474,12 +474,18 @@ orphans, it will be removed from the set of orphan collection automatically.
 
 Add a vertex collection to the graph:
 
-`graph._addVertexCollection(vertexCollectionName, createCollection)`
+`graph._addVertexCollection(vertexCollectionName, createCollection, options)`
 
 - `vertexCollectionName` (string):
   Name of vertex collection.
 - `createCollection` (bool, _optional_):
   If true the collection will be created if it does not exist. Default: true
+- `options` (object, _optional_):
+  Additional option object for advanced configuration. The object can contain the
+  property `satellites`. This value is only valid in case of SmartGraphs
+  (Enterprise-Only). It must be an array and can contain valid collection
+  names. If provided, the collection will be created as a Satellite Collection.
+  The collection type cannot be modified later. Default: {}
 
 Adds a vertex collection to the set of orphan collections of the graph. If the
 collection does not exist, it will be created. If it is already used by any edge
