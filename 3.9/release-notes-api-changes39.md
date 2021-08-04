@@ -13,7 +13,7 @@ integrations for ArangoDB 3.9.
 
 ### GRAPH API (Gharial)
 
-The following changes affect the behavior of the RESTful collection APIs at
+The following changes affect the behavior of the RESTful graph APIs at
 endpoints starting with path `/_api/gharial/`:
 
 The options object now supports a new field: `satellites`, when creating a graph (POST).
@@ -33,5 +33,24 @@ created as a satellite collection. Hybrid (Disjoint) Smart Graphs are then capab
 of executing all type of graph queries between the regular SmartCollections and
 Satellite collections.
 
-The following changes affect the behavior of the RESTful collection APIs at
+The following changes affect the behavior of the RESTful graph APIs at
 endpoints starting with path `/_api/gharial/{graph}/edge`:
+
+Creating and modifying a new edge definition (POST / PUT):
+Added new optional options object. This was not available in previous ArangoDB
+versions. The options object currently can contain a field called `satellites`.
+The field must be an array and contain collection name(s) written down as strings.
+If an EdgeDefinition does contain a collection name, which is also defined in
+the satellites option entry, it will be created as a Satellite collection.
+Otherwise, it will be ignored. This option only takes effect using SmartGraphs.
+
+The following changes affect the behavior of the RESTful graph APIs at
+endpoints starting with path `/_api/gharial/{graph}/vertex`:
+
+Creating a new vertex collection (POST):
+Added new optional options object. This was not available in previous ArangoDB
+versions. The options object currently can contain a field called `satellites`.
+The field must be an array and contain collection name(s) written down as strings.
+If the vertex to add is also defined in the satellites option entry, it will be
+created as a Satellite collection. Otherwise, it will be ignored. This option
+only takes effect using SmartGraphs.
