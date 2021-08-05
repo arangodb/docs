@@ -22,6 +22,8 @@ ArangoDB package can be configured with various _startup options_.
   such as `‑‑help` and `‑‑version`. They don't take any value
   in contrast to options.
 
+## Available startup options
+
 Find the available options and flags in the _Options_ sub-chapters of the
 respective [Programs & Tools](programs.html) sub-chapter, like the
 [ArangoDB Server Options](programs-arangod-options.html).
@@ -61,7 +63,7 @@ arangod --database.directory="my_data_dir"
 
 Many options belong to a section as in `‑‑section.param`, e.g.
 `‑‑server.database`, but there can also be options without any section.
-These options are referred to as _global options_.
+These options are referred to as _general options_.
 
 To list available options, you can run a binary with the `‑‑help` flag:
 

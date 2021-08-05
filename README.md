@@ -33,19 +33,27 @@ when adding a new page). To be sure you have an up-to-date version remove the
 To speed up the build process you may disable certain versions from being built
 by changing the `_config.yml`:
 
-```yml
+```yaml
 exclude:
- #- 3.5/
- #- 3.4/
+# - 3.9/
+# - 3.8/
+  - 3.7/
+  - 3.6/
+  - 3.5/
+  - 3.4/
   - 3.3/
-  - 3.2/
-  - 3.1/
-  - 3.0/
-  - 2.8/
 ```
 
-Above example disables versions 2.8 through 3.3, so that 3.4 and 3.5 will be
+Above example disables versions 3.3 through 3.7, so that 3.8 and 3.9 will be
 built only. Do not commit these changes of the configuration!
+
+Note that building may fail if you disable required versions as defined by:
+
+```yaml
+versions:
+  stable: "3.8"
+  devel: "3.9"
+```
 
 ## Building the documentation
 
@@ -100,32 +108,64 @@ python -m http.server
 
 ## Documentation structure
 
-In the root directory the directories `3.4`, `3.5` etc. represent the
-individual versions and their full documentation. The content used to be
-in version branches in the main repository.
+In the root directory, the directories `3.8`, `3.9` etc. represent the
+individual ArangoDB versions and their full documentation. The content used
+to be in version branches in the `arangodb/arangodb` repository, but now all
+documentation versions live in the `main` branch of this repository. This has
+the advantage that all versions can be built at once, but the drawback of Git
+cherry-picking not being available and therefore requiring to manually apply
+changes to different versions as necessary.
 
-The core book (Manual) of the version will be in the root e.g. `3.4/*.md`.
-The sub-books (AQL, Cookbook etc.) will have their own directory in there.
+The documentation is split into different parts, called "books" for historical
+reasons. The core book (Manual) of a version does not have an own folder for its
+content, but the files are found in the version directory, e.g. `3.8/*.md`.
+Other books (AQL, HTTP) have subfolders in the version folder, e.g. `3.8/aql/`.
+There are also books (Drivers, Oasis) that are not directly couple to ArangoDB
+versions, that have their files in an own folders in the root directory, e.g.
+`oasis/*.md`. These folders are symlinked in multiple version folders. Some
+files, like release notes, are also symlinked to reduce maintenance costs.
 
-The organization of documents is **flat**, namely there are no subdirectories per book
-(as opposed to the old documentation system).
+The organization of documents is **flat**, namely there are no subdirectories
+per book (as opposed to the previous documentation system).
 
-The other directories are:
+Other directories:
 
-- `_data`: data files which are used by plugins and layouts,
-  including the navigation definitions
-- `_includes`: templates for custom tags and layout partials
-- `_layouts`: layout definitions that can be used in YAML frontmatter like
-  `layout: default`
-- `_plugins`: Jekyll extensions for the navigation, version switcher,
-  custom tags / blocks etc.
-- `_site`: default output directory (not committed)
-- `assets`: files not directly related to the documentation content
-  that also need to be served (e.g. the ArangoDB logo)
-- `js`: JavaScript files used by the site
-- `scripts`: Scripts which were used in the migration process from Gitbook
-  to Jekyll (not really needed anymore)
-- `styles`: CSS files for the site, including a lot of legacy from Gitbook
+| Name        | Description
+|:------------|:-----------
+| `_data`     | data files which are used by plugins and layouts, including the navigation definitions
+| `_includes` | templates for custom tags and layout partials
+| `_layouts`  | layout definitions that can be used in YAML frontmatter like `layout: default`
+| `_plugins`  | Jekyll extensions for the navigation, version switcher, custom tags / blocks etc.
+| `_site`     | default output directory (not committed)
+| `assets`    | files not directly related to the documentation content that also need to be served (e.g. the ArangoDB logo)
+| `js`        | JavaScript files used by the site
+| `scripts`   | Scripts which were used in the migration process from Gitbook to Jekyll (not really needed anymore)
+| `styles`    | CSS files for the site, including a lot of legacy from Gitbook
+
+### Adding links
+
+The official way to cross-reference other pages within the documentation would be
+to use Jekyll's `link` tag (`{% link path/to/file.md %}`). This mechanism is not
+used, however. We use plain Markdown links, but this has the drawback of having
+to change the file extension from `.md` to `.html` so that it will work once the
+documentation is built.
+
+```markdown
+This is an [internal link](aql/functions-numeric.html#max).
+```
+
+Note that internal links should be relative, i.e. not include a version number,
+unless it is supposed to point to a different version of the documentation on
+purpose. To point from one book to another, you may need to use `..` to refer
+to the parent folder of a file. You can also link to headlines within a page
+like `[label](#anchor-id)`.
+
+For external links, please add `{:target="_blank"}` so that they open in a new
+tab when clicked:
+
+```markdown
+This is an [external link](https://www.arangodb.com/){:target="_blank"}
+```
 
 ### Navigation
 
@@ -134,7 +174,7 @@ This is being read by the NavigationTag plugin to create the navigation on the
 left-hand side.
 
 The YAML file for a book can be found here: `_data/<version>-<book>.yml`.
-For example, the 3.4 AQL navigation is defined by `_data/3.4-aql.yml`.
+For example, the 3.8 AQL navigation is defined by `_data/3.8-aql.yml`.
 
 ### Adding a page
 
@@ -158,92 +198,109 @@ Then create the Markdown document and add the following frontmatter section:
 ---
 layout: default
 description: A meaningful description of the page
+title: Short title
 ---
 ```
 
 Add the actual content below the frontmatter.
 
+### Renaming a page
+
+The URL of a page is derived from the file name. If you rename a file, e.g.
+from `old-name.md` to `new-name.md`, make sure to add a redirect for the
+old URL by adding the following to the frontmatter:
+
+```diff
+ ---
+ layout: default
+ description: ...
+ title: ...
+ ---
++redirect_from:
++  - old-name.html # 3.8 -> 3.9
+```
+
+The URL should be relative and the comment (`#`) indicate the versions it was
+renamed in (can also be the same version twice, e.g. `# 3.8 -> 3.8`).
+
 ### When adding a new release
 
 - Run below commands in Bash under Linux. Do not use Git Bash on Windows,
   it dereferences symlinks (copies the referenced files)!
-- Copy the latest devel version to a new directory i.e. `cp -a 3.7 3.8`
+- Copy the latest devel version to a new directory i.e. `cp -a 3.9 4.0`
 - Create the necessary navigation definition files in `_data` by copying, e.g.
   ```
   cd _data
   for book in aql drivers http manual oasis; do
-    cp -a "3.7-${book}.yml" "3.8-${book}.yml"
+    cp -a "3.9-${book}.yml" "4.0-${book}.yml"
   done
   cd ..
   ```
-- Create relative symlinks to program option JSON files in `_data`, like
+- Create relative symlinks to program option JSON files and the metrics YAML
+  file in `_data`, like
   ```
   cd _data
-  for prog in backup bench d dump export import inspect restore sh; do
-    ln -s "../3.8/generated/arango${prog}-options.json" "3.8-program-options-arango${prog}.json"
+  for prog in backup bench d dump export import inspect restore sh vpack; do
+    ln -s "../4.0/generated/arango${prog}-options.json" "4.0-program-options-arango${prog}.json"
   done
+  ln -s "../4.0/generated/allMetrics.yaml" "4.0-allMetrics.yaml"
   cd ..
-  ```
-- Adjust the version numbers in `site.data` references in all pages of the
-  copied folder (here: `3.8`) which include program startup options
-  (`program-option.html`), e.g.
-  ```diff
-  -{% assign options = site.data["37-program-options-arangobackup"] %}
-  +{% assign options = site.data["38-program-options-arangobackup"] %}
-   {% include program-option.html options=options name="arangobackup" %}
-  ```
-  ```
-  grep -r -F 'site.data["37-' --include '*.md' -l 3.8 | xargs sed -i 's/site\.data\["37-/site.data["38-/g'
   ```
 - Adjust the version numbers in `redirect_from` URLs in the frontmatter
   to match the new version folder, e.g.
   ```diff
    redirect_from:
-  -  - /3.7/path/to/file.html # 3.4 -> 3.5
-  +  - /3.8/path/to/file.html # 3.4 -> 3.5
+  -  - /3.9/path/to/file.html # 3.4 -> 3.5
+  +  - /4.0/path/to/file.html # 3.4 -> 3.5
   ```
   This is only necessary for absolute redirects. Relative redirects are
   preferred, e.g. `- old.html` in `new.html` (may also include `..`).
   If pages were removed, then you may want to use absolute redirects to point
   to older versions or redirect to completely different pages.
-- Create release note pages for the new version (here: `3.8` / `38`)
-  and add them to the navigation (`3.8-manual.yml`):
+- Create release note pages for the new version (here: `4.0` / `40`)
+  and add them to the navigation (`4.0-manual.yml`):
   ```diff
    - text: Release Notes
      href: release-notes.html
      children:
-  +    - text: Version 3.8
-  +      href: release-notes-38.html
+  +    - text: Version 4.0
+  +      href: release-notes-40.html
   +      children:
-  +        - text: What's New in 3.8
-  +          href: release-notes-new-features38.html
-  +        - text: Known Issues in 3.8
-  +          href: release-notes-known-issues38.html
-  +        - text: Incompatible changes in 3.8
-  +          href: release-notes-upgrading-changes38.html
-  +        - text: API changes in 3.8
-  +          href: release-notes-api-changes38.html
+  +        - text: What's New in 4.0
+  +          href: release-notes-new-features40.html
+  +        - text: Known Issues in 4.0
+  +          href: release-notes-known-issues40.html
+  +        - text: Incompatible changes in 4.0
+  +          href: release-notes-upgrading-changes40.html
+  +        - text: API changes in 4.0
+  +          href: release-notes-api-changes40.html
   ```
 - Add the relevant links to the release notes overview page
-  `3.8/release-notes.html`
-- Delete the release note pages of the previous version (here: `3.7`) in the
-  folder of the new version (here: `3.8`) and symlink the files instead:
+  `4.0/release-notes.html`
+- Delete the release note pages of the previous version (here: `3.9`) in the
+  folder of the new version (here: `4.0`) and symlink the files instead:
   ```
-  cd 3.8
-  rm release-notes-37.md
-  rm release-notes-new-features37.md
-  rm release-notes-known-issues37.md
-  rm release-notes-upgrading-changes37.md
-  rm release-notes-api-changes37.md
-  ln -s ../3.7/release-notes-37.md release-notes-37.md
-  ln -s ../3.7/release-notes-new-features37.md release-notes-new-features37.md
-  ln -s ../3.7/release-notes-known-issues37.md release-notes-known-issues37.md
-  ln -s ../3.7/release-notes-upgrading-changes37.md release-notes-upgrading-changes37.md
-  ln -s ../3.7/release-notes-api-changes37.md release-notes-api-changes37.md
+  cd 4.0
+  rm release-notes-39.md
+  rm release-notes-new-features39.md
+  rm release-notes-known-issues39.md
+  rm release-notes-upgrading-changes39.md
+  rm release-notes-api-changes39.md
+  ln -s ../3.9/release-notes-39.md release-notes-39.md
+  ln -s ../3.9/release-notes-new-features39.md release-notes-new-features39.md
+  ln -s ../3.9/release-notes-known-issues39.md release-notes-known-issues39.md
+  ln -s ../3.9/release-notes-upgrading-changes39.md release-notes-upgrading-changes39.md
+  ln -s ../3.9/release-notes-api-changes39.md release-notes-api-changes39.md
   cd ..
   ```
-- Add a section _Version 3.8_ to `3.8/highlights.html` including a link to
-  _What's New in 3.8_
+- Check if any links to version-specific pages such as the release notes need
+  to be updated, e.g.
+  ```diff
+  -See [Known Issues](release-notes-known-issues39.html).
+  +See [Known Issues](release-notes-known-issues40.html).
+  ```
+- Add a section _Version 4.0_ to `4.0/highlights.html` including a link to
+  _What's New in 4.0_
 - Add the version to `_data/versions.yml` with the full version name
 - Add all books of that version to `_data/books.yml`
 - Adjust the following fields in `_config.yml` as needed:
@@ -394,6 +451,16 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
   Warnings and exceptions like above show if you try to run Jekyll from a
   subfolder. Change your working directory to the root folder of the working
   copy (`/path/to/docs`).
+
+- ```
+  Liquid Exception: undefined method `captures' for nil:NilClass
+  ```
+
+  This error can be raised by the `navvar` method in `_plugins/ExtraFilters.rb`
+  (run Jekyll with `--trace` to verify). Check that the working copy is clean.
+  Stray folders with untracked Markdown files may cause this problem, e.g. the
+  output of `oasisctl generate-docs`. Either remove the files or add the folder
+  to the list of excludes in `_config.yml`.
 
 - ```
   Please append `--trace` to the `build` command

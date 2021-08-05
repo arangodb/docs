@@ -1,7 +1,7 @@
 ---
 layout: default
 description: Environment variables used by arangod
-title: Arangod environment variables
+title: arangod environment variables
 ---
 # ArangoDB Server environment variables
 
@@ -62,7 +62,7 @@ title: Arangod environment variables
 - `IRESEARCH_TEXT_STOPWORD_PATH` _(introduced in v3.5.0)_
 
   Path to a directory with stopword files for
-  [ArangoSearch Text Analyzers](arangosearch-analyzers.html#text).
+  [ArangoSearch Text Analyzers](analyzers.html#text).
 
 <!-- ARANGODB_CONFIG_PATH, ICU_DATA, ... (TRI_GETENV, iresearch::getenv) -->
 

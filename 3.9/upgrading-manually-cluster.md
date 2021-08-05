@@ -29,7 +29,7 @@ separate from the ones in your _cluster_ configuration. Also, that you haven't
 modified the init script or systemd unit file for the standalone instance in way
 that it would start or stop your _cluster_ instance instead.
 
-You can read about the details on how to deploy your _cluster_ indendently of the
+You can read about the details on how to deploy your _cluster_ independently of the
 standalone instance in the [_cluster_ deployment preliminary](deployment-cluster-preliminary-information.html).
 
 In the following, we assume that you don't use the standalone instance from the
@@ -43,17 +43,17 @@ The first step is to install the new ArangoDB package.
 
 **Note:** you do not have to stop the _cluster_ (_arangod_) processes before upgrading it.
 
-For example, if you want to upgrade to `3.3.9-1` on Debian or Ubuntu, either call
+For example, if you want to upgrade to `3.7.13` on Debian or Ubuntu, either call
 
 ```
-$ apt install arangodb=3.3.9
+$ apt install arangodb=3.7.13
 ```
 
 (`apt-get` on older versions) if you have added the ArangoDB repository. Or
 install a specific package using
 
 ```
-$ dpkg -i arangodb3-3.3.9-1_amd64.deb
+$ dpkg -i arangodb3-3.7.13-1_amd64.deb
 ```
 
 after you have downloaded the corresponding file from
@@ -81,8 +81,6 @@ $ update-rc.d -f arangodb3 remove
 
 Set supervision in maintenance mode
 -----------------------------------
-
-**Important**: Maintenance mode is supported from versions 3.3.8/3.2.14.
 
 It is required to disable _cluster_ supervision in order to upgrade your _cluster_. The
 following API calls will activate and de-activate the Maintenance mode of the Supervision job:

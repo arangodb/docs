@@ -26,7 +26,7 @@ _setupReplication_ Command
 To copy the initial data from the _Leader_ to the _Follower_ and start the
 continuous replication, there is an all-in-one command *setupReplication*.
 
-From _Arangosh_:
+From _arangosh_:
 
 ```js
 require("@arangodb/replication").setupReplication(configuration);

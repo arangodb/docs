@@ -1,10 +1,9 @@
 ---
 layout: default
 description: This feature allows you to define how sensitive data shall be dumped.
-title: Arangodump Data Masking
+title: arangodump Data Masking
 ---
-Arangodump Data Maskings
-========================
+# _arangodump_ Data Maskings
 
 *--maskings path-of-config*
 

@@ -18,8 +18,8 @@ The full ArangoDB package ships with the following programs and tools:
 | `arangoimport`  | [Bulk importer](programs-arangoimport.html) for the ArangoDB server. It supports JSON and CSV.
 | `arangoexport`  | [Bulk exporter](programs-arangoexport.html) for the ArangoDB server. It supports JSON, CSV and XML.
 | `arangobench`   | [Benchmark and test tool](programs-arangobench.html). It can be used for performance and server function testing.
+| `arangovpack`   | Utility to validate and [convert VelocyPack](programs-arangovpack.html) and JSON data.
 | `arangoinspect` | [Inspection tool](programs-arangoinspect.html) that gathers server setup information.
-| `arangovpack`   | Utility to convert [VelocyPack](https://github.com/arangodb/velocypack){:target="_blank"} data to JSON.
 
 The client package comes with a subset of programs and tools:
 

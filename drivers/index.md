@@ -47,11 +47,14 @@ arangodb-scala-driver | Scala | [github.com/acme-software/arangodb-scala-driver]
 Scarango | Scala | [github.com/outr/scarango](https://github.com/outr/scarango){:target="_blank"}
 aRango-Driver | R | [gitlab.com/krpack/arango-driver](https://gitlab.com/krpack/arango-driver){:target="_blank"}
 ArangoDB PHP ODM | PHP | [github.com/lucassouzavieira/arangodb-php-odm](https://github.com/lucassouzavieira/arangodb-php-odm){:target="_blank"}
+arangodb-php-client | PHP | [github.com/LaravelFreelancerNL/arangodb-php-client](https://github.com/LaravelFreelancerNL/arangodb-php-client){:target="_blank"}
 arangodb-net-standard | C# / .NET | [github.com/Actify-Inc/arangodb-net-standard](https://github.com/Actify-Inc/arangodb-net-standard){:target="_blank"}
 ArangoDB-NET | C# / .NET | [github.com/yojimbo87/ArangoDB-NET](https://github.com/yojimbo87/ArangoDB-NET){:target="_blank"}
 dotnet-arangodb | C# / .NET | [github.com/coronabytes/dotnet-arangodb](https://github.com/coronabytes/dotnet-arangodb){:target="_blank"}
 arangoclient.net | C# / .NET | [github.com/ra0o0f/arangoclient.net](https://github.com/ra0o0f/arangoclient.net){:target="_blank"}
+dotnet-arangodb | C# / .NET | [github.com/coronabytes/dotnet-arangodb](https://github.com/coronabytes/dotnet-arangodb){:target="_blank"}
 arango-driver _(fork of ArangoRB)_ | Ruby | [github.com/isomorfeus/arango-driver](https://github.com/isomorfeus/arango-driver){:target="_blank"}
+Perl5 Arango-Tango | Ruby | [gitlab.com/ambs/perl5-arango-tango](https://gitlab.com/ambs/perl5-arango-tango){:target="_blank"}
 arangors | Rust | [github.com/fMeow/arangors](https://github.com/fMeow/arangors){:target="_blank"}
 Tash | C++ | [gitlab.com/neel.basu/tash](https://gitlab.com/neel.basu/tash){:target="_blank"}
 erlArango | Erlang | [github.com/ErlGameWorld/erlArango](https://github.com/ErlGameWorld/erlArango){:target="_blank"}
@@ -74,14 +77,19 @@ ArangoDb Camel | Camel | Java | [camel.apache.org/components/latest/arangodb-com
 Micronaut ArangoDB | Mirconaut | Java | [github.com/GoodforGod/micronaut-arangodb](https://github.com/GoodforGod/micronaut-arangodb){:target="_blank"}
 ArangoDB TestContainers | Testcontainers | Java | [github.com/GoodforGod/arangodb-testcontainers](https://github.com/GoodforGod/arangodb-testcontainers){:target="_blank"}
 Write-Ahead-Log Client in Java |  | Java | [github.com/stackmagic/arangodb-wal-client](https://github.com/stackmagic/arangodb-wal-client){:target="_blank"}
+ArangoBee data migration tool |  | Java | [github.com/cmoine/arangobee](https://github.com/cmoine/arangobee){:target=_blank"}
 cruddl | GraphQL | JavaScript | [github.com/AEB-labs/cruddl](https://github.com/AEB-labs/cruddl){:target="_blank"}
 feathers-arangodb | Feathers | JavaScript | [github.com/AnatidaeProject/feathers-arangodb](https://github.com/AnatidaeProject/feathers-arangodb){:target="_blank"}
 orango | Node.js, Foxx, browser | JavaScript | [github.com/roboncode/orango](https://github.com/roboncode/orango){:target="_blank"}
 Hemera-arango-store | Hemera | JavaScript | [github.com/hemerajs/hemera-arango-store](https://github.com/hemerajs/hemera-arango-store){:target="_blank"}
 ArangoDB.Ecto | Ecto | Elixir | [github.com/ArangoDB-Community/arangodb_ecto](https://github.com/ArangoDB-Community/arangodb_ecto){:target="_blank"}
 Python ORM Layer for ArangoDB |  | Python | [github.com/threatify/arango-orm](https://github.com/threatify/arango-orm){:target="_blank"}
+Arangodantic | Pydantic | Python | [github.com/digitalliving/arangodantic](https://github.com/digitalliving/arangodantic){:target="_blank"}
+arangodol |  | Python | [github.com/i2mint/arangodol](https://github.com/i2mint/arangodol){:target="_blank"}
+Aranguent | Laravel | PHP | [github.com/LaravelFreelancerNL/laravel-arangodb](https://github.com/LaravelFreelancerNL/laravel-arangodb){:target="_blank"}
 MopArangoDbBundle | Symfony2 | PHP | [github.com/m0ppers/MopArangoDbBundle](https://github.com/m0ppers/MopArangoDbBundle){:target="_blank"}
 arangoq: a query builder layer |  | Rust | [github.com/element114/arangoq](https://github.com/element114/arangoq){:target="_blank"}
+GORM Arango Driver | GORM | Go | [github.com/joselitofilho/gorm-arango](https://github.com/joselitofilho/gorm-arango){:target="_blank"}
 
 Community projects
 ------------------
@@ -95,3 +103,4 @@ foxxy: Create your app with ArangoDB Foxx RiotJS UIKIT3 Brunch Yarn | Foxx | Jav
 RecallGraph: A versioning data store for time-variant graph data | Foxx | JavaScript | [github.com/RecallGraph/RecallGraph](https://github.com/RecallGraph/RecallGraph){:target="_blank"}
 ArangoDb.Net.Identity: .NET Core Identity library for ArangoDB | .NET | C# | [github.com/endpointsystems/ArangoDB.Net.Identity](https://github.com/endpointsystems/ArangoDB.Net.Identity){:target="_blank"}
 Docker Swarm example configuration | Docker Swarm |  | [github.com/dumstruck/arango-swarm](https://github.com/dumstruck/arango-swarm){:target="_blank"}
+Intellij plugin for AQL, ArangoDB language support | Intellij | Java | [github.com/ArangoDB-Community/aql-intellij-plugin](https://github.com/ArangoDB-Community/aql-intellij-plugin){:target="_blank"}

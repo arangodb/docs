@@ -192,7 +192,7 @@ of that of the single server installation.
 - **Remote Upload and Download**
 
   We have fully integrated the
-  [Rclone](https://rclone.org/) sync for cloud storage. Rclone is a very
+  [rclone](https://rclone.org/) sync for cloud storage. Rclone is a very
   versatile inter site sync facility, which opens up a vast field of transport
   protocols and remote syncing APIs from Amazon's S3 over Dropbox, WebDAV,
   all the way to the local file system and network storage.
@@ -343,4 +343,4 @@ not be suited for.
 
 - **Known Issues**
 
-  See the list of [Known Issues in ArangoDB v3.6](release-notes-known-issues36.html#hot-backup).
+  See the list of [Known Issues](release-notes-known-issues37.html#hot-backup).

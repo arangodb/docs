@@ -36,17 +36,17 @@ The first step is to install the new ArangoDB package.
 
 **Note:** you do not have to stop the _Active Failover_ (_arangod_) processes before upgrading it.
 
-For example, if you want to upgrade to `3.3.16` on Debian or Ubuntu, either call
+For example, if you want to upgrade to `3.7.13` on Debian or Ubuntu, either call
 
 ```
-$ apt install arangodb=3.3.16-1
+$ apt install arangodb=3.7.13-1
 ```
 
 (`apt-get` on older versions) if you have added the ArangoDB repository. Or
 install a specific package using
 
 ```
-$ dpkg -i arangodb3-3.3.16-1_amd64.deb
+$ dpkg -i arangodb3-3.7.13-1_amd64.deb
 ```
 
 after you have downloaded the corresponding file from
@@ -76,9 +76,6 @@ $ update-rc.d -f arangodb3 remove
 
 Set supervision into maintenance mode
 -------------------------------------
-
-**Important**: Supervision maintenance mode is supported from ArangoDB versions 
-3.3.8/3.2.14 or higher.
 
 You have two main choices when performing an upgrade of the _Active Failover_ setup: 
 
@@ -196,7 +193,7 @@ but with the additional option:
 --database.auto-upgrade=true
 ```
 
-After the upgrade procecure has finishing successfully, the instance will remain stopped.
+After the upgrade procedure has finishing successfully, the instance will remain stopped.
 So it has to be restarted using the command from the `ps` output before
 (this time without the `--database.auto-upgrade` option).
 

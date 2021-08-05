@@ -74,9 +74,11 @@ not possible, if edge collections are used directly. See
 for details. The `WITH` statement is not necessary when using named graphs
 for the traversals.
 
-As deadlocks cannot be detected in a cluster environment easily, the
-`WITH` keyword is mandatory for this particular situation in a cluster,
-but not in a single server.
+Since ArangoDB 3.7.12 there is a startup option `--query.require-with`
+to make single server installations also require the `WITH` statements
+in the same places where are cluster installation would. This option
+is *false* by default, but be set to true to remove this behavior
+difference between single servers and clusters.
 
 ### Performance
 

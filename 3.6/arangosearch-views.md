@@ -268,6 +268,11 @@ During view modification the following directives apply:
   specified in `fields` will be processed with default link properties, i.e.
   `{}`.
 
+  {% hint 'warning' %}
+  Using `includeAllFields` for a lot of attributes in combination with complex
+  Analyzers may significantly slow down the indexing process.
+  {% endhint %}
+
 - **trackListPositions** (_optional_; type: `boolean`; default: `false`)
 
   If set to `true`, then for array values track the value position in arrays.
