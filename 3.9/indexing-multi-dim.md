@@ -64,6 +64,54 @@ is translated to their non-strict counterparts and a post-filter is inserted.
         FILTER p.z == 4
         RETURN p
 
+### Example Use Case
+
+If you build a calendar using ArangoDB you could create a collection for each user
+that contains her appointsments. The documents would roughly look as follows:
+
+    {
+        "from": 345365,
+        "to": 678934,
+        "what": "Dentist",
+    }
+
+Where `from`/`to` are the timestamps when an appointment starts/ends. Having an
+multi-dimensional index on the fields
+
+    ["from", "to"]
+
+allows you to query effeciently for all appointsments within a given time range.
+
+#### Finding all appointments within a time range
+Given a time range `[f, t]` we want to find all appointments `[from, to]` that
+are completely contained in `[f, t]`. Those appointments clearly satisfy the
+relation
+
+    f <= from and to <= t
+
+Thus our query would be:
+
+    FOR app IN appointments
+        FILTER f <= app.from
+        FILTER app.to <= t
+        RETURN app
+
+
+#### Finding all appointments that interset a time range
+Given a time range `[f, t]` we want to find all appointments `[from, to]` that
+intersect `[f, t]`. Two intervals `[a_1, b_1]` and `[a_2, b_2]` intersect if
+and only if
+
+    a_2 <= b_1 && a_1 <= b_2
+
+Thus our query would be:
+
+    FOR app IN appointments
+        FILTER f <= app.to
+        FILTER app.from <= t
+        RETURN app
+
+
 ### Limitations
 
 Currently there are a few limitations:
@@ -71,6 +119,8 @@ Currently there are a few limitations:
 - Using array expansions for attributes is not possible.
 - The `sparse` property is not supported.
 - You can only index numeric values that are representable as IEEE-754 double.
-
-
+- A high number of dimensions (more than 5) can impact the performance considerably.
+- The performance can vary depending on the dataset. Densely packed points can lead
+to a high number of seeks. This behavior is typical for indexing using space
+filling curves.
 
