@@ -85,7 +85,7 @@ allows you to query effeciently for all appointsments within a given time range.
 #### Finding all appointments within a time range
 Given a time range `[f, t]` we want to find all appointments `[from, to]` that
 are completely contained in `[f, t]`. Those appointments clearly satisfy the
-relation
+condition
 
     f <= from and to <= t
 
@@ -97,12 +97,12 @@ Thus our query would be:
         RETURN app
 
 
-#### Finding all appointments that interset a time range
+#### Finding all appointments that intersect a time range
 Given a time range `[f, t]` we want to find all appointments `[from, to]` that
 intersect `[f, t]`. Two intervals `[a_1, b_1]` and `[a_2, b_2]` intersect if
 and only if
 
-    a_2 <= b_1 && a_1 <= b_2
+    a_2 <= b_1 and a_1 <= b_2
 
 Thus our query would be:
 
