@@ -79,7 +79,7 @@ definition. Therefore, defined EdgeDefinitions between SmartCollections and
 SatelliteCollections can be created. As Satellite Collections are globally
 replicated to each participating DB-Server, graph traversals, shortest path,
 weighted traversals and k-shortest-paths queries can be executed partially
-locally on each DB-Server. This means that query execution is guaranteed to be
+locally on each DB-Server. This means a larger part of the query can be executed
 fully local whenever data from the Satellite part is required.
 
 Benefits of Disjoint SmartGraphs
