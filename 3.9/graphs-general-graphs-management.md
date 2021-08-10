@@ -336,7 +336,7 @@ Drop a graph and keep collections:
 Modify a Graph definition at runtime
 ------------------------------------
 
-After you have created an graph its definition is not immutable.
+After you have created a graph its definition is not immutable.
 You can still add, delete or modify edge definitions and vertex collections.
 
 ### Extend the Edge Definitions
@@ -349,6 +349,7 @@ Add another edge definition to the graph:
   The relation definition to extend the graph
 - `options` (object):
   Additional options related to the edgeDefinition itself.
+  Definition can be found [here](graphs-general-graphs-management.html#edge-definition-options).
 
 Extends the edge definitions of a graph. If an orphan collection is used in this
 edge definition, it will be removed from the orphanage. If the edge collection of
@@ -383,6 +384,7 @@ Modify a relation definition:
   attribute *collection*.
 - `options` (object):
   Additional options related to the edgeDefinition itself.
+  Definition can be found [here](graphs-general-graphs-management.html#edge-definition-options).
 
 Edits one relation definition of a graph. The edge definition used as argument will
 replace the existing edge definition of the graph which has the same collection.
@@ -407,6 +409,14 @@ definition will be modified, too.
     @endDocuBlock general_graph__editEdgeDefinition
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+### Edge Definition Options
+
+Currently, supported options are:
+- `satellites` (array):
+  List of collections that are going to be created as SatelliteCollections.
+  Each entry must be defined as a String and must be a valid a valid collection
+  name. Details can be found [here](data-modeling-naming-conventions-collection-and-view-names.html).
 
 ### Delete an Edge Definition
 
