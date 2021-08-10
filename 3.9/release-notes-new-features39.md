@@ -29,6 +29,39 @@ DECAY_LINEAR(5, 0, 10, 0, 0.2) // 0.6
 DECAY_EXP(2, 0, 10, 0, 0.2)    // 0.7247796636776955
 ```
 
+Graph
+--
+
+### Hybrid SmartGraphs
+
+SmartGraphs have been extended with a new option to create Hybrid Smart Graphs.
+Hybrid SmartGraphs are capable of using Satellite Collections within their graph
+definition and therefore can make use of all the benefits of [SatelliteCollections](satellites.html).
+EdgeDefinitions can now be created between SmartCollections and SatelliteCollections.
+As Satellite Collections are globally replicated to each participating DB-Server,
+graph traversals, shortest path, weighted traversals and k-shortest-paths queries
+can be executed partially locally on each DB-Server. This means that query execution
+can be fully local whenever actual data from the Satellite part is being processed.
+This can improve data locality and reduce the number of network hops between cluster
+nodes.
+
+[Hybrid SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs)
+are only available in the Enterprise Edition and the
+[ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
+
+### Hybrid Disjoint SmartGraphs
+
+A Disjoint SmartGraph prohibits edges connecting different SmartGraph components.
+The same rule applies to Hybrid Disjoint SmartGraphs. If your graph doesn't need
+edges between vertices with different SmartGraph attribute values, then you should
+enable this option. This topology restriction allows the query optimizer to improve
+traversal execution times, because in many cases the execution can be pushed down
+to a single DB-Server.
+
+[Hybrid Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-disjoint-smartgraphs)
+are only available in the Enterprise Edition and the
+[ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
+
 UI
 --
 
