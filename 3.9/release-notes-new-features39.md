@@ -45,6 +45,10 @@ can be fully local whenever actual data from the Satellite part is being process
 This can improve data locality and reduce the number of network hops between cluster
 nodes.
 
+In case you do have collections which are almost needed in every traversal, but are
+small enough to be copied over to every participating DB-Server, Hybrid Smart Graphs
+are the perfect fit, as this will increase the amount of local query execution.
+
 [Hybrid SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs)
 are only available in the Enterprise Edition and the
 [ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
