@@ -44,6 +44,13 @@ root (`/`) call of the HTTP API:
 - `--http.redirect-root-to`: redirect of root URL to a specified path.
   Redirects to `/_admin/aardvark/index.html` if not set (default).
 
+Server options
+--------------
+
+The _arangod_ server now provides a command `--version-json` to print version
+information in JSON format. This output can be used by tools that need to 
+programmatically inspect an _arangod_ executable.
+
 Client tools
 ------------
 
