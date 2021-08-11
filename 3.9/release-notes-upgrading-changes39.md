@@ -19,6 +19,26 @@ now expected to be present on all targets that run ArangoDB 3.9 executables.
 If a target does not support AVX instructions, it may fail with SIGILL at
 runtime.
 
+AQL
+---
+
+The following complexity limits have been added in 3.9 for AQL queries, 
+Additional complexity limits have been added for AQL queries, in order to 
+prevent programmatically generated large queries from causing trouble 
+(too deep recursion, enormous memory usage, long query optimization 
+and distribution passes etc.).
+
+The following limits have been added:
+
+- a recursion limit for AQL query expressions. An expression can now be
+  up to 500 levels deep. An example expression is `1 + 2 + 3 + 4`, which
+  is 3 levels deep `1 + (2 + (3 + 4))`.
+  The recursion of expressions is limited to 500 levels.
+- a limit for the number of execution nodes in the initial query 
+  execution plan. The number of execution nodes is limited to 4,000.
+
+Also see [Known limitations for AQL queries](aql/fundamentals-limitations.html).
+
 Startup options
 ---------------
 

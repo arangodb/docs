@@ -38,7 +38,7 @@ For a detailed list of changes to the ArangoDB core programs and tools,
 please refer to the version specific changelogs:
 
 - Changelogs 3.x:
-  [3.8](https://raw.githubusercontent.com/arangodb/arangodb/3.9/CHANGELOG){:target="_blank"},
+  [3.9](https://raw.githubusercontent.com/arangodb/arangodb/3.9/CHANGELOG){:target="_blank"},
   [3.8](https://raw.githubusercontent.com/arangodb/arangodb/3.8/CHANGELOG){:target="_blank"},
   [3.7](https://raw.githubusercontent.com/arangodb/arangodb/3.7/CHANGELOG){:target="_blank"},
   [3.6](https://raw.githubusercontent.com/arangodb/arangodb/3.6/CHANGELOG){:target="_blank"},
@@ -72,7 +72,7 @@ Also see [Version Specific Upgrade Information](upgrading-version-specific.html)
 in the _Upgrading_ chapter.
 
 - Incompatible changes in 3.x:
-  [3.8](release-notes-upgrading-changes39.html),
+  [3.9](release-notes-upgrading-changes39.html),
   [3.8](release-notes-upgrading-changes38.html),
   [3.7](release-notes-upgrading-changes37.html),
   [3.6](release-notes-upgrading-changes36.html),
