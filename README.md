@@ -223,6 +223,34 @@ old URL by adding the following to the frontmatter:
 The URL should be relative and the comment (`#`) indicate the versions it was
 renamed in (can also be the same version twice, e.g. `# 3.8 -> 3.8`).
 
+### Disable or limit table of contents
+
+The table of contents (ToC) on the right-hand side at the top of a page lists
+the headlines if there at least three on the page. It can be disabled for
+individual pages with the following frontmatter:
+
+```yaml
+---
+layout: default
+page-toc:
+  disable: true
+---
+```
+
+It can also be restricted to a maximum headline level to omit the deeper nested
+headlines for less clutter:
+
+```yaml
+---
+layout: default
+page-toc:
+  max-headline-level: 3
+---
+```
+
+A setting of `3` means that `<h1>`, `<h2>`, and `<h3>` headlines will be listed
+in the ToC, whereas `<h4>`, `<h5>`, and `<h6>` will be ignored.
+
 ### When adding a new release
 
 - Run below commands in Bash under Linux. Do not use Git Bash on Windows,
