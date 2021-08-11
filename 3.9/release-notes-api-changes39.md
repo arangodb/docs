@@ -24,7 +24,8 @@ additional sub-attribute `fillBlockCache` for its `options` attribute.
 `fillBlockCache` controls whether the to-be-executed query should
 populate the RocksDB block cache with the data read by the query.
 This is an optional attribute, and its default value is `true`, meaning
-that the block cache will be populated.
+that the block cache will be populated. This functionality was also backported
+to v3.8.1.
 
 ### Endpoints moved
 

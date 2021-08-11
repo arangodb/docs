@@ -172,13 +172,14 @@ There are further options that can be passed in the *options* attribute of the *
 - *fillBlockCache*: if set to *true* or not specified, this will make the query store
   the data it reads via the RocksDB storage engine in the RocksDB block cache. This is
   usually the desired behavior. The option can be set to *false* for queries that are
-  known to either read a lot of data which would thrash the block cache, or for queries
-  that read data which are known to be outside of the hot set. By setting the option
+  known to either read a lot of data that would thrash the block cache, or for queries
+  that read data known to be outside of the hot set. By setting the option
   to *false*, data read by the query will not make it into the RocksDB block cache if
-  not already in there, thus leaving more room for the actual hot set.
+  it is not already in there, thus leaving more room for the actual hot set.
 
 - *profile*: if set to *true* or *1*, returns extra timing information for the query. The timing
-  information is accessible via the *getExtra* method of the query result. Set to *2* the query will include execution stats per query plan node in sub-attribute *stats.nodes* of the *extra* return attribute.
+  information is accessible via the *getExtra* method of the query result. Set to *2* the query will
+  include execution stats per query plan node in sub-attribute *stats.nodes* of the *extra* return attribute.
   Additionally the query plan is returned in the sub-attribute *extra.plan*.
 
 - *maxWarningCount*: limits the number of warnings that are returned by the query if
