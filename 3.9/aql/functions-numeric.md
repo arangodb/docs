@@ -149,20 +149,22 @@ COS(RADIANS(45)) // 0.7071067811865476
 ```
 
 COSINE_SIMILARITY()
------
+-------------------
 
-`COSINE_SIMILARITY(x,y) → num`
+`COSINE_SIMILARITY(x, y) → num`
 
-Return the cosine similarity between *x* and *y*.
+Return the [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity){:target="_blank"}
+between *x* and *y*.
+
+To calculate the distance, see [L1_DISTANCE()](#l1_distance) and
+[L2_DISTANCE()](#l2_distance).
 
 - **x** (array): first input array
 - **y** (array): second input array
-- returns **res** (number\|array): the cosine similarity of given arrays
-
-If one of the arguments is 2d array, then it returns an array. Note that in this case
-length of each rows in 2d array should be equal to length of second input array.
-
-Please note that this function calculates similarity, not the distance.
+- returns **num** (number\|array): the cosine similarity value.
+  If one of the inputs is a nested (2D) array, then an array is returned.
+  The length of each 2D array row should be equal to the length of second input
+  array in that case.
 
 ```js
 COSINE_SIMILARITY([0,1], [1,0]) // 0
@@ -372,18 +374,21 @@ LOG10(0) // null
 ```
 
 L1_DISTANCE()
------
+-------------
 
-`L1_DISTANCE(x,y) → num`
+`L1_DISTANCE(x, y) → num`
 
-Return the L1(Manhattan) distance between *x* and *y*.
+Return the [Manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry){:target="_blank"}
+between *x* and *y*.
+
+To calculate the similarity, see [COSINE_SIMILARITY()](#cosine_similarity).
 
 - **x** (array): first input array
 - **y** (array): second input array
-- returns **res** (number\|array): the L1(Manhattan) of given arrays
-
-If one of the arguments is 2d array, then it returns an array. Note that in this case
-length of each rows in 2d array should be equal to length of second input array.
+- returns **num** (number\|array): the L1 distance value.
+  If one of the inputs is a nested (2D) array, then an array is returned.
+  The length of each inner array should be equal to the length of second input
+  array in that case.
 
 ```js
 L1_DISTANCE([-1,-1], [2,2]) // 6
@@ -392,18 +397,21 @@ L1_DISTANCE([1.5], [3]) // 1.5
 ```
 
 L2_DISTANCE()
------
+-------------
 
 `L2_DISTANCE(x,y) → num`
 
-Return the L2(Euclid) distance between *x* and *y*.
+Return the [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance){:target="_blank"}
+between *x* and *y*.
+
+To calculate the similarity, see [COSINE_SIMILARITY()](#cosine_similarity).
 
 - **x** (array): first input array
 - **y** (array): second input array
-- returns **res** (number\|array): the L2(Euclid) of given arrays
-
-If one of the arguments is 2d array, then it returns an array. Note that in this case
-length of each rows in 2d array should be equal to length of second input array.
+- returns **num** (number\|array): the L2 distance value.
+  If one of the inputs is a nested (2D) array, then an array is returned.
+  The length of each inner array should be equal to the length of second input
+  array in that case.
 
 ```js
 L2_DISTANCE([1,1], [5,2]) // 4.1231056256176606
