@@ -6,7 +6,7 @@
 ### {{ group.name }}
 
 {% for metric in group.items -%}
-<strong>{{ metric.help }}</strong>
+#### {{ metric.help }} {: #{{ metric.name }} }
 
 `{{ metric.name }}`
 

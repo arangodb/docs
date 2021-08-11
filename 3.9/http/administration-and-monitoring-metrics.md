@@ -2,6 +2,8 @@
 layout: default
 description: Metrics exposed by ArangoDB and how to export them to Prometheus.
 title: arangod Server Metrics
+page-toc:
+  max-headline-level: 3
 ---
 # ArangoDB Server Metrics
 
