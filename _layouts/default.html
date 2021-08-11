@@ -52,7 +52,7 @@ This documentation is outdated. Please see the most recent version here: <a href
         <script type="text/javascript">
           var disablePageToc = {{ page["page-toc"].disable | jsonify }};
           if (!disablePageToc) {
-            generateToc();
+            generateToc({{ page["page-toc"]["max-headline-level"] }});
           }
         </script>
       </div>

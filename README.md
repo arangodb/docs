@@ -167,6 +167,46 @@ tab when clicked:
 This is an [external link](https://www.arangodb.com/){:target="_blank"}
 ```
 
+### Adding a lead paragraph
+
+A lead paragraph is the opening paragraph of a written work that summarizes its
+main ideas. Only few pages have one so far, but new content should be written
+with such a brief description. It is supposed to clarify the scope of the
+article so that the reader can quickly assess whether the following information
+is of relevance, but also acts as an introduction.
+
+```markdown
+# Using Feature X
+
+You can do this and that with X, and it is ideal to solve problem Y
+{:class="lead"}
+```
+
+The lead paragraph needs to be placed between the top-level headline and the
+first content paragraph. It should end without a period, contain no links and
+usually avoid other markup as well (bold, italic). This also enables the use
+of the lead paragraph as metadata for the page:
+
+```markdown
+---
+layout: default
+description: >-
+  You can do this and that with X, and it is ideal to solve problem Y
+title: Feature X
+---
+# Using Feature X
+
+{{ page.description }}
+{:class="lead"}
+```
+
+The generated metadata looks like this:
+
+```html
+<meta property="og:title" content="Feature X | ArangoDB Documentation" />
+<meta property="og:description" content="You can do this and that with X, and it is ideal to solve problem Y" />
+```
+
 ### Navigation
 
 Each book has a navigation tree represented as a nested data structure in YAML.
@@ -194,7 +234,7 @@ the page we want to add will be `aql/operations-create.md`:
 
 Then create the Markdown document and add the following frontmatter section:
 
-```
+```yaml
 ---
 layout: default
 description: A meaningful description of the page
@@ -222,6 +262,43 @@ old URL by adding the following to the frontmatter:
 
 The URL should be relative and the comment (`#`) indicate the versions it was
 renamed in (can also be the same version twice, e.g. `# 3.8 -> 3.8`).
+
+### Setting anchor IDs
+
+Headlines are assigned automatically generated identifiers based on their text.
+In some cases you may want to set an ID explicitly:
+
+```markdown
+### A headline {: #custom-id }
+```
+
+### Disable or limit table of contents
+
+The table of contents (ToC) on the right-hand side at the top of a page lists
+the headlines if there at least three on the page. It can be disabled for
+individual pages with the following frontmatter:
+
+```yaml
+---
+layout: default
+page-toc:
+  disable: true
+---
+```
+
+It can also be restricted to a maximum headline level to omit the deeper nested
+headlines for less clutter:
+
+```yaml
+---
+layout: default
+page-toc:
+  max-headline-level: 3
+---
+```
+
+A setting of `3` means that `<h1>`, `<h2>`, and `<h3>` headlines will be listed
+in the ToC, whereas `<h4>`, `<h5>`, and `<h6>` will be ignored.
 
 ### When adding a new release
 
