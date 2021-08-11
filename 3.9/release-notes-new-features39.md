@@ -29,6 +29,21 @@ DECAY_LINEAR(5, 0, 10, 0, 0.2) // 0.6
 DECAY_EXP(2, 0, 10, 0, 0.2)    // 0.7247796636776955
 ```
 
+### Vector Functions
+
+Added three vector functions to AQL for calculating the cosine similarity,
+Manhattan distance, and Euclidean distance:
+
+- [COSINE_SIMILARITY()](aql/functions-numeric.html#cosine_similarity)
+- [L1_DISTANCE()](aql/functions-numeric.html#l1_distance)
+- [L2_DISTANCE()](aql/functions-numeric.html#l2_distance)
+
+```js
+COSINE_SIMILARITY([0,1], [1,0]) // 0
+L1_DISTANCE([-1,-1], [2,2]) // 6
+L2_DISTANCE([1,1], [5,2]) // 4.1231056256176606
+```
+
 UI
 --
 
