@@ -35,8 +35,9 @@ The following limits have been added:
   is 3 levels deep `1 + (2 + (3 + 4))`.
   The recursion of expressions is limited to 500 levels.
 - a limit for the number of execution nodes in the initial query 
-  execution plan. 
-  The number of execution nodes is limited to 4,000.
+  execution plan. The number of execution nodes is limited to 4,000.
+
+Also see [Known limitations for AQL queries](aql/fundamentals-limitations.html).
 
 Startup options
 ---------------

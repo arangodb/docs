@@ -60,8 +60,8 @@ To overcome these mentioned limitations, you may want to increase the
 [number of available server threads](../programs-arangod-server.html#server-threads).
 
 In addition, modification of global JavaScript variables from inside UDFs is 
-unsupported, as is reading or changing the data of any collection or running queries
-from inside an AQL user function.
+unsupported, as is reading or changing the data of any collection or running
+queries from inside an AQL user function.
 
 ### Deployment Details
 
