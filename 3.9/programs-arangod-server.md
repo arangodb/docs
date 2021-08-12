@@ -356,6 +356,19 @@ If set to *false* only use the external authentication system. If
 
 The default value is *true*.
 
+## Timeout for web interface sessions
+
+<small>Introduced in: v3.9.0</small>
+
+`--server.session-timeout value`
+
+The timeout value for web interface sessions is configurable via the
+startup option `--server.session-timeout`. The value for the option can
+be specified in seconds.
+
+The session will be renewed automatically as long as you regularly interact with
+the Web UI in your browser. You will not get logged out while actively using it.
+
 ## Server threads
 
 `--server.minimal-threads number`

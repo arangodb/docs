@@ -42,6 +42,18 @@ Also see [Known limitations for AQL queries](aql/fundamentals-limitations.html).
 Startup options
 ---------------
 
+### Timeout for web interface sessions
+
+The timeout value for web interface sessions is now configurable via the
+startup option `--server.session-timeout`. The value for the option can
+be specified in seconds.
+
+The default timeout value for web interface sessions is **one hour** in
+ArangoDB 3.9. Previous versions of ArangoDB had a longer, hard-coded timeout.
+
+The session will be renewed automatically as long as you regularly interact with
+the Web UI in your browser. You will not get logged out while actively using it.
+
 ### Disallowed usage of collection names in AQL expressions
 
 The startup option `--query.allow-collections-in-expressions` added in 3.8.0
