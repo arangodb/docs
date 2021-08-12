@@ -15,7 +15,7 @@ ENV PATH="/root/gems/bin:${PATH}"
 # python md script needs that :S
 ENV LC_ALL=C.UTF-8
 
-RUN gem install bundler:2.2.18 jekyll
+RUN gem install bundler:2.2.25 jekyll
 
 VOLUME /docs
 WORKDIR /docs
