@@ -366,10 +366,8 @@ The timeout value for web interface sessions is configurable via the
 startup option `--server.session-timeout`. The value for the option can
 be specified in seconds.
 
-The session will be renewed automatically if there was any activity in the last
-90 minutes. As long as you regularly interact with the Web UI in your browser,
-you will not get logged out. The renewal takes place at 95% of the session
-timeout (80% if it is under 30 minutes).
+The session will be renewed automatically as long as you regularly interact with
+the Web UI in your browser. You will not get logged out while actively using it.
 
 ## Server threads
 

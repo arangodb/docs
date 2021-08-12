@@ -31,10 +31,8 @@ be specified in seconds.
 The default timeout value for web interface sessions is **one hour** in
 ArangoDB 3.9. Previous versions of ArangoDB had a longer, hard-coded timeout.
 
-The session will be renewed automatically if there was any activity in the last
-90 minutes. As long as you regularly interact with the Web UI in your browser,
-you will not get logged out. The renewal takes place at 95% of the session
-timeout (80% if it is under 30 minutes).
+The session will be renewed automatically as long as you regularly interact with
+the Web UI in your browser. You will not get logged out while actively using it.
 
 ### Disallowed usage of collection names in AQL expressions
 
