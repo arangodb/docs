@@ -368,10 +368,8 @@ Another huge graph is the [Pokec social network](https://snap.stanford.edu/data/
 from Slovakia that we [used for performance testing on several databases](https://www.arangodb.com/2015/06/multi-model-benchmark/){:target="_blank"};
 You will find importing scripts etc. in this blogpost.
 
-Cookbook examples
------------------
-
-The above referenced chapters describe the various APIs of ArangoDBs graph engine with small examples. Our cookbook has some more real life examples:
+More examples
+-------------
 
  - [Retrieving documents from ArangoDB without knowing the structure](drivers/java-examples-base-document.html)
  - [AQL Example Queries on an Actors and Movies Database](aql/examples-actors-and-movies.html)
