@@ -17,6 +17,23 @@ integrations for ArangoDB 3.9.
 
 ### Endpoints added
 
+The HTTP REST API endpoint `GET /_admin/support-info` was added for retrieving
+deployment information for support purposes. The endpoint returns data about the
+ArangoDB version used, the host (operating system, id, CPU and storage capacity,
+current utilization, a few metrics) and the other servers in the deployment
+(in case of active failover or cluster deployments).
+
+As this API may reveal sensitive data about the deployment, it can only be 
+accessed from inside the `_system` database. In addition, there is a policy control 
+startup option `--server.support-info-api` that controls if and to whom the API 
+is made available. This option can have the following values:
+
+* `disabled`: support info API is disabled.
+* `jwt`: support info API can only be accessed via superuser JWT.
+* `hardened` (default): if `--server.harden` is set, the support info API can only be accessed 
+  via superuser JWT. Otherwise it can be accessed by admin users only.
+* `public`: everyone with access to the `_system` database can access the support info API.
+
 ### Endpoints augmented
 
 The HTTP REST API endpoint `POST /_api/cursor` can now handle an 
@@ -26,6 +43,12 @@ populate the RocksDB block cache with the data read by the query.
 This is an optional attribute, and its default value is `true`, meaning
 that the block cache will be populated. This functionality was also backported
 to v3.8.1.
+
+The HTTP REST API endpoint `POST /_api/cursor` can also handle the
+sub-attribute `maxNodesPerCallstack`, which controls after how many
+execution nodes in a query a stack split should be performed. This is
+only relevant for very large queries. If this option is not specified,
+the default value is 200 on MacOS, and 250 for other platforms.
 
 ### Endpoints moved
 
