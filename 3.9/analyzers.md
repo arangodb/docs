@@ -102,7 +102,7 @@ The currently implemented Analyzer types are:
   normalization, stop-word filtering and edge _n_-gram generation
 - `aql`: for running AQL query to prepare tokens for index
 - `pipeline`: for chaining multiple Analyzers
-{%- comment %}- `stopwords`: removes the specified tokens from the input{% endcomment %}
+- `stopwords`: removes the specified tokens from the input
 - `geojson`: breaks up a GeoJSON object into a set of indexable tokens
 - `geopoint`: breaks up a JSON object describing a coordinate into a set of
   indexable tokens
@@ -110,19 +110,21 @@ The currently implemented Analyzer types are:
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
-Analyzer    /    Feature  | Tokenization | Stemming | Normalization | _N_-grams
-:-------------------------|:------------:|:--------:|:-------------:|:--------:
-[`identity`](#identity)   |      No      |    No    |      No       |   No
-[`delimiter`](#delimiter) |    (Yes)     |    No    |      No       |   No
-[`stem`](#stem)           |      No      |   Yes    |      No       |   No
-[`norm`](#norm)           |      No      |    No    |     Yes       |   No
-[`ngram`](#ngram)         |      No      |    No    |      No       |  Yes
-[`text`](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
-[`aql`](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-[`pipeline`](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-{%- comment %}[`stopwords`](#stopwords) |      No      |    No    |      No       |   No{% endcomment %}
-[`geojson`](#geojson)     |      –       |    –     |      –        |   –
-[`geopoint`](#geopoint)   |      –       |    –     |      –        |   –
+Analyzer    /    Feature        | Tokenization | Stemming | Normalization | _N_-grams
+:------------------------------:|:------------:|:--------:|:-------------:|:--------:
+[`identity`](#identity)         |      No      |    No    |      No       |   No
+[`delimiter`](#delimiter)       |    (Yes)     |    No    |      No       |   No
+[`stem`](#stem)                 |      No      |   Yes    |      No       |   No
+[`norm`](#norm)                 |      No      |    No    |     Yes       |   No
+[`ngram`](#ngram)               |      No      |    No    |      No       |  Yes
+[`text`](#text)                 |     Yes      |   Yes    |     Yes       | (Yes)
+[`aql`](#aql)                   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[`pipeline`](#pipeline)         |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[`stopwords`](#stopwords)       |      No      |    No    |      No       |   No
+[`collation`](#collation)       |      No      |    No    |      No       |   No
+[`segmentation`](#segmentation) |     Yes      |    No    |     Yes       |   No
+[`geojson`](#geojson)           |      –       |    –     |      –        |   –
+[`geopoint`](#geopoint)         |      –       |    –     |      –        |   –
 
 Analyzer Properties
 -------------------
@@ -728,10 +730,9 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-{% comment %}
 ### `stopwords`
 
-<small>Introduced in: v3.8.0</small>
+<small>Introduced in: v3.8.1</small>
 
 An Analyzer capable of removing specified tokens from the input.
 
@@ -802,7 +803,41 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
     @endDocuBlock analyzerPipelineStopwords
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-{% endcomment %}
+
+### `collation`
+
+<small>Introduced in: v3.9.0</small>
+
+An Analyzer capable of conveting the input into a set of language-specific tokens.
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `locale` (string): a locale in the format
+  `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
+  parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
+  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
+
+### `segmentation`
+
+An Analyzer capable of breaking up the input text into tokens in language
+agnostic manner as per [Unicode Standard Annex #29](https://unicode.org/reports/tr29) 
+while also optionally applying case conversion.
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `break` (string, _optional_):
+  - `"all"` return all tokens
+  - `"alpha"` return tokens composed of alphanumeric characters (default)
+  - `"graphic"`return tokens composed of printable characters
+- `case` (string, _optional_):
+  - `"lower"` to convert to all lower-case characters (default)
+  - `"upper"` to convert to all upper-case characters
+  - `"none"` to not change character case
+
+
+<small>Introduced in: v3.9.0</small>
 
 ### `geojson`
 
