@@ -901,9 +901,9 @@ Create different `segmentation` Analyzers to show the behavior of the different
     @startDocuBlockInline analyzerSegmentationBreak
     @EXAMPLE_ARANGOSH_OUTPUT{analyzerSegmentationBreak}
       var analyzers = require("@arangodb/analyzers");
-    | var all = analyzers.save("segment_all", "segmentation", { break: "all" }, []);
-    | var alpha = analyzers.save("segment_alpha", "segmentation", { break: "alpha" }, []);
-    | var graphic = analyzers.save("segment_graphic", "segmentation", { break: "graphic" }, []);
+      var all = analyzers.save("segment_all", "segmentation", { break: "all" }, []);
+      var alpha = analyzers.save("segment_alpha", "segmentation", { break: "alpha" }, []);
+      var graphic = analyzers.save("segment_graphic", "segmentation", { break: "graphic" }, []);
     | db._query(`LET str = 'Test\twith An_EMAIL-address+123@example.org\n蝴蝶。\u2028бутерброд'
     |   RETURN {
     |     "all": TOKENS(str, 'segment_all'),
