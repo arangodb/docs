@@ -118,11 +118,11 @@ Analyzer    /    Feature        | Tokenization | Stemming | Normalization | _N_-
 [`norm`](#norm)                 |      No      |    No    |     Yes       |   No
 [`ngram`](#ngram)               |      No      |    No    |      No       |  Yes
 [`text`](#text)                 |     Yes      |   Yes    |     Yes       | (Yes)
+[`segmentation`](#segmentation) |     Yes      |    No    |     Yes       |   No
 [`aql`](#aql)                   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [`pipeline`](#pipeline)         |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [`stopwords`](#stopwords)       |      No      |    No    |      No       |   No
 [`collation`](#collation)       |      No      |    No    |      No       |   No
-[`segmentation`](#segmentation) |     Yes      |    No    |     Yes       |   No
 [`geojson`](#geojson)           |      –       |    –     |      –        |   –
 [`geopoint`](#geopoint)         |      –       |    –     |      –        |   –
 
@@ -488,6 +488,58 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### `collation`
+
+<small>Introduced in: v3.9.0</small>
+
+An Analyzer capable of converting the input into a set of language-specific
+tokens. This makes comparisons follow the rules of the respective language,
+most notable in range queries.
+
+The *properties* allowed for this Analyzer are an object with the following
+attributes:
+
+- `locale` (string): a locale in the format
+  `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
+  parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
+  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
+
+**Examples**
+
+In Swedish, the letter `å` (note the small circle above the `a`) comes after
+`z`. Other languages treat it like a regular `a`, putting it before `b`.
+Below example creates two `collation` Analyzers, one with an English locale
+(`en`) and one with a Swedish locale (`sv`). It then demonstrates the
+difference in alphabetical order using a simple range query that returns
+letters before `c`:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerCollation
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerCollation}
+      var analyzers = require("@arangodb/analyzers");
+      var en = analyzers.save("collation_en", "collation", { locale: "en.utf-8" }, []);
+      var sv = analyzers.save("collation_sv", "collation", { locale: "sv.utf-8" }, []);
+      var test = db._create("test");
+    | db.test.save([
+    |   { text: "a" },
+    |   { text: "å" },
+    |   { text: "b" },
+    |   { text: "z" },
+      ]);
+    | var view = db._createView("view", "arangosearch",
+        { links: { test: { analyzers: [ "collation_en", "collation_sv" ], includeAllFields: true }}});
+    ~ db._query("FOR doc IN view OPTIONS { waitForSync: true } LIMIT 1 RETURN true");
+      db._query("FOR doc IN view SEARCH ANALYZER(doc.text < TOKENS('c', 'collation_en')[0], 'collation_en') RETURN doc.text");
+      db._query("FOR doc IN view SEARCH ANALYZER(doc.text < TOKENS('c', 'collation_sv')[0], 'collation_sv') RETURN doc.text");
+    ~ db._dropView(view.name());
+    ~ db._drop(test.name());
+    ~ analyzers.remove(en.name);
+    ~ analyzers.remove(sv.name);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerCollation
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### `aql`
 
 <small>Introduced in: v3.8.0</small>
@@ -804,40 +856,68 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-### `collation`
+### `segmentation`
 
 <small>Introduced in: v3.9.0</small>
 
-An Analyzer capable of conveting the input into a set of language-specific tokens.
-
-The *properties* allowed for this Analyzer are an object with the following
-attributes:
-
-- `locale` (string): a locale in the format
-  `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
-  parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
-
-### `segmentation`
-
-An Analyzer capable of breaking up the input text into tokens in language
-agnostic manner as per [Unicode Standard Annex #29](https://unicode.org/reports/tr29) 
+An Analyzer capable of breaking up the input text into tokens in a
+language-agnostic manner as per
+[Unicode Standard Annex #29](https://unicode.org/reports/tr29){:target="_blank"}
+using 
 while also optionally applying case conversion.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
 - `break` (string, _optional_):
-  - `"all"` return all tokens
-  - `"alpha"` return tokens composed of alphanumeric characters (default)
-  - `"graphic"`return tokens composed of printable characters
+  - `"all"`: return all tokens
+  - `"alpha"`: return tokens composed of alphanumeric characters only (default).
+    Alphanumeric characters are Unicode codepoints from the Letter and Number
+    categories, see
+    [Unicode Technical Note #36](https://www.unicode.org/notes/tn36/){:target="_blank"}.
+  - `"graphic"`: return tokens composed of non-whitespace characters only.
+    Note that the list of whitespace characters does not include line breaks:
+    - `U+0009` Character Tabulation
+    - `U+0020` Space
+    - `U+0085` Next Line
+    - `U+00A0` No-break Space
+    - `U+1680` Ogham Space Mark
+    - `U+2000` En Quad
+    - `U+2028` Line Separator
+    - `U+202F` Narrow No-break Space
+    - `U+205F` Medium Mathematical Space
+    - `U+3000` Ideographic Space
 - `case` (string, _optional_):
   - `"lower"` to convert to all lower-case characters (default)
   - `"upper"` to convert to all upper-case characters
   - `"none"` to not change character case
 
+**Examples**
 
-<small>Introduced in: v3.9.0</small>
+Create different `segmentation` Analyzers to show the behavior of the different
+`break` options:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline analyzerSegmentationBreak
+    @EXAMPLE_ARANGOSH_OUTPUT{analyzerSegmentationBreak}
+      var analyzers = require("@arangodb/analyzers");
+    | var all = analyzers.save("segment_all", "segmentation", { break: "all" }, []);
+    | var alpha = analyzers.save("segment_alpha", "segmentation", { break: "alpha" }, []);
+    | var graphic = analyzers.save("segment_graphic", "segmentation", { break: "graphic" }, []);
+    | db._query(`LET str = 'Test\twith An_EMAIL-address+123@example.org\n蝴蝶。\u2028бутерброд'
+    |   RETURN {
+    |     "all": TOKENS(str, 'segment_all'),
+    |     "alpha": TOKENS(str, 'segment_alpha'),
+    |     "graphic": TOKENS(str, 'segment_graphic'),
+    |   }
+      `);
+    ~ analyzers.remove(all.name);
+    ~ analyzers.remove(alpha.name);
+    ~ analyzers.remove(graphic.name);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock analyzerSegmentationBreak
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### `geojson`
 
