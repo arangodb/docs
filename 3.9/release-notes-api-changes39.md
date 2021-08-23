@@ -50,6 +50,15 @@ execution nodes in a query a stack split should be performed. This is
 only relevant for very large queries. If this option is not specified,
 the default value is 200 on MacOS, and 250 for other platforms.
 
+The HTTP REST API endpoint `PUT /_admin/log/level` can now handle the
+pseudo log topic "all". Setting the log level for the "all" log topic will
+adjust the log level for *all existing log topics*.
+For example, sending the JSON object to this API
+```js
+{"all":"debug"}
+```
+will set all log topics to log level debug.
+
 ### Endpoints moved
 
 ### Endpoints removed
