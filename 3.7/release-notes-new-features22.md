@@ -91,7 +91,7 @@ operations into the write-ahead log directly now. In previous versions, such
 operations were buffered until the commit or rollback occurred. Transactions with
 multiple operations should therefore require less physical memory than in previous 
 versions of ArangoDB.
-  
+
 The data in the write-ahead log can also be used in the replication context. In
 previous versions of ArangoDB, replicating from a master required turning on a
 special replication logger on the master. The replication logger caused an extra
@@ -101,14 +101,10 @@ from the master's write-ahead log to get informed about most recent data changes
 This removes the need to store data-modification operations in the *_replication*
 collection altogether. 
 
-For the configuration of the write-ahead log, please refer to
-[Write-ahead log options](programs-arangod-wal.html).
-
 The introduction of the write-ahead log also removes the need to configure and
 start the replication logger on a master. Though the replication logger object
 is still available in ArangoDB 2.2 to ensure API compatibility, starting, stopping,
 or configuring it will have no effect.
-
 
 Performance improvements
 ------------------------
