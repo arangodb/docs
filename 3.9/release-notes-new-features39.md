@@ -66,6 +66,26 @@ The _arangod_ server now provides a command `--version-json` to print version
 information in JSON format. This output can be used by tools that need to 
 programmatically inspect an _arangod_ executable.
 
+Support info API
+----------------
+
+A new HTTP REST API endpoint `GET /_admin/support-info` was added for retrieving
+deployment information for support purposes. The endpoint returns data about the
+ArangoDB version used, the host (operating system, server ID, CPU and storage capacity,
+current utilization, a few metrics) and the other servers in the deployment
+(in case of active failover or cluster deployments).
+
+As this API may reveal sensitive data about the deployment, it can only be 
+accessed from inside the `_system` database. In addition, there is a policy control 
+startup option `--server.support-info-api` that controls if and to whom the API 
+is made available. This option can have the following values:
+
+- `disabled`: support info API is disabled.
+- `jwt`: support info API can only be accessed via superuser JWT.
+- `hardened` (default): if `--server.harden` is set, the support info API can only be
+  accessed via superuser JWT. Otherwise it can be accessed by admin users only.
+- `public`: everyone with access to the `_system` database can access the support info API.
+
 Client tools
 ------------
 
