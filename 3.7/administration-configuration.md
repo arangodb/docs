@@ -252,8 +252,10 @@ do so. On a command line:
 arangod --log.level warning --log.level queries=trace --log.level startup=info
 ```
 
-This sets a global log level of `warning` and two topic-specific levels
-(`trace` for queries and `info` for startup). The same in a configuration file:
+This sets a log level of `warning` for the `general` topic (not globally!) and
+two topic-specific levels (`trace` for queries and `info` for startup).
+
+The same in a configuration file:
 
 ```conf
 [log]

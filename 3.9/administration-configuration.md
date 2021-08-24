@@ -249,15 +249,19 @@ strings for different log levels for example. Simply repeat the option to
 do so. On a command line:
 
 ```
-arangod --log.level warning --log.level queries=trace --log.level startup=info
+arangod --log.level all=warning --log.level queries=trace --log.level startup=info
 ```
 
 This sets a global log level of `warning` and two topic-specific levels
-(`trace` for queries and `info` for startup). The same in a configuration file:
+(`trace` for queries and `info` for startup). Note that `--log.level warning`
+does not set a log level globally for all existing topics, but only the
+`general` topic.
+
+The same in a configuration file:
 
 ```conf
 [log]
-level = warning
+level = all=warning
 level = queries=trace
 level = startup=info
 ```

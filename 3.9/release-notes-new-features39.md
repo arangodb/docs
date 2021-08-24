@@ -214,6 +214,10 @@ The _arangod_ server now provides a command `--version-json` to print version
 information in JSON format. This output can be used by tools that need to 
 programmatically inspect an _arangod_ executable.
 
+A pseudo log topic `"all"` was added. Setting the log level for the "all" log
+topic will adjust the log level for **all existing log topics**. For example,
+`--log.level all=debug` will set all log topics to log level "debug".
+
 Support info API
 ----------------
 
