@@ -9,6 +9,26 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.9. ArangoDB 3.9 also contains several bug fixes that are not listed
 here.
 
+ArangoSearch
+------------
+
+### Segmentation and Collation Analyzers
+
+The new `segmentation` Analyzer type allows you to tokenize text in a
+language-agnostic manner as per
+[Unicode Standard Annex #29](https://unicode.org/reports/tr29){:target="_blank"},
+making it suitable for mixed language strings. It can optionally preserve all
+non-whitespace or all characters instead of keeping alphanumeric characters only,
+as well as apply case conversion.
+
+The `collation` Analyzer converts the input into a set of language-specific
+tokens. This makes comparisons follow the rules of the respective language,
+most notable in range queries against Views.
+
+See:
+- [`segmentation` Analyzer](analyzers.html#segmentation)
+- [`collation` Analyzer](analyzers.html#collation)
+
 AQL
 ---
 

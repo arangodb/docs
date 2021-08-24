@@ -100,9 +100,12 @@ The currently implemented Analyzer types are:
 - `ngram`: create _n_-grams from value with user-defined lengths
 - `text`: tokenize into words, optionally with stemming,
   normalization, stop-word filtering and edge _n_-gram generation
+- `segmentation`: language-agnostic text tokenization, optionally with
+  normalization
 - `aql`: for running AQL query to prepare tokens for index
 - `pipeline`: for chaining multiple Analyzers
 - `stopwords`: removes the specified tokens from the input
+- `collation`: to respect the alphabetic order of a language in range queries
 - `geojson`: breaks up a GeoJSON object into a set of indexable tokens
 - `geopoint`: breaks up a JSON object describing a coordinate into a set of
   indexable tokens
@@ -164,7 +167,6 @@ The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
 - `delimiter` (string): the delimiting character(s)
-
 
 **Examples**
 
@@ -494,7 +496,7 @@ stemming disabled and `"the"` defined as stop-word to exclude it:
 
 An Analyzer capable of converting the input into a set of language-specific
 tokens. This makes comparisons follow the rules of the respective language,
-most notable in range queries.
+most notable in range queries against Views.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
@@ -862,9 +864,10 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
 
 An Analyzer capable of breaking up the input text into tokens in a
 language-agnostic manner as per
-[Unicode Standard Annex #29](https://unicode.org/reports/tr29){:target="_blank"}
-using 
-while also optionally applying case conversion.
+[Unicode Standard Annex #29](https://unicode.org/reports/tr29){:target="_blank"},
+making it suitable for mixed language strings. It can optionally preserve all
+non-whitespace or all characters instead of keeping alphanumeric characters only,
+as well as apply case conversion.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
