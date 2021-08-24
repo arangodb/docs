@@ -270,6 +270,23 @@ DB-Servers.
 Client tools
 ------------
 
+### Increased default number of threads
+
+The default value for the `--threads` startup parameter was changed from
+2 to the maximum of 2 and the number of available CPU cores for the following
+client tools:
+
+- arangodump
+- arangoimport
+- arangorestore
+
+This change can help to improve performance of imports, dumps or restore
+processes on machines with multiple cores in case the `--threads` parameter
+was not previously used. As a trade-off, the change may lead to an increased 
+load on servers, so any scripted imports, dumps or restore processes that 
+want to keep the server load under control should set the number of client
+threads explicitly when invoking any of the above client tools.
+
 ### arangobench
 
 _arangobench_ now prints a short description of the test case started, so
