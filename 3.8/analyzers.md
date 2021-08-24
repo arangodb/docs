@@ -102,7 +102,7 @@ The currently implemented Analyzer types are:
   normalization, stop-word filtering and edge _n_-gram generation
 - `aql`: for running AQL query to prepare tokens for index
 - `pipeline`: for chaining multiple Analyzers
-{%- comment %}- `stopwords`: removes the specified tokens from the input{% endcomment %}
+- `stopwords`: removes the specified tokens from the input
 - `geojson`: breaks up a GeoJSON object into a set of indexable tokens
 - `geopoint`: breaks up a JSON object describing a coordinate into a set of
   indexable tokens
@@ -120,7 +120,7 @@ Analyzer    /    Feature  | Tokenization | Stemming | Normalization | _N_-grams
 [`text`](#text)           |     Yes      |   Yes    |     Yes       | (Yes)
 [`aql`](#aql)             |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
 [`pipeline`](#pipeline)   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-{%- comment %}[`stopwords`](#stopwords) |      No      |    No    |      No       |   No{% endcomment %}
+[`stopwords`](#stopwords) |      No      |    No    |      No       |   No
 [`geojson`](#geojson)     |      –       |    –     |      –        |   –
 [`geopoint`](#geopoint)   |      –       |    –     |      –        |   –
 
@@ -728,10 +728,9 @@ Split at delimiting characters `,` and `;`, then stem the tokens:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-{% comment %}
 ### `stopwords`
 
-<small>Introduced in: v3.8.0</small>
+<small>Introduced in: v3.8.1</small>
 
 An Analyzer capable of removing specified tokens from the input.
 
@@ -802,7 +801,6 @@ lower-case and base characters) and then discards the stopwords `and` and `the`:
     @endDocuBlock analyzerPipelineStopwords
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-{% endcomment %}
 
 ### `geojson`
 
