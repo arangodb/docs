@@ -23,31 +23,6 @@ considered obsolete and may get removed in a future release. They are currently
 kept for backward compatibility. There are usually better alternatives to
 replace the old features with:
 
-- **MMFiles Storage Engine**:
-  The MMFiles storage engine was deprecated in version 3.6.0 and removed in
-  3.7.0. To change your MMFiles storage engine deployment to RocksDB, see:
-  [Switch storage engine](administration-engine-switch-engine.html)
-
-  MMFiles specific startup options still exist but will also be removed.
-  This will affect the following options:
-
-  - `--compaction.*`
-  - `--database.force-sync-properties`
-  - `--database.index-threads`
-  - `--database.maximal-journal-size`
-  - `--database.throw-collection-not-loaded-error`
-  - `--ttl.only-loaded-collection`
-  - `--wal.*`
-
-  The collection attributes `doCompact`, `indexBuckets`, `isVolatile`,
-  `journalSize` and `path` are only used with MMFiles and are thus also
-  deprecated. They are completely ignored when specified in requests.
-
-- **Export API**:
-  The [export REST API](http/export.html) is deprecated and will be removed in a
-  future version. Instead of using this API, please use an AQL query with a
-  streaming cursor to dump the contents of a collection.
-
 - **Batch Requests API**:
   The [batch request REST API](http/batch-request.html) is deprecated and will be 
   removed in a future version. Instead of using this API, please use the 
@@ -86,15 +61,6 @@ replace the old features with:
   are deprecated in favor of the new metrics API under `/_admin/metrics/v2`.
   The metrics API provides a lot more information than the statistics API, so
   it is much more useful.
-
-- **Older cluster REST API endpoints**:
-  The following endpoints are simply redirects since ArangoDB 3.7 and are thus
-  deprecated from ArangoDB 3.8 onwards:
-
-  - `/_admin/clusterNodeVersion`: redirects to `/_admin/cluster/nodeVersion`
-  - `/_admin/clusterNodeEngine`: redirects to `/_admin/cluster/nodeEngine`
-  - `/_admin/clusterNodeStats`: redirects to `/_admin/cluster/nodeStatistics`
-  - `/_admin/clusterStatistics`: redirects to `/_admin/cluster/statistics`
 
 - **Loading and unloading of collections**:
   The JavaScript functions for explicitly loading and unloading collections,
