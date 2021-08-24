@@ -152,9 +152,9 @@ The default value for the `--threads` startup parameter was changed from
 2 to the maximum of 2 and the number of available CPU cores for the
 following client tools:
 
-* arangodump
-* arangoimport
-* arangorestore
+- arangodump
+- arangoimport
+- arangorestore
 
 This change can help to improve performance of imports, dumps or restore
 processes on machines with multiple cores in case the `--threads` parameter
