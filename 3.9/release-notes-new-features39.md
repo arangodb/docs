@@ -214,6 +214,24 @@ The _arangod_ server now provides a command `--version-json` to print version
 information in JSON format. This output can be used by tools that need to 
 programmatically inspect an _arangod_ executable.
 
+There's a new startup option for databases which tolerates names with special unicode
+characters. Its flag is `--database.extended-names-databases`.
+Executing the server with its value set as true provided support for database names that
+are not comprised within the ASCII table, such as japanese letters, arabic, emojis, 
+letters with accetuation. Also, former ASCII characters that were banned in the previous
+naming convention are now accepted, such as:
+- `.` is accepted, only not as first character for the database name.
+
+
+Examples:
+España, 😀, 犬, كلب, @abc123 
+
+Its default value is set to false for retrocompatibility with drivers that support only 
+ASCII names according to the previous database naming convention.
+CAUTION: it's only compatible with drivers that support new style database names. If 
+there is a database with such names, it will not be accessible by the drivers that do not
+support the new naming convention yet.
+
 Support info API
 ----------------
 
