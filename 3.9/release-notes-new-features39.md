@@ -214,22 +214,38 @@ The _arangod_ server now provides a command `--version-json` to print version
 information in JSON format. This output can be used by tools that need to 
 programmatically inspect an _arangod_ executable.
 
-There's a new startup option for databases which tolerates names with special unicode
+There's a new startup option for databases which tolerates names with special and Utf8
 characters. Its flag is `--database.extended-names-databases`.
-Executing the server with its value set as true provided support for database names that
-are not comprised within the ASCII table, such as japanese letters, arabic, emojis, 
+Executing the server with its value set as true provides support for database names that
+are not comprised within the ASCII table, such as japanese or arabic letters, emojis, 
 letters with accetuation. Also, former ASCII characters that were banned in the previous
 naming convention are now accepted, such as:
-- `.` is accepted, only not as first character for the database name.
 
+* `.` is accepted, only not as first character for the database name. For example, `".abc"`
+  is not accepted, but `"a.bc"`is.
+
+* `" "` spaces are accepted, but only in between characters of the database name. Leading
+  or trailing spaces are not allowed, but are trimmed from the name when a database with 
+  such characters is created. For instance, the database name `" test123 "` would have its
+  leading and trailing spaces trimmed and become `"test123"`.
+
+* Numeric digits `0-9` are accepted, only not as first character for the database name.
+
+* other characters that are not forbidden (listed below) are allowed at any position. 
+
+In the new convention, the characters below are still disallowed at any position in a 
+database name:
+* `/` 
+* `:`
+* control characters (below ASCII code 32), such as `\n`, `\t`, `\r`, including `\0
 
 Examples:
-España, 😀, 犬, كلب, @abc123 
+`"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"` 
 
-Its default value is set to false for retrocompatibility with drivers that support only 
-ASCII names according to the previous database naming convention.
-CAUTION: it's only compatible with drivers that support new style database names. If 
-there is a database with such names, it will not be accessible by the drivers that do not
+CAUTION: Its default value is set to false for retrocompatibility with drivers that support 
+only ASCII names according to the previous database naming convention. Setting its value to 
+true will only provide compatibility  with drivers that support new style database names. 
+If there is a database with such names, it will not be accessible by the drivers that do not 
 support the new naming convention yet.
 
 Support info API
