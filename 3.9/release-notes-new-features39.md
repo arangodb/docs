@@ -236,7 +236,7 @@ database name:
 * `:`
 * control characters (below ASCII code 32), such as `\n`, `\t`, `\r`, including `\0`
 
-Examples:
+Example database names that can be used with the new naming convention:
 `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"` 
 
 CAUTION: Its default value is set to false for retrocompatibility with drivers that support 
