@@ -9,7 +9,7 @@ Glossary
 Collection
 ----------
 
-A collection consists of documents. It is uniquely identified by its collection identifier. 
+A  collection consists of documents. It is uniquely identified by its collection identifier. 
 It also has a unique name that clients should use to identify and access it. 
 Collections can be renamed. It will change the collection name, but not the collection identifier. 
 Collections contain documents of a specific type. There are currently two types: document (default) and edge. The type is specified by the user when the collection is created, and cannot be changed later.
