@@ -210,6 +210,7 @@ size=2G
 If you want to use an environment variable in a value of a startup option,
 write the name of the variable wrapped in at signs `@`. It acts as a
 placeholder. It can be combined with fixed strings for instance.
+For literal at signs in startup option arguments, escape them like `@@`.
 
 Command line example:
 
