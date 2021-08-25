@@ -214,8 +214,8 @@ The _arangod_ server now provides a command `--version-json` to print version
 information in JSON format. This output can be used by tools that need to 
 programmatically inspect an _arangod_ executable.
 
-There's a new startup option for databases which tolerates names with special and Utf8
-characters. Its flag is `--database.extended-names-databases`.
+There is a new startup option to allow database names containing Unicode characters
+and other special characters. The option name is `--database.extended-names-databases`.
 Executing the server with its value set as true provides support for database names that
 are not comprised within the ASCII table, such as japanese or arabic letters, emojis, 
 letters with accetuation. Also, former ASCII characters that were banned in the previous
