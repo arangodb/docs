@@ -28,11 +28,16 @@ _arangosh_ will then display a password prompt and try to connect to the
 server after the password was entered.
 
 {% hint 'warning' %}
-Due to how ArangoSH processes arguments, a command-line argument provided as `--server.username <arg>` or `--server.password <arg>` (non-exhaustive list) containing two `@` will treat the symbols in between as the name of a system environment variable. This edge case may appear when using password generators.
+At signs `@` in startup option arguments need to be escaped as `@@`.
+ArangoDB programs and tools support a
+[special syntax `@envvar@`](administration-configuration.html#environment-variables-as-parameters)
+that substitutes text wrapped in at signs with the value of an equally called
+environment variable. This is mostly likely an issue with passwords and the
+`--server.password` option.
 
-To avoid this behavior, escape all `@` symbols by prefixing them by another `@`.
-
-Example: `password@test@123` would need to become `password@@test@@123` to work correctly. (Please avoid using insecure passwords in production environments)
+For example, `password@test@123` needs to be passed as
+`--server.password password@@test@@123` to work correctly, unless you want
+`@test@` to be replaced by whatever the environment variable `test` is set to.
 {% endhint %}
 
 The shell will print its own version number and if successfully connected
