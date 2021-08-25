@@ -45,7 +45,7 @@ A single ArangoDB instance can handle multiple databases in parallel. When multi
 
 There are two naming conventions available for database names: the _traditional_
 and the _extended_ naming conventions. Whether the former or the latter is active
-depends upon the value set to the flag `--database.extended-names-databases`.
+depends upon the value of the startup flag `--database.extended-names-databases`.
 Executing the server with this flag set to true as a startup option will activate
 the extended naming convention, which tolerates names with special and Utf8 
 characters. 
