@@ -7,7 +7,15 @@ Database Names
 
 ArangoDB will always start up with a default database, named *_system*.
 Users can create additional databases in ArangoDB, provided the database
-names conform to the following constraints:
+names conform to the selected naming convention for databases.
+
+In ArangoDB versions before 3.9 there was only the _traditional_ naming
+convention available. Since ArangoDB version 3.9 there is also the _extended_
+naming convention, which is disabled by default. It can be enabled on an
+installation by setting the startup option `--database.extended-names-databases`
+to `true`.
+
+The restrictions of the two naming conventions are:
 
 * For traditional naming convention
   * Database names must only consist of the letters *a* to *z* (both lower and
