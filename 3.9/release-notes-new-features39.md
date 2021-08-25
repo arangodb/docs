@@ -223,21 +223,18 @@ naming convention are now accepted, such as:
 
 * `.` is accepted, only not as first character for the database name. For example, `".abc"`
   is not accepted, but `"a.bc"`is.
-
 * `" "` spaces are accepted, but only in between characters of the database name. Leading
   or trailing spaces are not allowed, but are trimmed from the name when a database with 
   such characters is created. For instance, the database name `" test123 "` would have its
   leading and trailing spaces trimmed and become `"test123"`.
-
 * Numeric digits `0-9` are accepted, only not as first character for the database name.
-
 * other characters that are not forbidden (listed below) are allowed at any position. 
 
 In the new convention, the characters below are still disallowed at any position in a 
 database name:
 * `/` 
 * `:`
-* control characters (below ASCII code 32), such as `\n`, `\t`, `\r`, including `\0
+* control characters (below ASCII code 32), such as `\n`, `\t`, `\r`, including `\0`
 
 Examples:
 `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"` 

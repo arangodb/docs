@@ -42,9 +42,19 @@ Database Name
 A single ArangoDB instance can handle multiple databases in parallel. When
 multiple databases are used, each database must be given an unique name.
 This name is used to uniquely identify a database. The default database in
-ArangoDB is named `_system`. The database name is a string consisting of only
-letters, digits and the _ (underscore) and - (dash) characters. User-defined
-database names must always start with a letter. Database names are case-sensitive.
+ArangoDB is named `_system`. 
+
+There are two naming conventions available for database names: the traditional
+and the extended naming conventions. Wether the former or the latter is active
+depends upon the value set to the flag `--database.extended-names-databases`.
+Executing the server with this flag set to true as a startup option will activate
+the extended naming convention, which tolerates names with special and Utf8 
+characters. 
+If the flag is set to false (the default value), the traditional naming convention is activated. In the traditional naming convention, the database name is a string consisting of only letters, digits and the `_` (underscore) and `-` (dash) characters. User-defined database names must always start with a letter. Database names are case-sensitive.
+In the extended naming convention, databases must not start with numeric digits `0-9` or `.`, and user-defined databases must not start with `_`(underscore).
+Utf8 characters are allowed as well as other ASCII characters that are not for control (those under the ASCII code 32). 
+Also, for both conventions, names cannot contain `/` or `:`.
+For more information, refer to [Database Naming Convention.](http://arangodb.com/docs/3.8/data-modeling-naming-conventions-database-names.html "Database naming convention")
 
 Database Organization
 ---------------------
@@ -80,9 +90,12 @@ application path. The filesystem layout could look like this:
 apps/                   # the instance's application directory
   system/               # system applications (can be ignored)
   databases/            # sub-directory containing database-specific applications
-    <database-name>/    # sub-directory for a single database
+    <database-dir*>/    # sub-directory for a single database
       <app-name>        # sub-directory for a single application
       <app-name>        # sub-directory for a single application
-    <database-name>/    # sub-directory for another database
+    <database-dir*>/    # sub-directory for another database
       <app-name>        # sub-directory for a single application
 ```
+
+*The name of this sub-directory will be the database's original name or the 
+database's id if its name has special characters.
