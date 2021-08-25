@@ -12,7 +12,7 @@ For a general introduction to the _ArangoDB Cluster_, please refer to the
 
 {% hint 'info %}
 ArangoDB is also available as
-[**managed service** (ArangoDB Oasis)](https://www.arangodb.com/managed-service/){:target="_blank"}.
+[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/){:target="_blank"}.
 {% endhint %}
 
 - [Preliminary Information](deployment-cluster-preliminary-information.html)
@@ -21,6 +21,6 @@ ArangoDB is also available as
 - [Kubernetes](deployment-cluster-kubernetes.html)
 
 Go through the detailed
-[ArangoDB Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}
+[ArangoDB Cluster Administration Course](https://www.arangodb.com/learn/operations/cluster-course/){:target="_blank"}
 to dig deeper into maintenance, resilience and troubleshooting of your
 distributed environment.

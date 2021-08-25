@@ -74,9 +74,11 @@ not possible, if edge collections are used directly. See
 for details. The `WITH` statement is not necessary when using named graphs
 for the traversals.
 
-As deadlocks cannot be detected in a cluster environment easily, the
-`WITH` keyword is mandatory for this particular situation in a cluster,
-but not in a single server.
+Since ArangoDB 3.7.12 there is a startup option `--query.require-with`
+to make single server installations also require the `WITH` statements
+in the same places where are cluster installation would. This option
+is *false* by default, but be set to true to remove this behavior
+difference between single servers and clusters.
 
 ### Performance
 
@@ -89,7 +91,7 @@ operation.
 On the other hand, if you do a join or a traversal and the data is not
 local to one server then the performance can be worse compared to a
 single server. This is especially true for traversal if the data is
-not sharded with care. Our smart graph feature helps with this for
+not sharded with care. Our SmartGraph feature helps with this for
 traversals.
 
 Single document operations can have a higher throughput in cluster but
@@ -124,12 +126,12 @@ for details.
 Batch operations for multiple documents in the same collection are only
 fully transactional in a single instance.
 
-Smart graphs
-------------
+SmartGraphs
+-----------
 
-In smart graphs there are restrictions on the values of the `_key`
+In SmartGraphs there are restrictions on the values of the `_key`
 attributes. Essentially, the `_key` attribute values for vertices must
-be prefixed with the string value of the smart graph attribute and a
+be prefixed with the string value of the SmartGraph attribute and a
 colon. A similar restriction applies for the edges.
 
 Foxx

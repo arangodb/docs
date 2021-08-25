@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Within the ArangoDB shell, the _query and _createStatement methods of thedb object can be used to execute AQL queries
+description: Within the ArangoDB shell, the _query and _createStatement methods of the db object can be used to execute AQL queries
 ---
 Executing queries from Arangosh
 ===============================
@@ -76,7 +76,7 @@ aql`FOR c IN mycollection FILTER c._key == ${key} RETURN c._key`;
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Arbitrary JavaScript expressions can be used in queries that are generated with the 
+Arbitrary JavaScript expressions can be used in queries that are generated with the
 *aql* template string generator. Collection objects are handled automatically:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -95,7 +95,7 @@ contains an extra *RETURN* statement). When not using a *RETURN* statement in th
 *toArray* method will return an empty array.
 
 ### Statistics and extra Information
- 
+
 It is always possible to retrieve statistics for a query with the *getExtra* method:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -143,6 +143,18 @@ amount of memory for the query is not restricted.
 
 There are further options that can be passed in the *options* attribute of the *_query* method:
 
+- *fullCount*: if set to _true_ and the query contains a _LIMIT_ clause, then the
+  result will have an extra attribute with the sub-attributes _stats_ and _fullCount_,
+  `{ ... , "extra": { "stats": { "fullCount": 123 } } }`. The _fullCount_ attribute will
+  contain the number of documents in the result before the last top-level LIMIT in the
+  query was applied. It can be used to count the number of documents that match certain
+  filter criteria, but only return a subset of them, in one go. It is thus similar to
+  MySQL's _SQL_CALC_FOUND_ROWS_ hint. Note that setting the option will disable a few
+  LIMIT optimizations and may lead to more documents being processed, and thus make
+  queries run longer. Note that the _fullCount_ attribute may only be present in the
+  result if the query has a top-level LIMIT clause and the LIMIT clause is actually
+  used in the query.
+
 - *failOnWarning*: when set to *true*, this will make the query throw an exception and
   abort in case a warning occurs. This option should be used in development to catch
   errors early. If set to *false*, warnings will not be propagated to exceptions and
@@ -169,6 +181,13 @@ There are further options that can be passed in the *options* attribute of the *
   creation and optimization for complex queries, but normally there is no need to adjust
   this value.
 
+- *optimizer*: Options related to the query optimizer.
+
+  - *rules*: A list of to-be-included or to-be-excluded optimizer rules can be put into
+  this attribute, telling the optimizer to include or exclude specific rules. To disable
+  a rule, prefix its name with a `-`, to enable a rule, prefix it with a `+`. There is also
+  a pseudo-rule `all`, which matches all optimizer rules. `-all` disables all rules.
+
 - *stream*: Specify *true* and the query will be executed in a **streaming** fashion. The query result is
   not stored on the server, but calculated on the fly. *Beware*: long-running queries will
   need to hold the collection locks for as long as the query cursor exists. It is advisable
@@ -181,6 +200,9 @@ There are further options that can be passed in the *options* attribute of the *
   queries. Additionally query statistics, warnings and profiling data will only be available
   after the query is finished. 
   The default value is *false*
+
+- *maxRuntime*: The query has to be executed within the given runtime or it will be killed.
+  The value is specified in seconds. The default value is *0.0* (no timeout).
 
 The following additional attributes can be passed to queries in the RocksDB storage engine:
  
@@ -200,6 +222,11 @@ In the ArangoDB Enterprise Edition there is an additional parameter:
   This is intended to help with certain use-cases: A graph contains several collections
   and different users execute AQL queries on that graph. You can now naturally limit the 
   accessible results by changing the access rights of users on collections.
+
+- *satelliteSyncWait*: This Enterprise Edition parameter allows to configure how long
+  a DB-Server will have time to bring the SatelliteCollections involved in the query
+  into sync. The default value is 60.0 (seconds). When the max time has been reached
+  the query will be stopped.
 
 With _createStatement (ArangoStatement)
 ---------------------------------------
@@ -249,7 +276,6 @@ set without iterating over it yourself.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}    
 
-
 Cursors can also be used to iterate over the result set document-by-document.
 To do so, use the *hasNext* and *next* methods of the cursor:
 
@@ -267,7 +293,7 @@ To do so, use the *hasNext* and *next* methods of the cursor:
 Please note that you can iterate over the results of a cursor only once, and that
 the cursor will be empty when you have fully iterated over it. To iterate over
 the results again, the query needs to be re-executed.
- 
+
 Additionally, the iteration can be done in a forward-only fashion. There is no 
 backwards iteration or random access to elements in a cursor.    
 
@@ -291,7 +317,7 @@ and then bind the parameters to it before execution:
 
 The cursor results can then be dumped or iterated over as usual, e.g.:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}    
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 05_workWithAQL_statements6
     @EXAMPLE_ARANGOSH_OUTPUT{05_workWithAQL_statements6}
     ~var stmt = db._createStatement( { "query": "FOR i IN [ @one, @two ] RETURN i * 2" } );
@@ -304,7 +330,7 @@ The cursor results can then be dumped or iterated over as usual, e.g.:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-or 
+or
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 05_workWithAQL_statements7
@@ -322,7 +348,7 @@ or
 Please note that bind parameters can also be passed into the *_createStatement* method directly,
 making it a bit more convenient:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}    
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 05_workWithAQL_statements8
     @EXAMPLE_ARANGOSH_OUTPUT{05_workWithAQL_statements8}
     |stmt = db._createStatement( { 
@@ -338,7 +364,7 @@ making it a bit more convenient:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Counting with a cursor
-    
+
 Cursors also optionally provide the total number of results. By default, they do not. 
 To make the server return the total number of results, you may set the *count* attribute to 
 *true* when creating a statement:
@@ -384,7 +410,6 @@ specifying or omitting the *count* attribute currently does not have any impact 
 This may change in the future. Future versions of ArangoDB may create result sets incrementally 
 on the server-side and may be able to apply optimizations if a result set is not fully fetched by 
 a client.
-
 
 ### Using cursors to obtain additional information on internal timings
 

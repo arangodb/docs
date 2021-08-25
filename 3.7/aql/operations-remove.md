@@ -85,8 +85,8 @@ REMOVE 'john' IN backups // OK, different collection
 REMOVE 'mary' IN users   // Error, users collection again
 ```
 
-Setting query options
----------------------
+Query options
+-------------
 
 *options* can be used to suppress query errors that may occur when trying to
 remove non-existing documents. For example, the following query will fail if one
@@ -113,7 +113,7 @@ FOR i IN 1..1000
   REMOVE { _key: CONCAT('test', i) } IN users OPTIONS { waitForSync: true }
 ```
 
-In order to not accidentially remove documents that have been updated since you last fetched
+In order to not accidentally remove documents that have been updated since you last fetched
 them, you can use the option *ignoreRevs* to either let ArangoDB compare the `_rev` values and 
 only succeed if they still match, or let ArangoDB ignore them (default):
 
@@ -124,7 +124,7 @@ FOR i IN 1..1000
 
 In contrast to the MMFiles engine, the RocksDB engine does not require collection-level
 locks. Different write operations on the same collection do not block each other, as
-long as there are no _write-write conficts_ on the same documents. From an application
+long as there are no _write-write conflicts_ on the same documents. From an application
 development perspective it can be desired to have exclusive write access on collections,
 to simplify the development. Note that writes do not block reads in RocksDB.
 Exclusive access can also speed up modification queries, because we avoid conflict checks.

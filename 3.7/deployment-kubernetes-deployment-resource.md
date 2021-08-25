@@ -12,7 +12,7 @@ a `CustomResourceDefinition` created by the operator.
 Example minimal deployment definition of an ArangoDB database cluster:
 
 ```yaml
-apiVersion: "database.arangodb.com/v1alpha"
+apiVersion: "database.arangodb.com/v1"
 kind: "ArangoDeployment"
 metadata:
   name: "example-arangodb-cluster"
@@ -23,7 +23,7 @@ spec:
 Example more elaborate deployment definition:
 
 ```yaml
-apiVersion: "database.arangodb.com/v1alpha"
+apiVersion: "database.arangodb.com/v1"
 kind: "ArangoDeployment"
 metadata:
   name: "example-arangodb-cluster"
@@ -46,7 +46,7 @@ spec:
     storageClassName: ssd
   coordinators:
     count: 3
-  image: "arangodb/arangodb:3.3.4"
+  image: "arangodb/arangodb:3.6.5"
 ```
 
 ## Specification reference
@@ -144,7 +144,7 @@ When an encryption key is used, encryption of the data in the cluster is enabled
 without it encryption is disabled.
 The default value is empty.
 
-This requires the Enterprise version.
+This requires the Enterprise Edition.
 
 The encryption key cannot be changed after the cluster has been created.
 
@@ -399,7 +399,7 @@ A new restore attempt is made if and only if either in the status restore is not
 
 This setting specifies the name of a kubernetes `Secret` that contains
 the license key token used for enterprise images. This value is not used for
-the community edition.
+the Community Edition.
 
 ### `spec.bootstrap.passwordSecretNames.root: string`
 
@@ -416,17 +416,7 @@ There are two magic values for the secret name:
 ### `spec.metrics.enabled: bool`
 
 If this is set to `true`, the operator runs a sidecar container for
-every DB-Server pod and every Coordinator pod. The sidecar container runs
-the ArangoDB-exporter and exposes metrics of the corresponding `arangod`
-instance in Prometheus format on port 9101 under path `/metrics`. You
-also have to specify a string for `spec.metrics.image`, which is the
-Docker image name of the `arangodb-exporter`. At the time of this
-writing you should use `arangodb/arangodb-exporter:0.1.6`. See [this
-repository](https://github.com/arangodb-helper/arangodb-exporter){:target="_blank"} for
-the latest version. If the image name is left empty, the same image as
-for the main deployment is used. Note however, that current ArangoDB
-releases (<= 3.4.5) do not ship the exporter in their image. This is
-going to change in the future.
+every Agent, DB-Server, Coordinator and Single server.
 
 In addition to the sidecar containers the operator will deploy a service
 to access the exporter ports (from within the k8s cluster), and a
@@ -457,6 +447,8 @@ which have metrics enabled.
 
 ### `spec.metrics.image: string`
 
+<small>Deprecated in: v1.2.0 (kube-arangodb)</small>
+
 See above, this is the name of the Docker image for the ArangoDB
 exporter to expose metrics. If empty, the same image as for the main
 deployment is used.
@@ -468,6 +460,32 @@ deployment is used.
 This setting specifies the resources required by the metrics container. 
 This includes requests and limits. 
 See [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container){:target="_blank"}.
+
+### `spec.metrics.mode: string`
+
+<small>Introduced in: v1.0.2 (kube-arangodb)</small>
+
+Defines metrics exporter mode.
+
+Possible values:
+- `exporter` (default): add sidecar to pods (except Agency pods) and exposes
+   metrics collected by exporter from ArangoDB Container. Exporter in this mode
+   expose metrics which are accessible without authentication.
+- `sidecar`: add sidecar to all pods and expose metrics from ArangoDB metrics
+   endpoint. Exporter in this mode expose metrics which are accessible without
+   authentication.
+- `internal`: configure ServiceMonitor to use internal ArangoDB metrics endpoint
+  (proper JWT token is generated for this endpoint).
+
+### `spec.metrics.tls: bool`
+
+<small>Introduced in: v1.1.0 (kube-arangodb)</small>
+
+Defines if TLS should be enabled on Metrics exporter endpoint.
+The default is `true`.
+
+This option will enable TLS only if TLS is enabled on ArangoDeployment,
+otherwise `true` value will not take any effect.
 
 ### `spec.lifecycle.resources: ResourceRequirements`
 
@@ -506,6 +524,12 @@ This setting specifies the resources required by pods of this group. This includ
 
 See https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ for details.
 
+### `spec.<group>.overrideDetectedTotalMemory: bool`
+
+<small>Introduced in: v1.0.1 (kube-arangodb), 3.6.3 (arangod)</small>
+
+Set additional flag in ArangoDeployment pods to propagate Memory resource limits
+
 ### `spec.<group>.volumeClaimTemplate.Spec: PersistentVolumeClaimSpec`
 
 Specifies a volumeClaimTemplate used by operator to create to volume claims for pods of this group.
@@ -516,6 +540,14 @@ The default value describes a volume with `8Gi` storage, `ReadWriteOnce` access 
 If this field is not set and `spec.<group>.resources.requests.storage` is set, then a default volume claim
 with size as specified by `spec.<group>.resources.requests.storage` will be created. In that case `storage`
 and `iops` is not forwarded to the pods resource requirements.
+
+### `spec.<group>.pvcResizeMode: string`
+
+Specifies a resize mode used by operator to resuze PVC's and PV's.
+
+Supported modes:
+- runtime (default) - PVC will be resized in Pod runtime (EKS, GKE)
+- rotate - Pod will be shutdown and PVC will be resized (AKS)
 
 ### `spec.<group>.serviceAccountName: string`
 
@@ -553,9 +585,55 @@ Priority class name for pods of this group. Will be forwarded to the pod spec. [
 
 If set to true, the operator does not generate a liveness probe for new pods belonging to this group.
 
+### `spec.<group>.probes.livenessProbeSpec.initialDelaySeconds: int`
+
+Number of seconds after the container has started before liveness or readiness probes are initiated. Defaults to 2 seconds. Minimum value is 0.
+
+### `spec.<group>.probes.livenessProbeSpec.periodSeconds: int`
+
+How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
+
+### `spec.<group>.probes.livenessProbeSpec.timeoutSeconds: int`
+
+Number of seconds after which the probe times out. Defaults to 2 second. Minimum value is 1.
+
+### `spec.<group>.probes.livenessProbeSpec.failureThreshold: int`
+
+When a Pod starts and the probe fails, Kubernetes will try failureThreshold times before giving up.
+Giving up means restarting the container. Defaults to 3. Minimum value is 1.
+
 ### `spec.<group>.probes.readinessProbeDisabled: bool`
 
 If set to true, the operator does not generate a readiness probe for new pods belonging to this group.
+
+### `spec.<group>.probes.readinessProbeSpec.initialDelaySeconds: int`
+
+Number of seconds after the container has started before liveness or readiness probes are initiated. Defaults to 2 seconds. Minimum value is 0.
+
+### `spec.<group>.probes.readinessProbeSpec.periodSeconds: int`
+
+How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
+
+### `spec.<group>.probes.readinessProbeSpec.timeoutSeconds: int`
+
+Number of seconds after which the probe times out. Defaults to 2 second. Minimum value is 1.
+
+### `spec.<group>.probes.readinessProbeSpec.successThreshold: int`
+
+Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Minimum value is 1.
+
+### `spec.<group>.probes.readinessProbeSpec.failureThreshold: int`
+
+When a Pod starts and the probe fails, Kubernetes will try failureThreshold times before giving up.
+Giving up means the Pod will be marked Unready. Defaults to 3. Minimum value is 1.
+
+### `spec.<group>.allowMemberRecreation: bool`
+
+<small>Introduced in: v1.2.1 (kube-arangodb)</small>
+
+This setting changes the member recreation logic based on group:
+- For Sync Masters, Sync Workers, Coordinator and DB-Servers it determines if a member can be recreated in case of failure (default `true`)
+- For Agents and Single this value is hardcoded to `false` and the value provided in spec is ignored.
 
 ### `spec.<group>.tolerations: []Toleration`
 

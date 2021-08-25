@@ -2,7 +2,7 @@
 layout: default
 description: ArangoSearch Views
 redirect_from:
-  - /3.6/views-arango-search-detailed-overview.html # 3.4 -> 3.5
+  - views-arango-search-detailed-overview.html # 3.4 -> 3.5
 ---
 ArangoSearch Views
 ==================
@@ -268,6 +268,11 @@ During view modification the following directives apply:
   specified in `fields` will be processed with default link properties, i.e.
   `{}`.
 
+  {% hint 'warning' %}
+  Using `includeAllFields` for a lot of attributes in combination with complex
+  Analyzers may significantly slow down the indexing process.
+  {% endhint %}
+
 - **trackListPositions** (_optional_; type: `boolean`; default: `false`)
 
   If set to `true`, then for array values track the value position in arrays.
@@ -285,6 +290,12 @@ During view modification the following directives apply:
   - **none**: Do not store values with the view.
   - **id**: Store information about value presence to allow use of the
     `EXISTS()` function.
+
+- **inBackground** (_optional_; type: `boolean`; default: `false`)
+
+  If set to `true`, then no exclusive lock is used on the source collection
+  during View index creation, so that it remains basically available. Also see:
+  [Creating Indexes in Background](indexing-index-basics.html#creating-indexes-in-background)
 
 ### View Properties
 

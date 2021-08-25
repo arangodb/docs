@@ -8,7 +8,7 @@ Reducing the Memory Footprint of ArangoDB servers
 ArangoDB's memory usage can be restricted and the CPU utilization be reduced
 by different configuration options:
 
-- storage engine (this tutorial focuses on the RocksDB engine)
+- storage engine
 - edge cache
 - server statistics
 - background threads
@@ -32,11 +32,10 @@ sometimes being a little less grabby on system resources may still be fast
 enough, for example if your working data set is not huge. The goal is to reduce
 the overall memory footprint.
 
-There are the following big areas, which might eat up memory:
+There are two big areas, which might eat up memory:
 
-- RocksDB
-- WAL (Write Ahead Log) 
-- Write Buffers
+- Buffers & Caches
+- WAL (Write Ahead Log)
 
 WAL & Write Buffers
 -------------------
@@ -83,6 +82,27 @@ number of cached buffers to a few megabytes. If possible, this setting should be
 configured as large as the hot-set size of your dataset.
 
 These restrictions may have an impact on query performance.
+
+Index and Filter Block Cache
+----------------------------
+
+Index and filter blocks are not cached by default, which means that they do
+not count towards the `--rocksdb.block-cache-size` limit. Enable the option
+`--rocksdb.cache-index-and-filter-blocks` to include them in the cap.
+
+There are additional options you can enable to avoid that the index and filter
+blocks get evicted from cache.
+
+```
+--rocksdb.cache-index-and-filter-blocks`
+--rocksdb.cache-index-and-filter-blocks-with-high-priority
+--rocksdb.pin-l0-filter-and-index-blocks-in-cache
+--rocksdb.pin-top-level-index-and-filter
+```
+
+Also see:
+- [RocksDB Server Options](programs-arangod-options.html#rocksdb)
+- [Write Buffer Manager](https://github.com/facebook/rocksdb/wiki/Write-Buffer-Manager){:target="_blank"}
 
 Edge-Cache
 ----------

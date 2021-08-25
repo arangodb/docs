@@ -390,4 +390,4 @@ For an in depth guide about Docker and ArangoDB please check the official docume
 [hub.docker.com/r/arangodb/arangodb/](https://hub.docker.com/r/arangodb/arangodb/){:target="_blank"}.
 Note that we are using the image `arangodb/arangodb` here which is always the most current one.
 There is also the "official" one called `arangodb` whose documentation is here:
-[hub.docker.com/_/arangodb/](https://hub.docker.com/_/arangodb/){:target="_blank"}
+[hub.docker.com/\_/arangodb/](https://hub.docker.com/_/arangodb/){:target="_blank"}

@@ -9,9 +9,12 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> OK
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">612</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"endpoint"</span> : <span class="hljs-string">"tcp://127.0.0.1:8529"</span>, 

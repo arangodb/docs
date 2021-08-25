@@ -1,19 +1,12 @@
 ---
 layout: default
-description: RocksDB is a highly configurable key-value store used to power our RocksDBstorage engine
+description: RocksDB is a highly configurable key-value store used to power ArangoDB's RocksDB storage engine
 ---
 # ArangoDB Server RocksDB Options
 
-RocksDB is a highly configurable key-value store used to power our RocksDB
+RocksDB is a highly configurable key-value store used to power ArangoDB's RocksDB
 storage engine. Most of the options on this page are pass-through options to the
-underlying RocksDB instance, and we change very few of their default settings.
-
-Depending on the [storage engine you have chosen](programs-arangod-server.html#storage-engine)
-the availability and the scope of these options changes. 
-
-In case you have chosen `mmfiles` some of the following options apply to
-persistent indexes.
-In case of `rocksdb` it will apply to all data stored as well as indexes.
+underlying RocksDB instance, and only a few of its default settings are changed.
 
 ## Pass-through options
 
@@ -44,9 +37,24 @@ files). This option, together with the block cache size configuration option,
 can be used to limit memory usage. If set to 0, the memory usage is not limited.
 
 If set to a value larger than 0, this will cap memory usage for write buffers 
-but may have an effect on performance. If there is less than 4GiB of RAM on the 
-system, the default value is 512MiB. If there is more, the default is 
-`(system RAM size - 2GiB) * 0.5`.
+but may have an effect on performance. If there is more than 4GiB of RAM on the 
+system, the default value is `(system RAM size - 2GiB) * 0.5`.
+
+For systems with less RAM, the default values are:
+
+- 512MiB for systems with between 1 and 4GiB of RAM.
+- 256MiB for systems with less than 1GiB of RAM.
+
+`--rocksdb.max-write-buffer-size-to-maintain`
+
+The maximum size of immutable write buffers that build up in memory per column
+family (larger values mean that more in-memory data can be used for transaction
+conflict checking (`-1` = use automatic default value, `0` = do not keep
+immutable flushed write buffers, which is the default and usually correct).
+
+The default value `0` restores the memory usage pattern of ArangoDB v3.6.
+This leads to the fact that RocksDB will not keep any flushed immutable
+write-buffers in memory.
 
 `--rocksdb.min-write-buffer-number-to-merge`
 
@@ -167,15 +175,22 @@ setting this equal to `max-background-flushes`. Default: number of processors / 
 
 `--rocksdb.num-threads-priority-low`
 
-Number of threads for low priority operations (e.g. compaction). Default: number of processors / 2.
+Number of threads for low priority operations (e.g. compaction).
+Default: number of processors / 2.
 
 ### Caching
 
 `--rocksdb.block-cache-size`
 
 This is the maximum size of the block cache in bytes. Increasing this may improve
-performance. If there is less than 4GiB of RAM on the system, the default value
-is 256MiB. If there is more, the default is `(system RAM size - 2GiB) * 0.3`.
+performance. If there is more than 4GiB of RAM on the system, the default value
+is `(system RAM size - 2GiB) * 0.3`.
+
+For systems with less RAM, the default values are:
+
+- 512MiB for systems with between 2 and 4GiB of RAM.
+- 256MiB for systems with between 1 and 2GiB of RAM.
+- 128MiB for systems with less than 1GiB of RAM.
 
 `--rocksdb.enforce-block-cache-size-limit`
 
@@ -314,13 +329,12 @@ is committed automatically and a new transaction is started.
 
 Allows to make all writes to the RocksDB storage exclusive and therefore avoids
 write-write conflicts. This option was introduced to open a way to upgrade from
-MMFiles to RocksDB storage engine without modifying client application code.
-Otherwise it should best be avoided as the use of exclusive locks on collections
-will introduce a noticeable throughput penalty.
+the legacy MMFiles to the RocksDB storage engine without modifying client
+application code. Otherwise it should best be avoided as the use of exclusive
+locks on collections will introduce a noticeable throughput penalty.
 
-Note that the MMFiles engine is [deprecated](appendix-deprecated.html)
-from v3.6.0 on and will be removed in a future release. So will be this option,
-which is a stopgap measure only.
+Note that the MMFiles engine was [removed](appendix-deprecated.html) and that
+this option is a stopgap measure only.
 
 The option has effect on single servers and on DB-Servers in the cluster.
 

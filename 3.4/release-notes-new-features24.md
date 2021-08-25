@@ -64,9 +64,9 @@ The FoxxGenerator can create APIs based on a semantic description of entities
 and transitions. A blog series on the use cases and how to use the Foxx generator
 is here:
 
-* [part 1](https://www.arangodb.com/2014/11/26/building-hypermedia-api-json){:target="_blank"}
-* [part 2](https://www.arangodb.com/2014/12/02/building-hypermedia-apis-design){:target="_blank"}
-* [part 3](https://www.arangodb.com/2014/12/08/building-hypermedia-apis-foxxgenerator){:target="_blank"}
+* [Building Hypermedia APIs – Links and Forms in JSON](https://www.arangodb.com/2014/11/building-hypermedia-api-json/){:target="_blank"}
+* [Building Hypermedia APIs – a Design Approach using Statecharts](https://www.arangodb.com/2014/12/building-hypermedia-apis-design/){:target="_blank"}
+* [Building Hypermedia APIs – FoxxGenerator](https://www.arangodb.com/2014/12/building-hypermedia-apis-foxxgenerator/){:target="_blank"}
 
 AQL improvements
 ----------------

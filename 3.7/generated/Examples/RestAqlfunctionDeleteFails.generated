@@ -1,8 +1,11 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/aqlfunction/myfunction::x::y</span>
 
-HTTP/<span class="hljs-number">1.1</span> Not Found
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">404</span> Not Found
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">114</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">404</span>, 

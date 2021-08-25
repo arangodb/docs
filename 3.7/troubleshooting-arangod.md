@@ -1,9 +1,13 @@
 ---
 layout: default
-description: If the ArangoDB server does not start or if you cannot connect to it using arangosh or other clients, you can try to find the problem cause by executing the following steps
+description: If the server does not start, you cannot connect to it or if it crashes then read on.
+title: Troubleshooting ArangoDB Server
 ---
-Arangod
-=======
+Troubleshooting Arangod
+=======================
+
+Server not starting or not reachable
+------------------------------------
 
 If the ArangoDB server does not start or if you cannot connect to it 
 using *arangosh* or other clients, you can try to find the problem cause by 
@@ -58,9 +62,79 @@ you can skip this section.
 
   You can test connectivity using a simple command such as:
 
-  **curl --dump - -X GET http://127.0.0.1:8529/_api/version && echo**
+  ```
+  curl --dump - --user "username:password" -X GET http://127.0.0.1:8529/_api/version && echo
+  ```
+
+  (Replace `username` and `password` with the actual credentials.)
 
   This should return a response with an *HTTP 200* status code when the
   server is running. If it does it also means the server is generally 
   accepting connections. Alternative tools to check connectivity are *lynx*
   or *ab*.
+
+Out of memory crashes
+---------------------
+
+When there is an out-of-memory situation, the Linux operating system is usually
+configured to kill processes that use most RAM. When running a dedicated
+database server, this process is like the ArangoDB server, arangod.
+
+A system process called OOM (out of memory) killer will send the arangod server
+a SIGKILL signal then, which the arangod process can neither detect nor ignore.
+It will be terminated ungracefully then.
+
+Usually, the Linux kernel will write information about the killing of processes
+into its own system logs. These logs should be checked if you suspect that
+ArangoDB was killed because of an out-of-memory situation.
+
+Other crashes
+-------------
+
+The Linux builds of the arangod executable contain a built-in crash handler
+(introduced in v3.7.0).
+
+The crash handler is supposed to log basic crash information to the ArangoDB
+logfile in case the arangod process receives one of the signals SIGSEGV,
+SIGBUS, SIGILL, SIGFPE or SIGABRT. SIGKILL signals, which the operating system
+can send to a process in case of OOM (out of memory), are not interceptable and
+thus cannot be intercepted by the crash handler.
+
+In case the crash handler receives one of the mentioned interceptable signals,
+it will write basic crash information to the logfile and a backtrace of the
+call site. The backtrace can be provided to the ArangoDB support for further
+inspection. Note that backtaces are only usable if debug symbols for ArangoDB
+have been installed as well.
+
+After logging the crash information, the crash handler will execute the default
+action for the signal it has caught. If core dumps are enabled, the default
+action for these signals is to generate a core file. If core dumps are not
+enabled, the crash handler will simply terminate the program with a non-zero
+exit code.
+
+The crash handler can be disabled at server start by setting the environment
+variable `ARANGODB_OVERRIDE_CRASH_HANDLER` to an empty string, `0` or `off`.
+
+An example log output from the crash handler looks like this:
+
+```
+2020-05-26T23:26:10Z [16657] FATAL [a7902] {crash} ArangoDB 3.7.1-devel enterprise [linux], thread 22 [Console] caught unexpected signal 11 (SIGSEGV) accessing address 0x0000000000000000: signal handler invoked
+2020-05-26T23:26:10Z [16657] INFO [308c3] {crash} frame 1 [0x00007f9124e93ece]: _ZN12_GLOBAL__N_112crashHandlerEiP9siginfo_tPv (+0x000000000000002e)
+2020-05-26T23:26:10Z [16657] INFO [308c3] {crash} frame 2 [0x00007f912687bfb2]: sigprocmask (+0x0000000000000021)
+2020-05-26T23:26:10Z [16657] INFO [308c3] {crash} frame 3 [0x00007f9123e08024]: _ZN8arangodb3aql10Expression23executeSimpleExpressionEPKNS0_7AstNodeEPNS_11transaction7MethodsERbb (+0x00000000000001c4)
+2020-05-26T23:26:10Z [16657] INFO [308c3] {crash} frame 4 [0x00007f9123e08314]: _ZN8arangodb3aql10Expression7executeEPNS0_17ExpressionContextERb (+0x0000000000000064)
+2020-05-26T23:26:10Z [16657] INFO [308c3] {crash} frame 5 [0x00007f9123feaab2]: _ZN8arangodb3aql19CalculationExecutorILNS0_15CalculationTypeE0EE12doEvaluationERNS0_15InputAqlItemRowERNS0_16OutputAqlItemRowE (+0x0000000000000062)
+2020-05-26T23:26:10Z [16657] INFO [308c3] {crash} frame 6 [0x00007f9123feae85]: _ZN8arangodb3aql19CalculationExecutorILNS0_15CalculationTypeE0EE11produceRowsERNS0_22AqlItemBlockInputRangeERNS0_16OutputAqlItemRowE (+0x00000000000000f5)
+...
+2020-05-26T23:26:10Z [16657] INFO [308c3] {crash} frame 31 [0x000018820ffc6d91]: *no symbol name available for this frame
+2020-05-26T23:26:10Z [16657] INFO [ded81] {crash} available physical memory: 41721995264, rss usage: 294256640, vsz usage: 1217839104, threads: 46
+Segmentation fault (core dumped)
+```
+
+The first line of the crash output will contain the cause of the crash
+(SIGSEGV in this case). The following lines contain information about the
+stack frames. The hexadecimal value presented for each frame is the instruction
+pointer, and if debug symbols are installed, there will be name information
+about the called procedures (in mangled format) plus the offsets into the
+procedures. If no debug symbols are installed, symbol names and offsets cannot
+be shown for the stack frames.

@@ -1,21 +1,24 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/download</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"downloadId"</span> : <span class="hljs-string">"69022"</span> 
+  <span class="hljs-string">"downloadId"</span> : <span class="hljs-string">"69413"</span> 
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> OK
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">224</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">"result"</span> : { 
-    <span class="hljs-string">"Timestamp"</span> : <span class="hljs-string">"2020-02-03T15:37:40Z"</span>, 
-    <span class="hljs-string">"DownloadId"</span> : <span class="hljs-string">"69022"</span>, 
+    <span class="hljs-string">"Timestamp"</span> : <span class="hljs-string">"2021-07-01T11:03:02Z"</span>, 
+    <span class="hljs-string">"DownloadId"</span> : <span class="hljs-string">"69413"</span>, 
     <span class="hljs-string">"Cancelled"</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">"BackupId"</span> : <span class="hljs-string">"2020-02-03T15.37.24Z_7395c272-3c3f-4670-ac1c-dca5793e686a"</span>, 
+    <span class="hljs-string">"BackupId"</span> : <span class="hljs-string">"2021-07-01T11.02.46Z_69559178-43c1-4dd4-9cb5-ab94e48b66c8"</span>, 
     <span class="hljs-string">"DBServers"</span> : { 
       <span class="hljs-string">"SNGL"</span> : { 
         <span class="hljs-string">"Status"</span> : <span class="hljs-string">"STARTED"</span> 

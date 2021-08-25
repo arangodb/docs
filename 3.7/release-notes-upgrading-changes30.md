@@ -709,7 +709,7 @@ following result attributes as they became meaningless in 3.0:
 
 When creating a database via the API POST `/_api/database`, ArangoDB will now always
 return the HTTP status code 202 (created) if the operation succeeds. Previous versions
-of ArangoDB returned HTTP 202 as well, but this behavior was changable by sending an
+of ArangoDB returned HTTP 202 as well, but this behavior was changeable by sending an
 HTTP header `x-arango-version: 1.4`. When sending this header, previous versions of
 ArangoDB returned an HTTP status code 200 (ok). Clients can still send this header to
 ArangoDB 3.0 but this will not influence the HTTP status code produced by ArangoDB.
@@ -1095,7 +1095,7 @@ the option is unchanged.
 The command-line option `--quiet` was removed from all client tools except arangosh 
 because it had no effect in them.
 
-### Arangobench
+### _arangobench_
 
 In order to make its purpose more apparent the former `arangob` client tool has 
 been renamed to `arangobench` in 3.0.

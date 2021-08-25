@@ -10,16 +10,19 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Created
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">445</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"result"</span> : [ 
     { 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71495"</span>, 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71495"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z9tSKyO---"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/72267"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72267"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_clWgCKC--A"</span>, 
       <span class="hljs-string">"loc"</span> : [ 
         <span class="hljs-number">-0.002</span>, 
         <span class="hljs-number">0</span> 
@@ -28,9 +31,9 @@ content-type: application/json
       <span class="hljs-string">"distance"</span> : <span class="hljs-number">222.3898532891175</span> 
     }, 
     { 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71499"</span>, 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71499"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z9tSKyO--C"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/72271"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72271"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_clWgCKC--E"</span>, 
       <span class="hljs-string">"loc"</span> : [ 
         <span class="hljs-number">0.002</span>, 
         <span class="hljs-number">0</span> 
@@ -39,9 +42,9 @@ content-type: application/json
       <span class="hljs-string">"distance"</span> : <span class="hljs-number">222.3898532891175</span> 
     }, 
     { 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71501"</span>, 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71501"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z9tSKyO--E"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/72273"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72273"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_clWgCKG---"</span>, 
       <span class="hljs-string">"loc"</span> : [ 
         <span class="hljs-number">0.004</span>, 
         <span class="hljs-number">0</span> 

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The inventory method can be used to query an ArangoDB database's currentset of collections plus their indexes
+description: The inventory method can be used to query an ArangoDB database's current set of collections plus their indexes
 ---
 Replication Dump Commands
 =========================
@@ -14,13 +14,12 @@ or the incremental data synchronization.
 <!-- arangod/RestHandler/RestReplicationHandler.cpp -->
 {% docublock put_api_replication_inventory %}
 
-
 The *batch* method will create a snapshot of the current state that then can be
-dumped. A batchId is required when using the dump api with rocksdb.
+dumped. A batchId is required when using the dump API with RocksDB.
+
 {% docublock post_batch_replication %}
 {% docublock delete_batch_replication %}
 {% docublock put_batch_replication %}
-
 
 The *dump* method can be used to fetch data from a specific collection. As the
 results of the dump command can be huge, *dump* may not return all data from a collection
@@ -38,7 +37,6 @@ parts of the dump results in the same order as they are provided.
 
 <!-- arangod/RestHandler/RestReplicationHandler.cpp -->
 {% docublock get_api_replication_dump %}
-
 
 <!-- arangod/RestHandler/RestReplicationHandler.cpp -->
 {% docublock put_api_replication_synchronize %}

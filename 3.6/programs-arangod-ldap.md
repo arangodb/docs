@@ -5,11 +5,7 @@ title: ArangoDB LDAP Configuration
 ---
 # ArangoDB Server LDAP Options
 
-{% hint 'info' %}
-LDAP authentication is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="LDAP authentication" %}
 
 ## Basics Concepts
 
@@ -60,7 +56,6 @@ Method (b) is very similar and only differs from (a) in the way the
 actual list of roles of a user is derived from the LDAP server. 
 See [Roles search](#roles-search) below for details about method (b)
 and for the associated configuration options.
-
 
 Fundamental options
 -------------------
@@ -192,6 +187,22 @@ Assuming you have the TLS CAcert file that is given to the server at
     --ldap.tls-cacert-file /path/to/certificate.pem
 
 You can use TLS with any of the following authentication mechanisms.
+
+### Secondary server options (`ldap2`)
+
+The `ldap.*` options configure the primary LDAP server. It is possible to
+configure a secondary server with the `ldap2.*` options to use it as a
+fail-over for the case that the primary server is not reachable, but also to
+let the primary servers handle some users and the secondary others.
+
+Instead of `--ldap.<OPTION>` you need to specify `--ldap2.<OPTION>`.
+Authentication / authorization will first check the primary LDAP server.
+If this server cannot authenticate a user, it will try the secondary one.
+
+It is possible to specify a file containing all users that the primary
+LDAP server is handling by specifying the option `--ldap.responsible-for`.
+This file must contain the usernames line-by-line. This is also supported for
+the secondary server, which can be used to exclude certain users completely.
 
 ### Esoteric options
 

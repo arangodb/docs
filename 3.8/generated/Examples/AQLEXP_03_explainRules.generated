@@ -1,0 +1,14 @@
+arangosh&gt; stmt.explain().plan.rules;
+[ 
+  <span class="hljs-string">&quot;move-calculations-up&quot;</span>, 
+  <span class="hljs-string">&quot;move-filters-up&quot;</span>, 
+  <span class="hljs-string">&quot;remove-redundant-calculations&quot;</span>, 
+  <span class="hljs-string">&quot;remove-unnecessary-calculations&quot;</span>, 
+  <span class="hljs-string">&quot;move-calculations-up-2&quot;</span>, 
+  <span class="hljs-string">&quot;move-filters-up-2&quot;</span>, 
+  <span class="hljs-string">&quot;use-indexes&quot;</span>, 
+  <span class="hljs-string">&quot;remove-filter-covered-by-index&quot;</span>, 
+  <span class="hljs-string">&quot;use-index-for-sort&quot;</span>, 
+  <span class="hljs-string">&quot;remove-unnecessary-calculations-2&quot;</span>, 
+  <span class="hljs-string">&quot;reduce-extraction-to-projection&quot;</span> 
+]

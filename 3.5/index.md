@@ -1,12 +1,12 @@
 ---
 layout: default
-description: 'Welcome to the ArangoDB documentation! It is organized in five handbooks: Manual, AQL, HTTP, Cookbook and Driver handbook.'
+description: Technical documentation for ArangoDB's core features and ecosystem
 title: Introduction to ArangoDB Documentation
 page-toc:
   disable: true
 redirect_from:
-  - /3.5/cookbook/index.html # 3.5 -> 3.5
-  - /3.5/cookbook/use-cases.html # 3.5 -> 3.5
+  - cookbook/index.html # 3.5 -> 3.5
+  - cookbook/use-cases.html # 3.5 -> 3.5
 ---
 ArangoDB {{ site.data.versions[page.version.name] }} Documentation
 =====================================
@@ -34,7 +34,7 @@ The documentation is organized in five handbooks:
   available official ArangoDB drivers and integrations, and an overview of the community
   drivers.
 - The [ArangoDB Oasis handbook](oasis/) guides you through the user interface
-  of our managed service to set up organizations, projects and deployments.
+  of our cloud service to set up organizations, projects and deployments.
 
 Features are illustrated with interactive usage examples; you can cut'n'paste them
 into [arangosh](programs-arangosh.html) to try them out. The HTTP

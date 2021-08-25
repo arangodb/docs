@@ -3,18 +3,14 @@ layout: default
 description: SmartJoins allow to execute co-located join operations among identically sharded collections.
 title: SmartJoins for ArangoDB Clusters
 redirect_from:
-  - /3.6/smart-joins.html # 3.4 -> 3.4
+  - smart-joins.html # 3.4 -> 3.4
 ---
 SmartJoins
 ==========
 
-<small>Introduced in: v3.4.5, v3.5.0</small>
+<small>Introduced in: v3.4.5</small>
 
-{% hint 'info' %}
-SmartJoins are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="SmartJoins" plural=true %}
 
 SmartJoins allow to execute co-located join operations among identically
 sharded collections.
@@ -209,7 +205,7 @@ and even for non-unique shard key values, e.g.:
 
 {% hint 'tip' %}
 All above examples used two collections only. SmartJoins will also work when joining
-more than two collections which have the same data distribution enforced via their
+more than two collections/Views which have the same data distribution enforced via their
 `distributeShardsLike` attribute and using the shard keys as the join criteria as shown above.
 {% endhint %}
 
@@ -287,21 +283,23 @@ to restrict the queries to just the required shards:
       13   GatherNode      COOR     1         - GATHER 
        6   ReturnNode      COOR     1         - RETURN doc1
 
-
 Limitations
 -----------
 
 The SmartJoins optimization is currently triggered only for data selection queries,
 but not for any data-manipulation operations such as INSERT, UPDATE, REPLACE, REMOVE
-or UPSERT, neither traversals, subqueries or views.
+or UPSERT, neither traversals or subqueries.
 
-It will only be applied when joining two collections with an identical sharding setup. 
-This requires the second collection to be created with its *distributeShardsLike* 
-attribute pointing to the first collection.
+It will only be applied when joining two collections with an identical
+sharding setup. This requires all involved but one collection to be created
+with its *distributeShardsLike* attribute pointing to the collection that is
+the exception. All collections forming a View must be sharded in the same way,
+otherwise the View is not eligible.
 
-It is restricted to be used with simple shard key attributes (such as `_key`, `productId`), 
+It is restricted to be used with simple shard key attributes (such as `_key`, `productId`),
 but not with nested attributes (e.g. `name.first`). There should be exactly one shard
 key attribute defined for each collection.
 
-Finally, the SmartJoins optimization requires that the collections are joined on their
-shard key attributes (or smartJoinAttribute) using an equality comparison.
+Finally, the SmartJoins optimization requires that the involved collections are
+joined on their shard key attributes (or `smartJoinAttribute`) using an equality
+comparison.

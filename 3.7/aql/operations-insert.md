@@ -61,8 +61,8 @@ FOR u IN users
     INSERT { _from: u._id, _to: p._id } INTO recommendations
 ```
 
-Setting query options
----------------------
+Query options
+-------------
 
 The *OPTIONS* keyword followed by an object with query options can optionally
 be provided in an `INSERT` operation.
@@ -93,7 +93,7 @@ FOR i IN 1..1000
 
 If you want to replace existing documents with documents having the same key
 there is the *overwrite* query option. This will let you safely replace the
-documents instead of raising an "unique constraint violated error":
+documents instead of raising a "unique constraint violated error":
 
 ```js
 FOR i IN 1..1000
@@ -104,12 +104,37 @@ FOR i IN 1..1000
   } INTO users OPTIONS { overwrite: true }
 ```
 
-To update existing documents with documents having the same key there is the
-*overwriteMode* query option, which implicitly enables the *overwrite* option .
-This will let you choose between "replace" and "update" overwrite mode. In case
-the *overwriteMode* is "update" the *keepNull* and *mergeObjects* options will
-modify how the replacement is done. See the [UPDATE operation](operations-update.html#setting-query-options)
-for more detail on these options.
+To further control the behavior of INSERT on primary index unique constraint
+violations, there is the *overwriteMode* option. It offers the following
+modes:
+
+- `"ignore"`: if a document with the specified *_key* value exists already,
+  nothing will be done and no write operation will be carried out. The
+  insert operation will return success in this case. This mode does not
+  support returning the old document version. Using `RETURN OLD` will trigger
+  a parse error, as there will be no old version to return. `RETURN NEW`
+  will only return the document in case it was inserted. In case the
+  document already existed, `RETURN NEW` will return `null`.
+- `"replace"`: if a document with the specified *_key* value exists already,
+  it will be overwritten with the specified document value. This mode will
+  also be used when no overwrite mode is specified but the *overwrite*
+  flag is set to *true*.
+- `"update"`: if a document with the specified *_key* value exists already,
+  it will be patched (partially updated) with the specified document value.
+- `"conflict"`: if a document with the specified *_key* value exists already,
+  return a unique constraint violation error so that the insert operation
+  fails. This is also the default behavior in case the overwrite mode is
+  not set, and the *overwrite* flag is *false* or not set either.
+
+The main use case of inserting documents with overwrite mode *ignore* is
+to make sure that certain documents exist in the cheapest possible way.
+In case the target document already exists, the *ignore* mode is most
+efficient, as it will not retrieve the existing document from storage and
+not write any updates to it.
+
+When using the *update* overwrite mode, the *keepNull* and *mergeObjects*
+options control how the update is done.
+See [UPDATE operation](operations-update.html#query-options).
 
 ```js
 FOR i IN 1..1000
@@ -120,9 +145,9 @@ FOR i IN 1..1000
   } INTO users OPTIONS { overwriteMode: "update", keepNull: true, mergeObjects: false }
 ```
 
-In contrast to the MMFiles engine, the RocksDB engine does not require collection-level
-locks. Different write operations on the same collection do not block each other, as
-long as there are no _write-write conficts_ on the same documents. From an application
+The RocksDB engine does not require collection-level locks. 
+Different write operations on the same collection do not block each other, as
+long as there are no _write-write conflicts_ on the same documents. From an application
 development perspective it can be desired to have exclusive write access on collections,
 to simplify the development. Note that writes do not block reads in RocksDB.
 Exclusive access can also speed up modification queries, because we avoid conflict checks.

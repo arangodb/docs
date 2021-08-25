@@ -5,6 +5,8 @@ description: Transactions in ArangoDB have been designed with particular use cas
 Limitations
 ===========
 
+<!-- TODO: Update for RocksDB -->
+
 In General
 ----------
 
@@ -120,7 +122,7 @@ It is guaranteed that successfully committed transactions are persistent. Using
 replication and / or *waitForSync* increases the durability (Just as with the single-server).
 
 RocksDB storage engine
----------------------------
+----------------------
 
 {% hint 'info' %}
 The following restrictions and limitations do not apply to JavaScript
@@ -166,3 +168,19 @@ attributes in the call to *db._query()*:
   commit is performed automatically
 - *intermediateCommitCount*: maximum number of operations after which an intermediate
   commit is performed automatically
+
+### Limits for Stream Transactions
+
+A maximum lifetime and transaction size for Stream Transactions is enforced
+on the Coordinator to ensure that abandoned transactions cannot block the
+cluster from operating properly:
+
+- Maximum idle timeout of **10 seconds** between operations
+- Maximum transaction size of **128 MB** per DB-Server
+
+These limits are also enforced for Stream Transactions on single servers.
+
+Enforcing the limits is useful to free up resources used by abandoned 
+transactions, for example from transactions that are abandoned by client 
+applications due to programming errors or that were left over because client 
+connections were interrupted.

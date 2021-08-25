@@ -3,8 +3,8 @@ layout: default
 description: User management is possible in the web interface and in arangosh while logged on to the _system database.
 title: Manage User Authentication in ArangoDB
 redirect_from:
-  - /3.7/cookbook/administration-show-users-grants.html # 3.5 -> 3.5
-  - /3.7/cookbook/administration-authentication.html # 3.5 -> 3.5
+  - cookbook/administration-show-users-grants.html # 3.5 -> 3.5
+  - cookbook/administration-authentication.html # 3.5 -> 3.5
 ---
 Managing Users
 ==============
@@ -20,9 +20,10 @@ authentication = true
 ```
 
 This will make ArangoDB require authentication for every request (including
-requests to Foxx apps). If you want to run Foxx apps without HTTP
-authentication, but activate HTTP authentication for the built-in server APIs,
-you can add the following line in the `[server]` section of the configuration:
+requests to Foxx apps depending on the option below). If you want to run Foxx
+apps without HTTP authentication, but activate HTTP authentication for the built-in
+server APIs, you can add the following line in the `[server]` section of the 
+configuration:
 
 ```
 authentication-system-only = true
@@ -333,11 +334,7 @@ database. All changes to the access levels must be done using the
 
 ### LDAP Users
 
-{% hint 'info' %}
-LDAP authentication is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="LDAP authentication" %}
 
 ArangoDB supports LDAP as an external authentication system. For detailed
 information please have look into the

@@ -1,0 +1,3 @@
+arangosh&gt; <span class="hljs-keyword">var</span> satelliteGraphModule = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/satellite-graph&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> graph = satelliteGraphModule._create(<span class="hljs-string">&quot;satelliteGraph&quot;</span>);
+arangosh&gt; graph._addVertexCollection(<span class="hljs-string">&quot;myPrototypeColl&quot;</span>);

@@ -6,10 +6,7 @@ title: Auditing Configuration
 Audit Configuration
 ===================
 
-{% hint 'info' %}
-Auditing is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Auditing" %}
 
 Output
 ------

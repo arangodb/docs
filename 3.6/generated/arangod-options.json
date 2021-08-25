@@ -325,7 +325,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341536768,
+    "default" : 15268124672,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -922,6 +922,22 @@
     "section" : "database",
     "type" : "uint64"
   },
+  "database.old-system-collections" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "create and use deprecated system collection (_modules, _fishbowl)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.9"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "database",
+    "type" : "boolean"
+  },
   "database.password" : {
     "category" : "option",
     "default" : "",
@@ -1085,6 +1101,22 @@
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "foxx",
+    "type" : "boolean"
+  },
+  "foxx.force-update-on-startup" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "ensure all Foxx services are synchronized before completeing the boot sequence",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.9"
     ],
     "obsolete" : false,
     "requiresValue" : false,
@@ -1659,6 +1691,20 @@
     "section" : "javascript",
     "type" : "string..."
   },
+  "ldap.allow-offline" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "If a refresh attempt fails to connect to the LDAP server, continue with the cached authentication data",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "ldap",
+    "type" : "boolean"
+  },
   "ldap.async-connect" : {
     "category" : "option",
     "default" : false,
@@ -1812,6 +1858,20 @@
     "requiresValue" : true,
     "section" : "ldap",
     "type" : "double"
+  },
+  "ldap.responsible-for" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "A file of usernames this provider is responsible for. If empty, it will be responsible for all users",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap",
+    "type" : "string"
   },
   "ldap.restart" : {
     "category" : "option",
@@ -2122,6 +2182,497 @@
     "section" : "ldap",
     "type" : "string"
   },
+  "ldap2.allow-offline" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "If a refresh attempt fails to connect to the LDAP server, continue with the cached authentication data",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.async-connect" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Whether or not the connection to the LDAP library will be done asynchronously",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.basedn" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap basedn, eg. dc=example,dc=com",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.binddn" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap binddn, eg. cn=admin,dc=example,dc=com",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.bindpasswd" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap bindpassword, eg. admin",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.debug" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Turn on internal OpenLDAP library output (warning: will print to stdout)",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.enabled" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "enable LDAP",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.network-timeout" : {
+    "category" : "option",
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "Timeout value (in seconds) after which network operations following the initial connection return in case of no activity (a value of 0 means default timeout)",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "double"
+  },
+  "ldap2.port" : {
+    "category" : "option",
+    "default" : 389,
+    "deprecatedIn" : null,
+    "description" : "port to use",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "uint16"
+  },
+  "ldap2.prefix" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap prefix, eg. uid= xor dn= xor cn=",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.referrals" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Whether or not the LDAP library should implicitly chase referrals",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.refresh-rate" : {
+    "category" : "option",
+    "default" : 300,
+    "deprecatedIn" : null,
+    "description" : "Refresh user settings after this time (in seconds)",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "double"
+  },
+  "ldap2.responsible-for" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "A file of usernames this provider is responsible for. If empty, it will be responsible for all users",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.restart" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Whether or not the LDAP library should implicitly restart connections",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.retries" : {
+    "category" : "option",
+    "default" : 1,
+    "deprecatedIn" : null,
+    "description" : "Number of tries to attempt connecting to the LDAP server. Setting it to values greater than one will retry connecting in case the LDAP server is unavailable or denies the connection",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "uint32"
+  },
+  "ldap2.roles-attribute-name" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap attributename where the role are located.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.roles-exclude" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "Regexp to exclude groups. Leave empty to exclude none.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.roles-include" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "Regexp to include groups. Leave empty to include all.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.roles-search" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap search for roles; '{USER}' is replaced by the 'dn' of the user.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.roles-transformation" : {
+    "category" : "option",
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "Regexp to normalizer role name, e.g. '/^ *(.*[^ ]])*/$2/'",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string..."
+  },
+  "ldap2.search-attribute" : {
+    "category" : "option",
+    "default" : "uid",
+    "deprecatedIn" : null,
+    "description" : "ldap search attribute, eg. uid",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.search-filter" : {
+    "category" : "option",
+    "default" : "objectClass=*",
+    "deprecatedIn" : null,
+    "description" : "ldap search filter, eg. (objectClass=simpleSecurityObject)",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.search-scope" : {
+    "category" : "option",
+    "default" : "sub",
+    "deprecatedIn" : null,
+    "description" : "ldap search scope, one of base, one, sub",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.serialize-timeout" : {
+    "category" : "option",
+    "default" : 5,
+    "deprecatedIn" : null,
+    "description" : "Maximum amount of time (in seconds) that will be waited for the serialization mutex",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "double"
+  },
+  "ldap2.serialized" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Whether or not calls into the LDAP library should be serialized. This option can be used to work around thread-unsafe LDAP library functionality",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.server" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "server to use",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.suffix" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap suffix, eg. ,dc=example,dc=com",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.superuser-role" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "Role mapping to the super-users",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.timeout" : {
+    "category" : "option",
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "Timeout value (in seconds) for synchronous LDAP API calls (a value of 0 means default timeout)",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "double"
+  },
+  "ldap2.tls" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "enable TLS",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.tls-cacert-dir" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap tls cacert dir",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.tls-cacert-file" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap tls cacert file",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.tls-cert-check-strategy" : {
+    "category" : "option",
+    "default" : "hard",
+    "deprecatedIn" : null,
+    "description" : "ldap tls cert check strategy, one of never, hard, demand, allow, try",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.tls-version" : {
+    "category" : "option",
+    "default" : "1.2",
+    "deprecatedIn" : null,
+    "description" : "ldap tls version, one of 1.0, 1.1, 1.2",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.url" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap url, eg. ldap://example.com:389/dc=example,dc=com?uid?sub",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
   "log" : {
     "category" : "option",
     "default" : [
@@ -2140,6 +2691,24 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string..."
+  },
+  "log.api-enabled" : {
+    "category" : "option",
+    "default" : "true",
+    "deprecatedIn" : null,
+    "description" : "whether the log api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.11",
+      "v3.5.6",
+      "v3.6.5"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string"
   },
   "log.color" : {
     "category" : "option",
@@ -2192,8 +2761,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "requiresValue" : true,
@@ -2209,8 +2777,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "requiresValue" : true,
@@ -2296,7 +2863,7 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
@@ -2488,7 +3055,7 @@
   },
   "network.io-threads" : {
     "category" : "option",
-    "default" : 2,
+    "default" : 1,
     "deprecatedIn" : null,
     "description" : "number of network IO threads",
     "dynamic" : false,
@@ -2646,11 +3213,28 @@
     "section" : "query",
     "type" : "boolean"
   },
+  "query.max-runtime" : {
+    "category" : "option",
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "runtime threshold for AQL queries (in seconds, 0 = no limit)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.7",
+      "v3.7.3"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "double"
+  },
   "query.memory-limit" : {
     "category" : "option",
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "memory threshold for AQL queries (in bytes)",
+    "description" : "memory threshold for AQL queries (in bytes, 0 = no limit)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -2758,8 +3342,7 @@
     "enterpriseOnly" : true,
     "hidden" : true,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "requiresValue" : false,
@@ -2770,7 +3353,21 @@
     "category" : "option",
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "whether to track slow AQL queries",
+    "description" : "whether to track queries",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "query",
+    "type" : "boolean"
+  },
+  "query.tracking-slow-queries" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "whether to track slow queries",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -2789,6 +3386,38 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "query",
+    "type" : "boolean"
+  },
+  "query.tracking-with-datasources" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "whether to track data sources with AQL queries",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.8"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "query",
+    "type" : "boolean"
+  },
+  "query.tracking-with-querystring" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "whether to track the query string",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.8"
+    ],
     "obsolete" : false,
     "requiresValue" : false,
     "section" : "query",
@@ -2924,8 +3553,7 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "requiresValue" : false,
@@ -2962,7 +3590,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609844121,
+    "default" : 18321749606,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -3039,6 +3667,22 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "rocksdb",
+    "type" : "boolean"
+  },
+  "rocksdb.edge-cache" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "use in-memory cache for edges",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.4"
+    ],
     "obsolete" : false,
     "requiresValue" : false,
     "section" : "rocksdb",
@@ -3209,8 +3853,7 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "requiresValue" : false,
@@ -3315,6 +3958,22 @@
     "section" : "rocksdb",
     "type" : "uint64"
   },
+  "rocksdb.max-write-buffer-number-to-maintain" : {
+    "category" : "option",
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "maximum number of immutable write buffers that build up in memory per column family (larger values mean that more in-memory data can be used for transaction conflict checking (default depends on RAM size, set to 1 for not to keep immutable flushed write buffers, set to 0 for default size of RocksDB))",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.7"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "int64"
+  },
   "rocksdb.min-write-buffer-number-to-merge" : {
     "category" : "option",
     "default" : 1,
@@ -3413,6 +4072,23 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.sync-delay-threshold" : {
+    "category" : "option",
+    "default" : 5000,
+    "deprecatedIn" : null,
+    "description" : "threshold value for self-observation of WAL disk syncs. any WAL disk sync longer ago than this threshold will trigger a warning (in milliseconds, use 0 for no warnings)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.8",
+      "v3.7.5"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
   "rocksdb.sync-interval" : {
     "category" : "option",
     "default" : 100,
@@ -3457,7 +4133,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146458828,
+    "default" : 24428999475,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -3797,7 +4473,7 @@
   },
   "server.io-threads" : {
     "category" : "option",
-    "default" : 8,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "Number of threads used to handle IO",
     "dynamic" : true,
@@ -3884,7 +4560,7 @@
   },
   "server.maintenance-threads" : {
     "category" : "option",
-    "default" : 9,
+    "default" : 5,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
@@ -3994,6 +4670,22 @@
     "section" : "server",
     "type" : "boolean"
   },
+  "server.statistics-all-databases" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "provide cluster statistics in web interface in all databases",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.13"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
+  },
   "server.statistics-history" : {
     "category" : "option",
     "default" : true,
@@ -4039,6 +4731,38 @@
     "requiresValue" : true,
     "section" : "server",
     "type" : "string"
+  },
+  "server.unavailability-queue-fill-grade" : {
+    "category" : "option",
+    "default" : 1,
+    "deprecatedIn" : null,
+    "description" : "queue fill grade from which onwards the server is considered unavailable because of overload (ratio, use a value of 0 to disable it)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.6.10"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "double"
+  },
+  "server.validate-utf8-strings" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "perform UTF-8 string validation for incoming JSON and VelocyPack data",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.3"
+    ],
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
   },
   "ssl.cafile" : {
     "category" : "option",
@@ -4208,6 +4932,23 @@
     "requiresValue" : true,
     "section" : "temp",
     "type" : "string"
+  },
+  "transaction.streaming-lock-timeout" : {
+    "category" : "option",
+    "default" : 8,
+    "deprecatedIn" : null,
+    "description" : "lock timeout in seconds in case of parallel access to the same streaming transaction",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.6.5",
+      "v3.7.1"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "transaction",
+    "type" : "double"
   },
   "ttl.frequency" : {
     "category" : "option",

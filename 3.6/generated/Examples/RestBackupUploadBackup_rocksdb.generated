@@ -1,6 +1,6 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/upload</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"2020-02-03T15.37.58Z_51e3de9e-6423-4ad7-8701-38c35bde876a"</span>, 
+  <span class="hljs-string">"id"</span> : <span class="hljs-string">"2021-07-01T11.03.20Z_b186ecb4-9290-4e96-a359-d5b6bde1d182"</span>, 
   <span class="hljs-string">"remoteRepository"</span> : <span class="hljs-string">"local://tmp/backups"</span>, 
   <span class="hljs-string">"config"</span> : { 
     <span class="hljs-string">"local"</span> : { 
@@ -10,14 +10,17 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Accepted
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">56</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">202</span>, 
   <span class="hljs-string">"result"</span> : { 
-    <span class="hljs-string">"uploadId"</span> : <span class="hljs-string">"69059"</span> 
+    <span class="hljs-string">"uploadId"</span> : <span class="hljs-string">"69449"</span> 
   } 
 }

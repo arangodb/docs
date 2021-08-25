@@ -2,10 +2,13 @@
 [{ "_key": 111 }, {"_key":"abc"}]
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Accepted
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">127</span>
+server: ArangoDB
 x-arango-error-codes: {<span class="hljs-string">"1221"</span>:<span class="hljs-number">1</span>}
 x-content-type-options: nosniff
-content-type: application/json
 
 [ 
   { 
@@ -16,6 +19,6 @@ content-type: application/json
   { 
     <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/abc"</span>, 
     <span class="hljs-string">"_key"</span> : <span class="hljs-string">"abc"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a-sxg4W---"</span> 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ckE6yQ6---"</span> 
   } 
 ]

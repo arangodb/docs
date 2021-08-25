@@ -2,9 +2,12 @@
 { "_key": "foo", "value1": "bar" }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Bad Request
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">400</span> Bad Request
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">92</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">400</span>, 

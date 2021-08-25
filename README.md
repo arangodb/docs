@@ -7,6 +7,9 @@ for all versions as published on [arangodb.com/docs](https://www.arangodb.com/do
 
 The documentation uses the static site generator [Jekyll](https://jekyllrb.com).
 
+View the latest successful [preview build](https://main--zealous-morse-14392b.netlify.app/)
+of the `main` branch.
+
 ## Working with the documentation
 
 To work locally on the documentation you can:
@@ -30,19 +33,27 @@ when adding a new page). To be sure you have an up-to-date version remove the
 To speed up the build process you may disable certain versions from being built
 by changing the `_config.yml`:
 
-```yml
+```yaml
 exclude:
-  #- 3.5/
-  #- 3.4/
+# - 3.9/
+# - 3.8/
+  - 3.7/
+  - 3.6/
+  - 3.5/
+  - 3.4/
   - 3.3/
-  - 3.2/
-  - 3.1/
-  - 3.0/
-  - 2.8/
 ```
 
-Above example disables versions 2.8 through 3.3, so that 3.4 and 3.5 will be
+Above example disables versions 3.3 through 3.7, so that 3.8 and 3.9 will be
 built only. Do not commit these changes of the configuration!
+
+Note that building may fail if you disable required versions as defined by:
+
+```yaml
+versions:
+  stable: "3.8"
+  devel: "3.9"
+```
 
 ## Building the documentation
 
@@ -59,6 +70,14 @@ To let Jekyll build the static site without serving it or watching for file
 changes use:
 
 `bundle exec jekyll build`
+
+To serve the content from a previous build without watching for changes use:
+
+`bundle exec jekyll serve --skip-initial-build --no-watch`
+
+You can then browse the docs in a browser at http://127.0.0.1:4000/docs/.
+Note that it has to be `/docs/`. Both `/` and `/docs` do not work
+(_404 Page not found_) because of the configured baseurl.
 
 ### Docker container
 
@@ -80,7 +99,7 @@ Please note that you still need to put them into a `/docs` subdirectory.
 
 Example:
 
-```
+```bash
 mkdir -p /tmp/arangodocs
 cp -a _site /tmp/arangodocs/docs
 cd /tmp/arangodocs
@@ -89,32 +108,104 @@ python -m http.server
 
 ## Documentation structure
 
-In the root directory the directories `3.4`, `3.5` etc. represent the
-individual versions and their full documentation. The content used to be
-in version branches in the main repository.
+In the root directory, the directories `3.8`, `3.9` etc. represent the
+individual ArangoDB versions and their full documentation. The content used
+to be in version branches in the `arangodb/arangodb` repository, but now all
+documentation versions live in the `main` branch of this repository. This has
+the advantage that all versions can be built at once, but the drawback of Git
+cherry-picking not being available and therefore requiring to manually apply
+changes to different versions as necessary.
 
-The core book (Manual) of the version will be in the root e.g. `3.4/*.md`.
-The sub-books (AQL, Cookbook etc.) will have their own directory in there.
+The documentation is split into different parts, called "books" for historical
+reasons. The core book (Manual) of a version does not have an own folder for its
+content, but the files are found in the version directory, e.g. `3.8/*.md`.
+Other books (AQL, HTTP) have subfolders in the version folder, e.g. `3.8/aql/`.
+There are also books (Drivers, Oasis) that are not directly couple to ArangoDB
+versions, that have their files in an own folders in the root directory, e.g.
+`oasis/*.md`. These folders are symlinked in multiple version folders. Some
+files, like release notes, are also symlinked to reduce maintenance costs.
 
-The organization of documents is **flat**, namely there are no subdirectories per book
-(as opposed to the old documentation system).
+The organization of documents is **flat**, namely there are no subdirectories
+per book (as opposed to the previous documentation system).
 
-The other directories are:
+Other directories:
 
-- `_data`: data files which are used by plugins and layouts,
-  including the navigation definitions
-- `_includes`: templates for custom tags and layout partials
-- `_layouts`: layout definitions that can be used in YAML frontmatter like
-  `layout: default`
-- `_plugins`: Jekyll extensions for the navigation, version switcher,
-  custom tags / blocks etc.
-- `_site`: default output directory (not committed)
-- `assets`: files not directly related to the documentation content
-  that also need to be served (e.g. the ArangoDB logo)
-- `js`: JavaScript files used by the site
-- `scripts`: Scripts which were used in the migration process from Gitbook
-  to Jekyll (not really needed anymore)
-- `styles`: CSS files for the site, including a lot of legacy from Gitbook
+| Name        | Description
+|:------------|:-----------
+| `_data`     | data files which are used by plugins and layouts, including the navigation definitions
+| `_includes` | templates for custom tags and layout partials
+| `_layouts`  | layout definitions that can be used in YAML frontmatter like `layout: default`
+| `_plugins`  | Jekyll extensions for the navigation, version switcher, custom tags / blocks etc.
+| `_site`     | default output directory (not committed)
+| `assets`    | files not directly related to the documentation content that also need to be served (e.g. the ArangoDB logo)
+| `js`        | JavaScript files used by the site
+| `scripts`   | Scripts which were used in the migration process from Gitbook to Jekyll (not really needed anymore)
+| `styles`    | CSS files for the site, including a lot of legacy from Gitbook
+
+### Adding links
+
+The official way to cross-reference other pages within the documentation would be
+to use Jekyll's `link` tag (`{% link path/to/file.md %}`). This mechanism is not
+used, however. We use plain Markdown links, but this has the drawback of having
+to change the file extension from `.md` to `.html` so that it will work once the
+documentation is built.
+
+```markdown
+This is an [internal link](aql/functions-numeric.html#max).
+```
+
+Note that internal links should be relative, i.e. not include a version number,
+unless it is supposed to point to a different version of the documentation on
+purpose. To point from one book to another, you may need to use `..` to refer
+to the parent folder of a file. You can also link to headlines within a page
+like `[label](#anchor-id)`.
+
+For external links, please add `{:target="_blank"}` so that they open in a new
+tab when clicked:
+
+```markdown
+This is an [external link](https://www.arangodb.com/){:target="_blank"}
+```
+
+### Adding a lead paragraph
+
+A lead paragraph is the opening paragraph of a written work that summarizes its
+main ideas. Only few pages have one so far, but new content should be written
+with such a brief description. It is supposed to clarify the scope of the
+article so that the reader can quickly assess whether the following information
+is of relevance, but also acts as an introduction.
+
+```markdown
+# Using Feature X
+
+You can do this and that with X, and it is ideal to solve problem Y
+{:class="lead"}
+```
+
+The lead paragraph needs to be placed between the top-level headline and the
+first content paragraph. It should end without a period, contain no links and
+usually avoid other markup as well (bold, italic). This also enables the use
+of the lead paragraph as metadata for the page:
+
+```markdown
+---
+layout: default
+description: >-
+  You can do this and that with X, and it is ideal to solve problem Y
+title: Feature X
+---
+# Using Feature X
+
+{{ page.description }}
+{:class="lead"}
+```
+
+The generated metadata looks like this:
+
+```html
+<meta property="og:title" content="Feature X | ArangoDB Documentation" />
+<meta property="og:description" content="You can do this and that with X, and it is ideal to solve problem Y" />
+```
 
 ### Navigation
 
@@ -123,7 +214,7 @@ This is being read by the NavigationTag plugin to create the navigation on the
 left-hand side.
 
 The YAML file for a book can be found here: `_data/<version>-<book>.yml`.
-For example, the 3.4 AQL navigation is defined by `_data/3.4-aql.yml`.
+For example, the 3.8 AQL navigation is defined by `_data/3.8-aql.yml`.
 
 ### Adding a page
 
@@ -143,47 +234,150 @@ the page we want to add will be `aql/operations-create.md`:
 
 Then create the Markdown document and add the following frontmatter section:
 
-```
+```yaml
 ---
 layout: default
 description: A meaningful description of the page
+title: Short title
 ---
 ```
 
 Add the actual content below the frontmatter.
 
+### Renaming a page
+
+The URL of a page is derived from the file name. If you rename a file, e.g.
+from `old-name.md` to `new-name.md`, make sure to add a redirect for the
+old URL by adding the following to the frontmatter:
+
+```diff
+ ---
+ layout: default
+ description: ...
+ title: ...
+ ---
++redirect_from:
++  - old-name.html # 3.8 -> 3.9
+```
+
+The URL should be relative and the comment (`#`) indicate the versions it was
+renamed in (can also be the same version twice, e.g. `# 3.8 -> 3.8`).
+
+### Setting anchor IDs
+
+Headlines are assigned automatically generated identifiers based on their text.
+In some cases you may want to set an ID explicitly:
+
+```markdown
+### A headline {: #custom-id }
+```
+
+### Disable or limit table of contents
+
+The table of contents (ToC) on the right-hand side at the top of a page lists
+the headlines if there at least three on the page. It can be disabled for
+individual pages with the following frontmatter:
+
+```yaml
+---
+layout: default
+page-toc:
+  disable: true
+---
+```
+
+It can also be restricted to a maximum headline level to omit the deeper nested
+headlines for less clutter:
+
+```yaml
+---
+layout: default
+page-toc:
+  max-headline-level: 3
+---
+```
+
+A setting of `3` means that `<h1>`, `<h2>`, and `<h3>` headlines will be listed
+in the ToC, whereas `<h4>`, `<h5>`, and `<h6>` will be ignored.
+
 ### When adding a new release
 
-- Copy the latest devel version to a new directory i.e. `cp -a 3.5 3.6`
+- Run below commands in Bash under Linux. Do not use Git Bash on Windows,
+  it dereferences symlinks (copies the referenced files)!
+- Copy the latest devel version to a new directory i.e. `cp -a 3.9 4.0`
 - Create the necessary navigation definition files in `_data` by copying, e.g.
   ```
+  cd _data
   for book in aql drivers http manual oasis; do
-    cp -a "3.5-${book}.yml" "3.6-${book}.yml"
+    cp -a "3.9-${book}.yml" "4.0-${book}.yml"
   done
+  cd ..
   ```
-- Create relative symlinks to program option JSON files in `_data`, like
+- Create relative symlinks to program option JSON files and the metrics YAML
+  file in `_data`, like
   ```
-  for prog in backup bench d dump export import inspect restore sh; do
-    ln -s "../3.6/generated/arango${prog}-options.json" "3.6-program-options-arango${prog}.json"
+  cd _data
+  for prog in backup bench d dump export import inspect restore sh vpack; do
+    ln -s "../4.0/generated/arango${prog}-options.json" "4.0-program-options-arango${prog}.json"
   done
-  ```
-- Adjust the version numbers in `site.data` references in all pages which
-  include program startup options (`program-option.html`), e.g.
-  ```diff
-  -{% assign options = site.data["35-program-options-arangobackup"] %}
-  +{% assign options = site.data["36-program-options-arangobackup"] %}
-   {% include program-option.html options=options name="arangobackup" %}
-  ```
-  ```
-  grep -r -F 'site.data["35-' --include '*.md' -l 3.6 | xargs sed -i 's/site\.data\["35-/site.data["36-/g'
+  ln -s "../4.0/generated/allMetrics.yaml" "4.0-allMetrics.yaml"
+  cd ..
   ```
 - Adjust the version numbers in `redirect_from` URLs in the frontmatter
   to match the new version folder, e.g.
   ```diff
    redirect_from:
-  -  - /3.5/path/to/file.html # 3.4 -> 3.5
-  +  - /3.6/path/to/file.html # 3.4 -> 3.5
+  -  - /3.9/path/to/file.html # 3.4 -> 3.5
+  +  - /4.0/path/to/file.html # 3.4 -> 3.5
   ```
+  This is only necessary for absolute redirects. Relative redirects are
+  preferred, e.g. `- old.html` in `new.html` (may also include `..`).
+  If pages were removed, then you may want to use absolute redirects to point
+  to older versions or redirect to completely different pages.
+- Create release note pages for the new version (here: `4.0` / `40`)
+  and add them to the navigation (`4.0-manual.yml`):
+  ```diff
+   - text: Release Notes
+     href: release-notes.html
+     children:
+  +    - text: Version 4.0
+  +      href: release-notes-40.html
+  +      children:
+  +        - text: What's New in 4.0
+  +          href: release-notes-new-features40.html
+  +        - text: Known Issues in 4.0
+  +          href: release-notes-known-issues40.html
+  +        - text: Incompatible changes in 4.0
+  +          href: release-notes-upgrading-changes40.html
+  +        - text: API changes in 4.0
+  +          href: release-notes-api-changes40.html
+  ```
+- Add the relevant links to the release notes overview page
+  `4.0/release-notes.html`
+- Delete the release note pages of the previous version (here: `3.9`) in the
+  folder of the new version (here: `4.0`) and symlink the files instead:
+  ```
+  cd 4.0
+  rm release-notes-39.md
+  rm release-notes-new-features39.md
+  rm release-notes-known-issues39.md
+  rm release-notes-upgrading-changes39.md
+  rm release-notes-api-changes39.md
+  ln -s ../3.9/release-notes-39.md release-notes-39.md
+  ln -s ../3.9/release-notes-new-features39.md release-notes-new-features39.md
+  ln -s ../3.9/release-notes-known-issues39.md release-notes-known-issues39.md
+  ln -s ../3.9/release-notes-upgrading-changes39.md release-notes-upgrading-changes39.md
+  ln -s ../3.9/release-notes-api-changes39.md release-notes-api-changes39.md
+  cd ..
+  ```
+- Check if any links to version-specific pages such as the release notes need
+  to be updated, e.g.
+  ```diff
+  -See [Known Issues](release-notes-known-issues39.html).
+  +See [Known Issues](release-notes-known-issues40.html).
+  ```
+- Add a section _Version 4.0_ to `4.0/highlights.html` including a link to
+  _What's New in 4.0_
 - Add the version to `_data/versions.yml` with the full version name
 - Add all books of that version to `_data/books.yml`
 - Adjust the following fields in `_config.yml` as needed:
@@ -249,6 +443,7 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
 - Wrap text at 80 characters. This helps tremendously in version control.
 - Put Markdown links on a single line `[link label](target.html#hash)`,
   even if it violates the guideline of 80 characters per line.
+- Append `{:target="_blank"}` to Markdown links which point to external sites.
 
 ## Troubleshooting
 
@@ -333,6 +528,16 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
   Warnings and exceptions like above show if you try to run Jekyll from a
   subfolder. Change your working directory to the root folder of the working
   copy (`/path/to/docs`).
+
+- ```
+  Liquid Exception: undefined method `captures' for nil:NilClass
+  ```
+
+  This error can be raised by the `navvar` method in `_plugins/ExtraFilters.rb`
+  (run Jekyll with `--trace` to verify). Check that the working copy is clean.
+  Stray folders with untracked Markdown files may cause this problem, e.g. the
+  output of `oasisctl generate-docs`. Either remove the files or add the folder
+  to the list of excludes in `_config.yml`.
 
 - ```
   Please append `--trace` to the `build` command

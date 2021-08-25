@@ -2,24 +2,27 @@
 [{"Hello":"Earth"}, {"Hello":"Venus"}, {"Hello":"Mars"}]
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Accepted
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">184</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 [ 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69817"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69817"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a-sxg46---"</span> 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70257"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70257"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ckE6yRq--A"</span> 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69818"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69818"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a-sxg46--A"</span> 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70258"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70258"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ckE6yRq--C"</span> 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69819"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69819"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a-sxg46--C"</span> 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70259"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70259"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ckE6yRq--E"</span> 
   } 
 ]

@@ -2,14 +2,17 @@
 { "Hello": "World" }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Accepted
-etag: <span class="hljs-string">"_a-sxg36---"</span>
-location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">69784</span>
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">60</span>
+etag: <span class="hljs-string">"_ckE6yQW--A"</span>
+location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">70224</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69784"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69784"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a-sxg36---"</span> 
+  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70224"</span>, 
+  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70224"</span>, 
+  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ckE6yQW--A"</span> 
 }

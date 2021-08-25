@@ -2,22 +2,25 @@
 { "collection": "products", "skip": 2, "limit" : 2 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Created
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">431</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"result"</span> : [ 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71016"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71016"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z9tSKoi--C"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71788"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71788"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_clWgC-O---"</span>, 
       <span class="hljs-string">"Hello3"</span> : <span class="hljs-string">"World3"</span> 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71018"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71018"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z9tSKoi--E"</span>, 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71790"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71790"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_clWgC-O--A"</span>, 
       <span class="hljs-string">"Hello4"</span> : <span class="hljs-string">"World4"</span> 
     } 
   ], 
@@ -32,8 +35,8 @@ content-type: application/json
       <span class="hljs-string">"scannedIndex"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00013709068298339844</span>, 
-      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">2558</span> 
+      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00016877499911061022</span>, 
+      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">6764</span> 
     }, 
     <span class="hljs-string">"warnings"</span> : [ ] 
   }, 

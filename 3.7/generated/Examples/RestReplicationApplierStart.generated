@@ -1,8 +1,11 @@
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/applier-start</span>
 
-HTTP/<span class="hljs-number">1.1</span> OK
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">712</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"state"</span> : { 
@@ -15,7 +18,7 @@ content-type: application/json
     <span class="hljs-string">"safeResumeTick"</span> : <span class="hljs-literal">null</span>, 
     <span class="hljs-string">"ticksBehind"</span> : <span class="hljs-number">0</span>, 
     <span class="hljs-string">"progress"</span> : { 
-      <span class="hljs-string">"time"</span> : <span class="hljs-string">"2020-01-31T13:39:32Z"</span>, 
+      <span class="hljs-string">"time"</span> : <span class="hljs-string">"2021-07-05T10:06:15Z"</span>, 
       <span class="hljs-string">"message"</span> : <span class="hljs-string">"applier initially created for database '_system'"</span>, 
       <span class="hljs-string">"failedConnects"</span> : <span class="hljs-number">0</span> 
     }, 
@@ -33,11 +36,11 @@ content-type: application/json
     <span class="hljs-string">"lastError"</span> : { 
       <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">0</span> 
     }, 
-    <span class="hljs-string">"time"</span> : <span class="hljs-string">"2020-01-31T13:39:41Z"</span> 
+    <span class="hljs-string">"time"</span> : <span class="hljs-string">"2021-07-05T10:06:18Z"</span> 
   }, 
   <span class="hljs-string">"server"</span> : { 
-    <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.7.0-devel"</span>, 
-    <span class="hljs-string">"serverId"</span> : <span class="hljs-string">"112431614366764"</span> 
+    <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.7.13"</span>, 
+    <span class="hljs-string">"serverId"</span> : <span class="hljs-string">"225160378679136"</span> 
   }, 
   <span class="hljs-string">"endpoint"</span> : <span class="hljs-string">"tcp://127.0.0.1:8529"</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"_system"</span> 

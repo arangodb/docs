@@ -3,7 +3,7 @@ layout: default
 description: Analyzers parse input values and transform them into sets of sub-values, for example by breaking up text into words.
 title: ArangoSearch Analyzers
 redirect_from:
-  - /3.6/views-arango-search-analyzers.html # 3.4 -> 3.5
+  - views-arango-search-analyzers.html # 3.4 -> 3.5
 ---
 ArangoSearch Analyzers
 ======================
@@ -106,14 +106,14 @@ The valid attributes/values for the *properties* are dependant on what *type*
 is used. For example, the `delimiter` type needs to know the desired delimiting
 character(s), whereas the `text` type takes a locale, stop-words and more.
 
-### Identity
+### `identity`
 
 An Analyzer applying the `identity` transformation, i.e. returning the input
 unmodified.
 
 It does not support any *properties* and will ignore them.
 
-### Delimiter
+### `delimiter`
 
 An Analyzer capable of breaking up delimited text into tokens as per
 [RFC 4180](https://tools.ietf.org/html/rfc4180)
@@ -124,7 +124,7 @@ attributes:
 
 - `delimiter` (string): the delimiting character(s)
 
-### Stem
+### `stem`
 
 An Analyzer capable of stemming the text, treated as a single token,
 for supported languages.
@@ -135,9 +135,9 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB.
+  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
 
-###  Norm
+### `norm`
 
 An Analyzer capable of normalizing the text, treated as a single
 token, i.e. case conversion and accent removal.
@@ -148,7 +148,7 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB.
+  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
 - `accent` (boolean, _optional_):
   - `true` to preserve accented characters (default)
   - `false` to convert accented characters to their base characters
@@ -157,7 +157,7 @@ attributes:
   - `"upper"` to convert to all upper-case characters
   - `"none"` to not change character case (default)
 
-### N-gram
+### `ngram`
 
 An Analyzer capable of producing n-grams from a specified input in a range of
 min..max (inclusive). Can optionally preserve the original input.
@@ -209,14 +209,11 @@ produce the following:
 - `"oobar$"`
 - `"obar$"`
 
-### Text
+### `text`
 
 An Analyzer capable of breaking up strings into individual words while also
 optionally filtering out stop-words, extracting word stems, applying
 case conversion and accent removal.
-
-Stemming support is provided by
-[Snowball](https://snowballstem.org/){:target="_blank"}.
 
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
@@ -224,7 +221,7 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB.
+  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
 - `accent` (boolean, _optional_):
   - `true` to preserve accented characters
   - `false` to convert accented characters to their base characters (default)
@@ -367,3 +364,36 @@ Name       | Type       | Language
 `text_ru`  | `text`     | Russian
 `text_sv`  | `text`     | Swedish
 `text_zh`  | `text`     | Chinese
+
+Supported Languages
+-------------------
+
+Analyzers rely on [ICU](http://site.icu-project.org/){:target="_blank"} for
+language-dependent tokenization and normalization. The ICU data file
+`icudtl.dat` that ArangoDB ships with contains information for a lot of
+languages, which are technically all supported.
+
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](release-notes-known-issues36.html#arangosearch).
+{% endhint %}
+
+Stemming support is provided by [Snowball](https://snowballstem.org/){:target="_blank"},
+which supports the following languages:
+
+Code  | Language
+------|-----------
+`de`  | German
+`en`  | English
+`es`  | Spanish
+`fi`  | Finnish
+`fr`  | French
+`it`  | Italian
+`nl`  | Dutch
+`no`  | Norwegian
+`pt`  | Portuguese
+`ru`  | Russian
+`sv`  | Swedish

@@ -1,0 +1,72 @@
+@Q:
+FOR year IN [ <span class="hljs-number">2011</span>, <span class="hljs-number">2012</span>, <span class="hljs-number">2013</span> ]
+FOR quarter IN [ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span> ]
+  RETURN {
+    year,
+    quarter,
+    <span class="hljs-attr">formatted</span>: CONCAT(quarter, <span class="hljs-string">&quot; / &quot;</span>, year)
+  }
+
+@R
+[
+  {
+    <span class="hljs-string">&quot;year&quot;</span>: <span class="hljs-number">2011</span>,
+    <span class="hljs-string">&quot;quarter&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">&quot;formatted&quot;</span>: <span class="hljs-string">&quot;1 / 2011&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;year&quot;</span>: <span class="hljs-number">2011</span>,
+    <span class="hljs-string">&quot;quarter&quot;</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-string">&quot;formatted&quot;</span>: <span class="hljs-string">&quot;2 / 2011&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;year&quot;</span>: <span class="hljs-number">2011</span>,
+    <span class="hljs-string">&quot;quarter&quot;</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-string">&quot;formatted&quot;</span>: <span class="hljs-string">&quot;3 / 2011&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;year&quot;</span>: <span class="hljs-number">2011</span>,
+    <span class="hljs-string">&quot;quarter&quot;</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-string">&quot;formatted&quot;</span>: <span class="hljs-string">&quot;4 / 2011&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;year&quot;</span>: <span class="hljs-number">2012</span>,
+    <span class="hljs-string">&quot;quarter&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">&quot;formatted&quot;</span>: <span class="hljs-string">&quot;1 / 2012&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;year&quot;</span>: <span class="hljs-number">2012</span>,
+    <span class="hljs-string">&quot;quarter&quot;</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-string">&quot;formatted&quot;</span>: <span class="hljs-string">&quot;2 / 2012&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;year&quot;</span>: <span class="hljs-number">2012</span>,
+    <span class="hljs-string">&quot;quarter&quot;</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-string">&quot;formatted&quot;</span>: <span class="hljs-string">&quot;3 / 2012&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;year&quot;</span>: <span class="hljs-number">2012</span>,
+    <span class="hljs-string">&quot;quarter&quot;</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-string">&quot;formatted&quot;</span>: <span class="hljs-string">&quot;4 / 2012&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;year&quot;</span>: <span class="hljs-number">2013</span>,
+    <span class="hljs-string">&quot;quarter&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">&quot;formatted&quot;</span>: <span class="hljs-string">&quot;1 / 2013&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;year&quot;</span>: <span class="hljs-number">2013</span>,
+    <span class="hljs-string">&quot;quarter&quot;</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-string">&quot;formatted&quot;</span>: <span class="hljs-string">&quot;2 / 2013&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;year&quot;</span>: <span class="hljs-number">2013</span>,
+    <span class="hljs-string">&quot;quarter&quot;</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-string">&quot;formatted&quot;</span>: <span class="hljs-string">&quot;3 / 2013&quot;</span>
+  },
+  {
+    <span class="hljs-string">&quot;year&quot;</span>: <span class="hljs-number">2013</span>,
+    <span class="hljs-string">&quot;quarter&quot;</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-string">&quot;formatted&quot;</span>: <span class="hljs-string">&quot;4 / 2013&quot;</span>
+  }
+]

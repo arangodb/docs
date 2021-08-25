@@ -1,0 +1,7 @@
+@Q:
+LET edgeKeys = (FOR v, e IN <span class="hljs-number">1.</span><span class="hljs-number">.1</span> ANY <span class="hljs-string">&#x27;persons/eve&#x27;</span> GRAPH <span class="hljs-string">&#x27;knows_graph&#x27;</span> RETURN e._key)
+LET r = (FOR key IN edgeKeys REMOVE key IN knows) 
+REMOVE <span class="hljs-string">&#x27;eve&#x27;</span> IN persons
+
+@R
+[]

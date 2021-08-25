@@ -1,33 +1,36 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=188668</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-follow?from=189177</span>
 
-HTTP/1.1 OK
+HTTP/1.1 200 OK
+content-type: application/x-arango-dump
+connection: Keep-Alive
+content-length: 1612
+server: ArangoDB
 x-arango-replication-active: true
 x-arango-replication-checkmore: false
 x-arango-replication-frompresent: true
-x-arango-replication-lastincluded: 188696
-x-arango-replication-lastscanned: 188696
-x-arango-replication-lasttick: 188696
+x-arango-replication-lastincluded: 189206
+x-arango-replication-lastscanned: 189206
+x-arango-replication-lasttick: 189206
 x-content-type-options: nosniff
-content-type: application/x-arango-dump
 
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188671"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"189180"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
   <span class="hljs-string">"cid"</span> : <span class="hljs-string">"4"</span>, 
   <span class="hljs-string">"cname"</span> : <span class="hljs-string">"_users"</span>, 
   <span class="hljs-string">"data"</span> : { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"95"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/95"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z9tSJm2--_"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"90"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/90"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_clWgA8m---"</span>, 
     <span class="hljs-string">"user"</span> : <span class="hljs-string">"root"</span>, 
     <span class="hljs-string">"source"</span> : <span class="hljs-string">"LOCAL"</span>, 
     <span class="hljs-string">"authData"</span> : { 
       <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>, 
       <span class="hljs-string">"simple"</span> : { 
-        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"a1aae802189bc931e767a1ddc51ddb3668f7c728afcd34151fb694c1880ee7c0"</span>, 
-        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"8e00f370"</span>, 
+        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"0baec0259357086dcd1483bfd0e7560bc27cd05c6539686c956110eafb054ba1"</span>, 
+        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"f1ac11d4"</span>, 
         <span class="hljs-string">"method"</span> : <span class="hljs-string">"sha256"</span> 
       } 
     }, 
@@ -70,13 +73,13 @@ content-type: application/x-arango-dump
               <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
             } 
           }, 
-          <span class="hljs-string">"animals"</span> : { 
+          <span class="hljs-string">"products1"</span> : { 
             <span class="hljs-string">"permissions"</span> : { 
               <span class="hljs-string">"read"</span> : <span class="hljs-literal">true</span>, 
               <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
             } 
           }, 
-          <span class="hljs-string">"products1"</span> : { 
+          <span class="hljs-string">"animals"</span> : { 
             <span class="hljs-string">"permissions"</span> : { 
               <span class="hljs-string">"read"</span> : <span class="hljs-literal">true</span>, 
               <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
@@ -88,34 +91,34 @@ content-type: application/x-arango-dump
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188684"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"189193"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2001</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
-  <span class="hljs-string">"cuid"</span> : <span class="hljs-string">"h6641866F942C/70956"</span>, 
-  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"70956"</span>, 
+  <span class="hljs-string">"cuid"</span> : <span class="hljs-string">"hCCC83C637F60/71727"</span>, 
+  <span class="hljs-string">"cid"</span> : <span class="hljs-string">"71727"</span>, 
   <span class="hljs-string">"data"</span> : { 
-    <span class="hljs-string">"id"</span> : <span class="hljs-string">"70956"</span>, 
+    <span class="hljs-string">"id"</span> : <span class="hljs-string">"71727"</span>, 
     <span class="hljs-string">"name"</span> : <span class="hljs-string">""</span> 
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"188691"</span>, 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"189201"</span>, 
   <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
   <span class="hljs-string">"database"</span> : <span class="hljs-string">"1"</span>, 
   <span class="hljs-string">"tid"</span> : <span class="hljs-string">"0"</span>, 
   <span class="hljs-string">"cid"</span> : <span class="hljs-string">"4"</span>, 
   <span class="hljs-string">"cname"</span> : <span class="hljs-string">"_users"</span>, 
   <span class="hljs-string">"data"</span> : { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"95"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/95"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_Z9tSJn---_"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"90"</span>, 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_users/90"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_clWgA8u---"</span>, 
     <span class="hljs-string">"user"</span> : <span class="hljs-string">"root"</span>, 
     <span class="hljs-string">"source"</span> : <span class="hljs-string">"LOCAL"</span>, 
     <span class="hljs-string">"authData"</span> : { 
       <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>, 
       <span class="hljs-string">"simple"</span> : { 
-        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"a1aae802189bc931e767a1ddc51ddb3668f7c728afcd34151fb694c1880ee7c0"</span>, 
-        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"8e00f370"</span>, 
+        <span class="hljs-string">"hash"</span> : <span class="hljs-string">"0baec0259357086dcd1483bfd0e7560bc27cd05c6539686c956110eafb054ba1"</span>, 
+        <span class="hljs-string">"salt"</span> : <span class="hljs-string">"f1ac11d4"</span>, 
         <span class="hljs-string">"method"</span> : <span class="hljs-string">"sha256"</span> 
       } 
     }, 
@@ -126,13 +129,13 @@ content-type: application/x-arango-dump
           <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
         }, 
         <span class="hljs-string">"collections"</span> : { 
-          <span class="hljs-string">"products1"</span> : { 
+          <span class="hljs-string">"animals"</span> : { 
             <span class="hljs-string">"permissions"</span> : { 
               <span class="hljs-string">"read"</span> : <span class="hljs-literal">true</span>, 
               <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 
             } 
           }, 
-          <span class="hljs-string">"animals"</span> : { 
+          <span class="hljs-string">"products1"</span> : { 
             <span class="hljs-string">"permissions"</span> : { 
               <span class="hljs-string">"read"</span> : <span class="hljs-literal">true</span>, 
               <span class="hljs-string">"write"</span> : <span class="hljs-literal">true</span> 

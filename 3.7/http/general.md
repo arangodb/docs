@@ -59,7 +59,6 @@ to build up a so called *connection pool* with several established
 connections in your client application, and dynamically re-use
 one of those then idle connections for subsequent requests.
 
-
 Switching Protocols
 -------------------
 
@@ -68,24 +67,29 @@ other protocols the client must indicate this to the server so that the
 protocol may be switched.
 
 Upgrading to HTTP 2 is supported according to the ways outlined in
-[RFC7540](https://tools.ietf.org/html/rfc7540#section-3). We support upgrade
-from non-encrypted connections and encrypted connections:
+[RFC 7540 Section 3](https://tools.ietf.org/html/rfc7540#section-3){:target="_blank"},
+from non-encrypted connections as well as encrypted connections.
 
-On non-encrypted connections with `http` scheme in the URI we expect the client
-to use HTTP 1.1 for at least one request. Upgrading happens by sending a
-request with the `Upgrade: h2c` header and exactly one `HTTP2-Settings` header.
-The server will then respond with `101 Switching Protocols` and begin using
-HTTP/2.
+On non-encrypted connections with `http` scheme in the URI clients may use
+HTTP 1.1 initially until an upgrade is performed. Upgrading the connection is
+initiated by sending a request with the `Upgrade: h2c` header and exactly one
+`HTTP2-Settings` header. The server will then respond with `101 Switching Protocols`
+and begin using HTTP/2. See the RFC for details.
 
-On TLS encrypted connections with `https` scheme in the URI we support the
+For non-encrypted TCP connections ArangoDB also supports
+*Starting HTTP/2 with Prior Knowledge*, as specified in
+[RFC 7540 Section 3.4](https://tools.ietf.org/html/rfc7540#section-3.4){:target="_blank"}.
+The server will check the first 24 octets received over the connection and compare
+it to the HTTP 2 connection preface `PRI * HTTP/2.0\r\n\r\nSM\r\n\r\n`, as outlined
+in [Section 5](https://tools.ietf.org/html/rfc7540#section-5){:target="_blank"}.
+
+On TLS encrypted connections with `https` scheme in the URI ArangoDB supports the
 ALPN extension with the `h2` protocol identifier. This means the connection may
 switch to using HTTP/2 right away after a successful TLS handshake.
 
-ArangoDB does not support *Starting HTTP/2 with Prior Knowledge*.
-
 An upgrade to the VelocyStream protocol may happen by sending `VST/1.1\r\n\r\n`
-(11 bytes) to the server _before_ sending anything else. The server will then
-start using VelocyStream 1.1 sending anything else is an error.
+(11 octets) to the server _before_ sending anything else. The server will then
+start using VelocyStream 1.1. Sending anything else is an error.
 
 Blocking vs. Non-blocking HTTP Requests
 ---------------------------------------
@@ -110,13 +114,13 @@ non-blocking, asynchronous execution: clients can add the
 HTTP header `x-arango-async: true` to any of their requests, marking
 them as to be executed asynchronously on the server. ArangoDB will put such
 requests into an in-memory task queue and return an *HTTP 202* (accepted)
-response to the client instantly and thus finish this HTTP-request.
+response to the client instantly and thus finish this HTTP request.
 The server will execute the tasks from the queue asynchronously as fast
 as possible, while clients can continue to do other work.
 If the server queue is full (i.e. contains as many tasks as specified by the
 option ["--server.maximal-queue-size"](../programs-arangod-options.html#arangodb-server-options)),
-then the request will be rejected instantly with an *HTTP 500* (internal
-server error) response.
+then the request will be rejected instantly with an *HTTP 503* (Service
+unavailable) response.
 
 Asynchronous execution decouples the request/response handling from the actual
 work to be performed, allowing fast server responses and greatly reducing wait
@@ -188,20 +192,20 @@ Here's a short summary:
 
 Whenever authentication is required and the client has not yet authenticated,
 ArangoDB will return *HTTP 401* (Unauthorized). It will also send the
-`WWW-Authenticate` response header, indicating that the client should prompt
+`Www-Authenticate` response header, indicating that the client should prompt
 the user for username and password if supported. If the client is a browser,
 then sending back this header will normally trigger the display of the
 browser-side HTTP authentication dialog. As showing the browser HTTP
 authentication dialog is undesired in AJAX requests, ArangoDB can be told to
-not send the *WWW-Authenticate* header back to the client. Whenever a client
-sends the `X-Omit-WWW-Authenticate` HTTP header (with an arbitrary value) to
-ArangoDB, ArangoDB will only send status code 401, but no `WWW-Authenticate`
-header. This allows clients to implement credentials handling and bypassing 
+not send the *Www-Authenticate* header back to the client. Whenever a client
+sends the `X-Omit-Www-Authenticate` HTTP header (with an arbitrary value) to
+ArangoDB, ArangoDB will only send status code 401, but no `Www-Authenticate`
+header. This allows clients to implement credentials handling and bypassing
 the browser's built-in dialog.
 
 ### Authentication via JWT
 
-ArangoDB uses a standard JWT based authentication method. 
+ArangoDB uses a standard JWT based authentication method.
 To authenticate via JWT you must first obtain a JWT token with a signature
 generated via HMAC with SHA-256. The secret may either be set using
 `--server.jwt-secret` or will be randomly generated upon server startup.
@@ -211,7 +215,7 @@ For more information on JWT please consult RFC7519 and [jwt.io](https://jwt.io){
 #### User JWT-Token
 
 To authenticate with a specific user you need to supply a JWT token containing
-the _preferred_username_ field with the username. 
+the _preferred_username_ field with the username.
 You can either let ArangoDB generate this token for you via an API call
 or you can generate it yourself (only if you know the JWT secret).
 
@@ -302,29 +306,16 @@ curl -v -H "Authorization: bearer $(jwtgen -s <my-secret> -e 3600 -a "HS256" -c 
 
 <small>Introduced in: v3.7.0</small>
 
-{% hint 'info' %}
-Support for hot-reloading secrets is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Hot-reloading of secrets" %}
 
 To reload the JWT secrets of a local arangod process without a restart, you
 may use the following RESTful API. A **POST** request reloads the secret, a
 **GET** request may be used to load information about the currently used secrets.
 
-Hot-Reload the secrets from disk:
+{% docublock get_admin_server_jwt %}
+{% docublock post_admin_server_jwt %}
 
-`POST /_admin/server/jwt`
-
-To fetch information about the currently loaded secrets:
-
-`GET /_admin/server/jwt`
-
-A successful response contains a JSON with the `result` field and an `error`
-field containing `false`. The field `result` contains the sub-fields `active`
-and `passive`, which contain the SHA 256 hashes of the loaded secrets.
-The `field` active is always an object, the field `passive` is always an array
-of objects. However, `passive` may be an empty array if there is only an active
-secret but no passive ones.
+Example result:
 
 ```json
 {
@@ -348,19 +339,6 @@ secret but no passive ones.
   }
 }
 ```
-
-In case of an error the response may contain the error code in the field
-`errorCode` and the message in the field `errorMessage`.
-
-To utilize the API a superuser JWT token is necessary, otherwise the response
-will be _HTTP 403 Forbidden_.
-
-{% hint 'info' %}
-Only the files specified via the arangod startup options
-`--server.jwt-secret-keyfile` or `--server.jwt-secret-folder` are used.
-It is not possible to change the locations where files are loaded from
-without restarting the process.
-{% endhint %}
 
 Error Handling
 --------------

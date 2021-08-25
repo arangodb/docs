@@ -1,0 +1,62 @@
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> all = analyzers.save(<span class="hljs-string">&quot;segment_all&quot;</span>, <span class="hljs-string">&quot;segmentation&quot;</span>, { <span class="hljs-attr">break</span>: <span class="hljs-string">&quot;all&quot;</span> }, []);
+arangosh&gt; <span class="hljs-keyword">var</span> alpha = analyzers.save(<span class="hljs-string">&quot;segment_alpha&quot;</span>, <span class="hljs-string">&quot;segmentation&quot;</span>, { <span class="hljs-attr">break</span>: <span class="hljs-string">&quot;alpha&quot;</span> }, []);
+arangosh&gt; <span class="hljs-keyword">var</span> graphic = analyzers.save(<span class="hljs-string">&quot;segment_graphic&quot;</span>, <span class="hljs-string">&quot;segmentation&quot;</span>, { <span class="hljs-attr">break</span>: <span class="hljs-string">&quot;graphic&quot;</span> }, []);
+arangosh&gt; db._query(<span class="hljs-string">`LET str = &#x27;Test\twith An_EMAIL-address+123@example.org\n蝴蝶。\u2028бутерброд&#x27;
+........&gt;   RETURN {
+........&gt;     &quot;all&quot;: TOKENS(str, &#x27;segment_all&#x27;),
+........&gt;     &quot;alpha&quot;: TOKENS(str, &#x27;segment_alpha&#x27;),
+........&gt;     &quot;graphic&quot;: TOKENS(str, &#x27;segment_graphic&#x27;),
+........&gt;   }
+........&gt; `</span>);
+[ 
+  { 
+    <span class="hljs-string">&quot;all&quot;</span> : [ 
+      <span class="hljs-string">&quot;test&quot;</span>, 
+      <span class="hljs-string">&quot;\t&quot;</span>, 
+      <span class="hljs-string">&quot;with&quot;</span>, 
+      <span class="hljs-string">&quot; &quot;</span>, 
+      <span class="hljs-string">&quot;an_email&quot;</span>, 
+      <span class="hljs-string">&quot;-&quot;</span>, 
+      <span class="hljs-string">&quot;address&quot;</span>, 
+      <span class="hljs-string">&quot;+&quot;</span>, 
+      <span class="hljs-string">&quot;123&quot;</span>, 
+      <span class="hljs-string">&quot;@&quot;</span>, 
+      <span class="hljs-string">&quot;example.org&quot;</span>, 
+      <span class="hljs-string">&quot;\n&quot;</span>, 
+      <span class="hljs-string">&quot;蝴&quot;</span>, 
+      <span class="hljs-string">&quot;蝶&quot;</span>, 
+      <span class="hljs-string">&quot;。&quot;</span>, 
+      <span class="hljs-string">&quot; &quot;</span>, 
+      <span class="hljs-string">&quot;бутерброд&quot;</span> 
+    ], 
+    <span class="hljs-string">&quot;alpha&quot;</span> : [ 
+      <span class="hljs-string">&quot;test&quot;</span>, 
+      <span class="hljs-string">&quot;with&quot;</span>, 
+      <span class="hljs-string">&quot;an_email&quot;</span>, 
+      <span class="hljs-string">&quot;address&quot;</span>, 
+      <span class="hljs-string">&quot;123&quot;</span>, 
+      <span class="hljs-string">&quot;example.org&quot;</span>, 
+      <span class="hljs-string">&quot;蝴&quot;</span>, 
+      <span class="hljs-string">&quot;蝶&quot;</span>, 
+      <span class="hljs-string">&quot;бутерброд&quot;</span> 
+    ], 
+    <span class="hljs-string">&quot;graphic&quot;</span> : [ 
+      <span class="hljs-string">&quot;test&quot;</span>, 
+      <span class="hljs-string">&quot;with&quot;</span>, 
+      <span class="hljs-string">&quot;an_email&quot;</span>, 
+      <span class="hljs-string">&quot;-&quot;</span>, 
+      <span class="hljs-string">&quot;address&quot;</span>, 
+      <span class="hljs-string">&quot;+&quot;</span>, 
+      <span class="hljs-string">&quot;123&quot;</span>, 
+      <span class="hljs-string">&quot;@&quot;</span>, 
+      <span class="hljs-string">&quot;example.org&quot;</span>, 
+      <span class="hljs-string">&quot;\n&quot;</span>, 
+      <span class="hljs-string">&quot;蝴&quot;</span>, 
+      <span class="hljs-string">&quot;蝶&quot;</span>, 
+      <span class="hljs-string">&quot;。&quot;</span>, 
+      <span class="hljs-string">&quot;бутерброд&quot;</span> 
+    ] 
+  } 
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]

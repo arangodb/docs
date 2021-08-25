@@ -1,0 +1,50 @@
+arangosh&gt; db._parse( <span class="hljs-string">&quot;FOR i IN [ 1, 2 ] RETURN i&quot;</span> );
+{ 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;parsed&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;collections&quot;</span> : [ ], 
+  <span class="hljs-string">&quot;bindVars&quot;</span> : [ ], 
+  <span class="hljs-string">&quot;ast&quot;</span> : [ 
+    { 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;root&quot;</span>, 
+      <span class="hljs-string">&quot;subNodes&quot;</span> : [ 
+        { 
+          <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;for&quot;</span>, 
+          <span class="hljs-string">&quot;subNodes&quot;</span> : [ 
+            { 
+              <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;variable&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;i&quot;</span>, 
+              <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">0</span> 
+            }, 
+            { 
+              <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;array&quot;</span>, 
+              <span class="hljs-string">&quot;subNodes&quot;</span> : [ 
+                { 
+                  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;value&quot;</span>, 
+                  <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">1</span> 
+                }, 
+                { 
+                  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;value&quot;</span>, 
+                  <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">2</span> 
+                } 
+              ] 
+            }, 
+            { 
+              <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;no-op&quot;</span> 
+            } 
+          ] 
+        }, 
+        { 
+          <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;return&quot;</span>, 
+          <span class="hljs-string">&quot;subNodes&quot;</span> : [ 
+            { 
+              <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;reference&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;i&quot;</span>, 
+              <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">0</span> 
+            } 
+          ] 
+        } 
+      ] 
+    } 
+  ] 
+}

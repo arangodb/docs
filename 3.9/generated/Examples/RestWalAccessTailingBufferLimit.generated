@@ -1,0 +1,20 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/wal/tail?from=179250&amp;chunkSize=400</span>
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+content-type: application/x-arango-dump
+connection: Keep-Alive
+content-length: <span class="hljs-number">74</span>
+server: ArangoDB
+x-arango-replication-checkmore: <span class="hljs-literal">true</span>
+x-arango-replication-frompresent: <span class="hljs-literal">true</span>
+x-arango-replication-lastincluded: <span class="hljs-number">179266</span>
+x-arango-replication-lastscanned: <span class="hljs-number">179276</span>
+x-arango-replication-lasttick: <span class="hljs-number">179276</span>
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"179266"</span>, 
+  <span class="hljs-string">"type"</span> : <span class="hljs-number">2001</span>, 
+  <span class="hljs-string">"db"</span> : <span class="hljs-string">"_system"</span>, 
+  <span class="hljs-string">"cuid"</span> : <span class="hljs-string">"hABE4B0CCCE32/68368"</span> 
+}

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The most convenient method to import a lot of data into ArangoDB is to use thearangoimport command-line tool
+description: The most convenient method to import a lot of data into ArangoDB is to use the arangoimport command-line tool
 ---
 Arangoimport Details
 ====================
@@ -9,6 +9,15 @@ The most convenient method to import a lot of data into ArangoDB is to use the
 *arangoimport* command-line tool. It allows you to bulk import data records
 from a file into a database collection. Multiple files can be imported into
 the same or different collections by invoking it multiple times.
+
+{% hint 'tip' %}
+Import files are expected to be UTF-8 encoded **without**
+[byte order mark (BOM)](https://en.wikipedia.org/wiki/Byte_order_mark){:target="_blank"}.
+Other encodings are not supported, but may not raise warnings or errors.
+
+In case of CSV/TSV files, BOMs will become part of the first column's name
+(possibly mangled), so be sure the files have none.
+{% endhint %}
 
 Importing into an Edge Collection
 ---------------------------------
@@ -149,39 +158,35 @@ For CSV and TSV imports, the total number of input file lines read will also be 
 _arangoimport_ will also print out details about warnings and errors that happened on the
 server-side (if any).
 
-### Automatic pacing with busy or low throughput disk subsystems
+Automatic pacing with busy or low throughput disk subsystems
+------------------------------------------------------------
 
-Arangoimport has an automatic pacing algorithm that limits how fast
-data is sent to the ArangoDB servers. This pacing algorithm exists to
-prevent the import operation from failing due to slow responses.
+Arangoimport has an optional automatic pacing algorithm that can limit 
+how fast data is sent to the ArangoDB servers. This pacing algorithm 
+exists to prevent the import operation from failing due to slow responses.
 
 Google Compute and other VM providers limit the throughput of disk
-devices. Google's limit is more strict for smaller disk rentals, than
-for larger. Specifically, a user could choose the smallest disk space
-and be limited to 3 Mbytes per second. Similarly, other users'
-processes on the shared VM can limit available throughput of the disk
-devices.
+devices. Similarly, other users' processes on the shared VMs can limit 
+the available throughput of the disk devices.
 
-The automatic pacing algorithm adjusts the transmit block size
-dynamically based upon the actual throughput of the server over the
-last 20 seconds. Further, each thread delivers its portion of the data
-in mostly non-overlapping chunks. The thread timing creates
-intentional windows of non-import activity to allow the server extra
-time for meta operations.
-
-Automatic pacing intentionally does not use the full throughput of a
+The automatic pacing algorithm adjusts the transmit block size dynamically 
+based upon the actual throughput of the server over the last few seconds. 
+Automatic pacing intentionally may not use the full throughput of a
 disk device. An unlimited (really fast) disk device might not need
 pacing. Raising the number of threads via the `--threads X` command
 line to any value of `X` greater than 2 will increase the total
 throughput used.
 
 Automatic pacing frees the user from adjusting the throughput used to
-match available resources. It is disabled by manually specifying any
-`--batch-size`. 16777216 was the previous default for *--batch-size*.
-Having *--batch-size* too large can lead to transmitted data piling-up
-on the server, resulting in a TimeoutError.
+match available resources. It is disabled by default, and can be enabled
+by invoking arangoimport with the `--auto-rate-limit true` parameter.
 
-The pacing algorithm works successfully with MMFiles with disks
-limited to read and write throughput as small as 1 Mbyte per
-second. The algorithm works successfully with RocksDB with disks
-limited to read and write throughput as small as 3 Mbyte per second.
+When enabling the pacing, the initial chunk size is 8MB per second. This
+may be too high or too low, depending on the available disk throughput of
+the target system. To start off with a different chunk size, one can
+adjust the value of the `--batch-size` parameter.
+
+{% hint 'tip' %}
+The pacing algorithm is turned on by default up to version 3.7.10
+and turned off by default in version 3.7.11 and higher.
+{% endhint %}

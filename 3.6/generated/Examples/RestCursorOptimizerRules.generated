@@ -14,9 +14,12 @@
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Created
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">296</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"result"</span> : [ 
@@ -42,8 +45,8 @@ content-type: application/json
       <span class="hljs-string">"scannedIndex"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
       <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00012159347534179688</span>, 
-      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">82984</span> 
+      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00020647048950195312</span>, 
+      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">85168</span> 
     }, 
     <span class="hljs-string">"warnings"</span> : [ ] 
   }, 

@@ -80,8 +80,8 @@ Hot backup and restore associated operations can be performed with the
 
 {% hint 'info' %}
 Arangobackup and the Hot Backup API are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"},
+also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
 {% endhint %}
 
 Many operations cannot afford downtimes and thus require administrators and

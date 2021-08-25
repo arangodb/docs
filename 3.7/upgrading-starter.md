@@ -1,11 +1,12 @@
 ---
 layout: default
-description: Starting from versions 3
+description: Procedure to perform a rolling upgrade with the arangodb binary.
+title: Upgrading ArangoDB Starter Deployments
 ---
 # Upgrading _Starter_ Deployments
 
-Starting from versions 3.2.15 and 3.3.8, the ArangoDB [_Starter_](programs-starter.html)
-supports a new, automated, procedure to perform upgrades, including rolling upgrades
+The ArangoDB [_Starter_](programs-starter.html) supports an automated procedure
+to perform upgrades, including rolling upgrades
 of a [Cluster](architecture-deployment-modes-cluster.html) setup.
 
 The upgrade procedure of the _Starter_ described in this _Section_ can be used to
@@ -13,12 +14,11 @@ upgrade to a new hotfix, or to perform an upgrade to a new minor version of Aran
 Please refer to the [Upgrade Paths](upgrading-general-info.html#upgrade-paths) section
 for detailed information.
 
-**Important:** 
-
-- Rolling upgrades of Cluster setups from 3.2 to 3.3 are only supported
-  from versions 3.2.15 and 3.3.9.
-- Rolling upgrades of Cluster setups from 3.3 to 3.4 are only supported
-  from versions 3.3.20 and 3.4.0.
+{% hint 'warning' %}
+It is highly recommended to upgrade 3.6.x and 3.7.x deployments using at least
+the starter version 0.15.0-1 because of a technical problem, see
+[Technical Alert #6](https://www.arangodb.com/alerts/tech06/){:target="_blank"}.
+{% endhint %}
 
 ## Upgrade Scenarios
 
@@ -51,23 +51,23 @@ The first step is to install the new ArangoDB package.
 
 **Note:** you do not have to stop the _Starter_ processes before upgrading it.
 
-For example, if you want to upgrade to `3.3.14-1` on Debian or Ubuntu, either call
+For example, if you want to upgrade to `3.7.13` on Debian or Ubuntu, either call
 
 ```bash
-apt install arangodb=3.3.14
+apt install arangodb=3.7.13
 ```
 
 (`apt-get` on older versions) if you have added the ArangoDB repository. Or
 install a specific package using
 
 ```bash
-dpkg -i arangodb3-3.3.14-1_amd64.deb
+dpkg -i arangodb3-3.7.13-1_amd64.deb
 ```
 
 after you have downloaded the corresponding file from
 [www.arangodb.com/download/](https://www.arangodb.com/download/){:target="_blank"}.
 
-If you are using the `.tar.gz` distribution (only available from v3.4.0),
+If you are using the `.tar.gz` distribution,
 you can simply extract the new archive in a different
 location and keep the old installation where it is. Note that
 this does not launch a standalone instance, so the following section can
@@ -96,24 +96,33 @@ update-rc.d -f arangodb3 remove
 ### Stop the _Starter_ without stopping the ArangoDB Server processes
 
 Now all the _Starter_ (_arangodb_) processes have to be stopped.
-
-Please note that **no** _arangod_ processes should be stopped.
+Please note that **no** _arangod_ processes should be stopped!
 
 In order to stop the _arangodb_ processes, leaving the _arangod_ processes they
 have started up and running (as we want for a rolling upgrade), we will need to
-use a command like `kill -9`:
+use a command like `kill -9`.
+
+{% hint 'tip' %}
+When using _SystemD_ as supervisor, make sure that the
+[unit file](https://www.freedesktop.org/software/systemd/man/systemd.unit.html){:target="_blank"}
+contains `KillMode=process` (see
+[systemd.kill documentation](https://www.freedesktop.org/software/systemd/man/systemd.kill.html#KillMode=){:target="_blank"}).
+Otherwise `kill -9` will not just kill the respective _arangodb_ starter process,
+but also the _arangod_ server processes it started because of the
+default setting `KillMode=control-group`.
+{% endhint %}
 
 ```bash
 kill -9 <pid-of-starter>
 ```
 
-The _pid_ associated to your _Starter_ can be checked using a command like _ps_:
+The _PID_ associated to your _Starter_ can be checked using a command like `ps`:
 
 ```bash
 ps -C arangodb -fww
 ```
 
-The output of the command above does not only show the PID's of all _arangodb_
+The output of the command above does not only show the PIDs of all _arangodb_
 processes but also the used commands, which can be useful for the following
 restart of all _arangodb_ processes.
 
@@ -129,23 +138,50 @@ max      29504  3695  0 11:46 pts/2    00:00:00 arangodb --starter.data-dir=./db
 max      29513  3898  0 11:46 pts/4    00:00:00 arangodb --starter.data-dir=./db3 --starter.join 127.0.0.1
 ```
 
+You can use `pstree` to inspect the _arangod_ server instances launched by one
+of these starters:
+
+```bash
+pstree -Tp 29419 
+arangodb(29419)─┬─arangod(30201)
+                ├─arangod(30202)
+                └─arangod(30217)
+```
+
 ### Restart the _Starter_
 
 When using a supervisor like _SystemD_, this will happen automatically. In case
 the _Starter_ was initiated manually, the _arangodb_ processes have to be restarted
 manually with the same command that has been used before.
 
+You can inspect which processes belong to a starter instance using the `pstree`
+command (see above).
+
 If you are using the `.tar.gz` distribution (only available from v3.4.0),
 your new version of the executable might be located in a
 different directory. Make sure that you now start the new _Starter_
 executable (`bin/arangodb`) in the new installation place. If you are
 using a supervisor like _SystemD_, you might have to adjust the path to
-the executable in the service description to the new location. Do this
-before you `kill -9` the _Starter_ or else the old version will be
+the executable in the service description to the new location.
+Do this before you `kill -9` the _Starter_ or else the old version will be
 restarted in this case. If you forgot, simply do the `kill -9` again.
 
-After you have restarted the _Starter_ you will find yourself in the following
-situation:
+After you stopped the _Starter_ make sure the `arangod` processes it spawned
+are still running; they should be re-parented to the systemd or init process:
+
+```bash
+ps -f -p 30201,30202,30217
+UID          PID    PPID  C STIME TTY          TIME CMD
+root     30201       1  0 13:02 pts/45   00:01:09 usr/sbin/arangod ...
+root     30202       1  0 13:02 pts/45   00:00:55 usr/sbin/arangod ...
+root     30217       1  0 13:02 pts/45   00:01:11 usr/sbin/arangod ...
+```
+
+If not, rollback to the old version and restart that _Starter_, or the
+subsequent upgrade procedure will fail.
+
+After you have successfully restarted the _Starter_ you will find yourself in
+the following situation:
 
 - The _Starter_ is up and running, and it is on the new version
 - The ArangoDB Server processes are up and running, and they are still on the
@@ -160,22 +196,8 @@ Run the following command for any of the starter endpoints
 arangodb upgrade --starter.endpoint=<endpoint-of-a-starter>
 ```
 
-**Note:** if you have connected clusters across multiple datacenter,
-you need to update each of the clusters.
-
-**Important:**
-
-The command above was introduced with 3.3.14 (and 3.2.17). If you are rolling upgrade a 3.3.x version
-to a version higher or equal to 3.3.14, or if you are rolling upgrade a 3.2.x version to a version higher
-or equal to 3.2.17 please use the command above.
-
-If you are doing the rolling upgrade of a 3.3.x version to a version between 3.3.8 and 3.3.13 (included),
-or if you are rolling upgrade a 3.2.x version to 3.2.15 or 3.2.16, a different command has to be used
-(on all _Starters_ one by one):
-
-```
-curl -X POST --dump - http://localhost:8538/database-auto-upgrade
-```
+If you have connected clusters across multiple datacenter
+(DC2DC deployment), then you need to update each of the clusters.
 
 #### Deployment mode `single`
 
@@ -220,8 +242,8 @@ you are:
 
 ## Retrying a failed upgrade
 
-Starting with 3.3.14 and 3.2.17, when an upgrade _plan_ (in deployment
-mode `activefailover` or `cluster`) has failed, it can be retried.
+When an upgrade _plan_ (in deployment mode `activefailover` or `cluster`)
+has failed, it can be retried.
 
 To retry, run:
 
@@ -230,13 +252,12 @@ arangodb retry upgrade --starter.endpoint=<endpoint-of-a-starter>
 ```
 
 The `--starter.endpoint` option can be set to the endpoint of any
-of the starters. E.g. `http://localhost:8528`.
+of the starters, e.g. `http://localhost:8528`.
 
 ## Aborting an upgrade
 
-Starting with 3.3.14 and 3.2.17, when an upgrade _plan_ (in deployment
-mode `activefailover` or `cluster`) is in progress or has failed, it can
-be aborted.
+When an upgrade _plan_ (in deployment mode `activefailover` or `cluster`)
+is in progress or has failed, it can be aborted.
 
 To abort, run:
 
@@ -245,7 +266,7 @@ arangodb abort upgrade --starter.endpoint=<endpoint-of-a-starter>
 ```
 
 The `--starter.endpoint` option can be set to the endpoint of any
-of the starters. E.g. `http://localhost:8528`.
+of the starters, e.g. `http://localhost:8528`.
 
 Note that an abort does not stop all upgrade processes immediately.
 If an _arangod_ or _arangosync_ server is being upgraded when the abort

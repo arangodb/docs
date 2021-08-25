@@ -9,14 +9,20 @@
 }
 EOF
 
-HTTP/1.1 Accepted
-x-arango-async-id: 89665
-x-content-type-options: nosniff
+HTTP/1.1 202 Accepted
 content-type: text/plain
-
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/89665</span>
-
-HTTP/1.1 No Content
+connection: Keep-Alive
+content-length: 0
+server: ArangoDB
+x-arango-async-id: 91697
 x-content-type-options: nosniff
+
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/91697</span>
+
+HTTP/1.1 204 No Content
 content-type: text/plain
+connection: Keep-Alive
+content-length: 0
+server: ArangoDB
+x-content-type-options: nosniff
 

@@ -78,11 +78,7 @@ Hot backup and restore associated operations can be performed with the
 [_arangobackup_](programs-arangobackup.html) client tool and the
 [Hot Backup HTTP API](http/hot-backup.html).
 
-{% hint 'info' %}
-Arangobackup and the Hot Backup API are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="Arangobackup and the Hot Backup API" plural=true %}
 
 Many operations cannot afford downtimes and thus require administrators and
 operators to create consistent freezes of the data during normal operation.
@@ -196,7 +192,7 @@ of that of the single server installation.
 - **Remote Upload and Download**
 
   We have fully integrated the
-  [Rclone](https://rclone.org/) sync for cloud storage. Rclone is a very
+  [rclone](https://rclone.org/) sync for cloud storage. Rclone is a very
   versatile inter site sync facility, which opens up a vast field of transport
   protocols and remote syncing APIs from Amazon's S3 over Dropbox, WebDAV,
   all the way to the local file system and network storage.
@@ -347,4 +343,4 @@ not be suited for.
 
 - **Known Issues**
 
-  See the list of [Known Issues in ArangoDB v3.6](release-notes-known-issues36.html#hot-backup).
+  See the list of [Known Issues](release-notes-known-issues37.html#hot-backup).

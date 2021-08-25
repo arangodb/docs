@@ -4,9 +4,12 @@
 ["abc", "bar", "baz" ]
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Conflict
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">409</span> Conflict
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">85</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">"code"</span> : <span class="hljs-number">409</span>, 
