@@ -49,7 +49,10 @@ depends upon the value of the startup flag `--database.extended-names-databases`
 Starting the server with this flag set to `true` will activate
 the _extended_ naming convention, which tolerates names with special and UTF-8
 characters. 
-If the flag is set to false (the default value), the traditional naming convention is activated. In the traditional naming convention, the database name is a string consisting of only letters, digits and the `_` (underscore) and `-` (dash) characters. User-defined database names must always start with a letter. Database names are case-sensitive.
+If the flag is set to `false` (the default value), the _traditional_ naming convention is activated. 
+In the _traditional_ naming convention, the database name is a string consisting of only letters, digits and the `_` (underscore) and `-` (dash) characters. 
+User-defined database names must always start with a letter.
+The maximum length of a database name in the _traditional_ naming convention is 64 characters.
 In the extended naming convention, databases must not start with numeric digits `0-9` or `.`, and user-defined databases must not start with `_`(underscore).
 Utf8 characters are allowed as well as other ASCII characters that are not for control (those under the ASCII code 32). 
 Also, for both conventions, names cannot contain `/` or `:`.
