@@ -43,8 +43,8 @@ Database Name
 
 A single ArangoDB instance can handle multiple databases in parallel. When multiple databases are used, each database must be given a unique name. This name is used to uniquely identify a database. The default database in ArangoDB is named _system.
 
-There are two naming conventions available for database names: the traditional
-and the extended naming conventions. Wether the former or the latter is active
+There are two naming conventions available for database names: the _traditional_
+and the _extended_ naming conventions. Whether the former or the latter is active
 depends upon the value set to the flag `--database.extended-names-databases`.
 Executing the server with this flag set to true as a startup option will activate
 the extended naming convention, which tolerates names with special and Utf8 
