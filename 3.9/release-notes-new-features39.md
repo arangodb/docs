@@ -239,11 +239,8 @@ database name:
 Example database names that can be used with the new naming convention:
 `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"` 
 
-CAUTION: Its default value is set to false for retrocompatibility with drivers that support 
-only ASCII names according to the previous database naming convention. Setting its value to 
-true will only provide compatibility  with drivers that support new style database names. 
-If there is a database with such names, it will not be accessible by the drivers that do not 
-support the new naming convention yet.
+CAUTION: The default value for the `--database.extended-names-databases` startup option is set to `false` for compatibility with existing client drivers or applications that only support ASCII names according to the database naming convention used by previous versions of ArangoDB.
+Setting the value of the startup option to `true` may lead to incompatibilities with such drivers or client applications, making it potentially inaccessible to drivers or applications.
 
 Support info API
 ----------------
