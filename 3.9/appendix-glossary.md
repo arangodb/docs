@@ -46,7 +46,7 @@ A single ArangoDB instance can handle multiple databases in parallel. When multi
 There are two naming conventions available for database names: the _traditional_
 and the _extended_ naming conventions. Whether the former or the latter is active
 depends upon the value of the startup flag `--database.extended-names-databases`.
-Executing the server with this flag set to true as a startup option will activate
+Starting the server with this flag set to `true` will activate
 the extended naming convention, which tolerates names with special and Utf8 
 characters. 
 If the flag is set to false (the default value), the traditional naming convention is activated. In the traditional naming convention, the database name is a string consisting of only letters, digits and the `_` (underscore) and `-` (dash) characters. User-defined database names must always start with a letter. Database names are case-sensitive.
