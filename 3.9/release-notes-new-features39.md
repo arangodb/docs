@@ -217,7 +217,7 @@ programmatically inspect an _arangod_ executable.
 There is a new startup option to allow database names containing Unicode characters
 and other special characters. The option name is `--database.extended-names-databases`.
 Executing the server with its value set as true provides support for database names that
-are not comprised within the ASCII table, such as japanese or arabic letters, emojis, 
+are not comprised within the ASCII table, such as Japanese or Arabic letters, emojis, 
 letters with accetuation. Also, former ASCII characters that were banned in the previous
 naming convention are now accepted.
 

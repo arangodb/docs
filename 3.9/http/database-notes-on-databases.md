@@ -51,7 +51,7 @@ Executing the server with this flag set to true as a startup option will activat
 the extended naming convention, which tolerates names with special and Utf8 
 characters. 
 If the flag is set to false (the default value), the traditional naming convention is activated. 
-For more information, refer to [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+For more information, refer to [Database Naming Conventions](../data-modeling-naming-conventions-database-names.html).
 
 Database Organization
 ---------------------
