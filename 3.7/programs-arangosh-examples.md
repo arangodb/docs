@@ -33,7 +33,7 @@ At signs `@` in startup option arguments need to be escaped as `@@`.
 ArangoDB programs and tools support a
 [special syntax `@envvar@`](administration-configuration.html#environment-variables-as-parameters)
 that substitutes text wrapped in at signs with the value of an equally called
-environment variable. This is mostly likely an issue with passwords and the
+environment variable. This is most likely an issue with passwords and the
 `--server.password` option.
 
 For example, `password@test@123` needs to be passed as
