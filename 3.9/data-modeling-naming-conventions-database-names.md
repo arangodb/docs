@@ -17,7 +17,7 @@ to `true`.
 
 The restrictions of the two naming conventions are:
 
-* For traditional naming convention
+* For the _traditional_ naming convention:
   * Database names must only consist of the letters *a* to *z* (both lower and
   upper case allowed), the numbers *0* to *9*, and the underscore (*_*) or 
   dash (*-*) symbols
