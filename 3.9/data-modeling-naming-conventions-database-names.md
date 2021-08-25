@@ -28,17 +28,11 @@ The restrictions of the two naming conventions are:
   * The maximum allowed length of a database name is 64 bytes
   * Database names are case-sensitive
 
-* For extended naming convention
-  * Names can consist of characters not comprised within the ASCII table, such as japanese or arabic letters, emojis, letters with accetuation. Also, former ASCII characters that were banned in the traditional naming convention are now accepted.
-  * `.` is accepted, only not as first character for the name.
-  * `" "` spaces are accepted, but only in between characters of the name. Leading or trailing spaces are not allowed, but are trimmed from the name when a database with such characters is created.
-  * Names cannot contain the character `/` at any position.
-  * Names cannot contain the character `:` at any position.
-  * Names cannot contain control characters (below ASCII code 32), such as `\n`, `\t`, `\r`, including `\0`, at any position.
-  * Utf8 characters are allowed.
+* For the _extended_ naming convention:
+  * Names can consist of UTF-8 characters not comprised within the ASCII table, such as Japanese or Arabic letters, emojis, letters with accentuation. Also, some ASCII characters that are disallowed in the _traditional_ naming convention are accepted.
+  * ` ` spaces are accepted, but only in between characters of the name. Leading or trailing spaces are not allowed, but are automatically trimmed from the name when a database is created.
+  * Names cannot contain the characters `/` or `:` at any position, nor any control characters (below ASCII code 32), such as `\n`, `\t`, `\r`, including `\0`.
+  * `.` (dot), `_` (underscore) and the numeric digits `0-9` are not allowed as the first character, but at later positions.
   * Database names are case sensitive.
-  * Names starting with `_` are considered to be system databases, hence, this character is allowed, but not as the first character of the name if
-  the database is not a system one.
-  * Names must not start with numeric digits `0-9`.
-  * Other ASCII characters not cited above are allowed at any position.
+  * The maximum length of a database name is 128 bytes. As a UTF-8 character may consist of multiple bytes, this does not necessarily equate to 128 characters.
   
