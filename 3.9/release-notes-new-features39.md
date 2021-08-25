@@ -210,9 +210,7 @@ The timeout value for web interface sessions can be adjusted via the
 Server options
 --------------
 
-The _arangod_ server now provides a command `--version-json` to print version
-information in JSON format. This output can be used by tools that need to 
-programmatically inspect an _arangod_ executable.
+### Extended naming convention for databases
 
 There is a new startup option to allow database names containing Unicode characters
 and other special characters. The option name is `--database.extended-names-databases`.
@@ -229,6 +227,11 @@ For more information, refer to [Database Naming Conventions](data-modeling-namin
 CAUTION: The default value for the `--database.extended-names-databases` startup option is set to `false` for compatibility with existing client drivers or applications that only support ASCII names according to the database naming convention used by previous versions of ArangoDB.
 Setting the value of the startup option to `true` may lead to incompatibilities with such drivers or client applications, making it potentially inaccessible to drivers or applications.
 
+### Version information
+
+The _arangod_ server now provides a command `--version-json` to print version
+information in JSON format. This output can be used by tools that need to 
+programmatically inspect an _arangod_ executable.
 
 Support info API
 ----------------

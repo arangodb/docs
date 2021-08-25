@@ -36,3 +36,5 @@ The restrictions of the two naming conventions are:
   * Database names are case sensitive.
   * The maximum length of a database name is 128 bytes. As a UTF-8 character may consist of multiple bytes, this does not necessarily equate to 128 characters.
   
+  Example database names that can be used with the _extended_ naming convention:
+  `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"` 
