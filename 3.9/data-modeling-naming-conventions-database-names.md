@@ -20,13 +20,13 @@ The restrictions of the two naming conventions are:
 * For the _traditional_ naming convention:
   * Database names must only consist of the letters *a* to *z* (both lower and
   upper case allowed), the numbers *0* to *9*, and the underscore (*_*) or 
-  dash (*-*) symbols
-  This also means that any non-ASCII database names are not allowed
+  dash (*-*) symbols.
+  This also means that any non-ASCII database names are not allowed.
   * Database names must always start with a letter. Database names starting 
   with an underscore are considered to be system databases, and users should 
-  not create or delete those
-  * The maximum allowed length of a database name is 64 bytes
-  * Database names are case-sensitive
+  not create or delete those.
+  * The maximum allowed length of a database name is 64 bytes.
+  * Database names are case-sensitive.
 
 * For the _extended_ naming convention:
   * Names can consist of UTF-8 characters not comprised within the ASCII table, such as Japanese or Arabic letters, emojis, letters with accentuation. Also, some ASCII characters that are disallowed in the _traditional_ naming convention are accepted.

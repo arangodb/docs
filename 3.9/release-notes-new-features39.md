@@ -219,28 +219,16 @@ and other special characters. The option name is `--database.extended-names-data
 Executing the server with its value set as true provides support for database names that
 are not comprised within the ASCII table, such as japanese or arabic letters, emojis, 
 letters with accetuation. Also, former ASCII characters that were banned in the previous
-naming convention are now accepted, such as:
-
-* `.` is accepted, only not as first character for the database name. For example, `".abc"`
-  is not accepted, but `"a.bc"`is.
-* `" "` spaces are accepted, but only in between characters of the database name. Leading
-  or trailing spaces are not allowed, but are trimmed from the name when a database with 
-  such characters is created. For instance, the database name `" test123 "` would have its
-  leading and trailing spaces trimmed and become `"test123"`.
-* Numeric digits `0-9` are accepted, only not as first character for the database name.
-* other characters that are not forbidden (listed below) are allowed at any position. 
-
-In the new convention, the characters below are still disallowed at any position in a 
-database name:
-* `/` 
-* `:`
-* control characters (below ASCII code 32), such as `\n`, `\t`, `\r`, including `\0`
+naming convention are now accepted.
 
 Example database names that can be used with the new naming convention:
 `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"` 
 
+For more information, refer to [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+
 CAUTION: The default value for the `--database.extended-names-databases` startup option is set to `false` for compatibility with existing client drivers or applications that only support ASCII names according to the database naming convention used by previous versions of ArangoDB.
 Setting the value of the startup option to `true` may lead to incompatibilities with such drivers or client applications, making it potentially inaccessible to drivers or applications.
+
 
 Support info API
 ----------------

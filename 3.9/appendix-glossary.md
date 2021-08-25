@@ -50,41 +50,13 @@ Starting the server with this flag set to `true` will activate
 the _extended_ naming convention, which tolerates names with special and UTF-8
 characters. 
 If the flag is set to `false` (the default value), the _traditional_ naming convention is activated. 
-In the _traditional_ naming convention, the database name is a string consisting of only letters, digits and the `_` (underscore) and `-` (dash) characters. 
-User-defined database names must always start with a letter.
-The maximum length of a database name in the _traditional_ naming convention is 64 characters.
-In the _extended_ naming convention, database names must not start with numeric digits `0-9` or `.`, and user-defined database names must not start with `_`(underscore).
-UTF-8 characters are allowed as well as other ASCII characters that are not control characters (characters with an ASCII code below 32). 
-The maximum length of a database name in the _extended_ naming convention is 128 bytes.
-Please note that UTF-8 characters will require multiple bytes, so that this does not necessarily equate to 128 characters.
 
-Database names are always case-sensitive, regardless of the chosen naming convention, 
-Also, for both conventions, names cannot contain `/` or `:`.
-
-For more information, refer to [Database Naming Convention.](http://arangodb.com/docs/3.8/data-modeling-naming-conventions-database-names.html "Database naming convention")
+For more information, refer to [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
 
 Database Organization
 ---------------------
 
 A single ArangoDB instance can handle multiple databases in parallel. By default, there will be at least one database, which is named _system.
-
-Databases are physically stored in separate sub-directories underneath the database directory, which itself resides in the instance's data directory.
-
-Each database has its own sub-directory, named database-<database id>. The database directory contains sub-directories for the collections of the database, and a file named parameter.json. This file contains the database id and name.
-
-In an example ArangoDB instance which has two databases, the filesystem layout could look like this:
-
-```
-data/                     # the instance's data directory
-  databases/              # sub-directory containing all databases' data
-    database-<id>/        # sub-directory for a single database
-      parameter.json      # file containing database id and name
-      collection-<id>/    # directory containing data about a collection
-    database-<id>/        # sub-directory for another database
-      parameter.json      # file containing database id and name
-      collection-<id>/    # directory containing data about a collection
-      collection-<id>/    # directory containing data about a collection
-```
 
 Foxx applications are also organized in database-specific directories inside the application path. The filesystem layout could look like this:
 

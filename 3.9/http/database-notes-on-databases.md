@@ -50,11 +50,8 @@ depends upon the value set to the flag `--database.extended-names-databases`.
 Executing the server with this flag set to true as a startup option will activate
 the extended naming convention, which tolerates names with special and Utf8 
 characters. 
-If the flag is set to false (the default value), the traditional naming convention is activated. In the traditional naming convention, the database name is a string consisting of only letters, digits and the `_` (underscore) and `-` (dash) characters. User-defined database names must always start with a letter. Database names are case-sensitive.
-In the extended naming convention, databases must not start with numeric digits `0-9` or `.`, and user-defined databases must not start with `_`(underscore).
-Utf8 characters are allowed as well as other ASCII characters that are not for control (those under the ASCII code 32). 
-Also, for both conventions, names cannot contain `/` or `:`.
-For more information, refer to [Database Naming Convention.](http://arangodb.com/docs/3.8/data-modeling-naming-conventions-database-names.html "Database naming convention")
+If the flag is set to false (the default value), the traditional naming convention is activated. 
+For more information, refer to [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
 
 Database Organization
 ---------------------
