@@ -744,6 +744,19 @@ if you want to calculate the edit distance of two strings.
   remainders of the strings. This option can improve performance in cases where
   there is a known common prefix. The default value is an empty string
   (introduced in v3.7.13, v3.8.1).
+{% hint 'info' %}
+The **prefix** part should be excluded from the **target**.
+Here is how this could be done directly in the query:
+```js
+LET input = "quick"
+LET prefixSize = 3
+LET prefix = LEFT(input, prefixSize)
+LET suffix = SUBSTRING(input, prefixSize)
+FOR doc IN viewName
+  SEARCH LEVENSHTEIN_MATCH(doc.text, suffix, 1, false, 64, prefix) // matches "quick"
+  RETURN doc.text
+```
+{% endhint %}
 
 The Levenshtein distance between _quick_ and _quikc_ is `2` because it requires
 two operations to go from one to the other (remove _k_, insert _k_ at a
