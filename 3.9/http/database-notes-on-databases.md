@@ -42,16 +42,16 @@ Database Name
 A single ArangoDB instance can handle multiple databases in parallel. When
 multiple databases are used, each database must be given an unique name.
 This name is used to uniquely identify a database. The default database in
-ArangoDB is named `_system`. 
+ArangoDB is named `_system`.
 
-There are two naming conventions available for database names: the traditional
-and the extended naming conventions. Wether the former or the latter is active
-depends upon the value set to the flag `--database.extended-names-databases`.
-Executing the server with this flag set to true as a startup option will activate
-the extended naming convention, which tolerates names with special and Utf8 
-characters. 
-If the flag is set to false (the default value), the traditional naming convention is activated. 
-For more information, refer to [Database Naming Conventions](../data-modeling-naming-conventions-database-names.html).
+There are two naming conventions available for database names: the **traditional**
+and the **extended** naming conventions. Wether the former or the latter is
+active depends on the `--database.extended-names-databases` startup option.
+The extended naming convention is used if enabled, allowing many special and
+UTF-8 characters in database names. If set to `false` (default), the traditional
+naming convention will be enforced.
+
+Also see [Database Naming Conventions](../data-modeling-naming-conventions-database-names.html).
 
 Database Organization
 ---------------------

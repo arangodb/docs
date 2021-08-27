@@ -11,6 +11,22 @@ integrations for ArangoDB 3.9.
 
 ## HTTP RESTful API
 
+### Extended naming convention for databases
+
+There is a new startup option allowing database names to contain most UTF-8
+characters. The option name is `--database.extended-names-databases`.
+
+The feature is disabled by default for compatibility with existing client
+drivers and applications that only support ASCII names according to the
+traditional database naming convention of previous ArangoDB versions.
+
+However, if the feature is enabled, then any endpoints that contain database
+names in the URL may contain special characters that were previously not allowed
+(percent-encoded). They are also to be expected in payloads that feature
+database names.
+
+Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+
 ### Privilege changes
 
 ### Endpoint return value changes

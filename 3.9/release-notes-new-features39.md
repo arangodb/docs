@@ -212,20 +212,29 @@ Server options
 
 ### Extended naming convention for databases
 
-There is a new startup option to allow database names containing Unicode characters
-and other special characters. The option name is `--database.extended-names-databases`.
-Executing the server with its value set as true provides support for database names that
-are not comprised within the ASCII table, such as Japanese or Arabic letters, emojis, 
-letters with accetuation. Also, former ASCII characters that were banned in the previous
-naming convention are now accepted.
+There is a new startup option allowing database names to contain most UTF-8
+characters. The option name is `--database.extended-names-databases`.
+
+Running the server with the option enabled provides support for database names
+that are not comprised within the ASCII table, such as Japanese or Arabic
+letters, emojis, letters with accentuation. Also, many ASCII characters that
+were formerly banned in the traditional naming convention are now accepted.
 
 Example database names that can be used with the new naming convention:
-`"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"` 
+`"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"`
 
-For more information, refer to [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+Note that the default value for `--database.extended-names-databases` is `false`
+for compatibility with existing client drivers and applications that only support
+ASCII names according to the traditional database naming convention of previous
+ArangoDB versions. Enabling the feature may lead to incompatibilities up to the
+ArangoDB instance becoming inaccessible for such drivers and client applications.
 
-CAUTION: The default value for the `--database.extended-names-databases` startup option is set to `false` for compatibility with existing client drivers or applications that only support ASCII names according to the database naming convention used by previous versions of ArangoDB.
-Setting the value of the startup option to `true` may lead to incompatibilities with such drivers or client applications, making it potentially inaccessible to drivers or applications.
+The ArangoDB client tools _arangobench_, _arangodump_, _arangoexport_,
+_arangoimport_, _arangorestore_, and _arangosh_ ship with UTF-8 support.
+Be aware that dumps containing extended database names cannot be restored in
+older versions, however.
+
+Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
 
 ### Version information
 

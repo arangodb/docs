@@ -48,8 +48,8 @@ and the _extended_ naming conventions. Whether the former or the latter is activ
 depends upon the value of the startup flag `--database.extended-names-databases`.
 Starting the server with this flag set to `true` will activate
 the _extended_ naming convention, which tolerates names with special and UTF-8
-characters. 
-If the flag is set to `false` (the default value), the _traditional_ naming convention is activated. 
+characters.
+If the flag is set to `false` (the default value), the _traditional_ naming convention is activated.
 
 For more information, refer to [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
 
@@ -64,15 +64,15 @@ Foxx applications are also organized in database-specific directories inside the
 apps/                   # the instance's application directory
   system/               # system applications (can be ignored)
   _db/                  # sub-directory containing database-specific applications
-    <database-dir*>/    # sub-directory for a single database
+    <database-dir>/    # sub-directory for a single database
       <mountpoint>/APP  # sub-directory for a single application
       <mountpoint>/APP  # sub-directory for a single application
-    <database-dir*>/    # sub-directory for another database
+    <database-dir>/    # sub-directory for another database
       <mountpoint>/APP  # sub-directory for a single application
 ```
-*The name of this sub-directory will be the database's original name or the 
-database's id if its name has special characters.
 
+The name of `<database-dir>` will be the database's original name or the
+database's ID if its name has special characters.
 
 Document
 --------
