@@ -740,23 +740,11 @@ if you want to calculate the edit distance of two strings.
   or equal to *distance*, `false` otherwise
 - **prefix** (string, _optional_): if defined, then a search for the exact
   prefix is carried out, using the matches as candidates. The Levenshtein /
-  Damerau-Levenshtein distance is then computed for each candidate using the
-  remainders of the strings. This option can improve performance in cases where
-  there is a known common prefix. The default value is an empty string
-  (introduced in v3.7.13, v3.8.1).
-{% hint 'info' %}
-The **prefix** part should be excluded from the **target**.
-Here is how this could be done directly in the query:
-```js
-LET input = "quick"
-LET prefixSize = 3
-LET prefix = LEFT(input, prefixSize)
-LET suffix = SUBSTRING(input, prefixSize)
-FOR doc IN viewName
-  SEARCH LEVENSHTEIN_MATCH(doc.text, suffix, 1, false, 64, prefix) // matches "quick"
-  RETURN doc.text
-```
-{% endhint %}
+  Damerau-Levenshtein distance is then computed for each candidate using
+  the `target` value and the remainders of the strings, which means that the
+  prefix needs to be removed from `target`. This option can improve performance
+  in cases where there is a known common prefix. The default value is an empty
+  string (introduced in v3.7.13, v3.8.1).
 
 The Levenshtein distance between _quick_ and _quikc_ is `2` because it requires
 two operations to go from one to the other (remove _k_, insert _k_ at a
@@ -777,12 +765,25 @@ FOR doc IN viewName
 ```
 
 Match documents with a Levenshtein distance of 1 with the prefix `qui`. The edit
-distance is calculated using the search term `kc` and the stored value without
-the prefix (e.g. `ck`). The prefix `qui` is constant.
+distance is calculated using the search term `kc` (`quikc` with the prefix `qui`
+removed) and the stored value without the prefix (e.g. `ck`). The prefix `qui`
+is constant.
 
 ```js
 FOR doc IN viewName
   SEARCH LEVENSHTEIN_MATCH(doc.text, "kc", 1, false, 64, "qui") // matches "quick"
+  RETURN doc.text
+```
+
+You may compute the prefix and suffix from the input string as follows:
+
+```js
+LET input = "quikc"
+LET prefixSize = 3
+LET prefix = LEFT(input, prefixSize)
+LET suffix = SUBSTRING(input, prefixSize)
+FOR doc IN viewName
+  SEARCH LEVENSHTEIN_MATCH(doc.text, suffix, 1, false, 64, prefix) // matches "quick"
   RETURN doc.text
 ```
 
