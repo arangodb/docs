@@ -132,7 +132,10 @@ Examples:
 ["foo", "bar"]  ANY ==  "foo"     // true
 ```
 
-Note that these operators are not optimized yet. Indexes will not be utilized.
+Note that these operators will not utilize indexes in regular queries.
+The operators are also supported in [SEARCH expressions](operations-search.html),
+where ArangoSearch's indexes can be utilized. The semantics differ however, see
+[AQL `SEARCH` operation](operations-search.html#array-comparison-operators).
 
 Logical operators
 -----------------
@@ -358,31 +361,31 @@ Operator precedence
 -------------------
 
 The operator precedence in AQL is similar as in other familiar languages
-(highest precedence first):
+(lowest precedence first):
 
-| Operator(s)           | Description
-|:----------------------|:-----------
-| `::`                  | scope
-| `[*]`                 | expansion
-| `[]`                  | indexed value access
-| `.`                   | member access
-| `()`                  | function call
-| `!` / `NOT`, `+`, `-` | logical negation, unary plus, unary minus
-| `*`, `/`, `%`         | multiplication, division, modulus
-| `+`, `-`              | addition, subtraction
-| `..`                  | range operator
-| `<`, `<=`, `>=`, `>`  | less than, less equal, greater equal, greater than
-| `IN`, `NOT IN`        | (not) in operator
-| `==`, `!=`, `LIKE`, `NOT LIKE`, `=~`, `!~`  | (in-)equality, wildcard (non-)match, regex (non-)match
+| Operator(s)          | Description
+|:---------------------|:-----------
+| `,`                  | comma separator
+| `DISTINCT`           | distinct modifier (RETURN operation)
+| `? :`                | ternary operator
+| `=`                  | variable assignment (LET operation)
+| `WITH`               | with operator (WITH / UPDATE / REPLACE / COLLECT operation)
+| `INTO`               | into operator (INSERT / UPDATE / REPLACE / REMOVE / COLLECT operation)
+| `||`                 | logical or
+| `&&`                 | logical and
 | `OUTBOUND`, `INBOUND`, `ANY`, `ALL`, `NONE` | graph traversal directions, array comparison operators
-| `&&` / `AND`          | logical and
-| `||` / `OR`           | logical or
-| `INTO`                | into operator (INSERT / UPDATE / REPLACE / REMOVE / COLLECT operation)
-| `WITH`                | with operator (WITH / UPDATE / REPLACE / COLLECT operation)
-| `=`                   | variable assignment (LET operation)
-| `? :`                 | ternary operator
-| `DISTINCT`            | distinct modifier (RETURN operation)
-| `,`                   | comma separator
+| `==`, `!=`, `LIKE`, `NOT LIKE`, `=~`, `!~`  | (in-)equality, wildcard (non-)match, regex (non-)match
+| `IN`, `NOT IN`       | (not) in operator
+| `<`, `<=`, `>=`, `>` | less than, less equal, greater equal, greater than
+| `..`                 | range operator
+| `+`, `-`             | addition, subtraction
+| `*`, `/`, `%`        | multiplication, division, modulus
+| `!`, `+`, `-`        | logical negation, unary plus, unary minus
+| `()`                 | function call
+| `.`                  | member access
+| `[]`                 | indexed value access
+| `[*]`                | expansion
+| `::`                 | scope
 
 The parentheses `(` and `)` can be used to enforce a different operator
 evaluation order.
