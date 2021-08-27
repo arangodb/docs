@@ -1375,10 +1375,10 @@ advanced usage. As those are complex algorithms, they are not included as
 examples in the documentation. But for the curious ones, they can be found
 here:
 
-- [Propagation Demo](https://github.com/arangodb/arangodb/blob/feature/pregel-vertex-accumulation-algorithm-2/js/client/modules/%40arangodb/air/propagation-demo.js)
-- [PageRank](https://github.com/arangodb/arangodb/blob/feature/pregel-vertex-accumulation-algorithm-2/js/client/modules/%40arangodb/air/pagerank.js)
-- [Single Source Shortest Path](https://github.com/arangodb/arangodb/blob/feature/pregel-vertex-accumulation-algorithm-2/js/client/modules/%40arangodb/air/single-source-shortest-paths.js)
-- [Strongly Connected Components](https://github.com/arangodb/arangodb/blob/feature/pregel-vertex-accumulation-algorithm-2/js/client/modules/%40arangodb/air/strongly-connected-components.js)
+- [Propagation Demo](https://github.com/arangodb/arangodb/tree/devel/js/client/modules/%40arangodb/air/propagation-demo.js)
+- [PageRank](https://github.com/arangodb/arangodb/tree/devel/js/client/modules/%40arangodb/air/pagerank.js)
+- [Single Source Shortest Path](https://github.com/arangodb/arangodb/tree/devel/js/client/modules/%40arangodb/air/single-source-shortest-paths.js)
+- [Strongly Connected Components](https://github.com/arangodb/arangodb/tree/devel/js/client/modules/%40arangodb/air/strongly-connected-components.js)
 
 ### Vertex Degree
 
