@@ -134,7 +134,8 @@ Examples:
 
 Note that these operators will not utilize indexes in regular queries.
 The operators are also supported in [SEARCH expressions](operations-search.html),
-where ArangoSearch's indexes can be utilized. The semantics differ however.
+where ArangoSearch's indexes can be utilized. The semantics differ however, see
+[AQL `SEARCH` operation](aql/operations-search.html#array-comparison-operators).
 
 Logical operators
 -----------------
