@@ -2,6 +2,8 @@
 layout: default
 description: ArangoSearch offers various AQL functions for search queries to control the search context, for filtering and scoring
 title: ArangoSearch related AQL Functions
+page-toc:
+  max-headline-level: 3
 redirect_from:
   - ../views-arango-search-scorers.html # 3.4 -> 3.5
   - views-arango-search.html # 3.4 -> 3.5
@@ -51,6 +53,8 @@ outside of `SEARCH` operations.
 - **analyzer** (string): name of an [Analyzer](../analyzers.html).
 - returns **retVal** (any): the expression result that it wraps
 
+#### Example: Using a custom Analyzer
+
 Assuming a View definition with an Analyzer whose name and type is `delimiter`:
 
 ```json
@@ -89,6 +93,8 @@ FOR doc IN viewName
   RETURN doc
 ```
 
+#### Example: Setting the Analyzer context with and without `ANALYZER()`
+
 In below query, the search expression is swapped by `ANALYZER()` to set the
 `text_en` Analyzer for both `PHRASE()` functions:
 
@@ -106,6 +112,8 @@ FOR doc IN viewName
   RETURN doc
 ```
 
+#### Example: Analyzer precedence and specifics of the `TOKENS()` function
+
 In the following example `ANALYZER()` is used to set the Analyzer `text_en`,
 but in the second call to `PHRASE()` a different Analyzer is set (`identity`)
 which overrules `ANALYZER()`. Therefore, the `text_en` Analyzer is used to find
@@ -120,7 +128,9 @@ FOR doc IN viewName
 Despite the wrapping `ANALYZER()` function, the Analyzer name can not be
 omitted in calls to the `TOKENS()` function. Both occurrences of `text_en`
 are required, to set the Analyzer for the expression `doc.text IN ...` and
-for the `TOKENS()` function itself:
+for the `TOKENS()` function itself. This is because the `TOKENS()` function
+is a regular string function that does not take the Analyzer context into
+account:
 
 ```js
 FOR doc IN viewName
@@ -139,6 +149,8 @@ value equal to `1.0`.
 - **expr** (expression): any valid search expression
 - **boost** (number): numeric boost value
 - returns **retVal** (any): the expression result that it wraps
+
+#### Example: Boosting a search sub-expression
 
 ```js
 FOR doc IN viewName
@@ -193,6 +205,8 @@ processed with the link property **storeValues** set to `"id"` in the
 View definition (the default is `"none"`).
 {% endhint %}
 
+#### Testing for attribute presence
+
 `EXISTS(path)`
 
 Match documents where the attribute at **path** is present.
@@ -207,6 +221,8 @@ FOR doc IN viewName
   SEARCH EXISTS(doc.text)
   RETURN doc
 ```
+
+#### Testing for attribute type
 
 `EXISTS(path, type)`
 
@@ -229,6 +245,8 @@ FOR doc IN viewName
   SEARCH EXISTS(doc.text, "string")
   RETURN doc
 ```
+
+#### Testing for Analyzer index status
 
 `EXISTS(path, "analyzer", analyzer)`
 
@@ -285,6 +303,8 @@ If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
 to `false`, then nothing will match. If *low* is greater than *high* nothing will
 match either.
 
+#### Example: Using numeric ranges
+
 To match documents with the attribute `value >= 3` and `value <= 5` using the
 default `"identity"` Analyzer you would write the following query:
 
@@ -296,6 +316,8 @@ FOR doc IN viewName
 
 This will also match documents which have an array of numbers as `value`
 attribute where at least one of the numbers is in the specified boundaries.
+
+#### Example: Using string ranges
 
 Using string boundaries and a text Analyzer allows to match documents which
 have at least one token within the specified character range:
@@ -325,6 +347,8 @@ that is used outside of `SEARCH` operations.
   be satisfied
 - returns **fulfilled** (bool): whether at least **minMatchCount** of the
   specified expressions are `true`
+
+#### Example: Matching a subset of search sub-expressions
 
 Assuming a View with a text Analyzer, you may use it to match documents where
 the attribute contains at least two out of three tokens:
@@ -379,6 +403,8 @@ for calculating _n_-gram similarity that cannot be accelerated by a View index.
 - returns **fulfilled** (bool): `true` if the evaluated _n_-gram similarity value
   is greater or equal than the specified threshold, `false` otherwise
 
+#### Example: Using a custom bigram Analyzer
+
 Given a View indexing an attribute `text`, a custom _n_-gram Analyzer `"bigram"`
 (`min: 2, max: 2, preserveOriginal: false, streamType: "utf8"`) and a document
 `{ "text": "quick red fox" }`, the following query would match it (with a
@@ -406,6 +432,8 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
+#### Example: Using constant values
+
 `NGRAM_MATCH()` can be called with constant arguments, but for such calls the
 *analyzer* argument is mandatory (even for calls inside of a `SEARCH` clause):
 
@@ -425,6 +453,8 @@ RETURN NGRAM_MATCH("quick fox", "quick blue fox", "bigram")
 
 `PHRASE(path, phrasePart1, skipTokens1, ... phrasePartN, skipTokensN, analyzer)`
 
+`PHRASE(path, [ phrasePart1, skipTokens1, ... phrasePartN, skipTokensN ], analyzer)`
+
 Search for a phrase in the referenced attribute. It only matches documents in
 which the tokens appear in the specified order. To search for tokens in any
 order use [`TOKENS()`](functions-string.html#tokens) instead.
@@ -435,12 +465,12 @@ array as second argument.
 
 - **path** (attribute path expression): the attribute to test in the document
 - **phrasePart** (string\|array\|object): text to search for in the tokens.
-  Can also be an array comprised of string, array and object tokens (object
-  tokens introduced in v3.7.0, see below) or tokens interleaved with numbers of
-  *skipTokens* (introduced in v3.6.0). The specified *analyzer* is applied to
-  string and array tokens, but not for object tokens.
+  Can also be an [array](#example-using-phrase-with-an-array-of-tokens)
+  comprised of string, array and [object tokens](#object-tokens), or tokens
+  interleaved with numbers of *skipTokens*. The specified *analyzer* is applied
+  to string and array tokens, but not for object tokens.
 - **skipTokens** (number, _optional_): amount of tokens to treat
-  as wildcards
+  as wildcards (introduced in v3.6.0)
 - **analyzer** (string, _optional_): name of an [Analyzer](../analyzers.html).
   Uses the Analyzer of a wrapping `ANALYZER()` call if not specified or
   defaults to `"identity"`
@@ -453,7 +483,9 @@ The selected Analyzer must have the `"position"` and `"frequency"` features
 enabled. The `PHRASE()` function will otherwise not find anything.
 {% endhint %}
 
-Object tokens:
+#### Object tokens
+
+<small>Introduced in v3.7.0</small>
 
 - `{IN_RANGE: [low, high, includeLow, includeHigh]}`:
   see [IN_RANGE()](#in_range). *low* and *high* can only be strings.
@@ -483,6 +515,10 @@ Object tokens:
 
 An array token inside an array can be used in the `TERMS` case only.
 
+Also see [Example: Using object tokens](#example-using-object-tokens).
+
+#### Example: Using a text Analyzer for a phrase search
+
 Given a View indexing an attribute *text* with the `"text_en"` Analyzer and a
 document `{ "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit" }`,
 the following query would match it:
@@ -499,6 +535,8 @@ However, this search expression does not because the tokens `"ipsum"` and
 ```js
 PHRASE(doc.text, "ipsum lorem", "text_en")
 ```
+
+#### Example: Skip tokens for a proximity search
 
 To match `"ipsum"` and `"amet"` with any two tokens in between, you can use the
 following search expression:
@@ -518,7 +556,7 @@ PHRASE(doc.text, "lorem", 0, "ipsum", "text_en")
 PHRASE(doc.text, "ipsum", -1, "lorem", "text_en")
 ```
 
-`PHRASE(path, [ phrasePart1, skipTokens1, ... phrasePartN, skipTokensN ], analyzer)`
+#### Example: Using `PHRASE()` with an array of tokens
 
 The `PHRASE()` function also accepts an array as second argument with
 *phrasePart* and *skipTokens* parameters as elements.
@@ -561,6 +599,8 @@ It is the same as the following:
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
 ```
 
+#### Example: Handling of arrays with no members
+
 Empty arrays are skipped:
 
 ```js
@@ -574,6 +614,8 @@ FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 2 "jumps", "text_en") RETURN
 ```
 
 Providing only empty arrays is valid, but will yield no results.
+
+#### Example: Using object tokens
 
 Using object tokens `STARTS_WITH`, `WILDCARD`, `LEVENSHTEIN_MATCH`, `TERMS` and
 `IN_RANGE`:
@@ -643,9 +685,12 @@ optionally with at least *minMatchCount* of the prefixes.
   against in the document
 - **prefixes** (array): an array of strings to search at the start of the text
 - **minMatchCount** (number, _optional_): minimum number of search prefixes
-  that should be satisfied. The default is `1`
+  that should be satisfied (see
+  [example](#example-searching-for-one-or-multiple-prefixes)). The default is `1`
 - returns **startsWith** (bool): whether the specified attribute starts with at
   least *minMatchCount* of the given prefixes
+
+#### Example: Searching for an exact value prefix
 
 To match a document `{ "text": "lorem ipsum..." }` using a prefix and the
 `"identity"` Analyzer you can use it like this:
@@ -655,6 +700,8 @@ FOR doc IN viewName
   SEARCH STARTS_WITH(doc.text, "lorem ip")
   RETURN doc
 ```
+
+#### Example: Searching for a prefix in text
 
 This query will match `{ "text": "lorem ipsum" }` as well as
 `{ "text": [ "lorem", "ipsum" ] }` given a View which indexes the `text`
@@ -666,26 +713,10 @@ FOR doc IN viewName
   RETURN doc.text
 ```
 
-For `{ "text": "lorem ipsum" }` it is the same as the following:
-
-```js
-FOR doc IN viewName
-  SEARCH ANALYZER(STARTS_WITH(doc.text, ["wrong", "ips"], 1), "text_en")
-  RETURN doc.text
-```
-
-Or the following:
-
-```js
-FOR doc IN viewName
-  SEARCH ANALYZER(STARTS_WITH(doc.text, ["lo", "ips", "other"], 2), "text_en")
-  RETURN doc.text
-```
-
 Note that it will not match `{ "text": "IPS (in-plane switching)" }` without
 modification to the query. The prefixes were passed to `STARTS_WITH()` as-is,
-but the Analyzer used for indexing has stemming enabled. So the indexes values
-are the following:
+but the built-in `text_en` Analyzer used for indexing has stemming enabled.
+So the indexed values are the following:
 
 ```js
 RETURN TOKENS("IPS (in-plane switching)", "text_en")
@@ -711,6 +742,42 @@ FOR doc IN viewName
   SEARCH ANALYZER(STARTS_WITH(doc.text, TOKENS("ips", "text_en")), "text_en")
   RETURN doc.text
 ```
+
+#### Example: Searching for one or multiple prefixes
+
+The `STARTS_WITH()` function accepts an array of prefix alternatives of which
+only one has to match:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(STARTS_WITH(doc.text, ["something", "ips"]), "text_en")
+  RETURN doc.text
+```
+
+It will match a document `{ "text": "lorem ipsum" }` but also
+`{ "text": "that is something" }`, as at least one of the words start with a
+given prefix.
+
+The same query again, but with an explicit `minMatchCount`:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(STARTS_WITH(doc.text, ["wrong", "ips"], 1), "text_en")
+  RETURN doc.text
+```
+
+The number can be increased to require that at least this many prefixes must
+be present:
+
+```js
+FOR doc IN viewName
+  SEARCH ANALYZER(STARTS_WITH(doc.text, ["lo", "ips", "something"], 2), "text_en")
+  RETURN doc.text
+```
+
+This will still match `{ "text": "lorem ipsum" }` because at least two prefixes
+(`lo` and `ips`) are found, but not `{ "text": "that is something" }` which only
+contains one of the prefixes (`something`).
 
 ### LEVENSHTEIN_MATCH()
 
@@ -742,9 +809,12 @@ if you want to calculate the edit distance of two strings.
   prefix is carried out, using the matches as candidates. The Levenshtein /
   Damerau-Levenshtein distance is then computed for each candidate using
   the `target` value and the remainders of the strings, which means that the
-  prefix needs to be removed from `target`. This option can improve performance
-  in cases where there is a known common prefix. The default value is an empty
-  string (introduced in v3.7.13, v3.8.1).
+  **prefix needs to be removed from `target`** (see
+  [example](#example-matching-with-prefix-search)). This option can improve
+  performance in cases where there is a known common prefix. The default value
+  is an empty string (introduced in v3.7.13, v3.8.1).
+
+#### Example: Matching with and without transpositions
 
 The Levenshtein distance between _quick_ and _quikc_ is `2` because it requires
 two operations to go from one to the other (remove _k_, insert _k_ at a
@@ -763,6 +833,8 @@ FOR doc IN viewName
   SEARCH LEVENSHTEIN_MATCH(doc.text, "quikc", 1) // matches "quick"
   RETURN doc.text
 ```
+
+#### Example: Matching with prefix search
 
 Match documents with a Levenshtein distance of 1 with the prefix `qui`. The edit
 distance is calculated using the search term `kc` (`quikc` with the prefix `qui`
@@ -786,6 +858,8 @@ FOR doc IN viewName
   SEARCH LEVENSHTEIN_MATCH(doc.text, suffix, 1, false, 64, prefix) // matches "quick"
   RETURN doc.text
 ```
+
+#### Example: Basing the edit distance on string length
 
 You may want to pick the maximum edit distance based on string length.
 If the stored attribute is the string _quick_ and the target string is
@@ -843,6 +917,8 @@ case-insensitive matching. This can be controlled with Analyzers instead.
   character). Literal `%` and `_` must be escaped with backslashes.
 - returns **bool** (bool): `true` if the pattern is contained in *text*,
   and `false` otherwise
+
+#### Example: Searching with wildcards
 
 ```js
 FOR doc IN viewName
@@ -991,6 +1067,8 @@ Sorts documents using the
   - BM15 for *b* = `0` (corresponds to no length normalization)
 - returns **score** (number): computed ranking value
 
+#### Example: Sorting by default `BM25()` score
+
 Sorting by relevance with BM25 at default settings:
 
 ```js
@@ -999,6 +1077,8 @@ FOR doc IN viewName
   SORT BM25(doc) DESC
   RETURN doc
 ```
+
+#### Example: Sorting with tuned `BM25()` ranking
 
 Sorting by relevance, with double-weighted term frequency and with full text
 length normalization:
@@ -1023,6 +1103,8 @@ Sorts documents using the
   normalized. The default is *false*.
 - returns **score** (number): computed ranking value
 
+#### Example: Sorting by default `TFIDF()` score
+
 Sort by relevance using the TF-IDF score:
 
 ```js
@@ -1032,6 +1114,8 @@ FOR doc IN viewName
   RETURN doc
 ```
 
+#### Example: Sorting by `TFIDF()` score with normalization
+
 Sort by relevance using a normalized TF-IDF score:
 
 ```js
@@ -1040,6 +1124,8 @@ FOR doc IN viewName
   SORT TFIDF(doc, true) DESC
   RETURN doc
 ```
+
+#### Example: Sort by value and `TFIDF()`
 
 Sort by the value of the `text` attribute in ascending order, then by the TFIDF
 score in descending order where the attribute values are equivalent:
