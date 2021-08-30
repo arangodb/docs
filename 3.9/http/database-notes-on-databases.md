@@ -49,7 +49,14 @@ and the **extended** naming conventions. Wether the former or the latter is
 active depends on the `--database.extended-names-databases` startup option.
 The extended naming convention is used if enabled, allowing many special and
 UTF-8 characters in database names. If set to `false` (default), the traditional
-naming convention will be enforced.
+naming convention will be enforced. 
+Please note that while it is possible to change the value of the 
+`--database.extended-names-databases` from `false` to `true` to enable 
+extended names, the reverse is not true. Once the extended names have 
+been enabled they will remain permanently enabled so that existing
+databases with extended names remain accessible.
+In a cluster, it is also required to set the value of the startup option
+consistently on all coordinators and DB servers.
 
 Also see [Database Naming Conventions](../data-modeling-naming-conventions-database-names.html).
 
