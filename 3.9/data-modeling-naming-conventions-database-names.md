@@ -45,3 +45,14 @@ The restrictions of the two naming conventions are:
 
   Example database names that can be used with the _extended_ naming convention:
   `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"` 
+
+{% hint 'warning' %}
+While it is possible to change the value of the
+`--database.extended-names-databases` option from `false` to `true` to enable
+extended names, the reverse is not true. Once the extended names have been
+enabled they will remain permanently enabled so that existing databases with
+extended names remain accessible.
+
+In a cluster, it is also required to set the value of the startup option
+consistently on all Coordinators and DB-Servers.
+{% endhint %}
