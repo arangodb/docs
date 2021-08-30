@@ -9,17 +9,11 @@ The following hard-coded limitations exist for AQL queries:
 
 - An AQL query cannot use more than _1000_ result registers.
   One result register is needed for every named query variable and for
-  internal/anonymous query variables.
+  internal/anonymous query variables, e.g. for intermediate results. 
+  Subqueries also require result registers.
 - An AQL query cannot have more than _4000_ execution nodes in its initial 
   query execution plan.
 - An AQL query cannot use more than _2048_ collections/shards.
-- It is not possible to use a collection in a read operation after
-  it was used for a write operation in the same AQL query.
-- In the cluster, all collections that are accessed dynamically must be stated
-  in the query's initial `WITH` statement. These are either accesses via the
-  [`DOCUMENT()` function](functions-miscellaneous.html#document) or
-  [traversals working with collection sets](graphs-traversals.html#working-with-collection-sets)
-  (instead of named graphs).
 - Expressions in AQL queries cannot have a nesting of more than _500_ levels.
   As an example, the expression `1 + 2 + 3 + 4` is 3 levels deep 
   (because it is interpreted and executed as `1 + (2 + (3 + 4))`).
@@ -36,3 +30,12 @@ The following other limitations are known for AQL queries:
   expressions and executed beforehand. That means that subqueries do not
   participate in lazy evaluation of operands, for example in the
   [ternary operator](operators.html#ternary-operator).
+- It is not possible to use a collection in a read operation after
+  it was used for a write operation in the same AQL query.
+- In the cluster, all collections that are accessed dynamically must be stated
+  in the query's initial `WITH` statement. These are either accesses via the
+  [`DOCUMENT()` function](functions-miscellaneous.html#document) or
+  [traversals working with collection sets](graphs-traversals.html#working-with-collection-sets)
+  (instead of named graphs). To make the `WITH` statement required in single
+  server as well (e.g. for testing a migration to the cluster), please
+  start the server with the option `--query.require-with true`.
