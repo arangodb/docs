@@ -36,7 +36,7 @@ A database contains its own collections (which cannot be accessed from other dat
 
 There will always be at least one database in ArangoDB. This is the default database, named _system. This database cannot be dropped, and provides special operations for creating, dropping, and enumerating databases. Users can create additional databases and give them unique names to access them later. Database management operations cannot be initiated from out of user-defined databases.
 
-When ArangoDB is accessed via its HTTP REST API, the database name is read from the first part of the request URI path (e.g. /_db/_system/...). If the request URI does not contain a database name, the database name is automatically derived from the endpoint. Please refer to [DatabaseEndpoint](http/database-database-endpoint.html) for more information.
+When ArangoDB is accessed via its HTTP REST API, the database name is read from the first part of the request URI path (e.g. `/_db/myDB/`). If the request URI does not contain a database name, it defaults to `/_db/_system`.
 
 Database Name
 -------------
@@ -52,7 +52,7 @@ A single ArangoDB instance can handle multiple databases in parallel. By default
 
 Databases are physically stored in separate sub-directories underneath the database directory, which itself resides in the instance's data directory.
 
-Each database has its own sub-directory, named database-<database id>. The database directory contains sub-directories for the collections of the database, and a file named parameter.json. This file contains the database id and name.
+Each database has its own sub-directory, named `database-<database id>`. The database directory contains sub-directories for the collections of the database, and a file named parameter.json. This file contains the database id and name.
 
 In an example ArangoDB instance which has two databases, the filesystem layout could look like this:
 

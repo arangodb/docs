@@ -32,9 +32,8 @@ additional databases and give them unique names to access them later. Database
 management operations cannot be initiated from out of user-defined databases.
 
 When ArangoDB is accessed via its HTTP REST API, the database name is read from
-the first part of the request URI path (e.g. `/_db/_system/...`). If the request
-URI does not contain a database name, the database name is automatically
-determined by the algorithm described in Database-to-Endpoint Mapping.
+the first part of the request URI path (e.g. `/_db/myDB/...`). If the request
+URI does not contain a database name, it defaults to `/_db/_system`.
 
 Database Name
 -------------
@@ -54,7 +53,7 @@ there will be at least one database which is named `_system`. Databases are
 physically stored in separate sub-directories underneath the database directory,
 which itself resides in the instance's data directory.
 
-Each database has its own sub-directory, named `database-<database id>`. The
+Each database has its own sub-directory, named ``database-<database id>``. The
 database directory contains sub-directories for the collections of the database,
 and a file named parameter.json. This file contains the database id and name.
 
