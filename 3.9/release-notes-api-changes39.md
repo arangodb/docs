@@ -23,7 +23,10 @@ traditional database naming convention of previous ArangoDB versions.
 However, if the feature is enabled, then any endpoints that contain database
 names in the URL may contain special characters that were previously not allowed
 (percent-encoded). They are also to be expected in payloads that feature
-database names.
+database names. Additionally, when creating new databases via the REST API,
+database names containing UTF-8 characters must be 
+[NFC-normalized](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms).
+Non-normalized names will be rejected by arangod.
 
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
 
