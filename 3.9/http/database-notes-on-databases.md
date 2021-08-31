@@ -45,7 +45,7 @@ This name is used to uniquely identify a database. The default database in
 ArangoDB is named `_system`.
 
 There are two naming conventions available for database names: the **traditional**
-and the **extended** naming conventions. Wether the former or the latter is
+and the **extended** naming conventions. Whether the former or the latter is
 active depends on the `--database.extended-names-databases` startup option.
 The extended naming convention is used if enabled, allowing many special and
 UTF-8 characters in database names. If set to `false` (default), the traditional
