@@ -72,7 +72,7 @@ apps/                   # the instance's application directory
 ```
 
 The name of `<database-dir>` will be the database's original name or the
-database's ID if its name has special characters.
+database's ID if its name contains special characters.
 
 Document
 --------
