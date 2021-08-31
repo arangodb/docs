@@ -230,7 +230,8 @@ ArangoDB versions. Enabling the feature may lead to incompatibilities up to the
 ArangoDB instance becoming inaccessible for such drivers and client applications.
 
 The ArangoDB client tools _arangobench_, _arangodump_, _arangoexport_,
-_arangoimport_, _arangorestore_, and _arangosh_ ship with UTF-8 support.
+_arangoimport_, _arangorestore_, and _arangosh_ ship with full support for the 
+extended database naming convention.
 Be aware that dumps containing extended database names cannot be restored in
 older versions, however.
 
