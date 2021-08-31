@@ -35,8 +35,9 @@ names in the URL may contain special characters that were previously not allowed
 database names.
 
 The ArangoDB client tools _arangobench_, _arangodump_, _arangoexport_,
-_arangoimport_, _arangorestore_, and _arangosh_ ship with UTF-8 support.
-Be aware that dumps containing extended database names cannot be restored in
+_arangoimport_, _arangorestore_, and _arangosh_ ship with full support for the
+extended database naming convention.
+Be aware that dumps containing extended database names cannot be restored into
 older versions, however.
 
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
