@@ -35,8 +35,7 @@ The restrictions of the two naming conventions are:
   - Names cannot contain the characters `/` or `:` at any position, nor any
     control characters (below ASCII code 32), such as `\n`, `\t`, `\r`, and `\0`.
   - Spaces are accepted, but only in between characters of the name. Leading
-    or trailing spaces are not allowed, but are automatically trimmed from the
-    name when a database is created.
+    or trailing spaces are not allowed.
   - `.` (dot), `_` (underscore) and the numeric digits `0`-`9` are not allowed
     as first character, but at later positions.
   - Database names are case sensitive.
