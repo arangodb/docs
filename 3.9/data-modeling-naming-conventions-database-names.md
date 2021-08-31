@@ -39,11 +39,9 @@ The restrictions of the two naming conventions are:
   - `.` (dot), `_` (underscore) and the numeric digits `0`-`9` are not allowed
     as first character, but at later positions.
   - Database names are case sensitive.
-  - Database names are [NFC-normalized](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms) by arangod. 
-    That means database names stored in arangod can bytewise deviate from the 
-    database names that are originally sent to the server by client applications
-    or the web UI. Incoming database names will always be NFC-normalized, so in
-    most cases the potential bytewise difference should not matter.
+  - Database names containing UTF-8 characters must be 
+    [NFC-normalized](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms).
+    Non-normalized names will be rejected by arangod.
   - The maximum length of a database name is 128 bytes after normalization. 
     As a UTF-8 character may consist of multiple bytes, this does not necessarily 
     equate to 128 characters.
