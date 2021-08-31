@@ -46,7 +46,8 @@ The restrictions of the two naming conventions are:
     or the web UI. Incoming database names will always be NFC-normalized, so in
     most cases the potential bytewise difference should not matter.
   - The maximum length of a database name is 128 bytes after normalization. 
-    consist of multiple bytes, this does not necessarily equate to 128 characters.
+    As a UTF-8 character may consist of multiple bytes, this does not necessarily 
+    equate to 128 characters.
 
   Example database names that can be used with the _extended_ naming convention:
   `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"` 
