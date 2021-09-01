@@ -49,11 +49,13 @@ Database Organization
 ---------------------
 
 A single ArangoDB instance can handle multiple databases in parallel. By default,
-there will be at least one database which is named `_system`. Databases are
+there will be at least one database which is named `_system`.
+
+With the MMFiles storage engine, databases are
 physically stored in separate sub-directories underneath the database directory,
 which itself resides in the instance's data directory.
 
-Each database has its own sub-directory, named ``database-<database id>``. The
+Each database has its own sub-directory, named `database-<database id>`. The
 database directory contains sub-directories for the collections of the database,
 and a file named parameter.json. This file contains the database id and name.
 
@@ -72,13 +74,21 @@ data/                     # the instance's data directory
       collection-<id>/    # directory containing data about a collection
 ```
 
+With the RocksDB storage engine,
+data is physically stored in `.sst` files in a sub-directory `engine-rocksdb`
+that resides in the instance's data directory. A single file can contain
+documents of various collections and databases.
+
+ArangoSearch stores data in database-specific directories underneath the
+`databases` folder.
+
 Foxx applications are also organized in database-specific directories inside the
 application path. The filesystem layout could look like this:
 
 ```
 apps/                   # the instance's application directory
   system/               # system applications (can be ignored)
-  databases/            # sub-directory containing database-specific applications
+  _db/                  # sub-directory containing database-specific applications
     <database-name>/    # sub-directory for a single database
       <app-name>        # sub-directory for a single application
       <app-name>        # sub-directory for a single application
