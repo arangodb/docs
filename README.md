@@ -37,17 +37,18 @@ by changing the `_config.yml`:
 exclude:
 # - 3.9/
 # - 3.8/
-  - 3.7/
+# - 3.7/
   - 3.6/
   - 3.5/
   - 3.4/
   - 3.3/
 ```
 
-Above example disables versions 3.3 through 3.7, so that 3.8 and 3.9 will be
+Above example disables versions 3.3 through 3.6, so that 3.7, 3.8, and 3.9 will be
 built only. Do not commit these changes of the configuration!
 
-Note that building may fail if you disable required versions as defined by:
+Note that building may fail if you disable certain versions that contain the files
+that other versions refer to with symlinks, or required versions as defined by:
 
 ```yaml
 versions:
@@ -538,6 +539,14 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
   Stray folders with untracked Markdown files may cause this problem, e.g. the
   output of `oasisctl generate-docs`. Either remove the files or add the folder
   to the list of excludes in `_config.yml`.
+
+- ```
+  /opt/build/repo/_plugins/versions/version.rb:45:in `<=>': undefined method `version' for nil:NilClass (NoMethodError)
+  ```
+
+  This error occurs sporadically in the Netlify preview builds. The cause is
+  unclear. So far it was sufficient to trigger another build, e.g. by pushing
+  an empty commit, and it succeeded.
 
 - ```
   Please append `--trace` to the `build` command
