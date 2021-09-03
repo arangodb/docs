@@ -87,3 +87,37 @@ public interface MyRepository extends ArangoRepository<Customer, String>{
 
 }
 ```
+
+## SPEL support
+
+Since version 3.6.0, SPEL expressions can be embedded in the query string to dynamically customize it depending on the 
+invocation parameters and/or invoking methods on Spring Beans. In particular:
+- SPEL expressions must be wrapped within `#{}`
+- SPEL variables can be set annotating method parameters with `@SpelParam("varName")` and referenced with `#varName`
+- Spring Beans can be referenced with `@myBean` (factory beans with `&myBean`)
+- the SPEL variable `#collection` is automatically set
+
+```java
+public interface MyRepository extends ArangoRepository<Customer, String> {
+
+    @Query("FOR c IN #{#collection} FILTER #{@filterGenerator.allEqual('c', #kv)} RETURN c")
+    List<Customer> findByAllEqual(@SpelParam("kv") Map<String, Object> kv);
+
+}
+
+@Component("filterGenerator")
+public class FilterGenerator {
+
+    public String allEqual(String col, Map<String, Object> kv) {
+        return kv.entrySet().stream()
+                .map(it -> col + "." + it.getKey() + " == " + escape(it.getValue()))
+                .collect(Collectors.joining(" AND "));
+    }
+
+    private Object escape(Object o) {
+        if (o instanceof String) return "\"" + o + "\"";
+        else return o;
+    }
+
+}
+```
