@@ -71,10 +71,10 @@ apps/                   # the instance's application directory
   system/               # system applications (can be ignored)
   _db/                  # sub-directory containing database-specific applications
     <database-name>/    # sub-directory for a single database
-      <mountpoint>      # sub-directory for a single application
-      <mountpoint>      # sub-directory for a single application
+      <mountpoint>/APP  # sub-directory for a single application
+      <mountpoint>/APP  # sub-directory for a single application
     <database-name>/    # sub-directory for another database
-      <mountpoint>      # sub-directory for a single application
+      <mountpoint>/APP  # sub-directory for a single application
 ```
 
 Document
