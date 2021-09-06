@@ -41,20 +41,31 @@ When ArangoDB is accessed via its HTTP REST API, the database name is read from 
 Database Name
 -------------
 
-A single ArangoDB instance can handle multiple databases in parallel. When multiple databases are used, each database must be given a unique name. This name is used to uniquely identify a database. The default database in ArangoDB is named _system.
+Each database must be given a unique name. This name is used to uniquely
+identify a database.
 
-The database name is a string consisting of only letters, digits and the _ (underscore) and - (dash) characters. User-defined database names must always start with a letter. Database names is case-sensitive.
+The database name is a string consisting of only letters, digits, underscore
+(`_`) and dash (`-`) characters. User-defined database names must always start
+with a letter.
+
+Database names are case-sensitive.
 
 Database Organization
 ---------------------
 
-A single ArangoDB instance can handle multiple databases in parallel. By default, there will be at least one database, which is named _system.
+A single ArangoDB instance can handle multiple databases in parallel. By default,
+there will be at least one database which is named `_system`.
 
-Databases are physically stored in separate sub-directories underneath the database directory, which itself resides in the instance's data directory.
+With the MMFiles storage engine, databases are
+physically stored in separate sub-directories underneath the database directory,
+which itself resides in the instance's data directory.
 
-Each database has its own sub-directory, named `database-<database id>`. The database directory contains sub-directories for the collections of the database, and a file named parameter.json. This file contains the database id and name.
+Each database has its own sub-directory, named `database-<database id>`. The
+database directory contains sub-directories for the collections of the database,
+and a file named parameter.json. This file contains the database id and name.
 
-In an example ArangoDB instance which has two databases, the filesystem layout could look like this:
+In an example ArangoDB instance which has two databases, the filesystem layout
+could look like this:
 
 ```
 data/                     # the instance's data directory
@@ -68,17 +79,26 @@ data/                     # the instance's data directory
       collection-<id>/    # directory containing data about a collection
 ```
 
-Foxx applications are also organized in database-specific directories inside the application path. The filesystem layout could look like this:
+With the RocksDB storage engine,
+data is physically stored in `.sst` files in a sub-directory `engine-rocksdb`
+that resides in the instance's data directory. A single file can contain
+documents of various collections and databases.
+
+ArangoSearch stores data in database-specific directories underneath the
+`databases` folder.
+
+Foxx applications are also organized in database-specific directories inside the
+application path. The filesystem layout could look like this:
 
 ```
 apps/                   # the instance's application directory
   system/               # system applications (can be ignored)
   _db/                  # sub-directory containing database-specific applications
     <database-name>/    # sub-directory for a single database
-      <mountpoint>/APP  # sub-directory for a single application
-      <mountpoint>/APP  # sub-directory for a single application
+      <mountpoint>      # sub-directory for a single application
+      <mountpoint>      # sub-directory for a single application
     <database-name>/    # sub-directory for another database
-      <mountpoint>/APP  # sub-directory for a single application
+      <mountpoint>      # sub-directory for a single application
 ```
 
 Document

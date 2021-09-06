@@ -44,30 +44,3 @@ This name is used to uniquely identify a database. The default database in
 ArangoDB is named `_system`. The database name is a string consisting of only
 letters, digits and the _ (underscore) and - (dash) characters. User-defined
 database names must always start with a letter. Database names are case-sensitive.
-
-Database Organization
----------------------
-
-A single ArangoDB instance can handle multiple databases in parallel. By default,
-there will be at least one database which is named `_system`.
-
-Data is physically stored in `.sst` files in a sub-directory `engine-rocksdb`
-that resides in the instance's data directory. A single file can contain
-documents of various collections and databases.
-
-ArangoSearch stores data in database-specific directories underneath the
-`databases` folder.
-
-Foxx applications are also organized in database-specific directories inside the
-application path. The filesystem layout could look like this:
-
-```
-apps/                   # the instance's application directory
-  system/               # system applications (can be ignored)
-  _db/                  # sub-directory containing database-specific applications
-    <database-name>/    # sub-directory for a single database
-      <app-name>        # sub-directory for a single application
-      <app-name>        # sub-directory for a single application
-    <database-name>/    # sub-directory for another database
-      <app-name>        # sub-directory for a single application
-```
