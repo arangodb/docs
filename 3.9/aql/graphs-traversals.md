@@ -301,15 +301,15 @@ There is also the option to store the PRUNE condition as a variable, as in the f
 example: 
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-    @startDocuBlockInline GRAPHTRAV_graphPruneVertices
-    @EXAMPLE_AQL{GRAPHTRAV_graphPruneVertices}
+    @startDocuBlockInline GRAPHTRAV_graphPruneVerticesVariable
+    @EXAMPLE_AQL{GRAPHTRAV_graphPruneVerticesVariable}
     @DATASET{traversalGraph}
     FOR v, e, p IN 1..5 OUTBOUND 'circles/A' GRAPH 'traversalGraph'
         PRUNE pruneCondition = v._key == 'G'
         FILTER pruneCondition
         RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].label }
     @END_EXAMPLE_AQL
-    @endDocuBlock GRAPHTRAV_graphPruneVertices
+    @endDocuBlock GRAPHTRAV_graphPruneVerticesVariable
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
