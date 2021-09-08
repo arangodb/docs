@@ -297,6 +297,27 @@ traversal too early. A construction like `(!IS_NULL(edge) AND edge.label != 'foo
 can be used to avoid it.
 {% endhint %}
 
+There is also the option to store the PRUNE condition as a variable, as in the following 
+example: 
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline GRAPHTRAV_graphPruneVertices
+    @EXAMPLE_AQL{GRAPHTRAV_graphPruneVertices}
+    @DATASET{traversalGraph}
+    FOR v, e, p IN 1..5 OUTBOUND 'circles/A' GRAPH 'traversalGraph'
+        PRUNE pruneCondition = v._key == 'G'
+        FILTER pruneCondition
+        RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].label }
+    @END_EXAMPLE_AQL
+    @endDocuBlock GRAPHTRAV_graphPruneVertices
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+This will store the PRUNE condition `v._key == 'G'` in the variable `pruneCondition`. Later on,
+it will be used as the condition for FILTER, to avoid retyping the condition which is the same
+as in PRUNE.
+
+
 ### Filtering on paths
 
 Filtering on paths allows for the second most powerful filtering and may have the
