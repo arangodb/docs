@@ -32,9 +32,8 @@ additional databases and give them unique names to access them later. Database
 management operations cannot be initiated from out of user-defined databases.
 
 When ArangoDB is accessed via its HTTP REST API, the database name is read from
-the first part of the request URI path (e.g. `/_db/_system/...`). If the request
-URI does not contain a database name, the database name is automatically
-determined by the algorithm described in Database-to-Endpoint Mapping.
+the first part of the request URI path (e.g. `/_db/myDB/...`). If the request
+URI does not contain a database name, it defaults to `/_db/_system`.
 
 Database Name
 -------------
@@ -63,26 +62,3 @@ consistently on all Coordinators and DB-Servers.
 {% endhint %}
 
 Also see [Database Naming Conventions](../data-modeling-naming-conventions-database-names.html).
-
-Database Organization
----------------------
-
-A single ArangoDB instance can handle multiple databases in parallel. By default,
-there will be at least one database which is named `_system`. 
-
-Foxx applications are organized in database-specific directories inside the
-application path. The filesystem layout could look like this:
-
-```
-apps/                   # the instance's application directory
-  system/               # system applications (can be ignored)
-  databases/            # sub-directory containing database-specific applications
-    <database-dir>/     # sub-directory for a single database
-      <app-name>        # sub-directory for a single application
-      <app-name>        # sub-directory for a single application
-    <database-dir>/     # sub-directory for another database
-      <app-name>        # sub-directory for a single application
-```
-
-The name of `<database-dir>` will be the database's original name or the 
-database's ID if its name contains special characters.

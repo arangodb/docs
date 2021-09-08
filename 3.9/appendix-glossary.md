@@ -36,15 +36,16 @@ A database contains its own collections (which cannot be accessed from other dat
 
 There will always be at least one database in ArangoDB. This is the default database, named _system. This database cannot be dropped, and provides special operations for creating, dropping, and enumerating databases. Users can create additional databases and give them unique names to access them later. Database management operations cannot be initiated from out of user-defined databases.
 
-When ArangoDB is accessed via its HTTP REST API, the database name is read from the first part of the request URI path (e.g. /_db/_system/...). If the request URI does not contain a database name, the database name is automatically derived from the endpoint. Please refer to [DatabaseEndpoint](http/database-database-endpoint.html) for more information.
+When ArangoDB is accessed via its HTTP REST API, the database name is read from the first part of the request URI path (e.g. `/_db/myDB/`). If the request URI does not contain a database name, it defaults to `/_db/_system`.
 
 Database Name
 -------------
 
-A single ArangoDB instance can handle multiple databases in parallel. When multiple databases are used, each database must be given a unique name. This name is used to uniquely identify a database. The default database in ArangoDB is named _system.
+Each database must be given a unique name. This name is used to uniquely
+identify a database.
 
-There are two naming conventions available for database names: the _traditional_
-and the _extended_ naming conventions. Whether the former or the latter is active
+There are two naming conventions available for database names: the **traditional**
+and the **extended** naming conventions. Whether the former or the latter is active
 depends upon the value of the startup flag `--database.extended-names-databases`.
 Starting the server with this flag set to `true` will activate
 the _extended_ naming convention, which tolerates names with special and UTF-8
@@ -56,9 +57,18 @@ For more information, refer to [Database Naming Conventions](data-modeling-namin
 Database Organization
 ---------------------
 
-A single ArangoDB instance can handle multiple databases in parallel. By default, there will be at least one database, which is named _system.
+A single ArangoDB instance can handle multiple databases in parallel. By default,
+there will be at least one database which is named `_system`. 
 
-Foxx applications are also organized in database-specific directories inside the application path. The filesystem layout could look like this:
+Data is physically stored in `.sst` files in a sub-directory `engine-rocksdb`
+that resides in the instance's data directory. A single file can contain
+documents of various collections and databases.
+
+ArangoSearch stores data in database-specific directories underneath the
+`databases` folder.
+
+Foxx applications are also organized in database-specific directories but inside
+the application path. The filesystem layout could look like this:
 
 ```
 apps/                   # the instance's application directory

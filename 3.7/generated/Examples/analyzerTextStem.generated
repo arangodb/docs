@@ -1,9 +1,9 @@
-arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("Crazy fast NoSQL-database!", "text_en")`</span>).toArray();
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS(&quot;Crazy fast NoSQL-database!&quot;, &quot;text_en&quot;)`</span>).toArray();
 [ 
   [ 
-    <span class="hljs-string">"crazi"</span>, 
-    <span class="hljs-string">"fast"</span>, 
-    <span class="hljs-string">"nosql"</span>, 
-    <span class="hljs-string">"databas"</span> 
+    <span class="hljs-string">&quot;crazi&quot;</span>, 
+    <span class="hljs-string">&quot;fast&quot;</span>, 
+    <span class="hljs-string">&quot;nosql&quot;</span>, 
+    <span class="hljs-string">&quot;databas&quot;</span> 
   ] 
 ]

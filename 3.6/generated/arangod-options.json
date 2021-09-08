@@ -325,7 +325,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 15268124672,
+    "default" : 16341516288,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -427,7 +427,7 @@
   },
   "cluster.index-create-timeout" : {
     "category" : "option",
-    "default" : 3600,
+    "default" : 259200,
     "deprecatedIn" : null,
     "description" : "amount of time (in seconds) the coordinator will wait for an index to be created before giving up",
     "dynamic" : false,
@@ -3590,7 +3590,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 18321749606,
+    "default" : 19609819545,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -4133,7 +4133,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 24428999475,
+    "default" : 26146426060,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -4473,7 +4473,7 @@
   },
   "server.io-threads" : {
     "category" : "option",
-    "default" : 4,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "Number of threads used to handle IO",
     "dynamic" : true,
@@ -4560,7 +4560,7 @@
   },
   "server.maintenance-threads" : {
     "category" : "option",
-    "default" : 5,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,

@@ -408,6 +408,27 @@
     "section" : "",
     "type" : "boolean"
   },
+  "initial-connect-retries" : {
+    "category" : "option",
+    "default" : 3,
+    "deprecatedIn" : null,
+    "description" : "number of connect retries for initial connection",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.13"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "uint32"
+  },
   "input-directory" : {
     "category" : "option",
     "default" : "/work/ArangoDB/dump",
