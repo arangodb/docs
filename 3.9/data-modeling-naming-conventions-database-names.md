@@ -40,7 +40,7 @@ The restrictions of the two naming conventions are:
     as first character, but at later positions.
   - Database names are case sensitive.
   - Database names containing UTF-8 characters must be 
-    [NFC-normalized](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms).
+    [NFC-normalized](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms){:target="_blank"}.
     Non-normalized names will be rejected by arangod.
   - The maximum length of a database name is 128 bytes after normalization. 
     As a UTF-8 character may consist of multiple bytes, this does not necessarily 

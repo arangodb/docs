@@ -22,10 +22,10 @@ like this:
     http://localhost:8529/_db/mydb/_api/document/test/12345
     http://localhost:8529/_db/mydb/myapp/get
 
-Note: special characters in database names must be properly URL-encoded, e.g.
+Special characters in database names must be properly URL-encoded, e.g. `a + b = c`:
 
     http://localhost:8529/_db/a%20%2B%20b%20%3D%20c/_api/version
 
 Database names containing UTF-8 characters must be 
-[NFC-normalized](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms).
-Non-normalized names will be rejected by arangod.
+[NFC-normalized](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms){:target="_blank"}.
+Non-normalized names will be rejected by _arangod_.
