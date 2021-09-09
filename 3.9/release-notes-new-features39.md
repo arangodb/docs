@@ -35,8 +35,8 @@ AQL
 ### Prune Variable 
 
 Added option to store PRUNE expression as a variable: 
-Now, a PRUNE condition can be stored in a variable and be used later alongside other
-AQL keywords as their conditions.
+Now, a PRUNE condition can be stored in a variable and be used later in the query without
+having to repeat the PRUNE condition.
 For example, in the query below,
 
 ```js
