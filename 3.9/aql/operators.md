@@ -321,12 +321,20 @@ The condition (here just `u.value`) is only evaluated once if the second
 operand between `?` and `:` is omitted, whereas it would be evaluated twice
 in case of `u.value ? u.value : 'value is null'`.
 
+{% hint 'info' %}
+Subqueries that are used inside expressions are pulled out of these
+expressions and executed beforehand. That means that subqueries do not
+participate in lazy evaluation of operands, for example in the
+ternary operator. Also see
+[evaluation of subqueries](examples-combining-queries.htmlevaluation-of-subqueries).
+{% endhint %}
+
 Range operator
 --------------
 
 AQL supports expressing simple numeric ranges with the `..` operator.
 This operator can be used to easily iterate over a sequence of numeric
-values.    
+values.
 
 The `..` operator will produce an array of the integer values in the 
 defined range, with both bounding values included.
