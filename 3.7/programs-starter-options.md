@@ -158,10 +158,10 @@ the DB-Servers using a pass through option.
 Every option that start with a pass through prefix is passed through to the commandline
 of one or more server instances.
 
-- `--all.<section>.<key>=<value>` is pass as `--<section>.<key>=<value>` to all servers started by this starter.
-- `--coordinators.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all Coordinators started by this starter.
-- `--dbservers.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all DB-Servers started by this starter.
-- `--agents.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all Agents started by this starter.
+- `--args.all.<section>.<key>=<value>` is pass as `--<section>.<key>=<value>` to all servers started by this starter.
+- `--args.coordinators.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all Coordinators started by this starter.
+- `--args.dbservers.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all DB-Servers started by this starter.
+- `--args.agents.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all Agents started by this starter.
 
 Some options are essential to the function of the starter. Therefore these options cannot be passed through like this.
 
@@ -170,7 +170,7 @@ Example:
 To activate HTTP request logging at debug level for all Coordinators, use a command like this.
 
 ```bash
-arangodb --coordinators.log.level=requests=debug
+arangodb --args.coordinators.log.level=requests=debug
 ```
 
 ## Passing through `arangosync` options
@@ -180,9 +180,9 @@ the syncmasters & syncworkers using a pass through option.
 Every option that start with a pass through prefix is passed through to the commandline
 of one or more `arangosync` instances.
 
-- `--sync.<section>.<key>=<value>` is pass as `--<section>.<key>=<value>` to all arangosync instances started by this starter.
-- `--syncmasters.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all syncmasters started by this starter.
-- `--syncworkers.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all syncworkers started by this starter.
+- `--args.sync.<section>.<key>=<value>` is pass as `--<section>.<key>=<value>` to all arangosync instances started by this starter.
+- `--args.syncmasters.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all syncmasters started by this starter.
+- `--args.syncworkers.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all syncworkers started by this starter.
 
 Some options are essential to the function of the starter. Therefore these options cannot be passed through like this.
 
@@ -191,7 +191,22 @@ Example:
 To set a custom token TTL for direct message queue, use a command like this.
 
 ```bash
-arangodb --syncmasters.mq.direct-token-ttl=12h ...
+arangodb --args.syncmasters.mq.direct-token-ttl=12h ...
+```
+
+## Passing environment variables
+
+Environment variables by default gonna be passed from arangodb process by default. However, variables can be overridden using arangodb command line option.
+
+- `--envs.<group>.<env name>=<value>`
+- `--envs.all.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=2G` sets `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=2G` for all instances started by this starter.
+- `--envs.coordinators.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=4G` sets `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=4G` for all Coordinators started by this starter.
+- `--envs.dbservers.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=8G` sets `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=8G` for all DB-Servers started by this starter.
+
+Example:
+
+```bash
+arangodb --envs.all.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=2G --envs.coordinators.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=4G --envs.dbservers.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=8G ...
 ```
 
 ## Datacenter to datacenter replication options
