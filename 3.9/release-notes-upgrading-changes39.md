@@ -72,6 +72,13 @@ From then on, unintended usage of collection names will always be disallowed.
 If you use queries like `RETURN collection` then you should replace them with
 `FOR doc IN collection RETURN doc` to ensure future compatibility.
 
+### Cluster-internal network protocol
+
+The cluster-internal network protocol is hard-coded to HTTP/1 in ArangoDB 3.9.
+Any other protocol selected via the startup option `--network.protocol` will 
+automatically be switched to HTTP/1. The startup option `--network.protocol` 
+is now deprecated and hidden by default. It will be removed in a future version.
+
 ### "Old" system collections
 
 The option `--database.old-system-collections` was introduced in 3.6 and 3.7
