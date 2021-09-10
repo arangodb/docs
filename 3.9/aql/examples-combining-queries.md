@@ -152,4 +152,5 @@ The additional fallback `maybe || {}` prevents a query warning
 
 > invalid argument type in call to function 'ATTRIBUTES()'
 
-that originates from a `null` value getting passed to the `ATTRIBUTES()` function.
+that originates from a `null` value getting passed to the `ATTRIBUTES()`
+function that expects an object.

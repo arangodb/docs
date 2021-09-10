@@ -326,7 +326,7 @@ Subqueries that are used inside expressions are pulled out of these
 expressions and executed beforehand. That means that subqueries do not
 participate in lazy evaluation of operands, for example in the
 ternary operator. Also see
-[evaluation of subqueries](examples-combining-queries.htmlevaluation-of-subqueries).
+[evaluation of subqueries](examples-combining-queries.html#evaluation-of-subqueries).
 {% endhint %}
 
 Range operator
