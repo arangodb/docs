@@ -25,20 +25,27 @@ Extended naming convention for databases
 There is a new startup option allowing database names to contain most UTF-8
 characters. The option name is `--database.extended-names-databases`.
 
-The feature is disabled by default for compatibility with existing client
+The feature is disabled by default to ensure compatibility with existing client
 drivers and applications that only support ASCII names according to the
-traditional database naming convention of previous ArangoDB versions.
+traditional database naming convention used in previous ArangoDB versions.
 
-However, if the feature is enabled, then any endpoints that contain database
-names in the URL may contain special characters that were previously not allowed
+If the feature is enabled, then any endpoints that contain database names 
+in the URL may contain special characters that were previously not allowed
 (percent-encoded). They are also to be expected in payloads that feature
-database names.
+database names. If client applications assemble URLs with database names
+programmatically, they need to ensure that database names are properly URL-encoded
+and also NFC-normalized if they contain UTF-8 characters.
 
 The ArangoDB client tools _arangobench_, _arangodump_, _arangoexport_,
 _arangoimport_, _arangorestore_, and _arangosh_ ship with full support for the
 extended database naming convention.
-Be aware that dumps containing extended database names cannot be restored into
-older versions, however.
+
+Please be aware that dumps containing extended database names cannot be restored into
+older versions that only support the traditional naming convention. In a cluster 
+setup, it is required to use the same database naming convention for all coordinators
+and DB servers of the cluster. Otherwise the startup will be refused. In DC2DC setups 
+it is also required to use the same database naming convention for both datacenters 
+to avoid incompatibilities.
 
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
 

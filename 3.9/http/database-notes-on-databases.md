@@ -34,6 +34,9 @@ management operations cannot be initiated from out of user-defined databases.
 When ArangoDB is accessed via its HTTP REST API, the database name is read from
 the first part of the request URI path (e.g. `/_db/myDB/...`). If the request
 URI does not contain a database name, it defaults to `/_db/_system`.
+If a database name is provided in the request URI, the name must be properly URL-encoded, and,
+if it contains UTF-8 characters, these must be NFC-normalized. Any non-NFC-normalized
+database name will be rejected by arangod.
 
 Database Name
 -------------
@@ -57,8 +60,12 @@ extended names, the reverse is not true. Once the extended names have been
 enabled they will remain permanently enabled so that existing databases with
 extended names remain accessible.
 
-In a cluster, it is also required to set the value of the startup option
-consistently on all Coordinators and DB-Servers.
+Please be aware that dumps containing extended database names cannot be restored into
+older versions that only support the traditional naming convention. In a cluster 
+setup, it is required to use the same database naming convention for all coordinators
+and DB servers of the cluster. Otherwise the startup will be refused. In DC2DC setups 
+it is also required to use the same database naming convention for both datacenters 
+to avoid incompatibilities.
 {% endhint %}
 
 Also see [Database Naming Conventions](../data-modeling-naming-conventions-database-names.html).

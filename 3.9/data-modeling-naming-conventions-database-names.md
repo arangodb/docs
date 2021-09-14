@@ -56,6 +56,10 @@ extended names, the reverse is not true. Once the extended names have been
 enabled they will remain permanently enabled so that existing databases with
 extended names remain accessible.
 
-In a cluster, it is also required to set the value of the startup option
-consistently on all Coordinators and DB-Servers.
+Please be aware that dumps containing extended database names cannot be restored into
+older versions that only support the traditional naming convention. In a cluster 
+setup, it is required to use the same database naming convention for all coordinators
+and DB servers of the cluster. Otherwise the startup will be refused. In DC2DC setups 
+it is also required to use the same database naming convention for both datacenters 
+to avoid incompatibilities.
 {% endhint %}

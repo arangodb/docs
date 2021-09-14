@@ -223,17 +223,22 @@ were formerly banned in the traditional naming convention are now accepted.
 Example database names that can be used with the new naming convention:
 `"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"`
 
-Note that the default value for `--database.extended-names-databases` is `false`
-for compatibility with existing client drivers and applications that only support
-ASCII names according to the traditional database naming convention of previous
-ArangoDB versions. Enabling the feature may lead to incompatibilities up to the
-ArangoDB instance becoming inaccessible for such drivers and client applications.
-
 The ArangoDB client tools _arangobench_, _arangodump_, _arangoexport_,
 _arangoimport_, _arangorestore_, and _arangosh_ ship with full support for the 
 extended database naming convention.
-Be aware that dumps containing extended database names cannot be restored into
-older versions, however.
+
+Note that the default value for `--database.extended-names-databases` is `false`
+for compatibility with existing client drivers and applications that only support
+ASCII names according to the traditional database naming convention used in previous
+ArangoDB versions. Enabling the feature may lead to incompatibilities up to the
+ArangoDB instance becoming inaccessible for such drivers and client applications.
+
+Please be aware that dumps containing extended database names cannot be restored into
+older versions that only support the traditional naming convention. In a cluster 
+setup, it is required to use the same database naming convention for all coordinators
+and DB servers of the cluster. Otherwise the startup will be refused. In DC2DC setups 
+it is also required to use the same database naming convention for both datacenters 
+to avoid incompatibilities.
 
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
 

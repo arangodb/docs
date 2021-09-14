@@ -28,4 +28,4 @@ Special characters in database names must be properly URL-encoded, e.g. `a + b =
 
 Database names containing UTF-8 characters must be 
 [NFC-normalized](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms){:target="_blank"}.
-Non-normalized names will be rejected by _arangod_.
+Non-NFC-normalized names will be rejected by _arangod_.
