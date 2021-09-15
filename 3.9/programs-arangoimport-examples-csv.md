@@ -116,6 +116,46 @@ Extra whitespace at the end of each line will be ignored. Whitespace at the
 start of lines or between field values will not be ignored, so please make sure
 that there is no extra whitespace in front of values or between them.
 
+Overriding data types per attribute
+-----------------------------------
+
+Since v3.9.0 _arangoimport_ provides the `--datatype` startup option to fix
+the datatypes for certain attributes in CSV/TSV imports. For example, in the
+the following CSV input file, it is unclear if the numeric values should be
+imported as numbers or as stringified numbers for the individual attributes:
+
+```
+key,price,weight,fk
+123456,200,5,585852
+864924,120,10,9998242
+9949,70,11.5,499494
+6939926,2130,5,96962612
+```
+
+To determine the datatypes for the individual columns, _arangoimport_ can be
+involved with the `--datatype` startup option, once for each attribute:
+``
+--datatype key=string
+--datatype price=number
+--datatype weight=number
+--datatype fk=string
+```
+This will turn the numeric-looking values in the *key* attribute into strings 
+(so that they can be used in the `_key` attribute), but treat the attributes 
+*price* and *weight* as numbers. The values in attribute *fk* finally will be 
+treated as strings again.
+
+The possible values for `--datatype` are:
+* `string`: treats the input value as a string
+* `number`: converts input values that look like numbers as numbers, and
+  treats everything else as the number 0.
+* `boolean`: interprets the input values *false*, *null* and *0* as the
+  boolean value `false`, and everything else as the boolean value `true`.
+* `null`: unconditionallys treat all input values as `null`.
+
+If `--datatype` is used for an attribute, it takes precedence over `--convert`
+and the automatic conversions applied by the latter.
+
 Importing TSV Data
 ------------------
 

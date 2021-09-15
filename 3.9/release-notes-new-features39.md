@@ -291,6 +291,34 @@ load on servers, so any scripted imports, dumps or restore processes that
 want to keep the server load under control should set the number of client
 threads explicitly when invoking any of the above client tools.
 
+### arangoimport
+
+_arangoimport_ now provides a `--datatype` startup option, in order to fix
+the datatypes for certain attributes in CSV/TSV imports. For example, in the
+the following CSV input file, it is unclear if the numeric values should be
+imported as numbers or as stringified numbers for the individual attributes:
+
+```
+key,price,weight,fk
+123456,200,5,585852
+864924,120,10,9998242
+9949,70,11.5,499494
+6939926,2130,5,96962612
+```
+
+To determine the datatypes for the individual columns, _arangoimport_ can be
+involved with the `--datatype` startup option, once for each attribute:
+``
+--datatype key=string
+--datatype price=number
+--datatype weight=number
+--datatype fk=string
+```
+This will turn the numeric-looking values in the *key* attribute into strings 
+(so that they can be used in the `_key` attribute), but treat the attributes 
+*price* and *weight* as numbers. The values in attribute *fk* finally will be 
+treated as strings again.
+
 ### arangobench
 
 _arangobench_ now prints a short description of the test case started, so
