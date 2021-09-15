@@ -573,35 +573,113 @@ It makes a warning show at the top of every page for that version.
 
 ### Adding a new arangosh example
 
-This process is currently more or less unchanged. However to fit it into the
-Jekyll template it had to be encapsulated in a Jekyll tag.
+A complete example with the preferred indentation:
+
+```
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline ensureUniquePersistentSingle
+    @EXAMPLE_ARANGOSH_OUTPUT{ensureUniquePersistentSingle}
+    ~ db._create("ids");
+      db.ids.ensureIndex({ type: "persistent", fields: [ "myId" ], unique: true });
+      db.ids.save({ "myId": 123 });
+    | db.ids.save({ 
+    |   "myId": 123
+      }); // xpError(ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED)
+    ~ db._drop("ids");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock ensureUniquePersistentSingle
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+```
+
+Jekyll requires the example code to be encapsulated by an `arangoshexample`
+block, followed by an `include` tag to embed the example:
 
 ```
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline working_with_date_time
-    @EXAMPLE_ARANGOSH_OUTPUT{working_with_date_time}
-    db._create("exampleTime");
-    var timestamps = ["2014-05-07T14:19:09.522","2014-05-07T21:19:09.522","2014-05-08T04:19:09.522","2014-05-08T11:19:09.522","2014-05-08T18:19:09.522"];
-    for (i = 0; i < 5; i++) db.exampleTime.save({value:i, ts: timestamps[i]})
-    db._query("FOR d IN exampleTime FILTER d.ts > '2014-05-07T14:19:09.522' and d.ts < '2014-05-08T18:19:09.522' RETURN d").toArray()
-    ~addIgnoreCollection("example")
-    ~db._drop("exampleTime")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock working_with_date_time
+...
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 ```
 
-### Adding a new AQL example
-
-This process is currently more or less unchanged. However to fit it into the
-Jekyll template it had to be encapsulated in a Jekyll tag.
+Inside the block, two more wrappers are needed. The outer one marks the
+beginning and end of a so-called DocuBlock and gives it a unique name that will
+be used as file name for the example transcript (e.g.
+`3.9/generated/Examples/name_of_docublock.generated`). The inner one indicates
+that it is an arangosh example and not a curl example and repeats the DocuBlock
+name:
 
 ```
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline name_of_docublock
+@EXAMPLE_ARANGOSH_OUTPUT{name_of_docublock}
+...
+@END_EXAMPLE_ARANGOSH_OUTPUT
+@endDocuBlock name_of_docublock
+```
+
+Groups of examples should have the same name prefix. If an example needs to be
+run against an ArangoDB cluster instead of a single server (default), then give
+the name a suffix of `_cluster`.
+
+Inside the wrappers, you can write the JavaScript code for arangosh:
+
+```js
+db._create("collection");
+db.collection.save({ _key: "foo", value: 123 });
+db._query(`FOR doc IN collection RETURN doc.value`).toArray();
+db._drop("collection");
+```
+
+Each statement needs to be either on a single line, or indicate that line
+continuation is required for statements spanning multiple lines. A leading 
+pipe character `|` is required for all lines except the last line of a
+multi-line statement:
+
+```js
+  db._create("collection");
+| db.collection.save([
+|   { multiple: true },
+|   { lines: true }
+  ]);
+| for (var i = 0; i < 3; i++) {
+|   db.collection.save({ _key: "k" + i });
+  }
+  db._drop("collection");
+```
+
+The statements as well as the results will be visible in the example transcript.
+To hide certain statements from the output, e.g. for setup/teardown that is not
+relevant for the example, you can use a leading tilde `~` to suppress individual
+lines:
+
+```js
+~ db._create("collection");
+  db.collection.save({ _key: "foo" });
+~ db._drop("collection");
+```
+
+If a statement is expected to fail (e.g. to demonstrate the error case), then
+this has to be indicated with a special JavaScript comment:
+
+```js
+db._document("collection/does_not_exist"); // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND)
+```
+
+This will make the example generation continue despite the error. See
+[Error codes and meanings](https://www.arangodb.com/docs/stable/appendix-error-codes.html)
+for a list of all error codes and their names. If a unexpected error is raised,
+then the example generation will abort with an error.
+
+### Adding a new AQL example
+
+Complete example with the preferred indentation:
+
+```
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline joinTuples
     @EXAMPLE_AQL{joinTuples}
     @DATASET{joinSampleDataset}
+    @EXPLAIN{TRUE}
     FOR u IN users
       FILTER u.active == true
       LIMIT 0, 4
@@ -612,12 +690,67 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
           "friendId" : f.thisUser
         }
     @BV {
-    friend: "friend"
+      friend: "friend"
     }
     @END_EXAMPLE_AQL
     @endDocuBlock joinTuples
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+```
+
+Similar to arangosh examples, several wrappers are required. The `aqlexample`
+block encapsulates the example for Jekyll, and the `include` tag embeds it:
+
+```
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+...
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+```
+
+Inside the block, there is a DocuBlock wrapper and a wrapper to indicate that
+this is an AQL example:
+
+```
+@startDocuBlockInline name_of_docublock
+@EXAMPLE_AQL{name_of_docublock}
+...
+@END_EXAMPLE_AQL
+@endDocuBlock name_of_docublock
+```
+
+The example can optionally specify a dataset that will be loaded before the
+query is run:
+
+```
+@DATASET{name_of_dataset}
+```
+
+See <https://github.com/arangodb/arangodb/blob/devel/js/common/modules/@arangodb/examples/examples.js>
+for the available datasets.
+
+To get the query explain output including the execution plan instead of the
+actual query result, you can optionally specify:
+
+```
+@EXPLAIN{TRUE}
+```
+
+Then the actual AQL query follows, e.g.
+
+```
+FOR i IN 1..3
+  RETURN i
+```
+
+The query can optionally use bind parameters that can be passed like this:
+
+```
+FOR elem IN @arr
+  RETURN elem
+@BV {
+  arr: ["foo", "bar"]
+}
 ```
 
 ## Troubleshooting
