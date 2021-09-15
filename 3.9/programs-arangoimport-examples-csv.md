@@ -151,7 +151,7 @@ The possible values for `--datatype` are:
   treats everything else as the number 0.
 * `boolean`: interprets the input values *false*, *null* and *0* as the
   boolean value `false`, and everything else as the boolean value `true`.
-* `null`: unconditionallys treat all input values as `null`.
+* `null`: unconditionally treats all input values as `null`.
 
 If `--datatype` is used for an attribute, it takes precedence over `--convert`
 and the automatic conversions applied by the latter.
