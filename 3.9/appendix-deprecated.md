@@ -99,7 +99,7 @@ replace the old features with:
   breadth-first traversal is by using the new `order` attribute, and setting it
   to a value of `bfs`.
 
-- **overwrite option**: The `overwrite` option for insert operations (either
+- **`overwrite` option**: The `overwrite` option for insert operations (either
   single document operations or AQL `INSERT` operations) is deprecated in favor
   of the `overwriteMode` option, which provides more flexibility.
 
@@ -155,10 +155,10 @@ replace the old features with:
   discouraged. Their functionality is already removed, but they still exist to
   prevent unknown startup option errors.
 
-- **arangobench test cases**: arangobench provides several test cases which are
-  marked as deprecated. These test cases were originally written for internal 
+- **arangobench test cases**: arangobench provides several test cases that are
+  marked as deprecated. These test cases were originally written for internal
   testing and do not provide much value for end users. Therefore they will be
-  removed in a future version of arangobench. Whenever a deprecated arangobench 
+  removed in a future version of arangobench. Whenever a deprecated arangobench
   test case is invoked, there will be a warning message.
 
 - **HTTP and JavaScript traversal APIs**: The [HTTP traversal API](http/traversal.html)
