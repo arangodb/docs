@@ -29,7 +29,8 @@ The following other limitations are known for AQL queries:
 - Subqueries that are used inside expressions are pulled out of these
   expressions and executed beforehand. That means that subqueries do not
   participate in lazy evaluation of operands, for example in the
-  [ternary operator](operators.html#ternary-operator).
+  [ternary operator](operators.html#ternary-operator). Also see
+  [evaluation of subqueries](examples-combining-queries.html#evaluation-of-subqueries).
 - It is not possible to use a collection in a read operation after
   it was used for a write operation in the same AQL query.
 - In the cluster, all collections that are accessed **dynamically** by

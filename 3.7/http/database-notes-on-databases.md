@@ -32,9 +32,8 @@ additional databases and give them unique names to access them later. Database
 management operations cannot be initiated from out of user-defined databases.
 
 When ArangoDB is accessed via its HTTP REST API, the database name is read from
-the first part of the request URI path (e.g. `/_db/_system/...`). If the request
-URI does not contain a database name, the database name is automatically
-determined by the algorithm described in Database-to-Endpoint Mapping.
+the first part of the request URI path (e.g. `/_db/myDB/...`). If the request
+URI does not contain a database name, it defaults to `/_db/_system`.
 
 Database Name
 -------------
@@ -45,44 +44,3 @@ This name is used to uniquely identify a database. The default database in
 ArangoDB is named `_system`. The database name is a string consisting of only
 letters, digits and the _ (underscore) and - (dash) characters. User-defined
 database names must always start with a letter. Database names are case-sensitive.
-
-Database Organization
----------------------
-
-A single ArangoDB instance can handle multiple databases in parallel. By default,
-there will be at least one database which is named `_system`. Databases are
-physically stored in separate sub-directories underneath the database directory,
-which itself resides in the instance's data directory.
-
-Each database has its own sub-directory, named `database-<database id>`. The
-database directory contains sub-directories for the collections of the database,
-and a file named parameter.json. This file contains the database id and name.
-
-In an example ArangoDB instance which has two databases, the filesystem layout
-could look like this:
-
-```
-data/                     # the instance's data directory
-  databases/              # sub-directory containing all databases' data
-    database-<id>/        # sub-directory for a single database
-      parameter.json      # file containing database id and name
-      collection-<id>/    # directory containing data about a collection
-    database-<id>/        # sub-directory for another database
-      parameter.json      # file containing database id and name
-      collection-<id>/    # directory containing data about a collection
-      collection-<id>/    # directory containing data about a collection
-```
-
-Foxx applications are also organized in database-specific directories inside the
-application path. The filesystem layout could look like this:
-
-```
-apps/                   # the instance's application directory
-  system/               # system applications (can be ignored)
-  databases/            # sub-directory containing database-specific applications
-    <database-name>/    # sub-directory for a single database
-      <app-name>        # sub-directory for a single application
-      <app-name>        # sub-directory for a single application
-    <database-name>/    # sub-directory for another database
-      <app-name>        # sub-directory for a single application
-```

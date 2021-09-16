@@ -262,7 +262,7 @@ The example has the cities as *vertices* in several *vertex collections* - `germ
     db.frenchHighway.toArray();
     db.internationalHighway.toArray();
     examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_cities_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
@@ -284,7 +284,7 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
     db.circles.toArray();
     db.edges.toArray();
     examples.dropGraph("traversalGraph");
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_traversal_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
@@ -309,7 +309,7 @@ See the [k Shortest Paths page](aql/graphs-kshortest-paths.html) for query examp
     db.places.toArray();
     db.connections.toArray();
     examples.dropGraph("kShortestPathsGraph");
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_kshortestpaths_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
@@ -331,7 +331,7 @@ It is used to demonstrate raw traversal operations.
     examples.dropGraph("worldCountry");
     var g = examples.loadGraph("worldCountryUnManaged");
     examples.dropGraph("worldCountryUnManaged");
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_world_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
@@ -379,7 +379,7 @@ Also see:
     db.components.toArray();
     db.connections.toArray();
     examples.dropGraph("connectedComponentsGraph");
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_connectedcomponentsgraph_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}

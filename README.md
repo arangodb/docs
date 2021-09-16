@@ -3,21 +3,89 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/1df8b69b-25f8-4b73-b8f1-af8735269c35/deploy-status)](https://app.netlify.com/sites/zealous-morse-14392b/deploys)
 
 This is the ArangoDB documentation repository containing all documentation
-for all versions as published on [arangodb.com/docs](https://www.arangodb.com/docs).
+for all versions as published on [arangodb.com/docs/](https://www.arangodb.com/docs/).
 
 The documentation uses the static site generator [Jekyll](https://jekyllrb.com).
 
 View the latest successful [preview build](https://main--zealous-morse-14392b.netlify.app/)
 of the `main` branch.
 
-## Working with the documentation
+## Building the documentation
+
+Make sure that symlink support is enabled before you clone the repository with
+Git. It is turned off by default in Git for Windows. Start a terminal as
+administrator and run:
+
+```
+git config --system core.symlinks true
+```
 
 To work locally on the documentation you can:
 - [install Jekyll](https://jekyllrb.com/docs/installation/) and dependencies
 - or use the Docker container
   [arangodb/arangodb-docs](https://hub.docker.com/r/arangodb/arangodb-docs)
 
+Docker is generally easier, but may also be slower (at least under Windows).
+
 Note that the Algolia plugin has a dependency which does not support Ruby 2.6+.
+
+### Jekyll
+
+If you want to build the docs the first time, run `bundle install` to ensure
+that all dependencies (gems / plugins) are installed.
+
+For local development, start Jekyll in watch mode:
+
+`bundle exec jekyll serve`
+
+This will build the documentation, rebuild it if you change files, and serve
+the documentation site locally using Jekyll's built-in web server.
+
+You can then browse the docs in a browser at <http://127.0.0.1:4000/docs/stable/>.
+Note that it has to be `/docs/stable/` (or another version than `stable`).
+Both paths `/` and `/docs` do not work (_404 Page not found_) because of the
+configured `baseurl` in `_config.yml`, and `/docs/` redirects you to the online
+version of the documentation.
+
+To let Jekyll build the static site without serving it or watching for file
+changes, use:
+
+`bundle exec jekyll build`
+
+The generated content will be stored in the `_site/` folder.
+
+To serve the content from a previous build without watching for changes, use:
+
+`bundle exec jekyll serve --skip-initial-build --no-watch`
+
+### Docker container
+
+In the docs directory execute:
+
+`docker run --rm -v $(pwd):/docs -p 4000:4000 arangodb/arangodb-docs`
+
+This will watch file changes within the documentation repo and you will be able
+to see the resulting static site on <http://127.0.0.1:4000/docs/stable/>.
+
+To build the documentation without watch mode or serving the resulting site
+you can execute:
+
+`docker run --rm -v $(pwd):/docs arangodb/arangodb-docs bundler exec jekyll build`
+
+After that the HTML files in `_site/` are ready to be served by a webserver.
+
+Please note that you still need to put them into a `/docs` subdirectory if you
+want to serve the documentation with another web server (only relevant for
+hosting the documentation). Example:
+
+```bash
+mkdir -p /tmp/arangodocs
+cp -a _site /tmp/arangodocs/docs
+cd /tmp/arangodocs
+python -m http.server
+```
+
+### Performance
 
 A full build (all versions) will take quite a while. You can use Jekyll's
 watch mode to let it continuously rebuild the pages you change after an initial
@@ -28,8 +96,6 @@ true when changing plugins and configuration (including the navigation YAML
 when adding a new page). To be sure you have an up-to-date version remove the
 `_site` directory and then abort and restart the watch mode.
 
-### Performance
-
 To speed up the build process you may disable certain versions from being built
 by changing the `_config.yml`:
 
@@ -37,17 +103,19 @@ by changing the `_config.yml`:
 exclude:
 # - 3.9/
 # - 3.8/
-  - 3.7/
+# - 3.7/
   - 3.6/
   - 3.5/
   - 3.4/
   - 3.3/
 ```
 
-Above example disables versions 3.3 through 3.7, so that 3.8 and 3.9 will be
+Above example disables versions 3.3 through 3.6, so that 3.7, 3.8, and 3.9 will be
 built only. Do not commit these changes of the configuration!
 
-Note that building may fail if you disable required versions as defined by:
+Note that building may fail if you disable certain versions that contain the files
+that other versions refer to with symlinks, or required versions as defined in
+`_config.yml`:
 
 ```yaml
 versions:
@@ -55,80 +123,43 @@ versions:
   devel: "3.9"
 ```
 
-## Building the documentation
-
-### Jekyll
-
-If you want to build the docs the first time, run `bundle install` to ensure
-that all gems / plugins are installed.
-
-For local development, start Jekyll in watch mode:
-
-`bundle exec jekyll serve`
-
-To let Jekyll build the static site without serving it or watching for file
-changes use:
-
-`bundle exec jekyll build`
-
-To serve the content from a previous build without watching for changes use:
-
-`bundle exec jekyll serve --skip-initial-build --no-watch`
-
-You can then browse the docs in a browser at http://127.0.0.1:4000/docs/.
-Note that it has to be `/docs/`. Both `/` and `/docs` do not work
-(_404 Page not found_) because of the configured baseurl.
-
-### Docker container
-
-In the docs directory execute:
-
-`[docs]$ docker run --rm -v $(pwd):/docs -p 4000:4000 arangodb/arangodb-docs`
-
-This will watch file changes within the documentation repo and you will be able
-to see the resulting static site on http://127.0.0.1:4000/docs/.
-
-To build the documentation without watch mode or serving the resulting site
-you can execute:
-
-`[docs]$ docker run --rm -v $(pwd):/docs arangodb/arangodb-docs bundler exec jekyll build`
-
-After that the HTML files in `_site` are ready to be served by a webserver.
-
-Please note that you still need to put them into a `/docs` subdirectory.
-
-Example:
-
-```bash
-mkdir -p /tmp/arangodocs
-cp -a _site /tmp/arangodocs/docs
-cd /tmp/arangodocs
-python -m http.server
-```
-
 ## Documentation structure
 
+### Versions
+
 In the root directory, the directories `3.8`, `3.9` etc. represent the
-individual ArangoDB versions and their full documentation. The content used
-to be in version branches in the `arangodb/arangodb` repository, but now all
+individual ArangoDB versions and their documentation. We only maintain one
+version of the documentation for every minor and major version (3.9, 4.0, etc.)
+but not for every patch release (e.g. 3.8.2).
+
+The content for different documentation versions used to be in version branches
+(`2.7`, `devel`, etc.) in the `arangodb/arangodb` repository, but now all
 documentation versions live in the `main` branch of this repository. This has
 the advantage that all versions can be built at once, but the drawback of Git
 cherry-picking not being available and therefore requiring to manually apply
-changes to different versions as necessary.
+changes to different versions as necessary (copy-pasting text or files).
+
+### Books (parts)
 
 The documentation is split into different parts, called "books" for historical
 reasons. The core book (Manual) of a version does not have an own folder for its
 content, but the files are found in the version directory, e.g. `3.8/*.md`.
 Other books (AQL, HTTP) have subfolders in the version folder, e.g. `3.8/aql/`.
+
 There are also books (Drivers, Oasis) that are not directly couple to ArangoDB
 versions, that have their files in an own folders in the root directory, e.g.
 `oasis/*.md`. These folders are symlinked in multiple version folders. Some
 files, like release notes, are also symlinked to reduce maintenance costs.
 
 The organization of documents is **flat**, namely there are no subdirectories
-per book (as opposed to the previous documentation system).
+per book (as opposed to the previous documentation system). For example, all
+files of the AQL part are in the `aql/` folder. It does not have any subfolders
+like `aql/examples/`. Instead, the file name reflects which files belong
+together, e.g. `aql/examples-counting.md`.
 
-Other directories:
+### Special folders
+
+Content folders aside, there are the following other directories:
 
 | Name        | Description
 |:------------|:-----------
@@ -138,9 +169,63 @@ Other directories:
 | `_plugins`  | Jekyll extensions for the navigation, version switcher, custom tags / blocks etc.
 | `_site`     | default output directory (not committed)
 | `assets`    | files not directly related to the documentation content that also need to be served (e.g. the ArangoDB logo)
-| `js`        | JavaScript files used by the site
+| `js`        | JavaScript files used by the documentation site
 | `scripts`   | Scripts which were used in the migration process from Gitbook to Jekyll (not really needed anymore)
 | `styles`    | CSS files for the site, including a lot of legacy from Gitbook
+
+## Working with the documentation content
+
+### Text guidelines
+
+- Use American English spelling, e.g. _behavior_ instead of _behaviour_.
+- Wrap text at 80 characters where possible. This helps tremendously in version
+  control. Pre-wrap lines if necessary.
+- Put Markdown links on a single line `[link label](target.html#hash)`,
+  even if it violates the guideline of 80 characters per line.
+- Avoid breaking lines of code blocks and where Markdown does not allow line
+  breaks, e.g. in Markdown table rows (you can use `<br>` if really necessary).
+- Avoid using `here` as link label. Describe what the link points to instead.
+- Avoid overly long link labels, such as entire sentences.
+- Use relative links for cross-references to other documentation pages, e.g.
+  `../drivers/js.html` instead of `/docs/stable/drivers/js.html` or
+  `https://www.arangodb.com/docs/stable/drivers/js.html`.
+- Append `{:target="_blank"}` to Markdown links which point to external sites,
+  e.g. `[external link](https://www.github.com/){:target="_blank"}`.
+- Avoid `**bold**` and `_italic_` markup in headlines. Inline `` `code` `` is
+  acceptable for code values, nonetheless.
+- `-` is preferred for bullet points in unordered lists over `*`
+- Use `#` and `##` for level 1 and 2 headlines for new content over `===` and
+  `---` underlines.
+- There should be a blank line above and below fenced code blocks and headlines
+  (except if it is at the top of the document, right after the end of the
+  frontmatter `---`).
+- Use `js` as language in fenced code blocks for highlighting AQL queries.
+  We do not have a highlighter for AQL, but JavaScript code highlighting works
+  reasonably well.
+
+      ```js
+      FOR i IN 1..3 RETURN CONCAT("a", i)
+      ```
+
+- Use the exact spelling of Enterprise Edition and its features, as well as for
+  all other terms coined by us:
+  - _SmartGraphs_
+  - _SmartJoins_
+  - _OneShard_
+  - _Community Edition_
+  - _Enterprise Edition_
+  - _DB-Server_, not dbserver, db-server, DBserver (unless it is a code value)
+  - _Coordinator_ (uppercase C)
+  - _Agent_, _Agency_ (uppercase A)
+  - _Active Failover_
+  - _Datacenter to Datacenter Replication_, _DC2DC_
+  - _Oasis_, _ArangoDB Oasis_, _ArangoDB Cloud_
+- Do not capitalize the names of executables or code values, e.g. write
+  _arangosh_ instead of _Arangosh_.
+- Do not write TODOs right into the content. Use an HTML comment
+  `<!-- An HTML comment -->` if it is okay that the comment will be visible in
+  the page source of the generated files. Otherwise use
+  `{% comment %}...{% endcomment %}`.
 
 ### Adding links
 
@@ -218,9 +303,37 @@ For example, the 3.8 AQL navigation is defined by `_data/3.8-aql.yml`.
 
 ### Adding a page
 
-Start off by adding the page to the navigation. Assume we want to add a new
-AQL keyword to the list of operations, above the FOR language construct and
-the page we want to add will be `aql/operations-create.md`:
+Start off by finding a file name. It should be:
+
+- All lower-case
+- Use hyphen-minus `-` instead of spaces
+- Be very short but descriptive
+- Follow the patterns of existing files
+
+Note that the file name is independent of what will show in the navigation or
+what will be used as headline for that page. The file name will be used as
+part of the final URL, however. For example, `3.8/aql/examples.md` will become
+`http://www.arangodb.com/docs/3.8/aql/examples.html`.
+
+Create a new file with the file name and a `.md` file extension. Open the file
+in a text editor (Visual Studio Code is recommended). Add the following
+frontmatter:
+
+```yaml
+---
+layout: default
+description: A meaningful description of the page
+title: Short title
+---
+```
+
+Add the actual content formatted in Markdown syntax below the frontmatter.
+
+Then add the page to the navigation. Open the respective navigation definition
+file, e.g. `_data/3.8-aql.yml` if the page should be added to the AQL book of
+version 3.8. Let us assume the file is `aql/operations-create.md` and the page
+is supposed to show above the FOR language construct in the navigation. Locate
+where that other page is added and insert a new pair of lines for the new page:
 
 ```diff
  - text: High level Operations
@@ -232,17 +345,9 @@ the page we want to add will be `aql/operations-create.md`:
        href: operations-for.html
 ```
 
-Then create the Markdown document and add the following frontmatter section:
-
-```yaml
----
-layout: default
-description: A meaningful description of the page
-title: Short title
----
-```
-
-Add the actual content below the frontmatter.
+`text` will be used as label in the navigation. `href` is the name of the file,
+relative to the current book. Note that the file extension needs to be `.html`,
+not `.md`!
 
 ### Renaming a page
 
@@ -300,13 +405,81 @@ page-toc:
 A setting of `3` means that `<h1>`, `<h2>`, and `<h3>` headlines will be listed
 in the ToC, whereas `<h4>`, `<h5>`, and `<h6>` will be ignored.
 
-### When adding a new release
+### Updating version numbers
+
+#### Version number schema
+
+The version number schema is `vMajor.Minor.Patch`, e.g. `v3.7.14`. Patch releases
+contain bugfixes only. Minor releases often add new features and come with some
+breaking changes. Major releases add new features and may contain substantial
+breaking changes.
+
+Non-stable versions can have a suffix. The `devel` version usually ends with
+`-devel`, e.g. `v3.9.0-devel`. Preview releases can also have suffixes like
+`-alpha.1`, `beta.2`, `-rc.3`.
+
+#### Patch releases
+
+When a new patch release is published, the respective version number in
+`_data/versions.yml` needs to be incremented:
+
+```diff
+-"3.8": "v3.8.1"
++"3.8": "v3.8.2"
+```
+
+The examples should be re-generated to ensure that they match the actual server
+behavior of the new version.
+
+#### Major and minor releases
+
+When a new major or minor version is released to the public, the new stable
+version needs to be made the default version for the documentation. It will be
+available under the `stable` alias at <https://www.arangodb.com/docs/stable/>.
+At the same time, the in-development version needs to be updated as well.
+It will be available under the `devel` alias at
+<https://www.arangodb.com/docs/devel/>.
+
+The `stable` and `devel` versions can be adjusted in the `_config.yml` under the
+`versions` key:
+
+```diff
+ versions:
+-  stable: "3.8"
+-  devel: "3.9"
++  stable: "3.9"
++  devel: "3.10"
+```
+
+Additionally, the version numbers in `_data/versions.yml` may need to be
+adjusted for the release.
+
+Also update `_redirects` to the latest stable version.
+
+Do not forget to re-generate the examples before publishing.
+
+### Deprecating a version
+
+When an ArangoDB version reaches [End-of-Life](https://www.arangodb.com/subscriptions/end-of-life-notice/),
+its documentation needs to be marked as such. The respective version needs to
+be added to the `_data/deprecations.yml` file for that:
+
+```diff
+ - "3.4"
+ - "3.5"
+ - "3.6"
++- "3.7"
+```
+
+It makes a warning show at the top of every page for that version.
+
+### Adding a new version
 
 - Run below commands in Bash under Linux. Do not use Git Bash on Windows,
   it dereferences symlinks (copies the referenced files)!
 - Copy the latest devel version to a new directory i.e. `cp -a 3.9 4.0`
 - Create the necessary navigation definition files in `_data` by copying, e.g.
-  ```
+  ```bash
   cd _data
   for book in aql drivers http manual oasis; do
     cp -a "3.9-${book}.yml" "4.0-${book}.yml"
@@ -315,7 +488,7 @@ in the ToC, whereas `<h4>`, `<h5>`, and `<h6>` will be ignored.
   ```
 - Create relative symlinks to program option JSON files and the metrics YAML
   file in `_data`, like
-  ```
+  ```bash
   cd _data
   for prog in backup bench d dump export import inspect restore sh vpack; do
     ln -s "../4.0/generated/arango${prog}-options.json" "4.0-program-options-arango${prog}.json"
@@ -356,7 +529,7 @@ in the ToC, whereas `<h4>`, `<h5>`, and `<h6>` will be ignored.
   `4.0/release-notes.html`
 - Delete the release note pages of the previous version (here: `3.9`) in the
   folder of the new version (here: `4.0`) and symlink the files instead:
-  ```
+  ```bash
   cd 4.0
   rm release-notes-39.md
   rm release-notes-new-features39.md
@@ -380,45 +553,133 @@ in the ToC, whereas `<h4>`, `<h5>`, and `<h6>` will be ignored.
   _What's New in 4.0_
 - Add the version to `_data/versions.yml` with the full version name
 - Add all books of that version to `_data/books.yml`
-- Adjust the following fields in `_config.yml` as needed:
-  - `versions`
-  - `algolia.files_to_exclude`
-  - `exclude`
-- Update `_redirects`
-- Re-generate the examples, or rather add nightly build job for the new version
-  to Jenkins
+- Add entries for the new version in `_config.yml` to the `algolia` and
+  `exclude` keys:
+  ```diff
+   algolia:
+     files_to_exclude:
+  +    - 4.0/**/*
+       - 3.9/**/*
+  ```
+  ```diff
+   exclude:
+     - ...
+  +  - 4.0/generated
+     - 3.9/generated
+     - ...
+  +# - 4.0/
+   # - 3.9/
+  ```
 
 ### Adding a new arangosh example
 
-This process is currently more or less unchanged. However to fit it into the
-Jekyll template it had to be encapsulated in a Jekyll tag.
+A complete example with the preferred indentation:
+
+```
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline ensureUniquePersistentSingle
+    @EXAMPLE_ARANGOSH_OUTPUT{ensureUniquePersistentSingle}
+    ~ db._create("ids");
+      db.ids.ensureIndex({ type: "persistent", fields: [ "myId" ], unique: true });
+      db.ids.save({ "myId": 123 });
+    | db.ids.save({ 
+    |   "myId": 123
+      }); // xpError(ERROR_ARANGO_UNIQUE_CONSTRAINT_VIOLATED)
+    ~ db._drop("ids");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock ensureUniquePersistentSingle
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
+```
+
+Jekyll requires the example code to be encapsulated by an `arangoshexample`
+block, followed by an `include` tag to embed the example:
 
 ```
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
-    @startDocuBlockInline working_with_date_time
-    @EXAMPLE_ARANGOSH_OUTPUT{working_with_date_time}
-    db._create("exampleTime");
-    var timestamps = ["2014-05-07T14:19:09.522","2014-05-07T21:19:09.522","2014-05-08T04:19:09.522","2014-05-08T11:19:09.522","2014-05-08T18:19:09.522"];
-    for (i = 0; i < 5; i++) db.exampleTime.save({value:i, ts: timestamps[i]})
-    db._query("FOR d IN exampleTime FILTER d.ts > '2014-05-07T14:19:09.522' and d.ts < '2014-05-08T18:19:09.522' RETURN d").toArray()
-    ~addIgnoreCollection("example")
-    ~db._drop("exampleTime")
-    @END_EXAMPLE_ARANGOSH_OUTPUT
-    @endDocuBlock working_with_date_time
+...
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 ```
 
-### Adding a new AQL example
-
-This process is currently more or less unchanged. However to fit it into the
-Jekyll template it had to be encapsulated in a Jekyll tag.
+Inside the block, two more wrappers are needed. The outer one marks the
+beginning and end of a so-called DocuBlock and gives it a unique name that will
+be used as file name for the example transcript (e.g.
+`3.9/generated/Examples/name_of_docublock.generated`). The inner one indicates
+that it is an arangosh example and not a curl example and repeats the DocuBlock
+name:
 
 ```
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline name_of_docublock
+@EXAMPLE_ARANGOSH_OUTPUT{name_of_docublock}
+...
+@END_EXAMPLE_ARANGOSH_OUTPUT
+@endDocuBlock name_of_docublock
+```
+
+Groups of examples should have the same name prefix. If an example needs to be
+run against an ArangoDB cluster instead of a single server (default), then give
+the name a suffix of `_cluster`.
+
+Inside the wrappers, you can write the JavaScript code for arangosh:
+
+```js
+db._create("collection");
+db.collection.save({ _key: "foo", value: 123 });
+db._query(`FOR doc IN collection RETURN doc.value`).toArray();
+db._drop("collection");
+```
+
+Each statement needs to be either on a single line, or indicate that line
+continuation is required for statements spanning multiple lines. A leading 
+pipe character `|` is required for all lines except the last line of a
+multi-line statement:
+
+```js
+  db._create("collection");
+| db.collection.save([
+|   { multiple: true },
+|   { lines: true }
+  ]);
+| for (var i = 0; i < 3; i++) {
+|   db.collection.save({ _key: "k" + i });
+  }
+  db._drop("collection");
+```
+
+The statements as well as the results will be visible in the example transcript.
+To hide certain statements from the output, e.g. for setup/teardown that is not
+relevant for the example, you can use a leading tilde `~` to suppress individual
+lines:
+
+```js
+~ db._create("collection");
+  db.collection.save({ _key: "foo" });
+~ db._drop("collection");
+```
+
+If a statement is expected to fail (e.g. to demonstrate the error case), then
+this has to be indicated with a special JavaScript comment:
+
+```js
+db._document("collection/does_not_exist"); // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND)
+```
+
+This will make the example generation continue despite the error. See
+[Error codes and meanings](https://www.arangodb.com/docs/stable/appendix-error-codes.html)
+for a list of all error codes and their names. If a unexpected error is raised,
+then the example generation will abort with an error.
+
+### Adding a new AQL example
+
+Complete example with the preferred indentation:
+
+```
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline joinTuples
     @EXAMPLE_AQL{joinTuples}
     @DATASET{joinSampleDataset}
+    @EXPLAIN{TRUE}
     FOR u IN users
       FILTER u.active == true
       LIMIT 0, 4
@@ -429,21 +690,68 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
           "friendId" : f.thisUser
         }
     @BV {
-    friend: "friend"
+      friend: "friend"
     }
     @END_EXAMPLE_AQL
     @endDocuBlock joinTuples
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+```
+
+Similar to arangosh examples, several wrappers are required. The `aqlexample`
+block encapsulates the example for Jekyll, and the `include` tag embeds it:
+
+```
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+...
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 ```
 
-## Guidelines
+Inside the block, there is a DocuBlock wrapper and a wrapper to indicate that
+this is an AQL example:
 
-- Use American English.
-- Wrap text at 80 characters. This helps tremendously in version control.
-- Put Markdown links on a single line `[link label](target.html#hash)`,
-  even if it violates the guideline of 80 characters per line.
-- Append `{:target="_blank"}` to Markdown links which point to external sites.
+```
+@startDocuBlockInline name_of_docublock
+@EXAMPLE_AQL{name_of_docublock}
+...
+@END_EXAMPLE_AQL
+@endDocuBlock name_of_docublock
+```
+
+The example can optionally specify a dataset that will be loaded before the
+query is run:
+
+```
+@DATASET{name_of_dataset}
+```
+
+See <https://github.com/arangodb/arangodb/blob/devel/js/common/modules/@arangodb/examples/examples.js>
+for the available datasets.
+
+To get the query explain output including the execution plan instead of the
+actual query result, you can optionally specify:
+
+```
+@EXPLAIN{TRUE}
+```
+
+Then the actual AQL query follows, e.g.
+
+```
+FOR i IN 1..3
+  RETURN i
+```
+
+The query can optionally use bind parameters that can be passed like this:
+
+```
+FOR elem IN @arr
+  RETURN elem
+@BV {
+  arr: ["foo", "bar"]
+}
+```
 
 ## Troubleshooting
 
@@ -540,6 +848,14 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
   to the list of excludes in `_config.yml`.
 
 - ```
+  /opt/build/repo/_plugins/versions/version.rb:45:in `<=>': undefined method `version' for nil:NilClass (NoMethodError)
+  ```
+
+  This error occurs sporadically in the Netlify preview builds. The cause is
+  unclear. So far it was sufficient to trigger another build, e.g. by pushing
+  an empty commit, and it succeeded.
+
+- ```
   Please append `--trace` to the `build` command
   for any additional information or backtrace.
   ```
@@ -566,9 +882,19 @@ Jekyll template it had to be encapsulated in a Jekyll tag.
 
 ## CI/Netlify
 
-For the CI process we are currently using Netlify. This service has been built
-so that you can quickly test and deploy static sites. We are only using it to
-have a live preview and a CI pipeline.
+For the CI process we currently use Netlify. This service has been built
+so that you can quickly test and deploy static sites. We only use it to
+have a live preview and a CI pipeline, not for hosting the actual documentation
+site.
+
+In every pull request, there is a number of so-called checks (above the text
+field for entering a comment). The **last entry** should be
+`netlify/zealous-morse-14392b/deploy-preview` with a **Details** link. Whenever
+you push a change to the PR branch, Netlify will build a preview. While it is
+doing that or if it fails building the docs, then the _Details_ link will get
+you to the build log. If it succeeded, then it gets you to the hosted preview
+of that PR. If no checks show up at all, then Netlify is probably busy with
+another build (or down). The checks should eventually appear, however.
 
 There are a few files in the repo required for Netlify:
 

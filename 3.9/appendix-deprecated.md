@@ -99,7 +99,7 @@ replace the old features with:
   breadth-first traversal is by using the new `order` attribute, and setting it
   to a value of `bfs`.
 
-- **Overwrite option**: The `overwrite` option for insert operations (either
+- **`overwrite` option**: The `overwrite` option for insert operations (either
   single document operations or AQL `INSERT` operations) is deprecated in favor
   of the `overwriteMode` option, which provides more flexibility.
 
@@ -133,6 +133,12 @@ replace the old features with:
     unnecessary nowadways.
   - `--http.hide-product-header`: whether or not to hide the `Server: ArangoDB`
     header in all responses served by arangod.
+  - `--network.protocol`: network protocol to use for cluster-internal 
+    communication. The protocol will be auto-decided from version 3.9 onwards.
+  - `--query.allow-collections-in-expressions`: allow full collections to be 
+    used in AQL expressions. This option defaults to `false` from version 3.9
+    onwards and will be removed in a future version. It is only useful to 
+    enable it when migrating from older versions.
 
   The following options are deprecated for _arangorestore_:
   - `--default-number-of-shards` (use `--number-of-shards` instead)
@@ -148,6 +154,12 @@ replace the old features with:
   removed in any future version of ArangoDB, so their usage is highly
   discouraged. Their functionality is already removed, but they still exist to
   prevent unknown startup option errors.
+
+- **arangobench test cases**: arangobench provides several test cases that are
+  marked as deprecated. These test cases were originally written for internal
+  testing and do not provide much value for end users. Therefore they will be
+  removed in a future version of arangobench. Whenever a deprecated arangobench
+  test case is invoked, there will be a warning message.
 
 - **HTTP and JavaScript traversal APIs**: The [HTTP traversal API](http/traversal.html)
   is deprecated since version 3.4.0. The JavaScript traversal module

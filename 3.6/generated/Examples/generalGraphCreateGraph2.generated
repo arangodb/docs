@@ -1,9 +1,9 @@
-arangosh&gt; <span class="hljs-keyword">var</span> graph_module = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/general-graph"</span>);
-arangosh&gt; graph = graph_module._create(<span class="hljs-string">"myGraph"</span>,
-........&gt; [graph_module._relation(<span class="hljs-string">"myRelation"</span>, [<span class="hljs-string">"male"</span>, <span class="hljs-string">"female"</span>], [<span class="hljs-string">"male"</span>, <span class="hljs-string">"female"</span>])], [<span class="hljs-string">"sessions"</span>]);
+arangosh&gt; <span class="hljs-keyword">var</span> graph_module = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/general-graph&quot;</span>);
+arangosh&gt; graph = graph_module._create(<span class="hljs-string">&quot;myGraph&quot;</span>,
+........&gt; [graph_module._relation(<span class="hljs-string">&quot;myRelation&quot;</span>, [<span class="hljs-string">&quot;male&quot;</span>, <span class="hljs-string">&quot;female&quot;</span>], [<span class="hljs-string">&quot;male&quot;</span>, <span class="hljs-string">&quot;female&quot;</span>])], [<span class="hljs-string">&quot;sessions&quot;</span>]);
 {[Graph] 
-  <span class="hljs-string">"myRelation"</span> : [ArangoCollection <span class="hljs-number">75687</span>, <span class="hljs-string">"myRelation"</span> (type edge, status loaded)], 
-  <span class="hljs-string">"female"</span> : [ArangoCollection <span class="hljs-number">75681</span>, <span class="hljs-string">"female"</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
-  <span class="hljs-string">"male"</span> : [ArangoCollection <span class="hljs-number">75684</span>, <span class="hljs-string">"male"</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
-  <span class="hljs-string">"sessions"</span> : [ArangoCollection <span class="hljs-number">75678</span>, <span class="hljs-string">"sessions"</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
+  <span class="hljs-string">&quot;myRelation&quot;</span> : [ArangoCollection <span class="hljs-number">75699</span>, <span class="hljs-string">&quot;myRelation&quot;</span> (type edge, status loaded)], 
+  <span class="hljs-string">&quot;female&quot;</span> : [ArangoCollection <span class="hljs-number">75693</span>, <span class="hljs-string">&quot;female&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">&quot;male&quot;</span> : [ArangoCollection <span class="hljs-number">75696</span>, <span class="hljs-string">&quot;male&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">&quot;sessions&quot;</span> : [ArangoCollection <span class="hljs-number">75690</span>, <span class="hljs-string">&quot;sessions&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
 }
