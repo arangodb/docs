@@ -147,6 +147,7 @@ Alternatively, it can be created on a field of one of the following types:
 - `com.arangodb.springframework.core.geo.GeoJsonLineString`
 - `com.arangodb.springframework.core.geo.GeoJsonMultiLineString`
 - `com.arangodb.springframework.core.geo.GeoJsonPolygon`
+- `com.arangodb.springframework.core.geo.GeoJsonMultiPolygon`
 
 These types will be serialized and deserialized to and from GeoJSON geometry objects. Following the GeoJSON 
 specification, the first coordinate in the point coordinates list is the latitude and the second one is the longitude.
