@@ -32,8 +32,8 @@ be locked separately for both, reading and writing.
 
 With MMFiles as storage engine, the `WITH` operation is optional for single
 server instances, but it helps to avoid deadlocks caused by lazy locking of
-collections. There is a deadlock detection, which will abort queries that are
-stuck with the error `AQL: deadlock detected`.
+collections. There is a deadlock detection that will abort stuck queries with
+the error `AQL: deadlock detected`.
 
 The `WITH` operation is required if you use a cluster deployment, but only for
 AQL queries which dynamically access collections for reading.
@@ -73,8 +73,8 @@ However, if client applications specify the list of used collections for all
 their queries using *WITH*, then no deadlocks will happen and no queries will
 be aborted due to deadlock situations.
 
-From ArangoDB 3.1 onwards `WITH` is required for traversals in a
-clustered environment in order to avoid deadlocks.
+A `WITH` declaration is required for traversals in a clustered environment in
+order to avoid deadlocks.
 
 Note that for queries that access only a single collection or that have all
 collection names specified somewhere else in the query string, there is no
@@ -83,7 +83,7 @@ automatically figure out which collections are going to be used by the query.
 *WITH* is only useful for queries that dynamically access collections, e.g.
 via traversals, shortest path operations or the *DOCUMENT()* function.
 
-```
+```js
 WITH managers
 FOR v, e, p IN OUTBOUND 'users/1' usersHaveManagers
   RETURN { v, e, p }
