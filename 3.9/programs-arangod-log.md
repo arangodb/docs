@@ -142,7 +142,7 @@ Format                  | Example                  | Description
 ## Escaping
 
 There are two flags for retaining or escaping control and unicode 
-characters in the log. The flag `log.escape` is deprecated and, instead, 
+characters in the log. The flag `--log.escape` is deprecated since v3.9.0, and instead, 
 the new flags `--log.escape-control-chars` and `log.escape-unicode-chars` 
 should be used. 
 
