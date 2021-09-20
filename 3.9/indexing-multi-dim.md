@@ -1,21 +1,17 @@
 ---
 layout: default
-description: This is an introduction to ArangoDB's multi-dimensional indexes
+description: A multi dimensional index allows to efficiently intersect multiple range queries
 ---
-Multi-dimensional indexes
-=========================
+# Multi-dimensional indexes
 
-Introduction to Multi-dimensional Indexes
------------------------------------------
-
-The multi-dimensional index type provided by ArangoDB can be used to efficiently
-intersect multiple range queries.
+The multi-dimensional index type (also called ZKD) provided by ArangoDB can be
+used to efficiently intersect multiple range queries.
 
 A multi-dimensional index is setup by setting the index type to `"zkd"`.
 The `fields` attribute describes which fields are used as dimensions.
 The value of each dimension has to be a numeric (double) value.
 
-### Querying documents within a 3D box
+## Querying documents within a 3D box
 
 Assume we have documents in a collection `points` of the form
 
@@ -52,7 +48,7 @@ FOR p IN points
     RETURN p
 ```
 
-### Possible range queries
+## Possible range queries
 
 Having an index on a set of fields does not require you to specify a full range
 for every field. For each field you can decide if you want to bound
@@ -71,7 +67,7 @@ FOR p IN points
     RETURN p
 ```
 
-### Example Use Case
+## Example Use Case
 
 If you build a calendar using ArangoDB you could create a collection for each user
 that contains her appointments. The documents would roughly look as follows:
@@ -88,7 +84,7 @@ that contains her appointments. The documents would roughly look as follows:
 multi-dimensional index on the fields `["from", "to"]` allows you to query
 for all appointments within a given time range efficiently.
 
-#### Finding all appointments within a time range
+### Finding all appointments within a time range
 
 Given a time range `[f, t]` we want to find all appointments `[from, to]` that
 are completely contained in `[f, t]`. Those appointments clearly satisfy the
@@ -107,7 +103,7 @@ FOR app IN appointments
     RETURN app
 ```
 
-#### Finding all appointments that intersect a time range
+### Finding all appointments that intersect a time range
 
 Given a time range `[f, t]` we want to find all appointments `[from, to]` that
 intersect `[f, t]`. Two intervals `[f, t]` and `[from, to]` intersect if
@@ -126,7 +122,7 @@ FOR app IN appointments
     RETURN app
 ```
 
-### Limitations
+## Limitations
 
 Currently there are a few limitations:
 
