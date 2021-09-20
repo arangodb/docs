@@ -297,8 +297,8 @@ traversal too early. A construction like `(!IS_NULL(edge) AND edge.label != 'foo
 can be used to avoid it.
 {% endhint %}
 
-There is also the option to store the PRUNE condition as a variable, as in the following 
-example: 
+There is also the option to store the `PRUNE` condition as a variable, as in the
+following example:
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphPruneVerticesVariable
@@ -313,10 +313,9 @@ example:
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-This will store the PRUNE condition `v._key == 'G'` in the variable `pruneCondition`. Later on,
-it will be used as the condition for FILTER, to avoid retyping the condition which is the same
-as in PRUNE.
-
+This will store the `PRUNE` condition `v._key == 'G'` in the variable
+`pruneCondition`. Later on, it will be used as the condition for `FILTER` to
+avoid retyping the condition that is the same as in `PRUNE`.
 
 ### Filtering on paths
 
