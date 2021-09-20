@@ -26,6 +26,6 @@ Special characters in database names must be properly URL-encoded, e.g. `a + b =
 
     http://localhost:8529/_db/a%20%2B%20b%20%3D%20c/_api/version
 
-Database names containing UTF-8 characters must be 
+Database names containing Unicode must be properly
 [NFC-normalized](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms){:target="_blank"}.
 Non-NFC-normalized names will be rejected by _arangod_.
