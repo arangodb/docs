@@ -90,10 +90,12 @@ public interface MyRepository extends ArangoRepository<Customer, String>{
 
 ## Spring Expression support
 
-Since version 3.6.0, SpEL expressions can be embedded in the query string to dynamically customize it depending on the 
-invocation parameters and/or invoking methods on Spring Beans. In particular:
+Since version 3.6.0, SpEL expressions can be embedded in the query string to
+dynamically customize it depending on the invocation parameters and/or invoking
+methods on Spring Beans. In particular:
 - SpEL expressions must be wrapped within `#{}`
-- SpEL variables can be set annotating method parameters with `@SpelParam("varName")` and referenced with `#varName`
+- SpEL variables can be set annotating method parameters with
+  `@SpelParam("varName")` and referenced with `#varName`
 - Spring Beans can be referenced with `@myBean` (factory beans with `&myBean`)
 - the SpEL variable `#collection` is automatically set
 
