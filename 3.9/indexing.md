@@ -16,6 +16,6 @@ There are special sections for
   - [Persistent Indexes](indexing-persistent.html)
   - [TTL Indexes](indexing-ttl.html)
   - [Fulltext Indexes](indexing-fulltext.html)
-  - [Multidimensional Indexes](indexing-multi-dim.html)
+  - [Multi-dimensional Indexes](indexing-multi-dim.html)
   - [Geo-spatial Indexes](indexing-geo.html)
   - [Vertex-centric Indexes](indexing-vertex-centric.html)
