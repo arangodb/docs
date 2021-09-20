@@ -32,6 +32,24 @@ See:
 AQL
 ---
 
+### Prune Variable
+
+Added an option to store `PRUNE` expression as a variable. Now, a `PRUNE`
+condition can be stored in a variable and be used later in the query without
+having to repeat the `PRUNE` condition:
+
+```js
+FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
+  PRUNE pruneCondition = v.isRelevant == true
+  FILTER pruneCondition
+  RETURN p
+```
+
+The condition `v.isRelevant == true` is stored in the variable `pruneCondition`,
+and later used as a condition for `FILTER`.
+
+See [Pruning](aql/graphs-traversals.html#pruning)
+
 ### Decay Functions
 
 Added three decay functions to AQL:
