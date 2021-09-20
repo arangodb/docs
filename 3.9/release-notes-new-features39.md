@@ -212,8 +212,9 @@ Server options
 
 ### Extended naming convention for databases
 
-There is a new startup option allowing database names to contain most UTF-8
-characters. The option name is `--database.extended-names-databases`.
+There is a new startup option `--database.extended-names-databases` to allow
+database names to contain most UTF-8 characters. This feature is
+**experimental** in ArangoDB 3.9, but will become the norm in a future version.
 
 Running the server with the option enabled provides support for database names
 that are not comprised within the ASCII table, such as Japanese or Arabic
@@ -233,12 +234,12 @@ ASCII names according to the traditional database naming convention used in prev
 ArangoDB versions. Enabling the feature may lead to incompatibilities up to the
 ArangoDB instance becoming inaccessible for such drivers and client applications.
 
-Please be aware that dumps containing extended database names cannot be restored into
-older versions that only support the traditional naming convention. In a cluster 
-setup, it is required to use the same database naming convention for all coordinators
-and DB servers of the cluster. Otherwise the startup will be refused. In DC2DC setups 
-it is also required to use the same database naming convention for both datacenters 
-to avoid incompatibilities.
+Please be aware that dumps containing extended database names cannot be restored
+into older versions that only support the traditional naming convention. In a
+cluster setup, it is required to use the same database naming convention for all
+Coordinators and DB-Servers of the cluster. Otherwise the startup will be
+refused. In DC2DC setups it is also required to use the same database naming
+convention for both datacenters to avoid incompatibilities.
 
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
 

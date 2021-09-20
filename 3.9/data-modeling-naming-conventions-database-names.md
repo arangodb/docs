@@ -11,9 +11,15 @@ names conform to the selected naming convention for databases.
 
 In ArangoDB versions before 3.9 there was only the **traditional** naming
 convention available. Since ArangoDB version 3.9 there is also the **extended**
-naming convention, which is disabled by default. It can be enabled on an
+naming convention, that is disabled by default. It can be enabled on an
 installation by setting the startup option `--database.extended-names-databases`
 to `true`.
+
+{% hint 'info' %}
+The extended naming convention is an **experimental** feature in ArangoDB 3.9,
+but will become the norm in a future version. Drivers and client applications
+should be prepared for this feature.
+{% endhint %}
 
 The restrictions of the two naming conventions are:
 
@@ -56,10 +62,10 @@ extended names, the reverse is not true. Once the extended names have been
 enabled they will remain permanently enabled so that existing databases with
 extended names remain accessible.
 
-Please be aware that dumps containing extended database names cannot be restored into
-older versions that only support the traditional naming convention. In a cluster 
-setup, it is required to use the same database naming convention for all coordinators
-and DB servers of the cluster. Otherwise the startup will be refused. In DC2DC setups 
-it is also required to use the same database naming convention for both datacenters 
-to avoid incompatibilities.
+Please be aware that dumps containing extended database names cannot be restored
+into older versions that only support the traditional naming convention. In a
+cluster setup, it is required to use the same database naming convention for all
+Coordinators and DB-Servers of the cluster. Otherwise the startup will be
+refused. In DC2DC setups it is also required to use the same database naming
+convention for both datacenters to avoid incompatibilities.
 {% endhint %}
