@@ -184,5 +184,3 @@ the sort order of those which are returned can be wrong (whenever the persistent
 index is consulted).
 
 To fix persistent indexes after a language change, delete and re-create them.
-Skiplist indexes are not affected, because they are not persisted and
-automatically rebuilt on every server start.
