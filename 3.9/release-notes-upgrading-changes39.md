@@ -19,6 +19,36 @@ now expected to be present on all targets that run ArangoDB 3.9 executables.
 If a target does not support AVX instructions, it may fail with SIGILL at
 runtime.
 
+Extended naming convention for databases
+----------------------------------------
+
+There is a new startup option allowing database names to contain most UTF-8
+characters. The option name is `--database.extended-names-databases`.
+
+The feature is disabled by default to ensure compatibility with existing client
+drivers and applications that only support ASCII names according to the
+traditional database naming convention used in previous ArangoDB versions.
+
+If the feature is enabled, then any endpoints that contain database names 
+in the URL may contain special characters that were previously not allowed
+(percent-encoded). They are also to be expected in payloads that contain
+database names. If client applications assemble URLs with database names
+programmatically, they need to ensure that database names are properly URL-encoded
+and also NFC-normalized if they contain UTF-8 characters.
+
+The ArangoDB client tools _arangobench_, _arangodump_, _arangoexport_,
+_arangoimport_, _arangorestore_, and _arangosh_ ship with full support for the
+extended database naming convention.
+
+Please be aware that dumps containing extended database names cannot be restored
+into older versions that only support the traditional naming convention. In a
+cluster setup, it is required to use the same database naming convention for all
+Coordinators and DB-Servers of the cluster. Otherwise the startup will be
+refused. In DC2DC setups it is also required to use the same database naming
+convention for both datacenters to avoid incompatibilities.
+
+Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+
 AQL
 ---
 

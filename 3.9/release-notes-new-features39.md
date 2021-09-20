@@ -228,6 +228,41 @@ The timeout value for web interface sessions can be adjusted via the
 Server options
 --------------
 
+### Extended naming convention for databases
+
+There is a new startup option `--database.extended-names-databases` to allow
+database names to contain most UTF-8 characters. This feature is
+**experimental** in ArangoDB 3.9, but will become the norm in a future version.
+
+Running the server with the option enabled provides support for database names
+that are not comprised within the ASCII table, such as Japanese or Arabic
+letters, emojis, letters with accentuation. Also, many ASCII characters that
+were formerly banned in the traditional naming convention are now accepted.
+
+Example database names that can be used with the new naming convention:
+`"España", "😀", "犬", "كلب", "@abc123", "København", "München", "Россия", "abc? <> 123!"`
+
+The ArangoDB client tools _arangobench_, _arangodump_, _arangoexport_,
+_arangoimport_, _arangorestore_, and _arangosh_ ship with full support for the 
+extended database naming convention.
+
+Note that the default value for `--database.extended-names-databases` is `false`
+for compatibility with existing client drivers and applications that only support
+ASCII names according to the traditional database naming convention used in previous
+ArangoDB versions. Enabling the feature may lead to incompatibilities up to the
+ArangoDB instance becoming inaccessible for such drivers and client applications.
+
+Please be aware that dumps containing extended database names cannot be restored
+into older versions that only support the traditional naming convention. In a
+cluster setup, it is required to use the same database naming convention for all
+Coordinators and DB-Servers of the cluster. Otherwise the startup will be
+refused. In DC2DC setups it is also required to use the same database naming
+convention for both datacenters to avoid incompatibilities.
+
+Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+
+### Version information
+
 The _arangod_ server now provides a command `--version-json` to print version
 information in JSON format. This output can be used by tools that need to 
 programmatically inspect an _arangod_ executable.

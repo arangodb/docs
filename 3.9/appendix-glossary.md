@@ -37,6 +37,9 @@ A database contains its own collections (which cannot be accessed from other dat
 There will always be at least one database in ArangoDB. This is the default database, named _system. This database cannot be dropped, and provides special operations for creating, dropping, and enumerating databases. Users can create additional databases and give them unique names to access them later. Database management operations cannot be initiated from out of user-defined databases.
 
 When ArangoDB is accessed via its HTTP REST API, the database name is read from the first part of the request URI path (e.g. `/_db/myDB/`). If the request URI does not contain a database name, it defaults to `/_db/_system`.
+If a database name is provided in the request URI, the name must be properly
+URL-encoded, and, if it contains UTF-8 characters, these must be NFC-normalized.
+Any non-NFC-normalized database name will be rejected by _arangod_.
 
 Database Name
 -------------
@@ -44,11 +47,15 @@ Database Name
 Each database must be given a unique name. This name is used to uniquely
 identify a database.
 
-The database name is a string consisting of only letters, digits, underscore
-(`_`) and dash (`-`) characters. User-defined database names must always start
-with a letter.
+There are two naming conventions available for database names: the **traditional**
+and the **extended** naming conventions. Whether the former or the latter is active
+depends upon the value of the startup flag `--database.extended-names-databases`.
+Starting the server with this flag set to `true` will activate the _extended_
+naming convention, which tolerates names with special and UTF-8 characters.
+If the flag is set to `false` (the default value), the _traditional_ naming
+convention is activated.
 
-Database names are case-sensitive.
+Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html)
 
 Database Organization
 ---------------------
@@ -70,12 +77,15 @@ the application path. The filesystem layout could look like this:
 apps/                   # the instance's application directory
   system/               # system applications (can be ignored)
   _db/                  # sub-directory containing database-specific applications
-    <database-name>/    # sub-directory for a single database
+    <database-dir>/    # sub-directory for a single database
       <mountpoint>/APP  # sub-directory for a single application
       <mountpoint>/APP  # sub-directory for a single application
-    <database-name>/    # sub-directory for another database
+    <database-dir>/    # sub-directory for another database
       <mountpoint>/APP  # sub-directory for a single application
 ```
+
+The name of `<database-dir>` will be the database's original name or the
+database's ID if its name contains special characters.
 
 Document
 --------
