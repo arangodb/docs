@@ -78,7 +78,8 @@ enclosed in quotes.
 
 Numeric values not enclosed in quotes will be treated as numbers.
 Note that leading zeros in numeric values will be removed. To import numbers
-with leading zeros, please use strings (e.g. `"012"` instead of `012`).
+with leading zeros, please use strings (e.g. `"012"` instead of `012` or
+[override the datatype](#overriding-data-types-per-attribute)).
 
 You can set `--convert` to `false` if you want to treat all unquoted literals
 and numbers as strings instead. `--convert` is enabled by default.
@@ -119,7 +120,9 @@ that there is no extra whitespace in front of values or between them.
 Overriding data types per attribute
 -----------------------------------
 
-Since v3.9.0 _arangoimport_ provides the `--datatype` startup option to fix
+<small>Introduced in: v3.9.0</small>
+
+The `--datatype` startup option can be used to fix
 the datatypes for certain attributes in CSV/TSV imports. For example, in the
 the following CSV input file, it is unclear if the numeric values should be
 imported as numbers or as stringified numbers for the individual attributes:
@@ -133,28 +136,41 @@ key,price,weight,fk
 ```
 
 To determine the datatypes for the individual columns, _arangoimport_ can be
-involved with the `--datatype` startup option, once for each attribute:
-``
+invoked with the `--datatype` startup option, once for each attribute:
+
+```
 --datatype key=string
 --datatype price=number
 --datatype weight=number
 --datatype fk=string
 ```
-This will turn the numeric-looking values in the *key* attribute into strings 
-(so that they can be used in the `_key` attribute), but treat the attributes 
-*price* and *weight* as numbers. The values in attribute *fk* finally will be 
-treated as strings again.
+
+This will turn the numeric-looking values in the `key` attribute into strings
+but treat the attributes `price` and `weight` as numbers. Finally, the values in
+attribute `fk` will be treated as strings again.
 
 The possible values for `--datatype` are:
-* `string`: treats the input value as a string
-* `number`: converts input values that look like numbers as numbers, and
-  treats everything else as the number 0.
-* `boolean`: interprets the input values *false*, *null* and *0* as the
-  boolean value `false`, and everything else as the boolean value `true`.
-* `null`: unconditionally treats all input values as `null`.
+- `null`: unconditionally treats all input values as `null`, effectively
+  ignoring the column (similar to `--remove-attribute`) because `null` values
+  are dropped
+- `boolean`: interprets the input values `false`, `null` and `0` (quoted or
+  unquoted) as the boolean value `false`, and everything else as the boolean
+  value `true`.
+- `number`: converts input values that look like numbers to numbers, including
+  numbers wrapped in quote marks (`--quote`), and treats everything else as the
+  number `0`.
+- `string`: treats the input value as a string
 
 If `--datatype` is used for an attribute, it takes precedence over `--convert`
-and the automatic conversions applied by the latter.
+and the automatic conversions applied by the latter. If you want to import
+most fields as strings, then you can use `--convert false` and only override
+the datatype for non-string fields with `--datatype`:
+
+```
+--convert false
+--datatype price=number
+--datatype weight=number
+```
 
 Importing TSV Data
 ------------------

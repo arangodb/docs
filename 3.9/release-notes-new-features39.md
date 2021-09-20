@@ -307,17 +307,20 @@ key,price,weight,fk
 ```
 
 To determine the datatypes for the individual columns, _arangoimport_ can be
-involved with the `--datatype` startup option, once for each attribute:
-``
+invoked with the `--datatype` startup option, once for each attribute:
+
+```
 --datatype key=string
 --datatype price=number
 --datatype weight=number
 --datatype fk=string
 ```
-This will turn the numeric-looking values in the *key* attribute into strings 
-(so that they can be used in the `_key` attribute), but treat the attributes 
-*price* and *weight* as numbers. The values in attribute *fk* finally will be 
-treated as strings again.
+
+This will turn the numeric-looking values in the `key` attribute into strings
+but treat the attributes `price` and `weight` as numbers. Finally, the values in
+attribute `fk` will be treated as strings again.
+
+See [Overriding data types per attribute](programs-arangoimport-examples-csv.html#overriding-data-types-per-attribute)
 
 ### arangobench
 
