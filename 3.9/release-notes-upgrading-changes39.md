@@ -31,7 +31,7 @@ traditional database naming convention used in previous ArangoDB versions.
 
 If the feature is enabled, then any endpoints that contain database names 
 in the URL may contain special characters that were previously not allowed
-(percent-encoded). They are also to be expected in payloads that feature
+(percent-encoded). They are also to be expected in payloads that contain
 database names. If client applications assemble URLs with database names
 programmatically, they need to ensure that database names are properly URL-encoded
 and also NFC-normalized if they contain UTF-8 characters.
