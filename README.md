@@ -10,7 +10,47 @@ The documentation uses the static site generator [Jekyll](https://jekyllrb.com).
 View the latest successful [preview build](https://main--zealous-morse-14392b.netlify.app/)
 of the `main` branch.
 
-## Building the documentation
+## Contributing
+
+To suggest a concrete change to the documentation, you may
+[edit files directly on GitHub](https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files).
+It will fork the repository automatically if necessary. Commit the changes to a
+new branch, give it a succinct name, and open a pull request (PR).
+
+To add more changes to a PR, click on the branch name below the headline
+of the PR (the latter link of "&lt;User&gt; wants to merge &lt;n&gt; commits
+into `main` from `branch-name`"). Then locate and edit the next file.
+Commit the changes directly to your PR branch.
+
+For general suggestions, feel free to
+[create an issue](https://github.com/arangodb/docs/issues/new).
+
+### Automatic Previews
+
+In every pull request, there is a number of so-called checks (above the text
+field for entering a comment). The **last entry** should be
+`netlify/zealous-morse-14392b/deploy-preview` with a **Details** link. Whenever
+you push a change to the PR branch, Netlify will build a preview. While it is
+doing that or if it fails building the docs, then the _Details_ link will get
+you to the build log. If it succeeded, then it gets you to the hosted preview
+of that PR. If no checks show up at all, then Netlify is probably busy with
+another build (or down). The checks should eventually appear, however.
+
+### Contributor License Agreement
+
+To accept external contributions, we need you to fill out and sign our
+Contributor License Agreement (CLA). We use an Apache 2 CLA for ArangoDB,
+which can be found here: <https://www.arangodb.com/documents/cla.pdf>
+You can scan and email the CLA PDF file to <cla@arangodb.com> or send it via
+fax to +49-221-2722999-88.
+
+## Building the Documentation
+
+The following section describes how you can build the documentation locally.
+This is not strictly necessary when contributing. You can also rely on
+[automatic previews](#automatic-previews).
+
+### Symlink Support Required
 
 Make sure that symlink support is enabled before you clone the repository with
 Git. It is turned off by default in Git for Windows. Start a terminal as
@@ -19,6 +59,8 @@ administrator and run:
 ```
 git config --system core.symlinks true
 ```
+
+### Options for Building
 
 To work locally on the documentation you can:
 - [install Jekyll](https://jekyllrb.com/docs/installation/) and dependencies
@@ -58,7 +100,7 @@ To serve the content from a previous build without watching for changes, use:
 
 `bundle exec jekyll serve --skip-initial-build --no-watch`
 
-### Docker container
+### Docker Container
 
 In the docs directory execute:
 
@@ -123,7 +165,7 @@ versions:
   devel: "3.9"
 ```
 
-## Documentation structure
+## Documentation Structure
 
 ### Versions
 
@@ -139,7 +181,7 @@ the advantage that all versions can be built at once, but the drawback of Git
 cherry-picking not being available and therefore requiring to manually apply
 changes to different versions as necessary (copy-pasting text or files).
 
-### Books (parts)
+### Books (Parts)
 
 The documentation is split into different parts, called "books" for historical
 reasons. The core book (Manual) of a version does not have an own folder for its
@@ -157,7 +199,7 @@ files of the AQL part are in the `aql/` folder. It does not have any subfolders
 like `aql/examples/`. Instead, the file name reflects which files belong
 together, e.g. `aql/examples-counting.md`.
 
-### Special folders
+### Special Folders
 
 Content folders aside, there are the following other directories:
 
@@ -173,32 +215,389 @@ Content folders aside, there are the following other directories:
 | `scripts`   | Scripts which were used in the migration process from Gitbook to Jekyll (not really needed anymore)
 | `styles`    | CSS files for the site, including a lot of legacy from Gitbook
 
-## Working with the documentation content
+## Working with the Documentation Content
 
-### Text guidelines
+### Markup Overview
+
+The documentation is written in the light-weight markup language
+[Markdown](https://daringfireball.net/projects/markdown/). There are different
+flavors of Markdown and it is further extended by
+[Liquid](https://jekyllrb.com/docs/liquid/), Jekyll's templating language, as
+well as our own customization.
+
+Below is a list of the most commonly used markup, and an approximation of how
+it gets rendered:
+
+<table>
+<thead>
+<tr>
+<th style="text-align: left">Element</th>
+<th style="text-align: left">Markdown</th>
+<th style="text-align: left">Preview</th>
+<th style="text-align: left">HTML</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text line</td>
+<td><pre><code>A single line
+of text</code></pre></td>
+<td>A single line of text</td>
+<td><code>A single line of text</code></td>
+</tr>
+<tr>
+<td>Paragraph</td>
+<td><pre><code>A single
+paragraph.
+<br>
+Another paragraph.</code></pre></td>
+<td><p>A single paragraph.</p><p>Another paragraph.</p></td>
+<td><pre><code>&lt;p&gt;A single paragraph.&lt;/p&gt;
+&lt;p&gt;Another paragraph.&lt;/p&gt;</code></pre></td>
+</tr>
+<tr>
+<td>Heading 1</td>
+<td><code># Level 1</code></td>
+<td><h1>Level 1</h1></td>
+<td><code>&lt;h1&gt;Level 1&lt;/h1&gt;</code></td>
+</tr>
+<tr>
+<td>Heading 1 (Variant)</td>
+<td><pre><code>Level 1
+=======</code></pre></td>
+<td><h1>Level 1</h1></td>
+<td><code>&lt;h1&gt;Level 1&lt;/h1&gt;</code></td>
+</tr>
+<tr>
+<td>Headling 2</td>
+<td><code>## Level 2</code></td>
+<td><h2>Level 2</h2></td>
+<td><code>&lt;h2&gt;Level 2&lt;/h2&gt;</code></td>
+</tr>
+<tr>
+<td>Headling 2 (Variant)</td>
+<td><pre><code>Level 2
+-------</code></pre></td>
+<td><h2>Level 2</h2></td>
+<td><code>&lt;h2&gt;Level 2&lt;/h2&gt;</code></td>
+</tr>
+<tr>
+<td>Headling 3</td>
+<td><code>### Level 3</code></td>
+<td><h3>Level 3</h3></td>
+<td><code>&lt;h3&gt;Level 3&lt;/h3&gt;</code></td>
+</tr>
+<tr>
+<td>Headling 4</td>
+<td><code>#### Level 4</code></td>
+<td><h4>Level 4</h4></td>
+<td><code>&lt;h4&gt;Level 4&lt;/h4&gt;</code></td>
+</tr>
+<tr>
+<td>Headling 5</td>
+<td><code>##### Level 5</code></td>
+<td><h5>Level 5</h5></td>
+<td><code>&lt;h5&gt;Level 5&lt;/h5&gt;</code></td>
+</tr>
+<tr>
+<td>Headling 6</td>
+<td><code>###### Level 6</code></td>
+<td><h6>Level 6</h6></td>
+<td><code>&lt;h6&gt;Level 6&lt;/h6&gt;</code></td>
+</tr>
+<tr>
+<td>Italic</td>
+<td><code>*italic*</code></td>
+<td><em>italic</em></td>
+<td><code>&lt;em&gt;italic&lt;/em&gt;</code></td>
+</tr>
+<tr>
+<td>Italic</td>
+<td><code>_italic_</code></td>
+<td><em>italic</em></td>
+<td><code>&lt;em&gt;italic&lt;/em&gt;</code></td>
+</tr>
+<tr>
+<td>Bold</td>
+<td><code>**bold**</code></td>
+<td><strong>bold</strong></td>
+<td><code>&lt;strong&gt;bold&lt;/strong&gt;</code></td>
+</tr>
+<tr>
+<td>Bold</td>
+<td><code>__bold__</code></td>
+<td><strong>bold</strong></td>
+<td><code>&lt;strong&gt;bold&lt;/strong&gt;</code></td>
+</tr>
+<tr>
+<td>Bold &amp; Italic</td>
+<td><code>***bold &amp; italic***</code></td>
+<td><strong><em>bold &amp; italic</em></strong></td>
+<td><code>&lt;strong&gt;&lt;em&gt;bold &amp; italic&lt;/em&gt;&lt;/strong&gt;</code></td>
+</tr>
+<tr>
+<td>Bold &amp; Italic</td>
+<td><code>___bold &amp; italic__</code></td>
+<td><strong><em>bold &amp; italic</em></strong></td>
+<td><code>&lt;strong&gt;&lt;em&gt;bold &amp; italic&lt;/em&gt;&lt;/strong&gt;</code></td>
+</tr>
+<tr>
+<td>Blockquote</td>
+<td><code>&gt; quote</code></td>
+<td><blockquote>quote</blockquote></td>
+<td><code>&lt;blockquote&gt;quote&lt;/blockquote&gt;</code></td>
+</tr>
+<tr>
+<td>Ordered List</td>
+<td><pre><code>1. First
+2. Second
+3. Third</code></pre></td>
+<td><ol><li>First</li><li>Second</li><li>Third</li></ol></td>
+<td><pre><code>&lt;ol&gt;
+  &lt;li&gt;First&lt;/li&gt;
+  &lt;li&gt;Second&lt;/li&gt;
+  &lt;li&gt;Third&lt;/li&gt;
+&lt;/ol&gt;</code></pre></td>
+</tr>
+<tr>
+<td>Unordered List</td>
+<td><pre><code>- First
+- Second
+- Third</code></pre></td>
+<td><ul><li>First</li><li>Second</li><li>Third</li></ul></td>
+<td><pre><code>&lt;ul&gt;
+  &lt;li&gt;First&lt;/li&gt;
+  &lt;li&gt;Second&lt;/li&gt;
+  &lt;li&gt;Third&lt;/li&gt;
+&lt;/ul&gt;</code></pre></td>
+</tr>
+<tr>
+<td>Unordered List</td>
+<td><pre><code>* First
+* Second
+* Third</code></pre></td>
+<td><ul><li>First</li><li>Second</li><li>Third</li></ul></td>
+<td><pre><code>&lt;ul&gt;
+  &lt;li&gt;First&lt;/li&gt;
+  &lt;li&gt;Second&lt;/li&gt;
+  &lt;li&gt;Third&lt;/li&gt;
+&lt;/ul&gt;</code></pre></td>
+</tr>
+<tr>
+<td>Inline Code</td>
+<td><code>`code value`</code></td>
+<td><code>code value</code></td>
+<td><code>&lt;code&gt;code value&lt;/code&gt;</code></td>
+</tr>
+<tr>
+<td>Code Block</td>
+<td><pre><code>    shell&gt; pwd
+    /home/alice</code></pre></td>
+<td><pre><code>shell&gt; pwd
+/home/alice</code></pre></td>
+<td><pre><code>&lt;pre&gt;&lt;code&gt;shell&amp;gt; pwd
+/home/alice&lt;/code&gt;&lt;/pre&gt;</code></pre></td>
+</tr>
+<tr>
+<td>Fenced Code</td>
+<td><pre><code>```js
+new Date(); // JavaScript
+```</code></pre></td>
+<td><pre><code>new Date(); // JavaScript</code></pre></td>
+<td><code>&lt;pre&gt;&lt;code&gt;new Date(); // JavaScript&lt;/code&gt;&lt;/pre&gt;</code></td>
+</tr>
+<tr>
+<td>Horizontal Rule</td>
+<td><code>---</code></td>
+<td><hr /></td>
+<td><code>&lt;hr /&gt;</code></td>
+</tr>
+<tr>
+<td>Link (Internal)</td>
+<td><code>[label](book/file.html)</code></td>
+<td><a href="book/file.html">label</a></td>
+<td><code>&lt;a href="book/file.html"&gt;label&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td>Link (Anchor)</td>
+<td><code>[label](#element-id)</code></td>
+<td><a id="element-id" href="#element-id">label</a></td>
+<td><code>&lt;a href="#element-id"&gt;label&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td>Link (External)</td>
+<td><code>[label](https://www.arangodb.com/){:target="_blank"}</code></td>
+<td><a href="https://www.arangodb.com/" target="_blank">label</a></td>
+<td><code>&lt;a href="https://www.arangodb.com" target="_blank"&gt;label&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td>Link (External)</td>
+<td><code>&lt;https://www.arangodb.com/&gt;{:target="_blank"}</code></td>
+<td><a href="https://www.arangodb.com/" target="_blank">https://www.arangodb.com/</a></td>
+<td><code>&lt;a href="https://www.arangodb.com" target="_blank"&gt;https://www.arangodb.com/&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td>Image</td>
+<td><code>![ArangoDB Logo](assets/arangodb_logo_small_2016.png)</code></td>
+<td><img src="assets/arangodb_logo_small_2016.png" alt="ArangoDB Logo"></td>
+<td><code>&lt;img src="assets/arangodb_logo_small_2016.png" alt="ArangoDB Logo"&gt;</code></td>
+</tr>
+<tr>
+<td>Table</td>
+<td><pre><code>| A  | B  | C  |
+|----|----|----|
+| A1 | B1 | C1 |
+| A2 | B2 | C2 |</code></pre></td>
+<td><table><thead><tr><th>A</th><th>B</th><th>C</th></tr></thead><tbody><tr><td>A1</td><td>B1</td><td>C1</td></tr><tr><td>A2</td><td>B2</td><td>C2</td></tr></tbody></table></td>
+<td><pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;A&lt;/th&gt;
+      &lt;th&gt;B&lt;/th&gt;
+      &lt;th&gt;C&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;A1&lt;/td&gt;
+      &lt;td&gt;B1&lt;/td&gt;
+      &lt;td&gt;C1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;A2&lt;/td&gt;
+      &lt;td&gt;B2&lt;/td&gt;
+      &lt;td&gt;C2&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre></td>
+</tr>
+<tr>
+<td>Frontmatter</td>
+<td><pre><code>---
+layout: default
+description: Page about X
+title: Feature X
+---</code></pre></td>
+<td></td>
+<td><pre><code>&lt;title&gt;Feature X | ArangoDB Documentation&lt;/title&gt;
+&lt;meta itemprop="description" name="description" content="Page about X" /&gt;</code></pre></td>
+</tr>
+<tr>
+<td>Danger</td>
+<td><pre><code>{% hint 'danger' %}
+Unrecoverable fault
+{% endhint %}</code></pre></td>
+<td><blockquote>❌ Unrecoverable fault</blockquote></td>
+<td><pre><code>&lt;div class="alert alert-danger" …&gt;
+Unrecoverable fault
+&lt;/div&gt;</code></pre></td>
+</tr>
+<tr>
+<td>Warning</td>
+<td><pre><code>{% hint 'warning' %}
+Common pitfall
+{% endhint %}</code></pre></td>
+<td><blockquote>⚠ Common pitfall</blockquote></td>
+<td><pre><code>&lt;div class="alert alert-warning" …&gt;
+Common pitfall
+&lt;/div&gt;</code></pre></td>
+</tr>
+<tr>
+<td>Security</td>
+<td><pre><code>{% hint 'security' %}
+Security warning
+{% endhint %}</code></pre></td>
+<td><blockquote>🛡 Security warning</blockquote></td>
+<td><pre><code>&lt;div class="alert alert-warning" …&gt;
+Security warning
+&lt;/div&gt;</code></pre></td>
+</tr>
+<tr>
+<td>Info</td>
+<td><pre><code>{% hint 'info' %}
+Informative note
+{% endhint %}</code></pre></td>
+<td><blockquote>ℹ Informative note</blockquote></td>
+<td><pre><code>&lt;div class="alert alert-info" …&gt;
+Informative note
+&lt;/div&gt;</code></pre></td>
+</tr>
+<tr>
+<td>Tip</td>
+<td><pre><code>{% hint 'tip' %}
+Useful hint
+{% endhint %}</code></pre></td>
+<td><blockquote>✔ Useful hint</blockquote></td>
+<td><pre><code>&lt;div class="alert alert-success" …&gt;
+Useful hint
+&lt;/div&gt;</code></pre></td>
+</tr>
+<tr>
+<td>Version (full)</td>
+<td><code>{{ site.data.versions[page.version.name] }}</code></td>
+<td>v3.9.0-devel</td>
+<td><code>v3.9.0-devel</code></td>
+</tr>
+<tr>
+<td>Version (major.minor)</td>
+<td><code>{{ page.version.version }}</code></td>
+<td>3.9</td>
+<td><code>3.9</code></td>
+</tr>
+</tbody>
+</table>
+
+### Content Guidelines
 
 - Use American English spelling, e.g. _behavior_ instead of _behaviour_.
+
+- Use inclusive language, e.g. _work-hours_ instead of _man-hours_.
+
+- Get to point quickly on every page. [Add a Lead Paragraph](#adding-a-lead-paragraph)
+  that summarizes what the page is about.
+
+- Target end-users and focus on the outcome. It should be about solutions, not
+  features.
+
+- Do not use jargon or technical abbreviations in headlines or the navigation.
+  Define the meaning if you use it in the content.
+
+- Do not add too many hint boxes or everything ends up being a highlight.
+
+### Syntax Guidelines
+
 - Wrap text at 80 characters where possible. This helps tremendously in version
   control. Pre-wrap lines if necessary.
+
 - Put Markdown links on a single line `[link label](target.html#hash)`,
   even if it violates the guideline of 80 characters per line.
+
 - Avoid breaking lines of code blocks and where Markdown does not allow line
   breaks, e.g. in Markdown table rows (you can use `<br>` if really necessary).
+
 - Avoid using `here` as link label. Describe what the link points to instead.
+
 - Avoid overly long link labels, such as entire sentences.
+
 - Use relative links for cross-references to other documentation pages, e.g.
   `../drivers/js.html` instead of `/docs/stable/drivers/js.html` or
   `https://www.arangodb.com/docs/stable/drivers/js.html`.
+
 - Append `{:target="_blank"}` to Markdown links which point to external sites,
   e.g. `[external link](https://www.github.com/){:target="_blank"}`.
+
 - Avoid `**bold**` and `_italic_` markup in headlines. Inline `` `code` `` is
   acceptable for code values, nonetheless.
+
 - `-` is preferred for bullet points in unordered lists over `*`
+
 - Use `#` and `##` for level 1 and 2 headlines for new content over `===` and
   `---` underlines.
+
 - There should be a blank line above and below fenced code blocks and headlines
   (except if it is at the top of the document, right after the end of the
   frontmatter `---`).
+
 - Use `js` as language in fenced code blocks for highlighting AQL queries.
   We do not have a highlighter for AQL, but JavaScript code highlighting works
   reasonably well.
@@ -208,7 +607,7 @@ Content folders aside, there are the following other directories:
       ```
 
 - Use the exact spelling of Enterprise Edition and its features, as well as for
-  all other terms coined by us:
+  all other terms coined by ArangoDB:
   - _SmartGraphs_
   - _SmartJoins_
   - _OneShard_
@@ -220,8 +619,10 @@ Content folders aside, there are the following other directories:
   - _Active Failover_
   - _Datacenter to Datacenter Replication_, _DC2DC_
   - _Oasis_, _ArangoDB Oasis_, _ArangoDB Cloud_
+
 - Do not capitalize the names of executables or code values, e.g. write
   _arangosh_ instead of _Arangosh_.
+
 - Do not write TODOs right into the content. Use an HTML comment
   `<!-- An HTML comment -->` if it is okay that the comment will be visible in
   the page source of the generated files. Otherwise use
@@ -252,7 +653,7 @@ tab when clicked:
 This is an [external link](https://www.arangodb.com/){:target="_blank"}
 ```
 
-### Adding a lead paragraph
+### Adding a Lead Paragraph
 
 A lead paragraph is the opening paragraph of a written work that summarizes its
 main ideas. Only few pages have one so far, but new content should be written
@@ -292,15 +693,6 @@ The generated metadata looks like this:
 <meta property="og:description" content="You can do this and that with X, and it is ideal to solve problem Y" />
 ```
 
-### Navigation
-
-Each book has a navigation tree represented as a nested data structure in YAML.
-This is being read by the NavigationTag plugin to create the navigation on the
-left-hand side.
-
-The YAML file for a book can be found here: `_data/<version>-<book>.yml`.
-For example, the 3.8 AQL navigation is defined by `_data/3.8-aql.yml`.
-
 ### Adding a page
 
 Start off by finding a file name. It should be:
@@ -329,11 +721,16 @@ title: Short title
 
 Add the actual content formatted in Markdown syntax below the frontmatter.
 
-Then add the page to the navigation. Open the respective navigation definition
-file, e.g. `_data/3.8-aql.yml` if the page should be added to the AQL book of
-version 3.8. Let us assume the file is `aql/operations-create.md` and the page
-is supposed to show above the FOR language construct in the navigation. Locate
-where that other page is added and insert a new pair of lines for the new page:
+Then add the page to the navigation. Each book has a navigation tree represented
+as a nested data structure in YAML syntax. The _NavigationTag_ plugin creates
+the navigation on the left-hand side from it. The YAML file for a book can be
+found here: `_data/<version>-<book>.yml`.
+
+Open the respective navigation definition file, e.g. `_data/3.8-aql.yml` if the
+page should be added to the AQL book of version 3.8. Let us assume the file is
+`aql/operations-create.md` and the page is supposed to show above the `FOR`
+language construct in the navigation. Locate where that other page is added and
+insert a new pair of lines for the new page:
 
 ```diff
  - text: High level Operations
@@ -887,15 +1284,6 @@ so that you can quickly test and deploy static sites. We only use it to
 have a live preview and a CI pipeline, not for hosting the actual documentation
 site.
 
-In every pull request, there is a number of so-called checks (above the text
-field for entering a comment). The **last entry** should be
-`netlify/zealous-morse-14392b/deploy-preview` with a **Details** link. Whenever
-you push a change to the PR branch, Netlify will build a preview. While it is
-doing that or if it fails building the docs, then the _Details_ link will get
-you to the build log. If it succeeded, then it gets you to the hosted preview
-of that PR. If no checks show up at all, then Netlify is probably busy with
-another build (or down). The checks should eventually appear, however.
-
 There are a few files in the repo required for Netlify:
 
 - `_redirects`
@@ -917,7 +1305,7 @@ There are a few files in the repo required for Netlify:
 For details please check out the
 [Netlify documentation](https://www.netlify.com/docs/).
 
-## LICENSE
+### License
 
 The ArangoDB documentation is licensed under Apache-2.0.
 See [LICENSE](LICENSE) for details.
