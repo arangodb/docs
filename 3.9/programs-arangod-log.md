@@ -146,7 +146,8 @@ characters in the log. The flag `--log.escape` is deprecated since v3.9.0, and i
 the new flags `--log.escape-control-chars` and `log.escape-unicode-chars` 
 should be used. 
 
-- `--log.escape-control-chars`: this flag applies to the control characters, which have hex code below `\x20`, and also the character DEL, with hex code of `\x7f`. When its value is set to false, the control 
+- `--log.escape-control-chars`: this flag applies to the control characters, which have hex codes below `\x20`, 
+  and also the character DEL with hex code `\x7f`. When the flag value is set to `false`, control 
 character will be retained, and its actual value will be displayed when it 
 is a visible character, or a space ` ` character will be displayed if it is 
 not a visible character. The same will happen to `DEL` character (code `\xF7`), 
