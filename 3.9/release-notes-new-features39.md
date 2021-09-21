@@ -264,7 +264,7 @@ Also see [Database Naming Conventions](data-modeling-naming-conventions-database
 ### Logging
 
 The server now has two flags for retaining or escaping control and Unicode 
-characters in the log. The flag `log.escape` is deprecated and, instead, 
+characters in the log. The flag `--log.escape` is now deprecated and, instead, 
 the new flags `--log.escape-control-chars` and `log.escape-unicode-chars` 
 should be used. 
 
