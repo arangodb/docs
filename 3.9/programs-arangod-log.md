@@ -158,11 +158,11 @@ The default value for this flag is `true` to ensure compatibility with
 previous versions.
 
 - `--log.escape-unicode-chars`: when its value is set to false, the unicode character
-will be retained, and its actual value will be displayed. For example, `犬` will 
-be displayed as `犬`. When its value is set to true, the character is escaped, and 
-the hex code for the character is displayed. For example, `犬` would be displayed 
-as its hex code, `\u72AC`. 
-	The default value for this flag is set to `false` for compatibility with 
+will be retained and written to the log as-is. For example, `犬` will 
+be logged as `犬`. When the flag value is set to `true`, any Unicode characters are 
+escaped, and the hex codes for all Unicode characters are logged instead. 
+For example, `犬` would be logged as its hex code, `\u72AC`. 
+The default value for this flag is set to `false` for compatibility with 
 previous versions.
 
 A side effect of turning off the escaping is that it will reduce the CPU 
