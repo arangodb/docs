@@ -44,7 +44,7 @@ implementation.
 to run in ArangoDB. This GraphQL server/schema implementation is deprecated
 and only shipped for backward compatibility. Version 0.12 and newer of the
 official `graphql` package can be used directly. New projects should bundle
-their own copy of this module: <https://www.npmjs.com/package/graphql>
+their own copy of this module: <https://www.npmjs.com/package/graphql>{:target="_blank"}
 {% endhint %}
 
 **Examples**

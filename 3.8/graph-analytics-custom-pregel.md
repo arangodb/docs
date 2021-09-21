@@ -1358,7 +1358,7 @@ PPA, execute it and get direct feedback in both "success" and "error" cases.
 ### Pregelator
 
 The Pregelator Service is available on GitHub:
-<https://github.com/arangodb-foxx/pregelator>
+<https://github.com/arangodb-foxx/pregelator>{:target="_blank"}
 
 The bundled ZIP files are kept in the directory: `zippedBuilds` and can be
 installed via `foxx-cli`, the standard `web-ui` or via `arangosh`.
