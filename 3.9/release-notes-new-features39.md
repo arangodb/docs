@@ -271,6 +271,36 @@ A pseudo log topic `"all"` was added. Setting the log level for the "all" log
 topic will adjust the log level for **all existing log topics**. For example,
 `--log.level all=debug` will set all log topics to log level "debug".
 
+Overload control
+----------------
+
+ArangoDB version 3.9.0 will return an `x-arango-queue-time-seconds` HTTP 
+header with all responses. This header contains the most recent request 
+queueing/dequeing time (in seconds) as tracked by the server's scheduler. 
+This value can be used by client applications and drivers to detect server 
+overload and react on it.
+The arangod startup option `--http.return-queue-time-header` can be set to
+`false` to suppress these headers in responses sent by arangod.
+
+In a cluster, the value returned in the `x-arango-queue-time-seconds` header
+is the most recent queueing/dequeing request time of the coordinator the
+request was sent to, except if the request is forwarded by the coordinator to
+another coordinator. In that case, the value will indicate the current
+queueing/dequeing time of the forwarded-to coordinator.
+
+In addition, client applications and drivers can optionally augment the
+requests they send to arangod with the header `x-arango-queue-time-seconds`.
+If set, the value of the header should contain the maximum server-side 
+queuing time (in seconds) that the client application is willing to accept. 
+If the header is set in an incoming request, arangod will compare the current 
+dequeing time from its scheduler with the maximum queue time value contained 
+in the request header. If the current quequeing time exceeds the value set 
+in the header, arangod will reject the request and return HTTP 412 
+(precondition failed) with the error code 21004 (queue time violated).
+
+In a cluster, the `x-arango-queue-time-seconds` request header will be 
+checked on the receiving coordinator, before any request forwarding.
+
 Support info API
 ----------------
 
