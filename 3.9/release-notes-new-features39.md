@@ -265,7 +265,7 @@ Also see [Database Naming Conventions](data-modeling-naming-conventions-database
 
 The server now has two flags for retaining or escaping control and Unicode 
 characters in the log. The flag `--log.escape` is now deprecated and, instead, 
-the new flags `--log.escape-control-chars` and `log.escape-unicode-chars` 
+the new flags `--log.escape-control-chars` and `--log.escape-unicode-chars` 
 should be used. 
 
 - `--log.escape-control-chars`: this flag applies to the control characters, which have hex code below `\x20`, and also the character DEL, with hex code of `\x7f`. When its value is set to false, the control 
