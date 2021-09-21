@@ -29,6 +29,20 @@ See:
 - [`segmentation` Analyzer](analyzers.html#segmentation)
 - [`collation` Analyzer](analyzers.html#collation)
 
+### Analyzers Web UI
+
+A new menu item has been added to the side navigation bar (Analyzers). Through this
+page, users can view existing analyzers as well create new analyzers. The UI is
+full-featured and lets you feed in all parameters and options that you could
+otherwise input through the REST API or Arango Shell.
+
+It also lets you copy configuration from an existing analyzer, allowing for a much
+quicker workflow when your new analyzer is very similar to an existing one.
+
+It offers two edit/view modes - a form mode where a standard web form is used to
+capture user input, and a JSON mode where experienced users can directly write
+the raw analyzer configuration in JSON format.
+
 AQL
 ---
 
