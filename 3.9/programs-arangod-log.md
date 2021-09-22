@@ -159,11 +159,11 @@ should be used.
 
 - `--log.escape-unicode-chars`: when its value is set to `false`, Unicode characters
 will be retained and written to the log as-is. For example, `犬` will 
-be logged as `犬`. When the flag value is set to `true`, any Unicode characters are 
-escaped, and the hex codes for all Unicode characters are logged instead. 
-For example, `犬` would be logged as its hex code, `\u72AC`. 
-The default value for this flag is set to `false` for compatibility with 
-previous versions.
+  be logged as `犬`. When the flag value is set to `true`, any Unicode characters are 
+  escaped, and the hex codes for all Unicode characters are logged instead. 
+  For example, `犬` would be logged as its hex code, `\u72AC`. 
+  The default value for this flag is set to `false` for compatibility with 
+  previous versions.
 
 A side effect of turning off the escaping is that it will reduce the CPU 
 overhead for the logging. However, this will only be noticeable when logging
