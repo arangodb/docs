@@ -157,7 +157,7 @@ example, the `BEL` character will be displayed as its hex code, `\x07`.
 The default value for this flag is `true` to ensure compatibility with 
 previous versions.
 
-- `--log.escape-unicode-chars`: when its value is set to false, the unicode character
+- `--log.escape-unicode-chars`: when its value is set to `false`, Unicode characters
 will be retained and written to the log as-is. For example, `犬` will 
 be logged as `犬`. When the flag value is set to `true`, any Unicode characters are 
 escaped, and the hex codes for all Unicode characters are logged instead. 
