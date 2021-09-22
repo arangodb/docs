@@ -29,19 +29,52 @@ See:
 - [`segmentation` Analyzer](analyzers.html#segmentation)
 - [`collation` Analyzer](analyzers.html#collation)
 
-### Analyzers Web UI
+UI
+--
 
-A new menu item has been added to the side navigation bar (Analyzers). Through this
-page, users can view existing analyzers as well create new analyzers. The UI is
-full-featured and lets you feed in all parameters and options that you could
-otherwise input through the REST API or Arango Shell.
+### Analyzers in Web Interface
 
-It also lets you copy configuration from an existing analyzer, allowing for a much
-quicker workflow when your new analyzer is very similar to an existing one.
+A new menu item _ANALYZERS_ has been added to the side navigation bar of the
+Web UI. Through this page, you can view existing Analyzers as well create new
+Analyzers. The UI is full-featured and lets you feed in all parameters and
+options that you could otherwise input through the HTTP or JavaScript API.
+
+It also lets you copy configuration from an existing Analyzer, allowing for a
+much quicker workflow when your new Analyzer is very similar to an existing one.
 
 It offers two edit/view modes - a form mode where a standard web form is used to
 capture user input, and a JSON mode where experienced users can directly write
-the raw analyzer configuration in JSON format.
+the raw Analyzer configuration in JSON format.
+
+### Configurable root redirect
+
+Added two options to `arangod` to allow HTTP redirection customization for
+root (`/`) call of the HTTP API:
+
+- `--http.permanently-redirect-root`: if `true` (default), use a permanent
+  redirection (use HTTP 301 code), if `false` fall back to temporary redirection
+  (use HTTP 302 code).
+
+- `--http.redirect-root-to`: redirect of root URL to a specified path.
+  Redirects to `/_admin/aardvark/index.html` if not set (default).
+
+These options are useful to override the built-in web interface with some 
+user-defined action.
+
+### Web interface session handling
+
+The previously inactive startup parameter `--server.session-timeout` was
+revived and now controls the timeout for web interface sessions (and other
+sessions that are based on JWTs created by the `/_open/auth` API).
+
+For security reasons, the default timeout value for web interface sessions
+has been reduced to one hour, after which a session is ended automatically.
+Web interface sessions that are active (i.e. that have any user activity)
+are automatically extended until the user ends the session explicitly or
+if there is a period of one hour without any user activity.
+
+The timeout value for web interface sessions can be adjusted via the
+`--server.session-timeout` startup parameter (in seconds).
 
 AQL
 ---
@@ -205,39 +238,6 @@ This mimics the previous behavior and is a sensible default.
 Setting the option to `false` allows to not store any data read by the query
 in the RocksDB block cache. This is useful for queries that read a lot of (cold)
 data which would lead to the eviction of the hot data from the block cache.
-
-UI
---
-
-### Configurable root redirect
-
-Added two options to `arangod` to allow HTTP redirection customization for
-root (`/`) call of the HTTP API:
-
-- `--http.permanently-redirect-root`: if `true` (default), use a permanent
-  redirection (use HTTP 301 code), if `false` fall back to temporary redirection
-  (use HTTP 302 code).
-
-- `--http.redirect-root-to`: redirect of root URL to a specified path.
-  Redirects to `/_admin/aardvark/index.html` if not set (default).
-
-These options are useful to override the built-in web interface with some 
-user-defined action.
-
-### Web interface session handling
-
-The previously inactive startup parameter `--server.session-timeout` was
-revived and now controls the timeout for web interface sessions (and other
-sessions that are based on JWTs created by the `/_open/auth` API).
-
-For security reasons, the default timeout value for web interface sessions
-has been reduced to one hour, after which a session is ended automatically.
-Web interface sessions that are active (i.e. that have any user activity)
-are automatically extended until the user ends the session explicitly or
-if there is a period of one hour without any user activity.
-
-The timeout value for web interface sessions can be adjusted via the
-`--server.session-timeout` startup parameter (in seconds).
 
 Server options
 --------------
