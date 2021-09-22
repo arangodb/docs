@@ -148,14 +148,14 @@ should be used.
 
 - `--log.escape-control-chars`: this flag applies to the control characters, which have hex codes below `\x20`, 
   and also the character DEL with hex code `\x7f`. When the flag value is set to `false`, control 
-characters will be retained when they have a visible representation, and replaced
-with a space character in case they don't have a visible representation. For example, 
-the control characer `\n` is visible, so a `\n` will be displayed in the log. Contrary, 
-the control character `BEL` is not visible, so a space will be displayed instead.
-When the flag value is set to `true`, the hex code for the character is displayed, for 
-example, the `BEL` character will be displayed as its hex code, `\x07`.
-The default value for this flag is `true` to ensure compatibility with 
-previous versions.
+  characters will be retained when they have a visible representation, and replaced
+  with a space character in case they don't have a visible representation. For example, 
+  the control characer `\n` is visible, so a `\n` will be displayed in the log. Contrary, 
+  the control character `BEL` is not visible, so a space will be displayed instead.
+  When the flag value is set to `true`, the hex code for the character is displayed, for 
+  example, the `BEL` character will be displayed as its hex code, `\x07`.
+  The default value for this flag is `true` to ensure compatibility with 
+  previous versions.
 
 - `--log.escape-unicode-chars`: when its value is set to `false`, Unicode characters
 will be retained and written to the log as-is. For example, `犬` will 
