@@ -582,6 +582,21 @@ If the header is set in an incoming request, arangod will compare the current
 dequeuing time from its scheduler with the maximum queue time value contained
 in the request header. If the current queueing time exceeds the value set
 in the header, arangod will reject the request and return HTTP 412
-(precondition failed) with the error code 21004 (queue time violated).
+(precondition failed) with the error code 21004 (queue time violated). 
+Using a value of 0 or a non-numeric value in the header will lead to the
+header value being ignored by arangod.
+
+There is also a new metric `arangodb_scheduler_queue_time_violations_total`
+that is increased whenever a request is dropped because of the requested
+queue time not being satisfiable. Administrators can use this metric to monitor
+overload situations. Although all instance types will expose this metric,
+it will likely always be `0` on DB servers and agency instances because the 
+`x-arango-queue-time-seconds` header is not used in cluster-internal requests.
+
 In a cluster, the `x-arango-queue-time-seconds` request header will be
-checked on the receiving Coordinator, before any request forwarding.
+checked on the receiving Coordinator, before any request forwarding. If the
+request is forwarded by the Coordinator to a different Coordinator, the 
+receiving Coordinator will also check the header on its own.
+Apart from that, the header will not be included in cluster-internal requests
+executed by the Coordinator, e.g. when the Coordinator issues sub-requests
+to DB servers or agency instances.
