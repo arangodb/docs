@@ -270,15 +270,15 @@ should be used.
 
 - `--log.escape-control-chars`: this flag applies to control characters, which have hex codes below `\x20`, 
   and also the character DEL, with a hex code of `\x7f`. When the flag value is set to `false`, control 
-characters that have a visual representation will be retained and logged as-is.
-Controls characters without a visual representation will be replaced by a space
-character in the log. The same will happen to the `DEL` character (code `\x7f`), 
-For example, the control characer `\n` is visible, so a `\n` will be displayed in 
-the log, and the control character `BEL` is not visible, so a space will be displayed.
-When the flag value is set to `true`, the hex code for the character is logged. For 
-example, the `BEL` character will be displayed as its hex code, `\x07`.
-The default value for this flag is `true` for compatibility with 
-previous versions.
+  characters that have a visual representation will be retained and logged as-is.
+  Controls characters without a visual representation will be replaced by a space
+  character in the log. The same will happen to the `DEL` character (code `\x7f`), 
+  For example, the control characer `\n` is visible, so a `\n` will be displayed in 
+  the log, and the control character `BEL` is not visible, so a space will be displayed.
+  When the flag value is set to `true`, the hex code for the character is logged. For 
+  example, the `BEL` character will be displayed as its hex code, `\x07`.
+  The default value for this flag is `true` for compatibility with 
+  previous versions.
 
 - `--log.escape-unicode-chars`: when its value is set to `false`, Unicode characters
 will be retained, and written to the log as-is. For example, `犬` will 
