@@ -141,28 +141,39 @@ Format                  | Example                  | Description
 
 ## Escaping
 
-There are two flags for retaining or escaping control and unicode 
-characters in the log. The flag `--log.escape` is deprecated since v3.9.0, and instead, 
-the new flags `--log.escape-control-chars` and `log.escape-unicode-chars` 
-should be used. 
+There are two flags for retaining or escaping control and Unicode characters in
+the log. The flag `--log.escape` is deprecated since v3.9.0, and instead,
+the new flags `--log.escape-control-chars` and `log.escape-unicode-chars`
+should be used.
 
-- `--log.escape-control-chars`: this flag applies to the control characters, which have hex codes below `\x20`, 
-  and also the character DEL with hex code `\x7f`. When the flag value is set to `false`, control 
-  characters will be retained when they have a visible representation, and replaced
-  with a space character in case they don't have a visible representation. For example, 
-  the control characer `\n` is visible, so a `\n` will be displayed in the log. Contrary, 
-  the control character `BEL` is not visible, so a space will be displayed instead.
-  When the flag value is set to `true`, the hex code for the character is displayed, for 
-  example, the `BEL` character will be displayed as its hex code, `\x07`.
+- `--log.escape-control-chars`:
+
+  This flag applies to the control characters, that have hex codes below `\x20`,
+  and also the character `DEL` with hex code `\x7f`.
+
+  When the flag value is set to `false`, control characters will be retained
+  when they have a visible representation, and replaced with a space character
+  in case they do not have a visible representation. For example, the control
+  character `\n` is visible, so a `\n` will be displayed in the log. Contrary,
+  the control character `BEL` is not visible, so a space will be displayed
+  instead.
+
+  When the flag value is set to `true`, the hex code for the character is
+  displayed, for example, the `BEL` character will be displayed as its hex code,
+  `\x07`.
+
   The default value for this flag is `true` to ensure compatibility with 
   previous versions.
 
-- `--log.escape-unicode-chars`: when its value is set to `false`, Unicode characters
-will be retained and written to the log as-is. For example, `犬` will 
-  be logged as `犬`. When the flag value is set to `true`, any Unicode characters are 
-  escaped, and the hex codes for all Unicode characters are logged instead. 
-  For example, `犬` would be logged as its hex code, `\u72AC`. 
-  The default value for this flag is set to `false` for compatibility with 
+- `--log.escape-unicode-chars`:
+
+  If its value is set to `false`, Unicode characters will be retained and
+  written to the log as-is. For example, `犬` will be logged as `犬`. If the
+  flag value is set to `true`, any Unicode characters are escaped, and the hex
+  codes for all Unicode characters are logged instead. For example, `犬` would
+  be logged as its hex code, `\u72AC`.
+
+  The default value for this flag is set to `false` for compatibility with
   previous versions.
 
 A side effect of turning off the escaping is that it will reduce the CPU 
