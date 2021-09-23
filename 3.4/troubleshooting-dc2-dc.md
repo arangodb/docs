@@ -5,11 +5,7 @@ title: DC2DC Replication Troubleshooting
 ---
 # Troubleshooting datacenter to datacenter replication
 
-{% hint 'info' %}
-Datacenter to datacenter replication is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 The _datacenter to datacenter replication_ is a distributed system with a lot
 different components. As with any such system, it requires some, but not a lot,

@@ -5,13 +5,6 @@ description: Also see
 Deploying Options by ArangoDB _Deployment Mode_
 ===============================================
 
-{% hint 'info %}
-ArangoDB is also available as
-[cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
-Fire up your cluster in just a few clicks with the
-[14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
-{% endhint %}
-
 - [Single instance](deployment-single-instance.html)
 - [Master/Slave](deployment-master-slave.html)
 - [Active Failover](deployment-active-failover.html)

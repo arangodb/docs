@@ -5,11 +5,7 @@ title: DC2DC Replication Monitoring
 ---
 # Monitoring datacenter to datacenter replication
 
-{% hint 'info' %}
-Datacenter to datacenter replication is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 This section includes information related to the monitoring of the
 _datacenter to datacenter replication_.
