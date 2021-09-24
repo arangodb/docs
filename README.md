@@ -231,10 +231,10 @@ it gets rendered:
 <table>
 <thead>
 <tr>
-<th style="text-align: left">Element</th>
-<th style="text-align: left">Markdown</th>
-<th style="text-align: left">Preview</th>
-<th style="text-align: left">HTML</th>
+<th align="left">Element</th>
+<th align="left">Markdown</th>
+<th align="left">Preview</th>
+<th align="left">HTML</th>
 </tr>
 </thead>
 <tbody>
@@ -390,6 +390,14 @@ Another paragraph.</code></pre></td>
 <td><code>&lt;code&gt;code value&lt;/code&gt;</code></td>
 </tr>
 <tr>
+<td>Fenced Code</td>
+<td><pre><code>```js
+new Date(); // JavaScript
+```</code></pre></td>
+<td><pre><code>new Date(); // JavaScript</code></pre></td>
+<td><code>&lt;pre&gt;&lt;code&gt;new Date(); // JavaScript&lt;/code&gt;&lt;/pre&gt;</code></td>
+</tr>
+<tr>
 <td>Code Block</td>
 <td><pre><code>    shell&gt; pwd
     /home/alice</code></pre></td>
@@ -397,14 +405,6 @@ Another paragraph.</code></pre></td>
 /home/alice</code></pre></td>
 <td><pre><code>&lt;pre&gt;&lt;code&gt;shell&amp;gt; pwd
 /home/alice&lt;/code&gt;&lt;/pre&gt;</code></pre></td>
-</tr>
-<tr>
-<td>Fenced Code</td>
-<td><pre><code>```js
-new Date(); // JavaScript
-```</code></pre></td>
-<td><pre><code>new Date(); // JavaScript</code></pre></td>
-<td><code>&lt;pre&gt;&lt;code&gt;new Date(); // JavaScript&lt;/code&gt;&lt;/pre&gt;</code></td>
 </tr>
 <tr>
 <td>Horizontal Rule</td>
@@ -530,6 +530,15 @@ Useful hint
 <td><blockquote>✔ Useful hint</blockquote></td>
 <td><pre><code>&lt;div class="alert alert-success" …&gt;
 Useful hint
+&lt;/div&gt;</code></pre></td>
+</tr>
+<tr>
+<td>Include</td>
+<td><code>{% include hint-ee.md feature="SmartGraphs" plural=true %}</code></td>
+<td><blockquote>ℹ SmartGraphs are only available in the <a href="https://www.arangodb.com/enterprise-server/" target="_blank">Enterprise Edition</a>.</blockquote></td>
+<td><pre><code>&lt;div class="alert alert-info" …&gt;
+SmartGraphs are only available in the
+&lt;a href="https://www.arangodb.com/enterprise-server/" target="_blank"&gt;Enterprise Edition&lt;/a&gt;.
 &lt;/div&gt;</code></pre></td>
 </tr>
 <tr>
