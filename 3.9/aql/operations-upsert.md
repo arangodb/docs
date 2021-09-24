@@ -129,6 +129,20 @@ FOR i IN 1..1000
   IN users OPTIONS { exclusive: true }
 ```
 
+### `indexHint`
+
+It will be used as a hint by the inner FOR loop that is performed as part of the UPSERT 
+query, and would help in cases such as UPSERT not picking the best index automatically 
+for lookup. Example:
+
+```js
+UPSERT { a: 1234 } 
+  INSERT { a: 1234, name: "Abcd"} 
+  UPDATE {name: "Abcde"} IN myCollection 
+  OPTIONS {indexHint: "hash_a"};
+```
+
+
 Returning documents
 -------------------
 
