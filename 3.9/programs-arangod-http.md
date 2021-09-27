@@ -14,6 +14,23 @@ Idle keep-alive connections will be closed by the server automatically
 when the timeout is reached. A keep-alive-timeout value 0 will disable the keep
 alive feature entirely.
 
+## Queue time header
+
+<small>Introduced in: v3.9.0</small>
+
+`--http.return-queue-time-header`
+
+If *true*, the server will return the `x-arango-queue-time-seconds` HTTP
+header with all responses. The value contained in this header indicates the
+current queueing/dequeuing time for requests in the scheduler (in seconds).
+Client applications and drivers can use this value to control the server
+load and also react on overload.
+
+Setting the option to `false` will make arangod not return the HTTP header
+in responses.
+
+The default value is *true*.
+
 ## Hide Product header
 
 `--http.hide-product-header`
@@ -23,7 +40,6 @@ HTTP responses. If set to *false*, the server will send the header in
 responses.
 
 The default is *false*.
-
 
 ## Allow method override
 
