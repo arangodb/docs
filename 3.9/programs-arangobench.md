@@ -26,7 +26,14 @@ The most important general _arangobench_ options are:
 
 - `--server.endpoint`: the server endpoint to connect to. This can be a remote
   server or a server running on the same host. The endpoint also specifies
-  whether encryption at transit (TLS) should be used.
+  whether encryption at transit (TLS) should be used. Multiple endpoints can be
+  provided, like, for example, in a cluster in local host:
+ 
+  ```js
+  ./arangobench --server.endpoint tcp://[::1]::8529 --server.endpoint 
+  tcp://[::1]::8530 --server.endpoint tcp://[::1]::8531 --requests 9999
+
+  ``` 
 - `--server.username` and `--server.password`: these can be used to authenticate
   with an existing ArangoDB installation.
 - `--test-case`: selects the test case to be executed by _arangobench_. A list
