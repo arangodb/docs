@@ -5,11 +5,7 @@ title: Encryption at Rest
 ---
 # Encryption at Rest
 
-{% hint 'info' %}
-Encryption at rest is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="Encryption at Rest" %}
 
 When you store sensitive data in your ArangoDB database, you want
 to protect that data under all circumstances.

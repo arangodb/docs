@@ -17,7 +17,7 @@ ArangoDB deployment.
 
 {% hint 'info %}
 ArangoDB is also available as
-[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/){:target="_blank"}.
+[cloud service **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 {% endhint %}
 
 ## Installation
@@ -205,11 +205,7 @@ Note: When you restart the starter, it remembers the original `--starter.local` 
 
 ## Starting a cluster with datacenter to datacenter synchronization
 
-{% hint 'info' %}
-Datacenter to datacenter replication is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 Datacenter to datacenter replication (DC2DC) requires a normal ArangoDB cluster in both data centers
 and one or more (`arangosync`) syncmasters & syncworkers in both data centers.

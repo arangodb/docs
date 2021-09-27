@@ -627,7 +627,8 @@ SmartGraphs are only available in the
   - _Agent_, _Agency_ (uppercase A)
   - _Active Failover_
   - _Datacenter to Datacenter Replication_, _DC2DC_
-  - _Oasis_, _ArangoDB Oasis_, _ArangoDB Cloud_
+  - _Oasis_, _ArangoDB Oasis_ (_… the ArangoDB cloud_, but do not use
+    _ArangoDB Cloud_)
 
 - Do not capitalize the names of executables or code values, e.g. write
   _arangosh_ instead of _Arangosh_.

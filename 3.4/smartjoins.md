@@ -10,11 +10,7 @@ SmartJoins
 
 <small>Introduced in: v3.4.5, v3.5.0</small>
 
-{% hint 'info' %}
-SmartJoins are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="SmartJoins" plural=true %}
 
 SmartJoins allow to execute co-located join operations among identically sharded collections.
 

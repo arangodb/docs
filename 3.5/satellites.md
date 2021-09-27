@@ -6,11 +6,7 @@ title: ArangoDB SatelliteCollections
 SatelliteCollections
 ====================
 
-{% hint 'info' %}
-SatelliteCollections are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="SatelliteCollections" plural=true %}
 
 When doing joins in an ArangoDB cluster data has to be exchanged between different servers.
 
