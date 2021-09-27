@@ -143,13 +143,13 @@ UPSERT { a: 1234 }
 ```
 
 The index hint is passed through to an internal `FOR` loop that is used for the
-lookup. Also see [`indexHint` Option of the `FOR` Operation](aql/operations-for.html#indexhint).
+lookup. Also see [`indexHint` Option of the `FOR` Operation](operations-for.html#indexhint).
 
 ### `forceIndexHint`
 
 Makes the index or indices specified in `indexHint` mandatory if enabled. The
 default is `false`. Also see
-[`forceIndexHint` Option of the `FOR` Operation](aql/operations-for.html#forceindexhint).
+[`forceIndexHint` Option of the `FOR` Operation](operations-for.html#forceindexhint).
 
 ```js
 UPSERT { a: 1234 }
