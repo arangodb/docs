@@ -79,22 +79,6 @@ The timeout value for web interface sessions can be adjusted via the
 AQL
 ---
 
-### Upsert With Index Hint
-
-Added support for the UPSERT query to have indexHint as an extra parameter for 
-OPTIONS. It will be used as a hint by the inner FOR loop that is performed
-as part of the UPSERT query, and would help in cases such as UPSERT not 
-picking the best index automatically for lookup. Example:
-
-```js
-UPSERT { a: 1234 } 
-  INSERT { a: 1234, name: "Abcd"} 
-  UPDATE {name: ""} IN myCollection 
-  OPTIONS {indexHint: "hash_a"};
-```
-
-See [Upsert Options](aql/operations-upsert.html#indexHint)
-
 ### Prune Variable
 
 Added an option to store `PRUNE` expression as a variable. Now, a `PRUNE`
@@ -112,6 +96,22 @@ The condition `v.isRelevant == true` is stored in the variable `pruneCondition`,
 and later used as a condition for `FILTER`.
 
 See [Pruning](aql/graphs-traversals.html#pruning)
+
+### Upsert with Index Hint
+
+Added support for the `indexHint` and `forceIndexHint` options to the `UPSERT`
+operation. It will be used as a hint for the document lookup that is performed
+as part of the `UPSERT` operation, and can help in cases such as `UPSERT` not
+picking the best index automatically.
+
+```js
+UPSERT { a: 1234 }
+  INSERT { a: 1234, name: "AB"}
+  UPDATE {name: "ABC"} IN myCollection
+  OPTIONS { indexHint: "index_name", forceIndexHint: true }
+```
+
+See [`UPSERT` Options](aql/operations-upsert.html#indexHint)
 
 ### Decay Functions
 
