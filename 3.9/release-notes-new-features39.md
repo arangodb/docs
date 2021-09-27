@@ -111,7 +111,7 @@ UPSERT { a: 1234 }
   OPTIONS { indexHint: "index_name", forceIndexHint: true }
 ```
 
-See [`UPSERT` Options](aql/operations-upsert.html#indexHint)
+See [`UPSERT` Options](aql/operations-upsert.html#indexhint)
 
 ### Decay Functions
 
