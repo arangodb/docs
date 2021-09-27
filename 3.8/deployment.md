@@ -37,6 +37,5 @@ In the _Cloud_:
 
 - [AWS](deployment-cloud-aws.html)
 - [Azure](deployment-cloud-azure.html)
-
-ArangoDB is also available as
-[cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
+- [ArangoDB Oasis](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"},
+  fully managed, available on AWS, Azure & GCP
