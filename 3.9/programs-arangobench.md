@@ -29,7 +29,7 @@ The most important general _arangobench_ options are:
   whether encryption at transit (TLS) should be used. Multiple endpoints can be
   provided. Example:
  
-  ```js
+  ```
   arangobench \
     --server.endpoint tcp://[::1]::8529 \
     --server.endpoint tcp://[::1]::8530 \
