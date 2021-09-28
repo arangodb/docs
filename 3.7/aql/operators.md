@@ -132,7 +132,10 @@ Examples:
 ["foo", "bar"]  ANY ==  "foo"     // true
 ```
 
-Note that these operators are not optimized yet. Indexes will not be utilized.
+Note that these operators will not utilize indexes in regular queries.
+The operators are also supported in [SEARCH expressions](operations-search.html),
+where ArangoSearch's indexes can be utilized. The semantics differ however, see
+[AQL `SEARCH` operation](operations-search.html#array-comparison-operators).
 
 Logical operators
 -----------------
@@ -318,12 +321,20 @@ The condition (here just `u.value`) is only evaluated once if the second
 operand between `?` and `:` is omitted, whereas it would be evaluated twice
 in case of `u.value ? u.value : 'value is null'`.
 
+{% hint 'info' %}
+Subqueries that are used inside expressions are pulled out of these
+expressions and executed beforehand. That means that subqueries do not
+participate in lazy evaluation of operands, for example in the
+ternary operator. Also see
+[evaluation of subqueries](examples-combining-queries.html#evaluation-of-subqueries).
+{% endhint %}
+
 Range operator
 --------------
 
 AQL supports expressing simple numeric ranges with the `..` operator.
 This operator can be used to easily iterate over a sequence of numeric
-values.    
+values.
 
 The `..` operator will produce an array of the integer values in the 
 defined range, with both bounding values included.
@@ -386,7 +397,3 @@ The operator precedence in AQL is similar as in other familiar languages
 
 The parentheses `(` and `)` can be used to enforce a different operator
 evaluation order.
-
-Try out AQL in just a few clicks with ArangoDB Oasis:
-the Cloud Service for ArangoDB. Start your
-[free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.

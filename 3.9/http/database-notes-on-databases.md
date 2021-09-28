@@ -32,9 +32,11 @@ additional databases and give them unique names to access them later. Database
 management operations cannot be initiated from out of user-defined databases.
 
 When ArangoDB is accessed via its HTTP REST API, the database name is read from
-the first part of the request URI path (e.g. `/_db/_system/...`). If the request
-URI does not contain a database name, the database name is automatically
-determined by the algorithm described in Database-to-Endpoint Mapping.
+the first part of the request URI path (e.g. `/_db/myDB/...`). If the request
+URI does not contain a database name, it defaults to `/_db/_system`.
+If a database name is provided in the request URI, the name must be properly URL-encoded, and,
+if it contains UTF-8 characters, these must be NFC-normalized. Any non-NFC-normalized
+database name will be rejected by arangod.
 
 Database Name
 -------------
@@ -42,47 +44,28 @@ Database Name
 A single ArangoDB instance can handle multiple databases in parallel. When
 multiple databases are used, each database must be given an unique name.
 This name is used to uniquely identify a database. The default database in
-ArangoDB is named `_system`. The database name is a string consisting of only
-letters, digits and the _ (underscore) and - (dash) characters. User-defined
-database names must always start with a letter. Database names are case-sensitive.
+ArangoDB is named `_system`.
 
-Database Organization
----------------------
+There are two naming conventions available for database names: the **traditional**
+and the **extended** naming conventions. Whether the former or the latter is
+active depends on the `--database.extended-names-databases` startup option.
+The extended naming convention is used if enabled, allowing many special and
+UTF-8 characters in database names. If set to `false` (default), the traditional
+naming convention will be enforced.
 
-A single ArangoDB instance can handle multiple databases in parallel. By default,
-there will be at least one database which is named `_system`. Databases are
-physically stored in separate sub-directories underneath the database directory,
-which itself resides in the instance's data directory.
+{% hint 'warning' %}
+While it is possible to change the value of the
+`--database.extended-names-databases` option from `false` to `true` to enable
+extended names, the reverse is not true. Once the extended names have been
+enabled they will remain permanently enabled so that existing databases with
+extended names remain accessible.
 
-Each database has its own sub-directory, named `database-<database id>`. The
-database directory contains sub-directories for the collections of the database,
-and a file named parameter.json. This file contains the database id and name.
+Please be aware that dumps containing extended database names cannot be restored
+into older versions that only support the traditional naming convention. In a
+cluster setup, it is required to use the same database naming convention for all
+Coordinators and DB-Servers of the cluster. Otherwise the startup will be
+refused. In DC2DC setups it is also required to use the same database naming
+convention for both datacenters to avoid incompatibilities.
+{% endhint %}
 
-In an example ArangoDB instance which has two databases, the filesystem layout
-could look like this:
-
-```
-data/                     # the instance's data directory
-  databases/              # sub-directory containing all databases' data
-    database-<id>/        # sub-directory for a single database
-      parameter.json      # file containing database id and name
-      collection-<id>/    # directory containing data about a collection
-    database-<id>/        # sub-directory for another database
-      parameter.json      # file containing database id and name
-      collection-<id>/    # directory containing data about a collection
-      collection-<id>/    # directory containing data about a collection
-```
-
-Foxx applications are also organized in database-specific directories inside the
-application path. The filesystem layout could look like this:
-
-```
-apps/                   # the instance's application directory
-  system/               # system applications (can be ignored)
-  databases/            # sub-directory containing database-specific applications
-    <database-name>/    # sub-directory for a single database
-      <app-name>        # sub-directory for a single application
-      <app-name>        # sub-directory for a single application
-    <database-name>/    # sub-directory for another database
-      <app-name>        # sub-directory for a single application
-```
+Also see [Database Naming Conventions](../data-modeling-naming-conventions-database-names.html).

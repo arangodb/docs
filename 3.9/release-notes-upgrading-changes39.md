@@ -19,8 +19,70 @@ now expected to be present on all targets that run ArangoDB 3.9 executables.
 If a target does not support AVX instructions, it may fail with SIGILL at
 runtime.
 
+Extended naming convention for databases
+----------------------------------------
+
+There is a new startup option allowing database names to contain most UTF-8
+characters. The option name is `--database.extended-names-databases`.
+
+The feature is disabled by default to ensure compatibility with existing client
+drivers and applications that only support ASCII names according to the
+traditional database naming convention used in previous ArangoDB versions.
+
+If the feature is enabled, then any endpoints that contain database names 
+in the URL may contain special characters that were previously not allowed
+(percent-encoded). They are also to be expected in payloads that contain
+database names. If client applications assemble URLs with database names
+programmatically, they need to ensure that database names are properly URL-encoded
+and also NFC-normalized if they contain UTF-8 characters.
+
+The ArangoDB client tools _arangobench_, _arangodump_, _arangoexport_,
+_arangoimport_, _arangorestore_, and _arangosh_ ship with full support for the
+extended database naming convention.
+
+Please be aware that dumps containing extended database names cannot be restored
+into older versions that only support the traditional naming convention. In a
+cluster setup, it is required to use the same database naming convention for all
+Coordinators and DB-Servers of the cluster. Otherwise the startup will be
+refused. In DC2DC setups it is also required to use the same database naming
+convention for both datacenters to avoid incompatibilities.
+
+Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+
+AQL
+---
+
+The following complexity limits have been added in 3.9 for AQL queries, 
+Additional complexity limits have been added for AQL queries, in order to 
+prevent programmatically generated large queries from causing trouble 
+(too deep recursion, enormous memory usage, long query optimization 
+and distribution passes etc.).
+
+The following limits have been added:
+
+- a recursion limit for AQL query expressions. An expression can now be
+  up to 500 levels deep. An example expression is `1 + 2 + 3 + 4`, which
+  is 3 levels deep `1 + (2 + (3 + 4))`.
+  The recursion of expressions is limited to 500 levels.
+- a limit for the number of execution nodes in the initial query 
+  execution plan. The number of execution nodes is limited to 4,000.
+
+Also see [Known limitations for AQL queries](aql/fundamentals-limitations.html).
+
 Startup options
 ---------------
+
+### Timeout for web interface sessions
+
+The timeout value for web interface sessions is now configurable via the
+startup option `--server.session-timeout`. The value for the option can
+be specified in seconds.
+
+The default timeout value for web interface sessions is **one hour** in
+ArangoDB 3.9. Previous versions of ArangoDB had a longer, hard-coded timeout.
+
+The session will be renewed automatically as long as you regularly interact with
+the Web UI in your browser. You will not get logged out while actively using it.
 
 ### Disallowed usage of collection names in AQL expressions
 
@@ -39,6 +101,13 @@ From then on, unintended usage of collection names will always be disallowed.
 
 If you use queries like `RETURN collection` then you should replace them with
 `FOR doc IN collection RETURN doc` to ensure future compatibility.
+
+### Cluster-internal network protocol
+
+The cluster-internal network protocol is hard-coded to HTTP/1 in ArangoDB 3.9.
+Any other protocol selected via the startup option `--network.protocol` will 
+automatically be switched to HTTP/1. The startup option `--network.protocol` 
+is now deprecated and hidden by default. It will be removed in a future version.
 
 ### "Old" system collections
 
@@ -113,6 +182,23 @@ to call the new addresses from 3.7 onwards.
 
 Client tools
 ------------
+
+### General changes
+
+The default value for the `--threads` startup parameter was changed from
+2 to the maximum of 2 and the number of available CPU cores for the
+following client tools:
+
+- arangodump
+- arangoimport
+- arangorestore
+
+This change can help to improve performance of imports, dumps or restore
+processes on machines with multiple cores in case the `--threads` parameter
+was not previously used. As a trade-off, the change may lead to an increased 
+load on servers, so any scripted imports, dumps or restore processes that 
+want to keep the server load under control should set the number of client
+threads explicitly when invoking any of the above client tools.
 
 ### arangodump
 

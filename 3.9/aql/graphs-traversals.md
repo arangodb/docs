@@ -236,7 +236,7 @@ vertex, the edge and the path and any variable defined before.
 
 Examples:
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphPruneEdges
     @EXAMPLE_AQL{GRAPHTRAV_graphPruneEdges}
     @DATASET{traversalGraph}
@@ -245,8 +245,8 @@ Examples:
         RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].label }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_graphPruneEdges
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 This will search until it sees an edge having `theTruth == true`.
 The path with this edge will be returned, the search will not
@@ -254,7 +254,7 @@ continue after this edge.
 Namely all responses either have no edge with `theTruth == true`
 or the last edge on the path has `theTruth == true`.
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphPruneVertices
     @EXAMPLE_AQL{GRAPHTRAV_graphPruneVertices}
     @DATASET{traversalGraph}
@@ -264,8 +264,8 @@ or the last edge on the path has `theTruth == true`.
         RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].label }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_graphPruneVertices
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 This will search for all paths from the source `circles/A` to the vertex `circles/G`.
 This is done with first the PRUNE which makes sure we stop search as soon as we have found
@@ -277,7 +277,7 @@ Hence the list of all paths from `A` to `G` are returned.
 Note you can also prune as soon as you reach a certain collection with the following
 example:
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphPruneCollection
     @EXAMPLE_AQL{GRAPHTRAV_graphPruneCollection}
     @DATASET{traversalGraph}
@@ -286,8 +286,8 @@ example:
         RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].label }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_graphPruneCollection
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 {% hint 'warning' %}
 The edge emitted for the starting vertex is `null`. Keep this in mind when you
@@ -296,6 +296,26 @@ write `PRUNE` conditions involving the edge variable. A `PRUNE` condition like
 traversal too early. A construction like `(!IS_NULL(edge) AND edge.label != 'foo')`
 can be used to avoid it.
 {% endhint %}
+
+There is also the option to store the `PRUNE` condition as a variable, as in the
+following example:
+
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline GRAPHTRAV_graphPruneVerticesVariable
+    @EXAMPLE_AQL{GRAPHTRAV_graphPruneVerticesVariable}
+    @DATASET{traversalGraph}
+    FOR v, e, p IN 1..5 OUTBOUND 'circles/A' GRAPH 'traversalGraph'
+        PRUNE pruneCondition = v._key == 'G'
+        FILTER pruneCondition
+        RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].label }
+    @END_EXAMPLE_AQL
+    @endDocuBlock GRAPHTRAV_graphPruneVerticesVariable
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+This will store the `PRUNE` condition `v._key == 'G'` in the variable
+`pruneCondition`. Later on, it will be used as the condition for `FILTER` to
+avoid retyping the condition that is the same as in `PRUNE`.
 
 ### Filtering on paths
 
@@ -307,7 +327,7 @@ or relative positions to the end of the path by specifying a negative number.
 
 #### Filtering edges on the path
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphFilterEdges
     @EXAMPLE_AQL{GRAPHTRAV_graphFilterEdges}
     @DATASET{traversalGraph}
@@ -316,8 +336,8 @@ or relative positions to the end of the path by specifying a negative number.
         RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].label }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_graphFilterEdges
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 will filter all paths where the start edge (index 0) has the attribute
 *theTruth* equal to *true*. The resulting paths will be up to 5 items long.
@@ -326,7 +346,7 @@ will filter all paths where the start edge (index 0) has the attribute
 
 Similar to filtering the edges on the path you can also filter the vertices:
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphFilterVertices
     @EXAMPLE_AQL{GRAPHTRAV_graphFilterVertices}
     @DATASET{traversalGraph}
@@ -335,14 +355,14 @@ Similar to filtering the edges on the path you can also filter the vertices:
         RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].label }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_graphFilterVertices
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 #### Combining several filters
 
 And of course you can combine these filters in any way you like:
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphFilterCombine
     @EXAMPLE_AQL{GRAPHTRAV_graphFilterCombine}
     @DATASET{traversalGraph}
@@ -353,8 +373,8 @@ And of course you can combine these filters in any way you like:
         RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].label }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_graphFilterCombine
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 The query will filter all paths where the first edge has the attribute
 *theTruth* equal to *true*, the first vertex is "G" and the second edge has
@@ -368,9 +388,9 @@ exist and hence cannot fulfill the condition here.
 #### Filter on the entire path
 
 With the help of array comparison operators filters can also be defined
-on the entire path, like ALL edges should have theTruth == true:
+on the entire path, like `ALL` edges should have `theTruth == true`:
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphFilterEntirePath
     @EXAMPLE_AQL{GRAPHTRAV_graphFilterEntirePath}
     @DATASET{traversalGraph}
@@ -379,12 +399,12 @@ on the entire path, like ALL edges should have theTruth == true:
         RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].label }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_graphFilterEntirePath
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-Or NONE of the edges should have theTruth == true:
+Or `NONE` of the edges should have `theTruth == true`:
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphFilterPathEdges
     @EXAMPLE_AQL{GRAPHTRAV_graphFilterPathEdges}
     @DATASET{traversalGraph}
@@ -393,15 +413,15 @@ Or NONE of the edges should have theTruth == true:
         RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].label }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_graphFilterPathEdges
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Both examples above are recognized by the optimizer and can potentially use other indexes
 than the edge index.
 
 It is also possible to define that at least one edge on the path has to fulfill the condition:
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_graphFilterPathAnyEdge
     @EXAMPLE_AQL{GRAPHTRAV_graphFilterPathAnyEdge}
     @DATASET{traversalGraph}
@@ -410,8 +430,8 @@ It is also possible to define that at least one edge on the path has to fulfill 
         RETURN { vertices: p.vertices[*]._key, edges: p.edges[*].label }
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_graphFilterPathAnyEdge
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 It is guaranteed that at least one, but potentially more edges fulfill the condition.
 All of the above filters can be defined on vertices in the exact same way.
@@ -434,7 +454,7 @@ We will create a simple symmetric traversal demonstration graph:
 
 ![traversal graph](../images/traversal_graph.png)
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_01_create_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_01_create_graph}
     ~addIgnoreCollection("circles");
@@ -447,13 +467,13 @@ We will create a simple symmetric traversal demonstration graph:
     examples.dropGraph("traversalGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock GRAPHTRAV_01_create_graph
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 To get started we select the full graph. For better overview we only return
 the vertex IDs:
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_02_traverse_all_a
     @EXAMPLE_AQL{GRAPHTRAV_02_traverse_all_a}
     @DATASET{traversalGraph}
@@ -461,18 +481,18 @@ the vertex IDs:
       RETURN v._key
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_02_traverse_all_a
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_02_traverse_all_b
     @EXAMPLE_AQL{GRAPHTRAV_02_traverse_all_b}
     @DATASET{traversalGraph}
     FOR v IN 1..3 OUTBOUND 'circles/A' edges RETURN v._key
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_02_traverse_all_b
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 We can nicely see that it is heading for the first outer vertex, then goes back to
 the branch to descend into the next tree. After that it returns to our start node,
@@ -482,7 +502,7 @@ uses the named graph, the second uses the edge collections directly.
 Now we only want the elements of a specific depth (min = max = 2), the ones that
 are right behind the fork:
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_03_traverse_3a
     @EXAMPLE_AQL{GRAPHTRAV_03_traverse_3a}
     @DATASET{traversalGraph}
@@ -490,10 +510,10 @@ are right behind the fork:
       RETURN v._key
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_03_traverse_3a
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_03_traverse_3b
     @EXAMPLE_AQL{GRAPHTRAV_03_traverse_3b}
     @DATASET{traversalGraph}
@@ -501,8 +521,8 @@ are right behind the fork:
       RETURN v._key
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_03_traverse_3b
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 As you can see, we can express this in two ways: with or without *max* parameter
 in the expression.
@@ -515,7 +535,7 @@ side of the graph, we may filter in two ways:
 - we know the vertex at depth 1 has `_key` == `G`
 - we know the `label` attribute of the edge connecting **A** to **G** is `right_foo`
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_04_traverse_4a
     @EXAMPLE_AQL{GRAPHTRAV_04_traverse_4a}
     @DATASET{traversalGraph}
@@ -524,10 +544,10 @@ side of the graph, we may filter in two ways:
         RETURN v._key
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_04_traverse_4a
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_04_traverse_4b
     @EXAMPLE_AQL{GRAPHTRAV_04_traverse_4b}
     @DATASET{traversalGraph}
@@ -536,8 +556,8 @@ side of the graph, we may filter in two ways:
         RETURN v._key
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_04_traverse_4b
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 As we can see all vertices behind **G** are skipped in both queries.
 The first filters on the vertex `_key`, the second on an edge label.
@@ -547,7 +567,7 @@ Note again, as soon as a filter is not fulfilled for any of the three elements
 We also may combine several filters, for instance to filter out the right branch
 (**G**), and the **E** branch:
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_05_traverse_5a
     @EXAMPLE_AQL{GRAPHTRAV_05_traverse_5a}
     @DATASET{traversalGraph}
@@ -557,10 +577,10 @@ We also may combine several filters, for instance to filter out the right branch
         RETURN v._key
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_05_traverse_5a
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_05_traverse_5b
     @EXAMPLE_AQL{GRAPHTRAV_05_traverse_5b}
     @DATASET{traversalGraph}
@@ -569,8 +589,8 @@ We also may combine several filters, for instance to filter out the right branch
         RETURN v._key
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_05_traverse_5b
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 As you can see, combining two `FILTER` statements with an `AND` has the same result.
 
@@ -582,7 +602,7 @@ You may however want to also traverse in reverse direction (`INBOUND`) or
 both (`ANY`). Since `circles/A` only has outbound edges, we start our queries
 from `circles/E`:
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_06_traverse_6a
     @EXAMPLE_AQL{GRAPHTRAV_06_traverse_6a}
     @DATASET{traversalGraph}
@@ -590,10 +610,10 @@ from `circles/E`:
         RETURN v._key
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_06_traverse_6a
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_06_traverse_6b
     @EXAMPLE_AQL{GRAPHTRAV_06_traverse_6b}
     @DATASET{traversalGraph}
@@ -601,10 +621,10 @@ from `circles/E`:
         RETURN v._key
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_06_traverse_6b
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_06_traverse_6c
     @EXAMPLE_AQL{GRAPHTRAV_06_traverse_6c}
     @DATASET{traversalGraph}
@@ -612,8 +632,8 @@ from `circles/E`:
         RETURN v._key
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_06_traverse_6c
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 The first traversal will only walk in the forward (`OUTBOUND`) direction.
 Therefore from **E** we only can see **F**. Walking in reverse direction
@@ -635,7 +655,7 @@ Use the AQL explainer for optimizations
 Now let's have a look what the optimizer does behind the curtain and inspect
 traversal queries using [the explainer](execution-and-performance-optimizer.html):
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_07_traverse_7
     @EXAMPLE_AQL{GRAPHTRAV_07_traverse_7}
     @DATASET{traversalGraph}
@@ -646,10 +666,10 @@ traversal queries using [the explainer](execution-and-performance-optimizer.html
         RETURN v._key
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_07_traverse_7
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_07_traverse_8
     @EXAMPLE_AQL{GRAPHTRAV_07_traverse_8}
     @DATASET{traversalGraph}
@@ -659,8 +679,8 @@ traversal queries using [the explainer](execution-and-performance-optimizer.html
         RETURN v._key
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_07_traverse_8
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+    {% endaqlexample %}
+    {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 We now see two queries: In one we add a variable *localScopeVar*, which is outside
 the scope of the traversal itself - it is not known inside of the traverser.
@@ -671,7 +691,7 @@ Paths that are filtered out by this condition won't be processed at all.
 
 And finally clean it up again:
 
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_99_drop_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_99_drop_graph}
     ~examples.loadGraph("traversalGraph");
@@ -679,8 +699,8 @@ And finally clean it up again:
     examples.dropGraph("traversalGraph");
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock GRAPHTRAV_99_drop_graph
-{% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}
+    {% endarangoshexample %}
+    {% include arangoshexample.html id=examplevar script=script result=result %}
 
 If this traversal is not powerful enough for your needs, like you cannot describe
 your conditions as AQL filter statements, then you might want to have a look at

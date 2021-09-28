@@ -23,31 +23,6 @@ considered obsolete and may get removed in a future release. They are currently
 kept for backward compatibility. There are usually better alternatives to
 replace the old features with:
 
-- **MMFiles Storage Engine**:
-  The MMFiles storage engine was deprecated in version 3.6.0 and removed in
-  3.7.0. To change your MMFiles storage engine deployment to RocksDB, see:
-  [Switch storage engine](administration-engine-switch-engine.html)
-
-  MMFiles specific startup options still exist but will also be removed.
-  This will affect the following options:
-
-  - `--compaction.*`
-  - `--database.force-sync-properties`
-  - `--database.index-threads`
-  - `--database.maximal-journal-size`
-  - `--database.throw-collection-not-loaded-error`
-  - `--ttl.only-loaded-collection`
-  - `--wal.*`
-
-  The collection attributes `doCompact`, `indexBuckets`, `isVolatile`,
-  `journalSize` and `path` are only used with MMFiles and are thus also
-  deprecated. They are completely ignored when specified in requests.
-
-- **Export API**:
-  The [export REST API](http/export.html) is deprecated and will be removed in a
-  future version. Instead of using this API, please use an AQL query with a
-  streaming cursor to dump the contents of a collection.
-
 - **Batch Requests API**:
   The [batch request REST API](http/batch-request.html) is deprecated and will be 
   removed in a future version. Instead of using this API, please use the 
@@ -87,15 +62,6 @@ replace the old features with:
   The metrics API provides a lot more information than the statistics API, so
   it is much more useful.
 
-- **Older cluster REST API endpoints**:
-  The following endpoints are simply redirects since ArangoDB 3.7 and are thus
-  deprecated from ArangoDB 3.8 onwards:
-
-  - `/_admin/clusterNodeVersion`: redirects to `/_admin/cluster/nodeVersion`
-  - `/_admin/clusterNodeEngine`: redirects to `/_admin/cluster/nodeEngine`
-  - `/_admin/clusterNodeStats`: redirects to `/_admin/cluster/nodeStatistics`
-  - `/_admin/clusterStatistics`: redirects to `/_admin/cluster/statistics`
-
 - **Loading and unloading of collections**:
   The JavaScript functions for explicitly loading and unloading collections,
   `db.<collection-name>.load()` and `db.<collection-name>.unload()` and their
@@ -133,7 +99,7 @@ replace the old features with:
   breadth-first traversal is by using the new `order` attribute, and setting it
   to a value of `bfs`.
 
-- **Overwrite option**: The `overwrite` option for insert operations (either
+- **`overwrite` option**: The `overwrite` option for insert operations (either
   single document operations or AQL `INSERT` operations) is deprecated in favor
   of the `overwriteMode` option, which provides more flexibility.
 
@@ -167,6 +133,12 @@ replace the old features with:
     unnecessary nowadways.
   - `--http.hide-product-header`: whether or not to hide the `Server: ArangoDB`
     header in all responses served by arangod.
+  - `--network.protocol`: network protocol to use for cluster-internal 
+    communication. The protocol will be auto-decided from version 3.9 onwards.
+  - `--query.allow-collections-in-expressions`: allow full collections to be 
+    used in AQL expressions. This option defaults to `false` from version 3.9
+    onwards and will be removed in a future version. It is only useful to 
+    enable it when migrating from older versions.
 
   The following options are deprecated for _arangorestore_:
   - `--default-number-of-shards` (use `--number-of-shards` instead)
@@ -182,6 +154,12 @@ replace the old features with:
   removed in any future version of ArangoDB, so their usage is highly
   discouraged. Their functionality is already removed, but they still exist to
   prevent unknown startup option errors.
+
+- **arangobench test cases**: arangobench provides several test cases that are
+  marked as deprecated. These test cases were originally written for internal
+  testing and do not provide much value for end users. Therefore they will be
+  removed in a future version of arangobench. Whenever a deprecated arangobench
+  test case is invoked, there will be a warning message.
 
 - **HTTP and JavaScript traversal APIs**: The [HTTP traversal API](http/traversal.html)
   is deprecated since version 3.4.0. The JavaScript traversal module

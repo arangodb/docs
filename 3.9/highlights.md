@@ -11,6 +11,12 @@ Version 3.9
 
 **All Editions**
 
+- **ArangoSearch**:
+  New [**Segmentation Analyzer**](analyzers.html#segmentation)
+  for language-agnostic tokenization of text.
+  A [**Collation Analyzer**](analyzers.html#collation)
+  to honor the alphabetical order of the specified language in range queries.
+
 **Enterprise Edition**
 
 - [**Hybrid (Disjoint) SmartGraphs**](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs):
@@ -40,8 +46,8 @@ Version 3.8
   [Geo](analyzers.html#geojson)
   [Analyzers](analyzers.html#geopoint) and
   [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
-  {% comment %}A new [**Stopwords Analyzer**](analyzers.html#stopwords) that
-  can be used standalone or in an Analyzer pipeline.{% endcomment %}
+  A new [**Stopwords Analyzer**](analyzers.html#stopwords) that
+  can be used standalone or in an Analyzer pipeline.
 
 - A [**`WINDOW` operation**](aql/operations-window.html) for aggregations over
   adjacent rows, value ranges or time windows.

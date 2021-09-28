@@ -4,7 +4,7 @@ description: This chapter includes information related to the administration of 
 redirect_from:
   - cookbook/administration-replication.html # 3.5 -> 3.5
   - cookbook/administration-replicating-data.html # 3.5 -> 3.5
-  - administration-leader-follower.html # 3.8 -> 3.8
+  - administration-master-slave.html # 3.8 -> 3.8
 ---
 Leader/Follower Administration
 ==============================

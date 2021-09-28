@@ -333,7 +333,7 @@ the legacy MMFiles to the RocksDB storage engine without modifying client
 application code. Otherwise it should best be avoided as the use of exclusive
 locks on collections will introduce a noticeable throughput penalty.
 
-Note that the MMFiles engine was [removed](appendix-deprecated.html) and that
+Note that the MMFiles engine was removed and that
 this option is a stopgap measure only. This option is thus deprecated, and will
 be removed in a future version.
 

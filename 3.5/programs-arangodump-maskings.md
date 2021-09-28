@@ -470,11 +470,7 @@ processed by a single masking function, ignoring any other rules below it.
 Masking Functions
 -----------------
 
-{% hint 'info' %}
-The following masking functions are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="The following masking functions" plural=true %}
 
 - [Xify Front](#xify-front)
 - [Zip](#zip)

@@ -132,7 +132,10 @@ Examples:
 ["foo", "bar"]  ANY ==  "foo"     // true
 ```
 
-Note that these operators are not optimized yet. Indexes will not be utilized.
+Note that these operators will not utilize indexes in regular queries.
+The operators are also supported in [SEARCH expressions](operations-search.html),
+where ArangoSearch's indexes can be utilized. The semantics differ however, see
+[AQL `SEARCH` operation](operations-search.html#array-comparison-operators).
 
 Logical operators
 -----------------
@@ -318,12 +321,20 @@ The condition (here just `u.value`) is only evaluated once if the second
 operand between `?` and `:` is omitted, whereas it would be evaluated twice
 in case of `u.value ? u.value : 'value is null'`.
 
+{% hint 'info' %}
+Subqueries that are used inside expressions are pulled out of these
+expressions and executed beforehand. That means that subqueries do not
+participate in lazy evaluation of operands, for example in the
+ternary operator. Also see
+[evaluation of subqueries](examples-combining-queries.html#evaluation-of-subqueries).
+{% endhint %}
+
 Range operator
 --------------
 
 AQL supports expressing simple numeric ranges with the `..` operator.
 This operator can be used to easily iterate over a sequence of numeric
-values.    
+values.
 
 The `..` operator will produce an array of the integer values in the 
 defined range, with both bounding values included.
@@ -358,35 +369,31 @@ Operator precedence
 -------------------
 
 The operator precedence in AQL is similar as in other familiar languages
-(highest precedence first):
+(lowest precedence first):
 
-| Operator(s)           | Description
-|:----------------------|:-----------
-| `::`                  | scope
-| `[*]`                 | expansion
-| `[]`                  | indexed value access
-| `.`                   | member access
-| `()`                  | function call
-| `!` / `NOT`, `+`, `-` | logical negation, unary plus, unary minus
-| `*`, `/`, `%`         | multiplication, division, modulus
-| `+`, `-`              | addition, subtraction
-| `..`                  | range operator
-| `<`, `<=`, `>=`, `>`  | less than, less equal, greater equal, greater than
-| `IN`, `NOT IN`        | (not) in operator
-| `==`, `!=`, `LIKE`, `NOT LIKE`, `=~`, `!~`  | (in-)equality, wildcard (non-)match, regex (non-)match
+| Operator(s)          | Description
+|:---------------------|:-----------
+| `,`                  | comma separator
+| `DISTINCT`           | distinct modifier (RETURN operation)
+| `? :`                | ternary operator
+| `=`                  | variable assignment (LET operation)
+| `WITH`               | with operator (WITH / UPDATE / REPLACE / COLLECT operation)
+| `INTO`               | into operator (INSERT / UPDATE / REPLACE / REMOVE / COLLECT operation)
+| `||`                 | logical or
+| `&&`                 | logical and
 | `OUTBOUND`, `INBOUND`, `ANY`, `ALL`, `NONE` | graph traversal directions, array comparison operators
-| `&&` / `AND`          | logical and
-| `||` / `OR`           | logical or
-| `INTO`                | into operator (INSERT / UPDATE / REPLACE / REMOVE / COLLECT operation)
-| `WITH`                | with operator (WITH / UPDATE / REPLACE / COLLECT operation)
-| `=`                   | variable assignment (LET operation)
-| `? :`                 | ternary operator
-| `DISTINCT`            | distinct modifier (RETURN operation)
-| `,`                   | comma separator
+| `==`, `!=`, `LIKE`, `NOT LIKE`, `=~`, `!~`  | (in-)equality, wildcard (non-)match, regex (non-)match
+| `IN`, `NOT IN`       | (not) in operator
+| `<`, `<=`, `>=`, `>` | less than, less equal, greater equal, greater than
+| `..`                 | range operator
+| `+`, `-`             | addition, subtraction
+| `*`, `/`, `%`        | multiplication, division, modulus
+| `!`, `+`, `-`        | logical negation, unary plus, unary minus
+| `()`                 | function call
+| `.`                  | member access
+| `[]`                 | indexed value access
+| `[*]`                | expansion
+| `::`                 | scope
 
 The parentheses `(` and `)` can be used to enforce a different operator
 evaluation order.
-
-Try out AQL in just a few clicks with ArangoDB Oasis:
-the Cloud Service for ArangoDB. Start your
-[free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.

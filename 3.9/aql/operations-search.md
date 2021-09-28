@@ -128,12 +128,29 @@ supported (introduced in v3.6.0):
 
 ```js
 LET tokens = TOKENS("some input", "text_en")                 // ["some", "input"]
-FOR doc IN myView SEARCH tokens  ALL IN doc.title RETURN doc // dynamic conjunction
-FOR doc IN myView SEARCH tokens  ANY IN doc.title RETURN doc // dynamic disjunction
-FOR doc IN myView SEARCH tokens NONE IN doc.title RETURN doc // dynamic negation
-FOR doc IN myView SEARCH tokens  ALL >  doc.title RETURN doc // dynamic conjunction with comparison
-FOR doc IN myView SEARCH tokens  ANY <= doc.title RETURN doc // dynamic disjunction with comparison
+FOR doc IN myView SEARCH tokens  ALL IN doc.text RETURN doc // dynamic conjunction
+FOR doc IN myView SEARCH tokens  ANY IN doc.text RETURN doc // dynamic disjunction
+FOR doc IN myView SEARCH tokens NONE IN doc.text RETURN doc // dynamic negation
+FOR doc IN myView SEARCH tokens  ALL >  doc.text RETURN doc // dynamic conjunction with comparison
+FOR doc IN myView SEARCH tokens  ANY <= doc.text RETURN doc // dynamic disjunction with comparison
+FOR doc IN myView SEARCH tokens NONE <  doc.text RETURN doc // dynamic negation with comparison
 ```
+
+The following operators are equivalent in `SEARCH` expressions:
+- `ALL IN`, `ALL ==`, `NONE !=`, `NONE NOT IN`
+- `ANY IN`, `ANY ==`
+- `NONE IN`, `NONE ==`, `ALL !=`, `ALL NOT IN`
+- `ALL >`, `NONE <=`
+- `ALL >=`, `NONE <`
+- `ALL <`, `NONE >=`
+- `ALL <=`, `NONE >`
+
+The stored attribute referenced on the right side of the operator is like a
+single, primitive value. In case of multiple tokens, it is like having multiple
+such values as opposed to an array of values, even if the actual document
+attribute is an array. `IN` and `==` as part of array comparison operators are
+treated the same in `SEARCH` expressions for ease of use. The behavior is
+different outside of `SEARCH`, where `IN` needs to be followed by an array.
 
 Handling of non-indexed fields
 ------------------------------

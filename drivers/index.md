@@ -5,11 +5,9 @@ title: Install Official Drivers, Integrations and Community Drivers
 page-toc:
   disable: true
 ---
-ArangoDB {{ site.data.versions[page.version.name] }} Drivers Documentation
-=============================================
+# ArangoDB {{ site.data.versions[page.version.name] }} Drivers Documentation
 
-Official drivers
-----------------
+## Official drivers
 
 Name | Language | Repository | &nbsp;
 :----|:---------|:-----------|:------
@@ -18,16 +16,14 @@ Name | Language | Repository | &nbsp;
 [ArangoDB-PHP](php.html) | PHP | [github.com/arangodb/arangodb-php](https://github.com/arangodb/arangodb-php){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-php/blob/devel/CHANGELOG.md#readme){:target="_blank" class="no-wrap"}
 [Go-Driver](go.html) | Go | [github.com/arangodb/go-driver](https://github.com/arangodb/go-driver){:target="_blank"} | [Changelog](https://github.com/arangodb/go-driver/blob/master/CHANGELOG.md#readme){:target="_blank" class="no-wrap"}
 
-Integrations
-------------
+## Integrations
 
 Name | Language | Repository | &nbsp;
 :----|:---------|:-----------|:------
 [Spring Data](spring-data.html) | Java | [github.com/arangodb/spring-data](https://github.com/arangodb/spring-data){:target="_blank"} | [Changelog](https://github.com/arangodb/spring-data/blob/master/ChangeLog.md#readme){:target="_blank" class="no-wrap"}
 [ArangoDB-Spark-Connector](spark-connector.html) | Scala, Java | [github.com/arangodb/arangodb-spark-connector](https://github.com/arangodb/arangodb-spark-connector){:target="_blank"} | [Changelog](https://github.com/arangodb/arangodb-spark-connector/blob/master/ChangeLog.md#readme){:target="_blank" class="no-wrap"}
 
-Community drivers
------------------
+## Community drivers
 
 Please note that this list is not exhaustive.
 
@@ -62,8 +58,7 @@ eArango | Erlang | [github.com/ErlGameWorld/eArango](https://github.com/ErlGameW
 darango | Dart | [github.com/BastienFerbu/darango](https://github.com/BastienFerbu/darango){:target="_blank"}
 arango-dart | Dart | [github.com/xtyxtyx/arango-dart](https://github.com/xtyxtyx/arango-dart){:target="_blank"}
 
-Community integrations and libraries
-------------------------------------
+## Community integrations and libraries
 
 Please note that this list is not exhaustive.
 
@@ -91,8 +86,7 @@ MopArangoDbBundle | Symfony2 | PHP | [github.com/m0ppers/MopArangoDbBundle](http
 arangoq: a query builder layer |  | Rust | [github.com/element114/arangoq](https://github.com/element114/arangoq){:target="_blank"}
 GORM Arango Driver | GORM | Go | [github.com/joselitofilho/gorm-arango](https://github.com/joselitofilho/gorm-arango){:target="_blank"}
 
-Community projects
-------------------
+## Community projects
 
 Please note that this list is not exhaustive.
 

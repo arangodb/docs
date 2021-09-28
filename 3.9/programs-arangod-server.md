@@ -228,9 +228,7 @@ concurrency does not hurt too much. Beware of your memory usage, though.
 ArangoDB's storage engine is based on [RocksDB](http://rocksdb.org){:target="_blank"}
 and the only available engine in ArangoDB v3.7 and above.
 
-The legacy storage engine called MMFiles was [removed](appendix-deprecated.html).
-
-One storage engine type is supported per server per installation.
+The storage engine type needs to be the same for an entire deployment.
 Live switching of storage engines on already installed systems isn't supported.
 Configuring the wrong engine (not matching the previously used one) will result
 in the server refusing to start. You may however use `auto` to let ArangoDB
@@ -355,6 +353,19 @@ If set to *false* only use the external authentication system. If
 *true* also use the local *_users* collections.
 
 The default value is *true*.
+
+## Timeout for web interface sessions
+
+<small>Introduced in: v3.9.0</small>
+
+`--server.session-timeout value`
+
+The timeout value for web interface sessions is configurable via the
+startup option `--server.session-timeout`. The value for the option can
+be specified in seconds.
+
+The session will be renewed automatically as long as you regularly interact with
+the Web UI in your browser. You will not get logged out while actively using it.
 
 ## Server threads
 

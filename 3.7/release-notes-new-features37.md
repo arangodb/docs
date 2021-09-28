@@ -202,8 +202,7 @@ This includes (k-)shortest path(s) computation and possibly joins with
 traversals and greatly improves performance for such queries.
 
 [SatelliteGraphs](graphs-satellite-graphs.html)
-are only available in the Enterprise Edition and the
-[ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
+are only available in the Enterprise Edition.
 
 Disjoint SmartGraphs
 --------------------
@@ -216,8 +215,7 @@ restriction allows the query optimizer to improve traversal execution times,
 because in many cases the execution can be pushed down to a single DB-Server.
 
 [Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-disjoint-smartgraphs)
-are only available in the Enterprise Edition and the
-[ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
+are only available in the Enterprise Edition.
 
 AQL
 ---

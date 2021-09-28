@@ -42,6 +42,23 @@ There are two syntax variants for `WINDOW` operations.
 
 <pre><code>WINDOW <em>rangeValue</em> WITH { preceding: <em>offsetPreceding</em>, following: <em>offsetFollowing</em> } AGGREGATE <em>variableName</em> = <em>aggregateExpression</em></code></pre>
 
+Calls to the following functions are supported in aggregation expressions:
+- `LENGTH()` / `COUNT()`
+- `MIN()`
+- `MAX()`
+- `SUM()`
+- `AVERAGE()` / `AVG()`
+- `STDDEV_POPULATION()` / `STDDEV()`
+- `STDDEV_SAMPLE()`
+- `VARIANCE_POPULATION()` / `VARIANCE()`
+- `VARIANCE_SAMPLE()`
+- `UNIQUE()`
+- `SORTED_UNIQUE()`
+- `COUNT_DISTINCT()` / `COUNT_UNIQUE()`
+- `BIT_AND()`
+- `BIT_OR()`
+- `BIT_XOR()`
+
 ## Row-based Aggregation
 
 The first syntax form of `WINDOW` allows aggregating over a fixed number of

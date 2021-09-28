@@ -210,6 +210,7 @@ size=2G
 If you want to use an environment variable in a value of a startup option,
 write the name of the variable wrapped in at signs `@`. It acts as a
 placeholder. It can be combined with fixed strings for instance.
+For literal at signs in startup option arguments, escape them like `@@`.
 
 Command line example:
 
@@ -252,8 +253,10 @@ do so. On a command line:
 arangod --log.level warning --log.level queries=trace --log.level startup=info
 ```
 
-This sets a global log level of `warning` and two topic-specific levels
-(`trace` for queries and `info` for startup). The same in a configuration file:
+This sets a log level of `warning` for the `general` topic (not globally!) and
+two topic-specific levels (`trace` for queries and `info` for startup).
+
+The same in a configuration file:
 
 ```conf
 [log]
