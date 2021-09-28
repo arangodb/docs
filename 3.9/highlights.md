@@ -13,6 +13,10 @@ Version 3.9
 
 **Enterprise Edition**
 
+- [**Hybrid (Disjoint) SmartGraphs**](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs):
+  SatelliteCollections can be used in (Disjoint) SmartGraphs to enable more
+  local execution of graph queries.
+
 Also see [What's New in 3.9](release-notes-new-features39.html).
 
 Version 3.8
@@ -35,7 +39,7 @@ Version 3.8
   indexing. Support for **geo-spatial queries** through new
   [Geo](analyzers.html#geojson)
   [Analyzers](analyzers.html#geopoint) and
-  [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
+  [ArangoSearch Geo functions](functions-arangosearch.html#geo-functions).
   {% comment %}A new [**Stopwords Analyzer**](analyzers.html#stopwords) that
   can be used standalone or in an Analyzer pipeline.{% endcomment %}
 

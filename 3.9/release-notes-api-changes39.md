@@ -11,7 +11,7 @@ integrations for ArangoDB 3.9.
 
 ## HTTP RESTful API
 
-### GRAPH API (Gharial)
+### Graph API (Gharial)
 
 The following changes affect the behavior of the RESTful graph APIs at
 endpoints starting with path `/_api/gharial/`:

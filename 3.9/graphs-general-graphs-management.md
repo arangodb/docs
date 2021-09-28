@@ -118,6 +118,16 @@ collection in *toVertexCollections*.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### Edge Definition Options
+
+The following edge definition options are supported:
+
+- `satellites` (array):
+  An array of collection names that will be used to create SatelliteCollections
+  for a Hybrid (Disjoint) SmartGraph (Enterprise Edition only). Each array element
+  must be a string and a valid collection name. The collection type cannot be
+  modified later.
+
 Create a Graph
 --------------
 
@@ -348,8 +358,8 @@ Add another edge definition to the graph:
 - `edgeDefinition` (object):
   The relation definition to extend the graph
 - `options` (object):
-  Additional options related to the edgeDefinition itself.
-  Definition can be found [here](graphs-general-graphs-management.html#edge-definition-options).
+  Additional options related to the edge definition itself.
+  See [Edge Definition Options](#edge-definition-option).
 
 Extends the edge definitions of a graph. If an orphan collection is used in this
 edge definition, it will be removed from the orphanage. If the edge collection of
@@ -383,8 +393,8 @@ Modify a relation definition:
   The edge definition to replace the existing edge definition with the same
   attribute *collection*.
 - `options` (object):
-  Additional options related to the edgeDefinition itself.
-  Definition can be found [here](graphs-general-graphs-management.html#edge-definition-options).
+  Additional options related to the edge definition itself.
+  See [Edge Definition Options](#edge-definition-options).
 
 Edits one relation definition of a graph. The edge definition used as argument will
 replace the existing edge definition of the graph which has the same collection.
@@ -409,14 +419,6 @@ definition will be modified, too.
     @endDocuBlock general_graph__editEdgeDefinition
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-
-### Edge Definition Options
-
-Currently, supported options are:
-- `satellites` (array):
-  List of collections that are going to be created as SatelliteCollections.
-  Each entry must be defined as a String and must be a valid a valid collection
-  name. Details can be found [here](data-modeling-naming-conventions-collection-and-view-names.html).
 
 ### Delete an Edge Definition
 
@@ -491,11 +493,8 @@ Add a vertex collection to the graph:
 - `createCollection` (bool, _optional_):
   If true the collection will be created if it does not exist. Default: true
 - `options` (object, _optional_):
-  Additional option object for advanced configuration. The object can contain the
-  property `satellites`. This value is only valid in case of SmartGraphs
-  (Enterprise-Only). It must be an array and can contain valid collection
-  names. If provided, the collection will be created as a Satellite Collection.
-  The collection type cannot be modified later. Default: {}
+  Additional options related to the edge definition itself.
+  See [Edge Definition Options](#edge-definition-options).
 
 Adds a vertex collection to the set of orphan collections of the graph. If the
 collection does not exist, it will be created. If it is already used by any edge

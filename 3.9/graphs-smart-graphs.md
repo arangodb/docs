@@ -74,16 +74,16 @@ General Graph.
 Benefits of Hybrid SmartGraphs
 -------------------------------
 
-Hybrid SmartGraphs are capable of using Satellite Collections within their graph
-definition. Therefore, defined EdgeDefinitions between SmartCollections and
-SatelliteCollections can be created. As Satellite Collections are globally
-replicated to each participating DB-Server, graph traversals, shortest path,
-weighted traversals and k-shortest-paths queries can be executed partially
-locally on each DB-Server. This means a larger part of the query can be executed
-fully local whenever data from the Satellite part is required.
+Hybrid SmartGraphs are capable of using SatelliteCollections within their graph
+definition. Therefore, defined edge definitions between SmartCollections and
+SatelliteCollections can be created. As SatelliteCollections are globally
+replicated to each participating DB-Server, (weighted) graph traversals and
+(k-)shortest path(s) queries can partially be executed locally on each
+DB-Server. This means a larger part of the query can be executed fully local
+whenever data from the SatelliteCollections is required.
 
 Benefits of Disjoint SmartGraphs
--------------------------------
+--------------------------------
 
 Disjoint SmartGraphs are a specialized type of SmartGraphs. 
 
@@ -95,11 +95,10 @@ can be executed locally on a DB-Server, achieving improved performance for
 these type of queries.
 
 Benefits of Hybrid Disjoint SmartGraphs
--------------------------------
+---------------------------------------
 
-Hybrid Disjoint SmartGraphs benefit of all advantages which are present in
-Hybrid SmartGraphs. The rules of Disjoint SmartGraphs, described in the chapter
-above, stay true.
+Hybrid Disjoint SmartGraphs are like Hybrid SmartGraphs but also prohibit
+edges between vertices with different `smartGraphAttribute` values.
 
 Getting started
 ---------------
