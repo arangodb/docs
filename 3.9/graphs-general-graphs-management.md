@@ -359,7 +359,7 @@ Add another edge definition to the graph:
   The relation definition to extend the graph
 - `options` (object):
   Additional options related to the edge definition itself.
-  See [Edge Definition Options](#edge-definition-option).
+  See [Edge Definition Options](#edge-definition-options).
 
 Extends the edge definitions of a graph. If an orphan collection is used in this
 edge definition, it will be removed from the orphanage. If the edge collection of

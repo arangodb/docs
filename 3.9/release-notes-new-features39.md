@@ -15,7 +15,7 @@ Hybrid (Disjoint) SmartGraphs
 SmartGraphs have been extended with a new option to create Hybrid SmartGraphs.
 Hybrid SmartGraphs are capable of using SatelliteCollections within their graph
 definition and therefore can make use of all the benefits of
-[SatelliteCollections](satellites.md).
+[SatelliteCollections](satellites.html).
 
 Edge definitions can now be created between SmartCollections and
 SatelliteCollections. As SatelliteCollections are globally replicated to each
@@ -32,7 +32,7 @@ local query execution.
 
 Hybrid SmartGraphs can also be disjoint. A Disjoint SmartGraph prohibits edges
 connecting different SmartGraph components. The same rule applies to
-[Hybrid Disjoint SmartGraphs](graphs-smart-graphs.html#Benefits-of-Hybrid-Disjoint-SmartGraphs).
+[Hybrid Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-disjoint-smartgraphs).
 If your graph does not need edges between vertices with different SmartGraph
 attribute values, then you should enable this option. This topology restriction
 allows the query optimizer to improve traversal execution times, because the

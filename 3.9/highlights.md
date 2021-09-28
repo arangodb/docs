@@ -39,7 +39,7 @@ Version 3.8
   indexing. Support for **geo-spatial queries** through new
   [Geo](analyzers.html#geojson)
   [Analyzers](analyzers.html#geopoint) and
-  [ArangoSearch Geo functions](functions-arangosearch.html#geo-functions).
+  [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
   {% comment %}A new [**Stopwords Analyzer**](analyzers.html#stopwords) that
   can be used standalone or in an Analyzer pipeline.{% endcomment %}
 
