@@ -1,11 +1,11 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
 
 HTTP/1.1 200 OK
 content-type: application/json
 connection: Keep-Alive
-content-length: 841
+content-length: 843
 location: /_api/collection/testCollection/shards
 server: ArangoDB
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":{\"s10050\":[\"PRMR-fa4fa176-dfb0-41aa-9a1c-52c238355ab4\",\"PRMR-a4d4125b-83d4-425b-a7af-1c3ac36a7370\"],\"s10051\":[\"PRMR-a4d4125b-83d4-425b-a7af-1c3ac36a7370\",\"PRMR-fa4fa176-dfb0-41aa-9a1c-52c238355ab4\"],\"s10052\":[\"PRMR-fa4fa176-dfb0-41aa-9a1c-52c238355ab4\",\"PRMR-a4d4125b-83d4-425b-a7af-1c3ac36a7370\"]},\"id\":\"10049\",\"waitForSync\":false,\"syncByRevision\":true,\"replicationFactor\":2,\"usesRevisionsAsDocumentIds\":true,\"statusString\":\"loaded\",\"numberOfShards\":3,\"shardingStrategy\":\"hash\",\"internalValidatorType\":0,\"minReplicationFactor\":1,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"schema\":null,\"isDisjoint\":false,\"name\":\"testCollection\",\"isSmartChild\":false,\"isSmart\":false,\"globallyUniqueId\":\"c10049/\",\"cacheEnabled\":false,\"writeConcern\":1,\"isSystem\":false,\"type\":2,\"shardKeys\":[\"_key\"],\"status\":3}"
+"{\"error\":false,\"code\":200,\"waitForSync\":false,\"shards\":{\"s10046\":[\"PRMR-4d8adaf4-2013-4880-a728-dda30484cdcb\",\"PRMR-53725bb7-efe6-4712-9a45-1419a21d7931\"],\"s10047\":[\"PRMR-53725bb7-efe6-4712-9a45-1419a21d7931\",\"PRMR-4d8adaf4-2013-4880-a728-dda30484cdcb\"],\"s10048\":[\"PRMR-4d8adaf4-2013-4880-a728-dda30484cdcb\",\"PRMR-53725bb7-efe6-4712-9a45-1419a21d7931\"]},\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"usesRevisionsAsDocumentIds\":true,\"schema\":null,\"writeConcern\":1,\"syncByRevision\":true,\"replicationFactor\":2,\"numberOfShards\":3,\"id\":\"10045\",\"name\":\"testCollection\",\"isDisjoint\":false,\"minReplicationFactor\":1,\"status\":3,\"type\":2,\"globallyUniqueId\":\"c10045/\",\"isSmart\":false,\"isSystem\":false,\"isSmartChild\":false,\"statusString\":\"loaded\",\"cacheEnabled\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"minRevision\":\"_Zz3k4-----\"}"
