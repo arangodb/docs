@@ -44,3 +44,19 @@ curl -XPUT http://$SERVER:$PORT/_admin/license -d '"<license-string>"'
 }
 ```
 
+Different error codes might be returned like the one below. 
+Please contact your ArangoDB sales representative directly
+or via sales@arangodb.com.
+
+```js
+{
+  "code": 400,
+  "error": true,
+  "errorMessage": "This license expires sooner than the existing. You may override this by specifying force=true with invocation.",
+  "errorNum": 9007
+}
+```
+
+The license would then not been be appllied unless the user forces
+its application by setting the query parameter `?force=true`.
+
