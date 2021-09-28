@@ -703,7 +703,7 @@
       "agent",
       "single"
     ],
-    "default" : 15268129792,
+    "default" : 15268124672,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -5057,7 +5057,7 @@
     ],
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
@@ -5835,7 +5835,7 @@
       "agent",
       "single"
     ],
-    "default" : 51208202281,
+    "default" : 51208185692,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -5917,7 +5917,7 @@
       "agent",
       "single"
     ],
-    "default" : 37932001689,
+    "default" : 37931989401,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -6676,7 +6676,7 @@
       "agent",
       "single"
     ],
-    "default" : 18321755750,
+    "default" : 18321749606,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -6980,7 +6980,7 @@
     ],
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "allow use of hardware accelaration on CPUs with the AES-NI instruction set",
+    "description" : "use Intel intrinsics-based encryption, requiring a CPU with the AES-NI instruction set. If turned off, then OpenSSL is used, which may use hardware-accelarated encryption too.",
     "dynamic" : false,
     "enterpriseOnly" : true,
     "hidden" : false,
@@ -8163,7 +8163,7 @@
       "agent",
       "single"
     ],
-    "default" : 24429007667,
+    "default" : 24428999475,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,

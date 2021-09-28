@@ -93,8 +93,8 @@ a docker container, the starter will auto-detect its container name.
 
 The arango starter by default creates a cluster that uses no authentication.
 
-To create a cluster that uses authentication, create a file containing a random JWT secret (single line)
-and pass it through the `--auth.jwt-secret` option.
+To create a cluster that uses authentication, create a file containing a random
+JWT secret (single line) and pass it through the `--auth.jwt-secret` option.
 
 For example:
 
@@ -106,14 +106,16 @@ arangodb --auth.jwt-secret=./jwtSecret
 All starters used in the cluster must have the same JWT secret.
 
 To use a JWT secret to access the database, use `arangodb auth header`.
-See [Using authentication tokens](programs-starter-security.html#using-authentication-tokens) for details.
+See [Using authentication tokens](programs-starter-security.html#using-authentication-tokens)
+for details.
 
 ## SSL options
 
-The arango starter by default creates a cluster that uses no unencrypted connections (no SSL).
+The arango starter by default creates a cluster that uses no unencrypted
+connections (no SSL).
 
-To create a cluster that uses encrypted connections, you can use an existing server key file (.pem format)
-or let the starter create one for you.
+To create a cluster that uses encrypted connections, you can use an existing
+server key file (.pem format) or let the starter create one for you.
 
 To use an existing server key file use the `--ssl.keyfile` option like this:
 
@@ -121,9 +123,11 @@ To use an existing server key file use the `--ssl.keyfile` option like this:
 arangodb --ssl.keyfile=myServer.pem
 ```
 
-Use [`arangodb create tls keyfile`](programs-starter-security.html) to create a server key file.
+Use [`arangodb create tls keyfile`](programs-starter-security.html) to create a
+server key file.
 
-To let the starter created a self-signed server key file, use the `--ssl.auto-key` option like this:
+To let the starter created a self-signed server key file, use the
+`--ssl.auto-key` option like this:
 
 ```bash
 arangodb --ssl.auto-key
@@ -141,68 +145,102 @@ Additional SSL options:
 
 - `--ssl.cafile=path`
 
-Configure the servers to require a client certificate in their communication to the servers using the CA certificate in a file with given path.
+Configure the servers to require a client certificate in their communication to
+the servers using the CA certificate in a file with given path.
 
 - `--ssl.auto-server-name=name`
 
-name of the server that will be used in the self-signed certificate created by the `--ssl.auto-key` option.
+name of the server that will be used in the self-signed certificate created by
+the `--ssl.auto-key` option.
 
 - `--ssl.auto-organization=name`
 
-name of the server that will be used in the self-signed certificate created by the `--ssl.auto-key` option.
+name of the server that will be used in the self-signed certificate created by
+the `--ssl.auto-key` option.
 
 ## Passing through other database options
 
 Options for `arangod` that are not supported by the starter can still be passed to
 the DB-Servers using a pass through option.
-Every option that start with a pass through prefix is passed through to the commandline
-of one or more server instances.
+Every option that start with a pass through prefix is passed through to the
+commandline of one or more server instances.
 
-- `--all.<section>.<key>=<value>` is pass as `--<section>.<key>=<value>` to all servers started by this starter.
-- `--coordinators.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all Coordinators started by this starter.
-- `--dbservers.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all DB-Servers started by this starter.
-- `--agents.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all Agents started by this starter.
+- `--args.all.<section>.<key>=<value>` is passed as
+  `--<section>.<key>=<value>` to all servers started by this starter.
+- `--args.coordinators.<section>.<key>=<value>` is passed as
+  `--<section>.<key>=<value>` to all Coordinators started by this starter.
+- `--args.dbservers.<section>.<key>=<value>` is passed as
+  `--<section>.<key>=<value>` to all DB-Servers started by this starter.
+- `--args.agents.<section>.<key>=<value>` is passed as
+  `--<section>.<key>=<value>` to all Agents started by this starter.
 
-Some options are essential to the function of the starter. Therefore these options cannot be passed through like this.
+Some options are essential to the function of the starter.
+Therefore these options cannot be passed through like this.
 
 Example:
 
-To activate HTTP request logging at debug level for all Coordinators, use a command like this.
+To activate HTTP request logging at debug level for all Coordinators, use a
+command like this:
 
 ```bash
-arangodb --coordinators.log.level=requests=debug
+arangodb --args.coordinators.log.level=requests=debug
 ```
 
 ## Passing through `arangosync` options
 
-Options for `arangosync` that are not supported by the starter can still be passed to
-the syncmasters & syncworkers using a pass through option.
-Every option that start with a pass through prefix is passed through to the commandline
-of one or more `arangosync` instances.
+Options for `arangosync` that are not supported by the starter can still be
+passed to the syncmasters & syncworkers using a pass through option.
+Every option that start with a pass through prefix is passed through to the
+commandline of one or more `arangosync` instances.
 
-- `--sync.<section>.<key>=<value>` is pass as `--<section>.<key>=<value>` to all arangosync instances started by this starter.
-- `--syncmasters.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all syncmasters started by this starter.
-- `--syncworkers.<section>.<key>=<value>` is passed as `--<section>.<key>=<value>` to all syncworkers started by this starter.
+- `--args.sync.<section>.<key>=<value>` is passed as
+  `--<section>.<key>=<value>` to all arangosync instances started by this starter.
+- `--args.syncmasters.<section>.<key>=<value>` is passed as
+  `--<section>.<key>=<value>` to all syncmasters started by this starter.
+- `--args.syncworkers.<section>.<key>=<value>` is passed as
+  `--<section>.<key>=<value>` to all syncworkers started by this starter.
 
-Some options are essential to the function of the starter. Therefore these options cannot be passed through like this.
+Some options are essential to the function of the starter.
+Therefore these options cannot be passed through like this.
 
 Example:
 
 To set a custom token TTL for direct message queue, use a command like this.
 
 ```bash
-arangodb --syncmasters.mq.direct-token-ttl=12h ...
+arangodb --args.syncmasters.mq.direct-token-ttl=12h ...
+```
+
+## Passing environment variables
+
+Environment variables by default gonna be passed from arangodb process by
+default. However, variables can be overridden using arangodb command line option.
+
+- `--envs.<group>.<env name>=<value>`
+- `--envs.all.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=2G` sets
+  `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=2G` for all instances started by this starter.
+- `--envs.coordinators.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=4G` sets
+  `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=4G` for all Coordinators started by this starter.
+- `--envs.dbservers.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=8G` sets
+  `ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=8G` for all DB-Servers started by this starter.
+
+Example:
+
+```bash
+arangodb --envs.all.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=2G --envs.coordinators.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=4G --envs.dbservers.ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY=8G ...
 ```
 
 ## Datacenter to datacenter replication options
 
 - `--sync.start-master=bool`
 
-Should an ArangoSync master instance be started (only relevant when starter.sync is enabled, defaults to `true`)
+Should an ArangoSync master instance be started (only relevant when starter.sync
+is enabled, defaults to `true`)
 
 - `--sync.start-worker=bool`
 
-Should an ArangoSync worker instance be started (only relevant when starter.sync is enabled, defaults to `true`)
+Should an ArangoSync worker instance be started (only relevant when starter.sync
+is enabled, defaults to `true`)
 
 - `--sync.monitoring.token=<token>`
 
@@ -309,12 +347,14 @@ set a custom directory to which all log files will be written to.
 When using the Starter in docker, make sure that this directory is
 mounted as a volume for the Starter.
 
-Note: When using a custom log directory, all DB-Server files will be named as `arangod-<role>-<port>.log`.
-The log for the starter itself is still called `arangodb.log`.
+Note: When using a custom log directory, all DB-Server files will be named as
+`arangod-<role>-<port>.log`. The log for the starter itself is still called
+`arangodb.log`.
 
 - `--log.rotate-files-to-keep=int`
 
-set the number of old log files to keep when rotating log files of server components (default 5).
+set the number of old log files to keep when rotating log files of server
+components (default 5).
 
 - `--log.rotate-interval=duration`
 
@@ -342,10 +382,13 @@ the executable in docker. The default value is "unix:///var/run/docker.sock".
 
 - `--docker.imagePullPolicy=Always|IfNotPresent|Never`
 
-`docker.imagePullPolicy` determines if the docker image is being pull from the docker hub.
-If set to `Always`, the image is always pulled and an error causes the starter to fail.
-If set to `IfNotPresent`, the image is not pull if it is always available locally.
-If set to `Never`, the image is never pulled (when it is not available locally an error occurs).
+`docker.imagePullPolicy` determines if the Docker image is being pulled from
+Docker Hub.
+
+- If set to `Always`, the image is always pulled and an error causes the starter to fail.
+- If set to `IfNotPresent`, the image is not pull if it is always available locally.
+- If set to `Never`, the image is never pulled (when it is not available locally an error occurs).
+
 The default value is `Always` is the `docker.image` has the `:latest` tag or `IfNotPresent` otherwise.
 
 - `--docker.net-mode=mode`
@@ -371,11 +414,12 @@ upon "server ready" requests to the log. This option is mainly intended for inte
 
 ## Environment variables
 
-It is possible to replace all commandline arguments for the starter with environment variables.
-To do so, set an environment variable named `ARANGODB_` + `<name of command line option in uppercase>`,
-where all dashes, underscores and dots are replaced with underscores.
+It is possible to replace all commandline arguments for the starter with
+environment variables. To do so, set an environment variable named
+`ARANGODB_` + `<name of command line option in uppercase>`, where all dashes,
+underscores and dots are replaced with underscores.
 
-E.g.
+For example,
 
 ```bash
 ARANGODB_DOCKER_TTY=true arangodb

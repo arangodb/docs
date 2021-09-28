@@ -247,12 +247,23 @@ FOR u IN users
 Only specific expressions are allowed on the right-hand side of each `AGGREGATE`
 assignment:
 
-- on the top level, an aggregate expression must be a call to one of the supported 
-  aggregation functions `LENGTH`, `MIN`, `MAX`, `SUM`, `AVERAGE`, `STDDEV_POPULATION`, 
-  `STDDEV_SAMPLE`, `VARIANCE_POPULATION`, `VARIANCE_SAMPLE`, `UNIQUE`, `SORTED_UNIQUE`, 
-  `COUNT_DISTINCT`, `BIT_AND`, `BIT_OR` or `BIT_XOR`. The following aliases are allowed too: 
-  `COUNT` (for `LENGTH`), `AVG` (for `AVERAGE`), `STDDEV` (for `STDDEV_POPULATION`), 
-  `VARIANCE` (for `VARIANCE_POPULATION`), `COUNT_UNIQUE` (for `COUNT_DISTINCT`).
+- on the top level, an aggregate expression must be a call to one of the
+  supported aggregation functions:
+  - `LENGTH()` / `COUNT()`
+  - `MIN()`
+  - `MAX()`
+  - `SUM()`
+  - `AVERAGE()` / `AVG()`
+  - `STDDEV_POPULATION()` / `STDDEV()`
+  - `STDDEV_SAMPLE()`
+  - `VARIANCE_POPULATION()` / `VARIANCE()`
+  - `VARIANCE_SAMPLE()`
+  - `UNIQUE()`
+  - `SORTED_UNIQUE()`
+  - `COUNT_DISTINCT()` / `COUNT_UNIQUE()`
+  - `BIT_AND()`
+  - `BIT_OR()`
+  - `BIT_XOR()`
 
 - an aggregate expression must not refer to variables introduced by the `COLLECT` itself
 

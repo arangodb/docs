@@ -476,6 +476,11 @@ FOR doc IN food_view
   RETURN doc
 ```
 
+{% hint 'warning' %}
+Using `includeAllFields` for a lot of attributes in combination with complex
+Analyzers may significantly slow down the indexing process.
+{% endhint %}
+
 ### Indexing and querying arrays
 
 The elements of arrays are indexed individually by default, as if the source

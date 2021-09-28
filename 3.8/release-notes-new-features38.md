@@ -9,8 +9,10 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.8. ArangoDB 3.8 also contains several bug fixes that are not listed
 here.
 
-AQL window operations
----------------------
+AQL
+---
+
+### AQL window operations
 
 The `WINDOW` keyword can be used for aggregations over related rows, usually
 preceding and / or following rows.
@@ -33,8 +35,7 @@ Window frames are determined with respect to the current row:
 
 See [`WINDOW` operation](aql/operations-window.html).
 
-Weighted Traversals
--------------------
+### Weighted Traversals
 
 The graph traversal option `bfs` is now deprecated and superseded by the new
 option `order`. It supports a new traversal type `"weighted"`, which enumerate
@@ -82,8 +83,7 @@ specified, but can also be explicitly requested with `order: "dfs"`.
 
 Also see [AQL graph traversals](aql/graphs-traversals.html)
 
-k Paths
--------
+### k Paths
 
 A new graph traversal method `K_PATHS` was added to AQL. It will enumerate all
 paths between a source and a target vertex that match the given path length.
@@ -107,10 +107,9 @@ FOR path IN 2..4 OUTBOUND K_PATHS "v/source" TO "v/target" GRAPH "g"
 … that have length of exactly 2 or 3 or 4, start at `v/source` and end at
 `v/target`. No order is guaranteed for those paths in the result set.
 
-For more details see [AQL k paths](aql/graphs-k-paths.html)
+For more details see [AQL k Paths](aql/graphs-k-paths.html)
 
-AQL bit functions
------------------
+### AQL bit functions
 
 ArangoDB 3.8 adds the following bit handling functions to AQL:
 
@@ -138,8 +137,7 @@ return `null` and register a warning.
 
 This functionality has been backported to v3.7.7 as well.
 
-AQL binary and hexadecimal integer literals
--------------------------------------------
+### AQL binary and hexadecimal integer literals
 
 ArangoDB 3.8 allows using binary (base 2) and hexadecimal (base 16) integer
 literals in AQL. These literals can be used where regular (base 10) integer
@@ -154,8 +152,7 @@ The maximum supported value is 2<sup>32</sup> - 1, i.e.
 
 This functionality has been backported to v3.7.7 as well.
 
-Projections on sub-attributes
------------------------------
+### Projections on sub-attributes
 
 AQL now also support projections on sub-attributes (e.g. `a.b.c`).
 
@@ -186,8 +183,7 @@ FOR doc IN collection
 … the projection can be satisfied by a single-attribute index on attribute `b`,
 but now also by a combined index on attributes `a` and `b` (or `b` and `a`).
 
-AQL optimizer improvements
---------------------------
+### AQL optimizer improvements
 
 The "move-calculations-up" optimizer rule was improved so that it can move
 calculations out of subqueries into the outer query, so that they will be
@@ -201,8 +197,7 @@ execution time of such queries.
 Explaining a query now also shows the query optimizer rules with the highest
 execution times in the explain output.
 
-AQL performance improvements
-----------------------------
+### AQL performance improvements
 
 The performance of AQL `standard` sort operations has been improved in ArangoDB
 3.8. This is true for sorts carried out explicitly by using the `SORT` keyword
@@ -216,10 +211,9 @@ There are also performance improvements for `COLLECT` operations that only
 count values or that aggregate values using `AGGREGATE`. The exact mileage
 can vary, but is substantial for some queries.
 
-AQL usability options
----------------------
+### AQL usability options
 
-### Requiring `WITH` statements
+#### Requiring `WITH` statements
 
 The new startup option `--query.require-with` will make AQL queries in single
 server mode also require `WITH` clauses in AQL queries where a cluster
@@ -228,7 +222,7 @@ The option is set to *false* by default, but can be turned on in single servers
 to remove this behavior difference between single servers and clusters, making
 a later transition from single server to cluster easier.
 
-### Allowing the usage of collection names in AQL expressions
+#### Allowing the usage of collection names in AQL expressions
 
 The new startup option `--query.allow-collections-in-expressions` controls
 whether using collection names in arbitrary places in AQL expressions is

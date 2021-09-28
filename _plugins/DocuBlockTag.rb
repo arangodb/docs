@@ -16,8 +16,8 @@ class DocuBlockBlock < Liquid::Tag
                 content += line
             elsif line.start_with?("ERROR_")
                 error = line.split(",")
-                content += "   * **#{error[1]}** - **#{error[0]}**\n\n"
-                content += "     #{error[3].gsub("\"", "")}\n"
+                content += "<h4 id=\"#{error[1]}\">#{error[1]} - #{error[0]}</h4>\n"
+                content += "#{error[3].gsub("\"", "")}\n"
             end
         end
         content

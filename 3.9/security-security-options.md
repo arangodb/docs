@@ -17,18 +17,32 @@ The following security options are available:
   If this option is set to `true` and authentication is enabled, non-admin users
   will be denied access to the following REST APIs:
   
+  - `/_admin/cluster/numberOfServers` 
   - `/_admin/log`
   - `/_admin/log/level`
   - `/_admin/status`
   - `/_admin/statistics`
   - `/_admin/statistics-description`
+  - `/_admin/support-info`
   - `/_api/engine/stats`
-  - `/_admin/cluster/numberOfServers` 
 
   Additionally, no version details will be revealed by the version REST API at 
   `/_api/version`.
 
   The default value for this option is `false`.
+
+- `--server.support-info-api`
+  This option controls access to the REST API endpoint `/_admin/support-info` 
+  for retrieving deployment information. It can have the following values:
+  - `disabled`: support info API is disabled.
+  - `jwt`: support info API can only be accessed via superuser JWT.
+  - `hardened`: if `--server.harden` is set, the support info API can
+    only be accessed via superuser JWT. Otherwise it can be accessed
+    by admin users only.
+  - `public`: everyone with access to the `_system` database can access the
+    support info API.
+
+  The default value for this option is `hardened`.
 
 ## JavaScript security options
 

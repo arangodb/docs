@@ -204,6 +204,7 @@ Supported geometry object types are:
 - LineString
 - MultiLineString
 - Polygon
+- MultiPolygon
 
 ### Point
 
