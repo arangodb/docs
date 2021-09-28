@@ -97,6 +97,22 @@ and later used as a condition for `FILTER`.
 
 See [Pruning](aql/graphs-traversals.html#pruning)
 
+### Upsert with Index Hint
+
+Added support for the `indexHint` and `forceIndexHint` options to the `UPSERT`
+operation. It will be used as a hint for the document lookup that is performed
+as part of the `UPSERT` operation, and can help in cases such as `UPSERT` not
+picking the best index automatically.
+
+```js
+UPSERT { a: 1234 }
+  INSERT { a: 1234, name: "AB"}
+  UPDATE {name: "ABC"} IN myCollection
+  OPTIONS { indexHint: "index_name", forceIndexHint: true }
+```
+
+See [`UPSERT` Options](aql/operations-upsert.html#indexhint)
+
 ### Decay Functions
 
 Added three decay functions to AQL:
