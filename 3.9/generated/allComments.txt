@@ -15219,6 +15219,46 @@ arangosh&gt; db._executeTransaction({ <span class="hljs-attr">collections</span>
     @endDocuBlock GRAPHTRAV_graphPruneCollection
 
 
+<!-- filename: /home/simran/oskar2/work/ArangoDB/Documentation/Books/AQL/graphs-traversals.md -->
+    @startDocuBlockInline GRAPHTRAV_graphPruneVerticesVariable
+
+
+<div class="example-container" id="GRAPHTRAV_graphPruneVerticesVariable_container">
+<div id="GRAPHTRAV_graphPruneVerticesVariable_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.5</span> OUTBOUND <span class="hljs-string">&#x27;circles/A&#x27;</span> GRAPH <span class="hljs-string">&#x27;traversalGraph&#x2$      PRUNE pruneCondition = v._key == <span class="hljs-string">&#x27;G&#x27;</span>
+      FILTER pruneCondition
+      RETURN { <span class="hljs-attr">vertices</span>: p.vertices[*]._key, <span class="hljs-attr">edges</span>: p.edges[*].label }
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  {
+    <span class="hljs-string">&quot;vertices&quot;</span>: [
+      <span class="hljs-string">&quot;A&quot;</span>,
+      <span class="hljs-string">&quot;G&quot;</span>
+    ],
+    <span class="hljs-string">&quot;edges&quot;</span>: [
+      <span class="hljs-string">&quot;right_foo&quot;</span>
+    ]
+  }
+]</pre>
+<div id="GRAPHTRAV_graphPruneVerticesVariable_container_collapse" onclick="$('#GRAPHTRAV_graphPruneVerticesVariable_long').hide(); $('#GRAPHTRAV_graphPruneVerticesVariable_short').show(); window.location.hash$<div id="GRAPHTRAV_graphPruneVerticesVariable_short" onclick="$('#GRAPHTRAV_graphPruneVerticesVariable_short').hide(); $('#GRAPHTRAV_graphPruneVerticesVariable_long').show();">
+<strong>Query:</strong>
+<pre>
+  FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.5</span> OUTBOUND <span class="hljs-string">&#x27;circles/A&#x27;</span> GRAPH <span class="hljs-string">&#x27;traversalGraph&#x2$      PRUNE pruneCondition = v._key == <span class="hljs-string">&#x27;G&#x27;</span>
+      FILTER pruneCondition
+      RETURN { <span class="hljs-attr">vertices</span>: p.vertices[*]._key, <span class="hljs-attr">edges</span>: p.edges[*].label }
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock GRAPHTRAV_graphPruneVerticesVariable
+
+
 <!-- filename: /work/ArangoDB/Documentation/Books/AQL/graphs-traversals.md -->
     @startDocuBlockInline GRAPHTRAV_graphFilterEdges
 
