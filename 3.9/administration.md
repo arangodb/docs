@@ -43,6 +43,7 @@ Deployment Administration
 - [Cluster](administration-cluster.html)
 - [Datacenter to datacenter replication](administration-dc2-dc.html)
 - [ArangoDB Starter Administration](administration-starter.html)
+- [Enterprise License](administration-license.html)
 
 Other Topics
 ------------

@@ -3,7 +3,7 @@ layout: default
 description: The license feature manages the enterprise license functionality
 ---
 HTTP Interface for the License feature
-=================================
+======================================
 
 The license feature is the facility that manages all functionality related to enterprise licensing in ArangoDB.
 The http API, that allows one to both view current license status as well as assign a license to an ArangoDB cluster is callable on coordinators and database servers of enterprise editions.
