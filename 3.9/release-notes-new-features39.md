@@ -391,21 +391,20 @@ See [Overriding data types per attribute](programs-arangoimport-examples-csv.htm
 
 ### arangobench
 
-Now it supports multiple coordinators, so the flag `--server.endpoint` can be
-used multiple times, as in the example below:
+_arangobench_ now supports multiple Coordinators. The flag `--server.endpoint`
+can be specified multiple times, as in the example below:
 
-```js
-arangobench \
---server.endpoint tcp://[::1]::8529 \
---server.endpoint tcp://[::1]::8530 \
---server.endpoint tcp://[::1]::8531 \
---requests 9999
 ```
+arangobench \
+  --server.endpoint tcp://[::1]::8529 \
+  --server.endpoint tcp://[::1]::8530 \
+  --server.endpoint tcp://[::1]::8531 
+``` 
 
-This does not compromise the use of the other client tools, which preserve
-the behavior of having one coordinator and one endpoint.
+This does not compromise the use of the other client tools, that preserve
+the behavior of having one Coordinator and one endpoint.
 
-Refer to [arangobench options](programs-arangobench.html#general-configuration)
+Also see [_arangobench_ Options](programs-arangobench.html#general-configuration)
 
 _arangobench_ now prints a short description of the test case started, so
 it is easier to figure out what operations are carried out by a test case.
