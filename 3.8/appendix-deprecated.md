@@ -24,8 +24,7 @@ replace the old features with:
 
 - **MMFiles Storage Engine**:
   The MMFiles storage engine was deprecated in version 3.6.0 and removed in
-  3.7.0. To change your MMFiles storage engine deployment to RocksDB, see:
-  [Switch storage engine](administration-engine-switch-engine.html)
+  3.7.0.
 
   MMFiles specific startup options still exist but will also be removed.
   This will affect the following options:

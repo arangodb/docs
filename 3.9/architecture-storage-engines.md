@@ -1,47 +1,17 @@
 ---
 layout: default
 description: At the very bottom of the ArangoDB database system lies the RocksDB storage engine
-title: ArangoDB Storage Engines
+title: ArangoDB Storage Engine
 ---
 # Storage Engines
-
-{% hint 'warning' %}
-The MMFiles storage engine was removed.
-To change your MMFiles storage engine deployment to RocksDB, see:
-[Switch storage engine](../3.7/administration-engine-switch-engine.html)
-{% endhint %}
 
 At the very bottom of the ArangoDB database system lies the storage
 engine. The storage engine is responsible for persisting the documents
 on disk, holding copies in memory, providing indexes and caches to
 speed up queries.
 
-Up to version 3.1 ArangoDB only supported memory-mapped files (**MMFiles**)
-as sole storage engine. In version 3.2, ArangoDB gained support for pluggable
-storage engines and a second engine based on Facebook's **RocksDB** was added.
-MMFiles remained the default engine for 3.3, but in 3.4 RocksDB became the new
-default. MMFiles was deprecated in version 3.6.0 and removed in 3.7.0.
-
-| MMFiles | RocksDB |
-|---------|---------|
-| removed | default |
-| dataset needs to fit into memory | work with as much data as fits on disk |
-| indexes in memory | hot set in memory, data and indexes on disk |
-| slow restart due to index rebuilding | fast startup (no rebuilding of indexes) |
-| volatile collections (only in memory, optional) | collection data always persisted |
-| collection level locking (writes block reads) | concurrent reads and writes |
-
-*Blog article: [Comparing new RocksDB and MMFiles storage engines](https://www.arangodb.com/community-server/rocksdb-storage-engine/){:target="_blank"}*
-
-## MMFiles
-
-The MMFiles (Memory-Mapped Files) engine was optimized for the use-case where
-the data fit into the main memory. It allowed for very fast concurrent
-reads. However, writes blocked reads and locking was on collection
-level.
-
-Indexes were always in memory and rebuilt on startup. This
-gave better performance but imposed a longer startup time.
+ArangoDB's storage engine is based on Facebook's **RocksDB** and the only
+storage engine available in ArangoDB 3.7 and above.
 
 ## RocksDB
 
