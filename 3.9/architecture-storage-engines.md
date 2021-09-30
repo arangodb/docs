@@ -3,7 +3,7 @@ layout: default
 description: At the very bottom of the ArangoDB database system lies the RocksDB storage engine
 title: ArangoDB Storage Engine
 ---
-# Storage Engines
+# Storage Engine
 
 At the very bottom of the ArangoDB database system lies the storage
 engine. The storage engine is responsible for persisting the documents
