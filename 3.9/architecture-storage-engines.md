@@ -37,10 +37,9 @@ The main advantages of RocksDB are:
 ### Caveats
 
 RocksDB allows concurrent writes. However, when touching the same document a
-write conflict is raised. This cannot happen with the MMFiles engine, therefore
-applications that switch to RocksDB need to be prepared that such exception can
-arise. It is possible to exclusively lock collections when executing AQL. This
-will avoid write conflicts but also inhibits concurrent writes.
+write conflict is raised. It is possible to exclusively lock collections when
+executing AQL. This will avoid write conflicts but also inhibits concurrent
+writes.
 
 Currently, another restriction is due to the transaction handling in
 RocksDB. Transactions are limited in total size. If you have a statement

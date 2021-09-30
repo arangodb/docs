@@ -13,6 +13,7 @@ redirect_from:
   - appendix-deprecated-simple-queries-geo-queries.html # 3.8 -> 3.8
   - appendix-deprecated-simple-queries-fulltext-queries.html # 3.8 -> 3.8
   - http/simple-query.html # 3.8 -> 3.8
+  - programs-arangod-compaction.html # 3.9 -> 3.9
 ---
 Deprecated
 ==========
