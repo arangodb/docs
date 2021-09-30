@@ -8,7 +8,7 @@ title: ArangoDB Storage Engines
 {% hint 'warning' %}
 The MMFiles storage engine was removed.
 To change your MMFiles storage engine deployment to RocksDB, see:
-[Switch storage engine](administration-engine-switch-engine.html)
+[Switch storage engine](../3.7/administration-engine-switch-engine.html)
 {% endhint %}
 
 At the very bottom of the ArangoDB database system lies the storage
@@ -21,19 +21,6 @@ as sole storage engine. In version 3.2, ArangoDB gained support for pluggable
 storage engines and a second engine based on Facebook's **RocksDB** was added.
 MMFiles remained the default engine for 3.3, but in 3.4 RocksDB became the new
 default. MMFiles was deprecated in version 3.6.0 and removed in 3.7.0.
-
-<!-- TODO: remove?
-The engine must be selected for the whole server / cluster. It is not
-possible to mix engines. The transaction handling and write-ahead-log
-format in the individual engines is very different and therefore cannot
-be mixed.
--->
-
-{% hint 'tip' %}
-For practical information on how to switch storage engine please refer to the
-[Switching the storage engine](administration-engine-switch-engine.html)
-page.
-{% endhint %}
 
 | MMFiles | RocksDB |
 |---------|---------|
