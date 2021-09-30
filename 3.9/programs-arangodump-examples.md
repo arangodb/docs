@@ -50,6 +50,10 @@ statistics about what it did, e.g.:
 
     Processed 43 collection(s), wrote 408173500 byte(s) into datafiles, sent 88 batch(es)
 
+Also, more than one endpoint can be provided, such as:
+
+    arangodump --server.endpoint tcp://192.168.173.13:8531 ---server.endpoint tcp://192.168.173.13:8532 -server.username backup --all-databases true --output-directory "dump-multiple"
+
 By default, _arangodump_ will dump both structural information and documents from all
 non-system collections. To adjust this, there are the following command-line
 arguments:
