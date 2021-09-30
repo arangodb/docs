@@ -429,6 +429,7 @@ This does not compromise the use of the other client tools, which preserve
 the behavior of having one coordinator and one endpoint.
 
 Refer to [arangodump examples](programs-arangodump-examples.html) 
+
 ### arangorestore
 
 Now it supports multiple coordinators, so the flag `--server.endpoint` can be
