@@ -553,6 +553,17 @@ SmartGraphs are only available in the
 <td>3.9</td>
 <td><code>3.9</code></td>
 </tr>
+<tr>
+<td>Version Condition</td>
+<td><pre><code>{%- assign ver = "3.8" | version: "&gt;=" %}
+{%- if ver %}
+Current version is greater than 3.8
+{%- else %}
+Current version is less than or equal to 3.8
+{%- endif %}</code></pre></td>
+<td>Current version is greater than 3.8</td>
+<td><code>Current version is greater than 3.8</code></td>
+</tr>
 </tbody>
 </table>
 
