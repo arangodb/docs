@@ -49,7 +49,13 @@ arangodump \
 In contrast to the above call `--server.database` must not be specified when dumping
 all databases using `--all-databases true`:
 
-    arangodump --server.endpoint tcp://192.168.173.13:8531 --server.username backup --all-databases true --output-directory "dump-multiple"
+```
+arangodump \
+  --server.endpoint tcp://192.168.173.13:8531 \
+  --server.username backup \
+  --all-databases true \
+  --output-directory "dump-multiple"
+```
 
 When finished, _arangodump_ will print out a summary line with some aggregate
 statistics about what it did, e.g.:
