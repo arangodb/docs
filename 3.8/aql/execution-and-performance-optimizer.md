@@ -605,10 +605,9 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 - `remove-redundant-sorts`:
   will appear if multiple *SORT* statements can be merged into fewer sorts.
 
-- `remove-sort-rand`:
-  will appear when a *SORT RAND()* expression is removed by moving the random
-  iteration into an *EnumerateCollectionNode*. This optimizer rule is specific
-  for the MMFiles storage engine.
+- `remove-sort-rand-limit-1`:
+  will appear when a *SORT RAND() LIMIT 1* construct is removed by moving the
+  random iteration into an *EnumerateCollectionNode*.
 
 - `remove-unnecessary-calculations`:
   will appear if *CalculationNode*s were removed from the query. The rule will

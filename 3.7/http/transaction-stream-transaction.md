@@ -41,8 +41,7 @@ for making sure that the transaction is committed or aborted when it is no longe
 This avoids taking up resources on the ArangoDB server.
 
 {% hint 'warning' %}
-Transactions will acquire collection locks for read and write operations
-in the MMFiles storage engine, and for write operations in RocksDB.
+Transactions will acquire collection locks for write operations in RocksDB.
 It is therefore advisable to keep the transactions as short as possible.
 {% endhint %}
 

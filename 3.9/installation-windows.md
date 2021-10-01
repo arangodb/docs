@@ -195,11 +195,6 @@ be specified like `/OPTIONNAME=value`.
    - `1`:
      - `INSTALL_SCOPE_ALL` = 1 add it to the path for all users
      - `INSTALL_SCOPE_ALL` = 0 add it to the path of the currently logged in users
- - `/STORAGE_ENGINE` - which storage engine to use (ArangoDB 3.2 onwards)
-   - `auto`: Use default storage engine
-     (RocksDB from version 3.4 on, MMFiles in 3.3 and older)
-   - `mmfiles`: Use MMFiles storage engine
-   - `rocksdb`: Use RocksDB storage engine
 
 *For Uninstallation*:
  - `PURGE_DB`

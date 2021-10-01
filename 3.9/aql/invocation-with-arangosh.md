@@ -199,7 +199,7 @@ There are further options that can be passed in the *options* attribute of the *
 - `stream`: Specify *true* and the query will be executed in a **streaming** fashion. The query result is
   not stored on the server, but calculated on the fly. *Beware*: long-running queries will
   need to hold the collection locks for as long as the query cursor exists. It is advisable
-  to *only* use this option on short-running queries *or* without exclusive locks (write locks on MMFiles).
+  to *only* use this option on short-running queries *or* without exclusive locks.
   When set to *false* the query will be executed right away in its entirety. 
   In that case query results are either returned right away (if the result set is small enough),
   or stored on the arangod instance and accessible via the cursor API. 
