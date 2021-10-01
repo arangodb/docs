@@ -85,6 +85,7 @@ Aranguent | Laravel | PHP | [github.com/LaravelFreelancerNL/laravel-arangodb](ht
 MopArangoDbBundle | Symfony2 | PHP | [github.com/m0ppers/MopArangoDbBundle](https://github.com/m0ppers/MopArangoDbBundle){:target="_blank"}
 arangoq: a query builder layer |  | Rust | [github.com/element114/arangoq](https://github.com/element114/arangoq){:target="_blank"}
 GORM Arango Driver | GORM | Go | [github.com/joselitofilho/gorm-arango](https://github.com/joselitofilho/gorm-arango){:target="_blank"}
+Apache Spline: Data lineage tracking solution that uses ArangoDB for storage | Apache Spark | Scala | [github.com/AbsaOSS/spline](https://github.com/AbsaOSS/spline){:target="_blank"}
 
 ## Community projects
 
