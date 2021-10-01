@@ -57,11 +57,24 @@ The `--force-same-database` option is set to `false` by default to ensure backwa
 Here's an example of reloading data to a non-standard endpoint, using a dedicated
 [database name](appendix-glossary.html#database-name):
 
-    arangorestore --server.endpoint tcp://192.168.173.13:8531 --server.username backup --server.database mydb --input-directory "dump"
+```
+arangorestore \
+  --server.endpoint tcp://192.168.173.13:8531 \
+  --server.username backup \
+  --server.database mydb \
+  --input-directory "dump" \
+```
 
 Also, more than one endpoint can be provided, such as:
 
-    arangorestore --server.endpoint tcp://192.168.173.13:8531 ---server.endpoint tcp://192.168.173.13:8532 -server.username backup --server.database mydb --input-directory "dump"
+```
+arangorestore \
+  --server.endpoint tcp://192.168.173.13:8531 \
+  --server.endpoint tcp://192.168.173.13:8532 \
+  --server.username backup \
+  --server.database mydb \
+  --input-directory "dump"
+```
 
 To create the target database when restoring, use a command like this:
 

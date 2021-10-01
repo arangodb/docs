@@ -33,7 +33,8 @@ The most important general _arangobench_ options are:
   arangobench \
     --server.endpoint tcp://[::1]::8529 \
     --server.endpoint tcp://[::1]::8530 \
-    --server.endpoint tcp://[::1]::8531 
+    --server.endpoint tcp://[::1]::8531 \
+    ...
   ``` 
 
 - `--server.username` and `--server.password`: these can be used to authenticate
