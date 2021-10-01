@@ -85,6 +85,7 @@ Aranguent | Laravel | PHP | [github.com/LaravelFreelancerNL/laravel-arangodb](ht
 MopArangoDbBundle | Symfony2 | PHP | [github.com/m0ppers/MopArangoDbBundle](https://github.com/m0ppers/MopArangoDbBundle){:target="_blank"}
 arangoq: a query builder layer |  | Rust | [github.com/element114/arangoq](https://github.com/element114/arangoq){:target="_blank"}
 GORM Arango Driver | GORM | Go | [github.com/joselitofilho/gorm-arango](https://github.com/joselitofilho/gorm-arango){:target="_blank"}
+Apache Spline, data lineage tracking solution, uses ArangoDB as a storage inside | Apache Spark | Scala | [github.com/AbsaOSS/spline](https://github.com/AbsaOSS/spline){:target="_blank"}
 
 ## Community projects
 
@@ -98,4 +99,3 @@ RecallGraph: A versioning data store for time-variant graph data | Foxx | JavaSc
 ArangoDb.Net.Identity: .NET Core Identity library for ArangoDB | .NET | C# | [github.com/endpointsystems/ArangoDB.Net.Identity](https://github.com/endpointsystems/ArangoDB.Net.Identity){:target="_blank"}
 Docker Swarm example configuration | Docker Swarm |  | [github.com/dumstruck/arango-swarm](https://github.com/dumstruck/arango-swarm){:target="_blank"}
 Intellij plugin for AQL, ArangoDB language support | Intellij | Java | [github.com/ArangoDB-Community/aql-intellij-plugin](https://github.com/ArangoDB-Community/aql-intellij-plugin){:target="_blank"}
-Apache Spline, data lineage tracking solution, uses ArangoDB as a storage inside | Apache Spark | Scala | [github.com/AbsaOSS/spline](https://github.com/AbsaOSS/spline){:target="_blank"}
