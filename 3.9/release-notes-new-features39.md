@@ -95,7 +95,7 @@ FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
 The condition `v.isRelevant == true` is stored in the variable `pruneCondition`,
 and later used as a condition for `FILTER`.
 
-See [Pruning](aql/graphs-traversals.html#pruning)
+See [Pruning](aql/graphs-traversals.html#pruning).
 
 ### Upsert with Index Hint
 
@@ -291,6 +291,45 @@ convention for both datacenters to avoid incompatibilities.
 
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
 
+### Logging
+
+The server now has two flags for retaining or escaping control and Unicode
+characters in the log. The flag `--log.escape` is now deprecated and, instead,
+the new flags `--log.escape-control-chars` and `--log.escape-unicode-chars`
+should be used.
+
+- `--log.escape-control-chars`:
+
+  This flag applies to the control characters, that have hex codes below `\x20`,
+  and also the character `DEL` with hex code `\x7f`.
+
+  When the flag value is set to `false`, control characters will be retained
+  when they have a visible representation, and replaced with a space character
+  in case they do not have a visible representation. For example, the control
+  character `\n` is visible, so a `\n` will be displayed in the log. Contrary,
+  the control character `BEL` is not visible, so a space will be displayed
+  instead.
+
+  When the flag value is set to `true`, the hex code for the character is
+  displayed, for example, the `BEL` character will be displayed as its hex code,
+  `\x07`.
+
+  The default value for this flag is `true` to ensure compatibility with 
+  previous versions.
+
+- `--log.escape-unicode-chars`:
+
+  If its value is set to `false`, Unicode characters will be retained and
+  written to the log as-is. For example, `犬` will be logged as `犬`. If the
+  flag value is set to `true`, any Unicode characters are escaped, and the hex
+  codes for all Unicode characters are logged instead. For example, `犬` would
+  be logged as its hex code, `\u72AC`.
+
+  The default value for this flag is set to `false` for compatibility with
+  previous versions.
+
+Also see [Logging](programs-arangod-log.html).
+
 ### Version information
 
 The _arangod_ server now provides a command `--version-json` to print version
@@ -433,7 +472,7 @@ This will turn the numeric-looking values in the `key` attribute into strings
 but treat the attributes `price` and `weight` as numbers. Finally, the values in
 attribute `fk` will be treated as strings again.
 
-See [Overriding data types per attribute](programs-arangoimport-examples-csv.html#overriding-data-types-per-attribute)
+See [Overriding data types per attribute](programs-arangoimport-examples-csv.html#overriding-data-types-per-attribute).
 
 ### arangobench
 
