@@ -28,7 +28,7 @@ word stemming, remove user-defined stop-words, split by a delimiting
 character only, perform case conversion and/or removal of diacritic
 characters against the full input without tokenization and more.
 
-See [Analyzers]({% if page.version.version < "3.7" %}arangosearch-{% endif %}analyzers.html)
+See [Analyzers]({% assign ver = "3.7" | version: "<" %}{% if ver %}arangosearch-{% endif %}analyzers.html)
 for all available options.
 
 ### Sorted Index
@@ -101,7 +101,7 @@ Note that the `primarySort` option is immutable: it can not be changed after
 View creation. It is therefore not possible to configure it through the Web UI.
 The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
 
-See [Primary Sort Order](arangosearch{% if page.version.version < "3.7" %}-views{% else %}-performance{% endif %}.html#primary-sort-order)
+See [Primary Sort Order](arangosearch{% assign ver = "3.7" | version: "<" %}{% if ver %}-views{% else %}-performance{% endif %}.html#primary-sort-order)
 of ArangoSearch Views.
 
 ### AQL Integration
