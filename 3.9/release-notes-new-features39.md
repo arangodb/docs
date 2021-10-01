@@ -483,6 +483,58 @@ target real world use cases but were rather writing for some internal testing.
 The deprecated test cases will be removed in a future version to clear up
 the list of test cases.
 
+_arangobench_ now supports multiple Coordinators. The flag `--server.endpoint`
+can be specified multiple times, as in the example below:
+
+```
+arangobench \
+  --server.endpoint tcp://[::1]::8529 \
+  --server.endpoint tcp://[::1]::8530 \
+  --server.endpoint tcp://[::1]::8531 \
+  ...
+``` 
+
+This does not compromise the use of the other client tools, that preserve
+the behavior of having one Coordinator and one endpoint.
+
+Also see [_arangobench_ Options](programs-arangobench.html#general-configuration)
+
+### arangodump
+
+_arangodump_ now supports multiple Coordinators. The flag `--server.endpoint`
+can be used multiple times, as in the example below:
+
+```
+arangodump \
+  --server.endpoint tcp://[::1]::8529 \
+  --server.endpoint tcp://[::1]::8530 \
+  --server.endpoint tcp://[::1]::8531 \
+  ...
+```
+
+This does not compromise the use of the other client tools that preserve
+the behavior of having one Coordinator and one endpoint.
+
+Also see [_arangodump_ examples](programs-arangodump-examples.html)
+
+### arangorestore
+
+_arangorestore_ now supports multiple Coordinators. The flag `--server.endpoint`
+can be used multiple times, as in the example below:
+
+```
+arangorestore \
+  --server.endpoint tcp://[::1]::8529 \
+  --server.endpoint tcp://[::1]::8530 \
+  --server.endpoint tcp://[::1]::8531 \
+  ...
+```
+
+This does not compromise the use of the other client tools that preserve
+the behavior of having one Coordinator and one endpoint.
+
+Also see [_arangorestore_ examples](programs-arangorestore-examples.html)
+
 ### arangovpack
 
 The _arangovpack_ utility supports more input and output formats (JSON and
