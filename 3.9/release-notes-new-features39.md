@@ -255,6 +255,41 @@ Setting the option to `false` allows to not store any data read by the query
 in the RocksDB block cache. This is useful for queries that read a lot of (cold)
 data which would lead to the eviction of the hot data from the block cache.
 
+Multidimensional Indexes (experimental)
+------------------------
+
+ArangoDB 3.9 features a new index type `zkd`. It can be created like other
+indexes. In contrast to the `persistent` index type (same for `hash` and
+`skiplist`, which today are just aliases for `persistent`), it lifts the
+following restriction.
+
+A `persistent` index can only be used with query filters where a conjunction of
+equalities on a prefix of indexed fields covers the filter. For example, given a
+collection with a `persistent` index on the fields `["a", "b"]`. Then the
+following filters _can_ be satisfied by the index.
+
+- `FILTER doc.a == @a`
+- `FILTER doc.a == @a && doc.b == @b`
+- `FILTER doc.a == @a && @bl <= doc.b && doc.b <= @bu`
+
+While the following filters _cannot_, or only partially, be satisfied by a
+`persistent` index.
+
+- `FILTER doc.b == @b`
+- `FILTER @bl <= doc.b && doc.b <= @bu`
+- `FILTER @al <= doc.a && doc.a <= @au && @bl <= doc.b && doc.b <= @bu`
+
+A `zkd` index can be used to satisfy them all. An example where this is useful
+are documents with an assigned time interval, where a query should find all
+documents that contain a given time point, or overlap with some time interval.
+
+There are also drawbacks in comparison with `persistent` indexes. For one, the
+`zkd` index is not sorted. Secondly, it has a significantly higher overhead, and
+the emerging performance is much more dependent on the distribution of the
+dataset, making it less predictable.
+
+The feature is still experimental.
+
 Server options
 --------------
 
