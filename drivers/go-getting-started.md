@@ -44,7 +44,7 @@ functions defined within it: e.g.
 driver.Function()    // package driver
 fmt.Println("hello") // package fmt
 os.Exit(0)           // package os
-'''
+```
 
 There are two Go package components needed for the Go driver.
 The main go-driver name contains an illegal character however, so we need to map
@@ -56,7 +56,7 @@ import (
               "github.com/arangodb/go-driver/http"
        driver "github.com/arangodb/go-driver”
 )
-'''
+```
 
 Now we refer to the member functions and types as: 
 
@@ -65,7 +65,7 @@ http.NewConnection(..)
 driver.NewClient(..)
 driver.Database
 driver.Collection
-'''
+```
 
 ## Configuration
 
