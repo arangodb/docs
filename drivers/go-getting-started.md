@@ -33,28 +33,28 @@ Go uses package names as datatypes, and datatypes as qualifiers, to invoke
 member functions:
 
 ```go
-package.member()
-var myvariable package.typename 
+package.Member()
+var myvariable package.Typename 
 ```
 
 Moreover, the package name becomes an object reference to all types and unclassified
 functions defined within it: e.g.
 
 ```go
-driver.function()    // package driver
+driver.Function()    // package driver
 fmt.Println("hello") // package fmt
 os.Exit(0)           // package os
 '''
 
 There are two Go package components needed for the Go driver.
 The main go-driver name contains an illegal character however, so we need to map
-it to an alias, say “A” for Arango, by importing it as
+it to an alias, say “driver” for the Arango driver (or something shorter), by importing it as
 
 ```go
 import (
 
-       "github.com/arangodb/go-driver/http"
-     A “github.com/arangodb/go-driver”
+              "github.com/arangodb/go-driver/http"
+       driver "github.com/arangodb/go-driver”
 )
 '''
 
@@ -62,9 +62,9 @@ Now we refer to the member functions and types as:
 
 ```go
 http.NewConnection(..)
-A.NewClient(..)
-A.Database
-A.Collection
+driver.NewClient(..)
+driver.Database
+driver.Collection
 '''
 
 ## Configuration
@@ -81,10 +81,9 @@ running on localhost.
 
 ```go
 import (
-	"fmt"
-
-	A "github.com/arangodb/go-driver"
-	"github.com/arangodb/go-driver/http"
+   	   "fmt"
+    driver "github.com/arangodb/go-driver"
+           "github.com/arangodb/go-driver/http"
 )
 
 ...
@@ -95,7 +94,7 @@ conn, err := http.NewConnection(http.ConnectionConfig{
 if err != nil {
     // Handle error
 }
-client, err := A.NewClient(driver.ClientConfig{
+client, err := driver.NewClient(driver.ClientConfig{
     Connection: conn,
 })
 if err != nil {
@@ -120,10 +119,10 @@ Arango using the Go driver are:
 These are declared as in the following examples:
 ```go
 var err error
-var client A.Client
-var conn A.Connection
-var db A.Database
-var col A.Collection
+var client driver.Client
+var conn   driver.Connection
+var db     driver.Database
+var col    driver.Collection
 ```
 etc. We can now see them in action:
 the following example shows how to open an existing collection in an existing database 
@@ -140,9 +139,9 @@ if err != nil {
 }
 
 // Client object
-client, err = A.NewClient(A.ClientConfig{
+client, err = driver.NewClient(driver.ClientConfig{
 	Connection: conn,
-	Authentication: A.BasicAuthentication("root", "wnbGnPpCXHwbP"),
+	Authentication: driver.BasicAuthentication("root", "wnbGnPpCXHwbP"),
 })
 if err != nil {
     // Handle error
@@ -267,8 +266,8 @@ import (
 	"log"
 	"strings"
 
-	A "github.com/arangodb/go-driver"
-	"github.com/arangodb/go-driver/http"
+	driver "github.com/arangodb/go-driver"
+	       "github.com/arangodb/go-driver/http"
 )
 
 type User struct {
@@ -279,8 +278,8 @@ type User struct {
 func main() {
 
 	var err error
-	var client A.Client
-	var conn A.Connection
+	var client driver.Client
+	var conn driver.Connection
 
 	flag.Parse()
 
@@ -291,13 +290,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to create HTTP connection: %v", err)
 	}
-	client, err = A.NewClient(A.ClientConfig{
+	client, err = driver.NewClient(driver.ClientConfig{
 		Connection: conn,
-		Authentication: A.BasicAuthentication("root", "mypassword"),
-		//Authentication: A.BasicAuthentication("root", "wnbGnPpCXHwbP"),
+		Authentication: driver.BasicAuthentication("root", "mypassword"),
+		//Authentication: driver.BasicAuthentication("root", "wnbGnPpCXHwbP"),
 	})
 
-	var db A.Database
+	var db driver.Database
 	var db_exists, coll_exists bool
 
 	db_exists, err = client.DatabaseExists(nil,"example")
@@ -329,7 +328,7 @@ func main() {
 
 	} else {
 
-		var col A.Collection
+		var col driver.Collection
 		col, err = db.CreateCollection(nil, "users", nil)
 
 		if err != nil {
@@ -365,10 +364,10 @@ func main() {
 
 // **************************************************
 
-func PrintCollection(db A.Database, name string) {
+func PrintCollection(db driver.Database, name string) {
 
 	var err error
-	var cursor A.Cursor
+	var cursor driver.Cursor
 
 	querystring := "FOR doc IN users LIMIT 10 RETURN doc"
 
@@ -382,11 +381,11 @@ func PrintCollection(db A.Database, name string) {
 
 	for {
 		var doc User
-		var metadata A.DocumentMeta
+		var metadata driver.DocumentMeta
 
 		metadata,err = cursor.ReadDocument(nil,&doc)
 
-		if A.IsNoMoreDocuments(err) {
+		if driver.IsNoMoreDocuments(err) {
 			break
 		} else if err != nil {
 			log.Fatalf("Doc returned: %v", err)
@@ -435,7 +434,7 @@ you want to initialize to go driver like this:
 ```go
 import (
     driver "github.com/arangodb/go-driver"
-    "github.com/pkg/errors"
+           "github.com/pkg/errors"
 )
 
 func init() {
