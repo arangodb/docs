@@ -664,8 +664,29 @@ This is an [internal link](aql/functions-numeric.html#max).
 Note that internal links should be relative, i.e. not include a version number,
 unless it is supposed to point to a different version of the documentation on
 purpose. To point from one book to another, you may need to use `..` to refer
-to the parent folder of a file. You can also link to headlines within a page
-like `[label](#anchor-id)`.
+to the parent folder of a file.
+
+| From | To | Markdown |
+|:-----|:---|:---------|
+| `3.9/tutorials.md` | `3.9/graphs.md` | `[Graphs](graphs.html)` |
+| `3.9/tutorials.md` | `3.9/aql/operators.md` | `[AQL Operators](aql/operators.html)` |
+| `3.9/aql/operators.md` | `3.9/tutorials.md` | `[Tutorials](../tutorials.html)` |
+| `3.9/aql/operators.md` | `3.9/http/pregel.md` | `[Pregel HTTP API](../http/pregel.html)` |
+| `3.9/tutorials.md` | `3.7/architecture.md` | `[Architecture v3.7](../3.7/architecture.html)` |
+| `3.9/aql/operators.md` | `3.7/tutorials.md` | `[Tutorials v3.7](../../3.7/tutorials.html)` |
+
+You can also link to headlines within a page like `[label](#anchor-id)`.
+The anchor ID is the headline text but with the characters converted to Latin
+base characters, all lower-case, spaces and other special characters replaced
+by hypens `-`. Underscores remain, however. Some examples:
+
+| Headline | Anchor |
+|:---------|:-------|
+| Some Text | `#some-text` |
+| Ümläuté | `#umlaute` |
+| Insert / Save | `#insert--save` |
+| TO_HEX() | `#to_hex` |
+| `norm` Analyzer | `#norm-analyzer` |
 
 For external links, please add `{:target="_blank"}` so that they open in a new
 tab when clicked:
