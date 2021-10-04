@@ -256,24 +256,24 @@ in the RocksDB block cache. This is useful for queries that read a lot of (cold)
 data which would lead to the eviction of the hot data from the block cache.
 
 Multi-dimensional Indexes (experimental)
-------------------------
+----------------------------------------
 
 ArangoDB 3.9 features a new index type `zkd`. It can be created like other
-indexes. In contrast to the `persistent` index type (same for `hash` and
-`skiplist`, which today are just aliases for `persistent`), it lifts the
-following restriction.
+indexes on collections. In contrast to the `persistent` index type (same for
+`hash` and `skiplist`, which today are just aliases for `persistent`), it lifts
+the following restriction.
 
 A `persistent` index can only be used with query filters where a conjunction of
 equalities on a prefix of indexed fields covers the filter. For example, given a
 collection with a `persistent` index on the fields `["a", "b"]`. Then the
-following filters _can_ be satisfied by the index.
+following filters _can_ be satisfied by the index:
 
 - `FILTER doc.a == @a`
 - `FILTER doc.a == @a && doc.b == @b`
 - `FILTER doc.a == @a && @bl <= doc.b && doc.b <= @bu`
 
 While the following filters _cannot_, or only partially, be satisfied by a
-`persistent` index.
+`persistent` index:
 
 - `FILTER doc.b == @b`
 - `FILTER @bl <= doc.b && doc.b <= @bu`
@@ -288,7 +288,7 @@ There are also drawbacks in comparison with `persistent` indexes. For one, the
 the emerging performance is much more dependent on the distribution of the
 dataset, making it less predictable.
 
-The feature is still experimental.
+[Multi-dimensional Indexes](indexing-multi-dim.html) are an experimental feature.
 
 Server options
 --------------
