@@ -52,9 +52,8 @@ it to an alias, say “driver” for the Arango driver (or something shorter), b
 
 ```go
 import (
-
-              "github.com/arangodb/go-driver/http"
-       driver "github.com/arangodb/go-driver”
+	"github.com/arangodb/go-driver/http"
+	driver "github.com/arangodb/go-driver"
 )
 ```
 
@@ -81,10 +80,11 @@ running on localhost.
 
 ```go
 import (
-   	   "fmt"
-    driver "github.com/arangodb/go-driver"
-           "github.com/arangodb/go-driver/http"
+	"fmt"
+	driver "github.com/arangodb/go-driver"
+	"github.com/arangodb/go-driver/http"
 )
+
 
 ...
 
@@ -267,7 +267,7 @@ import (
 	"strings"
 
 	driver "github.com/arangodb/go-driver"
-	       "github.com/arangodb/go-driver/http"
+	"github.com/arangodb/go-driver/http"
 )
 
 type User struct {
@@ -291,7 +291,7 @@ func main() {
 		log.Fatalf("Failed to create HTTP connection: %v", err)
 	}
 	client, err = driver.NewClient(driver.ClientConfig{
-		Connection: conn,
+		Connection:     conn,
 		Authentication: driver.BasicAuthentication("root", "mypassword"),
 		//Authentication: driver.BasicAuthentication("root", "wnbGnPpCXHwbP"),
 	})
@@ -299,12 +299,12 @@ func main() {
 	var db driver.Database
 	var db_exists, coll_exists bool
 
-	db_exists, err = client.DatabaseExists(nil,"example")
+	db_exists, err = client.DatabaseExists(nil, "example")
 
 	if db_exists {
 		fmt.Println("That db exists already")
 
-		db, err = client.Database(nil,"example")
+		db, err = client.Database(nil, "example")
 
 		if err != nil {
 			log.Fatalf("Failed to open existing database: %v", err)
@@ -312,7 +312,7 @@ func main() {
 
 	} else {
 		db, err = client.CreateDatabase(nil, "example", nil)
-		
+
 		if err != nil {
 			log.Fatalf("Failed to create database: %v", err)
 		}
@@ -324,7 +324,7 @@ func main() {
 
 	if coll_exists {
 		fmt.Println("That collection exists already")
-		PrintCollection(db,"users")
+		PrintCollection(db, "users")
 
 	} else {
 
@@ -371,7 +371,7 @@ func PrintCollection(db driver.Database, name string) {
 
 	querystring := "FOR doc IN users LIMIT 10 RETURN doc"
 
-	cursor,err = db.Query(nil,querystring,nil)
+	cursor, err = db.Query(nil, querystring, nil)
 
 	if err != nil {
 		log.Fatalf("Query failed: %v", err)
@@ -383,14 +383,14 @@ func PrintCollection(db driver.Database, name string) {
 		var doc User
 		var metadata driver.DocumentMeta
 
-		metadata,err = cursor.ReadDocument(nil,&doc)
+		metadata, err = cursor.ReadDocument(nil, &doc)
 
 		if driver.IsNoMoreDocuments(err) {
 			break
 		} else if err != nil {
 			log.Fatalf("Doc returned: %v", err)
 		} else {
-			fmt.Print("Dot doc ",metadata,doc,"\n")
+			fmt.Print("Dot doc ", metadata, doc, "\n")
 		}
 	}
 }
@@ -433,14 +433,15 @@ you want to initialize to go driver like this:
 
 ```go
 import (
-    driver "github.com/arangodb/go-driver"
-           "github.com/pkg/errors"
+	driver "github.com/arangodb/go-driver"
+	"github.com/pkg/errors"
 )
 
 func init() {
-    driver.WithStack = errors.WithStack 
-    driver.Cause = errors.Cause
+	driver.WithStack = errors.WithStack
+	driver.Cause = errors.Cause
 }
+
 ```
 
 ### Context aware 
