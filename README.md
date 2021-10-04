@@ -914,8 +914,10 @@ It makes a warning show at the top of every page for that version.
 
 ### Adding a new version
 
-- Run below commands in Bash under Linux. Do not use Git Bash on Windows,
-  it dereferences symlinks (copies the referenced files)!
+- Run below commands in Bash. If you use Git Bash on Windows, it will
+  dereference symlinks by default (copies the referenced files)!
+  To avoid that, start Git Bash **as administrator** and run
+  `export MSYS=winsymlinks:nativestrict` before you continue.
 - Copy the latest devel version to a new directory i.e. `cp -a 3.9 4.0`
 - Create the necessary navigation definition files in `_data` by copying, e.g.
   ```bash
