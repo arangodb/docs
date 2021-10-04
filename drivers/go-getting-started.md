@@ -228,7 +228,7 @@ type MyEdgeLink struct {
     Weight  float64 `json:"weight"`
     
 }
-'''
+```
 
 When reading data from ArangoDB with, say, ReadDocument(), 
 the API asks you to submit a variable of some type, say `MyDocumentType`, by reference
@@ -237,7 +237,7 @@ using the `&` operator:
 ```go
  var variable MyDocumentType
  mycollection.ReadDocument(nil, rawkey, &variable)
-'''
+```
 
 This submitted type is not necessarily a fixed type, but it must be a type whose members
 map (at least partially) to the named fields in the database’s JSON
