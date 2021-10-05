@@ -48,7 +48,8 @@ os.Exit(0)           // package os
 
 There are two Go package components needed for the Go driver.
 The main go-driver name contains an illegal character however, so we need to map
-it to an alias, say “driver” for the Arango driver (or something shorter), by importing it as
+it to an alias, say `driver` for the Arango driver (or something shorter),
+by importing it as
 
 ```go
 import (
@@ -68,7 +69,7 @@ driver.Collection
 
 ## Configuration
 
-To use the driver, first fetch the sources into your GOPATH.
+To use the driver, first fetch the sources into your `GOPATH`.
 
 ```sh
 go get github.com/arangodb/go-driver
@@ -105,18 +106,21 @@ if err != nil {
 Once you have a `Client` you can access/create databases on the server, 
 access/create collections, graphs, documents and so on.
 
-
 ### Important types
 
 Key types you’ll need to know about to work with
 Arango using the Go driver are:
 
 - `Database` - to maintain a handle to an open database
-- `Collection` - as a handle for a collection of records (vertex,edge, or document) within a database
-- `Graph` - as a handle for a graph overlay containing vertices and edges (nodes and links)
-- `EdgeDefinition` - a named collection of edges used to help a graph in distributed searching
+- `Collection` - as a handle for a collection of records
+  (vertex, edge, or document) within a database
+- `Graph` - as a handle for a graph overlay containing vertices and edges
+  (nodes and links)
+- `EdgeDefinition` - a named collection of edges used to help a graph in
+  distributed searching
 
 These are declared as in the following examples:
+
 ```go
 var err error
 var client driver.Client
@@ -124,9 +128,10 @@ var conn   driver.Connection
 var db     driver.Database
 var col    driver.Collection
 ```
-etc. We can now see them in action:
-the following example shows how to open an existing collection in an existing database 
-and create a new document in that collection.
+
+etc. We can now see them in action: the following example shows how to open an
+existing collection in an existing database and create a new document in that
+collection.
 
 ```go
 
@@ -172,14 +177,13 @@ if err != nil {
 fmt.Printf("Created document in collection '%s' in database '%s'\n", col.Name(), db.Name())
 ```
 
-Note that Go's `:=` operator declares and assigns with the automatic type of the function
-in one operation, so the type returned appear mysterious. It's also acceptable to
-declare variables explicitly using `var myvariable type` when learning these
-types. 
+Note that Go's `:=` operator declares and assigns with the automatic type of the
+function in one operation, so the type returned appear mysterious. It's also
+acceptable to declare variables explicitly using `var myvariable type` when
+learning these types. 
 Note also that Edge collections and Vertex collections use different methods
 from ordinary document collections, as they are contained by a Graph
 model and EdgeDefinitions.
-
 
 ## Relationship between Go types and JSON
 
@@ -230,8 +234,8 @@ type MyEdgeLink struct {
 }
 ```
 
-When reading data from ArangoDB with, say, ReadDocument(), 
-the API asks you to submit a variable of some type, say `MyDocumentType`, by reference
+When reading data from ArangoDB with, say, `ReadDocument()`, the API
+asks you to submit a variable of some type, say `MyDocumentType`, by reference
 using the `&` operator:
 
 ```go
@@ -240,7 +244,7 @@ using the `&` operator:
 ```
 
 This submitted type is not necessarily a fixed type, but it must be a type whose members
-map (at least partially) to the named fields in the database’s JSON
+map (at least partially) to the named fields in the database's JSON
 document representation. Only matching fields will be filled in. This
 means you could create several different Go types to read the same
 documents in the database, as long as they have some type fields that
@@ -257,7 +261,6 @@ choice.
 ## Complete example
 
 ```go
-
 package main
 
 import (
@@ -457,6 +460,7 @@ Many functions support 1 or more optional (and infrequently used) additional opt
 These can be used with a `With<OptionName>` function.
 E.g. to force a create document call to wait until the data is synchronized to disk, 
 use a prepared context like this:
+
 ```go
 ctx := driver.WithWaitForSync(parentContext)
 collection.CreateDocument(ctx, yourDocument)
