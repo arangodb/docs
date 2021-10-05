@@ -7,6 +7,17 @@ page-toc:
 ---
 # ArangoDB {{ site.data.versions[page.version.name] }} Drivers Documentation
 
+ArangoDB drivers are interfaces between programming languages and ArangoDB,
+which enable programmers to connect to and manipulate ArangoDB deployments from
+within native language programs. From a language perspective, documents and
+database structures can be integrated with data types and their methods.
+The precise mapping of concepts and methods depends on the capabilities and
+practices of each language.
+
+Programming is a powerful way of automating interactions and control of the
+database, as well as to integrate database operations into your own software.
+The status of the drivers below varies from supported to community contributions.
+
 ## Official drivers
 
 Name | Language | Repository | &nbsp;
