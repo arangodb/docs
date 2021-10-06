@@ -96,6 +96,9 @@ cluster from operating properly:
 
 These limits are also enforced for Stream Transactions on single servers.
 
+ArangoDB 3.8 and later versions have a
+[higher idle timeout](../../3.8/release-notes-upgrading-changes38.html#stream-transactions).
+
 Enforcing the limits is useful to free up resources used by abandoned 
 transactions, for example from transactions that are abandoned by client 
 applications due to programming errors or that were left over because client 
