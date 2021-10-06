@@ -342,6 +342,18 @@ Another paragraph.</code></pre></td>
 <td><code>&lt;strong&gt;&lt;em&gt;bold &amp; italic&lt;/em&gt;&lt;/strong&gt;</code></td>
 </tr>
 <tr>
+<td>Superscript</td>
+<td><code>2&lt;sup&gt;32&lt;/sup&gt;</code></td>
+<td>2<sup>32</sup></td>
+<td><code>2&lt;sup&gt;32&lt;/sup&gt;</code></td>
+</tr>
+<tr>
+<td>Subscript</td>
+<td><code>2&lt;sub&gt;32&lt;/sub&gt;</code></td>
+<td>H<sub>2</sub>O</td>
+<td><code>H&lt;sub&gt;2&lt;/sub&gt;O</code></td>
+</tr>
+<tr>
 <td>Blockquote</td>
 <td><code>&gt; quote</code></td>
 <td><blockquote>quote</blockquote></td>
@@ -563,6 +575,12 @@ Current version is less than or equal to 3.8
 {%- endif %}</code></pre></td>
 <td>Current version is greater than 3.8</td>
 <td><code>Current version is greater than 3.8</code></td>
+</tr>
+<tr>
+<td>Version Remark</td>
+<td><code>&lt;small&gt;Introduced in: v3.8.2&lt;/small&gt;</code></td>
+<td><sub>Introduced in: v3.8.2</sub></td>
+<td><code>&lt;small&gt;Introduced in: v3.8.2&lt;/small&gt;</code></td>
 </tr>
 </tbody>
 </table>
