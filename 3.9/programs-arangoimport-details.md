@@ -82,12 +82,14 @@ Importing the following document will then create an edge between *users/1234* a
 Merging attributes
 ------------------
 
-It supports merging of attributes with flag `--merge-attributes`. When 
-importing data from a file into a collection, a document attribute can be 
-comprised of merging attributes from the file into it, with separators and 
-other literal strings.
-  The new document attribute will result in the concatenation of the literal 
-strings, the values of the attributes and the separators, as in the example:
+_arangoimport_ supports creating additional attributes during the import 
+process, which are concatenation of other attributes' values and hard-coded
+string literals/separators. 
+These attributes can be added to CSV/TSV imports by specifying the option 
+`--merge-attributes` for each new attribute.
+The following example will add a new attribute named "fullName", which consists
+of the values of the "firstName" and "lastName" columns, separated by a colon
+character:
   ```js
   arangoimport --merge-attributes name=[firstName]:[lastName] 
   ```
