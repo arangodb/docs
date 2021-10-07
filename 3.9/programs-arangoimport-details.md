@@ -91,7 +91,7 @@ The following example will add a new attribute named "fullName", which consists
 of the values of the "firstName" and "lastName" columns, separated by a colon
 character:
   ```js
-  arangoimport --merge-attributes name=[firstName]:[lastName] 
+  arangoimport --merge-attributes fullName=[firstName]:[lastName] 
   ```
 
 Allowed configurations:
