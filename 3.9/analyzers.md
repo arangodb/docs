@@ -196,7 +196,7 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
+  meaningful in ArangoDB. The locale is forwarded to ICU without checks. An invalid locale does not prevent the creation of the Analyzer. Also see [Supported Languages](#supported-languages).
 
 **Examples**
 
@@ -226,7 +226,7 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
+  meaningful in ArangoDB. The locale is forwarded to ICU without checks. An invalid locale does not prevent the creation of the Analyzer. Also see [Supported Languages](#supported-languages).
 - `accent` (boolean, _optional_):
   - `true` to preserve accented characters (default)
   - `false` to convert accented characters to their base characters
@@ -389,7 +389,7 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
+  meaningful in ArangoDB. The locale is forwarded to ICU without checks. An invalid locale does not prevent the creation of the Analyzer. Also see [Supported Languages](#supported-languages).
 - `accent` (boolean, _optional_):
   - `true` to preserve accented characters
   - `false` to convert accented characters to their base characters (default)
