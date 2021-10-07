@@ -112,8 +112,8 @@ within the *searchExpression*. Even worse, if you use an outdated `_rev` in the
 
 ### `exclusive`
 
-In contrast to the MMFiles engine, the RocksDB engine does not require collection-level
-locks. Different write operations on the same collection do not block each other, as
+The RocksDB engine does not require collection-level locks. Different write
+operations on the same collection do not block each other, as
 long as there are no _write-write conflicts_ on the same documents. From an application
 development perspective it can be desired to have exclusive write access on collections,
 to simplify the development. Note that writes do not block reads in RocksDB.

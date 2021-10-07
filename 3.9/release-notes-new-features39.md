@@ -127,7 +127,7 @@ FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
 The condition `v.isRelevant == true` is stored in the variable `pruneCondition`,
 and later used as a condition for `FILTER`.
 
-See [Pruning](aql/graphs-traversals.html#pruning)
+See [Pruning](aql/graphs-traversals.html#pruning).
 
 ### Upsert with Index Hint
 
@@ -287,6 +287,41 @@ Setting the option to `false` allows to not store any data read by the query
 in the RocksDB block cache. This is useful for queries that read a lot of (cold)
 data which would lead to the eviction of the hot data from the block cache.
 
+Multi-dimensional Indexes (experimental)
+----------------------------------------
+
+ArangoDB 3.9 features a new index type `zkd`. It can be created like other
+indexes on collections. In contrast to the `persistent` index type (same for
+`hash` and `skiplist`, which today are just aliases for `persistent`), it lifts
+the following restriction.
+
+A `persistent` index can only be used with query filters where a conjunction of
+equalities on a prefix of indexed fields covers the filter. For example, given a
+collection with a `persistent` index on the fields `["a", "b"]`. Then the
+following filters _can_ be satisfied by the index:
+
+- `FILTER doc.a == @a`
+- `FILTER doc.a == @a && doc.b == @b`
+- `FILTER doc.a == @a && @bl <= doc.b && doc.b <= @bu`
+
+While the following filters _cannot_, or only partially, be satisfied by a
+`persistent` index:
+
+- `FILTER doc.b == @b`
+- `FILTER @bl <= doc.b && doc.b <= @bu`
+- `FILTER @al <= doc.a && doc.a <= @au && @bl <= doc.b && doc.b <= @bu`
+
+A `zkd` index can be used to satisfy them all. An example where this is useful
+are documents with an assigned time interval, where a query should find all
+documents that contain a given time point, or overlap with some time interval.
+
+There are also drawbacks in comparison with `persistent` indexes. For one, the
+`zkd` index is not sorted. Secondly, it has a significantly higher overhead, and
+the emerging performance is much more dependent on the distribution of the
+dataset, making it less predictable.
+
+[Multi-dimensional Indexes](indexing-multi-dim.html) are an experimental feature.
+
 Server options
 --------------
 
@@ -322,6 +357,45 @@ refused. In DC2DC setups it is also required to use the same database naming
 convention for both datacenters to avoid incompatibilities.
 
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
+
+### Logging
+
+The server now has two flags for retaining or escaping control and Unicode
+characters in the log. The flag `--log.escape` is now deprecated and, instead,
+the new flags `--log.escape-control-chars` and `--log.escape-unicode-chars`
+should be used.
+
+- `--log.escape-control-chars`:
+
+  This flag applies to the control characters, that have hex codes below `\x20`,
+  and also the character `DEL` with hex code `\x7f`.
+
+  When the flag value is set to `false`, control characters will be retained
+  when they have a visible representation, and replaced with a space character
+  in case they do not have a visible representation. For example, the control
+  character `\n` is visible, so a `\n` will be displayed in the log. Contrary,
+  the control character `BEL` is not visible, so a space will be displayed
+  instead.
+
+  When the flag value is set to `true`, the hex code for the character is
+  displayed, for example, the `BEL` character will be displayed as its hex code,
+  `\x07`.
+
+  The default value for this flag is `true` to ensure compatibility with 
+  previous versions.
+
+- `--log.escape-unicode-chars`:
+
+  If its value is set to `false`, Unicode characters will be retained and
+  written to the log as-is. For example, `犬` will be logged as `犬`. If the
+  flag value is set to `true`, any Unicode characters are escaped, and the hex
+  codes for all Unicode characters are logged instead. For example, `犬` would
+  be logged as its hex code, `\u72AC`.
+
+  The default value for this flag is set to `false` for compatibility with
+  previous versions.
+
+Also see [Logging](programs-arangod-log.html).
 
 ### Version information
 
@@ -465,7 +539,7 @@ This will turn the numeric-looking values in the `key` attribute into strings
 but treat the attributes `price` and `weight` as numbers. Finally, the values in
 attribute `fk` will be treated as strings again.
 
-See [Overriding data types per attribute](programs-arangoimport-examples-csv.html#overriding-data-types-per-attribute)
+See [Overriding data types per attribute](programs-arangoimport-examples-csv.html#overriding-data-types-per-attribute).
 
 ### arangobench
 
@@ -475,6 +549,58 @@ Several test cases in arangobench have been deprecated because they do not
 target real world use cases but were rather writing for some internal testing.
 The deprecated test cases will be removed in a future version to clear up
 the list of test cases.
+
+_arangobench_ now supports multiple Coordinators. The flag `--server.endpoint`
+can be specified multiple times, as in the example below:
+
+```
+arangobench \
+  --server.endpoint tcp://[::1]::8529 \
+  --server.endpoint tcp://[::1]::8530 \
+  --server.endpoint tcp://[::1]::8531 \
+  ...
+``` 
+
+This does not compromise the use of the other client tools, that preserve
+the behavior of having one Coordinator and one endpoint.
+
+Also see [_arangobench_ Options](programs-arangobench.html#general-configuration)
+
+### arangodump
+
+_arangodump_ now supports multiple Coordinators. The flag `--server.endpoint`
+can be used multiple times, as in the example below:
+
+```
+arangodump \
+  --server.endpoint tcp://[::1]::8529 \
+  --server.endpoint tcp://[::1]::8530 \
+  --server.endpoint tcp://[::1]::8531 \
+  ...
+```
+
+This does not compromise the use of the other client tools that preserve
+the behavior of having one Coordinator and one endpoint.
+
+Also see [_arangodump_ examples](programs-arangodump-examples.html)
+
+### arangorestore
+
+_arangorestore_ now supports multiple Coordinators. The flag `--server.endpoint`
+can be used multiple times, as in the example below:
+
+```
+arangorestore \
+  --server.endpoint tcp://[::1]::8529 \
+  --server.endpoint tcp://[::1]::8530 \
+  --server.endpoint tcp://[::1]::8531 \
+  ...
+```
+
+This does not compromise the use of the other client tools that preserve
+the behavior of having one Coordinator and one endpoint.
+
+Also see [_arangorestore_ examples](programs-arangorestore-examples.html)
 
 ### arangovpack
 

@@ -92,10 +92,8 @@ Compact
 Compacts the data of a collection
 `collection.compact()`
 
-Compacts the data of a collection in order to reclaim disk space. For the
-MMFiles storage engine, the operation will reset the collection's last
-compaction timestamp, so it will become a candidate for compaction. For the
-RocksDB storage engine, the operation will compact the document and index
+Compacts the data of a collection in order to reclaim disk space.
+The operation will compact the document and index
 data by rewriting the underlying .sst files and only keeping the relevant
 entries.
 
@@ -348,21 +346,6 @@ previous fetch of the revision id.
 
 The revision id returned is a string value. Clients should treat this value
 as an opaque string, and only use it for equality/non-equality comparisons.
-
-Path
-----
-
-returns the physical path of the collection
-`collection.path()`
-
-The *path* operation returns a string with the physical storage path for
-the collection data.
-
-{% hint 'info' %}
-The `path()` method will return nothing meaningful in a cluster.
-In a single-server ArangoDB, this method will only return meaningful data
-for the MMFiles storage engine.
-{% endhint %}
 
 Checksum
 --------

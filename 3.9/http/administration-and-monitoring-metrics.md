@@ -4,6 +4,12 @@ description: Metrics exposed by ArangoDB and how to export them to Prometheus.
 title: arangod Server Metrics
 page-toc:
   max-headline-level: 3
+redirect_from:
+  - ../monitoring-collectd.html # 3.9 -> 3.9
+  - ../monitoring-collectd-follower-status.html # 3.9 -> 3.9
+  - ../monitoring-collectd-traffic-with-ipaccounting.html # 3.9 -> 3.9
+  - ../monitoring-collectd-other-relevant-metrics.html # 3.9 -> 3.9
+  - ../monitoring-collectd-foxx-apps.html # 3.9 -> 3.9
 ---
 # ArangoDB Server Metrics
 

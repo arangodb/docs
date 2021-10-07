@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Write ahead logging is used for data recovery after a server crash
+description: Write ahead logging is used for data recovery after a server crash and for replication
 ---
 Write-ahead log
 ===============

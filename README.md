@@ -342,6 +342,18 @@ Another paragraph.</code></pre></td>
 <td><code>&lt;strong&gt;&lt;em&gt;bold &amp; italic&lt;/em&gt;&lt;/strong&gt;</code></td>
 </tr>
 <tr>
+<td>Superscript</td>
+<td><code>2&lt;sup&gt;32&lt;/sup&gt;</code></td>
+<td>2<sup>32</sup></td>
+<td><code>2&lt;sup&gt;32&lt;/sup&gt;</code></td>
+</tr>
+<tr>
+<td>Subscript</td>
+<td><code>2&lt;sub&gt;32&lt;/sub&gt;</code></td>
+<td>H<sub>2</sub>O</td>
+<td><code>H&lt;sub&gt;2&lt;/sub&gt;O</code></td>
+</tr>
+<tr>
 <td>Blockquote</td>
 <td><code>&gt; quote</code></td>
 <td><blockquote>quote</blockquote></td>
@@ -553,6 +565,23 @@ SmartGraphs are only available in the
 <td>3.9</td>
 <td><code>3.9</code></td>
 </tr>
+<tr>
+<td>Version Condition</td>
+<td><pre><code>{%- assign ver = "3.8" | version: "&gt;=" %}
+{%- if ver %}
+Current version is greater than 3.8
+{%- else %}
+Current version is less than or equal to 3.8
+{%- endif %}</code></pre></td>
+<td>Current version is greater than 3.8</td>
+<td><code>Current version is greater than 3.8</code></td>
+</tr>
+<tr>
+<td>Version Remark</td>
+<td><code>&lt;small&gt;Introduced in: v3.8.2&lt;/small&gt;</code></td>
+<td><sub>Introduced in: v3.8.2</sub></td>
+<td><code>&lt;small&gt;Introduced in: v3.8.2&lt;/small&gt;</code></td>
+</tr>
 </tbody>
 </table>
 
@@ -653,8 +682,29 @@ This is an [internal link](aql/functions-numeric.html#max).
 Note that internal links should be relative, i.e. not include a version number,
 unless it is supposed to point to a different version of the documentation on
 purpose. To point from one book to another, you may need to use `..` to refer
-to the parent folder of a file. You can also link to headlines within a page
-like `[label](#anchor-id)`.
+to the parent folder of a file.
+
+| From | To | Markdown |
+|:-----|:---|:---------|
+| `3.9/tutorials.md` | `3.9/graphs.md` | `[Graphs](graphs.html)` |
+| `3.9/tutorials.md` | `3.9/aql/operators.md` | `[AQL Operators](aql/operators.html)` |
+| `3.9/aql/operators.md` | `3.9/tutorials.md` | `[Tutorials](../tutorials.html)` |
+| `3.9/aql/operators.md` | `3.9/http/pregel.md` | `[Pregel HTTP API](../http/pregel.html)` |
+| `3.9/tutorials.md` | `3.7/architecture.md` | `[Architecture v3.7](../3.7/architecture.html)` |
+| `3.9/aql/operators.md` | `3.7/tutorials.md` | `[Tutorials v3.7](../../3.7/tutorials.html)` |
+
+You can also link to headlines within a page like `[label](#anchor-id)`.
+The anchor ID is the headline text but with the characters converted to Latin
+base characters, all lower-case, spaces and other special characters replaced
+by hypens `-`. Underscores remain, however. Some examples:
+
+| Headline | Anchor |
+|:---------|:-------|
+| Some Text | `#some-text` |
+| Ümläuté | `#umlaute` |
+| Insert / Save | `#insert--save` |
+| TO_HEX() | `#to_hex` |
+| `norm` Analyzer | `#norm-analyzer` |
 
 For external links, please add `{:target="_blank"}` so that they open in a new
 tab when clicked:
@@ -882,8 +932,10 @@ It makes a warning show at the top of every page for that version.
 
 ### Adding a new version
 
-- Run below commands in Bash under Linux. Do not use Git Bash on Windows,
-  it dereferences symlinks (copies the referenced files)!
+- Run below commands in Bash. If you use Git Bash on Windows, it will
+  dereference symlinks by default (copies the referenced files)!
+  To avoid that, start Git Bash **as administrator** and run
+  `export MSYS=winsymlinks:nativestrict` before you continue.
 - Copy the latest devel version to a new directory i.e. `cp -a 3.9 4.0`
 - Create the necessary navigation definition files in `_data` by copying, e.g.
   ```bash
