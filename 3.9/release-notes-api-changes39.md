@@ -232,11 +232,6 @@ substitution.
 
 ## JavaScript API
 
-<<<<<<< HEAD
-Using the replacements will work from ArangoDB 3.7 onwards already, so
-any client applications that still call the old addresses can be adjusted
-to call the new addresses from 3.7 onwards.
-=======
 All collections in ArangoDB are now always in the "loaded" state. Any 
 JavaScript functions for returning a collection's status will now return 
 "loaded", unconditionally.
@@ -245,4 +240,3 @@ The JavaScript functions for loading and unloading collections (i.e.
 `db.<collection>.load()` and `db.<collection>.unload()`) have been turned 
 into no-ops. They still exist in ArangoDB 3.9, but do not serve any purpose 
 and are deprecated.
->>>>>>> e2a43a757d25ee65c2cf3a9d9481638008981c3c
