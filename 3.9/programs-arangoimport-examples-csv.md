@@ -236,7 +236,6 @@ WARNING: If an attribute name that is enclosed in brackets does not
 exist in the input data, the import will emit a warning message and continue.
 Non-existing attributes will be replaced with an empty string in the resulting
 value.
-will not have the expected behavior.   
 
 The `--merge-attribute` option does not support using the brackets (`[` or `]`)
 or the equal sign (`=`) in any of the literals, or inside an attribute reference.
