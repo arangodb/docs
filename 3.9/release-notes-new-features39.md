@@ -494,7 +494,27 @@ threads explicitly when invoking any of the above client tools.
 
 ### arangoimport
 
-_arangoimport_ now provides a `--datatype` startup option, in order to fix
+
+_arangoimport_ received a new startup option `--merge-attributes` that allows
+you to create additional attributes in CSV/TSV imports based on other attribute
+values and hard-coded string literals/separators.
+
+The following example would add a new attribute named `fullName` that consists
+of the values of the `firstName` and `lastName` columns, separated by a colon
+character `:`, as well as as an additional attribute `nameAndId` that builds on
+the new `fullName` attribute and concatenates it with a hyphen `-` and the value
+of the `id` column:
+
+```
+arangoimport \
+  --merge-attributes fullName=[firstName]:[lastName] \
+  --merge-attributes nameAndId=[fullName]-[id] \
+  ...
+```
+
+Also see [Merging Attributes](programs-arangoimport-examples-csv.html#merging-attributes).
+
+_arangoimport_ also provides a new `--datatype` startup option, in order to fix
 the datatypes for certain attributes in CSV/TSV imports. For example, in the
 the following CSV input file, it is unclear if the numeric values should be
 imported as numbers or as stringified numbers for the individual attributes:

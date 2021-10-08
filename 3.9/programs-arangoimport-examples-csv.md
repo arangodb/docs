@@ -117,6 +117,42 @@ Extra whitespace at the end of each line will be ignored. Whitespace at the
 start of lines or between field values will not be ignored, so please make sure
 that there is no extra whitespace in front of values or between them.
 
+Attribute Name Translation
+--------------------------
+
+For the CSV and TSV input formats, attribute names can be translated automatically.
+This is useful in case the import file has different attribute names than those
+that should be used in ArangoDB.
+
+A common use case is to rename an `id` column from the input file into `_key` as
+it is expected by ArangoDB. To do this, specify the following translation when
+invoking arangoimport:
+
+    arangoimport --file "data.csv" --type csv --translate "id=_key"
+
+Other common cases are to rename columns in the input file to `_from` and `_to`:
+
+    arangoimport --file "data.csv" --type csv --translate "from=_from" --translate "to=_to"
+
+The `--translate` option can be specified multiple times. The source attribute name
+and the target attribute must be separated with a `=`.
+
+Ignoring Attributes
+-------------------
+
+For the CSV and TSV input formats, certain attribute names can be ignored on
+imports. In an ArangoDB cluster there are cases where this can come in handy,
+when your documents already contain a `_key` attribute and your collection has
+a sharding attribute other than `_key`: In the cluster this configuration is
+not supported, because ArangoDB needs to guarantee the uniqueness of the `_key`
+attribute in **all** shards of the collection.
+
+    arangoimport --file "data.csv" --type csv --remove-attribute "_key"
+
+The same thing would apply if your data contains an `_id` attribute:
+
+    arangoimport --file "data.csv" --type csv --remove-attribute "_id"
+
 Overriding data types per attribute
 -----------------------------------
 
@@ -172,6 +208,64 @@ the datatype for non-string fields with `--datatype`:
 --datatype weight=number
 ```
 
+Merging Attributes
+------------------
+
+<small>Introduced in: v3.9.0</small>
+
+_arangoimport_ supports creating additional attributes during the import
+process, which are concatenations of other attribute values and hard-coded
+string literals/separators.
+
+Such attributes can be added in CSV/TSV imports by specifying the option 
+`--merge-attributes` for each new attribute.
+
+The following example will add a new attribute named `fullName` that consists
+of the values of the `firstName` and `lastName` columns, separated by a colon
+character `:`:
+
+```
+arangoimport --merge-attributes fullName=[firstName]:[lastName]
+```
+
+When referring to existing attribute names from the input data, the referred-to
+names need to be enclosed in square brackets (`[` and `]`). Any characters
+outside the brackets will be interpreted as literals, and will be added to the
+new attribute as-is.
+
+The `--merge-attribute` option does not support using the brackets (`[` or `]`)
+or the equal sign (`=`) in any of the literals, or inside an attribute reference.
+Attribute references with empty attribute names (e.g. `[]`) are disallowed too.
+
+`--merge-attributes` can be specified multiple times to create independent
+additional fields:
+
+```
+arangoimport \
+  --merge-attributes fullName=[firstName]:[lastName] \
+  --merge-attributes dateOfBirth=[month]-[day]-[year] \
+  ...
+```
+
+Later merge attributes can build on former merge attributes
+(in left-to-right order), e.g.
+
+```
+arangoimport \
+  --merge-attributes ids=[id1]-[id2] \
+  --merge-attributes nameAndIds=[name]-[ids] \
+  ...
+```
+
+Note that when the `--translate` option is also used, the referred-to attribute
+names for `--merge-attributes` must be the ones before translation, e.g.
+
+```
+arangoimport --translate _key=id --merge-attributes idAndName=[id]:[lastName]
+```
+
+`--merge-attributes` is currently supported for CSV/TSV input files only.
+
 Importing TSV Data
 ------------------
 
@@ -205,42 +299,6 @@ program and piping its output into arangoimport, e.g.
 
 This example requires that a `bzcat` utility for decompressing bzip2-compressed
 files is available, and that the shell supports pipes.
-
-Attribute Name Translation
---------------------------
-
-For the CSV and TSV input formats, attribute names can be translated automatically.
-This is useful in case the import file has different attribute names than those
-that should be used in ArangoDB.
-
-A common use case is to rename an `id` column from the input file into `_key` as
-it is expected by ArangoDB. To do this, specify the following translation when
-invoking arangoimport:
-
-    arangoimport --file "data.csv" --type csv --translate "id=_key"
-
-Other common cases are to rename columns in the input file to `_from` and `_to`:
-
-    arangoimport --file "data.csv" --type csv --translate "from=_from" --translate "to=_to"
-
-The `--translate` option can be specified multiple times. The source attribute name
-and the target attribute must be separated with a `=`.
-
-Ignoring Attributes
--------------------
-
-For the CSV and TSV input formats, certain attribute names can be ignored on
-imports. In an ArangoDB cluster there are cases where this can come in handy,
-when your documents already contain a `_key` attribute and your collection has
-a sharding attribute other than `_key`: In the cluster this configuration is
-not supported, because ArangoDB needs to guarantee the uniqueness of the `_key`
-attribute in **all** shards of the collection.
-
-    arangoimport --file "data.csv" --type csv --remove-attribute "_key"
-
-The same thing would apply if your data contains an `_id` attribute:
-
-    arangoimport --file "data.csv" --type csv --remove-attribute "_id"
 
 Reading headers from a separate file
 ------------------------------------
