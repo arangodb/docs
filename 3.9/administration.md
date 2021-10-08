@@ -40,6 +40,7 @@ Deployment Administration
 
 - [Leader/Follower](administration-leader-follower.html)
 - [Active Failover](administration-active-failover.html)
+- [Cluster](administration-cluster.html)
 - [Datacenter to datacenter replication](administration-dc2-dc.html)
 - [ArangoDB Starter Administration](administration-starter.html)
 
