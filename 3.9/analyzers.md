@@ -196,7 +196,9 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB. The locale is forwarded to ICU without checks. An invalid locale does not prevent the creation of the Analyzer. Also see [Supported Languages](#supported-languages).
+  meaningful in ArangoDB. The locale is forwarded to ICU without checks.
+  An invalid locale does not prevent the creation of the Analyzer.
+  Also see [Supported Languages](#supported-languages).
 
 **Examples**
 
@@ -226,7 +228,9 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB. The locale is forwarded to ICU without checks. An invalid locale does not prevent the creation of the Analyzer. Also see [Supported Languages](#supported-languages).
+  meaningful in ArangoDB. The locale is forwarded to ICU without checks.
+  An invalid locale does not prevent the creation of the Analyzer.
+  Also see [Supported Languages](#supported-languages).
 - `accent` (boolean, _optional_):
   - `true` to preserve accented characters (default)
   - `false` to convert accented characters to their base characters
@@ -389,7 +393,9 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB. The locale is forwarded to ICU without checks. An invalid locale does not prevent the creation of the Analyzer. Also see [Supported Languages](#supported-languages).
+  meaningful in ArangoDB. The locale is forwarded to ICU without checks.
+  An invalid locale does not prevent the creation of the Analyzer.
+  Also see [Supported Languages](#supported-languages).
 - `accent` (boolean, _optional_):
   - `true` to preserve accented characters
   - `false` to convert accented characters to their base characters (default)
@@ -504,7 +510,9 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
+  meaningful in ArangoDB. The locale is forwarded to ICU without checks.
+  An invalid locale does not prevent the creation of the Analyzer.
+  Also see [Supported Languages](#supported-languages).
 
 **Examples**
 
@@ -1171,10 +1179,16 @@ what the property value suggests.
 Supported Languages
 -------------------
 
+### Tokenization and Normalization
+
 Analyzers rely on [ICU](http://site.icu-project.org/){:target="_blank"} for
 language-dependent tokenization and normalization. The ICU data file
 `icudtl.dat` that ArangoDB ships with contains information for a lot of
 languages, which are technically all supported.
+
+Setting an unsupported or invalid locale does not raise a warning or error.
+ICU will fall back to a locale without the requested variant, country, or
+script, or use its default locale if neither of the former is valid.
 
 {% hint 'warning' %}
 The alphabetical order of characters is not taken into account by ArangoSearch,
@@ -1183,6 +1197,8 @@ language rules as per the defined Analyzer locale nor the server language
 (startup option `--default-language`)!
 Also see [Known Issues](release-notes-known-issues39.html#arangosearch).
 {% endhint %}
+
+### Stemming
 
 Stemming support is provided by [Snowball](https://snowballstem.org/){:target="_blank"},
 which supports the following languages:
