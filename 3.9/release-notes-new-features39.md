@@ -32,6 +32,20 @@ See:
 UI
 --
 
+### Additional Fields in Views Creation Form
+
+_ArangoSearch_ Views have 6 immutable fields (apart from `name` and `type`) that
+can only be set once at the time of creation. The web inteface now includes these
+ fields in the Views creation form, so that views created through the UI would
+ also get a chance to have these fields set. The fields are as follows:
+
+1. `primarySort`
+1. `primarySortCompression`
+1. `storedValues`
+1. `writebufferIdle`
+1. `writebufferActive`
+1. `writebufferSizeMax`
+
 ### Analyzers in Web Interface
 
 A new menu item _ANALYZERS_ has been added to the side navigation bar of the
