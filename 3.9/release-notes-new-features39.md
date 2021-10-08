@@ -9,13 +9,6 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.9. ArangoDB 3.9 also contains several bug fixes that are not listed
 here.
 
-HTTP API
---------
-
-- [License API](http/license.html),<br>
-  HTTP route `PUT|GET /_admin/license` 
-  New attribute `force`, see [License](#license) below.
-
 ArangoSearch
 ------------
 
@@ -432,6 +425,28 @@ is made available. This option can have the following values:
   accessed via superuser JWT. Otherwise it can be accessed by admin users only.
 - `public`: everyone with access to the `_system` database can access the support info API.
 
+License Management (Enterprise Edition)
+---------------------------------------
+
+The Enterprise Edition of ArangoDB requires a license to activate it.
+ArangoDB 3.9 comes with a new license management that lets you test ArangoDB
+for three days before requiring a license key to keep the Enterprise Edition
+features activated.
+
+There is a new JavaScript API for querying the license status and to set a
+license key (typically run in _arangosh_):
+
+```js
+db._getLicense();
+db._setLicense("<license-string>");
+```
+
+There are two new REST API routes to do the same, `GET /_admin/license` and
+`PUT /_admin/license`.
+
+See [License Management](administration-license.html) and the
+[License Management HTTP API](http/license.html).
+
 Miscellaneous changes
 ---------------------
 
@@ -591,13 +606,6 @@ The former option `--print-non-json` has been replaced with the new option
 `--fail-on-non-json` which makes [arangovpack](programs-arangovpack.html)
 fail when trying to emit non-JSON types to JSON output.
 
-License
--------
-
-With version 3.9 the [enterprise license
-configuration](administration-license.html) is available via
-`arangosh` and the [`_admin/license` API](http/license.html). 
-
 Internal changes
 ----------------
 
@@ -614,4 +622,3 @@ architecture to the Sandy Bridge architecture. 256-bit AVX instructions are
 now expected to be present on all targets that run ArangoDB 3.9 executables.
 If a target does not support AVX instructions, it may fail with SIGILL at
 runtime.
-
