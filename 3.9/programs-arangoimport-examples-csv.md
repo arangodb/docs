@@ -233,7 +233,9 @@ names need to be enclosed in square brackets (`[` and `]`). Any characters
 outside the brackets will be interpreted as literals, and will be added to the
 new attribute as-is. 
 WARNING: If an attribute name that is enclosed in brackets does not 
-exist in the input data, the program will not stop executing, so the execution 
+exist in the input data, the import will emit a warning message and continue.
+Non-existing attributes will be replaced with an empty string in the resulting
+value.
 will not have the expected behavior.   
 
 The `--merge-attribute` option does not support using the brackets (`[` or `]`)
