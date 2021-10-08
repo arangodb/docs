@@ -32,7 +32,7 @@ timewise limited license which allows users to continue testing for 2
 weeks.
 
 This evaluation license is applied after startup via `arangosh` like
-so: 
+so:
 
 ```js
 127.0.0.1:8529@_system> db._setLicense("<license-string>");
@@ -40,7 +40,7 @@ so:
 
 One receives a message reporting to the success of the
 operation. Please be careful to copy the exact string from the Email
-and to put it in quotes as indicated above. 
+and to put it in quotes as indicated above.
 
 ```js
 { "error" : false, "code" : 201}
@@ -56,7 +56,7 @@ At any point you may check the current state of your license from `arangosh`:
 ```js
 127.0.0.1:8529@_system> db._getLicense();
 ```
-```
+```js
 {
   "features": {
     "expires": 1632411828
@@ -83,4 +83,17 @@ can have the following values:
   operations to the instance will keep functioning. However, no data
   or data definition changes can be made. Please contact your ArangoDB
   sales representative immediately.
+
+The attribute `expires` in `features` denotes the exiry date in
+seconds since Jan 1 1970 UTC.
+
+The `license` field holds an encrypted version of the the applied
+license for reference and support from ArangoDB.
+
+Monitoring
+----------
+
+In order to monitor the remaining validity of the license, the metric
+`arangodb_license_expires` is exposed by coordinators and database
+servers. Please find its documentation [hier](http/administration-and-monitoring-metrics.html).
 
