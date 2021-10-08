@@ -479,77 +479,28 @@ want to keep the server load under control should set the number of client
 threads explicitly when invoking any of the above client tools.
 
 ### arangoimport
- 
-Now it supports merging of attributes with flag `--merge-attributes`. When 
-importing data from a file into a collection, a document attribute can be 
-comprised of merging attributes from the file into it, with separators and 
-other literal strings.
-The new document attribute will result in the concatenation of the literal 
-strings, the values of the attributes and the separators, as in the example:
-  ```js
-  arangoimport --merge-attributes name=[firstName]:[lastName] 
-  ```
 
-Allowed configurations:
- 
--- Literals before or after the attribute names, for example:
-```-js
-arangoimport --merge-attributes name=abc[firstName]:[lastName]def
+
+_arangoimport_ received a new startup option `--merge-attributes` that allows
+you to create additional attributes in CSV/TSV imports based on other attribute
+values and hard-coded string literals/separators.
+
+The following example would add a new attribute named `fullName` that consists
+of the values of the `firstName` and `lastName` columns, separated by a colon
+character `:`, as well as as an additional attribute `nameAndId` that builds on
+the new `fullName` attribute and concatenates it with a hyphen `-` and the value
+of the `id` column:
+
+```
+arangoimport \
+  --merge-attributes fullName=[firstName]:[lastName] \
+  --merge-attributes nameAndId=[fullName]-[id] \
+  ...
 ```
 
--- Providing no literals or separators, just the attributes to merge:
-```-js
-arangoimport --merge-attributes name=[firstName][lastName]
-```
+Also see [Merging Attributes](programs-arangoimport-examples-csv.html#merging-attributes).
 
--- Using the flag  multiple times:
-```-js
-arangoimport --mgerge-attributes name=[firstName]:[lastName]
-arangoimport --mrege-attributes dateOfBirth=[month]-[day]-[year]
-```
-
--- Using the flag multiple times with former 
---merge attributes command's attribute declared previously, only
-if they are in sequential order:
-```-js
-arangoimport --mgerge-attributes Id=[id1]:[id2]
-arangoimport --mrege-attributes IdAndValue[Id]-[Value]
-```
-
--- Using the flag with and attribute after 
-translation, but, in the syntax, it must be referred to as the
-former name:
-```-js
-arangoimport --translate _key=id
---mgerge-attributes name=[id]:[lastName]
-```
-
-Disallowed configurations:
-
--- Using the flag with unbalanced brackets
-```-js 
-arangoimport --merge-attributes Id=[Id1[Id2]
-```
-
--- Using the flag with empty brackets
-```-js 
-arangoimport --merge-attributes Id=[Id1][]
-```
-
--- Using the flag with more than one `=` character. It is not allowed in the
-attribute name or as a literal string.
-```-js 
-arangoimport --merge-attributes name=[firstName]=[lastName]
-```
-
--- Using the flag with nested attributes
-```-js 
-arangoimport --merge-attributes Id=[Id][Id2]
-```
-
-Also see [_arangoimport_ details](programs-arangoimport-details.html#merging-attributes).
-
-_arangoimport_ now provides a `--datatype` startup option, in order to fix
+_arangoimport_ also provides a new `--datatype` startup option, in order to fix
 the datatypes for certain attributes in CSV/TSV imports. For example, in the
 the following CSV input file, it is unclear if the numeric values should be
 imported as numbers or as stringified numbers for the individual attributes:
