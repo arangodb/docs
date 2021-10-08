@@ -51,17 +51,22 @@ replace the old features with:
   is deprecated and highly discouraged. This functionality may be removed in
   future versions of ArangoDB.
 
-- **Old metrics API**:
+- **Old metrics REST API**:
   The old metrics API under `/_admin/metrics` is deprecated and replaced by
   a new one under `/_admin/metrics/v2` from version 3.8.0 on. This step was
   necessary because the old API did not follow quite a few Prometheus
   guidelines for metrics.
 
-- **Statistics API**:
+- **Statistics REST API**:
   The endpoints `/_admin/statistics` and `/_admin/statistics-description`
   are deprecated in favor of the new metrics API under `/_admin/metrics/v2`.
   The metrics API provides a lot more information than the statistics API, so
   it is much more useful.
+
+-- **Replication logger-follow REST API**:
+  The endpoint `/_api/replication/logger-follow` is deprecated in 3.9. Clients
+  should use the REST API endpoint `/_api/wal/tail` instead, which is available 
+  since ArangoDB 3.3.
 
 - **Loading and unloading of collections**:
   The JavaScript functions for explicitly loading and unloading collections,
