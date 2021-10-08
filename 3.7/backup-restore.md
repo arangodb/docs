@@ -263,12 +263,6 @@ not be suited for.
   This means that one cannot restore a 3-node ArangoDB cluster's hot backup to
   any other deployment than another 3-node ArangoDB cluster of the same version.
 
-- **RocksDB Storage Engine Only**
-
-  Hot backups rely on creation of hard links on actual RocksDB data files and
-  directories. The same or according file system level mechanisms are not
-  available to MMFiles deployments.
-
 - **Storage Space**
 
   Without the creation of hot backups, RocksDB keeps compacting the file system

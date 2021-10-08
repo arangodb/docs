@@ -29,19 +29,52 @@ See:
 - [`segmentation` Analyzer](analyzers.html#segmentation)
 - [`collation` Analyzer](analyzers.html#collation)
 
-### Analyzers Web UI
+UI
+--
 
-A new menu item has been added to the side navigation bar (Analyzers). Through this
-page, users can view existing analyzers as well create new analyzers. The UI is
-full-featured and lets you feed in all parameters and options that you could
-otherwise input through the REST API or Arango Shell.
+### Analyzers in Web Interface
 
-It also lets you copy configuration from an existing analyzer, allowing for a much
-quicker workflow when your new analyzer is very similar to an existing one.
+A new menu item _ANALYZERS_ has been added to the side navigation bar of the
+Web UI. Through this page, you can view existing Analyzers as well create new
+Analyzers. The UI is full-featured and lets you feed in all parameters and
+options that you could otherwise input through the HTTP or JavaScript API.
+
+It also lets you copy configuration from an existing Analyzer, allowing for a
+much quicker workflow when your new Analyzer is very similar to an existing one.
 
 It offers two edit/view modes - a form mode where a standard web form is used to
 capture user input, and a JSON mode where experienced users can directly write
-the raw analyzer configuration in JSON format.
+the raw Analyzer configuration in JSON format.
+
+### Configurable root redirect
+
+Added two options to `arangod` to allow HTTP redirection customization for
+root (`/`) call of the HTTP API:
+
+- `--http.permanently-redirect-root`: if `true` (default), use a permanent
+  redirection (use HTTP 301 code), if `false` fall back to temporary redirection
+  (use HTTP 302 code).
+
+- `--http.redirect-root-to`: redirect of root URL to a specified path.
+  Redirects to `/_admin/aardvark/index.html` if not set (default).
+
+These options are useful to override the built-in web interface with some 
+user-defined action.
+
+### Web interface session handling
+
+The previously inactive startup parameter `--server.session-timeout` was
+revived and now controls the timeout for web interface sessions (and other
+sessions that are based on JWTs created by the `/_open/auth` API).
+
+For security reasons, the default timeout value for web interface sessions
+has been reduced to one hour, after which a session is ended automatically.
+Web interface sessions that are active (i.e. that have any user activity)
+are automatically extended until the user ends the session explicitly or
+if there is a period of one hour without any user activity.
+
+The timeout value for web interface sessions can be adjusted via the
+`--server.session-timeout` startup parameter (in seconds).
 
 AQL
 ---
@@ -62,7 +95,23 @@ FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
 The condition `v.isRelevant == true` is stored in the variable `pruneCondition`,
 and later used as a condition for `FILTER`.
 
-See [Pruning](aql/graphs-traversals.html#pruning)
+See [Pruning](aql/graphs-traversals.html#pruning).
+
+### Upsert with Index Hint
+
+Added support for the `indexHint` and `forceIndexHint` options to the `UPSERT`
+operation. It will be used as a hint for the document lookup that is performed
+as part of the `UPSERT` operation, and can help in cases such as `UPSERT` not
+picking the best index automatically.
+
+```js
+UPSERT { a: 1234 }
+  INSERT { a: 1234, name: "AB"}
+  UPDATE {name: "ABC"} IN myCollection
+  OPTIONS { indexHint: "index_name", forceIndexHint: true }
+```
+
+See [`UPSERT` Options](aql/operations-upsert.html#indexhint)
 
 ### Decay Functions
 
@@ -206,38 +255,40 @@ Setting the option to `false` allows to not store any data read by the query
 in the RocksDB block cache. This is useful for queries that read a lot of (cold)
 data which would lead to the eviction of the hot data from the block cache.
 
-UI
---
+Multi-dimensional Indexes (experimental)
+----------------------------------------
 
-### Configurable root redirect
+ArangoDB 3.9 features a new index type `zkd`. It can be created like other
+indexes on collections. In contrast to the `persistent` index type (same for
+`hash` and `skiplist`, which today are just aliases for `persistent`), it lifts
+the following restriction.
 
-Added two options to `arangod` to allow HTTP redirection customization for
-root (`/`) call of the HTTP API:
+A `persistent` index can only be used with query filters where a conjunction of
+equalities on a prefix of indexed fields covers the filter. For example, given a
+collection with a `persistent` index on the fields `["a", "b"]`. Then the
+following filters _can_ be satisfied by the index:
 
-- `--http.permanently-redirect-root`: if `true` (default), use a permanent
-  redirection (use HTTP 301 code), if `false` fall back to temporary redirection
-  (use HTTP 302 code).
+- `FILTER doc.a == @a`
+- `FILTER doc.a == @a && doc.b == @b`
+- `FILTER doc.a == @a && @bl <= doc.b && doc.b <= @bu`
 
-- `--http.redirect-root-to`: redirect of root URL to a specified path.
-  Redirects to `/_admin/aardvark/index.html` if not set (default).
+While the following filters _cannot_, or only partially, be satisfied by a
+`persistent` index:
 
-These options are useful to override the built-in web interface with some 
-user-defined action.
+- `FILTER doc.b == @b`
+- `FILTER @bl <= doc.b && doc.b <= @bu`
+- `FILTER @al <= doc.a && doc.a <= @au && @bl <= doc.b && doc.b <= @bu`
 
-### Web interface session handling
+A `zkd` index can be used to satisfy them all. An example where this is useful
+are documents with an assigned time interval, where a query should find all
+documents that contain a given time point, or overlap with some time interval.
 
-The previously inactive startup parameter `--server.session-timeout` was
-revived and now controls the timeout for web interface sessions (and other
-sessions that are based on JWTs created by the `/_open/auth` API).
+There are also drawbacks in comparison with `persistent` indexes. For one, the
+`zkd` index is not sorted. Secondly, it has a significantly higher overhead, and
+the emerging performance is much more dependent on the distribution of the
+dataset, making it less predictable.
 
-For security reasons, the default timeout value for web interface sessions
-has been reduced to one hour, after which a session is ended automatically.
-Web interface sessions that are active (i.e. that have any user activity)
-are automatically extended until the user ends the session explicitly or
-if there is a period of one hour without any user activity.
-
-The timeout value for web interface sessions can be adjusted via the
-`--server.session-timeout` startup parameter (in seconds).
+[Multi-dimensional Indexes](indexing-multi-dim.html) are an experimental feature.
 
 Server options
 --------------
@@ -275,6 +326,45 @@ convention for both datacenters to avoid incompatibilities.
 
 Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html).
 
+### Logging
+
+The server now has two flags for retaining or escaping control and Unicode
+characters in the log. The flag `--log.escape` is now deprecated and, instead,
+the new flags `--log.escape-control-chars` and `--log.escape-unicode-chars`
+should be used.
+
+- `--log.escape-control-chars`:
+
+  This flag applies to the control characters, that have hex codes below `\x20`,
+  and also the character `DEL` with hex code `\x7f`.
+
+  When the flag value is set to `false`, control characters will be retained
+  when they have a visible representation, and replaced with a space character
+  in case they do not have a visible representation. For example, the control
+  character `\n` is visible, so a `\n` will be displayed in the log. Contrary,
+  the control character `BEL` is not visible, so a space will be displayed
+  instead.
+
+  When the flag value is set to `true`, the hex code for the character is
+  displayed, for example, the `BEL` character will be displayed as its hex code,
+  `\x07`.
+
+  The default value for this flag is `true` to ensure compatibility with 
+  previous versions.
+
+- `--log.escape-unicode-chars`:
+
+  If its value is set to `false`, Unicode characters will be retained and
+  written to the log as-is. For example, `犬` will be logged as `犬`. If the
+  flag value is set to `true`, any Unicode characters are escaped, and the hex
+  codes for all Unicode characters are logged instead. For example, `犬` would
+  be logged as its hex code, `\u72AC`.
+
+  The default value for this flag is set to `false` for compatibility with
+  previous versions.
+
+Also see [Logging](programs-arangod-log.html).
+
 ### Version information
 
 The _arangod_ server now provides a command `--version-json` to print version
@@ -284,6 +374,36 @@ programmatically inspect an _arangod_ executable.
 A pseudo log topic `"all"` was added. Setting the log level for the "all" log
 topic will adjust the log level for **all existing log topics**. For example,
 `--log.level all=debug` will set all log topics to log level "debug".
+
+Overload control
+----------------
+
+Starting with version 3.9.0, ArangoDB returns an `x-arango-queue-time-seconds`
+HTTP header with all responses. This header contains the most recent request
+queueing/dequeuing time (in seconds) as tracked by the server's scheduler.
+This value can be used by client applications and drivers to detect server 
+overload and react on it.
+
+The arangod startup option `--http.return-queue-time-header` can be set to
+`false` to suppress these headers in responses sent by arangod.
+
+In a cluster, the value returned in the `x-arango-queue-time-seconds` header
+is the most recent queueing/dequeuing request time of the Coordinator the
+request was sent to, except if the request is forwarded by the Coordinator to
+another Coordinator. In that case, the value will indicate the current
+queueing/dequeuing time of the forwarded-to Coordinator.
+
+In addition, client applications and drivers can optionally augment the
+requests they send to arangod with the header `x-arango-queue-time-seconds`.
+If set, the value of the header should contain the maximum server-side
+queuing time (in seconds) that the client application is willing to accept.
+If the header is set in an incoming request, arangod will compare the current
+dequeuing time from its scheduler with the maximum queue time value contained
+in the request header. If the current queueing time exceeds the value set
+in the header, arangod will reject the request and return HTTP 412
+(precondition failed) with the error code 21004 (queue time violated).
+In a cluster, the `x-arango-queue-time-seconds` request header will be 
+checked on the receiving Coordinator, before any request forwarding.
 
 Support info API
 ----------------
@@ -387,7 +507,7 @@ This will turn the numeric-looking values in the `key` attribute into strings
 but treat the attributes `price` and `weight` as numbers. Finally, the values in
 attribute `fk` will be treated as strings again.
 
-See [Overriding data types per attribute](programs-arangoimport-examples-csv.html#overriding-data-types-per-attribute)
+See [Overriding data types per attribute](programs-arangoimport-examples-csv.html#overriding-data-types-per-attribute).
 
 ### arangobench
 
@@ -397,6 +517,58 @@ Several test cases in arangobench have been deprecated because they do not
 target real world use cases but were rather writing for some internal testing.
 The deprecated test cases will be removed in a future version to clear up
 the list of test cases.
+
+_arangobench_ now supports multiple Coordinators. The flag `--server.endpoint`
+can be specified multiple times, as in the example below:
+
+```
+arangobench \
+  --server.endpoint tcp://[::1]::8529 \
+  --server.endpoint tcp://[::1]::8530 \
+  --server.endpoint tcp://[::1]::8531 \
+  ...
+``` 
+
+This does not compromise the use of the other client tools, that preserve
+the behavior of having one Coordinator and one endpoint.
+
+Also see [_arangobench_ Options](programs-arangobench.html#general-configuration)
+
+### arangodump
+
+_arangodump_ now supports multiple Coordinators. The flag `--server.endpoint`
+can be used multiple times, as in the example below:
+
+```
+arangodump \
+  --server.endpoint tcp://[::1]::8529 \
+  --server.endpoint tcp://[::1]::8530 \
+  --server.endpoint tcp://[::1]::8531 \
+  ...
+```
+
+This does not compromise the use of the other client tools that preserve
+the behavior of having one Coordinator and one endpoint.
+
+Also see [_arangodump_ examples](programs-arangodump-examples.html)
+
+### arangorestore
+
+_arangorestore_ now supports multiple Coordinators. The flag `--server.endpoint`
+can be used multiple times, as in the example below:
+
+```
+arangorestore \
+  --server.endpoint tcp://[::1]::8529 \
+  --server.endpoint tcp://[::1]::8530 \
+  --server.endpoint tcp://[::1]::8531 \
+  ...
+```
+
+This does not compromise the use of the other client tools that preserve
+the behavior of having one Coordinator and one endpoint.
+
+Also see [_arangorestore_ examples](programs-arangorestore-examples.html)
 
 ### arangovpack
 

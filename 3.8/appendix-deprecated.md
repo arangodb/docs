@@ -13,6 +13,7 @@ redirect_from:
   - appendix-deprecated-simple-queries-geo-queries.html # 3.8 -> 3.8
   - appendix-deprecated-simple-queries-fulltext-queries.html # 3.8 -> 3.8
   - http/simple-query.html # 3.8 -> 3.8
+  - programs-arangod-compaction.html # 3.9 -> 3.9
 ---
 Deprecated
 ==========
@@ -24,8 +25,7 @@ replace the old features with:
 
 - **MMFiles Storage Engine**:
   The MMFiles storage engine was deprecated in version 3.6.0 and removed in
-  3.7.0. To change your MMFiles storage engine deployment to RocksDB, see:
-  [Switch storage engine](administration-engine-switch-engine.html)
+  3.7.0.
 
   MMFiles specific startup options still exist but will also be removed.
   This will affect the following options:
