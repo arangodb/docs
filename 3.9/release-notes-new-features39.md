@@ -46,20 +46,19 @@ It offers two edit/view modes - a form mode where a standard web form is used to
 capture user input, and a JSON mode where experienced users can directly write
 the raw Analyzer configuration in JSON format.
 
-### Configurable root redirect
+### Additional Fields in Views Creation Form
 
-Added two options to `arangod` to allow HTTP redirection customization for
-root (`/`) call of the HTTP API:
+ArangoSearch Views have 6 immutable fields (apart from `name` and `type`) that
+can only be set once at the time of creation. The web interface now includes
+these fields in the View creation form, so that you can set them when creating
+Views through the UI:
 
-- `--http.permanently-redirect-root`: if `true` (default), use a permanent
-  redirection (use HTTP 301 code), if `false` fall back to temporary redirection
-  (use HTTP 302 code).
-
-- `--http.redirect-root-to`: redirect of root URL to a specified path.
-  Redirects to `/_admin/aardvark/index.html` if not set (default).
-
-These options are useful to override the built-in web interface with some 
-user-defined action.
+- `primarySort`
+- `primarySortCompression`
+- `storedValues`
+- `writebufferIdle`
+- `writebufferActive`
+- `writebufferSizeMax`
 
 ### Web interface session handling
 
@@ -75,6 +74,21 @@ if there is a period of one hour without any user activity.
 
 The timeout value for web interface sessions can be adjusted via the
 `--server.session-timeout` startup parameter (in seconds).
+
+### Configurable root redirect
+
+Added two options to `arangod` to allow HTTP redirection customization for
+root (`/`) call of the HTTP API:
+
+- `--http.permanently-redirect-root`: if `true` (default), use a permanent
+  redirection (use HTTP 301 code), if `false` fall back to temporary redirection
+  (use HTTP 302 code).
+
+- `--http.redirect-root-to`: redirect of root URL to a specified path.
+  Redirects to `/_admin/aardvark/index.html` if not set (default).
+
+These options are useful to override the built-in web interface with some 
+user-defined action.
 
 AQL
 ---
