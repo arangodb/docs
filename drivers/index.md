@@ -7,6 +7,17 @@ page-toc:
 ---
 # ArangoDB {{ site.data.versions[page.version.name] }} Drivers Documentation
 
+ArangoDB drivers are interfaces between programming languages and ArangoDB,
+which enable programmers to connect to and manipulate ArangoDB deployments from
+within native language programs. From a language perspective, documents and
+database structures can be integrated with data types and their methods.
+The precise mapping of concepts and methods depends on the capabilities and
+practices of each language.
+
+Programming is a powerful way of automating interactions and control of the
+database, as well as to integrate database operations into your own software.
+The status of the drivers below varies from supported to community contributions.
+
 ## Official drivers
 
 Name | Language | Repository | &nbsp;
@@ -85,6 +96,7 @@ Aranguent | Laravel | PHP | [github.com/LaravelFreelancerNL/laravel-arangodb](ht
 MopArangoDbBundle | Symfony2 | PHP | [github.com/m0ppers/MopArangoDbBundle](https://github.com/m0ppers/MopArangoDbBundle){:target="_blank"}
 arangoq: a query builder layer |  | Rust | [github.com/element114/arangoq](https://github.com/element114/arangoq){:target="_blank"}
 GORM Arango Driver | GORM | Go | [github.com/joselitofilho/gorm-arango](https://github.com/joselitofilho/gorm-arango){:target="_blank"}
+Apache Spline: Data lineage tracking solution that uses ArangoDB for storage | Apache Spark | Scala | [github.com/AbsaOSS/spline](https://github.com/AbsaOSS/spline){:target="_blank"}
 
 ## Community projects
 

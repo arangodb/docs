@@ -6,7 +6,7 @@ description: Indexes
 
 Indexes can be ensured using the following annotations. For reference see the
 [indexing](../indexing.html) documentation
-{%- if page.version.version != "3.5" %}
+{%- assign ver = "3.5" | version: "!=" %}{% if ver %}
 and specific aspects that apply to
 [indexes on shards](../architecture-deployment-modes-cluster-sharding.html#indexes-on-shards)
 {%- endif -%}.

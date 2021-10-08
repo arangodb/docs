@@ -2,6 +2,9 @@
 layout: default
 description: Create a logical backup with arangodump and restore it with arangorestore to a new data directory
 title: Switch ArangoDB Storage Engine
+redirect_from:
+  - /3.8/administration-engine-switch-engine.html # 3.9 -> 3.9
+  - /3.9/administration-engine-switch-engine.html # 3.9 -> 3.9
 ---
 Switching the storage engine
 ----------------------------

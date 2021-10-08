@@ -141,26 +141,44 @@ Format                  | Example                  | Description
 
 ## Escaping
 
-`--log.escape value`
+There are two flags for retaining or escaping control and Unicode characters in
+the log. The flag `--log.escape` is deprecated since v3.9.0, and instead,
+the new flags `--log.escape-control-chars` and `log.escape-unicode-chars`
+should be used.
 
-This option toggles the escaping of log output. 
+- `--log.escape-control-chars`:
 
-If set to `true`, the following characters in the log output are escaped:
+  This flag applies to the control characters, that have hex codes below `\x20`,
+  and also the character `DEL` with hex code `\x7f`.
 
-- the carriage return character (hex `0d`)
-- the newline character (hex `0a`)
-- the tabstop character (hex `09`)
-- any other characters with an ordinal value less than hex `20`
+  When the flag value is set to `false`, control characters will be retained
+  when they have a visible representation, and replaced with a space character
+  in case they do not have a visible representation. For example, the control
+  character `\n` is visible, so a `\n` will be displayed in the log. Contrary,
+  the control character `BEL` is not visible, so a space will be displayed
+  instead.
 
-If the option is set to `false`, no characters are escaped. Characters with
-an ordinal value less than hex `20` will not be printed in this mode but will
-be replaced with a space character (hex `20`).
+  When the flag value is set to `true`, the hex code for the character is
+  displayed, for example, the `BEL` character will be displayed as its hex code,
+  `\x07`.
+
+  The default value for this flag is `true` to ensure compatibility with 
+  previous versions.
+
+- `--log.escape-unicode-chars`:
+
+  If its value is set to `false`, Unicode characters will be retained and
+  written to the log as-is. For example, `犬` will be logged as `犬`. If the
+  flag value is set to `true`, any Unicode characters are escaped, and the hex
+  codes for all Unicode characters are logged instead. For example, `犬` would
+  be logged as its hex code, `\u72AC`.
+
+  The default value for this flag is set to `false` for compatibility with
+  previous versions.
 
 A side effect of turning off the escaping is that it will reduce the CPU 
 overhead for the logging. However, this will only be noticeable when logging
 is set to a very verbose level (e.g. debug or trace).
-
-The default value for this option is `true`.
 
 ## Maximum line length
 
