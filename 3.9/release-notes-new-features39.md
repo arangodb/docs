@@ -9,6 +9,13 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.9. ArangoDB 3.9 also contains several bug fixes that are not listed
 here.
 
+HTTP API
+--------
+
+- [License API](http/license.html),<br>
+  HTTP route `PUT|GET /_admin/license` 
+  New attribute `force`, see [License](#license) below.
+
 ArangoSearch
 ------------
 
@@ -584,6 +591,13 @@ The former option `--print-non-json` has been replaced with the new option
 `--fail-on-non-json` which makes [arangovpack](programs-arangovpack.html)
 fail when trying to emit non-JSON types to JSON output.
 
+License
+-------
+
+With version 3.9 the [enterprise license
+configuration](administration-license.html) is available via
+`arangosh` and the [`_admin/license` API](http/license.html). 
+
 Internal changes
 ----------------
 
@@ -600,3 +614,4 @@ architecture to the Sandy Bridge architecture. 256-bit AVX instructions are
 now expected to be present on all targets that run ArangoDB 3.9 executables.
 If a target does not support AVX instructions, it may fail with SIGILL at
 runtime.
+
