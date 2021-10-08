@@ -148,6 +148,14 @@ Using the replacements will work from ArangoDB 3.7 onwards already, so
 any client applications that still call the old addresses can be adjusted
 to call the new addresses from 3.7 onwards.
 
+### Endpoints deprecated
+
+The REST API endpoint GET `/_api/replication/logger-follow` is deprecated
+since ArangoDB 3.4.0 and will be removed in a future version. Client
+applications should use the endpoint `/_api/wal/tail` instead, which is
+available since ArangoDB 3.3. This is a reminder to migrate to the other
+endpoint.
+
 ### Endpoints removed
 
 The following API redirect endpoints have been removed in ArangoDB 3.9.
