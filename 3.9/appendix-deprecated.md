@@ -63,8 +63,8 @@ replace the old features with:
   The metrics API provides a lot more information than the statistics API, so
   it is much more useful.
 
--- **Replication logger-follow REST API**:
-  The endpoint `/_api/replication/logger-follow` is deprecated since 3.9 and
+- **Replication logger-follow REST API**:
+  The endpoint `/_api/replication/logger-follow` is deprecated since 3.4.0 and
   may be removed in a future version. Client applications should use the REST 
   API endpoint `/_api/wal/tail` instead, which is available since ArangoDB 3.3.
 

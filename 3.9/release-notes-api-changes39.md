@@ -151,9 +151,10 @@ to call the new addresses from 3.7 onwards.
 ### Endpoints deprecated
 
 The REST API endpoint GET `/_api/replication/logger-follow` is deprecated
-since ArangoDB 3.9 and will be removed in a future version. Client
+since ArangoDB 3.4.0 and will be removed in a future version. Client
 applications should use the endpoint `/_api/wal/tail` instead, which is
-available since ArangoDB 3.3.
+available since ArangoDB 3.3. This is a reminder to migrate to the other
+endpoint.
 
 ### Endpoints removed
 
