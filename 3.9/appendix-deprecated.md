@@ -64,9 +64,9 @@ replace the old features with:
   it is much more useful.
 
 -- **Replication logger-follow REST API**:
-  The endpoint `/_api/replication/logger-follow` is deprecated in 3.9. Clients
-  should use the REST API endpoint `/_api/wal/tail` instead, which is available 
-  since ArangoDB 3.3.
+  The endpoint `/_api/replication/logger-follow` is deprecated since 3.9 and
+  may be removed in a future version. Client applications should use the REST 
+  API endpoint `/_api/wal/tail` instead, which is available since ArangoDB 3.3.
 
 - **Loading and unloading of collections**:
   The JavaScript functions for explicitly loading and unloading collections,
