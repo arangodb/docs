@@ -9,8 +9,8 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.9. ArangoDB 3.9 also contains several bug fixes that are not listed
 here.
 
-Hybrid (Disjoint) SmartGraphs
------------------------------
+Hybrid (Disjoint) SmartGraphs (Enterprise Edition)
+--------------------------------------------------
 
 SmartGraphs have been extended with a new option to create Hybrid SmartGraphs.
 Hybrid SmartGraphs are capable of using SatelliteCollections within their graph

@@ -16,44 +16,39 @@ integrations for ArangoDB 3.9.
 The following changes affect the behavior of the RESTful graph APIs at
 endpoints starting with path `/_api/gharial/`:
 
-The options object now supports a new field: `satellites`, when creating a graph (POST).
-The value of satellites is optional. In case it is defined, it needs to be an array
-of collection names. Each defined collection name must be a string. This value is
-only valid in case of SmartGraphs (Enterprise-Only). In a community based graph it
-will be ignored.
+The options object now supports a new optional field `satellites` in the
+Enterprise Edition when creating a graph (POST method). If set, it needs to be
+an array of collection names. Each name must be a string and valid as collection
+name. The `satellites` option is ignored in the Community Edition.
 
-Using `satellites` during SmartGraph creation will result in a Hybrid Smart Graph.
+Using `satellites` during SmartGraph creation will result in a Hybrid SmartGraph.
 Using `satellites` during Disjoint SmartGraph creation will result in a Hybrid
 Disjoint SmartGraph.
 
-Hybrid (Disjoint) SmartGraphs are capable of having Satellite collections in their
-graph definitions. If a collection is found in `satellites` and they are also being
-used in the graph definition itself (e.g. EdgeDefinition), this collection will be
-created as a satellite collection. Hybrid (Disjoint) Smart Graphs are then capable
-of executing all type of graph queries between the regular SmartCollections and
-Satellite collections.
+Hybrid (Disjoint) SmartGraphs are capable of having SatelliteCollections in their
+graph definitions. If a collection is named in `satellites` and also used in the
+graph definition itself (e.g. EdgeDefinition), this collection will be created
+as a SatelliteCollection. Hybrid (Disjoint) SmartGraphs are then capable of
+executing all types of graph queries between the regular SmartCollections and
+SatelliteCollections.
 
 The following changes affect the behavior of the RESTful graph APIs at
-endpoints starting with path `/_api/gharial/{graph}/edge`:
+endpoints starting with path `/_api/gharial/{graph}/edge` and
+`/_api/gharial/{graph}/vertex`:
 
-Creating and modifying a new edge definition (POST / PUT):
-Added new optional options object. This was not available in previous ArangoDB
-versions. The options object currently can contain a field called `satellites`.
-The field must be an array and contain collection name(s) written down as strings.
-If an EdgeDefinition does contain a collection name, which is also defined in
-the satellites option entry, it will be created as a Satellite collection.
+Added new optional `options` object that can be set when creating a new or
+modifying an existing edge definition (POST / PUT method), as well as when
+creating a new vertex collection (POST method). This was not available in
+previous ArangoDB versions. The `options` object can currently contain a field
+called `satellites` only.
+
+The `satellites` field must be an array with one or more collection name strings.
+If an EdgeDefinition contains a collection name that is also contained in the
+`satellites` option, or if the vertex collection to add is contained in the
+`satellites` option, the collection will be created as a SatelliteCollection.
 Otherwise, it will be ignored. This option only takes effect using SmartGraphs.
 
-The following changes affect the behavior of the RESTful graph APIs at
-endpoints starting with path `/_api/gharial/{graph}/vertex`:
-
-Creating a new vertex collection (POST):
-Added new optional options object. This was not available in previous ArangoDB
-versions. The options object currently can contain a field called `satellites`.
-The field must be an array and contain collection name(s) written down as strings.
-If the vertex to add is also defined in the satellites option entry, it will be
-created as a Satellite collection. Otherwise, it will be ignored. This option
-only takes effect using SmartGraphs.
+Also see [Graph Management](http/gharial-management.html).
 
 ### Extended naming convention for databases
 

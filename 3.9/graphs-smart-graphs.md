@@ -75,8 +75,9 @@ Benefits of Hybrid SmartGraphs
 -------------------------------
 
 Hybrid SmartGraphs are capable of using SatelliteCollections within their graph
-definition. Therefore, defined edge definitions between SmartCollections and
-SatelliteCollections can be created. As SatelliteCollections are globally
+definition. Therefore, edge definitions defined between SmartCollections and
+SatelliteCollections can be created. As SatelliteCollections (and the edge
+collections between SmartGraph collections and SatelliteCollection) are globally
 replicated to each participating DB-Server, (weighted) graph traversals and
 (k-)shortest path(s) queries can partially be executed locally on each
 DB-Server. This means a larger part of the query can be executed fully local
@@ -98,7 +99,11 @@ Benefits of Hybrid Disjoint SmartGraphs
 ---------------------------------------
 
 Hybrid Disjoint SmartGraphs are like Hybrid SmartGraphs but also prohibit
-edges between vertices with different `smartGraphAttribute` values.
+edges between vertices with different `smartGraphAttribute` values. This
+restriction makes it unnecessary to replicate the edge collections between
+SmartGraph collections and SatelliteCollections to all DB-Servers for local
+execution. They are sharded like the SmartGraph collections instead
+(`distributeShardsLike`).
 
 Getting started
 ---------------
@@ -192,5 +197,44 @@ correct sharding already).
      ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock smartGraphCreateGraphHowTo3_cluster
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+**Create a Hybrid SmartGraph**
+
+In addition to the attributes you would set to create a SmartGraph, there is an
+additional attribute `satellites` you need to set. It needs to be an array of
+one or more collection names. These names can be used in the edge definition
+(relation) and these collections will be created as SatelliteCollections:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline hybridSmartGraphCreateGraphHowTo1_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{hybridSmartGraphCreateGraphHowTo1_cluster}
+      var graph_module = require("@arangodb/smart-graph");
+      var rel = graph_module._relation("isCustomer", "shop", "customer")
+      var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop", "customer"], smartGraphAttribute: "region", numberOfShards: 9});
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock hybridSmartGraphCreateGraphHowTo1_cluster
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+**Create a Hybrid Disjoint SmartGraph**
+
+The option `isDisjoint` needs to be set to `true` in addition to the other
+options for a Hybrid SmartGraph. Only the `shop` vertex collection is created
+as a SatelliteCollection in this example:
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline hybridSmartGraphCreateGraphHowTo2_cluster
+    @EXAMPLE_ARANGOSH_OUTPUT{hybridSmartGraphCreateGraphHowTo2_cluster}
+      var graph_module = require("@arangodb/smart-graph");
+      var rel = graph_module._relation("isCustomer", "shop", "customer")
+      var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop"], smartGraphAttribute: "region", isDisjoint: true, numberOfShards: 9});
+      graph_module._graph("myGraph");
+     ~graph_module._drop("myGraph");
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock hybridSmartGraphCreateGraphHowTo2_cluster
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
