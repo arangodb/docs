@@ -204,8 +204,9 @@ correct sharding already).
 
 In addition to the attributes you would set to create a SmartGraph, there is an
 additional attribute `satellites` you need to set. It needs to be an array of
-one or more collection names. These names can be used in the edge definition
-(relation) and these collections will be created as SatelliteCollections:
+one or more collection names. These names can be used in edge definitions
+(relations) and these collections will be created as SatelliteCollections.
+In this example, both vertex collections are created as SatelliteCollections:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline hybridSmartGraphCreateGraphHowTo1_cluster
@@ -214,7 +215,7 @@ one or more collection names. These names can be used in the edge definition
       var rel = graph_module._relation("isCustomer", "shop", "customer")
       var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop", "customer"], smartGraphAttribute: "region", numberOfShards: 9});
       graph_module._graph("myGraph");
-     ~graph_module._drop("myGraph");
+     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock hybridSmartGraphCreateGraphHowTo1_cluster
 {% endarangoshexample %}
@@ -233,7 +234,7 @@ as a SatelliteCollection in this example:
       var rel = graph_module._relation("isCustomer", "shop", "customer")
       var graph = graph_module._create("myGraph", [rel], [], {satellites: ["shop"], smartGraphAttribute: "region", isDisjoint: true, numberOfShards: 9});
       graph_module._graph("myGraph");
-     ~graph_module._drop("myGraph");
+     ~graph_module._drop("myGraph", true);
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock hybridSmartGraphCreateGraphHowTo2_cluster
 {% endarangoshexample %}
