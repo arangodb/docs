@@ -101,7 +101,7 @@ These sets will resolve internally to the following regular expressions:
 --javascript.startup-options-denylist = "^javascript\.|endpoint"
 ```
 
-Invoking arangosh with these options will hide the denied commandline
+Invoking _arangosh_ with these options will hide the denied commandline
 options from the output of: 
 
 ```js
