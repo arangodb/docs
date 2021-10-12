@@ -11,7 +11,7 @@ _Introduced in: v3.5.0_
 with individual begin and commit / abort commands. This is similar to
 the way traditional RDBMS do it with *BEGIN*, *COMMIT* and *ROLLBACK* operations.
 
-To use a stream transaction a client first sends the [configuration](#begin-a-transaction)
+To use a Stream Transaction a client first sends the [configuration](#begin-a-transaction)
 of the transaction to the ArangoDB server.
 
 {% hint 'info' %}
@@ -21,7 +21,7 @@ and (optionally) the various transaction options supported by ArangoDB.
 No *action* attribute is supported.
 {% endhint %}
 
-The stream transaction API works in *conjunction* with other APIs in ArangoDB.
+The Stream Transaction API works in *conjunction* with other APIs in ArangoDB.
 To use the transaction for a supported operation a client needs to specify
 the transaction identifier in the *x-arango-trx-id* header on each request.
 This will automatically cause these operations to use the specified transaction.
@@ -41,8 +41,7 @@ for making sure that the transaction is committed or aborted when it is no longe
 This avoids taking up resources on the ArangoDB server.
 
 {% hint 'warning' %}
-Transactions will acquire collection locks for read and write operations
-in the MMFiles storage engine, and for write operations in RocksDB.
+Transactions will acquire collection locks for write operations in RocksDB.
 It is therefore advisable to keep the transactions as short as possible.
 {% endhint %}
 
@@ -86,19 +85,26 @@ List currently ongoing Transactions
 Limitations
 -----------
 
-A maximum lifetime and transaction size for stream transactions is enforced
-on the Coordinator to ensure that transactions cannot block the cluster from
-operating properly:
+### Timeout and transaction size
+
+A maximum lifetime and transaction size for Stream Transactions is enforced
+on the Coordinator to ensure that abandoned transactions cannot block the
+cluster from operating properly:
 
 - Maximum idle timeout of **10 seconds** between operations
 - Maximum transaction size of **128 MB** per DB-Server
 
-These limits are also enforced for stream transactions on single servers.
+These limits are also enforced for Stream Transactions on single servers.
+
+ArangoDB 3.8 and later versions have a
+[higher idle timeout](../../3.8/release-notes-upgrading-changes38.html#stream-transactions).
 
 Enforcing the limits is useful to free up resources used by abandoned 
 transactions, for example from transactions that are abandoned by client 
 applications due to programming errors or that were left over because client 
 connections were interrupted.
+
+### Concurrent requests
 
 A given transaction is intended to be used **serially**. No concurrent requests
 using the same transaction ID should be issued by the client. The server can
@@ -106,3 +112,9 @@ make some effort to serialize certain operations (see
 [Streaming Lock Timeout](../programs-arangod-transaction.html#streaming-lock-timeout)),
 however this will degrade the server's performance and may lead to sporadic
 errors with code `28` (locked).
+
+### Batch requests
+
+The [Batch API](batch-request.html) cannot be used in combination with
+Stream Transactions for submitting batched requests, because the required
+header `x-arango-trx-id` is not forwarded.

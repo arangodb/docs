@@ -123,7 +123,7 @@ support for the following languages:
 - Turkish (`tr`)
 
 Create a custom Analyzer and set the `locale` accordingly in the properties,
-e.g. `"el.utf-8"` for Greek. Arangosh example:
+e.g. `"el.utf-8"` for Greek. _arangosh_ example:
 
 ```js
 var analyzers = require("@arangodb/analyzers");
@@ -140,7 +140,7 @@ db._query(`RETURN TOKENS("αυτοκινητουσ πρωταγωνιστούσ�
 // [ [ "αυτοκινητ", "πρωταγωνιστ" ] ]
 ```
 
-Also see [Analyzers: Supported Languages](arangosearch-analyzers.html#supported-languages)
+Also see [Analyzers: Supported Languages]({% assign ver = "3.7" | version: "<" %}{% if ver %}arangosearch-{% endif %}analyzers.html#supported-languages)
 
 ### Condition Optimization Option
 
@@ -202,8 +202,7 @@ This includes (k-)shortest path(s) computation and possibly joins with
 traversals and greatly improves performance for such queries.
 
 [SatelliteGraphs](graphs-satellite-graphs.html)
-are only available in the Enterprise Edition and the
-[ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
+are only available in the Enterprise Edition.
 
 Disjoint SmartGraphs
 --------------------
@@ -216,8 +215,7 @@ restriction allows the query optimizer to improve traversal execution times,
 because in many cases the execution can be pushed down to a single DB-Server.
 
 [Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-disjoint-smartgraphs)
-are only available in the Enterprise Edition and the
-[ArangoDB Cloud](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic).
+are only available in the Enterprise Edition.
 
 AQL
 ---
@@ -986,7 +984,7 @@ The crash handler can be disabled at server start by setting the environment
 variable `ARANGODB_OVERRIDE_CRASH_HANDLER` to an empty string, `0` or `off`.
 
 Also see:
-- [Troubleshooting Arangod](troubleshooting-arangod.html#other-crashes)
+- [Troubleshooting _arangod_](troubleshooting-arangod.html#other-crashes)
 - [Server environment variables](programs-arangod-env-vars.html)
 
 ### Supported compilers

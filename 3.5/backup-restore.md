@@ -78,11 +78,7 @@ Hot backup and restore associated operations can be performed with the
 [_arangobackup_](programs-arangobackup.html) client tool and the
 [Hot Backup HTTP API](http/hot-backup.html).
 
-{% hint 'info' %}
-Arangobackup and the Hot Backup API are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="arangobackup and the Hot Backup API" plural=true %}
 
 Many operations cannot afford downtimes and thus require administrators and
 operators to create consistent freezes of the data during normal operation.

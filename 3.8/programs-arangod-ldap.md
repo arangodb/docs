@@ -189,6 +189,22 @@ Assuming you have the TLS CAcert file that is given to the server at
 
 You can use TLS with any of the following authentication mechanisms.
 
+### Secondary server options (`ldap2`)
+
+The `ldap.*` options configure the primary LDAP server. It is possible to
+configure a secondary server with the `ldap2.*` options to use it as a
+fail-over for the case that the primary server is not reachable, but also to
+let the primary servers handle some users and the secondary others.
+
+Instead of `--ldap.<OPTION>` you need to specify `--ldap2.<OPTION>`.
+Authentication / authorization will first check the primary LDAP server.
+If this server cannot authenticate a user, it will try the secondary one.
+
+It is possible to specify a file containing all users that the primary
+LDAP server is handling by specifying the option `--ldap.responsible-for`.
+This file must contain the usernames line-by-line. This is also supported for
+the secondary server, which can be used to exclude certain users completely.
+
 ### Esoteric options
 
 The following options can be used to configure advanced options for LDAP
@@ -254,7 +270,7 @@ ArangoDB configuration together with the fundamental configuration:
 This method will authenticate an LDAP user with the distinguished name
 `{PREFIX}{USERNAME}{SUFFIX}`, in this case for the arango user `alice`
 it will search for: `uid=alice,dc=arangodb,dc=com`.
-This distinguished name will be used as `{{USER}}` for the roles later on.
+This distinguished name will be used as `{USER}` for the roles later on.
 
 ### Search authentication method
 
@@ -272,7 +288,8 @@ are used in the following way:
     `one` (search the base's immediate children) (default: `sub`)
   - `--ldap.search-filter` is an LDAP filter expression which limits the
     set of LDAP users being considered (default: `objectClass=*` which
-    means all objects)
+    means all objects). The placeholder `{USER}` will be replaced by the
+    supplied username.
   - `--ldap.search-attribute` specifies the attribute in the user objects
     which is used to match the ArangoDB user name (default: `uid`)
 
@@ -295,7 +312,7 @@ fundamental LDAP configuration:
 
 This will use the `sub` search scope by default and will find
 all `person` objects where the `uid` is equal to the given username.
-From these the `dn` will be extracted and used as `{{USER}}` in
+From these the `dn` will be extracted and used as `{USER}` in
 the roles later on.
 
 ## Fetching roles for a user

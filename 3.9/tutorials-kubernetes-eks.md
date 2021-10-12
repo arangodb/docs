@@ -1,0 +1,1 @@
+../3.7/tutorials-kubernetes-eks.md

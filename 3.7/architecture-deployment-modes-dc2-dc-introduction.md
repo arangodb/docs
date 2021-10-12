@@ -24,7 +24,7 @@ in one place to a Cluster in another place. Typically it is used from one datace
 to another. It is possible to replicate to multiple other datacenters as well.
 <br/>It is not a solution for replicating single server instances.
 
-![ArangoDB DC2DC](images/dc2dc.png)
+![ArangoDB DC2DC](images/dc2dc-topology.png)
 
 The replication done by _ArangoSync_ is **asynchronous**. That means that when
 a client is writing data into the source datacenter, it will consider the

@@ -32,11 +32,13 @@ oasisctl update [flags]
 ## See also
 
 * [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl update auditlog](oasisctl-update-auditlog.html)	 - Update an auditlog
 * [oasisctl update backup](oasisctl-update-backup.html)	 - Update a backup
 * [oasisctl update cacertificate](oasisctl-update-cacertificate.html)	 - Update a CA certificate the authenticated user has access to
 * [oasisctl update deployment](oasisctl-update-deployment.html)	 - Update a deployment the authenticated user has access to
 * [oasisctl update group](oasisctl-update-group.html)	 - Update a group the authenticated user has access to
 * [oasisctl update ipallowlist](oasisctl-update-ipallowlist.html)	 - Update an IP allowlist the authenticated user has access to
+* [oasisctl update metrics](oasisctl-update-metrics.html)	 - Update metrics resources
 * [oasisctl update organization](oasisctl-update-organization.html)	 - Update an organization the authenticated user has access to
 * [oasisctl update policy](oasisctl-update-policy.html)	 - Update a policy
 * [oasisctl update project](oasisctl-update-project.html)	 - Update a project the authenticated user has access to

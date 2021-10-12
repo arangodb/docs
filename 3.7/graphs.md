@@ -31,10 +31,6 @@ Its common to have attributes attached to edges, i.e. a *label* naming this inte
 Edges have a direction, with their relations `_from` and `_to` pointing *from* one document *to* another document stored in vertex collections.
 In queries you can define in which directions the edge relations may be followed (`OUTBOUND`: `_from` → `_to`, `INBOUND`: `_from` ← `_to`, `ANY`: `_from` ↔ `_to`).
 
-Want to see the power of ArangoDB and graphs? Fire up your own ArangoDB in just
-a few clicks with ArangoDB Oasis: the Cloud Service for ArangoDB. Start your
-[free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
-
 Named Graphs
 ------------
 
@@ -262,7 +258,7 @@ The example has the cities as *vertices* in several *vertex collections* - `germ
     db.frenchHighway.toArray();
     db.internationalHighway.toArray();
     examples.dropGraph("routeplanner");
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_cities_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
@@ -284,7 +280,7 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
     db.circles.toArray();
     db.edges.toArray();
     examples.dropGraph("traversalGraph");
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_traversal_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
@@ -309,7 +305,7 @@ See the [k Shortest Paths page](aql/graphs-kshortest-paths.html) for query examp
     db.places.toArray();
     db.connections.toArray();
     examples.dropGraph("kShortestPathsGraph");
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_kshortestpaths_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
@@ -331,7 +327,7 @@ It is used to demonstrate raw traversal operations.
     examples.dropGraph("worldCountry");
     var g = examples.loadGraph("worldCountryUnManaged");
     examples.dropGraph("worldCountryUnManaged");
-    @END_EXAMPLE_ARANGOSH_RUN
+    @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock graph_create_world_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
@@ -368,10 +364,8 @@ Another huge graph is the [Pokec social network](https://snap.stanford.edu/data/
 from Slovakia that we [used for performance testing on several databases](https://www.arangodb.com/2015/06/multi-model-benchmark/){:target="_blank"};
 You will find importing scripts etc. in this blogpost.
 
-Cookbook examples
------------------
-
-The above referenced chapters describe the various APIs of ArangoDBs graph engine with small examples. Our cookbook has some more real life examples:
+More examples
+-------------
 
  - [Retrieving documents from ArangoDB without knowing the structure](drivers/java-examples-base-document.html)
  - [AQL Example Queries on an Actors and Movies Database](aql/examples-actors-and-movies.html)

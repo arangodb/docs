@@ -1,0 +1,10 @@
+arangosh&gt; <span class="hljs-keyword">var</span> graph_module = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/satellite-graph"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> edgeDefinitions = [ graph_module._relation(<span class="hljs-string">"myRelation"</span>, [<span class="hljs-string">"male"</span>, <span class="hljs-string">"female"</span>], [<span class="hljs-string">"male"</span>, <span class="hljs-string">"female"</span>]) ];
+arangosh&gt; <span class="hljs-keyword">var</span> graph = graph_module._create(<span class="hljs-string">"myGraph"</span>, edgeDefinitions, [<span class="hljs-string">"sessions"</span>]);
+arangosh&gt; graph_module._graph(<span class="hljs-string">"myGraph"</span>);
+{[SatelliteGraph] 
+  <span class="hljs-string">"myRelation"</span> : [ArangoCollection <span class="hljs-number">10118</span>, <span class="hljs-string">"myRelation"</span> (type edge, status loaded)], 
+  <span class="hljs-string">"female"</span> : [ArangoCollection <span class="hljs-number">10117</span>, <span class="hljs-string">"female"</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">"male"</span> : [ArangoCollection <span class="hljs-number">10116</span>, <span class="hljs-string">"male"</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">"sessions"</span> : [ArangoCollection <span class="hljs-number">10114</span>, <span class="hljs-string">"sessions"</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
+}

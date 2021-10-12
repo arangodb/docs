@@ -137,6 +137,25 @@
     "section" : "",
     "type" : "string"
   },
+  "continue" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "continue restore operation",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "create-collection" : {
     "category" : "option",
     "default" : true,
@@ -313,6 +332,27 @@
     "section" : "encryption",
     "type" : "string"
   },
+  "envelope" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "wrap each document into a {type, data} envelope (this is required from compatibility with v3.7 and before)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "force" : {
     "category" : "option",
     "default" : false,
@@ -408,6 +448,28 @@
     "section" : "",
     "type" : "boolean"
   },
+  "initial-connect-retries" : {
+    "category" : "option",
+    "default" : 3,
+    "deprecatedIn" : null,
+    "description" : "number of connect retries for initial connection",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.13",
+      "v3.8.1"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "uint32"
+  },
   "input-directory" : {
     "category" : "option",
     "default" : "/work/ArangoDB/dump",
@@ -449,29 +511,6 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string..."
-  },
-  "log.api-enabled" : {
-    "category" : "option",
-    "default" : "true",
-    "deprecatedIn" : null,
-    "description" : "whether the log api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : [
-      "v3.4.11",
-      "v3.5.6",
-      "v3.6.5"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "log",
-    "type" : "string"
   },
   "log.color" : {
     "category" : "option",
@@ -539,8 +578,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -561,8 +599,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -612,6 +649,27 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.hostname" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "hostname to use in log message (empty for none, use 'auto' to automatically figure out hostname)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string"
+  },
   "log.ids" : {
     "category" : "option",
     "default" : true,
@@ -623,25 +681,6 @@
     "introducedIn" : [
       "v3.5.0"
     ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : false,
-    "section" : "log",
-    "type" : "boolean"
-  },
-  "log.keep-logrotate" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "keep the old log file after receiving a sighup",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -677,7 +716,7 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
@@ -692,12 +731,33 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.max-entry-length" : {
+    "category" : "option",
+    "default" : 134217728,
+    "deprecatedIn" : null,
+    "description" : "maximum length of a log entry (in bytes)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.9"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "uint32"
+  },
   "log.output" : {
     "category" : "option",
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "log destination(s), e.g. file:///path/to/file (Linux, macOS) or file://C:\\path\\to\\file (Windows)",
+    "description" : "log destination(s), e.g. file:///path/to/file (any '$PID' will be replaced with the process id)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -761,7 +821,7 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : [
-      "v3.7.1"
+      "v3.8.0"
     ],
     "obsolete" : false,
     "os" : [
@@ -899,7 +959,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.7.1"
+      "v3.8.0"
     ],
     "obsolete" : false,
     "os" : [
@@ -995,27 +1055,6 @@
     "section" : "",
     "type" : "boolean"
   },
-  "preserve-revision-ids" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "preserve `_rev` values for the documents (potentially unsafe)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : [
-      "v3.7.0"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
-  },
   "progress" : {
     "category" : "option",
     "default" : true,
@@ -1077,6 +1116,25 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string..."
+  },
+  "server.ask-jwt-secret" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "if this option is specified, the user will be prompted for a JWT secret. This option is not compatible with --server.username or --server.password. If specified, it will be used for all connections - even when a new connection to another server is created",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
   },
   "server.authentication" : {
     "category" : "option",
@@ -1174,6 +1232,25 @@
     "requiresValue" : false,
     "section" : "server",
     "type" : "boolean"
+  },
+  "server.jwt-secret-keyfile" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "if this option is specified, the jwt secret will be loaded from the given file. This option is not compatible with --server.ask-jwt-secret, --server.username or --server.password. If specified, it will be used for all connections - even when a new connection to another server is created",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "string"
   },
   "server.max-packet-size" : {
     "category" : "option",

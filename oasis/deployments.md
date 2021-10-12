@@ -73,13 +73,18 @@ For any kind of production deployment we strongly advise to use an IP allowlist.
 
 ### In the _Configuration_ section
 
-Choose between a **OneShard** and **Sharded** deployment.
+Choose between a **OneShard**, **Sharded** or **Developer** deployment.
 
-OneShard deployments are suitable when your data set fits in a single node.
-They are ideal for graph use cases.
+- OneShard deployments are suitable when your data set fits in a single node.
+  They are ideal for graph use cases.
 
-Sharded deployments are suitable when your data set is larger than a single node.
-The data will be sharded across multiple nodes.
+- Sharded deployments are suitable when your data set is larger than a single
+  node. The data will be sharded across multiple nodes.
+
+- Developer deployments are suitable when you want to try out ArangoDB without
+  the need for high availability or scalability. The deployment will contain a
+  single server only. Your data will not be replicated and your deployment can
+  be restarted at any time.
 
 #### OneShard
 
@@ -94,18 +99,17 @@ The data will be sharded across multiple nodes.
 
 - In addition to memory and disk size as in the OneShard configuration, select
   the number of nodes for your deployment. The more nodes you have, the higher
-  the replication factor.
+  the replication factor can be.
 
 ![Oasis Deployment Sharded](images/oasis-new-deployment3-sharded.png)
 
-- If you're unsure about the sharded setup, you can go through our wizard.
-  Click on _Help me decide_ to open the recommendation process.
+#### Developer
 
-![Oasis Deployment Sharded](images/oasis-new-deployment3-sharded-wizard.png)
+- Like with OneShard and Sharded deployments, you choose memory and disk size.
+  However note that the sizes you choose are for the entire deployment.
+  For OneShard and Sharded deployments the chosen sizes are per node.
 
-- The wizard will guide you through a set of questions and display a
-  recommendation.
-- Click _Use recommendation_ to apply it to your sharded configuration.
+![Oasis Deployment Developer](images/oasis-new-deployment3-developer.png)
 
 ### In the _Summary_ section
 

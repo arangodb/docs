@@ -1,0 +1,11 @@
+@Q:
+RETURN REPLACE_NTH( [ <span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span> ], <span class="hljs-number">1</span> , <span class="hljs-string">"z"</span>)
+
+@R
+[
+  [
+    <span class="hljs-string">"a"</span>,
+    <span class="hljs-string">"z"</span>,
+    <span class="hljs-string">"c"</span>
+  ]
+]

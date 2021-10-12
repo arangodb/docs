@@ -1095,7 +1095,7 @@ the option is unchanged.
 The command-line option `--quiet` was removed from all client tools except arangosh 
 because it had no effect in them.
 
-### Arangobench
+### _arangobench_
 
 In order to make its purpose more apparent the former `arangob` client tool has 
 been renamed to `arangobench` in 3.0.

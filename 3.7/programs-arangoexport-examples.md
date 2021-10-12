@@ -19,12 +19,12 @@ _arangoexport_ will by default connect to the *_system* database using the defau
 endpoint. If you want to connect to a different database or a different endpoint, 
 or use authentication, you can use the following command-line options:
 
-- *--server.database <string>*: name of the database to connect to
-- *--server.endpoint <string>*: endpoint to connect to
-- *--server.username <string>*: username
-- *--server.password <string>*: password to use (omit this and you'll be prompted for the
+- `--server.database <string>`: name of the database to connect to
+- `--server.endpoint <string>`: endpoint to connect to
+- `--server.username <string>`: username
+- `--server.password <string>`: password to use (omit this and you'll be prompted for the
   password)
-- *--server.authentication <bool>*: whether or not to use authentication
+- `--server.authentication <bool>`: whether or not to use authentication
 
 Here's an example of exporting data from a non-standard endpoint, using a dedicated
 [database name](appendix-glossary.html#database-name):

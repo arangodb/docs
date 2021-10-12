@@ -19,6 +19,7 @@ oasisctl list nodesizes [flags]
 
 ```
   -h, --help                     help for nodesizes
+      --model string             Identifier of the model (default "oneshard")
   -o, --organization-id string   Identifier of the organization
   -p, --project-id string        Identifier of the project
       --provider-id string       Identifier of the provider

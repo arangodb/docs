@@ -1,0 +1,177 @@
+arangosh&gt; var examples = require("@arangodb/graph-examples/example-graph.js");
+arangosh&gt; var graph = examples.loadGraph("traversalGraph");
+arangosh&gt; db.circles.toArray();
+[ 
+  { 
+    "_key" : "A", 
+    "_id" : "circles/A", 
+    "_rev" : "_cYKKbqi---", 
+    "label" : "1" 
+  }, 
+  { 
+    "_key" : "B", 
+    "_id" : "circles/B", 
+    "_rev" : "_cYKKbqi--_", 
+    "label" : "2" 
+  }, 
+  { 
+    "_key" : "C", 
+    "_id" : "circles/C", 
+    "_rev" : "_cYKKbqm---", 
+    "label" : "3" 
+  }, 
+  { 
+    "_key" : "D", 
+    "_id" : "circles/D", 
+    "_rev" : "_cYKKbqm--_", 
+    "label" : "4" 
+  }, 
+  { 
+    "_key" : "E", 
+    "_id" : "circles/E", 
+    "_rev" : "_cYKKbqm--A", 
+    "label" : "5" 
+  }, 
+  { 
+    "_key" : "F", 
+    "_id" : "circles/F", 
+    "_rev" : "_cYKKbqm--B", 
+    "label" : "6" 
+  }, 
+  { 
+    "_key" : "G", 
+    "_id" : "circles/G", 
+    "_rev" : "_cYKKbqm--C", 
+    "label" : "7" 
+  }, 
+  { 
+    "_key" : "H", 
+    "_id" : "circles/H", 
+    "_rev" : "_cYKKbqq---", 
+    "label" : "8" 
+  }, 
+  { 
+    "_key" : "I", 
+    "_id" : "circles/I", 
+    "_rev" : "_cYKKbqq--_", 
+    "label" : "9" 
+  }, 
+  { 
+    "_key" : "J", 
+    "_id" : "circles/J", 
+    "_rev" : "_cYKKbqq--A", 
+    "label" : "10" 
+  }, 
+  { 
+    "_key" : "K", 
+    "_id" : "circles/K", 
+    "_rev" : "_cYKKbqq--B", 
+    "label" : "11" 
+  } 
+]
+arangosh&gt; db.edges.toArray();
+[ 
+  { 
+    "_key" : "62600", 
+    "_id" : "edges/62600", 
+    "_from" : "circles/A", 
+    "_to" : "circles/B", 
+    "_rev" : "_cYKKbqq--C", 
+    "theFalse" : false, 
+    "theTruth" : true, 
+    "label" : "left_bar" 
+  }, 
+  { 
+    "_key" : "62602", 
+    "_id" : "edges/62602", 
+    "_from" : "circles/B", 
+    "_to" : "circles/C", 
+    "_rev" : "_cYKKbqu---", 
+    "theFalse" : false, 
+    "theTruth" : true, 
+    "label" : "left_blarg" 
+  }, 
+  { 
+    "_key" : "62604", 
+    "_id" : "edges/62604", 
+    "_from" : "circles/C", 
+    "_to" : "circles/D", 
+    "_rev" : "_cYKKbqu--_", 
+    "theFalse" : false, 
+    "theTruth" : true, 
+    "label" : "left_blorg" 
+  }, 
+  { 
+    "_key" : "62606", 
+    "_id" : "edges/62606", 
+    "_from" : "circles/B", 
+    "_to" : "circles/E", 
+    "_rev" : "_cYKKbqu--A", 
+    "theFalse" : false, 
+    "theTruth" : true, 
+    "label" : "left_blub" 
+  }, 
+  { 
+    "_key" : "62608", 
+    "_id" : "edges/62608", 
+    "_from" : "circles/E", 
+    "_to" : "circles/F", 
+    "_rev" : "_cYKKbqy---", 
+    "theFalse" : false, 
+    "theTruth" : true, 
+    "label" : "left_schubi" 
+  }, 
+  { 
+    "_key" : "62610", 
+    "_id" : "edges/62610", 
+    "_from" : "circles/A", 
+    "_to" : "circles/G", 
+    "_rev" : "_cYKKbqy--_", 
+    "theFalse" : false, 
+    "theTruth" : true, 
+    "label" : "right_foo" 
+  }, 
+  { 
+    "_key" : "62612", 
+    "_id" : "edges/62612", 
+    "_from" : "circles/G", 
+    "_to" : "circles/H", 
+    "_rev" : "_cYKKbq2---", 
+    "theFalse" : false, 
+    "theTruth" : true, 
+    "label" : "right_blob" 
+  }, 
+  { 
+    "_key" : "62614", 
+    "_id" : "edges/62614", 
+    "_from" : "circles/H", 
+    "_to" : "circles/I", 
+    "_rev" : "_cYKKbq2--_", 
+    "theFalse" : false, 
+    "theTruth" : true, 
+    "label" : "right_blub" 
+  }, 
+  { 
+    "_key" : "62616", 
+    "_id" : "edges/62616", 
+    "_from" : "circles/G", 
+    "_to" : "circles/J", 
+    "_rev" : "_cYKKbq6---", 
+    "theFalse" : false, 
+    "theTruth" : true, 
+    "label" : "right_zip" 
+  }, 
+  { 
+    "_key" : "62618", 
+    "_id" : "edges/62618", 
+    "_from" : "circles/J", 
+    "_to" : "circles/K", 
+    "_rev" : "_cYKKbq6--_", 
+    "theFalse" : false, 
+    "theTruth" : true, 
+    "label" : "right_zup" 
+  } 
+]
+arangosh&gt; print("once you don't need them anymore, clean them up:");
+once you don't need them anymore, clean them up:
+arangosh&gt; examples.dropGraph("traversalGraph");
