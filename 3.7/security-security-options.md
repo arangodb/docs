@@ -16,15 +16,15 @@ The following security options are available:
 - `--server.harden`
   If this option is set to `true` and authentication is enabled, non-admin users
   will be denied access to the following REST APIs:
-  
+
+  - `/_admin/cluster/numberOfServers`
   - `/_admin/log`
   - `/_admin/log/level`
   - `/_admin/status`
   - `/_admin/statistics`
   - `/_admin/statistics-description`
   - `/_api/engine/stats`
-  - `/_admin/cluster/numberOfServers`
- 
+
   Additionally, no version details will be revealed by the version REST API at 
   `/_api/version`.
 
@@ -202,7 +202,7 @@ The endpoint black/white listing limits access to external HTTP resources:
 --javascript.endpoints-whitelist "<regex>"
 ```
 
-Filtering is done against the full request URL, including protocol, domain /
+Filtering is done against the full request URL, including protocol, hostname /
 IP address, port, and path.
 
 {% hint 'security' %}
@@ -253,7 +253,6 @@ Specifying `^https?://arangodb\.org(:80|:443)?(/|$)` will match:
 - `https://arangodb.org:443/folder/file.html`
 - etc.
 
-
 You can test the black/whitelisting in _arangosh_:
 
 ```
@@ -275,7 +274,6 @@ Examples are:
 - Circumflex accents in Windows `cmd` (`^^`) unless the entire string is
   wrapped in double quotes (`"^http…"`).
 {% endhint %}
-
 
 ### Additional JavaScript security options
 
