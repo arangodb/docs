@@ -9,6 +9,38 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.9. ArangoDB 3.9 also contains several bug fixes that are not listed
 here.
 
+Hybrid (Disjoint) SmartGraphs (Enterprise Edition)
+--------------------------------------------------
+
+SmartGraphs have been extended with a new option to create Hybrid SmartGraphs.
+Hybrid SmartGraphs are capable of using SatelliteCollections within their graph
+definition and therefore can make use of all the benefits of
+[SatelliteCollections](satellites.html).
+
+Edge definitions can now be created between SmartCollections and
+SatelliteCollections. As SatelliteCollections are globally replicated to each
+participating DB-Server, regular graph traversals, weighted traversals,
+shortest path, and k shortest paths queries can partially be executed locally on
+each DB-Server. This means that query execution can be fully local whenever
+actual data from the SatelliteCollections is being processed. This can improve
+data locality and reduce the number of network hops between cluster nodes.
+
+In case you do have collections that are needed in almost every traversal but
+are small enough to be copied over to every participating DB-Server,
+Hybrid SmartGraphs are the perfect fit, as this will increase the amount of
+local query execution.
+
+Hybrid SmartGraphs can also be disjoint. A Disjoint SmartGraph prohibits edges
+connecting different SmartGraph components. The same rule applies to
+[Hybrid Disjoint SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-disjoint-smartgraphs).
+If your graph does not need edges between vertices with different SmartGraph
+attribute values, then you should enable this option. This topology restriction
+allows the query optimizer to improve traversal execution times, because the
+execution can be pushed down to a single DB-Server in many cases.
+
+[Hybrid SmartGraphs](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs)
+are only available in the Enterprise Edition.
+
 ArangoSearch
 ------------
 

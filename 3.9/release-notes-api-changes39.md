@@ -11,6 +11,45 @@ integrations for ArangoDB 3.9.
 
 ## HTTP RESTful API
 
+### Graph API (Gharial)
+
+The following changes affect the behavior of the RESTful graph APIs at
+endpoints starting with path `/_api/gharial/`:
+
+The options object now supports a new optional field `satellites` in the
+Enterprise Edition when creating a graph (POST method). If set, it needs to be
+an array of collection names. Each name must be a string and valid as collection
+name. The `satellites` option is ignored in the Community Edition.
+
+Using `satellites` during SmartGraph creation will result in a Hybrid SmartGraph.
+Using `satellites` during Disjoint SmartGraph creation will result in a Hybrid
+Disjoint SmartGraph.
+
+Hybrid (Disjoint) SmartGraphs are capable of having SatelliteCollections in their
+graph definitions. If a collection is named in `satellites` and also used in the
+graph definition itself (e.g. EdgeDefinition), this collection will be created
+as a SatelliteCollection. Hybrid (Disjoint) SmartGraphs are then capable of
+executing all types of graph queries between the regular SmartCollections and
+SatelliteCollections.
+
+The following changes affect the behavior of the RESTful graph APIs at
+endpoints starting with path `/_api/gharial/{graph}/edge` and
+`/_api/gharial/{graph}/vertex`:
+
+Added new optional `options` object that can be set when creating a new or
+modifying an existing edge definition (POST / PUT method), as well as when
+creating a new vertex collection (POST method). This was not available in
+previous ArangoDB versions. The `options` object can currently contain a field
+called `satellites` only.
+
+The `satellites` field must be an array with one or more collection name strings.
+If an EdgeDefinition contains a collection name that is also contained in the
+`satellites` option, or if the vertex collection to add is contained in the
+`satellites` option, the collection will be created as a SatelliteCollection.
+Otherwise, it will be ignored. This option only takes effect using SmartGraphs.
+
+Also see [Graph Management](http/gharial-management.html).
+
 ### Extended naming convention for databases
 
 There is a new startup option `--database.extended-names-databases` to allow
