@@ -49,9 +49,9 @@ vertex collections as part of graph traversals.
 Dynamic access via the `DOCUMENT()` function does not require you to list the
 involved collections. Using named graphs in traversals (`GRAPH "graph-name"`)
 does not require it either, assuming that all vertices are in collections that
-are part of the graph, as enforced by the [Graph API](http/gharial.html).
+are part of the graph, as enforced by the [Graph API](../http/gharial.html).
 That means, it is only necessary for traversals using anonymous graphs /
-[collection sets](aql/graphs-traversals.html#working-with-collection-sets).
+[collection sets](graphs-traversals.html#working-with-collection-sets).
 
 MMFiles
 -------
