@@ -1,11 +1,11 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'x-arango-async: store'</span> --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/transaction</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;x-arango-async: store&#x27;</span> --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/transaction</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"collections"</span> : { 
-    <span class="hljs-string">"read"</span> : [ 
-      <span class="hljs-string">"_aqlfunctions"</span> 
+  <span class="hljs-string">&quot;collections&quot;</span> : { 
+    <span class="hljs-string">&quot;read&quot;</span> : [ 
+      <span class="hljs-string">&quot;_aqlfunctions&quot;</span> 
     ] 
   }, 
-  <span class="hljs-string">"action"</span> : <span class="hljs-string">"function () {require('internal').sleep(15.0);}"</span> 
+  <span class="hljs-string">&quot;action&quot;</span> : <span class="hljs-string">&quot;function () {require(&#x27;internal&#x27;).sleep(15.0);}&quot;</span> 
 }
 EOF
 
@@ -14,10 +14,10 @@ content-type: text/plain
 connection: Keep-Alive
 content-length: 0
 server: ArangoDB
-x-arango-async-id: 89685
+x-arango-async-id: 89697
 x-content-type-options: nosniff
 
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/89685</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/89697</span>
 
 HTTP/1.1 204 No Content
 content-type: text/plain

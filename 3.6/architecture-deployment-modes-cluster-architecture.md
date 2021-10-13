@@ -41,7 +41,7 @@ roles:
 
 In the following sections we will shed light on each of them.
 
-![ArangoDB Cluster](images/cluster_topology.png)
+![ArangoDB Cluster](images/cluster-topology.png)
 
 ### Agents
 
@@ -690,8 +690,6 @@ chapter for instructions.
 
 ArangoDB is also available as
 [cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
-You can fire up your cluster in just a few clicks with the
-[14-day free trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
 
 Cluster ID
 ----------

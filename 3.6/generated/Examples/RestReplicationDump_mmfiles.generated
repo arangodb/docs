@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/dump?collection=testCollection</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/replication/dump?collection=testCollection</span>
 
 HTTP/1.1 200 OK
 content-type: application/x-arango-dump
@@ -6,34 +6,34 @@ connection: Keep-Alive
 content-length: 288
 server: ArangoDB
 x-arango-replication-checkmore: false
-x-arango-replication-lastincluded: 195
+x-arango-replication-lastincluded: 194
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"189"</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-number">2300</span>, 
-  <span class="hljs-string">"data"</span> : { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"123456"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"testCollection/123456"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbeTUu--_"</span>, 
-    <span class="hljs-string">"b"</span> : <span class="hljs-number">1</span>, 
-    <span class="hljs-string">"c"</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">"d"</span> : <span class="hljs-string">"additional value"</span> 
+  <span class="hljs-string">&quot;tick&quot;</span> : <span class="hljs-string">&quot;188&quot;</span>, 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2300</span>, 
+  <span class="hljs-string">&quot;data&quot;</span> : { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;123456&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;testCollection/123456&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CYsR2--_&quot;</span>, 
+    <span class="hljs-string">&quot;b&quot;</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">&quot;c&quot;</span> : <span class="hljs-literal">false</span>, 
+    <span class="hljs-string">&quot;d&quot;</span> : <span class="hljs-string">&quot;additional value&quot;</span> 
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"193"</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-number">2302</span>, 
-  <span class="hljs-string">"data"</span> : { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"foobar"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbeTU2--_"</span> 
+  <span class="hljs-string">&quot;tick&quot;</span> : <span class="hljs-string">&quot;192&quot;</span>, 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2302</span>, 
+  <span class="hljs-string">&quot;data&quot;</span> : { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;foobar&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CYsR6--_&quot;</span> 
   } 
 }&#x21A9;
 { 
-  <span class="hljs-string">"tick"</span> : <span class="hljs-string">"195"</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-number">2302</span>, 
-  <span class="hljs-string">"data"</span> : { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"abcdef"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbeTU2--B"</span> 
+  <span class="hljs-string">&quot;tick&quot;</span> : <span class="hljs-string">&quot;194&quot;</span>, 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2302</span>, 
+  <span class="hljs-string">&quot;data&quot;</span> : { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;abcdef&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CYsS---_&quot;</span> 
   } 
 }&#x21A9;

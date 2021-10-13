@@ -1,0 +1,91 @@
+@Q:
+  FOR t IN observations
+    SORT t.time
+    WINDOW { <span class="hljs-attr">preceding</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">following</span>: <span class="hljs-number">1</span> }
+    AGGREGATE rollingAverage = AVG(t.val), rollingSum = SUM(t.val)
+    WINDOW { <span class="hljs-attr">preceding</span>: <span class="hljs-string">&quot;unbounded&quot;</span>, <span class="hljs-attr">following</span>: <span class="hljs-number">0</span>}
+    AGGREGATE cumulativeSum = SUM(t.val)
+    RETURN {
+      <span class="hljs-attr">time</span>: t.time,
+      <span class="hljs-attr">subject</span>: t.subject,
+      <span class="hljs-attr">val</span>: t.val,
+      rollingAverage, <span class="hljs-comment">// average of the window&#x27;s values</span>
+      rollingSum,     <span class="hljs-comment">// sum of the window&#x27;s values</span>
+      cumulativeSum   <span class="hljs-comment">// running total</span>
+    }
+
+@R
+[
+  {
+    <span class="hljs-string">&quot;time&quot;</span>: <span class="hljs-string">&quot;2021-05-25 07:00:00&quot;</span>,
+    <span class="hljs-string">&quot;subject&quot;</span>: <span class="hljs-string">&quot;st113&quot;</span>,
+    <span class="hljs-string">&quot;val&quot;</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-string">&quot;rollingAverage&quot;</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-string">&quot;rollingSum&quot;</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-string">&quot;cumulativeSum&quot;</span>: <span class="hljs-number">10</span>
+  },
+  {
+    <span class="hljs-string">&quot;time&quot;</span>: <span class="hljs-string">&quot;2021-05-25 07:00:00&quot;</span>,
+    <span class="hljs-string">&quot;subject&quot;</span>: <span class="hljs-string">&quot;xh458&quot;</span>,
+    <span class="hljs-string">&quot;val&quot;</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">&quot;rollingAverage&quot;</span>: <span class="hljs-number">6.333333333333333</span>,
+    <span class="hljs-string">&quot;rollingSum&quot;</span>: <span class="hljs-number">19</span>,
+    <span class="hljs-string">&quot;cumulativeSum&quot;</span>: <span class="hljs-number">10</span>
+  },
+  {
+    <span class="hljs-string">&quot;time&quot;</span>: <span class="hljs-string">&quot;2021-05-25 07:15:00&quot;</span>,
+    <span class="hljs-string">&quot;subject&quot;</span>: <span class="hljs-string">&quot;st113&quot;</span>,
+    <span class="hljs-string">&quot;val&quot;</span>: <span class="hljs-number">9</span>,
+    <span class="hljs-string">&quot;rollingAverage&quot;</span>: <span class="hljs-number">6.333333333333333</span>,
+    <span class="hljs-string">&quot;rollingSum&quot;</span>: <span class="hljs-number">19</span>,
+    <span class="hljs-string">&quot;cumulativeSum&quot;</span>: <span class="hljs-number">19</span>
+  },
+  {
+    <span class="hljs-string">&quot;time&quot;</span>: <span class="hljs-string">&quot;2021-05-25 07:15:00&quot;</span>,
+    <span class="hljs-string">&quot;subject&quot;</span>: <span class="hljs-string">&quot;xh458&quot;</span>,
+    <span class="hljs-string">&quot;val&quot;</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-string">&quot;rollingAverage&quot;</span>: <span class="hljs-number">14.666666666666666</span>,
+    <span class="hljs-string">&quot;rollingSum&quot;</span>: <span class="hljs-number">44</span>,
+    <span class="hljs-string">&quot;cumulativeSum&quot;</span>: <span class="hljs-number">29</span>
+  },
+  {
+    <span class="hljs-string">&quot;time&quot;</span>: <span class="hljs-string">&quot;2021-05-25 07:30:00&quot;</span>,
+    <span class="hljs-string">&quot;subject&quot;</span>: <span class="hljs-string">&quot;st113&quot;</span>,
+    <span class="hljs-string">&quot;val&quot;</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">&quot;rollingAverage&quot;</span>: <span class="hljs-number">13.333333333333334</span>,
+    <span class="hljs-string">&quot;rollingSum&quot;</span>: <span class="hljs-number">40</span>,
+    <span class="hljs-string">&quot;cumulativeSum&quot;</span>: <span class="hljs-number">54</span>
+  },
+  {
+    <span class="hljs-string">&quot;time&quot;</span>: <span class="hljs-string">&quot;2021-05-25 07:30:00&quot;</span>,
+    <span class="hljs-string">&quot;subject&quot;</span>: <span class="hljs-string">&quot;xh458&quot;</span>,
+    <span class="hljs-string">&quot;val&quot;</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-string">&quot;rollingAverage&quot;</span>: <span class="hljs-number">16.666666666666668</span>,
+    <span class="hljs-string">&quot;rollingSum&quot;</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-string">&quot;cumulativeSum&quot;</span>: <span class="hljs-number">59</span>
+  },
+  {
+    <span class="hljs-string">&quot;time&quot;</span>: <span class="hljs-string">&quot;2021-05-25 07:45:00&quot;</span>,
+    <span class="hljs-string">&quot;subject&quot;</span>: <span class="hljs-string">&quot;st113&quot;</span>,
+    <span class="hljs-string">&quot;val&quot;</span>: <span class="hljs-number">20</span>,
+    <span class="hljs-string">&quot;rollingAverage&quot;</span>: <span class="hljs-number">18.333333333333332</span>,
+    <span class="hljs-string">&quot;rollingSum&quot;</span>: <span class="hljs-number">55</span>,
+    <span class="hljs-string">&quot;cumulativeSum&quot;</span>: <span class="hljs-number">79</span>
+  },
+  {
+    <span class="hljs-string">&quot;time&quot;</span>: <span class="hljs-string">&quot;2021-05-25 07:45:00&quot;</span>,
+    <span class="hljs-string">&quot;subject&quot;</span>: <span class="hljs-string">&quot;xh458&quot;</span>,
+    <span class="hljs-string">&quot;val&quot;</span>: <span class="hljs-number">30</span>,
+    <span class="hljs-string">&quot;rollingAverage&quot;</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">&quot;rollingSum&quot;</span>: <span class="hljs-number">75</span>,
+    <span class="hljs-string">&quot;cumulativeSum&quot;</span>: <span class="hljs-number">109</span>
+  },
+  {
+    <span class="hljs-string">&quot;time&quot;</span>: <span class="hljs-string">&quot;2021-05-25 08:00:00&quot;</span>,
+    <span class="hljs-string">&quot;subject&quot;</span>: <span class="hljs-string">&quot;xh458&quot;</span>,
+    <span class="hljs-string">&quot;val&quot;</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">&quot;rollingAverage&quot;</span>: <span class="hljs-number">27.5</span>,
+    <span class="hljs-string">&quot;rollingSum&quot;</span>: <span class="hljs-number">55</span>,
+    <span class="hljs-string">&quot;cumulativeSum&quot;</span>: <span class="hljs-number">134</span>
+  }
+]

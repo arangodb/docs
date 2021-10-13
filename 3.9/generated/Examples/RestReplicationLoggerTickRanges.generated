@@ -1,0 +1,29 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-tick-ranges</span>
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">270</span>
+server: ArangoDB
+x-content-type-options: nosniff
+
+[ 
+  { 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/archive/000076.log"</span>, 
+    <span class="hljs-string">"status"</span> : <span class="hljs-string">"collected"</span>, 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"174322"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"174365"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/archive/000096.log"</span>, 
+    <span class="hljs-string">"status"</span> : <span class="hljs-string">"collected"</span>, 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"174365"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"174394"</span> 
+  }, 
+  { 
+    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/000103.log"</span>, 
+    <span class="hljs-string">"status"</span> : <span class="hljs-string">"open"</span>, 
+    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"174394"</span>, 
+    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"179001"</span> 
+  } 
+]

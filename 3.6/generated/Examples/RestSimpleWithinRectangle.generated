@@ -1,12 +1,12 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/simple/within-rectangle</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/simple/within-rectangle</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"collection"</span> : <span class="hljs-string">"products"</span>, 
-  <span class="hljs-string">"latitude1"</span> : <span class="hljs-number">0</span>, 
-  <span class="hljs-string">"longitude1"</span> : <span class="hljs-number">0</span>, 
-  <span class="hljs-string">"latitude2"</span> : <span class="hljs-number">0.2</span>, 
-  <span class="hljs-string">"longitude2"</span> : <span class="hljs-number">0.2</span>, 
-  <span class="hljs-string">"skip"</span> : <span class="hljs-number">1</span>, 
-  <span class="hljs-string">"limit"</span> : <span class="hljs-number">2</span> 
+  <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;products&quot;</span>, 
+  <span class="hljs-string">&quot;latitude1&quot;</span> : <span class="hljs-number">0</span>, 
+  <span class="hljs-string">&quot;longitude1&quot;</span> : <span class="hljs-number">0</span>, 
+  <span class="hljs-string">&quot;latitude2&quot;</span> : <span class="hljs-number">0.2</span>, 
+  <span class="hljs-string">&quot;longitude2&quot;</span> : <span class="hljs-number">0.2</span>, 
+  <span class="hljs-string">&quot;skip&quot;</span> : <span class="hljs-number">1</span>, 
+  <span class="hljs-string">&quot;limit&quot;</span> : <span class="hljs-number">2</span> 
 }
 EOF
 
@@ -18,30 +18,30 @@ server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"result"</span> : [ 
+  <span class="hljs-string">&quot;result&quot;</span> : [ 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71568"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71568"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfZ_u--C"</span>, 
-      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Name/0.008/"</span>, 
-      <span class="hljs-string">"loc"</span> : [ 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71580&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/71580&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ0uK---&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Name/0.008/&quot;</span>, 
+      <span class="hljs-string">&quot;loc&quot;</span> : [ 
         <span class="hljs-number">0.008</span>, 
         <span class="hljs-number">0</span> 
       ] 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71566"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/71566"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfZ_u--A"</span>, 
-      <span class="hljs-string">"name"</span> : <span class="hljs-string">"Name/0.006/"</span>, 
-      <span class="hljs-string">"loc"</span> : [ 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71578&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/71578&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ0uG--A&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Name/0.006/&quot;</span>, 
+      <span class="hljs-string">&quot;loc&quot;</span> : [ 
         <span class="hljs-number">0.006</span>, 
         <span class="hljs-number">0</span> 
       ] 
     } 
   ], 
-  <span class="hljs-string">"hasMore"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">201</span> 
+  <span class="hljs-string">&quot;hasMore&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-number">2</span>, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">201</span> 
 }

@@ -1,47 +1,47 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/applier-state</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/replication/applier-state</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">717</span>
+content-length: <span class="hljs-number">716</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"state"</span> : { 
-    <span class="hljs-string">"started"</span> : <span class="hljs-string">"2020-12-15T17:10:02Z"</span>, 
-    <span class="hljs-string">"running"</span> : <span class="hljs-literal">true</span>, 
-    <span class="hljs-string">"phase"</span> : <span class="hljs-string">"running"</span>, 
-    <span class="hljs-string">"lastAppliedContinuousTick"</span> : <span class="hljs-literal">null</span>, 
-    <span class="hljs-string">"lastProcessedContinuousTick"</span> : <span class="hljs-literal">null</span>, 
-    <span class="hljs-string">"lastAvailableContinuousTick"</span> : <span class="hljs-literal">null</span>, 
-    <span class="hljs-string">"safeResumeTick"</span> : <span class="hljs-literal">null</span>, 
-    <span class="hljs-string">"ticksBehind"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"progress"</span> : { 
-      <span class="hljs-string">"time"</span> : <span class="hljs-string">"2020-12-15T17:10:03Z"</span>, 
-      <span class="hljs-string">"message"</span> : <span class="hljs-string">"fetching master state information"</span>, 
-      <span class="hljs-string">"failedConnects"</span> : <span class="hljs-number">0</span> 
+  <span class="hljs-string">&quot;state&quot;</span> : { 
+    <span class="hljs-string">&quot;started&quot;</span> : <span class="hljs-string">&quot;2021-09-07T16:33:49Z&quot;</span>, 
+    <span class="hljs-string">&quot;running&quot;</span> : <span class="hljs-literal">true</span>, 
+    <span class="hljs-string">&quot;phase&quot;</span> : <span class="hljs-string">&quot;running&quot;</span>, 
+    <span class="hljs-string">&quot;lastAppliedContinuousTick&quot;</span> : <span class="hljs-literal">null</span>, 
+    <span class="hljs-string">&quot;lastProcessedContinuousTick&quot;</span> : <span class="hljs-literal">null</span>, 
+    <span class="hljs-string">&quot;lastAvailableContinuousTick&quot;</span> : <span class="hljs-literal">null</span>, 
+    <span class="hljs-string">&quot;safeResumeTick&quot;</span> : <span class="hljs-literal">null</span>, 
+    <span class="hljs-string">&quot;ticksBehind&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;progress&quot;</span> : { 
+      <span class="hljs-string">&quot;time&quot;</span> : <span class="hljs-string">&quot;2021-09-07T16:33:49Z&quot;</span>, 
+      <span class="hljs-string">&quot;message&quot;</span> : <span class="hljs-string">&quot;fetching master state information&quot;</span>, 
+      <span class="hljs-string">&quot;failedConnects&quot;</span> : <span class="hljs-number">0</span> 
     }, 
-    <span class="hljs-string">"totalRequests"</span> : <span class="hljs-number">2</span>, 
-    <span class="hljs-string">"totalFailedConnects"</span> : <span class="hljs-number">1</span>, 
-    <span class="hljs-string">"totalEvents"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"totalDocuments"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"totalRemovals"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"totalResyncs"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"totalOperationsExcluded"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"totalApplyTime"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"averageApplyTime"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"totalFetchTime"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"averageFetchTime"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"lastError"</span> : { 
-      <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">0</span> 
+    <span class="hljs-string">&quot;totalRequests&quot;</span> : <span class="hljs-number">2</span>, 
+    <span class="hljs-string">&quot;totalFailedConnects&quot;</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">&quot;totalEvents&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;totalDocuments&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;totalRemovals&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;totalResyncs&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;totalOperationsExcluded&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;totalApplyTime&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;averageApplyTime&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;totalFetchTime&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;averageFetchTime&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;lastError&quot;</span> : { 
+      <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">0</span> 
     }, 
-    <span class="hljs-string">"time"</span> : <span class="hljs-string">"2020-12-15T17:10:03Z"</span> 
+    <span class="hljs-string">&quot;time&quot;</span> : <span class="hljs-string">&quot;2021-09-07T16:33:49Z&quot;</span> 
   }, 
-  <span class="hljs-string">"server"</span> : { 
-    <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.6.10"</span>, 
-    <span class="hljs-string">"serverId"</span> : <span class="hljs-string">"238478600127430"</span> 
+  <span class="hljs-string">&quot;server&quot;</span> : { 
+    <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.6.16&quot;</span>, 
+    <span class="hljs-string">&quot;serverId&quot;</span> : <span class="hljs-string">&quot;36844436773207&quot;</span> 
   }, 
-  <span class="hljs-string">"endpoint"</span> : <span class="hljs-string">"tcp://127.0.0.1:8529"</span>, 
-  <span class="hljs-string">"database"</span> : <span class="hljs-string">"_system"</span> 
+  <span class="hljs-string">&quot;endpoint&quot;</span> : <span class="hljs-string">&quot;tcp://127.0.0.1:8529&quot;</span>, 
+  <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span> 
 }

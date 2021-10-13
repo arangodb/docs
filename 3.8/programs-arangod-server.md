@@ -176,6 +176,53 @@ This would mean that instances with a queue longer than 50% of their
 maximum queue capacity would return HTTP 503 instead of HTTP 200 when their
 availability API is probed.
 
+## Preventing cluster overwhelm
+
+From 3.8 on, there are some countermeasures built into Coordinators to
+prevent a cluster from being overwhelmed by too many concurrently
+executing requests.
+
+This essentially works as follows: If a request is executed on a Coordinator
+but needs to wait for some operation on a DB-Server, the operating system
+thread executing the request can often postpone execution on the
+Coordinator, put the request to one side and do something else in the
+meantime. When the response from the DB-Server arrives, another worker
+thread will continue the work. This is a form of asynchronous
+implementation, which is great to achieve better thread utilization and
+enhance throughput.
+
+On the other hand, this runs the risk that we start to work on new
+requests faster than we can finish off old ones. Before 3.8, this could
+actually happen, over time overwhelm the cluster and lead to nasty
+out of memory situations and other unwanted side effects. For example,
+it could lead to excessive latency for individual requests.
+
+Therefore, beginning with Version 3.8, there is a limit as to how many
+requests coming from the low priority queue (most client requests are of
+this type), can be executed concurrently. The default value for this is
+4 times as many as there are scheduler threads (see
+[Server threads options](#server-threads)), which is good for most workloads.
+Requests in excess of this will not be started but remain on the scheduler's
+input queue (see [Maximal queue size option](#maximal-queue-size)).
+
+The multiplier can be controlled with the following option:
+
+`--server.ongoing-low-priority-multiplier=<multiple>`
+
+This controls how many requests each Coordinator is allowed to execute
+concurrently, given as multiple of the maximum number of scheduler threads.
+The default is 4 and should be suitable for most workloads.
+
+Very occasionally, 4 is already too much. You would notice this if the
+latency for individual requests is already too high because the system
+tries to execute too many of them at the same time (for example, if they
+fight for resources).
+
+On the other hand, it is possible in other rare cases that throughput
+can be improved by increasing the value, if latency is not a big issue and
+all requests essentially spend their time waiting, so that a high
+concurrency does not hurt too much. Beware of your memory usage, though.
+
 ## Storage engine
 
 ArangoDB's storage engine is based on [RocksDB](http://rocksdb.org){:target="_blank"}
@@ -195,7 +242,13 @@ Note that `auto` defaults to `rocksdb`.
 
 ## Enable/disable authentication
 
-{% docublock server_authentication %}
+`--server.authentication`
+
+Setting this option to *false* will turn off authentication on the server side
+so all clients can execute any action without authorization and privilege
+checks.
+
+The default value is *true*.
 
 ## JWT Secrets
 
@@ -261,7 +314,31 @@ domain sockets.
 
 ## Enable/disable authentication for system API requests only
 
-{% docublock serverAuthenticateSystemOnly %}
+`--server.authentication-system-only boolean`
+
+Controls whether incoming requests need authentication only if they are
+directed to the ArangoDB's internal APIs and features, located at
+*/_api/*,
+*/_admin/* etc.
+
+If the flag is set to *true*, then HTTP authentication is only
+required for requests going to URLs starting with */_*, but not for other
+URLs. The flag can thus be used to expose a user-made API without HTTP
+authentication to the outside world, but to prevent the outside world from
+using the ArangoDB API and the admin interface without authentication.
+Note that checking the URL is performed after any database name prefix
+has been removed. That means when the actual URL called is
+*/_db/_system/myapp/myaction*, the URL */myapp/myaction* will be used for
+*authentication-system-only* check.
+
+The default is *true*.
+
+Note that authentication still needs to be enabled for the server regularly 
+in order for HTTP authentication to be forced for the ArangoDB API and the
+web interface.  Setting only this flag is not enough.
+
+You can control ArangoDB's general authentication feature with the
+*--server.authentication* flag.
 
 ## Enable authentication cache timeout
 
@@ -341,7 +418,8 @@ default of 1000000 (1s). Use caution when changing from the default.
 
 ## Metrics API
 
-`--server.enable-metrics-api`
+`--server.export-metrics-api`
 
 Enables or disables the
-[Metrics HTTP API](http/administration-and-monitoring-metrics.html#metrics-api).
+[Metrics HTTP API](http/administration-and-monitoring-metrics.html#metrics-api-v2)
+(both the deprecated and the new v2 one).

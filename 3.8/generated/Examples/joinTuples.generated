@@ -5,49 +5,49 @@
     FOR f IN relations
       FILTER f.type == @friend &amp;&amp; f.friendOf == u.userId
       RETURN {
-        <span class="hljs-string">"user"</span> : u.name,
-        <span class="hljs-string">"friendId"</span> : f.thisUser
+        <span class="hljs-string">&quot;user&quot;</span> : u.name,
+        <span class="hljs-string">&quot;friendId&quot;</span> : f.thisUser
       }
 @B
 {
-  <span class="hljs-string">"friend"</span>: <span class="hljs-string">"friend"</span>
+  <span class="hljs-string">&quot;friend&quot;</span>: <span class="hljs-string">&quot;friend&quot;</span>
 }
 @R
 [
   {
-    <span class="hljs-string">"user"</span>: <span class="hljs-string">"Abigail"</span>,
-    <span class="hljs-string">"friendId"</span>: <span class="hljs-number">2</span>
+    <span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;Abigail&quot;</span>,
+    <span class="hljs-string">&quot;friendId&quot;</span>: <span class="hljs-number">2</span>
   },
   {
-    <span class="hljs-string">"user"</span>: <span class="hljs-string">"Abigail"</span>,
-    <span class="hljs-string">"friendId"</span>: <span class="hljs-number">3</span>
+    <span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;Abigail&quot;</span>,
+    <span class="hljs-string">&quot;friendId&quot;</span>: <span class="hljs-number">3</span>
   },
   {
-    <span class="hljs-string">"user"</span>: <span class="hljs-string">"Abigail"</span>,
-    <span class="hljs-string">"friendId"</span>: <span class="hljs-number">4</span>
+    <span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;Abigail&quot;</span>,
+    <span class="hljs-string">&quot;friendId&quot;</span>: <span class="hljs-number">4</span>
   },
   {
-    <span class="hljs-string">"user"</span>: <span class="hljs-string">"Fred"</span>,
-    <span class="hljs-string">"friendId"</span>: <span class="hljs-number">5</span>
+    <span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;Fred&quot;</span>,
+    <span class="hljs-string">&quot;friendId&quot;</span>: <span class="hljs-number">5</span>
   },
   {
-    <span class="hljs-string">"user"</span>: <span class="hljs-string">"Fred"</span>,
-    <span class="hljs-string">"friendId"</span>: <span class="hljs-number">2</span>
+    <span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;Fred&quot;</span>,
+    <span class="hljs-string">&quot;friendId&quot;</span>: <span class="hljs-number">2</span>
   },
   {
-    <span class="hljs-string">"user"</span>: <span class="hljs-string">"Mary"</span>,
-    <span class="hljs-string">"friendId"</span>: <span class="hljs-number">4</span>
+    <span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;Mary&quot;</span>,
+    <span class="hljs-string">&quot;friendId&quot;</span>: <span class="hljs-number">4</span>
   },
   {
-    <span class="hljs-string">"user"</span>: <span class="hljs-string">"Mary"</span>,
-    <span class="hljs-string">"friendId"</span>: <span class="hljs-number">1</span>
+    <span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;Mary&quot;</span>,
+    <span class="hljs-string">&quot;friendId&quot;</span>: <span class="hljs-number">1</span>
   },
   {
-    <span class="hljs-string">"user"</span>: <span class="hljs-string">"Mariah"</span>,
-    <span class="hljs-string">"friendId"</span>: <span class="hljs-number">1</span>
+    <span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;Mariah&quot;</span>,
+    <span class="hljs-string">&quot;friendId&quot;</span>: <span class="hljs-number">1</span>
   },
   {
-    <span class="hljs-string">"user"</span>: <span class="hljs-string">"Mariah"</span>,
-    <span class="hljs-string">"friendId"</span>: <span class="hljs-number">2</span>
+    <span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;Mariah&quot;</span>,
+    <span class="hljs-string">&quot;friendId&quot;</span>: <span class="hljs-number">2</span>
   }
 ]

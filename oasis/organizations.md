@@ -47,6 +47,8 @@ additional organizations and projects and have more and larger deployments.
 2. Click on the _Billing_ tab.
 3. In the _Billing Details_ section, click the _Edit_ button.
 4. Enter your billing address and EU VAT identification number (if applicable).
+   Note that if you are located within the EU and you do not provide a VAT number,
+   or you are located in Germany, VAT will be added to your invoices.
 5. Optionally, enter the email address(es) to which invoices should be emailed
    to automatically.
 6. Click on _Save_.

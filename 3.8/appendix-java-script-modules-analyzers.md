@@ -13,7 +13,7 @@ both server-side and client-side code (arangosh, Foxx):
 var analyzers = require("@arangodb/analyzers");
 ```
 
-See [Analyzers](arangosearch-analyzers.html) for general information and
+See [Analyzers](analyzers.html) for general information and
 details about the attributes.
 
 Analyzer Module Methods

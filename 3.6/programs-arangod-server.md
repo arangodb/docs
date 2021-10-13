@@ -316,7 +316,7 @@ default of 1000000 (1s). Use caution when changing from the default.
 
 ## Metrics API
 
-`--server.enable-metrics-api`
+`--server.export-metrics-api`
 
 Enables or disables the
 [metrics HTTP API](http/administration-and-monitoring.html#read-the-metrics).

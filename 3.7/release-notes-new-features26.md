@@ -239,30 +239,30 @@ Client tools
 ------------
 
 The default configuration value for the option `--server.request-timeout` was increased from 
-300 to 1200 seconds for all client tools (arangosh, arangoimp, arangodump, arangorestore).
+300 to 1200 seconds for all client tools (_arangosh_, _arangoimp_, _arangodump_, _arangorestore_).
 
 The default configuration value for the option `--server.connect-timeout` was increased from 
-3 to 5 seconds for client tools (arangosh, arangoimp, arangodump, arangorestore).
+3 to 5 seconds for client tools (_arangosh_, _arangoimp_, _arangodump_, _arangorestore_).
 
-### Arangorestore
+### _arangorestore_
 
-The option `--create-database` was added for arangorestore. 
+The option `--create-database` was added for _arangorestore_.
 
 Setting this option to `true` will now create the target database if it does not exist. When creating
-the target database, the username and passwords passed to arangorestore will be used to create an 
+the target database, the username and passwords passed to _arangorestore_ will be used to create an 
 initial user for the new database.
 
 The default value for this option is `false`.
 
-### Arangoimp
+### _arangoimp_
 
-Arangoimp can now optionally update or replace existing documents, provided the import data contains 
+_arangoimp_ can now optionally update or replace existing documents, provided the import data contains 
 documents with `_key` attributes.
 
 Previously, the import could be used for inserting new documents only, and re-inserting a document with 
 an existing key would have failed with a *unique key constraint violated* error.
   
-The behavior of arangoimp (insert, update, replace on duplicate key) can now be controlled with the 
+The behavior of _arangoimp_ (insert, update, replace on duplicate key) can now be controlled with the 
 option `--on-duplicate`. The option can have one of the following values:
   
 * `error`: when a unique key constraint error occurs, do not import or update the document but

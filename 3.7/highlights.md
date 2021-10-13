@@ -14,9 +14,8 @@ Version 3.7
 - **ArangoSearch**:
   [Wildcard](aql/functions-arangosearch.html#like) and fuzzy search
   ([Levenshtein distance](aql/functions-arangosearch.html#levenshtein_match) and
-  [n-gram based](aql/functions-arangosearch.html#ngram_match)),
-  [enhanced phrase](aql/functions-arangosearch.html#phrase) and
-  [proximity search](aql/functions-array.html#jaccard),
+  [_n_-gram based](aql/functions-arangosearch.html#ngram_match)),
+  enhanced [phrase and proximity search](aql/functions-arangosearch.html#phrase),
   improved late document materialization and
   [Views covering queries](release-notes-new-features37.html#covering-indexes)
   using their indexes without touching the storage engine, as well as a new
@@ -80,7 +79,7 @@ Version 3.6
 
 - **ArangoSearch**:
   New [Analyzer options](release-notes-new-features36.html#analyzers) for
-  edge n-grams (`text` Analyzer), UTF-8 encoded n-gram input and optional
+  edge _n_-grams (`text` Analyzer), UTF-8 encoded _n_-gram input and optional
   start/end markers (`ngram` Analyzer). Support for
   [dynamic expressions](release-notes-new-features36.html#dynamic-search-expressions-with-arrays)
   using arrays (array comparison operators in `SEARCH` queries and the
@@ -105,8 +104,8 @@ Version 3.5
 
 - **ArangoSearch**:
   The search and ranking engine received an upgrade and now features
-  [Configurable Analyzers](arangosearch-analyzers.html),
-  [Sorted Views](arangosearch-views.html#primary-sort-order)
+  [Configurable Analyzers](analyzers.html),
+  [Sorted Views](arangosearch-performance.html#primary-sort-order)
   and several improvements to the
   [AQL integration](release-notes-new-features35.html#arangosearch).
 
