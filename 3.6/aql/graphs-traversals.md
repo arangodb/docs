@@ -141,11 +141,13 @@ collection in your traversal.
 Due to the nature of graphs, edges may reference vertices from arbitrary
 collections. Following the paths can thus involve documents from various
 collections and it's not possible to predict which will be visited in a
-traversal. Hence, which collections need to be locked can only be determined
-at run time. Deadlocks may occur under certain circumstances.
+traversal. Hence, which collections need to be locked or loaded by the graph
+engine can only be determined at run time. Deadlocks may occur under certain
+circumstances.
 
-Please consider to use the [`WITH` statement](operations-with.html) to
-specify the collections you expect to be involved.
+Use the [`WITH` statement](operations-with.html) to specify the collections you
+expect to be involved. This is required for traversals using collection sets
+in cluster deployments and also other cases depending on the storage engine.
 
 Using filters and the explainer to extrapolate the costs
 --------------------------------------------------------
