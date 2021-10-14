@@ -136,6 +136,19 @@ Operations that may result in downtime are:
 Note: It is still possible that there is some downtime when the Kubernetes
 cluster is down, or in a bad state, irrespective of the value of this setting.
 
+### `spec.memberPropagationMode`
+
+Changes to a pod's configuration require a restart of that pod in almost all
+cases. Pods are restarted eagerly by default, which can cause more restarts than
+desired, especially when updating _arangod_ as well as the operator.
+The propagation of the configuration changes can be deferred to the next restart,
+either triggered manually by the user or by another operation like an upgrade.
+This reduces the number of restarts for upgrading both the server and the
+operator from two to one.
+
+- `always`: Restart the member as soon as a configuration change is discovered
+- `on-restart`: Wait until the next restart to change the member configuration
+
 ### `spec.rocksdb.encryption.keySecretName`
 
 This setting specifies the name of a Kubernetes `Secret` that contains
