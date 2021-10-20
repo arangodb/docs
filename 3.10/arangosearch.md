@@ -617,7 +617,7 @@ for other purposes and especially not in production, as it can stall queries.
 {% hint 'danger' %}
 Do not use`SEARCH … OPTIONS { waitForSync: true }` in transactions. View index
 changes cannot be rolled back if transactions get aborted. It will lead to
-permanent inconsistencies the linked collections and the View.
+permanent inconsistencies between the linked collections and the View.
 {% endhint %}
 
 ## How to go from here

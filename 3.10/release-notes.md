@@ -112,7 +112,7 @@ For a list of known issues, please refer to one of the following sections:
 
 - Known Issues in 3.x:
   [3.10](release-notes-known-issues310.html),
-  [3.9](release-notes-known-issues38.html),
+  [3.9](release-notes-known-issues39.html),
   [3.8](release-notes-known-issues38.html),
   [3.7](release-notes-known-issues37.html),
   [3.6](release-notes-known-issues36.html),
