@@ -11,13 +11,12 @@ Version 3.10
 
 **All Editions**
 
-- **ArangoSearch**:
-  New [**Segmentation Analyzer**](analyzers.html#segmentation)
-  for language-agnostic tokenization of text.
-  A [**Collation Analyzer**](analyzers.html#collation)
-  to honor the alphabetical order of the specified language in range queries.
+- 
+
 
 **Enterprise Edition**
+
+- 
 
 Also see [What's New in 3.10](release-notes-new-features310.html).
 
