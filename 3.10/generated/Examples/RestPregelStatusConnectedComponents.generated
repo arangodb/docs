@@ -1,0 +1,25 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/control_pregel/68119</span>
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">315</span>
+server: ArangoDB
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">"state"</span> : <span class="hljs-string">"done"</span>, 
+  <span class="hljs-string">"gss"</span> : <span class="hljs-number">36</span>, 
+  <span class="hljs-string">"totalRuntime"</span> : <span class="hljs-number">0.0024285316467285156</span>, 
+  <span class="hljs-string">"startupTime"</span> : <span class="hljs-number">0.0004892349243164062</span>, 
+  <span class="hljs-string">"computationTime"</span> : <span class="hljs-number">0.001180410385131836</span>, 
+  <span class="hljs-string">"storageTime"</span> : <span class="hljs-number">0.0007607936859130859</span>, 
+  <span class="hljs-string">"aggregators"</span> : { 
+  }, 
+  <span class="hljs-string">"sendCount"</span> : <span class="hljs-number">487</span>, 
+  <span class="hljs-string">"receivedCount"</span> : <span class="hljs-number">483</span>, 
+  <span class="hljs-string">"reports"</span> : [ ], 
+  <span class="hljs-string">"vertexCount"</span> : <span class="hljs-number">36</span>, 
+  <span class="hljs-string">"edgeCount"</span> : <span class="hljs-number">36</span>, 
+  <span class="hljs-string">"parallelism"</span> : <span class="hljs-string">"(non-representable type none)"</span> 
+}

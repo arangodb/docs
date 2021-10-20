@@ -1,0 +1,46 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products?returnNew=<span class="hljs-literal">true</span></span> &lt;&lt;EOF
+[{"Hello":"Earth"}, {"Hello":"Venus"}, {"Hello":"Mars"}]
+EOF
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">432</span>
+server: ArangoDB
+x-content-type-options: nosniff
+
+[ 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/67042"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"67042"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLHs6---"</span>, 
+    <span class="hljs-string">"new"</span> : { 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"67042"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/67042"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLHs6---"</span>, 
+      <span class="hljs-string">"Hello"</span> : <span class="hljs-string">"Earth"</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/67043"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"67043"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLHs6--_"</span>, 
+    <span class="hljs-string">"new"</span> : { 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"67043"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/67043"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLHs6--_"</span>, 
+      <span class="hljs-string">"Hello"</span> : <span class="hljs-string">"Venus"</span> 
+    } 
+  }, 
+  { 
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/67044"</span>, 
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"67044"</span>, 
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLHs6--A"</span>, 
+    <span class="hljs-string">"new"</span> : { 
+      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"67044"</span>, 
+      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/67044"</span>, 
+      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLHs6--A"</span>, 
+      <span class="hljs-string">"Hello"</span> : <span class="hljs-string">"Mars"</span> 
+    } 
+  } 
+]

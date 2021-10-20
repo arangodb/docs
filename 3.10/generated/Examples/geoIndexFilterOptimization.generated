@@ -1,0 +1,66 @@
+arangosh&gt; db.geoFilter.ensureIndex({ type: "geo", fields: [ "latitude", "longitude" ] });
+{ 
+  "bestIndexedLevel" : 17, 
+  "fields" : [ 
+    "latitude", 
+    "longitude" 
+  ], 
+  "geoJson" : false, 
+  "id" : "geoFilter/76796", 
+  "isNewlyCreated" : true, 
+  "maxNumCoverCells" : 8, 
+  "name" : "idx_1700725500149760000", 
+  "sparse" : true, 
+  "type" : "geo", 
+  "unique" : false, 
+  "worstIndexedLevel" : 4, 
+  "code" : 201 
+}
+arangosh&gt; for (i = -90;  i &lt;= 90;  i += 10) {
+........&gt;     for (j = -180; j &lt;= 180; j += 10) {
+........&gt;         db.geoFilter.save({ name : "Name/" + i + "/" + j, latitude : i, longitude : j });
+........&gt;     }
+........&gt; }
+arangosh&gt; var query = "FOR doc in geoFilter FILTER DISTANCE(doc.latitude, doc.longitude, 0, 0) &lt; 2000 RETURN doc"
+arangosh&gt; db._explain(query, {}, {colors: false});
+Query String (89 chars, cacheable: true):
+ FOR doc in geoFilter FILTER DISTANCE(doc.latitude, doc.longitude, 0, 0) &lt; 2000 RETURN doc
+
+Execution plan:
+ Id   NodeType        Est.   Comment
+  1   SingletonNode      1   * ROOT
+  6   IndexNode        703     - FOR doc IN geoFilter   /* geo index scan */    
+  5   ReturnNode       703       - RETURN doc
+
+Indexes used:
+ By   Name                      Type   Collection   Unique   Sparse   Selectivity   Fields                        Ranges
+  6   idx_1700725500149760000   geo    geoFilter    false    true             n/a   [ `latitude`, `longitude` ]   (GEO_DISTANCE([ 0, 0 ], [ doc.`longitude`, doc.`latitude` ]) &lt; 2000)
+
+Optimization rules applied:
+ Id   RuleName
+  1   geo-index-optimizer
+  2   remove-unnecessary-calculations-2
+
+Optimization rules with highest execution times:
+ RuleName                                    Duration [s]
+ geo-index-optimizer                              0.00002
+ replace-function-with-index                      0.00000
+ reduce-extraction-to-projection                  0.00000
+ use-indexes                                      0.00000
+ remove-unnecessary-calculations-2                0.00000
+
+41 rule(s) executed, 1 plan(s) created
+
+
+arangosh&gt; db._query(query);
+[ 
+  { 
+    "_key" : "77502", 
+    "_id" : "geoFilter/77502", 
+    "_rev" : "_cYKLRmi--A", 
+    "name" : "Name/0/0", 
+    "latitude" : 0, 
+    "longitude" : 0 
+  } 
+]
+[object ArangoQueryCursor, count: 1, cached: false, hasMore: false]
