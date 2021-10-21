@@ -118,6 +118,16 @@ collection in *toVertexCollections*.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
+### Edge Definition Options
+
+The following edge definition options are supported:
+
+- `satellites` (array):
+  An array of collection names that will be used to create [SatelliteCollections](satellites.html)
+  for a Hybrid (Disjoint) SmartGraph (Enterprise Edition only). Each array element
+  must be a string and a valid collection name. The collection type cannot be
+  modified later.
+
 Create a Graph
 --------------
 
@@ -336,17 +346,20 @@ Drop a graph and keep collections:
 Modify a Graph definition at runtime
 ------------------------------------
 
-After you have created an graph its definition is not immutable.
+After you have created a graph its definition is not immutable.
 You can still add, delete or modify edge definitions and vertex collections.
 
 ### Extend the Edge Definitions
 
 Add another edge definition to the graph:
 
-`graph._extendEdgeDefinitions(edgeDefinition)`
+`graph._extendEdgeDefinitions(edgeDefinition, options)`
 
 - `edgeDefinition` (object):
   The relation definition to extend the graph
+- `options` (object):
+  Additional options related to the edge definition itself.
+  See [Edge Definition Options](#edge-definition-options).
 
 Extends the edge definitions of a graph. If an orphan collection is used in this
 edge definition, it will be removed from the orphanage. If the edge collection of
@@ -374,11 +387,14 @@ graph with different *from* and/or *to* collections an error is thrown.
 
 Modify a relation definition:
 
-`graph_module._editEdgeDefinitions(edgeDefinition)`
+`graph_module._editEdgeDefinitions(edgeDefinition, options)`
 
 - `edgeDefinition` (object):
   The edge definition to replace the existing edge definition with the same
   attribute *collection*.
+- `options` (object):
+  Additional options related to the edge definition itself.
+  See [Edge Definition Options](#edge-definition-options).
 
 Edits one relation definition of a graph. The edge definition used as argument will
 replace the existing edge definition of the graph which has the same collection.
@@ -470,12 +486,15 @@ orphans, it will be removed from the set of orphan collection automatically.
 
 Add a vertex collection to the graph:
 
-`graph._addVertexCollection(vertexCollectionName, createCollection)`
+`graph._addVertexCollection(vertexCollectionName, createCollection, options)`
 
 - `vertexCollectionName` (string):
   Name of vertex collection.
 - `createCollection` (bool, _optional_):
   If true the collection will be created if it does not exist. Default: true
+- `options` (object, _optional_):
+  Additional options related to the edge definition itself.
+  See [Edge Definition Options](#edge-definition-options).
 
 Adds a vertex collection to the set of orphan collections of the graph. If the
 collection does not exist, it will be created. If it is already used by any edge

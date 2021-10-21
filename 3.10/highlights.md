@@ -7,18 +7,19 @@ Highlights
 ==========
 
 Version 3.10
------------
+------------
 
 **All Editions**
 
-- 
+-
 
 
 **Enterprise Edition**
 
-- 
+-
 
 Also see [What's New in 3.10](release-notes-new-features310.html).
+
 
 Version 3.9
 -----------
@@ -32,6 +33,10 @@ Version 3.9
   to honor the alphabetical order of the specified language in range queries.
 
 **Enterprise Edition**
+
+- [**Hybrid (Disjoint) SmartGraphs**](graphs-smart-graphs.html#benefits-of-hybrid-smartgraphs):
+  SatelliteCollections can be used in (Disjoint) SmartGraphs to enable more
+  local execution of graph queries.
 
 Also see [What's New in 3.9](release-notes-new-features39.html).
 

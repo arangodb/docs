@@ -84,8 +84,8 @@ killing ArangoDB too eagerly on Linux.
 Overcommit Memory
 -----------------
 
-The recommended kernel setting for `overcommit_memory` for both MMFiles and
-RocksDB storage engine is 0 or 1. The Linux kernel default is 0.
+The recommended kernel setting for `overcommit_memory` is 0 or 1.
+The Linux kernel default is 0.
 
 You can set it as follows before executing `arangod`:
 

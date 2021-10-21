@@ -94,6 +94,24 @@ different usage scenarios:
   result TTL indexes will likely not be used for filtering and sort operations in user-land
   AQL queries.
 
+- **multi-dimensional index** (ZKD): a multi dimensional index allows to
+  efficiently intersect multiple range queries. Typical use cases are querying
+  intervals that intersect a given point or interval. For example, if intervals
+  are stored in documents like
+
+  ```json
+  { "from": 12, "to": 45 }
+  ```
+
+  then you can create an index over `from, to` utilize it with this query:
+
+  ```js
+  FOR i IN intervals FILTER i.from <= t && t <= i.to RETURN i
+  ```
+
+  Currently only floating-point numbers (doubles) are supported as underlying
+  type for each dimension.
+
 - **Geo index**: the geo index provided by ArangoDB allows searching for documents
   within a radius around a two-dimensional earth coordinate (point), or to
   find documents with are closest to a point. Document coordinates can either 
@@ -110,7 +128,7 @@ different usage scenarios:
   and a SORT or FILTER statement is used in conjunction with the distance
   function.
 
-- **fulltext index**: a fulltext index can be used to index all words contained in 
+- **fulltext index**: a fulltext index can be used to index all words contained in
   a specific attribute of all documents in a collection. Only words with a 
   (specifiable) minimum length are indexed. Word tokenization is done using 
   the word boundary analysis provided by libicu, which is taking into account 

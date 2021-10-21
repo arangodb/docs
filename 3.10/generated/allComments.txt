@@ -15219,6 +15219,46 @@ arangosh&gt; db._executeTransaction({ <span class="hljs-attr">collections</span>
     @endDocuBlock GRAPHTRAV_graphPruneCollection
 
 
+<!-- filename: /home/simran/oskar2/work/ArangoDB/Documentation/Books/AQL/graphs-traversals.md -->
+    @startDocuBlockInline GRAPHTRAV_graphPruneVerticesVariable
+
+
+<div class="example-container" id="GRAPHTRAV_graphPruneVerticesVariable_container">
+<div id="GRAPHTRAV_graphPruneVerticesVariable_long" style="display: none;">
+<strong>Query:</strong>
+<pre>
+  FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.5</span> OUTBOUND <span class="hljs-string">&#x27;circles/A&#x27;</span> GRAPH <span class="hljs-string">&#x27;traversalGraph&#x2$      PRUNE pruneCondition = v._key == <span class="hljs-string">&#x27;G&#x27;</span>
+      FILTER pruneCondition
+      RETURN { <span class="hljs-attr">vertices</span>: p.vertices[*]._key, <span class="hljs-attr">edges</span>: p.edges[*].label }
+
+</pre>
+<strong>Query results:</strong>
+<pre>
+[
+  {
+    <span class="hljs-string">&quot;vertices&quot;</span>: [
+      <span class="hljs-string">&quot;A&quot;</span>,
+      <span class="hljs-string">&quot;G&quot;</span>
+    ],
+    <span class="hljs-string">&quot;edges&quot;</span>: [
+      <span class="hljs-string">&quot;right_foo&quot;</span>
+    ]
+  }
+]</pre>
+<div id="GRAPHTRAV_graphPruneVerticesVariable_container_collapse" onclick="$('#GRAPHTRAV_graphPruneVerticesVariable_long').hide(); $('#GRAPHTRAV_graphPruneVerticesVariable_short').show(); window.location.hash$<div id="GRAPHTRAV_graphPruneVerticesVariable_short" onclick="$('#GRAPHTRAV_graphPruneVerticesVariable_short').hide(); $('#GRAPHTRAV_graphPruneVerticesVariable_long').show();">
+<strong>Query:</strong>
+<pre>
+  FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.5</span> OUTBOUND <span class="hljs-string">&#x27;circles/A&#x27;</span> GRAPH <span class="hljs-string">&#x27;traversalGraph&#x2$      PRUNE pruneCondition = v._key == <span class="hljs-string">&#x27;G&#x27;</span>
+      FILTER pruneCondition
+      RETURN { <span class="hljs-attr">vertices</span>: p.vertices[*]._key, <span class="hljs-attr">edges</span>: p.edges[*].label }
+
+</pre><div class="example_show_button">Show query result</div>
+</div>
+</div>
+
+    @endDocuBlock GRAPHTRAV_graphPruneVerticesVariable
+
+
 <!-- filename: /work/ArangoDB/Documentation/Books/AQL/graphs-traversals.md -->
     @startDocuBlockInline GRAPHTRAV_graphFilterEdges
 
@@ -28609,6 +28649,123 @@ content-length: <span class="hljs-number">221</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
+</pre><div class="example_show_button">Show response body</div>
+</div>
+</div>
+
+
+
+
+
+@endDocuBlock
+
+
+<!-- filename: /home/simran/oskar2/work/ArangoDB/Documentation/DocuBlocks/Rest/Indexes/post_api_index_zkd.md -->
+@startDocuBlock post_api_index_zkd
+
+@brief creates a multi-dimensional index
+
+@RESTHEADER{POST /_api/index#multi-dim, Create multi-dimensional index, createIndex#multi-dim}
+
+@RESTQUERYPARAMETERS
+
+@RESTQUERYPARAM{collection,string,required}
+The collection name.
+
+@RESTBODYPARAM{type,string,required,string}
+must be equal to *"zkd"*.
+
+@RESTBODYPARAM{fields,array,required,string}
+an array of attribute names used for each dimension. Array expansions are not allowed.
+
+@RESTBODYPARAM{unique,boolean,required,}
+if *true*, then create a unique index.
+
+@RESTBODYPARAM{fieldValueTypes,string,required,string}
+must be equal to *"double"*. Currently only doubles are supported as values.
+
+@RESTDESCRIPTION
+Creates a multi-dimensional index for the collection *collection-name*, if
+it does not already exist. The call expects an object containing the index
+details.
+
+@RESTRETURNCODES
+
+@RESTRETURNCODE{200}
+If the index already exists, then a *HTTP 200* is
+returned.
+
+@RESTRETURNCODE{201}
+If the index does not already exist and could be created, then a *HTTP 201*
+is returned.
+
+@RESTRETURNCODE{404}
+If the *collection-name* is unknown, then a *HTTP 404* is returned.
+
+@RESTRETURNCODE{400}
+If the index definition is invalid, then a *HTTP 400* is returned.
+
+@EXAMPLES
+
+Creating a multi-dimensional index
+
+
+<div class="example-container" id="RestIndexCreateNewZkd_container">
+<div id="RestIndexCreateNewZkd_long" style="display: none;">
+<pre>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/index?collection=intervals</span> &lt;&lt;EOF
+{ 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;zkd&quot;</span>, 
+  <span class="hljs-string">&quot;fields&quot;</span> : [ 
+    <span class="hljs-string">&quot;from&quot;</span>, 
+    <span class="hljs-string">&quot;to&quot;</span> 
+  ], 
+  <span class="hljs-string">&quot;fieldValueTypes&quot;</span> : <span class="hljs-string">&quot;double&quot;</span> 
+}
+EOF
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">170</span>
+server: ArangoDB
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">&quot;fields&quot;</span> : [ 
+    <span class="hljs-string">&quot;from&quot;</span>, 
+    <span class="hljs-string">&quot;to&quot;</span> 
+  ], 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;intervals/67777&quot;</span>, 
+  <span class="hljs-string">&quot;isNewlyCreated&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1711421383539425280&quot;</span>, 
+  <span class="hljs-string">&quot;sparse&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;zkd&quot;</span>, 
+  <span class="hljs-string">&quot;unique&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">201</span> 
+}
+</pre>
+<div id="RestIndexCreateNewZkd_container_collapse" onclick="$('#RestIndexCreateNewZkd_long').hide(); $('#RestIndexCreateNewZkd_short').show(); window.location.hash='RestIndexCreateNewZkd_container';" class="example_show_button">Hide response body</div></div>
+<div id="RestIndexCreateNewZkd_short" onclick="$('#RestIndexCreateNewZkd_short').hide(); $('#RestIndexCreateNewZkd_long').show();">
+<pre>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/index?collection=intervals</span> &lt;&lt;EOF
+{ 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;zkd&quot;</span>, 
+  <span class="hljs-string">&quot;fields&quot;</span> : [ 
+    <span class="hljs-string">&quot;from&quot;</span>, 
+    <span class="hljs-string">&quot;to&quot;</span> 
+  ], 
+  <span class="hljs-string">&quot;fieldValueTypes&quot;</span> : <span class="hljs-string">&quot;double&quot;</span> 
+}
+EOF
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">170</span>
+server: ArangoDB
+x-content-type-options: nosniff
 </pre><div class="example_show_button">Show response body</div>
 </div>
 </div>

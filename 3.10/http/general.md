@@ -26,7 +26,7 @@ format or ArangoDB's custom [VelocyPack](https://github.com/arangodb/velocypack)
 binary format. Details on the expected format and JSON attributes can be found
 in the documentation of the individual API endpoints.
 
-Clients sending requests to ArangoDB must use either HTTP 1.0, HTTP 1.1, HTTP 2
+Clients sending requests to ArangoDB must use either HTTP 1.1, HTTP 2
 or VelocyStream. Other HTTP versions or protocols are not supported by ArangoDB.
 
 Clients are required to include the `Content-Length` HTTP header with the
@@ -39,19 +39,16 @@ HTTP Keep-Alive
 ---------------
 
 ArangoDB supports HTTP keep-alive. If the client does not send a `Connection`
-header in its request, and the client uses HTTP version 1.1, ArangoDB will assume
-the client wants to keep alive the connection.
+header in its request, ArangoDB will assume the client wants to keep alive the 
+connection.
 If clients do not wish to use the keep-alive feature, they should
 explicitly indicate that by sending a `Connection: Close` HTTP header in
 the request.
 
-ArangoDB will close connections automatically for clients that send requests
-using HTTP 1.0, except if they send an `Connection: Keep-Alive` header.
-
 The default Keep-Alive timeout can be specified at server start using the
 `--http.keep-alive-timeout` startup option.
 
-Establishing TCP connections is expensive, since it takes several ping pongs
+Establishing TCP connections is expensive, since it takes several roundtrips
 between the communication parties. Therefore you can use connection keep-alive
 to send several HTTP request over one TCP-connection;
 each request is treated independently by definition. You can use this feature
@@ -540,14 +537,13 @@ The following APIs may use request forwarding:
 
 - `/_api/control_pregel`
 - `/_api/cursor`
-- `/_api/document`
 - `/_api/job`
 - `/_api/replication`
 - `/_api/query`
 - `/_api/tasks`
 - `/_api/transaction`
 
-Note: since forwarding such requests require an additional cluster-internal HTTP
+Note: since forwarding such requests requires an additional cluster-internal HTTP
 request, they should be avoided when possible for best performance. Typically
 this is accomplished either by directing the requests to the correct Coordinator
 at a client-level or by enabling request "stickiness" on a load balancer. Since
@@ -557,3 +553,50 @@ request forwarding as a fall-back solution.
 Note: some endpoints which return "global" data, such as `GET /_api/tasks` will
 only return data corresponding to the server on which the request is executed.
 These endpoints will generally not work well with load-balancers.
+
+Overload control
+----------------
+
+<small>Introduced in: v3.9.0</small>
+
+_arangod_ returns an `x-arango-queue-time-seconds` HTTP
+header with all responses. This header contains the most recent request
+queueing/dequeuing time (in seconds) as tracked by the server's scheduler.
+This value can be used by client applications and drivers to detect server
+overload and react on it.
+
+The arangod startup option `--http.return-queue-time-header` can be set to
+`false` to suppress these headers in responses sent by arangod.
+
+In a cluster, the value returned in the `x-arango-queue-time-seconds` header
+is the most recent queueing/dequeuing request time of the Coordinator the
+request was sent to, except if the request is forwarded by the Coordinator to
+another Coordinator. In that case, the value will indicate the current
+queueing/dequeuing time of the forwarded-to Coordinator.
+
+In addition, client applications and drivers can optionally augment the
+requests they send to arangod with the header `x-arango-queue-time-seconds`.
+If set, the value of the header should contain the maximum server-side
+queuing time (in seconds) that the client application is willing to accept.
+If the header is set in an incoming request, arangod will compare the current
+dequeuing time from its scheduler with the maximum queue time value contained
+in the request header. If the current queueing time exceeds the value set
+in the header, arangod will reject the request and return HTTP 412
+(precondition failed) with the error code 21004 (queue time violated). 
+Using a value of 0 or a non-numeric value in the header will lead to the
+header value being ignored by arangod.
+
+There is also a metric `arangodb_scheduler_queue_time_violations_total`
+that is increased whenever a request is dropped because of the requested
+queue time not being satisfiable. Administrators can use this metric to monitor
+overload situations. Although all instance types will expose this metric,
+it will likely always be `0` on DB-Servers and agency instances because the
+`x-arango-queue-time-seconds` header is not used in cluster-internal requests.
+
+In a cluster, the `x-arango-queue-time-seconds` request header will be
+checked on the receiving Coordinator, before any request forwarding. If the
+request is forwarded by the Coordinator to a different Coordinator, the
+receiving Coordinator will also check the header on its own.
+Apart from that, the header will not be included in cluster-internal requests
+executed by the Coordinator, e.g. when the Coordinator issues sub-requests
+to DB-Servers or Agency instances.

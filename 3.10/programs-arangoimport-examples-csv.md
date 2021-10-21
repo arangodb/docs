@@ -78,7 +78,8 @@ enclosed in quotes.
 
 Numeric values not enclosed in quotes will be treated as numbers.
 Note that leading zeros in numeric values will be removed. To import numbers
-with leading zeros, please use strings (e.g. `"012"` instead of `012`).
+with leading zeros, please use strings (e.g. `"012"` instead of `012` or
+[override the datatype](#overriding-data-types-per-attribute)).
 
 You can set `--convert` to `false` if you want to treat all unquoted literals
 and numbers as strings instead. `--convert` is enabled by default.
@@ -116,40 +117,6 @@ Extra whitespace at the end of each line will be ignored. Whitespace at the
 start of lines or between field values will not be ignored, so please make sure
 that there is no extra whitespace in front of values or between them.
 
-Importing TSV Data
-------------------
-
-You may also import tab-separated values (TSV) from a file. This format is very
-simple: every line in the file represents a data record. There is no quoting or
-escaping. That also means that the separator character (which defaults to the
-tabstop symbol) must not be used anywhere in the actual data.
-
-As with CSV, the first line in the TSV file must contain the attribute names,
-and all lines must have an identical number of values.
-
-If a different separator character or string should be used, it can be specified
-with the `--separator` argument.
-
-An example command line to execute the TSV import is:
-
-    arangoimport --file "data.tsv" --type tsv --collection "users"
-
-Reading compressed input files
-------------------------------
-
-*arangoimport* can transparently process gzip-compressed input files
-if they have a ".gz" file extension, e.g.
-
-    arangoimport --file data.csv.gz --type csv --collection "users"
-
-For other input formats it is possible to decompress the input file using another
-program and piping its output into arangoimport, e.g.
-
-    bzcat users.csv.bz2 | arangoimport --file "-" --type csv --collection "users"
-
-This example requires that a `bzcat` utility for decompressing bzip2-compressed
-files is available, and that the shell supports pipes.
-
 Attribute Name Translation
 --------------------------
 
@@ -185,6 +152,157 @@ attribute in **all** shards of the collection.
 The same thing would apply if your data contains an `_id` attribute:
 
     arangoimport --file "data.csv" --type csv --remove-attribute "_id"
+
+Overriding data types per attribute
+-----------------------------------
+
+<small>Introduced in: v3.9.0</small>
+
+The `--datatype` startup option can be used to fix
+the datatypes for certain attributes in CSV/TSV imports. For example, in the
+the following CSV input file, it is unclear if the numeric values should be
+imported as numbers or as stringified numbers for the individual attributes:
+
+```
+key,price,weight,fk
+123456,200,5,585852
+864924,120,10,9998242
+9949,70,11.5,499494
+6939926,2130,5,96962612
+```
+
+To determine the datatypes for the individual columns, _arangoimport_ can be
+invoked with the `--datatype` startup option, once for each attribute:
+
+```
+--datatype key=string
+--datatype price=number
+--datatype weight=number
+--datatype fk=string
+```
+
+This will turn the numeric-looking values in the `key` attribute into strings
+but treat the attributes `price` and `weight` as numbers. Finally, the values in
+attribute `fk` will be treated as strings again.
+
+The possible values for `--datatype` are:
+- `null`: unconditionally treats all input values as `null`, effectively
+  ignoring the column (similar to `--remove-attribute`) because `null` values
+  are dropped
+- `boolean`: interprets the input values `false`, `null` and `0` (quoted or
+  unquoted) as the boolean value `false`, and everything else as the boolean
+  value `true`.
+- `number`: converts input values that look like numbers to numbers, including
+  numbers wrapped in quote marks (`--quote`), and treats everything else as the
+  number `0`.
+- `string`: treats the input value as a string
+
+If `--datatype` is used for an attribute, it takes precedence over `--convert`
+and the automatic conversions applied by the latter. If you want to import
+most fields as strings, then you can use `--convert false` and only override
+the datatype for non-string fields with `--datatype`:
+
+```
+--convert false
+--datatype price=number
+--datatype weight=number
+```
+
+Merging Attributes
+------------------
+
+<small>Introduced in: v3.9.0</small>
+
+_arangoimport_ supports creating additional attributes during the import
+process, which are concatenations of other attribute values and hard-coded
+string literals/separators.
+
+Such attributes can be added in CSV/TSV imports by specifying the option 
+`--merge-attributes` for each new attribute.
+
+The following example will add a new attribute named `fullName` that consists
+of the values of the `firstName` and `lastName` columns, separated by a colon
+character `:`:
+
+```
+arangoimport --merge-attributes fullName=[firstName]:[lastName]
+```
+
+When referring to existing attribute names from the input data, the referred-to
+names need to be enclosed in square brackets (`[` and `]`). Any characters
+outside the brackets will be interpreted as literals, and will be added to the
+new attribute as-is. 
+
+If an attribute name that is enclosed in brackets does not exist in the input
+data, the import will emit a warning message and continue. Non-existing
+attributes will be replaced with an empty string in the resulting value.
+
+The `--merge-attribute` option does not support using the brackets (`[` or `]`)
+or the equal sign (`=`) in any of the literals, or inside an attribute reference.
+Attribute references with empty attribute names (e.g. `[]`) are disallowed too.
+
+`--merge-attributes` can be specified multiple times to create independent
+additional fields:
+
+```
+arangoimport \
+  --merge-attributes fullName=[firstName]:[lastName] \
+  --merge-attributes dateOfBirth=[month]-[day]-[year] \
+  ...
+```
+
+Later merge attributes can build on former merge attributes
+(in left-to-right order), e.g.
+
+```
+arangoimport \
+  --merge-attributes ids=[id1]-[id2] \
+  --merge-attributes nameAndIds=[name]-[ids] \
+  ...
+```
+
+Note that when the `--translate` option is also used, the referred-to attribute
+names for `--merge-attributes` must be the ones before translation, e.g.
+
+```
+arangoimport --translate _key=id --merge-attributes idAndName=[id]:[lastName]
+```
+
+`--merge-attributes` is currently supported for CSV/TSV input files only.
+
+Importing TSV Data
+------------------
+
+You may also import tab-separated values (TSV) from a file. This format is very
+simple: every line in the file represents a data record. There is no quoting or
+escaping. That also means that the separator character (which defaults to the
+tabstop symbol) must not be used anywhere in the actual data.
+
+As with CSV, the first line in the TSV file must contain the attribute names,
+and all lines must have an identical number of values.
+
+If a different separator character or string should be used, it can be specified
+with the `--separator` argument.
+
+An example command line to execute the TSV import is:
+
+    arangoimport --file "data.tsv" --type tsv --collection "users"
+
+Reading compressed input files
+------------------------------
+
+*arangoimport* can transparently process gzip-compressed input files
+if they have a ".gz" file extension, e.g.
+
+    arangoimport --file data.csv.gz --type csv --collection "users"
+
+For other input formats it is possible to decompress the input file using another
+program and piping its output into arangoimport, e.g.
+
+    bzcat users.csv.bz2 | arangoimport --file "-" --type csv --collection "users"
+
+This example requires that a `bzcat` utility for decompressing bzip2-compressed
+files is available, and that the shell supports pipes.
 
 Reading headers from a separate file
 ------------------------------------

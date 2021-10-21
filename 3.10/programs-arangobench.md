@@ -26,7 +26,17 @@ The most important general _arangobench_ options are:
 
 - `--server.endpoint`: the server endpoint to connect to. This can be a remote
   server or a server running on the same host. The endpoint also specifies
-  whether encryption at transit (TLS) should be used.
+  whether encryption at transit (TLS) should be used. Multiple endpoints can be
+  provided. Example:
+ 
+  ```
+  arangobench \
+    --server.endpoint tcp://[::1]::8529 \
+    --server.endpoint tcp://[::1]::8530 \
+    --server.endpoint tcp://[::1]::8531 \
+    ...
+  ``` 
+
 - `--server.username` and `--server.password`: these can be used to authenticate
   with an existing ArangoDB installation.
 - `--test-case`: selects the test case to be executed by _arangobench_. A list
@@ -95,34 +105,35 @@ _arangobench_ provides the following predefined test cases. The test case to be
 executed can be selected via the `--test-case` startup option.
 
 Note that these test cases have been added over time, and not all of them may
-be fully appropriate for a given workload test.
+be fully appropriate for a given workload test. Some test cases are deprecated
+and will be removed in a future version.
 
-In order to benchmark custom AQL queries, the appropriate test case is
+In order to benchmark custom AQL queries, the appropriate test case to run is
 `custom-query`.
 
 | Test Case | Description |
 |:----------|:------------|
 | `aqlinsert` | performs AQL queries that insert one document per query. The `--complexity` parameter controls the number of attributes per document. The attribute values for the inserted documents will be hard-coded, except `_key`. The total number of documents to be inserted is equal to the value of `--requests`. |
-| `aqltrx` | creates 3 empty collections and then performs different AQL read queries on these collections, partially using joins. This test was once used to test shard locking, but is now largely obsolete. In a cluster, it still provides a little value because it effectively measures query setup and shutdown times for concurrent AQL queries. |
-| `aqlv8` | performs AQL queries that insert one document per query. The `--complexity` parameter controls the number of attributes per document. The attribute values for the inserted documents are generated using AQL functions `RAND()` and `RANDOM_TOKEN()`. The total number of documents to be inserted is equal to the value of `--requests`. |
+| `aqltrx` | (**deprecated**)<br>creates 3 empty collections and then performs different AQL read queries on these collections, partially using joins. This test was once used to test shard locking, but is now largely obsolete. In a cluster, it still provides a little value because it effectively measures query setup and shutdown times for concurrent AQL queries. |
+| `aqlv8` | (**deprecated**)<br>performs AQL queries that insert one document per query. The `--complexity` parameter controls the number of attributes per document. The attribute values for the inserted documents are generated using AQL functions `RAND()` and `RANDOM_TOKEN()`. The total number of documents to be inserted is equal to the value of `--requests`. |
 | `collection` | creates as many separate (empty) collections as provided in the value of `--requests`. |
-| `counttrx` | executes JavaScript Transactions that each insert 50 (empty) documents into a collection and validates that collection counts are as expected. There will be 50 times the number of `--requests` documents inserted in total. The `--complexity` parameter is not used. |
+| `counttrx` | (**deprecated**)<br>executes JavaScript Transactions that each insert 50 (empty) documents into a collection and validates that collection counts are as expected. There will be 50 times the number of `--requests` documents inserted in total. The `--complexity` parameter is not used. |
 | `custom-query` | executes a custom AQL query, that can be specified either via the `--custom-query` option or be read from a file specified via the `--custom-query-file` option. The query will be executed as many times as the value of `--requests`. The `--complexity` parameter is not used. |
 | `crud` | will perform a mix of insert, update, get and remove operations for documents. 20% of the operations will be single-document inserts, 20% of the operations will be single-document updates, 40% of the operations are single-document read requests, and 20% of the operations will be single-document removals. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted and updated documents. |
 | `crud-append` | will perform a mix of insert, update and get operations for documents. 25% of the operations will be single-document inserts, 25% of the operations will be single-document updates, and 50% of the operations are single-document read requests. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted and updated documents. |
 | `crud-write-read` | will perform a 50-50 mix of insert and retrieval operations for documents. 50% of the operations will be single-document inserts, 50% of the operations will be single-document read requests. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted documents. |
-| `deadlocktrx` | creates two collections and executes JavaScript Transactions that first access one collection, and then the other. This test was once used as a means to detect deadlocks caused by collection locking, but is obsolete nowadays. The `--complexity` parameter is not used. |
+| `deadlocktrx` | (**deprecated**)<br>creates two collections and executes JavaScript Transactions that first access one collection, and then the other. This test was once used as a means to detect deadlocks caused by collection locking, but is obsolete nowadays. The `--complexity` parameter is not used. |
 | `document` | performs single-document insert operations via the specialized insert API (in contrast to performing inserts via generic AQL). The `--complexity` parameter controls the number of attributes per document. The attribute values for the inserted documents will be hard-coded. The total number of documents to be inserted is equal to the value of `--requests`. |
 | `edge-crud` | will perform a mix of insert, update and get operations for edges. 25% of the operations will be single-edge inserts, 25% of the operations will be single-edge updates, and 50% of the operations are single-edge read requests. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted and updated edges. |
 | `hash` | will perform a mix of insert, update and get operations for documents. The collection created by this test does have an extra, non-unique, non-sparse `persistent` index on one attribute. 25% of the operations will be single-document inserts, 25% of the operations will be single-document updates, and 50% of the operations are single-document read requests. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted and updated documents. This test case can be used to determine the effects on write throughput caused by adding a secondary index to a collection. It originally tested a `hash` index, but both the in-memory hash and skiplist index types were removed in favor of the RocksDB-based persistent index type. |
 | `import-document` | performs multi-document imports using the specialized import API (in contrast to performing inserts via generic AQL). Each inserted document will have two attributes. The `--complexity` parameter controls the number of documents per import request. The total number of documents to be inserted is equal to the value of `--requests` times the value of `--complexity`. |
-| `multi-collection` | creates two collections and then executes JavaScript Transactions that first write into one and then the other collection. The documents written into both collections are identical, and the number of their attributes can be controlled via the `--complexity` parameter. There will be as many JavaScript Transactions as `--requests`, and twice the number of documents inserted. |
-| `multitrx` | creates two collections and then executes JavaScript Transactions that read from and write to both collections. There will be as many JavaScript Transactions as `--requests`. The `--complexity` parameter is ignored. |
-| `random-shapes` | will perform a mix of insert, get and remove operations for documents with randomized attribute names. 33% of the operations will be single-document inserts, 33% of the operations will be single-document reads, and 33% of the operations are single-document removals. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted documents. |
-| `shapes` | will perform a mix of insert, get and remove operations for documents with different, but predictable attribute names. 33% of the operations will be single-document inserts, 33% of the operations will be single-document reads, and 33% of the operations are single-document removals. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted documents. |
-| `shapes-append` | will perform a mix of insert and get operations for documents with randomized attribute names. 50% of the operations will be single-document inserts, and 50% of the operations will be single-document reads. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted documents. |
-| `skiplist` | identical to the `hash` test case nowadays. |
-| `stream-cursor` | creates 500 documents in a collection, and then performs a mix of AQL update queries (all on the same document) and a streaming AQL query that returns all documents from the collection. The `--complexity` parameter can be used to control the number of attributes for the inserted documents and the update queries. This test will trigger a lot of write-write conflicts with `--concurrency` bigger than 2. |
+| `multi-collection` | (**deprecated**)<br>creates two collections and then executes JavaScript Transactions that first write into one and then the other collection. The documents written into both collections are identical, and the number of their attributes can be controlled via the `--complexity` parameter. There will be as many JavaScript Transactions as `--requests`, and twice the number of documents inserted. |
+| `multitrx` | (**deprecated**)<br>creates two collections and then executes JavaScript Transactions that read from and write to both collections. There will be as many JavaScript Transactions as `--requests`. The `--complexity` parameter is ignored. |
+| `random-shapes` | (**deprecated**)<br>will perform a mix of insert, get and remove operations for documents with randomized attribute names. 33% of the operations will be single-document inserts, 33% of the operations will be single-document reads, and 33% of the operations are single-document removals. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted documents. |
+| `shapes` | (**deprecated**)<br>will perform a mix of insert, get and remove operations for documents with different, but predictable attribute names. 33% of the operations will be single-document inserts, 33% of the operations will be single-document reads, and 33% of the operations are single-document removals. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted documents. |
+| `shapes-append` | (**deprecated**)<br>will perform a mix of insert and get operations for documents with randomized attribute names. 50% of the operations will be single-document inserts, and 50% of the operations will be single-document reads. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted documents. |
+| `skiplist` | (**deprecated**)<br>identical to the `hash` test case nowadays. |
+| `stream-cursor` | (**deprecated**)<br>creates 500 documents in a collection, and then performs a mix of AQL update queries (all on the same document) and a streaming AQL query that returns all documents from the collection. The `--complexity` parameter can be used to control the number of attributes for the inserted documents and the update queries. This test will trigger a lot of write-write conflicts with `--concurrency` bigger than 2. |
 | `version` | queries the server version and then instantly returns. In a cluster, this means that Coordinators instantly respond to the requests without ever accessing DB-Servers. This test can be used to establish a baseline for single server or Coordinator throughput. The `--complexity` parameter is not used. |
 
 ## Troubleshooting
