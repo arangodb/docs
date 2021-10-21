@@ -2,7 +2,7 @@ class ExampleBlock < Liquid::Block
   alias_method :parent_render, :render
 
   def get_example_content(context, name)
-    if context["page"]["dir"] =~ /\d\.\d\/?$/
+    if context["page"]["dir"] =~ /\d\.\d{1,2}\/?$/
       dir = context["page"]["dir"] + "/"
     else
       dir = context["page"]["dir"] + "/../"
