@@ -63,8 +63,6 @@
               href: programs-arangod-backup.html
             - text: Cluster
               href: programs-arangod-cluster.html
-            - text: Compaction
-              href: programs-arangod-compaction.html
             - text: Database
               href: programs-arangod-database.html
             - text: Foxx
@@ -291,6 +289,8 @@
           href: indexing-ttl.html
         - text: Fulltext Indexes
           href: indexing-fulltext.html
+        - text: Multi-dimensional Indexes
+          href: indexing-multi-dim.html
         - text: Geo-spatial Indexes
           href: indexing-geo.html
         - text: Vertex Centric Indexes
@@ -419,7 +419,7 @@
               href: architecture-deployment-modes-dc2-dc-limitations.html
     - text: Single Instance vs. Cluster
       href: architecture-single-instance-vs-cluster.html
-    - text: Storage Engines
+    - text: Storage Engine
       href: architecture-storage-engines.html
     - text: Replication
       href: architecture-replication.html
@@ -761,8 +761,6 @@
       children:
         - text: In arangosh
           href: administration-managing-users-in-arangosh.html
-    - text: Switch Storage Engine
-      href: administration-engine-switch-engine.html
     - text: Leader/Follower
       href: administration-leader-follower.html
       children:
@@ -819,17 +817,6 @@
       href: monitoring-log-levels.html
     - text: Datacenter to datacenter replication
       href: monitoring-dc2-dc.html
-    - text: Collectd
-      href: monitoring-collectd.html
-      children:
-        - text: Replication Followers
-          href: monitoring-collectd-follower-status.html
-        - text: Network usage
-          href: monitoring-collectd-traffic-with-ipaccounting.html
-        - text: More metrics
-          href: monitoring-collectd-other-relevant-metrics.html
-        - text: Monitoring Foxx
-          href: monitoring-collectd-foxx-apps.html
 - text: Troubleshooting
   href: troubleshooting.html
   children:
