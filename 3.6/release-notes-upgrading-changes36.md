@@ -48,7 +48,7 @@ Deprecation of MMFiles Storage Engine
 
 The MMFiles storage engine is deprecated starting with version
 3.6.0 and it will be removed in a future release.
-{% if page.version.version <= "3.7" %}
+{%- assign ver = "3.7" | version: "<=" %}{% if ver %}
 To change your MMFiles storage engine deployment to RocksDB, see:
 [Switch storage engine](administration-engine-switch-engine.html)
 {% endif %}
