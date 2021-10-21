@@ -55,6 +55,8 @@ Hot Backup
 Schema Validation
 -----------------
 
+| Issue      |
+|------------|
 | **Date Added:** 2019-03-17 <br> **Component:** Schema Validation <br> **Deployment Mode:** All <br> **Description:** The schema validation cannot pin-point which part of a rule made it fail. This is under investigation but very hard to solve for complex schemas. For example, when using `not` and `anyOf`, this would result in trees of possible errors. For now users should fall back to tools like [jsonschemavalidator.net](https://www.jsonschemavalidator.net/){:target="_blank"} <br> **Affected Versions:** 3.7.x, 3.8.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 | **Date Added:** 2019-03-17 <br> **Component:** Schema Validation <br> **Deployment Mode:** All <br> **Description:** Remote schemas are not supported for security reasons. This limitation will likely remain unfixed. <br> **Affected Versions:** 3.7.x, 3.8.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 | **Date Added:** 2019-06-25 <br> **Component:** Schema Validation <br> **Deployment Mode:** All <br> **Description:** When using arangorestore for a collection with a defined schema, schema validation is not executed. <br> **Affected Versions:** 3.7.x, 3.8.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |

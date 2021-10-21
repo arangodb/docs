@@ -266,7 +266,7 @@ class DocuBlockBlock < Liquid::Tag
     end
 
     def render(context)
-        if context["page"]["dir"] =~ /\d\.\d\/?$/
+        if context["page"]["dir"] =~ /\d\.\d{1,2}\/?$/
             dir = context["page"]["dir"] + "/"
         else
             dir = context["page"]["dir"] + "/../"

@@ -40,7 +40,7 @@ module Jekyll
         # /3.4/ --> 34-manual
         # /3.4/aql/ --> 34-aql
         def navvar(page_dir)
-            m = page_dir.to_s.match(/\/(\d)\.(\d)\/(\w+)?/)
+            m = page_dir.to_s.match(/\/(\d)\.(\d{1,2})\/(\w+)?/)
             [m.captures[0] + m.captures[1], m.captures[2] || 'manual'].join('-')
         end
 
