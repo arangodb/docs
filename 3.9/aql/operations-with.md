@@ -46,7 +46,8 @@ With RocksDB as storage engine, the `WITH` operation is only required if you
 use a cluster deployment and only for AQL queries that dynamically read from
 vertex collections as part of graph traversals.
 
-Single server instances require WITH declarations like cluster deployments with the --query.require-with startup option, see [Requiring WITH statements](..\programs-arangod-query.md#requiring-with-statements)
+You can enable the `--query.require-with` startup option to make single server instances require `WITH` declarations like cluster deployments to ease development,
+see [Requiring `WITH` statements](../programs-arangod-query.html#requiring-with-statements)
 
 Dynamic access via the `DOCUMENT()` function does not require you to list the
 involved collections. Using named graphs in traversals (`GRAPH "graph-name"`)
