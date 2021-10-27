@@ -42,4 +42,6 @@ Client tools
 Internal changes
 ----------------
 
+### Upgraded bundled RocksDB library version
 
+The bundled version of the RocksDB library has been upgraded from 6.8 to 6.26.
