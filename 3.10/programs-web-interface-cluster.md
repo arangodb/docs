@@ -59,7 +59,7 @@ Information (collection):
 - Leader (green state: sync is complete)
 - Followers
 
-### Rebalance Shards
+### Rebalance shards
 
 The rebalance shards section displays a button for rebalancing shards. A new DB-Server will not have any shards. With the rebalance functionality the cluster will start to rebalance shards including empty DB-Servers. The maximum number of shards that can be 
 moved in each operation is given by the flag `--cluster.max-number-of-move-shards` in arangod (default value is 10).
