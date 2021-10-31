@@ -1,13 +1,14 @@
 ---
 layout: default
-description: The COLLECT keyword can be used to group an array by one or multiple grouping criteria
+description: The COLLECT operation can be used to group data by one or multiple grouping criteria
 title: Grouping and aggregation with COLLECT in AQL
 ---
 COLLECT
 =======
 
-The `COLLECT` keyword can be used to group an array by one or multiple group
-criteria. 
+The `COLLECT` operation can be used to group data by one or multiple group
+criteria. It can also be used to retrieve all distinct values, count
+how often values occur, and calculate statistical properties efficiently.
 
 The `COLLECT` statement will eliminate all local variables in the current
 scope. After `COLLECT` only the variables introduced by `COLLECT` itself are
