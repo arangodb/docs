@@ -441,6 +441,12 @@ All other characters are returned unchanged.
 - returns **lowerCaseString** (string): *value* with upper-case characters converted
   to lower-case characters
 
+**Examples**
+
+```js
+LOWER("AVOcado") // "avocado"
+```
+
 LTRIM()
 -------
 
@@ -1052,6 +1058,14 @@ To return the leftmost characters, see [LEFT()](#left).
   substring from *offset* to the end of the string
 - returns **substring** (string): a substring of *value*
 
+**Examples**
+
+```js
+SUBSTRING("Holy Guacamole!", 5) // "Guacamole!"
+
+SUBSTRING("Holy Guacamole!", 10, 4) // "mole"
+```
+
 TOKENS()
 --------
 
@@ -1192,7 +1206,13 @@ All other characters are returned unchanged.
 - **value** (string): a string
 - returns **upperCaseString** (string): *value* with lower-case characters converted
   to upper-case characters
-  
+
+**Examples**
+
+```js
+UPPER("AVOcado") // "AVOCADO"
+```
+
 UUID()
 ------
 
