@@ -42,3 +42,24 @@ events from cluttering the log, set the appropriate topic to `info`. All other
 messages will be logged at the `info` level. Audit topics include
 `audit-authentication`, `audit-authorization`, `audit-collection`,
 `audit-database`, `audit-document`, `audit-service`, and `audit-view`. 
+
+Level
+-----
+
+`--audit.write-log-level`
+
+When this flag is omitted or set to false, the server will log the audit events
+without showing their level, as in the example: 
+
+```
+016-10-03 15:44:23 | server1 | audit-authentication | n/a | database1 | 
+127.0.0.1:61525 | n/a | unknown authentication method | /_api/version
+```
+
+When its value is set to true, the log level will be shown in the log message: 
+
+```
+016-10-03 15:44:23 | INFO | server1 | audit-authentication | n/a | database1 | 
+127.0.0.1:61525 | n/a | unknown authentication method | /_api/version
+```
+

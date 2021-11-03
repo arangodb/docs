@@ -56,3 +56,23 @@ Queueing audit log entries may be beneficial for latency, but can lead to
 unqueued messages being lost in case of a power loss or crash. Setting this
 option to `false` mimics the behavior from 3.7 and before, where audit log
 messages were not queued but written in a blocking fashion.
+
+## Write log level
+
+`--audit.write-log-level`
+
+This options controls whether the log level will be shown in the audit log 
+message. When this option is omitted or when its value is set to false, it 
+will not be shown in the message, e.g.:
+
+```
+44:2016-10-03 15:47:26 | server1 | audit-authentication | n/a | database1 | 
+127.0.0.1:61528 | http basic | credentials wrong | /_api/version
+```
+
+When its value is set to true, the log level appears in the message, e.g.:
+
+```
+44:2016-10-03 15:47:26 | INFO | server1 | audit-authentication | n/a | database1
+| 127.0.0.1:61528 | http basic | credentials wrong | /_api/version
+```
