@@ -30,8 +30,8 @@ Everything else works identical in both modules.
 Create a Graph
 --------------
 
-SmartGraphs also require edge relations to be created. The format of the
-relations is identical. The only difference is that all collections used within
+SmartGraphs require edge relations to be created. The format of the
+relations is identical to format used for General Graphs. The only difference is that all collections used within
 the relations to create a new SmartGraph must not exist yet. You have to let
 the SmartGraph module create the Graph collections for you, so that it can
 enforce the correct sharding.
@@ -51,7 +51,8 @@ enforce the correct sharding.
     the correct sharding all collections need an identical number of shards.
     This cannot be modified after creation of the graph.
   - `smartGraphAttribute` (string):
-    The attribute that will be used for sharding. All vertices are required to
+    The attribute that will be used for sharding: vertices with the same value of this attribute will be in the same 
+    shard. All vertices are required to
     have this attribute set and it has to be a string. Edges derive the
     attribute from their connected vertices.
   - `isDisjoint` (bool, optional):
@@ -72,7 +73,9 @@ known from the `general-graph` module, which is also available here.
 
 `orphanCollections` again is just a list of additional vertex collections which
 are not yet connected via edges but should follow the same sharding to be
-connected later on.
+connected later on. Note that these collections are not necessarily orphans in 
+the graph theoretic sense: it is possible to add edges having one end in a collection
+that has been declared as orphan. 
 
 All collections used within the creation process are newly created.
 The process will fail if one of them already exists, unless they have the
@@ -132,12 +135,12 @@ Modify a graph definition at runtime
 After you have created a SmartGraph its definition is not immutable. You can
 still add or remove relations. This is again identical to General Graphs.
 
-However there is one important difference: You can only add collections that
+However there is one important difference: you can only add collections that
 either *do not exist*, or that have been created by this graph earlier. The
-latter can be achieved if you for example remove an orphan collection from this
-graph, without dropping the collection itself. Than after some time you decide
-to add it again, it can be used. This is because the enforced sharding is still
-applied to this vertex collection, hence it is suitable to be added again.
+latter can be the case if you, for example, remove an orphan collection from this
+graph, without dropping the collection itself. When after some time you decide
+to add it to the graph again, you can do it. This is because the enforced sharding is still
+applied to this vertex collection.
 
 ### Remove a vertex collection
 
@@ -148,14 +151,14 @@ Remove a vertex collection from the graph:
 - `vertexCollectionName` (string):
   Name of vertex collection.
 - `dropCollection` (bool, _optional_):
-  If true the collection will be dropped if it is not used in any other graph.
+  If true, the collection will be dropped if it is not used in any other graph.
   Default: false.
 
 In most cases this function works identically to the General Graph one.
-But there is one special case: The first vertex collection added to the graph
+However there is one special case: The first vertex collection added to the graph
 (either orphan or within a relation) defines the sharding for all collections
-within the graph. They have their `distributeShardsLike` attribute set to the
-name of the initial collection. This collection can not be dropped as long as
+within the graph. Every other collection has its `distributeShardsLike` attribute set to the
+name of the initial collection. This collection cannot be dropped as long as
 other collections follow its sharding (i.e. they need to be dropped first).
 
 **Examples**
@@ -228,8 +231,8 @@ sharding for other collections (`edges`).
 
 You may drop the complete graph, but remember to drop collections that you
 might have removed from the graph beforehand, as they will not be part of the
-graph definition anymore and thus not be dropped for you. Alternatively, you
-can `truncate` the graph if you just want to get rid of the data.
+graph definition anymore and thus not be dropped automatically. Alternatively, you
+can `truncate` all collections from the graph if you just want to get rid of the data.
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline smartGraphModify5_cluster
@@ -277,7 +280,7 @@ Create a SmartGraph, then delete the edge definition and drop the edge collectio
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-It is allowed to remove the vertex collection `vertices` if it's not used in
+It is allowed to remove the vertex collection `vertices` if it is not used in
 any relation (i.e. after the deletion of the edge definition):
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -296,7 +299,7 @@ any relation (i.e. after the deletion of the edge definition):
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Keep in mind that you can not drop the `vertices` collection until no other
+Keep in mind that you cannot drop the `vertices` collection until no other
 collection references it anymore (`distributeShardsLike` collection property).
 
 ### Remove a Graph

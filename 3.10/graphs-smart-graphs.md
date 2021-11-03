@@ -10,8 +10,9 @@ SmartGraphs
 
 This chapter describes the `smart-graph` module, which enables you to manage
 graphs at scale. It will give a vast performance benefit for all graphs sharded
-in an ArangoDB Cluster. On a single server this feature is pointless, hence it
-is only available in cluster mode.
+in an ArangoDB Cluster. On a single server this feature is pointless, however, it is possible to 
+create a SmartGraph also on a single server for testing and then to port it to a cluster, see 
+[SmartGraphs and SatelliteGraphs on a Single Server](LINK TO THE NEW DOCUMENT TODO).
 
 In terms of querying there is no difference between SmartGraphs and
 General Graphs. The former is a transparent replacement for the latter.
@@ -35,39 +36,39 @@ subgraphs. These subgraphs have a large amount of edges that only connect
 vertices in the same subgraph and only have few edges connecting vertices from
 other subgraphs.
 
-Examples for these graphs are:
+Examples for such graphs are:
 
 - **Social Networks**<br>
   Typically the feature here is the region/country users live in.
-  Every user typically has more contacts in the same region/country then she
-  has in other regions/countries
+  Every user typically has more contacts in the same region/country than in other regions/countries.
 
 - **Transport Systems**<br>
-  For those also the feature is the region/country. You have many local
-  transportation but only few across countries.
+  Also for transport systems the feature is the region/country. Typically, there are many local
+  connections, but only a few go across the boarders.
 
 - **E-Commerce**<br>
-  In this case probably the category of products is a good feature.
-  Often products of the same category are bought together.
+  In this case the category of products may be a good feature.
+  Products of the same category are often bought together.
 
-If this feature is known, SmartGraphs can make use if it.
+If such a feature is known, SmartGraphs can make use if it.
 
 When creating a SmartGraph you have to define a smartAttribute, which is the
-name of an attribute stored in every vertex. The graph will than be
-automatically sharded in such a way that all vertices with the same value are
-stored on the same physical machine, all edges connecting vertices with
-identical smartAttribute values are stored on this machine as well.
-During query time the query optimizer and the query executor both know for
-every document exactly where it is stored and can thereby minimize network
+name of an attribute stored in every vertex. The graph will then be
+automatically sharded in such a way that all vertices with the same value of this attribute
+and all edges between them
+are stored on the same physical machine.
+During a query execution the query optimizer and the query executor know which document
+is stored on which machine and can thereby minimize network
 overhead. Everything that can be computed locally will be computed locally.
 
 Benefits of SmartGraphs
 -----------------------
 
 Because of the above described guaranteed sharding, the performance of queries
-that only cover one subgraph have a performance almost equal to an only local
-computation. Queries that cover more than one subgraph require some network
-overhead. The more subgraphs are touched the more network cost will apply.
+that only cover a subgraph stored on one machine have a performance almost equal
+to a purely local
+computation. Queries that cover subgraphs from different machines still require some network
+overhead. The more different machines are touched the more network cost will apply.
 However the overall performance is never worse than the same query using a
 General Graph.
 
@@ -75,13 +76,11 @@ Benefits of Hybrid SmartGraphs
 -------------------------------
 
 Hybrid SmartGraphs are capable of using SatelliteCollections within their graph
-definition. Therefore, edge definitions defined between SmartCollections and
-SatelliteCollections can be created. As SatelliteCollections (and the edge
-collections between SmartGraph collections and SatelliteCollection) are globally
-replicated to each participating DB-Server, (weighted) graph traversals and
-(k-)shortest path(s) queries can partially be executed locally on each
-DB-Server. This means a larger part of the query can be executed fully local
-whenever data from the SatelliteCollections is required.
+definition. SatelliteCollections are globally
+replicated to each participating DB-Server and so are edge collections between a SmartGraph 
+collection and a SatelliteCollection or between two SatelliteCollections. Thus a larger part of a
+(weighted) graph traversal or a (k-)shortest path(s) query can be executed fully locally on each DB-Server 
+(in parallel) whenever data from the SatelliteCollections is involved.
 
 Benefits of Disjoint SmartGraphs
 --------------------------------
@@ -92,18 +91,23 @@ In addition to the guaranteed sharding in SmartGraphs, a Disjoint SmartGraph
 prohibits edges between vertices with different `smartGraphAttribute` values.
 
 This ensures that graph traversals, shortest path, and k-shortest-paths queries
-can be executed locally on a DB-Server, achieving improved performance for
-these type of queries.
+can be executed locally on a DB-Server, achieving an improved performance.
 
 Benefits of Hybrid Disjoint SmartGraphs
 ---------------------------------------
 
-Hybrid Disjoint SmartGraphs are like Hybrid SmartGraphs but also prohibit
-edges between vertices with different `smartGraphAttribute` values. This
-restriction makes it unnecessary to replicate the edge collections between
-SmartGraph collections and SatelliteCollections to all DB-Servers for local
-execution. They are sharded like the SmartGraph collections instead
-(`distributeShardsLike`).
+Hybrid Disjoint SmartGraphs are like Hybrid SmartGraphs but also prohibit edges between vertices _from non-satellite
+collections_ with different `smartGraphAttribute` values. Edges between vertices at least one of which is in a satellite
+collection are always possible. Edges having at least one end in a satellite collection are kept on a DB-server only if
+the other end is also on the same DB-server (in particular, if that other end is also in a satellite collection).
+
+In other words, each disjoint component can only have connections within itself, there is no switching of components in
+any traversals. If a satellite vertex is shared between two components they cannot see each other's edges, so each
+traversal and (k-)shortest path(s) query are executed locally.
+
+Note a special case where the term _disjoint_ should be understood in a somewhat unusual sense: if we _start_ a
+traversal from a satellite vertex, the search will continue from this vertex in all shards (components) in parallel. However, if we visit
+a vertex from a satellite collection later, this does not make the search continue from this vertex in other components.
 
 Getting started
 ---------------
@@ -114,7 +118,11 @@ SmartGraph. This switch can be easily achieved with
 [arangodump](programs-arangodump.html) and
 [arangorestore](programs-arangorestore.html).
 The only thing you have to change in this pipeline is that you create the new
-collections with the SmartGraph module before starting `arangorestore`.
+collections with the SmartGraph module before starting `arangorestore`. That is, the steps are:
+1. Dump the collections to be included into the graph.
+2. Create the SmartGraph using the SmartGraph module including the collections into the graph.
+3. Restore the dumped collections with `arangorestore` using the 
+flags `--create-collection false` and `--import-data true`.
 
 **Create a SmartGraph**
 
@@ -179,7 +187,7 @@ without trouble however, as they will have the correct sharding.
 **Define relations on the Graph**
 
 Adding edge collections works the same as with General Graphs, but again, the
-collections are created by the SmartGraph module to set up sharding correctly
+collections are created by the SmartGraph module to set up sharding correctly,
 so they must not exist when creating the SmartGraph (unless they have the
 correct sharding already).
 

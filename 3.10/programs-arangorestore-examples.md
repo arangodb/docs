@@ -137,12 +137,12 @@ It can be specified multiple times if required:
 
     arangorestore --collection myusers --collection myvalues --input-directory "dump"
 
-Collections will be processed by in alphabetical order by _arangorestore_, with all document
+Collections will be processed in alphabetical order by _arangorestore_, with all document
 collections being processed before all [edge collections](appendix-glossary.html#edge-collection).
 This remains valid also when multiple threads are in use (from v3.4.0 on).
 
 Note however that when restoring an edge collection no internal checks are made in order to validate that
-the documents that the edges connect exist or not. As a consequence, when restoring individual collections
+the documents that the edges connect exist. As a consequence, when restoring individual collections
 which are part of a graph you are not required to restore in a specific order. 
 
 {% hint 'warning' %}
