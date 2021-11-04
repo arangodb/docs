@@ -135,8 +135,8 @@ that were applied to the plan:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Here is the meaning of these rules in context of this query:
-- `move-calculations-up`: moves a *CalculationNode* as far up in the processing pipeline
-  as possible
+- `move-calculations-up`: moves a *CalculationNode* and subqueries, when independent from the outer node, 
+   as far up in the processing pipeline as possible
 - `move-filters-up`: moves a *FilterNode* as far up in the processing pipeline as
   possible
 - `remove-redundant-calculations`: replaces references to variables with references to
