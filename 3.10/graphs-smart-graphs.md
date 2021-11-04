@@ -12,7 +12,7 @@ This chapter describes the `smart-graph` module, which enables you to manage
 graphs at scale. It will give a vast performance benefit for all graphs sharded
 in an ArangoDB Cluster. On a single server this feature is pointless, however, it is possible to 
 create a SmartGraph also on a single server for testing and then to port it to a cluster, see 
-[SmartGraphs and SatelliteGraphs on a Single Server](LINK TO THE NEW DOCUMENT TODO).
+[SmartGraphs and SatelliteGraphs on a Single Server](smart-and-satellite-graphs-single-server.html).
 
 In terms of querying there is no difference between SmartGraphs and
 General Graphs. The former is a transparent replacement for the latter.

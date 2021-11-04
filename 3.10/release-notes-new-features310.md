@@ -1,5 +1,6 @@
 ---
-layout: default description: ArangoDB v3.10 Release Notes New Features
+layout: default 
+description: ArangoDB v3.10 Release Notes New Features
 ---
 Features and Improvements in ArangoDB 3.10
 ==========================================
