@@ -41,7 +41,7 @@ Client tools
 ### arangobench
 
 Histogram displaying is now switched off by default. For displaying it, the new
-flag `histogram.generate` must be set to true. Its default value is false for 
+flag `--histogram.generate` must be set to true. Its default value is false for 
 compatibility with other versions and also for complying with the histogram not 
 being displayed by default. If this flag is not set to true, but other 
 histogram flags are addressed, e.g. `--histogram.interval-size 500`, everything
