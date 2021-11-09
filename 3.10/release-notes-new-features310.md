@@ -42,4 +42,5 @@ Client tools
 Internal changes
 ----------------
 
-
+The bundled libraries RocksDB and VelocyPack are now compiled and linked with
+interprocedural optimizations (IPO) enabled.

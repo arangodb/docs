@@ -18,6 +18,8 @@ AQL
 Startup options
 ---------------
 
+The default value for the startup option `--rocksdb.enable-pipelined-write` was
+changed from **false** to **true**.
 
 
 Client tools
