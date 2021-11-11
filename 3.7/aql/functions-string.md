@@ -441,10 +441,6 @@ All other characters are returned unchanged.
 - returns **lowerCaseString** (string): *value* with upper-case characters converted
   to lower-case characters
 
-```js
-LOWER("AVOcado") // "avocado"
-```
-
 LTRIM()
 -------
 
@@ -1056,11 +1052,6 @@ To return the leftmost characters, see [LEFT()](#left).
   substring from *offset* to the end of the string
 - returns **substring** (string): a substring of *value*
 
-```js
-SUBSTRING("Holy Guacamole!", 5) // "Guacamole!"
-SUBSTRING("Holy Guacamole!", 10, 4) // "mole"
-```
-
 TOKENS()
 --------
 
@@ -1144,13 +1135,8 @@ Return the base64 representation of *value*.
 - **value** (string): a string
 - returns **toBase64String** (string): a base64 representation of *value*
 
-```js
-TO_BASE64("ABC.") // "QUJDLg=="
-TO_BASE64("123456") // "MTIzNDU2"
-```
-
 TO_HEX()
---------
+-----------
 
 `TO_HEX(value) → toHexString`
 
@@ -1158,11 +1144,6 @@ Return the hex representation of *value*.
 
 - **value** (string): a string
 - returns **toHexString** (string): a hex representation of *value*
-
-```js
-TO_HEX("ABC.") // "4142432e"
-TO_HEX("ü") // "c3bc"
-```
 
 TRIM()
 ------
@@ -1211,11 +1192,7 @@ All other characters are returned unchanged.
 - **value** (string): a string
 - returns **upperCaseString** (string): *value* with lower-case characters converted
   to upper-case characters
-
-```js
-UPPER("AVOcado") // "AVOCADO"
-```
-
+  
 UUID()
 ------
 
@@ -1224,14 +1201,3 @@ UUID()
 Return a universally unique identifier value.
 
 - returns **UUIDString** (string): a universally unique identifier
-
-```js
-FOR i IN 1..3 RETURN UUID()
-/* For example:
-[
-  "28bc5873-68ae-4e0f-89a3-31d717c822de",
-  "1084d263-71aa-415c-81d6-451de42e18a3",
-  "7fce640a-f340-4204-bca4-0d2ceebe2699"
-]
-*/
-```
