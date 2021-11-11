@@ -471,6 +471,28 @@ is made available. This option can have the following values:
   accessed via superuser JWT. Otherwise it can be accessed by admin users only.
 - `public`: everyone with access to the `_system` database can access the support info API.
 
+License Management (Enterprise Edition)
+---------------------------------------
+
+The Enterprise Edition of ArangoDB requires a license to activate it.
+ArangoDB 3.9 comes with a new license management that lets you test ArangoDB
+for three days before requiring a license key to keep the Enterprise Edition
+features activated.
+
+There is a new JavaScript API for querying the license status and to set a
+license key (typically run in _arangosh_):
+
+```js
+db._getLicense();
+db._setLicense("<license-string>");
+```
+
+There are two new REST API routes to do the same, `GET /_admin/license` and
+`PUT /_admin/license`.
+
+See [License Management](administration-license.html) and the
+[License Management HTTP API](http/license.html).
+
 Miscellaneous changes
 ---------------------
 
