@@ -144,6 +144,16 @@ Return an array of collections.
 
 This is an alias for [LENGTH()](#length).
 
+### CURRENT_DATABASE()
+
+`CURRENT_DATABASE() → databaseName`
+
+Returns the name of the current database.
+
+The current database is the database name that was specified in the URL path of the request (or defaults to _system database).
+
+- returns **databaseName** (string): the current database name
+
 ### CURRENT_USER()
 
 `CURRENT_USER() → userName`
