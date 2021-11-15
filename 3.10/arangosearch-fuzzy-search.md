@@ -260,7 +260,7 @@ not including the original string:
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("trigram", "ngram", { min: 3, max: 3, preserveOriginal: false, streamType: "utf8" }, ["frequency", "norm"]);
+analyzers.save("trigram", "ngram", { min: 3, max: 3, preserveOriginal: false, streamType: "utf8" }, ["frequency", "norm", "position"]);
 ```
 
 **View definition:**
