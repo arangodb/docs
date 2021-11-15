@@ -224,6 +224,13 @@ Return the weekday number of *date*.
   - 5 – Friday
   - 6 – Saturday
 
+**Examples**
+
+```js
+DATE_DAYOFWEEK("2020-08-29") // 6
+DATE_DAYOFWEEK(0) // 4
+```
+
 ### DATE_YEAR()
 
 `DATE_YEAR(date) → year`
@@ -232,6 +239,13 @@ Return the year of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **year** (number): the year part of *date* as a number
+
+**Examples**
+
+```js
+DATE_YEAR("2020-08-29") // 2020
+DATE_YEAR(0) // 1970
+```
 
 ### DATE_MONTH()
 
@@ -242,6 +256,13 @@ Return the month of *date*.
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **month** (number): the month part of *date* as a number
 
+**Examples**
+
+```js
+DATE_MONTH("2020-08-29") // 8
+DATE_MONTH(0) // 1
+```
+
 ### DATE_DAY()
 
 `DATE_DAY(date) → day`
@@ -250,6 +271,13 @@ Return the day of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **day** (number): the day part of *date* as a number
+
+**Examples**
+
+```js
+DATE_DAY("2020-08-29") // 29
+DATE_DAY(0) // 1
+```
 
 ### DATE_HOUR()
 
@@ -260,6 +288,12 @@ Return the hour of *date*.
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **hour** (number): the hour part of *date* as a number
 
+**Examples**
+
+```js
+DATE_HOUR("2020-08-29T16:30:05.123") // 16
+```
+
 ### DATE_MINUTE()
 
 `DATE_MINUTE(date) → minute`
@@ -268,6 +302,12 @@ Return the minute of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **minute** (number): the minute part of *date* as a number
+
+**Examples**
+
+```js
+DATE_MINUTE("2020-08-29T16:30:05.123") // 30
+```
 
 ### DATE_SECOND()
 
@@ -278,12 +318,24 @@ Return the second of *date*.
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **second** (number): the seconds part of *date* as a number
 
+**Examples**
+
+```js
+DATE_SECOND("2020-08-29T16:30:05.123") // 5
+```
+
 ### DATE_MILLISECOND()
 
 `DATE_MILLISECOND(date) → millisecond`
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **millisecond** (number): the milliseconds part of *date* as a number
+
+**Examples**
+
+```js
+DATE_MILLISECOND("2020-08-29T16:30:05.123") // 123
+```
 
 ### DATE_DAYOFYEAR()
 
@@ -294,6 +346,12 @@ Return the day of year of *date*.
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **dayOfYear** (number): the day of year number of *date*.
   The return values range from 1 to 365, or 366 in a leap year respectively.
+
+**Examples**
+
+```js
+DATE_DAYOFYEAR("2020-08-29") // 242
+```
 
 ### DATE_ISOWEEK()
 
@@ -308,6 +366,12 @@ Return the week date of *date* according to ISO 8601.
   the next year, and the first days in January may be part of the previous year's
   last week.
 
+**Examples**
+
+```js
+DATE_ISOWEEK("2020-08-29") // 35
+```
+
 ### DATE_LEAPYEAR()
 
 `DATE_LEAPYEAR(date) → leapYear`
@@ -316,6 +380,13 @@ Return whether *date* is in a leap year.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **leapYear** (bool): *true* if *date* is in a leap year, *false* otherwise
+
+**Examples**
+
+```js
+DATE_LEAPYEAR("2020-01-01") // true
+DATE_LEAPYEAR("2021-01-01") // false
+```
 
 ### DATE_QUARTER()
 
@@ -330,6 +401,12 @@ Return which quarter *date* belongs to.
   - 3 – July, August, September
   - 4 – October, November, December
 
+**Examples**
+
+```js
+DATE_QUARTER("2020-08-29") // 3
+```
+
 ### DATE_DAYS_IN_MONTH()
 
 Return the number of days in the month of *date*.
@@ -338,6 +415,15 @@ Return the number of days in the month of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **daysInMonth** (number): the number of days in *date*'s month (28..31)
+
+**Examples**
+
+```js
+DATE_DAYS_IN_MONTH("2020-08-01") // 31
+DATE_DAYS_IN_MONTH("2020-09-01") // 30
+DATE_DAYS_IN_MONTH("2020-02-01") // 29
+DATE_DAYS_IN_MONTH("2021-02-01") // 28
+```
 
 ### DATE_TRUNC()
 
