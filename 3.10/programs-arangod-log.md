@@ -191,7 +191,7 @@ messages that are written into normal logfiles by arangod.
 
 {% hint 'info' %}
 This option does not include audit log messages. See
-[--audit.max-entry-length](programs-arangod-audit.html#maximum-line-length)
+[--audit.max-entry-length](security-auditing-audit-configuration.html#maximum-line-length)
 instead.
 {% endhint %}
 
