@@ -1,6 +1,6 @@
 @Q:
-  FOR p IN OUTBOUND K_SHORTEST_PATHS <span class="hljs-string">'places/Aberdeen'</span> TO <span class="hljs-string">'places/London'</span>
-  GRAPH <span class="hljs-string">'kShortestPathsGraph'</span>
+  FOR p IN OUTBOUND K_SHORTEST_PATHS <span class="hljs-string">&#x27;places/Aberdeen&#x27;</span> TO <span class="hljs-string">&#x27;places/London&#x27;</span>
+  GRAPH <span class="hljs-string">&#x27;kShortestPathsGraph&#x27;</span>
       LIMIT <span class="hljs-number">3</span>
       RETURN {
           <span class="hljs-attr">places</span>: p.vertices[*].label,
@@ -11,32 +11,32 @@
 @R
 [
   {
-    <span class="hljs-string">"places"</span>: [
-      <span class="hljs-string">"Aberdeen"</span>,
-      <span class="hljs-string">"Leuchars"</span>,
-      <span class="hljs-string">"Edinburgh"</span>,
-      <span class="hljs-string">"York"</span>,
-      <span class="hljs-string">"London"</span>
+    <span class="hljs-string">&quot;places&quot;</span>: [
+      <span class="hljs-string">&quot;Aberdeen&quot;</span>,
+      <span class="hljs-string">&quot;Leuchars&quot;</span>,
+      <span class="hljs-string">&quot;Edinburgh&quot;</span>,
+      <span class="hljs-string">&quot;York&quot;</span>,
+      <span class="hljs-string">&quot;London&quot;</span>
     ],
-    <span class="hljs-string">"travelTimes"</span>: [
+    <span class="hljs-string">&quot;travelTimes&quot;</span>: [
       <span class="hljs-number">1.5</span>,
       <span class="hljs-number">1.5</span>,
       <span class="hljs-number">3.5</span>,
       <span class="hljs-number">1.8</span>
     ],
-    <span class="hljs-string">"travelTimeTotal"</span>: <span class="hljs-number">8.3</span>
+    <span class="hljs-string">&quot;travelTimeTotal&quot;</span>: <span class="hljs-number">8.3</span>
   },
   {
-    <span class="hljs-string">"places"</span>: [
-      <span class="hljs-string">"Aberdeen"</span>,
-      <span class="hljs-string">"Leuchars"</span>,
-      <span class="hljs-string">"Edinburgh"</span>,
-      <span class="hljs-string">"York"</span>,
-      <span class="hljs-string">"Carlisle"</span>,
-      <span class="hljs-string">"Birmingham"</span>,
-      <span class="hljs-string">"London"</span>
+    <span class="hljs-string">&quot;places&quot;</span>: [
+      <span class="hljs-string">&quot;Aberdeen&quot;</span>,
+      <span class="hljs-string">&quot;Leuchars&quot;</span>,
+      <span class="hljs-string">&quot;Edinburgh&quot;</span>,
+      <span class="hljs-string">&quot;York&quot;</span>,
+      <span class="hljs-string">&quot;Carlisle&quot;</span>,
+      <span class="hljs-string">&quot;Birmingham&quot;</span>,
+      <span class="hljs-string">&quot;London&quot;</span>
     ],
-    <span class="hljs-string">"travelTimes"</span>: [
+    <span class="hljs-string">&quot;travelTimes&quot;</span>: [
       <span class="hljs-number">1.5</span>,
       <span class="hljs-number">1.5</span>,
       <span class="hljs-number">3.5</span>,
@@ -44,19 +44,19 @@
       <span class="hljs-number">2</span>,
       <span class="hljs-number">1.5</span>
     ],
-    <span class="hljs-string">"travelTimeTotal"</span>: <span class="hljs-number">13.5</span>
+    <span class="hljs-string">&quot;travelTimeTotal&quot;</span>: <span class="hljs-number">13.5</span>
   },
   {
-    <span class="hljs-string">"places"</span>: [
-      <span class="hljs-string">"Aberdeen"</span>,
-      <span class="hljs-string">"Leuchars"</span>,
-      <span class="hljs-string">"Edinburgh"</span>,
-      <span class="hljs-string">"Glasgow"</span>,
-      <span class="hljs-string">"Carlisle"</span>,
-      <span class="hljs-string">"York"</span>,
-      <span class="hljs-string">"London"</span>
+    <span class="hljs-string">&quot;places&quot;</span>: [
+      <span class="hljs-string">&quot;Aberdeen&quot;</span>,
+      <span class="hljs-string">&quot;Leuchars&quot;</span>,
+      <span class="hljs-string">&quot;Edinburgh&quot;</span>,
+      <span class="hljs-string">&quot;Glasgow&quot;</span>,
+      <span class="hljs-string">&quot;Carlisle&quot;</span>,
+      <span class="hljs-string">&quot;York&quot;</span>,
+      <span class="hljs-string">&quot;London&quot;</span>
     ],
-    <span class="hljs-string">"travelTimes"</span>: [
+    <span class="hljs-string">&quot;travelTimes&quot;</span>: [
       <span class="hljs-number">1.5</span>,
       <span class="hljs-number">1.5</span>,
       <span class="hljs-number">1</span>,
@@ -64,6 +64,6 @@
       <span class="hljs-number">2.5</span>,
       <span class="hljs-number">1.8</span>
     ],
-    <span class="hljs-string">"travelTimeTotal"</span>: <span class="hljs-number">9.3</span>
+    <span class="hljs-string">&quot;travelTimeTotal&quot;</span>: <span class="hljs-number">9.3</span>
   }
 ]

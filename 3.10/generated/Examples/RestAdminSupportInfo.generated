@@ -1,0 +1,57 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_admin/support-info</span>
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">1150</span>
+server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">&quot;deployment&quot;</span> : { 
+    <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;single&quot;</span> 
+  }, 
+  <span class="hljs-string">&quot;host&quot;</span> : { 
+    <span class="hljs-string">&quot;role&quot;</span> : <span class="hljs-string">&quot;SINGLE&quot;</span>, 
+    <span class="hljs-string">&quot;maintenance&quot;</span> : <span class="hljs-literal">false</span>, 
+    <span class="hljs-string">&quot;readOnly&quot;</span> : <span class="hljs-literal">false</span>, 
+    <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.10.0-devel&quot;</span>, 
+    <span class="hljs-string">&quot;build&quot;</span> : <span class="hljs-string">&quot;heads/documentation/license-api-0-ge302bf2c4c&quot;</span>, 
+    <span class="hljs-string">&quot;license&quot;</span> : <span class="hljs-string">&quot;enterprise&quot;</span>, 
+    <span class="hljs-string">&quot;os&quot;</span> : <span class="hljs-string">&quot;Linux version 5.11.0-1019-aws (buildd@lgw01-amd64-037) (gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #20~20.04.1-Ubuntu SMP Tue Sep 21 10:40:39 UTC 2021&quot;</span>, 
+    <span class="hljs-string">&quot;platform&quot;</span> : <span class="hljs-string">&quot;linux&quot;</span>, 
+    <span class="hljs-string">&quot;physicalMemory&quot;</span> : { 
+      <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">73645617152</span>, 
+      <span class="hljs-string">&quot;overridden&quot;</span> : <span class="hljs-literal">false</span> 
+    }, 
+    <span class="hljs-string">&quot;numberOfCores&quot;</span> : { 
+      <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">36</span>, 
+      <span class="hljs-string">&quot;overridden&quot;</span> : <span class="hljs-literal">false</span> 
+    }, 
+    <span class="hljs-string">&quot;processStats&quot;</span> : { 
+      <span class="hljs-string">&quot;processUptime&quot;</span> : <span class="hljs-number">6.632028341293335</span>, 
+      <span class="hljs-string">&quot;numberOfThreads&quot;</span> : <span class="hljs-number">54</span>, 
+      <span class="hljs-string">&quot;virtualSize&quot;</span> : <span class="hljs-number">1329930240</span>, 
+      <span class="hljs-string">&quot;residentSetSize&quot;</span> : <span class="hljs-number">326881280</span> 
+    }, 
+    <span class="hljs-string">&quot;cpuStats&quot;</span> : { 
+      <span class="hljs-string">&quot;userPercent&quot;</span> : <span class="hljs-number">6.956521739130435</span>, 
+      <span class="hljs-string">&quot;systemPercent&quot;</span> : <span class="hljs-number">0.8695652173913043</span>, 
+      <span class="hljs-string">&quot;idlePercent&quot;</span> : <span class="hljs-number">91.30434782608695</span>, 
+      <span class="hljs-string">&quot;iowaitPercent&quot;</span> : <span class="hljs-number">0.8695652173913043</span> 
+    }, 
+    <span class="hljs-string">&quot;engineStats&quot;</span> : { 
+      <span class="hljs-string">&quot;cache.limit&quot;</span> : <span class="hljs-number">17874533376</span>, 
+      <span class="hljs-string">&quot;cache.allocated&quot;</span> : <span class="hljs-number">1355000</span>, 
+      <span class="hljs-string">&quot;rocksdb.estimate-num-keys&quot;</span> : <span class="hljs-number">8</span>, 
+      <span class="hljs-string">&quot;rocksdb.estimate-live-data-size&quot;</span> : <span class="hljs-number">500737</span>, 
+      <span class="hljs-string">&quot;rocksdb.live-sst-files-size&quot;</span> : <span class="hljs-number">500737</span>, 
+      <span class="hljs-string">&quot;rocksdb.block-cache-capacity&quot;</span> : <span class="hljs-number">21449440051</span>, 
+      <span class="hljs-string">&quot;rocksdb.block-cache-usage&quot;</span> : <span class="hljs-number">96</span>, 
+      <span class="hljs-string">&quot;rocksdb.free-disk-space&quot;</span> : <span class="hljs-number">246611439616</span>, 
+      <span class="hljs-string">&quot;rocksdb.total-disk-space&quot;</span> : <span class="hljs-number">266402316288</span> 
+    } 
+  }, 
+  <span class="hljs-string">&quot;date&quot;</span> : <span class="hljs-string">&quot;2021-11-16T17:05:25Z&quot;</span> 
+}
