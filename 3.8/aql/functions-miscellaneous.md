@@ -231,6 +231,9 @@ DOCUMENT( users, "john" )
 
 DOCUMENT( users, [ "users/john", "users/amy" ] )
 DOCUMENT( users, [ "john", "amy" ] )
+
+DOCUMENT( @@coll, @key ) // bind vars: {"@coll": "users", "key": "john"}
+DOCUMENT( @@coll, @keys ) // bind vars: {"@coll": "users", "keys": ["john", "amy"] }
 ```
 
 `DOCUMENT(id) → doc`
@@ -245,6 +248,9 @@ The function can also be used with a single parameter *id* as follows:
 ```js
 DOCUMENT("users/john")
 DOCUMENT( [ "users/john", "users/amy" ] )
+
+DOCUMENT( @id ) // bind vars: {"id": "users/john"}
+DOCUMENT( @ids ) // bind vars: {"ids": ["users/john", "users/amy"]}
 ```
 
 Please also consider to use
