@@ -122,9 +122,8 @@ for a new document, but must let the server generated one automatically. This
 restriction comes from the fact that ensuring uniqueness of the primary key
 would be very inefficient if the user could specify the document key.
 
-Unique indexes (hash, skiplist, persistent) on sharded collections are
-only allowed if the fields used to determine the shard key are also
-included in the list of attribute paths for the index:
+Unique indexes on sharded collections are only allowed if the fields used to 
+determine the shard key are also included in the list of attribute paths for the index:
 
 | shardKeys | indexKeys |             |
 |----------:|----------:|------------:|
