@@ -23,4 +23,22 @@ Startup options
 Client tools
 ------------
 
+### arangobench
 
+The following deprecated arangobench testcases have been removed from _arangobench_:
+* `aqltrx`
+* `aqlv8`
+* `counttrx`
+* `deadlocktrx`
+* `multi-collection`
+* `multitrx`
+* `random-shapes`
+* `shapes`
+* `shapes-append`
+* `skiplist`
+* `stream-cursor`
+
+These test cases had been deprecated since ArangoDB 3.9.
+
+The testcase `hash` was renamed to `persistent-index` to better reflect its
+scope.
