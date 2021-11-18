@@ -1,21 +1,22 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/index/products/0</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/index/products/0</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">125</span>
 server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"fields"</span> : [ 
-    <span class="hljs-string">"_key"</span> 
+  <span class="hljs-string">&quot;fields&quot;</span> : [ 
+    <span class="hljs-string">&quot;_key&quot;</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"products/0"</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"primary"</span>, 
-  <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-string">"primary"</span>, 
-  <span class="hljs-string">"unique"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span> 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;products/0&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;primary&quot;</span>, 
+  <span class="hljs-string">&quot;sparse&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;primary&quot;</span>, 
+  <span class="hljs-string">&quot;unique&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span> 
 }
