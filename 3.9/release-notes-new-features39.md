@@ -599,6 +599,9 @@ See [Overriding data types per attribute](programs-arangoimport-examples-csv.htm
 
 ### arangobench
 
+Histogram is now switched off by default (the `--histogram.generate` flag set to false). To display it, set the flag to true.
+If this option is disabled, but other histogram flags are addressed, e.g. `--histogram.interval-size 500`, everything will still run normally, but a warning message will be displayed saying that the histogram is switched off and using that flag has no effect.
+
 _arangobench_ now prints a short description of the test case started, so
 it is easier to figure out what operations are carried out by a test case.
 Several test cases in arangobench have been deprecated because they do not
