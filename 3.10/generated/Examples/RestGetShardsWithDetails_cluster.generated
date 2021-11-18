@@ -3,10 +3,10 @@
 HTTP/1.1 200 OK
 content-type: application/json
 connection: Keep-Alive
-content-length: 826
+content-length: 841
 location: /_db/_system/_api/collection/testCollection/shards
 server: ArangoDB
 x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"waitForSync\":false,\"shards\":{\"s50\":[\"PRMR-6a3f718a-5372-4202-a4d7-1f435455504f\",\"PRMR-09bceb0a-5256-4a52-a11d-105aa4ece6cb\"],\"s51\":[\"PRMR-09bceb0a-5256-4a52-a11d-105aa4ece6cb\",\"PRMR-6a3f718a-5372-4202-a4d7-1f435455504f\"],\"s52\":[\"PRMR-6a3f718a-5372-4202-a4d7-1f435455504f\",\"PRMR-09bceb0a-5256-4a52-a11d-105aa4ece6cb\"]},\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"usesRevisionsAsDocumentIds\":true,\"schema\":null,\"writeConcern\":1,\"syncByRevision\":true,\"replicationFactor\":2,\"numberOfShards\":3,\"id\":\"49\",\"name\":\"testCollection\",\"isDisjoint\":false,\"minReplicationFactor\":1,\"status\":3,\"type\":2,\"globallyUniqueId\":\"c49/\",\"isSmart\":false,\"isSystem\":false,\"internalValidatorType\":0,\"isSmartChild\":false,\"statusString\":\"loaded\",\"cacheEnabled\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"
+"{\"error\":false,\"code\":200,\"waitForSync\":false,\"shards\":{\"s10050\":[\"PRMR-ac416a80-ff36-4cc6-9b16-07341c6991c7\",\"PRMR-5b358d6c-f9d4-4c92-ad3e-a3b72861b49b\"],\"s10051\":[\"PRMR-5b358d6c-f9d4-4c92-ad3e-a3b72861b49b\",\"PRMR-ac416a80-ff36-4cc6-9b16-07341c6991c7\"],\"s10052\":[\"PRMR-ac416a80-ff36-4cc6-9b16-07341c6991c7\",\"PRMR-5b358d6c-f9d4-4c92-ad3e-a3b72861b49b\"]},\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"usesRevisionsAsDocumentIds\":true,\"schema\":null,\"writeConcern\":1,\"syncByRevision\":true,\"replicationFactor\":2,\"numberOfShards\":3,\"id\":\"10049\",\"name\":\"testCollection\",\"isDisjoint\":false,\"minReplicationFactor\":1,\"status\":3,\"type\":2,\"globallyUniqueId\":\"c10049/\",\"isSmart\":false,\"isSystem\":false,\"internalValidatorType\":0,\"isSmartChild\":false,\"statusString\":\"loaded\",\"cacheEnabled\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"

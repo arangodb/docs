@@ -100,7 +100,7 @@
   },
   "concurrency" : {
     "category" : "option",
-    "default" : 36,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "number of parallel threads and connections",
     "dynamic" : false,
@@ -1408,7 +1408,7 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string",
-    "values" : "Possible values: \"aqlinsert\", \"aqltrx\", \"aqlv8\", \"collection\", \"counttrx\", \"crud\", \"crud-append\", \"crud-write-read\", \"custom-query\", \"deadlocktrx\", \"document\", \"edge\", \"hash\", \"import-document\", \"multi-collection\", \"multitrx\", \"random-shapes\", \"shapes\", \"shapes-append\", \"skiplist\", \"stream-cursor\", \"version\""
+    "values" : "Possible values: \"aqlinsert\", \"collection\", \"crud\", \"crud-append\", \"crud-write-read\", \"custom-query\", \"document\", \"edge\", \"import-document\", \"persistent-index\", \"version\""
   },
   "version" : {
     "category" : "command",

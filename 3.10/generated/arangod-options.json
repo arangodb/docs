@@ -760,7 +760,7 @@
       "agent",
       "single"
     ],
-    "default" : 17874533376,
+    "default" : 16341516288,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -6154,7 +6154,7 @@
       "agent",
       "single"
     ],
-    "default" : 59652949893,
+    "default" : 54685974528,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -6267,7 +6267,7 @@
       "agent",
       "single"
     ],
-    "default" : 44187370291,
+    "default" : 40508129280,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -7107,7 +7107,7 @@
       "agent",
       "single"
     ],
-    "default" : 21449440051,
+    "default" : 19609819545,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -8680,7 +8680,7 @@
       "agent",
       "single"
     ],
-    "default" : 28599253401,
+    "default" : 26146426060,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -9300,7 +9300,7 @@
       "agent",
       "single"
     ],
-    "default" : 9,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "number of threads used to handle IO",
     "dynamic" : true,
@@ -9476,7 +9476,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 5,
+    "default" : 4,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex)",
     "dynamic" : true,
@@ -9501,7 +9501,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 10,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
@@ -9555,7 +9555,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 72)",
+    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 64)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "experimental" : false,
