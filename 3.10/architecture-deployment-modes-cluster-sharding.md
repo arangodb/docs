@@ -151,9 +151,8 @@ a look in the [Cluster Administration](administration-cluster.html) section.
 
 ### Indexes On Shards
 
-Unique indexes (hash, skiplist, persistent) on sharded collections are only
-allowed if the fields used to determine the shard key are also included in the
-list of attribute paths for the index:
+Unique indexes on sharded collections are only allowed if the fields used to 
+determine the shard key are also included in the list of attribute paths for the index:
 
 | shardKeys | indexKeys |             |
 |----------:|----------:|------------:|
