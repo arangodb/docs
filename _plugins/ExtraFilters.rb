@@ -15,7 +15,6 @@ module Jekyll
         }
 
         def upcase_first(input)
-            puts input
             return nil if !input.is_a? String
             input[0].upcase + input[1..-1]
         end
