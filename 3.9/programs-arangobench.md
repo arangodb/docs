@@ -138,7 +138,7 @@ In order to benchmark custom AQL queries, the appropriate test case to run is
 
 ## Display histogram
 
-Displaying the histogram of the tests run is switched off by default. To enable it, the flag `--histogram.generate` must be set to true.
+By default, displaying the histogram of a test run is switched off. To enable it, set the `--histogram.generate` flag to true.
 
 ## Troubleshooting
 
