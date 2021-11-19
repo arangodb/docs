@@ -703,7 +703,7 @@
       "agent",
       "single"
     ],
-    "default" : 15268124672,
+    "default" : 33252938752,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -869,7 +869,7 @@
     "component" : [
       "coordinator"
     ],
-    "default" : 3600,
+    "default" : 259200,
     "deprecatedIn" : null,
     "description" : "amount of time (in seconds) the coordinator will wait for an index to be created before giving up",
     "dynamic" : false,
@@ -5835,7 +5835,7 @@
       "agent",
       "single"
     ],
-    "default" : 51208185692,
+    "default" : 109478983311,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -5917,7 +5917,7 @@
       "agent",
       "single"
     ],
-    "default" : 37931989401,
+    "default" : 81095543193,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -6676,7 +6676,7 @@
       "agent",
       "single"
     ],
-    "default" : 18321749606,
+    "default" : 39903526502,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -8163,7 +8163,7 @@
       "agent",
       "single"
     ],
-    "default" : 24428999475,
+    "default" : 53204702003,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -8760,7 +8760,7 @@
       "agent",
       "single"
     ],
-    "default" : 4,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "Number of threads used to handle IO",
     "dynamic" : true,
@@ -8926,12 +8926,36 @@
     "section" : "server",
     "type" : "int32"
   },
+  "server.maintenance-slow-threads" : {
+    "category" : "option",
+    "component" : [
+      "dbserver"
+    ],
+    "default" : 4,
+    "deprecatedIn" : null,
+    "description" : "maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex)",
+    "dynamic" : true,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.3"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "uint32"
+  },
   "server.maintenance-threads" : {
     "category" : "option",
     "component" : [
       "dbserver"
     ],
-    "default" : 5,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
@@ -8983,7 +9007,7 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 32)",
+    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 64)",
     "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : false,
