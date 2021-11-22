@@ -109,8 +109,6 @@ in the header, arangod will reject the request and return HTTP 412
 In a cluster, the `x-arango-queue-time-seconds` request header will be
 checked on the receiving Coordinator, before any request forwarding.
 
-### Privilege changes
-
 ### Endpoint return value changes
 
 All collections in ArangoDB are now always in the "loaded" state. APIs return
