@@ -686,7 +686,7 @@ source.
 The bundled version of the Snappy compression library was upgraded from
 version 1.1.8 to version 1.1.9.
 
-The bundled version of the RocksDB library has been upgraded from 6.8 to 6.26.
+The bundled version of the RocksDB library has been upgraded from 6.8 to 6.27.
 
 The minimum architecture requirements have been raised from the Westmere
 architecture to the Sandy Bridge architecture. 256-bit AVX instructions are
