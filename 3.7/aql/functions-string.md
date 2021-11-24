@@ -443,9 +443,16 @@ All other characters are returned unchanged.
 
 **Examples**
 
-```js
-LOWER("AVOcado") // "avocado"
-```
+ {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+ @startDocuBlockInline lowerfunc
+ @EXAMPLE_AQL{lowerfunc}
+
+ LOWER("AVOcado") // "avocado"
+ 
+ @END_EXAMPLE_AQL
+ @endDocuBlock lowerfunc
+ {% endaqlexample %}
+ {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 LTRIM()
 -------
