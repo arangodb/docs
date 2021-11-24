@@ -443,9 +443,14 @@ All other characters are returned unchanged.
 
 **Examples**
 
-```js
-LOWER("AVOcado") // "avocado"
-```
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline lowerfunc
+  @EXAMPLE_AQL{lowerfunc}
+    RETURN LOWER("AVOcado") // "avocado"
+  @END_EXAMPLE_AQL
+  @endDocuBlock lowerfunc
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 LTRIM()
 -------
@@ -1060,10 +1065,24 @@ To return the leftmost characters, see [LEFT()](#left).
 
 **Examples**
 
-```js
-SUBSTRING("Holy Guacamole!", 5) // "Guacamole!"
-SUBSTRING("Holy Guacamole!", 10, 4) // "mole"
-```
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline substr1
+  @EXAMPLE_AQL{substr1}
+    RETURN SUBSTRING("Holy Guacamole!", 5) // "Guacamole!"
+  @END_EXAMPLE_AQL
+  @endDocuBlock substr1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline substr2
+  @EXAMPLE_AQL{substr2}
+    RETURN SUBSTRING("Holy Guacamole!", 10, 4) // "mole"
+  @END_EXAMPLE_AQL
+  @endDocuBlock substr2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 
 TOKENS()
 --------
@@ -1150,10 +1169,24 @@ Return the base64 representation of *value*.
 
 **Examples**
 
-```js
-TO_BASE64("ABC.") // "QUJDLg=="
-TO_BASE64("123456") // "MTIzNDU2"
-```
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline tobase1
+  @EXAMPLE_AQL{tobase1}
+    RETURN TO_BASE64("ABC.") // "QUJDLg=="
+  @END_EXAMPLE_AQL
+  @endDocuBlock tobase1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline tobase2
+  @EXAMPLE_AQL{tobase2}
+    RETURN TO_BASE64("123456") // "MTIzNDU2"
+  @END_EXAMPLE_AQL
+  @endDocuBlock tobase2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 
 TO_HEX()
 -----------
@@ -1167,10 +1200,24 @@ Return the hex representation of *value*.
 
 **Examples**
 
-```js
-TO_HEX("ABC.") // "4142432e"
-TO_HEX("ü") // "c3bc"
-```
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline tohex1
+  @EXAMPLE_AQL{tohex1}
+    RETURN TO_HEX("ABC.") // "4142432e"
+  @END_EXAMPLE_AQL
+  @endDocuBlock tohex1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline tohex2
+  @EXAMPLE_AQL{tohex2}
+    RETURN TO_HEX("ü") // "c3bc"
+  @END_EXAMPLE_AQL
+  @endDocuBlock tohex2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 
 TRIM()
 ------
@@ -1222,9 +1269,14 @@ All other characters are returned unchanged.
 
 **Examples**
 
-```js
-UPPER("AVOcado") // "AVOCADO"
-```
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline upper1
+  @EXAMPLE_AQL{upper1}
+    RETURN UPPER("AVOcado") // "AVOCADO"
+  @END_EXAMPLE_AQL
+  @endDocuBlock upper1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 UUID()
 ------
@@ -1237,13 +1289,18 @@ Return a universally unique identifier value.
 
 **Examples**
 
-```js
-FOR i IN 1..3 RETURN UUID()
-/* For example:
-[
-  "28bc5873-68ae-4e0f-89a3-31d717c822de",
-  "1084d263-71aa-415c-81d6-451de42e18a3",
-  "7fce640a-f340-4204-bca4-0d2ceebe2699"
-]
-*/
-```
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline uuid1
+  @EXAMPLE_AQL{uuid1}
+    FOR i IN 1..3 RETURN UUID()
+    /* For example:
+    [
+      "28bc5873-68ae-4e0f-89a3-31d717c822de",
+      "1084d263-71aa-415c-81d6-451de42e18a3",
+      "7fce640a-f340-4204-bca4-0d2ceebe2699"
+    ]
+    */
+  @END_EXAMPLE_AQL
+  @endDocuBlock uuid1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
