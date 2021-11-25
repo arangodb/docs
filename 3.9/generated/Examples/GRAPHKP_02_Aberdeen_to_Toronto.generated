@@ -1,6 +1,6 @@
 @Q:
-  FOR p IN <span class="hljs-number">1.</span><span class="hljs-number">.10</span> OUTBOUND K_PATHS <span class="hljs-string">'places/Aberdeen'</span> TO <span class="hljs-string">'places/Toronto'</span>
-  GRAPH <span class="hljs-string">'kShortestPathsGraph'</span>
+  FOR p IN <span class="hljs-number">1.</span><span class="hljs-number">.10</span> OUTBOUND K_PATHS <span class="hljs-string">&#x27;places/Aberdeen&#x27;</span> TO <span class="hljs-string">&#x27;places/Toronto&#x27;</span>
+  GRAPH <span class="hljs-string">&#x27;kShortestPathsGraph&#x27;</span>
       RETURN { <span class="hljs-attr">places</span>: p.vertices[*].label, <span class="hljs-attr">travelTimes</span>: p.edges[*].travelTime }
 
 @R

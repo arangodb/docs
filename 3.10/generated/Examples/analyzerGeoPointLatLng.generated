@@ -1,10 +1,10 @@
-arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"geo_latlng"</span>, <span class="hljs-string">"geopoint"</span>, {
-........&gt;   latitude: [<span class="hljs-string">"lat"</span>],
-........&gt;   longitude: [<span class="hljs-string">"lng"</span>]
-........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
-arangosh&gt; db._create(<span class="hljs-string">"geo"</span>);
-[ArangoCollection <span class="hljs-number">69990</span>, <span class="hljs-string">"geo"</span> (type <span class="hljs-built_in">document</span>, status loaded)]
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">&quot;geo_latlng&quot;</span>, <span class="hljs-string">&quot;geopoint&quot;</span>, {
+........&gt;   latitude: [<span class="hljs-string">&quot;lat&quot;</span>],
+........&gt;   longitude: [<span class="hljs-string">&quot;lng&quot;</span>]
+........&gt; }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
+arangosh&gt; db._create(<span class="hljs-string">&quot;geo&quot;</span>);
+[ArangoCollection <span class="hljs-number">70164</span>, <span class="hljs-string">&quot;geo&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)]
 arangosh&gt; db.geo.save([
 ........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">lat</span>: <span class="hljs-number">50.932</span>, <span class="hljs-attr">lng</span>: <span class="hljs-number">6.937</span> } },
 ........&gt;   { <span class="hljs-attr">location</span>: { <span class="hljs-attr">lat</span>: <span class="hljs-number">50.941</span>, <span class="hljs-attr">lng</span>: <span class="hljs-number">6.956</span> } },
@@ -12,56 +12,56 @@ arangosh&gt; db.geo.save([
 ........&gt; ]);
 [ 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/69995"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69995"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLPge---"</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;geo/70169&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70169&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqkse---&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/69996"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69996"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLPge--_"</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;geo/70170&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70170&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqkse--_&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/69997"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69997"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLPge--A"</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;geo/70171&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70171&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqkse--A&quot;</span> 
   } 
 ]
-arangosh&gt; db._createView(<span class="hljs-string">"geo_view"</span>, <span class="hljs-string">"arangosearch"</span>, {
+arangosh&gt; db._createView(<span class="hljs-string">&quot;geo_view&quot;</span>, <span class="hljs-string">&quot;arangosearch&quot;</span>, {
 ........&gt;   links: {
 ........&gt;     geo: {
 ........&gt;       fields: {
 ........&gt;         location: {
-........&gt;           analyzers: [<span class="hljs-string">"geo_latlng"</span>]
+........&gt;           analyzers: [<span class="hljs-string">&quot;geo_latlng&quot;</span>]
 ........&gt;         }
 ........&gt;       }
 ........&gt;     }
 ........&gt;   }
 ........&gt; });
-[ArangoView <span class="hljs-number">69998</span>, <span class="hljs-string">"geo_view"</span> (type arangosearch)]
+[ArangoView <span class="hljs-number">70172</span>, <span class="hljs-string">&quot;geo_view&quot;</span> (type arangosearch)]
 arangosh&gt; db._query(<span class="hljs-string">`LET point = GEO_POINT(6.93, 50.94)
 ........&gt;   FOR doc IN geo_view
-........&gt;     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) &lt; 2000, "geo_latlng")
+........&gt;     SEARCH ANALYZER(GEO_DISTANCE(doc.location, point) &lt; 2000, &quot;geo_latlng&quot;)
 ........&gt; RETURN MERGE(doc, { distance: GEO_DISTANCE([doc.location.lng, doc.location.lat], point) })`</span>).toArray();
 [ 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/69995"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69995"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLPge---"</span>, 
-    <span class="hljs-string">"location"</span> : { 
-      <span class="hljs-string">"lat"</span> : <span class="hljs-number">50.932</span>, 
-      <span class="hljs-string">"lng"</span> : <span class="hljs-number">6.937</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;geo/70169&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70169&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqkse---&quot;</span>, 
+    <span class="hljs-string">&quot;location&quot;</span> : { 
+      <span class="hljs-string">&quot;lat&quot;</span> : <span class="hljs-number">50.932</span>, 
+      <span class="hljs-string">&quot;lng&quot;</span> : <span class="hljs-number">6.937</span> 
     }, 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1015.8355739436823</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1015.8355739436823</span> 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"geo/69996"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69996"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLPge--_"</span>, 
-    <span class="hljs-string">"location"</span> : { 
-      <span class="hljs-string">"lat"</span> : <span class="hljs-number">50.941</span>, 
-      <span class="hljs-string">"lng"</span> : <span class="hljs-number">6.956</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;geo/70170&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70170&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqkse--_&quot;</span>, 
+    <span class="hljs-string">&quot;location&quot;</span> : { 
+      <span class="hljs-string">&quot;lat&quot;</span> : <span class="hljs-number">50.941</span>, 
+      <span class="hljs-string">&quot;lng&quot;</span> : <span class="hljs-number">6.956</span> 
     }, 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1825.1307183571266</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1825.1307183571266</span> 
   } 
 ]

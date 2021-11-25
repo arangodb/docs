@@ -1,6 +1,6 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/66970</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/67096</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"hello"</span> : <span class="hljs-string">"world"</span> 
+  <span class="hljs-string">&quot;hello&quot;</span> : <span class="hljs-string">&quot;world&quot;</span> 
 }
 EOF
 
@@ -8,24 +8,25 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> A
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">84</span>
-etag: <span class="hljs-string">"_cYKLHpe---"</span>
-location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">66970</span>
+etag: <span class="hljs-string">&quot;_dTdqbm----&quot;</span>
+location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">67096</span>
 server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/66970"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"66970"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLHpe---"</span>, 
-  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_cYKLHpa--_"</span> 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67096&quot;</span>, 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67096&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqbm----&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_dTdqbl6---&quot;</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/66970</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/67096</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"numbers"</span> : { 
-    <span class="hljs-string">"one"</span> : <span class="hljs-number">1</span>, 
-    <span class="hljs-string">"two"</span> : <span class="hljs-number">2</span>, 
-    <span class="hljs-string">"three"</span> : <span class="hljs-number">3</span>, 
-    <span class="hljs-string">"empty"</span> : <span class="hljs-literal">null</span> 
+  <span class="hljs-string">&quot;numbers&quot;</span> : { 
+    <span class="hljs-string">&quot;one&quot;</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">&quot;two&quot;</span> : <span class="hljs-number">2</span>, 
+    <span class="hljs-string">&quot;three&quot;</span> : <span class="hljs-number">3</span>, 
+    <span class="hljs-string">&quot;empty&quot;</span> : <span class="hljs-literal">null</span> 
   } 
 }
 EOF
@@ -34,45 +35,47 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> A
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">84</span>
-etag: <span class="hljs-string">"_cYKLHpm---"</span>
-location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">66970</span>
+etag: <span class="hljs-string">&quot;_dTdqbmO---&quot;</span>
+location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">67096</span>
 server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/66970"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"66970"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLHpm---"</span>, 
-  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_cYKLHpe---"</span> 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67096&quot;</span>, 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67096&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqbmO---&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_dTdqbm----&quot;</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/66970</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/document/products/67096</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">141</span>
-etag: <span class="hljs-string">"_cYKLHpm---"</span>
+etag: <span class="hljs-string">&quot;_dTdqbmO---&quot;</span>
 server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"66970"</span>, 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/66970"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLHpm---"</span>, 
-  <span class="hljs-string">"one"</span> : <span class="hljs-string">"world"</span>, 
-  <span class="hljs-string">"hello"</span> : <span class="hljs-string">"world"</span>, 
-  <span class="hljs-string">"numbers"</span> : { 
-    <span class="hljs-string">"one"</span> : <span class="hljs-number">1</span>, 
-    <span class="hljs-string">"two"</span> : <span class="hljs-number">2</span>, 
-    <span class="hljs-string">"three"</span> : <span class="hljs-number">3</span>, 
-    <span class="hljs-string">"empty"</span> : <span class="hljs-literal">null</span> 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67096&quot;</span>, 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67096&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqbmO---&quot;</span>, 
+  <span class="hljs-string">&quot;one&quot;</span> : <span class="hljs-string">&quot;world&quot;</span>, 
+  <span class="hljs-string">&quot;hello&quot;</span> : <span class="hljs-string">&quot;world&quot;</span>, 
+  <span class="hljs-string">&quot;numbers&quot;</span> : { 
+    <span class="hljs-string">&quot;one&quot;</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">&quot;two&quot;</span> : <span class="hljs-number">2</span>, 
+    <span class="hljs-string">&quot;three&quot;</span> : <span class="hljs-number">3</span>, 
+    <span class="hljs-string">&quot;empty&quot;</span> : <span class="hljs-literal">null</span> 
   } 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/66970?keepNull=<span class="hljs-literal">false</span></span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PATCH --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/67096?keepNull=<span class="hljs-literal">false</span></span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"hello"</span> : <span class="hljs-literal">null</span>, 
-  <span class="hljs-string">"numbers"</span> : { 
-    <span class="hljs-string">"four"</span> : <span class="hljs-number">4</span> 
+  <span class="hljs-string">&quot;hello&quot;</span> : <span class="hljs-literal">null</span>, 
+  <span class="hljs-string">&quot;numbers&quot;</span> : { 
+    <span class="hljs-string">&quot;four&quot;</span> : <span class="hljs-number">4</span> 
   } 
 }
 EOF
@@ -81,37 +84,39 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> A
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">84</span>
-etag: <span class="hljs-string">"_cYKLHpy---"</span>
-location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">66970</span>
+etag: <span class="hljs-string">&quot;_dTdqbm2---&quot;</span>
+location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">67096</span>
 server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/66970"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"66970"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLHpy---"</span>, 
-  <span class="hljs-string">"_oldRev"</span> : <span class="hljs-string">"_cYKLHpm---"</span> 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67096&quot;</span>, 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67096&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqbm2---&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_dTdqbmO---&quot;</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/66970</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/document/products/67096</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">134</span>
-etag: <span class="hljs-string">"_cYKLHpy---"</span>
+etag: <span class="hljs-string">&quot;_dTdqbm2---&quot;</span>
 server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"66970"</span>, 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/66970"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLHpy---"</span>, 
-  <span class="hljs-string">"one"</span> : <span class="hljs-string">"world"</span>, 
-  <span class="hljs-string">"numbers"</span> : { 
-    <span class="hljs-string">"empty"</span> : <span class="hljs-literal">null</span>, 
-    <span class="hljs-string">"one"</span> : <span class="hljs-number">1</span>, 
-    <span class="hljs-string">"three"</span> : <span class="hljs-number">3</span>, 
-    <span class="hljs-string">"two"</span> : <span class="hljs-number">2</span>, 
-    <span class="hljs-string">"four"</span> : <span class="hljs-number">4</span> 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67096&quot;</span>, 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67096&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqbm2---&quot;</span>, 
+  <span class="hljs-string">&quot;one&quot;</span> : <span class="hljs-string">&quot;world&quot;</span>, 
+  <span class="hljs-string">&quot;numbers&quot;</span> : { 
+    <span class="hljs-string">&quot;empty&quot;</span> : <span class="hljs-literal">null</span>, 
+    <span class="hljs-string">&quot;one&quot;</span> : <span class="hljs-number">1</span>, 
+    <span class="hljs-string">&quot;three&quot;</span> : <span class="hljs-number">3</span>, 
+    <span class="hljs-string">&quot;two&quot;</span> : <span class="hljs-number">2</span>, 
+    <span class="hljs-string">&quot;four&quot;</span> : <span class="hljs-number">4</span> 
   } 
 }

@@ -1,10 +1,10 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/control_pregel</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/control_pregel</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"algorithm"</span> : <span class="hljs-string">"wcc"</span>, 
-  <span class="hljs-string">"graphName"</span> : <span class="hljs-string">"connectedComponentsGraph"</span>, 
-  <span class="hljs-string">"params"</span> : { 
-    <span class="hljs-string">"maxGSS"</span> : <span class="hljs-number">36</span>, 
-    <span class="hljs-string">"resultField"</span> : <span class="hljs-string">"component"</span> 
+  <span class="hljs-string">&quot;algorithm&quot;</span> : <span class="hljs-string">&quot;wcc&quot;</span>, 
+  <span class="hljs-string">&quot;graphName&quot;</span> : <span class="hljs-string">&quot;connectedComponentsGraph&quot;</span>, 
+  <span class="hljs-string">&quot;params&quot;</span> : { 
+    <span class="hljs-string">&quot;maxGSS&quot;</span> : <span class="hljs-number">36</span>, 
+    <span class="hljs-string">&quot;resultField&quot;</span> : <span class="hljs-string">&quot;component&quot;</span> 
   } 
 }
 EOF
@@ -14,6 +14,7 @@ content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">7</span>
 server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
-<span class="hljs-string">"67972"</span>
+<span class="hljs-string">&quot;68109&quot;</span>
