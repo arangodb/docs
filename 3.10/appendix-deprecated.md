@@ -161,12 +161,6 @@ replace the old features with:
   discouraged. Their functionality is already removed, but they still exist to
   prevent unknown startup option errors.
 
-- **arangobench test cases**: arangobench provides several test cases that are
-  marked as deprecated. These test cases were originally written for internal
-  testing and do not provide much value for end users. Therefore they will be
-  removed in a future version of arangobench. Whenever a deprecated arangobench
-  test case is invoked, there will be a warning message.
-
 - **HTTP and JavaScript traversal APIs**: The [HTTP traversal API](http/traversal.html)
   is deprecated since version 3.4.0. The JavaScript traversal module
   `@arangodb/graph/traversal` is also deprecated since then. The preferred way
