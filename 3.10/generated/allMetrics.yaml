@@ -539,6 +539,174 @@
     Total execution time of all AQL queries, in milliseconds,
     including all slow queries.
 
+- name: arangodb_arangosearch_cleanup_time
+  introducedIn: "3.10.0"
+  help: |
+    Average time of few last cleanups.
+  unit: ms
+  type: gauge
+  category: Disk
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Average time of few last cleanups.
+
+- name: arangodb_arangosearch_commit_time
+  introducedIn: "3.10.0"
+  help: |
+    Average time of few last commits.
+  unit: ms
+  type: gauge
+  category: Disk
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Average time of few last commits.
+
+- name: arangodb_arangosearch_consolidation_time
+  introducedIn: "3.10.0"
+  help: |
+    Average time of few last consolidations.
+  unit: ms
+  type: gauge
+  category: Disk
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Average time of few last consolidations.
+
+- name: arangodb_arangosearch_index_size
+  introducedIn: "3.10.0"
+  help: |
+    Size of the index in bytes for current snapshot.
+  unit: number
+  type: gauge
+  category: Disk
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Size of the index in bytes for current snapshot.
+
+- name: arangodb_arangosearch_num_buffered_docs
+  introducedIn: "3.10.0"
+  help: |
+    Number of buffered documents for current snapshot.
+  unit: number
+  type: gauge
+  category: Disk
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of buffered documents for current snapshot.
+
+- name: arangodb_arangosearch_num_docs
+  introducedIn: "3.10.0"
+  help: |
+    Number of documents for current snapshot.
+  unit: number
+  type: gauge
+  category: Disk
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of documents for current snapshot.
+
+- name: arangodb_arangosearch_num_failed_cleanups
+  introducedIn: "3.10.0"
+  help: |
+    Number of failed cleanups.
+  unit: number
+  type: gauge
+  category: Disk
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of failed cleanups.
+
+- name: arangodb_arangosearch_num_failed_commits
+  introducedIn: "3.10.0"
+  help: |
+    Number of failed commits.
+  unit: number
+  type: gauge
+  category: Disk
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of failed commits.
+
+- name: arangodb_arangosearch_num_failed_consolidations
+  introducedIn: "3.10.0"
+  help: |
+    Number of failed consolidations.
+  unit: number
+  type: gauge
+  category: Disk
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of failed consolidations.
+
+- name: arangodb_arangosearch_num_files
+  introducedIn: "3.10.0"
+  help: |
+    Number of files for current snapshot.
+  unit: number
+  type: gauge
+  category: Disk
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of files for current snapshot.
+
+- name: arangodb_arangosearch_num_live_docs
+  introducedIn: "3.10.0"
+  help: |
+    Number of live documents for current snapshot.
+  unit: number
+  type: gauge
+  category: Disk
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of live documents for current snapshot.
+
+- name: arangodb_arangosearch_num_segments
+  introducedIn: "3.10.0"
+  help: |
+    Number of segments for current snapshot.
+  unit: number
+  type: gauge
+  category: Disk
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of segments for current snapshot.
+
 - name: arangodb_client_connection_statistics_bytes_received
   introducedIn: "3.8.0"
   help: |
