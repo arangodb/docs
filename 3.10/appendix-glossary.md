@@ -175,6 +175,10 @@ An edge index is automatically created for edge collections. It contains connect
 Fulltext Index
 --------------
 
+{% hint 'warning' %}
+The fulltext index type is deprecated from version 3.10 onwards.
+{% endhint %}
+
 A fulltext index can be used to find words, or prefixes of words inside documents. A fulltext index can be defined on one attribute only, and will include all words contained in documents that have a textual value in the index attribute. Since ArangoDB 2.6 the index will also include words from the index attribute if the index attribute is an array of strings, or an object with string value members.
 
 For example, given a fulltext index on the `translations` attribute and the following documents, then searching for `лиса` using the fulltext index would return only the first document. Searching for the index for the exact string `Fox` would return the first two documents, and searching for `prefix:Fox` would return all three documents:

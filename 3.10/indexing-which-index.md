@@ -137,6 +137,9 @@ different usage scenarios:
   The index supports complete match queries (full words) and prefix queries.
   Fulltext indexes will only be invoked via special functions.
 
+  Please note that the fulltext index type is deprecated from version 3.10 onwards
+  and is superseded by [ArangoSearch](arangosearch.html).
+
 - **View**: [ArangoSearch](arangosearch.html) is a sophisticated search engine
   for full-text, with text pre-processing, ranking capabilities and more.
   It offers more features and configuration options than a fulltext index.
