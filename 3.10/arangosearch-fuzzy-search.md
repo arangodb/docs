@@ -257,11 +257,16 @@ FOR doc IN imdb
 trigram Analyzer in arangosh with a minimum and maximum _n_-gram size of 3,
 not including the original string:
 
-```js
-//db._useDatabase("your_database"); // Analyzer will be created in current database
-var analyzers = require("@arangodb/analyzers");
-analyzers.save("trigram", "ngram", { min: 3, max: 3, preserveOriginal: false, streamType: "utf8" }, ["frequency", "norm", "position"]);
-```
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline ngram_match_sample
+    @EXAMPLE_ARANGOSH_OUTPUT{ngram_match_sample}
+    var analyzers = require("@arangodb/analyzers");
+    analyzers.save("trigram", "ngram", { min: 3, max: 3, preserveOriginal: false, streamType: "utf8" }, ["frequency", "norm", "position"]);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock ngram_match_sample
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 
 **View definition:**
 
