@@ -5,6 +5,7 @@
     "description" : "check the configuration and exit",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -24,6 +25,7 @@
     "description" : "the configuration file or 'none'",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -43,6 +45,7 @@
     "description" : "the configuration file or 'none'",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -63,6 +66,7 @@
     "description" : "define key=value for a @key@ entry in config file",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -81,6 +85,7 @@
     "description" : "dump dependency graph",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -99,6 +104,7 @@
     "description" : "dump configuration options in JSON format",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -118,6 +124,7 @@
     "description" : "fail when trying to emit non-JSON types to JSON output",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -139,6 +146,7 @@
     "description" : "input filename (leave empty or use \"-\" for stdin)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -158,6 +166,7 @@
     "description" : "type of input",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -184,6 +193,7 @@
     "description" : "the global or topic-specific log level",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -203,6 +213,7 @@
     "description" : "use colors for TTY logging",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -215,15 +226,40 @@
     "section" : "log",
     "type" : "boolean"
   },
-  "log.escape" : {
+  "log.escape-control-chars" : {
     "category" : "option",
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "escape characters when logging",
+    "description" : "escape control characters when logging",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
-    "introducedIn" : null,
+    "introducedIn" : [
+      "v3.9.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "log",
+    "type" : "boolean"
+  },
+  "log.escape-unicode-chars" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "escape unicode characters when logging",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.0"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -241,6 +277,7 @@
     "description" : "shortcut for '--log.output file://<filename>'",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -260,6 +297,7 @@
     "description" : "group to use for new log file, user must be a member of this group",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.4.5"
@@ -281,6 +319,7 @@
     "description" : "mode to use for new log file, umask will be applied as well",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.4.5"
@@ -302,6 +341,7 @@
     "description" : "do not start a seperate thread for logging",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -321,6 +361,7 @@
     "description" : "also log to tty if backgrounded",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -340,6 +381,7 @@
     "description" : "hostname to use in log message (empty for none, use 'auto' to automatically figure out hostname)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -361,6 +403,7 @@
     "description" : "log unique message ids",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -384,6 +427,7 @@
     "description" : "the global or topic-specific log level",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -400,9 +444,10 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -422,6 +467,7 @@
     "description" : "maximum length of a log entry (in bytes)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.9"
@@ -444,6 +490,7 @@
     "description" : "log destination(s), e.g. file:///path/to/file (any '$PID' will be replaced with the process id)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -465,6 +512,7 @@
     "description" : "shortcut for '--log.level performance=trace'",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -484,6 +532,7 @@
     "description" : "prefix log message with this string",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -503,6 +552,7 @@
     "description" : "show process identifier (pid) in log message",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -524,6 +574,7 @@
     "description" : "include full URLs and HTTP request parameters in trace logs",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -543,6 +594,7 @@
     "description" : "log server role",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -562,6 +614,7 @@
     "description" : "shorten filenames in log output (use with --log.line-number)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -581,6 +634,7 @@
     "description" : "show thread identifier in log message",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -600,6 +654,7 @@
     "description" : "show thread name in log message",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -619,6 +674,7 @@
     "description" : "time format to use in logs",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -641,6 +697,7 @@
     "description" : "use json output format",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -664,6 +721,7 @@
     "description" : "use local timezone instead of UTC",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -685,6 +743,7 @@
     "description" : "use microtime instead",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -704,6 +763,7 @@
     "description" : "output filename (leave empty or use \"+\" for stdout)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -723,6 +783,7 @@
     "description" : "type of output",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -745,6 +806,7 @@
     "description" : "random number generator to use (1 = MERSENNE, 2 = RANDOM, 3 = URANDOM, 4 = COMBINED (not for Windows), 5 = WinCrypt (Windows only)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -764,8 +826,30 @@
     "description" : "reports the version and exits",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
+  "version-json" : {
+    "category" : "command",
+    "deprecatedIn" : null,
+    "description" : "reports the version as JSON and exits",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.0"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",

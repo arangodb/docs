@@ -161,44 +161,6 @@ IndexEntity index = collection.ensureHashIndex(Arrays.asList("a", "b.c"), new Ha
 // the index has been created with the handle `index.getId()`
 ```
 
-## CollectionOperations.ensureSkiplistIndex
-
-```
-CollectionOperations.ensureSkiplistIndex(Iterable<String> fields, SkiplistIndexOptions options) : IndexEntity
-```
-
-Creates a skip-list index for the collection if it does not already exist.
-
-**Arguments**
-
-- **fields**: `Iterable<String>`
-
-  A list of attribute paths
-
-- **options**: `SkiplistIndexOptions`
-
-  - **unique**: `Boolean`
-
-    If true, then create a unique index
-
-  - **sparse**: `Boolean`
-
-    If true, then create a sparse index
-
-  - **deduplicate**: `Boolean`
-
-    If false, the deduplication of array values is turned off.
-
-**Examples**
-
-```Java
-@Autowired ArangoOperations template;
-
-CollectionOperations collection = template.collection(MyObject.class);
-IndexEntity index = collection.ensureSkiplistIndex(Arrays.asList("a", "b.c"), new SkiplistIndexOptions());
-// the index has been created with the handle `index.getId()`
-```
-
 ## CollectionOperations.ensureGeoIndex
 
 ```

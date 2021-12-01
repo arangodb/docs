@@ -1,13 +1,13 @@
-arangosh&gt; db._explain(`FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "satelliteGraph" RETURN [doc,v,e,p]`, {}, {colors: false});
+arangosh&gt; db._explain(`FOR doc in collection FOR v,e,p IN OUTBOUND &quot;vertices/start&quot; GRAPH &quot;satelliteGraph&quot; RETURN [doc,v,e,p]`, {}, {colors: false});
 Query String (102 chars, cacheable: true):
- FOR doc in collection FOR v,e,p IN OUTBOUND "vertices/start" GRAPH "satelliteGraph" RETURN 
+ FOR doc in collection FOR v,e,p IN OUTBOUND &quot;vertices/start&quot; GRAPH &quot;satelliteGraph&quot; RETURN 
  [doc,v,e,p]
 
 Execution plan:
  Id   NodeType                  Site  Est.   Comment
   1   SingletonNode             DBS      1   * ROOT
-  2   EnumerateCollectionNode   DBS      0     - FOR doc IN collection   /* full collection scan, 8 shard(s) */
- 10   TraversalNode             DBS      1       - FOR v  /* vertex */, e  /* edge */, p  /* paths */ IN 1..1  /* min..maxPathDepth */ OUTBOUND 'vertices/start' /* startnode */  satEdges /* local graph node, used as satellite */
+  2   EnumerateCollectionNode   DBS      0     - FOR doc IN collection   /* full collection scan, 8 shard(s)  */
+ 10   TraversalNode             DBS      1       - FOR v  /* vertex */, e  /* edge */, p  /* paths: vertices, edges */ IN 1..1  /* min..maxPathDepth */ OUTBOUND &#x27;vertices/start&#x27; /* startnode */  satEdges /* local graph node, used as satellite */
   4   CalculationNode           DBS      1         - LET #6 = [ doc, v, e, p ]   /* simple expression */   /* collections used: doc : collection */
  13   RemoteNode                COOR     1         - REMOTE
  14   GatherNode                COOR     1         - GATHER   /* parallel, unsorted */
@@ -32,12 +32,12 @@ Optimization rules applied:
 
 Optimization rules with highest execution times:
  RuleName                                        Duration [s]
- scatter-satellite-graphs                             0.00002
- scatter-in-cluster                                   0.00001
- remove-satellite-joins                               0.00001
- use-indexes                                          0.00001
- restrict-to-single-shard                             0.00001
+ scatter-satellite-graphs                             0.00005
+ scatter-in-cluster                                   0.00003
+ use-indexes                                          0.00003
+ remove-satellite-joins                               0.00002
+ optimize-subqueries                                  0.00002
 
-59 rule(s) executed, 1 plan(s) created
+58 rule(s) executed, 1 plan(s) created
 
 

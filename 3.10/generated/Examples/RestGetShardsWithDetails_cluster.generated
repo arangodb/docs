@@ -1,11 +1,12 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
 
 HTTP/1.1 200 OK
 content-type: application/json
 connection: Keep-Alive
-content-length: 843
-location: /_api/collection/testCollection/shards
+content-length: 841
+location: /_db/_system/_api/collection/testCollection/shards
 server: ArangoDB
+x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"waitForSync\":false,\"shards\":{\"s10046\":[\"PRMR-4d8adaf4-2013-4880-a728-dda30484cdcb\",\"PRMR-53725bb7-efe6-4712-9a45-1419a21d7931\"],\"s10047\":[\"PRMR-53725bb7-efe6-4712-9a45-1419a21d7931\",\"PRMR-4d8adaf4-2013-4880-a728-dda30484cdcb\"],\"s10048\":[\"PRMR-4d8adaf4-2013-4880-a728-dda30484cdcb\",\"PRMR-53725bb7-efe6-4712-9a45-1419a21d7931\"]},\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"usesRevisionsAsDocumentIds\":true,\"schema\":null,\"writeConcern\":1,\"syncByRevision\":true,\"replicationFactor\":2,\"numberOfShards\":3,\"id\":\"10045\",\"name\":\"testCollection\",\"isDisjoint\":false,\"minReplicationFactor\":1,\"status\":3,\"type\":2,\"globallyUniqueId\":\"c10045/\",\"isSmart\":false,\"isSystem\":false,\"isSmartChild\":false,\"statusString\":\"loaded\",\"cacheEnabled\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"minRevision\":\"_Zz3k4-----\"}"
+"{\"error\":false,\"code\":200,\"waitForSync\":false,\"shards\":{\"s10050\":[\"PRMR-045b0d0a-6f5a-4195-9023-c8e8de931baa\",\"PRMR-f604b038-a1bc-4fc2-bbe5-08d312095a4c\"],\"s10051\":[\"PRMR-f604b038-a1bc-4fc2-bbe5-08d312095a4c\",\"PRMR-045b0d0a-6f5a-4195-9023-c8e8de931baa\"],\"s10052\":[\"PRMR-045b0d0a-6f5a-4195-9023-c8e8de931baa\",\"PRMR-f604b038-a1bc-4fc2-bbe5-08d312095a4c\"]},\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"usesRevisionsAsDocumentIds\":true,\"schema\":null,\"writeConcern\":1,\"syncByRevision\":true,\"replicationFactor\":2,\"numberOfShards\":3,\"id\":\"10049\",\"name\":\"testCollection\",\"isDisjoint\":false,\"minReplicationFactor\":1,\"status\":3,\"type\":2,\"globallyUniqueId\":\"c10049/\",\"isSmart\":false,\"isSystem\":false,\"internalValidatorType\":0,\"isSmartChild\":false,\"statusString\":\"loaded\",\"cacheEnabled\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"

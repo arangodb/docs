@@ -6,6 +6,7 @@
     "description" : "dump data of all databases",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -27,6 +28,7 @@
     "description" : "maximum size for individual data batches (in bytes)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -45,6 +47,7 @@
     "description" : "check the configuration and exit",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -65,6 +68,7 @@
     "description" : "restrict to collection name (can be specified multiple times)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -84,6 +88,7 @@
     "description" : "compress files containing collection contents using gzip format (not compatible with encryption)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.4.6"
@@ -105,6 +110,7 @@
     "description" : "the configuration file or 'none'",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -124,6 +130,7 @@
     "description" : "the configuration file or 'none'",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -144,6 +151,7 @@
     "description" : "define key=value for a @key@ entry in config file",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -163,6 +171,7 @@
     "description" : "dump collection data",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -181,6 +190,7 @@
     "description" : "dump dependency graph",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -199,6 +209,7 @@
     "description" : "dump configuration options in JSON format",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -218,6 +229,7 @@
     "description" : "program providing the encryption key on stdout. If set, encryption will be enabled.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -237,6 +249,7 @@
     "description" : "file containing the encryption key. If set, encryption will be enabled.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -256,6 +269,7 @@
     "description" : "wrap each document into a {type, data} envelope (this is required from compatibility with v3.7 and before)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -277,6 +291,7 @@
     "description" : "continue dumping even in the face of some server-side errors",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -296,6 +311,7 @@
     "description" : "continue dump even if sharding prototype collection is not backed up along",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -315,6 +331,7 @@
     "description" : "include system collections",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -334,6 +351,7 @@
     "description" : "initial size for individual data batches (in bytes)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -357,6 +375,7 @@
     "description" : "the global or topic-specific log level",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -376,6 +395,7 @@
     "description" : "use colors for TTY logging",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -388,15 +408,40 @@
     "section" : "log",
     "type" : "boolean"
   },
-  "log.escape" : {
+  "log.escape-control-chars" : {
     "category" : "option",
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "escape characters when logging",
+    "description" : "escape control characters when logging",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
-    "introducedIn" : null,
+    "introducedIn" : [
+      "v3.9.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "log",
+    "type" : "boolean"
+  },
+  "log.escape-unicode-chars" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "escape unicode characters when logging",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.0"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -414,6 +459,7 @@
     "description" : "shortcut for '--log.output file://<filename>'",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -433,6 +479,7 @@
     "description" : "group to use for new log file, user must be a member of this group",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.4.5"
@@ -454,6 +501,7 @@
     "description" : "mode to use for new log file, umask will be applied as well",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.4.5"
@@ -475,6 +523,7 @@
     "description" : "do not start a seperate thread for logging",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -494,6 +543,7 @@
     "description" : "also log to tty if backgrounded",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -513,6 +563,7 @@
     "description" : "hostname to use in log message (empty for none, use 'auto' to automatically figure out hostname)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -534,6 +585,7 @@
     "description" : "log unique message ids",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -557,6 +609,7 @@
     "description" : "the global or topic-specific log level",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -573,9 +626,10 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -595,6 +649,7 @@
     "description" : "maximum length of a log entry (in bytes)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.9"
@@ -617,6 +672,7 @@
     "description" : "log destination(s), e.g. file:///path/to/file (any '$PID' will be replaced with the process id)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -638,6 +694,7 @@
     "description" : "shortcut for '--log.level performance=trace'",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -657,6 +714,7 @@
     "description" : "prefix log message with this string",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -676,6 +734,7 @@
     "description" : "show process identifier (pid) in log message",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -697,6 +756,7 @@
     "description" : "include full URLs and HTTP request parameters in trace logs",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -716,6 +776,7 @@
     "description" : "log server role",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -735,6 +796,7 @@
     "description" : "shorten filenames in log output (use with --log.line-number)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -754,6 +816,7 @@
     "description" : "show thread identifier in log message",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -773,6 +836,7 @@
     "description" : "show thread name in log message",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -792,6 +856,7 @@
     "description" : "time format to use in logs",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -814,6 +879,7 @@
     "description" : "use json output format",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -837,6 +903,7 @@
     "description" : "use local timezone instead of UTC",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -858,6 +925,7 @@
     "description" : "use microtime instead",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -877,6 +945,7 @@
     "description" : "file with maskings definition",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.3.22",
@@ -899,6 +968,7 @@
     "description" : "output directory",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -918,6 +988,7 @@
     "description" : "overwrite data in output directory",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -937,6 +1008,7 @@
     "description" : "show progress",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -956,6 +1028,7 @@
     "description" : "random number generator to use (1 = MERSENNE, 2 = RANDOM, 3 = URANDOM, 4 = COMBINED (not for Windows), 5 = WinCrypt (Windows only)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -976,6 +1049,7 @@
     "description" : "if this option is specified, the user will be prompted for a JWT secret. This option is not compatible with --server.username or --server.password. If specified, it will be used for all connections - even when a new connection to another server is created",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -995,6 +1069,7 @@
     "description" : "require authentication credentials when connecting (does not affect the server-side authentication settings)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1014,6 +1089,7 @@
     "description" : "connection timeout in seconds",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1033,6 +1109,7 @@
     "description" : "database name to use when connecting",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1047,11 +1124,14 @@
   },
   "server.endpoint" : {
     "category" : "option",
-    "default" : "http+tcp://127.0.0.1:8529",
+    "default" : [
+      "http+tcp://127.0.0.1:8529"
+    ],
     "deprecatedIn" : null,
-    "description" : "endpoint to connect to. Use 'none' to start without a server. Use http+ssl:// or vst+ssl:// as schema to connect to an SSL-secured server endpoint, otherwise http+tcp://, vst+tcp:// or unix://",
+    "description" : "endpoint to connect to. Use 'none' to start without a server. Use http+ssl:// as schema to connect to an SSL-secured server endpoint, otherwise http+tcp:// or unix://",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1062,28 +1142,7 @@
     ],
     "requiresValue" : true,
     "section" : "server",
-    "type" : "string"
-  },
-  "server.force-json" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "force to not use VelocyPack for easier debugging",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : [
-      "v3.6.0"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : false,
-    "section" : "server",
-    "type" : "boolean"
+    "type" : "string..."
   },
   "server.jwt-secret-keyfile" : {
     "category" : "option",
@@ -1092,6 +1151,7 @@
     "description" : "if this option is specified, the jwt secret will be loaded from the given file. This option is not compatible with --server.ask-jwt-secret, --server.username or --server.password. If specified, it will be used for all connections - even when a new connection to another server is created",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1111,6 +1171,7 @@
     "description" : "maximum packet size (in bytes) for client/server communication",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1130,6 +1191,7 @@
     "description" : "password to use when connecting. If not specified and authentication is required, the user will be prompted for a password",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1149,6 +1211,7 @@
     "description" : "request timeout in seconds",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1168,6 +1231,7 @@
     "description" : "username to use when connecting",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1188,6 +1252,7 @@
     "description" : "restrict dump to shard (can be specified multiple times)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -1209,6 +1274,7 @@
     "description" : "ssl protocol (1 = SSLv2 (unsupported), 2 = SSLv2 or SSLv3 (negotiated), 3 = SSLv3, 4 = TLSv1, 5 = TLSv1.2, 6 = TLSv1.3, 9 = generic TLS)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1224,11 +1290,12 @@
   },
   "threads" : {
     "category" : "option",
-    "default" : 2,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "maximum number of collections/shards to process in parallel",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.4.0"
@@ -1250,6 +1317,7 @@
     "description" : "last tick to be included in data dump",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1269,6 +1337,7 @@
     "description" : "only include data after this tick",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1287,8 +1356,30 @@
     "description" : "reports the version and exits",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
+  "version-json" : {
+    "category" : "command",
+    "deprecatedIn" : null,
+    "description" : "reports the version as JSON and exits",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.0"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
