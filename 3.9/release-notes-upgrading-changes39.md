@@ -258,3 +258,15 @@ requests.
 In this case it is advised to decrease the value of arangorestore's `--threads`
 option accordingly. The value of `--threads` will the determine the maximum
 parallelism used by arangorestore.
+
+### arangoimport
+
+ArangoDB release packages install an executable named _arangoimp_ as an alias 
+for the _arangoimport_ executable. This is done to provide compatibility with 
+older releases, in which _arangoimport_ did not yet exist and was named 
+_arangoimp_. 
+The renaming was actually carried out in the codebase in December 2017. Using 
+the _arangoimp_ executable is now deprecated, and it is always favorable to use 
+_arangoimport_ instead. 
+While the _arangoimport_ executable will remain, the _arangoimp_ alias will be 
+removed in a future version of ArangoDB, and its use is now highly discouraged.

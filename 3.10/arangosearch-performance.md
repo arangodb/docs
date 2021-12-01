@@ -97,7 +97,7 @@ The optimization can be applied to View queries which sort by both fields as
 defined (`SORT doc.date DESC, doc.name`), but also if they sort in descending
 order by the `date` attribute only (`SORT doc.date DESC`). Queries which sort
 by `text` alone (`SORT doc.name`) are not eligible, because the View is sorted
-by `date` first. This is similar to skiplist indexes, but inverted sorting
+by `date` first. This is similar to persistent indexes, but inverted sorting
 directions are not covered by the View index
 (e.g. `SORT doc.date, doc.name DESC`).
 

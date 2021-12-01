@@ -48,8 +48,24 @@ Client tools
 ------------
 
 
+### arangobench
+
+Histograms are now switched off by default (the `--histogram.generate` flag set to `false`). To display them, set the flag to `true`.
+If this option is disabled, but other histogram flags are used to invoke arangobench (e.g. `--histogram.interval-size 500`), everything will still run normally, but a warning message will be displayed, stating that histograms are switched off by default and using other histogram options has no effect.
+
 
 Internal changes
 ----------------
 
+### C++20 
 
+ArangoDB is now compiled using the `-std=c++20` compile option on Linux and MacOS.
+A compiler with c++-20 support is thus needed to compile ArangoDB from source.
+
+### Upgraded bundled library versions
+
+The bundled version of the RocksDB library has been upgraded from 6.8.0 to 6.27.0.
+
+The bundled version of the Boost library has been upgraded from 1.71.0 to 1.77.0.
+
+The bundled version of the immer library has been upgraded from 0.6.2 to 0.7.0.

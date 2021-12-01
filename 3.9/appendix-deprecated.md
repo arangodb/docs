@@ -167,6 +167,15 @@ replace the old features with:
   removed in a future version of arangobench. Whenever a deprecated arangobench
   test case is invoked, there will be a warning message.
 
+- **arangoimp** executable: ArangoDB release packages install an executable named
+  _arangoimp_ as an alias for the _arangoimport_ executable. This is done to 
+  provide compatibility with older releases, in which _arangoimport_ did not
+  yet exist and was named _arangoimp_. The renaming was actually carried out in
+  the codebase in December 2017. Using the _arangoimp_ executable is deprecated,
+  and it is always favorable to use _arangoimport_ instead. 
+  While the _arangoimport_ executable will remain, the _arangoimp_ alias will be 
+  removed in a future version of ArangoDB.
+
 - **HTTP and JavaScript traversal APIs**: The [HTTP traversal API](http/traversal.html)
   is deprecated since version 3.4.0. The JavaScript traversal module
   `@arangodb/graph/traversal` is also deprecated since then. The preferred way

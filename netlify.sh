@@ -2,7 +2,8 @@
 
 set -e
 
-JEKYLL_ENV="netlify" jekyll build
+JEKYLL_ENV="netlify" jekyll clean
+JEKYLL_ENV="netlify" jekyll build --trace
 ruby sitemap.rb
 rm -rf htmltest
 mkdir -p htmltest
