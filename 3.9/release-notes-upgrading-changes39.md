@@ -72,6 +72,17 @@ Also see [Known limitations for AQL queries](aql/fundamentals-limitations.html).
 Startup options
 ---------------
 
+### Rebalance shards
+
+The `--cluster.max-number-of-move-shards` option limits the maximum number of 
+move shards operations that can be made when the button "Rebalance Shards" is 
+clicked in the web UI. The default value is 10, for backwards compatibility. 
+If its value is 0, then the tab that contains the button "Rebalance Shards" 
+would not be clickable.
+This button, in previous versions, only appeared for the `_system` database, 
+but now it appears in user created databases when the user has write permission
+to the database.
+
 ### Timeout for web interface sessions
 
 The timeout value for web interface sessions is now configurable via the
