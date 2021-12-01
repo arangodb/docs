@@ -217,6 +217,9 @@ There are further options that can be passed in the *options* attribute of the *
   Defaults to the configured value of the startup option
   `--query.max-nodes-per-callstack`.
 
+  This option is only useful for testing and debugging and normally does not need
+  any adjustment.
+
 - `maxTransactionSize`: transaction size limit in bytes
 
 - `intermediateCommitSize`: maximum total size of operations after which an intermediate

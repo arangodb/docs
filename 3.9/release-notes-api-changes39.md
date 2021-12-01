@@ -212,6 +212,8 @@ sub-attribute `maxNodesPerCallstack`, which controls after how many
 execution nodes in a query a stack split should be performed. This is
 only relevant for very large queries. If this option is not specified,
 the default value is 200 on MacOS, and 250 for other platforms.
+Please note that this option is only useful for testing and debugging 
+and normally does not need any adjustment.
 
 The HTTP REST API endpoint `PUT /_admin/log/level` can now handle the
 pseudo log topic `"all"`. Setting the log level for the "all" log topic will
