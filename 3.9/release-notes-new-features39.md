@@ -267,10 +267,10 @@ limit (options `--query.memory-limit` and `--query.memory-limit-global`).
 ### Execution of complex queries
 
 Very large queries (in terms of query execution plan complexity) are now split
-into multiple segments that are executed using separate stacks. This avoids
-potential stack overflow. The number of execution nodes after that such
-stack splitting is performed can be configured via the startup option
-`--query.max-nodes-per-callstack`. The default value is 200 for macOS, and 250
+into multiple segments which are executed using separate stacks. This prevents a
+potential stack overflow. To configure the number of execution nodes after such a
+stack splitting is performed, use the `--query.max-nodes-per-callstack` startup option. 
+The default value is 200 for macOS, and 250
 for the other supported platforms. The value can be adjusted per query via the
 `maxNodesPerCallstack` query option. Please note that the default values 
 should work and adjusting the option is only useful for testing and debugging.
