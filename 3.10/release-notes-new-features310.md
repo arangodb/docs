@@ -19,9 +19,10 @@ UI
 
 ### Rebalance shards
 
-The rebalance shards section displays a button for rebalancing shards. A new DB-Server will not have any shards. With the rebalance functionality the cluster will start to rebalance shards including empty DB-Servers. The maximum number of shards that can be 
-moved in each operation is given by the flag `--cluster.max-number-of-move-shards` in arangod (default value is 10).
-When the button is clicked, the number of scheduled move shards operations is displayed, or it is displayed that 
+The rebalance shards section displays a button for rebalancing shards. A new DB-Server will not have any shards. With the rebalance functionality, 
+the cluster will start to rebalance shards including empty DB-Servers. You can specify the maximum number of shards that can be 
+moved in each operation by using the `--cluster.max-number-of-move-shards` flag in arangod (the default value is 10).
+When the button is clicked, the number of scheduled move shards operations is shown, or it is displayed that 
 no move operations have been scheduled if they are not necessary.
 
 
@@ -35,8 +36,7 @@ Server options
 
 ### Rebalance shards
 
-There's a flag `--cluster.max-number-of-move-shards` that limits the maximum number of move shards operations that can be made when the button "Rebalance Shards" is clicked in the web UI. The default value is 10, for backwards compatibility. If its value is 0, then the tab that contains the button "Rebalance Shards" would not be clickable, hence, the button would not be displayed.
-F
+The `--cluster.max-number-of-move-shards` flag limits the maximum number of move shards operations which can be made when the **Rebalance Shards** button is clicked in the web UI. For backwards compatibility purposes, the default value is 10. If the value is 0, then the tab containing this button will be disabled and the button cannot be clicked.
 
 
 Miscellaneous changes
