@@ -69,3 +69,8 @@ The following methods exist on the *_db* object:
 * [db._engineStats()](data-modeling-databases-working-with.html#engine-statistics)
 * [db._executeTransaction()](transactions-transaction-invocation.html)
 * [db._version()](data-modeling-databases-working-with.html#get-the-version-of-arangodb)
+
+*License*
+
+* [db._getLicense()](administration-license.html#managing-your-license)]
+* [db._setLicense(data)](administration-license.html#initial-installation)]
