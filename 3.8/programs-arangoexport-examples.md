@@ -61,6 +61,12 @@ This exports the collection *test* into the output directory *export* as CSV. Th
 line contains the header with all field names. Each line is one document represented as
 CSV and separated with a comma. Objects and arrays are represented as a JSON string.
 
+Starting with ArangoDB version 3.8.5, string values in the CSV output will be enclosed in 
+double quotes. If any string value starts with either of the characters `+`, `=`, `@` or `-`,
+it is considered a potential formula, and will be prefixed by an extra single quote.
+This is to prevent formula injection attacks in spreadsheet programs such as MS Excel or
+OpenOffice. Escaping such string cells with the extra single quote can be turned off via
+the option `--escape-csv-formulae`.
 
 Export XML
 ----------
