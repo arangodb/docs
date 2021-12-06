@@ -363,11 +363,11 @@ Return the minute of *date*.
 **Examples**
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline datehr1
-  @EXAMPLE_AQL{datehr1}
+  @startDocuBlockInline datemin1
+  @EXAMPLE_AQL{datemin1}
     RETURN DATE_MINUTE("2020-08-29T16:30:05.123")
   @END_EXAMPLE_AQL
-  @endDocuBlock datehr1
+  @endDocuBlock datemin1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
