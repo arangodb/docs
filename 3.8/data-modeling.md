@@ -1,20 +1,19 @@
 ---
 layout: default
-description: This chapter introduces ArangoDB's core concepts and covers
+description: Plan for your data needs and map your conceptual model to the right features, making the most of ArangoDB
+title: Modeling Data for ArangoDB
 ---
-Data models & modeling
-======================
+# Modeling Data for ArangoDB
 
-This chapter introduces ArangoDB's core concepts and covers
+{{ page.description }}
+{:class="lead"}
 
-- its data model (or data models respectively),
-- the terminology used throughout the database system and in this
-  documentation, as well as
-- aspects to consider when modeling your data to strike a balance
-  between natural data structures and great performance
+All of the following topics fall under the broader term of data modeling:
 
-You will also find usage examples on how to interact with the database system
-using [arangosh](programs-arangosh.html), e.g. how to create and
-drop databases / collections, or how to save, update, replace and remove
-documents. You can do all this using the [web interface](getting-started-web-interface.html)
-as well and may therefore skip these sections as beginner.
+- Analyzing your project goals and existing data
+- Designing logical models for your data and mapping them to ArangoDB, often
+  by striking a balance between natural data structures and great performance
+- Preparing and loading data into ArangoDB
+- Transforming data once it is in ArangoDB
+
+You find a collection of guides in this section that pertain to these tasks.

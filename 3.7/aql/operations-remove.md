@@ -85,8 +85,8 @@ REMOVE 'john' IN backups // OK, different collection
 REMOVE 'mary' IN users   // Error, users collection again
 ```
 
-Setting query options
----------------------
+Query options
+-------------
 
 *options* can be used to suppress query errors that may occur when trying to
 remove non-existing documents. For example, the following query will fail if one

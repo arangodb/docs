@@ -1,6 +1,6 @@
 ---
 layout: default
-description: 'Welcome to the ArangoDB documentation! It is organized in five handbooks: Manual, AQL, HTTP, Cookbook and Driver handbook.'
+description: Technical documentation for ArangoDB's core features and ecosystem
 title: Introduction to ArangoDB Documentation
 page-toc:
   disable: true
@@ -62,10 +62,6 @@ Key features include:
 - JavaScript for all: **no language zoo**, you can use one language from your browser to your back-end
 - ArangoDB can be easily deployed as a [**fault-tolerant distributed state machine**](deployment-standalone-agency.html), which can serve as the animal brain of distributed appliances
 - It is **open source** (Apache License 2.0)
-
-Fire up your own ArangoDB and try it out in just a few clicks with
-ArangoDB Oasis: the Cloud Service for ArangoDB. Start your
-[free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
 
 Community
 ---------

@@ -1,7 +1,10 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/dump?collection=testCollection</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/replication/dump?collection=testCollection</span>
 
-HTTP/1.1 No Content
+HTTP/1.1 204 No Content
 content-type: application/x-arango-dump
+connection: Keep-Alive
+content-length: 0
+server: ArangoDB
 x-arango-replication-checkmore: false
 x-arango-replication-lastincluded: 0
 x-content-type-options: nosniff

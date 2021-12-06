@@ -1,6 +1,6 @@
 ---
 layout: default
-description: AQL supports both primitive data types consisting of exactly one value andcompound data types comprised of multiple values
+description: AQL supports both primitive data types consisting of exactly one value and compound data types comprised of multiple values
 ---
 Data types
 ==========
@@ -25,7 +25,7 @@ Primitive types
 
 A `null` value can be used to represent an empty or absent value.
 It is different from a numerical value of zero (`null != 0`) and other
-*falsy* values (`false`, zero-length string, empty array or object).
+*falsy* values (`false` or a zero-length string `""`).
 It is also known as *nil* or *None* in other languages.
 
 The system may return `null` in the absence of value, for example
@@ -68,8 +68,28 @@ The following notations are invalid and will throw a syntax error:
 00
 ```
 
-All numeric values are treated as 64-bit double-precision values internally.
-The internal format used is IEEE 754.
+All numeric values are treated as 64-bit signed integer or 64-bit
+double-precision floating point values internally. The internal floating-point
+format used is IEEE 754.
+
+{% hint 'warning' %}
+When exposing any numeric integer values to JavaScript via
+[user-defined AQL functions](extending.html), numbers that exceed 32 bit
+precision are converted to floating-point values, so large integers can lose
+some bits of precision. The same is true when converting AQL numeric results to
+JavaScript (e.g. returning them to Foxx).
+{% endhint %}
+
+Since ArangoDB v3.7.7, numeric integer literals can also be expressed as binary
+(base 2) or hexadecimal (base 16) number literals.
+
+- The prefix for binary integer literals is `0b`, e.g. `0b10101110`.
+- The prefix for hexadecimal integer literals is `0x`, e.g. `0xabcdef02`.
+
+Binary and hexadecimal integer literals can only be used for unsigned integers.
+The maximum supported value for binary and hexadecimal numeric literals is
+2<sup>32</sup> - 1, i.e. `0b11111111111111111111111111111111` (binary) or
+`0xffffffff` (hexadecimal).
 
 ### String literals
 

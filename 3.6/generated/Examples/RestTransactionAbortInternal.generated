@@ -1,19 +1,22 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/transaction</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/transaction</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"collections"</span> : { 
-    <span class="hljs-string">"write"</span> : <span class="hljs-string">"products"</span> 
+  <span class="hljs-string">&quot;collections&quot;</span> : { 
+    <span class="hljs-string">&quot;write&quot;</span> : <span class="hljs-string">&quot;products&quot;</span> 
   }, 
-  <span class="hljs-string">"action"</span> : <span class="hljs-string">"function () {var db = require('@arangodb').db;db.products.save({ _key: 'abc'});db.products.save({ _key: 'abc'});}"</span> 
+  <span class="hljs-string">&quot;action&quot;</span> : <span class="hljs-string">&quot;function () {var db = require(&#x27;@arangodb&#x27;).db;db.products.save({ _key: &#x27;abc&#x27;});db.products.save({ _key: &#x27;abc&#x27;});}&quot;</span> 
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Conflict
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">409</span> Conflict
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">154</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">409</span>, 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"unique constraint violated - in index primary of type primary over '_key'; conflicting key: abc"</span>, 
-  <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">1210</span> 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">409</span>, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;unique constraint violated - in index primary of type primary over &#x27;_key&#x27;; conflicting key: abc&quot;</span>, 
+  <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">1210</span> 
 }

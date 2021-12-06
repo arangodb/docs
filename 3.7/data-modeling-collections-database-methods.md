@@ -380,7 +380,7 @@ Collection Name
 <!-- arangod/V8Server/v8-vocbase.cpp -->
 
 
-selects a collection from the vocbase
+selects a collection from the database
 `db.collection-name`
 
 Returns the collection with the given *collection-name*. If no such

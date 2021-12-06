@@ -12,7 +12,7 @@ General
 - [Getting started](getting-started.html):
   A beginner's guide to ArangoDB.
 
-- [ArangoDB Web UI](https://www.arangodb.com/arangodb-training-center/arangodb-web-ui/){:target="_blank"}:
+- [ArangoDB Web UI](https://www.arangodb.com/learn/first-day/web-ui/){:target="_blank"}:
   Overview over the built-in web interface.
 
 - [Using the Web UI AQL Editor](https://www.arangodb.com/2018/02/using-webui-aql-editor/){:target="_blank"}:
@@ -24,10 +24,10 @@ General
   - [Part II](https://www.arangodb.com/2018/03/index-types-indexes-used-arangodb-part-2/){:target="_blank"}:
     How to create indexes
 
-- [ArangoSearch](https://www.arangodb.com/arangodb-training-center/search/arangosearch/){:target="_blank"}:
+- [ArangoSearch](https://www.arangodb.com/learn/search/){:target="_blank"}:
   Implementation details and hands-on tutorial about ArangoDB's full-text search engine.
 
-- [Data Masking](https://www.arangodb.com/arangodb-training-center/data-masking-tutorial/){:target="_blank"}:
+- [Data Masking](https://www.arangodb.com/learn/development/data-masking-tutorial/){:target="_blank"}:
   Anonymizing Production Data Securely For Testing & Development Environments
 
 Data modeling
@@ -41,7 +41,7 @@ Data modeling
 
 - [Time traveling with graph databases](https://www.arangodb.com/2018/07/time-traveling-with-graph-databases/){:target="_blank"}:
   Concepts for a revision history of graph data. Also see the
-  [simplified tutorial](https://www.arangodb.com/arangodb-training-center/graphs/time-traveling-graph-databases/){:target="_blank"}.
+  [simplified tutorial](https://www.arangodb.com/learn/graphs/time-traveling-graph-databases/){:target="_blank"}.
 
 Queries
 -------
@@ -61,22 +61,22 @@ Queries
 - [Geo Queries](https://www.arangodb.com/using-arangodb-geo-index-cursor-via-aql/){:target="_blank"}:
   How to use the ArangoDB Geo Index Cursor via AQL
 
-- [GeoJSON tutorial](https://www.arangodb.com/arangodb-training-center/geojson-tutorial/){:target="_blank"}:
+- [GeoJSON tutorial](https://www.arangodb.com/learn/documents/geojson-tutorial/){:target="_blank"}:
   Indexing and querying GeoJSON data.
 
-- [AQL Query Optimization with Query Profiling](https://www.arangodb.com/arangodb-training-center/tutorials-aql-query-profiling/){:target="_blank"}:
+- [AQL Query Optimization with Query Profiling](https://www.arangodb.com/learn/development/aql-query-optimization-with-profiler/){:target="_blank"}:
   Examination of query performance by example and common performance pitfalls.
 
 - [Performance Course](https://www.arangodb.com/arangodb-performance-course/){:target="_blank"}:
   Performance Optimization Basics: How to make your queries faster
 
 - SmartJoins:
-  - [Introduction](https://www.arangodb.com/why-arangodb/arangodb-enterprise/smartjoins/){:target="_blank"}:
+  - [Introduction](https://www.arangodb.com/enterprise-server/smartjoins/){:target="_blank"}:
     Making distributed join operations local.
-  - [Tutorial](https://www.arangodb.com/arangodb-training-center/smart-joins-tutorial/){:target="_blank"}:
+  - [Tutorial](https://www.arangodb.com/learn/documents/smart-joins-tutorial/){:target="_blank"}:
     Boosting cluster join query performance.
 
-- [SQL / AQL - Comparison](https://www.arangodb.com/why-arangodb/sql-aql-comparison/){:target="_blank"}:
+- [SQL / AQL - Comparison](https://www.arangodb.com/community-server/sql-aql-comparison/){:target="_blank"}:
   Differences and similarities between ArangoDB Query Language (AQL) and
   Structured Query Language (SQL).
 
@@ -92,10 +92,10 @@ Graphs
 - [Graph Course](https://www.arangodb.com/arangodb-graph-course/){:target="_blank"}:
   Get started with ArangoDB's graph related features
 
-- [Pattern Matching](https://www.arangodb.com/arangodb-training-center/graphs/pattern-matching/){:target="_blank"}:
+- [Pattern Matching](https://www.arangodb.com/learn/graphs/pattern-matching/){:target="_blank"}:
   Find the best flights between two airports with the lowest total travel time.
 
-- [k Shortest Paths Queries in AQL](https://www.arangodb.com/arangodb-training-center/graphs/k-shortest-paths-queries-in-aql/){:target="_blank"}:
+- [k Shortest Paths Queries in AQL](https://www.arangodb.com/learn/graphs/k-shortest-paths-queries-in-aql/){:target="_blank"}:
   Query your graph for multiple shortest path alternatives.
 
 - [SmartGraphs](https://www.arangodb.com/using-smartgraphs-arangodb/){:target="_blank"}:
@@ -174,7 +174,7 @@ Administration
 - [ArangoDB Hot Backup](https://www.arangodb.com/2019/10/arangodb-hot-backup-creating-consistent-cluster-wide-snapshots/){:target="_blank"}:
   Creating consistent cluster-wide snapshots.
 
-- [Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}:
+- [Cluster Administration Course](https://www.arangodb.com/learn/operations/cluster-course/){:target="_blank"}:
   Concepts, maintenance, resilience and troubleshooting.
 
 - [Monitor ArangoDB](https://www.arangodb.com/tutorials/monitoring-collectd-prometheus-grafana/){:target="_blank"}:
@@ -189,10 +189,6 @@ Administration
     Measuring possible capacity with usage scenarios
 
 - [Using The Linux Kernel and Cgroups to Simulate Starvation](https://www.arangodb.com/2019/01/using-the-linux-kernel-and-cgroups-to-simulate-starvation/){:target="_blank"}
-
-- [ArangoDB Oasis](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}:
-  Cloud service for cluster deployments of any size. Sign up, then click the
-  help icon in the top right corner and start the tour.
 
 - Oasisctl:
   - [Opening the ArangoDB Oasis API & Terraform Provider](https://www.arangodb.com/2020/03/opening-the-arangodb-oasis-api-terraform-provider/){:target="_blank"}

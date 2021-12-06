@@ -8,6 +8,43 @@ Miscellaneous functions
 Control flow functions
 ----------------------
 
+### MIN_MATCH()
+
+`MIN_MATCH(expr1, ... exprN, minMatchCount) → fulfilled`
+
+Match documents where at least **minMatchCount** of the specified
+AQL expressions are satisfied.
+
+There is a corresponding [`MIN_MATCH()` ArangoSearch function](functions-arangosearch.html#min_match)
+that can utilize View indexes.
+
+- **expr** (expression, _repeatable_): any valid AQL expression
+- **minMatchCount** (number): minimum number of expressions that should
+  be satisfied
+- returns **fulfilled** (bool): whether at least **minMatchCount** of the
+  specified expressions are `true`
+
+You can use `MIN_MATCH()` to filter if two out of three conditions evaluate to
+`true` for instance:
+
+```js
+LET members = [
+  { name: "Carol", age: 41, active: true },
+  { name: "Doug", age: 56, active: true },
+]
+FOR doc IN members
+  FILTER MIN_MATCH(LENGTH(doc.name) == 5, doc.age >= 50, doc.active, 2)
+  RETURN doc
+```
+
+An equivalent filter expression without `MIN_MATCH()` would be more cumbersome:
+
+```js
+  FILTER (LENGTH(doc.name) == 5 AND doc.age >= 50)
+    OR (doc.age >= 50 AND doc.active)
+    OR (doc.active AND LENGTH(doc.name) == 5)
+```
+
 ### NOT_NULL()
 
 `NOT_NULL(alternative, ...) → value`
@@ -21,6 +58,8 @@ are *null* themselves. It is also known as `COALESCE()` in SQL.
 
 ### FIRST_LIST()
 
+`FIRST_LIST(alternative, ...)  → list`
+
 Return the first alternative that is an array, and *null* if none of the
 alternatives is an array.
 
@@ -29,7 +68,7 @@ alternatives is an array.
 
 ### FIRST_DOCUMENT()
 
-`FIRST_DOCUMENT(value) → doc`
+`FIRST_DOCUMENT(alternative, ...) → doc`
 
 Return the first alternative that is a document, and *null* if none of the
 alternatives is a document.
@@ -104,6 +143,16 @@ Return an array of collections.
 ### COUNT()
 
 This is an alias for [LENGTH()](#length).
+
+### CURRENT_DATABASE()
+
+`CURRENT_DATABASE() → databaseName`
+
+Returns the name of the current database.
+
+The current database is the database name that was specified in the URL path of the request (or defaults to _system database).
+
+- returns **databaseName** (string): the current database name
 
 ### CURRENT_USER()
 
@@ -396,6 +445,20 @@ ArangoSearch counterpart which can use the View index.
     @endDocuBlock aqlMiscInRange_3
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+### PREGEL_RESULT()
+
+`PREGEL_RESULT(handle, withId) → results`
+
+Allows to access results of a Pregel job that are only held in memory.
+See [Pregel AQL integration](../graphs-pregel.html#aql-integration).
+
+- **handle** (string): the `id` of a Pregel job
+- **withId** (bool): if enabled, then the document `_id` is returned in
+  addition to the `_key` for each vertex
+- returns **results** (array): an array of objects, one element per vertex, with
+  the attributes computed by the Pregel algorithm and the document key (and
+  optionally identifier)
 
 Internal functions
 ------------------

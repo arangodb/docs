@@ -1,13 +1,14 @@
 ---
 layout: default
-description: The COLLECT keyword can be used to group an array by one or multiple grouping criteria
+description: The COLLECT operation can be used to group data by one or multiple grouping criteria
 title: Grouping and aggregation with COLLECT in AQL
 ---
 COLLECT
 =======
 
-The `COLLECT` keyword can be used to group an array by one or multiple group
-criteria. 
+The `COLLECT` operation can be used to group data by one or multiple group
+criteria. It can also be used to retrieve all distinct values, count
+how often values occur, and calculate statistical properties efficiently.
 
 The `COLLECT` statement will eliminate all local variables in the current
 scope. After `COLLECT` only the variables introduced by `COLLECT` itself are
@@ -250,10 +251,10 @@ assignment:
 
 - on the top level, an aggregate expression must be a call to one of the supported 
   aggregation functions `LENGTH`, `MIN`, `MAX`, `SUM`, `AVERAGE`, `STDDEV_POPULATION`, 
-  `STDDEV_SAMPLE`, `VARIANCE_POPULATION`, `VARIANCE_SAMPLE`, `UNIQUE`, `SORTED_UNIQUE` 
-  or `COUNT_DISTINCT`. The following aliases are allowed too: `COUNT` (for `LENGTH`),
-  `AVG` (for `AVERAGE`), `STDDEV` (for `STDDEV_POPULATION`), `VARIANCE` (for `VARIANCE_POPULATION`),
-  `COUNT_UNIQUE` (for `COUNT_DISTINCT`).
+  `STDDEV_SAMPLE`, `VARIANCE_POPULATION`, `VARIANCE_SAMPLE`, `UNIQUE`, `SORTED_UNIQUE`, 
+  `COUNT_DISTINCT`, `BIT_AND`, `BIT_OR` or `BIT_XOR`. The following aliases are allowed too: 
+  `COUNT` (for `LENGTH`), `AVG` (for `AVERAGE`), `STDDEV` (for `STDDEV_POPULATION`), 
+  `VARIANCE` (for `VARIANCE_POPULATION`), `COUNT_UNIQUE` (for `COUNT_DISTINCT`).
 
 - an aggregate expression must not refer to variables introduced by the `COLLECT` itself
 

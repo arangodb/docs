@@ -373,9 +373,9 @@ The geo index provides operations to find documents with coordinates nearest to 
 comparison coordinate, and to find documents with coordinates that are within a specifiable
 radius around a comparison coordinate.
 
-The geo index is used via dedicated functions in AQL, the simple queries
-functions and it is implicitly applied when in AQL a SORT or FILTER is used with
-the distance function. Otherwise it will not be used for other types of queries
+The geo index is used via dedicated functions in AQL
+and it is implicitly applied when a SORT or FILTER is used with
+the distance function. It will not be used for other types of queries
 or conditions.
 
 
@@ -395,7 +395,7 @@ The fulltext index is sparse, meaning it will only index documents for which the
 attribute is set and contains a string value. Additionally, only words with a configurable
 minimum length will be included in the index.
 
-The fulltext index is used via dedicated functions in AQL or the simple queries, but will
+The fulltext index is used via dedicated functions in AQL, but will
 not be enabled for other types of queries or conditions.
 
 {% hint 'tip' %}

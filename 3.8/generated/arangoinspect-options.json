@@ -121,8 +121,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -228,6 +227,27 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
+  },
+  "default-language-check" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "check if default language matches stored language",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
   },
   "define" : {
     "category" : "option",
@@ -855,29 +875,6 @@
     "section" : "",
     "type" : "string..."
   },
-  "log.api-enabled" : {
-    "category" : "option",
-    "default" : "true",
-    "deprecatedIn" : null,
-    "description" : "whether the log api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : [
-      "v3.4.11",
-      "v3.5.6",
-      "v3.6.5"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "log",
-    "type" : "string"
-  },
   "log.color" : {
     "category" : "option",
     "default" : true,
@@ -944,8 +941,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -966,8 +962,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -1017,6 +1012,27 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.hostname" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "hostname to use in log message (empty for none, use 'auto' to automatically figure out hostname)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string"
+  },
   "log.ids" : {
     "category" : "option",
     "default" : true,
@@ -1028,25 +1044,6 @@
     "introducedIn" : [
       "v3.5.0"
     ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : false,
-    "section" : "log",
-    "type" : "boolean"
-  },
-  "log.keep-logrotate" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "keep the old log file after receiving a sighup",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1082,7 +1079,7 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
@@ -1097,12 +1094,33 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.max-entry-length" : {
+    "category" : "option",
+    "default" : 134217728,
+    "deprecatedIn" : null,
+    "description" : "maximum length of a log entry (in bytes)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.9"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "uint32"
+  },
   "log.output" : {
     "category" : "option",
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "log destination(s), e.g. file:///path/to/file (Linux, macOS) or file://C:\\path\\to\\file (Windows)",
+    "description" : "log destination(s), e.g. file:///path/to/file (any '$PID' will be replaced with the process id)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -1166,7 +1184,7 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : [
-      "v3.7.1"
+      "v3.8.0"
     ],
     "obsolete" : false,
     "os" : [
@@ -1304,7 +1322,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.7.1"
+      "v3.8.0"
     ],
     "obsolete" : false,
     "os" : [

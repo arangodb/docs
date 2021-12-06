@@ -175,12 +175,13 @@ collection in your traversal.
 
 Due to the nature of graphs, edges may reference vertices from arbitrary
 collections. Following the paths can thus involve documents from various
-collections and it's not possible to predict which will be visited in a
-traversal. Hence, which collections need to be locked can only be determined
-at run time. Deadlocks may occur under certain circumstances.
+collections and it is not possible to predict which will be visited in a
+traversal. Which collections need to be loaded by the graph engine can only be
+determined at run time.
 
-Please consider to use the [`WITH` statement](operations-with.html) to
-specify the collections you expect to be involved.
+Use the [`WITH` statement](operations-with.html) to specify the collections you
+expect to be involved. This is required for traversals using collection sets
+in cluster deployments.
 
 Using filters and the explainer to extrapolate the costs
 --------------------------------------------------------
@@ -263,6 +264,14 @@ example:
     @endDocuBlock GRAPHTRAV_graphPruneCollection
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% hint 'warning' %}
+The edge emitted for the starting vertex is `null`. Keep this in mind when you
+write `PRUNE` conditions involving the edge variable. A `PRUNE` condition like
+`edge.label != 'foo'` is undesirably true at depth 0 and thus terminates the
+traversal too early. A construction like `(!IS_NULL(edge) AND edge.label != 'foo')`
+can be used to avoid it.
+{% endhint %}
 
 ### Filtering on paths
 

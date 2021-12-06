@@ -23,7 +23,7 @@ Facebook.
 | volatile collections (only in memory, optional) | collection data always persisted |
 | collection level locking (writes block reads) | concurrent reads and writes |
 
-*Blog article: [Comparing new RocksDB and MMFiles storage engines](https://www.arangodb.com/why-arangodb/comparing-rocksdb-mmfiles-storage-engines/){:target="_blank"}*
+*Blog article: [Comparing new RocksDB and MMFiles storage engines](https://www.arangodb.com/community-server/rocksdb-storage-engine/){:target="_blank"}*
 
 RocksDB is an embeddable persistent key-value store. It is a log
 structure database and is optimized for fast storage.

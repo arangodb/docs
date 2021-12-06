@@ -1,4 +1,4 @@
-arangosh&gt; db._explain("LET s = SLEEP(0.25) LET t = SLEEP(0.5) RETURN 1", {}, {colors: false});
+arangosh&gt; db._explain(&quot;LET s = SLEEP(0.25) LET t = SLEEP(0.5) RETURN 1&quot;, {}, {colors: false});
 Query String (47 chars, cacheable: false):
  LET s = SLEEP(0.25) LET t = SLEEP(0.5) RETURN 1
 
