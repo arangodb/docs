@@ -28,6 +28,19 @@ For example, to connect to an ArangoDB server on IP *192.168.173.13* on port
 _arangosh_ will then display a password prompt and try to connect to the 
 server after the password was entered.
 
+{% hint 'warning' %}
+At signs `@` in startup option arguments need to be escaped as `@@`.
+ArangoDB programs and tools support a
+[special syntax `@envvar@`](administration-configuration.html#environment-variables-as-parameters)
+that substitutes text wrapped in at signs with the value of an equally called
+environment variable. This is most likely an issue with passwords and the
+`--server.password` option.
+
+For example, `password@test@123` needs to be passed as
+`--server.password password@@test@@123` to work correctly, unless you want
+`@test@` to be replaced by whatever the environment variable `test` is set to.
+{% endhint %}
+
 The shell will print its own version number and if successfully connected
 to a server the version number of the ArangoDB server.
 

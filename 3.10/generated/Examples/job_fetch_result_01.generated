@@ -1,0 +1,16 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job</span>
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">400</span> Bad Request
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">71</span>
+server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">400</span>, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;bad parameter&quot;</span>, 
+  <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">400</span> 
+}

@@ -191,13 +191,14 @@ $(document).ready(function () {
   }
 })
 
-var generateToc = function() {
+var generateToc = function(maxHeadlineLevel) {
   var contentBlock = document.querySelector(".markdown-section");
   if (!contentBlock) {
     return;
   }
-
-  var nodes = contentBlock.querySelectorAll("h1, h2, h3, h4, h5, h6");
+  var maxHeadlineLevel = maxHeadlineLevel || 6;
+  var headlineLevels = ["h1", "h2", "h3", "h4", "h5", "h6"]
+  var nodes = contentBlock.querySelectorAll(headlineLevels.slice(0, maxHeadlineLevel).join(","));
   if (nodes.length < 3) {
     return;
   }

@@ -41,7 +41,7 @@ that should be inlined directly into the query rather than be treated as bind va
 you to AQL injection attacks if you are passing in untrusted user input unsanitized.
 {% endhint %}
 
-To find out more about AQL see the [AQL documentation](../aql/).
+To find out more about AQL see the [AQL documentation](aql/index.html).
 
 **Examples**
 

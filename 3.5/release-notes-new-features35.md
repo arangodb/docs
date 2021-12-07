@@ -28,7 +28,8 @@ word stemming, remove user-defined stop-words, split by a delimiting
 character only, perform case conversion and/or removal of diacritic
 characters against the full input without tokenization and more.
 
-See [Analyzers](arangosearch-analyzers.html) for all available options.
+See [Analyzers]({% assign ver = "3.7" | version: "<" %}{% if ver %}arangosearch-{% endif %}analyzers.html)
+for all available options.
 
 ### Sorted Index
 
@@ -100,8 +101,8 @@ Note that the `primarySort` option is immutable: it can not be changed after
 View creation. It is therefore not possible to configure it through the Web UI.
 The View needs to be created via the HTTP or JavaScript API (arangosh) to set it.
 
-See [Primary Sort Order](arangosearch-views.html#primary-sort-order) of
-ArangoSearch Views.
+See [Primary Sort Order](arangosearch{% assign ver = "3.7" | version: "<" %}{% if ver %}-views{% else %}-performance{% endif %}.html#primary-sort-order)
+of ArangoSearch Views.
 
 ### AQL Integration
 
@@ -185,8 +186,8 @@ from a given collection. The index hint works with the [named indices](#named-in
 feature, making it easy to specify which index to use.
 
 See:
-- [AQL Index Hints](aql/operations-for.html#index-hints)
-- [An introduction to index hints and named indices](https://www.arangodb.com/arangodb-training-center/index-hints-named-indices/){:target="_blank"}
+- [AQL Index Hints](aql/operations-for.html#indexhint)
+- [An introduction to index hints and named indices](https://www.arangodb.com/learn/development/index-hints-named-indices/){:target="_blank"}
   (tutorial)
 
 ### Sorted primary index (RocksDB engine)
@@ -307,7 +308,7 @@ as they will eliminate most of the inter-node data shipping overhead.
 
 Also see:
 - [SmartJoins documentation](smartjoins.html)
-- [SmartJoins tutorial](https://www.arangodb.com/arangodb-training-center/smart-joins/){:target="_blank"}
+- [SmartJoins tutorial](https://www.arangodb.com/enterprise-server/smartjoins/){:target="_blank"}
 
 Background Index Creation
 -------------------------
@@ -641,8 +642,8 @@ arangorestore. Please note that in this case a database user must be used that h
 access to the `_system` database, in order to create the databases on restore. 
 
 Also see:
-- [Arangodump](programs-arangodump.html)
-- [Arangorestore](programs-arangorestore.html)
+- [_arangodump_](programs-arangodump.html)
+- [_arangorestore_](programs-arangorestore.html)
 
 ### Warning if connected to DBServer
 

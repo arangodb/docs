@@ -49,7 +49,7 @@ class NavTitleTag < Liquid::Tag
             raise "No title found for #{context.environments.first["page"]["url"]}. Maybe you forgot to link it to the navigation?"
         end
 
-        book = var.gsub(/\d{2}-(.*)/, '\1').capitalize().sub("Aql", "AQL").sub("Http", "HTTP")
+        book = var.gsub(/\d{2,3}-(.*)/, '\1').capitalize().sub("Aql", "AQL").sub("Http", "HTTP")
         stack.push book if book
         stack.join " | "
     end

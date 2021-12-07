@@ -11,7 +11,7 @@
 # Usage:
 #
 # 1. Remove the generated files from the docs target folder
-#    (oasisctl-*.md but not oasisctl-getting-started.md!)
+#    (oasisctl-*.md but not oasisctl-getting-started.md and oasisctl.md!)
 #
 # 2. Create a temporary folder (oasisctl defaults to ./docs)
 #
@@ -19,10 +19,10 @@
 #    > oasisctl generate-docs --link-file-ext .html --replace-underscore-with -
 #
 # 4. Run this script
-#    > ruby oasisctl.rb /path/to/generated/docs /path/to/x.x/oasis
+#    > ruby oasisctl.rb /path/to/generated/docs ./oasis
 #
 # 5. This script prints navigation definition entries to stdout.
-#    Update _data/x.x-oasis.yml accordingly.
+#    Update _data/oasis.yml accordingly.
 #
 # 6. Verify the changes and commit added and removed files
 #
@@ -32,6 +32,7 @@ require 'pathname'
 TITLE_CASE = {
     'apikey' => 'API Key',
     'apikeys' => 'API Keys',
+    'auditlog' => 'Audit Log',
     'cacertificate' => 'CA Certificate',
     'cacertificates' => 'CA Certificates',
     'ipallowlist' => 'IP Allowlist',

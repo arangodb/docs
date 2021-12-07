@@ -1,0 +1,18 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_admin/license</span>
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">144</span>
+server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">&quot;features&quot;</span> : { 
+    <span class="hljs-string">&quot;expires&quot;</span> : <span class="hljs-number">1638116876</span> 
+  }, 
+  <span class="hljs-string">&quot;license&quot;</span> : <span class="hljs-string">&quot;JD4EOXdldgNVOXwNVFR4D1FPZ1hXfCddAlQ3G2QPDkp9WnkDeDcmB3oFJHwydQJY&quot;</span>, 
+  <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-number">1</span>, 
+  <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-string">&quot;expiring&quot;</span> 
+}

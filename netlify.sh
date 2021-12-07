@@ -2,7 +2,8 @@
 
 set -e
 
-JEKYLL_ENV="netlify" jekyll build
+JEKYLL_ENV="netlify" jekyll clean
+JEKYLL_ENV="netlify" jekyll build --trace
 ruby sitemap.rb
 rm -rf htmltest
 mkdir -p htmltest
@@ -12,8 +13,8 @@ cp -a _site htmltest/docs
 cp _redirects htmltest
 
 (cd /tmp && \
-    wget -nv https://github.com/wjdp/htmltest/releases/download/v0.10.1/htmltest_0.10.1_linux_amd64.tar.gz && \
-    tar xvzf htmltest_0.10.1_linux_amd64.tar.gz
+    wget -nv https://github.com/wjdp/htmltest/releases/download/v0.14.0/htmltest_0.14.0_linux_amd64.tar.gz && \
+    tar xvzf htmltest_0.14.0_linux_amd64.tar.gz
 )
 
 /tmp/htmltest -s

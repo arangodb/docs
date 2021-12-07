@@ -33,4 +33,5 @@ oasisctl revoke [flags]
 
 * [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
 * [oasisctl revoke apikey](oasisctl-revoke-apikey.html)	 - Revoke an API key with given identifier
+* [oasisctl revoke metrics](oasisctl-revoke-metrics.html)	 - Revoke keys & tokens
 

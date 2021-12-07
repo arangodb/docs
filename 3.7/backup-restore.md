@@ -192,7 +192,7 @@ of that of the single server installation.
 - **Remote Upload and Download**
 
   We have fully integrated the
-  [Rclone](https://rclone.org/) sync for cloud storage. Rclone is a very
+  [rclone](https://rclone.org/) sync for cloud storage. Rclone is a very
   versatile inter site sync facility, which opens up a vast field of transport
   protocols and remote syncing APIs from Amazon's S3 over Dropbox, WebDAV,
   all the way to the local file system and network storage.
@@ -262,12 +262,6 @@ not be suited for.
   hot backups can only be restored to the same type and structure of deployment.
   This means that one cannot restore a 3-node ArangoDB cluster's hot backup to
   any other deployment than another 3-node ArangoDB cluster of the same version.
-
-- **RocksDB Storage Engine Only**
-
-  Hot backups rely on creation of hard links on actual RocksDB data files and
-  directories. The same or according file system level mechanisms are not
-  available to MMFiles deployments.
 
 - **Storage Space**
 
@@ -343,4 +337,4 @@ not be suited for.
 
 - **Known Issues**
 
-  See the list of [Known Issues in ArangoDB v3.6](release-notes-known-issues36.html#hot-backup).
+  See the list of [Known Issues](release-notes-known-issues37.html#hot-backup).

@@ -12,7 +12,7 @@ a `CustomResourceDefinition` created by the operator.
 Example minimal deployment definition of an ArangoDB database cluster:
 
 ```yaml
-apiVersion: "database.arangodb.com/v1alpha"
+apiVersion: "database.arangodb.com/v1"
 kind: "ArangoDeployment"
 metadata:
   name: "example-arangodb-cluster"
@@ -23,7 +23,7 @@ spec:
 Example more elaborate deployment definition:
 
 ```yaml
-apiVersion: "database.arangodb.com/v1alpha"
+apiVersion: "database.arangodb.com/v1"
 kind: "ArangoDeployment"
 metadata:
   name: "example-arangodb-cluster"
@@ -135,6 +135,19 @@ Operations that may result in downtime are:
 
 Note: It is still possible that there is some downtime when the Kubernetes
 cluster is down, or in a bad state, irrespective of the value of this setting.
+
+### `spec.memberPropagationMode`
+
+Changes to a pod's configuration require a restart of that pod in almost all
+cases. Pods are restarted eagerly by default, which can cause more restarts than
+desired, especially when updating _arangod_ as well as the operator.
+The propagation of the configuration changes can be deferred to the next restart,
+either triggered manually by the user or by another operation like an upgrade.
+This reduces the number of restarts for upgrading both the server and the
+operator from two to one.
+
+- `always`: Restart the member as soon as a configuration change is discovered
+- `on-restart`: Wait until the next restart to change the member configuration
 
 ### `spec.rocksdb.encryption.keySecretName`
 
@@ -416,17 +429,7 @@ There are two magic values for the secret name:
 ### `spec.metrics.enabled: bool`
 
 If this is set to `true`, the operator runs a sidecar container for
-every DB-Server pod and every Coordinator pod. The sidecar container runs
-the ArangoDB-exporter and exposes metrics of the corresponding `arangod`
-instance in Prometheus format on port 9101 under path `/metrics`. You
-also have to specify a string for `spec.metrics.image`, which is the
-Docker image name of the `arangodb-exporter`. At the time of this
-writing you should use `arangodb/arangodb-exporter:0.1.6`. See [this
-repository](https://github.com/arangodb-helper/arangodb-exporter){:target="_blank"} for
-the latest version. If the image name is left empty, the same image as
-for the main deployment is used. Note however, that current ArangoDB
-releases (<= 3.4.5) do not ship the exporter in their image. This is
-going to change in the future.
+every Agent, DB-Server, Coordinator and Single server.
 
 In addition to the sidecar containers the operator will deploy a service
 to access the exporter ports (from within the k8s cluster), and a
@@ -456,6 +459,8 @@ would automatically select all pods of all ArangoDB cluster deployments
 which have metrics enabled.
 
 ### `spec.metrics.image: string`
+
+<small>Deprecated in: v1.2.0 (kube-arangodb)</small>
 
 See above, this is the name of the Docker image for the ArangoDB
 exporter to expose metrics. If empty, the same image as for the main
@@ -634,6 +639,14 @@ Minimum consecutive successes for the probe to be considered successful after ha
 
 When a Pod starts and the probe fails, Kubernetes will try failureThreshold times before giving up.
 Giving up means the Pod will be marked Unready. Defaults to 3. Minimum value is 1.
+
+### `spec.<group>.allowMemberRecreation: bool`
+
+<small>Introduced in: v1.2.1 (kube-arangodb)</small>
+
+This setting changes the member recreation logic based on group:
+- For Sync Masters, Sync Workers, Coordinator and DB-Servers it determines if a member can be recreated in case of failure (default `true`)
+- For Agents and Single this value is hardcoded to `false` and the value provided in spec is ignored.
 
 ### `spec.<group>.tolerations: []Toleration`
 

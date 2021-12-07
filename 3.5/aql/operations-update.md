@@ -146,8 +146,8 @@ UPDATE doc WITH {
 If the attribute `hobbies` doesn't exist yet, it is conveniently initialized
 as `[ "swimming" ]` and otherwise extended.
 
-Setting query options
----------------------
+Query options
+-------------
 
 *options* can be used to suppress query errors that may occur when trying to
 update non-existing documents or violating unique key constraints:

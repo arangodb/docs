@@ -1,9 +1,21 @@
 ---
 layout: default
 description: ArangoDB is a database that serves documents to clients
+title: ArangoDB Data Model & Concepts
 ---
-Concepts
-========
+# Data Model & Concepts
+
+This chapter introduces ArangoDB's core concepts and covers
+
+- its data model (or data models respectively),
+- the terminology used throughout the database system and in this
+  documentation
+
+You will also find usage examples on how to interact with the database system
+using [arangosh](programs-arangosh.html), e.g. how to create and
+drop databases / collections, or how to save, update, replace and remove
+documents. You can do all this using the [web interface](getting-started-web-interface.html)
+as well and may therefore skip these sections as beginner.
 
 Database Interaction
 --------------------
@@ -16,7 +28,7 @@ is provided to interact with the database system.
 The [web interface](programs-web-interface.html) that comes with
 ArangoDB, called *Aardvark*, provides graphical user interface that is easy to use.
 An [interactive shell](programs-arangosh.html), called *Arangosh*, is also
-shipped. In addition, there are so called [drivers](../drivers/)
+shipped. In addition, there are so called [drivers](drivers/index.html)
 that make it easy to use the database system in various environments and
 programming languages. All these tools use the HTTP interface of the server and
 remove the necessity to roll own low-level code for basic communication in most
@@ -79,7 +91,7 @@ Data Retrieval
 new data, as well as to manipulate or delete existing documents. Queries can be
 as simple as a "query by example" or as complex as ["joins"](aql/examples-join.html)
 using many collections or traversing graph structures. They are written in
-the [ArangoDB Query Language](../aql/) (AQL).
+the [ArangoDB Query Language](aql/index.html) (AQL).
 
 **Cursors** are used to iterate over the result of queries, so that you get
 easily processable batches instead of one big hunk.

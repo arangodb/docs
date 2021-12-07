@@ -231,7 +231,7 @@ documentation in your own Foxx apps. For more information see the
 Foxx documentation.
 
 Also see the blog post introducing this feature:
-[Document your Foxx apps with Swagger 2](https://www.arangodb.com/2015/05/document-your-foxx-apps-with-swagger-2/){:target="_blank"}
+[Document your Foxx apps with Swagger 2](https://www.arangodb.com/2015/05/foxx-swagger/){:target="_blank"}
 
 ### Custom Scripts and Foxx Queue
 
