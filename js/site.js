@@ -123,6 +123,8 @@ var loadPage = function(target, fn) {
         }
         current = current.parent();
       }
+      $("nav .expanded").addClass("selected");
+
       linkify();
       if (fn) {
         fn();
@@ -145,16 +147,16 @@ window.onpopstate = function(event) {
   loadPage(event.target.location);
 };
 
-$(document).ready(function scrollToAnchor() {
+$(document).ready(function () {
+  // Scroll to anchor
   if (location.hash.length > 1) {
     var elem = document.querySelector(location.hash);
     if (elem) {
       elem.scrollIntoView();
     }
   }
-});
 
-$(document).ready(function handleNav() {
+  // Handle navigation
   $("div.book-summary nav a").click(function(event) {
     // get source code value, not the absolute URL from .href!
     var hrefAttr = event.target.getAttribute("href");
@@ -175,11 +177,9 @@ $(document).ready(function handleNav() {
       enableHamburger();
     })
   });
-});
+  enableHamburger();
 
-$(document).ready(enableHamburger); 
-
-$(document).ready(function hideSummaryOnMobile() {
+  // Hide navigation on mobile
   if (window.matchMedia("(max-width: 800px)").matches) {
     $('div.book')
       .addClass("without-animation")

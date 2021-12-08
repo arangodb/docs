@@ -1,6 +1,6 @@
 ---
 layout: default
-description: How to manage organizations and billing
+description: How to manage organizations
 title: Organizations in ArangoDB Oasis
 ---
 # Organizations
@@ -39,42 +39,9 @@ You can convert to the professional service model at any time by adding
 your billing details and at least one payment method. You can then create
 additional organizations and projects and have more and larger deployments.
 
+See [Billing: How to add billing details / payment methods](billing.html)
+
 ![Oasis Billing](images/oasis-billing.png)
-
-### How to add billing details
-
-1. Click on _Overview_ in the _Organization_ section of the main navigation.
-2. Click on the _Billing_ tab.
-3. In the _Billing Details_ section, click the _Edit_ button.
-4. Enter your billing address and EU VAT identification number (if applicable).
-   Note that if you are located within the EU and you do not provide a VAT number,
-   or you are located in Germany, VAT will be added to your invoices.
-5. Optionally, enter the email address(es) to which invoices should be emailed
-   to automatically.
-6. Click on _Save_.
-
-![Oasis Billing Details](images/oasis-billing-details.png)
-
-### How to add a payment method
-
-1. Click on _Overview_ in the _Organization_ section of the main navigation.
-2. Click on the _Billing_ tab.
-3. In the _Payment methods_ section, click the _Add_ button.
-4. From the dropdown, select a payment type
-   (currently, only credit card is supported).
-5. Fill out the form with your credit card details.
-6. Click the _Save_ button.
-
-![Oasis Payment Method](images/oasis-add-payment-method-credit-card.png)
-
-{% comment %}
-TODO: Need screenshot with invoice
-
-### How to view invoices
-
-1. In the _Invoices_ section,
-
-{% endcomment %}
 
 ## How to create a new organization
 

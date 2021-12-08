@@ -116,8 +116,8 @@ After the trial period, your deployments will automatically be deleted.
 
 You can convert to the professional service model at any time by adding 
 your billing details and at least one payment method. See:
-- [How to add billing details to organizations](organizations.html#how-to-add-billing-details)
-- [How to add a payment method to an organization](organizations.html#how-to-add-a-payment-method)
+- [How to add billing details to organizations](billing.html#how-to-add-billing-details)
+- [How to add a payment method to an organization](billing.html#how-to-add-a-payment-method)
 
 ## Limitations of ArangoDB Oasis
 
