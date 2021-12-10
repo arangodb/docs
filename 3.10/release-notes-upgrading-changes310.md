@@ -42,3 +42,9 @@ These test cases had been deprecated since ArangoDB 3.9.
 
 The testcase `hash` was renamed to `persistent-index` to better reflect its
 scope.
+
+### arangobench
+
+
+Added new option `--custom-query-bindvars` to arangoexport, so queries given via 
+option `--custom-query` can have bind variables in them. 
