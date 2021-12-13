@@ -208,7 +208,7 @@ Write tasks are load balanced across the available ArangoDB coordinators. The da
 - `table`: target ArangoDB collection name (required)
 - `batchSize`: writing batch size, default `10000`
 - `table.shards`: number of shards of the created collection (in case of SaveMode `Append` or `Overwrite`)
-- `table.type`: type (`document`|`edge`) of the created collection (in case of SaveMode `Append` or `Overwrite`), default `document`
+- `table.type`: type (`document` or `edge`) of the created collection (in case of SaveMode `Append` or `Overwrite`), default `document`
 - `waitForSync`: whether to wait until the documents have been synced to disk (`true` or `false`), default `false`
 - `confirmTruncate`: confirm to truncate table when using save mode `Overwrite` mode, default `false`
 - `overwriteMode`: configures the behavior in case a document with the specified `_key` value exists already
