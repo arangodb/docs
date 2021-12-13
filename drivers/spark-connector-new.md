@@ -56,10 +56,10 @@ To use in external Spark cluster, submit your application with the following par
 - `user`: db user, default `root`
 - `password`: db password
 - `endpoints`: list of coordinators, eg. `c1:8529,c2:8529` (required)
-- `acquireHostList`: acquire the list of all known hosts in the cluster (`true` | `false`), default `false`
-- `protocol`: communication protocol (`vst` | `http`), default `http`
-- `contentType`: content type for driver communication (`json` | `vpack`), default `json`
-- `ssl.enabled`: ssl secured driver connection (`true` | `false`), default `false`
+- `acquireHostList`: acquire the list of all known hosts in the cluster (`true`|`false`), default `false`
+- `protocol`: communication protocol (`vst`|`http`), default `http`
+- `contentType`: content type for driver communication (`json`|`vpack`), default `json`
+- `ssl.enabled`: ssl secured driver connection (`true`|`false`), default `false`
 - `ssl.cert.value`: base64 encoded certificate
 - `ssl.cert.type`: certificate type, default `X.509`
 - `ssl.cert.alias`: certificate alias name, default `arangodb`
