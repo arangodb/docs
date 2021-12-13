@@ -56,10 +56,10 @@ To use in external Spark cluster, submit your application with the following par
 - `user`: db user, default `root`
 - `password`: db password
 - `endpoints`: list of coordinators, eg. `c1:8529,c2:8529` (required)
-- `acquireHostList`: acquire the list of all known hosts in the cluster (`true`|`false`), default `false`
-- `protocol`: communication protocol (`vst`|`http`), default `http`
-- `contentType`: content type for driver communication (`json`|`vpack`), default `json`
-- `ssl.enabled`: ssl secured driver connection (`true`|`false`), default `false`
+- `acquireHostList`: acquire the list of all known hosts in the cluster (`true` or `false`), default `false`
+- `protocol`: communication protocol (`vst` or `http`), default `http`
+- `contentType`: content type for driver communication (`json` or `vpack`), default `json`
+- `ssl.enabled`: ssl secured driver connection (`true` or `false`), default `false`
 - `ssl.cert.value`: base64 encoded certificate
 - `ssl.cert.type`: certificate type, default `X.509`
 - `ssl.cert.alias`: certificate alias name, default `arangodb`
@@ -140,7 +140,7 @@ usersDF.filter(col("birthday") === "1982-12-15").show()
 - `query`: custom AQL read query. If set, `table` will be ignored. Either `table` or `query` is required.
 - `batchSize`: reading batch size, default `10000`
 - `sampleSize`: sample size prefetched for schema inference, only used if read schema is not provided, default `1000`
-- `fillBlockCache`: whether the query should store the data it reads in the RocksDB block cache (`true`|`false`), default `false`
+- `fillBlockCache`: whether the query should store the data it reads in the RocksDB block cache (`true` or `false`), default `false`
 - `stream`: whether the query should be executed lazily, default `true`
 - `mode`: allows a mode for dealing with corrupt records during parsing:
   - `PERMISSIVE` : when it meets a corrupted record, puts the malformed string into a field configured by 
@@ -209,7 +209,7 @@ Write tasks are load balanced across the available ArangoDB coordinators. The da
 - `batchSize`: writing batch size, default `10000`
 - `table.shards`: number of shards of the created collection (in case of SaveMode `Append` or `Overwrite`)
 - `table.type`: type (`document`|`edge`) of the created collection (in case of SaveMode `Append` or `Overwrite`), default `document`
-- `waitForSync`: whether to wait until the documents have been synced to disk (`true`|`false`), default `false`
+- `waitForSync`: whether to wait until the documents have been synced to disk (`true` or `false`), default `false`
 - `confirmTruncate`: confirm to truncate table when using save mode `Overwrite` mode, default `false`
 - `overwriteMode`: configures the behavior in case a document with the specified `_key` value exists already
   - `ignore`: it will not be written
