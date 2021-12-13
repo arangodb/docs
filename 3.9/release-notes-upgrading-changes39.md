@@ -72,6 +72,13 @@ Also see [Known limitations for AQL queries](aql/fundamentals-limitations.html).
 Startup options
 ---------------
 
+### Write throttling
+
+The default value for the startup option `--rocksdb.throttle-frequency` was
+changed from previously 60000 milliseconds to 5000 milliseconds. That means the
+write throttling can now adapt quicker to changes in workloads and thus can
+better prevent server overwhelm.
+
 ### Rebalance shards
 
 The `--cluster.max-number-of-move-shards` option limits the maximum number of 

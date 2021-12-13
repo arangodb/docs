@@ -338,8 +338,9 @@ There are various options to control the throttling behavior in more detail:
 <small>Introduced in: v3.8.5</small>
 
 Frequency for write-throttle calculations (in milliseconds). If the throttling is
-enabled, it will recalculate a new maximum ingestion rate with this frequency.
-The default value is 60000, i.e. every 60 seconds.
+enabled, it will recalculate a new maximum ingestion rate with this frequency. The lower this value is, the quicker the throttling will
+adjust the ingestion rate to changes in workload.
+The default value is 5000, i.e. every 5 seconds.
 
 This option has no effect if throttling is turned off.
 
