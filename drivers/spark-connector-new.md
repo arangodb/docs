@@ -341,6 +341,3 @@ df.write
 - in read jobs using `stream=true` (default), possible AQL warnings are only logged at the end of each read task (BTS-671)
 
 
-## Demo
-
-[demo](./demo)
