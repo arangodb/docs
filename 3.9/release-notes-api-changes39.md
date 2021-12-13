@@ -256,6 +256,8 @@ endpoint.
 
 ### Endpoints removed
 
+#### Redirects
+
 The following API redirect endpoints have been removed in ArangoDB 3.9.
 These endpoints have been only been redirections since ArangoDB 3.7. Any
 caller of these API endpoints should use the updated endpoints:
