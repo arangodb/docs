@@ -155,3 +155,4 @@ With the flag `--custom-query-bindvars`, the query provided via `--custom-query`
 
 
     arangoexport --type jsonl --custom-query 'FOR book IN @@@@collectionName FILTER book.sells == @@sells RETURN book' --custom-query-bindvars '{"@@collectionName": "books", "sells": 100}'
+    The @s should be doubled because of a feature that trims the @ for escaping it in configuration files. The double @s will be removed when this feature is deprecated.
