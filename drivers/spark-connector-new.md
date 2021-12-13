@@ -1,7 +1,9 @@
 ---
 layout: default
+description: ArangoDB Spark Datasource allows batch reading and writing Spark DataFrame data
 ---
-# arangodb-spark-datasource
+arangodb-spark-datasource
+=========================
 
 ## Overview
 
