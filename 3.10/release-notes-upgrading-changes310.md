@@ -32,6 +32,8 @@ Client tools
 
 ### arangobench
 
+Changed flag name from `--concurrency` to `--threads`.
+
 The following deprecated arangobench testcases have been removed from _arangobench_:
 * `aqltrx`
 * `aqlv8`
