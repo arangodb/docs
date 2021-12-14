@@ -145,7 +145,7 @@ usersDF.filter(col("birthday") === "1982-12-15").show()
 - `mode`: allows a mode for dealing with corrupt records during parsing:
   - `PERMISSIVE` : when it meets a corrupted record, puts the malformed string into a field configured by 
     `columnNameOfCorruptRecord`, and sets malformed fields to null. To keep corrupt records, a user can set a string 
-    type field named columnNameOfCorruptRecord in a user-defined schema. If a schema does not have the field, it drops 
+    type field named `columnNameOfCorruptRecord` in a user-defined schema. If a schema does not have the field, it drops 
     corrupt records during parsing. When inferring a schema, it implicitly adds a `columnNameOfCorruptRecord` field in
     an output schema
   - `DROPMALFORMED`: ignores the whole corrupted records
@@ -173,9 +173,9 @@ The following filter predicates (implementations of `org.apache.spark.sql.source
 - `StringContainsFilter`
 - `InFilter`
 
-Furthermore, the connector will push down also the subset of columns required by the Spark SQL query, so that only the relevant documents fields will be returned.
+Furthermore, the connector will push down also the subset of columns required by the Spark query, so that only the relevant documents fields will be returned.
 
-Predicate and projection pushdown can greatly improve query performance by reducing the amount of data transferred between ArangoDB and Spark.
+Predicate and projection pushdowns are only performed while reading an ArangoDB collection (set by `table` configuration parameter). In case of batch read from a custom query (set by `query` configuration parameter), no pushdown optimizations are performed.
 
 ### Read Resiliency
 
