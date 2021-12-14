@@ -7,7 +7,7 @@ Fulltext indexes
 
 {% hint 'warning' %}
 The fulltext index type is deprecated from version 3.10 onwards.
-For advanced full-text search capabilities consider [ArangoSearch](arangosearch.html).
+It's recommended to use [ArangoSearch](arangosearch.html) for advanced full-text search capabilities.
 {% endhint %}
 
 This is an introduction to ArangoDB's fulltext indexes.
