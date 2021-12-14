@@ -39,8 +39,8 @@ replace the old features with:
   prescribed by the [HTTP specification](https://tools.ietf.org/html/rfc7231#section-4.2){:target="_blank"}.
 
 - **Fulltext indexes**:
-  The "fulltext" index type is deprecated from version 3.10 onwards.
-  For advanced full-text search capabilities consider [ArangoSearch](arangosearch.html).
+  The fulltext index type is deprecated from version 3.10 onwards.
+  It's recommended to use [ArangoSearch](arangosearch.html) for advanced full-text search capabilities.
 
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](aql/index.html), which can also
