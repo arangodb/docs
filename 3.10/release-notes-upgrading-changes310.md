@@ -45,10 +45,7 @@ scope.
 
 ### arangoexport
 
-
-Added new option `--custom-query-bindvars` to arangoexport, so queries given via 
-option `--custom-query` can have bind variables in them.
-Re existing arangoexport option `--query` was renamed to `--custom-query`, for
+The existing arangoexport option `--query` was renamed to `--custom-query`, for
 improved naming consistency across different client tools.
 Using the old option name `--query` is still supported and will implicitly use 
 the option `--custom-query` under the hood. Client scripts should eventually be
