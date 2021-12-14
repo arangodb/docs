@@ -65,7 +65,8 @@ Starting with ArangoDB version 3.8.5, string values in the CSV output will be en
 double quotes. If any string value starts with one of the following characters: `+`, `=`, `@`, `-`,
 it is treated as a potential formula and will be prefixed by an extra single quote.
 This is done to prevent formula injection attacks in spreadsheet programs such as MS Excel or
-OpenOffice. If you don't want to use this functionality, you can turn it off via the `--escape-csv-formulae` option.
+OpenOffice. If you don't want to use this functionality, you can turn it off via 
+the `--escape-csv-formulae` option.
 
 Export XML
 ----------
