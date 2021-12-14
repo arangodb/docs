@@ -36,7 +36,7 @@ ArangoDB
     machine, adjust the [`ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`](programs-arangod-env-vars.html)
     environment variable accordingly.
   - For versions prior to 3.8, make sure to change the
-    [`--query.memory-limit`](programs-arangod-query.html#limiting-memory-usage-of-aql-queries)
+    [`--query.memory-limit`](programs-arangod-query.html#limiting-memory-for-aql-queries)
     query option according to the node size and workload.
 
 - If you use the _Starter_ to deploy, you stopped - and disabled
