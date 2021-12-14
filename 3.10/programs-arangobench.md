@@ -56,7 +56,7 @@ General options that can affect test case performance and throughput:
   Increasing this value should normally increase throughput, unless some
   saturation or congestion is reached in either _arangobench_ itself, the
   network layer or the ArangoDB instance.
-  If increasing `--threads` does not improve throughput or even decrease it,
+  If increasing `--threads` does not improve throughput or even decreases it,
   it should be determined which part of the setup is the bottleneck.
 - `--wait-for-sync`: whether or not all write operations performed by test
   cases should be executed with the `waitForSync` flag. If this is true, write
@@ -156,7 +156,7 @@ request, e.g. when inserting documents in bulk. Batching is often the easiest
 way to improve the throughput.
 
 If increasing `--threads` for a given benchmark does not increase
-throughput or even decrease it, it is likely that some saturation or congestion
+throughput or even decreases it, it is likely that some saturation or congestion
 is occurring somewhere in the stack.
 On Linux systems, running `top` during the tests on the participating hosts
 should reveal details about CPU usage (user, system, iowait) and memory usage.
