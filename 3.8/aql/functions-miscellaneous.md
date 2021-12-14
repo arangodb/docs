@@ -225,61 +225,13 @@ of keys to return all documents that can be found.
 - returns **doc** (document\|array\|null): the content of the found document,
   an array of all found documents or *null* if nothing was found
 
-**Examples**
+```js
+DOCUMENT( users, "users/john" )
+DOCUMENT( users, "john" )
 
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline doc1
-  @EXAMPLE_AQL{doc1}
-    RETURN DOCUMENT( users, "users/john" )
-  @END_EXAMPLE_AQL
-  @endDocuBlock doc1
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline doc2
-  @EXAMPLE_AQL{doc2}
-    RETURN DOCUMENT( users, "john" )
-  @END_EXAMPLE_AQL
-  @endDocuBlock doc2
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline doc3
-  @EXAMPLE_AQL{doc3}
-    RETURN DOCUMENT( users, [ "users/john", "users/amy" ] )
-  @END_EXAMPLE_AQL
-  @endDocuBlock doc3
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}  
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline doc4
-  @EXAMPLE_AQL{doc4}
-    RETURN DOCUMENT( users, [ "john", "amy" ] )
-  @END_EXAMPLE_AQL
-  @endDocuBlock doc4
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline doc5
-  @EXAMPLE_AQL{doc5}
-    RETURN DOCUMENT( @@coll, @key ) 
-  @END_EXAMPLE_AQL
-  @endDocuBlock doc5
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline doc6
-  @EXAMPLE_AQL{doc6}
-    RETURN DOCUMENT( @@coll, @keys )
-  @END_EXAMPLE_AQL
-  @endDocuBlock doc6
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+DOCUMENT( users, [ "users/john", "users/amy" ] )
+DOCUMENT( users, [ "john", "amy" ] )
+```
 
 `DOCUMENT(id) → doc`
 
@@ -290,52 +242,10 @@ The function can also be used with a single parameter *id* as follows:
 - returns **doc** (document\|null): the content of the found document
   or *null* if nothing was found
 
-**Examples**
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline doc7
-  @EXAMPLE_AQL{doc7}
-    RETURN DOCUMENT("users/john")
-  @END_EXAMPLE_AQL
-  @endDocuBlock doc7
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline doc8
-  @EXAMPLE_AQL{doc8}
-    RETURN DOCUMENT( [ "users/john", "users/amy" ] )
-  @END_EXAMPLE_AQL
-  @endDocuBlock doc8
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline doc9
-  @EXAMPLE_AQL{doc9}
-    RETURN DOCUMENT( @id ) // bind vars: {"id": "users/john"}
-  @END_EXAMPLE_AQL
-  @endDocuBlock doc9
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline doc10
-  @EXAMPLE_AQL{doc10}
-    RETURN DOCUMENT( @ids ) // bind vars: {"ids": ["users/john", "users/amy"]}
-  @END_EXAMPLE_AQL
-  @endDocuBlock doc10
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline doc11
-  @EXAMPLE_AQL{doc11}
-    RETURN DOCUMENT( CONCAT("users/", @key) ) // bind vars: {"key": "amy"}
-  @END_EXAMPLE_AQL
-  @endDocuBlock doc11
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+```js
+DOCUMENT("users/john")
+DOCUMENT( [ "users/john", "users/amy" ] )
+```
 
 Please also consider to use
 [`DOCUMENT` in conjunction with `WITH`](operations-with.html)
