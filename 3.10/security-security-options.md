@@ -364,5 +364,5 @@ in an ArangoDB server:
   If set to `true`, installing Foxx apps from other remote sources via URLs
   is allowed.
   The default value is `false`.
-  Note: this option was introduced in ArangoDB v3.10.0.
+  Note: this option was introduced in ArangoDB v3.8.5.
 
