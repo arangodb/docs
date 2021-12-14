@@ -5,84 +5,82 @@ title: Access control in ArangoDB Oasis
 ---
 # Access control in ArangoDB Oasis
 
-Oasis has a level structured set of resources that are subject to
+Oasis has a structured set of resources that are subject to
 access control:
 
 - Organizations
 - Projects
 - Deployments
 
-Each of these resources have a set of operations that can be invoked upon them.
+For each of these resources you can perform various operations.
 For example, you can *create* a project in an organization. This requires the
 respective **permission**, which can be granted to organization members via a
 **role** such as the pre-defined *Project Administrator*.
 
 The association of a member with a role is called a **role binding**.
-All role bindings of a resource combined form the so called **policy**.
+All role bindings of a resource comprise a **policy**.
 
-Roles can be bound on organization, project and deployment level. The lower
-levels **inherit** permissions from their parent resources.
+Roles can be bound on an organization, project and deployment level (listed in the high to low level order). The lower
+levels *inherit* permissions from their parents.
 
 ## Policy
 
 To give a user (or a group of users) access to resources of Oasis, you assign
-a role to that user (or group). This is done in a *policy*.
+a role to that user (or group). This is done in a **policy**.
 
-A policy is the set of a bindings of roles to users (or groups) for a specific
-resource. This means that there is a unique policy per resource.
+A policy is a set of bindings of roles to users or groups for a specific
+resource. This means that there is a unique policy per resource (an organization, a project or a deployment).
 
-For example, the *Oasis Introduction* organization has exactly one policy,
+For example, an organization has exactly one policy,
 which binds roles to members of the organization. These bindings are used to
-give these users permissions to invoke operations on this organization.
+give the users permissions to perform operations on this organization.
 
 ### How to view, edit or remove role bindings of a policy
 
-Decide whether you want to edit the policy of the organization or of a
-project or deployment and navigate the resource's _Policy_ tab.
-- **Organization**: Click on _Access Control_ in the main navigation, then
-  click on the _Policy_ tab.
-- **Project**: Click on the desired project in the main navigation, then click
-  on the _Policy_ tab.
-- **Deployment**: Click on the desired project in the main navigation, then
-  on the title or _view_ button of the desired deployment and finally click
-  on the _Policy_ tab.
+Decide whether you want to edit the policy for an organization, a project or a deployment:
 
-To delete a role binding, click on the _Trash bin_ icon in the _Actions_ column.
+- **Organization**: In the main navigation menu, click **Access Control**, then
+  open the **Policy** tab.
+- **Project**: In the main navigation menu, click the name of the required project, then
+  open the **Policy** tab.
+- **Deployment**: In the main navigation menu, click the name of the required project, then click either 
+  the deployment name or the **View** button, and finally open the **Policy** tab.
+
+To delete a role binding, click the **Recycle Bin** icon in the **Actions** column.
 
 {% hint 'info' %}
 Currently, you cannot edit a role binding, you can only delete it.
 {% endhint %}
 
-![Oasis Organization Policy](images/oasis-policy-page.png)
+![Oasis Project Policy](images/oasis-policy-page.png)
 
 ### How to add a role binding to a policy
 
-1. Navigate to the _Policy_ tab of an organization, project or deployment.
-2. Click on the _New role binding_ button.
+1. Navigate to the **Policy** tab of an organization, a project or a deployment.
+2. Click the **New role binding** button.
 3. Select one or more users and/or groups.
-4. Select the roles that you want to bind to the specified members.
-5. Click the _Create_ button.
+4. Select one or more roles you want to assign to the specified members.
+5. Click **Create**.
 
 ![Oasis New Role Binding](images/oasis-new-policy-role-binding.png)
 
 ## Roles
 
-Operations on resources in Oasis require zero or more permissions. Since the
+Operations on resources in Oasis require zero (just an authentication) or more permissions. Since the
 number of permissions is large and very detailed, it is not practical to assign
-permissions directly to users. Instead Oasis has *roles*.
+permissions directly to users. Instead Oasis uses **roles**.
 
 A role is a set of permissions. Roles can be bound to groups (preferably)
-or individual members. These bindings contribute to the respective organization,
+or individual users. You can create such bindings for the respective organization,
 project or deployment policy.
 
-There are predefined roles, but you can also create custom roles.
+There are predefined roles, but you can also create custom ones.
 
 ![Oasis Roles](images/oasis-access-control-roles.png)
 
 ### Predefined roles
 
-Predefined roles are created by Oasis and group permissions together in a
-logical role. An example of a predefine role is `deployment-viewer`. That role
+Predefined roles are created by Oasis and group related permissions together. An example of a predefine role is `deployment-viewer`. This role
 contains all permissions needed to view deployments in a project.
 
 Predefined roles cannot be deleted.
@@ -95,9 +93,9 @@ oasisctl list roles --format json | jq -r ".[] | \"**\(.description)** (`\(.id)`
 {% details 'List of predefined roles and their permissions' %}
 
 {% hint 'tip' %}
-Below roles are listed in this schema:
+The roles below are described following this pattern:
 
-**Description** (`ID`):
+**Role description** (`role ID`):
 - `Permission`
 {% endhint %}
 
@@ -313,29 +311,29 @@ Below roles are listed in this schema:
 
 ### How to create a custom role
 
-1. Click on _Access Control_ in the main navigation.
-2. On the _Roles_ tab, click on the _New role_ button.
+1. In the main navigation menu, click **Access Control**.
+2. On the **Roles** tab, click **New role**.
 3. Enter a name and optionally a description for the new role.
-4. Select the desired permissions.
-5. Click the _Create_ button.
+4. Select the required permissions.
+5. Click **Create**.
 
 ![Oasis New Role](images/oasis-create-role.png)
 
 ### How to view, edit or remove a custom role
 
-1. Click on _Access Control_ in the main navigation.
-2. On the _Roles_ tab, click on:
-   - A role name or the _eye_ icon in the _Actions_ column to view the role.
-   - The _pencil_ icon in the _Actions_ column to edit the role.
-     You can also view a role and click the _Edit_ button in the detail view.
-   - The _trash can_ icon to delete the role.
-     You can also view a role and click the _Delete_ button in the detail view.
+1. In the main navigation menu, click **Access Control**.
+2. On the **Roles** tab, click:
+   - A role name or the **eye** icon in the **Actions** column to view the role.
+   - The **pencil** icon in the **Actions** column to edit the role.
+     You can also view a role and click the **Edit** button in the detail view.
+   - The **recycle bin** icon to delete the role.
+     You can also view a role and click the **Delete** button in the detail view.
 
 ## Permissions
 
-Each operation (invoked on a resource) requires zero or more *permissions*.
+Each operation done on a resource requires zero (just authentication) or more **permissions**.
 A permission is a constant string such as `resourcemanager.project.create`,
-following the schema `<api>.<kind>.<verb>`.
+following this schema: `<api>.<kind>.<verb>`.
 
 Permissions are solely defined by the Oasis API.
 
@@ -371,54 +369,64 @@ Permissions are solely defined by the Oasis API.
 | `security`        | `iamprovider`                | `create`, `delete`, `get`, `list`, `set-default`, `update`
 | `security`        | `ipallowlist`                | `create`, `delete`, `get`, `list`, `update`
 
-## Permission inheritance
+### Permission inheritance
 
-Each resource has its own policy, but this does not mean that you have to
-repeat access control bindings on all these policies.
+Each resource (organization, project, deployment) has its own policy, but this does not mean that you have to
+repeat role bindings in all these policies.
 
 Once you assign a role to a user (or group of users) in a policy at one level,
-all the permissions of that role are inherited in lower levels. That is,
+all the permissions of this role are inherited in lower levels - 
 permissions are inherited downwards from an organization to its projects and
 from a project to its deployments.
 
-For more inclusive permissions, add the highest permission for a member or
-group at the at the organization level.
-For example, if you bind the role `deployment-viewer` to user `John` in the
-policy of an organization, `John` will have all the permissions contained in
-that role in all projects of that organization and all deployments in those
-projects as well.
+For more general permissions, which you want to be propagated to other levels, add a role for a user/group 
+at the organization level.
+For example, if you bind the `deployment-viewer` role to user `John` in the
+organization policy, `John` will have the role permissions in all projects of that organization and all deployments of the projects.
 
-For more restrictive permissions, add the highest permission at the project
-or even deployment level, and least permission at the organization level.
-For example, if you bind the role `deployment-viewer` to user `John`
-in a project, `John` will have all the permissions contained in that role in
-that project as well as in all deployments contained in that project, but not
-in other projects of the containing organization.
+For more restrictive permissions, which you don't necessarily want to be propagated to other levels, add a role at the project
+or even deployment level.
+For example, if you bind the `deployment-viewer` role to user `John`
+in a project, `John` will have the role permissions in
+this project as well as in all the deployments of it, but not
+in other projects of the parent organization.
 
 **Inheritance example**
 
-- Imagine you have a group _Deployers_.
-- That group holds all persons that deal with deployments.
-- Further imagine you have a role _Deployment Viewer_, containing permission
-  `data.deployment.get` and `data.deployment.list`.
-- You could now add a role binding of _Deployers_ to _Deployment Viewer_.
-- If you add the binding to the organization policy, the members of this group
+- Let's assume you have a group called "Deployers" which includes users who deal with deployments.
+- Then you create a role "Deployment Viewer", containing
+  `data.deployment.get` and `data.deployment.list` permissions.
+- You can now add a role binding of the "Deployers" group to the "Deployment Viewer" role.
+- If you add the binding to an organization policy, members of this group
   will be granted the defined permissions for the organization, all its projects and all its deployments.
-- If you add it project A's policy, the members of this group will be granted
-  the defined permissions for project A only and its deployments, but not for
-  other projects and its deployments.
-- If you add it to deployment X's policy of project A, the members of this
+- If you add the role binding to a policy of project ABC, members of this group will be granted
+  the defined permissions for project ABC only and its deployments, but not for
+  other projects and their deployments.
+- If you add the role binding to a policy of deployment X, members of this
   group will be granted the defined permissions for deployment X only, and not
-  any other deployment of project A or any other project of the organization.
+  any other deployment of the parent project or any other project of the organization.
 
-The role _Deployment viewer_ is effective on the following entities depending
+The "Deployment Viewer" role is effective for the following entities depending
 on which policy the binding is added to:
 
-Role binding added to →<br>Role effective on ↓ | Organization policy | Project A's policy | Deployment X's policy of project A |
+Role binding added to →<br>Role effective on ↓ | Organization policy | Project ABC's policy | Deployment X's policy of project ABC |
 |:---:|:---:|:---:|:---:|
 Organization, its projects and deployments | ✓ | — | —
-Project A and its deployments              | ✓ | ✓ | —
-Project B and its deployments              | ✓ | — | —
-Deployment X of project A                  | ✓ | ✓ | ✓
-Deployment Y of project A                  | ✓ | ✓ | —
-Deployment Z of project B                  | ✓ | — | —
+Project ABC and its deployments              | ✓ | ✓ | —
+Project DEF and its deployments              | ✓ | — | —
+Deployment X of project ABC                 | ✓ | ✓ | ✓
+Deployment Y of project ABC                  | ✓ | ✓ | —
+Deployment Z of project DEF                  | ✓ | — | —
+
+
+## Restricting access to organizations
+
+To enhance security, you can limit which authentication providers are accepted for users trying to access an organization in Oasis.
+
+To do this, you need to use [Oasisctl](oasisctl.html). The following commands are available:
+
+- `get organization authentication providers` - allows you to see which authentication providers are enabled for accessing a specific organization
+- `update organization authentication providers` - allows you to update a list of authentication providers for an organization to which the authenticated user has access
+  - `--enable-github` - if set, allow access from user accounts authenticated via Github
+  - `--enable-google` - if set, allow access from user accounts authenticated via Google
+  - `--enable-username-password` - if set, allow access from user accounts authenticated via a username/password

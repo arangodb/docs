@@ -30,6 +30,14 @@ ArangoDB
 - The _arangod_ (server) process and the _arangodb_ (_Starter_) process
   (if in use) have some form of logging enabled and you can easily
   locate and inspect them.
+  
+- *Memory considerations*
+  - If you run multiple processes (e.g. DB-Server and Coordinator) on a single
+    machine, adjust the [`ARANGODB_OVERRIDE_DETECTED_TOTAL_MEMORY`](programs-arangod-env-vars.html)
+    environment variable accordingly.
+  - For versions prior to 3.8, make sure to change the
+    [`--query.memory-limit`](programs-arangod-query.html#limiting-memory-usage-of-aql-queries)
+    query option according to the node size and workload.
 
 - If you use the _Starter_ to deploy, you stopped - and disabled
   automated start of - the ArangoDB _Single Instance_, e.g. on Ubuntu:
