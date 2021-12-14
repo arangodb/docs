@@ -5,6 +5,14 @@ description: Reducing the Memory Footprint of ArangoDB servers
 Reducing the Memory Footprint of ArangoDB servers
 =================================================
 
+{% hint 'warning' %}
+The changes suggested here can be useful to reduce the memory usage of 
+ArangoDB servers, but they can have side-effects on performance and other 
+aspects.
+None of the changes suggested here should be applied light-heartedly without
+prior testing in a development or staging system.
+{% endhint %}
+
 ArangoDB's memory usage can be restricted and the CPU utilization be reduced
 by different configuration options:
 
