@@ -14,6 +14,13 @@ AQL
 ---
 
 
+Indexes
+-------
+
+The fulltext index type is now deprecated in favor of [ArangoSearch](arangosearch.html).
+Fulltext indexes are still usable in this version of ArangoDB, although their usage is
+now discouraged.
+
 
 Startup options
 ---------------
@@ -24,6 +31,8 @@ Client tools
 ------------
 
 ### arangobench
+
+Changed flag name from `--concurrency` to `--threads`.
 
 The following deprecated arangobench testcases have been removed from _arangobench_:
 * `aqltrx`
