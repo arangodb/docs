@@ -225,13 +225,75 @@ of keys to return all documents that can be found.
 - returns **doc** (document\|array\|null): the content of the found document,
   an array of all found documents or *null* if nothing was found
 
-```js
-DOCUMENT( users, "users/john" )
-DOCUMENT( users, "john" )
+**Examples**
 
-DOCUMENT( users, [ "users/john", "users/amy" ] )
-DOCUMENT( users, [ "john", "amy" ] )
-```
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline doc1
+  @EXAMPLE_AQL{doc1}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, "persons/alice" )
+  @END_EXAMPLE_AQL
+  @endDocuBlock doc1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline doc2
+  @EXAMPLE_AQL{doc2}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, "alice" )
+  @END_EXAMPLE_AQL
+  @endDocuBlock doc2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline doc3
+  @EXAMPLE_AQL{doc3}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, [ "persons/alice", "persons/bob" ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock doc3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}  
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline doc4
+  @EXAMPLE_AQL{doc4}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, [ "alice", "bob" ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock doc4
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline doc5
+  @EXAMPLE_AQL{doc5}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( @@coll, @key ) 
+  @BV {
+    @coll: "persons",
+    key: "alice"
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock doc5
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline doc6
+  @EXAMPLE_AQL{doc6}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( @@coll, @keys )
+  @BV {
+    @coll: "persons",
+    keys: ["alice", "bob"]
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock doc6
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 `DOCUMENT(id) → doc`
 
@@ -242,10 +304,57 @@ The function can also be used with a single parameter *id* as follows:
 - returns **doc** (document\|null): the content of the found document
   or *null* if nothing was found
 
-```js
-DOCUMENT("users/john")
-DOCUMENT( [ "users/john", "users/amy" ] )
-```
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline doc7
+  @EXAMPLE_AQL{doc7}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT("persons/alice")
+  @END_EXAMPLE_AQL
+  @endDocuBlock doc7
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline doc8
+  @EXAMPLE_AQL{doc8}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( [ "persons/alice", "persons/bob" ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock doc8
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline doc9
+  @EXAMPLE_AQL{doc9}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( @id ) // bind vars: {"id": "persons/alice"}
+  @END_EXAMPLE_AQL
+  @endDocuBlock doc9
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline doc10
+  @EXAMPLE_AQL{doc10}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( @ids ) // bind vars: {"ids": ["persons/alice", "persons/bob"]}
+  @END_EXAMPLE_AQL
+  @endDocuBlock doc10
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline doc11
+  @EXAMPLE_AQL{doc11}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( CONCAT("persons/", @key) ) // bind vars: {"key": "bob"}
+  @END_EXAMPLE_AQL
+  @endDocuBlock doc11
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Please also consider to use
 [`DOCUMENT` in conjunction with `WITH`](operations-with.html)
