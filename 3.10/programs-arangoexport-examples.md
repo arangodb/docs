@@ -140,19 +140,25 @@ This exports the named graph mygraph into the xgmml file *mygraph.xgmml* with a 
 Export via AQL query
 --------------------
 
-    arangoexport --type jsonl --query "FOR book IN books FILTER book.sells > 100 RETURN book"
+    arangoexport --type jsonl --custom-query "FOR book IN books FILTER book.sells > 100 RETURN book"
 
 Export via an AQL query allows you to export the returned data as the type specified with *--type*.
 The example exports all books as JSONL that are sold more than 100 times.
 
-    arangoexport --type csv --fields title,category1,category2 --query "FOR book IN books RETURN { title: book.title, category1: book.categories[0], category2: book.categories[1] }"
+    arangoexport --type csv --fields title,category1,category2 --custom-query "FOR book IN books RETURN { title: book.title, category1: book.categories[0], category2: book.categories[1] }"
 
 A *fields* list is required for CSV exports, but you can use an AQL query to produce
 these fields. For example, you can de-normalize document structures like arrays and
 nested objects to a tabular form as demonstrated above.
 
 The runtime of the query executed by arangoexport can optionally be limited via
-the arangoexport option `--query-max-runtime`. This specifies the maximum query
+the arangoexport option `--custom-query-max-runtime`. This specifies the maximum query
 runtime in seconds. Set it to `0` for no limit.
 
-    arangoexport --type jsonl --query-max-runtime 10 --query "FOR book IN books FILTER book.sells > 100 RETURN book"
+    arangoexport --type jsonl --custom-query-max-runtime 10 --custom-query "FOR book IN books FILTER book.sells > 100 RETURN book"
+
+With the `--custom-query-bindvars` flag, the query provided via `--custom-query` can have bind variables.
+
+
+    arangoexport --type jsonl --custom-query 'FOR book IN @@@@collectionName FILTER book.sells == @@sells RETURN book' --custom-query-bindvars '{"@@collectionName": "books", "sells": 100}'
+    The @s should be doubled because of a feature that trims the @ for escaping it in configuration files. The double @s will be removed when this feature is deprecated.

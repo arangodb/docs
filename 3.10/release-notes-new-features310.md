@@ -54,6 +54,11 @@ Histograms are now switched off by default (the `--histogram.generate` flag set 
 If this option is disabled, but other histogram flags are used to invoke arangobench (e.g. `--histogram.interval-size 500`), everything will still run normally, but a warning message will be displayed, stating that histograms are switched off by default and using other histogram options has no effect.
 
 
+### arangoexport
+
+Added a new option called `--custom-query-bindvars` to arangoexport, so queries given via `--custom-query` can have bind variables in them. 
+
+
 Internal changes
 ----------------
 

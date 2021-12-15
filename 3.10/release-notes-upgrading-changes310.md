@@ -51,3 +51,11 @@ These test cases had been deprecated since ArangoDB 3.9.
 
 The testcase `hash` was renamed to `persistent-index` to better reflect its
 scope.
+
+### arangoexport
+
+To improve naming consistency across different client tools, the existing arangoexport `--query` option
+was renamed to `--custom-query`.
+Using the old option name (`--query`) is still supported and will implicitly use 
+the `--custom-query` option under the hood. Client scripts should eventually be
+updated to use the new option name though. 
