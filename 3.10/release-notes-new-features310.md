@@ -56,7 +56,7 @@ If this option is disabled, but other histogram flags are used to invoke arangob
 
 ### arangoexport
 
-Added new option `--custom-query-bindvars` to arangoexport, so queries given via option `--custom-query` can have bind variables in them. 
+Added a new option called `--custom-query-bindvars` to arangoexport, so queries given via `--custom-query` can have bind variables in them. 
 
 
 Internal changes
