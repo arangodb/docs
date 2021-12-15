@@ -230,7 +230,8 @@ of keys to return all documents that can be found.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline doc1
   @EXAMPLE_AQL{doc1}
-    RETURN DOCUMENT( users, "users/john" )
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, "persons/alice" )
   @END_EXAMPLE_AQL
   @endDocuBlock doc1
 {% endaqlexample %}
@@ -239,7 +240,8 @@ of keys to return all documents that can be found.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline doc2
   @EXAMPLE_AQL{doc2}
-    RETURN DOCUMENT( users, "john" )
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, "alice" )
   @END_EXAMPLE_AQL
   @endDocuBlock doc2
 {% endaqlexample %}
@@ -248,7 +250,8 @@ of keys to return all documents that can be found.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline doc3
   @EXAMPLE_AQL{doc3}
-    RETURN DOCUMENT( users, [ "users/john", "users/amy" ] )
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, [ "persons/alice", "persons/bob" ] )
   @END_EXAMPLE_AQL
   @endDocuBlock doc3
 {% endaqlexample %}
@@ -257,7 +260,8 @@ of keys to return all documents that can be found.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline doc4
   @EXAMPLE_AQL{doc4}
-    RETURN DOCUMENT( users, [ "john", "amy" ] )
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, [ "alice", "bob" ] )
   @END_EXAMPLE_AQL
   @endDocuBlock doc4
 {% endaqlexample %}
@@ -266,6 +270,7 @@ of keys to return all documents that can be found.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline doc5
   @EXAMPLE_AQL{doc5}
+  @DATASET{knows_graph}
     RETURN DOCUMENT( @@coll, @key ) 
   @END_EXAMPLE_AQL
   @endDocuBlock doc5
@@ -275,6 +280,7 @@ of keys to return all documents that can be found.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline doc6
   @EXAMPLE_AQL{doc6}
+  @DATASET{knows_graph}
     RETURN DOCUMENT( @@coll, @keys )
   @END_EXAMPLE_AQL
   @endDocuBlock doc6
@@ -295,7 +301,8 @@ The function can also be used with a single parameter *id* as follows:
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline doc7
   @EXAMPLE_AQL{doc7}
-    RETURN DOCUMENT("users/john")
+  @DATASET{knows_graph}
+    RETURN DOCUMENT("persons/alice")
   @END_EXAMPLE_AQL
   @endDocuBlock doc7
 {% endaqlexample %}
@@ -304,7 +311,8 @@ The function can also be used with a single parameter *id* as follows:
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}  
   @startDocuBlockInline doc8
   @EXAMPLE_AQL{doc8}
-    RETURN DOCUMENT( [ "users/john", "users/amy" ] )
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( [ "persons/alice", "persons/bob" ] )
   @END_EXAMPLE_AQL
   @endDocuBlock doc8
 {% endaqlexample %}
@@ -313,7 +321,8 @@ The function can also be used with a single parameter *id* as follows:
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline doc9
   @EXAMPLE_AQL{doc9}
-    RETURN DOCUMENT( @id ) // bind vars: {"id": "users/john"}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( @id ) // bind vars: {"id": "persons/alice"}
   @END_EXAMPLE_AQL
   @endDocuBlock doc9
 {% endaqlexample %}
@@ -322,7 +331,8 @@ The function can also be used with a single parameter *id* as follows:
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline doc10
   @EXAMPLE_AQL{doc10}
-    RETURN DOCUMENT( @ids ) // bind vars: {"ids": ["users/john", "users/amy"]}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( @ids ) // bind vars: {"ids": ["persons/alice", "persons/bob"]}
   @END_EXAMPLE_AQL
   @endDocuBlock doc10
 {% endaqlexample %}
@@ -331,7 +341,8 @@ The function can also be used with a single parameter *id* as follows:
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline doc11
   @EXAMPLE_AQL{doc11}
-    RETURN DOCUMENT( CONCAT("users/", @key) ) // bind vars: {"key": "amy"}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( CONCAT("persons/", @key) ) // bind vars: {"key": "bob"}
   @END_EXAMPLE_AQL
   @endDocuBlock doc11
 {% endaqlexample %}
