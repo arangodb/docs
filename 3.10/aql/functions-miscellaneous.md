@@ -272,6 +272,10 @@ of keys to return all documents that can be found.
   @EXAMPLE_AQL{doc5}
   @DATASET{knows_graph}
     RETURN DOCUMENT( @@coll, @key ) 
+  @BV {
+    @coll: "persons",
+    key: "alice"
+  }
   @END_EXAMPLE_AQL
   @endDocuBlock doc5
 {% endaqlexample %}
@@ -282,6 +286,10 @@ of keys to return all documents that can be found.
   @EXAMPLE_AQL{doc6}
   @DATASET{knows_graph}
     RETURN DOCUMENT( @@coll, @keys )
+  @BV {
+    @coll: "persons",
+    keys: ["alice", "bob"]
+  }
   @END_EXAMPLE_AQL
   @endDocuBlock doc6
 {% endaqlexample %}
