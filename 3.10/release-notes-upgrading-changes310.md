@@ -45,8 +45,8 @@ scope.
 
 ### arangoexport
 
-The existing arangoexport option `--query` was renamed to `--custom-query`, for
-improved naming consistency across different client tools.
-Using the old option name `--query` is still supported and will implicitly use 
-the option `--custom-query` under the hood. Client scripts should eventually be
+To improve naming consistency across different client tools, the existing arangoexport `--query` option
+was renamed to `--custom-query`.
+Using the old option name (`--query`) is still supported and will implicitly use 
+the `--custom-query` option under the hood. Client scripts should eventually be
 updated to use the new option name though. 
