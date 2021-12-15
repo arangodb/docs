@@ -151,7 +151,7 @@ runtime in seconds. Set it to `0` for no limit.
 
     arangoexport --type jsonl --custom-query-max-runtime 10 --custom-query "FOR book IN books FILTER book.sells > 100 RETURN book"
 
-With the flag `--custom-query-bindvars`, the query provided via `--custom-query` can have bind variables.
+With the `--custom-query-bindvars` flag, the query provided via `--custom-query` can have bind variables.
 
 
     arangoexport --type jsonl --custom-query 'FOR book IN @@@@collectionName FILTER book.sells == @@sells RETURN book' --custom-query-bindvars '{"@@collectionName": "books", "sells": 100}'
