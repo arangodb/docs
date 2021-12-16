@@ -2,32 +2,28 @@
 layout: default
 description: ArangoDB Spark Datasource allows batch reading and writing Spark DataFrame data
 ---
-arangodb-spark-datasource
-=========================
-
-## Overview
+# ArangoDB Spark Datasource
 
 ArangoDB Spark Datasource allows batch reading and writing Spark DataFrame data from and to ArangoDB, by implementing the Spark Data Source V2 API.
 
-Reading tasks are parallelized according to the number of shards of the related ArangoDB collection, and the writing ones depending on the source Dataframe partitions. The network traffic is heavenly load balanced across the available DB coordinators.
+Reading tasks are parallelized according to the number of shards of the related ArangoDB collection, and the writing ones - depending on the source DataFrame partitions. The network traffic is load balanced across the available DB Coordinators.
 
-Filter predicates and column selections are pushed down to the DB by dynamically generating AQL queries which will fetch only the strictly required data, thus saving network and computational resources both on the Spark and the DB side.
+Filter predicates and column selections are pushed down to the DB by dynamically generating AQL queries, which will fetch only the strictly required data, thus saving network and computational resources both on the Spark and the DB side.
 
-The connector is usable from all the Spark supported client languages, namely Scala, Python, Java, and R.
+The connector is usable from all the Spark supported client languages: Scala, Python, Java, and R.
 
-This library works with all the non-EOLed ArangoDB versions,
-see [link](https://www.arangodb.com/subscriptions/end-of-life-notice/).
+This library works with all the non-EOLed [ArangoDB versions](https://www.arangodb.com/subscriptions/end-of-life-notice/).
 
 
 ## Supported versions
 
-There are 3 variants of this library, each one compatible with different Spark and Scala versions:
+There are three variants of this library, each one compatible with different Spark and Scala versions:
 
 - `com.arangodb:arangodb-spark-datasource-2.4_2.11` (Spark 2.4, Scala 2.11)
 - `com.arangodb:arangodb-spark-datasource-2.4_2.12` (Spark 2.4, Scala 2.12)
 - `com.arangodb:arangodb-spark-datasource-3.1_2.12` (Spark 3.1, Scala 2.12)
 
-In the following sections the placeholders `${sparkVersion}` and `${scalaVersion}` refer to the Spark and Scala versions.
+In the following sections the `${sparkVersion}` and `${scalaVersion}` placeholders refer to the Spark and Scala versions.
 
 
 ## Setup
@@ -44,7 +40,7 @@ To import ArangoDB Spark Datasource in a maven project:
   </dependencies>
 ```
 
-To use in external Spark cluster, submit your application with the following parameter:
+To use in an external Spark cluster, submit your application with the following parameter:
 
 ```shell
     --packages="com.arangodb:arangodb-spark-datasource-${sparkVersion}_${scalaVersion}:1.0.0"
@@ -53,35 +49,34 @@ To use in external Spark cluster, submit your application with the following par
 
 ## General Configuration
 
-- `user`: db user, default `root`
+- `user`: db user, `root` by default
 - `password`: db password
-- `endpoints`: list of coordinators, eg. `c1:8529,c2:8529` (required)
-- `acquireHostList`: acquire the list of all known hosts in the cluster (`true` or `false`), default `false`
-- `protocol`: communication protocol (`vst` or `http`), default `http`
-- `contentType`: content type for driver communication (`json` or `vpack`), default `json`
-- `ssl.enabled`: ssl secured driver connection (`true` or `false`), default `false`
-- `ssl.cert.value`: base64 encoded certificate
-- `ssl.cert.type`: certificate type, default `X.509`
-- `ssl.cert.alias`: certificate alias name, default `arangodb`
-- `ssl.algorithm`: trust manager algorithm, default `SunX509`
-- `ssl.keystore.type`: keystore type, default `jks`
-- `ssl.protocol`: SSLContext protocol, default `TLS`
+- `endpoints`: list of Coordinators, e.g. `c1:8529,c2:8529` (required)
+- `acquireHostList`: acquire the list of all known hosts in the cluster (`true` or `false`), `false` by default
+- `protocol`: communication protocol (`vst` or `http`), `http` by default
+- `contentType`: content type for driver communication (`json` or `vpack`), `json` by default
+- `ssl.enabled`: ssl secured driver connection (`true` or `false`), `false` by default
+- `ssl.cert.value`: Base64 encoded certificate
+- `ssl.cert.type`: certificate type, `X.509` by default
+- `ssl.cert.alias`: certificate alias name, `arangodb` by default
+- `ssl.algorithm`: trust manager algorithm, `SunX509` by default
+- `ssl.keystore.type`: keystore type, `jks` by default
+- `ssl.protocol`: SSLContext protocol, `TLS` by default
 
 ### SSL
 
 To use TLS secured connections to ArangoDB, set `ssl.enabled` to `true` and either:
-- provide base64 encoded certificate as `ssl.cert.value` configuration entry and optionally set `ssl.*`, or
-- start Spark driver and workers with properly configured JVM default TrustStore, see 
-  [link](https://spark.apache.org/docs/latest/security.html#ssl-configuration)
+- provide a Base64 encoded certificate as the `ssl.cert.value` configuration entry and optionally set `ssl.*` or
+- start the Spark driver and workers with a properly configured [JVM default TrustStore](https://spark.apache.org/docs/latest/security.html#ssl-configuration)
 
 ### Supported deployment topologies
 
-The connector can work with single server, cluster and active failover deployments of ArangoDB.
+The connector can work with a single server, a cluster and active failover deployments of ArangoDB.
 
 
 ## Batch Read
 
-The connector implements support to batch reading from ArangoDB collection. 
+The connector implements support for batch reading from an ArangoDB collection. 
 
 ```scala
 val df: DataFrame = spark.read
@@ -91,13 +86,13 @@ val df: DataFrame = spark.read
   .load()
 ```
 
-The connector can read data either from:
+The connector can read data from:
 - a collection
 - an AQL cursor (query specified by the user)
 
-When reading data from a **collection**, the reading job is split into many Spark tasks, one for each shard in the ArangoDB source collection. The resulting Spark dataframe has the same number of partitions as the number of shards in the ArangoDB collection, each one containing the data of the respective collection shard. The reading tasks are load balanced across all the available ArangoDB coordinators and each task will hit only one db server, the one holding the related shard. The data is read through an AQL query, submitted supplying the related shard id in the `shardIds` option, so that it will be executed locally in the dbserver holding the shard and will return only data from that shard.
+When reading data from a **collection**, the reading job is split into many Spark tasks, one for each shard in the ArangoDB source collection. The resulting Spark DataFrame has the same number of partitions as the number of shards in the ArangoDB collection, each one containing the data of the respective collection shard. The reading tasks are load balanced across all the available ArangoDB Coordinators and each task will hit only one DB-Server - the one holding the related shard. The data is read through an AQL query supplying the related shard id in the `shardIds` option, so that it will be executed locally in the DB-Server holding the shard and will return only data from that shard.
 
-When reading data from an **AQL cursor**, the reading job cannot be neither partitioned nor parallelized, so it will be less scalable. This mode can be used for reading data coming from different tables, i.e. resulting from an AQL traversal query.
+When reading data from an **AQL cursor**, the reading job cannot be partitioned or parallelized, so it will be less scalable. This mode can be used for reading data coming from different tables, i.e. resulting from an AQL traversal query.
 
 **Example**
 
@@ -135,26 +130,26 @@ usersDF.filter(col("birthday") === "1982-12-15").show()
 
 ### Read Configuration
 
-- `database`: database name, default `_system`
+- `database`: database name, `_system` by default
 - `table`: datasource ArangoDB collection name, ignored if `query` is specified. Either `table` or `query` is required.
 - `query`: custom AQL read query. If set, `table` will be ignored. Either `table` or `query` is required.
-- `batchSize`: reading batch size, default `10000`
-- `sampleSize`: sample size prefetched for schema inference, only used if read schema is not provided, default `1000`
-- `fillBlockCache`: whether the query should store the data it reads in the RocksDB block cache (`true` or `false`), default `false`
-- `stream`: whether the query should be executed lazily, default `true`
-- `mode`: allows a mode for dealing with corrupt records during parsing:
-  - `PERMISSIVE` : when it meets a corrupted record, puts the malformed string into a field configured by 
+- `batchSize`: reading batch size, `10000` by default
+- `sampleSize`: sample size prefetched for schema inference, only used if read schema is not provided, `1000` by default
+- `fillBlockCache`: specifies whether the query should store the data it reads in the RocksDB block cache (`true` or `false`), `false` by default
+- `stream`: specifies whether the query should be executed lazily, `true` by default
+- `mode`: allows setting a mode for dealing with corrupt records during parsing:
+  - `PERMISSIVE` : win case of a corrupted record, the malformed string is put into a field configured by 
     `columnNameOfCorruptRecord`, and sets malformed fields to null. To keep corrupt records, a user can set a string 
     type field named `columnNameOfCorruptRecord` in a user-defined schema. If a schema does not have the field, it drops 
-    corrupt records during parsing. When inferring a schema, it implicitly adds a `columnNameOfCorruptRecord` field in
+    corrupt records during parsing. When inferring a schema, it implicitly adds the `columnNameOfCorruptRecord` field in
     an output schema
   - `DROPMALFORMED`: ignores the whole corrupted records
-  - `FAILFAST`: throws an exception when it meets corrupted records
-- `columnNameOfCorruptRecord`: allows renaming the new field having malformed string created by `PERMISSIVE` mode
+  - `FAILFAST`: throws an exception in case of corrupted records
+- `columnNameOfCorruptRecord`: allows renaming the new field having malformed string created by the `PERMISSIVE` mode
 
 ### Predicate and Projection Pushdown
 
-The connector can convert some Spark SQL filters predicates into AQL predicates and push their execution down to the data source. In this way, ArangoDB can apply the filters and return only the matching documents.
+The connector can convert some Spark SQL filter predicates into AQL predicates and push their execution down to the data source. In this way, ArangoDB can apply the filters and return only the matching documents.
 
 The following filter predicates (implementations of `org.apache.spark.sql.sources.Filter`) are pushed down:
 - `And`
@@ -173,18 +168,18 @@ The following filter predicates (implementations of `org.apache.spark.sql.source
 - `StringContainsFilter`
 - `InFilter`
 
-Furthermore, the connector will push down also the subset of columns required by the Spark query, so that only the relevant documents fields will be returned.
+Furthermore, the connector will push down the subset of columns required by the Spark query, so that only the relevant documents fields will be returned.
 
-Predicate and projection pushdowns are only performed while reading an ArangoDB collection (set by `table` configuration parameter). In case of batch read from a custom query (set by `query` configuration parameter), no pushdown optimizations are performed.
+Predicate and projection pushdowns are only performed while reading an ArangoDB collection (set by the `table` configuration parameter). In case of a batch read from a custom query (set by the `query` configuration parameter), no pushdown optimizations are performed.
 
 ### Read Resiliency
 
-The data of each partition is read using an AQL cursor. If any error occurs the read task of the related partition will fail. Depending on the Spark configuration, the task could be retried.
+The data of each partition is read using an AQL cursor. If any error occurs, the read task of the related partition will fail. Depending on the Spark configuration, the task could be retried.
 
 
 ## Batch Write
 
-The connector implements support to batch writing to ArangoDB collection.
+The connector implements support for batch writing to ArangoDB collection.
 
 ```scala
 import org.apache.spark.sql.DataFrame
@@ -201,54 +196,54 @@ df.write
   .save()
 ```
 
-Write tasks are load balanced across the available ArangoDB coordinators. The data saved into the ArangoDB is sharded according to the related target collection definition and is different from the Spark dataframe partitioning.
+Write tasks are load balanced across the available ArangoDB Coordinators. The data saved into the ArangoDB is sharded according to the related target collection definition and is different from the Spark DataFrame partitioning.
 
 ### Write Configuration
 
 - `table`: target ArangoDB collection name (required)
-- `batchSize`: writing batch size, default `10000`
-- `table.shards`: number of shards of the created collection (in case of SaveMode `Append` or `Overwrite`)
-- `table.type`: type (`document` or `edge`) of the created collection (in case of SaveMode `Append` or `Overwrite`), default `document`
-- `waitForSync`: whether to wait until the documents have been synced to disk (`true` or `false`), default `false`
-- `confirmTruncate`: confirm to truncate table when using save mode `Overwrite` mode, default `false`
-- `overwriteMode`: configures the behavior in case a document with the specified `_key` value exists already
+- `batchSize`: writing batch size, `10000` by default
+- `table.shards`: number of shards of the created collection (in case of the `Append` or `Overwrite` SaveMode)
+- `table.type`: type (`document` or `edge`) of the created collection (in case of the `Append` or `Overwrite` SaveMode), `document` by default
+- `waitForSync`: specifies whether to wait until the documents have been synced to disk (`true` or `false`), `false` by default
+- `confirmTruncate`: confirms to truncate table when using the `Overwrite` SaveMode, `false` by default
+- `overwriteMode`: configures the behavior in case a document with the specified `_key` value already exists
   - `ignore`: it will not be written
   - `replace`: it will be overwritten with the specified document value
   - `update`: it will be patched (partially updated) with the specified document value. The overwrite mode can be 
     further controlled via the `keepNull` and `mergeObjects` parameter. `keepNull` will also be automatically set to
-    `true`, so that null values are kept in the saved documents and not used to remove existing document fields (as for 
+    `true`, so that null values are kept in the saved documents and not used to remove existing document fields (as for
     default ArangoDB upsert behavior).
   - `conflict` (default): return a unique constraint violation error so that the insert operation fails
 - `mergeObjects`: in case `overwriteMode` is set to `update`, controls whether objects (not arrays) will be merged.
   - `true` (default): objects will be merged
   - `false`: existing document fields will be overwritten
 - `keepNull`: in case `overwriteMode` is set to `update`
-  - `true` (default): `null` values are saved within the document (default)
-  - `false`: `null` values are used to delete corresponding existing attributes
+  - `true` (default): `null` values are saved within the document (by default)
+  - `false`: `null` values are used to delete the corresponding existing attributes
 
 ### SaveMode
 
 On writing, `org.apache.spark.sql.SaveMode` is used to specify the expected behavior in case the target collection already exists.  
 
 Spark 2.4 implementation supports all save modes with the following semantics:
-- `Append`: the target collection is created if it does not exist
-- `Overwrite`: the target collection is created if it does not exist, it is truncated otherwise. Use in combination with 
+- `Append`: the target collection is created if it does not exist.
+- `Overwrite`: the target collection is created if it does not exist, otherwise it is truncated. Use it in combination with the
   `confirmTruncate` write configuration parameter.
-- `ErrorIfExists`: the target collection is created if it does not exist, an `AnalysisException` is thrown otherwise 
-- `Ignore`: the target collection is created if it does not exist, no write is performed otherwise
+- `ErrorIfExists`: the target collection is created if it does not exist, otherwise an `AnalysisException` is thrown.
+- `Ignore`: the target collection is created if it does not exist, otherwise no write is performed.
 
 Spark 3.1 implementation supports:
-- `Append`: the target collection is created if it does not exist
-- `Overwrite`: the target collection is created if it does not exist, it is truncated otherwise. Use in combination with
+- `Append`: the target collection is created if it does not exist.
+- `Overwrite`: the target collection is created if it does not exist, otherwise it is truncated. Use it in combination with the
   `confirmTruncate` write configuration parameter.
 
 In Spark 3.1, save modes `ErrorIfExists` and `Ignore` behave the same as `Append`.
 
-Use `overwriteMode` write configuration parameter to specify the documents overwrite behavior (in case a document with the same `_key` already exists).
+Use the `overwriteMode` write configuration parameter to specify the documents overwrite behavior (in case a document with the same `_key` already exists).
 
 ### Write Resiliency
 
-The data of each partition is saved in batches using ArangoDB API for inserting multiple documents
+The data of each partition is saved in batches using the ArangoDB API for inserting multiple documents
 ([create multiple documents](https://www.arangodb.com/docs/stable/http/document-working-with-documents.html#create-multiple-documents)).
 This operation is not atomic, therefore some documents could be successfully written to the database, while others could fail. To make the job more resilient to temporary errors (i.e. connectivity problems), in case of failure the request will be retried (with another coordinator) if the configured `overwriteMode` allows for idempotent requests, namely: 
 - `replace`
