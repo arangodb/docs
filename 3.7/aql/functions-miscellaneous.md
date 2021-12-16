@@ -273,8 +273,8 @@ of keys to return all documents that can be found.
   @DATASET{knows_graph}
     RETURN DOCUMENT( @@coll, @key ) 
   @BV {
-    @coll: "persons",
-    key: "alice"
+    "@coll": "persons",
+    "key": "alice"
   }
   @END_EXAMPLE_AQL
   @endDocuBlock doc5
@@ -287,8 +287,8 @@ of keys to return all documents that can be found.
   @DATASET{knows_graph}
     RETURN DOCUMENT( @@coll, @keys )
   @BV {
-    @coll: "persons",
-    keys: ["alice", "bob"]
+    "@coll": "persons",
+    "keys": ["alice", "bob"]
   }
   @END_EXAMPLE_AQL
   @endDocuBlock doc6
