@@ -332,7 +332,7 @@ The function can also be used with a single parameter *id* as follows:
   @DATASET{knows_graph}
     RETURN DOCUMENT( @key )
   @BV {
-    "key": "persons/alice""
+    "key": "persons/alice"
   }
   @END_EXAMPLE_AQL
   @endDocuBlock FUNCTION_DOCUMENT_9
