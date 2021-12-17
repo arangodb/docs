@@ -243,36 +243,36 @@ Use the `overwriteMode` write configuration parameter to specify the documents o
 
 ### Write Resiliency
 
-The data of each partition is saved in batches using the ArangoDB API for inserting multiple documents
-([create multiple documents](https://www.arangodb.com/docs/stable/http/document-working-with-documents.html#create-multiple-documents)).
-This operation is not atomic, therefore some documents could be successfully written to the database, while others could fail. To make the job more resilient to temporary errors (i.e. connectivity problems), in case of failure the request will be retried (with another coordinator) if the configured `overwriteMode` allows for idempotent requests, namely: 
+The data of each partition is saved in batches using the ArangoDB API for [inserting multiple documents]
+(../http/document-working-with-documents.html#create-multiple-documents).
+This operation is not atomic, therefore some documents could be successfully written to the database, while others could fail. To make the job more resilient to temporary errors (i.e. connectivity problems), in case of failure the request will be retried (with another coordinator) if the configured `overwriteMode` allows idempotent requests, namely: 
 - `replace`
 - `ignore`
 - `update` with `keep.null=true`
 
-These configurations of `overwriteMode` would also be compatible with speculative execution of tasks.
+These configurations of `overwriteMode` are also compatible with speculative execution of tasks.
 
-A failing batch-saving request is retried at most once for every coordinator. After that, if still failing, the write task for the related partition is aborted. According to the Spark configuration, the task could be retried and rescheduled on a different executor, if the `overwriteMode` allows for idempotent requests (as above).
+A failing batch-saving request is retried once for every Coordinator. After that, if still failing, the write task for the related partition is aborted. According to the Spark configuration, the task can be retried and rescheduled on a different executor, if the `overwriteMode` allows idempotent requests (as described above).
 
 If a task ultimately fails and is aborted, the entire write job will be aborted as well. Depending on the `SaveMode` configuration, the following cleanup operations will be performed:
 - `Append`: no cleanup is performed and the underlying data source may require manual cleanup. 
   `DataWriteAbortException` is thrown.
-- `Overwrite`: the target collection will be truncated
-- `ErrorIfExists`: the target collection will be dropped
-- `Ignore`: if the collection did not exist before it will be dropped, nothing otherwise
+- `Overwrite`: the target collection will be truncated.
+- `ErrorIfExists`: the target collection will be dropped.
+- `Ignore`: if the collection did not exist before, it will be dropped; otherwise, nothing will be done.
 
 ### Write Limitations
 
-- Batch writes are not performed atomically, so in some cases (i.e. in case of `overwrite.mode: conflict`) some documents in the batch may be written and some others may return an exception (i.e. due to conflicting key). 
-- Writing records with `_key` attribute is only allowed on collections sharded by `_key`. 
-- In case of save mode `Append`, failed jobs cannot be rolled back and the underlying data source may require manual cleanup.
-- Speculative execution of tasks would only work for idempotent `overwriteMode` configurations 
-  (see [Write Resiliency](#write-resiliency)).
+- Batch writes are not performed atomically, so sometimes (i.e. in case of `overwrite.mode: conflict`) several documents in the batch may be written and others may return an exception (i.e. due to a conflicting key). 
+- Writing records with the `_key` attribute is only allowed on collections sharded by `_key`. 
+- In case of the `Append` save mode, failed jobs cannot be rolled back and the underlying data source may require manual cleanup.
+- Speculative execution of tasks would only work for idempotent `overwriteMode` configurations. See [Write Resiliency](#write-resiliency) for more details.
 
 
 ## Supported Spark data types
 
-The following Spark SQL data types (subtypes of `org.apache.spark.sql.types.Filter`) are supported for reading, writing and filter pushdown:
+The following Spark SQL data types (subtypes of `org.apache.spark.sql.types.Filter`) are supported for reading, writing and filter pushdown.
+
 - Numeric types:
   - `ByteType`
   - `ShortType`
@@ -299,7 +299,7 @@ The following Spark SQL data types (subtypes of `org.apache.spark.sql.types.Filt
 
 ## Connect to ArangoDB Oasis
 
-To connect to SSL secured deployments using X.509 base64 encoded CA certificate (Oasis):
+To connect to SSL secured deployments using X.509 Base64 encoded CA certificate (Oasis):
 
 ```scala
   val options = Map(
@@ -330,9 +330,9 @@ df.write
 
 ## Current limitations
 
-- for `content-type=vpack`, implicit deserialization casts don't work well, i.e. reading a document having a field with   a numeric value whereas the related read schema requires a string value for such field
-- dates and timestamps fields are interpreted to be in UTC time zone
-- In Spark 2.4, on corrupted records in batch reading, partial results are not supported. All fields other than the field configured by `columnNameOfCorruptRecord` are set to `null` (SPARK-26303)
-- in read jobs using `stream=true` (default), possible AQL warnings are only logged at the end of each read task (BTS-671)
+- For `content-type=vpack`, implicit deserialization casts don't work well, i.e. reading a document having a field with a numeric value whereas the related read schema requires a string value for such a field.
+- Dates and timestamps fields are interpreted to be in a UTC time zone.
+- In Spark 2.4, for corrupted records in batch reading, partial results are not supported. All fields other than the field configured by `columnNameOfCorruptRecord` are set to `null` (SPARK-26303).
+- In read jobs using `stream=true` (default), possible AQL warnings are only logged at the end of each read task (BTS-671).
 
 
