@@ -688,7 +688,7 @@ separately. The AQL query to generate such result is:
           "friendId" : f.thisUser
         }
     @BV {
-    "friend: "friend"
+    "friend": "friend"
     }
     @END_EXAMPLE_AQL
     @endDocuBlock joinTuples
