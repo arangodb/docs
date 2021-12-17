@@ -354,11 +354,11 @@ thus 2020-01-31T**23**:00:00Z is 2020-02-01 midnight in Germany and
     }
     @BV {
       "activities": [
-        {startDate: '2020-01-31T23:00:00Z', endDate: '2020-02-01T03:00:00Z', duration: 4, rate: 250},
-        {startDate: '2020-02-01T09:00:00Z', endDate: '2020-02-01T17:00:00Z', duration: 8, rate: 250},
-        {startDate: '2020-03-31T21:00:00Z', endDate: '2020-03-31T22:00:00Z', duration: 1, rate: 250},
-        {startDate: '2020-03-31T22:00:00Z', endDate: '2020-04-01T03:00:00Z', duration: 5, rate: 250},
-        {startDate: '2020-04-01T13:00:00Z', endDate: '2020-04-01T16:00:00Z', duration: 3, rate: 250}
+        {"startDate": '2020-01-31T23:00:00Z', "endDate": '2020-02-01T03:00:00Z', "duration": 4, "rate": 250},
+        {"startDate": '2020-02-01T09:00:00Z', "endDate": '2020-02-01T17:00:00Z', "duration": 8, "rate": 250},
+        {"startDate": '2020-03-31T21:00:00Z', "endDate": '2020-03-31T22:00:00Z', "duration": 1, "rate": 250},
+        {"startDate": '2020-03-31T22:00:00Z', "endDate": '2020-04-01T03:00:00Z', "duration": 5, "rate": 250},
+        {"startDate": '2020-04-01T13:00:00Z', "endDate": '2020-04-01T16:00:00Z', "duration": 3, "rate": 250}
       ]
     }
     @END_EXAMPLE_AQL
