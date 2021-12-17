@@ -7,10 +7,10 @@ Reducing the Memory Footprint of ArangoDB servers
 
 {% hint 'warning' %}
 The changes suggested here can be useful to reduce the memory usage of 
-ArangoDB servers, but they can have side-effects on performance and other 
+ArangoDB servers, but they can cause side-effects on performance and other 
 aspects.
-None of the changes suggested here should be applied light-heartedly without
-prior testing in a development or staging system.
+Do not apply any the changes suggested here before you have tested them in
+in a development or staging environment.
 {% endhint %}
 
 ArangoDB's memory usage can be restricted and the CPU utilization be reduced
@@ -72,9 +72,9 @@ Above settings will
 - limit the memory usage to around 100 MByte
 
 During import or updates, the memory consumption may still grow bigger. On the
-other hand, these restrictions can have a large negative impact on the maximal 
+other hand, these restrictions can have a large negative impact on the maximum 
 write performance and will lead to severe slowdowns. 
-You should not go below above numbers.
+You should not go below the numbers above.
 
 Block Cache
 -----------
@@ -86,7 +86,7 @@ Block Cache
 
 These settings are the counterpart of the settings from the previous section.
 As soon as the memory buffers have been persisted to disk, answering read
-queries implies to read them back into memory. Data blocks that are already read
+queries implies to read them back into memory. Data blocks, which are already read,
 can be stored in an in-memory block cache, for faster subsequent accesses.
 The block cache basically trades increased RAM usage for less disk I/O, so its
 size does not only affect memory usage, but can also affect read performance.
@@ -131,8 +131,8 @@ should correspond to the size of the hot-set of edges.
 AQL Query Memory Usage
 ----------------------
 
-In addition to all above buffers and caches, AQL queries will use additional 
-memory during their execution, to process your data and build up result sets. 
+In addition to all the buffers and caches above, AQL queries will use additional 
+memory during their execution to process your data and build up result sets. 
 This memory is used during the query execution only and will be released afterwards, 
 in contrast to the held memory for buffers and caches.
 
@@ -158,8 +158,8 @@ correspond to lines in the *explain* output. That means queries which require
 functions may require more memory for intermediate processing, but this will not
 kill the query because the memory.
 The startup option to restrict the peak memory usage for each AQL query is
-`--query.memory-limit`. This is a per-query limit, i.e. each AQL query is allowed
-to use at most the configured amount of memory.
+`--query.memory-limit`. This is a per-query limit, i.e. at maximum each AQL query is allowed
+to use the configured amount of memory.
 
 You can also use *LIMIT* operations in AQL queries to reduce the number of documents
 that need to be inspected and processed. This is not always what happens under
@@ -171,9 +171,9 @@ Statistics
 
 The server collects
 [statistics](programs-arangod-server.html#toggling-server-statistics) regularly,
-which it shows you in the web interface. You will have a light query load every
-few seconds even if your application is idle because of the statistics. You can 
-disable them if desired:
+which is displayed in the web interface. You will have a light query load every
+few seconds, even if your application is idle, because of the statistics. If required, 
+you can turn it off via:
 
 ```
 --server.statistics false
@@ -225,9 +225,9 @@ embedded system with very limited hardware resources!
 --javascript.v8-max-heap 256
 ```
 
-With that above settings, you can reduce the memory usage of V8 to 256 MB and just 
+Using the settings above, you can reduce the memory usage of V8 to 256 MB and just 
 one thread. There is a chance that some operations will be aborted because they run 
-out of memory, in the web interface for instance. Also, JavaScript requests will be 
+out of memory in the web interface for instance. Also, JavaScript requests will be 
 executed one by one.
 
 If you are very tight on memory, and you are sure that you do not need V8, you
@@ -291,9 +291,9 @@ Examples
 --------
 
 If you don't want to go with the default settings, you should first adjust the 
-size of the block cache and the edge cache. If you have a graph use-case, you 
+size of the block cache and the edge cache. If you have a graph use case, you 
 should go for a larger edge cache. For example, split the memory 50:50 between 
-the block cache and the edge cache. If you have no edges then go for a minimal 
+the block cache and the edge cache. If you have no edges, then go for a minimal 
 edge cache and use most of the memory for the block cache.
 
 For example, if you have a machine with 40 GByte of memory and you want to
