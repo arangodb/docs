@@ -5,6 +5,14 @@ description: Reducing the Memory Footprint of ArangoDB servers
 Reducing the Memory Footprint of ArangoDB servers
 =================================================
 
+{% hint 'warning' %}
+The changes suggested here can be useful to reduce the memory usage of 
+ArangoDB servers, but they can cause side-effects on performance and other 
+aspects.
+Do not apply any of the changes suggested here before you have tested them in
+in a development or staging environment.
+{% endhint %}
+
 ArangoDB's memory usage can be restricted and the CPU utilization be reduced
 by different configuration options:
 
@@ -25,7 +33,7 @@ the settings for maximal performance.
 Let us assume our test system is a big server with many cores and a lot of
 memory. However, we intend to run other services on this machine as well.
 Therefore we want to restrict the memory usage of ArangoDB. By default, ArangoDB
-in version 3.4 tries to use as much memory as possible. Using memory accesses
+will try to make use of up to all of the available RAM. Using memory accesses
 instead of disk accesses is faster and in the database business performance
 rules. ArangoDB comes with a default configuration with that in mind. But
 sometimes being a little less grabby on system resources may still be fast
@@ -54,34 +62,38 @@ reduce these [RocksDB settings](programs-arangod-rocksdb.html):
 --rocksdb.max-total-wal-size 1024000
 --rocksdb.write-buffer-size 2048000
 --rocksdb.max-write-buffer-number 2
---rocksdb.total-write-buffer-size 81920000
+--rocksdb.total-write-buffer-size 67108864
 --rocksdb.dynamic-level-bytes false
 ```
 
 Above settings will
 
-- restrict the number of outstanding memory buffers
+- restrict the number of outstanding in-memory write buffers
 - limit the memory usage to around 100 MByte
 
 During import or updates, the memory consumption may still grow bigger. On the
-other hand, these restrictions will have an impact on the maximal write
-performance. You should not go below above numbers.
+other hand, these restrictions can have a large negative impact on the maximum 
+write performance and will lead to severe slowdowns. 
+You should not go below the numbers above.
 
-Read-Buffers
-------------
+Block Cache
+-----------
 
 ```
---rocksdb.block-cache-size 2560000
+--rocksdb.block-cache-size 33554432
 --rocksdb.enforce-block-cache-size-limit true
 ```
 
 These settings are the counterpart of the settings from the previous section.
 As soon as the memory buffers have been persisted to disk, answering read
-queries implies to read them back into memory. The above option will limit the
-number of cached buffers to a few megabytes. If possible, this setting should be
-configured as large as the hot-set size of your dataset.
+queries implies to read them back into memory. Data blocks, which are already read,
+can be stored in an in-memory block cache, for faster subsequent accesses.
+The block cache basically trades increased RAM usage for less disk I/O, so its
+size does not only affect memory usage, but can also affect read performance.
 
-These restrictions may have an impact on query performance.
+The above option will limit the block cache to a few megabytes. If possible, this 
+setting should be configured as large as the hot-set size of your dataset.
+These restrictions can also have a large negative impact on query performance.
 
 Index and Filter Block Cache
 ----------------------------
@@ -114,15 +126,15 @@ Edge-Cache
 This option limits the ArangoDB edge [cache](programs-arangod-cache.html) to 10
 MB. If you do not have a graph use-case and do not use edge collections, it is
 possible to use the minimum without a performance impact. In general, this
-should correspond to the size of the hot-set.
+should correspond to the size of the hot-set of edges.
 
-In addition to all buffers, a query will use additional memory during its
-execution, to process your data and build up your result set. This memory is
-used during the query execution only and will be released afterwards, in
-contrast to the held memory for buffers.
+AQL Query Memory Usage
+----------------------
 
-Query Memory Usage
-------------------
+In addition to all the buffers and caches above, AQL queries will use additional 
+memory during their execution to process your data and build up result sets. 
+This memory is used during the query execution only and will be released afterwards, 
+in contrast to the held memory for buffers and caches.
 
 By default, queries will build up their full results in memory. While you can
 fetch the results batch by batch by using a cursor, every query needs to compute
@@ -145,29 +157,35 @@ aborted. Memory statistics are checked between execution blocks, which
 correspond to lines in the *explain* output. That means queries which require
 functions may require more memory for intermediate processing, but this will not
 kill the query because the memory.
+The startup option to restrict the peak memory usage for each AQL query is
+`--query.memory-limit`. This is a per-query limit, i.e. at maximum each AQL query is allowed
+to use the configured amount of memory. To set a global memory limit for 
+all queries together, use the `--query.global-memory-limit` setting.
 
-You can use *LIMIT* operations in AQL queries to reduce the number of documents
+You can also use *LIMIT* operations in AQL queries to reduce the number of documents
 that need to be inspected and processed. This is not always what happens under
-the hood however. Other operations may lead to an intermediate result being
-computed before any limit is applied. Recently, we added a new ability to the
-optimizer: the
-[Sort-Limit Optimization in AQL](https://www.arangodb.com/2019/03/sort-limit-optimization-aql/).
-In short, a *SORT* combined with a *LIMIT* operation only keeps as many documents
-in memory during sorting as the subsequent *LIMIT* requires. This optimization
-is applied automatically beginning with ArangoDB v3.5.0.
+the hood, as some operations may lead to an intermediate result being computed before 
+any limit is applied.
 
 Statistics
 ----------
 
 The server collects
 [statistics](programs-arangod-server.html#toggling-server-statistics) regularly,
-which it shows you in the web interface. You will have a light query load even
-if your application is idle because of the statistics. You can disable them if
-desired:
+which is displayed in the web interface. You will have a light query load every
+few seconds, even if your application is idle, because of the statistics. If required, 
+you can turn it off via:
 
 ```
 --server.statistics false
 ```
+This setting will disable both the background statistics gathering and the statistics
+APIs. To only turn off the statistics gathering, you can use
+```
+--server.statistics-history false
+```
+That leaves all statistics APIs enabled but still disables all background work
+done by the statistics gathering.
 
 JavaScript & Foxx
 -----------------
@@ -208,10 +226,10 @@ embedded system with very limited hardware resources!
 --javascript.v8-max-heap 256
 ```
 
-You can reduce the memory usage of V8 to 256 MB and just one thread. There is a
-chance that some operations will be aborted because they run out of memory, in
-the web interface for instance. Also, JavaScript requests will be executed one
-by one.
+Using the settings above, you can reduce the memory usage of V8 to 256 MB and just 
+one thread. There is a chance that some operations will be aborted because they run 
+out of memory in the web interface for instance. Also, JavaScript requests will be 
+executed one by one.
 
 If you are very tight on memory, and you are sure that you do not need V8, you
 can disable it completely:
@@ -230,9 +248,9 @@ In consequence, the following features will not be available:
 - JavaScript-based transactions
 - User-defined AQL functions
 
-Note that JavaScript / V8 can be disabled for DB-Server and Agency nodes in a
-cluster without these limitations. They apply to single server instances. They
-also apply to Coordinator nodes, but you should not disable V8 on Coordinators
+Note that JavaScript / V8 is automatically disabled for DB-Server and Agency 
+nodes in a cluster without these limitations. They apply only to single server 
+instances and Coordinator nodes. You should not disable V8 on Coordinators
 because certain cluster operations depend on it.
 
 Concurrent operations
@@ -267,16 +285,20 @@ The number of background threads can be limited in the following way:
 ``` 
 --arangosearch.threads-limit 1
 --rocksdb.max-background-jobs 4
---server.maintenance-threads 2 
---server.maximal-threads 4
+--server.maintenance-threads 3
+--server.maximal-threads 5
 --server.minimal-threads 1
 ```
 
-In general, the number of threads is selected to fit the machine. However, each
-thread requires at least 8 MB of stack memory. By sacrificing some performance
-for parallel execution it is possible to reduce this.
+In general, the number of threads is determined automatically to match the 
+capabilities of the target machine. However, each thread requires at least 8 MB 
+of stack memory when running ArangoDB on Linux, so having a lot of concurrent
+threads around will need a lot of memory, too.
+Reducing the number of server threads as in the example above can help reduce the
+memory usage by thread, but will sacrifice throughput.
 
-This option will make logging synchronous:
+In addition, the following option will make logging synchronous, saving one 
+dedicated background thread for the logging:
 
 ```
 --log.force-direct true
@@ -287,15 +309,15 @@ This is not recommended unless you only log errors and warnings.
 Examples
 --------
 
-In general, you should adjust the read buffers and edge cache on a standard
-server. If you have a graph use-case, you should go for a larger edge cache. For
-example, split the memory 50:50 between read buffers and edge cache. If you
-have no edges then go for a minimal edge cache and use most of the memory for
-the read buffers.
+If you don't want to go with the default settings, you should first adjust the 
+size of the block cache and the edge cache. If you have a graph use case, you 
+should go for a larger edge cache. For example, split the memory 50:50 between 
+the block cache and the edge cache. If you have no edges, then go for a minimal 
+edge cache and use most of the memory for the block cache.
 
 For example, if you have a machine with 40 GByte of memory and you want to
 restrict ArangoDB to 20 GB of that, use 10 GB for the edge cache and 10 GB for
-the read buffers if you use graph features.
+the block cache if you use graph features.
 
 Please keep in mind that during query execution additional memory will be used
 for query results temporarily. If you are tight on memory, you may want to go
