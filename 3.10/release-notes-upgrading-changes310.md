@@ -10,6 +10,19 @@ upgrading to ArangoDB 3.10, and adjust any client programs if necessary.
 
 The following incompatible changes have been made in ArangoDB 3.10:
 
+Foxx / Server console
+---------------------
+
+Previously a call to `db._version(true)` inside a Foxx app or the server console
+would return a different structure than the same call from arangosh.
+Foxx/server console would return `{ <details> }` while arangosh would return
+`{ server: ..., license: ..., version: ..., details: { <details> }}`.
+
+This is now unified so that the result structure is always consistent with the
+one in arangosh. Any Foxx app or script that ran in the server console which
+used `db._version(true)` must now be changed to use `db._version(true).details`
+instead.
+
 AQL
 ---
 
