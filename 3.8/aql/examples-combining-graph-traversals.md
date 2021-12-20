@@ -100,7 +100,7 @@ Alternatively we could use a `LET` statement with a subquery to group the traver
           RETURN {startCity: startCity._key, connectedCities: oneCity}
     @BV {
       "bonn": [7.0998, 50.7340],
-      radius": 400000
+      "radius": 400000
     }
     @END_EXAMPLE_AQL
     @endDocuBlock COMBINING_GRAPH_05_combine_let
