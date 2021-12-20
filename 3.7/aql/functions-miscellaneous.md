@@ -330,7 +330,10 @@ The function can also be used with a single parameter *id* as follows:
   @startDocuBlockInline FUNCTION_DOCUMENT_9
   @EXAMPLE_AQL{FUNCTION_DOCUMENT_9}
   @DATASET{knows_graph}
-    RETURN DOCUMENT( @id ) // bind vars: {"id": "persons/alice"}
+    RETURN DOCUMENT( @key )
+  @BV {
+    "key": "persons/alice"
+  }
   @END_EXAMPLE_AQL
   @endDocuBlock FUNCTION_DOCUMENT_9
 {% endaqlexample %}
@@ -340,7 +343,10 @@ The function can also be used with a single parameter *id* as follows:
   @startDocuBlockInline FUNCTION_DOCUMENT_10
   @EXAMPLE_AQL{FUNCTION_DOCUMENT_10}
   @DATASET{knows_graph}
-    RETURN DOCUMENT( @ids ) // bind vars: {"ids": ["persons/alice", "persons/bob"]}
+     RETURN DOCUMENT( @keys )
+  @BV {
+    "keys": ["persons/alice", "persons/bob"]
+  }
   @END_EXAMPLE_AQL
   @endDocuBlock FUNCTION_DOCUMENT_10
 {% endaqlexample %}
@@ -350,7 +356,10 @@ The function can also be used with a single parameter *id* as follows:
   @startDocuBlockInline FUNCTION_DOCUMENT_11
   @EXAMPLE_AQL{FUNCTION_DOCUMENT_11}
   @DATASET{knows_graph}
-    RETURN DOCUMENT( CONCAT("persons/", @key) ) // bind vars: {"key": "bob"}
+     RETURN DOCUMENT( CONCAT("persons/", @key) )
+  @BV {
+    "key": "bob"
+  }
   @END_EXAMPLE_AQL
   @endDocuBlock FUNCTION_DOCUMENT_11
 {% endaqlexample %}
