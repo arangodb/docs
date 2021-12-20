@@ -193,7 +193,7 @@ also relevant.
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("text_en_no_stem", "text", { locale: "en.utf-8", accent: false, case: "lower", stemming: false, stopwords: [] }, ["frequency", "norm"]);
+analyzers.save("text_en_no_stem", "text", { locale: "en.utf-8", accent: false, case: "lower", stemming: false, stopwords: [] }, ["position", "frequency", "norm"]);
 ```
 
 **View definition:**
@@ -260,7 +260,7 @@ not including the original string:
 ```js
 //db._useDatabase("your_database"); // Analyzer will be created in current database
 var analyzers = require("@arangodb/analyzers");
-analyzers.save("trigram", "ngram", { min: 3, max: 3, preserveOriginal: false, streamType: "utf8" }, ["frequency", "norm"]);
+analyzers.save("trigram", "ngram", { min: 3, max: 3, preserveOriginal: false, streamType: "utf8" }, ["position", "frequency", "norm"]);
 ```
 
 **View definition:**
