@@ -35,8 +35,8 @@ We won't find **Paris** since its in the `frenchCity` collection.
       FILTER GEO_DISTANCE(@bonn, startCity.geometry) < @radius
         RETURN startCity._key
     @BV {
-      bonn: [7.0998, 50.7340],
-      radius: 400000
+      "bonn": [7.0998, 50.7340],
+      "radius": 400000
     }
     @END_EXAMPLE_AQL
     @endDocuBlock COMBINING_GRAPH_02_show_geo
@@ -54,8 +54,8 @@ Lets revalidate that the geo indices are actually used:
       FILTER GEO_DISTANCE(@bonn, startCity.geometry) < @radius
         RETURN startCity._key
     @BV {
-      bonn: [7.0998, 50.7340],
-      radius: 400000
+      "bonn": [7.0998, 50.7340],
+      "radius": 400000
     }
     @END_EXAMPLE_AQL
     @endDocuBlock COMBINING_GRAPH_03_explain_geo
@@ -74,8 +74,8 @@ And now combine this with a graph traversal:
           GRAPH 'routeplanner'
         RETURN {startcity: startCity._key, traversedCity: v._key}
     @BV {
-      bonn: [7.0998, 50.7340],
-      radius: 400000
+      "bonn": [7.0998, 50.7340],
+      "radius": 400000
     }
     @END_EXAMPLE_AQL
     @endDocuBlock COMBINING_GRAPH_04_combine
@@ -99,8 +99,8 @@ Alternatively we could use a `LET` statement with a subquery to group the traver
         )
           RETURN {startCity: startCity._key, connectedCities: oneCity}
     @BV {
-      bonn: [7.0998, 50.7340],
-      radius: 400000
+      "bonn": [7.0998, 50.7340],
+      radius": 400000
     }
     @END_EXAMPLE_AQL
     @endDocuBlock COMBINING_GRAPH_05_combine_let
