@@ -37,6 +37,8 @@ ArangoDB
   - For versions prior to 3.8, make sure to change the
     [`--query.memory-limit`](programs-arangod-query.html#limiting-memory-usage-of-aql-queries)
     query option according to the node size and workload.
+  - Disable swap space to avoid slowdown which can result in servers being incorrectly 
+    detected as failed. 
 
 - Ensure ArangoDB will be automatically restarted (e.g., by using a systemd service file). Typically
   you would use the Kubernetes operator or use systemd to launch the _Starter_.
