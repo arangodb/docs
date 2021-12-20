@@ -347,7 +347,7 @@ This option has no effect if throttling is turned off.
 
 <small>Introduced in: v3.8.5</small>
 
-If throttling is enabled, this parameter controls the number of historic measures 
+If throttling is enabled, this parameter controls the number of previous intervals 
 to use for throttle value calculation. The default value is 63.
 
 This option has no effect if throttling is turned off.
