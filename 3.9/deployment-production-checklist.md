@@ -18,7 +18,7 @@ Operating System
 - OS monitoring is in place
   (most common metrics, e.g. disk, CPU, RAM utilization).
 
-- Disk space monitoring is in place. Consider setting-up alerting to avoid Out-of-Disk situations.
+- Disk space monitoring is in place. Consider setting up alerting to avoid out-of-disk situations.
 
 ArangoDB
 --------
@@ -40,7 +40,7 @@ ArangoDB
   - Disable swap space to avoid slowdown which can result in servers being incorrectly 
     detected as failed. 
 
-- Ensure ArangoDB will be automatically restarted (e.g., by using a systemd service file). Typically
+- Ensure ArangoDB will be automatically restarted (e.g. by using a systemd service file). Typically
   you would use the Kubernetes operator or use systemd to launch the _Starter_.
 
 - If you use the _Starter_ to deploy, you stopped - and disabled
@@ -58,22 +58,22 @@ ArangoDB
   sc stop arangodb
   ```
 
-- If you have deployed a Cluster the _replication factor_  and 
+- If you have deployed a Cluster, the _replication factor_  and 
   _minimal_replication_factor_ of your collections
-  is set to a value equal or higher than 2, otherwise you run at the risk of
-  losing data in case of node failure. See
+  are set to a value equal or higher than 2, otherwise you run the risk of
+  losing data in case of a node failure. See
   [cluster startup options](programs-arangod-cluster.html).
 
 - *Disk Performance considerations*
   - Verify that your **storage performance** is at least 100 IOPS for each
-    volume in production mode. This is the bare minimum and we would recommend
-    providing more for performance. It is probably only a concern if you use
-    cloud infrastructure. Note that IOPS might be allotted based on volume size,
-    so please check your storage provider for details. Furthermore you should
+    volume in production mode. This is the bare minimum and it's recommended to
+    provide more for performance. It is probably only a concern if you use a
+    cloud infrastructure. Note that IOPS might be allotted based on a volume size,
+    so make sure to check your storage provider for details. Furthermore, you should
     be careful with burst mode guarantees as ArangoDB requires a sustainable
     high IOPS rate. 
   
-  - The considerations should be given to IO bandwidth (especially considering 
+  - The considerations should be given to an IO bandwidth (especially considering 
     RocksDB write-amplification which can easily be 10x or more).
 
 - Whenever possible use **block storage**. Database data is based on append
@@ -88,7 +88,7 @@ ArangoDB
   (Enterprise Edition only). Make sure to safely store any secret keys you
   create.
   
-- Monitor the ArangoDB provided metrics (e.g., using Prometheus/Grafana).
+- Monitor the ArangoDB provided metrics (e.g. by using Prometheus/Grafana).
 
 Kubernetes Operator (kube-arangodb)
 -----------------------------------
