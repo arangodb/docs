@@ -74,20 +74,20 @@ Startup options
 
 ### Installing Foxx apps from remote URLS
 
-The option `--foxx.allow-install-from-remote` controls if installing Foxx apps
+The `--foxx.allow-install-from-remote` option controls whether installing Foxx apps
 from remote URL sources other than Github is allowed. If set to `false`,
-installing Foxx apps is blocked for other remote sources than Github. Installing
+installing Foxx apps is blocked for any remote sources other than Github. Installing
 Foxx apps from Github or from uploaded zip files is still possible with this
-setting.
-Setting the option to `true` will allow installing Foxx apps from any remote
+option.
+Setting it to `true` will allow installing Foxx apps from any remote
 URL sources.
 
-The default value for this option in ArangoDB 3.9 is now `false`, meaning that
+In ArangoDB 3.9, the default value for this option is `false`, meaning that
 installing Foxx apps from remote sources other than Github is now disallowed. This
-also disables the "Remote" tab in the "Services" section of the web interface.
-This is a downwards-incompatible default value change compared to previous
-versions of ArangoDB, which was made for security reasons. To enable installing
-apps from remote sources again, this option should be set to `true`.
+also inactivates the **Remote** tab in the **Services** section of the web interface.
+Compared to the previous versions of ArangoDB, this is a downwards-incompatible default
+value change, which was made for security reasons. To enable installing
+apps from remote sources again, set this option to `true`.
 
 ### Rebalance shards
 
