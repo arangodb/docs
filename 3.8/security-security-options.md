@@ -334,13 +334,13 @@ in an ArangoDB server:
   The default value is `true`.
 
 - `--foxx.allow-install-from-remote`:
-  If set to `false`, this option disables installing Foxx apps from any other
-  remote source than Github. When set to `false`, this will also disable the
-  "Remote" tab in the "Services" section of the web interface. Installing apps
-  from Github and/or zip files is still possible with this setting, but any
-  other remote sources are blocked.
-  If set to `true`, installing Foxx apps from other remote sources via URLs
+  When set to `false`, this option prevents installation of Foxx apps from any
+  remote source other than Github and diactivates the **Remote** tab in the **Services**
+  section of the web interface. Installing apps from Github and/or zip files is 
+  still possible with this setting, but any other remote sources are blocked.
+  When set to `true`, installing Foxx apps from other remote sources via URLs
   is allowed.
-  The default value is `true` in 3.8, but will flip to `false` starting with ArangoDB 3.9.
+  For security purposes, it's recommended to set this option to `false`.
+  In 3.8 the default value is `true`, but starting from ArangoDB 3.9 it will
+  be set to `false`.
   Note: this option was introduced in ArangoDB v3.8.5.
-
