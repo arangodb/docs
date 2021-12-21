@@ -12,7 +12,7 @@ of documents.
 
 User-defined indexes can be created on collection level. Most user-defined indexes 
 can be created by specifying the names of the index attributes.
-Some index types allow indexing just one attribute (e.g. *fulltext* index) whereas 
+Some index types allow indexing just one attribute (e.g. *ttl* index) whereas 
 other index types allow indexing multiple attributes at the same time.
 
 Learn how to use different indexes efficiently by going through the
@@ -382,6 +382,11 @@ or conditions.
 Fulltext Index
 --------------
 
+{% hint 'warning' %}
+The fulltext index type is deprecated from version 3.10 onwards.
+It's recommended to use [ArangoSearch](arangosearch.html) for advanced full-text search capabilities.
+{% endhint %}
+
 A fulltext index can be used to find words, or prefixes of words inside documents. 
 A fulltext index can be created on a single attribute only, and will index all words 
 contained in documents that have a textual value in that attribute. Only words with a (specifiable) 
@@ -398,9 +403,6 @@ minimum length will be included in the index.
 The fulltext index is used via dedicated functions in AQL, but will
 not be enabled for other types of queries or conditions.
 
-{% hint 'tip' %}
-For advanced full-text search capabilities consider [ArangoSearch](arangosearch.html).
-{% endhint %}
 
 Indexing attributes and sub-attributes
 --------------------------------------

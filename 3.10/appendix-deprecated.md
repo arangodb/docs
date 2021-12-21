@@ -38,6 +38,10 @@ replace the old features with:
   equivalent to the PUT endpoint, but does not violate idempotency requirements
   prescribed by the [HTTP specification](https://tools.ietf.org/html/rfc7231#section-4.2){:target="_blank"}.
 
+- **Fulltext indexes**:
+  The fulltext index type is deprecated from version 3.10 onwards.
+  It's recommended to use [ArangoSearch](arangosearch.html) for advanced full-text search capabilities.
+
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](aql/index.html), which can also
   be run in arangosh. AQL is a language on its own and way more powerful than

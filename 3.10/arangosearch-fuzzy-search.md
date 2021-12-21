@@ -190,11 +190,15 @@ into account accurately. With stemming enabled, it would be less accurate with
 respect to the original strings, but potentially find more matches that are
 also relevant.
 
-```js
-//db._useDatabase("your_database"); // Analyzer will be created in current database
-var analyzers = require("@arangodb/analyzers");
-analyzers.save("text_en_no_stem", "text", { locale: "en.utf-8", accent: false, case: "lower", stemming: false, stopwords: [] }, ["frequency", "norm"]);
-```
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline levenshtein_match_sample
+    @EXAMPLE_ARANGOSH_OUTPUT{levenshtein_match_sample}
+    var analyzers = require("@arangodb/analyzers");
+    analyzers.save("text_en_no_stem", "text", { locale: "en.utf-8", accent: false, case: "lower", stemming: false, stopwords: [] }, ["position", "frequency", "norm"]);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock levenshtein_match_sample
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 **View definition:**
 
@@ -257,11 +261,18 @@ FOR doc IN imdb
 trigram Analyzer in arangosh with a minimum and maximum _n_-gram size of 3,
 not including the original string:
 
-```js
-//db._useDatabase("your_database"); // Analyzer will be created in current database
-var analyzers = require("@arangodb/analyzers");
-analyzers.save("trigram", "ngram", { min: 3, max: 3, preserveOriginal: false, streamType: "utf8" }, ["frequency", "norm"]);
-```
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline ngram_match_sample
+    @EXAMPLE_ARANGOSH_OUTPUT{ngram_match_sample}
+    var analyzers = require("@arangodb/analyzers");
+    analyzers.save("trigram", "ngram", { min: 3, max: 3, preserveOriginal: false, streamType: "utf8" }, ["position", "frequency", "norm"]);
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock ngram_match_sample
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+
+
 
 **View definition:**
 
