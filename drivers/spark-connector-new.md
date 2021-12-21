@@ -335,4 +335,7 @@ df.write
 - In Spark 2.4, for corrupted records in batch reading, partial results are not supported. All fields other than the field configured by `columnNameOfCorruptRecord` are set to `null` (SPARK-26303).
 - In read jobs using `stream=true` (default), possible AQL warnings are only logged at the end of each read task (BTS-671).
 
+## Demo
+
+Check out our [demo](https://github.com/arangodb/arangodb-spark-datasource/tree/main/demo) to learn more about the new ArangoDB Spark Datasource.
 
