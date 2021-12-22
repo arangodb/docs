@@ -421,12 +421,21 @@ Deployment Z of project DEF                  | ✓ | — | —
 
 ## Restricting access to organizations
 
-To enhance security, you can limit which authentication providers are accepted for users trying to access an organization in Oasis.
+To enhance security, you can implement the following restrictions via [Oasisctl](oasisctl.html):
 
-To do this, you need to use [Oasisctl](oasisctl.html). The following commands are available:
+1. Limit allowed authentication providers.
+2. Specify an allowed domain list.
 
-- `get organization authentication providers` - allows you to see which authentication providers are enabled for accessing a specific organization
-- `update organization authentication providers` - allows you to update a list of authentication providers for an organization to which the authenticated user has access
+Using the first option, you can limit which **authentication providers** are accepted for users trying to access an organization in Oasis. The following commands are available:
+
+- `oasisctl get organization authentication providers` - allows you to see which authentication providers are enabled for accessing a specific organization
+- `oasisctl update organization authentication providers` - allows you to update a list of authentication providers for an organization to which the authenticated user has access
   - `--enable-github` - if set, allow access from user accounts authenticated via Github
   - `--enable-google` - if set, allow access from user accounts authenticated via Google
   - `--enable-username-password` - if set, allow access from user accounts authenticated via a username/password
+
+Using the second option, you can configure a **list of domains**, and only users with email addresses from the specified domains will be able to access an organization. The following commands are available:
+
+- `oasisctl get organization email domain restrictions -o <your_organization_id>` - allows you to see which domains are in the allowed list for a specific organization
+- `oasisctl update organization email domain restrictions -o <your_organization_id> --allowed-domain=<domain_name1> --allowed-domain=<domain_name2>` - allows you to update a list of the allowed domains for a specific organization
+- `oasisctl update organization email domain restrictions -o <your_organization_id> --allowed-domain=` - allows you to reset a list and accept any domains for accessing a specific organization
