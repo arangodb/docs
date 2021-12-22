@@ -426,7 +426,12 @@ To enhance security, you can implement the following restrictions via [Oasisctl]
 1. Limit allowed authentication providers.
 2. Specify an allowed domain list.
 
-Using the first option, you can limit which **authentication providers** are accepted for users trying to access an organization in Oasis. The following commands are available:
+{% hint 'info' %}
+Note that users who do not meet the restrictions will not be granted permissions for any resource in
+the organization. These users can still be members of the organization.
+{% endhint %}
+
+Using the first option, you can limit which **authentication providers** are accepted for users trying to access an organization in Oasis. The following commands are available to configure this option:
 
 - `oasisctl get organization authentication providers` - allows you to see which authentication providers are enabled for accessing a specific organization
 - `oasisctl update organization authentication providers` - allows you to update a list of authentication providers for an organization to which the authenticated user has access
@@ -434,7 +439,7 @@ Using the first option, you can limit which **authentication providers** are acc
   - `--enable-google` - if set, allow access from user accounts authenticated via Google
   - `--enable-username-password` - if set, allow access from user accounts authenticated via a username/password
 
-Using the second option, you can configure a **list of domains**, and only users with email addresses from the specified domains will be able to access an organization. The following commands are available:
+Using the second option, you can configure a **list of domains**, and only users with email addresses from the specified domains will be able to access an organization. The following commands are available to configure this option:
 
 - `oasisctl get organization email domain restrictions -o <your_organization_id>` - allows you to see which domains are in the allowed list for a specific organization
 - `oasisctl update organization email domain restrictions -o <your_organization_id> --allowed-domain=<domain_name1> --allowed-domain=<domain_name2>` - allows you to update a list of the allowed domains for a specific organization
