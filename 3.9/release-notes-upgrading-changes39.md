@@ -74,7 +74,7 @@ Startup options
 
 ### RocksDB options
 
-The default value for the startup option `--rocksdb.max-subcompactions` was 
+The default value for the startup `--rocksdb.max-subcompactions` option  was 
 changed from `1` to `2`.
 This allows compactions jobs to be broken up into disjoint ranges which
 can be processed in parallel by multiple threads.
@@ -226,14 +226,14 @@ removed in a future version of ArangoDB, and its use is now highly discouraged.
 
 ### arangovpack
 
-The former options `--json` and `--pretty` of the *arangovpack* utility
-have been removed and have been replaced with separate options for specifying
+The former `--json` and `--pretty` options of the *arangovpack* utility
+were removed and replaced with separate options for specifying
 the input and output types:
 
 - `--input-type` (`json`, `json-hex`, `vpack`, `vpack-hex`)
 - `--output-type` (`json`, `json-pretty`, `vpack`, `vpack-hex`)
 
-The former option `--print-non-json` has been replaced with the new option
-`--fail-on-non-json` which makes arangovpack fail when trying to emit non-JSON
+The former `--print-non-json` option was replaced with the new
+`--fail-on-non-json` option, which makes arangovpack fail when trying to emit non-JSON
 types to JSON output.
 
