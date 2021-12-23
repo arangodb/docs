@@ -52,11 +52,11 @@ The most important general _arangobench_ options are:
 
 General options that can affect test case performance and throughput:
 
-- `--concurrency`: number of parallel threads to use by _arangobench_.
+- `--threads`: number of parallel threads to use by _arangobench_.
   Increasing this value should normally increase throughput, unless some
   saturation or congestion is reached in either _arangobench_ itself, the
   network layer or the ArangoDB instance.
-  If increasing `--concurrency` does not improve throughput or even decrease it,
+  If increasing `--threads` does not improve throughput or even decreases it,
   it should be determined which part of the setup is the bottleneck.
 - `--wait-for-sync`: whether or not all write operations performed by test
   cases should be executed with the `waitForSync` flag. If this is true, write
@@ -115,7 +115,7 @@ In order to benchmark custom AQL queries, the appropriate test case to run is
 |:----------|:------------|
 | `aqlinsert` | performs AQL queries that insert one document per query. The `--complexity` parameter controls the number of attributes per document. The attribute values for the inserted documents will be hard-coded, except `_key`. The total number of documents to be inserted is equal to the value of `--requests`. |
 | `collection` | creates as many separate (empty) collections as provided in the value of `--requests`. |
-| `custom-query` | executes a custom AQL query, that can be specified either via the `--custom-query` option or be read from a file specified via the `--custom-query-file` option. The query will be executed as many times as the value of `--requests`. The `--complexity` parameter is not used. |
+| `custom-query` | executes a custom AQL query, that can be specified either via the `--custom-query` option or be read from a file specified via the `--custom-query-file` option. The query will be executed as many times as the value of `--requests`. The `--complexity` parameter is not used. If the query string contains bind variables, they need to be provided separately via the `--custom-query-bindvars` option, which should contain all bind variables as key/value pairs inside a JSON object. |
 | `crud` | will perform a mix of insert, update, get and remove operations for documents. 20% of the operations will be single-document inserts, 20% of the operations will be single-document updates, 40% of the operations are single-document read requests, and 20% of the operations will be single-document removals. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted and updated documents. |
 | `crud-append` | will perform a mix of insert, update and get operations for documents. 25% of the operations will be single-document inserts, 25% of the operations will be single-document updates, and 50% of the operations are single-document read requests. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted and updated documents. |
 | `crud-write-read` | will perform a 50-50 mix of insert and retrieval operations for documents. 50% of the operations will be single-document inserts, 50% of the operations will be single-document read requests. There will be a total of `--requests` operations. The `--complexity` parameter can be used to control the number of attributes for the inserted documents. |
@@ -155,8 +155,8 @@ where a client application would also send multiple operations in a single
 request, e.g. when inserting documents in bulk. Batching is often the easiest
 way to improve the throughput.
 
-If increasing `--concurrency` for a given benchmark does not increase
-throughput or even decrease it, it is likely that some saturation or congestion
+If increasing `--threads` for a given benchmark does not increase
+throughput or even decreases it, it is likely that some saturation or congestion
 is occurring somewhere in the stack.
 On Linux systems, running `top` during the tests on the participating hosts
 should reveal details about CPU usage (user, system, iowait) and memory usage.

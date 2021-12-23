@@ -224,6 +224,26 @@ Return the weekday number of *date*.
   - 5 – Friday
   - 6 – Saturday
 
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datedyofwk1
+  @EXAMPLE_AQL{datedyofwk1}
+    RETURN DATE_DAYOFWEEK("2020-08-29")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datedyofwk1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datedyofwk2
+  @EXAMPLE_AQL{datedyofwk2}
+    RETURN DATE_DAYOFWEEK(0)
+  @END_EXAMPLE_AQL
+  @endDocuBlock datedyofwk2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_YEAR()
 
 `DATE_YEAR(date) → year`
@@ -232,6 +252,26 @@ Return the year of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **year** (number): the year part of *date* as a number
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline dateyr1
+  @EXAMPLE_AQL{dateyr1}
+    RETURN DATE_YEAR("2020-08-29")
+  @END_EXAMPLE_AQL
+  @endDocuBlock dateyr1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline dateyr2
+  @EXAMPLE_AQL{dateyr2}
+    RETURN DATE_YEAR(0)
+  @END_EXAMPLE_AQL
+  @endDocuBlock dateyr2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DATE_MONTH()
 
@@ -242,6 +282,26 @@ Return the month of *date*.
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **month** (number): the month part of *date* as a number
 
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datemn1
+  @EXAMPLE_AQL{datemn1}
+    RETURN DATE_MONTH("2020-08-29")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datemn1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datemn2
+  @EXAMPLE_AQL{datemn2}
+    RETURN DATE_MONTH(0)
+  @END_EXAMPLE_AQL
+  @endDocuBlock datemn2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_DAY()
 
 `DATE_DAY(date) → day`
@@ -250,6 +310,26 @@ Return the day of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **day** (number): the day part of *date* as a number
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datedy1
+  @EXAMPLE_AQL{datedy1}
+    RETURN DATE_DAY("2020-08-29")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datedy1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datedy2
+  @EXAMPLE_AQL{datedy2}
+    RETURN DATE_DAY(0)
+  @END_EXAMPLE_AQL
+  @endDocuBlock datedy2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DATE_HOUR()
 
@@ -260,6 +340,17 @@ Return the hour of *date*.
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **hour** (number): the hour part of *date* as a number
 
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datehr1
+  @EXAMPLE_AQL{datehr1}
+    RETURN DATE_HOUR("2020-08-29T16:30:05.123")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datehr1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_MINUTE()
 
 `DATE_MINUTE(date) → minute`
@@ -268,6 +359,17 @@ Return the minute of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **minute** (number): the minute part of *date* as a number
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datemin1
+  @EXAMPLE_AQL{datemin1}
+    RETURN DATE_MINUTE("2020-08-29T16:30:05.123")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datemin1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DATE_SECOND()
 
@@ -278,12 +380,34 @@ Return the second of *date*.
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **second** (number): the seconds part of *date* as a number
 
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datesec1
+  @EXAMPLE_AQL{datesec1}
+    RETURN DATE_SECOND("2020-08-29T16:30:05.123")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datesec1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_MILLISECOND()
 
 `DATE_MILLISECOND(date) → millisecond`
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **millisecond** (number): the milliseconds part of *date* as a number
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datemilsec1
+  @EXAMPLE_AQL{datemilsec1}
+    RETURN DATE_MILLISECOND("2020-08-29T16:30:05.123")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datemilsec1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DATE_DAYOFYEAR()
 
@@ -294,6 +418,17 @@ Return the day of year of *date*.
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **dayOfYear** (number): the day of year number of *date*.
   The return values range from 1 to 365, or 366 in a leap year respectively.
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datedyofyr1
+  @EXAMPLE_AQL{datedyofyr1}
+    RETURN DATE_DAYOFYEAR("2020-08-29")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datedyofyr1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DATE_ISOWEEK()
 
@@ -308,6 +443,17 @@ Return the week date of *date* according to ISO 8601.
   the next year, and the first days in January may be part of the previous year's
   last week.
 
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline dateisofwk1
+  @EXAMPLE_AQL{dateisofwk1}
+    RETURN DATE_ISOWEEK("2020-08-29")
+  @END_EXAMPLE_AQL
+  @endDocuBlock dateisofwk1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_LEAPYEAR()
 
 `DATE_LEAPYEAR(date) → leapYear`
@@ -316,6 +462,26 @@ Return whether *date* is in a leap year.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **leapYear** (bool): *true* if *date* is in a leap year, *false* otherwise
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datelpyr1
+  @EXAMPLE_AQL{datelpyr1}
+    RETURN DATE_LEAPYEAR("2020-01-01")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datelpyr1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datelpyr2
+  @EXAMPLE_AQL{datelpyr2}
+    RETURN DATE_LEAPYEAR("2021-01-01")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datelpyr2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DATE_QUARTER()
 
@@ -330,6 +496,17 @@ Return which quarter *date* belongs to.
   - 3 – July, August, September
   - 4 – October, November, December
 
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline dateqtr1
+  @EXAMPLE_AQL{dateqtr1}
+    RETURN DATE_QUARTER("2020-08-29")
+  @END_EXAMPLE_AQL
+  @endDocuBlock dateqtr1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### DATE_DAYS_IN_MONTH()
 
 Return the number of days in the month of *date*.
@@ -338,6 +515,44 @@ Return the number of days in the month of *date*.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **daysInMonth** (number): the number of days in *date*'s month (28..31)
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datedysmn1
+  @EXAMPLE_AQL{datedysmn1}
+    RETURN DATE_DAYS_IN_MONTH("2020-08-01")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datedysmn1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}  
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datedysmn2
+  @EXAMPLE_AQL{datedysmn2}
+    RETURN DATE_DAYS_IN_MONTH("2020-09-01")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datedysmn2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datedysmn3
+  @EXAMPLE_AQL{datedysmn3}
+    RETURN DATE_DAYS_IN_MONTH("2020-02-01")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datedysmn3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline datedysmn4
+  @EXAMPLE_AQL{datedysmn4}
+    RETURN DATE_DAYS_IN_MONTH("2021-02-01")
+  @END_EXAMPLE_AQL
+  @endDocuBlock datedysmn4
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DATE_TRUNC()
 
