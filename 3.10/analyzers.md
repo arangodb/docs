@@ -972,8 +972,6 @@ if (!fs.exists(destModelPath)) {
         fs.copyFile(sourceModelPath, destModelPath);
     } catch (e) {}
 }
-
-fs.copyFile(sourceModelPath, destModelPath);
 @END_EXAMPLE_ARANGOSH_RUN
 
 @EXAMPLE_ARANGOSH_OUTPUT{analyzerClassification}
