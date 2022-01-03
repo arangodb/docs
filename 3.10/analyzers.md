@@ -966,7 +966,10 @@ try {
 }
 
 var destModelPath = "/tmp/embeddingsModels/model_cooking.bin";
-var sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
+if (!fs.exists(destModelPath)) {
+    var sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
+    fs.copyFile(sourceModelPath, destModelPath);
+}
 
 fs.copyFile(sourceModelPath, destModelPath);
 @END_EXAMPLE_ARANGOSH_RUN
@@ -1021,9 +1024,10 @@ try {
 }
 
 var destModelPath = "/tmp/embeddingsModels/model_cooking.bin";
-var sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
-
-fs.copyFile(sourceModelPath, destModelPath);
+if (!fs.exists(destModelPath)) {
+    var sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
+    fs.copyFile(sourceModelPath, destModelPath);
+}
 @END_EXAMPLE_ARANGOSH_RUN
 
 @EXAMPLE_ARANGOSH_OUTPUT{analyzerNearestNeighbors}
