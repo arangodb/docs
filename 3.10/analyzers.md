@@ -968,7 +968,9 @@ try {
 var destModelPath = "/tmp/embeddingsModels/model_cooking.bin";
 if (!fs.exists(destModelPath)) {
     var sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
-    fs.copyFile(sourceModelPath, destModelPath);
+    try {
+        fs.copyFile(sourceModelPath, destModelPath);
+    } catch (e) {}
 }
 
 fs.copyFile(sourceModelPath, destModelPath);
@@ -1026,7 +1028,9 @@ try {
 var destModelPath = "/tmp/embeddingsModels/model_cooking.bin";
 if (!fs.exists(destModelPath)) {
     var sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
-    fs.copyFile(sourceModelPath, destModelPath);
+    try {
+        fs.copyFile(sourceModelPath, destModelPath);
+    } catch (e) {}
 }
 @END_EXAMPLE_ARANGOSH_RUN
 
