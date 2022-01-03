@@ -957,10 +957,24 @@ Create and use a `classification` Analyzer with a stored "cooking" classifier to
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline analyzerClassification
+@EXAMPLE_ARANGOSH_RUN{AnalyzerModelSetup}
+var fs = require("fs");
+var internal = require("internal");
+try {
+    fs.makeDirectory("/tmp/embeddingsModels");
+} catch (e) {
+}
+
+var destModelPath = "/tmp/embeddingsModels/model_cooking.bin";
+val sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
+
+fs.copyFile(sourceModelPath, destModelPath);
+@END_EXAMPLE_ARANGOSH_RUN
+
 @EXAMPLE_ARANGOSH_OUTPUT{analyzerClassification}
 var analyzers = require("@arangodb/analyzers");
-var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "my_model_location" }, []);
-var classifier_top_two = analyzers.save("classifer_double", "classification", { "model_location": "my_model_location", "top_k": 2 }, []);
+var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, []);
+var classifier_top_two = analyzers.save("classifer_double", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, []);
 | db._query(`LET str = 'Which baking dish is best to bake a banana bread ?'
 |   RETURN {
 |     "all": TOKENS(str, 'classifier_single'),
@@ -998,10 +1012,24 @@ Create and use a `nearest_neighbors` Analyzer with a stored "cooking" classifier
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline analyzerNearestNeighbors
+@EXAMPLE_ARANGOSH_RUN{AnalyzerModelSetup}
+var fs = require("fs");
+var internal = require("internal");
+try {
+    fs.makeDirectory("/tmp/embeddingsModels");
+} catch (e) {
+}
+
+var destModelPath = "/tmp/embeddingsModels/model_cooking.bin";
+val sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
+
+fs.copyFile(sourceModelPath, destModelPath);
+@END_EXAMPLE_ARANGOSH_RUN
+
 @EXAMPLE_ARANGOSH_OUTPUT{analyzerNearestNeighbors}
 var analyzers = require("@arangodb/analyzers");
-var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "my_model_location" }, []);
-var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "my_model_location", "top_k": 2 }, []);
+var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, []);
+var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, []);
 | db._query(`LET str = 'salt and oil'
 |   RETURN {
 |     "all": TOKENS(str, 'nn_single'),
