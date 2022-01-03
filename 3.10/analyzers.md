@@ -966,7 +966,7 @@ try {
 }
 
 var destModelPath = "/tmp/embeddingsModels/model_cooking.bin";
-val sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
+var sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
 
 fs.copyFile(sourceModelPath, destModelPath);
 @END_EXAMPLE_ARANGOSH_RUN
@@ -1021,7 +1021,7 @@ try {
 }
 
 var destModelPath = "/tmp/embeddingsModels/model_cooking.bin";
-val sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
+var sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
 
 fs.copyFile(sourceModelPath, destModelPath);
 @END_EXAMPLE_ARANGOSH_RUN
