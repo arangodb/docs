@@ -977,7 +977,7 @@ fs.copyFile(sourceModelPath, destModelPath);
 @EXAMPLE_ARANGOSH_OUTPUT{analyzerClassification}
 var analyzers = require("@arangodb/analyzers");
 var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, []);
-var classifier_top_two = analyzers.save("classifer_double", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, []);
+var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, []);
 | db._query(`LET str = 'Which baking dish is best to bake a banana bread ?'
 |   RETURN {
 |     "all": TOKENS(str, 'classifier_single'),
