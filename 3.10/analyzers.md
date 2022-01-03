@@ -957,7 +957,7 @@ Create and use a `classification` Analyzer with a stored "cooking" classifier to
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline analyzerClassification
-@EXAMPLE_ARANGOSH_RUN{AnalyzerModelSetup}
+@EXAMPLE_ARANGOSH_RUN{ClassificationAnalyzerModelSetup}
 var fs = require("fs");
 var internal = require("internal");
 try {
@@ -1012,7 +1012,7 @@ Create and use a `nearest_neighbors` Analyzer with a stored "cooking" classifier
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline analyzerNearestNeighbors
-@EXAMPLE_ARANGOSH_RUN{AnalyzerModelSetup}
+@EXAMPLE_ARANGOSH_RUN{NNAnalyzerModelSetup}
 var fs = require("fs");
 var internal = require("internal");
 try {
