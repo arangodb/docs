@@ -17,26 +17,55 @@ ArangoSearch
 UI
 --
 
-### Rebalance shards
-
-The rebalance shards section displays a button for rebalancing shards. A new DB-Server will not have any shards. With the rebalance functionality, 
-the cluster will start to rebalance shards including empty DB-Servers. You can specify the maximum number of shards that can be 
-moved in each operation by using the `--cluster.max-number-of-move-shards` flag in arangod (the default value is 10).
-When the button is clicked, the number of scheduled move shards operations is shown, or it is displayed that 
-no move operations have been scheduled if they are not necessary.
-
 
 AQL
 ---
 
 
+Indexes
+-------
+
+Persistent indexes now allow storing additional attributes in the index that
+can be used to satisfy projections of the document.
+
+Additional attributes can be specified in the new `storedValues` array that
+can be used when creating a new persistent index. 
+The additional attributes cannot be used for index lookups or for sorting,
+but only for projections.
+
+For example consider the following index definition:
+
+```
+db.<collection>.ensureIndex({ 
+  type: "persistent", 
+  fields: ["value1"], 
+  storedValues: ["value2"] 
+});
+```
+This will index the `value1` attribute in the traditional sense, so the index 
+can be used for looking up by `value1` or for sorting by `value1`. The index also
+supports projections on `value1` as usual.
+
+In addition, due to `storedValues` being used here, the index can now also 
+supply the values for the `value2` attribute for projections without having to
+lookup up the full document.
+
+This allows covering index scans in more cases and helps to avoid making
+extra lookups for the document(s). This can have a great positive effect on 
+index scan performance if the number of scanned index entries is large.
+
+The maximum number of attributes that can be used in `storedValues` is 32. There
+must be no overlap between the attributes in the index' `fields` attribute and
+the index `storedValues` attributes. If there is an overlap, index creation
+will abort with an error message.
+It is not possible to create multiple indexes with the same `fields` attributes
+and uniqueness but different `storedValues` attributes. That means the value of 
+`storedValues` is not considered by calls to `ensureIndex` when checking if an 
+index is already present or needs to be created.
+
 
 Server options
 --------------
-
-### Rebalance shards
-
-The `--cluster.max-number-of-move-shards` flag limits the maximum number of move shards operations which can be made when the **Rebalance Shards** button is clicked in the web UI. For backwards compatibility purposes, the default value is 10. If the value is 0, the tab containing this button will be inactive and the button cannot be clicked.
 
 
 Miscellaneous changes
@@ -49,9 +78,6 @@ Client tools
 
 
 ### arangobench
-
-Histograms are now switched off by default (the `--histogram.generate` flag set to `false`). To display them, set the flag to `true`.
-If this option is disabled, but other histogram flags are used to invoke arangobench (e.g. `--histogram.interval-size 500`), everything will still run normally, but a warning message will be displayed, stating that histograms are switched off by default and using other histogram options has no effect.
 
 
 ### arangoexport
@@ -68,8 +94,6 @@ ArangoDB is now compiled using the `-std=c++20` compile option on Linux and MacO
 A compiler with c++-20 support is thus needed to compile ArangoDB from source.
 
 ### Upgraded bundled library versions
-
-The bundled version of the RocksDB library has been upgraded from 6.8.0 to 6.27.0.
 
 The bundled version of the Boost library has been upgraded from 1.71.0 to 1.77.0.
 
