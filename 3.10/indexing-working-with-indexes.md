@@ -82,13 +82,18 @@ Note that `_key` implicitly has an index assigned to it.
 
 <!-- arangod/V8Server/v8-vocindex.cpp -->
 
-ensures that an index exists
+Ensures that an index exists:
+
 `collection.ensureIndex(index-description)`
 
 Ensures that an index according to the *index-description* exists. A
 new index will be created if none exists with the given description.
 
-The *index-description* must contain at least a *type* attribute.
+Calling this method returns an index object. Whether or not the index
+object existed before the call is indicated in the return attribute
+*isNewlyCreated*.
+
+The *index-description* input value must contain at least a *type* attribute.
 Other attributes may be necessary, depending on the index type.
 
 **type** can be one of the following values:
@@ -96,20 +101,40 @@ Other attributes may be necessary, depending on the index type.
 - *fulltext*: fulltext index (deprecated from ArangoDB 3.10 onwards)
 - *geo*: geo index, with _one_ or _two_ attributes
 
+**fields** is an array of attribute paths, containing the document attributes
+(or subattributes) to be indexed. Some indexes allow using only a single path,
+and others allow multiple. 
+If multiple attributes are used, their order matters.
+
+If an attribute path contains an `[*]` extension (e.g. `friends[*].id`), it means
+that the index attribute value is treated as an array and all array members are
+indexed separately. This is possible with *persistent* indexes.
+
+**storedValues**: in indexes of type *persistent*, additional attributes can be
+stored in the index. These additional attributes cannot be used for
+index lookups or for sorting, but they can be used for projections. This allows an
+index to fully cover more queries and avoid extra document lookups.
+The maximum number of attributes in **storedValues** is 32.
+It is not possible to create multiple indexes with the same **fields** attributes
+and uniqueness but different **storedValues** attributes. That means the value of 
+**storedValues** is not considered by index creation calls when checking if an 
+index is already present or needs to be created.
+
 **name** can be a string. Index names are subject to the same character
 restrictions as collection names. If omitted, a name will be auto-generated so
 that it is unique with respect to the collection, e.g. `idx_832910498`.
+
+The purpose of user-defined index names is have easy-to-remember names to
+use in index hints in AQL queries.
+If no index hints are used, going with the auto-generated index names is fine.
 
 **sparse** can be *true* or *false*.
 
 For *persistent* the sparsity can be controlled, *fulltext* and *geo*
 are [sparse](indexing-which-index.html) by definition.
 
-**unique** can be *true* or *false* and is supported by *persistent*
-
-Calling this method returns an index object. Whether or not the index
-object existed before the call is indicated in the return attribute
-*isNewlyCreated*.
+**unique** can be *true* or *false* and is supported by *persistent*. By default,
+all user-defined indexes are non-unique.
 
 **deduplicate** can be *true* or *false* and is supported by array indexes of
 type *persistent*. It controls whether inserting duplicate index values
@@ -127,7 +152,7 @@ The downside of turning off index selectivity estimates will be that
 the query optimizer will not be able to determine the usefulness of different
 competing indexes in AQL queries when there are multiple candidate indexes to
 choose from.
-The *estimates* attribute is optional and defaults to *true* if not set. It will
+The **estimates** attribute is optional and defaults to *true* if not set. It will
 have no effect on indexes other than *persistent* (with *hash* and *skiplist*
 being mere aliases for *persistent* nowadays).
 
@@ -150,7 +175,8 @@ being mere aliases for *persistent* nowadays).
 
 <!-- arangod/V8Server/v8-vocindex.cpp -->
 
-drops an index
+Drops an index:
+
 `collection.dropIndex(index)`
 
 Drops the index. If the index does not exist, then *false* is
@@ -182,7 +208,8 @@ Same as above. Instead of an index an index handle can be given.
 
 <!-- arangod/V8Server/v8-vocindex.cpp -->
 
-Loads all indexes of this collection into Memory.
+Loads all indexes of this collection into memory:
+
 `collection.loadIndexesIntoMemory()`
 
 This function tries to cache all index entries
@@ -219,7 +246,8 @@ Database Methods
 
 <!-- js/server/modules/@arangodb/arango-database.js -->
 
-finds an index
+Finds an index:
+
 `db._index(index-handle)`
 
 Returns the index with *index-handle* or null if no such index exists.
@@ -243,7 +271,8 @@ Returns the index with *index-handle* or null if no such index exists.
 
 <!-- js/server/modules/@arangodb/arango-database.js -->
 
-drops an index
+Drops an index:
+
 `db._dropIndex(index)`
 
 Drops the *index*.  If the index does not exist, then *false* is
@@ -273,8 +302,6 @@ Drops the index with *index-handle*.
 ### Revalidating whether an index is used
 
 <!-- js/server/modules/@arangodb/arango-database.js -->
-
-finds an index
 
 So you've created an index, and since its maintenance isn't for free,
 you definitely want to know whether your query can utilize it.

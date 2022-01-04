@@ -21,18 +21,16 @@ Users can define additional indexes on one or multiple document attributes.
 Several different index types are provided by ArangoDB. These indexes have
 different usage scenarios:
 
-- **Persistent index**: a persistent index is persisted on disk and does thus not
-  need to be rebuilt in memory when the server is restarted or the indexed
-  collection is reloaded. Therefore, they don't influence the loading time of
-  collections.
+- **Persistent index**: a persistent index is a general purpose index type
+  that can be used for equality lookups, lookups based on a leftmost prefix 
+  of the index attributes, range queries and for sorting.
 
-  The operations in a persistent index have logarithmic complexity, but operations
-  have may have a higher constant factor than operations of in-memory indexes
-  because the persistent index may need to make extra roundtrips to the primary
-  index to fetch the actual documents.
+  The operations in a persistent index have logarithmic complexity.
 
-  A persistent index can be used for equality lookups, lookups based on a
-  leftmost prefix of the index attributes, range queries and for sorting.
+  Since ArangoDB 3.10, persistent indexes allow storing additional attributes in 
+  the index that can be used to cover more queries (`storedValues` index attribute). 
+  These additional attributes cannot be used for lookups/filtering nor sorting, 
+  but they can be used for projections.
 
 - **TTL index**: the TTL index provided by ArangoDB can be used for automatically
   removing expired documents from a collection.

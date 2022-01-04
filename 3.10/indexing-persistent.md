@@ -5,12 +5,13 @@ description: It is possible to define a persistent index on one or more attribut
 Persistent indexes
 ==================
 
-It is possible to define a persistent index on one or more attributes (or paths)
-of documents. The index is then used in queries to locate documents within a given range. 
-If the index is declared unique, then no two documents are allowed to have the same 
-set of attribute values.
+It is possible to define a persistent index on one or more document attributes (or paths).
+The index is then used in queries to locate documents with a specific index attribute value
+or to find documents whose index attribute value(s) are in a given range. 
 
-Creating a new document or updating a document will fail if the uniqueness is violated. 
+If the index is declared unique, then no two documents are allowed to have the same 
+set of attribute values. Creating a new document or updating a document will fail if the 
+uniqueness is violated. 
 If the index is declared sparse, a document will be excluded from the index and no 
 uniqueness checks will be performed if any index attribute value is not set or has a value 
 of `null`. 
@@ -18,8 +19,8 @@ of `null`.
 Accessing Persistent Indexes from the Shell
 -------------------------------------------
 
+Ensures that a unique persistent index exists:
 
-ensures that a unique persistent index exists
 `collection.ensureIndex({ type: "persistent", fields: [ "field1", ..., "fieldn" ], unique: true })`
 
 Creates a unique persistent index on all documents using *field1*, ... *fieldn*
@@ -80,7 +81,8 @@ details, including the index-identifier, is returned.
 <!-- js/server/modules/@arangodb/arango-collection.js-->
 
 
-ensures that a non-unique persistent index exists
+Ensures that a non-unique persistent index exists:
+
 `collection.ensureIndex({ type: "persistent", fields: [ "field1", ..., "fieldn" ] })`
 
 Creates a non-unique persistent index on all documents using *field1*, ...
@@ -110,8 +112,8 @@ details, including the index-identifier, is returned.
 
 ### Query by example using a persistent index
 
+Constructs a query-by-example using a persistent index:
 
-constructs a query-by-example using a persistent index
 `collection.byExample(example)`
 
 Selects all documents from the collection that match the specified example 
