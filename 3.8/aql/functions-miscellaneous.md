@@ -199,6 +199,24 @@ DECODE_REV( "_YU0HOEG---" )
 // { "date" : "2019-03-11T16:15:05.314Z", "count" : 0 }
 ```
 
+### SHARD_ID()
+
+`SHARD_ID(collection, {shardKeys})`
+
+Inquire about which shard in a collection is home to the given shard keys
+
+- **collection** (string): a collection name
+- **sharKeys** (object): a set of shard keys and values
+- returns **retVal** (string): the responsible shard for above shard keys in
+  the given collection
+
+Any missing shard key in the inquiry is substituted with value `null`
+
+```js
+SHARD_ID( "col", { "product_id" : "PRT0001", "serial_no" : "SN0001" })
+// { ["s6010044"] }
+```
+
 ### DOCUMENT()
 
 `DOCUMENT(collection, id) → doc`
