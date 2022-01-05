@@ -554,12 +554,6 @@ client tools:
 
 The `--threads` option works dynamically, its value depends on the number of available CPU cores. If the amount of available CPU cores is less than `3`, a threads value of `2` is used. Otherwise the value of threads is set to the number of available CPU cores.
 
-```
-For example,
-If a system has 8 cores -> max(2,8) = 8, i.e. 8 threads will be used.
-And if it has 1 CPU core -> max(2,1) = 2, i.e. 2 threads will be used.
-```
-
 This change can help to improve performance of imports, dumps or restore
 processes on machines with multiple cores in case the `--threads` parameter
 was not previously used. As a trade-off, the change may lead to an increased 
