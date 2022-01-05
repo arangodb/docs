@@ -52,12 +52,16 @@ Functions:
   transferred to all available database servers, except the leading DB-Server or an available follower.
 - Move Shard Follower: Click on a follower database of a shard will open a move shard dialog. Shards can be
   transferred to all available database servers, except the leading DB-Server or an available follower.
-- Rebalance Shards: A new DB-Server will not have any shards. With the
-  rebalance functionality the cluster will start to rebalance shards including
-  empty DB-Servers.
 
 Information (collection):
 
 - Shard
 - Leader (green state: sync is complete)
 - Followers
+
+### Rebalance Shards
+
+The rebalance shards section displays a button for rebalancing shards. A new DB-Server will not have any shards. With the rebalance functionality, the cluster will start to rebalance shards including empty DB-Servers. You can specify the maximum number of shards that can be 
+moved in each operation by using the `--cluster.max-number-of-move-shards` flag in arangod (the default value is 10).
+When the button is clicked, the number of scheduled move shards operations is shown, or it is displayed that 
+no move operations have been scheduled if they are not necessary.

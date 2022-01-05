@@ -1,6 +1,6 @@
 arangosh&gt; <span class="hljs-keyword">var</span> result = db.users.all().toArray();
 ........&gt; print(result);
-........&gt; <span class="hljs-keyword">var</span> q = db._query(<span class="hljs-string">"FOR x IN users RETURN x"</span>);
+........&gt; <span class="hljs-keyword">var</span> q = db._query(<span class="hljs-string">&quot;FOR x IN users RETURN x&quot;</span>);
 ........&gt; result = [ ];
 ........&gt; <span class="hljs-keyword">while</span> (q.hasNext()) {
 ........&gt;   result.push(q.next());
@@ -8,41 +8,41 @@ arangosh&gt; <span class="hljs-keyword">var</span> result = db.users.all().toArr
 ........&gt; print(result);
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71403"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/71403"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLQPq---"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Gerhard"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71647&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/71647&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrTehq---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Gerhard&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71405"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/71405"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLQPq--_"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Helmut"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71649&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/71649&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrTehu---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Helmut&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71407"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/71407"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLQPu---"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Angela"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71651&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/71651&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrTehy---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Angela&quot;</span> 
   } 
 ]
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71403"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/71403"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLQPq---"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Gerhard"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71647&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/71647&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrTehq---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Gerhard&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71405"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/71405"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLQPq--_"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Helmut"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71649&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/71649&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrTehu---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Helmut&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71407"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/71407"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLQPu---"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Angela"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71651&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/71651&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrTehy---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Angela&quot;</span> 
   } 
 ]

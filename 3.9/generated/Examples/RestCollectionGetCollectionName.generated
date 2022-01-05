@@ -1,36 +1,36 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/products/properties</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/collection/products/properties</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">444</span>
-location: <span class="hljs-regexp">/_api/</span>collection/products/properties
+content-length: <span class="hljs-number">423</span>
+location: <span class="hljs-regexp">/_db/</span>_system/_api/collection/products/properties
 server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">"waitForSync"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
-  <span class="hljs-string">"syncByRevision"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"hABE4B0CCCE32/66523"</span>, 
-  <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"isDisjoint"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"66523"</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"products"</span>, 
-  <span class="hljs-string">"isSmartChild"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"minRevision"</span> : <span class="hljs-string">"_Zz3k4-----"</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">"objectId"</span> : <span class="hljs-string">"66522"</span>, 
-  <span class="hljs-string">"usesRevisionsAsDocumentIds"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"schema"</span> : <span class="hljs-literal">null</span>, 
-  <span class="hljs-string">"cacheEnabled"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"keyOptions"</span> : { 
-    <span class="hljs-string">"allowUserKeys"</span> : <span class="hljs-literal">true</span>, 
-    <span class="hljs-string">"type"</span> : <span class="hljs-string">"traditional"</span>, 
-    <span class="hljs-string">"lastValue"</span> : <span class="hljs-number">0</span> 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;waitForSync&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;h31C7EF983799/66652&quot;</span>, 
+  <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;internalValidatorType&quot;</span> : <span class="hljs-number">0</span>, 
+  <span class="hljs-string">&quot;isSmartChild&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;66652&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;products&quot;</span>, 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+  <span class="hljs-string">&quot;objectId&quot;</span> : <span class="hljs-string">&quot;66651&quot;</span>, 
+  <span class="hljs-string">&quot;usesRevisionsAsDocumentIds&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;schema&quot;</span> : <span class="hljs-literal">null</span>, 
+  <span class="hljs-string">&quot;writeConcern&quot;</span> : <span class="hljs-number">1</span>, 
+  <span class="hljs-string">&quot;syncByRevision&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;cacheEnabled&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;keyOptions&quot;</span> : { 
+    <span class="hljs-string">&quot;allowUserKeys&quot;</span> : <span class="hljs-literal">true</span>, 
+    <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;traditional&quot;</span>, 
+    <span class="hljs-string">&quot;lastValue&quot;</span> : <span class="hljs-number">0</span> 
   }, 
-  <span class="hljs-string">"statusString"</span> : <span class="hljs-string">"loaded"</span> 
+  <span class="hljs-string">&quot;statusString&quot;</span> : <span class="hljs-string">&quot;loaded&quot;</span> 
 }

@@ -5,7 +5,7 @@ Query String (99 chars, cacheable: true):
 Execution plan:
  Id   NodeType                  Site  Est.   Comment
   1   SingletonNode             DBS      1   * ROOT
-  2   EnumerateCollectionNode   DBS      0     - FOR doc IN collection   /* full collection scan, 8 shard(s) */
+  2   EnumerateCollectionNode   DBS      0     - FOR doc IN collection   /* full collection scan, 8 shard(s)  */
   8   RemoteNode                COOR     0       - REMOTE
   9   GatherNode                COOR     0       - GATHER   /* unsorted */
   3   TraversalNode             COOR     1       - FOR v  /* vertex */, e  /* edge */, p  /* paths: vertices, edges */ IN 1..1  /* min..maxPathDepth */ OUTBOUND &#x27;vertices/start&#x27; /* startnode */  GRAPH &#x27;normalGraph&#x27;
@@ -27,11 +27,11 @@ Optimization rules applied:
 
 Optimization rules with highest execution times:
  RuleName                                        Duration [s]
- scatter-in-cluster                                   0.00001
- remove-unnecessary-remote-scatter                    0.00001
+ scatter-in-cluster                                   0.00003
+ use-indexes                                          0.00001
  restrict-to-single-shard                             0.00001
- optimize-traversals                                  0.00000
- use-indexes                                          0.00000
+ remove-unnecessary-remote-scatter                    0.00001
+ optimize-traversals                                  0.00001
 
 59 rule(s) executed, 1 plan(s) created
 

@@ -136,6 +136,10 @@ In order to benchmark custom AQL queries, the appropriate test case to run is
 | `stream-cursor` | (**deprecated**)<br>creates 500 documents in a collection, and then performs a mix of AQL update queries (all on the same document) and a streaming AQL query that returns all documents from the collection. The `--complexity` parameter can be used to control the number of attributes for the inserted documents and the update queries. This test will trigger a lot of write-write conflicts with `--concurrency` bigger than 2. |
 | `version` | queries the server version and then instantly returns. In a cluster, this means that Coordinators instantly respond to the requests without ever accessing DB-Servers. This test can be used to establish a baseline for single server or Coordinator throughput. The `--complexity` parameter is not used. |
 
+## Display histogram
+
+By default, displaying the histogram of a test run is switched off. To enable it, set the `--histogram.generate` flag to true.
+
 ## Troubleshooting
 
 The test cases provided by _arangobench_ vary significantly in _how_ they

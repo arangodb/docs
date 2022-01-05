@@ -1,50 +1,49 @@
-arangosh&gt; <span class="hljs-keyword">var</span> explain = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/aql/explainer"</span>).explain;
-arangosh&gt; db.example.ensureIndex({ <span class="hljs-attr">type</span>: <span class="hljs-string">"skiplist"</span>, <span class="hljs-attr">fields</span>: [ <span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span> ] });
+arangosh&gt; <span class="hljs-keyword">var</span> explain = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/aql/explainer&quot;</span>).explain;
+arangosh&gt; db.example.ensureIndex({ <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;persistent&quot;</span>, <span class="hljs-attr">fields</span>: [ <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span> ] });
 { 
-  <span class="hljs-string">"deduplicate"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"estimates"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"fields"</span> : [ 
-    <span class="hljs-string">"a"</span>, 
-    <span class="hljs-string">"b"</span> 
+  <span class="hljs-string">&quot;deduplicate&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;estimates&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;fields&quot;</span> : [ 
+    <span class="hljs-string">&quot;a&quot;</span>, 
+    <span class="hljs-string">&quot;b&quot;</span> 
   ], 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"example/66102"</span>, 
-  <span class="hljs-string">"isNewlyCreated"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"idx_1700725443289677824"</span>, 
-  <span class="hljs-string">"selectivityEstimate"</span> : <span class="hljs-number">1</span>, 
-  <span class="hljs-string">"sparse"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-string">"skiplist"</span>, 
-  <span class="hljs-string">"unique"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">201</span> 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;example/66233&quot;</span>, 
+  <span class="hljs-string">&quot;isNewlyCreated&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;idx_1717418178542305280&quot;</span>, 
+  <span class="hljs-string">&quot;selectivityEstimate&quot;</span> : <span class="hljs-number">1</span>, 
+  <span class="hljs-string">&quot;sparse&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;persistent&quot;</span>, 
+  <span class="hljs-string">&quot;unique&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">201</span> 
 }
-arangosh&gt; explain(<span class="hljs-string">"FOR doc IN example FILTER doc.a &lt; 23 RETURN doc"</span>, {<span class="hljs-attr">colors</span>: <span class="hljs-literal">false</span>});
+arangosh&gt; explain(<span class="hljs-string">&quot;FOR doc IN example FILTER doc.a &lt; 23 RETURN doc&quot;</span>, {<span class="hljs-attr">colors</span>: <span class="hljs-literal">false</span>});
 Query <span class="hljs-built_in">String</span> (<span class="hljs-number">47</span> chars, <span class="hljs-attr">cacheable</span>: <span class="hljs-literal">true</span>):
  FOR doc IN example FILTER doc.a &lt; <span class="hljs-number">23</span> RETURN doc
 
 Execution plan:
  Id   NodeType        Est.   Comment
   <span class="hljs-number">1</span>   SingletonNode      <span class="hljs-number">1</span>   * ROOT
-  <span class="hljs-number">6</span>   IndexNode          <span class="hljs-number">0</span>     - FOR doc IN example   <span class="hljs-comment">/* skiplist index scan */</span>    
+  <span class="hljs-number">6</span>   IndexNode          <span class="hljs-number">0</span>     - FOR doc IN example   <span class="hljs-comment">/* persistent index scan */</span>    
   <span class="hljs-number">5</span>   ReturnNode         <span class="hljs-number">0</span>       - RETURN doc
 
 Indexes used:
- By   Name                      Type       Collection   Unique   Sparse   Selectivity   Fields         Ranges
-  <span class="hljs-number">6</span>   idx_1700725443289677824   skiplist   example      <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>       <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`a`</span>, <span class="hljs-string">`b`</span> ]   (doc.<span class="hljs-string">`a`</span> &lt; <span class="hljs-number">23</span>)
+ By   Name                      Type         Collection   Unique   Sparse   Selectivity   Fields         Ranges
+  <span class="hljs-number">6</span>   idx_1717418178542305280   persistent   example      <span class="hljs-literal">false</span>    <span class="hljs-literal">false</span>       <span class="hljs-number">100.00</span> %   [ <span class="hljs-string">`a`</span>, <span class="hljs-string">`b`</span> ]   (doc.<span class="hljs-string">`a`</span> &lt; <span class="hljs-number">23</span>)
 
 Optimization rules applied:
  Id   RuleName
   <span class="hljs-number">1</span>   use-indexes
   <span class="hljs-number">2</span>   remove-filter-covered-by-index
-  <span class="hljs-number">3</span>   remove-unnecessary-calculations<span class="hljs-number">-2</span>
+  <span class="hljs-number">3</span>   remove-unnecessary-calculations-<span class="hljs-number">2</span>
 
 Optimization rules <span class="hljs-keyword">with</span> highest execution times:
  RuleName                                    Duration [s]
- use-indexes                                      <span class="hljs-number">0.00003</span>
- remove-filter-covered-by-index                   <span class="hljs-number">0.00001</span>
+ use-indexes                                      <span class="hljs-number">0.00006</span>
+ remove-filter-covered-by-index                   <span class="hljs-number">0.00002</span>
+ remove-unnecessary-calculations-<span class="hljs-number">2</span>                <span class="hljs-number">0.00000</span>
  reduce-extraction-to-projection                  <span class="hljs-number">0.00000</span>
- replace-<span class="hljs-function"><span class="hljs-keyword">function</span>-<span class="hljs-title">with</span>-<span class="hljs-title">index</span>                      0.00000
- <span class="hljs-title">geo</span>-<span class="hljs-title">index</span>-<span class="hljs-title">optimizer</span>                              0.00000
+ geo-index-optimizer                              <span class="hljs-number">0.00000</span>
 
-41 <span class="hljs-title">rule</span>(<span class="hljs-params">s</span>) <span class="hljs-title">executed</span>, 1 <span class="hljs-title">plan</span>(<span class="hljs-params">s</span>) <span class="hljs-title">created</span>
+<span class="hljs-number">40</span> rule(s) executed, <span class="hljs-number">1</span> plan(s) created
 
 
-</span>

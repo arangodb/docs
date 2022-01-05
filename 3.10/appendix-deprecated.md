@@ -38,6 +38,10 @@ replace the old features with:
   equivalent to the PUT endpoint, but does not violate idempotency requirements
   prescribed by the [HTTP specification](https://tools.ietf.org/html/rfc7231#section-4.2){:target="_blank"}.
 
+- **Fulltext indexes**:
+  The fulltext index type is deprecated from version 3.10 onwards.
+  It's recommended to use [ArangoSearch](arangosearch.html) for advanced full-text search capabilities.
+
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](aql/index.html), which can also
   be run in arangosh. AQL is a language on its own and way more powerful than
@@ -161,11 +165,14 @@ replace the old features with:
   discouraged. Their functionality is already removed, but they still exist to
   prevent unknown startup option errors.
 
-- **arangobench test cases**: arangobench provides several test cases that are
-  marked as deprecated. These test cases were originally written for internal
-  testing and do not provide much value for end users. Therefore they will be
-  removed in a future version of arangobench. Whenever a deprecated arangobench
-  test case is invoked, there will be a warning message.
+- **arangoimp** executable: ArangoDB release packages install an executable named
+  _arangoimp_ as an alias for the _arangoimport_ executable. This is done to 
+  provide compatibility with older releases, in which _arangoimport_ did not
+  yet exist and was named _arangoimp_. The renaming was actually carried out in
+  the codebase in December 2017. Using the _arangoimp_ executable is deprecated,
+  and it is always favorable to use _arangoimport_ instead. 
+  While the _arangoimport_ executable will remain, the _arangoimp_ alias will be 
+  removed in a future version of ArangoDB.
 
 - **HTTP and JavaScript traversal APIs**: The [HTTP traversal API](http/traversal.html)
   is deprecated since version 3.4.0. The JavaScript traversal module

@@ -1,10 +1,11 @@
-arangosh&gt; <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb"</span>).db._properties();
+arangosh&gt; <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb&quot;</span>).db._properties();
 { 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"1"</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"_system"</span>, 
-  <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"sharding"</span> : <span class="hljs-string">""</span>, 
-  <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">"writeConcern"</span> : <span class="hljs-number">1</span>, 
-  <span class="hljs-string">"path"</span> : <span class="hljs-string">""</span> 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;1&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span>, 
+  <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;sharding&quot;</span> : <span class="hljs-string">&quot;&quot;</span>, 
+  <span class="hljs-string">&quot;replicationFactor&quot;</span> : <span class="hljs-number">2</span>, 
+  <span class="hljs-string">&quot;writeConcern&quot;</span> : <span class="hljs-number">1</span>, 
+  <span class="hljs-string">&quot;replicationVersion&quot;</span> : <span class="hljs-string">&quot;1&quot;</span>, 
+  <span class="hljs-string">&quot;path&quot;</span> : <span class="hljs-string">&quot;&quot;</span> 
 }

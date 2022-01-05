@@ -39,7 +39,7 @@ You may use it like this: (we disable syntax highlighting here)
     ~db._drop("test");
     db._create("test");
     for (i = 0; i < 100; ++i) { db.test.save({ value: i }); }
-    db.test.ensureIndex({ type: "skiplist", fields: [ "value" ] });
+    db.test.ensureIndex({ type: "persistent", fields: [ "value" ] });
     var explain = require("@arangodb/aql/explainer").explain;
     explain("FOR i IN test FILTER i.value > 97 SORT i.value RETURN i.value", {colors:false});
     @END_EXAMPLE_ARANGOSH_OUTPUT
@@ -116,7 +116,7 @@ Here is a summary:
 #### Optimizer rules
 
 Note that in the example, the optimizer has optimized the `SORT` statement away.
-It can do it safely because there is a sorted skiplist index on `i.value`, which it has
+It can do it safely because there is a sorted persistent index on `i.value`, which it has
 picked in the *IndexNode*. As the index values are iterated over in sorted order
 anyway, the extra *SortNode* would have been redundant and was removed.
 
@@ -135,8 +135,8 @@ that were applied to the plan:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Here is the meaning of these rules in context of this query:
-- `move-calculations-up`: moves a *CalculationNode* as far up in the processing pipeline
-  as possible
+- `move-calculations-up`: moves a *CalculationNode* and subqueries, when independent from the outer node, 
+   as far up in the processing pipeline as possible
 - `move-filters-up`: moves a *FilterNode* as far up in the processing pipeline as
   possible
 - `remove-redundant-calculations`: replaces references to variables with references to
@@ -807,7 +807,7 @@ from the document, and only if the rest of the document data is not used later
 on in the query.
 
 The optimization is currently available for the RocksDB engine for the index types
-primary, edge, hash, skiplist and persistent.
+primary, edge, persistent (and its aliases hash and skiplist).
 
 If the optimization is applied, it will show up as "index only" in an AQL
 query's execution plan for an *IndexNode*.

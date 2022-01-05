@@ -1,7 +1,7 @@
 @Q:
   FOR a IN @activities
   COLLECT
-    day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate, <span class="hljs-string">'Europe/Berlin'</span>), <span class="hljs-string">'day'</span>)
+    day = DATE_TRUNC(DATE_UTCTOLOCAL(a.startDate, <span class="hljs-string">&#x27;Europe/Berlin&#x27;</span>), <span class="hljs-string">&#x27;day&#x27;</span>)
   AGGREGATE
     hours = SUM(a.duration),
     revenue = SUM(a.duration * a.rate)
@@ -13,54 +13,54 @@
   }
 @B
 {
-  <span class="hljs-string">"activities"</span>: [
+  <span class="hljs-string">&quot;activities&quot;</span>: [
     {
-      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-01-31T23:00:00Z"</span>,
-      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-02-01T03:00:00Z"</span>,
-      <span class="hljs-string">"duration"</span>: <span class="hljs-number">4</span>,
-      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+      <span class="hljs-string">&quot;startDate&quot;</span>: <span class="hljs-string">&quot;2020-01-31T23:00:00Z&quot;</span>,
+      <span class="hljs-string">&quot;endDate&quot;</span>: <span class="hljs-string">&quot;2020-02-01T03:00:00Z&quot;</span>,
+      <span class="hljs-string">&quot;duration&quot;</span>: <span class="hljs-number">4</span>,
+      <span class="hljs-string">&quot;rate&quot;</span>: <span class="hljs-number">250</span>
     },
     {
-      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-02-01T09:00:00Z"</span>,
-      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-02-01T17:00:00Z"</span>,
-      <span class="hljs-string">"duration"</span>: <span class="hljs-number">8</span>,
-      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+      <span class="hljs-string">&quot;startDate&quot;</span>: <span class="hljs-string">&quot;2020-02-01T09:00:00Z&quot;</span>,
+      <span class="hljs-string">&quot;endDate&quot;</span>: <span class="hljs-string">&quot;2020-02-01T17:00:00Z&quot;</span>,
+      <span class="hljs-string">&quot;duration&quot;</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-string">&quot;rate&quot;</span>: <span class="hljs-number">250</span>
     },
     {
-      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-03-31T21:00:00Z"</span>,
-      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-03-31T22:00:00Z"</span>,
-      <span class="hljs-string">"duration"</span>: <span class="hljs-number">1</span>,
-      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+      <span class="hljs-string">&quot;startDate&quot;</span>: <span class="hljs-string">&quot;2020-03-31T21:00:00Z&quot;</span>,
+      <span class="hljs-string">&quot;endDate&quot;</span>: <span class="hljs-string">&quot;2020-03-31T22:00:00Z&quot;</span>,
+      <span class="hljs-string">&quot;duration&quot;</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-string">&quot;rate&quot;</span>: <span class="hljs-number">250</span>
     },
     {
-      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-03-31T22:00:00Z"</span>,
-      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-04-01T03:00:00Z"</span>,
-      <span class="hljs-string">"duration"</span>: <span class="hljs-number">5</span>,
-      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+      <span class="hljs-string">&quot;startDate&quot;</span>: <span class="hljs-string">&quot;2020-03-31T22:00:00Z&quot;</span>,
+      <span class="hljs-string">&quot;endDate&quot;</span>: <span class="hljs-string">&quot;2020-04-01T03:00:00Z&quot;</span>,
+      <span class="hljs-string">&quot;duration&quot;</span>: <span class="hljs-number">5</span>,
+      <span class="hljs-string">&quot;rate&quot;</span>: <span class="hljs-number">250</span>
     },
     {
-      <span class="hljs-string">"startDate"</span>: <span class="hljs-string">"2020-04-01T13:00:00Z"</span>,
-      <span class="hljs-string">"endDate"</span>: <span class="hljs-string">"2020-04-01T16:00:00Z"</span>,
-      <span class="hljs-string">"duration"</span>: <span class="hljs-number">3</span>,
-      <span class="hljs-string">"rate"</span>: <span class="hljs-number">250</span>
+      <span class="hljs-string">&quot;startDate&quot;</span>: <span class="hljs-string">&quot;2020-04-01T13:00:00Z&quot;</span>,
+      <span class="hljs-string">&quot;endDate&quot;</span>: <span class="hljs-string">&quot;2020-04-01T16:00:00Z&quot;</span>,
+      <span class="hljs-string">&quot;duration&quot;</span>: <span class="hljs-number">3</span>,
+      <span class="hljs-string">&quot;rate&quot;</span>: <span class="hljs-number">250</span>
     }
   ]
 }
 @R
 [
   {
-    <span class="hljs-string">"day"</span>: <span class="hljs-string">"2020-02-01T00:00:00.000Z"</span>,
-    <span class="hljs-string">"hours"</span>: <span class="hljs-number">12</span>,
-    <span class="hljs-string">"revenue"</span>: <span class="hljs-number">3000</span>
+    <span class="hljs-string">&quot;day&quot;</span>: <span class="hljs-string">&quot;2020-02-01T00:00:00.000Z&quot;</span>,
+    <span class="hljs-string">&quot;hours&quot;</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-string">&quot;revenue&quot;</span>: <span class="hljs-number">3000</span>
   },
   {
-    <span class="hljs-string">"day"</span>: <span class="hljs-string">"2020-03-31T00:00:00.000Z"</span>,
-    <span class="hljs-string">"hours"</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-string">"revenue"</span>: <span class="hljs-number">250</span>
+    <span class="hljs-string">&quot;day&quot;</span>: <span class="hljs-string">&quot;2020-03-31T00:00:00.000Z&quot;</span>,
+    <span class="hljs-string">&quot;hours&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">&quot;revenue&quot;</span>: <span class="hljs-number">250</span>
   },
   {
-    <span class="hljs-string">"day"</span>: <span class="hljs-string">"2020-04-01T00:00:00.000Z"</span>,
-    <span class="hljs-string">"hours"</span>: <span class="hljs-number">8</span>,
-    <span class="hljs-string">"revenue"</span>: <span class="hljs-number">2000</span>
+    <span class="hljs-string">&quot;day&quot;</span>: <span class="hljs-string">&quot;2020-04-01T00:00:00.000Z&quot;</span>,
+    <span class="hljs-string">&quot;hours&quot;</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-string">&quot;revenue&quot;</span>: <span class="hljs-number">2000</span>
   }
 ]

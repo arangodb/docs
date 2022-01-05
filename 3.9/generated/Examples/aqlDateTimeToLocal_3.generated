@@ -1,17 +1,17 @@
 @Q:
-  RETURN DATE_UTCTOLOCAL(DATE_NOW(), <span class="hljs-string">"Africa/Lagos"</span>, <span class="hljs-literal">true</span>)
+  RETURN DATE_UTCTOLOCAL(DATE_NOW(), <span class="hljs-string">&quot;Africa/Lagos&quot;</span>, <span class="hljs-literal">true</span>)
 
 @R
 [
   {
-    <span class="hljs-string">"local"</span>: <span class="hljs-string">"2021-05-25T11:23:47.033"</span>,
-    <span class="hljs-string">"tzdb"</span>: <span class="hljs-string">"2021a"</span>,
-    <span class="hljs-string">"zoneInfo"</span>: {
-      <span class="hljs-string">"name"</span>: <span class="hljs-string">"WAT"</span>,
-      <span class="hljs-string">"begin"</span>: <span class="hljs-string">"1919-08-31T23:30:00.000Z"</span>,
-      <span class="hljs-string">"end"</span>: <span class="hljs-literal">null</span>,
-      <span class="hljs-string">"dst"</span>: <span class="hljs-literal">false</span>,
-      <span class="hljs-string">"offset"</span>: <span class="hljs-number">3600</span>
+    <span class="hljs-string">&quot;local&quot;</span>: <span class="hljs-string">&quot;2021-12-08T19:36:51.368&quot;</span>,
+    <span class="hljs-string">&quot;tzdb&quot;</span>: <span class="hljs-string">&quot;2021a&quot;</span>,
+    <span class="hljs-string">&quot;zoneInfo&quot;</span>: {
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;WAT&quot;</span>,
+      <span class="hljs-string">&quot;begin&quot;</span>: <span class="hljs-string">&quot;1919-08-31T23:30:00.000Z&quot;</span>,
+      <span class="hljs-string">&quot;end&quot;</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-string">&quot;dst&quot;</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-string">&quot;offset&quot;</span>: <span class="hljs-number">3600</span>
     }
   }
 ]

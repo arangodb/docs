@@ -1,25 +1,24 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/control_pregel/68120</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/control_pregel/68128</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">314</span>
+content-length: <span class="hljs-number">270</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">&quot;state&quot;</span> : <span class="hljs-string">&quot;done&quot;</span>, 
   <span class="hljs-string">&quot;gss&quot;</span> : <span class="hljs-number">11</span>, 
-  <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.0019092559814453125</span>, 
-  <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.0005927085876464844</span>, 
-  <span class="hljs-string">&quot;computationTime&quot;</span> : <span class="hljs-number">0.000553131103515625</span>, 
-  <span class="hljs-string">&quot;storageTime&quot;</span> : <span class="hljs-number">0.0007710456848144531</span>, 
+  <span class="hljs-string">&quot;totalRuntime&quot;</span> : <span class="hljs-number">0.0039501190185546875</span>, 
+  <span class="hljs-string">&quot;startupTime&quot;</span> : <span class="hljs-number">0.0009379386901855469</span>, 
+  <span class="hljs-string">&quot;computationTime&quot;</span> : <span class="hljs-number">0.001127481460571289</span>, 
+  <span class="hljs-string">&quot;storageTime&quot;</span> : <span class="hljs-number">0.0018885135650634766</span>, 
   <span class="hljs-string">&quot;aggregators&quot;</span> : { 
   }, 
   <span class="hljs-string">&quot;sendCount&quot;</span> : <span class="hljs-number">370</span>, 
   <span class="hljs-string">&quot;receivedCount&quot;</span> : <span class="hljs-number">370</span>, 
   <span class="hljs-string">&quot;reports&quot;</span> : [ ], 
   <span class="hljs-string">&quot;vertexCount&quot;</span> : <span class="hljs-number">36</span>, 
-  <span class="hljs-string">&quot;edgeCount&quot;</span> : <span class="hljs-number">36</span>, 
-  <span class="hljs-string">&quot;parallelism&quot;</span> : <span class="hljs-string">&quot;(non-representable type none)&quot;</span> 
+  <span class="hljs-string">&quot;edgeCount&quot;</span> : <span class="hljs-number">36</span> 
 }

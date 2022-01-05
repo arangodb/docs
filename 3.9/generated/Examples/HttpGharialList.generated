@@ -1,73 +1,74 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/gharial</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/gharial</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">623</span>
 server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">"graphs"</span> : [ 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;graphs&quot;</span> : [ 
     { 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/social"</span>, 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"social"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKKcWq---"</span>, 
-      <span class="hljs-string">"edgeDefinitions"</span> : [ 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;_graphs/social&quot;</span>, 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;social&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrSliG---&quot;</span>, 
+      <span class="hljs-string">&quot;edgeDefinitions&quot;</span> : [ 
         { 
-          <span class="hljs-string">"collection"</span> : <span class="hljs-string">"relation"</span>, 
-          <span class="hljs-string">"from"</span> : [ 
-            <span class="hljs-string">"female"</span>, 
-            <span class="hljs-string">"male"</span> 
+          <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;relation&quot;</span>, 
+          <span class="hljs-string">&quot;from&quot;</span> : [ 
+            <span class="hljs-string">&quot;female&quot;</span>, 
+            <span class="hljs-string">&quot;male&quot;</span> 
           ], 
-          <span class="hljs-string">"to"</span> : [ 
-            <span class="hljs-string">"female"</span>, 
-            <span class="hljs-string">"male"</span> 
+          <span class="hljs-string">&quot;to&quot;</span> : [ 
+            <span class="hljs-string">&quot;female&quot;</span>, 
+            <span class="hljs-string">&quot;male&quot;</span> 
           ] 
         } 
       ], 
-      <span class="hljs-string">"orphanCollections"</span> : [ ], 
-      <span class="hljs-string">"name"</span> : <span class="hljs-string">"social"</span> 
+      <span class="hljs-string">&quot;orphanCollections&quot;</span> : [ ], 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;social&quot;</span> 
     }, 
     { 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/routeplanner"</span>, 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"routeplanner"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKKcXK--_"</span>, 
-      <span class="hljs-string">"edgeDefinitions"</span> : [ 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;_graphs/routeplanner&quot;</span>, 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;routeplanner&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrSli6--_&quot;</span>, 
+      <span class="hljs-string">&quot;edgeDefinitions&quot;</span> : [ 
         { 
-          <span class="hljs-string">"collection"</span> : <span class="hljs-string">"frenchHighway"</span>, 
-          <span class="hljs-string">"from"</span> : [ 
-            <span class="hljs-string">"frenchCity"</span> 
+          <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;frenchHighway&quot;</span>, 
+          <span class="hljs-string">&quot;from&quot;</span> : [ 
+            <span class="hljs-string">&quot;frenchCity&quot;</span> 
           ], 
-          <span class="hljs-string">"to"</span> : [ 
-            <span class="hljs-string">"frenchCity"</span> 
+          <span class="hljs-string">&quot;to&quot;</span> : [ 
+            <span class="hljs-string">&quot;frenchCity&quot;</span> 
           ] 
         }, 
         { 
-          <span class="hljs-string">"collection"</span> : <span class="hljs-string">"germanHighway"</span>, 
-          <span class="hljs-string">"from"</span> : [ 
-            <span class="hljs-string">"germanCity"</span> 
+          <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;germanHighway&quot;</span>, 
+          <span class="hljs-string">&quot;from&quot;</span> : [ 
+            <span class="hljs-string">&quot;germanCity&quot;</span> 
           ], 
-          <span class="hljs-string">"to"</span> : [ 
-            <span class="hljs-string">"germanCity"</span> 
+          <span class="hljs-string">&quot;to&quot;</span> : [ 
+            <span class="hljs-string">&quot;germanCity&quot;</span> 
           ] 
         }, 
         { 
-          <span class="hljs-string">"collection"</span> : <span class="hljs-string">"internationalHighway"</span>, 
-          <span class="hljs-string">"from"</span> : [ 
-            <span class="hljs-string">"frenchCity"</span>, 
-            <span class="hljs-string">"germanCity"</span> 
+          <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;internationalHighway&quot;</span>, 
+          <span class="hljs-string">&quot;from&quot;</span> : [ 
+            <span class="hljs-string">&quot;frenchCity&quot;</span>, 
+            <span class="hljs-string">&quot;germanCity&quot;</span> 
           ], 
-          <span class="hljs-string">"to"</span> : [ 
-            <span class="hljs-string">"frenchCity"</span>, 
-            <span class="hljs-string">"germanCity"</span> 
+          <span class="hljs-string">&quot;to&quot;</span> : [ 
+            <span class="hljs-string">&quot;frenchCity&quot;</span>, 
+            <span class="hljs-string">&quot;germanCity&quot;</span> 
           ] 
         } 
       ], 
-      <span class="hljs-string">"orphanCollections"</span> : [ ], 
-      <span class="hljs-string">"name"</span> : <span class="hljs-string">"routeplanner"</span> 
+      <span class="hljs-string">&quot;orphanCollections&quot;</span> : [ ], 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;routeplanner&quot;</span> 
     } 
   ] 
 }

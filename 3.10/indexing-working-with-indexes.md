@@ -93,7 +93,7 @@ Other attributes may be necessary, depending on the index type.
 
 **type** can be one of the following values:
 - *persistent*: persistent index
-- *fulltext*: fulltext index
+- *fulltext*: fulltext index (deprecated from ArangoDB 3.10 onwards)
 - *geo*: geo index, with _one_ or _two_ attributes
 
 **name** can be a string. Index names are subject to the same character
@@ -286,7 +286,7 @@ You can use explain to verify that a certain index is used:
     @EXAMPLE_ARANGOSH_OUTPUT{IndexVerify}
     ~db._create("example");
     var explain = require("@arangodb/aql/explainer").explain;
-    db.example.ensureIndex({ type: "skiplist", fields: [ "a", "b" ] });
+    db.example.ensureIndex({ type: "persistent", fields: [ "a", "b" ] });
     explain("FOR doc IN example FILTER doc.a < 23 RETURN doc", {colors: false});
     ~db._drop("example");
     @END_EXAMPLE_ARANGOSH_OUTPUT

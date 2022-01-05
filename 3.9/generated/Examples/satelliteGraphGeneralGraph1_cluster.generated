@@ -1,14 +1,14 @@
-arangosh&gt; <span class="hljs-keyword">var</span> graphModule = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/general-graph"</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> satelliteGraphModule = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/satellite-graph"</span>);
-arangosh&gt; graphModule._create(<span class="hljs-string">"normalGraph"</span>, [ graphModule._relation(<span class="hljs-string">"edges"</span>, <span class="hljs-string">"vertices"</span>, <span class="hljs-string">"vertices"</span>) ], [], {});
+arangosh&gt; <span class="hljs-keyword">var</span> graphModule = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/general-graph&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> satelliteGraphModule = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/satellite-graph&quot;</span>);
+arangosh&gt; graphModule._create(<span class="hljs-string">&quot;normalGraph&quot;</span>, [ graphModule._relation(<span class="hljs-string">&quot;edges&quot;</span>, <span class="hljs-string">&quot;vertices&quot;</span>, <span class="hljs-string">&quot;vertices&quot;</span>) ], [], {});
 {[Graph] 
-  <span class="hljs-string">"edges"</span> : [ArangoCollection <span class="hljs-number">10060</span>, <span class="hljs-string">"edges"</span> (type edge, status loaded)], 
-  <span class="hljs-string">"vertices"</span> : [ArangoCollection <span class="hljs-number">10059</span>, <span class="hljs-string">"vertices"</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
+  <span class="hljs-string">&quot;edges&quot;</span> : [ArangoCollection <span class="hljs-number">10114</span>, <span class="hljs-string">&quot;edges&quot;</span> (type edge, status loaded)], 
+  <span class="hljs-string">&quot;vertices&quot;</span> : [ArangoCollection <span class="hljs-number">10113</span>, <span class="hljs-string">&quot;vertices&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
 }
-arangosh&gt; satelliteGraphModule._create(<span class="hljs-string">"satelliteGraph"</span>, [ satelliteGraphModule._relation(<span class="hljs-string">"satEdges"</span>, <span class="hljs-string">"satVertices"</span>, <span class="hljs-string">"satVertices"</span>) ], [], {});
+arangosh&gt; satelliteGraphModule._create(<span class="hljs-string">&quot;satelliteGraph&quot;</span>, [ satelliteGraphModule._relation(<span class="hljs-string">&quot;satEdges&quot;</span>, <span class="hljs-string">&quot;satVertices&quot;</span>, <span class="hljs-string">&quot;satVertices&quot;</span>) ], [], {});
 {[SatelliteGraph] 
-  <span class="hljs-string">"satEdges"</span> : [ArangoCollection <span class="hljs-number">10065</span>, <span class="hljs-string">"satEdges"</span> (type edge, status loaded)], 
-  <span class="hljs-string">"satVertices"</span> : [ArangoCollection <span class="hljs-number">10063</span>, <span class="hljs-string">"satVertices"</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
+  <span class="hljs-string">&quot;satEdges&quot;</span> : [ArangoCollection <span class="hljs-number">10120</span>, <span class="hljs-string">&quot;satEdges&quot;</span> (type edge, status loaded)], 
+  <span class="hljs-string">&quot;satVertices&quot;</span> : [ArangoCollection <span class="hljs-number">10118</span>, <span class="hljs-string">&quot;satVertices&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
 }
-arangosh&gt; db._create(<span class="hljs-string">"collection"</span>, {<span class="hljs-attr">numberOfShards</span>: <span class="hljs-number">8</span>});
-[ArangoCollection <span class="hljs-number">10067</span>, <span class="hljs-string">"collection"</span> (type <span class="hljs-built_in">document</span>, status loaded)]
+arangosh&gt; db._create(<span class="hljs-string">&quot;collection&quot;</span>, {<span class="hljs-attr">numberOfShards</span>: <span class="hljs-number">8</span>});
+[ArangoCollection <span class="hljs-number">10122</span>, <span class="hljs-string">&quot;collection&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)]

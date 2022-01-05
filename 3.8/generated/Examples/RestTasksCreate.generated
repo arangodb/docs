@@ -18,14 +18,14 @@ server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;68203&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;68211&quot;</span>, 
   <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;SampleTask&quot;</span>, 
-  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-number">1628002281.9024205</span>, 
+  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-number">1638529616.7948341</span>, 
   <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;periodic&quot;</span>, 
   <span class="hljs-string">&quot;period&quot;</span> : <span class="hljs-number">2</span>, 
   <span class="hljs-string">&quot;offset&quot;</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">&quot;command&quot;</span> : <span class="hljs-string">&quot;(function (params) { (function(params) { require(&#x27;@arangodb&#x27;).print(params); })(params) } )(params);&quot;</span>, 
   <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/tasks/68203</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/tasks/68211</span>
 

@@ -18,7 +18,6 @@ With the `@<IndexType>Indexed` annotations user defined indexes can be created a
 Possible `@<IndexType>Indexed` annotations are:
 
 - `@HashIndexed`
-- `@SkiplistIndexed`
 - `@PersistentIndexed`
 - `@GeoIndexed`
 - `@FulltextIndexed`
@@ -37,12 +36,12 @@ public class Person {
 
 With the `@<IndexType>Indexed` annotations different indexes can be created on the same field.
 
-The following example creates a hash index and also a skiplist index on the field `name`:
+The following example creates a hash index and also a persistent index on the field `name`:
 
 ```java
 public class Person {
   @HashIndexed
-  @SkiplistIndexed
+  @PersistentIndexed
   private String name;
 }
 ```
@@ -54,7 +53,6 @@ If the index should include multiple fields the `@<IndexType>Index` annotations 
 Possible `@<IndexType>Index` annotations are:
 
 - `@HashIndex`
-- `@SkiplistIndex`
 - `@PersistentIndex`
 - `@GeoIndex`
 - `@FulltextIndex`

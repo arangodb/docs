@@ -1,14 +1,14 @@
-arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"stop"</span>, <span class="hljs-string">"stopwords"</span>, {
-........&gt;   stopwords: [<span class="hljs-string">"616e64"</span>,<span class="hljs-string">"746865"</span>]
-........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>]);
-arangosh&gt; db._query(<span class="hljs-string">"RETURN FLATTEN(TOKENS(SPLIT('the fox and the dog and a theater', ' '), 'stop'))"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">&quot;stop&quot;</span>, <span class="hljs-string">&quot;stopwords&quot;</span>, {
+........&gt;   stopwords: [<span class="hljs-string">&quot;616e64&quot;</span>,<span class="hljs-string">&quot;746865&quot;</span>], <span class="hljs-attr">hex</span>: <span class="hljs-literal">true</span>
+........&gt; }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>]);
+arangosh&gt; db._query(<span class="hljs-string">&quot;RETURN FLATTEN(TOKENS(SPLIT(&#x27;the fox and the dog and a theater&#x27;, &#x27; &#x27;), &#x27;stop&#x27;))&quot;</span>);
 [ 
   [ 
-    <span class="hljs-string">"fox"</span>, 
-    <span class="hljs-string">"dog"</span>, 
-    <span class="hljs-string">"a"</span>, 
-    <span class="hljs-string">"theater"</span> 
+    <span class="hljs-string">&quot;fox&quot;</span>, 
+    <span class="hljs-string">&quot;dog&quot;</span>, 
+    <span class="hljs-string">&quot;a&quot;</span>, 
+    <span class="hljs-string">&quot;theater&quot;</span> 
   ] 
 ]
 [object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]

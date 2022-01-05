@@ -1,11 +1,12 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/testCollection/shards</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/collection/testCollection/shards</span>
 
 HTTP/1.1 200 OK
 content-type: application/json
 connection: Keep-Alive
-content-length: 573
-location: /_api/collection/testCollection/shards
+content-length: 571
+location: /_db/_system/_api/collection/testCollection/shards
 server: ArangoDB
+x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"waitForSync\":false,\"shards\":[\"s10050\",\"s10051\",\"s10052\"],\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"usesRevisionsAsDocumentIds\":true,\"schema\":null,\"writeConcern\":1,\"syncByRevision\":true,\"replicationFactor\":2,\"numberOfShards\":3,\"id\":\"10049\",\"name\":\"testCollection\",\"isDisjoint\":false,\"minReplicationFactor\":1,\"status\":3,\"type\":2,\"globallyUniqueId\":\"c10049/\",\"isSmart\":false,\"isSystem\":false,\"isSmartChild\":false,\"statusString\":\"loaded\",\"cacheEnabled\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"minRevision\":\"_Zz3k4-----\"}"
+"{\"error\":false,\"code\":200,\"waitForSync\":false,\"shards\":[\"s10058\",\"s10059\",\"s10060\"],\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"usesRevisionsAsDocumentIds\":true,\"schema\":null,\"writeConcern\":1,\"syncByRevision\":true,\"replicationFactor\":2,\"numberOfShards\":3,\"id\":\"10057\",\"name\":\"testCollection\",\"isDisjoint\":false,\"minReplicationFactor\":1,\"status\":3,\"type\":2,\"globallyUniqueId\":\"c10057/\",\"isSmart\":false,\"isSystem\":false,\"internalValidatorType\":0,\"isSmartChild\":false,\"statusString\":\"loaded\",\"cacheEnabled\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"}}"

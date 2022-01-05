@@ -167,13 +167,17 @@ Most user-land indexes can be created by defining the names of the attributes wh
 
 Indexing the system attribute `_id` in user-defined indexes is not supported by any index type.
 
-Edges Index
+Edge Index
 -----------
 
-An edges index is automatically created for edge collections. It contains connections between vertex documents and is invoked when the connecting edges of a vertex are queried. There is no way to explicitly create or delete edges indexes.
+An edge index is automatically created for edge collections. It contains connections between vertex documents and is invoked when the connecting edges of a vertex are queried. There is no way to explicitly create or delete edge indexes.
 
 Fulltext Index
 --------------
+
+{% hint 'warning' %}
+The fulltext index type is deprecated from version 3.10 onwards.
+{% endhint %}
 
 A fulltext index can be used to find words, or prefixes of words inside documents. A fulltext index can be defined on one attribute only, and will include all words contained in documents that have a textual value in the index attribute. Since ArangoDB 2.6 the index will also include words from the index attribute if the index attribute is an array of strings, or an object with string value members.
 
@@ -197,21 +201,23 @@ Index Handle
 
 An index handle uniquely identifies an index in the database. It is a string and consists of a collection name and an index identifier separated by /.
 
+Persistent Index
+----------------
+
+A persistent index is a sorted index type that can be used to find individual documents by a lookup value,
+or multiple documents in a given lookup value range. It can also be used for retrieving documents in a
+sorted order.
+
 Hash Index
 ----------
 
-A hash index is used to find documents based on examples. A hash index can be created for one or multiple document attributes.
+A hash index is now an alias for a persistent index.
 
-A hash index will only be used by queries if all indexed attributes are present in the example or search query, and if all attributes are compared using the equality (== operator). That means the hash index does not support range queries.
-
-A unique hash index has an amortized complexity of O(1) for lookup, insert, update, and remove operations.
-The non-unique hash index is similar, but amortized lookup performance is O(n), with n being the number of
-index entries with the same lookup value.
 
 Skiplist Index
 --------------
 
-A skiplist is a sorted index type that can be used to find ranges of documents.
+A skiplist index is now an alias for a persistent index.
 
 
 Anonymous Graphs

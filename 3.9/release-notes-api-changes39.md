@@ -109,8 +109,6 @@ in the header, arangod will reject the request and return HTTP 412
 In a cluster, the `x-arango-queue-time-seconds` request header will be
 checked on the receiving Coordinator, before any request forwarding.
 
-### Privilege changes
-
 ### Endpoint return value changes
 
 All collections in ArangoDB are now always in the "loaded" state. APIs return
@@ -122,6 +120,8 @@ have been turned into no-ops. They still exist in ArangoDB 3.9, but do not
 serve any purpose and are deprecated.
 
 ### Endpoints added
+
+#### Support Info API
 
 The HTTP REST API endpoint `GET /_admin/support-info` was added for retrieving
 deployment information for support purposes. The endpoint returns data about the
@@ -140,6 +140,63 @@ is made available. This option can have the following values:
   accessed via superuser JWT. Otherwise it can be accessed by admin users only.
 - `public`: everyone with access to the `_system` database can access the support info API.
 
+#### License Management (Enterprise Edition)
+
+Two endpoints were added for the new
+[License Management](administration-license.html). They can be called on
+single servers, Coordinators and DB-Servers:
+
+- `GET /_admin/license`: Query license information and status.
+
+  ```js
+  {
+    "features": {
+      "expires": 1640255734
+    },
+    "license": "JD4EOk5fcx...HgdnWw==",
+    "version": 1,
+    "status": "good"
+  }
+  ```
+
+  - `features`:
+    - `expires`: Unix timestamp (seconds since January 1st, 1970 UTC)
+  - `license`: Encrypted and base64-encoded license key
+  - `version`: License version number
+  - `status`:
+    - `good`: The license is valid for more than 2 weeks.
+    - `expiring`: The license is valid for less than 2 weeks.
+    - `expired`: The license has expired. In this situation, no new
+      Enterprise Edition features can be utilized.
+    - `read-only`: The license is expired over 2 weeks. The instance is now
+      restricted to read-only mode.
+
+- `PUT /_admin/license`: Set a new license key. Expects the key as string in the
+  request body (wrapped in double quotes).
+
+  Server reply on success:
+
+  ```json
+  {
+    "result": {
+      "error": false,
+      "code": 201
+    }
+  }
+  ```
+
+  If the new license expires sooner than the current one, an error will be
+  returned. The query parameter `?force=true` can be set to update it anyway.
+
+  ```json
+  {
+    "code": 400,
+    "error": true,
+    "errorMessage": "This license expires sooner than the existing. You may override this by specifying force=true with invocation.",
+    "errorNum": 9007
+  }
+  ```
+
 ### Endpoints augmented
 
 The HTTP REST API endpoint `POST /_api/cursor` can now handle an 
@@ -155,6 +212,8 @@ sub-attribute `maxNodesPerCallstack`, which controls after how many
 execution nodes in a query a stack split should be performed. This is
 only relevant for very large queries. If this option is not specified,
 the default value is 200 on MacOS, and 250 for other platforms.
+Please note that this option is only useful for testing and debugging 
+and normally does not need any adjustment.
 
 The HTTP REST API endpoint `PUT /_admin/log/level` can now handle the
 pseudo log topic `"all"`. Setting the log level for the "all" log topic will
@@ -196,6 +255,8 @@ available since ArangoDB 3.3. This is a reminder to migrate to the other
 endpoint.
 
 ### Endpoints removed
+
+#### Redirects
 
 The following API redirect endpoints have been removed in ArangoDB 3.9.
 These endpoints have been only been redirections since ArangoDB 3.7. Any

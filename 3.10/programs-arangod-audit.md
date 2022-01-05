@@ -4,19 +4,28 @@ description: ArangoDB Server Audit Options
 ---
 # ArangoDB Server Audit Options
 
+{% include hint-ee.md feature="Auditing" %}
+
 ## Hostname
 
 `--audit.hostname`
 
-Hostname to use.
+The name of the server used in audit log messages. By default, the
+system hostname is used.
 
 ## Output
 
 `--audit.output`
 
-Audit destination(s).
-One or multiple destinations can be specified. Usually, destinations start with
-`file://`, followed by the absolute or relative path to the target logfile.
+Specifies the target of the audit log. Possible values are
+
+`file://filename` where *filename* can be relative or absolute.
+
+`syslog://facility` or `syslog://facility/application-name` to log
+into a syslog server.
+
+The option can be specified multiple times in order to configure the
+output for multiple targets.
 
 Any occurrence of `$PID` inside a filename will be replaced at runtime with the
 actual process id. This enables logging to process-specific files, e.g.
@@ -25,6 +34,17 @@ actual process id. This enables logging to process-specific files, e.g.
 
 Please note that the dollar sign may need extra escaping when specified from 
 inside shells such as Bash.
+
+## Verbosity
+
+`--log.level topic=level`
+
+By default, the server will log all audit events. Some low priority events, such
+as statistics operations, are logged with the `debug` log level. To keep such
+events from cluttering the log, set the appropriate topic to `info`. All other
+messages will be logged at the `info` level. Audit topics include
+`audit-authentication`, `audit-authorization`, `audit-collection`,
+`audit-database`, `audit-document`, `audit-service`, and `audit-view`. 
 
 ## Maximum line length
 
@@ -56,3 +76,24 @@ Queueing audit log entries may be beneficial for latency, but can lead to
 unqueued messages being lost in case of a power loss or crash. Setting this
 option to `false` mimics the behavior from 3.7 and before, where audit log
 messages were not queued but written in a blocking fashion.
+
+## Write log level
+
+<small>Introduced in: v3.10.0</small>
+
+`--audit.write-log-level`
+
+This options controls whether the log level is shown in the audit log 
+message. When this option is omitted or set to false, the log level is not shown in the message, e.g.:
+
+```
+44:2016-10-03 15:47:26 | server1 | audit-authentication | n/a | database1 | 
+127.0.0.1:61528 | http basic | credentials wrong | /_api/version
+```
+
+When the option is set to true, the log level is included in the message, e.g.:
+
+```
+44:2016-10-03 15:47:26 | INFO | server1 | audit-authentication | n/a | database1
+| 127.0.0.1:61528 | http basic | credentials wrong | /_api/version
+```

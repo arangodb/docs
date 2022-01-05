@@ -168,7 +168,7 @@ definition.
     "id": "260",
     "selectivityEstimate": 1,
     "sparse": false,
-    "type": "skiplist",
+    "type": "persistent",
     "unique": false
   }
 }

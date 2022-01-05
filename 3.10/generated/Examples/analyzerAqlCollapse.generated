@@ -1,43 +1,43 @@
-arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> a1 = analyzers.save(<span class="hljs-string">"collapsed"</span>, <span class="hljs-string">"aql"</span>, { <span class="hljs-attr">collapsePositions</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">queryString</span>:
-........&gt;   <span class="hljs-string">"FOR d IN SPLIT(@param, '-') RETURN d"</span>
-........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
-arangosh&gt; <span class="hljs-keyword">var</span> a2 = analyzers.save(<span class="hljs-string">"uncollapsed"</span>, <span class="hljs-string">"aql"</span>, { <span class="hljs-attr">collapsePositions</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">queryString</span>:
-........&gt;   <span class="hljs-string">"FOR d IN SPLIT(@param, '-') RETURN d"</span>
-........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
-arangosh&gt; <span class="hljs-keyword">var</span> coll = db._create(<span class="hljs-string">"coll"</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> view = db._createView(<span class="hljs-string">"view"</span>, <span class="hljs-string">"arangosearch"</span>,
-........&gt; { <span class="hljs-attr">links</span>: { <span class="hljs-attr">coll</span>: { <span class="hljs-attr">analyzers</span>: [ <span class="hljs-string">"collapsed"</span>, <span class="hljs-string">"uncollapsed"</span> ], <span class="hljs-attr">includeAllFields</span>: <span class="hljs-literal">true</span> }}});
-arangosh&gt; <span class="hljs-keyword">var</span> doc = db.coll.save({ <span class="hljs-attr">text</span>: <span class="hljs-string">"A-B-C-D"</span> });
-arangosh&gt; db._query(<span class="hljs-string">"FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'uncollapsed') RETURN d"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a1 = analyzers.save(<span class="hljs-string">&quot;collapsed&quot;</span>, <span class="hljs-string">&quot;aql&quot;</span>, { <span class="hljs-attr">collapsePositions</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">queryString</span>:
+........&gt;   <span class="hljs-string">&quot;FOR d IN SPLIT(@param, &#x27;-&#x27;) RETURN d&quot;</span>
+........&gt; }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
+arangosh&gt; <span class="hljs-keyword">var</span> a2 = analyzers.save(<span class="hljs-string">&quot;uncollapsed&quot;</span>, <span class="hljs-string">&quot;aql&quot;</span>, { <span class="hljs-attr">collapsePositions</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">queryString</span>:
+........&gt;   <span class="hljs-string">&quot;FOR d IN SPLIT(@param, &#x27;-&#x27;) RETURN d&quot;</span>
+........&gt; }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
+arangosh&gt; <span class="hljs-keyword">var</span> coll = db._create(<span class="hljs-string">&quot;coll&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> view = db._createView(<span class="hljs-string">&quot;view&quot;</span>, <span class="hljs-string">&quot;arangosearch&quot;</span>,
+........&gt; { <span class="hljs-attr">links</span>: { <span class="hljs-attr">coll</span>: { <span class="hljs-attr">analyzers</span>: [ <span class="hljs-string">&quot;collapsed&quot;</span>, <span class="hljs-string">&quot;uncollapsed&quot;</span> ], <span class="hljs-attr">includeAllFields</span>: <span class="hljs-literal">true</span> }}});
+arangosh&gt; <span class="hljs-keyword">var</span> doc = db.coll.save({ <span class="hljs-attr">text</span>: <span class="hljs-string">&quot;A-B-C-D&quot;</span> });
+arangosh&gt; db._query(<span class="hljs-string">&quot;FOR d IN view SEARCH PHRASE(d.text, {TERM: &#x27;B&#x27;}, 1, {TERM: &#x27;D&#x27;}, &#x27;uncollapsed&#x27;) RETURN d&quot;</span>);
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69870"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/69870"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLPWm---"</span>, 
-    <span class="hljs-string">"text"</span> : <span class="hljs-string">"A-B-C-D"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70014&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;coll/70014&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqkM6---&quot;</span>, 
+    <span class="hljs-string">&quot;text&quot;</span> : <span class="hljs-string">&quot;A-B-C-D&quot;</span> 
   } 
 ]
 [object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
-arangosh&gt; db._query(<span class="hljs-string">"FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'uncollapsed') RETURN d"</span>);
+arangosh&gt; db._query(<span class="hljs-string">&quot;FOR d IN view SEARCH PHRASE(d.text, {TERM: &#x27;B&#x27;}, -1, {TERM: &#x27;D&#x27;}, &#x27;uncollapsed&#x27;) RETURN d&quot;</span>);
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69870"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/69870"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLPWm---"</span>, 
-    <span class="hljs-string">"text"</span> : <span class="hljs-string">"A-B-C-D"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70014&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;coll/70014&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqkM6---&quot;</span>, 
+    <span class="hljs-string">&quot;text&quot;</span> : <span class="hljs-string">&quot;A-B-C-D&quot;</span> 
   } 
 ]
 [object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
-arangosh&gt; db._query(<span class="hljs-string">"FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, 1, {TERM: 'D'}, 'collapsed') RETURN d"</span>);
+arangosh&gt; db._query(<span class="hljs-string">&quot;FOR d IN view SEARCH PHRASE(d.text, {TERM: &#x27;B&#x27;}, 1, {TERM: &#x27;D&#x27;}, &#x27;collapsed&#x27;) RETURN d&quot;</span>);
 [object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
-arangosh&gt; db._query(<span class="hljs-string">"FOR d IN view SEARCH PHRASE(d.text, {TERM: 'B'}, -1, {TERM: 'D'}, 'collapsed') RETURN d"</span>);
+arangosh&gt; db._query(<span class="hljs-string">&quot;FOR d IN view SEARCH PHRASE(d.text, {TERM: &#x27;B&#x27;}, -1, {TERM: &#x27;D&#x27;}, &#x27;collapsed&#x27;) RETURN d&quot;</span>);
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69870"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/69870"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLPWm---"</span>, 
-    <span class="hljs-string">"text"</span> : <span class="hljs-string">"A-B-C-D"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70014&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;coll/70014&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqkM6---&quot;</span>, 
+    <span class="hljs-string">&quot;text&quot;</span> : <span class="hljs-string">&quot;A-B-C-D&quot;</span> 
   } 
 ]
 [object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]

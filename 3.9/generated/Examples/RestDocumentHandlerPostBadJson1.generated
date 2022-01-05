@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products</span> &lt;&lt;EOF
 { 1: "World" }
 EOF
 
@@ -7,11 +7,12 @@ content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">97</span>
 server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">400</span>, 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"VPackError error: Expecting '\"' or '}'"</span>, 
-  <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">600</span> 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">400</span>, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;VPackError error: Expecting &#x27;\&quot;&#x27; or &#x27;}&#x27;&quot;</span>, 
+  <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">600</span> 
 }

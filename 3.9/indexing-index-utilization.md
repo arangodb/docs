@@ -19,7 +19,7 @@ to an index, an index can become more selective and thus reduce the number of do
 queries need to process.
 
 ArangoDB's primary indexes, edges indexes and hash indexes will automatically provide selectivity
-estimates. Index selectivity estimates are provided in the web interface, the `getIndexes()` return 
+estimates. Index selectivity estimates are provided in the web interface, the `indexes()` return 
 value and in the `explain()` output for a given query. 
 
 The more selective an index is, the more documents it will filter on average. The index selectivity 
@@ -49,12 +49,12 @@ stmt.explain();
 ```
 
 The `explain()` command will return a detailed JSON representation of the query's execution plan.
-The JSON explain output is intended to be used by code. To get a human-readable and much more
-compact explanation of the query, there is an explainer tool:
+The JSON explain output is intended to be used programmatically. To get a human-readable and much more
+compact explanation of the query, there use `db._explain(query)`:
 
 ```js
 var query = "FOR doc IN collection FILTER doc.value > 42 RETURN doc";
-require("@arangodb/aql/explainer").explain(query);
+db._explain(query);
 ```
 
 If any of the explain methods shows that a query is not using indexes, the following steps may help:
@@ -64,15 +64,11 @@ If any of the explain methods shows that a query is not using indexes, the follo
   error. A query that refers to attribute names not present in any of the documents will not return an
   error, and obviously will not benefit from indexes.
 
-* check the return value of the `getIndexes()` method for the collections used in the query and validate
+* check the return value of the `indexes()` method for the collections used in the query and validate
   that indexes are actually present on the attributes used in the query's filter conditions. 
 
-* if indexes are present but not used by the query, the indexes may have the wrong type. For example, a 
-  hash index will only be used for equality comparisons (i.e. `==`) but not for other comparison types such
-  as `<`, `<=`, `>`, `>=`. Additionally hash indexes will only be used if all of the index attributes are 
-  used in the query's FILTER conditions. A skiplist index will only be used if at least its first attribute 
-  is used in a FILTER condition. If additionally of the skiplist index attributes are specified in the query 
-  (from left-to-right), they may also be used and allow to filter more documents.
+* if indexes are present but not used by the query, the query's FILTER condition may not be adequate:
+  an index will be used only for comparison operators `==`, `<`, `<=`, `>`, `>=` and `IN`.
 
 * using indexed attributes as function parameters or in arbitrary expressions will likely lead to the index
   on the attribute not being used. For example, the following queries will not use an index on `value`:
@@ -87,7 +83,7 @@ If any of the explain methods shows that a query is not using indexes, the follo
   not mentioned in the query explanation for functions in general. These functions will raise query errors
   (at runtime) if no suitable index is present for the collection in question.
 
-* the query optimizer will in general pick one index per collection in a query. It can pick more than
+* the query optimizer will generally pick one index per collection in a query. It can pick more than
   one index per collection if the FILTER condition contains multiple branches combined with logical `OR`.
   For example, the following queries can use indexes:
 
@@ -95,7 +91,43 @@ If any of the explain methods shows that a query is not using indexes, the follo
       FOR doc IN collection FILTER doc.value1 == 42 || doc.value2 == 23 RETURN doc
       FOR doc IN collection FILTER doc.value1 < 42 || doc.value2 > 23 RETURN doc
 
-  The two `OR`s in the first query will be converted to an `IN` list, and if there is a suitable index on
+  The two `OR`s in the first query will be converted to an `IN` lookup, and if there is a suitable index on
   `value1`, it will be used. The second query requires two separate indexes on `value1` and `value2` and
   will use them if present. The third query can use the indexes on `value1` and `value2` when they are
   sorted.
+
+* for indexes on multiple attributes (combined indexes), the index attribute order is also important.
+  For example, when creating an index on `["value1", "value2"]` (in this order), the index can be
+  used to satisfy the following FILTER conditions:
+
+      FILTER doc.value1 == ...
+      FILTER doc.value1 > ...
+      FILTER doc.value1 >= ...
+      FILTER doc.value1 < ...
+      FILTER doc.value1 <= ...
+      FILTER doc.value1 > ... && doc.value1 < ...
+      FILTER doc.value1 >= ... && doc.value1 < ...
+      FILTER doc.value1 > ... && doc.value1 <= ...
+      FILTER doc.value1 >= ... && doc.value1 <= ...
+      FILTER doc.value1 IN ...
+
+      FILTER doc.value1 == ... && doc.value2 == ...
+      FILTER doc.value1 == ... && doc.value2 > ...
+      FILTER doc.value1 == ... && doc.value2 >= ...
+      FILTER doc.value1 == ... && doc.value2 < ...
+      FILTER doc.value1 == ... && doc.value2 <= ...
+      FILTER doc.value1 == ... && doc.value2 > ... && doc.value2 < ...
+      FILTER doc.value1 == ... && doc.value2 >= ... && doc.value2 < ...
+      FILTER doc.value1 == ... && doc.value2 > ... && doc.value2 <= ...
+      FILTER doc.value1 == ... && doc.value2 >= ... && doc.value2 <= ...
+      FILTER doc.value1 == ... && doc.value2 IN ...
+
+  The index cannot be used to satisfy FILTER conditions on `value2` alone.
+
+  For a combined index to be used in a query, the following algorithm is applied:
+  - the index attributes are checked in order, from left to right (e.g. `value1`, `value2`).
+  - if there is a FILTER condition on an index attribute, the index is considered a valid candidate
+    for the query.
+  - if the FILTER condition on the current attribute does not use `==` or `IN`, the following index
+    attributes are not considered anymore. Otherwise, they will be considered and the algorithm will
+    check the next index attribute.

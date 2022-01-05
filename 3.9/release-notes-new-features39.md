@@ -64,6 +64,14 @@ See:
 UI
 --
 
+### Rebalance shards
+
+The rebalance shards section displays a button for rebalancing shards. A new DB-Server will not have any shards. With the rebalance functionality, 
+the cluster will start to rebalance shards including empty DB-Servers. You can specify the maximum number of shards that can be 
+moved in each operation by using the `--cluster.max-number-of-move-shards` flag in arangod (the default value is 10).
+When the button is clicked, the number of scheduled move shards operations is shown, or it is displayed that 
+no move operations have been scheduled if they are not necessary.
+
 ### Analyzers in Web Interface
 
 A new menu item _ANALYZERS_ has been added to the side navigation bar of the
@@ -267,12 +275,13 @@ limit (options `--query.memory-limit` and `--query.memory-limit-global`).
 ### Execution of complex queries
 
 Very large queries (in terms of query execution plan complexity) are now split
-into multiple segments that are executed using separate stacks. This avoids
-potential stack overflow. The number of execution nodes after that such
-stack splitting is performed can be configured via the startup option
-`--query.max-nodes-per-callstack`. The default value is 200 for macOS, and 250
+into multiple segments which are executed using separate stacks. This prevents a
+potential stack overflow. To configure the number of execution nodes after such a
+stack splitting is performed, use the `--query.max-nodes-per-callstack` startup option. 
+The default value is 200 for macOS, and 250
 for the other supported platforms. The value can be adjusted per query via the
-`maxNodesPerCallstack` query option.
+`maxNodesPerCallstack` query option. Please note that the default values 
+should work and adjusting the option is only useful for testing and debugging.
 
 ### Query complexity limits
 
@@ -338,6 +347,10 @@ dataset, making it less predictable.
 
 Server options
 --------------
+
+### Rebalance shards
+
+The `--cluster.max-number-of-move-shards` flag limits the maximum number of move shards operations which can be made when the **Rebalance Shards** button is clicked in the web UI. For backwards compatibility purposes, the default value is 10. If the value is 0, then the tab containing this button will be inactive and the button cannot be clicked.
 
 ### Extended naming convention for databases
 
@@ -471,6 +484,28 @@ is made available. This option can have the following values:
   accessed via superuser JWT. Otherwise it can be accessed by admin users only.
 - `public`: everyone with access to the `_system` database can access the support info API.
 
+License Management (Enterprise Edition)
+---------------------------------------
+
+The Enterprise Edition of ArangoDB requires a license to activate it.
+ArangoDB 3.9 comes with a new license management that lets you test ArangoDB
+for one hour before requiring a license key to keep the Enterprise Edition
+features activated.
+
+There is a new JavaScript API for querying the license status and to set a
+license key (typically run in _arangosh_):
+
+```js
+db._getLicense();
+db._setLicense("<license-string>");
+```
+
+There are two new REST API routes to do the same, `GET /_admin/license` and
+`PUT /_admin/license`.
+
+See [License Management](administration-license.html) and the
+[License Management HTTP API](http/license.html).
+
 Miscellaneous changes
 ---------------------
 
@@ -577,6 +612,9 @@ See [Overriding data types per attribute](programs-arangoimport-examples-csv.htm
 
 ### arangobench
 
+Histogram is now switched off by default (the `--histogram.generate` flag set to false). To display it, set the flag to true.
+If this option is disabled, but other histogram flags are addressed, e.g. `--histogram.interval-size 500`, everything will still run normally, but a warning message will be displayed saying that the histogram is switched off and using that flag has no effect.
+
 _arangobench_ now prints a short description of the test case started, so
 it is easier to figure out what operations are carried out by a test case.
 Several test cases in arangobench have been deprecated because they do not
@@ -660,6 +698,8 @@ source.
 
 The bundled version of the Snappy compression library was upgraded from
 version 1.1.8 to version 1.1.9.
+
+The bundled version of the RocksDB library has been upgraded from 6.8 to 6.27.
 
 The minimum architecture requirements have been raised from the Westmere
 architecture to the Sandy Bridge architecture. 256-bit AVX instructions are

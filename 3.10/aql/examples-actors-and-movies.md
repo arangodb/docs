@@ -720,11 +720,11 @@ db._query(`
 ### The number of movies acted in between two years by actor
 
 This query is where a multi-model database actually shines.
-First of all we want to use it in production, so we set a skiplist index on year.
+First of all we want to use it in production, so we set a persistent index on year.
 This allows as to execute fast range queries like between 1990 and 1995.
 
 ```js
-db.actsIn.ensureIndex({ type: "skiplist", fields: ["year"] });
+db.actsIn.ensureIndex({ type: "persistent", fields: ["year"] });
 ```
 
 Now we slightly modify our movies by actor query.

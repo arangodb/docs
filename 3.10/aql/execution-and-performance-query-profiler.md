@@ -72,17 +72,17 @@ internal batch size of 1000 these blocks were also called 100 times each.
 The _FilterNode_ as well as the _ReturnNode_ however only ever returned 10 rows
 and only had to be called once, because the result size fits within a single batch.
 
-Let us add a skiplist index on `value` to speed up the query:
+Let us add a persistent index on `value` to speed up the query:
 
 ```js
-db.acollection.ensureIndex({type:"skiplist", fields:["value"]});
+db.acollection.ensureIndex({type:"persistent", fields:["value"]});
 ```
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 @startDocuBlockInline 02_workWithAQL_profileQuerySimpleIndex
 @EXAMPLE_ARANGOSH_OUTPUT{02_workWithAQL_profileQuerySimpleIndex}
 ~db._create('acollection');
-~db.acollection.ensureIndex({type:"skiplist", fields:["value"]});
+~db.acollection.ensureIndex({type:"persistent", fields:["value"]});
 ~for (let i=0; i < 10000; i++) { db.acollection.insert({value:i}); }
 |db._profileQuery(`
 |FOR doc IN acollection
@@ -109,7 +109,7 @@ Let us consider a query containing a subquery:
 @startDocuBlockInline 03_workWithAQL_profileQuerySubquery
 @EXAMPLE_ARANGOSH_OUTPUT{03_workWithAQL_profileQuerySubquery}
 ~db._create('acollection');
-~db.acollection.ensureIndex({type:"skiplist", fields:["value"]});
+~db.acollection.ensureIndex({type:"persistent", fields:["value"]});
 ~for (let i=0; i < 10000;i++) { db.acollection.insert({value:i}); }
 |db._profileQuery(`
 |LET list = (FOR doc in acollection FILTER doc.value > 90 RETURN doc)

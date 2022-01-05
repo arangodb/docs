@@ -9,6 +9,7 @@
     "description" : "Activate agency",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -31,6 +32,7 @@
     "description" : "keep as many indices before compaction point",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -53,6 +55,7 @@
     "description" : "step size between state machine compactions",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -75,6 +78,7 @@
     "description" : "allows for specification of the id for this agent; dangerous option for disaster recover only!",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -97,6 +101,7 @@
     "description" : "maximum timeout before an agent calls for new election (in seconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -119,6 +124,7 @@
     "description" : "minimum timeout before an agent calls for new election (in seconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -142,6 +148,7 @@
     "description" : "agency endpoints",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -164,6 +171,7 @@
     "description" : "maximum size of appendEntries document (# log entries)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -186,6 +194,7 @@
     "description" : "which address to advertise to the outside",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -208,6 +217,7 @@
     "description" : "number of agent pool",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -230,6 +240,7 @@
     "description" : "number of agents",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -252,6 +263,7 @@
     "description" : "perform arangodb cluster supervision",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -274,6 +286,7 @@
     "description" : "arangodb cluster supervision frequency (in seconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -296,6 +309,7 @@
     "description" : "supervision time, after which a server is considered to have failed (in seconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -318,6 +332,7 @@
     "description" : "supervision time, after which a server is considered to be bad [s]",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -340,6 +355,7 @@
     "description" : "wait for hard disk syncs on every persistence call (required in production)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -365,6 +381,7 @@
     "description" : "upper limit to the allowed number of commit threads (0 == autodetect)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.5"
@@ -392,6 +409,7 @@
     "description" : "upper limit to the allowed number of idle threads to use for commit tasks (0 == autodetect)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.5"
@@ -419,6 +437,7 @@
     "description" : "upper limit to the allowed number of consolidation threads (0 == autodetect)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.5"
@@ -446,6 +465,7 @@
     "description" : "upper limit to the allowed number of idle threads to use for consolidation tasks (0 == autodetect)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.5"
@@ -475,6 +495,7 @@
     "description" : "the exact number of threads to use for asynchronous tasks (0 == autodetect)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -502,6 +523,7 @@
     "description" : "upper limit to the autodetected number of threads to use for asynchronous tasks (0 == use default)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -527,6 +549,7 @@
     "description" : "hostname to use",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -552,6 +575,7 @@
     "description" : "maximum length of a log entry (in bytes)",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0",
@@ -581,6 +605,7 @@
     "description" : "audit destination(s)",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -606,9 +631,38 @@
     "description" : "queue audit log message before writing them out (can reduce latency)",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "audit",
+    "type" : "boolean"
+  },
+  "audit.write-log-level" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "add the log level of the audit event (TRACE, INFO, DEBUG, WARNING, ERROR) to audit log messages",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.0"
     ],
     "obsolete" : false,
     "os" : [
@@ -633,6 +687,7 @@
     "description" : "whether the backup api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -658,6 +713,7 @@
     "description" : "this option restricts any backup target to a given path prefix",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -683,6 +739,7 @@
     "description" : "microseconds between rebalancing attempts",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -703,11 +760,12 @@
       "agent",
       "single"
     ],
-    "default" : 15268129792,
+    "default" : 16341516288,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -732,6 +790,7 @@
     "description" : "check the configuration and exit",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -756,6 +815,7 @@
     "description" : "agency endpoint to connect to",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -778,6 +838,7 @@
     "description" : "access permissions required for accessing /_admin/cluster REST APIs (jwt-all = JWT required to access all operations, jwt-write = JWT required for post/put/delete operations, jwt-compat = 3.7 compatibility mode)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -804,6 +865,7 @@
     "description" : "active coordinator will wait for all replicas to create collection",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -826,6 +888,7 @@
     "description" : "default replication factor for non-system collections",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.6.0"
@@ -850,6 +913,7 @@
     "description" : "force one-shard mode for all new collections",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.6.0"
@@ -869,11 +933,12 @@
     "component" : [
       "coordinator"
     ],
-    "default" : 3600,
+    "default" : 259200,
     "deprecatedIn" : null,
     "description" : "amount of time (in seconds) the coordinator will wait for an index to be created before giving up",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -886,6 +951,31 @@
     "section" : "cluster",
     "type" : "double"
   },
+  "cluster.max-number-of-move-shards" : {
+    "category" : "option",
+    "component" : [
+      "coordinator"
+    ],
+    "default" : 10,
+    "deprecatedIn" : null,
+    "description" : "number of shards to be moved per rebalance operation. If value = 0, no shards will be moved",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "cluster",
+    "type" : "uint32"
+  },
   "cluster.max-number-of-shards" : {
     "category" : "option",
     "component" : [
@@ -896,6 +986,7 @@
     "description" : "maximum number of shards when creating new collections (0 = unrestricted)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.1"
@@ -920,6 +1011,7 @@
     "description" : "maximum replication factor for new collections (0 = unrestricted)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.6.0"
@@ -944,6 +1036,7 @@
     "description" : "minimum replication factor for new collections",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.6.0"
@@ -969,6 +1062,7 @@
     "description" : "this server's endpoint (cluster internal)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -992,6 +1086,7 @@
     "description" : "this server's advertised endpoint (e.g. external IP address or load balancer, optional)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1017,6 +1112,7 @@
     "description" : "this server's role",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1042,6 +1138,7 @@
     "description" : "if set to true, then the instance will only start if a UUID file is found in the database on startup. Setting this option will make sure the instance is started using an already existing database directory and not a new one. For the first start, the UUID file must either be created manually or the option must be set to false for the initial startup",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1064,6 +1161,7 @@
     "description" : "create resign leader ship job for this dbsever on shutdown",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1089,6 +1187,7 @@
     "description" : "all synchronous replication timeouts are multiplied by this factor",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1114,6 +1213,7 @@
     "description" : "all synchronous replication timeouts will be at most this value (in seconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -1141,6 +1241,7 @@
     "description" : "all synchronous replication timeouts will be at least this value (in seconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1166,6 +1267,7 @@
     "description" : "all synchronous replication timeouts are increased by this amount per 4096 bytes (in seconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1188,6 +1290,7 @@
     "description" : "default replication factor for system collections",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1213,6 +1316,7 @@
     "description" : "perform a cluster upgrade if necessary (auto = perform upgrade and shut down only if `--database.auto-upgrade true` is set, disable = never perform upgrade, force = always perform an upgrade and shut down, online = always perform an upgrade but don't shut down)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1236,6 +1340,7 @@
     "description" : "write concern used for writes to new collections",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.6.0"
@@ -1263,6 +1368,7 @@
     "description" : "the configuration file or 'none'",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1288,6 +1394,7 @@
     "description" : "the configuration file or 'none'",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1313,6 +1420,7 @@
     "description" : "start a JavaScript emergency console",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1338,6 +1446,7 @@
     "description" : "background the server, running it as daemon",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1362,6 +1471,7 @@
     "description" : "perform a database upgrade if necessary",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1386,6 +1496,7 @@
     "description" : "checks the versions of the database and exit",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1411,6 +1522,7 @@
     "description" : "path to the database directory",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1422,6 +1534,34 @@
     "requiresValue" : true,
     "section" : "database",
     "type" : "string"
+  },
+  "database.extended-names-databases" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "allow extended characters in database names",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : true,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.9.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "database",
+    "type" : "boolean"
   },
   "database.force-sync-properties" : {
     "category" : "option",
@@ -1436,6 +1576,7 @@
     "description" : "force syncing of collection properties to disk, will use waitForSync value of collection when turned off",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1461,6 +1602,7 @@
     "description" : "load collections even if datafiles may contain errors",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1485,6 +1627,7 @@
     "description" : "initializes an empty database",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1510,6 +1653,7 @@
     "description" : "initial password of root user",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1535,6 +1679,7 @@
     "description" : "required state of database directory at startup (non-existing: database directory must not exist, existing: database directory must exist, empty: database directory must exist but be empty, populated: database directory must exist and contain specific files already, any: any state allowed)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1560,6 +1705,7 @@
     "description" : "resets the admin users and sets a new password",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1585,6 +1731,7 @@
     "description" : "skip a database upgrade",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1610,6 +1757,7 @@
     "description" : "default wait-for-sync behavior, can be overwritten when creating a collection",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1635,6 +1783,7 @@
     "description" : "ISO-639 language code",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1660,6 +1809,7 @@
     "description" : "check if default language matches stored language",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -1688,6 +1838,7 @@
     "description" : "define key=value for a @key@ entry in config file",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1712,6 +1863,7 @@
     "description" : "dump dependency graph",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1736,6 +1888,7 @@
     "description" : "dump configuration options in JSON format",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1761,6 +1914,7 @@
     "description" : "show fortune cookie on startup",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1784,6 +1938,7 @@
     "description" : "enables Foxx management REST APIs",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -1809,6 +1964,7 @@
     "description" : "ensure all Foxx services are synchronized before completeing the boot sequence",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.5"
@@ -1834,6 +1990,7 @@
     "description" : "enable Foxx queues",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1857,6 +2014,7 @@
     "description" : "poll interval (in seconds) for Foxx queue manager",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1880,6 +2038,7 @@
     "description" : "enables Foxx store in web interface",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -1905,6 +2064,7 @@
     "description" : "enable proxy request checking",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1929,6 +2089,7 @@
     "description" : "list of proxies to trust (may be IP or network). Make sure --frontend.proxy-request-check is enabled",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1952,6 +2113,7 @@
     "description" : "alert the user if new versions are available",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -1977,6 +2139,7 @@
     "description" : "switch to group-id after reading config files",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2004,6 +2167,7 @@
     "description" : "allow HTTP method override using special headers",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2031,6 +2195,7 @@
     "description" : "do not expose \"Server: ArangoDB\" header in HTTP responses",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2056,6 +2221,7 @@
     "description" : "keep-alive timeout in seconds",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2081,6 +2247,7 @@
     "description" : "if true, use a permanent redirect. If false, use a temporary",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.12"
@@ -2108,6 +2275,7 @@
     "description" : "redirect of root URL",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.12"
@@ -2121,6 +2289,34 @@
     "requiresValue" : true,
     "section" : "http",
     "type" : "string"
+  },
+  "http.return-queue-time-header" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "if true, return the 'x-arango-queue-time-seconds' response header",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "http",
+    "type" : "boolean"
   },
   "http.trusted-origin" : {
     "category" : "option",
@@ -2136,6 +2332,7 @@
     "description" : "trusted origin URLs for CORS requests with credentials",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2161,6 +2358,7 @@
     "description" : "make ArangoDB bark on startup",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2184,6 +2382,7 @@
     "description" : "for testing purposes allow '_admin/execute', NEVER enable on production",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2207,6 +2406,7 @@
     "description" : "allow execution and control of external processes from within JavaScript actions",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.5.0"
@@ -2232,6 +2432,7 @@
     "description" : "allow testing of ports from within JavaScript actions",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.5.0"
@@ -2257,6 +2458,7 @@
     "description" : "directory for Foxx applications",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2280,6 +2482,7 @@
     "description" : "copy contents of 'javascript.startup-directory' on first start",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2303,6 +2506,7 @@
     "description" : "enable the V8 JavaScript engine",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2327,6 +2531,7 @@
     "description" : "endpoints that can be connected to via @arangodb/request module in JavaScript actions",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -2353,6 +2558,7 @@
     "description" : "endpoints that cannot be connected to via @arangodb/request module in JavaScript actions (if not in allowlist)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -2379,6 +2585,7 @@
     "description" : "environment variables that will be accessible in JavaScript",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -2405,6 +2612,7 @@
     "description" : "environment variables that will be inaccessible in JavaScript (if not in allowlist)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -2431,6 +2639,7 @@
     "description" : "filesystem paths that will be accessible from within JavaScript actions",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -2456,6 +2665,7 @@
     "description" : "JavaScript time-based garbage collection frequency (each x seconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2479,6 +2689,7 @@
     "description" : "JavaScript request-based garbage collection interval (each x requests)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2502,6 +2713,7 @@
     "description" : "disables access to JavaScript functions in the internal module: getPid() and logLevel()",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -2529,6 +2741,7 @@
     "description" : "additional paths containing JavaScript modules",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2555,6 +2768,7 @@
     "description" : "run scripts and exit",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2581,6 +2795,7 @@
     "description" : "script parameter",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2604,6 +2819,7 @@
     "description" : "path to the directory containing JavaScript startup scripts",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2628,6 +2844,7 @@
     "description" : "startup options whose names match this regular expression will be allowed and exposed to JavaScript",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -2654,6 +2871,7 @@
     "description" : "startup options whose names match this regular expression will not be exposed (if not in allowlist) to JavaScript actions",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -2679,6 +2897,7 @@
     "description" : "enable JavaScript tasks",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -2704,6 +2923,7 @@
     "description" : "enable JavaScript transactions",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -2729,6 +2949,7 @@
     "description" : "maximum number of V8 contexts that are created for executing JavaScript actions",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2752,6 +2973,7 @@
     "description" : "maximum age for each V8 context (in seconds) before it is disposed",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2775,6 +2997,7 @@
     "description" : "maximum number of invocations for each V8 context before it is disposed",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2798,6 +3021,7 @@
     "description" : "minimum number of V8 contexts that keep available for executing JavaScript actions",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2823,6 +3047,7 @@
     "description" : "maximal heap size (in MB)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2849,6 +3074,7 @@
     "description" : "options to pass to v8",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2874,6 +3100,7 @@
     "description" : "If a refresh attempt fails to connect to the LDAP server, continue with the cached authentication data",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2899,6 +3126,7 @@
     "description" : "Whether or not the connection to the LDAP library will be done asynchronously",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2924,6 +3152,7 @@
     "description" : "ldap basedn, eg. dc=example,dc=com",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2949,6 +3178,7 @@
     "description" : "ldap binddn, eg. cn=admin,dc=example,dc=com",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2974,6 +3204,7 @@
     "description" : "ldap bindpassword, eg. admin",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -2999,6 +3230,7 @@
     "description" : "Turn on internal OpenLDAP library output (warning: will print to stdout)",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3024,6 +3256,7 @@
     "description" : "enable LDAP",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3049,6 +3282,7 @@
     "description" : "Timeout value (in seconds) after which network operations following the initial connection return in case of no activity (a value of 0 means default timeout)",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3074,6 +3308,7 @@
     "description" : "port to use",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3099,6 +3334,7 @@
     "description" : "ldap prefix, eg. uid= xor dn= xor cn=",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3124,6 +3360,7 @@
     "description" : "Whether or not the LDAP library should implicitly chase referrals",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3149,6 +3386,7 @@
     "description" : "Refresh user settings after this time (in seconds)",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3174,6 +3412,7 @@
     "description" : "A file of usernames this provider is responsible for. If empty, it will be responsible for all users",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.11"
@@ -3201,6 +3440,7 @@
     "description" : "Whether or not the LDAP library should implicitly restart connections",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3226,6 +3466,7 @@
     "description" : "Number of tries to attempt connecting to the LDAP server. Setting it to values greater than one will retry connecting in case the LDAP server is unavailable or denies the connection",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3251,6 +3492,7 @@
     "description" : "ldap attributename where the role are located.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3276,6 +3518,7 @@
     "description" : "Regexp to exclude groups. Leave empty to exclude none.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3301,6 +3544,7 @@
     "description" : "Regexp to include groups. Leave empty to include all.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3326,6 +3570,7 @@
     "description" : "ldap search for roles; '{USER}' is replaced by the 'dn' of the user.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3352,6 +3597,7 @@
     "description" : "Regexp to normalizer role name, e.g. '/^ *(.*[^ ]])*/$2/'",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3377,6 +3623,7 @@
     "description" : "ldap search attribute, eg. uid",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3402,6 +3649,7 @@
     "description" : "ldap search filter, eg. (objectClass=simpleSecurityObject)",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3427,6 +3675,7 @@
     "description" : "ldap search scope, one of base, one, sub",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3452,6 +3701,7 @@
     "description" : "Maximum amount of time (in seconds) that will be waited for the serialization mutex",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3477,6 +3727,7 @@
     "description" : "Whether or not calls into the LDAP library should be serialized. This option can be used to work around thread-unsafe LDAP library functionality",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3502,6 +3753,7 @@
     "description" : "server to use",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3527,6 +3779,7 @@
     "description" : "ldap suffix, eg. ,dc=example,dc=com",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3552,6 +3805,7 @@
     "description" : "Role mapping to the super-users",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3577,6 +3831,7 @@
     "description" : "Timeout value (in seconds) for synchronous LDAP API calls (a value of 0 means default timeout)",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3602,6 +3857,7 @@
     "description" : "enable TLS",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3627,6 +3883,7 @@
     "description" : "ldap tls cacert dir",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3652,6 +3909,7 @@
     "description" : "ldap tls cacert file",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3677,6 +3935,7 @@
     "description" : "ldap tls cert check strategy, one of never, hard, demand, allow, try",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3702,6 +3961,7 @@
     "description" : "ldap tls version, one of 1.0, 1.1, 1.2",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3727,6 +3987,7 @@
     "description" : "ldap url, eg. ldap://example.com:389/dc=example,dc=com?uid?sub",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3752,6 +4013,7 @@
     "description" : "If a refresh attempt fails to connect to the LDAP server, continue with the cached authentication data",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3777,6 +4039,7 @@
     "description" : "Whether or not the connection to the LDAP library will be done asynchronously",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3802,6 +4065,7 @@
     "description" : "ldap basedn, eg. dc=example,dc=com",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3827,6 +4091,7 @@
     "description" : "ldap binddn, eg. cn=admin,dc=example,dc=com",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3852,6 +4117,7 @@
     "description" : "ldap bindpassword, eg. admin",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3877,6 +4143,7 @@
     "description" : "Turn on internal OpenLDAP library output (warning: will print to stdout)",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3902,6 +4169,7 @@
     "description" : "enable LDAP",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3927,6 +4195,7 @@
     "description" : "Timeout value (in seconds) after which network operations following the initial connection return in case of no activity (a value of 0 means default timeout)",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3952,6 +4221,7 @@
     "description" : "port to use",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -3977,6 +4247,7 @@
     "description" : "ldap prefix, eg. uid= xor dn= xor cn=",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4002,6 +4273,7 @@
     "description" : "Whether or not the LDAP library should implicitly chase referrals",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4027,6 +4299,7 @@
     "description" : "Refresh user settings after this time (in seconds)",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4052,6 +4325,7 @@
     "description" : "A file of usernames this provider is responsible for. If empty, it will be responsible for all users",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.11"
@@ -4079,6 +4353,7 @@
     "description" : "Whether or not the LDAP library should implicitly restart connections",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4104,6 +4379,7 @@
     "description" : "Number of tries to attempt connecting to the LDAP server. Setting it to values greater than one will retry connecting in case the LDAP server is unavailable or denies the connection",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4129,6 +4405,7 @@
     "description" : "ldap attributename where the role are located.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4154,6 +4431,7 @@
     "description" : "Regexp to exclude groups. Leave empty to exclude none.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4179,6 +4457,7 @@
     "description" : "Regexp to include groups. Leave empty to include all.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4204,6 +4483,7 @@
     "description" : "ldap search for roles; '{USER}' is replaced by the 'dn' of the user.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4230,6 +4510,7 @@
     "description" : "Regexp to normalizer role name, e.g. '/^ *(.*[^ ]])*/$2/'",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4255,6 +4536,7 @@
     "description" : "ldap search attribute, eg. uid",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4280,6 +4562,7 @@
     "description" : "ldap search filter, eg. (objectClass=simpleSecurityObject)",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4305,6 +4588,7 @@
     "description" : "ldap search scope, one of base, one, sub",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4330,6 +4614,7 @@
     "description" : "Maximum amount of time (in seconds) that will be waited for the serialization mutex",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4355,6 +4640,7 @@
     "description" : "Whether or not calls into the LDAP library should be serialized. This option can be used to work around thread-unsafe LDAP library functionality",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4380,6 +4666,7 @@
     "description" : "server to use",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4405,6 +4692,7 @@
     "description" : "ldap suffix, eg. ,dc=example,dc=com",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4430,6 +4718,7 @@
     "description" : "Role mapping to the super-users",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4455,6 +4744,7 @@
     "description" : "Timeout value (in seconds) for synchronous LDAP API calls (a value of 0 means default timeout)",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4480,6 +4770,7 @@
     "description" : "enable TLS",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4505,6 +4796,7 @@
     "description" : "ldap tls cacert dir",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4530,6 +4822,7 @@
     "description" : "ldap tls cacert file",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4555,6 +4848,7 @@
     "description" : "ldap tls cert check strategy, one of never, hard, demand, allow, try",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4580,6 +4874,7 @@
     "description" : "ldap tls version, one of 1.0, 1.1, 1.2",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4605,6 +4900,7 @@
     "description" : "ldap url, eg. ldap://example.com:389/dc=example,dc=com?uid?sub",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4635,6 +4931,7 @@
     "description" : "the global or topic-specific log level",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4660,6 +4957,7 @@
     "description" : "whether the log api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.4.11",
@@ -4689,6 +4987,7 @@
     "description" : "use colors for TTY logging",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4701,7 +5000,7 @@
     "section" : "log",
     "type" : "boolean"
   },
-  "log.escape" : {
+  "log.escape-control-chars" : {
     "category" : "option",
     "component" : [
       "coordinator",
@@ -4711,11 +5010,42 @@
     ],
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "escape characters when logging",
+    "description" : "escape control characters when logging",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
-    "introducedIn" : null,
+    "introducedIn" : [
+      "v3.9.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "log",
+    "type" : "boolean"
+  },
+  "log.escape-unicode-chars" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "escape unicode characters when logging",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.0"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -4739,6 +5069,7 @@
     "description" : "shortcut for '--log.output file://<filename>'",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4764,6 +5095,7 @@
     "description" : "group to use for new log file, user must be a member of this group",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.4.5"
@@ -4791,6 +5123,7 @@
     "description" : "mode to use for new log file, umask will be applied as well",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.4.5"
@@ -4818,6 +5151,7 @@
     "description" : "do not start a seperate thread for logging",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4843,6 +5177,7 @@
     "description" : "also log to tty if backgrounded",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -4868,6 +5203,7 @@
     "description" : "hostname to use in log message (empty for none, use 'auto' to automatically figure out hostname)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -4895,6 +5231,7 @@
     "description" : "log unique message ids",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -4922,6 +5259,7 @@
     "description" : "use in-memory log appender, which can be queried via API and web UI",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -4949,6 +5287,7 @@
     "description" : "use in-memory log appender only for this log level and higher",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.7.9"
@@ -4977,6 +5316,7 @@
     "description" : "keep the old log file after receiving a sighup",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5005,6 +5345,7 @@
     "description" : "the global or topic-specific log level",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5027,9 +5368,10 @@
     ],
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5055,6 +5397,7 @@
     "description" : "maximum length of a log entry (in bytes)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.9"
@@ -5083,6 +5426,7 @@
     "description" : "log destination(s), e.g. file:///path/to/file (any '$PID' will be replaced with the process id)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5110,6 +5454,7 @@
     "description" : "shortcut for '--log.level performance=trace'",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5135,6 +5480,7 @@
     "description" : "prefix log message with this string",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5160,6 +5506,7 @@
     "description" : "show process identifier (pid) in log message",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -5187,6 +5534,7 @@
     "description" : "include full URLs and HTTP request parameters in trace logs",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5212,6 +5560,7 @@
     "description" : "log server role",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5237,6 +5586,7 @@
     "description" : "shorten filenames in log output (use with --log.line-number)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5262,6 +5612,7 @@
     "description" : "show thread identifier in log message",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5287,6 +5638,7 @@
     "description" : "show thread name in log message",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5312,6 +5664,7 @@
     "description" : "time format to use in logs",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -5340,6 +5693,7 @@
     "description" : "use json output format",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -5369,6 +5723,7 @@
     "description" : "use local timezone instead of UTC",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5396,6 +5751,7 @@
     "description" : "use microtime instead",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5421,6 +5777,7 @@
     "description" : "default time-to-live of idle connections for cluster-internal communication (in milliseconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.6.0"
@@ -5448,6 +5805,7 @@
     "description" : "number of network IO threads for cluster-internal communication",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.6.0"
@@ -5475,6 +5833,7 @@
     "description" : "max open TCP connections for cluster-internal communication per endpoint",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.6.0"
@@ -5502,6 +5861,7 @@
     "description" : "controls the number of internal requests that can be in flight at a given point in time",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -5525,11 +5885,14 @@
       "single"
     ],
     "default" : "",
-    "deprecatedIn" : null,
+    "deprecatedIn" : [
+      "v3.9.0"
+    ],
     "description" : "network protocol to use for cluster-internal communication",
     "dynamic" : false,
     "enterpriseOnly" : false,
-    "hidden" : false,
+    "experimental" : false,
+    "hidden" : true,
     "introducedIn" : [
       "v3.7.0"
     ],
@@ -5557,6 +5920,7 @@
     "description" : "verify hosts when using TLS in cluster-internal communication",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.6.0"
@@ -5584,6 +5948,7 @@
     "description" : "pid-file in daemon mode",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5610,6 +5975,7 @@
     "description" : "allow full collections to be used in AQL expressions",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -5637,6 +6003,7 @@
     "description" : "maximum number of results in query result cache per database",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5662,6 +6029,7 @@
     "description" : "maximum cumulated size of results in query result cache per database",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5687,6 +6055,7 @@
     "description" : "maximum size of an invidiual result entry in query result cache",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5712,6 +6081,7 @@
     "description" : "whether or not to include system collection queries in the query result cache",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5737,6 +6107,7 @@
     "description" : "mode for the AQL query result cache (on, off, demand)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5762,6 +6133,7 @@
     "description" : "whether AQL queries should fail with errors even for recoverable warnings",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5782,14 +6154,43 @@
       "agent",
       "single"
     ],
-    "default" : 51208202281,
+    "default" : 54685974528,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "query",
+    "type" : "uint64"
+  },
+  "query.max-nodes-per-callstack" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 250,
+    "deprecatedIn" : null,
+    "description" : "maximum number execution nodes on the callstack before splitting the remaining nodes into a separate thread",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.9.0"
     ],
     "obsolete" : false,
     "os" : [
@@ -5814,6 +6215,7 @@
     "description" : "maximum number of threads to use for a single query; actual query execution may use less depending on various factors",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.7.1"
@@ -5841,6 +6243,7 @@
     "description" : "runtime threshold for AQL queries (in seconds, 0 = no limit)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.6.7",
@@ -5864,11 +6267,12 @@
       "agent",
       "single"
     ],
-    "default" : 37932001689,
+    "default" : 40508129280,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5894,6 +6298,7 @@
     "description" : "allow increasing per-query memory limits for individual queries",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -5921,6 +6326,7 @@
     "description" : "maximum number of query plans to create for a query",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -5947,6 +6353,7 @@
     "description" : "enable or disable specific optimizer rules (use rule name prefixed with '-' for disabling, '+' for enabling)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.6.0"
@@ -5974,6 +6381,7 @@
     "description" : "enable write parallelization for gather nodes",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.6.0"
@@ -6001,6 +6409,7 @@
     "description" : "enable traversal parallelization",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.7.1"
@@ -6025,9 +6434,10 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "default time-to-live of cursors and query snippets (in seconds); if <= 0, value will default to 30 for single-server instances or 600 for cluster instances",
+    "description" : "default time-to-live of cursors and query snippets (in seconds); if <= 0, value will default to 30 for single-server instances or 600 for coordinator instances",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6053,6 +6463,7 @@
     "description" : "whether AQL queries should require the `WITH collection-name` clause even on single servers (enable this to remove this behavior difference between single server and cluster)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -6080,6 +6491,7 @@
     "description" : "threshold for slow streaming AQL queries (in seconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6105,6 +6517,7 @@
     "description" : "threshold for slow AQL queries (in seconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6130,6 +6543,7 @@
     "description" : "enable SmartJoins query optimization",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.4.5"
@@ -6157,6 +6571,7 @@
     "description" : "whether to track queries",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6182,6 +6597,7 @@
     "description" : "whether to track slow queries",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.4"
@@ -6209,6 +6625,7 @@
     "description" : "whether to track bind vars with AQL queries",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6234,6 +6651,7 @@
     "description" : "whether to track data sources with AQL queries",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.4"
@@ -6261,6 +6679,7 @@
     "description" : "whether to track the query string",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.4"
@@ -6288,6 +6707,7 @@
     "description" : "random number generator to use (1 = MERSENNE, 2 = RANDOM, 3 = URANDOM, 4 = COMBINED (not for Windows), 5 = WinCrypt (Windows only)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6314,6 +6734,7 @@
     "description" : "rclone executable used for up and download of backups",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6339,6 +6760,7 @@
     "description" : "Enable active-failover during asynchronous replication",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6364,6 +6786,7 @@
     "description" : "switch to enable or disable the automatic start of replication appliers",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6389,6 +6812,7 @@
     "description" : "Please use `--replication.active-failover` instead",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6414,6 +6838,7 @@
     "description" : "Default timeout value for replication connection attempts (in seconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.4.9",
@@ -6442,6 +6867,7 @@
     "description" : "Maximum number of concurrently allowed WAL tailing invocations (0 = unlimited)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.5.0"
@@ -6469,6 +6895,7 @@
     "description" : "Limit at which 'quick' calls to the replication keys API return only the document count for second run",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.7.9"
@@ -6496,6 +6923,7 @@
     "description" : "Default timeout value for replication requests (in seconds)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.4.9",
@@ -6524,6 +6952,7 @@
     "description" : "Whether to use the newer revision-based replication protocol",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.0"
@@ -6551,6 +6980,7 @@
     "description" : "if true, allow RocksDB to use fallocate calls. if false, fallocate calls are bypassed",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.4.5"
@@ -6578,6 +7008,7 @@
     "description" : "if true, aligns data blocks on lesser of page size and block size",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6603,6 +7034,7 @@
     "description" : "number of shard bits to use for block cache (use -1 for default value)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6623,11 +7055,12 @@
       "agent",
       "single"
     ],
-    "default" : 18321755750,
+    "default" : 19609819545,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6653,6 +7086,7 @@
     "description" : "if turned on, the RocksDB block cache quota will also include RocksDB memtable sizes",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.7.1"
@@ -6680,6 +7114,7 @@
     "description" : "if true and `--rocksdb.cache-index-and-filter-blocks` is also true, cache index and filter blocks with high priority, making index and filter blocks be less likely to be evicted than data blocks",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.7.1"
@@ -6707,6 +7142,7 @@
     "description" : "if non-zero, we perform bigger reads when doing compaction. If you're running RocksDB on spinning disks, you should set this to at least 2MB. that way RocksDB's compaction is doing sequential instead of random reads.",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6730,6 +7166,7 @@
     "description" : "enable generation of sha256 files for each .sst file",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6753,6 +7190,7 @@
     "description" : "true to enable rocksdb debug logging",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6778,6 +7216,7 @@
     "description" : "limited write rate to DB (in bytes per second) if we are writing to the last mem-table allowed and we allow more than 3 mem-tables, or if we have surpassed a certain number of level-0 files and need to slowdown writes",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6803,6 +7242,7 @@
     "description" : "if true, determine the number of bytes for each level dynamically to minimize space amplification",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6826,6 +7266,7 @@
     "description" : "use in-memory cache for edges",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.6.4"
@@ -6853,6 +7294,7 @@
     "description" : "if true, use a two stage write queue for WAL writes and memtable writes",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6878,6 +7320,7 @@
     "description" : "whether or not RocksDB statistics should be turned on",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6903,6 +7346,7 @@
     "description" : "Generate internal encryption-at-rest key.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.7.1"
@@ -6927,9 +7371,10 @@
     ],
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "allow use of hardware accelaration on CPUs with the AES-NI instruction set",
+    "description" : "use Intel intrinsics-based encryption, requiring a CPU with the AES-NI instruction set. If turned off, then OpenSSL is used, which may use hardware-accelarated encryption too.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -6957,6 +7402,7 @@
     "description" : "program providing the encryption key on stdout. If set, encryption will be enabled.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -6982,6 +7428,7 @@
     "description" : "allow encryption key rotation",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.7.1"
@@ -7009,6 +7456,7 @@
     "description" : "file containing encryption key. If set, encryption will be enabled.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7034,6 +7482,7 @@
     "description" : "Folder containing all possible user encryption keys. All keys will be used to decrypt the internal keystore.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.0"
@@ -7061,6 +7510,7 @@
     "description" : "if true, strictly enforces the block cache size limit",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7088,6 +7538,7 @@
     "description" : "if true, writes are exclusive. This allows the RocksDB engine to mimic the collection locking behavior of the now-removed MMFiles storage engine, but will inhibit concurrent write operations",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.5.4"
@@ -7115,6 +7566,7 @@
     "description" : "an intermediate commit will be performed automatically when this number of operations is reached in a transaction",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7140,6 +7592,7 @@
     "description" : "an intermediate commit will be performed automatically when a transaction has accumulated operations of this size (in bytes)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7165,6 +7618,7 @@
     "description" : "number of level-0 files that triggers a compaction",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7190,6 +7644,7 @@
     "description" : "number of level-0 files that triggers a write slowdown",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7215,6 +7670,7 @@
     "description" : "number of level-0 files that triggers a full write stall",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7237,9 +7693,10 @@
     ],
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "limit the amount of .sst files RocksDB will inspect at startup, in order to startup reduce IO",
+    "description" : "limit the amount of .sst files RocksDB will inspect at startup, in order to reduce startup IO",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.4.5"
@@ -7267,6 +7724,7 @@
     "description" : "Maximum number of concurrent background jobs (compactions and flushes)",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7292,6 +7750,7 @@
     "description" : "if not using dynamic level sizes, this controls the maximum total data size for level-1",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7317,6 +7776,7 @@
     "description" : "if not using dynamic level sizes, the maximum number of bytes for level L can be calculated as  max-bytes-for-level-base * (max-bytes-for-level-multiplier ^ (L-1))",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7342,6 +7802,7 @@
     "description" : "maximum number of parallel compactions jobs",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.11"
@@ -7369,6 +7830,7 @@
     "description" : "maximum number of concurrent subjobs for a background compaction",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7394,6 +7856,7 @@
     "description" : "maximum total size of WAL files that will force flush stale column families",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7419,6 +7882,7 @@
     "description" : "transaction size limit (in bytes)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7439,11 +7903,12 @@
       "agent",
       "single"
     ],
-    "default" : 9,
+    "default" : 10,
     "deprecatedIn" : null,
     "description" : "maximum number of write buffers that build up in memory (default: number of column families + 2 = 9 write buffers). You can increase the amount only",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7469,6 +7934,7 @@
     "description" : "if non-zero, overrides the value of --rocksdb.max-write-buffer-number for the definitions column family",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -7496,6 +7962,7 @@
     "description" : "if non-zero, overrides the value of --rocksdb.max-write-buffer-number for the documents column family",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -7523,6 +7990,7 @@
     "description" : "if non-zero, overrides the value of --rocksdb.max-write-buffer-number for the edge column family",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -7550,6 +8018,7 @@
     "description" : "if non-zero, overrides the value of --rocksdb.max-write-buffer-number for the fulltext column family",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -7577,6 +8046,7 @@
     "description" : "if non-zero, overrides the value of --rocksdb.max-write-buffer-number for the geo column family",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -7604,6 +8074,35 @@
     "description" : "if non-zero, overrides the value of --rocksdb.max-write-buffer-number for the primary column family",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.max-write-buffer-number-replicated-logs" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "if non-zero, overrides the value of --rocksdb.max-write-buffer-number for the replicated-logs column family",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -7631,6 +8130,7 @@
     "description" : "if non-zero, overrides the value of --rocksdb.max-write-buffer-number for the vpack column family",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -7658,6 +8158,7 @@
     "description" : "maximum size of immutable write buffers that build up in memory per column family (larger values mean that more in-memory data can be used for transaction conflict checking (-1 = use automatic default value, 0 = do not keep immutable flushed write buffers, which is the default and usually correct))",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.3"
@@ -7685,6 +8186,7 @@
     "description" : "minimum number of write buffers that will be merged together before writing to storage",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7708,6 +8210,7 @@
     "description" : "minimum number of free disk bytes for considering the server healthy in health checks (set to 0 to disable the check)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -7733,6 +8236,7 @@
     "description" : "minimum percentage of free disk space for considering the server healthy in health checks (set to 0 to disable the check)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -7760,6 +8264,7 @@
     "description" : "number of levels for the database",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7785,6 +8290,7 @@
     "description" : "number of threads for high priority operations (e.g. flush)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7810,6 +8316,7 @@
     "description" : "number of threads for low priority operations (e.g. compaction)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7835,6 +8342,7 @@
     "description" : "number of uncompressed levels for the database",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7860,6 +8368,7 @@
     "description" : "this flag specifies that the implementation should optimize the filters mainly for cases where keys are found rather than also optimize for keys missed. This would be used in cases where the application knows that there are very few misses or the performance in the case of misses is not important",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7885,6 +8394,7 @@
     "description" : "if true and `--rocksdb.cache-index-and-filter-blocks` is also true, filter and index blocks are pinned and only evicted from cache when the table reader is freed",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.7.1"
@@ -7912,6 +8422,7 @@
     "description" : "If true and `--rocksdb.cache-index-and-filter-blocks` is also true, the top-level index of partitioned filter and index blocks are pinned and only evicted from cache when the table reader is freed",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.7.1"
@@ -7939,6 +8450,7 @@
     "description" : "if true, keep a pool of log files around for recycling",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -7962,6 +8474,7 @@
     "description" : "threshold value for self-observation of WAL disk syncs. any WAL disk sync longer ago than this threshold will trigger a warning (in milliseconds, use 0 for no warnings)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.6.8",
@@ -7988,6 +8501,7 @@
     "description" : "interval for automatic, non-requested disk syncs (in milliseconds, use 0 to turn automatic syncing off)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8013,6 +8527,7 @@
     "description" : "approximate size (in bytes) of user data packed per block",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8038,6 +8553,7 @@
     "description" : "per-file target file size for compaction (in bytes). the actual target file size for each level is `--rocksdb.target-file-size-base` multiplied by `--rocksdb.target-file-size-multiplier` ^ (level - 1)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.1"
@@ -8065,6 +8581,7 @@
     "description" : "multiplier for `--rocksdb.target-file-size`, a value of 1 means that files in different levels will have the same size",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.1"
@@ -8090,6 +8607,7 @@
     "description" : "enable write-throttling",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8110,11 +8628,12 @@
       "agent",
       "single"
     ],
-    "default" : 24429007667,
+    "default" : 26146426060,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8140,6 +8659,7 @@
     "description" : "If positive, specifies the wait timeout in milliseconds when  a transaction attempts to lock a document. A negative value is not recommended as it can lead to deadlocks (0 = no waiting, < 0 no timeout)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8165,6 +8685,7 @@
     "description" : "use O_DIRECT for flush and compaction",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8188,6 +8709,7 @@
     "description" : "use O_DIRECT for reading files",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8211,6 +8733,7 @@
     "description" : "use a file-base logger for RocksDB's own logs",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8236,6 +8759,7 @@
     "description" : "issue an fsync when writing to disk (set to true for issuing fdatasync only)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8259,6 +8783,7 @@
     "description" : "maximum total size (in bytes) of archived WAL files (0 = unlimited)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8284,6 +8809,7 @@
     "description" : "optional path to the RocksDB WAL directory. If not set, the WAL directory will be located inside the regular data directory",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8307,6 +8833,7 @@
     "description" : "timeout after which unused WAL files are deleted",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8330,6 +8857,7 @@
     "description" : "initial timeout after which unused WAL files deletion kicks in after server start",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8355,6 +8883,7 @@
     "description" : "skip corrupted records in WAL recovery",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8380,6 +8909,7 @@
     "description" : "amount of data to build up in memory before converting to a sorted on-disk file (0 = disabled)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8405,6 +8935,7 @@
     "description" : "allow change of database in REST actions, only needed for unittests",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8430,6 +8961,7 @@
     "description" : "enable authentication for ALL client requests",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8455,6 +8987,7 @@
     "description" : "use HTTP authentication only for requests to /_api and /_admin",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8480,6 +9013,7 @@
     "description" : "timeout for the authentication cache in seconds (0 = indefinitely)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8505,13 +9039,13 @@
     "description" : "authentication for requests via UNIX domain sockets",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
-      "macos",
-      "windows"
+      "macos"
     ],
     "requiresValue" : false,
     "section" : "server",
@@ -8530,6 +9064,7 @@
     "description" : "minimum number of file descriptors needed to start (0 = no minimum)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8556,6 +9091,7 @@
     "description" : "endpoint for client requests (e.g. 'http+tcp://127.0.0.1:8529', or 'vst+ssl://192.168.1.1:8529')",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8581,6 +9117,7 @@
     "description" : "turn metrics API on or off",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.6.0"
@@ -8608,6 +9145,7 @@
     "description" : "turn metrics for document read/write metrics on or off",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.7.7"
@@ -8635,6 +9173,7 @@
     "description" : "interval (in microseconds) for flushing data",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8660,6 +9199,7 @@
     "description" : "switch to group-id after reading config files",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8685,6 +9225,7 @@
     "description" : "lock down REST APIs that reveal version information or server internals for non-admin users",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.5.0"
@@ -8707,11 +9248,12 @@
       "agent",
       "single"
     ],
-    "default" : 4,
+    "default" : 8,
     "deprecatedIn" : null,
-    "description" : "Number of threads used to handle IO",
+    "description" : "number of threads used to handle IO",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8740,6 +9282,7 @@
     "description" : "secret to use when doing jwt authentication",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8765,6 +9308,7 @@
     "description" : "folder containing one or more jwt secret files to use for jwt authentication. Files are sorted alphabetically: First secret is used for signing + verifying JWT tokens. The latter secrets are only used for verifying.",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.7.0"
@@ -8792,6 +9336,7 @@
     "description" : "file containing jwt secret to use when doing jwt authentication.",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8808,8 +9353,6 @@
     "category" : "option",
     "component" : [
       "coordinator",
-      "dbserver",
-      "agent",
       "single"
     ],
     "default" : true,
@@ -8817,6 +9360,7 @@
     "description" : "enable authentication using the local user database",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8839,6 +9383,7 @@
     "description" : "minimum number of seconds finished Actions block duplicates",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8861,6 +9406,7 @@
     "description" : "minimum number of seconds finished Actions remain in deque",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8873,16 +9419,42 @@
     "section" : "server",
     "type" : "int32"
   },
+  "server.maintenance-slow-threads" : {
+    "category" : "option",
+    "component" : [
+      "dbserver"
+    ],
+    "default" : 4,
+    "deprecatedIn" : null,
+    "description" : "maximum number of threads available for slow maintenance actions (long SynchronizeShard and long EnsureIndex)",
+    "dynamic" : true,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.3"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "uint32"
+  },
   "server.maintenance-threads" : {
     "category" : "option",
     "component" : [
       "dbserver"
     ],
-    "default" : 5,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8908,6 +9480,7 @@
     "description" : "size of the priority 3 fifo",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8930,9 +9503,10 @@
     ],
     "default" : 0,
     "deprecatedIn" : null,
-    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 32)",
+    "description" : "maximum number of request handling threads to run (0 = use system-specific default of 64)",
     "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8958,6 +9532,7 @@
     "description" : "minimum number of request handling threads to run",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -8983,6 +9558,7 @@
     "description" : "controls the number of low prio requests that can be ongoing at a given point in time, relative to the maximum number of request handling threads",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -9010,6 +9586,7 @@
     "description" : "size of the priority 1 fifo",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9035,6 +9612,7 @@
     "description" : "size of the priority 2 fifo",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.8.0"
@@ -9062,6 +9640,7 @@
     "description" : "start a rest-server",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9087,6 +9666,7 @@
     "description" : "number of simultaneously queued requests inside the scheduler",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9099,6 +9679,32 @@
     "section" : "server",
     "type" : "uint64"
   },
+  "server.session-timeout" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : 3600,
+    "deprecatedIn" : null,
+    "description" : "timeout in seconds for web interface JWT sessions",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "double"
+  },
   "server.statistics" : {
     "category" : "option",
     "component" : [
@@ -9109,9 +9715,10 @@
     ],
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "turn statistics gathering on or off",
+    "description" : "turn statistics gathering and APIs on or off",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9134,6 +9741,7 @@
     "description" : "provide cluster statistics in web interface in all databases",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -9159,8 +9767,9 @@
     "default" : true,
     "deprecatedIn" : null,
     "description" : "turn storing statistics in database on or off",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.4.9",
@@ -9189,6 +9798,7 @@
     "description" : "storage engine type (note that the mmfiles engine is unavailable since v3.7.0 and cannot be used anymore)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9201,6 +9811,35 @@
     "section" : "server",
     "type" : "string",
     "values" : "Possible values: \"auto\", \"rocksdb\""
+  },
+  "server.support-info-api" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "hardened",
+    "deprecatedIn" : null,
+    "description" : "policy for exposing support info API",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "string",
+    "values" : "Possible values: \"disabled\", \"hardened\", \"jwt\", \"public\""
   },
   "server.uid" : {
     "category" : "option",
@@ -9215,6 +9854,7 @@
     "description" : "switch to user-id after reading config files",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9240,6 +9880,7 @@
     "description" : "queue fill grade from which onwards the server is considered unavailable because of overload (ratio, use a value of 0 to disable it)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.6.10",
@@ -9268,6 +9909,7 @@
     "description" : "perform UTF-8 string validation for incoming JSON and VelocyPack data",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.7.0"
@@ -9295,6 +9937,7 @@
     "description" : "ca file used for secure connections",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9320,6 +9963,7 @@
     "description" : "ssl ciphers to use, see OpenSSL documentation",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9345,6 +9989,7 @@
     "description" : "SSL ECDH Curve, see the output of \"openssl ecparam -list_curves\"",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9370,6 +10015,7 @@
     "description" : "key-file used for secure connections",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9395,6 +10041,7 @@
     "description" : "ssl connection options, see OpenSSL documentation",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9420,6 +10067,7 @@
     "description" : "Allows to let the server prefer HTTP/1.1 over HTTP/2 in ALPN protocol negotiations",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9445,6 +10093,7 @@
     "description" : "ssl protocol (1 = SSLv2 (unsupported), 2 = SSLv2 or SSLv3 (negotiated), 3 = SSLv3, 4 = TLSv1, 5 = TLSv1.2, 6 = TLSv1.3, 9 = generic TLS)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9471,6 +10120,7 @@
     "description" : "require a peer certificate when connecting",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9497,6 +10147,7 @@
     "description" : "add a case SERVERNAME=KEYFILENAME for a different server keyfile for a specific server name, can be given multiple times",
     "dynamic" : false,
     "enterpriseOnly" : true,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9522,6 +10173,7 @@
     "description" : "enable the session cache for connections",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9547,6 +10199,7 @@
     "description" : "background the server, starts a supervisor",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9572,6 +10225,7 @@
     "description" : "listen backlog size",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9597,6 +10251,7 @@
     "description" : "try to reuse TCP port(s)",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9622,6 +10277,7 @@
     "description" : "path for temporary files",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9645,6 +10301,7 @@
     "description" : "idle timeout for streaming transactions in seconds",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : [
       "v3.8.0"
@@ -9672,6 +10329,7 @@
     "description" : "lock timeout in seconds in case of parallel access to the same streaming transaction",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : [
       "v3.6.5",
@@ -9700,6 +10358,7 @@
     "description" : "frequency (in milliseconds) for the TTL background thread invocation. a value of 0 turns the TTL background thread off entirely",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9725,6 +10384,7 @@
     "description" : "maximum number of documents to remove per collection",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9750,6 +10410,7 @@
     "description" : "maximum number of documents to remove per invocation of the TTL thread",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9775,6 +10436,7 @@
     "description" : "switch to user-id after reading config files",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,
@@ -9799,8 +10461,36 @@
     "description" : "reports the version and exits",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : false,
     "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
+  "version-json" : {
+    "category" : "command",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "deprecatedIn" : null,
+    "description" : "reports the version as JSON and exits",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.9.0"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",
@@ -9824,6 +10514,7 @@
     "description" : "working directory in daemon mode",
     "dynamic" : false,
     "enterpriseOnly" : false,
+    "experimental" : false,
     "hidden" : true,
     "introducedIn" : null,
     "obsolete" : false,

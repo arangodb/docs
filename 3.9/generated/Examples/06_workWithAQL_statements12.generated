@@ -1,25 +1,25 @@
 arangosh&gt; <span class="hljs-keyword">var</span> c = stmt.execute();
 arangosh&gt; c.getExtra();
 { 
-  <span class="hljs-string">"warnings"</span> : [ ], 
-  <span class="hljs-string">"stats"</span> : { 
-    <span class="hljs-string">"writesExecuted"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"writesIgnored"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"scannedFull"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"scannedIndex"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
-    <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00010039700009656372</span>, 
-    <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">0</span> 
+  <span class="hljs-string">&quot;warnings&quot;</span> : [ ], 
+  <span class="hljs-string">&quot;stats&quot;</span> : { 
+    <span class="hljs-string">&quot;writesExecuted&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;writesIgnored&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;scannedFull&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;scannedIndex&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;filtered&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;httpRequests&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.00018233060836791992</span>, 
+    <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">0</span> 
   }, 
-  <span class="hljs-string">"profile"</span> : { 
-    <span class="hljs-string">"initializing"</span> : <span class="hljs-number">0.000002060000042547472</span>, 
-    <span class="hljs-string">"parsing"</span> : <span class="hljs-number">0.000019132000488752965</span>, 
-    <span class="hljs-string">"optimizing ast"</span> : <span class="hljs-number">0.000001493999661761336</span>, 
-    <span class="hljs-string">"loading collections"</span> : <span class="hljs-number">0.000001225999767484609</span>, 
-    <span class="hljs-string">"instantiating plan"</span> : <span class="hljs-number">0.00001141600023402134</span>, 
-    <span class="hljs-string">"optimizing plan"</span> : <span class="hljs-number">0.0000387780000892235</span>, 
-    <span class="hljs-string">"executing"</span> : <span class="hljs-number">0.000021640999875671696</span>, 
-    <span class="hljs-string">"finalizing"</span> : <span class="hljs-number">0.00000613999964116374</span> 
+  <span class="hljs-string">&quot;profile&quot;</span> : { 
+    <span class="hljs-string">&quot;initializing&quot;</span> : <span class="hljs-number">0.0000026337802410125732</span>, 
+    <span class="hljs-string">&quot;parsing&quot;</span> : <span class="hljs-number">0.0000344105064868927</span>, 
+    <span class="hljs-string">&quot;optimizing ast&quot;</span> : <span class="hljs-number">0.000003330409526824951</span>, 
+    <span class="hljs-string">&quot;loading collections&quot;</span> : <span class="hljs-number">0.000005077570676803589</span>, 
+    <span class="hljs-string">&quot;instantiating plan&quot;</span> : <span class="hljs-number">0.00001749396324157715</span>, 
+    <span class="hljs-string">&quot;optimizing plan&quot;</span> : <span class="hljs-number">0.00006739795207977295</span>, 
+    <span class="hljs-string">&quot;executing&quot;</span> : <span class="hljs-number">0.00003995746374130249</span>, 
+    <span class="hljs-string">&quot;finalizing&quot;</span> : <span class="hljs-number">0.00001438334584236145</span> 
   } 
 }

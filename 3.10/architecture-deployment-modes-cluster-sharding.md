@@ -48,7 +48,7 @@ cluster orchestrations tools like [Kubernetes](deployment-kubernetes.html).
 
 To achieve this ArangoDB splits your dataset into so called _shards_. The number
 of shards is something you may choose according to your needs. Proper sharding
-is essential to achieve optimal performance. From the outside th process of
+is essential to achieve optimal performance. From the outside the process of
 splitting the data and assembling it again is fully transparent and as such we
 achieve the goals of what other systems call "master-master replication".
 
@@ -151,9 +151,8 @@ a look in the [Cluster Administration](administration-cluster.html) section.
 
 ### Indexes On Shards
 
-Unique indexes (hash, skiplist, persistent) on sharded collections are only
-allowed if the fields used to determine the shard key are also included in the
-list of attribute paths for the index:
+Unique indexes on sharded collections are only allowed if the fields used to 
+determine the shard key are also included in the list of attribute paths for the index:
 
 | shardKeys | indexKeys |             |
 |----------:|----------:|------------:|

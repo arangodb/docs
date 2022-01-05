@@ -133,16 +133,16 @@ successful, the status will read `ok`, otherwise `failed`.
 Indexes
 -------
 
-### Create a index
+### Create an index
 
 ```
-2016-10-05 18:19:40 | server1 | audit-collection | user1 | database1 | 127.0.0.1:52467 | http basic | create index in 'collection1' | ok | {"fields":["a"],"sparse":false,"type":"skiplist","unique":false} | /_api/index?collection=collection1
+2016-10-05 18:19:40 | server1 | audit-collection | user1 | database1 | 127.0.0.1:52467 | http basic | create index in 'collection1' | ok | {"fields":["a"],"sparse":false,"type":"persistent","unique":false} | /_api/index?collection=collection1
 ```
 
 This message will occur whenever a user attempts to create an index. If
 successful, the status will read `ok`, otherwise `failed`.
 
-### Drop a index
+### Drop an index
 
 ```
 2016-10-05 18:18:28 | server1 | audit-collection | user1 | database1 | 127.0.0.1:52464 | http basic | drop index 'collection1/44051' | ok | /_api/index/collection1/44051

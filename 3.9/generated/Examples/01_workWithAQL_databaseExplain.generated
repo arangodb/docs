@@ -1,4 +1,4 @@
-arangosh&gt; db._explain("LET s = SLEEP(0.25) LET t = SLEEP(0.5) RETURN 1", {}, {colors: false});
+arangosh&gt; db._explain(&quot;LET s = SLEEP(0.25) LET t = SLEEP(0.5) RETURN 1&quot;, {}, {colors: false});
 Query String (47 chars, cacheable: false):
  LET s = SLEEP(0.25) LET t = SLEEP(0.5) RETURN 1
 
@@ -23,12 +23,12 @@ Optimization rules applied:
 
 Optimization rules with highest execution times:
  RuleName                                    Duration [s]
- move-calculations-up                             0.00000
+ move-calculations-up                             0.00001
  replace-function-with-index                      0.00000
- remove-redundant-calculations                    0.00000
  use-indexes                                      0.00000
  optimize-subqueries                              0.00000
+ remove-redundant-calculations                    0.00000
 
-41 rule(s) executed, 1 plan(s) created
+40 rule(s) executed, 1 plan(s) created
 
 

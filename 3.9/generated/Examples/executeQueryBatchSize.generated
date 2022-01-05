@@ -6,48 +6,48 @@ arangosh&gt; <span class="hljs-keyword">var</span> result = [ ];
 ........&gt; }
 ........&gt; print(result);
 ........&gt; result = [ ];
-........&gt; q = db._query(<span class="hljs-string">"FOR x IN users RETURN x"</span>, {}, { <span class="hljs-attr">batchSize</span>: <span class="hljs-number">1</span> });
+........&gt; q = db._query(<span class="hljs-string">&quot;FOR x IN users RETURN x&quot;</span>, {}, { <span class="hljs-attr">batchSize</span>: <span class="hljs-number">1</span> });
 ........&gt; <span class="hljs-keyword">while</span> (q.hasNext()) {
 ........&gt;   result.push(q.next());
 ........&gt; }
 ........&gt; print(result);
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71384"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/71384"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLQPC--_"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Gerhard"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71628&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/71628&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrTege---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Gerhard&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71386"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/71386"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLQPG---"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Helmut"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71630&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/71630&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrTegi---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Helmut&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71388"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/71388"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLQPG--_"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Angela"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71632&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/71632&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrTegm---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Angela&quot;</span> 
   } 
 ]
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71384"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/71384"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLQPC--_"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Gerhard"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71628&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/71628&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrTege---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Gerhard&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71386"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/71386"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLQPG---"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Helmut"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71630&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/71630&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrTegi---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Helmut&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"71388"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/71388"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cYKLQPG--_"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Angela"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71632&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/71632&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dXrTegm---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Angela&quot;</span> 
   } 
 ]

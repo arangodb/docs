@@ -5,21 +5,21 @@ content-type: text/plain
 connection: Keep-Alive
 content-length: 0
 server: ArangoDB
-x-arango-async-id: 80860
+x-arango-async-id: 80866
 x-content-type-options: nosniff
 
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/80860</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/80866</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">60</span>
 server: ArangoDB
-x-arango-<span class="hljs-keyword">async</span>-id: <span class="hljs-number">80860</span>
+x-arango-<span class="hljs-keyword">async</span>-id: <span class="hljs-number">80866</span>
 x-content-type-options: nosniff
 
 { 
   <span class="hljs-string">&quot;server&quot;</span> : <span class="hljs-string">&quot;arango&quot;</span>, 
   <span class="hljs-string">&quot;license&quot;</span> : <span class="hljs-string">&quot;enterprise&quot;</span>, 
-  <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.8.1&quot;</span> 
+  <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.8.4&quot;</span> 
 }
