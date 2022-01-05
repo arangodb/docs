@@ -298,8 +298,7 @@ Threads
 Since v3.4.0, _arangodump_ can use multiple threads for dumping database data in 
 parallel. To speed up the dump of a database with multiple collections, it is
 often beneficial to increase the number of _arangodump_ threads.
-The number of threads can be controlled via the `--threads` option, which 
-defaults to `2`.
+The number of threads can be controlled via the `--threads` option. The default value changed from `2` to the maximum of `2` and the number of available CPU cores.
 
 _arangodump_ versions prior to v3.8.0 distribute dump jobs for individual
 collections to concurrent worker threads, which is optimal for dumping many
