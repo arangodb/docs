@@ -1,5 +1,7 @@
 ---
-layout: default description: SmartGraphs enable you to manage graphs at scale. title: ArangoDB SmartGraphs
+layout: default 
+description: SmartGraphs enable you to manage graphs at scale. 
+title: ArangoDB SmartGraphs
 ---
 SmartGraphs
 ===========
