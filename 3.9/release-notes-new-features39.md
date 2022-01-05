@@ -133,24 +133,6 @@ user-defined action.
 AQL
 ---
 
-### Prune Variable
-
-Added an option to store `PRUNE` expression as a variable. Now, a `PRUNE`
-condition can be stored in a variable and be used later in the query without
-having to repeat the `PRUNE` condition:
-
-```js
-FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
-  PRUNE pruneCondition = v.isRelevant == true
-  FILTER pruneCondition
-  RETURN p
-```
-
-The condition `v.isRelevant == true` is stored in the variable `pruneCondition`,
-and later used as a condition for `FILTER`.
-
-See [Pruning](aql/graphs-traversals.html#pruning).
-
 ### Upsert with Index Hint
 
 Added support for the `indexHint` and `forceIndexHint` options to the `UPSERT`
@@ -239,6 +221,24 @@ result, but not the buildup of the `edges` sub-attribute.
 
 This optimization should have a positive impact on performance for larger
 traversal result sets.
+
+### Prune Variable
+
+Added an option to store the `PRUNE` expression as a variable. Now, the `PRUNE`
+condition can be stored in a variable and be used later in the query without
+having to repeat the `PRUNE` condition:
+
+```js
+FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
+  PRUNE pruneCondition = v.isRelevant == true
+  FILTER pruneCondition
+  RETURN p
+```
+
+The `v.isRelevant == true` condition is stored in the `pruneCondition` variable
+and used as a condition for `FILTER` later.
+
+See [Pruning](aql/graphs-traversals.html#pruning).
 
 ### Warnings on invalid OPTIONS
 
