@@ -302,11 +302,11 @@ The number of threads can be controlled via the `--threads` option. The default 
 
 The `--threads` option works dynamically, its value depends on the number of available CPU cores. If the amount of available CPU cores is less than `3`, a threads value of `2` is used. Otherwise the value of threads is set to the number of available CPU cores.
 
-```
-For example,
-If a system has 8 cores -> max(2,8) = 8, i.e. 8 threads will be used.
-And if it has 1 CPU core -> max(2,1) = 2, i.e. 2 threads will be used.
-```
+For example:
+
+- If a system has 8 cores, then max(2,8) = 8, i.e. 8 threads will be used.
+- If it has 1 core, then max(2,1) = 2, i.e. 2 threads will be used.
+
 
 
 _arangodump_ versions prior to v3.8.0 distribute dump jobs for individual
