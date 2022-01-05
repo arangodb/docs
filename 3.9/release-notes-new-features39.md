@@ -224,7 +224,7 @@ traversal result sets.
 
 ### Prune Variable
 
-Added an option to store `PRUNE` expression as a variable. Now, a `PRUNE`
+Added an option to store the `PRUNE` expression as a variable. Now, the `PRUNE`
 condition can be stored in a variable and be used later in the query without
 having to repeat the `PRUNE` condition:
 
@@ -235,8 +235,8 @@ FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
   RETURN p
 ```
 
-The condition `v.isRelevant == true` is stored in the variable `pruneCondition`,
-and later used as a condition for `FILTER`.
+The `v.isRelevant == true` condition is stored in the `pruneCondition` variable
+and used as a condition for `FILTER` later.
 
 See [Pruning](aql/graphs-traversals.html#pruning).
 
