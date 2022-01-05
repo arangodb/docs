@@ -23,7 +23,6 @@ The following security options are available:
   - `/_admin/status`
   - `/_admin/statistics`
   - `/_admin/statistics-description`
-  - `/_admin/support-info`
   - `/_api/engine/stats`
 
   Additionally, no version details will be revealed by the version REST API at 
@@ -36,13 +35,13 @@ The following security options are available:
   for retrieving deployment information. It can have the following values:
   - `disabled`: support info API is disabled.
   - `jwt`: support info API can only be accessed via superuser JWT.
-  - `hardened`: if `--server.harden` is set, the support info API can
-    only be accessed via superuser JWT. Otherwise it can be accessed
+  - `admin`: the support info API can only be accessed by admin users
+    (this includes superusers and superuser JWTs).
     by admin users only.
   - `public`: everyone with access to the `_system` database can access the
     support info API.
 
-  The default value for this option is `hardened`.
+  The default value for this option is `admin`.
 
 ## JavaScript security options
 
