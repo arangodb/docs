@@ -305,7 +305,7 @@ The `--threads` option works dynamically, its value depends on the number of ava
 For example:
 
 - If a system has 8 cores, then max(2,8) = 8, i.e. 8 threads will be used.
-- And if it has 1 core, then max(2,1) = 2, i.e. 2 threads will be used.
+- If it has 1 core, then max(2,1) = 2, i.e. 2 threads will be used.
 
 
 
