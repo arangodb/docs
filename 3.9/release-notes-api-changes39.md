@@ -135,9 +135,8 @@ startup option `--server.support-info-api` that controls if and to whom the API
 is made available. This option can have the following values:
 
 - `disabled`: support info API is disabled.
-- `jwt`: support info API can only be accessed via superuser JWT.
-- `hardened` (default): if `--server.harden` is set, the support info API can only be
-  accessed via superuser JWT. Otherwise it can be accessed by admin users only.
+- `jwt`: support info API can only be accessed via superuser JWTs.
+- `admin` (default): the support info API can only be accessed by admin users and superuser JWTs.
 - `public`: everyone with access to the `_system` database can access the support info API.
 
 #### License Management (Enterprise Edition)
