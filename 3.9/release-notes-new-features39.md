@@ -552,6 +552,8 @@ client tools:
 - arangoimport
 - arangorestore
 
+The `--threads` option works dynamically, its value depends on the number of available CPU cores. If the amount of available CPU cores is less than `3`, a threads value of `2` is used. Otherwise the value of threads is set to the number of available CPU cores.
+
 This change can help to improve performance of imports, dumps or restore
 processes on machines with multiple cores in case the `--threads` parameter
 was not previously used. As a trade-off, the change may lead to an increased 
