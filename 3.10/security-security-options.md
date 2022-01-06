@@ -35,9 +35,7 @@ The following security options are available:
   for retrieving deployment information. It can have the following values:
   - `disabled`: support info API is disabled.
   - `jwt`: support info API can only be accessed via superuser JWT.
-  - `admin`: the support info API can only be accessed by admin users
-    (this includes superusers and superuser JWTs).
-    by admin users only.
+  - `admin` (default): the support info API can only be accessed by admin users and superuser JWTs.
   - `public`: everyone with access to the `_system` database can access the
     support info API.
 
