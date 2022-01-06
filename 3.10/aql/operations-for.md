@@ -123,6 +123,8 @@ FOR … IN … OPTIONS { indexHint: … , forceIndexHint: true }
 
 ### `disableIndex`
 
+<small>Introduced in: v3.9.1</small>
+
 In some rare cases it can be advantageous to not do an index lookup or scan, 
 but to do a full collection scan.
 An index lookup can be more expensive than a full collection scan in case
@@ -148,7 +150,7 @@ over all documents in the collection.
 
 The optimizer will likely prefer index scans over full collection scans,
 even if an index scan turns out to be slower in the end. Since ArangoDB
-3.10, the optimizer can be forced to not use an index for any given FOR
+3.9.1, the optimizer can be forced to not use an index for any given FOR
 loop by using the `disableIndex` hint and setting it to `true`:
 
 ```js
@@ -165,13 +167,15 @@ this case the optimizer will always prefer the `disableIndex` hint.
 
 ### `maxProjections`
 
+<small>Introduced in: v3.9.1</small>
+
 By default, the query optimizer will consider up to 5 document attributes
 per FOR loop to be used as projections. If more than 5 attributes of a
 collection are accessed in a FOR loop, the optimizer will prefer to 
 extract the full document and not use projections.
 
 The threshold value of 5 attributes is arbitrary and can be adjusted 
-since ArangoDB 3.10 by using the `maxProjections` hint.
+since ArangoDB 3.9.1 by using the `maxProjections` hint.
 The default value for `maxProjections` is `5`, which is compatible with the
 previously hard-coded default value.
 
