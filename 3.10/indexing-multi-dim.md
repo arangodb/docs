@@ -134,8 +134,8 @@ Because the seek operation is computationally expensive, probing more documents 
 You can specify the lookahead value using the OPTIONS keyword:
 ```js
 FOR app IN appointments OPTIONS {lookahead: 32}
-    FILTER f <= app.to
-    FILTER app.from <= t
+    FILTER @to <= app.to
+    FILTER app.from <= @from
     RETURN app
 ```
 ## Limitations
