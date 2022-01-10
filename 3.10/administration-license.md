@@ -12,7 +12,7 @@ There is also an [HTTP API](http/license.html).
 ## Initial Installation
 
 The first installation of any ArangoDB Enterprise Edition instance can be
-immediately used for testing without restrictions for one hour.
+immediately used for testing without restrictions for 3 hours.
 
 In the email with the download link you will find a fully featured but
 time-wise limited license that allows you to continue testing for two weeks.
