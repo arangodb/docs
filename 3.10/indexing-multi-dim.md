@@ -128,8 +128,8 @@ FOR app IN appointments
 
 ## Lookahead Index Hint
 
-Using the lookahead index hint can increase the performance for certain use cases. Specifiying a lookahead value greater than zero makes the index fetch more documents, that are no longer in the search box, before seeking to the next lookup position. 
-Because the seek operation is computationally expensive, probing more documents before seeking may reduce the number of seeks, if matching documents are found. Please keep in mind that it might also affect performance negatively.
+Using the lookahead index hint can increase the performance for certain use cases. Specifiying a lookahead value greater than zero makes the index fetch more documents that are no longer in the search box, before seeking to the next lookup position. 
+Because the seek operation is computationally expensive, probing more documents before seeking may reduce the number of seeks, if matching documents are found. Please keep in mind that it might also affect performance negatively if documents are fetched unnecessarily.
 
 You can specify the lookahead value using the OPTIONS keyword:
 ```js
