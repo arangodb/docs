@@ -539,6 +539,15 @@ Transaction timeouts on Coordinators remain unchanged, so any queries/transactio
 that are abandoned will be aborted there, which will also be propagated to
 DB-Servers.
 
+### Deployment mode "leader-follower" no longer supported
+
+The deployment mode "leader-follower" in which two single servers were
+setup as a leader and follower pair (without any kind of automatic
+failover) has been deprecated and removed from the documentation.
+
+There have been strictly better possibilities for some time now in the
+form of "active failover" and "one shard databases" in clusters.
+
 Client tools
 ------------
 
