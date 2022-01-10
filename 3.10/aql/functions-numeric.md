@@ -166,6 +166,8 @@ To calculate the distance, see [L1_DISTANCE()](#l1_distance) and
   The length of each 2D array row should be equal to the length of second input
   array in that case.
 
+In case of invalid input values the function returns **null** and produces a warning.
+
 ```js
 COSINE_SIMILARITY([0,1], [1,0]) // 0
 COSINE_SIMILARITY([[0,1,0,1],[1,0,0,1],[1,1,1,0],[0,0,0,1]], [1,1,1,1]) // [0.707, 0.707, 0.866, 0.5]
@@ -390,6 +392,8 @@ To calculate the similarity, see [COSINE_SIMILARITY()](#cosine_similarity).
   The length of each inner array should be equal to the length of second input
   array in that case.
 
+In case of invalid input values the function returns **null** and produces a warning.
+
 ```js
 L1_DISTANCE([-1,-1], [2,2]) // 6
 L1_DISTANCE([[1,2,3],[-1,-2,-3],[3,4,5],[-5,2,1]], [1,1,1]) // [3,9,9,7]
@@ -412,6 +416,8 @@ To calculate the similarity, see [COSINE_SIMILARITY()](#cosine_similarity).
   If one of the inputs is a nested (2D) array, then an array is returned.
   The length of each inner array should be equal to the length of second input
   array in that case.
+
+In case of invalid input values the function returns **null** and produces a warning.
 
 ```js
 L2_DISTANCE([1,1], [5,2]) // 4.1231056256176606

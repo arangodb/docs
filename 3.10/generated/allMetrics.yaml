@@ -539,174 +539,6 @@
     Total execution time of all AQL queries, in milliseconds,
     including all slow queries.
 
-- name: arangodb_arangosearch_cleanup_time
-  introducedIn: "3.10.0"
-  help: |
-    Average time of few last cleanups.
-  unit: ms
-  type: gauge
-  category: Disk
-  complexity: advanced
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Average time of few last cleanups.
-
-- name: arangodb_arangosearch_commit_time
-  introducedIn: "3.10.0"
-  help: |
-    Average time of few last commits.
-  unit: ms
-  type: gauge
-  category: Disk
-  complexity: advanced
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Average time of few last commits.
-
-- name: arangodb_arangosearch_consolidation_time
-  introducedIn: "3.10.0"
-  help: |
-    Average time of few last consolidations.
-  unit: ms
-  type: gauge
-  category: Disk
-  complexity: advanced
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Average time of few last consolidations.
-
-- name: arangodb_arangosearch_index_size
-  introducedIn: "3.10.0"
-  help: |
-    Size of the index in bytes for current snapshot.
-  unit: number
-  type: gauge
-  category: Disk
-  complexity: advanced
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Size of the index in bytes for current snapshot.
-
-- name: arangodb_arangosearch_num_buffered_docs
-  introducedIn: "3.10.0"
-  help: |
-    Number of buffered documents for current snapshot.
-  unit: number
-  type: gauge
-  category: Disk
-  complexity: advanced
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of buffered documents for current snapshot.
-
-- name: arangodb_arangosearch_num_docs
-  introducedIn: "3.10.0"
-  help: |
-    Number of documents for current snapshot.
-  unit: number
-  type: gauge
-  category: Disk
-  complexity: advanced
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of documents for current snapshot.
-
-- name: arangodb_arangosearch_num_failed_cleanups
-  introducedIn: "3.10.0"
-  help: |
-    Number of failed cleanups.
-  unit: number
-  type: gauge
-  category: Disk
-  complexity: advanced
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of failed cleanups.
-
-- name: arangodb_arangosearch_num_failed_commits
-  introducedIn: "3.10.0"
-  help: |
-    Number of failed commits.
-  unit: number
-  type: gauge
-  category: Disk
-  complexity: advanced
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of failed commits.
-
-- name: arangodb_arangosearch_num_failed_consolidations
-  introducedIn: "3.10.0"
-  help: |
-    Number of failed consolidations.
-  unit: number
-  type: gauge
-  category: Disk
-  complexity: advanced
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of failed consolidations.
-
-- name: arangodb_arangosearch_num_files
-  introducedIn: "3.10.0"
-  help: |
-    Number of files for current snapshot.
-  unit: number
-  type: gauge
-  category: Disk
-  complexity: advanced
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of files for current snapshot.
-
-- name: arangodb_arangosearch_num_live_docs
-  introducedIn: "3.10.0"
-  help: |
-    Number of live documents for current snapshot.
-  unit: number
-  type: gauge
-  category: Disk
-  complexity: advanced
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of live documents for current snapshot.
-
-- name: arangodb_arangosearch_num_segments
-  introducedIn: "3.10.0"
-  help: |
-    Number of segments for current snapshot.
-  unit: number
-  type: gauge
-  category: Disk
-  complexity: advanced
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of segments for current snapshot.
-
 - name: arangodb_client_connection_statistics_bytes_received
   introducedIn: "3.8.0"
   help: |
@@ -3210,6 +3042,57 @@
     Histogram of the body sizes of the received VST requests in bytes.
     Note that this does include the binary header.
 
+- name: arangodb_revision_tree_hibernations_total
+  introducedIn: "3.8.5"
+  help: |
+    Number of revision tree hibernations.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    The revision trees of collections/shards are normally present
+    in RAM in an uncompressed state. However, to reduce the memory
+    usage of keeping all revision trees in RAM at the same time, 
+    revision trees can be put into "hibernation" mode. Any inactive
+    revision tree will automatically be hibernated by ArangoDB after
+    a while. For the hibernation step, a revision tree will be 
+    compressed in RAM, and only the compressed version is then kept.
+    Later accesses of a compressed revision tree require uncompressing
+    the tree again. 
+    This metric is increased whenever a revision tree is hibernated.
+    This can happened many times during the lifetime of a revision tree.
+
+- name: arangodb_revision_tree_memory_usage
+  introducedIn: "3.8.5"
+  help: |
+    Total memory usage of all revision trees (both hibernated and uncompressed).
+  unit: bytes
+  type: gauge
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total memory usage of all revision trees for collections/shards.
+    The revision trees of collections/shards are normally present
+    in RAM in an uncompressed state. However, to reduce the memory
+    usage of keeping all revision trees in RAM at the same time, 
+    revision trees can be put into "hibernation" mode. Any inactive
+    revision tree will automatically be hibernated by ArangoDB after
+    a while. For the hibernation step, a revision tree will be 
+    compressed in RAM, and only the compressed version is then kept.
+    Later accesses of a compressed revision tree require uncompressing
+    the tree again. 
+    This metrics reports the total memory usage of all revision trees,
+    including both the hibernated and uncompressed forms).
+
 - name: arangodb_revision_tree_rebuilds_failure_total
   introducedIn: "3.8.2"
   help: |
@@ -3246,6 +3129,32 @@
     Ideally this value stays at 0, because a revision tree rebuild
     indicates a problem with a collection/shard's revision tree that
     has happened before.
+
+- name: arangodb_revision_tree_resurrections_total
+  introducedIn: "3.8.5"
+  help: |
+    Number of revision tree resurrections.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    The revision trees of collections/shards are normally present
+    in RAM in an uncompressed state. However, to reduce the memory
+    usage of keeping all revision trees in RAM at the same time, 
+    revision trees can be put into "hibernation" mode. Any inactive
+    revision tree will automatically be hibernated by ArangoDB after
+    a while. For the hibernation step, a revision tree will be 
+    compressed in RAM, and only the compressed version is then kept.
+    Later accesses of a compressed revision tree require uncompressing
+    the tree again. 
+    This metric is increased whenever a revision tree is restored from
+    its hibernated state back into an uncompressed form in RAM.
+    This can happened many times during the lifetime of a revision tree.
 
 - name: arangodb_rocksdb_write_stalls_total
   renamedFrom: rocksdb_write_stalls
@@ -4297,6 +4206,174 @@
     Total number of connections accepted for VST, this are upgraded
     connections from HTTP/1.1.
 
+- name: arangosearch_cleanup_time
+  introducedIn: "3.10.0"
+  help: |
+    Average time of few last cleanups.
+  unit: ms
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Average time of few last cleanups.
+
+- name: arangosearch_commit_time
+  introducedIn: "3.10.0"
+  help: |
+    Average time of few last commits.
+  unit: ms
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Average time of few last commits.
+
+- name: arangosearch_consolidation_time
+  introducedIn: "3.10.0"
+  help: |
+    Average time of few last consolidations.
+  unit: ms
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Average time of few last consolidations.
+
+- name: arangosearch_index_size
+  introducedIn: "3.10.0"
+  help: |
+    Size of the index in bytes for current snapshot.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Size of the index in bytes for current snapshot.
+
+- name: arangosearch_num_buffered_docs
+  introducedIn: "3.10.0"
+  help: |
+    Number of buffered documents for current snapshot.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of buffered documents for current snapshot.
+
+- name: arangosearch_num_docs
+  introducedIn: "3.10.0"
+  help: |
+    Number of documents for current snapshot.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of documents for current snapshot.
+
+- name: arangosearch_num_failed_cleanups
+  introducedIn: "3.10.0"
+  help: |
+    Number of failed cleanups.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of failed cleanups.
+
+- name: arangosearch_num_failed_commits
+  introducedIn: "3.10.0"
+  help: |
+    Number of failed commits.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of failed commits.
+
+- name: arangosearch_num_failed_consolidations
+  introducedIn: "3.10.0"
+  help: |
+    Number of failed consolidations.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of failed consolidations.
+
+- name: arangosearch_num_files
+  introducedIn: "3.10.0"
+  help: |
+    Number of files for current snapshot.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of files for current snapshot.
+
+- name: arangosearch_num_live_docs
+  introducedIn: "3.10.0"
+  help: |
+    Number of live documents for current snapshot.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of live documents for current snapshot.
+
+- name: arangosearch_num_segments
+  introducedIn: "3.10.0"
+  help: |
+    Number of segments for current snapshot.
+  unit: number
+  type: gauge
+  category: ArangoSearch
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - single
+  description: |
+    Number of segments for current snapshot.
+
 - name: rocksdb_actual_delayed_write_rate
   introducedIn: "3.6.1"
   help: |
@@ -5340,6 +5417,22 @@
     an instance is started, so that other instances in the cluster can start
     replicating from the instance before all archived WAL files are deleted.
     The value should flip from 0 to 1 a few minutes after server start.
+
+- name: rocksdb_wal_sequence
+  introducedIn: "3.8.5"
+  help: |
+    Current RocksDB WAL sequence number.
+  unit: number
+  type: gauge
+  category: RocksDB
+  complexity: high
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric exposes the current RocksDB WAL sequence number. Any
+    write operations into the database will increase the sequence number.
 
 - name: rocksdb_wal_sequence_lower_bound
   introducedIn: "3.8.2"
