@@ -2,7 +2,7 @@
 layout: default
 description: Note
 redirect_from:
-  - /3.7/cookbook/monitoring-slave-status.html # 3.5 -> 3.5
+  - cookbook/monitoring-slave-status.html # 3.5 -> 3.5
 # TODO Update to Foxx 3.x or consider removing
 ---
 Monitoring replication slave

@@ -135,8 +135,8 @@ that were applied to the plan:
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
 Here is the meaning of these rules in context of this query:
-- `move-calculations-up`: moves a *CalculationNode* as far up in the processing pipeline
-  as possible
+- `move-calculations-up`: moves a *CalculationNode* and subqueries, when independent from the outer node, 
+   as far up in the processing pipeline as possible
 - `move-filters-up`: moves a *FilterNode* as far up in the processing pipeline as
   possible
 - `remove-redundant-calculations`: replaces references to variables with references to
@@ -391,6 +391,9 @@ The following execution node types will appear in the output of `explain`:
 - **KShortestPathsNode**:
   indicates a traversal for k Shortest Paths (`K_SHORTEST_PATHS` in AQL).
 
+- **KPathsNode**:
+  indicates a traversal for k Paths (`K_PATHS` in AQL).
+
 - **LimitNode**:
   limits the number of results passed to other processing steps. Will appear
   once per *LIMIT* statement.
@@ -602,10 +605,9 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 - `remove-redundant-sorts`:
   will appear if multiple *SORT* statements can be merged into fewer sorts.
 
-- `remove-sort-rand`:
-  will appear when a *SORT RAND()* expression is removed by moving the random
-  iteration into an *EnumerateCollectionNode*. This optimizer rule is specific
-  for the MMFiles storage engine.
+- `remove-sort-rand-limit-1`:
+  will appear when a *SORT RAND() LIMIT 1* construct is removed by moving the
+  random iteration into an *EnumerateCollectionNode*.
 
 - `remove-unnecessary-calculations`:
   will appear if *CalculationNode*s were removed from the query. The rule will
@@ -651,7 +653,7 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 
 - `splice-subqueries`:
   will appear when a subquery has been spliced into the surrounding query.
-  This will be performed on all subqueries unless explicitily switched off.
+  This will be performed on all subqueries and canot be switched off.
   This optimization is applied after all other optimizations, and reduces
   overhead for executing subqueries by inlining the execution. This mainly
   benefits queries which execute subqueries very often that only return a

@@ -9,7 +9,7 @@ HTTP Interface for Analyzers
 The RESTful API for managing ArangoSearch Analyzers is accessible via the
 `/_api/analyzer` endpoint.
 
-See the description of [Analyzers](../arangosearch-analyzers.html) for an
+See the description of [Analyzers](../analyzers.html) for an
 introduction and the available types, properties and features.
 
 Analyzer Operations

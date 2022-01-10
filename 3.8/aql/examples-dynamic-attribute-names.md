@@ -3,7 +3,7 @@ layout: default
 description: Expressions as attribute names or using subqueries and ZIP()
 title: Dynamic Attribute Names in AQL
 redirect_from:
-  - /3.8/cookbook/aql-dynamic-attribute-names.html # 3.5 -> 3.5
+  - ../cookbook/aql-dynamic-attribute-names.html # 3.5 -> 3.5
 ---
 Dynamic Attribute Names in AQL
 ==============================

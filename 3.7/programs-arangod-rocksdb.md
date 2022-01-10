@@ -45,6 +45,17 @@ For systems with less RAM, the default values are:
 - 512MiB for systems with between 1 and 4GiB of RAM.
 - 256MiB for systems with less than 1GiB of RAM.
 
+`--rocksdb.max-write-buffer-size-to-maintain`
+
+The maximum size of immutable write buffers that build up in memory per column
+family (larger values mean that more in-memory data can be used for transaction
+conflict checking (`-1` = use automatic default value, `0` = do not keep
+immutable flushed write buffers, which is the default and usually correct).
+
+The default value `0` restores the memory usage pattern of ArangoDB v3.6.
+This leads to the fact that RocksDB will not keep any flushed immutable
+write-buffers in memory.
+
 `--rocksdb.min-write-buffer-number-to-merge`
 
 Minimum number of write buffers that will be merged together when flushing to

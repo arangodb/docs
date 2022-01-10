@@ -16,7 +16,7 @@ is provided to interact with the database system.
 The [web interface](administration-web-interface.html) that comes with
 ArangoDB, called *Aardvark*, provides graphical user interface that is easy to use.
 An [interactive shell](getting-started-arangosh.html), called *Arangosh*, is also
-shipped. In addition, there are so called [drivers](https://arangodb.com/downloads/arangodb-drivers/){:target="_blank"}
+shipped. In addition, there are so called [drivers](https://www.arangodb.com/download/drivers/){:target="_blank"}
 that make it easy to use the database system in various environments and
 programming languages. All these tools use the HTTP interface of the server and
 remove the necessity to roll own low-level code for basic communication in most
@@ -68,7 +68,7 @@ Data Retrieval
 new data, as well as to manipulate or delete existing documents. Queries can be
 as simple as a "query by example" or as complex as ["joins"](aql/examples-join.html)
 using many collections or traversing graph structures. They are written in
-the [ArangoDB Query Language](../aql/) (AQL).
+the [ArangoDB Query Language](aql/index.html) (AQL).
 
 **Cursors** are used to iterate over the result of queries, so that you get
 easily processable batches instead of one big hunk.

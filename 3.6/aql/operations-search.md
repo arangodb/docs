@@ -3,7 +3,7 @@ layout: default
 description: The SEARCH keyword starts the language construct to filter Views of type ArangoSearch.
 title: The SEARCH operation in AQL
 redirect_from:
-  - /3.6/aql/views.html
+  - views.html
 ---
 SEARCH
 ======
@@ -27,8 +27,8 @@ The optional `SEARCH` operation provides the capabilities to:
 
 See [ArangoSearch Views](../arangosearch-views.html) on how to set up a View.
 
-General Syntax
---------------
+Syntax
+------
 
 The `SEARCH` keyword is followed by an ArangoSearch filter expressions, which
 is mostly comprised of calls to ArangoSearch AQL functions.
@@ -69,13 +69,13 @@ The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
 language rules as per the defined Analyzer locale nor the server language
 (startup option `--default-language`)!
-Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+Also see [Known Issues](../release-notes-known-issues36.html#arangosearch).
 {% endhint %}
 
 ```js
 FOR doc IN viewName
   SEARCH ANALYZER(doc.text == "quick" OR doc.text == "brown", "text_en")
-RETURN doc
+  RETURN doc
 ```
 
 [Array comparison operators](operators.html#array-comparison-operators) are

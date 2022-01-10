@@ -9,11 +9,7 @@ This tutorial guides you through the steps needed to configure
 an ArangoDB datacenter to datacenter replication between two ArangoDB
 clusters running in Kubernetes.
 
-{% hint 'info' %}
-Datacenter to datacenter replication is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 ## Requirements
 

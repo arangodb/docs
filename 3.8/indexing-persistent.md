@@ -1,20 +1,9 @@
 ---
 layout: default
-description: The persistent index type is deprecated from version 3.4.0 on for the MMFiles storage engine.
+description: It is possible to define a persistent index on one or more attributes (or paths) of documents
 ---
 Persistent indexes
 ==================
-
-{% hint 'warning' %}
-The persistent index type is deprecated from version 3.4.0 on for the MMFiles
-storage engine. Use the RocksDB storage engine instead, where all indexes are
-persistent.
-{% endhint %}
-
-Introduction to Persistent Indexes
-----------------------------------
-
-This is an introduction to ArangoDB's persistent indexes.
 
 It is possible to define a persistent index on one or more attributes (or paths)
 of documents. The index is then used in queries to locate documents within a given range. 
@@ -177,12 +166,10 @@ Persistent Indexes and Server Language
 --------------------------------------
 
 The order of index entries in persistent indexes adheres to the configured
-[server language](programs-arangod-global.html#default-language).
+[server language](programs-arangod-general.html#default-language).
 If, however, the server is restarted with a different language setting as when
 the persistent index was created, not all documents may be returned anymore and
 the sort order of those which are returned can be wrong (whenever the persistent
 index is consulted).
 
 To fix persistent indexes after a language change, delete and re-create them.
-Skiplist indexes are not affected, because they are not persisted and
-automatically rebuilt on every server start.

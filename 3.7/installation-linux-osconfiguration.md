@@ -13,6 +13,36 @@ easily applied by making use of a script. Please refer to the page
 ready-to-use examples.
 {% endhint %}
 
+System Locales
+--------------
+
+Some systems may miss the required locale to start the server, resulting in an
+error message like the following:
+
+```
+FATAL [7ef60] {config} specified language 'en_US' does not match previously used language ''
+```
+
+The locale can be generated with the following command:
+
+```
+sudo locale-gen "en_US.UTF-8"
+```
+
+Your distribution may also provide a frontend for doing so, for instance
+[`dpkg-reconfigure locales` on Debian](https://wiki.debian.org/Locale){:target="_blank"}.
+
+If you don't set a [default language](programs-arangod-general.html#default-language)
+for the server explicitly, ArangoDB will use the default locale of your system.
+
+{% hint 'warning' %}
+The server language is stored in the `LANGUAGE` file in the database directory.
+This file should not be modified manually to bypass issues with the locale,
+because it may render indices invalid without raising a warning or error.
+Dumping the data and restoring it into an instance that has the correct
+language configured is advised.
+{% endhint %}
+
 File Systems
 ------------
 

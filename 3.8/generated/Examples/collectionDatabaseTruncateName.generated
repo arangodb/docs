@@ -1,13 +1,13 @@
 arangosh&gt; col = db.example;
-[ArangoCollection <span class="hljs-number">75386</span>, <span class="hljs-string">"example"</span> (type <span class="hljs-built_in">document</span>, status loaded)]
-arangosh&gt; col.save({ <span class="hljs-string">"Hello"</span> : <span class="hljs-string">"World"</span> });
+[ArangoCollection <span class="hljs-number">71156</span>, <span class="hljs-string">&quot;example&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)]
+arangosh&gt; col.save({ <span class="hljs-string">&quot;Hello&quot;</span> : <span class="hljs-string">&quot;World&quot;</span> });
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"example/75391"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75391"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_anLUaP6---"</span> 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;example/71161&quot;</span>, 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71161&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPwDSm---&quot;</span> 
 }
 arangosh&gt; col.count();
 <span class="hljs-number">1</span>
-arangosh&gt; db._truncate(<span class="hljs-string">"example"</span>);
+arangosh&gt; db._truncate(<span class="hljs-string">&quot;example&quot;</span>);
 arangosh&gt; col.count();
 <span class="hljs-number">0</span>

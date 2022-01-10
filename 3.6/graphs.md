@@ -31,10 +31,6 @@ Its common to have attributes attached to edges, i.e. a *label* naming this inte
 Edges have a direction, with their relations `_from` and `_to` pointing *from* one document *to* another document stored in vertex collections.
 In queries you can define in which directions the edge relations may be followed (`OUTBOUND`: `_from` → `_to`, `INBOUND`: `_from` ← `_to`, `ANY`: `_from` ↔ `_to`).
 
-Want to see the power of ArangoDB and graphs? Fire up your own ArangoDB in just
-a few clicks with ArangoDB Oasis: the Cloud Service for ArangoDB. Start your
-[free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
-
 Named Graphs
 ------------
 
@@ -368,10 +364,8 @@ Another huge graph is the [Pokec social network](https://snap.stanford.edu/data/
 from Slovakia that we [used for performance testing on several databases](https://www.arangodb.com/2015/06/multi-model-benchmark/){:target="_blank"};
 You will find importing scripts etc. in this blogpost.
 
-Cookbook examples
------------------
-
-The above referenced chapters describe the various APIs of ArangoDBs graph engine with small examples. Our cookbook has some more real life examples:
+More examples
+-------------
 
  - [Retrieving documents from ArangoDB without knowing the structure](drivers/java-examples-base-document.html)
  - [AQL Example Queries on an Actors and Movies Database](aql/examples-actors-and-movies.html)

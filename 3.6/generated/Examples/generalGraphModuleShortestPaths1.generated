@@ -1,346 +1,346 @@
-arangosh&gt; <span class="hljs-keyword">var</span> examples = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/graph-examples/example-graph.js"</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> g = examples.loadGraph(<span class="hljs-string">"routeplanner"</span>);
-arangosh&gt; g._shortestPath({}, {}, {<span class="hljs-attr">weight</span> : <span class="hljs-string">'distance'</span>, <span class="hljs-attr">endVertexCollectionRestriction</span> : <span class="hljs-string">'frenchCity'</span>,
-........&gt; startVertexCollectionRestriction : <span class="hljs-string">'germanCity'</span>});
+arangosh&gt; <span class="hljs-keyword">var</span> examples = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/graph-examples/example-graph.js&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> g = examples.loadGraph(<span class="hljs-string">&quot;routeplanner&quot;</span>);
+arangosh&gt; g._shortestPath({}, {}, {<span class="hljs-attr">weight</span> : <span class="hljs-string">&#x27;distance&#x27;</span>, <span class="hljs-attr">endVertexCollectionRestriction</span> : <span class="hljs-string">&#x27;frenchCity&#x27;</span>,
+........&gt; startVertexCollectionRestriction : <span class="hljs-string">&#x27;germanCity&#x27;</span>});
 [ 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"frenchCity/Lyon"</span>, 
-      <span class="hljs-string">"frenchCity/Paris"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
+      <span class="hljs-string">&quot;frenchCity/Paris&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78408"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"frenchHighway/78408"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"frenchCity/Paris"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Lyon"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6W--C"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">550</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79400&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;frenchHighway/79400&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6qu---&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">550</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"frenchCity/Lyon"</span>, 
-      <span class="hljs-string">"germanCity/Berlin"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
+      <span class="hljs-string">&quot;germanCity/Berlin&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78410"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/78410"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Berlin"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Lyon"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6W--E"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">1100</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79402&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/79402&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6qy---&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1100</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"frenchCity/Lyon"</span>, 
-      <span class="hljs-string">"germanCity/Cologne"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
+      <span class="hljs-string">&quot;germanCity/Cologne&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78418"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/78418"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Cologne"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Lyon"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6a--E"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">700</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79410&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/79410&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6q6---&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">700</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"frenchCity/Lyon"</span>, 
-      <span class="hljs-string">"germanCity/Hamburg"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
+      <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78416"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/78416"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Hamburg"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Lyon"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6a--C"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">1300</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79408&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/79408&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6q2--A&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1300</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"frenchCity/Paris"</span>, 
-      <span class="hljs-string">"frenchCity/Lyon"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
+      <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78408"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"frenchHighway/78408"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"frenchCity/Paris"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Lyon"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6W--C"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">550</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79400&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;frenchHighway/79400&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6qu---&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">550</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"frenchCity/Paris"</span>, 
-      <span class="hljs-string">"germanCity/Berlin"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
+      <span class="hljs-string">&quot;germanCity/Berlin&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78412"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/78412"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Berlin"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Paris"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6a---"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">1200</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79404&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/79404&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6qy--A&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1200</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"frenchCity/Paris"</span>, 
-      <span class="hljs-string">"germanCity/Cologne"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
+      <span class="hljs-string">&quot;germanCity/Cologne&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78420"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/78420"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Cologne"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Paris"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6e---"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">550</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79412&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/79412&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6q6--A&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">550</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"frenchCity/Paris"</span>, 
-      <span class="hljs-string">"germanCity/Hamburg"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
+      <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78414"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/78414"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Hamburg"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Paris"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6a--A"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">900</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79406&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/79406&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6q2---&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">900</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"germanCity/Berlin"</span>, 
-      <span class="hljs-string">"frenchCity/Lyon"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
+      <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78410"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/78410"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Berlin"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Lyon"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6W--E"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">1100</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79402&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/79402&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6qy---&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1100</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"germanCity/Berlin"</span>, 
-      <span class="hljs-string">"frenchCity/Paris"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
+      <span class="hljs-string">&quot;frenchCity/Paris&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78412"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/78412"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Berlin"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Paris"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6a---"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">1200</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79404&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/79404&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6qy--A&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1200</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"germanCity/Berlin"</span>, 
-      <span class="hljs-string">"germanCity/Cologne"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
+      <span class="hljs-string">&quot;germanCity/Cologne&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78402"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"germanHighway/78402"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Berlin"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"germanCity/Cologne"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6S--A"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">850</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79394&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;germanHighway/79394&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6qm---&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">850</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"germanCity/Berlin"</span>, 
-      <span class="hljs-string">"germanCity/Hamburg"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
+      <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78404"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"germanHighway/78404"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Berlin"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"germanCity/Hamburg"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6W---"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">400</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79396&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;germanHighway/79396&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6qq---&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">400</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"germanCity/Cologne"</span>, 
-      <span class="hljs-string">"frenchCity/Lyon"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
+      <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78418"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/78418"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Cologne"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Lyon"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6a--E"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">700</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79410&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/79410&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6q6---&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">700</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"germanCity/Cologne"</span>, 
-      <span class="hljs-string">"frenchCity/Paris"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
+      <span class="hljs-string">&quot;frenchCity/Paris&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78420"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/78420"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Cologne"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Paris"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6e---"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">550</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79412&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/79412&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6q6--A&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">550</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"germanCity/Cologne"</span>, 
-      <span class="hljs-string">"germanCity/Berlin"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
+      <span class="hljs-string">&quot;germanCity/Berlin&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78402"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"germanHighway/78402"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Berlin"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"germanCity/Cologne"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6S--A"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">850</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79394&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;germanHighway/79394&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6qm---&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">850</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"germanCity/Cologne"</span>, 
-      <span class="hljs-string">"germanCity/Hamburg"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
+      <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78406"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"germanHighway/78406"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Hamburg"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"germanCity/Cologne"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6W--A"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">500</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79398&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;germanHighway/79398&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6qq--A&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">500</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"germanCity/Hamburg"</span>, 
-      <span class="hljs-string">"frenchCity/Lyon"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+      <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78416"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/78416"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Hamburg"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Lyon"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6a--C"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">1300</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79408&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/79408&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Lyon&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6q2--A&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1300</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"germanCity/Hamburg"</span>, 
-      <span class="hljs-string">"frenchCity/Paris"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+      <span class="hljs-string">&quot;frenchCity/Paris&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78414"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"internationalHighway/78414"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Hamburg"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"frenchCity/Paris"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6a--A"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">900</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79406&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;internationalHighway/79406&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;frenchCity/Paris&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6q2---&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">900</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"germanCity/Hamburg"</span>, 
-      <span class="hljs-string">"germanCity/Berlin"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+      <span class="hljs-string">&quot;germanCity/Berlin&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78404"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"germanHighway/78404"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Berlin"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"germanCity/Hamburg"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6W---"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">400</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79396&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;germanHighway/79396&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Berlin&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6qq---&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">400</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   }, 
   { 
-    <span class="hljs-string">"vertices"</span> : [ 
-      <span class="hljs-string">"germanCity/Hamburg"</span>, 
-      <span class="hljs-string">"germanCity/Cologne"</span> 
+    <span class="hljs-string">&quot;vertices&quot;</span> : [ 
+      <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+      <span class="hljs-string">&quot;germanCity/Cologne&quot;</span> 
     ], 
-    <span class="hljs-string">"edges"</span> : [ 
+    <span class="hljs-string">&quot;edges&quot;</span> : [ 
       { 
-        <span class="hljs-string">"_key"</span> : <span class="hljs-string">"78406"</span>, 
-        <span class="hljs-string">"_id"</span> : <span class="hljs-string">"germanHighway/78406"</span>, 
-        <span class="hljs-string">"_from"</span> : <span class="hljs-string">"germanCity/Hamburg"</span>, 
-        <span class="hljs-string">"_to"</span> : <span class="hljs-string">"germanCity/Cologne"</span>, 
-        <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hY6W--A"</span>, 
-        <span class="hljs-string">"distance"</span> : <span class="hljs-number">500</span> 
+        <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;79398&quot;</span>, 
+        <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;germanHighway/79398&quot;</span>, 
+        <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;germanCity/Hamburg&quot;</span>, 
+        <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;germanCity/Cologne&quot;</span>, 
+        <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ6qq--A&quot;</span>, 
+        <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">500</span> 
       } 
     ], 
-    <span class="hljs-string">"distance"</span> : <span class="hljs-number">1</span> 
+    <span class="hljs-string">&quot;distance&quot;</span> : <span class="hljs-number">1</span> 
   } 
 ]

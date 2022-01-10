@@ -102,42 +102,39 @@ There are a few more keywords in addition to the higher-level operation keywords
 Additional keywords may be added in future versions of ArangoDB.
 The complete list of keywords is currently:
 
-<div class="columns-3">
-<ul>
-  <li>AGGREGATE</li>
-  <li>ALL</li>
-  <li>AND</li>
-  <li>ANY</li>
-  <li>ASC</li>
-  <li>COLLECT</li>
-  <li>DESC</li>
-  <li>DISTINCT</li>
-  <li>FALSE</li>
-  <li>FILTER</li>
-  <li>FOR</li>
-  <li>GRAPH</li>
-  <li>IN</li>
-  <li>INBOUND</li>
-  <li>INSERT</li>
-  <li>INTO</li>
-  <li>LET</li>
-  <li>LIMIT</li>
-  <li>NONE</li>
-  <li>NOT</li>
-  <li>NULL</li>
-  <li>OR</li>
-  <li>OUTBOUND</li>
-  <li>REMOVE</li>
-  <li>REPLACE</li>
-  <li>RETURN</li>
-  <li>SHORTEST_PATH</li>
-  <li>SORT</li>
-  <li>TRUE</li>
-  <li>UPDATE</li>
-  <li>UPSERT</li>
-  <li>WITH</li>
-</ul>
-</div>
+- `AGGREGATE`
+- `ALL`
+- `AND`
+- `ANY`
+- `ASC`
+- `COLLECT`
+- `DESC`
+- `DISTINCT`
+- `FALSE`
+- `FILTER`
+- `FOR`
+- `GRAPH`
+- `IN`
+- `INBOUND`
+- `INSERT`
+- `INTO`
+- `LET`
+- `LIMIT`
+- `NONE`
+- `NOT`
+- `NULL`
+- `OR`
+- `OUTBOUND`
+- `REMOVE`
+- `REPLACE`
+- `RETURN`
+- `SHORTEST_PATH`
+- `SORT`
+- `TRUE`
+- `UPDATE`
+- `UPSERT`
+- `WITH`
+{:class="columns-3"}
 
 Names
 -----

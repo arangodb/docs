@@ -1,8 +1,11 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
 
-HTTP/1.1 OK
+HTTP/1.1 200 OK
 content-type: application/json
+connection: Keep-Alive
+content-length: 815
 location: /_api/collection/testCollection/shards
+server: ArangoDB
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":{\"s4000048\":[\"PRMR-fc17f470-8d08-4f8b-a9c7-6e2ea300e87b\"],\"s4000049\":[\"PRMR-570f449c-cad4-4163-bb4c-87e48c2c3fb9\"],\"s4000050\":[\"PRMR-fc17f470-8d08-4f8b-a9c7-6e2ea300e87b\"]},\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isDisjoint\":false,\"minReplicationFactor\":1,\"isSystem\":false,\"name\":\"testCollection\",\"cacheEnabled\":false,\"id\":\"4000047\",\"isSmartChild\":false,\"globallyUniqueId\":\"c4000047/\",\"schema\":null,\"type\":2,\"status\":3,\"minRevision\":1668923884564381696,\"numberOfShards\":3,\"statusString\":\"loaded\",\"waitForSync\":false,\"isSmart\":false,\"shardKeys\":[\"_key\"],\"shardingStrategy\":\"hash\",\"replicationFactor\":1,\"syncByRevision\":true,\"usesRevisionsAsDocumentIds\":true,\"writeConcern\":1}"
+"{\"error\":false,\"code\":200,\"shards\":{\"s10052\":[\"PRMR-af757755-1822-47b9-ac40-85182ac1c661\",\"PRMR-efead557-9178-48b9-8112-8883e76f5981\"],\"s10053\":[\"PRMR-efead557-9178-48b9-8112-8883e76f5981\",\"PRMR-af757755-1822-47b9-ac40-85182ac1c661\"],\"s10054\":[\"PRMR-af757755-1822-47b9-ac40-85182ac1c661\",\"PRMR-efead557-9178-48b9-8112-8883e76f5981\"]},\"writeConcern\":1,\"usesRevisionsAsDocumentIds\":true,\"syncByRevision\":true,\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":2,\"waitForSync\":false,\"numberOfShards\":3,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"schema\":null,\"globallyUniqueId\":\"c10051/\",\"isSmartChild\":false,\"id\":\"10051\",\"cacheEnabled\":false,\"minReplicationFactor\":1,\"name\":\"testCollection\",\"isDisjoint\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false}"

@@ -1,15 +1,14 @@
 ---
 layout: default
-description: 'Welcome to the ArangoDB documentation! It is organized in five handbooks: Manual, AQL, HTTP, Cookbook and Driver handbook.'
+description: Technical documentation for ArangoDB's core features and ecosystem
 title: Introduction to ArangoDB Documentation
 page-toc:
   disable: true
 redirect_from:
-  - /3.7/cookbook/index.html # 3.5 -> 3.5
-  - /3.7/cookbook/use-cases.html # 3.5 -> 3.5
+  - cookbook/index.html # 3.5 -> 3.5
+  - cookbook/use-cases.html # 3.5 -> 3.5
 ---
-ArangoDB {{ site.data.versions[page.version.name] }} Documentation
-=====================================
+# ArangoDB {{ site.data.versions[page.version.name] }} Documentation
 
 Welcome to the ArangoDB documentation!
 
@@ -18,8 +17,7 @@ New and eager to try out ArangoDB? Start right away with our beginner's guide:
 [**Getting Started**](getting-started.html)
 {% endhint %}
 
-Structure
----------
+## Structure
 
 The documentation is organized in five handbooks:
 
@@ -44,9 +42,8 @@ their own examples based on these .js based examples to improve understandabilit
 for their respective users, i.e. for the [java driver](https://github.com/arangodb/arangodb-java-driver#learn-more){:target="_blank"}
 some of the samples are re-implemented.
 
-Key Features
-------------
- 
+## Key Features
+
 ArangoDB is a native multi-model, open-source database with flexible data models for documents, graphs, and key-values. Build high performance applications using a convenient SQL-like query language or JavaScript extensions. Use ACID transactions if you require them. Scale horizontally and vertically with a few mouse clicks.
 
 Key features include:
@@ -63,14 +60,8 @@ Key features include:
 - ArangoDB can be easily deployed as a [**fault-tolerant distributed state machine**](deployment-standalone-agency.html), which can serve as the animal brain of distributed appliances
 - It is **open source** (Apache License 2.0)
 
-Fire up your own ArangoDB and try it out in just a few clicks with
-ArangoDB Oasis: the Cloud Service for ArangoDB. Start your
-[free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
+## Community
 
-
-Community
----------
- 
 If you have questions regarding ArangoDB, Foxx, drivers, or this documentation don't hesitate to contact us on:
 
 - [GitHub](https://github.com/arangodb/arangodb/issues){:target="_blank"} for issues

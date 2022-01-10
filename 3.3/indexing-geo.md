@@ -13,7 +13,7 @@ This is an introduction to ArangoDB's geo indexes.
 AQL's geographic features are described in [Geo functions](aql/functions-geo.html).
 
 ArangoDB uses Hilbert curves to implement geo-spatial indexes.
-See this [blog](https://www.arangodb.com/2012/03/31/using-hilbert-curves-and-polyhedrons-for-geo-indexing){:target="_blank"}
+See this [blog](https://www.arangodb.com/2012/03/using-hilbert-curves-and-polyhedrons-for-geo-indexing/){:target="_blank"}
 for details.
 
 A geo-spatial index assumes that the latitude is between -90 and 90 degree and

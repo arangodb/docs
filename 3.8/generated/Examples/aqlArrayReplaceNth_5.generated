@@ -1,11 +1,11 @@
 @Q:
-RETURN REPLACE_NTH( [ <span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span> ], <span class="hljs-number">-1</span>, <span class="hljs-string">"z"</span> )
+RETURN REPLACE_NTH( [ <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span> ], -<span class="hljs-number">1</span>, <span class="hljs-string">&quot;z&quot;</span> )
 
 @R
 [
   [
-    <span class="hljs-string">"a"</span>,
-    <span class="hljs-string">"b"</span>,
-    <span class="hljs-string">"z"</span>
+    <span class="hljs-string">&quot;a&quot;</span>,
+    <span class="hljs-string">&quot;b&quot;</span>,
+    <span class="hljs-string">&quot;z&quot;</span>
   ]
 ]

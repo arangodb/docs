@@ -119,6 +119,39 @@ start, and not a new one. For the first start, the UUID file must either be
 created manually in the database directory, or the option must be set to 
 false for the initial startup and only turned on for restarts.
 
+## API JWT policy
+
+<small>Introduced in: v3.8.0</small>
+
+Control the access permissions for the `/_admin/cluster` REST API endpoints:
+
+`--cluster.api-jwt-policy <string>`
+
+This security option controls whether extra access permissions for the
+`/_admin/cluster` REST API endpoints should be enabled.
+
+The possible values for the option are:
+
+- `jwt-all`: requires a valid JWT for all accesses to `/_admin/cluster` and
+  its sub-routes. If this configuration is used, the _CLUSTER_ and _NODES_
+  sections of the web interface will be disabled, as they are relying on the
+  ability to read data from several cluster APIs.
+- `jwt-write`: requires a valid JWT for write accesses (all HTTP methods
+  except HTTP GET) to `/_admin/cluster`. This setting can be used to allow
+  privileged users to read data from the cluster APIs, but not to do any
+  modifications. Modifications (carried out by write accesses) are then only
+  possible by requests with a valid JWT.
+  All existing permission checks for the cluster API routes are still in effect
+  with this setting, meaning that read operations without a valid JWT may still
+  require dedicated other permissions (as in v3.7).
+- `jwt-compat`: no *additional* access checks are in place for the cluster
+  API. However, all existing permissions checks for the cluster API routes
+  are still in effect with this setting, meaning that all operations may
+  still require dedicated other permissions (as in v3.7).
+
+The default value for the option is `jwt-compat`, which means that this option
+will not cause any extra JWT checks compared to v3.7.
+
 ## Upgrade
 
 <small>Introduced in: v3.6.0</small>

@@ -16,7 +16,7 @@ parser will return an error if it detects more than one data-modification
 operation in the same query or if it cannot figure out if the query is meant
 to be a data retrieval or a modification operation.
 
-AQL only allows *one* query in a single query string; thus semicolons to
+AQL only allows **one** query in a single query string; thus semicolons to
 indicate the end of one query and separate multiple queries (as seen in SQL) are
 not allowed.
 
@@ -111,44 +111,41 @@ There are a few more keywords in addition to the higher-level operation keywords
 Additional keywords may be added in future versions of ArangoDB.
 The complete list of keywords is currently:
 
-<div class="columns-3">
-<ul>
-  <li><code>AGGREGATE</code></li>
-  <li><code>ALL</code></li>
-  <li><code>AND</code></li>
-  <li><code>ANY</code></li>
-  <li><code>ASC</code></li>
-  <li><code>COLLECT</code></li>
-  <li><code>DESC</code></li>
-  <li><code>DISTINCT</code></li>
-  <li><code>FALSE</code></li>
-  <li><code>FILTER</code></li>
-  <li><code>FOR</code></li>
-  <li><code>GRAPH</code></li>
-  <li><code>IN</code></li>
-  <li><code>INBOUND</code></li>
-  <li><code>INSERT</code></li>
-  <li><code>INTO</code></li>
-  <li><code>K_SHORTEST_PATHS</code></li>
-  <li><code>LET</code></li>
-  <li><code>LIKE</code></li>
-  <li><code>LIMIT</code></li>
-  <li><code>NONE</code></li>
-  <li><code>NOT</code></li>
-  <li><code>NULL</code></li>
-  <li><code>OR</code></li>
-  <li><code>OUTBOUND</code></li>
-  <li><code>REMOVE</code></li>
-  <li><code>REPLACE</code></li>
-  <li><code>RETURN</code></li>
-  <li><code>SHORTEST_PATH</code></li>
-  <li><code>SORT</code></li>
-  <li><code>TRUE</code></li>
-  <li><code>UPDATE</code></li>
-  <li><code>UPSERT</code></li>
-  <li><code>WITH</code></li>
-</ul>
-</div>
+- `AGGREGATE`
+- `ALL`
+- `AND`
+- `ANY`
+- `ASC`
+- `COLLECT`
+- `DESC`
+- `DISTINCT`
+- `FALSE`
+- `FILTER`
+- `FOR`
+- `GRAPH`
+- `IN`
+- `INBOUND`
+- `INSERT`
+- `INTO`
+- `K_SHORTEST_PATHS`
+- `LET`
+- `LIKE`
+- `LIMIT`
+- `NONE`
+- `NOT`
+- `NULL`
+- `OR`
+- `OUTBOUND`
+- `REMOVE`
+- `REPLACE`
+- `RETURN`
+- `SHORTEST_PATH`
+- `SORT`
+- `TRUE`
+- `UPDATE`
+- `UPSERT`
+- `WITH`
+{:class="columns-3"}
 
 On top of that, there are a few words used in language constructs which are not
 reserved keywords. They may thus be used as collection or attribute names
@@ -164,11 +161,11 @@ based on the context:
   [Graph Traversal](graphs-traversals.html) /
   [SEARCH](operations-search.html#search-options) /
   [COLLECT](operations-collect.html#setting-collect-options) /
-  [INSERT](operations-insert.html#setting-query-options) /
-  [UPDATE](operations-update.html#setting-query-options) /
-  [REPLACE](operations-replace.html#setting-query-options) /
-  [UPSERT](operations-upsert.html#setting-query-options) /
-  [REMOVE](operations-remove.html#setting-query-options)
+  [INSERT](operations-insert.html#query-options) /
+  [UPDATE](operations-update.html#query-options) /
+  [REPLACE](operations-replace.html#query-options) /
+  [UPSERT](operations-upsert.html#query-options) /
+  [REMOVE](operations-remove.html#query-options)
   operation
 - `PRUNE` –
   [Graph Traversal](graphs-traversals.html#pruning), FOR operation variant
@@ -224,7 +221,7 @@ FOR doc IN `filter`
   RETURN doc.`sort`
 ```
 
-Due to the backticks, *filter* and *sort* are interpreted as names and not as
+Due to the backticks, `filter` and `sort` are interpreted as names and not as
 keywords here.
 
 The example can alternatively written as:
@@ -285,8 +282,8 @@ FOR u IN users
     RETURN u.name
 ```
 
-In the above example, the attribute names *active*, *name*, *id*, and *userId*
-are qualified using the collection names they belong to (*u* and *f*
+In the above example, the attribute names `active`, `name`, `id`, and `userId`
+are qualified using the collection names they belong to (`u` and `f`
 respectively).
 
 ### Variable names
@@ -302,14 +299,12 @@ FOR u IN users
   RETURN { "name" : u.name, "friends" : friends }
 ```
 
-In the above query, *users* is a collection name, and both *u* and *friends* are
+In the above query, `users` is a collection name, and both `u` and `friends` are
 variable names. This is because the `FOR` and `LET` operations need target
 variables to store their intermediate results.
 
-Allowed characters in variable names are the letters *a* to *z* (both in lower
-and upper case), the numbers *0* to *9*, the underscore (*_*) symbol and the
-dollar (*$*) sign. A variable name must not start with a number. If a variable name 
-starts with the underscore character, the underscore must be followed by least one 
-letter (a-z or A-Z) or digit (0-9).
-
-The dollar sign can be used only as the very first character in a variable name.
+Allowed characters in variable names are the letters `a` to `z` (both in lower
+and upper case), the numbers `0` to `9`, the underscore (`_`) symbol and the
+dollar (`$`) sign. A variable name must not start with a number or underscore.
+The dollar sign can only be used as the very first character in a variable name
+and must be followed by a letter.

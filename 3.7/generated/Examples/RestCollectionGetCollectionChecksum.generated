@@ -1,19 +1,22 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/products/checksum</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/collection/products/checksum</span>
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">193</span>
 location: <span class="hljs-regexp">/_api/</span>collection/products/checksum
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">"isSystem"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">"revision"</span> : <span class="hljs-string">"_a4RbXDC---"</span>, 
-  <span class="hljs-string">"checksum"</span> : <span class="hljs-string">"2527579457213569684"</span>, 
-  <span class="hljs-string">"globallyUniqueId"</span> : <span class="hljs-string">"h7E633A4F9278/70233"</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"70233"</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"products"</span>, 
-  <span class="hljs-string">"status"</span> : <span class="hljs-number">3</span> 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+  <span class="hljs-string">&quot;revision&quot;</span> : <span class="hljs-string">&quot;_diPWL_6---&quot;</span>, 
+  <span class="hljs-string">&quot;checksum&quot;</span> : <span class="hljs-string">&quot;3632982271329311219&quot;</span>, 
+  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;hE5466DA4F4F0/70794&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;70794&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;products&quot;</span>, 
+  <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span> 
 }

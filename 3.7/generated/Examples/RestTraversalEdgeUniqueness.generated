@@ -1,275 +1,278 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/traversal</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/traversal</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"startVertex"</span> : <span class="hljs-string">"persons/alice"</span>, 
-  <span class="hljs-string">"graphName"</span> : <span class="hljs-string">"knows_graph"</span>, 
-  <span class="hljs-string">"direction"</span> : <span class="hljs-string">"any"</span>, 
-  <span class="hljs-string">"uniqueness"</span> : { 
-    <span class="hljs-string">"vertices"</span> : <span class="hljs-string">"none"</span>, 
-    <span class="hljs-string">"edges"</span> : <span class="hljs-string">"global"</span> 
+  <span class="hljs-string">&quot;startVertex&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+  <span class="hljs-string">&quot;graphName&quot;</span> : <span class="hljs-string">&quot;knows_graph&quot;</span>, 
+  <span class="hljs-string">&quot;direction&quot;</span> : <span class="hljs-string">&quot;any&quot;</span>, 
+  <span class="hljs-string">&quot;uniqueness&quot;</span> : { 
+    <span class="hljs-string">&quot;vertices&quot;</span> : <span class="hljs-string">&quot;none&quot;</span>, 
+    <span class="hljs-string">&quot;edges&quot;</span> : <span class="hljs-string">&quot;global&quot;</span> 
   } 
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">3002</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"result"</span> : { 
-    <span class="hljs-string">"visited"</span> : { 
-      <span class="hljs-string">"vertices"</span> : [ 
+  <span class="hljs-string">&quot;result&quot;</span> : { 
+    <span class="hljs-string">&quot;visited&quot;</span> : { 
+      <span class="hljs-string">&quot;vertices&quot;</span> : [ 
         { 
-          <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
-          <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqK---"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
+          <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span>, 
+          <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+          <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSie---&quot;</span>, 
+          <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Alice&quot;</span> 
         }, 
         { 
-          <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
-          <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqO---"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
+          <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;bob&quot;</span>, 
+          <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+          <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSii---&quot;</span>, 
+          <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Bob&quot;</span> 
         }, 
         { 
-          <span class="hljs-string">"_key"</span> : <span class="hljs-string">"charlie"</span>, 
-          <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/charlie"</span>, 
-          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqS---"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"Charlie"</span> 
+          <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;charlie&quot;</span>, 
+          <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/charlie&quot;</span>, 
+          <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSim---&quot;</span>, 
+          <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Charlie&quot;</span> 
         }, 
         { 
-          <span class="hljs-string">"_key"</span> : <span class="hljs-string">"dave"</span>, 
-          <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/dave"</span>, 
-          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqW---"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"Dave"</span> 
+          <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;dave&quot;</span>, 
+          <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/dave&quot;</span>, 
+          <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSiq---&quot;</span>, 
+          <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Dave&quot;</span> 
         }, 
         { 
-          <span class="hljs-string">"_key"</span> : <span class="hljs-string">"eve"</span>, 
-          <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/eve"</span>, 
-          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbhqa---"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"Eve"</span> 
+          <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;eve&quot;</span>, 
+          <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/eve&quot;</span>, 
+          <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSiq--A&quot;</span>, 
+          <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Eve&quot;</span> 
         }, 
         { 
-          <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
-          <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-          <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqK---"</span>, 
-          <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
+          <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span>, 
+          <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+          <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSie---&quot;</span>, 
+          <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Alice&quot;</span> 
         } 
       ], 
-      <span class="hljs-string">"paths"</span> : [ 
+      <span class="hljs-string">&quot;paths&quot;</span> : [ 
         { 
-          <span class="hljs-string">"edges"</span> : [ ], 
-          <span class="hljs-string">"vertices"</span> : [ 
+          <span class="hljs-string">&quot;edges&quot;</span> : [ ], 
+          <span class="hljs-string">&quot;vertices&quot;</span> : [ 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqK---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSie---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Alice&quot;</span> 
             } 
           ] 
         }, 
         { 
-          <span class="hljs-string">"edges"</span> : [ 
+          <span class="hljs-string">&quot;edges&quot;</span> : [ 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72705"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/72705"</span>, 
-              <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbhqe---"</span>, 
-              <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;73298&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;knows/73298&quot;</span>, 
+              <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+              <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSiu---&quot;</span>, 
+              <span class="hljs-string">&quot;vertex&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span> 
             } 
           ], 
-          <span class="hljs-string">"vertices"</span> : [ 
+          <span class="hljs-string">&quot;vertices&quot;</span> : [ 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqK---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSie---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Alice&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqO---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;bob&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSii---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Bob&quot;</span> 
             } 
           ] 
         }, 
         { 
-          <span class="hljs-string">"edges"</span> : [ 
+          <span class="hljs-string">&quot;edges&quot;</span> : [ 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72705"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/72705"</span>, 
-              <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbhqe---"</span>, 
-              <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;73298&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;knows/73298&quot;</span>, 
+              <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+              <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSiu---&quot;</span>, 
+              <span class="hljs-string">&quot;vertex&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72707"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/72707"</span>, 
-              <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/charlie"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbhqi---"</span>, 
-              <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"bob"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;73300&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;knows/73300&quot;</span>, 
+              <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;persons/charlie&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSiy---&quot;</span>, 
+              <span class="hljs-string">&quot;vertex&quot;</span> : <span class="hljs-string">&quot;bob&quot;</span> 
             } 
           ], 
-          <span class="hljs-string">"vertices"</span> : [ 
+          <span class="hljs-string">&quot;vertices&quot;</span> : [ 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqK---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSie---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Alice&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqO---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;bob&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSii---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Bob&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"charlie"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/charlie"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqS---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Charlie"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;charlie&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/charlie&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSim---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Charlie&quot;</span> 
             } 
           ] 
         }, 
         { 
-          <span class="hljs-string">"edges"</span> : [ 
+          <span class="hljs-string">&quot;edges&quot;</span> : [ 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72705"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/72705"</span>, 
-              <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbhqe---"</span>, 
-              <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;73298&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;knows/73298&quot;</span>, 
+              <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+              <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSiu---&quot;</span>, 
+              <span class="hljs-string">&quot;vertex&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72709"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/72709"</span>, 
-              <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/dave"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbhqi--A"</span>, 
-              <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"bob"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;73302&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;knows/73302&quot;</span>, 
+              <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;persons/dave&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSi2---&quot;</span>, 
+              <span class="hljs-string">&quot;vertex&quot;</span> : <span class="hljs-string">&quot;bob&quot;</span> 
             } 
           ], 
-          <span class="hljs-string">"vertices"</span> : [ 
+          <span class="hljs-string">&quot;vertices&quot;</span> : [ 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqK---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSie---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Alice&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqO---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;bob&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSii---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Bob&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"dave"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/dave"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqW---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Dave"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;dave&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/dave&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSiq---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Dave&quot;</span> 
             } 
           ] 
         }, 
         { 
-          <span class="hljs-string">"edges"</span> : [ 
+          <span class="hljs-string">&quot;edges&quot;</span> : [ 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72705"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/72705"</span>, 
-              <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbhqe---"</span>, 
-              <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;73298&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;knows/73298&quot;</span>, 
+              <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+              <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSiu---&quot;</span>, 
+              <span class="hljs-string">&quot;vertex&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72713"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/72713"</span>, 
-              <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/eve"</span>, 
-              <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbhqq---"</span>, 
-              <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"eve"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;73306&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;knows/73306&quot;</span>, 
+              <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;persons/eve&quot;</span>, 
+              <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSj----&quot;</span>, 
+              <span class="hljs-string">&quot;vertex&quot;</span> : <span class="hljs-string">&quot;eve&quot;</span> 
             } 
           ], 
-          <span class="hljs-string">"vertices"</span> : [ 
+          <span class="hljs-string">&quot;vertices&quot;</span> : [ 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqK---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSie---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Alice&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqO---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;bob&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSii---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Bob&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"eve"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/eve"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbhqa---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Eve"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;eve&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/eve&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSiq--A&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Eve&quot;</span> 
             } 
           ] 
         }, 
         { 
-          <span class="hljs-string">"edges"</span> : [ 
+          <span class="hljs-string">&quot;edges&quot;</span> : [ 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72705"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/72705"</span>, 
-              <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbhqe---"</span>, 
-              <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"alice"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;73298&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;knows/73298&quot;</span>, 
+              <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+              <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSiu---&quot;</span>, 
+              <span class="hljs-string">&quot;vertex&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72713"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/72713"</span>, 
-              <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/eve"</span>, 
-              <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbhqq---"</span>, 
-              <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"eve"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;73306&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;knows/73306&quot;</span>, 
+              <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;persons/eve&quot;</span>, 
+              <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSj----&quot;</span>, 
+              <span class="hljs-string">&quot;vertex&quot;</span> : <span class="hljs-string">&quot;eve&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"72711"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"knows/72711"</span>, 
-              <span class="hljs-string">"_from"</span> : <span class="hljs-string">"persons/eve"</span>, 
-              <span class="hljs-string">"_to"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbhqm---"</span>, 
-              <span class="hljs-string">"vertex"</span> : <span class="hljs-string">"eve"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;73304&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;knows/73304&quot;</span>, 
+              <span class="hljs-string">&quot;_from&quot;</span> : <span class="hljs-string">&quot;persons/eve&quot;</span>, 
+              <span class="hljs-string">&quot;_to&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSi6---&quot;</span>, 
+              <span class="hljs-string">&quot;vertex&quot;</span> : <span class="hljs-string">&quot;eve&quot;</span> 
             } 
           ], 
-          <span class="hljs-string">"vertices"</span> : [ 
+          <span class="hljs-string">&quot;vertices&quot;</span> : [ 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqK---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSie---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Alice&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"bob"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/bob"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqO---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Bob"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;bob&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/bob&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSii---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Bob&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"eve"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/eve"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4Rbhqa---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Eve"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;eve&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/eve&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSiq--A&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Eve&quot;</span> 
             }, 
             { 
-              <span class="hljs-string">"_key"</span> : <span class="hljs-string">"alice"</span>, 
-              <span class="hljs-string">"_id"</span> : <span class="hljs-string">"persons/alice"</span>, 
-              <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbhqK---"</span>, 
-              <span class="hljs-string">"name"</span> : <span class="hljs-string">"Alice"</span> 
+              <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;alice&quot;</span>, 
+              <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;persons/alice&quot;</span>, 
+              <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSie---&quot;</span>, 
+              <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Alice&quot;</span> 
             } 
           ] 
         } 
       ] 
     } 
   }, 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span> 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span> 
 }

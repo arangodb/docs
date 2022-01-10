@@ -1,21 +1,24 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-state</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/replication/logger-state</span>
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">225</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"state"</span> : { 
-    <span class="hljs-string">"running"</span> : <span class="hljs-literal">true</span>, 
-    <span class="hljs-string">"lastLogTick"</span> : <span class="hljs-string">"189198"</span>, 
-    <span class="hljs-string">"lastUncommittedLogTick"</span> : <span class="hljs-string">"189198"</span>, 
-    <span class="hljs-string">"totalEvents"</span> : <span class="hljs-number">189198</span>, 
-    <span class="hljs-string">"time"</span> : <span class="hljs-string">"2020-07-31T12:34:09Z"</span> 
+  <span class="hljs-string">&quot;state&quot;</span> : { 
+    <span class="hljs-string">&quot;running&quot;</span> : <span class="hljs-literal">true</span>, 
+    <span class="hljs-string">&quot;lastLogTick&quot;</span> : <span class="hljs-string">&quot;190252&quot;</span>, 
+    <span class="hljs-string">&quot;lastUncommittedLogTick&quot;</span> : <span class="hljs-string">&quot;190252&quot;</span>, 
+    <span class="hljs-string">&quot;totalEvents&quot;</span> : <span class="hljs-number">190252</span>, 
+    <span class="hljs-string">&quot;time&quot;</span> : <span class="hljs-string">&quot;2022-01-10T14:15:45Z&quot;</span> 
   }, 
-  <span class="hljs-string">"server"</span> : { 
-    <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.7.1-rc.1"</span>, 
-    <span class="hljs-string">"serverId"</span> : <span class="hljs-string">"138964645155448"</span>, 
-    <span class="hljs-string">"engine"</span> : <span class="hljs-string">"rocksdb"</span> 
+  <span class="hljs-string">&quot;server&quot;</span> : { 
+    <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.7.16&quot;</span>, 
+    <span class="hljs-string">&quot;serverId&quot;</span> : <span class="hljs-string">&quot;252090649998576&quot;</span>, 
+    <span class="hljs-string">&quot;engine&quot;</span> : <span class="hljs-string">&quot;rocksdb&quot;</span> 
   }, 
-  <span class="hljs-string">"clients"</span> : [ ] 
+  <span class="hljs-string">&quot;clients&quot;</span> : [ ] 
 }

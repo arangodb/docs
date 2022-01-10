@@ -77,7 +77,7 @@ execution times for graph queries in cluster deployments.
   permanently updating the graph's structure and content because every change
   needs to be replicated to all other DB-Servers.
 
-With SmartGraphs, the performance of writes into the affected graph collections
+With SatelliteGraphs, the performance of writes into the affected graph collections
 will become slower due the fact that the graph data is replicated to the
 participating DB-Servers. Also, as writes are performed on every DB-Server, it
 will allocate more storage distributed around the whole cluster environment.

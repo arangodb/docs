@@ -1,6 +1,6 @@
 ---
 layout: default
-description: The Fast Cluster Restore procedure documented in this page is recommendedto speed-up the performance of arangorestorein a Cluster environment
+description: The Fast Cluster Restore procedure documented in this page is recommended to speed-up the performance of arangorestore in a Cluster environment
 ---
 Fast Cluster Restore
 ====================
@@ -17,6 +17,10 @@ The procedure described in this page is particularly useful for ArangoDB
 version 3.3, but can be used in 3.4 and later versions as well. Note that
 from v3.4, _arangorestore_ includes the option `--threads` which can be a first
 good step already in achieving restore parallelization and its speed benefit.
+In ArangoDB 3.8 and later, you should create dumps with _arangodump_ in the
+[non-enveloped format](programs-arangodump-examples.html#dump-output-format),
+as this will allow _arangorestore_ to restore single collections with multiple
+threads.
 However, the procedure below allows for even further parallelization (making
 use of different _Coordinators_), and the part regarding temporarily setting
 _replication factor_ to 1 is still useful in 3.4 and later versions.

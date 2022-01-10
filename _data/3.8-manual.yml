@@ -49,8 +49,8 @@
         - text: Options
           href: programs-arangod-options.html
           children:
-            - text: Global
-              href: programs-arangod-global.html
+            - text: General
+              href: programs-arangod-general.html
             - text: Agency
               href: programs-arangod-agency.html
             - text: ArangoSearch
@@ -63,8 +63,6 @@
               href: programs-arangod-backup.html
             - text: Cluster
               href: programs-arangod-cluster.html
-            - text: Compaction
-              href: programs-arangod-compaction.html
             - text: Database
               href: programs-arangod-database.html
             - text: Foxx
@@ -150,7 +148,7 @@
           href: programs-starter-security.html
         - text: Architecture
           href: programs-starter-architecture.html
-    - text: Arangodump
+    - text: arangodump
       href: programs-arangodump.html
       children:
         - text: Examples
@@ -161,7 +159,7 @@
           href: programs-arangodump-maskings.html
         - text: Limitations
           href: programs-arangodump-limitations.html
-    - text: Arangorestore
+    - text: arangorestore
       href: programs-arangorestore.html
       children:
         - text: Examples
@@ -170,14 +168,14 @@
           href: programs-arangorestore-fast-cluster-restore.html
         - text: Options
           href: programs-arangorestore-options.html
-    - text: Arangobackup
+    - text: arangobackup
       href: programs-arangobackup.html
       children:
         - text: Examples
           href: programs-arangobackup-examples.html
         - text: Options
           href: programs-arangobackup-options.html
-    - text: Arangoimport
+    - text: arangoimport
       href: programs-arangoimport.html
       children:
         - text: Examples JSON
@@ -188,21 +186,19 @@
           href: programs-arangoimport-details.html
         - text: Options
           href: programs-arangoimport-options.html
-    - text: Arangoexport
+    - text: arangoexport
       href: programs-arangoexport.html
       children:
         - text: Examples
           href: programs-arangoexport-examples.html
         - text: Options
           href: programs-arangoexport-options.html
-    - text: Arangobench
+    - text: arangobench
       href: programs-arangobench.html
       children:
-        - text: Examples
-          href: programs-arangobench-examples.html
         - text: Options
           href: programs-arangobench-options.html
-    - text: Arangoinspect
+    - text: arangoinspect
       href: programs-arangoinspect.html
       children:
         - text: Examples
@@ -215,11 +211,9 @@
         - text: Details
           href: programs-foxx-cli-details.html
 - subtitle: CORE TOPICS
-- text: Data models & modeling
-  href: data-modeling.html
+- text: Data Model & Concepts
+  href: data-modeling-concepts.html
   children:
-    - text: Concepts
-      href: data-modeling-concepts.html
     - text: Databases
       href: data-modeling-databases.html
       children:
@@ -245,8 +239,6 @@
           href: data-modeling-documents-database-methods.html
         - text: Schema Validation
           href: data-modeling-documents-schema-validation.html
-        - text: Monetary data without precision loss
-          href: data-modeling-monetary-data-without-precision-loss.html
     - text: 'Graphs, Vertices & Edges'
       href: data-modeling-graphs-vertices-edges.html
     - text: Views
@@ -267,8 +259,15 @@
           href: data-modeling-naming-conventions-document-keys.html
         - text: Attribute Names
           href: data-modeling-naming-conventions-attribute-names.html
+- text: Modeling Data
+  href: data-modeling.html
+  children:
     - text: Operational Factors
       href: data-modeling-operational-factors.html
+    - text: Mapping RDF to Graphs
+      href: data-modeling-graphs-from-rdf.html
+    - text: Monetary data without precision loss
+      href: data-modeling-monetary-data-without-precision-loss.html
 - text: Indexing
   href: indexing.html
   children:
@@ -291,6 +290,37 @@
           href: indexing-geo.html
         - text: Vertex Centric Indexes
           href: indexing-vertex-centric.html
+    - text: ArangoSearch
+      href: arangosearch.html
+      children:
+        - text: Example Datasets
+          href: arangosearch-example-datasets.html
+        - text: Exact value matching
+          href: arangosearch-exact-value-matching.html
+        - text: Range Queries
+          href: arangosearch-range-queries.html
+        - text: Prefix matching
+          href: arangosearch-prefix-matching.html
+        - text: Case-sensitivity and Diacritics
+          href: arangosearch-case-sensitivity-and-diacritics.html
+        - text: Wildcard search
+          href: arangosearch-wildcard-search.html
+        - text: Full-text token search
+          href: arangosearch-fulltext-token-search.html
+        - text: Phrase and proximity search
+          href: arangosearch-phrase-and-proximity-search.html
+        - text: Faceted search
+          href: arangosearch-faceted-search.html
+        - text: Fuzzy search
+          href: arangosearch-fuzzy-search.html
+        - text: Geospatial search
+          href: arangosearch-geospatial-search.html
+        - text: Ranking
+          href: arangosearch-ranking.html
+        - text: Performance
+          href: arangosearch-performance.html
+        - text: Views Reference
+          href: arangosearch-views.html
 - text: Transactions
   href: transactions.html
   children:
@@ -329,23 +359,12 @@
     - text: Traversals
       href: graphs-traversals.html
       children:
-        - text: Using Traversal Objects
-          href: graphs-traversals-using-traversal-objects.html
         - text: Example Data
           href: graphs-traversals-example-data.html
     - text: Working with Edges
       href: graphs-edges.html
     - text: Pregel
       href: graphs-pregel.html
-- text: ArangoSearch
-  href: arangosearch.html
-  children:
-    - text: Views
-      href: arangosearch-views.html
-    - text: Analyzers
-      href: arangosearch-analyzers.html
-    - text: Examples
-      href: arangosearch-examples.html
 - subtitle: ADVANCED TOPICS
 - text: Architecture
   href: architecture.html
@@ -355,13 +374,13 @@
       children:
         - text: Single Instance
           href: architecture-deployment-modes-single-instance.html
-        - text: Master/Slave
-          href: architecture-deployment-modes-master-slave.html
+        - text: Leader/Follower
+          href: architecture-deployment-modes-leader-follower.html
           children:
             - text: Architecture
-              href: architecture-deployment-modes-master-slave-architecture.html
+              href: architecture-deployment-modes-leader-follower-architecture.html
             - text: Limitations
-              href: architecture-deployment-modes-master-slave-limitations.html
+              href: architecture-deployment-modes-leader-follower-limitations.html
         - text: Active Failover
           href: architecture-deployment-modes-active-failover.html
           children:
@@ -393,7 +412,7 @@
               href: architecture-deployment-modes-dc2-dc-limitations.html
     - text: Single Instance vs. Cluster
       href: architecture-single-instance-vs-cluster.html
-    - text: Storage Engines
+    - text: Storage Engine
       href: architecture-storage-engines.html
     - text: Replication
       href: architecture-replication.html
@@ -525,6 +544,8 @@
   href: satellites.html
 - text: SmartJoins
   href: smartjoins.html
+- text: Analyzers
+  href: analyzers.html
 - subtitle: OPERATIONS
 - text: Installation
   href: installation.html
@@ -566,11 +587,11 @@
               href: deployment-single-instance-using-the-starter.html
             - text: Manual Start
               href: deployment-single-instance-manual-start.html
-        - text: Master/Slave
-          href: deployment-master-slave.html
+        - text: Leader/Follower
+          href: deployment-leader-follower.html
           children:
             - text: Manual Start
-              href: deployment-master-slave-manual-start.html
+              href: deployment-leader-follower-manual-start.html
         - text: Active Failover
           href: deployment-active-failover.html
           children:
@@ -731,26 +752,24 @@
     - text: User Management
       href: administration-managing-users.html
       children:
-        - text: In Arangosh
+        - text: In arangosh
           href: administration-managing-users-in-arangosh.html
-    - text: Switch Storage Engine
-      href: administration-engine-switch-engine.html
-    - text: Master/Slave
-      href: administration-master-slave.html
+    - text: Leader/Follower
+      href: administration-leader-follower.html
       children:
         - text: Setting up
-          href: administration-master-slave-setting-up.html
+          href: administration-leader-follower-setting-up.html
           children:
             - text: Replication Applier
-              href: administration-master-slave-replication-applier.html
+              href: administration-leader-follower-replication-applier.html
             - text: Per-Database Setup
-              href: administration-master-slave-database-setup.html
+              href: administration-leader-follower-database-setup.html
             - text: Server-Level Setup
-              href: administration-master-slave-server-level-setup.html
-            - text: Speeding Up Slave Initialization
-              href: administration-master-slave-initialize-from-backup.html
+              href: administration-leader-follower-server-level-setup.html
+            - text: Speeding Up Follower Initialization
+              href: administration-leader-follower-initialize-from-backup.html
         - text: Syncing Collections
-          href: administration-master-slave-syncing-collections.html
+          href: administration-leader-follower-syncing-collections.html
     - text: Active Failover
       href: administration-active-failover.html
     - text: Cluster
@@ -794,8 +813,8 @@
     - text: Collectd
       href: monitoring-collectd.html
       children:
-        - text: Replication Slaves
-          href: monitoring-collectd-slave-status.html
+        - text: Replication Followers
+          href: monitoring-collectd-follower-status.html
         - text: Network usage
           href: monitoring-collectd-traffic-with-ipaccounting.html
         - text: More metrics
@@ -990,18 +1009,6 @@
           href: appendix-java-script-modules-tasks.html
     - text: Deprecated
       href: appendix-deprecated.html
-      children:
-        - text: Simple Queries
-          href: appendix-deprecated-simple-queries.html
-          children:
-            - text: Pagination
-              href: appendix-deprecated-simple-queries-pagination.html
-            - text: Modification Queries
-              href: appendix-deprecated-simple-queries-modification-queries.html
-            - text: Geo Queries
-              href: appendix-deprecated-simple-queries-geo-queries.html
-            - text: Fulltext Queries
-              href: appendix-deprecated-simple-queries-fulltext-queries.html
     - text: Error codes and meanings
       href: appendix-error-codes.html
     - text: Glossary

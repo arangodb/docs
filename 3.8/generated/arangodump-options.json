@@ -86,8 +86,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.6",
-      "v3.5.0"
+      "v3.4.6"
     ],
     "obsolete" : false,
     "os" : [
@@ -249,6 +248,27 @@
     "requiresValue" : true,
     "section" : "encryption",
     "type" : "string"
+  },
+  "envelope" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "wrap each document into a {type, data} envelope (this is required from compatibility with v3.7 and before)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
   },
   "force" : {
     "category" : "option",
@@ -415,8 +435,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -437,8 +456,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -488,6 +506,27 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.hostname" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "hostname to use in log message (empty for none, use 'auto' to automatically figure out hostname)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string"
+  },
   "log.ids" : {
     "category" : "option",
     "default" : true,
@@ -499,25 +538,6 @@
     "introducedIn" : [
       "v3.5.0"
     ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : false,
-    "section" : "log",
-    "type" : "boolean"
-  },
-  "log.keep-logrotate" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "keep the old log file after receiving a sighup",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -553,7 +573,7 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
@@ -568,12 +588,33 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.max-entry-length" : {
+    "category" : "option",
+    "default" : 134217728,
+    "deprecatedIn" : null,
+    "description" : "maximum length of a log entry (in bytes)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.9"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "uint32"
+  },
   "log.output" : {
     "category" : "option",
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "log destination(s), e.g. file:///path/to/file (Linux, macOS) or file://C:\\path\\to\\file (Windows)",
+    "description" : "log destination(s), e.g. file:///path/to/file (any '$PID' will be replaced with the process id)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -627,6 +668,27 @@
     "requiresValue" : true,
     "section" : "log",
     "type" : "string"
+  },
+  "log.process" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "show process identifier (pid) in log message",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "log",
+    "type" : "boolean"
   },
   "log.request-parameters" : {
     "category" : "option",
@@ -744,6 +806,27 @@
     "section" : "log",
     "type" : "string",
     "values" : "Possible values: \"local-datestring\", \"timestamp\", \"timestamp-micros\", \"timestamp-millis\", \"uptime\", \"uptime-micros\", \"uptime-millis\", \"utc-datestring\", \"utc-datestring-millis\""
+  },
+  "log.use-json-format" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "use json output format",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "log",
+    "type" : "boolean"
   },
   "log.use-local-time" : {
     "category" : "option",
@@ -886,6 +969,25 @@
     "type" : "uint32",
     "values" : "Possible values: 1, 2, 3, 4"
   },
+  "server.ask-jwt-secret" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "if this option is specified, the user will be prompted for a JWT secret. This option is not compatible with --server.username or --server.password. If specified, it will be used for all connections - even when a new connection to another server is created",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
+  },
   "server.authentication" : {
     "category" : "option",
     "default" : false,
@@ -983,6 +1085,25 @@
     "section" : "server",
     "type" : "boolean"
   },
+  "server.jwt-secret-keyfile" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "if this option is specified, the jwt secret will be loaded from the given file. This option is not compatible with --server.ask-jwt-secret, --server.username or --server.password. If specified, it will be used for all connections - even when a new connection to another server is created",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "server",
+    "type" : "string"
+  },
   "server.max-packet-size" : {
     "category" : "option",
     "default" : 1073741824,
@@ -1059,6 +1180,28 @@
     "section" : "server",
     "type" : "string"
   },
+  "shard" : {
+    "category" : "option",
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "restrict dump to shard (can be specified multiple times)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "string..."
+  },
   "ssl.protocol" : {
     "category" : "option",
     "default" : 5,
@@ -1083,11 +1226,13 @@
     "category" : "option",
     "default" : 2,
     "deprecatedIn" : null,
-    "description" : "maximum number of collections to process in parallel. From v3.4.0",
+    "description" : "maximum number of collections/shards to process in parallel",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
-    "introducedIn" : null,
+    "introducedIn" : [
+      "v3.4.0"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",

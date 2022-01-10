@@ -33,14 +33,15 @@ The following comparison operators are supported:
 
 Each of the comparison operators returns a boolean value if the comparison can
 be evaluated and returns *true* if the comparison evaluates to true, and *false*
-otherwise. 
+otherwise.
 
 The comparison operators accept any data types for the first and second
 operands. However, `IN` and `NOT IN` will only return a meaningful result if
 their right-hand operand is an array. `LIKE` and `NOT LIKE` will only execute
-if both operands are string values. The comparison operators will not perform
-any implicit type casts if the compared operands have different or non-sensible
-types.
+if both operands are string values. All four operators will not perform
+implicit type casts if the compared operands have different types, i.e.
+they test for strict equality or inequality (`0` is different to `"0"`,
+`[0]`, `false` and `null` for example).
 
 Some examples for comparison operations in AQL:
 
@@ -131,7 +132,9 @@ Examples:
 ["foo", "bar"]  ANY ==  "foo"     // true
 ```
 
-Note that these operators are not optimized yet. Indexes will not be utilized.
+Note that these operators will not utilize indexes in regular queries.
+The operators are also supported in [SEARCH expressions](operations-search.html),
+where ArangoSearch's indexes can be utilized. The semantics differ however.
 
 Logical operators
 -----------------
@@ -261,9 +264,9 @@ applied by the [TO_NUMBER()](functions-type-cast.html#to_number) function:
   `0`.
 - objects / documents are converted to the number `0`.
 
-An arithmetic operation that produces an invalid value, such as `1 / 0` (division by zero)
-will also produce a result value of `null`. The query is not aborted, but you may see a
-warning.
+An arithmetic operation that produces an invalid value, such as `1 / 0`
+(division by zero), will produce a result value of `null`. The query is not
+aborted, but you may see a warning.
 
 Here are a few examples:
 
@@ -274,13 +277,13 @@ Here are a few examples:
 null + 1         // 1
    3 + [ ]       // 3
   24 + [ 2 ]     // 26
-  24 + [ 2, 4 ]  // 0
+  24 + [ 2, 4 ]  // 24
   25 - null      // 25
   17 - true      // 16
   23 * { }       // 0
    5 * [ 7 ]     // 35
   24 / "12"      // 2
-   1 / 0         // 0
+   1 / 0         // null (with a 'division by zero' warning)
 ```
 
 Ternary operator
@@ -376,7 +379,3 @@ The operator precedence in AQL is similar as in other familiar languages
 
 The parentheses `(` and `)` can be used to enforce a different operator
 evaluation order.
-
-Try out AQL in just a few clicks with ArangoDB Oasis:
-the Cloud Service for ArangoDB. Start your
-[free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.

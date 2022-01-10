@@ -39,12 +39,6 @@ parts of the dump results in the same order as they are provided.
 {% docublock get_api_replication_dump %}
 
 <!-- arangod/RestHandler/RestReplicationHandler.cpp -->
-{% docublock get_api_replication_revisions_tree %}
-{% docublock post_api_replication_revisions_tree %}
-{% docublock put_api_replication_revisions_ranges %}
-{% docublock put_api_replication_revisions_documents %}
-
-<!-- arangod/RestHandler/RestReplicationHandler.cpp -->
 {% docublock put_api_replication_synchronize %}
 
 <!-- arangod/RestHandler/RestReplicationHandler.cpp -->

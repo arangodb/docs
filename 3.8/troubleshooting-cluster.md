@@ -29,4 +29,4 @@ Cluster Troubleshooting
     and SSL operation mode with the functioning nodes.
 
 Dig deeper into cluster troubleshooting by going through the
-[ArangoDB Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}.
+[ArangoDB Cluster Administration Course](https://www.arangodb.com/learn/operations/cluster-course/){:target="_blank"}.

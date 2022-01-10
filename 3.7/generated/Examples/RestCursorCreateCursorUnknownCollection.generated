@@ -1,18 +1,21 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/cursor</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/cursor</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"query"</span> : <span class="hljs-string">"FOR u IN unknowncoll LIMIT 2 RETURN u"</span>, 
-  <span class="hljs-string">"count"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"batchSize"</span> : <span class="hljs-number">2</span> 
+  <span class="hljs-string">&quot;query&quot;</span> : <span class="hljs-string">&quot;FOR u IN unknowncoll LIMIT 2 RETURN u&quot;</span>, 
+  <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;batchSize&quot;</span> : <span class="hljs-number">2</span> 
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Not Found
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">404</span> Not Found
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">121</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">404</span>, 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"AQL: collection or view not found: unknowncoll (while parsing)"</span>, 
-  <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">1203</span> 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">404</span>, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;AQL: collection or view not found: unknowncoll (while parsing)&quot;</span>, 
+  <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">1203</span> 
 }

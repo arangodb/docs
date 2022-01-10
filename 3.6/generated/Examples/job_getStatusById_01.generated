@@ -1,19 +1,25 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'x-arango-async: store'</span> --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/version</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;x-arango-async: store&#x27;</span> --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/version</span>
 
-HTTP/1.1 Accepted
+HTTP/1.1 202 Accepted
 content-type: text/plain
-x-arango-async-id: 88572
+connection: Keep-Alive
+content-length: 0
+server: ArangoDB
+x-arango-async-id: 89695
 x-content-type-options: nosniff
 
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/88572</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/89695</span>
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
-x-arango-<span class="hljs-keyword">async</span>-id: <span class="hljs-number">88572</span>
+connection: Keep-Alive
+content-length: <span class="hljs-number">61</span>
+server: ArangoDB
+x-arango-<span class="hljs-keyword">async</span>-id: <span class="hljs-number">89695</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"server"</span> : <span class="hljs-string">"arango"</span>, 
-  <span class="hljs-string">"license"</span> : <span class="hljs-string">"enterprise"</span>, 
-  <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.6.5"</span> 
+  <span class="hljs-string">&quot;server&quot;</span> : <span class="hljs-string">&quot;arango&quot;</span>, 
+  <span class="hljs-string">&quot;license&quot;</span> : <span class="hljs-string">&quot;enterprise&quot;</span>, 
+  <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.6.16&quot;</span> 
 }

@@ -11,4 +11,7 @@ Accessing Cursors via HTTP
 {% docublock post_api_cursor_identifier %}
 
 <!-- js/actions/api-cursor.js -->
+{% docublock put_api_cursor_identifier %}
+
+<!-- js/actions/api-cursor.js -->
 {% docublock post_api_cursor_delete %}

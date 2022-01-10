@@ -1,22 +1,25 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products?onlyget=<span class="hljs-literal">true</span></span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products?onlyget=<span class="hljs-literal">true</span></span> &lt;&lt;EOF
 ["doc1", {"_key":"doc2"}]
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">153</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"doc1"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/doc1"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hRC2---"</span>, 
-    <span class="hljs-string">"hello"</span> : <span class="hljs-string">"world"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;doc1&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/doc1&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZwIG---&quot;</span>, 
+    <span class="hljs-string">&quot;hello&quot;</span> : <span class="hljs-string">&quot;world&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"doc2"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/doc2"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hRC2--A"</span>, 
-    <span class="hljs-string">"say"</span> : <span class="hljs-string">"hi to mom"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;doc2&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/doc2&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZwIK---&quot;</span>, 
+    <span class="hljs-string">&quot;say&quot;</span> : <span class="hljs-string">&quot;hi to mom&quot;</span> 
   } 
 ]

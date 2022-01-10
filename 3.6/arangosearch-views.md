@@ -2,7 +2,7 @@
 layout: default
 description: ArangoSearch Views
 redirect_from:
-  - /3.6/views-arango-search-detailed-overview.html # 3.4 -> 3.5
+  - views-arango-search-detailed-overview.html # 3.4 -> 3.5
 ---
 ArangoSearch Views
 ==================
@@ -267,6 +267,11 @@ During view modification the following directives apply:
   consider attributes mentioned in `fields`. Attributes not explicitly
   specified in `fields` will be processed with default link properties, i.e.
   `{}`.
+
+  {% hint 'warning' %}
+  Using `includeAllFields` for a lot of attributes in combination with complex
+  Analyzers may significantly slow down the indexing process.
+  {% endhint %}
 
 - **trackListPositions** (_optional_; type: `boolean`; default: `false`)
 

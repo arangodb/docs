@@ -11,11 +11,33 @@ Version 3.8
 
 **All Editions**
 
+- [**Weighted traversals**](release-notes-new-features38.html#weighted-traversals)
+  and [**k Paths**](release-notes-new-features38.html#k-paths):
+  Two new AQL graph traversal methods to emit paths in order of increasing
+  weights and to enumerate all paths between a source and a target vertex that
+  match a given length.
 
+- **ArangoSearch**:
+  New [**Pipeline Analyzer**](analyzers.html#pipeline)
+  that allows you to combine multiple Analyzers, enabling case-insensitive
+  _n_-gram-based fuzzy search and more. New
+  [**AQL Analyzer**](analyzers.html#aql)
+  so that you can use an AQL query to pre-process and filter your data for
+  indexing. Support for **geo-spatial queries** through new
+  [Geo](analyzers.html#geojson)
+  [Analyzers](analyzers.html#geopoint) and
+  [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
+  A new [**Stopwords Analyzer**](analyzers.html#stopwords) that
+  can be used standalone or in an Analyzer pipeline.
+
+- A [**`WINDOW` operation**](aql/operations-window.html) for aggregations over
+  adjacent rows, value ranges or time windows.
 
 **Enterprise Edition**
 
-
+- **Encryption at Rest** utilizes
+  [hardware acceleration](release-notes-new-features38.html#encryption-at-rest)
+  capabilities of modern CPUs.
 
 Also see [What's New in 3.8](release-notes-new-features38.html).
 
@@ -25,11 +47,10 @@ Version 3.7
 **All Editions**
 
 - **ArangoSearch**:
-  Fuzzy search
+  [Wildcard](aql/functions-arangosearch.html#like) and fuzzy search
   ([Levenshtein distance](aql/functions-arangosearch.html#levenshtein_match) and
-  [n-gram based](aql/functions-arangosearch.html#ngram_match)),
-  [enhanced phrase](aql/functions-arangosearch.html#phrase) and
-  [proximity search](aql/functions-array.html#jaccard),
+  [_n_-gram based](aql/functions-arangosearch.html#ngram_match)),
+  enhanced [phrase and proximity search](aql/functions-arangosearch.html#phrase),
   improved late document materialization and
   [Views covering queries](release-notes-new-features37.html#covering-indexes)
   using their indexes without touching the storage engine, as well as a new
@@ -93,7 +114,7 @@ Version 3.6
 
 - **ArangoSearch**:
   New [Analyzer options](release-notes-new-features36.html#analyzers) for
-  edge n-grams (`text` Analyzer), UTF-8 encoded n-gram input and optional
+  edge _n_-grams (`text` Analyzer), UTF-8 encoded _n_-gram input and optional
   start/end markers (`ngram` Analyzer). Support for
   [dynamic expressions](release-notes-new-features36.html#dynamic-search-expressions-with-arrays)
   using arrays (array comparison operators in `SEARCH` queries and the
@@ -118,8 +139,8 @@ Version 3.5
 
 - **ArangoSearch**:
   The search and ranking engine received an upgrade and now features
-  [Configurable Analyzers](arangosearch-analyzers.html),
-  [Sorted Views](arangosearch-views.html#primary-sort-order)
+  [Configurable Analyzers](analyzers.html),
+  [Sorted Views](arangosearch-performance.html#primary-sort-order)
   and several improvements to the
   [AQL integration](release-notes-new-features35.html#arangosearch).
 
@@ -139,8 +160,8 @@ Version 3.5
   TTL indexes can be used to automatically remove documents in collections for
   use cases like expiring sessions or automatic purging of statistics or logs.
 
-- [**Index Hints**](aql/operations-for.html#index-hints) &
-  [**Named Indexes**](https://www.arangodb.com/arangodb-training-center/index-hints-named-indices/){:target="_blank"}:
+- [**Index Hints**](aql/operations-for.html#indexhint) &
+  [**Named Indexes**](https://www.arangodb.com/learn/development/index-hints-named-indices/){:target="_blank"}:
   Indexes can be given names and an optional AQL inline query option
   `indexHint` was added to override the internal optimizer decision on which
   index to utilize.
@@ -193,7 +214,7 @@ Version 3.4
 - [**Query Profiler**](aql/execution-and-performance-query-profiler.html):
   Enables the analysis of queries and adds additional information for the user
   to identify optimization potentials more easily. The profiler can be accessed
-  via Arangosh with `db._profileQuery(...)` or via the *Profile* button in the
+  via _arangosh_ with `db._profileQuery(...)` or via the *Profile* button in the
   Query Editor of the web interface.
 
 - [**Streaming Cursors**](aql/invocation-with-arangosh.html#setting-options):
@@ -222,21 +243,21 @@ Version 3.3
   in case of a disaster in one datacenter.
 
 - [**Encrypted Backups**](programs-arangodump-examples.html#encryption):
-  Arangodump can create backups encrypted with a secret key using AES256
+  _arangodump_ can create backups encrypted with a secret key using AES256
   block cipher.
 
 **All Editions**
 
-- [**Server-level Replication**](administration-master-slave-server-level-setup.html):
+- [**Server-level Replication**](administration-leader-follower-server-level-setup.html):
   In addition to per-database replication, there is now an additional
-  `globalApplier`. Start the global replication on the slave once and all
-  current and future databases will be replicated from the master to the
-  slave automatically.
+  `globalApplier`. Start the global replication on the Follower once and all
+  current and future databases will be replicated from the Leader to the
+  Follower automatically.
 
 - [**Asynchronous Failover**](release-notes-new-features33.html#asynchronous-failover):
   Make a single server instance resilient with a second server instance, one
-  as master and the other as asynchronously replicating slave, with automatic
-  failover to the slave if the master goes down.
+  as Leader and the other as asynchronously replicating Follower, with automatic
+  failover to the Follower if the Leader goes down.
 
 Also see [What's New in 3.3](release-notes-new-features33.html).
 

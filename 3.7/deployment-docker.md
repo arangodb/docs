@@ -2,8 +2,8 @@
 layout: default
 description: Single instance
 redirect_from:
-  - /3.7/cookbook/cloud-docker-container.html # 3.5 -> 3.5
-  - /3.7/cookbook/cloud-node-js-docker.html # 3.5 -> 3.5
+  - cookbook/cloud-docker-container.html # 3.5 -> 3.5
+  - cookbook/cloud-node-js-docker.html # 3.5 -> 3.5
 ---
 Deploying ArangoDB using Docker
 ===============================

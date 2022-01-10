@@ -2,7 +2,7 @@
 layout: default
 description: Resolving 
 redirect_from:
-  - /3.7/cookbook/compiling-jemalloc.html # 3.5 -> 3.5
+  - cookbook/compiling-jemalloc.html # 3.5 -> 3.5
 ---
 Jemalloc
 ========

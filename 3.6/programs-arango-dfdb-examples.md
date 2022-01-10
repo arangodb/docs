@@ -3,6 +3,7 @@ layout: default
 description: ArangoDB uses append-only journals
 redirect_from:
   - /3.7/programs-arango-dfdb-examples.html # 3.7 -> 3.6
+  - /3.8/programs-arango-dfdb-examples.html # 3.7 -> 3.6
 ---
 Arango-dfdb Examples
 ====================

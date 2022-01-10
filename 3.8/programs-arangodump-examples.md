@@ -2,8 +2,7 @@
 layout: default
 description: arangodump can be invoked in a command line by executing the following command
 ---
-Arangodump Examples
-===================
+# _arangodump_ Examples
 
 _arangodump_ can be invoked in a command line by executing the following command:
 
@@ -196,7 +195,7 @@ RocksDB encryption-at-rest feature.
 Compression
 -----------
 
-<small>Introduced in: v3.4.6, v3.5.0</small>
+<small>Introduced in: v3.4.6</small>
 
 `--compress-output`
 
@@ -218,3 +217,79 @@ detects whether the data is compressed or not based on the file extension.
 ```
 arangorestore --input-directory "dump"
 ```
+
+Dump output format
+------------------
+
+<small>Introduced in: v3.8.0</small>
+
+Since its inception, _arangodump_ wrapped each dumped document into an extra
+JSON envelope, such as follows:
+
+```json
+{"type":2300,"key":"test","data":{"_key":"test","_rev":..., ...}}
+```
+
+This original dump format was useful when there was the MMFiles storage engine,
+which could use different `type` values in its datafiles.
+However, the RocksDB storage engine only uses `"type":2300` (document) when
+dumping data, so the JSON wrapper provides no further benefit except
+compatibility with older versions of ArangoDB.
+
+In case a dump taken with v3.8.0 or higher is known to never be used in older
+ArangoDB versions, the JSON envelopes can be turned off. The startup option
+`--envelope` controls this. The option defaults to `true`, meaning dumped
+documents will be wrapped in envelopes, which makes new dumps compatible with
+older versions of ArangoDB.
+
+If that is not needed, the `--envelope` option can be set to `false`.
+In this case, the dump files will only contain the raw documents, without any
+envelopes around them:
+
+```json
+{"_key":"test","_rev":..., ...}
+```
+
+Disabling the envelopes can **reduce dump sizes** a lot, especially if documents
+are small on average and the relative cost of the envelopes is high. Omitting
+the envelopes can also help to **save a bit on memory usage and bandwidth** for
+building up the dump results and sending them over the wire.
+
+As a bonus, turning off the envelopes turns _arangodump_ into a fast, concurrent
+JSONL exporter for one or multiple collections:
+
+```
+arangodump --collection "collection" --threads 8 --envelope false --compress-output false dump
+```
+
+The JSONL format is also supported by _arangoimport_ natively.
+
+{% hint 'warning' %}
+Dumps created with the `--envelope false` setting cannot be restored into any
+ArangoDB versions older than v3.8.0!
+{% endhint %}
+
+Threads
+-------
+
+Since v3.4.0, _arangodump_ can use multiple threads for dumping database data in 
+parallel. To speed up the dump of a database with multiple collections, it is
+often beneficial to increase the number of _arangodump_ threads.
+The number of threads can be controlled via the `--threads` option, which 
+defaults to `2`.
+
+_arangodump_ versions prior to v3.8.0 distribute dump jobs for individual
+collections to concurrent worker threads, which is optimal for dumping many
+collections of approximately the same size, but does not help for dumping few
+large collections or few large collections with many shards.
+
+Since v3.8.0, _arangodump_ can also dispatch dump jobs for individual shards of
+each collection, allowing higher parallelism if there are many shards to dump
+but only few collections. Keep in mind that even when concurrently dumping the
+data from multiple shards of the same collection in parallel, the individual
+shards' results will still be written into a single result file for the collection.
+With a massive number of concurrent dump threads, some contention on that shared
+file should be expected. Also note that when dumping the data of multiple shards
+from the same collection, each thread's results will be written to the result 
+file in a non-deterministic order. This should not be a problem when restoring
+such dump, as _arangorestore_ does not assume any order of input.

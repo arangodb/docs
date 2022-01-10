@@ -3,8 +3,8 @@ layout: default
 description: ArangoSearch is integrated into AQL and used mainly through the use of special functions.
 title: ArangoSearch related AQL Functions
 redirect_from:
-  - /3.6/views-arango-search-scorers.html # 3.4 -> 3.5
-  - /3.6/aql/views-arango-search.html # 3.4 -> 3.5
+  - ../views-arango-search-scorers.html # 3.4 -> 3.5
+  - views-arango-search.html # 3.4 -> 3.5
 ---
 ArangoSearch Functions
 ======================
@@ -265,7 +265,7 @@ The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
 language rules as per the defined Analyzer locale nor the server language
 (startup option `--default-language`)!
-Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+Also see [Known Issues](../release-notes-known-issues36.html#arangosearch).
 {% endhint %}
 
 - **path** (attribute path expression):
@@ -437,6 +437,20 @@ It is the same as the following:
 FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, "fox", 0, "jumps", "text_en") RETURN doc
 ```
 
+Empty arrays are skipped:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 1, [], 1, "jumps", "text_en") RETURN doc
+```
+
+The query is equivalent to:
+
+```js
+FOR doc IN myView SEARCH PHRASE(doc.title, "quick", 2 "jumps", "text_en") RETURN doc
+```
+
+Providing only empty arrays is valid, but will yield no results.
+
 ### STARTS_WITH()
 
 `STARTS_WITH(path, prefix)`
@@ -451,7 +465,7 @@ The alphabetical order of characters is not taken into account by ArangoSearch,
 i.e. range queries in SEARCH operations against Views will not follow the
 language rules as per the defined Analyzer locale nor the server language
 (startup option `--default-language`)!
-Also see [Known Issues](../release-notes-known-issues35.html#arangosearch).
+Also see [Known Issues](../release-notes-known-issues36.html#arangosearch).
 {% endhint %}
 
 - **path** (attribute path expression): the path of the attribute to compare

@@ -40,7 +40,7 @@ metrics for monitoring in a production scenario.
 Encrypted backups
 -----------------
 
-Arangodump can now create encrypted backups using AES256 for encryption.
+_arangodump_ can now create encrypted backups using AES256 for encryption.
 The encryption key can be read from a file or from a generator program.
 It works in single server and cluster mode.
 
@@ -50,16 +50,16 @@ able to read it):
     arangodump --collection "secret" dump 
 
 In order to create an encrypted backup, add the `--encryption.keyfile`
-option when invoking arangodump:
+option when invoking _arangodump_:
 
     arangodump --collection "secret" dump --encryption.keyfile ~/SECRET-KEY
 
 The key must be exactly 32 bytes long (required by the AES block cipher).
 
-Note that arangodump will not store the key anywhere. It is the responsibility
-of the user to find a safe place for the key. However, arangodump will store
+Note that _arangodump_ will not store the key anywhere. It is the responsibility
+of the user to find a safe place for the key. However, _arangodump_ will store
 the used encryption method in a file named `ENCRYPTION` in the dump directory.
-That way arangorestore can later find out whether it is dealing with an
+That way _arangorestore_ can later find out whether it is dealing with an
 encrypted dump or not.
 
 Trying to restore the encrypted dump without specifying the key will fail:

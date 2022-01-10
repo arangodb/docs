@@ -294,7 +294,7 @@ Other common cases are to rename columns in the input file to *_from* and *_to*:
 
     > arangoimp --file "data.csv" --type csv --translate "from=_from" --translate "to=_to"
 
-The *translate* option can be specified multiple types. The source attribute name
+The *translate* option can be specified multiple times. The source attribute name
 and the target attribute must be separated with a *=*.
 
 

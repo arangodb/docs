@@ -24,62 +24,6 @@
           href: http://arangodb.github.io/java-velocypack/
         - text: Driver Setup
           href: java-reference-setup.html
-        - text: Database
-          href: java-reference-database.html
-          children:
-            - text: Database Manipulation
-              href: java-reference-database-database-manipulation.html
-            - text: Collection Access
-              href: java-reference-database-collection-access.html
-            - text: View Access
-              href: java-reference-database-view-access.html
-            - text: Queries
-              href: java-reference-database-queries.html
-            - text: AQL User Functions
-              href: java-reference-database-aql-user-functions.html
-            - text: Transactions
-              href: java-reference-database-transactions.html
-            - text: Stream Transactions
-              href: java-reference-database-stream-transactions.html
-            - text: Graph Access
-              href: java-reference-database-graph-access.html
-            - text: HTTP Routes
-              href: java-reference-database-http-routes.html
-        - text: Collection
-          href: java-reference-collection.html
-          children:
-            - text: Collection Manipulation
-              href: java-reference-collection-collection-manipulation.html
-            - text: Document Manipulation
-              href: java-reference-collection-document-manipulation.html
-            - text: Indexes
-              href: java-reference-collection-indexes.html
-            - text: Bulk Import
-              href: java-reference-collection-bulk-import.html
-        - text: View
-          href: java-reference-view.html
-          children:
-            - text: View Manipulation
-              href: java-reference-view-view-manipulation.html
-            - text: ArangoSearch Views
-              href: java-reference-view-arangosearch.html
-            - text: Analyzers
-              href: java-reference-view-analyzers.html
-        - text: Cursor
-          href: java-reference-cursor.html
-        - text: Graph
-          href: java-reference-graph.html
-          children:
-            - text: Vertex Collection
-              href: java-reference-graph-vertex-collection.html
-            - text: Edge Collection
-              href: java-reference-graph-edge-collection.html
-            - text: Vertices Manipulation
-              href: java-reference-graph-vertices.html
-            - text: Edges Manipulation
-              href: java-reference-graph-edges.html
-        - text: Route
-          href: java-reference-route.html
         - text: Serialization
           href: java-reference-serialization.html
 - text: ArangoJS - JavaScript Driver
@@ -88,72 +32,7 @@
     - text: Getting Started
       href: js-getting-started.html
     - text: Reference
-      href: js-reference.html
-      children:
-        - text: Database
-          href: js-reference-database.html
-          children:
-            - text: Database Manipulation
-              href: js-reference-database-database-manipulation.html
-            - text: Collection Access
-              href: js-reference-database-collection-access.html
-            - text: View Access
-              href: js-reference-database-view-access.html
-            - text: Analyzer Access
-              href: js-reference-database-analyzer-access.html
-            - text: Queries
-              href: js-reference-database-queries.html
-            - text: AQL User Functions
-              href: js-reference-database-aql-user-functions.html
-            - text: Transactions
-              href: js-reference-database-transactions.html
-            - text: Graph Access
-              href: js-reference-database-graph-access.html
-            - text: Foxx Services
-              href: js-reference-database-foxx-services.html
-            - text: HTTP Routes
-              href: js-reference-database-http-routes.html
-        - text: Collection
-          href: js-reference-collection.html
-          children:
-            - text: Collection Manipulation
-              href: js-reference-collection-collection-manipulation.html
-            - text: Document Manipulation
-              href: js-reference-collection-document-manipulation.html
-            - text: DocumentCollection
-              href: js-reference-collection-document-collection.html
-            - text: EdgeCollection
-              href: js-reference-collection-edge-collection.html
-            - text: Indexes
-              href: js-reference-collection-indexes.html
-            - text: Simple Queries
-              href: js-reference-collection-simple-queries.html
-            - text: Bulk Import
-              href: js-reference-collection-bulk-import.html
-        - text: AQL Helpers
-          href: js-reference-aql.html
-        - text: Views
-          href: js-reference-view.html
-          children:
-            - text: View Manipulation
-              href: js-reference-view-manipulation.html
-        - text: Analyzers
-          href: js-reference-analyzer.html
-        - text: Cursor
-          href: js-reference-cursor.html
-        - text: Graph
-          href: js-reference-graph.html
-          children:
-            - text: Vertices
-              href: js-reference-graph-vertices.html
-            - text: Edges
-              href: js-reference-graph-edges.html
-            - text: VertexCollection
-              href: js-reference-graph-vertex-collection.html
-            - text: EdgeCollection
-              href: js-reference-graph-edge-collection.html
-        - text: Route
-          href: js-reference-route.html
+      href: http://arangodb.github.io/arangojs/
 - text: ArangoDB-PHP
   href: php.html
   children:
@@ -244,6 +123,8 @@
           href: spring-data-migration-migrating-1-x-3-0.html
         - text: Migrating 2.x to 3.0
           href: spring-data-migration-migrating-2-x-3-0.html
+- text: ArangoDB Spark Datasource
+  href: spark-connector-new.html
 - text: ArangoDB Spark Connector
   href: spark-connector.html
   children:

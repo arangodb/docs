@@ -4,6 +4,28 @@ description: ArangoDB Server Query Options
 ---
 # ArangoDB Server Query Options
 
+## Limiting query runtime
+
+<small>Introduced in: v3.6.7, v3.7.3</small>
+
+`--query.max-runtime value`
+
+Sets a default maximum runtime for AQL queries.
+
+The default value is `0`, meaning that the runtime of AQL queries is not
+limited. Setting it to any positive value will restrict the runtime of all AQL
+queries, unless it is overwritten in the per-query `maxRuntime` query option.
+
+If a query exceeds the configured runtime, it will be killed on the next
+occasion when the query checks its own status. Killing is best effort based,
+so it is not guaranteed that a query will no longer than exactly the
+configured amount of time.
+
+{% hint 'warning' %}
+Setting this option will affect all queries in all databases, and also queries
+issues for administration and database-internal purposes.
+{% endhint %}
+
 ## Limiting memory for AQL queries
 
 `--query.memory-limit value`
@@ -28,6 +50,18 @@ throw an exception. This option can be set to catch obvious issues with AQL
 queries early. When set to *false*, AQL queries that produce warnings will not
 abort and return the warnings along with the query results.
 The option can also be overridden for each individual AQL query.
+
+## Requiring `WITH` statements
+
+<small>Introduced in: v3.7.12</small>
+
+`--query.require-with value`
+
+When set to *true*, AQL queries in single server mode will also require `WITH`
+clauses in AQL queries where a cluster installation would require them.
+The option is set to *false* by default, but can be turned on in single servers
+to remove this behavior difference between single servers and clusters, making
+a later transition from single server to cluster easier.
 
 ## Enable/disable AQL query tracking
 

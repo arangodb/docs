@@ -44,7 +44,7 @@ contains the database definition.
 }
 ```
 
-### Drop Database (1100)
+### Drop Database (1101)
 
 Drop a database. Contains the field _db_ with the database name.
 ```json

@@ -29,75 +29,18 @@ a small set of vertices. These kind of tasks are better suited for
 Prerequisites
 -------------
 
-If you are running a single ArangoDB instance in single-server mode, there
-are no requirements regarding the modeling of your data. All you need is at
-least one vertex collection and one edge collection. Note that the performance
-may be better, if the number of your shards / collections matches the number
-of CPU cores.
+If you run a single ArangoDB instance in single-server mode, there are no
+requirements regarding the modeling of your data. All you need is at least one
+vertex collection and one edge collection.
 
-When you use ArangoDB Community Edition in cluster mode, you might need to
-model your collections in a certain way to ensure correct results. For more
-information see the next section.
+In cluster mode, the collections need to be sharded in a specific way to ensure
+correct results: The outgoing edges of a vertex need to be on the same DB-Server
+as the vertex. This is guaranteed by [SmartGraphs](graphs-smart-graphs.html).
 
-### Requirements for Collections in a Cluster (Non-SmartGraph)
+{% include hint-ee.md feature="SmartGraphs (and thus Pregel in cluster deployments)" plural=true %}
 
-To enable iterative graph processing for your data, you will need to ensure
-that your vertex and edge collections are sharded in a specific way.
-
-The Pregel computing model requires all edges to be present on the DB-Server
-where the vertex document identified by the `_from` value is located.
-This means the vertex collections need to be sharded by `_key` and the
-edge collection will need to be sharded after an attribute which always
-contains the `_key` of the vertex.
-
-Our implementation currently requires every edge collection to be sharded after
-"vertex" attributes. Additionally you will need to specify the key
-`distributeShardsLike` and an **equal** number of shards on every collection.
-Only if these requirements are met can ArangoDB place the edges and vertices
-correctly.
-
-For example, you might create your collections like this:
-
-```js
-// Create main vertex collection:
-db._create("vertices", {
-  shardKeys: ["_key"],
-  numberOfShards: 8
-});
-
-// Optionally create arbitrary additional vertex collections
-db._create("additional", {
-  distributeShardsLike: "vertices",
-  numberOfShards: 8
-});
-
-// Create (one or more) edge-collections:
-db._createEdgeCollection("edges", {
-  shardKeys: ["vertex"],
-  distributeShardsLike: "vertices",
-  numberOfShards: 8
-});
-```
-
-You will need to ensure that all edges contain the proper values in their
-shard key attribute. For a vertex document with the following content
-`{ _key: "A", value: 0 }` the corresponding edge documents would have to look
-as follows:
-
-```js
-{ "_from":"vertices/A", "_to": "vertices/B", "vertex": "A" }
-{ "_from":"vertices/A", "_to": "vertices/C", "vertex": "A" }
-{ "_from":"vertices/A", "_to": "vertices/D", "vertex": "A" }
-...
-```
-
-As can be seen, all edges use a value of `A` (the `_key` value of the vertex)
-in their shard key attribute `"vertex"`.
-
-This will ensure that outgoing edge documents will be placed on the same
-DB-Server as the vertex. Without the correct placement of the edges, the Pregel
-graph processing system will not work correctly, because edges will not load
-correctly.
+Note that the performance may be better, if the number of your shards /
+collections matches the number of CPU cores.
 
 Arangosh API
 ------------
@@ -105,11 +48,12 @@ Arangosh API
 ### Starting an Algorithm Execution
 
 The Pregel API is accessible through the `@arangodb/pregel` package.
-To start an execution you need to specify the **algorithm** name and the vertex
-and edge collections. Alternatively you can specify a named graph.
-Additionally you can specify custom parameters which vary for each algorithm.
-The `start()` method will always return a unique ID which can be used to
-interact with the algorithm and later on.
+
+To start an execution you need to specify the **algorithm** name and a
+named graph (SmartGraph in cluster). Alternatively you can specify the vertex
+and edge collections. Additionally you can specify custom parameters which vary
+for each algorithm. The `start()` method will always return a unique ID which
+can be used to interact with the algorithm and later on.
 
 The below variant of the `start()` method can be used for named graphs:
 
@@ -290,7 +234,11 @@ pregel.start("pagerank", "graphname", {maxGSS: 20, threshold: 0.00000001, source
 
 ### Single-Source Shortest Path
 
-Calculates the distance of each vertex to a certain shortest path.
+Calculates the shortest path length between the source and all other vertices.
+The distance to the source vertex itself is returned as `0` and a length above
+`9007199254740991` (max safe integer) means that there is no connection between
+a pair of vertices.
+
 The algorithm will run until it converges, the iterations are bound by the
 diameter (the longest shortest path) of your graph.
 

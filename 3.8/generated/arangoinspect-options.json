@@ -121,8 +121,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -228,6 +227,27 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
+  },
+  "default-language-check" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "check if default language matches stored language",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
   },
   "define" : {
     "category" : "option",
@@ -461,29 +481,7 @@
     "section" : "javascript",
     "type" : "boolean"
   },
-  "javascript.endpoints-blacklist" : {
-    "category" : "option",
-    "default" : [
-    ],
-    "deprecatedIn" : null,
-    "description" : "endpoints that cannot be connected to via @arangodb/request module in JavaScript actions if not whitelisted",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : [
-      "v3.5.0"
-    ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : true,
-    "section" : "javascript",
-    "type" : "string..."
-  },
-  "javascript.endpoints-whitelist" : {
+  "javascript.endpoints-allowlist" : {
     "category" : "option",
     "default" : [
     ],
@@ -505,12 +503,12 @@
     "section" : "javascript",
     "type" : "string..."
   },
-  "javascript.environment-variables-blacklist" : {
+  "javascript.endpoints-denylist" : {
     "category" : "option",
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "environment variables that will be inaccessible in JavaScript if not whitelisted",
+    "description" : "endpoints that cannot be connected to via @arangodb/request module in JavaScript actions (if not in allowlist)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -527,12 +525,34 @@
     "section" : "javascript",
     "type" : "string..."
   },
-  "javascript.environment-variables-whitelist" : {
+  "javascript.environment-variables-allowlist" : {
     "category" : "option",
     "default" : [
     ],
     "deprecatedIn" : null,
     "description" : "environment variables that will be accessible in JavaScript",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.5.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "javascript",
+    "type" : "string..."
+  },
+  "javascript.environment-variables-denylist" : {
+    "category" : "option",
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "environment variables that will be inaccessible in JavaScript (if not in allowlist)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -589,7 +609,7 @@
     "section" : "javascript",
     "type" : "string..."
   },
-  "javascript.files-whitelist" : {
+  "javascript.files-allowlist" : {
     "category" : "option",
     "default" : [
     ],
@@ -690,12 +710,12 @@
     "section" : "javascript",
     "type" : "string"
   },
-  "javascript.startup-options-blacklist" : {
+  "javascript.startup-options-allowlist" : {
     "category" : "option",
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "startup options whose names match this regular expression will not be exposed (if not whitelisted) to JavaScript actions",
+    "description" : "startup options whose names match this regular expression will be allowed and exposed to JavaScript",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -712,12 +732,12 @@
     "section" : "javascript",
     "type" : "string..."
   },
-  "javascript.startup-options-whitelist" : {
+  "javascript.startup-options-denylist" : {
     "category" : "option",
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "startup options whose names match this regular expression will be whitelisted and exposed to JavaScript",
+    "description" : "startup options whose names match this regular expression will not be exposed (if not in allowlist) to JavaScript actions",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -921,8 +941,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -943,8 +962,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -994,6 +1012,27 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.hostname" : {
+    "category" : "option",
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "hostname to use in log message (empty for none, use 'auto' to automatically figure out hostname)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string"
+  },
   "log.ids" : {
     "category" : "option",
     "default" : true,
@@ -1005,25 +1044,6 @@
     "introducedIn" : [
       "v3.5.0"
     ],
-    "obsolete" : false,
-    "os" : [
-      "linux",
-      "macos",
-      "windows"
-    ],
-    "requiresValue" : false,
-    "section" : "log",
-    "type" : "boolean"
-  },
-  "log.keep-logrotate" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "keep the old log file after receiving a sighup",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : true,
-    "introducedIn" : null,
     "obsolete" : false,
     "os" : [
       "linux",
@@ -1059,7 +1079,7 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
@@ -1074,12 +1094,33 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.max-entry-length" : {
+    "category" : "option",
+    "default" : 134217728,
+    "deprecatedIn" : null,
+    "description" : "maximum length of a log entry (in bytes)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.9"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "uint32"
+  },
   "log.output" : {
     "category" : "option",
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "log destination(s), e.g. file:///path/to/file (Linux, macOS) or file://C:\\path\\to\\file (Windows)",
+    "description" : "log destination(s), e.g. file:///path/to/file (any '$PID' will be replaced with the process id)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -1133,6 +1174,27 @@
     "requiresValue" : true,
     "section" : "log",
     "type" : "string"
+  },
+  "log.process" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "show process identifier (pid) in log message",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "log",
+    "type" : "boolean"
   },
   "log.request-parameters" : {
     "category" : "option",
@@ -1250,6 +1312,27 @@
     "section" : "log",
     "type" : "string",
     "values" : "Possible values: \"local-datestring\", \"timestamp\", \"timestamp-micros\", \"timestamp-millis\", \"uptime\", \"uptime-micros\", \"uptime-millis\", \"utc-datestring\", \"utc-datestring-millis\""
+  },
+  "log.use-json-format" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "use json output format",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "log",
+    "type" : "boolean"
   },
   "log.use-local-time" : {
     "category" : "option",

@@ -3,7 +3,7 @@ layout: default
 description: How to fill a collection with dummy documents
 title: Create Test Data with AQL
 redirect_from:
-  - /3.8/cookbook/aql-creating-test-data.html # 3.5 -> 3.5
+  - ../cookbook/aql-creating-test-data.html # 3.5 -> 3.5
 ---
 Create Test Data with AQL
 =========================

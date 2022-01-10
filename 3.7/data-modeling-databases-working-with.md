@@ -227,6 +227,30 @@ database. The *_system* database itself cannot be dropped.
 Databases are dropped asynchronously, and will be physically removed if
 all clients have disconnected and references have been garbage-collected.
 
+### Compact
+
+<small>Introduced in: v3.5.6, v3.6.7, v3.7.3</small>
+
+compact the entire data, for all databases
+`db._compact(options)`
+
+This command can be used to reclaim disk space after substantial data deletions
+have taken place. It requires superuser access.
+
+The optional *options* attribute can be used to get more control over the 
+compaction. The following attributes can be used in it:
+
+- *changeLevel*: whether or not compacted data should be moved to the minimum
+  possible level. The default value is *false*.
+- *compactBottomMostLevel*: whether or not to compact the bottommost level of
+  data. The default value is *false*.
+
+{% hint 'warning' %}
+This command can cause a full rewrite of all data in all databases, which may
+take very long for large databases. It should thus only be used with care
+and only when additional I/O load can be tolerated for a prolonged time.
+{% endhint %}
+
 ### Engine
 
 retrieve the storage engine type used by the server

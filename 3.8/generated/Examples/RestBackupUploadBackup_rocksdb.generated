@@ -1,23 +1,26 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/upload</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/upload</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"2020-06-08T09.50.05Z_2a645f6e-acd5-4550-ac95-3470e3e09b86"</span>, 
-  <span class="hljs-string">"remoteRepository"</span> : <span class="hljs-string">"local://tmp/backups"</span>, 
-  <span class="hljs-string">"config"</span> : { 
-    <span class="hljs-string">"local"</span> : { 
-      <span class="hljs-string">"type"</span> : <span class="hljs-string">"local"</span> 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;2022-01-10T14.43.42Z_76db01f7-7c6e-4025-9b74-92620c6f096d&quot;</span>, 
+  <span class="hljs-string">&quot;remoteRepository&quot;</span> : <span class="hljs-string">&quot;local://tmp/backups&quot;</span>, 
+  <span class="hljs-string">&quot;config&quot;</span> : { 
+    <span class="hljs-string">&quot;local&quot;</span> : { 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;local&quot;</span> 
     } 
   } 
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Accepted
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> Accepted
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">56</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">202</span>, 
-  <span class="hljs-string">"result"</span> : { 
-    <span class="hljs-string">"uploadId"</span> : <span class="hljs-string">"70180"</span> 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">202</span>, 
+  <span class="hljs-string">&quot;result&quot;</span> : { 
+    <span class="hljs-string">&quot;uploadId&quot;</span> : <span class="hljs-string">&quot;66793&quot;</span> 
   } 
 }

@@ -23,6 +23,9 @@ This is an overview of ArangoDB's HTTP interface for miscellaneous functions.
 <!-- lib/Admin/RestShutdownHandler.cpp -->
 {% docublock delete_api_shutdown %}
 
+<!-- lib/Admin/RestShutdownHandler.cpp -->
+{% docublock get_api_shutdown %}
+
 <!-- js/actions/api-system.js -->
 {% docublock post_admin_execute %}
 

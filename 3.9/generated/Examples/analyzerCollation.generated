@@ -1,0 +1,47 @@
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> en = analyzers.save(<span class="hljs-string">&quot;collation_en&quot;</span>, <span class="hljs-string">&quot;collation&quot;</span>, { <span class="hljs-attr">locale</span>: <span class="hljs-string">&quot;en.utf-8&quot;</span> }, []);
+arangosh&gt; <span class="hljs-keyword">var</span> sv = analyzers.save(<span class="hljs-string">&quot;collation_sv&quot;</span>, <span class="hljs-string">&quot;collation&quot;</span>, { <span class="hljs-attr">locale</span>: <span class="hljs-string">&quot;sv.utf-8&quot;</span> }, []);
+arangosh&gt; <span class="hljs-keyword">var</span> test = db._create(<span class="hljs-string">&quot;test&quot;</span>);
+arangosh&gt; db.test.save([
+........&gt;   { <span class="hljs-attr">text</span>: <span class="hljs-string">&quot;a&quot;</span> },
+........&gt;   { <span class="hljs-attr">text</span>: <span class="hljs-string">&quot;å&quot;</span> },
+........&gt;   { <span class="hljs-attr">text</span>: <span class="hljs-string">&quot;b&quot;</span> },
+........&gt;   { <span class="hljs-attr">text</span>: <span class="hljs-string">&quot;z&quot;</span> },
+........&gt; ]);
+[ 
+  { 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/70688&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70688&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diQNZ9O---&quot;</span> 
+  }, 
+  { 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/70689&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70689&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diQNZ9O--_&quot;</span> 
+  }, 
+  { 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/70690&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70690&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diQNZ9O--A&quot;</span> 
+  }, 
+  { 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/70691&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70691&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diQNZ9O--B&quot;</span> 
+  } 
+]
+arangosh&gt; <span class="hljs-keyword">var</span> view = db._createView(<span class="hljs-string">&quot;view&quot;</span>, <span class="hljs-string">&quot;arangosearch&quot;</span>,
+........&gt; { <span class="hljs-attr">links</span>: { <span class="hljs-attr">test</span>: { <span class="hljs-attr">analyzers</span>: [ <span class="hljs-string">&quot;collation_en&quot;</span>, <span class="hljs-string">&quot;collation_sv&quot;</span> ], <span class="hljs-attr">includeAllFields</span>: <span class="hljs-literal">true</span> }}});
+arangosh&gt; db._query(<span class="hljs-string">&quot;FOR doc IN view SEARCH ANALYZER(doc.text &lt; TOKENS(&#x27;c&#x27;, &#x27;collation_en&#x27;)[0], &#x27;collation_en&#x27;) RETURN doc.text&quot;</span>);
+[ 
+  <span class="hljs-string">&quot;a&quot;</span>, 
+  <span class="hljs-string">&quot;å&quot;</span>, 
+  <span class="hljs-string">&quot;b&quot;</span> 
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+arangosh&gt; db._query(<span class="hljs-string">&quot;FOR doc IN view SEARCH ANALYZER(doc.text &lt; TOKENS(&#x27;c&#x27;, &#x27;collation_sv&#x27;)[0], &#x27;collation_sv&#x27;) RETURN doc.text&quot;</span>);
+[ 
+  <span class="hljs-string">&quot;a&quot;</span>, 
+  <span class="hljs-string">&quot;b&quot;</span> 
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]

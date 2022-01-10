@@ -8,6 +8,43 @@ Miscellaneous functions
 Control flow functions
 ----------------------
 
+### MIN_MATCH()
+
+`MIN_MATCH(expr1, ... exprN, minMatchCount) → fulfilled`
+
+Match documents where at least **minMatchCount** of the specified
+AQL expressions are satisfied.
+
+There is a corresponding [`MIN_MATCH()` ArangoSearch function](functions-arangosearch.html#min_match)
+that can utilize View indexes.
+
+- **expr** (expression, _repeatable_): any valid AQL expression
+- **minMatchCount** (number): minimum number of expressions that should
+  be satisfied
+- returns **fulfilled** (bool): whether at least **minMatchCount** of the
+  specified expressions are `true`
+
+You can use `MIN_MATCH()` to filter if two out of three conditions evaluate to
+`true` for instance:
+
+```js
+LET members = [
+  { name: "Carol", age: 41, active: true },
+  { name: "Doug", age: 56, active: true },
+]
+FOR doc IN members
+  FILTER MIN_MATCH(LENGTH(doc.name) == 5, doc.age >= 50, doc.active, 2)
+  RETURN doc
+```
+
+An equivalent filter expression without `MIN_MATCH()` would be more cumbersome:
+
+```js
+  FILTER (LENGTH(doc.name) == 5 AND doc.age >= 50)
+    OR (doc.age >= 50 AND doc.active)
+    OR (doc.active AND LENGTH(doc.name) == 5)
+```
+
 ### NOT_NULL()
 
 `NOT_NULL(alternative, ...) → value`
@@ -21,6 +58,8 @@ are *null* themselves. It is also known as `COALESCE()` in SQL.
 
 ### FIRST_LIST()
 
+`FIRST_LIST(alternative, ...) → list`
+
 Return the first alternative that is an array, and *null* if none of the
 alternatives is an array.
 
@@ -29,7 +68,7 @@ alternatives is an array.
 
 ### FIRST_DOCUMENT()
 
-`FIRST_DOCUMENT(value) → doc`
+`FIRST_DOCUMENT(alternative, ...) → doc`
 
 Return the first alternative that is a document, and *null* if none of the
 alternatives is a document.
@@ -105,6 +144,16 @@ Return an array of collections.
 
 This is an alias for [LENGTH()](#length).
 
+### CURRENT_DATABASE()
+
+`CURRENT_DATABASE() → databaseName`
+
+Returns the name of the current database.
+
+The current database is the database name that was specified in the URL path of the request (or defaults to _system database).
+
+- returns **databaseName** (string): the current database name
+
 ### CURRENT_USER()
 
 `CURRENT_USER() → userName`
@@ -176,13 +225,75 @@ of keys to return all documents that can be found.
 - returns **doc** (document\|array\|null): the content of the found document,
   an array of all found documents or *null* if nothing was found
 
-```js
-DOCUMENT( users, "users/john" )
-DOCUMENT( users, "john" )
+**Examples**
 
-DOCUMENT( users, [ "users/john", "users/amy" ] )
-DOCUMENT( users, [ "john", "amy" ] )
-```
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_1
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_1}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, "persons/alice" )
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_2
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_2}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, "alice" )
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_3
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_3}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, [ "persons/alice", "persons/bob" ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}  
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_4
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_4}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, [ "alice", "bob" ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_4
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_5
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_5}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( @@coll, @key ) 
+  @BV {
+    "@coll": "persons",
+    "key": "alice"
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_5
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_6
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_6}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( @@coll, @keys )
+  @BV {
+    "@coll": "persons",
+    "keys": ["alice", "bob"]
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_6
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 `DOCUMENT(id) → doc`
 
@@ -193,10 +304,66 @@ The function can also be used with a single parameter *id* as follows:
 - returns **doc** (document\|null): the content of the found document
   or *null* if nothing was found
 
-```js
-DOCUMENT("users/john")
-DOCUMENT( [ "users/john", "users/amy" ] )
-```
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_7
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_7}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT("persons/alice")
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_7
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_8
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_8}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( [ "persons/alice", "persons/bob" ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_8
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_9
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_9}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( @key )
+  @BV {
+    "key": "persons/alice"
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_9
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_10
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_10}
+  @DATASET{knows_graph}
+     RETURN DOCUMENT( @keys )
+  @BV {
+    "keys": ["persons/alice", "persons/bob"]
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_10
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_11
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_11}
+  @DATASET{knows_graph}
+     RETURN DOCUMENT( CONCAT("persons/", @key) )
+  @BV {
+    "key": "bob"
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_11
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Please also consider to use
 [`DOCUMENT` in conjunction with `WITH`](operations-with.html)
@@ -274,26 +441,6 @@ APPLY( "SUBSTRING", [ "this is a test", 0, 7 ] )
 // "this is"
 ```
 
-### ASSERT() / WARN()
-
-`ASSERT(expr, message) → retVal`<br>
-`WARN(expr, message) → retVal`
-
-The two functions evaluate an expression. In case the expression evaluates to
-*true* both functions will return *true*. If the expression evaluates to
-*false* *ASSERT* will throw an error and *WARN* will issue a warning and return
-*false*. This behavior allows the use of *ASSERT* and *WARN* in `FILTER`
-conditions.
-
-- **expr** (expression): AQL expression to be evaluated
-- **message** (string): message that will be used in exception or warning if expression evaluates to false
-- returns **retVal** (bool): returns true if expression evaluates to true
-
-```js
-FOR i IN 1..3 FILTER ASSERT(i > 0, "i is not greater 0") RETURN i
-FOR i IN 1..3 FILTER WARN(i < 2, "i is not smaller 2") RETURN i
-```
-
 ### CALL()
 
 `CALL(funcName, arg1, arg2, ... argN) → retVal`
@@ -316,6 +463,26 @@ CALL( "SUBSTRING", "this is a test", 0, 4 )
 
 Other functions
 ---------------
+
+### ASSERT() / WARN()
+
+`ASSERT(expr, message) → retVal`<br>
+`WARN(expr, message) → retVal`
+
+The two functions evaluate an expression. In case the expression evaluates to
+*true* both functions will return *true*. If the expression evaluates to
+*false* *ASSERT* will throw an error and *WARN* will issue a warning and return
+*false*. This behavior allows the use of *ASSERT* and *WARN* in `FILTER`
+conditions.
+
+- **expr** (expression): AQL expression to be evaluated
+- **message** (string): message that will be used in exception or warning if expression evaluates to false
+- returns **retVal** (bool): returns true if expression evaluates to true
+
+```js
+FOR i IN 1..3 FILTER ASSERT(i > 0, "i is not greater 0") RETURN i
+FOR i IN 1..3 FILTER WARN(i < 2, "i is not smaller 2") RETURN i
+```
 
 ### IN_RANGE()
 
@@ -397,6 +564,20 @@ ArangoSearch counterpart which can use the View index.
     {% endaqlexample %}
     {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+### PREGEL_RESULT()
+
+`PREGEL_RESULT(handle, withId) → results`
+
+Allows to access results of a Pregel job that are only held in memory.
+See [Pregel AQL integration](../graphs-pregel.html#aql-integration).
+
+- **handle** (string): the `id` of a Pregel job
+- **withId** (bool): if enabled, then the document `_id` is returned in
+  addition to the `_key` for each vertex
+- returns **results** (array): an array of objects, one element per vertex, with
+  the attributes computed by the Pregel algorithm and the document key (and
+  optionally identifier)
+
 Internal functions
 ------------------
 
@@ -421,26 +602,33 @@ RETURN 1 == 2 && FAIL("error") ? true : false // false
 RETURN 1 == 1 && FAIL("error") ? true : false // aborted with error
 ```
 
-### NOOPT()
+### NOOPT() / NOEVAL()
 
 `NOOPT(value) → retVal`
 
 No-operation that prevents certain query compile-time and run-time optimizations. 
 Constant expressions can be forced to be evaluated at runtime with this.
 This function is marked as non-deterministic so its argument withstands
-query optimization. There is no need to call this function explicitly, it is 
-mainly used for internal testing.
+query optimization.
+
+`NOEVAL(value) → retVal`
+
+Same as `NOOPT()`, except that it is marked as deterministic.
+
+There is no need to call these functions explicitly, they are mainly used for
+internal testing.
 
 - **value** (any): a value of arbitrary type
 - returns **retVal** (any): *value*
 
 ```js
 // differences in execution plan (explain)
-FOR i IN 1..3 RETURN (1 + 1)      // const assignment
-FOR i IN 1..3 RETURN NOOPT(1 + 1) // simple expression
+FOR i IN 1..3 RETURN (1 + 1)       // const assignment
+FOR i IN 1..3 RETURN NOOPT(1 + 1)  // simple expression
+FOR i IN 1..3 RETURN NOEVAL(1 + 1) // simple expression
 
-NOOPT( 123 ) // evaluates 123 at runtime
-NOOPT( CONCAT("a", "b") ) // evaluates concatenation at runtime
+RETURN NOOPT( 123 ) // evaluates 123 at runtime
+RETURN NOOPT( CONCAT("a", "b") ) // evaluates concatenation at runtime
 ```
 
 ### PASSTHRU()

@@ -229,6 +229,14 @@ example:
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% hint 'warning' %}
+The edge emitted for the starting vertex is `null`. Keep this in mind when you
+write `PRUNE` conditions involving the edge variable. A `PRUNE` condition like
+`edge.label != 'foo'` is undesirably true at depth 0 and thus terminates the
+traversal too early. A construction like `(!IS_NULL(edge) AND edge.label != 'foo')`
+can be used to avoid it.
+{% endhint %}
+
 ### Filtering on paths
 
 Filtering on paths allows for the second most powerful filtering and may have the

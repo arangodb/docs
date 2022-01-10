@@ -3,7 +3,7 @@ layout: default
 description: Query examples for joining documents with one-to-many and many-to-many relationships
 title: Joins in AQL
 redirect_from:
-  - /3.7/cookbook/aql-joins.html # 3.5 -> 3.5
+  - ../cookbook/aql-joins.html # 3.5 -> 3.5
 ---
 Using Joins in AQL
 ==================
@@ -172,7 +172,7 @@ client and the flexibility of joins for your data model.
 Many-To-Many
 ------------
 
-In the relational word you need a third table to model the many-to-many
+In the relational world you need a third table to model the many-to-many
 relation. In ArangoDB you have a choice depending on the information you are
 going to store and the type of questions you are going to ask.
 
@@ -688,7 +688,7 @@ separately. The AQL query to generate such result is:
           "friendId" : f.thisUser
         }
     @BV {
-    friend: "friend"
+    "friend": "friend"
     }
     @END_EXAMPLE_AQL
     @endDocuBlock joinTuples

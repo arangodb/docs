@@ -14,6 +14,8 @@ for examples of `Services` and `ServiceMonitors` you can use to integrate
 with Prometheus through the [Prometheus-Operator by CoreOS](https://github.com/coreos/prometheus-operator){:target="_blank"}.
 
 Furthermore, the operator can run sidecar containers for ArangoDB
-deployments of type Cluster which expose metrics in Prometheus format.
-Use the attribute `spec.metrics` to set this up see the [spec
-reference](deployment-kubernetes-deployment-resource.html) for details.
+deployments of type Cluster which expose metrics in Prometheus format. See:
+- [`spec.metrics` reference](deployment-kubernetes-deployment-resource.html#specmetricsenabled-bool)
+{%- assign ver = "3.7" | version: ">=" %}{% if ver %}
+- [List of exposed server metrics](http/administration-and-monitoring-metrics.html#list-of-exposed-metrics)
+{%- endif %}

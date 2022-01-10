@@ -3,10 +3,10 @@ layout: default
 description: Features listed in this section should no longer be used, because they are considered obsolete and may get removed in a future release
 title: Deprecated Features
 redirect_from:
-  - /3.7/appendix-deprecated-actions.html # 3.4 -> 3.5
-  - /3.7/appendix-deprecated-actions-html-example.html # 3.4 -> 3.5
-  - /3.7/appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
-  - /3.7/appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
+  - appendix-deprecated-actions.html # 3.4 -> 3.5
+  - appendix-deprecated-actions-html-example.html # 3.4 -> 3.5
+  - appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
+  - appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
 ---
 Deprecated
 ==========
@@ -36,7 +36,7 @@ replace the old features with:
   deprecated.
 
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
-  They are superseded by [AQL queries](../aql/), which can also
+  They are superseded by [AQL queries](aql/index.html), which can also
   be run in arangosh. AQL is a language on its own and way more powerful than
   *Simple Queries* could ever be. In fact, the (still supported) *Simple Queries*
   are translated internally to AQL, then the AQL query is optimized and run
@@ -56,3 +56,69 @@ replace the old features with:
   You can still find the
   [Actions documentation](https://www.arangodb.com/docs/3.4/appendix-deprecated-actions.html){:target="_blank"}
   in 3.4 or older versions of the documentation.
+
+- **Outdated AQL functions**: The following AQL functions are deprecated and
+  their usage is discouraged:
+  - `IS_IN_POLYGON`
+  - `NEAR`
+  - `WITHIN`
+  - `WITHIN_RECTANGLE`
+
+  See [Geo functions](aql/functions-geo.html) for substitutes.
+
+- **Overwrite option**: The `overwrite` option for insert operations (either
+  single document operations or AQL `INSERT` operations) is deprecated in favor
+  of the `overwriteMode` option, which provides more flexibility.
+
+- **`minReplicationFactor` collection option**: The `minReplicationFactor`
+  option for collections has been renamed to `writeConcern`. If
+  `minReplicationFactor` is specified and no `writeConcern` is set, the
+  `minReplicationFactor` value will still be picked up and used as
+  `writeConcern` value. However, this compatibility mode will be removed
+  eventually, so changing applications from using `minReplicationFactor` to
+  `writeConcern` is advised.
+
+- **Outdated startup options**
+
+  The following _arangod_ startup options are deprecated and will be removed
+  in a future version:
+  - `--server.jwt-secret` (use `--server.jwt-secret-keyfile`)
+
+  The following options are deprecated for _arangorestore_:
+  - `--default-number-of-shards` (use `--number-of-shards` instead)
+  - `--default-replication-factor` (use `--replication-factor` instead)
+
+  The following startup options are deprecated in _arangod_ and all client tools:
+  - `--log` (use `--log.level` instead)
+  - `--log.use-local-time` (use `--log.time-format` instead)
+  - `--log.use-microtime` (use `--log.time-format` instead)
+  - `--log.performance` (use `--log.level` instead)
+
+- **Obsoleted startup options**: Any startup options marked as obsolete can be
+  removed in any future version of ArangoDB, so their usage is highly
+  discouraged. Their functionality is already removed, but they still exist to
+  prevent unknown startup option errors.
+
+- **JavaScript traversal API**: The [JavaScript traversal API](http/traversal.html)
+  is deprecated since version 3.4.0. The JavaScript traversal module
+  `@arangodb/graph/traversal` is also deprecated since then. The preferred way
+  to traverse graphs is via AQL.
+
+- **JavaScript-based AQL graph functions**: The following JavaScript-based AQL
+  graph functions are deprecated:
+  - `arangodb::GRAPH_EDGES`
+  - `arangodb::GRAPH_VERTICES`
+  - `arangodb::GRAPH_NEIGHBORS`
+  - `arangodb::GRAPH_COMMON_NEIGHBORS`
+  - `arangodb::GRAPH_COMMON_PROPERTIES`
+  - `arangodb::GRAPH_PATHS`
+  - `arangodb::GRAPH_SHORTEST_PATH`
+  - `arangodb::GRAPH_DISTANCE_TO`
+  - `arangodb::GRAPH_ABSOLUTE_ECCENTRICITY`
+  - `arangodb::GRAPH_ECCENTRICITY`
+  - `arangodb::GRAPH_ABSOLUTE_CLOSENESS`
+  - `arangodb::GRAPH_CLOSENESS`
+  - `arangodb::GRAPH_ABSOLUTE_BETWEENNESS`
+  - `arangodb::GRAPH_BETWEENNESS`
+  - `arangodb::GRAPH_RADIUS`
+  - `arangodb::GRAPH_DIAMETER`

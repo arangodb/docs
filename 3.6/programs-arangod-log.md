@@ -161,14 +161,31 @@ The default value for this option is `true`.
 Logging to terminal output is by default colored. Colorful logging can be 
 turned off by setting the value to false.
 
-## Source file and Line number
+## Source function, file and line number
 
-Log line number: `--log.line-number`
+`--log.line-number`
 
-Normally, if an human readable fatal, error, warning or info message is
-logged, no information about the file and line number is provided. The
-file and line number is only logged for debug and trace message. This option
-can be use to always log these pieces of information.
+If enabled, then log messages will include the function name, file name and
+line number of the source code that issued the log message. The format is
+`func@FileName.cpp:123`.
+
+Example:
+
+```
+2021-06-08T16:09:31Z [1] INFO [prepare@GreetingsFeature.cpp:43] [e52b0] ArangoDB 3.7.11 [linux] 64bit, using jemalloc, build tags/v3.7.11-0-g5ca39c161b, VPack 0.1.33, RocksDB 6.8.0, ICU 64.2, V8 7.9.317, OpenSSL 1.1.1k  25 Mar 2021
+2021-06-08T16:09:31Z [1] INFO [prepare@EnvironmentFeature.cpp:68] [75ddc] detected operating system: Linux version 4.15.0-140-generic (buildd@lgw01-amd64-054) (gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04)) #144-Ubuntu SMP Fri Mar 19 14:12:35 UTC 2021
+2021-06-08T16:09:31Z [1] INFO [prepare@EnvironmentFeature.cpp:251] [25362] {memory} Available physical memory: 67513589760 bytes, available cores: 32
+2021-06-08T16:09:31Z [1] WARNING [prepare@EnvironmentFeature.cpp:426] [3e451] {memory} It is recommended to set NUMA to interleaved.
+2021-06-08T16:09:31Z [1] WARNING [prepare@EnvironmentFeature.cpp:428] [b25a4] {memory} put 'numactl --interleave=all' in front of your command
+2021-06-08T16:09:31Z [1] INFO [prepare@AuthenticationFeature.cpp:190] [43396] {authentication} Jwt secret not specified, generating...
+2021-06-08T16:09:31Z [1] INFO [prepare@EngineSelectorFeature.cpp:187] [144fe] using storage engine 'rocksdb'
+2021-06-08T16:09:31Z [1] INFO [reportRole@ClusterFeature.cpp:410] [3bb7d] {cluster} Starting up with role SINGLE
+2021-06-08T16:09:31Z [1] INFO [start@FileDescriptorsFeature.cpp:90] [a1c60] {syscall} file-descriptors (nofiles) hard limit is 1048576, soft limit is 1048576
+2021-06-08T16:09:31Z [1] INFO [start@AuthenticationFeature.cpp:222] [3844e] {authentication} Authentication is turned off, authentication for unix sockets is turned on
+2021-06-08T16:09:32Z [1] INFO [start@IResearchFeature.cpp:972] [c1b63] {arangosearch} ArangoSearch maintenance: [5..5] commit thread(s), [5..5] consolidation thread(s)
+2021-06-08T16:09:32Z [1] INFO [dump@EndpointList.cpp:222] [6ea38] using endpoint 'http+tcp://0.0.0.0:8529' for non-encrypted requests
+2021-06-08T16:09:32Z [1] INFO [start@BootstrapFeature.cpp:370] [cf3f4] ArangoDB (version 3.7.11 [linux]) is ready for business. Have fun!
+```
 
 ## Prefix
 
@@ -220,7 +237,7 @@ The default value for this option is `false`, so no roles will be logged.
 
 ## Log API Access
 
-<small>Introduced in: 3.4.11, 3.5.6, 3.6.5</small>
+<small>Introduced in: v3.4.11, v3.5.6, v3.6.5</small>
 
 `/_admin/log` control: `--log.api-enabled`
 

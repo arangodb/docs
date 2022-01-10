@@ -80,13 +80,13 @@ non-blocking, asynchronous execution: clients can add the
 HTTP header *x-arango-async: true* to any of their requests, marking
 them as to be executed asynchronously on the server. ArangoDB will put such
 requests into an in-memory task queue and return an *HTTP 202* (accepted)
-response to the client instantly and thus finish this HTTP-request.
+response to the client instantly and thus finish this HTTP request.
 The server will execute the tasks from the queue asynchronously as fast
 as possible, while clients can continue to do other work.
 If the server queue is full (i.e. contains as many tasks as specified by the
 option ["--server.maximal-queue-size"](../programs-arangod-options.html#arangodb-server-options)),
-then the request will be rejected instantly with an *HTTP 500* (internal
-server error) response.
+then the request will be rejected instantly with an *HTTP 503* (Service
+unavailable) response.
 
 Asynchronous execution decouples the request/response handling from the actual
 work to be performed, allowing fast server responses and greatly reducing wait
@@ -152,21 +152,21 @@ Here's a short summary:
 * `--server.authentication false`: authentication disabled for all requests
 
 Whenever authentication is required and the client has not yet authenticated,
-ArangoDB will return *HTTP 401* (Unauthorized). It will also send the *WWW-Authenticate*
+ArangoDB will return *HTTP 401* (Unauthorized). It will also send the *Www-Authenticate*
 response header, indicating that the client should prompt the user for username and
 password if supported. If the client is a browser, then sending back this header will
 normally trigger the display of the browser-side HTTP authentication dialog.
 As showing the browser HTTP authentication dialog is undesired in AJAX requests,
-ArangoDB can be told to not send the *WWW-Authenticate* header back to the client.
-Whenever a client sends the *X-Omit-WWW-Authenticate* HTTP header (with an arbitrary value)
-to ArangoDB, ArangoDB will only send status code 401, but no *WWW-Authenticate* header.
+ArangoDB can be told to not send the *Www-Authenticate* header back to the client.
+Whenever a client sends the *X-Omit-Www-Authenticate* HTTP header (with an arbitrary value)
+to ArangoDB, ArangoDB will only send status code 401, but no *Www-Authenticate* header.
 This allows clients to implement credentials handling and bypassing the browser's
 built-in dialog.
 
 ### Authentication via JWT
 
-ArangoDB uses a standard JWT based authentication method. 
-To authenticate via JWT you must first obtain a JWT token with a signature generated via HMAC with SHA-256. 
+ArangoDB uses a standard JWT based authentication method.
+To authenticate via JWT you must first obtain a JWT token with a signature generated via HMAC with SHA-256.
 The secret may either be set using `--server.jwt-secret` or will be randomly generated upon server startup.
 
 For more information on JWT please consult RFC7519 and [jwt.io](https://jwt.io){:target="_blank"}.
@@ -174,11 +174,11 @@ For more information on JWT please consult RFC7519 and [jwt.io](https://jwt.io){
 #### User JWT-Token
 
 To authenticate with a specific user you need to supply a JWT token containing
-the _preferred_username_ field with the username. 
+the _preferred_username_ field with the username.
 You can either let ArangoDB generate this token for you via an API call
 or you can generate it yourself (only if you know the JWT secret).
 
-ArangoDB offers a REST API to generate user tokens for you if you know the username and password. 
+ArangoDB offers a REST API to generate user tokens for you if you know the username and password.
 To do so send a POST request to
 
 */_open/auth*
@@ -215,7 +215,7 @@ As an example the decoded JWT body would look like this:
 
 #### Superuser JWT-Token
 
-To access specific internal APIs as well as Agency and DB-Server instances a token generated via `/open/auth` is not 
+To access specific internal APIs as well as Agency and DB-Server instances a token generated via `/open/auth` is not
 good enough. For these special APIs you will need to generate a special JWT token which grants superuser access.
 Note that using superuser access for normal database operations is **NOT advised**.
 

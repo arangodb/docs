@@ -2,7 +2,7 @@
 layout: default
 description: Aside of the values which ArangoDB already offers for monitoring, other system metrics may be relevant for continuously operating ArangoDB
 redirect_from:
-  - /3.7/cookbook/monitoring-other-relevant-metrics.html # 3.5 -> 3.5
+  - cookbook/monitoring-other-relevant-metrics.html # 3.5 -> 3.5
 ---
 Monitoring other relevant metrics of ArangoDB
 =============================================

@@ -1,9 +1,8 @@
 ---
 layout: default
-description: Within the ArangoDB shell, the _query and _createStatement methods of the db object can be used to execute AQL queries
+description: Within the ArangoDB Shell, the _query and _createStatement methods of the db object can be used to execute AQL queries
 ---
-Executing queries from Arangosh
-===============================
+# Executing queries from _arangosh_
 
 Within the ArangoDB shell, the *_query* and *_createStatement* methods of the
 *db* object can be used to execute AQL queries. This chapter also describes
@@ -169,8 +168,17 @@ There are further options that can be passed in the *options* attribute of the *
   the query result cache is disabled, and that they will be automatically inserted into
   the query result cache when it is active in non-demand mode.
 
+- *fillBlockCache*: if set to *true* or not specified, this will make the query store
+  the data it reads via the RocksDB storage engine in the RocksDB block cache. This is
+  usually the desired behavior. The option can be set to *false* for queries that are
+  known to either read a lot of data that would thrash the block cache, or for queries
+  that read data known to be outside of the hot set. By setting the option
+  to *false*, data read by the query will not make it into the RocksDB block cache if
+  it is not already in there, thus leaving more room for the actual hot set.
+
 - *profile*: if set to *true* or *1*, returns extra timing information for the query. The timing
-  information is accessible via the *getExtra* method of the query result. Set to *2* the query will include execution stats per query plan node in sub-attribute *stats.nodes* of the *extra* return attribute.
+  information is accessible via the *getExtra* method of the query result. Set to *2* the query will
+  include execution stats per query plan node in sub-attribute *stats.nodes* of the *extra* return attribute.
   Additionally the query plan is returned in the sub-attribute *extra.plan*.
 
 - *maxWarningCount*: limits the number of warnings that are returned by the query if
@@ -191,7 +199,7 @@ There are further options that can be passed in the *options* attribute of the *
 - *stream*: Specify *true* and the query will be executed in a **streaming** fashion. The query result is
   not stored on the server, but calculated on the fly. *Beware*: long-running queries will
   need to hold the collection locks for as long as the query cursor exists. It is advisable
-  to *only* use this option on short-running queries *or* without exclusive locks (write locks on MMFiles).
+  to *only* use this option on short-running queries *or* without exclusive locks.
   When set to *false* the query will be executed right away in its entirety. 
   In that case query results are either returned right away (if the result set is small enough),
   or stored on the arangod instance and accessible via the cursor API. 

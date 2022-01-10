@@ -1,27 +1,30 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/tasks/sampleTask</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/tasks/sampleTask</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"SampleTask"</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"SampleTask"</span>, 
-  <span class="hljs-string">"command"</span> : <span class="hljs-string">"(function(params) { require('@arangodb').print(params); })(params)"</span>, 
-  <span class="hljs-string">"params"</span> : { 
-    <span class="hljs-string">"foo"</span> : <span class="hljs-string">"bar"</span>, 
-    <span class="hljs-string">"bar"</span> : <span class="hljs-string">"foo"</span> 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;SampleTask&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;SampleTask&quot;</span>, 
+  <span class="hljs-string">&quot;command&quot;</span> : <span class="hljs-string">&quot;(function(params) { require(&#x27;@arangodb&#x27;).print(params); })(params)&quot;</span>, 
+  <span class="hljs-string">&quot;params&quot;</span> : { 
+    <span class="hljs-string">&quot;foo&quot;</span> : <span class="hljs-string">&quot;bar&quot;</span>, 
+    <span class="hljs-string">&quot;bar&quot;</span> : <span class="hljs-string">&quot;foo&quot;</span> 
   }, 
-  <span class="hljs-string">"period"</span> : <span class="hljs-number">2</span> 
+  <span class="hljs-string">&quot;period&quot;</span> : <span class="hljs-number">2</span> 
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">241</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"sampleTask"</span>, 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"SampleTask"</span>, 
-  <span class="hljs-string">"created"</span> : <span class="hljs-number">1591609812.0796404</span>, 
-  <span class="hljs-string">"type"</span> : <span class="hljs-string">"periodic"</span>, 
-  <span class="hljs-string">"period"</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">"offset"</span> : <span class="hljs-number">0</span>, 
-  <span class="hljs-string">"command"</span> : <span class="hljs-string">"(function (params) { (function(params) { require('@arangodb').print(params); })(params) } )(params);"</span>, 
-  <span class="hljs-string">"database"</span> : <span class="hljs-string">"_system"</span> 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;sampleTask&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;SampleTask&quot;</span>, 
+  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-number">1641825830.589948</span>, 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;periodic&quot;</span>, 
+  <span class="hljs-string">&quot;period&quot;</span> : <span class="hljs-number">2</span>, 
+  <span class="hljs-string">&quot;offset&quot;</span> : <span class="hljs-number">0</span>, 
+  <span class="hljs-string">&quot;command&quot;</span> : <span class="hljs-string">&quot;(function (params) { (function(params) { require(&#x27;@arangodb&#x27;).print(params); })(params) } )(params);&quot;</span>, 
+  <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span> 
 }

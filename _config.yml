@@ -48,9 +48,11 @@ algolia:
   index_name: dev_DOCS
   search_only_api_key: 1fc63d8ff5b71963f0354561b770b591
   files_to_exclude:
-    - 3.8/**/*
+    - 3.10/**/*
+    - 3.9/**/*
+#   - 3.8/**/*  # OUR STABLE VERSION
     - 3.7/**/*
-#   - 3.6/**/*  # OUR STABLE VERSION
+    - 3.6/**/*
     - 3.5/**/*
     - 3.4/**/*
     - 3.3/**/*
@@ -60,38 +62,41 @@ algolia:
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
 exclude:
+  - _illustrations
   - _redirects
   - build.sh
+  - drivers/
   - Dockerfile
   - Gemfile
   - Gemfile.lock
+  - htmltest
   - LICENSE
   - LICENSE-OTHER-COMPONENTS.md
   - migrate.sh
   - netlify.sh
   - netlify.toml
-  - README.md
-  - README_maintainers.md
-  - TODO.md
-  - htmltest
   - node_modules
+  - oasis/
+  - oasisctl.rb
+  - README_maintainers.md
+  - README.md
   - scripts
+  - sitemap.rb
+  - TODO.md
   - vendor/bundle/
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
-  - scripts
-  - sitemap.rb
-  - oasisctl.rb
-  - Dockerfile
-  - TODO.md
-  - htmltest
+  - 3.10/generated
+  - 3.9/generated
   - 3.8/generated
   - 3.7/generated
   - 3.6/generated
   - 3.5/generated
   - 3.4/generated
   - 3.3/generated
+# - 3.10/  
+# - 3.9/
 # - 3.8/
 # - 3.7/
 # - 3.6/
@@ -100,5 +105,5 @@ exclude:
 # - 3.3/
 
 versions:
-  stable: "3.6"
-  devel: "3.7"
+  stable: "3.8"
+  devel: "3.10"

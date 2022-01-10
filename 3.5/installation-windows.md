@@ -3,7 +3,7 @@ layout: default
 description: This is a walkthrough to install ArangoDB on Windows. You will find two possible methods to do so, automatically or manually. 
 title: Installing ArangoDB on Windows
 redirect_from:
-  - /3.5/cookbook/administration-nsissilent-mode.html # 3.5 -> 3.5
+  - cookbook/administration-nsissilent-mode.html # 3.5 -> 3.5
 ---
 Installing ArangoDB on Windows
 ==============================

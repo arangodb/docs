@@ -118,7 +118,7 @@ literal array definition like `[ {...}, {...}, ... ]`.
 `FOR variableName IN expression` is used to iterate over each element of the
 *data* array. In each loop, one element is assigned to the variable *d*.
 This variable is then used in the `INSERT` statement instead of a literal
-object definition. What is does is basically:
+object definition. What it does is basically:
 
 ```js
 INSERT {

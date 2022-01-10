@@ -3,7 +3,7 @@ layout: default
 description: AQL Example Queries on an Actors and Movies Dataset
 title: AQL Movie Dataset Examples
 redirect_from:
-  - /3.8/cookbook/graph-example-actors-and-movies.html # 3.5 -> 3.5
+  - ../cookbook/graph-example-actors-and-movies.html # 3.5 -> 3.5
 # https://stackoverflow.com/questions/32729314/aql-graph-queries-examples
 ---
 AQL Example Queries on an Actors and Movies Dataset
@@ -215,7 +215,7 @@ First lets try to get all actors for one movie:
 ```js
 db._query(`
   FOR x IN ANY 'movies/TheMatrix' actsIn
-    OPTIONS { bfs: true, uniqueVertices: 'global' }
+    OPTIONS { order: 'bfs', uniqueVertices: 'global' }
     RETURN x._id
 `).toArray();
 ```
@@ -240,10 +240,10 @@ be the solution:
 db._query(`
   FOR x IN UNION_DISTINCT(
     (FOR y IN ANY 'movies/TheMatrix' actsIn
-      OPTIONS { bfs: true, uniqueVertices: 'global' }
+      OPTIONS { order: 'bfs', uniqueVertices: 'global' }
       RETURN y._id),
     (FOR y IN ANY 'movies/TheDevilsAdvocate' actsIn
-      OPTIONS { bfs: true, uniqueVertices: 'global' }
+      OPTIONS { order: 'bfs', uniqueVertices: 'global' }
       RETURN y._id)
   ) RETURN x
 `).toArray();
@@ -272,10 +272,10 @@ But this time we are not interested in a `UNION` but in an `INTERSECTION`:
 db._query(`
   FOR x IN INTERSECTION(
     (FOR y IN ANY 'movies/TheMatrix' actsIn
-      OPTIONS { bfs: true, uniqueVertices: 'global' }
+      OPTIONS { order: 'bfs', uniqueVertices: 'global' }
       RETURN y._id),
     (FOR y IN ANY 'movies/TheDevilsAdvocate' actsIn
-      OPTIONS { bfs: true, uniqueVertices: 'global' }
+      OPTIONS { order: 'bfs', uniqueVertices: 'global' }
       RETURN y._id)
   ) RETURN x
 `).toArray();
@@ -299,10 +299,10 @@ all movies where Hugo Weaving and Keanu Reeves are co-starring:
 db._query(`
   FOR x IN INTERSECTION(
     (FOR y IN ANY 'actors/Hugo' actsIn
-      OPTIONS { bfs: true, uniqueVertices: 'global' }
+      OPTIONS { order: 'bfs', uniqueVertices: 'global' }
       RETURN y._id),
     (FOR y IN ANY 'actors/Keanu' actsIn
-      OPTIONS { bfs: true, uniqueVertices: 'global' }
+      OPTIONS { order: 'bfs', uniqueVertices: 'global' }
       RETURN y._id)
   ) RETURN x
 `).toArray();

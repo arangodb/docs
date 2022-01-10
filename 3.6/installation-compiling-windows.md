@@ -3,7 +3,7 @@ layout: default
 description: Guide for ArangoDB 3.4 and later
 title: Compiling ArangoDB under Windows
 redirect_from:
-  - /3.6/cookbook/compiling-windows.html # 3.5 -> 3.5
+  - cookbook/compiling-windows.html # 3.5 -> 3.5
 ---
 Compiling ArangoDB under Windows
 ================================

@@ -3,7 +3,7 @@ layout: default
 description: Analyzers parse input values and transform them into sets of sub-values, for example by breaking up text into words.
 title: ArangoSearch Analyzers
 redirect_from:
-  - /3.6/views-arango-search-analyzers.html # 3.4 -> 3.5
+  - views-arango-search-analyzers.html # 3.4 -> 3.5
 ---
 ArangoSearch Analyzers
 ======================
@@ -106,14 +106,14 @@ The valid attributes/values for the *properties* are dependant on what *type*
 is used. For example, the `delimiter` type needs to know the desired delimiting
 character(s), whereas the `text` type takes a locale, stop-words and more.
 
-### Identity
+### `identity`
 
 An Analyzer applying the `identity` transformation, i.e. returning the input
 unmodified.
 
 It does not support any *properties* and will ignore them.
 
-### Delimiter
+### `delimiter`
 
 An Analyzer capable of breaking up delimited text into tokens as per
 [RFC 4180](https://tools.ietf.org/html/rfc4180)
@@ -124,7 +124,7 @@ attributes:
 
 - `delimiter` (string): the delimiting character(s)
 
-### Stem
+### `stem`
 
 An Analyzer capable of stemming the text, treated as a single token,
 for supported languages.
@@ -137,7 +137,7 @@ attributes:
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
   meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
 
-###  Norm
+### `norm`
 
 An Analyzer capable of normalizing the text, treated as a single
 token, i.e. case conversion and accent removal.
@@ -157,7 +157,7 @@ attributes:
   - `"upper"` to convert to all upper-case characters
   - `"none"` to not change character case (default)
 
-### N-gram
+### `ngram`
 
 An Analyzer capable of producing n-grams from a specified input in a range of
 min..max (inclusive). Can optionally preserve the original input.
@@ -209,7 +209,7 @@ produce the following:
 - `"oobar$"`
 - `"obar$"`
 
-### Text
+### `text`
 
 An Analyzer capable of breaking up strings into individual words while also
 optionally filtering out stop-words, extracting word stems, applying

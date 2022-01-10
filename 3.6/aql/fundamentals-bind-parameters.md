@@ -65,7 +65,7 @@ FOR u IN users
   RETURN u
 ```
 
-Bind paramers can be used for both, the dot notation as well as the square
+Bind parameters can be used for both, the dot notation as well as the square
 bracket notation for sub-attribute access. They can also be chained:
 
 ```js

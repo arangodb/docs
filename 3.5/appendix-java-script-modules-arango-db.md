@@ -3,7 +3,7 @@ layout: default
 description: The @arangodb module provides the db object and AQL helper methods for Foxx, arangosh etc.
 title: ArangoDB JS API Module
 redirect_from:
-  - /3.5/cookbook/aql-multiline-query-strings.html # 3.5 -> 3.5
+  - cookbook/aql-multiline-query-strings.html # 3.5 -> 3.5
 ---
 ArangoDB Module
 ===============
@@ -55,7 +55,7 @@ Starting with ArangoDB 3.4 queries generated using the `aql` template tag can
 be used inside other `aql` template strings, allowing arbitrary nesting. Bind
 parameters of nested queries will be merged automatically.
 
-To find out more about AQL see the [AQL documentation](../aql/).
+To find out more about AQL see the [AQL documentation](aql/index.html).
 
 **Examples**
 

@@ -97,6 +97,15 @@ The `-c` option enables compact JSON (as opposed to pretty printed JSON).
 `".[]"` is a filter that unpacks the top-level array and effectively puts each
 object in that array on a separate line in combination with the compact option.
 
+jq needs to create an internal representation of the entire input first however,
+making this method unsuitable for large JSON source files. jq v1.5 added
+support for a streaming mode that can perform the conversion on the fly with
+minimal memory usage:
+
+```
+jq -cn --stream "fromstream(1|truncate_stream(inputs))" inputFile.json > outputFile.jsonl
+```
+
 An example `inputFile.json` can look like this:
 
 ```json
@@ -133,6 +142,22 @@ The conversion produces the following `outputFile.jsonl`:
 {"isActive":true,"name":"Evans Wheeler","latitude":-0.119406,"longitude":146.271888,"tags":["amet","qui","velit"]}
 {"isActive":true,"name":"Coffey Barron","latitude":-37.78772,"longitude":131.218935,"tags":["dolore","exercitation","irure","velit"]}
 ```
+
+Reading compressed input files
+------------------------------
+
+*arangoimport* can transparently process gzip-compressed input files
+if they have a ".gz" file extension, e.g.
+
+    arangoimport --file "users.jsonl.gz" --type jsonl --collection "users"
+
+For other input formats it is possible to decompress the input file using another
+program and piping its output into arangoimport, e.g.
+
+    bzcat data.bz2 | arangoimport --file "-" --type jsonl --collection "users"
+
+This example requires that a `bzcat` utility for decompressing bzip2-compressed
+files is available, and that the shell supports pipes.
 
 Import Example and Common Options
 ---------------------------------

@@ -1,23 +1,26 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products</span> &lt;&lt;EOF
 [ 
-  <span class="hljs-string">"1"</span>, 
-  <span class="hljs-string">"2"</span> 
+  <span class="hljs-string">&quot;1&quot;</span>, 
+  <span class="hljs-string">&quot;2&quot;</span> 
 ]
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> OK
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">107</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 [ 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/1"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"1"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hQ2m--A"</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/1&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;1&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZvyu---&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/2"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"2"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_al3hQ2m--C"</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/2&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;2&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZvyu--A&quot;</span> 
   } 
 ]

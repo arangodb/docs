@@ -2,7 +2,7 @@
 layout: default
 description: We run a cluster and want to know whether the traffic is unbalanced or something like that
 redirect_from:
-  - /3.7/cookbook/monitoring-traffic-with-ipaccounting.html # 3.5 -> 3.5
+  - cookbook/monitoring-traffic-with-ipaccounting.html # 3.5 -> 3.5
 ---
 Monitoring ArangoDB Cluster network usage
 =========================================

@@ -263,7 +263,7 @@ Return the base 10 logarithm of *value*.
   equal or less than 0
 
 ```js
-LOG10(10000) // 10
+LOG10(10000) // 4
 LOG10(10) // 1
 LOG10(0) // null
 ```
@@ -372,6 +372,25 @@ Return the *base* to the exponent *exp*.
 POW( 2, 4 ) // 16
 POW( 5, -1 ) // 0.2
 POW( 5, 0 ) // 1
+```
+
+PRODUCT()
+---------
+
+<small>Introduced in: v3.7.2</small>
+
+`PRODUCT(numArray) → product`
+
+Return the product of the values in *array*.
+
+- **numArray** (array): an array of numbers, *null* values are ignored
+- returns **product** (number): the product of all values in *numArray*. If the array
+  is empty or only *null* values are contained in the array, *1* will be returned.
+
+```js
+PRODUCT( [1, 2, 3, 4] ) // 24
+PRODUCT( [null, -5, 6] ) // -30
+PRODUCT( [ ] ) // 1
 ```
 
 RADIANS()

@@ -28,7 +28,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <a class="btn pull-left js-toolbar-action hamburger" aria-label=""><i class="fa fa-align-justify"></i></a>
-          <a class="btn pull-left js-toolbar-action" aria-label="" href="https://github.com/arangodb/docs/edit/master/{{ page["path"] }}" target="_blank"><i class="fa fa-github"></i> Contribute</a>
+          <a class="btn pull-left js-toolbar-action" aria-label="" href="https://github.com/arangodb/docs/edit/main/{{ page["path"] | resolve_symlink }}" target="_blank"><i class="fa fa-github"></i> Contribute</a>
         </div>
         <div class="page-wrapper" tabindex="-1" role="main">
           <div class="page-inner">
@@ -52,7 +52,7 @@ This documentation is outdated. Please see the most recent version here: <a href
         <script type="text/javascript">
           var disablePageToc = {{ page["page-toc"].disable | jsonify }};
           if (!disablePageToc) {
-            generateToc();
+            generateToc({{ page["page-toc"]["max-headline-level"] }});
           }
         </script>
       </div>
@@ -60,5 +60,6 @@ This documentation is outdated. Please see the most recent version here: <a href
   </div>
   {% include algolia.html %}
   <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/2482448.js"></script>
+  <noscript><img src="https://ws.zoominfo.com/pixel/60e5aeed1cb467001537be54" width="1" height="1" style="display: none;" /></noscript>
 </body>
 </html>

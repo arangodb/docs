@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/batch</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/batch</span> &lt;&lt;EOF
 --SomeBoundaryValue
 Content-Type: application/x-arango-batchpart
 
@@ -12,8 +12,11 @@ DELETE _api/collection/notexisting2 HTTP/1.1
 
 EOF
 
-HTTP/1.1 OK
+HTTP/1.1 200 OK
 content-type: unset
+connection: Keep-Alive
+content-length: 598
+server: ArangoDB
 x-arango-errors: 2
 x-content-type-options: nosniff
 
@@ -27,10 +30,10 @@ Content-Type: application/json; charset=utf-8
 Content-Length: 87
 
 { 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">404</span>, 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"collection or view not found"</span>, 
-  <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">1203</span> 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">404</span>, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;collection or view not found&quot;</span>, 
+  <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">1203</span> 
 }&#x21A9;
 
 --SomeBoundaryValue
@@ -43,10 +46,10 @@ Content-Type: application/json; charset=utf-8
 Content-Length: 101
 
 { 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">404</span>, 
-  <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">404</span>, 
-  <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"unknown path '_api/collection/notexisting2'"</span> 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">404</span>, 
+  <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">404</span>, 
+  <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;unknown path &#x27;_api/collection/notexisting2&#x27;&quot;</span> 
 }&#x21A9;
 
 --SomeBoundaryValue--

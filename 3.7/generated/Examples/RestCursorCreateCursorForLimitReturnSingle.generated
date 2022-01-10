@@ -1,46 +1,49 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/cursor</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/cursor</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"query"</span> : <span class="hljs-string">"FOR p IN products LIMIT 2 RETURN p"</span>, 
-  <span class="hljs-string">"count"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"batchSize"</span> : <span class="hljs-number">2</span> 
+  <span class="hljs-string">&quot;query&quot;</span> : <span class="hljs-string">&quot;FOR p IN products LIMIT 2 RETURN p&quot;</span>, 
+  <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;batchSize&quot;</span> : <span class="hljs-number">2</span> 
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Created
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">430</span>
+server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"result"</span> : [ 
+  <span class="hljs-string">&quot;result&quot;</span> : [ 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70574"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70574"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbakO---"</span>, 
-      <span class="hljs-string">"hello1"</span> : <span class="hljs-string">"world1"</span> 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71145&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/71145&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWMAm---&quot;</span>, 
+      <span class="hljs-string">&quot;hello1&quot;</span> : <span class="hljs-string">&quot;world1&quot;</span> 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70576"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70576"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_a4RbakS---"</span>, 
-      <span class="hljs-string">"hello2"</span> : <span class="hljs-string">"world1"</span> 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71147&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/71147&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWMAq---&quot;</span>, 
+      <span class="hljs-string">&quot;hello2&quot;</span> : <span class="hljs-string">&quot;world1&quot;</span> 
     } 
   ], 
-  <span class="hljs-string">"hasMore"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">"cached"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"extra"</span> : { 
-    <span class="hljs-string">"stats"</span> : { 
-      <span class="hljs-string">"writesExecuted"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"writesIgnored"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"scannedFull"</span> : <span class="hljs-number">2</span>, 
-      <span class="hljs-string">"scannedIndex"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00037050480023026466</span>, 
-      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">35582</span> 
+  <span class="hljs-string">&quot;hasMore&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-number">2</span>, 
+  <span class="hljs-string">&quot;cached&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;extra&quot;</span> : { 
+    <span class="hljs-string">&quot;stats&quot;</span> : { 
+      <span class="hljs-string">&quot;writesExecuted&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;writesIgnored&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;scannedFull&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;scannedIndex&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;filtered&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;httpRequests&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.0003136247396469116</span>, 
+      <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">6764</span> 
     }, 
-    <span class="hljs-string">"warnings"</span> : [ ] 
+    <span class="hljs-string">&quot;warnings&quot;</span> : [ ] 
   }, 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">201</span> 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">201</span> 
 }

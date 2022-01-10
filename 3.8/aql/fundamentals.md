@@ -1,10 +1,9 @@
 ---
 layout: default
-description: Learn more about optimizing your queries by going through thePerformance Course
+description: AQL syntax, data types, bind parameters and more
 ---
 AQL Fundamentals
 ================
-
 
 * [AQL Syntax](fundamentals-syntax.html) explains the structure of the AQL language.
 * [Data Types](fundamentals-data-types.html) describes the primitive and compound data types supported by AQL.
@@ -13,3 +12,4 @@ AQL Fundamentals
 * [Accessing Data from Collections](fundamentals-document-data.html): describes the impact of non-existent or null attributes for selection queries. 
 * [Query Results](fundamentals-query-results.html): the result of an AQL query is an array of values. 
 * [Query Errors](fundamentals-query-errors.html): errors may arise from the AQL parsing or execution. 
+* [Limitations](fundamentals-limitations.html): known limitations for AQL queries.

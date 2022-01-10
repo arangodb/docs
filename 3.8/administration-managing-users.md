@@ -3,8 +3,8 @@ layout: default
 description: User management is possible in the web interface and in arangosh while logged on to the _system database.
 title: Manage User Authentication in ArangoDB
 redirect_from:
-  - /3.8/cookbook/administration-show-users-grants.html # 3.5 -> 3.5
-  - /3.8/cookbook/administration-authentication.html # 3.5 -> 3.5
+  - cookbook/administration-show-users-grants.html # 3.5 -> 3.5
+  - cookbook/administration-authentication.html # 3.5 -> 3.5
 ---
 Managing Users
 ==============
@@ -20,9 +20,10 @@ authentication = true
 ```
 
 This will make ArangoDB require authentication for every request (including
-requests to Foxx apps). If you want to run Foxx apps without HTTP
-authentication, but activate HTTP authentication for the built-in server APIs,
-you can add the following line in the `[server]` section of the configuration:
+requests to Foxx apps depending on the option below). If you want to run Foxx
+apps without HTTP authentication, but activate HTTP authentication for the built-in
+server APIs, you can add the following line in the `[server]` section of the 
+configuration:
 
 ```
 authentication-system-only = true

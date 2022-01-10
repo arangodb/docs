@@ -392,7 +392,7 @@ Path data (shortened):
 The first and second vertex of the nth path are connected by the first edge
 (`p[n].vertices[0]` ⟝ `p[n].edges[0]` → `p[n].vertices[1]`) and so on. This
 structure might actually be more convenient to process compared to a tree-like
-structure. Note that the edge documents are also included, in constrast to the
+structure. Note that the edge documents are also included, in contrast to the
 removed graph traversal function.
 
 Contact us via our social channels if you need further help.

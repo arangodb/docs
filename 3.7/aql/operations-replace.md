@@ -86,8 +86,8 @@ FOR u IN users
   REPLACE u WITH { status: 'inactive', name: u.name } IN backup
 ```
 
-Setting query options
----------------------
+Query options
+-------------
 
 *options* can be used to suppress query errors that may occur when trying to
 replace non-existing documents or when violating unique key constraints:
@@ -105,7 +105,7 @@ FOR i IN 1..1000
   REPLACE { _key: CONCAT('test', i) } WITH { foobar: true } IN users OPTIONS { waitForSync: true }
 ```
 
-In order to not accidentially overwrite documents that have been updated since you last fetched
+In order to not accidentally overwrite documents that have been updated since you last fetched
 them, you can use the option *ignoreRevs* to either let ArangoDB compare the `_rev` value and only 
 succeed if they still match, or let ArangoDB ignore them (default):
 

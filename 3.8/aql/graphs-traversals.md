@@ -2,6 +2,9 @@
 layout: default
 description: There are two syntaxes for graph traversals in ArangoDB Query Language (AQL), the named graph and the anonymous graph.
 title: Graph Traversals in ArangoDB Query Language (AQL)
+redirect_from:
+  - ../http/traversal.html # 3.8 -> 3.8
+  - ../graphs-traversals-using-traversal-objects.html # 3.8 -> 3.8
 ---
 Graph traversals in AQL
 =======================
@@ -57,42 +60,51 @@ FOR vertex[, edge[, path]]
 - `PRUNE` **condition** (AQL condition, *optional*, (since version 3.4.5)):
   A condition, like in a FILTER statement, which will be evaluated in every step
   of the traversal, as early as possible. The semantics of this condition is as follows:
-    * If the condition evaluates to `true` this path will be considered as a result,
-      it might still be post filtered or ignored due to depth constraints. However
-      the search will not continue from this path, namely there will be no
-      result having this path as a prefix.
-      e.g.: Take the path: `(A) -> (B) -> (C)`  starting at `A` and PRUNE on `B`
-      will result in `(A)` and `(A) -> (B)` being valid paths, and `(A) -> (B) -> (C)`
-      not returned, it got pruned on B.
-    * If the condition evaluates to `false` we will continue our search beyond
-      this path.
+  - If the condition evaluates to `true` this path will be considered as a result,
+    it might still be post filtered or ignored due to depth constraints. However
+    the search will not continue from this path, namely there will be no
+    result having this path as a prefix.
+    e.g.: Take the path: `(A) -> (B) -> (C)`  starting at `A` and PRUNE on `B`
+    will result in `(A)` and `(A) -> (B)` being valid paths, and `(A) -> (B) -> (C)`
+    not returned, it got pruned on B.
+  - If the condition evaluates to `false` we will continue our search beyond
+    this path.
   There is only one `PRUNE` condition possible, but it can contain an arbitrary amount
   of `AND` or `OR` statements.
   Also note that you can use the output variables of this traversal in the `PRUNE`,
   as well as all variables defined before this Traversal statement.
 - `OPTIONS` **options** (object, *optional*): used to modify the execution of the
   traversal. Only the following attributes have an effect, all others are ignored:
-  - **bfs** (bool): optionally use the alternative breadth-first traversal algorithm
-    - true – the traversal will be executed breadth-first. The results will first
-      contain all vertices at depth 1. Than all vertices at depth 2 and so on.
-    - false (default) – the traversal will be executed depth-first. It will first
-      return all paths from *min* depth to *max* depth for one vertex at depth 1.
-      Than for the next vertex at depth 1 and so on.
+  - **order** (string): optionally specify which traversal algorithm to use
+    - `"bfs"` – the traversal will be executed breadth-first. The results will
+      first contain all vertices at depth 1, then all vertices at depth 2 and so on.
+    - `"dfs"` (default) – the traversal will be executed depth-first. It will
+      first return all paths from *min* depth to *max* depth for one vertex at
+      depth 1, then for the next vertex at depth 1 and so on.
+    - `"weighted"` - the traversal will be a weighted traversal
+      (introduced in v3.8.0). Paths are enumerated with increasing cost.
+      Also see `weightAttribute` and `defaultWeight`. A returned path has an
+      additional attribute `weight` containing the cost of the path after every
+      step. The order of paths having the same cost is non-deterministic.
+      Negative weights are not supported and will abort the query with an error.
+  - **bfs** (bool): deprecated, use `order: "bfs"` instead.
   - **uniqueVertices** (string): optionally ensure vertex uniqueness
-    - "path" – it is guaranteed that there is no path returned with a duplicate vertex
-    - "global" – it is guaranteed that each vertex is visited at most once during
+    - `"path"` – it is guaranteed that there is no path returned with a duplicate vertex
+    - `"global"` – it is guaranteed that each vertex is visited at most once during
       the traversal, no matter how many paths lead from the start vertex to this one.
       If you start with a `min depth > 1` a vertex that was found before *min* depth
-      might not be returned at all (it still might be part of a path). **Note:**
+      might not be returned at all (it still might be part of a path).
+      It is required to set `order: "bfs"` or `order: "weighted"` because with
+      depth-first search the results would be unpredictable. **Note:**
       Using this configuration the result is not deterministic any more. If there
       are multiple paths from *startVertex* to *vertex*, one of those is picked.
-      It is required to set `bfs: true` because with depth-first search the results
-      would be unpredictable.
-    - "none" (default) – no uniqueness check is applied on vertices
+      In case of a `weighted` traversal, the path with the lowest weight is
+      picked, but in case of equal weights it is undefined which one is chosen.
+    - `"none"` (default) – no uniqueness check is applied on vertices
   - **uniqueEdges** (string): optionally ensure edge uniqueness
-    - "path" (default) – it is guaranteed that there is no path returned with a
+    - `"path"` (default) – it is guaranteed that there is no path returned with a
       duplicate edge
-    - "none" – no uniqueness check is applied on edges. **Note:**
+    - `"none"` – no uniqueness check is applied on edges. **Note:**
       Using this configuration the traversal will follow edges in cycles.
   - **edgeCollections** (string\|array): Optionally restrict edge
     collections the traversal may visit (introduced in v3.7.0). If omitted,
@@ -125,9 +137,22 @@ FOR vertex[, edge[, path]]
 
     Traversal parallelization is only available in the *Enterprise Edition*, and
     limited to traversals in single server deployments and to cluster traversals
-    that are running in a OneShard setup. Cluster traversals that run on a coordinator
-    node and SmartGraph traversals are currently not parallelized, even if the
-    options is specified.
+    that are running in a OneShard setup. Cluster traversals that run on a
+    Coordinator node and SmartGraph traversals are currently not parallelized,
+    even if the options is specified.
+  - **weightAttribute** (string, *optional*): Specifies the name of an attribute
+    that is used to look up the weight of an edge. If no attribute is specified
+    or if it is not present in the edge document then the `defaultWeight` is used.
+    The attribute value must not be negative.
+  - **defaultWeight** (number, *optional*): Specifies the default weight of an edge.
+    The value must not be negative. The default value is `1`.
+
+{% hint 'info' %}
+Weighted traversals do not support negative weights. If a document
+attribute (as specified by `weightAttribute`) with a negative value is
+encountered during traversal, or if `defaultWeight` is set to a negative
+number, then the query is aborted with an error.
+{% endhint %}
 
 ### Working with collection sets
 
@@ -175,12 +200,13 @@ collection in your traversal.
 
 Due to the nature of graphs, edges may reference vertices from arbitrary
 collections. Following the paths can thus involve documents from various
-collections and it's not possible to predict which will be visited in a
-traversal. Hence, which collections need to be locked can only be determined
-at run time. Deadlocks may occur under certain circumstances.
+collections and it is not possible to predict which will be visited in a
+traversal. Which collections need to be loaded by the graph engine can only be
+determined at run time.
 
-Please consider to use the [`WITH` statement](operations-with.html) to
-specify the collections you expect to be involved.
+Use the [`WITH` statement](operations-with.html) to specify the collections you
+expect to be involved. This is required for traversals using collection sets
+in cluster deployments.
 
 Using filters and the explainer to extrapolate the costs
 --------------------------------------------------------
@@ -263,6 +289,14 @@ example:
     @endDocuBlock GRAPHTRAV_graphPruneCollection
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% hint 'warning' %}
+The edge emitted for the starting vertex is `null`. Keep this in mind when you
+write `PRUNE` conditions involving the edge variable. A `PRUNE` condition like
+`edge.label != 'foo'` is undesirably true at depth 0 and thus terminates the
+traversal too early. A construction like `(!IS_NULL(edge) AND edge.label != 'foo')`
+can be used to avoid it.
+{% endhint %}
 
 ### Filtering on paths
 
