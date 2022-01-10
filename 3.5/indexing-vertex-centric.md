@@ -46,6 +46,7 @@ However in the list of fields used to create the index we have to include either
 Let us again explain this by an example.
 Assume we want to create an hash-based outbound vertex-centric index on the attribute `type`.
 This can be created with the following way:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureVertexCentricHashIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureVertexCentricHashIndex}
@@ -56,6 +57,7 @@ This can be created with the following way:
     @endDocuBlock ensureVertexCentricHashIndex
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 All options that are supported by the respective indexes are supported by the vertex-centric index as well.
 
 Index usage

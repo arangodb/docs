@@ -6,18 +6,15 @@ Arangodump Options
 ==================
 
 Usage: `arangodump [<options>]`
-{% assign options = site.data["35-program-options-arangodump"] %}{% include program-option.html options=options name="arangodump" %}
+{% assign options = site.data["35-program-options-arangodump"] %}
+{% include program-option.html options=options name="arangodump" %}
 
 Notes
 -----
 
 ### Encryption Option Details
 
-{% hint 'info' %}
-Dump encryption is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="Dump encryption" %}
  
 *\--encryption.keyfile path-of-keyfile*
 

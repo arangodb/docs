@@ -29,7 +29,6 @@
   },
   "check-configuration" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "check the configuration and exit",
     "dynamic" : false,
@@ -86,7 +85,6 @@
   },
   "dump-dependencies" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "dump dependency graph",
     "dynamic" : false,
@@ -100,12 +98,25 @@
   },
   "dump-options" : {
     "category" : "command",
-    "default" : true,
     "deprecatedIn" : null,
     "description" : "dump configuration options in JSON format",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
+  "force" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "abort transactions if needed to ensure a consistent snapshot. This option can destroy the atomicity of your transactions in the presence of intermediate commits! Use it with great care and only if you really need a consistent backup at all costs (create operation)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
     "introducedIn" : null,
     "obsolete" : false,
     "requiresValue" : false,
@@ -125,6 +136,20 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
+  },
+  "ignore-version" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "ignore stored version of a backup. Restore may not work if versions mismatch (restore operation)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
   },
   "label" : {
     "category" : "option",
@@ -158,12 +183,30 @@
     "section" : "",
     "type" : "string..."
   },
+  "log.api-enabled" : {
+    "category" : "option",
+    "default" : "true",
+    "deprecatedIn" : null,
+    "description" : "whether the log api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.11",
+      "v3.5.6",
+      "v3.6.5"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string"
+  },
   "log.color" : {
     "category" : "option",
     "default" : true,
     "deprecatedIn" : null,
     "description" : "use colors for TTY logging",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
@@ -209,8 +252,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "requiresValue" : true,
@@ -226,8 +268,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "requiresValue" : true,
@@ -253,7 +294,7 @@
     "default" : false,
     "deprecatedIn" : null,
     "description" : "also log to tty if backgrounded",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : null,
@@ -312,7 +353,7 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
@@ -490,7 +531,7 @@
     "category" : "option",
     "default" : 60,
     "deprecatedIn" : null,
-    "description" : "maximum time to wait in seconds to aquire a lock on all necessary resources (create operation)",
+    "description" : "maximum time to wait in seconds to acquire a lock on all necessary resources (create operation)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -548,7 +589,7 @@
     "category" : "option",
     "default" : "",
     "deprecatedIn" : null,
-    "description" : "filename of the rclone configuration file used forfile transfer (upload/download operation)",
+    "description" : "filename of the Rclone configuration file used forfile transfer (upload/download operation)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -562,7 +603,7 @@
     "category" : "option",
     "default" : "",
     "deprecatedIn" : null,
-    "description" : "remote rclone path of directory used to store or receive backups (upload/download operation)",
+    "description" : "remote Rclone path of directory used to store or receive backups (upload/download operation)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -571,20 +612,6 @@
     "requiresValue" : true,
     "section" : "",
     "type" : "string"
-  },
-  "save-current" : {
-    "category" : "option",
-    "default" : false,
-    "deprecatedIn" : null,
-    "description" : "whether to save the current state as a backup before restoring to another state (restore operation)",
-    "dynamic" : false,
-    "enterpriseOnly" : false,
-    "hidden" : false,
-    "introducedIn" : null,
-    "obsolete" : false,
-    "requiresValue" : false,
-    "section" : "",
-    "type" : "boolean"
   },
   "server.authentication" : {
     "category" : "option",
@@ -745,7 +772,6 @@
   },
   "version" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "reports the version and exits",
     "dynamic" : false,

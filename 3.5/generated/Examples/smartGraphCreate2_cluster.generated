@@ -3,6 +3,6 @@ arangosh&gt; <span class="hljs-keyword">var</span> edgeDefinitions = [ graph_mod
 arangosh&gt; <span class="hljs-keyword">var</span> graph = graph_module._create(<span class="hljs-string">"myGraph"</span>, edgeDefinitions, [], {<span class="hljs-attr">smartGraphAttribute</span>: <span class="hljs-string">"region"</span>, <span class="hljs-attr">numberOfShards</span>: <span class="hljs-number">9</span>});
 arangosh&gt; graph_module._graph(<span class="hljs-string">"myGraph"</span>);
 {[SmartGraph] 
-  <span class="hljs-string">"edges"</span> : [ArangoCollection <span class="hljs-number">4010067</span>, <span class="hljs-string">"edges"</span> (type edge, status loaded)], 
-  <span class="hljs-string">"vertices"</span> : [ArangoCollection <span class="hljs-number">4010057</span>, <span class="hljs-string">"vertices"</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
+  <span class="hljs-string">"edges"</span> : [ArangoCollection <span class="hljs-number">4010065</span>, <span class="hljs-string">"edges"</span> (type edge, status loaded)], 
+  <span class="hljs-string">"vertices"</span> : [ArangoCollection <span class="hljs-number">4010055</span>, <span class="hljs-string">"vertices"</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
 }

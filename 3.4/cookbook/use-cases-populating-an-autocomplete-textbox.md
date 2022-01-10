@@ -1,6 +1,9 @@
 ---
 layout: default
 description: I want to populate an autocomplete textbox with values from a collection
+redirect_from:
+  - /3.5/cookbook/use-cases-populating-an-autocomplete-textbox.html # 3.5 -> 3.5
+  - /3.6/cookbook/use-cases-populating-an-autocomplete-textbox.html # 3.5 -> 3.5
 ---
 Populating an autocomplete textbox
 ==================================

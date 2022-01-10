@@ -1,8 +1,7 @@
 ---
 layout: default
-description: If Kubernetes nodes with ArangoDB pods on them are drained without caredata loss can occur! The recommended procedure is described below
+description: If Kubernetes nodes with ArangoDB pods on them are drained without care data loss can occur! The recommended procedure is described below
 ---
-
 # Draining Kubernetes nodes
 
 {% hint 'danger' %}
@@ -280,7 +279,7 @@ below, the procedure should also work without this.
 Finally, one should **not run a rolling upgrade or restart operation**
 at the time of a node drain.
 
-## Clean out a DBserver manually
+## Clean out a DB-Server manually
 
 In this step we clean out a _DBServer_ manually, **before issuing the
 `kubectl drain` command**. Previously, we have denoted this step as optional,
@@ -315,7 +314,7 @@ POST /_admin/cluster/cleanOutServer
 {"server":"DBServer0006"}
 ```
 
-The value of the `"server"` attribute should be the name of the DBserver
+The value of the `"server"` attribute should be the name of the DB-Server
 which is the one in the pod which resides on the node that shall be
 drained next. This uses the UI short name (`ShortName` in the
 `/_admin/cluster/health` API), alternatively one can use the
@@ -410,7 +409,7 @@ completely risk-free, even with a small grace period.
 ## Performing the drain
 
 After all above [checks before a node drain](#things-to-check-in-arangodb-before-a-node-drain)
-and the [manual clean out of the DBServer](#clean-out-a-dbserver-manually)
+and the [manual clean out of the DB-Server](#clean-out-a-db-server-manually)
 have been done successfully, it is safe to perform the drain operation, similar to this command:
 
 ```bash
@@ -426,7 +425,7 @@ much data is stored in the pod, your mileage may vary, moving a terabyte
 of data can take considerably longer!
 
 If the highly recommended step of
-[cleaning out a DBserver manually](#clean-out-a-dbserver-manually)
+[cleaning out a DB-Server manually](#clean-out-a-db-server-manually)
 has been performed beforehand, the grace period can easily be reduced to 60
 seconds - at least from the perspective of ArangoDB, since the server is already
 cleaned out, so it can be dropped readily and there is still no risk.

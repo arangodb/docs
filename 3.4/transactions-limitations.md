@@ -94,7 +94,7 @@ intermediate commits for the RocksDB engine:
 `--rocksdb.max-transaction-size`
 
 Transaction size limit (in bytes). Transactions store all keys and values in
-RAM, so large transactions run the risk of causing out-of-memory sitations.
+RAM, so large transactions run the risk of causing out-of-memory situations.
 This setting allows you to ensure that does not happen by limiting the size of
 any individual transaction. Transactions whose operations would consume more
 RAM than this threshold value will abort automatically with error 32 ("resource

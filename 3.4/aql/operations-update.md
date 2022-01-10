@@ -223,7 +223,7 @@ FOR u IN users
   } IN users OPTIONS { waitForSync: true }
 ```
 
-In order to not accidentially overwrite documents that have been updated since you last fetched
+In order to not accidentally overwrite documents that have been updated since you last fetched
 them, you can use the option *ignoreRevs* to either let ArangoDB compare the `_rev` value and 
 only succeed if they still match, or let ArangoDB ignore them (default):
 
@@ -236,7 +236,7 @@ FOR i IN 1..1000
 
 In contrast to the MMFiles engine, the RocksDB engine does not require collection-level
 locks. Different write operations on the same collection do not block each other, as
-long as there are no _write-write conficts_ on the same documents. From an application
+long as there are no _write-write conflicts_ on the same documents. From an application
 development perspective it can be desired to have exclusive write access on collections,
 to simplify the development. Note that writes do not block reads in RocksDB.
 Exclusive access can also speed up modification queries, because we avoid conflict checks.

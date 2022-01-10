@@ -43,8 +43,8 @@ They use the full spectrum of ArangoDB's graph features. You may access them via
 - [JavaScript General Graph implementation, as you may use it in Foxx Services](graphs-general-graphs.html)
   - [Graph Management](graphs-general-graphs-management.html); creating & manipulating graph definitions; inserting, updating and deleting vertices and edges into graphs
   - [Graph Functions](graphs-general-graphs-functions.html) for working with edges and vertices, to analyze them and their relations
-- [JavaScript Smart Graph implementation, for scalable graphs](graphs-smart-graphs.html)
-  - [Smart Graph Management](graphs-smart-graphs-management.html); creating & manipulating SmartGraph definitions; Differences to General Graph 
+- [JavaScript SmartGraph implementation, for scalable graphs](graphs-smart-graphs.html)
+  - [SmartGraph Management](graphs-smart-graphs-management.html); creating & manipulating SmartGraph definitions; Differences to General Graph 
 - [RESTful General Graph interface](http/gharial.html) used to implement graph management in client drivers
 
 ### Manipulating collections of named graphs with regular document functions
@@ -213,6 +213,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
     @endDocuBlock graph_create_knows_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 **Note:** with the default "Search Depth" of 2 of the graph viewer you may not see all edges of this graph.
 
 ### The Social Graph
@@ -283,6 +284,7 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
     @endDocuBlock graph_create_traversal_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 **Note:** with the default "Search Depth" of 2 of the graph viewer you may not see all nodes of this graph.
 
 ### The k Shortest Paths Graph
@@ -362,13 +364,8 @@ Another huge graph is the [Pokec social network](https://snap.stanford.edu/data/
 from Slovakia that we [used for performance testing on several databases](https://www.arangodb.com/2015/06/multi-model-benchmark/){:target="_blank"};
 You will find importing scripts etc. in this blogpost.
 
-Cookbook examples
------------------
+More examples
+-------------
 
-The above referenced chapters describe the various APIs of ArangoDBs graph engine with small examples. Our cookbook has some more real life examples:
-
- - [Traversing a graph in full depth](cookbook/graph-fulldepth-traversal.html)
- - [Retrieving documents from ArangoDB without knowing the structure](cookbook/use-cases-java-driver-base-document.html)
- - [Using a custom visitor from node.js](cookbook/graph-custom-visitor-from-node-js.html)
- - [AQL Example Queries on an Actors and Movies Database](cookbook/graph-example-actors-and-movies.html)
-
+ - [Retrieving documents from ArangoDB without knowing the structure](drivers/java-examples-base-document.html)
+ - [AQL Example Queries on an Actors and Movies Database](aql/examples-actors-and-movies.html)

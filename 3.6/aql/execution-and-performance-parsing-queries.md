@@ -17,6 +17,7 @@ The return value is an object with the collection names used in the query listed
 Additionally, the internal representation of the query, the query's abstract syntax tree, will
 be returned in the `AST` attribute of the result. Please note that the abstract syntax tree
 will be returned without any optimizations applied to it.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 11_workWithAQL_parseQueries
     @EXAMPLE_ARANGOSH_OUTPUT{11_workWithAQL_parseQueries}

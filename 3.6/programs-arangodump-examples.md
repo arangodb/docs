@@ -28,7 +28,7 @@ following startup options:
   password)
 - `--server.authentication <bool>`: whether or not to use authentication
 
-If you want to connect to a different database or dump all databases you can additionaly
+If you want to connect to a different database or dump all databases you can additionally
 use the following startup options:
 
 - `--all-databases true`: must have access to all databases, and not specify a database.
@@ -72,13 +72,13 @@ It can be specified multiple times if required:
     arangodump --collection myusers --collection myvalues --output-directory "dump"
 
 Structural information for a collection will be saved in files with name pattern
-*<collection-name>.structure.json*. Each structure file will contains a JSON object
+`<collection-name>.structure.json`. Each structure file will contains a JSON object
 with these attributes:
 - *parameters*: contains the collection properties
 - *indexes*: contains the collection indexes
 
 Document data for a collection will be saved in files with name pattern
-*<collection-name>.data.json*. Each line in a data file is a document insertion/update or
+`<collection-name>.data.json`. Each line in a data file is a document insertion/update or
 deletion marker, alongside with some meta data.
 
 Cluster Backup
@@ -134,11 +134,7 @@ more details about restoring the collection.
 Encryption
 ----------
 
-{% hint 'info' %}
-Dump encryption is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="Dump encryption" %}
 
 Starting from version 3.3 encryption of the dump is supported.
 
@@ -201,7 +197,7 @@ engine, which does not have encryption-at-rest.
 Compression
 -----------
 
-<small>Introduced in:  v3.4.6, v3.5.0</small>
+<small>Introduced in: v3.4.6</small>
 
 `--compress-output`
 

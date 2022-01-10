@@ -116,8 +116,8 @@ it is to be expected that certain functionality (e.g. some API endpoints, the
 WebUI, some AQL functions etc) will be missing or severely broken. Nevertheless
 you may wish to reduce the footprint of ArangoDB by disabling V8.
 
-This option is expected to **only** work reliably on a _single server_, _DBServer_,
-or _agency_. Do not try to use this feature on a _coordinator_ or in the _ActiveFailover_ setup.
+This option is expected to **only** work reliably on a _single server_, _DB-Server_,
+or _Agency_. Do not try to use this feature on a _Coordinator_ or in the _ActiveFailover_ setup.
 
 ### Copy JavaScript Installation files
 

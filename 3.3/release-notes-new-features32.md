@@ -110,8 +110,8 @@ supported there:
 
 * fulltext: user-defined sorted reverted index on words occurring in documents
 
-Satellite Collections
----------------------
+SatelliteCollections
+--------------------
 
 With SatelliteCollections, you can define collections to shard to a cluster and
 collections to replicate to each machine. The ArangoDB query optimizer knows where
@@ -120,7 +120,7 @@ executes the query, locally. With this approach, network hops during join
 operations on sharded collections can be avoided and response times can be close to
 that of a single instance.
 
-[Satellite collections](administration-replication-synchronous-satellites.html)
+[SatelliteCollections](administration-replication-synchronous-satellites.html)
 are available in the *Enterprise* edition.
 
 

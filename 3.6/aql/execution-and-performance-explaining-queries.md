@@ -26,6 +26,7 @@ Inspecting query plans
 The `explain` method of `ArangoStatement` as shown in the next chapters creates very verbose output.
 To get a human-readable output of the query plan you can use the `explain` method on our database
 object in arangosh. You may use it like this: (we disable syntax highlighting here)
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 01_workWithAQL_databaseExplain
     @EXAMPLE_ARANGOSH_OUTPUT{01_workWithAQL_databaseExplain}
@@ -34,6 +35,7 @@ object in arangosh. You may use it like this: (we disable syntax highlighting he
     @endDocuBlock 01_workWithAQL_databaseExplain
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The plan contains all execution nodes that are used during a query. These nodes represent different
 stages in a query. Each stage gets the input from the stage directly above (its dependencies). 
 The plan will show you the estimated number of items (results) for each query stage (under _Est._). Each
@@ -55,6 +57,7 @@ To use this in an interactive fashion on the shell you can use the
 `_profileQuery()` method on the `ArangoDatabase` object or use the web interface.
 
 For more information see [Profiling Queries](execution-and-performance-query-profiler.html).
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 01_workWithAQL_databaseProfileQuery
     @EXAMPLE_ARANGOSH_OUTPUT{01_workWithAQL_databaseProfileQuery}

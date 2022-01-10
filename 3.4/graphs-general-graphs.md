@@ -19,6 +19,7 @@ Three Steps to create a graph
 -----------------------------
 
 * Create a graph
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraphHowTo1
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo1}
@@ -30,7 +31,9 @@ Three Steps to create a graph
     @endDocuBlock generalGraphCreateGraphHowTo1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 * Add some vertex collections
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraphHowTo2
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo2}
@@ -45,7 +48,9 @@ Three Steps to create a graph
     @endDocuBlock generalGraphCreateGraphHowTo2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 * Define relations on the Graph
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline generalGraphCreateGraphHowTo3
     @EXAMPLE_ARANGOSH_OUTPUT{generalGraphCreateGraphHowTo3}

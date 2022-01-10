@@ -136,10 +136,10 @@ async function migrateMds(basePath, targetPath) {
             content = content.replace(/\]\((?!https?:)[^\)]*?([^/)]+\.png)\)/g, '](../images/\$1)');
         }
 
-        content = content.replace(/\]\((\.\.\/aql|-aql)\.html\)/g, '](../aql/)');
-        content = content.replace(/\]\((\.\.\/http|-http)\.html\)/g, '](../http/)');
-        content = content.replace(/\]\((\.\.\/drivers|-drivers)\.html\)/g, '](../drivers/)');
-        content = content.replace(/\]\((\.\.\/cookbook|-cookbook)\.html\)/g, '](../cookbook/)');
+        content = content.replace(/\]\((\.\.\/aql|-aql)\.html\)/g, '](aql/index.html)');
+        content = content.replace(/\]\((\.\.\/http|-http)\.html\)/g, '](http/index.html)');
+        content = content.replace(/\]\((\.\.\/drivers|-drivers)\.html\)/g, '](drivers/index.html)');
+        content = content.replace(/\]\((\.\.\/cookbook|-cookbook)\.html\)/g, '](cookbook/index.html)');
         content = content.replace("(-aql-dataqueries.html)", "(../aql/dataqueries.html");
         content = content.replace("(appendix/errorcodes.html)", "(appendix-errorcodes.html");
         content = content.replace("(indexing/hash.html)", "indexing-hash.html");
@@ -149,7 +149,7 @@ async function migrateMds(basePath, targetPath) {
             if (block.match(/@EXAMPLE_ARANGOSH.*/s)) {
                 return `{% arangoshexample examplevar=\"examplevar\" script=\"script\" result=\"result\" %}${block}{% endarangoshexample %}\n{% include arangoshexample.html id=examplevar script=script result=result %}`;
             } else if (block.match(/@EXAMPLE_AQL.*/s)) {
-                return `{% aqlexample examplevar=\"examplevar\" type=\"type\" query=\"query\" bind=\"bind\" result=\"result\" %}${block}{% endaqlexample %}\n{% include aqlexample.html id=examplevar query=query bind=bind result=result %}`;
+                return `{% aqlexample examplevar=\"examplevar\" type=\"type\" query=\"query\" bind=\"bind\" result=\"result\" %}${block}{% endaqlexample %}\n{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}`;
             }
             return block;
         });

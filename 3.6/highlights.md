@@ -6,6 +6,40 @@ title: ArangoDB Highlights
 Highlights
 ==========
 
+Version 3.6
+-----------
+
+**All Editions**
+
+- **AQL**:
+  Improved query performance thanks to
+  [early pruning](release-notes-new-features36.html#early-pruning-of-non-matching-documents),
+  [subquery splicing](release-notes-new-features36.html#subquery-splicing-optimization),
+  [late document materialization](release-notes-new-features36.html#late-document-materialization-rocksdb),
+  [parallelization](release-notes-new-features36.html#parallelization-of-cluster-aql-queries) for certain cluster queries
+  and more. New server-side [`maxRuntime`](aql/invocation-with-arangosh.html#setting-options)
+  option for queries.
+
+- **ArangoSearch**:
+  New [Analyzer options](release-notes-new-features36.html#analyzers) for
+  edge n-grams (`text` Analyzer), UTF-8 encoded n-gram input and optional
+  start/end markers (`ngram` Analyzer). Support for
+  [dynamic expressions](release-notes-new-features36.html#dynamic-search-expressions-with-arrays)
+  using arrays (array comparison operators in `SEARCH` queries and the
+  `TOKENS()` / `PHRASE()` functions accept arrays). Views can benefit from the
+  SmartJoins optimization.
+
+**Enterprise Edition**
+
+- [**OneShard**](architecture-deployment-modes-cluster-architecture.html#oneshard)
+  deployments offer a practicable solution that enables significant performance
+  improvements by massively reducing cluster-internal communication. A database
+  created with OneShard enabled is limited to a single DB-Server node but still
+  replicated synchronously to ensure resilience. This configuration allows
+  running transactions with ACID guarantees on shard leaders.
+
+Also see [What's New in 3.6](release-notes-new-features36.html).
+
 Version 3.5
 -----------
 
@@ -34,8 +68,8 @@ Version 3.5
   TTL indexes can be used to automatically remove documents in collections for
   use cases like expiring sessions or automatic purging of statistics or logs.
 
-- [**Index Hints**](aql/operations-for.html#index-hints) &
-  [**Named Indexes**](https://www.arangodb.com/arangodb-training-center/index-hints-named-indices/){:target="_blank"}:
+- [**Index Hints**](aql/operations-for.html#indexhint) &
+  [**Named Indexes**](https://www.arangodb.com/learn/development/index-hints-named-indices/){:target="_blank"}:
   Indexes can be given names and an optional AQL inline query option
   `indexHint` was added to override the internal optimizer decision on which
   index to utilize.
@@ -62,6 +96,8 @@ Version 3.5
   available in the Enterprise Edition, such as for substituting email addresses
   and phone numbers with similar looking pseudo-data.
 
+Also see [What's New in 3.5](release-notes-new-features35.html).
+
 Version 3.4
 -----------
 
@@ -73,7 +109,7 @@ Version 3.4
   ranking algorithms (BM25, TFDIF). Support of e.g. relevance-based searching,
   phrase and prefix-matching, complex boolean searches and query time relevance
   tuning. Search can be combined with all supported data models in a single
-  query. Many specialized language analyzers are already included for e.g.
+  query. Many specialized language Analyzers are already included for e.g.
   English, German, French, Chinese, Spanish and many other language.
 
 - [**GeoJSON Support**](aql/functions-geo.html) and
@@ -150,7 +186,7 @@ Version 3.2
 - [**Fault-Tolerant Foxx**](http/foxx.html): The Foxx management
   internals have been rewritten from the ground up to make sure
   multi-coordinator cluster setups always keep their services in sync and
-  new coordinators are fully initialized even when all existing coordinators
+  new Coordinators are fully initialized even when all existing Coordinators
   are unavailable.
 
 **Enterprise Edition**
@@ -163,9 +199,9 @@ Version 3.2
   persist your sensitive data strongly encrypted to protect it even if the
   physical storage medium gets stolen.
 
-- [**Satellite Collections**](satellites.html): Faster join operations when
+- [**SatelliteCollections**](satellites.html): Faster join operations when
   working with sharded datasets by synchronously replicating selected
-  collections to all database servers in a cluster, so that joins can be
+  collections to all DB-Servers in a cluster, so that joins can be
   executed locally.
 
 Also see [What's New in 3.2](release-notes-new-features32.html).
@@ -203,7 +239,7 @@ Version 3.0
 
 - [**self-organizing cluster**](architecture-deployment-modes-cluster-architecture.html) with
   synchronous replication, master/master setup, shared nothing
-  architecture, cluster management agency.
+  architecture, cluster management Agency.
 
 - Deeply integrated, native [**AQL graph traversal**](aql/graphs.html)
 

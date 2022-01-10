@@ -22,6 +22,8 @@ ArangoDB package can be configured with various _startup options_.
   such as `‑‑help` and `‑‑version`. They don't take any value
   in contrast to options.
 
+## Available startup options
+
 Find the available options and flags in the _Options_ sub-chapters of the
 respective [Programs & Tools](programs.html) sub-chapter, like the
 [ArangoDB Server Options](programs-arangod-options.html).
@@ -61,7 +63,7 @@ arangod --database.directory="my_data_dir"
 
 Many options belong to a section as in `‑‑section.param`, e.g.
 `‑‑server.database`, but there can also be options without any section.
-These options are referred to as _global options_.
+These options are referred to as _general options_.
 
 To list available options, you can run a binary with the `‑‑help` flag:
 
@@ -208,6 +210,7 @@ size=2G
 If you want to use an environment variable in a value of a startup option,
 write the name of the variable wrapped in at signs `@`. It acts as a
 placeholder. It can be combined with fixed strings for instance.
+For literal at signs in startup option arguments, escape them like `@@`.
 
 Command line example:
 
@@ -313,6 +316,7 @@ To list the configuration options of a running `arangod` instance, you can
 connect with an [ArangoShell](programs-arangosh.html) and invoke a
 [Transaction](transactions.html) by calling `db._executeTransaction()`
 and providing a JavaScript function to retrieve the server options:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline listCurrentConfigOpts
     @EXAMPLE_ARANGOSH_OUTPUT{listCurrentConfigOpts}

@@ -12,7 +12,7 @@ This is an introduction to ArangoDB's HTTP interface for hot backup and restore.
 
 {% hint 'info' %}
 Hot Backup is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"}
 {% endhint %}
 
 Hot Backups

@@ -6,7 +6,7 @@ description: This feature is only available in theEnterprise Edition
 
 {% hint 'info' %}
 This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"}
 {% endhint %}
 
 When you store sensitive data in your ArangoDB database, you want 
@@ -21,8 +21,6 @@ is storing in your database before it is written to disk.
 The data is encrypted with AES-256-CTR, which is a strong encryption
 algorithm, that is very suitable for multi-processor environments. This means that 
 your data is safe, but your database is still fast, even under load.
-
-Most modern CPU's have builtin support for hardware AES encryption, which makes it even faster.
 
 Note: The Encryption feature requires the RocksDB storage engine.
 

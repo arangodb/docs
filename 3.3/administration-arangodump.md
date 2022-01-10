@@ -443,7 +443,7 @@ or `.address`.
 
 {% hint 'info' %}
 The following masking functions are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}.
+[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"}.
 {% endhint %}
 
 - [Xify Front](#xify-front)

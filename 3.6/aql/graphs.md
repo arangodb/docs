@@ -1,6 +1,8 @@
 ---
 layout: default
 description: There are multiple ways to work with graphs in ArangoDB,as well as different ways to query your graphs using AQL
+redirect_from:
+  - ../cookbook/graph.html # 3.5 -> 3.5
 ---
 Graphs in AQL
 =============

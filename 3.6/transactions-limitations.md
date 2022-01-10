@@ -61,33 +61,33 @@ In Clusters
 -----------
 
 Using a single instance of ArangoDB, multi-document / multi-collection queries
-are guaranteed to be fully ACID in the [traditional sense](https://en.wikipedia.org/wiki/ACID_(computer_science){:target="_blank"}). 
+are guaranteed to be fully ACID in the [traditional sense](https://en.wikipedia.org/wiki/ACID_(computer_science)){:target="_blank"}.
 This is more than many other NoSQL database systems support.
-In cluster mode, single-document operations are also *fully ACID*. 
+In cluster mode, single-document operations are also *fully ACID*.
 
 Multi-document / multi-collection queries and transactions offer different guarantees.
 Understanding these differences is important when designing applications that need
-to be resilient agains outages of individual servers.
+to be resilient against outages of individual servers.
 
-Cluster transactions share the underlying characteristics of the [storage engine](architecture-storage-engines.html)
-that is used for the cluster deployment. 
-A transaction started on a Coordinator translates to one transaction per involved DBServer. 
-The guarantees and characteristics of the given storage-engine apply additionally 
+Cluster transactions share the underlying characteristics of the
+[storage engine](architecture-storage-engines.html) that is used for the cluster deployment.
+A transaction started on a Coordinator translates to one transaction per involved DB-Server.
+The guarantees and characteristics of the given storage-engine apply additionally
 to the cluster specific information below.
 Please refer to [Locking and Isolation](transactions-locking-and-isolation.html) for more details
 on the storage-engines.
 
 ### Atomicity
 
-A transaction on *one DBServer* is either committed completely or not at all. 
+A transaction on *one DB-Server* is either committed completely or not at all.
 
 ArangoDB transactions do currently not require any form of global consensus. This makes
 them relatively fast, but also vulnerable to unexpected server outages.
 
-Should a transaction involve [Leader Shards](architecture-deployment-modes-cluster-architecture.html#dbservers) 
-on *multiple DBServers*, the atomicity of the distributed transaction *during the commit operation* can
-not be guaranteed. Should one of the involve DBServers fails during the commit the transaction
-is not rolled-back globally, sub-transactions may have been committed on some DBServers, but not on others.
+Should a transaction involve [Leader Shards](architecture-deployment-modes-cluster-architecture.html#db-servers) 
+on *multiple DB-Servers*, the atomicity of the distributed transaction *during the commit operation* can
+not be guaranteed. Should one of the involved DB-Servers fail during the commit the transaction
+is not rolled-back globally, sub-transactions may have been committed on some DB-Servers, but not on others.
 Should this case occur the client application will see an error.
 
 An improved failure handling issue might be introduced in future versions.
@@ -97,8 +97,8 @@ An improved failure handling issue might be introduced in future versions.
 We provide consistency even in the cluster, a transaction will never leave the data in 
 an incorrect or corrupt state. 
 
-In ArangoDB there is always exactly one DBServer responsible for a given shard. In both
-Storage-Engines the locking procedures ensure that dependent transactions (in the sense that 
+In ArangoDB there is always exactly one DB-Server responsible for a given shard. In both
+Storage-Engines the locking procedures ensure that dependent transactions (in the sense that
 the transactions modify the same documents or unique index entries) are ordered sequentially.
 Therefore we can provide [Causal-Consistency](https://en.wikipedia.org/wiki/Consistency_model#Causal_consistency){:target="_blank"} 
 for your transactions.
@@ -111,8 +111,8 @@ Other concurrent operations will not change the database state seen by a transac
 
 The ArangoDB Cluster provides *Local Snapshot Isolation*. This means that all operations 
 and queries in the transactions will see the same version, or snapshot, of the data on a given
-DBServer. This snapshot is based on the state of the data at the moment in 
-time when the transaction begins *on that DBServer*.
+DB-Server. This snapshot is based on the state of the data at the moment in 
+time when the transaction begins *on that DB-Server*.
 
 ### Durability
 
@@ -142,7 +142,7 @@ intermediate commits for the RocksDB engine:
 `--rocksdb.max-transaction-size`
 
 Transaction size limit (in bytes). Transactions store all keys and values in
-RAM, so large transactions run the risk of causing out-of-memory sitations.
+RAM, so large transactions run the risk of causing out-of-memory situations.
 This setting allows you to ensure that does not happen by limiting the size of
 any individual transaction. Transactions whose operations would consume more
 RAM than this threshold value will abort automatically with error 32 ("resource

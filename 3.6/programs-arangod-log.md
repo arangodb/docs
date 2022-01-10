@@ -42,7 +42,7 @@ detailed description of the different levels.
 
 Some relevant log topics available in ArangoDB 3 are:
 
-- `agency`: information about the agency
+- `agency`: information about the Agency
 - `collector`: information about the WAL collector's state
 - `compactor`: information about the collection datafile compactor
 - `datafiles`: datafile-related operations
@@ -56,7 +56,7 @@ Some relevant log topics available in ArangoDB 3 are:
 
 See more [log levels](http/administration-and-monitoring.html#modify-and-return-the-current-server-log-level)
 
-### Log outputs
+## Log outputs
 
 The log option `--log.output <definition>` allows directing the global
 or per-topic log output to different outputs. The output definition `<definition>`
@@ -72,7 +72,7 @@ The option can be specified multiple times in order to configure the output
 for different log topics. To set up a per-topic output configuration, use
 `--log.output <topic>=<definition>`, e.g.
 
-  queries=file://queries.txt
+    queries=file://queries.txt
 
 logs all queries to the file "queries.txt".
 
@@ -106,7 +106,7 @@ a member of that group. Otherwise the group ownership will not be
 changed. Please note that this option is only available under Linux
 and Mac. It is not available under Windows.
 
-### Forcing direct output
+## Forcing direct output
 
 The option `--log.force-direct` can be used to disable logging in an extra
 logging thread. If set to `true`, any log messages are immediately printed in the
@@ -114,7 +114,7 @@ thread that triggered the log message. This is non-optimal for performance but
 can aid debugging. If set to `false`, log messages are handed off to an extra
 logging thread, which asynchronously writes the log messages.
 
-### Time format
+## Time format
 
 The option `--log.time-format` controls the time format used in log output.
 The possible values for this option are:
@@ -131,7 +131,7 @@ Format                  | Example                  | Description
 `utc-datestring-millis` | 2019-03-28T09:55:23.123Z | like `utc-datestring`, but with millisecond precision
 `local-datestring`      | 2019-03-28T10:55:23      | local date and time in format YYYY-MM-DDTHH:MM:SS
 
-### Escaping
+## Escaping
 
 `--log.escape value`
 
@@ -139,10 +139,10 @@ This option toggles the escaping of log output.
 
 If set to `true`, the following characters in the log output are escaped:
 
-* the carriage return character (hex 0d)
-* the newline character (hex 0a)
-* the tabstop character (hex 09)
-* any other characters with an ordinal value less than hex 20
+- the carriage return character (hex `0d`)
+- the newline character (hex `0a`)
+- the tabstop character (hex `09`)
+- any other characters with an ordinal value less than hex `20`
 
 If the option is set to `false`, no characters are escaped. Characters with
 an ordinal value less than hex 20 will not be printed in this mode but will
@@ -154,29 +154,50 @@ is set to a very verbose level (e.g. debug or trace).
 
 The default value for this option is `true`.
 
-### Color logging
+## Color logging
 
 `--log.color value`
 
 Logging to terminal output is by default colored. Colorful logging can be 
 turned off by setting the value to false.
 
-### Source file and Line number
+## Source function, file and line number
 
-Log line number: `--log.line-number`
+`--log.line-number`
 
-Normally, if an human readable fatal, error, warning or info message is
-logged, no information about the file and line number is provided. The
-file and line number is only logged for debug and trace message. This option
-can be use to always log these pieces of information.
+If enabled, then log messages will include the function name, file name and
+line number of the source code that issued the log message. The format is
+`func@FileName.cpp:123`.
 
-### Prefix
+Example:
 
-Log prefix: `--log.prefix prefix`
+```
+2021-06-08T16:09:31Z [1] INFO [prepare@GreetingsFeature.cpp:43] [e52b0] ArangoDB 3.7.11 [linux] 64bit, using jemalloc, build tags/v3.7.11-0-g5ca39c161b, VPack 0.1.33, RocksDB 6.8.0, ICU 64.2, V8 7.9.317, OpenSSL 1.1.1k  25 Mar 2021
+2021-06-08T16:09:31Z [1] INFO [prepare@EnvironmentFeature.cpp:68] [75ddc] detected operating system: Linux version 4.15.0-140-generic (buildd@lgw01-amd64-054) (gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04)) #144-Ubuntu SMP Fri Mar 19 14:12:35 UTC 2021
+2021-06-08T16:09:31Z [1] INFO [prepare@EnvironmentFeature.cpp:251] [25362] {memory} Available physical memory: 67513589760 bytes, available cores: 32
+2021-06-08T16:09:31Z [1] WARNING [prepare@EnvironmentFeature.cpp:426] [3e451] {memory} It is recommended to set NUMA to interleaved.
+2021-06-08T16:09:31Z [1] WARNING [prepare@EnvironmentFeature.cpp:428] [b25a4] {memory} put 'numactl --interleave=all' in front of your command
+2021-06-08T16:09:31Z [1] INFO [prepare@AuthenticationFeature.cpp:190] [43396] {authentication} Jwt secret not specified, generating...
+2021-06-08T16:09:31Z [1] INFO [prepare@EngineSelectorFeature.cpp:187] [144fe] using storage engine 'rocksdb'
+2021-06-08T16:09:31Z [1] INFO [reportRole@ClusterFeature.cpp:410] [3bb7d] {cluster} Starting up with role SINGLE
+2021-06-08T16:09:31Z [1] INFO [start@FileDescriptorsFeature.cpp:90] [a1c60] {syscall} file-descriptors (nofiles) hard limit is 1048576, soft limit is 1048576
+2021-06-08T16:09:31Z [1] INFO [start@AuthenticationFeature.cpp:222] [3844e] {authentication} Authentication is turned off, authentication for unix sockets is turned on
+2021-06-08T16:09:32Z [1] INFO [start@IResearchFeature.cpp:972] [c1b63] {arangosearch} ArangoSearch maintenance: [5..5] commit thread(s), [5..5] consolidation thread(s)
+2021-06-08T16:09:32Z [1] INFO [dump@EndpointList.cpp:222] [6ea38] using endpoint 'http+tcp://0.0.0.0:8529' for non-encrypted requests
+2021-06-08T16:09:32Z [1] INFO [start@BootstrapFeature.cpp:370] [cf3f4] ArangoDB (version 3.7.11 [linux]) is ready for business. Have fun!
+```
 
-This option is used specify an prefix to logged text.
+## Prefix
 
-### Threads
+This option specifies a prefix for log messages.
+
+Example: `arangod ... --log.prefix "-->"`
+
+```
+2020-07-23T09:46:03Z --> [17493] INFO ...
+```
+
+## Threads
 
 Log thread identifier: `--log.thread true`
 
@@ -199,17 +220,43 @@ when this command line option is set.
 To also log thread names, it is possible to set the `--log.thread-name`
 option. By default `--log.thread-name` is set to `false`.
 
-### Role
+## Role
 
-Log role: `--log.role true`
+Log role: `--log.role`
 
-When set to `true`, this option will make the ArangoDB logger print a single 
-character with the server's role into each logged message. The roles are: 
-  
-- U: undefined/unclear (used at startup)
-- S: single server
-- C: coordinator
-- P: primary
-- A: agent
+When set to `true`, this option will make the ArangoDB logger print a single
+character with the server's role into each logged message. The roles are:
 
-The default value for this option is `false`, so no roles will be logged. 
+- U: Undefined / unclear (used at startup)
+- S: Single server
+- C: Coordinator
+- P: Primary / DB-Server
+- A: Agent
+
+The default value for this option is `false`, so no roles will be logged.
+
+## Log API Access
+
+<small>Introduced in: v3.4.11, v3.5.6, v3.6.5</small>
+
+`/_admin/log` control: `--log.api-enabled`
+
+Credentials data is not written to log files. Nevertheless, some logged
+data might be sensitive depending on the context of the deployment. For
+example, if request logging is switched on, user requests and
+corresponding data might end up in log files.
+Therefore, a certain care with log files is recommended.
+
+Since the database server offers an API to control logging and query
+logging data, this API has to be secured properly. By default, the API
+is accessible for admin users (administrative access to the `_system`
+database). However, one can lock this down further.
+
+The possible values for this option are:
+
+ - `true`: The API `/_admin/log` is accessible for admin users.
+ - `jwt`: The API `/_admin/log` is accessible only for the superuser
+   (authentication with JWT token and empty username).
+ - `false`: The API `/_admin/log` is not accessible at all.
+
+The default value is `true`.

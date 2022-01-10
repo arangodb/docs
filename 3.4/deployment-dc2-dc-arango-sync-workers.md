@@ -2,7 +2,6 @@
 layout: default
 description: The ArangoSync Worker is responsible for executing synchronization tasks
 ---
-
 # ArangoSync Workers
 
 The _ArangoSync Worker_ is responsible for executing synchronization tasks.
@@ -53,5 +52,3 @@ you can decide to run multiple _sync workers_ on each machine in order to spread
 
 The _sync workers_ should be run on all machines that also contain an ArangoDB _DBServer_.
 The _sync worker_ can be memory intensive when running lots of databases & collections.
-
-Consider these machines "cattle".

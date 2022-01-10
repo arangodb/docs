@@ -1,8 +1,11 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
 
-HTTP/1.1 OK
-location: /_api/collection/testCollection/shards
-x-content-type-options: nosniff
+HTTP/1.1 200 OK
 content-type: application/json
+connection: Keep-Alive
+content-length: 583
+location: /_api/collection/testCollection/shards
+server: ArangoDB
+x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":{\"s2010048\":[\"PRMR-fbd46a17-03d5-4f48-96dc-2f36d766f956\"],\"s2010049\":[\"PRMR-f0d06670-fb0c-4259-bce5-bf6e5ca58c76\"],\"s2010050\":[\"PRMR-fbd46a17-03d5-4f48-96dc-2f36d766f956\"]},\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":1,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"globallyUniqueId\":\"c2010047/\",\"id\":\"2010047\",\"cacheEnabled\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false,\"name\":\"testCollection\",\"minReplicationFactor\":1,\"waitForSync\":false,\"numberOfShards\":3}"
+"{\"error\":false,\"code\":200,\"shards\":{\"s4010047\":[\"PRMR-dfe612ba-b834-40da-9cc6-9afa8b1cca42\"],\"s4010048\":[\"PRMR-a804d2d7-5eed-4b60-b979-cccfee9b6051\"],\"s4010049\":[\"PRMR-dfe612ba-b834-40da-9cc6-9afa8b1cca42\"]},\"writeConcern\":1,\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":1,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"globallyUniqueId\":\"c4010046/\",\"id\":\"4010046\",\"cacheEnabled\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false,\"name\":\"testCollection\",\"minReplicationFactor\":1,\"waitForSync\":false,\"numberOfShards\":3}"

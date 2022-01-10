@@ -1,18 +1,20 @@
-h1 a.header-link,
-h2 a.header-link,
-h3 a.header-link,
-h4 a.header-link,
-h5 a.header-link,
-h6 a.header-link {
+h1 a.anchor-link,
+h2 a.anchor-link,
+h3 a.anchor-link,
+h4 a.anchor-link,
+h5 a.anchor-link,
+h6 a.anchor-link,
+.example-container a.anchor-link {
     visibility: hidden;
 }
 
-h1:hover a.header-link,
-h2:hover a.header-link,
-h3:hover a.header-link,
-h4:hover a.header-link,
-h5:hover a.header-link,
-h6:hover a.header-link {
+h1:hover a.anchor-link,
+h2:hover a.anchor-link,
+h3:hover a.anchor-link,
+h4:hover a.anchor-link,
+h5:hover a.anchor-link,
+h6:hover a.anchor-link,
+.example-container:hover a.anchor-link {
     visibility: visible;
 }
 
@@ -48,7 +50,17 @@ h6:hover a.header-link {
     line-height: 1.7;
 }
 
-.header-link {
+.page-inner h1::before {
+    content: "";
+    display: flex;
+    width: 200px;
+}
+
+.lead {
+    font-size: 2rem;
+}
+
+.anchor-link {
     padding-left: 0.375em;
 }
 
@@ -56,6 +68,12 @@ h6:hover a.header-link {
     color: #4183c4;
     text-decoration: none;
     background: 0 0;
+}
+
+.page-inner summary {
+    color: #4183c4;
+    cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .page-inner p {
@@ -131,10 +149,6 @@ pre.highlight .nb {
     overflow: hidden;
 }
 
-.example-result pre {
-    margin-top: -1.275em;
-}
-
 .searchbar {
     display: inline-block;
 }
@@ -189,6 +203,18 @@ pre.highlight .nb {
 
 nav {
     margin-bottom: 40px;
+}
+
+.video {
+    clear: right;
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+}
+
+.video iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 @media screen and (max-width: 1020px) {

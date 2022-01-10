@@ -21,6 +21,7 @@ are offered.
 
 Executing Traversals via HTTP
 -----------------------------
+
 {% docublock JSF_HTTP_API_TRAVERSAL %}
 
 All examples were using this graph:

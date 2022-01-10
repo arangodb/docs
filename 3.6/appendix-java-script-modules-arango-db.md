@@ -1,13 +1,22 @@
 ---
 layout: default
-description: ArangoDB Module
+description: The @arangodb module provides the db object and AQL helper methods for Foxx, arangosh etc.
+title: ArangoDB JS API Module
+redirect_from:
+  - cookbook/aql-multiline-query-strings.html # 3.5 -> 3.5
 ---
 ArangoDB Module
 ===============
 
 `const arangodb = require('@arangodb')`
 
-**Note**: This module should not be confused with the [`arangojs` JavaScript driver](https://github.com/arangodb/arangojs){:target="_blank"} which can be used to access ArangoDB from outside the database. Although the APIs share similarities and the functionality overlaps, the two are not compatible with each other and can not be used interchangeably.
+{% hint 'warning' %}
+This module should not be confused with the
+[`arangojs` JavaScript driver](https://github.com/arangodb/arangojs){:target="_blank"}
+which can be used to access ArangoDB from outside the database. Although the
+APIs share similarities and the functionality overlaps, the two are not
+compatible with each other and can not be used interchangeably.
+{% endhint %}
 
 The `db` object
 ---------------
@@ -46,7 +55,7 @@ Starting with ArangoDB 3.4 queries generated using the `aql` template tag can
 be used inside other `aql` template strings, allowing arbitrary nesting. Bind
 parameters of nested queries will be merged automatically.
 
-To find out more about AQL see the [AQL documentation](../aql/).
+To find out more about AQL see the [AQL documentation](aql/index.html).
 
 **Examples**
 

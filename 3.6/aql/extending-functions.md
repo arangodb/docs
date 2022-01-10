@@ -18,7 +18,7 @@ function code must be specified. This can easily be done in
 [HTTP Interface](../http/aql-user-functions.html) also offers
 User Functions management.
 
-In a cluster setup, make sure to connect to a coordinator to manage the UDFs.
+In a cluster setup, make sure to connect to a Coordinator to manage the UDFs.
 
 Documents in the *_aqlfunctions* collection (or any other system collection)
 should not be accessed directly, but only via the dedicated interfaces.

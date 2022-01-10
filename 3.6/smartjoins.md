@@ -3,20 +3,22 @@ layout: default
 description: SmartJoins allow to execute co-located join operations among identically sharded collections.
 title: SmartJoins for ArangoDB Clusters
 redirect_from:
-  - /3.6/smart-joins.html # 3.4 -> 3.4
+  - smart-joins.html # 3.4 -> 3.4
 ---
 SmartJoins
 ==========
 
-<small>Introduced in: v3.4.5, v3.5.0</small>
+<small>Introduced in: v3.4.5</small>
 
-{% hint 'info' %}
-SmartJoins are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="SmartJoins" plural=true %}
 
-SmartJoins allow to execute co-located join operations among identically sharded collections.
+SmartJoins allow to execute co-located join operations among identically
+sharded collections.
+
+ArangoSearch Views are eligible for SmartJoins, provided that their underlying
+collections are eligible too (introduced in v3.6.0).
+
+{% include youtube.html id="WGFIEdihRS8" %}
 
 Cluster joins without being smart
 ---------------------------------
@@ -24,12 +26,12 @@ Cluster joins without being smart
 When doing joins in an ArangoDB cluster, data has to be exchanged between different servers.
 Joins between different collections in a cluster normally require roundtrips between the 
 shards of these collections for fetching the data. Requests are routed through an extra
-coordinator hop.
+Coordinator hop.
 
-For example, with two collections *c1* and *c2* with 4 shards each, the coordinator will 
-initially contact the 4 shards of *c1*. In order to perform the join, the DBServer nodes 
+For example, with two collections *c1* and *c2* with 4 shards each, the Coordinator will 
+initially contact the 4 shards of *c1*. In order to perform the join, the DB-Server nodes 
 which manage the actual data of *c1* need to pull the data from the other collection, *c2*. 
-This causes extra roundtrips via the coordinator, which will then pull the data for *c2* 
+This causes extra roundtrips via the Coordinator, which will then pull the data for *c2* 
 from the responsible shards:
 
     arangosh> db._explain("FOR doc1 IN c1 FOR doc2 IN c2 FILTER doc1._key == doc2._key RETURN doc1");
@@ -62,7 +64,7 @@ Sharding two collections identically using distributeShardsLike
 
 In the specific case that the two collections have the same number of shards, the 
 data of the two collections can be co-located on the same server for the same shard 
-key values. In this case the extra hop via the coordinator will not be necessary.
+key values. In this case the extra hop via the Coordinator will not be necessary.
 
 The query optimizer will remove the extra hop for the join in case it can prove
 that data for the two collections is co-located.
@@ -170,7 +172,7 @@ optimizer's "smart-joins" optimization:
        11   GatherNode                COOR     0         - GATHER 
         6   ReturnNode                COOR     0         - RETURN doc1
 
-As can be seen above, the extra hop via the coordinator is gone here, which will mean
+As can be seen above, the extra hop via the Coordinator is gone here, which will mean
 less cluster-internal traffic and a faster response time.
 
 
@@ -203,7 +205,7 @@ and even for non-unique shard key values, e.g.:
 
 {% hint 'tip' %}
 All above examples used two collections only. SmartJoins will also work when joining
-more than two collections which have the same data distribution enforced via their
+more than two collections/Views which have the same data distribution enforced via their
 `distributeShardsLike` attribute and using the shard keys as the join criteria as shown above.
 {% endhint %}
 
@@ -281,21 +283,23 @@ to restrict the queries to just the required shards:
       13   GatherNode      COOR     1         - GATHER 
        6   ReturnNode      COOR     1         - RETURN doc1
 
-
 Limitations
 -----------
 
 The SmartJoins optimization is currently triggered only for data selection queries,
 but not for any data-manipulation operations such as INSERT, UPDATE, REPLACE, REMOVE
-or UPSERT, neither traversals, subqueries or views.
+or UPSERT, neither traversals or subqueries.
 
-It will only be applied when joining two collections with an identical sharding setup. 
-This requires the second collection to be created with its *distributeShardsLike* 
-attribute pointing to the first collection.
+It will only be applied when joining two collections with an identical
+sharding setup. This requires all involved but one collection to be created
+with its *distributeShardsLike* attribute pointing to the collection that is
+the exception. All collections forming a View must be sharded in the same way,
+otherwise the View is not eligible.
 
-It is restricted to be used with simple shard key attributes (such as `_key`, `productId`), 
+It is restricted to be used with simple shard key attributes (such as `_key`, `productId`),
 but not with nested attributes (e.g. `name.first`). There should be exactly one shard
 key attribute defined for each collection.
 
-Finally, the SmartJoins optimization requires that the collections are joined on their
-shard key attributes (or smartJoinAttribute) using an equality comparison.
+Finally, the SmartJoins optimization requires that the involved collections are
+joined on their shard key attributes (or `smartJoinAttribute`) using an equality
+comparison.

@@ -709,7 +709,7 @@ following result attributes as they became meaningless in 3.0:
 
 When creating a database via the API POST `/_api/database`, ArangoDB will now always
 return the HTTP status code 202 (created) if the operation succeeds. Previous versions
-of ArangoDB returned HTTP 202 as well, but this behavior was changable by sending an
+of ArangoDB returned HTTP 202 as well, but this behavior was changeable by sending an
 HTTP header `x-arango-version: 1.4`. When sending this header, previous versions of
 ArangoDB returned an HTTP status code 200 (ok). Clients can still send this header to
 ArangoDB 3.0 but this will not influence the HTTP status code produced by ArangoDB.

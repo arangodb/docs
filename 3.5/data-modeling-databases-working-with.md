@@ -23,6 +23,7 @@ Returns the name of the current database as a string.
 
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
 @startDocuBlockInline dbName
@@ -44,6 +45,7 @@ Returns the id of the current database as a string.
 
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
 @startDocuBlockInline dbId
@@ -65,6 +67,7 @@ Returns the filesystem path of the current database as a string.
 
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
 @startDocuBlockInline dbPath
@@ -88,6 +91,31 @@ database management operations such as create or drop can only be executed
 from within this database. Additionally, the *_system* database itself
 cannot be dropped.
 
+### Properties
+
+<!-- arangod/V8Server/v8-vocbase.cpp -->
+
+return the path to database files
+`db._queryProperties()`
+
+Returns the properties of the current database as an object with the following
+attributes:
+
+- *id*: the database id
+- *name*: the database name
+- *isSystem*: the database type
+- *path*: the path to database files
+
+**Examples**
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+@startDocuBlockInline dbProperties
+@EXAMPLE_ARANGOSH_OUTPUT{dbProperties}
+  require("@arangodb").db._queryProperties();
+@END_EXAMPLE_ARANGOSH_OUTPUT
+@endDocuBlock dbProperties
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
 
 ### Use Database
 <!-- arangod/V8Server/v8-vocbase.cpp -->
@@ -192,6 +220,31 @@ database. The *_system* database itself cannot be dropped.
 Databases are dropped asynchronously, and will be physically removed if
 all clients have disconnected and references have been garbage-collected.
 
+### Compact
+
+<small>Introduced in: v3.5.6, v3.6.7, v3.7.3, v3.8.0</small>
+
+compact the entire data, for all databases
+`db._compact(options)`
+
+This command can be used to reclaim disk space after substantial data deletions
+have taken place. It requires superuser access and is only available for the
+RocksDB storage engine.
+
+The optional *options* attribute can be used to get more control over the 
+compaction. The following attributes can be used in it:
+
+- *changeLevel*: whether or not compacted data should be moved to the minimum
+  possible level. The default value is *false*.
+- *compactBottomMostLevel*: whether or not to compact the bottommost level of
+  data. The default value is *false*.
+
+{% hint 'warning' %}
+This command can cause a full rewrite of all data in all databases, which may
+take very long for large databases. It should thus only be used with care
+and only when additional I/O load can be tolerated for a prolonged time.
+{% endhint %}
+
 ### Engine
 
 retrieve the storage engine type used by the server
@@ -203,10 +256,29 @@ as a list of supported features (types of indexes and
 
 ### Engine statistics
 
-retrieve statistics related to the storage engine (rocksdb)
+retrieve statistics related to the storage engine (RocksDB)
 `db._engineStats()`
 
 Returns some statistics related to the storage engine activity, including figures
 about data size, cache usage, etc.
 
 **Note**: Currently this only produces useful output for the RocksDB engine.
+
+Get the Version of ArangoDB
+---------------------------
+
+`db._version()`
+
+Returns the server version string. Note that this is not the version of the
+database.
+
+**Examples**
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+    @startDocuBlockInline dbVersion
+    @EXAMPLE_ARANGOSH_OUTPUT{dbVersion}
+      require("@arangodb").db._version();
+    @END_EXAMPLE_ARANGOSH_OUTPUT
+    @endDocuBlock dbVersion
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}

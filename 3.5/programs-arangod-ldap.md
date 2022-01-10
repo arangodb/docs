@@ -5,11 +5,7 @@ title: ArangoDB LDAP Configuration
 ---
 # ArangoDB Server LDAP Options
 
-{% hint 'info' %}
-LDAP authentication is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="LDAP authentication" %}
 
 ## Basics Concepts
 

@@ -1,6 +1,9 @@
 ---
 layout: default
 description: I want to use ArangoDB 3
+redirect_from:
+  - /3.5/cookbook/administration-migrate2-8to3-0.html # 3.5 -> 3.5
+  - /3.6/cookbook/administration-migrate2-8to3-0.html # 3.5 -> 3.5
 ---
 Migration from ArangoDB 2.8 to 3.0
 ==================================

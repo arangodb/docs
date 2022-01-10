@@ -24,12 +24,12 @@ class AqlExampleBlock < ExampleBlock
       raise "Invalid type " + type + " for aql in " + context["page"]["path"]
     end
 
-    type = "query"
     parts = {
       "query"=> "",
       "bind"=> "",
       "result"=> "",
     }
+    type = "query"
 
     if parent_render(context) =~ /@EXPLAIN/iom
       type = "explain"
@@ -59,7 +59,7 @@ class AqlExampleBlock < ExampleBlock
     }
 
     context.scopes.last[@examplevar] = "aql-" + example_name.gsub(/[^a-zA-Z0-9-]/, "-")
-    context.scopes.last[@type] = parts["type"]
+    context.scopes.last[@type] = type
     context.scopes.last[@query] = parts["query"]
     context.scopes.last[@bind] = parts["bind"]
     context.scopes.last[@result] = parts["result"]
@@ -67,4 +67,3 @@ class AqlExampleBlock < ExampleBlock
   end
 end
 Liquid::Template.register_tag('aqlexample', AqlExampleBlock)
-    

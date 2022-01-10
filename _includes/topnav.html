@@ -14,12 +14,8 @@
   </div>
   <select class="arangodb-version-switcher">
     {%- for v in page.versions -%}
-      {%- if v.version.tag == "devel" -%}
-        {%- assign version_number = "devel" -%}
-      {%- else -%}
-        {%- assign version_number = v.version.name -%}
-      {%- endif -%}
-      {%- if v.version.tag -%}
+      {%- assign version_number = v.version.name -%}
+      {%- if v.version.tag and jekyll.environment != "netlify" -%}
         {%- assign version_alias = v.version.tag -%}
       {%- else -%}
         {%- assign version_alias = v.version.name -%}
@@ -28,7 +24,7 @@
     {%- endfor %}
   </select>
   <script type="text/javascript">
-    var versionAliases = {{ site.versions|jsonify }};
+    var versionAliases = {{ site.versions | jsonify }};
     var current = location.href;
 
     var selectedVersion = current.split('/')[4];
@@ -55,7 +51,7 @@
   {%- assign versionPath = version -%}
   {%- assign selected = page.url | split: "/" | slice: 2 | first -%}
   {%- for valias in site.versions -%}
-    {%- if valias[1] == version -%}
+    {%- if valias[1] == version and jekyll.environment != "netlify" -%}
       {%- assign versionPath = valias[0] -%}
     {%- endif -%}
   {%- endfor -%}
@@ -90,11 +86,11 @@
       <a href="/docs/{{ versionPath }}/drivers/" data-book="Drivers">Drivers</a>
     </li>
     {%- endif %}
-    <li class="downloadIcon" title="Download">
-      <a href="https://www.arangodb.com/download-arangodb-docs" target="_blank">
-        <i class="fa fa-download"></i>
-      </a>
+    {%- if site.data.books[version] contains "oasis" %}
+    <li{% if selected == "oasis" %} class="active-tab"{% endif %}>
+      <a href="/docs/{{ versionPath }}/oasis/" data-book="Oasis">Oasis</a>
     </li>
+    {%- endif %}
     <li class="socialIcons" title="GitHub">
       <a href="https://github.com/ArangoDB/ArangoDB/issues" target="_blank">
         <i class="fa fa-github"></i>

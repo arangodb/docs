@@ -246,6 +246,8 @@
           href: data-modeling-documents-document-methods.html
         - text: Database Methods
           href: data-modeling-documents-database-methods.html
+        - text: Monetary data without precision loss
+          href: data-modeling-monetary-data-without-precision-loss.html
     - text: 'Graphs, Vertices & Edges'
       href: data-modeling-graphs-vertices-edges.html
     - text: Views
@@ -515,7 +517,7 @@
           href: foxx-migrating2x-auth.html
         - text: Foxx Queries
           href: foxx-migrating2x-queries.html
-- text: Satellite Collections
+- text: SatelliteCollections
   href: satellites.html
 - text: SmartJoins
   href: smartjoins.html
@@ -536,6 +538,15 @@
       href: installation-windows.html
     - text: Compiling
       href: installation-compiling.html
+      children:
+        - text: Compile on Debian
+          href: installation-compiling-debian.html
+        - text: Compile on Windows
+          href: installation-compiling-windows.html
+        - text: Running Custom Build
+          href: installation-compiling-running-custom-build.html
+        - text: Recompiling jemalloc
+          href: installation-compiling-jemalloc.html
 - text: Uninstallation
   href: uninstallation.html
 - text: Deployment
@@ -736,6 +747,8 @@
               href: administration-master-slave-server-level-setup.html
         - text: Syncing Collections
           href: administration-master-slave-syncing-collections.html
+        - text: Speeding Up Slave Initialization
+          href: administration-master-slave-initialize-from-backup.html
     - text: Active Failover
       href: administration-active-failover.html
     - text: Cluster
@@ -776,6 +789,17 @@
       href: monitoring-log-levels.html
     - text: Datacenter to datacenter replication
       href: monitoring-dc2-dc.html
+    - text: Collectd
+      href: monitoring-collectd.html
+      children:
+        - text: Replication Slaves
+          href: monitoring-collectd-slave-status.html
+        - text: Network usage
+          href: monitoring-collectd-traffic-with-ipaccounting.html
+        - text: More metrics
+          href: monitoring-collectd-other-relevant-metrics.html
+        - text: Monitoring Foxx
+          href: monitoring-collectd-foxx-apps.html
 - text: Troubleshooting
   href: troubleshooting.html
   children:

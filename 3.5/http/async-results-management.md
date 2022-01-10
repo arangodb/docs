@@ -125,6 +125,7 @@ rejected instantly in the same way as a "regular", non-queued request.
 
 Managing Async Results via HTTP
 -------------------------------
+
 {% docublock job_fetch_result %}
 {% docublock job_cancel %}
 {% docublock job_delete %}

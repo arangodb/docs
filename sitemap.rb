@@ -10,7 +10,7 @@ version = config['versions']['stable']
 baseurl = config['url'] + config['baseurl']
 dir = "_site/#{version}"
 
-puts("\nGenerating sitemap.xml\ndir = '#{dir}'\nbaseurl = '#{baseurl}'")
+puts("\nGenerating sitemap.xml (dir = '#{dir}', baseurl = '#{baseurl}')")
 
 if not Dir.exist?(dir)
     raise IOError, "Source directory does not exist: #{dir}"
@@ -23,7 +23,7 @@ f.write('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schem
 
 Dir.glob("#{dir}/**/*.html").sort_by{ |name| name }.each do |filepath|
     next if File.size(filepath) < 2048 # Redirect pages are ~1KB, others >16KB
-    path = filepath.gsub(Regexp.new("^#{Regexp.quote(dir)}"), 'stable')
+    path = filepath.gsub(Regexp.new("^#{Regexp.quote(dir)}"), 'stable').gsub(/\/index\.html$/, '/')
 
     # Above filesize check should already skip all redirect pages,
     # but check the canonical URL anyway to avoid mismatches
@@ -35,7 +35,7 @@ Dir.glob("#{dir}/**/*.html").sort_by{ |name| name }.each do |filepath|
             break
         end
     end
-    url = "#{baseurl}/#{path.gsub(/\/index\.html$/, '/')}"
+    url = "#{baseurl}/#{path}"
     if url != canonical
         puts("\nWARNING url and canonical mismatch in '#{filepath}', skipping:\n#{url}\n#{canonical}")
         next

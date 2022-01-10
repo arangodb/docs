@@ -1,6 +1,8 @@
 ---
 layout: default
 description: Deployments of ArangoDB servers can be managed with the following tools
+redirect_from:
+  - cookbook/administration.html # 3.5 -> 3.5
 ---
 Administration
 ==============
@@ -23,10 +25,10 @@ Deployments of ArangoDB servers can be managed with the following tools:
   the web interface, especially for simple CRUD. It is not to be confused with
   general command lines like Bash or PowerShell.
 
-- **RESTful API**: _Arangod_ has an [HTTP interface](../http/) through
+- **RESTful API**: _Arangod_ has an [HTTP interface](http/index.html) through
   which it can be fully managed. The official client tools including _Arangosh_ and
   the Web interface talk to this bare metal interface. It is also relevant for
-  [driver](../drivers/) developers.
+  [driver](drivers/index.html) developers.
 
 - [**ArangoDB Starter**](programs-starter.html): This deployment tool
   helps to start _Arangod_ instances, like for a Cluster or an Active Failover setup.

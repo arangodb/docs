@@ -103,48 +103,48 @@ There are a few more keywords in addition to the higher-level operation keywords
 Additional keywords may be added in future versions of ArangoDB.
 The complete list of keywords is currently:
 
-<div class="columns-3">
-<ul>
-  <li>AGGREGATE</li>
-  <li>ALL</li>
-  <li>AND</li>
-  <li>ANY</li>
-  <li>ASC</li>
-  <li>COLLECT</li>
-  <li>DESC</li>
-  <li>DISTINCT</li>
-  <li>FALSE</li>
-  <li>FILTER</li>
-  <li>FOR</li>
-  <li>GRAPH</li>
-  <li>IN</li>
-  <li>INBOUND</li>
-  <li>INSERT</li>
-  <li>INTO</li>
-  <li>LET</li>
-  <li>LIMIT</li>
-  <li>NONE</li>
-  <li>NOT</li>
-  <li>NULL</li>
-  <li>OR</li>
-  <li>OUTBOUND</li>
-  <li>REMOVE</li>
-  <li>REPLACE</li>
-  <li>RETURN</li>
-  <li>SHORTEST_PATH</li>
-  <li>SORT</li>
-  <li>TRUE</li>
-  <li>UPDATE</li>
-  <li>UPSERT</li>
-  <li>WITH</li>
-</ul>
-</div>
+- `AGGREGATE`
+- `ALL`
+- `AND`
+- `ANY`
+- `ASC`
+- `COLLECT`
+- `DESC`
+- `DISTINCT`
+- `FALSE`
+- `FILTER`
+- `FOR`
+- `GRAPH`
+- `IN`
+- `INBOUND`
+- `INSERT`
+- `INTO`
+- `LET`
+- `LIMIT`
+- `NONE`
+- `NOT`
+- `NULL`
+- `OR`
+- `OUTBOUND`
+- `REMOVE`
+- `REPLACE`
+- `RETURN`
+- `SHORTEST_PATH`
+- `SORT`
+- `TRUE`
+- `UPDATE`
+- `UPSERT`
+- `WITH`
+{:class="columns-3"}
 
 Names
 -----
 
-In general, names are used to identify objects (collections, attributes,
-variables, and functions) in AQL queries.
+In general, names are used to identify the following things in AQL queries:
+- collections
+- attributes
+- variables
+- functions
 
 The maximum supported length of any name is 64 bytes. Names in AQL are always
 case-sensitive.
@@ -168,6 +168,19 @@ The example can alternatively written as:
 FOR f IN ´filter´
   RETURN f.´sort´
 ```
+
+Escaping is also required if special characters such as hyphen minus (`-`) are
+contained in a name:
+
+```js
+FOR doc IN `my-coll`
+  RETURN doc
+```
+
+The collection `my-coll` has a dash in its name, but `-` is an arithmetic
+operator for subtraction in AQL. The backticks escape the collection name to
+refer to the collection correctly. Note that quoting the name with `"` or `'`
+is not possible for collections.
 
 ### Collection names
 

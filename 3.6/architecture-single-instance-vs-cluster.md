@@ -81,7 +81,7 @@ but not in a single server.
 ### Performance
 
 Performance of AQL queries can vary between single server and cluster.
-If a query can be distributed to many DBserver and executed in
+If a query can be distributed to many DB-Server and executed in
 parallel then cluster performance can be better. For example, if you
 do a distributed `COLLECT` aggregation or a distributed `FILTER`
 operation.
@@ -89,12 +89,12 @@ operation.
 On the other hand, if you do a join or a traversal and the data is not
 local to one server then the performance can be worse compared to a
 single server. This is especially true for traversal if the data is
-not sharded with care. Our smart graph feature helps with this for
+not sharded with care. Our SmartGraph feature helps with this for
 traversals.
 
 Single document operations can have a higher throughput in cluster but
 will also have a higher latency, due to an additional network hop from
-coordinator to dbserver.
+Coordinator to DB-Server.
 
 Any operation that needs to find documents by anything else but the
 shard key will have to fan out to all shards, so it will be a lot
@@ -104,10 +104,10 @@ lookups, e.g. not for range lookups.
 
 ### Memory usage
 
-Some query results must be built up in memory on a coordinator, for
+Some query results must be built up in memory on a Coordinator, for
 example if a dataset needs to be sorted on the fly. This can relatively
-easily overwhelm a coordinator if the dataset is sharded across multiple
-dbservers. Use indexes and streaming cursors (>= 3.4) to circumvent this
+easily overwhelm a Coordinator if the dataset is sharded across multiple
+DB-Servers. Use indexes and streaming cursors (>= 3.4) to circumvent this
 problem.
 
 Transactions
@@ -124,18 +124,18 @@ for details.
 Batch operations for multiple documents in the same collection are only
 fully transactional in a single instance.
 
-Smart graphs
-------------
+SmartGraphs
+-----------
 
-In smart graphs there are restrictions on the values of the `_key`
+In SmartGraphs there are restrictions on the values of the `_key`
 attributes. Essentially, the `_key` attribute values for vertices must
-be prefixed with the string value of the smart graph attribute and a
+be prefixed with the string value of the SmartGraph attribute and a
 colon. A similar restriction applies for the edges.
 
 Foxx
 ----
 
-Foxx apps run on the coordinators of a cluster. Since coordinators are
+Foxx apps run on the Coordinators of a cluster. Since Coordinators are
 stateless, one must not use regular file accesses in Foxx apps in a
 cluster.
 
@@ -143,11 +143,11 @@ Agency
 ------
 
 A cluster deployment needs a central, RAFT-based key/value store called
-"the agency" to keep the current cluster configuration and manage
+"the Agency" to keep the current cluster configuration and manage
 failover. Being RAFT-based, this is a real-time system. If your servers
-running the agency instances (typically three or five) receive too much
+running the Agency instances (typically three or five) receive too much
 load, the RAFT protocol stops working and the whole stability of the
-cluster is endangered. If you foresee this problem, run the agency
+cluster is endangered. If you foresee this problem, run the Agency
 instances on separate nodes. All this is not necessary in a single
 server deployment.
 

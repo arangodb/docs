@@ -44,8 +44,8 @@ They use the full spectrum of ArangoDB's graph features. You may access them via
 - [JavaScript General Graph implementation, as you may use it in Foxx Services](graphs-general-graphs.html)
   - [Graph Management](graphs-general-graphs-management.html); creating & manipulating graph definitions; inserting, updating and deleting vertices and edges into graphs
   - [Graph Functions](graphs-general-graphs-functions.html) for working with edges and vertices, to analyze them and their relations
-- [JavaScript Smart Graph implementation, for scalable graphs](graphs-smart-graphs.html)
-  - [Smart Graph Management](graphs-smart-graphs-management.html); creating & manipulating SmartGraph definitions; Differences to General Graph 
+- [JavaScript SmartGraph implementation, for scalable graphs](graphs-smart-graphs.html)
+  - [SmartGraph Management](graphs-smart-graphs-management.html); creating & manipulating SmartGraph definitions; Differences to General Graph 
 - [RESTful General Graph interface](http/gharial.html) used to implement graph management in client drivers
 
 ### Manipulating collections of named graphs with regular document functions
@@ -201,6 +201,7 @@ We will have the following directed relations:
   - *Eve* knows *Bob*
 
 This is how we create it, inspect its *vertices* and *edges*, and drop it again:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_knows_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_knows_sample}
@@ -213,6 +214,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
     @endDocuBlock graph_create_knows_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 **Note:** with the default "Search Depth" of 2 of the graph viewer you may not see all edges of this graph.
 
 ### The Social Graph
@@ -223,6 +225,7 @@ A set of persons and their relations:
 
 This example has female and male persons as *vertices* in two *vertex collections* - `female` and `male`. The *edges* are their connections in the `relation` *edge collection*.
 This is how we create it, inspect its *vertices* and *edges*, and drop it again:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_social_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_social_sample}
@@ -244,6 +247,7 @@ A set of european cities, and their fictional traveling distances as connections
 ![Cities Example Graph](images/cities_graph.png)
 
 The example has the cities as *vertices* in several *vertex collections* - `germanCity` and `frenchCity`. The *edges* are their interconnections in several *edge collections* `french / german / international Highway`. This is how we create it, inspect its *edges* and *vertices*, and drop it again:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_cities_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_cities_sample}
@@ -259,6 +263,7 @@ The example has the cities as *vertices* in several *vertex collections* - `germ
     @endDocuBlock graph_create_cities_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### The Traversal Graph
 
 This graph was designed to demonstrate filters in traversals. It has some labels to filter on it.
@@ -267,6 +272,7 @@ This graph was designed to demonstrate filters in traversals. It has some labels
 
 The example has all its vertices in the *circles* collection, and an *edges* edge collection to connect them.
 Circles have unique numeric labels. Edges have two boolean attributes (*theFalse* always being false, *theTruth* always being true) and a label sorting *B* - *D* to the left side, *G* - *K* to the right side. Left and right side split into Paths - at *B* and *G* which are each direct neighbours of the root-node *A*. Starting from *A* the graph has a depth of 3 on all its paths.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_traversal_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_traversal_sample}
@@ -279,6 +285,7 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
     @endDocuBlock graph_create_traversal_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 **Note:** with the default "Search Depth" of 2 of the graph viewer you may not see all nodes of this graph.
 
 ### The World Graph
@@ -287,6 +294,7 @@ Circles have unique numeric labels. Edges have two boolean attributes (*theFalse
 
 The world country graph structures its nodes like that: world → continent → country → capital. In some cases edge directions aren't forward (therefore it will be displayed disjunct in the graph viewer). It has two ways of creating it. One using the named graph utilities (*worldCountry*), one without (*worldCountryUnManaged*). 
 It is used to demonstrate raw traversal operations.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_world_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_world_sample}
@@ -301,6 +309,7 @@ It is used to demonstrate raw traversal operations.
     @endDocuBlock graph_create_world_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### The Mps Graph
 
 This graph was created to demonstrate a use case of the shortest path algorithm. Even though the algorithm can only determine one shortest path, it is possible to return multiple shortest paths with two separate queries. Therefore the graph is named after the [**m**ultiple **p**ath **s**earch](aql/examples-multiple-paths.html) use case.
@@ -310,6 +319,7 @@ This graph was created to demonstrate a use case of the shortest path algorithm.
 The example graph consists of *vertices* in the `mps_verts` collection and *edges* in the `mps_edges` collection. It is a simple traversal graph with start node *A* and end node *C*.
 
 This is how we create it, inspect its *vertices* and *edges*, and drop it again:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline graph_create_mps_sample
     @EXAMPLE_ARANGOSH_OUTPUT{graph_create_mps_sample}
@@ -322,6 +332,7 @@ This is how we create it, inspect its *vertices* and *edges*, and drop it again:
     @endDocuBlock graph_create_mps_sample
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Higher volume graph examples
 
 All of the above examples are rather small so they are easier to comprehend and can demonstrate the way the functionality works.

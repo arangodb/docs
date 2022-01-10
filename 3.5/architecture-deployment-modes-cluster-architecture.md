@@ -41,7 +41,7 @@ roles:
 
 In the following sections we will shed light on each of them.
 
-![ArangoDB Cluster](images/cluster_topology.png)
+![ArangoDB Cluster](images/cluster-topology.png)
 
 ### Agents
 

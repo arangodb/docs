@@ -1,0 +1,143 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/collection</span>
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">1618</span>
+server: ArangoDB
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;result&quot;</span> : [ 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;104&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;animals&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;hE5466DA4F4F0/104&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;98&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;demo&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;hE5466DA4F4F0/98&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;43&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_fishbowl&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_fishbowl&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;40&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_modules&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_modules&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;37&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_frontend&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_frontend&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;34&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_appbundles&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_appbundles&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;10&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_statistics&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_statistics&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;7&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_graphs&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_graphs&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;13&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_statistics15&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_statistics15&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;31&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_apps&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_apps&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;4&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_users&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_users&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;16&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_statisticsRaw&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_statisticsRaw&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;19&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_analyzers&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_analyzers&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;22&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_aqlfunctions&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_aqlfunctions&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;25&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_queues&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_queues&quot;</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;28&quot;</span>, 
+      <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;_jobs&quot;</span>, 
+      <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+      <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;_jobs&quot;</span> 
+    } 
+  ] 
+}

@@ -1,0 +1,43 @@
+arangosh&gt; db._query(<span class="hljs-string">`
+........&gt;   FOR i IN 1..@count INSERT
+........&gt;     { _key: CONCAT(&#x27;anothertest&#x27;, TO_STRING(i)) }
+........&gt;     INTO mycollection`</span>,
+........&gt;  {<span class="hljs-attr">count</span>: <span class="hljs-number">100</span>},
+........&gt;  {},
+........&gt;  {<span class="hljs-attr">fullCount</span>: <span class="hljs-literal">true</span>}
+........&gt; ).getExtra();
+{ 
+  <span class="hljs-string">&quot;stats&quot;</span> : { 
+    <span class="hljs-string">&quot;writesExecuted&quot;</span> : <span class="hljs-number">100</span>, 
+    <span class="hljs-string">&quot;writesIgnored&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;scannedFull&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;scannedIndex&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;filtered&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;httpRequests&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;fullCount&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.00296989269554615</span>, 
+    <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">44304</span> 
+  }, 
+  <span class="hljs-string">&quot;warnings&quot;</span> : [ ] 
+}
+arangosh&gt; db._query({
+........&gt;  <span class="hljs-string">&quot;query&quot;</span>: <span class="hljs-string">`FOR i IN 200..@count INSERT
+........&gt;              { _key: CONCAT(&#x27;anothertest&#x27;, TO_STRING(i)) }
+........&gt;              INTO mycollection`</span>,
+........&gt;  <span class="hljs-string">&quot;bindVars&quot;</span>: {<span class="hljs-attr">count</span>: <span class="hljs-number">300</span>},
+........&gt;  <span class="hljs-string">&quot;options&quot;</span>: { <span class="hljs-attr">fullCount</span>: <span class="hljs-literal">true</span>}
+........&gt; }).getExtra();
+{ 
+  <span class="hljs-string">&quot;stats&quot;</span> : { 
+    <span class="hljs-string">&quot;writesExecuted&quot;</span> : <span class="hljs-number">101</span>, 
+    <span class="hljs-string">&quot;writesIgnored&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;scannedFull&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;scannedIndex&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;filtered&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;httpRequests&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;fullCount&quot;</span> : <span class="hljs-number">0</span>, 
+    <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.0024840496480464935</span>, 
+    <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">44467</span> 
+  }, 
+  <span class="hljs-string">&quot;warnings&quot;</span> : [ ] 
+}

@@ -37,15 +37,31 @@ dropping of cluster databases, collections and indexes.
 It must be ensured that for the hot backup no such changes are made to the
 cluster's inventory, as this could lead to inconsistent hot backups.
 
-Identical Minor Version
------------------------
+### Active Failover Special Limitations
 
-Hot backups sets can only be restored to an ArangoDB deployment of the same
-minor version as that of the creating deployment. This explicitly implies that
-every minor version upgrade of an ArangoDB instance makes hot backups created
-with the previous versions of the same installation obsolete. For example,
-an upgraded 3.4.7 to 3.4.8 will allow a restore to the old hot backups while
-one from 3.4.7 to 3.5.1 will not.
+When restoring hot backups in Active Failover setups, it is necessary to
+prevent that a non-restored follower becomes leader by temporarily setting
+the maintenance mode:
+
+1. `curl -X PUT <endpoint>/_admin/cluster/maintenance -d'"on"'`
+2. Restore the Hot Backup
+3. `curl -X PUT <endpoint>/_admin/cluster/maintenance -d'"off"'`
+
+Substitute `<endpoint>` with the actual endpoint of the **leader**
+single server instance.
+
+Restoring from a different Version
+----------------------------------
+
+Hot backups share the same limitations with respect to different versions
+as ArangoDB itself. This means that a hot backup created with some version
+`a.b.c` can without any limitations be restored on any version `a.b.d` with
+`d` not equal to `c`, that is, the patch level can be changed arbitrarily.
+With respect to minor versions (second number, `b`), one can only upgrade
+and **not downgrade**. That is, a hot backup created with a version `a.b.c`
+can be restored on a version `a.d.e` for `d` greater than `b` but not for `d`
+less than `b`. At this stage, we do not guarantee any compatibility between
+versions with a different major version number (first number).
 
 Identical Topology
 ------------------
@@ -91,7 +107,7 @@ a very brief global transaction lock across the entire installation.
 In single server deployments constant invocation of very long running
 transactions could prevent that from ever happening during a timeout period.
 The same holds true for clusters, where this lock must now be obtained on all
-database servers at the same time.
+DB-Servers at the same time.
 
 Especially in the cluster the result of these successively longer tries to
 obtain the global transaction lock might become visible in periods of apparent
@@ -99,12 +115,6 @@ dead time. Locks might be obtained on some machines and and not on others, so
 that the process has to be retried over and over. Every unsuccessful try would
 then lead to the release of all partial locks.
 
-ArangoSearch not Supported Yet
-------------------------------
-
-ArangoSearch views are not backed up and thus not restored yet.
-Therefore, views have to be dropped and recreated after a restore.
-This happens automatically in the background, but in particular in the
-presence of large amounts of data, the recreation of the ArangoSearch
-indexes can take some time after the restore. It is planned to rectify
-this limitation in one of the next releases.
+At this stage, index creation constitutes a write transactions, which means
+that during index creation one cannot create a hot backup. We intend to lift
+this limitation in a future version.

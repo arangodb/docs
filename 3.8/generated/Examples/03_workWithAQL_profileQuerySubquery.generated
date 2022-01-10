@@ -1,0 +1,48 @@
+arangosh&gt; db._profileQuery(`
+........&gt; LET list = (FOR doc in acollection FILTER doc.value &gt; 90 RETURN doc)
+........&gt; FOR a IN list 
+........&gt;  FILTER a.value &lt; 91 
+........&gt;  RETURN a`, {}, {colors: false, optimizer:{rules:[&quot;-all&quot;]}}
+........&gt; );
+Query String (116 chars, cacheable: false):
+ LET list = (FOR doc in acollection FILTER doc.value &gt; 90 RETURN doc)
+ FOR a IN list 
+  FILTER a.value &lt; 91 
+  RETURN a
+
+Execution plan:
+ Id   NodeType                  Calls   Items   Runtime [s]   Comment
+  1   SingletonNode                 1       1       0.00002   * ROOT
+ 12   SubqueryStartNode             1       2       0.00002     - LET list = ( /* subquery begin */
+  3   EnumerateCollectionNode      11   10001       0.00569       - FOR doc IN acollection   /* full collection scan  */
+  4   CalculationNode              11   10001       0.00601         - LET #5 = (doc.`value` &gt; 90)   /* simple expression */   /* collections used: doc : acollection */
+  5   FilterNode                   10    9910       0.00427         - FILTER #5
+ 13   SubqueryEndNode               1       1       0.00318         - RETURN  doc ) /* subquery end */
+  8   EnumerateListNode            10    9909       0.00279     - FOR a IN list   /* list iteration */
+  9   CalculationNode              10    9909       0.00534       - LET #7 = (a.`value` &lt; 91)   /* simple expression */
+ 10   FilterNode                    1       0       0.00168       - FILTER #7
+ 11   ReturnNode                    1       0       0.00002       - RETURN a
+
+Indexes used:
+ none
+
+Optimization rules applied:
+ Id   RuleName
+  1   splice-subqueries
+
+Query Statistics:
+ Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Peak Mem [b]   Exec Time [s]
+           0            0       10000            0      10000         753664         0.02977
+
+Query Profile:
+ Query Stage           Duration [s]
+ initializing               0.00002
+ parsing                    0.00012
+ optimizing ast             0.00002
+ loading collections        0.00001
+ instantiating plan         0.00008
+ optimizing plan            0.00047
+ executing                  0.02903
+ finalizing                 0.00005
+
+

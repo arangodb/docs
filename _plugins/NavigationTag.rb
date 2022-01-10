@@ -27,14 +27,18 @@ class NavigationTag < Liquid::Tag
                 children = ""
                 classNames = "chapter"
                 if element["href"]
-                    children += localIndent + "<a href=\"" + element['href'] + "\">" + element["text"] + "</a>\n"
-                    fileurl = context.environments.first["page"]["url"]
-                    if fileurl.end_with?("/")
-                        fileurl += "index.html"
-                    end
-                    if fileurl == context.environments.first["page"]["dir"] + element["href"]
-                        found = true
-                        classNames += " selected active"
+                    if element["href"].start_with?("http://", "https://")
+                        children += localIndent + "<a href=\"" + element['href'] + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + element["text"] + " <i class=\"fa fa-external-link\"></i></a>\n"
+                    else
+                        children += localIndent + "<a href=\"" + element['href'] + "\">" + element["text"] + "</a>\n"
+                        fileurl = context.environments.first["page"]["url"]
+                        if fileurl.end_with?("/")
+                            fileurl += "index.html"
+                        end
+                        if fileurl == context.environments.first["page"]["dir"] + element["href"]
+                            found = true
+                            classNames += " selected active"
+                        end
                     end
                 end
                 if element["children"]
@@ -44,8 +48,14 @@ class NavigationTag < Liquid::Tag
                         found = true
                         classNames += " selected"
                     end
+                    if element["expand"]
+                        classNames += " expanded"
+                        if not localFound
+                            classNames += " selected"
+                        end
+                    end
                 end
-                
+
                 output += localIndent + "<li class=\"" + classNames + "\">\n"
                 output += children
                 output += localIndent + "</li>\n"

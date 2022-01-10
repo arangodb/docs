@@ -27,8 +27,8 @@ startup parameters, installation in a cluster and so on, see
 
 {% hint 'info' %}
 ArangoDB offers two [**storage engines**](architecture-storage-engines.html):
-MMFiles and RocksDB. Choose the one which suits your needs best in the
-installation process or on first startup.
+MMFiles ([deprecated](appendix-deprecated.html)) and RocksDB. Choose the one
+which suits your needs best in the installation process or on first startup.
 {% endhint %}
 
 

@@ -1,0 +1,10 @@
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS(&quot;Crazy fast NoSQL-database!&quot;, &quot;text_en&quot;)`</span>)
+[ 
+  [ 
+    <span class="hljs-string">&quot;crazi&quot;</span>, 
+    <span class="hljs-string">&quot;fast&quot;</span>, 
+    <span class="hljs-string">&quot;nosql&quot;</span>, 
+    <span class="hljs-string">&quot;databas&quot;</span> 
+  ] 
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]

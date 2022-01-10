@@ -2,6 +2,8 @@
 layout: default
 description: This is a walkthrough to install ArangoDB on Windows. You will find two possible methods to do so, automatically or manually. 
 title: Installing ArangoDB on Windows
+redirect_from:
+  - cookbook/administration-nsissilent-mode.html # 3.5 -> 3.5
 ---
 Installing ArangoDB on Windows
 ==============================
@@ -11,8 +13,10 @@ Introduction
 
 There are two possible methods to install ArangoDB on 64-bit Windows systems:
 
-1. Automated, using an _NSIS_ Installer.
-2. Manual, using a ZIP archive (XCopy installation).
+1. Automated, using an _NSIS_ Installer
+   - attended (GUI)
+   - unattended (command-line, using NSIS silent mode)
+2. Manual, using a ZIP archive (XCopy installation)
 
 Both installation methods have their own pros and cons.
 
@@ -158,6 +162,49 @@ To uninstall the Arango server application you can use the windows control panel
 files created by the Arango server will remain as well as the *&lt;ROOTDIR&gt;*
 directory. To complete the uninstallation process, remove the data files and
 the *&lt;ROOTDIR&gt;* directory manually.
+
+Unattended installation using the installer
+-------------------------------------------
+
+The NSIS based installer requires user interaction by default, but it also
+offers a [Silent Mode](https://nsis.sourceforge.io/Docs/Chapter4.html#silent){:target="_blank"}
+which allows you to run it non-interactively from the command-line:
+
+    cmd> ArangoDB3-3.x.x_win64.exe /S …
+
+All choices available in the GUI can be passed as arguments. The options can
+be specified like `/OPTIONNAME=value`.
+
+### Supported options
+
+*For Installation*:
+
+ - `/PASSWORD` - Set the database password. Newer versions will also try to evaluate a PASSWORD environment variable
+ 
+ - `/INSTDIR` - Installation directory. A directory where you have access to.
+ - `/DATABASEDIR` - Database directory. A directory where you have access to and the databases should be created.
+ - `/APPDIR` - Foxx Services directory. A directory where you have access to.
+ - `/INSTALL_SCOPE_ALL`:
+    - `1` - AllUsers +Service - launch the arangodb service via the Windows Services, install it for all users
+    - `0` - SingleUser - install it into the home of this user, don'launch a service. Eventually create a desktop Icon so the user can do this.
+ - `/DESKTOPICON`
+   - `0`: Do not create any shortcuts
+   - `1`: Create shortcuts on the desktop for arangosh and the web interface
+ - `/PATH`
+   - `0` - don't alter the PATH environment at all
+   - `1`:
+     - `INSTALL_SCOPE_ALL` = 1 add it to the path for all users
+     - `INSTALL_SCOPE_ALL` = 0 add it to the path of the currently logged in users
+ - `/STORAGE_ENGINE` - which storage engine to use (ArangoDB 3.2 onwards)
+   - `auto`: Use default storage engine
+     (RocksDB from version 3.4 on, MMFiles in 3.3 and older)
+   - `mmfiles`: Use MMFiles storage engine
+   - `rocksdb`: Use RocksDB storage engine
+
+*For Uninstallation*:
+ - `PURGE_DB`
+   - `0` - Database files will remain on the system
+   - `1` - Database files ArangoDB created during its lifetime will be removed too.
 
 Installing using the ZIP archive (XCopy installation)
 -----------------------------------------------------

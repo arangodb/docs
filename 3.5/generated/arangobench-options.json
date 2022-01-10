@@ -214,6 +214,24 @@
     "section" : "",
     "type" : "string..."
   },
+  "log.api-enabled" : {
+    "category" : "option",
+    "default" : "true",
+    "deprecatedIn" : null,
+    "description" : "whether the log api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.11",
+      "v3.5.6",
+      "v3.6.5"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string"
+  },
   "log.color" : {
     "category" : "option",
     "default" : true,

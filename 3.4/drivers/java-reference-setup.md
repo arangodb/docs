@@ -2,7 +2,6 @@
 layout: default
 description: Driver setup
 ---
-
 # Driver setup
 
 Setup with default configuration, this automatically loads a properties file
@@ -90,6 +89,10 @@ ArangoDB arangoDB = new ArangoDB.Builder()
   .sslContext(sc)
   .build();
 ```
+
+No additional configuration is required to use TLSv1.3 (if available on the
+server side), but a JVM that supports it is required (OpenJDK 11 or later, or
+distributions of Java 8 with TLSv1.3 support).
 
 ## Connection Pooling
 
@@ -200,3 +203,23 @@ Connection TTL can be disabled setting it to `null`:
 ```
 
 The default TTL is `null` (no automatic connection closure).
+
+
+## VST Keep-Alive
+
+Since version 6.8 the driver supports setting keep-alive interval (in seconds)
+for VST connections. If set, every VST connection will perform a no-op request
+at the specified intervals, to avoid to be closed due to inactivity by the
+server (or by the external environment, e.g. firewall, intermediate routers,
+operating system, ... ).
+
+This option can be set using the key `arangodb.connections.keepAlive.interval`
+in the properties file or programmatically from the driver builder:
+
+```Java
+ArangoDB arangoDB = new ArangoDB.Builder()
+  .keepAliveInterval(1800) // 30 minutes
+  .build();
+```
+
+If not set or set to `null` (default), no keep-alive probes will be sent.

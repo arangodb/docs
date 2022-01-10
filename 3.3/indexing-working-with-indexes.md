@@ -49,6 +49,7 @@ returns information about the indexes
 Returns an array of all indexes defined for the collection.
 
 Note that `_key` implicitly has an index assigned to it.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionGetIndexes
     @EXAMPLE_ARANGOSH_OUTPUT{collectionGetIndexes}
@@ -109,8 +110,8 @@ regardless of the value of this attribute.
 
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionEnsureIndex
     @EXAMPLE_ARANGOSH_OUTPUT{collectionEnsureIndex}
     ~db._create("test");
@@ -138,6 +139,7 @@ index of a collection or the edge index of an edge collection).
 `collection.dropIndex(index-handle)`
 
 Same as above. Instead of an index an index handle can be given.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline col_dropIndex
     @EXAMPLE_ARANGOSH_OUTPUT{col_dropIndex}
@@ -179,6 +181,7 @@ index values are cached.
 If the index is larger than your memory limit this function will fill up values
 up to this limit and for the time being there is no way to control which indexes
 of the collection should have priority over others.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline LoadIndexesIntoMemory
     @EXAMPLE_ARANGOSH_OUTPUT{loadIndexesIntoMemory}
@@ -190,6 +193,7 @@ of the collection should have priority over others.
     @endDocuBlock LoadIndexesIntoMemory
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Database Methods
 ----------------
 
@@ -201,6 +205,7 @@ finds an index
 `db._index(index-handle)`
 
 Returns the index with *index-handle* or null if no such index exists.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline IndexHandle
     @EXAMPLE_ARANGOSH_OUTPUT{IndexHandle}
@@ -230,6 +235,7 @@ returned.
 `db._dropIndex(index-handle)`
 
 Drops the index with *index-handle*.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline dropIndex
     @EXAMPLE_ARANGOSH_OUTPUT{dropIndex}
@@ -252,11 +258,12 @@ Drops the index with *index-handle*.
 
 finds an index
 
-So you've created an index, and since its maintainance isn't for free,
+So you've created an index, and since its maintenance isn't for free,
 you definitely want to know whether your query can utilize it.
 
 You can use explain to verify whether **skiplists** or **hash indexes** are 
 used (if you omit `colors: false` you will get nice colors in ArangoShell):
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline IndexVerify
     @EXAMPLE_ARANGOSH_OUTPUT{IndexVerify}

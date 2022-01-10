@@ -6,7 +6,7 @@ description: This feature is only available in theEnterprise Edition
 
 {% hint 'info' %}
 This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"}
+[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"}
 {% endhint %}
 
 ## About 
@@ -154,8 +154,7 @@ be shared between cluster nodes.
 Sharing secrets is obviously a very delicate topic. The above workflow assumes that the operator
 will put a secret in a file named `${CLUSTERSECRETPATH}`.
 
-We recommend to use a dedicated system for managing secrets like HashiCorps' `Vault` or the
-secret management of `DC/OS`.
+We recommend to use a dedicated system for managing secrets like HashiCorps' `Vault`.
 
 #### Required ports
 

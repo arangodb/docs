@@ -1,4 +1,4 @@
-arangosh&gt; db._profileQuery("LET s = SLEEP(0.25) LET t = SLEEP(0.5) RETURN 1", {}, {colors: false});
+arangosh&gt; db._profileQuery(&quot;LET s = SLEEP(0.25) LET t = SLEEP(0.5) RETURN 1&quot;, {}, {colors: false});
 Query String (47 chars, cacheable: false):
  LET s = SLEEP(0.25) LET t = SLEEP(0.5) RETURN 1
 
@@ -6,8 +6,8 @@ Execution plan:
  Id   NodeType          Calls   Items   Runtime [s]   Comment
   1   SingletonNode         1       1       0.00000   * ROOT
   4   CalculationNode       1       1       0.00001     - LET #2 = 1   /* json expression */   /* const assignment */
-  2   CalculationNode       1       1       0.25181     - LET s = SLEEP(0.25)   /* simple expression */
-  3   CalculationNode       1       1       0.50364     - LET t = SLEEP(0.5)   /* simple expression */
+  2   CalculationNode       1       1       0.25271     - LET s = SLEEP(0.25)   /* simple expression */
+  3   CalculationNode       1       1       0.50540     - LET t = SLEEP(0.5)   /* simple expression */
   5   ReturnNode            1       1       0.00000     - RETURN #2
 
 Indexes used:
@@ -19,17 +19,17 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Exec Time [s]
-           0            0           0            0          0         0.75569
+           0            0           0            0          0         0.75847
 
 Query Profile:
  Query Stage           Duration [s]
  initializing               0.00000
- parsing                    0.00003
- optimizing ast             0.00000
+ parsing                    0.00004
+ optimizing ast             0.00001
  loading collections        0.00000
  instantiating plan         0.00001
- optimizing plan            0.00005
- executing                  0.75548
- finalizing                 0.00010
+ optimizing plan            0.00007
+ executing                  0.75815
+ finalizing                 0.00017
 
 

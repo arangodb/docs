@@ -74,6 +74,7 @@ to grant the access rights for one or more databases using
 [grantDatabase](#grant-database).
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_02_saveUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_02_saveUser}
@@ -82,6 +83,7 @@ to grant the access rights for one or more databases using
     @endDocuBlock USER_02_saveUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Grant Database
 --------------
 
@@ -145,6 +147,7 @@ database.
 **Note**: this function will not work from within the web interface
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_03_replaceUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_03_replaceUser}
@@ -153,6 +156,7 @@ database.
     @endDocuBlock USER_03_replaceUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Update
 ------
 
@@ -173,6 +177,7 @@ or given in a wrong format, or if the specified user cannot be found in the
 database.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_04_updateUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_04_updateUser}
@@ -181,6 +186,7 @@ database.
     @endDocuBlock USER_04_updateUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 isValid
 -------
 
@@ -194,6 +200,7 @@ Each call to this function is penalized by the server sleeping a random
 amount of time.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_05_isValidUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_05_isValidUser}
@@ -202,6 +209,7 @@ amount of time.
     @endDocuBlock USER_05_isValidUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Remove
 ------
 
@@ -215,6 +223,7 @@ the database.
 This method will fail if the user cannot be found in the database.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_07_removeUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_07_removeUser}
@@ -223,6 +232,7 @@ This method will fail if the user cannot be found in the database.
     @endDocuBlock USER_07_removeUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Document
 --------
 
@@ -235,6 +245,7 @@ The user name must be specified in *user*.
 This method will fail if the user cannot be found in the database.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_04_documentUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_04_documentUser}
@@ -243,6 +254,7 @@ This method will fail if the user cannot be found in the database.
     @endDocuBlock USER_04_documentUser
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 All
 ---
 
@@ -251,6 +263,7 @@ All
 Fetches all existing ArangoDB users from the database.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_06_AllUsers
     @EXAMPLE_ARANGOSH_OUTPUT{USER_06_AllUsers}
@@ -259,6 +272,7 @@ Fetches all existing ArangoDB users from the database.
     @endDocuBlock USER_06_AllUsers
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Reload
 ------
 
@@ -271,6 +285,7 @@ cached after that. When users get added or deleted, a cache flush is done
 automatically, and this can be performed by a call to this method.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_03_reloadUser
     @EXAMPLE_ARANGOSH_OUTPUT{USER_03_reloadUser}
@@ -293,6 +308,7 @@ the collection name.
 This method will fail if the user cannot be found in the database.
 
 *Examples*
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline USER_05_permission
     @EXAMPLE_ARANGOSH_OUTPUT{USER_05_permission}

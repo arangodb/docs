@@ -1,4 +1,24 @@
 module OptionsBySectionFilter
+    SECTION_NAMES = {
+        'arangosearch' => 'ArangoSearch',
+        'http' => 'HTTP',
+        'javascript' => 'JavaScript',
+        'ldap' => 'LDAP',
+        'ldap2' => 'LDAP2 (secondary server)',
+        'rocksdb' => 'RocksDB',
+        'ssl' => 'SSL',
+        'tcp' => 'TCP',
+        'ttl' => 'TTL',
+        'vst' => 'VST',
+        'wal' => 'WAL'
+    }
+    def capitalize_section(input)
+        name = SECTION_NAMES[input]
+        return name if name != nil
+        return nil if !input.is_a? String
+        input.capitalize
+    end
+
     def options_by_section(input)
         return nil if input == nil
         # grrr ruby....there is for sure a better conversion strategy..
@@ -8,7 +28,7 @@ module OptionsBySectionFilter
             by_section[section] = Hash.new if !by_section[section]
             by_section[section][k] = v
         }
-        by_section.sort.map {|k, v| [k == "" ? "global" : k, v] }.to_h
+        by_section.sort.map {|k, v| [k == "" ? "general" : k, v] }.to_h
     end
 end
   

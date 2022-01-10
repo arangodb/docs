@@ -1,0 +1,36 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/simple/range</span> &lt;&lt;EOF
+{ 
+  <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;products&quot;</span>, 
+  <span class="hljs-string">&quot;attribute&quot;</span> : <span class="hljs-string">&quot;i&quot;</span>, 
+  <span class="hljs-string">&quot;left&quot;</span> : <span class="hljs-number">2</span>, 
+  <span class="hljs-string">&quot;right&quot;</span> : <span class="hljs-number">4</span> 
+}
+EOF
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">197</span>
+server: ArangoDB
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">&quot;result&quot;</span> : [ 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72625&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/72625&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSAO---&quot;</span>, 
+      <span class="hljs-string">&quot;i&quot;</span> : <span class="hljs-number">2</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72627&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/72627&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWSAS---&quot;</span>, 
+      <span class="hljs-string">&quot;i&quot;</span> : <span class="hljs-number">3</span> 
+    } 
+  ], 
+  <span class="hljs-string">&quot;hasMore&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-number">2</span>, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">201</span> 
+}

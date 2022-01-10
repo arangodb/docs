@@ -125,7 +125,7 @@ Type hints are written for top-level documents (as a collection can contain diff
 
 By default, the fully qualified class name is stored in the documents as a type hint. A custom type hint can be set with the `@TypeAlias("my-alias")` annotation on an entity. Make sure that it is an unique identifier across all entities. If we would add a `TypeAlias("employee")` annotation to the `Employee` class above, it would be persisted as `"_class": "employee"`.
 
-The default type key is `_class` and can be changed by overriding the `typeKey()` method of the `AbstractArangoConfiguration` class.
+The default type key is `_class` and can be changed by overriding the `typeKey()` method of the `ArangoConfiguration` class.
 
 If you need to further customize the type mapping process, the `arangoTypeMapper()` method of the configuration class can be overridden. The included `DefaultArangoTypeMapper` can be customized by providing a list of [`TypeInformationMapper`](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/convert/TypeInformationMapper.html){:target="_blank"}s that create aliases from types and vice versa.
 
@@ -133,7 +133,7 @@ In order to fully customize the type mapping process you can provide a custom ty
 
 ### Deactivating type mapping
 
-To deactivate the type mapping process, you can return `null` from the `typeKey()` method of the `AbstractArangoConfiguration` class. No type hints are stored in the documents with this setting. If you make sure that each defined type corresponds to the actual type, you can disable the type mapping, otherwise it can lead to exceptions when reading the entities from the DB.
+To deactivate the type mapping process, you can return `null` from the `typeKey()` method of the `ArangoConfiguration` class. No type hints are stored in the documents with this setting. If you make sure that each defined type corresponds to the actual type, you can disable the type mapping, otherwise it can lead to exceptions when reading the entities from the DB.
 
 ## Annotations
 
@@ -167,3 +167,24 @@ To deactivate the type mapping process, you can return `null` from the `typeKey(
 | @CreatedDate            | field                     | Declares a field as the one representing the date the entity containing the field was created.                                                      |
 | @LastModifiedBy         | field                     | Declares a field as the one representing the principal that recently modified the entity containing the field.                                      |
 | @LastModifiedDate       | field                     | Declares a field as the one representing the date the entity containing the field was recently modified.                                            |
+
+## Invoking conversion manually
+
+In order to invoke entity serialization and deserialization to and from `VPackSlice` manually, you can inject an
+instance of `ArangoConverter` and respectively call the methods `write` and `read` on it, e.g.:
+
+```java
+// ...
+
+@Autowired
+ArangoConverter arangoConverter;
+
+  // ...
+  VPackSlice vPackSlice = converter.write(entity);
+
+  // ...
+  MyEntity entity = converter.read(MyEntity.class, vPackSlice);
+```
+
+This is useful for cases where you need to use the underlying Java driver directly (accessible from
+`ArangoOperations#driver()`), while keeping Spring Data ArangoDB serialization behavior.

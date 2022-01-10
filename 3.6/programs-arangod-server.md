@@ -104,14 +104,14 @@ Use telnet to test the connection.
     Connected to my-machine.
     Escape character is '^]'.
     GET / HTTP/1.1
-    
+
     HTTP/1.1 301 Moved Permanently
     Location: /_db/_system/_admin/aardvark/index.html
     Content-Type: text/html
     Server: ArangoDB
     Connection: Keep-Alive
     Content-Length: 197
-    
+
     <html><head><title>Moved</title></head><body><h1>Moved</h1><p>This page has moved to <a href="/_db/_system/_admin/aardvark/index.html">/_db/_system/_admin/aardvark/index.html</a>.</p></body></html>
 
 ### Reuse address
@@ -148,17 +148,47 @@ size`
 Specifies the maximum *size* of the queue for asynchronous task
 execution. If the queue already contains *size* tasks, new tasks will
 be rejected until other tasks are popped from the queue. Setting this
-value may help preventing from running out of memory if the queue is
-filled up faster than the server can process requests.
+value may help preventing an instance from being overloaded or from
+running out of memory if the queue is filled up faster than the server
+can process requests.
+
+## Scheduler queue unavailable fill grade
+
+<small>Introduced in: v3.6.10</small>
+
+The startup option `--server.unavailability-queue-fill-grade` can be used
+to set a high-watermark for the scheduler's queue fill grade, from which
+onwards the server will start reporting unavailability via its availability
+API.
+
+This option has a consequence for the `/_admin/server/availability` REST API
+only, which is often called by load-balancers and other availability probing
+systems.
+
+The `/_admin/server/availability` REST API will return HTTP 200 if the fill
+grade of the scheduler's queue is below the configured value, or HTTP 503 if
+the fill grade is equal to or above it. This can be used to flag a server as
+unavailable in case it is already highly loaded.
+
+The default value for this option is `1`, i.e. 100%.
+
+To prevent sending more traffic to an already overloaded server, it can be
+sensible to reduce the default value to even `0.5`.
+This would mean that instances with a queue longer than 50% of their
+maximum queue capacity would return HTTP 503 instead of HTTP 200 when their
+availability API is probed.
 
 ## Storage engine
 
 ArangoDB's "traditional" storage engine is called `MMFiles`, which also was the
-default storage engine up to including ArangoDB 3.3.
+default storage engine up to including ArangoDB v3.3.0.
 
-Since ArangoDB 3.2, an alternative engine based on [RocksDB](http://rocksdb.org){:target="_blank"}
-is also provided and could be turned on manually. Since ArangoDB 3.4, the RocksDB
-storage engine is the default storage engine for new installations.
+Since ArangoDB v3.2.0, an alternative engine based on
+[RocksDB](http://rocksdb.org){:target="_blank"} is also provided and could be
+turned on manually. Since ArangoDB v3.4.0, the RocksDB storage engine is the
+default storage engine for new installations.
+
+The MMFiles engine is [deprecated](appendix-deprecated.html) from v3.6.0 on.
 
 One storage engine type is supported per server per installation.
 Live switching of storage engines on already installed systems isn't supported.
@@ -171,20 +201,8 @@ the previously used one.
 Note that `auto` will default to `rocksdb` starting with ArangoDB 3.4, but in
 previous versions it defaulted to `mmfiles`.
 
-## Check max memory mappings
-
-`--server.check-max-memory-mappings` can be used on Linux to make arangod
-check the number of memory mappings currently used by the process (as reported in
-`/proc/<pid>/maps`) and compare it with the maximum number of allowed mappings as
-determined by */proc/sys/vm/max_map_count*. If the current number of memory
-mappings gets near the maximum allowed value, arangod will log a warning
-and disallow the creation of further V8 contexts temporarily until the current
-number of mappings goes down again.
-
-If the option is set to false, no such checks will be performed. All non-Linux
-operating systems do not provide this option and will ignore it.
-
 ## Enable/disable authentication
+
 {% docublock server_authentication %}
 
 ## JWT Secret
@@ -217,6 +235,7 @@ The default value is *false*.
 domain sockets.
 
 ## Enable/disable authentication for system API requests only
+
 {% docublock serverAuthenticateSystemOnly %}
 
 ## Enable authentication cache timeout
@@ -253,16 +272,35 @@ value is *2*.
 `--server.maximal-threads` determines the maximum number of request processing
 threads the server is allowed to start for request handling. If that number of
 threads is already running, arangod will not start further threads for request
-handling. The default value is
+handling. The default value is `max(32, 2 * available cores)`, so twice the
+number of CPU cores, capped to a maximum of 32 threads.
 
 ## Toggling server statistics
 
-`--server.statistics value`
+`--server.statistics`
 
-If this option is *value* is *false*, then ArangoDB's statistics gathering
-is turned off. Statistics gathering causes regular background CPU activity and
-memory usage, so using this option to turn statistics off might relieve heavily-loaded 
-instances a bit.
+If this option's value is *false*, then ArangoDB's statistics gathering
+is turned off. Statistics gathering causes regular background CPU activity,
+memory usage and writes to the storage engine, so using this option to turn
+statistics off might relieve heavily-loaded instances a bit.
+
+A side effect of setting this option to *false* is that no statistics will be
+shown in the dashboard of ArangoDB's web interface, and that the REST API for
+server statistics at `/_admin/statistics` will return HTTP 404.
+
+`--server.statistics-history`
+
+If this option's value is *false*, then ArangoDB's statistics gathering
+is turned off. Statistics gathering causes regular background CPU activity,
+memory usage and writes to the storage engine, so using this option to turn
+statistics off might relieve heavily-loaded instances a bit.
+
+When setting this option to *false*, no statistics will be shown in the
+dashboard of ArangoDB's web interface, but the current statistics are available
+and can be queries using the REST API for server statistics at `/_admin/statistics`.
+
+This is less intrusive than setting the `--server.statistics` option to
+*false*.
 
 ## Data source flush synchronization
 
@@ -276,3 +314,10 @@ value too low can easily overwhelm the server, while setting the value too high
 may result in high memory usage and periodic slowdowns. Value is given in
 microseconds, with a typical range of 100000 (100ms) to 10000000 (10s) and a
 default of 1000000 (1s). Use caution when changing from the default.
+
+## Metrics API
+
+`--server.export-metrics-api`
+
+Enables or disables the
+[metrics HTTP API](http/administration-and-monitoring.html#read-the-metrics).

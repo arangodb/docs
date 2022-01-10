@@ -1,6 +1,9 @@
 ---
 layout: default
 description: The tool is to be used with caution, under guidance of ArangoDB support!
+redirect_from:
+  - /3.7/programs-arango-dfdb.html # 3.7 -> 3.6
+  - /3.8/programs-arango-dfdb.html # 3.8 -> 3.6
 ---
 Arango-dfdb
 ===========

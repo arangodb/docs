@@ -16,23 +16,29 @@ used to define which collections and fields to mask and how.
 
 The general structure of the configuration file looks like this:
 
-```json
+```js
 {
-  "collection-name": {
-    "type": MASKING_TYPE,
-    "maskings": [
-      MASKING1,
-      MASKING2,
+  "<collection-name-1>": {
+    "type": "<masking-type>",
+    "maskings": [ // if masking-type is "masked"
+      { "path": "<attr1>", "type": "<masking-function>", ... }, // rule 1
+      { "path": "<attr2>", "type": "<masking-function>", ... }, // rule 2
       ...
     ]
   },
-  ...
+  "<collection-name-2>": { ... },
+  "<collection-name-3>": { ... },
+  "*": { ... }
 }
 ```
 
-At the top level, there is an object with collection names and the masking
-settings to be applied to them. Using `"*"` as collection name defines a
-default behavior for collections not listed explicitly.
+At the top level, there is an object with collection names. The masking to be
+applied to the respective collection is defined by the `type` sub-attribute.
+If the `type` is `"masked"`, then a sibling `maskings` attribute is available
+to define rules for obfuscating documents.
+
+Using `"*"` as collection name defines a default behavior for collections
+not listed explicitly.
 
 Masking Types
 -------------
@@ -44,13 +50,16 @@ Possible values are:
   structure data is dumped.
 
 - `"structure"`: only the collection structure is dumped, but no data at all
+  (the file `<collection-name>.data.json` or `<collection-name>.data.json.gz`
+  respectively is still created, but will not contain data).
 
 - `"masked"`: the collection structure and all data is dumped. However, the data
   is subject to obfuscation defined in the attribute `maskings`. It is an array
-  of objects, with one object per field to mask. Each object needs at least a
+  of objects, with one object per masking rule. Each object needs at least a
   `path` and a `type` attribute to [define which field to mask](#path) and which
   [masking function](#masking-functions) to apply. Depending on the
-  masking type, there may exist additional attributes.
+  masking type, there may exist additional attributes to control the masking
+  function behavior.
 
 - `"full"`: the collection structure and all data is dumped. No masking is
   applied to this collection at all.
@@ -61,6 +70,10 @@ Possible values are:
 {
   "private": {
     "type": "exclude"
+  },
+
+  "temperature": {
+    "type": "full"
   },
 
   "log": {
@@ -87,26 +100,31 @@ Possible values are:
 
 - The collection called _private_ is completely ignored.
 - Only the structure of the collection _log_ is dumped, but not the data itself.
+- The structure and data of the _temperature_ collection is dumped without any
+  obfuscation of document attributes.
 - The collection _person_ is dumped completely but with maskings applied:
   - The _name_ field is masked if it occurs on the top-level.
   - It also masks fields with the name _security_id_ anywhere in the document.
   - The masking function is of type [_xifyFront_](#xify-front) in both cases.
     The additional setting `unmaskedLength` is specific so _xifyFront_.
+- All additional collections that might exist in the targeted database will
+  be ignored (like the collection _private_), as there is no attribute key
+  `"*"` to specify a different default type for the remaining collections.
 
 ### Masking vs. dump-data option
 
 *arangodump* also supports a very coarse masking with the option
-`--dump-data false`. This basically removes all data from the dump.
+`--dump-data false`, which leaves out all data for the dump.
 
 You can either use `--maskings` or `--dump-data false`, but not both.
 
-### Masking vs. include-collection option
+### Masking vs. collection option
 
 *arangodump* also supports a very coarse masking with the option
-`--include-collection`. This will restrict the collections that are
+`--collection`. This will restrict the collections that are
 dumped to the ones explicitly listed.
 
-It is possible to combine `--maskings` and `--include-collection`.
+It is possible to combine `--maskings` and `--collection`.
 This will take the intersection of exportable collections.
 
 Path
@@ -115,7 +133,36 @@ Path
 `path` defines which field to obfuscate. There can only be a single
 path per masking, but an unlimited amount of maskings per collection.
 
-Note that the top-level system attributes like `_key`, `_from` are
+```json
+{
+  "collection1": {
+    "type": "masked",
+    "maskings": [
+      {
+        "path": "attr1",
+        "type": "random"
+      },
+      {
+        "path": "attr2",
+        "type": "randomString"
+      },
+      ...
+    ]
+  },
+  "collection2": {
+    "type": "masked",
+    "maskings": [
+      {
+        "path": "attr3",
+        "type": "random"
+      }
+    ]
+  },
+  ...
+}
+```
+
+Note that the top-level **system attributes** like `_key`, `_from` are
 never masked.
 
 To mask a top-level attribute value, the path is simply the attribute
@@ -129,7 +176,7 @@ name, for instance `"name"` to mask the value `"foobar"`:
 ```
 
 The path to a nested attribute `name` with a top-level attribute `person`
-as its parent is `"person.name"`:
+as its parent is `"person.name"` (here: `"foobar"`):
 
 ```json
 {
@@ -140,13 +187,27 @@ as its parent is `"person.name"`:
 }
 ```
 
+Example masking definition:
+
+```json
+{
+  "<collection-name>": {
+    "type": "masked",
+    "maskings": [
+      {
+        "path": "person.name",
+        "type": "<masking-function>"
+      }
+    ]
+}
+```
+
 If the path starts with a `.` then it matches any path ending in `name`.
 For example, `.name` will match the field `name` of all leaf attributes
 in the document. Leaf attributes are attributes whose value is `null`,
 `true`, `false`, or of data type `string`, `number` or `array`.
-That means, it matches `name` at the top level
-as well as at any nested level (e.g. `foo.bar.name`), but not nested
-objects themselves.
+That means, it matches `name` at the top level as well as at any nested level
+(e.g. `foo.bar.name`), but not nested objects themselves.
 
 On the other hand, `name` will only match leaf attributes
 at top level. `person.name` will match the attribute `name` of a leaf
@@ -157,8 +218,9 @@ is not a leaf attribute.
 If the attribute value is an **array** then the masking is applied to
 **all array elements individually**.
 
-If you have an attribute name that contains a dot, you need to quote the
-name with either a tick or a backtick. For example:
+If you have an attribute key that contains a dot or a top-level attribute
+with a single asterisk as full name (`"*": ...`) then you need to quote the
+name in ticks or backticks to escape it. For example:
 
     "path": "´name.with.dots´"
 
@@ -220,20 +282,39 @@ does not get masked. To mask nested fields, specify the full path for each
 leaf attribute.
 
 {% hint 'tip' %}
-If some documents have an attribute `email` with a string as value, but other
+If some documents have an attribute `mail` with a string as value, but other
 documents store a nested object under the same attribute name, then make sure
 to set up proper masking for the latter case, in which sub-attributes will not
-get masked if there is only a masking configured for the attribute `email`
+get masked if there is only a masking configured for the attribute `mail`
 but not its nested attributes.
+
+You can use the special path `"*"` to **match all leaf attributes** in the
+document.
 {% endhint %}
 
 **Examples**
 
-Masking `email` with the _Xify Front_ function will convert:
+Masking `mail` with the _Xify Front_ function:
 
 ```json
 {
-  "email" : "email address"
+  "<collection>": {
+    "type": "masked",
+    "maskings": [
+      {
+        "path": "mail",
+        "type": "xifyFront"
+      }
+    ]
+  }
+}
+```
+
+… will convert this document:
+
+```json
+{
+  "mail" : "mail address"
 }
 ```
 
@@ -241,15 +322,15 @@ Masking `email` with the _Xify Front_ function will convert:
 
 ```json
 {
-  "email" : "xxil xxxxxxss"
+  "mail" : "xxil xxxxxxss"
 }
 ```
 
-because `email` is a leaf attribute. The document:
+because `mail` is a leaf attribute. The document:
 
 ```json
 {
-  "email" : [
+  "mail" : [
     "address one",
     "address two",
     [
@@ -263,7 +344,7 @@ because `email` is a leaf attribute. The document:
 
 ```json
 {
-  "email" : [
+  "mail" : [
     "xxxxxss xne",
     "xxxxxss xwo",
     [
@@ -278,33 +359,123 @@ including the elements of the sub-array. The document:
 
 ```json
 {
-  "email" : {
-    "address" : "email address"
+  "mail" : {
+    "address" : "mail address"
   }
 }
 ```
 
-… will not be changed because `email` is not a leaf attribute.
-To mask the email address, you could use the paths `email.address`
-or `.address`.
+… will not be masked because `mail` is not a leaf attribute.
+To mask the mail address, you could use the paths `mail.address`
+or `.address` in the masking definition:
 
-### Match all
+```json
+{
+  "<collection>": {
+    "type": "masked",
+    "maskings": [
+      {
+        "path": ".address",
+        "type": "xifyFront"
+      }
+    ]
+  }
+}
+```
 
-If the path is `"*"` then this match any leaf attribute.
+A catch-all `"path": "*"` would apply to the nested `address` attribute too,
+but it would mask all other string attributes as well, which may not be what
+you want. A syntax `"path": "mail.*` to only match the sub-attributes of the
+top-level `mail` attribute is not supported.
+
+### Rule precedence
+
+Masking rules may overlap, for instance if you specify the same path multiple
+times, or if you define a rule for a specific field but also one which matches
+all leaf attributes of the same name.
+
+The precedence is determined by the order in which the rules are defined in the
+masking configuration file in such cases, giving priority to the first matching
+rule (i.e. the rule above the other ambiguous ones).
+
+```json
+{
+  "<collection>": {
+    "type": "masked",
+    "maskings": [
+      {
+        "path": "address",
+        "type": "xifyFront"
+      },
+      {
+        "path": ".address",
+        "type": "random"
+      }
+    ]
+  }
+}
+```
+
+Above masking definition will obfuscate the top-level attribute `address` with
+the `xifyFront` function, whereas all nested attributes with name `address`
+will use the `random` masking function. If the rules are defined in reverse
+order however, then all attributes called `address` will be obfuscated using
+`random`. The second, overlapping rule is effectively ignored:
+
+```json
+{
+  "<collection>": {
+    "type": "masked",
+    "maskings": [
+      {
+        "path": ".address",
+        "type": "random"
+      },
+      {
+        "path": "address",
+        "type": "xifyFront"
+      }
+    ]
+  }
+}
+```
+
+This behavior also applies to the catch-all path `"*"`, which means it should
+generally be placed below all other rules for a collection so that it is used
+for all unspecified attribute paths. Otherwise all document attributes will be
+processed by a single masking function, ignoring any other rules below it.
+
+```json
+{
+  "<collection>": {
+    "type": "masked",
+    "maskings": [
+      {
+        "path": "address",
+        "type": "random"
+      },
+      {
+        "path": ".address",
+        "type": "xifyFront"
+      },
+      {
+        "path": "*",
+        "type": "email"
+      }
+    ]
+  }
+}
+```
 
 Masking Functions
 -----------------
 
-{% hint 'info' %}
-The following masking functions are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="The following masking functions" plural=true %}
 
 - [Xify Front](#xify-front)
 - [Zip](#zip)
 - [Datetime](#datetime)
-- [Integral Number](#integral-number)
+- [Integer Number](#integer-number)
 - [Decimal Number](#decimal-number)
 - [Credit Card Number](#credit-card-number)
 - [Phone Number](#phone-number)
@@ -407,9 +578,105 @@ A document like:
 
 ### Random
 
-This masking type works like random string for attributes with string
-values. Values Attributes with integer, decimal or boolean values are
-replaced by random integers, decimals or boolean.
+This masking type substitutes leaf attribute values of all data types with
+random values of the same kind:
+
+- Strings are replaced with [random strings](#random-string).
+- Numbers are replaced with random integer or decimal numbers, depending on
+  the original value (but not keeping sign or scientific notation).
+  The generated numbers are between -1000 and 1000.
+- Booleans are randomly replaced with `true` or `false`.
+- `null` values remain `null`.
+
+Masking settings:
+
+- `path` (string): which field to mask
+- `type` (string): masking function name `"random"`
+
+**Examples**
+
+```json
+{
+  "collection": {
+    "type": "masked",
+    "maskings": [
+      {
+        "path": "*",
+        "type": "random"
+      }
+    ]
+  }
+}
+```
+
+Using above masking configuration, all leaf attributes of the documents in
+_collection_ would be randomized. A possible input document:
+
+```json
+{
+  "_key" : "1121535",
+  "_id" : "coll/1121535",
+  "_rev" : "_Z3AKGjW--_",
+  "nullValue" : null,
+  "bool" : true,
+  "int" : 1,
+  "decimal" : 2.34,
+  "string" : "hello",
+  "array" : [
+    null,
+    false,
+    true,
+    0,
+    -123,
+    0.45,
+    6e7,
+    -0.8e-3,
+    "nine",
+    "Lorem ipsum sit dolor amet.",
+    [
+      false,
+      false
+    ],
+    {
+      "obj" : "nested"
+    }
+  ]
+}
+```
+
+… could result in an output like this:
+
+```json
+{
+  "_key": "1121535",
+  "_id": "coll/1121535",
+  "_rev": "_Z3AKGjW--_",
+  "nullValue": null,
+  "bool": false,
+  "int": -900,
+  "decimal": -4.27,
+  "string": "etxfOC+K0HM=",
+  "array": [
+    null,
+    true,
+    false,
+    754,
+    -692,
+    2.64,
+    834,
+    1.69,
+    "NGf7NKGrMYw=",
+    "G0czIlvaGw4=G0czIlvaGw4=G0c",
+    [
+      false,
+      true
+    ],
+    {
+      "obj": "eCGe36xiRho="
+    }
+  ]
+}
+```
 
 ### Xify Front
 
@@ -433,21 +700,43 @@ Masking settings:
 
 ```json
 {
-  "path": ".name",
-  "type": "xifyFront",
-  "unmaskedLength": 2
+  "<collection>": {
+    "type": "masked",
+    "maskings": [
+      {
+        "path": ".name",
+        "type": "xifyFront",
+        "unmaskedLength": 2
+      }
+    ]
+  }
 }
 ```
 
-This will mask all alphanumeric characters of a word except the last
-two characters. Words of length 1 and 2 are unmasked. If the
-attribute value is not a string the result will be `xxxx`.
+This will affect attributes with key `"name"` at any level by masking all
+alphanumeric characters of a word except the last two characters. Words of
+length 1 and 2 remain unmasked. If the attribute value is not a string but
+boolean or numeric, then the result will be `"xxxx"` (fixed length).
+`null` values remain `null`.
 
-    "This is a test!Do you agree?"
+```json
+{
+  "name": "This is a test!Do you agree?",
+  "bool": true,
+  "number": 1.23,
+  "null": null
+}
+```
 
 … will become:
-
-    "xxis is a xxst Do xou xxxee "
+```json
+{
+  "name": "xxis is a xxst Do xou xxxee ",
+  "bool": "xxxx",
+  "number": "xxxx",
+  "null": null
+}
+```
 
 There is a catch. If you have an index on the attribute the masking
 might distort the index efficiency or even cause errors in case of a
@@ -455,8 +744,8 @@ unique index.
 
 ```json
 {
-  "type": "xifyFront",
   "path": ".name",
+  "type": "xifyFront",
   "unmaskedLength": 2,
   "hash": true
 }
@@ -471,7 +760,7 @@ This will add a hash at the end of the string.
     "xxis is a xxst Do xou xxxee  NAATm8c9hVQ="
 
 Note that the hash is based on a random secret that is different for
-each run. This avoids dictionary attacks which can be used to guess
+each run. This avoids dictionary attacks which could be used to guess
 values based pre-computations on dictionaries.
 
 If you need reproducible results, i.e. hashes that do not change between
@@ -480,8 +769,8 @@ a number which must not be `0`.
 
 ```json
 {
-  "type": "xifyFront",
   "path": ".name",
+  "type": "xifyFront",
   "unmaskedLength": 2,
   "hash": true,
   "seed": 246781478647
@@ -586,10 +875,10 @@ Above example masks the field `eventDate` by returning a random date time
 string in the range of January 1st and December 31st in 2019 using a format
 like `2019-06-17`.
 
-### Integral Number
+### Integer Number
 
 This masking type replaces the value of the attribute with a random
-integral number. It will replace the value even if it is a string,
+integer number. It will replace the value even if it is a string,
 Boolean, or `null`.
 
 Masking settings:

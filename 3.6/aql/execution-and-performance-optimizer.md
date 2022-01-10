@@ -215,7 +215,7 @@ This will return a list of all plans in the `plans` attribute instead of in the
 
 To retrieve the plan which closely matches your query, you may turn off most
 optimization rules (i.e. cluster rules cannot be disabled if you're running
-the explain on a cluster coordinator) set the option `rules` to `-all`:
+the explain on a cluster Coordinator) set the option `rules` to `-all`:
 
 This will return an unoptimized plan in the `plan`:
 
@@ -242,6 +242,7 @@ pseudo-rule `all` matches all rules.
 
 Rules specified in `rules` are evaluated from left to right, so the following works to
 turn on just the one specific rule:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline AQLEXP_07_explainSingleRulePlans
     @EXAMPLE_ARANGOSH_OUTPUT{AQLEXP_07_explainSingleRulePlans}
@@ -314,75 +315,89 @@ bound is reached, no further warnings will be returned.
 Optimization in a cluster
 -------------------------
 
-When you're running AQL in the cluster, the parsing of the query is done on the
-coordinator. The coordinator then chops the query into snippets, which are to
-remain on the coordinator, and others that are to be distributed over the network
-to the shards. The cutting sites are interconnected via *Scatter-*, *Gather-* and *RemoteNodes*.
+When you are running AQL in the cluster, the parsing of the query is done on the
+Coordinator. The Coordinator then chops the query into snippets, which are either
+to remain on the Coordinator or need to be distributed to the shards on the
+DB-Servers over the network. The cutting sites are interconnected via *Scatter-*,
+*Gather-* and *RemoteNodes*. These nodes mark the network borders of the snippets.
 
-These nodes mark the network borders of the snippets. The optimizer strives to reduce the amount
-of data transferred via these network interfaces by pushing `FILTER`s out to the shards,
-as it is vital to the query performance to reduce that data amount to transfer over the
-network links.
+The optimizer strives to reduce the amount of data transferred via these network
+interfaces by pushing `FILTER`s out to the shards, as it is vital to the query
+performance to reduce that data amount to transfer over the network links.
 
-Snippets marked with **DBS** are executed on the shards, **COOR** ones are executed on the coordinator.
+{% hint 'info' %}
+Some hops between Coordinators and DB-Servers are unavoidable. An example are
+[user-defined functions](extending.html) (UDFs), which have to be executed on
+the Coordinator. If you cannot modify your query to have a lower amount of
+back and forth between sites, then try to lower the amount of data that has
+to be transferred between them. In case of UDFs, use effective FILTERs before
+calling them.
+{% endhint %}
 
-**As usual, the optimizer can only take certain assumptions for granted when doing so,
-i.e. [user-defined functions have to be executed on the coordinator](extending.html).
-If in doubt, you should modify your query to reduce the number interconnections between your snippets.**
+Using a cluster, there is a *Site* column if you explain a query.
+Snippets marked with **DBS** are executed on DB-Servers, **COOR** ones are
+executed on the respective Coordinator.
 
-When optimizing your query you may want to look at simpler parts of it first.
+```
+Query String (57 chars, cacheable: false):
+ FOR doc IN test UPDATE doc WITH { updated: true } IN test
+
+Execution plan:
+ Id   NodeType          Site     Est.   Comment
+  1   SingletonNode     DBS         1   * ROOT
+  3   CalculationNode   DBS         1     - LET #3 = { "updated" : true }   
+ 13   IndexNode         DBS   1000000     - FOR doc IN test   /* primary index scan, index only, projections: `_key`, 5 shard(s) */    
+  4   UpdateNode        DBS         0       - UPDATE doc WITH #3 IN test 
+  7   RemoteNode        COOR        0       - REMOTE
+  8   GatherNode        COOR        0       - GATHER 
+```
 
 List of execution nodes
 -----------------------
 
 The following execution node types will appear in the output of `explain`:
 
-- **SingletonNode**:
-  the purpose of a *SingletonNode* is to produce an empty document that is
-  used as input for other processing steps. Each execution plan will contain
-  exactly one *SingletonNode* as its top node.
+- **CalculationNode**:
+  evaluates an expression. The expression result may be used by
+  other nodes, e.g. *FilterNode*, *EnumerateListNode*, *SortNode* etc.
+
+- **CollectNode**:
+  aggregates its input and produces new output variables. This will appear
+  once per *COLLECT* statement.
 
 - **EnumerateCollectionNode**:
   enumeration over documents of a collection (given in its *collection*
   attribute) without using an index.
+
+- **EnumerateListNode**:
+  enumeration over a list of (non-collection) values.
+
+- **EnumerateViewNode**:
+  enumeration over documents of a View.
+
+- **FilterNode**:
+  only lets values pass that satisfy a filter condition. Will appear once
+  per *FILTER* statement.
 
 - **IndexNode**:
   enumeration over one or many indexes (given in its *indexes* attribute)
   of a collection. The index ranges are specified in the *condition* attribute
   of the node.
 
-- **EnumerateListNode**:
-  enumeration over a list of (non-collection) values.
+- **InsertNode**:
+  inserts documents into a collection (given in its *collection* attribute).
+  Will appear exactly once in a query that contains an *INSERT* statement.
 
-- **FilterNode**:
-  only lets values pass that satisfy a filter condition. Will appear once
-  per *FILTER* statement.
+- **KShortestPathsNode**:
+  indicates a traversal for k Shortest Paths (`K_SHORTEST_PATHS` in AQL).
 
 - **LimitNode**:
   limits the number of results passed to other processing steps. Will appear
   once per *LIMIT* statement.
 
-- **CalculationNode**:
-  evaluates an expression. The expression result may be used by
-  other nodes, e.g. *FilterNode*, *EnumerateListNode*, *SortNode* etc.
-
-- **SubqueryNode**:
-  executes a subquery.
-
-- **SortNode**:
-  performs a sort of its input values.
-
-- **AggregateNode**:
-  aggregates its input and produces new output variables. This will appear
-  once per *COLLECT* statement.
-
-- **ReturnNode**:
-  returns data to the caller. Will appear in each read-only query at
-  least once. Subqueries will also contain *ReturnNode*s.
-
-- **InsertNode**:
-  inserts documents into a collection (given in its *collection* attribute).
-  Will appear exactly once in a query that contains an *INSERT* statement.
+- **MaterializeNode**:
+  the presence of this node means that the query is not fully covered by
+  indexes and therefore needs to involve the storage engine.
 
 - **RemoveNode**:
   removes documents from a collection (given in its *collection* attribute).
@@ -391,6 +406,34 @@ The following execution node types will appear in the output of `explain`:
 - **ReplaceNode**:
   replaces documents in a collection (given in its *collection* attribute).
   Will appear exactly once in a query that contains a *REPLACE* statement.
+
+- **ReturnNode**:
+  returns data to the caller. Will appear in each read-only query at
+  least once. Subqueries will also contain *ReturnNode*s.
+
+- **SingletonNode**:
+  the purpose of a *SingletonNode* is to produce an empty document that is
+  used as input for other processing steps. Each execution plan will contain
+  exactly one *SingletonNode* as its top node.
+
+- **ShortestPathNode**:
+  indicates a traversal for a Shortest Path (`SHORTEST_PATH` in AQL).
+
+- **SortNode**:
+  performs a sort of its input values.
+
+- **SubqueryEndNode**:
+  end of a spliced (inlined) subquery.
+
+- **SubqueryNode**:
+  executes a subquery.
+
+- **SubqueryStartNode**:
+  beginning of a spliced (inlined) subquery.
+
+- **TraversalNode**:
+  indicates a regular graph traversal, as opposed to a shortest path(s)
+  traversal.
 
 - **UpdateNode**:
   updates documents in a collection (given in its *collection* attribute).
@@ -402,28 +445,30 @@ The following execution node types will appear in the output of `explain`:
 
 For queries in the cluster, the following nodes may appear in execution plans:
 
-- **SingleRemoteOperationNode**:
-  used on a coordinator to directly work with a single
-  document on a DB-Server that was referenced by its `_key`.
-
-- **ScatterNode**:
-  used on a coordinator to fan-out data to one or multiple shards.
+- **DistributeNode**:
+  used on a Coordinator to fan-out data to one or multiple shards,
+  taking into account a collection's shard key.
 
 - **GatherNode**:
-  used on a coordinator to aggregate results from one or many shards
-  into a combined stream of results.
-
-- **DistributeNode**:
-  used on a coordinator to fan-out data to one or multiple shards,
-  taking into account a collection's shard key.
+  used on a Coordinator to aggregate results from one or many shards
+  into a combined stream of results. Parallelizes work for certain types
+  of queries when there are multiple DB-Servers involved
+  (shown as `GATHER   /* parallel */` in query explain).
 
 - **RemoteNode**:
   a *RemoteNode* will perform communication with another ArangoDB instances
-  in the cluster. For example, the cluster coordinator will need to communicate
+  in the cluster. For example, the cluster Coordinator will need to communicate
   with other servers to fetch the actual data from the shards. It will do so
   via *RemoteNode*s. The data servers themselves might again pull further data
-  from the coordinator, and thus might also employ *RemoteNode*s. So, all of
+  from the Coordinator, and thus might also employ *RemoteNode*s. So, all of
   the above cluster relevant nodes will be accompanied by a *RemoteNode*.
+
+- **ScatterNode**:
+  used on a Coordinator to fan-out data to one or multiple shards.
+
+- **SingleRemoteOperationNode**:
+  used on a Coordinator to directly work with a single
+  document on a DB-Server that was referenced by its `_key`.
 
 List of optimizer rules
 -----------------------
@@ -437,6 +482,9 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 - `geo-index-optimizer`:
   will appear when a geo index is utilized.
 
+- `handle-arangosearch-views`:
+  appears whenever an ArangoSearch View is accessed in a query.
+
 - `inline-subqueries`:
   will appear when a subquery was pulled out in its surrounding scope, e.g.
   `FOR x IN (FOR y IN collection FILTER y.value >= 5 RETURN y.test) RETURN x.a`
@@ -446,6 +494,14 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   will appear if a query contains multiple *FOR* statements whose order were
   permuted. Permutation of *FOR* statements is performed because it may enable
   further optimizations by other rules.
+
+- `late-document-materialization`:
+  tries to read from collections as late as possible if the involved attributes
+  are covered by regular indexes.
+
+- `late-document-materialization-arangosearch`:
+  tries to read from the underlying collections of a View as late as possible
+  if the involved attributes are covered by the View index.
 
 - `move-calculations-down`:
   will appear if a *CalculationNode* was moved down in a plan. The intention of
@@ -506,6 +562,10 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   because the result of *INTO* is not used. May also appear if a result
   of a *COLLECT* statement's *AGGREGATE* variables is not used.
 
+- `remove-data-modification-out-variables`:
+  avoids setting the pseudo-variables `OLD` and `NEW` if not used in
+  data modification queries.
+
 - `remove-filter-covered-by-index`:
   will appear if a *FilterNode* was removed or replaced because the filter
   condition is already covered by an *IndexNode*.
@@ -523,6 +583,10 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 - `remove-redundant-or`:
   will appear if multiple *OR* conditions for the same variable or attribute
   were combined into a single condition.
+
+- `remove-redundant-path-var`:
+  avoids computing the variables emitted by traversals if they are unused
+  in the query, significantly reducing overhead.
 
 - `remove-redundant-sorts`:
   will appear if multiple *SORT* statements can be merged into fewer sorts.
@@ -543,8 +607,8 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   plan.
 
 - `replace-function-with-index`:
-  will appear when a deprecated index function such as `FULLTEXT`, `NEAR`,
-  `WITHIN` or `WITHIN_RECTANGLE` is replaced with a regular subquery.
+  will appear when a deprecated index function such as `FULLTEXT()`, `NEAR()`,
+  `WITHIN()` or `WITHIN_RECTANGLE()` is replaced with a regular subquery.
 
 - `replace-or-with-in`:
   will appear if multiple *OR*-combined equality conditions on the same
@@ -576,11 +640,17 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
 
 - `splice-subqueries`:
   will appear when a subquery has been spliced into the surrounding query.
+  Only suitable subqueries can be spliced.
+  A subquery becomes unsuitable if it contains a `LIMIT` node or a
+  `COLLECT WITH COUNT INTO …` construct (but not due to a
+  `COLLECT var = <expr> WITH COUNT INTO …`). A subquery *also* becomes
+  unsuitable if it is contained in a (sub)query containing unsuitable parts
+  *after* the subquery.
+
   This optimization is applied after all other optimizations, and reduces
-  overhead for executing subqueries. Only suitable subqueries can be spliced.
-  A subquery becomes unsuitable if it contains a *LIMIT*, *REMOTE*, *GATHER*
-  or a *COLLECT* node where the operation is not *COUNT*. A subquery *also*
-  becomes unsuitable if it is contained in an unsuitable subquery.
+  overhead for executing subqueries by inlining the execution. This mainly
+  benefits queries which execute subqueries very often that only return a
+  few results at a time.
 
 - `use-index-for-sort`:
   will appear if an index can be used to avoid a *SORT* operation. If the rule
@@ -591,12 +661,27 @@ The following optimizer rules may appear in the `rules` attribute of a plan:
   As a consequence, an *EnumerateCollectionNode* was replaced with an
   *IndexNode* in the plan.
 
-The following optimizer rules may appear in the `rules` attribute of cluster plans:
+Some rules are applied a second time at a different optimization stage.
+These rules show in plans with an appended `-2` to their name.
+
+The following optimizer rules may appear in the `rules` attribute of
+**cluster** plans:
+
+- `cluster-one-shard` _(Enterprise Edition only)_:
+  will appear for eligible queries in OneShard deployment mode as well as
+  for queries that only involve collection(s) with a single shard (and identical
+  sharding in case of multiple collections, e.g. via *distributeShardsLike*).
+  Queries involving V8 / JavaScript (e.g. user-defined AQL functions) or
+  SmartGraphs can not be optimized.
+
+  Offloads the entire query to the DB-Server (except the client communication
+  via a Coordinator). This saves all the back and forth that normally exists
+  in regular cluster queries, benefitting traversals and joins in particular.
 
 - `collect-in-cluster`:
-  will appear when a *CollectNode* on a coordinator is accompanied by extra
-  *CollectNode*s on the database servers, which will do the heavy processing and
-  allow the *CollectNode* on the coordinator to a light-weight aggregation only.
+  will appear when a *CollectNode* on a Coordinator is accompanied by extra
+  *CollectNode*s on the DB-Servers, which will do the heavy processing and
+  allow the *CollectNode* on the Coordinator to a light-weight aggregation only.
 
 - `distribute-filtercalc-to-cluster`:
   will appear when filters are moved up in a
@@ -614,8 +699,20 @@ The following optimizer rules may appear in the `rules` attribute of cluster pla
 
 - `optimize-cluster-single-document-operations`:
   it may appear if you directly reference a document by its `_key`; in this
-  case no AQL will be executed on the DB-Servers, instead the coordinator will
-  directly work with the documents on the DBServers.
+  case no AQL will be executed on the DB-Servers, instead the Coordinator will
+  directly work with the documents on the DB-Servers.
+
+- `parallelize-gather`:
+  will appear if an optimization to execute Coordinator *GatherNodes* in
+  parallel was applied. *GatherNode*s will go into parallel mode only if the
+  DB-Server query part above it (in terms of query execution plan layout) is a
+  terminal part of the query. To trigger the optimization, there must not be
+  other nodes of type *ScatterNode*, *GatherNode* or *DistributeNode* present
+  in the query.
+
+- `remove-satellite-joins` _(Enterprise Edition only)_:
+  optimizes *Scatter-*, *Gather-* and *RemoteNode*s for SatelliteCollections
+  away. Depends on *remove-unnecessary-remote-scatter* rule.
 
 - `remove-unnecessary-remote-scatter`:
   will appear if a RemoteNode is followed by a ScatterNode, and the ScatterNode
@@ -634,12 +731,17 @@ The following optimizer rules may appear in the `rules` attribute of cluster pla
   the query, and when the shard keys are covered by a single index (this is
   always true if the shard key is the default `_key`).
 
+- `scatter-arangosearch-view-in-cluster`:
+  will appear when scatter, gather, and remote nodes are inserted into a
+  distributed View query. This is not an optimization rule, and it cannot be
+  turned off.
+
 - `scatter-in-cluster`:
   will appear when scatter, gather, and remote nodes are inserted into a
   distributed query. This is not an optimization rule, and it cannot be
   turned off.
 
-- `smart-joins`:
+- `smart-joins` _(Enterprise Edition only)_:
   will appear when the query optimizer can reduce an inter-node join to a
   server-local join. This rule is only active in the *Enterprise Edition* of
   ArangoDB, and will only be employed when joining two collections with
@@ -649,6 +751,8 @@ The following optimizer rules may appear in the `rules` attribute of cluster pla
   will appear if a RemoveNode can be pushed into the same query part that
   enumerates over the documents of a collection. This saves inter-cluster
   roundtrips between the EnumerateCollectionNode and the RemoveNode.
+  From v3.6.0 on, it includes simple *UPDATE* and *REPLACE* operations
+  that modify multiple documents and do not use *LIMIT*.
 
 Note that some rules may appear multiple times in the list, with number suffixes.
 This is due to the same rule being applied multiple times, at different positions

@@ -1,0 +1,6 @@
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS(&quot;UPPER lower dïäcríticš&quot;, &quot;identity&quot;)`</span>).toArray();
+[ 
+  [ 
+    <span class="hljs-string">&quot;UPPER lower dïäcríticš&quot;</span> 
+  ] 
+]

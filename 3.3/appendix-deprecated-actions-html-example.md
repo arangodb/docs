@@ -32,6 +32,7 @@ ArangoDB is stored in a collection *_routing*. Each entry in this collections
 describes how to deal with a particular request path.
 
 For the above example, add the following document to the _routing collection:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline HTML_01_routingCreateHtml
     @EXAMPLE_ARANGOSH_OUTPUT{HTML_01_routingCreateHtml}
@@ -48,8 +49,10 @@ For the above example, add the following document to the _routing collection:
     @endDocuBlock HTML_01_routingCreateHtml
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 In order to activate the new routing, you must either restart the server or call
 the internal reload function.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline HTML_02_routingReload
     @EXAMPLE_ARANGOSH_OUTPUT{HTML_02_routingReload}
@@ -58,9 +61,11 @@ the internal reload function.
     @endDocuBlock HTML_02_routingReload
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Now use the browser and access http:// localhost:8529/hello/world
 
 You should see the *Hello World* in our browser:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline HTML_03_routingCurlHtml
     @EXAMPLE_ARANGOSH_RUN{HTML_03_routingCurlHtml}
@@ -253,6 +258,7 @@ Remember that the more specific match wins.
   right.
 
 Consider the following definitions
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline HTML_04_routingCreateMultiPath
     @EXAMPLE_ARANGOSH_OUTPUT{HTML_04_routingCreateMultiPath}
@@ -273,7 +279,9 @@ Consider the following definitions
     @endDocuBlock HTML_04_routingCreateMultiPath
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Then
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline HTML_05_routingGetMultiPath
     @EXAMPLE_ARANGOSH_RUN{HTML_05_routingGetMultiPath}

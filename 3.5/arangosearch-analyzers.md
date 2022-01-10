@@ -3,7 +3,7 @@ layout: default
 description: Analyzers parse input values and transform them into sets of sub-values, for example by breaking up text into words.
 title: ArangoSearch Analyzers
 redirect_from:
-  - /3.5/views-arango-search-analyzers.html # 3.4 -> 3.5
+  - views-arango-search-analyzers.html # 3.4 -> 3.5
 ---
 ArangoSearch Analyzers
 ======================
@@ -25,6 +25,8 @@ indexes, to be able to rank results for instance.
 
 Analyzers can be managed via an [HTTP API](http/analyzers.html) and through
 a [JavaScript module](appendix-java-script-modules-analyzers.html).
+
+{% include youtube.html id="tbOTYL26reg" %}
 
 Value Handling
 --------------
@@ -91,7 +93,7 @@ Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
 Feature / Analyzer | Identity | N-gram  | Delimiter | Stem | Norm | Text
--------------------|----------|---------|-----------|------|------|-----
+:------------------|:---------|:--------|:----------|:-----|:-----|:----
 **Tokenization**   | No       | No      | (Yes)     | No   | No   | Yes
 **Stemming**       | No       | No      | No        | Yes  | No   | Yes
 **Normalization**  | No       | No      | No        | No   | Yes  | Yes
@@ -132,7 +134,7 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB.
+  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
 
 ###  Norm
 
@@ -145,7 +147,7 @@ attributes:
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB.
+  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
 - `accent` (boolean, _optional_):
   - `true` to preserve accented characters (default)
   - `false` to convert accented characters to their base characters
@@ -192,16 +194,13 @@ An Analyzer capable of breaking up strings into individual words while also
 optionally filtering out stop-words, extracting word stems, applying
 case conversion and accent removal.
 
-Stemming support is provided by
-[Snowball](https://snowballstem.org/){:target="_blank"}.
-
 The *properties* allowed for this Analyzer are an object with the following
 attributes:
 
 - `locale` (string): a locale in the format
   `language[_COUNTRY][.encoding][@variant]` (square brackets denote optional
   parts), e.g. `"de.utf-8"` or `"en_US.utf-8"`. Only UTF-8 encoding is
-  meaningful in ArangoDB.
+  meaningful in ArangoDB. Also see [Supported Languages](#supported-languages).
 - `accent` (boolean, _optional_):
   - `true` to preserve accented characters
   - `false` to convert accented characters to their base characters (default)
@@ -279,3 +278,37 @@ Name       | Type       | Language
 `text_ru`  | `text`     | Russian
 `text_sv`  | `text`     | Swedish
 `text_zh`  | `text`     | Chinese
+
+Supported Languages
+-------------------
+
+Analyzers rely on [ICU](http://site.icu-project.org/){:target="_blank"} for
+language-dependent tokenization and normalization. The ICU data file
+`icudtl.dat` that ArangoDB ships with contains information for a lot of
+languages, which are technically all supported.
+
+{% hint 'warning' %}
+The alphabetical order of characters is not taken into account by ArangoSearch,
+i.e. range queries in SEARCH operations against Views will not follow the
+language rules as per the defined Analyzer locale nor the server language
+(startup option `--default-language`)!
+Also see [Known Issues](release-notes-known-issues35.html#arangosearch).
+{% endhint %}
+
+Stemming support is provided by [Snowball](https://snowballstem.org/){:target="_blank"},
+which supports the following languages:
+
+Code  | Language
+------|-----------
+`de`  | German
+`en`  | English
+`es`  | Spanish
+`fi`  | Finnish
+`fr`  | French
+`it`  | Italian
+`nl`  | Dutch
+`no`  | Norwegian
+`pt`  | Portuguese
+`ru`  | Russian
+`sv`  | Swedish
+`zh`  | Chinese

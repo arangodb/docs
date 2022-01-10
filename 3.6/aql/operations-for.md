@@ -87,29 +87,35 @@ suffix to modify behavior. The general syntax is:
 FOR variableName IN expression OPTIONS {option: value, ...}
 ```
 
-### Index hints
+### `indexHint`
 
-For collections, index hints are provided though this inline options mechanism.
-Hints can be specified in two different formats.
-
-The first format option is the simplest, just a single index name. This should
-be sufficient for many cases. Whenever there is a choice to potentially use an
-index for this `FOR` loop, the optimizer will first check if the specified index
-can be used. If so, it will use it, regardless of whether it would normally use
-a different index. If it cannot use that index, then it will fall back to its
-normal logic to select another index. If the optional `forceIndexHint: true` is
-specified, then it will not fall back, and instead generate an error.
+For collections, index hints can be given to the optimizer with the `indexHint`
+option. The value can be a single **index name** or a list of index names in
+order of preference:
 
 ```js
-OPTIONS {indexHint: 'byName'[, forceIndexHint: <boolean>]}
+FOR … IN … OPTIONS { indexHint: "byName" }
 ```
 
-The second is an array of index names, in order of preference. When specified
-this way, the optimizer will behave much in the same way as above, but will
-check the feasibility of each of the specified indices, in the order they are
-given, falling back to its normal logic or failing only if none of the specified
-indices are feasible.
+```js
+FOR … IN … OPTIONS { indexHint: ["byName", "byColor"] }
+```
+
+Whenever there is a chance to potentially use an index for this `FOR` loop,
+the optimizer will first check if the specified index can be used. In case of
+an array of indices, the optimizer will check the feasibility of each index in
+the specified order. It will use the first suitable index, regardless of
+whether it would normally use a different index.
+
+If none of the specified indices is suitable, then it falls back to its normal
+logic to select another index or fails if `forceForceHint` is enabled.
+
+### `forceIndexHint`
+
+Index hints are not enforced by default. If `forceIndexHint` is set to `true`,
+then an error is generated if `indexHint` does not contain a usable index,
+instead of using a fallback index or not using an index at all.
 
 ```js
-OPTIONS {indexHint: ['byName', 'byColor'][, forceIndexHint: <boolean>]}
+FOR … IN … OPTIONS { indexHint: … , forceIndexHint: true }
 ```

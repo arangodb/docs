@@ -43,8 +43,8 @@ way for executing fulltext queries is to use an AQL query using the *FULLTEXT*
 
 
 **Examples**
-{% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline collectionFulltext
     @EXAMPLE_ARANGOSH_OUTPUT{collectionFulltext}
     ~ db._drop("emails");

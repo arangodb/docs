@@ -11,7 +11,7 @@ module PageNavFilter
     def create_flat_nav(nav)
         work = []
         nav.each {|item|
-            if item["href"]
+            if item["href"] and not external_url?(item["href"])
                 work.push(item)
                 if item["children"] && item["children"].size > 0
                     work = work.concat(create_flat_nav(item["children"]))
@@ -58,6 +58,10 @@ module PageNavFilter
         (prev_page, next_page) = find_siblings(nav, relative)
         next_page
     end
+
+    def external_url?(url)
+        url.start_with?("http://", "https://")
+    end
 end
-  
+
 Liquid::Template.register_filter(PageNavFilter)

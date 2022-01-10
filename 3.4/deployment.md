@@ -8,11 +8,6 @@ Deployment
 
 This chapter describes various possibilities to deploy ArangoDB.
 
-{% hint 'info %}
-ArangoDB is also available as
-[**managed service** (ArangoDB Oasis)](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
-
 For installation instructions, please refer to the [Installation](installation.html) _Chapter_.
 
 For _production_ deployments, please also carefully check the
@@ -37,9 +32,10 @@ By _Technology_:
 - [ArangoDB Starter](deployment-arango-dbstarter.html)
 - [Docker](deployment-docker.html)
 - [Kubernetes](deployment-kubernetes.html)
-- [Mesos, DC/OS](deployment-dcos.html)
 
 In the _Cloud_:
 
 - [AWS](deployment-cloud-aws.html)
 - [Azure](deployment-cloud-azure.html)
+- [ArangoDB Oasis](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"},
+  fully managed, available on AWS, Azure & GCP

@@ -56,7 +56,7 @@ Some relevant log topics available in ArangoDB 3 are:
 
 See more [log levels](http/administration-and-monitoring.html#modify-and-return-the-current-server-log-level)
 
-### Log outputs
+## Log outputs
 
 The log option `--log.output <definition>` allows directing the global
 or per-topic log output to different outputs. The output definition `<definition>`
@@ -72,7 +72,7 @@ The option can be specified multiple times in order to configure the output
 for different log topics. To set up a per-topic output configuration, use
 `--log.output <topic>=<definition>`, e.g.
 
-  queries=file://queries.txt
+    queries=file://queries.txt
 
 logs all queries to the file "queries.txt".
 
@@ -106,7 +106,7 @@ a member of that group. Otherwise the group ownership will not be
 changed. Please note that this option is only available under Linux
 and Mac. It is not available under Windows.
 
-### Forcing direct output
+## Forcing direct output
 
 The option `--log.force-direct` can be used to disable logging in an extra
 logging thread. If set to `true`, any log messages are immediately printed in the
@@ -114,7 +114,7 @@ thread that triggered the log message. This is non-optimal for performance but
 can aid debugging. If set to `false`, log messages are handed off to an extra
 logging thread, which asynchronously writes the log messages.
 
-### Time format
+## Time format
 
 The option `--log.time-format` controls the time format used in log output.
 The possible values for this option are:
@@ -131,7 +131,7 @@ Format                  | Example                  | Description
 `utc-datestring-millis` | 2019-03-28T09:55:23.123Z | like `utc-datestring`, but with millisecond precision
 `local-datestring`      | 2019-03-28T10:55:23      | local date and time in format YYYY-MM-DDTHH:MM:SS
 
-### Escaping
+## Escaping
 
 `--log.escape value`
 
@@ -154,14 +154,14 @@ is set to a very verbose level (e.g. debug or trace).
 
 The default value for this option is `true`.
 
-### Color logging
+## Color logging
 
 `--log.color value`
 
 Logging to terminal output is by default colored. Colorful logging can be 
 turned off by setting the value to false.
 
-### Source file and Line number
+## Source file and Line number
 
 Log line number: `--log.line-number`
 
@@ -170,13 +170,13 @@ logged, no information about the file and line number is provided. The
 file and line number is only logged for debug and trace message. This option
 can be use to always log these pieces of information.
 
-### Prefix
+## Prefix
 
 Log prefix: `--log.prefix prefix`
 
 This option is used specify an prefix to logged text.
 
-### Threads
+## Threads
 
 Log thread identifier: `--log.thread true`
 
@@ -199,17 +199,43 @@ when this command line option is set.
 To also log thread names, it is possible to set the `--log.thread-name`
 option. By default `--log.thread-name` is set to `false`.
 
-### Role
+## Role
 
-Log role: `--log.role true`
+Log role: `--log.role`
 
-When set to `true`, this option will make the ArangoDB logger print a single 
-character with the server's role into each logged message. The roles are: 
-  
-- U: undefined/unclear (used at startup)
-- S: single server
-- C: coordinator
-- P: primary
-- A: agent
+When set to `true`, this option will make the ArangoDB logger print a single
+character with the server's role into each logged message. The roles are:
 
-The default value for this option is `false`, so no roles will be logged. 
+- U: Undefined / unclear (used at startup)
+- S: Single server
+- C: Coordinator
+- P: Primary / DB-Server
+- A: Agent
+
+The default value for this option is `false`, so no roles will be logged.
+
+## Log API Access
+
+<small>Introduced in: v3.4.11, v3.5.6</small>
+
+`/_admin/log` control: `--log.api-enabled`
+
+Credentials data is not written to log files. Nevertheless, some logged
+data might be sensitive depending on the context of the deployment. For
+example, if request logging is switched on, user requests and
+corresponding data might end up in log files.
+Therefore, a certain care with log files is recommended.
+
+Since the database server offers an API to control logging and query
+logging data, this API has to be secured properly. By default, the API
+is accessible for admin users (administrative access to the `_system`
+database). However, one can lock this down further.
+
+The possible values for this option are:
+
+ - `true`: The API `/_admin/log` is accessible for admin users.
+ - `jwt`: The API `/_admin/log` is accessible only for the superuser
+   (authentication with JWT token and empty username).
+ - `false`: The API `/_admin/log` is not accessible at all.
+
+The default value is `true`.

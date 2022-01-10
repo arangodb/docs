@@ -1,0 +1,21 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/collection/products/load</span>
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">145</span>
+location: <span class="hljs-regexp">/_api/</span>collection/products/load
+server: ArangoDB
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+  <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-number">0</span>, 
+  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;hE5466DA4F4F0/71066&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;71066&quot;</span>, 
+  <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;products&quot;</span> 
+}

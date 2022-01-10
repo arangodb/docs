@@ -2,15 +2,15 @@
 {% assign resultlines=include.result | newline_to_br | split: "<br" | size %}
 <div id="{{ include.id }}" class="example-container {% if resultlines > 5 %}hide-result{% endif %}">
     <div>
-        <pre>{{ include.script|trim }}</pre>
-        <div class="show-button">
-            <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('hide-result', 'show-result')">Show execution results</div>
-        </div>
+        <pre>{{ include.script | strip }}</pre>
+    </div>
+    <div class="show-button">
+        <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('hide-result', 'show-result')">Show execution results</div>
+    </div>
+    <div class="hide-button">
+        <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('show-result', 'hide-result')">Hide execution results</div>
     </div>
     <div class="example-result">
-        <pre>{{ include.result|trim }}</pre>
-        <div class="hide-button">
-            <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('show-result', 'hide-result')">Hide execution results</div>
-        </div>
+        <pre>{{ include.result | strip }}</pre>
     </div>
 </div>

@@ -1,0 +1,38 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/simple/all-keys</span> &lt;&lt;EOF
+{ 
+  <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;products&quot;</span>, 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;id&quot;</span> 
+}
+EOF
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">314</span>
+server: ArangoDB
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">&quot;result&quot;</span> : [ 
+    <span class="hljs-string">&quot;products/71634&quot;</span>, 
+    <span class="hljs-string">&quot;products/71636&quot;</span>, 
+    <span class="hljs-string">&quot;products/71638&quot;</span> 
+  ], 
+  <span class="hljs-string">&quot;hasMore&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;cached&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;extra&quot;</span> : { 
+    <span class="hljs-string">&quot;stats&quot;</span> : { 
+      <span class="hljs-string">&quot;writesExecuted&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;writesIgnored&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;scannedFull&quot;</span> : <span class="hljs-number">3</span>, 
+      <span class="hljs-string">&quot;scannedIndex&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;filtered&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;httpRequests&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.0005261488258838654</span>, 
+      <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">38585</span> 
+    }, 
+    <span class="hljs-string">&quot;warnings&quot;</span> : [ ] 
+  }, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">201</span> 
+}

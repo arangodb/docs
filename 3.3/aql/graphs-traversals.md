@@ -239,6 +239,7 @@ you may be interested in documents further down the path.
 We will create a simple symmetric traversal demonstration graph:
 
 ![traversal graph](../images/traversal_graph.png)
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_01_create_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_01_create_graph}
@@ -252,8 +253,10 @@ We will create a simple symmetric traversal demonstration graph:
     @endDocuBlock GRAPHTRAV_01_create_graph
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 To get started we select the full graph. For better overview we only return
 the vertex IDs:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_02_traverse_all
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_02_traverse_all}
@@ -263,6 +266,7 @@ the vertex IDs:
     @endDocuBlock GRAPHTRAV_02_traverse_all
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 We can nicely see that it is heading for the first outer vertex, then goes back to
 the branch to descend into the next tree. After that it returns to our start node,
 to descend again. As we can see both queries return the same result, the first one
@@ -270,6 +274,7 @@ uses the named graph, the second uses the edge collections directly.
 
 Now we only want the elements of a specific depth (min = max = 2), the ones that
 are right behind the fork:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_03_traverse_3
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_03_traverse_3}
@@ -279,6 +284,7 @@ are right behind the fork:
     @endDocuBlock GRAPHTRAV_03_traverse_3
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 As you can see, we can express this in two ways: with or without *max* parameter
 in the expression.
 
@@ -289,6 +295,7 @@ side of the graph, we may filter in two ways:
 
 - we know the vertex at depth 1 has `_key` == `G`
 - we know the `label` attribute of the edge connecting **A** to **G** is `right_foo`
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_04_traverse_4
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_04_traverse_4}
@@ -298,6 +305,7 @@ side of the graph, we may filter in two ways:
     @endDocuBlock GRAPHTRAV_04_traverse_4
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 As we can see all vertices behind **G** are skipped in both queries.
 The first filters on the vertex `_key`, the second on an edge label.
 Note again, as soon as a filter is not fulfilled for any of the three elements
@@ -305,6 +313,7 @@ Note again, as soon as a filter is not fulfilled for any of the three elements
 
 We also may combine several filters, for instance to filter out the right branch
 (**G**), and the **E** branch:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_05_traverse_5
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_05_traverse_5}
@@ -314,6 +323,7 @@ We also may combine several filters, for instance to filter out the right branch
     @endDocuBlock GRAPHTRAV_05_traverse_5
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 As you can see, combining two `FILTER` statements with an `AND` has the same result.
 
 Comparing OUTBOUND / INBOUND / ANY
@@ -323,6 +333,7 @@ All our previous examples traversed the graph in `OUTBOUND` edge direction.
 You may however want to also traverse in reverse direction (`INBOUND`) or
 both (`ANY`). Since `circles/A` only has outbound edges, we start our queries
 from `circles/E`:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_06_traverse_reverse_6
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_06_traverse_reverse_6}
@@ -333,6 +344,7 @@ from `circles/E`:
     @endDocuBlock GRAPHTRAV_06_traverse_reverse_6
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The first traversal will only walk in the forward (`OUTBOUND`) direction.
 Therefore from **E** we only can see **F**. Walking in reverse direction
 (`INBOUND`), we see the path to **A**: **B** → **A**.
@@ -352,6 +364,7 @@ Use the AQL explainer for optimizations
 
 Now let's have a look what the optimizer does behind the curtain and inspect
 traversal queries using [the explainer](execution-and-performance-optimizer.html):
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_07_traverse_7
     @EXAMPLE_AQL{GRAPHTRAV_07_traverse_7}
@@ -364,8 +377,9 @@ traversal queries using [the explainer](execution-and-performance-optimizer.html
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_07_traverse_7
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_07_traverse_8
     @EXAMPLE_AQL{GRAPHTRAV_07_traverse_8}
     @DATASET{traversalGraph}
@@ -376,7 +390,8 @@ traversal queries using [the explainer](execution-and-performance-optimizer.html
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_07_traverse_8
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 We now see two queries: In one we add a variable *localScopeVar*, which is outside
 the scope of the traversal itself - it is not known inside of the traverser.
 Therefore, this filter can only be executed after the traversal, which may be
@@ -385,6 +400,7 @@ path, and therefore this condition can be used during the execution of the trave
 Paths that are filtered out by this condition won't be processed at all.
 
 And finally clean it up again:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline GRAPHTRAV_99_drop_graph
     @EXAMPLE_ARANGOSH_OUTPUT{GRAPHTRAV_99_drop_graph}

@@ -1,6 +1,7 @@
 ---
 layout: default
-description: In order to use a different storage engine with an existing data directory,it is required to first create a logical backup of the data using the tool arangodump
+description: Create a logical backup with arangodump and restore it with arangorestore to a new data directory
+title: Switch ArangoDB Storage Engine
 ---
 Switching the storage engine
 ----------------------------
@@ -11,7 +12,7 @@ tool [_arangodump_](programs-arangodump.html).
 
 After that, the _arangod_ server process should be restarted with the desired storage
 engine selected (this can be done by setting the option *--server.storage-engine*,
-or by editing the configuartion file of the server) and using a **non-existing data directory**.
+or by editing the configuration file of the server) and using a **non-existing data directory**.
 If you have deployed using the [_Starter_](programs-starter.html),
 instead of _arangod_ you will need to run _arangodb_, and pass to it the option 
 *--server.storage-engine* and the option *--starter.data-dir* to set a new
@@ -25,4 +26,8 @@ can be re-imported using the tool
 For a list of available storage engines, and more information on their
 differences, please refer to the [Storage Engines](architecture-storage-engines.html)
 page under the [Architecture](architecture.html) chapter.
+
+The MMFiles storage engine is deprecated starting with version
+3.6.0 and it will be removed in a future release.
+We recommend to switch to RocksDB even before the removal of MMFiles.
 {% endhint %}

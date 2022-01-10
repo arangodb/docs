@@ -51,11 +51,11 @@ factor. The number of followers can be controlled using the
 `replicationFactor` parameter is the total number of copies being
 kept, that is, it is one plus the number of followers. 
 
-Satellite collections
----------------------
+SatelliteCollections
+--------------------
 
-Satellite collections are synchronously replicated collections having a dynamic replicationFactor.
+SatelliteCollections are synchronously replicated collections having a dynamic replicationFactor.
 They will replicate all data to all database servers allowing the database servers to join data
 locally instead of doing heavy network operations.
 
-Satellite collections are an enterprise only feature.
+SatelliteCollections are an enterprise only feature.

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Welcome to the ArangoDB documentation!
+description: Technical documentation for ArangoDB's core features and ecosystem
 page-toc:
   disable: true
 ---
@@ -20,17 +20,17 @@ The documentation is organized in four handbooks:
 
 - This manual describes ArangoDB and its features in detail for you as a user,
   developer and administrator.
-- The [AQL handbook](../aql/) explains ArangoDB's query language AQL.
-- The [HTTP handbook](../http/) describes the internal API of ArangoDB
+- The [AQL handbook](aql/index.html) explains ArangoDB's query language AQL.
+- The [HTTP handbook](http/index.html) describes the internal API of ArangoDB
   that is used to communicate with clients. In general, the HTTP handbook will be
   of interest to driver developers. If you use any of the existing drivers for
   the language of your choice, you can skip this handbook.
-- Our [cookbook](../cookbook/) with recipes for specific problems and
+- Our [cookbook](cookbook/index.html) with recipes for specific problems and
   solutions.
 
 Features are illustrated with interactive usage examples; you can cut'n'paste them
 into [arangosh](administration-arangosh.html) to try them out. The HTTP
-[REST-API](../http/) for driver developers is demonstrated with cut'n'paste
+[REST-API](http/index.html) for driver developers is demonstrated with cut'n'paste
 recipes intended to be used with the [cURL](http://curl.haxx.se){:target="_blank"}. Drivers may provide
 their own examples based on these .js based examples to improve understandability
 for their respective users, i.e. for the [java driver](https://github.com/arangodb/arangodb-java-driver#learn-more){:target="_blank"}
@@ -44,7 +44,7 @@ Key features include:
 
 * installing ArangoDB on a [**cluster**](deployment.html) is as easy as installing an app on your mobile
 * [**Flexible data modeling**](data-modeling.html): model your data as combination of key-value pairs, documents or graphs - perfect for social relations
-* [**Powerful query language**](../aql/) (AQL) to retrieve and modify data 
+* [**Powerful query language**](aql/index.html) (AQL) to retrieve and modify data 
 * Use ArangoDB as an [**application server**](foxx.html) and fuse your application and database together for maximal throughput
 * [**Transactions**](transactions.html): run queries on multiple documents or collections with optional transactional consistency and isolation
 * [**Replication** and **Sharding**](administration.html): set up the database in a master-slave configuration or spread bigger datasets across multiple servers

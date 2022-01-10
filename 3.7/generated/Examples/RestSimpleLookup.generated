@@ -1,0 +1,91 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/simple/lookup-by-keys</span> &lt;&lt;EOF
+{ 
+  <span class="hljs-string">&quot;keys&quot;</span> : [ 
+    <span class="hljs-string">&quot;test0&quot;</span>, 
+    <span class="hljs-string">&quot;test1&quot;</span>, 
+    <span class="hljs-string">&quot;test2&quot;</span>, 
+    <span class="hljs-string">&quot;test3&quot;</span>, 
+    <span class="hljs-string">&quot;test4&quot;</span>, 
+    <span class="hljs-string">&quot;test5&quot;</span>, 
+    <span class="hljs-string">&quot;test6&quot;</span>, 
+    <span class="hljs-string">&quot;test7&quot;</span>, 
+    <span class="hljs-string">&quot;test8&quot;</span>, 
+    <span class="hljs-string">&quot;test9&quot;</span> 
+  ], 
+  <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;test&quot;</span> 
+}
+EOF
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">710</span>
+server: ArangoDB
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">&quot;documents&quot;</span> : [ 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;test0&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/test0&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWR5y---&quot;</span>, 
+      <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">0</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;test1&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/test1&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWR52---&quot;</span>, 
+      <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">1</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;test2&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/test2&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWR56---&quot;</span>, 
+      <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">2</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;test3&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/test3&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWR56--A&quot;</span>, 
+      <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">3</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;test4&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/test4&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWR6----&quot;</span>, 
+      <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">4</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;test5&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/test5&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWR6C---&quot;</span>, 
+      <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">5</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;test6&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/test6&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWR6G---&quot;</span>, 
+      <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">6</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;test7&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/test7&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWR6G--A&quot;</span>, 
+      <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">7</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;test8&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/test8&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWR6K---&quot;</span>, 
+      <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">8</span> 
+    }, 
+    { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;test9&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;test/test9&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWR6K--A&quot;</span>, 
+      <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-number">9</span> 
+    } 
+  ], 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span> 
+}

@@ -183,7 +183,7 @@ for (let i = 0; i < files.length; ++i) {
   }
 }
 
-// Produce the scripts, one for each coordinator:
+// Produce the scripts, one for each Coordinator:
 var scripts = [];
 var collections = [];
 for (let i = 0; i < coordinators.length; ++i) {

@@ -22,6 +22,7 @@ The involved graph and its only edge collection has to be known. In this case it
 is the graph **knows_graph** and the edge collection **knows**.
 
 This query will delete **eve** with its adjacent edges:
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_removeVertex1
     @EXAMPLE_AQL{GRAPHTRAV_removeVertex1}
@@ -32,13 +33,15 @@ REMOVE 'eve' IN persons
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_removeVertex1
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 This query executed several actions:
 * use a graph traversal of depth 1 to get the `_key` of **eve's** adjacent edges
 * remove all of these edges from the `knows` collection
 * remove vertex **eve** from the `persons` collection
 
 The following query shows a different design to achieve the same result:
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_removeVertex2
     @EXAMPLE_AQL{GRAPHTRAV_removeVertex2}
@@ -49,7 +52,8 @@ REMOVE 'eve' IN persons
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_removeVertex2
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 **Note**: The query has to be adjusted to match a graph with multiple vertex/edge collections.
 
 For example, the [city graph](../graphs.html#the-city-graph) 
@@ -62,6 +66,7 @@ To delete city **Berlin** all edge collections `french / german / international 
 have to be considered. The **REMOVE** operation has to be applied on all edge
 collections with `OPTIONS { ignoreErrors: true }`. Not using this option will stop the query
 whenever a non existing key should be removed in a collection.
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline GRAPHTRAV_removeVertex3
     @EXAMPLE_AQL{GRAPHTRAV_removeVertex3}
@@ -75,4 +80,4 @@ REMOVE 'Berlin' IN germanCity
     @END_EXAMPLE_AQL
     @endDocuBlock GRAPHTRAV_removeVertex3
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}

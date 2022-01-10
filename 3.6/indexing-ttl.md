@@ -14,12 +14,14 @@ from a collection.
 The TTL index is set up by setting an `expireAfter` value and by selecting a single 
 document attribute which contains a reference point in time. For each document, that
 reference point in time can then be specified as a numeric timestamp (Unix timestamp) or 
-a date string in format `YYYY-MM-DDTHH:MM:SS` with optional milliseconds and an optional
-timezone offset.
+a date string in format `YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a
+decimal point in the format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset.
 All date strings without a timezone offset will be interpreted as UTC dates.
 
 Documents will count as expired when wall clock time is beyond the per-document 
 reference point in time value plus the index' `expireAfter` value added to it. 
+
+{% include youtube.html id="L944_JcC2uw" %}
 
 ### Removing documents at a fixed period after creation / update
 
@@ -50,9 +52,10 @@ To calculate it from an arbitrary `Date` instance, use:
 e.g. `DATE_NOW() / 1000`.
 
 Alternatively, the reference points in time can be specified as a date string in format
-`YYYY-MM-DDTHH:MM:SS` with optional milliseconds, and an optional timezone offset. All 
+`YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a decimal point in the
+format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All
 date strings without a timezone offset will be interpreted as UTC dates.
-  
+
 The above example document using a date string attribute value would be
 
     { "creationDate" : "2019-02-14T17:39:33.000Z" }
@@ -177,6 +180,7 @@ one attribute path has to be given. The index will be sparse in all cases.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureTtlIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureTtlIndex}

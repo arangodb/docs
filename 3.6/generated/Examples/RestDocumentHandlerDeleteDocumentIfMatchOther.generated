@@ -1,16 +1,19 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'If-Match: "_ZiZaQ5q--A"'</span> --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/document/products/69724</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;If-Match: &quot;_c6CZvyK---&quot;&#x27;</span> --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/document/products/70132</span>
 
-HTTP/<span class="hljs-number">1.1</span> Precondition Failed
-etag: <span class="hljs-string">"_ZiZaQ5q---"</span>
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">412</span> Precondition Failed
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">137</span>
+etag: <span class="hljs-string">&quot;_c6CZvyG---&quot;</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">412</span>, 
-  <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">1200</span>, 
-  <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"precondition failed"</span>, 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/69724"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"69724"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaQ5q---"</span> 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">412</span>, 
+  <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">1200</span>, 
+  <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;precondition failed&quot;</span>, 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/70132&quot;</span>, 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70132&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZvyG---&quot;</span> 
 }

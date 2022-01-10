@@ -3,10 +3,10 @@ layout: default
 description: Features listed in this section should no longer be used, because they are considered obsolete and may get removed in a future release
 title: Deprecated Features
 redirect_from:
-  - /3.5/appendix-deprecated-actions.html # 3.4 -> 3.5
-  - /3.5/appendix-deprecated-actions-html-example.html # 3.4 -> 3.5
-  - /3.5/appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
-  - /3.5/appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
+  - appendix-deprecated-actions.html # 3.4 -> 3.5
+  - appendix-deprecated-actions-html-example.html # 3.4 -> 3.5
+  - appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
+  - appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
 ---
 Deprecated
 ==========
@@ -17,7 +17,7 @@ kept for backward compatibility. There are usually better alternatives to
 replace the old features with:
 
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
-  They are superseded by [AQL queries](../aql/), which can also
+  They are superseded by [AQL queries](aql/index.html), which can also
   be run in arangosh. AQL is a language on its own and way more powerful than
   *Simple Queries* could ever be. In fact, the (still supported) *Simple Queries*
   are translated internally to AQL, then the AQL query is optimized and run

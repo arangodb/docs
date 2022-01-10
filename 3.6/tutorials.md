@@ -20,7 +20,7 @@ Tutorials
 - [Foxx](foxx-getting-started.html):
   Create your first "Hello World!" Foxx service
 
-- [ArangoSearch](https://www.arangodb.com/tutorials/arangosearch/){:target="_blank"}:
+- [ArangoSearch](https://www.arangodb.com/learn/search/tutorial/){:target="_blank"}:
   The implementation of ArangoDB's view engine
 
 Deployment & Administration
@@ -45,11 +45,8 @@ Deployment & Administration
 - [Monitor ArangoDB](https://www.arangodb.com/tutorials/monitoring-collectd-prometheus-grafana/){:target="_blank"}:
   Set up a monitoring system for ArangoDB using _collectd_, _Prometheus_ and _Grafana_
 
-- [Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}:
+- [Cluster Administration Course](https://www.arangodb.com/learn/operations/cluster-course/){:target="_blank"}:
   Concepts, maintenance, resilience and troubleshooting
-
-- [ArangoDB Oasis](https://www.arangodb.com/managed-service/){:target="_blank"}:
-  Managed service for cluster deployments of any size
 
 Graphs
 ------

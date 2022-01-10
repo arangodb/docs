@@ -87,7 +87,7 @@ fmt.Printf("Created document in collection '%s' in database '%s'\n", col.Name(),
 
 ### Concurrency
 
-All functions of the driver are stricly synchronous. They operate and only return a value (or error)
+All functions of the driver are strictly synchronous. They operate and only return a value (or error)
 when they're done. 
 
 If you want to run operations concurrently, use a go routine. All objects in the driver are designed 

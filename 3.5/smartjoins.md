@@ -3,20 +3,18 @@ layout: default
 description: SmartJoins allow to execute co-located join operations among identically sharded collections.
 title: SmartJoins for ArangoDB Clusters
 redirect_from:
-  - /3.5/smart-joins.html # 3.4 -> 3.4
+  - smart-joins.html # 3.4 -> 3.4
 ---
 SmartJoins
 ==========
 
 <small>Introduced in: v3.4.5, v3.5.0</small>
 
-{% hint 'info' %}
-SmartJoins are only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="SmartJoins" plural=true %}
 
 SmartJoins allow to execute co-located join operations among identically sharded collections.
+
+{% include youtube.html id="WGFIEdihRS8" %}
 
 Cluster joins without being smart
 ---------------------------------

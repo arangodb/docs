@@ -1,17 +1,51 @@
 ---
 layout: default
-description: The user management in ArangoDB 3 is similar to the ones found in MySQL,PostgreSQL, or other database systems
+description: User management is possible in the web interface and in arangosh while logged on to the _system database.
+title: Manage User Authentication in ArangoDB
+redirect_from:
+  - cookbook/administration-show-users-grants.html # 3.5 -> 3.5
+  - cookbook/administration-authentication.html # 3.5 -> 3.5
 ---
 Managing Users
 ==============
 
-The user management in ArangoDB 3 is similar to the ones found in MySQL,
-PostgreSQL, or other database systems.
+Authentication needs to be enabled on the server in order to employ user
+permissions. Authentication is turned on by default in ArangoDB. You should
+make sure that it was not turned off manually however. Check the configuration
+file (normally named `/etc/arangodb.conf`) and make sure it contains the
+following line in the `[server]` section:
+
+```
+authentication = true
+```
+
+This will make ArangoDB require authentication for every request (including
+requests to Foxx apps). If you want to run Foxx apps without HTTP
+authentication, but activate HTTP authentication for the built-in server APIs,
+you can add the following line in the `[server]` section of the configuration:
+
+```
+authentication-system-only = true
+```
+
+The above will bypass authentication for requests to Foxx apps.
+
+When finished making changes, you need to restart ArangoDB, e.g.:
+
+```
+service arangodb restart
+```
 
 User management is possible in the [web interface](programs-web-interface-users.html)
-and in [arangosh](administration-managing-users-in-arangosh.html) while logged on to the *\_system* database.
+while logged on to the *\_system* database and in
+[arangosh](administration-managing-users-in-arangosh.html), as well as via the
+[HTTP API](http/user-management.html).
 
-Note that usernames *must* not start with `:role:`.
+There is a built-in user account `root` which cannot be removed. Note that it
+has an empty password by default, so make sure to set a strong password
+immediately. Additional users can be created and granted different actions and
+access levels. ArangoDB user accounts are valid throughout a server instance
+(across databases).
 
 Actions and Access Levels
 -------------------------
@@ -118,8 +152,7 @@ for the collection are *Read/Write*, *Read Only* and *No Access*.
 | drop a document       | Read/Write              | Administrate or Access |
 | truncate a collection | Read/Write              | Administrate or Access |
 
-
-*Example*
+**Example**
 
 For example, given
 
@@ -149,7 +182,9 @@ from the database access level in the `_system` database, it is
 
 ### Initial Access Levels
 
-When a user creates a database the access level of the user for that database is set to *Administrate*. The same is true for creating a collection, in this case the user get *Read/Write* access to the collection.
+When a user creates a database the access level of the user for that database
+is set to *Administrate*. The same is true for creating a collection, in this
+case the user get *Read/Write* access to the collection.
 
 ### Wildcard Database Access Level
 
@@ -157,7 +192,8 @@ With the above definition, one must define the database access level for
 all database/user pairs in the server, which would be very tedious. In
 order to simplify this process, it is possible to define, for a user,
 a wildcard database access level. This wildcard is used if the database
-access level is *not* explicitly defined for a certain database. Each new created user has an initial database wildcard of *No Access*.
+access level is *not* explicitly defined for a certain database. Each new
+created user has an initial database wildcard of *No Access*.
 
 Changing the wildcard database access level for a user will change the
 access level for all databases that have no explicitly defined
@@ -198,15 +234,20 @@ For each user and database there is a wildcard collection access level.
 This level is used for all collections pairs without an explicitly
 defined collection access level. Note that this includes collections
 which will be created in the future and for which no explicit access
-levels are set for a that user! Each new created user has an initial collection wildcard of *No Access*.
+levels are set for a that user! Each new created user has an initial
+collection wildcard of *No Access*.
 
 If you delete the wildcard, the system defaults to *No Access*.
 
 The `root` user has an initial collection wildcard of *Read/Write* in every database.
 
-When creating a user through [db._createDatabase(name, options, users)](data-modeling-databases-working-with.html#create-database) the access level of the user for this database will be set to *Administrate* and the wildcard for all collections within this database will be set to *Read/Write*.
+When creating a user through
+[db._createDatabase(name, options, users)](data-modeling-databases-working-with.html#create-database)
+the access level of the user for this database will be set to *Administrate*
+and the wildcard for all collections within this database will be set to
+*Read/Write*.
 
-*Example*
+**Example**
 
 Assume user *JohnSmith* has the following database access levels:
 
@@ -254,16 +295,16 @@ The access levels for databases and collections are resolved in the following wa
 For a database "*foo*":
 1. Check if there is a specific database grant for *foo*, if yes use the granted access level
 2. Choose the higher access level of::
-    * A wildcard database grant ( for example `grantDatabase('user', '*', 'rw'`)
-    * A database grant on the `_system` database
-  
+  - A wildcard database grant ( for example `grantDatabase('user', '*', 'rw'`)
+  - A database grant on the `_system` database
+
 For a collection named "*bar*":
 1. Check if there is a specific database grant for *bar*, if yes use the granted access level
 2. Choose the higher access level of::
-    * Any wildcard access grant in the same database, or on `"*"` (in this example `grantCollection('user', 'foo', '*', 'rw')`) 
-    * The access level for the current database (in this example `grantDatabase('user', 'foo', 'rw'`)
-    * The access level for the `_system` database
-    
+  - Any wildcard access grant in the same database, or on `"*"` (in this example `grantCollection('user', 'foo', '*', 'rw')`) 
+  - The access level for the current database (in this example `grantDatabase('user', 'foo', 'rw'`)
+  - The access level for the `_system` database
+
 An exception to this are system collections, here only the access level for the database is used.
 
 ### System Collections
@@ -272,12 +313,12 @@ The access level for system collections cannot be changed. They follow
 different rules than user defined collections and may change without further
 notice. Currently the system collections follow these rules:
 
-| collection                    | access level |
-|--------------------------|--------------|
+| collection            | access level |
+|-----------------------|--------------|
 | `_users` (in _system) | No Access    |
-| `_queues`                   | Read-Only    |
-| `_frontend`               | Read/Write   |
-| `*`                               | *same as db* |
+| `_queues`             | Read-Only    |
+| `_frontend`           | Read/Write   |
+| `*`                   | *same as db* |
 
 All other system collections have access level *Read/Write* if the
 user has *Administrate* access to the database. They have access level
@@ -292,23 +333,26 @@ database. All changes to the access levels must be done using the
 
 ### LDAP Users
 
-{% hint 'info' %}
-LDAP authentication is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee-oasis.md feature="LDAP authentication" %}
 
 ArangoDB supports LDAP as an external authentication system. For detailed
 information please have look into the
 [LDAP configuration guide](programs-arangod-ldap.html).
 
 There are a few differences to *normal* ArangoDB users:
-- ArangoDB does not "*know*" LDAP users before they first authenticate, calls to various API's using endpoints in `_api/users/*` will **fail** until the user first logs-in
-- Access levels of each user are periodically updated, this will happen by default every *5 minutes*
+- ArangoDB does not "*know*" LDAP users before they first authenticate.
+  Calls to various APIs using endpoints in `_api/users/*` will **fail** until
+  the user first logs-in.
+- Access levels of each user are periodically updated. This will happen by
+  default every *5 minutes*.
 - It is not possible to change permissions on LDAP users directly, only on **roles**
-- LDAP users cannot store configuration data per user (affects for example custom settings in the graph viewer)
+- LDAP users cannot store configuration data per user
+  (affects for example custom settings in the graph viewer).
 
-To grant access for an LDAP user you will need to create *roles* within the ArangoDB server. A role
-is just a user with the __":role:"__ prefix in its name. Role users cannot login as database users, the ":role:" prefix ensures this.
-Your LDAP users will need to have at least one role, once the user logs in he will be automatically granted the union of
-all access rights of all his roles. Note that a lower right grant in one role will be overwritten by a higher access grant in a different role.
+To grant access for an LDAP user you will need to create *roles* within the
+ArangoDB server. A role is just a user with the `:role:` prefix in its name.
+Role users cannot login as database users, the `:role:` prefix ensures this.
+Your LDAP users will need to have at least one role, once the user logs in he
+will be automatically granted the union of all access rights of all his roles.
+Note that a lower right grant in one role will be overwritten by a higher
+access grant in a different role.

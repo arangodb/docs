@@ -53,6 +53,7 @@ account for uniqueness checks.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureUniqueSkiplistSingle
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueSkiplistSingle}
@@ -66,7 +67,9 @@ details, including the index-identifier, is returned.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureUniqueSkiplistSingle
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureUniqueSkiplistMultiColumn
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueSkiplistMultiColumn}
     ~db._create("ids");
@@ -98,6 +101,7 @@ To create a sparse non-unique index, set the *sparse* attribute to `true`.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureSkiplist
     @EXAMPLE_ARANGOSH_OUTPUT{ensureSkiplist}
@@ -113,6 +117,7 @@ details, including the index-identifier, is returned.
     @endDocuBlock ensureSkiplist
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Skiplist Array Index
 
 Ensures that a skiplist array index exists (non-unique):
@@ -128,6 +133,7 @@ It is possible to combine array indexing with standard indexing:
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureSkiplistArray
     @EXAMPLE_ARANGOSH_OUTPUT{ensureSkiplistArray}
@@ -141,6 +147,7 @@ details, including the index-identifier, is returned.
     @endDocuBlock ensureSkiplistArray
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Query by example using a skiplist index
 
 Constructs a query-by-example using a skiplist index:

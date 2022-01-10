@@ -3,8 +3,8 @@ arangosh&gt; <span class="hljs-keyword">var</span> edgeDefinitions = [ graph_mod
 arangosh&gt; <span class="hljs-keyword">var</span> graph = graph_module._create(<span class="hljs-string">"myGraph"</span>, edgeDefinitions, [<span class="hljs-string">"sessions"</span>], {<span class="hljs-attr">smartGraphAttribute</span>: <span class="hljs-string">"region"</span>, <span class="hljs-attr">numberOfShards</span>: <span class="hljs-number">9</span>});
 arangosh&gt; graph_module._graph(<span class="hljs-string">"myGraph"</span>);
 {[SmartGraph] 
-  <span class="hljs-string">"myRelation"</span> : [ArangoCollection <span class="hljs-number">4010112</span>, <span class="hljs-string">"myRelation"</span> (type edge, status loaded)], 
-  <span class="hljs-string">"female"</span> : [ArangoCollection <span class="hljs-number">4010110</span>, <span class="hljs-string">"female"</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
-  <span class="hljs-string">"male"</span> : [ArangoCollection <span class="hljs-number">4010111</span>, <span class="hljs-string">"male"</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
-  <span class="hljs-string">"sessions"</span> : [ArangoCollection <span class="hljs-number">4010100</span>, <span class="hljs-string">"sessions"</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
+  <span class="hljs-string">"myRelation"</span> : [ArangoCollection <span class="hljs-number">4010108</span>, <span class="hljs-string">"myRelation"</span> (type edge, status loaded)], 
+  <span class="hljs-string">"female"</span> : [ArangoCollection <span class="hljs-number">4010106</span>, <span class="hljs-string">"female"</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">"male"</span> : [ArangoCollection <span class="hljs-number">4010107</span>, <span class="hljs-string">"male"</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">"sessions"</span> : [ArangoCollection <span class="hljs-number">4010096</span>, <span class="hljs-string">"sessions"</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
 }

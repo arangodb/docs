@@ -391,7 +391,7 @@ Deployment
 An ArangoDB Cluster can be deployed in several ways, e.g. by manually
 starting all the needed instances, by using the tool 
 [_Starter_](programs-starter.html), in
-Docker, in Mesos or DC/OS, and in Kubernetes.
+Docker and in Kubernetes.
 
 See the [Cluster Deployment](deployment-cluster.html)
 chapter for instructions.

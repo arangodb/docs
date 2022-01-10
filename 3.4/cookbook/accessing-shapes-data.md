@@ -1,6 +1,9 @@
 ---
 layout: default
 description: Documents in a collection may have different shapes associated with them
+redirect_from:
+  - /3.5/cookbook/accessing-shapes-data.html # 3.5 -> 3.5
+  - /3.6/cookbook/accessing-shapes-data.html # 3.5 -> 3.5
 ---
 # Accessing Shapes Data
 

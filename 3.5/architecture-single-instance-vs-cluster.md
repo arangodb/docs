@@ -89,7 +89,7 @@ operation.
 On the other hand, if you do a join or a traversal and the data is not
 local to one server then the performance can be worse compared to a
 single server. This is especially true for traversal if the data is
-not sharded with care. Our smart graph feature helps with this for
+not sharded with care. Our SmartGraph feature helps with this for
 traversals.
 
 Single document operations can have a higher throughput in cluster but
@@ -124,12 +124,12 @@ for details.
 Batch operations for multiple documents in the same collection are only
 fully transactional in a single instance.
 
-Smart graphs
-------------
+SmartGraphs
+-----------
 
-In smart graphs there are restrictions on the values of the `_key`
+In SmartGraphs there are restrictions on the values of the `_key`
 attributes. Essentially, the `_key` attribute values for vertices must
-be prefixed with the string value of the smart graph attribute and a
+be prefixed with the string value of the SmartGraph attribute and a
 colon. A similar restriction applies for the edges.
 
 Foxx

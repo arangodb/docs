@@ -196,6 +196,20 @@
     "section" : "agency",
     "type" : "double"
   },
+  "agency.supervision-ok-threshold" : {
+    "category" : "option",
+    "default" : 5,
+    "deprecatedIn" : null,
+    "description" : "supervision time, after which a server is considered to be bad [s]",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "agency",
+    "type" : "double"
+  },
   "agency.wait-for-sync" : {
     "category" : "option",
     "default" : true,
@@ -311,7 +325,7 @@
   },
   "cache.size" : {
     "category" : "option",
-    "default" : 16341567488,
+    "default" : 16341527552,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -2089,6 +2103,24 @@
     "section" : "",
     "type" : "string..."
   },
+  "log.api-enabled" : {
+    "category" : "option",
+    "default" : "true",
+    "deprecatedIn" : null,
+    "description" : "whether the log api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.11",
+      "v3.5.6",
+      "v3.6.5"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string"
+  },
   "log.color" : {
     "category" : "option",
     "default" : true,
@@ -2716,6 +2748,23 @@
     "section" : "replication",
     "type" : "boolean"
   },
+  "replication.connect-timeout" : {
+    "category" : "option",
+    "default" : 10,
+    "deprecatedIn" : null,
+    "description" : "Default timeout value for replication connection attempts (in seconds)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.9",
+      "v3.5.3"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "replication",
+    "type" : "double"
+  },
   "replication.max-parallel-tailing-invocations" : {
     "category" : "option",
     "default" : 0,
@@ -2731,6 +2780,23 @@
     "requiresValue" : true,
     "section" : "replication",
     "type" : "uint64"
+  },
+  "replication.request-timeout" : {
+    "category" : "option",
+    "default" : 600,
+    "deprecatedIn" : null,
+    "description" : "Default timeout value for replication requests (in seconds)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.9",
+      "v3.5.3"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "replication",
+    "type" : "double"
   },
   "rocksdb.allow-fallocate" : {
     "category" : "option",
@@ -2779,7 +2845,7 @@
   },
   "rocksdb.block-cache-size" : {
     "category" : "option",
-    "default" : 19609880985,
+    "default" : 19609833062,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -3258,7 +3324,7 @@
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
-    "default" : 26146507980,
+    "default" : 26146444083,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,

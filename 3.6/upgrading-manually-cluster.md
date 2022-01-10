@@ -14,6 +14,12 @@ to a new hotfix, or to perform an upgrade to a new minor version of ArangoDB.
 Please refer to the [Upgrade Paths](upgrading-general-info.html#upgrade-paths) section
 for detailed information.
 
+{% hint 'warning' %}
+It is highly recommended to upgrade 3.6.x deployments to at least 3.6.15
+because of a technical problem, see
+[Technical Alert #6](https://www.arangodb.com/alerts/tech06/){:target="_blank"}.
+{% endhint %}
+
 Preparations
 ------------
 
@@ -29,7 +35,7 @@ separate from the ones in your _cluster_ configuration. Also, that you haven't
 modified the init script or systemd unit file for the standalone instance in way
 that it would start or stop your _cluster_ instance instead.
 
-You can read about the details on how to deploy your _cluster_ indendently of the
+You can read about the details on how to deploy your _cluster_ independently of the
 standalone instance in the [_cluster_ deployment preliminary](deployment-cluster-preliminary-information.html).
 
 In the following, we assume that you don't use the standalone instance from the
@@ -119,7 +125,7 @@ curl http://localhost:7002/_admin/cluster/maintenance -XPUT -d'"off"'
 Upgrade the _cluster_ processes
 -------------------------------
 
-Now all the _cluster_ (_Agents_, _DBServers_ and _Coordinators_) processes (_arangod_) have to be
+Now all the _cluster_ (_Agents_, _DB-Servers_ and _Coordinators_) processes (_arangod_) have to be
 upgraded on each node.
 
 **Note:** The maintenance mode has to be activated.
@@ -141,7 +147,7 @@ The output of the command above does not only show the PID's of all _arangod_
 processes but also the used commands, which can be useful for the following
 restart of all _arangod_ processes.
 
-The output below is from a test machine where three _Agents_, two _DBServers_
+The output below is from a test machine where three _Agents_, two _DB-Servers_
 and two _Coordinators_ are running locally. In a more production-like scenario,
 you will find only one instance of each one running:
 
@@ -160,9 +166,9 @@ max      29938 16224  2 13:56 pts/3    00:02:13 arangod --server.authentication=
 
 ### Upgrade a _cluster_ node
 
-The following procedure is upgrading _Agent_, _DBServer_ and _Coordinator_ on one node.
+The following procedure is upgrading _Agent_, _DB-Server_ and _Coordinator_ on one node.
 
-**Note:** The starting commands of _Agent_, _DBServer_ and _Coordinator_ have to be reused.
+**Note:** The starting commands of _Agent_, _DB-Server_ and _Coordinator_ have to be reused.
 
 #### Stop the _Agent_
 
@@ -186,26 +192,26 @@ The _Agent_ will stop automatically after the upgrade.
 The _arangod_ process of the _Agent_ has to be restarted using the same command that has
 been used before (without the additional option).
 
-#### Stop the _DBServer_
+#### Stop the _DB-Server_
 
 ```
 kill -15 <pid-of-dbserver>
 ```
 
-#### Upgrade the _DBServer_
+#### Upgrade the _DB-Server_
 
-The _arangod_ process of the _DBServer_ has to be upgraded using the same command that has
+The _arangod_ process of the _DB-Server_ has to be upgraded using the same command that has
 been used before with the additional option:
 
 ```
 --database.auto-upgrade=true
 ```
 
-The _DBServer_ will stop automatically after the upgrade.
+The _DB-Server_ will stop automatically after the upgrade.
 
-#### Restart the _DBServer_
+#### Restart the _DB-Server_
 
-The _arangod_ process of the _DBServer_ has to be restarted using the same command that has
+The _arangod_ process of the _DB-Server_ has to be restarted using the same command that has
 been used before (without the additional option).
 
 #### Stop the _Coordinator_
@@ -230,7 +236,7 @@ The _Coordinator_ will stop automatically after the upgrade.
 The _arangod_ process of the _Coordinator_ has to be restarted using the same command that has
 been used before (without the additional option).
 
-After repeating this process on every node all _Agents_, _DBServers_ and _Coordinators_ are upgraded and the manual upgrade
+After repeating this process on every node all _Agents_, _DB-Servers_ and _Coordinators_ are upgraded and the manual upgrade
 has successfully finished.
 
 The _cluster_ supervision is reactivated by the API call:

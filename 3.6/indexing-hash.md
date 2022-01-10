@@ -1,9 +1,19 @@
 ---
 layout: default
-description: It is possible to define a hash index on one or more attributes (or paths) of adocument
+description: The hash index type is deprecated for the RocksDB storage engine.
+redirect_from:
+  - /3.7/indexing-hash.html # 3.7 -> 3.6
+  - /3.8/indexing-hash.html # 3.8 -> 3.6
 ---
 Hash Indexes
 ============
+
+{% hint 'warning' %}
+The hash index type is deprecated for the RocksDB storage engine.
+It is the same as the *persistent* type when using RocksDB. The type *hash*
+is still allowed for backward compatibility in the APIs, but the web interface
+does not offer this type anymore.
+{% endhint %}
 
 Introduction to Hash Indexes
 ----------------------------
@@ -52,6 +62,7 @@ indexed and will be taken into account for uniqueness checks.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureUniqueConstraint
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniqueConstraint}
@@ -66,6 +77,7 @@ details, including the index-identifier, is returned.
     @endDocuBlock ensureUniqueConstraint
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Non-unique Hash Indexes
 
 <!-- js/server/modules/@arangodb/arango-collection.js-->
@@ -83,6 +95,7 @@ To create a sparse unique index, set the *sparse* attribute to `true`:
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureHashIndex
     @EXAMPLE_ARANGOSH_OUTPUT{ensureHashIndex}
@@ -96,6 +109,7 @@ details, including the index-identifier, is returned.
     @endDocuBlock ensureHashIndex
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 ### Hash Array Indexes
 
 Ensures that a hash array index exists (non-unique):
@@ -111,6 +125,7 @@ It is possible to combine array indexing with standard indexing:
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureHashIndexArray
     @EXAMPLE_ARANGOSH_OUTPUT{ensureHashIndexArray}

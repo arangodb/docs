@@ -5,11 +5,7 @@ title: DC2DC Replication
 ---
 # Datacenter to datacenter Replication
 
-{% hint 'info' %}
-Datacenter to datacenter replication is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="Datacenter to datacenter replication" %}
 
 ## About
 
@@ -111,10 +107,21 @@ consult the [reference manual](deployment-dc2-dc.html).
 Datacenter to datacenter replication requires an ArangoDB cluster in both data centers,
 configured with the `rocksdb` storage engine.
 
-Since the cluster agents are so critical to the availability of both the ArangoDB and the ArangoSync cluster,
-it is recommended to run agents on dedicated machines. Consider these machines "pets".
+Since the _Agents_ are so critical to the availability of both the ArangoDB and
+the ArangoSync cluster, it is recommended to run _Agents_ on dedicated machines.
+They run a real-time system for the elections and bad performance can negatively
+affect the availability of the whole cluster.
 
-Coordinators and DBServers can be deployed on other machines that should be considered "cattle".
+_DBServers_ are also important and you do not want to lose them, but
+depending on your replication factor, the system can tolerate some
+loss and bad performance will slow things down but not stop things from
+working.
+
+_Coordinators_ can be deployed on other machines, since they do not hold
+persistent state. They might have some in-memory state about running
+transactions or queries, but losing a coordinator will not lose any
+persisted data. Furthermore, new coordinators can be added to a cluster
+without much effort.
 
 ### Sync Master
 
@@ -135,7 +142,7 @@ and from inside of the other datacenter (by sync masters in the other datacenter
 Since the sync masters can be CPU intensive when running lots of databases & collections,
 it is recommended to run them on dedicated machines with a lot of CPU power.
 
-Consider these machines "pets".
+Consider these machines to be crucial for your DC2DC setup.
 
 ### Sync Workers
 
@@ -156,8 +163,6 @@ This port must be reachable from inside the datacenter (by sync masters).
 The sync workers should be run on all machines that also contain an ArangoDB DBServer.
 The sync worker can be memory intensive when running lots of databases & collections.
 
-Consider these machines "cattle".
-
 ### Prometheus & Grafana (optional)
 
 ArangoSync provides metrics in a format supported by [Prometheus](https://prometheus.io){:target="_blank"}.
@@ -173,8 +178,10 @@ Consult the [reference manual](deployment-dc2-dc-prometheus-grafana.html) for a 
 Prometheus can be a memory & CPU intensive process. It is recommended to keep them
 on other machines than used to run the ArangoDB cluster or ArangoSync components.
 
-Consider these machines "cattle", unless you configure alerting on prometheus,
-in which case it is recommended to consider these machines "pets".
+Consider these machines to be easily replaceable, unless you configure
+alerting on _prometheus_, in which case it is recommended to keep a
+close eye on them, such that you do not lose any alerts due to failures
+of Prometheus.
 
 ## Configuration
 

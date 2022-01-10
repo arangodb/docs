@@ -2,7 +2,6 @@
 layout: default
 description: ArangoDeployment Custom Resource
 ---
-
 # ArangoDeployment Custom Resource
 
 The ArangoDB Deployment Operator creates and maintains ArangoDB deployments
@@ -56,9 +55,9 @@ Below you'll find all settings of the `ArangoDeployment` custom resource.
 Several settings are for various groups of servers. These are indicated
 with `<group>` where `<group>` can be any of:
 
-- `agents` for all agents of a `Cluster` or `ActiveFailover` pair.
-- `dbservers` for all dbservers of a `Cluster`.
-- `coordinators` for all coordinators of a `Cluster`.
+- `agents` for all Agents of a `Cluster` or `ActiveFailover` pair.
+- `dbservers` for all DB-Servers of a `Cluster`.
+- `coordinators` for all Coordinators of a `Cluster`.
 - `single` for all single servers of a `Single` instance or `ActiveFailover` pair.
 - `syncmasters` for all syncmasters of a `Cluster`.
 - `syncworkers` for all syncworkers of a `Cluster`.
@@ -68,8 +67,8 @@ with `<group>` where `<group>` can be any of:
 This setting specifies the type of deployment you want to create.
 Possible values are:
 
-- `Cluster` (default) Full cluster. Defaults to 3 agents, 3 dbservers & 3 coordinators.
-- `ActiveFailover` Active-failover single pair. Defaults to 3 agents and 2 single servers.
+- `Cluster` (default) Full cluster. Defaults to 3 Agents, 3 DB-Servers & 3 Coordinators.
+- `ActiveFailover` Active-failover single pair. Defaults to 3 Agents and 2 single servers.
 - `Single` Single server only (note this does not provide high availability or reliability).
 
 This setting cannot be changed after the deployment has been created.
@@ -82,7 +81,7 @@ Possible values are:
 - `Development` (default) This value optimizes the deployment for development
   use. It is possible to run a deployment on a small number of nodes (e.g. minikube).
 - `Production` This value optimizes the deployment for production use.
-  It puts required affinity constraints on all pods to avoid agents & dbservers
+  It puts required affinity constraints on all pods to avoid Agents & DB-Servers
   from running on the same machine.
 
 ### `spec.image: string`
@@ -100,6 +99,14 @@ Possible values are:
 
 - `IfNotPresent` (default) to pull only when the image is not found on the node.
 - `Always` to always pull the image before using it.
+
+### `spec.imagePullSecrets: []string`
+
+This setting specifies the list of image pull secrets for the docker image to use for all ArangoDB servers.
+
+### `spec.annotations: map[string]string`
+
+This setting set specified annotations to all ArangoDeployment owned resources (pods, services, PVC's, PDB's).
 
 ### `spec.storageEngine: string`
 
@@ -137,12 +144,26 @@ When an encryption key is used, encryption of the data in the cluster is enabled
 without it encryption is disabled.
 The default value is empty.
 
-This requires the Enterprise version.
+This requires the Enterprise Edition.
 
 The encryption key cannot be changed after the cluster has been created.
 
 The secret specified by this setting, must have a data field named 'key' containing
 an encryption key that is exactly 32 bytes long.
+
+### `spec.networkAttachedVolumes: bool`
+
+The default of this option is `false`. If set to `true`, and the
+deployed ArangoDB version is new enough (>= 3.4.8 for 3.4 and >= 3.5.1
+for 3.5), a `ResignLeaderShip` operation
+will be triggered when a DB-Server pod is evicted (rather than a
+`CleanOutServer` operation). Furthermore, the pod will simply be
+redeployed on a different node, rather than cleaned and retired and
+replaced by a new member. You must only set this option to `true` if
+your persistent volumes are "movable" in the sense that they can be
+mounted from a different k8s node, like in the case of network attached
+volumes. If your persistent volumes are tied to a specific pod, you
+must leave this option on `false`.
 
 ### `spec.externalAccess.type: string`
 
@@ -163,6 +184,14 @@ This setting is used when `spec.externalAccess.type` is set to `LoadBalancer` or
 
 If you do not specify this setting, an IP will be chosen automatically by the load-balancer provisioner.
 
+### `spec.externalAccess.loadBalancerSourceRanges: []string`
+
+If specified and supported by the platform (cloud provider), this will restrict traffic through the cloud-provider
+load-balancer will be restricted to the specified client IPs. This field will be ignored if the
+cloud-provider does not support the feature.
+
+More info: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/
+
 ### `spec.externalAccess.nodePort: int`
 
 This setting specifies the port used to expose the ArangoDB deployment on.
@@ -172,7 +201,7 @@ If you do not specify this setting, a random port will be chosen automatically.
 
 ### `spec.externalAccess.advertisedEndpoint: string`
 
-This setting specifies the advertised endpoint for all coordinators.
+This setting specifies the advertised endpoint for all Coordinators.
 
 ### `spec.auth.jwtSecretName: string`
 
@@ -259,6 +288,15 @@ This setting is used when `spec.sync.externalAccess.type` is set to `NodePort` o
 
 If you do not specify this setting, a random port will be chosen automatically.
 
+### `spec.sync.externalAccess.loadBalancerSourceRanges: []string`
+
+If specified and supported by the platform (cloud provider), this will restrict traffic through the cloud-provider
+load-balancer will be restricted to the specified client IPs. This field will be ignored if the
+cloud-provider does not support the feature.
+
+More info: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/
+
+
 ### `spec.sync.externalAccess.masterEndpoint: []string`
 
 This setting specifies the master endpoint(s) advertised by the ArangoSync SyncMasters.
@@ -341,11 +379,27 @@ The default is `false`.
 
 This setting cannot be changed after the deployment has been created.
 
+### `spec.restoreFrom: string`
+
+This setting specifies a `ArangoBackup` resource name the cluster should be restored from.
+
+After a restore or failure to do so, the status of the deployment contains information about the
+restore operation in the `restore` key.
+
+It will contain some of the following fields:
+- _requestedFrom_: name of the `ArangoBackup` used to restore from.
+- _message_: optional message explaining why the restore failed.
+- _state_: state indicating if the restore was successful or not. Possible values: `Restoring`, `Restored`, `RestoreFailed`
+
+If the `restoreFrom` key is removed from the spec, the `restore` key is deleted as well.
+
+A new restore attempt is made if and only if either in the status restore is not set or if spec.restoreFrom and status.requestedFrom are different.
+
 ### `spec.license.secretName: string`
 
 This setting specifies the name of a kubernetes `Secret` that contains
 the license key token used for enterprise images. This value is not used for
-the community edition.
+the Community Edition.
 
 ### `spec.bootstrap.passwordSecretNames.root: string`
 
@@ -359,10 +413,74 @@ There are two magic values for the secret name:
 - `None` specifies no action. This disables root password randomization. This is the default value. (Thus the root password is empty - not recommended)
 - `Auto` specifies automatic name generation, which is `<deploymentname>-root-password`. 
 
+### `spec.metrics.enabled: bool`
+
+If this is set to `true`, the operator runs a sidecar container for
+every DB-Server pod and every Coordinator pod. The sidecar container runs
+the ArangoDB-exporter and exposes metrics of the corresponding `arangod`
+instance in Prometheus format on port 9101 under path `/metrics`. You
+also have to specify a string for `spec.metrics.image`, which is the
+Docker image name of the `arangodb-exporter`. At the time of this
+writing you should use `arangodb/arangodb-exporter:0.1.6`. See [this
+repository](https://github.com/arangodb-helper/arangodb-exporter){:target="_blank"} for
+the latest version. If the image name is left empty, the same image as
+for the main deployment is used. Note however, that current ArangoDB
+releases (<= 3.4.5) do not ship the exporter in their image. This is
+going to change in the future.
+
+In addition to the sidecar containers the operator will deploy a service
+to access the exporter ports (from within the k8s cluster), and a
+resource of type `ServiceMonitor`, provided the corresponding custom
+resource definition is deployed in the k8s cluster. If you are running
+Prometheus in the same k8s cluster with the Prometheus operator, this
+will be the case. The `ServiceMonitor` will have the following labels
+set:
+
+  - `app: arangodb`
+  - `arango_deployment: YOUR_DEPLOYMENT_NAME`
+  - `context: metrics`
+  - `metrics: prometheus`
+
+This makes it possible that you configure your Prometheus deployment to
+automatically start monitoring on the available Prometheus feeds. To
+this end, you must configure the `serviceMonitorSelector` in the specs
+of your Prometheus deployment to match these labels. For example:
+
+```yaml
+  serviceMonitorSelector:
+    matchLabels:
+      metrics: prometheus
+```
+
+would automatically select all pods of all ArangoDB cluster deployments
+which have metrics enabled.
+
+### `spec.metrics.image: string`
+
+See above, this is the name of the Docker image for the ArangoDB
+exporter to expose metrics. If empty, the same image as for the main
+deployment is used.
+
+### `spec.metrics.resources: ResourceRequirements`
+
+<small>Introduced in: v0.4.3 (kube-arangodb)</small>
+
+This setting specifies the resources required by the metrics container. 
+This includes requests and limits. 
+See [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container){:target="_blank"}.
+
+### `spec.lifecycle.resources: ResourceRequirements`
+
+<small>Introduced in: v0.4.3 (kube-arangodb)</small>
+
+This setting specifies the resources required by the lifecycle init container. 
+This includes requests and limits.
+See [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container){:target="_blank"}.
+
 ### `spec.<group>.count: number`
 
 This setting specifies the number of servers to start for the given group.
-For the agent group, this value must be a positive, odd number.
+For the Agent group, this value must be a positive, odd number.
 The default value is `3` for all groups except `single` (there the default is `1`
 for `spec.mode: Single` and `2` for `spec.mode: ActiveFailover`).
 
@@ -386,7 +504,7 @@ The default value is an empty array.
 
 This setting specifies the resources required by pods of this group. This includes requests and limits.
 
-See [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/){:target="_blank"} for details.
+See https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ for details.
 
 ### `spec.<group>.volumeClaimTemplate.Spec: PersistentVolumeClaimSpec`
 
@@ -399,13 +517,41 @@ If this field is not set and `spec.<group>.resources.requests.storage` is set, t
 with size as specified by `spec.<group>.resources.requests.storage` will be created. In that case `storage`
 and `iops` is not forwarded to the pods resource requirements.
 
+### `spec.<group>.pvcResizeMode: string`
+
+Specifies a resize mode used by operator to resuze PVC's and PV's.
+
+Supported modes:
+- runtime (default) - PVC will be resized in Pod runtime (EKS, GKE)
+- rotate - Pod will be shutdown and PVC will be resized (AKS)
+
 ### `spec.<group>.serviceAccountName: string`
 
 This setting specifies the `serviceAccountName` for the `Pods` created
-for each server of this group.
+for each server of this group. If empty, it defaults to using the
+`default` service account.
 
 Using an alternative `ServiceAccount` is typically used to separate access rights.
-The ArangoDB deployments do not require any special rights.
+The ArangoDB deployments need some very minimal access rights. With the
+deployment of the operator, we grant the following rights for the `default`
+service account:
+
+```
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+```
+
+If you are using a different service account, please grant these rights
+to that service account.
+
+### `spec.<group>.annotations: map[string]string`
+
+This setting set annotations overrides for pods in this group. Annotations are merged with `spec.annotations`.
 
 ### `spec.<group>.priorityClassName: string`
 
@@ -415,9 +561,47 @@ Priority class name for pods of this group. Will be forwarded to the pod spec. [
 
 If set to true, the operator does not generate a liveness probe for new pods belonging to this group.
 
+### `spec.<group>.probes.livenessProbeSpec.initialDelaySeconds: int`
+
+Number of seconds after the container has started before liveness or readiness probes are initiated. Defaults to 2 seconds. Minimum value is 0.
+
+### `spec.<group>.probes.livenessProbeSpec.periodSeconds: int`
+
+How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
+
+### `spec.<group>.probes.livenessProbeSpec.timeoutSeconds: int`
+
+Number of seconds after which the probe times out. Defaults to 2 second. Minimum value is 1.
+
+### `spec.<group>.probes.livenessProbeSpec.failureThreshold: int`
+
+When a Pod starts and the probe fails, Kubernetes will try failureThreshold times before giving up.
+Giving up means restarting the container. Defaults to 3. Minimum value is 1.
+
 ### `spec.<group>.probes.readinessProbeDisabled: bool`
 
 If set to true, the operator does not generate a readiness probe for new pods belonging to this group.
+
+### `spec.<group>.probes.readinessProbeSpec.initialDelaySeconds: int`
+
+Number of seconds after the container has started before liveness or readiness probes are initiated. Defaults to 2 seconds. Minimum value is 0.
+
+### `spec.<group>.probes.readinessProbeSpec.periodSeconds: int`
+
+How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
+
+### `spec.<group>.probes.readinessProbeSpec.timeoutSeconds: int`
+
+Number of seconds after which the probe times out. Defaults to 2 second. Minimum value is 1.
+
+### `spec.<group>.probes.readinessProbeSpec.successThreshold: int`
+
+Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Minimum value is 1.
+
+### `spec.<group>.probes.readinessProbeSpec.failureThreshold: int`
+
+When a Pod starts and the probe fails, Kubernetes will try failureThreshold times before giving up.
+Giving up means the Pod will be marked Unready. Defaults to 3. Minimum value is 1.
 
 ### `spec.<group>.tolerations: []Toleration`
 

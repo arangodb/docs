@@ -21,3 +21,5 @@
   This should then feed a new thing that generates the examples via the CI
 
 - Rethink the {% tag %}{% include %} thing... namely first one thing that parses something and then outputs variables that then include a template. Feels wrong...
+
+- Add AQL highlighter

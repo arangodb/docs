@@ -1,6 +1,7 @@
 ---
 layout: default
-description: The most important suggestions listed in this section can beeasily applied by making use of a script
+description: Recommendations regarding file systems, memory settings etc.
+title: Linux System Configuration for ArangoDB
 ---
 Linux Operating System Configuration
 ====================================

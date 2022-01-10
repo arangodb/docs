@@ -1,0 +1,160 @@
+- text: Introduction
+  href: index.html
+- text: General HTTP Handling
+  href: general.html
+- text: HTTP Interface
+  href: api.html
+- text: Databases
+  href: database.html
+  children:
+    - text: Management
+      href: database-database-management.html
+    - text: Notes on Databases
+      href: database-notes-on-databases.html
+- text: Collections
+  href: collection.html
+  children:
+    - text: Creating
+      href: collection-creating.html
+    - text: Getting Information
+      href: collection-getting.html
+    - text: Modifying
+      href: collection-modifying.html
+- text: Documents
+  href: document.html
+  children:
+    - text: Basics and Terminology
+      href: document-address-and-etag.html
+    - text: Working with Documents
+      href: document-working-with-documents.html
+- text: Edges
+  href: edge.html
+  children:
+    - text: Address and Etag
+      href: edge-address-and-etag.html
+    - text: Working with Edges
+      href: edge-working-with-edges.html
+- text: Graphs
+  href: gharial.html
+  children:
+    - text: Management
+      href: gharial-management.html
+    - text: Vertices
+      href: gharial-vertices.html
+    - text: Edges
+      href: gharial-edges.html
+- text: Traversals
+  href: traversal.html
+- text: AQL Query Cursors
+  href: aql-query-cursor.html
+  children:
+    - text: Query Results
+      href: aql-query-cursor-query-results.html
+    - text: Accessing Cursors
+      href: aql-query-cursor-accessing-cursors.html
+- text: AQL Queries
+  href: aql-query.html
+- text: AQL Query Results Cache
+  href: aql-query-cache.html
+- text: AQL User Functions Management
+  href: aql-user-functions.html
+- text: Simple Queries
+  href: simple-query.html
+- text: Async Result Handling
+  href: async-results-management.html
+- text: Bulk Import / Export
+  href: bulk-imports.html
+  children:
+    - text: JSON Documents
+      href: bulk-imports-importing-self-contained.html
+    - text: Headers & Values
+      href: bulk-imports-importing-headers-and-values.html
+    - text: Batch Requests
+      href: batch-request.html
+    - text: Exporting data
+      href: export.html
+- text: Indexes
+  href: indexes.html
+  children:
+    - text: Working with Indexes
+      href: indexes-working-with.html
+    - text: Hash
+      href: indexes-hash.html
+    - text: Skiplist
+      href: indexes-skiplist.html
+    - text: Persistent
+      href: indexes-persistent.html
+    - text: TTL
+      href: indexes-ttl.html
+    - text: Geo-Spatial
+      href: indexes-geo.html
+    - text: Fulltext
+      href: indexes-fulltext.html
+- text: Views
+  href: views.html
+  children:
+    - text: ArangoSearch Views
+      href: views-arangosearch.html
+- text: Analyzers
+  href: analyzers.html
+- text: Transactions
+  href: transaction.html
+  children:
+    - text: Stream Transactions
+      href: transaction-stream-transaction.html
+    - text: JavaScript Transactions
+      href: transaction-js-transaction.html
+- text: Replication
+  href: replications.html
+  children:
+    - text: Replication Dump
+      href: replications-replication-dump.html
+    - text: Replication Logger
+      href: replications-replication-logger.html
+    - text: Replication Applier
+      href: replications-replication-applier.html
+    - text: Other Replication Commands
+      href: replications-other-replication.html
+    - text: Write-Ahead Log
+      href: replications-walaccess.html
+- text: Administration & Monitoring
+  href: administration-and-monitoring.html
+  children:
+    - text: Metrics
+      href: administration-and-monitoring-metrics.html
+- text: Endpoints
+  href: endpoints.html
+- text: Foxx Services
+  href: foxx.html
+  children:
+    - text: Management
+      href: foxx-management.html
+    - text: Configuration
+      href: foxx-configuration.html
+    - text: Miscellaneous
+      href: foxx-miscellaneous.html
+- text: User Management
+  href: user-management.html
+- text: Hot Backup
+  href: hot-backup.html
+- text: Tasks
+  href: tasks.html
+- text: Cluster
+  href: cluster.html
+  children:
+    - text: Server ID
+      href: cluster-server-id.html
+    - text: Server Role
+      href: cluster-server-role.html
+    - text: Cluster Statistics
+      href: cluster-statistics.html
+    - text: Cluster Health
+      href: cluster-health.html
+    - text: Cluster Maintenance
+      href: cluster-maintenance.html
+    - text: Agency
+      href: agency.html
+- text: Miscellaneous functions
+  href: miscellaneous-functions.html
+- text: Repair Jobs
+  href: repairs.html

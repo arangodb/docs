@@ -86,7 +86,7 @@ explicitly.
 To make sure data are durable when an update query returns, there is the *waitForSync* 
 query option.
 
-In order to not accidentially update documents that have been written and updated since 
+In order to not accidentally update documents that have been written and updated since 
 you last fetched them you can use the option *ignoreRevs* to either let ArangoDB compare 
 the `_rev` value and only succeed if they still match, or let ArangoDB ignore them (default):
 

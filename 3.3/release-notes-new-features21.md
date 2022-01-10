@@ -241,8 +241,8 @@ Updated drivers
 ---------------
 
 Several drivers for ArangoDB have been checked for compatibility with 2.1.  The
-current list of drivers with compatibility notes can be found online
-[here](https://www.arangodb.org/driver){:target="_blank"}.
+current list of drivers with compatibility notes can be found at
+[arangodb.com/arangodb-drivers/](https://www.arangodb.com/arangodb-drivers/){:target="_blank"}.
 
 C++11 usage
 -----------

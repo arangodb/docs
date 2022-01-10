@@ -10,7 +10,7 @@ default, and can also be imported and used in Foxx services.
 
 *db.name* returns a [collection object](appendix-references-collection-object.html) for the collection *name*.
 
-The following methods exists on the *_db* object:
+The following methods exist on the *_db* object:
 
 *Database*
 
@@ -30,7 +30,7 @@ The following methods exists on the *_db* object:
 * [db._isSystem()](data-modeling-databases-working-with.html#issystem)
 * [db._name()](data-modeling-databases-working-with.html#name)
 * [db._path()](data-modeling-databases-working-with.html#path)
-* [db._version()](data-modeling-documents-document-methods.html#get-the-version-of-arangodb)
+* [db._queryProperties()](data-modeling-databases-working-with.html#properties)
 
 *Collection*
 
@@ -64,6 +64,8 @@ The following methods exists on the *_db* object:
 
 *Global*
 
+* [db._compact()](data-modeling-databases-working-with.html#compact)
 * [db._engine()](data-modeling-databases-working-with.html#engine)
 * [db._engineStats()](data-modeling-databases-working-with.html#engine-statistics)
 * [db._executeTransaction()](transactions-transaction-invocation.html)
+* [db._version()](data-modeling-databases-working-with.html#get-the-version-of-arangodb)

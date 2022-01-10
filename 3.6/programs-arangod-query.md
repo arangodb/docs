@@ -4,6 +4,28 @@ description: ArangoDB Server Query Options
 ---
 # ArangoDB Server Query Options
 
+## Limiting query runtime
+
+<small>Introduced in: v3.6.7, v3.7.3</small>
+
+`--query.max-runtime value`
+
+Sets a default maximum runtime for AQL queries.
+
+The default value is `0`, meaning that the runtime of AQL queries is not
+limited. Setting it to any positive value will restrict the runtime of all AQL
+queries, unless it is overwritten in the per-query `maxRuntime` query option.
+
+If a query exceeds the configured runtime, it will be killed on the next
+occasion when the query checks its own status. Killing is best effort based,
+so it is not guaranteed that a query will no longer than exactly the
+configured amount of time.
+
+{% hint 'warning' %}
+Setting this option will affect all queries in all databases, and also queries
+issues for administration and database-internal purposes.
+{% endhint %}
+
 ## Limiting memory for AQL queries
 
 `--query.memory-limit value`
@@ -92,6 +114,24 @@ value can still be adjusted on a per-query basis by setting the *maxNumberOfPlan
 attribute when running a query.
 
 The default value is *128*.
+
+## Optimizer rule defaults
+
+`--query.optimizer-rules`
+
+This option can be used to to selectively enable or disable AQL query optimizer
+rules by default. The option can be specified multiple times, and takes the
+same input as the query option of the same name.
+
+For example, to turn off the rule `use-indexes-for-sort` by default, use
+
+```
+--query.optimizer-rules "-use-indexes-for-sort"
+```
+
+The purpose of this startup option is to be able to enable potential future
+experimental optimizer rules, which may be shipped in a disabled-by-default
+state.
 
 ## AQL Query results caching mode
 

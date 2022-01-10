@@ -46,7 +46,7 @@ so the attributes will not "be there" in document created. Values enclosed in
 quotes will be imported as strings, so to import numeric values, boolean values
 or the null value, don't enclose the value in quotes in your file.
 
-We'll be using the following import for the CSV import:
+We will be using the following import for the CSV import:
 
 ```
 "first","last","age","active","dob"
@@ -74,11 +74,10 @@ The above data will be imported into 5 documents which will look as follows:
 As can be seen, values left completely empty in the input file will be treated
 as absent. Numeric values not enclosed in quotes will be treated as numbers.
 Note that leading zeros in numeric values will be removed. To import numbers
-with leading zeros, please use strings.
+with leading zeros, please use strings (e.g. `"012"` instead of `012`).
 The literals *true* and *false* will be treated as booleans if they are not
 enclosed in quotes. Other values not enclosed in quotes will be treated as
-strings.
-Any values enclosed in quotes will be treated as strings, too.
+strings. Any values enclosed in quotes will be treated as strings, too.
 
 String values containing the quote character or the separator must be enclosed
 with quote characters. Within a string, the quote character itself must be
@@ -95,7 +94,7 @@ To use backslash for escaping quote characters, please set the option
 The importer supports Windows (CRLF) and Unix (LF) line breaks. Line breaks might
 also occur inside values that are enclosed with the quote character.
 
-Here's an example for using literal quotes and newlines inside values:
+Here is an example for using literal quotes and newlines inside values:
 
 ```
 "name","password"
@@ -145,7 +144,7 @@ Other common cases are to rename columns in the input file to *_from* and *_to*:
 
     arangoimport --file "data.csv" --type csv --translate "from=_from" --translate "to=_to"
 
-The *translate* option can be specified multiple types. The source attribute name
+The *translate* option can be specified multiple times. The source attribute name
 and the target attribute must be separated with a *=*.
 
 Ignoring Attributes

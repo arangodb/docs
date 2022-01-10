@@ -56,7 +56,7 @@ directory as argument.
 
 ## Database directory state precondition
 
-`--database.require-directory-state state`
+`--database.required-directory-state state`
 
 Using this option it is possible to require the database directory to be
 in a specific state on startup. the options for this value are:
@@ -68,12 +68,15 @@ in a specific state on startup. the options for this value are:
 - any: any directory state allowed
 
 ## Force syncing of properties
+
 {% docublock databaseForceSyncProperties %}
 
 ## Maximal Journal size (MMFiles only)
+
 {% docublock databaseMaximalJournalSize %}
 
 ## Wait for sync
+
 {% docublock databaseWaitForSync %}
 
 ## More advanced options

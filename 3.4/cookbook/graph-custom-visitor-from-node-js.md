@@ -1,6 +1,9 @@
 ---
 layout: default
 description: I want to traverse a graph using a custom visitor from node
+redirect_from:
+  - /3.5/cookbook/graph-custom-visitor-from-node-js.html # 3.5 -> 3.5
+  - /3.6/cookbook/graph-custom-visitor-from-node-js.html # 3.5 -> 3.5
 ---
 Using a custom visitor from node.js
 ===================================

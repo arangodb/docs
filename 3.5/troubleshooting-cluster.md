@@ -6,7 +6,7 @@ Cluster Troubleshooting
 =======================
 
 * Cluster frontend is unresponsive
-  * Check if the _Coordinator_/s in question are started up.
+  * Check if the _Coordinators_ in question are started up.
   * Check if the _Agency_ is up and a _leader_ has been elected. If not
     ensure that all or a majority of _Agents_ are up and running.
   * Check if all processes have been started up with the same
@@ -29,4 +29,4 @@ Cluster Troubleshooting
     and SSL operation mode with the functioning nodes.
 
 Dig deeper into cluster troubleshooting by going through the
-[ArangoDB Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}.
+[ArangoDB Cluster Administration Course](https://www.arangodb.com/learn/operations/cluster-course/){:target="_blank"}.

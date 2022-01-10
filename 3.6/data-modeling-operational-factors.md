@@ -150,7 +150,7 @@ instead of specifying the type of the connection inside the edge document.
 A few things to consider:
 - Adding an extra collection always incurs a small amount of overhead for the
   collection metadata and indexes.
-- You cannot use more than _2048_ collections per AQL query
+- You cannot use more than _2048_ collections/shards per AQL query
 - Uniqueness constraints on certain attributes (via an unique index) can only
   be enforced by ArangoDB within one collection
 - Only with the _MMFiles storage engine_: Creating extra databases will require
@@ -162,7 +162,7 @@ Cluster Sharding
 ----------------
 
 The ArangoDB cluster _partitions_ your collections into one or more _shards_
-across multiple _DBServers_. This enables efficient _horizontal scaling_:
+across multiple _DB-Servers_. This enables efficient _horizontal scaling_:
 It allows you to store much more data, since ArangoDB distributes the data
 automatically to the different servers. In many situations one can also reap
 a benefit in data throughput, again because the load can be distributed to
@@ -174,7 +174,7 @@ your performance can reduce network traffic and increase performance.
 
 ArangoDB uses consistent hashing to compute the target shard from the given
 values (as specified via 'shardKeys'). The ideal set of shard keys allows
-ArangoDB to distribute documents evenly across your shards and your _DBServers_.
+ArangoDB to distribute documents evenly across your shards and your _DB-Servers_.
 By default ArangoDB uses the `_key` field as a shard key. For a custom shard key
 you should consider a few different properties:
 
@@ -195,13 +195,13 @@ a lot of performance on the table.
 See [_Cluster Sharding_](architecture-deployment-modes-cluster-sharding.html) 
 for more information.
 
-### Smart Graphs
+### SmartGraphs
 
-Smart Graphs are an Enterprise Edition feature of ArangoDB. It enables you to
+SmartGraphs are an Enterprise Edition feature of ArangoDB. It enables you to
 manage graphs at scale, it will give a vast performance benefit for all graphs
 sharded in an ArangoDB Cluster.
 
-To add a Smart Graph you need a smart graph attribute that partitions your
+To add a SmartGraph you need a SmartGraph attribute that partitions your
 graph into several smaller sub-graphs. Ideally these sub-graphs follow a
 "natural" structure in your data. These subgraphs have a large amount of edges
 that only connect vertices in the same subgraph and only have few edges
@@ -251,7 +251,7 @@ negatively impact the write performance:
   This means that transactions have to be split if they become too big, see the
   [limitations section](transactions-limitations.html#rocksdb-storage-engine).
 
-### Improving Update Query Perfromance
+### Improving Update Query Performance
 
 You may use the _exclusive_ query option for modifying AQL queries, to improve the performance drastically.
 This has the downside that no concurrent writes may occur on the collection, but ArangoDB is able

@@ -674,6 +674,7 @@ You can use [skiplist indices](../indexing-skiplist.html) with both date types.
 When chosing string representations, you can work with string comparisons (less than,
 greater than etc.) to express time ranges in your queries while still utilizing
 skiplist indices:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline working_with_date_time
     @EXAMPLE_ARANGOSH_OUTPUT{working_with_date_time}
@@ -687,6 +688,7 @@ skiplist indices:
     @endDocuBlock working_with_date_time
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The first and the last timestamp in the array are excluded from the result by the `FILTER`.
 
 Limitations

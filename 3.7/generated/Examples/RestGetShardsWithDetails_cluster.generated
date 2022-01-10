@@ -1,0 +1,11 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
+
+HTTP/1.1 200 OK
+content-type: application/json
+connection: Keep-Alive
+content-length: 637
+location: /_api/collection/testCollection/shards
+server: ArangoDB
+x-content-type-options: nosniff
+
+"{\"error\":false,\"code\":200,\"shards\":{\"s4010051\":[\"PRMR-bd224b56-7635-4498-90f9-5f118dd6dc4b\"],\"s4010052\":[\"PRMR-5566e7da-b7c7-4fc9-bd30-c915d5f991f5\"],\"s4010053\":[\"PRMR-bd224b56-7635-4498-90f9-5f118dd6dc4b\"]},\"writeConcern\":1,\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":1,\"waitForSync\":false,\"numberOfShards\":3,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"schema\":null,\"globallyUniqueId\":\"c4010050/\",\"isSmartChild\":false,\"id\":\"4010050\",\"cacheEnabled\":false,\"minReplicationFactor\":1,\"name\":\"testCollection\",\"isDisjoint\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false}"

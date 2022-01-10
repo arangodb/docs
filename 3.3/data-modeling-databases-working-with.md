@@ -23,6 +23,7 @@ Returns the name of the current database as a string.
 
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
 @startDocuBlockInline dbName
@@ -44,6 +45,7 @@ Returns the id of the current database as a string.
 
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
 @startDocuBlockInline dbId
@@ -65,6 +67,7 @@ Returns the filesystem path of the current database as a string.
 
 
 **Examples**
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
 
 @startDocuBlockInline dbPath

@@ -2,7 +2,6 @@
 layout: default
 description: There are several ways to start an ArangoDB cluster
 ---
-
 # ArangoDB cluster
 
 There are several ways to start an ArangoDB cluster. In this section we will focus
@@ -12,8 +11,8 @@ _Datacenter to datacenter replication_ requires the `rocksdb` storage engine. Th
 example setup described in this section will have `rocksdb` enabled. If you choose
 to deploy with a different strategy keep in mind to set the storage engine.
 
-For the other possibilities to deploy an ArangoDB cluster please refer to
-[this](deployment-cluster.html) section.
+For other possibilities to deploy an ArangoDB cluster see
+[Cluster Deployment](deployment-cluster.html).
 
 The _Starter_ simplifies things for the operator and will coordinate a distributed
 cluster startup across several machines and assign cluster roles automatically.
@@ -60,8 +59,7 @@ This must be shared between cluster nodes.
 Sharing secrets is obviously a very delicate topic. The above workflow assumes
 that the operator will put a secret in a file named `${CLUSTERSECRETPATH}`.
 
-We recommend to use a dedicated system for managing secrets like HashiCorps' `Vault` or the
-secret management of `DC/OS`.
+We recommend to use a dedicated system for managing secrets like HashiCorp's `Vault`.
 
 ## Required ports
 
@@ -72,14 +70,25 @@ Each of these tasks needs a port to communicate. Please make sure that the follo
 ports are available on all machines:
 
 - `8529` for Coordinators
-- `8530` for DBservers
+- `8530` for DB-Servers
 - `8531` for Agents
 
 The _Starter_ itself will use port `8528`.
 
 ## Recommended deployment environment
 
-Since the _Agents_ are so critical to the availability of both the ArangoDB and the ArangoSync cluster,
-it is recommended to run _Agents_ on dedicated machines. Consider these machines "pets".
+Since the _Agents_ are so critical to the availability of both the ArangoDB and
+the ArangoSync cluster, it is recommended to run _Agents_ on dedicated machines.
+They run a real-time system for the elections and bad performance can negatively
+affect the availability of the whole cluster.
 
-_Coordinators_ and _DBServers_ can be deployed on other machines that should be considered "cattle".
+_DBServers_ are also important and you do not want to lose them, but
+depending on your replication factor, the system can tolerate some
+loss and bad performance will slow things down but not stop things from
+working.
+
+_Coordinators_ can be deployed on other machines, since they do not hold
+persistent state. They might have some in-memory state about running
+transactions or queries, but losing a coordinator will not lose any
+persisted data. Furthermore, new coordinators can be added to a cluster
+without much effort.

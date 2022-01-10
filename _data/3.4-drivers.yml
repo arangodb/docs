@@ -11,58 +11,6 @@
       children:
         - text: Driver Setup
           href: java-reference-setup.html
-        - text: Database
-          href: java-reference-database.html
-          children:
-            - text: Database Manipulation
-              href: java-reference-database-database-manipulation.html
-            - text: Collection Access
-              href: java-reference-database-collection-access.html
-            - text: View Access
-              href: java-reference-database-view-access.html
-            - text: Queries
-              href: java-reference-database-queries.html
-            - text: AQL User Functions
-              href: java-reference-database-aql-user-functions.html
-            - text: Transactions
-              href: java-reference-database-transactions.html
-            - text: Graph Access
-              href: java-reference-database-graph-access.html
-            - text: HTTP Routes
-              href: java-reference-database-http-routes.html
-        - text: Collection
-          href: java-reference-collection.html
-          children:
-            - text: Collection Manipulation
-              href: java-reference-collection-collection-manipulation.html
-            - text: Document Manipulation
-              href: java-reference-collection-document-manipulation.html
-            - text: Indexes
-              href: java-reference-collection-indexes.html
-            - text: Bulk Import
-              href: java-reference-collection-bulk-import.html
-        - text: View
-          href: java-reference-view.html
-          children:
-            - text: View Manipulation
-              href: java-reference-view-view-manipulation.html
-            - text: ArangoSearch Views
-              href: java-reference-view-arango-search.html
-        - text: Cursor
-          href: java-reference-cursor.html
-        - text: Graph
-          href: java-reference-graph.html
-          children:
-            - text: Vertex Collection
-              href: java-reference-graph-vertex-collection.html
-            - text: Edge Collection
-              href: java-reference-graph-edge-collection.html
-            - text: Vertices Manipulation
-              href: java-reference-graph-vertices.html
-            - text: Edges Manipulation
-              href: java-reference-graph-edges.html
-        - text: Route
-          href: java-reference-route.html
         - text: Serialization
           href: java-reference-serialization.html
 - text: ArangoJS - JavaScript Driver
@@ -87,6 +35,8 @@
             - text: AQL User Functions
               href: js-reference-database-aql-user-functions.html
             - text: Transactions
+              href: js-reference-database-transactions.html
+            - text: Stream Transactions
               href: js-reference-database-transactions.html
             - text: Graph Access
               href: js-reference-database-graph-access.html

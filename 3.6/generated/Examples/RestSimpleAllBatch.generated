@@ -1,49 +1,52 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/simple/all</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/simple/all</span> &lt;&lt;EOF
 { "collection": "products", "batchSize" : 3 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Created
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">522</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"result"</span> : [ 
+  <span class="hljs-string">&quot;result&quot;</span> : [ 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70587"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70587"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaV-q--A"</span>, 
-      <span class="hljs-string">"Hello1"</span> : <span class="hljs-string">"World1"</span> 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71030&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/71030&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ0Ui---&quot;</span>, 
+      <span class="hljs-string">&quot;Hello1&quot;</span> : <span class="hljs-string">&quot;World1&quot;</span> 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70589"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70589"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaV-u---"</span>, 
-      <span class="hljs-string">"Hello2"</span> : <span class="hljs-string">"World2"</span> 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71032&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/71032&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ0Ui--A&quot;</span>, 
+      <span class="hljs-string">&quot;Hello2&quot;</span> : <span class="hljs-string">&quot;World2&quot;</span> 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70591"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70591"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaV-u--A"</span>, 
-      <span class="hljs-string">"Hello3"</span> : <span class="hljs-string">"World3"</span> 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71034&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/71034&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ0Um---&quot;</span>, 
+      <span class="hljs-string">&quot;Hello3&quot;</span> : <span class="hljs-string">&quot;World3&quot;</span> 
     } 
   ], 
-  <span class="hljs-string">"hasMore"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"70597"</span>, 
-  <span class="hljs-string">"count"</span> : <span class="hljs-number">5</span>, 
-  <span class="hljs-string">"extra"</span> : { 
-    <span class="hljs-string">"stats"</span> : { 
-      <span class="hljs-string">"writesExecuted"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"writesIgnored"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"scannedFull"</span> : <span class="hljs-number">5</span>, 
-      <span class="hljs-string">"scannedIndex"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"filtered"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"httpRequests"</span> : <span class="hljs-number">0</span>, 
-      <span class="hljs-string">"executionTime"</span> : <span class="hljs-number">0.00028324127197265625</span>, 
-      <span class="hljs-string">"peakMemoryUsage"</span> : <span class="hljs-number">34367</span> 
+  <span class="hljs-string">&quot;hasMore&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;71041&quot;</span>, 
+  <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-number">5</span>, 
+  <span class="hljs-string">&quot;extra&quot;</span> : { 
+    <span class="hljs-string">&quot;stats&quot;</span> : { 
+      <span class="hljs-string">&quot;writesExecuted&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;writesIgnored&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;scannedFull&quot;</span> : <span class="hljs-number">5</span>, 
+      <span class="hljs-string">&quot;scannedIndex&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;filtered&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;httpRequests&quot;</span> : <span class="hljs-number">0</span>, 
+      <span class="hljs-string">&quot;executionTime&quot;</span> : <span class="hljs-number">0.0004265308380126953</span>, 
+      <span class="hljs-string">&quot;peakMemoryUsage&quot;</span> : <span class="hljs-number">37391</span> 
     }, 
-    <span class="hljs-string">"warnings"</span> : [ ] 
+    <span class="hljs-string">&quot;warnings&quot;</span> : [ ] 
   }, 
-  <span class="hljs-string">"cached"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">201</span> 
+  <span class="hljs-string">&quot;cached&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">201</span> 
 }

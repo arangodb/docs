@@ -198,6 +198,7 @@ Needs at least two longitude/latitude pairs.
 
 - **points** (array): number array of longitude/latitude pairs
 - returns **geoJson** (object): a valid GeoJSON LineString
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoLineString_1
 @EXAMPLE_AQL{aqlGeoLineString_1}
@@ -207,7 +208,8 @@ RETURN GEO_LINESTRING([
 @END_EXAMPLE_AQL
 @endDocuBlock aqlGeoLineString_1
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### GEO_MULTILINESTRING()
 
 `GEO_MULTILINESTRING(points) → geoJson`
@@ -217,6 +219,7 @@ Needs at least two elements consisting valid LineStrings coordinate arrays.
 
 - **points** (array): array of LineStrings
 - returns **geoJson** (object): a valid GeoJSON MultiLineString
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoMultiLineString_1
 @EXAMPLE_AQL{aqlGeoMultiLineString_1}
@@ -227,7 +230,8 @@ RETURN GEO_MULTILINESTRING([
 @END_EXAMPLE_AQL
 @endDocuBlock aqlGeoMultiLineString_1
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### GEO_MULTIPOINT()
 
 `GEO_MULTIPOINT(points) → geoJson`
@@ -236,6 +240,7 @@ Construct a GeoJSON LineString. Needs at least two longitude/latitude pairs.
 
 - **points** (array): number array of longitude/latitude pairs
 - returns **geoJson** (object): a valid GeoJSON Point
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoMultiPoint_1
 @EXAMPLE_AQL{aqlGeoMultiPoint_1}
@@ -245,7 +250,8 @@ RETURN GEO_MULTIPOINT([
 @END_EXAMPLE_AQL
 @endDocuBlock aqlGeoMultiPoint_1
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### GEO_POINT()
 
 `GEO_POINT(longitude, latitude) → geoJson`
@@ -255,6 +261,7 @@ Construct a valid GeoJSON Point.
 - **longitude** (number): the longitude portion of the point
 - **latitude** (number): the latitude portion of the point
 - returns **geoJson** (object): a GeoJSON Point
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoPoint_1
 @EXAMPLE_AQL{aqlGeoPoint_1}
@@ -262,7 +269,8 @@ RETURN GEO_POINT(1.0, 2.0)
 @END_EXAMPLE_AQL
 @endDocuBlock aqlGeoPoint_1
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### GEO_POLYGON()
 
 `GEO_POLYGON(points) → geoJson`
@@ -276,6 +284,7 @@ as holes.
 - returns **geoJson** (object\|null): a valid GeoJSON Polygon
 
 Simple Polygon:
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoPolygon_1
 @EXAMPLE_AQL{aqlGeoPolygon_1}
@@ -285,8 +294,10 @@ RETURN GEO_POLYGON([
 @END_EXAMPLE_AQL
 @endDocuBlock aqlGeoPolygon_1
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 Advanced Polygon with a hole inside:
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoPolygon_2
 @EXAMPLE_AQL{aqlGeoPolygon_2}
@@ -297,7 +308,8 @@ RETURN GEO_POLYGON([
 @END_EXAMPLE_AQL
 @endDocuBlock aqlGeoPolygon_2
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 ### GEO_MULTIPOLYGON()
 
 `GEO_MULTIPOLYGON(polygons) → geoJson`
@@ -309,6 +321,7 @@ See [GEO_POLYGON()](#geo_polygon) for the rules of Polygon construction.
 - returns **geoJson** (object\|null): a valid GeoJSON MultiPolygon
 
 MultiPolygon comprised of a simple Polygon and a Polygon with hole:
+
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlGeoMultiPolygon_1
 @EXAMPLE_AQL{aqlGeoMultiPolygon_1}
@@ -324,7 +337,8 @@ RETURN GEO_MULTIPOLYGON([
 @END_EXAMPLE_AQL
 @endDocuBlock aqlGeoMultiPolygon_1
 {% endaqlexample %}
-{% include aqlexample.html id=examplevar query=query bind=bind result=result %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 Geo Index Functions
 -------------------
 

@@ -2,16 +2,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="{{ page.canonical | absolute_url }}">
-{% comment -%}
-Figure out where we are at and compute navvar from folder path, e.g.
-/3.4/ --> 34-manual
-/3.4/aql/ --> 34-aql
-{%- endcomment -%}
-{%- capture navvar %}{{ page.dir | replace_first: "/", "" | replace: "/", "-" | replace: ".", ""  | split: "" | reverse | join: "" | replace_first: "-", "" | split: "" | reverse | join: "" }}{% endcapture -%}
-{%- assign navvarsize = navvar | size %}{%- if navvarsize == 2 %}{% assign navvar = navvar | append: "-manual" %}{% endif %}
+{%- assign navvar = page.dir | navvar %}
 <title>{% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %} | ArangoDB Documentation</title>
 <meta itemprop="description" name="description" content="{% if page.description %}{{ page.description | truncate: 160 }}{% else %}{{ site.description | truncate: 160  }}{% endif %}" />
-<meta name="robots" content="{% if page.version.tag == "devel" %}noindex, nofollow{% else %}index, follow{% endif %}" />
+<meta name="robots" content="{% if page.version.tag == "devel" or site.data.deprecations contains page.version.version %}noindex, nofollow{% else %}index, follow{% endif %}" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta property="og:url" content="{{ page.canonical | absolute_url }}" />
 <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{% navtitle navvar %}{% endif %} | ArangoDB Documentation" />
@@ -76,6 +70,18 @@ Figure out where we are at and compute navvar from folder path, e.g.
   s.parentNode.insertBefore(b, s);})();
 </script>
 
+<script>
+  (function () {
+    var zi = document.createElement('script');
+    zi.type = 'text/javascript';
+    zi.async = true;
+    zi.referrerPolicy = 'unsafe-url';
+    zi.src = 'https://ws.zoominfo.com/pixel/60e5aeed1cb467001537be54';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(zi, s);
+  })();
+</script>
+
 <link rel="shortcut icon" href="https://www.arangodb.com/wp-content/uploads/2018/07/www.arangodb.com-favicon.png">
 <link rel="stylesheet" href="{{ "/styles/gitbook/style.css" | relative_url }}">
 <link rel="stylesheet" href="{{ "/styles/gitbook/highlight-website.css" | relative_url }}">
@@ -84,6 +90,7 @@ Figure out where we are at and compute navvar from folder path, e.g.
 <link rel="stylesheet" href="{{ "/styles/header.css" | relative_url }}">
 <link rel="stylesheet" href="{{ "/styles/navbar.css" | relative_url }}">
 <link rel="stylesheet" href="{{ "/styles/site.css" | relative_url }}">
+<link rel="stylesheet" href="{{ "/styles/pygments-vs.css" | relative_url }}">
 <script src="{{ "/js/jquery-3.4.0.min.js" | relative_url }}"></script>
 <script src="{{ "/js/site.js" | relative_url }}"></script>
 {%- if jekyll.environment == 'production' and site.google_analytics -%}

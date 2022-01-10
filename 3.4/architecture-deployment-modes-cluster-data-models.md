@@ -33,11 +33,6 @@ single document operations still scale linearly with the size of the
 cluster, unless a special sharding configuration makes lookups or
 write operations more expensive.
 
-For a deeper analysis of this topic see 
-[this blog post](https://mesosphere.com/blog/2015/11/30/arangodb-benchmark-dcos/){:target="_blank"}
-in which good linear scalability of ArangoDB for single document operations
-is demonstrated.
-
 
 Complex queries and joins
 -------------------------

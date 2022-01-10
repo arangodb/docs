@@ -1,33 +1,36 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/simple/range</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/simple/range</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"collection"</span> : <span class="hljs-string">"products"</span>, 
-  <span class="hljs-string">"attribute"</span> : <span class="hljs-string">"i"</span>, 
-  <span class="hljs-string">"left"</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">"right"</span> : <span class="hljs-number">4</span> 
+  <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;products&quot;</span>, 
+  <span class="hljs-string">&quot;attribute&quot;</span> : <span class="hljs-string">&quot;i&quot;</span>, 
+  <span class="hljs-string">&quot;left&quot;</span> : <span class="hljs-number">2</span>, 
+  <span class="hljs-string">&quot;right&quot;</span> : <span class="hljs-number">4</span> 
 }
 EOF
 
-HTTP/<span class="hljs-number">1.1</span> Created
-x-content-type-options: nosniff
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> Created
 content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">197</span>
+server: ArangoDB
+x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"result"</span> : [ 
+  <span class="hljs-string">&quot;result&quot;</span> : [ 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70856"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70856"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVF6--A"</span>, 
-      <span class="hljs-string">"i"</span> : <span class="hljs-number">2</span> 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71311&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/71311&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ0je---&quot;</span>, 
+      <span class="hljs-string">&quot;i&quot;</span> : <span class="hljs-number">2</span> 
     }, 
     { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70858"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70858"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_ZiZaVG----"</span>, 
-      <span class="hljs-string">"i"</span> : <span class="hljs-number">3</span> 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71313&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/71313&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZ0ji---&quot;</span>, 
+      <span class="hljs-string">&quot;i&quot;</span> : <span class="hljs-number">3</span> 
     } 
   ], 
-  <span class="hljs-string">"hasMore"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"count"</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">201</span> 
+  <span class="hljs-string">&quot;hasMore&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-number">2</span>, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">201</span> 
 }

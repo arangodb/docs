@@ -2,7 +2,7 @@
 layout: default
 description: ArangoSearch Views
 redirect_from:
-  - /3.5/views-arango-search-detailed-overview.html # 3.4 -> 3.5
+  - views-arango-search-detailed-overview.html # 3.4 -> 3.5
 ---
 ArangoSearch Views
 ==================
@@ -15,7 +15,7 @@ the documents that satisfy the search criteria by relevance.
 Comparison with the [Full-text Index](indexing-fulltext.html):
 
 Feature                           | ArangoSearch | Full-text Index
-----------------------------------|--------------|----------------
+:---------------------------------|:-------------|:---------------
 Term search                       | Yes          | Yes
 Prefix search                     | Yes          | Yes
 Boolean expressions               | Yes          | Restricted
@@ -134,6 +134,8 @@ attribute (ascending or descending), to enable an optimization for AQL
 queries which iterate over a View and sort by one or multiple of the
 attributes. If the field(s) and the sorting direction(s) match then the
 the data can be read directly from the index without actual sort operation.
+
+{% include youtube.html id="bKeKzexInm0" %}
 
 View definition example:
 
@@ -283,6 +285,12 @@ During view modification the following directives apply:
   - **none**: Do not store values with the view.
   - **id**: Store information about value presence to allow use of the
     `EXISTS()` function.
+
+- **inBackground** (_optional_; type: `boolean`; default: `false`)
+
+  If set to `true`, then no exclusive lock is used on the source collection
+  during View index creation, so that it remains basically available. Also see:
+  [Creating Indexes in Background](indexing-index-basics.html#creating-indexes-in-background)
 
 ### View Properties
 

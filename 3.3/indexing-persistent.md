@@ -51,6 +51,7 @@ account for uniqueness checks.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensureUniquePersistentSingle
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniquePersistentSingle}
@@ -64,7 +65,9 @@ details, including the index-identifier, is returned.
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock ensureUniquePersistentSingle
 {% endarangoshexample %}
-{% include arangoshexample.html id=examplevar script=script result=result %}{% arangoshexample examplevar="examplevar" script="script" result="result" %}    
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline ensureUniquePersistentMultiColmun
     @EXAMPLE_ARANGOSH_OUTPUT{ensureUniquePersistentMultiColmun}
     ~db._create("ids");
@@ -94,6 +97,7 @@ To create a sparse unique index, set the *sparse* attribute to `true`.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline ensurePersistent
     @EXAMPLE_ARANGOSH_OUTPUT{ensurePersistent}

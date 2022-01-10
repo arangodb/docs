@@ -16,7 +16,7 @@ else
         "https://@github.com/arangodb/arangodb-java-driver.git;arangodb-java-driver;master;docs/;Drivers/"
         "https://@github.com/arangodb/arangodb-php.git;arangodb-php;devel;docs/;Drivers/"
         "https://@github.com/arangodb/arangodb-spark-connector.git;arangodb-spark-connector;master;docs/;Drivers/"
-        "https://@github.com/arangodb/arangojs.git;arangojs;master;docs/;Drivers/"
+        "https://@github.com/arangodb/arangojs.git;arangojs;main;docs/;Drivers/"
         "https://@github.com/arangodb/go-driver.git;go-driver;master;docs/;Drivers/"
         "https://@github.com/arangodb/spring-data.git;spring-data;master;docs/;Drivers/"
     )

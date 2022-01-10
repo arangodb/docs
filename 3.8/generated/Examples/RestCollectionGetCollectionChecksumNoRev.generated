@@ -1,0 +1,22 @@
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/collection/products/checksum?withRevisions=<span class="hljs-literal">false</span>&amp;withData=<span class="hljs-literal">true</span></span>
+
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
+content-type: application/json
+connection: Keep-Alive
+content-length: <span class="hljs-number">193</span>
+location: <span class="hljs-regexp">/_api/</span>collection/products/checksum
+server: ArangoDB
+x-content-type-options: nosniff
+
+{ 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
+  <span class="hljs-string">&quot;revision&quot;</span> : <span class="hljs-string">&quot;_diPv3yi---&quot;</span>, 
+  <span class="hljs-string">&quot;checksum&quot;</span> : <span class="hljs-string">&quot;7641429790989555694&quot;</span>, 
+  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;hA62B37C6B88F/66858&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;66858&quot;</span>, 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;products&quot;</span>, 
+  <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span> 
+}

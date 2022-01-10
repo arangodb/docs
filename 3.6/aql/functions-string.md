@@ -191,7 +191,7 @@ FIND_LAST("foobarbaz", "ba", 0, 4) // 3
 ```
 
 FNV64()
------
+-------
 
 `FNV64(text) → hash`
 
@@ -285,14 +285,14 @@ the [amount of documents](functions-miscellaneous.html#length) in a collection.
 LEVENSHTEIN_DISTANCE()
 ----------------------
 
-`LEVENSHTEIN_DISTANCE(value1, value2) → levenshteinDistance`
+`LEVENSHTEIN_DISTANCE(value1, value2) → distance`
 
-Calculate the [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance){:target="_blank"}
+Calculate the [Damerau-Levenshtein distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance){:target="_blank"}
 between two strings.
 
 - **value1** (string): a string
 - **value2** (string): a string
-- returns **levenshteinDistance** (number): calculated Levenshtein distance
+- returns **distance** (number): calculated Damerau-Levenshtein distance
   between the input strings *value1* and *value2*
 
 ```js
@@ -394,7 +394,7 @@ Generate a pseudo-random token string with the specified length.
 The algorithm for token generation should be treated as opaque.
 
 - **length** (number): desired string length for the token. It must be greater
-  than 0 and at most 65536.
+  or equal to 0 and at most 65536. A *length* of 0 returns an empty string.
 - returns **randomString** (string): a generated token consisting of lowercase
   letters, uppercase letters and numbers
 

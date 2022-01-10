@@ -1,12 +1,17 @@
 ---
 layout: default
-description: This practical introduction will take you from an empty folder to a firstFoxx service querying data
+description: This practical introduction will take you from an empty folder to a first Foxx service querying data
 ---
 Getting Started
 ===============
 
 This practical introduction will take you from an empty folder to a first
-Foxx service querying data.
+Foxx service installed in ArangoDB, with custom endpoints which can handle
+user input and query the database.
+
+A video guide is also available:
+
+{% include youtube-playlist.html id="PL0tn-TSss6NV45d1HnLA57VJFH6h1SeH7" %}
 
 Manifest
 --------

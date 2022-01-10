@@ -31,16 +31,17 @@ Supported architectures
 -----------------------
 
 The minimum supported architecture for the official release packages of ArangoDB is
-now the Nehalem architecture.
+now the Westmere architecture.
 
 All release packages are built with compiler optimizations that require at least
 this architecture. The following CPU features are required for running an official
-release package (note: these are all included in the Nehalem architecture and upwards):
+release package (note: these are all included in the Westmere architecture and upwards):
 
 * SSE2
 * SSE3
 * SSE4.1
 * SSE4.2
+* PCLMUL
 
 In case the target platform does not conform to these requirements, ArangoDB may
 not work correctly.
@@ -52,7 +53,7 @@ will then show up in the output in the line starting with `optimization-flags`, 
 ```
 $ arangod --version
 ...
-optimization-flags: -march=nehalem -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mno-sse4a -mno-avx -mno-fma -mno-bmi2 -mno-avx2 -mno-xop -mno-fma4 -mno-avx512f -mno-avx512vl -mno-avx512pf -mno-avx512er -mno-avx512cd -mno-avx512dq -mno-avx512bw -mno-avx512ifma -mno-avx512vbmi
+optimization-flags: -march=westmere -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mno-sse4a -mno-avx -mno-fma -mno-bmi2 -mno-avx2 -mno-xop -mno-fma4 -mno-avx512f -mno-avx512vl -mno-avx512pf -mno-avx512er -mno-avx512cd -mno-avx512dq -mno-avx512bw -mno-avx512ifma -mno-avx512vbmi
 platform: linux
 ```
 

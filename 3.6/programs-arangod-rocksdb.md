@@ -137,17 +137,17 @@ If set, issue an `fsync` call when writing to disk (set to false to issue
 `fdatasync` only. Default: false.
 
 `--rocksdb.allow-fallocate`
-  
+
 Allow RocksDB to use the fallocate call. If false, fallocate calls are bypassed
 and no preallocation is done. Preallocation is turned on by default, but can be
 turned off for operating system versions that are known to have issues with it.
 This option only has an effect on operating systems that support fallocate.
 
 `--rocksdb.limit-open-files-at-startup`
-                     
+
 If set to true, this will limit the amount of .sst files RocksDB will inspect at 
 startup, which can reduce the number of IO operations performed at start.
-  
+
 `--rocksdb.block-align-data-blocks`
 
 If true, data blocks are aligned on the lesser of page size and block size,
@@ -218,6 +218,8 @@ If true, skip corrupted records in WAL recovery. Default: false.
 
 ## Non-Pass-Through Options
 
+### Write-ahead Log
+
 `--rocksdb.wal-file-timeout`
 
 Timeout after which unused WAL files are deleted (in seconds). Default: 10.0s.
@@ -274,6 +276,18 @@ deletes files from the archive that followers want to read, this will abort
 the replication on the followers. Followers can however restart the replication
 doing a resync.
 
+`--rocksdb.sync-interval`
+
+The interval (in milliseconds) that ArangoDB will use to automatically
+synchronize data in RocksDB's write-ahead logs to disk. Automatic syncs will
+only be performed for not-yet synchronized data, and only for operations that
+have been executed without the *waitForSync* attribute.
+
+Note: this option is not supported on Windows platforms. Setting the option to
+a value greater 0 will produce a startup warning.
+
+### Transactions
+
 `--rocksdb.max-transaction-size`
 
 Transaction size limit (in bytes). Transactions store all keys and values in
@@ -294,21 +308,29 @@ value is specified in bytes.
 If the number of operations in a transaction reaches this value, the transaction
 is committed automatically and a new transaction is started.
 
+### Writes
+
+`--rocksdb.exclusive-writes`
+
+Allows to make all writes to the RocksDB storage exclusive and therefore avoids
+write-write conflicts. This option was introduced to open a way to upgrade from
+MMFiles to RocksDB storage engine without modifying client application code.
+Otherwise it should best be avoided as the use of exclusive locks on collections
+will introduce a noticeable throughput penalty.
+
+Note that the MMFiles engine is [deprecated](appendix-deprecated.html)
+from v3.6.0 on and will be removed in a future release. So will be this option,
+which is a stopgap measure only.
+
+The option has effect on single servers and on DB-Servers in the cluster.
+
 `--rocksdb.throttle`
 
 If enabled, throttles the ingest rate of writes if necessary to reduce chances 
 of compactions getting too far behind and blocking incoming writes. This option
 is `true` by default.
 
-`--rocksdb.sync-interval`
-
-The interval (in milliseconds) that ArangoDB will use to automatically
-synchronize data in RocksDB's write-ahead logs to disk. Automatic syncs will
-only be performed for not-yet synchronized data, and only for operations that
-have been executed without the *waitForSync* attribute.
-
-Note: this option is not supported on Windows platforms. Setting the option to
-a value greater 0 will produce a startup warning.
+### Debugging
 
 `--rocksdb.use-file-logging`
 

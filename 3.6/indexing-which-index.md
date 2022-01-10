@@ -32,16 +32,20 @@ different usage scenarios:
   The non-unique hash index provides O(1) inserts, updates and removes, and
   will allow looking up documents by index value with amortized O(n) complexity, 
   with *n* being the number of documents with that index value.
-  
+
   A non-unique hash index on an optional document attribute should be declared
   sparse so that it will not index documents for which the index attribute is
   not set.
+
+  Deprecated for RocksDB storage engine (use *persistent* instead).
 
 - skiplist index: skiplists keep the indexed values in an order, so they can
   be used for equality lookups, range queries and for sorting. For high selectivity
   attributes, skiplist indexes will have a higher overhead than hash indexes. For
   low selectivity attributes, skiplist indexes will be more efficient than non-unique
   hash indexes.
+
+  Deprecated for RocksDB storage engine (use *persistent* instead).
 
   Additionally, skiplist indexes allow more use cases (e.g. range queries, sorting)
   than hash indexes. Furthermore, they can be used for lookups based on a leftmost
@@ -54,6 +58,8 @@ different usage scenarios:
   have may have a higher constant factor than the operations in a skiplist index, 
   because the persistent index may need to make extra roundtrips to the primary
   index to fetch the actual documents.
+
+  Deprecated for MMFiles storage engine (use RocksDB storage engine instead).
 
   A persistent index can be used for equality lookups, range queries and for sorting. 
   For high selectivity attributes, persistent indexes will have a higher overhead than 
@@ -97,17 +103,20 @@ different usage scenarios:
   remove the expired documents. It is guaranteed however that only documents which are 
   past their expiration time will actually be removed.
 
-  Please note that the numeric date time values for the index attribute should be 
-  specified in seconds since January 1st 1970 (Unix timestamp). To calculate the current 
-  timestamp from JavaScript in this format, there is `Date.now() / 1000`, to calculate it 
-  from an arbitrary Date instance, there is `Date.getTime() / 1000`.
+  Please note that the numeric date time values for the index attribute has to be
+  specified **in seconds** since January 1st 1970 (Unix timestamp). To calculate the current 
+  timestamp from JavaScript in this format, there is `Date.now() / 1000`; to calculate it
+  from an arbitrary Date instance, there is `Date.getTime() / 1000`. In AQL you can do
+  `DATE_NOW() / 1000` or divide an arbitrary Unix timestamp in milliseconds by 1000 to
+  convert it to seconds.
 
   Alternatively, the index attribute values can be specified as a date string in format
-  `YYYY-MM-DDTHH:MM:SS` with optional milliseconds. All date strings will be interpreted 
-  as UTC dates.
-    
+  `YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a decimal point in the
+  format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All date strings
+  without a timezone offset will be interpreted as UTC dates.
+
   The above example document using a date string attribute value would be
- 
+
       { "creationDate" : "2019-02-14T17:39:33.000Z" }
 
   In case the index attribute does not contain a numeric value nor a proper date string,

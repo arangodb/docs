@@ -2,7 +2,7 @@
 layout: default
 description: ArangoSearch Views
 redirect_from:
-  - /3.6/views-arango-search-detailed-overview.html # 3.4 -> 3.5
+  - views-arango-search-detailed-overview.html # 3.4 -> 3.5
 ---
 ArangoSearch Views
 ==================
@@ -15,7 +15,7 @@ the documents that satisfy the search criteria by relevance.
 Comparison with the [Full-text Index](indexing-fulltext.html):
 
 Feature                           | ArangoSearch | Full-text Index
-----------------------------------|--------------|----------------
+:---------------------------------|:-------------|:---------------
 Term search                       | Yes          | Yes
 Prefix search                     | Yes          | Yes
 Boolean expressions               | Yes          | Restricted
@@ -135,6 +135,8 @@ queries which iterate over a View and sort by one or multiple of the
 attributes. If the field(s) and the sorting direction(s) match then the
 the data can be read directly from the index without actual sort operation.
 
+{% include youtube.html id="bKeKzexInm0" %}
+
 View definition example:
 
 ```json
@@ -245,7 +247,7 @@ During view modification the following directives apply:
 - **analyzers** (_optional_; type: `array`; subtype: `string`; default: `[
   'identity' ]`)
 
-  A list of analyzers, by name as defined via the [Analyzers](arangosearch-analyzers.html),
+  A list of Analyzers, by name as defined via the [Analyzers](arangosearch-analyzers.html),
   that should be applied to values of processed document attributes.
 
 - **fields** (_optional_; type: `object`; default: `{}`)
@@ -266,6 +268,11 @@ During view modification the following directives apply:
   specified in `fields` will be processed with default link properties, i.e.
   `{}`.
 
+  {% hint 'warning' %}
+  Using `includeAllFields` for a lot of attributes in combination with complex
+  Analyzers may significantly slow down the indexing process.
+  {% endhint %}
+
 - **trackListPositions** (_optional_; type: `boolean`; default: `false`)
 
   If set to `true`, then for array values track the value position in arrays.
@@ -283,6 +290,12 @@ During view modification the following directives apply:
   - **none**: Do not store values with the view.
   - **id**: Store information about value presence to allow use of the
     `EXISTS()` function.
+
+- **inBackground** (_optional_; type: `boolean`; default: `false`)
+
+  If set to `true`, then no exclusive lock is used on the source collection
+  during View index creation, so that it remains basically available. Also see:
+  [Creating Indexes in Background](indexing-index-basics.html#creating-indexes-in-background)
 
 ### View Properties
 

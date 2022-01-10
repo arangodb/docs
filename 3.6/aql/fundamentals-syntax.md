@@ -111,44 +111,41 @@ There are a few more keywords in addition to the higher-level operation keywords
 Additional keywords may be added in future versions of ArangoDB.
 The complete list of keywords is currently:
 
-<div class="columns-3">
-<ul>
-  <li><code>AGGREGATE</code></li>
-  <li><code>ALL</code></li>
-  <li><code>AND</code></li>
-  <li><code>ANY</code></li>
-  <li><code>ASC</code></li>
-  <li><code>COLLECT</code></li>
-  <li><code>DESC</code></li>
-  <li><code>DISTINCT</code></li>
-  <li><code>FALSE</code></li>
-  <li><code>FILTER</code></li>
-  <li><code>FOR</code></li>
-  <li><code>GRAPH</code></li>
-  <li><code>IN</code></li>
-  <li><code>INBOUND</code></li>
-  <li><code>INSERT</code></li>
-  <li><code>INTO</code></li>
-  <li><code>K_SHORTEST_PATHS</code></li>
-  <li><code>LET</code></li>
-  <li><code>LIKE</code></li>
-  <li><code>LIMIT</code></li>
-  <li><code>NONE</code></li>
-  <li><code>NOT</code></li>
-  <li><code>NULL</code></li>
-  <li><code>OR</code></li>
-  <li><code>OUTBOUND</code></li>
-  <li><code>REMOVE</code></li>
-  <li><code>REPLACE</code></li>
-  <li><code>RETURN</code></li>
-  <li><code>SHORTEST_PATH</code></li>
-  <li><code>SORT</code></li>
-  <li><code>TRUE</code></li>
-  <li><code>UPDATE</code></li>
-  <li><code>UPSERT</code></li>
-  <li><code>WITH</code></li>
-</ul>
-</div>
+- `AGGREGATE`
+- `ALL`
+- `AND`
+- `ANY`
+- `ASC`
+- `COLLECT`
+- `DESC`
+- `DISTINCT`
+- `FALSE`
+- `FILTER`
+- `FOR`
+- `GRAPH`
+- `IN`
+- `INBOUND`
+- `INSERT`
+- `INTO`
+- `K_SHORTEST_PATHS`
+- `LET`
+- `LIKE`
+- `LIMIT`
+- `NONE`
+- `NOT`
+- `NULL`
+- `OR`
+- `OUTBOUND`
+- `REMOVE`
+- `REPLACE`
+- `RETURN`
+- `SHORTEST_PATH`
+- `SORT`
+- `TRUE`
+- `UPDATE`
+- `UPSERT`
+- `WITH`
+{:class="columns-3"}
 
 On top of that, there are a few words used in language constructs which are not
 reserved keywords. They may thus be used as collection or attribute names
@@ -164,11 +161,11 @@ based on the context:
   [Graph Traversal](graphs-traversals.html) /
   [SEARCH](operations-search.html#search-options) /
   [COLLECT](operations-collect.html#setting-collect-options) /
-  [INSERT](operations-insert.html#setting-query-options) /
-  [UPDATE](operations-update.html#setting-query-options) /
-  [REPLACE](operations-replace.html#setting-query-options) /
-  [UPSERT](operations-upsert.html#setting-query-options) /
-  [REMOVE](operations-remove.html#setting-query-options)
+  [INSERT](operations-insert.html#query-options) /
+  [UPDATE](operations-update.html#query-options) /
+  [REPLACE](operations-replace.html#query-options) /
+  [UPSERT](operations-upsert.html#query-options) /
+  [REMOVE](operations-remove.html#query-options)
   operation
 - `PRUNE` –
   [Graph Traversal](graphs-traversals.html#pruning), FOR operation variant
@@ -206,11 +203,15 @@ for your own variables if you want to access the special variable values.
 Names
 -----
 
-In general, names are used to identify objects (collections, attributes,
-variables, and functions) in AQL queries.
+In general, names are used to identify the following things in AQL queries:
+- collections
+- attributes
+- variables
+- functions
 
-The maximum supported length of any name is 64 bytes. Names in AQL are always
-case-sensitive.
+Names in AQL are always case-sensitive.
+The maximum supported length for collection/View names is 256 bytes.
+Variable names can be longer, but are discouraged.
 
 Keywords must not be used as names. If a reserved keyword should be used as a
 name, the name must be enclosed in backticks or forward ticks. Enclosing a name in 
@@ -241,6 +242,19 @@ FOR f IN `filter`
 
 `sort` is a **quoted** string literal in this alternative and does thus not
 conflict with the reserved word.
+
+Escaping is also required if special characters such as hyphen minus (`-`) are
+contained in a name:
+
+```js
+FOR doc IN `my-coll`
+  RETURN doc
+```
+
+The collection `my-coll` has a dash in its name, but `-` is an arithmetic
+operator for subtraction in AQL. The backticks escape the collection name to
+refer to the collection correctly. Note that quoting the name with `"` or `'`
+is not possible for collections.
 
 ### Collection names
 
@@ -293,8 +307,6 @@ variables to store their intermediate results.
 
 Allowed characters in variable names are the letters *a* to *z* (both in lower
 and upper case), the numbers *0* to *9*, the underscore (*_*) symbol and the
-dollar (*$*) sign. A variable name must not start with a number. If a variable name 
-starts with the underscore character, the underscore must be followed by least one 
-letter (a-z or A-Z) or digit (0-9).
-
-The dollar sign can be used only as the very first character in a variable name.
+dollar (*$*) sign. A variable name must not start with a number or underscore.
+The dollar sign can only be used as the very first character in a variable name
+and must be followed by a letter.

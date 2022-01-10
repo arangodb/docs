@@ -1,17 +1,25 @@
-{% comment %}lol. splitting by \n doesn't work :S so split by <br{% endcomment %}
-{% assign resultlines=include.result | newline_to_br | split: "<br" | size %}
+{%- comment %}lol. splitting by \n doesn't work :S so split by <br{% endcomment %}
+{%- assign resultlines=include.result | newline_to_br | split: "<br" | size %}
 <div id="{{ include.id }}" class="example-container {% if resultlines > 5 %}hide-result{% endif %}">
     <div>
-        <pre>{{ include.query|strip }}</pre>
-        <div class="show-button">
-            <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('hide-result', 'show-result')">Show query results</div>
-        </div>
+        <pre>{{ include.query | strip }}</pre>
+    </div>
+    <div class="show-button">
+        <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('hide-result', 'show-result')">Show query results</div>
+    </div>
+    <div class="hide-button">
+        <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('show-result', 'hide-result')">Hide query results</div>
     </div>
     <div class="example-result">
-        <pre>{{ include.result|strip }}</pre>
-        <div class="hide-button">
-            <div class="example_show_button" onclick="document.querySelector('#{{ include.id }}').className = document.querySelector('#{{ include.id }}').className.replace('show-result', 'hide-result')">Hide query results</div>
-        </div>
+        {%- if include.bind != "" %}
+        <strong>Bind Parameters:</strong>
+        <pre>{{ include.bind | strip }}</pre>
+        {%- if include.type == "explain" %}
+        <strong>Explain:</strong>
+        {%- else %}
+        <strong>Result:</strong>
+        {%- endif %}
+        {%- endif %}
+        <pre>{{ include.result | strip }}</pre>
     </div>
 </div>
-    

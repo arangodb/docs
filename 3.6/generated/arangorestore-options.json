@@ -31,7 +31,6 @@
   },
   "check-configuration" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "check the configuration and exit",
     "dynamic" : false,
@@ -182,7 +181,6 @@
   },
   "dump-dependencies" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "dump dependency graph",
     "dynamic" : false,
@@ -196,7 +194,6 @@
   },
   "dump-options" : {
     "category" : "command",
-    "default" : true,
     "deprecatedIn" : null,
     "description" : "dump configuration options in JSON format",
     "dynamic" : false,
@@ -338,12 +335,30 @@
     "section" : "",
     "type" : "string..."
   },
+  "log.api-enabled" : {
+    "category" : "option",
+    "default" : "true",
+    "deprecatedIn" : null,
+    "description" : "whether the log api is enabled (true) or not (false), or only enabled for superuser JWT (jwt)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.4.11",
+      "v3.5.6",
+      "v3.6.5"
+    ],
+    "obsolete" : false,
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string"
+  },
   "log.color" : {
     "category" : "option",
     "default" : true,
     "deprecatedIn" : null,
     "description" : "use colors for TTY logging",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : null,
@@ -389,8 +404,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "requiresValue" : true,
@@ -406,8 +420,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "requiresValue" : true,
@@ -433,7 +446,7 @@
     "default" : false,
     "deprecatedIn" : null,
     "description" : "also log to tty if backgrounded",
-    "dynamic" : false,
+    "dynamic" : true,
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : null,
@@ -492,7 +505,7 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
@@ -671,7 +684,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "override value for numberOfShards (can be specified multiple times, e.g. --numberOfShards 2 --numberOfShards myCollection=3)",
+    "description" : "override value for numberOfShards (can be specified multiple times, e.g. --number-of-shards 2 --number-of-shards myCollection=3)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -732,7 +745,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "override value for replicationFactor (can be specified multiple times, e.g. --replicationFactor 2 --replicationFactor myCollection=3)",
+    "description" : "override value for replicationFactor (can be specified multiple times, e.g. --replication-factor 2 --replication-factor myCollection=3)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -920,7 +933,6 @@
   },
   "version" : {
     "category" : "command",
-    "default" : false,
     "deprecatedIn" : null,
     "description" : "reports the version and exits",
     "dynamic" : false,

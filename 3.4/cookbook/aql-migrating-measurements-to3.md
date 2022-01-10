@@ -1,6 +1,9 @@
 ---
 layout: default
 description: With the release of 3
+redirect_from:
+  - /3.5/cookbook/aql-migrating-measurements-to3.html # 3.5 -> 3.5
+  - /3.6/cookbook/aql-migrating-measurements-to3.html # 3.5 -> 3.5
 ---
 Migrating GRAPH_* Measurements from 2.8 or earlier to 3.0
 =========================================================

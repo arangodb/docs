@@ -1,6 +1,7 @@
 ---
 layout: default
-description: Traditionally, server-side projects have been developed as standalone applicationsthat guide the communication between the client-side frontend and the databasebackend
+description: The Foxx framework enables you to execute JavaScript inside of ArangoDB and write custom service endpoints
+title: Foxx Microservices
 ---
 Foxx Microservices
 ==================

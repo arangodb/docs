@@ -1,18 +1,39 @@
 ---
 layout: default
-description: Console Module
+description: Implementation of the console module in the JavaScript API
+title: Console Module JS API
 ---
 Console Module
 ==============
 
 `global.console === require('console')`
 
-**Note**: You don't need to load this module directly. The `console` object is globally defined throughout ArangoDB and provides access to all functions in this module.
+**Note**: You don't need to load this module directly. The `console` object is
+globally defined throughout ArangoDB and provides access to all functions in
+this module.
+
+Format Strings
+--------------
+
+The following format specifiers can be used in format strings, which are
+accepted by various console methods (look for the `format` parameter below):
+
+- `%s`: string
+- `%d`, `%i`: integer number
+- `%f`: floating point number
+- `%o`: object (circular references marked with `~`)
+- `%%`: literal percent sign `%`
+
+Example:
+
+```js
+console.log('%s = %i%%', 'value', 20.5) // 'value = 20%'
+```
 
 console.assert
 --------------
 
-`console.assert(expression, format, argument1, ...)`
+`console.assert(expression, [format,] argument1, ...)`
 
 Tests that an expression is *true*. If not, logs a message and throws
 an exception.
@@ -26,18 +47,11 @@ console.assert(value === "abc", "expected: value === abc, actual:", value);
 console.debug
 -------------
 
-`console.debug(format, argument1, ...)`
+`console.debug([format,] argument1, ...)`
 
 Formats the arguments according to *format* and logs the result as
 debug message. Note that debug messages will only be logged if the
 server is started with log levels *debug* or *trace*.
-
-String substitution patterns, which can be used in *format*.
-
-* *%%s* string
-* *%%d*, *%%i* integer
-* *%%f* floating point number
-* *%%o* object hyperlink
 
 *Examples*
 
@@ -53,6 +67,7 @@ console.dir
 Logs a listing of all properties of the object.
 
 Example usage:
+
 ```js
 console.dir(myObject);
 ```
@@ -60,19 +75,12 @@ console.dir(myObject);
 console.error
 -------------
 
-`console.error(format, argument1, ...)`
+`console.error([format,] argument1, ...)`
 
-Formats the arguments according to @FA{format} and logs the result as
-error message.
-
-String substitution patterns, which can be used in *format*.
-
-* *%%s* string
-* *%%d*, *%%i* integer
-* *%%f* floating point number
-* *%%o* object hyperlink
+Formats the arguments according to *format* and logs the result as error message.
 
 Example usage:
+
 ```js
 console.error("error '%s': %s", type, message);
 ```
@@ -87,7 +95,7 @@ Reads in a line from the console and returns it as string.
 console.group
 -------------
 
-`console.group(format, argument1, ...)`
+`console.group([format,] argument1, ...)`
 
 Formats the arguments according to *format* and logs the result as
 log message. Opens a nested block to indent all future messages
@@ -107,7 +115,7 @@ console.groupEnd();
 console.groupCollapsed
 ----------------------
 
-`console.groupCollapsed(format, argument1, ...)`
+`console.groupCollapsed([format,] argument1, ...)`
 
 Same as *console.group*.
 
@@ -121,19 +129,13 @@ Closes the most recently opened block created by a call to *group*.
 console.info
 ------------
 
-`console.info(format, argument1, ...)`
+`console.info([format,] argument1, ...)`
 
 Formats the arguments according to *format* and logs the result as
 info message.
 
-String substitution patterns, which can be used in *format*.
-
-* *%%s* string
-* *%%d*, *%%i* integer
-* *%%f* floating point number
-* *%%o* object hyperlink
-
 Example usage:
+
 ```js
 console.info("The %s jumped over %d fences", animal, count);
 ```
@@ -141,10 +143,10 @@ console.info("The %s jumped over %d fences", animal, count);
 console.log
 -----------
 
-`console.log(format, argument1, ...)`
+`console.log([format,] argument1, ...)`
 
 Formats the arguments according to *format* and logs the result as
-log message. This is an alias for *console.info*.
+log message. This is an alias for [console.info()](#consoleinfo).
 
 console.time
 ------------
@@ -175,19 +177,12 @@ console.trace
 `console.trace()`
 
 Logs a stack trace of JavaScript execution at the point where it is
-called. 
+called.
 
 console.warn
 ------------
 
-`console.warn(format, argument1, ...)`
+`console.warn([format,] argument1, ...)`
 
 Formats the arguments according to *format* and logs the result as
-warn message.
-
-String substitution patterns, which can be used in *format*.
-
-* *%%s* string
-* *%%d*, *%%i* integer
-* *%%f* floating point number
-* *%%o* object hyperlink
+warning message.

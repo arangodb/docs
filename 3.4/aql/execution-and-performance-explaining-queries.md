@@ -25,6 +25,7 @@ Inspecting query plans
 The `explain` method of `ArangoStatement` as shown in the next chapters creates very verbose output.
 To get a human-readable output of the query plan you can use the `explain` method on our database
 object in arangosh. You may use it like this: (we disable syntax highlighting here)
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 01_workWithAQL_databaseExplain
     @EXAMPLE_ARANGOSH_OUTPUT{01_workWithAQL_databaseExplain}
@@ -33,6 +34,7 @@ object in arangosh. You may use it like this: (we disable syntax highlighting he
     @endDocuBlock 01_workWithAQL_databaseExplain
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The plan contains all execution nodes that are used during a query. These nodes represent different
 stages in a query. Each stage gets the input from the stage directly above (its dependencies). 
 The plan will show you the estimated number of items (results) for each query stage (under _Est._). Each
@@ -54,6 +56,7 @@ To use this in an interactive fashion on the shell you can use the
 `_profileQuery()` method on the `ArangoDatabase` object or use the web interface.
 
 For more information see [Profiling Queries](execution-and-performance-query-profiler.html).
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 01_workWithAQL_databaseProfileQuery
     @EXAMPLE_ARANGOSH_OUTPUT{01_workWithAQL_databaseProfileQuery}
@@ -84,6 +87,7 @@ Each plan in the result is an object with the following attributes:
   internal variables created by the optimizer)
 
 Here is an example for retrieving the execution plan of a simple query:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 07_workWithAQL_statementsExplain
     @EXAMPLE_ARANGOSH_OUTPUT{07_workWithAQL_statementsExplain}
@@ -94,8 +98,10 @@ Here is an example for retrieving the execution plan of a simple query:
     @endDocuBlock 07_workWithAQL_statementsExplain
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 As the output of `explain` is very detailed, it is recommended to use some
 scripting to make the output less verbose:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 08_workWithAQL_statementsPlans
     @EXAMPLE_ARANGOSH_OUTPUT{08_workWithAQL_statementsPlans}
@@ -108,8 +114,10 @@ scripting to make the output less verbose:
     @endDocuBlock 08_workWithAQL_statementsPlans
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 If a query contains bind parameters, they must be added to the statement **before**
 `explain` is called:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 09_workWithAQL_statementsPlansBind
     @EXAMPLE_ARANGOSH_OUTPUT{09_workWithAQL_statementsPlansBind}
@@ -122,12 +130,14 @@ If a query contains bind parameters, they must be added to the statement **befor
     @endDocuBlock 09_workWithAQL_statementsPlansBind
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 In some cases the AQL optimizer creates multiple plans for a single query. By default
 only the plan with the lowest total estimated cost is kept, and the other plans are
 discarded. To retrieve all plans the optimizer has generated, `explain` can be called
 with the option `allPlans` set to `true`.
 
 In the following example, the optimizer has created two plans:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 10_workWithAQL_statementsPlansOptimizer0
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer0}
@@ -138,7 +148,9 @@ In the following example, the optimizer has created two plans:
     @endDocuBlock 10_workWithAQL_statementsPlansOptimizer0
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 To see a slightly more compact version of the plan, the following transformation can be applied:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 10_workWithAQL_statementsPlansOptimizer1
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer1}
@@ -149,6 +161,7 @@ To see a slightly more compact version of the plan, the following transformation
     @endDocuBlock 10_workWithAQL_statementsPlansOptimizer1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 `explain` will also accept the following additional options:
 - *maxPlans*: limits the maximum number of plans that are created by the AQL query optimizer
 - *optimizer.rules*: an array of to-be-included or to-be-excluded optimizer rules
@@ -157,6 +170,7 @@ To see a slightly more compact version of the plan, the following transformation
   with a `+`. There is also a pseudo-rule `all`, which will match all optimizer rules.
 
 The following example disables all optimizer rules but `remove-redundant-calculations`:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 10_workWithAQL_statementsPlansOptimizer2
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer2}
@@ -170,6 +184,7 @@ The following example disables all optimizer rules but `remove-redundant-calcula
 
 The contents of an execution plan are meant to be machine-readable. To get a human-readable
 version of a query's execution plan, the following commands can be used:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 10_workWithAQL_statementsPlansOptimizer3
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_statementsPlansOptimizer3}
@@ -179,6 +194,7 @@ version of a query's execution plan, the following commands can be used:
     @endDocuBlock 10_workWithAQL_statementsPlansOptimizer3
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The above command prints the query's execution plan in the ArangoShell directly, focusing
 on the most important information.
 
@@ -192,6 +208,7 @@ as possible, there is a built-in command in ArangoShell for packaging the query,
 bind parameters and all data required to execute the query elsewhere.
 
 The command will store all data in a file with a configurable filename:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline 10_workWithAQL_debugging1
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_debugging1}
@@ -201,11 +218,13 @@ The command will store all data in a file with a configurable filename:
     @endDocuBlock 10_workWithAQL_debugging1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Entitled users can send the generated file to the ArangoDB support to facilitate 
 reproduction and debugging.
 
 If a query contains bind parameters, they will need to specified along with the query
 string:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline 10_workWithAQL_debugging2
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_debugging2}
@@ -216,6 +235,7 @@ string:
     @endDocuBlock 10_workWithAQL_debugging2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 It is also possible to include example documents from the underlying collection in
 order to make reproduction even easier. Example documents can be sent as they are, or
 in an anonymized form. The number of example documents can be specified in the *examples*
@@ -224,6 +244,7 @@ the contents of string attributes in the examples with "XXX". It will however no
 replace any other types of data (e.g. numeric values) or attribute names. Attribute
 names in the examples will always be preserved because they may be indexed and used in
 queries:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline 10_workWithAQL_debugging3
     @EXAMPLE_ARANGOSH_OUTPUT{10_workWithAQL_debugging3}

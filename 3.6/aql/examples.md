@@ -1,18 +1,21 @@
 ---
 layout: default
-description: These pages contain some common query patterns with examples
+description: Creating test data, counting, subqueries, joins, grouping, traversals and other examples
+title: AQL Query Patterns & Examples
+redirect_from:
+  - ../cookbook/aql.html # 3.5 -> 3.5
 ---
-Usual Query Patterns Examples
+AQL Query Patterns & Examples
 =============================
 
 These pages contain some common query patterns with examples. For better
 understandability the query results are also included directly below each query.
 
-Normally, you would want to run queries on data stored in collections. This section
-will provide several examples for that.
+Normally, you would want to run queries on data stored in collections.
+This section will provide several examples for that.
 
-Some of the following example queries are executed on a collection 'users' with the data provided here below.
-
+Some of the following example queries are executed on a collection _users_
+with the data provided here below.
 
 Things to consider when running queries on collections
 ------------------------------------------------------
@@ -35,7 +38,6 @@ using attributes such as *id*, *from* and *to*, you might want to use the built-
 *_id*, *_from* and *_to* attributes. Finally, [edge collection](../appendix-glossary.html#edge-collection)s provide a nice way of
 establishing references / links between documents. These features have been left out here 
 for brevity as well.
-
 
 Example data
 ------------

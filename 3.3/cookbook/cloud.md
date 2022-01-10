@@ -2,8 +2,8 @@
 layout: default
 description: Running on AWS
 ---
-Cloud, DCOS and Docker
-======================
+Cloud and Docker
+================
 
 Amazon Web Services (AWS)
 -------------------------
@@ -28,10 +28,3 @@ GiantSwarm
 ----------
 
 - [In the GiantSwarm](cloud-giant-swarm.html)
-
-Mesos / DCOS
-------------
-
-- [ArangoDB in Mesos](cloud-mesosphere.html)
-
-- [DC/OS: Full example](cloud-dcos-full-example.html)

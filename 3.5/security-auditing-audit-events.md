@@ -8,8 +8,7 @@ Audit Events
 
 {% hint 'info' %}
 Auditing is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/why-arangodb/arangodb-enterprise/){:target="_blank"},
-also available as [**managed service**](https://www.arangodb.com/managed-service/){:target="_blank"}.
+[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"}.
 {% endhint %}
 
 Unless otherwise noted, all events are logged to their respective topics at the
@@ -216,3 +215,36 @@ Queries
 
 This message will occur whenever a user attempts to execute a query. If
 successful, the status will read `ok`, otherwise `failed`.
+
+Hot Backups
+-----------
+
+There are three operations which are put into the audit log with respect
+to Hot Backups.
+
+### Creating a Hot Backup
+
+```
+2020-01-21 15:29:06 | tux | audit-hotbackup | root | n/a | (internal) | n/a | Hotbackup taken with ID 2020-01-21T15:29:06Z_a98422de-03ab-4b94-8ed9-e084bfd4bae1, result: 0
+```
+
+This message will occur whenever a user attempts to create a Hot Backup.
+If successful, the status will read `0`, otherwise some numerical error code.
+
+### Restoring a Hot Backup
+
+```
+2020-01-21 15:29:42 | tux | audit-hotbackup | root | n/a | (internal) | n/a | Hotbackup restored with ID 2020-01-21T15.29.06Z_a98422de-03ab-4b94-8ed9-e084bfd4bae1, result: 0
+```
+
+This message will occur whenever a user attempts to restore from a Hot Backup.
+If successful, the status will read `0`, otherwise some numerical error code.
+
+### Deleting a Hot Backup
+
+```
+2020-01-21 15:32:37 | tux | audit-hotbackup | root | n/a | (internal) | n/a | Hotbackup deleted with ID 2020-01-21T15.32.27Z_cf1e3cb1-32c0-41d2-9a3f-528c9b43cbf9, result: 0
+```
+
+This message will occur whenever a user attempts to delete a Hot Backup.
+If successful, the status will read `0`, otherwise some numerical error code.

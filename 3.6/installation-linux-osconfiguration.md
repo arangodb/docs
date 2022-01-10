@@ -1,6 +1,7 @@
 ---
 layout: default
-description: The most important suggestions listed in this section can be easily applied by making use of a script
+description: Recommendations regarding file systems, memory settings etc.
+title: Linux System Configuration for ArangoDB
 ---
 Linux Operating System Configuration
 ====================================
@@ -12,23 +13,56 @@ easily applied by making use of a script. Please refer to the page
 ready-to-use examples.
 {% endhint %}
 
+System Locales
+--------------
+
+Some systems may miss the required locale to start the server, resulting in an
+error message like the following:
+
+```
+FATAL [7ef60] {config} specified language 'en_US' does not match previously used language ''
+```
+
+The locale can be generated with the following command:
+
+```
+sudo locale-gen "en_US.UTF-8"
+```
+
+Your distribution may also provide a frontend for doing so, for instance
+[`dpkg-reconfigure locales` on Debian](https://wiki.debian.org/Locale){:target="_blank"}.
+
+If you don't set a [default language](programs-arangod-general.html#default-language)
+for the server explicitly, ArangoDB will use the default locale of your system.
+
+{% hint 'warning' %}
+The server language is stored in the `LANGUAGE` file in the database directory.
+This file should not be modified manually to bypass issues with the locale,
+because it may render indices invalid without raising a warning or error.
+Dumping the data and restoring it into an instance that has the correct
+language configured is advised.
+{% endhint %}
+
 File Systems
 ------------
 
 We recommend to **not** use BTRFS on linux, as user have reported issues using it in
 conjunction with ArangoDB. We experienced ArangoDB facing latency issues when accessing 
-its database files on BTRFS partitions. In conjunction with BTRFS and AUFS we also saw 
+its database files on BTRFS partitions. In conjunction with BTRFS and AUFS we also saw
 data loss on restart.
+
+We would not recommend network filesystems such as NFS for performance reasons,
+furthermore we experienced some issues with hard links required for Hot Backup.
 
 Page Sizes
 ----------
 
 On Linux ArangoDB uses [jemalloc](https://github.com/jemalloc/jemalloc) as
-its memory allocator. Unfortunately, some OS configurations can interfere with 
-jemalloc's ability to function properly. Specifically, Linux's "transparent hugepages", 
-Windows' "large pages" and other similar features sometimes prevent jemalloc from 
-returning unused memory to the operating system and result in unnecessarily high 
-memory use. Therefore, we recommend disabling these features when using jemalloc with 
+its memory allocator. Unfortunately, some OS configurations can interfere with
+jemalloc's ability to function properly. Specifically, Linux's "transparent hugepages",
+Windows' "large pages" and other similar features sometimes prevent jemalloc from
+returning unused memory to the operating system and result in unnecessarily high
+memory use. Therefore, we recommend disabling these features when using jemalloc with
 ArangoDB. Please consult your operating system's documentation for how to do this.
 
 Execute:
@@ -70,7 +104,7 @@ From [www.kernel.org](https://www.kernel.org/doc/Documentation/sysctl/vm.txt){:t
 - When this flag is 2, the kernel uses a "never overcommit"
   policy that attempts to prevent any overcommit of memory.
 
-Experience has shown that setting `overcommit_memory` to a value of 2 has severe 
+Experience has shown that setting `overcommit_memory` to a value of 2 has severe
 negative side-effects when running arangod, so it should be avoided at all costs.
 
 Max Memory Mappings
@@ -79,8 +113,8 @@ Max Memory Mappings
 Linux kernels by default restrict the maximum number of memory mappings of a
 single process to about 64K mappings. While this value is sufficient for most
 workloads, it may be too low for a process that has lots of parallel threads
-that all require their own memory mappings. In this case all the threads' 
-memory mappings will be accounted to the single arangod process, and the 
+that all require their own memory mappings. In this case all the threads'
+memory mappings will be accounted to the single arangod process, and the
 maximum number of 64K mappings may be reached. When the maximum number of
 mappings is reached, calls to mmap will fail, so the process will think no
 more memory is available although there may be plenty of RAM left.
@@ -89,7 +123,7 @@ To avoid this scenario, it is recommended to raise the default value for the
 maximum number of memory mappings to a sufficiently high value. As a rule of
 thumb, one could use 8 times the number of available cores times 8,000.
 
-For a 32 core server, a good rule-of-thumb value thus would be 2,048,000 
+For a 32 core server, a good rule-of-thumb value thus would be 2,048,000
 (32 * 8 * 8000). For certain workloads, it may be sensible to use even a higher
 value for the number of memory mappings.
 
@@ -99,15 +133,15 @@ To set the value once, use the following command before starting arangod:
 sudo bash -c "sysctl -w 'vm.max_map_count=2048000'"
 ```
 
-To make the settings durable, it will be necessary to store the adjusted 
+To make the settings durable, it will be necessary to store the adjusted
 settings in /etc/sysctl.conf or other places that the operating system is
 looking at.
 
 Memory Limits
 -------------
 
-A long-running arangod process may accumulate a lot of virtual memory after a 
-while, so it is recommended to **not** restrict the amount of virtual memory 
+A long-running arangod process may accumulate a lot of virtual memory after a
+while, so it is recommended to **not** restrict the amount of virtual memory
 that a process can acquire, neither via using `ulimit`, `cgroups` or systemd.
 
 Zone Reclaim

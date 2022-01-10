@@ -6,11 +6,11 @@ title: AQL Date Functions
 Date functions
 ==============
 
-AQL offers functionality to work with dates. Dates are no data types of their own in
-AQL (neither are they in JSON, which is usually used as format to ship data into and
+AQL offers functionality to work with dates, but it does not have a special data type
+for dates (neither does JSON, which is usually used as format to ship data into and
 out of ArangoDB). Instead, dates in AQL are represented by either numbers or strings.
 
-All date function operations are done in the *unix time* system. Unix time counts
+All date function operations are done in the *Unix time* system. Unix time counts
 all non leap seconds beginning with January 1st 1970 00:00:00.000 UTC, also know as
 the Unix epoch. A point in time is called timestamp. A timestamp has the same value
 at every point on earth. The date functions use millisecond precision for timestamps.
@@ -33,6 +33,8 @@ All functions that require dates as arguments accept the following input values:
   An example timestamp value is `1399472349522`, which translates to
   `2014-05-07T14:19:09.522Z`.
 
+  Valid range: `-62167219200000` .. `253402300799999` (inclusive)
+
 - **date time strings** in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601){:target="_blank"} format:
   - `YYYY-MM-DDTHH:MM:SS.MMM`
   - `YYYY-MM-DD HH:MM:SS.MMM`
@@ -51,6 +53,13 @@ All functions that require dates as arguments accept the following input values:
   to indicate UTC / Zulu time. An example value is `2014-05-07T14:19:09.522Z`
   meaning May 7th 2014, 14:19:09 and 522 milliseconds, UTC / Zulu time.
   Another example value without time component is `2014-05-07Z`.
+
+  Valid range: `"0000-01-01T00:00:00.000Z"` .. `"9999-12-31T23:59:59.999Z"` (inclusive)
+
+Any date/time values outside the valid range that are passed into an AQL date
+function will make the function return `null` and trigger a warning for the query,
+which can optionally be escalated to an error and abort the query. This also
+applies to operations which produce an invalid value.
 
 ```js
 DATE_HOUR( 2 * 60 * 60 * 1000 ) // 2
@@ -351,6 +360,79 @@ Truncates the given date after *unit* and returns the modified date.
 DATE_TRUNC('2017-02-03', 'month') // 2017-02-01T00:00:00.000Z
 DATE_TRUNC('2017-02-03 04:05:06', 'hours') // 2017-02-03 04:00:00.000Z
 ```
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline dateTruncGroup
+    @EXAMPLE_AQL{dateTruncGroup}
+    RETURN MERGE(
+      FOR doc IN @data
+        COLLECT q = DATE_TRUNC(doc.date, "year") INTO bucket
+        RETURN { [DATE_YEAR(q)]: bucket[*].doc.value }
+    )
+    @BV {
+    "data": [
+      { "date": "2018-03-05", "value": "Spring" },
+      { "date": "2018-07-11", "value": "Summer" },
+      { "date": "2018-10-26", "value": "Autumn" },
+      { "date": "2019-01-09", "value": "Winter" },
+      { "date": "2019-04-02", "value": "Spring" }
+    ]
+    }
+    @END_EXAMPLE_AQL
+    @endDocuBlock dateTruncGroup
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+### DATE_ROUND()
+
+<small>Introduced in: v3.6.0</small>
+
+`DATE_ROUND(date, amount, unit) → isoDate`
+
+Bin a date/time into a set of equal-distance buckets, to be used for
+grouping.
+
+- **date** (string\|number): a date string or timestamp
+- **amount** (number): number of *unit*s. Must be a positive integer value.
+- **unit** (string): either of the following to specify the time unit (case-insensitive):
+  - d, day, days
+  - h, hour, hours
+  - i, minute, minutes
+  - s, second, seconds
+  - f, millisecond, milliseconds
+- returns **isoDate** (string): the rounded ISO 8601 date time string
+
+```js
+DATE_ROUND('2000-04-28T11:11:11.111Z', 1, 'day') // 2000-04-28T00:00:00.000Z
+DATE_ROUND('2000-04-10T11:39:29Z', 15, 'minutes') // 2000-04-10T11:30:00.000Z
+```
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+    @startDocuBlockInline dateRoundAggregate
+    @EXAMPLE_AQL{dateRoundAggregate}
+    FOR doc IN @sensorData
+      COLLECT
+        date = DATE_ROUND(doc.timestamp, 5, "minutes")
+      AGGREGATE
+        count = COUNT(1),
+        avg = AVG(doc.temp),
+        min = MIN(doc.temp),
+        max = MAX(doc.temp)
+      RETURN { date, count, avg, min, max }
+    @BV {
+    "sensorData": [
+      { "timestamp": "2019-12-04T21:17:52.583Z", "temp": 20.6 },
+      { "timestamp": "2019-12-04T21:19:53.516Z", "temp": 20.2 },
+      { "timestamp": "2019-12-04T21:21:53.610Z", "temp": 19.9 },
+      { "timestamp": "2019-12-04T21:23:52.522Z", "temp": 19.8 },
+      { "timestamp": "2019-12-04T21:25:52.988Z", "temp": 19.8 },
+      { "timestamp": "2019-12-04T21:27:54.005Z", "temp": 19.7 }
+    ]
+    }
+    @END_EXAMPLE_AQL
+    @endDocuBlock dateRoundAggregate
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DATE_FORMAT()
 
@@ -674,6 +756,7 @@ You can use [skiplist indices](../indexing-skiplist.html) with both date types.
 When chosing string representations, you can work with string comparisons (less than,
 greater than etc.) to express time ranges in your queries while still utilizing
 skiplist indices:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline working_with_date_time
     @EXAMPLE_ARANGOSH_OUTPUT{working_with_date_time}
@@ -687,6 +770,7 @@ skiplist indices:
     @endDocuBlock working_with_date_time
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 The first and the last timestamp in the array are excluded from the result by the `FILTER`.
 
 Limitations

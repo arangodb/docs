@@ -57,7 +57,7 @@ Version 3.2
   further security and scalability features to ArangoDB Enterprise like
   [LDAP integration](administration-configuration-ldap.html),
   [Encryption at Rest](administration-encryption.html), and the brand new
-  [Satellite Collections](administration-replication-synchronous-satellites.html).
+  [SatelliteCollections](administration-replication-synchronous-satellites.html).
 
 Also see [What's New in 3.2](release-notes-new-features32.html).
 

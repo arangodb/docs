@@ -42,6 +42,7 @@ server after the password was entered.
 
 To change the current database after the connection has been made, you
 can use the `db._useDatabase()` command in arangosh:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline shellUseDB
     @EXAMPLE_ARANGOSH_OUTPUT{shellUseDB}
@@ -53,6 +54,7 @@ can use the `db._useDatabase()` command in arangosh:
     @endDocuBlock shellUseDB
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 To get a list of available commands, arangosh provides a *help()* function.
 Calling it will display helpful information.
 
@@ -66,6 +68,7 @@ be used for switching to a different database and managing collections inside th
 current database.
 
 For a list of available methods for the *db* object, type 
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}    
     @startDocuBlockInline shellHelp
     @EXAMPLE_ARANGOSH_OUTPUT{shellHelp}
@@ -74,8 +77,10 @@ For a list of available methods for the *db* object, type
     @endDocuBlock shellHelp
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 you can paste multiple lines into arangosh, given the first line ends with an
 opening brace:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline shellPaste
     @EXAMPLE_ARANGOSH_OUTPUT{shellPaste}

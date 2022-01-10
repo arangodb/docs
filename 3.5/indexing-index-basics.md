@@ -94,9 +94,15 @@ indexes.
 
 An edge index cannot be dropped or changed.
 
-
 Hash Index
 ----------
+
+{% hint 'warning' %}
+The hash index type is deprecated for the RocksDB storage engine.
+It is the same as the *persistent* type when using RocksDB. The type *hash*
+is still allowed for backward compatibility in the APIs, but the web interface
+does not offer this type anymore.
+{% endhint %}
 
 A hash index can be used to quickly find documents with specific attribute values.
 The hash index is unsorted, so it supports equality lookups but no range queries or sorting.
@@ -165,6 +171,13 @@ attribute name is extended with a `[*]`.
 
 Skiplist Index
 --------------
+
+{% hint 'warning' %}
+The skiplist index type is deprecated for the RocksDB storage engine.
+It is the same as the *persistent* type when using RocksDB. The type *skiplist*
+is still allowed for backward compatibility in the APIs, but the web interface
+does not offer this type anymore.
+{% endhint %}
 
 A skiplist is a sorted index structure. It can be used to quickly find documents 
 with specific attribute values, for range queries and for returning documents from
@@ -255,6 +268,40 @@ with the number of documents in the index.
 Skiplist indexes support [indexing array values](#indexing-array-values) if the index
 attribute name is extended with a `[*]``.
 
+Persistent Index
+----------------
+
+{% hint 'warning' %}
+The persistent index type is deprecated for the MMFiles storage engine.
+Use the RocksDB storage engine instead, where all indexes are persistent.
+
+The index types *hash*, *skiplist* and *persistent* are equivalent when using
+the RocksDB storage engine. The types *hash* and *skiplist* are still allowed
+for backward compatibility in the APIs, but the web interface does not offer
+these types anymore.
+{% endhint %}
+
+The persistent index is a sorted index with persistence. The index entries are written to
+disk when documents are stored or updated. That means the index entries do not need to be
+rebuilt from the collection data when the server is restarted or the indexed collection
+is initially loaded. Thus using persistent indexes may reduce collection loading times.
+
+The persistent index type can be used for secondary indexes at the moment. That means the
+persistent index currently cannot be made the only index for a collection, because there
+will always be the in-memory primary index for the collection in addition, and potentially
+more indexes (such as the edges index for an edge collection).
+
+The index implementation is using the RocksDB engine, and it provides logarithmic complexity
+for insert, update, and remove operations. As the persistent index is not an in-memory
+index, it does not store pointers into the primary index as all the in-memory indexes do,
+but instead it stores a document's primary key. To retrieve a document via a persistent
+index via an index value lookup, there will therefore be an additional O(1) lookup into 
+the primary index to fetch the actual document.
+
+As the persistent index is sorted, it can be used for point lookups, range queries and sorting
+operations, but only if either all index attributes are provided in a query, or if a leftmost 
+prefix of the index attributes is specified.
+
 TTL (time-to-live) Index
 ------------------------
 
@@ -265,8 +312,9 @@ A TTL index is set up by setting an `expireAfter` value and by picking a single
 document attribute which contains the documents' creation date and time. Documents 
 are expired after `expireAfter` seconds after their creation time. The creation time
 is specified as either a numeric timestamp (Unix timestamp) or a date string in format
-`YYYY-MM-DDTHH:MM:SS` with optional milliseconds. All date strings will be interpreted
-as UTC dates.
+`YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a decimal point in the
+format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All date strings
+without timezone offset will be interpreted as UTC dates.
 
 For example, if `expireAfter` is set to 600 seconds (10 minutes) and the index
 attribute is "creationDate" and there is the following document:
@@ -289,15 +337,18 @@ out, so queries may still find and return documents that have already expired. T
 will eventually be removed when the background thread kicks in and has capacity to
 remove the expired documents. It is guaranteed however that only documents which are 
 past their expiration time will actually be removed.
-  
-Please note that the numeric date time values for the index attribute should be 
-specified in milliseconds since January 1st 1970 (Unix timestamp). To calculate the current 
-timestamp from JavaScript in this format, there is `Date.now() / 1000`, to calculate it 
-from an arbitrary Date instance, there is `Date.getTime() / 1000`.
+
+Please note that the numeric date time values for the index attribute has to be
+specified **in seconds** since January 1st 1970 (Unix timestamp). To calculate the current 
+timestamp from JavaScript in this format, there is `Date.now() / 1000`; to calculate it
+from an arbitrary Date instance, there is `Date.getTime() / 1000`. In AQL you can do
+`DATE_NOW() / 1000` or divide an arbitrary Unix timestamp in milliseconds by 1000 to
+convert it to seconds.
 
 Alternatively, the index attribute values can be specified as a date string in format
-`YYYY-MM-DDTHH:MM:SS` with optional milliseconds. All date strings will be interpreted 
-as UTC dates.
+`YYYY-MM-DDTHH:MM:SS`, optionally with milliseconds after a decimal point in the
+format `YYYY-MM-DDTHH:MM:SS.MMM` and an optional timezone offset. All date strings
+without a timezone offset will be interpreted as UTC dates.
     
 The above example document using a datestring attribute value would be
  
@@ -351,37 +402,6 @@ not be enabled for other types of queries or conditions.
 {% hint 'tip' %}
 For advanced full-text search capabilities consider [ArangoSearch](arangosearch.html).
 {% endhint %}
-
-
-Persistent Index
-----------------
-
-{% hint 'warning' %}
-this index should not be used anymore, instead use the rocksdb storage engine
-with either the *skiplist* or *hash* index.
-{% endhint %}
-
-The persistent index is a sorted index with persistence. The index entries are written to
-disk when documents are stored or updated. That means the index entries do not need to be
-rebuilt from the collection data when the server is restarted or the indexed collection
-is initially loaded. Thus using persistent indexes may reduce collection loading times.
-
-The persistent index type can be used for secondary indexes at the moment. That means the
-persistent index currently cannot be made the only index for a collection, because there
-will always be the in-memory primary index for the collection in addition, and potentially
-more indexes (such as the edges index for an edge collection).
-
-The index implementation is using the RocksDB engine, and it provides logarithmic complexity
-for insert, update, and remove operations. As the persistent index is not an in-memory
-index, it does not store pointers into the primary index as all the in-memory indexes do,
-but instead it stores a document's primary key. To retrieve a document via a persistent
-index via an index value lookup, there will therefore be an additional O(1) lookup into 
-the primary index to fetch the actual document.
-
-As the persistent index is sorted, it can be used for point lookups, range queries and sorting
-operations, but only if either all index attributes are provided in a query, or if a leftmost 
-prefix of the index attributes is specified.
-
 
 Indexing attributes and sub-attributes
 --------------------------------------

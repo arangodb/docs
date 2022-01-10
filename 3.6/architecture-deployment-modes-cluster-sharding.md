@@ -12,7 +12,7 @@ constitute a single database system.
 
 Sharding is used to distribute data across physical machines in an ArangoDB
 Cluster. It is a method to determine the optimal placement of documents on
-individual DBServers.
+individual DB-Servers.
 
 This enables you to store much more data, since ArangoDB distributes the data
 automatically to the different servers. In many situations one can also reap a
@@ -62,17 +62,21 @@ _collection_ as a whole. To determine in which _shard_ the data is to be stored
 ArangoDB performs a hash across the values. By default this hash is being
 created from the `_key` document attribute.
 
-Every shard is a local collection on any _DBServer_, that houses such a shard
+Every shard is a local collection on any _DB-Server_, that houses such a shard
 as depicted above for our example with 5 shards and 3 replicas. Here, every
 leading shard _S1_ through _S5_ is followed each by 2 replicas _R1_ through _R5_.
 The collection creation mechanism on ArangoDB _Coordinators_ tries to best
-distribute the shards of a collection among the _DBServers_. This seems to
+distribute the shards of a collection among the _DB-Servers_. This seems to
 suggest, that one shards the data in 5 parts, to make best use of all our
 machines. We further choose a replication factor of 3 as it is a reasonable
 compromise between performance and data safety. This means, that the collection
 creation ideally distributes 15 shards, 5 of which are leaders to each 2
 replicas. This in turn implies, that a complete pristine replication would
 involve 10 shards which need to catch up with their leaders.
+
+Not all use cases require horizontal scalability. In such cases, consider the
+[OneShard](architecture-deployment-modes-cluster-architecture.html#oneshard)
+feature as alternative to flexible sharding.
 
 Shard Keys
 ----------
@@ -87,7 +91,7 @@ performance.
 ArangoDB uses consistent hashing to compute the target shard from the given
 values (as specified via by the `shardKeys` collection property). The ideal set
 of shard keys allows ArangoDB to distribute documents evenly across your shards
-and your _DBServers_. By default ArangoDB uses the `_key` field as a shard key.
+and your _DB-Servers_. By default ArangoDB uses the `_key` field as a shard key.
 For a custom shard key you should consider a few different properties:
 
 - **Cardinality**: The cardinality of a set is the number of distinct values
@@ -139,7 +143,7 @@ a new document but must use the automatically generated one. This latter
 restriction comes from the fact that ensuring uniqueness of the primary key
 would be very inefficient if the user could specify the primary key.
 
-On which DBServer in a Cluster a particular _shard_ is kept is undefined.
+On which DB-Server in a Cluster a particular _shard_ is kept is undefined.
 There is no option to configure an affinity based on certain _shard_ keys.
 
 For more information on shard rebalancing and administration topics please have

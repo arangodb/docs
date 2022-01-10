@@ -1,8 +1,16 @@
 ---
 layout: default
-description: At the very bottom of the ArangoDB database lies the storageengine
+description: ArangoDB supports two storage engines, MMFiles and RocksDB.
+title: ArangoDB Storage Engines
 ---
 # Storage Engines
+
+{% hint 'warning' %}
+The MMFiles storage engine is deprecated starting with version
+3.6.0 and it will be removed in a future release.
+To change your MMFiles storage engine deployment to RocksDB, see:
+[Switch storage engine](administration-engine-switch-engine.html)
+{% endhint %}
 
 At the very bottom of the ArangoDB database lies the storage
 engine. The storage engine is responsible for persisting the documents
@@ -11,15 +19,17 @@ speed up queries.
 
 Up to version 3.1 ArangoDB only supported memory-mapped files (**MMFiles**)
 as sole storage engine. Beginning with 3.2 ArangoDB has support for
-pluggable storage engines. The second supported engine is **RocksDB** from
+pluggable storage engines. The default storage engine is **RocksDB** from
 Facebook.
 
 Up to including versions 3.3, MMFiles was the default storage engine in
 ArangoDB. Since version 3.4, the default storage engine is RocksDB.
+From version 3.6.0 onwards the MMFiles storage engine is deprecated and will be
+in a future release.
 
 The engine must be selected for the whole server / cluster. It is not
 possible to mix engines. The transaction handling and write-ahead-log
-format in the individual engines is very different and therefore cannot 
+format in the individual engines is very different and therefore cannot
 be mixed.
 
 {% hint 'tip' %}
@@ -29,15 +39,15 @@ page.
 {% endhint %}
 
 | MMFiles | RocksDB |
-|---|---|
-| optional | default |
+|---------|---------|
+| deprecated | default |
 | dataset needs to fit into memory | work with as much data as fits on disk |
 | indexes in memory | hot set in memory, data and indexes on disk |
 | slow restart due to index rebuilding | fast startup (no rebuilding of indexes) |
 | volatile collections (only in memory, optional) | collection data always persisted |
 | collection level locking (writes block reads) | concurrent reads and writes |
 
-*Blog article: [Comparing new RocksDB and MMFiles storage engines](https://www.arangodb.com/why-arangodb/comparing-rocksdb-mmfiles-storage-engines/){:target="_blank"}*
+*Blog article: [Comparing new RocksDB and MMFiles storage engines](https://www.arangodb.com/community-server/rocksdb-storage-engine/){:target="_blank"}*
 
 ## MMFiles
 
@@ -48,6 +58,13 @@ level.
 
 Indexes are always in memory and are rebuilt on startup. This
 gives better performance but imposes a longer startup time.
+
+{% hint 'warning' %}
+The MMFiles storage engine is deprecated starting with version
+3.6.0 and it will be removed in a future release.
+To change your MMFiles storage engine deployment to RocksDB, see:
+[Switch storage engine](administration-engine-switch-engine.html)
+{% endhint %}
 
 ## RocksDB
 
@@ -124,7 +141,7 @@ Performance reports for the storage engine can be found here:
 
 ### ArangoDB options
 
-ArangoDB has a cache for the persistent indexes in RocksDB. The total size 
+ArangoDB has a cache for the persistent indexes in RocksDB. The total size
 of this cache is controlled by the option
 
     --cache.size
@@ -151,7 +168,7 @@ RocksDB log strutured data levels have increasing size
 New or updated Documents are first stored in memory. If this memtable
 reaches the limit given by
 
-    --rocksdb.write-buffer-size 
+    --rocksdb.write-buffer-size
 
 it will converted to an SST file and inserted at level 0.
 
@@ -178,13 +195,13 @@ calculated as
 ### Future
 
 RocksDB imposes a limit on the transaction size. It is optimized to
-handle small transactions very efficiently, but is effectively limiting 
+handle small transactions very efficiently, but is effectively limiting
 the total size of transactions.
 
-ArangoDB currently uses RocksDB's transactions to implement the ArangoDB 
+ArangoDB currently uses RocksDB's transactions to implement the ArangoDB
 transaction handling. Therefore the same restrictions apply for ArangoDB
 transactions when using the RocksDB engine.
 
 We will improve this by introducing distributed transactions in a future
-version of ArangoDB. This will allow handling large transactions as a 
+version of ArangoDB. This will allow handling large transactions as a
 series of small RocksDB transactions and hence removing the size restriction.

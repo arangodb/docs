@@ -13,7 +13,7 @@ This is an introduction to ArangoDB's geo indexes.
 AQL's geographic features are described in [Geo functions](aql/functions-geo.html).
 
 ArangoDB uses Hilbert curves to implement geo-spatial indexes.
-See this [blog](https://www.arangodb.com/2012/03/31/using-hilbert-curves-and-polyhedrons-for-geo-indexing){:target="_blank"}
+See this [blog](https://www.arangodb.com/2012/03/using-hilbert-curves-and-polyhedrons-for-geo-indexing/){:target="_blank"}
 for details.
 
 A geo-spatial index assumes that the latitude is between -90 and 90 degree and
@@ -62,6 +62,7 @@ details, including the index-identifier, is returned.
 
 
 Create a geo index for an array attribute:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute1
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute1}
@@ -80,7 +81,9 @@ Create a geo index for an array attribute:
     @endDocuBlock geoIndexCreateForArrayAttribute1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Create a geo index for a hash array attribute:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute2
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute2}
@@ -98,7 +101,9 @@ Create a geo index for a hash array attribute:
     @endDocuBlock geoIndexCreateForArrayAttribute2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Use GeoIndex with AQL SORT statement:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexSortOptimization
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexSortOptimization}
@@ -117,7 +122,9 @@ Use GeoIndex with AQL SORT statement:
     @endDocuBlock geoIndexSortOptimization
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
 Use GeoIndex with AQL FILTER statement:
+
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexFilterOptimization
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexFilterOptimization}

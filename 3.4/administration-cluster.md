@@ -11,12 +11,8 @@ For a general introduction to the ArangoDB Cluster, please refer to the
 [Cluster](architecture-deployment-modes-cluster.html) chapter.
 
 There is also a detailed
-[Cluster Administration Course](https://www.arangodb.com/arangodb-cluster-course/){:target="_blank"}
+[Cluster Administration Course](https://www.arangodb.com/learn/operations/cluster-course/){:target="_blank"}
 for download.
-
-Clusters can be deployed by ArangoDB as
-[managed service](https://www.arangodb.com/managed-service/){:target="_blank"}
-with full hosting, management, and monitoring.
 
 Please check the following talks as well:
 
@@ -192,9 +188,10 @@ to uphold replication and resilience.
 The clean way of removing a _DBServer_ is to first relieve it of all
 its responsibilities for shards. This applies to _followers_ as well as
 _leaders_ of shards. The requirement for this operation is that no
-collection in any of the databases has a `relicationFactor` greater or
-equal to the current number of _DBServers_ minus one. For the purpose of
-cleaning out `DBServer004` for example would work as follows, when
+collection in any of the databases has a `replicationFactor` greater than
+the current number of _DBServers_ minus one. In other words, the highest
+replication factor must not exceed the future _DBServer_ count. For the
+purpose of cleaning out `DBServer004` for example would work as follows, when
 issued to any _Coordinator_ of the cluster:
 
 `curl <coord-ip:coord-port>/_admin/cluster/cleanOutServer -d '{"server":"DBServer004"}'`
