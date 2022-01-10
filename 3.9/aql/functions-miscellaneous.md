@@ -212,10 +212,15 @@ Inquire about which shard in a collection is home to the given shard keys
 
 Any missing shard key in the inquiry is substituted with value `null`
 
-```js
-SHARD_ID( "col", { "product_id" : "PRT0001", "serial_no" : "SN0001" })
-// { ["s6010044"] }
-```
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline shard_id1_cluster
+  @EXAMPLE_AQL{shard_id1_cluster}
+  @DATASET{observationsSampleDataset}
+    RETURN SHARD_ID("observations", { "time": "2021-05-25 07:15:00", "subject": "xh458", "val": 10 })
+  @END_EXAMPLE_AQL
+  @endDocuBlock shard_id1_cluster
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 ### DOCUMENT()
 
