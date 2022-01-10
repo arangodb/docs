@@ -61,6 +61,12 @@ This exports the collection *test* into the output directory *export* as CSV. Th
 line contains the header with all field names. Each line is one document represented as
 CSV and separated with a comma. Objects and arrays are represented as a JSON string.
 
+Starting with ArangoDB version 3.8.5, string values in the CSV output will be enclosed in 
+double quotes. If any string value starts with one of the following characters: `+`, `=`, `@`, `-`,
+it is treated as a potential formula and will be prefixed by an extra single quote.
+This is done to prevent formula injection attacks in spreadsheet programs such as MS Excel or
+OpenOffice. If you don't want to use this functionality, you can turn it off via 
+the `--escape-csv-formulae` option.
 
 Export XML
 ----------
@@ -134,19 +140,25 @@ This exports the named graph mygraph into the xgmml file *mygraph.xgmml* with a 
 Export via AQL query
 --------------------
 
-    arangoexport --type jsonl --query "FOR book IN books FILTER book.sells > 100 RETURN book"
+    arangoexport --type jsonl --custom-query "FOR book IN books FILTER book.sells > 100 RETURN book"
 
 Export via an AQL query allows you to export the returned data as the type specified with *--type*.
 The example exports all books as JSONL that are sold more than 100 times.
 
-    arangoexport --type csv --fields title,category1,category2 --query "FOR book IN books RETURN { title: book.title, category1: book.categories[0], category2: book.categories[1] }"
+    arangoexport --type csv --fields title,category1,category2 --custom-query "FOR book IN books RETURN { title: book.title, category1: book.categories[0], category2: book.categories[1] }"
 
 A *fields* list is required for CSV exports, but you can use an AQL query to produce
 these fields. For example, you can de-normalize document structures like arrays and
 nested objects to a tabular form as demonstrated above.
 
 The runtime of the query executed by arangoexport can optionally be limited via
-the arangoexport option `--query-max-runtime`. This specifies the maximum query
+the arangoexport option `--custom-query-max-runtime`. This specifies the maximum query
 runtime in seconds. Set it to `0` for no limit.
 
-    arangoexport --type jsonl --query-max-runtime 10 --query "FOR book IN books FILTER book.sells > 100 RETURN book"
+    arangoexport --type jsonl --custom-query-max-runtime 10 --custom-query "FOR book IN books FILTER book.sells > 100 RETURN book"
+
+With the `--custom-query-bindvars` flag, the query provided via `--custom-query` can have bind variables.
+
+
+    arangoexport --type jsonl --custom-query 'FOR book IN @@@@collectionName FILTER book.sells == @@sells RETURN book' --custom-query-bindvars '{"@@collectionName": "books", "sells": 100}'
+    The @s should be doubled because of a feature that trims the @ for escaping it in configuration files. The double @s will be removed when this feature is deprecated.

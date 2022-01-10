@@ -72,6 +72,30 @@ Also see [Known limitations for AQL queries](aql/fundamentals-limitations.html).
 Startup options
 ---------------
 
+### Installing Foxx apps from remote URLS
+
+The `--foxx.allow-install-from-remote` option controls whether installing Foxx apps
+from remote URL sources other than Github is allowed. If set to `false`,
+installing Foxx apps is blocked for any remote sources other than Github. Installing
+Foxx apps from Github or from uploaded zip files is still possible with this
+option.
+Setting it to `true` will allow installing Foxx apps from any remote
+URL sources.
+
+In ArangoDB 3.9, the default value for this option is `false`, meaning that
+installing Foxx apps from remote sources other than Github is now disallowed. This
+also inactivates the **Remote** tab in the **Services** section of the web interface.
+Compared to the previous versions of ArangoDB, this is a downwards-incompatible default
+value change, which was made for security reasons. To enable installing
+apps from remote sources again, set this option to `true`.
+
+### RocksDB options
+
+The default value for the startup `--rocksdb.max-subcompactions` option  was 
+changed from `1` to `2`.
+This allows compactions jobs to be broken up into disjoint ranges which
+can be processed in parallel by multiple threads.
+
 ### Rebalance shards
 
 The `--cluster.max-number-of-move-shards` option limits the maximum number of 
@@ -136,60 +160,6 @@ In ArangoDB 3.9 the option `--database.old-system-collections` is now
 completely obsolete, and ArangoDB will never create these system collections
 for any new databases. The option can still be specified at startup, but it
 meaningless now.
-
-### Replaced arangovpack options
-
-The former options `--json` and `--pretty` of the *arangovpack* utility
-have been removed and have been replaced with separate options for specifying
-the input and output types:
-
-- `--input-type` (`json`, `json-hex`, `vpack`, `vpack-hex`)
-- `--output-type` (`json`, `json-pretty`, `vpack`, `vpack-hex`)
-
-The former option `--print-non-json` has been replaced with the new option
-`--fail-on-non-json` which makes arangovpack fail when trying to emit non-JSON
-types to JSON output.
-
-### Export API removed
-
-The REST API endpoint `/_api/export` has been removed in ArangoDB 3.9.
-This endpoint was previously only present in single server, but never
-supported in cluster deployments.
-
-The purpose of the endpoint was to provide the full data of a collection
-without holding collection locks for a long time, which was useful for
-the MMFile storage engine with its collection-level locks.
-
-The MMFiles engine is gone since ArangoDB 3.7, and the only remaining
-storage engine since then is RocksDB. For the RocksDB engine, the
-`/_api/export` endpoint internally used a streaming AQL query such as
-
-```js
-FOR doc IN @@collection RETURN doc
-```
-
-anyway. To remove API redundancy, the API endpoint has been deprecated
-in ArangoDB 3.8 and is now removed. If the functionality is still required
-by client applications, running a streaming AQL query can be used as a
-substitution.
-
-#### Redirects removed
-
-Since ArangoDB 3.7, some cluster APIs were made available under different
-paths. The old paths were left in place and simply redirected to the new
-address. These redirects have now been removed in ArangoDB 3.9.
-
-The following list shows the old, now dysfunctional paths and their
-replacements:
-
-- `/_admin/clusterNodeVersion`: replaced by `/_admin/cluster/nodeVersion`
-- `/_admin/clusterNodeEngine`: replaced by `/_admin/cluster/nodeEngine`
-- `/_admin/clusterNodeStats`: replaced by `/_admin/cluster/nodeStatistics`
-- `/_admin/clusterStatistics`: replaced by `/_admin/cluster/statistics`
-
-Using the replacements will work from ArangoDB 3.7 onwards already, so
-any client applications that still call the old addresses can be adjusted
-to call the new addresses from 3.7 onwards.
 
 Client tools
 ------------
@@ -270,3 +240,17 @@ the _arangoimp_ executable is now deprecated, and it is always favorable to use
 _arangoimport_ instead. 
 While the _arangoimport_ executable will remain, the _arangoimp_ alias will be 
 removed in a future version of ArangoDB, and its use is now highly discouraged.
+
+### arangovpack
+
+The former `--json` and `--pretty` options of the *arangovpack* utility
+were removed and replaced with separate options for specifying
+the input and output types:
+
+- `--input-type` (`json`, `json-hex`, `vpack`, `vpack-hex`)
+- `--output-type` (`json`, `json-pretty`, `vpack`, `vpack-hex`)
+
+The former `--print-non-json` option was replaced with the new
+`--fail-on-non-json` option, which makes arangovpack fail when trying to emit non-JSON
+types to JSON output.
+

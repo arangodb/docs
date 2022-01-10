@@ -93,7 +93,7 @@ Other attributes may be necessary, depending on the index type.
 
 **type** can be one of the following values:
 - *persistent*: persistent index
-- *fulltext*: fulltext index
+- *fulltext*: fulltext index (deprecated from ArangoDB 3.10 onwards)
 - *geo*: geo index, with _one_ or _two_ attributes
 
 **name** can be a string. Index names are subject to the same character

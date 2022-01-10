@@ -12,7 +12,7 @@ There is also an [HTTP API](http/license.html).
 ## Initial Installation
 
 The first installation of any ArangoDB Enterprise Edition instance can be
-immediately used for testing without restrictions for three days.
+immediately used for testing without restrictions for one hour.
 
 In the email with the download link you will find a fully featured but
 time-wise limited license that allows you to continue testing for two weeks.
@@ -49,21 +49,18 @@ At any point you may check the current state of your license in _arangosh_:
   "license": "JD4E ... dnDw==",
   "version": 1,
   "status": "good"
+  "hash" : "...."
 }
 ```
 
 The `status` attribute is the executive summary of your license and
 can have the following values:
 
-- `good`: Your license is valid for more than another 2 weeks.
+- `good`: Your license is valid for more than another 1 week.
 - `expiring`: Your license is about to expire shortly. Please contact
   your ArangoDB sales representative to acquire a new license or
   extend your old license.
-- `expired`: Your license has expired recently. All existing
-  Enterprise Edition features keep on functioning. However, no new Enterprise
-  Edition features can be used. This should prompt immediate contact with your
-  ArangoDB sales representative.
-- `read-only`: Your license has expired for over 2 weeks at which
+- `read-only`: Your license has expired at which
   point the deployment will be in read-only mode. All read operations to the
   instance will keep functioning. However, no data or data definition changes
   can be made. Please contact your ArangoDB sales representative immediately.

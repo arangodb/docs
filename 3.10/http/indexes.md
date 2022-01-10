@@ -17,7 +17,7 @@ Indexes are used to allow fast access to documents. For each collection there is
 [document key](../appendix-glossary.html#document-key) (_key attribute). This index cannot be dropped or changed.
 [edge collections](../appendix-glossary.html#edge-collection) will also have an automatically created edges index, which cannot be modified. This index provides quick access to documents via the `_from` and `_to` attributes.
 
-Most user-land indexes can be created by defining the names of the attributes which should be indexed. Some index types allow indexing just one attribute (e.g. fulltext index) whereas other index types allow indexing multiple attributes.
+Most user-land indexes can be created by defining the names of the attributes which should be indexed. Some index types allow indexing just one attribute (e.g. ttl index) whereas other index types allow indexing multiple attributes.
 
 Using the system attribute `_id` in user-defined indexes is not supported by any index type.
 
@@ -55,6 +55,11 @@ The TTL index can be used for automatically removing expired documents from a co
 Documents which are expired are eventually removed by a background thread.
 
 ### Fulltext Index
+
+{% hint 'warning' %}
+The fulltext index type is deprecated from version 3.10 onwards.
+It's recommended to use [ArangoSearch](../arangosearch.html) for advanced full-text search capabilities.
+{% endhint %}
 
 A fulltext index can be used to find words, or prefixes of words inside documents. A fulltext index can be set on one attribute only, and will index all words contained in documents that have a textual value in this attribute. Only words with a (specifiable) minimum length are indexed. Word tokenization is done using the word boundary analysis provided by libicu, which is taking into account the selected language provided at server start. Words are indexed in their lower-cased form. The index supports complete match queries (full words) and prefix queries.
 
