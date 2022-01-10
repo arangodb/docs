@@ -213,12 +213,12 @@ Return the shard in a collection that contains specified shard keys.
 Any missing shard key in the query is substituted with the `null` value.
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-  @startDocuBlockInline shard_id1
-  @EXAMPLE_AQL{shard_id1}
+  @startDocuBlockInline shard_id1_cluster
+  @EXAMPLE_AQL{shard_id1_cluster}
   @DATASET{observationsSampleDataset}
     RETURN SHARD_ID("observations", { "time": "2021-05-25 07:15:00", "subject": "xh458", "val": 10 })
   @END_EXAMPLE_AQL
-  @endDocuBlock shard_id1
+  @endDocuBlock shard_id1_cluster
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
