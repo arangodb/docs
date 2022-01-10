@@ -33,4 +33,5 @@ oasisctl delete backup [flags]
 ## See also
 
 * [oasisctl delete](oasisctl-delete.html)	 - Delete resources
+* [oasisctl delete backup policy](oasisctl-delete-backup-policy.html)	 - Delete a backup policy for a given ID.
 

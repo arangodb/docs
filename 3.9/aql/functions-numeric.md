@@ -148,6 +148,115 @@ COS(-3.141592653589783) // -1
 COS(RADIANS(45)) // 0.7071067811865476
 ```
 
+COSINE_SIMILARITY()
+-------------------
+
+<small>Introduced in: v3.9.0</small>
+
+`COSINE_SIMILARITY(x, y) → num`
+
+Return the [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity){:target="_blank"}
+between *x* and *y*.
+
+To calculate the distance, see [L1_DISTANCE()](#l1_distance) and
+[L2_DISTANCE()](#l2_distance).
+
+- **x** (array): first input array
+- **y** (array): second input array
+- returns **num** (number\|array): the cosine similarity value.
+  If one of the inputs is a nested (2D) array, then an array is returned.
+  The length of each 2D array row should be equal to the length of second input
+  array in that case.
+
+In case of invalid input values the function returns **null** and produces a warning.
+
+```js
+COSINE_SIMILARITY([0,1], [1,0]) // 0
+COSINE_SIMILARITY([[0,1,0,1],[1,0,0,1],[1,1,1,0],[0,0,0,1]], [1,1,1,1]) // [0.707, 0.707, 0.866, 0.5]
+COSINE_SIMILARITY([-1,0], [1,0]) // -1
+```
+
+DECAY_GAUSS()
+-------------
+
+<small>Introduced in: v3.9.0</small>
+
+`DECAY_GAUSS(value, origin, scale, offset, decay) → score`
+
+Calculate the score for one or multiple values with a **Gaussian function** that
+decays depending on the distance of a numeric value from a user-given origin.
+
+- **value** (number\|array): the input value or an array with input values
+- **origin** (number): the point of origin used for calculating the distance
+- **scale** (number): defines the distance from `origin` + `offset` at which
+  the computed score will equal the `decay` parameter
+- **offset** (number): the decay function will be evaluated for distance values
+  greater than the defined offset
+- **decay** (number): the decay parameter defines how input values are scored
+  at the distance given by the `scale` parameter
+- returns **score** (number\|array): a single score or an array of scores
+  depending on the type of the input `value`
+
+```js
+DECAY_GAUSS(41, 40, 5, 5, 0.5) // 1
+DECAY_GAUSS([20, 41], 40, 5, 5, 0.5) // [0.0019531250000000017, 1.0]
+DECAY_GAUSS(49.9889, 49.987, 0.001, 0.001, 0.2) // 0.2715403018822964
+```
+
+DECAY_EXP()
+-----------
+
+<small>Introduced in: v3.9.0</small>
+
+`DECAY_EXP(value, origin, scale, offset, decay) → num, array`
+
+Calculate the score for one or multiple values with an **exponential function**
+that decays depending on the distance of a numeric value from a user-given origin.
+
+- **value** (number\|array): the input value or an array with input values
+- **origin** (number): the point of origin used for calculating the distance
+- **scale** (number): defines the distance from `origin` + `offset` at which
+  the computed score will equal the `decay` parameter
+- **offset** (number): the decay function will be evaluated for distance values
+  greater than the defined offset
+- **decay** (number): the decay parameter defines how input values are scored
+  at the distance given by the `scale` parameter
+- returns **score** (number\|array): a single score or an array of scores
+  depending on the type of the input `value`
+
+```js
+DECAY_EXP(41, 40, 5, 5, 0.7) // 1
+DECAY_EXP(2, 0, 10, 0, 0.2)  // 0.7247796636776955
+DECAY_EXP(49.9889, 50, 0.001, 0.001, 0.2) // 8.717720806626885e-08
+```
+
+DECAY_LINEAR()
+--------------
+
+<small>Introduced in: v3.9.0</small>
+
+`DECAY_LINEAR(value, origin, scale, offset, decay) → score`
+
+Calculate the score for one or multiple values with a **linear function** that
+decays depending on the distance of a numeric value from a user-given origin.
+
+- **value** (number\|array): the input value or an array with input values
+- **origin** (number): the point of origin used for calculating the distance
+- **scale** (number): defines the distance from `origin` + `offset` at which
+  the computed score will equal the `decay` parameter
+- **offset** (number): the decay function will be evaluated for distance values
+  greater than the defined offset
+- **decay** (number): the decay parameter defines how input values are scored
+  at the distance given by the `scale` parameter
+- returns **score** (number\|array): a single score or an array of scores
+  depending on the type of the input `value`
+
+```js
+DECAY_LINEAR(41, 40, 5, 5, 0.5)   // 1
+DECAY_LINEAR(9.8, 0, 10, 0, 0.2)  // 0.21599999999999994
+DECAY_LINEAR(5..7, 0, 10, 0, 0.2) // [0.6, 0.52, 0.44]
+```
+
 DEGREES()
 ---------
 
@@ -263,9 +372,63 @@ Return the base 10 logarithm of *value*.
   equal or less than 0
 
 ```js
-LOG10(10000) // 10
+LOG10(10000) // 4
 LOG10(10) // 1
 LOG10(0) // null
+```
+
+L1_DISTANCE()
+-------------
+
+<small>Introduced in: v3.9.0</small>
+
+`L1_DISTANCE(x, y) → num`
+
+Return the [Manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry){:target="_blank"}
+between *x* and *y*.
+
+To calculate the similarity, see [COSINE_SIMILARITY()](#cosine_similarity).
+
+- **x** (array): first input array
+- **y** (array): second input array
+- returns **num** (number\|array): the L1 distance value.
+  If one of the inputs is a nested (2D) array, then an array is returned.
+  The length of each inner array should be equal to the length of second input
+  array in that case.
+
+In case of invalid input values the function returns **null** and produces a warning.
+
+```js
+L1_DISTANCE([-1,-1], [2,2]) // 6
+L1_DISTANCE([[1,2,3],[-1,-2,-3],[3,4,5],[-5,2,1]], [1,1,1]) // [3,9,9,7]
+L1_DISTANCE([1.5], [3]) // 1.5
+```
+
+L2_DISTANCE()
+-------------
+
+<small>Introduced in: v3.9.0</small>
+
+`L2_DISTANCE(x,y) → num`
+
+Return the [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance){:target="_blank"}
+between *x* and *y*.
+
+To calculate the similarity, see [COSINE_SIMILARITY()](#cosine_similarity).
+
+- **x** (array): first input array
+- **y** (array): second input array
+- returns **num** (number\|array): the L2 distance value.
+  If one of the inputs is a nested (2D) array, then an array is returned.
+  The length of each inner array should be equal to the length of second input
+  array in that case.
+
+In case of invalid input values the function returns **null** and produces a warning.
+
+```js
+L2_DISTANCE([1,1], [5,2]) // 4.1231056256176606
+L2_DISTANCE([[1,2,3], [4,5,6], [7,8,9]], [3,2,1]) // [2.8284271247461903, 5.916079783099616, 10.770329614269007]
+L2_DISTANCE([0,1], [1,0]) // 1.4142135623730951
 ```
 
 MAX()

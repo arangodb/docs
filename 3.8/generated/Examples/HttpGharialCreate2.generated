@@ -1,25 +1,25 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/gharial</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/gharial</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"myGraph"</span>, 
-  <span class="hljs-string">"edgeDefinitions"</span> : [ 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;myGraph&quot;</span>, 
+  <span class="hljs-string">&quot;edgeDefinitions&quot;</span> : [ 
     { 
-      <span class="hljs-string">"collection"</span> : <span class="hljs-string">"edges"</span>, 
-      <span class="hljs-string">"from"</span> : [ 
-        <span class="hljs-string">"startVertices"</span> 
+      <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;edges&quot;</span>, 
+      <span class="hljs-string">&quot;from&quot;</span> : [ 
+        <span class="hljs-string">&quot;startVertices&quot;</span> 
       ], 
-      <span class="hljs-string">"to"</span> : [ 
-        <span class="hljs-string">"endVertices"</span> 
+      <span class="hljs-string">&quot;to&quot;</span> : [ 
+        <span class="hljs-string">&quot;endVertices&quot;</span> 
       ] 
     } 
   ], 
-  <span class="hljs-string">"orphanCollections"</span> : [ 
-    <span class="hljs-string">"orphanVertices"</span> 
+  <span class="hljs-string">&quot;orphanCollections&quot;</span> : [ 
+    <span class="hljs-string">&quot;orphanVertices&quot;</span> 
   ], 
-  <span class="hljs-string">"isSmart"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"options"</span> : { 
-    <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">2</span>, 
-    <span class="hljs-string">"numberOfShards"</span> : <span class="hljs-number">9</span>, 
-    <span class="hljs-string">"smartGraphAttribute"</span> : <span class="hljs-string">"region"</span> 
+  <span class="hljs-string">&quot;isSmart&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;options&quot;</span> : { 
+    <span class="hljs-string">&quot;replicationFactor&quot;</span> : <span class="hljs-number">2</span>, 
+    <span class="hljs-string">&quot;numberOfShards&quot;</span> : <span class="hljs-number">9</span>, 
+    <span class="hljs-string">&quot;smartGraphAttribute&quot;</span> : <span class="hljs-string">&quot;region&quot;</span> 
   } 
 }
 EOF
@@ -28,31 +28,31 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">202</span> A
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">243</span>
-etag: _cCeF55G--D
+etag: _diPvLXe---
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">202</span>, 
-  <span class="hljs-string">"graph"</span> : { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"myGraph"</span>, 
-    <span class="hljs-string">"edgeDefinitions"</span> : [ 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">202</span>, 
+  <span class="hljs-string">&quot;graph&quot;</span> : { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;myGraph&quot;</span>, 
+    <span class="hljs-string">&quot;edgeDefinitions&quot;</span> : [ 
       { 
-        <span class="hljs-string">"collection"</span> : <span class="hljs-string">"edges"</span>, 
-        <span class="hljs-string">"from"</span> : [ 
-          <span class="hljs-string">"startVertices"</span> 
+        <span class="hljs-string">&quot;collection&quot;</span> : <span class="hljs-string">&quot;edges&quot;</span>, 
+        <span class="hljs-string">&quot;from&quot;</span> : [ 
+          <span class="hljs-string">&quot;startVertices&quot;</span> 
         ], 
-        <span class="hljs-string">"to"</span> : [ 
-          <span class="hljs-string">"endVertices"</span> 
+        <span class="hljs-string">&quot;to&quot;</span> : [ 
+          <span class="hljs-string">&quot;endVertices&quot;</span> 
         ] 
       } 
     ], 
-    <span class="hljs-string">"orphanCollections"</span> : [ 
-      <span class="hljs-string">"orphanVertices"</span> 
+    <span class="hljs-string">&quot;orphanCollections&quot;</span> : [ 
+      <span class="hljs-string">&quot;orphanVertices&quot;</span> 
     ], 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeF55G--D"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"_graphs/myGraph"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"myGraph"</span> 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPvLXe---&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;_graphs/myGraph&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;myGraph&quot;</span> 
   } 
 }

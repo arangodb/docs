@@ -53,7 +53,3 @@ The following high-level operations are described here after:
 
 - [**WITH**](operations-with.html):
   Specify collections used in a query (at query begin only).
-
-To try out the power of AQL in just a few clicks, start a
-[free 14-day trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}
-for ArangoDB Oasis: the Cloud Service.

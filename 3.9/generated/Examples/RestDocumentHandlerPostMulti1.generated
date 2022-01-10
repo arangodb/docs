@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products</span> &lt;&lt;EOF
 [{"Hello":"Earth"}, {"Hello":"Venus"}, {"Hello":"Mars"}]
 EOF
 
@@ -7,22 +7,23 @@ content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">184</span>
 server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 [ 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70950"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70950"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGlJq---"</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67738&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67738&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diQNRy----&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70951"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70951"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGlJq--_"</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67739&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67739&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diQNRy---_&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70952"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70952"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGlJq--A"</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67740&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67740&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diQNRy---A&quot;</span> 
   } 
 ]

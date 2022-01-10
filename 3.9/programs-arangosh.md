@@ -1,9 +1,8 @@
 ---
 layout: default
-description: The ArangoDB shell (arangosh) is a command-line client tool that can be usedfor administration of ArangoDB servers
+description: The ArangoDB shell (arangosh) is a command-line client tool that can be used for administration of ArangoDB servers
 ---
-Arangosh
-========
+# _arangosh_
 
 The ArangoDB shell (_arangosh_) is a command-line client tool that can be used
 for administration of ArangoDB servers.

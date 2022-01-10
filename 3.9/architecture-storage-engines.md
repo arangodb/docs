@@ -1,60 +1,17 @@
 ---
 layout: default
 description: At the very bottom of the ArangoDB database system lies the RocksDB storage engine
-title: ArangoDB Storage Engines
+title: ArangoDB Storage Engine
 ---
-# Storage Engines
-
-{% hint 'warning' %}
-The MMFiles storage engine was removed.
-To change your MMFiles storage engine deployment to RocksDB, see:
-[Switch storage engine](administration-engine-switch-engine.html)
-{% endhint %}
+# Storage Engine
 
 At the very bottom of the ArangoDB database system lies the storage
 engine. The storage engine is responsible for persisting the documents
 on disk, holding copies in memory, providing indexes and caches to
 speed up queries.
 
-Up to version 3.1 ArangoDB only supported memory-mapped files (**MMFiles**)
-as sole storage engine. In version 3.2, ArangoDB gained support for pluggable
-storage engines and a second engine based on Facebook's **RocksDB** was added.
-MMFiles remained the default engine for 3.3, but in 3.4 RocksDB became the new
-default. MMFiles was deprecated in version 3.6.0 and removed in 3.7.0.
-
-<!-- TODO: remove?
-The engine must be selected for the whole server / cluster. It is not
-possible to mix engines. The transaction handling and write-ahead-log
-format in the individual engines is very different and therefore cannot
-be mixed.
--->
-
-{% hint 'tip' %}
-For practical information on how to switch storage engine please refer to the
-[Switching the storage engine](administration-engine-switch-engine.html)
-page.
-{% endhint %}
-
-| MMFiles | RocksDB |
-|---------|---------|
-| removed | default |
-| dataset needs to fit into memory | work with as much data as fits on disk |
-| indexes in memory | hot set in memory, data and indexes on disk |
-| slow restart due to index rebuilding | fast startup (no rebuilding of indexes) |
-| volatile collections (only in memory, optional) | collection data always persisted |
-| collection level locking (writes block reads) | concurrent reads and writes |
-
-*Blog article: [Comparing new RocksDB and MMFiles storage engines](https://www.arangodb.com/community-server/rocksdb-storage-engine/){:target="_blank"}*
-
-## MMFiles
-
-The MMFiles (Memory-Mapped Files) engine was optimized for the use-case where
-the data fit into the main memory. It allowed for very fast concurrent
-reads. However, writes blocked reads and locking was on collection
-level.
-
-Indexes were always in memory and rebuilt on startup. This
-gave better performance but imposed a longer startup time.
+ArangoDB's storage engine is based on Facebook's **RocksDB** and the only
+storage engine available in ArangoDB 3.7 and above.
 
 ## RocksDB
 
@@ -80,10 +37,9 @@ The main advantages of RocksDB are:
 ### Caveats
 
 RocksDB allows concurrent writes. However, when touching the same document a
-write conflict is raised. This cannot happen with the MMFiles engine, therefore
-applications that switch to RocksDB need to be prepared that such exception can
-arise. It is possible to exclusively lock collections when executing AQL. This
-will avoid write conflicts but also inhibits concurrent writes.
+write conflict is raised. It is possible to exclusively lock collections when
+executing AQL. This will avoid write conflicts but also inhibits concurrent
+writes.
 
 Currently, another restriction is due to the transaction handling in
 RocksDB. Transactions are limited in total size. If you have a statement

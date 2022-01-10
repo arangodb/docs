@@ -18,9 +18,11 @@ oasisctl clone deployment backup [flags]
 ## Options
 
 ```
-  -b, --backup-id string   Clone a deployment from a backup using the backup's ID.
-  -h, --help               help for backup
-  -r, --region-id string   An optionally defined region in which the new deployment should be created in.
+      --accept                   Accept the current terms and conditions.
+  -b, --backup-id string         Clone a deployment from a backup using the backup's ID.
+  -h, --help                     help for backup
+  -o, --organization-id string   Identifier of the organization to create the clone in
+  -r, --region-id string         An optionally defined region in which the new deployment should be created in.
 ```
 
 ## Options inherited from parent commands

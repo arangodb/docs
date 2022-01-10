@@ -8,14 +8,18 @@
 - subtitle: GUIDES
 - text: Organizations
   href: organizations.html
+  expand: true
+  children:
+    - text: Users & Groups
+      href: users.html
+    - text: Billing
+      href: billing.html
 - text: Projects
   href: projects.html
 - text: Deployments
   href: deployments.html
 - text: My Account
   href: my-account.html
-- text: Users & Groups
-  href: users.html
 - text: Access Control
   href: access-control.html
 - text: Backups
@@ -43,10 +47,27 @@
     - text: Add
       href: oasisctl-add.html
       children:
+        - text: Add Audit Log
+          href: oasisctl-add-auditlog.html
+        - text: Add Audit Log Destination
+          href: oasisctl-add-auditlog-destination.html
         - text: Add Group
           href: oasisctl-add-group.html
         - text: Add Group Members
           href: oasisctl-add-group-members.html
+    - text: Audit Log
+      href: oasisctl-auditlog.html
+      children:
+        - text: Audit Log Attach
+          href: oasisctl-auditlog-attach.html
+        - text: Audit Log Detach
+          href: oasisctl-auditlog-detach.html
+        - text: Audit Log Get
+          href: oasisctl-auditlog-get.html
+        - text: Audit Log Get Attached
+          href: oasisctl-auditlog-get-attached.html
+        - text: Audit Log Get Attached Project
+          href: oasisctl-auditlog-get-attached-project.html
     - text: Backup
       href: oasisctl-backup.html
       children:
@@ -66,8 +87,12 @@
       children:
         - text: Create API Key
           href: oasisctl-create-apikey.html
+        - text: Create Audit Log
+          href: oasisctl-create-auditlog.html
         - text: Create Backup
           href: oasisctl-create-backup.html
+        - text: Create Backup Policy
+          href: oasisctl-create-backup-policy.html
         - text: Create CA Certificate
           href: oasisctl-create-cacertificate.html
         - text: Create Deployment
@@ -80,6 +105,10 @@
           href: oasisctl-create-group.html
         - text: Create IP Allowlist
           href: oasisctl-create-ipallowlist.html
+        - text: Create Metrics
+          href: oasisctl-create-metrics.html
+        - text: Create Metrics Token
+          href: oasisctl-create-metrics-token.html
         - text: Create Organization
           href: oasisctl-create-organization.html
         - text: Create Organization Invite
@@ -93,8 +122,18 @@
       children:
         - text: Delete API Key
           href: oasisctl-delete-apikey.html
+        - text: Delete Audit Log
+          href: oasisctl-delete-auditlog.html
+        - text: Delete Audit Log Archive
+          href: oasisctl-delete-auditlog-archive.html
+        - text: Delete Audit Log Archive Events
+          href: oasisctl-delete-auditlog-archive-events.html
+        - text: Delete Audit Log Destination
+          href: oasisctl-delete-auditlog-destination.html
         - text: Delete Backup
           href: oasisctl-delete-backup.html
+        - text: Delete Backup Policy
+          href: oasisctl-delete-backup-policy.html
         - text: Delete CA Certificate
           href: oasisctl-delete-cacertificate.html
         - text: Delete Deployment
@@ -109,6 +148,10 @@
           href: oasisctl-delete-group-members.html
         - text: Delete IP Allowlist
           href: oasisctl-delete-ipallowlist.html
+        - text: Delete Metrics
+          href: oasisctl-delete-metrics.html
+        - text: Delete Metrics Token
+          href: oasisctl-delete-metrics-token.html
         - text: Delete Organization
           href: oasisctl-delete-organization.html
         - text: Delete Organization Invite
@@ -124,8 +167,16 @@
     - text: Get
       href: oasisctl-get.html
       children:
+        - text: Get Audit Log
+          href: oasisctl-get-auditlog.html
+        - text: Get Audit Log Archive
+          href: oasisctl-get-auditlog-archive.html
+        - text: Get Audit Log Events
+          href: oasisctl-get-auditlog-events.html
         - text: Get Backup
           href: oasisctl-get-backup.html
+        - text: Get Backup Policy
+          href: oasisctl-get-backup-policy.html
         - text: Get CA Certificate
           href: oasisctl-get-cacertificate.html
         - text: Get Deployment
@@ -138,6 +189,10 @@
           href: oasisctl-get-group.html
         - text: Get IP Allowlist
           href: oasisctl-get-ipallowlist.html
+        - text: Get Metrics
+          href: oasisctl-get-metrics.html
+        - text: Get Metrics Token
+          href: oasisctl-get-metrics-token.html
         - text: Get Organization
           href: oasisctl-get-organization.html
         - text: Get Organization Invite
@@ -171,6 +226,18 @@
           href: oasisctl-list-arangodb.html
         - text: List ArangoDB Versions
           href: oasisctl-list-arangodb-versions.html
+        - text: List Audit Log
+          href: oasisctl-list-auditlog.html
+        - text: List Audit Log Archives
+          href: oasisctl-list-auditlog-archives.html
+        - text: List Audit Log Destinations
+          href: oasisctl-list-auditlog-destinations.html
+        - text: List Auditlogs
+          href: oasisctl-list-auditlogs.html
+        - text: List Backup
+          href: oasisctl-list-backup.html
+        - text: List Backup Policies
+          href: oasisctl-list-backup-policies.html
         - text: List Backups
           href: oasisctl-list-backups.html
         - text: List CA Certificates
@@ -197,6 +264,10 @@
           href: oasisctl-list-groups.html
         - text: List IP Allowlists
           href: oasisctl-list-ipallowlists.html
+        - text: List Metrics
+          href: oasisctl-list-metrics.html
+        - text: List Metrics Tokens
+          href: oasisctl-list-metrics-tokens.html
         - text: List Node Sizes
           href: oasisctl-list-nodesizes.html
         - text: List Organization
@@ -219,10 +290,32 @@
           href: oasisctl-list-roles.html
         - text: List Servers
           href: oasisctl-list-servers.html
+    - text: Lock
+      href: oasisctl-lock.html
+      children:
+        - text: Lock CA Certificate
+          href: oasisctl-lock-cacertificate.html
+        - text: Lock Deployment
+          href: oasisctl-lock-deployment.html
+        - text: Lock IP Allowlist
+          href: oasisctl-lock-ipallowlist.html
+        - text: Lock Organization
+          href: oasisctl-lock-organization.html
+        - text: Lock Policy
+          href: oasisctl-lock-policy.html
+        - text: Lock Project
+          href: oasisctl-lock-project.html
     - text: Login
       href: oasisctl-login.html
     - text: Logs
       href: oasisctl-logs.html
+    - text: Rebalance
+      href: oasisctl-rebalance.html
+      children:
+        - text: Rebalance Deployment
+          href: oasisctl-rebalance-deployment.html
+        - text: Rebalance Deployment Shards
+          href: oasisctl-rebalance-deployment-shards.html
     - text: Reject
       href: oasisctl-reject.html
       children:
@@ -249,11 +342,43 @@
           href: oasisctl-revoke-apikey.html
         - text: Revoke API Key Token
           href: oasisctl-revoke-apikey-token.html
+        - text: Revoke Metrics
+          href: oasisctl-revoke-metrics.html
+        - text: Revoke Metrics Token
+          href: oasisctl-revoke-metrics-token.html
+    - text: Rotate
+      href: oasisctl-rotate.html
+      children:
+        - text: Rotate Deployment
+          href: oasisctl-rotate-deployment.html
+        - text: Rotate Deployment Server
+          href: oasisctl-rotate-deployment-server.html
+    - text: Top
+      href: oasisctl-top.html
+    - text: Unlock
+      href: oasisctl-unlock.html
+      children:
+        - text: Unlock CA Certificate
+          href: oasisctl-unlock-cacertificate.html
+        - text: Unlock Deployment
+          href: oasisctl-unlock-deployment.html
+        - text: Unlock IP Allowlist
+          href: oasisctl-unlock-ipallowlist.html
+        - text: Unlock Organization
+          href: oasisctl-unlock-organization.html
+        - text: Unlock Policy
+          href: oasisctl-unlock-policy.html
+        - text: Unlock Project
+          href: oasisctl-unlock-project.html
     - text: Update
       href: oasisctl-update.html
       children:
+        - text: Update Audit Log
+          href: oasisctl-update-auditlog.html
         - text: Update Backup
           href: oasisctl-update-backup.html
+        - text: Update Backup Policy
+          href: oasisctl-update-backup-policy.html
         - text: Update CA Certificate
           href: oasisctl-update-cacertificate.html
         - text: Update Deployment
@@ -262,6 +387,10 @@
           href: oasisctl-update-group.html
         - text: Update IP Allowlist
           href: oasisctl-update-ipallowlist.html
+        - text: Update Metrics
+          href: oasisctl-update-metrics.html
+        - text: Update Metrics Token
+          href: oasisctl-update-metrics-token.html
         - text: Update Organization
           href: oasisctl-update-organization.html
         - text: Update Policy
@@ -278,6 +407,8 @@
           href: oasisctl-update-project.html
         - text: Update Role
           href: oasisctl-update-role.html
+    - text: Upgrade
+      href: oasisctl-upgrade.html
     - text: Version
       href: oasisctl-version.html
     - text: Wait

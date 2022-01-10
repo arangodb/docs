@@ -554,7 +554,7 @@
     "enterpriseOnly" : true,
     "hidden" : false,
     "introducedIn" : [
-      "v3.7.8"
+      "v3.7.9"
     ],
     "obsolete" : false,
     "os" : [
@@ -675,7 +675,7 @@
       "agent",
       "single"
     ],
-    "default" : 15268139008,
+    "default" : 16341516288,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -816,7 +816,7 @@
     "component" : [
       "coordinator"
     ],
-    "default" : 3600,
+    "default" : 259200,
     "deprecatedIn" : null,
     "description" : "amount of time (in seconds) the coordinator will wait for an index to be created before giving up",
     "dynamic" : false,
@@ -2014,6 +2014,60 @@
     "section" : "http",
     "type" : "double"
   },
+  "http.permanently-redirect-root" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "if true, use a permanent redirect. If false, use a temporary",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.12"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "http",
+    "type" : "boolean"
+  },
+  "http.redirect-root-to" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "/_admin/aardvark/index.html",
+    "deprecatedIn" : null,
+    "description" : "redirect of root URL",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.12"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "http",
+    "type" : "string"
+  },
   "http.trusted-origin" : {
     "category" : "option",
     "component" : [
@@ -2746,7 +2800,8 @@
     "obsolete" : false,
     "os" : [
       "linux",
-      "macos"
+      "macos",
+      "windows"
     ],
     "requiresValue" : false,
     "section" : "ldap",
@@ -2845,7 +2900,8 @@
     "obsolete" : false,
     "os" : [
       "linux",
-      "macos"
+      "macos",
+      "windows"
     ],
     "requiresValue" : false,
     "section" : "ldap",
@@ -2894,7 +2950,8 @@
     "obsolete" : false,
     "os" : [
       "linux",
-      "macos"
+      "macos",
+      "windows"
     ],
     "requiresValue" : true,
     "section" : "ldap",
@@ -2999,6 +3056,33 @@
     "requiresValue" : true,
     "section" : "ldap",
     "type" : "double"
+  },
+  "ldap.responsible-for" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "A file of usernames this provider is responsible for. If empty, it will be responsible for all users",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.11"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap",
+    "type" : "string"
   },
   "ldap.restart" : {
     "category" : "option",
@@ -3211,7 +3295,7 @@
     ],
     "default" : "objectClass=*",
     "deprecatedIn" : null,
-    "description" : "ldap search filter, eg. (objectClass=simpleSecurityObject); '{USER}' is replaced by the supplied user.",
+    "description" : "ldap search filter, eg. (objectClass=simpleSecurityObject)",
     "dynamic" : false,
     "enterpriseOnly" : true,
     "hidden" : false,
@@ -3394,7 +3478,8 @@
     "obsolete" : false,
     "os" : [
       "linux",
-      "macos"
+      "macos",
+      "windows"
     ],
     "requiresValue" : true,
     "section" : "ldap",
@@ -3550,6 +3635,884 @@
     "section" : "ldap",
     "type" : "string"
   },
+  "ldap2.allow-offline" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "If a refresh attempt fails to connect to the LDAP server, continue with the cached authentication data",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.async-connect" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Whether or not the connection to the LDAP library will be done asynchronously",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.basedn" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap basedn, eg. dc=example,dc=com",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.binddn" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap binddn, eg. cn=admin,dc=example,dc=com",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.bindpasswd" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap bindpassword, eg. admin",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.debug" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Turn on internal OpenLDAP library output (warning: will print to stdout)",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.enabled" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "enable LDAP",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.network-timeout" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "Timeout value (in seconds) after which network operations following the initial connection return in case of no activity (a value of 0 means default timeout)",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "double"
+  },
+  "ldap2.port" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 389,
+    "deprecatedIn" : null,
+    "description" : "port to use",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "uint16"
+  },
+  "ldap2.prefix" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap prefix, eg. uid= xor dn= xor cn=",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.referrals" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Whether or not the LDAP library should implicitly chase referrals",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.refresh-rate" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 300,
+    "deprecatedIn" : null,
+    "description" : "Refresh user settings after this time (in seconds)",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "double"
+  },
+  "ldap2.responsible-for" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "A file of usernames this provider is responsible for. If empty, it will be responsible for all users",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.11"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.restart" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Whether or not the LDAP library should implicitly restart connections",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.retries" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 1,
+    "deprecatedIn" : null,
+    "description" : "Number of tries to attempt connecting to the LDAP server. Setting it to values greater than one will retry connecting in case the LDAP server is unavailable or denies the connection",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "uint32"
+  },
+  "ldap2.roles-attribute-name" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap attributename where the role are located.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.roles-exclude" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "Regexp to exclude groups. Leave empty to exclude none.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.roles-include" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "Regexp to include groups. Leave empty to include all.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.roles-search" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap search for roles; '{USER}' is replaced by the 'dn' of the user.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.roles-transformation" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "Regexp to normalizer role name, e.g. '/^ *(.*[^ ]])*/$2/'",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string..."
+  },
+  "ldap2.search-attribute" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "uid",
+    "deprecatedIn" : null,
+    "description" : "ldap search attribute, eg. uid",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.search-filter" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "objectClass=*",
+    "deprecatedIn" : null,
+    "description" : "ldap search filter, eg. (objectClass=simpleSecurityObject)",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.search-scope" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "sub",
+    "deprecatedIn" : null,
+    "description" : "ldap search scope, one of base, one, sub",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.serialize-timeout" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 5,
+    "deprecatedIn" : null,
+    "description" : "Maximum amount of time (in seconds) that will be waited for the serialization mutex",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "double"
+  },
+  "ldap2.serialized" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "Whether or not calls into the LDAP library should be serialized. This option can be used to work around thread-unsafe LDAP library functionality",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : true,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.server" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "server to use",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.suffix" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap suffix, eg. ,dc=example,dc=com",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.superuser-role" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "Role mapping to the super-users",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.timeout" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "Timeout value (in seconds) for synchronous LDAP API calls (a value of 0 means default timeout)",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "double"
+  },
+  "ldap2.tls" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "enable TLS",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "ldap2",
+    "type" : "boolean"
+  },
+  "ldap2.tls-cacert-dir" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap tls cacert dir",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.tls-cacert-file" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap tls cacert file",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.tls-cert-check-strategy" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "hard",
+    "deprecatedIn" : null,
+    "description" : "ldap tls cert check strategy, one of never, hard, demand, allow, try",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.tls-version" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "1.2",
+    "deprecatedIn" : null,
+    "description" : "ldap tls version, one of 1.0, 1.1, 1.2",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
+  "ldap2.url" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "ldap url, eg. ldap://example.com:389/dc=example,dc=com?uid?sub",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "ldap2",
+    "type" : "string"
+  },
   "log" : {
     "category" : "option",
     "component" : [
@@ -3699,8 +4662,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -3727,8 +4689,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -3832,7 +4793,7 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : [
-      "v3.7.8"
+      "v3.7.9"
     ],
     "obsolete" : false,
     "os" : [
@@ -3908,7 +4869,7 @@
     ],
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
@@ -3938,7 +4899,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.8.0"
+      "v3.7.9"
     ],
     "obsolete" : false,
     "os" : [
@@ -3961,7 +4922,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "log destination(s), e.g. file:///path/to/file (Linux, macOS) or file://C:\\path\\to\\file (Windows)",
+    "description" : "log destination(s), e.g. file:///path/to/file (any '$PID' will be replaced with the process id)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -4777,6 +5738,33 @@
     "section" : "query",
     "type" : "double"
   },
+  "query.require-with" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "whether AQL queries should require the `WITH collection-name` clause even on single servers (enable this to remove this behavior difference between single server and cluster)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.12"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "query",
+    "type" : "boolean"
+  },
   "query.slow-streaming-threshold" : {
     "category" : "option",
     "component" : [
@@ -4842,8 +5830,7 @@
     "enterpriseOnly" : true,
     "hidden" : true,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -5167,6 +6154,33 @@
     "section" : "replication",
     "type" : "uint64"
   },
+  "replication.quick-keys-limit" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 1000000,
+    "deprecatedIn" : null,
+    "description" : "Limit at which 'quick' calls to the replication keys API return only the document count for second run",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.7.9"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "replication",
+    "type" : "uint64"
+  },
   "replication.request-timeout" : {
     "category" : "option",
     "component" : [
@@ -5237,8 +6251,7 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -5308,7 +6321,7 @@
       "agent",
       "single"
     ],
-    "default" : 18321766809,
+    "default" : 19609819545,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -5904,8 +6917,7 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -5991,6 +7003,33 @@
     "requiresValue" : true,
     "section" : "rocksdb",
     "type" : "double"
+  },
+  "rocksdb.max-parallel-compactions" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : 2,
+    "deprecatedIn" : null,
+    "description" : "maximum number of parallel compactions jobs",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
   },
   "rocksdb.max-subcompactions" : {
     "category" : "option",
@@ -6360,9 +7399,8 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : [
-      "v3.8.0",
-      "v3.7.5",
-      "v3.6.8"
+      "v3.6.8",
+      "v3.7.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -6508,7 +7546,7 @@
       "agent",
       "single"
     ],
-    "default" : 24429022412,
+    "default" : 26146426060,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,
@@ -7015,7 +8053,7 @@
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : [
-      "v3.7.8"
+      "v3.7.7"
     ],
     "obsolete" : false,
     "os" : [
@@ -7112,7 +8150,7 @@
       "agent",
       "single"
     ],
-    "default" : 4,
+    "default" : 8,
     "deprecatedIn" : null,
     "description" : "Number of threads used to handle IO",
     "dynamic" : true,
@@ -7283,7 +8321,7 @@
     "component" : [
       "dbserver"
     ],
-    "default" : 5,
+    "default" : 9,
     "deprecatedIn" : null,
     "description" : "maximum number of threads available for maintenance actions",
     "dynamic" : true,
@@ -7460,11 +8498,35 @@
     ],
     "default" : true,
     "deprecatedIn" : null,
-    "description" : "turn statistics gathering on or off",
+    "description" : "turn statistics gathering/aggregation and APIs on or off",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
     "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "server",
+    "type" : "boolean"
+  },
+  "server.statistics-all-databases" : {
+    "category" : "option",
+    "component" : [
+      "coordinator"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "provide cluster statistics in web interface in all databases",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.9"
+    ],
     "obsolete" : false,
     "os" : [
       "linux",

@@ -1,6 +1,8 @@
 ---
 layout: default
 description: ArangoDB Server Global Options
+redirect_from:
+  - programs-arangod-general.html # 3.9 -> 3.9
 ---
 # ArangoDB Server Global Options
 

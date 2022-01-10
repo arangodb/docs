@@ -1,53 +1,73 @@
 ---
 layout: default
-description: An AQL query can optionally start with a WITH statement and the list of collections used by the query
+description: >-
+  An AQL query can start with a WITH statement, listing collections that the
+  query will implicitly read from
+title: AQL WITH Operation
 ---
-
 WITH
 ====
 
-An AQL query can optionally start with a `WITH` statement and the list of 
-collections used by the query. All collections specified in `WITH` will be
-read-locked at query start, in addition to the other collections the query
-uses and that are detected by the AQL query parser.
+An AQL query can start with a `WITH` keyword followed by a list of collections
+that the query implicitly reads from.
+
+Implicit means that the collections are not specified explicitly in language
+constructs like
+
+- `FOR ... IN collection`
+- `INSERT ... INTO collection`
+- `UPDATE ... IN collection`
+- `GRAPH "graph-name"` (via the graph definition)
+
+etc. but are only known at runtime of the query. Such dynamic collection access
+is invisible to the AQL query parser at query compile time. Dynamic access is
+possible via the `DOCUMENT()` function as well as with graph traversals (in
+particular the variant using collection sets), because edges may point to
+arbitrary vertex collections.
+
+Collections that are explicitly used in a query are automatically detected by
+the AQL query parser. Any additional collections that will be involved in the
+query but cannot be detected automatically by the query parser can be manually
+specified using a `WITH` statement.
 
 Syntax
 ------
 
 <pre><code>WITH <em>collection1</em> [, <em>collection2</em> [, ... <em>collectionN</em> ] ]</code></pre>
 
+`WITH` is also a keyword that is used in other contexts, for example in `UPDATE`
+statements. It must be placed at the very start of the query to declare
+additional collections.
+
 Usage
 -----
 
-Specifying further collections in `WITH` can be useful for queries that 
-dynamically access collections (e.g. via traversals or via dynamic 
-document access functions such as `DOCUMENT()`). Such collections may be 
-invisible to the AQL query parser at query compile time, and thus will not
-be read-locked automatically at query start. In this case, the AQL execution 
-engine will lazily lock these collections whenever they are used, which can 
-lead to deadlock with other queries. In case such deadlock is detected, the 
-query will automatically be aborted and changes will be rolled back. In this
-case the client application can try sending the query again.
-However, if client applications specify the list of used collections for all
-their queries using `WITH`, then no deadlocks will happen and no queries will
-be aborted due to deadlock situations.
+With RocksDB as storage engine, the `WITH` operation is only required if you
+use a cluster deployment and only for AQL queries that dynamically read from
+vertex collections as part of graph traversals.
 
-`WITH` is required for traversals in a clustered environment in order to avoid deadlocks.
+You can enable the `--query.require-with` startup option to make single server
+instances require `WITH` declarations like cluster deployments to ease development,
+see [Requiring `WITH` statements](../programs-arangod-query.html#requiring-with-statements).
 
-Note that for queries that access only a single collection or that have all
-collection names specified somewhere else in the query string, there is no
-need to use `WITH`. It is only useful when the AQL query parser cannot
-automatically figure out which collections are going to be used by the query.
-`WITH` is only useful for queries that dynamically access collections, e.g.
-via traversals, shortest path operations or the `DOCUMENT()` function.
+Dynamic access via the `DOCUMENT()` function does not require you to list the
+involved collections. Using named graphs in traversals (`GRAPH "graph-name"`)
+does not require it either, assuming that all vertices are in collections that
+are part of the graph, as enforced by the [Graph API](../http/gharial.html).
+That means, it is only necessary for traversals using anonymous graphs /
+[collection sets](graphs-traversals.html#working-with-collection-sets).
+
+The following example query specifies an edge collection `usersHaveManagers`
+to perform a graph traversal. It is the only explicitly specified collection in
+the query. It does not need to be declared using the `WITH` operation.
+
+However, the involved vertex collections need to be declared. In this example,
+the edges of the edge collection reference vertices of a collection called
+`managers`. This collection is declared at the beginning of the query using the
+`WITH` operation:
 
 ```js
 WITH managers
-FOR v, e, p IN OUTBOUND 'users/1' usersHaveManagers
+FOR v, e, p IN 1..2 OUTBOUND 'users/1' usersHaveManagers
   RETURN { v, e, p }
 ```
-
-Note that constant `WITH` is also a keyword that is used in other contexts,
-for example in `UPDATE` statements. If `WITH` is used to specify the extra
-list of collections, then it must be placed at the very start of the query
-string.

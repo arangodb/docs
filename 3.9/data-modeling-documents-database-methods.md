@@ -81,12 +81,6 @@ request is performed.
 As before. Instead of *object* a *document-handle* can be passed as
 first argument.
 
-**Changes in 3.0 from 2.8:**
-
-In the case of a revision mismatch *_exists* now throws an error instead
-of simply returning *false*. This is to make it possible to tell the
-difference between a revision mismatch and a non-existing document.
-
 
 Replace
 -------
@@ -161,10 +155,6 @@ Create and replace a document:
     @endDocuBlock documentsDocumentReplace
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-
-**Changes in 3.0 from 2.8:**
-
-The options *silent*, *returnNew* and *returnOld* are new.
 
 
 Update
@@ -251,10 +241,6 @@ Create and update a document:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-**Changes in 3.0 from 2.8:**
-
-The options *silent*, *returnNew* and *returnOld* are new.
-
 
 Remove
 ------
@@ -272,7 +258,7 @@ removed.
 The method returns a document with the attributes *_id*, *_key* and *_rev*.
 The attribute *_id* contains the document handle of the
 removed document, the attribute *_rev* contains the document revision of
-the removed eocument.
+the removed document.
 
 If the selector contains a *_rev* attribute, the method first checks
 that the specified revision is the current revision of that document.
@@ -357,8 +343,3 @@ Remove a document using new signature:
     @endDocuBlock documentsCollectionRemoveSignature
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-
-**Changes in 3.0 from 2.8:**
-
-The method now returns not only *true* but information about the removed
-document(s). The options *silent* and *returnOld* are new.

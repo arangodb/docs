@@ -323,7 +323,66 @@ value is specified in bytes.
 If the number of operations in a transaction reaches this value, the transaction
 is committed automatically and a new transaction is started.
 
-### Writes
+### Write Throttling
+
+`--rocksdb.throttle`
+
+If enabled, dynamically throttles the ingest rate of writes if necessary to reduce 
+chances of compactions getting too far behind and blocking incoming writes. 
+This option is `true` by default.
+
+There are various options to control the throttling behavior in more detail:
+
+`--rocksdb.throttle-frequency`
+
+<small>Introduced in: v3.8.5</small>
+
+Frequency for write-throttle calculations (in milliseconds). If the throttling is
+enabled, it will recalculate a new maximum ingestion rate with this frequency.
+The default value is 60000, i.e. every 60 seconds.
+
+This option has no effect if throttling is turned off.
+
+`--rocksdb.throttle-slots`
+
+<small>Introduced in: v3.8.5</small>
+
+If throttling is enabled, this parameter controls the number of previous intervals 
+to use for throttle value calculation. The default value is 63.
+
+This option has no effect if throttling is turned off.
+
+`--rocksdb.throttle-scaling-factor`
+
+<small>Introduced in: v3.8.5</small>
+
+Controls the adaptiveness scaling factor for write-throttle calculations. There 
+is normally no need to change this value. The default value is 17.
+
+This option has no effect if throttling is turned off.
+
+`--rocksdb.throttle-slow-down-writes-trigger`
+
+<small>Introduced in: v3.8.5</small>
+
+Sets the number of level 0 files whose payload is not considered in throttle value
+calculations when penalizing the presence of L0 files. There is normally no need to 
+change this value.
+
+This option has no effect if throttling is turned off.
+
+`--rocksdb.throttle-max-write-rate`
+
+<small>Introduced in: v3.8.5</small>
+
+Controls the maximum write rate enforced by the throttle (in bytes per second).
+The default value is 0, meaning "unlimited". The actual write rate estabilished by
+the throttling will be the minimum of this value and the value that the regular
+throttle calculation produces, i.e. this option can be used to set a fixed upper 
+bound on the write rate.
+This option has no effect if throttling is turned off.
+
+### Exclusive Writes
 
 `--rocksdb.exclusive-writes`
 
@@ -333,17 +392,11 @@ the legacy MMFiles to the RocksDB storage engine without modifying client
 application code. Otherwise it should best be avoided as the use of exclusive
 locks on collections will introduce a noticeable throughput penalty.
 
-Note that the MMFiles engine was [removed](appendix-deprecated.html) and that
+Note that the MMFiles engine was removed and that
 this option is a stopgap measure only. This option is thus deprecated, and will
 be removed in a future version.
 
 The option has effect on single servers and on DB-Servers in the cluster.
-
-`--rocksdb.throttle`
-
-If enabled, throttles the ingest rate of writes if necessary to reduce chances 
-of compactions getting too far behind and blocking incoming writes. This option
-is `true` by default.
 
 ### Debugging
 

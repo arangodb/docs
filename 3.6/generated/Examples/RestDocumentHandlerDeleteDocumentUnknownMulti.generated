@@ -1,7 +1,7 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products</span> &lt;&lt;EOF
 [ 
-  <span class="hljs-string">"1"</span>, 
-  <span class="hljs-string">"other/2"</span> 
+  <span class="hljs-string">&quot;1&quot;</span>, 
+  <span class="hljs-string">&quot;other/2&quot;</span> 
 ]
 EOF
 
@@ -10,18 +10,18 @@ content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">135</span>
 server: ArangoDB
-x-arango-error-codes: {<span class="hljs-string">"1202"</span>:<span class="hljs-number">2</span>}
+x-arango-error-codes: {<span class="hljs-string">&quot;1202&quot;</span>:<span class="hljs-number">2</span>}
 x-content-type-options: nosniff
 
 [ 
   { 
-    <span class="hljs-string">"error"</span> : <span class="hljs-literal">true</span>, 
-    <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">1202</span>, 
-    <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"document not found"</span> 
+    <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">true</span>, 
+    <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">1202</span>, 
+    <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;document not found&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"error"</span> : <span class="hljs-literal">true</span>, 
-    <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">1202</span>, 
-    <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"document not found"</span> 
+    <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">true</span>, 
+    <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">1202</span>, 
+    <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;document not found&quot;</span> 
   } 
 ]

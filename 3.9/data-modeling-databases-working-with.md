@@ -256,7 +256,7 @@ and only when additional I/O load can be tolerated for a prolonged time.
 retrieve the storage engine type used by the server
 `db._engine()`
 
-Returns the name of the storage engine in use (`mmfiles` or `rocksdb`), as well
+Returns the name of the storage engine in use (`rocksdb`), as well
 as a list of supported features such as types of indexes.
 
 ### Engine statistics

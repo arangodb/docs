@@ -32,7 +32,7 @@ sudo locale-gen "en_US.UTF-8"
 Your distribution may also provide a frontend for doing so, for instance
 [`dpkg-reconfigure locales` on Debian](https://wiki.debian.org/Locale){:target="_blank"}.
 
-If you don't set a [default language](programs-arangod-global.html#default-language)
+If you don't set a [default language](programs-arangod-general.html#default-language)
 for the server explicitly, ArangoDB will use the default locale of your system.
 
 {% hint 'warning' %}
@@ -84,8 +84,8 @@ killing ArangoDB too eagerly on Linux.
 Overcommit Memory
 -----------------
 
-The recommended kernel setting for `overcommit_memory` for both MMFiles and
-RocksDB storage engine is 0 or 1. The Linux kernel default is 0.
+The recommended kernel setting for `overcommit_memory` is 0 or 1.
+The Linux kernel default is 0.
 
 You can set it as follows before executing `arangod`:
 

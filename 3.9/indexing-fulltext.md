@@ -94,12 +94,6 @@ details is returned.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Looks up a fulltext index:
-
-`collection.lookupFulltextIndex(attribute, minLength)`
-
-Checks whether a fulltext index on the given attribute *attribute* exists.
-
 Fulltext AQL Functions
 ----------------------
 

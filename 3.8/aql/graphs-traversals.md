@@ -2,6 +2,9 @@
 layout: default
 description: There are two syntaxes for graph traversals in ArangoDB Query Language (AQL), the named graph and the anonymous graph.
 title: Graph Traversals in ArangoDB Query Language (AQL)
+redirect_from:
+  - ../http/traversal.html # 3.8 -> 3.8
+  - ../graphs-traversals-using-traversal-objects.html # 3.8 -> 3.8
 ---
 Graph traversals in AQL
 =======================
@@ -83,6 +86,7 @@ FOR vertex[, edge[, path]]
       Also see `weightAttribute` and `defaultWeight`. A returned path has an
       additional attribute `weight` containing the cost of the path after every
       step. The order of paths having the same cost is non-deterministic.
+      Negative weights are not supported and will abort the query with an error.
   - **bfs** (bool): deprecated, use `order: "bfs"` instead.
   - **uniqueVertices** (string): optionally ensure vertex uniqueness
     - `"path"` – it is guaranteed that there is no path returned with a duplicate vertex
@@ -133,14 +137,22 @@ FOR vertex[, edge[, path]]
 
     Traversal parallelization is only available in the *Enterprise Edition*, and
     limited to traversals in single server deployments and to cluster traversals
-    that are running in a OneShard setup. Cluster traversals that run on a coordinator
-    node and SmartGraph traversals are currently not parallelized, even if the
-    options is specified.
-  - **weightAttribute** (string, *optional*): Specifies the name of an attribute that is
-    used to look up the weight of an edge. If no attribute is specified or it is not present
-    in the edge document the `defaultWeight` is used.
-  - **defaultWeight** (number, *optional*): Specifies the default weight of an edge. The
-    default value is `1`.
+    that are running in a OneShard setup. Cluster traversals that run on a
+    Coordinator node and SmartGraph traversals are currently not parallelized,
+    even if the options is specified.
+  - **weightAttribute** (string, *optional*): Specifies the name of an attribute
+    that is used to look up the weight of an edge. If no attribute is specified
+    or if it is not present in the edge document then the `defaultWeight` is used.
+    The attribute value must not be negative.
+  - **defaultWeight** (number, *optional*): Specifies the default weight of an edge.
+    The value must not be negative. The default value is `1`.
+
+{% hint 'info' %}
+Weighted traversals do not support negative weights. If a document
+attribute (as specified by `weightAttribute`) with a negative value is
+encountered during traversal, or if `defaultWeight` is set to a negative
+number, then the query is aborted with an error.
+{% endhint %}
 
 ### Working with collection sets
 
@@ -188,12 +200,13 @@ collection in your traversal.
 
 Due to the nature of graphs, edges may reference vertices from arbitrary
 collections. Following the paths can thus involve documents from various
-collections and it's not possible to predict which will be visited in a
-traversal. Hence, which collections need to be locked can only be determined
-at run time. Deadlocks may occur under certain circumstances.
+collections and it is not possible to predict which will be visited in a
+traversal. Which collections need to be loaded by the graph engine can only be
+determined at run time.
 
-Please consider to use the [`WITH` statement](operations-with.html) to
-specify the collections you expect to be involved.
+Use the [`WITH` statement](operations-with.html) to specify the collections you
+expect to be involved. This is required for traversals using collection sets
+in cluster deployments.
 
 Using filters and the explainer to extrapolate the costs
 --------------------------------------------------------

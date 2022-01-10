@@ -114,11 +114,7 @@ Set to true if SSL session caching should be used.
 
 ### SSL peer certificate
 
-{% hint 'info' %}
-This feature is only available in the
-[**Enterprise Edition**](https://www.arangodb.com/enterprise-server/){:target="_blank"},
-also available in the [**ArangoDB Cloud**](https://cloud.arangodb.com/){:target="_blank"}.
-{% endhint %}
+{% include hint-ee.md feature="This option" %}
 
 `--ssl.require-peer-certificate`
 

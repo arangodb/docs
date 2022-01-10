@@ -1358,7 +1358,7 @@ PPA, execute it and get direct feedback in both "success" and "error" cases.
 ### Pregelator
 
 The Pregelator Service is available on GitHub:
-<https://github.com/arangodb-foxx/pregelator>
+<https://github.com/arangodb-foxx/pregelator>{:target="_blank"}
 
 The bundled ZIP files are kept in the directory: `zippedBuilds` and can be
 installed via `foxx-cli`, the standard `web-ui` or via `arangosh`.
@@ -1375,10 +1375,10 @@ advanced usage. As those are complex algorithms, they are not included as
 examples in the documentation. But for the curious ones, they can be found
 here:
 
-- [Propagation Demo](https://github.com/arangodb/arangodb/blob/feature/pregel-vertex-accumulation-algorithm-2/js/client/modules/%40arangodb/air/propagation-demo.js)
-- [PageRank](https://github.com/arangodb/arangodb/blob/feature/pregel-vertex-accumulation-algorithm-2/js/client/modules/%40arangodb/air/pagerank.js)
-- [Single Source Shortest Path](https://github.com/arangodb/arangodb/blob/feature/pregel-vertex-accumulation-algorithm-2/js/client/modules/%40arangodb/air/single-source-shortest-paths.js)
-- [Strongly Connected Components](https://github.com/arangodb/arangodb/blob/feature/pregel-vertex-accumulation-algorithm-2/js/client/modules/%40arangodb/air/strongly-connected-components.js)
+- [Propagation Demo](https://github.com/arangodb/arangodb/tree/devel/js/client/modules/%40arangodb/air/propagation-demo.js)
+- [PageRank](https://github.com/arangodb/arangodb/tree/devel/js/client/modules/%40arangodb/air/pagerank.js)
+- [Single Source Shortest Path](https://github.com/arangodb/arangodb/tree/devel/js/client/modules/%40arangodb/air/single-source-shortest-paths.js)
+- [Strongly Connected Components](https://github.com/arangodb/arangodb/tree/devel/js/client/modules/%40arangodb/air/strongly-connected-components.js)
 
 ### Vertex Degree
 

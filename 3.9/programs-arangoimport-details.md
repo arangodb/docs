@@ -2,8 +2,7 @@
 layout: default
 description: The most convenient method to import a lot of data into ArangoDB is to use the arangoimport command-line tool
 ---
-Arangoimport Details
-====================
+# _arangoimport_ Details
 
 The most convenient method to import a lot of data into ArangoDB is to use the
 *arangoimport* command-line tool. It allows you to bulk import data records
@@ -22,7 +21,7 @@ In case of CSV/TSV files, BOMs will become part of the first column's name
 Importing into an Edge Collection
 ---------------------------------
 
-Arangoimport can also be used to import data into an existing edge collection.
+_arangoimport_ can also be used to import data into an existing edge collection.
 The import data must, for each edge to import, contain at least the *_from* and
 *_to* attributes. These indicate which other two documents the edge should connect.
 It is necessary that these attributes are set for all records, and point to
@@ -161,7 +160,7 @@ server-side (if any).
 Automatic pacing with busy or low throughput disk subsystems
 ------------------------------------------------------------
 
-Arangoimport has an optional automatic pacing algorithm that can limit 
+_arangoimport_ has an optional automatic pacing algorithm that can limit 
 how fast data is sent to the ArangoDB servers. This pacing algorithm 
 exists to prevent the import operation from failing due to slow responses.
 

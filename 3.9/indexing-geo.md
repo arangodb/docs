@@ -204,6 +204,7 @@ Supported geometry object types are:
 - LineString
 - MultiLineString
 - Polygon
+- MultiPolygon
 
 ### Point
 
@@ -386,8 +387,8 @@ Example with two polygons, the second one with a hole:
 }
 ```
 
-Arangosh Examples
------------------
+_arangosh_ Examples
+-------------------
 
 <!-- js/server/modules/@arangodb/arango-collection.js-->
 
@@ -403,6 +404,16 @@ All documents, which do not have the attribute path or have a non-conforming
 value in it, are excluded from the index.
 
 A geo index is implicitly sparse, and there is no way to control its sparsity.
+
+The index does not provide a `unique` option because of its limited usability.
+It would prevent identical coordinates from being inserted only, but even a
+slightly different location (like 1 inch or 1 cm off) would be unique again and
+not considered a duplicate, although it probably should. The desired threshold
+for detecting duplicates may vary for every project (including how to calculate
+the distance even) and needs to be implemented on the application layer as
+needed. You can write a [Foxx service](foxx.html) for this purpose and
+make use of the AQL [geo functions](aql/functions-geo.html) to find nearby
+coordinates supported by a geo index.
 
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
@@ -431,41 +442,26 @@ Create a geo index for an array attribute:
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute1}
     ~db._create("geo")
      db.geo.ensureIndex({ type: "geo", fields: [ "loc" ] });
-    | for (i = -90;  i <= 90;  i += 10) {
-    |     for (j = -180; j <= 180; j += 10) {
-    |         db.geo.save({ name : "Name/" + i + "/" + j, loc: [ i, j ] });
-    |     }
-      }
-    db.geo.count();
-    db.geo.near(0, 0).limit(3).toArray();
-    db.geo.near(0, 0).count();
     ~db._drop("geo")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexCreateForArrayAttribute1
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Create a geo index for a hash array attribute:
+Create a geo index for an array attribute:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexCreateForArrayAttribute2
     @EXAMPLE_ARANGOSH_OUTPUT{geoIndexCreateForArrayAttribute2}
-    ~db._drop("geo2")
     ~db._create("geo2")
     db.geo2.ensureIndex({ type: "geo", fields: [ "location.latitude", "location.longitude" ] });
-    | for (i = -90;  i <= 90;  i += 10) {
-    |     for (j = -180; j <= 180; j += 10) {
-    |         db.geo2.save({ name : "Name/" + i + "/" + j, location: { latitude : i, longitude : j } });
-    |     }
-      }
-    db.geo2.near(0, 0).limit(3).toArray();
     ~db._drop("geo2")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock geoIndexCreateForArrayAttribute2
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Use GeoIndex with AQL SORT statement:
+Use geo index with AQL SORT statement:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexSortOptimization
@@ -486,7 +482,7 @@ Use GeoIndex with AQL SORT statement:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Use GeoIndex with AQL FILTER statement:
+Use geo index with AQL FILTER statement:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline geoIndexFilterOptimization
@@ -506,31 +502,3 @@ Use GeoIndex with AQL FILTER statement:
     @endDocuBlock geoIndexFilterOptimization
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
-
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
-{% docublock collectionGeo %}
-
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
-{% docublock collectionNear %}
-
-<!-- js/common/modules/@arangodb/arango-collection-common.js-->
-{% docublock collectionWithin %}
-
-ensures that a geo index exists
-`collection.ensureIndex({ type: "geo", fields: [ "location" ] })`
-
-Since ArangoDB 2.5, this method is an alias for *ensureGeoIndex* since
-geo indexes are always sparse, meaning that documents that do not contain
-the index attributes or has non-numeric values in the index attributes
-will not be indexed. *ensureGeoConstraint* is deprecated and *ensureGeoIndex*
-should be used instead.
-
-The index does not provide a `unique` option because of its limited usability.
-It would prevent identical coordinates from being inserted only, but even a
-slightly different location (like 1 inch or 1 cm off) would be unique again and
-not considered a duplicate, although it probably should. The desired threshold
-for detecting duplicates may vary for every project (including how to calculate
-the distance even) and needs to be implemented on the application layer as
-needed. You can write a [Foxx service](foxx.html) for this purpose and
-make use of the AQL [geo functions](aql/functions-geo.html) to find nearby
-coordinates supported by a geo index.

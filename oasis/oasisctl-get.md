@@ -32,12 +32,14 @@ oasisctl get [flags]
 ## See also
 
 * [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
+* [oasisctl get auditlog](oasisctl-get-auditlog.html)	 - Get auditlog archive
 * [oasisctl get backup](oasisctl-get-backup.html)	 - Get a backup
 * [oasisctl get cacertificate](oasisctl-get-cacertificate.html)	 - Get a CA certificate the authenticated user has access to
 * [oasisctl get deployment](oasisctl-get-deployment.html)	 - Get a deployment the authenticated user has access to
 * [oasisctl get example](oasisctl-get-example.html)	 - Get a single example dataset
 * [oasisctl get group](oasisctl-get-group.html)	 - Get a group the authenticated user has access to
 * [oasisctl get ipallowlist](oasisctl-get-ipallowlist.html)	 - Get an IP allowlist the authenticated user has access to
+* [oasisctl get metrics](oasisctl-get-metrics.html)	 - Get metrics information
 * [oasisctl get organization](oasisctl-get-organization.html)	 - Get an organization the authenticated user is a member of
 * [oasisctl get policy](oasisctl-get-policy.html)	 - Get a policy the authenticated user has access to
 * [oasisctl get project](oasisctl-get-project.html)	 - Get a project the authenticated user has access to

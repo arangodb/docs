@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/user</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/user</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
@@ -8,25 +8,25 @@ server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">"result"</span> : [ 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;result&quot;</span> : [ 
     { 
-      <span class="hljs-string">"user"</span> : <span class="hljs-string">"tester"</span>, 
-      <span class="hljs-string">"active"</span> : <span class="hljs-literal">false</span>, 
-      <span class="hljs-string">"extra"</span> : { 
+      <span class="hljs-string">&quot;user&quot;</span> : <span class="hljs-string">&quot;tester&quot;</span>, 
+      <span class="hljs-string">&quot;active&quot;</span> : <span class="hljs-literal">false</span>, 
+      <span class="hljs-string">&quot;extra&quot;</span> : { 
       } 
     }, 
     { 
-      <span class="hljs-string">"user"</span> : <span class="hljs-string">"admin"</span>, 
-      <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>, 
-      <span class="hljs-string">"extra"</span> : { 
+      <span class="hljs-string">&quot;user&quot;</span> : <span class="hljs-string">&quot;admin&quot;</span>, 
+      <span class="hljs-string">&quot;active&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;extra&quot;</span> : { 
       } 
     }, 
     { 
-      <span class="hljs-string">"user"</span> : <span class="hljs-string">"root"</span>, 
-      <span class="hljs-string">"active"</span> : <span class="hljs-literal">true</span>, 
-      <span class="hljs-string">"extra"</span> : { 
+      <span class="hljs-string">&quot;user&quot;</span> : <span class="hljs-string">&quot;root&quot;</span>, 
+      <span class="hljs-string">&quot;active&quot;</span> : <span class="hljs-literal">true</span>, 
+      <span class="hljs-string">&quot;extra&quot;</span> : { 
       } 
     } 
   ] 

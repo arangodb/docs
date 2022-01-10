@@ -1,18 +1,19 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/wal/range</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/wal/range</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">132</span>
+content-length: <span class="hljs-number">134</span>
 server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"time"</span> : <span class="hljs-string">"2021-03-19T01:10:35Z"</span>, 
-  <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"185974"</span>, 
-  <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"193594"</span>, 
-  <span class="hljs-string">"server"</span> : { 
-    <span class="hljs-string">"version"</span> : <span class="hljs-string">"3.8.0-devel"</span>, 
-    <span class="hljs-string">"serverId"</span> : <span class="hljs-string">"54987057129577"</span> 
+  <span class="hljs-string">&quot;time&quot;</span> : <span class="hljs-string">&quot;2022-01-10T15:15:57Z&quot;</span>, 
+  <span class="hljs-string">&quot;tickMin&quot;</span> : <span class="hljs-string">&quot;175539&quot;</span>, 
+  <span class="hljs-string">&quot;tickMax&quot;</span> : <span class="hljs-string">&quot;180568&quot;</span>, 
+  <span class="hljs-string">&quot;server&quot;</span> : { 
+    <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.9.0-alpha.1&quot;</span>, 
+    <span class="hljs-string">&quot;serverId&quot;</span> : <span class="hljs-string">&quot;88608971047060&quot;</span> 
   } 
 }

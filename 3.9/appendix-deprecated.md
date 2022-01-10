@@ -7,6 +7,14 @@ redirect_from:
   - appendix-deprecated-actions-html-example.html # 3.4 -> 3.5
   - appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
   - appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
+  - http/export.html # 3.8 -> 3.9
+  - appendix-deprecated-simple-queries.html # 3.8 -> 3.8
+  - appendix-deprecated-simple-queries-pagination.html # 3.8 -> 3.8
+  - appendix-deprecated-simple-queries-modification-queries.html # 3.8 -> 3.8
+  - appendix-deprecated-simple-queries-geo-queries.html # 3.8 -> 3.8
+  - appendix-deprecated-simple-queries-fulltext-queries.html # 3.8 -> 3.8
+  - http/simple-query.html # 3.8 -> 3.8
+  - programs-arangod-compaction.html # 3.9 -> 3.9
 ---
 Deprecated
 ==========
@@ -16,36 +24,19 @@ considered obsolete and may get removed in a future release. They are currently
 kept for backward compatibility. There are usually better alternatives to
 replace the old features with:
 
-- **MMFiles Storage Engine**:
-  The MMFiles storage engine was deprecated in version 3.6.0 and removed in
-  3.7.0. To change your MMFiles storage engine deployment to RocksDB, see:
-  [Switch storage engine](administration-engine-switch-engine.html)
-
-  MMFiles specific startup options still exist but will also be removed.
-  This will affect the following options:
-
-  - `--compaction.*`
-  - `--database.force-sync-properties`
-  - `--database.index-threads`
-  - `--database.maximal-journal-size`
-  - `--database.throw-collection-not-loaded-error`
-  - `--ttl.only-loaded-collection`
-  - `--wal.*`
-
-  The collection attributes `doCompact`, `indexBuckets`, `isVolatile`,
-  `journalSize` and `path` are only used with MMFiles and are thus also
-  deprecated. They are completely ignored when specified in requests.
-
-- **Export API**:
-  The [export REST API](http/export.html) is deprecated and will be removed in a
-  future version. Instead of using this API, please use an AQL query with a
-  streaming cursor to dump the contents of a collection.
-
 - **Batch Requests API**:
   The [batch request REST API](http/batch-request.html) is deprecated and will be 
   removed in a future version. Instead of using this API, please use the 
   [HTTP Interface for Documents](http/document-working-with-documents.html#bulk-document-operations)
   that can insert, update, replace or remove arrays of documents.
+
+- **PUT method in Cursor API**:
+  The HTTP endpoint `PUT /_api/cursor/<cursor-id>` in the
+  [Cursor REST API](http/aql-query-cursor.html) is deprecated and will be
+  removed in a future version. Please use the drop-in replacement
+  `POST /_api/cursor/<cursor-id>` instead. The POST endpoint is functionally
+  equivalent to the PUT endpoint, but does not violate idempotency requirements
+  prescribed by the [HTTP specification](https://tools.ietf.org/html/rfc7231#section-4.2){:target="_blank"}.
 
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](aql/index.html), which can also
@@ -60,11 +51,31 @@ replace the old features with:
   is deprecated and highly discouraged. This functionality may be removed in
   future versions of ArangoDB.
 
-- **Old metrics API**:
+- **Old metrics REST API**:
   The old metrics API under `/_admin/metrics` is deprecated and replaced by
   a new one under `/_admin/metrics/v2` from version 3.8.0 on. This step was
   necessary because the old API did not follow quite a few Prometheus
   guidelines for metrics.
+
+- **Statistics REST API**:
+  The endpoints `/_admin/statistics` and `/_admin/statistics-description`
+  are deprecated in favor of the new metrics API under `/_admin/metrics/v2`.
+  The metrics API provides a lot more information than the statistics API, so
+  it is much more useful.
+
+- **Replication logger-follow REST API**:
+  The endpoint `/_api/replication/logger-follow` is deprecated since 3.4.0 and
+  may be removed in a future version. Client applications should use the REST 
+  API endpoint `/_api/wal/tail` instead, which is available since ArangoDB 3.3.
+
+- **Loading and unloading of collections**:
+  The JavaScript functions for explicitly loading and unloading collections,
+  `db.<collection-name>.load()` and `db.<collection-name>.unload()` and their
+  REST API endpoints `PUT /_api/collection/<collection-name>/load` and
+  `PUT /_api/collection/<collection-name>/unload` are deprecated in 3.8.
+  There should be no need to explicitly load or unload a collection with the
+  RocksDB storage engine. The load/unload functionality was useful only with
+  the MMFiles storage engine, which is not available anymore since 3.7.
 
 - **Actions**: Snippets of JavaScript code on the server-side for minimal
   custom endpoints. Since the Foxx revamp in 3.0, it became really easy to
@@ -94,7 +105,7 @@ replace the old features with:
   breadth-first traversal is by using the new `order` attribute, and setting it
   to a value of `bfs`.
 
-- **Overwrite option**: The `overwrite` option for insert operations (either
+- **`overwrite` option**: The `overwrite` option for insert operations (either
   single document operations or AQL `INSERT` operations) is deprecated in favor
   of the `overwriteMode` option, which provides more flexibility.
 
@@ -128,6 +139,12 @@ replace the old features with:
     unnecessary nowadways.
   - `--http.hide-product-header`: whether or not to hide the `Server: ArangoDB`
     header in all responses served by arangod.
+  - `--network.protocol`: network protocol to use for cluster-internal 
+    communication. The protocol will be auto-decided from version 3.9 onwards.
+  - `--query.allow-collections-in-expressions`: allow full collections to be 
+    used in AQL expressions. This option defaults to `false` from version 3.9
+    onwards and will be removed in a future version. It is only useful to 
+    enable it when migrating from older versions.
 
   The following options are deprecated for _arangorestore_:
   - `--default-number-of-shards` (use `--number-of-shards` instead)
@@ -144,7 +161,22 @@ replace the old features with:
   discouraged. Their functionality is already removed, but they still exist to
   prevent unknown startup option errors.
 
-- **JavaScript traversal API**: The [JavaScript traversal API](http/traversal.html)
+- **arangobench test cases**: arangobench provides several test cases that are
+  marked as deprecated. These test cases were originally written for internal
+  testing and do not provide much value for end users. Therefore they will be
+  removed in a future version of arangobench. Whenever a deprecated arangobench
+  test case is invoked, there will be a warning message.
+
+- **arangoimp** executable: ArangoDB release packages install an executable named
+  _arangoimp_ as an alias for the _arangoimport_ executable. This is done to 
+  provide compatibility with older releases, in which _arangoimport_ did not
+  yet exist and was named _arangoimp_. The renaming was actually carried out in
+  the codebase in December 2017. Using the _arangoimp_ executable is deprecated,
+  and it is always favorable to use _arangoimport_ instead. 
+  While the _arangoimport_ executable will remain, the _arangoimp_ alias will be 
+  removed in a future version of ArangoDB.
+
+- **HTTP and JavaScript traversal APIs**: The [HTTP traversal API](http/traversal.html)
   is deprecated since version 3.4.0. The JavaScript traversal module
   `@arangodb/graph/traversal` is also deprecated since then. The preferred way
   to traverse graphs is via AQL.

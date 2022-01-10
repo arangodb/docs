@@ -1,9 +1,8 @@
 ---
 layout: default
-description: By default arangosh will try to connect to an ArangoDB server running onserver localhost on port 8529
+description: By default arangosh will try to connect to an ArangoDB server running on server localhost on port 8529
 ---
-Arangosh Examples
-=================
+# _arangosh_ Examples
 
 Connecting to a server
 ----------------------
@@ -28,6 +27,19 @@ For example, to connect to an ArangoDB server on IP *192.168.173.13* on port
 _arangosh_ will then display a password prompt and try to connect to the 
 server after the password was entered.
 
+{% hint 'warning' %}
+At signs `@` in startup option arguments need to be escaped as `@@`.
+ArangoDB programs and tools support a
+[special syntax `@envvar@`](administration-configuration.html#environment-variables-as-parameters)
+that substitutes text wrapped in at signs with the value of an equally called
+environment variable. This is most likely an issue with passwords and the
+`--server.password` option.
+
+For example, `password@test@123` needs to be passed as
+`--server.password password@@test@@123` to work correctly, unless you want
+`@test@` to be replaced by whatever the environment variable `test` is set to.
+{% endhint %}
+
 The shell will print its own version number and if successfully connected
 to a server the version number of the ArangoDB server.
 
@@ -50,11 +62,11 @@ VelocyStream | TCP              | `vst+tcp`, `vst+srv`, `vst`
 VelocyStream | TCP with SSL/TLS | `vst+ssl`, `vsts`
 VelocyStream | Unix             | `vst+unix`
 
-Using Arangosh
---------------
+Using _arangosh_
+----------------
 
 To change the current database after the connection has been made, you
-can use the `db._useDatabase()` command in Arangosh:
+can use the `db._useDatabase()` command in _arangosh_:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
     @startDocuBlockInline shellUseDB
@@ -68,7 +80,7 @@ can use the `db._useDatabase()` command in Arangosh:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-To get a list of available commands, Arangosh provides a *help()* function.
+To get a list of available commands, _arangosh_ provides a *help()* function.
 Calling it will display helpful information.
 
 _arangosh_ also provides auto-completion. Additional information on available 

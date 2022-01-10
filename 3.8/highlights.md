@@ -18,16 +18,16 @@ Version 3.8
   match a given length.
 
 - **ArangoSearch**:
-  New [**Pipeline Analyzer**](arangosearch-analyzers.html#pipeline)
+  New [**Pipeline Analyzer**](analyzers.html#pipeline)
   that allows you to combine multiple Analyzers, enabling case-insensitive
-  ngram-based fuzzy search and more. New
-  [**AQL Analyzer**](arangosearch-analyzers.html#aql)
+  _n_-gram-based fuzzy search and more. New
+  [**AQL Analyzer**](analyzers.html#aql)
   so that you can use an AQL query to pre-process and filter your data for
   indexing. Support for **geo-spatial queries** through new
-  [Geo](arangosearch-analyzers.html#geojson)
-  [Analyzers](arangosearch-analyzers.html#geopoint) and
+  [Geo](analyzers.html#geojson)
+  [Analyzers](analyzers.html#geopoint) and
   [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions).
-  A new [**Stopwords Analyzer**](arangosearch-analyzers.html#stopwords) that
+  A new [**Stopwords Analyzer**](analyzers.html#stopwords) that
   can be used standalone or in an Analyzer pipeline.
 
 - A [**`WINDOW` operation**](aql/operations-window.html) for aggregations over
@@ -49,9 +49,8 @@ Version 3.7
 - **ArangoSearch**:
   [Wildcard](aql/functions-arangosearch.html#like) and fuzzy search
   ([Levenshtein distance](aql/functions-arangosearch.html#levenshtein_match) and
-  [n-gram based](aql/functions-arangosearch.html#ngram_match)),
-  [enhanced phrase](aql/functions-arangosearch.html#phrase) and
-  [proximity search](aql/functions-array.html#jaccard),
+  [_n_-gram based](aql/functions-arangosearch.html#ngram_match)),
+  enhanced [phrase and proximity search](aql/functions-arangosearch.html#phrase),
   improved late document materialization and
   [Views covering queries](release-notes-new-features37.html#covering-indexes)
   using their indexes without touching the storage engine, as well as a new
@@ -115,7 +114,7 @@ Version 3.6
 
 - **ArangoSearch**:
   New [Analyzer options](release-notes-new-features36.html#analyzers) for
-  edge n-grams (`text` Analyzer), UTF-8 encoded n-gram input and optional
+  edge _n_-grams (`text` Analyzer), UTF-8 encoded _n_-gram input and optional
   start/end markers (`ngram` Analyzer). Support for
   [dynamic expressions](release-notes-new-features36.html#dynamic-search-expressions-with-arrays)
   using arrays (array comparison operators in `SEARCH` queries and the
@@ -140,8 +139,8 @@ Version 3.5
 
 - **ArangoSearch**:
   The search and ranking engine received an upgrade and now features
-  [Configurable Analyzers](arangosearch-analyzers.html),
-  [Sorted Views](arangosearch-views.html#primary-sort-order)
+  [Configurable Analyzers](analyzers.html),
+  [Sorted Views](arangosearch-performance.html#primary-sort-order)
   and several improvements to the
   [AQL integration](release-notes-new-features35.html#arangosearch).
 
@@ -215,7 +214,7 @@ Version 3.4
 - [**Query Profiler**](aql/execution-and-performance-query-profiler.html):
   Enables the analysis of queries and adds additional information for the user
   to identify optimization potentials more easily. The profiler can be accessed
-  via Arangosh with `db._profileQuery(...)` or via the *Profile* button in the
+  via _arangosh_ with `db._profileQuery(...)` or via the *Profile* button in the
   Query Editor of the web interface.
 
 - [**Streaming Cursors**](aql/invocation-with-arangosh.html#setting-options):
@@ -244,7 +243,7 @@ Version 3.3
   in case of a disaster in one datacenter.
 
 - [**Encrypted Backups**](programs-arangodump-examples.html#encryption):
-  Arangodump can create backups encrypted with a secret key using AES256
+  _arangodump_ can create backups encrypted with a secret key using AES256
   block cipher.
 
 **All Editions**

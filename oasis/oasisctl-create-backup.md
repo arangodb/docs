@@ -5,11 +5,11 @@ title: Oasisctl Create Backup
 ---
 # Oasisctl Create Backup
 
-Create a new backup
+Create backup ...
 
 ## Synopsis
 
-Create a new backup
+Create backup ...
 
 ```
 oasisctl create backup [flags]
@@ -37,4 +37,5 @@ oasisctl create backup [flags]
 ## See also
 
 * [oasisctl create](oasisctl-create.html)	 - Create resources
+* [oasisctl create backup policy](oasisctl-create-backup-policy.html)	 - Create a new backup policy
 

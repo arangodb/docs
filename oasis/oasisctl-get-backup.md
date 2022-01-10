@@ -33,4 +33,5 @@ oasisctl get backup [flags]
 ## See also
 
 * [oasisctl get](oasisctl-get.html)	 - Get information
+* [oasisctl get backup policy](oasisctl-get-backup-policy.html)	 - Get an existing backup policy
 

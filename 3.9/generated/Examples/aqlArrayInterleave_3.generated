@@ -1,44 +1,44 @@
 @Q:
-FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> OUTBOUND <span class="hljs-string">'places/Toronto'</span> GRAPH <span class="hljs-string">'kShortestPathsGraph'</span>
+FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> OUTBOUND <span class="hljs-string">&#x27;places/Toronto&#x27;</span> GRAPH <span class="hljs-string">&#x27;kShortestPathsGraph&#x27;</span>
 RETURN INTERLEAVE(p.vertices[*]._id, p.edges[*]._id)
 
 @R
 [
   [
-    <span class="hljs-string">"places/Toronto"</span>,
-    <span class="hljs-string">"connections/75698"</span>,
-    <span class="hljs-string">"places/Winnipeg"</span>
+    <span class="hljs-string">&quot;places/Toronto&quot;</span>,
+    <span class="hljs-string">&quot;connections/70986&quot;</span>,
+    <span class="hljs-string">&quot;places/Winnipeg&quot;</span>
   ],
   [
-    <span class="hljs-string">"places/Toronto"</span>,
-    <span class="hljs-string">"connections/75698"</span>,
-    <span class="hljs-string">"places/Winnipeg"</span>,
-    <span class="hljs-string">"connections/75700"</span>,
-    <span class="hljs-string">"places/Toronto"</span>
+    <span class="hljs-string">&quot;places/Toronto&quot;</span>,
+    <span class="hljs-string">&quot;connections/70986&quot;</span>,
+    <span class="hljs-string">&quot;places/Winnipeg&quot;</span>,
+    <span class="hljs-string">&quot;connections/70988&quot;</span>,
+    <span class="hljs-string">&quot;places/Toronto&quot;</span>
   ],
   [
-    <span class="hljs-string">"places/Toronto"</span>,
-    <span class="hljs-string">"connections/75698"</span>,
-    <span class="hljs-string">"places/Winnipeg"</span>,
-    <span class="hljs-string">"connections/75702"</span>,
-    <span class="hljs-string">"places/Saskatoon"</span>
+    <span class="hljs-string">&quot;places/Toronto&quot;</span>,
+    <span class="hljs-string">&quot;connections/70986&quot;</span>,
+    <span class="hljs-string">&quot;places/Winnipeg&quot;</span>,
+    <span class="hljs-string">&quot;connections/70990&quot;</span>,
+    <span class="hljs-string">&quot;places/Saskatoon&quot;</span>
   ],
   [
-    <span class="hljs-string">"places/Toronto"</span>,
-    <span class="hljs-string">"connections/75698"</span>,
-    <span class="hljs-string">"places/Winnipeg"</span>,
-    <span class="hljs-string">"connections/75702"</span>,
-    <span class="hljs-string">"places/Saskatoon"</span>,
-    <span class="hljs-string">"connections/75704"</span>,
-    <span class="hljs-string">"places/Winnipeg"</span>
+    <span class="hljs-string">&quot;places/Toronto&quot;</span>,
+    <span class="hljs-string">&quot;connections/70986&quot;</span>,
+    <span class="hljs-string">&quot;places/Winnipeg&quot;</span>,
+    <span class="hljs-string">&quot;connections/70990&quot;</span>,
+    <span class="hljs-string">&quot;places/Saskatoon&quot;</span>,
+    <span class="hljs-string">&quot;connections/70992&quot;</span>,
+    <span class="hljs-string">&quot;places/Winnipeg&quot;</span>
   ],
   [
-    <span class="hljs-string">"places/Toronto"</span>,
-    <span class="hljs-string">"connections/75698"</span>,
-    <span class="hljs-string">"places/Winnipeg"</span>,
-    <span class="hljs-string">"connections/75702"</span>,
-    <span class="hljs-string">"places/Saskatoon"</span>,
-    <span class="hljs-string">"connections/75706"</span>,
-    <span class="hljs-string">"places/Edmonton"</span>
+    <span class="hljs-string">&quot;places/Toronto&quot;</span>,
+    <span class="hljs-string">&quot;connections/70986&quot;</span>,
+    <span class="hljs-string">&quot;places/Winnipeg&quot;</span>,
+    <span class="hljs-string">&quot;connections/70990&quot;</span>,
+    <span class="hljs-string">&quot;places/Saskatoon&quot;</span>,
+    <span class="hljs-string">&quot;connections/70994&quot;</span>,
+    <span class="hljs-string">&quot;places/Edmonton&quot;</span>
   ]
 ]

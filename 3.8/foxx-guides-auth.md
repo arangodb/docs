@@ -112,7 +112,7 @@ router
     });
     const valid = auth.verify(
       // Pretend to validate even if no user was found
-      user ? user.authData : {},
+      user ? user.password : {},
       req.body.password
     );
     if (!valid) res.throw("unauthorized");

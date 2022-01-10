@@ -16,7 +16,7 @@ parser will return an error if it detects more than one data-modification
 operation in the same query or if it cannot figure out if the query is meant
 to be a data retrieval or a modification operation.
 
-AQL only allows *one* query in a single query string; thus semicolons to
+AQL only allows **one** query in a single query string; thus semicolons to
 indicate the end of one query and separate multiple queries (as seen in SQL) are
 not allowed.
 
@@ -223,7 +223,7 @@ FOR doc IN `filter`
   RETURN doc.`sort`
 ```
 
-Due to the backticks, *filter* and *sort* are interpreted as names and not as
+Due to the backticks, `filter` and `sort` are interpreted as names and not as
 keywords here.
 
 The example can alternatively written as:
@@ -284,8 +284,8 @@ FOR u IN users
     RETURN u.name
 ```
 
-In the above example, the attribute names *active*, *name*, *id*, and *userId*
-are qualified using the collection names they belong to (*u* and *f*
+In the above example, the attribute names `active`, `name`, `id`, and `userId`
+are qualified using the collection names they belong to (`u` and `f`
 respectively).
 
 ### Variable names
@@ -301,14 +301,12 @@ FOR u IN users
   RETURN { "name" : u.name, "friends" : friends }
 ```
 
-In the above query, *users* is a collection name, and both *u* and *friends* are
+In the above query, `users` is a collection name, and both `u` and `friends` are
 variable names. This is because the `FOR` and `LET` operations need target
 variables to store their intermediate results.
 
-Allowed characters in variable names are the letters *a* to *z* (both in lower
-and upper case), the numbers *0* to *9*, the underscore (*_*) symbol and the
-dollar (*$*) sign. A variable name must not start with a number. If a variable name 
-starts with the underscore character, the underscore must be followed by least one 
-letter (a-z or A-Z) or digit (0-9).
-
-The dollar sign can be used only as the very first character in a variable name.
+Allowed characters in variable names are the letters `a` to `z` (both in lower
+and upper case), the numbers `0` to `9`, the underscore (`_`) symbol and the
+dollar (`$`) sign. A variable name must not start with a number or underscore.
+The dollar sign can only be used as the very first character in a variable name
+and must be followed by a letter.

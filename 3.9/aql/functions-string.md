@@ -383,11 +383,32 @@ LIKE()
 Check whether the pattern *search* is contained in the string *text*,
 using wildcard matching.
 
+- `_`: A single arbitrary character
+- `%`: Zero, one or many arbitrary characters
+- `\\_`: A literal underscore
+- `\\%`: A literal percent sign
+
+{% hint 'info' %}
+Literal backlashes require different amounts of escaping depending on the
+context:
+- `\` in bind variables (_Table_ view mode) in the Web UI (automatically
+  escaped to `\\` unless the value is wrapped in double quotes and already
+  escaped properly)
+- `\\` in bind variables (_JSON_ view mode) and queries in the Web UI
+- `\\` in bind variables in arangosh
+- `\\\\` in queries in arangosh
+- Double the amount compared to arangosh in shells that use backslashes for
+escaping (`\\\\` in bind variables and `\\\\\\\\` in queries)
+{% endhint %}
+
+The `LIKE()` function cannot be accelerated by any sort of index. However,
+the [ArangoSearch `LIKE()` function](functions-arangosearch.html#like) that
+is used in the context of a `SEARCH` operation is backed by View indexes.
+
 - **text** (string): the string to search in
 - **search** (string): a search pattern that can contain the wildcard characters
   `%` (meaning any sequence of characters, including none) and `_` (any single
-  character). Literal `%` and `_` must be escaped with two backslashes (four
-  in arangosh).
+  character). Literal `%` and `_` must be escaped with backslashes.
   *search* cannot be a variable or a document attribute. The actual value must
   be present at query parse time already.
 - **caseInsensitive** (bool, *optional*): if set to *true*, the matching will be
@@ -419,6 +440,17 @@ All other characters are returned unchanged.
 - **value** (string): a string
 - returns **lowerCaseString** (string): *value* with upper-case characters converted
   to lower-case characters
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline lowerfunc
+  @EXAMPLE_AQL{lowerfunc}
+    RETURN LOWER("AVOcado") // "avocado"
+  @END_EXAMPLE_AQL
+  @endDocuBlock lowerfunc
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 LTRIM()
 -------
@@ -465,21 +497,21 @@ NGRAM_POSITIONAL_SIMILARITY()
 
 `NGRAM_POSITIONAL_SIMILARITY(input, target, ngramSize) → similarity`
 
-Calculates the [ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
-between *input* and *target* using ngrams with minimum and maximum length of
+Calculates the [_n_-gram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+between *input* and *target* using _n_-grams with minimum and maximum length of
 *ngramSize*.
 
 The similarity is calculated by counting how long the longest sequence of
-matching ngrams is, divided by the **longer argument's** total ngram count.
-Partially matching ngrams are counted, whereas
-[NGRAM_SIMILARITY()](#ngram_similarity) counts only fully matching ngrams.
+matching _n_-grams is, divided by the **longer argument's** total _n_-gram count.
+Partially matching _n_-grams are counted, whereas
+[NGRAM_SIMILARITY()](#ngram_similarity) counts only fully matching _n_-grams.
 
-The ngrams for both input and target are calculated on the fly,
+The _n_-grams for both input and target are calculated on the fly,
 not involving Analyzers.
 
-- **input** (string): source text to be tokenized into ngrams
-- **target** (string): target text to be tokenized into ngrams
-- **ngramSize** (number): minimum as well as maximum ngram length
+- **input** (string): source text to be tokenized into _n_-grams
+- **target** (string): target text to be tokenized into _n_-grams
+- **ngramSize** (number): minimum as well as maximum _n_-gram length
 - returns **similarity** (number): value between `0.0` and `1.0`
 
 ```js
@@ -497,23 +529,23 @@ NGRAM_SIMILARITY()
 
 `NGRAM_SIMILARITY(input, target, ngramSize) → similarity`
 
-Calculates [ngram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
-between *input* and *target* using ngrams with minimum and maximum length of
+Calculates [_n_-gram similarity](https://webdocs.cs.ualberta.ca/~kondrak/papers/spire05.pdf){:target="_blank"}
+between *input* and *target* using _n_-grams with minimum and maximum length of
 *ngramSize*.
 
 The similarity is calculated by counting how long the longest sequence of
-matching ngrams is, divided by **target's** total ngram count.
-Only fully matching ngrams are counted, whereas
+matching _n_-grams is, divided by **target's** total _n_-gram count.
+Only fully matching _n_-grams are counted, whereas
 [NGRAM_POSITIONAL_SIMILARITY()](#ngram_positional_similarity) counts partially
-matching ngrams too. This behavior matches the similarity measure used in
+matching _n_-grams too. This behavior matches the similarity measure used in
 [NGRAM_MATCH()](functions-arangosearch.html#ngram_match).
 
-The ngrams for both input and target are calculated on the fly, not involving
+The _n_-grams for both input and target are calculated on the fly, not involving
 Analyzers.
 
-- **input** (string): source text to be tokenized into ngrams
-- **target** (string): target text to be tokenized into ngrams
-- **ngramSize** (number): minimum as well as maximum ngram length
+- **input** (string): source text to be tokenized into _n_-grams
+- **target** (string): target text to be tokenized into _n_-grams
+- **ngramSize** (number): minimum as well as maximum _n_-gram length
 - returns **similarity** (number): value between `0.0` and `1.0`
 
 ```js
@@ -861,6 +893,23 @@ string representation.
 SHA512("foobar") // "0a50261ebd1a390fed2bf326f2673c145582a6342d523204973d0219337f81616a8069b012587cf5635f6925f1b56c360230c19b273500ee013e030601bf2425"
 ```
 
+SOUNDEX()
+-----------
+
+`SOUNDEX(value) → soundexString`
+
+Return the soundex fingerprint of *value*.
+
+- **value** (string): a string
+- returns **soundexString** (string): a soundex fingerprint of *value*
+
+```js
+SOUNDEX( "example" ) // "E251"
+SOUNDEX( "ekzampul")  // "E251"
+SOUNDEX( "soundex" ) // "S532"
+SOUNDEX( "sounteks" ) // "S532"
+```
+
 SPLIT()
 -------
 
@@ -882,21 +931,43 @@ SPLIT( "foo-bar-baz", "-", 1 ) // [ "foo" ]
 SPLIT( "foo, bar & baz", [ ", ", " & " ] ) // [ "foo", "bar", "baz" ]
 ```
 
-SOUNDEX()
------------
+STARTS_WITH()
+-------------
 
-`SOUNDEX(value) → soundexString`
+`STARTS_WITH(text, prefix) → startsWith`
 
-Return the soundex fingerprint of *value*.
+Check whether the given string starts with *prefix*.
 
-- **value** (string): a string
-- returns **soundexString** (string): a soundex fingerprint of *value*
+There is a corresponding [`STARTS_WITH()` ArangoSearch function](functions-arangosearch.html#starts_with)
+that can utilize View indexes.
+
+- **text** (string): a string to compare against
+- **prefix** (string): a string to test for at the start of the text
+- returns **startsWith** (bool): whether the text starts with the given prefix
 
 ```js
-SOUNDEX( "example" ) // "E251"
-SOUNDEX( "ekzampul")  // "E251"
-SOUNDEX( "soundex" ) // "S532"
-SOUNDEX( "sounteks" ) // "S532"
+RETURN STARTS_WITH("foobar", "foo") // true
+RETURN STARTS_WITH("foobar", "baz") // false
+```
+
+`STARTS_WITH(text, prefixes, minMatchCount) → startsWith`
+
+<small>Introduced in: v3.7.1</small>
+
+Check if the given string starts with one of the *prefixes*.
+
+- **text** (string): a string to compare against
+- **prefixes** (array): an array of strings to test for at the start of the text
+- **minMatchCount** (number, _optional_): minimum number of prefixes that
+  should be satisfied. The default is `1` and it is the only meaningful value
+  unless `STARTS_WITH()` is used in the context of a `SEARCH` expression where
+  an attribute can have multiple values at the same time
+- returns **startsWith** (bool): whether the text starts with at least
+  *minMatchCount* of the given prefixes
+
+```js
+RETURN STARTS_WITH("foobar", ["bar", "foo"]) // true
+RETURN STARTS_WITH("foobar", ["bar", "baz"]) // false
 ```
 
 SUBSTITUTE()
@@ -992,6 +1063,27 @@ To return the leftmost characters, see [LEFT()](#left).
   substring from *offset* to the end of the string
 - returns **substring** (string): a substring of *value*
 
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline substr1
+  @EXAMPLE_AQL{substr1}
+    RETURN SUBSTRING("Holy Guacamole!", 5) // "Guacamole!"
+  @END_EXAMPLE_AQL
+  @endDocuBlock substr1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline substr2
+  @EXAMPLE_AQL{substr2}
+    RETURN SUBSTRING("Holy Guacamole!", 10, 4) // "mole"
+  @END_EXAMPLE_AQL
+  @endDocuBlock substr2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+
 TOKENS()
 --------
 
@@ -1009,7 +1101,7 @@ A wrapping `ANALYZER()` call in a search expression does not affect the
 
 - **input** (string\|array): text to tokenize. Accepts recursive arrays of
   strings (introduced in v3.6.0).
-- **analyzer** (string): name of an [Analyzer](../arangosearch-analyzers.html).
+- **analyzer** (string): name of an [Analyzer](../analyzers.html).
 - returns **tokenArray** (array): array of strings with zero or more elements,
   each element being a token.
 
@@ -1075,6 +1167,27 @@ Return the base64 representation of *value*.
 - **value** (string): a string
 - returns **toBase64String** (string): a base64 representation of *value*
 
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline tobase1
+  @EXAMPLE_AQL{tobase1}
+    RETURN TO_BASE64("ABC.") // "QUJDLg=="
+  @END_EXAMPLE_AQL
+  @endDocuBlock tobase1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline tobase2
+  @EXAMPLE_AQL{tobase2}
+    RETURN TO_BASE64("123456") // "MTIzNDU2"
+  @END_EXAMPLE_AQL
+  @endDocuBlock tobase2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+
 TO_HEX()
 -----------
 
@@ -1084,6 +1197,27 @@ Return the hex representation of *value*.
 
 - **value** (string): a string
 - returns **toHexString** (string): a hex representation of *value*
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline tohex1
+  @EXAMPLE_AQL{tohex1}
+    RETURN TO_HEX("ABC.") // "4142432e"
+  @END_EXAMPLE_AQL
+  @endDocuBlock tohex1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline tohex2
+  @EXAMPLE_AQL{tohex2}
+    RETURN TO_HEX("ü") // "c3bc"
+  @END_EXAMPLE_AQL
+  @endDocuBlock tohex2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 
 TRIM()
 ------
@@ -1132,7 +1266,18 @@ All other characters are returned unchanged.
 - **value** (string): a string
 - returns **upperCaseString** (string): *value* with lower-case characters converted
   to upper-case characters
-  
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline upper1
+  @EXAMPLE_AQL{upper1}
+    RETURN UPPER("AVOcado") // "AVOCADO"
+  @END_EXAMPLE_AQL
+  @endDocuBlock upper1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
 UUID()
 ------
 
@@ -1141,3 +1286,21 @@ UUID()
 Return a universally unique identifier value.
 
 - returns **UUIDString** (string): a universally unique identifier
+
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline uuid1
+  @EXAMPLE_AQL{uuid1}
+    FOR i IN 1..3 RETURN UUID()
+    /* For example:
+    [
+      "28bc5873-68ae-4e0f-89a3-31d717c822de",
+      "1084d263-71aa-415c-81d6-451de42e18a3",
+      "7fce640a-f340-4204-bca4-0d2ceebe2699"
+    ]
+    */
+  @END_EXAMPLE_AQL
+  @endDocuBlock uuid1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}

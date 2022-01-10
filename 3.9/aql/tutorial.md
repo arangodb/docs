@@ -17,9 +17,6 @@ of the AQL queries in this tutorial. You can interact with ArangoDB using its
 [web interface](../getting-started-web-interface.html) to manage
 collections and execute the queries.
 
-You can go through this tutorial in ArangoDB Oasis: the Cloud Service for
-ArangoDB. Start a [free 14-day trial](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
-
 Chapters
 --------
 

@@ -1,18 +1,18 @@
-arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"concat"</span>, <span class="hljs-string">"aql"</span>, { <span class="hljs-attr">queryString</span>:
-........&gt;   <span class="hljs-string">"RETURN LOWER(LEFT(@param, 5)) == 'inter' ? CONCAT(@param, 'ism') : CONCAT('inter', @param)"</span>
-........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
-arangosh&gt; db._query(<span class="hljs-string">"RETURN TOKENS('state', 'concat')"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">&quot;concat&quot;</span>, <span class="hljs-string">&quot;aql&quot;</span>, { <span class="hljs-attr">queryString</span>:
+........&gt;   <span class="hljs-string">&quot;RETURN LOWER(LEFT(@param, 5)) == &#x27;inter&#x27; ? CONCAT(@param, &#x27;ism&#x27;) : CONCAT(&#x27;inter&#x27;, @param)&quot;</span>
+........&gt; }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
+arangosh&gt; db._query(<span class="hljs-string">&quot;RETURN TOKENS(&#x27;state&#x27;, &#x27;concat&#x27;)&quot;</span>);
 [ 
   [ 
-    <span class="hljs-string">"interstate"</span> 
+    <span class="hljs-string">&quot;interstate&quot;</span> 
   ] 
 ]
 [object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
-arangosh&gt; db._query(<span class="hljs-string">"RETURN TOKENS('international', 'concat')"</span>);
+arangosh&gt; db._query(<span class="hljs-string">&quot;RETURN TOKENS(&#x27;international&#x27;, &#x27;concat&#x27;)&quot;</span>);
 [ 
   [ 
-    <span class="hljs-string">"internationalism"</span> 
+    <span class="hljs-string">&quot;internationalism&quot;</span> 
   ] 
 ]
 [object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]

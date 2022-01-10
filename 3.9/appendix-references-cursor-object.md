@@ -11,23 +11,16 @@ iterate over the result set or *toArray* to convert it to an array.
 If the number of query results is expected to be big, it is possible to 
 limit the amount of documents transferred between the server and the client
 to a specific value. This value is called *batchSize*. The *batchSize*
-can optionally be set before or when a simple query is executed.
+can optionally be set when a query is executed using its *execute* method. If no
+*batchSize* value is specified, the server will pick a reasonable default value.
 If the server has more documents than should be returned in a single batch,
 the server will set the *hasMore* attribute in the result. It will also
 return the id of the server-side cursor in the *id* attribute in the result.
 This id can be used with the cursor API to fetch any outstanding results from
 the server and dispose the server-side cursor afterwards.
 
-The initial *batchSize* value can be set using the *setBatchSize*
-method that is available for each type of simple query, or when the simple
-query is executed using its *execute* method. If no *batchSize* value
-is specified, the server will pick a reasonable default value.
-
 Has Next
 --------
-
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
-
 
 checks if the cursor is exhausted
 `cursor.hasNext()`
@@ -35,7 +28,6 @@ checks if the cursor is exhausted
 The *hasNext* operator returns *true*, then the cursor still has
 documents. In this case the next document can be accessed using the
 *next* operator, which will advance the cursor.
-
 
 **Examples**
 
@@ -59,18 +51,14 @@ documents. In this case the next document can be accessed using the
 Next
 ----
 
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
-
-
 returns the next result document
 `cursor.next()`
 
 If the *hasNext* operator returns *true*, then the underlying
-cursor of the simple query still has documents. In this case the
+cursor of the AQL query still has documents. In this case the
 next document can be accessed using the *next* operator, which
 will advance the underlying cursor. If you use *next* on an
 exhausted cursor, then *undefined* is returned.
-
 
 **Examples**
 
@@ -90,42 +78,13 @@ exhausted cursor, then *undefined* is returned.
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-Set Batch size
---------------
-
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
-
-
-sets the batch size for any following requests
-`cursor.setBatchSize(number)`
-
-Sets the batch size for queries. The batch size determines how many results
-are at most transferred from the server to the client in one chunk.
-
-
-Get Batch size
---------------
-
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
-
-
-returns the batch size
-`cursor.getBatchSize()`
-
-Returns the batch size for queries. If the returned value is undefined, the
-server will determine a sensible batch size for any following requests.
-
-
 Execute Query
 -------------
-
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
-
 
 executes a query
 `query.execute(batchSize)`
 
-Executes a simple query. If the optional batchSize value is specified,
+Executes an AQL query. If the optional batchSize value is specified,
 the server will return at most batchSize values in one roundtrip.
 The batchSize cannot be adjusted after the query is first executed.
 
@@ -140,19 +99,21 @@ lead to the same result:
     ~ db.users.save({ name: "Gerhard" });
     ~ db.users.save({ name: "Helmut" });
     ~ db.users.save({ name: "Angela" });
-      result = db.users.all().toArray();
+    | var result = db.users.all().toArray();
+    | print(result);
     | var q = db._query("FOR x IN users RETURN x");
     | result = [ ];
     | while (q.hasNext()) {
     |   result.push(q.next());
-      }
+    | }
+      print(result);
     ~ db._drop("users")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock executeQueryNoBatchSize
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-The following two alternatives both use a batchSize and return the same
+The following two alternatives both use a batch size and return the same
 result:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -162,20 +123,27 @@ result:
     ~ db.users.save({ name: "Gerhard" });
     ~ db.users.save({ name: "Helmut" });
     ~ db.users.save({ name: "Angela" });
-      q = db.users.all(); q.setBatchSize(20); q.execute(); while (q.hasNext()) { print(q.next()); }
-      q = db.users.all(); q.execute(20); while (q.hasNext()) { print(q.next()); }
+    | var result = [ ];
+    | var q = db.users.all();
+    | q.execute(1);
+    | while(q.hasNext()) {
+    |   result.push(q.next());
+    | }
+    | print(result);
+    | result = [ ];
+    | q = db._query("FOR x IN users RETURN x", {}, { batchSize: 1 });
+    | while (q.hasNext()) {
+    |   result.push(q.next());
+    | }
+      print(result);
     ~ db._drop("users")
     @END_EXAMPLE_ARANGOSH_OUTPUT
     @endDocuBlock executeQueryBatchSize
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
 Dispose
 -------
-
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
-
 
 disposes the result
 `cursor.dispose()`
@@ -184,12 +152,8 @@ If you are no longer interested in any further results, you should call
 *dispose* in order to free any resources associated with the cursor.
 After calling *dispose* you can no longer access the cursor.
 
-
 Count
 -----
-
-<!-- js/common/modules/@arangodb/simple-query-common.js -->
-
 
 counts the number of documents
 `cursor.count()`
@@ -198,15 +162,9 @@ The *count* operator counts the number of document in the result set and
 returns that number. The *count* operator ignores any limits and returns
 the total number of documents found.
 
-**Note**: Not all simple queries support counting. In this case *null* is
-returned (Simple queries are deprecated).
-
 `cursor.count(true)`
 
 If the result set was limited by the *limit* operator or documents were
-skiped using the *skip* operator, the *count* operator with argument
+skipped using the *skip* operator, the *count* operator with argument
 *true* will use the number of elements in the final result set - after
 applying *limit* and *skip*.
-
-**Note**: Not all simple queries support counting. In this case *null* is
-returned (Simple queries are deprecated)..

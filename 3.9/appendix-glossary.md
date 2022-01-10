@@ -36,50 +36,56 @@ A database contains its own collections (which cannot be accessed from other dat
 
 There will always be at least one database in ArangoDB. This is the default database, named _system. This database cannot be dropped, and provides special operations for creating, dropping, and enumerating databases. Users can create additional databases and give them unique names to access them later. Database management operations cannot be initiated from out of user-defined databases.
 
-When ArangoDB is accessed via its HTTP REST API, the database name is read from the first part of the request URI path (e.g. /_db/_system/...). If the request URI does not contain a database name, the database name is automatically derived from the endpoint. Please refer to [DatabaseEndpoint](http/database-database-endpoint.html) for more information.
+When ArangoDB is accessed via its HTTP REST API, the database name is read from the first part of the request URI path (e.g. `/_db/myDB/`). If the request URI does not contain a database name, it defaults to `/_db/_system`.
+If a database name is provided in the request URI, the name must be properly
+URL-encoded, and, if it contains UTF-8 characters, these must be NFC-normalized.
+Any non-NFC-normalized database name will be rejected by _arangod_.
 
 Database Name
 -------------
 
-A single ArangoDB instance can handle multiple databases in parallel. When multiple databases are used, each database must be given a unique name. This name is used to uniquely identify a database. The default database in ArangoDB is named _system.
+Each database must be given a unique name. This name is used to uniquely
+identify a database.
 
-The database name is a string consisting of only letters, digits and the _ (underscore) and - (dash) characters. User-defined database names must always start with a letter. Database names is case-sensitive.
+There are two naming conventions available for database names: the **traditional**
+and the **extended** naming conventions. Whether the former or the latter is active
+depends upon the value of the startup flag `--database.extended-names-databases`.
+Starting the server with this flag set to `true` will activate the _extended_
+naming convention, which tolerates names with special and UTF-8 characters.
+If the flag is set to `false` (the default value), the _traditional_ naming
+convention is activated.
+
+Also see [Database Naming Conventions](data-modeling-naming-conventions-database-names.html)
 
 Database Organization
 ---------------------
 
-A single ArangoDB instance can handle multiple databases in parallel. By default, there will be at least one database, which is named _system.
+A single ArangoDB instance can handle multiple databases in parallel. By default,
+there will be at least one database which is named `_system`. 
 
-Databases are physically stored in separate sub-directories underneath the database directory, which itself resides in the instance's data directory.
+Data is physically stored in `.sst` files in a sub-directory `engine-rocksdb`
+that resides in the instance's data directory. A single file can contain
+documents of various collections and databases.
 
-Each database has its own sub-directory, named database-<database id>. The database directory contains sub-directories for the collections of the database, and a file named parameter.json. This file contains the database id and name.
+ArangoSearch stores data in database-specific directories underneath the
+`databases` folder.
 
-In an example ArangoDB instance which has two databases, the filesystem layout could look like this:
-
-```
-data/                     # the instance's data directory
-  databases/              # sub-directory containing all databases' data
-    database-<id>/        # sub-directory for a single database
-      parameter.json      # file containing database id and name
-      collection-<id>/    # directory containing data about a collection
-    database-<id>/        # sub-directory for another database
-      parameter.json      # file containing database id and name
-      collection-<id>/    # directory containing data about a collection
-      collection-<id>/    # directory containing data about a collection
-```
-
-Foxx applications are also organized in database-specific directories inside the application path. The filesystem layout could look like this:
+Foxx applications are also organized in database-specific directories but inside
+the application path. The filesystem layout could look like this:
 
 ```
 apps/                   # the instance's application directory
   system/               # system applications (can be ignored)
   _db/                  # sub-directory containing database-specific applications
-    <database-name>/    # sub-directory for a single database
+    <database-dir>/    # sub-directory for a single database
       <mountpoint>/APP  # sub-directory for a single application
       <mountpoint>/APP  # sub-directory for a single application
-    <database-name>/    # sub-directory for another database
+    <database-dir>/    # sub-directory for another database
       <mountpoint>/APP  # sub-directory for a single application
 ```
+
+The name of `<database-dir>` will be the database's original name or the
+database's ID if its name contains special characters.
 
 Document
 --------
@@ -161,10 +167,10 @@ Most user-land indexes can be created by defining the names of the attributes wh
 
 Indexing the system attribute `_id` in user-defined indexes is not supported by any index type.
 
-Edges Index
+Edge Index
 -----------
 
-An edges index is automatically created for edge collections. It contains connections between vertex documents and is invoked when the connecting edges of a vertex are queried. There is no way to explicitly create or delete edges indexes.
+An edge index is automatically created for edge collections. It contains connections between vertex documents and is invoked when the connecting edges of a vertex are queried. There is no way to explicitly create or delete edge indexes.
 
 Fulltext Index
 --------------
@@ -191,21 +197,23 @@ Index Handle
 
 An index handle uniquely identifies an index in the database. It is a string and consists of a collection name and an index identifier separated by /.
 
+Persistent Index
+----------------
+
+A persistent index is a sorted index type that can be used to find individual documents by a lookup value,
+or multiple documents in a given lookup value range. It can also be used for retrieving documents in a
+sorted order.
+
 Hash Index
 ----------
 
-A hash index is used to find documents based on examples. A hash index can be created for one or multiple document attributes.
+A hash index is now an alias for a persistent index.
 
-A hash index will only be used by queries if all indexed attributes are present in the example or search query, and if all attributes are compared using the equality (== operator). That means the hash index does not support range queries.
-
-A unique hash index has an amortized complexity of O(1) for lookup, insert, update, and remove operations.
-The non-unique hash index is similar, but amortized lookup performance is O(n), with n being the number of
-index entries with the same lookup value.
 
 Skiplist Index
 --------------
 
-A skiplist is a sorted index type that can be used to find ranges of documents.
+A skiplist index is now an alias for a persistent index.
 
 
 Anonymous Graphs

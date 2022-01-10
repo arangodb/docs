@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/query</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/query</span> &lt;&lt;EOF
 { "query" : "FOR i IN 1..100 FILTER i = 1 LIMIT 2 RETURN i * 3" }
 EOF
 
@@ -10,8 +10,8 @@ server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">400</span>, 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"syntax error, unexpected assignment near '= 1 LIMIT 2 RETURN i * 3' at position 1:26"</span>, 
-  <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">1501</span> 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">400</span>, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;syntax error, unexpected assignment near &#x27;= 1 LIMIT 2 RETURN i * 3&#x27; at position 1:26&quot;</span>, 
+  <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">1501</span> 
 }

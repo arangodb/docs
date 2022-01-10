@@ -1,12 +1,12 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products?ignoreRevs=<span class="hljs-literal">false</span></span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products?ignoreRevs=<span class="hljs-literal">false</span></span> &lt;&lt;EOF
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"1"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_b4vz2he--A"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;1&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWNJG---&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"2"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_b4vz2he--C"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;2&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWNJG--A&quot;</span> 
   } 
 ]
 EOF
@@ -20,13 +20,13 @@ x-content-type-options: nosniff
 
 [ 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/1"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"1"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_b4vz2he--A"</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/1&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;1&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWNJG---&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/2"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"2"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_b4vz2he--C"</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/2&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;2&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWNJG--A&quot;</span> 
   } 
 ]

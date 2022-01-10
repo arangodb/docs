@@ -1,12 +1,12 @@
 @Q:
-  FOR v,e,p IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> OUTBOUND <span class="hljs-string">'circles/A'</span> GRAPH <span class="hljs-string">'traversalGraph'</span>
+  FOR v,e,p IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> OUTBOUND <span class="hljs-string">&#x27;circles/A&#x27;</span> GRAPH <span class="hljs-string">&#x27;traversalGraph&#x27;</span>
       LET localScopeVar = RAND() &gt; <span class="hljs-number">0.5</span>
       FILTER p.edges[<span class="hljs-number">0</span>].theTruth != localScopeVar
       RETURN v._key
 
 @R
 Query String (173 chars, cacheable: false):
-   FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph'
+   FOR v,e,p IN 1..3 OUTBOUND &#x27;circles/A&#x27; GRAPH &#x27;traversalGraph&#x27;
        LET localScopeVar = RAND() &gt; 0.5
        FILTER p.edges[0].theTruth != localScopeVar
        RETURN v._key
@@ -15,7 +15,7 @@ Query String (173 chars, cacheable: false):
 Execution plan:
  Id   NodeType          Est.   Comment
   1   SingletonNode        1   * ROOT
-  2   TraversalNode        1     - FOR v  /* vertex */, p  /* paths */ IN 1..3  /* min..maxPathDepth */ OUTBOUND 'circles/A' /* startnode */  GRAPH 'traversalGraph'
+  2   TraversalNode        1     - FOR v  /* vertex */, p  /* paths: edges */ IN 1..3  /* min..maxPathDepth */ OUTBOUND &#x27;circles/A&#x27; /* startnode */  GRAPH &#x27;traversalGraph&#x27;
   3   CalculationNode      1       - LET localScopeVar = (RAND() &gt; 0.5)   /* simple expression */
   4   CalculationNode      1       - LET #6 = (p.`edges`[0].`theTruth` != localScopeVar)   /* simple expression */
   5   FilterNode           1       - FILTER #6
@@ -38,15 +38,16 @@ Optimization rules applied:
  Id   RuleName
   1   move-calculations-up
   2   optimize-traversals
-  3   move-calculations-down
+  3   remove-redundant-path-var
+  4   move-calculations-down
 
 Optimization rules with highest execution times:
  RuleName                                    Duration [s]
  optimize-traversals                              0.00001
  move-calculations-up                             0.00001
  remove-redundant-calculations                    0.00001
- move-calculations-down                           0.00000
- remove-filter-covered-by-traversal               0.00000
+ move-calculations-down                           0.00001
+ remove-redundant-path-var                        0.00001
 
-41 rule(s) executed, 1 plan(s) created
+40 rule(s) executed, 1 plan(s) created
 

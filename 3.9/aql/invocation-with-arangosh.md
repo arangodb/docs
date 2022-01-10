@@ -2,8 +2,7 @@
 layout: default
 description: Within the ArangoDB shell, the _query and _createStatement methods of the db object can be used to execute AQL queries
 ---
-Executing queries from Arangosh
-===============================
+# Executing queries from _arangosh_
 
 Within the ArangoDB shell, the *_query* and *_createStatement* methods of the
 *db* object can be used to execute AQL queries. This chapter also describes
@@ -143,7 +142,7 @@ amount of memory for the query is not restricted.
 
 There are further options that can be passed in the *options* attribute of the *_query* method:
 
-- *fullCount*: if set to _true_ and the query contains a _LIMIT_ clause, then the
+- `fullCount`: if set to _true_ and the query contains a _LIMIT_ clause, then the
   result will have an extra attribute with the sub-attributes _stats_ and _fullCount_,
   `{ ... , "extra": { "stats": { "fullCount": 123 } } }`. The _fullCount_ attribute will
   contain the number of documents in the result before the last top-level LIMIT in the
@@ -155,43 +154,52 @@ There are further options that can be passed in the *options* attribute of the *
   result if the query has a top-level LIMIT clause and the LIMIT clause is actually
   used in the query.
 
-- *failOnWarning*: when set to *true*, this will make the query throw an exception and
+- `failOnWarning`: when set to *true*, this will make the query throw an exception and
   abort in case a warning occurs. This option should be used in development to catch
   errors early. If set to *false*, warnings will not be propagated to exceptions and
   will be returned with the query results. There is also a server configuration option 
   `--query.fail-on-warning` for setting the default value for *failOnWarning* so it does
   not need to be set on a per-query level.
 
-- *cache*: if set to *true*, this will put the query result into the query result cache
+- `cache`: if set to *true*, this will put the query result into the query result cache
   if the query result is eligible for caching and the query cache is running in demand 
   mode. If set to *false*, the query result will not be inserted into the query result
   cache. Note that query results will never be inserted into the query result cache if
   the query result cache is disabled, and that they will be automatically inserted into
   the query result cache when it is active in non-demand mode.
 
-- *profile*: if set to *true* or *1*, returns extra timing information for the query. The timing
-  information is accessible via the *getExtra* method of the query result. Set to *2* the query will include execution stats per query plan node in sub-attribute *stats.nodes* of the *extra* return attribute.
+- `fillBlockCache`: if set to *true* or not specified, this will make the query store
+  the data it reads via the RocksDB storage engine in the RocksDB block cache. This is
+  usually the desired behavior. The option can be set to *false* for queries that are
+  known to either read a lot of data that would thrash the block cache, or for queries
+  that read data known to be outside of the hot set. By setting the option
+  to *false*, data read by the query will not make it into the RocksDB block cache if
+  it is not already in there, thus leaving more room for the actual hot set.
+
+- `profile`: if set to *true* or *1*, returns extra timing information for the query. The timing
+  information is accessible via the *getExtra* method of the query result. Set to *2* the query will
+  include execution stats per query plan node in sub-attribute *stats.nodes* of the *extra* return attribute.
   Additionally the query plan is returned in the sub-attribute *extra.plan*.
 
-- *maxWarningCount*: limits the number of warnings that are returned by the query if
+- `maxWarningCount`: limits the number of warnings that are returned by the query if
   *failOnWarning* is not set to *true*. The default value is *10*.
 
-- *maxNumberOfPlans*: limits the number of query execution plans the optimizer will
+- `maxNumberOfPlans`: limits the number of query execution plans the optimizer will
   create at most. Reducing the number of query execution plans may speed up query plan
   creation and optimization for complex queries, but normally there is no need to adjust
   this value.
 
-- *optimizer*: Options related to the query optimizer.
+- `optimizer`: Options related to the query optimizer.
 
-  - *rules*: A list of to-be-included or to-be-excluded optimizer rules can be put into
+  - `rules`: A list of to-be-included or to-be-excluded optimizer rules can be put into
   this attribute, telling the optimizer to include or exclude specific rules. To disable
   a rule, prefix its name with a `-`, to enable a rule, prefix it with a `+`. There is also
   a pseudo-rule `all`, which matches all optimizer rules. `-all` disables all rules.
 
-- *stream*: Specify *true* and the query will be executed in a **streaming** fashion. The query result is
+- `stream`: Specify *true* and the query will be executed in a **streaming** fashion. The query result is
   not stored on the server, but calculated on the fly. *Beware*: long-running queries will
   need to hold the collection locks for as long as the query cursor exists. It is advisable
-  to *only* use this option on short-running queries *or* without exclusive locks (write locks on MMFiles).
+  to *only* use this option on short-running queries *or* without exclusive locks.
   When set to *false* the query will be executed right away in its entirety. 
   In that case query results are either returned right away (if the result set is small enough),
   or stored on the arangod instance and accessible via the cursor API. 
@@ -201,29 +209,35 @@ There are further options that can be passed in the *options* attribute of the *
   after the query is finished. 
   The default value is *false*
 
-- *maxRuntime*: The query has to be executed within the given runtime or it will be killed.
+- `maxRuntime`: The query has to be executed within the given runtime or it will be killed.
   The value is specified in seconds. The default value is *0.0* (no timeout).
 
-The following additional attributes can be passed to queries in the RocksDB storage engine:
- 
-- *maxTransactionSize*: transaction size limit in bytes
+- `maxNodesPerCallstack`: The number of execution nodes in the query plan after
+  that stack splitting is performed to avoid a potential stack overflow.
+  Defaults to the configured value of the startup option
+  `--query.max-nodes-per-callstack`.
 
-- *intermediateCommitSize*: maximum total size of operations after which an intermediate
+  This option is only useful for testing and debugging and normally does not need
+  any adjustment.
+
+- `maxTransactionSize`: transaction size limit in bytes
+
+- `intermediateCommitSize`: maximum total size of operations after which an intermediate
   commit is performed automatically
 
-- *intermediateCommitCount*: maximum number of operations after which an intermediate
+- `intermediateCommitCount`: maximum number of operations after which an intermediate
   commit is performed automatically
 
 In the ArangoDB Enterprise Edition there is an additional parameter:
 
-- *skipInaccessibleCollections* AQL queries (especially graph traversals) will treat
+- `skipInaccessibleCollections`: AQL queries (especially graph traversals) will treat
   collection to which a user has **no access** rights as if these collections were empty.
   Instead of returning a *forbidden access* error, your queries will execute normally.
   This is intended to help with certain use-cases: A graph contains several collections
   and different users execute AQL queries on that graph. You can now naturally limit the 
   accessible results by changing the access rights of users on collections.
 
-- *satelliteSyncWait*: This Enterprise Edition parameter allows to configure how long
+- `satelliteSyncWait`: This Enterprise Edition parameter allows to configure how long
   a DB-Server will have time to bring the SatelliteCollections involved in the query
   into sync. The default value is 60.0 (seconds). When the max time has been reached
   the query will be stopped.

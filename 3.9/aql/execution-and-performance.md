@@ -20,9 +20,3 @@ parts of the plan are responsible. The query-profiler can show you execution sta
 stage of the query execution.
 
 * [The AQL query result cache](execution-and-performance-query-cache.html): an optional query results cache can be used to avoid repeated calculation of the same query results.
-
-Be sure to check out the
-[ArangoDB Performance Course](https://www.arangodb.com/arangodb-performance-course/){:target="_blank"}
-for freshers as well and discover the power of AQL in just a few clicks with
-ArangoDB Oasis: the Cloud Service for ArangoDB. Start a
-[free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.

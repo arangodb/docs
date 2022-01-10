@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products?returnNew=<span class="hljs-literal">true</span></span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products?returnNew=<span class="hljs-literal">true</span></span> &lt;&lt;EOF
 [{"Hello":"Earth"}, {"Hello":"Venus"}, {"Hello":"Mars"}]
 EOF
 
@@ -11,36 +11,36 @@ x-content-type-options: nosniff
 
 [ 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70268"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70268"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUrO---"</span>, 
-    <span class="hljs-string">"new"</span> : { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70268"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70268"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUrO---"</span>, 
-      <span class="hljs-string">"Hello"</span> : <span class="hljs-string">"Earth"</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/70280&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70280&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZwA6--A&quot;</span>, 
+    <span class="hljs-string">&quot;new&quot;</span> : { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70280&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/70280&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZwA6--A&quot;</span>, 
+      <span class="hljs-string">&quot;Hello&quot;</span> : <span class="hljs-string">&quot;Earth&quot;</span> 
     } 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70269"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70269"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUrO--A"</span>, 
-    <span class="hljs-string">"new"</span> : { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70269"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70269"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUrO--A"</span>, 
-      <span class="hljs-string">"Hello"</span> : <span class="hljs-string">"Venus"</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/70281&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70281&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZwA6--C&quot;</span>, 
+    <span class="hljs-string">&quot;new&quot;</span> : { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70281&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/70281&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZwA6--C&quot;</span>, 
+      <span class="hljs-string">&quot;Hello&quot;</span> : <span class="hljs-string">&quot;Venus&quot;</span> 
     } 
   }, 
   { 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70270"</span>, 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70270"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUrO--C"</span>, 
-    <span class="hljs-string">"new"</span> : { 
-      <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70270"</span>, 
-      <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70270"</span>, 
-      <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_bkbfUrO--C"</span>, 
-      <span class="hljs-string">"Hello"</span> : <span class="hljs-string">"Mars"</span> 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/70282&quot;</span>, 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70282&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZwA6--E&quot;</span>, 
+    <span class="hljs-string">&quot;new&quot;</span> : { 
+      <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70282&quot;</span>, 
+      <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/70282&quot;</span>, 
+      <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_c6CZwA6--E&quot;</span>, 
+      <span class="hljs-string">&quot;Hello&quot;</span> : <span class="hljs-string">&quot;Mars&quot;</span> 
     } 
   } 
 ]

@@ -49,9 +49,7 @@ It is therefore advisable to keep the transactions as short as possible.
 For a more detailed description of how transactions work in ArangoDB please
 refer to [Transactions](../transactions.html).
 
-Also see:
-- [Limitations](#limitations)
-- [Known Issues](../release-notes-known-issues35.html#stream-transactions)
+Also see [Limitations](#limitations).
 
 Begin a Transaction
 -------------------

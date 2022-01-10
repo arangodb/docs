@@ -1,4 +1,25 @@
 {
+  "auto-rate-limit" : {
+    "category" : "option",
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "adjust the data loading rate automatically, starting at --batch-size bytes per thread per second",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.11"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "backslash-escape" : {
     "category" : "option",
     "default" : false,
@@ -20,7 +41,7 @@
   },
   "batch-size" : {
     "category" : "option",
-    "default" : 1048576,
+    "default" : 8388608,
     "deprecatedIn" : null,
     "description" : "size for individual data batches (in bytes)",
     "dynamic" : false,
@@ -471,8 +492,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -493,8 +513,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -609,7 +628,7 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
@@ -633,7 +652,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.8.0"
+      "v3.7.9"
     ],
     "obsolete" : false,
     "os" : [
@@ -650,7 +669,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "log destination(s), e.g. file:///path/to/file (Linux, macOS) or file://C:\\path\\to\\file (Windows)",
+    "description" : "log destination(s), e.g. file:///path/to/file (any '$PID' will be replaced with the process id)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -1256,7 +1275,7 @@
     "category" : "option",
     "default" : 2,
     "deprecatedIn" : null,
-    "description" : "Number of parallel import threads. Most useful for the rocksdb engine",
+    "description" : "Number of parallel import threads",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,

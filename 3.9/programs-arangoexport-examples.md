@@ -2,8 +2,7 @@
 layout: default
 description: arangoexport can be invoked by executing the following command in a command line
 ---
-Arangoexport Examples
-=====================
+# _arangoexport_ Examples
 
 _arangoexport_ can be invoked by executing the following command in a command line:
 
@@ -19,12 +18,12 @@ _arangoexport_ will by default connect to the *_system* database using the defau
 endpoint. If you want to connect to a different database or a different endpoint, 
 or use authentication, you can use the following command-line options:
 
-- *--server.database <string>*: name of the database to connect to
-- *--server.endpoint <string>*: endpoint to connect to
-- *--server.username <string>*: username
-- *--server.password <string>*: password to use (omit this and you'll be prompted for the
+- `--server.database <string>`: name of the database to connect to
+- `--server.endpoint <string>`: endpoint to connect to
+- `--server.username <string>`: username
+- `--server.password <string>`: password to use (omit this and you'll be prompted for the
   password)
-- *--server.authentication <bool>*: whether or not to use authentication
+- `--server.authentication <bool>`: whether or not to use authentication
 
 Here's an example of exporting data from a non-standard endpoint, using a dedicated
 [database name](appendix-glossary.html#database-name):
@@ -62,6 +61,12 @@ This exports the collection *test* into the output directory *export* as CSV. Th
 line contains the header with all field names. Each line is one document represented as
 CSV and separated with a comma. Objects and arrays are represented as a JSON string.
 
+Starting with ArangoDB version 3.8.5, string values in the CSV output will be enclosed in 
+double quotes. If any string value starts with one of the following characters: `+`, `=`, `@`, `-`,
+it is treated as a potential formula and will be prefixed by an extra single quote.
+This is done to prevent formula injection attacks in spreadsheet programs such as MS Excel or
+OpenOffice. If you don't want to use this functionality, you can turn it off via 
+the `--escape-csv-formulae` option.
 
 Export XML
 ----------
@@ -145,3 +150,9 @@ The example exports all books as JSONL that are sold more than 100 times.
 A *fields* list is required for CSV exports, but you can use an AQL query to produce
 these fields. For example, you can de-normalize document structures like arrays and
 nested objects to a tabular form as demonstrated above.
+
+The runtime of the query executed by arangoexport can optionally be limited via
+the arangoexport option `--query-max-runtime`. This specifies the maximum query
+runtime in seconds. Set it to `0` for no limit.
+
+    arangoexport --type jsonl --query-max-runtime 10 --query "FOR book IN books FILTER book.sells > 100 RETURN book"

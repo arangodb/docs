@@ -1,21 +1,21 @@
-arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"bigram_markers"</span>, <span class="hljs-string">"ngram"</span>, {
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">&quot;bigram_markers&quot;</span>, <span class="hljs-string">&quot;ngram&quot;</span>, {
 ........&gt;   min: <span class="hljs-number">2</span>,
 ........&gt;   max: <span class="hljs-number">2</span>,
 ........&gt;   preserveOriginal: <span class="hljs-literal">true</span>,
-........&gt;   startMarker: <span class="hljs-string">"^"</span>,
-........&gt;   endMarker: <span class="hljs-string">"$"</span>,
-........&gt;   streamType: <span class="hljs-string">"utf8"</span>
-........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
-arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS("foobar", "bigram_markers")`</span>).toArray();
+........&gt;   startMarker: <span class="hljs-string">&quot;^&quot;</span>,
+........&gt;   endMarker: <span class="hljs-string">&quot;$&quot;</span>,
+........&gt;   streamType: <span class="hljs-string">&quot;utf8&quot;</span>
+........&gt; }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
+arangosh&gt; db._query(<span class="hljs-string">`RETURN TOKENS(&quot;foobar&quot;, &quot;bigram_markers&quot;)`</span>).toArray();
 [ 
   [ 
-    <span class="hljs-string">"^fo"</span>, 
-    <span class="hljs-string">"^foobar"</span>, 
-    <span class="hljs-string">"foobar$"</span>, 
-    <span class="hljs-string">"oo"</span>, 
-    <span class="hljs-string">"ob"</span>, 
-    <span class="hljs-string">"ba"</span>, 
-    <span class="hljs-string">"ar$"</span> 
+    <span class="hljs-string">&quot;^fo&quot;</span>, 
+    <span class="hljs-string">&quot;^foobar&quot;</span>, 
+    <span class="hljs-string">&quot;foobar$&quot;</span>, 
+    <span class="hljs-string">&quot;oo&quot;</span>, 
+    <span class="hljs-string">&quot;ob&quot;</span>, 
+    <span class="hljs-string">&quot;ba&quot;</span>, 
+    <span class="hljs-string">&quot;ar$&quot;</span> 
   ] 
 ]

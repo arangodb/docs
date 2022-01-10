@@ -1,0 +1,1 @@
+../3.7/architecture-deployment-modes-dc2-dc-applicability.md

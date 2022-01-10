@@ -1,15 +1,14 @@
 ---
 layout: default
-description: To restore data from a dump previously created with Arangodump,ArangoDB provides the arangorestore tool
+description: To restore data from a dump previously created with arangodump,ArangoDB provides the arangorestore tool
 ---
-Arangorestore Examples
-======================
+# _arangorestore_ Examples
 
-To restore data from a dump previously created with [_Arangodump_](programs-arangodump.html),
+To restore data from a dump previously created with [_arangodump_](programs-arangodump.html),
 ArangoDB provides the _arangorestore_ tool.
 
-Invoking Arangorestore
-----------------------
+Invoking _arangorestore_
+------------------------
 
 _arangorestore_ can be invoked from the command-line as follows:
 
@@ -58,9 +57,26 @@ The `--force-same-database` option is set to `false` by default to ensure backwa
 Here's an example of reloading data to a non-standard endpoint, using a dedicated
 [database name](appendix-glossary.html#database-name):
 
-    arangorestore --server.endpoint tcp://192.168.173.13:8531 --server.username backup --server.database mydb --input-directory "dump"
+```
+arangorestore \
+  --server.endpoint tcp://192.168.173.13:8531 \
+  --server.username backup \
+  --server.database mydb \
+  --input-directory "dump" \
+```
 
-To create the target database whe restoring, use a command like this:
+Also, more than one endpoint can be provided, such as:
+
+```
+arangorestore \
+  --server.endpoint tcp://192.168.173.13:8531 \
+  --server.endpoint tcp://192.168.173.13:8532 \
+  --server.username backup \
+  --server.database mydb \
+  --input-directory "dump"
+```
+
+To create the target database when restoring, use a command like this:
 
     arangorestore --server.username backup --server.database newdb --create-database true --input-directory "dump"
 
@@ -147,7 +163,7 @@ also restored or already present on the server.
 Encryption
 ----------
 
-See [Arangodump](programs-arangodump-examples.html#encryption) for details.
+See [_arangodump_](programs-arangodump-examples.html#encryption) for details.
 
 Reloading Data into a different Collection
 ------------------------------------------
@@ -238,11 +254,26 @@ The following factors affect speed of _arangorestore_ in a Cluster:
   on multiple _Coordinators_ at the same time. Depending on your specific
   case, parallelizing on multiple _Coordinators_ can still be useful even
   when the `--threads` option is in use (from v.3.4.0).
+- **Dump Format**: Since ArangoDB 3.8 arangodump can produce two different
+  dump formats: an enveloped format, which was the default format up to
+  including ArangoDB 3.8, and a non-envelop format, which is the default
+  since ArangoDB 3.9.0.
+  The enveloped format is downwards-compatible with all previous versions
+  of ArangoDB, and should only be used for dumps that need to be restored
+  into versions older than 3.9. The non-envelope format is only understood
+  since ArangoDB 3.8.0 and not compatible with previous versions. However, it
+  is smaller and slightly faster to produce. In addition, the non-envelope
+  format allows arangorestore to parallelize the restore operations not
+  only across collections but also within collections. The latter is not
+  possible with the envelope dump format.
+  In order to use the non-envelope dump format, invoke arangodump with the
+  option `--envelope false`. arangorestore can automatically parallelize
+  the restore of such dumps even for individual collections.
 
 {% hint 'tip' %}
-Please refer to the [Fast Cluster Restore](programs-arangorestore-fast-cluster-restore.html) page
-for further operative details on how to take into account, when restoring
-using _arangorestore_, the two factors described above.
+See [Fast Cluster Restore](programs-arangorestore-fast-cluster-restore.html)
+for further operative details on how to take the three factors described above
+into account when restoring with _arangorestore_.
 {% endhint %}
 
 ### Restoring collections with sharding prototypes

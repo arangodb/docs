@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/replication/logger-tick-ranges</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/replication/logger-tick-ranges</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
@@ -9,21 +9,21 @@ x-content-type-options: nosniff
 
 [ 
   { 
-    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/archive/000076.log"</span>, 
-    <span class="hljs-string">"status"</span> : <span class="hljs-string">"collected"</span>, 
-    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"186028"</span>, 
-    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"186085"</span> 
+    <span class="hljs-string">&quot;datafile&quot;</span> : <span class="hljs-string">&quot;/archive/000076.log&quot;</span>, 
+    <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-string">&quot;collected&quot;</span>, 
+    <span class="hljs-string">&quot;tickMin&quot;</span> : <span class="hljs-string">&quot;187077&quot;</span>, 
+    <span class="hljs-string">&quot;tickMax&quot;</span> : <span class="hljs-string">&quot;187134&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/archive/000096.log"</span>, 
-    <span class="hljs-string">"status"</span> : <span class="hljs-string">"collected"</span>, 
-    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"186085"</span>, 
-    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"186123"</span> 
+    <span class="hljs-string">&quot;datafile&quot;</span> : <span class="hljs-string">&quot;/archive/000096.log&quot;</span>, 
+    <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-string">&quot;collected&quot;</span>, 
+    <span class="hljs-string">&quot;tickMin&quot;</span> : <span class="hljs-string">&quot;187134&quot;</span>, 
+    <span class="hljs-string">&quot;tickMax&quot;</span> : <span class="hljs-string">&quot;187172&quot;</span> 
   }, 
   { 
-    <span class="hljs-string">"datafile"</span> : <span class="hljs-string">"/000103.log"</span>, 
-    <span class="hljs-string">"status"</span> : <span class="hljs-string">"open"</span>, 
-    <span class="hljs-string">"tickMin"</span> : <span class="hljs-string">"186123"</span>, 
-    <span class="hljs-string">"tickMax"</span> : <span class="hljs-string">"189159"</span> 
+    <span class="hljs-string">&quot;datafile&quot;</span> : <span class="hljs-string">&quot;/000103.log&quot;</span>, 
+    <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-string">&quot;open&quot;</span>, 
+    <span class="hljs-string">&quot;tickMin&quot;</span> : <span class="hljs-string">&quot;187172&quot;</span>, 
+    <span class="hljs-string">&quot;tickMax&quot;</span> : <span class="hljs-string">&quot;190252&quot;</span> 
   } 
 ]

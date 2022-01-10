@@ -7,9 +7,6 @@ Cluster
 
 This chapter introduces ArangoDB's Cluster.
 
-Fire up your cluster in just a few clicks with a 14-day free trial of our
-[cloud service - **ArangoDB Oasis**](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}.
-
 **Sections:**
 
 - [Cluster Architecture](architecture-deployment-modes-cluster-architecture.html)

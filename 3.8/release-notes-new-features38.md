@@ -9,8 +9,10 @@ The following list shows in detail which features have been added or improved in
 ArangoDB 3.8. ArangoDB 3.8 also contains several bug fixes that are not listed
 here.
 
-AQL window operations
----------------------
+AQL
+---
+
+### AQL window operations
 
 The `WINDOW` keyword can be used for aggregations over related rows, usually
 preceding and / or following rows.
@@ -33,8 +35,7 @@ Window frames are determined with respect to the current row:
 
 See [`WINDOW` operation](aql/operations-window.html).
 
-Weighted Traversals
--------------------
+### Weighted Traversals
 
 The graph traversal option `bfs` is now deprecated and superseded by the new
 option `order`. It supports a new traversal type `"weighted"`, which enumerate
@@ -69,14 +70,20 @@ FOR x, v, p IN 0..10 OUTBOUND "places/York" GRAPH "kShortestPathsGraph"
 `["York","London"]`                         | `1.8` | `[1.8]`
 `["York"]`                                  |   `0` | `[]`
 
+{% hint 'info' %}
+Weighted traversals do not support negative weights. If a document
+attribute (as specified by `weightAttribute`) with a negative value is
+encountered during traversal, or if `defaultWeight` is set to a negative
+number, then the query is aborted with an error.
+{% endhint %}
+
 The preferred way to start a breadth-first search from now on is with
 `order: "bfs"`. The default remains depth-first search if no `order` is
 specified, but can also be explicitly requested with `order: "dfs"`.
 
 Also see [AQL graph traversals](aql/graphs-traversals.html)
 
-k Paths
--------
+### k Paths
 
 A new graph traversal method `K_PATHS` was added to AQL. It will enumerate all
 paths between a source and a target vertex that match the given path length.
@@ -100,10 +107,9 @@ FOR path IN 2..4 OUTBOUND K_PATHS "v/source" TO "v/target" GRAPH "g"
 … that have length of exactly 2 or 3 or 4, start at `v/source` and end at
 `v/target`. No order is guaranteed for those paths in the result set.
 
-For more details see [AQL k paths](aql/graphs-k-paths.html)
+For more details see [AQL k Paths](aql/graphs-k-paths.html)
 
-AQL bit functions
------------------
+### AQL bit functions
 
 ArangoDB 3.8 adds the following bit handling functions to AQL:
 
@@ -131,8 +137,7 @@ return `null` and register a warning.
 
 This functionality has been backported to v3.7.7 as well.
 
-AQL binary and hexadecimal integer literals
--------------------------------------------
+### AQL binary and hexadecimal integer literals
 
 ArangoDB 3.8 allows using binary (base 2) and hexadecimal (base 16) integer
 literals in AQL. These literals can be used where regular (base 10) integer
@@ -147,8 +152,7 @@ The maximum supported value is 2<sup>32</sup> - 1, i.e.
 
 This functionality has been backported to v3.7.7 as well.
 
-Projections on sub-attributes
------------------------------
+### Projections on sub-attributes
 
 AQL now also support projections on sub-attributes (e.g. `a.b.c`).
 
@@ -179,8 +183,7 @@ FOR doc IN collection
 … the projection can be satisfied by a single-attribute index on attribute `b`,
 but now also by a combined index on attributes `a` and `b` (or `b` and `a`).
 
-AQL optimizer improvements
---------------------------
+### AQL optimizer improvements
 
 The "move-calculations-up" optimizer rule was improved so that it can move
 calculations out of subqueries into the outer query, so that they will be
@@ -194,8 +197,7 @@ execution time of such queries.
 Explaining a query now also shows the query optimizer rules with the highest
 execution times in the explain output.
 
-AQL performance improvements
-----------------------------
+### AQL performance improvements
 
 The performance of AQL `standard` sort operations has been improved in ArangoDB
 3.8. This is true for sorts carried out explicitly by using the `SORT` keyword
@@ -209,6 +211,49 @@ There are also performance improvements for `COLLECT` operations that only
 count values or that aggregate values using `AGGREGATE`. The exact mileage
 can vary, but is substantial for some queries.
 
+### AQL usability options
+
+#### Requiring `WITH` statements
+
+The new startup option `--query.require-with` will make AQL queries in single
+server mode also require `WITH` clauses in AQL queries where a cluster
+installation would require them.
+The option is set to *false* by default, but can be turned on in single servers
+to remove this behavior difference between single servers and clusters, making
+a later transition from single server to cluster easier.
+
+#### Allowing the usage of collection names in AQL expressions
+
+The new startup option `--query.allow-collections-in-expressions` controls
+whether using collection names in arbitrary places in AQL expressions is
+allowed, although using collection names like this is very likely unintended.
+
+For example, consider the query
+
+```js
+FOR doc IN collection RETURN collection
+```
+
+Here, the collection name is *collection*, and its usage in the `FOR` loop is
+intended and valid. However, *collection* is also used in the `RETURN`
+statement, which is legal but potentially unintended. It should likely be
+`RETURN doc` or `RETURN doc.someAttribute` instead. Otherwise, the entire
+collection will be materialized and returned as many times as there are
+documents in the collection. This can take a long time and even lead to
+out-of-memory crashes in the worst case.
+
+Setting the option `--query.allow-collections-in-expression` to *false* will
+prohibit such unintentional usage of collection names in queries, and instead
+make the query fail with error 1568 ("collection used as expression operand").
+
+The default value of the option is *true* in 3.8, meaning that potentially
+unintended usage of collection names in queries is still allowed. The default
+value for the option will change to *false* in 3.9. The option will also be
+deprecated in 3.9 and removed in future versions. From then on, unintended
+usage of collection names will always be disallowed.
+
+Also see [ArangoDB Server Query Options](programs-arangod-query.html#allowing-the-usage-of-collection-names-in-aql-expressions)
+
 ArangoSearch
 ------------
 
@@ -216,22 +261,22 @@ ArangoSearch
 
 Added new Analyzer type `"pipeline"` for chaining effects of multiple Analyzers
 into one. It allows you to combine text normalization for a case insensitive
-search with ngram tokenization, or to split text at multiple delimiting
+search with _n_-gram tokenization, or to split text at multiple delimiting
 characters followed by stemming.
 
-See [ArangoSearch Pipeline Analyzer](arangosearch-analyzers.html#pipeline)
+See [ArangoSearch Pipeline Analyzer](analyzers.html#pipeline)
 
 ### AQL Analyzer
 
 Added new Analyzer type `"aql"` capable of running an AQL query (with some
 restrictions) to perform data manipulation/filtering.
 
-See [ArangoSearch AQL Analyzer](arangosearch-analyzers.html#aql)
+See [ArangoSearch AQL Analyzer](analyzers.html#aql)
 
 ### Geo-spatial queries
 
-Added two Geo Analyzers [`"geojson"`](arangosearch-analyzers.html#geojson)
-and [`"geopoint"`](arangosearch-analyzers.html#geopoint) as well as the
+Added two Geo Analyzers [`"geojson"`](analyzers.html#geojson)
+and [`"geopoint"`](analyzers.html#geopoint) as well as the
 following [ArangoSearch Geo functions](aql/functions-arangosearch.html#geo-functions)
 which enable geo-spatial queries backed by View indexes:
 - `GEO_CONTAINS()`
@@ -239,6 +284,7 @@ which enable geo-spatial queries backed by View indexes:
 - `GEO_IN_RANGE()`
 - `GEO_INTERSECTS()`
 
+{% comment %}
 ### Stopwords Analyzer
 
 Added new Analyzer `"stopwords"` capable of removing specified tokens from the
@@ -246,7 +292,8 @@ input. It can be used standalone or be combined with other Analyzers via a
 pipeline Analyzer to add stopword functionality to them. Previously, only the
 text Analyzer type provided stopword support.
 
-See [ArangoSearch Stopwords Analyzer](arangosearch-analyzers.html#stopwords)
+See [ArangoSearch Stopwords Analyzer](analyzers.html#stopwords)
+{% endcomment %}
 
 ### Approximate count
 
@@ -258,7 +305,8 @@ query or when a `COLLECT WITH COUNT` clause is executed:
 - `"cost"`: a cost based approximation is used. Does not enumerate rows and
   returns an approximate result with O(1) complexity. Gives a precise result
   if the `SEARCH` condition is empty or if it contains a single term query
-  only (e.g. `SEARCH doc.field == "value"`).
+  only (e.g. `SEARCH doc.field == "value"`), the usual eventual consistency
+  of Views aside.
 
 Also see: [AQL `SEARCH` Operation](aql/operations-search.html#search-options)
 
@@ -709,9 +757,9 @@ The following logging-related options have been added:
   | `thread`   | thread name, only emitted if `--log.thread-name` is set
   | `role`     | server role (1 character), only emitted if `--log.role` is set
   | `level`    | log level (e.g. `"WARN"`, `"INFO"`)
-  | `file`     | source file name of log message, only emitted if `--log.file-name` is set
-  | `line`     | source file line of log message, only emitted if `--log.file-name` is set 
-  | `function` | source file function name, only emitted if `--log.file-name` is set
+  | `file`     | source file name of log message, only emitted if `--log.line-number` is set
+  | `line`     | source file line of log message, only emitted if `--log.line-number` is set
+  | `function` | source file function name, only emitted if `--log.line-number` is set
   | `topic`    | log topic name
   | `id`       | log id (5 digit hexadecimal string), only emitted if `--log.ids` is set
   | `hostname` | hostname if `--log.hostname` is set
@@ -754,7 +802,7 @@ The following logging-related options have been added:
   not a lot of space for logfiles, and to keep rogue log messages from overusing 
   resources.
   The default value is 128 MB, which is very high and should effectively mean 
-  downwards-compatiblity with previous arangod versions, which did not restrict 
+  downwards-compatibility with previous arangod versions, which did not restrict 
   the maximum size of log messages.
 
 - added option `--audit.max-entry-length` to control the maximum line length 
@@ -762,7 +810,7 @@ The following logging-related options have been added:
   Any audit log messages longer than the specified value will be truncated and 
   the suffix '...' will be added to them.
   The default value is 128 MB, which is very high and should effectively mean 
-  downwards-compatiblity with previous arangod versions, which did not restrict 
+  downwards-compatibility with previous arangod versions, which did not restrict 
   the maximum size of log messages.
 
 - added option `--audit.queue` to control audit logging queuing behavior 
@@ -884,7 +932,7 @@ aliases and deprecated ones.
 Client tools
 ------------
 
-### Arangodump concurrency / shard-parallelism
+### _arangodump_ concurrency / shard-parallelism
 
 Since v3.4.0, _arangodump_ can use multiple threads for dumping database data in
 parallel. _arangodump_ versions prior to v3.8.0 distribute dump jobs for
@@ -898,7 +946,7 @@ to dump but only few collections.
 
 Also see [_arangodump_ Threads](programs-arangodump-examples.html#threads).
 
-### Arangodump output format
+### _arangodump_ output format
 
 Since its inception, _arangodump_ wrapped each dumped document into an extra
 JSON envelope, such as follows:
@@ -918,23 +966,38 @@ and bandwidth:
 
 Also see [_arangodump_ Dump Output Format](programs-arangodump-examples.html#dump-output-format).
 
-### Arangodump dumping of individual shards
+Using the new non-enveloped dump format also allows _arangorestore_ to
+parallelize restore operations for individual collections. This is not possible
+with the old, enveloped format.
 
-Arangodump can now optionally dump individual shards only, by specifying the
+### _arangorestore_ parallelization for single collections
+
+_arangorestore_ can now parallelize restore operations even for single
+collections, which can lead to increased restore performance.
+This requires that a dump in the new non-enveloped dump format is used, and that
+there are enough _arangorestore_ threads to employ.
+
+The dump format can be configured by specifying the `--envelope false` option
+when invoking arangodump, and the number of restore threads can be adjusted by
+setting _arangorestore_'s `--threads` option.
+
+### _arangodump_ dumping of individual shards
+
+_arangodump_ can now optionally dump individual shards only, by specifying the
 `--shard` option one or multiple times. This option can be used to split the
 dump of a large collection with multiple shards into multiple separate dump
 processes, which could be run against different Coordinators etc.
 
-### Arangodump and arangorestore with JWT secret
+### _arangodump_ and _arangorestore_ with JWT secret
 
-Arangodump and arangorestore can now also be invoked by providing the cluster's
+_arangodump_ and _arangorestore_ can now also be invoked by providing the cluster's
 JWT secret instead of the username/password combination. Both tools now provide
 the options `--server.jwt-secret-keyfile` (to read the JWT secret from a file)
 and `--server.ask-jwt-secret` (to enter it manually).
 
-### Arangobench with custom queries
+### _arangobench_ with custom queries
 
-In addition to executing the predefined benchmarks, the arangobench client tool
+In addition to executing the predefined benchmarks, the _arangobench_ client tool
 now offers a new test case named `custom-query` for running arbitrary AQL
 queries against an ArangoDB installation.
 
@@ -943,29 +1006,27 @@ To run a custom AQL query, the query needs to be specified in either the
 the query string can be passed on the command-line, in the latter case the
 query string will be read from a file.
 
-### Continuing arangorestore operations
+### Continuing _arangorestore_ operations
 
-Arangorestore now provides a `--continue` option. Setting it will make
-arangorestore keep track of the restore progress, so if the restore process
+_arangorestore_ now provides a `--continue` option. Setting it will make
+_arangorestore_ keep track of the restore progress, so if the restore process
 gets aborted it can later be continued from the point it left off.
 
-### Controlling the number of documents per batch for arangoexport
+### Controlling the number of documents per batch for _arangoexport_
 
-Arangoexport now has a `--documents-per-batch` option that can be used to limit
+_arangoexport_ now has a `--documents-per-batch` option that can be used to limit
 the number of documents to be returned in each batch from the server. This is
 useful if a query is run on overly large documents, which would lead to the
 response sizes getting out of hand with the default number of documents per
 batch (1000).
 
+### Controlling the maximum query runtime of _arangoexport_
+
+_arangoexport_ now has a `--query-max-runtime` option to limit the runtime of
+queries it executes.
+
 Miscellaneous
 -------------
-
-- Added a new startup option `--query.allow-collections-in-expressions` to
-  control whether collection names are allowed in arbitrary places in AQL
-  expressions. It defaults to *true*. It can be set to *false* to make queries
-  like `FOR doc IN collection RETURN collection` fail, where it was probably
-  intended to `RETURN doc` instead. Also see
-  [ArangoDB Server Query Options](programs-arangod-query.html#allowing-the-usage-of-collection-names-in-aql-expressions)
 
 - Added cluster support for the JavaScript API method `collection.checksum()`
   and the REST HTTP API endpoint `GET /_api/collection/{collection-name}/checksum`,
@@ -974,11 +1035,6 @@ Miscellaneous
 - Added cluster support for the JavaScript API method `db._engineStats()`
   and the REST HTTP API endpoint `GET /_api/engine/stats`, which provide
   runtime information about the storage engine state.
-
-- Added a REST HTTP API endpoint `GET /_admin/cluster/shardDistribution` to
-  retrieve cluster-global shard distribution statistics, and a REST HTTP API
-  endpoint `GET /_api/database/shardDistribution` to retrieve the shard
-  distribution statistics for a single database.
 
 Internal changes
 ----------------

@@ -10,9 +10,3 @@ index to execute a query-by-example.
 
 <!-- js/actions/api-index.js -->
 {% docublock post_api_index_hash %}
-
-<!-- js/actions/api-index.js -->
-{% docublock put_api_simple_by_example %}
-
-<!-- js/actions/api-index.js -->
-{% docublock put_api_simple_first_example %}

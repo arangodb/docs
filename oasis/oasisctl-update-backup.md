@@ -37,4 +37,5 @@ oasisctl update backup [flags]
 ## See also
 
 * [oasisctl update](oasisctl-update.html)	 - Update resources
+* [oasisctl update backup policy](oasisctl-update-backup-policy.html)	 - Update a backup policy
 

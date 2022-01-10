@@ -1,29 +1,27 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/upload</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/upload</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"uploadId"</span> : <span class="hljs-string">"70161"</span> 
+  <span class="hljs-string">&quot;uploadId&quot;</span> : <span class="hljs-string">&quot;70737&quot;</span> 
 }
 EOF
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">429</span>
+content-length: <span class="hljs-number">222</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">"result"</span> : { 
-    <span class="hljs-string">"Timestamp"</span> : <span class="hljs-string">"2021-02-16T20:09:01Z"</span>, 
-    <span class="hljs-string">"UploadId"</span> : <span class="hljs-string">"70161"</span>, 
-    <span class="hljs-string">"Cancelled"</span> : <span class="hljs-literal">false</span>, 
-    <span class="hljs-string">"BackupId"</span> : <span class="hljs-string">"2021-02-16T20.09.01Z_ba2acf99-d55f-4fe0-a053-379f6efe965b"</span>, 
-    <span class="hljs-string">"DBServers"</span> : { 
-      <span class="hljs-string">"SNGL"</span> : { 
-        <span class="hljs-string">"Status"</span> : <span class="hljs-string">"FAILED"</span>, 
-        <span class="hljs-string">"Error"</span> : <span class="hljs-number">1</span>, 
-        <span class="hljs-string">"ErrorMessage"</span> : <span class="hljs-string">"Failed to list source directory `/tmp/arangosh_JLnjGk/rocksdb-clusterOrNot/data/backups/2021-02-16T20.09.01Z_ba2acf99-d55f-4fe0-a053-379f6efe965b`: sh: rclone-arangodb: not found\n"</span> 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;result&quot;</span> : { 
+    <span class="hljs-string">&quot;Timestamp&quot;</span> : <span class="hljs-string">&quot;2022-01-10T14:15:37Z&quot;</span>, 
+    <span class="hljs-string">&quot;UploadId&quot;</span> : <span class="hljs-string">&quot;70737&quot;</span>, 
+    <span class="hljs-string">&quot;Cancelled&quot;</span> : <span class="hljs-literal">false</span>, 
+    <span class="hljs-string">&quot;BackupId&quot;</span> : <span class="hljs-string">&quot;2022-01-10T14.15.37Z_df935408-b4ae-45af-b58d-afe9e945029e&quot;</span>, 
+    <span class="hljs-string">&quot;DBServers&quot;</span> : { 
+      <span class="hljs-string">&quot;SNGL&quot;</span> : { 
+        <span class="hljs-string">&quot;Status&quot;</span> : <span class="hljs-string">&quot;STARTED&quot;</span> 
       } 
     } 
   } 

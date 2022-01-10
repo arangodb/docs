@@ -1,9 +1,9 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/database</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/database</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"example"</span>, 
-  <span class="hljs-string">"options"</span> : { 
-    <span class="hljs-string">"sharding"</span> : <span class="hljs-string">"flexible"</span>, 
-    <span class="hljs-string">"replicationFactor"</span> : <span class="hljs-number">3</span> 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;example&quot;</span>, 
+  <span class="hljs-string">&quot;options&quot;</span> : { 
+    <span class="hljs-string">&quot;sharding&quot;</span> : <span class="hljs-string">&quot;flexible&quot;</span>, 
+    <span class="hljs-string">&quot;replicationFactor&quot;</span> : <span class="hljs-number">3</span> 
   } 
 }
 EOF
@@ -16,7 +16,7 @@ server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">201</span>, 
-  <span class="hljs-string">"result"</span> : <span class="hljs-literal">true</span> 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">201</span>, 
+  <span class="hljs-string">&quot;result&quot;</span> : <span class="hljs-literal">true</span> 
 }

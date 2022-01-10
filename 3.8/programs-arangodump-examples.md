@@ -2,8 +2,7 @@
 layout: default
 description: arangodump can be invoked in a command line by executing the following command
 ---
-Arangodump Examples
-===================
+# _arangodump_ Examples
 
 _arangodump_ can be invoked in a command line by executing the following command:
 

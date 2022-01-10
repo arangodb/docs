@@ -51,6 +51,18 @@ queries early. When set to *false*, AQL queries that produce warnings will not
 abort and return the warnings along with the query results.
 The option can also be overridden for each individual AQL query.
 
+## Requiring `WITH` statements
+
+<small>Introduced in: v3.7.12</small>
+
+`--query.require-with value`
+
+When set to *true*, AQL queries in single server mode will also require `WITH`
+clauses in AQL queries where a cluster installation would require them.
+The option is set to *false* by default, but can be turned on in single servers
+to remove this behavior difference between single servers and clusters, making
+a later transition from single server to cluster easier.
+
 ## Enable/disable AQL query tracking
 
 `--query.tracking flag`

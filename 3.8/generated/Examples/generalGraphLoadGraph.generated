@@ -1,7 +1,7 @@
-arangosh&gt; <span class="hljs-keyword">var</span> graph_module = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/general-graph"</span>);
-arangosh&gt; graph = graph_module._graph(<span class="hljs-string">"social"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> graph_module = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/general-graph&quot;</span>);
+arangosh&gt; graph = graph_module._graph(<span class="hljs-string">&quot;social&quot;</span>);
 {[Graph] 
-  <span class="hljs-string">"relation"</span> : [ArangoCollection <span class="hljs-number">77996</span>, <span class="hljs-string">"relation"</span> (type edge, status loaded)], 
-  <span class="hljs-string">"female"</span> : [ArangoCollection <span class="hljs-number">77986</span>, <span class="hljs-string">"female"</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
-  <span class="hljs-string">"male"</span> : [ArangoCollection <span class="hljs-number">77991</span>, <span class="hljs-string">"male"</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
+  <span class="hljs-string">&quot;relation&quot;</span> : [ArangoCollection <span class="hljs-number">72845</span>, <span class="hljs-string">&quot;relation&quot;</span> (type edge, status loaded)], 
+  <span class="hljs-string">&quot;female&quot;</span> : [ArangoCollection <span class="hljs-number">72835</span>, <span class="hljs-string">&quot;female&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)], 
+  <span class="hljs-string">&quot;male&quot;</span> : [ArangoCollection <span class="hljs-number">72840</span>, <span class="hljs-string">&quot;male&quot;</span> (type <span class="hljs-built_in">document</span>, status loaded)] 
 }

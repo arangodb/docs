@@ -41,8 +41,7 @@ for making sure that the transaction is committed or aborted when it is no longe
 This avoids taking up resources on the ArangoDB server.
 
 {% hint 'warning' %}
-Transactions will acquire collection locks for read and write operations
-in the MMFiles storage engine, and for write operations in RocksDB.
+Transactions will acquire collection locks for write operations in RocksDB.
 It is therefore advisable to keep the transactions as short as possible.
 {% endhint %}
 
@@ -96,6 +95,9 @@ cluster from operating properly:
 - Maximum transaction size of **128 MB** per DB-Server
 
 These limits are also enforced for Stream Transactions on single servers.
+
+ArangoDB 3.8 and later versions have a
+[higher idle timeout](../../3.8/release-notes-upgrading-changes38.html#stream-transactions).
 
 Enforcing the limits is useful to free up resources used by abandoned 
 transactions, for example from transactions that are abandoned by client 

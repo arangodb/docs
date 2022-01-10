@@ -33,12 +33,14 @@ oasisctl create [flags]
 
 * [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
 * [oasisctl create apikey](oasisctl-create-apikey.html)	 - Create a new API key
-* [oasisctl create backup](oasisctl-create-backup.html)	 - Create a new backup
+* [oasisctl create auditlog](oasisctl-create-auditlog.html)	 - Create an auditlog
+* [oasisctl create backup](oasisctl-create-backup.html)	 - Create backup ...
 * [oasisctl create cacertificate](oasisctl-create-cacertificate.html)	 - Create a new CA certificate
 * [oasisctl create deployment](oasisctl-create-deployment.html)	 - Create a new deployment
 * [oasisctl create example](oasisctl-create-example.html)	 - Create example ...
 * [oasisctl create group](oasisctl-create-group.html)	 - Create a new group
 * [oasisctl create ipallowlist](oasisctl-create-ipallowlist.html)	 - Create a new IP allowlist
+* [oasisctl create metrics](oasisctl-create-metrics.html)	 - Create metrics resources
 * [oasisctl create organization](oasisctl-create-organization.html)	 - Create a new organization
 * [oasisctl create project](oasisctl-create-project.html)	 - Create a new project
 * [oasisctl create role](oasisctl-create-role.html)	 - Create a new role

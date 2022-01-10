@@ -30,20 +30,14 @@ First of all you have to start the Leader server, using a command like the above
 arangod --server.endpoint tcp://leader.domain.org:8529
 ```
 
-Depending on your storage engine you also want to adjust the following options:
+Next, you should adjust the `--rocksdb.wal-file-timeout` storage engine
+option that defines the timeout after which unused WAL files are deleted in
+seconds (default: 10).
 
-- MMFiles:<br>
-  `--wal.historic-logfiles`<br>
-  maximum number of historic logfiles to keep after collection (default: 10)
-
-- RocksDB:<br>
-  `--rocksdb.wal-file-timeout`<br>
-  timeout after which unused WAL files are deleted in seconds (default: 10)
-
-The options above prevent the premature removal of old WAL files from the Leader,
+The option prevents the premature removal of old WAL files from the Leader,
 and are useful in case intense write operations happen on the Leader while you
-are initializing the Follower. In fact, if you do not tune these options, what can
-happen is that the Leader WAL files do not include all the write operations
+are initializing the Follower. In fact, if you do not tune this option, what can
+happen is that the Leader WAL files do not include all the write operations that
 happened after the backup is taken. This may lead to situations in which the
 initialized Follower is missing some data, or fails to start.
 

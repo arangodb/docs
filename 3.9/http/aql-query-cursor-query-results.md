@@ -103,7 +103,7 @@ Content-type: application/json
 Extract next batch, still have more:
 
 ```js
-> curl -X PUT --dump - http://localhost:8529/_api/cursor/26011191
+> curl -X POST --dump - http://localhost:8529/_api/cursor/26011191
 
 HTTP/1.1 200 OK
 Content-type: application/json
@@ -134,7 +134,7 @@ Content-type: application/json
 Extract next batch, done:
 
 ```js
-> curl -X PUT --dump - http://localhost:8529/_api/cursor/26011191
+> curl -X POST --dump - http://localhost:8529/_api/cursor/26011191
 
 HTTP/1.1 200 OK
 Content-type: application/json
@@ -158,7 +158,7 @@ Content-type: application/json
 Do not do this because *hasMore* now has a value of false:
 
 ```js
-> curl -X PUT --dump - http://localhost:8529/_api/cursor/26011191
+> curl -X POST --dump - http://localhost:8529/_api/cursor/26011191
 
 HTTP/1.1 404 Not Found
 Content-type: application/json

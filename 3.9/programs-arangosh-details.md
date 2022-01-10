@@ -1,14 +1,13 @@
 ---
 layout: default
-description: You can paste multiple lines into Arangosh, given the first line ends with anopening brace
+description: You can paste multiple lines into arangosh, given the first line ends with an opening brace
 ---
-Arangosh Details
-================
+# _arangosh_ Details
 
 Interaction
 -----------
 
-You can paste multiple lines into Arangosh, given the first line ends with an
+You can paste multiple lines into _arangosh_, given the first line ends with an
 opening brace:
 
 {% arangoshexample examplevar="examplevar" script="script" result="result" %}
@@ -97,8 +96,8 @@ Escaping
 
 In AQL, escaping is done traditionally with the backslash character: `\`.
 As seen above, this leads to double backslashes when specifying Windows paths.
-Arangosh requires another level of escaping, also with the backslash character.
-It adds up to four backslashes that need to be written in Arangosh for a single
+_arangosh_ requires another level of escaping, also with the backslash character.
+It adds up to four backslashes that need to be written in _arangosh_ for a single
 literal backslash (`c:\tmp\test.js`):
 
     db._query('RETURN "c:\\\\tmp\\\\test.js"')
@@ -112,7 +111,7 @@ mitigate this:
 Database Wrappers
 -----------------
 
-_Arangosh_ provides the *db* object by default, and this object can
+_arangosh_ provides the *db* object by default, and this object can
 be used for switching to a different database and managing collections inside the
 current database.
 

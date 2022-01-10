@@ -1,19 +1,19 @@
-arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/analyzers"</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">"filter"</span>, <span class="hljs-string">"aql"</span>, { <span class="hljs-attr">queryString</span>:
-........&gt;   <span class="hljs-string">"FILTER LOWER(LEFT(@param, 2)) != 'ir' RETURN @param"</span>
-........&gt; }, [<span class="hljs-string">"frequency"</span>, <span class="hljs-string">"norm"</span>, <span class="hljs-string">"position"</span>]);
-arangosh&gt; <span class="hljs-keyword">var</span> coll = db._create(<span class="hljs-string">"coll"</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> doc1 = db.coll.save({ <span class="hljs-attr">value</span>: <span class="hljs-string">"regular"</span> });
-arangosh&gt; <span class="hljs-keyword">var</span> doc2 = db.coll.save({ <span class="hljs-attr">value</span>: <span class="hljs-string">"irregular"</span> });
-arangosh&gt; <span class="hljs-keyword">var</span> view = db._createView(<span class="hljs-string">"view"</span>, <span class="hljs-string">"arangosearch"</span>,
-........&gt; { <span class="hljs-attr">links</span>: { <span class="hljs-attr">coll</span>: { <span class="hljs-attr">fields</span>: { <span class="hljs-attr">value</span>: { <span class="hljs-attr">analyzers</span>: [<span class="hljs-string">"filter"</span>] }}}}})
-arangosh&gt; db._query(<span class="hljs-string">"FOR doc IN view SEARCH ANALYZER(doc.value IN ['regular', 'irregular'], 'filter') RETURN doc"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> analyzers = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/analyzers&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> a = analyzers.save(<span class="hljs-string">&quot;filter&quot;</span>, <span class="hljs-string">&quot;aql&quot;</span>, { <span class="hljs-attr">queryString</span>:
+........&gt;   <span class="hljs-string">&quot;FILTER LOWER(LEFT(@param, 2)) != &#x27;ir&#x27; RETURN @param&quot;</span>
+........&gt; }, [<span class="hljs-string">&quot;frequency&quot;</span>, <span class="hljs-string">&quot;norm&quot;</span>, <span class="hljs-string">&quot;position&quot;</span>]);
+arangosh&gt; <span class="hljs-keyword">var</span> coll = db._create(<span class="hljs-string">&quot;coll&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> doc1 = db.coll.save({ <span class="hljs-attr">value</span>: <span class="hljs-string">&quot;regular&quot;</span> });
+arangosh&gt; <span class="hljs-keyword">var</span> doc2 = db.coll.save({ <span class="hljs-attr">value</span>: <span class="hljs-string">&quot;irregular&quot;</span> });
+arangosh&gt; <span class="hljs-keyword">var</span> view = db._createView(<span class="hljs-string">&quot;view&quot;</span>, <span class="hljs-string">&quot;arangosearch&quot;</span>,
+........&gt; { <span class="hljs-attr">links</span>: { <span class="hljs-attr">coll</span>: { <span class="hljs-attr">fields</span>: { <span class="hljs-attr">value</span>: { <span class="hljs-attr">analyzers</span>: [<span class="hljs-string">&quot;filter&quot;</span>] }}}}})
+arangosh&gt; db._query(<span class="hljs-string">&quot;FOR doc IN view SEARCH ANALYZER(doc.value IN [&#x27;regular&#x27;, &#x27;irregular&#x27;], &#x27;filter&#x27;) RETURN doc&quot;</span>);
 [ 
   { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"75501"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"coll/75501"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGtN----"</span>, 
-    <span class="hljs-string">"value"</span> : <span class="hljs-string">"regular"</span> 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;70489&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;coll/70489&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPwCXq---&quot;</span>, 
+    <span class="hljs-string">&quot;value&quot;</span> : <span class="hljs-string">&quot;regular&quot;</span> 
   } 
 ]
 [object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">cached</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]

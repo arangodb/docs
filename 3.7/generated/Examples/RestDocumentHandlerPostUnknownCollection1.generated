@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products</span> &lt;&lt;EOF
 { "Hello": "World" }
 EOF
 
@@ -10,8 +10,8 @@ server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">404</span>, 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">true</span>, 
-  <span class="hljs-string">"errorMessage"</span> : <span class="hljs-string">"collection or view not found: products"</span>, 
-  <span class="hljs-string">"errorNum"</span> : <span class="hljs-number">1203</span> 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">404</span>, 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">true</span>, 
+  <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;collection or view not found: products&quot;</span>, 
+  <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">1203</span> 
 }

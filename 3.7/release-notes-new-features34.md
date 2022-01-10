@@ -1052,9 +1052,9 @@ versions on the same machine (e.g. for testing).
 Client tools
 ------------
 
-### Arangosh
+### _arangosh_
 
-Starting with ArangoDB version 3.4.5, the ArangoShell (arangosh) provides the option 
+Starting with ArangoDB version 3.4.5, the ArangoShell (_arangosh_) provides the option 
 `--console.history` for controlling whether the shell's command-line history 
 should be loaded from and persisted in a file.
 
@@ -1064,31 +1064,31 @@ file, and not store the current session's history when the shell is
 exited. The command-line history will then only be available in the
 current shell session.
 
-### Arangodump
+### _arangodump_
 
-Arangodump can now dump multiple collections in parallel. This can significantly
+_arangodump_ can now dump multiple collections in parallel. This can significantly
 reduce the time required to take a backup.
 
-By default, arangodump will use 2 threads for dumping collections. The number of
-threads used by arangodump can be adjusted by using the `--threads` option when
+By default, _arangodump_ will use 2 threads for dumping collections. The number of
+threads used by _arangodump_ can be adjusted by using the `--threads` option when
 invoking it.
 
-### Arangorestore
+### _arangorestore_
 
-Arangorestore can now restore multiple collections in parallel. This can significantly
+_arangorestore_ can now restore multiple collections in parallel. This can significantly
 reduce the time required to recover data from a backup.
 
-By default, arangorestore will use 2 threads for restoring collections. The number of
-threads used by arangorestore can be adjusted by using the `--threads` option when
+By default, _arangorestore_ will use 2 threads for restoring collections. The number of
+threads used by _arangorestore_ can be adjusted by using the `--threads` option when
 invoking it.
 
-### Arangoimport
+### _arangoimport_
 
-Arangoimp was renamed to arangoimport for consistency.
+_arangoimp_ was renamed to _arangoimport_ for consistency.
 The 3.4 release packages will still install `arangoimp` as a symlink so user scripts
 invoking `arangoimp` do not need to be changed.
 
-[Arangoimport now can pace the data load rate automatically](programs-arangoimport-details.html#automatic-pacing-with-busy-or-low-throughput-disk-subsystems)
+[arangoimport now can pace the data load rate automatically](programs-arangoimport-details.html#automatic-pacing-with-busy-or-low-throughput-disk-subsystems)
 based on the actual rate of
 data the server can handle. This is useful in contexts when the server has a limited
 I/O bandwidth, which is often the case in cloud environments. Loading data too quickly
@@ -1099,12 +1099,12 @@ Using a controlled and adaptive import rate allows preventing this throttling.
 The pacing algorithm is turned on by default, but can be disabled by manually specifying
 any value for the `--batch-size` parameter.
 
-Arangoimport also got an extra option `--create-database` so that it can automatically
-create the target database should this be desired. Previous versions of arangoimp
+_arangoimport_ also got an extra option `--create-database` so that it can automatically
+create the target database should this be desired. Previous versions of _arangoimp_
 provided options for creating the target collection only
 (`--create-collection`, `--create-collection-type`).
 
-Finally, arangoimport got an option `--latency` which can be used to print microsecond
+Finally, _arangoimport_ got an option `--latency` which can be used to print microsecond
 latency statistics on 10 second intervals for import runs. This can be used to get
 additional information about the import run performance and performance development.
 

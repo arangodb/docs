@@ -8,6 +8,43 @@ Miscellaneous functions
 Control flow functions
 ----------------------
 
+### MIN_MATCH()
+
+`MIN_MATCH(expr1, ... exprN, minMatchCount) → fulfilled`
+
+Match documents where at least **minMatchCount** of the specified
+AQL expressions are satisfied.
+
+There is a corresponding [`MIN_MATCH()` ArangoSearch function](functions-arangosearch.html#min_match)
+that can utilize View indexes.
+
+- **expr** (expression, _repeatable_): any valid AQL expression
+- **minMatchCount** (number): minimum number of expressions that should
+  be satisfied
+- returns **fulfilled** (bool): whether at least **minMatchCount** of the
+  specified expressions are `true`
+
+You can use `MIN_MATCH()` to filter if two out of three conditions evaluate to
+`true` for instance:
+
+```js
+LET members = [
+  { name: "Carol", age: 41, active: true },
+  { name: "Doug", age: 56, active: true },
+]
+FOR doc IN members
+  FILTER MIN_MATCH(LENGTH(doc.name) == 5, doc.age >= 50, doc.active, 2)
+  RETURN doc
+```
+
+An equivalent filter expression without `MIN_MATCH()` would be more cumbersome:
+
+```js
+  FILTER (LENGTH(doc.name) == 5 AND doc.age >= 50)
+    OR (doc.age >= 50 AND doc.active)
+    OR (doc.active AND LENGTH(doc.name) == 5)
+```
+
 ### NOT_NULL()
 
 `NOT_NULL(alternative, ...) → value`
@@ -21,6 +58,8 @@ are *null* themselves. It is also known as `COALESCE()` in SQL.
 
 ### FIRST_LIST()
 
+`FIRST_LIST(alternative, ...)  → list`
+
 Return the first alternative that is an array, and *null* if none of the
 alternatives is an array.
 
@@ -29,7 +68,7 @@ alternatives is an array.
 
 ### FIRST_DOCUMENT()
 
-`FIRST_DOCUMENT(value) → doc`
+`FIRST_DOCUMENT(alternative, ...) → doc`
 
 Return the first alternative that is a document, and *null* if none of the
 alternatives is a document.
@@ -105,6 +144,16 @@ Return an array of collections.
 
 This is an alias for [LENGTH()](#length).
 
+### CURRENT_DATABASE()
+
+`CURRENT_DATABASE() → databaseName`
+
+Returns the name of the current database.
+
+The current database is the database name that was specified in the URL path of the request (or defaults to _system database).
+
+- returns **databaseName** (string): the current database name
+
 ### CURRENT_USER()
 
 `CURRENT_USER() → userName`
@@ -176,13 +225,75 @@ of keys to return all documents that can be found.
 - returns **doc** (document\|array\|null): the content of the found document,
   an array of all found documents or *null* if nothing was found
 
-```js
-DOCUMENT( users, "users/john" )
-DOCUMENT( users, "john" )
+**Examples**
 
-DOCUMENT( users, [ "users/john", "users/amy" ] )
-DOCUMENT( users, [ "john", "amy" ] )
-```
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_1
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_1}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, "persons/alice" )
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_1
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_2
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_2}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, "alice" )
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_2
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_3
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_3}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, [ "persons/alice", "persons/bob" ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}  
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_4
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_4}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( persons, [ "alice", "bob" ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_4
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_5
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_5}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( @@coll, @key ) 
+  @BV {
+    "@coll": "persons",
+    "key": "alice"
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_5
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_6
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_6}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( @@coll, @keys )
+  @BV {
+    "@coll": "persons",
+    "keys": ["alice", "bob"]
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_6
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 `DOCUMENT(id) → doc`
 
@@ -193,10 +304,66 @@ The function can also be used with a single parameter *id* as follows:
 - returns **doc** (document\|null): the content of the found document
   or *null* if nothing was found
 
-```js
-DOCUMENT("users/john")
-DOCUMENT( [ "users/john", "users/amy" ] )
-```
+**Examples**
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_7
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_7}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT("persons/alice")
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_7
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_8
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_8}
+  @DATASET{knows_graph}
+    RETURN DOCUMENT( [ "persons/alice", "persons/bob" ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_8
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_9
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_9}
+  @DATASET{knows_graph}
+      RETURN DOCUMENT( @key )
+  @BV {
+    "key": "persons/alice"
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_9
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_10
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_10}
+  @DATASET{knows_graph}
+     RETURN DOCUMENT( @keys )
+  @BV {
+    "keys": ["persons/alice", "persons/bob"]
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_10
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+  @startDocuBlockInline FUNCTION_DOCUMENT_11
+  @EXAMPLE_AQL{FUNCTION_DOCUMENT_11}
+  @DATASET{knows_graph}
+     RETURN DOCUMENT( CONCAT("persons/", @key) )
+  @BV {
+    "key": "bob"
+  }
+  @END_EXAMPLE_AQL
+  @endDocuBlock FUNCTION_DOCUMENT_11
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
 Please also consider to use
 [`DOCUMENT` in conjunction with `WITH`](operations-with.html)

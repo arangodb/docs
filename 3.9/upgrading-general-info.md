@@ -27,9 +27,11 @@ Before upgrading, it is recommended to:
   [list of incompatible changes](release-notes.html#incompatible-changes)
   for API or other changes in the new version of ArangoDB, and make sure your applications
   can deal with them.
+- Check if any [technical alert](https://www.arangodb.com/alerts/){:target="_blank"}
+  discourages the upgrade to the version you want to upgrade to.
 - As an extra precaution, and as a requirement if you want to [downgrade](downgrading.html),
   you might want to:
-  - Take a backup of the old ArangoDB database, using [Arangodump](programs-arangodump.html),
+  - Take a backup of the old ArangoDB database, using [_arangodump_](programs-arangodump.html),
     as well as
   - Copy the entire "old" data directory to a safe place, after stopping the ArangoDB Server
     running on it (if you are running an Active Failover, or a Cluster, you will need to take
@@ -41,30 +43,27 @@ Upgrade Paths
 
 - It is always possible to upgrade between hot-fixes of the same GA release, i.e
   from X.Y.w to X.Y.z, where z>w.
-  - Examples: 
-    - Upgrading from 3.4.0 to 3.4.1 or (directly to) 3.4.2 is supported.
-    - Upgrading from 3.3.7 to 3.3.8 or (directly to) 3.3.11 is supported.
-    - Upgrading from 3.2.12 to 3.2.13 or (directly to) 3.2.15 is supported.
-- It possible to upgrade between two different consecutive GA releases, but it is
+  - Examples:
+    - Upgrading from 3.6.0 to 3.6.1 or (directly to) 3.6.15 is supported.
+    - Upgrading from 3.7.7 to 3.7.8 or (directly to) 3.7.13 is supported.
+- It is possible to upgrade between two different consecutive GA releases, but it is
   not officially supported to upgrade if the two GA releases are not consecutive
   (in this case, you first have to upgrade to all intermediate releases).
   - Examples:
-    - Upgrading from 3.3 to 3.4 is supported.
-    - Upgrading from 3.2 to 3.3 is supported.
-    - Upgrading from 3.2 to 3.4 directly is not officially supported: the officially
-      supported upgrade path in this case is 3.2 to 3.3, and then 3.3 to 3.4.	  
-  - **Important:** before upgrading between two consecutive GA releases it is highly recommended
-    to first upgrade the previous GA release to its latest hot-fix.
-    - Examples: 
-      - To upgrade from 3.2 to 3.3, first upgrade your 3.2 installation to 3.2.latest.
-      - To upgrade from 3.3 to 3.4, first upgrade your 3.3 installation to 3.3.latest.
+    - Upgrading from 3.6 to 3.7 is supported.
+    - Upgrading from 3.7 to 3.8 is supported.
+    - Upgrading from 3.6 to 3.8 directly is not officially supported!
+      The officially supported upgrade path in this case is 3.6 to 3.7, and then
+      3.7 to 3.8.
+  - **Important:** before upgrading between two consecutive GA releases it is highly
+    recommended to first upgrade the previous GA release to its latest hot-fix version.
+    - Examples:
+      - To upgrade from 3.6 to 3.7, first upgrade your 3.6 installation to
+        the latest 3.6 version.
+      - To upgrade from 3.7 to 3.8, first upgrade your 3.7 installation to
+        the latest 3.7 version.
 
 ### Additional Notes Regarding Rolling Upgrades
 
 In addition to the paragraph above, rolling upgrades via the tool _Starter_ are supported,
-as documented in the _Section_ [Upgrading Starter Deployments](upgrading-starter.html),
-with the following limitations:
-
-- Rolling upgrades between 3.3 and 3.4 are not supported before 3.3.20 and 3.4.0.
-- Rolling upgrades between 3.2 and 3.3 are not supported before 3.2.15 and 3.3.9.
-  
+as documented in the _Section_ [Upgrading Starter Deployments](upgrading-starter.html).

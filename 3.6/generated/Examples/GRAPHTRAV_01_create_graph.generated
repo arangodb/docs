@@ -1,177 +1,177 @@
-arangosh&gt; var examples = require("@arangodb/graph-examples/example-graph.js");
-arangosh&gt; var graph = examples.loadGraph("traversalGraph");
+arangosh&gt; var examples = require(&quot;@arangodb/graph-examples/example-graph.js&quot;);
+arangosh&gt; var graph = examples.loadGraph(&quot;traversalGraph&quot;);
 arangosh&gt; db.circles.toArray();
 [ 
   { 
-    "_key" : "A", 
-    "_id" : "circles/A", 
-    "_rev" : "_bkbesam---", 
-    "label" : "1" 
+    &quot;_key&quot; : &quot;A&quot;, 
+    &quot;_id&quot; : &quot;circles/A&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQW---&quot;, 
+    &quot;label&quot; : &quot;1&quot; 
   }, 
   { 
-    "_key" : "B", 
-    "_id" : "circles/B", 
-    "_rev" : "_bkbesam--A", 
-    "label" : "2" 
+    &quot;_key&quot; : &quot;B&quot;, 
+    &quot;_id&quot; : &quot;circles/B&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQW--A&quot;, 
+    &quot;label&quot; : &quot;2&quot; 
   }, 
   { 
-    "_key" : "C", 
-    "_id" : "circles/C", 
-    "_rev" : "_bkbesaq---", 
-    "label" : "3" 
+    &quot;_key&quot; : &quot;C&quot;, 
+    &quot;_id&quot; : &quot;circles/C&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQa---&quot;, 
+    &quot;label&quot; : &quot;3&quot; 
   }, 
   { 
-    "_key" : "D", 
-    "_id" : "circles/D", 
-    "_rev" : "_bkbesaq--A", 
-    "label" : "4" 
+    &quot;_key&quot; : &quot;D&quot;, 
+    &quot;_id&quot; : &quot;circles/D&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQe---&quot;, 
+    &quot;label&quot; : &quot;4&quot; 
   }, 
   { 
-    "_key" : "E", 
-    "_id" : "circles/E", 
-    "_rev" : "_bkbesau---", 
-    "label" : "5" 
+    &quot;_key&quot; : &quot;E&quot;, 
+    &quot;_id&quot; : &quot;circles/E&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQi---&quot;, 
+    &quot;label&quot; : &quot;5&quot; 
   }, 
   { 
-    "_key" : "F", 
-    "_id" : "circles/F", 
-    "_rev" : "_bkbesau--A", 
-    "label" : "6" 
+    &quot;_key&quot; : &quot;F&quot;, 
+    &quot;_id&quot; : &quot;circles/F&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQi--A&quot;, 
+    &quot;label&quot; : &quot;6&quot; 
   }, 
   { 
-    "_key" : "G", 
-    "_id" : "circles/G", 
-    "_rev" : "_bkbesau--C", 
-    "label" : "7" 
+    &quot;_key&quot; : &quot;G&quot;, 
+    &quot;_id&quot; : &quot;circles/G&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQm---&quot;, 
+    &quot;label&quot; : &quot;7&quot; 
   }, 
   { 
-    "_key" : "H", 
-    "_id" : "circles/H", 
-    "_rev" : "_bkbesay---", 
-    "label" : "8" 
+    &quot;_key&quot; : &quot;H&quot;, 
+    &quot;_id&quot; : &quot;circles/H&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQm--A&quot;, 
+    &quot;label&quot; : &quot;8&quot; 
   }, 
   { 
-    "_key" : "I", 
-    "_id" : "circles/I", 
-    "_rev" : "_bkbesay--A", 
-    "label" : "9" 
+    &quot;_key&quot; : &quot;I&quot;, 
+    &quot;_id&quot; : &quot;circles/I&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQq---&quot;, 
+    &quot;label&quot; : &quot;9&quot; 
   }, 
   { 
-    "_key" : "J", 
-    "_id" : "circles/J", 
-    "_rev" : "_bkbesa2---", 
-    "label" : "10" 
+    &quot;_key&quot; : &quot;J&quot;, 
+    &quot;_id&quot; : &quot;circles/J&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQu---&quot;, 
+    &quot;label&quot; : &quot;10&quot; 
   }, 
   { 
-    "_key" : "K", 
-    "_id" : "circles/K", 
-    "_rev" : "_bkbesa2--A", 
-    "label" : "11" 
+    &quot;_key&quot; : &quot;K&quot;, 
+    &quot;_id&quot; : &quot;circles/K&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQu--A&quot;, 
+    &quot;label&quot; : &quot;11&quot; 
   } 
 ]
 arangosh&gt; db.edges.toArray();
 [ 
   { 
-    "_key" : "66389", 
-    "_id" : "edges/66389", 
-    "_from" : "circles/A", 
-    "_to" : "circles/B", 
-    "_rev" : "_bkbesa2--C", 
-    "theFalse" : false, 
-    "theTruth" : true, 
-    "label" : "left_bar" 
+    &quot;_key&quot; : &quot;66395&quot;, 
+    &quot;_id&quot; : &quot;edges/66395&quot;, 
+    &quot;_from&quot; : &quot;circles/A&quot;, 
+    &quot;_to&quot; : &quot;circles/B&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQy---&quot;, 
+    &quot;theFalse&quot; : false, 
+    &quot;theTruth&quot; : true, 
+    &quot;label&quot; : &quot;left_bar&quot; 
   }, 
   { 
-    "_key" : "66391", 
-    "_id" : "edges/66391", 
-    "_from" : "circles/B", 
-    "_to" : "circles/C", 
-    "_rev" : "_bkbesa6---", 
-    "theFalse" : false, 
-    "theTruth" : true, 
-    "label" : "left_blarg" 
+    &quot;_key&quot; : &quot;66397&quot;, 
+    &quot;_id&quot; : &quot;edges/66397&quot;, 
+    &quot;_from&quot; : &quot;circles/B&quot;, 
+    &quot;_to&quot; : &quot;circles/C&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQy--A&quot;, 
+    &quot;theFalse&quot; : false, 
+    &quot;theTruth&quot; : true, 
+    &quot;label&quot; : &quot;left_blarg&quot; 
   }, 
   { 
-    "_key" : "66393", 
-    "_id" : "edges/66393", 
-    "_from" : "circles/C", 
-    "_to" : "circles/D", 
-    "_rev" : "_bkbesa6--A", 
-    "theFalse" : false, 
-    "theTruth" : true, 
-    "label" : "left_blorg" 
+    &quot;_key&quot; : &quot;66399&quot;, 
+    &quot;_id&quot; : &quot;edges/66399&quot;, 
+    &quot;_from&quot; : &quot;circles/C&quot;, 
+    &quot;_to&quot; : &quot;circles/D&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQ2---&quot;, 
+    &quot;theFalse&quot; : false, 
+    &quot;theTruth&quot; : true, 
+    &quot;label&quot; : &quot;left_blorg&quot; 
   }, 
   { 
-    "_key" : "66395", 
-    "_id" : "edges/66395", 
-    "_from" : "circles/B", 
-    "_to" : "circles/E", 
-    "_rev" : "_bkbesb----", 
-    "theFalse" : false, 
-    "theTruth" : true, 
-    "label" : "left_blub" 
+    &quot;_key&quot; : &quot;66401&quot;, 
+    &quot;_id&quot; : &quot;edges/66401&quot;, 
+    &quot;_from&quot; : &quot;circles/B&quot;, 
+    &quot;_to&quot; : &quot;circles/E&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQ6---&quot;, 
+    &quot;theFalse&quot; : false, 
+    &quot;theTruth&quot; : true, 
+    &quot;label&quot; : &quot;left_blub&quot; 
   }, 
   { 
-    "_key" : "66397", 
-    "_id" : "edges/66397", 
-    "_from" : "circles/E", 
-    "_to" : "circles/F", 
-    "_rev" : "_bkbesb---A", 
-    "theFalse" : false, 
-    "theTruth" : true, 
-    "label" : "left_schubi" 
+    &quot;_key&quot; : &quot;66403&quot;, 
+    &quot;_id&quot; : &quot;edges/66403&quot;, 
+    &quot;_from&quot; : &quot;circles/E&quot;, 
+    &quot;_to&quot; : &quot;circles/F&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIQ6--A&quot;, 
+    &quot;theFalse&quot; : false, 
+    &quot;theTruth&quot; : true, 
+    &quot;label&quot; : &quot;left_schubi&quot; 
   }, 
   { 
-    "_key" : "66399", 
-    "_id" : "edges/66399", 
-    "_from" : "circles/A", 
-    "_to" : "circles/G", 
-    "_rev" : "_bkbesb---C", 
-    "theFalse" : false, 
-    "theTruth" : true, 
-    "label" : "right_foo" 
+    &quot;_key&quot; : &quot;66405&quot;, 
+    &quot;_id&quot; : &quot;edges/66405&quot;, 
+    &quot;_from&quot; : &quot;circles/A&quot;, 
+    &quot;_to&quot; : &quot;circles/G&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIR----&quot;, 
+    &quot;theFalse&quot; : false, 
+    &quot;theTruth&quot; : true, 
+    &quot;label&quot; : &quot;right_foo&quot; 
   }, 
   { 
-    "_key" : "66401", 
-    "_id" : "edges/66401", 
-    "_from" : "circles/G", 
-    "_to" : "circles/H", 
-    "_rev" : "_bkbesbC---", 
-    "theFalse" : false, 
-    "theTruth" : true, 
-    "label" : "right_blob" 
+    &quot;_key&quot; : &quot;66407&quot;, 
+    &quot;_id&quot; : &quot;edges/66407&quot;, 
+    &quot;_from&quot; : &quot;circles/G&quot;, 
+    &quot;_to&quot; : &quot;circles/H&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIR---A&quot;, 
+    &quot;theFalse&quot; : false, 
+    &quot;theTruth&quot; : true, 
+    &quot;label&quot; : &quot;right_blob&quot; 
   }, 
   { 
-    "_key" : "66403", 
-    "_id" : "edges/66403", 
-    "_from" : "circles/H", 
-    "_to" : "circles/I", 
-    "_rev" : "_bkbesbC--A", 
-    "theFalse" : false, 
-    "theTruth" : true, 
-    "label" : "right_blub" 
+    &quot;_key&quot; : &quot;66409&quot;, 
+    &quot;_id&quot; : &quot;edges/66409&quot;, 
+    &quot;_from&quot; : &quot;circles/H&quot;, 
+    &quot;_to&quot; : &quot;circles/I&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIRC---&quot;, 
+    &quot;theFalse&quot; : false, 
+    &quot;theTruth&quot; : true, 
+    &quot;label&quot; : &quot;right_blub&quot; 
   }, 
   { 
-    "_key" : "66405", 
-    "_id" : "edges/66405", 
-    "_from" : "circles/G", 
-    "_to" : "circles/J", 
-    "_rev" : "_bkbesbG---", 
-    "theFalse" : false, 
-    "theTruth" : true, 
-    "label" : "right_zip" 
+    &quot;_key&quot; : &quot;66411&quot;, 
+    &quot;_id&quot; : &quot;edges/66411&quot;, 
+    &quot;_from&quot; : &quot;circles/G&quot;, 
+    &quot;_to&quot; : &quot;circles/J&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIRC--A&quot;, 
+    &quot;theFalse&quot; : false, 
+    &quot;theTruth&quot; : true, 
+    &quot;label&quot; : &quot;right_zip&quot; 
   }, 
   { 
-    "_key" : "66407", 
-    "_id" : "edges/66407", 
-    "_from" : "circles/J", 
-    "_to" : "circles/K", 
-    "_rev" : "_bkbesbG--A", 
-    "theFalse" : false, 
-    "theTruth" : true, 
-    "label" : "right_zup" 
+    &quot;_key&quot; : &quot;66413&quot;, 
+    &quot;_id&quot; : &quot;edges/66413&quot;, 
+    &quot;_from&quot; : &quot;circles/J&quot;, 
+    &quot;_to&quot; : &quot;circles/K&quot;, 
+    &quot;_rev&quot; : &quot;_c6CZIRG---&quot;, 
+    &quot;theFalse&quot; : false, 
+    &quot;theTruth&quot; : true, 
+    &quot;label&quot; : &quot;right_zup&quot; 
   } 
 ]
-arangosh&gt; print("once you don't need them anymore, clean them up:");
-once you don't need them anymore, clean them up:
-arangosh&gt; examples.dropGraph("traversalGraph");
+arangosh&gt; print(&quot;once you don&#x27;t need them anymore, clean them up:&quot;);
+once you don&#x27;t need them anymore, clean them up:
+arangosh&gt; examples.dropGraph(&quot;traversalGraph&quot;);

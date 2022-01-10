@@ -1,22 +1,24 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">'x-arango-async: store'</span> --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/version</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;x-arango-async: store&#x27;</span> --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/version</span>
 
 HTTP/1.1 202 Accepted
 content-type: text/plain
 connection: Keep-Alive
 content-length: 0
 server: ArangoDB
-x-arango-async-id: 92338
+x-arango-async-id: 81738
+x-arango-queue-time-seconds: 0.000000
 x-content-type-options: nosniff
 
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/job/92338</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/81738</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">15</span>
 server: ArangoDB
+x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"result"</span> : <span class="hljs-literal">true</span> 
+  <span class="hljs-string">&quot;result&quot;</span> : <span class="hljs-literal">true</span> 
 }

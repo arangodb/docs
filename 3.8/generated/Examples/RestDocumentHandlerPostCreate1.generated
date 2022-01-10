@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_api/document/products</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products</span> &lt;&lt;EOF
 { "Hello": "World" }
 EOF
 
@@ -6,13 +6,13 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> C
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">60</span>
-etag: <span class="hljs-string">"_cCeGlJK--_"</span>
-location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">70941</span>
+etag: <span class="hljs-string">&quot;_diPv6DK---&quot;</span>
+location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/<span class="hljs-number">67599</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"products/70941"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"70941"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGlJK--_"</span> 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/67599&quot;</span>, 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;67599&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPv6DK---&quot;</span> 
 }

@@ -307,8 +307,6 @@ variables to store their intermediate results.
 
 Allowed characters in variable names are the letters *a* to *z* (both in lower
 and upper case), the numbers *0* to *9*, the underscore (*_*) symbol and the
-dollar (*$*) sign. A variable name must not start with a number. If a variable name 
-starts with the underscore character, the underscore must be followed by least one 
-letter (a-z or A-Z) or digit (0-9).
-
-The dollar sign can be used only as the very first character in a variable name.
+dollar (*$*) sign. A variable name must not start with a number or underscore.
+The dollar sign can only be used as the very first character in a variable name
+and must be followed by a letter.

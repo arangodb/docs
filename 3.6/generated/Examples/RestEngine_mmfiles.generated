@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/engine</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/engine</span>
 
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
@@ -8,21 +8,21 @@ server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"name"</span> : <span class="hljs-string">"mmfiles"</span>, 
-  <span class="hljs-string">"supports"</span> : { 
-    <span class="hljs-string">"dfdb"</span> : <span class="hljs-literal">true</span>, 
-    <span class="hljs-string">"indexes"</span> : [ 
-      <span class="hljs-string">"primary"</span>, 
-      <span class="hljs-string">"edge"</span>, 
-      <span class="hljs-string">"hash"</span>, 
-      <span class="hljs-string">"skiplist"</span>, 
-      <span class="hljs-string">"ttl"</span>, 
-      <span class="hljs-string">"persistent"</span>, 
-      <span class="hljs-string">"geo"</span>, 
-      <span class="hljs-string">"fulltext"</span> 
+  <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;mmfiles&quot;</span>, 
+  <span class="hljs-string">&quot;supports&quot;</span> : { 
+    <span class="hljs-string">&quot;dfdb&quot;</span> : <span class="hljs-literal">true</span>, 
+    <span class="hljs-string">&quot;indexes&quot;</span> : [ 
+      <span class="hljs-string">&quot;primary&quot;</span>, 
+      <span class="hljs-string">&quot;edge&quot;</span>, 
+      <span class="hljs-string">&quot;hash&quot;</span>, 
+      <span class="hljs-string">&quot;skiplist&quot;</span>, 
+      <span class="hljs-string">&quot;ttl&quot;</span>, 
+      <span class="hljs-string">&quot;persistent&quot;</span>, 
+      <span class="hljs-string">&quot;geo&quot;</span>, 
+      <span class="hljs-string">&quot;fulltext&quot;</span> 
     ], 
-    <span class="hljs-string">"aliases"</span> : { 
-      <span class="hljs-string">"indexes"</span> : { 
+    <span class="hljs-string">&quot;aliases&quot;</span> : { 
+      <span class="hljs-string">&quot;indexes&quot;</span> : { 
       } 
     } 
   } 

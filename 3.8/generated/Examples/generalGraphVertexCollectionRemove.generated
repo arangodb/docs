@@ -1,14 +1,14 @@
-arangosh&gt; <span class="hljs-keyword">var</span> examples = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/graph-examples/example-graph.js"</span>);
-arangosh&gt; <span class="hljs-keyword">var</span> graph = examples.loadGraph(<span class="hljs-string">"social"</span>);
-arangosh&gt; graph.male.save({<span class="hljs-attr">name</span>: <span class="hljs-string">"Kermit"</span>, <span class="hljs-attr">_key</span>: <span class="hljs-string">"kermit"</span>});
+arangosh&gt; <span class="hljs-keyword">var</span> examples = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@arangodb/graph-examples/example-graph.js&quot;</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> graph = examples.loadGraph(<span class="hljs-string">&quot;social&quot;</span>);
+arangosh&gt; graph.male.save({<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Kermit&quot;</span>, <span class="hljs-attr">_key</span>: <span class="hljs-string">&quot;kermit&quot;</span>});
 { 
-  <span class="hljs-string">"_id"</span> : <span class="hljs-string">"male/kermit"</span>, 
-  <span class="hljs-string">"_key"</span> : <span class="hljs-string">"kermit"</span>, 
-  <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGv-G--_"</span> 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;male/kermit&quot;</span>, 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;kermit&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPwFdO---&quot;</span> 
 }
-arangosh&gt; db._exists(<span class="hljs-string">"male/kermit"</span>)
+arangosh&gt; db._exists(<span class="hljs-string">&quot;male/kermit&quot;</span>)
 <span class="hljs-literal">true</span>
-arangosh&gt; graph.male.remove(<span class="hljs-string">"male/kermit"</span>)
+arangosh&gt; graph.male.remove(<span class="hljs-string">&quot;male/kermit&quot;</span>)
 <span class="hljs-literal">true</span>
-arangosh&gt; db._exists(<span class="hljs-string">"male/kermit"</span>)
+arangosh&gt; db._exists(<span class="hljs-string">&quot;male/kermit&quot;</span>)
 <span class="hljs-literal">false</span>

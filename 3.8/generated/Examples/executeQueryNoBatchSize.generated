@@ -1,26 +1,48 @@
-arangosh&gt; result = db.users.all().toArray();
-[ 
-  { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"77198"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/77198"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGt8i--_"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Gerhard"</span> 
-  }, 
-  { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"77200"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/77200"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGt8i--A"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Helmut"</span> 
-  }, 
-  { 
-    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"77202"</span>, 
-    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"users/77202"</span>, 
-    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_cCeGt8m---"</span>, 
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Angela"</span> 
-  } 
-]
-arangosh&gt; <span class="hljs-keyword">var</span> q = db._query(<span class="hljs-string">"FOR x IN users RETURN x"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> result = db.users.all().toArray();
+........&gt; print(result);
+........&gt; <span class="hljs-keyword">var</span> q = db._query(<span class="hljs-string">&quot;FOR x IN users RETURN x&quot;</span>);
 ........&gt; result = [ ];
 ........&gt; <span class="hljs-keyword">while</span> (q.hasNext()) {
 ........&gt;   result.push(q.next());
 ........&gt; }
+........&gt; print(result);
+[ 
+  { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72047&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/72047&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPwD2y--_&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Gerhard&quot;</span> 
+  }, 
+  { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72049&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/72049&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPwD22---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Helmut&quot;</span> 
+  }, 
+  { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72051&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/72051&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPwD22--_&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Angela&quot;</span> 
+  } 
+]
+[ 
+  { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72047&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/72047&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPwD2y--_&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Gerhard&quot;</span> 
+  }, 
+  { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72049&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/72049&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPwD22---&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Helmut&quot;</span> 
+  }, 
+  { 
+    <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;72051&quot;</span>, 
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;users/72051&quot;</span>, 
+    <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPwD22--_&quot;</span>, 
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;Angela&quot;</span> 
+  } 
+]

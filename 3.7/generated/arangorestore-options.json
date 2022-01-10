@@ -408,6 +408,27 @@
     "section" : "",
     "type" : "boolean"
   },
+  "initial-connect-retries" : {
+    "category" : "option",
+    "default" : 3,
+    "deprecatedIn" : null,
+    "description" : "number of connect retries for initial connection",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.7.13"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "",
+    "type" : "uint32"
+  },
   "input-directory" : {
     "category" : "option",
     "default" : "/work/ArangoDB/dump",
@@ -539,8 +560,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -561,8 +581,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.4.5",
-      "v3.5.0"
+      "v3.4.5"
     ],
     "obsolete" : false,
     "os" : [
@@ -677,7 +696,7 @@
     "category" : "option",
     "default" : false,
     "deprecatedIn" : null,
-    "description" : "append line number and file name",
+    "description" : "include the function name, file name and line number of the source code that issues the log message. Format: `[func@FileName.cpp:123]`",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : true,
@@ -701,7 +720,7 @@
     "enterpriseOnly" : false,
     "hidden" : false,
     "introducedIn" : [
-      "v3.8.0"
+      "v3.7.9"
     ],
     "obsolete" : false,
     "os" : [
@@ -718,7 +737,7 @@
     "default" : [
     ],
     "deprecatedIn" : null,
-    "description" : "log destination(s), e.g. file:///path/to/file (Linux, macOS) or file://C:\\path\\to\\file (Windows)",
+    "description" : "log destination(s), e.g. file:///path/to/file (any '$PID' will be replaced with the process id)",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,

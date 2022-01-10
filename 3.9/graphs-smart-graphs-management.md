@@ -57,6 +57,11 @@ enforce the correct sharding.
   - `isDisjoint` (bool, optional):
     If set to true, a Disjoint SmartGraph will be created. This flag is not
     editable after creation. Default: false.
+  - `satellites` (array, optional):
+    An array of collection names that will be used to create
+    [SatelliteCollections](satellites.html) for a Hybrid (Disjoint) SmartGraph.
+    Each array element must be a string and a valid collection name.
+    The collection type cannot be modified later.
 
 The creation of a graph requires the name and some SmartGraph options.
 Due to the API `edgeDefinitions` and `orphanCollections` have to be given, but

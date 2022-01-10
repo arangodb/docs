@@ -1,9 +1,21 @@
 ---
 layout: default
 description: ArangoDB is a database that serves documents to clients
+title: ArangoDB Data Model & Concepts
 ---
-Concepts
-========
+# Data Model & Concepts
+
+This chapter introduces ArangoDB's core concepts and covers
+
+- its data model (or data models respectively),
+- the terminology used throughout the database system and in this
+  documentation
+
+You will also find usage examples on how to interact with the database system
+using [arangosh](programs-arangosh.html), e.g. how to create and
+drop databases / collections, or how to save, update, replace and remove
+documents. You can do all this using the [web interface](getting-started-web-interface.html)
+as well and may therefore skip these sections as beginner.
 
 Database Interaction
 --------------------
@@ -15,7 +27,7 @@ is provided to interact with the database system.
 
 The [web interface](programs-web-interface.html) that comes with
 ArangoDB, called *Aardvark*, provides graphical user interface that is easy to use.
-An [interactive shell](programs-arangosh.html), called *Arangosh*, is also
+An [interactive shell](programs-arangosh.html), called *arangosh*, is also
 shipped. In addition, there are so called [drivers](drivers/index.html)
 that make it easy to use the database system in various environments and
 programming languages. All these tools use the HTTP interface of the server and

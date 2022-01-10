@@ -446,22 +446,22 @@ ArangoSearch
 ### Analyzers
 
 - Added UTF-8 support and ability to mark beginning/end of the sequence to
-  the [`ngram` Analyzer type](arangosearch-analyzers.html#n-gram).
+  the [`ngram` Analyzer type]({% assign ver = "3.7" | version: "<" %}{% if ver %}arangosearch-{% endif %}analyzers.html#ngram).
 
   The following optional properties can be provided for an `ngram` Analyzer
   definition:
 
   - `startMarker` : `<string>`, default: ""<br>
-    this value will be prepended to n-grams at the beginning of input sequence
+    this value will be prepended to _n_-grams at the beginning of input sequence
 
   - `endMarker` : `<string>`, default: ""<br>
-    this value will be appended to n-grams at the beginning of input sequence
+    this value will be appended to _n_-grams at the beginning of input sequence
 
   - `streamType` : `"binary"|"utf8"`, default: "binary"<br>
     type of the input stream (support for UTF-8 is new)
 
-- Added _edge n-gram_ support to the [`text` Analyzer type](arangosearch-analyzers.html#text).
-  The input gets tokenized as usual, but then n-grams are generated from each
+- Added _edge n-gram_ support to the [`text` Analyzer type]({% assign ver = "3.7" | version: "<" %}{% if ver %}arangosearch-{% endif %}analyzers.html#text).
+  The input gets tokenized as usual, but then _n_-grams are generated from each
   token. UTF-8 encoding is assumed (whereas the `ngram` Analyzer has a
   configurable stream type and defaults to binary).
 
@@ -469,8 +469,8 @@ ArangoSearch
   Analyzer definition:
 
   - `edgeNgram` (object, _optional_):
-    - `min` (number, _optional_): minimal n-gram length
-    - `max` (number, _optional_): maximal n-gram length
+    - `min` (number, _optional_): minimal _n_-gram length
+    - `max` (number, _optional_): maximal _n_-gram length
     - `preserveOriginal` (boolean, _optional_): include the original token
       if its length is less than *min* or greater than *max*
 
@@ -497,7 +497,7 @@ FOR doc IN myView SEARCH tokens  ANY <= doc.title RETURN doc // dynamic disjunct
 In addition, both the `TOKENS()` and the `PHRASE()` functions were
 extended with array support for convenience.
 
-[TOKENS()](aql/functions-arangosearch.html#tokens) accepts recursive arrays of
+[TOKENS()](aql/functions-{% assign ver = "3.7" | version: ">=" %}{% if ver %}string{% else %}arangosearch{% endif %}.html#tokens) accepts recursive arrays of
 strings as the first argument:
 
 ```js
@@ -630,7 +630,7 @@ The following APIs have been expanded / changed:
 
   New attribute `force`, see [Hot Backup](#hot-backup) below.
 
-- New [Metrics API](http/administration-and-monitoring{% if page.version.version >= "3.7" %}-metrics{% endif %}.html#read-the-metrics),<br>
+- New [Metrics API](http/administration-and-monitoring{% assign ver = "3.7" | version: ">=" %}{% if ver %}-metrics{% endif %}.html#read-the-metrics),<br>
   HTTP route `GET /_admin/metrics`
 
   Returns the instance's current metrics in Prometheus format. The returned
@@ -659,7 +659,7 @@ Startup options
 ### Metrics API option
 
 The new [option](programs-arangod-server.html#metrics-api)
-`--server.enable-metrics-api` allows you to disable the metrics API by setting
+`--server.export-metrics-api` allows you to disable the metrics API by setting
 it to `false`, which is otherwise turned on by default.
 
 ### OneShard cluster option
@@ -749,7 +749,8 @@ storage engine without modifying client application code. Otherwise it should
 best be avoided as the use of exclusive locks on collections will introduce a
 noticeable throughput penalty. 
 
-Note that the MMFiles engine is [deprecated](appendix-deprecated.html)
+Note that the MMFiles engine is {% assign ver = "3.9" | version: ">=" %}{% if ver %}
+deprecated{% else %}[deprecated](appendix-deprecated.html){% endif %}
 from v3.6.0 on and will be removed in a future release. So will be this option,
 which is a stopgap measure only.
 

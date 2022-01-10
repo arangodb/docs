@@ -190,10 +190,6 @@ Administration
 
 - [Using The Linux Kernel and Cgroups to Simulate Starvation](https://www.arangodb.com/2019/01/using-the-linux-kernel-and-cgroups-to-simulate-starvation/){:target="_blank"}
 
-- [ArangoDB Oasis](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=cluster_pages&utm_campaign=docs_traffic){:target="_blank"}:
-  Cloud service for cluster deployments of any size. Sign up, then click the
-  help icon in the top right corner and start the tour.
-
 - Oasisctl:
   - [Opening the ArangoDB Oasis API & Terraform Provider](https://www.arangodb.com/2020/03/opening-the-arangodb-oasis-api-terraform-provider/){:target="_blank"}
   - [Getting Started with the Oasis API and Oasisctl](oasis/oasisctl-getting-started.html)

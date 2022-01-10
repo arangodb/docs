@@ -263,7 +263,7 @@ Return the base 10 logarithm of *value*.
   equal or less than 0
 
 ```js
-LOG10(10000) // 10
+LOG10(10000) // 4
 LOG10(10) // 1
 LOG10(0) // null
 ```

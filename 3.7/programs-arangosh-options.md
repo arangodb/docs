@@ -7,5 +7,6 @@ Arangosh Options
 
 Usage: `arangosh [<options>]`
 
-{% assign options = site.data["37-program-options-arangosh"] %}
+{% assign optionsFile = page.version.version | remove: "." | append: "-program-options-arangosh" -%}
+{% assign options = site.data[optionsFile] -%}
 {% include program-option.html options=options name="arangosh" %}

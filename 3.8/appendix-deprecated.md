@@ -7,6 +7,13 @@ redirect_from:
   - appendix-deprecated-actions-html-example.html # 3.4 -> 3.5
   - appendix-deprecated-actions-json-example.html # 3.4 -> 3.5
   - appendix-deprecated-actions-modifying.html # 3.4 -> 3.5
+  - appendix-deprecated-simple-queries.html # 3.8 -> 3.8
+  - appendix-deprecated-simple-queries-pagination.html # 3.8 -> 3.8
+  - appendix-deprecated-simple-queries-modification-queries.html # 3.8 -> 3.8
+  - appendix-deprecated-simple-queries-geo-queries.html # 3.8 -> 3.8
+  - appendix-deprecated-simple-queries-fulltext-queries.html # 3.8 -> 3.8
+  - http/simple-query.html # 3.8 -> 3.8
+  - programs-arangod-compaction.html # 3.9 -> 3.9
 ---
 Deprecated
 ==========
@@ -18,8 +25,7 @@ replace the old features with:
 
 - **MMFiles Storage Engine**:
   The MMFiles storage engine was deprecated in version 3.6.0 and removed in
-  3.7.0. To change your MMFiles storage engine deployment to RocksDB, see:
-  [Switch storage engine](administration-engine-switch-engine.html)
+  3.7.0.
 
   MMFiles specific startup options still exist but will also be removed.
   This will affect the following options:
@@ -60,11 +66,44 @@ replace the old features with:
   is deprecated and highly discouraged. This functionality may be removed in
   future versions of ArangoDB.
 
-- **Old metrics API**:
+- **Old metrics REST API**:
   The old metrics API under `/_admin/metrics` is deprecated and replaced by
   a new one under `/_admin/metrics/v2` from version 3.8.0 on. This step was
   necessary because the old API did not follow quite a few Prometheus
   guidelines for metrics.
+
+- **Statistics REST API**:
+  The endpoints `/_admin/statistics` and `/_admin/statistics-description`
+  are deprecated in favor of the new metrics API under `/_admin/metrics/v2`.
+  The metrics API provides a lot more information than the statistics API, so
+  it is much more useful.
+
+- **Replication logger-follow REST API**:
+  The endpoint `/_api/replication/logger-follow` is deprecated since 3.4.0 and
+  may be removed in a future version. Client applications should use the REST 
+  API endpoint `/_api/wal/tail` instead, which is available since ArangoDB 3.3.
+
+- **Older cluster REST API endpoints**:
+  The following endpoints are simply redirects since ArangoDB 3.7 and are thus
+  deprecated from ArangoDB 3.8 onwards:
+
+  - `/_admin/clusterNodeVersion`: redirects to `/_admin/cluster/nodeVersion`
+  - `/_admin/clusterNodeEngine`: redirects to `/_admin/cluster/nodeEngine`
+  - `/_admin/clusterNodeStats`: redirects to `/_admin/cluster/nodeStatistics`
+  - `/_admin/clusterStatistics`: redirects to `/_admin/cluster/statistics`
+
+  The redirecting endpoints will be removed in a future version of ArangoDB.
+  Their usage in client applications can be replaced by the endpoints they 
+  redirect to.
+
+- **Loading and unloading of collections**:
+  The JavaScript functions for explicitly loading and unloading collections,
+  `db.<collection-name>.load()` and `db.<collection-name>.unload()` and their
+  REST API endpoints `PUT /_api/collection/<collection-name>/load` and
+  `PUT /_api/collection/<collection-name>/unload` are deprecated in 3.8.
+  There should be no need to explicitly load or unload a collection with the
+  RocksDB storage engine. The load/unload functionality was useful only with
+  the MMFiles storage engine, which is not available anymore since 3.7.
 
 - **Actions**: Snippets of JavaScript code on the server-side for minimal
   custom endpoints. Since the Foxx revamp in 3.0, it became really easy to
@@ -144,7 +183,7 @@ replace the old features with:
   discouraged. Their functionality is already removed, but they still exist to
   prevent unknown startup option errors.
 
-- **JavaScript traversal API**: The [JavaScript traversal API](http/traversal.html)
+- **HTTP and JavaScript traversal APIs**: The [HTTP traversal API](http/traversal.html)
   is deprecated since version 3.4.0. The JavaScript traversal module
   `@arangodb/graph/traversal` is also deprecated since then. The preferred way
   to traverse graphs is via AQL.

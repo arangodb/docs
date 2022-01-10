@@ -10,10 +10,6 @@ CRUD
 - [**U**pdate documents](#update-documents)
 - [**D**elete documents](#delete-documents)
 
-You can go through this tutorial in ArangoDB Oasis:
-the Cloud Service for ArangoDB. Start your
-[free 14-day trial here](https://cloud.arangodb.com/home?utm_source=docs&utm_medium=top_pages&utm_campaign=docs_traffic){:target="_blank"}.
-
 Create documents
 ----------------
 

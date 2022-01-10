@@ -154,8 +154,6 @@ To deactivate the type mapping process, you can return `null` from the `typeKey(
 | @TypeAlias("alias")     | class                     | set a type alias for the class when persisted to the DB                                                                                             |
 | @HashIndex              | class                     | describes a hash index                                                                                                                              |
 | @HashIndexed            | field                     | describes how to index the field                                                                                                                    |
-| @SkiplistIndex          | class                     | describes a skiplist index                                                                                                                          |
-| @SkiplistIndexed        | field                     | describes how to index the field                                                                                                                    |
 | @PersistentIndex        | class                     | describes a persistent index                                                                                                                        |
 | @PersistentIndexed      | field                     | describes how to index the field                                                                                                                    |
 | @GeoIndex               | class                     | describes a geo index                                                                                                                               |

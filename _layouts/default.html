@@ -52,7 +52,7 @@ This documentation is outdated. Please see the most recent version here: <a href
         <script type="text/javascript">
           var disablePageToc = {{ page["page-toc"].disable | jsonify }};
           if (!disablePageToc) {
-            generateToc();
+            generateToc({{ page["page-toc"]["max-headline-level"] }});
           }
         </script>
       </div>
@@ -60,5 +60,6 @@ This documentation is outdated. Please see the most recent version here: <a href
   </div>
   {% include algolia.html %}
   <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/2482448.js"></script>
+  <noscript><img src="https://ws.zoominfo.com/pixel/60e5aeed1cb467001537be54" width="1" height="1" style="display: none;" /></noscript>
 </body>
 </html>

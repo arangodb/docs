@@ -21,9 +21,9 @@ oasisctl import [flags]
   -b, --batch-size int                     The number of documents to write at once. (default 4096)
   -d, --destination-deployment-id string   Destination deployment id to import data into. It can be provided instead of address, username and password.
       --excluded-collection strings        A list of collections names which should be excluded. Exclusion takes priority over inclusion.
+      --excluded-database strings          A list of database names which should be excluded. Exclusion takes priority over inclusion.
       --excluded-graph strings             A list of graph names which should be excluded. Exclusion takes priority over inclusion.
       --excluded-view strings              A list of view names which should be excluded. Exclusion takes priority over inclusion.
-      --exluded-database strings           A list of database names which should be excluded. Exclusion takes priority over inclusion.
   -f, --force                              Force the copy automatically overwriting everything at destination.
   -h, --help                               help for import
       --included-collection strings        A list of collection names which should be included. If provided, only these collections will be copied.

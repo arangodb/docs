@@ -2,8 +2,7 @@
 layout: default
 description: arangodump can be invoked in a command line by executing the following command
 ---
-Arangodump Examples
-===================
+# _arangodump_ Examples
 
 _arangodump_ can be invoked in a command line by executing the following command:
 
@@ -39,17 +38,40 @@ Note that the specified user must have access to the databases.
 Here's an example of dumping data from a non-standard endpoint, using a dedicated
 [database name](appendix-glossary.html#database-name):
 
-    arangodump --server.endpoint tcp://192.168.173.13:8531 --server.username backup --server.database mydb --output-directory "dump"
+```
+arangodump \
+  --server.endpoint tcp://192.168.173.13:8531 \
+  --server.username backup \
+  --server.database mydb \
+  --output-directory "dump"
+```
 
 In contrast to the above call `--server.database` must not be specified when dumping
 all databases using `--all-databases true`:
 
-    arangodump --server.endpoint tcp://192.168.173.13:8531 --server.username backup --all-databases true --output-directory "dump-multiple"
+```
+arangodump \
+  --server.endpoint tcp://192.168.173.13:8531 \
+  --server.username backup \
+  --all-databases true \
+  --output-directory "dump-multiple"
+```
 
 When finished, _arangodump_ will print out a summary line with some aggregate
 statistics about what it did, e.g.:
 
     Processed 43 collection(s), wrote 408173500 byte(s) into datafiles, sent 88 batch(es)
+
+Also, more than one endpoint can be provided, such as:
+
+```
+arangodump \
+  --server.endpoint tcp://192.168.173.13:8531 \
+  --server.endpoint tcp://192.168.173.13:8532 \
+  --server.username backup \
+  --all-databases true \
+  --output-directory "dump-multiple"
+```
 
 By default, _arangodump_ will dump both structural information and documents from all
 non-system collections. To adjust this, there are the following command-line
@@ -276,8 +298,14 @@ Threads
 Since v3.4.0, _arangodump_ can use multiple threads for dumping database data in 
 parallel. To speed up the dump of a database with multiple collections, it is
 often beneficial to increase the number of _arangodump_ threads.
-The number of threads can be controlled via the `--threads` option, which 
-defaults to `2`.
+The number of threads can be controlled via the `--threads` option. The default value was changed from `2` to the maximum of `2` and the number of available CPU cores.
+
+The `--threads` option works dynamically, its value depends on the number of available CPU cores. If the amount of available CPU cores is less than `3`, a threads value of `2` is used. Otherwise the value of threads is set to the number of available CPU cores.
+
+For example:
+
+- If a system has 8 cores, then max(2,8) = 8, i.e. 8 threads will be used.
+- If it has 1 core, then max(2,1) = 2, i.e. 2 threads will be used.
 
 _arangodump_ versions prior to v3.8.0 distribute dump jobs for individual
 collections to concurrent worker threads, which is optimal for dumping many

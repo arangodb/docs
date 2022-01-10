@@ -1,11 +1,11 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/collection/testCollection/shards?details=<span class="hljs-literal">true</span></span>
 
 HTTP/1.1 200 OK
 content-type: application/json
 connection: Keep-Alive
-content-length: 853
+content-length: 815
 location: /_api/collection/testCollection/shards
 server: ArangoDB
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":{\"s2010043\":[\"PRMR-1ada441b-3350-417a-8d10-4ac8baf1bfe8\",\"PRMR-284c07fe-f42c-4ac9-b7fc-c364bd1bbebb\"],\"s2010044\":[\"PRMR-284c07fe-f42c-4ac9-b7fc-c364bd1bbebb\",\"PRMR-1ada441b-3350-417a-8d10-4ac8baf1bfe8\"],\"s2010045\":[\"PRMR-1ada441b-3350-417a-8d10-4ac8baf1bfe8\",\"PRMR-284c07fe-f42c-4ac9-b7fc-c364bd1bbebb\"]},\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isDisjoint\":false,\"minReplicationFactor\":1,\"isSystem\":false,\"name\":\"testCollection\",\"cacheEnabled\":false,\"id\":\"2010042\",\"isSmartChild\":false,\"globallyUniqueId\":\"c2010042/\",\"schema\":null,\"type\":2,\"status\":3,\"minRevision\":\"_cCeG75C---\",\"numberOfShards\":3,\"statusString\":\"loaded\",\"waitForSync\":false,\"isSmart\":false,\"shardKeys\":[\"_key\"],\"shardingStrategy\":\"hash\",\"replicationFactor\":2,\"syncByRevision\":true,\"usesRevisionsAsDocumentIds\":true,\"writeConcern\":1}"
+"{\"error\":false,\"code\":200,\"shards\":{\"s10052\":[\"PRMR-af757755-1822-47b9-ac40-85182ac1c661\",\"PRMR-efead557-9178-48b9-8112-8883e76f5981\"],\"s10053\":[\"PRMR-efead557-9178-48b9-8112-8883e76f5981\",\"PRMR-af757755-1822-47b9-ac40-85182ac1c661\"],\"s10054\":[\"PRMR-af757755-1822-47b9-ac40-85182ac1c661\",\"PRMR-efead557-9178-48b9-8112-8883e76f5981\"]},\"writeConcern\":1,\"usesRevisionsAsDocumentIds\":true,\"syncByRevision\":true,\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":2,\"waitForSync\":false,\"numberOfShards\":3,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"schema\":null,\"globallyUniqueId\":\"c10051/\",\"isSmartChild\":false,\"id\":\"10051\",\"cacheEnabled\":false,\"minReplicationFactor\":1,\"name\":\"testCollection\",\"isDisjoint\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false}"

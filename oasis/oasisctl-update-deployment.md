@@ -18,8 +18,10 @@ oasisctl update deployment [flags]
 ## Options
 
 ```
+  -c, --cacertificate-id string         Identifier of the CA certificate to use for the deployment
       --coordinator-memory-size int32   Set memory size of coordinators for flexible deployments (GB) (default 4)
       --coordinators int32              Set number of coordinators for flexible deployments (default 3)
+      --custom-image string             Set a custom image to use for the deployment. Only available for selected customers.
       --dbserver-disk-size int32        Set disk size of dbservers for flexible deployments (GB) (default 32)
       --dbserver-memory-size int32      Set memory size of dbservers for flexible deployments (GB) (default 4)
       --dbservers int32                 Set number of dbservers for flexible deployments (default 3)

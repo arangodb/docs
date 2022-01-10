@@ -31,8 +31,8 @@ which contain [document handles](appendix-glossary.html#document-handle), namely
 are connection documents that reference other documents. The type of a collection 
 must be specified when a collection is created and cannot be changed afterwards.
 
-To change edge endpoints you would need to remove old document/edge and insert new one.
-Other fields can be updated as in default collection.
+To change edge endpoints you can simply update the `_from` and `_to` attributes
+like any other document attribute.
 
 Working with Edges
 ------------------

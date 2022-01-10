@@ -1,11 +1,11 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">'accept: application/json'</span> --dump - http://localhost:8529/_api/collection/testCollection/shards</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/collection/testCollection/shards</span>
 
 HTTP/1.1 200 OK
 content-type: application/json
 connection: Keep-Alive
-content-length: 583
+content-length: 545
 location: /_api/collection/testCollection/shards
 server: ArangoDB
 x-content-type-options: nosniff
 
-"{\"error\":false,\"code\":200,\"shards\":[\"s2010047\",\"s2010048\",\"s2010049\"],\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isDisjoint\":false,\"minReplicationFactor\":1,\"isSystem\":false,\"name\":\"testCollection\",\"cacheEnabled\":false,\"id\":\"2010046\",\"isSmartChild\":false,\"globallyUniqueId\":\"c2010046/\",\"schema\":null,\"type\":2,\"status\":3,\"minRevision\":\"_cCeG77a---\",\"numberOfShards\":3,\"statusString\":\"loaded\",\"waitForSync\":false,\"isSmart\":false,\"shardKeys\":[\"_key\"],\"shardingStrategy\":\"hash\",\"replicationFactor\":2,\"syncByRevision\":true,\"usesRevisionsAsDocumentIds\":true,\"writeConcern\":1}"
+"{\"error\":false,\"code\":200,\"shards\":[\"s10056\",\"s10057\",\"s10058\"],\"writeConcern\":1,\"usesRevisionsAsDocumentIds\":true,\"syncByRevision\":true,\"shardingStrategy\":\"hash\",\"shardKeys\":[\"_key\"],\"replicationFactor\":2,\"waitForSync\":false,\"numberOfShards\":3,\"statusString\":\"loaded\",\"status\":3,\"type\":2,\"schema\":null,\"globallyUniqueId\":\"c10055/\",\"isSmartChild\":false,\"id\":\"10055\",\"cacheEnabled\":false,\"minReplicationFactor\":1,\"name\":\"testCollection\",\"isDisjoint\":false,\"isSmart\":false,\"keyOptions\":{\"allowUserKeys\":true,\"type\":\"traditional\"},\"isSystem\":false}"

@@ -2,7 +2,7 @@ arangosh&gt; db._profileQuery(`
 ........&gt; LET list = (FOR doc in acollection FILTER doc.value &gt; 90 RETURN doc)
 ........&gt; FOR a IN list 
 ........&gt;  FILTER a.value &lt; 91 
-........&gt;  RETURN a`, {}, {colors: false, optimizer:{rules:["-all"]}}
+........&gt;  RETURN a`, {}, {colors: false, optimizer:{rules:[&quot;-all&quot;]}}
 ........&gt; );
 Query String (116 chars, cacheable: false):
  LET list = (FOR doc in acollection FILTER doc.value &gt; 90 RETURN doc)
@@ -13,15 +13,15 @@ Query String (116 chars, cacheable: false):
 Execution plan:
  Id   NodeType                  Calls   Items   Runtime [s]   Comment
   1   SingletonNode                 1       1       0.00000   * ROOT
-  7   SubqueryNode                  1       1       0.01960     - LET list = ...   /* const subquery */
+  7   SubqueryNode                  1       1       0.02012     - LET list = ...   /* const subquery */
   2   SingletonNode                 1       1       0.00000       * ROOT
-  3   EnumerateCollectionNode      10   10000       0.00641         - FOR doc IN acollection   /* full collection scan */
-  4   CalculationNode              10   10000       0.00430           - LET #5 = (doc.`value` &gt; 90)   /* simple expression */   /* collections used: doc : acollection */
-  5   FilterNode                   10    9909       0.00543           - FILTER #5
-  6   ReturnNode                   10    9909       0.00344           - RETURN doc
-  8   EnumerateListNode            10    9909       0.00364     - FOR a IN list   /* list iteration */
-  9   CalculationNode              10    9909       0.00424       - LET #7 = (a.`value` &lt; 91)   /* simple expression */
- 10   FilterNode                    1       0       0.00248       - FILTER #7
+  3   EnumerateCollectionNode      10   10000       0.00647         - FOR doc IN acollection   /* full collection scan */
+  4   CalculationNode              10   10000       0.00450           - LET #5 = (doc.`value` &gt; 90)   /* simple expression */   /* collections used: doc : acollection */
+  5   FilterNode                   10    9909       0.00565           - FILTER #5
+  6   ReturnNode                   10    9909       0.00347           - RETURN doc
+  8   EnumerateListNode            10    9909       0.00354     - FOR a IN list   /* list iteration */
+  9   CalculationNode              10    9909       0.00425       - LET #7 = (a.`value` &lt; 91)   /* simple expression */
+ 10   FilterNode                    1       0       0.00249       - FILTER #7
  11   ReturnNode                    1       0       0.00000       - RETURN a
 
 Indexes used:
@@ -32,17 +32,17 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Exec Time [s]
-           0            0       10000            0      10000         0.03283
+           0            0       10000            0      10000         0.03337
 
 Query Profile:
  Query Stage           Duration [s]
- initializing               0.00000
- parsing                    0.00008
- optimizing ast             0.00001
+ initializing               0.00001
+ parsing                    0.00009
+ optimizing ast             0.00002
  loading collections        0.00000
- instantiating plan         0.00004
- optimizing plan            0.00013
- executing                  0.02999
- finalizing                 0.00255
+ instantiating plan         0.00005
+ optimizing plan            0.00015
+ executing                  0.03043
+ finalizing                 0.00261
 
 

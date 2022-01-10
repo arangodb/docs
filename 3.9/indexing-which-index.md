@@ -21,7 +21,7 @@ Users can define additional indexes on one or multiple document attributes.
 Several different index types are provided by ArangoDB. These indexes have
 different usage scenarios:
 
-- persistent index: a persistent index is persisted on disk and does thus not
+- **Persistent index**: a persistent index is persisted on disk and does thus not
   need to be rebuilt in memory when the server is restarted or the indexed
   collection is reloaded. Therefore, they don't influence the loading time of
   collections.
@@ -34,8 +34,8 @@ different usage scenarios:
   A persistent index can be used for equality lookups, lookups based on a
   leftmost prefix of the index attributes, range queries and for sorting.
 
-- ttl index: the TTL index provided by ArangoDB can be used for automatically removing 
-  expired documents from a collection. 
+- **TTL index**: the TTL index provided by ArangoDB can be used for automatically
+  removing expired documents from a collection.
 
   The TTL index is set up by setting an `expireAfter` value and by picking a single 
   document attribute which contains the documents' reference timepoint. Documents 
@@ -94,7 +94,25 @@ different usage scenarios:
   result TTL indexes will likely not be used for filtering and sort operations in user-land
   AQL queries.
 
-- geo index: the geo index provided by ArangoDB allows searching for documents
+- **multi-dimensional index** (ZKD): a multi dimensional index allows to
+  efficiently intersect multiple range queries. Typical use cases are querying
+  intervals that intersect a given point or interval. For example, if intervals
+  are stored in documents like
+
+  ```json
+  { "from": 12, "to": 45 }
+  ```
+
+  then you can create an index over `from, to` utilize it with this query:
+
+  ```js
+  FOR i IN intervals FILTER i.from <= t && t <= i.to RETURN i
+  ```
+
+  Currently only floating-point numbers (doubles) are supported as underlying
+  type for each dimension.
+
+- **Geo index**: the geo index provided by ArangoDB allows searching for documents
   within a radius around a two-dimensional earth coordinate (point), or to
   find documents with are closest to a point. Document coordinates can either 
   be specified in two different document attributes or in a single attribute, e.g.
@@ -110,7 +128,7 @@ different usage scenarios:
   and a SORT or FILTER statement is used in conjunction with the distance
   function.
 
-- fulltext index: a fulltext index can be used to index all words contained in 
+- **fulltext index**: a fulltext index can be used to index all words contained in
   a specific attribute of all documents in a collection. Only words with a 
   (specifiable) minimum length are indexed. Word tokenization is done using 
   the word boundary analysis provided by libicu, which is taking into account 
@@ -119,9 +137,26 @@ different usage scenarios:
   The index supports complete match queries (full words) and prefix queries.
   Fulltext indexes will only be invoked via special functions.
 
-- View: [ArangoSearch](arangosearch.html) is a sophisticated fulltext
-  search engine with text pre-processing, ranking capabilities and more.
+- **View**: [ArangoSearch](arangosearch.html) is a sophisticated search engine
+  for full-text, with text pre-processing, ranking capabilities and more.
   It offers more features and configuration options than a fulltext index.
+  It indexes documents near real-time, but not immediately as other indexes.
+
+  Comparison with the full-text Index:
+
+  Feature                           | ArangoSearch | Full-text Index
+  :---------------------------------|:-------------|:---------------
+  Term search                       | Yes          | Yes
+  Prefix search                     | Yes          | Yes
+  Boolean expressions               | Yes          | Restricted
+  Range search                      | Yes          | No
+  Phrase search                     | Yes          | No
+  Relevance ranking                 | Yes          | No
+  Configurable Analyzers            | Yes          | No
+  AQL composable language construct	| Yes          | No
+  Indexed attributes per collection | Unlimited    | 1
+  Indexed collections               | Unlimited    | 1
+  Consistency                       | Eventual     | Immediate
 
 Sparse vs. non-sparse indexes
 -----------------------------

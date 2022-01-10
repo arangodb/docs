@@ -1,26 +1,49 @@
 ---
 layout: default
-description: Scala
+description: Setting up the Spark Connector
 ---
 # ArangoDB Spark Connector - Getting Started
 
 ## Maven
 
-```XML
+### Spark 3.X + 2.4.1 and above
+
+```xml
 <dependencies>
   <dependency>
     <groupId>com.arangodb</groupId>
-    <artifactId>arangodb-spark-connector</artifactId>
-    <version>1.0.2</version>
+    <artifactId>arangodb-spark-connector_2.12</artifactId>
+    <version>1.1.0</version>
   </dependency>
-	....
+	...
+</dependencies>
+```
+
+### Spark 2.4.0 and below
+
+```xml
+<dependencies>
+  <dependency>
+    <groupId>com.arangodb</groupId>
+    <artifactId>arangodb-spark-connector_2.11</artifactId>
+    <version>1.1.0</version>
+  </dependency>
+	...
 </dependencies>
 ```
 
 ## SBT
 
-```Json
-libraryDependencies += "com.arangodb" % "arangodb-spark-connector" % "1.0.2"
+### Spark 3.X + 2.4.1 and above
+
+```json
+libraryDependencies += "com.arangodb" % "arangodb-spark-connector_2.12" % "1.1.0"
+```
+
+### Spark 2.4.0 and below
+
+```json
+libraryDependencies += "com.arangodb" % "arangodb-spark-connector_2.11" % "1.1.0"
 ```
 
 ## Configuration
@@ -43,7 +66,7 @@ libraryDependencies += "com.arangodb" % "arangodb-spark-connector" % "1.0.2"
 
 **Scala**
 
-```Scala
+```scala
 val conf = new SparkConf()
     .set("arangodb.hosts", "127.0.0.1:8529")
     .set("arangodb.user", "myUser")
@@ -55,7 +78,7 @@ val sc = new SparkContext(conf)
 
 **Java**
 
-```Java
+```java
 SparkConf conf = new SparkConf()
     .set("arangodb.hosts", "127.0.0.1:8529")
     .set("arangodb.user", "myUser")

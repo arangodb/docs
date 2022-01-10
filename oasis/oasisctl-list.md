@@ -34,6 +34,9 @@ oasisctl list [flags]
 * [oasisctl](oasisctl-options.html)	 - ArangoDB Oasis
 * [oasisctl list apikeys](oasisctl-list-apikeys.html)	 - List all API keys created for the current user
 * [oasisctl list arangodb](oasisctl-list-arangodb.html)	 - List ArangoDB information
+* [oasisctl list auditlog](oasisctl-list-auditlog.html)	 - List resources for auditlogs
+* [oasisctl list auditlogs](oasisctl-list-auditlogs.html)	 - List auditlogs
+* [oasisctl list backup](oasisctl-list-backup.html)	 - A list command for various backup resources
 * [oasisctl list backups](oasisctl-list-backups.html)	 - List backups
 * [oasisctl list cacertificates](oasisctl-list-cacertificates.html)	 - List all CA certificates of the given project
 * [oasisctl list cpusizes](oasisctl-list-cpusizes.html)	 - List CPU sizes
@@ -44,6 +47,7 @@ oasisctl list [flags]
 * [oasisctl list group](oasisctl-list-group.html)	 - List group resources
 * [oasisctl list groups](oasisctl-list-groups.html)	 - List all groups of the given organization
 * [oasisctl list ipallowlists](oasisctl-list-ipallowlists.html)	 - List all IP allowlists of the given project
+* [oasisctl list metrics](oasisctl-list-metrics.html)	 - List metrics resources
 * [oasisctl list nodesizes](oasisctl-list-nodesizes.html)	 - List node sizes
 * [oasisctl list organization](oasisctl-list-organization.html)	 - List organization resources
 * [oasisctl list organizations](oasisctl-list-organizations.html)	 - List all organizations the authenticated user is a member of

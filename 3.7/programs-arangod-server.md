@@ -299,7 +299,8 @@ value is *2*.
 `--server.maximal-threads` determines the maximum number of request processing
 threads the server is allowed to start for request handling. If that number of
 threads is already running, arangod will not start further threads for request
-handling. The default value is
+handling. The default value is `max(32, 2 * available cores)`, so twice the
+number of CPU cores, capped to a maximum of 32 threads.
 
 ## Toggling server statistics
 
@@ -343,7 +344,7 @@ default of 1000000 (1s). Use caution when changing from the default.
 
 ## Metrics API
 
-`--server.enable-metrics-api`
+`--server.export-metrics-api`
 
 Enables or disables the
 [Metrics HTTP API](http/administration-and-monitoring-metrics.html#metrics-api).

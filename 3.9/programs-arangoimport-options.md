@@ -1,11 +1,11 @@
 ---
 layout: default
-description: Arangoimport Options
+description: arangoimport Options
 ---
-Arangoimport Options
-====================
+# _arangoimport_ Options
 
 Usage: `arangoimport [<options>]`
 
-{% assign options = site.data["39-program-options-arangoimport"] %}
+{% assign optionsFile = page.version.version | remove: "." | append: "-program-options-arangoimport" -%}
+{% assign options = site.data[optionsFile] -%}
 {% include program-option.html options=options name="arangoimport" %}

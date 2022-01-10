@@ -1,6 +1,6 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">'accept: application/json'</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/restore</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_admin/backup/restore</span> &lt;&lt;EOF
 { 
-  <span class="hljs-string">"id"</span> : <span class="hljs-string">"2021-03-19T01.10.15Z_69eceaed-56d6-4631-8d86-d1dc424e2548"</span> 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;2022-01-10T14.43.31Z_231416d9-9d9d-4561-97a4-267740d4e730&quot;</span> 
 }
 EOF
 
@@ -12,9 +12,9 @@ server: ArangoDB
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">"error"</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">"code"</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">"result"</span> : { 
-    <span class="hljs-string">"previous"</span> : <span class="hljs-string">"/tmp/arangosh_BFfLNd/rocksdb-clusterOrNot/data/backups/DIRECTORY_TO_DELETE"</span> 
+  <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
+  <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
+  <span class="hljs-string">&quot;result&quot;</span> : { 
+    <span class="hljs-string">&quot;previous&quot;</span> : <span class="hljs-string">&quot;/tmp/arangosh_edCEJh/rocksdb-clusterOrNot/data/backups/DIRECTORY_TO_DELETE&quot;</span> 
   } 
 }

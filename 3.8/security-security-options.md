@@ -16,14 +16,14 @@ The following security options are available:
 - `--server.harden`
   If this option is set to `true` and authentication is enabled, non-admin users
   will be denied access to the following REST APIs:
-  
+
+  - `/_admin/cluster/numberOfServers`
   - `/_admin/log`
   - `/_admin/log/level`
   - `/_admin/status`
   - `/_admin/statistics`
   - `/_admin/statistics-description`
   - `/_api/engine/stats`
-  - `/_admin/cluster/numberOfServers` 
 
   Additionally, no version details will be revealed by the version REST API at 
   `/_api/version`.
@@ -62,15 +62,37 @@ ArangoDB will use.
 These patterns and how they are applied can be observed by enabling 
 `--log.level SECURITY=debug` in the `arangod` or `arangosh` log output.
 
-#### Combining patterns
+### Options for allowlisting and denylisting
+
+The following options are available for allowlisting and denylisting access
+to dedicated functionality for application code:
+
+- `--javascript.startup-options-[allowlist|denylist]`:
+  These options control which startup options will be exposed to JavaScript code.
+
+- `--javascript.environment-variables-[allowlist|denylist]`:
+  These options control which environment variables will be exposed to
+  JavaScript code.
+
+- `--javascript.files-allowlist`:
+  This option controls which filesystem paths can be accessed from JavaScript
+  code. There is only an allowlist option for file access.
+
+- `--javascript.endpoints-[allowlist|denylist]`:
+  These options control which endpoints can be used from within the
+  `@arangodb/request` JavaScript module.
+
+#### Startup option access
 
 The security option to observe the behavior of the pattern matching most easily
 is the masquerading of the startup options:
 
-    --javascript.startup-options-allowlist "^server\."
-    --javascript.startup-options-allowlist "^log\."
-    --javascript.startup-options-denylist "^javascript\."
-    --javascript.startup-options-denylist "^endpoint$"
+```
+--javascript.startup-options-allowlist "^server\."
+--javascript.startup-options-allowlist "^log\."
+--javascript.startup-options-denylist "^javascript\."
+--javascript.startup-options-denylist "^endpoint$"
+```
 
 These sets will resolve internally to the following regular expressions:
 
@@ -79,7 +101,7 @@ These sets will resolve internally to the following regular expressions:
 --javascript.startup-options-denylist = "^javascript\.|endpoint"
 ```
 
-Invoking an arangosh with these options will hide the denied commandline
+Invoking _arangosh_ with these options will hide the denied commandline
 options from the output of: 
 
 ```js
@@ -88,6 +110,57 @@ require('internal').options()
 
 … and an exception will be thrown when trying to access items that are masked
 in the same way as if they weren't there in first place.
+
+#### Environment variable access
+
+Access to environment variables can be restricted to hide sensitive information
+from JavaScript code, for example:
+
+```
+--javascript.environment-variables-allowlist "^ARANGO_"
+--javascript.environment-variables-denylist "PASSWORD"
+```
+
+This will allow JavaScript code to only see environment variables that start
+with `ARANGO_` except if they contain `PASSWORD`. It excludes the variables
+`PATH` and `ARANGO_ROOT_PASSWORD` for instance.
+
+Note that regular expression matching is case-sensitive. `PASSWORD` will not
+exclude environment variables that include `password`. You may use
+`[Pp][Aa][Ss][Ss][Ww][Oo][Rr][Dd]` for case-insensitive matching.
+
+You can test the allow-/denylisting in _arangosh_, here using the ArangoDB 3.7
+Docker image:
+
+```
+docker run --rm -e ARANGO_ROOT_PASSWORD="secret" arangodb:3.7 arangosh --javascript.execute-string "print(process.env)"
+...
+{
+  "ARANGO_PACKAGE" : "arangodb3_3.7.15-1_amd64.deb",
+  "HOSTNAME" : "84fe29186eba",
+  "SHLVL" : "1",
+  "HOME" : "/root",
+  "ARANGO_ROOT_PASSWORD" : "secret",
+  "ARANGO_VERSION" : "3.7.15",
+  "PATH" : "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+  "ARANGO_URL" : "https://download.arangodb.com/arangodb37/DEBIAN/amd64",
+  "ARANGO_PACKAGE_URL" : "https://download.arangodb.com/arangodb37/DEBIAN/amd64/arangodb3_3.7.15-1_amd64.deb",
+  "ARANGO_SIGNATURE_URL" : "https://download.arangodb.com/arangodb37/DEBIAN/amd64/arangodb3_3.7.15-1_amd64.deb.asc",
+  "PWD" : "/",
+  "GLIBCXX_FORCE_NEW" : "1",
+  "ICU_DATA" : "/usr/share/arangodb3/"
+}
+
+docker run --rm -e ARANGO_ROOT_PASSWORD="secret" arangodb:3.7 arangosh --javascript.execute-string "print(process.env)" --javascript.environment-variables-allowlist "^ARANGO_" --javascript.environment-variables-denylist "PASSWORD"
+...
+[Object {
+  "ARANGO_PACKAGE" : "arangodb3_3.7.15-1_amd64.deb",
+  "ARANGO_VERSION" : "3.7.15",
+  "ARANGO_URL" : "https://download.arangodb.com/arangodb37/DEBIAN/amd64",
+  "ARANGO_PACKAGE_URL" : "https://download.arangodb.com/arangodb37/DEBIAN/amd64/arangodb3_3.7.15-1_amd64.deb",
+  "ARANGO_SIGNATURE_URL" : "https://download.arangodb.com/arangodb37/DEBIAN/amd64/arangodb3_3.7.15-1_amd64.deb.asc"
+}]
+```
 
 #### File access
 
@@ -99,14 +172,16 @@ functions.
 
 For example, when using the following startup options
 
-    --javascript.files-allowlist "^/etc/required/"
-    --javascript.files-allowlist "^/etc/mtab/"
-    --javascript.files-allowlist "^/etc/issue$"
+```
+--javascript.files-allowlist "^/etc/required/"
+--javascript.files-allowlist "^/etc/mtab/"
+--javascript.files-allowlist "^/etc/issue$"
+```
 
 The file `/etc/issue` will be allowed to accessed and all files in the directories
 `/etc/required` and `/etc/mtab` plus their subdirectories will be accessible,
-while access to files in any other directories will be disallowed from JavaScript 
-operations, with the following exceptions:
+while access to files in any other directories will be disallowed from
+JavaScript operations, with the following exceptions:
 
 - ArangoDB's temporary directory: JavaScript code is given access to this
   directory for storing temporary files. The temporary directory location 
@@ -120,65 +195,89 @@ operations, with the following exceptions:
 
 #### Endpoint access
 
-The endpoint allow-/denylisting limits access to external HTTP resources. 
-In contrast to the URLs specified in the JavaScript code, the filters have
-to be specified in the ArangoDB endpoints notation: 
+The endpoint allow-/denylisting limits access to external HTTP resources:
 
-- http:// => tcp://
-- https:// => ssl://
-- no protocol will match http and https.
+```
+--javascript.endpoints-denylist "<regex>"
+--javascript.endpoints-allowlist "<regex>"
+```
 
-Filtering is done on the protocol, hostname / IP address, and the port.
+Filtering is done against the full request URL, including protocol, hostname /
+IP address, port, and path.
+
+{% hint 'security' %}
+Keep in mind that these startup options are treated as regular expressions.
+Certain characters have special meaning that may require escaping and the
+expression only needs to match a substring by default. It is recommended to
+fully specify URLs and to use a leading `^` and potentially a trailing `$` to
+ensure that no other than the intended URLs are matched.
+{% endhint %}
 
 Specifying `arangodb.org` will match:
- - `https://arangodb.org:777`
- - `https://arangodb.org`
- - `http://arangodb.org` 
- 
-Specifying `ssl://arangodb.org` will match:
- - `https://arangodb.org:777`
- - `https://arangodb.org`
+- `http://arangodb.org`
+- `http://arangodb.org` 
+- `http://arangodb.org`
+- `https://arangodb.org`
+- `https://arangodb.org:12345`
+- `https://subdomain.arangodb.organic` **(!)**
+- `https://arangodb-org.evil.domain` **(!)**
+- etc.
 
-Specifying `ssl://arangodb.org:443` will match:
- - `https://arangodb.org`
+An unescaped `.` represents any character. For a literal dot use `\.`.
 
-Specifying `tcp://arangodb.org` will match:
- - `http://arangodb.org` 
+Specifying `http://arangodb\.org` will match:
+- `http://arangodb.org`
+- `http://arangodb.org` 
+- `http://arangodb.org`
+- `http://arangodb.org:12345`
+- `http://arangodb.organic` **(!)**
+- `http://arangodb.org.evil.domain` **(!)**
+- etc.
 
-This can be tried out using an allowlist - all non matches will be blocked:
+Specifying `^http://arangodb\.org$` will only match `http://arangodb.org`.
+Despite port 80 being the default HTTP port, this will not match
+`http://arangodb.org:80` with an explicitly stated port. Conversely, specifying
+`^http://arangodb\.org:80$` will match `http://arangodb.org:80` with an explicit
+port in the request URL but not `http://arangodb.org` with the port left out.
+To allow both, you can make the port optional like `^http://arangodb\.org(:80)?$`.
+However, the trailing `$` demands that the URL has no path. This means
+`http://arangodb.org/folder/file.html` and even `http://arangodb.org/` will not
+match. You can specify `^http://arangodb\.org(:80)?/` to allow any path (but
+the trailing slash will be needed in the request URL).
+
+Specifying `^https?://arangodb\.org(:80|:443)?(/|$)` will match:
+- `http://arangodb.org`
+- `http://arangodb.org/`
+- `http://arangodb.org/folder/file.html`
+- `http://arangodb.org:80`
+- `http://arangodb.org:80/`
+- `http://arangodb.org:80/folder/file.html`
+- `https://arangodb.org:443`
+- `https://arangodb.org:443/`
+- `https://arangodb.org:443/folder/file.html`
+- etc.
+
+You can test the allow-/denylisting in _arangosh_:
 
 ```
-arangosh --javascript.endpoints-allowlist ssl://arangodb.org
-127.0.0.1:8529@_system> require('internal').download('https://arangodb.org:4444')
-<allowlist permitted, error on trying to connect>
-127.0.0.1:8529@_system> require('internal').download('http://arangodb.org')
-JavaScript exception: ArangoError 11: not allowed to connect to this endpoint
+arangosh --javascript.endpoints-allowlist "^https://arangodb\.org(:443)?/"
+127.0.0.1:8529@_system> require('internal').download('http://arangodb.org/file.zip')
+JavaScript exception: ArangoError 11: not allowed to connect to this URL: http://arangodb.org/file.zip
+...
+
+127.0.0.1:8529@_system> require('internal').download('https://arangodb.org/file.zip')
+<request permitted by allowlist>
 ```
 
-### Options supporting allowlisting and denylisting
-
-The following options are available for allowing and denying access
-to dedicated functionality for application code:
-
-- `--javascript.startup-options-[allowlist|denylist]`:
-  These options control which startup options will be exposed to JavaScript code, 
-  following above rules for allowlists and denylists.
-
-- `--javascript.environment-variables-[allowlist|denylist]`:
-  These options control which environment variables will be exposed to JavaScript
-  code, following above rules for allowlists and denylists.
-
-- `--javascript.endpoints-[allowlist|denylist]`:
-  These options control which endpoints can be used from within the `@arangodb/request`
-  JavaScript module.
-  Endpoint values are passed into the filter in a normalized format starting
-  with either of the prefixes `tcp://`, `ssl://`, `unix://` or `srv://`.
-  Note that for HTTP/SSL-based endpoints the port number will be included too,
-  and that the endpoint can be specified either as an IP address or host name
-  from application code.
-
-- `--javascript.files-allowlist`:
-  This option controls which filesystem paths can be accessed from JavaScript code.
+{% hint 'warning' %}
+Startup options may require additional escaping in your command line.
+Examples are:
+- Dollar symbols and backslashes in most Linux and macOS shells (`\$`, `\\`),
+  unless the entire string is wrapped in single quotes (`'tcp://arangodb\.org$'`
+  instead of `tcp://arangodb\\.org\$`)
+- Circumflex accents in Windows `cmd` (`^^`) unless the entire string is
+  wrapped in double quotes (`"^http…"`).
+{% endhint %}
 
 ### Additional JavaScript security options
 
@@ -233,3 +332,15 @@ in an ArangoDB server:
   application Github repository at
   [github.com/arangodb/foxx-apps](https://github.com/arangodb/foxx-apps){:target="_blank"}.
   The default value is `true`.
+
+- `--foxx.allow-install-from-remote`:
+  When set to `false`, this option prevents installation of Foxx apps from any
+  remote source other than Github and diactivates the **Remote** tab in the **Services**
+  section of the web interface. Installing apps from Github and/or zip files is 
+  still possible with this setting, but any other remote sources are blocked.
+  When set to `true`, installing Foxx apps from other remote sources via URLs
+  is allowed.
+  For security purposes, it's recommended to set this option to `false`.
+  In 3.8 the default value is `true`, but starting from ArangoDB 3.9 it will
+  be set to `false`.
+  Note: this option was introduced in ArangoDB v3.8.5.
