@@ -1,4 +1,3 @@
-
 ---
 layout: default
 description: ArangoDB v3.9 Release Notes New Features
