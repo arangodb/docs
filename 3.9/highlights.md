@@ -267,7 +267,7 @@ Version 3.3
 
 **All Editions**
 
-- [**Server-level Replication**](administration-leader-follower-server-level-setup.html):
+- [**Server-level Replication**](release-notes-new-features33.html#server-level-replication):
   In addition to per-database replication, there is now an additional
   `globalApplier`. Start the global replication on the Follower once and all
   current and future databases will be replicated from the Leader to the

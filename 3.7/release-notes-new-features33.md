@@ -97,8 +97,7 @@ created on the master, one needed to take action on the slave to ensure that dat
 for that database got actually replicated. Replication on the slave also was not
 aware of when a database was dropped on the master.
 
-3.3 adds [server-level replication](administration-master-slave-server-level-setup.html),
-which will replicate the current and future databases from the master to the
+3.3 adds server-level replication, which will replicate the current and future databases from the master to the
 slave automatically after the initial setup.
 
 In order to set up global replication on a 3.3 slave for all databases of a given 
