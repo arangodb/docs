@@ -222,6 +222,8 @@ Any missing shard key in the query is substituted with the `null` value.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+On deployments other than clusters, the collection name itself is returned.
+
 ### DOCUMENT()
 
 `DOCUMENT(collection, id) → doc`
