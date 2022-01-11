@@ -217,6 +217,8 @@ SHARD_ID( "col", { "product_id" : "PRT0001", "serial_no" : "SN0001" })
 // { ["s6010044"] }
 ```
 
+On deployments other than clusters, the collection name itself is returned.
+
 ### DOCUMENT()
 
 `DOCUMENT(collection, id) → doc`
