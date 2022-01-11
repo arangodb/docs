@@ -2140,190 +2140,6 @@
     delayed and there was a recent leadership change. This should not be a
     common case and normally indicates a problem with the setup or with the load.
 
-- name: arangodb_replication2_replicated_log_append_entries_rtt
-  introducedIn: "3.9.0"
-  help: |
-    Histogram of the RTT of appendEntries requests in microseconds.
-  unit: us
-  type: histogram
-  category: Replication
-  complexity: medium
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    The leader of a replicated log replicates the log entries by sending
-    appendEntries requests to its followers.
-    This is a histogram keeping track of the number of such requests this
-    server sends (for any log it is a leader of), as well as their respective
-    round-trip times in microseconds.
-
-- name: arangodb_replication2_replicated_log_creation_total
-  introducedIn: "3.9.0"
-  help: |
-    Number of replicated log instances created on this server since its start.
-  unit: number
-  type: counter
-  category: Replication
-  complexity: simple
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of replicated log instances created on this server since its start.
-
-- name: arangodb_replication2_replicated_log_deletion_total
-  introducedIn: "3.9.0"
-  help: |
-    Number of replicated log instances deleted on this server since its start.
-  unit: number
-  type: counter
-  category: Replication
-  complexity: simple
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of replicated log instances deleted on this server since its start.
-
-- name: arangodb_replication2_replicated_log_follower_append_entries_rt
-  introducedIn: "3.9.0"
-  help: |
-    Histogram of the duration of appendEntries calls in microseconds.
-  unit: us
-  type: histogram
-  category: Replication
-  complexity: advanced
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Followers of a replicated log, including the local followers for persistence
-    each leader has, receive appendEntries requests. These contain log entries
-    to be replicated. Serving these requests means writing them to persistence.
-  
-    This histogram counts the number of such requests server by this server,
-    plus their respective runtime in microseconds.
-
-- name: arangodb_replication2_replicated_log_follower_number
-  introducedIn: "3.9.0"
-  help: |
-    Current number of followers of replicated logs.
-  unit: number
-  type: gauge
-  category: Replication
-  complexity: simple
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Current number of replicated logs this server is a follower of.
-
-- name: arangodb_replication2_replicated_log_inactive_number
-  introducedIn: "3.9.0"
-  help: |
-    Current number of inactive replicated logs.
-  unit: number
-  type: gauge
-  category: Replication
-  complexity: simple
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Current number of replicated logs this server is a participant of,
-    but is not yet configured to be either a leader or a follower. This
-    number should usually be zero, except during server startup until
-    the configuration from the Agency is fetched and applied, and for
-    a short time when a log is newly created.
-- name: arangodb_replication2_replicated_log_inserts_bytes
-  introducedIn: "3.9.0"
-  help: |
-    Number of bytes inserted into replicated logs.
-  unit: bytes
-  type: histogram
-  category: Replication
-  complexity: medium
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    For all replicated logs this server is a leader of, this counts the number
-    of bytes of raw payload inserted into it.
-
-- name: arangodb_replication2_replicated_log_inserts_rtt
-  introducedIn: "3.9.0"
-  help: |
-    Round-trip time of inserts into replicated logs in microseconds.
-  unit: us
-  type: histogram
-  category: Replication
-  complexity: medium
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Inserts into replicated logs this server is a leader of are counted by this
-    histogram, plus their respective round-trip time. This includes the time for
-    replication, at least until the writeConcern is satisified.
-
-- name: arangodb_replication2_replicated_log_leader_number
-  introducedIn: "3.9.0"
-  help: |
-    Current number of replicated log leaders.
-  unit: number
-  type: gauge
-  category: Replication
-  complexity: simple
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of replicated logs this server is currently a leader of.
-- name: arangodb_replication2_replicated_log_leader_took_over_total
-  introducedIn: "3.9.0"
-  help: |
-    Number of leader takeovers.
-  unit: number
-  type: counter
-  category: Replication
-  complexity: medium
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of times this server took over the leadership of a replicated log
-    since server start.
-
-- name: arangodb_replication2_replicated_log_number
-  introducedIn: "3.9.0"
-  help: |
-    Number of replicated logs.
-  unit: number
-  type: counter
-  category: Replication
-  complexity: simple
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of replicated logs this server is a participant of.
-
-- name: arangodb_replication2_replicated_log_started_following_total
-  introducedIn: "3.9.0"
-  help: |
-    Number of times started following a replicated log.
-  unit: number
-  type: counter
-  category: Replication
-  complexity: medium
-  exposedBy:
-    - dbserver
-    - single
-  description: |
-    Number of times this server started following a replicated log
-    since server start.
-
 - name: arangodb_replication_cluster_inventory_requests_total
   renamedFrom: arangodb_replication_cluster_inventory_requests
   introducedIn: "3.8.0"
@@ -3042,6 +2858,57 @@
     Histogram of the body sizes of the received VST requests in bytes.
     Note that this does include the binary header.
 
+- name: arangodb_revision_tree_hibernations_total
+  introducedIn: "3.8.5"
+  help: |
+    Number of revision tree hibernations.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    The revision trees of collections/shards are normally present
+    in RAM in an uncompressed state. However, to reduce the memory
+    usage of keeping all revision trees in RAM at the same time, 
+    revision trees can be put into "hibernation" mode. Any inactive
+    revision tree will automatically be hibernated by ArangoDB after
+    a while. For the hibernation step, a revision tree will be 
+    compressed in RAM, and only the compressed version is then kept.
+    Later accesses of a compressed revision tree require uncompressing
+    the tree again. 
+    This metric is increased whenever a revision tree is hibernated.
+    This can happened many times during the lifetime of a revision tree.
+
+- name: arangodb_revision_tree_memory_usage
+  introducedIn: "3.8.5"
+  help: |
+    Total memory usage of all revision trees (both hibernated and uncompressed).
+  unit: bytes
+  type: gauge
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total memory usage of all revision trees for collections/shards.
+    The revision trees of collections/shards are normally present
+    in RAM in an uncompressed state. However, to reduce the memory
+    usage of keeping all revision trees in RAM at the same time, 
+    revision trees can be put into "hibernation" mode. Any inactive
+    revision tree will automatically be hibernated by ArangoDB after
+    a while. For the hibernation step, a revision tree will be 
+    compressed in RAM, and only the compressed version is then kept.
+    Later accesses of a compressed revision tree require uncompressing
+    the tree again. 
+    This metrics reports the total memory usage of all revision trees,
+    including both the hibernated and uncompressed forms).
+
 - name: arangodb_revision_tree_rebuilds_failure_total
   introducedIn: "3.8.2"
   help: |
@@ -3078,6 +2945,32 @@
     Ideally this value stays at 0, because a revision tree rebuild
     indicates a problem with a collection/shard's revision tree that
     has happened before.
+
+- name: arangodb_revision_tree_resurrections_total
+  introducedIn: "3.8.5"
+  help: |
+    Number of revision tree resurrections.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    The revision trees of collections/shards are normally present
+    in RAM in an uncompressed state. However, to reduce the memory
+    usage of keeping all revision trees in RAM at the same time, 
+    revision trees can be put into "hibernation" mode. Any inactive
+    revision tree will automatically be hibernated by ArangoDB after
+    a while. For the hibernation step, a revision tree will be 
+    compressed in RAM, and only the compressed version is then kept.
+    Later accesses of a compressed revision tree require uncompressing
+    the tree again. 
+    This metric is increased whenever a revision tree is restored from
+    its hibernated state back into an uncompressed form in RAM.
+    This can happened many times during the lifetime of a revision tree.
 
 - name: arangodb_rocksdb_write_stalls_total
   renamedFrom: rocksdb_write_stalls
@@ -5172,6 +5065,22 @@
     an instance is started, so that other instances in the cluster can start
     replicating from the instance before all archived WAL files are deleted.
     The value should flip from 0 to 1 a few minutes after server start.
+
+- name: rocksdb_wal_sequence
+  introducedIn: "3.8.5"
+  help: |
+    Current RocksDB WAL sequence number.
+  unit: number
+  type: gauge
+  category: RocksDB
+  complexity: high
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric exposes the current RocksDB WAL sequence number. Any
+    write operations into the database will increase the sequence number.
 
 - name: rocksdb_wal_sequence_lower_bound
   introducedIn: "3.8.2"

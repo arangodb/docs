@@ -1927,6 +1927,32 @@
     "section" : "",
     "type" : "boolean"
   },
+  "foxx.allow-install-from-remote" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : false,
+    "deprecatedIn" : null,
+    "description" : "allow installing Foxx apps from remote URLs other than Github",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "foxx",
+    "type" : "boolean"
+  },
   "foxx.api" : {
     "category" : "option",
     "component" : [
@@ -7289,7 +7315,7 @@
       "agent",
       "single"
     ],
-    "default" : false,
+    "default" : true,
     "deprecatedIn" : null,
     "description" : "if true, use a two stage write queue for WAL writes and memtable writes",
     "dynamic" : false,
@@ -7369,7 +7395,7 @@
       "agent",
       "single"
     ],
-    "default" : false,
+    "default" : true,
     "deprecatedIn" : null,
     "description" : "use Intel intrinsics-based encryption, requiring a CPU with the AES-NI instruction set. If turned off, then OpenSSL is used, which may use hardware-accelarated encryption too.",
     "dynamic" : false,
@@ -7639,7 +7665,7 @@
       "agent",
       "single"
     ],
-    "default" : 20,
+    "default" : 16,
     "deprecatedIn" : null,
     "description" : "number of level-0 files that triggers a write slowdown",
     "dynamic" : false,
@@ -7665,9 +7691,9 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 256,
     "deprecatedIn" : null,
-    "description" : "number of level-0 files that triggers a full write stall",
+    "description" : "number of level-0 files that triggers a full write stop",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "experimental" : false,
@@ -7719,7 +7745,7 @@
       "agent",
       "single"
     ],
-    "default" : 8,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "Maximum number of concurrent background jobs (compactions and flushes)",
     "dynamic" : true,
@@ -7825,7 +7851,7 @@
       "agent",
       "single"
     ],
-    "default" : 1,
+    "default" : 2,
     "deprecatedIn" : null,
     "description" : "maximum number of concurrent subjobs for a background compaction",
     "dynamic" : false,
@@ -7841,7 +7867,7 @@
     ],
     "requiresValue" : true,
     "section" : "rocksdb",
-    "type" : "uint64"
+    "type" : "uint32"
   },
   "rocksdb.max-total-wal-size" : {
     "category" : "option",
@@ -8381,6 +8407,58 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.pending-compactions-slowdown-trigger" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 8589934592,
+    "deprecatedIn" : null,
+    "description" : "number of pending compaction bytes that triggers a write slowdown",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.pending-compactions-stop-trigger" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 17179869184,
+    "deprecatedIn" : null,
+    "description" : "number of pending compaction bytes that triggers a full write stop",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
   "rocksdb.pin-l0-filter-and-index-blocks-in-cache" : {
     "category" : "option",
     "component" : [
@@ -8619,6 +8697,162 @@
     "requiresValue" : false,
     "section" : "rocksdb",
     "type" : "boolean"
+  },
+  "rocksdb.throttle-frequency" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 1000,
+    "deprecatedIn" : null,
+    "description" : "frequency for write-throttle calculations (in milliseconds)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.throttle-lower-bound-bps" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 10485760,
+    "deprecatedIn" : null,
+    "description" : "lower bound for throttle's write bandwidth in bytes per second",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.throttle-max-write-rate" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "maximum write rate enforced by throttle (in bytes per second, 0 = unlimited)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.throttle-scaling-factor" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 17,
+    "deprecatedIn" : null,
+    "description" : "adaptiveness scaling factor for write-throttle calculations",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.throttle-slots" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 120,
+    "deprecatedIn" : null,
+    "description" : "number of historic metrics to use for throttle value calculation",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.throttle-slow-down-writes-trigger" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 8,
+    "deprecatedIn" : null,
+    "description" : "number of level 0 files whose payload is not considered in throttle calculations when penalizing the presence of L0 files",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
   },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
@@ -9820,7 +10054,7 @@
       "agent",
       "single"
     ],
-    "default" : "hardened",
+    "default" : "admin",
     "deprecatedIn" : null,
     "description" : "policy for exposing support info API",
     "dynamic" : false,
@@ -9839,7 +10073,7 @@
     "requiresValue" : true,
     "section" : "server",
     "type" : "string",
-    "values" : "Possible values: \"disabled\", \"hardened\", \"jwt\", \"public\""
+    "values" : "Possible values: \"admin\", \"disabled\", \"jwt\", \"public\""
   },
   "server.uid" : {
     "category" : "option",

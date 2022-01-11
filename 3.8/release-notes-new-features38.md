@@ -183,6 +183,22 @@ FOR doc IN collection
 … the projection can be satisfied by a single-attribute index on attribute `b`,
 but now also by a combined index on attributes `a` and `b` (or `b` and `a`).
 
+### AQL function to obtain the responsible shard for a document by its shard keys
+
+Starting from version 3.8.5, a new AQL function is available which allows you to obtain the responsible
+shard for any document in a collection by specifying its shard keys, for example:
+
+```js
+RETURN SHARD_ID(<collection>, {<shard_key_1> : <value>, ...}))
+```
+
+This will result in an output like below:
+
+```js
+["s6040101"]
+```
+
+
 ### AQL optimizer improvements
 
 The "move-calculations-up" optimizer rule was improved so that it can move
