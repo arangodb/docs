@@ -19,6 +19,15 @@ now expected to be present on all targets that run ArangoDB 3.9 executables.
 If a target does not support AVX instructions, it may fail with SIGILL at
 runtime.
 
+Deployment mode "leader-follower" no longer supported
+-----------------------------------------------------
+
+The Leader/Follower deployment mode in which two single servers were
+set up as a leader and follower pair (without any kind of automatic
+failover) was deprecated and removed from the documentation.
+
+Recommended alternatives are the Active Failover deployment option and the OneShard feature in a cluster.
+
 Extended naming convention for databases
 ----------------------------------------
 
