@@ -203,14 +203,14 @@ DECODE_REV( "_YU0HOEG---" )
 
 `SHARD_ID(collection, {shardKeys})`
 
-Inquire about which shard in a collection is home to the given shard keys
+Return the shard in a collection that contains specified shard keys.
 
 - **collection** (string): a collection name
-- **sharKeys** (object): a set of shard keys and values
-- returns **retVal** (string): the responsible shard for above shard keys in
+- **shardKeys** (object): a set of shard keys and values
+- returns **retVal** (string): the responsible shard for the specified shard keys in
   the given collection
 
-Any missing shard key in the inquiry is substituted with value `null`
+Any missing shard key in the query is substituted with the `null` value.
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline shard_id1_cluster
