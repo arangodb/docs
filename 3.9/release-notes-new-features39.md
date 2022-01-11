@@ -541,12 +541,11 @@ DB-Servers.
 
 ### Deployment mode "leader-follower" no longer supported
 
-The deployment mode "leader-follower" in which two single servers were
-setup as a leader and follower pair (without any kind of automatic
-failover) has been deprecated and removed from the documentation.
+The Leader/Follower deployment mode in which two single servers were
+set up as a leader and follower pair (without any kind of automatic
+failover) was deprecated and removed from the documentation.
 
-There have been strictly better possibilities for some time now in the
-form of "active failover" and "one shard databases" in clusters.
+Recommended alternatives are the Active Failover deployment option and the OneShard feature in a cluster.
 
 Client tools
 ------------

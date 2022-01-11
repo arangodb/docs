@@ -17,8 +17,6 @@ Cluster.
 Asynchronous replication is used:
 
 - between the _Leader_ and the _Follower_ of an ArangoDB
-  [_Leader/Follower_](architecture-deployment-modes-leader-follower.html) setup
-- between the _Leader_ and the _Follower_ of an ArangoDB
   [_Active Failover_](architecture-deployment-modes-active-failover.html) setup
 - between multiple ArangoDB [Data Centers](architecture-deployment-modes-dc2-dc.html)
   (inside the same Data Center replication is synchronous)
