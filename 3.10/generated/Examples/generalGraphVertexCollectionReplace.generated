@@ -4,12 +4,12 @@ arangosh&gt; graph.male.save({<span class="hljs-attr">neym</span>: <span class="
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;male/john&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;john&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqoKG--_&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diVE91m--_&quot;</span> 
 }
 arangosh&gt; graph.male.replace(<span class="hljs-string">&quot;male/john&quot;</span>, {<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;John&quot;</span>});
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;male/john&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;john&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dTdqoKK---&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_dTdqoKG--_&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diVE91m--A&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_diVE91m--_&quot;</span> 
 }

@@ -23,7 +23,6 @@ The following security options are available:
   - `/_admin/status`
   - `/_admin/statistics`
   - `/_admin/statistics-description`
-  - `/_admin/support-info`
   - `/_api/engine/stats`
 
   Additionally, no version details will be revealed by the version REST API at 
@@ -36,13 +35,11 @@ The following security options are available:
   for retrieving deployment information. It can have the following values:
   - `disabled`: support info API is disabled.
   - `jwt`: support info API can only be accessed via superuser JWT.
-  - `hardened`: if `--server.harden` is set, the support info API can
-    only be accessed via superuser JWT. Otherwise it can be accessed
-    by admin users only.
+  - `admin` (default): the support info API can only be accessed by admin users and superuser JWTs.
   - `public`: everyone with access to the `_system` database can access the
     support info API.
 
-  The default value for this option is `hardened`.
+  The default value for this option is `admin`.
 
 ## JavaScript security options
 
@@ -354,3 +351,14 @@ in an ArangoDB server:
   application Github repository at
   [github.com/arangodb/foxx-apps](https://github.com/arangodb/foxx-apps){:target="_blank"}.
   The default value is `true`.
+
+- `--foxx.allow-install-from-remote`:
+  When set to `false`, this option prevents installation of Foxx apps from any
+  remote source other than Github and diactivates the **Remote** tab in the **Services**
+  section of the web interface. Installing apps from Github and/or zip files is 
+  still possible with this setting, but any other remote sources are blocked.
+  When set to `true`, installing Foxx apps from other remote sources via URLs
+  is allowed.
+  The default value is `false`.
+  Note: this option was introduced in ArangoDB v3.8.5.
+

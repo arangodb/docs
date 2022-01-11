@@ -93,19 +93,21 @@ Analyzer Types
 
 The currently implemented Analyzer types are:
 
-- `identity`: treat value as atom (no transformation)
-- `delimiter`: split into tokens at user-defined character
-- `stem`: apply stemming to the value as a whole
-- `norm`: apply normalization to the value as a whole
-- `ngram`: create _n_-grams from value with user-defined lengths
-- `text`: tokenize into words, optionally with stemming,
+- `identity`: treats value as atom (no transformation)
+- `delimiter`: splits into tokens at user-defined character
+- `stem`: applies stemming to the value as a whole
+- `norm`: applies normalization to the value as a whole
+- `ngram`: creates _n_-grams from value with user-defined lengths
+- `text`: tokenizes text strings into words, optionally with stemming,
   normalization, stop-word filtering and edge _n_-gram generation
-- `segmentation`: language-agnostic text tokenization, optionally with
+- `segmentation`: tokenizes text in a language-agnostic manner, optionally with
   normalization
-- `aql`: for running AQL query to prepare tokens for index
-- `pipeline`: for chaining multiple Analyzers
+- `aql`: runs an AQL query to prepare tokens for index
+- `pipeline`: chains multiple Analyzers
 - `stopwords`: removes the specified tokens from the input
-- `collation`: to respect the alphabetic order of a language in range queries
+- `collation`: respects the alphabetic order of a language in range queries
+- `classification`: classifies the input text using a word embedding model
+- `nearest_neighbors`: finds the nearest neighbors of the input text using a word embedding model
 - `geojson`: breaks up a GeoJSON object into a set of indexable tokens
 - `geopoint`: breaks up a JSON object describing a coordinate into a set of
   indexable tokens
@@ -113,21 +115,23 @@ The currently implemented Analyzer types are:
 Available normalizations are case conversion and accent removal
 (conversion of characters with diacritical marks to the base characters).
 
-Analyzer    /    Feature        | Tokenization | Stemming | Normalization | _N_-grams
+Analyzer    /    Feature                | Tokenization | Stemming | Normalization | _N_-grams
 :------------------------------:|:------------:|:--------:|:-------------:|:--------:
-[`identity`](#identity)         |      No      |    No    |      No       |   No
-[`delimiter`](#delimiter)       |    (Yes)     |    No    |      No       |   No
-[`stem`](#stem)                 |      No      |   Yes    |      No       |   No
-[`norm`](#norm)                 |      No      |    No    |     Yes       |   No
-[`ngram`](#ngram)               |      No      |    No    |      No       |  Yes
-[`text`](#text)                 |     Yes      |   Yes    |     Yes       | (Yes)
-[`segmentation`](#segmentation) |     Yes      |    No    |     Yes       |   No
-[`aql`](#aql)                   |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-[`pipeline`](#pipeline)         |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
-[`stopwords`](#stopwords)       |      No      |    No    |      No       |   No
-[`collation`](#collation)       |      No      |    No    |      No       |   No
-[`geojson`](#geojson)           |      –       |    –     |      –        |   –
-[`geopoint`](#geopoint)         |      –       |    –     |      –        |   –
+[`identity`](#identity)                 |      No      |    No    |      No       |   No
+[`delimiter`](#delimiter)               |    (Yes)     |    No    |      No       |   No
+[`stem`](#stem)                         |      No      |   Yes    |      No       |   No
+[`norm`](#norm)                         |      No      |    No    |     Yes       |   No
+[`ngram`](#ngram)                       |      No      |    No    |      No       |  Yes
+[`text`](#text)                         |     Yes      |   Yes    |     Yes       | (Yes)
+[`segmentation`](#segmentation)         |     Yes      |    No    |     Yes       |   No
+[`aql`](#aql)                           |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[`pipeline`](#pipeline)                 |    (Yes)     |  (Yes)   |    (Yes)      | (Yes)
+[`stopwords`](#stopwords)               |      No      |    No    |      No       |   No
+[`collation`](#collation)               |      No      |    No    |      No       |   No
+[`classification`](#classification)          |      No      |    No    |      No       |   No
+[`nearest_neighbors`](#nearest_neighbors)       |      No      |    No    |      No       |   No
+[`geojson`](#geojson)                   |      –       |    –     |      –        |   –
+[`geopoint`](#geopoint)                 |      –       |    –     |      –        |   –
 
 Analyzer Properties
 -------------------
@@ -929,6 +933,122 @@ Create different `segmentation` Analyzers to show the behavior of the different
     @endDocuBlock analyzerSegmentationBreak
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
+
+### `classification`
+
+<small>Introduced in: v3.10.0</small>
+
+An Analyzer capable of classifying tokens in the input text.
+
+It applies a user-provided [fastText](https://fasttext.cc/) word embedding model to classify the input text.
+It is able to classify individual tokens as well as entire inputs.
+
+The *properties* allowed for this Analyzer are an object with the following attributes:
+
+* `model_location` (string): the on-disk path to the trained fastText model. Note: if you are running this in an ArangoDB
+cluster, this model must exist on every machine in the cluster.
+* `top_k` (number, optional): the number of class labels that will be produced per input (default: 1).
+* `threshold` (number, optional): the probability threshold for which a label will be assigned to an input. A 
+fastText model produces a probability per class label, and this is what will be filtered (default: 0.99).
+
+**Examples**
+
+Create and use a `classification` Analyzer with a stored "cooking" classifier to classify items.
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+@startDocuBlockInline analyzerClassification
+@EXAMPLE_ARANGOSH_RUN{ClassificationAnalyzerModelSetup}
+var fs = require("fs");
+var internal = require("internal");
+try {
+    fs.makeDirectory("/tmp/embeddingsModels");
+} catch (e) {
+}
+
+var destModelPath = "/tmp/embeddingsModels/model_cooking.bin";
+if (!fs.exists(destModelPath)) {
+    var sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
+    try {
+        fs.copyFile(sourceModelPath, destModelPath);
+    } catch (e) {}
+}
+@END_EXAMPLE_ARANGOSH_RUN
+
+@EXAMPLE_ARANGOSH_OUTPUT{analyzerClassification}
+var analyzers = require("@arangodb/analyzers");
+var classifier_single = analyzers.save("classifier_single", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, []);
+var classifier_top_two = analyzers.save("classifier_double", "classification", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, []);
+| db._query(`LET str = 'Which baking dish is best to bake a banana bread ?'
+|   RETURN {
+|     "all": TOKENS(str, 'classifier_single'),
+|     "double": TOKENS(str, 'classifier_double')
+|   }
+`);
+~ analyzers.remove(classifier_single.name);
+~ analyzers.remove(classifier_top_two.name);
+@END_EXAMPLE_ARANGOSH_OUTPUT
+@endDocuBlock analyzerClassification
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
+
+### `nearest_neighbors`
+
+<small>Introduced in: v3.10.0</small>
+
+An Analyzer capable of finding nearest neighbors of tokens in the input.  
+
+It applies a user-provided [fastText](https://fasttext.cc/) word embedding model to retrieve nearest neighbor tokens in
+the text. It is able to find neighbors of individual tokens as well as entire input strings. For entire input strings,
+the analyzer will return nearest neighbors for each token within the input string.
+
+The *properties* allowed for this Analyzer are an object with the following attributes:
+
+* `model_location` (string): the on-disk path to the trained fastText model. Note: if you are running this in an ArangoDB
+  cluster, this model must exist on every machine in the cluster.
+* `top_k` (number, optional): the number of class labels that will be produced per input (default: 1).
+
+
+**Examples**
+
+Create and use a `nearest_neighbors` Analyzer with a stored "cooking" classifier to find similar terms.
+
+{% arangoshexample examplevar="examplevar" script="script" result="result" %}
+@startDocuBlockInline analyzerNearestNeighbors
+@EXAMPLE_ARANGOSH_RUN{NNAnalyzerModelSetup}
+var fs = require("fs");
+var internal = require("internal");
+try {
+    fs.makeDirectory("/tmp/embeddingsModels");
+} catch (e) {
+}
+
+var destModelPath = "/tmp/embeddingsModels/model_cooking.bin";
+if (!fs.exists(destModelPath)) {
+    var sourceModelPath = fs.join(internal.pathForTesting("common"), "aql", "iresearch", "model_cooking.bin");
+    try {
+        fs.copyFile(sourceModelPath, destModelPath);
+    } catch (e) {}
+}
+@END_EXAMPLE_ARANGOSH_RUN
+
+@EXAMPLE_ARANGOSH_OUTPUT{analyzerNearestNeighbors}
+var analyzers = require("@arangodb/analyzers");
+var nn_single = analyzers.save("nn_single", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin" }, []);
+var nn_top_two = analyzers.save("nn_double", "nearest_neighbors", { "model_location": "/tmp/embeddingsModels/model_cooking.bin", "top_k": 2 }, []);
+| db._query(`LET str = 'salt and oil'
+|   RETURN {
+|     "all": TOKENS(str, 'nn_single'),
+|     "double": TOKENS(str, 'nn_double')
+|   }
+`);
+~ analyzers.remove(nn_single.name);
+~ analyzers.remove(nn_top_two.name);
+@END_EXAMPLE_ARANGOSH_OUTPUT
+@endDocuBlock analyzerNearestNeighbors
+{% endarangoshexample %}
+{% include arangoshexample.html id=examplevar script=script result=result %}
+
 
 ### `geojson`
 

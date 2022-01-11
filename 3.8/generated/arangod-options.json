@@ -703,7 +703,7 @@
       "agent",
       "single"
     ],
-    "default" : 33252938752,
+    "default" : 16341497856,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -1801,6 +1801,31 @@
     ],
     "requiresValue" : false,
     "section" : "",
+    "type" : "boolean"
+  },
+  "foxx.allow-install-from-remote" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "single"
+    ],
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "allow installing Foxx apps from remote URLs other than Github",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "foxx",
     "type" : "boolean"
   },
   "foxx.api" : {
@@ -5835,7 +5860,7 @@
       "agent",
       "single"
     ],
-    "default" : 109478983311,
+    "default" : 54685914808,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -5917,7 +5942,7 @@
       "agent",
       "single"
     ],
-    "default" : 81095543193,
+    "default" : 40508085043,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -6676,7 +6701,7 @@
       "agent",
       "single"
     ],
-    "default" : 39903526502,
+    "default" : 19609797427,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -6901,7 +6926,7 @@
       "agent",
       "single"
     ],
-    "default" : false,
+    "default" : true,
     "deprecatedIn" : null,
     "description" : "if true, use a two stage write queue for WAL writes and memtable writes",
     "dynamic" : false,
@@ -7238,7 +7263,7 @@
       "agent",
       "single"
     ],
-    "default" : 20,
+    "default" : 16,
     "deprecatedIn" : null,
     "description" : "number of level-0 files that triggers a write slowdown",
     "dynamic" : false,
@@ -7263,9 +7288,9 @@
       "agent",
       "single"
     ],
-    "default" : 36,
+    "default" : 256,
     "deprecatedIn" : null,
-    "description" : "number of level-0 files that triggers a full write stall",
+    "description" : "number of level-0 files that triggers a full write stop",
     "dynamic" : false,
     "enterpriseOnly" : false,
     "hidden" : false,
@@ -7315,7 +7340,7 @@
       "agent",
       "single"
     ],
-    "default" : 8,
+    "default" : 32,
     "deprecatedIn" : null,
     "description" : "Maximum number of concurrent background jobs (compactions and flushes)",
     "dynamic" : true,
@@ -7417,7 +7442,7 @@
       "agent",
       "single"
     ],
-    "default" : 1,
+    "default" : 2,
     "deprecatedIn" : null,
     "description" : "maximum number of concurrent subjobs for a background compaction",
     "dynamic" : false,
@@ -7925,6 +7950,56 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.pending-compactions-slowdown-trigger" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 8589934592,
+    "deprecatedIn" : null,
+    "description" : "number of pending compaction bytes that triggers a write slowdown",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.pending-compactions-stop-trigger" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 17179869184,
+    "deprecatedIn" : null,
+    "description" : "number of pending compaction bytes that triggers a full write stop",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
   "rocksdb.pin-l0-filter-and-index-blocks-in-cache" : {
     "category" : "option",
     "component" : [
@@ -8155,6 +8230,156 @@
     "section" : "rocksdb",
     "type" : "boolean"
   },
+  "rocksdb.throttle-frequency" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 1000,
+    "deprecatedIn" : null,
+    "description" : "frequency for write-throttle calculations (in milliseconds)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.throttle-lower-bound-bps" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 10485760,
+    "deprecatedIn" : null,
+    "description" : "lower bound for throttle's write bandwidth in bytes per second",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.throttle-max-write-rate" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 0,
+    "deprecatedIn" : null,
+    "description" : "maximum write rate enforced by throttle (in bytes per second, 0 = unlimited)",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.throttle-scaling-factor" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 17,
+    "deprecatedIn" : null,
+    "description" : "adaptiveness scaling factor for write-throttle calculations",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.throttle-slots" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 120,
+    "deprecatedIn" : null,
+    "description" : "number of historic metrics to use for throttle value calculation",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
+  "rocksdb.throttle-slow-down-writes-trigger" : {
+    "category" : "option",
+    "component" : [
+      "dbserver",
+      "single"
+    ],
+    "default" : 8,
+    "deprecatedIn" : null,
+    "description" : "number of level 0 files whose payload is not considered in throttle calculations when penalizing the presence of L0 files",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : true,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "rocksdb",
+    "type" : "uint64"
+  },
   "rocksdb.total-write-buffer-size" : {
     "category" : "option",
     "component" : [
@@ -8163,7 +8388,7 @@
       "agent",
       "single"
     ],
-    "default" : 53204702003,
+    "default" : 26146396569,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,

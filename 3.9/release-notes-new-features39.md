@@ -133,24 +133,6 @@ user-defined action.
 AQL
 ---
 
-### Prune Variable
-
-Added an option to store `PRUNE` expression as a variable. Now, a `PRUNE`
-condition can be stored in a variable and be used later in the query without
-having to repeat the `PRUNE` condition:
-
-```js
-FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
-  PRUNE pruneCondition = v.isRelevant == true
-  FILTER pruneCondition
-  RETURN p
-```
-
-The condition `v.isRelevant == true` is stored in the variable `pruneCondition`,
-and later used as a condition for `FILTER`.
-
-See [Pruning](aql/graphs-traversals.html#pruning).
-
 ### Upsert with Index Hint
 
 Added support for the `indexHint` and `forceIndexHint` options to the `UPSERT`
@@ -239,6 +221,24 @@ result, but not the buildup of the `edges` sub-attribute.
 
 This optimization should have a positive impact on performance for larger
 traversal result sets.
+
+### Prune Variable
+
+Added an option to store the `PRUNE` expression as a variable. Now, the `PRUNE`
+condition can be stored in a variable and be used later in the query without
+having to repeat the `PRUNE` condition:
+
+```js
+FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
+  PRUNE pruneCondition = v.isRelevant == true
+  FILTER pruneCondition
+  RETURN p
+```
+
+The `v.isRelevant == true` condition is stored in the `pruneCondition` variable
+and used as a condition for `FILTER` later.
+
+See [Pruning](aql/graphs-traversals.html#pruning).
 
 ### Warnings on invalid OPTIONS
 
@@ -489,7 +489,7 @@ License Management (Enterprise Edition)
 
 The Enterprise Edition of ArangoDB requires a license to activate it.
 ArangoDB 3.9 comes with a new license management that lets you test ArangoDB
-for three days before requiring a license key to keep the Enterprise Edition
+for one hour before requiring a license key to keep the Enterprise Edition
 features activated.
 
 There is a new JavaScript API for querying the license status and to set a
@@ -551,6 +551,8 @@ client tools:
 - arangodump
 - arangoimport
 - arangorestore
+
+The `--threads` option works dynamically, its value depends on the number of available CPU cores. If the amount of available CPU cores is less than `3`, a threads value of `2` is used. Otherwise the value of threads is set to the number of available CPU cores.
 
 This change can help to improve performance of imports, dumps or restore
 processes on machines with multiple cores in case the `--threads` parameter

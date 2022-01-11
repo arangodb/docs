@@ -6,7 +6,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> C
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">58</span>
-etag: <span class="hljs-string">&quot;_dV93rX---_&quot;</span>
+etag: <span class="hljs-string">&quot;_diW_o8q---&quot;</span>
 location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/lock
 server: ArangoDB
 x-content-type-options: nosniff
@@ -14,7 +14,7 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/lock&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;lock&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dV93rX---_&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diW_o8q---&quot;</span> 
 }
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X POST --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products?overwrite=<span class="hljs-literal">true</span></span> &lt;&lt;EOF
 { "Hello": "Universe", "_key" : "lock" }
@@ -24,7 +24,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">201</span> C
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">82</span>
-etag: <span class="hljs-string">&quot;_dV93rXW---&quot;</span>
+etag: <span class="hljs-string">&quot;_diW_o9S---&quot;</span>
 location: <span class="hljs-regexp">/_db/</span>_system/_api/<span class="hljs-built_in">document</span>/products/lock
 server: ArangoDB
 x-content-type-options: nosniff
@@ -32,6 +32,6 @@ x-content-type-options: nosniff
 { 
   <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/lock&quot;</span>, 
   <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;lock&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dV93rXW---&quot;</span>, 
-  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_dV93rX---_&quot;</span> 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diW_o9S---&quot;</span>, 
+  <span class="hljs-string">&quot;_oldRev&quot;</span> : <span class="hljs-string">&quot;_diW_o8q---&quot;</span> 
 }
