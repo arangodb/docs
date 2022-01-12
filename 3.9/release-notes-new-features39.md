@@ -168,8 +168,9 @@ DECAY_EXP(2, 0, 10, 0, 0.2)    // 0.7247796636776955
 
 ### Vector Functions
 
-Added three vector functions to AQL for calculating the cosine similarity,
-Manhattan distance, and Euclidean distance:
+Added three vector functions to AQL for calculating the cosine similarity
+(`COSINE_SIMILARITY`), Manhattan distance (named `L1_DISTANCE`), and Euclidean 
+distance (named `L2_DISTANCE`):
 
 - [COSINE_SIMILARITY()](aql/functions-numeric.html#cosine_similarity)
 - [L1_DISTANCE()](aql/functions-numeric.html#l1_distance)
@@ -341,7 +342,8 @@ documents that contain a given time point, or overlap with some time interval.
 There are also drawbacks in comparison with `persistent` indexes. For one, the
 `zkd` index is not sorted. Secondly, it has a significantly higher overhead, and
 the emerging performance is much more dependent on the distribution of the
-dataset, making it less predictable.
+dataset, making it less predictable. A third limitation is that `zkd` indexes
+can only be created for index values which are IEEE 754 doubles.
 
 [Multi-dimensional Indexes](indexing-multi-dim.html) are an experimental feature.
 
@@ -350,7 +352,10 @@ Server options
 
 ### Rebalance shards
 
-The `--cluster.max-number-of-move-shards` flag limits the maximum number of move shards operations which can be made when the **Rebalance Shards** button is clicked in the web UI. For backwards compatibility purposes, the default value is 10. If the value is 0, then the tab containing this button will be inactive and the button cannot be clicked.
+The `--cluster.max-number-of-move-shards` startup option limits the maximum number 
+of move shards operations which can be made when the **Rebalance Shards** button is 
+clicked in the web UI. For backwards compatibility purposes, the default value is 10. 
+If the value is 0, then the tab containing this button will be inactive and the button cannot be clicked.
 
 ### Extended naming convention for databases
 
@@ -570,7 +575,6 @@ want to keep the server load under control should set the number of client
 threads explicitly when invoking any of the above client tools.
 
 ### arangoimport
-
 
 _arangoimport_ received a new startup option `--merge-attributes` that allows
 you to create additional attributes in CSV/TSV imports based on other attribute
