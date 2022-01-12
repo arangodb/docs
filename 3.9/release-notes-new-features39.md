@@ -311,6 +311,11 @@ Setting the option to `false` allows to not store any data read by the query
 in the RocksDB block cache. This is useful for queries that read a lot of (cold)
 data which would lead to the eviction of the hot data from the block cache.
 
+### AQL function to return a shard ID for a document
+
+A new [AQL function](aql/functions-miscellaneous.html#shard-id) is available which allows you to 
+obtain the responsible shard for any document in a collection by specifying its shard keys. 
+
 Multi-dimensional Indexes (experimental)
 ----------------------------------------
 
