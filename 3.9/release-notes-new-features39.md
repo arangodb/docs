@@ -313,7 +313,7 @@ data which would lead to the eviction of the hot data from the block cache.
 
 ### AQL function to return a shard ID for a document
 
-A new [AQL function](aql/functions-miscellaneous.html#shard-id) is available which allows you to 
+A new [AQL function](aql/functions-miscellaneous.html#shard_id) is available which allows you to 
 obtain the responsible shard for any document in a collection by specifying its shard keys. 
 
 Multi-dimensional Indexes (experimental)
