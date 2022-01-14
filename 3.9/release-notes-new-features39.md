@@ -297,7 +297,13 @@ The following limits have been introduced:
   The expression recursion is limited to 500 levels.
 - a limit for the number of execution nodes in the initial query
   execution plan.
-  The number of execution nodes is limited to 4,000.
+  The number of execution nodes in the initial query execution plan is 
+  limited to 4000. This number includes all execution nodes of the
+  initial execution plan, even if some of the execution nodes could be
+  optimized away later by the query optimizer during plan optimization.
+
+AQL queries that violate these limits will fail to run, and instead abort 
+with error `1524` ("too much nesting or too many objects") during setup.
 
 ### RocksDB block cache control
 
