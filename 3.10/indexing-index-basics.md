@@ -409,13 +409,13 @@ Indexes and non-ASCII texts
 ---------------------------
 Before strings are put into an index, they are
 [normalized by using ICU](http://www.unicode.org/reports/tr15/). There are several characters
-in the Unicode space, that have a similar meaning. In order to have all variants of them
+in the Unicode space, which have a similar meaning. In order to have all variants of them
 in a result set when querying, the strings are normalized for the index.
 This slightly changes the behaviour of `FILTER` statements with `==` -
 comparisons when ran on non-indexed document attributes. While the index may still be useful
-by fetching a little more results then you want to actually work with, you may want to have an 
-additional `FILTER MD5(doc.attr) == MD5(@comparisonstring)` to make sure in the end result
-only contains the actual values you desire. 
+by fetching a little more results than you want to actually work with, you may want to have an 
+additional `FILTER MD5(doc.attr) == MD5(@comparisonstring)` to make sure that in the end the result
+only contains the actual values you need. 
 
 Indexing attributes and sub-attributes
 --------------------------------------
