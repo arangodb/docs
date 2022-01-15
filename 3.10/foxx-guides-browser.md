@@ -135,10 +135,10 @@ you will need to enable CORS in ArangoDB.
 
 First you need to
 [configure ArangoDB for CORS](http/general.html#cross-origin-resource-sharing-cors-requests).
-As of 3.2 Foxx will then automatically allow all response headers as they are used.
+As of 3.2, Foxx will then automatically allow all response headers as they are used.
 
 If you want more control over what is exposed or are using an older version of
-ArangoDB you can set the following response headers in your request handler:
+ArangoDB, you can set the following response headers in your request handler:
 
 - `access-control-expose-headers`: a comma-separated list of response headers.
   This defaults to a list of all headers the response is actually using
@@ -151,5 +151,5 @@ ArangoDB you can set the following response headers in your request handler:
 
 Note that it is not possible to override these headers for the CORS preflight
 response. It is therefore not possible to accept credentials or cookies only
-for individual routes, services or databases. The origin needs to be trusted
+for individual routes, services, or databases. The origin needs to be trusted
 according to the general ArangoDB configuration (see above).
