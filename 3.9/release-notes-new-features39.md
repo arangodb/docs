@@ -499,7 +499,7 @@ License Management (Enterprise Edition)
 
 The Enterprise Edition of ArangoDB requires a license to activate it.
 ArangoDB 3.9 comes with a new license management that lets you test ArangoDB
-for one hour before requiring a license key to keep the Enterprise Edition
+for three hours before requiring a license key to keep the Enterprise Edition
 features activated.
 
 There is a new JavaScript API for querying the license status and to set a
