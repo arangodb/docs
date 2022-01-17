@@ -76,7 +76,7 @@ The following limits have been added:
 - a limit for the number of execution nodes in the initial query 
   execution plan. The number of execution nodes is limited to 4000.
   This number includes all execution nodes of the initial execution plan, 
-  even if some of the execution nodes could be optimized away later by the 
+  even if some of them could be optimized away later by the 
   query optimizer during plan optimization.
 
 AQL queries that violate these limits will fail to run, and instead abort 
