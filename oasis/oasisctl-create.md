@@ -42,6 +42,7 @@ oasisctl create [flags]
 * [oasisctl create ipallowlist](oasisctl-create-ipallowlist.html)	 - Create a new IP allowlist
 * [oasisctl create metrics](oasisctl-create-metrics.html)	 - Create metrics resources
 * [oasisctl create organization](oasisctl-create-organization.html)	 - Create a new organization
+* [oasisctl create private](oasisctl-create-private.html)	 - Create private resources
 * [oasisctl create project](oasisctl-create-project.html)	 - Create a new project
 * [oasisctl create role](oasisctl-create-role.html)	 - Create a new role
 

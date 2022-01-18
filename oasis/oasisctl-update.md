@@ -41,6 +41,7 @@ oasisctl update [flags]
 * [oasisctl update metrics](oasisctl-update-metrics.html)	 - Update metrics resources
 * [oasisctl update organization](oasisctl-update-organization.html)	 - Update an organization the authenticated user has access to
 * [oasisctl update policy](oasisctl-update-policy.html)	 - Update a policy
+* [oasisctl update private](oasisctl-update-private.html)	 - Update private resources
 * [oasisctl update project](oasisctl-update-project.html)	 - Update a project the authenticated user has access to
 * [oasisctl update role](oasisctl-update-role.html)	 - Update a role the authenticated user has access to
 
