@@ -90,7 +90,7 @@ The connector can read data from:
 - a collection
 - an AQL cursor (query specified by the user)
 
-When reading data from a **collection**, the reading job is split into many Spark tasks, one for each shard in the ArangoDB source collection. The resulting Spark DataFrame has the same number of partitions as the number of shards in the ArangoDB collection, each one containing the data of the respective collection shard. The reading tasks are load balanced across all the available ArangoDB Coordinators and each task will hit only one DB-Server - the one holding the related shard. The data is read through an AQL query supplying the related shard id in the `shardIds` option, so that it will be executed locally in the DB-Server holding the shard and will return only data from that shard.
+When reading data from a **collection**, the reading job is split into many Spark tasks, one for each shard in the ArangoDB source collection. The resulting Spark DataFrame has the same number of partitions as the number of shards in the ArangoDB collection, each one containing data from the respective collection shard. The reading tasks consist of AQL queries that are load balanced across all the available ArangoDB Coordinators. Each query is related to only one shard, therefore it will be executed locally in the DB-Server holding the related shard.
 
 When reading data from an **AQL cursor**, the reading job cannot be partitioned or parallelized, so it will be less scalable. This mode can be used for reading data coming from different tables, i.e. resulting from an AQL traversal query.
 
