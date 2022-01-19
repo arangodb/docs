@@ -17,11 +17,49 @@ your application in conjunction with several factors:
 Operation Atomicity
 -------------------
 
-All insert / update / replace / remove operations in ArangoDB are atomic on a
-_single_ document. Using a single instance of ArangoDB, multi-document /
-multi-collection queries are guaranteed to be fully ACID, however in
-cluster mode only single-document operations are also fully ACID. This has
-implications if you try to ensure consistency across multiple operations.
+All insert / update / replace / remove operations in ArangoDB are
+atomic on a single document, by which we mean that any read operation
+either observes a single document write in its entirety or not at all,
+regardless of whether it is a read in the same transaction, a different
+transaction, or indeed another write operation implicitly reading the
+document (like update). This is true in cluster mode as well as in
+single server mode and for one shard databases.
+
+When using a single instance of ArangoDB or a one shard database
+in a cluster, we can make additional guarantees: Multi-document /
+multi-collection queries are guaranteed to be fully atomic, in the
+sense that one transaction observes any other transaction either in its
+entirety, or not at all. In general, in a cluster deployment, this
+is not guaranteed in case of failovers.
+
+Transactional Isolation
+-----------------------
+
+In the single instance case and in the one shard database case, we use
+RocksDB's 
+[snapshot isolation](https://jepsen.io/consistency/models/snapshot-isolation)
+for reads and use key-level pessimistic locking for write-write-conflict
+detection. Therefore, in these cases, the isolation level ArangoDB
+guarantees for transactions is
+"[repeatable read](https://jepsen.io/consistency/models/repeatable-read)"
+in the following sense: the reads of a transaction see a snapshot
+of the state of the database, that is, a transaction T does not see
+"dirty reads", which are writes from other transactions which have not
+yet committed. Furthermore, a transaction T does not see writes from
+other transactions, which have started, after T was started, even if
+they commit before the read of T happens. Finally, in the end, there is
+a total order on the set of all transactions, such that the state of
+the database is as if the *writes* of the transactions would have been
+executed in this order.
+
+Note that this is strictly weaker than "serializable", since it is
+possible that two concurrent transactions T1 and T2 both read the old
+state from before both of them (including the documents T1 or T2 touch),
+but then write to disjoint sets of keys. This allows for the possibility
+of "phantom reads".
+
+Please note again that in a cluster without one shard databases, these
+isolation guarantees are not given.
 
 ### Denormalizing Data
 
