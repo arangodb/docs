@@ -147,12 +147,13 @@ RETURN { doc: NEW, type: OLD ? 'update' : 'insert' }
 Limitations
 -----------
 
-- The lookup and the insert/update/replace parts are executed non-atomically.
-  That means if multiple UPSERT queries run concurrently, they may all
-  determine that the target document does not exist and then create it multiple
-  times!
+- The lookup and the insert/update/replace parts are executed one after
+  another, such that other operations in other threads can happen in
+  between. This means if multiple UPSERT queries run concurrently, they
+  may all determine that the target document does not exist and then
+  create it multiple times!
 
-  Note that due to the non-atomicity of the lookup and insert/update/replace,
+  Note that due to the this gap between the lookup and insert/update/replace,
   even with a unique index there may be duplicate key errors or conflicts.
   But if they occur, the application/client code can execute the same query
   again.
