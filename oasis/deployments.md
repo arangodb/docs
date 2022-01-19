@@ -90,8 +90,19 @@ Choose between a **OneShard**, **Sharded** or **Developer** deployment.
 
 1. Select the memory size of your node.
 2. Select the CPU size of your node.
-3. Select the disk size of your node. The available ranges for the disk size
+3. Select the initial disk size of your node. The available ranges for the disk size
    depend on the selected memory size.
+4. Select the upper limit for the disk size. It defaults to twice the initial
+   disk size. You can set it to the same value as the initial disk size to
+   disable automatic disk sizing.
+
+{% hint 'info' %}
+A deployment's node disk size is automatically increased by 25% when the maximal
+disk usage of a node exceeds 75% of its capacity, up to the configured limit.
+You will be notified via email when the disk size is increased, as well as when
+your deployment runs out of disk space but cannot be resized because it reached
+the upper disk size limit already.
+{% endhint %}
 
 ![Oasis Deployment OneShard](images/oasis-new-deployment2.png)
 
