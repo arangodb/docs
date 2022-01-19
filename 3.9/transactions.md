@@ -28,10 +28,10 @@ brevity and to first give an overview. The actual transactional
 guarantees depend on the deployment mode and usage pattern.
 
 For more details on our atomicity guarantees see 
-[this section](data-modeling-operational-factors#operation-atomicity).
+[this section](data-modeling-operational-factors.html#operation-atomicity).
 For more details on our isolation guarantees in the single server and
 one shard database case see
-[this section](data-modeling-operational-factors#transactional-isolation).
+[this section](data-modeling-operational-factors.html#transactional-isolation).
 For general limitations see
 Section [Cluster Limitations](transactions-limitations.html#in-clusters)
 regarding transactional behavior of multi-document transactions in
