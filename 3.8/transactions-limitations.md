@@ -62,7 +62,7 @@ possible to reduce the probability of deadlocks and non-repeatable reads.
 In Clusters
 -----------
 
-Using a single instance of ArangoDB (or a one-shard-database in a
+Using a single instance of ArangoDB (or a OneShard database in a
 cluster), multi-document / multi-collection queries are guaranteed to be
 fully ACID in the
 [traditional sense](https://en.wikipedia.org/wiki/ACID_(computer_science)){:target="_blank"}.
