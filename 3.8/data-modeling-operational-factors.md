@@ -42,7 +42,7 @@ RocksDB's
 for reads and uses RocksDB key-level pessimistic locking for write-write-conflict
 detection. Therefore, in these cases, the isolation level ArangoDB
 guarantees for transactions is
-"[repeatable read](https://jepsen.io/consistency/models/repeatable-read)"{:target="_blank"}
+"[repeatable read](https://jepsen.io/consistency/models/repeatable-read){:target="_blank"}"
 in the following sense: the reads of a transaction see a snapshot
 of the state of the database, that is, a transaction T does not see
 "dirty reads", which are writes from other transactions which have not
