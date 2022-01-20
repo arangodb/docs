@@ -583,6 +583,8 @@ Return the matches in the given string *text*, using the *regex*.
 
 - **text** (string): the string to search in
 - **regex** (string): a regular expression to use for matching the *text*
+- **caseInsensitive** (bool, *optional*): if set to *true*, the matching will be
+  case-insensitive. The default is *false*.
 - returns **stringArray** (array): an array of strings containing the matches
 
 The regular expression may consist of literal characters and the following 
@@ -648,6 +650,8 @@ Split the given string *text* into a list of strings, using the *separator*.
 
 - **text** (string): the string to split
 - **splitExpression** (string): a regular expression to use for splitting the *text*
+- **caseInsensitive** (bool, *optional*): if set to *true*, the matching will be
+  case-insensitive. The default is *false*.
 - **limit** (number, *optional*): limit the number of split values in the result.
   If no *limit* is given, the number of splits returned is not bounded.
 - returns **stringArray** (array): an array of strings
@@ -703,7 +707,7 @@ and the function will return *null*.
 ```js
 REGEX_SPLIT("This is a line.\n This is yet another line\r\n This again is a line.\r Mac line ", "\.?(\n|\r|\r\n)", true, 4) // ["This is a line", "\n", " This is yet another lin", "\r"]
 REGEX_SPLIT("hypertext language, programming", "[\s, ]+") // ["hypertext", "language", "programming"]
-REGEX_SPLIT("ca,bc,a,bca,bca,bc", "a,b", true, 5) // ["c", "c,", "c", "c", "c"]
+REGEX_SPLIT("cA,Bc,A,BcA,BcA,Bc", "a,b", true, 3) // ["c", "c,", "c"]
 ```
 
 REGEX_TEST()
@@ -716,10 +720,10 @@ using regular expression matching.
 
 - **text** (string): the string to search in
 - **search** (string): a regular expression search pattern
-- returns **bool** (bool): *true* if the pattern is contained in *text*,
-  and *false* otherwise
 - **caseInsensitive** (bool, *optional*): if set to *true*, the matching will be
   case-insensitive. The default is *false*.
+- returns **bool** (bool): *true* if the pattern is contained in *text*,
+  and *false* otherwise
 
 The regular expression may consist of literal characters and the following 
 characters and sequences:
@@ -786,11 +790,11 @@ Replace the pattern *search* with the string *replacement* in the string
 - **text** (string): the string to search in
 - **search** (string): a regular expression search pattern
 - **replacement** (string): the string to replace the *search* pattern with
+- **caseInsensitive** (bool, *optional*): if set to *true*, the matching will be
+  case-insensitive. The default is *false*.
 - returns **string** (string): the string *text* with the *search* regex
   pattern replaced with the *replacement* string wherever the pattern exists
   in *text*
-- **caseInsensitive** (bool, *optional*): if set to *true*, the matching will be
-  case-insensitive. The default is *false*.
 
 For more details about the rules for characters and sequences refer
 [REGEX_TEST()](#regex_test).
@@ -799,8 +803,9 @@ If the regular expression in *search* is invalid, a warning will be raised
 and the function will return *null*.
 
 ```js
-REGEX_REPLACE("the quick brown fox", "the.*fox", "jumped over") // jumped over
-REGEX_REPLACE("the quick brown fox", "o", "i") // the quick briwn fix
+REGEX_REPLACE("the quick brown fox", "the.*fox", "jumped over") // "jumped over"
+REGEX_REPLACE("An Avocado", "a", "_") // "An Avoc_do"
+REGEX_REPLACE("An Avocado", "a", "_", true) // "_n _voc_do"
 ```
 
 REVERSE()
