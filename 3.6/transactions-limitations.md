@@ -60,14 +60,8 @@ possible to reduce the probability of deadlocks and non-repeatable reads.
 In Clusters
 -----------
 
-Using a single instance of ArangoDB (or a one-shard-database in a
-cluster), multi-document / multi-collection queries are guaranteed to be
-fully ACID in the
-[traditional sense](https://en.wikipedia.org/wiki/ACID_(computer_science)){:target="_blank"}.
-For more details see
-[Operation Atomicity](data-modeling-operational-factors.html#operation-atomicity)
-and
-[Transactional Isolation](data-modeling-operational-factors.html#transactional-isolation).
+Using a single instance of ArangoDB, multi-document / multi-collection queries
+are guaranteed to be fully ACID in the [traditional sense](https://en.wikipedia.org/wiki/ACID_(computer_science)){:target="_blank"}.
 This is more than many other NoSQL database systems support.
 In cluster mode, single-document operations are also *fully ACID*.
 
