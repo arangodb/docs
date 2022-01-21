@@ -49,7 +49,7 @@ of the state of the database, that is, a transaction T does not see
 yet committed. Furthermore, a transaction T does not see writes from
 other transactions, which have started, after T was started, even if
 they commit before the read of T happens. Finally, in the end, there is
-a total order on the set of all transactions, such that the state of
+a total order on the set of all transactions, so that the state of
 the database is as if the *writes* of the transactions would have been
 executed in this order.
 
@@ -59,7 +59,7 @@ state from before both of them (including the documents T1 or T2 touch),
 but then write to disjoint sets of keys. This allows for the possibility
 of "phantom reads".
 
-Please note again that in a cluster without OneShard databases, these
+Note that in a cluster without OneShard databases, these
 isolation guarantees are not given.
 
 ### Denormalizing Data
