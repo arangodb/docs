@@ -5,7 +5,7 @@ content-type: text/plain
 connection: Keep-Alive
 content-length: 0
 server: ArangoDB
-x-arango-async-id: 81501
+x-arango-async-id: 81505
 x-content-type-options: nosniff
 
 <span class="hljs-meta">shell&gt;</span><span class="bash"> curl --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/job/<span class="hljs-keyword">done</span></span>
@@ -18,5 +18,5 @@ server: ArangoDB
 x-content-type-options: nosniff
 
 [ 
-  <span class="hljs-string">&quot;81501&quot;</span> 
+  <span class="hljs-string">&quot;81505&quot;</span> 
 ]
