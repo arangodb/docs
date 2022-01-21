@@ -269,14 +269,12 @@ Optimization rules applied:
   2   remove-redundant-path-var
 ```
 
-The optimization rule `remove-redundant-path-var` is applied and the
+The `remove-redundant-path-var` optimization rule is applied and the
 TraversalNode's comment indicates that only the `vertices` sub-attribute is
 built up for this query: `p  /* paths: vertices */`
 
 This optimization should have a positive impact on performance for larger
 traversal result sets.
-
-This functionality has been backported to v3.8.1 as well.
 
 ### Prune Variable
 
