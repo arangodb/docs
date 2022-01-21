@@ -73,7 +73,7 @@ arangosh --help
 
 To list the options of a certain section only, use `‑‑help‑{section}`
 like `‑‑help‑server`. To list all options including hidden ones use
-`‑‑help‑.`.
+`--help-all`.
 
 ## Configuration file format
 
