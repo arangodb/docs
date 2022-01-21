@@ -10,21 +10,31 @@ ArangoDB package can be configured with various _startup options_.
 - Startup options you specify on a command line are referred to as
   [command line options](#command-line-options):
 
-  `arangosh --server.database myDB`
+  `arangosh --server.database myDB --server.username Jay`
 
 - The same options can also be set via
   [configuration files](#configuration-file-format),
   using a slightly different syntax:
 
-  `server.database = myDB`
+  ```conf
+  server.database = myDB
+  server.username = Jay
+  ```
 
-- There are also _flags_ which are for command line usage only,
-  such as `‑‑help` and `‑‑version`. They don't take any value
-  in contrast to options.
+  Or more compact like this:
+
+  ```conf
+  [server]
+  database = myDB
+  username = Jay
+  ```
+
+- There are also _commands_ that are intended for command line usage only,
+  such as `‑‑help` and `‑‑version`.
 
 ## Available startup options
 
-Find the available options and flags in the _Options_ sub-chapters of the
+Find the available options and commands in the _Options_ sub-chapters of the
 respective [Programs & Tools](programs.html) sub-chapter, like the
 [ArangoDB Server Options](programs-arangod-options.html).
 
@@ -46,6 +56,9 @@ The value can be surrounded with double quote marks `"` like
 `‑‑option="value"`. This is mandatory if the value contains spaces,
 but it is optional otherwise.
 
+Boolean options that you want to enable do not need to be set to `true`
+explicitly. For example, `--log.role` is equivalent to `--log.role true`.
+
 Some binaries accept one unnamed argument, which means you can take a
 shortcut and leave out the `‑‑option` part and supply the value directly.
 It does not matter if you supply it as first or last argument, or between
@@ -65,13 +78,13 @@ Many options belong to a section as in `‑‑section.param`, e.g.
 `‑‑server.database`, but there can also be options without any section.
 These options are referred to as _general options_.
 
-To list available options, you can run a binary with the `‑‑help` flag:
+To list available options, you can run a binary with the `‑‑help` command:
 
 ```
 arangosh --help
 ```
 
-To list the options of a certain section only, use `‑‑help‑{section}`
+To list the options of a certain section only, use `‑‑help‑{section}`,
 like `‑‑help‑server`. To list all options including hidden ones use
 `--help-all`.
 
@@ -128,9 +141,9 @@ hash symbols `#` at the beginning of a line. Comments that are placed in
 other places (i.e. not at the beginning of a line) are unsupported and should 
 be avoided to ensure correct parsing of the startup options as intended.
 
-Only command line options with a value should be set within the configuration
-file. Command line options which act as flags should only be entered on the
-command line when starting the server.
+Commands like `--version` should not be used in configuration files
+(`version = true`) because the process will terminate after executing the
+command, potentially giving the impression that it failed to start.
 
 ## Using Configuration Files
 
@@ -154,7 +167,7 @@ or
 --configuration none
 ```
 
-The value *none* is case-insensitive.
+The value `none` is case-insensitive.
 
 {%- comment %}
 Specific to arangod, move to programs detail page?
