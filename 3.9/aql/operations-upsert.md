@@ -202,7 +202,7 @@ Limitations
 -----------
 
 - The lookup and the insert/update/replace parts are executed one after
-  another, such that other operations in other threads can happen in
+  another, so that other operations in other threads can happen in
   between. This means if multiple UPSERT queries run concurrently, they
   may all determine that the target document does not exist and then
   create it multiple times!
