@@ -15,6 +15,18 @@ redirect_from:
   - appendix-deprecated-simple-queries-fulltext-queries.html # 3.8 -> 3.8
   - http/simple-query.html # 3.8 -> 3.8
   - programs-arangod-compaction.html # 3.9 -> 3.9
+  - administration-leader-follower-database-setup.html # 3.8 -> 3.9
+  - administration-leader-follower-initialize-from-backup.html # 3.8 -> 3.9
+  - administration-leader-follower-replication-applier.html # 3.8 -> 3.9
+  - administration-leader-follower-server-level-setup.html # 3.8 -> 3.9
+  - administration-leader-follower-setting-up.html # 3.8 -> 3.9
+  - administration-leader-follower-syncing-collections.html # 3.8 -> 3.9
+  - administration-leader-follower.html # 3.8 -> 3.9
+  - architecture-deployment-modes-leader-follower-architecture.html # 3.8 -> 3.9
+  - architecture-deployment-modes-leader-follower-limitations.html # 3.8 -> 3.9
+  - architecture-deployment-modes-leader-follower.html # 3.8 -> 3.9
+  - deployment-leader-follower-manual-start.html # 3.8 -> 3.9
+  - deployment-leader-follower.html # 3.8 -> 3.9
 ---
 Deprecated
 ==========
@@ -23,6 +35,11 @@ Features listed in this section should no longer be used, because they are
 considered obsolete and may get removed in a future release. They are currently
 kept for backward compatibility. There are usually better alternatives to
 replace the old features with:
+
+- **Leader/Follower Deployment Mode**:
+  The Leader/Follower deployment type is deprecated and already removed from
+  documentation. Active Failover and OneShard databases in clusters are better
+  alternatives.
 
 - **Batch Requests API**:
   The [batch request REST API](http/batch-request.html) is deprecated and will be 
