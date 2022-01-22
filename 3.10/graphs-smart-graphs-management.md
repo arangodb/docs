@@ -31,7 +31,8 @@ Create a Graph
 --------------
 
 SmartGraphs require edge relations to be created. The format of the
-relations is identical to format used for General Graphs. The only difference is that all collections used within
+relations is identical to the format used for General Graphs.
+The only difference is that all collections used within
 the relations to create a new SmartGraph must not exist yet. You have to let
 the SmartGraph module create the Graph collections for you, so that it can
 enforce the correct sharding.

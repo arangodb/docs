@@ -271,9 +271,6 @@ not including the original string:
 {% endarangoshexample %}
 {% include arangoshexample.html id=examplevar script=script result=result %}
 
-
-
-
 **View definition:**
 
 ```json

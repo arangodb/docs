@@ -57,7 +57,7 @@ replace the old features with:
 
 - **Fulltext indexes**:
   The fulltext index type is deprecated from version 3.10 onwards.
-  It's recommended to use [ArangoSearch](arangosearch.html) for advanced full-text search capabilities.
+  It is recommended to use [ArangoSearch](arangosearch.html) for advanced full-text search capabilities.
 
 - **Simple Queries**: Idiomatic interface in arangosh to perform trivial queries.
   They are superseded by [AQL queries](aql/index.html), which can also
