@@ -9,12 +9,27 @@ It is possible to define a persistent index on one or more document attributes (
 The index is then used in queries to locate documents with a specific index attribute value
 or to find documents whose index attribute value(s) are in a given range. 
 
+Since ArangoDB 3.10, a persistent index can store additional attributes that can be used
+for projections, but not for index lookups or sorting. This allows a persistent index to
+fully cover more queries and avoid extra document lookups. These extra attributes can be
+defined by setting the `storedValues` attribute of the index. Non-existing attributes are 
+stored as **null** values inside `storedValues`. The maximum number of attributes in 
+`storedValues` is 32.
+
 If the index is declared unique, then no two documents are allowed to have the same 
 set of attribute values. Creating a new document or updating a document will fail if the 
-uniqueness is violated. 
+uniqueness is violated. Only the index attributes in the `fields` are checked for uniqueness,
+but the attributes in `storedValues` are not checked for their uniqueness.
+
 If the index is declared sparse, a document will be excluded from the index and no 
 uniqueness checks will be performed if any index attribute value is not set or has a value 
 of `null`. 
+
+It is not possible to create multiple persistent indexes with the same `fields` attributes
+and uniqueness but different `storedValues` attributes. That means the value of 
+`storedValues` is not considered in index creation calls when checking if a persistent
+index is already present or needs to be created.
+
 
 Accessing Persistent Indexes from the Shell
 -------------------------------------------

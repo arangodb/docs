@@ -114,6 +114,7 @@ indexed separately. This is possible with *persistent* indexes.
 stored in the index. These additional attributes cannot be used for
 index lookups or for sorting, but they can be used for projections. This allows an
 index to fully cover more queries and avoid extra document lookups.
+Non-existing attributes are stored as **null** values inside **storedValues**.
 The maximum number of attributes in **storedValues** is 32.
 It is not possible to create multiple indexes with the same **fields** attributes
 and uniqueness but different **storedValues** attributes. That means the value of 
