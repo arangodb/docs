@@ -62,6 +62,8 @@ It is not possible to create multiple indexes with the same `fields` attributes
 and uniqueness but different `storedValues` attributes. That means the value of 
 `storedValues` is not considered by calls to `ensureIndex` when checking if an 
 index is already present or needs to be created.
+In unique indexes, only the index attributes in `fields` are checked for uniqueness,
+but the index attributes in `storedValues` are not checked for their uniqueness.
 
 
 Server options
@@ -108,6 +110,6 @@ A compiler with c++-20 support is thus needed to compile ArangoDB from source.
 
 ### Upgraded bundled library versions
 
-The bundled version of the Boost library has been upgraded from 1.71.0 to 1.77.0.
+The bundled version of the Boost library has been upgraded from 1.71.0 to 1.78.0.
 
 The bundled version of the immer library has been upgraded from 0.6.2 to 0.7.0.

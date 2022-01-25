@@ -117,8 +117,10 @@ index to fully cover more queries and avoid extra document lookups.
 The maximum number of attributes in **storedValues** is 32.
 It is not possible to create multiple indexes with the same **fields** attributes
 and uniqueness but different **storedValues** attributes. That means the value of 
-**storedValues** is not considered by index creation calls when checking if an 
+**storedValues** is not considered in index creation calls when checking if an 
 index is already present or needs to be created.
+In unique indexes, only the attributes in **fields** are checked for uniqueness,
+but the attributes in **storedValues** are not checked for their uniqueness.
 
 **name** can be a string. Index names are subject to the same character
 restrictions as collection names. If omitted, a name will be auto-generated so
@@ -135,6 +137,8 @@ are [sparse](indexing-which-index.html) by definition.
 
 **unique** can be *true* or *false* and is supported by *persistent*. By default,
 all user-defined indexes are non-unique.
+Only the attributes in **fields** are checked for uniqueness. Any attributes in
+from **storedValues** are not checked for their uniqueness.
 
 **deduplicate** can be *true* or *false* and is supported by array indexes of
 type *persistent*. It controls whether inserting duplicate index values
