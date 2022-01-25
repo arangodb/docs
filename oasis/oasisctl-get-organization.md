@@ -33,5 +33,7 @@ oasisctl get organization [flags]
 ## See also
 
 * [oasisctl get](oasisctl-get.html)	 - Get information
+* [oasisctl get organization authentication](oasisctl-get-organization-authentication.html)	 - Get authentication specific information for an organization
+* [oasisctl get organization email](oasisctl-get-organization-email.html)	 - Get email specific information for an organization
 * [oasisctl get organization invite](oasisctl-get-organization-invite.html)	 - Get an organization invite the authenticated user has access to
 

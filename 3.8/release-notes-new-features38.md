@@ -183,6 +183,7 @@ FOR doc IN collection
 … the projection can be satisfied by a single-attribute index on attribute `b`,
 but now also by a combined index on attributes `a` and `b` (or `b` and `a`).
 
+
 ### AQL optimizer improvements
 
 The "move-calculations-up" optimizer rule was improved so that it can move

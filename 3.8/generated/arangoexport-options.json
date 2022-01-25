@@ -212,6 +212,27 @@
     "section" : "encryption",
     "type" : "string"
   },
+  "escape-csv-formulae" : {
+    "category" : "option",
+    "default" : true,
+    "deprecatedIn" : null,
+    "description" : "prefix string cells in CSV output with extra single quote to prevent formula injection",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.8.5"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : false,
+    "section" : "",
+    "type" : "boolean"
+  },
   "fields" : {
     "category" : "option",
     "default" : "",

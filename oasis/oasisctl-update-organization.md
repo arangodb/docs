@@ -35,4 +35,6 @@ oasisctl update organization [flags]
 ## See also
 
 * [oasisctl update](oasisctl-update.html)	 - Update resources
+* [oasisctl update organization authentication](oasisctl-update-organization-authentication.html)	 - Update authentication settings for an organization
+* [oasisctl update organization email](oasisctl-update-organization-email.html)	 - Update email specific information for an organization
 

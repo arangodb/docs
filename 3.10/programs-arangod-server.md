@@ -386,7 +386,7 @@ value is *2*.
 threads the server is allowed to start for request handling. If that number of
 threads is already running, arangod will not start further threads for request
 handling. The default value is `max(32, 2 * available cores)`, so twice the
-number of CPU cores, capped to a maximum of 32 threads.
+number of CPU cores but at least 32 threads.
 
 ## Toggling server statistics
 

@@ -2797,6 +2797,57 @@
     Histogram of the body sizes of the received VST requests in bytes.
     Note that this does include the binary header.
 
+- name: arangodb_revision_tree_hibernations_total
+  introducedIn: "3.8.5"
+  help: |
+    Number of revision tree hibernations.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    The revision trees of collections/shards are normally present
+    in RAM in an uncompressed state. However, to reduce the memory
+    usage of keeping all revision trees in RAM at the same time, 
+    revision trees can be put into "hibernation" mode. Any inactive
+    revision tree will automatically be hibernated by ArangoDB after
+    a while. For the hibernation step, a revision tree will be 
+    compressed in RAM, and only the compressed version is then kept.
+    Later accesses of a compressed revision tree require uncompressing
+    the tree again. 
+    This metric is increased whenever a revision tree is hibernated.
+    This can happened many times during the lifetime of a revision tree.
+
+- name: arangodb_revision_tree_memory_usage
+  introducedIn: "3.8.5"
+  help: |
+    Total memory usage of all revision trees (both hibernated and uncompressed).
+  unit: bytes
+  type: gauge
+  category: Replication
+  complexity: simple
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    Total memory usage of all revision trees for collections/shards.
+    The revision trees of collections/shards are normally present
+    in RAM in an uncompressed state. However, to reduce the memory
+    usage of keeping all revision trees in RAM at the same time, 
+    revision trees can be put into "hibernation" mode. Any inactive
+    revision tree will automatically be hibernated by ArangoDB after
+    a while. For the hibernation step, a revision tree will be 
+    compressed in RAM, and only the compressed version is then kept.
+    Later accesses of a compressed revision tree require uncompressing
+    the tree again. 
+    This metrics reports the total memory usage of all revision trees,
+    including both the hibernated and uncompressed forms).
+
 - name: arangodb_revision_tree_rebuilds_failure_total
   introducedIn: "3.8.2"
   help: |
@@ -2833,6 +2884,32 @@
     Ideally this value stays at 0, because a revision tree rebuild
     indicates a problem with a collection/shard's revision tree that
     has happened before.
+
+- name: arangodb_revision_tree_resurrections_total
+  introducedIn: "3.8.5"
+  help: |
+    Number of revision tree resurrections.
+  unit: number
+  type: counter
+  category: Replication
+  complexity: advanced
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    The revision trees of collections/shards are normally present
+    in RAM in an uncompressed state. However, to reduce the memory
+    usage of keeping all revision trees in RAM at the same time, 
+    revision trees can be put into "hibernation" mode. Any inactive
+    revision tree will automatically be hibernated by ArangoDB after
+    a while. For the hibernation step, a revision tree will be 
+    compressed in RAM, and only the compressed version is then kept.
+    Later accesses of a compressed revision tree require uncompressing
+    the tree again. 
+    This metric is increased whenever a revision tree is restored from
+    its hibernated state back into an uncompressed form in RAM.
+    This can happened many times during the lifetime of a revision tree.
 
 - name: arangodb_rocksdb_write_stalls_total
   renamedFrom: rocksdb_write_stalls
@@ -4898,6 +4975,22 @@
     an instance is started, so that other instances in the cluster can start
     replicating from the instance before all archived WAL files are deleted.
     The value should flip from 0 to 1 a few minutes after server start.
+
+- name: rocksdb_wal_sequence
+  introducedIn: "3.8.5"
+  help: |
+    Current RocksDB WAL sequence number.
+  unit: number
+  type: gauge
+  category: RocksDB
+  complexity: high
+  exposedBy:
+    - dbserver
+    - agent
+    - single
+  description: |
+    This metric exposes the current RocksDB WAL sequence number. Any
+    write operations into the database will increase the sequence number.
 
 - name: rocksdb_wal_sequence_lower_bound
   introducedIn: "3.8.2"

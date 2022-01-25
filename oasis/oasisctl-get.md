@@ -42,6 +42,7 @@ oasisctl get [flags]
 * [oasisctl get metrics](oasisctl-get-metrics.html)	 - Get metrics information
 * [oasisctl get organization](oasisctl-get-organization.html)	 - Get an organization the authenticated user is a member of
 * [oasisctl get policy](oasisctl-get-policy.html)	 - Get a policy the authenticated user has access to
+* [oasisctl get private](oasisctl-get-private.html)	 - Get private information
 * [oasisctl get project](oasisctl-get-project.html)	 - Get a project the authenticated user has access to
 * [oasisctl get provider](oasisctl-get-provider.html)	 - Get a provider the authenticated user has access to
 * [oasisctl get region](oasisctl-get-region.html)	 - Get a region the authenticated user has access to
