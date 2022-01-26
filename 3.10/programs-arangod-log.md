@@ -414,3 +414,28 @@ and fatal messages  will be kept.
 This option is useful because the number of in-memory log messages is limited 
 to the latest 2048 messages, and these slots are by default shared between 
 informational, warning and error messages.
+
+## Structured logging
+
+<small>Introduced in: v3.10.0</small>
+
+`_admin/log/structured` structured parameters: `--log.structured-param`
+
+Log messages can be displayed together with some other useful parameters in a 
+structued form.
+The parameters that can be displayed with the log messages are the name of the 
+database, username and the url.
+The parameters can be set upon starting the server or during execution via HTTP
+request. When the parameters are given upon starting the surver with 
+`--log.structured-param`, both providing only the parameter name and providing 
+it with the `true` value are considered as setting the parameter to true. 
+Hence, it will be displayed along with the log messages.
+The usage upon starting the server is, for example: 
+`arangod --log.structured-param database=true 
+--log.structured-param username`.
+If the parameter is set during execution with via HTTP request, it must be sent
+as an object. A parameter that was set upon server start can be unset by 
+providing its name as a key and `false` as value. 
+The usage is as in the example:
+`arango.PUT("/_admin/log/structured/", {"database": true, "url": false})`
+
