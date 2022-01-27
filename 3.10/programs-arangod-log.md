@@ -426,7 +426,7 @@ structured form.
 The parameters that can be displayed with the log messages are the name of the 
 database, username and the url.
 The parameters can be set upon starting the server or during execution via HTTP
-request. When the parameters are given upon starting the surver with 
+request. When the parameters are given upon starting the server with 
 `--log.structured-param`, both providing only the parameter name and providing 
 it with the `true` value are considered as setting the parameter to true. 
 Hence, it will be displayed along with the log messages.
