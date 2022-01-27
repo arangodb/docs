@@ -422,7 +422,7 @@ informational, warning and error messages.
 `_admin/log/structured` structured parameters: `--log.structured-param`
 
 Log messages can be displayed together with some other useful parameters in a 
-structued form.
+structured form.
 The parameters that can be displayed with the log messages are the name of the 
 database, username and the url.
 The parameters can be set upon starting the server or during execution via HTTP
