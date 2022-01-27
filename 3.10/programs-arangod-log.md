@@ -419,7 +419,7 @@ informational, warning and error messages.
 
 <small>Introduced in: v3.10.0</small>
 
-`_admin/log/structured` structured parameters: `--log.structured-param`
+structured parameters for logging: `--log.structured-param`
 
 Some log messages can be displayed together with some other useful parameters in a 
 structured form.
