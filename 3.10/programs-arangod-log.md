@@ -436,5 +436,5 @@ If the parameter is set during execution with via HTTP request, it must be sent
 as an object. A parameter that was set upon server start can be unset by 
 providing its name as a key and `false` as value. 
 The usage is as in the example:
-`arango.PUT("/_admin/log/structured/", {"database": true, "url": false})`
+`arango.PUT("/_admin/log/structured", {"database": true, "url": false})`
 
