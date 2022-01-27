@@ -166,6 +166,35 @@ and automatically accepted by most web browsers. The certificate used on port
 a self-signed certificate is recommended.
 {% endhint %}
 
+## How to create a private deployment (Microsoft Azure)
+
+Microsoft Azure offers a feature called
+[Azure Private Link](https://docs.microsoft.com/en-us/azure/private-link){:target="_blank"}
+that allows you to limit communication between different Azure servers and
+services to Microsoft's backbone network without exposure to the public internet.
+It can lower network latency and increase security.
+
+If you want to connect an ArangoDB Oasis deployment running on Azure with other
+services you run on Azure using such a tunnel, then
+[create a regular deployment](#how-to-create-a-new-deployment) first and convert
+it to a private deployment.
+
+The deployment will not reachable from public internet anymore, other than via
+the Oasis dashboard to administrate it. To revert to a public deployment, please
+contact support via _Request help_ in the help menu.
+
+1. **View** the deployment you want to convert.
+2. On the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
+   icon. It opens a dropdown list with the option to convert the deployment.
+   If you see a pencil icon and do not get a dropdown list, then you are either
+   on the free-to-try tier or the selected deployment does not run on Azure.
+   Private deployments are available on the professional tier and for Azure
+   deployments only.
+3. Click **Convert to private deployment** and confirm the conversion.
+4. 
+
+![Oasis Deployment Edit Dropdown](images/oasis-deployment-edit-dropdown.png)
+
 ## How to delete a deployment
 
 {% hint 'danger' %}
