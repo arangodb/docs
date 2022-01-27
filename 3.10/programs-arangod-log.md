@@ -429,7 +429,7 @@ The parameters can be set upon starting the server or during execution via HTTP
 request. When the parameters are given upon starting the server with 
 `--log.structured-param`, both providing only the parameter name and providing 
 it with the `true` value are considered as setting the parameter to true. 
-Hence, it will be displayed along with the log messages.
+Hence, the parameter will be displayed along with the log messages.
 The usage upon starting the server is, for example: 
 `arangod --log.structured-param database=true --log.structured-param username`.
 If the parameter is set during execution with via HTTP request, it must be sent
