@@ -431,8 +431,7 @@ request. When the parameters are given upon starting the server with
 it with the `true` value are considered as setting the parameter to true. 
 Hence, it will be displayed along with the log messages.
 The usage upon starting the server is, for example: 
-`arangod --log.structured-param database=true 
---log.structured-param username`.
+`arangod --log.structured-param database=true --log.structured-param username`.
 If the parameter is set during execution with via HTTP request, it must be sent
 as an object. A parameter that was set upon server start can be unset by 
 providing its name as a key and `false` as value. 
