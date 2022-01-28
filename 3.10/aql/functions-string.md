@@ -687,7 +687,7 @@ Return an AQL value described by the JSON-encoded input string.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlJsonParse_2
 @EXAMPLE_AQL{aqlJsonParse_2}
-  RETURN JSON_PARSE("[ true, false, 2 ]")
+  RETURN JSON_PARSE("[ true, false, null, -0.5 ]")
 @END_EXAMPLE_AQL
 @endDocuBlock aqlJsonParse_2
 {% endaqlexample %}
@@ -696,7 +696,7 @@ Return an AQL value described by the JSON-encoded input string.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlJsonParse_3
 @EXAMPLE_AQL{aqlJsonParse_3}
-  RETURN JSON_PARSE("\"abc\"")
+  RETURN JSON_PARSE('{"a": 1}')
 @END_EXAMPLE_AQL
 @endDocuBlock aqlJsonParse_3
 {% endaqlexample %}
@@ -705,7 +705,7 @@ Return an AQL value described by the JSON-encoded input string.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlJsonParse_4
 @EXAMPLE_AQL{aqlJsonParse_4}
-  RETURN JSON_PARSE('{"a": 1}')
+  RETURN JSON_PARSE('"abc"')
 @END_EXAMPLE_AQL
 @endDocuBlock aqlJsonParse_4
 {% endaqlexample %}
@@ -1124,10 +1124,10 @@ Analyzers.
 @startDocuBlockInline aqlNgramSimilarity
 @EXAMPLE_AQL{aqlNgramSimilarity}
   RETURN [
-    RETURN NGRAM_SIMILARITY("quick fox", "quick foxx", 2),
-    RETURN NGRAM_SIMILARITY("quick fox", "quick foxx", 3),
-    RETURN NGRAM_SIMILARITY("quick fox", "quirky fox", 2),
-    RETURN NGRAM_SIMILARITY("quick fox", "quirky fox", 3)
+    NGRAM_SIMILARITY("quick fox", "quick foxx", 2),
+    NGRAM_SIMILARITY("quick fox", "quick foxx", 3),
+    NGRAM_SIMILARITY("quick fox", "quirky fox", 2),
+    NGRAM_SIMILARITY("quick fox", "quirky fox", 3)
   ]
 @END_EXAMPLE_AQL
 @endDocuBlock aqlNgramSimilarity
@@ -1199,7 +1199,7 @@ Return the matches in the given string `text`, using the `regex`.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlRegexMatches_3
 @EXAMPLE_AQL{aqlRegexMatches_3}
-  RETURN REGEX_MATCHES("john@doe.com", "^([a-z0-9_\.-]+)@([\da-z-]+)\.([a-z\.]{2,6})$", false)
+  RETURN REGEX_MATCHES("john@doe.com", "^([a-z0-9_\\.-]+)@([\\da-z-]+)\\.([a-z\\.]{2,6})$", false)
 @END_EXAMPLE_AQL
 @endDocuBlock aqlRegexMatches_3
 {% endaqlexample %}
