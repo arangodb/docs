@@ -1514,8 +1514,8 @@ fingerprint of `value`.
 **Examples**
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlSha512
-@EXAMPLE_AQL{aqlSha512}
+@startDocuBlockInline aqlSoundex
+@EXAMPLE_AQL{aqlSoundex}
   RETURN [
     SOUNDEX("example"),
     SOUNDEX("ekzampul"),
@@ -1523,7 +1523,7 @@ fingerprint of `value`.
     SOUNDEX("sounteks")
   ]
 @END_EXAMPLE_AQL
-@endDocuBlock aqlSha512
+@endDocuBlock aqlSoundex
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -1903,20 +1903,14 @@ Return the Base64 representation of `value`.
 **Examples**
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlToBase64_1
-@EXAMPLE_AQL{aqlToBase64_1}
-  RETURN TO_BASE64("ABC.")
+@startDocuBlockInline aqlToBase64
+@EXAMPLE_AQL{aqlToBase64}
+  RETURN [
+    TO_BASE64("ABC."),
+    TO_BASE64("123456")
+  ]
 @END_EXAMPLE_AQL
-@endDocuBlock aqlToBase64_1
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlToBase64_2
-@EXAMPLE_AQL{aqlToBase64_2}
-  RETURN TO_BASE64("123456")
-@END_EXAMPLE_AQL
-@endDocuBlock aqlToBase64_2
+@endDocuBlock aqlToBase64
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -1933,20 +1927,14 @@ Return the hexadecimal representation of `value`.
 **Examples**
 
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlToHex_1
-@EXAMPLE_AQL{aqlToHex_1}
-  RETURN TO_HEX("ABC.")
+@startDocuBlockInline aqlToHex
+@EXAMPLE_AQL{aqlToHex}
+  RETURN [
+    TO_HEX("ABC."),
+    TO_HEX("ü")
+  ]
 @END_EXAMPLE_AQL
-@endDocuBlock aqlToHex_1
-{% endaqlexample %}
-{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
-
-{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
-@startDocuBlockInline aqlToHex_2
-@EXAMPLE_AQL{aqlToHex_2}
-  RETURN TO_HEX("ü")
-@END_EXAMPLE_AQL
-@endDocuBlock aqlToHex_2
+@endDocuBlock aqlToHex
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
