@@ -61,6 +61,11 @@ Alternatively, you can also delete a project via the project page:
 3. Click the _Delete project..._ button.
 4. Enter `Delete!` to confirm and click _Yes_.
 
+{% hint 'tip' %}
+If the project has a locked deployment, you need to [unlock](access-control.html#locked-resources)
+it first to be able to delete the project.
+{% endhint %}
+
 ## How to manage IP allowlists
 
 IP allowlists let you limit access to your deployment to certain IP ranges.
