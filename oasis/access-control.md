@@ -17,11 +17,11 @@ For example, you can create a project in an organization and create a deployment
 
 ## Locked resources
 
-In ArangoDB Oasis, you can lock the resources and some of their properties to prevent accidental deletion. When an object is locked,
+In ArangoDB Oasis, you can lock the resources to prevent accidental deletion. When a resource is locked,
 it cannot be deleted and must be unlocked first.
 
 The hierarchial structure of the resources (organization-project-deployment) is used in the locking functionality: if a child resource is locked
-(for example, a project), you cannot delete the parent organization without unlocking that project first.
+(for example, a deployment), you cannot delete the parent project without unlocking that deployment first.
 
 {% hint 'info' %}
 If you lock a backup policy of a deployment or an IP allowlist, CA certificate, and IAM provider of a project, it is still possible to delete
