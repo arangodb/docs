@@ -48,7 +48,7 @@ FOR doc1 IN collection
 ```
 
 The profiling output for this query now shows how often the filters were invoked for the 
-different executio nodes:
+different execution nodes:
 ```
 Execution plan:
  Id   NodeType        Calls   Items   Filtered   Runtime [s]   Comment
