@@ -383,13 +383,6 @@
       children:
         - text: Single Instance
           href: architecture-deployment-modes-single-instance.html
-        - text: Leader/Follower
-          href: architecture-deployment-modes-leader-follower.html
-          children:
-            - text: Architecture
-              href: architecture-deployment-modes-leader-follower-architecture.html
-            - text: Limitations
-              href: architecture-deployment-modes-leader-follower-limitations.html
         - text: Active Failover
           href: architecture-deployment-modes-active-failover.html
           children:
@@ -596,11 +589,6 @@
               href: deployment-single-instance-using-the-starter.html
             - text: Manual Start
               href: deployment-single-instance-manual-start.html
-        - text: Leader/Follower
-          href: deployment-leader-follower.html
-          children:
-            - text: Manual Start
-              href: deployment-leader-follower-manual-start.html
         - text: Active Failover
           href: deployment-active-failover.html
           children:
@@ -765,22 +753,6 @@
       children:
         - text: In arangosh
           href: administration-managing-users-in-arangosh.html
-    - text: Leader/Follower
-      href: administration-leader-follower.html
-      children:
-        - text: Setting up
-          href: administration-leader-follower-setting-up.html
-          children:
-            - text: Replication Applier
-              href: administration-leader-follower-replication-applier.html
-            - text: Per-Database Setup
-              href: administration-leader-follower-database-setup.html
-            - text: Server-Level Setup
-              href: administration-leader-follower-server-level-setup.html
-            - text: Speeding Up Follower Initialization
-              href: administration-leader-follower-initialize-from-backup.html
-        - text: Syncing Collections
-          href: administration-leader-follower-syncing-collections.html
     - text: Active Failover
       href: administration-active-failover.html
     - text: Cluster

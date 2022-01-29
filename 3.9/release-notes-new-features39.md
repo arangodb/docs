@@ -168,8 +168,9 @@ DECAY_EXP(2, 0, 10, 0, 0.2)    // 0.7247796636776955
 
 ### Vector Functions
 
-Added three vector functions to AQL for calculating the cosine similarity,
-Manhattan distance, and Euclidean distance:
+Added three vector functions to AQL for calculating the cosine similarity
+(`COSINE_SIMILARITY`), Manhattan distance (named `L1_DISTANCE`), and Euclidean 
+distance (named `L2_DISTANCE`):
 
 - [COSINE_SIMILARITY()](aql/functions-numeric.html#cosine_similarity)
 - [L1_DISTANCE()](aql/functions-numeric.html#l1_distance)
@@ -201,7 +202,33 @@ FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
 ```
 
 can now be optimized, and the traversal statement will only produce 
-paths for which the last vertex satisfied `isRelevant == true`.
+paths for which the last vertex satisfies `isRelevant == true`.
+
+This optimization is now part of the existing `optimize-traversals` rule and
+you will see the conditions under `Filter / Prune Conditions` in the query
+explain output (`` FILTER (v.`isRelevant` == true) `` in this example):
+
+```js
+Execution plan:
+ Id   NodeType          Est.   Comment
+  1   SingletonNode        1   * ROOT
+  2   TraversalNode        1     - FOR v  /* vertex */, p  /* paths: vertices, edges */ IN 10..10  /* min..maxPathDepth */ OUTBOUND 'A' /* startnode */  GRAPH 'myGraph'
+  3   CalculationNode      1       - LET #5 = (v.`isRelevant` == true)   /* simple expression */
+  4   FilterNode           1       - FILTER #5
+  5   ReturnNode           1       - RETURN p
+
+Indexes used:
+ By   Name   Type   Collection   Unique   Sparse   Selectivity   Fields        Ranges
+  2   edge   edge   edge         false    false       100.00 %   [ `_from` ]   base OUTBOUND
+
+Traversals on graphs:
+ Id  Depth   Vertex collections  Edge collections  Options                                  Filter / Prune Conditions      
+ 2   10..10  vert                edge              uniqueVertices: none, uniqueEdges: path  FILTER (v.`isRelevant` == true)
+
+Optimization rules applied:
+ Id   RuleName
+  1   optimize-traversals
+```
 
 ### Traversal partial path buildup
 
@@ -216,8 +243,35 @@ FOR v, e, p IN 1..3 OUTBOUND @start GRAPH "myGraph"
   RETURN p.vertices
 ```
 
-only requires the buildup of the `vertices` sub-attribute of the path
-result, but not the buildup of the `edges` sub-attribute.
+only requires the buildup of the `vertices` sub-attribute of the path result `p`
+but not the buildup of the `edges` sub-attribute. The optimization can be
+observed in the query explain output:
+
+```js
+Execution plan:
+ Id   NodeType          Est.   Comment
+  1   SingletonNode        1   * ROOT
+  2   TraversalNode        1     - FOR v  /* vertex */, p  /* paths: vertices */ IN 1..3  /* min..maxPathDepth */ OUTBOUND 'A' /* startnode */  GRAPH 'myGraph'
+  3   CalculationNode      1       - LET #5 = p.`vertices`   /* attribute expression */
+  4   ReturnNode           1       - RETURN #5
+
+Indexes used:
+ By   Name   Type   Collection   Unique   Sparse   Selectivity   Fields        Ranges
+  2   edge   edge   edge         false    false       100.00 %   [ `_from` ]   base OUTBOUND
+
+Traversals on graphs:
+ Id  Depth  Vertex collections  Edge collections  Options                                  Filter / Prune Conditions
+ 2   1..3   vert                edge              uniqueVertices: none, uniqueEdges: path                           
+
+Optimization rules applied:
+ Id   RuleName
+  1   optimize-traversals
+  2   remove-redundant-path-var
+```
+
+The `remove-redundant-path-var` optimization rule is applied and the
+TraversalNode's comment indicates that only the `vertices` sub-attribute is
+built up for this query: `p  /* paths: vertices */`
 
 This optimization should have a positive impact on performance for larger
 traversal result sets.
@@ -296,7 +350,13 @@ The following limits have been introduced:
   The expression recursion is limited to 500 levels.
 - a limit for the number of execution nodes in the initial query
   execution plan.
-  The number of execution nodes is limited to 4,000.
+  The number of execution nodes in the initial query execution plan is 
+  limited to 4000. This number includes all execution nodes of the
+  initial execution plan, even if some of them could be
+  optimized away later by the query optimizer during plan optimization.
+
+AQL queries that violate these limits will fail to run, and instead abort 
+with error `1524` ("too much nesting or too many objects") during setup.
 
 ### RocksDB block cache control
 
@@ -309,6 +369,87 @@ This mimics the previous behavior and is a sensible default.
 Setting the option to `false` allows to not store any data read by the query
 in the RocksDB block cache. This is useful for queries that read a lot of (cold)
 data which would lead to the eviction of the hot data from the block cache.
+
+### AQL function to return a shard ID for a document
+
+A new [AQL function](aql/functions-miscellaneous.html#shard_id) is available which allows you to 
+obtain the responsible shard for any document in a collection by specifying its shard keys. 
+
+### "disableIndex" hint
+
+<small>Introduced in: v3.9.1</small>
+
+In some rare cases it can be advantageous to not do an index lookup or scan, 
+but to do a full collection scan in an AQL query.
+An index lookup can be more expensive than a full collection scan in case
+the index lookup produces many (or even all documents) and the query cannot 
+be satisfied from the index data alone.
+
+Consider the following query and an index on the `value` attribute being
+present:
+
+```js
+FOR doc IN collection 
+  FILTER doc.value <= 99 
+  RETURN doc.other
+```
+
+In this case, the optimizer will likely pick the index on `value`, because
+it will cover the query's FILTER condition. To return the value for the
+`other` attribute, the query must additionally look up the documents for
+each index value that passes the FILTER condition. In case the number of
+index entries is large (close or equal to the number of documents in the
+collection), then using an index can cause work work than just scanning
+over all documents in the collection.
+
+The optimizer will likely prefer index scans over full collection scans,
+even if an index scan turns out to be slower in the end. Since ArangoDB
+3.9.1, the optimizer can be forced to not use an index for any given FOR
+loop by using the `disableIndex` hint and setting it to `true`:
+
+```js
+FOR doc IN collection OPTIONS { disableIndex: true } 
+  FILTER doc.value <= 99 
+  RETURN doc.other
+```
+
+Using `disableIndex: false` has no effect on geo indexes or fulltext 
+indexes.
+
+Note that setting `disableIndex: true` plus `indexHint` is ambiguous. In
+this case the optimizer will always prefer the `disableIndex` hint.
+
+### "maxProjections" hint
+
+<small>Introduced in: v3.9.1</small>
+
+By default, the query optimizer will consider up to 5 document attributes
+per FOR loop to be used as projections. If more than 5 attributes of a
+collection are accessed in a FOR loop, the optimizer will prefer to 
+extract the full document and not use projections.
+
+The threshold value of 5 attributes is arbitrary and can be adjusted 
+since ArangoDB 3.9.1 by using the `maxProjections` hint.
+The default value for `maxProjections` is `5`, which is compatible with the
+previously hard-coded default value.
+
+For example, using a `maxProjections` hint of 7, the following query will
+extract the 7 attributes as projections from the original document:
+
+```js
+FOR doc IN collection OPTIONS { maxProjections: 7 } 
+  RETURN [ doc.val1, doc.val2, doc.val3, doc.val4, doc.val5, doc.val6, doc.val7 ]
+```
+
+Normally it is not necessary to adjust the value of `maxProjections`, but
+there are a few edge cases where it can make sense:
+
+It can be advantageous to increase `maxProjections` when extracting many small 
+attributes from very large documents, and a full copy of the documents should
+be avoided. 
+It can also be advantageous to decrease `maxProjections` to _avoid_ using
+projections if the cost of projections is higher than doing copies of the
+full documents. This can be the case for very small documents.
 
 Multi-dimensional Indexes (experimental)
 ----------------------------------------
@@ -341,7 +482,8 @@ documents that contain a given time point, or overlap with some time interval.
 There are also drawbacks in comparison with `persistent` indexes. For one, the
 `zkd` index is not sorted. Secondly, it has a significantly higher overhead, and
 the emerging performance is much more dependent on the distribution of the
-dataset, making it less predictable.
+dataset, making it less predictable. A third limitation is that `zkd` indexes
+can only be created for index values which are IEEE 754 doubles.
 
 [Multi-dimensional Indexes](indexing-multi-dim.html) are an experimental feature.
 
@@ -350,7 +492,10 @@ Server options
 
 ### Rebalance shards
 
-The `--cluster.max-number-of-move-shards` flag limits the maximum number of move shards operations which can be made when the **Rebalance Shards** button is clicked in the web UI. For backwards compatibility purposes, the default value is 10. If the value is 0, then the tab containing this button will be inactive and the button cannot be clicked.
+The `--cluster.max-number-of-move-shards` startup option limits the maximum number 
+of move shards operations which can be made when the **Rebalance Shards** button is 
+clicked in the web UI. For backwards compatibility purposes, the default value is 10. 
+If the value is 0, then the tab containing this button will be inactive and the button cannot be clicked.
 
 ### Extended naming convention for databases
 
@@ -489,7 +634,7 @@ License Management (Enterprise Edition)
 
 The Enterprise Edition of ArangoDB requires a license to activate it.
 ArangoDB 3.9 comes with a new license management that lets you test ArangoDB
-for one hour before requiring a license key to keep the Enterprise Edition
+for three hours before requiring a license key to keep the Enterprise Edition
 features activated.
 
 There is a new JavaScript API for querying the license status and to set a
@@ -539,6 +684,14 @@ Transaction timeouts on Coordinators remain unchanged, so any queries/transactio
 that are abandoned will be aborted there, which will also be propagated to
 DB-Servers.
 
+### Deployment mode "leader-follower" no longer supported
+
+The Leader/Follower deployment mode in which two single servers were
+set up as a leader and follower pair (without any kind of automatic
+failover) was deprecated and removed from the documentation.
+
+Recommended alternatives are the Active Failover deployment option and the OneShard feature in a cluster.
+
 Client tools
 ------------
 
@@ -562,82 +715,6 @@ want to keep the server load under control should set the number of client
 threads explicitly when invoking any of the above client tools.
 
 ### arangoimport
-
-### "disableIndex" hint
-
-<small>Introduced in: v3.9.1</small>
-
-In some rare cases it can be advantageous to not do an index lookup or scan, 
-but to do a full collection scan in an AQL query.
-An index lookup can be more expensive than a full collection scan in case
-the index lookup produces many (or even all documents) and the query cannot 
-be satisfied from the index data alone.
-
-Consider the following query and an index on the `value` attribute being
-present:
-
-```js
-FOR doc IN collection 
-  FILTER doc.value <= 99 
-  RETURN doc.other
-```
-
-In this case, the optimizer will likely pick the index on `value`, because
-it will cover the query's FILTER condition. To return the value for the
-`other` attribute, the query must additionally look up the documents for
-each index value that passes the FILTER condition. In case the number of
-index entries is large (close or equal to the number of documents in the
-collection), then using an index can cause work work than just scanning
-over all documents in the collection.
-
-The optimizer will likely prefer index scans over full collection scans,
-even if an index scan turns out to be slower in the end. Since ArangoDB
-3.9.1, the optimizer can be forced to not use an index for any given FOR
-loop by using the `disableIndex` hint and setting it to `true`:
-
-```js
-FOR doc IN collection OPTIONS { disableIndex: true } 
-  FILTER doc.value <= 99 
-  RETURN doc.other
-```
-
-Using `disableIndex: false` has no effect on geo indexes or fulltext 
-indexes.
-
-Note that setting `disableIndex: true` plus `indexHint` is ambiguous. In
-this case the optimizer will always prefer the `disableIndex` hint.
-
-### "maxProjections" hint
-
-<small>Introduced in: v3.9.1</small>
-
-By default, the query optimizer will consider up to 5 document attributes
-per FOR loop to be used as projections. If more than 5 attributes of a
-collection are accessed in a FOR loop, the optimizer will prefer to 
-extract the full document and not use projections.
-
-The threshold value of 5 attributes is arbitrary and can be adjusted 
-since ArangoDB 3.9.1 by using the `maxProjections` hint.
-The default value for `maxProjections` is `5`, which is compatible with the
-previously hard-coded default value.
-
-For example, using a `maxProjections` hint of 7, the following query will
-extract the 7 attributes as projections from the original document:
-
-```js
-FOR doc IN collection OPTIONS { maxProjections: 7 } 
-  RETURN [ doc.val1, doc.val2, doc.val3, doc.val4, doc.val5, doc.val6, doc.val7 ]
-```
-
-Normally it is not necessary to adjust the value of `maxProjections`, but
-there are a few edge cases where it can make sense:
-
-It can be advantageous to increase `maxProjections` when extracting many small 
-attributes from very large documents, and a full copy of the documents should
-be avoided. 
-It can also be advantageous to decrease `maxProjections` to _avoid_ using
-projections if the cost of projections is higher than doing copies of the
-full documents. This can be the case for very small documents.
 
 _arangoimport_ received a new startup option `--merge-attributes` that allows
 you to create additional attributes in CSV/TSV imports based on other attribute

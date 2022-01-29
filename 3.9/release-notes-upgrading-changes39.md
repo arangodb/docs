@@ -19,6 +19,15 @@ now expected to be present on all targets that run ArangoDB 3.9 executables.
 If a target does not support AVX instructions, it may fail with SIGILL at
 runtime.
 
+Deployment mode "leader-follower" no longer supported
+-----------------------------------------------------
+
+The Leader/Follower deployment mode in which two single servers were
+set up as a leader and follower pair (without any kind of automatic
+failover) was deprecated and removed from the documentation.
+
+Recommended alternatives are the Active Failover deployment option and the OneShard feature in a cluster.
+
 Extended naming convention for databases
 ----------------------------------------
 
@@ -65,7 +74,13 @@ The following limits have been added:
   is 3 levels deep `1 + (2 + (3 + 4))`.
   The recursion of expressions is limited to 500 levels.
 - a limit for the number of execution nodes in the initial query 
-  execution plan. The number of execution nodes is limited to 4,000.
+  execution plan. The number of execution nodes is limited to 4000.
+  This number includes all execution nodes of the initial execution plan, 
+  even if some of them could be optimized away later by the 
+  query optimizer during plan optimization.
+
+AQL queries that violate these limits will fail to run, and instead abort 
+with error `1524` ("too much nesting or too many objects") during setup.
 
 Also see [Known limitations for AQL queries](aql/fundamentals-limitations.html).
 
