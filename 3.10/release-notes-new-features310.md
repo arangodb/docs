@@ -34,9 +34,29 @@ AQL
 Server options
 --------------
 
-### Rebalance shards
+### RocksDB startup options
 
-The `--cluster.max-number-of-move-shards` flag limits the maximum number of move shards operations which can be made when the **Rebalance Shards** button is clicked in the web UI. For backwards compatibility purposes, the default value is 10. If the value is 0, the tab containing this button will be inactive and the button cannot be clicked.
+The default value of the startup option `--rocksdb.cache-index-and-filter-blocks` changes
+from `false` to `true`. This makes RocksDB track all loaded index and filter blocks in the 
+block cache, so they are accounted against RocksDB's block cache memory limit. 
+The default value for the startup option `--rocksdb.enforce-block-cache-size-limit` also
+changes from `false` to `true` to make the RocksDB block cache not temporarily exceed the 
+configured memory limit.
+
+These default value changes will make RocksDB adhere much better to the configured memory limit
+(configurable via `--rocksdb.block-cache-size`). 
+The changes may have a small negative impact on performance because if the block cache is 
+not large enough to hold the data plus the index and filter blocks, additional disk I/O may 
+need to be performed compared now to previous versions. 
+This is a trade-off between memory usage predictability and performance, and ArangoDB 3.10
+will default to more stable and predictable memory usage. In case there is still unused RAM 
+capacity available, it may be sensible to increase the total size of the RocksDB block cache,
+by increasing `--rocksdb.block-cache-size`). Due to the changed configuration, the block 
+cache size limit will not be exceeded anymore.
+
+It is possible to opt out of this change and get back the memory and performance characteristics
+of previous versions by setting the startup options `--rocksdb.cache-index-and-filter-blocks` 
+and `--rocksdb.enforce-block-cache-size-limit` to `false` on startup.
 
 
 Miscellaneous changes
