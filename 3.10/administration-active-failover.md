@@ -1,6 +1,6 @@
 ---
 layout: default
-description: This section includes information related to the administration of an Active Failoversetup
+description: This section includes information related to the administration of an Active Failover setup
 ---
 Active Failover Administration
 ==============================
