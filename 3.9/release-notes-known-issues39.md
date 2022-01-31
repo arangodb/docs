@@ -12,6 +12,13 @@ suite of products. It is not a list of all open issues.
 Critical issues (ArangoDB Technical & Security Alerts) are also found at
 [arangodb.com/alerts](https://www.arangodb.com/alerts/){:target="_blank"}.
 
+ArangoSync
+-----------------
+
+| Issue                                                                                                                                                                                                                                                                                                                                                |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Date Added:** 2022-01-31 <br> **Component:** Smart graph replication <br> **Deployment Mode:** Enterprise <br> **Description:** Disjoint smart graph replication does not work because `api/collection` does not support creating disjoint edge collection </br>**Affected Versions:** 3.9.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
+
 ArangoSearch
 ------------
 
