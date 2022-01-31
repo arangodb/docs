@@ -1,4 +1,4 @@
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;If-Match: &quot;_diPWNeC---&quot;&#x27;</span> --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/71706</span> &lt;&lt;EOF
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X PUT --header <span class="hljs-string">&#x27;If-Match: &quot;_dpBbp5i---&quot;&#x27;</span> --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --data-binary @- --dump - http://localhost:8529/_api/document/products/71710</span> &lt;&lt;EOF
 {"other":"content"}
 EOF
 
@@ -6,7 +6,7 @@ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">412</span> P
 content-type: application/json
 connection: Keep-Alive
 content-length: <span class="hljs-number">126</span>
-etag: <span class="hljs-string">&quot;_diPWNe----&quot;</span>
+etag: <span class="hljs-string">&quot;_dpBbp5e---&quot;</span>
 server: ArangoDB
 x-content-type-options: nosniff
 
@@ -15,7 +15,7 @@ x-content-type-options: nosniff
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">412</span>, 
   <span class="hljs-string">&quot;errorNum&quot;</span> : <span class="hljs-number">1200</span>, 
   <span class="hljs-string">&quot;errorMessage&quot;</span> : <span class="hljs-string">&quot;conflict&quot;</span>, 
-  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/71706&quot;</span>, 
-  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71706&quot;</span>, 
-  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_diPWNe----&quot;</span> 
+  <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-string">&quot;products/71710&quot;</span>, 
+  <span class="hljs-string">&quot;_key&quot;</span> : <span class="hljs-string">&quot;71710&quot;</span>, 
+  <span class="hljs-string">&quot;_rev&quot;</span> : <span class="hljs-string">&quot;_dpBbp5e---&quot;</span> 
 }
