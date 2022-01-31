@@ -47,12 +47,29 @@ FOR doc IN doc // e.g. documents returned by a traversal
 Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
 fully contains `geoJsonB` (Every point in B is also in A). The object `geoJsonA` has to be of type 
 `Polygon` or `MultiPolygon`, other types are not supported because containment is ill defined. 
-This function can be **optimized** by a S2 based [geospatial index](../indexing-geo.html).
 
 - **geoJsonA** (object): first GeoJSON object or coordinate array (in longitude, latitude order)
 - **geoJsonB** (object): second GeoJSON object or coordinate array (in longitude, latitude order)
 - returns **bool** (bool): true when every point in B is also contained in A, false otherwise
 
+A query containing a FILTER expression of the form
+
+```
+  FOR doc IN collectionname
+    FILTER GEO_CONTAINS(geoJson, doc.geo)
+    ...
+```
+
+can be **optimized** by an S2 based [geospatial index](../indexing-geo.html) 
+on the attribute `geo` of the collection `collectionname`, if `geoJson`
+evaluates to a valid `geojson` object, and the index has the `geoJson`
+flag set to `true`. Note that it has to be in this direction,
+
+```
+  FILTER GEO_CONTAINS(doc.geo, geoJson)
+```
+
+cannot make use of an index at this stage.
 
 ### GEO_DISTANCE()
 
@@ -80,6 +97,29 @@ FOR doc IN collectionName
   LET distance = GEO_DISTANCE(doc.geometry, polygon) // calculates the distance
   RETURN distance
 ```
+
+A query containing a FILTER expression of the form
+
+```
+  FOR doc IN collectionname
+    FILTER GEO_DISTANCE(geoJson, doc.geo) <= limit
+    ...
+```
+
+can be **optimized** by an S2 based [geospatial index](../indexing-geo.html) 
+on the attribute `geo` of the collection `collectionname`, if `geoJson`
+evaluates to a valid `geojson` object and the index has the `geoJson`
+flag set to `true`. `limit` must be a distance in meters. Similarly,
+an upper bound with `<` and/or a lower bound with `>` or `>=` is
+supported. Finally, a `SORT` condition of this form:
+
+```
+    SORT GEO_DISTANCE(geoJson, doc.geo)
+```
+
+and combinations with the above can be used. This `SORT` clause can be
+combined with the `GEO_CONTAINS` and `GEO_INTERSECTS` filters described
+above and below.
 
 ### GEO_AREA()
 
@@ -145,11 +185,23 @@ RETURN GEO_EQUALS(polygonA, polygonB) // false
 
 Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
 intersects with `geoJsonB` (i.e. at least one point in B is also A or vice-versa).
-This function can be **optimized** by a S2 based [geospatial index](../indexing-geo.html).
 
 - **geoJsonA** (object): first GeoJSON object
 - **geoJsonB** (object): second GeoJSON object.
 - returns **bool** (bool): true if B intersects A, false otherwise
+
+A query containing a FILTER expression of the form
+
+```
+  FOR doc IN collectionname
+    FILTER GEO_INTERSECTS(geoJson, doc.geo)
+    ...
+```
+
+can be **optimized** by an S2 based [geospatial index](../indexing-geo.html) 
+on the attribute `geo` of the collection `collectionname`, if `geoJson`
+evaluates to a valid `geojson` object, and the index has the `geoJson`
+flag set to `true`.
 
 ### GEO_IN_RANGE()
 

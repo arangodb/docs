@@ -128,6 +128,13 @@ different usage scenarios:
   and a SORT or FILTER statement is used in conjunction with the distance
   function.
 
+  Furthermore, the geo index and AQL can work with `geojson` objects.
+  `geojson` is a
+  [standard](https://datatracker.ietf.org/doc/html/rfc7946) to use JSON
+  syntax to describe geometric objects on the surface of the earth. It
+  can do points, lines and polygons. See [Section
+  Geo-Spatial Indexes](./indexing-geo.html) for details.
+
 - **fulltext index**: a fulltext index can be used to index all words contained in
   a specific attribute of all documents in a collection. Only words with a 
   (specifiable) minimum length are indexed. Word tokenization is done using 
