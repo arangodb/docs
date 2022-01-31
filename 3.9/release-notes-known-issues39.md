@@ -17,7 +17,7 @@ ArangoSync
 
 | Issue                                                                                                                                                                                                                                                                                                                                                |
 |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Date Added:** 2022-01-31 <br> **Component:** Smart graph replication <br> **Deployment Mode:** Enterprise <br> **Description:** Disjoint smart graph replication does not work because `api/collection` does not support creating disjoint edge collection </br>**Affected Versions:** 3.9.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
+| **Date Added:** 2022-01-31 <br> **Component:** ArangoSync<br> **Deployment Mode:** Enterprise <br> **Description:** In a DC2DC replication scenario, a disjoint smart graph replication may get stuck because `api/collection` does not support creating a disjoint edge collection. </br> **Affected Versions:** 3.9.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 
 ArangoSearch
 ------------
