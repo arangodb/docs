@@ -12,13 +12,6 @@ suite of products. It is not a list of all open issues.
 Critical issues (ArangoDB Technical & Security Alerts) are also found at
 [arangodb.com/alerts](https://www.arangodb.com/alerts/){:target="_blank"}.
 
-ArangoSync
------------------
-
-| Issue                                                                                                                                                                                                                                                                                                                                                |
-|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Date Added:** 2022-01-31 <br> **Component:** ArangoSync<br> **Deployment Mode:** Enterprise <br> **Description:** In a DC2DC replication scenario, a disjoint smart graph replication may get stuck because `api/collection` does not support creating a disjoint edge collection. <br> **Affected Versions:** 3.9.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
-
 ArangoSearch
 ------------
 
@@ -74,3 +67,4 @@ Other
 | **Date Added:** 2019-04-03 <br> **Component:** arangod <br> **Deployment Mode:** Cluster <br> **Description:** Updating the properties of a collection in the cluster may return before the properties are updated consistently on all shards. This is especially visible when setting a schema for a collection with multiple shards, and then instantly starting to store non-conforming documents into the collection. These may be accepted until the properties change has been fully propagated to all shards. <br> **Affected Versions:** 3.7.x, 3.8.x, 3.9.x <br> **Fixed in Versions:** - <br> **Reference:** N/A |
 | **Date Added:** 2021-04-07 <br> **Component:** arangod <br> **Deployment Mode:** All <br> **Description:** The Batch API (HTTP endpoint `/_api/batch`) cannot be used in combination with Stream transactions to submit batched requests, because the required header `x-arango-trx-id` is not forwarded. It only processes `Content-Type` and `Content-Id`. <br> **Affected Versions:** 3.5.x, 3.6.x, 3.7.x, 3.8.x, 3.9.x <br> **Fixed in Versions:** - <br> **Reference:** [arangodb/arangodb#13552](https://github.com/arangodb/arangodb/issues/13552){:target="_blank"} |
 | **Date Added:** 2021-08-06 <br> **Component:** Installer <br> **Deployment Mode:** Single Server <br> **Description:** The Windows installer fails during database initialization with the error `failed to locate tzdata` if there are non-ASCII characters in the destination path. <br> **Affected Versions:** 3.8.x, 3.9.x <br> **Fixed in Versions:** - <br> **Reference:** [BTS-531](https://arangodb.atlassian.net/browse/BTS-531){:target="_blank"} (internal) |
+| **Date Added:** 2022-01-31 <br> **Component:** ArangoSync, SmartGraphs <br> **Deployment Mode:** DC2DC <br> **Description:** In a DC2DC replication scenario, a disjoint smart graph replication may get stuck because `api/collection` does not support creating a disjoint edge collection. <br> **Affected Versions:** 3.9.x <br> **Fixed in Versions:** - <br> **Reference:** [BTS-737](https://arangodb.atlassian.net/browse/BTS-737){:target="_blank"} (internal)  |
