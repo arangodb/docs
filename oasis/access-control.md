@@ -1,11 +1,11 @@
 ---
 layout: default
 description: This guide explains which access control concepts are available in Oasis and how to use them.
-title: Access control in ArangoDB Oasis
+title: Security and access control in ArangoDB Oasis
 ---
-# Access control in ArangoDB Oasis
+# Security and access control in ArangoDB Oasis
 
-Oasis has a structured set of resources that are subject to
+Oasis has a structured set of resources that are subject to security and
 access control:
 
 - Organizations
@@ -13,27 +13,36 @@ access control:
 - Deployments
 
 For each of these resources you can perform various operations.
-For example, you can *create* a project in an organization. This requires the
-respective **permission**, which can be granted to organization members via a
-**role** such as the pre-defined *Project Administrator*.
+For example, you can create a project in an organization and create a deployment inside a project.
+
+## Locked resources
+
+In ArangoDB Oasis, you can lock the resources to prevent accidental deletion. When a resource is locked,
+it cannot be deleted and must be unlocked first.
+
+The hierarchial structure of the resources (organization-project-deployment) is used in the locking functionality: if a child resource is locked
+(for example, a deployment), you cannot delete the parent project without unlocking that deployment first.
+
+{% hint 'info' %}
+If you lock a backup policy of a deployment or an IP allowlist, CA certificate, and IAM provider of a project, it is still possible to delete
+the corresponding parent resource without unlocking those properties first.
+{% endhint %}
+
+ 
+## Policy
+
+Various actions in ArangoDB Oasis require different permissions, which can be granted to users via
+**roles**.
 
 The association of a member with a role is called a **role binding**.
 All role bindings of a resource comprise a **policy**.
 
-Roles can be bound on an organization, project and deployment level (listed in the high to low level order). The lower
-levels *inherit* permissions from their parents.
-
-## Policy
-
-To give a user (or a group of users) access to resources of Oasis, you assign
-a role to that user (or group). This is done in a **policy**.
-
-A policy is a set of bindings of roles to users or groups for a specific
-resource. This means that there is a unique policy per resource (an organization, a project or a deployment).
+Roles can be bound on an organization, project and deployment level (listed in the high to low level order, with lower
+levels inheriting permissions from their parents). This means that there is a unique policy per resource (an organization, a project or a deployment).
 
 For example, an organization has exactly one policy,
 which binds roles to members of the organization. These bindings are used to
-give the users permissions to perform operations on this organization.
+give the users permissions to perform operations in this organization.
 
 ### How to view, edit or remove role bindings of a policy
 
