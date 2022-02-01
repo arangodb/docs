@@ -13,6 +13,9 @@ as well as simple longitude/latitude pairs.
 AQL's geospatial functions and GeoJSON constructors are described in
 [Geo functions](aql/functions-geo.html).
 
+Note that you can also do geospatial searches
+with ArangoSearch, see [Geospatial Search with ArangoSearch](./arangosearch-geospatial-search.html) for details.
+
 Using a Geo-Spatial Index
 -------------------------
 
