@@ -62,7 +62,7 @@ A query containing a FILTER expression of the form
 
 can be **optimized** by an S2 based [geospatial index](../indexing-geo.html) 
 on the attribute `geo` of the collection `collectionname`, if `geoJson`
-evaluates to a valid `geojson` object, and the index has the `geoJson`
+evaluates to a valid GeoJSON object, and the index has the `geoJson`
 flag set to `true`. Note that it has to be in this direction,
 
 ```
@@ -108,7 +108,7 @@ A query containing a FILTER expression of the form
 
 can be **optimized** by an S2 based [geospatial index](../indexing-geo.html) 
 on the attribute `geo` of the collection `collectionname`, if `geoJson`
-evaluates to a valid `geojson` object and the index has the `geoJson`
+evaluates to a valid GeoJSON object and the index has the `geoJson`
 flag set to `true`. `limit` must be a distance in meters. Similarly,
 an upper bound with `<` and/or a lower bound with `>` or `>=` is
 supported. Finally, a `SORT` condition of this form:
@@ -200,7 +200,7 @@ A query containing a FILTER expression of the form
 
 can be **optimized** by an S2 based [geospatial index](../indexing-geo.html) 
 on the attribute `geo` of the collection `collectionname`, if `geoJson`
-evaluates to a valid `geojson` object, and the index has the `geoJson`
+evaluates to a valid GeoJSON object, and the index has the `geoJson`
 flag set to `true`.
 
 ### GEO_IN_RANGE()
