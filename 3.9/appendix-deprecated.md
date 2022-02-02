@@ -25,7 +25,7 @@ kept for backward compatibility. There are usually better alternatives to
 replace the old features with:
 
 - **Skiplist and hash indexes**:
-  Skiplist and hash indexes have been deprecated in 3.9 and will be removed in a future version of ArangoDB. They are now aliases for a [persistent index](http/indexes.html#persistent-index).
+  Skiplist and hash indexes have been deprecated in 3.9 and will be removed in a future version of ArangoDB. Currently, they are an alias for a [persistent index](http/indexes.html#persistent-index).
 
 - **Bundled NPM modules**:
   The [bundled NPM modules](appendix-java-script-modules.html#bundled-npm-modules) have been deprecated in 3.9 and will be removed in a future version of ArangoDB. If you want to use NPM modules in your Foxx service, please refer to the [Foxx guide](foxx-guides-bundled-node-modules.html).
