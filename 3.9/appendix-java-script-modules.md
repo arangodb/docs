@@ -166,6 +166,10 @@ noteworthy however and intended to be used by the user:
 Bundled NPM Modules
 -------------------
 
+{% hint 'info' %}
+The following bundled NPM modules have been deprecated in 3.9 and will be removed in a future version of ArangoDB. If you want to use NPM modules in your Foxx service, please refer to the [Foxx guide](foxx-guides-bundled-node-modules.html).
+{% endhint %}
+
 The following [NPM modules](https://www.npmjs.com){:target="_blank"}
 are preinstalled:
 
