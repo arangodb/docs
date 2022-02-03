@@ -68,3 +68,8 @@ Please proceed with caution.
 If you are no longer a member of any organization, then a new organization is
 created for you when you log in again.
 {% endhint %}
+
+{% hint 'tip' %}
+If the organization has a locked resource (a project or a deployment), you need to [unlock](access-control.html#locked-resources)
+that resource first to be able to delete the organization.
+{% endhint %}

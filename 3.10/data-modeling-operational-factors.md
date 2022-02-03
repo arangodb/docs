@@ -1,6 +1,8 @@
 ---
 layout: default
-description: Designing the data model of your application is a crucial task that can make orbreak the performance of your application
+description: >-
+  Designing the data model of your application is a crucial task that can make
+  or break the performance of your application
 ---
 Data Modeling and Operational Factors
 =====================================
@@ -17,11 +19,48 @@ your application in conjunction with several factors:
 Operation Atomicity
 -------------------
 
-All insert / update / replace / remove operations in ArangoDB are atomic on a
-_single_ document. Using a single instance of ArangoDB, multi-document /
-multi-collection queries are guaranteed to be fully ACID, however in
-cluster mode only single-document operations are also fully ACID. This has
-implications if you try to ensure consistency across multiple operations.
+All insert / update / replace / remove operations in ArangoDB are
+atomic on a single document, in the sense that any read operation
+either observes a single document write in its entirety or not at all,
+regardless of whether it is a read in the same transaction, a different
+transaction, or indeed another write operation implicitly reading the
+document (like update). This is true for all deployment modes including cluster.
+
+When using a single instance of ArangoDB or a OneShard database
+in a cluster, we can make additional guarantees: Multi-document /
+multi-collection queries are guaranteed to be fully atomic, in the
+sense that one transaction observes any other transaction either in its
+entirety, or not at all. In general, this is not guaranteed for cluster
+deployments in case of failovers.
+
+Transactional Isolation
+-----------------------
+
+In the single instance case and in the OneShard database case, ArangoDB uses
+RocksDB's
+[snapshot isolation](https://jepsen.io/consistency/models/snapshot-isolation){:target="_blank"}
+for reads and uses RocksDB key-level pessimistic locking for write-write-conflict
+detection. Therefore, in these cases, the isolation level ArangoDB
+guarantees for transactions is
+"[repeatable read](https://jepsen.io/consistency/models/repeatable-read){:target="_blank"}"
+in the following sense: the reads of a transaction see a snapshot
+of the state of the database, that is, a transaction T does not see
+"dirty reads", which are writes from other transactions which have not
+yet committed. Furthermore, a transaction T does not see writes from
+other transactions, which have started, after T was started, even if
+they commit before the read of T happens. Finally, in the end, there is
+a total order on the set of all transactions, so that the state of
+the database is as if the *writes* of the transactions would have been
+executed in this order.
+
+Note that this is strictly weaker than "serializable", since it is
+possible that two concurrent transactions T1 and T2 both read the old
+state from before both of them (including the documents T1 or T2 touch),
+but then write to disjoint sets of keys. This allows for the possibility
+of "phantom reads".
+
+Note that in a cluster without OneShard databases, these
+isolation guarantees are not given.
 
 ### Denormalizing Data
 

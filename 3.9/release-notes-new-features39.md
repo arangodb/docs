@@ -202,7 +202,33 @@ FOR v, e, p IN 10 OUTBOUND @start GRAPH "myGraph"
 ```
 
 can now be optimized, and the traversal statement will only produce 
-paths for which the last vertex satisfied `isRelevant == true`.
+paths for which the last vertex satisfies `isRelevant == true`.
+
+This optimization is now part of the existing `optimize-traversals` rule and
+you will see the conditions under `Filter / Prune Conditions` in the query
+explain output (`` FILTER (v.`isRelevant` == true) `` in this example):
+
+```js
+Execution plan:
+ Id   NodeType          Est.   Comment
+  1   SingletonNode        1   * ROOT
+  2   TraversalNode        1     - FOR v  /* vertex */, p  /* paths: vertices, edges */ IN 10..10  /* min..maxPathDepth */ OUTBOUND 'A' /* startnode */  GRAPH 'myGraph'
+  3   CalculationNode      1       - LET #5 = (v.`isRelevant` == true)   /* simple expression */
+  4   FilterNode           1       - FILTER #5
+  5   ReturnNode           1       - RETURN p
+
+Indexes used:
+ By   Name   Type   Collection   Unique   Sparse   Selectivity   Fields        Ranges
+  2   edge   edge   edge         false    false       100.00 %   [ `_from` ]   base OUTBOUND
+
+Traversals on graphs:
+ Id  Depth   Vertex collections  Edge collections  Options                                  Filter / Prune Conditions      
+ 2   10..10  vert                edge              uniqueVertices: none, uniqueEdges: path  FILTER (v.`isRelevant` == true)
+
+Optimization rules applied:
+ Id   RuleName
+  1   optimize-traversals
+```
 
 ### Traversal partial path buildup
 
@@ -217,8 +243,35 @@ FOR v, e, p IN 1..3 OUTBOUND @start GRAPH "myGraph"
   RETURN p.vertices
 ```
 
-only requires the buildup of the `vertices` sub-attribute of the path
-result, but not the buildup of the `edges` sub-attribute.
+only requires the buildup of the `vertices` sub-attribute of the path result `p`
+but not the buildup of the `edges` sub-attribute. The optimization can be
+observed in the query explain output:
+
+```js
+Execution plan:
+ Id   NodeType          Est.   Comment
+  1   SingletonNode        1   * ROOT
+  2   TraversalNode        1     - FOR v  /* vertex */, p  /* paths: vertices */ IN 1..3  /* min..maxPathDepth */ OUTBOUND 'A' /* startnode */  GRAPH 'myGraph'
+  3   CalculationNode      1       - LET #5 = p.`vertices`   /* attribute expression */
+  4   ReturnNode           1       - RETURN #5
+
+Indexes used:
+ By   Name   Type   Collection   Unique   Sparse   Selectivity   Fields        Ranges
+  2   edge   edge   edge         false    false       100.00 %   [ `_from` ]   base OUTBOUND
+
+Traversals on graphs:
+ Id  Depth  Vertex collections  Edge collections  Options                                  Filter / Prune Conditions
+ 2   1..3   vert                edge              uniqueVertices: none, uniqueEdges: path                           
+
+Optimization rules applied:
+ Id   RuleName
+  1   optimize-traversals
+  2   remove-redundant-path-var
+```
+
+The `remove-redundant-path-var` optimization rule is applied and the
+TraversalNode's comment indicates that only the `vertices` sub-attribute is
+built up for this query: `p  /* paths: vertices */`
 
 This optimization should have a positive impact on performance for larger
 traversal result sets.
