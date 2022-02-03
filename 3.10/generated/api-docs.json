@@ -5444,7 +5444,7 @@
             "type": "object", 
             "x-filename": "/work/ArangoDB/Documentation/DocuBlocks/Rest/Administration/put_admin_compact.md"
         }, 
-        "put_admin_loglevel": {
+        "put_admin_log_level": {
             "properties": {
                 "agency": {
                     "description": "One of the possible log levels.\n\n", 
@@ -7158,7 +7158,7 @@
                         "name": "Json Request Body", 
                         "required": true, 
                         "schema": {
-                            "$ref": "#/definitions/put_admin_loglevel"
+                            "$ref": "#/definitions/put_admin_log_level"
                         }, 
                         "x-description-offset": 1565
                     }
