@@ -20691,7 +20691,7 @@ RETURN REGEX_MATCHES(<span class="hljs-string">&quot;#4d82h4&quot;</span>, <span
 <div id="aqlRegexMatches_3_long" style="display: none;">
 <strong>Query:</strong>
 <pre>
-RETURN REGEX_MATCHES(<span class="hljs-string">&quot;john@doe.com&quot;</span>, <span class="hljs-string">&quot;^([a-z0-9_\.-]+)@([\da-z-]+)\.([a-z\.]{2,6})$&quot;</span>, <span class="hljs-literal">false</span>)
+RETURN REGEX_MATCHES(<span class="hljs-string">&quot;john@doe.com&quot;</span>, <span class="hljs-string">&quot;^([a-z0-9_\\.-]+)@([\\da-z-]+)\\.([a-z\\.]{2,6})$&quot;</span>, <span class="hljs-literal">false</span>)
 
 </pre>
 <strong>Query results:</strong>
@@ -20725,13 +20725,7 @@ RETURN REGEX_MATCHES(<span class="hljs-string">&quot;john@doe.com&quot;</span>, 
 <div id="aqlRegexSplit_1_long" style="display: none;">
 <strong>Query:</strong>
 <pre>
-RETURN REGEX_SPLIT(&quot;This is a line.
- This is yet another line
- This again is a line.
- Mac line &quot;, &quot;\.?
-|
-|
-&quot;)
+RETURN REGEX_SPLIT(<span class="hljs-string">&quot;This is a line.\n This is yet another line\r\n This again is a line.\r Mac line &quot;</span>, <span class="hljs-string">&quot;\\.?\r\n|\r|\n&quot;</span>)
 
 </pre>
 <strong>Query results:</strong>
@@ -20739,7 +20733,7 @@ RETURN REGEX_SPLIT(&quot;This is a line.
 [
   [
     <span class="hljs-string">&quot;This is a line.&quot;</span>,
-    <span class="hljs-string">&quot; This is yet another lin&quot;</span>,
+    <span class="hljs-string">&quot; This is yet another line&quot;</span>,
     <span class="hljs-string">&quot; This again is a line.&quot;</span>,
     <span class="hljs-string">&quot; Mac line &quot;</span>
   ]
@@ -20771,7 +20765,7 @@ RETURN REGEX_SPLIT(&quot;This is a line.
 <div id="aqlRegexSplit_2_long" style="display: none;">
 <strong>Query:</strong>
 <pre>
-RETURN REGEX_SPLIT(<span class="hljs-string">&quot;hypertext language, programming&quot;</span>, <span class="hljs-string">&quot;[\s, ]+&quot;</span>)
+RETURN REGEX_SPLIT(<span class="hljs-string">&quot;hypertext language, programming&quot;</span>, <span class="hljs-string">&quot;[\\s, ]+&quot;</span>)
 
 </pre>
 <strong>Query results:</strong>
@@ -20904,13 +20898,13 @@ RETURN REGEX_TEST(<span class="hljs-string">&quot;the quick brown fox&quot;</spa
 <div id="aqlRegexTest_2_long">
 <strong>Query:</strong>
 <pre>
-RETURN REGEX_TEST(<span class="hljs-string">&quot;the quick brown fox&quot;</span>, <span class="hljs-string">&quot;^(a|the)\s+(quick|slow).*f.x$&quot;</span>)
+RETURN REGEX_TEST(<span class="hljs-string">&quot;the quick brown fox&quot;</span>, <span class="hljs-string">&quot;^(a|the)\\s+(quick|slow).*f.x$&quot;</span>)
 
 </pre>
 <strong>Query results:</strong>
 <pre>
 [
-  <span class="hljs-literal">false</span>
+  <span class="hljs-literal">true</span>
 ]</pre>
 </div>
 </div>
@@ -20926,12 +20920,7 @@ RETURN REGEX_TEST(<span class="hljs-string">&quot;the quick brown fox&quot;</spa
 <div id="aqlRegexTest_3_long">
 <strong>Query:</strong>
 <pre>
-RETURN REGEX_TEST(&quot;the
-quick
-brown
-fox&quot;, &quot;^the(
-[a-w]+)+
-fox$&quot;)
+RETURN REGEX_TEST(<span class="hljs-string">&quot;the\nquick\nbrown\nfox&quot;</span>, <span class="hljs-string">&quot;^the(\n[a-w]+)+\nfox$&quot;</span>)
 
 </pre>
 <strong>Query results:</strong>
@@ -21964,8 +21953,7 @@ RETURN TRIM(<span class="hljs-string">&quot;--==[foo-bar]==--&quot;</span>, <spa
 <div id="aqlTrim_4_long">
 <strong>Query:</strong>
 <pre>
-RETURN TRIM(&quot;  foobar	 
- &quot;)
+RETURN TRIM(<span class="hljs-string">&quot;  foobar\t \r\n &quot;</span>)
 
 </pre>
 <strong>Query results:</strong>

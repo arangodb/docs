@@ -1203,7 +1203,7 @@ Return the matches in the given string `text`, using the `regex`.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlRegexMatches_3
 @EXAMPLE_AQL{aqlRegexMatches_3}
-  RETURN REGEX_MATCHES("john@doe.com", "^([a-z0-9_\\.-]+)@([\\da-z-]+)\\.([a-z\\.]{2,6})$", false)
+  RETURN REGEX_MATCHES("john@doe.com", "^([a-z0-9_\\\\.-]+)@([\\\\da-z-]+)\\\\.([a-z\\\\.]{2,6})$", false)
 @END_EXAMPLE_AQL
 @endDocuBlock aqlRegexMatches_3
 {% endaqlexample %}
@@ -1232,7 +1232,7 @@ Split the given string `text` into a list of strings at positions where
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlRegexSplit_1
 @EXAMPLE_AQL{aqlRegexSplit_1}
-  RETURN REGEX_SPLIT("This is a line.\n This is yet another line\r\n This again is a line.\r Mac line ", "\\.?\r\n|\r|\n")
+  RETURN REGEX_SPLIT("This is a line.\\n This is yet another line\\r\\n This again is a line.\\r Mac line ", "\\\\.?\\r\\n|\\r|\\n")
 @END_EXAMPLE_AQL
 @endDocuBlock aqlRegexSplit_1
 {% endaqlexample %}
@@ -1241,7 +1241,7 @@ Split the given string `text` into a list of strings at positions where
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlRegexSplit_2
 @EXAMPLE_AQL{aqlRegexSplit_2}
-  RETURN REGEX_SPLIT("hypertext language, programming", "[\\s, ]+")
+  RETURN REGEX_SPLIT("hypertext language, programming", "[\\\\s, ]+")
 @END_EXAMPLE_AQL
 @endDocuBlock aqlRegexSplit_2
 {% endaqlexample %}
@@ -1298,7 +1298,7 @@ using regular expression matching.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlRegexTest_2
 @EXAMPLE_AQL{aqlRegexTest_2}
-  RETURN REGEX_TEST("the quick brown fox", "^(a|the)\\s+(quick|slow).*f.x$")
+  RETURN REGEX_TEST("the quick brown fox", "^(a|the)\\\\s+(quick|slow).*f.x$")
 @END_EXAMPLE_AQL
 @endDocuBlock aqlRegexTest_2
 {% endaqlexample %}
@@ -1307,7 +1307,7 @@ using regular expression matching.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlRegexTest_3
 @EXAMPLE_AQL{aqlRegexTest_3}
-  RETURN REGEX_TEST("the\nquick\nbrown\nfox", "^the(\n[a-w]+)+\nfox$")
+  RETURN REGEX_TEST("the\\nquick\\nbrown\\nfox", "^the(\\n[a-w]+)+\\nfox$")
 @END_EXAMPLE_AQL
 @endDocuBlock aqlRegexTest_3
 {% endaqlexample %}
@@ -2021,7 +2021,7 @@ Return the string `value` with whitespace stripped from the start and end.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlTrim_4
 @EXAMPLE_AQL{aqlTrim_4}
-  RETURN TRIM("  foobar\t \r\n ")
+  RETURN TRIM("  foobar\\t \\r\\n ")
 @END_EXAMPLE_AQL
 @endDocuBlock aqlTrim_4
 {% endaqlexample %}

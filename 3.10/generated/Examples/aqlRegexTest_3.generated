@@ -1,10 +1,5 @@
 @Q:
-RETURN REGEX_TEST(&quot;the
-quick
-brown
-fox&quot;, &quot;^the(
-[a-w]+)+
-fox$&quot;)
+RETURN REGEX_TEST(<span class="hljs-string">&quot;the\nquick\nbrown\nfox&quot;</span>, <span class="hljs-string">&quot;^the(\n[a-w]+)+\nfox$&quot;</span>)
 
 @R
 [
