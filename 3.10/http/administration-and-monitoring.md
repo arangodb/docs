@@ -14,8 +14,8 @@ Logs
 <!-- lib/Admin/RestAdminLogHandler.cpp -->
 {% docublock get_admin_log_entries %}
 {% docublock get_admin_log %}
-{% docublock get_admin_loglevel %}
-{% docublock put_admin_loglevel %}
+{% docublock get_admin_log_level %}
+{% docublock put_admin_log_level %}
 
 Statistics
 ----------
