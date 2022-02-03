@@ -150,6 +150,8 @@ To do the opposite, see [UNSET()](#unset).
 KEEP(doc, "firstname", "name", "likes")
 ```
 
+---
+
 `KEEP(document, attributeNameArray) → doc`
 
 - **document** (object): a document / object
@@ -280,6 +282,8 @@ MERGE(
 // { "users": { "name": "Tom" } }
 ```
 
+---
+
 `MERGE(docArray) → mergedDocument`
 
 *MERGE* works with a single array parameter, too. This variant allows combining the
@@ -405,6 +409,8 @@ To do the opposite, see [KEEP()](#keep).
 UNSET( doc, "_id", "_key", "foo", "bar" )
 ```
 
+---
+
 `UNSET(document, attributeNameArray) → doc`
 
 - **document** (object): a document / object
@@ -433,6 +439,8 @@ Recursively remove the attributes *attributeName1* to *attributeNameN* from
 ```js
 UNSET_RECURSIVE( doc, "_id", "_key", "foo", "bar" )
 ```
+
+---
 
 `UNSET_RECURSIVE(document, attributeNameArray) → doc`
 

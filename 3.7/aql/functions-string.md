@@ -61,6 +61,8 @@ CONCAT(null, false, 0, true, "") // "false0true"
 CONCAT("foo", [5, 6], {bar: "baz"}) // "foo[5,6]{\"bar\":\"baz\"}"
 ```
 
+---
+
 `CONCAT(anyArray) → str`
 
 If a single array is passed to *CONCAT()*, its members are concatenated.
@@ -101,6 +103,8 @@ CONCAT_SEPARATOR(", ", 1, 2, 3)                  // "1, 2, 3"
 CONCAT_SEPARATOR(", ", null, false, 0, true, "") // "false, 0, true, "
 CONCAT_SEPARATOR(", ", [5, 6], {foo: "bar"})     // "[5,6], {\"foo\":\"bar\"}"
 ```
+
+---
 
 `CONCAT_SEPARATOR(separator, anyArray) → joinedString`
 
@@ -927,6 +931,8 @@ RETURN STARTS_WITH("foobar", "foo") // true
 RETURN STARTS_WITH("foobar", "baz") // false
 ```
 
+---
+
 `STARTS_WITH(text, prefixes, minMatchCount) → startsWith`
 
 <small>Introduced in: v3.7.1</small>
@@ -989,6 +995,8 @@ SUBSTITUTE( "the quick brown foxx", [ "the", "quick", "foxx" ], [ "A", "VOID!" ]
 SUBSTITUTE( "the quick brown foxx", [ "quick", "foxx" ], "xx" )
 // "the xx brown xx"
 ```
+
+---
 
 `SUBSTITUTE(value, mapping, limit) → substitutedString`
 
@@ -1219,6 +1227,8 @@ however.
   - `0` – start and end of the string (default)
   - `1` – start of the string only
   - `2` – end of the string only
+
+---
 
 `TRIM(value, chars) → strippedString`
 

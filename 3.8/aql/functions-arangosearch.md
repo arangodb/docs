@@ -674,6 +674,8 @@ that is used outside of `SEARCH` operations.
 - returns **startsWith** (bool): whether the specified attribute starts with
   the given prefix
 
+---
+
 `STARTS_WITH(path, prefixes, minMatchCount) → startsWith`
 
 <small>Introduced in: v3.7.1</small>

@@ -100,6 +100,8 @@ Concatenate the values passed as `value1` to `valueN`.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+---
+
 `CONCAT(anyArray) → str`
 
 If a single array is passed to `CONCAT()`, its members are concatenated.
@@ -196,6 +198,8 @@ Concatenate the strings passed as arguments `value1` to `valueN` using the
 @endDocuBlock aqlConcatSeparatorCompoundTypes_1
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+---
 
 `CONCAT_SEPARATOR(separator, anyArray) → joinedString`
 
@@ -1618,6 +1622,8 @@ that can utilize View indexes.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
+---
+
 `STARTS_WITH(text, prefixes, minMatchCount) → startsWith`
 
 <small>Introduced in: v3.7.1</small>
@@ -1721,6 +1727,8 @@ Replace search values in the string `value`.
 @endDocuBlock aqlSubstitute_5
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+---
 
 `SUBSTITUTE(value, mapping, limit) → substitutedString`
 
@@ -1968,6 +1976,8 @@ however.
   - `0` – start and end of the string (default)
   - `1` – start of the string only
   - `2` – end of the string only
+
+---
 
 `TRIM(value, chars) → strippedString`
 
