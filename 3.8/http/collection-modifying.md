@@ -21,3 +21,5 @@ Modifying a Collection
 
 <!-- js/actions/api-collection.js -->
 {% docublock put_api_collection_recalculate_count %}
+
+{% docublock put_api_collection_compact %}
