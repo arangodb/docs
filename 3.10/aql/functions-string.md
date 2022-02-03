@@ -1210,11 +1210,12 @@ REGEX_SPLIT()
 
 `REGEX_SPLIT(text, splitExpression, caseInsensitive, limit) → stringArray`
 
-Split the given string `text` into a list of strings, using the `separator`.
+Split the given string `text` into a list of strings at positions where
+`splitExpression` matches.
 
 - **text** (string): the string to split
 - **splitExpression** (string): a [regular expression](#regular-expression-syntax)
-  to use for splitting the `text`
+  to use for splitting the `text`. It can define a capturing group to keep matches
 - **caseInsensitive** (bool, *optional*): if set to `true`, the matching will be
   case-insensitive. The default is `false`.
 - **limit** (number, *optional*): limit the number of split values in the result.
@@ -1227,7 +1228,7 @@ Split the given string `text` into a list of strings, using the `separator`.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlRegexSplit_1
 @EXAMPLE_AQL{aqlRegexSplit_1}
-  RETURN REGEX_SPLIT("This is a line.\n This is yet another line\r\n This again is a line.\r Mac line ", "\\.?(\r\n|\n|\r)", true, 4)
+  RETURN REGEX_SPLIT("This is a line.\n This is yet another line\r\n This again is a line.\r Mac line ", "\\.?\r\n|\r|\n")
 @END_EXAMPLE_AQL
 @endDocuBlock aqlRegexSplit_1
 {% endaqlexample %}
@@ -1245,9 +1246,21 @@ Split the given string `text` into a list of strings, using the `separator`.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlRegexSplit_3
 @EXAMPLE_AQL{aqlRegexSplit_3}
-  RETURN REGEX_SPLIT("cA,Bc,A,BcA,BcA,Bc", "a,b", true, 3)
+  RETURN [
+    REGEX_SPLIT("Capture the article", "(the)"),
+    REGEX_SPLIT("Don't capture the article", "the")
+  ]
 @END_EXAMPLE_AQL
 @endDocuBlock aqlRegexSplit_3
+{% endaqlexample %}
+{% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
+
+{% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
+@startDocuBlockInline aqlRegexSplit_4
+@EXAMPLE_AQL{aqlRegexSplit_4}
+  RETURN REGEX_SPLIT("cA,Bc,A,BcA,BcA,Bc", "a,b", true, 3)
+@END_EXAMPLE_AQL
+@endDocuBlock aqlRegexSplit_4
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
@@ -2068,9 +2081,8 @@ characters and sequences:
 - `\d` – matches a single digit, equivalent to `[0-9]`
 - `\s` – matches a single whitespace character
 - `\S` – matches a single non-whitespace character
-- `\t` – matches a tab character
-- `\r` – matches a carriage return
-- `\n` – matches a line-feed character
+- `\b` – matches a word boundary. This match is zero-length
+- `\B` – Negation of `\b`. The match is zero-length
 - `[xyz]` – set of characters. Matches any of the enclosed characters
   (here: *x*, *y*, or *z*)
 - `[^xyz]` – negated set of characters. Matches any other character than the
@@ -2080,14 +2092,19 @@ characters and sequences:
   *0123456789ABCDEF*
 - `[^x-z]` – negated range of characters. Matches any other character than the
   ones specified in the range
-- `(xyz)` – defines and matches a pattern group
-- `(x|y)` – matches either *x* or *y*
+- `(xyz)` – defines and matches a pattern group. Also creates a capturing group.
+- `(?:xyz)` – defines and matches a pattern group without capturing the match
+- `(xy|z)` – matches either *xy* or *z*
 - `^` – matches the beginning of the string (e.g. `^xyz`)
 - `$` – matches the end of the string (e.g. `xyz$`)
 
-Note that the characters `.`, `*`, `?`, `[`, `]`, `(`, `)`, `{`, `}`, `^`,
-and `$` have a special meaning in regular expressions and may need to be
-escaped using a backslash, which typically requires escaping itself.
+To literally match one of the characters that have a special meaning in regular
+expressions (`.`, `*`, `?`, `[`, `]`, `(`, `)`, `{`, `}`, `^`, `$`, and `\`)
+you may need to escape the character with a backslash, which typically requires
+escaping itself. The backslash of shorthand character classes like `\d`, `\s`,
+and `\b` counts as literal backslash. The backslash of JSON escape sequences
+like `\t` (tabulation), `\r` (carriage return), and `\n` (line feed) does not,
+however.
 
 {% hint 'info' %}
 Literal backlashes require different amounts of escaping depending on the
