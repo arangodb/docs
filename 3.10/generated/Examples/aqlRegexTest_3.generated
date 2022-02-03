@@ -1,0 +1,12 @@
+@Q:
+RETURN REGEX_TEST(&quot;the
+quick
+brown
+fox&quot;, &quot;^the(
+[a-w]+)+
+fox$&quot;)
+
+@R
+[
+  <span class="hljs-literal">true</span>
+]

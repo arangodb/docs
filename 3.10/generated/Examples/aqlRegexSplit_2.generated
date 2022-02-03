@@ -1,0 +1,11 @@
+@Q:
+RETURN REGEX_SPLIT(<span class="hljs-string">&quot;hypertext language, programming&quot;</span>, <span class="hljs-string">&quot;[\s, ]+&quot;</span>)
+
+@R
+[
+  [
+    <span class="hljs-string">&quot;hypertext&quot;</span>,
+    <span class="hljs-string">&quot;language&quot;</span>,
+    <span class="hljs-string">&quot;programming&quot;</span>
+  ]
+]

@@ -1,0 +1,12 @@
+@Q:
+RETURN REGEX_MATCHES(<span class="hljs-string">&quot;john@doe.com&quot;</span>, <span class="hljs-string">&quot;^([a-z0-9_\.-]+)@([\da-z-]+)\.([a-z\.]{2,6})$&quot;</span>, <span class="hljs-literal">false</span>)
+
+@R
+[
+  [
+    <span class="hljs-string">&quot;john@doe.com&quot;</span>,
+    <span class="hljs-string">&quot;john&quot;</span>,
+    <span class="hljs-string">&quot;doe&quot;</span>,
+    <span class="hljs-string">&quot;com&quot;</span>
+  ]
+]

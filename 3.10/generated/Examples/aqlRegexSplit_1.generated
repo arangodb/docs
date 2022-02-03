@@ -1,0 +1,16 @@
+@Q:
+RETURN REGEX_SPLIT(&quot;This is a line.
+ This is yet another line
+ This again is a line. Mac line &quot;, &quot;\.?
+||
+&quot;)
+
+@R
+[
+  [
+    <span class="hljs-string">&quot;This is a line.&quot;</span>,
+    <span class="hljs-string">&quot; This is yet another lin&quot;</span>,
+    <span class="hljs-string">&quot; This again is a line.&quot;</span>,
+    <span class="hljs-string">&quot; Mac line &quot;</span>
+  ]
+]
