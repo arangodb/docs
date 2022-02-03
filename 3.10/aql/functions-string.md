@@ -1294,7 +1294,7 @@ using regular expression matching.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
 @startDocuBlockInline aqlRegexTest_2
 @EXAMPLE_AQL{aqlRegexTest_2}
-  REGEX_TEST("the quick brown fox", "^(a|the)\\s+(quick|slow).*f.x$")
+  RETURN REGEX_TEST("the quick brown fox", "^(a|the)\\s+(quick|slow).*f.x$")
 @END_EXAMPLE_AQL
 @endDocuBlock aqlRegexTest_2
 {% endaqlexample %}
