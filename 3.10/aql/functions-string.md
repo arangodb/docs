@@ -1215,7 +1215,7 @@ Split the given string `text` into a list of strings at positions where
 
 - **text** (string): the string to split
 - **splitExpression** (string): a [regular expression](#regular-expression-syntax)
-  to use for splitting the `text`. It can define a capturing group to keep matches
+  to use for splitting the `text`. You can define a capturing group to keep matches
 - **caseInsensitive** (bool, *optional*): if set to `true`, the matching will be
   case-insensitive. The default is `false`.
 - **limit** (number, *optional*): limit the number of split values in the result.
@@ -2092,7 +2092,7 @@ characters and sequences:
   *0123456789ABCDEF*
 - `[^x-z]` – negated range of characters. Matches any other character than the
   ones specified in the range
-- `(xyz)` – defines and matches a pattern group. Also creates a capturing group.
+- `(xyz)` – defines and matches a pattern group. Also defines a capturing group.
 - `(?:xyz)` – defines and matches a pattern group without capturing the match
 - `(xy|z)` – matches either *xy* or *z*
 - `^` – matches the beginning of the string (e.g. `^xyz`)
