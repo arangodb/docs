@@ -256,10 +256,6 @@ object**. This is - if not everything are points - usually not what one
 expects, but this is how `GEO_DISTANCE` is defined, and what the index
 can actually provide.
 
-There is a small edge case which cannot be handled properly by the geo
-index. See [Highly Non-Convex Polygons](#highly-non-convex-polygons)
-below how to circumvent this problem.
-
 ### Query for Sorted Results near Origin (NEAR type query)
 
 A basic example of a query for the 1000 nearest results to an origin point (ascending sorting):
@@ -368,55 +364,6 @@ was created.
 
 This FILTER clause can be combined with a SORT clause using
 `GEO_DISTANCE`.
-
-### Highly Non-convex Polygons
-
-In this section we will describe a rather odd limitation of the geo
-index. Recall that `GEO_DISTANCE` between two GeoJSON objects only
-considers the **centroid** of both objects. Now, some non-convex
-polygons have their centroid **outside** of the interior of the polygon!
-
-This adds to the awkwardness of the definition of `GEO_DISTANCE`, since
-now there are points, which are very close to the centroid of the
-polygon, but nowhere near any of the points which are in the interior
-of the polygon!
-
-Furthermore, since the geo index only indexes points which are in the
-interior of the polygon, `GEO_DISTANCE` queries which are powered by
-a geo index can actually miss results, whose centroid are close to the
-base point of the search, but whose interior points are far away. Here
-is an example:
-
-This polygon in the `geo` attribute of this document is not convex:
-
-```
-{"geo": {"type":"Polygon",
- "coordinates":[[[0,0],[10,10],[0,20],[0,19],[9,10],[0,1],[0,0]]]}}
-```
-
-![A non-convex polygon](images/nonconvex.png)
-
-Its centroid lies at approximately `[4.7874, 10.0735]`, which is
-not in the interior. Indeed, it is even outside of a so-called cell
-covering of the polygon, which is used internally in the geo index.
-
-As a consequence, the query
-
-```
-FOR doc IN collection
-  FILTER GEO_DISTANCE([4.7874, 10.0735], d.geo) <= 2200
-  RETURN d.geo
-```
-
-might not return the polygon (note that the distance must be chosen
-carefully).
-
-This is a known limitation, which can easily be overcome. Since 
-`GEO_DISTANCE` looks by definition anyway only at the centroid of the
-indexed object, we might as well store the centroid itself rather than
-the polygon in the database. Then the geo index has no trouble
-whatsoever to find the right result.
-
 
 GeoJSON
 -------
