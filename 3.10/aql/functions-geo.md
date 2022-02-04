@@ -52,6 +52,18 @@ fully contains `geoJsonB` (Every point in B is also in A). The object `geoJsonA`
 - **geoJsonB** (object): second GeoJSON object or coordinate array (in longitude, latitude order)
 - returns **bool** (bool): true when every point in B is also contained in A, false otherwise
 
+Note that ArangoDB faithfully shows the same behavior as the underlying
+S2 geometry library in the following sense. The S2 documentation says:
+
+```
+Point containment is defined such that if the sphere is subdivided
+into faces (loops), every point is contained by exactly one face. This
+implies that loops do not necessarily contain their vertices.
+```
+
+As a consequence, a loop or polygon does not necessarily contain its
+boundary edges!
+
 A query containing a FILTER expression of the form
 
 ```
