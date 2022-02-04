@@ -166,7 +166,7 @@ and automatically accepted by most web browsers. The certificate used on port
 a self-signed certificate is recommended.
 {% endhint %}
 
-## How to create a private deployment (Microsoft Azure)
+## How to create a private network deployment
 
 Microsoft Azure offers a feature called
 [Azure Private Link](https://docs.microsoft.com/en-us/azure/private-link){:target="_blank"}
@@ -176,24 +176,36 @@ It can lower network latency and increase security.
 
 If you want to connect an ArangoDB Oasis deployment running on Azure with other
 services you run on Azure using such a tunnel, then
-[create a regular deployment](#how-to-create-a-new-deployment) first and convert
-it to a private deployment.
+[create a regular deployment](#how-to-create-a-new-deployment) and change it
+to a private network deployment afterwards.
 
-The deployment will not reachable from public internet anymore, other than via
+The deployment will not be reachable from public internet anymore, other than via
 the Oasis dashboard to administrate it. To revert to a public deployment, please
 contact support via _Request help_ in the help menu.
 
-1. **View** the deployment you want to convert.
+1. **View** the deployment you want to change.
 2. On the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
-   icon. It opens a dropdown list with the option to convert the deployment.
-   If you see a pencil icon and do not get a dropdown list, then you are either
-   on the free-to-try tier or the selected deployment does not run on Azure.
-   Private deployments are available on the professional tier and for Azure
-   deployments only.
-3. Click **Convert to private deployment** and confirm the conversion.
-4. 
-
-![Oasis Deployment Edit Dropdown](images/oasis-deployment-edit-dropdown.png)
+   icon. If you see a pencil icon and no menu opens, then you are either on the
+   free-to-try tier or the selected deployment is not eligible. The private
+   network option in only available on the professional tier, for OneShard and
+   Sharded deployments running on Azure.
+3. Click **Change to private network** in the menu
+   ![Oasis Deployment Private Network Menu](images/oasis-deployment-private-network-menu.png)
+4. A dialog opens for the configuration. Read the explanation and click **Next**.
+5. You need to enter one or more Azure Subscription IDs (UUIDs). They cannot be
+   changed later. Proceed by clicking **Next**.
+   ![Oasis Deployment Private Network Setup 2](images/oasis-deployment-private-network-setup2.png)
+6. You may enter one or more Alternate DNS names. This step is optional.
+   Continue with or without Alternate DNS names entered by clicking **Next**.
+   They can be changed later.
+7. Click **Confirm Settings** to change the deployment.
+8. Back on the **Overview** tab, scroll down to the **Private Network** section
+   that is now displayed to see the connection status and to change the
+   configuration.
+   ![Oasis Deployment Private Network](images/oasis-deployment-private-network.png)
+9. Oasis will configure a Private Endpoint Service. As soon as the **Azure alias**
+   becomes available, you can copy it and then go to your Microsoft Azure portal
+   to create Private Endpoints using this alias.
 
 ## How to delete a deployment
 
