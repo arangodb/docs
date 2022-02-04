@@ -19,14 +19,14 @@ x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
 
 { 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;68931&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;68927&quot;</span>, 
   <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;SampleTask&quot;</span>, 
-  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-number">1641848170.8461654</span>, 
+  <span class="hljs-string">&quot;created&quot;</span> : <span class="hljs-number">1643979020.0193715</span>, 
   <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;periodic&quot;</span>, 
   <span class="hljs-string">&quot;period&quot;</span> : <span class="hljs-number">2</span>, 
   <span class="hljs-string">&quot;offset&quot;</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">&quot;command&quot;</span> : <span class="hljs-string">&quot;(function (params) { (function(params) { require(&#x27;@arangodb&#x27;).print(params); })(params) } )(params);&quot;</span>, 
   <span class="hljs-string">&quot;database&quot;</span> : <span class="hljs-string">&quot;_system&quot;</span> 
 }
-<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/tasks/68931</span>
+<span class="hljs-meta">shell&gt;</span><span class="bash"> curl -X DELETE --header <span class="hljs-string">&#x27;accept: application/json&#x27;</span> --dump - http://localhost:8529/_api/tasks/68927</span>
 
