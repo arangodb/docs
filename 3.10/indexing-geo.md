@@ -13,8 +13,8 @@ as well as simple longitude/latitude pairs.
 AQL's geospatial functions and GeoJSON constructors are described in
 [Geo functions](aql/functions-geo.html).
 
-Note that you can also do geospatial searches
-with ArangoSearch, see [Geospatial Search with ArangoSearch](./arangosearch-geospatial-search.html) for details.
+You can also perform
+[geospatial searches with ArangoSearch](arangosearch-geospatial-search.html).
 
 Using a Geo-Spatial Index
 -------------------------
@@ -45,7 +45,7 @@ with longitude (first value) and latitude (second value). This corresponds
 to the format described in
 [RFC 7946 Position](https://tools.ietf.org/html/rfc7946#section-3.1.1){:target="_blank"}.
 
-All documents, which do not have the attribute path or have a non-conforming
+All documents, that do not have the attribute path or have a non-conforming
 value in it, are excluded from the index.
 
 A geo index is implicitly sparse, and there is no way to control its
@@ -53,76 +53,75 @@ sparseness.
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
-Please note the following technical detail about
-GeoJSON: The [GeoJSON standard, Section 3.1.1
-Position](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1)
+Note the following technical detail about GeoJSON: The
+[GeoJSON standard, Section 3.1.1 Position](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1){:target="_blank"}
 prescribes that lines are **cartesian lines in cylindrical coordinates**
 (longitude/latitude). However, this definition is awkward in practice,
 since such lines are not geodesic on the surface of the earth.
-Furthermore, the best available algorithms for geo computations on earth
-typically use geodesic lines as the boundaries of polygons on earth.
+Furthermore, the best available algorithms for geospatial computations on Earth
+typically use geodesic lines as the boundaries of polygons on Earth.
 
-Therefore, we have chosen to use the **syntax of the GeoJSON** standard,
-but then interpret lines (and boundaries of polygons) **as geodesic lines
-(pieces of great circles) on earth**. This is a violation of the GeoJSON
-standard, but one which is sensible in practice.
+Therefore, ArangoDB uses the **syntax of the GeoJSON** standard,
+but then interpret lines (and boundaries of polygons) as
+**geodesic lines (pieces of great circles) on Earth**. This is a
+violation of the GeoJSON standard, but one which is sensible in practice.
 
 Note in particular that this can sometimes lead to unexpected results.
-For example, the polygon
+For example, the polygon (remember that GeoJSON has **longitude before latitude**
+in coordinates):
 
-```
+```json
 { "type": "Polygon", "coordinates": [[
-  [10, 40], [20, 40], [20, 50], [10, 50], [10, 40] ]] }
+  [10, 40], [20, 40], [20, 50], [10, 50], [10, 40]
+]] }
 ```
 
-(remember: GeoJSON has **longitude before latitude** in coordinates!)
 does not contain the point `[15, 40]`, since the shortest path
-(geodesic) from `[10, 40]` to `[20, 40]` lies north of the parallel of
-latitude with latitude 40! On the contrary, the polygon contains the
+(geodesic) from `[10, 40]` to `[20, 40]` lies North of the parallel of
+latitude with latitude 40. On the contrary, the polygon contains the
 point `[15, 50]` for a similar reason.
 
-Note that previous versions of ArangoDB before 3.10 did an inconsistent
-special detection of such polygons which later versions from 3.10 on no
-longer do (see [Section Legacy Polygons](#legacy-polygons) below).
+{% hint 'info' %}
+ArangoDB version before 3.10 did an inconsistent special detection of such
+polygons that later versions from 3.10 onward no longer do, see
+[Legacy Polygons](#legacy-polygons).
+{% endhint %}
 
 Furthermore, there is an issue with the interpretation of linear rings
-(boundaries of polygons) according to [GeoJSON standard, Section 3.1.6
-Polygon](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6).
-This section says explicitly:
+(boundaries of polygons) according to
+[GeoJSON standard, Section 3.1.6 Polygon](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6){:target="_blank"}.
+This section states explicitly:
 
-```
-A linear ring MUST follow the right-hand rule with respect to the
-area it bounds, i.e., exterior rings are counterclockwise, and
-holes are clockwise.
-```
+> A linear ring MUST follow the right-hand rule with respect to the
+> area it bounds, i.e., exterior rings are counterclockwise, and
+> holes are clockwise.
 
 This rather misleading phrase means that when a linear ring is used as
 the boundary of a polygon, the "interior" of the polygon lies to the
 left of the boundary when one travels along the linear ring. For
 example, the polygon above travels counter-clockwise around the point
 `[15, 45]`, and thus the interior of the polygon contains this point and
-its surroundings, but not, for example, the north pole and the south
-pole.
+its surroundings, but not, for example, the North Pole and the South
+Pole.
 
 On the contrary, the polygon:
 
-```
+```json
 { "type": "Polygon", "coordinates": [[
   [10, 40], [10, 50], [20, 50], [20, 40], [10, 40] ]] }
 ```
 
 travels clock-wise around the point `[15, 45]`, and thus its "interior"
-does not contain `[15, 45]`, but does contain the north pole and the
-south pole. Remember that the "interior" is to the left of the given
-linear ring, so this second polygon is basically the complement on earth
+does not contain `[15, 45]`, but does contain the North Pole and the
+South Pole. Remember that the "interior" is to the left of the given
+linear ring, so this second polygon is basically the complement on Earth
 of the previous polygon!
 
-Unfortunately, previous versions of ArangoDB before 3.10 did not follow
-this rule and always took the "smaller" connected component of the surface
-as the "interior" of the polygon. This made it impossible to specify
-polygons which covered more than half of the sphere. Versions of
-ArangoDB from 3.10 on recognise this correctly. See [Section Legacy
-Polygons](#legacy-polygons) for how to deal with this issue.
+ArangoDB versions before 3.10 did not follow this rule and always took the
+"smaller" connected component of the surface as the "interior" of the polygon.
+This made it impossible to specify polygons which covered more than half of the
+sphere. From version 3.10 onward, ArangoDB recognizes this correctly.
+See [Legacy Polygons](#legacy-polygons) for how to deal with this issue.
 
 ### Non-GeoJSON mode
 
@@ -165,12 +164,12 @@ details, including the index-identifier, is returned.
 
 See above in [Section GeoJSON Mode](#geojson-mode) for details of the
 changes between earlier versions of ArangoDB before 3.10 and from 3.10
-on. Basically, two things have changed:
+on. Two things have changed:
 
-  - boundaries of polygons are now geodesics and there is no special
-    and inconsistent treatment of "rectangles" any more
-  - linear rings are interpreted according to the rules and no longer
-    "normalized"
+- boundaries of polygons are now geodesics and there is no special
+  and inconsistent treatment of "rectangles" any more
+- linear rings are interpreted according to the rules and no longer
+  "normalized"
 
 This creates an upgrade problem from earlier versions below 3.10 to
 versions of 3.10 and above: Previously generated geo indexes might have
@@ -180,35 +179,34 @@ parse polygons differently for insertions and deletions, we might end
 up with a corrupt geo index and wrong results.
 
 Therefore, the additional flag `legacyPolygons` has been introduced for
-geo indexes, it is relevant for those which have `geoJson` set to
+geo indexes, it is relevant for those that have `geoJson` set to
 `true`. Old geo indexes from versions from below 3.10 will always
 implicitly have the `legacyPolygons` flag set to `true`. Newly generated
 geo indexes from 3.10 on will have the `legacyPolygons` flag by default
 set to `false`, however, it can still be explicitly overwritten with
-`true` to create a legacy index, however, this is not recommended.
+`true` to create a legacy index. However, this is not recommended.
 
-A geo index with `legacyPolygons` set to `true` will use the old, pre
-3.10 rules for the parsing GeoJSON polygons. This will in particular
-allow that old indexes after an upgrade will still produce the same -
-potentially wrong - results as before the upgrade. A geo index with
+A geo index with `legacyPolygons` set to `true` will use the old, pre-3.10
+rules for the parsing GeoJSON polygons. This will in particular
+allow that old indexes after an upgrade will still produce the same –
+potentially wrong – results as before the upgrade. A geo index with
 `legacyPolygons` set to `false` will use the new, correct and consistent
 method for parsing of GeoJSON polygons.
 
-We recommend that if you use a geo index and upgrade from a version
+It is recommended that, if you use a geo index and upgrade from a version
 below 3.10 to a version of 3.10 or higher, you drop your old geo indexes
 and create new ones with `legacyPolygons` set to `false`.
 
 There is a caveat, though: It is possible that you have unknowingly
-been relying on the old - wrong - parsing of GeoJSON polygons. It is
+been relying on the old (wrong) parsing of GeoJSON polygons. It is
 in particular possible that you have polygons in your data which mean
 to refer to a relatively small region, but have the boundary running
 clockwise around the intended interior. In this case, they would have
-been interpreted as intended prior to 3.10, but from 3.10 on they would
+been interpreted as intended prior to 3.10, but from 3.10 on, they would
 be interpreted as "the other side" of the boundary. Unfortunately,
 these have to be found the hard way, because there is no way to detect
 this automatically, since the clockwise boundary might have been meant
 intentionally to specify the complement of the small region.
-
 
 Indexed GeoSpatial Queries
 --------------------------
@@ -228,7 +226,7 @@ output to check for index usage.
 
 A basic example of a query for results near an origin point:
 
-```
+```js
 FOR x IN geo_collection
   FILTER GEO_DISTANCE([@lng, @lat], x.geometry) <= 100000
   RETURN x._key
@@ -236,31 +234,31 @@ FOR x IN geo_collection
 
 or
 
-```
+```js
 FOR x IN geo_collection
   FILTER GEO_DISTANCE(@geojson, x.geometry) <= 100000
   RETURN x._key
 ```
 
-The first parameter can be a GeoJSON object or a coordinate array
-in `[longitude, latitude]` ordering. The second parameter is the
-document field `x.geometry` on which the index was created. The function
-`GEO_DISTANCE` always returns the distance in meters, so this query will
-receive results up until _100km_.
+The function `GEO_DISTANCE()` always returns the distance in meters, so this
+query will receive results up until _100km_.
 
-Note that in case of a GeoJSON object in the first parameter, the
-distance is measured from the **centroid of the object to the indexed
-point**. If the index has `geoJson` set to `true`, then the distance
-is measured from the **centroid of the object to the centroid of the indexed
-object**. This is - if not everything are points - usually not what one
-expects, but this is how `GEO_DISTANCE` is defined, and what the index
-can actually provide.
+The first parameter can be a GeoJSON object or a coordinate array in
+`[longitude, latitude]` ordering. The second parameter is the document field
+on that the index was created.
+
+In case of a GeoJSON object in the first parameter, the distance is measured
+from the **centroid of the object to the indexed point**. If the index has
+`geoJson` set to `true`, then the distance is measured from the
+**centroid of the object to the centroid of the indexed object**.
+This is – if not everything are points – usually not what one expects, but this
+is how `GEO_DISTANCE()` is defined, and what the index can actually provide.
 
 ### Query for Sorted Results near Origin (NEAR type query)
 
 A basic example of a query for the 1000 nearest results to an origin point (ascending sorting):
 
-```
+```js
 FOR x IN geo_collection
   SORT GEO_DISTANCE([@lng, @lat], x.geometry) ASC
   LIMIT 1000
@@ -268,20 +266,19 @@ FOR x IN geo_collection
 ```
 
 The first parameter can be a GeoJSON object or a coordinate array in
-`[longitude, latitude]` ordering. The second parameter is the documents
-field on which the index was created.
+`[longitude, latitude]` ordering. The second parameter is the document field
+on that the index was created.
 
-As before, in case of a GeoJSON object in the first parameter, the
-distance is measured from the **centroid of the object to the indexed
-point**. If the index has `geoJson` set to `true`, then the distance
-is measured from the **centroid of the object to the centroid of the indexed
-object**. This is - if not everything are points - usually not what one
-expects, but this is how `GEO_DISTANCE` is defined, and what the index
-can actually provide.
+In case of a GeoJSON object in the first parameter, the distance is measured
+from the **centroid of the object to the indexed point**. If the index has
+`geoJson` set to `true`, then the distance is measured from the
+**centroid of the object to the centroid of the indexed object**.
+This is – if not everything are points – usually not what one expects, but this
+is how `GEO_DISTANCE()` is defined, and what the index can actually provide.
 
 You may also get results farthest away (distance sorted in descending order):
 
-```
+```js
 FOR x IN geo_collection
   SORT GEO_DISTANCE([@lng, @lat], x.geometry) DESC
   LIMIT 1000
@@ -295,7 +292,7 @@ which is probably less likely to be useful in practice.
 A query which returns documents at a distance of _1km_ or farther away,
 and up to _100km_ from the origin: 
 
-```
+```js
 FOR x IN geo_collection
   FILTER GEO_DISTANCE([@lng, @lat], x.geometry) <= 100000
   FILTER GEO_DISTANCE([@lng, @lat], x.geometry) >= 1000
@@ -303,18 +300,28 @@ FOR x IN geo_collection
 ```
 
 This will return the documents with a GeoJSON value that is located in
-the specified search annulus. The analogous comments about the distance
-measurement applies as above in the other cases.
+the specified search annulus.
 
-Note that all these `GEO_DISTANCE` FILTER queries can be combined with a
-`SORT` clause on `GEO_DISTANCE` (provided they use the same basis
-point), resulting in a sequence of findings sorted by distance, but
-limited to the given `GEO_DISTANCE` boundaries.
+The first parameter can be a GeoJSON object or a coordinate array in
+`[longitude, latitude]` ordering. The second parameter is the document field
+on that the index was created.
+
+In case of a GeoJSON object in the first parameter, the distance is measured
+from the **centroid of the object to the indexed point**. If the index has
+`geoJson` set to `true`, then the distance is measured from the
+**centroid of the object to the centroid of the indexed object**.
+This is – if not everything are points – usually not what one expects, but this
+is how `GEO_DISTANCE()` is defined, and what the index can actually provide.
+
+Note that all these `GEO_DISTANCE()` FILTER queries can be combined with a
+`SORT` clause on `GEO_DISTANCE()` (provided they use the same basis point),
+resulting in a sequence of findings sorted by distance, but limited to the given
+`GEO_DISTANCE()` boundaries.
 
 ### Query for Results contained in Polygon
 
 A query which returns documents whose stored geometry is contained within a
-GeoJSON polygon.
+GeoJSON Polygon.
 
 ```
 LET polygon = GEO_POLYGON([[[60,35],[50,5],[75,10],[70,35]]])
@@ -323,19 +330,17 @@ FOR x IN geo_collection
   RETURN x
 ```
 
-The first parameter of `GEO_CONTAINS` must be a polygon. Other types
-are not really sensible, since for example a point cannot
-contain other GeoJSON objects than itself, and for others like lines,
-containment is not defined in a numerically stable way.
-The second parameter must contain the document field on which the index
-was created.
+The first parameter of `GEO_CONTAINS()` must be a polygon. Other types
+are not really sensible, since for example a point cannot contain other GeoJSON
+objects than itself, and for others like lines, containment is not defined in a
+numerically stable way. The second parameter must contain the document field on
+that the index was created.
 
-This FILTER clause can be combined with a SORT clause using
-`GEO_DISTANCE`.
+This `FILTER` clause can be combined with a `SORT` clause using `GEO_DISTANCE()`.
 
 Note that containment in the other direction like in:
 
-```
+```js
 LET polygon = GEO_POLYGON([[[60,35],[50,5],[75,10],[70,35]]])
 FOR x IN geo_collection
   FILTER GEO_CONTAINS(x.geometry, polygon)
@@ -346,7 +351,7 @@ is currently not supported by a geo index.
 
 ### Query for Results Intersecting a Polygon
 
-A query which returns documents with an intersection of their stored
+A query that returns documents with an intersection of their stored
 geometry and a GeoJSON Polygon.
 
 ```
@@ -356,14 +361,13 @@ FOR x IN geo_collection
   RETURN x
 ```
 
-The first parameter of `GEO_INTERSECTS` will usually be a polygon. Other types
-are not usually not practicle, although they should work.
+The first parameter of `GEO_INTERSECTS()` will usually be a polygon. Other types
+are not usually not practical, although they should work.
 
 The second parameter must contain the document field on which the index
 was created.
 
-This FILTER clause can be combined with a SORT clause using
-`GEO_DISTANCE`.
+This `FILTER` clause can be combined with a `SORT` clause using `GEO_DISTANCE()`.
 
 GeoJSON
 -------
@@ -388,11 +392,10 @@ Supported geometry object types are:
 - Polygon
 - MultiPolygon
 
-See [GeoJSON Mode](#geojson-mode) above for details on how ArangoDB
-interprets GeoJSON objects. In short: The **syntax** of GeoJSON is
-used, but polygon boundaries and lines between points are interpreted
-as geodesics (pieces of great circles on earth).
-
+See [GeoJSON Mode](#geojson-mode) for details on how ArangoDB interprets
+GeoJSON objects. In short: The **syntax** of GeoJSON is used, but polygon
+boundaries and lines between points are interpreted as geodesics
+(pieces of great circles on Earth).
 
 ### Point
 
@@ -471,11 +474,11 @@ Any subsequent elements represent interior rings (holes within the surface).
 - Within the same linear ring consecutive coordinates may be the same, otherwise
   (except the first and last one) all coordinates need to be distinct
 - A linear ring defines two regions on the sphere. ArangoDB will always
-  interpret the region which lies to the left of the boundary loop (in
+  interpret the region that lies to the left of the boundary loop (in
   the direction of its travel) as the interior of the ring. This is in
-  contrast to earlier versions of ArangoDB before 3.10, which always
+  contrast to earlier versions of ArangoDB before 3.10, that always
   took the **smaller** of the two regions as the interior. Therefore,
-  from 3.10 on one can now have polygons whose outer ring encloses more
+  from 3.10 on, one can now have polygons whose outer ring encloses more
   than half the Earth's surface.
 
 No Holes:
@@ -538,11 +541,11 @@ _Polygon_ coordinate arrays.
 - Polygons in the same MultiPolygon may not share edges, they may share coordinates
 - Polygons and rings must not be empty
 - A linear ring defines two regions on the sphere. ArangoDB will always interpret
-  the region, which lies to the left of the boundary loop (in
+  the region, that lies to the left of the boundary loop (in
   the direction of its travel) as the interior of the ring. This is in
-  contrast to earlier versions of ArangoDB before 3.10, which always
+  contrast to earlier versions of ArangoDB before 3.10, that always
   took the **smaller** of the two regions as the interior. Therefore,
-  from 3.10 on one can now have polygons whose outer ring encloses more
+  from 3.10 on, one can now have polygons whose outer ring encloses more
   than half the Earth's surface.
 - Linear rings **must** follow the above rule for orientation
   (counterclockwise external rings, clockwise internal rings, interior

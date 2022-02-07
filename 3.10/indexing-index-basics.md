@@ -369,12 +369,10 @@ The geo index stores two-dimensional coordinates. It can be created on either tw
 separate document attributes (latitude and longitude) or a single array attribute that
 contains both latitude and longitude. Latitude and longitude must be numeric values.
 
-Furthermore, a geo index can also index GeoJSON objects.
-GeoJSON is a
-[standard](https://datatracker.ietf.org/doc/html/rfc7946) to use JSON
-syntax to describe geometric objects on the surface of the earth. It
-can do points, lines and polygons. See [Section
-Geo-Spatial Indexes](./indexing-geo.html) for details.
+Furthermore, a geo index can also index GeoJSON objects. GeoJSON is a
+[standard](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}
+to use JSON syntax to describe geometric objects on the surface of the Earth.
+It supports points, lines, and polygons. See [Geo-Spatial Indexes](./indexing-geo.html).
 
 The geo index provides operations to find documents with coordinates nearest to a given 
 comparison coordinate, and to find documents with coordinates that are within a specifiable
@@ -382,8 +380,8 @@ radius around a comparison coordinate.
 
 The geo index is used via dedicated functions in AQL
 and it is implicitly applied when a SORT or FILTER is used with
-the distance function, or if FILTER conditions with `GEO_CONTAINS` or
-`GEO_INTERSECTS` are used. It will not be used for other types of queries
+the distance function, or if `FILTER` conditions with `GEO_CONTAINS()` or
+`GEO_INTERSECTS()` are used. It will not be used for other types of queries
 or conditions.
 
 
