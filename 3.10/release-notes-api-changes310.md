@@ -15,6 +15,9 @@ integrations for ArangoDB 3.10.
 
 ### Endpoint return value changes
 
+* `/_admin/metrics`, `/_admin/metrics/v2` We removed unnecessary spaces between the "}" delimiting the labels and the value of the metric
+
+
 ### Endpoints added
 
 ### Endpoints augmented
@@ -24,5 +27,7 @@ integrations for ArangoDB 3.10.
 ### Endpoints deprecated
 
 ### Endpoints removed
+
+* `/_admin/metrics`, metrics API v1 was deprecated in 3.8. Now we removed it, and `/_admin/metrics` just redirect you to `/_admin/metrics/v2`.
 
 ## JavaScript API
