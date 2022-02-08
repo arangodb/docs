@@ -1901,6 +1901,58 @@
     "section" : "",
     "type" : "boolean"
   },
+  "encryption.key-generator" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "program providing the encryption key on stdout. If set, encryption will be enabled.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "encryption",
+    "type" : "string"
+  },
+  "encryption.keyfile" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "file containing the encryption key. If set, encryption will be enabled.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "encryption",
+    "type" : "string"
+  },
   "fortune" : {
     "category" : "option",
     "component" : [
@@ -5625,6 +5677,35 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.structured-param" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "toggle usage of log category parameter in structured log messages",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string..."
+  },
   "log.thread" : {
     "category" : "option",
     "component" : [
@@ -7107,7 +7188,7 @@
       "agent",
       "single"
     ],
-    "default" : false,
+    "default" : true,
     "deprecatedIn" : null,
     "description" : "if turned on, the RocksDB block cache quota will also include RocksDB memtable sizes",
     "dynamic" : false,
@@ -7531,7 +7612,7 @@
       "agent",
       "single"
     ],
-    "default" : false,
+    "default" : true,
     "deprecatedIn" : null,
     "description" : "if true, strictly enforces the block cache size limit",
     "dynamic" : false,

@@ -43,9 +43,17 @@ In contrast to the other indexes, the contents of a persistent index are stored 
 
 ### Hash Index
 
+{% hint 'info' %}
+Hash index has been deprecated in 3.9 and will be removed in a future version of ArangoDB.
+{% endhint %}
+
 A hash index is now an alias for a persistent index.
 
 ### Skiplist Index
+
+{% hint 'info' %}
+Skiplist index has been deprecated in 3.9 and will be removed in a future version of ArangoDB.
+{% endhint %}
 
 A skiplist index is now an alias for a persistent index.
 
