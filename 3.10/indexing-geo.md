@@ -567,8 +567,12 @@ of multiple polygons. The "coordinates" member is an array of
 _Polygon_ coordinate arrays. See [above](#polygon) for the rules and
 the meaning of polygons.
 
-A point is in the interior of the MultiPolygon if and only if it is
-contained in one of the polygons.
+If the polygons in a MultiPolygon are disjoint, then a point is in the
+interior of the MultiPolygon if and only if it is
+contained in one of the polygons. If some polygon P2 in a MultiPolygon
+is contained in another polygon P1, then P2 is treated like a hole
+in P1 and containment of points is defined with the even-odd-crossings rule
+[explained above](#polygon).
 
 Additionally, the following rules apply and are enforced for
 MultiPolygons:
@@ -577,8 +581,6 @@ MultiPolygons:
   may intersect.
 - Polygons in the same MultiPolygon may not share edges, they may share
   coordinates.
-- Polygons in the same MultiPolygon must be disjoint, in particular,
-  they must not contain each other.
 
 Example with two polygons, the second one with a hole:
 
