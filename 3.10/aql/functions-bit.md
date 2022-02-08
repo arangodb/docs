@@ -38,8 +38,6 @@ input number value is 2<sup>32</sup> - 1. Input number values outside the allowe
 range will make the function return `null` and produce a warning. Any `null`
 values in the input array are ignored.
 
----
-
 `BIT_AND(value1, value2) → result`
 
 If two numbers are passed as individual function parameters to `BIT_AND()`, it
@@ -165,8 +163,6 @@ the array must be numbers, which must not be negative. The maximum supported
 input number value is 2<sup>32</sup> - 1. Input number values outside the
 allowed range will make the function return `null` and produce a warning.
 Any `null` values in the input array are ignored.
-
----
 
 `BIT_OR(value1, value2) → result`
 
@@ -316,8 +312,6 @@ the array must be numbers, which must not be negative. The maximum supported
 input number value is 2<sup>32</sup> - 1. Input number values outside the
 allowed range will make the function return `null` and produce a warning.
 Any `null` values in the input array are ignored.
-
----
 
 `BIT_XOR(value1, value2) → result`
 
