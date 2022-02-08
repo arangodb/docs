@@ -106,7 +106,6 @@ but the index attributes in `storedValues` are not checked for their uniqueness.
 Server options
 --------------
 
-
 ### RocksDB startup options
 
 The default value of the `--rocksdb.cache-index-and-filter-blocks` startup option was changed
