@@ -53,75 +53,11 @@ sparseness.
 In case that the index was successfully created, an object with the index
 details, including the index-identifier, is returned.
 
-Note the following technical detail about GeoJSON: The
-[GeoJSON standard, Section 3.1.1 Position](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1){:target="_blank"}
-prescribes that lines are **cartesian lines in cylindrical coordinates**
-(longitude/latitude). However, this definition is awkward in practice,
-since such lines are not geodesic on the surface of the earth.
-Furthermore, the best available algorithms for geospatial computations on Earth
-typically use geodesic lines as the boundaries of polygons on Earth.
-
-Therefore, ArangoDB uses the **syntax of the GeoJSON** standard,
-but then interpret lines (and boundaries of polygons) as
-**geodesic lines (pieces of great circles) on Earth**. This is a
-violation of the GeoJSON standard, but one which is sensible in practice.
-
-Note in particular that this can sometimes lead to unexpected results.
-For example, the polygon (remember that GeoJSON has **longitude before latitude**
-in coordinates):
-
-```json
-{ "type": "Polygon", "coordinates": [[
-  [10, 40], [20, 40], [20, 50], [10, 50], [10, 40]
-]] }
-```
-
-does not contain the point `[15, 40]`, since the shortest path
-(geodesic) from `[10, 40]` to `[20, 40]` lies North of the parallel of
-latitude with latitude 40. On the contrary, the polygon contains the
-point `[15, 50]` for a similar reason.
-
-{% hint 'info' %}
-ArangoDB version before 3.10 did an inconsistent special detection of such
-polygons that later versions from 3.10 onward no longer do, see
-[Legacy Polygons](#legacy-polygons).
-{% endhint %}
-
-Furthermore, there is an issue with the interpretation of linear rings
-(boundaries of polygons) according to
-[GeoJSON standard, Section 3.1.6 Polygon](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6){:target="_blank"}.
-This section states explicitly:
-
-> A linear ring MUST follow the right-hand rule with respect to the
-> area it bounds, i.e., exterior rings are counterclockwise, and
-> holes are clockwise.
-
-This rather misleading phrase means that when a linear ring is used as
-the boundary of a polygon, the "interior" of the polygon lies to the
-left of the boundary when one travels along the linear ring. For
-example, the polygon above travels counter-clockwise around the point
-`[15, 45]`, and thus the interior of the polygon contains this point and
-its surroundings, but not, for example, the North Pole and the South
-Pole.
-
-On the contrary, the polygon:
-
-```json
-{ "type": "Polygon", "coordinates": [[
-  [10, 40], [10, 50], [20, 50], [20, 40], [10, 40] ]] }
-```
-
-travels clock-wise around the point `[15, 45]`, and thus its "interior"
-does not contain `[15, 45]`, but does contain the North Pole and the
-South Pole. Remember that the "interior" is to the left of the given
-linear ring, so this second polygon is basically the complement on Earth
-of the previous polygon!
-
-ArangoDB versions before 3.10 did not follow this rule and always took the
-"smaller" connected component of the surface as the "interior" of the polygon.
-This made it impossible to specify polygons which covered more than half of the
-sphere. From version 3.10 onward, ArangoDB recognizes this correctly.
-See [Legacy Polygons](#legacy-polygons) for how to deal with this issue.
+See [Section GeoJSON Interpretation](#geojson-interpretation) 
+for some crucial technical details on how ArangoDB interprets GeoJSON
+objects. In short: The **syntax** of GeoJSON is used, but polygon
+boundaries and lines between points are interpreted as geodesics (pieces
+of great circles on Earth).
 
 ### Non-GeoJSON mode
 
@@ -162,7 +98,7 @@ details, including the index-identifier, is returned.
 
 ### Legacy Polygons
 
-See above in [Section GeoJSON Mode](#geojson-mode) for details of the
+See above in [Section GeoJSON Interpretation](#geojson-mode) for details of the
 changes between earlier versions of ArangoDB before 3.10 and from 3.10
 on. Two things have changed:
 
@@ -374,7 +310,7 @@ GeoJSON
 
 GeoJSON is a geospatial data format based on JSON. It defines several different
 types of JSON objects and the way in which they can be combined to represent
-data about geographic shapes on the earth surface. GeoJSON uses a geographic
+data about geographic shapes on the Earth surface. GeoJSON uses a geographic
 coordinate reference system, World Geodetic System 1984 (WGS 84), and units of decimal
 degrees.
 
@@ -392,10 +328,79 @@ Supported geometry object types are:
 - Polygon
 - MultiPolygon
 
-See [GeoJSON Mode](#geojson-mode) for details on how ArangoDB interprets
-GeoJSON objects. In short: The **syntax** of GeoJSON is used, but polygon
-boundaries and lines between points are interpreted as geodesics
-(pieces of great circles on Earth).
+### GeoJSON interpretation
+
+Note the following technical detail about GeoJSON: The
+[GeoJSON standard, Section 3.1.1 Position](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1){:target="_blank"}
+prescribes that lines are **cartesian lines in cylindrical coordinates**
+(longitude/latitude). However, this definition is awkward in practice,
+since such lines are not geodesic on the surface of the Earth.
+Furthermore, the best available algorithms for geospatial computations on Earth
+typically use geodesic lines as the boundaries of polygons on Earth.
+
+Therefore, ArangoDB uses the **syntax of the GeoJSON** standard,
+but then interpret lines (and boundaries of polygons) as
+**geodesic lines (pieces of great circles) on Earth**. This is a
+violation of the GeoJSON standard, but one which is sensible in practice.
+
+Note in particular that this can sometimes lead to unexpected results.
+For example, the polygon (remember that GeoJSON has **longitude before latitude**
+in coordinates):
+
+```json
+{ "type": "Polygon", "coordinates": [[
+  [10, 40], [20, 40], [20, 50], [10, 50], [10, 40]
+]] }
+```
+
+does not contain the point `[15, 40]`, since the shortest path
+(geodesic) from `[10, 40]` to `[20, 40]` lies North of the parallel of
+latitude with latitude 40. On the contrary, the polygon contains the
+point `[15, 50]` for a similar reason.
+
+{% hint 'info' %}
+ArangoDB version before 3.10 did an inconsistent special detection of such
+polygons that later versions from 3.10 onward no longer do, see
+[Legacy Polygons](#legacy-polygons).
+{% endhint %}
+
+Furthermore, there is an issue with the interpretation of linear rings
+(boundaries of polygons) according to
+[GeoJSON standard, Section 3.1.6 Polygon](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6){:target="_blank"}.
+This section states explicitly:
+
+> A linear ring MUST follow the right-hand rule with respect to the
+> area it bounds, i.e., exterior rings are counterclockwise, and
+> holes are clockwise.
+
+This rather misleading phrase means that when a linear ring is used as
+the boundary of a polygon, the "interior" of the polygon lies to the
+left of the boundary when one travels on the surface of the Earth and
+along the linear ring. For
+example, the polygon above travels counter-clockwise around the point
+`[15, 45]`, and thus the interior of the polygon contains this point and
+its surroundings, but not, for example, the North Pole and the South
+Pole.
+
+On the contrary, the polygon:
+
+```json
+{ "type": "Polygon", "coordinates": [[
+  [10, 40], [10, 50], [20, 50], [20, 40], [10, 40] ]] }
+```
+
+travels clock-wise around the point `[15, 45]`, and thus its "interior"
+does not contain `[15, 45]`, but does contain the North Pole and the
+South Pole. Remember that the "interior" is to the left of the given
+linear ring, so this second polygon is basically the complement on Earth
+of the previous polygon!
+
+ArangoDB versions before 3.10 did not follow this rule and always took the
+"smaller" connected component of the surface as the "interior" of the polygon.
+This made it impossible to specify polygons which covered more than half of the
+sphere. From version 3.10 onward, ArangoDB recognizes this correctly.
+See [Legacy Polygons](#legacy-polygons) for how to deal with this issue.
+
 
 ### Point
 
@@ -464,24 +469,56 @@ an array of LineString coordinate arrays:
 ### Polygon
 
 A [GeoJSON Polygon](https://tools.ietf.org/html/rfc7946#section-3.1.6){:target="_blank"} consists
-of a series of closed `LineString` objects (ring-like). These *Linear Ring* objects
-consist of four or more vertices with the first and last coordinate pairs
-being equal. Coordinates of a Polygon are an array of linear ring coordinate
-arrays. The first element in the array represents the exterior ring.
-Any subsequent elements represent interior rings (holes within the surface).
+of a series of closed `LineString` objects (ring-like). These *Linear
+Ring* objects consist of four or more vertices with the first and last
+coordinate pairs being equal. Coordinates of a Polygon are an array of
+linear ring coordinate arrays. The first element in the array represents
+the exterior ring. Any subsequent elements represent interior rings
+(holes within the surface).
 
-- A linear ring may not be empty, it needs at least three _distinct_ coordinates
-- Within the same linear ring consecutive coordinates may be the same, otherwise
-  (except the first and last one) all coordinates need to be distinct
+The orientation of the first linear ring is crucial, the right-hand-rule
+is applied, so that the area to the left of the path of the linear ring
+(when walking on the surface of the Earth) is considered to be the
+"interior" of the polygon. All other linear rings must be contained
+within this interior. According to the GeoJSON standard, the subsequent
+linear rings must be oriented following the right-hand-rule, too,
+that is, they must run **clockwise** around the hole (viewed from
+above). However, ArangoDB is tolerant here (as [suggested by the GeoJSON
+standard](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6)),
+all but the first linear ring are inverted if the orientation is wrong.
+
+In the end, a point is considered to be in the interior of the polygon,
+if and only if one has to cross an odd number of linear rings to reach the
+exterior of the polygon prescribed by the first linear ring.
+
+A number of additional rules apply (and are enforced by the GeoJSON
+parser):
+
+- A polygon must contain at least one linear ring, i.e., it must not be
+  empty.
+- A linear ring may not be empty, it needs at least three _distinct_
+  coordinates, that is, at least 4 coordinate pairs (since the first and
+  last must be the same).
+- No two edges of linear rings in the polygon must intersect, in
+  particular, no linear ring may be self-intersecting.
+- Within the same linear ring consecutive coordinates may be the same,
+  otherwise (except the first and last one) all coordinates need to be
+  distinct.
+- Linear rings of a polygon must not share edges, they may however share
+  vertices.
 - A linear ring defines two regions on the sphere. ArangoDB will always
   interpret the region which lies to the left of the boundary ring (in
-  the direction of its travel on the surface of the earth) as the
+  the direction of its travel on the surface of the Earth) as the
   interior of the ring. This is in contrast to earlier versions of
   ArangoDB before 3.10, which always took the **smaller** of the two
   regions as the interior. Therefore, from 3.10 on one can now have
   polygons whose outer ring encloses more than half the Earth's surface.
+- The interior rings must be contained in the (interior) of the outer ring.
+- Interior rings should follow the above rule for orientation
+  (counterclockwise external rings, clockwise internal rings, interior
+  always to the left of the line).
 
-No Holes:
+Here is an example with no holes:
 
 ```json
 {
@@ -498,17 +535,8 @@ No Holes:
 }
 ```
 
-With Holes:
+Here is an example with a hole:
 
-- The exterior ring should not self-intersect.
-- The interior rings must be contained in the outer ring
-- No two rings can cross each other, i.e. no ring may intersect both
-  the interior and exterior face of another ring
-- Rings cannot share edges, they may however share vertices
-- No ring may be empty
-- Polygon rings must follow the above rule for orientation
-  (counterclockwise external rings, clockwise internal rings, interior
-  always to the left of the line).
 
 ```json
 {
@@ -536,20 +564,21 @@ With Holes:
 
 A [GeoJSON MultiPolygon](https://tools.ietf.org/html/rfc7946#section-3.1.6){:target="_blank"} consists
 of multiple polygons. The "coordinates" member is an array of
-_Polygon_ coordinate arrays. 
+_Polygon_ coordinate arrays. See [above](#polygon) for the rules and
+the meaning of polygons.
 
-- Polygons in the same MultiPolygon may not share edges, they may share coordinates
-- Polygons and rings must not be empty
-- A linear ring defines two regions on the sphere. ArangoDB will always interpret
-  the region, that lies to the left of the boundary loop (in
-  the direction of its travel) as the interior of the ring. This is in
-  contrast to earlier versions of ArangoDB before 3.10, that always
-  took the **smaller** of the two regions as the interior. Therefore,
-  from 3.10 on, one can now have polygons whose outer ring encloses more
-  than half the Earth's surface.
-- Linear rings **must** follow the above rule for orientation
-  (counterclockwise external rings, clockwise internal rings, interior
-  always to the left of the line).
+A point is in the interior of the MultiPolygon if and only if it is
+contained in one of the polygons.
+
+Additionally, the following rules apply and are enforced for
+MultiPolygons:
+
+- No two edges in the linear rings of the polygons of a MultiPolygon
+  may intersect.
+- Polygons in the same MultiPolygon may not share edges, they may share
+  coordinates.
+- Polygons in the same MultiPolygon must be disjoint, in particular,
+  they must not contain each other.
 
 Example with two polygons, the second one with a hole:
 

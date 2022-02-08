@@ -390,38 +390,19 @@ RETURN GEO_POINT(1.0, 2.0)
 
 `GEO_POLYGON(points) → geoJson`
 
-See also [this Section](../indexing-geo.html#polygon).
-
 Construct a GeoJSON Polygon. Needs at least one array representing
-a linear ring. Each linear ring consists of an array with at least three
+a linear ring. Each linear ring consists of an array with at least four
 longitude/latitude pairs. The first linear ring must be the outermost, while
 any subsequent linear ring will be interpreted as holes.
 
-The orientation of the first linear ring is crucial, the right-hand-rule
-is applied, so that the area to the left of the path of the linear ring
-(when walking on earth) is considered to be the "interior" or the
-polygon. All other linear rings must be contained within this interior.
-According to the GeoJSON standard, the subsequent linear rings must
-also be oriented following the right-hand-rule, that is, they
-must run **clockwise** around the whole (viewed from above).
-However, ArangoDB is tolerant here (as [suggested by the GeoJSON
-standard](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6)),
-all but the first linear ring are inverted if the orientation is wrong and the
-polygons prescribed by the linear rings are not properly nested in the first
-one.
-
-No two edges of linear rings in the polygon must intersect and no vertex must
-occur in more than one of the linear rings.
-
-In the end, a point is considered to be in the interior of the polygon,
-if and only if one has to cross an odd number of linear rings to reach the
-exterior of the polygon prescribed by the first linear ring.
+For details about the rules, see [GeoJSON polygons](../indexing-geo.html#polygon).
 
 - **points** (array): array of (arrays of) longitude/latitude pairs
 - returns **geoJson** (object\|null): a valid GeoJSON Polygon
 
-A validation step is performed using S2, if the validation is not
-successful, an AQL warning is issued and `null` is returned.
+A validation step is performed using the S2 geometry library, if the
+validation is not successful, an AQL warning is issued and `null` is
+returned.
 
 Simple Polygon:
 
@@ -455,16 +436,14 @@ RETURN GEO_POLYGON([
 `GEO_MULTIPOLYGON(polygons) → geoJson`
 
 Construct a GeoJSON MultiPolygon. Needs at least two Polygons inside.
-See [GEO_POLYGON()](#geo_polygon) for the rules of Polygon construction.
-
-No two edges of linear rings in the multipolygon must intersect and no vertex
-must occur in more than one of the linear ring.
+See [GEO_POLYGON()](#geo_polygon) and [GeoJSON Multipolygons](../indexing-geo.html#multipolygon) for the rules of Polygon and multipolygon construction.
 
 - **polygons** (array): array of arrays of array of longitude/latitude pairs
 - returns **geoJson** (object\|null): a valid GeoJSON MultiPolygon
 
-A validation step is performed using S2, if the validation is not
-successful, an AQL warning is issued and `null` is returned.
+A validation step is performed using the S2 geometry library, if the
+validation is not successful, an AQL warning is issued and `null` is
+returned.
 
 MultiPolygon comprised of a simple Polygon and a Polygon with hole:
 
