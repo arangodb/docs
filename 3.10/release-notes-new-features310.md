@@ -31,30 +31,28 @@ AQL
 
 ### GeoJSON changes
 
-Our use of [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946) has
-been clarified and cleaned up. See [GeoJSON
-Mode](./indexing-geo.html#geojson-mode) for details.
+The use of [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}
+has been clarified and cleaned up. See [GeoJSON Mode](indexing-geo.html#geojson-mode)
+for details.
 
-There are basically two fundamental changes:
+There are two fundamental changes:
 
- 1. The syntax of GeoJSON objects is interpreted such that lines on the
-    sphere are geodesics (pieces of great circles). This is in
-    particular true for boundaries of polygons. No special treatment
-    of longitude-latitude-rectangles is done any more.
+- The syntax of GeoJSON objects is interpreted such that lines on the
+  sphere are geodesics (pieces of great circles). This is in
+  particular true for boundaries of polygons. No special treatment
+  of longitude-latitude-rectangles is done any more.
 
- 2. Linear rings in polygons are no longer automatically normalized such
-    that the "smaller" of the two connected components is the interior.
-    This allows to specify polygons which cover more than half of
-    the surface of the earth and conforms to the GeoJSON standard.
+- Linear rings in polygons are no longer automatically normalized such
+  that the "smaller" of the two connected components is the interior.
+  This allows to specify polygons that cover more than half of
+  the surface of the Earth and conforms to the GeoJSON standard.
 
 As a consequence, geo indexes need to be dropped and recreated after an
 upgrade. See [Legacy Polygons](indexing-geo.html#legacy-polygons) for
-details and for hints for upgrades from versions before 3.10 to a
-version 3.10 or later.
+details and for hints about upgrading to version 3.10 or later.
 
-Quite a few bugs producing wrong results in geo queries with geo indexes
+Multiple issues producing wrong results in geo queries with geo indexes
 have been fixed.
-
 
 Server options
 --------------

@@ -53,37 +53,35 @@ because of numerical stability problems.
 - **geoJsonB** (object): second GeoJSON object or coordinate array (in longitude, latitude order)
 - returns **bool** (bool): true if every point in B is also contained in A, false otherwise
 
-Note that ArangoDB faithfully shows the same behavior as the underlying
-S2 geometry library in the following sense. The S2 documentation says:
+{% hint 'info' %}
+ArangoDB follows and exposes the same behavior as the underlying
+S2 geometry library. As stated in the S2 documentation:
 
-```
-Point containment is defined such that if the sphere is subdivided
-into faces (linear ring), every point is contained by exactly one face. This
-implies that linear rings do not necessarily contain their vertices.
-```
+> Point containment is defined such that if the sphere is subdivided
+> into faces (loops), every point is contained by exactly one face.
+> This implies that linear rings do not necessarily contain their vertices.
 
 As a consequence, a linear ring or polygon does not necessarily contain its
 boundary edges!
+{% endhint %}
 
 A query containing a FILTER expression of the form
 
-```
+```js
   FOR doc IN collectionname
     FILTER GEO_CONTAINS(geoJson, doc.geo)
     ...
 ```
 
 can be **optimized** by an S2 based [geospatial index](../indexing-geo.html) 
-on the attribute `geo` of the collection `collectionname`, if `geoJson`
+on the attribute `geo` of the collection `collectionname`, only if `geoJson`
 evaluates to a valid GeoJSON object, and the index has the `geoJson`
-flag set to `true`. Note that it has to be in this order of arguments,
-whereas this FILTER:
+flag set to `true`.
 
-```
-  FILTER GEO_CONTAINS(doc.geo, geoJson)
-```
+Note the argument order. The stored document attribute is passed
+as second argument. Passing it as first argument, like `FILTER
+GEO_CONTAINS(doc.geo, geoJson)`, cannot make use of an index.
 
-cannot make use of an index at this stage.
 
 ### GEO_DISTANCE()
 
@@ -112,28 +110,30 @@ FOR doc IN collectionName
   RETURN distance
 ```
 
-A query containing a FILTER expression of the form
+A query containing a `FILTER` expression of the form
 
-```
-  FOR doc IN collectionname
-    FILTER GEO_DISTANCE(geoJson, doc.geo) <= limit
-    ...
+```js
+FOR doc IN collectionname
+  FILTER GEO_DISTANCE(geoJson, doc.geo) <= limit
+  ...
 ```
 
-can be **optimized** by an S2 based [geospatial index](../indexing-geo.html) 
-on the attribute `geo` of the collection `collectionname`, if `geoJson`
-evaluates to a valid GeoJSON object and the index has the `geoJson`
-flag set to `true`. `limit` must be a distance in meters. Similarly,
-an upper bound with `<` and/or a lower bound with `>` or `>=` is
-supported. Finally, a `SORT` condition of this form:
+can be **optimized** by an S2 based [geospatial index](../indexing-geo.html)
+(on the attribute `geo` of the collection `collectionname` in this
+example), only if `geoJson` evaluates to a valid GeoJSON object and the
+index has the `geoJson` option set to `true`.
 
-```
-    SORT GEO_DISTANCE(geoJson, doc.geo)
+`limit` must be a distance in meters. Similarly, an upper bound with `<`
+and/or a lower bound with `>` or `>=` is supported. Finally, a `SORT`
+condition of this form:
+
+```js
+  SORT GEO_DISTANCE(geoJson, doc.geo)
 ```
 
 and combinations with the above can be used. This `SORT` clause can be
-combined with the `GEO_CONTAINS` and `GEO_INTERSECTS` filters described
-above and below.
+combined with [`GEO_CONTAINS()`](#geo_contains) and
+[`GEO_INTERSECTS()`](#geo_intersects).
 
 ### GEO_AREA()
 
@@ -204,18 +204,18 @@ intersects with `geoJsonB` (i.e. at least one point in B is also A or vice-versa
 - **geoJsonB** (object): second GeoJSON object.
 - returns **bool** (bool): true if B intersects A, false otherwise
 
-A query containing a FILTER expression of the form
+A query containing a `FILTER` expression of the form:
 
-```
-  FOR doc IN collectionname
-    FILTER GEO_INTERSECTS(geoJson, doc.geo)
-    ...
+```js
+FOR doc IN collectionname
+  FILTER GEO_INTERSECTS(geoJson, doc.geo)
+  ...
 ```
 
-can be **optimized** by an S2 based [geospatial index](../indexing-geo.html) 
-on the attribute `geo` of the collection `collectionname`, if `geoJson`
-evaluates to a valid GeoJSON object, and the index has the `geoJson`
-flag set to `true`.
+can be **optimized** by an S2 based [geospatial index](../indexing-geo.html)
+(on the attribute `geo` of the collection `collectionname` in this example), if
+`geoJson` evaluates to a valid GeoJSON object, and the index has the `geoJson`
+option set to `true`.
 
 ### GEO_IN_RANGE()
 

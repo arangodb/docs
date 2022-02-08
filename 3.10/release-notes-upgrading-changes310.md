@@ -37,26 +37,25 @@ now discouraged.
 ### Geo indexes
 
 After an upgrade from a version below 3.10 to a version of 3.10 and
-higher, we recommend to drop and recreate geo indexes. The reason is
-that we interpret GeoJSON polygons slightly differently (and more
+higher, it is recommended to drop and recreate geo indexes. The reason is
+that GeoJSON polygons are interpreted slightly different (and more
 correctly) in the newer versions.
 
 Legacy geo indexes will continue to work and continue to produce the
 same results as in earlier versions, since they will have the flag
 `legacyPolygons` implicitly set to `true`.
 
-Newly created indexes will have `legacyPolygons` by default set to
-`false` and thus enable the new polygon parsing.
-See [Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
+Newly created indexes will have `legacyPolygons` set to `false` by default
+and thus enable the new polygon parsing.
 
-Note that in particular linear rings which are boundaries of polygons
+Note that linear rings that are boundaries of polygons
 will no longer be automatically "normalized". This means that the
-"interior" of a polygon will now be - strictly conforming to the GeoJSON
-standard - to the left of the boundary line (in the direction of travel).
+"interior" of a polygon will now be – strictly conforming to the GeoJSON
+standard – to the left of the boundary line (in the direction of travel).
 This can be the "larger" connected component of the surface or the
 smaller one. This can mean that old polygon GeoJSON data in the database
-is suddenly interpreted in a different way. Users need to be aware of
-this.
+is suddenly interpreted in a different way.
+
 See [Legacy Polygons](indexing-geo.html#legacy-polygons) for details.
 
 Startup options
