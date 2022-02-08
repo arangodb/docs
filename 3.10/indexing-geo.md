@@ -471,12 +471,12 @@ Any subsequent elements represent interior rings (holes within the surface).
 - Within the same linear ring consecutive coordinates may be the same, otherwise
   (except the first and last one) all coordinates need to be distinct
 - A linear ring defines two regions on the sphere. ArangoDB will always
-  interpret the region which lies to the left of the boundary loop (in
-  the direction of its travel) as the interior of the ring. This is in
-  contrast to earlier versions of ArangoDB before 3.10, which always
-  took the **smaller** of the two regions as the interior. Therefore,
-  from 3.10 on one can now have polygons whose outer ring encloses more
-  than half the Earth's surface.
+  interpret the region which lies to the left of the boundary ring (in
+  the direction of its travel on the surface of the earth) as the
+  interior of the ring. This is in contrast to earlier versions of
+  ArangoDB before 3.10, which always took the **smaller** of the two
+  regions as the interior. Therefore, from 3.10 on one can now have
+  polygons whose outer ring encloses more than half the Earth's surface.
 
 No Holes:
 
