@@ -29,7 +29,7 @@ different usage scenarios:
 
   Since ArangoDB 3.10, persistent indexes allow storing additional attributes in 
   the index that can be used to cover more queries (`storedValues` index attribute). 
-  These additional attributes cannot be used for lookups/filtering nor sorting, 
+  These additional attributes cannot be used for lookups/filtering or sorting, 
   but they can be used for projections. The additional attributes in `storedValues`
   are also not checked for uniqueness in unique indexes.
 
