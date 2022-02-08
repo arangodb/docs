@@ -10,13 +10,13 @@ Generates bash completion scripts
 ## Synopsis
 
 To load completion run
-	
-. <(oasisctl completion [bash|fish|powershell|zsh])
-	
+
+    . <(oasisctl completion [bash|fish|powershell|zsh])
+
 To configure your bash shell to load completions for each session add to your bashrc
-	
-# ~/.bashrc or ~/.profile
-. <(oasisctl completion bash)
+
+    # ~/.bashrc or ~/.profile
+    . <(oasisctl completion bash)
 
 
 ```
