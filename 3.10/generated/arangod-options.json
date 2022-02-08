@@ -760,7 +760,7 @@
       "agent",
       "single"
     ],
-    "default" : 16341497856,
+    "default" : 16341510144,
     "deprecatedIn" : null,
     "description" : "size of cache in bytes",
     "dynamic" : true,
@@ -1900,6 +1900,58 @@
     "requiresValue" : false,
     "section" : "",
     "type" : "boolean"
+  },
+  "encryption.key-generator" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "program providing the encryption key on stdout. If set, encryption will be enabled.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "encryption",
+    "type" : "string"
+  },
+  "encryption.keyfile" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : "",
+    "deprecatedIn" : null,
+    "description" : "file containing the encryption key. If set, encryption will be enabled.",
+    "dynamic" : false,
+    "enterpriseOnly" : true,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : null,
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "encryption",
+    "type" : "string"
   },
   "fortune" : {
     "category" : "option",
@@ -5625,6 +5677,35 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.structured-param" : {
+    "category" : "option",
+    "component" : [
+      "coordinator",
+      "dbserver",
+      "agent",
+      "single"
+    ],
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "toggle usage of log category parameter in structured log messages",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string..."
+  },
   "log.thread" : {
     "category" : "option",
     "component" : [
@@ -6180,7 +6261,7 @@
       "agent",
       "single"
     ],
-    "default" : 54685914808,
+    "default" : 54685954621,
     "deprecatedIn" : null,
     "description" : "memory threshold for all AQL queries combined (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -6293,7 +6374,7 @@
       "agent",
       "single"
     ],
-    "default" : 40508085043,
+    "default" : 40508114535,
     "deprecatedIn" : null,
     "description" : "memory threshold per AQL query (in bytes, 0 = no limit)",
     "dynamic" : true,
@@ -7081,7 +7162,7 @@
       "agent",
       "single"
     ],
-    "default" : 19609797427,
+    "default" : 19609812172,
     "deprecatedIn" : null,
     "description" : "size of block cache in bytes",
     "dynamic" : true,
@@ -7107,7 +7188,7 @@
       "agent",
       "single"
     ],
-    "default" : false,
+    "default" : true,
     "deprecatedIn" : null,
     "description" : "if turned on, the RocksDB block cache quota will also include RocksDB memtable sizes",
     "dynamic" : false,
@@ -7531,7 +7612,7 @@
       "agent",
       "single"
     ],
-    "default" : false,
+    "default" : true,
     "deprecatedIn" : null,
     "description" : "if true, strictly enforces the block cache size limit",
     "dynamic" : false,
@@ -8862,7 +8943,7 @@
       "agent",
       "single"
     ],
-    "default" : 26146396569,
+    "default" : 26146416230,
     "deprecatedIn" : null,
     "description" : "maximum total size of in-memory write buffers (0 = unbounded)",
     "dynamic" : true,

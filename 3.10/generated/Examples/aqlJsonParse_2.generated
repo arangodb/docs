@@ -1,0 +1,12 @@
+@Q:
+RETURN JSON_PARSE(<span class="hljs-string">&quot;[ true, false, null, -0.5 ]&quot;</span>)
+
+@R
+[
+  [
+    <span class="hljs-literal">true</span>,
+    <span class="hljs-literal">false</span>,
+    <span class="hljs-literal">null</span>,
+    -<span class="hljs-number">0.5</span>
+  ]
+]
