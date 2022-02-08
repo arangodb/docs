@@ -370,8 +370,8 @@ separate document attributes (latitude and longitude) or a single array attribut
 contains both latitude and longitude. Latitude and longitude must be numeric values.
 
 Furthermore, a geo index can also index [standard GeoJSON
-objects](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"
-}. GeoJSON uses JSON syntax to describe geometric objects on the surface
+objects](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}.
+GeoJSON uses JSON syntax to describe geometric objects on the surface
 of the Earth. It supports points, lines, and polygons. See [Geo-Spatial
 Indexes](./indexing-geo.html).
 

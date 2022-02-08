@@ -128,10 +128,11 @@ different usage scenarios:
   and a SORT or FILTER statement is used in conjunction with the distance
   function.
 
-  Furthermore, the geo index and AQL can work with GeoJSON objects. GeoJSON is a
-  [standard](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}
-  to use JSON syntax to describe geometric objects on the surface of the Earth.
-  It supports points, lines, and polygons. See [Geo-Spatial Indexes](./indexing-geo.html).
+  Furthermore, a geo index can also index [standard GeoJSON
+  objects](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}.
+  GeoJSON uses JSON syntax to describe geometric objects on the surface
+  of the Earth. It supports points, lines, and polygons. See [Geo-Spatial
+  Indexes](./indexing-geo.html).
 
 - **fulltext index**: a fulltext index can be used to index all words contained in
   a specific attribute of all documents in a collection. Only words with a 
