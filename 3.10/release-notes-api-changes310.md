@@ -19,6 +19,16 @@ integrations for ArangoDB 3.10.
 
 ### Endpoints augmented
 
+The cursor API can now return two additional statistics values in its `stats` subattribute:
+
+* *cursorsCreated*: the total number of cursor objects created during query execution. Cursor
+  objects are created for index lookups.
+* *cursorsRearmed*: the total number of times an existing cursor object was repurposed. 
+  Repurposing an existing cursor object is normally more efficient compared to destroying an 
+  existing cursor object and creating a new one from scratch.
+
+These attributes are optional and only useful for detailed performance analyses.
+
 ### Endpoints moved
 
 ### Endpoints deprecated
