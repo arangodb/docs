@@ -177,8 +177,6 @@ favor of the new `GEO_CONTAINS` AQL function, which works with
 IS_IN_POLYGON( [ [ 0, 0 ], [ 0, 10 ], [ 10, 10 ], [ 10, 0 ] ], 4, 7 )
 ```
 
----
-
 `IS_IN_POLYGON(polygon, coord, useLonLat) → bool`
 
 The 2nd parameter can alternatively be specified as an array with two values.

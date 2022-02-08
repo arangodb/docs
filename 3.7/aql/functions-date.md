@@ -144,8 +144,6 @@ The date time string will always use UTC / Zulu time, indicated by the *Z* at it
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **dateString**: date and time expressed according to ISO 8601, in Zulu time
 
----
-
 `DATE_ISO8601(year, month, day, hour, minute, second, millisecond) → dateString`
 
 Return a ISO 8601 date time string from *date*, but allows to specify the individual
@@ -169,8 +167,6 @@ To convert the return value to seconds, divide it by 1000.
 
 - **date** (number\|string): numeric timestamp or ISO 8601 date time string
 - returns **timestamp** (number): numeric timestamp
-
----
 
 `DATE_TIMESTAMP(year, month, day, hour, minute, second, millisecond) → timestamp`
 
@@ -552,8 +548,8 @@ Return the number of days in the month of *date*.
 {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
   @startDocuBlockInline datedysmn4
   @EXAMPLE_AQL{datedysmn4}
-    RETURN DATE_DAYS_IN_MONTH("2021-02-01")
-  @END_EXAMPLE_AQL
+  RETURN DATE_DAYS_IN_MONTH("2021-02-01")
+    @END_EXAMPLE_AQL
   @endDocuBlock datedysmn4
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
@@ -759,8 +755,6 @@ DATE_ADD(DATE_TIMESTAMP(DATE_YEAR(DATE_NOW()), 12, 24), -4, "years") // Christma
 DATE_ADD(DATE_ADD("2016-02", "month", 1), -1, "day") // last day of February (29th, because 2016 is a leap year!)
 ```
 
----
-
 `DATE_ADD(date, isoDuration) → isoDate`
 
 You may also pass an ISO duration string as *amount* and leave out *unit*.
@@ -819,8 +813,6 @@ durations are not supported (i.e. starting with `-P`, like `-P1Y`).
   - s, second, seconds
   - f, millisecond, milliseconds
 - returns **isoDate** (string): the calculated ISO 8601 date time string
-
----
 
 `DATE_SUBTRACT(date, isoDuration) → isoDate`
 
