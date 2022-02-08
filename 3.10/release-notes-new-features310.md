@@ -171,6 +171,10 @@ A compiler with c++-20 support is thus needed to compile ArangoDB from source.
 
 ### Upgraded bundled library versions
 
+The bundled version of the RocksDB library has been upgraded from 6.8.0 to 6.29.0.
+
 The bundled version of the Boost library has been upgraded from 1.71.0 to 1.78.0.
 
 The bundled version of the immer library has been upgraded from 0.6.2 to 0.7.0.
+
+The bundled version of the jemalloc library has been upgraded from 5.2.1-dev to 5.2.1-RC.
