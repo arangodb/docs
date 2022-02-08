@@ -809,6 +809,29 @@
     "section" : "log",
     "type" : "boolean"
   },
+  "log.structured-param" : {
+    "category" : "option",
+    "default" : [
+    ],
+    "deprecatedIn" : null,
+    "description" : "toggle usage of log category parameter in structured log messages",
+    "dynamic" : false,
+    "enterpriseOnly" : false,
+    "experimental" : false,
+    "hidden" : false,
+    "introducedIn" : [
+      "v3.10.0"
+    ],
+    "obsolete" : false,
+    "os" : [
+      "linux",
+      "macos",
+      "windows"
+    ],
+    "requiresValue" : true,
+    "section" : "log",
+    "type" : "string..."
+  },
   "log.thread" : {
     "category" : "option",
     "default" : false,
