@@ -17,14 +17,6 @@ ArangoSearch
 UI
 --
 
-### Rebalance shards
-
-The rebalance shards section displays a button for rebalancing shards. A new DB-Server will not have any shards. With the rebalance functionality, 
-the cluster will start to rebalance shards including empty DB-Servers. You can specify the maximum number of shards that can be 
-moved in each operation by using the `--cluster.max-number-of-move-shards` flag in arangod (the default value is 10).
-When the button is clicked, the number of scheduled move shards operations is shown, or it is displayed that 
-no move operations have been scheduled if they are not necessary.
-
 
 AQL
 ---
@@ -36,27 +28,27 @@ Server options
 
 ### RocksDB startup options
 
-The default value of the startup option `--rocksdb.cache-index-and-filter-blocks` changes
+The default value of the `--rocksdb.cache-index-and-filter-blocks` startup option was changed
 from `false` to `true`. This makes RocksDB track all loaded index and filter blocks in the 
-block cache, so they are accounted against RocksDB's block cache memory limit. 
-The default value for the startup option `--rocksdb.enforce-block-cache-size-limit` also
-changes from `false` to `true` to make the RocksDB block cache not temporarily exceed the 
+block cache, so they are accounted against the RocksDB's block cache memory limit. 
+The default value for the `--rocksdb.enforce-block-cache-size-limit` startup option was also
+changed from `false` to `true` to make the RocksDB block cache not temporarily exceed the 
 configured memory limit.
 
 These default value changes will make RocksDB adhere much better to the configured memory limit
 (configurable via `--rocksdb.block-cache-size`). 
-The changes may have a small negative impact on performance because if the block cache is 
+The changes may have a small negative impact on performance because, if the block cache is 
 not large enough to hold the data plus the index and filter blocks, additional disk I/O may 
-need to be performed compared now to previous versions. 
+need to be performed compared to the previous versions. 
 This is a trade-off between memory usage predictability and performance, and ArangoDB 3.10
-will default to more stable and predictable memory usage. In case there is still unused RAM 
+will default to more stable and predictable memory usage. If there is still unused RAM 
 capacity available, it may be sensible to increase the total size of the RocksDB block cache,
-by increasing `--rocksdb.block-cache-size`). Due to the changed configuration, the block 
+by increasing `--rocksdb.block-cache-size`. Due to the changed configuration, the block 
 cache size limit will not be exceeded anymore.
 
-It is possible to opt out of this change and get back the memory and performance characteristics
-of previous versions by setting the startup options `--rocksdb.cache-index-and-filter-blocks` 
-and `--rocksdb.enforce-block-cache-size-limit` to `false` on startup.
+It is possible to opt out of these changes and get back the memory and performance characteristics
+of previous versions by setting the `--rocksdb.cache-index-and-filter-blocks` 
+and `--rocksdb.enforce-block-cache-size-limit` startup options to `false` on startup.
 
 
 Miscellaneous changes
