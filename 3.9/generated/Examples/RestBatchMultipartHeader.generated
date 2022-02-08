@@ -37,7 +37,7 @@ EOF
 HTTP/1.1 200 OK
 content-type: multipart/form-data
 connection: Keep-Alive
-content-length: 2279
+content-length: 2281
 server: ArangoDB
 x-arango-errors: 1
 x-arango-queue-time-seconds: 0.000000
@@ -51,12 +51,12 @@ HTTP/1.1 200 OK
 Server: 
 Connection: Close 
 Content-Type: application/json; charset=utf-8
-Content-Length: 65
+Content-Length: 67
 
 { 
   <span class="hljs-string">&quot;server&quot;</span> : <span class="hljs-string">&quot;arango&quot;</span>, 
   <span class="hljs-string">&quot;license&quot;</span> : <span class="hljs-string">&quot;enterprise&quot;</span>, 
-  <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.9.0-rc.1&quot;</span> 
+  <span class="hljs-string">&quot;version&quot;</span> : <span class="hljs-string">&quot;3.9.0-beta.1&quot;</span> 
 }&#x21A9;
 
 --SomeBoundaryValue
@@ -91,14 +91,14 @@ Content-Length: 424
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
   <span class="hljs-string">&quot;waitForSync&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
-  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;h5D466CB8E11B/66920&quot;</span>, 
+  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;hD69524F1C383/66928&quot;</span>, 
   <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;internalValidatorType&quot;</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">&quot;isSmartChild&quot;</span> : <span class="hljs-literal">false</span>, 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;66920&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;66928&quot;</span>, 
   <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;products&quot;</span>, 
   <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">&quot;objectId&quot;</span> : <span class="hljs-string">&quot;66919&quot;</span>, 
+  <span class="hljs-string">&quot;objectId&quot;</span> : <span class="hljs-string">&quot;66927&quot;</span>, 
   <span class="hljs-string">&quot;usesRevisionsAsDocumentIds&quot;</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">&quot;schema&quot;</span> : <span class="hljs-literal">null</span>, 
   <span class="hljs-string">&quot;writeConcern&quot;</span> : <span class="hljs-number">1</span>, 
@@ -131,7 +131,7 @@ Content-Length: 543
   <span class="hljs-string">&quot;syncByRevision&quot;</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">3</span>, 
   <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-number">0</span>, 
-  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;h5D466CB8E11B/66920&quot;</span>, 
+  <span class="hljs-string">&quot;globallyUniqueId&quot;</span> : <span class="hljs-string">&quot;hD69524F1C383/66928&quot;</span>, 
   <span class="hljs-string">&quot;isSystem&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;internalValidatorType&quot;</span> : <span class="hljs-number">0</span>, 
   <span class="hljs-string">&quot;isSmartChild&quot;</span> : <span class="hljs-literal">false</span>, 
@@ -152,10 +152,10 @@ Content-Length: 543
     <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-string">&quot;traditional&quot;</span>, 
     <span class="hljs-string">&quot;lastValue&quot;</span> : <span class="hljs-number">0</span> 
   }, 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;66920&quot;</span>, 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;66928&quot;</span>, 
   <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;products&quot;</span>, 
   <span class="hljs-string">&quot;type&quot;</span> : <span class="hljs-number">2</span>, 
-  <span class="hljs-string">&quot;objectId&quot;</span> : <span class="hljs-string">&quot;66919&quot;</span>, 
+  <span class="hljs-string">&quot;objectId&quot;</span> : <span class="hljs-string">&quot;66927&quot;</span>, 
   <span class="hljs-string">&quot;usesRevisionsAsDocumentIds&quot;</span> : <span class="hljs-literal">true</span>, 
   <span class="hljs-string">&quot;schema&quot;</span> : <span class="hljs-literal">null</span> 
 }&#x21A9;
@@ -173,7 +173,7 @@ Content-Length: 39
 { 
   <span class="hljs-string">&quot;error&quot;</span> : <span class="hljs-literal">false</span>, 
   <span class="hljs-string">&quot;code&quot;</span> : <span class="hljs-number">200</span>, 
-  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;66920&quot;</span> 
+  <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-string">&quot;66928&quot;</span> 
 }&#x21A9;
 
 --SomeBoundaryValue--
