@@ -201,8 +201,6 @@ DECODE_REV( "_YU0HOEG---" )
 
 ### SHARD_ID()
 
-<small>Introduced in: v3.8.5</small>
-
 `SHARD_ID(collection, shardKeys) → shardId`
 
 Return the shard in a collection that contains specified shard keys.
