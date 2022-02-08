@@ -123,44 +123,6 @@ CollectionOperations collection = template.collection(MyObject.class);
 Collection<IndexEntity> indexes = collection.getIndexes();
 ```
 
-## CollectionOperations.ensureHashIndex
-
-```
-CollectionOperations.ensureHashIndex(Iterable<String> fields, HashIndexOptions options) : IndexEntity
-```
-
-Creates a hash index for the collection if it does not already exist.
-
-**Arguments**
-
-- **fields**: `Iterable<String>`
-
-  A list of attribute paths
-
-- **options**: `HashIndexOptions`
-
-  - **unique**: `Boolean`
-
-    If true, then create a unique index
-
-  - **sparse**: `Boolean`
-
-    If true, then create a sparse index
-
-  - **deduplicate**: `Boolean`
-
-    If false, the deduplication of array values is turned off.
-
-**Examples**
-
-```Java
-@Autowired ArangoOperations template;
-
-CollectionOperations collection = template.collection(MyObject.class);
-IndexEntity index = collection.ensureHashIndex(Arrays.asList("a", "b.c"), new HashIndexOptions());
-// the index has been created with the handle `index.getId()`
-```
-
 ## CollectionOperations.ensureGeoIndex
 
 ```

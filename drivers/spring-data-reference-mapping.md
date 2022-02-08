@@ -152,8 +152,6 @@ To deactivate the type mapping process, you can return `null` from the `typeKey(
 | @Transient              | field, method, annotation | marks a field to be transient for the mapping framework, thus the property will not be persisted and not further inspected by the mapping framework |
 | @PersistenceConstructor | constructor               | marks a given constructor - even a package protected one - to use when instantiating the object from the database                                   |
 | @TypeAlias("alias")     | class                     | set a type alias for the class when persisted to the DB                                                                                             |
-| @HashIndex              | class                     | describes a hash index                                                                                                                              |
-| @HashIndexed            | field                     | describes how to index the field                                                                                                                    |
 | @PersistentIndex        | class                     | describes a persistent index                                                                                                                        |
 | @PersistentIndexed      | field                     | describes how to index the field                                                                                                                    |
 | @GeoIndex               | class                     | describes a geo index                                                                                                                               |
