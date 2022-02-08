@@ -369,10 +369,11 @@ The geo index stores two-dimensional coordinates. It can be created on either tw
 separate document attributes (latitude and longitude) or a single array attribute that
 contains both latitude and longitude. Latitude and longitude must be numeric values.
 
-Furthermore, a geo index can also index GeoJSON objects. GeoJSON is a
-[standard](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"}
-to use JSON syntax to describe geometric objects on the surface of the Earth.
-It supports points, lines, and polygons. See [Geo-Spatial Indexes](./indexing-geo.html).
+Furthermore, a geo index can also index [standard GeoJSON
+objects](https://datatracker.ietf.org/doc/html/rfc7946){:target="_blank"
+}. GeoJSON uses JSON syntax to describe geometric objects on the surface
+of the Earth. It supports points, lines, and polygons. See [Geo-Spatial
+Indexes](./indexing-geo.html).
 
 The geo index provides operations to find documents with coordinates nearest to a given 
 comparison coordinate, and to find documents with coordinates that are within a specifiable
