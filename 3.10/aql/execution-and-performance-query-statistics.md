@@ -36,19 +36,25 @@ The meaning of the statistics attributes is as follows:
 
 * *writesExecuted*: the total number of data-modification operations successfully executed.
   This is equivalent to the number of documents created, updated or removed by `INSERT`,
-  `UPDATE`, `REPLACE` or `REMOVE` operations.
+  `UPDATE`, `REPLACE`, `REMOVE` or `UPSERT` operations.
 * *writesIgnored*: the total number of data-modification operations that were unsuccessful,
   but have been ignored because of query option `ignoreErrors`.
 * *scannedFull*: the total number of documents iterated over when scanning a collection 
-  without an index. Documents scanned by subqueries will be included in the result, but not
-  no operations triggered by built-in or user-defined AQL functions.
+  without an index. Documents scanned by subqueries will be included in the result, but
+  operations triggered by built-in or user-defined AQL functions will not.
 * *scannedIndex*: the total number of documents iterated over when scanning a collection using
-  an index. Documents scanned by subqueries will be included in the result, but not
-  no operations triggered by built-in or user-defined AQL functions.
+  an index. Documents scanned by subqueries will be included in the result, but operations
+  triggered by built-in or user-defined AQL functions will not.
+* *cursorsCreated*: the total number of cursor objects created during query execution. Cursor
+  objects are created for index lookups.
+* *cursorsRearmed*: the total number of times an existing cursor object was repurposed. 
+  Repurposing an existing cursor object is normally more efficient compared to destroying an 
+  existing cursor object and creating a new one from scratch.
 * *filtered*: the total number of documents that were removed after executing a filter condition
-  in a `FilterNode`. Note that `IndexRangeNode`s can also filter documents by selecting only
+  in a `FilterNode`. Note that `IndexNode`s can also filter documents by selecting only
   the required index range from a collection, and the `filtered` value only indicates how much
-  filtering was done by `FilterNode`s.
+  filtering was done by `FilterNode`s or post-index filter conditions pulled into `IndexNode`s
+  or `EnumerateCollectionNode`s.
 * *fullCount*: the total number of documents that matched the search condition if the query's
   final top-level `LIMIT` statement were not present.
   This attribute may only be returned if the `fullCount` option was set when starting the 
