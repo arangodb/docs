@@ -295,8 +295,6 @@ of keys to return all documents that can be found.
 {% endaqlexample %}
 {% include aqlexample.html id=examplevar type=type query=query bind=bind result=result %}
 
----
-
 `DOCUMENT(id) → doc`
 
 The function can also be used with a single parameter *id* as follows:

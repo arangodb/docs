@@ -12,14 +12,14 @@ Query String (116 chars, cacheable: false):
 
 Execution plan:
  Id   NodeType                  Calls   Items   Runtime [s]   Comment
-  1   SingletonNode                 1       1       0.00002   * ROOT
+  1   SingletonNode                 1       1       0.00001   * ROOT
  12   SubqueryStartNode             1       2       0.00002     - LET list = ( /* subquery begin */
-  3   EnumerateCollectionNode      11   10001       0.00461       - FOR doc IN acollection   /* full collection scan  */
-  4   CalculationNode              11   10001       0.00449         - LET #5 = (doc.`value` &gt; 90)   /* simple expression */   /* collections used: doc : acollection */
-  5   FilterNode                   10    9910       0.00403         - FILTER #5
- 13   SubqueryEndNode               1       1       0.00320         - RETURN  doc ) /* subquery end */
-  8   EnumerateListNode            10    9909       0.00280     - FOR a IN list   /* list iteration */
-  9   CalculationNode              10    9909       0.00442       - LET #7 = (a.`value` &lt; 91)   /* simple expression */
+  3   EnumerateCollectionNode      11   10001       0.00519       - FOR doc IN acollection   /* full collection scan  */
+  4   CalculationNode              11   10001       0.00473         - LET #5 = (doc.`value` &gt; 90)   /* simple expression */   /* collections used: doc : acollection */
+  5   FilterNode                   10    9910       0.00451         - FILTER #5
+ 13   SubqueryEndNode               1       1       0.00350         - RETURN  doc ) /* subquery end */
+  8   EnumerateListNode            10    9909       0.00275     - FOR a IN list   /* list iteration */
+  9   CalculationNode              10    9909       0.00440       - LET #7 = (a.`value` &lt; 91)   /* simple expression */
  10   FilterNode                    1       0       0.00168       - FILTER #7
  11   ReturnNode                    1       0       0.00001       - RETURN a
 
@@ -32,7 +32,7 @@ Optimization rules applied:
 
 Query Statistics:
  Writes Exec   Writes Ign   Scan Full   Scan Index   Filtered   Peak Mem [b]   Exec Time [s]
-           0            0       10000            0      10000         753664         0.02601
+           0            0       10000            0      10000         753664         0.02757
 
 Query Profile:
  Query Stage           Duration [s]
@@ -41,8 +41,8 @@ Query Profile:
  optimizing ast             0.00001
  loading collections        0.00002
  instantiating plan         0.00008
- optimizing plan            0.00046
- executing                  0.02531
- finalizing                 0.00006
+ optimizing plan            0.00049
+ executing                  0.02684
+ finalizing                 0.00005
 
 
