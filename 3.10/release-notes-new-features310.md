@@ -59,6 +59,17 @@ Query Statistics:
            0            0           0        71000      10300          98304         0.16231
 ```
 
+### Lookahead for Multi-Dimensional Indexes
+
+The multi-dimensional index type `zkd` now supports an optional index hint for
+tweaking performance:
+
+```js
+FOR … IN … OPTIONS { lookahead: 32 }
+```
+
+See [Lookahead Index Hint](indexing-multi-dim.html#lookahead-index-hint).
+
 Indexes
 -------
 
@@ -101,7 +112,6 @@ and uniqueness but different `storedValues` attributes. That means the value of
 index is already present or needs to be created.
 In unique indexes, only the index attributes in `fields` are checked for uniqueness,
 but the index attributes in `storedValues` are not checked for their uniqueness.
-
 
 Server options
 --------------
