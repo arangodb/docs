@@ -19,6 +19,8 @@ integrations for ArangoDB 3.10.
 
 ### Endpoints augmented
 
+#### Cursor API
+
 The cursor API can now return two additional statistics values in its `stats` subattribute:
 
 * *cursorsCreated*: the total number of cursor objects created during query execution. Cursor
@@ -28,6 +30,8 @@ The cursor API can now return two additional statistics values in its `stats` su
   existing cursor object and creating a new one from scratch.
 
 These attributes are optional and only useful for detailed performance analyses.
+
+#### Index API
 
 The index creation API at POST `/_api/index` now accepts an optional `storedValues` 
 attribute to include additional attributes in a persistent index.
