@@ -31,6 +31,30 @@ Its common to have attributes attached to edges, i.e. a *label* naming this inte
 Edges have a direction, with their relations `_from` and `_to` pointing *from* one document *to* another document stored in vertex collections.
 In queries you can define in which directions the edge relations may be followed (`OUTBOUND`: `_from` → `_to`, `INBOUND`: `_from` ← `_to`, `ANY`: `_from` ↔ `_to`).
 
+Supported Graph Algorithms
+--------------------------
+
+- [Traversal](aql/graphs-traversals.html)
+  - following edges in outbound, inbound, or any direction
+  - variable traversal depth between a defined minimum and maximum 
+  - breadth-first, depth-first, and weighted traversals
+  - optionally with prune conditions
+- [Shortest Path](aql/graphs-shortest-path.html)
+- [k Shortest Paths](aql/graphs-kshortest-paths.html)
+- [k Paths](aql/graphs-k-paths.html)
+- [Distributed Iterative Graph Processing (Pregel)](graphs-pregel.html)
+  - Page Rank
+  - Seeded Page Rank
+  - Single-Source Shortest Path (SSSP)
+  - Connected Components
+  - Weakly Connected Components (WCC)
+  - Strongly Connected Components (SCC)
+  - Hyperlink-Induced Topic Search (HITS)
+  - Effective Closeness Vertex Centrality
+  - LineRank Vertex Centrality
+  - Label Propagation Community Detection
+  - Speaker-Listener Label Propagation (SLPA) Community Detection
+
 Named Graphs
 ------------
 

@@ -36,7 +36,7 @@ Supported Graph Algorithms
 
 - [Traversal](aql/graphs-traversals.html)
   - following edges in outbound, inbound, or any direction
-  - dynamic traversal depth between a defined minimum and maximum 
+  - variable traversal depth between a defined minimum and maximum 
   - breadth-first, depth-first, and weighted traversals
   - optionally with prune conditions
 - [Shortest Path](aql/graphs-shortest-path.html)
