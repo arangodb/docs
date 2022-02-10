@@ -1117,6 +1117,30 @@ lines:
 ~ db._drop("collection");
 ```
 
+Examples need to remove the collections and Views they create. Not dropping them
+will raise an error unless they are specifically exempt:
+
+```js
+~ db._create("collection");
+~ db._createView("view", "arangosearch", {...});
+  db.collection.save({...});
+~ addIgnoreView("view");
+~ addIgnoreCollection("collection");
+```
+
+This is helpful for creating collections and Views once, using them in multiple
+examples, and finally dropping them instead of having to create and drop them
+in each example. You need to choose the names for the DocuBlocks so that they
+are alphabetically sortable to have them execute in the correct order. The last
+example of the series should undo the ignore to catch unintended leftovers:
+
+```js
+~ removeIgnoreCollection("collection");
+~ removeIgnoreView("view");
+~ db._dropView("view");
+~ db._drop("collection");
+```
+
 If a statement is expected to fail (e.g. to demonstrate the error case), then
 this has to be indicated with a special JavaScript comment:
 
@@ -1128,6 +1152,27 @@ This will make the example generation continue despite the error. See
 [Error codes and meanings](https://www.arangodb.com/docs/stable/appendix-error-codes.html)
 for a list of all error codes and their names. If a unexpected error is raised,
 then the example generation will abort with an error.
+
+If you want to wrap the special comment to a new line but suppress and empty
+line in the output, you can use `|` on the first and `~` on the second line:
+
+```js
+| db._document("collection/does_not_exist");
+~ // xpError(ERROR_ARANGO_DOCUMENT_NOT_FOUND)
+```
+
+Every backslash in a query needs to be escaped with another backslash, i.e.
+JSON escape sequences require two backslashes, and literal backslashes four:
+
+```js
+db._query(`RETURN REGEX_SPLIT("foo\\t bar\\r baz\\n foob", "\\\\s+|(?:b\\\\b)")`).toArray();
+```
+
+This does not apply to backslashes in bind variables:
+
+```js
+db._query(`RETURN REGEX_SPLIT(@t, @r)`, {t: "foo\t bar\r baz\n foob", r: "\\s+|(?:b\\b)"}).toArray();
+```
 
 ### Adding a new AQL example
 
@@ -1212,6 +1257,346 @@ FOR elem IN @arr
 }
 ```
 
+### Adding a new DocuBlock
+
+DocuBlocks define reusable pieces of content but the DocuBlocks system is mainly
+used for describing the HTTP API by now. It is also used for arangosh and AQL
+examples, using inline DocuBlocks (see above).
+
+The source files for Rest DocuBlocks that describe and demonstrate the HTTP API
+are located in the main repository at `Documentation/DocuBlocks/Rest/`:
+<https://github.com/arangodb/arangodb/tree/devel/Documentation/DocuBlocks/Rest>
+They are written in a proprietary text format that can be converted to
+[Swagger 2.0 definitions](https://swagger.io/specification/v2/) as well as
+rendered by the documentation tooling.
+
+To embed a DocuBlock in the documentation, use the `docublock` tag in a Markdown
+file:
+
+```
+{% docublock name %}
+```
+
+Complete example of a Rest DocuBlock:
+
+```
+@startDocuBlock post_api_foo
+@brief creates a foo
+
+@RESTHEADER{POST /_api/foo/{param}, Create foo, createFoo}
+
+@HINTS
+{% hint 'warning' %}
+Text to be displayed in a callout box.
+{% endhint %}
+
+@RESTDESCRIPTION
+Detailed description of the endpoint.
+
+@RESTURLPARAMETERS
+
+@RESTURLPARAM{param,string,required}
+Dynamic piece of the URL path, signified by curly {braces} in the @RESTHEADER route.
+
+@RESTQUERYPARAMETERS
+
+@RESTQUERYPARAM{creationOption,boolean,optional}
+One-off setting that is not persisted unlike e.g. collection properties.
+
+@RESTBODYPARAM{name,string,required,string}
+Primitive body parameter that is of type string and mandatory.
+
+@RESTBODYPARAM{fooOptions,object,optional,post_api_foo_opts}
+Complex body parameter with key `fooOptions` and an object as value.
+The object is described by @RESTSTRUCTs that reference `post_api_foo_opts`.
+
+@RESTSTRUCT{type,post_api_foo_opts,integer,required,int64}
+A nested parameter with parent `fooOptions`, key `type`, and expecting an integer as value.
+
+@RESTRETURNCODES
+
+@RESTRETURNCODE{200}
+HTTP status code returned if the request was successful.
+
+@RESTREPLYBODY{error,boolean,required,}
+`false` in this case
+
+@RESTRETURNCODE{400}
+HTTP status code returned if the request failed.
+
+@RESTREPLYBODY{error,boolean,required,}
+`true` in this case
+
+@EXAMPLES
+
+@EXAMPLE_ARANGOSH_RUN{RestFooCreate}
+    var url = "/_api/foo/example?creationOption=true";
+    var body = {
+      name: "testFoo",
+      fooOptions: {
+        type: 123
+      }
+    };
+
+    var response = logCurlRequest('POST', url, body);
+    assert(response.code === 200);
+    logJsonResponse(response);
+@END_EXAMPLE_ARANGOSH_RUN
+
+@endDocuBlock
+```
+
+Every DocuBlock starts with `@startDocuBlock` followed by a name, and ends with
+`@endDocuBlock`.
+
+```
+@startDocuBlock post_api_foo
+...
+@endDocuBlock
+```
+
+There is typically just one DocuBlock in a file but a single file can contain
+multiple DocuBlocks.
+
+The naming convention is to use `snake_case` and the pattern `method_path`, e.g.
+`post_api_collection` for the `POST /_api/collection` endpoint. The DocuBlock
+name is often used as file name, too, but it can deviate. The file extension is
+`.md` as the content is Markdown-formatted text (DocuBlock markup aside).
+
+The first structural element in a DocuBlock should be `@brief`, followed by a
+summary of what the endpoint does:
+
+```
+@brief creates a foo
+```
+
+The next element should be the `@RESTHEADER`:
+
+```
+@RESTHEADER{VERB /url/{param}, Description, operationId}
+```
+
+- `VERB`: An HTTP method, one of: `GET`, `POST`, `PATCH`, `PUT`, `DELETE`, `HEAD`
+- `/url…`: URL path of the endpoint. Should start with a `/`. May contain
+  placeholders in curly braces for URL parameters (here: `{param}`) that need to
+  be described in a subsequent `@RESTURLPARAMETERS` section by a `@RESTURLPARAM`
+  element.
+- `Description`: A short description of what the endpoint is for. More or less
+  the same as `@brief`.
+- `operationId`: A string that identifies this endpoint. Needs to be unique
+  across all endpoint descriptions. It defaults to a de-spaced `Description`.
+  It should not be changed anymore.
+
+There can optionally be a `@HINTS` element with one or more `hint` blocks:
+
+```
+@HINTS
+{% hint 'type' %}
+Remarks to highlight.
+{% endhint %}
+```
+
+- `type`: One of `tip`, `info`, `warning`, `security`, `danger`
+
+If `@RESTHEADER` contains at least one `{placeholder}` for URL parameters, then
+a `@RESTURLPARAMETERS` section with `@RESTURLPARAM` elements for every
+placeholder is required:
+
+```
+@RESTURLPARAMETERS
+
+@RESTURLPARAM{param,type,necessity}
+Description.
+
+@RESTURLPARAM...
+```
+
+- `param`: Name of the URL parameter. Needs to match the placeholder in `@RESTHEADER`.
+- `type`: [Swagger type](https://swagger.io/specification/v2/#data-types)
+  (should always be `string`)
+- `necessity`: needs to be `required`. `optional` is not supported anymore.
+  Create a second DocuBlock without the parameter if necessary.
+
+If an endpoint supports query parameters (like `?param1=aaa&param2=bbb` after
+the URL path), then a `@RESTQUERYPARAMETERS` section with `@RESTQUERYPARAM`
+elements for every query paramter is needed:
+
+```
+@RESTQUERYPARAMETERS
+
+@RESTQUERYPARAM{name,type,necessity}
+Description.
+
+@RESTQUERYPARAM...
+```
+
+- `param`: Name of the query parameter.
+- `type`: [Swagger type](https://swagger.io/specification/v2/#data-types)
+  (typically `string` or `boolean`)
+- `necessity`: either `required` or `optional`
+
+To describe the request payload, use `@RESTBODYPARAM` elements. Note that there
+is no `@RESTBODYPARAMETERS` section:
+
+```
+@RESTBODYPARAM{name,type,necessity,subtype}
+Description.
+
+@RESTBODYPARAM...
+```
+
+- `name`: The name of the body parameter.
+- `type`: [Swagger type](https://swagger.io/specification/v2/#data-types)
+  (typically `string`, `boolean`, `integer`, `number`), `array`, or `object`
+- `necessity`: either `required` or `optional`
+- `subtype`: can be a [Swagger format](https://swagger.io/specification/v2/#data-types),
+  reference a `@RESTSTRUCT` by name (if `type` is `object` or `array`), or be
+  empty.
+
+Example of a body parameter that expects an array of strings:
+
+```
+@RESTBODYPARAM{fields,array,required,string}
+```
+
+Example of a body parameter that expects an array of objects without further
+description of these objects:
+
+```
+@RESTBODYPARAM{primarySort,array,optional,object}
+```
+
+Example of a body parameter that expects an array of objects. Each object needs
+to have a `username` key with a string value, and can optionally have an `active`
+key with a boolean value:
+
+```
+@RESTBODYPARAM{users,array,optional,user_object}
+
+@RESTSTRUCT{username,user_object,string,required,}
+Login name of an existing user or one to be created.
+
+@RESTSTRUCT{active,user_object,boolean,optional,}
+Whether the account should be activated or not. Defaults to `true`.
+```
+
+Note that you can reference `@RESTSTRUCT`s that are defined in other files.
+This is useful for sharing common data structures. The files called
+`1_structs.md` are used for this kind of sharing. The `1_` prefix was chosen
+because operating systems typically iterate folder contents in alphabetical
+order, ensuring that it gets processed before other files in the same folder,
+so that the `@RESTSTRUCT` definition is available before it gets referenced.
+
+If an endpoint has a schemaless JSON body or plaintext payload, then you can
+use a single `@RESTALLBODYPARAM` element instead of any `@RESTBODYPARAM`s:
+
+```
+@RESTALLBODYPARAM{name,type,necessity}
+Description.
+```
+
+- `name`: A name, unused
+- `type`: `json` / `object` or `string` (plaintext)
+- `necessity`: `required` or `optional`
+
+To describe the response payload, use a `@RESTRETURNCODES` section with one or
+more `@RESTRETURNCODE` subsections. You should add a subsection for every
+relevant HTTP status code. General status codes that are not specific to the
+endpoint (e.g. `503 Service Unavailable`) should not be described. Each
+subsection may have `@RESTREPLYBODY` elements that describe the response
+data structure:
+
+```
+@RESTRETURNCODES
+
+@RESTRETURNCODE{status}
+Description.
+
+@RESTREPLYBODY{name,type,necessity,subtype}
+Description.
+
+@RESTREPLYBODY...
+
+@RESTRETURNCODE...
+
+@RESTREPLYBODY...
+```
+
+- `status`: A 3-digit HTTP status code.
+- `name`: The name of the reply body attribute.
+- `type`: [Swagger type](https://swagger.io/specification/v2/#data-types)
+  (typically `string`, `boolean`, `integer`, `number`), `array`, or `object`
+- `necessity`: either `required` or `optional`
+- `subtype`: can be a [Swagger format](https://swagger.io/specification/v2/#data-types),
+  reference a `@RESTSTRUCT` by name (if `type` is `object` or `array`), or be
+  empty.
+
+For nested data structures, as well for sharing structural descriptions between
+DocuBlocks, you can use `@RESTSTRUCT`. Such structs can be referenced in
+`@RESTBODYPARAM`, `@RESTREPLYBODY`, and other `@RESTSTRUCT` elements.
+
+```
+@RESTSTRUCT{name,struct,type,necessity,subtype}
+Description.
+```
+
+- `name`: The name of the body parameter.
+- `type`: [Swagger type](https://swagger.io/specification/v2/#data-types)
+  (typically `string`, `boolean`, `integer`, `number`), `array`, or `object`
+- `necessity`: either `required` or `optional`
+- `subtype`: can be a [Swagger format](https://swagger.io/specification/v2/#data-types),
+  reference a `@RESTSTRUCT` by name (if `type` is `object` or `array`), or be
+  empty.
+
+Special case of a `@RESTREPLYBODY` element referencing a `@RESTSTRUCT` as
+top-level object description (note the empty `name`):
+
+```
+@RESTREPLYBODY{,object,required,collection_info}
+```
+
+You can add an arbitrary number of examples to a DocuBlock in an `@EXAMPLES`
+section. An HTTP API example needs to be wrapped by `@EXAMPLE_ARANGOSH_RUN` and
+`@END_EXAMPLE_ARANGOSH_RUN`:
+
+```
+@EXAMPLES
+
+@EXAMPLE_ARANGOSH_RUN{name}
+    /* code */
+@END_EXAMPLE_ARANGOSH_RUN
+
+@EXAMPLE_ARANGOSH_RUN...
+```
+
+- `name`: The name of the example. Will be used as file name
+  `Documentation/Examples/<name>.generated`. The convention for Rest DocuBlocks
+  is to use PascalCase, `Rest` as prefix, the endpoint name, and succint
+  description of what the example is about, e.g. `RestCollectionCreateKeyopt`.
+
+Unlike arangosh examples (`@EXAMPLE_ARANGOSH_OUTPUT`), requests and responses
+need to be output explicitly by calling one of the following functions:
+
+- `logCurlRequest(method, url, body) → response`: make and output an HTTP request
+- `logCurlRequestRaw(method, url, body) → response`: make and output an HTTP
+  request without code highlighting
+- `logCurlRequestPlain(method, url, body) → response`: make and output an HTTP
+  request, with the payload decoded (new lines instead of `\r\n` etc.). Useful
+  for formatting complex requests.
+- `logJsonResponse(response)`: output a JSON server reply (fails on invalid JSON)
+- `logJsonLResponse(response)`: output a JSONL server reply (fails on invalid JSON)
+- `logRawResponse(response)`: output plaintext response (do not use for JSON replies)
+- `logPlainResponse(response)`: output decoded response (new lines instead of
+  `\r\n` etc.). Useful for formatting complex responses, like from batch requests.
+- `logHtmlResponse(response)`: output HTML
+- `logErrorResponse(response)`: dump reply to error log for testing
+  (makes example generation fail)
+
+To test whether requests and replies are as expected, you can add
+`assert(expression)` calls. Expressions that evaluate to false will make the
+example generation fail. You may inspect the generated JavaScript code of the
+failed example in `arangosh.examples.js`.
+
 ## Troubleshooting
 
 - ```
@@ -1280,6 +1665,23 @@ FOR elem IN @arr
   Look at the generated `.html` file if in doubt. A `redirect_from` frontmatter
   might be bad (e.g. wrong version number in path) and accidentally overwrite
   a page, removing the original content and links.
+
+- ```
+  docs/<version>/programs-arangod-options.html
+    target does not exist --- docs/<version>/programs-arangod-options.html --> programs-arangod-<something>.html
+  ```
+
+  This error may start to occur after an update of the generated examples.
+
+  The ArangoDB server (`arangod`) has numerous startup options. Each startup
+  option section (`--section.name`) has its own page `programs-arangod-<section>.md`.
+  The parent page `programs-arangod-options.md` automatically links to these
+  subpages (see `_includes/program-options.html`) without checking if this page
+  actually exists.
+
+  When a new section is added to `arangod` (seldom), it is necessary to create a
+  corresponding page in the docs. If no detailed descriptions are available for
+  the newly added startup options, then reuse the `arangod` option descriptions.
 
 - ```
   Configuration file: none
