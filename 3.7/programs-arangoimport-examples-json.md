@@ -246,4 +246,7 @@ Using multiple threads may lead to a non-sequential import of the input
 data. Data that appears later in the input file may be imported earlier than data
 that appears earlier in the input file. This is normally not a problem but may cause
 issues when when there are data dependencies or duplicates in the import data. In
-this case, the number of threads should be set to 1.
+this case, the number of threads should be set to 1. Also, using parallelism with the
+parameter `--threads X` can lead to a race condition when there are duplicates
+e.g. multiple equal `_key`values, so even ignoring the duplicates will make the
+output unpredictable, meaning not knowing which document will be inserted. 
