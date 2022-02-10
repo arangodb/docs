@@ -15,7 +15,8 @@ integrations for ArangoDB 3.10.
 
 ### Endpoint return value changes
 
-* `/_admin/metrics`, `/_admin/metrics/v2` We removed unnecessary spaces between the "}" delimiting the labels and the value of the metric
+
+For the metrics APIs at `/_admin/metrics` and `/_admin/metrics/v2` unnecessary spaces have been removed between the "}" delimiting the labels and the value of the metric.
 
 
 ### Endpoints added
