@@ -29,7 +29,8 @@ they are. Previously the number of filtered inputs was only available as a total
 profiling output, and it wasn't clear which execution node caused which amount of filtering.
 
 For example, consider the following query:
-```
+
+```js
 FOR doc1 IN collection
   FILTER doc1.value1 < 1000  /* uses index */
   FILTER doc1.value2 NOT IN [1, 4, 7]  /* post filter */
@@ -41,7 +42,8 @@ FOR doc1 IN collection
 
 The profiling output for this query now shows how often the filters were invoked for the 
 different execution nodes:
-```
+
+```js
 Execution plan:
  Id   NodeType        Calls   Items   Filtered   Runtime [s]   Comment
   1   SingletonNode       1       1          0       0.00008   * ROOT
@@ -61,8 +63,8 @@ Query Statistics:
 
 ### Lookahead for Multi-Dimensional Indexes
 
-The multi-dimensional index type `zkd` now supports an optional index hint for
-tweaking performance:
+The multi-dimensional index type `zkd` (experimental) now supports an optional
+index hint for tweaking performance:
 
 ```js
 FOR … IN … OPTIONS { lookahead: 32 }
@@ -83,13 +85,14 @@ but only for projections.
 
 For example consider the following index definition:
 
-```
+```js
 db.<collection>.ensureIndex({ 
   type: "persistent", 
   fields: ["value1"], 
   storedValues: ["value2"] 
 });
 ```
+
 This will index the `value1` attribute in the traditional sense, so the index 
 can be used for looking up by `value1` or for sorting by `value1`. The index also
 supports projections on `value1` as usual.
