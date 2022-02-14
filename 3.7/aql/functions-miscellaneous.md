@@ -496,6 +496,19 @@ as described in [Type and value order](fundamentals-type-value-order.html) and
 is thus identical to the comparison operators `<`, `<=`, `>` and `>=` in
 behavior.
 
+You can use `IN_RANGE()` for more efficient filtering compared to an equivalent
+expression using two comparison operators and a conjunction:
+
+- `IN_RANGE(value, low, high, true, true)` instead of `low <= value AND value <= high`
+- `IN_RANGE(value, low, high, true, false)` instead of `low <= value AND value < high`
+- `IN_RANGE(value, low, high, false, true)` instead of `low < value AND value <= high`
+- `IN_RANGE(value, low, high, false, false)` instead of `low < value AND value < high`
+
+{% hint 'info' %}
+The regular `IN_RANGE()` function can not utilize indexes, unlike its
+ArangoSearch counterpart which can use the View index.
+{% endhint %}
+
 - **value** (any): an element of arbitrary type
 - **low** (any): minimum value of the desired range
 - **high** (any): maximum value of the desired range
@@ -508,11 +521,6 @@ behavior.
 If *low* and *high* are the same, but *includeLow* and/or *includeHigh* is set
 to `false`, then nothing will match. If *low* is greater than *high* nothing will
 match either.
-
-{% hint 'info' %}
-The regular `IN_RANGE()` function can not utilize indexes, unlike its
-ArangoSearch counterpart which can use the View index.
-{% endhint %}
 
     {% aqlexample examplevar="examplevar" type="type" query="query" bind="bind" result="result" %}
     @startDocuBlockInline aqlMiscInRange_1
