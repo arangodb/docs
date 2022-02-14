@@ -179,7 +179,7 @@ services you run on Azure using such a tunnel, then
 [create a regular deployment](#how-to-create-a-new-deployment) and change it
 to a private network deployment afterwards.
 
-The deployment will not be reachable from public internet anymore, other than via
+The deployment will not be reachable from the public internet anymore, other than via
 the Oasis dashboard to administrate it. To revert to a public deployment, please
 contact support via _Request help_ in the help menu.
 
@@ -187,7 +187,7 @@ contact support via _Request help_ in the help menu.
 2. On the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
    icon. If you see a pencil icon and no menu opens, then you are either on the
    free-to-try or professional tier, or the selected deployment is not eligible.
-   The private network option in only available on the enterprise tier, for
+   The private network option is only available on the enterprise tier, for
    OneShard and Sharded deployments running on Azure.
 3. Click **Change to private network** in the menu
    ![Oasis Deployment Private Network Menu](images/oasis-deployment-private-network-menu.png)
