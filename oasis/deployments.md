@@ -166,6 +166,50 @@ and automatically accepted by most web browsers. The certificate used on port
 a self-signed certificate is recommended.
 {% endhint %}
 
+## How to create a private network deployment
+
+Microsoft Azure offers a feature called
+[Azure Private Link](https://docs.microsoft.com/en-us/azure/private-link){:target="_blank"}
+that allows you to limit communication between different Azure servers and
+services to Microsoft's backbone network without exposure to the public internet.
+It can lower network latency and increase security.
+
+If you want to connect an ArangoDB Oasis deployment running on Azure with other
+services you run on Azure using such a tunnel, then
+[create a regular deployment](#how-to-create-a-new-deployment) and change it
+to a private network deployment afterwards.
+
+The deployment will not be reachable from the public internet anymore, other than via
+the Oasis dashboard to administrate it. To revert to a public deployment, please
+contact support via _Request help_ in the help menu.
+
+1. **View** the deployment you want to change.
+2. On the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
+   icon. If you see a pencil icon and no menu opens, then you are either on the
+   free-to-try or professional tier, or the selected deployment is not eligible.
+   The private network option is only available on the enterprise tier, for
+   OneShard and Sharded deployments running on Azure.
+3. Click **Change to private network** in the menu
+   ![Oasis Deployment Private Network Menu](images/oasis-deployment-private-network-menu.png)
+4. In the configuration wizard, click **Next** to enter your configuration details.
+5. You need to enter one or more Azure Subscription IDs (GUIDs). They cannot be
+   changed anymore once a connection has been established.
+   Proceed by clicking **Next**.
+   ![Oasis Deployment Private Network Setup 2](images/oasis-deployment-private-network-setup2.png)
+6. You may enter one or more Alternate DNS names. This step is optional.
+   Continue with or without Alternate DNS names entered by clicking **Next**.
+   They can be changed later.
+7. Click **Confirm Settings** to change the deployment.
+8. Back on the **Overview** tab, scroll down to the **Private Network** section
+   that is now displayed to see the connection status and to change the
+   configuration.
+   ![Oasis Deployment Private Network](images/oasis-deployment-private-network.png)
+9. Oasis will configure a Private Endpoint Service. As soon as the **Azure alias**
+   becomes available, you can copy it and then go to your Microsoft Azure portal
+   to create Private Endpoints using this alias. The number of established
+   **Connections** will increase and you can view the connection details by
+   clicking on it.
+
 ## How to delete a deployment
 
 {% hint 'danger' %}
