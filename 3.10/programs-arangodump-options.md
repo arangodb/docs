@@ -19,8 +19,8 @@ Notes
  
 *\--encryption.keyfile path-of-keyfile*
 
-The file `path-to-keyfile` must contain the encryption key. This
-file must be secured, so that only `arangodump` or `arangorestore` can access it.
+The file `path-to-keyfile` must contain the encryption key. This file must be
+secured, so that only `arangodump`, `arangorestore`, and `arangod` can access it.
 You should also ensure that in case someone steals your hardware, they will not be
 able to read the file. For example, by encrypting `/mytmpfs` or
 creating an in-memory file-system under `/mytmpfs`. The encryption keyfile must 

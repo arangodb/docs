@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Reference
+title: Spring Data ArangoDB - Reference
 ---
 # Reference
 

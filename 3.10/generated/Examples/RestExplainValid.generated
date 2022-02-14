@@ -7,7 +7,7 @@ EOF
 HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> OK
 content-type: application/json
 connection: Keep-Alive
-content-length: <span class="hljs-number">1017</span>
+content-length: <span class="hljs-number">1125</span>
 server: ArangoDB
 x-arango-queue-time-seconds: <span class="hljs-number">0.000000</span>
 x-content-type-options: nosniff
@@ -39,6 +39,7 @@ x-content-type-options: nosniff
         <span class="hljs-string">&quot;outVariable&quot;</span> : { 
           <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">0</span>, 
           <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;p&quot;</span>, 
+          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">true</span> 
         }, 
         <span class="hljs-string">&quot;projections&quot;</span> : [ ], 
@@ -63,6 +64,7 @@ x-content-type-options: nosniff
         <span class="hljs-string">&quot;inVariable&quot;</span> : { 
           <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">0</span>, 
           <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;p&quot;</span>, 
+          <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">true</span>, 
           <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">true</span> 
         }, 
         <span class="hljs-string">&quot;count&quot;</span> : <span class="hljs-literal">true</span> 
@@ -79,6 +81,7 @@ x-content-type-options: nosniff
       { 
         <span class="hljs-string">&quot;id&quot;</span> : <span class="hljs-number">0</span>, 
         <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;p&quot;</span>, 
+        <span class="hljs-string">&quot;isFullDocumentFromCollection&quot;</span> : <span class="hljs-literal">true</span>, 
         <span class="hljs-string">&quot;isDataFromCollection&quot;</span> : <span class="hljs-literal">true</span> 
       } 
     ], 

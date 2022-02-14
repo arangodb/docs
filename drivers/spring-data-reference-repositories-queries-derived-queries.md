@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Derived queries
+title: Spring Data ArangoDB - Derived queries
 ---
 # Derived queries
 

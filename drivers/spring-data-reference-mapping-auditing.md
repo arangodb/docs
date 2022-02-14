@@ -1,10 +1,10 @@
 ---
 layout: default
-description: Since version 3
+title: Spring Data ArangoDB - Auditing
 ---
 # Auditing
 
-Since version 3.0.0 Spring Data ArangoDB provides basic auditing functionallity where you can track who made changes on your data and when.
+Since version 3.0.0 Spring Data ArangoDB provides basic auditing functionality where you can track who made changes on your data and when.
 
 To enable auditing you have to add the annotation `@EnableArangoAuditing` to your configuration class.
 
@@ -14,7 +14,7 @@ To enable auditing you have to add the annotation `@EnableArangoAuditing` to you
 public class MyConfiguration implements ArangoConfiguration {
 ```
 
-We can now add fields to our model classes and annotade them with `@CreateDate`, `@CreatedBy`, `@LastModifiedDate` and `@LastModifiedBy` to store the auditing information. All annotation names should be self-explanatory.
+We can now add fields to our model classes and annotate them with `@CreateDate`, `@CreatedBy`, `@LastModifiedDate` and `@LastModifiedBy` to store the auditing information. All annotation names should be self-explanatory.
 
 ```Java
 @Document

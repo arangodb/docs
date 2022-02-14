@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Query methods
+title: Spring Data ArangoDB - Query methods
 ---
 # Query methods
 

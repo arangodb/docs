@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Edge
+title: Spring Data ArangoDB - Edge
 ---
 # Edge
 

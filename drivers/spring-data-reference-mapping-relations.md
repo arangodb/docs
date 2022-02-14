@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Relations
+title: Spring Data ArangoDB - Relations
 ---
 # Relations
 

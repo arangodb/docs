@@ -128,6 +128,8 @@ FOR app IN appointments
 
 ## Lookahead Index Hint
 
+<small>Introduced in: v3.10.0</small>
+
 Using the lookahead index hint can increase the performance for certain use
 cases. Specifying a lookahead value greater than zero makes the index fetch
 more documents that are no longer in the search box, before seeking to the
@@ -136,10 +138,10 @@ probing more documents before seeking may reduce the number of seeks, if
 matching documents are found. Please keep in mind that it might also affect
 performance negatively if documents are fetched unnecessarily.
 
-You can specify the lookahead value using the OPTIONS keyword:
+You can specify the `lookahead` value using the `OPTIONS` keyword:
 
 ```js
-FOR app IN appointments OPTIONS {lookahead: 32}
+FOR app IN appointments OPTIONS { lookahead: 32 }
     FILTER @to <= app.to
     FILTER app.from <= @from
     RETURN app
