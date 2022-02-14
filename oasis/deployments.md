@@ -186,14 +186,15 @@ contact support via _Request help_ in the help menu.
 1. **View** the deployment you want to change.
 2. On the **Overview** tab, click the **Edit** button with an ellipsis (`…`)
    icon. If you see a pencil icon and no menu opens, then you are either on the
-   free-to-try tier or the selected deployment is not eligible. The private
-   network option in only available on the professional tier, for OneShard and
-   Sharded deployments running on Azure.
+   free-to-try or professional tier, or the selected deployment is not eligible.
+   The private network option in only available on the enterprise tier, for
+   OneShard and Sharded deployments running on Azure.
 3. Click **Change to private network** in the menu
    ![Oasis Deployment Private Network Menu](images/oasis-deployment-private-network-menu.png)
-4. A dialog opens for the configuration. Read the explanation and click **Next**.
-5. You need to enter one or more Azure Subscription IDs (UUIDs). They cannot be
-   changed later. Proceed by clicking **Next**.
+4. In the configuration wizard, click **Next** to enter your configuration details.
+5. You need to enter one or more Azure Subscription IDs (GUIDs). They cannot be
+   changed anymore once a connection has been established.
+   Proceed by clicking **Next**.
    ![Oasis Deployment Private Network Setup 2](images/oasis-deployment-private-network-setup2.png)
 6. You may enter one or more Alternate DNS names. This step is optional.
    Continue with or without Alternate DNS names entered by clicking **Next**.
@@ -205,7 +206,9 @@ contact support via _Request help_ in the help menu.
    ![Oasis Deployment Private Network](images/oasis-deployment-private-network.png)
 9. Oasis will configure a Private Endpoint Service. As soon as the **Azure alias**
    becomes available, you can copy it and then go to your Microsoft Azure portal
-   to create Private Endpoints using this alias.
+   to create Private Endpoints using this alias. The number of established
+   **Connections** will increase and you can view the connection details by
+   clicking on it.
 
 ## How to delete a deployment
 
