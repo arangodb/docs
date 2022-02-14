@@ -31,10 +31,6 @@ The following comparison operators are supported:
 | `=~`       | tests if a string value matches a regular expression
 | `!~`       | tests if a string value does not match a regular expression
 
-Also see the [`IN_RANGE()` function](functions-miscellaneous.html#in_range) for
-an alternative to a combination of `<`, `<=`, `>`, `>=` operators for range
-filtering.
-
 Each of the comparison operators returns a boolean value if the comparison can
 be evaluated and returns *true* if the comparison evaluates to true, and *false*
 otherwise.
