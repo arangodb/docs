@@ -175,10 +175,13 @@ Automatic pacing intentionally may not use the full throughput of a
 disk device. An unlimited (really fast) disk device might not need
 pacing. Raising the number of threads via the `--threads X` command
 line to any value of `X` greater than 2 will increase the total
-throughput used. <strong>Warning</strong>: using parelellism with the
-parameter `--threads X` can lead to a race condition when there are duplicates
-e.g. multiple equal `_key`values, so even ignoring the duplicates will make the
-output unpredictable, meaning not knowing which document will be inserted.
+throughput used.
+
+<strong>Warning</strong>: using parellelism with the parameter `--threads X` 
+together with the parameter `--on-duplicate` set to `ignore`, `update` or `replace` can 
+lead to a race condition when there are duplicates e.g. multiple identical `_key`
+values. Even ignoring the duplicates will make the result unpredictable, meaning 
+it is not predictable which versions of the documents will be inserted.
 
 Automatic pacing frees the user from adjusting the throughput used to
 match available resources. It is disabled by default, and can be enabled
