@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Indexes
+title: Spring Data ArangoDB - Indexes
 ---
 # Indexes
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Events
+title: Spring Data ArangoDB - Events
 ---
 # Events
 

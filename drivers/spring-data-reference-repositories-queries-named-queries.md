@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Named queries
+title: Spring Data ArangoDB - Named queries
 ---
 # Named queries
 
