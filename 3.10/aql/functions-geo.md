@@ -45,9 +45,9 @@ FOR doc IN doc // e.g. documents returned by a traversal
 `GEO_CONTAINS(geoJsonA, geoJsonB) → bool`
 
 Checks whether the [GeoJSON object](../indexing-geo.html#geojson) `geoJsonA`
-fully contains `geoJsonB` (Every point in B is also in A). The object `geoJsonA` has to be of type 
-`Polygon` or `MultiPolygon`, for other types containment is not well-defined 
-because of numerical stability problems.
+fully contains `geoJsonB` (every point in B is also in A). The object `geoJsonA`
+has to be of type _Polygon_ or _MultiPolygon_. For other types containment is
+not well-defined because of numerical stability problems.
 
 - **geoJsonA** (object): first GeoJSON object or coordinate array (in longitude, latitude order)
 - **geoJsonB** (object): second GeoJSON object or coordinate array (in longitude, latitude order)
@@ -65,23 +65,22 @@ As a consequence, a linear ring or polygon does not necessarily contain its
 boundary edges!
 {% endhint %}
 
-A query containing a FILTER expression of the form
+You can optimize queries that contain a `FILTER` expression of the following
+form with an S2-based [geospatial index](../indexing-geo.html):
 
 ```js
-  FOR doc IN collectionname
-    FILTER GEO_CONTAINS(geoJson, doc.geo)
-    ...
+FOR doc IN coll
+  FILTER GEO_CONTAINS(geoJson, doc.geo)
+  ...
 ```
 
-can be **optimized** by an S2 based [geospatial index](../indexing-geo.html) 
-on the attribute `geo` of the collection `collectionname`, only if `geoJson`
-evaluates to a valid GeoJSON object, and the index has the `geoJson`
-flag set to `true`.
-
-Note the argument order. The stored document attribute is passed
-as second argument. Passing it as first argument, like `FILTER
-GEO_CONTAINS(doc.geo, geoJson)`, cannot make use of an index.
-
+In this example, you would create the index for the collection `coll`, on the
+attribute `geo`. You need to set the `geoJson` index option to `true`.
+The `geoJson` variable needs to evaluate to a valid GeoJSON object. Also note
+the argument order: the stored document attribute `doc.geo` is passed as the
+second argument. Passing it as the first argument, like
+`FILTER GEO_CONTAINS(doc.geo, geoJson)` to test whether `doc.geo` contains
+`geoJson`, cannot utilize the index.
 
 ### GEO_DISTANCE()
 
@@ -110,30 +109,33 @@ FOR doc IN collectionName
   RETURN distance
 ```
 
-A query containing a `FILTER` expression of the form
+You can optimize queries that contain a `FILTER` expression of the following
+form with an S2-based [geospatial index](../indexing-geo.html):
 
 ```js
-FOR doc IN collectionname
+FOR doc IN coll
   FILTER GEO_DISTANCE(geoJson, doc.geo) <= limit
   ...
 ```
 
-can be **optimized** by an S2 based [geospatial index](../indexing-geo.html)
-(on the attribute `geo` of the collection `collectionname` in this
-example), only if `geoJson` evaluates to a valid GeoJSON object and the
-index has the `geoJson` option set to `true`.
+In this example, you would create the index for the collection `coll`, on the
+attribute `geo`. You need to set the `geoJson` index option to `true`.
+`geoJson` needs to evaluate to a valid GeoJSON object. `limit` must be a
+distance in meters; it cannot be an expression. An upper bound with `<`,
+a lower bound with `>` or `>=`, or both, are equally supported.
 
-`limit` must be a distance in meters. Similarly, an upper bound with `<`
-and/or a lower bound with `>` or `>=` is supported. Finally, a `SORT`
-condition of this form:
+You can also optimize queries that use a `SORT` condition of the following form
+with a geospatial index:
 
 ```js
   SORT GEO_DISTANCE(geoJson, doc.geo)
 ```
 
-and combinations with the above can be used. This `SORT` clause can be
-combined with [`GEO_CONTAINS()`](#geo_contains) and
-[`GEO_INTERSECTS()`](#geo_intersects).
+The index covers returning matches from closest to furthest away, or vice versa.
+You may combine such a `SORT` with a `FILTER` expression that utilizes the
+geospatial index, too, via the [`GEO_DISTANCE()`](#geo_distance),
+[`GEO_CONTAINS()`](#geo_contains), and [`GEO_INTERSECTS()`](#geo_intersects)
+functions.
 
 ### GEO_AREA()
 
@@ -204,18 +206,22 @@ intersects with `geoJsonB` (i.e. at least one point in B is also A or vice-versa
 - **geoJsonB** (object): second GeoJSON object.
 - returns **bool** (bool): true if B intersects A, false otherwise
 
-A query containing a `FILTER` expression of the form:
+You can optimize queries that contain a `FILTER` expression of the following
+form with an S2-based [geospatial index](../indexing-geo.html):
 
 ```js
-FOR doc IN collectionname
+FOR doc IN coll
   FILTER GEO_INTERSECTS(geoJson, doc.geo)
   ...
 ```
 
-can be **optimized** by an S2 based [geospatial index](../indexing-geo.html)
-(on the attribute `geo` of the collection `collectionname` in this example), if
-`geoJson` evaluates to a valid GeoJSON object, and the index has the `geoJson`
-option set to `true`.
+In this example, you would create the index for the collection `coll`, on the
+attribute `geo`. You need to set the `geoJson` index option to `true`.
+`geoJson` needs to evaluate to a valid GeoJSON object. Also note
+the argument order: the stored document attribute `doc.geo` is passed as the
+second argument. Passing it as the first argument, like
+`FILTER GEO_INTERSECTS(doc.geo, geoJson)` to test whether `doc.geo` intersects
+`geoJson`, cannot utilize the index.
 
 ### GEO_IN_RANGE()
 
