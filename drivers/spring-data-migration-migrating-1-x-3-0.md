@@ -1,6 +1,5 @@
 ---
 layout: default
-description: see Migrating 2
 ---
 # Migrating Spring Data ArangoDB 1.x to 3.0
 

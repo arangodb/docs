@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Document
+title: Spring Data ArangoDB - Document
 ---
 # Document
 
