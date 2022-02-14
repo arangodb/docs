@@ -16,7 +16,8 @@ _Profile_ in the Query tab of the web interface.
 The printed execution plan then contains three additional columns:
 
 - **Call**: The number of times this query stage was executed
-- **Items**: The number of temporary result rows at this stage
+- **Items**: The number of temporary result rows (outputs) at this stage
+- **Filtered**: The number of rows filtered away by this stage
 - **Runtime**: The total time spent in this stage 
 
 Below the execution plan there are additional sections for the overall runtime

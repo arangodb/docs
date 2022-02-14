@@ -185,7 +185,7 @@ values on all Coordinators.
 
 **Maximum number of move shards**
 
-<small>Introduced in: v3.10</small>
+<small>Introduced in: v3.9.0</small>
 
 `--cluster.max-number-of-move-shards <integer>`
 
