@@ -522,7 +522,7 @@ is thus identical to the comparison operators `<`, `<=`, `>` and `>=` in
 behavior.
 
 You can use `IN_RANGE()` for more efficient filtering compared to an equivalent
-expression using two comparison operators and a conjunction:
+expression that combines two comparisons with a logical conjunction:
 
 - `IN_RANGE(value, low, high, true, true)` instead of `low <= value AND value <= high`
 - `IN_RANGE(value, low, high, true, false)` instead of `low <= value AND value < high`

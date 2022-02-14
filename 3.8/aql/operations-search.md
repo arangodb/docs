@@ -105,6 +105,10 @@ The conditions are now:
 - `IN` (contained in array or range), also `NOT IN`
 - `LIKE` (equal with wildcards, introduced in v3.7.0), also `NOT LIKE`
 
+Also see the [`IN_RANGE()` function](functions-arangosearch.html#in_range) for
+an alternative to a combination of `<`, `<=`, `>`, `>=` operators for range
+searches.
+
 ```js
 FOR doc IN viewName
   SEARCH ANALYZER(doc.text == "quick" OR doc.text == "brown", "text_en")
