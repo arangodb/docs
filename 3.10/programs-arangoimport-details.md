@@ -177,11 +177,13 @@ pacing. Raising the number of threads via the `--threads X` command
 line to any value of `X` greater than 2 will increase the total
 throughput used. 
 
-<strong>Warning</strong>: using parellelism with the parameter `--threads X` 
-together with the parameter `--on-duplicate` set to `ignore`, `update` or `replace` can 
-lead to a race condition when there are duplicates e.g. multiple identical `_key`
+{% hint 'warning' %}
+Using parellelism with the `--threads X` parameter  
+together with the `--on-duplicate` parameter set to `ignore`, `update` or `replace` can 
+lead to a race condition, when there are duplicates e.g. multiple identical `_key`
 values. Even ignoring the duplicates will make the result unpredictable, meaning 
-it is not predictable which versions of the documents will be inserted.
+it is not possible to predict which versions of the documents will be inserted.
+{% endhint %}
 
 Automatic pacing frees the user from adjusting the throughput used to
 match available resources. It is disabled by default, and can be enabled
