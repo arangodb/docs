@@ -44,7 +44,8 @@ Attributes whose names start with an underscore are treated in a special way by
 ArangoDB:
 
 - the optional *_key* attribute contains the document's key. If specified, the value
-  must be formally valid (e.g. must be a string and conform to the naming conventions).
+  must be formally valid (e.g. must be a string and conform to the naming conventions
+  referred in [Key Naming Conventions](data-modeling-naming-conventions-document-keys.html)).
   Additionally, the key value must be unique within the
   collection the import is run for.
 - *_from*: when importing into an edge collection, this attribute contains the id
@@ -174,7 +175,15 @@ Automatic pacing intentionally may not use the full throughput of a
 disk device. An unlimited (really fast) disk device might not need
 pacing. Raising the number of threads via the `--threads X` command
 line to any value of `X` greater than 2 will increase the total
-throughput used.
+throughput used. 
+
+{% hint 'warning' %}
+Using parellelism with the `--threads X` parameter  
+together with the `--on-duplicate` parameter set to `ignore`, `update` or `replace` can 
+lead to a race condition, when there are duplicates e.g. multiple identical `_key`
+values. Even ignoring the duplicates will make the result unpredictable, meaning 
+it is not possible to predict which versions of the documents will be inserted.
+{% endhint %}
 
 Automatic pacing frees the user from adjusting the throughput used to
 match available resources. It is disabled by default, and can be enabled
