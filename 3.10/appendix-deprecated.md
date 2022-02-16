@@ -47,7 +47,9 @@ replace the old features with:
   [persistent index](http/indexes.html#persistent-index).
 
 - **Bundled NPM modules**:
-  The [bundled NPM modules](appendix-java-script-modules.html#bundled-npm-modules)
+  The bundled NPM modules `aqb`, `chai`, `dedent`, `error-stack-parser`,
+  `graphql-sync`, ` highlight.js`, `i` (inflect), `iconv-lite`, `joi`,
+  `js-yaml`, `lodash`, `minimatch`, `qs`, `semver`, `sinon`, and `timezone`
   have been deprecated in 3.9 and will be removed in a future version of ArangoDB.
   If you want to use NPM modules in your Foxx service, please refer to the
   [Foxx guide](foxx-guides-bundled-node-modules.html).
