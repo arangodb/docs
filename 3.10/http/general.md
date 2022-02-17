@@ -343,20 +343,20 @@ Error Handling
 The following should be noted about how ArangoDB handles client errors in its
 HTTP layer:
 
-- client requests using an HTTP version signature different than *HTTP/1.0* or
-  *HTTP/1.1* will get an *HTTP 505* (HTTP version not supported) error in return.
+- client requests using an HTTP version signature different than `HTTP/1.0` or
+  `HTTP/1.1` will get an **HTTP 505** (HTTP Version Not Supported) error in return.
 - ArangoDB will reject client requests with a negative value in the
   `Content-Length` request header by closing the connection, not with
-  *HTTP 411* (Length Required).
+  **HTTP 411** (Length Required).
 - ArangoDB doesn't support POST with `Transfer-Encoding: chunked` which forbids
   the `Content-Length` header above.
 - the maximum URL length accepted by ArangoDB is 16K. Incoming requests with
-  longer URLs will be rejected with an *HTTP 414* (Request-URI too long) error.
+  longer URLs will be rejected with an **HTTP 414** (Request-URI too long) error.
 - if the client sends a `Content-Length` header with a value bigger than 0 for
   an HTTP GET, HEAD, or DELETE request, ArangoDB will process the request, but
   will write a warning to its log file.
 - when the client sends a `Content-Length` header that has a value that is lower
-  than the actual size of the body sent, ArangoDB will respond with *HTTP 400*
+  than the actual size of the body sent, ArangoDB will respond with **HTTP 400**
   (Bad Request).
 - if clients send a `Content-Length` value bigger than the actual size of the
   body of the request, ArangoDB will wait for about 90 seconds for the client to
@@ -365,13 +365,12 @@ HTTP layer:
   sending such malformed requests as this will block one tcp connection,
   and may lead to a temporary file descriptor leak.
 - when clients send a body or a `Content-Length` value bigger than the maximum
-  allowed value (1 GB), ArangoDB will not return *HTTP 413* (Payload Too Large)
-  but close the connection.
+  allowed value (1 GB), ArangoDB will respond with **HTTP 413** (Payload Too Large).
 - if the overall length of the HTTP headers a client sends for one request
-  exceeds the maximum allowed size (1 MB), the server will fail with *HTTP 431*
+  exceeds the maximum allowed size (1 MB), the server will fail with **HTTP 431**
   (Request Header Fields Too Large).
 - if clients request an HTTP method that is not supported by the server, ArangoDB
-  will return with *HTTP 405* (Method Not Allowed). ArangoDB offers general
+  will return with **HTTP 405** (Method Not Allowed). ArangoDB offers general
   support for the following HTTP methods:
   - GET
   - POST
@@ -387,9 +386,12 @@ HTTP layer:
 
   Requests using any other HTTP method (such as for example CONNECT, TRACE etc.)
   will be rejected by ArangoDB as mentioned before.
-- if the server is starting up, or has a full queue, or if the deployment is in
-  maintenance mode, then it will return *HTTP 503* (Service Unavailable).
-- ??? it will return *HTTP 504* (Gateway Timeout)
+- if the backend is temporarily unavailable, the server will return **HTTP 503**
+  (Service Unavailable). Common circumstances are:
+  - during server start or shutdown, when the network port is open but the HTTP
+    service is not available
+  - when the queue is full
+  - when a Coordinator cannot reach a DB-Server
 
 Cross-Origin Resource Sharing (CORS) requests
 ---------------------------------------------
