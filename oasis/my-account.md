@@ -9,11 +9,10 @@ redirect_from:
 
 You can access information related to your account via the _User Toolbar_.
 The toolbar is in the top right corner in the Oasis dashboard and
-accessible from every view. There are three elements:
+accessible from every view. There are two elements:
 
-- _Bell icon_: Notifications ([Invites](#invites))
-- _Question mark icon_: Help
-- _User icon_: My Account
+- __Question mark icon__: Help
+- __User icon__: My Account
 
 ![Oasis My Account](images/oasis-my-account.png)
 
