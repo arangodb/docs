@@ -393,6 +393,8 @@ HTTP layer:
   - when the queue is full
   - when a Coordinator cannot reach a DB-Server
 
+  Clients may retry requests but they might not be idempotent.
+
 Cross-Origin Resource Sharing (CORS) requests
 ---------------------------------------------
 
